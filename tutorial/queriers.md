@@ -1,11 +1,11 @@
 # Queriers
 
-Start by creating the `./x/nameservice/querier.go` file. This is the place to define which queries against application state users will be able to make. In our `nameservice` we want to expose two:
+Start by creating the `./x/nameservice/querier.go` file. This is the place to define which queries against application state users will be able to make. In your `nameservice` will expose two:
 
 - `resolve`: This takes a `name` and returns the `value` that is stored by the `nameservice`. This is similar to a DNS query.
 - `whois`: This takes a `name` and returns the `price`, `value`, and `owner` of the name. Used for figuring out how much names cost when you want to buy them.
 
-Start by defining the `NewQuerier` function which acts a sub-router for queries to this module (similar to our `NewHandler` function). Note that because we don't have an interface similar to `Msg` for queries we need to manually define our switch statement cases (they can't be pulled off of the query `.Name()` function):
+Start by defining the `NewQuerier` function which acts a sub-router for queries to this module (similar the `NewHandler` function). Note that because there isn't an interface similar to `Msg` for queries, you need to manually define switch statement cases (they can't be pulled off of the query `.Name()` function):
 
 ```go
 package nameservice
@@ -81,7 +81,7 @@ type Whois struct {
 ```
 
 Notes on the above code:
-- Here our `Keeper`'s' getters and setters come into heavy use. When building any other applications that use this module you may need to go back and define more getters/setters to access the pieces of state you need.
-- If your application needs some custom response types (`Whois` here), define them in this file.
+- Here your `Keeper`'s' getters and setters come into heavy use. When building any other applications that use this module you may need to go back and define more getters/setters to access the pieces of state you need.
+- If your application needs some custom response types (`Whois` in this example), define them in this file.
 
 ### Now that you have ways to mutate and view your module state its time to put the finishing touches on it! Register your types in the [Amino encoding format next](./codec.md)!

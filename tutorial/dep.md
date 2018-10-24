@@ -2,7 +2,7 @@
 
 ## `Gopkg.toml`
 
-Golang has a few dependency management tools. In this tutorial you will be using [`dep`](https://golang.github.io/dep/). `dep` uses a `Gopkg.toml` file in the root of the repository to define what dependencies the application needs. CosmosSDK apps currently depend on specific versions of some libraries. The below manifest contains all the necessary versions
+Golang has a few dependency management tools. In this tutorial you will be using [`dep`](https://golang.github.io/dep/). `dep` uses a `Gopkg.toml` file in the root of the repository to define what dependencies the application needs. Cosmos SDK apps currently depend on specific versions of some libraries. The below manifest contains all the necessary versions. Create the `./Gopkg.toml` file and paste the `toml` below in the file:
 
 ```toml
 # Gopkg.toml example
@@ -66,7 +66,9 @@ Golang has a few dependency management tools. In this tutorial you will be using
 
 ### Makefile
 
-Let us finish our application by writing the makefile.
+Finish your application by writing the `Makefile` to help make common/complex build and test commands easy to run:
+
+> _*NOTE*_: The below Makefile contains some of same commands as the Cosmos SDK and Tendermint Makefiles.
 
 ```
 get_tools:
@@ -103,15 +105,13 @@ install:
 
 First, you need to install `dep`. Below there is a command for using a shell script from `dep`'s site to preform this install.
 
-> _*NOTE*_: If you are uncomfortable `|`ing `curl` output to `sh` (you should be) then check out [your platform specific installation instructions](https://golang.github.io/dep/docs/installation.html).
-
 ```bash
 # Install dep
-curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+make get_tools
 
 # Initialize dep and install dependencies
 dep init
-dep ensure -v -upgrade
+make get_vendor_deps
 
 # Install the app into your $GOBIN
 make install
@@ -121,4 +121,4 @@ nameserviced help
 nameservicecli help
 ```
 
-### Congratulations, you have finished your nameservice application! You can now [run it and interract with it](../README.md#running-the-live-network-and-using-the-commands)
+### Congratulations, you have finished your nameservice application! Try [running and interacting with it](../README.md#running-the-live-network-and-using-the-commands)!

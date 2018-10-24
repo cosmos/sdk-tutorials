@@ -1,11 +1,11 @@
 # Entrypoints
 
-In golang the convention is to place files that compile to a binary in the `./cmd` folder of a project. For our application we have 2 binaries that we want to create:
+In golang the convention is to place files that compile to a binary in the `./cmd` folder of a project. For your application there are 2 binaries that we want to create:
 
-- `nameserviced`: This binary is similar to `bitcoind` or other cryptocurrency daemons in that it maintains peer connections a propagates transactions through the network. In our case, Tendermint is used for networking and transaction ordering.
+- `nameserviced`: This binary is similar to `bitcoind` or other cryptocurrency daemons in that it maintains p2p connections, propagates transactions, handles local storage and provides an RPC interface to interact with the network. In this case, Tendermint is used for networking and transaction ordering.
 - `nameservicecli`: This binary provides commands that allow users to interact with your application.
 
-To get started create two files in the root of the project directory that will instantiate these binaries:
+To get started create two files in your project directory that will instantiate these binaries:
 - `./cmd/nameserviced/main.go`
 - `./cmd/nameservicecli/main.go`
 
@@ -13,7 +13,7 @@ To get started create two files in the root of the project directory that will i
 
 Start by adding the following code to `nameserviced/main.go`:
 
-> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-module-tutorial`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{{ .Username }}/{{ .Project.Repo }}`).
+> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-application-tutorial`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{{ .Username }}/{{ .Project.Repo }}`).
 
 ```go
 package main
@@ -35,7 +35,7 @@ import (
 	"github.com/tendermint/tendermint/p2p"
 
 	gaiaInit "github.com/cosmos/cosmos-sdk/cmd/gaia/init"
-	app "github.com/cosmos/sdk-module-tutorial"
+	app "github.com/cosmos/sdk-application-tutorial"
 	abci "github.com/tendermint/tendermint/abci/types"
 	dbm "github.com/tendermint/tendermint/libs/db"
 	tmtypes "github.com/tendermint/tendermint/types"
@@ -139,7 +139,7 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec, appInit server.AppInit) *cob
 ```
 
 Notes on the above code:
-- Most of the code above combines the CLI commands from 
+- Most of the code above combines the CLI commands from
 	1. Tendermint
 	2. Cosmos-SDK
 	3. Your Nameservice module
@@ -149,7 +149,7 @@ Notes on the above code:
 
 Finish up by building the `nameservicecli` command:
 
-> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-module-tutorial`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{{ .Username }}/{{ .Project.Repo }}`).
+> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-application-tutorial`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{{ .Username }}/{{ .Project.Repo }}`).
 
 ```go
 package main
@@ -158,17 +158,15 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-
 	"github.com/tendermint/tendermint/libs/cli"
-
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/keys"
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
-	app "github.com/cosmos/sdk-module-tutorial"
-	nameservicecmd "github.com/cosmos/sdk-module-tutorial/x/nameservice/client/cli"
+	app "github.com/cosmos/sdk-application-tutorial"
+	nameservicecmd "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/cli"
 )
 
 const storeAcc = "acc"
@@ -178,7 +176,7 @@ var (
 		Use:   "nameservicecli",
 		Short: "nameservice Client",
 	}
-	DefaultCLIHome = os.ExpandEnv("$HOME/.nameservicecli")
+	defaultCLIHome = os.ExpandEnv("$HOME/.nameservicecli")
 )
 
 func main() {
@@ -226,7 +224,7 @@ func main() {
 		keys.Commands(),
 	)
 
-	executor := cli.PrepareMainCmd(rootCmd, "NS", DefaultCLIHome)
+	executor := cli.PrepareMainCmd(rootCmd, "NS", defaultCLIHome)
 	err := executor.Execute()
 	if err != nil {
 		panic(err)
@@ -235,9 +233,10 @@ func main() {
 ```
 
 Notes on the above code:
-- Most of the code above combines the CLI commands from 
+- The code above combines the CLI commands from:
 	1. Tendermint
 	2. Cosmos-SDK
 	3. Your Nameservice module
+- The [`cobra` CLI documentation](http://github.com/spf13/cobra) will help with understanding the above code.
 
 ### Now that you have your binaries defined its time to deal with [dependency management and build your app](./dep.md)!

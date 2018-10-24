@@ -39,7 +39,7 @@ func (msg MsgSetName) Type() string { return "nameservice" }
 func (msg MsgSetName) Name() string { return "set_name"}
 ```
 
-These functions are used by the SDK to route `Msgs` to the proper module for handling. They also add human readable names to tags.
+The above functions are used by the SDK to route `Msgs` to the proper module for handling. They also add human readable names to database tags used for indexing.
 
 ```go
 // ValdateBasic Implements Msg.
@@ -54,7 +54,7 @@ func (msg MsgSetName) ValidateBasic() sdk.Error {
 }
 ```
 
-`ValidateBasic` is used to provide some basic *stateless* checks on the validity of the msg.  In this case, we check that none of the attributes are empty. Note the use of the `sdk.Err*` types here. The SDK provides a set of error types that are frequently encountered by application developers.
+`ValidateBasic` is used to provide some basic *stateless* checks on the validity of the msg.  In this case, we check that none of the attributes are empty. Note the use of the `sdk.Error` types here. The SDK provides a set of error types that are frequently encountered by application developers.
 
 ```go
 // GetSignBytes Implements Msg.
@@ -76,11 +76,11 @@ func (msg MsgSetName) GetSigners() []sdk.AccAddress {
 }
 ```
 
-`GetSigners` defines whose signature is required on a `Tx` in order for it to be valid.  In this case, for example, the `MsgSetName` requires that the `Owner` sign the transaction trying to reset what the name points to.
+`GetSigners` defines whose signature is required on a `Tx` in order for it to be valid.  In this case, for example, the `MsgSetName` requires that the `Owner` sign the transaction when trying to reset what the name points to.
 
 ## `Handler`
 
-Now that `MsgSetName` is specified, the next step is to define what action(s) needs to be taken when this message is received. This is the role of the `handler`. 
+Now that `MsgSetName` is specified, the next step is to define what action(s) needs to be taken when this message is received. This is the role of the `handler`.
 
 In a new file (`./x/nameservice/handler.go`) start with the following code:
 
