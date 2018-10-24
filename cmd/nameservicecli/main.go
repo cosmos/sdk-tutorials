@@ -13,9 +13,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/tx"
 
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
-	app "github.com/jackzampolin/sdk-nameservice-example"
-	nameservicecmd "github.com/jackzampolin/sdk-nameservice-example/x/nameservice/client/cli"
-	faucetcmd "github.com/sunnya97/sdk-faucet-module/client/cli"
+	app "github.com/cosmos/sdk-module-tutorial"
+	nameservicecmd "github.com/cosmos/sdk-module-tutorial/x/nameservice/client/cli"
 )
 
 const storeAcc = "acc"
@@ -61,7 +60,6 @@ func main() {
 	txCmd.AddCommand(client.PostCommands(
 		nameservicecmd.GetCmdBuyName(cdc),
 		nameservicecmd.GetCmdSetName(cdc),
-		faucetcmd.GetCmdRequestCoins(cdc),
 	)...)
 
 	rootCmd.AddCommand(

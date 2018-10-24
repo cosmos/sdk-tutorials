@@ -2,7 +2,7 @@
 
 To create your application start a new file: `./app.go`. To get started add the dependencies you will need:
 
-> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/jackzampolin/sdk-nameservice-example/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{{ .Username }}/{{ .Project.Repo }}/x/nameservice`).
+> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-module-tutorial/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{{ .Username }}/{{ .Project.Repo }}/x/nameservice`).
 
 ```go
 package app
@@ -13,7 +13,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/jackzampolin/sdk-nameservice-example/x/nameservice"
+	"github.com/cosmos/sdk-module-tutorial/x/nameservice"
 
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -23,17 +23,19 @@ import (
 )
 ```
 
+Here we imported some dependencies from Tendermint, from the Cosmos SDK, and then the three modules we will use in our app: `auth`, `bank`, and `nameservice`.
+
 Links to godocs for each module:
 - [`codec`](https://godoc.org/github.com/cosmos/cosmos-sdk/codec): Functions for working with amino
 - [`auth`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth)
 - [`bank`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank)
-- [`baseapp`](https://godoc.org/github.com/cosmos/cosmos-sdk): This module helps developers bootstrap CosmosSDK applications
+- [`baseapp`](https://godoc.org/github.com/cosmos/cosmos-sdk): This module helps developers bootstrap Cosmos-SDK applications. It implements the [Tendermint ABCI](https://github.com/tendermint/tendermint/tree/master/abci) protocol, which enables your application to be safely replicated with the Tendermint consensus engine. 
 - [`sdk`](https://godoc.org/github.com/cosmos/cosmos-sdk): Common types for working with SDK applications
 - [`abci`](https://godoc.org/github.com/tendermint/tendermint/abci/types): Similar to the `sdk/types` module, but for Tendermint
 - [`cmn`](https://godoc.org/github.com/tendermint/tendermint/libs/common): Code for working with Tendermint applications
 - [`dbm`](https://godoc.org/github.com/tendermint/tendermint/libs/db): Code for working with the Tendermint database
 
-Start by declaring the name and struct for our app.  In this tutorial the app is called `nameservice`.
+Start by declaring the name and struct for our app. In this tutorial the app is called `nameservice`.
 
 ```go
 const (
@@ -57,6 +59,7 @@ type nameserviceApp struct {
 ```
 
 Next, create a constructor for a new `nameserviceApp`.  In this function your application:
+
 - Generates `storeKeys`
 - Creates `Keepers`
 - Registers `Handler`s
@@ -145,7 +148,11 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 }
 ```
 
-The `initChainer` defines how accounts in `genesis.json` are mapped into the application state on initial chain start. The constructor registers the `initChainer` function, but it isn't defined yet. Go ahead and create it:
+The `initChainer` defines how accounts in `genesis.json` are mapped into the application state on initial chain start. 
+
+> *NOTE*: 
+
+The constructor registers the `initChainer` function, but it isn't defined yet. Go ahead and create it:
 
 ```go
 // GenesisState represents chain state at the start of the chain. Any initial state (account balances) are stored here.

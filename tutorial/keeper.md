@@ -1,6 +1,8 @@
 # The Keeper
 
-The main core of a Cosmos SDK module is a piece called the Keeper. It is what handles interaction with the store (the abstraction over `tendermint`), has references to other keepers for cross-module interactions, and contains most of the core functionality of a module. Begin by creating the file `./x/nameservice/keeper.go` to hold the keeper for your module. In Cosmos SDK applications the convention is that modules live in the `./x/` folder.
+The main core of a Cosmos SDK module is a piece called the Keeper. It is what handles interaction with the store (the abstraction over `tendermint`), has references to other keepers for cross-module interactions, and contains most of the core functionality of a module. 
+
+Begin by creating the file `./x/nameservice/keeper.go` to hold the keeper for your module. In Cosmos SDK applications the convention is that modules live in the `./x/` folder.
 
 ## Keeper Struct
 
@@ -45,7 +47,7 @@ A couple of notes about the above code:
 
 ## Getters and Setters
 
-Next its time to add some ways for your module to access and modify the stores held in the `Keeper`. As a first example, add a function to set the string that a name resolves to:
+Now it is time to add methods to interract with the store via the `Keeper`. First, add a function to set the string a given name resolves to:
 
 ```go
 // SetName - sets the value string that a name resolves to
@@ -126,7 +128,7 @@ func (k Keeper) SetPrice(ctx sdk.Context, name string, price sdk.Coins) {
 ```
 
 Notes on the above code:
-- `sdk.Coins` does not have a native `[]byte` encoding. To marshal and unmarshal, use [Amino](https://github.com/tendermint/go-amino/) through the codec.
+- `sdk.Coins` does not have its own bytes encoding, which means the price needs to be marsalled and unmarshalled using [Amino](https://github.com/tendermint/go-amino/) to be inserted or removed from the store. 
 - When getting the price for a name that has no owner (and thus no price), return 1steak as the price.
 
 The last piece of code needed in the `./x/nameservice/keeper.go` file is a constructor function for `Keeper`:

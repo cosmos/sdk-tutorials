@@ -17,7 +17,7 @@ import (
 	"github.com/tendermint/tendermint/p2p"
 
 	gaiaInit "github.com/cosmos/cosmos-sdk/cmd/gaia/init"
-	app "github.com/jackzampolin/sdk-nameservice-example"
+	app "github.com/cosmos/sdk-module-tutorial"
 	abci "github.com/tendermint/tendermint/abci/types"
 	dbm "github.com/tendermint/tendermint/libs/db"
 	tmtypes "github.com/tendermint/tendermint/types"

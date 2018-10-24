@@ -67,7 +67,7 @@ func (msg MsgSetName) GetSignBytes() []byte {
 }
 ```
 
-`GetSignBytes` defines how the Msg gets encoded for signing.  In most cases this means marshal to sorted JSON. The output should not be modified.
+`GetSignBytes` defines how the `Msg` gets encoded for signing.  In most cases this means marshal to sorted JSON. The output should not be modified.
 
 ```go
 // GetSigners Implements Msg.
@@ -76,11 +76,11 @@ func (msg MsgSetName) GetSigners() []sdk.AccAddress {
 }
 ```
 
-`GetSigners` allows the Msg to define who's signature is required on a Tx in order for it to be valid.  In this case, for example, the `MsgSetName` requires that the `Owner` sign the transaction trying to reset what the name points to.
+`GetSigners` defines whose signature is required on a `Tx` in order for it to be valid.  In this case, for example, the `MsgSetName` requires that the `Owner` sign the transaction trying to reset what the name points to.
 
 ## `Handler`
 
-Now that `MsgSetName` is defined, the next step is to define what action(s) needs to be taken when this message is received through a `Handler`.
+Now that `MsgSetName` is specified, the next step is to define what action(s) needs to be taken when this message is received. This is the role of the `handler`. 
 
 In a new file (`./x/nameservice/handler.go`) start with the following code:
 
@@ -108,9 +108,9 @@ func NewHandler(keeper Keeper) sdk.Handler {
 }
 ```
 
-`NewHandler` is essentially a sub-router that directs messages coming into this module to the proper handler for the message. At the moment your app only has one Msg/Handler.
+`NewHandler` is essentially a sub-router that directs messages coming into this module to the proper handler for the message. At the moment, there is only one `Msg`/`Handler`.
 
-Now that have our module's `Handler`, define the `handleMsgSetName` function:
+Now, you need to define the actual logic for handling the `MsgSetName` message in `handleMsgSetName`.:
 
 > _*NOTE*_: The naming convention for handler names in the SDK is `handleMsg{{ .Action }}`
 
@@ -125,6 +125,6 @@ func handleMsgSetName(ctx sdk.Context, keeper Keeper, msg MsgSetName) sdk.Result
 }
 ```
 
-In this function, check to see if the `Msg` sender is actually the owner of the name (`keeper.GetOwner`).  If so, let them set the name by calling the function on the keeper.  If not, throw an error and return that to the user.
+In this function, check to see if the `Msg` sender is actually the owner of the name (`keeper.GetOwner`).  If so, they can set the name by calling the function on the `Keeper`.  If not, throw an error and return that to the user.
 
-### Next its time to [define the `BuyName` action](./buy-name.md)!
+### Great, now owners can `SetName`s! But what if a name doesn't have an owner yet? Your module needs a way for users to buy names! Let us define [define the `BuyName` message](./buy-name.md).

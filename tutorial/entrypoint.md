@@ -2,9 +2,8 @@
 
 In golang the convention is to place files that compile to a binary in the `./cmd` folder of a project. For our application we have 2 binaries that we want to create:
 
-- `nameserviced`: This binary is similar to `bitcoind` or other cryptocurrency daemons in that it maintains peer connections a propagates transactions through the network.
+- `nameserviced`: This binary is similar to `bitcoind` or other cryptocurrency daemons in that it maintains peer connections a propagates transactions through the network. In our case, Tendermint is used for networking and transaction ordering.
 - `nameservicecli`: This binary provides commands that allow users to interact with your application.
-
 
 To get started create two files in the root of the project directory that will instantiate these binaries:
 - `./cmd/nameserviced/main.go`
@@ -14,7 +13,7 @@ To get started create two files in the root of the project directory that will i
 
 Start by adding the following code to `nameserviced/main.go`:
 
-> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/jackzampolin/sdk-nameservice-example`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{{ .Username }}/{{ .Project.Repo }}`).
+> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-module-tutorial`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{{ .Username }}/{{ .Project.Repo }}`).
 
 ```go
 package main
@@ -36,7 +35,7 @@ import (
 	"github.com/tendermint/tendermint/p2p"
 
 	gaiaInit "github.com/cosmos/cosmos-sdk/cmd/gaia/init"
-	app "github.com/jackzampolin/sdk-nameservice-example"
+	app "github.com/cosmos/sdk-module-tutorial"
 	abci "github.com/tendermint/tendermint/abci/types"
 	dbm "github.com/tendermint/tendermint/libs/db"
 	tmtypes "github.com/tendermint/tendermint/types"
@@ -140,14 +139,17 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec, appInit server.AppInit) *cob
 ```
 
 Notes on the above code:
-- Most of the code above combines the CLI commands from 1. Tendermint, 2. CosmosSDK, and 3. Nameservice module
-- The rest of the code helps the application generate genesis state from the configuration
+- Most of the code above combines the CLI commands from 
+	1. Tendermint
+	2. Cosmos-SDK
+	3. Your Nameservice module
+- The rest of the code helps the application generate genesis state from the configuration.
 
 ## `nameservicecli`
 
 Finish up by building the `nameservicecli` command:
 
-> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/jackzampolin/sdk-nameservice-example`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{{ .Username }}/{{ .Project.Repo }}`).
+> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-module-tutorial`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{{ .Username }}/{{ .Project.Repo }}`).
 
 ```go
 package main
@@ -165,9 +167,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/tx"
 
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
-	app "github.com/jackzampolin/sdk-nameservice-example"
-	nameservicecmd "github.com/jackzampolin/sdk-nameservice-example/x/nameservice/client/cli"
-	faucetcmd "github.com/sunnya97/sdk-faucet-module/client/cli"
+	app "github.com/cosmos/sdk-module-tutorial"
+	nameservicecmd "github.com/cosmos/sdk-module-tutorial/x/nameservice/client/cli"
 )
 
 const storeAcc = "acc"
@@ -213,7 +214,6 @@ func main() {
 	txCmd.AddCommand(client.PostCommands(
 		nameservicecmd.GetCmdBuyName(cdc),
 		nameservicecmd.GetCmdSetName(cdc),
-		faucetcmd.GetCmdRequestCoins(cdc),
 	)...)
 
 	rootCmd.AddCommand(
@@ -235,6 +235,9 @@ func main() {
 ```
 
 Notes on the above code:
-- Most of the code above combines the CLI commands from 1. Tendermint, 2. CosmosSDK, and 3. Nameservice module
+- Most of the code above combines the CLI commands from 
+	1. Tendermint
+	2. Cosmos-SDK
+	3. Your Nameservice module
 
 ### Now that you have your binaries defined its time to deal with [dependency management and build your app](./dep.md)!

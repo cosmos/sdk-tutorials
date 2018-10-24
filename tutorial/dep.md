@@ -64,7 +64,42 @@ Golang has a few dependency management tools. In this tutorial you will be using
   unused-packages = true
 ```
 
-## Building
+### Makefile
+
+Let us finish our application by writing the makefile.
+
+```
+get_tools:
+ifdef DEP_CHECK
+    @echo "Dep is already installed.  Run 'make update_tools' to update."
+else
+    @echo "Installing dep"
+    go get -v $(DEP)
+endif
+ifdef STATIK_CHECK
+    @echo "Statik is already installed.  Run 'make update_tools' to update."
+else
+    @echo "Installing statik"
+    go version
+    go get -v $(STATIK)
+endif
+
+get_vendor_deps:
+    @echo "--> Generating vendor directory via dep ensure"
+    @rm -rf .vendor-new
+    @dep ensure -v -vendor-only
+
+update_vendor_deps:
+  @echo "--> Running dep ensure"
+  @rm -rf .vendor-new
+  @dep ensure -v -update
+
+install:
+    go install ./cmd/nameshaked
+    go install ./cmd/nameshakecli
+```
+
+## Building the app
 
 First, you need to install `dep`. Below there is a command for using a shell script from `dep`'s site to preform this install.
 
@@ -79,9 +114,11 @@ dep init
 dep ensure -v -upgrade
 
 # Install the app into your $GOBIN
-go install -v ./cmd/...
+make install
 
 # Now you should be able to run the following commands:
 nameserviced help
 nameservicecli help
 ```
+
+### Congratulations, you have finished your nameservice application! You can now [run it and interract with it](../README.md#running-the-live-network-and-using-the-commands)
