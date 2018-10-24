@@ -50,17 +50,17 @@ Then, just follow along! The first step describes the design of our application.
 1. [Design](./tutorial/app-design.md) the application
 1. Build your [`Keeper`](./tutorial/keeper.md)
 2. Define interactions with your chain through [`Msgs` and `Handlers`](./tutorial/msgs-handlers.md)
-	* [`SetName`](./tutorial/set-name.md)
-	* [`BuyName`](./tutorial/buy-name.md)
+    * [`SetName`](./tutorial/set-name.md)
+    * [`BuyName`](./tutorial/buy-name.md)
 3. Make views on your state machine with [`Queriers`](./tutorial/queriers.md)
 4. Register your types in the encoding format using [`sdk.Codec`](./tutorial/codec.md)
 5. Create [CLI interactions for your module](./tutorial/cli.md)
-6. Put it all together in [`./app.go`](./tutorial/app.md)!
-7. Create the [`nameserviced` and `nameservicecli` entry points](./tutorial/entrypoint.md)
+6. Import your module and build your application in [`./app.go`](./tutorial/app.md)!
+7. Create the [`nameserviced` and `nameservicecli` entry points](./tutorial/entrypoint.md) to your application
 8. Setup [dependency management using `dep`](./tutorial/dep.md)
 
 
-### Build the `nameservice` application!
+### Building the `nameservice` application
 
 If you want to build the `nameservice` application in this repo to see the functionality, first you need to install `dep`. Below there is a command for using a shell script from `dep`'s site to preform this install. If you are uncomfortable `|`ing `curl` output to `sh` (you should be) then check out [your platform specific installation instructions](https://golang.github.io/dep/docs/installation.html).
 
