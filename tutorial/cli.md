@@ -1,6 +1,6 @@
 # Nameservice Module CLI
 
-The CosmosSDK uses the [`cobra`](https://github.com/spf13/cobra) library for CLI interactions. This library makes it easy for each module to expose it's own commands. To get started defining the user's CLI interactions with your module create the following files:
+The Cosmos-SDK uses the [`cobra`](https://github.com/spf13/cobra) library for CLI interactions. This library makes it easy for each module to expose its own commands. To get started defining the user's CLI interactions with your module, create the following files:
 
  - `./x/nameservice/client/cli/query.go`
  - `./x/nameservice/client/cli/tx.go`
@@ -66,13 +66,13 @@ func GetCmdWhois(queryRoute string, cdc *codec.Codec) *cobra.Command {
 ```
 
 Notes on the above code:
-- The CLI introduces a new `context`: [`CLIContext`](https://godoc.org/github.com/cosmos/cosmos-sdk/client/context#CLIContext). It carries data about user input and application configuration that are needed for CLI interaction. See the godoc for more methods.
+- The CLI introduces a new `context`: [`CLIContext`](https://godoc.org/github.com/cosmos/cosmos-sdk/client/context#CLIContext). It carries data about user input and application configuration that are needed for CLI interaction. 
 - The `path` required for the `cliCtx.QueryWithData()` function maps directly to the names in your query router.
-- The first part of the path is to differentiate the types of queries possible to SDK applications: `custom` is for queriers. The second piece is for the module name. Following that is the specific querier in the module that will be called. In these examples the fourth piece is the query. This works becuase the query parameter is a simple string. To enable more complex query inputs you need to use the second arguement of the [`.QueryWithData()`](https://godoc.org/github.com/cosmos/cosmos-sdk/client/context#CLIContext.QueryWithData) function to pass in `data`.
+- The first part of the path is to differentiate the types of queries possible to SDK applications: `custom` is for queriers. The second piece is for the module name. Following that is the specific querier in the module that will be called. In these examples the fourth piece is the query. This works because the query parameter is a simple string. To enable more complex query inputs you need to use the second argument of the [`.QueryWithData()`](https://godoc.org/github.com/cosmos/cosmos-sdk/client/context#CLIContext.QueryWithData) function to pass in `data`.
 
 Once the query interactions are defined, its time to move on to the transaction generation in `tx.go`:
 
-> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/jackzampolin/sdk-nameservice-example/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{{ .Username }}/{{ .Project.Repo }}/x/nameservice`).
+> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-module-tutorial/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{{ .Username }}/{{ .Project.Repo }}/x/nameservice`).
 
 ```go
 package cli
@@ -83,7 +83,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/client/utils"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/jackzampolin/sdk-nameservice-example/x/nameservice"
+	"github.com/cosmos/sdk-module-tutorial/x/nameservice"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"

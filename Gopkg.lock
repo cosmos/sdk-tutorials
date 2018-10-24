@@ -35,7 +35,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:f25a314694b89f13a075d3f8766e1dc50048a6248b524b7d351a4ab00090fe22"
+  digest = "1:c0decf632843204d2b8781de7b26e7038584e2dcccc7e2f401e88ae85b1df2b7"
   name = "github.com/btcsuite/btcd"
   packages = ["btcec"]
   pruneopts = "UT"
@@ -50,7 +50,7 @@
 
 [[projects]]
   branch = "develop"
-  digest = "1:4bc74f80d240c4db4b950a2ab27fa262c531b5b664546fd7f80c5ea4f88d3a75"
+  digest = "1:2698bf8076e5b8c65f8f1d74f500f942b320a9c8d6dc887902d6ad6856fbdce9"
   name = "github.com/cosmos/cosmos-sdk"
   packages = [
     "baseapp",
@@ -105,6 +105,18 @@
   revision = "52158e4697b87de16ed390e1bdaf813e581008fa"
 
 [[projects]]
+  branch = "master"
+  digest = "1:839d5dd703b53f5dc34d74fefadb967fba8bfad30a0a2046b1d45ba9b349af18"
+  name = "github.com/cosmos/sdk-module-tutorial"
+  packages = [
+    ".",
+    "x/nameservice",
+    "x/nameservice/client/cli",
+  ]
+  pruneopts = "UT"
+  revision = "9363c6c7348f2dba45db8c7264f6bf7e2fdf76dc"
+
+[[projects]]
   digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
   name = "github.com/davecgh/go-spew"
   packages = ["spew"]
@@ -128,7 +140,7 @@
   version = "v1.4.7"
 
 [[projects]]
-  digest = "1:fa30c0652956e159cdb97dcb2ef8b8db63ed668c02a5c3a40961c8f0641252fe"
+  digest = "1:fdf5169073fb0ad6dc12a70c249145e30f4058647bea25f0abd48b6d9f228a11"
   name = "github.com/go-kit/kit"
   packages = [
     "log",
@@ -160,7 +172,7 @@
   version = "v1.8.0"
 
 [[projects]]
-  digest = "1:212285efb97b9ec2e20550d81f0446cb7897e57cbdfd7301b1363ab113d8be45"
+  digest = "1:35621fe20f140f05a0c4ef662c26c0ab4ee50bca78aa30fe87d33120bd28165e"
   name = "github.com/gogo/protobuf"
   packages = [
     "gogoproto",
@@ -175,7 +187,7 @@
   version = "v1.1.1"
 
 [[projects]]
-  digest = "1:cb22af0ed7c72d495d8be1106233ee553898950f15fd3f5404406d44c2e86888"
+  digest = "1:17fe264ee908afc795734e8c4e63db2accabaf57326dbf21763a7d6b86096260"
   name = "github.com/golang/protobuf"
   packages = [
     "proto",
@@ -221,13 +233,12 @@
   version = "v1.2.0"
 
 [[projects]]
-  digest = "1:0c6aceca32885ed17808af2ad3a85f2cf18aca1a49b25de4a1d54f03913128c0"
+  digest = "1:ea40c24cdbacd054a6ae9de03e62c5f252479b96c716375aace5c120d68647c8"
   name = "github.com/hashicorp/hcl"
   packages = [
     ".",
     "hcl/ast",
     "hcl/parser",
-    "hcl/printer",
     "hcl/scanner",
     "hcl/strconv",
     "hcl/token",
@@ -246,6 +257,14 @@
   pruneopts = "UT"
   revision = "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
   version = "v1.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:046a2c78fa710c15664c5187f6b1a33b2af0f45c966bf9ad62cad83f8e8281b4"
+  name = "github.com/jackzampolin/sdk-nameservice-example"
+  packages = ["x/nameservice"]
+  pruneopts = "UT"
+  revision = "bf4f97838bf997a231d4c91a4f7e63ad080dba17"
 
 [[projects]]
   branch = "master"
@@ -304,14 +323,6 @@
   version = "v1.1.2"
 
 [[projects]]
-  branch = "master"
-  digest = "1:0fb7770a4a81c0029605308e62b0bd7718e18c473cd148cbca8c5f8ae35c68cf"
-  name = "github.com/mossid/sdk-nameservice-example"
-  packages = ["x/faucet"]
-  pruneopts = "UT"
-  revision = "88f91e0536192de317548b9078e13e852248e12b"
-
-[[projects]]
   digest = "1:95741de3af260a92cc5c7f3f3061e85273f5a81b5db20d4bd68da74bd521675e"
   name = "github.com/pelletier/go-toml"
   packages = ["."]
@@ -336,7 +347,7 @@
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:98225904b7abff96c052b669b25788f18225a36673fba022fb93514bb9a2a64e"
+  digest = "1:c1a04665f9613e082e1209cf288bf64f4068dcd6c87a64bf1c4ff006ad422ba0"
   name = "github.com/prometheus/client_golang"
   packages = [
     "prometheus",
@@ -347,7 +358,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:0f37e09b3e92aaeda5991581311f8dbf38944b36a3edec61cc2d1991f527554a"
+  digest = "1:2d5cd61daa5565187e1d96bae64dbbc6080dacf741448e9629c64fd93203b0d4"
   name = "github.com/prometheus/client_model"
   packages = ["go"]
   pruneopts = "UT"
@@ -355,7 +366,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:7fceb50b560fede33fe9f87e29721d350d1a092909e813e26686c1ca5d7fe5c3"
+  digest = "1:db712fde5d12d6cdbdf14b777f0c230f4ff5ab0be8e35b239fc319953ed577a4"
   name = "github.com/prometheus/common"
   packages = [
     "expfmt",
@@ -367,7 +378,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:4f63dbf446cdeef6226bffe9bbc5fc8b93e13378f84833fb4306514411a76963"
+  digest = "1:ef74914912f99c79434d9c09658274678bc85080ebe3ab32bec3940ebce5e1fc"
   name = "github.com/prometheus/procfs"
   packages = [
     ".",
@@ -386,7 +397,7 @@
   revision = "e2704e165165ec55d062f5919b4b29494e9fa790"
 
 [[projects]]
-  digest = "1:7f665ff60a4c8efd5a5c053bf862020cf9f7cd56c3f70dd140f45cd66fb08a8d"
+  digest = "1:6a4a11ba764a56d2758899ec6f3848d24698d48442ebce85ee7a3f63284526cd"
   name = "github.com/spf13/afero"
   packages = [
     ".",
@@ -405,7 +416,7 @@
   version = "v1.2.0"
 
 [[projects]]
-  digest = "1:627ab2f549a6a55c44f46fa24a4307f4d0da81bfc7934ed0473bf38b24051d26"
+  digest = "1:7ffc0983035bc7e297da3688d9fe19d60a420e9c38bef23f845c53788ed6a05e"
   name = "github.com/spf13/cobra"
   packages = ["."]
   pruneopts = "UT"
@@ -437,7 +448,7 @@
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:73697231b93fb74a73ebd8384b68b9a60c57ea6b13c56d2425414566a72c8e6d"
+  digest = "1:7e8d267900c7fa7f35129a2a37596e38ed0f11ca746d6d9ba727980ee138f9f6"
   name = "github.com/stretchr/testify"
   packages = [
     "assert",
@@ -449,15 +460,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:3a2cf43a4a86e27e897a3e9746ac14c93b6336adf478433d63d2c2c282c88a7c"
-  name = "github.com/sunnya97/sdk-faucet-module"
-  packages = ["client/cli"]
-  pruneopts = "UT"
-  revision = "938905e9931485a00988ba90a5ce65817fbeb8b7"
-
-[[projects]]
-  branch = "master"
-  digest = "1:df232f2ca452706815c0c3eba730cca6dbaa2c7e5d21da06ab6fd51a70b281a6"
+  digest = "1:59483b8e8183f10ab21a85ba1f4cbb4a2335d48891801f79ed7b9499f44d383c"
   name = "github.com/syndtr/goleveldb"
   packages = [
     "leveldb",
@@ -477,7 +480,7 @@
   revision = "6b91fda63f2e36186f1c9d0e48578defb69c5d43"
 
 [[projects]]
-  digest = "1:34a30b75b54e4b73090d0cafc7884950f020272e36813201ba3860822c46c6dd"
+  digest = "1:605b6546f3f43745695298ec2d342d3e952b6d91cdf9f349bea9315f677d759f"
   name = "github.com/tendermint/btcd"
   packages = ["btcec"]
   pruneopts = "UT"
@@ -485,7 +488,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:203b409c21115233a576f99e8f13d8e07ad82b25500491f7e1cca12588fb3232"
+  digest = "1:087aaa7920e5d0bf79586feb57ce01c35c830396ab4392798112e8aae8c47722"
   name = "github.com/tendermint/ed25519"
   packages = [
     ".",
@@ -512,7 +515,7 @@
   version = "v0.11.0"
 
 [[projects]]
-  digest = "1:05d03b8452657df9d6bea8adbb8041924546711fa0d8a3b34571a66ca6535f20"
+  digest = "1:a69eebd15b05045ffdb10a984e001fadc5666f74383de3d2a9ee5862ee99cfdc"
   name = "github.com/tendermint/tendermint"
   packages = [
     "abci/client",
@@ -590,7 +593,7 @@
   version = "v0.1.0"
 
 [[projects]]
-  digest = "1:cba18c5614964311aa882d5cdc222a58f2d8d34620823c19ce75910290c45fa9"
+  digest = "1:aaff04fa01d9b824fde6799759cc597b3ac3671b9ad31924c28b6557d0ee5284"
   name = "golang.org/x/crypto"
   packages = [
     "bcrypt",
@@ -614,7 +617,7 @@
   source = "https://github.com/tendermint/crypto"
 
 [[projects]]
-  digest = "1:04dda8391c3e2397daf254ac68003f30141c069b228d06baec8324a5f81dc1e9"
+  digest = "1:d36f55a999540d29b6ea3c2ea29d71c76b1d9853fdcd3e5c5cb4836f2ba118f1"
   name = "golang.org/x/net"
   packages = [
     "context",
@@ -631,7 +634,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:fe45be8fddd2d82243756e79b05ea83afddd150d202cee955180f0b4aa8b23ce"
+  digest = "1:d1da39c9bac61327dbef1d8ef9f210425e99fd2924b6fb5f0bc587a193353637"
   name = "golang.org/x/sys"
   packages = [
     "cpu",
@@ -641,7 +644,7 @@
   revision = "8a28ead16f52c8aaeffbf79239b251dfdf6c4f96"
 
 [[projects]]
-  digest = "1:7509ba4347d1f8de6ae9be8818b0cd1abc3deeffe28aeaf4be6d4b6b5178d9ca"
+  digest = "1:a2ab62866c75542dd18d2b069fec854577a20211d7c0ea6ae746072a1dccdd18"
   name = "golang.org/x/text"
   packages = [
     "collate",
@@ -672,7 +675,7 @@
   revision = "94acd270e44e65579b9ee3cdab25034d33fed608"
 
 [[projects]]
-  digest = "1:4515e3030c440845b046354fd5d57671238428b820deebce2e9dabb5cd3c51ac"
+  digest = "1:2dab32a43451e320e49608ff4542fdfc653c95dcc35d0065ec9c6c3dd540ed74"
   name = "google.golang.org/grpc"
   packages = [
     ".",
@@ -732,9 +735,11 @@
     "github.com/cosmos/cosmos-sdk/x/auth/client/cli",
     "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder",
     "github.com/cosmos/cosmos-sdk/x/bank",
+    "github.com/cosmos/sdk-module-tutorial",
+    "github.com/cosmos/sdk-module-tutorial/x/nameservice",
+    "github.com/cosmos/sdk-module-tutorial/x/nameservice/client/cli",
     "github.com/spf13/cobra",
     "github.com/spf13/viper",
-    "github.com/sunnya97/sdk-faucet-module/client/cli",
     "github.com/tendermint/tendermint/abci/types",
     "github.com/tendermint/tendermint/libs/cli",
     "github.com/tendermint/tendermint/libs/common",

@@ -1,6 +1,6 @@
 # Codec File
 
-To [register your types with Amino](https://github.com/tendermint/go-amino#registering-types) so that they can be encoded/decoded by your module there is a bit of code that needs to be placed in `./x/nameservice/codec.go`. Any interface you create and any struct that implements an interface. In this app the two `Msg` interface implementations we have (`SetName` and `BuyName`) need to be registered, but our `Whois` query return type does not:
+To [register your types with Amino](https://github.com/tendermint/go-amino#registering-types) so that they can be encoded/decoded by your module, there is a bit of code that needs to be placed in `./x/nameservice/codec.go`. Any interface you create and any struct that implements an interface needs to be declared in the `RegisterCodec` function. In this module the two `Msg` implementations we have (`SetName` and `BuyName`) need to be registered, but our `Whois` query return type does not:
 
 ```go
 package nameservice

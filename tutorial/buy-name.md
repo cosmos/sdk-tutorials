@@ -1,10 +1,8 @@
 # Buy Name
 
-Great, now owners can `SetName`s! But what if a name doesn't have an owner yet? Your module needs a way for users to buy names!
-
 ## Msg
 
-Now its time to define the Msg for buying names and add it to the `./x/nameservice/msgs.go` file. This code is very similar to `SetName`:
+Now it is time to define the `Msg` for buying names and add it to the `./x/nameservice/msgs.go` file. This code is very similar to `SetName`:
 
 ```go
 // MsgBuyName defines the BuyName message
@@ -77,7 +75,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 }
 ```
 
-Finally define the actual handle function which performs the state transitions that result from the message:
+Finally, define the actual `handler` function which performs the state transitions triggered by the message. Keep in mind that at this point that the message has had its `ValidateBasic` function run so there has been some input verification. However `ValidateBasic` should not have to query the state. Validation logic that is dependent on network state (i.e. address balances) should be performed in the `handler` function.
 
 ```go
 // Handle MsgBuyName
@@ -101,9 +99,12 @@ func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result
 	return sdk.Result{}
 }
 ```
-Keep in mind that at this point the message has had its `ValidateBasic` function run so there has been some input verification at this point. Validation logic that is dependent on network state (i.e. address balances) should be performed in this function.
 
-First check to make sure that the bid is higher than the current price. Then check to see whether the name already has an owner. If it does, and this transaction will change that, the old owner will get transferred the money from the `Buyer`.  If there is no owner, our `nameservice` "burns" (sends to an unrecoverable address) the coins from the `Buyer`.  If either `SubtractCoins` or `SendCoins` returns a non-nil error, the handler throws an error, reverting the state transition.  Otherwise, using the getters and setters defined on the Keeper earlier, set the buyer to the new owner and set the new price to be the current bid before exiting.
+First check to make sure that the bid is higher than the current price. Then check to see whether the name already has an owner. If it does, the former owner will get transferred the money from the `Buyer`.  
+
+If there is no owner, our `nameservice` "burns" (sends to an unrecoverable address) the coins from the `Buyer`.  
+
+If either `SubtractCoins` or `SendCoins` returns a non-nil error, the handler throws an error, reverting the state transition.  Otherwise, using the getters and setters defined on the `Keeper` earlier, set the buyer to the new owner and set the new price to be the current bid before exiting.
 
 > _*NOTE*_: This handler uses functions from the `coinKeeper` to perform currency operations. If your application is performing currency operations you man want to take a look at the [godocs for this module](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#BaseKeeper).
 

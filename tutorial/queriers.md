@@ -81,7 +81,7 @@ type Whois struct {
 ```
 
 Notes on the above code:
-- Here our `Keeper` getters/setters come into heavy use. When building any other applications you may need to go back and define more getters/setters to access the pieces of state you need at this point.
+- Here our `Keeper`'s' getters and setters come into heavy use. When building any other applications that use this module you may need to go back and define more getters/setters to access the pieces of state you need.
 - If your application needs some custom response types (`Whois` here), define them in this file.
 
 ### Now that you have ways to mutate and view your module state its time to put the finishing touches on it! Register your types in the [Amino encoding format next](./codec.md)!
