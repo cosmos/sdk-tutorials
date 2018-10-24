@@ -45,7 +45,7 @@ cd $GOPATH/src/github.com/{{ .Username }}
 git init 
 ```
 
-Then, just follow along! The first step describes the design of our application. If you want to jump directly to the coding section, you can jump directly to the [second step](./tutorial/keeper.md)
+Then, just follow along! The first step describes the design of our application. If you want to jump directly to the coding section, you can start with the [second step](./tutorial/keeper.md)
 
 1. [Design](./tutorial/app-design.md) the application
 1. Build your [`Keeper`](./tutorial/keeper.md)
