@@ -172,4 +172,4 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 Notes on the above code:
 - The `authcmd` package is used here. [The godocs have more information on usage](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth/client/cli#GetAccountDecoder). It provides access to accounts controlled by the CLI and facilitates signing.
 
-### Now your module has everything it needs to be [incorporated into a Cosmos SDK application](./app.md)! Build it next!
+### Now your module has everything it needs to be [incorporated into your Cosmos SDK application](./app-complete.md)!

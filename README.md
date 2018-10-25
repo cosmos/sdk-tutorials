@@ -49,16 +49,17 @@ git init
 Then, just follow along! The first step describes the design of your application. If you want to jump directly to the coding section, you can start with the [second step](./tutorial/keeper.md)
 
 1. [Design](./tutorial/app-design.md) the application
-1. Build your [`Keeper`](./tutorial/keeper.md)
-2. Define interactions with your chain through [`Msgs` and `Handlers`](./tutorial/msgs-handlers.md)
+2. Begin the implementation of your application in [./app.go](app-init.md)
+2. Start building your module with the [`Keeper`](./tutorial/keeper.md)
+3. Define state transitions through [`Msgs` and `Handlers`](./tutorial/msgs-handlers.md)
     * [`SetName`](./tutorial/set-name.md)
     * [`BuyName`](./tutorial/buy-name.md)
-3. Make views on your state machine with [`Queriers`](./tutorial/queriers.md)
-4. Register your types in the encoding format using [`sdk.Codec`](./tutorial/codec.md)
-5. Create [CLI interactions for your module](./tutorial/cli.md)
-6. Import your module and build your application in [`./app.go`](./tutorial/app.md)!
-7. Create the [`nameserviced` and `nameservicecli` entry points](./tutorial/entrypoint.md) to your application
-8. Setup [dependency management using `dep`](./tutorial/dep.md)
+4. Make views on your state machine with [`Queriers`](./tutorial/queriers.md)
+5. Register your types in the encoding format using [`sdk.Codec`](./tutorial/codec.md)
+6. Create [CLI interactions for your module](./tutorial/cli.md)
+7. Import your module and [finish building your application](./tutorial/app-complete.md)!
+8. Create the [`nameserviced` and `nameservicecli` entry points](./tutorial/entrypoint.md) to your application
+9. Setup [dependency management using `dep`](./tutorial/dep.md)
 
 
 ### Building the `nameservice` application

@@ -1,6 +1,6 @@
-## App.go
+# Import your modules and finish your application
 
-To create your application start a new file: `./app.go`. To get started, add the dependencies you will need:
+Now that your module is ready, it can be incorporated in the `./app.go` file, along with the other two modules [`auth`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth) and [`bank`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank):
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-application-tutorial/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{{ .Username }}/{{ .Project.Repo }}/x/nameservice`).
 
@@ -22,20 +22,7 @@ import (
 	dbm "github.com/tendermint/tendermint/libs/db"
 )
 ```
-
-Here we imported some dependencies from Tendermint, from the Cosmos SDK, and then the three modules we will use in your app: `auth`, `bank`, and `nameservice`.
-
-Links to godocs for each module and package imported:
-- [`codec`](https://godoc.org/github.com/cosmos/cosmos-sdk/codec): Functions for working with amino
-- [`auth`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth)
-- [`bank`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank)
-- [`baseapp`](https://godoc.org/github.com/cosmos/cosmos-sdk): This module helps developers bootstrap Cosmos SDK applications. It implements the [Tendermint ABCI](https://github.com/tendermint/tendermint/tree/master/abci) protocol, which enables your application to be safely replicated with the Tendermint consensus engine.
-- [`sdk`](https://godoc.org/github.com/cosmos/cosmos-sdk): Common types for working with SDK applications
-- [`abci`](https://godoc.org/github.com/tendermint/tendermint/abci/types): Similar to the `sdk/types` module, but for Tendermint
-- [`cmn`](https://godoc.org/github.com/tendermint/tendermint/libs/common): Code for working with Tendermint applications
-- [`dbm`](https://godoc.org/github.com/tendermint/tendermint/libs/db): Code for working with the Tendermint database
-
-Start by declaring the name and struct for your app. In this tutorial the app is called `nameservice`.
+Next you need to add the store's key as well as the keepers in your `nameserviceApp` struct, and update the constructor accordingly
 
 ```go
 const (
@@ -58,18 +45,43 @@ type nameserviceApp struct {
 	feeCollectionKeeper auth.FeeCollectionKeeper
 	nsKeeper            nameservice.Keeper
 }
+
+
+func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
+
+    // First define the top level codec that will be shared by the different modules
+    cdc := MakeCodec()
+
+    // BaseApp handles interactions with Tendermint through the ABCI protocol
+    bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
+
+    // Here you initialize your application with the store keys it requires
+	var app = &nameserviceApp{
+		BaseApp: bApp,
+		cdc:     cdc,
+
+		keyMain:          sdk.NewKVStoreKey("main"),
+		keyAccount:       sdk.NewKVStoreKey("acc"),
+		keyNSnames:       sdk.NewKVStoreKey("ns_names"),
+		keyNSowners:      sdk.NewKVStoreKey("ns_owners"),
+		keyNSprices:      sdk.NewKVStoreKey("ns_prices"),
+		keyFeeCollection: sdk.NewKVStoreKey("fee_collection"),
+	}
+
+    return app 
+}
 ```
 
-Next, create a constructor for a new `nameserviceApp`.  In this function your application:
+At this point, the constructor still lacks important logic. Namely, it needs to:
 
-- Creates required `Keepers` from each desired module
-- Generates `storeKeys` required by each keeper
-- Registers `Handler`s from each module
-- Registers `Querier`s from each module
-- Mounts `KVStore`s onto Tendermint
-- Sets the `initChainer` for defining application state
+- Instantiate required `Keepers` from each desired module.
+- Generate `storeKeys` required by each `Keeper`.
+- Register `Handler`s from each module. The `AddRoute()` method from `baseapp`'s `router` is used to this end.
+- Register `Querier`s from each module. The `AddRoute()` method from `baseapp`'s `queryRouter` is used to this end.
+- Mount `KVStore`s to the provided keys in the `baseApp` multistore.
+- Set the `initChainer` for defining the initial application state.
 
-There are notes in the code that describe each line:
+Your finalized constructor should look like this:
 
 ```go
 // NewnameserviceApp is a constructor function for nameserviceApp
@@ -151,8 +163,6 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 ```
 
 The `initChainer` defines how accounts in `genesis.json` are mapped into the application state on initial chain start.
-
-> *NOTE*:
 
 The constructor registers the `initChainer` function, but it isn't defined yet. Go ahead and create it:
 
