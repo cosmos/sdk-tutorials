@@ -27,6 +27,7 @@ Links to godocs for each module and package imported:
 
 Tendermint passes transactions to the application through an interface called the [ABCI](https://github.com/tendermint/tendermint/tree/master/abci). If we take a look at the architecture of your blockchain node, it looks like the following:
 
+```
 +---------------------+
 |                     |
 |     Application     |
@@ -42,8 +43,9 @@ Tendermint passes transactions to the application through an interface called th
 |                     |
 |                     |
 +---------------------+
+```
 
-Fortunately, you do not have to implement it. The Cosmos SDK provides a boilerplate implementation of the ABCI in the form of [`baseapp`](https://godoc.org/github.com/cosmos/cosmos-sdk/baseapp)).
+Fortunately, you do not have to implement it. The Cosmos SDK provides a boilerplate implementation of the ABCI in the form of [`baseapp`](https://godoc.org/github.com/cosmos/cosmos-sdk/baseapp).
 
 Here is what `baseapp` does:
 - Decode transaction received from the Tendermint consensus engine.
