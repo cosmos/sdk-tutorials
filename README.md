@@ -4,7 +4,7 @@ In this tutorial, you will build a functional [Cosmos SDK](https://github.com/co
 
 By the end of this tutorial you will have a functional `nameservice` application, a mapping of strings to other strings (`map[string]string`). This is similar to [Namecoin](https://namecoin.org/), [ENS](https://ens.domains/), or [Handshake](https://handshake.org/), which all model the traditional DNS systems (`map[domain]zonefile`). Users will be able to buy unused names, or sell/trade their name.
 
-All of the final source code for this tutorial project is in this directory (and compiles)? However, it is best to follow along manually and try building the project yourself!
+All of the final source code for this tutorial project is in this directory (and compiles). However, it is best to follow along manually and try building the project yourself!
 
 ### Requirements:
 
