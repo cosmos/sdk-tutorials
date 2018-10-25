@@ -1,16 +1,11 @@
+DEP := $(shell command -v dep 2> /dev/null)
+
 get_tools:
-ifdef DEP_CHECK
-	@echo "Dep is already installed.  Run 'make update_tools' to update."
-else
+ifndef DEP
 	@echo "Installing dep"
-	go get -v $(DEP)
-endif
-ifdef STATIK_CHECK
-	@echo "Statik is already installed.  Run 'make update_tools' to update."
+	go get -u -v github.com/golang/dep/cmd/dep
 else
-	@echo "Installing statik"
-	go version
-	go get -v $(STATIK)
+	@echo "Dep is already installed..."
 endif
 
 get_vendor_deps:

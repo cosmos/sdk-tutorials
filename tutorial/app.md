@@ -46,15 +46,17 @@ type nameserviceApp struct {
 	*bam.BaseApp
 	cdc *codec.Codec
 
-	keyMain     *sdk.KVStoreKey
-	keyAccount  *sdk.KVStoreKey
-	keyNSnames  *sdk.KVStoreKey
-	keyNSowners *sdk.KVStoreKey
-	keyNSprices *sdk.KVStoreKey
+	keyMain          *sdk.KVStoreKey
+	keyAccount       *sdk.KVStoreKey
+	keyNSnames       *sdk.KVStoreKey
+	keyNSowners      *sdk.KVStoreKey
+	keyNSprices      *sdk.KVStoreKey
+	keyFeeCollection *sdk.KVStoreKey
 
-	accountKeeper auth.AccountKeeper
-	bankKeeper    bank.Keeper
-	nsKeeper      nameservice.Keeper
+	accountKeeper       auth.AccountKeeper
+	bankKeeper          bank.Keeper
+	feeCollectionKeeper auth.FeeCollectionKeeper
+	nsKeeper            nameservice.Keeper
 }
 ```
 
@@ -186,7 +188,6 @@ func MakeCodec() *codec.Codec {
 	auth.RegisterCodec(cdc)
 	bank.RegisterCodec(cdc)
 	nameservice.RegisterCodec(cdc)
-	faucet.RegisterCodec(cdc)
 	sdk.RegisterCodec(cdc)
 	codec.RegisterCrypto(cdc)
 	return cdc

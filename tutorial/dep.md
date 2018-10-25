@@ -1,13 +1,54 @@
 # Building your app
 
+## `Makefile`
+
+Help users build your application by writing a `Makefile` that includes common commands:
+
+> _*NOTE*_: The below Makefile contains some of same commands as the Cosmos SDK and Tendermint Makefiles.
+
+```make
+DEP := $(shell command -v dep 2> /dev/null)
+
+get_tools:
+ifndef DEP
+	@echo "Installing dep"
+	go get -u -v github.com/golang/dep/cmd/dep
+else
+	@echo "Dep is already installed.  Run 'make update_tools' to update."
+endif
+
+get_vendor_deps:
+	@echo "--> Generating vendor directory via dep ensure"
+	@rm -rf .vendor-new
+	@dep ensure -v -vendor-only
+
+update_vendor_deps:
+	@echo "--> Running dep ensure"
+	@rm -rf .vendor-new
+	@dep ensure -v -update
+
+install:
+	go install ./cmd/nameserviced
+	go install ./cmd/nameservicecli
+```
+
 ## `Gopkg.toml`
 
-Golang has a few dependency management tools. In this tutorial you will be using [`dep`](https://golang.github.io/dep/). `dep` uses a `Gopkg.toml` file in the root of the repository to define what dependencies the application needs. Cosmos SDK apps currently depend on specific versions of some libraries. The below manifest contains all the necessary versions. Create the `./Gopkg.toml` file and paste the `toml` below in the file:
+Golang has a few dependency management tools. In this tutorial you will be using [`dep`](https://golang.github.io/dep/). `dep` uses a `Gopkg.toml` file in the root of the repository to define what dependencies the application needs. Cosmos SDK apps currently depend on specific versions of some libraries. The below manifest contains all the necessary versions. First, to initialize `dep`, run the following command (this may take a few minutes):
+
+
+```bash
+make get_tools
+dep init -v
+```
+> _*NOTE*_: If you are starting from scratch in your own repo, before running `dep init -v` BE SURE YOU HAVE REPLACED THE IMPORT FOR `github.com/cosmos/sdk-application-tutorial` WITH THE IMPORT FOR YOUR REPO (probably `github.com/{{ .Username }}/{{ .Project.Repo }}`). If you don't you will need to remove the `./vendor` directory (`rm -rf ./vendor`) as well as the `Gopkg.toml` and `Gopkg.lock` files (`rm Gopkg.*`) before running `dep init -v` again.
+
+Once that has finished running replace the contents of the `./Gopkg.toml` file with the `constraints` and `overrides` below:
 
 ```toml
 # Gopkg.toml example
 #
-# Refer to https://github.com/golang/dep/blob/master/docs/Gopkg.toml.md
+# Refer to https://golang.github.io/dep/docs/Gopkg.toml.html
 # for detailed Gopkg.toml documentation.
 #
 # required = ["github.com/user/thing/cmd/thing"]
@@ -16,6 +57,11 @@ Golang has a few dependency management tools. In this tutorial you will be using
 # [[constraint]]
 #   name = "github.com/user/project"
 #   version = "1.0.0"
+#
+# [[constraint]]
+#   name = "github.com/user/project2"
+#   branch = "dev"
+#   source = "github.com/myfork/project2"
 #
 # [[override]]
 #   name = "github.com/x/y"
@@ -64,54 +110,11 @@ Golang has a few dependency management tools. In this tutorial you will be using
   unused-packages = true
 ```
 
-### Makefile
-
-Finish your application by writing the `Makefile` to help make common/complex build and test commands easy to run:
-
-> _*NOTE*_: The below Makefile contains some of same commands as the Cosmos SDK and Tendermint Makefiles.
-
-```
-get_tools:
-ifdef DEP_CHECK
-    @echo "Dep is already installed.  Run 'make update_tools' to update."
-else
-    @echo "Installing dep"
-    go get -v $(DEP)
-endif
-ifdef STATIK_CHECK
-    @echo "Statik is already installed.  Run 'make update_tools' to update."
-else
-    @echo "Installing statik"
-    go version
-    go get -v $(STATIK)
-endif
-
-get_vendor_deps:
-    @echo "--> Generating vendor directory via dep ensure"
-    @rm -rf .vendor-new
-    @dep ensure -v -vendor-only
-
-update_vendor_deps:
-  @echo "--> Running dep ensure"
-  @rm -rf .vendor-new
-  @dep ensure -v -update
-
-install:
-    go install ./cmd/nameshaked
-    go install ./cmd/nameshakecli
-```
-
 ## Building the app
 
-First, you need to install `dep`. Below there is a command for using a shell script from `dep`'s site to preform this install.
-
 ```bash
-# Install dep
-make get_tools
-
-# Initialize dep and install dependencies
-dep init
-make get_vendor_deps
+# Update dependencies to match the constraints and overrides above
+dep ensure -update -v
 
 # Install the app into your $GOBIN
 make install

@@ -5,6 +5,14 @@
 The naming convention for SDK `Msgs` is `Msg{{ .Action }}`. The first action to implement is `SetName`, a `Msg` that allows owner of an address to set the result of resolving a name. Start by defining `MsgSetName` in a new file called `./x/nameservice/msgs.go`:
 
 ```go
+package nameservice
+
+import (
+	"encoding/json"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+)
+
 // MsgSetName defines a SetName message
 type MsgSetName struct {
 	NameID string
@@ -27,16 +35,16 @@ The `MsgSetName` has the three attributes needed to set the value for a name:
 - `value` - What the name resolves to
 - `owner` - The owner of that name
 
-> _*Note*_: the field name is `NameID` rather than `Name` as `.Name()` is the name of a method on the `Msg` interface.  This will be resolved in a [future update of the SDK](https://github.com/cosmos/cosmos-sdk/issues/2456).
+> _*Note*_: the field name is `NameID` rather than `Name` as `.Route()` is the name of a method on the `Msg` interface.  This will be resolved in a [future update of the SDK](https://github.com/cosmos/cosmos-sdk/issues/2456).
 
 Next, implement the `Msg` interface:
 
 ```go
 // Type should return the name of the module
-func (msg MsgSetName) Type() string { return "nameservice" }
+func (msg MsgSetName) Route() string { return "nameservice" }
 
 // Name should return the action
-func (msg MsgSetName) Name() string { return "set_name"}
+func (msg MsgSetName) Type() string { return "set_name"}
 ```
 
 The above functions are used by the SDK to route `Msgs` to the proper module for handling. They also add human readable names to database tags used for indexing.
@@ -101,7 +109,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 		case MsgSetName:
 			return handleMsgSetName(ctx, keeper, msg)
 		default:
-			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", reflect.TypeOf(msg).Name())
+			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", reflect.TypeOf(msg).Route())
 			return sdk.ErrUnknownRequest(errMsg).Result()
 		}
 	}

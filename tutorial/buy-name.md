@@ -22,10 +22,10 @@ func NewMsgBuyName(name string, bid sdk.Coins, buyer sdk.AccAddress) MsgBuyName 
 }
 
 // Type Implements Msg.
-func (msg MsgBuyName) Type() string { return "nameservice" }
+func (msg MsgBuyName) Route() string { return "nameservice" }
 
 // Name Implements Msg.
-func (msg MsgBuyName) Name() string { return "buy_name" }
+func (msg MsgBuyName) Type() string { return "buy_name" }
 
 // ValidateBasic Implements Msg.
 func (msg MsgBuyName) ValidateBasic() sdk.Error {
@@ -68,7 +68,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 		case MsgBuyName:
 			return handleMsgBuyName(ctx, keeper, msg)
 		default:
-			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", reflect.TypeOf(msg).Name())
+			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", reflect.TypeOf(msg).Route())
 			return sdk.ErrUnknownRequest(errMsg).Result()
 		}
 	}

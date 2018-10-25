@@ -5,7 +5,7 @@ Start by creating the `./x/nameservice/querier.go` file. This is the place to de
 - `resolve`: This takes a `name` and returns the `value` that is stored by the `nameservice`. This is similar to a DNS query.
 - `whois`: This takes a `name` and returns the `price`, `value`, and `owner` of the name. Used for figuring out how much names cost when you want to buy them.
 
-Start by defining the `NewQuerier` function which acts a sub-router for queries to this module (similar the `NewHandler` function). Note that because there isn't an interface similar to `Msg` for queries, you need to manually define switch statement cases (they can't be pulled off of the query `.Name()` function):
+Start by defining the `NewQuerier` function which acts a sub-router for queries to this module (similar the `NewHandler` function). Note that because there isn't an interface similar to `Msg` for queries, you need to manually define switch statement cases (they can't be pulled off of the query `.Route()` function):
 
 ```go
 package nameservice

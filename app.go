@@ -38,9 +38,14 @@ type nameserviceApp struct {
 
 // NewnameserviceApp is a constructor function for nameserviceApp
 func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
+
+	// First define the top level codec that will be shared by the different modules
 	cdc := MakeCodec()
+
+	// BaseApp handles interactions with Tendermint through the ABCI protocol
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
 
+	// Here you initialize your application with the store keys it requires
 	var app = &nameserviceApp{
 		BaseApp: bApp,
 		cdc:     cdc,
@@ -53,16 +58,21 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 		keyFeeCollection: sdk.NewKVStoreKey("fee_collection"),
 	}
 
+	// The AccountKeeper handles address -> account lookups
 	app.accountKeeper = auth.NewAccountKeeper(
 		app.cdc,
 		app.keyAccount,
 		auth.ProtoBaseAccount,
 	)
 
+	// The BankKeeper allows you perform sdk.Coins interactions
 	app.bankKeeper = bank.NewBaseKeeper(app.accountKeeper)
 
+	// The FeeCollectionKeeper collects transaction fees and renders them to the fee distribution module
 	app.feeCollectionKeeper = auth.NewFeeCollectionKeeper(cdc, app.keyFeeCollection)
 
+	// The NameserviceKeeper is the Keeper from the module for this tutorial
+	// It handles interactions with the namestore
 	app.nsKeeper = nameservice.NewKeeper(
 		app.bankKeeper,
 		app.keyNSnames,
@@ -71,14 +81,20 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 		app.cdc,
 	)
 
+	// The AnteHandler handles signature verification and transaction pre-processing
 	app.SetAnteHandler(auth.NewAnteHandler(app.accountKeeper, app.feeCollectionKeeper))
 
+	// The app.Router is the main transaction router where each module registers it's routes
+	// Here we register the bank and nameservice routes
 	app.Router().
+		AddRoute("bank", bank.NewHandler(app.bankKeeper)).
 		AddRoute("nameservice", nameservice.NewHandler(app.nsKeeper))
 
+	// The app.QueryRouter is the main query router where each module registers it's routes
 	app.QueryRouter().
 		AddRoute("nameservice", nameservice.NewQuerier(app.nsKeeper))
 
+	// The initChainer handles translating the genesis.json file into initial state for the network
 	app.SetInitChainer(app.initChainer)
 
 	app.MountStoresIAVL(
