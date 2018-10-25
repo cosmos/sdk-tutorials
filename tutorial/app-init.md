@@ -106,8 +106,8 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 
 Great! You now have the basis of your application. However, it still lacks its main functionalities.
 
-`baseapp` has no knowledge of the routes you want to use in your application. The primary role of your application is to define these routes. Another role is to define the initial state. Both this things require that you add modules to your application.
+`baseapp` has no knowledge of the routes you want to use in your application. The primary role of your application is to define these routes. Another role is to define the initial state. Both these things require that you add modules to your application.
 
 As you have seen in the [application design](./app-design.md) section, you need three modules for your nameservice: `auth`, `bank` and `nameservice`. The first two already exist, but not the last! The `nameservice` module will define the bulk of your state machine. The next step is to build it.
 
-### In order to complete your application, you need to include modules. Go ahead and [start building your nameservice module](./keeper.md). You will come back to the application later.
+### In order to complete your application, you need to include modules. Go ahead and [start building your nameservice module](./keeper.md). You will come back to `app.go` later.
