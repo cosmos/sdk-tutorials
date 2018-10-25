@@ -49,7 +49,7 @@ git init
 Then, just follow along! The first step describes the design of your application. If you want to jump directly to the coding section, you can start with the [second step](./tutorial/keeper.md)
 
 1. [Design](./tutorial/app-design.md) the application
-2. Begin the implementation of your application in [./app.go](./tutorials/app-init.md)
+2. Begin the implementation of your application in [./app.go](./tutorial/app-init.md)
 2. Start building your module with the [`Keeper`](./tutorial/keeper.md)
 3. Define state transitions through [`Msgs` and `Handlers`](./tutorial/msgs-handlers.md)
     * [`SetName`](./tutorial/set-name.md)
