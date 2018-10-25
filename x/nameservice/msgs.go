@@ -22,11 +22,11 @@ func NewMsgSetName(name string, value string, owner sdk.AccAddress) MsgSetName {
 	}
 }
 
-// Type Implements Msg.
-func (msg MsgSetName) Type() string { return "nameservice" }
-
 // Name Implements Msg.
-func (msg MsgSetName) Name() string { return "set_name" }
+func (msg MsgSetName) Route() string { return "nameservice" }
+
+// Type Implements Msg.
+func (msg MsgSetName) Type() string { return "set_name" }
 
 // ValdateBasic Implements Msg.
 func (msg MsgSetName) ValidateBasic() sdk.Error {
@@ -69,11 +69,11 @@ func NewMsgBuyName(name string, bid sdk.Coins, buyer sdk.AccAddress) MsgBuyName 
 	}
 }
 
-// Type Implements Msg.
-func (msg MsgBuyName) Type() string { return "nameservice" }
-
 // Name Implements Msg.
-func (msg MsgBuyName) Name() string { return "buy_name" }
+func (msg MsgBuyName) Route() string { return "nameservice" }
+
+// Type Implements Msg.
+func (msg MsgBuyName) Type() string { return "buy_name" }
 
 // ValidateBasic Implements Msg.
 func (msg MsgBuyName) ValidateBasic() sdk.Error {

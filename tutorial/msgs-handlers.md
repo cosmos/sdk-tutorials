@@ -1,10 +1,10 @@
 # Msgs and Handlers
 
-Now that you have the `Keeper` setup, it's time to built the `Msgs` and `Handlers` that actually allow users to buy and set names.
+Now that you have the `Keeper` setup, it's time to built the `Msgs` and `Handlers` that actually allow users to buy names and set values for them.
 
 ## `Msgs`
 
-`Msgs` trigger state transitions. `Msgs` are wrapped in [`Txs`](https://github.com/cosmos/cosmos-sdk/blob/develop/types/tx_msg.go#L34-L38) that clients submit to the network. The Cosmos-SDK wraps and unwraps `Msgs` in and from `Txs`, which means you only have to define `Msgs`. `Msgs` must satisfy the following interface:
+`Msgs` trigger state transitions. `Msgs` are wrapped in [`Txs`](https://github.com/cosmos/cosmos-sdk/blob/develop/types/tx_msg.go#L34-L38) that clients submit to the network. The Cosmos SDK wraps and unwraps `Msgs` from `Txs`, which means, as an app developer, you only have to define `Msgs`. `Msgs` must satisfy the following interface:
 
 ```go
 // Transactions messages must fulfill the Msg
@@ -15,7 +15,7 @@ type Msg interface {
 
 	// Returns a human-readable string for the message, intended for utilization
 	// within tags
-	Name() string
+	Route() string
 
 	// ValidateBasic does a simple validation check that
 	// doesn't require access to any other information.
@@ -37,6 +37,6 @@ type Msg interface {
 
 In this application you have two types of `Msgs` that users can send to interact with the application state: [`SetName`](./set-name.md) and [`BuyName`](./buy-name.md). They will each have an associated `Handler`.
 
-This completes the core logic of your `nameservice`. The next sections will focus on the rest of the core module. After that, focus shifts on building an app using your new module. In most cases, you'll be using similar boilerplate as well.
+This completes the core logic of your `nameservice`. The next sections will focus on the rest of the core module. After that, focus shifts on building your app using the new module.
 
 ### Now that you have a better understanding of `Msgs` and `Handlers`, you can start building your first message: [`SetName`](./set-name.md).

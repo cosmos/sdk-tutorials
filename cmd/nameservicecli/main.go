@@ -3,18 +3,16 @@ package main
 import (
 	"os"
 
-	"github.com/spf13/cobra"
-
-	"github.com/tendermint/tendermint/libs/cli"
-
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/keys"
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/spf13/cobra"
+	"github.com/tendermint/tendermint/libs/cli"
 
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
-	app "github.com/cosmos/sdk-module-tutorial"
-	nameservicecmd "github.com/cosmos/sdk-module-tutorial/x/nameservice/client/cli"
+	app "github.com/cosmos/sdk-application-tutorial"
+	nameservicecmd "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/cli"
 )
 
 const storeAcc = "acc"
@@ -24,7 +22,7 @@ var (
 		Use:   "nameservicecli",
 		Short: "nameservice Client",
 	}
-	DefaultCLIHome = os.ExpandEnv("$HOME/.nameservicecli")
+	defaultCLIHome = os.ExpandEnv("$HOME/.nameservicecli")
 )
 
 func main() {
@@ -72,7 +70,7 @@ func main() {
 		keys.Commands(),
 	)
 
-	executor := cli.PrepareMainCmd(rootCmd, "NS", DefaultCLIHome)
+	executor := cli.PrepareMainCmd(rootCmd, "NS", defaultCLIHome)
 	err := executor.Execute()
 	if err != nil {
 		panic(err)

@@ -107,7 +107,7 @@
 [[projects]]
   branch = "master"
   digest = "1:839d5dd703b53f5dc34d74fefadb967fba8bfad30a0a2046b1d45ba9b349af18"
-  name = "github.com/cosmos/sdk-module-tutorial"
+  name = "github.com/cosmos/sdk-application-tutorial"
   packages = [
     ".",
     "x/nameservice",
@@ -735,9 +735,9 @@
     "github.com/cosmos/cosmos-sdk/x/auth/client/cli",
     "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder",
     "github.com/cosmos/cosmos-sdk/x/bank",
-    "github.com/cosmos/sdk-module-tutorial",
-    "github.com/cosmos/sdk-module-tutorial/x/nameservice",
-    "github.com/cosmos/sdk-module-tutorial/x/nameservice/client/cli",
+    "github.com/cosmos/sdk-application-tutorial",
+    "github.com/cosmos/sdk-application-tutorial/x/nameservice",
+    "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/cli",
     "github.com/spf13/cobra",
     "github.com/spf13/viper",
     "github.com/tendermint/tendermint/abci/types",

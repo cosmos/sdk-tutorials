@@ -1,6 +1,6 @@
-# Example SDK Module Tutorial
+# Example SDK Application Tutorial
 
-In this tutorial, you will build a functional [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/) module and, in the process, learn the basic concepts and structures in the SDK. Then you can get started building your own modules and include them in decentralized applications. 
+In this tutorial, you will build a functional [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/) application and, in the process, learn the basic concepts and structures in the SDK. Then you can get started building your own modules and include them in decentralized applications of your own design.
 
 By the end of this tutorial you will have a functional `nameservice` application, a mapping of strings to other strings (`map[string]string`). This is similar to [Namecoin](https://namecoin.org/), [ENS](https://ens.domains/), or [Handshake](https://handshake.org/), which all model the traditional DNS systems (`map[domain]zonefile`). Users will be able to buy unused names, or sell/trade their name.
 
@@ -8,8 +8,8 @@ All of the final source code for this tutorial project is in this directory (and
 
 ### Requirements:
 
-- `golang` >1.11 installed
-- A working `$GOPATH`
+- [`golang` >1.11](https://golang.org/doc/install) installed
+- A working [`$GOPATH`](https://github.com/golang/go/wiki/SettingGOPATH)
 - Desire to create your own blockchain!
 
 ### Tutorial Parts:
@@ -38,14 +38,15 @@ Through the course of this tutorial you will create the following files that mak
         └── querier.go
 ```
 
-Start by creating a new git repository 
+Start by creating a new git repository:
 
 ```bash
-cd $GOPATH/src/github.com/{{ .Username }}
-git init 
+mkdir -p $GOPATH/src/github.com/{{ .Username }}/nameservice
+cd $GOPATH/src/github.com/{{ .Username }}/nameservice
+git init
 ```
 
-Then, just follow along! The first step describes the design of our application. If you want to jump directly to the coding section, you can start with the [second step](./tutorial/keeper.md)
+Then, just follow along! The first step describes the design of your application. If you want to jump directly to the coding section, you can start with the [second step](./tutorial/keeper.md)
 
 1. [Design](./tutorial/app-design.md) the application
 1. Build your [`Keeper`](./tutorial/keeper.md)
@@ -62,7 +63,9 @@ Then, just follow along! The first step describes the design of our application.
 
 ### Building the `nameservice` application
 
-If you want to build the `nameservice` application in this repo to see the functionality, first you need to install `dep`. Below there is a command for using a shell script from `dep`'s site to preform this install. If you are uncomfortable `|`ing `curl` output to `sh` (you should be) then check out [your platform specific installation instructions](https://golang.github.io/dep/docs/installation.html).
+If you want to build the `nameservice` application in this repo to see the functionality, first you need to install `dep`.
+
+> _*NOTE*_: Below there is a command for using a shell script from `dep`'s site to preform this install. If you are uncomfortable `|`ing `curl` output to `sh` (you should be) then check out [your platform specific installation instructions](https://golang.github.io/dep/docs/installation.html).
 
 ```bash
 # Install dep
@@ -79,21 +82,21 @@ nameserviced help
 nameservicecli help
 ```
 
-### Running the live network and using the commands 
+### Running the live network and using the commands
 
 To initialize configuration and a `genesis.json` file for your application and an account for the transactions start by running:
 
-> _*NOTE*_: Copy the `Address` output here and save it for later use
+> _*NOTE*_: Copy the `chain-id` from the output of the first command, and `Address` from the output of the second and save it for use when running the application commands a bit further down
 
 ```bash
-# Copy the chain_id output here and save it for later use
+# Copy the chain_id output here and save it for later user
 nameserviced init
 
 # Copy the `Address` output here and save it for later use
 nameservicecli keys add jack
 ```
 
-Next open the generated file `~/.nameserviced/config/genesis.json` in a text editor and copy in the address output by adding a key above. This will give you control over a wallet with some coins when you start your local network. You can now start `nameserviced` by calling `nameserviced start`. You will see blocks being produced.
+Next open the generated file `~/.nameserviced/config/genesis.json` in a text editor and copy in the address output by adding a key above. This will give you control over a wallet with some coins when you start your local network. You can now start `nameserviced` by calling `nameserviced start`. You will see logs begin streaming that represent blocks being produced.
 
 Open another terminal to run commands against the network you have just created:
 
