@@ -2,7 +2,6 @@ package nameservice
 
 import (
 	"fmt"
-	"reflect"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -16,7 +15,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 		case MsgBuyName:
 			return handleMsgBuyName(ctx, keeper, msg)
 		default:
-			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", reflect.TypeOf(msg).Route())
+			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type())
 			return sdk.ErrUnknownRequest(errMsg).Result()
 		}
 	}

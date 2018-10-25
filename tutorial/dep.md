@@ -14,7 +14,7 @@ ifndef DEP
 	@echo "Installing dep"
 	go get -u -v github.com/golang/dep/cmd/dep
 else
-	@echo "Dep is already installed.  Run 'make update_tools' to update."
+	@echo "Dep is already installed..."
 endif
 
 get_vendor_deps:

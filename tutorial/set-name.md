@@ -109,7 +109,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 		case MsgSetName:
 			return handleMsgSetName(ctx, keeper, msg)
 		default:
-			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", reflect.TypeOf(msg).Route())
+			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type())
 			return sdk.ErrUnknownRequest(errMsg).Result()
 		}
 	}
