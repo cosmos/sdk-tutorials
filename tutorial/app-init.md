@@ -48,11 +48,11 @@ Fortunately, you do not have to implement it. The Cosmos SDK provides a boilerpl
 Here is what `baseapp` does:
 - Decode transaction received from the Tendermint consensus engine.
 - Extract messages from transactions and do basic sanity checks.
-- Route the message to the appropriate module so that it can be processed.
+- Route the message to the appropriate module so that it can be processed. Note that `baseapp` has no knowledge of the specific modules you want to use. It is your job to declare such modules in `app.go`, as we will see later. `baseapp` only implements the core routing logic that can be applied to any module. 
 - Commit if the ABCI message is [`DeliverTx`](https://tendermint.com/docs/spec/abci/abci.html#delivertx) ([`CheckTx`](https://tendermint.com/docs/spec/abci/abci.html#checktx) changes are not persistent).
-- Help setting up [`Beginblock`](https://tendermint.com/docs/spec/abci/abci.html#beginblock) and [`Endblock`](https://tendermint.com/docs/spec/abci/abci.html#endblock, two messages that enable you to define logic executed at the beginning and end of each block. In practice, each module implements its own `BeginBlock` and `EndBlock` sub-logic, and the role of the app is to aggregate everything together.
+- Help set up [`Beginblock`](https://tendermint.com/docs/spec/abci/abci.html#beginblock) and [`Endblock`](https://tendermint.com/docs/spec/abci/abci.html#endblock, two messages that enable you to define logic executed at the beginning and end of each block. In practice, each module implements its own `BeginBlock` and `EndBlock` sub-logic, and the role of the app is to aggregate everything together.
 - Help initialise your state.
-- Help setting up queries.
+- Help set up queries.
 
 Go ahead and import `baseapp` in your application. Also import the SDK's [`codec`](https://godoc.org/github.com/cosmos/cosmos-sdk/codec), which will be useful for encoding and decoding structs in your application's modules. 
 
