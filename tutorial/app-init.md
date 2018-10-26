@@ -1,6 +1,6 @@
 # Start your application
 
-To create your application start a new file: `./app.go`. This file is the heart of your deterministic state-machine. 
+Get started by creating a new file: `./app.go`. This file is the heart of your deterministic state-machine. 
 
 In `app.go`, you define what the application does when it receives a transaction. But first, it needs to be able to receive transaction in the correct order. This is the role of the [Tendermint consensus engine](https://github.com/tendermint/tendermint).
 
