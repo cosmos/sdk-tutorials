@@ -1,15 +1,19 @@
 # Application Goals
 
-The goal of the application you are building is to let users buy names and to set a value these names resolve to. The owner of an given name will be the current highest bidder. This piece of the tutorial should help you understand how these simple requirements translate to application design.
+The goal of the application you are building is to let users buy names and to set a value these names resolve to. The owner of a given name will be the current highest bidder. In this section, you will learn how these simple requirements translate to application design.
 
-A decentralized application is just a [replicated deterministic state machine](https://en.wikipedia.org/wiki/State_machine_replication). As a developer, you just have to define the state machine (i.e. what the state, a starting state and messages that trigger state transitions), and [*Tendermint*](https://tendermint.com/docs/introduction/introduction.html) will handle replication over the network for you.
+A blockchain application is just a [replicated deterministic state machine](https://en.wikipedia.org/wiki/State_machine_replication). As a developer, you just have to define the state machine (i.e. what the state, a starting state and messages that trigger state transitions), and [*Tendermint*](https://tendermint.com/docs/introduction/introduction.html) will handle replication over the network for you.
 
-The [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/) is designed to help you build state machines. The SDK is a modular framework, meaning applications are built by aggregating a collection of interoperable modules. Each module contains its own message/transaction processor, while the SDK is responsible for routing each message to its respective module.
+>>Tendermint is an application-agnostic engine that is responsible for handling the *networking* and *consensus* layers of your blockchain. In practice, this means that Tendermint is reponsible for propagating and ordering transaction bytes. Tendermint Core relies on an eponymous Byzantine-Fault-Tolerant (BFT) algorithm to reach consensus on the order of transactions. For more on Tendermint, click [here](https://tendermint.com/docs/introduction/introduction.html).
+
+The [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/) is designed to help you build state machines. The SDK is a **modular framework**, meaning applications are built by aggregating a collection of interoperable modules. Each module contains its own message/transaction processor, while the SDK is responsible for routing each message to its respective module.
 
 Here are the modules you will need for the nameservice application:
-- `auth`: This module contains the concepts of accounts and fees while giving access to these functionalities to the rest of your application.
+- `auth`: This module defines accounts and fees and gives access to these functionalities to the rest of your application.
 - `bank`: This module enables the application to create and manage tokens and token balances.
-- `nameservice`: This module does not exist yet! It will handle the logic for the `nameservice` you are building. It's the main piece of software you have to work on to build your application.
+- `nameservice`: This module does not exist yet! It will handle the core logic for the `nameservice` application you are building. It is the main piece of software you have to work on to build your application.
+
+>You might be wondering why we don't have a module to handle validator set changes. Indeed, Tendermint relies on a set of validators to [come to consensus](https://tendermint.com/docs/introduction/introduction.html#consensus-overview) about the next valid block of transactions to add to the blockchain. By default, if no module handles validator set changes, the validator set will remain the same as the one defined in the genesis file `genesis.json`. This will be the case for our current application. If you want to allow the validator set of your application to change, you can use the [staking module](https://github.com/cosmos/cosmos-sdk/tree/develop/x/stake) of the SDK, or write your own!
 
 Now, take a look at the two main parts of your application: the state and the message types.
 
@@ -32,6 +36,6 @@ Messages are contained in transactions. They trigger state transitions. Each mod
 - `MsgSetName`: This message allows name owners to set a value for a given name in the `nameStore`.
 - `MsgBuyName`: This message allows accounts to buy a name and become their owner in the `ownerStore`.
 
-When a transaction (included in a block) reaches a Tendermint node, it is passed to the application via the [ABCI](https://github.com/tendermint/tendermint/tree/master/abci) and decoded to get the message. The message is then routed to the appropriate module and handled there according to the logic defined in the `Handler`. If the state needs to be updated, the `Handler` calls the `Keeper` to perform the update. You will learn more about these concepts in the next couple of modules of this tutorial.
+When a transaction (included in a block) reaches a Tendermint node, it is passed to the application via the [ABCI](https://github.com/tendermint/tendermint/tree/master/abci) and decoded to get the message. The message is then routed to the appropriate module and handled there according to the logic defined in the `Handler`. If the state needs to be updated, the `Handler` calls the `Keeper` to perform the update. You will learn more about these concepts in the next steps of this tutorial.
 
 ### Now that you have decided on how your application functions from a high-level perspective, it is time to [start implementing it](./app-init.md)

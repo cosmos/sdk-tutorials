@@ -1,6 +1,6 @@
 # The Keeper
 
-The main core of a Cosmos SDK module is a piece called the Keeper. It is what handles interaction with the store (the abstraction over `tendermint`), has references to other keepers for cross-module interactions, and contains most of the core functionality of a module.
+The main core of a Cosmos SDK module is a piece called the `Keeper`. It is what handles interaction with the store, has references to other keepers for cross-module interactions, and contains most of the core functionality of a module.
 
 Begin by creating the file `./x/nameservice/keeper.go` to hold the keeper for your module. In Cosmos SDK applications, the convention is that modules live in the `./x/` folder.
 
@@ -32,22 +32,22 @@ type Keeper struct {
 
 A couple of notes about the above code:
 
-* Note the `import` of 3 different `cosmos-sdk` packages:
-	- [`codec`](https://godoc.org/github.com/cosmos/cosmos-sdk/codec) - provides tools to work with the Cosmos encoding format, [Amino](https://github.com/tendermint/go-amino)
-	- [`bank`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank) - the bank module controls accounts and coin transfers
-	- [`types`](https://godoc.org/github.com/cosmos/cosmos-sdk/types) - contains commonly used types throughout the SDK
+* 3 different `cosmos-sdk` packages are imported:
+	- [`codec`](https://godoc.org/github.com/cosmos/cosmos-sdk/codec) - the `codec` provides tools to work with the Cosmos encoding format, [Amino](https://github.com/tendermint/go-amino).
+	- [`bank`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank) - the `bank` module controls accounts and coin transfers.
+	- [`types`](https://godoc.org/github.com/cosmos/cosmos-sdk/types) - `types` contains commonly used types throughout the SDK.
 * The `Keeper` struct. In this keeper there are a couple of key pieces:
-	- [`bank.Keeper`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#Keeper) - This is a reference to the Keeper from the bank module. Including it allows code in this module to call functions from the bank module. The SDK uses an [object capabilities](https://en.wikipedia.org/wiki/Object-capability_model) approach to accessing sections of the application state.  This is to allow developers to employ a least authority approach, limiting the capabilities of a faulty or malicious module from affecting parts of state it doesn't need access to.
+	- [`bank.Keeper`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#Keeper) - This is a reference to the `Keeper` from the `bank` module. Including it allows code in this module to call functions from the `bank` module. The SDK uses an [object capabilities](https://en.wikipedia.org/wiki/Object-capability_model) approach to accessing sections of the application state. This is to allow developers to employ a least authority approach, limiting the capabilities of a faulty or malicious module from affecting parts of state it doesn't need access to.
 	- [`*codec.Codec`](https://godoc.org/github.com/cosmos/cosmos-sdk/codec#Codec) - This is a pointer to the codec that is used by Amino to encode and decode binary structs.
 	- [`sdk.StoreKey`](https://godoc.org/github.com/cosmos/cosmos-sdk/types#StoreKey) -  This gates access to a `sdk.KVStore` that persists the state of your application.
 * This module has 3 store keys:
-	- `namesStoreKey` - This is the main store that stores the value string that the name points to (i.e. `map[name]value`)
-	- `ownersStoreKey` - This store contains the current owner of this name (i.e. `map[sdk_address]name`)
-	- `priceStoreKey` - This store contains the price that the current owner paid. Anyone buying this name must spend more than the current owner. (i.e. `map[name]price`)
+	- `namesStoreKey` - This is the main store that stores the value string that the name points to (i.e. `map[name]value`).
+	- `ownersStoreKey` - This store contains the current owner of any given name (i.e. `map[sdk_address]name`).
+	- `priceStoreKey` - This store contains the price that the current owner paid for a given name. Anyone buying this name must spend more than the current owner. (i.e. `map[name]price`).
 
 ## Getters and Setters
 
-Now it is time to add methods to interact with the store throughs the `Keeper`. First, add a function to set the string a given name resolves to:
+Now it is time to add methods to interact with the stores throughs the `Keeper`. First, add a function to set the string a given name resolves to:
 
 ```go
 // SetName - sets the value string that a name resolves to
@@ -57,9 +57,9 @@ func (k Keeper) SetName(ctx sdk.Context, name string, value string) {
 }
 ```
 
-In this method on the Keeper, first get the store object for the `map[name]value` using the the `namesStoreKey` from the Keeper.
+In this method, first get the store object for the `map[name]value` using the the `namesStoreKey` from the `Keeper`.
 
-> _*NOTE*_: This function uses the [`sdk.Context`](https://godoc.org/github.com/cosmos/cosmos-sdk/types#Context). This object holds functions to access a number of import pieces of state like `blockHeight` and `chainID`. See the godoc for more information on the methods it exposes.
+> _*NOTE*_: This function uses the [`sdk.Context`](https://godoc.org/github.com/cosmos/cosmos-sdk/types#Context). This object holds functions to access a number of important pieces of the state like `blockHeight` and `chainID`. 
 
 Next, you insert the `<name, value>` pair into the store using its `.Set([]byte, []byte)` method.  As the store only takes `[]byte`, first cast the `string`s to `[]byte` and the use them as parameters into the `Set` method.
 
@@ -74,7 +74,7 @@ func (k Keeper) ResolveName(ctx sdk.Context, name string) string {
 }
 ```
 
-Here, like in the SetName method, first access the store using the `StoreKey`.  Next, instead of using the `Set` method on the store key, use the `.Get([]byte) []byte` method. As the parameter into the function, pass the key, which is the `name` string casted to `[]byte`, and get back the result in the form of `[]byte`. Cast this to a `string` and return the result.
+Here, like in the `SetName` method, first access the store using the `StoreKey`.  Next, instead of using the `Set` method on the store key, use the `.Get([]byte) []byte` method. As the parameter into the function, pass the key, which is the `name` string casted to `[]byte`, and get back the result in the form of `[]byte`. Cast this to a `string` and return the result.
 
 Add similar functions for getting and setting name owners:
 
@@ -102,7 +102,7 @@ func (k Keeper) SetOwner(ctx sdk.Context, name string, owner sdk.AccAddress) {
 
 Notes on the above code:
 - Instead of accessing the the data from the `namesStoreKey` store, get it from the `ownersStoreKey` store.  
-- Because `sdk.AccAddress` is a type alias for `[]byte`, and can natively cast to it.  
+- Because `sdk.AccAddress` is a type alias for `[]byte`, it can natively be casted to it.  
 - There is an extra function, `HasOwner` that is a convenience to be used in conditional statements.
 
 Finally, add a getter and setter for the price of a name:
@@ -129,7 +129,7 @@ func (k Keeper) SetPrice(ctx sdk.Context, name string, price sdk.Coins) {
 
 Notes on the above code:
 - `sdk.Coins` does not have its own bytes encoding, which means the price needs to be marsalled and unmarshalled using [Amino](https://github.com/tendermint/go-amino/) to be inserted or removed from the store.
-- When getting the price for a name that has no owner (and thus no price), return 1steak as the price.
+- When getting the price for a name that has no owner (and thus no price), return `1steak` as the price.
 
 The last piece of code needed in the `./x/nameservice/keeper.go` file is a constructor function for `Keeper`:
 

@@ -1,6 +1,6 @@
 # Example SDK Application Tutorial
 
-In this tutorial, you will build a functional [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/) application and, in the process, learn the basic concepts and structures in the SDK. The example will showcase how quickly and easily you can build your own blockchain from scratch on top of the Cosmos SDK.
+In this tutorial, you will build a functional [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/) application and, in the process, learn the basic concepts and structures of the SDK. The example will showcase how quickly and easily you can build your own blockchain from scratch on top of the Cosmos SDK.
 
 By the end of this tutorial you will have a functional `nameservice` application, a mapping of strings to other strings (`map[string]string`). This is similar to [Namecoin](https://namecoin.org/), [ENS](https://ens.domains/), or [Handshake](https://handshake.org/), which all model the traditional DNS systems (`map[domain]zonefile`). Users will be able to buy unused names, or sell/trade their name.
 
@@ -48,23 +48,23 @@ git init
 
 Then, just follow along! The first step describes the design of your application. If you want to jump directly to the coding section, you can start with the [second step](./tutorial/keeper.md)
 
-1. [Design](./tutorial/app-design.md) the application
-2. Begin the implementation of your application in [`./app.go`](./tutorial/app-init.md)
-2. Start building your module with the [`Keeper`](./tutorial/keeper.md)
-3. Define state transitions through [`Msgs` and `Handlers`](./tutorial/msgs-handlers.md)
+1. [Design](./tutorial/app-design.md) the application.
+2. Begin the implementation of your application in [`./app.go`](./tutorial/app-init.md).
+2. Start building your module with the [`Keeper`](./tutorial/keeper.md).
+3. Define state transitions through [`Msgs` and `Handlers`](./tutorial/msgs-handlers.md).
     * [`SetName`](./tutorial/set-name.md)
     * [`BuyName`](./tutorial/buy-name.md)
-4. Make views on your state machine with [`Queriers`](./tutorial/queriers.md)
-5. Register your types in the encoding format using [`sdk.Codec`](./tutorial/codec.md)
-6. Create [CLI interactions for your module](./tutorial/cli.md)
+4. Make views on your state machine with [`Queriers`](./tutorial/queriers.md).
+5. Register your types in the encoding format using [`sdk.Codec`](./tutorial/codec.md).
+6. Create [CLI interactions for your module](./tutorial/cli.md).
 7. Import your module and [finish building your application](./tutorial/app-complete.md)!
-8. Create the [`nameserviced` and `nameservicecli` entry points](./tutorial/entrypoint.md) to your application
-9. Setup [dependency management using `dep`](./tutorial/dep.md)
+8. Create the [`nameserviced` and `nameservicecli` entry points](./tutorial/entrypoint.md) to your application.
+9. Setup [dependency management using `dep`](./tutorial/dep.md).
 
 
 ### Building the `nameservice` application
 
-If you want to build the `nameservice` application in this repo to see the functionality, first you need to install `dep`.
+If you want to build the `nameservice` application in this repo to see the functionalities, first you need to install `dep`.
 
 > _*NOTE*_: Below there is a command for using a shell script from `dep`'s site to preform this install. If you are uncomfortable `|`ing `curl` output to `sh` (you should be) then check out [your platform specific installation instructions](https://golang.github.io/dep/docs/installation.html).
 
@@ -97,7 +97,9 @@ nameserviced init
 nameservicecli keys add jack
 ```
 
-Next open the generated file `~/.nameserviced/config/genesis.json` in a text editor and copy in the address output by adding a key above. This will give you control over a wallet with some coins when you start your local network. You can now start `nameserviced` by calling `nameserviced start`. You will see logs begin streaming that represent blocks being produced.
+Next open the generated file `~/.nameserviced/config/genesis.json` in a text editor and copy the address output from the `nameservicecli keys add` command in the `"address"` field under `"accounts"`. This will give you control over a wallet with some coins when you start your local network. 
+
+You can now start `nameserviced` by calling `nameserviced start`. You will see logs begin streaming that represent blocks being produced.
 
 Open another terminal to run commands against the network you have just created:
 
