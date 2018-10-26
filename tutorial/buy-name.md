@@ -75,7 +75,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 }
 ```
 
-Finally, define the `BuyName` `handler` function which performs the state transitions triggered by the message. Keep in mind that at this point the message has had its `ValidateBasic` function run so there has been some input verification. However, `ValidateBasic` cannot query application state. Validation logic that is dependent on network state (i.e. address balances) should be performed in the `handler` function.
+Finally, define the `BuyName` `handler` function which performs the state transitions triggered by the message. Keep in mind that at this point the message has had its `ValidateBasic` function run so there has been some input verification. However, `ValidateBasic` cannot query application state. Validation logic that is dependent on network state (e.g. account balances) should be performed in the `handler` function.
 
 ```go
 // Handle MsgBuyName
@@ -100,12 +100,12 @@ func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result
 }
 ```
 
-First check to make sure that the bid is higher than the current price. Then check to see whether the name already has an owner. If it does, the former owner will get transferred the money from the `Buyer`.  
+First check to make sure that the bid is higher than the current price. Then, check to see whether the name already has an owner. If it does, the former owner will receive the money from the `Buyer`.  
 
-If there is no owner, your `nameservice` "burns" (sends to an unrecoverable address) the coins from the `Buyer`.  
+If there is no owner, your `nameservice` module "burns" (i.e. sends to an unrecoverable address) the coins from the `Buyer`.  
 
-If either `SubtractCoins` or `SendCoins` returns a non-nil error, the handler throws an error, reverting the state transition.  Otherwise, using the getters and setters defined on the `Keeper` earlier, set the buyer to the new owner and set the new price to be the current bid before exiting.
+If either `SubtractCoins` or `SendCoins` returns a non-nil error, the handler throws an error, reverting the state transition.  Otherwise, using the getters and setters defined on the `Keeper` earlier, the handler sets the buyer to the new owner and set the new price to be the current bid.
 
-> _*NOTE*_: This handler uses functions from the `coinKeeper` to perform currency operations. If your application is performing currency operations you man want to take a look at the [godocs for this module](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#BaseKeeper) to see what functions the SDK exposess.
+> _*NOTE*_: This handler uses functions from the `coinKeeper` to perform currency operations. If your application is performing currency operations you man want to take a look at the [godocs for this module](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#BaseKeeper) to see what functions it exposes.
 
 ### Now that you have your `Msgs` and `Handlers` defined it's time to learn about making the data from these transactions [available for querying](./queriers.md)!

@@ -31,11 +31,11 @@ func NewMsgSetName(name string, value string, owner sdk.AccAddress) MsgSetName {
 ```
 
 The `MsgSetName` has the three attributes needed to set the value for a name:
-- `name` - The name trying to be set
-- `value` - What the name resolves to
-- `owner` - The owner of that name
+- `name` - The name trying to be set.
+- `value` - What the name resolves to.
+- `owner` - The owner of that name.
 
-> _*Note*_: the field name is `NameID` rather than `Name` as `.Route()` is the name of a method on the `Msg` interface.  This will be resolved in a [future update of the SDK](https://github.com/cosmos/cosmos-sdk/issues/2456).
+> *NOTE*: the field name is `NameID` rather than `Name` as `.Route()` is the name of a method on the `Msg` interface.  This will be resolved in a [future update of the SDK](https://github.com/cosmos/cosmos-sdk/issues/2456).
 
 Next, implement the `Msg` interface:
 
@@ -62,7 +62,7 @@ func (msg MsgSetName) ValidateBasic() sdk.Error {
 }
 ```
 
-`ValidateBasic` is used to provide some basic *stateless* checks on the validity of the msg.  In this case, we check that none of the attributes are empty. Note the use of the `sdk.Error` types here. The SDK provides a set of error types that are frequently encountered by application developers.
+`ValidateBasic` is used to provide some basic **stateless** checks on the validity of the `Msg`.  In this case, we check that none of the attributes are empty. Note the use of the `sdk.Error` types here. The SDK provides a set of error types that are frequently encountered by application developers.
 
 ```go
 // GetSignBytes Implements Msg.
@@ -75,7 +75,7 @@ func (msg MsgSetName) GetSignBytes() []byte {
 }
 ```
 
-`GetSignBytes` defines how the `Msg` gets encoded for signing.  In most cases this means marshal to sorted JSON. The output should not be modified.
+`GetSignBytes` defines how the `Msg` gets encoded for signing. In most cases this means marshal to sorted JSON. The output should not be modified.
 
 ```go
 // GetSigners Implements Msg.
@@ -84,7 +84,7 @@ func (msg MsgSetName) GetSigners() []sdk.AccAddress {
 }
 ```
 
-`GetSigners` defines whose signature is required on a `Tx` in order for it to be valid.  In this case, for example, the `MsgSetName` requires that the `Owner` sign the transaction when trying to reset what the name points to.
+`GetSigners` defines whose signature is required on a `Tx` in order for it to be valid.  In this case, for example, the `MsgSetName` requires that the `Owner` signs the transaction when trying to reset what the name points to.
 
 ## `Handler`
 
@@ -116,7 +116,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 }
 ```
 
-`NewHandler` is essentially a sub-router that directs messages coming into this module to the proper handler for the message. At the moment, there is only one `Msg`/`Handler`.
+`NewHandler` is essentially a sub-router that directs messages coming into this module to the proper handler. At the moment, there is only one `Msg`/`Handler`.
 
 Now, you need to define the actual logic for handling the `MsgSetName` message in `handleMsgSetName`.:
 

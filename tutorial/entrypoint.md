@@ -1,11 +1,12 @@
 # Entrypoints
 
-In golang the convention is to place files that compile to a binary in the `./cmd` folder of a project. For your application there are 2 binaries that we want to create:
+In golang the convention is to place files that compile to a binary in the `./cmd` folder of a project. For your application there are 2 binaries that you want to create:
 
 - `nameserviced`: This binary is similar to `bitcoind` or other cryptocurrency daemons in that it maintains p2p connections, propagates transactions, handles local storage and provides an RPC interface to interact with the network. In this case, Tendermint is used for networking and transaction ordering.
 - `nameservicecli`: This binary provides commands that allow users to interact with your application.
 
 To get started create two files in your project directory that will instantiate these binaries:
+
 - `./cmd/nameserviced/main.go`
 - `./cmd/nameservicecli/main.go`
 
@@ -232,8 +233,8 @@ func main() {
 }
 ```
 
-Notes on the above code:
-- The code above combines the CLI commands from:
+Note:
+- The code combines the CLI commands from:
 	1. Tendermint
 	2. Cosmos-SDK
 	3. Your Nameservice module

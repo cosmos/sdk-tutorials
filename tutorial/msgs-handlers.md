@@ -35,8 +35,6 @@ type Msg interface {
 
 `Handlers` define the action that needs to be taken (which stores need to get updated, how, and under what conditions) when a given `Msg` is received.
 
-In this application you have two types of `Msgs` that users can send to interact with the application state: [`SetName`](./set-name.md) and [`BuyName`](./buy-name.md). They will each have an associated `Handler`.
-
-This completes the core logic of your `nameservice`. The next sections will focus on the rest of the core module. After that, focus shifts on building your app using the new module.
+In this module you have two types of `Msgs` that users can send to interact with the application state: [`SetName`](./set-name.md) and [`BuyName`](./buy-name.md). They will each have an associated `Handler`.
 
 ### Now that you have a better understanding of `Msgs` and `Handlers`, you can start building your first message: [`SetName`](./set-name.md).

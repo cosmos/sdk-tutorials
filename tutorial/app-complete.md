@@ -22,7 +22,7 @@ import (
 	dbm "github.com/tendermint/tendermint/libs/db"
 )
 ```
-Next you need to add the store's key as well as the keepers in your `nameserviceApp` struct, and update the constructor accordingly
+Next you need to add the stores' keys as well as the `Keepers` in your `nameserviceApp` struct, and update the constructor accordingly
 
 ```go
 const (

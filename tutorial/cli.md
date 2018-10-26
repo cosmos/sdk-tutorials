@@ -71,9 +71,9 @@ Notes on the above code:
   * The first part of the path is used to differentiate the types of queries possible to SDK applications: `custom` is for `Queriers`.
   * The second piece (`nameservice`) is the name of the module to route the query to.
   * Finally there is the specific querier in the module that will be called.
-  * In these examples the fourth piece is the query. This works because the query parameter is a simple string. To enable more complex query inputs you need to use the second argument of the [`.QueryWithData()`](https://godoc.org/github.com/cosmos/cosmos-sdk/client/context#CLIContext.QueryWithData) function to pass in `data`. For an example of this see the [queriers in the Staking module](https://github.com/cosmos/cosmos-sdk/blob/develop/x/stake/querier/queryable.go#L103).
+  * In this example the fourth piece is the query. This works because the query parameter is a simple string. To enable more complex query inputs you need to use the second argument of the [`.QueryWithData()`](https://godoc.org/github.com/cosmos/cosmos-sdk/client/context#CLIContext.QueryWithData) function to pass in `data`. For an example of this see the [queriers in the Staking module](https://github.com/cosmos/cosmos-sdk/blob/develop/x/stake/querier/queryable.go#L103).
 
-Once the query interactions are defined, its time to move on to the transaction generation in `tx.go`:
+Now that the query interactions are defined, it is time to move on to transaction generation in `tx.go`:
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-application-tutorial/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{{ .Username }}/{{ .Project.Repo }}/x/nameservice`).
 
