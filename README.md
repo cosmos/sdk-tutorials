@@ -12,7 +12,7 @@ All of the final source code for this tutorial project is in this directory (and
 - A working [`$GOPATH`](https://github.com/golang/go/wiki/SettingGOPATH)
 - Desire to create your own blockchain!
 
-## Tutorial Parts
+## Tutorial 
 
 Through the course of this tutorial you will create the following files that make up your application:
 
@@ -47,6 +47,8 @@ git init
 ```
 
 Then, just follow along! The first step describes the design of your application. If you want to jump directly to the coding section, you can start with the [second step](./tutorial/keeper.md)
+
+### Tutorial parts
 
 1. [Design](./tutorial/app-design.md) the application.
 2. Begin the implementation of your application in [`./app.go`](./tutorial/app-init.md).
