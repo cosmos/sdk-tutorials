@@ -6,13 +6,13 @@ By the end of this tutorial you will have a functional `nameservice` application
 
 All of the final source code for this tutorial project is in this directory (and compiles). However, it is best to follow along manually and try building the project yourself!
 
-### Requirements:
+## Requirements
 
 - [`golang` >1.11](https://golang.org/doc/install) installed
 - A working [`$GOPATH`](https://github.com/golang/go/wiki/SettingGOPATH)
 - Desire to create your own blockchain!
 
-### Tutorial Parts:
+## Tutorial Parts
 
 Through the course of this tutorial you will create the following files that make up your application:
 
@@ -62,7 +62,7 @@ Then, just follow along! The first step describes the design of your application
 9. Setup [dependency management using `dep`](./tutorial/dep.md).
 
 
-### Building the `nameservice` application
+## Building the `nameservice` application
 
 If you want to build the `nameservice` application in this repo to see the functionalities, first you need to install `dep`.
 
@@ -83,7 +83,7 @@ nameserviced help
 nameservicecli help
 ```
 
-### Running the live network and using the commands
+## Running the live network and using the commands
 
 To initialize configuration and a `genesis.json` file for your application and an account for the transactions start by running:
 
