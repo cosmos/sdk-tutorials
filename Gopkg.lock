@@ -49,8 +49,7 @@
   revision = "d4cc87b860166d00d6b5b9e0d3b3d71d6088d4d4"
 
 [[projects]]
-  branch = "develop"
-  digest = "1:2698bf8076e5b8c65f8f1d74f500f942b320a9c8d6dc887902d6ad6856fbdce9"
+  digest = "1:28e3810b11adeeee4c28e9d539552806931872619aff0c4644b9c87cc0b7afd9"
   name = "github.com/cosmos/cosmos-sdk"
   packages = [
     "baseapp",
@@ -66,6 +65,7 @@
     "crypto",
     "crypto/keys",
     "crypto/keys/hd",
+    "crypto/keys/keyerror",
     "crypto/keys/mintkey",
     "server",
     "server/config",
@@ -95,7 +95,8 @@
     "x/stake/types",
   ]
   pruneopts = "UT"
-  revision = "5aae4740db678ad13627d16722b11d46835f91f4"
+  revision = "7c5c14f289bef310bdfac2331d30ab0310c56597"
+  version = "v0.25.0"
 
 [[projects]]
   digest = "1:e8a3550c8786316675ff54ad6f09d265d129c9d986919af7f541afba50d87ce2"
@@ -103,18 +104,6 @@
   packages = ["."]
   pruneopts = "UT"
   revision = "52158e4697b87de16ed390e1bdaf813e581008fa"
-
-[[projects]]
-  branch = "master"
-  digest = "1:839d5dd703b53f5dc34d74fefadb967fba8bfad30a0a2046b1d45ba9b349af18"
-  name = "github.com/cosmos/sdk-application-tutorial"
-  packages = [
-    ".",
-    "x/nameservice",
-    "x/nameservice/client/cli",
-  ]
-  pruneopts = "UT"
-  revision = "9363c6c7348f2dba45db8c7264f6bf7e2fdf76dc"
 
 [[projects]]
   digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
@@ -260,14 +249,6 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:046a2c78fa710c15664c5187f6b1a33b2af0f45c966bf9ad62cad83f8e8281b4"
-  name = "github.com/jackzampolin/sdk-nameservice-example"
-  packages = ["x/nameservice"]
-  pruneopts = "UT"
-  revision = "bf4f97838bf997a231d4c91a4f7e63ad080dba17"
-
-[[projects]]
-  branch = "master"
   digest = "1:39b27d1381a30421f9813967a5866fba35dc1d4df43a6eefe3b7a5444cb07214"
   name = "github.com/jmhodges/levigo"
   packages = ["."]
@@ -408,12 +389,12 @@
   version = "v1.1.2"
 
 [[projects]]
-  digest = "1:516e71bed754268937f57d4ecb190e01958452336fa73dbac880894164e91c1f"
+  digest = "1:08d65904057412fc0270fc4812a1c90c594186819243160dc779a402d4b6d0bc"
   name = "github.com/spf13/cast"
   packages = ["."]
   pruneopts = "UT"
-  revision = "8965335b8c7107321228e3e3702cab9832751bac"
-  version = "v1.2.0"
+  revision = "8c9545af88b134710ab1cd196795e7f2388358d7"
+  version = "v1.3.0"
 
 [[projects]]
   digest = "1:7ffc0983035bc7e297da3688d9fe19d60a420e9c38bef23f845c53788ed6a05e"
@@ -593,6 +574,7 @@
   version = "v0.1.0"
 
 [[projects]]
+  branch = "master"
   digest = "1:aaff04fa01d9b824fde6799759cc597b3ac3671b9ad31924c28b6557d0ee5284"
   name = "golang.org/x/crypto"
   packages = [
@@ -634,14 +616,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:d1da39c9bac61327dbef1d8ef9f210425e99fd2924b6fb5f0bc587a193353637"
+  digest = "1:3f6e1af4cc2c512f2001d5870dc317ab93e68baf0f005d558d4c957c125602d9"
   name = "golang.org/x/sys"
   packages = [
     "cpu",
     "unix",
   ]
   pruneopts = "UT"
-  revision = "8a28ead16f52c8aaeffbf79239b251dfdf6c4f96"
+  revision = "9b800f95dbbc54abff0acf7ee32d88ba4e328c89"
 
 [[projects]]
   digest = "1:a2ab62866c75542dd18d2b069fec854577a20211d7c0ea6ae746072a1dccdd18"
@@ -672,7 +654,7 @@
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
   pruneopts = "UT"
-  revision = "94acd270e44e65579b9ee3cdab25034d33fed608"
+  revision = "b69ba1387ce2108ac9bc8e8e5e5a46e7d5c72313"
 
 [[projects]]
   digest = "1:2dab32a43451e320e49608ff4542fdfc653c95dcc35d0065ec9c6c3dd540ed74"
@@ -735,9 +717,6 @@
     "github.com/cosmos/cosmos-sdk/x/auth/client/cli",
     "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder",
     "github.com/cosmos/cosmos-sdk/x/bank",
-    "github.com/cosmos/sdk-application-tutorial",
-    "github.com/cosmos/sdk-application-tutorial/x/nameservice",
-    "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/cli",
     "github.com/spf13/cobra",
     "github.com/spf13/viper",
     "github.com/tendermint/tendermint/abci/types",

@@ -1,6 +1,6 @@
 # Gopkg.toml example
 #
-# Refer to https://github.com/golang/dep/blob/master/docs/Gopkg.toml.md
+# Refer to https://golang.github.io/dep/docs/Gopkg.toml.html
 # for detailed Gopkg.toml documentation.
 #
 # required = ["github.com/user/thing/cmd/thing"]
@@ -9,6 +9,11 @@
 # [[constraint]]
 #   name = "github.com/user/project"
 #   version = "1.0.0"
+#
+# [[constraint]]
+#   name = "github.com/user/project2"
+#   branch = "dev"
+#   source = "github.com/myfork/project2"
 #
 # [[override]]
 #   name = "github.com/x/y"
@@ -21,7 +26,7 @@
 
 [[constraint]]
   name = "github.com/cosmos/cosmos-sdk"
-  branch = "develop"
+  version = "v0.25.0"
 
 [[override]]
   name = "github.com/golang/protobuf"

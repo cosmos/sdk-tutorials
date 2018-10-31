@@ -74,7 +74,7 @@ Once that has finished running replace the contents of the `./Gopkg.toml` file w
 
 [[constraint]]
   name = "github.com/cosmos/cosmos-sdk"
-  branch = "develop"
+  version = "branch"
 
 [[override]]
   name = "github.com/golang/protobuf"
