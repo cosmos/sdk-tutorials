@@ -12,13 +12,14 @@ All of the final source code for this tutorial project is in this directory (and
 - A working [`$GOPATH`](https://github.com/golang/go/wiki/SettingGOPATH)
 - Desire to create your own blockchain!
 
-## Tutorial 
+## Tutorial
 
 Through the course of this tutorial you will create the following files that make up your application:
 
 ```bash
 ./nameservice
 ├── Gopkg.toml
+├── Makefile
 ├── app.go
 ├── cmd
 │   ├── nameservicecli
@@ -99,7 +100,7 @@ nameserviced init
 nameservicecli keys add jack
 ```
 
-Next open the generated file `~/.nameserviced/config/genesis.json` in a text editor and copy the address output from the `nameservicecli keys add` command in the `"address"` field under `"accounts"`. This will give you control over a wallet with some coins when you start your local network. 
+Next open the generated file `~/.nameserviced/config/genesis.json` in a text editor and copy the address output from the `nameservicecli keys add` command in the `"address"` field under `"accounts"`. This will give you control over a wallet with some coins when you start your local network.
 
 You can now start `nameserviced` by calling `nameserviced start`. You will see logs begin streaming that represent blocks being produced.
 
