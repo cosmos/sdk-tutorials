@@ -49,13 +49,13 @@ type nameserviceApp struct {
 
 func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 
-    // First define the top level codec that will be shared by the different modules
-    cdc := MakeCodec()
+  // First define the top level codec that will be shared by the different modules
+  cdc := MakeCodec()
 
-    // BaseApp handles interactions with Tendermint through the ABCI protocol
-    bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
+  // BaseApp handles interactions with Tendermint through the ABCI protocol
+  bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
 
-    // Here you initialize your application with the store keys it requires
+  // Here you initialize your application with the store keys it requires
 	var app = &nameserviceApp{
 		BaseApp: bApp,
 		cdc:     cdc,
@@ -68,7 +68,7 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 		keyFeeCollection: sdk.NewKVStoreKey("fee_collection"),
 	}
 
-    return app 
+  return app
 }
 ```
 
@@ -133,7 +133,7 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 	app.SetAnteHandler(auth.NewAnteHandler(app.accountKeeper, app.feeCollectionKeeper))
 
 	// The app.Router is the main transaction router where each module registers it's routes
-	// Here we register the bank and nameservice routes
+	// Register the bank and nameservice routes here
 	app.Router().
 		AddRoute("bank", bank.NewHandler(app.bankKeeper)).
 		AddRoute("nameservice", nameservice.NewHandler(app.nsKeeper))

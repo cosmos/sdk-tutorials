@@ -62,7 +62,7 @@ func (msg MsgSetName) ValidateBasic() sdk.Error {
 }
 ```
 
-`ValidateBasic` is used to provide some basic **stateless** checks on the validity of the `Msg`.  In this case, we check that none of the attributes are empty. Note the use of the `sdk.Error` types here. The SDK provides a set of error types that are frequently encountered by application developers.
+`ValidateBasic` is used to provide some basic **stateless** checks on the validity of the `Msg`.  In this case, check that none of the attributes are empty. Note the use of the `sdk.Error` types here. The SDK provides a set of error types that are frequently encountered by application developers.
 
 ```go
 // GetSignBytes Implements Msg.
@@ -97,7 +97,6 @@ package nameservice
 
 import (
 	"fmt"
-	"reflect"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

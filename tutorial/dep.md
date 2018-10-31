@@ -34,16 +34,7 @@ install:
 
 ## `Gopkg.toml`
 
-Golang has a few dependency management tools. In this tutorial you will be using [`dep`](https://golang.github.io/dep/). `dep` uses a `Gopkg.toml` file in the root of the repository to define what dependencies the application needs. Cosmos SDK apps currently depend on specific versions of some libraries. The below manifest contains all the necessary versions. First, to initialize `dep`, run the following command (this may take a few minutes):
-
-
-```bash
-make get_tools
-dep init -v
-```
-> _*NOTE*_: If you are starting from scratch in your own repo, before running `dep init -v` BE SURE YOU HAVE REPLACED THE IMPORT FOR `github.com/cosmos/sdk-application-tutorial` WITH THE IMPORT FOR YOUR REPO (probably `github.com/{{ .Username }}/{{ .Project.Repo }}`). If you don't you will need to remove the `./vendor` directory (`rm -rf ./vendor`) as well as the `Gopkg.toml` and `Gopkg.lock` files (`rm Gopkg.*`) before running `dep init -v` again.
-
-Once that has finished running replace the contents of the `./Gopkg.toml` file with the `constraints` and `overrides` below:
+Golang has a few dependency management tools. In this tutorial you will be using [`dep`](https://golang.github.io/dep/). `dep` uses a `Gopkg.toml` file in the root of the repository to define what dependencies the application needs. Cosmos SDK apps currently depend on specific versions of some libraries. The below manifest contains all the necessary versions. To get started replace the contents of the `./Gopkg.toml` file with the `constraints` and `overrides` below:
 
 ```toml
 # Gopkg.toml example
@@ -74,7 +65,7 @@ Once that has finished running replace the contents of the `./Gopkg.toml` file w
 
 [[constraint]]
   name = "github.com/cosmos/cosmos-sdk"
-  version = "branch"
+  version = "v0.25.0"
 
 [[override]]
   name = "github.com/golang/protobuf"
@@ -108,6 +99,15 @@ Once that has finished running replace the contents of the `./Gopkg.toml` file w
 [prune]
   go-tests = true
   unused-packages = true
+```
+
+> _*NOTE*_: If you are starting from scratch in your own repo, before running `dep ensure -v` BE SURE YOU HAVE REPLACED THE IMPORT FOR `github.com/cosmos/sdk-application-tutorial` WITH THE IMPORT FOR YOUR REPO (probably `github.com/{{ .Username }}/{{ .Project.Repo }}`). If you don't you will need to remove the `./vendor` directory (`rm -rf ./vendor`) as well as the `Gopkg.lock` files (`rm Gopkg.lock`) before running `dep ensure -v` again.
+
+Now that this bit of house keeping is done, its time to install dep, as well as your dependencies:
+
+```bash
+make get_tools
+dep init -v
 ```
 
 ## Building the app

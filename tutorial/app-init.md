@@ -1,31 +1,31 @@
 # Start your application
 
-Get started by creating a new file: `./app.go`. This file is the heart of your deterministic state-machine. 
+Get started by creating a new file: `./app.go`. This file is the heart of your deterministic state-machine.
 
 In `app.go`, you define what the application does when it receives a transaction. But first, it needs to be able to receive transactions in the correct order. This is the role of the [Tendermint consensus engine](https://github.com/tendermint/tendermint).
 
-Start by importing the necessary Tendermint dependencies:
+Start by importing the necessary dependencies:
 
 ```go
 package app
 
 import (
-    "github.com/tendermint/tendermint/libs/log"
+  "github.com/tendermint/tendermint/libs/log"
+	"github.com/cosmos/cosmos-sdk/x/auth"
 
-    abci "github.com/tendermint/tendermint/abci/types"
-    cmn "github.com/tendermint/tendermint/libs/common"
-    dbm "github.com/tendermint/tendermint/libs/db"
+	bam "github.com/cosmos/cosmos-sdk/baseapp"
+	dbm "github.com/tendermint/tendermint/libs/db"
 )
 ```
 
 Links to godocs for each module and package imported:
 
 - [`log`](https://godoc.org/github.com/tendermint/tendermint/libs/log): Tendermint's logger.
-- [`abci`](https://godoc.org/github.com/tendermint/tendermint/abci/types): Similar to the `sdk/types` module, but for Tendermint's ABCI. 
-- [`cmn`](https://godoc.org/github.com/tendermint/tendermint/libs/common): Code for working with Tendermint applications.
+- [`auth`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth): The `auth` module for the Comsos SDK.
 - [`dbm`](https://godoc.org/github.com/tendermint/tendermint/libs/db): Code for working with the Tendermint database.
+- [`baseapp`](https://godoc.org/github.com/cosmos/cosmos-sdk/baseapp): See below
 
-Tendermint passes transactions to the application through an interface called the [ABCI](https://github.com/tendermint/tendermint/tree/master/abci). If we take a look at the architecture of your blockchain node, it looks like the following:
+A couple of the packages here are `tendermint` packages. Tendermint passes transactions from the network to the application through an interface called the [ABCI](https://github.com/tendermint/tendermint/tree/master/abci). If you look at the architecture of the blockchain node you are building, it looks like the following:
 
 ```
 +---------------------+
@@ -45,38 +45,20 @@ Tendermint passes transactions to the application through an interface called th
 +---------------------+
 ```
 
-Fortunately, you do not have to implement the ABCI. The Cosmos SDK provides a boilerplate implementation of it in the form of [`baseapp`](https://godoc.org/github.com/cosmos/cosmos-sdk/baseapp).
+Fortunately, you do not have to implement the ABCI interface. The Cosmos SDK provides a boilerplate implementation of it in the form of [`baseapp`](https://godoc.org/github.com/cosmos/cosmos-sdk/baseapp).
 
 Here is what `baseapp` does:
 - Decode transactions received from the Tendermint consensus engine.
 - Extract messages from transactions and do basic sanity checks.
-- Route the message to the appropriate module so that it can be processed. Note that `baseapp` has no knowledge of the specific modules you want to use. It is your job to declare such modules in `app.go`, as we will see later. `baseapp` only implements the core routing logic that can be applied to any module. 
+- Route the message to the appropriate module so that it can be processed. Note that `baseapp` has no knowledge of the specific modules you want to use. It is your job to declare such modules in `app.go`, as you will see later in this tutorial. `baseapp` only implements the core routing logic that can be applied to any module.
 - Commit if the ABCI message is [`DeliverTx`](https://tendermint.com/docs/spec/abci/abci.html#delivertx) ([`CheckTx`](https://tendermint.com/docs/spec/abci/abci.html#checktx) changes are not persistent).
-- Help set up [`Beginblock`](https://tendermint.com/docs/spec/abci/abci.html#beginblock) and [`Endblock`](https://tendermint.com/docs/spec/abci/abci.html#endblock), two messages that enable you to define logic executed at the beginning and end of each block. In practice, each module implements its own `BeginBlock` and `EndBlock` sub-logic, and the role of the app is to aggregate everything together (*Note: we won't be using these messages in our application*).
+- Help set up [`Beginblock`](https://tendermint.com/docs/spec/abci/abci.html#beginblock) and [`Endblock`](https://tendermint.com/docs/spec/abci/abci.html#endblock), two messages that enable you to define logic executed at the beginning and end of each block. In practice, each module implements its own `BeginBlock` and `EndBlock` sub-logic, and the role of the app is to aggregate everything together (*Note: you won't be using these messages in your application*).
 - Help initialise your state.
 - Help set up queries.
 
-Go ahead and import `baseapp` in your application. Also import the SDK's [`codec`](https://godoc.org/github.com/cosmos/cosmos-sdk/codec), which will be useful for encoding and decoding structs in your application's modules. 
-
->*NOTE*: In the Cosmos SDK, [go-amino](https://github.com/tendermint/go-amino) is used for encoding and decoding. It is similar to Protobuf3.
-
-```go
-package app
-
-import (
-    "github.com/tendermint/tendermint/libs/log"
-    "github.com/cosmos/cosmos-sdk/codec"
-
-    bam "github.com/cosmos/cosmos-sdk/baseapp"
-    abci "github.com/tendermint/tendermint/abci/types"
-    cmn "github.com/tendermint/tendermint/libs/common"
-    dbm "github.com/tendermint/tendermint/libs/db"
-)
-```
-
 Now you need to create a new custom type `nameserviceApp` for your application. This type will embed `baseapp` (embedding in Go similar to inheritance in other languages), meaning it will have access to all of `baseapp`'s methods.
 
-```go 
+```go
 const (
     appName = "nameservice"
 )
@@ -102,13 +84,13 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
         cdc:     cdc,
     }
 
-    return app 
+    return app
 }
 ```
 
-Great! You now have the basis of your application. However, it still lacks its main functionalities.
+Great! You now have the skeleton of your application; however, it still lacks functionality.
 
-`baseapp` has no knowledge of the routes you want to use in your application. The primary role of your application is to define these routes. Another role is to define the initial state. Both these things require that you add modules to your application.
+`baseapp` has no knowledge of the routes or user interactions you want to use in your application. The primary role of your application is to define these routes. Another role is to define the initial state. Both these things require that you add modules to your application.
 
 As you have seen in the [application design](./app-design.md) section, you need three modules for your nameservice: `auth`, `bank` and `nameservice`. The first two already exist, but not the last! The `nameservice` module will define the bulk of your state machine. The next step is to build it.
 
