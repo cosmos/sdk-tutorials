@@ -49,7 +49,7 @@
   revision = "d4cc87b860166d00d6b5b9e0d3b3d71d6088d4d4"
 
 [[projects]]
-  digest = "1:28e3810b11adeeee4c28e9d539552806931872619aff0c4644b9c87cc0b7afd9"
+  digest = "1:bdda1984e8f7e4c2ec7fcc57bb5a4045cfdddba71ea07a768c726b026f42f9fe"
   name = "github.com/cosmos/cosmos-sdk"
   packages = [
     "baseapp",
@@ -76,6 +76,8 @@
     "x/auth/client/cli",
     "x/auth/client/txbuilder",
     "x/bank",
+    "x/bank/client",
+    "x/bank/client/cli",
     "x/distribution",
     "x/distribution/keeper",
     "x/distribution/tags",
@@ -222,12 +224,13 @@
   version = "v1.2.0"
 
 [[projects]]
-  digest = "1:ea40c24cdbacd054a6ae9de03e62c5f252479b96c716375aace5c120d68647c8"
+  digest = "1:c0d19ab64b32ce9fe5cf4ddceba78d5bc9807f0016db6b1183599da3dcc24d10"
   name = "github.com/hashicorp/hcl"
   packages = [
     ".",
     "hcl/ast",
     "hcl/parser",
+    "hcl/printer",
     "hcl/scanner",
     "hcl/strconv",
     "hcl/token",
@@ -441,7 +444,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:59483b8e8183f10ab21a85ba1f4cbb4a2335d48891801f79ed7b9499f44d383c"
+  digest = "1:9ff9e1808adfc43f788f1c1e9fd2660c285b522243da985a4c043ec6f2a2d736"
   name = "github.com/syndtr/goleveldb"
   packages = [
     "leveldb",
@@ -458,7 +461,7 @@
     "leveldb/util",
   ]
   pruneopts = "UT"
-  revision = "6b91fda63f2e36186f1c9d0e48578defb69c5d43"
+  revision = "f9080354173f192dfc8821931eacf9cfd6819253"
 
 [[projects]]
   digest = "1:605b6546f3f43745695298ec2d342d3e952b6d91cdf9f349bea9315f677d759f"
@@ -574,7 +577,6 @@
   version = "v0.1.0"
 
 [[projects]]
-  branch = "master"
   digest = "1:aaff04fa01d9b824fde6799759cc597b3ac3671b9ad31924c28b6557d0ee5284"
   name = "golang.org/x/crypto"
   packages = [
@@ -616,14 +618,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:3f6e1af4cc2c512f2001d5870dc317ab93e68baf0f005d558d4c957c125602d9"
+  digest = "1:e9609f7e36a3fecb7dc9e3a15f9881011f9d8c42f94c9d5da231eb0c07826dc8"
   name = "golang.org/x/sys"
   packages = [
     "cpu",
     "unix",
   ]
   pruneopts = "UT"
-  revision = "9b800f95dbbc54abff0acf7ee32d88ba4e328c89"
+  revision = "66b7b1311ac80bbafcd2daeef9a5e6e2cd1e2399"
 
 [[projects]]
   digest = "1:a2ab62866c75542dd18d2b069fec854577a20211d7c0ea6ae746072a1dccdd18"
@@ -654,7 +656,7 @@
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
   pruneopts = "UT"
-  revision = "b69ba1387ce2108ac9bc8e8e5e5a46e7d5c72313"
+  revision = "5fc9ac5403620be16bcdb0c8e7644b1178472c3b"
 
 [[projects]]
   digest = "1:2dab32a43451e320e49608ff4542fdfc653c95dcc35d0065ec9c6c3dd540ed74"
@@ -717,6 +719,7 @@
     "github.com/cosmos/cosmos-sdk/x/auth/client/cli",
     "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder",
     "github.com/cosmos/cosmos-sdk/x/bank",
+    "github.com/cosmos/cosmos-sdk/x/bank/client/cli",
     "github.com/spf13/cobra",
     "github.com/spf13/viper",
     "github.com/tendermint/tendermint/abci/types",

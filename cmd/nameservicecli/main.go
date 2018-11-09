@@ -11,6 +11,7 @@ import (
 	"github.com/tendermint/tendermint/libs/cli"
 
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
+	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
 	app "github.com/cosmos/sdk-application-tutorial"
 	nameservicecmd "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/cli"
 )
@@ -56,6 +57,7 @@ func main() {
 	}
 
 	txCmd.AddCommand(client.PostCommands(
+		bankcmd.SendTxCmd(cdc),
 		nameservicecmd.GetCmdBuyName(cdc),
 		nameservicecmd.GetCmdSetName(cdc),
 	)...)
