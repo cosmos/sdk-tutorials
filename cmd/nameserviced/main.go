@@ -90,7 +90,6 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec, appInit server.AppInit) *cob
 			if err != nil {
 				return err
 			}
-
 			appState, err := appInit.AppGenState(cdc, []json.RawMessage{genTx})
 			if err != nil {
 				return err
