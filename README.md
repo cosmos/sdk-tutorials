@@ -154,4 +154,4 @@ nameservicecli tx buy-name jack.id 10mycoin \
 
 ```
 
-### [Click here](./tutorial/app-design.md) to get started with the tutorial!
+## [Click here](./tutorial/app-design.md) to get started with the tutorial!
