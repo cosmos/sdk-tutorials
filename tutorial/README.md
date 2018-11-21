@@ -47,21 +47,21 @@ cd $GOPATH/src/github.com/{{ .Username }}/nameservice
 git init
 ```
 
-Then, just follow along! The first step describes the design of your application. If you want to jump directly to the coding section, you can start with the [second step](./tutorial/keeper.md)
+Then, just follow along! The first step describes the design of your application. If you want to jump directly to the coding section, you can start with the [second step](./keeper.md)
 
 ### Tutorial parts
 
-1. [Design](./tutorial/app-design.md) the application.
-2. Begin the implementation of your application in [`./app.go`](./tutorial/app-init.md).
-2. Start building your module with the [`Keeper`](./tutorial/keeper.md).
-3. Define state transitions through [`Msgs` and `Handlers`](./tutorial/msgs-handlers.md).
-    * [`SetName`](./tutorial/set-name.md)
-    * [`BuyName`](./tutorial/buy-name.md)
-4. Make views on your state machine with [`Queriers`](./tutorial/queriers.md).
-5. Register your types in the encoding format using [`sdk.Codec`](./tutorial/codec.md).
-6. Create [CLI interactions for your module](./tutorial/cli.md).
-7. Import your module and [finish building your application](./tutorial/app-complete.md)!
-8. Create the [`nameserviced` and `nameservicecli` entry points](./tutorial/entrypoint.md) to your application.
-9. Setup [dependency management using `dep`](./tutorial/dep.md).
+1. [Design](./app-design.md) the application.
+2. Begin the implementation of your application in [`./app.go`](./app-init.md).
+2. Start building your module with the [`Keeper`](./keeper.md).
+3. Define state transitions through [`Msgs` and `Handlers`](./msgs-handlers.md).
+    * [`SetName`](./set-name.md)
+    * [`BuyName`](./buy-name.md)
+4. Make views on your state machine with [`Queriers`](./queriers.md).
+5. Register your types in the encoding format using [`sdk.Codec`](./codec.md).
+6. Create [CLI interactions for your module](./cli.md).
+7. Import your module and [finish building your application](./app-complete.md)!
+8. Create the [`nameserviced` and `nameservicecli` entry points](./entrypoint.md) to your application.
+9. Setup [dependency management using `dep`](./dep.md).
 
-## [Click here](./tutorial/app-design.md) to get started with the tutorial!
+## [Click here](./app-design.md) to get started with the tutorial!
