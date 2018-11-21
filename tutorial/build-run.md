@@ -1,3 +1,5 @@
+# Building and running the application
+
 ## Building the `nameservice` application
 
 If you want to build the `nameservice` application in this repo to see the functionalities, first you need to install `dep`.
