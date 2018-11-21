@@ -89,4 +89,4 @@ nameservicecli tx buy-name jack.id 10mycoin \
 
 ```
 
-### This tutorial is now over! Click [here](./README.md) to go back at the beginning.
+### This tutorial is now over! [Click here](./README.md) to go back at the beginning.
