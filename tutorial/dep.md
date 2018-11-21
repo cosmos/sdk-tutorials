@@ -124,4 +124,4 @@ nameserviced help
 nameservicecli help
 ```
 
-### Congratulations, you have finished your nameservice application! Try [running and interacting with it](../README.md#running-the-live-network-and-using-the-commands)!
+### Congratulations, you have finished your nameservice application! Try [running and interacting with it](./build-run.md)!
