@@ -20,7 +20,7 @@ type MsgSetName struct {
 	Owner  sdk.AccAddress
 }
 
-// NewSetNameMsg is a constructor function for MsgSetName
+// NewMsgSetName is a constructor function for MsgSetName
 func NewMsgSetName(name string, value string, owner sdk.AccAddress) MsgSetName {
 	return MsgSetName{
 		NameID: name,
