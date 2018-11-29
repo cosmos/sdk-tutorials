@@ -2,7 +2,7 @@
 
 ## `Msg`
 
-The naming convention for SDK `Msgs` is `Msg{{ .Action }}`. The first action to implement is `SetName`, a `Msg` that allows owner of an address to set the result of resolving a name. Start by defining `MsgSetName` in a new file called `./x/nameservice/msgs.go`:
+The naming convention for SDK `Msgs` is `Msg{ .Action }`. The first action to implement is `SetName`, a `Msg` that allows owner of an address to set the result of resolving a name. Start by defining `MsgSetName` in a new file called `./x/nameservice/msgs.go`:
 
 ```go
 package nameservice
@@ -119,7 +119,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 
 Now, you need to define the actual logic for handling the `MsgSetName` message in `handleMsgSetName`.:
 
-> _*NOTE*_: The naming convention for handler names in the SDK is `handleMsg{{ .Action }}`
+> _*NOTE*_: The naming convention for handler names in the SDK is `handleMsg{ .Action }`
 
 ```go
 // Handle MsgSetName

@@ -42,8 +42,8 @@ Through the course of this tutorial you will create the following files that mak
 Start by creating a new git repository:
 
 ```bash
-mkdir -p $GOPATH/src/github.com/{{ .Username }}/nameservice
-cd $GOPATH/src/github.com/{{ .Username }}/nameservice
+mkdir -p $GOPATH/src/github.com/{ .Username }/nameservice
+cd $GOPATH/src/github.com/{ .Username }/nameservice
 git init
 ```
 

@@ -101,7 +101,7 @@ Golang has a few dependency management tools. In this tutorial you will be using
   unused-packages = true
 ```
 
-> _*NOTE*_: If you are starting from scratch in your own repo, before running `dep ensure -v` BE SURE YOU HAVE REPLACED THE IMPORT FOR `github.com/cosmos/sdk-application-tutorial` WITH THE IMPORT FOR YOUR REPO (probably `github.com/{{ .Username }}/{{ .Project.Repo }}`). If you don't you will need to remove the `./vendor` directory (`rm -rf ./vendor`) as well as the `Gopkg.lock` files (`rm Gopkg.lock`) before running `dep ensure -v` again.
+> _*NOTE*_: If you are starting from scratch in your own repo, before running `dep ensure -v` BE SURE YOU HAVE REPLACED THE IMPORT FOR `github.com/cosmos/sdk-application-tutorial` WITH THE IMPORT FOR YOUR REPO (probably `github.com/{ .Username }/{ .Project.Repo }`). If you don't you will need to remove the `./vendor` directory (`rm -rf ./vendor`) as well as the `Gopkg.lock` files (`rm Gopkg.lock`) before running `dep ensure -v` again.
 
 Now that this bit of house keeping is done, its time to install dep, as well as your dependencies:
 
