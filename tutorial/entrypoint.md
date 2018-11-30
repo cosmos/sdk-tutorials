@@ -2,17 +2,17 @@
 
 In golang the convention is to place files that compile to a binary in the `./cmd` folder of a project. For your application there are 2 binaries that you want to create:
 
-- `nameserviced`: This binary is similar to `bitcoind` or other cryptocurrency daemons in that it maintains p2p connections, propagates transactions, handles local storage and provides an RPC interface to interact with the network. In this case, Tendermint is used for networking and transaction ordering.
-- `nameservicecli`: This binary provides commands that allow users to interact with your application.
+- `nsd`: This binary is similar to `bitcoind` or other cryptocurrency daemons in that it maintains p2p connections, propagates transactions, handles local storage and provides an RPC interface to interact with the network. In this case, Tendermint is used for networking and transaction ordering.
+- `nscli`: This binary provides commands that allow users to interact with your application.
 
 To get started create two files in your project directory that will instantiate these binaries:
 
-- `./cmd/nameserviced/main.go`
-- `./cmd/nameservicecli/main.go`
+- `./cmd/nsd/main.go`
+- `./cmd/nscli/main.go`
 
-## `nameserviced`
+## `nsd`
 
-Start by adding the following code to `nameserviced/main.go`:
+Start by adding the following code to `nsd/main.go`:
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-application-tutorial`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }`).
 
@@ -42,8 +42,12 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 )
 
-// DefaultNodeHome sets the folder where the applcation data and configuration will be stored
-var DefaultNodeHome = os.ExpandEnv("$HOME/.nameserviced")
+// DefaultNodeHome sets the folder where the application data and configuration will be stored
+var DefaultNodeHome = os.ExpandEnv("$HOME/.nsd")
+
+const (
+	flagOverwrite = "overwrite"
+)
 
 func main() {
 	cobra.EnableCommandSorting = false
@@ -52,15 +56,13 @@ func main() {
 	ctx := server.NewDefaultContext()
 
 	rootCmd := &cobra.Command{
-		Use:               "nameserviced",
+		Use:               "nsd",
 		Short:             "nameservice App Daemon (server)",
 		PersistentPreRunE: server.PersistentPreRunEFn(ctx),
 	}
 
 	rootCmd.AddCommand(InitCmd(ctx, cdc))
-	rootCmd.AddCommand(gaiaInit.AddGenesisAccountCmd(ctx, cdc))
-	rootCmd.AddCommand(gaiaInit.GenTxCmd(ctx, cdc))
-	rootCmd.AddCommand(gaiaInit.CollectGenTxsCmd(ctx, cdc))
+	rootCmd.AddCommand(AddGenesisAccountCmd(ctx, cdc))
 
 	server.AddCommands(ctx, cdc, rootCmd, newApp, exportAppStateAndTMValidators)
 
@@ -83,61 +85,123 @@ func exportAppStateAndTMValidators(logger log.Logger, db dbm.DB, _ io.Writer, _ 
 	return dapp.ExportAppStateAndValidators()
 }
 
-// get cmd to initialize all files for tendermint and application
-// nolint: errcheck
+// InitCmd initializes all files for tendermint and application
 func InitCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "init",
 		Short: "Initialize genesis config, priv-validator file, and p2p-node file",
 		Args:  cobra.NoArgs,
 		RunE: func(_ *cobra.Command, _ []string) error {
-
 			config := ctx.Config
 			config.SetRoot(viper.GetString(cli.HomeFlag))
+
 			chainID := viper.GetString(client.FlagChainID)
 			if chainID == "" {
 				chainID = fmt.Sprintf("test-chain-%v", common.RandStr(6))
 			}
 
-			nodeKey, err := p2p.LoadOrGenNodeKey(config.NodeKeyFile())
+			_, _, err := gaiaInit.InitializeNodeValidatorFiles(config)
 			if err != nil {
 				return err
 			}
-			nodeID := string(nodeKey.ID())
+
+			var appState json.RawMessage
+			genFile := config.GenesisFile()
+
+			if !viper.GetBool(flagOverwrite) && common.FileExists(genFile) {
+				return fmt.Errorf("genesis.json file already exists: %v", genFile)
+			}
+
+			appState, err = codec.MarshalJSONIndent(cdc, app.GenesisState{})
+			if err != nil {
+				return err
+			}
 
 			pk := gaiaInit.ReadOrCreatePrivValidator(config.PrivValidatorFile())
-			genTx, appMessage, validator, err := server.SimpleAppGenTx(cdc, pk)
+			_, _, validator, err := server.SimpleAppGenTx(cdc, pk)
 			if err != nil {
 				return err
 			}
 
-			appState, err := server.SimpleAppGenState(cdc, tmtypes.GenesisDoc{}, []json.RawMessage{genTx})
-			if err != nil {
+			if err = gaiaInit.ExportGenesisFile(genFile, chainID, []tmtypes.GenesisValidator{validator}, appState); err != nil {
 				return err
 			}
 
+			cfg.WriteConfigFile(filepath.Join(config.RootDir, "config", "config.toml"), config)
+
+			fmt.Printf("Initialized nsd configuration and bootstrapping files in %s...\n", viper.GetString(cli.HomeFlag))
+			return nil
+		},
+	}
+
+	cmd.Flags().String(cli.HomeFlag, DefaultNodeHome, "node's home directory")
+	cmd.Flags().BoolP(flagOverwrite, "o", false, "overwrite the genesis.json file")
+	cmd.Flags().String(client.FlagChainID, "", "genesis file chain-id, if left blank will be randomly created")
+	cmd.Flags().String(flagMoniker, "", "set the validator's moniker")
+	cmd.MarkFlagRequired(flagMoniker)
+
+	return cmd
+}
+
+// AddGenesisAccountCmd allows users to add accounts to the genesis file
+func AddGenesisAccountCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "add-genesis-account [address] [coins[,coins]]",
+		Short: "Adds an account to the genesis file",
+		Args:  cobra.ExactArgs(2),
+		Long: strings.TrimSpace(`
+Adds accounts to the genesis file so that you can start a chain with coins in the CLI:flagClientHome
+
+$ nsd add-genesis-account cosmos1tse7r2fadvlrrgau3pa0ss7cqh55wrv6y9alwh 1000STAKE,1000mycoin
+`),
+		RunE: func(_ *cobra.Command, args []string) error {
+			addr, err := sdk.AccAddressFromBech32(args[0])
+			if err != nil {
+				return err
+			}
+			coins, err := sdk.ParseCoins(args[1])
+			if err != nil {
+				return err
+			}
+			coins.Sort()
+
+			var genDoc tmtypes.GenesisDoc
+			config := ctx.Config
+			genFile := config.GenesisFile()
+			if !common.FileExists(genFile) {
+				return fmt.Errorf("%s does not exist, run `gaiad init` first", genFile)
+			}
+			genContents, err := ioutil.ReadFile(genFile)
+			if err != nil {
+			}
+
+			if err = cdc.UnmarshalJSON(genContents, &genDoc); err != nil {
+				return err
+			}
+
+			var appState app.GenesisState
+			if err = cdc.UnmarshalJSON(genDoc.AppState, &appState); err != nil {
+				return err
+			}
+
+			for _, stateAcc := range appState.Accounts {
+				if stateAcc.Address.Equals(addr) {
+					return fmt.Errorf("the application state already contains account %v", addr)
+				}
+			}
+
+			acc := auth.NewBaseAccountWithAddress(addr)
+			acc.Coins = coins
+			appState.Accounts = append(appState.Accounts, &acc)
 			appStateJSON, err := cdc.MarshalJSON(appState)
 			if err != nil {
 				return err
 			}
 
-			toPrint := struct {
-				ChainID    string          `json:"chain_id"`
-				NodeID     string          `json:"node_id"`
-				AppMessage json.RawMessage `json:"app_message"`
-			}{
-				chainID,
-				nodeID,
-				appMessage,
-			}
-			out, err := codec.MarshalJSONIndent(cdc, toPrint)
-			if err != nil {
-				return err
-			}
-			fmt.Fprintf(os.Stderr, "%s\n", string(out))
-			return gaiaInit.ExportGenesisFile(config.GenesisFile(), chainID, []tmtypes.GenesisValidator{validator}, appStateJSON)
+			return gaiaInit.ExportGenesisFile(genFile, genDoc.ChainID, genDoc.Validators, appStateJSON)
 		},
 	}
+	return cmd
 }
 ```
 
@@ -146,11 +210,12 @@ Notes on the above code:
 	1. Tendermint
 	2. Cosmos-SDK
 	3. Your Nameservice module
-- The rest of the code helps the application generate genesis state from the configuration.
+- `InitCmd` allows the app to generate genesis state from the configuration. Dig into the function calls there to learn more about the chain bootstrapping process
+- `AddGenesisAccountCmd` is a convenience for adding accounts to the genesis file, allowing for wallets with coins at chain start
 
-## `nameservicecli`
+## `nscli`
 
-Finish up by building the `nameservicecli` command:
+Finish up by building the `nscli` command:
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-application-tutorial`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }`).
 
@@ -185,7 +250,7 @@ const (
 	storeNS  = "nameservice"
 )
 
-var defaultCLIHome = os.ExpandEnv("$HOME/.nameservicecli")
+var defaultCLIHome = os.ExpandEnv("$HOME/.nscli")
 
 func main() {
 	cobra.EnableCommandSorting = false
@@ -204,7 +269,7 @@ func main() {
 	}
 
 	rootCmd := &cobra.Command{
-		Use:   "nameservicecli",
+		Use:   "nscli",
 		Short: "nameservice Client",
 	}
 

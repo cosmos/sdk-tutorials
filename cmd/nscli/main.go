@@ -28,7 +28,7 @@ const (
 	storeNS  = "nameservice"
 )
 
-var defaultCLIHome = os.ExpandEnv("$HOME/.nameservicecli")
+var defaultCLIHome = os.ExpandEnv("$HOME/.nscli")
 
 func main() {
 	cobra.EnableCommandSorting = false
@@ -47,7 +47,7 @@ func main() {
 	}
 
 	rootCmd := &cobra.Command{
-		Use:   "nameservicecli",
+		Use:   "nscli",
 		Short: "nameservice Client",
 	}
 

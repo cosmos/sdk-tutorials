@@ -28,8 +28,8 @@ update_vendor_deps:
 	@dep ensure -v -update
 
 install:
-	go install ./cmd/nameserviced
-	go install ./cmd/nameservicecli
+	go install ./cmd/nsd
+	go install ./cmd/nscli
 ```
 
 ## `Gopkg.toml`
@@ -120,8 +120,8 @@ dep ensure -update -v
 make install
 
 # Now you should be able to run the following commands:
-nameserviced help
-nameservicecli help
+nsd help
+nscli help
 ```
 
 ### Congratulations, you have finished your nameservice application! Try [running and interacting with it](./build-run.md)!

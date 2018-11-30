@@ -22,9 +22,9 @@ Through the course of this tutorial you will create the following files that mak
 ├── Makefile
 ├── app.go
 ├── cmd
-│   ├── nameservicecli
+│   ├── nscli
 │   │   └── main.go
-│   └── nameserviced
+│   └── nsd
 │       └── main.go
 └── x
     └── nameservice
@@ -62,7 +62,7 @@ Then, just follow along! The first step describes the design of your application
 6. Create [CLI interactions for your module](./cli.md).
 7. Create [HTTP routes for clients to access your nameservice](./rest.md)
 8. Import your module and [finish building your application](./app-complete.md)!
-9. Create the [`nameserviced` and `nameservicecli` entry points](./entrypoint.md) to your application.
+9. Create the [`nsd` and `nscli` entry points](./entrypoint.md) to your application.
 10. Setup [dependency management using `dep`](./dep.md).
 11. [Build and run](./build-run.md) the example.
 
