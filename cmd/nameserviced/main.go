@@ -39,6 +39,9 @@ func main() {
 	}
 
 	rootCmd.AddCommand(InitCmd(ctx, cdc))
+	rootCmd.AddCommand(gaiaInit.AddGenesisAccountCmd(ctx, cdc))
+	rootCmd.AddCommand(gaiaInit.GenTxCmd(ctx, cdc))
+	rootCmd.AddCommand(gaiaInit.CollectGenTxsCmd(ctx, cdc))
 
 	server.AddCommands(ctx, cdc, rootCmd, newApp, exportAppStateAndTMValidators)
 

@@ -60,9 +60,10 @@ Then, just follow along! The first step describes the design of your application
 4. Make views on your state machine with [`Queriers`](./queriers.md).
 5. Register your types in the encoding format using [`sdk.Codec`](./codec.md).
 6. Create [CLI interactions for your module](./cli.md).
-7. Import your module and [finish building your application](./app-complete.md)!
-8. Create the [`nameserviced` and `nameservicecli` entry points](./entrypoint.md) to your application.
-9. Setup [dependency management using `dep`](./dep.md).
-10. [Build and run](./build-run.md) the example.
+7. Create [HTTP routes for clients to access your nameservice](./rest.md)
+8. Import your module and [finish building your application](./app-complete.md)!
+9. Create the [`nameserviced` and `nameservicecli` entry points](./entrypoint.md) to your application.
+10. Setup [dependency management using `dep`](./dep.md).
+11. [Build and run](./build-run.md) the example.
 
 ## [Click here](./app-design.md) to get started with the tutorial!
