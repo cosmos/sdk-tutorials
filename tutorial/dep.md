@@ -65,7 +65,7 @@ Golang has a few dependency management tools. In this tutorial you will be using
 
 [[constraint]]
   name = "github.com/cosmos/cosmos-sdk"
-  version = "v0.25.0"
+  version = "v0.27.0"
 
 [[override]]
   name = "github.com/golang/protobuf"
@@ -81,15 +81,15 @@ Golang has a few dependency management tools. In this tutorial you will be using
 
 [[override]]
   name = "github.com/tendermint/go-amino"
-  version = "=v0.12.0"
+  version = "v0.14.1"
 
 [[override]]
   name = "github.com/tendermint/iavl"
-  version = "=v0.11.0"
+  version = "=v0.12.0"
 
 [[override]]
   name = "github.com/tendermint/tendermint"
-  version = "=0.25.0"
+  version = "v0.27.0-dev1"
 
 [[override]]
   name = "golang.org/x/crypto"

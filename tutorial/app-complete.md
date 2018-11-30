@@ -8,11 +8,14 @@ Now that your module is ready, it can be incorporated in the `./app.go` file, al
 package app
 
 import (
+	"encoding/json"
+
 	"github.com/tendermint/tendermint/libs/log"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
+	"github.com/cosmos/cosmos-sdk/x/stake"
 	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
 
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
@@ -20,7 +23,9 @@ import (
 	abci "github.com/tendermint/tendermint/abci/types"
 	cmn "github.com/tendermint/tendermint/libs/common"
 	dbm "github.com/tendermint/tendermint/libs/db"
+	tmtypes "github.com/tendermint/tendermint/types"
 )
+
 ```
 Next you need to add the stores' keys as well as the `Keepers` in your `nameserviceApp` struct, and update the constructor accordingly
 
@@ -45,7 +50,6 @@ type nameserviceApp struct {
 	feeCollectionKeeper auth.FeeCollectionKeeper
 	nsKeeper            nameservice.Keeper
 }
-
 
 func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 
@@ -132,13 +136,13 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 	// The AnteHandler handles signature verification and transaction pre-processing
 	app.SetAnteHandler(auth.NewAnteHandler(app.accountKeeper, app.feeCollectionKeeper))
 
-	// The app.Router is the main transaction router where each module registers it's routes
+	// The app.Router is the main transaction router where each module registers its routes
 	// Register the bank and nameservice routes here
 	app.Router().
 		AddRoute("bank", bank.NewHandler(app.bankKeeper)).
 		AddRoute("nameservice", nameservice.NewHandler(app.nsKeeper))
 
-	// The app.QueryRouter is the main query router where each module registers it's routes
+	// The app.QueryRouter is the main query router where each module registers its routes
 	app.QueryRouter().
 		AddRoute("nameservice", nameservice.NewQuerier(app.nsKeeper))
 
@@ -162,14 +166,14 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 }
 ```
 
-The `initChainer` defines how accounts in `genesis.json` are mapped into the application state on initial chain start.
+The `initChainer` defines how accounts in `genesis.json` are mapped into the application state on initial chain start. The `ExportAppStateAndValidators` function helps bootstrap the initial state for application. You don't need to worry too much about either of these for now.
 
 The constructor registers the `initChainer` function, but it isn't defined yet. Go ahead and create it:
 
 ```go
 // GenesisState represents chain state at the start of the chain. Any initial state (account balances) are stored here.
 type GenesisState struct {
-	Accounts []auth.BaseAccount `json:"accounts"`
+	Accounts []*auth.BaseAccount `json:"accounts"`
 }
 
 func (app *nameserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
@@ -183,21 +187,49 @@ func (app *nameserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChai
 
 	for _, acc := range genesisState.Accounts {
 		acc.AccountNumber = app.accountKeeper.GetNextAccountNumber(ctx)
-		app.accountKeeper.SetAccount(ctx, &acc)
+		app.accountKeeper.SetAccount(ctx, acc)
 	}
 
 	return abci.ResponseInitChain{}
+}
+
+// ExportAppStateAndValidators does the things
+func (app *nameserviceApp) ExportAppStateAndValidators() (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
+	ctx := app.NewContext(true, abci.Header{})
+	accounts := []*auth.BaseAccount{}
+
+	appendAccountsFn := func(acc auth.Account) bool {
+		account := &auth.BaseAccount{
+			Address: acc.GetAddress(),
+			Coins:   acc.GetCoins(),
+		}
+
+		accounts = append(accounts, account)
+		return false
+	}
+
+	app.accountKeeper.IterateAccounts(ctx, appendAccountsFn)
+
+	genState := GenesisState{Accounts: accounts}
+	appState, err = codec.MarshalJSONIndent(app.cdc, genState)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return appState, validators, err
 }
 ```
 
 Finally add a helper function to generate an amino [`*codec.Codec`](https://godoc.org/github.com/cosmos/cosmos-sdk/codec#Codec) that properly registers all of the modules used in your application:
 
 ```go
+// MakeCodec generates the necessary codecs for Amino
 func MakeCodec() *codec.Codec {
 	var cdc = codec.New()
 	auth.RegisterCodec(cdc)
 	bank.RegisterCodec(cdc)
 	nameservice.RegisterCodec(cdc)
+	stake.RegisterCodec(cdc)
 	sdk.RegisterCodec(cdc)
 	codec.RegisterCrypto(cdc)
 	return cdc

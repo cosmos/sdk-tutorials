@@ -117,6 +117,28 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 	return app
 }
 
+// GenesisState represents chain state at the start of the chain. Any initial state (account balances) are stored here.
+type GenesisState struct {
+	Accounts []*auth.BaseAccount `json:"accounts"`
+}
+
+func (app *nameserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+	stateJSON := req.AppStateBytes
+
+	genesisState := new(GenesisState)
+	err := app.cdc.UnmarshalJSON(stateJSON, genesisState)
+	if err != nil {
+		panic(err)
+	}
+
+	for _, acc := range genesisState.Accounts {
+		acc.AccountNumber = app.accountKeeper.GetNextAccountNumber(ctx)
+		app.accountKeeper.SetAccount(ctx, acc)
+	}
+
+	return abci.ResponseInitChain{}
+}
+
 // ExportAppStateAndValidators does the things
 func (app *nameserviceApp) ExportAppStateAndValidators() (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 	ctx := app.NewContext(true, abci.Header{})
@@ -141,28 +163,6 @@ func (app *nameserviceApp) ExportAppStateAndValidators() (appState json.RawMessa
 	}
 
 	return appState, validators, err
-}
-
-// GenesisState represents chain state at the start of the chain. Any initial state (account balances) are stored here.
-type GenesisState struct {
-	Accounts []*auth.BaseAccount `json:"accounts"`
-}
-
-func (app *nameserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
-	stateJSON := req.AppStateBytes
-
-	genesisState := new(GenesisState)
-	err := app.cdc.UnmarshalJSON(stateJSON, genesisState)
-	if err != nil {
-		panic(err)
-	}
-
-	for _, acc := range genesisState.Accounts {
-		acc.AccountNumber = app.accountKeeper.GetNextAccountNumber(ctx)
-		app.accountKeeper.SetAccount(ctx, acc)
-	}
-
-	return abci.ResponseInitChain{}
 }
 
 // MakeCodec generates the necessary codecs for Amino
