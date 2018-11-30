@@ -9,7 +9,6 @@ import (
 	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
 )
 
@@ -20,9 +19,7 @@ func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 		Short: "bid for existing name or claim new name",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().
-				WithCodec(cdc).
-				WithAccountDecoder(authcmd.GetAccountDecoder(cdc))
+			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
 
 			txBldr := authtxb.NewTxBuilderFromCLI().WithCodec(cdc)
 
@@ -60,9 +57,7 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 		Short: "set the value associated with a name that you own",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().
-				WithCodec(cdc).
-				WithAccountDecoder(authcmd.GetAccountDecoder(cdc))
+			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
 
 			txBldr := authtxb.NewTxBuilderFromCLI().WithCodec(cdc)
 

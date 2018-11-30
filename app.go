@@ -1,6 +1,8 @@
 package app
 
 import (
+	"encoding/json"
+
 	"github.com/tendermint/tendermint/libs/log"
 
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -13,6 +15,7 @@ import (
 	abci "github.com/tendermint/tendermint/abci/types"
 	cmn "github.com/tendermint/tendermint/libs/common"
 	dbm "github.com/tendermint/tendermint/libs/db"
+	tmtypes "github.com/tendermint/tendermint/types"
 )
 
 const (
@@ -97,7 +100,7 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 	// The initChainer handles translating the genesis.json file into initial state for the network
 	app.SetInitChainer(app.initChainer)
 
-	app.MountStoresIAVL(
+	app.MountStores(
 		app.keyMain,
 		app.keyAccount,
 		app.keyNSnames,
@@ -113,9 +116,35 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 	return app
 }
 
+// ExportAppStateAndValidators does the things
+func (app *nameserviceApp) ExportAppStateAndValidators() (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
+	ctx := app.NewContext(true, abci.Header{})
+	accounts := []*auth.BaseAccount{}
+
+	appendAccountsFn := func(acc auth.Account) bool {
+		account := &auth.BaseAccount{
+			Address: acc.GetAddress(),
+			Coins:   acc.GetCoins(),
+		}
+
+		accounts = append(accounts, account)
+		return false
+	}
+
+	app.accountKeeper.IterateAccounts(ctx, appendAccountsFn)
+
+	genState := GenesisState{Accounts: accounts}
+	appState, err = codec.MarshalJSONIndent(app.cdc, genState)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return appState, validators, err
+}
+
 // GenesisState represents chain state at the start of the chain. Any initial state (account balances) are stored here.
 type GenesisState struct {
-	Accounts []auth.BaseAccount `json:"accounts"`
+	Accounts []*auth.BaseAccount `json:"accounts"`
 }
 
 func (app *nameserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
@@ -129,7 +158,7 @@ func (app *nameserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChai
 
 	for _, acc := range genesisState.Accounts {
 		acc.AccountNumber = app.accountKeeper.GetNextAccountNumber(ctx)
-		app.accountKeeper.SetAccount(ctx, &acc)
+		app.accountKeeper.SetAccount(ctx, acc)
 	}
 
 	return abci.ResponseInitChain{}

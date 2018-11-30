@@ -59,7 +59,7 @@ func (k Keeper) SetName(ctx sdk.Context, name string, value string) {
 
 In this method, first get the store object for the `map[name]value` using the the `namesStoreKey` from the `Keeper`.
 
-> _*NOTE*_: This function uses the [`sdk.Context`](https://godoc.org/github.com/cosmos/cosmos-sdk/types#Context). This object holds functions to access a number of important pieces of the state like `blockHeight` and `chainID`. 
+> _*NOTE*_: This function uses the [`sdk.Context`](https://godoc.org/github.com/cosmos/cosmos-sdk/types#Context). This object holds functions to access a number of important pieces of the state like `blockHeight` and `chainID`.
 
 Next, you insert the `<name, value>` pair into the store using its `.Set([]byte, []byte)` method.  As the store only takes `[]byte`, first cast the `string`s to `[]byte` and the use them as parameters into the `Set` method.
 
@@ -116,14 +116,14 @@ func (k Keeper) GetPrice(ctx sdk.Context, name string) sdk.Coins {
 	store := ctx.KVStore(k.pricesStoreKey)
 	bz := store.Get([]byte(name))
 	var price sdk.Coins
-	k.cdc.MustUnmarshalBinary(bz, &price)
+	k.cdc.MustUnmarshalBinaryBare(bz, &price)
 	return price
 }
 
 // SetPrice - sets the current price of a name
 func (k Keeper) SetPrice(ctx sdk.Context, name string, price sdk.Coins) {
 	store := ctx.KVStore(k.pricesStoreKey)
-	store.Set([]byte(name), k.cdc.MustMarshalBinary(price))
+	store.Set([]byte(name), k.cdc.MustMarshalBinaryBare(price))
 }
 ```
 

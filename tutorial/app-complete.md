@@ -145,7 +145,7 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 	// The initChainer handles translating the genesis.json file into initial state for the network
 	app.SetInitChainer(app.initChainer)
 
-	app.MountStoresIAVL(
+	app.MountStores(
 		app.keyMain,
 		app.keyAccount,
 		app.keyNSnames,

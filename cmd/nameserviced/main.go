@@ -32,19 +32,15 @@ func main() {
 	cdc := app.MakeCodec()
 	ctx := server.NewDefaultContext()
 
-	appInit := server.AppInit{
-		AppGenState: server.SimpleAppGenState,
-	}
-
 	rootCmd := &cobra.Command{
 		Use:               "nameserviced",
 		Short:             "nameservice App Daemon (server)",
 		PersistentPreRunE: server.PersistentPreRunEFn(ctx),
 	}
 
-	rootCmd.AddCommand(InitCmd(ctx, cdc, appInit))
+	rootCmd.AddCommand(InitCmd(ctx, cdc))
 
-	server.AddCommands(ctx, cdc, rootCmd, appInit, newApp, exportAppStateAndTMValidators)
+	server.AddCommands(ctx, cdc, rootCmd, newApp, exportAppStateAndTMValidators)
 
 	// prepare and add flags
 	executor := cli.PrepareBaseCmd(rootCmd, "NS", DefaultNodeHome)
@@ -59,13 +55,15 @@ func newApp(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application
 	return app.NewnameserviceApp(logger, db)
 }
 
-func exportAppStateAndTMValidators(logger log.Logger, db dbm.DB, traceStore io.Writer) (json.RawMessage, []tmtypes.GenesisValidator, error) {
-	return nil, nil, nil
+func exportAppStateAndTMValidators(logger log.Logger, db dbm.DB, _ io.Writer, _ int64, _ bool) (
+	json.RawMessage, []tmtypes.GenesisValidator, error) {
+	dapp := app.NewnameserviceApp(logger, db)
+	return dapp.ExportAppStateAndValidators()
 }
 
 // get cmd to initialize all files for tendermint and application
 // nolint: errcheck
-func InitCmd(ctx *server.Context, cdc *codec.Codec, appInit server.AppInit) *cobra.Command {
+func InitCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "init",
 		Short: "Initialize genesis config, priv-validator file, and p2p-node file",
@@ -91,10 +89,11 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec, appInit server.AppInit) *cob
 				return err
 			}
 
-			appState, err := appInit.AppGenState(cdc, []json.RawMessage{genTx})
+			appState, err := server.SimpleAppGenState(cdc, tmtypes.GenesisDoc{}, []json.RawMessage{genTx})
 			if err != nil {
 				return err
 			}
+
 			appStateJSON, err := cdc.MarshalJSON(appState)
 			if err != nil {
 				return err
@@ -114,7 +113,7 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec, appInit server.AppInit) *cob
 				return err
 			}
 			fmt.Fprintf(os.Stderr, "%s\n", string(out))
-			return gaiaInit.WriteGenesisFile(config.GenesisFile(), chainID, []tmtypes.GenesisValidator{validator}, appStateJSON)
+			return gaiaInit.ExportGenesisFile(config.GenesisFile(), chainID, []tmtypes.GenesisValidator{validator}, appStateJSON)
 		},
 	}
 }
