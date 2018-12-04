@@ -28,8 +28,8 @@ update_vendor_deps:
 	@dep ensure -v -update
 
 install:
-	go install ./cmd/nameserviced
-	go install ./cmd/nameservicecli
+	go install ./cmd/nsd
+	go install ./cmd/nscli
 ```
 
 ## `Gopkg.toml`
@@ -65,7 +65,7 @@ Golang has a few dependency management tools. In this tutorial you will be using
 
 [[constraint]]
   name = "github.com/cosmos/cosmos-sdk"
-  version = "v0.25.0"
+  version = "v0.27.0"
 
 [[override]]
   name = "github.com/golang/protobuf"
@@ -81,15 +81,15 @@ Golang has a few dependency management tools. In this tutorial you will be using
 
 [[override]]
   name = "github.com/tendermint/go-amino"
-  version = "=v0.12.0"
+  version = "v0.14.1"
 
 [[override]]
   name = "github.com/tendermint/iavl"
-  version = "=v0.11.0"
+  version = "=v0.12.0"
 
 [[override]]
   name = "github.com/tendermint/tendermint"
-  version = "=0.25.0"
+  version = "v0.27.0-dev1"
 
 [[override]]
   name = "golang.org/x/crypto"
@@ -120,8 +120,8 @@ dep ensure -update -v
 make install
 
 # Now you should be able to run the following commands:
-nameserviced help
-nameservicecli help
+nsd help
+nscli help
 ```
 
 ### Congratulations, you have finished your nameservice application! Try [running and interacting with it](./build-run.md)!

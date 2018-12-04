@@ -2,8 +2,11 @@
 
 The Cosmos SDK uses the [`cobra`](https://github.com/spf13/cobra) library for CLI interactions. This library makes it easy for each module to expose its own commands. To get started defining the user's CLI interactions with your module, create the following files:
 
- - `./x/nameservice/client/cli/query.go`
- - `./x/nameservice/client/cli/tx.go`
+- `./x/nameservice/client/cli/query.go`
+- `./x/nameservice/client/cli/tx.go`
+- `./x/nameservice/client/module_client.go`
+
+### Queries
 
 Start in `query.go`. Here, define `cobra.Command`s for each of your modules `Queriers` (`resolve`, and `whois`):
 
@@ -73,6 +76,8 @@ Notes on the above code:
   * Finally there is the specific querier in the module that will be called.
   * In this example the fourth piece is the query. This works because the query parameter is a simple string. To enable more complex query inputs you need to use the second argument of the [`.QueryWithData()`](https://godoc.org/github.com/cosmos/cosmos-sdk/client/context#CLIContext.QueryWithData) function to pass in `data`. For an example of this see the [queriers in the Staking module](https://github.com/cosmos/cosmos-sdk/blob/develop/x/stake/querier/querier.go#L103).
 
+### Transactions
+
 Now that the query interactions are defined, it is time to move on to transaction generation in `tx.go`:
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-application-tutorial/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }/x/nameservice`).
@@ -100,9 +105,7 @@ func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 		Short: "bid for existing name or claim new name",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().
-				WithCodec(cdc).
-				WithAccountDecoder(authcmd.GetAccountDecoder(cdc))
+			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
 
 			txBldr := authtxb.NewTxBuilderFromCLI().WithCodec(cdc)
 
@@ -140,9 +143,7 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 		Short: "set the value associated with a name that you own",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().
-				WithCodec(cdc).
-				WithAccountDecoder(authcmd.GetAccountDecoder(cdc))
+			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
 
 			txBldr := authtxb.NewTxBuilderFromCLI().WithCodec(cdc)
 
@@ -172,4 +173,66 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 Notes on the above code:
 - The `authcmd` package is used here. [The godocs have more information on usage](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth/client/cli#GetAccountDecoder). It provides access to accounts controlled by the CLI and facilitates signing.
 
-### Now your module has everything it needs to be [incorporated into your Cosmos SDK application](./app-complete.md)!
+### Module Client
+
+The final piece to export this functionality is called the `ModuleClient`. [Module clients](https://godoc.org/github.com/cosmos/cosmos-sdk/types#ModuleClients) provide a standard way for modules to export client functionality.
+
+> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-application-tutorial/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }/x/nameservice`).
+
+```go
+package client
+
+import (
+	"github.com/cosmos/cosmos-sdk/client"
+	nameservicecmd "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/cli"
+	"github.com/spf13/cobra"
+	amino "github.com/tendermint/go-amino"
+)
+
+// ModuleClient exports all client functionality from this module
+type ModuleClient struct {
+	storeKey string
+	cdc      *amino.Codec
+}
+
+func NewModuleClient(storeKey string, cdc *amino.Codec) ModuleClient {
+	return ModuleClient{storeKey, cdc}
+}
+
+// GetQueryCmd returns the cli query commands for this module
+func (mc ModuleClient) GetQueryCmd() *cobra.Command {
+	// Group gov queries under a subcommand
+	govQueryCmd := &cobra.Command{
+		Use:   "nameservice",
+		Short: "Querying commands for the nameservice module",
+	}
+
+	govQueryCmd.AddCommand(client.GetCommands(
+		nameservicecmd.GetCmdResolveName(mc.storeKey, mc.cdc),
+		nameservicecmd.GetCmdWhois(mc.storeKey, mc.cdc),
+	)...)
+
+	return govQueryCmd
+}
+
+// GetTxCmd returns the transaction commands for this module
+func (mc ModuleClient) GetTxCmd() *cobra.Command {
+	govTxCmd := &cobra.Command{
+		Use:   "nameservice",
+		Short: "Nameservice transactions subcommands",
+	}
+
+	govTxCmd.AddCommand(client.PostCommands(
+		nameservicecmd.GetCmdBuyName(mc.cdc),
+		nameservicecmd.GetCmdSetName(mc.cdc),
+	)...)
+
+	return govTxCmd
+}
+```
+
+Notes on the above code:
+- This abstraction allows clients to import the client functionality from your module in a standard way. You will see this when we [build the entrypoints](./entrypoint.md)
+- There is an [open issue](https://github.com/cosmos/cosmos-sdk/issues/2955) to add the rest functionality (described in the next part of this tutorial) to this interface as well.
+
+### Now your ready to define [the routes that the REST client will use to communicate with your module](./rest.md)!

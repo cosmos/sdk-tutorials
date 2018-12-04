@@ -70,12 +70,13 @@ func (k Keeper) GetPrice(ctx sdk.Context, name string) sdk.Coins {
 	store := ctx.KVStore(k.pricesStoreKey)
 	bz := store.Get([]byte(name))
 	var price sdk.Coins
-	k.cdc.MustUnmarshalBinary(bz, &price)
+	// k.cdc.MustUnmarshalBinary(bz, &price)
+	k.cdc.MustUnmarshalBinaryBare(bz, &price)
 	return price
 }
 
 // SetPrice - sets the current price of a name
 func (k Keeper) SetPrice(ctx sdk.Context, name string, price sdk.Coins) {
 	store := ctx.KVStore(k.pricesStoreKey)
-	store.Set([]byte(name), k.cdc.MustMarshalBinary(price))
+	store.Set([]byte(name), k.cdc.MustMarshalBinaryBare(price))
 }
