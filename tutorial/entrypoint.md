@@ -23,26 +23,31 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/server"
+	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"github.com/tendermint/tendermint/libs/cli"
 	"github.com/tendermint/tendermint/libs/common"
 	"github.com/tendermint/tendermint/libs/log"
-	"github.com/tendermint/tendermint/p2p"
 
 	gaiaInit "github.com/cosmos/cosmos-sdk/cmd/gaia/init"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	app "github.com/cosmos/sdk-application-tutorial"
 	abci "github.com/tendermint/tendermint/abci/types"
+	cfg "github.com/tendermint/tendermint/config"
 	dbm "github.com/tendermint/tendermint/libs/db"
 	tmtypes "github.com/tendermint/tendermint/types"
 )
 
-// DefaultNodeHome sets the folder where the application data and configuration will be stored
+// DefaultNodeHome sets the folder where the applcation data and configuration will be stored
 var DefaultNodeHome = os.ExpandEnv("$HOME/.nsd")
 
 const (
@@ -135,10 +140,8 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command {
 	}
 
 	cmd.Flags().String(cli.HomeFlag, DefaultNodeHome, "node's home directory")
-	cmd.Flags().BoolP(flagOverwrite, "o", false, "overwrite the genesis.json file")
 	cmd.Flags().String(client.FlagChainID, "", "genesis file chain-id, if left blank will be randomly created")
-	cmd.Flags().String(flagMoniker, "", "set the validator's moniker")
-	cmd.MarkFlagRequired(flagMoniker)
+	cmd.Flags().BoolP(flagOverwrite, "o", false, "overwrite the genesis.json file")
 
 	return cmd
 }
@@ -150,8 +153,7 @@ func AddGenesisAccountCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command 
 		Short: "Adds an account to the genesis file",
 		Args:  cobra.ExactArgs(2),
 		Long: strings.TrimSpace(`
-Adds accounts to the genesis file so that you can start a chain with coins in the CLI:flagClientHome
-
+Adds accounts to the genesis file so that you can start a chain with coins in the CLI:
 $ nsd add-genesis-account cosmos1tse7r2fadvlrrgau3pa0ss7cqh55wrv6y9alwh 1000STAKE,1000mycoin
 `),
 		RunE: func(_ *cobra.Command, args []string) error {
@@ -202,7 +204,6 @@ $ nsd add-genesis-account cosmos1tse7r2fadvlrrgau3pa0ss7cqh55wrv6y9alwh 1000STAK
 		},
 	}
 	return cmd
-}
 ```
 
 Notes on the above code:
