@@ -29,9 +29,12 @@ Through the course of this tutorial you will create the following files that mak
 └── x
     └── nameservice
         ├── client
-        │   └── cli
-        │       ├── query.go
-        │       └── tx.go
+        │   ├── cli
+        │   │   ├── query.go
+        │   │   └── tx.go
+        │   ├── rest
+        │   │   └── rest.go
+        │   └── module_client.go
         ├── codec.go
         ├── handler.go
         ├── keeper.go

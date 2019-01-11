@@ -8,7 +8,7 @@ import (
 
 // MsgSetName defines a SetName message
 type MsgSetName struct {
-	NameID string
+	Name string
 	Value  string
 	Owner  sdk.AccAddress
 }
@@ -16,7 +16,7 @@ type MsgSetName struct {
 // NewSetNameMsg is a constructor function for MsgSetName
 func NewMsgSetName(name string, value string, owner sdk.AccAddress) MsgSetName {
 	return MsgSetName{
-		NameID: name,
+		Name: name,
 		Value:  value,
 		Owner:  owner,
 	}
@@ -33,7 +33,7 @@ func (msg MsgSetName) ValidateBasic() sdk.Error {
 	if msg.Owner.Empty() {
 		return sdk.ErrInvalidAddress(msg.Owner.String())
 	}
-	if len(msg.NameID) == 0 || len(msg.Value) == 0 {
+	if len(msg.Name) == 0 || len(msg.Value) == 0 {
 		return sdk.ErrUnknownRequest("Name and/or Value cannot be empty")
 	}
 	return nil
@@ -55,7 +55,7 @@ func (msg MsgSetName) GetSigners() []sdk.AccAddress {
 
 // MsgBuyName defines the BuyName message
 type MsgBuyName struct {
-	NameID string
+	Name string
 	Bid    sdk.Coins
 	Buyer  sdk.AccAddress
 }
@@ -63,7 +63,7 @@ type MsgBuyName struct {
 // NewMsgBuyName is the constructor function for MsgBuyName
 func NewMsgBuyName(name string, bid sdk.Coins, buyer sdk.AccAddress) MsgBuyName {
 	return MsgBuyName{
-		NameID: name,
+		Name: name,
 		Bid:    bid,
 		Buyer:  buyer,
 	}
@@ -80,7 +80,7 @@ func (msg MsgBuyName) ValidateBasic() sdk.Error {
 	if msg.Buyer.Empty() {
 		return sdk.ErrInvalidAddress(msg.Buyer.String())
 	}
-	if len(msg.NameID) == 0 {
+	if len(msg.Name) == 0 {
 		return sdk.ErrUnknownRequest("Name cannot be empty")
 	}
 	if !msg.Bid.IsPositive() {

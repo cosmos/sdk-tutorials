@@ -2,7 +2,7 @@
 
 ## `Msg`
 
-The naming convention for SDK `Msgs` is `Msg{ .Action }`. The first action to implement is `SetName`, a `Msg` that allows owner of an address to set the result of resolving a name. Start by defining `MsgSetName` in a new file called `./x/nameservice/msgs.go`:
+The naming convention for the SDK `Msgs` is `Msg{ .Action }`. The first action to implement is `SetName`, so we'll call is `MsgSetName`. This `Msg` allows the owner of a name to set the return value for that name within the resolver. Start by defining `MsgSetName` in a new file called `./x/nameservice/msgs.go`:
 
 ```go
 package nameservice
@@ -15,7 +15,7 @@ import (
 
 // MsgSetName defines a SetName message
 type MsgSetName struct {
-	NameID string
+	Name string
 	Value  string
 	Owner  sdk.AccAddress
 }
@@ -23,7 +23,7 @@ type MsgSetName struct {
 // NewMsgSetName is a constructor function for MsgSetName
 func NewMsgSetName(name string, value string, owner sdk.AccAddress) MsgSetName {
 	return MsgSetName{
-		NameID: name,
+		Name: name,
 		Value:  value,
 		Owner:  owner,
 	}
@@ -34,8 +34,6 @@ The `MsgSetName` has the three attributes needed to set the value for a name:
 - `name` - The name trying to be set.
 - `value` - What the name resolves to.
 - `owner` - The owner of that name.
-
-> *NOTE*: the field name is `NameID` rather than `Name` as `.Route()` is the name of a method on the `Msg` interface.  This will be resolved in a [future update of the SDK](https://github.com/cosmos/cosmos-sdk/issues/2456).
 
 Next, implement the `Msg` interface:
 
@@ -55,7 +53,7 @@ func (msg MsgSetName) ValidateBasic() sdk.Error {
 	if msg.Owner.Empty() {
 		return sdk.ErrInvalidAddress(msg.Owner.String())
 	}
-	if len(msg.NameID) == 0 || len(msg.Value) == 0 {
+	if len(msg.Name) == 0 || len(msg.Value) == 0 {
 		return sdk.ErrUnknownRequest("Name and/or Value cannot be empty")
 	}
 	return nil
@@ -124,10 +122,10 @@ Now, you need to define the actual logic for handling the `MsgSetName` message i
 ```go
 // Handle MsgSetName
 func handleMsgSetName(ctx sdk.Context, keeper Keeper, msg MsgSetName) sdk.Result {
-	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.NameID)) { // Checks if the the msg sender is the same as the current owner
+	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) { // Checks if the the msg sender is the same as the current owner
 		return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
 	}
-	keeper.SetName(ctx, msg.NameID, msg.Value) // If so, set the name to the value specified in the msg.
+	keeper.SetName(ctx, msg.Name, msg.Value) // If so, set the name to the value specified in the msg.
 	return sdk.Result{}                      // return
 }
 ```
