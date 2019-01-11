@@ -27,14 +27,14 @@ import (
 )
 
 ```
-Next you need to add the stores' keys as well as the `Keepers` in your `nameserviceApp` struct, and update the constructor accordingly
+Next you need to add the stores' keys as well as the `Keepers` in your `nameServiceApp` struct, and update the constructor accordingly
 
 ```go
 const (
 	appName = "nameservice"
 )
 
-type nameserviceApp struct {
+type nameServiceApp struct {
 	*bam.BaseApp
 	cdc *codec.Codec
 
@@ -51,7 +51,7 @@ type nameserviceApp struct {
 	nsKeeper            nameservice.Keeper
 }
 
-func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
+func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 
   // First define the top level codec that will be shared by the different modules
   cdc := MakeCodec()
@@ -60,17 +60,17 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
   bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
 
   // Here you initialize your application with the store keys it requires
-	var app = &nameserviceApp{
-		BaseApp: bApp,
-		cdc:     cdc,
+  var app = &nameServiceApp{
+	  BaseApp: bApp,
+	  cdc:     cdc,
 
-		keyMain:          sdk.NewKVStoreKey("main"),
-		keyAccount:       sdk.NewKVStoreKey("acc"),
-		keyNSnames:       sdk.NewKVStoreKey("ns_names"),
-		keyNSowners:      sdk.NewKVStoreKey("ns_owners"),
-		keyNSprices:      sdk.NewKVStoreKey("ns_prices"),
-		keyFeeCollection: sdk.NewKVStoreKey("fee_collection"),
-	}
+	  keyMain:          sdk.NewKVStoreKey("main"),
+	  keyAccount:       sdk.NewKVStoreKey("acc"),
+	  keyNSnames:       sdk.NewKVStoreKey("ns_names"),
+	  keyNSowners:      sdk.NewKVStoreKey("ns_owners"),
+	  keyNSprices:      sdk.NewKVStoreKey("ns_prices"),
+	  keyFeeCollection: sdk.NewKVStoreKey("fee_collection"),
+  }
 
   return app
 }
@@ -88,8 +88,8 @@ At this point, the constructor still lacks important logic. Namely, it needs to:
 Your finalized constructor should look like this:
 
 ```go
-// NewnameserviceApp is a constructor function for nameserviceApp
-func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
+// NewNameServiceApp is a constructor function for nameServiceApp
+func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 
 	// First define the top level codec that will be shared by the different modules
 	cdc := MakeCodec()
@@ -98,7 +98,7 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
 
 	// Here you initialize your application with the store keys it requires
-	var app = &nameserviceApp{
+	var app = &nameServiceApp{
 		BaseApp: bApp,
 		cdc:     cdc,
 
@@ -176,7 +176,7 @@ type GenesisState struct {
 	Accounts []*auth.BaseAccount `json:"accounts"`
 }
 
-func (app *nameserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+func (app *nameServiceApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	stateJSON := req.AppStateBytes
 
 	genesisState := new(GenesisState)
@@ -194,7 +194,7 @@ func (app *nameserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChai
 }
 
 // ExportAppStateAndValidators does the things
-func (app *nameserviceApp) ExportAppStateAndValidators() (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
+func (app *nameServiceApp) ExportAppStateAndValidators() (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 	ctx := app.NewContext(true, abci.Header{})
 	accounts := []*auth.BaseAccount{}
 
