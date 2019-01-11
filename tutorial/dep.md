@@ -107,7 +107,7 @@ Now that this bit of house keeping is done, its time to install dep, as well as 
 
 ```bash
 make get_tools
-dep init -v
+dep ensure -v
 ```
 
 ## Building the app
