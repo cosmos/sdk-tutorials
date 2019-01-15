@@ -11,10 +11,10 @@ package app
 
 import (
   "github.com/tendermint/tendermint/libs/log"
-	"github.com/cosmos/cosmos-sdk/x/auth"
+  "github.com/cosmos/cosmos-sdk/x/auth"
 
-	bam "github.com/cosmos/cosmos-sdk/baseapp"
-	dbm "github.com/tendermint/tendermint/libs/db"
+  bam "github.com/cosmos/cosmos-sdk/baseapp"
+  dbm "github.com/tendermint/tendermint/libs/db"
 )
 ```
 
@@ -56,14 +56,14 @@ Here is what `baseapp` does:
 - Help initialise your state.
 - Help set up queries.
 
-Now you need to create a new custom type `nameserviceApp` for your application. This type will embed `baseapp` (embedding in Go similar to inheritance in other languages), meaning it will have access to all of `baseapp`'s methods.
+Now you need to create a new custom type `nameServiceApp` for your application. This type will embed `baseapp` (embedding in Go similar to inheritance in other languages), meaning it will have access to all of `baseapp`'s methods.
 
 ```go
 const (
     appName = "nameservice"
 )
 
-type nameserviceApp struct {
+type nameServiceApp struct {
     *bam.BaseApp
 }
 ```
@@ -71,15 +71,15 @@ type nameserviceApp struct {
 Add a simple constructor for your application:
 
 ```go
-func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
+func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 
-    // First define the top level codec that will be shared by the different modules
+    // First define the top level codec that will be shared by the different modules. Note: Codec will be explained later
     cdc := MakeCodec()
 
     // BaseApp handles interactions with Tendermint through the ABCI protocol
     bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
 
-    var app = &nameserviceApp{
+    var app = &nameServiceApp{
         BaseApp: bApp,
         cdc:     cdc,
     }

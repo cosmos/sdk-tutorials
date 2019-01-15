@@ -81,12 +81,12 @@ func main() {
 }
 
 func newApp(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application {
-	return app.NewnameserviceApp(logger, db)
+	return app.NewNameServiceApp(logger, db)
 }
 
 func exportAppStateAndTMValidators(logger log.Logger, db dbm.DB, _ io.Writer, _ int64, _ bool) (
 	json.RawMessage, []tmtypes.GenesisValidator, error) {
-	dapp := app.NewnameserviceApp(logger, db)
+	dapp := app.NewNameServiceApp(logger, db)
 	return dapp.ExportAppStateAndValidators()
 }
 

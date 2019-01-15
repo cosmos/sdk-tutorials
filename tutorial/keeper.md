@@ -108,7 +108,7 @@ Notes on the above code:
 Finally, add a getter and setter for the price of a name:
 
 ```go
-// GetPrice - gets the current price of a name.  If price doesn't exist yet, set to 1steak.
+// GetPrice - gets the current price of a name.  If price doesn't exist yet, set to 1mycoin.
 func (k Keeper) GetPrice(ctx sdk.Context, name string) sdk.Coins {
 	if !k.HasOwner(ctx, name) {
 		return sdk.Coins{sdk.NewInt64Coin("mycoin", 1)}
@@ -129,7 +129,7 @@ func (k Keeper) SetPrice(ctx sdk.Context, name string, price sdk.Coins) {
 
 Notes on the above code:
 - `sdk.Coins` does not have its own bytes encoding, which means the price needs to be marsalled and unmarshalled using [Amino](https://github.com/tendermint/go-amino/) to be inserted or removed from the store.
-- When getting the price for a name that has no owner (and thus no price), return `1steak` as the price.
+- When getting the price for a name that has no owner (and thus no price), return `1mycoin` as the price.
 
 The last piece of code needed in the `./x/nameservice/keeper.go` file is a constructor function for `Keeper`:
 

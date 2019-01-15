@@ -7,7 +7,7 @@ Now it is time to define the `Msg` for buying names and add it to the `./x/names
 ```go
 // MsgBuyName defines the BuyName message
 type MsgBuyName struct {
-	NameID string
+	Name string
 	Bid    sdk.Coins
 	Buyer  sdk.AccAddress
 }
@@ -15,7 +15,7 @@ type MsgBuyName struct {
 // NewMsgBuyName is the constructor function for MsgBuyName
 func NewMsgBuyName(name string, bid sdk.Coins, buyer sdk.AccAddress) MsgBuyName {
 	return MsgBuyName{
-		NameID: name,
+		Name: name,
 		Bid:    bid,
 		Buyer:  buyer,
 	}
@@ -32,7 +32,7 @@ func (msg MsgBuyName) ValidateBasic() sdk.Error {
 	if msg.Buyer.Empty() {
 		return sdk.ErrInvalidAddress(msg.Buyer.String())
 	}
-	if len(msg.NameID) == 0 {
+	if len(msg.Name) == 0 {
 		return sdk.ErrUnknownRequest("Name cannot be empty")
 	}
 	if !msg.Bid.IsPositive() {
@@ -80,11 +80,11 @@ Finally, define the `BuyName` `handler` function which performs the state transi
 ```go
 // Handle MsgBuyName
 func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result {
-	if keeper.GetPrice(ctx, msg.NameID).IsAllGT(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
+	if keeper.GetPrice(ctx, msg.Name).IsAllGT(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
 		return sdk.ErrInsufficientCoins("Bid not high enough").Result() // If not, throw an error
 	}
-	if keeper.HasOwner(ctx, msg.NameID) {
-		_, err := keeper.coinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, msg.NameID), msg.Bid)
+	if keeper.HasOwner(ctx, msg.Name) {
+		_, err := keeper.coinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, msg.Name), msg.Bid)
 		if err != nil {
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}
@@ -94,8 +94,8 @@ func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}
 	}
-	keeper.SetOwner(ctx, msg.NameID, msg.Buyer)
-	keeper.SetPrice(ctx, msg.NameID, msg.Bid)
+	keeper.SetOwner(ctx, msg.Name, msg.Buyer)
+	keeper.SetPrice(ctx, msg.Name, msg.Bid)
 	return sdk.Result{}
 }
 ```

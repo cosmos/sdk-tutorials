@@ -175,7 +175,7 @@ Notes on the above code:
 
 ### Module Client
 
-The final piece to export this functionality is called the `ModuleClient`. [Module clients](https://godoc.org/github.com/cosmos/cosmos-sdk/types#ModuleClients) provide a standard way for modules to export client functionality.
+The final piece to export this functionality is called the `ModuleClient` and goes in `./x/nameservice/client/module_client.go`. [Module clients](https://godoc.org/github.com/cosmos/cosmos-sdk/types#ModuleClients) provide a standard way for modules to export client functionality.
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-application-tutorial/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }/x/nameservice`).
 
