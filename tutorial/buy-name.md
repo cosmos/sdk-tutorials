@@ -106,6 +106,6 @@ If there is no owner, your `nameservice` module "burns" (i.e. sends to an unreco
 
 If either `SubtractCoins` or `SendCoins` returns a non-nil error, the handler throws an error, reverting the state transition.  Otherwise, using the getters and setters defined on the `Keeper` earlier, the handler sets the buyer to the new owner and set the new price to be the current bid.
 
-> _*NOTE*_: This handler uses functions from the `coinKeeper` to perform currency operations. If your application is performing currency operations you man want to take a look at the [godocs for this module](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#BaseKeeper) to see what functions it exposes.
+> _*NOTE*_: This handler uses functions from the `coinKeeper` to perform currency operations. If your application is performing currency operations you may want to take a look at the [godocs for this module](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#BaseKeeper) to see what functions it exposes.
 
 ### Now that you have your `Msgs` and `Handlers` defined it's time to learn about making the data from these transactions [available for querying](./queriers.md)!
