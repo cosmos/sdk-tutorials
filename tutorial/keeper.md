@@ -42,8 +42,8 @@ A couple of notes about the above code:
 	- [`sdk.StoreKey`](https://godoc.org/github.com/cosmos/cosmos-sdk/types#StoreKey) -  This gates access to a `sdk.KVStore` that persists the state of your application.
 * This module has 3 store keys:
 	- `namesStoreKey` - This is the main store that stores the value string that the name points to (i.e. `map[name]value`).
-	- `ownersStoreKey` - This store contains the current owner of any given name (i.e. `map[sdk_address]name`).
-	- `priceStoreKey` - This store contains the price that the current owner paid for a given name. Anyone buying this name must spend more than the current owner. (i.e. `map[name]price`).
+	- `ownersStoreKey` - This store contains the current owner of any given name (i.e. `map[name]sdk_address`).
+	- `pricesStoreKey` - This store contains the price that the current owner paid for a given name. Anyone buying this name must spend more than the current owner. (i.e. `map[name]price`).
 
 ## Getters and Setters
 
