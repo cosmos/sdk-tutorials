@@ -47,7 +47,7 @@ A couple of notes about the above code:
 
 ## Getters and Setters
 
-Now it is time to add methods to interact with the stores throughs the `Keeper`. First, add a function to set the string a given name resolves to:
+Now it is time to add methods to interact with the stores through the `Keeper`. First, add a function to set the string a given name resolves to:
 
 ```go
 // SetName - sets the value string that a name resolves to
