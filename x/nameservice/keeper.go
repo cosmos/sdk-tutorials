@@ -51,7 +51,11 @@ func (k Keeper) NewName(ctx sdk.Context, name string) {
 	bz := store.Get([]byte("*"))
 	bzstring := string(bz)
 	var strs []string
-	strs = append(strs, bzstring, name)
+	if (len(bzstring) == 0) {
+		strs = append(strs, name)
+	} else {
+		strs = append(strs, bzstring, name)
+	}
 	store.Set([]byte("*"), []byte(strings.Join(strs, "::::")))
 }
 // SetName - sets the value string that a name resolves to
