@@ -29,6 +29,7 @@ type nameserviceApp struct {
 
 	keyMain          *sdk.KVStoreKey
 	keyAccount       *sdk.KVStoreKey
+	keyNSallNames    *sdk.KVStoreKey
 	keyNSnames       *sdk.KVStoreKey
 	keyNSowners      *sdk.KVStoreKey
 	keyNSprices      *sdk.KVStoreKey
@@ -56,6 +57,7 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 
 		keyMain:          sdk.NewKVStoreKey("main"),
 		keyAccount:       sdk.NewKVStoreKey("acc"),
+		keyNSallNames:    sdk.NewKVStoreKey("ns_allNames"),
 		keyNSnames:       sdk.NewKVStoreKey("ns_names"),
 		keyNSowners:      sdk.NewKVStoreKey("ns_owners"),
 		keyNSprices:      sdk.NewKVStoreKey("ns_prices"),
@@ -79,6 +81,7 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 	// It handles interactions with the namestore
 	app.nsKeeper = nameservice.NewKeeper(
 		app.bankKeeper,
+		app.keyNSallNames,
 		app.keyNSnames,
 		app.keyNSowners,
 		app.keyNSprices,
@@ -104,6 +107,7 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 	app.MountStores(
 		app.keyMain,
 		app.keyAccount,
+		app.keyNSallNames,
 		app.keyNSnames,
 		app.keyNSowners,
 		app.keyNSprices,

@@ -21,6 +21,7 @@ const (
 func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, storeName string) {
 	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), buyNameHandler(cdc, cliCtx)).Methods("POST")
 	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), setNameHandler(cdc, cliCtx)).Methods("PUT")
+	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), namesHandler(cdc, cliCtx, storeName)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}", storeName, restName), resolveNameHandler(cdc, cliCtx, storeName)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}/whois", storeName, restName), whoIsHandler(cdc, cliCtx, storeName)).Methods("GET")
 }
@@ -135,6 +136,17 @@ func whoIsHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string)
 			return
 		}
 
+		utils.PostProcessResponse(w, cdc, res, cliCtx.Indent)
+	}
+}
+
+func namesHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/names", storeName), nil)
+		if err != nil {
+			utils.WriteErrorResponse(w, http.StatusNotFound, err.Error())
+			return
+		}
 		utils.PostProcessResponse(w, cdc, res, cliCtx.Indent)
 	}
 }

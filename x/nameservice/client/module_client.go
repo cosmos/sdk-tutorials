@@ -28,6 +28,7 @@ func (mc ModuleClient) GetQueryCmd() *cobra.Command {
 	govQueryCmd.AddCommand(client.GetCommands(
 		nameservicecmd.GetCmdResolveName(mc.storeKey, mc.cdc),
 		nameservicecmd.GetCmdWhois(mc.storeKey, mc.cdc),
+		nameservicecmd.GetCmdNames(mc.storeKey, mc.cdc),
 	)...)
 
 	return govQueryCmd

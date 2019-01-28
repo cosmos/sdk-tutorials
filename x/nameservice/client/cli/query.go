@@ -8,6 +8,28 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// GetCmdNames queries information about a name
+func GetCmdNames(queryRoute string, cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "names",
+		Short: "names",
+		// Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+
+			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/names", queryRoute), nil)
+			if err != nil {
+				fmt.Printf("could not get name\n")
+				return nil
+			}
+
+			fmt.Println(string(res))
+
+			return nil
+		},
+	}
+}
+
 // GetCmdResolveName queries information about a name
 func GetCmdResolveName(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{

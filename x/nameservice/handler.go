@@ -45,6 +45,7 @@ func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result
 		if err != nil {
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}
+		keeper.NewName(ctx, msg.NameID)
 	}
 	keeper.SetOwner(ctx, msg.NameID, msg.Buyer)
 	keeper.SetPrice(ctx, msg.NameID, msg.Bid)
