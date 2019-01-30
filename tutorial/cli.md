@@ -94,7 +94,6 @@ import (
 	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
 )
 
@@ -107,7 +106,7 @@ func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
 
-			txBldr := authtxb.NewTxBuilderFromCLI().WithCodec(cdc)
+			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
 
 			if err := cliCtx.EnsureAccountExists(); err != nil {
 				return err
@@ -118,12 +117,7 @@ func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			account, err := cliCtx.GetFromAddress()
-			if err != nil {
-				return err
-			}
-
-			msg := nameservice.NewMsgBuyName(args[0], coins, account)
+			msg := nameservice.NewMsgBuyName(args[0], coins, cliCtx.GetFromAddress())
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -131,7 +125,7 @@ func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 
 			cliCtx.PrintResponse = true
 
-			return utils.CompleteAndBroadcastTxCli(txBldr, cliCtx, []sdk.Msg{msg})
+			return utils.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg})
 		},
 	}
 }
@@ -145,26 +139,22 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
 
-			txBldr := authtxb.NewTxBuilderFromCLI().WithCodec(cdc)
+			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
 
 			if err := cliCtx.EnsureAccountExists(); err != nil {
 				return err
 			}
 
-			account, err := cliCtx.GetFromAddress()
-			if err != nil {
-				return err
-			}
-
-			msg := nameservice.NewMsgSetName(args[0], args[1], account)
-			err = msg.ValidateBasic()
+			msg := nameservice.NewMsgSetName(args[0], args[1], cliCtx.GetFromAddress())
+			err := msg.ValidateBasic()
 			if err != nil {
 				return err
 			}
 
 			cliCtx.PrintResponse = true
 
-			return utils.CompleteAndBroadcastTxCli(txBldr, cliCtx, []sdk.Msg{msg})
+			// return utils.CompleteAndBroadcastTxCLI(txBldr, cliCtx, msgs)
+			return utils.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg})
 		},
 	}
 }

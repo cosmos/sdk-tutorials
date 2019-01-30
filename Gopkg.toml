@@ -27,7 +27,6 @@
 [[constraint]]
   name = "github.com/cosmos/cosmos-sdk"
   revision = "3864d5b1bd9d7081fb5f8bc3f9a014e9a0462756"
-  # version = "0.30.0"
 
 [[override]]
   name = "github.com/golang/protobuf"
