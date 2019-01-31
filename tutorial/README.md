@@ -1,4 +1,4 @@
-# SDK Application Tutorial
+# Getting Started
 
 In this tutorial, you will build a functional [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/) application and, in the process, learn the basic concepts and structures of the SDK. The example will showcase how quickly and easily you can **build your own blockchain from scratch** on top of the Cosmos SDK.
 
@@ -56,17 +56,18 @@ Then, just follow along! The first step describes the design of your application
 
 1. [Design](./app-design.md) the application.
 2. Begin the implementation of your application in [`./app.go`](./app-init.md).
-2. Start building your module with the [`Keeper`](./keeper.md).
-3. Define state transitions through [`Msgs` and `Handlers`](./msgs-handlers.md).
+3. Start building your module with the [`Keeper`](./keeper.md).
+4. Define state transitions through [`Msgs` and `Handlers`](./msgs-handlers.md).
     * [`SetName`](./set-name.md)
     * [`BuyName`](./buy-name.md)
-4. Make views on your state machine with [`Queriers`](./queriers.md).
-5. Register your types in the encoding format using [`sdk.Codec`](./codec.md).
-6. Create [CLI interactions for your module](./cli.md).
-7. Create [HTTP routes for clients to access your nameservice](./rest.md)
-8. Import your module and [finish building your application](./app-complete.md)!
-9. Create the [`nsd` and `nscli` entry points](./entrypoint.md) to your application.
-10. Setup [dependency management using `dep`](./dep.md).
-11. [Build and run](./build-run.md) the example.
+5. Make views on your state machine with [`Queriers`](./queriers.md).
+6. Register your types in the encoding format using [`sdk.Codec`](./codec.md).
+7. Create [CLI interactions for your module](./cli.md).
+8. Create [HTTP routes for clients to access your nameservice](./rest.md)
+9. Import your module and [finish building your application](./app-complete.md)!
+10. Create the [`nsd` and `nscli` entry points](./entrypoint.md) to your application.
+11. Setup [dependency management using `dep`](./dep.md).
+12. [Build and run](./build-run.md) the example.
+13. [Run REST routes](./run-rest.md).
 
 ## [Click here](./app-design.md) to get started with the tutorial!
