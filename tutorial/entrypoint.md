@@ -32,6 +32,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/server"
 	"github.com/cosmos/cosmos-sdk/x/auth"
+	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"github.com/tendermint/tendermint/libs/cli"
@@ -105,7 +106,7 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command {
 				chainID = fmt.Sprintf("test-chain-%v", common.RandStr(6))
 			}
 
-			_, _, err := gaiaInit.InitializeNodeValidatorFiles(config)
+			_, pk, err := gaiaInit.InitializeNodeValidatorFiles(config)
 			if err != nil {
 				return err
 			}
@@ -117,12 +118,16 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command {
 				return fmt.Errorf("genesis.json file already exists: %v", genFile)
 			}
 
-			appState, err = codec.MarshalJSONIndent(cdc, app.GenesisState{})
+			genesis := app.GenesisState{
+				AuthData: auth.DefaultGenesisState(),
+				BankData: bank.DefaultGenesisState(),
+			}
+
+			appState, err = codec.MarshalJSONIndent(cdc, genesis)
 			if err != nil {
 				return err
 			}
 
-			pk := gaiaInit.ReadOrCreatePrivValidator(config.PrivValidatorFile())
 			_, _, validator, err := server.SimpleAppGenTx(cdc, pk)
 			if err != nil {
 				return err
@@ -154,6 +159,7 @@ func AddGenesisAccountCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command 
 		Args:  cobra.ExactArgs(2),
 		Long: strings.TrimSpace(`
 Adds accounts to the genesis file so that you can start a chain with coins in the CLI:
+
 $ nsd add-genesis-account cosmos1tse7r2fadvlrrgau3pa0ss7cqh55wrv6y9alwh 1000STAKE,1000mycoin
 `),
 		RunE: func(_ *cobra.Command, args []string) error {
@@ -204,6 +210,7 @@ $ nsd add-genesis-account cosmos1tse7r2fadvlrrgau3pa0ss7cqh55wrv6y9alwh 1000STAK
 		},
 	}
 	return cmd
+}
 ```
 
 Notes on the above code:
@@ -225,6 +232,7 @@ package main
 
 import (
 	"os"
+	"path"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/keys"
@@ -233,6 +241,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/cosmos/cosmos-sdk/version"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	amino "github.com/tendermint/go-amino"
 	"github.com/tendermint/tendermint/libs/cli"
 
@@ -274,9 +283,14 @@ func main() {
 		Short: "nameservice Client",
 	}
 
+	// Add --chain-id to persistent flags and mark it required
+	rootCmd.PersistentFlags().String(client.FlagChainID, "", "Chain ID of tendermint node")
+	rootCmd.PersistentPreRunE = func(_ *cobra.Command, _ []string) error {
+		return initConfig(rootCmd)
+	}
+
 	// Construct Root Command
 	rootCmd.AddCommand(
-		rpc.InitClientCommand(),
 		rpc.StatusCommand(),
 		client.ConfigCmd(),
 		queryCmd(cdc, mc),
@@ -297,6 +311,7 @@ func main() {
 }
 
 func registerRoutes(rs *lcd.RestServer) {
+	rs.CliCtx = rs.CliCtx.WithAccountDecoder(rs.Cdc)
 	keys.RegisterRoutes(rs.Mux, rs.CliCtx.Indent)
 	rpc.RegisterRoutes(rs.CliCtx, rs.Mux)
 	tx.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
@@ -347,6 +362,29 @@ func txCmd(cdc *amino.Codec, mc []sdk.ModuleClients) *cobra.Command {
 	}
 
 	return txCmd
+}
+
+func initConfig(cmd *cobra.Command) error {
+	home, err := cmd.PersistentFlags().GetString(cli.HomeFlag)
+	if err != nil {
+		return err
+	}
+
+	cfgFile := path.Join(home, "config", "config.toml")
+	if _, err := os.Stat(cfgFile); err == nil {
+		viper.SetConfigFile(cfgFile)
+
+		if err := viper.ReadInConfig(); err != nil {
+			return err
+		}
+	}
+	if err := viper.BindPFlag(client.FlagChainID, cmd.PersistentFlags().Lookup(client.FlagChainID)); err != nil {
+		return err
+	}
+	if err := viper.BindPFlag(cli.EncodingFlag, cmd.PersistentFlags().Lookup(cli.EncodingFlag)); err != nil {
+		return err
+	}
+	return viper.BindPFlag(cli.OutputFlag, cmd.PersistentFlags().Lookup(cli.OutputFlag))
 }
 ```
 

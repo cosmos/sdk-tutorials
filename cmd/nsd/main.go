@@ -13,6 +13,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/server"
 	"github.com/cosmos/cosmos-sdk/x/auth"
+	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"github.com/tendermint/tendermint/libs/cli"
@@ -86,7 +87,7 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command {
 				chainID = fmt.Sprintf("test-chain-%v", common.RandStr(6))
 			}
 
-			_, _, err := gaiaInit.InitializeNodeValidatorFiles(config)
+			_, pk, err := gaiaInit.InitializeNodeValidatorFiles(config)
 			if err != nil {
 				return err
 			}
@@ -98,12 +99,16 @@ func InitCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command {
 				return fmt.Errorf("genesis.json file already exists: %v", genFile)
 			}
 
-			appState, err = codec.MarshalJSONIndent(cdc, app.GenesisState{})
+			genesis := app.GenesisState{
+				AuthData: auth.DefaultGenesisState(),
+				BankData: bank.DefaultGenesisState(),
+			}
+
+			appState, err = codec.MarshalJSONIndent(cdc, genesis)
 			if err != nil {
 				return err
 			}
 
-			pk := gaiaInit.ReadOrCreatePrivValidator(config.PrivValidatorFile())
 			_, _, validator, err := server.SimpleAppGenTx(cdc, pk)
 			if err != nil {
 				return err

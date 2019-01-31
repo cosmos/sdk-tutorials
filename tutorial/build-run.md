@@ -24,6 +24,8 @@ To initialize configuration and a `genesis.json` file for your application and a
 
 > _*NOTE*_: In the below commands addresses are are pulled using terminal utilities. You can also just input the raw strings saved from creating keys, shown below. The commands require [`jq`](https://stedolan.github.io/jq/download/) to be installed on your machine.
 
+> _*NOTE*_: If you have run the tutorial before, you can start from scratch with a `nsd unsafe-reset-all` or by deleting both of the home folders `rm -rf ~/.ns*`
+
 ```bash
 # Initialize configuration files and genesis file
 nsd init --chain-id testchain
@@ -35,8 +37,8 @@ nscli keys add jack
 nscli keys add alice
 
 # Add both accounts, with coins to the genesis file
-nsd add-genesis-account $(nscli keys show jack --address) 1000mycoin,1000jackCoin
-nsd add-genesis-account $(nscli keys show alice --address) 1000mycoin,1000aliceCoin
+nsd add-genesis-account $(nscli keys show jack -a) 1000mycoin,1000jackcoin
+nsd add-genesis-account $(nscli keys show alice -a) 1000mycoin,1000alicecoin
 ```
 
 You can now start `nsd` by calling `nsd start`. You will see logs begin streaming that represent blocks being produced, this will take a couple of seconds.
@@ -45,19 +47,19 @@ Open another terminal to run commands against the network you have just created:
 
 ```bash
 # First check the accounts to ensure they have funds
-nscli query account $(nscli keys show jack --address) \
+nscli query account $(nscli keys show jack -a) \
     --indent --chain-id testchain
-nscli query account $(nscli keys show alice --address) \
+nscli query account $(nscli keys show alice -a) \
     --indent --chain-id testchain
 
 # Buy your first name using your coins from the genesis file
 nscli tx nameservice buy-name jack.id 5mycoin \
-    --from     $(nscli keys show jack --address) \
+    --from     jack \
     --chain-id testchain
 
 # Set the value for the name you just bought
 nscli tx nameservice set-name jack.id 8.8.8.8 \
-    --from     $(nscli keys show jack --address) \
+    --from     jack \
     --chain-id testchain
 
 # Try out a resolve query against the name you registered
@@ -70,7 +72,7 @@ nscli query nameservice whois jack.id --chain-id testchain
 
 # Alice buys name from jack
 nscli tx nameservice buy-name jack.id 10mycoin \
-    --from     $(nscli keys show alice --address) \
+    --from     alice \
     --chain-id testchain
 ```
 
