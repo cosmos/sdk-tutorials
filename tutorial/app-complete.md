@@ -173,9 +173,8 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		app.keyNSprices,
 		app.keyFeeCollection,
 		app.keyParams,
+		app.tkeyParams,
 	)
-
-	app.MountStoresTransient(app.tkeyParams)
 
 	err := app.LoadLatestVersion(app.keyMain)
 	if err != nil {
