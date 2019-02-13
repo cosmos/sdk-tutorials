@@ -26,7 +26,7 @@
 
 [[constraint]]
   name = "github.com/cosmos/cosmos-sdk"
-  revision = "3864d5b1bd9d7081fb5f8bc3f9a014e9a0462756"
+  version = "v0.31.1"
 
 [[override]]
   name = "github.com/golang/protobuf"
@@ -50,12 +50,20 @@
 
 [[override]]
   name = "github.com/tendermint/tendermint"
-  version = "v0.29.0"
+  version = "v0.30.0-rc0"
 
 [[override]]
   name = "golang.org/x/crypto"
   source = "https://github.com/tendermint/crypto"
   revision = "3764759f34a542a3aef74d6b02e35be7ab893bba"
+
+[[override]]
+  name = "github.com/otiai10/copy"
+  revision = "7e9a647135a142c2669943d4a4d29be015ce9392"
+
+[[override]]
+  name = "github.com/btcsuite/btcd"
+  revision = "ed77733ec07dfc8a513741138419b8d9d3de9d2d"
 
 [prune]
   go-tests = true
