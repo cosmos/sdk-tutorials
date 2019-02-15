@@ -53,33 +53,25 @@ Open another terminal to run commands against the network you have just created:
 
 ```bash
 # First check the accounts to ensure they have funds
-nscli query account $(nscli keys show jack -a) \
-    --chain-id testchain
-nscli query account $(nscli keys show alice -a) \
-    --chain-id testchain
+nscli query account $(nscli keys show jack -a) 
+nscli query account $(nscli keys show alice -a) 
 
 # Buy your first name using your coins from the genesis file
-nscli tx nameservice buy-name jack.id 5mycoin \
-    --from     jack \
-    --chain-id testchain
+nscli tx nameservice buy-name jack.id 5mycoin --from jack 
 
 # Set the value for the name you just bought
-nscli tx nameservice set-name jack.id 8.8.8.8 \
-    --from     jack \
-    --chain-id testchain
+nscli tx nameservice set-name jack.id 8.8.8.8 --from jack 
 
 # Try out a resolve query against the name you registered
-nscli query nameservice resolve jack.id --chain-id testchain
+nscli query nameservice resolve jack.id
 # > 8.8.8.8
 
 # Try out a whois query against the name you just registered
-nscli query nameservice whois jack.id --chain-id testchain
+nscli query nameservice whois jack.id
 # > {"value":"8.8.8.8","owner":"cosmos1l7k5tdt2qam0zecxrx78yuw447ga54dsmtpk2s","price":[{"denom":"mycoin","amount":"5"}]}
 
 # Alice buys name from jack
-nscli tx nameservice buy-name jack.id 10mycoin \
-    --from     alice \
-    --chain-id testchain
+nscli tx nameservice buy-name jack.id 10mycoin --from alice 
 ```
 
 ### Congratulations, you have built a Cosmos SDK application! This tutorial is now complete. If you want to see how to run the same commands using the REST server [click here](./run-rest.md).
