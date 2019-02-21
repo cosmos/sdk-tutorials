@@ -80,6 +80,7 @@ func whoIsHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string)
 ```
 
 Notes on the above code:
+
 - Notice we are using the same `cliCtx.QueryWithData` function to fetch the data
 - These functions are almost the same as the corresponding CLI functionality
 
@@ -173,7 +174,8 @@ func setNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFun
 ```
 
 Notes on the above code:
-- The [`BaseReq`](https://godoc.org/github.com/cosmos/cosmos-sdk/client/utils#BaseReq) contains the basic required fields for making a transaction (which key to use, how to decode it, which chain are you on, etc...) and is designed to be embedded as shown.
+
+- The [`BaseReq`](https://godoc.org/github.com/cosmos/cosmos-sdk/client/utils#BaseReq) contains the basic required fields for making a transaction (which key to use, how to decode it, which chain you are on, etc...) and is designed to be embedded as shown.
 - `baseReq.ValidateBasic` and `utils.CompleteAndBroadcastTxREST` handle setting the response code for you and therefore you don't need to worry about handling errors or successes when using those functions.
 
 ### Now your module has everything it needs to be [incorporated into your Cosmos SDK application](./app-complete.md)!

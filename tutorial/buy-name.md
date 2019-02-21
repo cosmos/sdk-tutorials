@@ -7,52 +7,52 @@ Now it is time to define the `Msg` for buying names and add it to the `./x/names
 ```go
 // MsgBuyName defines the BuyName message
 type MsgBuyName struct {
-	Name string
-	Bid    sdk.Coins
-	Buyer  sdk.AccAddress
+    Name string
+    Bid    sdk.Coins
+    Buyer  sdk.AccAddress
 }
 
 // NewMsgBuyName is the constructor function for MsgBuyName
 func NewMsgBuyName(name string, bid sdk.Coins, buyer sdk.AccAddress) MsgBuyName {
-	return MsgBuyName{
-		Name: name,
-		Bid:    bid,
-		Buyer:  buyer,
-	}
+    return MsgBuyName{
+        Name: name,
+        Bid:    bid,
+        Buyer:  buyer,
+    }
 }
 
-// Type Implements Msg.
+// Route should return the name of the module
 func (msg MsgBuyName) Route() string { return "nameservice" }
 
-// Name Implements Msg.
+// Type should return the action
 func (msg MsgBuyName) Type() string { return "buy_name" }
 
-// ValidateBasic Implements Msg.
+// ValdateBasic runs stateless checks on the message
 func (msg MsgBuyName) ValidateBasic() sdk.Error {
-	if msg.Buyer.Empty() {
-		return sdk.ErrInvalidAddress(msg.Buyer.String())
-	}
-	if len(msg.Name) == 0 {
-		return sdk.ErrUnknownRequest("Name cannot be empty")
-	}
-	if !msg.Bid.IsPositive() {
-		return sdk.ErrInsufficientCoins("Bids must be positive")
-	}
-	return nil
+    if msg.Buyer.Empty() {
+        return sdk.ErrInvalidAddress(msg.Buyer.String())
+    }
+    if len(msg.Name) == 0 {
+        return sdk.ErrUnknownRequest("Name cannot be empty")
+    }
+    if !msg.Bid.IsAllPositive() {
+        return sdk.ErrInsufficientCoins("Bids must be positive")
+    }
+    return nil
 }
 
-// GetSignBytes Implements Msg.
+// GetSignBytes encodes the message for signing
 func (msg MsgBuyName) GetSignBytes() []byte {
-	b, err := json.Marshal(msg)
-	if err != nil {
-		panic(err)
-	}
-	return sdk.MustSortJSON(b)
+    b, err := json.Marshal(msg)
+    if err != nil {
+        panic(err)
+    }
+    return sdk.MustSortJSON(b)
 }
 
-// GetSigners Implements Msg.
+// GetSigners defines whose signature is required
 func (msg MsgBuyName) GetSigners() []sdk.AccAddress {
-	return []sdk.AccAddress{msg.Buyer}
+    return []sdk.AccAddress{msg.Buyer}
 }
 ```
 
@@ -61,17 +61,17 @@ Next, in the `./x/nameservice/handler.go` file, add the `MsgBuyName` handler to 
 ```go
 // NewHandler returns a handler for "nameservice" type messages.
 func NewHandler(keeper Keeper) sdk.Handler {
-	return func(ctx sdk.Context, msg sdk.Msg) sdk.Result {
-		switch msg := msg.(type) {
-		case MsgSetName:
-			return handleMsgSetName(ctx, keeper, msg)
-		case MsgBuyName:
-			return handleMsgBuyName(ctx, keeper, msg)
-		default:
-			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type())
-			return sdk.ErrUnknownRequest(errMsg).Result()
-		}
-	}
+    return func(ctx sdk.Context, msg sdk.Msg) sdk.Result {
+        switch msg := msg.(type) {
+        case MsgSetName:
+            return handleMsgSetName(ctx, keeper, msg)
+        case MsgBuyName:
+            return handleMsgBuyName(ctx, keeper, msg)
+        default:
+            errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type())
+            return sdk.ErrUnknownRequest(errMsg).Result()
+        }
+    }
 }
 ```
 
@@ -80,31 +80,31 @@ Finally, define the `BuyName` `handler` function which performs the state transi
 ```go
 // Handle MsgBuyName
 func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result {
-	if keeper.GetPrice(ctx, msg.Name).IsAllGT(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
-		return sdk.ErrInsufficientCoins("Bid not high enough").Result() // If not, throw an error
-	}
-	if keeper.HasOwner(ctx, msg.Name) {
-		_, err := keeper.coinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, msg.Name), msg.Bid)
-		if err != nil {
-			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
-		}
-	} else {
-		_, _, err := keeper.coinKeeper.SubtractCoins(ctx, msg.Buyer, msg.Bid) // If so, deduct the Bid amount from the sender
-		if err != nil {
-			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
-		}
-	}
-	keeper.SetOwner(ctx, msg.Name, msg.Buyer)
-	keeper.SetPrice(ctx, msg.Name, msg.Bid)
-	return sdk.Result{}
+    if keeper.GetPrice(ctx, msg.Name).IsAllGT(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
+        return sdk.ErrInsufficientCoins("Bid not high enough").Result() // If not, throw an error
+    }
+    if keeper.HasOwner(ctx, msg.Name) {
+        _, err := keeper.coinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, msg.Name), msg.Bid)
+        if err != nil {
+            return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
+        }
+    } else {
+        _, _, err := keeper.coinKeeper.SubtractCoins(ctx, msg.Buyer, msg.Bid) // If so, deduct the Bid amount from the sender
+        if err != nil {
+            return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
+        }
+    }
+    keeper.SetOwner(ctx, msg.Name, msg.Buyer)
+    keeper.SetPrice(ctx, msg.Name, msg.Bid)
+    return sdk.Result{}
 }
 ```
 
-First check to make sure that the bid is higher than the current price. Then, check to see whether the name already has an owner. If it does, the former owner will receive the money from the `Buyer`.  
+First check to make sure that the bid is higher than the current price. Then, check to see whether the name already has an owner. If it does, the former owner will receive the money from the `Buyer`.
 
-If there is no owner, your `nameservice` module "burns" (i.e. sends to an unrecoverable address) the coins from the `Buyer`.  
+If there is no owner, your `nameservice` module "burns" (i.e. sends to an unrecoverable address) the coins from the `Buyer`.
 
-If either `SubtractCoins` or `SendCoins` returns a non-nil error, the handler throws an error, reverting the state transition.  Otherwise, using the getters and setters defined on the `Keeper` earlier, the handler sets the buyer to the new owner and set the new price to be the current bid.
+If either `SubtractCoins` or `SendCoins` returns a non-nil error, the handler throws an error, reverting the state transition. Otherwise, using the getters and setters defined on the `Keeper` earlier, the handler sets the buyer to the new owner and sets the new price to be the current bid.
 
 > _*NOTE*_: This handler uses functions from the `coinKeeper` to perform currency operations. If your application is performing currency operations you may want to take a look at the [godocs for this module](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#BaseKeeper) to see what functions it exposes.
 
