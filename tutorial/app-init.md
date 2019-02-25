@@ -4,12 +4,7 @@ Get started by creating a new file: `./app.go`. This file is the heart of your d
 
 In `app.go`, you define what the application does when it receives a transaction. But first, it needs to be able to receive transactions in the correct order. This is the role of the [Tendermint consensus engine](https://github.com/tendermint/tendermint).
 
-Start by installing and importing the necessary dependencies:
-
-```sh
-go get -u github.com/tendermint/tendermint
-go get -u github.com/cosmos/cosmos-sdk
-```
+Start by importing the necessary dependencies:
 
 ```go
 package app
