@@ -8,25 +8,25 @@ The naming convention for the SDK `Msgs` is `Msg{ .Action }`. The first action t
 package nameservice
 
 import (
-    "encoding/json"
+	"encoding/json"
 
-    sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 // MsgSetName defines a SetName message
 type MsgSetName struct {
-    Name string
-    Value  string
-    Owner  sdk.AccAddress
+	Name string
+	Value  string
+	Owner  sdk.AccAddress
 }
 
 // NewMsgSetName is a constructor function for MsgSetName
 func NewMsgSetName(name string, value string, owner sdk.AccAddress) MsgSetName {
-    return MsgSetName{
-        Name: name,
-        Value:  value,
-        Owner:  owner,
-    }
+	return MsgSetName{
+		Name: name,
+		Value:  value,
+		Owner:  owner,
+	}
 }
 ```
 
@@ -51,13 +51,13 @@ The above functions are used by the SDK to route `Msgs` to the proper module for
 ```go
 // ValdateBasic runs stateless checks on the message
 func (msg MsgSetName) ValidateBasic() sdk.Error {
-    if msg.Owner.Empty() {
-        return sdk.ErrInvalidAddress(msg.Owner.String())
-    }
-    if len(msg.Name) == 0 || len(msg.Value) == 0 {
-        return sdk.ErrUnknownRequest("Name and/or Value cannot be empty")
-    }
-    return nil
+	if msg.Owner.Empty() {
+		return sdk.ErrInvalidAddress(msg.Owner.String())
+	}
+	if len(msg.Name) == 0 || len(msg.Value) == 0 {
+		return sdk.ErrUnknownRequest("Name and/or Value cannot be empty")
+	}
+	return nil
 }
 ```
 
@@ -66,11 +66,11 @@ func (msg MsgSetName) ValidateBasic() sdk.Error {
 ```go
 // GetSignBytes encodes the message for signing
 func (msg MsgSetName) GetSignBytes() []byte {
-    b, err := json.Marshal(msg)
-    if err != nil {
-        panic(err)
-    }
-    return sdk.MustSortJSON(b)
+	b, err := json.Marshal(msg)
+	if err != nil {
+		panic(err)
+	}
+	return sdk.MustSortJSON(b)
 }
 ```
 
@@ -79,7 +79,7 @@ func (msg MsgSetName) GetSignBytes() []byte {
 ```go
 // GetSigners defines whose signature is required
 func (msg MsgSetName) GetSigners() []sdk.AccAddress {
-    return []sdk.AccAddress{msg.Owner}
+	return []sdk.AccAddress{msg.Owner}
 }
 ```
 
@@ -95,22 +95,22 @@ In a new file (`./x/nameservice/handler.go`) start with the following code:
 package nameservice
 
 import (
-    "fmt"
+	"fmt"
 
-    sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 // NewHandler returns a handler for "nameservice" type messages.
 func NewHandler(keeper Keeper) sdk.Handler {
-    return func(ctx sdk.Context, msg sdk.Msg) sdk.Result {
-        switch msg := msg.(type) {
-        case MsgSetName:
-            return handleMsgSetName(ctx, keeper, msg)
-        default:
-            errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type())
-            return sdk.ErrUnknownRequest(errMsg).Result()
-        }
-    }
+	return func(ctx sdk.Context, msg sdk.Msg) sdk.Result {
+		switch msg := msg.(type) {
+		case MsgSetName:
+			return handleMsgSetName(ctx, keeper, msg)
+		default:
+			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type())
+			return sdk.ErrUnknownRequest(errMsg).Result()
+		}
+	}
 }
 ```
 
@@ -123,11 +123,11 @@ Now, you need to define the actual logic for handling the `MsgSetName` message i
 ```go
 // Handle a message to set name
 func handleMsgSetName(ctx sdk.Context, keeper Keeper, msg MsgSetName) sdk.Result {
-    if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) { // Checks if the the msg sender is the same as the current owner
-        return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
-    }
-    keeper.SetName(ctx, msg.Name, msg.Value) // If so, set the name to the value specified in the msg.
-    return sdk.Result{}                      // return
+	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) { // Checks if the the msg sender is the same as the current owner
+		return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
+	}
+	keeper.SetName(ctx, msg.Name, msg.Value) // If so, set the name to the value specified in the msg.
+	return sdk.Result{}                      // return
 }
 ```
 
