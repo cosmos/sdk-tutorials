@@ -27,6 +27,7 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 )
 ```
+
 Next you need to add the stores' keys as well as the `Keepers` in your `nameServiceApp` struct, and update the constructor accordingly
 
 ```go
@@ -187,7 +188,7 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 
 > _*NOTE*_: The TransientStore mentioned above is an in-memory implementation of the KVStore for state that is not persisted.
 
-The `initChainer` defines how accounts in `genesis.json` are mapped into the application state on initial chain start. The `ExportAppStateAndValidators` function helps bootstrap the initial state for application. You don't need to worry too much about either of these for now.
+The `initChainer` defines how accounts in `genesis.json` are mapped into the application state on initial chain start. The `ExportAppStateAndValidators` function helps bootstrap the initial state for the application. You don't need to worry too much about either of these for now.
 
 The constructor registers the `initChainer` function, but it isn't defined yet. Go ahead and create it:
 

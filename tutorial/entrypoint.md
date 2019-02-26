@@ -49,7 +49,7 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 )
 
-// DefaultNodeHome sets the folder where the applcation data and configuration will be stored
+// DefaultNodeHome sets the folder where the application data and configuration will be stored
 var DefaultNodeHome = os.ExpandEnv("$HOME/.nsd")
 
 const (
@@ -250,10 +250,8 @@ func SimpleAppGenTx(cdc *codec.Codec, pk crypto.PubKey) (
 ```
 
 Notes on the above code:
-- Most of the code above combines the CLI commands from
-	1. Tendermint
-	2. Cosmos-SDK
-	3. Your Nameservice module
+
+- Most of the code above combines the CLI commands from Tendermint, Cosmos-SDK and your Nameservice module.
 - `InitCmd` allows the app to generate genesis state from the configuration. Dig into the function calls there to learn more about the chain bootstrapping process
 - `AddGenesisAccountCmd` is a convenience for adding accounts to the genesis file, allowing for wallets with coins at chain start
 
@@ -425,10 +423,8 @@ func initConfig(cmd *cobra.Command) error {
 ```
 
 Note:
-- The code combines the CLI commands from:
-	1. Tendermint
-	2. Cosmos-SDK
-	3. Your Nameservice module
+
+- The code combines the CLI commands from Tendermint, Cosmos-SDK and your Nameservice module.
 - The [`cobra` CLI documentation](http://github.com/spf13/cobra) will help with understanding the above code.
 - You can see the `ModuleClient` defined earlier in action here.
 - Note how the routes are included in the `registerRoutes` function

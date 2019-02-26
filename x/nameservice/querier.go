@@ -7,7 +7,7 @@ import (
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 
-// query endpoints supported by the governance Querier
+// query endpoints supported by the nameservice Querier
 const (
 	QueryResolve = "resolve"
 	QueryWhois   = "whois"

@@ -21,13 +21,13 @@ func NewMsgBuyName(name string, bid sdk.Coins, buyer sdk.AccAddress) MsgBuyName 
 	}
 }
 
-// Type Implements Msg.
+// Route should return the name of the module
 func (msg MsgBuyName) Route() string { return "nameservice" }
 
-// Name Implements Msg.
+// Type should return the action
 func (msg MsgBuyName) Type() string { return "buy_name" }
 
-// ValidateBasic Implements Msg.
+// ValidateBasic runs stateless checks on the message
 func (msg MsgBuyName) ValidateBasic() sdk.Error {
 	if msg.Buyer.Empty() {
 		return sdk.ErrInvalidAddress(msg.Buyer.String())
@@ -35,13 +35,13 @@ func (msg MsgBuyName) ValidateBasic() sdk.Error {
 	if len(msg.Name) == 0 {
 		return sdk.ErrUnknownRequest("Name cannot be empty")
 	}
-	if !msg.Bid.IsPositive() {
+	if !msg.Bid.IsAllPositive() {
 		return sdk.ErrInsufficientCoins("Bids must be positive")
 	}
 	return nil
 }
 
-// GetSignBytes Implements Msg.
+// GetSignBytes encodes the message for signing
 func (msg MsgBuyName) GetSignBytes() []byte {
 	b, err := json.Marshal(msg)
 	if err != nil {
@@ -50,7 +50,7 @@ func (msg MsgBuyName) GetSignBytes() []byte {
 	return sdk.MustSortJSON(b)
 }
 
-// GetSigners Implements Msg.
+// GetSigners defines whose signature is required
 func (msg MsgBuyName) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Buyer}
 }
@@ -78,7 +78,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 Finally, define the `BuyName` `handler` function which performs the state transitions triggered by the message. Keep in mind that at this point the message has had its `ValidateBasic` function run so there has been some input verification. However, `ValidateBasic` cannot query application state. Validation logic that is dependent on network state (e.g. account balances) should be performed in the `handler` function.
 
 ```go
-// Handle MsgBuyName
+// Handle a message to buy name
 func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result {
 	if keeper.GetPrice(ctx, msg.Name).IsAllGT(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
 		return sdk.ErrInsufficientCoins("Bid not high enough").Result() // If not, throw an error
@@ -100,11 +100,11 @@ func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result
 }
 ```
 
-First check to make sure that the bid is higher than the current price. Then, check to see whether the name already has an owner. If it does, the former owner will receive the money from the `Buyer`.  
+First check to make sure that the bid is higher than the current price. Then, check to see whether the name already has an owner. If it does, the former owner will receive the money from the `Buyer`.
 
-If there is no owner, your `nameservice` module "burns" (i.e. sends to an unrecoverable address) the coins from the `Buyer`.  
+If there is no owner, your `nameservice` module "burns" (i.e. sends to an unrecoverable address) the coins from the `Buyer`.
 
-If either `SubtractCoins` or `SendCoins` returns a non-nil error, the handler throws an error, reverting the state transition.  Otherwise, using the getters and setters defined on the `Keeper` earlier, the handler sets the buyer to the new owner and set the new price to be the current bid.
+If either `SubtractCoins` or `SendCoins` returns a non-nil error, the handler throws an error, reverting the state transition. Otherwise, using the getters and setters defined on the `Keeper` earlier, the handler sets the buyer to the new owner and sets the new price to be the current bid.
 
 > _*NOTE*_: This handler uses functions from the `coinKeeper` to perform currency operations. If your application is performing currency operations you may want to take a look at the [godocs for this module](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#BaseKeeper) to see what functions it exposes.
 
