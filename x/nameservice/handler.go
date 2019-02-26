@@ -21,16 +21,16 @@ func NewHandler(keeper Keeper) sdk.Handler {
 	}
 }
 
-// Handle MsgSetName
+// Handle a message to set name
 func handleMsgSetName(ctx sdk.Context, keeper Keeper, msg MsgSetName) sdk.Result {
 	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) { // Checks if the the msg sender is the same as the current owner
 		return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
 	}
 	keeper.SetName(ctx, msg.Name, msg.Value) // If so, set the name to the value specified in the msg.
-	return sdk.Result{}                        // return
+	return sdk.Result{}                      // return
 }
 
-// Handle MsgBuyName
+// Handle a message to buy name
 func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result {
 	if keeper.GetPrice(ctx, msg.Name).IsAllGT(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
 		return sdk.ErrInsufficientCoins("Bid not high enough").Result() // If not, throw an error

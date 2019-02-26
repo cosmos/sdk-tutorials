@@ -27,7 +27,7 @@ func (msg MsgBuyName) Route() string { return "nameservice" }
 // Type should return the action
 func (msg MsgBuyName) Type() string { return "buy_name" }
 
-// ValdateBasic runs stateless checks on the message
+// ValidateBasic runs stateless checks on the message
 func (msg MsgBuyName) ValidateBasic() sdk.Error {
 	if msg.Buyer.Empty() {
 		return sdk.ErrInvalidAddress(msg.Buyer.String())
@@ -78,7 +78,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 Finally, define the `BuyName` `handler` function which performs the state transitions triggered by the message. Keep in mind that at this point the message has had its `ValidateBasic` function run so there has been some input verification. However, `ValidateBasic` cannot query application state. Validation logic that is dependent on network state (e.g. account balances) should be performed in the `handler` function.
 
 ```go
-// Handle MsgBuyName
+// Handle a message to buy name
 func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result {
 	if keeper.GetPrice(ctx, msg.Name).IsAllGT(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
 		return sdk.ErrInsufficientCoins("Bid not high enough").Result() // If not, throw an error

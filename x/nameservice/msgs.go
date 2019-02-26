@@ -8,27 +8,27 @@ import (
 
 // MsgSetName defines a SetName message
 type MsgSetName struct {
-	Name string
-	Value  string
-	Owner  sdk.AccAddress
+	Name  string
+	Value string
+	Owner sdk.AccAddress
 }
 
-// NewSetNameMsg is a constructor function for MsgSetName
+// NewMsgSetName is a constructor function for MsgSetName
 func NewMsgSetName(name string, value string, owner sdk.AccAddress) MsgSetName {
 	return MsgSetName{
-		Name: name,
-		Value:  value,
-		Owner:  owner,
+		Name:  name,
+		Value: value,
+		Owner: owner,
 	}
 }
 
-// Name Implements Msg.
+// Route should return the name of the module
 func (msg MsgSetName) Route() string { return "nameservice" }
 
-// Type Implements Msg.
+// Type should return the action
 func (msg MsgSetName) Type() string { return "set_name" }
 
-// ValdateBasic Implements Msg.
+// ValidateBasic runs stateless checks on the message
 func (msg MsgSetName) ValidateBasic() sdk.Error {
 	if msg.Owner.Empty() {
 		return sdk.ErrInvalidAddress(msg.Owner.String())
@@ -39,7 +39,7 @@ func (msg MsgSetName) ValidateBasic() sdk.Error {
 	return nil
 }
 
-// GetSignBytes Implements Msg.
+// GetSignBytes encodes the message for signing
 func (msg MsgSetName) GetSignBytes() []byte {
 	b, err := json.Marshal(msg)
 	if err != nil {
@@ -48,34 +48,34 @@ func (msg MsgSetName) GetSignBytes() []byte {
 	return sdk.MustSortJSON(b)
 }
 
-// GetSigners Implements Msg.
+// GetSigners defines whose signature is required
 func (msg MsgSetName) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Owner}
 }
 
 // MsgBuyName defines the BuyName message
 type MsgBuyName struct {
-	Name string
-	Bid    sdk.Coins
-	Buyer  sdk.AccAddress
+	Name  string
+	Bid   sdk.Coins
+	Buyer sdk.AccAddress
 }
 
 // NewMsgBuyName is the constructor function for MsgBuyName
 func NewMsgBuyName(name string, bid sdk.Coins, buyer sdk.AccAddress) MsgBuyName {
 	return MsgBuyName{
-		Name: name,
-		Bid:    bid,
-		Buyer:  buyer,
+		Name:  name,
+		Bid:   bid,
+		Buyer: buyer,
 	}
 }
 
-// Name Implements Msg.
+// Route should return the name of the module
 func (msg MsgBuyName) Route() string { return "nameservice" }
 
-// Type Implements Msg.
+// Type should return the action
 func (msg MsgBuyName) Type() string { return "buy_name" }
 
-// ValidateBasic Implements Msg.
+// ValidateBasic runs stateless checks on the message
 func (msg MsgBuyName) ValidateBasic() sdk.Error {
 	if msg.Buyer.Empty() {
 		return sdk.ErrInvalidAddress(msg.Buyer.String())
@@ -83,13 +83,13 @@ func (msg MsgBuyName) ValidateBasic() sdk.Error {
 	if len(msg.Name) == 0 {
 		return sdk.ErrUnknownRequest("Name cannot be empty")
 	}
-	if !msg.Bid.IsPositive() {
+	if !msg.Bid.IsAllPositive() {
 		return sdk.ErrInsufficientCoins("Bids must be positive")
 	}
 	return nil
 }
 
-// GetSignBytes Implements Msg.
+// GetSignBytes encodes the message for signing
 func (msg MsgBuyName) GetSignBytes() []byte {
 	b, err := json.Marshal(msg)
 	if err != nil {
@@ -98,7 +98,7 @@ func (msg MsgBuyName) GetSignBytes() []byte {
 	return sdk.MustSortJSON(b)
 }
 
-// GetSigners Implements Msg.
+// GetSigners defines whose signature is required
 func (msg MsgBuyName) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Buyer}
 }
