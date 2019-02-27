@@ -40,7 +40,7 @@
   revision = "d4cc87b860166d00d6b5b9e0d3b3d71d6088d4d4"
 
 [[projects]]
-  digest = "1:efe861e829d737b7a251a60ffb85ad6c1adfe674153789ac1c866f37a626cdbd"
+  digest = "1:aaba47dcb27782c544df8603e4b58148a30fea3050ed31e60cb17ff1d1de8b65"
   name = "github.com/cosmos/cosmos-sdk"
   packages = [
     "baseapp",
@@ -77,6 +77,7 @@
     "store/types",
     "tests",
     "types",
+    "types/rest",
     "version",
     "x/auth",
     "x/auth/client",
@@ -116,8 +117,8 @@
     "x/staking/types",
   ]
   pruneopts = "UT"
-  revision = "b9e523212ec47910a00db00be2f1b7935e201ee7"
-  version = "v0.31.1"
+  revision = "906e9509cfcae3330584416c8b8e9cfe6c8d2766"
+  version = "v0.32.0"
 
 [[projects]]
   digest = "1:e8a3550c8786316675ff54ad6f09d265d129c9d986919af7f541afba50d87ce2"
@@ -139,8 +140,8 @@
   name = "github.com/ethereum/go-ethereum"
   packages = ["crypto/secp256k1"]
   pruneopts = "UT"
-  revision = "7fa3509e2eaf1a4ebc12344590e5699406690f15"
-  version = "v1.8.22"
+  revision = "c942700427557e3ff6de3aaf6b916e2f056c1ec2"
+  version = "v1.8.23"
 
 [[projects]]
   digest = "1:abeb38ade3f32a92943e5be54f55ed6d6e3b6602761d74b4aab4c9dd45c18abd"
@@ -212,12 +213,12 @@
   version = "v1.1.0"
 
 [[projects]]
-  branch = "master"
-  digest = "1:4a0c6bb4805508a6287675fac876be2ac1182539ca8a32468d8128882e9d5009"
+  digest = "1:e4f5819333ac698d294fe04dbf640f84719658d5c7ce195b10060cc37292ce79"
   name = "github.com/golang/snappy"
   packages = ["."]
   pruneopts = "UT"
-  revision = "2e65f85255dbc3072edf28d6b5b8efc472979f5a"
+  revision = "2a8bb927dd31d8daada140a5d09578521ce5c36a"
+  version = "v0.0.1"
 
 [[projects]]
   digest = "1:ca59b1175189b3f0e9f1793d2c350114be36eaabbe5b9f554b35edee1de50aea"
@@ -287,12 +288,12 @@
   version = "v1.8.0"
 
 [[projects]]
-  digest = "1:0981502f9816113c9c8c4ac301583841855c8cf4da8c72f696b3ebedf6d0e4e5"
+  digest = "1:3bb9c8451d199650bfd303e0068d86f135952fead374ad87c09a9b8a2cc4bd7c"
   name = "github.com/mattn/go-isatty"
   packages = ["."]
   pruneopts = "UT"
-  revision = "6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c"
-  version = "v0.0.4"
+  revision = "369ecd8cea9851e459abb67eb171853e3986591e"
+  version = "v0.0.6"
 
 [[projects]]
   digest = "1:ff5ebae34cfbf047d505ee150de27e60570e8c394b3b8fdbb720ff6ac71985fc"
@@ -368,16 +369,17 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:f0bb332b39488b057a8671557f307997426e5c650ee738a634a0697a41e207c5"
+  digest = "1:ca30ee2c96d195cef49b546d10825d3e13b50c63da4df23c80e77c51e07bad0d"
   name = "github.com/prometheus/procfs"
   packages = [
     ".",
     "internal/util",
+    "iostats",
     "nfs",
     "xfs",
   ]
   pruneopts = "UT"
-  revision = "f8d8b3f739bd91a7c0462cb55235ef63c79c9abc"
+  revision = "6ed1f7e1041181781dd2826d3001075d011a80cc"
 
 [[projects]]
   digest = "1:ea0700160aca4ef099f4e06686a665a87691f4248dddd40796925eda2e46bd64"
@@ -465,8 +467,7 @@
   version = "v1.2.1"
 
 [[projects]]
-  branch = "master"
-  digest = "1:685fdfea42d825ebd39ee0994354b46c374cf2c2b2d97a41a8dee1807c6a9b62"
+  digest = "1:5b180f17d5bc50b765f4dcf0d126c72979531cbbd7f7929bf3edd87fb801ea2d"
   name = "github.com/syndtr/goleveldb"
   packages = [
     "leveldb",
@@ -483,7 +484,8 @@
     "leveldb/util",
   ]
   pruneopts = "UT"
-  revision = "2f17a3356c6616cbfc4ae4c38147dc062a68fb0e"
+  revision = "9d007e481048296f09f59bd19bb7ae584563cd95"
+  version = "v1.0.0"
 
 [[projects]]
   digest = "1:83f5e189eea2baad419a6a410984514266ff690075759c87e9ede596809bd0b8"
@@ -502,15 +504,15 @@
   version = "v0.14.1"
 
 [[projects]]
-  digest = "1:e1cc8dd891e64aab63b0c09f2f12456cbe2cd9cbd9d96dfae3281245f05c2428"
+  digest = "1:1bb088f6291e5426e3874a60bca0e481a91a5633395d7e0c427ec3e49b626e7b"
   name = "github.com/tendermint/iavl"
   packages = ["."]
   pruneopts = "UT"
-  revision = "de0740903a67b624d887f9055d4c60175dcfa758"
-  version = "v0.12.0"
+  revision = "ac7c35c12e8633a1e9fd0b52a00b900b40f32cd3"
+  version = "v0.12.1"
 
 [[projects]]
-  digest = "1:89f6fe8d02b427996828fbf43720ed1297a2e92c930b98dd302767b5ad796579"
+  digest = "1:4a372b718ee1433fa421e1c9e450a8b14bc24f2b5d7b5f9329d4d49e360f5f9e"
   name = "github.com/tendermint/tendermint"
   packages = [
     "abci/client",
@@ -576,8 +578,8 @@
     "version",
   ]
   pruneopts = "UT"
-  revision = "28d75ec8016b7fb043735cbe4c4d92ec73355de7"
-  version = "v0.30.0"
+  revision = "e0f8936455029a40287a69d5b0e7baa4d5864da1"
+  version = "v0.30.1"
 
 [[projects]]
   digest = "1:5a736f4722932d9a45d28852e85b83f68292d9af2ef0be29d4e5fe6fd89d5d96"
@@ -647,14 +649,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:c9e49928119661a681af4037236af47654d6bd421c0af184962c890d0a61e0fb"
+  digest = "1:ad5e62a015226e008f9ca24cdf00d65c74f004f1b247cfa033ca9e3afcf41b29"
   name = "golang.org/x/sys"
   packages = [
     "cpu",
     "unix",
   ]
   pruneopts = "UT"
-  revision = "3b5209105503162ded1863c307ac66fec31120dd"
+  revision = "775f8194d0f9e65c46913c7be783d3d95a29333c"
 
 [[projects]]
   digest = "1:a2ab62866c75542dd18d2b069fec854577a20211d7c0ea6ae746072a1dccdd18"
@@ -685,10 +687,10 @@
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
   pruneopts = "UT"
-  revision = "4b09977fb92221987e99d190c8f88f2c92727a29"
+  revision = "fc2db5cae922db113989ef87b5b859cc8a179f59"
 
 [[projects]]
-  digest = "1:9ab5a33d8cb5c120602a34d2e985ce17956a4e8c2edce7e6961568f95e40c09a"
+  digest = "1:cbc746de4662c66fd24a037501bd65aa0f8ad0bfca0c92576e0abb88864e3741"
   name = "google.golang.org/grpc"
   packages = [
     ".",
@@ -724,8 +726,8 @@
     "tap",
   ]
   pruneopts = "UT"
-  revision = "a02b0774206b209466313a0b525d2c738fe407eb"
-  version = "v1.18.0"
+  revision = "2fdaae294f38ed9a121193c51ec99fecd3b13eb7"
+  version = "v1.19.0"
 
 [[projects]]
   digest = "1:4d2e5a73dc1500038e504a8d78b986630e3626dc027bc030ba5c75da257cdb96"
@@ -744,6 +746,7 @@
     "github.com/cosmos/cosmos-sdk/client/context",
     "github.com/cosmos/cosmos-sdk/client/keys",
     "github.com/cosmos/cosmos-sdk/client/lcd",
+    "github.com/cosmos/cosmos-sdk/client/rest",
     "github.com/cosmos/cosmos-sdk/client/rpc",
     "github.com/cosmos/cosmos-sdk/client/tx",
     "github.com/cosmos/cosmos-sdk/client/utils",
@@ -751,6 +754,7 @@
     "github.com/cosmos/cosmos-sdk/codec",
     "github.com/cosmos/cosmos-sdk/server",
     "github.com/cosmos/cosmos-sdk/types",
+    "github.com/cosmos/cosmos-sdk/types/rest",
     "github.com/cosmos/cosmos-sdk/version",
     "github.com/cosmos/cosmos-sdk/x/auth",
     "github.com/cosmos/cosmos-sdk/x/auth/client/cli",
@@ -767,6 +771,7 @@
     "github.com/tendermint/go-amino",
     "github.com/tendermint/tendermint/abci/types",
     "github.com/tendermint/tendermint/config",
+    "github.com/tendermint/tendermint/crypto",
     "github.com/tendermint/tendermint/libs/cli",
     "github.com/tendermint/tendermint/libs/common",
     "github.com/tendermint/tendermint/libs/db",
