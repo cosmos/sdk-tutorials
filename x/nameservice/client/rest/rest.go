@@ -138,3 +138,14 @@ func whoIsHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string)
 		rest.PostProcessResponse(w, cdc, res, cliCtx.Indent)
 	}
 }
+
+func namesHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/names", storeName), nil)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
+			return
+		}
+		rest.PostProcessResponse(w, cdc, res, cliCtx.Indent)
+	}
+}

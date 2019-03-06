@@ -28,6 +28,7 @@ func (mc ModuleClient) GetQueryCmd() *cobra.Command {
 	namesvcQueryCmd.AddCommand(client.GetCommands(
 		nameservicecmd.GetCmdResolveName(mc.storeKey, mc.cdc),
 		nameservicecmd.GetCmdWhois(mc.storeKey, mc.cdc),
+		nameservicecmd.GetCmdNames(mc.storeKey, mc.cdc),
 	)...)
 
 	return namesvcQueryCmd
