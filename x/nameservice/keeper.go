@@ -29,7 +29,7 @@ func NewKeeper(coinKeeper bank.Keeper, storeKey sdk.StoreKey, cdc *codec.Codec) 
 func (k Keeper) GetWhois(ctx sdk.Context, name string) Whois {
 	store := ctx.KVStore(k.storeKey)
 	if !store.Has([]byte(name)) {
-		return Whois{}
+		return NewWhois()
 	}
 	bz := store.Get([]byte(name))
 	var whois Whois
@@ -39,6 +39,9 @@ func (k Keeper) GetWhois(ctx sdk.Context, name string) Whois {
 
 // Sets the entire Whois metadata struct for a name
 func (k Keeper) SetWhois(ctx sdk.Context, name string, whois Whois) {
+	if whois.Owner.Empty() {
+		return
+	}
 	store := ctx.KVStore(k.storeKey)
 	store.Set([]byte(name), k.cdc.MustMarshalBinaryBare(whois))
 }
