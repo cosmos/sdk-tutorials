@@ -37,8 +37,8 @@ nscli keys add jack
 nscli keys add alice
 
 # Add both accounts, with coins to the genesis file
-nsd add-genesis-account $(nscli keys show jack -a) 1000mycoin,1000jackcoin
-nsd add-genesis-account $(nscli keys show alice -a) 1000mycoin,1000alicecoin
+nsd add-genesis-account $(nscli keys show jack -a) 1000nametoken,1000jackcoin
+nsd add-genesis-account $(nscli keys show alice -a) 1000nametoken,1000alicecoin
 
 # Configure your CLI to eliminate need for chain-id flag
 nscli config chain-id testchain
@@ -57,7 +57,7 @@ nscli query account $(nscli keys show jack -a)
 nscli query account $(nscli keys show alice -a) 
 
 # Buy your first name using your coins from the genesis file
-nscli tx nameservice buy-name jack.id 5mycoin --from jack 
+nscli tx nameservice buy-name jack.id 5nametoken --from jack 
 
 # Set the value for the name you just bought
 nscli tx nameservice set-name jack.id 8.8.8.8 --from jack 
@@ -68,10 +68,10 @@ nscli query nameservice resolve jack.id
 
 # Try out a whois query against the name you just registered
 nscli query nameservice whois jack.id
-# > {"value":"8.8.8.8","owner":"cosmos1l7k5tdt2qam0zecxrx78yuw447ga54dsmtpk2s","price":[{"denom":"mycoin","amount":"5"}]}
+# > {"value":"8.8.8.8","owner":"cosmos1l7k5tdt2qam0zecxrx78yuw447ga54dsmtpk2s","price":[{"denom":"nametoken","amount":"5"}]}
 
 # Alice buys name from jack
-nscli tx nameservice buy-name jack.id 10mycoin --from alice 
+nscli tx nameservice buy-name jack.id 10nametoken --from alice 
 ```
 
 ### Congratulations, you have built a Cosmos SDK application! This tutorial is now complete. If you want to see how to run the same commands using the REST server [click here](./run-rest.md).
