@@ -2,7 +2,6 @@ package cli
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -26,17 +25,11 @@ func GetCmdResolveName(queryRoute string, cdc *codec.Codec) *cobra.Command {
 				return nil
 			}
 
-			return cliCtx.PrintOutput(resolveRes{string(res)})
+			var out nameservice.QueryResResolve
+			cdc.MustUnmarshalJSON(res, &out)
+			return cliCtx.PrintOutput(out)
 		},
 	}
-}
-
-type resolveRes struct {
-	Value string `json:"value"`
-}
-
-func (r resolveRes) String() string {
-	return r.Value
 }
 
 // GetCmdWhois queries information about a domain
@@ -55,19 +48,11 @@ func GetCmdWhois(queryRoute string, cdc *codec.Codec) *cobra.Command {
 				return nil
 			}
 
-			var out whoIsRes
+			var out nameservice.Whois
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
 		},
 	}
-}
-
-type whoIsRes nameservice.Whois
-
-func (w whoIsRes) String() string {
-	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
-Value: %s
-Price: %s`, w.Owner, w.Value, w.Price))
 }
 
 // GetCmdNames queries a list of all names
@@ -85,15 +70,9 @@ func GetCmdNames(queryRoute string, cdc *codec.Codec) *cobra.Command {
 				return nil
 			}
 
-			var out namesList
+			var out nameservice.QueryResNames
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
 		},
 	}
-}
-
-type namesList []string
-
-func (n namesList) String() string {
-	return strings.Join(n[:], "\n")
 }
