@@ -11,72 +11,78 @@ import (
 type Keeper struct {
 	coinKeeper bank.Keeper
 
-	namesStoreKey  sdk.StoreKey // Unexposed key to access name store from sdk.Context
-	ownersStoreKey sdk.StoreKey // Unexposed key to access owners store from sdk.Context
-	pricesStoreKey sdk.StoreKey // Unexposed key to access prices store from sdk.Context
+	storeKey sdk.StoreKey // Unexposed key to access store from sdk.Context
 
 	cdc *codec.Codec // The wire codec for binary encoding/decoding.
 }
 
 // NewKeeper creates new instances of the nameservice Keeper
-func NewKeeper(coinKeeper bank.Keeper, namesStoreKey sdk.StoreKey, ownersStoreKey sdk.StoreKey, priceStoreKey sdk.StoreKey, cdc *codec.Codec) Keeper {
+func NewKeeper(coinKeeper bank.Keeper, storeKey sdk.StoreKey, cdc *codec.Codec) Keeper {
 	return Keeper{
-		coinKeeper:     coinKeeper,
-		namesStoreKey:  namesStoreKey,
-		ownersStoreKey: ownersStoreKey,
-		pricesStoreKey: priceStoreKey,
-		cdc:            cdc,
+		coinKeeper: coinKeeper,
+		storeKey:   storeKey,
+		cdc:        cdc,
 	}
+}
+
+// Gets the entire Whois metadata struct for a name
+func (k Keeper) GetWhois(ctx sdk.Context, name string) Whois {
+	store := ctx.KVStore(k.storeKey)
+	if !store.Has([]byte(name)) {
+		return NewWhois()
+	}
+	bz := store.Get([]byte(name))
+	var whois Whois
+	k.cdc.MustUnmarshalBinaryBare(bz, &whois)
+	return whois
+}
+
+// Sets the entire Whois metadata struct for a name
+func (k Keeper) SetWhois(ctx sdk.Context, name string, whois Whois) {
+	if whois.Owner.Empty() {
+		return
+	}
+	store := ctx.KVStore(k.storeKey)
+	store.Set([]byte(name), k.cdc.MustMarshalBinaryBare(whois))
 }
 
 // ResolveName - returns the string that the name resolves to
 func (k Keeper) ResolveName(ctx sdk.Context, name string) string {
-	store := ctx.KVStore(k.namesStoreKey)
-	bz := store.Get([]byte(name))
-	return string(bz)
+	return k.GetWhois(ctx, name).Value
 }
 
 // SetName - sets the value string that a name resolves to
 func (k Keeper) SetName(ctx sdk.Context, name string, value string) {
-	store := ctx.KVStore(k.namesStoreKey)
-	store.Set([]byte(name), []byte(value))
+	whois := k.GetWhois(ctx, name)
+	whois.Value = value
+	k.SetWhois(ctx, name, whois)
 }
 
 // HasOwner - returns whether or not the name already has an owner
 func (k Keeper) HasOwner(ctx sdk.Context, name string) bool {
-	store := ctx.KVStore(k.ownersStoreKey)
-	bz := store.Get([]byte(name))
-	return bz != nil
+	return !k.GetWhois(ctx, name).Owner.Empty()
 }
 
 // GetOwner - get the current owner of a name
 func (k Keeper) GetOwner(ctx sdk.Context, name string) sdk.AccAddress {
-	store := ctx.KVStore(k.ownersStoreKey)
-	bz := store.Get([]byte(name))
-	return bz
+	return k.GetWhois(ctx, name).Owner
 }
 
 // SetOwner - sets the current owner of a name
 func (k Keeper) SetOwner(ctx sdk.Context, name string, owner sdk.AccAddress) {
-	store := ctx.KVStore(k.ownersStoreKey)
-	store.Set([]byte(name), owner)
+	whois := k.GetWhois(ctx, name)
+	whois.Owner = owner
+	k.SetWhois(ctx, name, whois)
 }
 
 // GetPrice - gets the current price of a name.  If price doesn't exist yet, set to 1mycoin.
 func (k Keeper) GetPrice(ctx sdk.Context, name string) sdk.Coins {
-	if !k.HasOwner(ctx, name) {
-		return sdk.Coins{sdk.NewInt64Coin("mycoin", 1)}
-	}
-	store := ctx.KVStore(k.pricesStoreKey)
-	bz := store.Get([]byte(name))
-	var price sdk.Coins
-	// k.cdc.MustUnmarshalBinary(bz, &price)
-	k.cdc.MustUnmarshalBinaryBare(bz, &price)
-	return price
+	return k.GetWhois(ctx, name).Price
 }
 
 // SetPrice - sets the current price of a name
 func (k Keeper) SetPrice(ctx sdk.Context, name string, price sdk.Coins) {
-	store := ctx.KVStore(k.pricesStoreKey)
-	store.Set([]byte(name), k.cdc.MustMarshalBinaryBare(price))
+	whois := k.GetWhois(ctx, name)
+	whois.Price = price
+	k.SetWhois(ctx, name, whois)
 }
