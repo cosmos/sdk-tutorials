@@ -49,7 +49,7 @@ func (msg MsgSetName) Type() string { return "set_name"}
 The above functions are used by the SDK to route `Msgs` to the proper module for handling. They also add human readable names to database tags used for indexing.
 
 ```go
-// ValdateBasic runs stateless checks on the message
+// ValidateBasic runs stateless checks on the message
 func (msg MsgSetName) ValidateBasic() sdk.Error {
 	if msg.Owner.Empty() {
 		return sdk.ErrInvalidAddress(msg.Owner.String())
