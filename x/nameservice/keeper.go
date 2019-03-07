@@ -75,7 +75,7 @@ func (k Keeper) SetOwner(ctx sdk.Context, name string, owner sdk.AccAddress) {
 	k.SetWhois(ctx, name, whois)
 }
 
-// GetPrice - gets the current price of a name.  If price doesn't exist yet, set to 1mycoin.
+// GetPrice - gets the current price of a name
 func (k Keeper) GetPrice(ctx sdk.Context, name string) sdk.Coins {
 	return k.GetWhois(ctx, name).Price
 }

@@ -42,9 +42,7 @@ type nameServiceApp struct {
 
 	keyMain          *sdk.KVStoreKey
 	keyAccount       *sdk.KVStoreKey
-	keyNSnames       *sdk.KVStoreKey
-	keyNSowners      *sdk.KVStoreKey
-	keyNSprices      *sdk.KVStoreKey
+	keyNS            *sdk.KVStoreKey
 	keyFeeCollection *sdk.KVStoreKey
 	keyParams        *sdk.KVStoreKey
 	tkeyParams       *sdk.TransientStoreKey
@@ -56,30 +54,29 @@ type nameServiceApp struct {
 	nsKeeper            nameservice.Keeper
 }
 
+// NewNameServiceApp is a constructor function for nameServiceApp
 func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 
-  // First define the top level codec that will be shared by the different modules
-  cdc := MakeCodec()
+	// First define the top level codec that will be shared by the different modules
+	cdc := MakeCodec()
 
-  // BaseApp handles interactions with Tendermint through the ABCI protocol
-  bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
+	// BaseApp handles interactions with Tendermint through the ABCI protocol
+	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
 
-  // Here you initialize your application with the store keys it requires
+	// Here you initialize your application with the store keys it requires
 	var app = &nameServiceApp{
 		BaseApp: bApp,
 		cdc:     cdc,
 
 		keyMain:          sdk.NewKVStoreKey("main"),
 		keyAccount:       sdk.NewKVStoreKey("acc"),
-		keyNSnames:       sdk.NewKVStoreKey("ns_names"),
-		keyNSowners:      sdk.NewKVStoreKey("ns_owners"),
-		keyNSprices:      sdk.NewKVStoreKey("ns_prices"),
+		keyNS:            sdk.NewKVStoreKey("ns"),
 		keyFeeCollection: sdk.NewKVStoreKey("fee_collection"),
 		keyParams:        sdk.NewKVStoreKey("params"),
 		tkeyParams:       sdk.NewTransientStoreKey("transient_params"),
 	}
 
-  return app
+	return app
 }
 ```
 
@@ -111,9 +108,7 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 
 		keyMain:          sdk.NewKVStoreKey("main"),
 		keyAccount:       sdk.NewKVStoreKey("acc"),
-		keyNSnames:       sdk.NewKVStoreKey("ns_names"),
-		keyNSowners:      sdk.NewKVStoreKey("ns_owners"),
-		keyNSprices:      sdk.NewKVStoreKey("ns_prices"),
+		keyNS:            sdk.NewKVStoreKey("ns"),
 		keyFeeCollection: sdk.NewKVStoreKey("fee_collection"),
 		keyParams:        sdk.NewKVStoreKey("params"),
 		tkeyParams:       sdk.NewTransientStoreKey("transient_params"),
@@ -144,9 +139,7 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	// It handles interactions with the namestore
 	app.nsKeeper = nameservice.NewKeeper(
 		app.bankKeeper,
-		app.keyNSnames,
-		app.keyNSowners,
-		app.keyNSprices,
+		app.keyNS,
 		app.cdc,
 	)
 
@@ -169,9 +162,7 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	app.MountStores(
 		app.keyMain,
 		app.keyAccount,
-		app.keyNSnames,
-		app.keyNSowners,
-		app.keyNSprices,
+		app.keyNS,
 		app.keyFeeCollection,
 		app.keyParams,
 		app.tkeyParams,

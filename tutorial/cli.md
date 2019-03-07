@@ -19,7 +19,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
 	"github.com/spf13/cobra"
 )
 
@@ -75,11 +75,7 @@ func GetCmdWhois(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	}
 }
 
-type whoIsRes struct {
-	Value string         `json:"value"`
-	Owner sdk.AccAddress `json:"owner"`
-	Price sdk.Coins      `json:"price"`
-}
+type whoIsRes nameservice.Whois
 
 func (w whoIsRes) String() string {
 	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
@@ -96,6 +92,9 @@ Notes on the above code:
   - The second piece (`nameservice`) is the name of the module to route the query to.
   - Finally there is the specific querier in the module that will be called.
   - In this example the fourth piece is the query. This works because the query parameter is a simple string. To enable more complex query inputs you need to use the second argument of the [`.QueryWithData()`](https://godoc.org/github.com/cosmos/cosmos-sdk/client/context#CLIContext.QueryWithData) function to pass in `data`. For an example of this see the [queriers in the Staking module](https://github.com/cosmos/cosmos-sdk/blob/develop/x/stake/querier/querier.go#L103).
+- Each output type should be something that is both JSON marshallable and stringable (implements the Golang `fmt.Stringer` interface).
+  - So for the output type of `resolve` we wrap the resolution string in a struct called `resolveRes` which is both JSON marshallable and has a `.String()` method.
+  - For the output of Whois, the normal Whois struct is already JSON marshalable, but we need to add a `.String()` method on it.
 
 ## Transactions
 
