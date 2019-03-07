@@ -11,6 +11,9 @@ Start by defining the `NewQuerier` function which acts as a sub-router for queri
 package nameservice
 
 import (
+	"fmt"
+	"strings"
+
 	"github.com/cosmos/cosmos-sdk/codec"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -21,6 +24,7 @@ import (
 const (
 	QueryResolve = "resolve"
 	QueryWhois   = "whois"
+	QueryNames   = "names"
 )
 
 // NewQuerier is the module level router for state queries
@@ -31,6 +35,8 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 			return queryResolve(ctx, path[1:], req, keeper)
 		case QueryWhois:
 			return queryWhois(ctx, path[1:], req, keeper)
+		case QueryNames:
+			return queryNames(ctx, req, keeper)
 		default:
 			return nil, sdk.ErrUnknownRequest("unknown nameservice query endpoint")
 		}
@@ -51,7 +57,22 @@ func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper 
 		return []byte{}, sdk.ErrUnknownRequest("could not resolve name")
 	}
 
-	return []byte(value), nil
+	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, QueryResResolve{value})
+	if err2 != nil {
+		panic("could not marshal result to JSON")
+	}
+
+	return bz, nil
+}
+
+// Query Result Payload for a resolve query
+type QueryResResolve struct {
+	Value string `json:"value"`
+}
+
+// implement fmt.Stringer
+func (r QueryResResolve) String() string {
+	return r.Value
 }
 
 // nolint: unparam
@@ -68,8 +89,15 @@ func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Ke
 	return bz, nil
 }
 
+// implement fmt.Stringer
+func (w Whois) String() string {
+	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
+Value: %s
+Price: %s`, w.Owner, w.Value, w.Price))
+}
+
 func queryNames(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
-	var namesList []string
+	var namesList QueryResNames
 
 	iterator := keeper.GetNamesIterator(ctx)
 
@@ -85,10 +113,22 @@ func queryNames(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []by
 
 	return bz, nil
 }
+
+// Query Result Payload for a names query
+type QueryResNames []string
+
+// implement fmt.Stringer
+func (n QueryResNames) String() string {
+	return strings.Join(n[:], "\n")
+}
 ```
 
 Notes on the above code:
 
 - Here your `Keeper`'s getters and setters come into heavy use. When building any other applications that use this module you may need to go back and define more getters/setters to access the pieces of state you need.
+- By convention, each output type should be something that is both JSON marshallable and stringable (implements the Golang `fmt.Stringer` interface).  The returned bytes should be the JSON encoding of the output result.
+  - So for the output type of `resolve` we wrap the resolution string in a struct called `QueryResResolve` which is both JSON marshallable and has a `.String()` method.
+  - For the output of Whois, the normal Whois struct is already JSON marshalable, but we need to add a `.String()` method on it.
+  - Same for the output of a names query, a `[]string` is already natively marshalable, but we want to add a `.String()` method on it.
 
 ### Now that you have ways to mutate and view your module state it's time to put the finishing touches on it! Register your types in the [Amino encoding format next](./codec.md)!
