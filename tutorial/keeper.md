@@ -82,7 +82,7 @@ Here, like in the `SetName` method, first access the store using the `StoreKey`.
 
 If a name currently does not exist in the store, it returns a new Whois, which has the minimumPrice initialized in it.
 
-Now, we add functions for getting specific parameters from the store based on the name.  However, instead of rewriting the store getters and setters, we reuse the `GetWhois` and `SetWhois` functions.
+Now, we add functions for getting specific parameters from the store based on the name.  However, instead of rewriting the store getters and setters, we reuse the `GetWhois` and `SetWhois` functions.  For example, to set a field, first we grab the whole Whois data, update our specific field, and put the new version back into the store.
 
 ```go
 // ResolveName - returns the string that the name resolves to
