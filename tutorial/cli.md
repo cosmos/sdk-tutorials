@@ -15,7 +15,6 @@ package cli
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -39,17 +38,11 @@ func GetCmdResolveName(queryRoute string, cdc *codec.Codec) *cobra.Command {
 				return nil
 			}
 
-			return cliCtx.PrintOutput(resolveRes{string(res)})
+			var out nameservice.QueryResResolve
+			cdc.MustUnmarshalJSON(res, &out)
+			return cliCtx.PrintOutput(out)
 		},
 	}
-}
-
-type resolveRes struct {
-	Value string `json:"value"`
-}
-
-func (r resolveRes) String() string {
-	return r.Value
 }
 
 // GetCmdWhois queries information about a domain
@@ -68,21 +61,12 @@ func GetCmdWhois(queryRoute string, cdc *codec.Codec) *cobra.Command {
 				return nil
 			}
 
-			var out whoIsRes
+			var out nameservice.Whois
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
 		},
 	}
 }
-
-type whoIsRes nameservice.Whois
-
-func (w whoIsRes) String() string {
-	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
-Value: %s
-Price: %s`, w.Owner, w.Value, w.Price))
-}
-
 
 // GetCmdNames queries a list of all names
 func GetCmdNames(queryRoute string, cdc *codec.Codec) *cobra.Command {
@@ -99,17 +83,11 @@ func GetCmdNames(queryRoute string, cdc *codec.Codec) *cobra.Command {
 				return nil
 			}
 
-			var out namesList
+			var out nameservice.QueryResNames
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
 		},
 	}
-}
-
-type namesList []string
-
-func (n namesList) String() string {
-	return strings.Join(n[:], "\n")
 }
 ```
 
@@ -121,10 +99,6 @@ Notes on the above code:
   - The second piece (`nameservice`) is the name of the module to route the query to.
   - Finally there is the specific querier in the module that will be called.
   - In this example the fourth piece is the query. This works because the query parameter is a simple string. To enable more complex query inputs you need to use the second argument of the [`.QueryWithData()`](https://godoc.org/github.com/cosmos/cosmos-sdk/client/context#CLIContext.QueryWithData) function to pass in `data`. For an example of this see the [queriers in the Staking module](https://github.com/cosmos/cosmos-sdk/blob/develop/x/stake/querier/querier.go#L103).
-- Each output type should be something that is both JSON marshallable and stringable (implements the Golang `fmt.Stringer` interface).
-  - So for the output type of `resolve` we wrap the resolution string in a struct called `resolveRes` which is both JSON marshallable and has a `.String()` method.
-  - For the output of Whois, the normal Whois struct is already JSON marshalable, but we need to add a `.String()` method on it.
-  - Same for the output of a names query, a `[]string` is already natively marshalable, but we want to add a `.String()` method on it.
 
 ## Transactions
 
