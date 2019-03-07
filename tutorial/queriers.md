@@ -67,6 +67,24 @@ func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Ke
 
 	return bz, nil
 }
+
+func queryNames(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
+	var namesList []string
+
+	iterator := keeper.GetNamesIterator(ctx)
+
+	for ; iterator.Valid(); iterator.Next() {
+		name := string(iterator.Key())
+		namesList = append(namesList, name)
+	}
+
+	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, namesList)
+	if err2 != nil {
+		panic("could not marshal result to JSON")
+	}
+
+	return bz, nil
+}
 ```
 
 Notes on the above code:

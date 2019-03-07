@@ -86,3 +86,9 @@ func (k Keeper) SetPrice(ctx sdk.Context, name string, price sdk.Coins) {
 	whois.Price = price
 	k.SetWhois(ctx, name, whois)
 }
+
+// Get an iterator over all names in which the keys are the names and the values are the whois
+func (k Keeper) GetNamesIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.storeKey)
+	return sdk.KVStorePrefixIterator(store, nil)
+}

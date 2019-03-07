@@ -82,6 +82,35 @@ func (w whoIsRes) String() string {
 Value: %s
 Price: %s`, w.Owner, w.Value, w.Price))
 }
+
+
+// GetCmdNames queries a list of all names
+func GetCmdNames(queryRoute string, cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "names",
+		Short: "names",
+		// Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+
+			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/names", queryRoute), nil)
+			if err != nil {
+				fmt.Printf("could not get query names\n")
+				return nil
+			}
+
+			var out namesList
+			cdc.MustUnmarshalJSON(res, &out)
+			return cliCtx.PrintOutput(out)
+		},
+	}
+}
+
+type namesList []string
+
+func (n namesList) String() string {
+	return strings.Join(n[:], "\n")
+}
 ```
 
 Notes on the above code:
@@ -95,6 +124,7 @@ Notes on the above code:
 - Each output type should be something that is both JSON marshallable and stringable (implements the Golang `fmt.Stringer` interface).
   - So for the output type of `resolve` we wrap the resolution string in a struct called `resolveRes` which is both JSON marshallable and has a `.String()` method.
   - For the output of Whois, the normal Whois struct is already JSON marshalable, but we need to add a `.String()` method on it.
+  - Same for the output of a names query, a `[]string` is already natively marshalable, but we want to add a `.String()` method on it.
 
 ## Transactions
 

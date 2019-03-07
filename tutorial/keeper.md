@@ -147,6 +147,17 @@ func (k Keeper) SetPrice(ctx sdk.Context, name string, price sdk.Coins) {
 }
 ```
 
+The SDK also includes a feature called an `sdk.Iterator`, which returns an iterator over all the `<Key, Value>` pairs in a specific spot in a store.
+We will add a function to get an iterator over all the names that exist in the store.
+
+```go
+// Get an iterator over all names in which the keys are the names and the values are the whois
+func (k Keeper) GetNamesIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.storeKey)
+	return sdk.KVStorePrefixIterator(store, []byte{})
+}
+```
+
 The last piece of code needed in the `./x/nameservice/keeper.go` file is a constructor function for `Keeper`:
 
 ```go
