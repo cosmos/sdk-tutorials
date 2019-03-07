@@ -58,11 +58,7 @@ func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper 
 func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
 	name := path[0]
 
-	whois := Whois{}
-
-	whois.Value = keeper.ResolveName(ctx, name)
-	whois.Owner = keeper.GetOwner(ctx, name)
-	whois.Price = keeper.GetPrice(ctx, name)
+	whois := keeper.GetWhois(ctx, name)
 
 	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, whois)
 	if err2 != nil {
@@ -71,18 +67,10 @@ func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Ke
 
 	return bz, nil
 }
-
-// Whois represents a name -> value lookup
-type Whois struct {
-	Value string         `json:"value"`
-	Owner sdk.AccAddress `json:"owner"`
-	Price sdk.Coins      `json:"price"`
-}
 ```
 
 Notes on the above code:
 
 - Here your `Keeper`'s getters and setters come into heavy use. When building any other applications that use this module you may need to go back and define more getters/setters to access the pieces of state you need.
-- If your application needs some custom response types (`Whois` in this example), define them in this file.
 
 ### Now that you have ways to mutate and view your module state it's time to put the finishing touches on it! Register your types in the [Amino encoding format next](./codec.md)!

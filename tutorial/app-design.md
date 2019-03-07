@@ -23,18 +23,15 @@ The state represents your application at a given moment. It tells how much token
 
 The state of tokens and accounts is defined by the `auth` and `bank` modules, which means you don't have to concern yourself with it for now. What you need to do is define the part of the state that relates specifically to your `nameservice` module.
 
-In the SDK, everything is stored in one store called the `multistore`. Any number of key/value stores (called [`KVStores`](https://godoc.org/github.com/cosmos/cosmos-sdk/types#KVStore) in the Cosmos SDK) can be created in this multistore. For your application, you need to store:
-
-- A mapping of `name` to `value`. Create a `nameStore` in the `multistore` to hold this data.
-- A mapping of `name` to `owner`. Create a `ownerStore` in the `multistore` to hold this data.
-- A mapping of `name` to `price`. Create a `priceStore` in the `multistore` to hold this data.
+In the SDK, everything is stored in one store called the `multistore`. Any number of key/value stores (called [`KVStores`](https://godoc.org/github.com/cosmos/cosmos-sdk/types#KVStore) in the Cosmos SDK) can be created in this multistore. For this application, we will use one store to map `name`s to its respective `whois`, a struct that holds a name's value, owner, and price.
 
 ## Messages
 
 Messages are contained in transactions. They trigger state transitions. Each module defines a list of messages and how to handle them. Here are the messages you need to implement the desired functionality for your nameservice application:
 
 - `MsgSetName`: This message allows name owners to set a value for a given name in the `nameStore`.
-- `MsgBuyName`: This message allows accounts to buy a name and become their owner in the `ownerStore`.
+- `MsgBuyName`: This message allows accounts to buy a name and become its owner in the `ownerStore`.
+  - When someone buys a name, they are required to pay the previous owner of the name a price higher than the price the previous owner paid for it.  If a name does not have a previous owner yet, they must burn a `MinPrice` amount.
 
 When a transaction (included in a block) reaches a Tendermint node, it is passed to the application via the [ABCI](https://github.com/tendermint/tendermint/tree/master/abci) and decoded to get the message. The message is then routed to the appropriate module and handled there according to the logic defined in the `Handler`. If the state needs to be updated, the `Handler` calls the `Keeper` to perform the update. You will learn more about these concepts in the next steps of this tutorial.
 

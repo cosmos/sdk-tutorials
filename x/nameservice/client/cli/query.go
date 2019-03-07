@@ -6,7 +6,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
 	"github.com/spf13/cobra"
 )
 
@@ -62,11 +62,7 @@ func GetCmdWhois(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	}
 }
 
-type whoIsRes struct {
-	Value string         `json:"value"`
-	Owner sdk.AccAddress `json:"owner"`
-	Price sdk.Coins      `json:"price"`
-}
+type whoIsRes nameservice.Whois
 
 func (w whoIsRes) String() string {
 	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
