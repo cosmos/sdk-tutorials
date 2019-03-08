@@ -97,12 +97,6 @@ func (k Keeper) SetName(ctx sdk.Context, name string, value string) {
 	k.SetWhois(ctx, name, whois)
 }
 
-// SetOwner - sets the current owner of a name
-func (k Keeper) SetOwner(ctx sdk.Context, name string, owner sdk.AccAddress) {
-	store := ctx.KVStore(k.ownersStoreKey)
-	store.Set([]byte(name), owner)
-}
-
 // HasOwner - returns whether or not the name already has an owner
 func (k Keeper) HasOwner(ctx sdk.Context, name string) bool {
 	return !k.GetWhois(ctx, name).Owner.Empty()

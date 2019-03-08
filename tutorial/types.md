@@ -48,15 +48,4 @@ func NewWhois() Whois {
 }
 ```
 
-Finally, we'll add a `.String()` method to the Whois struct so that it satisfies the Golang `fmt.Stringer` interface (used by the CLI).
-
-```go
-// Satisfies fmt.Stringer interface
-func (w Whois) String() string {
-	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
-Value: %s
-Price: %s`, w.Owner, w.Value, w.Price))
-}
-```
-
 ### Now we move on to the writing the [Keeper for the module](./keeper.md).
