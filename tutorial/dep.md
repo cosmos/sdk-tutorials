@@ -65,7 +65,7 @@ Golang has a few dependency management tools. In this tutorial you will be using
 
 [[constraint]]
   name = "github.com/cosmos/cosmos-sdk"
-  version = "v0.31.1"
+  version = "v0.32.0"
 
 [[override]]
   name = "github.com/golang/protobuf"
