@@ -49,10 +49,6 @@
   version = "v0.12.0"
 
 [[override]]
-  name = "github.com/tendermint/tendermint"
-  version = "v0.31.0-dev0"
-
-[[override]]
   name = "golang.org/x/crypto"
   source = "https://github.com/tendermint/crypto"
   revision = "3764759f34a542a3aef74d6b02e35be7ab893bba"
