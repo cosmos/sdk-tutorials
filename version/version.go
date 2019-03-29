@@ -28,7 +28,7 @@ func newVersionInfo() versionInfo {
 func (v versionInfo) String() string {
 	return fmt.Sprintf(`nameservice: %s
 git commit: %s
-%s`, 
-v.NameService, v.GitCommit,  v.GoVersion,
-)
+%s`,
+		v.NameService, v.GitCommit, v.GoVersion,
+	)
 }
