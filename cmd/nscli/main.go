@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	storeAcc = "acc"
+	storeAcc = "auth"
 	storeNS  = "nameservice"
 )
 
@@ -123,7 +123,7 @@ func txCmd(cdc *amino.Codec, mc []sdk.ModuleClients) *cobra.Command {
 		bankcmd.SendTxCmd(cdc),
 		client.LineBreak,
 		authcmd.GetSignCommand(cdc),
-		// authcmd.GetBroadcastCommand(cdc),
+		tx.GetBroadcastCommand(cdc),
 		client.LineBreak,
 	)
 
