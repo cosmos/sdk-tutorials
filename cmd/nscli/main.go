@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	storeAcc = "auth"
+	storeAcc = "acc"
 	storeNS  = "nameservice"
 )
 
@@ -82,7 +82,6 @@ func main() {
 
 func registerRoutes(rs *lcd.RestServer) {
 	rs.CliCtx = rs.CliCtx.WithAccountDecoder(rs.Cdc)
-	// keys.RegisterRoutes(rs.Mux, rs.CliCtx.Indent)
 	rpc.RegisterRoutes(rs.CliCtx, rs.Mux)
 	tx.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	auth.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, storeAcc)
