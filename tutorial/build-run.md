@@ -28,7 +28,7 @@ To initialize configuration and a `genesis.json` file for your application and a
 
 ```bash
 # Initialize configuration files and genesis file
-nsd init --chain-id testchain
+nsd init --chain-id namechain
 
 # Copy the `Address` output here and save it for later use
 nscli keys add jack
@@ -41,7 +41,7 @@ nsd add-genesis-account $(nscli keys show jack -a) 1000nametoken,1000jackcoin
 nsd add-genesis-account $(nscli keys show alice -a) 1000nametoken,1000alicecoin
 
 # Configure your CLI to eliminate need for chain-id flag
-nscli config chain-id testchain
+nscli config chain-id namechain
 nscli config output json
 nscli config indent true
 nscli config trust-node true
