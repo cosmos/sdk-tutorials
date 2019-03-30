@@ -9,7 +9,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/lcd"
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/tx"
-	"github.com/cosmos/cosmos-sdk/version"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	amino "github.com/tendermint/go-amino"
@@ -21,6 +20,7 @@ import (
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/client/rest"
 	app "github.com/cosmos/sdk-application-tutorial"
+	"github.com/cosmos/sdk-application-tutorial/version"
 	nsclient "github.com/cosmos/sdk-application-tutorial/x/nameservice/client"
 	nsrest "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/rest"
 )
