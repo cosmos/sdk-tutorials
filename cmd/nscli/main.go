@@ -20,7 +20,6 @@ import (
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/client/rest"
 	app "github.com/cosmos/sdk-application-tutorial"
-	"github.com/cosmos/sdk-application-tutorial/version"
 	nsclient "github.com/cosmos/sdk-application-tutorial/x/nameservice/client"
 	nsrest "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/rest"
 )
@@ -70,7 +69,6 @@ func main() {
 		client.LineBreak,
 		keys.Commands(),
 		client.LineBreak,
-		version.VersionCmd,
 	)
 
 	executor := cli.PrepareMainCmd(rootCmd, "NS", defaultCLIHome)

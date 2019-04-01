@@ -9,11 +9,6 @@ Help users build your application by writing a `./Makefile` in the root director
 ```make
 DEP := $(shell command -v dep 2> /dev/null)
 
-# TODO: Uncomment once tagged versions exist
-# VERSION := $(shell echo $(shell git describe --tags) | sed 's/^v//')
-VERSION := 0.0.1
-COMMIT := $(shell git log -1 --format='%H')
-
 ldflags = -X github.com/cosmos/sdk-application-tutorial/version.Version=$(VERSION) \
 	-X github.com/cosmos/sdk-application-tutorial/version.Commit=$(COMMIT)
 
@@ -36,8 +31,8 @@ update_vendor_deps:
 	@dep ensure -v -update
 
 install:
-	go install -ldflags '$(ldflags)' ./cmd/nsd
-	go install -ldflags '$(ldflags)' ./cmd/nscli
+	go install ./cmd/nsd
+	go install ./cmd/nscli
 ```
 
 ## `Gopkg.toml`
