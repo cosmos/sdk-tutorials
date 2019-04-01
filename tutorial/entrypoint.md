@@ -34,7 +34,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/sdk-application-tutorial/version"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"github.com/tendermint/tendermint/crypto"
@@ -72,7 +71,6 @@ func main() {
 
 	rootCmd.AddCommand(InitCmd(ctx, cdc))
 	rootCmd.AddCommand(AddGenesisAccountCmd(ctx, cdc))
-	rootCmd.AddCommand(version.VersionCmd)
 	server.AddCommands(ctx, cdc, rootCmd, newApp, appExporter())
 
 	// prepare and add flags
@@ -286,7 +284,6 @@ import (
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/client/rest"
 	app "github.com/cosmos/sdk-application-tutorial"
-	"github.com/cosmos/sdk-application-tutorial/version"
 	nsclient "github.com/cosmos/sdk-application-tutorial/x/nameservice/client"
 	nsrest "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/rest"
 )
@@ -336,7 +333,7 @@ func main() {
 		client.LineBreak,
 		keys.Commands(),
 		client.LineBreak,
-		version.VersionCmd,
+	
 	)
 
 	executor := cli.PrepareMainCmd(rootCmd, "NS", defaultCLIHome)
