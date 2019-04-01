@@ -9,6 +9,14 @@ Help users build your application by writing a `./Makefile` in the root director
 ```make
 DEP := $(shell command -v dep 2> /dev/null)
 
+# TODO: Uncomment once tagged versions exist
+# VERSION := $(shell echo $(shell git describe --tags) | sed 's/^v//')
+VERSION := 0.0.1
+COMMIT := $(shell git log -1 --format='%H')
+
+ldflags = -X github.com/cosmos/sdk-application-tutorial/version.Version=$(VERSION) \
+	-X github.com/cosmos/sdk-application-tutorial/version.Commit=$(COMMIT)
+
 get_tools:
 ifndef DEP
 	@echo "Installing dep"
@@ -28,13 +36,13 @@ update_vendor_deps:
 	@dep ensure -v -update
 
 install:
-	go install ./cmd/nsd
-	go install ./cmd/nscli
+	go install -ldflags '$(ldflags)' ./cmd/nsd
+	go install -ldflags '$(ldflags)' ./cmd/nscli
 ```
 
 ## `Gopkg.toml`
 
-Golang has a few dependency management tools. In this tutorial you will be using [`dep`](https://golang.github.io/dep/). `dep` uses a `Gopkg.toml` file in the root of the repository to define what dependencies the application needs. Cosmos SDK apps currently depend on specific versions of some libraries. The below manifest contains all the necessary versions. To get started replace the contents of the `./Gopkg.toml` file with the `constraints` and `overrides` below:
+Golang has a few dependency management tools. In this tutorial you will be using [`dep`](https://golang.github.io/dep/) although the Cosmos SDK will be moving to Go Modules soon. `dep` uses a `Gopkg.toml` file in the root of the repository to define what dependencies the application needs. Cosmos SDK apps currently depend on specific versions of some libraries. The below manifest contains all the necessary versions. To get started replace the contents of the `./Gopkg.toml` file with the `constraints` and `overrides` below:
 
 ```toml
 # Gopkg.toml example
@@ -65,7 +73,7 @@ Golang has a few dependency management tools. In this tutorial you will be using
 
 [[constraint]]
   name = "github.com/cosmos/cosmos-sdk"
-  version = "v0.32.0"
+  version = "v0.33.0"
 
 [[override]]
   name = "github.com/golang/protobuf"
@@ -84,12 +92,12 @@ Golang has a few dependency management tools. In this tutorial you will be using
   version = "v0.14.1"
 
 [[override]]
-  name = "github.com/tendermint/iavl"
-  version = "v0.12.0"
+  name = "github.com/tendermint/tendermint"
+  revision = "v0.31.0-dev0"
 
 [[override]]
-  name = "github.com/tendermint/tendermint"
-  version = "v0.30.0-rc0"
+  name = "github.com/tendermint/iavl"
+  version = "=v0.12.1"
 
 [[override]]
   name = "golang.org/x/crypto"
