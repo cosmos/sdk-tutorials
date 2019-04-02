@@ -2,14 +2,9 @@
 
 ## Building the `nameservice` application
 
-If you want to build the `nameservice` application in this repo to see the functionalities, first you need to install `dep`.
-
-> _*NOTE*_: If you are building the application you started in your own repo, your application needs to import the code you just wrote. The code in this tutorial sets the import path is set to this repository (`github.com/cosmos/sdk-application-tutorial`). If you are following along in your own repo you will need to change the import path (in all the files) to reflect that (`github.com/{ .Username }/{ .Project.Repo }`) before building the application.
+If you want to build the `nameservice` application in this repo to see the functionalities, **Go 1.12.1+** is required .
 
 ```bash
-# Initialize dep and install dependencies
-make get_tools && make get_vendor_deps
-
 # Install the app into your $GOBIN
 make install
 
