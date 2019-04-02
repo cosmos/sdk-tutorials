@@ -8,7 +8,7 @@ All of the final source code for this tutorial project is in this directory (and
 
 ## Requirements
 
-- [`golang` >1.11](https://golang.org/doc/install) installed
+- [`golang` >1.12.1](https://golang.org/doc/install) installed
 - A working [`$GOPATH`](https://github.com/golang/go/wiki/SettingGOPATH)
 - Desire to create your own blockchain!
 
