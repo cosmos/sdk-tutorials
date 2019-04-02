@@ -1,10 +1,15 @@
-# Building and running the application
+# 编译并运行程序
 
-## Building the `nameservice` application
+## 编译`nameservice`应用
 
-If you want to build the `nameservice` application in this repo to see the functionalities, **Go 1.12.1+** is required .
+如果要在此仓库中编译nameservice应用程序以查看功能，首先需要安装`dep`。
+
+> 注意注意：你的应用程序需要导入你刚编写的代码。这里导入路径设置为此存储库（`github.com/cosmos/sdk-application-tutorial`）。如果您是在自己的仓库中进行的前面的操作，则需要更改导入路径（github.com/{.Username}/{.Project.Repo}）。
 
 ```bash
+# Initialize dep and install dependencies
+make get_tools && make get_vendor_deps
+
 # Install the app into your $GOBIN
 make install
 
@@ -13,13 +18,13 @@ nsd help
 nscli help
 ```
 
-## Running the live network and using the commands
+## 运行活跃的网络并使用操作命令
 
-To initialize configuration and a `genesis.json` file for your application and an account for the transactions, start by running:
+要初始化配置和应用程序的`genesis.json`文件和及一个用于交易的帐户，请先运行：
 
-> _*NOTE*_: In the below commands addresses are are pulled using terminal utilities. You can also just input the raw strings saved from creating keys, shown below. The commands require [`jq`](https://stedolan.github.io/jq/download/) to be installed on your machine.
+> 注意：在下面的命令中，使用终端来提取地址。你也可以只是输入创建密钥时保存的原始字符串，如下所示。这些命令需要在你的机器上安装[`jq`](https://stedolan.github.io/jq/download/)。
 
-> _*NOTE*_: If you have run the tutorial before, you can start from scratch with a `nsd unsafe-reset-all` or by deleting both of the home folders `rm -rf ~/.ns*`
+> 注意：如果你之前已经运行过该教程，则可以从头开始使用`nsd unsafe-reset-all`或删除home文件夹下的两个执行程序的数据及配置文件夹`rm -rf~ / .ns *`
 
 ```bash
 # Initialize configuration files and genesis file
@@ -42,9 +47,9 @@ nscli config indent true
 nscli config trust-node true
 ```
 
-You can now start `nsd` by calling `nsd start`. You will see logs begin streaming that represent blocks being produced, this will take a couple of seconds.
+你现在可以通过调用`nsd start`来启动`nsd`。你将看到日志开始不停输出，表示正在生成的区块，这将花费几秒钟。
 
-Open another terminal to run commands against the network you have just created:
+打开另一个终端，对刚刚创建的网络运行命令：
 
 ```bash
 # First check the accounts to ensure they have funds
@@ -69,4 +74,4 @@ nscli query nameservice whois jack.id
 nscli tx nameservice buy-name jack.id 10nametoken --from alice 
 ```
 
-### Congratulations, you have built a Cosmos SDK application! This tutorial is now complete. If you want to see how to run the same commands using the REST server [click here](./run-rest.md).
+### 恭喜，您已经构建了一个Cosmos SDK应用程序！ 本教程现已完成。 如果要查看如何使用REST服务器运行相同的命令，请[单击此处](./16-run-rest.md)。

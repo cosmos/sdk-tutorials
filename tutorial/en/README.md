@@ -57,19 +57,19 @@ Then, just follow along! The first step describes the design of your application
 
 1. [Design](./app-design.md) the application.
 2. Begin the implementation of your application in [`./app.go`](./app-init.md).
-3. Start building your module by defining some basic [`Types`](./types.md).
+3. Start building your module by defining some basic [`Types`](types.md).
 4. Create the main core of the module using the [`Keeper`](./keeper.md).
 5. Define state transitions through [`Msgs` and `Handlers`](./msgs-handlers.md).
-    * [`SetName`](./set-name.md)
+    * [`SetName`](set-name.md)
     * [`BuyName`](./buy-name.md)
 6. Make views on your state machine with [`Queriers`](./queriers.md).
 7. Register your types in the encoding format using [`sdk.Codec`](./codec.md).
 8. Create [CLI interactions for your module](./cli.md).
-9. Create [HTTP routes for clients to access your nameservice](./rest.md)
+9. Create [HTTP routes for clients to access your nameservice](rest.md)
 10. Import your module and [finish building your application](./app-complete.md)!
 11. Create the [`nsd` and `nscli` entry points](./entrypoint.md) to your application.
 12. Setup [dependency management using `dep`](./dep.md).
 13. [Build and run](./build-run.md) the example.
-14. [Run REST routes](./run-rest.md).
+14. [Run REST routes](run-rest.md).
 
 ## [Click here](./app-design.md) to get started with the tutorial!

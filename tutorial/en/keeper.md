@@ -151,4 +151,4 @@ func NewKeeper(coinKeeper bank.Keeper, storeKey sdk.StoreKey, cdc *codec.Codec) 
 }
 ```
 
-### Next its time to move onto describing how users interact with your new store using [`Msgs` and `Handlers`](./msgs-handlers.md)
+### Next its time to move onto describing how users interact with your new store using [`Msgs` and `Handlers`](msgs-handlers.md)

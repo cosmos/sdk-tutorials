@@ -1,12 +1,12 @@
-# Building your app
+# 构建你的程序
 
 ## `Makefile`
 
-Help users build your application by writing a `./Makefile` in the root directory that includes common commands:
+通过在根目录中编写包含常用命令的`./Makefile`来帮助用户编译应用程序：
 
-> _*NOTE*_: The below Makefile contains some of same commands as the Cosmos SDK and Tendermint Makefiles.
+> 注意：下面的Makefile包含一些与Cosmos SDK和Tendermint的Makefiles相同的命令。
 
-```make
+```makefile
 DEP := $(shell command -v dep 2> /dev/null)
 
 ldflags = -X github.com/cosmos/sdk-application-tutorial/version.Version=$(VERSION) \
@@ -37,9 +37,11 @@ install:
 
 ## `Gopkg.toml`
 
-Golang has a few dependency management tools. In this tutorial you will be using [`dep`](https://golang.github.io/dep/) although the Cosmos SDK will be moving to Go Modules soon. `dep` uses a `Gopkg.toml` file in the root of the repository to define what dependencies the application needs. Cosmos SDK apps currently depend on specific versions of some libraries. The below manifest contains all the necessary versions. To get started replace the contents of the `./Gopkg.toml` file with the `constraints` and `overrides` below:
+**即将被 go.mod 替代。Update tutorial to use go.mod instead of dep [#51](https://github.com/cosmos/sdk-application-tutorial/issues/51)**
 
-```toml
+Golang有一些依赖管理工具。在本教程中，你将使用[`dep`](https://golang.github.io/dep/)。`dep`使用仓库根目录中的`Gopkg.toml`文件来定义应用程序所需的依赖项。Cosmos SDK应用程序目前依赖于某些库的特定版本。以下列表包含所有必需的版本。首先使用下面的`constraints`和`overrides`项替换`./Gopkg.toml`文件的内容：
+
+```go
 # Gopkg.toml example
 #
 # Refer to https://golang.github.io/dep/docs/Gopkg.toml.html
@@ -112,16 +114,16 @@ Golang has a few dependency management tools. In this tutorial you will be using
   unused-packages = true
 ```
 
-> _*NOTE*_: If you are starting from scratch in your own repo, before running `dep ensure -v` BE SURE YOU HAVE REPLACED THE IMPORT FOR `github.com/cosmos/sdk-application-tutorial` WITH THE IMPORT FOR YOUR WHOLE REPO (probably `github.com/{ .Username }/{ .Project.Repo }`). If you don't you will need to remove the `./vendor` directory (`rm -rf ./vendor`) as well as the `Gopkg.lock` files (`rm Gopkg.lock`) before running `dep ensure -v` again.
+> 注意：如果你再你自己的仓库重头开始编写项目，请确定在运行`dep ensure -v`之前你已经导入路径`github.com/cosmos/sdk-application-tutorial`替换成你自己的整个仓库(可能是`github.com/{.Username}/{.Project.Repo}`)。如果不这样做，则需要在再次运行`dep ensure -v`之前删除`./vendor`目录（`rm -rf ./vendor`）以及`Gopkg.lock`文件（`rm Gopkg.lock`）。
 
-Now that this bit of house keeping is done, its time to install dep, as well as your dependencies:
+既然已经完成了这项管理工作，是时候安装dep以及项目依赖：
 
 ```bash
 make get_tools
 dep ensure -v
 ```
 
-## Building the app
+## 编译应用程序
 
 ```bash
 # Update dependencies to match the constraints and overrides above
@@ -135,4 +137,5 @@ nsd help
 nscli help
 ```
 
-### Congratulations, you have finished your nameservice application! Try [running and interacting with it](./build-run.md)!
+### 恭喜，您已完成名称服务应用！ 尝试[运行并使用](./15-build-run.md)吧！
+
