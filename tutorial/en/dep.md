@@ -7,126 +7,94 @@ Help users build your application by writing a `./Makefile` in the root director
 > _*NOTE*_: The below Makefile contains some of same commands as the Cosmos SDK and Tendermint Makefiles.
 
 ```makefile
-DEP := $(shell command -v dep 2> /dev/null)
 
-ldflags = -X github.com/cosmos/sdk-application-tutorial/version.Version=$(VERSION) \
-	-X github.com/cosmos/sdk-application-tutorial/version.Commit=$(COMMIT)
+all: install
 
-get_tools:
-ifndef DEP
-	@echo "Installing dep"
-	go get -u -v github.com/golang/dep/cmd/dep
-else
-	@echo "Dep is already installed..."
-endif
-
-get_vendor_deps:
-	@echo "--> Generating vendor directory via dep ensure"
-	@rm -rf .vendor-new
-	@dep ensure -v -vendor-only
-
-update_vendor_deps:
-	@echo "--> Running dep ensure"
-	@rm -rf .vendor-new
-	@dep ensure -v -update
-
-install:
+install: go.sum
 	go install ./cmd/nsd
 	go install ./cmd/nscli
+
+go.sum: go.mod
+	@echo "--> Ensure dependencies have not been modified"
+	@go mod verify
 ```
 
-## `Gopkg.toml`
+## `go.mod`
 
-Golang has a few dependency management tools. In this tutorial you will be using [`dep`](https://golang.github.io/dep/) although the Cosmos SDK will be moving to Go Modules soon. `dep` uses a `Gopkg.toml` file in the root of the repository to define what dependencies the application needs. Cosmos SDK apps currently depend on specific versions of some libraries. The below manifest contains all the necessary versions. To get started replace the contents of the `./Gopkg.toml` file with the `constraints` and `overrides` below:
+Golang has a few dependency management tools. In this tutorial you will be using [`Go Modules`](https://github.com/golang/go/wiki/Modules). `Go Modules` uses a `go.mod` file in the root of the repository to define what dependencies the application needs. Cosmos SDK apps currently depend on specific versions of some libraries. The below manifest contains all the necessary versions. To get started replace the contents of the `./go.mod` file with the `constraints` and `overrides` below:
 
-```toml
-# Gopkg.toml example
-#
-# Refer to https://golang.github.io/dep/docs/Gopkg.toml.html
-# for detailed Gopkg.toml documentation.
-#
-# required = ["github.com/user/thing/cmd/thing"]
-# ignored = ["github.com/user/project/pkgX", "bitbucket.org/user/project/pkgA/pkgY"]
-#
-# [[constraint]]
-#   name = "github.com/user/project"
-#   version = "1.0.0"
-#
-# [[constraint]]
-#   name = "github.com/user/project2"
-#   branch = "dev"
-#   source = "github.com/myfork/project2"
-#
-# [[override]]
-#   name = "github.com/x/y"
-#   version = "2.4.0"
-#
-# [prune]
-#   non-go = false
-#   go-tests = true
-#   unused-packages = true
-
-[[constraint]]
-  name = "github.com/cosmos/cosmos-sdk"
-  version = "v0.33.0"
-
-[[override]]
-  name = "github.com/golang/protobuf"
-  version = "=1.1.0"
-
-[[constraint]]
-  name = "github.com/spf13/cobra"
-  version = "~0.0.1"
-
-[[constraint]]
-  name = "github.com/spf13/viper"
-  version = "~1.0.0"
-
-[[override]]
-  name = "github.com/tendermint/go-amino"
-  version = "v0.14.1"
-
-[[override]]
-  name = "github.com/tendermint/tendermint"
-  revision = "v0.31.0-dev0"
-
-[[override]]
-  name = "github.com/tendermint/iavl"
-  version = "=v0.12.1"
-
-[[override]]
-  name = "golang.org/x/crypto"
-  source = "https://github.com/tendermint/crypto"
-  revision = "3764759f34a542a3aef74d6b02e35be7ab893bba"
-
-[[override]]
-  name = "github.com/otiai10/copy"
-  revision = "7e9a647135a142c2669943d4a4d29be015ce9392"
-
-[[override]]
-  name = "github.com/btcsuite/btcd"
-  revision = "ed77733ec07dfc8a513741138419b8d9d3de9d2d"
-
-[prune]
-  go-tests = true
-  unused-packages = true
 ```
+module sdk-application-tutorial
 
-> _*NOTE*_: If you are starting from scratch in your own repo, before running `dep ensure -v` BE SURE YOU HAVE REPLACED THE IMPORT FOR `github.com/cosmos/sdk-application-tutorial` WITH THE IMPORT FOR YOUR WHOLE REPO (probably `github.com/{ .Username }/{ .Project.Repo }`). If you don't you will need to remove the `./vendor` directory (`rm -rf ./vendor`) as well as the `Gopkg.lock` files (`rm Gopkg.lock`) before running `dep ensure -v` again.
+go 1.12
 
-Now that this bit of house keeping is done, its time to install dep, as well as your dependencies:
+require (
+	github.com/bartekn/go-bip39 v0.0.0-20171116152956-a05967ea095d
+	github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973
+	github.com/bgentry/speakeasy v0.1.0
+	github.com/btcsuite/btcd v0.0.0-20190115013929-ed77733ec07d
+	github.com/btcsuite/btcutil v0.0.0-20180706230648-ab6388e0c60a
+	github.com/cosmos/cosmos-sdk v0.33.0
+	github.com/cosmos/go-bip39 v0.0.0-20180618194314-52158e4697b8
+	github.com/cosmos/ledger-cosmos-go v0.9.8
+	github.com/cosmos/sdk-application-tutorial v0.0.0-20190401171757-ef9c78014e84
+	github.com/davecgh/go-spew v1.1.1
+	github.com/ethereum/go-ethereum v1.8.23
+	github.com/fsnotify/fsnotify v1.4.7
+	github.com/go-kit/kit v0.8.0
+	github.com/go-logfmt/logfmt v0.4.0
+	github.com/go-stack/stack v1.8.0
+	github.com/gogo/protobuf v1.1.1
+	github.com/golang/protobuf v1.2.0
+	github.com/golang/snappy v0.0.1
+	github.com/gorilla/mux v1.7.0
+	github.com/gorilla/websocket v1.4.0
+	github.com/hashicorp/hcl v1.0.0
+	github.com/inconshreveable/mousetrap v1.0.0
+	github.com/jmhodges/levigo v1.0.0
+	github.com/kr/logfmt v0.0.0-20140226030751-b84e30acd515
+	github.com/magiconair/properties v1.8.0
+	github.com/mattn/go-isatty v0.0.7
+	github.com/matttproud/golang_protobuf_extensions v1.0.1
+	github.com/mitchellh/mapstructure v1.1.2
+	github.com/pelletier/go-toml v1.2.0
+	github.com/pkg/errors v0.8.0
+	github.com/pmezard/go-difflib v1.0.0
+	github.com/prometheus/client_golang v0.9.2
+	github.com/prometheus/client_model v0.0.0-20190129233127-fd36f4220a90
+	github.com/prometheus/common v0.2.0
+	github.com/prometheus/procfs v0.0.0-20190328153300-af7bedc223fb
+	github.com/rakyll/statik v0.1.4
+	github.com/rcrowley/go-metrics v0.0.0-20180503174638-e2704e165165
+	github.com/rs/cors v1.6.0
+	github.com/spf13/afero v1.2.2
+	github.com/spf13/cast v1.3.0
+	github.com/spf13/cobra v0.0.3
+	github.com/spf13/jwalterweatherman v1.1.0
+	github.com/spf13/pflag v1.0.3
+	github.com/spf13/viper v1.0.3
+	github.com/stretchr/testify v1.2.2
+	github.com/syndtr/goleveldb v1.0.0
+	github.com/tendermint/btcd v0.1.1
+	github.com/tendermint/go-amino v0.14.1
+	github.com/tendermint/iavl v0.12.1
+	github.com/tendermint/tendermint v0.31.0-dev0
+	github.com/zondax/hid v0.9.0
+	github.com/zondax/ledger-go v0.8.0
+	golang.org/x/net v0.0.0-20190213061140-3a22650c66bd
+	golang.org/x/sys v0.0.0-20190329044733-9eb1bfa1ce65
+	golang.org/x/text v0.3.0
+	google.golang.org/genproto v0.0.0-20190327125643-d831d65fe17d
+	google.golang.org/grpc v1.19.1
+	gopkg.in/yaml.v2 v2.2.2
+)
 
-```bash
-make get_tools
-dep ensure -v
+replace golang.org/x/crypto => github.com/tendermint/crypto v0.0.0-20180820045704-3764759f34a5
 ```
 
 ## Building the app
 
 ```bash
-# Update dependencies to match the constraints and overrides above
-dep ensure -update -v
-
 # Install the app into your $GOBIN
 make install
 
