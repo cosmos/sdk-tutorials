@@ -95,4 +95,4 @@ Great! You now have the skeleton of your application; however, it still lacks fu
 
 As you have seen in the [application design](./app-design.md) section, you need three modules for your nameservice: `auth`, `bank` and `nameservice`. The first two already exist, but not the last! The `nameservice` module will define the bulk of your state machine. The next step is to build it.
 
-### In order to complete your application, you need to include modules. Go ahead and [start building your nameservice module](./types.md). You will come back to `app.go` later.
+### In order to complete your application, you need to include modules. Go ahead and [start building your nameservice module](types.md). You will come back to `app.go` later.
