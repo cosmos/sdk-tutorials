@@ -7,17 +7,67 @@ Help users build your application by writing a `./Makefile` in the root director
 > _*NOTE*_: The below Makefile contains some of same commands as the Cosmos SDK and Tendermint Makefiles.
 
 ```makefile
-
 all: install
 
 install: go.sum
-	go install ./cmd/nsd
-	go install ./cmd/nscli
+	go install -tags "$(build_tags)" ./cmd/nsd
+	go install -tags "$(build_tags)" ./cmd/nscli
 
 go.sum: go.mod
 	@echo "--> Ensure dependencies have not been modified"
 	@go mod verify
 ```
+
+### How about including Ledger Nano S support?
+
+This requires a few small changes:
+
+- Create a file `Makefile.ledger` with the following content: 
+
+```makefile
+LEDGER_ENABLED ?= true
+
+build_tags =
+ifeq ($(LEDGER_ENABLED),true)
+  ifeq ($(OS),Windows_NT)
+    GCCEXE = $(shell where gcc.exe 2> NUL)
+    ifeq ($(GCCEXE),)
+      $(error gcc.exe not installed for ledger support, please install or set LEDGER_ENABLED=false)
+    else
+      build_tags += ledger
+    endif
+  else
+    UNAME_S = $(shell uname -s)
+    ifeq ($(UNAME_S),OpenBSD)
+      $(warning OpenBSD detected, disabling ledger support (https://github.com/cosmos/cosmos-sdk/issues/1988))
+    else
+      GCC = $(shell command -v gcc 2> /dev/null)
+      ifeq ($(GCC),)
+        $(error gcc not installed for ledger support, please install or set LEDGER_ENABLED=false)
+      else
+        build_tags += ledger
+      endif
+    endif
+  endif
+endif
+```
+
+- Add `include Makefile.ledger` at the beginning of the Makefile:
+
+```makefile
+include Makefile.ledger
+
+all: install
+
+install: go.sum
+	go install -tags "$(build_tags)" ./cmd/nsd
+	go install -tags "$(build_tags)" ./cmd/nscli
+
+go.sum: go.mod
+	@echo "--> Ensure dependencies have not been modified"
+	@go mod verify
+```
+
 
 ## `go.mod`
 

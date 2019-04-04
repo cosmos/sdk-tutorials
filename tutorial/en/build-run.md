@@ -21,11 +21,14 @@ To initialize configuration and a `genesis.json` file for your application and a
 
 > _*NOTE*_: If you have run the tutorial before, you can start from scratch with a `nsd unsafe-reset-all` or by deleting both of the home folders `rm -rf ~/.ns*`
 
+> _*NOTE*_: If you have the Cosmos app for ledger and you want to use it, when you create the key with `nscli keys add jack` just add `--ledger` at the end. That's all you need. When you sign, `jack` will be recognized as a Ledger key and will require a device. 
+
 ```bash
 # Initialize configuration files and genesis file
 nsd init --chain-id namechain
 
-# Copy the `Address` output here and save it for later use
+# Copy the `Address` output here and save it for later use 
+# [optional] add "--ledger" at the end to use a Ledger Nano S 
 nscli keys add jack
 
 # Copy the `Address` output here and save it for later use
