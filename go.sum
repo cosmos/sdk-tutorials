@@ -25,6 +25,7 @@ github.com/cosmos/cosmos-sdk v0.33.0 h1:GcWGjCjIZQ2wvRfBm8Nix4bMAmFxSC8o/J4bslM3
 github.com/cosmos/cosmos-sdk v0.33.0/go.mod h1:JrX/JpJunJQXBI5PEX2zELHMFzQr/159jDjIhesOh2c=
 github.com/cosmos/go-bip39 v0.0.0-20180618194314-52158e4697b8 h1:Iwin12wRQtyZhH6FV3ykFcdGNlYEzoeR0jN8Vn+JWsI=
 github.com/cosmos/go-bip39 v0.0.0-20180618194314-52158e4697b8/go.mod h1:tSxLoYXyBmiFeKpvmq4dzayMdCjCnu8uqmCysIGBT2Y=
+github.com/cosmos/ledger-cosmos-go v0.9.8 h1:HHNAO8ubD9ekexJFMuRynCef24GA0FR8cTBhteMkSJY=
 github.com/cosmos/ledger-cosmos-go v0.9.8/go.mod h1:RWldjvUf4Hfi46ti/8etBH3eQ2rOqqz2hstdzROQSHo=
 github.com/cosmos/sdk-application-tutorial v0.0.0-20190401171757-ef9c78014e84 h1:1J9I5EI5Y6qOs+6pmbt/JD7YjagbjccmN4+YK3BCtiI=
 github.com/cosmos/sdk-application-tutorial v0.0.0-20190401171757-ef9c78014e84/go.mod h1:+KeWV53EGIfNpKmPc7HJ+xlCm8CeShjX9IruJAqNEKA=
@@ -132,7 +133,9 @@ github.com/tendermint/iavl v0.12.1 h1:JDfyhM/Hhrumu1CL1Nxrypm8sNTPYqmeHo1IZLiJoX
 github.com/tendermint/iavl v0.12.1/go.mod h1:EoKMMv++tDOL5qKKVnoIqtVPshRrEPeJ0WsgDOLAauM=
 github.com/tendermint/tendermint v0.31.0-dev0 h1:SggTDR0UtPjqXaFmulEdUJ2X1y2fCXfTpc8utnJwb08=
 github.com/tendermint/tendermint v0.31.0-dev0/go.mod h1:ymcPyWblXCplCPQjbOYbrF1fWnpslATMVqiGgWbZrlc=
+github.com/zondax/hid v0.9.0 h1:eiT3P6vNxAEVxXMw66eZUAAnU2zD33JBkfG/EnfAKl8=
 github.com/zondax/hid v0.9.0/go.mod h1:l5wttcP0jwtdLjqjMMWFVEE7d1zO0jvSPA9OPZxWpEM=
+github.com/zondax/ledger-go v0.8.0 h1:QU2VXfwq2hSfgOMRDbJfPZLs8PyhdcuASIAyLSL5ewo=
 github.com/zondax/ledger-go v0.8.0/go.mod h1:b2vIcu3u9gJoIx4kTWuXOgzGV7FPWeUktqRqVf6feG0=
 golang.org/x/crypto v0.0.0-20170930174604-9419663f5a44/go.mod h1:6SG95UA2DQfeDnfUPMdvaQW0Q7yPrPDi9nlGo2tz2b4=
 golang.org/x/crypto v0.0.0-20180904163835-0709b304e793 h1:u+LnwYTOOW7Ukr/fppxEb1Nwz0AtPflrblfvUudpo+I=
