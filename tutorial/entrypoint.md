@@ -31,6 +31,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/server"
+	"github.com/cosmos/cosmos-sdk/version"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/cosmos-sdk/x/bank"
@@ -69,8 +70,11 @@ func main() {
 		PersistentPreRunE: server.PersistentPreRunEFn(ctx),
 	}
 
-	rootCmd.AddCommand(InitCmd(ctx, cdc))
-	rootCmd.AddCommand(AddGenesisAccountCmd(ctx, cdc))
+	rootCmd.AddCommand(
+		InitCmd(ctx, cdc),
+		AddGenesisAccountCmd(ctx, cdc),
+		version.VersionCmd,
+	)
 	server.AddCommands(ctx, cdc, rootCmd, newApp, appExporter())
 
 	// prepare and add flags
@@ -273,6 +277,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/lcd"
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/cosmos/cosmos-sdk/version"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	amino "github.com/tendermint/go-amino"
@@ -333,7 +338,7 @@ func main() {
 		client.LineBreak,
 		keys.Commands(),
 		client.LineBreak,
-	
+	  version.VersionCmd,
 	)
 
 	executor := cli.PrepareMainCmd(rootCmd, "NS", defaultCLIHome)

@@ -9,6 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/lcd"
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/cosmos/cosmos-sdk/version"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	amino "github.com/tendermint/go-amino"
@@ -69,6 +70,7 @@ func main() {
 		client.LineBreak,
 		keys.Commands(),
 		client.LineBreak,
+		version.VersionCmd,
 	)
 
 	executor := cli.PrepareMainCmd(rootCmd, "NS", defaultCLIHome)

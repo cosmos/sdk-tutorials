@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+
 	"io"
 	"io/ioutil"
 	"os"
@@ -12,6 +13,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/server"
+	"github.com/cosmos/cosmos-sdk/version"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 
@@ -50,8 +52,11 @@ func main() {
 		PersistentPreRunE: server.PersistentPreRunEFn(ctx),
 	}
 
-	rootCmd.AddCommand(InitCmd(ctx, cdc))
-	rootCmd.AddCommand(AddGenesisAccountCmd(ctx, cdc))
+	rootCmd.AddCommand(
+		InitCmd(ctx, cdc),
+		AddGenesisAccountCmd(ctx, cdc),
+		version.VersionCmd,
+	)
 	server.AddCommands(ctx, cdc, rootCmd, newApp, appExporter())
 
 	// prepare and add flags
