@@ -20,9 +20,6 @@ To start your SDK module, define your `nameservice.Whois` struct in the `./x/nam
 package nameservice
 
 import (
-	"fmt"
-	"strings"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
