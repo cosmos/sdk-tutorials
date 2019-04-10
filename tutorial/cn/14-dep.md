@@ -11,12 +11,12 @@
 all: install
 
 install: go.sum
-	go install ./cmd/nsd
-	go install ./cmd/nscli
+	GO111MODULE=1 go install ./cmd/nsd
+	GO111MODULE=1 go install ./cmd/nscli
 
 go.sum: go.mod
 	@echo "--> Ensure dependencies have not been modified"
-	@go mod verify
+	GO111MODULE=1 @go mod verify
 ```
 
 ## `Gopkg.toml`
