@@ -9,8 +9,8 @@ If you want to build the `nameservice` application in this repo to see the funct
 make install
 
 # Now you should be able to run the following commands:
-nsd help
-nscli help
+./nsd help
+./nscli help
 ```
 
 ## Running the live network and using the commands
