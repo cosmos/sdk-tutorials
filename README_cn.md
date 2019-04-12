@@ -8,6 +8,7 @@
 
 ## 构建和运行范例
 
-**[点击这里](./tutorial/cn/build-run.md)** 查看如何构建和运行源代码。
+**[点击这里](./tutorial/cn/15-build-run.md)** 查看如何构建和运行源代码。
 
-多语言：[English](./README.md)
+多语言：
+- [English](./README.md)
