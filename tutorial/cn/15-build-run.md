@@ -2,14 +2,22 @@
 
 ## 编译`nameservice`应用
 
-如果要在此仓库中编译nameservice应用程序以查看功能，首先需要安装`dep`。
+要在此仓库中编译nameservice应用程序以查看功能，首先需要安装 **Go 1.12.1** 或更高版本。
 
-> 注意注意：你的应用程序需要导入你刚编写的代码。这里导入路径设置为此存储库（`github.com/cosmos/sdk-application-tutorial`）。如果您是在自己的仓库中进行的前面的操作，则需要更改导入路径（github.com/{.Username}/{.Project.Repo}）。
+如果从未用过 `go mod`，需要先添加几个环境变量。
 
 ```bash
-# Initialize dep and install dependencies
-make get_tools && make get_vendor_deps
+mkdir -p $HOME/go/bin
+echo "export GOPATH=$HOME/go" >> ~/.bash_profile
+echo "export GOBIN=\$GOPATH/bin" >> ~/.bash_profile
+echo "export PATH=\$PATH:\$GOBIN" >> ~/.bash_profile
+echo "export GO111MODULE=on" >> ~/.bash_profile
+source ~/.bash_profile
+```
 
+现在，你可以安装并使用 nameservice 了。
+
+```bash
 # Install the app into your $GOBIN
 make install
 

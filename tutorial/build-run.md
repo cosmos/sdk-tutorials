@@ -4,6 +4,19 @@
 
 If you want to build the `nameservice` application in this repo to see the functionalities, **Go 1.12.1+** is required .
 
+Add some parameters to environment is necessary if you have never used the `go mod` before.
+
+```bash
+mkdir -p $HOME/go/bin
+echo "export GOPATH=$HOME/go" >> ~/.bash_profile
+echo "export GOBIN=\$GOPATH/bin" >> ~/.bash_profile
+echo "export PATH=\$PATH:\$GOBIN" >> ~/.bash_profile
+echo "export GO111MODULE=on" >> ~/.bash_profile
+source ~/.bash_profile
+```
+
+Now, you can install and run the application.
+
 ```bash
 # Install the app into your $GOBIN
 make install
