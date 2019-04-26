@@ -7,23 +7,70 @@
 > 注意：下面的 Makefile 包含一些与Cosmos SDK 和 Tendermint 的 Makefiles 相同的命令。
 
 ```makefile
+all: install
+
+install: go.sum
+	go install -tags "$(build_tags)" ./cmd/nsd
+	go install -tags "$(build_tags)" ./cmd/nscli
+
+go.sum: go.mod
+	@echo "--> Ensure dependencies have not been modified"
+	@go mod verify
+```
+
+### 如何增加 Ledger Nano S 支持？
+
+这需要一些小的修改：
+
+- 创建文件 `Makefile.ledger`，填入下面的内容：
+```makefile
+LEDGER_ENABLED ?= true
+
+build_tags =
+ifeq ($(LEDGER_ENABLED),true)
+  ifeq ($(OS),Windows_NT)
+    GCCEXE = $(shell where gcc.exe 2> NUL)
+    ifeq ($(GCCEXE),)
+      $(error gcc.exe not installed for ledger support, please install or set LEDGER_ENABLED=false)
+    else
+      build_tags += ledger
+    endif
+  else
+    UNAME_S = $(shell uname -s)
+    ifeq ($(UNAME_S),OpenBSD)
+      $(warning OpenBSD detected, disabling ledger support (https://github.com/cosmos/cosmos-sdk/issues/1988))
+    else
+      GCC = $(shell command -v gcc 2> /dev/null)
+      ifeq ($(GCC),)
+        $(error gcc not installed for ledger support, please install or set LEDGER_ENABLED=false)
+      else
+        build_tags += ledger
+      endif
+    endif
+  endif
+endif
+```
+- 在 `Makefile` 文件首部添加 `include Makefile.ledger` ：
+
+```makefile
+include Makefile.ledger
 
 all: install
 
 install: go.sum
-	GO111MODULE=1 go install ./cmd/nsd
-	GO111MODULE=1 go install ./cmd/nscli
+	GO111MODULE=1 go install -tags "$(build_tags)" ./cmd/nsd
+	GO111MODULE=1 go install -tags "$(build_tags)" ./cmd/nscli
 
 go.sum: go.mod
 	@echo "--> Ensure dependencies have not been modified"
 	GO111MODULE=1 @go mod verify
 ```
 
-## `Gopkg.toml`
+##  `go.mod`
 
-Golang有一些依赖管理工具。在本教程中，你将使用[`Go Modules`](https://github.com/golang/go/wiki/Modules)。`Go Modules`使用仓库根目录中的`go.mod`文件来定义应用程序所需的依赖项。Cosmos SDK 应用程序目前依赖于某些库的特定版本。以下列表包含所有必需的版本：
+Golang有一些依赖管理工具。在本教程中，你将使用[`Go Modules`](https://github.com/golang/go/wiki/Modules)。`Go Modules`使用仓库根目录中的`go.mod`文件来定义应用程序所需的依赖项。Cosmos SDK 应用程序目前依赖于某些库的特定版本。以下列表包含所有必需的版本。开始构建之前，用下面的内容替换`./go.mod`文件。
 
-```go
+```
 module sdk-application-tutorial
 
 go 1.12

@@ -34,11 +34,14 @@ nscli help
 
 > 注意：如果你之前已经运行过该教程，则可以从头开始使用`nsd unsafe-reset-all`或删除home文件夹下的两个执行程序的数据及配置文件夹`rm -rf~ / .ns *`
 
+> 注意：如果你的 Cosmos 应用需要使用 ledger，使用命令 `nscli keys add jack` 创建 key 时需要在后面添加 ---ledger 参数。只要这样就可以了。当对交易进行签名时。jack 会被自动识别为由 ledger 生成的 key，进而请求 ledger 设备。
+
 ```bash
 # Initialize configuration files and genesis file
 nsd init --chain-id namechain
 
-# Copy the `Address` output here and save it for later use
+# Copy the `Address` output here and save it for later use 
+# [optional] add "--ledger" at the end to use a Ledger Nano S 
 nscli keys add jack
 
 # Copy the `Address` output here and save it for later use
