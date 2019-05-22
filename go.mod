@@ -1,4 +1,4 @@
-module sdk-application-tutorial
+module hiblocks
 
 go 1.12
 
