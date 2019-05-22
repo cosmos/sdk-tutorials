@@ -14,6 +14,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/x/auth"
+  "github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/cosmos-sdk/x/params"
 	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
@@ -51,6 +52,7 @@ type nameServiceApp struct {
 	feeCollectionKeeper auth.FeeCollectionKeeper
 	paramsKeeper        params.Keeper
 	nsKeeper            nameservice.Keeper
+  mm                *sdk.ModuleManager
 }
 
 // NewNameServiceApp is a constructor function for nameServiceApp
@@ -142,22 +144,30 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		app.cdc,
 	)
 
+  // Initialize and load your modules into the ModuleManager.
+
+	app.mm = sdk.NewModuleManager(
+		genaccounts.NewAppModule(app.accountKeeper),
+		auth.NewAppModule(app.accountKeeper, app.feeCollectionKeeper),
+		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
+		nameshake.NewAppModule(app.nsKeeper),
+	)
+
+	// use the methods of the ModuleManager to configure your modules.
+
+	app.mm.SetOrderBeginBlockers()
+
+	app.mm.SetOrderEndBlockers()
+
+	app.mm.SetOrderInitGenesis(genaccounts.ModuleName, auth.ModuleName, bank.ModuleName, genutil.ModuleName)
+
+	app.mm.RegisterRoutes(app.Router(), app.QueryRouter())
+
 	// The AnteHandler handles signature verification and transaction pre-processing
 	app.SetAnteHandler(auth.NewAnteHandler(app.accountKeeper, app.feeCollectionKeeper))
 
-	// The app.Router is the main transaction router where each module registers its routes
-	// Register the bank and nameservice routes here
-	app.Router().
-		AddRoute("bank", bank.NewHandler(app.bankKeeper)).
-		AddRoute("nameservice", nameservice.NewHandler(app.nsKeeper))
-
-	// The app.QueryRouter is the main query router where each module registers its routes
-	app.QueryRouter().
-		AddRoute("nameservice", nameservice.NewQuerier(app.nsKeeper)).
-		AddRoute("acc", auth.NewQuerier(app.accountKeeper))
-
 	// The initChainer handles translating the genesis.json file into initial state for the network
-	app.SetInitChainer(app.initChainer)
+	app.SetInitChainer(app.InitChainer)
 
 	app.MountStores(
 		app.keyMain,
@@ -179,39 +189,24 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 
 > _*NOTE*_: The TransientStore mentioned above is an in-memory implementation of the KVStore for state that is not persisted.
 
-The `initChainer` defines how accounts in `genesis.json` are mapped into the application state on initial chain start. The `ExportAppStateAndValidators` function helps bootstrap the initial state for the application. You don't need to worry too much about either of these for now.
+The `initChainer` defines how accounts in `genesis.json` are mapped into the application state on initial chain start. The `ExportAppStateAndValidators` function helps bootstrap the initial state for the application. You don't need to worry too much about either of these for now. We also need to add a few more methods to our app `BeginBlocker, EndBLocker and LoadHeight`.
 
 The constructor registers the `initChainer` function, but it isn't defined yet. Go ahead and create it:
 
 ```go
-// GenesisState represents chain state at the start of the chain. Any initial state (account balances) are stored here.
-type GenesisState struct {
-	AuthData auth.GenesisState   `json:"auth"`
-	BankData bank.GenesisState   `json:"bank"`
-	Accounts []*auth.BaseAccount `json:"accounts"`
-}
 
-func (app *nameServiceApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
-	stateJSON := req.AppStateBytes
+func (app *nameServiceApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 
-	genesisState := new(GenesisState)
-	err := app.cdc.UnmarshalJSON(stateJSON, genesisState)
+	var genesisState GenesisState
+	err := app.cdc.UnmarshalJSON(req.AppStateBytes, &genesisState)
 	if err != nil {
 		panic(err)
 	}
 
-	for _, acc := range genesisState.Accounts {
-		acc.AccountNumber = app.accountKeeper.GetNextAccountNumber(ctx)
-		app.accountKeeper.SetAccount(ctx, acc)
-	}
+	return app.mm.InitGenesis(ctx, genesisState)
 
-	auth.InitGenesis(ctx, app.accountKeeper, app.feeCollectionKeeper, genesisState.AuthData)
-	bank.InitGenesis(ctx, app.bankKeeper, genesisState.BankData)
-
-	return abci.ResponseInitChain{}
 }
 
-// ExportAppStateAndValidators does the things
 func (app *nameServiceApp) ExportAppStateAndValidators() (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 	ctx := app.NewContext(true, abci.Header{})
 	accounts := []*auth.BaseAccount{}
@@ -240,6 +235,19 @@ func (app *nameServiceApp) ExportAppStateAndValidators() (appState json.RawMessa
 	}
 
 	return appState, validators, err
+}
+
+
+func (app *NameShakeApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
+  return app.mm.BeginBlock(ctx, req)
+}
+
+func (app *NameShakeApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+  return app.mm.EndBlock(ctx, req)
+}
+
+func (app *NameShakeApp) LoadHeight(height int64) error {
+  return app.LoadVersion(height, app.keyMain)
 }
 ```
 

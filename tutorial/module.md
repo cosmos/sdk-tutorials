@@ -1,15 +1,114 @@
-### ModuleBasicsManager
+### AppModule Interface
 
-Here is where we could explain the rationale behind the module basics manager show the code needed in app.go
-They can integrate the moduleBasicsManager without having completed the nameservice module. We should have them wire up a ModuleBasicManager using the auth and bank modules only
+The Cosmos SDK provides a standard interface for modules. This [`AppModule`](https://github.com/cosmos/cosmos-sdk/blob/master/types/module.go) interface requires modules to provide a set of methods used by the `ModuleBasicsManager` to incorporate them into your application. First we will scaffold out the interface and implement **some** of its methods. Then we will incorporate our nameservice module alongside `auth` and `bank` into our app.
 
-THen, We could instruct them to scaffold out the genesis functionality to satisfy the AppModule interface and have a seperate "chapter" for genesis state functionality
-Once the interface is implemented, we could go back to app.go and show how to add the module to the Manager
+Start by opening two new files, `module.go` and `genesis.go`. We will implement the AppModule interface in `module.go` and the functions specific to genesis state management in `genesis.go`. The genesis-specific methods on your AppModule struct will be pass-though calls to those defined in `genesis.go`.
 
-Here are the code changes required for a bare app (without the nameservice module) to work with the new sdk. This set of changes should mostly just require edits to the existing tutorial with perhaps from explanatory text.
-https://github.com/hschoenburg/cosmos-sdk-example/commit/7d1df78647a65bc75fd2023701a434bd7014294e
+Lets start with adding the following code to `module.go`. We will leave a number of the functions unimplemented for now.
 
-Here are the code changes required for the nameservice module to work with the new sdk. This requires adding substantive tutotial content around the AppModule interface.
-https://github.com/hschoenburg/cosmos-sdk-example/commit/aaf935b50eec1904b62cd9e6b8634db7cf201640
+```go
 
+
+
+package nameshake
+
+import (
+	"encoding/json"
+
+	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	abci "github.com/tendermint/tendermint/abci/types"
+)
+
+var (
+	ModuleName = "nameshake"
+	RouterKey  = "nameshake"
+)
+
+func NewAppModule(k Keeper) AppModule {
+	return AppModule{keeper: k}
+}
+
+type AppModuleBasic struct{}
+
+func (am AppModuleBasic) Name() string {
+	return ModuleName
+}
+
+func (am AppModuleBasic) RegisterCodec(cdc *codec.Codec) {
+	RegisterCodec(cdc)
+}
+
+func (am AppModuleBasic) DefaultGenesis() json.RawMessage {
+	return ModuleCdc.MustMarshalJSON(DefaultGenesisState())
+}
+
+func (am AppModuleBasic) ValidateGenesis(bz json.RawMessage) error {
+	var data GenesisState
+	err := ModuleCdc.UnmarshalJSON(bz, &data)
+	if err != nil {
+		return err
+	}
+	// once json successfully marshalled, passes along to genesis.go
+	return ValidateGenesis(data)
+}
+
+type AppModule struct {
+	AppModuleBasic
+	keeper Keeper
+}
+
+func (am AppModule) InitGenesis(ctx types.Context, data json.RawMessage) []abci.ValidatorUpdate {
+	var genesisState GenesisState
+	ModuleCdc.MustUnmarshalJSON(data, &genesisState)
+	return InitGenesis(ctx, am.keeper, genesisState)
+}
+
+func (am AppModule) ExportGenesis(ctx sdk.Context) json.RawMessage {
+	gs := ExportGenesis(ctx, am.keeper)
+	return ModuleCdc.MustMarshalJSON(gs)
+}
+
+func (am AppModule) Route() string {
+	return ModuleName
+}
+
+func (am AppModule) NewHandler() types.Handler {
+	return NewHandler(am.keeper)
+}
+
+func (am AppModule) QuerierRoute() string {
+	return ModuleName
+}
+
+func (am AppModule) NewQuerierHandler() types.Querier {
+	return NewQuerier(am.keeper)
+}
+
+func (am AppModule) BeginBlock(types.Context, abci.RequestBeginBlock) types.Tags {
+	panic("not implemented")
+}
+
+func (am AppModule) EndBlock(types.Context, abci.RequestEndBlock) ([]abci.ValidatorUpdate, types.Tags) {
+	panic("not implemented")
+}
+
+func (am AppModule) RegisterInvariants(types.InvariantRouter) {
+	panic("not implemented")
+}
+
+// type check to ensure the interface is properly implemented
+var (
+	_ sdk.AppModule      = AppModule{}
+	_ sdk.AppModuleBasic = AppModuleBasic{}
+)
+
+```
+
+Next, we need to [implement the genesis-specific methods called above.](./genesis.md)
+
+Stay tuned for further tutorials on the methods left unimplemented here; BeginBlock, EndBlock and Regsiterinvariants.
+
+To see more examples of AppModule implementation, check out some of the other modules in the SDK such as [x/staking](https://github.com/cosmos/cosmos-sdk/blob/master/x/staking/genesis.go)
 
