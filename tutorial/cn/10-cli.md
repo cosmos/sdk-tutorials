@@ -18,7 +18,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
+	"github.com/devdent/hiblocks/x/nameservice"
 	"github.com/spf13/cobra"
 )
 
@@ -110,7 +110,7 @@ func GetCmdNames(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 现在已经定义了查询交互，是时候继续在`tx.go`中的交易生成了：
 
-> 你的应用程序需要导入你刚编写的代码。这里导入路径设置为此存储库（github.com/cosmos/sdk-application-tutorial/x/nameservice）。如果您是在自己的仓库中进行的前面的操作，则需要更改导入路径（github.com/{.Username}/{.Project.Repo}/x/nameservice）。
+> 你的应用程序需要导入你刚编写的代码。这里导入路径设置为此存储库（github.com/devdent/hiblocks/x/nameservice）。如果您是在自己的仓库中进行的前面的操作，则需要更改导入路径（github.com/{.Username}/{.Project.Repo}/x/nameservice）。
 
 ```go
 package cli
@@ -121,7 +121,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/client/utils"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
+	"github.com/devdent/hiblocks/x/nameservice"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
@@ -199,14 +199,14 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 
 导出此功能的最后一部分称为`ModuleClient`，在`./x/nameservice/client/module_client.go`文件中实现。[Module Client](https://godoc.org/github.com/cosmos/cosmos-sdk/types#ModuleClients) 为模块提供了导出客户端功能的标准方法。
 
-> 注意：你的应用程序需要导入你刚编写的代码。这里导入路径设置为此仓库（github.com/cosmos/sdk-application-tutorial/x/nameservice）。如果你是在自己项目中编写的，则需要更改导入路径成（github.com/{.Username}/ {.Project.Repo}/x/nameservice）。
+> 注意：你的应用程序需要导入你刚编写的代码。这里导入路径设置为此仓库（github.com/devdent/hiblocks/x/nameservice）。如果你是在自己项目中编写的，则需要更改导入路径成（github.com/{.Username}/ {.Project.Repo}/x/nameservice）。
 
 ```go
 package client
 
 import (
 	"github.com/cosmos/cosmos-sdk/client"
-	nameservicecmd "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/cli"
+	nameservicecmd "github.com/devdent/hiblocks/x/nameservice/client/cli"
 	"github.com/spf13/cobra"
 	amino "github.com/tendermint/go-amino"
 )
