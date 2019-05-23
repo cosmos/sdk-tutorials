@@ -2,6 +2,7 @@ package app
 
 import (
 	"encoding/json"
+	"os"
 
 	"github.com/tendermint/tendermint/libs/log"
 
@@ -18,11 +19,18 @@ import (
 	abci "github.com/tendermint/tendermint/abci/types"
 	cmn "github.com/tendermint/tendermint/libs/common"
 	dbm "github.com/tendermint/tendermint/libs/db"
+	tmtypes "github.com/tendermint/tendermint/types"
 )
 
 const appName = "nameservice"
 
 var (
+	// default home directories for the application CLI
+	DefaultCLIHome = os.ExpandEnv("$HOME/.nscli")
+
+	// DefaultNodeHome sets the folder where the applcation data and configuration will be stored
+	DefaultNodeHome = os.ExpandEnv("$HOME/.nsd")
+
 	// ModuleBasicManager is in charge of setting up basic module elemnets
 	ModuleBasics sdk.ModuleBasicManager
 )
@@ -80,29 +88,32 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		BaseApp: bApp,
 		cdc:     cdc,
 
-		keyMain:          sdk.NewKVStoreKey("main"),
-		keyAccount:       sdk.NewKVStoreKey("acc"),
-		keyNS:            sdk.NewKVStoreKey("ns"),
-		keyFeeCollection: sdk.NewKVStoreKey("fee_collection"),
-		keyParams:        sdk.NewKVStoreKey("params"),
-		tkeyParams:       sdk.NewTransientStoreKey("transient_params"),
+		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
+		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),
+		keyNS:            sdk.NewKVStoreKey(nameservice.StoreKey),
+		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
+		keyParams:        sdk.NewKVStoreKey(params.StoreKey),
+		tkeyParams:       sdk.NewTransientStoreKey(params.TStoreKey),
 	}
 
 	// The ParamsKeeper handles parameter storage for the application
 	app.paramsKeeper = params.NewKeeper(app.cdc, app.keyParams, app.tkeyParams, params.DefaultCodespace)
+	// Set specific supspaces
+	authSubspace := app.paramsKeeper.Subspace(auth.DefaultParamspace)
+	bankSupspace := app.paramsKeeper.Subspace(bank.DefaultParamspace)
 
 	// The AccountKeeper handles address -> account lookups
 	app.accountKeeper = auth.NewAccountKeeper(
 		app.cdc,
 		app.keyAccount,
-		app.paramsKeeper.Subspace(auth.DefaultParamspace),
+		authSubspace,
 		auth.ProtoBaseAccount,
 	)
 
 	// The BankKeeper allows you perform sdk.Coins interactions
 	app.bankKeeper = bank.NewBaseKeeper(
 		app.accountKeeper,
-		app.paramsKeeper.Subspace(bank.DefaultParamspace),
+		bankSupspace,
 		bank.DefaultCodespace,
 	)
 
@@ -118,7 +129,7 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	)
 
 	// The AnteHandler handles signature verification and transaction pre-processing
-	app.SetAnteHandler(auth.NewAnteHandler(app.accountKeeper, app.feeCollectionKeeper, app.DefaultSigVerificationGasConsumer))
+	app.SetAnteHandler(auth.NewAnteHandler(app.accountKeeper, app.feeCollectionKeeper, auth.DefaultSigVerificationGasConsumer))
 
 	app.mm = sdk.NewModuleManager(
 		genaccounts.NewAppModule(app.accountKeeper),
@@ -127,7 +138,7 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		nameservice.NewAppModule(app.nsKeeper, app.bankKeeper), // check if bank keeper is needed
 	)
 
-	app.mm.SetOrderEndBlocks()
+	// app.mm.SetOrderEndBlocks()
 
 	// Initalize with tokens form genesis
 	app.mm.SetOrderInitGenesis(genaccounts.ModuleName, auth.ModuleName, bank.ModuleName, nameservice.ModuleName)
@@ -136,7 +147,9 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	app.mm.RegisterRoutes(app.Router(), app.QueryRouter())
 
 	// The initChainer handles translating the genesis.json file into initial state for the network
-	app.SetInitChainer(app.initChainer)
+	app.SetInitChainer(app.InitChainer)
+	app.SetBeginBlocker(app.BeginBlocker)
+	app.SetEndBlocker(app.EndBlocker)
 
 	app.MountStores(
 		app.keyMain,
@@ -162,7 +175,7 @@ func NewDefaultGenesisState() GenesisState {
 	return ModuleBasics.DefaultGenesis()
 }
 
-func (app *nameServiceApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+func (app *nameServiceApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 
 	var genesisState GenesisState
 	err := app.cdc.UnmarshalJSON(req.AppStateBytes, &genesisState)
@@ -181,4 +194,30 @@ func (app *nameServiceApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock)
 }
 func (app *nameServiceApp) LoadHeight(height int64) error {
 	return app.LoadVersion(height, app.keyMain)
+}
+
+func (app *nameServiceApp) ExportAppStateAndValidators() (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
+	ctx := app.NewContext(true, abci.Header{})
+	accounts := []*auth.BaseAccount{}
+
+	appendAccountsFn := func(acc auth.Account) bool {
+		account := &auth.BaseAccount{
+			Address: acc.GetAddress(),
+			Coins:   acc.GetCoins(),
+		}
+
+		accounts = append(accounts, account)
+		return false
+	}
+
+	app.accountKeeper.IterateAccounts(ctx, appendAccountsFn)
+
+	genState := app.mm.ExportGenesis(ctx)
+
+	appState, err = codec.MarshalJSONIndent(app.cdc, genState)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return appState, validators, err
 }

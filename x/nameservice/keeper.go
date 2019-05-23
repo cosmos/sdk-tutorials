@@ -7,6 +7,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+// StoreKey to be used when creating the KVStore
+const StoreKey = "ns"
+
 // Keeper maintains the link to data storage and exposes getter/setter methods for the various parts of the state machine
 type Keeper struct {
 	coinKeeper bank.Keeper

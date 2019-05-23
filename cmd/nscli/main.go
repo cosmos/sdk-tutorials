@@ -29,8 +29,6 @@ const (
 	storeNS  = "nameservice"
 )
 
-var defaultCLIHome = os.ExpandEnv("$HOME/.nscli")
-
 func main() {
 	cobra.EnableCommandSorting = false
 
@@ -43,7 +41,7 @@ func main() {
 	config.SetBech32PrefixForConsensusNode(sdk.Bech32PrefixConsAddr, sdk.Bech32PrefixConsPub)
 	config.Seal()
 
-	mc := []sdk.ModuleClients{
+	mc := []sdk.ModuleClient{
 		nsclient.NewModuleClient(storeNS, cdc),
 	}
 
@@ -61,7 +59,7 @@ func main() {
 	// Construct Root Command
 	rootCmd.AddCommand(
 		rpc.StatusCommand(),
-		client.ConfigCmd(defaultCLIHome),
+		client.ConfigCmd(app.DefaultCLIHome),
 		queryCmd(cdc, mc),
 		txCmd(cdc, mc),
 		client.LineBreak,
@@ -71,7 +69,7 @@ func main() {
 		client.LineBreak,
 	)
 
-	executor := cli.PrepareMainCmd(rootCmd, "NS", defaultCLIHome)
+	executor := cli.PrepareMainCmd(rootCmd, "NS", app.DefaultCLIHome)
 	err := executor.Execute()
 	if err != nil {
 		panic(err)
@@ -87,7 +85,7 @@ func registerRoutes(rs *lcd.RestServer) {
 	nsrest.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, storeNS)
 }
 
-func queryCmd(cdc *amino.Codec, mc []sdk.ModuleClients) *cobra.Command {
+func queryCmd(cdc *amino.Codec, mc []sdk.ModuleClient) *cobra.Command {
 	queryCmd := &cobra.Command{
 		Use:     "query",
 		Aliases: []string{"q"},
@@ -110,7 +108,7 @@ func queryCmd(cdc *amino.Codec, mc []sdk.ModuleClients) *cobra.Command {
 	return queryCmd
 }
 
-func txCmd(cdc *amino.Codec, mc []sdk.ModuleClients) *cobra.Command {
+func txCmd(cdc *amino.Codec, mc []sdk.ModuleClient) *cobra.Command {
 	txCmd := &cobra.Command{
 		Use:   "tx",
 		Short: "Transactions subcommands",

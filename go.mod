@@ -8,7 +8,7 @@ require (
 	github.com/bgentry/speakeasy v0.1.0
 	github.com/btcsuite/btcd v0.0.0-20190115013929-ed77733ec07d
 	github.com/btcsuite/btcutil v0.0.0-20180706230648-ab6388e0c60a
-	github.com/cosmos/cosmos-sdk v0.34.4
+	github.com/cosmos/cosmos-sdk v0.28.2-0.20190521100210-dd89c329516e
 	github.com/cosmos/go-bip39 v0.0.0-20180618194314-52158e4697b8
 	github.com/cosmos/ledger-cosmos-go v0.10.3
 	github.com/davecgh/go-spew v1.1.1
@@ -28,10 +28,8 @@ require (
 	github.com/kr/logfmt v0.0.0-20140226030751-b84e30acd515
 	github.com/magiconair/properties v1.8.0
 	github.com/mattn/go-isatty v0.0.7
-	github.com/mattn/go-runewidth v0.0.4 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1
 	github.com/mitchellh/mapstructure v1.1.2
-	github.com/olekukonko/tablewriter v0.0.1 // indirect
 	github.com/pelletier/go-toml v1.2.0
 	github.com/pkg/errors v0.8.1
 	github.com/pmezard/go-difflib v1.0.0
