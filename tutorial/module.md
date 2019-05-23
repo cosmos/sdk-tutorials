@@ -10,7 +10,7 @@ Lets start with adding the following code to `module.go`. We will leave a number
 
 
 
-package nameshake
+package nameservice
 
 import (
 	"encoding/json"
@@ -22,8 +22,8 @@ import (
 )
 
 var (
-	ModuleName = "nameshake"
-	RouterKey  = "nameshake"
+	ModuleName = "nameservice"
+	RouterKey  = "nameservice"
 )
 
 func NewAppModule(k Keeper) AppModule {

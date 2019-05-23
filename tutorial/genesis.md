@@ -14,7 +14,7 @@ Next `x/nameservice/genesis.go` and add the following code:
 
 ```go
 
-package nameshake
+package nameservice
 
 import (
 	"fmt"

@@ -150,7 +150,7 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		genaccounts.NewAppModule(app.accountKeeper),
 		auth.NewAppModule(app.accountKeeper, app.feeCollectionKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
-		nameshake.NewAppModule(app.nsKeeper),
+		nameservice.NewAppModule(app.nsKeeper),
 	)
 
 	// use the methods of the ModuleManager to configure your modules.
@@ -238,15 +238,15 @@ func (app *nameServiceApp) ExportAppStateAndValidators() (appState json.RawMessa
 }
 
 
-func (app *NameShakeApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
+func (app *NameServiceApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
   return app.mm.BeginBlock(ctx, req)
 }
 
-func (app *NameShakeApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+func (app *NameServiceApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
   return app.mm.EndBlock(ctx, req)
 }
 
-func (app *NameShakeApp) LoadHeight(height int64) error {
+func (app *NameServiceApp) LoadHeight(height int64) error {
   return app.LoadVersion(height, app.keyMain)
 }
 ```
