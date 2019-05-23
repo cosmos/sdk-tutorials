@@ -16,6 +16,8 @@ import (
 
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	// "github.com/tendermint/tendermint/crypto"
 	abci "github.com/tendermint/tendermint/abci/types"
 	cmn "github.com/tendermint/tendermint/libs/common"
 	dbm "github.com/tendermint/tendermint/libs/db"
@@ -140,7 +142,7 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 
 	// app.mm.SetOrderEndBlocks()
 
-	// Initalize with tokens form genesis
+	// Initialize with tokens from genesis
 	app.mm.SetOrderInitGenesis(genaccounts.ModuleName, auth.ModuleName, bank.ModuleName, nameservice.ModuleName)
 
 	// register all module routes and module queriers
@@ -196,7 +198,7 @@ func (app *nameServiceApp) LoadHeight(height int64) error {
 	return app.LoadVersion(height, app.keyMain)
 }
 
-func (app *nameServiceApp) ExportAppStateAndValidators() (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
+func (app *nameServiceApp) ExportAppStateAndValidators(cdc *codec.Codec) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 	ctx := app.NewContext(true, abci.Header{})
 	accounts := []*auth.BaseAccount{}
 
@@ -219,5 +221,7 @@ func (app *nameServiceApp) ExportAppStateAndValidators() (appState json.RawMessa
 		return nil, nil, err
 	}
 
+	// validator set is empty so cannot run.
+	// will wait for 34.5 to be sliced then integrate the staking module
 	return appState, validators, err
 }
