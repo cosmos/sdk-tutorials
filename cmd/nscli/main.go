@@ -19,6 +19,12 @@ import (
 	auth "github.com/cosmos/cosmos-sdk/x/auth/client/rest"
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/client/rest"
+	distcmd "github.com/cosmos/cosmos-sdk/x/distribution"
+	distClient "github.com/cosmos/cosmos-sdk/x/distribution/client"
+	dist "github.com/cosmos/cosmos-sdk/x/distribution/client/rest"
+	st "github.com/cosmos/cosmos-sdk/x/staking"
+	stakingclient "github.com/cosmos/cosmos-sdk/x/staking/client"
+	staking "github.com/cosmos/cosmos-sdk/x/staking/client/rest"
 	app "github.com/cosmos/sdk-application-tutorial"
 	nsclient "github.com/cosmos/sdk-application-tutorial/x/nameservice/client"
 	nsrest "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/rest"
@@ -43,6 +49,8 @@ func main() {
 
 	mc := []sdk.ModuleClient{
 		nsclient.NewModuleClient(storeNS, cdc),
+		stakingclient.NewModuleClient(st.StoreKey, cdc),
+		distClient.NewModuleClient(distcmd.StoreKey, cdc),
 	}
 
 	rootCmd := &cobra.Command{
@@ -83,6 +91,8 @@ func registerRoutes(rs *lcd.RestServer) {
 	auth.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, storeAcc)
 	bank.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, rs.KeyBase)
 	nsrest.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, storeNS)
+	staking.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, rs.KeyBase)
+	dist.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, distcmd.StoreKey)
 }
 
 func queryCmd(cdc *amino.Codec, mc []sdk.ModuleClient) *cobra.Command {

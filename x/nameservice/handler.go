@@ -36,12 +36,12 @@ func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result
 		return sdk.ErrInsufficientCoins("Bid not high enough").Result() // If not, throw an error
 	}
 	if keeper.HasOwner(ctx, msg.Name) {
-		err := keeper.coinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, msg.Name), msg.Bid)
+		_, err := keeper.coinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, msg.Name), msg.Bid)
 		if err != nil {
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}
 	} else {
-		_, err := keeper.coinKeeper.SubtractCoins(ctx, msg.Buyer, msg.Bid) // If so, deduct the Bid amount from the sender
+		_, _, err := keeper.coinKeeper.SubtractCoins(ctx, msg.Buyer, msg.Bid) // If so, deduct the Bid amount from the sender
 		if err != nil {
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}

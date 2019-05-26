@@ -10,8 +10,11 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth"
 
 	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
+
 	"github.com/cosmos/cosmos-sdk/x/bank"
+	distr "github.com/cosmos/cosmos-sdk/x/distribution"
 	"github.com/cosmos/cosmos-sdk/x/params"
+	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
 
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
@@ -19,7 +22,6 @@ import (
 
 	// "github.com/tendermint/tendermint/crypto"
 	abci "github.com/tendermint/tendermint/abci/types"
-	cmn "github.com/tendermint/tendermint/libs/common"
 	dbm "github.com/tendermint/tendermint/libs/db"
 	tmtypes "github.com/tendermint/tendermint/types"
 )
@@ -43,6 +45,8 @@ func init() {
 		bank.AppModuleBasic{},
 		params.AppModuleBasic{},
 		nameservice.AppModule{},
+		staking.AppModuleBasic{},
+		distr.AppModuleBasic{},
 	)
 }
 
@@ -61,12 +65,19 @@ type nameServiceApp struct {
 
 	keyMain          *sdk.KVStoreKey
 	keyAccount       *sdk.KVStoreKey
+	keyStaking       *sdk.KVStoreKey
+	tkeyStaking      *sdk.TransientStoreKey
+	keyDistr         *sdk.KVStoreKey
+	tkeyDistr        *sdk.TransientStoreKey
 	keyNS            *sdk.KVStoreKey
 	keyFeeCollection *sdk.KVStoreKey
 	keyParams        *sdk.KVStoreKey
 	tkeyParams       *sdk.TransientStoreKey
 
-	accountKeeper       auth.AccountKeeper
+	accountKeeper auth.AccountKeeper
+	stakingKeeper staking.Keeper
+	distrKeeper   distr.Keeper
+
 	bankKeeper          bank.Keeper
 	feeCollectionKeeper auth.FeeCollectionKeeper
 	paramsKeeper        params.Keeper
@@ -92,6 +103,10 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 
 		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
 		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),
+		keyStaking:       sdk.NewKVStoreKey(staking.StoreKey),
+		tkeyStaking:      sdk.NewTransientStoreKey(staking.TStoreKey),
+		keyDistr:         sdk.NewKVStoreKey(distr.StoreKey),
+		tkeyDistr:        sdk.NewTransientStoreKey(distr.TStoreKey),
 		keyNS:            sdk.NewKVStoreKey(nameservice.StoreKey),
 		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
 		keyParams:        sdk.NewKVStoreKey(params.StoreKey),
@@ -103,6 +118,8 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	// Set specific supspaces
 	authSubspace := app.paramsKeeper.Subspace(auth.DefaultParamspace)
 	bankSupspace := app.paramsKeeper.Subspace(bank.DefaultParamspace)
+	stakingSubspace := app.paramsKeeper.Subspace(staking.DefaultParamspace)
+	distrSubspace := app.paramsKeeper.Subspace(distr.DefaultParamspace)
 
 	// The AccountKeeper handles address -> account lookups
 	app.accountKeeper = auth.NewAccountKeeper(
@@ -110,6 +127,25 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		app.keyAccount,
 		authSubspace,
 		auth.ProtoBaseAccount,
+	)
+
+	app.stakingKeeper = staking.NewKeeper(
+		app.cdc,
+		app.keyStaking,
+		app.tkeyStaking,
+		app.bankKeeper,
+		stakingSubspace,
+		staking.DefaultCodespace,
+	)
+
+	app.distrKeeper = distr.NewKeeper(
+		app.cdc,
+		app.keyDistr,
+		distrSubspace,
+		app.bankKeeper,
+		app.stakingKeeper,
+		app.feeCollectionKeeper,
+		distr.DefaultCodespace,
 	)
 
 	// The BankKeeper allows you perform sdk.Coins interactions
@@ -130,20 +166,28 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		app.cdc,
 	)
 
-	// The AnteHandler handles signature verification and transaction pre-processing
-	app.SetAnteHandler(auth.NewAnteHandler(app.accountKeeper, app.feeCollectionKeeper, auth.DefaultSigVerificationGasConsumer))
-
 	app.mm = sdk.NewModuleManager(
 		genaccounts.NewAppModule(app.accountKeeper),
 		auth.NewAppModule(app.accountKeeper, app.feeCollectionKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
-		nameservice.NewAppModule(app.nsKeeper, app.bankKeeper), // check if bank keeper is needed
+		nameservice.NewAppModule(app.nsKeeper, app.bankKeeper),
+		staking.NewAppModule(app.stakingKeeper, app.feeCollectionKeeper, app.distrKeeper, app.accountKeeper),
+		distr.NewAppModule(app.distrKeeper),
 	)
 
 	// app.mm.SetOrderEndBlocks()
 
-	// Initialize with tokens from genesis
-	app.mm.SetOrderInitGenesis(genaccounts.ModuleName, auth.ModuleName, bank.ModuleName, nameservice.ModuleName)
+	// Sets the order of Genesis
+	app.mm.SetOrderInitGenesis(
+		genaccounts.ModuleName,
+		auth.ModuleName,
+		bank.ModuleName,
+		nameservice.ModuleName,
+		staking.ModuleName,
+		distr.ModuleName,
+	)
+	app.mm.SetOrderBeginBlockers(distr.ModuleName)
+	app.mm.SetOrderEndBlockers(staking.ModuleName)
 
 	// register all module routes and module queriers
 	app.mm.RegisterRoutes(app.Router(), app.QueryRouter())
@@ -152,20 +196,26 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	app.SetInitChainer(app.InitChainer)
 	app.SetBeginBlocker(app.BeginBlocker)
 	app.SetEndBlocker(app.EndBlocker)
+	// The AnteHandler handles signature verification and transaction pre-processing
+	app.SetAnteHandler(auth.NewAnteHandler(app.accountKeeper, app.feeCollectionKeeper, auth.DefaultSigVerificationGasConsumer))
 
 	app.MountStores(
 		app.keyMain,
 		app.keyAccount,
+		app.keyStaking,
+		app.tkeyStaking,
+		app.keyDistr,
+		app.tkeyDistr,
 		app.keyNS,
 		app.keyFeeCollection,
 		app.keyParams,
 		app.tkeyParams,
 	)
 
-	err := app.LoadLatestVersion(app.keyMain)
-	if err != nil {
-		cmn.Exit(err.Error())
-	}
+	// err := app.LoadLatestVersion(app.keyMain)
+	// if err != nil {
+	// 	cmn.Exit(err.Error())
+	// }
 
 	return app
 }
@@ -198,30 +248,47 @@ func (app *nameServiceApp) LoadHeight(height int64) error {
 	return app.LoadVersion(height, app.keyMain)
 }
 
-func (app *nameServiceApp) ExportAppStateAndValidators(cdc *codec.Codec) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
-	ctx := app.NewContext(true, abci.Header{})
-	accounts := []*auth.BaseAccount{}
+// func (app *nameServiceApp) ExportAppStateAndValidators(cdc *codec.Codec) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
+// 	ctx := app.NewContext(true, abci.Header{})
+// 	accounts := []*auth.BaseAccount{}
 
-	appendAccountsFn := func(acc auth.Account) bool {
-		account := &auth.BaseAccount{
-			Address: acc.GetAddress(),
-			Coins:   acc.GetCoins(),
-		}
+// 	appendAccountsFn := func(acc auth.Account) bool {
+// 		account := &auth.BaseAccount{
+// 			Address: acc.GetAddress(),
+// 			Coins:   acc.GetCoins(),
+// 		}
 
-		accounts = append(accounts, account)
-		return false
-	}
+// 		accounts = append(accounts, account)
+// 		return false
+// 	}
 
-	app.accountKeeper.IterateAccounts(ctx, appendAccountsFn)
+// 	app.accountKeeper.IterateAccounts(ctx, appendAccountsFn)
+
+// 	genState := app.mm.ExportGenesis(ctx)
+
+// 	appState, err = codec.MarshalJSONIndent(app.cdc, genState)
+// 	if err != nil {
+// 		return nil, nil, err
+// 	}
+
+// 	return appState, validators, err
+// }
+
+func (app *nameServiceApp) ExportAppStateAndValidators(forZeroHeight bool, jailWhiteList []string,
+) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
+
+	// as if they could withdraw from the start of the next block
+	ctx := app.NewContext(true, abci.Header{Height: app.LastBlockHeight()})
+
+	// if forZeroHeight {
+	// 	app.prepForZeroHeightGenesis(ctx, jailWhiteList)
+	// }
 
 	genState := app.mm.ExportGenesis(ctx)
-
 	appState, err = codec.MarshalJSONIndent(app.cdc, genState)
 	if err != nil {
 		return nil, nil, err
 	}
-
-	// validator set is empty so cannot run.
-	// will wait for 34.5 to be sliced then integrate the staking module
-	return appState, validators, err
+	validators = staking.WriteValidators(ctx, app.stakingKeeper)
+	return appState, validators, nil
 }
