@@ -12,9 +12,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
 
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	distr "github.com/cosmos/cosmos-sdk/x/distribution"
 	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
 
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
@@ -45,8 +43,6 @@ func init() {
 		bank.AppModuleBasic{},
 		params.AppModuleBasic{},
 		nameservice.AppModule{},
-		staking.AppModuleBasic{},
-		distr.AppModuleBasic{},
 	)
 }
 
@@ -65,18 +61,12 @@ type nameServiceApp struct {
 
 	keyMain          *sdk.KVStoreKey
 	keyAccount       *sdk.KVStoreKey
-	keyStaking       *sdk.KVStoreKey
-	tkeyStaking      *sdk.TransientStoreKey
-	keyDistr         *sdk.KVStoreKey
-	tkeyDistr        *sdk.TransientStoreKey
 	keyNS            *sdk.KVStoreKey
 	keyFeeCollection *sdk.KVStoreKey
 	keyParams        *sdk.KVStoreKey
 	tkeyParams       *sdk.TransientStoreKey
 
 	accountKeeper auth.AccountKeeper
-	stakingKeeper staking.Keeper
-	distrKeeper   distr.Keeper
 
 	bankKeeper          bank.Keeper
 	feeCollectionKeeper auth.FeeCollectionKeeper
@@ -103,10 +93,6 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 
 		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
 		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),
-		keyStaking:       sdk.NewKVStoreKey(staking.StoreKey),
-		tkeyStaking:      sdk.NewTransientStoreKey(staking.TStoreKey),
-		keyDistr:         sdk.NewKVStoreKey(distr.StoreKey),
-		tkeyDistr:        sdk.NewTransientStoreKey(distr.TStoreKey),
 		keyNS:            sdk.NewKVStoreKey(nameservice.StoreKey),
 		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
 		keyParams:        sdk.NewKVStoreKey(params.StoreKey),
@@ -118,8 +104,6 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	// Set specific supspaces
 	authSubspace := app.paramsKeeper.Subspace(auth.DefaultParamspace)
 	bankSupspace := app.paramsKeeper.Subspace(bank.DefaultParamspace)
-	stakingSubspace := app.paramsKeeper.Subspace(staking.DefaultParamspace)
-	distrSubspace := app.paramsKeeper.Subspace(distr.DefaultParamspace)
 
 	// The AccountKeeper handles address -> account lookups
 	app.accountKeeper = auth.NewAccountKeeper(
@@ -127,25 +111,6 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		app.keyAccount,
 		authSubspace,
 		auth.ProtoBaseAccount,
-	)
-
-	app.stakingKeeper = staking.NewKeeper(
-		app.cdc,
-		app.keyStaking,
-		app.tkeyStaking,
-		app.bankKeeper,
-		stakingSubspace,
-		staking.DefaultCodespace,
-	)
-
-	app.distrKeeper = distr.NewKeeper(
-		app.cdc,
-		app.keyDistr,
-		distrSubspace,
-		app.bankKeeper,
-		app.stakingKeeper,
-		app.feeCollectionKeeper,
-		distr.DefaultCodespace,
 	)
 
 	// The BankKeeper allows you perform sdk.Coins interactions
@@ -171,8 +136,6 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		auth.NewAppModule(app.accountKeeper, app.feeCollectionKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
 		nameservice.NewAppModule(app.nsKeeper, app.bankKeeper),
-		staking.NewAppModule(app.stakingKeeper, app.feeCollectionKeeper, app.distrKeeper, app.accountKeeper),
-		distr.NewAppModule(app.distrKeeper),
 	)
 
 	// app.mm.SetOrderEndBlocks()
@@ -183,11 +146,7 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		auth.ModuleName,
 		bank.ModuleName,
 		nameservice.ModuleName,
-		staking.ModuleName,
-		distr.ModuleName,
 	)
-	app.mm.SetOrderBeginBlockers(distr.ModuleName)
-	app.mm.SetOrderEndBlockers(staking.ModuleName)
 
 	// register all module routes and module queriers
 	app.mm.RegisterRoutes(app.Router(), app.QueryRouter())
@@ -202,10 +161,6 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	app.MountStores(
 		app.keyMain,
 		app.keyAccount,
-		app.keyStaking,
-		app.tkeyStaking,
-		app.keyDistr,
-		app.tkeyDistr,
 		app.keyNS,
 		app.keyFeeCollection,
 		app.keyParams,
@@ -248,32 +203,6 @@ func (app *nameServiceApp) LoadHeight(height int64) error {
 	return app.LoadVersion(height, app.keyMain)
 }
 
-// func (app *nameServiceApp) ExportAppStateAndValidators(cdc *codec.Codec) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
-// 	ctx := app.NewContext(true, abci.Header{})
-// 	accounts := []*auth.BaseAccount{}
-
-// 	appendAccountsFn := func(acc auth.Account) bool {
-// 		account := &auth.BaseAccount{
-// 			Address: acc.GetAddress(),
-// 			Coins:   acc.GetCoins(),
-// 		}
-
-// 		accounts = append(accounts, account)
-// 		return false
-// 	}
-
-// 	app.accountKeeper.IterateAccounts(ctx, appendAccountsFn)
-
-// 	genState := app.mm.ExportGenesis(ctx)
-
-// 	appState, err = codec.MarshalJSONIndent(app.cdc, genState)
-// 	if err != nil {
-// 		return nil, nil, err
-// 	}
-
-// 	return appState, validators, err
-// }
-
 func (app *nameServiceApp) ExportAppStateAndValidators(forZeroHeight bool, jailWhiteList []string,
 ) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 
@@ -289,6 +218,6 @@ func (app *nameServiceApp) ExportAppStateAndValidators(forZeroHeight bool, jailW
 	if err != nil {
 		return nil, nil, err
 	}
-	validators = staking.WriteValidators(ctx, app.stakingKeeper)
+	// validators = staking.WriteValidators(ctx, app.stakingKeeper)
 	return appState, validators, nil
 }

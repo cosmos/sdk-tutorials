@@ -3,6 +3,7 @@ module github.com/cosmos/sdk-application-tutorial
 go 1.12
 
 require (
+	bou.ke/monkey v1.0.1 // indirect
 	github.com/bartekn/go-bip39 v0.0.0-20171116152956-a05967ea095d
 	github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973
 	github.com/bgentry/speakeasy v0.1.0
@@ -30,6 +31,9 @@ require (
 	github.com/mattn/go-isatty v0.0.7
 	github.com/matttproud/golang_protobuf_extensions v1.0.1
 	github.com/mitchellh/mapstructure v1.1.2
+	github.com/otiai10/copy v0.0.0-20180813032824-7e9a647135a1 // indirect
+	github.com/otiai10/curr v0.0.0-20150429015615-9b4961190c95 // indirect
+	github.com/otiai10/mint v1.2.3 // indirect
 	github.com/pelletier/go-toml v1.2.0
 	github.com/pkg/errors v0.8.1
 	github.com/pmezard/go-difflib v1.0.0
@@ -63,3 +67,5 @@ require (
 )
 
 replace golang.org/x/crypto => github.com/tendermint/crypto v0.0.0-20180820045704-3764759f34a5
+
+replace github.com/cosmos/cosmos-sdk => github.com/cosmos/cosmos-sdk v0.28.2-0.20190527202848-b63b81ab2177
