@@ -19,8 +19,8 @@ import (
 
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-
 	abci "github.com/tendermint/tendermint/abci/types"
+	cmn "github.com/tendermint/tendermint/libs/common"
 	dbm "github.com/tendermint/tendermint/libs/db"
 )
 
@@ -169,10 +169,10 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		app.tkeyParams,
 	)
 
-	// err := app.LoadLatestVersion(app.keyMain)
-	// if err != nil {
-	// 	cmn.Exit(err.Error())
-	// }
+	err := app.LoadLatestVersion(app.keyMain)
+	if err != nil {
+		cmn.Exit(err.Error())
+	}
 
 	return app
 }
@@ -187,8 +187,7 @@ func NewDefaultGenesisState() GenesisState {
 func (app *nameServiceApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	var genesisState GenesisState
 
-	serverCtx := server.NewDefaultContext()
-	config := serverCtx.Config
+	config := server.NewDefaultContext().Config
 
 	_, pKey, err := genutil.InitializeNodeValidatorFiles(config)
 	if err != nil {
