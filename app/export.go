@@ -27,8 +27,9 @@ func (app *nameServiceApp) ExportAppStateAndValidators(forZeroHeight bool, jailW
 		return nil, nil, err
 	}
 
-	// _, _, validator, err := SimpleAppGenTx(app.cdc, )
-	// validators = append(validator, validators)
+	// _, pubKey, err := genutil.InitializeNodeValidatorFiles(config)
+	// _, _, validator, err := SimpleAppGenTx(app.cdc, pubKey)
+	// validators = append(validators, validator)
 
 	return appState, validators, nil
 }
