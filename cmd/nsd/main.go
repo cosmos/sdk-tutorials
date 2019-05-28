@@ -5,7 +5,6 @@ import (
 	"io"
 
 	"github.com/cosmos/cosmos-sdk/server"
-	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
 	genaccscli "github.com/cosmos/cosmos-sdk/x/auth/genaccounts/client/cli"
 
 	"github.com/spf13/cobra"
@@ -40,8 +39,6 @@ func main() {
 	}
 	// CLI commands to initialize the chain
 	rootCmd.AddCommand(genutilcli.InitCmd(ctx, cdc, app.ModuleBasics, app.DefaultNodeHome))
-	rootCmd.AddCommand(genutilcli.CollectGenTxsCmd(ctx, cdc, genaccounts.AppModuleBasic{}, app.DefaultNodeHome))
-	rootCmd.AddCommand(genutilcli.GenTxCmd(ctx, cdc, app.ModuleBasics, genaccounts.AppModuleBasic{}, app.DefaultNodeHome, app.DefaultCLIHome))
 	rootCmd.AddCommand(genutilcli.ValidateGenesisCmd(ctx, cdc, app.ModuleBasics))
 
 	// AddGenesisAccountCmd allows users to add accounts to the genesis file
@@ -57,7 +54,7 @@ func main() {
 }
 
 func newApp(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application {
-	return app.NewNameServiceApp(logger, db, traceStore)
+	return app.NewNameServiceApp(logger, db)
 }
 
 func exportAppStateAndTMValidators(
@@ -65,7 +62,7 @@ func exportAppStateAndTMValidators(
 ) (json.RawMessage, []tmtypes.GenesisValidator, error) {
 
 	if height != -1 {
-		nsApp := app.NewNameServiceApp(logger, db, traceStore)
+		nsApp := app.NewNameServiceApp(logger, db)
 		err := nsApp.LoadHeight(height)
 		if err != nil {
 			return nil, nil, err
@@ -73,7 +70,7 @@ func exportAppStateAndTMValidators(
 		return nsApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
 	}
 
-	nsApp := app.NewNameServiceApp(logger, db, traceStore)
+	nsApp := app.NewNameServiceApp(logger, db)
 
 	return nsApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
 }

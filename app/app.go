@@ -2,13 +2,14 @@ package app
 
 import (
 	"encoding/json"
-	"io"
 	"os"
 
 	"github.com/tendermint/tendermint/libs/log"
 
 	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/cosmos/cosmos-sdk/server"
 	"github.com/cosmos/cosmos-sdk/x/auth"
+	"github.com/cosmos/cosmos-sdk/x/genutil"
 
 	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
 
@@ -62,8 +63,8 @@ type nameServiceApp struct {
 	// Keys to access the substores
 	keyMain          *sdk.KVStoreKey
 	keyAccount       *sdk.KVStoreKey
-	keyNS            *sdk.KVStoreKey
 	keyFeeCollection *sdk.KVStoreKey
+	keyNS            *sdk.KVStoreKey
 	keyParams        *sdk.KVStoreKey
 	tkeyParams       *sdk.TransientStoreKey
 
@@ -79,7 +80,7 @@ type nameServiceApp struct {
 }
 
 // NewNameServiceApp is a constructor function for nameServiceApp
-func NewNameServiceApp(logger log.Logger, db dbm.DB, traceStore io.Writer) *nameServiceApp {
+func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 
 	// First define the top level codec that will be shared by the different modules
 	cdc := MakeCodec()
@@ -94,8 +95,8 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB, traceStore io.Writer) *name
 
 		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
 		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),
-		keyNS:            sdk.NewKVStoreKey(nameservice.StoreKey),
 		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
+		keyNS:            sdk.NewKVStoreKey(nameservice.StoreKey),
 		keyParams:        sdk.NewKVStoreKey(params.StoreKey),
 		tkeyParams:       sdk.NewTransientStoreKey(params.TStoreKey),
 	}
@@ -186,9 +187,24 @@ func NewDefaultGenesisState() GenesisState {
 func (app *nameServiceApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	var genesisState GenesisState
 
-	err := app.cdc.UnmarshalJSON(req.AppStateBytes, &genesisState)
+	serverCtx := server.NewDefaultContext()
+	config := serverCtx.Config
+
+	_, pKey, err := genutil.InitializeNodeValidatorFiles(config)
 	if err != nil {
 		panic(err)
+	}
+
+	req.Validators = append(req.Validators, abci.ValidatorUpdate{
+		PubKey: abci.PubKey{
+			Data: pKey.Bytes(),
+		},
+		Power: 10,
+	})
+
+	err2 := app.cdc.UnmarshalJSON(req.AppStateBytes, &genesisState)
+	if err2 != nil {
+		panic(err2)
 	}
 
 	return app.mm.InitGenesis(ctx, genesisState)
