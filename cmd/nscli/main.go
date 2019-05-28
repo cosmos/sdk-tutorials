@@ -25,7 +25,7 @@ import (
 	st "github.com/cosmos/cosmos-sdk/x/staking"
 	stakingclient "github.com/cosmos/cosmos-sdk/x/staking/client"
 	staking "github.com/cosmos/cosmos-sdk/x/staking/client/rest"
-	app "github.com/cosmos/sdk-application-tutorial"
+	app "github.com/cosmos/sdk-application-tutorial/app"
 	nsclient "github.com/cosmos/sdk-application-tutorial/x/nameservice/client"
 	nsrest "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/rest"
 )
