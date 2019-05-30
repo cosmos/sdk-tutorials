@@ -11,6 +11,7 @@ package app
 
 import (
   "github.com/tendermint/tendermint/libs/log"
+  "github.com/cosmos/cosmos-sdk/codec"
   "github.com/cosmos/cosmos-sdk/x/auth"
 
   bam "github.com/cosmos/cosmos-sdk/baseapp"
@@ -21,7 +22,8 @@ import (
 Links to godocs for each module and package imported:
 
 - [`log`](https://godoc.org/github.com/tendermint/tendermint/libs/log): Tendermint's logger.
-- [`auth`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth): The `auth` module for the Comsos SDK.
+- [`auth`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth): The `auth` module for the Cosmos SDK.
+- [`codec`](https://godoc.org/github.com/cosmos/cosmos-sdk/codec): The `codec` module for the Cosmos SDK. We will explain more later.
 - [`dbm`](https://godoc.org/github.com/tendermint/tendermint/libs/db): Code for working with the Tendermint database.
 - [`baseapp`](https://godoc.org/github.com/cosmos/cosmos-sdk/baseapp): See below
 
@@ -66,6 +68,7 @@ const (
 
 type nameServiceApp struct {
     *bam.BaseApp
+    cdc *codec.Codec
 }
 ```
 
