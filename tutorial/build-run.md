@@ -56,7 +56,17 @@ nscli config chain-id namechain
 nscli config output json
 nscli config indent true
 nscli config trust-node true
+
+nsd gentx \
+  --amount 100fruitcoin \
+  --commission-rate "0.10" \ // these are recommended settings for this tutorial, you change if you\'d like, 1.00 = 100%
+  --commission-max-rate "0.20" \ // these are recommended settings for this tutorial, you change if you\'d like, 1.00 = 100%
+  --commission-max-change-rate "0.01" \ // these are recommended settings for this tutorial, you change if you\'d like, 1.00 = 100%
+  --pubkey $(nsd tendermint show-validator) \
+  --name <key_name
 ```
+
+After you have generated you a genesis transcation, you will have to input the gentx into the genesis file, so that your nameservice chain is aware of the validators. 
 
 You can now start `nsd` by calling `nsd start`. You will see logs begin streaming that represent blocks being produced, this will take a couple of seconds.
 
