@@ -15,6 +15,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	distr "github.com/cosmos/cosmos-sdk/x/distribution"
 	"github.com/cosmos/cosmos-sdk/x/params"
+	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
 
@@ -49,6 +50,7 @@ func init() {
 		nameservice.AppModule{},
 		staking.AppModuleBasic{},
 		distr.AppModuleBasic{},
+		slashing.AppModuleBasic{},
 	)
 }
 
@@ -76,11 +78,13 @@ type nameServiceApp struct {
 	keyNS            *sdk.KVStoreKey
 	keyParams        *sdk.KVStoreKey
 	tkeyParams       *sdk.TransientStoreKey
+	keySlashing      *sdk.KVStoreKey
 
 	// Keepers
 	accountKeeper       auth.AccountKeeper
 	bankKeeper          bank.Keeper
 	stakingKeeper       staking.Keeper
+	slashingKeeper      slashing.Keeper
 	distrKeeper         distr.Keeper
 	feeCollectionKeeper auth.FeeCollectionKeeper
 	paramsKeeper        params.Keeper
@@ -114,6 +118,7 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 		keyNS:            sdk.NewKVStoreKey(nameservice.StoreKey),
 		keyParams:        sdk.NewKVStoreKey(params.StoreKey),
 		tkeyParams:       sdk.NewTransientStoreKey(params.TStoreKey),
+		keySlashing:      sdk.NewKVStoreKey(slashing.StoreKey),
 	}
 
 	// The ParamsKeeper handles parameter storage for the application
@@ -123,6 +128,25 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 	bankSupspace := app.paramsKeeper.Subspace(bank.DefaultParamspace)
 	stakingSubspace := app.paramsKeeper.Subspace(staking.DefaultParamspace)
 	distrSubspace := app.paramsKeeper.Subspace(distr.DefaultParamspace)
+	slashingSubspace := app.paramsKeeper.Subspace(slashing.DefaultParamspace)
+
+	// The staking keeper
+	stakingKeeper := staking.NewKeeper(
+		app.cdc,
+		app.keyStaking,
+		app.tkeyStaking,
+		app.bankKeeper,
+		stakingSubspace,
+		staking.DefaultCodespace,
+	)
+
+	app.slashingKeeper = slashing.NewKeeper(
+		app.cdc,
+		app.keySlashing,
+		&stakingKeeper,
+		slashingSubspace,
+		slashing.DefaultCodespace,
+	)
 
 	// The AccountKeeper handles address -> account lookups
 	app.accountKeeper = auth.NewAccountKeeper(
@@ -132,25 +156,20 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 		auth.ProtoBaseAccount,
 	)
 
-	// The staking keeper
-	app.stakingKeeper = staking.NewKeeper(
-		app.cdc,
-		app.keyStaking,
-		app.tkeyStaking,
-		app.bankKeeper,
-		stakingSubspace,
-		staking.DefaultCodespace,
-	)
-
 	app.distrKeeper = distr.NewKeeper(
 		app.cdc,
 		app.keyDistr,
 		distrSubspace,
 		app.bankKeeper,
-		app.stakingKeeper,
+		&stakingKeeper,
 		app.feeCollectionKeeper,
 		distr.DefaultCodespace,
 	)
+
+	// register the staking hooks
+	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
+	app.stakingKeeper = *stakingKeeper.SetHooks(
+		staking.NewMultiStakingHooks(app.distrKeeper.Hooks(), app.slashingKeeper.Hooks()))
 
 	// The BankKeeper allows you perform sdk.Coins interactions
 	app.bankKeeper = bank.NewBaseKeeper(
@@ -177,9 +196,10 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 		nameservice.NewAppModule(app.nsKeeper, app.bankKeeper),
 		distr.NewAppModule(app.distrKeeper),
 		staking.NewAppModule(app.stakingKeeper, app.feeCollectionKeeper, app.distrKeeper, app.accountKeeper),
+		slashing.NewAppModule(app.slashingKeeper, app.stakingKeeper),
 	)
 
-	app.mm.SetOrderBeginBlockers()
+	app.mm.SetOrderBeginBlockers(distr.ModuleName, slashing.ModuleName)
 
 	app.mm.SetOrderEndBlockers(staking.ModuleName)
 
@@ -190,6 +210,8 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 		staking.ModuleName,
 		bank.ModuleName,
 		nameservice.ModuleName,
+		slashing.ModuleName,
+		distr.ModuleName,
 	)
 
 	// register all module routes and module queriers
@@ -213,6 +235,7 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 		app.keyFeeCollection,
 		app.keyParams,
 		app.tkeyParams,
+		app.keySlashing,
 	)
 
 	err := app.LoadLatestVersion(app.keyMain)
@@ -384,4 +407,16 @@ func (app *nameServiceApp) prepForZeroHeightGenesis(ctx sdk.Context, jailWhiteLi
 	iter.Close()
 
 	_ = app.stakingKeeper.ApplyAndReturnValidatorSetUpdates(ctx)
+
+	/* Handle slashing state. */
+
+	// reset start height on signing infos
+	app.slashingKeeper.IterateValidatorSigningInfos(
+		ctx,
+		func(addr sdk.ConsAddress, info slashing.ValidatorSigningInfo) (stop bool) {
+			info.StartHeight = 0
+			app.slashingKeeper.SetValidatorSigningInfo(ctx, addr, info)
+			return false
+		},
+	)
 }
