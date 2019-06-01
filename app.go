@@ -14,6 +14,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	distr "github.com/cosmos/cosmos-sdk/x/distribution"
+	"github.com/cosmos/cosmos-sdk/x/genutil"
 	"github.com/cosmos/cosmos-sdk/x/params"
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
@@ -44,6 +45,7 @@ var (
 func init() {
 	ModuleBasics = sdk.NewModuleBasicManager(
 		genaccounts.AppModuleBasic{},
+		genutil.AppModuleBasic{},
 		auth.AppModuleBasic{},
 		bank.AppModuleBasic{},
 		params.AppModuleBasic{},
@@ -191,6 +193,7 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 
 	app.mm = sdk.NewModuleManager(
 		genaccounts.NewAppModule(app.accountKeeper),
+		genutil.NewAppModule(app.accountKeeper, app.stakingKeeper, app.BaseApp.DeliverTx),
 		auth.NewAppModule(app.accountKeeper, app.feeCollectionKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
 		nameservice.NewAppModule(app.nsKeeper, app.bankKeeper),
@@ -206,6 +209,7 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 	// Sets the order of Genesis
 	app.mm.SetOrderInitGenesis(
 		genaccounts.ModuleName,
+		genutil.ModuleName,
 		auth.ModuleName,
 		staking.ModuleName,
 		bank.ModuleName,
@@ -274,6 +278,8 @@ func (app *nameServiceApp) LoadHeight(height int64) error {
 	return app.LoadVersion(height, app.keyMain)
 }
 
+//_________________________________________________________
+
 func (app *nameServiceApp) ExportAppStateAndValidators(forZeroHeight bool, jailWhiteList []string,
 ) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 
@@ -289,6 +295,8 @@ func (app *nameServiceApp) ExportAppStateAndValidators(forZeroHeight bool, jailW
 	if err != nil {
 		return nil, nil, err
 	}
+
+	validators = staking.WriteValidators(ctx, app.stakingKeeper)
 
 	return appState, validators, nil
 }
