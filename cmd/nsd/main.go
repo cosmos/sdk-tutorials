@@ -6,8 +6,8 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/server"
 	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
-	"github.com/cosmos/cosmos-sdk/x/staking"
 	genaccscli "github.com/cosmos/cosmos-sdk/x/auth/genaccounts/client/cli"
+	"github.com/cosmos/cosmos-sdk/x/staking"
 
 	"github.com/spf13/cobra"
 	"github.com/tendermint/tendermint/libs/cli"
