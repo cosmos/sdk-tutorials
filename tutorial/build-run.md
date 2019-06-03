@@ -34,22 +34,22 @@ To initialize configuration and a `genesis.json` file for your application and a
 
 > _*NOTE*_: If you have run the tutorial before, you can start from scratch with a `nsd unsafe-reset-all` or by deleting both of the home folders `rm -rf ~/.ns*`
 
-> _*NOTE*_: If you have the Cosmos app for ledger and you want to use it, when you create the key with `nscli keys add jack` just add `--ledger` at the end. That's all you need. When you sign, `jack` will be recognized as a Ledger key and will require a device. 
+> _*NOTE*_: If you have the Cosmos app for ledger and you want to use it, when you create the key with `nscli keys add jack` just add `--ledger` at the end. That's all you need. When you sign, `jack` will be recognized as a Ledger key and will require a device.
 
 ```bash
 # Initialize configuration files and genesis file
 nsd init --chain-id namechain
 
-# Copy the `Address` output here and save it for later use 
-# [optional] add "--ledger" at the end to use a Ledger Nano S 
+# Copy the `Address` output here and save it for later use
+# [optional] add "--ledger" at the end to use a Ledger Nano S
 nscli keys add jack
 
 # Copy the `Address` output here and save it for later use
 nscli keys add alice
 
 # Add both accounts, with coins to the genesis file
-nsd add-genesis-account $(nscli keys show jack -a) 1000nametoken,1000jackcoin
-nsd add-genesis-account $(nscli keys show alice -a) 1000nametoken,1000alicecoin
+nsd add-genesis-account $(nscli keys show jack -a) 1000nametoken,10000000stake
+nsd add-genesis-account $(nscli keys show alice -a) 1000nametoken,10000000stake
 
 # Configure your CLI to eliminate need for chain-id flag
 nscli config chain-id namechain
@@ -57,22 +57,16 @@ nscli config output json
 nscli config indent true
 nscli config trust-node true
 
-nsd gentx \
-  --amount 100fruitcoin \
-  --commission-rate "0.10" \ // these are recommended settings for this tutorial, you change them if you want, 1.00 = 100%
-  --commission-max-rate "0.20" \ // these are recommended settings for this tutorial, you change them if you want, 1.00 = 100%
-  --commission-max-change-rate "0.01" \ // these are recommended settings for this tutorial, you change them if you want, 1.00 = 100%
-  --pubkey $(nsd tendermint show-validator) \
-  --name <key_name
+nsd gentx --name <key_name>
 ```
 
 After you have generated you a genesis transcation, you will have to input the gentx into the genesis file, so that your nameservice chain is aware of the validators. To do so, run:
 
-```nsd collect-gentxs```
+`nsd collect-gentxs`
 
 and to make sure your genesis file is correct, run:
 
-```nsd validate-genesis```
+`nsd validate-genesis`
 
 You can now start `nsd` by calling `nsd start`. You will see logs begin streaming that represent blocks being produced, this will take a couple of seconds.
 
@@ -80,14 +74,14 @@ Open another terminal to run commands against the network you have just created:
 
 ```bash
 # First check the accounts to ensure they have funds
-nscli query account $(nscli keys show jack -a) 
-nscli query account $(nscli keys show alice -a) 
+nscli query account $(nscli keys show jack -a)
+nscli query account $(nscli keys show alice -a)
 
 # Buy your first name using your coins from the genesis file
-nscli tx nameservice buy-name jack.id 5nametoken --from jack 
+nscli tx nameservice buy-name jack.id 5nametoken --from jack
 
 # Set the value for the name you just bought
-nscli tx nameservice set-name jack.id 8.8.8.8 --from jack 
+nscli tx nameservice set-name jack.id 8.8.8.8 --from jack
 
 # Try out a resolve query against the name you registered
 nscli query nameservice resolve jack.id
@@ -98,7 +92,7 @@ nscli query nameservice whois jack.id
 # > {"value":"8.8.8.8","owner":"cosmos1l7k5tdt2qam0zecxrx78yuw447ga54dsmtpk2s","price":[{"denom":"nametoken","amount":"5"}]}
 
 # Alice buys name from jack
-nscli tx nameservice buy-name jack.id 10nametoken --from alice 
+nscli tx nameservice buy-name jack.id 10nametoken --from alice
 ```
 
 ### Congratulations, you have built a Cosmos SDK application! This tutorial is now complete. If you want to see how to run the same commands using the REST server [click here](run-rest.md).
