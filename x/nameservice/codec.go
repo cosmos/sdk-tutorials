@@ -8,6 +8,7 @@ import (
 func RegisterCodec(cdc *codec.Codec) {
 	cdc.RegisterConcrete(MsgSetName{}, "nameservice/SetName", nil)
 	cdc.RegisterConcrete(MsgBuyName{}, "nameservice/BuyName", nil)
+	cdc.RegisterConcrete(MsgDeleteName{}, "nameservice/DeleteName", nil)
 }
 
 var ModuleCdc = codec.New()

@@ -49,6 +49,15 @@ func (k Keeper) SetWhois(ctx sdk.Context, name string, whois Whois) {
 	store.Set([]byte(name), k.cdc.MustMarshalBinaryBare(whois))
 }
 
+// Deletes the entire Whois metadata struct for a name
+func (k Keeper) DeleteWhois(ctx sdk.Context, name string) {
+	store := ctx.KVStore(k.storeKey)
+	if !store.Has([]byte(name)) {
+		return
+	}
+	store.Delete([]byte(name))
+}
+
 // ResolveName - returns the string that the name resolves to
 func (k Keeper) ResolveName(ctx sdk.Context, name string) string {
 	return k.GetWhois(ctx, name).Value
@@ -59,6 +68,11 @@ func (k Keeper) SetName(ctx sdk.Context, name string, value string) {
 	whois := k.GetWhois(ctx, name)
 	whois.Value = value
 	k.SetWhois(ctx, name, whois)
+}
+
+// DeleteName - Deletes the name and it's associated fields
+func (k Keeper) DeleteName(ctx sdk.Context, name string) {
+	k.DeleteWhois(ctx, name)
 }
 
 // HasOwner - returns whether or not the name already has an owner

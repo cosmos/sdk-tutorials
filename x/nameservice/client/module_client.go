@@ -44,6 +44,7 @@ func (mc ModuleClient) GetTxCmd() *cobra.Command {
 	namesvcTxCmd.AddCommand(client.PostCommands(
 		nameservicecmd.GetCmdBuyName(mc.cdc),
 		nameservicecmd.GetCmdSetName(mc.cdc),
+		nameservicecmd.GetCmdDeleteName(mc.cdc),
 	)...)
 
 	return namesvcTxCmd

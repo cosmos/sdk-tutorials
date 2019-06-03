@@ -26,6 +26,7 @@ func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, 
 	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), setNameHandler(cdc, cliCtx)).Methods("PUT")
 	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}", storeName, restName), resolveNameHandler(cdc, cliCtx, storeName)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}/whois", storeName, restName), whoIsHandler(cdc, cliCtx, storeName)).Methods("GET")
+	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}", storeName, restName), deleteNameHandler(cdc, cliCtx)).Methods("DELETE")
 }
 
 type buyNameReq struct {
@@ -149,5 +150,42 @@ func namesHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string)
 			return
 		}
 		rest.PostProcessResponse(w, cdc, res, cliCtx.Indent)
+	}
+}
+
+type deleteNameReq struct {
+	BaseReq rest.BaseReq `json:"base_req"`
+	Name    string       `json:"name"`
+	Owner   string       `json:"owner"`
+}
+
+func deleteNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req deleteNameReq
+		if !rest.ReadRESTReq(w, r, cdc, &req) {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
+			return
+		}
+
+		baseReq := req.BaseReq.Sanitize()
+		if !baseReq.ValidateBasic(w) {
+			return
+		}
+
+		addr, err := sdk.AccAddressFromBech32(req.Owner)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		// create the message
+		msg := nameservice.NewMsgDeleteName(req.Name, addr)
+		err = msg.ValidateBasic()
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		clientrest.WriteGenerateStdTxResponse(w, cdc, cliCtx, baseReq, []sdk.Msg{msg})
 	}
 }

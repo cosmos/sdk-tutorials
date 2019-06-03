@@ -104,3 +104,48 @@ func (msg MsgBuyName) GetSignBytes() []byte {
 func (msg MsgBuyName) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Buyer}
 }
+
+// MsgDeleteName defines a DeleteName message
+type MsgDeleteName struct {
+	Name  string
+	Owner sdk.AccAddress
+}
+
+// NewMsgDeleteName is a constructor function for MsgDeleteName
+func NewMsgDeleteName(name string, owner sdk.AccAddress) MsgDeleteName {
+	return MsgDeleteName{
+		Name:  name,
+		Owner: owner,
+	}
+}
+
+// Route should return the name of the module
+func (msg MsgDeleteName) Route() string { return RouterKey }
+
+// Type should return the action
+func (msg MsgDeleteName) Type() string { return "delete_name" }
+
+// ValidateBasic runs stateless checks on the message
+func (msg MsgDeleteName) ValidateBasic() sdk.Error {
+	if msg.Owner.Empty() {
+		return sdk.ErrInvalidAddress(msg.Owner.String())
+	}
+	if len(msg.Name) == 0 {
+		return sdk.ErrUnknownRequest("Name cannot be empty")
+	}
+	return nil
+}
+
+// GetSignBytes encodes the message for signing
+func (msg MsgDeleteName) GetSignBytes() []byte {
+	b, err := json.Marshal(msg)
+	if err != nil {
+		panic(err)
+	}
+	return sdk.MustSortJSON(b)
+}
+
+// GetSigners defines whose signature is required
+func (msg MsgDeleteName) GetSigners() []sdk.AccAddress {
+	return []sdk.AccAddress{msg.Owner}
+}
