@@ -1,7 +1,6 @@
 package nameservice
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -73,13 +72,6 @@ func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Ke
 	}
 
 	return bz, nil
-}
-
-// implement fmt.Stringer
-func (w Whois) String() string {
-	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
-Value: %s
-Price: %s`, w.Owner, w.Value, w.Price))
 }
 
 func queryNames(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {

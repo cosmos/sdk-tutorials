@@ -18,12 +18,20 @@ package nameservice
 
 import (
 	"fmt"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 
-func ValidateGenesis(data GenesisState) error {
+type GenesisState struct {
+	WhoisRecords []Whois `json:"whois_records"`
+}
 
+func NewGenesisState(whoIsRecords []Whois) GenesisState {
+	return GenesisState{WhoisRecords: nil}
+}
+
+func ValidateGenesis(data GenesisState) error {
 	for _, record := range data.WhoisRecords {
 		if record.Owner == nil {
 			return fmt.Errorf("Invalid WhoisRecord: Value: %s. Error: Missing Owner", record.Value)
@@ -41,31 +49,26 @@ func ValidateGenesis(data GenesisState) error {
 func DefaultGenesisState() GenesisState {
 	return GenesisState{
 		WhoisRecords: []Whois{},
-		Params:       DefaultParams(),
 	}
 }
 
 func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) []abci.ValidatorUpdate {
-
 	for _, record := range data.WhoisRecords {
 		keeper.SetWhois(ctx, record.Value, record)
 	}
 	return []abci.ValidatorUpdate{}
 }
 
-func ExportGenesis(ctx sdk.Context, keeper Keeper) GenesisState {
-
- var records []Whois
- iterator := keeper.GetNamesIterator(ctx)
-
- for ; iterator.Valid(); iterator.Next() {
-   name := string(iterator.Key())
-   var whois Whois
-   whois := keeper.cdc.MusUnMarshalBinaryBare(iterator.Value(), &whois)
-   records = append(records, whois)
- }
- return GenesisState{WhoisRecords: records}
-
+func ExportGenesis(ctx sdk.Context, k Keeper) GenesisState {
+	var records []Whois
+	iterator := k.GetNamesIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+		name := string(iterator.Key())
+		var whois Whois
+		whois = k.GetWhois(ctx, name)
+		records = append(records, whois)
+	}
+	return GenesisState{WhoisRecords: records}
 }
 ```
 

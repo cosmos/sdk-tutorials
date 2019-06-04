@@ -43,6 +43,13 @@ func NewWhois() Whois {
 		Price: MinNamePrice,
 	}
 }
+
+// implement fmt.Stringer
+func (w Whois) String() string {
+	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
+Value: %s
+Price: %s`, w.Owner, w.Value, w.Price))
+}
 ```
 
 ### Now we move on to the writing the [Keeper for the module](./keeper.md).

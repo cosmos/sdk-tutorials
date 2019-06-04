@@ -50,18 +50,18 @@ Next you need to add the stores' keys as well as the `Keepers` in your `nameServ
 func init() {
 	ModuleBasics = sdk.NewModuleBasicManager(
 		genaccounts.AppModuleBasic{},
+		genutil.AppModuleBasic{},
 		auth.AppModuleBasic{},
 		bank.AppModuleBasic{},
 		params.AppModuleBasic{},
 		nameservice.AppModule{},
 		staking.AppModuleBasic{},
 		distr.AppModuleBasic{},
+		slashing.AppModuleBasic{},
 	)
 }
 
-const (
-	appName = "nameservice"
-)
+const appName = "nameservice"
 
 type nameServiceApp struct {
 	*bam.BaseApp
@@ -78,11 +78,13 @@ type nameServiceApp struct {
 	keyNS            *sdk.KVStoreKey
 	keyParams        *sdk.KVStoreKey
 	tkeyParams       *sdk.TransientStoreKey
+	keySlashing      *sdk.KVStoreKey
 
 	// Keepers
 	accountKeeper       auth.AccountKeeper
 	bankKeeper          bank.Keeper
 	stakingKeeper       staking.Keeper
+	slashingKeeper      slashing.Keeper
 	distrKeeper         distr.Keeper
 	feeCollectionKeeper auth.FeeCollectionKeeper
 	paramsKeeper        params.Keeper
@@ -108,18 +110,16 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 
 		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
 		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),
+		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
 		keyStaking:       sdk.NewKVStoreKey(staking.StoreKey),
 		tkeyStaking:      sdk.NewTransientStoreKey(staking.TStoreKey),
 		keyDistr:         sdk.NewKVStoreKey(distr.StoreKey),
 		tkeyDistr:        sdk.NewTransientStoreKey(distr.TStoreKey),
-		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
 		keyNS:            sdk.NewKVStoreKey(nameservice.StoreKey),
 		keyParams:        sdk.NewKVStoreKey(params.StoreKey),
 		tkeyParams:       sdk.NewTransientStoreKey(params.TStoreKey),
+		keySlashing:      sdk.NewKVStoreKey(slashing.StoreKey),
 	}
-
-	return app
-}
 ```
 
 At this point, the constructor still lacks important logic. Namely, it needs to:
@@ -160,13 +160,14 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		tkeyParams:       sdk.NewTransientStoreKey(params.TStoreKey),
 	}
 
-	// The ParamsKeeper handles parameter storage for the application
+// The ParamsKeeper handles parameter storage for the application
 	app.paramsKeeper = params.NewKeeper(app.cdc, app.keyParams, app.tkeyParams, params.DefaultCodespace)
 	// Set specific supspaces
 	authSubspace := app.paramsKeeper.Subspace(auth.DefaultParamspace)
 	bankSupspace := app.paramsKeeper.Subspace(bank.DefaultParamspace)
 	stakingSubspace := app.paramsKeeper.Subspace(staking.DefaultParamspace)
 	distrSubspace := app.paramsKeeper.Subspace(distr.DefaultParamspace)
+	slashingSubspace := app.paramsKeeper.Subspace(slashing.DefaultParamspace)
 
 	// The AccountKeeper handles address -> account lookups
 	app.accountKeeper = auth.NewAccountKeeper(
@@ -176,8 +177,18 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		auth.ProtoBaseAccount,
 	)
 
+	// The BankKeeper allows you perform sdk.Coins interactions
+	app.bankKeeper = bank.NewBaseKeeper(
+		app.accountKeeper,
+		bankSupspace,
+		bank.DefaultCodespace,
+	)
+
+	// The FeeCollectionKeeper collects transaction fees and renders them to the fee distribution module
+	app.feeCollectionKeeper = auth.NewFeeCollectionKeeper(cdc, app.keyFeeCollection)
+
 	// The staking keeper
-	app.stakingKeeper = staking.NewKeeper(
+	stakingKeeper := staking.NewKeeper(
 		app.cdc,
 		app.keyStaking,
 		app.tkeyStaking,
@@ -191,20 +202,26 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		app.keyDistr,
 		distrSubspace,
 		app.bankKeeper,
-		app.stakingKeeper,
+		&stakingKeeper,
 		app.feeCollectionKeeper,
 		distr.DefaultCodespace,
 	)
 
-	// The BankKeeper allows you perform sdk.Coins interactions
-	app.bankKeeper = bank.NewBaseKeeper(
-		app.accountKeeper,
-		bankSupspace,
-		bank.DefaultCodespace,
+	app.slashingKeeper = slashing.NewKeeper(
+		app.cdc,
+		app.keySlashing,
+		&stakingKeeper,
+		slashingSubspace,
+		slashing.DefaultCodespace,
 	)
 
-	// The FeeCollectionKeeper collects transaction fees and renders them to the fee distribution module
-	app.feeCollectionKeeper = auth.NewFeeCollectionKeeper(cdc, app.keyFeeCollection)
+	// register the staking hooks
+	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
+	app.stakingKeeper = *stakingKeeper.SetHooks(
+		staking.NewMultiStakingHooks(
+			app.distrKeeper.Hooks(),
+			app.slashingKeeper.Hooks()),
+	)
 
 	// The NameserviceKeeper is the Keeper from the module for this tutorial
 	// It handles interactions with the namestore
@@ -214,30 +231,30 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		app.cdc,
 	)
 
-  // Initialize and load your modules into the ModuleManager.
-
 	app.mm = sdk.NewModuleManager(
 		genaccounts.NewAppModule(app.accountKeeper),
+		genutil.NewAppModule(app.accountKeeper, app.stakingKeeper, app.BaseApp.DeliverTx),
 		auth.NewAppModule(app.accountKeeper, app.feeCollectionKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
 		nameservice.NewAppModule(app.nsKeeper, app.bankKeeper),
 		distr.NewAppModule(app.distrKeeper),
+		slashing.NewAppModule(app.slashingKeeper, app.stakingKeeper),
 		staking.NewAppModule(app.stakingKeeper, app.feeCollectionKeeper, app.distrKeeper, app.accountKeeper),
 	)
 
-	// use the methods of the ModuleManager to configure your modules.
-
-	app.mm.SetOrderBeginBlockers()
-
+	app.mm.SetOrderBeginBlockers(distr.ModuleName, slashing.ModuleName)
 	app.mm.SetOrderEndBlockers(staking.ModuleName)
 
-	// Sets the order of Genesis
+	// Sets the order of Genesis - Order matters, genutil is to always come last
 	app.mm.SetOrderInitGenesis(
 		genaccounts.ModuleName,
-		auth.ModuleName,
+		distr.ModuleName,
 		staking.ModuleName,
+		auth.ModuleName,
 		bank.ModuleName,
+		slashing.ModuleName,
 		nameservice.ModuleName,
+		genutil.ModuleName,
 	)
 
 	// register all module routes and module queriers
@@ -248,17 +265,24 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	app.SetBeginBlocker(app.BeginBlocker)
 	app.SetEndBlocker(app.EndBlocker)
 	// The AnteHandler handles signature verification and transaction pre-processing
-	app.SetAnteHandler(auth.NewAnteHandler(app.accountKeeper, app.feeCollectionKeeper, auth.DefaultSigVerificationGasConsumer))
+	app.SetAnteHandler(
+		auth.NewAnteHandler(
+			app.accountKeeper,
+			app.feeCollectionKeeper,
+			auth.DefaultSigVerificationGasConsumer,
+		),
+	)
 
 	app.MountStores(
 		app.keyMain,
 		app.keyAccount,
+		app.keyFeeCollection,
 		app.keyStaking,
 		app.tkeyStaking,
 		app.keyDistr,
 		app.tkeyDistr,
+		app.keySlashing,
 		app.keyNS,
-		app.keyFeeCollection,
 		app.keyParams,
 		app.tkeyParams,
 	)
@@ -273,6 +297,8 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 ```
 
 > _*NOTE*_: The TransientStore mentioned above is an in-memory implementation of the KVStore for state that is not persisted.
+
+> _*NOTE*_: Pay attention to how the modules are initiated, the order to be exact. Here it started with Auth --> Bank --> Feecollection -->Staking --> Distribution --> Slashing, then the hooks were set for the staking module.
 
 The `initChainer` defines how accounts in `genesis.json` are mapped into the application state on initial chain start. The `ExportAppStateAndValidators` function helps bootstrap the initial state for the application. You don't need to worry too much about either of these for now. We also need to add a few more methods to our app `BeginBlocker, EndBLocker and LoadHeight`.
 
@@ -304,21 +330,20 @@ func (app *NameServiceApp) LoadHeight(height int64) error {
 	return app.LoadVersion(height, app.keyMain)
 }
 
+
 func (app *nameServiceApp) ExportAppStateAndValidators(forZeroHeight bool, jailWhiteList []string,
 ) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 
 	// as if they could withdraw from the start of the next block
 	ctx := app.NewContext(true, abci.Header{Height: app.LastBlockHeight()})
 
-	if forZeroHeight {
-		app.prepForZeroHeightGenesis(ctx, jailWhiteList)
-	}
-
 	genState := app.mm.ExportGenesis(ctx)
 	appState, err = codec.MarshalJSONIndent(app.cdc, genState)
 	if err != nil {
 		return nil, nil, err
 	}
+
+	validators = staking.WriteValidators(ctx, app.stakingKeeper)
 
 	return appState, validators, nil
 }

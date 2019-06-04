@@ -11,10 +11,25 @@ package app
 
 import (
   "github.com/tendermint/tendermint/libs/log"
-  "github.com/cosmos/cosmos-sdk/x/auth"
+  	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/cosmos/cosmos-sdk/x/auth"
+
+	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
+
+	"github.com/cosmos/cosmos-sdk/x/bank"
+	distr "github.com/cosmos/cosmos-sdk/x/distribution"
+	"github.com/cosmos/cosmos-sdk/x/genutil"
+	"github.com/cosmos/cosmos-sdk/x/params"
+	"github.com/cosmos/cosmos-sdk/x/slashing"
+	"github.com/cosmos/cosmos-sdk/x/staking"
 
   bam "github.com/cosmos/cosmos-sdk/baseapp"
+  bam "github.com/cosmos/cosmos-sdk/baseapp"
+  sdk "github.com/cosmos/cosmos-sdk/types"
+  abci "github.com/tendermint/tendermint/abci/types"
+  cmn "github.com/tendermint/tendermint/libs/common"
   dbm "github.com/tendermint/tendermint/libs/db"
+  tlog "github.com/tendermint/tendermint/libs/log"
 )
 ```
 
@@ -60,8 +75,17 @@ Here is what `baseapp` does:
 Now you need to create a new custom type `nameServiceApp` for your application. This type will embed `baseapp` (embedding in Go similar to inheritance in other languages), meaning it will have access to all of `baseapp`'s methods.
 
 ```go
-const (
-    appName = "nameservice"
+const appName = "nameservice"
+
+var (
+	// default home directories for the application CLI
+	DefaultCLIHome = os.ExpandEnv("$HOME/.nscli")
+
+	// DefaultNodeHome sets the folder where the applcation data and configuration will be stored
+	DefaultNodeHome = os.ExpandEnv("$HOME/.nsd")
+
+	// ModuleBasicManager is in charge of setting up basic module elemnets
+	ModuleBasics sdk.ModuleBasicManager
 )
 
 type nameServiceApp struct {
@@ -93,6 +117,6 @@ Great! You now have the skeleton of your application; however, it still lacks fu
 
 `baseapp` has no knowledge of the routes or user interactions you want to use in your application. The primary role of your application is to define these routes. Another role is to define the initial state. Both these things require that you add modules to your application.
 
-As you have seen in the [application design](./app-design.md) section, you need three modules for your nameservice: `auth`, `bank` and `nameservice`. The first two already exist, but not the last! The `nameservice` module will define the bulk of your state machine. The next step is to build it.
+As you have seen in the [application design](./app-design.md) section, you need a couple modules for your nameservice: `auth`, `bank`, `staking`, `distribution`, `slashing` and `nameservice`. The first two already exist, but not the last! The `nameservice` module will define the bulk of your state machine. The next step is to build it.
 
 ### In order to complete your application, you need to include modules. Go ahead and [start building your nameservice module](types.md). You will come back to `app.go` later.

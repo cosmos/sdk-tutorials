@@ -1,6 +1,9 @@
 package nameservice
 
 import (
+	"fmt"
+	"strings"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -19,4 +22,11 @@ func NewWhois() Whois {
 	return Whois{
 		Price: MinNamePrice,
 	}
+}
+
+// implement fmt.Stringer
+func (w Whois) String() string {
+	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
+Value: %s
+Price: %s`, w.Owner, w.Value, w.Price))
 }
