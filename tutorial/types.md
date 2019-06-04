@@ -1,6 +1,6 @@
 # Types
 
-First thing we're going to do is define a struct that holds all the metadata of a name.  We will call this struct Whois after the ICANN DNS terminology.
+First Thing we're going to do is define a struct that holds all the metadata of a name. We will call this struct Whois after the ICANN DNS terminology.
 
 ## `types.go`
 
@@ -8,11 +8,11 @@ Begin by creating the file `./x/nameservice/types.go` to hold the customs types 
 
 ## Whois
 
-Each name will have three pieces of data associated with it.  
-- Value - The value that a name resolves to.  This is just an arbitrary string, but in the future you can modify this to require it fitting a specific format, such as an IP address, DNS Zone file, or blockchain address.
+Each name will have three pieces of data associated with it.
+
+- Value - The value that a name resolves to. This is just an arbitrary string, but in the future you can modify this to require it fitting a specific format, such as an IP address, DNS Zone file, or blockchain address.
 - Owner - The address of the current owner of the name
 - Price - The price you will need to pay in order to buy the name
-
 
 To start your SDK module, define your `nameservice.Whois` struct in the `./x/nameservice/types.go` file:
 
@@ -42,6 +42,13 @@ func NewWhois() Whois {
 	return Whois{
 		Price: MinNamePrice,
 	}
+}
+
+// implement fmt.Stringer
+func (w Whois) String() string {
+	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
+Value: %s
+Price: %s`, w.Owner, w.Value, w.Price))
 }
 ```
 

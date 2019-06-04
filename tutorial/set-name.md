@@ -13,6 +13,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+const RouterKey = ModuleName // ModuleName will be defined in your module.go
+
 // MsgSetName defines a SetName message
 type MsgSetName struct {
 	Name string
@@ -40,7 +42,7 @@ Next, implement the `Msg` interface:
 
 ```go
 // Route should return the name of the module
-func (msg MsgSetName) Route() string { return "nameservice" }
+func (msg MsgSetName) Route() string { return RouterKey }
 
 // Type should return the action
 func (msg MsgSetName) Type() string { return "set_name"}

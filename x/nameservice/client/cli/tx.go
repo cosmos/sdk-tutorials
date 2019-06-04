@@ -40,7 +40,7 @@ func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 
 			cliCtx.PrintResponse = true
 
-			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg}, false)
+			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
 		},
 	}
 }
@@ -69,7 +69,7 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 			cliCtx.PrintResponse = true
 
 			// return utils.CompleteAndBroadcastTxCLI(txBldr, cliCtx, msgs)
-			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg}, false)
+			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
 		},
 	}
 }

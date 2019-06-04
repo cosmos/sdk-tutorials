@@ -21,7 +21,7 @@ func GetCmdResolveName(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/resolve/%s", queryRoute, name), nil)
 			if err != nil {
-				fmt.Printf("could not resolve name - %s \n", string(name))
+				fmt.Printf("could not resolve name - %s \n", name)
 				return nil
 			}
 
@@ -44,7 +44,7 @@ func GetCmdWhois(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/whois/%s", queryRoute, name), nil)
 			if err != nil {
-				fmt.Printf("could not resolve whois - %s \n", string(name))
+				fmt.Printf("could not resolve whois - %s \n", name)
 				return nil
 			}
 

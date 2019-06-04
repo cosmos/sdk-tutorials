@@ -22,7 +22,7 @@ func NewMsgBuyName(name string, bid sdk.Coins, buyer sdk.AccAddress) MsgBuyName 
 }
 
 // Route should return the name of the module
-func (msg MsgBuyName) Route() string { return "nameservice" }
+func (msg MsgBuyName) Route() string { return RouterKey }
 
 // Type should return the action
 func (msg MsgBuyName) Type() string { return "buy_name" }
@@ -109,4 +109,3 @@ If either `SubtractCoins` or `SendCoins` returns a non-nil error, the handler th
 > _*NOTE*_: This handler uses functions from the `coinKeeper` to perform currency operations. If your application is performing currency operations you may want to take a look at the [godocs for this module](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#BaseKeeper) to see what functions it exposes.
 
 ### Now that you have your `Msgs` and `Handlers` defined it's time to learn about making the data from these transactions [available for querying](queriers.md)!
-
