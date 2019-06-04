@@ -111,11 +111,11 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 
 		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
 		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),
+		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
 		keyStaking:       sdk.NewKVStoreKey(staking.StoreKey),
 		tkeyStaking:      sdk.NewTransientStoreKey(staking.TStoreKey),
 		keyDistr:         sdk.NewKVStoreKey(distr.StoreKey),
 		tkeyDistr:        sdk.NewTransientStoreKey(distr.TStoreKey),
-		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
 		keyNS:            sdk.NewKVStoreKey(nameservice.StoreKey),
 		keyParams:        sdk.NewKVStoreKey(params.StoreKey),
 		tkeyParams:       sdk.NewTransientStoreKey(params.TStoreKey),
@@ -131,6 +131,24 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 	distrSubspace := app.paramsKeeper.Subspace(distr.DefaultParamspace)
 	slashingSubspace := app.paramsKeeper.Subspace(slashing.DefaultParamspace)
 
+	// The AccountKeeper handles address -> account lookups
+	app.accountKeeper = auth.NewAccountKeeper(
+		app.cdc,
+		app.keyAccount,
+		authSubspace,
+		auth.ProtoBaseAccount,
+	)
+
+	// The BankKeeper allows you perform sdk.Coins interactions
+	app.bankKeeper = bank.NewBaseKeeper(
+		app.accountKeeper,
+		bankSupspace,
+		bank.DefaultCodespace,
+	)
+
+	// The FeeCollectionKeeper collects transaction fees and renders them to the fee distribution module
+	app.feeCollectionKeeper = auth.NewFeeCollectionKeeper(cdc, app.keyFeeCollection)
+
 	// The staking keeper
 	stakingKeeper := staking.NewKeeper(
 		app.cdc,
@@ -139,22 +157,6 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 		app.bankKeeper,
 		stakingSubspace,
 		staking.DefaultCodespace,
-	)
-
-	app.slashingKeeper = slashing.NewKeeper(
-		app.cdc,
-		app.keySlashing,
-		&stakingKeeper,
-		slashingSubspace,
-		slashing.DefaultCodespace,
-	)
-
-	// The AccountKeeper handles address -> account lookups
-	app.accountKeeper = auth.NewAccountKeeper(
-		app.cdc,
-		app.keyAccount,
-		authSubspace,
-		auth.ProtoBaseAccount,
 	)
 
 	app.distrKeeper = distr.NewKeeper(
@@ -167,20 +169,21 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 		distr.DefaultCodespace,
 	)
 
+	app.slashingKeeper = slashing.NewKeeper(
+		app.cdc,
+		app.keySlashing,
+		&stakingKeeper,
+		slashingSubspace,
+		slashing.DefaultCodespace,
+	)
+
 	// register the staking hooks
 	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
 	app.stakingKeeper = *stakingKeeper.SetHooks(
-		staking.NewMultiStakingHooks(app.distrKeeper.Hooks(), app.slashingKeeper.Hooks()))
-
-	// The BankKeeper allows you perform sdk.Coins interactions
-	app.bankKeeper = bank.NewBaseKeeper(
-		app.accountKeeper,
-		bankSupspace,
-		bank.DefaultCodespace,
+		staking.NewMultiStakingHooks(
+			app.distrKeeper.Hooks(),
+			app.slashingKeeper.Hooks()),
 	)
-
-	// The FeeCollectionKeeper collects transaction fees and renders them to the fee distribution module
-	app.feeCollectionKeeper = auth.NewFeeCollectionKeeper(cdc, app.keyFeeCollection)
 
 	// The NameserviceKeeper is the Keeper from the module for this tutorial
 	// It handles interactions with the namestore
@@ -197,24 +200,23 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
 		nameservice.NewAppModule(app.nsKeeper, app.bankKeeper),
 		distr.NewAppModule(app.distrKeeper),
-		staking.NewAppModule(app.stakingKeeper, app.feeCollectionKeeper, app.distrKeeper, app.accountKeeper),
 		slashing.NewAppModule(app.slashingKeeper, app.stakingKeeper),
+		staking.NewAppModule(app.stakingKeeper, app.feeCollectionKeeper, app.distrKeeper, app.accountKeeper),
 	)
 
 	app.mm.SetOrderBeginBlockers(distr.ModuleName, slashing.ModuleName)
-
 	app.mm.SetOrderEndBlockers(staking.ModuleName)
 
-	// Sets the order of Genesis
+	// Sets the order of Genesis - Order matters, genutil is to always come last
 	app.mm.SetOrderInitGenesis(
 		genaccounts.ModuleName,
-		genutil.ModuleName,
-		auth.ModuleName,
-		staking.ModuleName,
-		bank.ModuleName,
-		nameservice.ModuleName,
-		slashing.ModuleName,
 		distr.ModuleName,
+		staking.ModuleName,
+		auth.ModuleName,
+		bank.ModuleName,
+		slashing.ModuleName,
+		nameservice.ModuleName,
+		genutil.ModuleName,
 	)
 
 	// register all module routes and module queriers
@@ -225,20 +227,26 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 	app.SetBeginBlocker(app.BeginBlocker)
 	app.SetEndBlocker(app.EndBlocker)
 	// The AnteHandler handles signature verification and transaction pre-processing
-	app.SetAnteHandler(auth.NewAnteHandler(app.accountKeeper, app.feeCollectionKeeper, auth.DefaultSigVerificationGasConsumer))
+	app.SetAnteHandler(
+		auth.NewAnteHandler(
+			app.accountKeeper,
+			app.feeCollectionKeeper,
+			auth.DefaultSigVerificationGasConsumer,
+		),
+	)
 
 	app.MountStores(
 		app.keyMain,
 		app.keyAccount,
+		app.keyFeeCollection,
 		app.keyStaking,
 		app.tkeyStaking,
 		app.keyDistr,
 		app.tkeyDistr,
+		app.keySlashing,
 		app.keyNS,
-		app.keyFeeCollection,
 		app.keyParams,
 		app.tkeyParams,
-		app.keySlashing,
 	)
 
 	err := app.LoadLatestVersion(app.keyMain)

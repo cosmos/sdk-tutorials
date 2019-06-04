@@ -22,6 +22,9 @@ import (
 	distcmd "github.com/cosmos/cosmos-sdk/x/distribution"
 	distClient "github.com/cosmos/cosmos-sdk/x/distribution/client"
 	dist "github.com/cosmos/cosmos-sdk/x/distribution/client/rest"
+	"github.com/cosmos/cosmos-sdk/x/mint"
+	mintclient "github.com/cosmos/cosmos-sdk/x/mint/client"
+	mintrest "github.com/cosmos/cosmos-sdk/x/mint/client/rest"
 	sl "github.com/cosmos/cosmos-sdk/x/slashing"
 	slashingclient "github.com/cosmos/cosmos-sdk/x/slashing/client"
 	slashing "github.com/cosmos/cosmos-sdk/x/slashing/client/rest"
@@ -55,6 +58,7 @@ func main() {
 		stakingclient.NewModuleClient(st.StoreKey, cdc),
 		distClient.NewModuleClient(distcmd.StoreKey, cdc),
 		slashingclient.NewModuleClient(sl.StoreKey, cdc),
+		mintclient.NewModuleClient(mint.StoreKey, cdc),
 	}
 
 	rootCmd := &cobra.Command{
@@ -98,6 +102,7 @@ func registerRoutes(rs *lcd.RestServer) {
 	staking.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, rs.KeyBase)
 	dist.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, distcmd.StoreKey)
 	slashing.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, rs.KeyBase)
+	mintrest.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 }
 
 func queryCmd(cdc *amino.Codec, mc []sdk.ModuleClient) *cobra.Command {
