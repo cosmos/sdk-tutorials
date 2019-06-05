@@ -284,6 +284,6 @@ Note:
 - The code combines the CLI commands from Tendermint, Cosmos-SDK and your Nameservice module.
 - The [`cobra` CLI documentation](http://github.com/spf13/cobra) will help with understanding the above code.
 - You can see the `ModuleClient` defined earlier in action here.
-- Note how the routes are included in the `registerRoutes` function
+- Note how the routes are included in the `registerRoutes` function.
 
-### Now that you have your binaries defined its time to deal with [dependency management and build your app](dep.md)!
+### Now that you have your binaries defined its time to deal with [dependency management and build your app](gomod.md)!

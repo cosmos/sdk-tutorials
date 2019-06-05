@@ -250,4 +250,4 @@ Notes on the above code:
 - This abstraction allows clients to import the client functionality from your module in a standard way. You will see this when we [build the entrypoints](entrypoint.md)
 - There is an [open issue](https://github.com/cosmos/cosmos-sdk/issues/2955) to add the rest functionality (described in the next part of this tutorial) to this interface as well.
 
-### Now your ready to define [the routes that the REST client will use to communicate with your module](rest.md)!
+### Now you're ready to define [the routes that the REST client will use to communicate with your module](rest.md)!
