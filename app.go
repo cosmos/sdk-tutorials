@@ -14,6 +14,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	distr "github.com/cosmos/cosmos-sdk/x/distribution"
 	"github.com/cosmos/cosmos-sdk/x/genutil"
+	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/x/params"
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
@@ -37,12 +38,12 @@ var (
 	DefaultNodeHome = os.ExpandEnv("$HOME/.nsd")
 
 	// ModuleBasicManager is in charge of setting up basic module elemnets
-	ModuleBasics sdk.ModuleBasicManager
+	ModuleBasics modules.BasicManager
 )
 
 // maintains independent module functionality
 func init() {
-	ModuleBasics = sdk.NewModuleBasicManager(
+	ModuleBasics = module.NewModuleBasicManager(
 		genaccounts.AppModuleBasic{},
 		genutil.AppModuleBasic{},
 		auth.AppModuleBasic{},
@@ -92,7 +93,7 @@ type nameServiceApp struct {
 	nsKeeper            nameservice.Keeper
 
 	// Module Manager
-	mm *sdk.ModuleManager
+	mm *module.ModuleManager
 }
 
 // NewNameServiceApp is a constructor function for nameServiceApp
@@ -193,7 +194,7 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 		app.cdc,
 	)
 
-	app.mm = sdk.NewModuleManager(
+	app.mm = module.NewManager(
 		genaccounts.NewAppModule(app.accountKeeper),
 		genutil.NewAppModule(app.accountKeeper, app.stakingKeeper, app.BaseApp.DeliverTx),
 		auth.NewAppModule(app.accountKeeper, app.feeCollectionKeeper),

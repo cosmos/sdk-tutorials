@@ -12,6 +12,23 @@ import (
 	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
 )
 
+func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
+	nameserviceTxCmd := &cobra.Command{
+		Use:                        nameservice.ModuleName,
+		Short:                      "Nameservice transaction subcommands",
+		DisableFlagParsing:         true,
+		SuggestionsMinimumDistance: 2,
+		RunE:                       utils.ValidateCmd,
+	}
+
+	nameserviceTxCmd.AddCommand(client.PostCommands(
+		GetCmdBuyName(cdc),
+		GetCmdSetName(cdc),
+	)...)
+
+	return nameserviceTxCmd
+}
+
 // GetCmdBuyName is the CLI command for sending a BuyName transaction
 func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{

@@ -3,11 +3,29 @@ package cli
 import (
 	"fmt"
 
+	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
+	"github.com/cosmos/cosmos-sdk/client/utils"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
 	"github.com/spf13/cobra"
 )
+
+func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
+	nameserviceQueryCmd := &cobra.Command{
+		Use:                        nameservice.ModuleName,
+		Short:                      "Querying commands for the nameservice module",
+		DisableFlagParsing:         true,
+		SuggestionsMinimumDistance: 2,
+		RunE:                       utils.ValidateCmd,
+	}
+	nameserviceQueryCmd.AddCommand(client.GetCommands(
+		GetCmdResolveName(storeKey, cdc),
+		GetCmdWhois(storeKey, cdc),
+		GetCmdNames(storeKey, cdc),
+	)...)
+	return nameserviceQueryCmd
+}
 
 // GetCmdResolveName queries information about a name
 func GetCmdResolveName(queryRoute string, cdc *codec.Codec) *cobra.Command {
