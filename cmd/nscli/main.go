@@ -13,11 +13,10 @@ import (
 	"github.com/spf13/viper"
 	amino "github.com/tendermint/go-amino"
 	"github.com/tendermint/tendermint/libs/cli"
-
+	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
+	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	app "github.com/cosmos/sdk-application-tutorial"
-	nsclient "github.com/cosmos/sdk-application-tutorial/x/nameservice/client"
-	nsrest "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/rest"
 )
 
 const (
@@ -69,8 +68,7 @@ func main() {
 }
 
 func registerRoutes(rs *lcd.RestServer) {
-	rs.CliCtx = rs.CliCtx.WithAccountDecoder(rs.Cdc)
-	client.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc),
+	client.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	app.ModuleBasics.RegisterRESTRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 }
 

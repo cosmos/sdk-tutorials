@@ -4,28 +4,25 @@ import (
 	"encoding/json"
 	"os"
 
+	abci "github.com/tendermint/tendermint/abci/types"
+	cmn "github.com/tendermint/tendermint/libs/common"
+	dbm "github.com/tendermint/tendermint/libs/db"
 	tmtypes "github.com/tendermint/tendermint/types"
+	"github.com/tendermint/tendermint/libs/log"
 
+	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/x/auth"
-
 	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
-
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	distr "github.com/cosmos/cosmos-sdk/x/distribution"
 	"github.com/cosmos/cosmos-sdk/x/genutil"
-	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/x/params"
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
-
-	bam "github.com/cosmos/cosmos-sdk/baseapp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	abci "github.com/tendermint/tendermint/abci/types"
-	cmn "github.com/tendermint/tendermint/libs/common"
-	dbm "github.com/tendermint/tendermint/libs/db"
-	tlog "github.com/tendermint/tendermint/libs/log"
 )
 
 const appName = "nameservice"
@@ -38,12 +35,7 @@ var (
 	DefaultNodeHome = os.ExpandEnv("$HOME/.nsd")
 
 	// ModuleBasicManager is in charge of setting up basic module elemnets
-	ModuleBasics modules.BasicManager
-)
-
-// maintains independent module functionality
-func init() {
-	ModuleBasics = module.NewModuleBasicManager(
+	ModuleBasics = module.NewBasicManager(
 		genaccounts.AppModuleBasic{},
 		genutil.AppModuleBasic{},
 		auth.AppModuleBasic{},
@@ -54,7 +46,7 @@ func init() {
 		distr.AppModuleBasic{},
 		slashing.AppModuleBasic{},
 	)
-}
+)
 
 // MakeCodec generates the necessary codecs for Amino
 func MakeCodec() *codec.Codec {
@@ -93,11 +85,11 @@ type nameServiceApp struct {
 	nsKeeper            nameservice.Keeper
 
 	// Module Manager
-	mm *module.ModuleManager
+	mm *module.Manager
 }
 
 // NewNameServiceApp is a constructor function for nameServiceApp
-func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
+func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 
 	// First define the top level codec that will be shared by the different modules
 	cdc := MakeCodec()
@@ -227,6 +219,7 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 	app.SetInitChainer(app.InitChainer)
 	app.SetBeginBlocker(app.BeginBlocker)
 	app.SetEndBlocker(app.EndBlocker)
+
 	// The AnteHandler handles signature verification and transaction pre-processing
 	app.SetAnteHandler(
 		auth.NewAnteHandler(
