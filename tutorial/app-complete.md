@@ -307,7 +307,6 @@ The `initChainer` defines how accounts in `genesis.json` are mapped into the app
 The constructor registers the `initChainer` function, but it isn't defined yet. Go ahead and create it:
 
 ```go
-
 func (app *nameServiceApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 
 	var genesisState GenesisState

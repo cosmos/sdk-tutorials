@@ -7,7 +7,6 @@ Start by opening two new files, `module.go` and `genesis.go`. We will implement 
 Lets start with adding the following code to `module.go`. We will leave a number of the functions unimplemented for now.
 
 ```go
-
 package nameservice
 
 import (
@@ -82,7 +81,6 @@ func (am AppModule) Route() string {
 func (am AppModule) NewHandler() types.Handler {
 	return NewHandler(am.keeper)
 }
-
 func (am AppModule) QuerierRoute() string {
 	return ModuleName
 }
@@ -109,7 +107,6 @@ func (am AppModule) ExportGenesis(ctx sdk.Context) json.RawMessage {
 	gs := ExportGenesis(ctx, am.keeper)
 	return ModuleCdc.MustMarshalJSON(gs)
 }
-
 ```
 
 To see more examples of AppModule implementation, check out some of the other modules in the SDK such as [x/staking](https://github.com/cosmos/cosmos-sdk/blob/master/x/staking/genesis.go)

@@ -43,7 +43,6 @@ Through the course of this tutorial you will create the following files that mak
         ├── module.go
         ├── geneis.go
         └── types.go
-
 ```
 
 Start by creating a new git repository:

@@ -99,7 +99,6 @@ func exportAppStateAndTMValidators(
 
 	return nsApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
 }
-
 ```
 
 Notes on the above code:
@@ -276,7 +275,6 @@ func initConfig(cmd *cobra.Command) error {
 	}
 	return viper.BindPFlag(cli.OutputFlag, cmd.PersistentFlags().Lookup(cli.OutputFlag))
 }
-
 ```
 
 Note:
