@@ -39,7 +39,7 @@ To initialize configuration and a `genesis.json` file for your application and a
 ```bash
 # Initialize configuration files and genesis file
   # moniker is the name of your node
-nsd init <moniker>
+nsd init <moniker> --chain-id namechain
 
 
 # Copy the `Address` output here and save it for later use
@@ -50,8 +50,8 @@ nscli keys add jack
 nscli keys add alice
 
 # Add both accounts, with coins to the genesis file
-nsd add-genesis-account $(nscli keys show jack -a) 1000nametoken,10000000stake
-nsd add-genesis-account $(nscli keys show alice -a) 1000nametoken,10000000stake
+nsd add-genesis-account $(nscli keys show jack -a) 1000nametoken,100000000stake
+nsd add-genesis-account $(nscli keys show alice -a) 1000nametoken,100000000stake
 
 # Configure your CLI to eliminate need for chain-id flag
 nscli config chain-id namechain
@@ -59,7 +59,7 @@ nscli config output json
 nscli config indent true
 nscli config trust-node true
 
-nsd gentx --name <key_name>
+nsd gentx --name jack <or your key_name>
 ```
 
 After you have generated you a genesis transcation, you will have to input the gentx into the genesis file, so that your nameservice chain is aware of the validators. To do so, run:

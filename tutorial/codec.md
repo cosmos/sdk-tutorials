@@ -16,6 +16,8 @@ func RegisterCodec(cdc *codec.Codec) {
 	cdc.RegisterConcrete(MsgSetName{}, "nameservice/SetName", nil)
 	cdc.RegisterConcrete(MsgBuyName{}, "nameservice/BuyName", nil)
 }
+
+var ModuleCdc = codec.New()
 ```
 
 ### Next you need to define [CLI interactions](./cli.md) with your module.

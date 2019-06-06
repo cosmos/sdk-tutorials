@@ -2,7 +2,6 @@ package app
 
 import (
 	"encoding/json"
-	"log"
 	"os"
 
 	tmtypes "github.com/tendermint/tendermint/types"
@@ -112,11 +111,11 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 
 		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
 		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),
+		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
 		keyStaking:       sdk.NewKVStoreKey(staking.StoreKey),
 		tkeyStaking:      sdk.NewTransientStoreKey(staking.TStoreKey),
 		keyDistr:         sdk.NewKVStoreKey(distr.StoreKey),
 		tkeyDistr:        sdk.NewTransientStoreKey(distr.TStoreKey),
-		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
 		keyNS:            sdk.NewKVStoreKey(nameservice.StoreKey),
 		keyParams:        sdk.NewKVStoreKey(params.StoreKey),
 		tkeyParams:       sdk.NewTransientStoreKey(params.TStoreKey),
@@ -131,24 +130,6 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 	stakingSubspace := app.paramsKeeper.Subspace(staking.DefaultParamspace)
 	distrSubspace := app.paramsKeeper.Subspace(distr.DefaultParamspace)
 	slashingSubspace := app.paramsKeeper.Subspace(slashing.DefaultParamspace)
-
-	// The staking keeper
-	stakingKeeper := staking.NewKeeper(
-		app.cdc,
-		app.keyStaking,
-		app.tkeyStaking,
-		app.bankKeeper,
-		stakingSubspace,
-		staking.DefaultCodespace,
-	)
-
-	app.slashingKeeper = slashing.NewKeeper(
-		app.cdc,
-		app.keySlashing,
-		&stakingKeeper,
-		slashingSubspace,
-		slashing.DefaultCodespace,
-	)
 
 	// The AccountKeeper handles address -> account lookups
 	app.accountKeeper = auth.NewAccountKeeper(
@@ -183,6 +164,42 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 	// The FeeCollectionKeeper collects transaction fees and renders them to the fee distribution module
 	app.feeCollectionKeeper = auth.NewFeeCollectionKeeper(cdc, app.keyFeeCollection)
 
+	// The staking keeper
+	stakingKeeper := staking.NewKeeper(
+		app.cdc,
+		app.keyStaking,
+		app.tkeyStaking,
+		app.bankKeeper,
+		stakingSubspace,
+		staking.DefaultCodespace,
+	)
+
+	app.distrKeeper = distr.NewKeeper(
+		app.cdc,
+		app.keyDistr,
+		distrSubspace,
+		app.bankKeeper,
+		&stakingKeeper,
+		app.feeCollectionKeeper,
+		distr.DefaultCodespace,
+	)
+
+	app.slashingKeeper = slashing.NewKeeper(
+		app.cdc,
+		app.keySlashing,
+		&stakingKeeper,
+		slashingSubspace,
+		slashing.DefaultCodespace,
+	)
+
+	// register the staking hooks
+	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
+	app.stakingKeeper = *stakingKeeper.SetHooks(
+		staking.NewMultiStakingHooks(
+			app.distrKeeper.Hooks(),
+			app.slashingKeeper.Hooks()),
+	)
+
 	// The NameserviceKeeper is the Keeper from the module for this tutorial
 	// It handles interactions with the namestore
 	app.nsKeeper = nameservice.NewKeeper(
@@ -198,24 +215,23 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
 		nameservice.NewAppModule(app.nsKeeper, app.bankKeeper),
 		distr.NewAppModule(app.distrKeeper),
-		staking.NewAppModule(app.stakingKeeper, app.feeCollectionKeeper, app.distrKeeper, app.accountKeeper),
 		slashing.NewAppModule(app.slashingKeeper, app.stakingKeeper),
+		staking.NewAppModule(app.stakingKeeper, app.feeCollectionKeeper, app.distrKeeper, app.accountKeeper),
 	)
 
 	app.mm.SetOrderBeginBlockers(distr.ModuleName, slashing.ModuleName)
-
 	app.mm.SetOrderEndBlockers(staking.ModuleName)
 
-	// Sets the order of Genesis
+	// Sets the order of Genesis - Order matters, genutil is to always come last
 	app.mm.SetOrderInitGenesis(
 		genaccounts.ModuleName,
-		genutil.ModuleName,
-		auth.ModuleName,
-		staking.ModuleName,
-		bank.ModuleName,
-		nameservice.ModuleName,
-		slashing.ModuleName,
 		distr.ModuleName,
+		staking.ModuleName,
+		auth.ModuleName,
+		bank.ModuleName,
+		slashing.ModuleName,
+		nameservice.ModuleName,
+		genutil.ModuleName,
 	)
 
 	// register all module routes and module queriers
@@ -226,17 +242,24 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 	app.SetBeginBlocker(app.BeginBlocker)
 	app.SetEndBlocker(app.EndBlocker)
 	// The AnteHandler handles signature verification and transaction pre-processing
-	app.SetAnteHandler(auth.NewAnteHandler(app.accountKeeper, app.feeCollectionKeeper, auth.DefaultSigVerificationGasConsumer))
+	app.SetAnteHandler(
+		auth.NewAnteHandler(
+			app.accountKeeper,
+			app.feeCollectionKeeper,
+			auth.DefaultSigVerificationGasConsumer,
+		),
+	)
 
 	app.MountStores(
 		app.keyMain,
 		app.keyAccount,
+		app.keyFeeCollection,
 		app.keyStaking,
 		app.tkeyStaking,
 		app.keyDistr,
 		app.tkeyDistr,
+		app.keySlashing,
 		app.keyNS,
-		app.keyFeeCollection,
 		app.keyParams,
 		app.tkeyParams,
 		app.keySlashing,
@@ -286,10 +309,6 @@ func (app *nameServiceApp) ExportAppStateAndValidators(forZeroHeight bool, jailW
 	// as if they could withdraw from the start of the next block
 	ctx := app.NewContext(true, abci.Header{Height: app.LastBlockHeight()})
 
-	if forZeroHeight {
-		app.prepForZeroHeightGenesis(ctx, jailWhiteList)
-	}
-
 	genState := app.mm.ExportGenesis(ctx)
 	appState, err = codec.MarshalJSONIndent(app.cdc, genState)
 	if err != nil {
@@ -299,132 +318,4 @@ func (app *nameServiceApp) ExportAppStateAndValidators(forZeroHeight bool, jailW
 	validators = staking.WriteValidators(ctx, app.stakingKeeper)
 
 	return appState, validators, nil
-}
-
-// prepare for fresh start at zero height
-// NOTE zero height genesis is a temporary feature which will be deprecated
-//      in favour of export at a block height
-func (app *nameServiceApp) prepForZeroHeightGenesis(ctx sdk.Context, jailWhiteList []string) {
-	applyWhiteList := false
-
-	//Check if there is a whitelist
-	if len(jailWhiteList) > 0 {
-		applyWhiteList = true
-	}
-
-	whiteListMap := make(map[string]bool)
-
-	for _, addr := range jailWhiteList {
-		_, err := sdk.ValAddressFromBech32(addr)
-		if err != nil {
-			log.Fatal(err)
-		}
-		whiteListMap[addr] = true
-	}
-
-	/* Handle fee distribution state. */
-
-	// withdraw all validator commission
-	app.stakingKeeper.IterateValidators(ctx, func(_ int64, val sdk.Validator) (stop bool) {
-		_, _ = app.distrKeeper.WithdrawValidatorCommission(ctx, val.GetOperator())
-		return false
-	})
-
-	// withdraw all delegator rewards
-	dels := app.stakingKeeper.GetAllDelegations(ctx)
-	for _, delegation := range dels {
-		_, _ = app.distrKeeper.WithdrawDelegationRewards(ctx, delegation.DelegatorAddress, delegation.ValidatorAddress)
-	}
-
-	// clear validator slash events
-	app.distrKeeper.DeleteAllValidatorSlashEvents(ctx)
-
-	// clear validator historical rewards
-	app.distrKeeper.DeleteAllValidatorHistoricalRewards(ctx)
-
-	// set context height to zero
-	height := ctx.BlockHeight()
-	ctx = ctx.WithBlockHeight(0)
-
-	// reinitialize all validators
-	app.stakingKeeper.IterateValidators(ctx, func(_ int64, val sdk.Validator) (stop bool) {
-
-		// donate any unwithdrawn outstanding reward fraction tokens to the community pool
-		scraps := app.distrKeeper.GetValidatorOutstandingRewards(ctx, val.GetOperator())
-		feePool := app.distrKeeper.GetFeePool(ctx)
-		feePool.CommunityPool = feePool.CommunityPool.Add(scraps)
-		app.distrKeeper.SetFeePool(ctx, feePool)
-
-		app.distrKeeper.Hooks().AfterValidatorCreated(ctx, val.GetOperator())
-		return false
-	})
-
-	// reinitialize all delegations
-	for _, del := range dels {
-		app.distrKeeper.Hooks().BeforeDelegationCreated(ctx, del.DelegatorAddress, del.ValidatorAddress)
-		app.distrKeeper.Hooks().AfterDelegationModified(ctx, del.DelegatorAddress, del.ValidatorAddress)
-	}
-
-	// reset context height
-	ctx = ctx.WithBlockHeight(height)
-
-	/* Handle staking state. */
-
-	// iterate through redelegations, reset creation height
-	app.stakingKeeper.IterateRedelegations(ctx, func(_ int64, red staking.Redelegation) (stop bool) {
-		for i := range red.Entries {
-			red.Entries[i].CreationHeight = 0
-		}
-		app.stakingKeeper.SetRedelegation(ctx, red)
-		return false
-	})
-
-	// iterate through unbonding delegations, reset creation height
-	app.stakingKeeper.IterateUnbondingDelegations(ctx, func(_ int64, ubd staking.UnbondingDelegation) (stop bool) {
-		for i := range ubd.Entries {
-			ubd.Entries[i].CreationHeight = 0
-		}
-		app.stakingKeeper.SetUnbondingDelegation(ctx, ubd)
-		return false
-	})
-
-	// Iterate through validators by power descending, reset bond heights, and
-	// update bond intra-tx counters.
-	store := ctx.KVStore(app.keyStaking)
-	iter := sdk.KVStoreReversePrefixIterator(store, staking.ValidatorsKey)
-	counter := int16(0)
-
-	var valConsAddrs []sdk.ConsAddress
-	for ; iter.Valid(); iter.Next() {
-		addr := sdk.ValAddress(iter.Key()[1:])
-		validator, found := app.stakingKeeper.GetValidator(ctx, addr)
-		if !found {
-			panic("expected validator, not found")
-		}
-
-		validator.UnbondingHeight = 0
-		valConsAddrs = append(valConsAddrs, validator.ConsAddress())
-		if applyWhiteList && !whiteListMap[addr.String()] {
-			validator.Jailed = true
-		}
-
-		app.stakingKeeper.SetValidator(ctx, validator)
-		counter++
-	}
-
-	iter.Close()
-
-	_ = app.stakingKeeper.ApplyAndReturnValidatorSetUpdates(ctx)
-
-	/* Handle slashing state. */
-
-	// reset start height on signing infos
-	app.slashingKeeper.IterateValidatorSigningInfos(
-		ctx,
-		func(addr sdk.ConsAddress, info slashing.ValidatorSigningInfo) (stop bool) {
-			info.StartHeight = 0
-			app.slashingKeeper.SetValidatorSigningInfo(ctx, addr, info)
-			return false
-		},
-	)
 }
