@@ -139,21 +139,6 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 		auth.ProtoBaseAccount,
 	)
 
-	app.distrKeeper = distr.NewKeeper(
-		app.cdc,
-		app.keyDistr,
-		distrSubspace,
-		app.bankKeeper,
-		&stakingKeeper,
-		app.feeCollectionKeeper,
-		distr.DefaultCodespace,
-	)
-
-	// register the staking hooks
-	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
-	app.stakingKeeper = *stakingKeeper.SetHooks(
-		staking.NewMultiStakingHooks(app.distrKeeper.Hooks(), app.slashingKeeper.Hooks()))
-
 	// The BankKeeper allows you perform sdk.Coins interactions
 	app.bankKeeper = bank.NewBaseKeeper(
 		app.accountKeeper,
