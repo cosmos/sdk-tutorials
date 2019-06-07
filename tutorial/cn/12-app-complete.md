@@ -31,7 +31,6 @@ import (
 接下来，你需要在`nameServiceApp`结构体中添加存储的key和`Keepers`，并更新构造函数：
 
 ```go
-
 const (
 	appName = "nameservice"
 )

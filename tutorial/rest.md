@@ -1,6 +1,6 @@
 # Nameservice Module Rest Interface
 
-You module can also expose a REST interface to allow programatic access to the module's functionality. To get started create a file to hold the HTTP handlers:
+Your module can also expose a REST interface to allow programatic access to the module's functionality. To get started create a file to hold the HTTP handlers:
 
 - `./x/nameservice/client/rest/rest.go`
 
@@ -190,4 +190,4 @@ Notes on the above code:
 - The [`BaseReq`](https://godoc.org/github.com/cosmos/cosmos-sdk/client/utils#BaseReq) contains the basic required fields for making a transaction (which key to use, how to decode it, which chain you are on, etc...) and is designed to be embedded as shown.
 - `baseReq.ValidateBasic` and `clientrest.CompleteAndBroadcastTxREST` handle setting the response code for you and therefore you don't need to worry about handling errors or successes when using those functions.
 
-### Next its time to augment `nameservice` to implement the [AppModule interface](./module.md)!
+### Next its time to augment `nameservice` by implementing the [AppModule interface](./module.md)!

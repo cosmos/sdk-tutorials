@@ -247,7 +247,6 @@ func NewNameServiceApp(logger tlog.Logger, db dbm.DB) *nameServiceApp {
 		app.keyNS,
 		app.keyParams,
 		app.tkeyParams,
-		app.keySlashing,
 	)
 
 	err := app.LoadLatestVersion(app.keyMain)
