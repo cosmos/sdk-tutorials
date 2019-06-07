@@ -1,4 +1,4 @@
-###Genesis
+# Genesis
 
 The AppModule interface includes a number of functions for use in initializing and exporting GenesisState for the chain. The `ModuleBasicManager` calls these functions on each module when starting, stopping or exporting the chain. Here is a very basic implementation that you can expand upon.
 
@@ -10,10 +10,9 @@ type GenesisState struct {
 }
 ```
 
-Next `x/nameservice/genesis.go` and add the following code:
+Go to `x/nameservice/genesis.go` and add the following code:
 
 ```go
-
 package nameservice
 
 import (
@@ -75,8 +74,8 @@ func ExportGenesis(ctx sdk.Context, k Keeper) GenesisState {
 A few notes about the above code:
 
 - `ValidateGenesis()` validates the provided genesis state to ensure that expected invariants hold
-- `DefaultGenesisState()` used mostly for testing. This provides a minimal GenesisState.
-- `InitGenesis()` called on chain start, this function imports genesis state into the keeper.
-- `ExportGenesis()` called after stopping the chain, this function loads application state into a GenesisState stuct to later be exported to `genesis.json` alongside data from the other modules.
+- `DefaultGenesisState()` is used mostly for testing. This provides a minimal GenesisState.
+- `InitGenesis()` is called on chain start, this function imports genesis state into the keeper.
+- `ExportGenesis()` is called after stopping the chain, this function loads application state into a GenesisState stuct to later be exported to `genesis.json` alongside data from the other modules.
 
 ### Now your module has everything it needs to be [incorporated into your Cosmos SDK application](./app-complete.md)!

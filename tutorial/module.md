@@ -1,4 +1,4 @@
-### AppModule Interface
+# AppModule Interface
 
 The Cosmos SDK provides a standard interface for modules. This [`AppModule`](https://github.com/cosmos/cosmos-sdk/blob/master/types/module.go) interface requires modules to provide a set of methods used by the `ModuleBasicsManager` to incorporate them into your application. First we will scaffold out the interface and implement **some** of its methods. Then we will incorporate our nameservice module alongside `auth` and `bank` into our app.
 
@@ -7,9 +7,6 @@ Start by opening two new files, `module.go` and `genesis.go`. We will implement 
 Lets start with adding the following code to `module.go`. We will leave a number of the functions unimplemented for now.
 
 ```go
-
-
-
 package nameservice
 
 import (
@@ -110,10 +107,8 @@ func (am AppModule) ExportGenesis(ctx sdk.Context) json.RawMessage {
 	gs := ExportGenesis(ctx, am.keeper)
 	return ModuleCdc.MustMarshalJSON(gs)
 }
-
-
 ```
 
 To see more examples of AppModule implementation, check out some of the other modules in the SDK such as [x/staking](https://github.com/cosmos/cosmos-sdk/blob/master/x/staking/genesis.go)
 
-Next, we need to [implement the genesis-specific methods called above.](./genesis.md)
+### Next, we need to [implement the genesis-specific methods called above.](./genesis.md)
