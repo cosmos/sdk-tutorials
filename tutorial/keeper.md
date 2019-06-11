@@ -83,7 +83,23 @@ Here, like in the `SetName` method, first access the store using the `StoreKey`.
 
 If a name currently does not exist in the store, it returns a new Whois, which has the minimumPrice initialized in it.
 
-Now, we add functions for getting specific parameters from the store based on the name.  However, instead of rewriting the store getters and setters, we reuse the `GetWhois` and `SetWhois` functions.  For example, to set a field, first we grab the whole Whois data, update our specific field, and put the new version back into the store.
+Next, add a method to delete the names:
+
+```go
+// Deletes the entire Whois metadata struct for a name
+func (k Keeper) DeleteWhois(ctx sdk.Context, name string) {
+	store := ctx.KVStore(k.storeKey)
+	if !store.Has([]byte(name)) {
+		return
+	}
+	store.Delete([]byte(name))
+}
+```
+Here, like in the `SetName` method, first access the store using the `StoreKey`. Next, we delete the name from the store using its `.Delete([]byte)` method. As the store only takes `[]byte`, the `name` string is casted to `[]byte` while passing it as a function parameter.
+
+If a name currently does not exist in the store, we do not delete it from the store, as only names present in the store can be deleted.
+
+Now, we add functions for getting specific parameters from the store based on the name.  However, instead of rewriting the store getters and setters, we reuse the `GetWhois`, `SetWhois` and `DeleteWhois` functions.  For example, to set a field, first we grab the whole Whois data, update our specific field, and put the new version back into the store.
 
 ```go
 // ResolveName - returns the string that the name resolves to
@@ -96,6 +112,11 @@ func (k Keeper) SetName(ctx sdk.Context, name string, value string) {
 	whois := k.GetWhois(ctx, name)
 	whois.Value = value
 	k.SetWhois(ctx, name, whois)
+}
+
+// DeleteName - Deletes the name and it's associated fields
+func (k Keeper) DeleteName(ctx sdk.Context, name string) {
+	k.DeleteWhois(ctx, name)
 }
 
 // HasOwner - returns whether or not the name already has an owner
