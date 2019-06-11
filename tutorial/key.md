@@ -15,3 +15,5 @@ const (
 	StoreKey = "ns"
 )
 ```
+
+### Now we move on to the writing the [Keeper for the module](./keeper.md).
