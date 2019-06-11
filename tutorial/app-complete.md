@@ -1,6 +1,6 @@
 # Import your modules and finish your application
 
-Now that your module is ready, it can be incorporated in the `./app.go` file, along with the other two modules [`auth`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth) and [`bank`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank):
+Now that your module is ready, it can be incorporated in the `./app.go` file, along with the other two modules [`auth`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth) and [`bank`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank). Let's begin by adding your new nameservice module to the imports:
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-application-tutorial/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }/x/nameservice`).
 
@@ -22,6 +22,7 @@ import (
 	distr "github.com/cosmos/cosmos-sdk/x/distribution"
 	"github.com/cosmos/cosmos-sdk/x/params"
 	"github.com/cosmos/cosmos-sdk/x/staking"
+
 	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
 
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
@@ -30,6 +31,8 @@ import (
 	cmn "github.com/tendermint/tendermint/libs/common"
 	dbm "github.com/tendermint/tendermint/libs/db"
 )
+
+const appName = "nameservice"
 
 var (
 	// default home directories for the application CLI
@@ -43,7 +46,7 @@ var (
 )
 ```
 
-Next you need to add the stores' keys as well as the `Keepers` in your `nameServiceApp` struct, and update the constructor accordingly
+Next you need to add the stores' keys and the `Keepers` into your `nameServiceApp` struct. Update the constructor in `NewNameServiceApp()` too:
 
 ```go
 // maintains independent module functionality
@@ -60,8 +63,6 @@ func init() {
 		slashing.AppModuleBasic{},
 	)
 }
-
-const appName = "nameservice"
 
 type nameServiceApp struct {
 	*bam.BaseApp
@@ -120,6 +121,7 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		tkeyParams:       sdk.NewTransientStoreKey(params.TStoreKey),
 		keySlashing:      sdk.NewKVStoreKey(slashing.StoreKey),
 	}
+}
 ```
 
 At this point, the constructor still lacks important logic. Namely, it needs to:
@@ -298,14 +300,13 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 
 > _*NOTE*_: The TransientStore mentioned above is an in-memory implementation of the KVStore for state that is not persisted.
 
-> _*NOTE*_: Pay attention to how the modules are initiated, the order to be exact. Here it started with Auth --> Bank --> Feecollection -->Staking --> Distribution --> Slashing, then the hooks were set for the staking module.
+> _*NOTE*_: Pay attention to how the modules are initiated: the order matters! Here the sequence goes Auth --> Bank --> Feecollection --> Staking --> Distribution --> Slashing, then the hooks were set for the staking module. This is because some of these modules depend on others existing before they can be used.
 
-The `initChainer` defines how accounts in `genesis.json` are mapped into the application state on initial chain start. The `ExportAppStateAndValidators` function helps bootstrap the initial state for the application. You don't need to worry too much about either of these for now. We also need to add a few more methods to our app `BeginBlocker, EndBLocker and LoadHeight`.
+The `initChainer` defines how accounts in `genesis.json` are mapped into the application state on initial chain start. The `ExportAppStateAndValidators` function helps bootstrap the initial state for the application. You don't need to worry too much about either of these for now. We also need to add a few more methods to our app `BeginBlocker`, `EndBlocker` and `LoadHeight`.
 
 The constructor registers the `initChainer` function, but it isn't defined yet. Go ahead and create it:
 
 ```go
-
 func (app *nameServiceApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 
 	var genesisState GenesisState
