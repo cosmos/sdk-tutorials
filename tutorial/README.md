@@ -70,15 +70,16 @@ Then, just follow along! The first step describes the design of your application
    - [`SetName`](set-name.md)
    - [`BuyName`](./buy-name.md)
 7. Make views on your state machine with [`Queriers`](./queriers.md).
-8. Register your types in the encoding format using [`sdk.Codec`](./codec.md).
-9. Create [CLI interactions for your module](./cli.md).
-10. Create [HTTP routes for clients to access your nameservice](rest.md).
-11. Implement the [AppModule interface](module.md)
-12. Configure your [Genesis state](genesis.md).
-13. Import your module and [finish building your application](./app-complete.md)!
-14. Create the [`nsd` and `nscli` entry points](./entrypoint.md) to your application.
-15. Setup [dependency management using `go.mod`](./gomod.md).
-16. [Build and run](./build-run.md) the example.
-17. [Run REST routes](run-rest.md).
+8. Create the [`alias file`](./alias.md)
+9. Register your types in the encoding format using [`sdk.Codec`](./codec.md).
+10. Create [CLI interactions for your module](./cli.md).
+11. Create [HTTP routes for clients to access your nameservice](rest.md).
+12. Implement the [AppModule interface](module.md)
+13. Configure your [Genesis state](genesis.md).
+14. Import your module and [finish building your application](./app-complete.md)!
+15. Create the [`nsd` and `nscli` entry points](./entrypoint.md) to your application.
+16. Setup [dependency management using `go.mod`](./gomod.md).
+17. [Build and run](./build-run.md) the example.
+18. [Run REST routes](run-rest.md).
 
 ## [Click here](./app-design.md) to get started with the tutorial!

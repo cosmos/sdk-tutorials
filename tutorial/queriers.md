@@ -142,4 +142,4 @@ Notes on the above code:
   - Same for the output of a names query, a `[]string` is already natively marshalable, but we want to add a `.String()` method on it.
 - The type Whois is not defined in the `./x/nameservice/types/querier.go` file because it is created in the `./x/nameservice/types/types.go` file.
 
-### Now that you have ways to mutate and view your module state it's time to put the finishing touches on it! Register your types in the [Amino encoding format next](./codec.md)!
+### Now that you have ways to mutate and view your module state it's time to put the finishing touches on it! Define the vairables and types you would like to bring to the top level of the module. [alias.go](./alias.go)
