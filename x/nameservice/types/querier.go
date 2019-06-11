@@ -1,8 +1,6 @@
-package types 
+package types
 
-import (
-	"strings"
-)
+import "strings"
 
 // Query Result Payload for a resolve query
 type QueryResResolve struct {
