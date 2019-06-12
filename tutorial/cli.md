@@ -4,7 +4,6 @@ The Cosmos SDK uses the [`cobra`](https://github.com/spf13/cobra) library for CL
 
 - `./x/nameservice/client/cli/query.go`
 - `./x/nameservice/client/cli/tx.go`
-- `./x/nameservice/client/module_client.go`
 
 ## Queries
 
@@ -21,6 +20,22 @@ import (
 	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
 	"github.com/spf13/cobra"
 )
+
+func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
+	nameserviceQueryCmd := &cobra.Command{
+		Use:                        types.ModuleName,
+		Short:                      "Querying commands for the nameservice module",
+		DisableFlagParsing:         true,
+		SuggestionsMinimumDistance: 2,
+		RunE:                       utils.ValidateCmd,
+	}
+	nameserviceQueryCmd.AddCommand(client.GetCommands(
+		GetCmdResolveName(storeKey, cdc),
+		GetCmdWhois(storeKey, cdc),
+		GetCmdNames(storeKey, cdc),
+	)...)
+	return nameserviceQueryCmd
+}
 
 // GetCmdResolveName queries information about a name
 func GetCmdResolveName(queryRoute string, cdc *codec.Codec) *cobra.Command {
@@ -121,6 +136,23 @@ import (
 	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
 )
 
+func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
+	nameserviceTxCmd := &cobra.Command{
+		Use:                        types.ModuleName,
+		Short:                      "Nameservice transaction subcommands",
+		DisableFlagParsing:         true,
+		SuggestionsMinimumDistance: 2,
+		RunE:                       utils.ValidateCmd,
+	}
+
+	nameserviceTxCmd.AddCommand(client.PostCommands(
+		GetCmdBuyName(cdc),
+		GetCmdSetName(cdc),
+	)...)
+
+	return nameserviceTxCmd
+}
+
 // GetCmdBuyName is the CLI command for sending a BuyName transaction
 func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
@@ -187,67 +219,4 @@ Notes on the above code:
 
 - The `authcmd` package is used here. [The godocs have more information on usage](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth/client/cli#GetAccountDecoder). It provides access to accounts controlled by the CLI and facilitates signing.
 
-## Module Client
-
-The final piece to export this functionality is called the `ModuleClient` and goes in `./x/nameservice/client/module_client.go`. [Module clients](https://godoc.org/github.com/cosmos/cosmos-sdk/types#ModuleClients) provide a standard way for modules to export client functionality.
-
-> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-application-tutorial/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }/x/nameservice`).
-
-```go
-package client
-
-import (
-	"github.com/cosmos/cosmos-sdk/client"
-	nameservicecmd "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/cli"
-	"github.com/spf13/cobra"
-	amino "github.com/tendermint/go-amino"
-)
-
-// ModuleClient exports all client functionality from this module
-type ModuleClient struct {
-	storeKey string
-	cdc      *amino.Codec
-}
-
-func NewModuleClient(storeKey string, cdc *amino.Codec) ModuleClient {
-	return ModuleClient{storeKey, cdc}
-}
-
-// GetQueryCmd returns the cli query commands for this module
-func (mc ModuleClient) GetQueryCmd() *cobra.Command {
-	// Group nameservice queries under a subcommand
-	namesvcQueryCmd := &cobra.Command{
-		Use:   "nameservice",
-		Short: "Querying commands for the nameservice module",
-	}
-
-	namesvcQueryCmd.AddCommand(client.GetCommands(
-		nameservicecmd.GetCmdResolveName(mc.storeKey, mc.cdc),
-		nameservicecmd.GetCmdWhois(mc.storeKey, mc.cdc),
-	)...)
-
-	return namesvcQueryCmd
-}
-
-// GetTxCmd returns the transaction commands for this module
-func (mc ModuleClient) GetTxCmd() *cobra.Command {
-	namesvcTxCmd := &cobra.Command{
-		Use:   "nameservice",
-		Short: "Nameservice transactions subcommands",
-	}
-
-	namesvcTxCmd.AddCommand(client.PostCommands(
-		nameservicecmd.GetCmdBuyName(mc.cdc),
-		nameservicecmd.GetCmdSetName(mc.cdc),
-	)...)
-
-	return namesvcTxCmd
-}
-```
-
-Notes on the above code:
-
-- This abstraction allows clients to import the client functionality from your module in a standard way. You will see this when we [build the entrypoints](entrypoint.md)
-- There is an [open issue](https://github.com/cosmos/cosmos-sdk/issues/2955) to add the rest functionality (described in the next part of this tutorial) to this interface as well.
-
-### Now you're ready to define [the routes that the REST client will use to communicate with your module](rest.md)!
+### Now your ready to define [the routes that the REST client will use to communicate with your module](rest.md)!

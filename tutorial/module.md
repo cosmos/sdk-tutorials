@@ -15,6 +15,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/bank"
+	"github.com/cosmos/sdk-application-tutorial/x/nameservice/client/cli"
+	"github.com/cosmos/sdk-application-tutorial/x/nameservice/client/rest"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
@@ -51,6 +53,21 @@ func (AppModuleBasic) ValidateGenesis(bz json.RawMessage) error {
 	}
 	// once json successfully marshalled, passes along to genesis.go
 	return ValidateGenesis(data)
+}
+
+// Register rest routes
+func (AppModuleBasic) RegisterRESTRoutes(ctx context.CLIContext, rtr *mux.Router, cdc *codec.Codec) {
+	rest.RegisterRoutes(ctx, rtr, cdc, StoreKey)
+}
+
+// Get the root query command of this module
+func (AppModuleBasic) GetQueryCmd(cdc *codec.Codec) *cobra.Command {
+	return cli.GetQueryCmd(StoreKey, cdc)
+}
+
+// Get the root tx command of this module
+func (AppModuleBasic) GetTxCmd(cdc *codec.Codec) *cobra.Command {
+	return cli.GetTxCmd(StoreKey, cdc)
 }
 
 type AppModule struct {

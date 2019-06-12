@@ -1,4 +1,4 @@
-package nameservice
+package types
 
 import (
 	"fmt"
