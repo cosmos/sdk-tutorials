@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
+	"github.com/cosmos/sdk-application-tutorial/x/nameservice/types"
 
 	clientrest "github.com/cosmos/cosmos-sdk/client/rest"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -26,7 +26,7 @@ func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, 
 	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), setNameHandler(cdc, cliCtx)).Methods("PUT")
 	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}", storeName, restName), resolveNameHandler(cdc, cliCtx, storeName)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}/whois", storeName, restName), whoIsHandler(cdc, cliCtx, storeName)).Methods("GET")
-	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}", storeName, restName), deleteNameHandler(cdc, cliCtx)).Methods("DELETE")
+	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), deleteNameHandler(cdc, cliCtx)).Methods("DELETE")
 }
 
 type buyNameReq struct {
@@ -63,7 +63,7 @@ func buyNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFun
 		}
 
 		// create the message
-		msg := nameservice.NewMsgBuyName(req.Name, coins, addr)
+		msg := types.NewMsgBuyName(req.Name, coins, addr)
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
@@ -101,7 +101,7 @@ func setNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFun
 		}
 
 		// create the message
-		msg := nameservice.NewMsgSetName(req.Name, req.Value, addr)
+		msg := types.NewMsgSetName(req.Name, req.Value, addr)
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
@@ -179,7 +179,7 @@ func deleteNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.Handler
 		}
 
 		// create the message
-		msg := nameservice.NewMsgDeleteName(req.Name, addr)
+		msg := types.NewMsgDeleteName(req.Name, addr)
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())

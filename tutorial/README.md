@@ -32,17 +32,21 @@ Through the course of this tutorial you will create the following files that mak
         │   ├── cli
         │   │   ├── query.go
         │   │   └── tx.go
-        │   ├── rest
-        │   │   └── rest.go
-        │   └── module_client.go
+        │   └── rest
+        │       └── rest.go
+        ├── types
+            ├── key.go
+            ├── msgs.go
+            ├── querier.go
+            └── types.go
+        ├── alias.go
         ├── codec.go
         ├── handler.go
         ├── keeper.go
-        ├── msgs.go
         ├── querier.go
         ├── module.go
-        ├── geneis.go
-        └── types.go
+        └── geneis.go
+
 ```
 
 Start by creating a new git repository:
@@ -60,20 +64,22 @@ Then, just follow along! The first step describes the design of your application
 1. [Design](./app-design.md) the application.
 2. Begin the implementation of your application in [`./app.go`](./app-init.md).
 3. Start building your module by defining some basic [`Types`](types.md).
-4. Create the main core of the module using the [`Keeper`](./keeper.md).
-5. Define state transitions through [`Msgs` and `Handlers`](./msgs-handlers.md).
-   - [`SetName`](set-name.md)
+4. Define the keys needed for your module [`key`](./key.md)
+5. Create the main core of the module using the [`Keeper`](./keeper.md).
+6. Define state transitions through [`Msgs` and `Handlers`](./msgs-handlers.md).
+   - [`SetName`](./set-name.md)
    - [`BuyName`](./buy-name.md)
-6. Make views on your state machine with [`Queriers`](./queriers.md).
-7. Register your types in the encoding format using [`sdk.Codec`](./codec.md).
-8. Create [CLI interactions for your module](./cli.md).
-9. Create [HTTP routes for clients to access your nameservice](rest.md).
-10. Implement the [AppModule interface](module.md)
-11. Configure your [Genesis state](genesis.md).
-12. Import your module and [finish building your application](./app-complete.md)!
-13. Create the [`nsd` and `nscli` entry points](./entrypoint.md) to your application.
-14. Setup [dependency management using `go.mod`](./gomod.md).
-15. [Build and run](./build-run.md) the example.
-16. [Run REST routes](run-rest.md).
+7. Make views on your state machine with [`Queriers`](./queriers.md).
+8. Create the [`alias file`](./alias.md)
+9. Register your types in the encoding format using [`sdk.Codec`](./codec.md).
+10. Create [CLI interactions for your module](./cli.md).
+11. Create [HTTP routes for clients to access your nameservice](./rest.md).
+12. Implement the [AppModule interface](./module.md)
+13. Configure your [Genesis state](./genesis.md).
+14. Import your module and [finish building your application](./app-complete.md)!
+15. Create the [`nsd` and `nscli` entry points](./entrypoint.md) to your application.
+16. Setup [dependency management using `go.mod`](./gomod.md).
+17. [Build and run](./build-run.md) the example.
+18. [Run REST routes](./run-rest.md).
 
 ## [Click here](./app-design.md) to get started with the tutorial!

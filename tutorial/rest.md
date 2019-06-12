@@ -41,7 +41,7 @@ func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, 
 	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), setNameHandler(cdc, cliCtx)).Methods("PUT")
 	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}", storeName, restName), resolveNameHandler(cdc, cliCtx, storeName)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}/whois", storeName, restName), whoIsHandler(cdc, cliCtx, storeName)).Methods("GET")
-	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}", storeName, restName), deleteNameHandler(cdc, cliCtx)).Methods("DELETE")
+	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), deleteNameHandler(cdc, cliCtx)).Methods("DELETE")
 }
 ```
 

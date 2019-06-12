@@ -2,7 +2,7 @@
 
 ## Msg
 
-Now it is time to define the `Msg` for deleting names and add it to the `./x/nameservice/msgs.go` file. This code is very similar to `SetName`:
+Now it is time to define the `Msg` for deleting names and add it to the `./x/nameservice/types/msgs.go` file. This code is very similar to `SetName`:
 
 ```go
 // MsgDeleteName defines a DeleteName message

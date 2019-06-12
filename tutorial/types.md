@@ -52,4 +52,4 @@ Price: %s`, w.Owner, w.Value, w.Price))
 }
 ```
 
-### Now we move on to the writing the [Keeper for the module](./keeper.md).
+### Now we can create our [key file](./key.md)
