@@ -14,6 +14,8 @@ var (
 	NewMsgBuyName = types.NewMsgBuyName
 	NewMsgSetName = types.NewMsgSetName
 	NewWhois      = types.NewWhois
+	ModuleCdc     = types.ModuleCdc
+	RegisterCodec = types.RegisterCodec
 )
 
 type (

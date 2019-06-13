@@ -5,5 +5,5 @@ const (
 	ModuleName = "nameservice"
 
 	// StoreKey to be used when creating the KVStore
-	StoreKey = "ns"
+	StoreKey = ModuleName
 )
