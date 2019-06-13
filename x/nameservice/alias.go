@@ -15,6 +15,8 @@ var (
 	NewMsgSetName    = types.NewMsgSetName
 	NewMsgDeleteName = types.NewMsgDeleteName
 	NewWhois         = types.NewWhois
+	ModuleCdc     	 = types.ModuleCdc
+	RegisterCodec 	 = types.RegisterCodec
 )
 
 type (
