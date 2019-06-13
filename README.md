@@ -12,3 +12,5 @@ This repository contains the source code of the nameservice tutorial.
 
 Translations:
 - [中文](./README_cn.md)
+
+## [Slides](https://docs.google.com/presentation/d/1aCMAdkVY-gfgnGNPTygwVk3o68czPQ_VYfvdMy9Ek5Q/edit?usp=sharing)
