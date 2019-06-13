@@ -31,51 +31,46 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 }
 
 // nolint: unparam
-func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
-	name := path[0]
-
-	value := keeper.ResolveName(ctx, name)
+func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
+	value := keeper.ResolveName(ctx, path[0])
 
 	if value == "" {
 		return []byte{}, sdk.ErrUnknownRequest("could not resolve name")
 	}
 
-	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, QueryResResolve{value})
-	if err2 != nil {
+	res, err := codec.MarshalJSONIndent(keeper.cdc, QueryResResolve{value})
+	if err != nil {
 		panic("could not marshal result to JSON")
 	}
 
-	return bz, nil
+	return res, nil
 }
 
 // nolint: unparam
-func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
-	name := path[0]
+func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
+	whois := keeper.GetWhois(ctx, path[0])
 
-	whois := keeper.GetWhois(ctx, name)
-
-	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, whois)
-	if err2 != nil {
+	res, err := codec.MarshalJSONIndent(keeper.cdc, whois)
+	if err != nil {
 		panic("could not marshal result to JSON")
 	}
 
-	return bz, nil
+	return res, nil
 }
 
-func queryNames(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
+func queryNames(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
 	var namesList QueryResNames
 
 	iterator := keeper.GetNamesIterator(ctx)
 
 	for ; iterator.Valid(); iterator.Next() {
-		name := string(iterator.Key())
-		namesList = append(namesList, name)
+		namesList = append(namesList, string(iterator.Key()))
 	}
 
-	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, namesList)
-	if err2 != nil {
+	res, err := codec.MarshalJSONIndent(keeper.cdc, namesList)
+	if err != nil {
 		panic("could not marshal result to JSON")
 	}
 
-	return bz, nil
+	return res, nil
 }

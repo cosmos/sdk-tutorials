@@ -1,8 +1,6 @@
 package types
 
 import (
-	"encoding/json"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -10,9 +8,9 @@ const RouterKey = ModuleName // this was defined in your key.go file
 
 // MsgSetName defines a SetName message
 type MsgSetName struct {
-	Name  string
-	Value string
-	Owner sdk.AccAddress
+	Name  string         `json:"name"`
+	Value string         `json:"value"`
+	Owner sdk.AccAddress `json:"owner"`
 }
 
 // NewMsgSetName is a constructor function for MsgSetName
@@ -43,11 +41,7 @@ func (msg MsgSetName) ValidateBasic() sdk.Error {
 
 // GetSignBytes encodes the message for signing
 func (msg MsgSetName) GetSignBytes() []byte {
-	b, err := json.Marshal(msg)
-	if err != nil {
-		panic(err)
-	}
-	return sdk.MustSortJSON(b)
+	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(msg))
 }
 
 // GetSigners defines whose signature is required
@@ -57,9 +51,9 @@ func (msg MsgSetName) GetSigners() []sdk.AccAddress {
 
 // MsgBuyName defines the BuyName message
 type MsgBuyName struct {
-	Name  string
-	Bid   sdk.Coins
-	Buyer sdk.AccAddress
+	Name  string         `json:"name"`
+	Bid   sdk.Coins      `json:"bid"`
+	Buyer sdk.AccAddress `json:"buyer"`
 }
 
 // NewMsgBuyName is the constructor function for MsgBuyName
@@ -93,11 +87,7 @@ func (msg MsgBuyName) ValidateBasic() sdk.Error {
 
 // GetSignBytes encodes the message for signing
 func (msg MsgBuyName) GetSignBytes() []byte {
-	b, err := json.Marshal(msg)
-	if err != nil {
-		panic(err)
-	}
-	return sdk.MustSortJSON(b)
+	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(msg))
 }
 
 // GetSigners defines whose signature is required
