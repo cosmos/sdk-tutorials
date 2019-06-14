@@ -2,14 +2,6 @@
 
 The AppModule interface includes a number of functions for use in initializing and exporting GenesisState for the chain. The `ModuleBasicManager` calls these functions on each module when starting, stopping or exporting the chain. Here is a very basic implementation that you can expand upon.
 
-Lets start by adding the `GenesisState` struct in `x/nameservice/types`. This struct is intended to hold all the application state for our module. As our nameservice is still quite simple, we need only store the Whois data.
-
-```go
-type GenesisState struct {
-	WhoisRecords []Whois `json:"whois_records"`
-}
-```
-
 Go to `x/nameservice/genesis.go` and add the following code:
 
 ```go
