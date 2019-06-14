@@ -15,9 +15,11 @@ package cli
 import (
 	"fmt"
 
+	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
+	"github.com/cosmos/cosmos-sdk/client/utils"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
+	"github.com/cosmos/sdk-application-tutorial/x/nameservice/types"
 	"github.com/spf13/cobra"
 )
 
@@ -49,11 +51,11 @@ func GetCmdResolveName(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/resolve/%s", queryRoute, name), nil)
 			if err != nil {
-				fmt.Printf("could not resolve name - %s \n", string(name))
+				fmt.Printf("could not resolve name - %s \n", name)
 				return nil
 			}
 
-			var out nameservice.QueryResResolve
+			var out types.QueryResResolve
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
 		},
@@ -72,11 +74,11 @@ func GetCmdWhois(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/whois/%s", queryRoute, name), nil)
 			if err != nil {
-				fmt.Printf("could not resolve whois - %s \n", string(name))
+				fmt.Printf("could not resolve whois - %s \n", name)
 				return nil
 			}
 
-			var out nameservice.Whois
+			var out types.Whois
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
 		},
@@ -98,7 +100,7 @@ func GetCmdNames(queryRoute string, cdc *codec.Codec) *cobra.Command {
 				return nil
 			}
 
-			var out nameservice.QueryResNames
+			var out types.QueryResNames
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
 		},
@@ -127,13 +129,14 @@ package cli
 import (
 	"github.com/spf13/cobra"
 
+	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/client/utils"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
+	"github.com/cosmos/sdk-application-tutorial/x/nameservice/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
+	"github.com/cosmos/cosmos-sdk/x/auth"
 )
 
 func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
@@ -162,7 +165,7 @@ func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
 
-			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
+			txBldr := auth.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
 
 			if err := cliCtx.EnsureAccountExists(); err != nil {
 				return err
@@ -173,7 +176,7 @@ func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			msg := nameservice.NewMsgBuyName(args[0], coins, cliCtx.GetFromAddress())
+			msg := types.NewMsgBuyName(args[0], coins, cliCtx.GetFromAddress())
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -195,13 +198,13 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
 
-			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
+			txBldr := auth.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
 
 			if err := cliCtx.EnsureAccountExists(); err != nil {
 				return err
 			}
 
-			msg := nameservice.NewMsgSetName(args[0], args[1], cliCtx.GetFromAddress())
+			msg := types.NewMsgSetName(args[0], args[1], cliCtx.GetFromAddress())
 			err := msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -209,6 +212,7 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 
 			cliCtx.PrintResponse = true
 
+			// return utils.CompleteAndBroadcastTxCLI(txBldr, cliCtx, msgs)
 			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
 		},
 	}
