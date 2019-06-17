@@ -17,7 +17,7 @@ Each name will have three pieces of data associated with it.
 To start your SDK module, define your `nameservice.Whois` struct in the `./x/nameservice/types.go` file:
 
 ```go
-package nameservice
+package types
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"

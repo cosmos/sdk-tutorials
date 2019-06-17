@@ -5,11 +5,9 @@
 The naming convention for the SDK `Msgs` is `Msg{ .Action }`. The first action to implement is `SetName`, so we'll call it `MsgSetName`. This `Msg` allows the owner of a name to set the return value for that name within the resolver. Start by defining `MsgSetName` in a new file called `./x/nameservice/types/msgs.go`:
 
 ```go
-package nameservice
+package types
 
 import (
-	"encoding/json"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -17,17 +15,17 @@ const RouterKey = ModuleName // this was defined in your key.go file
 
 // MsgSetName defines a SetName message
 type MsgSetName struct {
-	Name string
-	Value  string
-	Owner  sdk.AccAddress
+	Name  string         `json:"name"`
+	Value string         `json:"value"`
+	Owner sdk.AccAddress `json:"owner"`
 }
 
 // NewMsgSetName is a constructor function for MsgSetName
 func NewMsgSetName(name string, value string, owner sdk.AccAddress) MsgSetName {
 	return MsgSetName{
-		Name: name,
-		Value:  value,
-		Owner:  owner,
+		Name:  name,
+		Value: value,
+		Owner: owner,
 	}
 }
 ```
@@ -45,7 +43,7 @@ Next, implement the `Msg` interface:
 func (msg MsgSetName) Route() string { return RouterKey }
 
 // Type should return the action
-func (msg MsgSetName) Type() string { return "set_name"}
+func (msg MsgSetName) Type() string { return "set_name" }
 ```
 
 The above functions are used by the SDK to route `Msgs` to the proper module for handling. They also add human readable names to database tags used for indexing.
@@ -68,11 +66,7 @@ func (msg MsgSetName) ValidateBasic() sdk.Error {
 ```go
 // GetSignBytes encodes the message for signing
 func (msg MsgSetName) GetSignBytes() []byte {
-	b, err := json.Marshal(msg)
-	if err != nil {
-		panic(err)
-	}
-	return sdk.MustSortJSON(b)
+	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(msg))
 }
 ```
 

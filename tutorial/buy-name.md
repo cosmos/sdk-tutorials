@@ -7,17 +7,17 @@ Now it is time to define the `Msg` for buying names and add it to the `./x/names
 ```go
 // MsgBuyName defines the BuyName message
 type MsgBuyName struct {
-	Name string
-	Bid    sdk.Coins
-	Buyer  sdk.AccAddress
+	Name  string         `json:"name"`
+	Bid   sdk.Coins      `json:"bid"`
+	Buyer sdk.AccAddress `json:"buyer"`
 }
 
 // NewMsgBuyName is the constructor function for MsgBuyName
 func NewMsgBuyName(name string, bid sdk.Coins, buyer sdk.AccAddress) MsgBuyName {
 	return MsgBuyName{
-		Name: name,
-		Bid:    bid,
-		Buyer:  buyer,
+		Name:  name,
+		Bid:   bid,
+		Buyer: buyer,
 	}
 }
 
@@ -43,11 +43,7 @@ func (msg MsgBuyName) ValidateBasic() sdk.Error {
 
 // GetSignBytes encodes the message for signing
 func (msg MsgBuyName) GetSignBytes() []byte {
-	b, err := json.Marshal(msg)
-	if err != nil {
-		panic(err)
-	}
-	return sdk.MustSortJSON(b)
+	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(msg))
 }
 
 // GetSigners defines whose signature is required
@@ -84,12 +80,12 @@ func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result
 		return sdk.ErrInsufficientCoins("Bid not high enough").Result() // If not, throw an error
 	}
 	if keeper.HasOwner(ctx, msg.Name) {
-		_, err := keeper.coinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, msg.Name), msg.Bid)
+		err := keeper.coinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, msg.Name), msg.Bid)
 		if err != nil {
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}
 	} else {
-		_, _, err := keeper.coinKeeper.SubtractCoins(ctx, msg.Buyer, msg.Bid) // If so, deduct the Bid amount from the sender
+		_, err := keeper.coinKeeper.SubtractCoins(ctx, msg.Buyer, msg.Bid) // If so, deduct the Bid amount from the sender
 		if err != nil {
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}

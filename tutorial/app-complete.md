@@ -11,25 +11,25 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/tendermint/tendermint/libs/log"
-
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-
-	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
-
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	distr "github.com/cosmos/cosmos-sdk/x/distribution"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/staking"
-
-	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
-
-	bam "github.com/cosmos/cosmos-sdk/baseapp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 	cmn "github.com/tendermint/tendermint/libs/common"
 	dbm "github.com/tendermint/tendermint/libs/db"
+	"github.com/tendermint/tendermint/libs/log"
+	tmtypes "github.com/tendermint/tendermint/types"
+
+	bam "github.com/cosmos/cosmos-sdk/baseapp"
+	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/module"
+	"github.com/cosmos/cosmos-sdk/x/auth"
+	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
+	"github.com/cosmos/cosmos-sdk/x/bank"
+	distr "github.com/cosmos/cosmos-sdk/x/distribution"
+	"github.com/cosmos/cosmos-sdk/x/genutil"
+	"github.com/cosmos/cosmos-sdk/x/params"
+	"github.com/cosmos/cosmos-sdk/x/slashing"
+	"github.com/cosmos/cosmos-sdk/x/staking"
+	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
 )
 
 const appName = "nameservice"
@@ -42,16 +42,7 @@ var (
 	DefaultNodeHome = os.ExpandEnv("$HOME/.nsd")
 
 	// ModuleBasicManager is in charge of setting up basic module elemnets
-	ModuleBasics sdk.ModuleBasicManager
-)
-```
-
-Next you need to add the stores' keys and the `Keepers` into your `nameServiceApp` struct. Update the constructor in `NewNameServiceApp()` too:
-
-```go
-// maintains independent module functionality
-func init() {
-	ModuleBasics = sdk.NewModuleBasicManager(
+	ModuleBasics = module.NewBasicManager(
 		genaccounts.AppModuleBasic{},
 		genutil.AppModuleBasic{},
 		auth.AppModuleBasic{},
@@ -62,7 +53,12 @@ func init() {
 		distr.AppModuleBasic{},
 		slashing.AppModuleBasic{},
 	)
-}
+)
+```
+
+Next you need to add the stores' keys and the `Keepers` into your `nameServiceApp` struct.
+
+```go
 
 type nameServiceApp struct {
 	*bam.BaseApp
@@ -92,7 +88,7 @@ type nameServiceApp struct {
 	nsKeeper            nameservice.Keeper
 
 	// Module Manager
-	mm *sdk.ModuleManager
+	mm *module.Manager
 }
 
 // NewNameServiceApp is a constructor function for nameServiceApp
@@ -152,17 +148,18 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 
 		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
 		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),
+		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
 		keyStaking:       sdk.NewKVStoreKey(staking.StoreKey),
 		tkeyStaking:      sdk.NewTransientStoreKey(staking.TStoreKey),
 		keyDistr:         sdk.NewKVStoreKey(distr.StoreKey),
 		tkeyDistr:        sdk.NewTransientStoreKey(distr.TStoreKey),
-		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
 		keyNS:            sdk.NewKVStoreKey(nameservice.StoreKey),
 		keyParams:        sdk.NewKVStoreKey(params.StoreKey),
 		tkeyParams:       sdk.NewTransientStoreKey(params.TStoreKey),
+		keySlashing:      sdk.NewKVStoreKey(slashing.StoreKey),
 	}
 
-// The ParamsKeeper handles parameter storage for the application
+	// The ParamsKeeper handles parameter storage for the application
 	app.paramsKeeper = params.NewKeeper(app.cdc, app.keyParams, app.tkeyParams, params.DefaultCodespace)
 	// Set specific supspaces
 	authSubspace := app.paramsKeeper.Subspace(auth.DefaultParamspace)
@@ -233,7 +230,7 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		app.cdc,
 	)
 
-	app.mm = sdk.NewModuleManager(
+	app.mm = module.NewManager(
 		genaccounts.NewAppModule(app.accountKeeper),
 		genutil.NewAppModule(app.accountKeeper, app.stakingKeeper, app.BaseApp.DeliverTx),
 		auth.NewAppModule(app.accountKeeper, app.feeCollectionKeeper),
@@ -266,6 +263,7 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	app.SetInitChainer(app.InitChainer)
 	app.SetBeginBlocker(app.BeginBlocker)
 	app.SetEndBlocker(app.EndBlocker)
+
 	// The AnteHandler handles signature verification and transaction pre-processing
 	app.SetAnteHandler(
 		auth.NewAnteHandler(
@@ -307,30 +305,33 @@ The `initChainer` defines how accounts in `genesis.json` are mapped into the app
 The constructor registers the `initChainer` function, but it isn't defined yet. Go ahead and create it:
 
 ```go
-func (app *nameServiceApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+// GenesisState represents chain state at the start of the chain. Any initial state (account balances) are stored here.
+type GenesisState map[string]json.RawMessage
 
+func NewDefaultGenesisState() GenesisState {
+	return ModuleBasics.DefaultGenesis()
+}
+
+func (app *nameServiceApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	var genesisState GenesisState
+
 	err := app.cdc.UnmarshalJSON(req.AppStateBytes, &genesisState)
 	if err != nil {
 		panic(err)
 	}
 
 	return app.mm.InitGenesis(ctx, genesisState)
-
 }
 
-func (app *NameServiceApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
+func (app *nameServiceApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
 	return app.mm.BeginBlock(ctx, req)
 }
-
-func (app *NameServiceApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+func (app *nameServiceApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	return app.mm.EndBlock(ctx, req)
 }
-
-func (app *NameServiceApp) LoadHeight(height int64) error {
+func (app *nameServiceApp) LoadHeight(height int64) error {
 	return app.LoadVersion(height, app.keyMain)
 }
-
 
 func (app *nameServiceApp) ExportAppStateAndValidators(forZeroHeight bool, jailWhiteList []string,
 ) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {

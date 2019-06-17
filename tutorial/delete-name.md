@@ -7,8 +7,8 @@ Now it is time to define the `Msg` for deleting names and add it to the `./x/nam
 ```go
 // MsgDeleteName defines a DeleteName message
 type MsgDeleteName struct {
-	Name  string
-	Owner sdk.AccAddress
+	Name  string		 `json:"name"`
+	Owner sdk.AccAddress `json:"owner"`
 }
 
 // NewMsgDeleteName is a constructor function for MsgDeleteName
@@ -38,11 +38,7 @@ func (msg MsgDeleteName) ValidateBasic() sdk.Error {
 
 // GetSignBytes encodes the message for signing
 func (msg MsgDeleteName) GetSignBytes() []byte {
-	b, err := json.Marshal(msg)
-	if err != nil {
-		panic(err)
-	}
-	return sdk.MustSortJSON(b)
+	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(msg))
 }
 
 // GetSigners defines whose signature is required

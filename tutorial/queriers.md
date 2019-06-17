@@ -7,9 +7,7 @@ Start by creating the `./x/nameservice/types/querier.go` file. This is where you
 ```go
 package types
 
-import (
-	"strings"
-)
+import "strings"
 
 // Query Result Payload for a resolve query
 type QueryResResolve struct {
@@ -44,9 +42,6 @@ Start by defining the `NewQuerier` function which acts as a sub-router for queri
 package nameservice
 
 import (
-	"fmt"
-	"strings"
-
 	"github.com/cosmos/cosmos-sdk/codec"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -81,55 +76,48 @@ Now that the router is defined, define the inputs and responses for each query:
 
 ```go
 // nolint: unparam
-func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
-	name := path[0]
-
-	value := keeper.ResolveName(ctx, name)
+func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
+	value := keeper.ResolveName(ctx, path[0])
 
 	if value == "" {
 		return []byte{}, sdk.ErrUnknownRequest("could not resolve name")
 	}
 
-	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, QueryResResolve{value})
-	if err2 != nil {
+	res, err := codec.MarshalJSONIndent(keeper.cdc, QueryResResolve{value})
+	if err != nil {
 		panic("could not marshal result to JSON")
 	}
 
-	return bz, nil
+	return res, nil
 }
-
-
 
 // nolint: unparam
-func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
-	name := path[0]
+func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
+	whois := keeper.GetWhois(ctx, path[0])
 
-	whois := keeper.GetWhois(ctx, name)
-
-	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, whois)
-	if err2 != nil {
+	res, err := codec.MarshalJSONIndent(keeper.cdc, whois)
+	if err != nil {
 		panic("could not marshal result to JSON")
 	}
 
-	return bz, nil
+	return res, nil
 }
 
-func queryNames(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
+func queryNames(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
 	var namesList QueryResNames
 
 	iterator := keeper.GetNamesIterator(ctx)
 
 	for ; iterator.Valid(); iterator.Next() {
-		name := string(iterator.Key())
-		namesList = append(namesList, name)
+		namesList = append(namesList, string(iterator.Key()))
 	}
 
-	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, namesList)
-	if err2 != nil {
+	res, err := codec.MarshalJSONIndent(keeper.cdc, namesList)
+	if err != nil {
 		panic("could not marshal result to JSON")
 	}
 
-	return bz, nil
+	return res, nil
 }
 ```
 
@@ -142,4 +130,4 @@ Notes on the above code:
   - Same for the output of a names query, a `[]string` is already natively marshalable, but we want to add a `.String()` method on it.
 - The type Whois is not defined in the `./x/nameservice/types/querier.go` file because it is created in the `./x/nameservice/types/types.go` file.
 
-### Now that you have ways to mutate and view your module state it's time to put the finishing touches on it! Define the vairables and types you would like to bring to the top level of the module. [alias.go](./alias.go)
+### Now that you have ways to mutate and view your module state it's time to put the finishing touches on it! Define the vairables and types you would like to bring to the top level of the module. [alias.go](./alias.md)
