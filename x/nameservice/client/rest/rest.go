@@ -27,6 +27,9 @@ func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, storeName string) 
 	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}/whois", storeName, restName), whoIsHandler(cliCtx, storeName)).Methods("GET")
 }
 
+// --------------------------------------------------------------------------------------
+// Tx Handler
+
 type buyNameReq struct {
 	BaseReq rest.BaseReq `json:"base_req"`
 	Name    string       `json:"name"`
@@ -109,6 +112,9 @@ func setNameHandler(cliCtx context.CLIContext) http.HandlerFunc {
 		utils.WriteGenerateStdTxResponse(w, cliCtx, baseReq, []sdk.Msg{msg})
 	}
 }
+
+//--------------------------------------------------------------------------------------
+// Query Handlers
 
 func resolveNameHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

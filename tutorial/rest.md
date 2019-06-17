@@ -51,44 +51,44 @@ func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, 
 Next, its time to define the handlers mentioned above. These will be very similar to the CLI methods defined earlier. Start with the queries `whois` and `resolve`:
 
 ```go
-func resolveNameHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+func resolveNameHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		paramType := vars[restName]
 
-		res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/resolve/%s", storeName, paramType), nil)
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/resolve/%s", storeName, paramType), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
 		}
 
-		rest.PostProcessResponse(w, cdc, res, cliCtx.Indent)
+		rest.PostProcessResponse(w, cliCtx, res)
 	}
 }
 
-func whoIsHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+func whoIsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		paramType := vars[restName]
 
-		res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/whois/%s", storeName, paramType), nil)
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/whois/%s", storeName, paramType), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
 		}
 
-		rest.PostProcessResponse(w, cdc, res, cliCtx.Indent)
+		rest.PostProcessResponse(w, cliCtx, res)
 	}
 }
 
-func namesHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+func namesHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/names", storeName), nil)
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/names", storeName), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
 		}
-		rest.PostProcessResponse(w, cdc, res, cliCtx.Indent)
+		rest.PostProcessResponse(w, cliCtx, res)
 	}
 }
 ```
@@ -110,11 +110,11 @@ type buyNameReq struct {
 	Buyer   string       `json:"buyer"`
 }
 
-func buyNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
+func buyNameHandler(cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req buyNameReq
 
-		if !rest.ReadRESTReq(w, r, cdc, &req) {
+		if !rest.ReadRESTReq(w, r, cliCtx.Codec, &req) {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
 			return
 		}
@@ -144,7 +144,7 @@ func buyNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFun
 			return
 		}
 
-		clientrest.WriteGenerateStdTxResponse(w, cdc, cliCtx, baseReq, []sdk.Msg{msg})
+		utils.WriteGenerateStdTxResponse(w, cliCtx, baseReq, []sdk.Msg{msg})
 	}
 }
 
@@ -155,10 +155,10 @@ type setNameReq struct {
 	Owner   string       `json:"owner"`
 }
 
-func setNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
+func setNameHandler(cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req setNameReq
-		if !rest.ReadRESTReq(w, r, cdc, &req) {
+		if !rest.ReadRESTReq(w, r, cliCtx.Codec, &req) {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
 			return
 		}
@@ -182,7 +182,7 @@ func setNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFun
 			return
 		}
 
-		clientrest.WriteGenerateStdTxResponse(w, cdc, cliCtx, baseReq, []sdk.Msg{msg})
+		utils.WriteGenerateStdTxResponse(w, cliCtx, baseReq, []sdk.Msg{msg})
 	}
 }
 ```
