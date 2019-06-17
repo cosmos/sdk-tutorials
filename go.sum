@@ -24,8 +24,8 @@ github.com/btcsuite/snappy-go v0.0.0-20151229074030-0bdef8d06723/go.mod h1:8woku
 github.com/btcsuite/websocket v0.0.0-20150119174127-31079b680792/go.mod h1:ghJtEyQwv5/p4Mg4C0fgbePVuGr935/5ddU9Z3TmDRY=
 github.com/btcsuite/winsvc v1.0.0/go.mod h1:jsenWakMcC0zFBFurPLEAyrnc/teJEM1O46fmI40EZs=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
-github.com/cosmos/cosmos-sdk v0.28.2-0.20190605232616-5f9c3fdf8895 h1:JmFq9isbNlpx/afhrMNZc1qwooh80BMw9L3thbZF0HI=
-github.com/cosmos/cosmos-sdk v0.28.2-0.20190605232616-5f9c3fdf8895/go.mod h1:MvaJDmjgAK7X1rTnpk8+c6tUFfIZ++iuNCp2sUWzprM=
+github.com/cosmos/cosmos-sdk v0.28.2-0.20190616100639-18415eedaf25 h1:BbhcH/+GrA/j/6LimGGGq7BuMtmVF9nfk2HrCjevktw=
+github.com/cosmos/cosmos-sdk v0.28.2-0.20190616100639-18415eedaf25/go.mod h1:MvaJDmjgAK7X1rTnpk8+c6tUFfIZ++iuNCp2sUWzprM=
 github.com/cosmos/cosmos-sdk v0.35.0 h1:EPeie1aKHwnXtTzKggvabG7aAPN+DDmju2xquvjFwao=
 github.com/cosmos/cosmos-sdk v0.35.0/go.mod h1:ruF+G4D7hRf34uzZQvf/SIja9fsIThU5D7GirwTMQ9I=
 github.com/cosmos/go-bip39 v0.0.0-20180618194314-52158e4697b8 h1:Iwin12wRQtyZhH6FV3ykFcdGNlYEzoeR0jN8Vn+JWsI=
