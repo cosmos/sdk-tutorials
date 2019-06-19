@@ -12,6 +12,7 @@ package nameservice
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/x/bank"
+	"github.com/cosmos/sdk-application-tutorial/x/nameservice/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -90,7 +91,7 @@ Next, add a method to delete the names:
 func (k Keeper) DeleteWhois(ctx sdk.Context, name string) {
 	store := ctx.KVStore(k.storeKey)
 	if !store.Has([]byte(name)) {
-		return
+		return types.ErrNameDoesNotExist(types.DefaultCodespace)
 	}
 	store.Delete([]byte(name))
 }
@@ -99,7 +100,7 @@ Here, like in the `SetName` method, first access the store using the `StoreKey`.
 
 If a name currently does not exist in the store, we do not delete it from the store, as only names present in the store can be deleted.
 
-Now, we add functions for getting specific parameters from the store based on the name.  However, instead of rewriting the store getters and setters, we reuse the `GetWhois`, `SetWhois` and `DeleteWhois` functions.  For example, to set a field, first we grab the whole Whois data, update our specific field, and put the new version back into the store.
+Now, we add functions for getting specific parameters from the store based on the name.  However, instead of rewriting the store getters and setters, we reuse the `GetWhois` and `SetWhois` functions.  For example, to set a field, first we grab the whole Whois data, update our specific field, and put the new version back into the store.
 
 ```go
 // ResolveName - returns the string that the name resolves to
@@ -112,11 +113,6 @@ func (k Keeper) SetName(ctx sdk.Context, name string, value string) {
 	whois := k.GetWhois(ctx, name)
 	whois.Value = value
 	k.SetWhois(ctx, name, whois)
-}
-
-// DeleteName - Deletes the name and it's associated fields
-func (k Keeper) DeleteName(ctx sdk.Context, name string) {
-	k.DeleteWhois(ctx, name)
 }
 
 // HasOwner - returns whether or not the name already has an owner

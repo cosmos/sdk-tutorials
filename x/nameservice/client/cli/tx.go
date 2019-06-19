@@ -104,17 +104,11 @@ func GetCmdDeleteName(cdc *codec.Codec) *cobra.Command {
 
 			txBldr := auth.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
 
-			if err := cliCtx.EnsureAccountExists(); err != nil {
-				return err
-			}
-
 			msg := types.NewMsgDeleteName(args[0], cliCtx.GetFromAddress())
 			err := msg.ValidateBasic()
 			if err != nil {
 				return err
 			}
-
-			cliCtx.PrintResponse = true
 
 			// return utils.CompleteAndBroadcastTxCLI(txBldr, cliCtx, msgs)
 			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})

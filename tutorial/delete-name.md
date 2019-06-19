@@ -76,7 +76,7 @@ func handleMsgDeleteName(ctx sdk.Context, keeper Keeper, msg MsgDeleteName) sdk.
 	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) { // Checks if the the msg sender is the same as the current owner
 		return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
 	}
-	keeper.DeleteName(ctx, msg.Name) // If so, delete the name specified in the msg.
+	keeper.DeleteWhois(ctx, msg.Name) // If so, delete the name specified in the msg.
 	return sdk.Result{}              // return
 }
 ```

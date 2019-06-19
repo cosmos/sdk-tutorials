@@ -16,4 +16,4 @@ const (
 )
 ```
 
-### Now we move on to the writing the [Keeper for the module](./keeper.md).
+### Now we move on to writing the [Error handling for the module](./errors.md).
