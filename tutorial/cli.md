@@ -235,7 +235,9 @@ func GetCmdDeleteName(cdc *codec.Codec) *cobra.Command {
 			}
 
 			msg := types.NewMsgDeleteName(args[0], cliCtx.GetFromAddress())
-			err := msg.ValidateBasic()
+			if err := msg.ValidateBasic(); err != nil {
+			
+			}
 			if err != nil {
 				return err
 			}
