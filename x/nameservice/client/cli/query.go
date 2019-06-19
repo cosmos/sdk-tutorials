@@ -5,7 +5,6 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/client/utils"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/sdk-application-tutorial/x/nameservice/types"
 	"github.com/spf13/cobra"
@@ -17,7 +16,7 @@ func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 		Short:                      "Querying commands for the nameservice module",
 		DisableFlagParsing:         true,
 		SuggestionsMinimumDistance: 2,
-		RunE:                       utils.ValidateCmd,
+		RunE:                       client.ValidateCmd,
 	}
 	nameserviceQueryCmd.AddCommand(client.GetCommands(
 		GetCmdResolveName(storeKey, cdc),
@@ -37,7 +36,7 @@ func GetCmdResolveName(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			name := args[0]
 
-			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/resolve/%s", queryRoute, name), nil)
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/resolve/%s", queryRoute, name), nil)
 			if err != nil {
 				fmt.Printf("could not resolve name - %s \n", name)
 				return nil
@@ -60,7 +59,7 @@ func GetCmdWhois(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			name := args[0]
 
-			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/whois/%s", queryRoute, name), nil)
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/whois/%s", queryRoute, name), nil)
 			if err != nil {
 				fmt.Printf("could not resolve whois - %s \n", name)
 				return nil
@@ -82,7 +81,7 @@ func GetCmdNames(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
-			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/names", queryRoute), nil)
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/names", queryRoute), nil)
 			if err != nil {
 				fmt.Printf("could not get query names\n")
 				return nil
