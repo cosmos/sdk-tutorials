@@ -30,7 +30,7 @@ nscli help
 
 To initialize configuration and a `genesis.json` file for your application and an account for the transactions, start by running:
 
-> _*NOTE*_: In the below commands addresses are are pulled using terminal utilities. You can also just input the raw strings saved from creating keys, shown below. The commands require [`jq`](https://stedolan.github.io/jq/download/) to be installed on your machine.
+> _*NOTE*_: In the below commands addresses are pulled using terminal utilities. You can also just input the raw strings saved from creating keys, shown below. The commands require [`jq`](https://stedolan.github.io/jq/download/) to be installed on your machine.
 
 > _*NOTE*_: If you have run the tutorial before, you can start from scratch with a `nsd unsafe-reset-all` or by deleting both of the home folders `rm -rf ~/.ns*`
 
@@ -62,7 +62,7 @@ nscli config trust-node true
 nsd gentx --name jack <or your key_name>
 ```
 
-After you have generated you a genesis transcation, you will have to input the gentx into the genesis file, so that your nameservice chain is aware of the validators. To do so, run:
+After you have generated a genesis transcation, you will have to input the gentx into the genesis file, so that your nameservice chain is aware of the validators. To do so, run:
 
 `nsd collect-gentxs`
 

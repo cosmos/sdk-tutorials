@@ -5,10 +5,9 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/client/utils"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/sdk-application-tutorial/x/nameservice/types"
-
+	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 )
@@ -19,7 +18,7 @@ func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 		Short:                      "Nameservice transaction subcommands",
 		DisableFlagParsing:         true,
 		SuggestionsMinimumDistance: 2,
-		RunE:                       utils.ValidateCmd,
+		RunE:                       client.ValidateCmd,
 	}
 
 	nameserviceTxCmd.AddCommand(client.PostCommands(
