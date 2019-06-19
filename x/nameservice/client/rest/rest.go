@@ -181,7 +181,7 @@ func deleteNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.Handler
 		// create the message
 		msg := types.NewMsgDeleteName(req.Name, addr)
 		err = msg.ValidateBasic()
-		if err != nil {
+		if err := msg.ValidateBasic(); err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
