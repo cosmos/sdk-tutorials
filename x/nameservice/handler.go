@@ -55,7 +55,8 @@ func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result
 
 // Handle a message to delete name
 func handleMsgDeleteName(ctx sdk.Context, keeper Keeper, msg MsgDeleteName) sdk.Result {
-	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) { // Checks if the the msg sender is the same as the current owner
+       // Checks if the the msg sender is the same as the current owner
+	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) {
 		return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
 	}
 	keeper.DeleteName(ctx, msg.Name) // If so, delete the name specified in the msg.
