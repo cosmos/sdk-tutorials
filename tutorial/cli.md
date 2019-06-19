@@ -223,7 +223,7 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 func GetCmdDeleteName(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "delete-name [name]",
-		Short: "delete the name that you own along with it's associated fields",
+		Short: "Delete the name that you own",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
