@@ -70,7 +70,7 @@ Next, add a method to resolve the names (i.e. look up the `Whois` for the `name`
 // Gets the entire Whois metadata struct for a name
 func (k Keeper) GetWhois(ctx sdk.Context, name string) Whois {
 	store := ctx.KVStore(k.storeKey)
-	if !store.Has([]byte(name)) {
+	if !k.IsNamePresent(ctx, name) {
 		return NewWhois()
 	}
 	bz := store.Get([]byte(name))
@@ -90,15 +90,10 @@ Next, add a method to delete the names:
 // Deletes the entire Whois metadata struct for a name
 func (k Keeper) DeleteWhois(ctx sdk.Context, name string) {
 	store := ctx.KVStore(k.storeKey)
-	if !store.Has([]byte(name)) {
-		return types.ErrNameDoesNotExist(types.DefaultCodespace)
-	}
 	store.Delete([]byte(name))
 }
 ```
 Here, like in the `SetName` method, first access the store using the `StoreKey`. Next, we delete the name from the store using its `.Delete([]byte)` method. As the store only takes `[]byte`, the `name` string is casted to `[]byte` while passing it as a function parameter.
-
-If a name currently does not exist in the store, we do not delete it from the store, as only names present in the store can be deleted.
 
 Now, we add functions for getting specific parameters from the store based on the name.  However, instead of rewriting the store getters and setters, we reuse the `GetWhois` and `SetWhois` functions.  For example, to set a field, first we grab the whole Whois data, update our specific field, and put the new version back into the store.
 
@@ -142,6 +137,12 @@ func (k Keeper) SetPrice(ctx sdk.Context, name string, price sdk.Coins) {
 	whois := k.GetWhois(ctx, name)
 	whois.Price = price
 	k.SetWhois(ctx, name, whois)
+}
+
+// Check if the name is present in the store or not
+func (k Keeper) IsNamePresent(ctx sdk.Context, name string) bool {
+	store := ctx.KVStore(k.storeKey)
+	return store.Has([]byte(name))
 }
 ```
 

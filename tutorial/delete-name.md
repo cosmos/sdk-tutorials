@@ -73,14 +73,20 @@ Finally, define the `DeleteName` `handler` function which performs the state tra
 ```go
 // Handle a message to delete name
 func handleMsgDeleteName(ctx sdk.Context, keeper Keeper, msg MsgDeleteName) sdk.Result {
-	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) { // Checks if the the msg sender is the same as the current owner
-		return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
+	// Checks if the name is present in the store or not
+	if !keeper.IsNamePresent(ctx, msg.Name) {
+		return types.ErrNameDoesNotExist(types.DefaultCodespace).Result()
 	}
-	keeper.DeleteWhois(ctx, msg.Name) // If so, delete the name specified in the msg.
-	return sdk.Result{}              // return
+	// Checks if the the msg sender is the same as the current owner
+	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) { 
+		return sdk.ErrUnauthorized("Incorrect Owner").Result() 
+	}
+	// If so, delete the name specified in the msg.
+	keeper.DeleteWhois(ctx, msg.Name) 
+	return sdk.Result{}
 }
 ```
 
-First check to see if the `Msg` sender is actually the owner of the name (`keeper.GetOwner`). If so, they can delete the name by calling the function on the `Keeper`. If not, throw an error and return that to the user.
+First check to see if the name currently exists in the store. If not, throw an error and return that to the user. Then check to see if the `Msg` sender is actually the owner of the name (`keeper.GetOwner`). If so, they can delete the name by calling the function on the `Keeper`. If not, throw an error and return that to the user.
 
 ### Now that you have your `Msgs` and `Handlers` defined it's time to learn about making the data from these transactions [available for querying](queriers.md)!

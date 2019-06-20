@@ -3,7 +3,6 @@ package nameservice
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/sdk-application-tutorial/x/nameservice/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -29,7 +28,7 @@ func NewKeeper(coinKeeper bank.Keeper, storeKey sdk.StoreKey, cdc *codec.Codec) 
 // Gets the entire Whois metadata struct for a name
 func (k Keeper) GetWhois(ctx sdk.Context, name string) Whois {
 	store := ctx.KVStore(k.storeKey)
-	if !store.Has([]byte(name)) {
+	if !k.IsNamePresent(ctx, name) {
 		return NewWhois()
 	}
 	bz := store.Get([]byte(name))
@@ -48,13 +47,9 @@ func (k Keeper) SetWhois(ctx sdk.Context, name string, whois Whois) {
 }
 
 // Deletes the entire Whois metadata struct for a name
-func (k Keeper) DeleteWhois(ctx sdk.Context, name string) sdk.Error {
+func (k Keeper) DeleteWhois(ctx sdk.Context, name string) {
 	store := ctx.KVStore(k.storeKey)
-	if !store.Has([]byte(name)) {
-		return types.ErrNameDoesNotExist(types.DefaultCodespace)
-	}
 	store.Delete([]byte(name))
-	return nil
 }
 
 // ResolveName - returns the string that the name resolves to
@@ -103,3 +98,10 @@ func (k Keeper) GetNamesIterator(ctx sdk.Context) sdk.Iterator {
 	store := ctx.KVStore(k.storeKey)
 	return sdk.KVStorePrefixIterator(store, nil)
 }
+
+// Check if the name is present in the store or not
+func (k Keeper) IsNamePresent(ctx sdk.Context, name string) bool {
+	store := ctx.KVStore(k.storeKey)
+	return store.Has([]byte(name))
+}
+
