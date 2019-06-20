@@ -72,7 +72,7 @@ and to make sure your genesis file is correct, run:
 
 You can now start `nsd` by calling `nsd start`. You will see logs begin streaming that represent blocks being produced, this will take a couple of seconds.
 
-Open another terminal to run commands against the network you have just created:
+Now you run first node success.
 
 ```bash
 # First check the accounts to ensure they have funds
@@ -98,3 +98,20 @@ nscli tx nameservice buy-name jack.id 10nametoken --from alice
 ```
 
 ### Congratulations, you have built a Cosmos SDK application! This tutorial is now complete. If you want to see how to run the same commands using the REST server [click here](run-rest.md).
+
+
+# Run second node on another machine (Optional)
+Open terminal to run commands against that just created to install nsd and nscli
+## init use another moniker and same namechain
+nsd init <moniker-2> --chain-id namechain
+
+## overwrite ~/.nsd/config/genesis.json with first node's genesis.json
+
+## change persistent_peers
+vim /.nsd/config/config.toml
+persistent_peers = "id@ip:26656"
+run "nscli status" on first node to get id
+
+## start this second node
+nsd start
+
