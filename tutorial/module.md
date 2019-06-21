@@ -60,7 +60,7 @@ func (AppModuleBasic) ValidateGenesis(bz json.RawMessage) error {
 
 // Register rest routes
 func (AppModuleBasic) RegisterRESTRoutes(ctx context.CLIContext, rtr *mux.Router, cdc *codec.Codec) {
-	rest.RegisterRoutes(ctx, rtr, cdc, StoreKey)
+	rest.RegisterRoutes(ctx, rtr, StoreKey)
 }
 
 // Get the root query command of this module
@@ -92,7 +92,7 @@ func (AppModule) Name() string {
 	return ModuleName
 }
 
-func (am AppModule) RegisterInvariants(ir sdk.InvariantRouter) {}
+func (am AppModule) RegisterInvariants(ir sdk.InvariantRegistry) {}
 
 func (am AppModule) Route() string {
 	return RouterKey

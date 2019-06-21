@@ -4,7 +4,7 @@ First Thing we're going to do is define a struct that holds all the metadata of 
 
 ## `types.go`
 
-Begin by creating the file `./x/nameservice/types.go` to hold the customs types for your module. In Cosmos SDK applications, the convention is that modules live in the `./x/` folder.
+Begin by creating the file `./x/nameservice/types/types.go` to hold the customs types for your module. In Cosmos SDK applications, the convention is that modules live in the `./x/` folder.
 
 ## Whois
 
@@ -14,7 +14,7 @@ Each name will have three pieces of data associated with it.
 - Owner - The address of the current owner of the name
 - Price - The price you will need to pay in order to buy the name
 
-To start your SDK module, define your `nameservice.Whois` struct in the `./x/nameservice/types.go` file:
+To start your SDK module, define your `nameservice.Whois` struct in the `./x/nameservice/types/types.go` file:
 
 ```go
 package types
