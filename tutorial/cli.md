@@ -231,8 +231,6 @@ func GetCmdDeleteName(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			cliCtx.PrintResponse = true
-
 			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
 		},
 	}
