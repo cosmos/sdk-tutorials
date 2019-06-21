@@ -7,7 +7,7 @@ Now it is time to define the `Msg` for deleting names and add it to the `./x/nam
 ```go
 // MsgDeleteName defines a DeleteName message
 type MsgDeleteName struct {
-	Name  string		 `json:"name"`
+	Name  string         `json:"name"`
 	Owner sdk.AccAddress `json:"owner"`
 }
 
