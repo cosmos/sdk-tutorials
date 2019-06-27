@@ -72,7 +72,7 @@ and to make sure your genesis file is correct, run:
 
 You can now start `nsd` by calling `nsd start`. You will see logs begin streaming that represent blocks being produced, this will take a couple of seconds.
 
-Now you run first node success.
+You have run your first node successfully.
 
 ```bash
 # First check the accounts to ensure they have funds
@@ -103,15 +103,21 @@ nscli tx nameservice buy-name jack.id 10nametoken --from alice
 # Run second node on another machine (Optional)
 Open terminal to run commands against that just created to install nsd and nscli
 ## init use another moniker and same namechain
+```bash
 nsd init <moniker-2> --chain-id namechain
+```
 
 ## overwrite ~/.nsd/config/genesis.json with first node's genesis.json
 
 ## change persistent_peers
+```bash
 vim /.nsd/config/config.toml
-persistent_peers = "id@ip:26656"
-run "nscli status" on first node to get id
+persistent_peers = "id@firt_node_ip:26656"
+run "nscli status" on first node to get id.
+```
 
 ## start this second node
+```bash
 nsd start
+```
 
