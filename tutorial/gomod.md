@@ -7,15 +7,20 @@ Help users build your application by writing a `./Makefile` in the root director
 > _*NOTE*_: The below Makefile contains some of same commands as the Cosmos SDK and Tendermint Makefiles.
 
 ```makefile
-all: install
+all: lint install
 
 install: go.sum
-    GO111MODULE=on go install -tags "$(build_tags)" ./cmd/nsd
-    GO111MODULE=on go install -tags "$(build_tags)" ./cmd/nscli
+		go install -mod=readonly $(BUILD_FLAGS) ./cmd/nsd
+		go install -mod=readonly $(BUILD_FLAGS) ./cmd/nscli
 
 go.sum: go.mod
-    @echo "--> Ensure dependencies have not been modified"
-    GO111MODULE=on go mod verify
+		@echo "--> Ensure dependencies have not been modified"
+		GO111MODULE=on go mod verify
+
+lint:
+	golangci-lint run
+	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" | xargs gofmt -d -s
+	go mod verify
 ```
 
 ### How about including Ledger Nano S support?
@@ -56,16 +61,21 @@ endif
 
 ```makefile
 include Makefile.ledger
-
-all: install
+all: lint install
 
 install: go.sum
-    GO111MODULE=on go install -tags "$(build_tags)" ./cmd/nsd
-    GO111MODULE=on go install -tags "$(build_tags)" ./cmd/nscli
+		go install -mod=readonly $(BUILD_FLAGS) ./cmd/nsd
+		go install -mod=readonly $(BUILD_FLAGS) ./cmd/nscli
 
 go.sum: go.mod
-    @echo "--> Ensure dependencies have not been modified"
-    GO111MODULE=on go mod verify
+		@echo "--> Ensure dependencies have not been modified"
+		GO111MODULE=on go mod verify
+
+lint:
+	golangci-lint run
+	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" | xargs gofmt -d -s
+	go mod verify
+
 ```
 
 ## `go.mod`
