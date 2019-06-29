@@ -190,6 +190,6 @@ func setNameHandler(cliCtx context.CLIContext) http.HandlerFunc {
 Notes on the above code:
 
 - The [`BaseReq`](https://godoc.org/github.com/cosmos/cosmos-sdk/client/utils#BaseReq) contains the basic required fields for making a transaction (which key to use, how to decode it, which chain you are on, etc...) and is designed to be embedded as shown.
-- `baseReq.ValidateBasic` and `clientrest.CompleteAndBroadcastTxREST` handle setting the response code for you and therefore you don't need to worry about handling errors or successes when using those functions.
+- `baseReq.ValidateBasic` handles setting the response code for you and therefore you don't need to worry about handling errors or successes when using those functions.
 
 ### Next its time to augment `nameservice` by implementing the [AppModule interface](./module.md)!
