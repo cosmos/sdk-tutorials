@@ -1,6 +1,6 @@
 # Key
 
-Start by creating a key.go file withing in the types folder. Within your key.go file, you will set your keys to be used throughout the creation of the module.
+Start by creating a key.go file in the types folder. Within your key.go file, you will set your keys to be used throughout the creation of the module.
 
 Defining the keys that will be used throughout the application helps with writing DRY code.
 

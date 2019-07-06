@@ -2,7 +2,7 @@
 
 Start by creating a `./x/nameservice/alias.go` file. The main reason for having this file is to prevent import cycles. You can read more about import cycles in go here: [Golang import cycles](https://stackoverflow.com/questions/28256923/import-cycle-not-allowed)
 
-First start by import the types folder you have created.
+First start by importing the "types" folder you have created.
 
 ```go
 package nameservice
@@ -12,9 +12,9 @@ import (
 )
 ```
 
-There are three types of types we will create in the alias.go file.
+There are three kinds of types we will create in the alias.go file.
 
-1. A const, this is where you will define imutable variables.
+1. a constant, this is where you will define immutable variables.
 
 ```go
 const (
@@ -24,7 +24,7 @@ const (
 )
 ```
 
-2. A var, here you will define varibale, like your messages.
+2. a variable, which you will define to contain information such as your messages.
 
 ```go
 var (
@@ -36,7 +36,7 @@ var (
 )
 ```
 
-3. A type, here you will define the types you have created in the types folder.
+3. a type, here you will define the types you have created in the types folder.
 
 ```go
 type (
@@ -48,6 +48,6 @@ type (
 )
 ```
 
-Now you have aliased your needed consts, vars, and types. We can move forward with the creation of the module.
+Now you have aliased your needed constants, variables, and types. We can move forward with the creation of the module.
 
 ### Register your types in the [Amino encoding format next](./codec.md)!
