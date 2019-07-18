@@ -3,7 +3,7 @@ module github.com/cosmos/sdk-application-tutorial
 go 1.12
 
 require (
-	github.com/cosmos/cosmos-sdk v0.28.2-0.20190718000257-257d3bfbf2d0
+	github.com/cosmos/cosmos-sdk v0.36.0-rc1
 	github.com/gorilla/mux v1.7.0
 	github.com/mattn/go-isatty v0.0.7 // indirect
 	github.com/prometheus/procfs v0.0.0-20190328153300-af7bedc223fb // indirect
