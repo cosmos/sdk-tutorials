@@ -35,17 +35,17 @@ Through the course of this tutorial you will create the following files that mak
         │   └── rest
         │       └── rest.go
         ├── types
+            ├── codec.go
             ├── key.go
             ├── msgs.go
             ├── querier.go
             └── types.go
         ├── alias.go
-        ├── codec.go
+        ├── genesis.go
         ├── handler.go
         ├── keeper.go
-        ├── querier.go
         ├── module.go
-        └── geneis.go
+        └── querier.go
 
 ```
 

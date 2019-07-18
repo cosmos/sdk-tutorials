@@ -82,10 +82,10 @@ var (
 	// default home directories for the application CLI
 	DefaultCLIHome = os.ExpandEnv("$HOME/.nscli")
 
-	// DefaultNodeHome sets the folder where the applcation data and configuration will be stored
+	// DefaultNodeHome sets the folder where the application data and configuration will be stored
 	DefaultNodeHome = os.ExpandEnv("$HOME/.nsd")
 
-	// ModuleBasicManager is in charge of setting up basic module elemnets
+	// ModuleBasicManager is in charge of setting up basic module elements
 	ModuleBasics sdk.ModuleBasicManager
 )
 
