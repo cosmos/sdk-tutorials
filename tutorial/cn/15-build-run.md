@@ -38,7 +38,8 @@ nscli help
 
 ```bash
 # Initialize configuration files and genesis file
-nsd init --chain-id namechain
+# moniker is the name of your node
+nsd init <moniker> --chain-id namechain
 
 # Copy the `Address` output here and save it for later use
 # [optional] add "--ledger" at the end to use a Ledger Nano S
