@@ -55,19 +55,19 @@ git init
 
 #### 教程部分
 
-1.  [设计](./01-app-design.md) 应用程序。
+1. [设计](./01-app-design.md) 应用程序。
 2. 从[`./app.go`](./02-app-init.md) 开始实现你的应用。
 3. Start building your module by defining some basic [`Types`](./03-types.md).
-4. 开始用[`Keeper`]()构建你的模块。
-5. 通过[`Msg`和`Handler`]()定义状态转变。
-   - [`SetName`]()
-   - [`BuyName`]()
-6. 使用[`Querier`]()给你的状态机创建视图。
-7. 使用[`sdk.Codec`]()注册你的types到编码格式中。
-8. 创建[你的模块的CLI交互]()。
-9. 创建[客户端访问你的nameservice的HTTP路径]()。
-10. 导入你的模块并[编译你的应用]()!
-11. 创建你的应用的[`nsd`和`nscli`入口]。
-12. 安装[依赖管理工具`go.mod`]()。
-13. [编译并启动]()示例项目。
-14. [启动REST路径](
+4. 开始用[`Keeper`](./04-keeper.md)构建你的模块。
+5. 通过[`Msg`和`Handler`](./05-msgs-handlers.md)定义状态转变。
+   - [`SetName`](./06-set-name.md)
+   - [`BuyName`](./07-buy-name.md)
+6. 使用[`Querier`](./08-queriers.md)给你的状态机创建视图。
+7. 使用[`sdk.Codec`](./09-codec.md)注册你的types到编码格式中。
+8. 创建[你的模块的CLI交互](./10-cli.md)。
+9. 创建[客户端访问你的nameservice的HTTP路径](./11-rest.md)。
+10. 导入你的模块并[编译你的应用](./12-app-complete.md)!
+11. 创建你的应用的[`nsd`和`nscli`入口](./13-entrypoint.md)。
+12. 安装[依赖管理工具`go.mod`](./14-dep.md)。
+13. [编译并启动](./15-build-run.md)示例项目。
+14. [启动REST路径](./16-run-rest.md)。
