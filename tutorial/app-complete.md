@@ -22,13 +22,15 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	distr "github.com/cosmos/cosmos-sdk/x/distribution"
+	"github.com/cosmos/cosmos-sdk/x/genaccounts"
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	"github.com/cosmos/cosmos-sdk/x/params"
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
+	"github.com/cosmos/cosmos-sdk/x/supply"
+
 	"github.com/cosmos/sdk-application-tutorial/x/nameservice"
 )
 
@@ -38,21 +40,30 @@ var (
 	// default home directories for the application CLI
 	DefaultCLIHome = os.ExpandEnv("$HOME/.nscli")
 
-	// DefaultNodeHome sets the folder where the application data and configuration will be stored
+	// DefaultNodeHome sets the folder where the applcation data and configuration will be stored
 	DefaultNodeHome = os.ExpandEnv("$HOME/.nsd")
 
-	// ModuleBasicManager is in charge of setting up basic module elements
+	// ModuleBasicManager is in charge of setting up basic module elemnets
 	ModuleBasics = module.NewBasicManager(
 		genaccounts.AppModuleBasic{},
 		genutil.AppModuleBasic{},
 		auth.AppModuleBasic{},
 		bank.AppModuleBasic{},
-		params.AppModuleBasic{},
-		nameservice.AppModule{},
 		staking.AppModuleBasic{},
 		distr.AppModuleBasic{},
+		params.AppModuleBasic{},
 		slashing.AppModuleBasic{},
+		supply.AppModuleBasic{},
+
+		nameservice.AppModule{},
 	)
+	// account permissions
+	maccPerms = map[string][]string{
+		auth.FeeCollectorName:     nil,
+		distr.ModuleName:          nil,
+		staking.BondedPoolName:    []string{supply.Burner, supply.Staking},
+		staking.NotBondedPoolName: []string{supply.Burner, supply.Staking},
+	}
 )
 ```
 
@@ -65,27 +76,27 @@ type nameServiceApp struct {
 	cdc *codec.Codec
 
 	// Keys to access the substores
-	keyMain          *sdk.KVStoreKey
-	keyAccount       *sdk.KVStoreKey
-	keyFeeCollection *sdk.KVStoreKey
-	keyStaking       *sdk.KVStoreKey
-	tkeyStaking      *sdk.TransientStoreKey
-	keyDistr         *sdk.KVStoreKey
-	tkeyDistr        *sdk.TransientStoreKey
-	keyNS            *sdk.KVStoreKey
-	keyParams        *sdk.KVStoreKey
-	tkeyParams       *sdk.TransientStoreKey
-	keySlashing      *sdk.KVStoreKey
+	keyMain     *sdk.KVStoreKey
+	keyAccount  *sdk.KVStoreKey
+	keySupply   *sdk.KVStoreKey
+	keyStaking  *sdk.KVStoreKey
+	tkeyStaking *sdk.TransientStoreKey
+	keyDistr    *sdk.KVStoreKey
+	tkeyDistr   *sdk.TransientStoreKey
+	keyNS       *sdk.KVStoreKey
+	keyParams   *sdk.KVStoreKey
+	tkeyParams  *sdk.TransientStoreKey
+	keySlashing *sdk.KVStoreKey
 
 	// Keepers
-	accountKeeper       auth.AccountKeeper
-	bankKeeper          bank.Keeper
-	stakingKeeper       staking.Keeper
-	slashingKeeper      slashing.Keeper
-	distrKeeper         distr.Keeper
-	feeCollectionKeeper auth.FeeCollectionKeeper
-	paramsKeeper        params.Keeper
-	nsKeeper            nameservice.Keeper
+	accountKeeper  auth.AccountKeeper
+	bankKeeper     bank.Keeper
+	stakingKeeper  staking.Keeper
+	slashingKeeper slashing.Keeper
+	distrKeeper    distr.Keeper
+	supplyKeeper   supply.Keeper
+	paramsKeeper   params.Keeper
+	nsKeeper       nameservice.Keeper
 
 	// Module Manager
 	mm *module.Manager
@@ -101,21 +112,21 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
 
 	// Here you initialize your application with the store keys it requires
-	var app = &nameServiceApp{
+var app = &nameServiceApp{
 		BaseApp: bApp,
 		cdc:     cdc,
 
-		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
-		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),
-		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
-		keyStaking:       sdk.NewKVStoreKey(staking.StoreKey),
-		tkeyStaking:      sdk.NewTransientStoreKey(staking.TStoreKey),
-		keyDistr:         sdk.NewKVStoreKey(distr.StoreKey),
-		tkeyDistr:        sdk.NewTransientStoreKey(distr.TStoreKey),
-		keyNS:            sdk.NewKVStoreKey(nameservice.StoreKey),
-		keyParams:        sdk.NewKVStoreKey(params.StoreKey),
-		tkeyParams:       sdk.NewTransientStoreKey(params.TStoreKey),
-		keySlashing:      sdk.NewKVStoreKey(slashing.StoreKey),
+		keyMain:     sdk.NewKVStoreKey(bam.MainStoreKey),
+		keyAccount:  sdk.NewKVStoreKey(auth.StoreKey),
+		keySupply:   sdk.NewKVStoreKey(supply.StoreKey),
+		keyStaking:  sdk.NewKVStoreKey(staking.StoreKey),
+		tkeyStaking: sdk.NewTransientStoreKey(staking.TStoreKey),
+		keyDistr:    sdk.NewKVStoreKey(distr.StoreKey),
+		tkeyDistr:   sdk.NewTransientStoreKey(distr.TStoreKey),
+		keyNS:       sdk.NewKVStoreKey(nameservice.StoreKey),
+		keyParams:   sdk.NewKVStoreKey(params.StoreKey),
+		tkeyParams:  sdk.NewTransientStoreKey(params.TStoreKey),
+		keySlashing: sdk.NewKVStoreKey(slashing.StoreKey),
 	}
 }
 ```
@@ -142,28 +153,28 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
 
 	// Here you initialize your application with the store keys it requires
-	var app = &nameServiceApp{
+		var app = &nameServiceApp{
 		BaseApp: bApp,
 		cdc:     cdc,
 
-		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
-		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),
-		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
-		keyStaking:       sdk.NewKVStoreKey(staking.StoreKey),
-		tkeyStaking:      sdk.NewTransientStoreKey(staking.TStoreKey),
-		keyDistr:         sdk.NewKVStoreKey(distr.StoreKey),
-		tkeyDistr:        sdk.NewTransientStoreKey(distr.TStoreKey),
-		keyNS:            sdk.NewKVStoreKey(nameservice.StoreKey),
-		keyParams:        sdk.NewKVStoreKey(params.StoreKey),
-		tkeyParams:       sdk.NewTransientStoreKey(params.TStoreKey),
-		keySlashing:      sdk.NewKVStoreKey(slashing.StoreKey),
+		keyMain:     sdk.NewKVStoreKey(bam.MainStoreKey),
+		keyAccount:  sdk.NewKVStoreKey(auth.StoreKey),
+		keySupply:   sdk.NewKVStoreKey(supply.StoreKey),
+		keyStaking:  sdk.NewKVStoreKey(staking.StoreKey),
+		tkeyStaking: sdk.NewTransientStoreKey(staking.TStoreKey),
+		keyDistr:    sdk.NewKVStoreKey(distr.StoreKey),
+		tkeyDistr:   sdk.NewTransientStoreKey(distr.TStoreKey),
+		keyNS:       sdk.NewKVStoreKey(nameservice.StoreKey),
+		keyParams:   sdk.NewKVStoreKey(params.StoreKey),
+		tkeyParams:  sdk.NewTransientStoreKey(params.TStoreKey),
+		keySlashing: sdk.NewKVStoreKey(slashing.StoreKey),
 	}
 
 	// The ParamsKeeper handles parameter storage for the application
 	app.paramsKeeper = params.NewKeeper(app.cdc, app.keyParams, app.tkeyParams, params.DefaultCodespace)
-	// Set specific subspaces
+	// Set specific supspaces
 	authSubspace := app.paramsKeeper.Subspace(auth.DefaultParamspace)
-	bankSubspace := app.paramsKeeper.Subspace(bank.DefaultParamspace)
+	bankSupspace := app.paramsKeeper.Subspace(bank.DefaultParamspace)
 	stakingSubspace := app.paramsKeeper.Subspace(staking.DefaultParamspace)
 	distrSubspace := app.paramsKeeper.Subspace(distr.DefaultParamspace)
 	slashingSubspace := app.paramsKeeper.Subspace(slashing.DefaultParamspace)
@@ -179,19 +190,25 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	// The BankKeeper allows you perform sdk.Coins interactions
 	app.bankKeeper = bank.NewBaseKeeper(
 		app.accountKeeper,
-		banksubspace,
+		bankSupspace,
 		bank.DefaultCodespace,
 	)
 
-	// The FeeCollectionKeeper collects transaction fees and renders them to the fee distribution module
-	app.feeCollectionKeeper = auth.NewFeeCollectionKeeper(cdc, app.keyFeeCollection)
+	// The SupplyKeeper collects transaction fees and renders them to the fee distribution module
+	app.supplyKeeper = supply.NewKeeper(
+		app.cdc,
+		app.keySupply,
+		app.accountKeeper,
+		app.bankKeeper,
+		supply.DefaultCodespace,
+		maccPerms)
 
 	// The staking keeper
 	stakingKeeper := staking.NewKeeper(
 		app.cdc,
 		app.keyStaking,
 		app.tkeyStaking,
-		app.bankKeeper,
+		app.supplyKeeper,
 		stakingSubspace,
 		staking.DefaultCodespace,
 	)
@@ -200,10 +217,10 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		app.cdc,
 		app.keyDistr,
 		distrSubspace,
-		app.bankKeeper,
 		&stakingKeeper,
-		app.feeCollectionKeeper,
+		app.supplyKeeper,
 		distr.DefaultCodespace,
+		auth.FeeCollectorName,
 	)
 
 	app.slashingKeeper = slashing.NewKeeper(
@@ -233,12 +250,13 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	app.mm = module.NewManager(
 		genaccounts.NewAppModule(app.accountKeeper),
 		genutil.NewAppModule(app.accountKeeper, app.stakingKeeper, app.BaseApp.DeliverTx),
-		auth.NewAppModule(app.accountKeeper, app.feeCollectionKeeper),
+		auth.NewAppModule(app.accountKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
 		nameservice.NewAppModule(app.nsKeeper, app.bankKeeper),
-		distr.NewAppModule(app.distrKeeper),
+		supply.NewAppModule(app.supplyKeeper, app.accountKeeper),
+		distr.NewAppModule(app.distrKeeper, app.supplyKeeper),
 		slashing.NewAppModule(app.slashingKeeper, app.stakingKeeper),
-		staking.NewAppModule(app.stakingKeeper, app.feeCollectionKeeper, app.distrKeeper, app.accountKeeper),
+		staking.NewAppModule(app.stakingKeeper, app.distrKeeper, app.accountKeeper, app.supplyKeeper),
 	)
 
 	app.mm.SetOrderBeginBlockers(distr.ModuleName, slashing.ModuleName)
@@ -268,7 +286,7 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	app.SetAnteHandler(
 		auth.NewAnteHandler(
 			app.accountKeeper,
-			app.feeCollectionKeeper,
+			app.supplyKeeper,
 			auth.DefaultSigVerificationGasConsumer,
 		),
 	)
@@ -276,7 +294,7 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	app.MountStores(
 		app.keyMain,
 		app.keyAccount,
-		app.keyFeeCollection,
+		app.keySupply,
 		app.keyStaking,
 		app.tkeyStaking,
 		app.keyDistr,

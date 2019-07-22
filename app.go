@@ -50,6 +50,13 @@ var (
 
 		nameservice.AppModule{},
 	)
+	// account permissions
+	maccPerms = map[string][]string{
+		auth.FeeCollectorName:     nil,
+		distr.ModuleName:          nil,
+		staking.BondedPoolName:    []string{supply.Burner, supply.Staking},
+		staking.NotBondedPoolName: []string{supply.Burner, supply.Staking},
+	}
 )
 
 // MakeCodec generates the necessary codecs for Amino
@@ -128,14 +135,6 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 	distrSubspace := app.paramsKeeper.Subspace(distr.DefaultParamspace)
 	slashingSubspace := app.paramsKeeper.Subspace(slashing.DefaultParamspace)
 
-	// account permissions
-	maccPerms := map[string][]string{
-		auth.FeeCollectorName:     nil,
-		distr.ModuleName:          nil,
-		staking.BondedPoolName:    []string{supply.Burner, supply.Staking},
-		staking.NotBondedPoolName: []string{supply.Burner, supply.Staking},
-	}
-
 	// The AccountKeeper handles address -> account lookups
 	app.accountKeeper = auth.NewAccountKeeper(
 		app.cdc,
@@ -151,7 +150,7 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		bank.DefaultCodespace,
 	)
 
-	// The FeeCollectionKeeper collects transaction fees and renders them to the fee distribution module
+	// The SupplyKeeper collects transaction fees and renders them to the fee distribution module
 	app.supplyKeeper = supply.NewKeeper(
 		app.cdc,
 		app.keySupply,

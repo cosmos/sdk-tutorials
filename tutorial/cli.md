@@ -131,10 +131,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/sdk-application-tutorial/x/nameservice/types"
-	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
+	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
+	"github.com/cosmos/sdk-application-tutorial/x/nameservice/types"
 )
 
 func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
@@ -161,13 +161,9 @@ func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 		Short: "bid for existing name or claim new name",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
 			txBldr := auth.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
-
-			if err := cliCtx.EnsureAccountExists(); err != nil {
-				return err
-			}
 
 			coins, err := sdk.ParseCoins(args[1])
 			if err != nil {
@@ -179,8 +175,6 @@ func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 			if err != nil {
 				return err
 			}
-
-			cliCtx.PrintResponse = true
 
 			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
 		},
@@ -194,13 +188,13 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 		Short: "set the value associated with a name that you own",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
 			txBldr := auth.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
 
-			if err := cliCtx.EnsureAccountExists(); err != nil {
-				return err
-			}
+			// if err := cliCtx.EnsureAccountExists(); err != nil {
+			// 	return err
+			// }
 
 			msg := types.NewMsgSetName(args[0], args[1], cliCtx.GetFromAddress())
 			err := msg.ValidateBasic()
@@ -208,13 +202,12 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			cliCtx.PrintResponse = true
-
 			// return utils.CompleteAndBroadcastTxCLI(txBldr, cliCtx, msgs)
 			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
 		},
 	}
 }
+
 ```
 
 Notes on the above code:
