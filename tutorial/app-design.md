@@ -15,6 +15,7 @@ Here are the modules you will need for the nameservice application:
 - `staking` : This module enables the application to have validators that people can delegate to.
 - `distribution` : This module give a functional way to passively distribute rewards between validators and delegators.
 - `slashing` : This module disincentivizes people with value staked in the network, ie. Validators.
+- `supply` : This module holds the total supply of the chain.
 - `nameservice`: This module does not exist yet! It will handle the core logic for the `nameservice` application you are building. It is the main piece of software you have to work on to build your application.
 
 Now, take a look at the two main parts of your application: the state and the message types.
