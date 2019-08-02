@@ -5,8 +5,8 @@ import (
 	"io"
 
 	"github.com/cosmos/cosmos-sdk/server"
-	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
-	genaccscli "github.com/cosmos/cosmos-sdk/x/auth/genaccounts/client/cli"
+	"github.com/cosmos/cosmos-sdk/x/genaccounts"
+	genaccscli "github.com/cosmos/cosmos-sdk/x/genaccounts/client/cli"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 
 	"github.com/spf13/cobra"
