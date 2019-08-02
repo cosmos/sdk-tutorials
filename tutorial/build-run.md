@@ -95,6 +95,13 @@ nscli query nameservice whois jack.id
 
 # Alice buys name from jack
 nscli tx nameservice buy-name jack.id 10nametoken --from alice
+
+# Alice decides to delete the name she just bought from jack
+nscli tx nameservice delete-name jack.id --from alice
+
+# Try out a whois query against the name you just deleted
+nscli query nameservice whois jack.id
+# > {"value":"","owner":"","price":[{"denom":"nametoken","amount":"1"}]}
 ```
 
 ### Congratulations, you have built a Cosmos SDK application! This tutorial is now complete. If you want to see how to run the same commands using the REST server [click here](run-rest.md).

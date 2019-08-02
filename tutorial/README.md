@@ -64,22 +64,23 @@ Then, just follow along! The first step describes the design of your application
 1. [Design](./app-design.md) the application.
 2. Begin the implementation of your application in [`./app.go`](./app-init.md).
 3. Start building your module by defining some basic [`Types`](types.md).
-4. Define the keys needed for your module [`key`](./key.md)
-5. Create the main core of the module using the [`Keeper`](./keeper.md).
-6. Define state transitions through [`Msgs` and `Handlers`](./msgs-handlers.md).
+4. Define the keys needed for your module [`key`](./key.md).
+5. Define errors that are custom to your module [`Errors`](./errors.md).
+6. Create the main core of the module using the [`Keeper`](./keeper.md).
+7. Define state transitions through [`Msgs` and `Handlers`](./msgs-handlers.md).
    - [`SetName`](./set-name.md)
    - [`BuyName`](./buy-name.md)
-7. Make views on your state machine with [`Queriers`](./queriers.md).
-8. Create the [`alias file`](./alias.md)
-9. Register your types in the encoding format using [`sdk.Codec`](./codec.md).
-10. Create [CLI interactions for your module](./cli.md).
-11. Create [HTTP routes for clients to access your nameservice](./rest.md).
-12. Implement the [AppModule interface](./module.md)
-13. Configure your [Genesis state](./genesis.md).
-14. Import your module and [finish building your application](./app-complete.md)!
-15. Create the [`nsd` and `nscli` entry points](./entrypoint.md) to your application.
-16. Setup [dependency management using `go.mod`](./gomod.md).
-17. [Build and run](./build-run.md) the example.
-18. [Run REST routes](./run-rest.md).
+8. Make views on your state machine with [`Queriers`](./queriers.md).
+9. Create the [`alias file`](./alias.md)
+10. Register your types in the encoding format using [`sdk.Codec`](./codec.md).
+11. Create [CLI interactions for your module](./cli.md).
+12. Create [HTTP routes for clients to access your nameservice](./rest.md).
+13. Implement the [AppModule interface](./module.md)
+14. Configure your [Genesis state](./genesis.md).
+15. Import your module and [finish building your application](./app-complete.md)!
+16. Create the [`nsd` and `nscli` entry points](./entrypoint.md) to your application.
+17. Setup [dependency management using `go.mod`](./gomod.md).
+18. [Build and run](./build-run.md) the example.
+19. [Run REST routes](./run-rest.md).
 
 ## [Click here](./app-design.md) to get started with the tutorial!

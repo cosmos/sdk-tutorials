@@ -28,7 +28,7 @@ func NewKeeper(coinKeeper bank.Keeper, storeKey sdk.StoreKey, cdc *codec.Codec) 
 // Gets the entire Whois metadata struct for a name
 func (k Keeper) GetWhois(ctx sdk.Context, name string) Whois {
 	store := ctx.KVStore(k.storeKey)
-	if !store.Has([]byte(name)) {
+	if !k.IsNamePresent(ctx, name) {
 		return NewWhois()
 	}
 	bz := store.Get([]byte(name))
@@ -44,6 +44,12 @@ func (k Keeper) SetWhois(ctx sdk.Context, name string, whois Whois) {
 	}
 	store := ctx.KVStore(k.storeKey)
 	store.Set([]byte(name), k.cdc.MustMarshalBinaryBare(whois))
+}
+
+// Deletes the entire Whois metadata struct for a name
+func (k Keeper) DeleteWhois(ctx sdk.Context, name string) {
+	store := ctx.KVStore(k.storeKey)
+	store.Delete([]byte(name))
 }
 
 // ResolveName - returns the string that the name resolves to
@@ -92,3 +98,10 @@ func (k Keeper) GetNamesIterator(ctx sdk.Context) sdk.Iterator {
 	store := ctx.KVStore(k.storeKey)
 	return sdk.KVStorePrefixIterator(store, nil)
 }
+
+// Check if the name is present in the store or not
+func (k Keeper) IsNamePresent(ctx sdk.Context, name string) bool {
+	store := ctx.KVStore(k.storeKey)
+	return store.Has([]byte(name))
+}
+

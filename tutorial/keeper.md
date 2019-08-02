@@ -12,6 +12,7 @@ package nameservice
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/x/bank"
+	"github.com/cosmos/sdk-application-tutorial/x/nameservice/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -66,7 +67,7 @@ Next, add a method to resolve the names (i.e. look up the `Whois` for the `name`
 // Gets the entire Whois metadata struct for a name
 func (k Keeper) GetWhois(ctx sdk.Context, name string) Whois {
 	store := ctx.KVStore(k.storeKey)
-	if !store.Has([]byte(name)) {
+	if !k.IsNamePresent(ctx, name) {
 		return NewWhois()
 	}
 	bz := store.Get([]byte(name))
@@ -79,6 +80,17 @@ func (k Keeper) GetWhois(ctx sdk.Context, name string) Whois {
 Here, like in the `SetName` method, first access the store using the `StoreKey`.  Next, instead of using the `Set` method on the store key, use the `.Get([]byte) []byte` method. As the parameter into the function, pass the key, which is the `name` string casted to `[]byte`, and get back the result in the form of `[]byte`. We once again use Amino, but this time to unmarshal the byteslice back into a `Whois` struct which we then return.
 
 If a name currently does not exist in the store, it returns a new Whois, which has the minimumPrice initialized in it.
+
+Next, add a method to delete the names:
+
+```go
+// Deletes the entire Whois metadata struct for a name
+func (k Keeper) DeleteWhois(ctx sdk.Context, name string) {
+	store := ctx.KVStore(k.storeKey)
+	store.Delete([]byte(name))
+}
+```
+Here, like in the `SetName` method, first access the store using the `StoreKey`. Next, we delete the name from the store using its `.Delete([]byte)` method. As the store only takes `[]byte`, the `name` string is casted to `[]byte` while passing it as a function parameter.
 
 Now, we add functions for getting specific parameters from the store based on the name.  However, instead of rewriting the store getters and setters, we reuse the `GetWhois` and `SetWhois` functions.  For example, to set a field, first we grab the whole Whois data, update our specific field, and put the new version back into the store.
 
@@ -122,6 +134,12 @@ func (k Keeper) SetPrice(ctx sdk.Context, name string, price sdk.Coins) {
 	whois := k.GetWhois(ctx, name)
 	whois.Price = price
 	k.SetWhois(ctx, name, whois)
+}
+
+// Check if the name is present in the store or not
+func (k Keeper) IsNamePresent(ctx sdk.Context, name string) bool {
+	store := ctx.KVStore(k.storeKey)
+	return store.Has([]byte(name))
 }
 ```
 

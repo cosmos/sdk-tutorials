@@ -24,6 +24,7 @@ func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 	nameserviceTxCmd.AddCommand(client.PostCommands(
 		GetCmdBuyName(cdc),
 		GetCmdSetName(cdc),
+		GetCmdDeleteName(cdc),
 	)...)
 
 	return nameserviceTxCmd
@@ -72,6 +73,29 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 			// }
 
 			msg := types.NewMsgSetName(args[0], args[1], cliCtx.GetFromAddress())
+			err := msg.ValidateBasic()
+			if err != nil {
+				return err
+			}
+
+			// return utils.CompleteAndBroadcastTxCLI(txBldr, cliCtx, msgs)
+			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
+		},
+	}
+}
+
+// GetCmdDeleteName is the CLI command for sending a DeleteName transaction
+func GetCmdDeleteName(cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete-name [name]",
+		Short: "delete the name that you own along with it's associated fields",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
+
+			txBldr := auth.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
+
+			msg := types.NewMsgDeleteName(args[0], cliCtx.GetFromAddress())
 			err := msg.ValidateBasic()
 			if err != nil {
 				return err

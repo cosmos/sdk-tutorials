@@ -2,6 +2,7 @@ package nameservice
 
 import (
 	"fmt"
+	"github.com/cosmos/sdk-application-tutorial/x/nameservice/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -14,6 +15,8 @@ func NewHandler(keeper Keeper) sdk.Handler {
 			return handleMsgSetName(ctx, keeper, msg)
 		case MsgBuyName:
 			return handleMsgBuyName(ctx, keeper, msg)
+		case MsgDeleteName:
+			return handleMsgDeleteName(ctx, keeper, msg)
 		default:
 			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type())
 			return sdk.ErrUnknownRequest(errMsg).Result()
@@ -48,5 +51,18 @@ func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result
 	}
 	keeper.SetOwner(ctx, msg.Name, msg.Buyer)
 	keeper.SetPrice(ctx, msg.Name, msg.Bid)
+	return sdk.Result{}
+}
+
+// Handle a message to delete name
+func handleMsgDeleteName(ctx sdk.Context, keeper Keeper, msg MsgDeleteName) sdk.Result {
+	if !keeper.IsNamePresent(ctx, msg.Name) {
+		return types.ErrNameDoesNotExist(types.DefaultCodespace).Result()
+	}
+	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) {
+		return sdk.ErrUnauthorized("Incorrect Owner").Result()
+	}
+
+	keeper.DeleteWhois(ctx, msg.Name)
 	return sdk.Result{}
 }

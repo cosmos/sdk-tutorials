@@ -58,11 +58,24 @@ $ curl -s http://localhost:1317/nameservice/names/jack1.id/whois
 # Alice buys name from jack
 $ curl -XPOST -s http://localhost:1317/nameservice/names --data-binary '{"base_req":{"from":"'$(nscli keys show alice -a)'","chain_id":"namechain"},"name":"jack1.id","amount":"10nametoken","buyer":"'$(nscli keys show alice -a)'"}' > unsignedTx.json
 
-# And a final time sign and broadcast
+# Again we need to sign and broadcast
 # NOTE: The account number has changed to 1 and the sequence is now 2, according to the query of alice's account
 nscli tx sign unsignedTx.json --from alice --offline --chain-id namechain --sequence 2 --account-number 1 > signedTx.json
 nscli tx broadcast signedTx.json
 # > { "height": "1515", "txhash": "C9DCC423E10E7E5E40A549057A4AA060DA6D6A885A394F6ED5C0E40AEE984A77", "logs": [  {   "msg_index": "0",   "success": true,   "log": ""  } ],"gas_wanted": "200000", "gas_used": "42375", "tags": [  {   "key": "action",   "value": "buy_name"  } ]}
+
+# Now, Alice no longer needs the name she bought from jack and hence deletes it
+# NOTE: Only the owner can delete the name. Since she is one, she can delete the name she bought from jack
+$ curl -XDELETE -s http://localhost:1317/nameservice/names --data-binary '{"base_req":{"from":"'$(nscli keys show alice -a)'","chain_id":"namechain"},"name":"jack1.id","owner":"'$(nscli keys show alice -a)'"}' > unsignedTx.json
+
+# And a final time sign and broadcast
+# NOTE: The account number is still 1, but the sequence is changed to 3, according to the query of alice's account
+nscli tx sign unsignedTx.json --from alice --offline --chain-id namechain --sequence 3 --account-number 1 > signedTx.json
+nscli tx broadcast signedTx.json
+
+# Query whois for the name Alice just deleted
+$ curl -s http://localhost:1317/nameservice/names/jack1.id/whois
+# > {"value":"","owner":"","price":[{"denom":"STAKE","amount":"1"}]}
 ```
 
 ### Request Schemas:
@@ -93,6 +106,20 @@ nscli tx broadcast signedTx.json
   },
   "name": "string",
   "value": "string",
+  "owner": "string"
+}
+```
+
+#### `DELETE /nameservice/names` DeleteName Request Body:
+```json
+{
+  "base_req": {
+    "name": "string",
+    "chain_id": "string",
+    "gas": "string,not_req",
+    "gas_adjustment": "strin,not_reqg"
+  },
+  "name": "string",
   "owner": "string"
 }
 ```
