@@ -91,7 +91,7 @@ func GetCmdDeleteName(cdc *codec.Codec) *cobra.Command {
 		Short: "delete the name that you own along with it's associated fields",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
 			txBldr := auth.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
 
