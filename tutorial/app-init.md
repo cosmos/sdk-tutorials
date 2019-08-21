@@ -30,7 +30,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 	cmn "github.com/tendermint/tendermint/libs/common"
-	dbm "github.com/tendermint/tendermint/libs/db"
+	dbm "github.com/tendermint/tm-db"
 )
 ```
 
@@ -38,7 +38,7 @@ Links to godocs for each module and package imported:
 
 - [`log`](https://godoc.org/github.com/tendermint/tendermint/libs/log): Tendermint's logger.
 - [`auth`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth): The `auth` module for the Comsos SDK.
-- [`dbm`](https://godoc.org/github.com/tendermint/tendermint/libs/db): Code for working with the Tendermint database.
+- [`dbm`](https://godoc.org/github.com/tendermint/tm-db): Code for working with the Tendermint database.
 - [`baseapp`](https://godoc.org/github.com/cosmos/cosmos-sdk/baseapp): See below
 
 A couple of the packages here are `tendermint` packages. Tendermint passes transactions from the network to the application through an interface called the [ABCI](https://github.com/tendermint/tendermint/tree/master/abci). If you look at the architecture of the blockchain node you are building, it looks like the following:

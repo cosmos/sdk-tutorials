@@ -46,7 +46,7 @@ import (
 	app "github.com/cosmos/sdk-application-tutorial"
 	abci "github.com/tendermint/tendermint/abci/types"
 	cfg "github.com/tendermint/tendermint/config"
-	dbm "github.com/tendermint/tendermint/libs/db"
+	dbm "github.com/tendermint/tm-db"
 	tmtypes "github.com/tendermint/tendermint/types"
 )
 
