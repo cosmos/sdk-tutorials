@@ -132,10 +132,6 @@ import (
 	"github.com/tendermint/tendermint/libs/cli"
 )
 
-const (
-	storeAcc = "acc"
-	storeNS  = "nameservice"
-)
 
 func main() {
 	cobra.EnableCommandSorting = false

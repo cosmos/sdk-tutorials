@@ -157,7 +157,8 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		app.accountKeeper,
 		app.bankKeeper,
 		supply.DefaultCodespace,
-		maccPerms)
+		maccPerms,
+	)
 
 	// The staking keeper
 	stakingKeeper := staking.NewKeeper(
