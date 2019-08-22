@@ -144,7 +144,8 @@ func NewNameServiceApp(
 		keys[supply.StoreKey],
 		app.accountKeeper,
 		app.bankKeeper,
-		maccPerms)
+		maccPerms,
+	)
 
 	// The staking keeper
 	stakingKeeper := staking.NewKeeper(

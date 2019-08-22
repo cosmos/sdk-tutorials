@@ -87,6 +87,9 @@ var (
 
 	// NewBasicManager is in charge of setting up basic module elemnets
 	ModuleBasics = module.NewBasicManager()
+
+	// account permissions
+	maccPerms = map[string][]string{}
 )
 
 type nameServiceApp struct {
