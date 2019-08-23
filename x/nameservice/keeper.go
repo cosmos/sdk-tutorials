@@ -7,7 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-// Keeper maintains the link to data storage and exposes getter/setter methods for the various parts of the state machine
+// Keeper maintains the link to storage and exposes getter/setter methods for the various parts of the state machine
 type Keeper struct {
 	coinKeeper bank.Keeper
 
@@ -104,4 +104,3 @@ func (k Keeper) IsNamePresent(ctx sdk.Context, name string) bool {
 	store := ctx.KVStore(k.storeKey)
 	return store.Has([]byte(name))
 }
-

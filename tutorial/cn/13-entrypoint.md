@@ -1,8 +1,8 @@
 # Entrypoint
 
-golang的规范是把编译成可执行程序的文件放在项目的`./cmd`文件夹中。对于你的应用程序，您要创建2个可执行程序：
+golang 的规范是把编译成可执行程序的文件放在项目的`./cmd`文件夹中。对于你的应用程序，您要创建 2 个可执行程序：
 
-- `nsd` : 此可执行程序类似于`bitcoind`或其他加密货币的daemon，因为它维护p2p连接，广播交易，处理本地存储并提供用以与网络交互的RPC接口。在这种情况下，Tendermint被用于网络层和排序交易。
+- `nsd` : 此可执行程序类似于`bitcoind`或其他加密货币的 daemon，因为它维护 p2p 连接，广播交易，处理本地存储并提供用以与网络交互的 RPC 接口。在这种情况下，Tendermint 被用于网络层和排序交易。
 - `nscli` : 此可执行程序提供用户与你的应用程序交互的命令。
 
 首先请在项目目录中创建两个将会被实例化成这可执行程序的文件：
@@ -251,16 +251,16 @@ func SimpleAppGenTx(cdc *codec.Codec, pk crypto.PubKey) (
 
 注意上述代码中：
 
-- 上面的大部分代码都结合了来自以下包的CLI命令：
+- 上面的大部分代码都结合了来自以下包的 CLI 命令：
   1. Tendermint
   2. Cosmos-SDK
-  3. 你的nameservice模块
+  3. 你的 nameservice 模块
 - `InitCmd`允许应用程序从配置中生成创世纪状态。深入了解函数调用，以了解有关区块链初始化过程的更多信息。
 - `AddGenesisAccountCmd`可以方便地将帐户添加到创世文件中，允许在区块链启动时就使用资产钱包。
 
 ## nscli
 
-通过构建nscli命令完成：
+通过构建 nscli 命令完成：
 
 > 注意：你的应用程序需要导入你刚编写的代码。这里导入路径设置为此存储库（`github.com/cosmos/sdk-application-tutorial`）。如果您是在自己的仓库中进行的前面的操作，则需要更改导入路径（github.com/{.Username}/{.Project.Repo}）。
 
@@ -289,11 +289,6 @@ import (
 	app "github.com/cosmos/sdk-application-tutorial"
 	nsclient "github.com/cosmos/sdk-application-tutorial/x/nameservice/client"
 	nsrest "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/rest"
-)
-
-const (
-	storeAcc = "acc"
-	storeNS  = "nameservice"
 )
 
 var defaultCLIHome = os.ExpandEnv("$HOME/.nscli")
@@ -336,7 +331,7 @@ func main() {
 		client.LineBreak,
 		keys.Commands(),
 		client.LineBreak,
-	
+
 	)
 
 	executor := cli.PrepareMainCmd(rootCmd, "NS", defaultCLIHome)
@@ -425,10 +420,9 @@ func initConfig(cmd *cobra.Command) error {
 
 注意：
 
-- 代码结合了来自以下包的CLI命令：Tendermint、Cosmos-SDK、你的nameservice模块。
-- [`cobra` CLI文档](https://github.com/spf13/cobra)将有助于理解上述代码。
+- 代码结合了来自以下包的 CLI 命令：Tendermint、Cosmos-SDK、你的 nameservice 模块。
+- [`cobra` CLI 文档](https://github.com/spf13/cobra)将有助于理解上述代码。
 - 你可以在这里看到之前定义的`ModuleClient`。
 - 注意如何将路由包含在`registerRoutes`函数中
 
 ### 现在你已经定义了二进制文件，那么就可以来处理[依赖关系管理并构建应用程序](./14-dep.md)！
-

@@ -54,8 +54,8 @@ var (
 	maccPerms = map[string][]string{
 		auth.FeeCollectorName:     nil,
 		distr.ModuleName:          nil,
-		staking.BondedPoolName:    []string{supply.Burner, supply.Staking},
-		staking.NotBondedPoolName: []string{supply.Burner, supply.Staking},
+		staking.BondedPoolName:    {supply.Burner, supply.Staking},
+		staking.NotBondedPoolName: {supply.Burner, supply.Staking},
 	}
 )
 
@@ -157,7 +157,8 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 		app.accountKeeper,
 		app.bankKeeper,
 		supply.DefaultCodespace,
-		maccPerms)
+		maccPerms,
+	)
 
 	// The staking keeper
 	stakingKeeper := staking.NewKeeper(
