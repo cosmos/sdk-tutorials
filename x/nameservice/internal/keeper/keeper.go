@@ -7,7 +7,7 @@ import (
 	"github.com/cosmos/sdk-application-tutorial/x/nameservice/internal/types"
 )
 
-// Keeper maintains the link to data storage and exposes getter/setter methods for the various parts of the state machine
+// Keeper maintains the link to storage and exposes getter/setter methods for the various parts of the state machine
 type Keeper struct {
 	CoinKeeper bank.Keeper
 
