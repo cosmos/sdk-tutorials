@@ -33,19 +33,24 @@ Through the course of this tutorial you will create the following files that mak
         │   │   ├── query.go
         │   │   └── tx.go
         │   └── rest
+        │       ├── query.go
+        │       ├── tx.go
         │       └── rest.go
-        ├── types
-            ├── codec.go
-            ├── key.go
-            ├── msgs.go
-            ├── querier.go
-            └── types.go
+        ├── internal
+        │   ├── keeper
+        │   │   ├── keeper.go
+        │   │   ├── querier.go
+        │   └── types
+        │       ├── codec.go
+        │       ├── errors.go
+        │       ├── key.go
+        │       ├── msgs.go
+        │       ├── querier.go
+        │       └── types.go
         ├── alias.go
         ├── genesis.go
         ├── handler.go
-        ├── keeper.go
-        ├── module.go
-        └── querier.go
+        └── module.go
 
 ```
 
