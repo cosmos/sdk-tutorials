@@ -14,7 +14,7 @@ import (
   "github.com/cosmos/cosmos-sdk/x/auth"
 
   bam "github.com/cosmos/cosmos-sdk/baseapp"
-  dbm "github.com/tendermint/tendermint/libs/db"
+  dbm "github.com/tendermint/tm-db"
 )
 ```
 
@@ -22,7 +22,7 @@ import (
 
 - [`log`](https://godoc.org/github.com/tendermint/tendermint/libs/log): Tendermint 的日志
 - [`auth`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth): Cosmos SDK 的`auth`模块
-- [`dbm`](https://godoc.org/github.com/tendermint/tendermint/libs/db): Tendermint 的数据库代码
+- [`dbm`](https://godoc.org/github.com/tendermint/tm-db): Tendermint 的数据库代码
 - [`baseapp`](https://godoc.org/github.com/cosmos/cosmos-sdk/baseapp): 如下
 
 这里有几个包是`tendermint`包。Tendermint 通过名为 [ABCI](https://github.com/tendermint/tendermint/tree/master/abci) 的接口将交易从网络传递给应用程序。如果你要查看正在构建的区块链节点的架构，如下所示：

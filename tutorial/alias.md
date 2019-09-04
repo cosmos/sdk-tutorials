@@ -28,12 +28,14 @@ const (
 
 ```go
 var (
-	NewMsgBuyName 	  = types.NewMsgBuyName
-	NewMsgSetName     = types.NewMsgSetName
-	NewMsgDeleteName  = types.NewMsgDeleteName
-	NewWhois      	  = types.NewWhois
-	ModuleCdc     	  = types.ModuleCdc
-	RegisterCodec 	  = types.RegisterCodec
+	NewKeeper        = keeper.NewKeeper
+	NewQuerier       = keeper.NewQuerier
+	NewMsgBuyName    = types.NewMsgBuyName
+	NewMsgSetName    = types.NewMsgSetName
+	NewMsgDeleteName = types.NewMsgDeleteName
+	NewWhois         = types.NewWhois
+	RegisterCodec    = types.RegisterCodec
+	ModuleCdc        = types.ModuleCdc
 )
 ```
 
@@ -41,6 +43,7 @@ var (
 
 ```go
 type (
+	Keeper          = keeper.Keeper
 	MsgSetName      = types.MsgSetName
 	MsgBuyName      = types.MsgBuyName
 	MsgDeleteName   = types.MsgDeleteName

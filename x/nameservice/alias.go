@@ -1,7 +1,8 @@
 package nameservice
 
 import (
-	"github.com/cosmos/sdk-application-tutorial/x/nameservice/types"
+	"github.com/cosmos/sdk-application-tutorial/x/nameservice/internal/keeper"
+	"github.com/cosmos/sdk-application-tutorial/x/nameservice/internal/types"
 )
 
 const (
@@ -11,6 +12,8 @@ const (
 )
 
 var (
+	NewKeeper        = keeper.NewKeeper
+	NewQuerier       = keeper.NewQuerier
 	NewMsgBuyName    = types.NewMsgBuyName
 	NewMsgSetName    = types.NewMsgSetName
 	NewMsgDeleteName = types.NewMsgDeleteName
@@ -20,6 +23,7 @@ var (
 )
 
 type (
+	Keeper          = keeper.Keeper
 	MsgSetName      = types.MsgSetName
 	MsgBuyName      = types.MsgBuyName
 	MsgDeleteName   = types.MsgDeleteName

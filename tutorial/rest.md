@@ -48,6 +48,8 @@ func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, storeName string) 
 
 ### Query Handlers
 
+First create a `query.go` file to place all your querys in.
+
 Next, its time to define the handlers mentioned above. These will be very similar to the CLI methods defined earlier. Start with the queries `whois` and `resolve`:
 
 ```go
@@ -99,6 +101,8 @@ Notes on the above code:
 - These functions are almost the same as the corresponding CLI functionality
 
 ### Tx Handlers
+
+First define a `tx.go` file to hold all your tx rest endpoints.
 
 Now define the `buyName`, `setName` and `deleteName` transaction routes. Notice these aren't actually sending the transactions to buy, set and delete names. That would require sending a password along with the request which would be a security issue. Instead these endpoints build and return each specific transaction which can then be signed in a secure manner and afterwards broadcast to the network using a standard endpoint like `/txs`.
 

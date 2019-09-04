@@ -1,7 +1,8 @@
-package nameservice
+package keeper
 
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/cosmos/sdk-application-tutorial/x/nameservice/internal/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
@@ -38,7 +39,7 @@ func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper 
 		return []byte{}, sdk.ErrUnknownRequest("could not resolve name")
 	}
 
-	res, err := codec.MarshalJSONIndent(keeper.cdc, QueryResResolve{Value: value})
+	res, err := codec.MarshalJSONIndent(keeper.cdc, types.QueryResResolve{Value: value})
 	if err != nil {
 		panic("could not marshal result to JSON")
 	}
@@ -59,7 +60,7 @@ func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Ke
 }
 
 func queryNames(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
-	var namesList QueryResNames
+	var namesList types.QueryResNames
 
 	iterator := keeper.GetNamesIterator(ctx)
 
