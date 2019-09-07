@@ -7,20 +7,10 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var (
-	name   = "maTurtle"
-	value  = "1"
-	acc    = sdk.AccAddress([]byte("me"))
-	name2  = "a"
-	value2 = "2"
-	acc2   = sdk.AccAddress([]byte("you"))
-	coins  = sdk.NewCoins(sdk.NewInt64Coin("atom", 10))
-)
-
 func TestMsgSetName(t *testing.T) {
-	name = "maTurtle"
-	value = "1"
-	acc = sdk.AccAddress([]byte("me"))
+	name := "maTurtle"
+	value := "1"
+	acc := sdk.AccAddress([]byte("me"))
 	var msg = NewMsgSetName(name, value, acc)
 
 	require.Equal(t, msg.Route(), RouterKey)
@@ -28,12 +18,12 @@ func TestMsgSetName(t *testing.T) {
 }
 
 func TestMsgSetNameValidation(t *testing.T) {
-	name = "maTurtle"
-	value = "1"
-	acc = sdk.AccAddress([]byte("me"))
-	name2 = "a"
-	value2 = "2"
-	acc2 = sdk.AccAddress([]byte("you"))
+	name := "maTurtle"
+	value := "1"
+	acc := sdk.AccAddress([]byte("me"))
+	name2 := "a"
+	value2 := "2"
+	acc2 := sdk.AccAddress([]byte("you"))
 
 	cases := []struct {
 		valid bool
@@ -54,9 +44,9 @@ func TestMsgSetNameValidation(t *testing.T) {
 }
 
 func TestMsgSetNameGetSignBytes(t *testing.T) {
-	name = "maTurtle"
+	name := "maTurtle"
 	value := "1"
-	acc = sdk.AccAddress([]byte("me"))
+	acc := sdk.AccAddress([]byte("me"))
 
 	var msg = NewMsgSetName(name, value, acc)
 	res := msg.GetSignBytes()
@@ -67,9 +57,9 @@ func TestMsgSetNameGetSignBytes(t *testing.T) {
 }
 
 func TestMsgBuyName(t *testing.T) {
-	name = "maTurtle"
-	coins = sdk.NewCoins(sdk.NewInt64Coin("atom", 10))
-	acc = sdk.AccAddress([]byte("me"))
+	name := "maTurtle"
+	coins := sdk.NewCoins(sdk.NewInt64Coin("atom", 10))
+	acc := sdk.AccAddress([]byte("me"))
 	var msg = NewMsgBuyName(name, coins, acc)
 
 	require.Equal(t, msg.Route(), RouterKey)
@@ -77,11 +67,11 @@ func TestMsgBuyName(t *testing.T) {
 }
 
 func TestMsgBuyNameValidation(t *testing.T) {
-	name = "maTurtle"
-	acc = sdk.AccAddress([]byte("me"))
-	name2 = "a"
-	acc2 = sdk.AccAddress([]byte("you"))
-	coins = sdk.NewCoins(sdk.NewInt64Coin("atom", 10))
+	name := "maTurtle"
+	acc := sdk.AccAddress([]byte("me"))
+	name2 := "a"
+	acc2 := sdk.AccAddress([]byte("you"))
+	coins := sdk.NewCoins(sdk.NewInt64Coin("atom", 10))
 
 	cases := []struct {
 		valid bool
@@ -102,11 +92,10 @@ func TestMsgBuyNameValidation(t *testing.T) {
 }
 
 func TestMsgBuyNameGetSignBytes(t *testing.T) {
-	name = "maTurtle"
-	acc = sdk.AccAddress([]byte("me"))
-	coins = sdk.NewCoins(sdk.NewInt64Coin("atom", 10))
-	buyer := sdk.AccAddress([]byte("me"))
-	var msg = NewMsgBuyName(name, coins, buyer)
+	name := "maTurtle"
+	acc := sdk.AccAddress([]byte("me"))
+	coins := sdk.NewCoins(sdk.NewInt64Coin("atom", 10))
+	var msg = NewMsgBuyName(name, coins, acc)
 	res := msg.GetSignBytes()
 
 	expected := `{"type":"nameservice/BuyName","value":{"bid":[{"amount":"10","denom":"atom"}],"buyer":"cosmos1d4js690r9j","name":"maTurtle"}}`
@@ -115,8 +104,8 @@ func TestMsgBuyNameGetSignBytes(t *testing.T) {
 }
 
 func TestMsgDeleteName(t *testing.T) {
-	name = "maTurtle"
-	acc = sdk.AccAddress([]byte("me"))
+	name := "maTurtle"
+	acc := sdk.AccAddress([]byte("me"))
 	var msg = NewMsgDeleteName(name, acc)
 
 	require.Equal(t, msg.Route(), RouterKey)
@@ -124,10 +113,10 @@ func TestMsgDeleteName(t *testing.T) {
 }
 
 func TestMsgDeleteNameValidation(t *testing.T) {
-	name = "maTurtle"
-	acc = sdk.AccAddress([]byte("me"))
-	name2 = "a"
-	acc2 = sdk.AccAddress([]byte("you"))
+	name := "maTurtle"
+	acc := sdk.AccAddress([]byte("me"))
+	name2 := "a"
+	acc2 := sdk.AccAddress([]byte("you"))
 
 	cases := []struct {
 		valid bool
@@ -148,8 +137,8 @@ func TestMsgDeleteNameValidation(t *testing.T) {
 }
 
 func TestMsgDeleteNameGetSignBytes(t *testing.T) {
-	name = "maTurtle"
-	acc = sdk.AccAddress([]byte("me"))
+	name := "maTurtle"
+	acc := sdk.AccAddress([]byte("me"))
 	var msg = NewMsgDeleteName(name, acc)
 	res := msg.GetSignBytes()
 
