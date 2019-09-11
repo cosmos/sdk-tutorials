@@ -18,40 +18,41 @@ Through the course of this tutorial you will create the following files that mak
 
 ```bash
 ./nameservice
-├── Gopkg.toml
 ├── Makefile
+├── Makefile.ledger
 ├── app.go
 ├── cmd
 │   ├── nscli
 │   │   └── main.go
 │   └── nsd
 │       └── main.go
+├── go.mod
+├── go.sum
 └── x
     └── nameservice
+        ├── alias.go
         ├── client
         │   ├── cli
-        │   │   ├── query.go
-        │   │   └── tx.go
+        │   │   ├── query.go
+        │   │   └── tx.go
         │   └── rest
-        │       ├── query.go
-        │       ├── tx.go
-        │       └── rest.go
-        ├── internal
-        │   ├── keeper
-        │   │   ├── keeper.go
-        │   │   ├── querier.go
-        │   └── types
-        │       ├── codec.go
-        │       ├── errors.go
-        │       ├── key.go
-        │       ├── msgs.go
-        │       ├── querier.go
-        │       └── types.go
-        ├── alias.go
+        │       ├── query.go
+        │       ├── rest.go
+        │       └── tx.go
         ├── genesis.go
         ├── handler.go
+        ├── internal
+        │   ├── keeper
+        │   │   ├── keeper.go
+        │   │   └── querier.go
+        │   └── types
+        │       ├── codec.go
+        │       ├── errors.go
+        │       ├── key.go
+        │       ├── msgs.go
+        │       ├── querier.go
+        │       └── types.go
         └── module.go
-
 ```
 
 Start by creating a new git repository:
