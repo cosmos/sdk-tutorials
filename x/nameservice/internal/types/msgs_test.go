@@ -31,6 +31,11 @@ func TestMsgSetNameValidation(t *testing.T) {
 	}{
 		{true, NewMsgSetName(name, value, acc)},
 		{true, NewMsgSetName(name2, value2, acc2)},
+		{true, NewMsgSetName(name2, value, acc2)},
+		{true, NewMsgSetName(name2, value2, acc)},
+		{false, NewMsgSetName(name, value2, nil)},
+		{false, NewMsgSetName("", value2, acc2)},
+		{false, NewMsgSetName(name, "", acc2)},
 	}
 
 	for _, tc := range cases {
