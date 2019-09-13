@@ -73,7 +73,7 @@ Golang有一些依赖管理工具。在本教程中，你将使用[`Go Modules`]
 ```
 module sdk-application-tutorial
 
-go 1.12
+go 1.13
 
 require (
 	github.com/bartekn/go-bip39 v0.0.0-20171116152956-a05967ea095d

@@ -2,7 +2,7 @@ package types
 
 import "strings"
 
-// Query Result Payload for a resolve query
+// QueryResResolve Queries Result Payload for a resolve query
 type QueryResResolve struct {
 	Value string `json:"value"`
 }
@@ -12,7 +12,7 @@ func (r QueryResResolve) String() string {
 	return r.Value
 }
 
-// Query Result Payload for a names query
+// QueryResNames Queries Result Payload for a names query
 type QueryResNames []string
 
 // implement fmt.Stringer
