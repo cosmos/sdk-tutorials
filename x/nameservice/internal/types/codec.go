@@ -4,6 +4,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 )
 
+// ModuleCdc is the codec for the module
 var ModuleCdc = codec.New()
 
 func init() {
