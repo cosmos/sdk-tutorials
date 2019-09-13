@@ -54,6 +54,7 @@ func main() {
 		keys.Commands(),
 		client.LineBreak,
 		version.Cmd,
+		client.NewCompletionCmd(rootCmd, true),
 	)
 
 	executor := cli.PrepareMainCmd(rootCmd, "NS", app.DefaultCLIHome)

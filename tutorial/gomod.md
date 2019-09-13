@@ -60,6 +60,20 @@ endif
 - Add `include Makefile.ledger` at the beginning of the Makefile:
 
 ```makefile
+PACKAGES=$(shell go list ./... | grep -v '/simulation')
+
+VERSION := $(shell echo $(shell git describe --tags) | sed 's/^v//')
+COMMIT := $(shell git log -1 --format='%H')
+
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=NameService \
+	-X github.com/cosmos/cosmos-sdk/version.ServerName=nsd \
+	-X github.com/cosmos/cosmos-sdk/version.ClientName=nscli \
+	-X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
+	-X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
+	-X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags)"
+
+BUILD_FLAGS := -tags "$(build_tags)" -ldflags '$(ldflags)'
+
 include Makefile.ledger
 all: lint install
 
@@ -73,8 +87,11 @@ go.sum: go.mod
 
 lint:
 	golangci-lint run
-	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" | xargs gofmt -d -s
+	@find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" | xargs gofmt -d -s
 	go mod verify
+
+test:
+	@go test -mod=readonly $(PACKAGES)y
 
 ```
 
@@ -87,7 +104,7 @@ Golang has a few dependency management tools. In this tutorial you will be using
 ```
 module github.com/cosmos/sdk-application-tutorial
 
-go 1.12
+go 1.13
 
 require (
 	github.com/cosmos/cosmos-sdk v0.37.0
@@ -98,11 +115,11 @@ require (
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/viper v1.3.2
+	github.com/stretchr/testify v1.3.0
 	github.com/tendermint/go-amino v0.15.0
 	github.com/tendermint/tendermint v0.32.2
 	github.com/tendermint/tm-db v0.1.1
 	golang.org/x/sys v0.0.0-20190329044733-9eb1bfa1ce65 // indirect
-	google.golang.org/appengine v1.4.0 // indirect
 	google.golang.org/genproto v0.0.0-20190327125643-d831d65fe17d // indirect
 )
 ```
