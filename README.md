@@ -1,16 +1,18 @@
-# SDK Application Tutorial
+# Tutorials for the Cosmos SDK
 
-This repository contains the source code of the nameservice tutorial.
+!["Greetings Cosmonauts"](./hellochain/space.png)
 
-## Tutorial
+## [Hellochain](./hellochain/README.md)
 
-**[Click here](./tutorial/README.md)** to access the tutorial. You can also view it on the [website](https://cosmos.network/docs/tutorial).
+This is the quick and simple "Hello World" introduction to building with the Cosmos SDK. You will build a fully-funcitonal blockchain with payment functionality and a custom "greeter" module. This tutorial makes use of the `utils/starter` package to reduce boilerplate and allow you to focus on the core concepts. Start here if you are evaluating Cosmos as your possible platform of choice.
 
-## Building and running the example
+## [Nameservice](./nameservice/README.md)
 
-**[Click here](./tutorial/build-run.md)**  for instructions on how to build and run the code.
+The real deal, full-length tutorial in which you will build a fully functional naming service on a blockchain. This tutorial does not use the `starter` package, rather you will be configuring and composing a full application yourself.
+The nameservice tutorial also has translations and a slide deck.
 
 Translations:
+
 - [中文](./README_cn.md)
 
 ## [Slides](https://docs.google.com/presentation/d/1aCMAdkVY-gfgnGNPTygwVk3o68czPQ_VYfvdMy9Ek5Q/edit?usp=sharing)
