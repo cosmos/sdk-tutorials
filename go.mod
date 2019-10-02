@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/cosmos/cosmos-sdk v0.37.1
-	github.com/gorilla/mux v1.7.0
+	github.com/gorilla/mux v1.7.3
 	github.com/mattn/go-isatty v0.0.7 // indirect
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cobra v0.0.5
