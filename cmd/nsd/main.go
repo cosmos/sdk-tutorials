@@ -2,16 +2,19 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 
 	"github.com/cosmos/cosmos-sdk/server"
 	"github.com/cosmos/cosmos-sdk/x/genaccounts"
 	genaccscli "github.com/cosmos/cosmos-sdk/x/genaccounts/client/cli"
 	"github.com/cosmos/cosmos-sdk/x/staking"
+	amino "github.com/tendermint/go-amino"
 
 	"github.com/spf13/cobra"
 	"github.com/tendermint/tendermint/libs/cli"
 	"github.com/tendermint/tendermint/libs/log"
+	typescriptify "github.com/tkrajina/typescriptify-golang-structs/typescriptify"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
@@ -41,6 +44,7 @@ func main() {
 	}
 	// CLI commands to initialize the chain
 	rootCmd.AddCommand(
+		dumpSchema(cdc),
 		genutilcli.InitCmd(ctx, cdc, app.ModuleBasics, app.DefaultNodeHome),
 		genutilcli.CollectGenTxsCmd(ctx, cdc, genaccounts.AppModuleBasic{}, app.DefaultNodeHome),
 		genutilcli.GenTxCmd(
@@ -64,6 +68,27 @@ func main() {
 
 func newApp(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application {
 	return app.NewNameServiceApp(logger, db)
+}
+
+func dumpSchema(cdc *amino.Codec) *cobra.Command {
+	converter := typescriptify.New()
+	dumpSchemaCmd := &cobra.Command{
+		Use:   "schema",
+		Short: "dump schema from the amino codec",
+		Run: func(cmd *cobra.Command, args []string) {
+			types := cdc.TypeInfosByName()
+			for k, _ := range types {
+				converter.Add(types[k].PtrToType)
+				fmt.Printf("%v\n\n\n ***************************\n", types[k])
+			}
+			err := converter.ConvertToFile("schemaTest.ts")
+			if err != nil {
+				panic(err)
+			}
+			return
+		},
+	}
+	return dumpSchemaCmd
 }
 
 func exportAppStateAndTMValidators(
