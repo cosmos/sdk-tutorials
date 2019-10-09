@@ -4,6 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"reflect"
+
+	//"strings"
 
 	"github.com/cosmos/cosmos-sdk/server"
 	"github.com/cosmos/cosmos-sdk/x/genaccounts"
@@ -77,9 +80,13 @@ func dumpSchema(cdc *amino.Codec) *cobra.Command {
 		Short: "dump schema from the amino codec",
 		Run: func(cmd *cobra.Command, args []string) {
 			types := cdc.TypeInfosByName()
-			for k, _ := range types {
-				converter.Add(types[k].PtrToType)
-				fmt.Printf("%v\n\n\n ***************************\n", types[k])
+			for _, v := range types {
+
+				newtype := reflect.New(v.Type)
+
+				converter.Add(newtype.Elem().Interface())
+
+				fmt.Printf("%v\n\n\n ***************************\n", newtype)
 			}
 			err := converter.ConvertToFile("schemaTest.ts")
 			if err != nil {
