@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+
 	"fmt"
 	"io"
 	"reflect"
@@ -73,6 +74,21 @@ func newApp(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application
 	return app.NewNameServiceApp(logger, db)
 }
 
+func inspectSchema(obj interface{}) {
+
+	typ := reflect.TypeOf(obj)
+	kind := typ.Kind()
+
+	n := reflect.New(typ)
+	val := reflect.ValueOf(n)
+
+	fmt.Printf("typ***************************\n%v\n\n", typ)
+	fmt.Printf("kind***************************\n%v\n\n", kind)
+	fmt.Printf("val***************************\n%v\n\n", val)
+	fmt.Printf("\n\n\n")
+
+}
+
 func dumpSchema(cdc *amino.Codec) *cobra.Command {
 	converter := typescriptify.New()
 	dumpSchemaCmd := &cobra.Command{
@@ -80,19 +96,37 @@ func dumpSchema(cdc *amino.Codec) *cobra.Command {
 		Short: "dump schema from the amino codec",
 		Run: func(cmd *cobra.Command, args []string) {
 			types := cdc.TypeInfosByName()
+			defer func() {
+				if err := recover(); err != nil {
+					fmt.Println("capturedd Panic")
+					fmt.Println(err)
+				}
+			}()
 			for _, v := range types {
 
-				newtype := reflect.New(v.Type)
+				intr := reflect.New(v.Type).Elem().Interface()
+				inspectSchema(intr)
 
-				converter.Add(newtype.Elem().Interface())
+				typ := reflect.TypeOf(intr)
+				//v := reflect.ValueOf(intr)
+				//n := reflect.New(typ)
+				//v := reflect.ValueOf(n)
 
-				fmt.Printf("%v\n\n\n ***************************\n", newtype)
+				switch typ.Kind() {
+
+				case reflect.Struct, reflect.Array:
+					converter.Add(intr)
+
+				default:
+					fmt.Printf("skipping %v", typ.Kind())
+
+				}
 			}
+
 			err := converter.ConvertToFile("schemaTest.ts")
 			if err != nil {
 				panic(err)
 			}
-			return
 		},
 	}
 	return dumpSchemaCmd
