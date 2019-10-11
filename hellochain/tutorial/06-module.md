@@ -1,3 +1,7 @@
+---
+order: 6
+---
+
 # Module
 
 Cosmos-SDK applications are composed from a set of mostly decoupled reuseable

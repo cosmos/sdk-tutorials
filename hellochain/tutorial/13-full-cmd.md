@@ -1,3 +1,7 @@
+---
+order: 13
+---
+
 # Full Daemon
 
 Now that our `greeter` module has been integrated into our application, we can

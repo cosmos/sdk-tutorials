@@ -1,3 +1,7 @@
+---
+order: 10
+---
+
 # Querier
 
 Now that we have a running distributed state machine, it's time to enable

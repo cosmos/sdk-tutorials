@@ -1,3 +1,7 @@
+---
+order: 5
+---
+
 # Types
 
 The main struct of our module will be the `Greeting`. We will use this when

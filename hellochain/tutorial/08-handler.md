@@ -1,3 +1,7 @@
+---
+order: 8
+---
+
 # Handler
 
 Next we need to write a handler function to process the Messages contained in

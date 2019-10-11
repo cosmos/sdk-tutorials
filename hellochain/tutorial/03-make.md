@@ -1,3 +1,7 @@
+---
+order: 3
+---
+
 # Makefile
 
 Now let's add a short makefile so we can build our basic app. Open up your

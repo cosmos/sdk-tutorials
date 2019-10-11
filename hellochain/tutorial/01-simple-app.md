@@ -1,3 +1,7 @@
+---
+order: 1
+---
+
 # Simple App
 
 First lets assemble and run a very minimal blockchain. Most of the code for

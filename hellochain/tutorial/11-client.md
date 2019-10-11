@@ -1,3 +1,7 @@
+---
+order: 11
+---
+
 # Client
 
 Now it's time to build the tools for interacting with our app (submitting

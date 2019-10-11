@@ -1,3 +1,7 @@
+---
+order: 12
+---
+
 # CLI
 
 Now that we have implemented `greeter`'s client CLI commands, let's add them to

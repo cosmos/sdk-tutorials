@@ -1,3 +1,7 @@
+---
+order: 4
+---
+
 # Try It Out
 
 We are far from finished but lets take a quick moment to try out the parts
