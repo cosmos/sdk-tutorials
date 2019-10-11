@@ -1,3 +1,7 @@
+---
+order: 7
+---
+
 # Msgs
 
 `Msgs` define your application's state transitions. They are encoded and passed

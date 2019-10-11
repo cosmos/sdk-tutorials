@@ -1,3 +1,7 @@
+---
+order: 0
+---
+
 # Getting started
 
 Welcome to the quick and simple way to try out the Cosmos SDK. In this tutorial

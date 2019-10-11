@@ -1,3 +1,7 @@
+---
+order: 12
+---
+
 # Building and running the application
 
 ## Building the `nameservice` application

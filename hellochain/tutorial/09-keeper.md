@@ -1,3 +1,7 @@
+---
+order: 9
+---
+
 # Keeper
 
 Each module's Keeper is responsible for CRUD operations to the main datastore

@@ -1,3 +1,7 @@
+---
+order: 14
+---
+
 # Full App
 
 Ok, our `greeter` module is ready to be incorporated into our application. First
