@@ -5,13 +5,13 @@ jobs:
     docker:
       - image: circleci/golang
     steps:
-      - checkout  
+      - checkout
       - restore_cache:
           keys:
             - go-mod-v1-{{ checksum "go.sum" }}
       - run:
-          name: test
-          command: make test	
+          name: nameservice test-cover
+          command: cd nameservice && make test
       - save_cache:
           key: go-mod-v1-{{ checksum "go.sum" }}
           paths:
