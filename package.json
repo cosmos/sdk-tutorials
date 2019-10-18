@@ -1,0 +1,28 @@
+{
+  "name": "cosmos-tutorials",
+  "version": "1.0.0",
+  "description": "A collection of tutorials for building with the Cosmos SDK",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vuepress dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cosmos/sdk-application-tutorial.git"
+  },
+  "keywords": [
+    "Cosmos",
+    "blockchain",
+    "golang"
+  ],
+  "author": "All in Bits",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cosmos/sdk-application-tutorial/issues"
+  },
+  "homepage": "https://github.com/cosmos/sdk-application-tutorial#readme",
+  "dependencies": {
+    "vuepress-theme-cosmos": "^1.0.29"
+  }
+}
