@@ -16,6 +16,5 @@ require (
 	github.com/tendermint/tendermint v0.32.2
 	github.com/tendermint/tm-db v0.1.1
 	golang.org/x/sys v0.0.0-20190329044733-9eb1bfa1ce65 // indirect
-	google.golang.org/appengine v1.4.0 // indirect
 	google.golang.org/genproto v0.0.0-20190327125643-d831d65fe17d // indirect
 )
