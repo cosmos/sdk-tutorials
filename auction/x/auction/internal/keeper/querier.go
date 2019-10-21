@@ -1,6 +1,8 @@
 package keeper
 
 import (
+	"fmt"
+
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/sdk-application-tutorial/auction/x/auction/internal/types"
@@ -26,7 +28,10 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 }
 
 func queryAuction(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
-	auction := keeper.GetAuction(ctx, path[0])
+	auction, ok := keeper.GetAuction(ctx, path[0])
+	if !ok {
+		return nil, sdk.ErrInternal(fmt.Sprintf("could not find auction:%s", path[0]))
+	}
 
 	res, err := codec.MarshalJSONIndent(keeper.cdc, auction)
 	if err != nil {
@@ -37,7 +42,7 @@ func queryAuction(ctx sdk.Context, path []string, req abci.RequestQuery, keeper 
 
 func queryAuctions(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
 
-	var auctions types.QueryResAuctions
+	var auctions []types.Auction
 
 	iterator := keeper.GetAuctionsIterator(ctx)
 

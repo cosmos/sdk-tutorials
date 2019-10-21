@@ -1,5 +1,16 @@
 package types
 
-type QueryResAuctions []Auction
+const (
+	QueryAuctions = "auctions"
+	QueryAuction  = "auction"
+)
 
-// func Sting()
+type QueryResAuctions struct {
+	Auctions []Auction
+}
+
+func NewQueryAuctions(aus []Auction) QueryResAuctions {
+	return QueryResAuctions{
+		Auctions: aus,
+	}
+}
