@@ -5,12 +5,17 @@ const (
 	QueryAuction  = "auction"
 )
 
-type QueryResAuctions struct {
-	Auctions []Auction
+type QueryResAuctionParams struct {
+	NftID    string
+	NftDenom string
 }
 
-func NewQueryAuctions(aus []Auction) QueryResAuctions {
-	return QueryResAuctions{
-		Auctions: aus,
+// Define the params for the following queries:
+// - 'custom/auction'
+
+func NewQueryAuctionParams(nftID, denom string) QueryResAuctionParams {
+	return QueryResAuctionParams{
+		NftID:    nftID,
+		NftDenom: denom,
 	}
 }
