@@ -1,2 +1,0 @@
-lint:
-	golangci-lint run

@@ -1,4 +1,4 @@
-all: lint install
+all: install
 
 install: go.sum
 		GO111MODULE=on go install -tags "$(build_tags)" ./cmd/hcd
