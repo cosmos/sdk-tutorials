@@ -11,6 +11,7 @@ import (
 
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/cosmos/cosmos-sdk/simapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/version"
@@ -103,10 +104,10 @@ type AuctionApp struct {
 }
 
 // NewSimApp returns a reference to an initialized SimApp.
-func NewSimApp(
+func NewAuctionApp(
 	logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest bool,
 	invCheckPeriod uint, baseAppOptions ...func(*bam.BaseApp),
-) *SimApp {
+) *AuctionApp {
 	cdc := MakeCodec()
 
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc), baseAppOptions...)
@@ -118,7 +119,7 @@ func NewSimApp(
 		params.StoreKey, nft.StoreKey)
 	tkeys := sdk.NewTransientStoreKeys(params.TStoreKey)
 
-	app := &SimApp{
+	app := &AuctionApp{
 		BaseApp:        bApp,
 		cdc:            cdc,
 		invCheckPeriod: invCheckPeriod,
@@ -227,29 +228,29 @@ func NewSimApp(
 }
 
 // application updates every begin block
-func (app *SimApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
+func (app *AuctionApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
 	return app.mm.BeginBlock(ctx, req)
 }
 
 // application updates every end block
-func (app *SimApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+func (app *AuctionApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	return app.mm.EndBlock(ctx, req)
 }
 
 // application update at chain initialization
-func (app *SimApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
-	var genesisState GenesisState
+func (app *AuctionApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+	var genesisState simapp.GenesisState
 	app.cdc.MustUnmarshalJSON(req.AppStateBytes, &genesisState)
 	return app.mm.InitGenesis(ctx, genesisState)
 }
 
 // load a particular height
-func (app *SimApp) LoadHeight(height int64) error {
+func (app *AuctionApp) LoadHeight(height int64) error {
 	return app.LoadVersion(height, app.keys[bam.MainStoreKey])
 }
 
 // ModuleAccountAddrs returns all the app's module account addresses.
-func (app *SimApp) ModuleAccountAddrs() map[string]bool {
+func (app *AuctionApp) ModuleAccountAddrs() map[string]bool {
 	modAccAddrs := make(map[string]bool)
 	for acc := range maccPerms {
 		modAccAddrs[supply.NewModuleAddress(acc).String()] = true
@@ -258,18 +259,18 @@ func (app *SimApp) ModuleAccountAddrs() map[string]bool {
 	return modAccAddrs
 }
 
-// Codec returns simapp's codec
-func (app *SimApp) Codec() *codec.Codec {
+// Codec returns auctionApp's codec
+func (app *AuctionApp) Codec() *codec.Codec {
 	return app.cdc
 }
 
 // GetKey returns the KVStoreKey for the provided store key
-func (app *SimApp) GetKey(storeKey string) *sdk.KVStoreKey {
+func (app *AuctionApp) GetKey(storeKey string) *sdk.KVStoreKey {
 	return app.keys[storeKey]
 }
 
 // GetTKey returns the TransientStoreKey for the provided store key
-func (app *SimApp) GetTKey(storeKey string) *sdk.TransientStoreKey {
+func (app *AuctionApp) GetTKey(storeKey string) *sdk.TransientStoreKey {
 	return app.tkeys[storeKey]
 }
 

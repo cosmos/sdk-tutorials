@@ -3,7 +3,8 @@ module github.com/cosmos/sdk-application-tutorial/auction
 go 1.13
 
 require (
-	github.com/cosmos/cosmos-sdk v0.34.4-0.20191018164621-84621bbd5350
+	github.com/cosmos/cosmos-sdk v0.37.3
+	github.com/cosmos/ledger-cosmos-go v0.11.1 // indirect
 	github.com/cosmos/modules/incubator/nft v0.0.0-20191015123508-50d0c8092493
 	github.com/gogo/protobuf v1.3.1
 	github.com/gorilla/mux v1.7.3

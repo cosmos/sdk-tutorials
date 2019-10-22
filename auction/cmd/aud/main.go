@@ -4,26 +4,33 @@ import (
 	"encoding/json"
 	"io"
 
+	"github.com/cosmos/cosmos-sdk/baseapp"
+	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/server"
+	"github.com/cosmos/cosmos-sdk/store"
 	"github.com/cosmos/cosmos-sdk/x/genaccounts"
 	genaccscli "github.com/cosmos/cosmos-sdk/x/genaccounts/client/cli"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	"github.com/tendermint/tendermint/libs/cli"
 	"github.com/tendermint/tendermint/libs/log"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
-	app "github.com/cosmos/sdk-application-tutorial/auction/app"
+	"github.com/cosmos/sdk-application-tutorial/auction/app"
 	abci "github.com/tendermint/tendermint/abci/types"
 	tmtypes "github.com/tendermint/tendermint/types"
 	dbm "github.com/tendermint/tm-db"
 )
 
-func main() {
-	cobra.EnableCommandSorting = false
+// gaiad custom flags
+const flagInvCheckPeriod = "inv-check-period"
 
+var invCheckPeriod uint
+
+func main() {
 	cdc := app.MakeCodec()
 
 	config := sdk.GetConfig()
@@ -33,29 +40,28 @@ func main() {
 	config.Seal()
 
 	ctx := server.NewDefaultContext()
-
+	cobra.EnableCommandSorting = false
 	rootCmd := &cobra.Command{
-		Use:               "aud",
-		Short:             "Auction Market App Daemon (server)",
+		Use:               "gaiad",
+		Short:             "Gaia Daemon (server)",
 		PersistentPreRunE: server.PersistentPreRunEFn(ctx),
 	}
-	// CLI commands to initialize the chain
-	rootCmd.AddCommand(
-		genutilcli.InitCmd(ctx, cdc, app.ModuleBasics, app.DefaultNodeHome),
-		genutilcli.CollectGenTxsCmd(ctx, cdc, genaccounts.AppModuleBasic{}, app.DefaultNodeHome),
-		genutilcli.GenTxCmd(
-			ctx, cdc, app.ModuleBasics, staking.AppModuleBasic{},
-			genaccounts.AppModuleBasic{}, app.DefaultNodeHome, app.DefaultCLIHome,
-		),
-		genutilcli.ValidateGenesisCmd(ctx, cdc, app.ModuleBasics),
-		// AddGenesisAccountCmd allows users to add accounts to the genesis file
-		genaccscli.AddGenesisAccountCmd(ctx, cdc, app.DefaultNodeHome, app.DefaultCLIHome),
-	)
+
+	rootCmd.AddCommand(genutilcli.InitCmd(ctx, cdc, app.ModuleBasics, app.DefaultNodeHome))
+	rootCmd.AddCommand(genutilcli.CollectGenTxsCmd(ctx, cdc, genaccounts.AppModuleBasic{}, app.DefaultNodeHome))
+	rootCmd.AddCommand(genutilcli.MigrateGenesisCmd(ctx, cdc))
+	rootCmd.AddCommand(genutilcli.GenTxCmd(ctx, cdc, app.ModuleBasics, staking.AppModuleBasic{},
+		genaccounts.AppModuleBasic{}, app.DefaultNodeHome, app.DefaultCLIHome))
+	rootCmd.AddCommand(genutilcli.ValidateGenesisCmd(ctx, cdc, app.ModuleBasics))
+	rootCmd.AddCommand(genaccscli.AddGenesisAccountCmd(ctx, cdc, app.DefaultNodeHome, app.DefaultCLIHome))
+	rootCmd.AddCommand(client.NewCompletionCmd(rootCmd, true))
 
 	server.AddCommands(ctx, cdc, rootCmd, newApp, exportAppStateAndTMValidators)
 
 	// prepare and add flags
-	executor := cli.PrepareBaseCmd(rootCmd, "AU", app.DefaultNodeHome)
+	executor := cli.PrepareBaseCmd(rootCmd, "GA", app.DefaultNodeHome)
+	rootCmd.PersistentFlags().UintVar(&invCheckPeriod, flagInvCheckPeriod,
+		0, "Assert registered invariants every N blocks")
 	err := executor.Execute()
 	if err != nil {
 		panic(err)
@@ -63,7 +69,12 @@ func main() {
 }
 
 func newApp(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application {
-	return app.NewNameServiceApp(logger, db)
+	return app.NewAuctionApp(
+		logger, db, traceStore, true, invCheckPeriod,
+		baseapp.SetPruning(store.NewPruningOptionsFromString(viper.GetString("pruning"))),
+		baseapp.SetMinGasPrices(viper.GetString(server.FlagMinGasPrices)),
+		baseapp.SetHaltHeight(uint64(viper.GetInt(server.FlagHaltHeight))),
+	)
 }
 
 func exportAppStateAndTMValidators(
@@ -71,15 +82,15 @@ func exportAppStateAndTMValidators(
 ) (json.RawMessage, []tmtypes.GenesisValidator, error) {
 
 	if height != -1 {
-		nsApp := app.NewNameServiceApp(logger, db)
-		err := nsApp.LoadHeight(height)
+		auApp := app.NewAuctionApp(logger, db)
+		err := auApp.LoadHeight(height)
 		if err != nil {
 			return nil, nil, err
 		}
-		return nsApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
+		return auApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
 	}
 
-	nsApp := app.NewNameServiceApp(logger, db)
+	auApp := app.NewAuctionApp(logger, db)
 
-	return nsApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
+	return auApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
 }
