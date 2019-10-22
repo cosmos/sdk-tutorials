@@ -1,4 +1,4 @@
-PACKAGES=$(shell go list ./...)
+PACKAGES=$(shell go list ./... | grep -v '/simulation')
 
 VERSION := $(shell echo $(shell git describe --tags) | sed 's/^v//')
 COMMIT := $(shell git log -1 --format='%H')

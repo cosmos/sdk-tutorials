@@ -105,7 +105,7 @@ Golang has a few dependency management tools. In this tutorial you will be using
 - If you would like to use a specific version of a dependency then you have to run `go get github.com/<github_org>/<repo_name>@<version>`
 
 ```
-module github.com/cosmos/sdk-application-tutorial
+module github.com/cosmos/sdk-application-tutorial/nameservice
 
 go 1.13
 

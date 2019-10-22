@@ -1,7 +1,3 @@
----
-order: 12
----
-
 # Building and running the application
 
 ## Building the `nameservice` application
@@ -22,7 +18,7 @@ source ~/.bash_profile
 Now, you can install and run the application.
 ```
 # Clone the source of the tutorial repository
-git clone https://github.com/cosmos/sdk-application-tutorial.git
+git clone https://github.com/cosmos/sdk-application-tutorial/nameservice.git
 cd sdk-application-tutorial
 ```
 

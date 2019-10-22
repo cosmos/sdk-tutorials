@@ -1,7 +1,3 @@
----
-order: 5
----
-
 # Buy Name
 
 ## Msg

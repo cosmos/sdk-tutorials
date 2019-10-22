@@ -1,7 +1,3 @@
----
-order: 8
----
-
 # Nameservice Module CLI
 
 The Cosmos SDK uses the [`cobra`](https://github.com/spf13/cobra) library for CLI interactions. This library makes it easy for each module to expose its own commands. To get started defining the user's CLI interactions with your module, create the following files:

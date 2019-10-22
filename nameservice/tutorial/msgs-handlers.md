@@ -1,7 +1,3 @@
----
-order: 3
----
-
 # Msgs and Handlers
 
 Now that you have the `Keeper` setup, it is time to build the `Msgs` and `Handlers` that actually allow users to buy names and set values for them.

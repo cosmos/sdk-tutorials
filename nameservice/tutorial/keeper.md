@@ -1,7 +1,3 @@
----
-order: 2
----
-
 # The Keeper
 
 The main core of a Cosmos SDK module is a piece called the `Keeper`. It is what handles interaction with the store, has references to other keepers for cross-module interactions, and contains most of the core functionality of a module.

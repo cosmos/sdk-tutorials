@@ -1,7 +1,3 @@
----
-order: 6
----
-
 # Queriers
 
 ## Query Types

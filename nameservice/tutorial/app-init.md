@@ -1,7 +1,3 @@
----
-order: 1
----
-
 # Start your application
 
 Get started by creating a new file: `./app.go`. This file is the heart of your deterministic state-machine (blockchain). `app.go` is where the different modules are initialized and configured into a complete application using the `sdk.ModuleBasicManager`.
