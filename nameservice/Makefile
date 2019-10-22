@@ -7,10 +7,9 @@ ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=NameService \
 	-X github.com/cosmos/cosmos-sdk/version.ServerName=nsd \
 	-X github.com/cosmos/cosmos-sdk/version.ClientName=nscli \
 	-X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
-	-X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
-	-X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags)"
+	-X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) 
 
-BUILD_FLAGS := -tags "$(build_tags)" -ldflags '$(ldflags)'
+BUILD_FLAGS := -ldflags '$(ldflags)'
 
 include Makefile.ledger
 all: install
