@@ -13,11 +13,13 @@ module.exports = {
         children: [
           {
             title: 'Hellochain',
-            path: '/hellochain/tutorial/'
+            path: '/hellochain/tutorial/',
+           directory: true,
           },
           {
             title: 'Nameservice',
-            path: '/nameservice/tutorial/'
+            path: '/nameservice/tutorial/',
+            directory: true
           }
         ]
       }
