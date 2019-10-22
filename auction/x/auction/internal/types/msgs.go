@@ -10,10 +10,10 @@ type MsgCreateAuction struct {
 	NftID    string         `json:"nft_id"`
 	NftDenom string         `json:"nft_denom"`
 	Owner    sdk.AccAddress `json:"owner"`
-	EndTime  time.Time      `json:"end_time"`
+	EndTime  time.Duration  `json:"end_time"`
 }
 
-func NewMsgCreateAuction(nftID, denom string, owner sdk.AccAddress, et time.Time) MsgCreateAuction {
+func NewMsgCreateAuction(nftID, denom string, owner sdk.AccAddress, et time.Duration) MsgCreateAuction {
 	return MsgCreateAuction{
 		NftID:    nftID,
 		NftDenom: denom,
@@ -35,9 +35,6 @@ func (msg MsgCreateAuction) ValidateBasic() sdk.Error {
 	}
 	if len(msg.NftID) != 0 || len(msg.NftDenom) != 0 {
 		return sdk.ErrUnknownRequest("NftID or NftDenom are empty")
-	}
-	if msg.EndTime.Before(time.Now()) {
-		return sdk.ErrUnknownRequest("The end time can ")
 	}
 	return nil
 }

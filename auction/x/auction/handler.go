@@ -36,9 +36,10 @@ func handleMsgCreateAuction(ctx types.Context, k Keeper, msg MsgCreateAuction) t
 	}
 
 	startTime := ctx.BlockHeader().Time
+	endTime := startTime.Add(msg.EndTime)
 
 	// need to create the auction
-	k.NewAuction(ctx, nft1.GetID(), startTime, msg.EndTime)
+	k.NewAuction(ctx, nft1.GetID(), startTime, endTime)
 
 	ctx.EventManager().EmitEvents(types.Events{
 		types.NewEvent(
