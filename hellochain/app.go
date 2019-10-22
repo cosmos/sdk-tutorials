@@ -3,14 +3,14 @@ package hellochain
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
-	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
+	dbm "github.com/tendermint/tm-db"
 
-	"github.com/cosmos/sdk-tutorials/utils/starter"
+	"github.com/cosmos/sdk-application-tutorial/hellochain/utils/starter"
 
 	//import greeter types
-	"github.com/cosmos/hellochain/x/greeter"
-	gtypes "github.com/cosmos/hellochain/x/greeter/types"
+	"github.com/cosmos/sdk-application-tutorial/hellochain/x/greeter"
+	gtypes "github.com/cosmos/sdk-application-tutorial/hellochain/x/greeter/types"
 )
 
 const appName = "hellochain"

@@ -21,10 +21,10 @@ package hellochain
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
-	dbm "github.com/tendermint/tendermint/libs/db"
+	dbm "github.com/tendermint/tm-db"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/cosmos/sdk-tutorials/utils/starter"
+	"github.com/cosmos/sdk-application-tutorial/hellochain/utils/starter"
 )
 
 const appName = "hellochain"

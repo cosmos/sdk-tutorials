@@ -139,7 +139,8 @@ type ServerCommandParams struct {
 }
 
 // NewServerCommandParams collects the params for a server command
-func NewServerCommandParams(name string, desc string, creator server.AppCreator, exporter server.AppExporter) ServerCommandParams {
+func NewServerCommandParams(name string, desc string, creator server.AppCreator,
+	exporter server.AppExporter) ServerCommandParams {
 	return ServerCommandParams{name, desc, creator, exporter}
 }
 
@@ -167,7 +168,8 @@ func NewServerCommand(params ServerCommandParams) *cobra.Command {
 	rootCmd.AddCommand(
 		genutilcli.InitCmd(ctx, cdc, ModuleBasics, DefaultNodeHome),
 		genutilcli.CollectGenTxsCmd(ctx, cdc, genaccounts.AppModuleBasic{}, DefaultNodeHome),
-		genutilcli.GenTxCmd(ctx, cdc, ModuleBasics, staking.AppModuleBasic{}, genaccounts.AppModuleBasic{}, DefaultNodeHome, DefaultCLIHome),
+		genutilcli.GenTxCmd(ctx, cdc, ModuleBasics, staking.AppModuleBasic{},
+			genaccounts.AppModuleBasic{}, DefaultNodeHome, DefaultCLIHome),
 		genutilcli.ValidateGenesisCmd(ctx, cdc, ModuleBasics),
 		genaccscli.AddGenesisAccountCmd(ctx, cdc, DefaultNodeHome, DefaultCLIHome),
 	)

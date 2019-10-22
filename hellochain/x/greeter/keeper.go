@@ -2,12 +2,13 @@ package greeter
 
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
-	gtypes "github.com/cosmos/hellochain/x/greeter/types"
+	gtypes "github.com/cosmos/sdk-application-tutorial/hellochain/x/greeter/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-// Keeper maintains the link to data storage and exposes getter/setter methods for the various parts of the state machine
+// Keeper maintains the link to data storage and exposes getter/setter methods for the various
+// parts of the state machine
 type Keeper struct {
 	storeKey sdk.StoreKey // Unexposed key to access store from sdk.Context
 
