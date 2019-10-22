@@ -1,7 +1,7 @@
 VERSION := $(shell echo $(shell git describe --tags) | sed 's/^v//')
 COMMIT := $(shell git log -1 --format='%H')
 
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=NameService \
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=NftAuction \
 	-X github.com/cosmos/cosmos-sdk/version.ServerName=aud \
 	-X github.com/cosmos/cosmos-sdk/version.ClientName=aucli \
 	-X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \

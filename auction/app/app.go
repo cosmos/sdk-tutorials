@@ -17,7 +17,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/version"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/crisis"
 	distr "github.com/cosmos/cosmos-sdk/x/distribution"
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	"github.com/cosmos/cosmos-sdk/x/mint"
@@ -92,7 +91,6 @@ type AuctionApp struct {
 	SlashingKeeper slashing.Keeper
 	MintKeeper     mint.Keeper
 	DistrKeeper    distr.Keeper
-	CrisisKeeper   crisis.Keeper
 	ParamsKeeper   params.Keeper
 	NFTKeeper      nft.Keeper
 
@@ -135,7 +133,6 @@ func NewAuctionApp(
 	mintSubspace := app.ParamsKeeper.Subspace(mint.DefaultParamspace)
 	distrSubspace := app.ParamsKeeper.Subspace(distr.DefaultParamspace)
 	slashingSubspace := app.ParamsKeeper.Subspace(slashing.DefaultParamspace)
-	crisisSubspace := app.ParamsKeeper.Subspace(crisis.DefaultParamspace)
 
 	// add keepers
 	app.AccountKeeper = auth.NewAccountKeeper(app.cdc, keys[auth.StoreKey], authSubspace, auth.ProtoBaseAccount)
@@ -148,7 +145,6 @@ func NewAuctionApp(
 		app.SupplyKeeper, distr.DefaultCodespace, auth.FeeCollectorName, app.ModuleAccountAddrs())
 	app.SlashingKeeper = slashing.NewKeeper(app.cdc, keys[slashing.StoreKey], &stakingKeeper,
 		slashingSubspace, slashing.DefaultCodespace)
-	app.CrisisKeeper = crisis.NewKeeper(crisisSubspace, invCheckPeriod, app.SupplyKeeper, auth.FeeCollectorName)
 	app.NFTKeeper = nft.NewKeeper(app.cdc, keys[nft.StoreKey])
 
 	// register the staking hooks
@@ -163,7 +159,6 @@ func NewAuctionApp(
 		genutil.NewAppModule(app.AccountKeeper, app.StakingKeeper, app.BaseApp.DeliverTx),
 		auth.NewAppModule(app.AccountKeeper),
 		bank.NewAppModule(app.BankKeeper, app.AccountKeeper),
-		crisis.NewAppModule(&app.CrisisKeeper),
 		supply.NewAppModule(app.SupplyKeeper, app.AccountKeeper),
 		mint.NewAppModule(app.MintKeeper),
 		distr.NewAppModule(app.DistrKeeper, app.SupplyKeeper),
@@ -177,18 +172,17 @@ func NewAuctionApp(
 	// CanWithdrawInvariant invariant.
 	app.mm.SetOrderBeginBlockers(mint.ModuleName, distr.ModuleName, slashing.ModuleName)
 
-	app.mm.SetOrderEndBlockers(crisis.ModuleName, staking.ModuleName)
+	app.mm.SetOrderEndBlockers(staking.ModuleName)
 
 	// NOTE: The genutils moodule must occur after staking so that pools are
 	// properly initialized with tokens from genesis accounts.
 	app.mm.SetOrderInitGenesis(
 		auth.ModuleName, distr.ModuleName, staking.ModuleName,
 		bank.ModuleName, slashing.ModuleName,
-		mint.ModuleName, supply.ModuleName, crisis.ModuleName, nft.ModuleName,
+		mint.ModuleName, supply.ModuleName, nft.ModuleName,
 		genutil.ModuleName,
 	)
 
-	app.mm.RegisterInvariants(&app.CrisisKeeper)
 	app.mm.RegisterRoutes(app.Router(), app.QueryRouter())
 
 	// create the simulation manager and define the order of the modules for deterministic simulations
@@ -203,7 +197,7 @@ func NewAuctionApp(
 		distr.NewAppModule(app.DistrKeeper, app.SupplyKeeper),
 		staking.NewAppModule(app.StakingKeeper, app.AccountKeeper, app.SupplyKeeper),
 		slashing.NewAppModule(app.SlashingKeeper, app.StakingKeeper),
-		// nft.NewAppModule(app.NFTKeeper),
+		nft.NewAppModule(app.NFTKeeper),
 	)
 
 	app.sm.RegisterStoreDecoders()
