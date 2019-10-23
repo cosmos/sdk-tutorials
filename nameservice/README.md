@@ -1,6 +1,6 @@
 # SDK Application Tutorial
 
-This repository contains the source code of the nameservice tutorial.
+This folder contains the source code of the nameservice tutorial.
 
 ## Tutorial
 
