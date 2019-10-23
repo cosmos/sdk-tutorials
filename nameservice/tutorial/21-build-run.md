@@ -1,3 +1,7 @@
+ ---
+ order: 21
+ ---
+
 # Build and run the app
 
 ## Building the `nameservice` application

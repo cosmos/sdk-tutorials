@@ -1,3 +1,7 @@
+ ---
+ order: 20
+ ---
+
 # go.mod and Makefile
 
 ## `Makefile`

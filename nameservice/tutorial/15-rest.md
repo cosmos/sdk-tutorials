@@ -1,3 +1,7 @@
+ ---
+ order: 15
+ ---
+
 # Nameservice Module Rest Interface
 
 Your module can also expose a REST interface to allow programatic access to the module's functionality. To get started create a file to hold the HTTP handlers:

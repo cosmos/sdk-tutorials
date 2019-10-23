@@ -1,3 +1,8 @@
+ ---
+ order: 3
+ ---
+
+
 # Types
 
 First Thing we're going to do is define a struct that holds all the metadata of a name. We will call this struct Whois after the ICANN DNS terminology.

@@ -1,3 +1,7 @@
+ ---
+ order: 22
+ ---
+
 # Run REST routes
 
 Now that you tested your CLI queries and transactions, time to test same things in the REST server. Leave the `nsd` that you had running earlier and start by gathering your addresses:

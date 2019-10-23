@@ -1,3 +1,7 @@
+---
+order: 5
+---
+
 # Errors
 
 Start by creating a errors.go file within the types folder. Within your errors.go file, define errors that are custom to your module along with their codes.
