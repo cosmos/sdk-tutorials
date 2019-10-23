@@ -6,11 +6,11 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	dbm "github.com/tendermint/tm-db"
 
-	"github.com/cosmos/sdk-application-tutorial/hellochain/utils/starter"
+	"github.com/cosmos/sdk-tutorials/utils/starter"
 
 	//import greeter types
-	"github.com/cosmos/sdk-application-tutorial/hellochain/x/greeter"
-	gtypes "github.com/cosmos/sdk-application-tutorial/hellochain/x/greeter/types"
+	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter"
+	gtypes "github.com/cosmos/sdk-tutorials/hellochain/x/greeter/types"
 )
 
 const appName = "hellochain"

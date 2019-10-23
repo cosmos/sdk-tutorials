@@ -2,7 +2,7 @@ package greeter
 
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
-	gtypes "github.com/cosmos/sdk-application-tutorial/hellochain/x/greeter/types"
+	gtypes "github.com/cosmos/sdk-tutorials/hellochain/x/greeter/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

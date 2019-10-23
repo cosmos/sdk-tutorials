@@ -43,7 +43,7 @@ import (
 
 	gaiaInit "github.com/cosmos/cosmos-sdk/cmd/gaia/init"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	app "github.com/cosmos/sdk-application-tutorial/nameservice"
+	app "github.com/cosmos/sdk-tutorials/nameservice"
 	abci "github.com/tendermint/tendermint/abci/types"
 	cfg "github.com/tendermint/tendermint/config"
 	dbm "github.com/tendermint/tm-db"
@@ -286,9 +286,9 @@ import (
 	auth "github.com/cosmos/cosmos-sdk/x/auth/client/rest"
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/client/rest"
-	app "github.com/cosmos/sdk-application-tutorial/nameservice"
-	nsclient "github.com/cosmos/sdk-application-tutorial/nameservice/x/nameservice/client"
-	nsrest "github.com/cosmos/sdk-application-tutorial/nameservice/x/nameservice/client/rest"
+	app "github.com/cosmos/sdk-tutorials/nameservice"
+	nsclient "github.com/cosmos/sdk-tutorials/nameservice/x/nameservice/client"
+	nsrest "github.com/cosmos/sdk-tutorials/nameservice/x/nameservice/client/rest"
 )
 
 var defaultCLIHome = os.ExpandEnv("$HOME/.nscli")
