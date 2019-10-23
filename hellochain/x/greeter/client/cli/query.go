@@ -9,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
 
-	types "github.com/cosmos/hellochain/x/greeter/types"
+	types "github.com/cosmos/sdk-application-tutorial/hellochain/x/greeter/types"
 )
 
 // GetQueryCmd returns the parent query command for the greeter module

@@ -14,7 +14,7 @@ golang 的规范是把编译成可执行程序的文件放在项目的`./cmd`文
 
 首先将如下代码加进`nsd/main.go` :
 
-> 注意：你的应用程序需要导入你刚编写的代码。这里导入路径设置为此存储库（`github.com/cosmos/sdk-application-tutorial`）。如果您是在自己的仓库中进行的前面的操作，则需要更改导入路径（github.com/{.Username}/{.Project.Repo}）。
+> 注意：你的应用程序需要导入你刚编写的代码。这里导入路径设置为此存储库（`github.com/cosmos/sdk-application-tutorial/nameservice`）。如果您是在自己的仓库中进行的前面的操作，则需要更改导入路径（github.com/{.Username}/{.Project.Repo}）。
 
 ```go
 package main
@@ -43,7 +43,7 @@ import (
 
 	gaiaInit "github.com/cosmos/cosmos-sdk/cmd/gaia/init"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	app "github.com/cosmos/sdk-application-tutorial"
+	app "github.com/cosmos/sdk-application-tutorial/nameservice"
 	abci "github.com/tendermint/tendermint/abci/types"
 	cfg "github.com/tendermint/tendermint/config"
 	dbm "github.com/tendermint/tm-db"
@@ -262,7 +262,7 @@ func SimpleAppGenTx(cdc *codec.Codec, pk crypto.PubKey) (
 
 通过构建 nscli 命令完成：
 
-> 注意：你的应用程序需要导入你刚编写的代码。这里导入路径设置为此存储库（`github.com/cosmos/sdk-application-tutorial`）。如果您是在自己的仓库中进行的前面的操作，则需要更改导入路径（github.com/{.Username}/{.Project.Repo}）。
+> 注意：你的应用程序需要导入你刚编写的代码。这里导入路径设置为此存储库（`github.com/cosmos/sdk-application-tutorial/nameservice`）。如果您是在自己的仓库中进行的前面的操作，则需要更改导入路径（github.com/{.Username}/{.Project.Repo}）。
 
 ```go
 package main
@@ -286,9 +286,9 @@ import (
 	auth "github.com/cosmos/cosmos-sdk/x/auth/client/rest"
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/client/rest"
-	app "github.com/cosmos/sdk-application-tutorial"
-	nsclient "github.com/cosmos/sdk-application-tutorial/x/nameservice/client"
-	nsrest "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/rest"
+	app "github.com/cosmos/sdk-application-tutorial/nameservice"
+	nsclient "github.com/cosmos/sdk-application-tutorial/nameservice/x/nameservice/client"
+	nsrest "github.com/cosmos/sdk-application-tutorial/nameservice/x/nameservice/client/rest"
 )
 
 var defaultCLIHome = os.ExpandEnv("$HOME/.nscli")

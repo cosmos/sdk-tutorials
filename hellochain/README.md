@@ -17,7 +17,7 @@ involves, complete both sections.
 
 ### Requirements
 
-- Golang >1.12.1 installed
+- Golang >1.13.0 installed
 - A working [\$GOPATH](https://github.com/golang/go/wiki/SettingGOPATH)
 - Desire to create your own blockchain!
 

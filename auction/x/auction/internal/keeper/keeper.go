@@ -59,9 +59,9 @@ func (k Keeper) DeleteAuction(ctx types.Context, name string) {
 }
 
 // NewAuction creates a new auction for nfts,
-func (k Keeper) NewAuction(ctx types.Context, nftID string, startTime, endTime time.Time) {
+func (k Keeper) NewAuction(ctx types.Context, nftID, nftDenom string, startTime, endTime time.Time) {
 	auction := autypes.NewAuction(nft, startTime, endTime)
-	k.SetAuction(ctx, nftID, auction)
+	k.SetAuction(ctx, nftID, nftDenom, auction)
 }
 
 func (k Keeper) NewBid(ctx types.Context, nftID string, bidder types.AccAddress, bid types.Coins) {

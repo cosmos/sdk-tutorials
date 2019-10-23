@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/cosmos/sdk-application-tutorial#readme",
   "dependencies": {
-    "vuepress-theme-cosmos": "^1.0.29"
+    "vuepress-theme-cosmos": "^1.0.30"
   }
 }

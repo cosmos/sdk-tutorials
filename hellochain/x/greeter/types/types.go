@@ -21,7 +21,8 @@ var (
 	ModuleCdc = codec.New()
 )
 
-// struct containing the data of the Greeting. json and yaml tags are used to specify field names when marshalled to json
+// struct containing the data of the Greeting. json and yaml tags are used to specify field names
+// when marshalled to json
 type Greeting struct {
 	Sender    sdk.AccAddress `json:"sender" yaml:"sender"`     // address of the account "sending" the greeting
 	Recipient sdk.AccAddress `json:"receiver" yaml:"receiver"` // address of the account "receiving" the greeting

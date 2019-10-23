@@ -1,7 +1,3 @@
----
-order: 4
----
-
 # SetName
 
 ## `Msg`

@@ -7,7 +7,6 @@ const (
 
 type QueryResAuctionParams struct {
 	NftID    string
-	NftDenom string
 }
 
 // Define the params for the following queries:
@@ -16,6 +15,5 @@ type QueryResAuctionParams struct {
 func NewQueryAuctionParams(nftID, denom string) QueryResAuctionParams {
 	return QueryResAuctionParams{
 		NftID:    nftID,
-		NftDenom: denom,
 	}
 }

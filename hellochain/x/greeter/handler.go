@@ -2,8 +2,9 @@ package greeter
 
 import (
 	"fmt"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	gtypes "github.com/cosmos/hellochain/x/greeter/types"
+	gtypes "github.com/cosmos/sdk-application-tutorial/hellochain/x/greeter/types"
 )
 
 // NewHandler returns a handler for "greeter" type messages.

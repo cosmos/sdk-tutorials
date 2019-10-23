@@ -4,7 +4,7 @@
 
 在本章教程结束时，你会得到一个功能性的`nameservice`应用，一个字符串对字符串的映射关系表(`map[string]string`)。类似于[Namecoin](https://namecoin.org/)，[ENS](https://ens.domains/)，[Handshake](https://handshake.org/)这些模仿传统的DNS系统（map[domain]zonefile）的应用。用户可以购买未被使用的域名，或是出售/交易这些域名。
 
-本教程的所有最终源代码都在此[目录](https://github.com/cosmos/sdk-application-tutorial)（并编译）。但是，最好手动完成并尝试自己构建项目！
+本教程的所有最终源代码都在此[目录](https://github.com/cosmos/sdk-application-tutorial/nameservice)（并编译）。但是，最好手动完成并尝试自己构建项目！
 
 ### 需要
 

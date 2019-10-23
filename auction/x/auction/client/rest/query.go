@@ -10,7 +10,7 @@ import (
 )
 
 func registerQueryRoutes(cliCtx context.CLIContext, r *mux.Router) {
-	r.HandleFunc("/auction/{nftID}/{nftDenom}",
+	r.HandleFunc("/auction/{nftID}",
 		queryAuction(cliCtx)).Methods("GET")
 	r.HandleFunc("/auction/auctions",
 		queryAuctions(cliCtx)).Methods("GET")
@@ -20,14 +20,13 @@ func queryAuction(cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		nftID := vars["nftID"]
-		nftDenom := vars["nftDenom"]
 
 		cliCtx, ok := rest.ParseQueryHeightOrReturnBadRequest(w, cliCtx, r)
 		if !ok {
 			return
 		}
 
-		params := types.NewQueryAuctionParams(nftID, nftDenom)
+		params := types.NewQueryAuctionParams(nftID)
 
 		bz, err := cliCtx.Codec.MarshalJSON(params)
 		if err != nil {

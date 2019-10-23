@@ -7,10 +7,11 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 	cmn "github.com/tendermint/tendermint/libs/common"
-	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 	pvm "github.com/tendermint/tendermint/privval"
 	tmtypes "github.com/tendermint/tendermint/types"
+
+	dbm "github.com/tendermint/tm-db"
 
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -93,6 +94,21 @@ func (app *AppStarter) InitChainer(ctx sdk.Context, req abci.RequestInitChain) a
 		panic(err)
 	}
 
+	/*
+		---------------------NOTICE-----------------------
+		vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+		The code below is a hack to override the
+		functionality of tendermint. It is done here like
+		this so that you can focus on building fun custom
+		modules instead of all the necessary plumbing
+		required when building a production-ready app with
+		proof-of-stake. Don't worry about it now but
+		PLEASE NOTE that this is NOT BEST PRACTICE!
+
+		vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+		---------------------------------------------------
+	*/
 	privValidator := pvm.LoadOrGenFilePV(
 		config.PrivValidatorKeyFile(), config.PrivValidatorStateFile())
 	valPubKey := tmtypes.TM2PB.PubKey(privValidator.GetPubKey())
@@ -187,6 +203,7 @@ func NewAppStarter(appName string, logger log.Logger, db dbm.DB, moduleBasics ..
 		app.accountKeeper,
 		bankSupspace,
 		bank.DefaultCodespace,
+		app.ModuleAccountAddrs(),
 	)
 
 	app.supplyKeeper = supply.NewKeeper(
@@ -194,7 +211,6 @@ func NewAppStarter(appName string, logger log.Logger, db dbm.DB, moduleBasics ..
 		app.keySupply,
 		app.accountKeeper,
 		app.bankKeeper,
-		supply.DefaultCodespace,
 		maccPerms)
 
 	app.Mm = module.NewManager(
@@ -216,6 +232,16 @@ func NewDefaultGenesisState() GenesisState {
 // GetCodec returns the app's codec
 func (app *AppStarter) GetCodec() *codec.Codec {
 	return app.Cdc
+}
+
+// ModuleAccountAddrs returns all the app's module account addresses.
+func (app *AppStarter) ModuleAccountAddrs() map[string]bool {
+	modAccAddrs := make(map[string]bool)
+	for acc := range maccPerms {
+		modAccAddrs[supply.NewModuleAddress(acc).String()] = true
+	}
+
+	return modAccAddrs
 }
 
 // InitializeStarter configures the app. NOTE ModuleBasics must be complete before calling this
@@ -264,7 +290,8 @@ func NewAppCreator(creator func(log.Logger, dbm.DB) abci.Application) server.App
 
 // NewAppExporter wraps and returns a function for exporting application state
 func NewAppExporter(creator func(log.Logger, dbm.DB) abci.Application) server.AppExporter {
-	return func(logger log.Logger, db dbm.DB, traceStore io.Writer, height int64, forZeroHeight bool, jailWhiteList []string) (json.RawMessage, []tmtypes.GenesisValidator, error) {
+	return func(logger log.Logger, db dbm.DB, traceStore io.Writer, height int64,
+		forZeroHeight bool, jailWhiteList []string) (json.RawMessage, []tmtypes.GenesisValidator, error) {
 		return nil, nil, nil
 	}
 }
