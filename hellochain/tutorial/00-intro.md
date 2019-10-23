@@ -15,7 +15,7 @@ functionality in the form of our `greeter` module.
 ### Starter
 
 To speed up this tutorial, A lot of basic functionality comes packaged for you
-in the [starter](https://github.com/cosmos/sdk-application-tutorial/hellochain/tree/master/starter)
+in the [starter](https://github.com/cosmos/sdk-tutorials/tree/master/utils/starter)
 package. It will provide basic accounts, a bank, authentication, transaction
 (Tx) verification as well as some helper functions for building CLI tools.
 `starter` is your "crutch" for this tutorial. It is a heavily configured

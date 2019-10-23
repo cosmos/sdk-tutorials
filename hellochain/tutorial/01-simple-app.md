@@ -24,7 +24,7 @@ import (
 	dbm "github.com/tendermint/tm-db"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/cosmos/sdk-application-tutorial/hellochain/utils/starter"
+	"github.com/cosmos/sdk-tutorials/utils/starter"
 )
 
 const appName = "hellochain"
