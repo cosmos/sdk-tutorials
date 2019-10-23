@@ -1,4 +1,4 @@
-# Building and running the application
+# Build and run the app
 
 ## Building the `nameservice` application
 
@@ -16,6 +16,7 @@ source ~/.bash_profile
 ```
 
 Now, you can install and run the application.
+
 ```
 # Clone the source of the tutorial repository
 git clone https://github.com/cosmos/sdk-application-tutorial/nameservice.git
@@ -109,12 +110,12 @@ nscli query nameservice whois jack.id
 # > {"value":"","owner":"","price":[{"denom":"nametoken","amount":"1"}]}
 ```
 
-### Congratulations, you have built a Cosmos SDK application! This tutorial is now complete. If you want to see how to run the same commands using the REST server [click here](run-rest.md).
-
-
 # Run second node on another machine (Optional)
+
 Open terminal to run commands against that just created to install nsd and nscli
+
 ## init use another moniker and same namechain
+
 ```bash
 nsd init <moniker-2> --chain-id namechain
 ```
@@ -122,6 +123,7 @@ nsd init <moniker-2> --chain-id namechain
 ## overwrite ~/.nsd/config/genesis.json with first node's genesis.json
 
 ## change persistent_peers
+
 ```bash
 vim /.nsd/config/config.toml
 persistent_peers = "id@firt_node_ip:26656"
@@ -129,7 +131,9 @@ run "nscli status" on first node to get id.
 ```
 
 ## start this second node
+
 ```bash
 nsd start
 ```
 
+### Congratulations, you have built a Cosmos SDK application! This tutorial is now complete. If you want to see how to run the same commands using the REST server [click here](run-rest.md).

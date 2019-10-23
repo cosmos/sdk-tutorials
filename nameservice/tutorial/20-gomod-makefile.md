@@ -1,4 +1,4 @@
-# Building your app
+# go.mod and Makefile
 
 ## `Makefile`
 
