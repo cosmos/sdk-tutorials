@@ -10,7 +10,7 @@ This is the first section that you will have to code. To get started you must
 
 - create folder `x`
 - within `x` you have to create a folder to house your module, in this case its `/auction`,
-- finally within you module repo you must create two more folder, one within the first, like so `x/auction/internal/types`.
+- finally within you module repo you must create two more folders, one within the first, like so `x/auction/internal/types`.
 
 If you have made is this far your folder structure will look like this:
 
@@ -24,6 +24,8 @@ x/auction
 ## Auction
 
 For our NFT auction module we need two primary types. You can place them in `auction.go` with in the types folder.
+
+### Exercise
 
 1. `Bid` type, this type should take the address of the bidder (type AccAddress), the bid (type Coins) and the nftID (type string).
 2. `Auction` type, this type should take the `nftID` and `nftDenom` (type string), the current `bid`(type Bid), and the start and endtimes (type time.Time).

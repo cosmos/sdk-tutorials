@@ -46,14 +46,14 @@ x/auction
 ```
 
 - The `client` folder is how you will interact with your module. By default the Cosmos-SDK has the option of exposing a REST server for interaction with the modules directly.
-- The `internal` folder is there to define functions and types that are not meant to be directly imported into places outside module. The functions and types that need to be exposed will be aliased from the `alias.go` in the root of the module.
+- The `internal` folder is there to define functions and types that are not meant to be directly imported into places outside the module. The functions and types that need to be exposed will be aliased from the `alias.go` in the root of the module.
   - With in the `internal folder there are two folders:
     - The `keeper` folder will contain you business logic, your Gets, Sets, and Deletes.
     - The `types` folder will contain the types that you wish your business logic to use for its functionality.
 - The `exprorted` folder will house what this module expects from other modules. Primarily the file within this folder will contain [interfaces](https://gobyexample.com/interfaces).
 - `abci.go` contains BeginBlocker and EndBlocker functionality, for our module we will be using the endblocker functionality. <Link to docs on this>
 - `genesis.go` is the module's genesis related business logic (e.g. InitGenesis). Note, genesis types are defined in internal/types.
-- `handler.go` handles all the updates to state msgs. The messages that you require for your application will be in `/internal/types/msgs.go`
+- `handler.go` handles all the updates to state. The messages that you require for your application will be in `/internal/types/msgs.go`
 - `module.go` is module's implementation of the `AppModule` and `AppModuleBasic` interfaces.
 
 ### Next you will begin coding, you will be able to start from a empty directoy.

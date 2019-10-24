@@ -4,7 +4,7 @@ order: 5
 
 # Messages Exercise
 
-Messages are used to write to your applications state. This is similar to actions in react/redux or vue/vuex. They are wrapped in transactions that can be sent to the network.The Cosmos SDK wraps and unwraps `Msgs` from `Txs`, which means, as an app developer, you only have to define `Msgs`. `Msgs` must satisfy the following interface (we'll implement all of these in the next section):
+Messages are used to write to your applications state. This is similar to actions in react/redux or vue/vuex. They are wrapped in transactions that can be sent to the network. The Cosmos SDK wraps and unwraps `Msgs` from `Txs`, which means, as an app developer, you only have to define `Msgs`. `Msgs` must satisfy the following interface (we'll implement all of these in the next section):
 
 ```go
 // Transactions messages must fulfill the Msg
@@ -33,11 +33,11 @@ type Msg interface {
 
 In this exercise you will be defining two message types
 
-1. Type `MsgCreateAuction` which takes an nftID and nftDenom (type string), owner (type AccAddress), endtime(type time.Duration)
+1.  Type `MsgCreateAuction` which takes an nftID and nftDenom (type string), owner (type AccAddress), endtime (type time.Duration).
 
-- You will notice we are not receiving a startTime in this message, that is because we will use use block time of which comes in when the auction is created.
+    - You will notice we are not receiving a startTime in this message, that is because we will use use block time of which comes in when the auction is created.
 
-2. Type `MsgBid` which takes a bidder (type AccAddress), bid (type Coins), and a nftID(type string)
+2.  Type `MsgBid` which takes a bidder (type AccAddress), bid (type Coins), and a nftID (type string).
 
 To implement the above interface, each type must have the interface's methods. Below you can see an example:
 
@@ -51,7 +51,7 @@ func (msg MsgCreateAuction) Type() string { return "<msg_type>" }
 // ValidateBasic Implements Msg.
 func (msg MsgCreateAuction) ValidateBasic() sdk.Error {
   // A sanity check to make sure that when the message is called it adheres to the type
-	return nil
+ 	return nil
 }
 
 // GetSignBytes Implements Msg.

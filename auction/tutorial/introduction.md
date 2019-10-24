@@ -4,13 +4,13 @@ order: 1
 
 # Introduction
 
-If you have your go environment set up then you skip this part of the tutorial, if you do not please read the instructions below.
+If you have your go environment set up then you skip this part of the tutorial, if you do not, please read the instructions below.
 
 ## Setups
 
 ### Mac
 
-- If you are using a Mac then the easiest way and quickest way to install Golang is through [HomwBrew](https://brew.sh/). If you do not have Homebrew install I would recommend installing at as many application, not only Golang, use it for easy install.
+- If you are using a Mac then the easiest and quickest way to install Golang is through [HomeBrew](https://brew.sh/). If you do not have Homebrew installed I would recommend installing at as many application, not only Golang, use it for easy install.
 
 Once HomeBrew is installed you can:
 
