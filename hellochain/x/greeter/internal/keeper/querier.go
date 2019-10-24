@@ -5,7 +5,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter/internal/types"
+	greeter "github.com/cosmos/sdk-tutorials/hellochain/x/greeter/internal/types"
 )
 
 // query endpoints supported by the hellochain Querier

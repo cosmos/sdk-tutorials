@@ -4,7 +4,7 @@ import (
 	"github.com/tendermint/tendermint/libs/cli"
 
 	app "github.com/cosmos/sdk-tutorials/hellochain"
-	"github.com/cosmos/sdk-tutorials/utils/starter"
+	"github.com/cosmos/sdk-tutorials/hellochain/starter"
 )
 
 func main() {
