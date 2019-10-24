@@ -14,4 +14,4 @@ well as the body of the "greeting".
 
 Save the following in `x/greeter/types/msgs.go`
 
-<<< @/x/greeter/types/msgs.go
+<<< @/hellochain/x/greeter/types/msgs.go

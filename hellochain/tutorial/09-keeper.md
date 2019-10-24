@@ -10,6 +10,6 @@ sophisticated applications, modules may have access to each other's Keepers for
 cross-module interactions but in this simple case our Keeper will manage the
 state of Greetings on its own.
 
-Add this to `x/greeter/keeper.go`
+Add this to `x/greeter/internal/keeper/keeper.go`
 
-<<< @/x/greeter/keeper.go
+<<< @/hellochain/x/greeter/internal/keeper/keeper.go

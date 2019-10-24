@@ -41,13 +41,16 @@ In this tutorial we will create an app with the following file structure.
         │   ├── cli
         │   │   ├── query.go
         │   │   └── tx.go
-        ├── types
-            ├── msgs.go
-            └── types.go
-        ├── handler.go
-        ├── keeper.go
+        ├── internal
+            ├── types
+            |  ├── msgs.go
+            |  └── types.go
+            ├─ keeper
+              └── querier.go
+              ├── keeper.go
+        ├── alias.go
         ├── module.go
-        └── querier.go
+        ├── handler.go
 
 ```
 

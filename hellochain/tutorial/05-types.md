@@ -10,4 +10,4 @@ define this struct and other necessary components in a types file.
 
 Save this to `x/greeter/types/types.go`
 
-<<< @/x/greeter/types/types.go
+<<< @/hellochain/x/greeter/types/types.go

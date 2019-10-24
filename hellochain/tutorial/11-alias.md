@@ -6,4 +6,4 @@ order: 11
 
 Lets create `x/greeter/alias.go` to expose the necessary types and vars from our greeter module. 
 
-<<< @/x/greeter/alias.go
+<<< @/hellochain/x/greeter/alias.go

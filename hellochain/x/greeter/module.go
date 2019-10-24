@@ -7,9 +7,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/sdk-tutorials/hellochain/starter"
-	gtypes "github.com/cosmos/sdk-tutorials/hellochain/x/greeter/types"
-
 	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter/client/cli"
+	gtypes "github.com/cosmos/sdk-tutorials/hellochain/x/greeter/internal/types"
 )
 
 // AppModuleBasic is the minimal struct for a module
