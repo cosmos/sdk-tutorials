@@ -9,8 +9,7 @@ import (
 	"github.com/cosmos/sdk-tutorials/utils/starter"
 
 	//import greeter types
-	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter"
-	gtypes "github.com/cosmos/sdk-tutorials/hellochain/x/greeter/types"
+	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter/"
 )
 
 const appName = "hellochain"

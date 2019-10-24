@@ -9,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
 
-	types "github.com/cosmos/sdk-tutorials/hellochain/x/greeter/types"
+	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter/internal/types"
 )
 
 // GetQueryCmd returns the parent query command for the greeter module
@@ -54,7 +54,7 @@ func GetCmdListGreetings(queryRoute string, cdc *codec.Codec) *cobra.Command {
 				return nil
 			}
 
-			out := types.NewQueryResGreetings()
+			out := NewQueryResGreetings()
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
 		},
