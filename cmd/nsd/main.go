@@ -91,6 +91,7 @@ func inspectSchema(obj interface{}) {
 
 func dumpSchema(cdc *amino.Codec) *cobra.Command {
 	converter := typescriptify.New()
+	converter.SetCreateInterface(true)
 	dumpSchemaCmd := &cobra.Command{
 		Use:   "schema",
 		Short: "dump schema from the amino codec",
