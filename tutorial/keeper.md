@@ -18,7 +18,7 @@ import (
 
 // Keeper maintains the link to data storage and exposes getter/setter methods for the various parts of the state machine
 type Keeper struct {
-	coinKeeper bank.Keeper
+	CoinKeeper bank.Keeper
 
 	storeKey  sdk.StoreKey // Unexposed key to access store from sdk.Context
 
@@ -154,7 +154,7 @@ The last piece of code needed in the `./x/nameservice/keeper.go` file is a const
 // NewKeeper creates new instances of the nameservice Keeper
 func NewKeeper(coinKeeper bank.Keeper, storeKey sdk.StoreKey, cdc *codec.Codec) Keeper {
 	return Keeper{
-		coinKeeper: coinKeeper,
+		CoinKeeper: coinKeeper,
 		storeKey:   storeKey,
 		cdc:        cdc,
 	}
