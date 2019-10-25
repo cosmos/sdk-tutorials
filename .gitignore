@@ -9,6 +9,8 @@
 vendor
 .vendor-new
 build
+node_modules/
+yarn-error.log
 
 # IDE
 .idea/
