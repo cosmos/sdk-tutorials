@@ -1,14 +1,14 @@
-# SDK Application Tutorial
+# Nameservice Application Tutorial
 
-This repository contains the source code of the nameservice tutorial.
+In this tutorial we will build a fully-functional nameservice application on a blockchain with the Cosmos SDK
 
-## Tutorial
 
-**[Click here](./tutorial/README.md)** to access the tutorial. You can also view it on the [website](https://cosmos.network/docs/tutorial).
+**[Click here](./tutorial/00-intro.md)** to start the tutorial. You can also view it on the [website](https://cosmos.network/tutorials).
 
 ## Building and running the example
 
-**[Click here](./tutorial/build-run.md)**  for instructions on how to build and run the code.
+If you are on the website, you can [find the code here on Github](https:://www.github.com/cosmos/sdk-tutorials)
+**[Click here](./tutorial/21-build-run.md)** for instructions on how to build and run the code.
 
 Translations:
 - [中文](./README_cn.md)
