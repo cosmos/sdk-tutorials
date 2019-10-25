@@ -1,6 +1,6 @@
- ---
- order: 20
- ---
+---
+order: 20
+---
 
 # go.mod and Makefile
 
@@ -46,4 +46,4 @@ nsd help
 nscli help
 ```
 
-### Congratulations, you have finished your nameservice application! Try [running and interacting with it](./build-run.md)!
+### Congratulations, you have finished your nameservice application! Try running and interacting with it!

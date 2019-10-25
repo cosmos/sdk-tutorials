@@ -1,7 +1,5 @@
 ---
-
 order: 18
-
 ---
 
 # Complete App
@@ -373,4 +371,4 @@ func MakeCodec() *codec.Codec {
 }
 ```
 
-### Now that you have created an application that includes your module, it's time to [build your entrypoints](entrypoint.md)!
+### Now that you have created an application that includes your module, it's time to build your entrypoints.

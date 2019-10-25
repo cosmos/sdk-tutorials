@@ -1,6 +1,6 @@
- ---
- order: 21
- ---
+---
+order: 21
+---
 
 # Build and run the app
 
@@ -140,4 +140,4 @@ run "nscli status" on first node to get id.
 nsd start
 ```
 
-### Congratulations, you have built a Cosmos SDK application! This tutorial is now complete. If you want to see how to run the same commands using the REST server [click here](run-rest.md).
+### Congratulations, you have built a Cosmos SDK application! This tutorial is now complete. If you want to see how to run the same commands using the REST server you'll need to run the REST server.

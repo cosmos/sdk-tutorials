@@ -1,6 +1,6 @@
- ---
- order: 22
- ---
+---
+order: 22
+---
 
 # Run REST routes
 

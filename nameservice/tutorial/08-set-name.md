@@ -1,11 +1,11 @@
- ---
- order: 8
- ---
+---
+order: 8
+---
 
 
 # SetName
 
-## `Msg`
+## `MsgSetName`
 
 The naming convention for the SDK `Msgs` is `Msg{ .Action }`. The first action to implement is `SetName`, so we'll call it `MsgSetName`. This `Msg` allows the owner of a name to set the return value for that name within the resolver. Start by defining `MsgSetName` in a new file called `./x/nameservice/types/msgs.go`:
 
@@ -134,4 +134,4 @@ func handleMsgSetName(ctx sdk.Context, keeper Keeper, msg MsgSetName) sdk.Result
 
 In this function, check to see if the `Msg` sender is actually the owner of the name (`keeper.GetOwner`). If so, they can set the name by calling the function on the `Keeper`. If not, throw an error and return that to the user.
 
-### Great, now owners can `SetName`s! But what if a name doesn't have an owner yet? Your module needs a way for users to buy names! Let us define [define the `BuyName` message](./buy-name.md).
+### Great, now owners can `SetName`s! But what if a name doesn't have an owner yet? Your module needs a way for users to buy names! Let us define define the `BuyName` message

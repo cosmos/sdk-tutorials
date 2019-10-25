@@ -67,6 +67,4 @@ cd $GOPATH/src/github.com/{ .Username }/nameservice
 git init
 ```
 
-Then, just follow along! The first step describes the design of your application. If you want to jump directly to the coding section, you can start with the [second step](./keeper.md)
-
-## [Click here](./01-app-design.md) to get started with the tutorial!
+Then, just follow along! The first step describes the design of your application.

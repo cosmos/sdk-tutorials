@@ -1,11 +1,11 @@
+---
+order: 10
+---
 
- ---
- order: 10
- ---
 
 # Delete Name
 
-## Msg
+## MsgDeleteName
 
 Now it is time to define the `Msg` for deleting names and add it to the `./x/nameservice/types/msgs.go` file. This code is very similar to `SetName`:
 
@@ -91,4 +91,4 @@ func handleMsgDeleteName(ctx sdk.Context, keeper Keeper, msg MsgDeleteName) sdk.
 
 First check to see if the name currently exists in the store. If not, throw an error and return that to the user. Then check to see if the `Msg` sender is actually the owner of the name (`keeper.GetOwner`). If so, they can delete the name by calling the function on the `Keeper`. If not, throw an error and return that to the user.
 
-### Now that you have your `Msgs` and `Handlers` defined it's time to learn about making the data from these transactions [available for querying](queriers.md)!
+### Now that you have your `Msgs` and `Handlers` defined it's time to learn about making the data from these transactions [available for querying.

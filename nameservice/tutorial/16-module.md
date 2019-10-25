@@ -1,6 +1,6 @@
- ---
- order: 16
- ---
+---
+order: 16
+---
 
 # AppModule Interface
 
@@ -133,4 +133,4 @@ func (am AppModule) ExportGenesis(ctx sdk.Context) json.RawMessage {
 
 To see more examples of AppModule implementation, check out some of the other modules in the SDK such as [x/staking](https://github.com/cosmos/cosmos-sdk/blob/master/x/staking/genesis.go)
 
-### Next, we need to [implement the genesis-specific methods called above.](./genesis.md)
+### Next, we need to implement the genesis-specific methods called above.

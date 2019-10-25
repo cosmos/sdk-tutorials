@@ -12,4 +12,4 @@ You must also add the corresponding method that'll be called at the time of erro
 
 We'll see later on in the tutorial where this method is called.
 
-### Now we move on to writing the [Keeper for the module](./keeper.md).
+Now we move on to writing the Keeper for the module.

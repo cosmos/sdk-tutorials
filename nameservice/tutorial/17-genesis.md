@@ -1,7 +1,5 @@
 ---
-
 order: 17
-
 ---
 
 # Genesis
@@ -74,4 +72,4 @@ A few notes about the above code:
 - `InitGenesis()` is called on chain start, this function imports genesis state into the keeper.
 - `ExportGenesis()` is called after stopping the chain, this function loads application state into a GenesisState stuct to later be exported to `genesis.json` alongside data from the other modules.
 
-### Now your module has everything it needs to be [incorporated into your Cosmos SDK application](./app-complete.md)!
+### Now your module has everything it needs to be incorporated into your Cosmos SDK application.

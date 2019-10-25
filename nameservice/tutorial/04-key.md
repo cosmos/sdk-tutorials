@@ -1,7 +1,6 @@
-
- ---
- order: 4
- ---
+---
+order: 4
+---
 
 # Key
 
@@ -20,5 +19,3 @@ const (
 	StoreKey = ModuleName
 )
 ```
-
-### Now we move on to writing the [Error handling for the module](./errors.md).

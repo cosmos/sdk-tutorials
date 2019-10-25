@@ -1,6 +1,6 @@
- ---
- order: 15
- ---
+---
+order: 15
+---
 
 # Nameservice Module Rest Interface
 
@@ -76,4 +76,4 @@ Notes on the above code:
 - The [`BaseReq`](https://godoc.org/github.com/cosmos/cosmos-sdk/client/utils#BaseReq) contains the basic required fields for making a transaction (which key to use, how to decode it, which chain you are on, etc...) and is designed to be embedded as shown.
 - `baseReq.ValidateBasic` handles setting the response code for you and therefore you don't need to worry about handling errors or successes when using those functions.
 
-### Next its time to augment `nameservice` by implementing the [AppModule interface](./module.md)!
+### Next its time to augment `nameservice` by implementing the AppModule interface.

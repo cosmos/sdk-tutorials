@@ -1,6 +1,6 @@
- ---
- order: 13
- ---
+---
+order: 13
+---
 
 # Codec File
 
@@ -8,4 +8,4 @@ To [register your types with Amino](https://github.com/tendermint/go-amino#regis
 
 <<<@/nameservice/x/nameservice/internal/types/codec.go
 
-### Next you need to define [CLI interactions](./cli.md) with your module.
+### Next you need to define CLI interactions with your module.

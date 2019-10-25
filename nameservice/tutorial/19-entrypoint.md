@@ -1,6 +1,6 @@
- ---
- order: 19
- ---
+---
+order: 19
+---
 
 # Entrypoints
 
@@ -41,4 +41,4 @@ Note:
 - You can see the `ModuleClient` defined earlier in action here.
 - Note how the routes are included in the `registerRoutes` function.
 
-### Now that you have your binaries defined its time to deal with [dependency management and build your app](gomod-makefile.md)!
+### Now that you have your binaries defined its time to deal with dependency management and build your app.

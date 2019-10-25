@@ -1,6 +1,6 @@
- ---
- order: 12
- ---
+---
+order: 12
+---
 
 # Alias
 
@@ -8,7 +8,7 @@ Start by creating a `./x/nameservice/alias.go` file. The main reason for having 
 
 First start by importing the "types" folder you have created.
 
-## There are three kinds of types we will create in the alias.go file.
+### There are three kinds of types we will create in the alias.go file.
 
 - A constant, this is where you will define immutable variables.
 - A variable, which you will define to contain information such as your messages.
@@ -18,4 +18,4 @@ First start by importing the "types" folder you have created.
 
 Now you have aliased your needed constants, variables, and types. We can move forward with the creation of the module.
 
-### Register your types in the [Amino encoding format next](./codec.md)!
+ Register your types in the Amino encoding format next.

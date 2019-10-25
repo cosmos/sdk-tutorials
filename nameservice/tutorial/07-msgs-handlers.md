@@ -1,6 +1,6 @@
- ---
- order: 7
- ---
+---
+order: 7
+---
 
 
 # Msgs and Handlers
@@ -42,4 +42,4 @@ type Msg interface {
 
 In this module you have three types of `Msgs` that users can send to interact with the application state: [`SetName`](set-name.md), [`BuyName`](./buy-name.md) and [`DeleteName`](./delete-name.md). They will each have an associated `Handler`.
 
-### Now that you have a better understanding of `Msgs` and `Handlers`, you can start building your first message: [`SetName`](set-name.md).
+ Now that you have a better understanding of `Msgs` and `Handlers`, you can start building your first message:  `SetName`

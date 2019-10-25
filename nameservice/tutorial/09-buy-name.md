@@ -1,12 +1,10 @@
 ---
-
 order: 9
-
 ---
 
-# Buy Name
+# BuyName
 
-## Msg
+## MsgBuyName
 
 Now it is time to define the `Msg` for buying names and add it to the `./x/nameservice/types/msgs.go` file. This code is very similar to `SetName`:
 
@@ -110,4 +108,4 @@ If either `SubtractCoins` or `SendCoins` returns a non-nil error, the handler th
 
 > _*NOTE*_: This handler uses functions from the `coinKeeper` to perform currency operations. If your application is performing currency operations you may want to take a look at the [godocs for this module](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#BaseKeeper) to see what functions it exposes.
 
-### Great, now owners can `BuyName`s! But what if they don't want the name any longer? Your module needs a way for users to delete names! Let us define [define the `DeleteName` message](./delete-name.md).
+### Great, now owners can `BuyName`s! But what if they don't want the name any longer? Your module needs a way for users to delete names! Let us define define the `DeleteName` message.

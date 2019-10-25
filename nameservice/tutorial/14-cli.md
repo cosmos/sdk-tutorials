@@ -1,7 +1,6 @@
-
- ---
- order: 14
- ---
+---
+order: 14
+---
 
 # Nameservice Module CLI
 
@@ -37,4 +36,4 @@ Notes on the above code:
 
 - The `authcmd` package is used here. [The godocs have more information on usage](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth/client/cli#GetAccountDecoder). It provides access to accounts controlled by the CLI and facilitates signing.
 
-### Now your ready to define [the routes that the REST client will use to communicate with your module](rest.md)!
+### Now your ready to define the routes that the REST client will use to communicate with your module
