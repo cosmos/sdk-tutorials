@@ -52,3 +52,5 @@ func queryAuction(ctx sdk.Context, path []string, req abci.RequestQuery, keeper 
 Next we also need a function to query all the available auctions.
 
 > It will be similar to the function above, but will not receive a path
+
+### The next page will consist of the answer.

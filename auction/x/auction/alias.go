@@ -35,6 +35,7 @@ var (
 )
 
 type (
+	GenesisState     = types.GenesisState
 	Auction          = types.Auction
 	Bid              = types.Bid
 	Keeper           = keeper.Keeper
