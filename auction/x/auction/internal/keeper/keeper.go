@@ -46,15 +46,15 @@ func (k Keeper) hasAuction(ctx types.Context, name []byte) bool {
 	return store.Has([]byte(name))
 }
 
-func (k Keeper) SetAuction(ctx types.Context, name string, auction autypes.Auction) {
+func (k Keeper) SetAuction(ctx types.Context, nftID string, auction autypes.Auction) {
 	store := ctx.KVStore(k.StoreKey)
-	nftIDByte := []byte(name)
+	nftIDByte := []byte(nftID)
 	store.Set(nftIDByte, k.cdc.MustMarshalBinaryBare(auction))
 }
 
-func (k Keeper) DeleteAuction(ctx types.Context, name string) {
+func (k Keeper) DeleteAuction(ctx types.Context, nftID string) {
 	store := ctx.KVStore(k.StoreKey)
-	nftIDByte := []byte(name)
+	nftIDByte := []byte(nftID)
 	store.Delete(nftIDByte)
 }
 
