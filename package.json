@@ -1,5 +1,5 @@
 {
-  "name": "cosmos-tutorials",
+  "name": "sdk-tutorials",
   "version": "1.0.0",
   "description": "A collection of tutorials for building with the Cosmos SDK",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cosmos/sdk-application-tutorial.git"
+    "url": "git+https://github.com/cosmos/sdk-tutorials.git"
   },
   "keywords": [
     "Cosmos",
@@ -19,9 +19,9 @@
   "author": "All in Bits",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cosmos/sdk-application-tutorial/issues"
+    "url": "https://github.com/cosmos/sdk-tutorials/issues"
   },
-  "homepage": "https://github.com/cosmos/sdk-application-tutorial#readme",
+  "homepage": "https://github.com/cosmos/sdk-tutorials#readme",
   "dependencies": {
     "vuepress-theme-cosmos": "^1.0.30"
   }
