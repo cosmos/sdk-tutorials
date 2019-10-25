@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/tendermint/tendermint/libs/cli"
 
-	app "github.com/cosmos/sdk-application-tutorial/hellochain"
-	"github.com/cosmos/sdk-application-tutorial/hellochain/utils/starter"
+	app "github.com/cosmos/sdk-tutorials/hellochain"
+	"github.com/cosmos/sdk-tutorials/hellochain/starter"
 )
 
 func main() {

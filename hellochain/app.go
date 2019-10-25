@@ -6,11 +6,10 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	dbm "github.com/tendermint/tm-db"
 
-	"github.com/cosmos/sdk-application-tutorial/hellochain/utils/starter"
+	"github.com/cosmos/sdk-tutorials/hellochain/starter"
 
 	//import greeter types
-	"github.com/cosmos/sdk-application-tutorial/hellochain/x/greeter"
-	gtypes "github.com/cosmos/sdk-application-tutorial/hellochain/x/greeter/types"
+	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter"
 )
 
 const appName = "hellochain"
@@ -34,7 +33,7 @@ func NewHelloChainApp(logger log.Logger, db dbm.DB) abci.Application {
 	appStarter := starter.NewAppStarter(appName, logger, db, greeter.AppModuleBasic{})
 
 	// create the key for greeter's store
-	greeterKey := sdk.NewKVStoreKey(gtypes.StoreKey)
+	greeterKey := sdk.NewKVStoreKey(greeter.StoreKey)
 
 	// construct the keeper
 	greeterKeeper := greeter.NewKeeper(greeterKey, appStarter.Cdc)

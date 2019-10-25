@@ -71,7 +71,7 @@ go.sum: go.mod
 Golang有一些依赖管理工具。在本教程中，你将使用[`Go Modules`](https://github.com/golang/go/wiki/Modules)。`Go Modules`使用仓库根目录中的`go.mod`文件来定义应用程序所需的依赖项。Cosmos SDK 应用程序目前依赖于某些库的特定版本。以下列表包含所有必需的版本。开始构建之前，用下面的内容替换`./go.mod`文件。
 
 ```
-module sdk-application-tutorial
+module sdk-tutorials
 
 go 1.13
 

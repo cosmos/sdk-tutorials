@@ -12,6 +12,6 @@ state. We will give our `greeter` module just one Message, `MsgGreet`, to keep
 things simple. `MsgGreet` stores the addresses of the sender and reciever as
 well as the body of the "greeting".
 
-Save the following in `x/greeter/types/msgs.go`
+Save the following in `x/greeter/internal/types/msgs.go`
 
-<<< @/x/greeter/types/msgs.go
+<<< @/hellochain/x/greeter/internal/types/msgs.go
