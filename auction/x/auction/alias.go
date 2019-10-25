@@ -1,21 +1,26 @@
 package auction
 
 import (
-	"github.com/cosmos/sdk-application-tutorial/auction/x/auction/internal/keeper"
-	"github.com/cosmos/sdk-application-tutorial/auction/x/auction/internal/types"
+	"github.com/cosmos/sdk-tutorials/auction/x/auction/internal/keeper"
+	"github.com/cosmos/sdk-tutorials/auction/x/auction/internal/types"
 )
 
 const (
 	ModuleName       = types.ModuleName
 	StoreKey         = types.StoreKey
+	RouterKey        = types.RouterKey
+	QuerierRoute     = types.QuerierRoute
 	DefaultCodespace = types.DefaultCodespace
 )
 
 var (
-	NewAuction      = types.NewAuction
-	ModuleCdc       = types.ModuleCdc
-	RegisterCodec   = types.RegisterCodec
-	ValidateGenesis = types.ValidateGenesis
+	NewKeeper           = keeper.NewKeeper
+	NewQuerier          = keeper.NewQuerier
+	NewAuction          = types.NewAuction
+	ModuleCdc           = types.ModuleCdc
+	RegisterCodec       = types.RegisterCodec
+	ValidateGenesis     = types.ValidateGenesis
+	DefaultGenesisState = types.DefaultGenesisState
 
 	// Errors
 	ErrBidSmaller      = types.ErrBidSmaller

@@ -6,7 +6,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/sdk-application-tutorial/auction/x/auction/internal/types"
+	"github.com/cosmos/sdk-tutorials/auction/x/auction/internal/types"
 
 	"github.com/spf13/cobra"
 )
@@ -37,7 +37,7 @@ func GetCmdAuction(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			auctionID := args[0]
 
-			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/auction/%s", queryRoute, auctionID))
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/auction/%s", queryRoute, auctionID), nil)
 			if err != nil {
 				fmt.Printf("could not find the auction")
 				return err
@@ -56,7 +56,7 @@ func GetCmdAuctions(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		Short: "Get all Auctions",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
-			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/auctions", queryRoute))
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/auctions", queryRoute), nil)
 			if err != nil {
 				return err
 			}

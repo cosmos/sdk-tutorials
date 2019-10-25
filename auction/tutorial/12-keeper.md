@@ -20,7 +20,7 @@ The keeper is where your business logic is contained. This is the core functiona
   "github.com/cosmos/cosmos-sdk/types"
   "github.com/cosmos/cosmos-sdk/x/bank"
   "github.com/cosmos/modules/incubator/nft"
-  autypes "github.com/cosmos/sdk-application-tutorial/auction/x/auction/internal/types"
+  autypes "github.com/cosmos/sdk-tutorials/auction/x/auction/internal/types"
   )
   ```
 

@@ -9,7 +9,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/cosmos/sdk-application-tutorial/auction/x/auction/internal/types"
+	"github.com/cosmos/sdk-tutorials/auction/x/auction/internal/types"
 	"github.com/spf13/cobra"
 )
 
@@ -61,9 +61,9 @@ func GetCmdCreateAuction(cdc *codec.Codec) *cobra.Command {
 
 func GetCmdPlaceBid(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use: "bid [nft-id] [bid]",
-		Short: "Place a bid on a auction"
-		Args: cobra.ExactArgs(2),
+		Use:   "bid [nft-id] [bid]",
+		Short: "Place a bid on a auction",
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
@@ -81,6 +81,7 @@ func GetCmdPlaceBid(cdc *codec.Codec) *cobra.Command {
 			}
 
 			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
+
 		},
 	}
 }

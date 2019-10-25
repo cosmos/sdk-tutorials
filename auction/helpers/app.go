@@ -25,7 +25,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/cosmos-sdk/x/supply"
 	"github.com/cosmos/modules/incubator/nft"
-	"github.com/cosmos/sdk-tutorials/auction/x/auction"
 )
 
 const appName = "SimApp"
@@ -50,7 +49,6 @@ var (
 		distr.AppModuleBasic{},
 		params.AppModuleBasic{},
 		nft.AppModuleBasic{},
-		auction.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -95,7 +93,6 @@ type AuctionApp struct {
 	DistrKeeper    distr.Keeper
 	ParamsKeeper   params.Keeper
 	NFTKeeper      nft.Keeper
-	AuctionKeeper  auction.Keeper
 
 	// the module manager
 	mm *module.Manager
@@ -149,7 +146,6 @@ func NewAuctionApp(
 	app.SlashingKeeper = slashing.NewKeeper(app.cdc, keys[slashing.StoreKey], &stakingKeeper,
 		slashingSubspace, slashing.DefaultCodespace)
 	app.NFTKeeper = nft.NewKeeper(app.cdc, keys[nft.StoreKey])
-	app.AuctionKeeper = auction.NewKeeper(app.cdc, app.BankKeeper, app.NFTKeeper, keys[auction.StoreKey])
 
 	// register the staking hooks
 	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
@@ -169,7 +165,6 @@ func NewAuctionApp(
 		slashing.NewAppModule(app.SlashingKeeper, app.StakingKeeper),
 		staking.NewAppModule(app.StakingKeeper, app.AccountKeeper, app.SupplyKeeper),
 		nft.NewAppModule(app.NFTKeeper),
-		auction.NewAppModule(app.AuctionKeeper, app.NFTKeeper),
 	)
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -184,7 +179,7 @@ func NewAuctionApp(
 	app.mm.SetOrderInitGenesis(
 		auth.ModuleName, distr.ModuleName, staking.ModuleName,
 		bank.ModuleName, slashing.ModuleName,
-		mint.ModuleName, supply.ModuleName, nft.ModuleName, auction.ModuleName,
+		mint.ModuleName, supply.ModuleName, nft.ModuleName,
 		genutil.ModuleName,
 	)
 
@@ -203,7 +198,6 @@ func NewAuctionApp(
 		staking.NewAppModule(app.StakingKeeper, app.AccountKeeper, app.SupplyKeeper),
 		slashing.NewAppModule(app.SlashingKeeper, app.StakingKeeper),
 		nft.NewAppModule(app.NFTKeeper),
-		auction.NewAppModule(app.AuctionKeeper, app.NFTKeeper),
 	)
 
 	app.sm.RegisterStoreDecoders()

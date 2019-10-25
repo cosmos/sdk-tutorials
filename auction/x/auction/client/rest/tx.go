@@ -5,10 +5,10 @@ import (
 	"time"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/client/utils"
+	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/rest"
-	"github.com/cosmos/sdk-application-tutorial/auction/x/auction/internal/types"
+	"github.com/cosmos/sdk-tutorials/auction/x/auction/internal/types"
 	"github.com/gorilla/mux"
 )
 

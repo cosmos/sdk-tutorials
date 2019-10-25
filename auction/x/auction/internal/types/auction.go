@@ -34,7 +34,7 @@ func (b Bid) String() string {
 
 type Auction struct {
 	NftID     string    `json:"nft"`
-	NftDenom string `json:"nft_denom"`
+	NftDenom  string    `json:"nft_denom"`
 	Bid       Bid       `json:"bid"`        // bid for the nft
 	StartTime time.Time `json:"start_time"` // start time of the auction
 	EndTime   time.Time `json:"end_time"`   // end time of the auction
@@ -43,7 +43,7 @@ type Auction struct {
 func NewAuction(nftID, nftDenom string, st, et time.Time) Auction {
 	return Auction{
 		NftID:     nftID,
-		NftDenom: nftDenom,
+		NftDenom:  nftDenom,
 		Bid:       Bid{},
 		StartTime: st,
 		EndTime:   et,
@@ -57,7 +57,7 @@ func (au Auction) String() string {
 	Bid: 				%s,
 	Start Time: %s,
 	End Time: 	%s,
-	`, au.NftID, au.NftDenom au.Bid, au.StartTime, au.EndTime)
+	`, au.NftID, au.NftDenom, au.Bid, au.StartTime, au.EndTime)
 	return strg
 }
 

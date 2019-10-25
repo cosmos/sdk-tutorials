@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+rm -rf ~/.aud
+aud init testval --chain-id testchain
+echo "12345678" | aucli keys add test1
+echo "12345678" | aucli keys add test2
+
+aud add-genesis-account $(aucli keys show test1 -a) 10000000000000000000000000stake,1000000legends
+aucli config output json
+aucli config indent true
+aucli config trust-node true
+
+aud gentx --name test1
+
+echo "Collecting genesis txs..."
+aud collect-gentxs
+
+echo "Validating genesis file..."
+aud validate-genesis

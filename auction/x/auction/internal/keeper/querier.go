@@ -5,7 +5,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/sdk-application-tutorial/auction/x/auction/internal/types"
+	"github.com/cosmos/sdk-tutorials/auction/x/auction/internal/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 
@@ -40,17 +40,19 @@ func queryAuction(ctx sdk.Context, path []string, req abci.RequestQuery, keeper 
 	return res, nil
 }
 
-func queryAuctions(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
+func queryAuctions(ctx sdk.Context, req abci.RequestQuery, k Keeper) ([]byte, sdk.Error) {
 
 	var auctions []types.Auction
 
-	iterator := keeper.GetAuctionsIterator(ctx)
+	iterator := k.GetAuctionsIterator(ctx)
 
 	for ; iterator.Valid(); iterator.Next() {
-		auctions = append(auctions, string(iterator.Value()))
+		nftID := string(iterator.Key())
+		auction, _ := k.GetAuction(ctx, nftID)
+		auctions = append(auctions, auction)
 	}
 
-	res, err := codec.MarshalJSONIndent(keeper.cdc, auctions)
+	res, err := codec.MarshalJSONIndent(k.cdc, auctions)
 	if err != nil {
 		panic("could not marshal result to JSON")
 	}

@@ -7,7 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/modules/incubator/nft"
-	autypes "github.com/cosmos/sdk-application-tutorial/auction/x/auction/internal/types"
+	autypes "github.com/cosmos/sdk-tutorials/auction/x/auction/internal/types"
 )
 
 type Keeper struct {
@@ -20,7 +20,7 @@ type Keeper struct {
 	cdc *codec.Codec
 }
 
-func NewKeeper(bk bank.Keeper, nftk nft.Keeper, sKey types.StoreKey, cdc *codec.Codec) Keeper {
+func NewKeeper(cdc *codec.Codec, bk bank.Keeper, nftk nft.Keeper, sKey types.StoreKey) Keeper {
 	return Keeper{
 		BankKeeper: bk,
 		NftKeeper:  nftk,

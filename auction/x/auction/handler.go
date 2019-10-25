@@ -39,7 +39,7 @@ func handleMsgCreateAuction(ctx types.Context, k Keeper, msg MsgCreateAuction) t
 	endTime := startTime.Add(msg.EndTime)
 
 	// need to create the auction
-	k.NewAuction(ctx, nft1.GetID(), startTime, endTime)
+	k.NewAuction(ctx, nft1.GetID(), msg.NftDenom, startTime, endTime)
 
 	ctx.EventManager().EmitEvents(types.Events{
 		types.NewEvent(
@@ -74,7 +74,7 @@ func handleMsgBid(ctx types.Context, k Keeper, msg MsgBid) types.Result {
 	}
 
 	// check that the new bid is greater than the current bid
-	if auction.Bid != nil && auction.Bid.Bid.IsAnyGTE(msg.Bid) {
+	if auction.Bid.Bid.IsAnyGTE(msg.Bid) {
 		return ErrBidSmaller(DefaultCodespace).Result()
 	}
 	// if not > return err code
