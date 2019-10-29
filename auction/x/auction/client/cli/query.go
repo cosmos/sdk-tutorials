@@ -12,20 +12,20 @@ import (
 )
 
 func GetQueryCmd(queryRoute string, cdc *codec.Codec) *cobra.Command {
-	auctionQueryCmd := &cobra.Command{
+	queryCmd := &cobra.Command{
 		Use:                        types.ModuleName,
-		Short:                      "Querying commands for the nameservice module",
+		Short:                      "Querying commands for the nft auction module",
 		DisableFlagParsing:         true,
 		SuggestionsMinimumDistance: 2,
 		RunE:                       client.ValidateCmd,
 	}
 
-	auctionQueryCmd.AddCommand(client.GetCommands(
+	queryCmd.AddCommand(client.GetCommands(
 		GetCmdAuction(queryRoute, cdc),
 		GetCmdAuctions(queryRoute, cdc),
 	)...)
 
-	return auctionQueryCmd
+	return queryCmd
 }
 
 func GetCmdAuction(queryRoute string, cdc *codec.Codec) *cobra.Command {

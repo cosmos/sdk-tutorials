@@ -6,6 +6,6 @@ order: 21
 
 The Cosmos SDK provides a standard interface for modules. This [`AppModule`](https://github.com/cosmos/cosmos-sdk/blob/master/types/module.go) interface requires modules to provide a set of methods used by the `ModuleBasicsManager` to incorporate them into your application. First we will scaffold out the interface and implement **some** of its methods.
 
-Lets start with adding the following code to `module.go`. We will leave a number of the functions unimplemented for now.
+For this section I recommend copying the page as these functions stay the same throughout modules, other than minor changes to allow for your module specific uses, In our case we will be using endblocker.
 
 <<<@/auction/x/auction/module.go

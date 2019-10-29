@@ -96,4 +96,4 @@ func handleMsgBid(ctx types.Context, k Keeper, msg MsgBid) types.Result {
 }
 ```
 
-### The next page will consist of the answer.
+### The next page will consist of the answer

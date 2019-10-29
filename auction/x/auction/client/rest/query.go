@@ -10,7 +10,7 @@ import (
 )
 
 func registerQueryRoutes(cliCtx context.CLIContext, r *mux.Router) {
-	r.HandleFunc("/auction/{nftID}",
+	r.HandleFunc("/auction/auction/{nftID}",
 		queryAuction(cliCtx)).Methods("GET")
 	r.HandleFunc("/auction/auctions",
 		queryAuctions(cliCtx)).Methods("GET")
@@ -34,7 +34,7 @@ func queryAuction(cliCtx context.CLIContext) http.HandlerFunc {
 			return
 		}
 
-		res, height, err := cliCtx.QueryWithData("custom/auction", bz)
+		res, height, err := cliCtx.QueryWithData("custom/auction/auction", bz)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusInternalServerError, err.Error())
 			return
