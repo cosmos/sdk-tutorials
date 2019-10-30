@@ -4,7 +4,7 @@ order: 8
 
 # Errors Exercise
 
-Errors are an important tool for all applications. We approach this by allowing the developer to set there own custom error functions.
+Errors are an important tool for all applications. We approach this by allowing the developer to set there own custom errors.
 
 To start create an `errors.go` file
 
@@ -24,4 +24,4 @@ func ErrType(codespace sdk.CodespaceType) sdk.Error {
 
 Now it is your turn to create the functions associated with the errors listed above.
 
-### The next page will consist of the answer.
+### The next page will consist of the answer

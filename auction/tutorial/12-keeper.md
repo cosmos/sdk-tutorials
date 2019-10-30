@@ -62,7 +62,7 @@ func (k Keeper) Set(ctx types.Context, name string, item autypes.Auction) {
 }
 ```
 
-Finally before the business logic of the module we want a delete method.
+A delete method.
 
 ```go
 func (k Keeper) Delete(ctx types.Context, name string) {
@@ -72,8 +72,18 @@ func (k Keeper) Delete(ctx types.Context, name string) {
 }
 ```
 
+A method to iterate through all the items in the store
+
+```go
+// Get an iterator over all names in which the keys are the names and the values are the whois
+func (k Keeper) GetItemIterator(ctx types.Context) types.Iterator {
+	store := ctx.KVStore(k.StoreKey)
+	return types.KVStorePrefixIterator(store, nil)
+}
+```
+
 Now you will have to implement the business logic for the module.
 
-We need a method to create auctions an done for new bids.
+We need a method to create auctions, one for new bids another to iterate
 
 ### On the next page you will find the answers.

@@ -51,9 +51,9 @@ x/auction
     - The `keeper` folder will contain you business logic, your Gets, Sets, and Deletes.
     - The `types` folder will contain the types that you wish your business logic to use for its functionality.
 - The `exprorted` folder will house what this module expects from other modules. Primarily the file within this folder will contain [interfaces](https://gobyexample.com/interfaces).
-- `abci.go` contains BeginBlocker and EndBlocker functionality, for our module we will be using the endblocker functionality. <Link to docs on this>
+- `abci.go` contains BeginBlocker and EndBlocker functionality, for our module we will be using the endblocker functionality. <!-- Todo: add link -->
 - `genesis.go` is the module's genesis related business logic (e.g. InitGenesis). Note, genesis types are defined in internal/types.
 - `handler.go` handles all the updates to state. The messages that you require for your application will be in `/internal/types/msgs.go`
 - `module.go` is module's implementation of the `AppModule` and `AppModuleBasic` interfaces.
 
-### Next you will begin coding, you will be able to start from a empty directoy.
+### Next you will begin coding, you will be able to start from a empty directoy

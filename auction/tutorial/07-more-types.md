@@ -10,7 +10,7 @@ Within this section we will cover some of the smaller files. In particular we wi
 
 The Cosmos-SDK uses its own serialization standard, called [Amino](https://github.com/tendermint/go-amino). In the previous section you created messages, in order for the message to be encoded/decoded they must be registered in the module's codec.
 
-Start By creating a codec file within the types folder: `types/codec.go`
+Start by creating a codec file within the types folder: `types/codec.go`
 
 You can do this like so:
 
@@ -20,7 +20,7 @@ You can do this like so:
 
 Events can be used to index transactions and blocks, you can read in depth on them [here](https://github.com/tendermint/tendermint/blob/f323c80cb3b78e123ea6238c8e136a30ff749ccc/docs/spec/abci/abci.md#events). This is defined in the state transition functions that we will be covering later, but in order to write DRY code we should set some values for the keys of the event.
 
-Start By creating a events file within the types folder: `types/events.go`
+Start by creating a events file within the types folder: `types/events.go`
 
 Then setting variables like so:
 

@@ -65,4 +65,4 @@ func (msg MsgCreateAuction) GetSigners() []sdk.AccAddress {
 }
 ```
 
-### The next page will consist of the answer.
+### The next page will consist of the answer

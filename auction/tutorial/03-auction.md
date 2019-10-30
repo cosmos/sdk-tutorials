@@ -23,7 +23,7 @@ x/auction
 
 ## Auction
 
-For our NFT auction module we need two primary types. You can place them in `auction.go` with in the types folder.
+For our NFT auction module we need two primary types. You can place them in `auction.go` within the types folder.
 
 ### Exercise
 
@@ -31,16 +31,14 @@ For our NFT auction module we need two primary types. You can place them in `auc
 2. `Auction` type, this type should take the `nftID` and `nftDenom` (type string), the current `bid`(type Bid), and the start and endtimes (type time.Time).
 3. The `Auction` type should have a method to replace the current bid
 
-**If you are new to go here is a hint on creating types:**
+**Hint:**
 
 ```go
-
-type Name struct {
+type Type struct {
   Name    string `json:"name"`
   Amount  int    `json:"amount"`
   IsReal  bool   `json:"bool"`
 }
-
 ```
 
 Each type should have a constructor:
@@ -63,4 +61,4 @@ func (t type) String() string {
 }
 ```
 
-### On the next page you will be able to see the answer.
+### On the next page you will be able to see the answer

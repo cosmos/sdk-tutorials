@@ -4,7 +4,7 @@ order: 1
 
 # Introduction
 
-If you have your go environment set up then you skip this part of the tutorial, if you do not, please read the instructions below.
+We will begin by setting up your go environment. If you have your go environment set up then you skip this part of the tutorial, if you do not, please read the instructions below.
 
 ## Setups
 
@@ -40,6 +40,9 @@ At this point you should have installed Golang, to test it out type:
 
 ```bash
 go version
+
+output:
+go version go1.13.3 darwin/amd64
 ```
 
 The output of this command should be the version of go you are using. The version is recommended to be 1.13+.
