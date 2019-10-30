@@ -1,11 +1,58 @@
-version: 2
+version: 2.1
 
-jobs:
-  build:
+executors:
+  tutorials:
     docker:
       - image: circleci/golang
+  website:
+    docker:
+      - image: tendermintdev/docker-website-deployment
+    environment:
+      AWS_REGION: us-east-1
+
+commands:
+  deploy:
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-packages-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "package-lock.json" }}
+      - run: make deploy-website
+      - save_cache:
+          paths:
+            - package-lock.json
+            - node_modules
+          key: v1-npm-packages-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "package-lock.json" }}
+
+jobs:
+  build-tutorials:
+    executor: tutorials
     steps:
       - checkout
       - run:
           name: nameservice test-cover
           command: cd nameservice && make test
+
+  deploy-website:
+    executor: website
+    steps:
+      - checkout
+      - run: make deploy-website
+
+workflows:
+  version: 2
+  build_tutorials:
+    jobs:
+      - build-tutorials
+  deploy_website:
+    jobs:
+      - deploy-website:
+          context: sdk-tutorial-web-deploy-staging
+          filters:
+            branches:
+              ignore: master
+      - deploy-website:
+          context: sdk-tutorial-web-deploy
+          filters:
+            branches:
+              only: master
