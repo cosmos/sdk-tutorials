@@ -26,7 +26,7 @@ import (
 	"github.com/cosmos/modules/incubator/nft"
 )
 
-const appName = "SimApp"
+const appName = "auctionApp"
 
 var (
 	// default home directories for the application CLI
@@ -67,7 +67,7 @@ func MakeCodec() *codec.Codec {
 	return cdc
 }
 
-// SimApp extends an ABCI application, but with most of its parameters exported.
+// AuctionApp extends an ABCI application, but with most of its parameters exported.
 // They are exported for convenience in creating helper functions, as object
 // capabilities aren't needed for testing.
 type AuctionApp struct {

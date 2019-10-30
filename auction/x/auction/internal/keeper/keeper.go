@@ -1,10 +1,12 @@
 package keeper
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/modules/incubator/nft"
 	autypes "github.com/cosmos/sdk-tutorials/auction/x/auction/internal/types"
@@ -83,4 +85,25 @@ func (k Keeper) NewBid(ctx types.Context, nftID string, bidder types.AccAddress,
 func (k Keeper) GetAuctionsIterator(ctx types.Context) types.Iterator {
 	store := ctx.KVStore(k.StoreKey)
 	return types.KVStorePrefixIterator(store, nil)
+}
+
+// func ()
+
+// IterateAuctionsQueue iterates over the proposals in the inactive proposal queue
+// and performs a callback function
+func (keeper Keeper) IterateAuctionsQueue(ctx sdk.Context, cb func(auction autypes.Auction) (stop bool)) {
+	iterator := keeper.GetAuctionsIterator(ctx)
+
+	defer iterator.Close()
+	for ; iterator.Valid(); iterator.Next() {
+		auctionId := string(iterator.Key())
+		auction, found := keeper.GetAuction(ctx, auctionId)
+		if !found {
+			panic(fmt.Sprintf("proposal %d does not exist", auctionId))
+		}
+
+		if cb(auction) {
+			break
+		}
+	}
 }

@@ -28,7 +28,7 @@ import (
 	"github.com/cosmos/sdk-tutorials/auction/x/auction"
 )
 
-const appName = "SimApp"
+const appName = "AuctionApp"
 
 var (
 	// default home directories for the application CLI
@@ -70,7 +70,7 @@ func MakeCodec() *codec.Codec {
 	return cdc
 }
 
-// SimApp extends an ABCI application, but with most of its parameters exported.
+// AuctionApp extends an ABCI application, but with most of its parameters exported.
 // They are exported for convenience in creating helper functions, as object
 // capabilities aren't needed for testing.
 type AuctionApp struct {
