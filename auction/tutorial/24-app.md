@@ -99,6 +99,8 @@ type App struct {
 }
 ```
 
+Here is the main function of your app. In this function you are creating your store keys, keepers, subspaces.
+
 ```go
 // NewSimApp returns a reference to an initialized SimApp.
 func NewAuctionApp(
@@ -107,6 +109,8 @@ func NewAuctionApp(
 ) *AuctionApp {
 	cdc := MakeCodec()
 ```
+
+Here we are creating a new [BaseApp](https://github.com/cosmos/cosmos-sdk/blob/4cd18bcf3514eb57907503dc19916b9e81a28bd9/docs/core/baseapp.md) and the stores that will be used in the application
 
 ```go
 	// create a new baseapp to be used in the app
@@ -122,8 +126,7 @@ func NewAuctionApp(
 	app := &App()
 ```
 
-Define the parameter keeper and module parameters.
-Define the keepers of your application
+Define the parameter keeper and module parameters then define the keepers of your application
 
 ```go
 
@@ -154,6 +157,19 @@ Define the keepers of your application
 	)
 ```
 
+There are multiple things being done here:
+
+- Setting the module into the module manager
+
+- if a module has a begin block or end block they must be registered
+
+  - `SetOrderBeginBlockers()`
+  - `SetOrderEndBlockers()`
+
+- Setting the modules that will be used to create your genesis file, this will be all your modules.
+
+  - Order matters here, please keep this in mind, the order to follow is listed below
+
 ```go
 	// NOTE: Any module instantiated in the module manager that is later modified
 	// must be passed by reference here.
@@ -173,7 +189,7 @@ Define the keepers of your application
 	// CanWithdrawInvariant invariant.
 	app.mm.SetOrderBeginBlockers(distr.ModuleName, slashing.ModuleName)
 
-	app.mm.SetOrderEndBlockers(staking.ModuleName)
+	app.mm.SetOrderEndBlockers(staking.ModuleName, auction.ModuleName)
 
 	// NOTE: The genutils moodule must occur after staking so that pools are
 	// properly initialized with tokens from genesis accounts.
@@ -183,7 +199,21 @@ Define the keepers of your application
 		supply.ModuleName, nft.ModuleName,
 		genutil.ModuleName,
 	)
+```
 
+- Register all the routes for the REST api.
+
+- The next section, `NewSimulationManager()` we will not be covering in this tutorial. This is where you would set you module to be run through the [simulator](https://github.com/cosmos/cosmos-sdk/blob/593ea5c60971db2da05b1c0713250e6f4b2dfac4/docs/concepts/using-the-sdk/simulation.md) that is included in the SDK.
+
+- Register all your stores to be run in the application.
+
+- Set the functions that will be called for initchain, begin block, end block and the antehandler.
+
+  - Some of these functions are helper functions and will be set in the helper section.
+
+- Finally return the app
+
+```go
 	app.mm.RegisterRoutes(app.Router(), app.QueryRouter())
 
 	// create the simulation manager and define the order of the modules for deterministic simulations
@@ -221,6 +251,8 @@ Define the keepers of your application
 	return app
 }
 ```
+
+## Helpers
 
 Below we will define helper functions for the app:
 
@@ -286,4 +318,8 @@ func GetMaccPerms() map[string][]string {
 	}
 	return dupMaccPerms
 }
+```
+
+```
+
 ```
