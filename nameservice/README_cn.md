@@ -10,5 +10,5 @@
 
 **[点击这里](./tutorial/cn/15-build-run.md)** 查看如何构建和运行源代码。
 
-多语言：
+## 翻译：
 - [English](./README.md)
