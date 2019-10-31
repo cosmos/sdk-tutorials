@@ -33,7 +33,7 @@ func (msg MsgCreateAuction) ValidateBasic() sdk.Error {
 	if msg.Owner.Empty() {
 		return sdk.ErrInvalidAddress("missing sender address")
 	}
-	if len(msg.NftID) != 0 || len(msg.NftDenom) != 0 {
+	if len(msg.NftID) == 0 || len(msg.NftDenom) == 0 {
 		return sdk.ErrUnknownRequest("NftID or NftDenom are empty")
 	}
 	return nil
@@ -74,7 +74,7 @@ func (msg MsgBid) ValidateBasic() sdk.Error {
 	if msg.Bidder.Empty() {
 		return sdk.ErrInvalidAddress("missing sender address")
 	}
-	if len(msg.NftID) != 0 {
+	if len(msg.NftID) == 0 {
 		return sdk.ErrUnknownRequest("NftID or NftDenom are empty")
 	}
 	if !msg.Bid.IsAllPositive() {
