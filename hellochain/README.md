@@ -13,7 +13,7 @@ half, "Custom Module" implements some custom application functionality on top
 of the chain. To get the full overview of what building with the Cosmos SDK
 involves, complete both sections.
 
-[Ready? Start Here](/tutorial/00-intro.md)
+[Ready? Start Here](./tutorial/00-intro.md)
 
 ### Requirements
 
