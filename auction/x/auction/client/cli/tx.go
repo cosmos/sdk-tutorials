@@ -33,7 +33,7 @@ func GetTxCmd(sKey string, cdc *codec.Codec) *cobra.Command {
 // GetCmdCreateAuction is the CLI command for creating auctions
 func GetCmdCreateAuction(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "create-auction [nft-id] [nft-denom] [end-time]",
+		Use:   "create-auction [nft-denom] [nft-id] [end-time]",
 		Short: "create an auction for your nft",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -46,7 +46,7 @@ func GetCmdCreateAuction(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgCreateAuction(args[0], args[1], cliCtx.GetFromAddress(), auctionDuration)
+			msg := types.NewMsgCreateAuction(args[1], args[0], cliCtx.GetFromAddress(), auctionDuration)
 			err2 := msg.ValidateBasic()
 			if err2 != nil {
 				return err2
