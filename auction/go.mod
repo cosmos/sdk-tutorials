@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/btcsuite/btcd v0.0.0-20190523000118-16327141da8c // indirect
-	github.com/cosmos/cosmos-sdk v0.34.4-0.20191024134410-cf8816e46a42
+	github.com/cosmos/cosmos-sdk v0.34.4-0.20191013030331-92ea174ea6e6
 	github.com/cosmos/go-bip39 v0.0.0-20180819234021-555e2067c45d // indirect
 	github.com/cosmos/modules/incubator/nft v0.0.0-20191015123508-50d0c8092493
 	github.com/golang/mock v1.3.1 // indirect

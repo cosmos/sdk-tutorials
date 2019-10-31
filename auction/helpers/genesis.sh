@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 rm -rf ~/.auctionapp
-aud init testval --chain-id testchain
+aud init a --chain-id testchain
 echo "12345678" | aucli keys add test1
 echo "12345678" | aucli keys add test2
 
@@ -17,3 +17,5 @@ aud collect-gentxs
 
 echo "Validating genesis file..."
 aud validate-genesis
+
+aud start

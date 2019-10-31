@@ -13,6 +13,6 @@ func init() {
 
 // RegisterCodec registers concrete types on the Amino codec
 func RegisterCodec(cdc *codec.Codec) {
-	cdc.RegisterConcrete(MsgCreateAuction{}, "auction/CreateAuction", nil)
-	cdc.RegisterConcrete(MsgBid{}, "nameservice/Bid", nil)
+	cdc.RegisterConcrete(MsgCreateAuction{}, "cosmos-sdk/MsgCreateAuction", nil)
+	cdc.RegisterConcrete(MsgBid{}, "cosmos-sdk/MsgBid", nil)
 }

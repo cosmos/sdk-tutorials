@@ -46,7 +46,7 @@ func GetCmdCreateAuction(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgCreateAuction(args[1], args[0], cliCtx.GetFromAddress(), auctionDuration)
+			msg := types.NewMsgCreateAuction(args[0], args[1], cliCtx.GetFromAddress(), auctionDuration)
 			err2 := msg.ValidateBasic()
 			if err2 != nil {
 				return err2
