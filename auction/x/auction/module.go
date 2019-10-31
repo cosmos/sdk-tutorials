@@ -13,6 +13,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
+	"github.com/cosmos/cosmos-sdk/x/bank"
 	sim "github.com/cosmos/cosmos-sdk/x/simulation"
 	"github.com/cosmos/modules/incubator/nft"
 	"github.com/cosmos/sdk-tutorials/auction/x/auction/client/cli"
@@ -93,17 +94,19 @@ type AppModule struct {
 	AppModuleBasic
 	AppModuleSimulation
 
-	keeper    Keeper
-	NftKeeper nft.Keeper
+	keeper     Keeper
+	NftKeeper  nft.Keeper
+	BankKeeper bank.Keeper
 }
 
 // NewAppModule creates a new AppModule object
-func NewAppModule(keeper Keeper, nftKeeper nft.Keeper) AppModule {
+func NewAppModule(keeper Keeper, nftKeeper nft.Keeper, bankKeeper bank.Keeper) AppModule {
 	return AppModule{
 		AppModuleBasic:      AppModuleBasic{},
 		AppModuleSimulation: AppModuleSimulation{},
 		keeper:              keeper,
 		NftKeeper:           nftKeeper,
+		BankKeeper:          bankKeeper,
 	}
 }
 
@@ -157,6 +160,6 @@ func (AppModule) BeginBlock(_ sdk.Context, _ abci.RequestBeginBlock) {}
 // EndBlock returns the end blocker for the gov module. It returns no validator
 // updates.
 func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
-	EndBlocker(ctx, am.keeper)
+	// EndBlocker(ctx, am.keeper)
 	return []abci.ValidatorUpdate{}
 }

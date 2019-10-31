@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-rm -rf ~/.aud
+rm -rf ~/.auctionapp
 aud init testval --chain-id testchain
 echo "12345678" | aucli keys add test1
 echo "12345678" | aucli keys add test2
@@ -10,7 +10,7 @@ aucli config output json
 aucli config indent true
 aucli config trust-node true
 
-aud gentx --name test1
+echo "12345678" | aud gentx --name test1
 
 echo "Collecting genesis txs..."
 aud collect-gentxs

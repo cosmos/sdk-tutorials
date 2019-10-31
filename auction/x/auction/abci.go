@@ -28,6 +28,9 @@ func EndBlocker(ctx sdk.Context, k Keeper) {
 		if err != nil {
 			return false
 		}
+
+		// transfer tokens from bidder to owner Implement during tutorial
+
 		// close the auction auction
 		k.DeleteAuction(ctx, auction.NftID)
 

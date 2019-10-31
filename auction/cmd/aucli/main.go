@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"path"
 
@@ -60,7 +61,8 @@ func main() {
 	executor := cli.PrepareMainCmd(rootCmd, "AU", app.DefaultCLIHome)
 	err := executor.Execute()
 	if err != nil {
-		panic(err)
+		fmt.Printf("Failed executing CLI command: %s, exiting...\n", err)
+		os.Exit(1)
 	}
 }
 

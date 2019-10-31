@@ -17,10 +17,13 @@ import (
 	"github.com/cosmos/cosmos-sdk/version"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
+	"github.com/cosmos/cosmos-sdk/x/crisis"
 	distr "github.com/cosmos/cosmos-sdk/x/distribution"
 	"github.com/cosmos/cosmos-sdk/x/genutil"
+	"github.com/cosmos/cosmos-sdk/x/gov"
 	"github.com/cosmos/cosmos-sdk/x/mint"
 	"github.com/cosmos/cosmos-sdk/x/params"
+	paramsclient "github.com/cosmos/cosmos-sdk/x/params/client"
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/cosmos-sdk/x/supply"
@@ -28,14 +31,14 @@ import (
 	"github.com/cosmos/sdk-tutorials/auction/x/auction"
 )
 
-const appName = "AuctionApp"
+const appName = "auctionApp"
 
 var (
 	// default home directories for the application CLI
-	DefaultCLIHome = os.ExpandEnv("$HOME/.auctionapp")
+	DefaultCLIHome = os.ExpandEnv("$HOME/.auctionApp")
 
 	// default home directories for the application daemon
-	DefaultNodeHome = os.ExpandEnv("$HOME/.auctionapp")
+	DefaultNodeHome = os.ExpandEnv("$HOME/.auctionApp")
 
 	// The module BasicManager is in charge of setting up basic,
 	// non-dependant module elements, such as codec registration
@@ -46,8 +49,12 @@ var (
 		genutil.AppModuleBasic{},
 		bank.AppModuleBasic{},
 		staking.AppModuleBasic{},
+		mint.AppModuleBasic{},
 		distr.AppModuleBasic{},
+		gov.NewAppModuleBasic(paramsclient.ProposalHandler, distr.ProposalHandler),
 		params.AppModuleBasic{},
+		crisis.AppModuleBasic{},
+		slashing.AppModuleBasic{},
 		nft.AppModuleBasic{},
 		auction.AppModuleBasic{},
 	)
@@ -56,8 +63,10 @@ var (
 	maccPerms = map[string][]string{
 		auth.FeeCollectorName:     nil,
 		distr.ModuleName:          nil,
+		mint.ModuleName:           {supply.Minter},
 		staking.BondedPoolName:    {supply.Burner, supply.Staking},
 		staking.NotBondedPoolName: {supply.Burner, supply.Staking},
+		gov.ModuleName:            {supply.Burner},
 	}
 )
 
@@ -70,7 +79,7 @@ func MakeCodec() *codec.Codec {
 	return cdc
 }
 
-// AuctionApp extends an ABCI application, but with most of its parameters exported.
+// SimApp extends an ABCI application, but with most of its parameters exported.
 // They are exported for convenience in creating helper functions, as object
 // capabilities aren't needed for testing.
 type AuctionApp struct {
@@ -89,7 +98,10 @@ type AuctionApp struct {
 	SupplyKeeper   supply.Keeper
 	StakingKeeper  staking.Keeper
 	SlashingKeeper slashing.Keeper
+	MintKeeper     mint.Keeper
 	DistrKeeper    distr.Keeper
+	GovKeeper      gov.Keeper
+	CrisisKeeper   crisis.Keeper
 	ParamsKeeper   params.Keeper
 	NFTKeeper      nft.Keeper
 	AuctionKeeper  auction.Keeper
@@ -114,7 +126,7 @@ func NewAuctionApp(
 
 	keys := sdk.NewKVStoreKeys(bam.MainStoreKey, auth.StoreKey, staking.StoreKey,
 		supply.StoreKey, mint.StoreKey, distr.StoreKey, slashing.StoreKey,
-		params.StoreKey, nft.StoreKey)
+		gov.StoreKey, params.StoreKey, nft.StoreKey, auction.StoreKey)
 	tkeys := sdk.NewTransientStoreKeys(params.TStoreKey)
 
 	app := &AuctionApp{
@@ -130,8 +142,11 @@ func NewAuctionApp(
 	authSubspace := app.ParamsKeeper.Subspace(auth.DefaultParamspace)
 	bankSubspace := app.ParamsKeeper.Subspace(bank.DefaultParamspace)
 	stakingSubspace := app.ParamsKeeper.Subspace(staking.DefaultParamspace)
+	mintSubspace := app.ParamsKeeper.Subspace(mint.DefaultParamspace)
 	distrSubspace := app.ParamsKeeper.Subspace(distr.DefaultParamspace)
 	slashingSubspace := app.ParamsKeeper.Subspace(slashing.DefaultParamspace)
+	govSubspace := app.ParamsKeeper.Subspace(gov.DefaultParamspace).WithKeyTable(gov.ParamKeyTable())
+	crisisSubspace := app.ParamsKeeper.Subspace(crisis.DefaultParamspace)
 
 	// add keepers
 	app.AccountKeeper = auth.NewAccountKeeper(app.cdc, keys[auth.StoreKey], authSubspace, auth.ProtoBaseAccount)
@@ -139,12 +154,22 @@ func NewAuctionApp(
 	app.SupplyKeeper = supply.NewKeeper(app.cdc, keys[supply.StoreKey], app.AccountKeeper, app.BankKeeper, maccPerms)
 	stakingKeeper := staking.NewKeeper(app.cdc, keys[staking.StoreKey],
 		app.SupplyKeeper, stakingSubspace, staking.DefaultCodespace)
+	app.MintKeeper = mint.NewKeeper(app.cdc, keys[mint.StoreKey], mintSubspace, &stakingKeeper, app.SupplyKeeper, auth.FeeCollectorName)
 	app.DistrKeeper = distr.NewKeeper(app.cdc, keys[distr.StoreKey], distrSubspace, &stakingKeeper,
 		app.SupplyKeeper, distr.DefaultCodespace, auth.FeeCollectorName, app.ModuleAccountAddrs())
 	app.SlashingKeeper = slashing.NewKeeper(app.cdc, keys[slashing.StoreKey], &stakingKeeper,
 		slashingSubspace, slashing.DefaultCodespace)
+	app.CrisisKeeper = crisis.NewKeeper(crisisSubspace, invCheckPeriod, app.SupplyKeeper, auth.FeeCollectorName)
 	app.NFTKeeper = nft.NewKeeper(app.cdc, keys[nft.StoreKey])
 	app.AuctionKeeper = auction.NewKeeper(app.cdc, app.BankKeeper, app.NFTKeeper, keys[auction.StoreKey])
+
+	// register the proposal types
+	govRouter := gov.NewRouter()
+	govRouter.AddRoute(gov.RouterKey, gov.ProposalHandler).
+		AddRoute(params.RouterKey, params.NewParamChangeProposalHandler(app.ParamsKeeper)).
+		AddRoute(distr.RouterKey, distr.NewCommunityPoolSpendProposalHandler(app.DistrKeeper))
+	app.GovKeeper = gov.NewKeeper(app.cdc, keys[gov.StoreKey], govSubspace,
+		app.SupplyKeeper, &stakingKeeper, gov.DefaultCodespace, govRouter)
 
 	// register the staking hooks
 	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
@@ -158,12 +183,15 @@ func NewAuctionApp(
 		genutil.NewAppModule(app.AccountKeeper, app.StakingKeeper, app.BaseApp.DeliverTx),
 		auth.NewAppModule(app.AccountKeeper),
 		bank.NewAppModule(app.BankKeeper, app.AccountKeeper),
+		crisis.NewAppModule(&app.CrisisKeeper),
 		supply.NewAppModule(app.SupplyKeeper, app.AccountKeeper),
+		gov.NewAppModule(app.GovKeeper, app.SupplyKeeper),
+		mint.NewAppModule(app.MintKeeper),
 		distr.NewAppModule(app.DistrKeeper, app.SupplyKeeper),
 		slashing.NewAppModule(app.SlashingKeeper, app.StakingKeeper),
 		staking.NewAppModule(app.StakingKeeper, app.AccountKeeper, app.SupplyKeeper),
 		nft.NewAppModule(app.NFTKeeper),
-		auction.NewAppModule(app.AuctionKeeper, app.NFTKeeper),
+		auction.NewAppModule(app.AuctionKeeper, app.NFTKeeper, app.BankKeeper),
 	)
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -171,17 +199,18 @@ func NewAuctionApp(
 	// CanWithdrawInvariant invariant.
 	app.mm.SetOrderBeginBlockers(mint.ModuleName, distr.ModuleName, slashing.ModuleName)
 
-	app.mm.SetOrderEndBlockers(staking.ModuleName)
+	app.mm.SetOrderEndBlockers(crisis.ModuleName, gov.ModuleName, staking.ModuleName, auction.ModuleName)
 
 	// NOTE: The genutils moodule must occur after staking so that pools are
 	// properly initialized with tokens from genesis accounts.
 	app.mm.SetOrderInitGenesis(
 		auth.ModuleName, distr.ModuleName, staking.ModuleName,
-		bank.ModuleName, slashing.ModuleName,
-		mint.ModuleName, supply.ModuleName, nft.ModuleName, auction.ModuleName,
-		genutil.ModuleName,
+		bank.ModuleName, slashing.ModuleName, gov.ModuleName,
+		mint.ModuleName, supply.ModuleName, crisis.ModuleName, nft.ModuleName,
+		auction.ModuleName, genutil.ModuleName,
 	)
 
+	app.mm.RegisterInvariants(&app.CrisisKeeper)
 	app.mm.RegisterRoutes(app.Router(), app.QueryRouter())
 
 	// create the simulation manager and define the order of the modules for deterministic simulations
@@ -192,11 +221,12 @@ func NewAuctionApp(
 		auth.NewAppModule(app.AccountKeeper),
 		bank.NewAppModule(app.BankKeeper, app.AccountKeeper),
 		supply.NewAppModule(app.SupplyKeeper, app.AccountKeeper),
+		gov.NewAppModule(app.GovKeeper, app.SupplyKeeper),
+		mint.NewAppModule(app.MintKeeper),
 		distr.NewAppModule(app.DistrKeeper, app.SupplyKeeper),
 		staking.NewAppModule(app.StakingKeeper, app.AccountKeeper, app.SupplyKeeper),
 		slashing.NewAppModule(app.SlashingKeeper, app.StakingKeeper),
-		nft.NewAppModule(app.NFTKeeper),
-		auction.NewAppModule(app.AuctionKeeper, app.NFTKeeper),
+		// nft.NewAppModule(app.NFTKeeper),
 	)
 
 	app.sm.RegisterStoreDecoders()
@@ -252,7 +282,7 @@ func (app *AuctionApp) ModuleAccountAddrs() map[string]bool {
 	return modAccAddrs
 }
 
-// Codec returns auctionApp's codec
+// Codec returns AuctionApp's codec
 func (app *AuctionApp) Codec() *codec.Codec {
 	return app.cdc
 }
