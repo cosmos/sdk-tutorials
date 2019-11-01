@@ -1,8 +1,8 @@
-# 程序目标
+# 应用目标
 
 你正在构建的应用程序的目标是让用户购买域名并为其设置解析的值。给定域名的所有者将是当前最高出价者。在本节中，你将了解如何将这些简单需求转化为程序的设计。
 
-区块链应用程序只是一个[具有确定性的复制状态机](https://en.wikipedia.org/wiki/State_machine_replication)。作为开发人员，你只需定义状态机（即状态，启动状态和触发状态转变的消息），[Tendermint](https://tendermint.com/docs/introduction/introduction.html) 将为你处理通过网络进行复制。
+区块链应用程序只是一个[确定性的复制状态机](https://en.wikipedia.org/wiki/State_machine_replication)。作为开发人员，你只需定义状态机（即状态，启动状态和触发状态转变的消息），[_Tendermint_](https://tendermint.com/docs/introduction/introduction.html) 将通过网络为你处理进行复制。
 
 > Tendermint是一个与应用程序无关的引擎，负责处理区块链的网络层和共识层。实际上，这意味着Tendermint负责传播和排序交易字节。Tendermint Core依赖于拜占庭容错（BFT）算法来达成交易顺序的共识。点击[这里](https://tendermint.com/docs/introduction/introduction.html)了解更多Tendermint相关信息。
 
@@ -12,6 +12,10 @@
 
 - `auth` : 此模块定义了账户和手续费，并为你应用程序的其余部分提供了访问这些功能的权限。
 - `bank` : 此模块使得应用程序能够创建和管理token及余额。
+- `staking` : This module enables the application to have validators that people can delegate to.
+- `distribution` : This module give a functional way to passively distribute rewards between validators and delegators.
+- `slashing` : This module disincentivizes people with value staked in the network, ie. Validators.
+- `supply` : This module holds the total supply of the chain.
 - `nameservice` : 此模块目前还不存在！其将处理你所构建的`nameservice`应用的核心逻辑。它是你构建应用程序时必须使用的主要部分。
 
 > 你可能会好奇为什么没有模块来处理验证人集合的变更。实际上，Tendermint依靠一组验证人来对下一个要添加至区块链的有效交易区块[达成共识](https://tendermint.com/docs/introduction/introduction.html#consensus-overview)。默认情况下，如果没有模块处理验证集合的变更，验证人集合将与创世文件`genesis.json`中定义的验证人集合保持一致。该应用程序就是这种情况。如果要允许更改应用程序的验证人集合，可以使用SDK的 [staking 模块](https://github.com/cosmos/cosmos-sdk/tree/develop/x/staking)，或编写自己的模块！
@@ -37,4 +41,3 @@ message 包含在 transaction 中。它们负责触发 state 的转变。每个�
 当一条交易（包含在区块中）到达一个Tendermint节点时，它将通过 [ABCI](https://github.com/tendermint/tendermint/tree/master/abci) 传递给应用程序并被解码以得到 message。然后将message路由至对应的模块，并根据定义在`Handler`中的逻辑来进行处理。如果 state 需要更新，`Handler`会调用`Keeper`来执行更新。你将在后面的教程了解有关这些概念的更多信息。
 
 ### 现在你已经从高层视角完成了对应用程序的设计，是时候开始[实现](02-app-init.md)它了。
-
