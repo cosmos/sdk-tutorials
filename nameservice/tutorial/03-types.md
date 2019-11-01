@@ -19,7 +19,7 @@ Each name will have three pieces of data associated with it.
 - Owner - The address of the current owner of the name
 - Price - The price you will need to pay in order to buy the name
 
-To start your SDK module, define your `nameservice.Whois` struct in the `./x/nameservice/types/types.go` file:
+To start your SDK module, define your `nameservice.Whois` struct in the `./x/nameservice/internal/types/types.go` file:
 
 <<<@/nameservice/x/nameservice/internal/types/types.go
 

@@ -2,13 +2,13 @@
 
 在本教程中，你将构建一个功能性的 [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/) 应用。过程中能学习基本的概念和SDK的结构。该示例将展示如何基于 Cosmos SDK 快速、轻松地**从头开始构建自己的区块链**。
 
-在本章教程结束时，你会得到一个功能性的`nameservice`应用，一个字符串对字符串的映射关系表(`map[string]string`)。类似于[Namecoin](https://namecoin.org/)，[ENS](https://ens.domains/)，[Handshake](https://handshake.org/)这些模仿传统的DNS系统（map[domain]zonefile）的应用。用户可以购买未被使用的域名，或是出售/交易这些域名。
+在本章教程结束时，你会得到一个功能性的`nameservice`应用，一个字符串对字符串的映射关系表(`map[string]string`)。类似于[Namecoin](https://namecoin.org/)，[ENS](https://ens.domains/)，[Handshake](https://handshake.org/)这些模仿传统的DNS系统（`map[domain]zonefile`）的应用。用户可以购买未被使用的域名，或是出售/交易这些域名。
 
 本教程的所有最终源代码都在此[目录](https://github.com/cosmos/sdk-tutorials/nameservice)（并编译）。但是，最好手动完成并尝试自己构建项目！
 
 ### 需要
 
-- 安装 [go 1.11+](https://golang.org/doc/install)
+- 安装 [`golang` >1.13.0](https://golang.org/doc/install)
 - 生效的[`$GOPATH`](https://github.com/golang/go/wiki/SettingGOPATH)
 - 创造属于你自己区块链的意愿！
 
@@ -18,29 +18,41 @@
 
 ```
 ./nameservice
-├── Gopkg.toml
 ├── Makefile
+├── Makefile.ledger
 ├── app.go
 ├── cmd
 │   ├── nscli
 │   │   └── main.go
 │   └── nsd
 │       └── main.go
+├── go.mod
+├── go.sum
 └── x
     └── nameservice
+        ├── alias.go
         ├── client
         │   ├── cli
-        │   │   ├── query.go
-        │   │   └── tx.go
-        │   ├── rest
-        │   │   └── rest.go
-        │   └── module_client.go
-        ├── codec.go
+        │   │   ├── query.go
+        │   │   └── tx.go
+        │   └── rest
+        │       ├── query.go
+        │       ├── rest.go
+        │       └── tx.go
+        ├── genesis.go
         ├── handler.go
-        ├── keeper.go
-        ├── msgs.go
-        ├── querier.go
-        └── types.go
+        ├── internal
+        │   ├── keeper
+        │   │   ├── keeper.go
+        │   │   └── querier.go
+        │   └── types
+        │       ├── codec.go
+        │       ├── errors.go
+        │       ├── key.go
+        │       ├── msgs.go
+        │       ├── querier.go
+        │       └── types.go
+        └── module.go
 ```
 
 首先创建一个新的git仓库：
