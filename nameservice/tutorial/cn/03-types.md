@@ -14,7 +14,7 @@
 - Owner - 该域名当前所有者的地址。
 - Price - 你需要为购买域名支付的费用。
 
-要开始你的 SDK 模块，在 `./x/nameservice/types.go`  文件中定义 `nameservice.Whois` 结构。
+要开始你的 SDK 模块，在 `nameservice/x/nameservice/internal/types/types.go`  文件中定义 `nameservice.Whois` 结构。
 
 ```go
 package nameservice
@@ -34,10 +34,10 @@ type Whois struct {
 在[设计](./01-app-design.md)文档中提到过，如果名称尚未有所有者，我们希望使用 MinPrice 对其进行初始化。
 
 ```go
-// Initial Starting Price for a name that was never previously owned
+// MinNamePrice is Initial Starting Price for a name that was never previously owned
 var MinNamePrice = sdk.Coins{sdk.NewInt64Coin("nametoken", 1)}
 
-// Returns a new Whois with the minprice as the price
+// NewWhois returns a new Whois with the minprice as the price
 func NewWhois() Whois {
 	return Whois{
 		Price: MinNamePrice,
