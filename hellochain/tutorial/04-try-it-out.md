@@ -4,7 +4,7 @@ order: 4
 
 # Try It Out
 
-We are almost finished but lets take a quick moment to try out the parts
+We are far from finished but lets take a quick moment to try out the parts
 we've built to see how they work.
 
 Run these commands and take a looks at the help text for the subsommands they
