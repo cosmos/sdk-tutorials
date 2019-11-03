@@ -11,7 +11,7 @@ handler and querier functions for receiving messages and retrieving chain
 state.
 
 For this tutorial we are going to build a `greeter` module that adds the "hello
-world" fucntionality we want while relying upon several other modules from the
+world" functionality we want while relying upon several other modules from the
 SDK to provide the rest of the blockchain functionality.
 
 Every module must implement the [AppModule

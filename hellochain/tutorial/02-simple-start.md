@@ -6,7 +6,7 @@ order: 2
 
 ### hcd
 
-Let's start with our "daemon". Open the file `cmd/hcd/main.go`. This will be
+Let's start with our "daemon". Create the file `cmd/hcd/main.go`. This will be
 your `hellochain daemon` command. For now we will rely on `starter` to bundle
 things up, but we will come back later to add our own `greeter` functionality
 when it's ready.

@@ -10,7 +10,8 @@ module.
 
 For this tutorial we are going to first build a "blank" application capable of
 only bank-like interactions and then add some arbitrary "hello world"
-functionality in the form of our `greeter` module.
+functionality in the form of our `greeter` module. Nothing needs to be downloaded
+or cloned, we will create every file from scratch.
 
 ### Starter
 

@@ -47,7 +47,7 @@ func NewHelloChainApp(logger log.Logger, db dbm.DB) abci.Application {
 
 	// compose our app with starter
 	var app = &helloChainApp{
-		appStarter
+		appStarter,
 	}
 
 	// do some final configuration...
