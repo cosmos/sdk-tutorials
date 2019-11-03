@@ -14,7 +14,7 @@ module's client package. These will then later be used to incorporate
 
 ## TxCmd
 
-For `greeter`'s `TxCmd` we will implement `say`, the command for creating snd
+For `greeter`'s `TxCmd` we will implement `say`, the command for creating and
 sending a greeting to an account address.
 
 Add this to `x/greeter/client/cli/tx.go`
@@ -26,7 +26,7 @@ Add this to `x/greeter/client/cli/tx.go`
 And for `greeter`'s `QueryCmd` we will implement `list`, the command for
 querying our blockchain for all greetings from a given address.
 
-And add this to `x/greeter/client/query.go`
+And add this to `x/greeter/client/cli/query.go`
 
 <<< @/hellochain/x/greeter/client/cli/query.go
 
