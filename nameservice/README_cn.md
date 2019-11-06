@@ -12,3 +12,4 @@
 
 ## 翻译：
 - [English](./README.md)
+- [Korean](./README_ko.md)

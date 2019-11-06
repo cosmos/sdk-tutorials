@@ -19,5 +19,6 @@ The nameservice tutorial also has translations and a slide deck.
 Translations:
 
 - [中文](./nameservice/README_cn.md)
+- [Korean](./nameservice/README_ko.md)
 
 ## [Slides](https://docs.google.com/presentation/d/1aCMAdkVY-gfgnGNPTygwVk3o68czPQ_VYfvdMy9Ek5Q/edit?usp=sharing)

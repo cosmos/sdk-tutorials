@@ -12,5 +12,6 @@ If you are on the website, you can [find the code here on Github](https:://www.g
 
 Translations:
 - [中文](./README_cn.md)
+- [Korean](./README_ko.md)
 
 ## [Slides](https://docs.google.com/presentation/d/1aCMAdkVY-gfgnGNPTygwVk3o68czPQ_VYfvdMy9Ek5Q/edit?usp=sharing)
