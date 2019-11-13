@@ -14,6 +14,7 @@ All of the final source code for this tutorial project is in this directory (and
 
 - [`golang` >1.13.0](https://golang.org/doc/install) installed
 - A working [`$GOPATH`](https://github.com/golang/go/wiki/SettingGOPATH)
+- Github account and [Github Desktop (64-bit required)](https://help.github.com/en/desktop/getting-started-with-github-desktop/installing-github-desktop)
 - Desire to create your own blockchain!
 
 ## Tutorial
