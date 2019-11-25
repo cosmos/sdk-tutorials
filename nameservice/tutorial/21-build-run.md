@@ -130,7 +130,7 @@ nsd init <moniker-2> --chain-id namechain
 
 ```bash
 vim /.nsd/config/config.toml
-persistent_peers = "id@firt_node_ip:26656"
+persistent_peers = "id@first_node_ip:26656"
 run "nscli status" on first node to get id.
 ```
 

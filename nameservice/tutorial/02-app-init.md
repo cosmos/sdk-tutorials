@@ -87,10 +87,10 @@ var (
 	// default home directories for the application CLI
 	DefaultCLIHome = os.ExpandEnv("$HOME/.nscli")
 
-	// DefaultNodeHome sets the folder where the applcation data and configuration will be stored
+	// DefaultNodeHome sets the folder where the application data and configuration will be stored
 	DefaultNodeHome = os.ExpandEnv("$HOME/.nsd")
 
-	// NewBasicManager is in charge of setting up basic module elemnets
+	// NewBasicManager is in charge of setting up basic module elements
 	ModuleBasics = module.NewBasicManager()
 
 	// account permissions
@@ -126,6 +126,6 @@ Great! You now have the skeleton of your application; however, it still lacks fu
 
 `baseapp` has no knowledge of the routes or user interactions you want to use in your application. The primary role of your application is to define these routes. Another role is to define the initial state. Both these things require that you add modules to your application.
 
-As you have seen in the [application design](./app-design.md) section, you need a couple modules for your nameservice: `auth`, `bank`, `staking`, `distribution`, `slashing` and `nameservice`. The first two already exist, but not the last! The `nameservice` module will define the bulk of your state machine. The next step is to build it.
+As you have seen in the [application design](./app-design.md) section, you need a few modules for your nameservice: `auth`, `bank`, `staking`, `distribution`, `slashing` and `nameservice`. The first five already exist, but not the last! The `nameservice` module will define the bulk of your state machine. The next step is to build it.
 
 ### In order to complete your application, you need to include modules. Go ahead and start building your nameservice module. You will come back to `app.go` later.
