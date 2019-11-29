@@ -24,7 +24,7 @@ Now, you can install and run the application.
 ```
 # Clone the source of the tutorial repository
 git clone https://github.com/cosmos/sdk-tutorials/nameservice.git
-cd sdk-tutorials
+cd sdk-tutorials/nameservice
 ```
 
 ```bash
