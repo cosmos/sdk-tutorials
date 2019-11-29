@@ -15,7 +15,7 @@ include Makefile.ledger
 all: install
 
 install: go.sum
-		go install -mod=readonly $(BUILD_FLAGS) ./cmd/nsd
+		go install  $(BUILD_FLAGS) ./cmd/nsd
 		go install -mod=readonly $(BUILD_FLAGS) ./cmd/nscli
 
 go.sum: go.mod
