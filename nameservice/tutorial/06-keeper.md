@@ -8,7 +8,7 @@ The main core of a Cosmos SDK module is a piece called the `Keeper`. It is what 
 
 ## Keeper Struct
 
-To start your SDK module, define your `nameservice.Keeper` in a new `./x/nameservice/keeper.go` file:
+To start your SDK module, define your `nameservice.Keeper` in a new `./x/nameservice/internal/keeper/keeper.go` file:
 
 ```go
 package nameservice
@@ -152,7 +152,7 @@ func (k Keeper) GetNamesIterator(ctx sdk.Context) sdk.Iterator {
 }
 ```
 
-The last piece of code needed in the `./x/nameservice/keeper.go` file is a constructor function for `Keeper`:
+The last piece of code needed in the `./x/nameservice/internal/keeper/keeper.go` file is a constructor function for `Keeper`:
 
 ```go
 // NewKeeper creates new instances of the nameservice Keeper
