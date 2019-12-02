@@ -13,7 +13,6 @@ All of the final source code for this tutorial project is in this directory (and
 ## Requirements
 
 - [`golang` >1.13.0](https://golang.org/doc/install) installed
-- A working [`$GOPATH`](https://github.com/golang/go/wiki/SettingGOPATH)
 - Github account and either [Github CLI](https://hub.github.com/) or [Github Desktop (64-bit required)](https://help.github.com/en/desktop/getting-started-with-github-desktop/installing-github-desktop)
 - Desire to create your own blockchain!
 
@@ -63,9 +62,10 @@ Through the course of this tutorial you will create the following files that mak
 Start by creating a new git repository:
 
 ```bash
-mkdir -p $GOPATH/src/github.com/{ .Username }/nameservice
-cd $GOPATH/src/github.com/{ .Username }/nameservice
+mkdir -p nameservice
+cd nameservice
 git init
+go mod init github.com/{ User }/nameservice
 ```
 
 Then, just follow along! The first step describes the design of your application.

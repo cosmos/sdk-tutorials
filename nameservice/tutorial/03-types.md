@@ -2,14 +2,13 @@
 order: 3
 ---
 
-
 # Types
 
 First Thing we're going to do is define a struct that holds all the metadata of a name. We will call this struct Whois after the ICANN DNS terminology.
 
 ## `types.go`
 
-Begin by creating the file `./x/nameservice/types/types.go` to hold the customs types for your module. In Cosmos SDK applications, the convention is that modules live in the `./x/` folder.
+Begin by creating the file `./x/nameservice/internal/types/types.go` to hold the customs types for your module. In Cosmos SDK applications, the convention is that modules live in the `./x/` folder.
 
 ## Whois
 
