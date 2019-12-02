@@ -62,7 +62,7 @@ Through the course of this tutorial you will create the following files that mak
 Start by creating a new git repository:
 
 ```bash
-mkdir -p nameservice
+mkdir nameservice
 cd nameservice
 git init
 go mod init github.com/{ User }/nameservice
