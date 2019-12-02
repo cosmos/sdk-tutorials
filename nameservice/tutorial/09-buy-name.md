@@ -6,7 +6,7 @@ order: 9
 
 ## MsgBuyName
 
-Now it is time to define the `Msg` for buying names and add it to the `./x/nameservice/types/msgs.go` file. This code is very similar to `SetName`:
+Now it is time to define the `Msg` for buying names and add it to the `./x/nameservice/internal/types/msgs.go` file. This code is very similar to `SetName`:
 
 ```go
 // MsgBuyName defines the BuyName message
