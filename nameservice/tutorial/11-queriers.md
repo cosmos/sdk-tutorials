@@ -6,35 +6,13 @@ order: 11
 
 ## Query Types
 
-Start by creating the `./x/nameservice/types/querier.go` file. This is where you will define your querier types.
+Start by navigating to `./x/nameservice/internal/types/querier.go` file. This is where you will define your querier types.
 
-```go
-package types
-
-import "strings"
-
-// Query Result Payload for a resolve query
-type QueryResResolve struct {
-	Value string `json:"value"`
-}
-
-// implement fmt.Stringer
-func (r QueryResResolve) String() string {
-	return r.Value
-}
-
-// Query Result Payload for a names query
-type QueryResNames []string
-
-// implement fmt.Stringer
-func (n QueryResNames) String() string {
-	return strings.Join(n[:], "\n")
-}
-```
+<<<@/nameservice/x/nameservice/internal/types/querier.go
 
 ## Querier
 
-Now you can create the `./x/nameservice/querier.go` file. This is the place to define which queries against application state users will be able to make. Your `nameservice` module will expose three queries:
+Now you can navigate to the `./x/nameservice/internal/keeper/querier.go` file. This is the place to define which queries against application state users will be able to make. Your `nameservice` module will expose three queries:
 
 - `resolve`: This takes a `name` and returns the `value` that is stored by the `nameservice`. This is similar to a DNS query.
 - `whois`: This takes a `name` and returns the `price`, `value`, and `owner` of the name. Used for figuring out how much names cost when you want to buy them.
@@ -133,6 +111,6 @@ Notes on the above code:
   - So for the output type of `resolve` we wrap the resolution string in a struct called `QueryResResolve` which is both JSON marshallable and has a `.String()` method.
   - For the output of Whois, the normal Whois struct is already JSON marshalable, but we need to add a `.String()` method on it.
   - Same for the output of a names query, a `[]string` is already natively marshalable, but we want to add a `.String()` method on it.
-- The type Whois is not defined in the `./x/nameservice/types/querier.go` file because it is created in the `./x/nameservice/types/types.go` file.
+- The type Whois is not defined in the `./x/nameservice/internal/types/querier.go` file because it is created in the `./x/nameservice/internal/types/types.go` file.
 
 ### Now that you have ways to mutate and view your module state it's time to put the finishing touches on it! Define the vairables and types you would like to bring to the top level of the module.

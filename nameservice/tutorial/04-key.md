@@ -4,7 +4,7 @@ order: 4
 
 # Key
 
-Start by navigating to the `key.go` file in the types folder. Within your key.go file, you will see that your keys which will be used throughout the creation of the module have already been created.
+Start by navigating to the `key.go` file in the types folder. Within the `key.go` file, you will see that the keys which will be used throughout the creation of the module have already been created.
 
 Defining keys that will be used throughout the application helps with writing DRY code.
 
