@@ -2,14 +2,20 @@
 order: 3
 ---
 
-
 # Types
 
-First Thing we're going to do is define a struct that holds all the metadata of a name. We will call this struct Whois after the ICANN DNS terminology.
+First thing we're going to do is create a module in the `/x/` folder with the scaffold tool using the below command:
+
+In the case of this tutorial we will be naming the module `nameservice`
+```bash
+cd x/
+
+scaffold module [user/Github org] [repo] nameservice
+```
 
 ## `types.go`
 
-Begin by creating the file `./x/nameservice/types/types.go` to hold the customs types for your module. In Cosmos SDK applications, the convention is that modules live in the `./x/` folder.
+Now we can continue with creating a module. Start by creating the file `types.go`in `./x/nameservice/internal/types` folder which will hold customs types for the module.
 
 ## Whois
 

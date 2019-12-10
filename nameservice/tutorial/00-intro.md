@@ -16,6 +16,7 @@ All of the final source code for this tutorial project is in this directory (and
 - A working [`$GOPATH`](https://github.com/golang/go/wiki/SettingGOPATH)
 - Github account and either [Github CLI](https://hub.github.com/) or [Github Desktop (64-bit required)](https://help.github.com/en/desktop/getting-started-with-github-desktop/installing-github-desktop)
 - Desire to create your own blockchain!
+- The [scaffold tool](https://github.com/cosmos/scaffold) will be used to go through this tutorial. If you go to the repo then following the listed instructions will enable you to use the tool. 
 
 ## Tutorial
 

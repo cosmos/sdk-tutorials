@@ -5,39 +5,16 @@ order: 02
 
 # Start your application
 
-Get started by creating a new file: `./app.go`. This file is the heart of your deterministic state-machine (blockchain). `app.go` is where the different modules are initialized and configured into a complete application using the `sdk.ModuleBasicManager`.
+Get started by creating a new app, we will be using the lvl-1 app which is provided by the scaffold tool.
 
-In `app.go`, you define what the application does when it receives a transaction. But first, it needs to be able to receive transactions in the correct order. This is the role of the [Tendermint consensus engine](https://github.com/tendermint/tendermint).
+You can fill in `user` with your Github username and `repo` with the name of the repo you are creating.
+```bash
+scaffold app lvl-1 [user] [repo] [flags]
 
-Start by importing the necessary dependencies:
-
-```go
-package app
-
-import (
-	"encoding/json"
-	"os"
-
-	"github.com/tendermint/tendermint/libs/log"
-
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-
-	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
-
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	distr "github.com/cosmos/cosmos-sdk/x/distribution"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/staking"
-	"github.com/cosmos/sdk-tutorials/nameservice/x/nameservice"
-
-	bam "github.com/cosmos/cosmos-sdk/baseapp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	abci "github.com/tendermint/tendermint/abci/types"
-	cmn "github.com/tendermint/tendermint/libs/common"
-	dbm "github.com/tendermint/tm-db"
-)
+cd [repo]
 ```
+
+In `app.go`, it is define what the application does when it receives a transaction. But first, it needs to be able to receive transactions in the correct order. This is the role of the [Tendermint consensus engine](https://github.com/tendermint/tendermint).
 
 Links to godocs for each module and package imported:
 
@@ -78,51 +55,9 @@ Here is what `baseapp` does:
 - Help initialise your state.
 - Help set up queries.
 
-Now you need to create a new custom type `nameServiceApp` for your application. This type will embed `baseapp` (embedding in Go similar to inheritance in other languages), meaning it will have access to all of `baseapp`'s methods.
+Now you need to rename the `appName` & `newApp` types to the name of your app in this case you can use `nameservice` & `nameServiceApp` for your application. This type will embed `baseapp` (embedding in Go similar to inheritance in other languages), meaning it will have access to all of `baseapp`'s methods.
 
-```go
-const appName = "nameservice"
-
-var (
-	// default home directories for the application CLI
-	DefaultCLIHome = os.ExpandEnv("$HOME/.nscli")
-
-	// DefaultNodeHome sets the folder where the application data and configuration will be stored
-	DefaultNodeHome = os.ExpandEnv("$HOME/.nsd")
-
-	// NewBasicManager is in charge of setting up basic module elements
-	ModuleBasics = module.NewBasicManager()
-
-	// account permissions
-	maccPerms = map[string][]string{}
-)
-
-type nameServiceApp struct {
-    *bam.BaseApp
-}
-```
-
-Add a simple constructor for your application:
-
-```go
-func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
-
-    // First define the top level codec that will be shared by the different modules. Note: Codec will be explained later
-    cdc := MakeCodec()
-
-    // BaseApp handles interactions with Tendermint through the ABCI protocol
-    bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
-
-    var app = &nameServiceApp{
-        BaseApp: bApp,
-        cdc:     cdc,
-    }
-
-    return app
-}
-```
-
-Great! You now have the skeleton of your application; however, it still lacks functionality.
+Great! You now have the start of your application. Currently you have a working blockchain, but we will customize it throughout this tutorial.
 
 `baseapp` has no knowledge of the routes or user interactions you want to use in your application. The primary role of your application is to define these routes. Another role is to define the initial state. Both these things require that you add modules to your application.
 
