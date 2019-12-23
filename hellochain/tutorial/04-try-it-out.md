@@ -7,7 +7,7 @@ order: 4
 We are far from finished but lets take a quick moment to try out the parts
 we've built to see how they work.
 
-Run these commands and take a looks at the help text for the subsommands they
+Run these commands and take a looks at the help text for the subcommands they
 support.
 
 ```bash
