@@ -8,7 +8,7 @@ The main core of a Cosmos SDK module is a piece called the `Keeper`. It is what 
 
 ## Keeper Struct
 
-To start your SDK module, define your `nameservice.Keeper` in the `./x/nameservice/internal/keeper/keeper.go` file. Define in this generated file are a few extra items that we will not cover at this time, for this reason we will start by clearing the `keeper.go` file in favor of following this tutorial.
+To start your SDK module, define your `nameservice.Keeper` in the `./x/nameservice/internal/keeper/keeper.go` file. Defined in this generated file are a few extra items that we will not cover at this time, for this reason we will start by clearing the `keeper.go` file in favor of following this tutorial.
 
 ```go
 package keeper

@@ -7,7 +7,7 @@ order: 8
 
 ## `MsgSetName`
 
-The naming convention for the SDK `Msgs` is `Msg{ .Action }`. The first action to implement is `SetName`, so we'll call it `MsgSetName`. This `Msg` allows the owner of a name to set the return value for that name within the resolver. Start by defining `MsgSetName` in a the file called `./x/nameservice/internal/types/msgs.go`:
+The naming convention for the SDK `Msgs` is `Msg{ .Action }`. The first action to implement is `SetName`, so we'll call it `MsgSetName`. This `Msg` allows the owner of a name to set the return value for that name within the resolver. Start by defining `MsgSetName` in the file called `./x/nameservice/internal/types/msgs.go`:
 
 ```go
 package types
@@ -90,14 +90,14 @@ func (msg MsgSetName) GetSigners() []sdk.AccAddress {
 
 Now that `MsgSetName` is specified, the next step is to define what action(s) needs to be taken when this message is received. This is the role of the `handler`.
 
-In a new file (`./x/nameservice/handler.go`) start with the following code:
+In the file (`./x/nameservice/handler.go`) start with the following code:
 
 ```go
 package nameservice
 
 import (
 	"fmt"
-
+	"github.com/[User]/[repo]/x/nameservice/internal/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
