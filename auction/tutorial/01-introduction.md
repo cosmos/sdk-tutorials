@@ -4,45 +4,26 @@ order: 1
 
 # Introduction
 
-We will begin by setting up your go environment. If you have your go environment set up then you skip this part of the tutorial, if you do not, please read the instructions below.
+We will begin by setting up your go environment. If you have your go environment set up then you skip this part of the tutorial.
 
-## Setups
+- We recommend following the official documentation on how to install Go, you can find more [here](https://golang.org/doc/install).
 
-### Mac
-
-- If you are using a Mac then the easiest and quickest way to install Golang is through [HomeBrew](https://brew.sh/). If you do not have Homebrew installed I would recommend installing at as many application, not only Golang, use it for easy install.
-
-Once HomeBrew is installed you can:
+Test out that you have Go installed by typing:
 
 ```bash
-brew install go
+go env
 ```
 
-- If you would like to not install HomeBrew then you can download the go binary [here](https://golang.org/doc/install).
+## Scaffolding
 
-After you have installed the binary:
+We will be using the scaffolding tool to build out the app. With the scaffolding tool you get a ready built app for real world uses that you can add your modules to to customize the chain for your use case.
 
-```bash
-tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
+### Install 
 
-export PATH=$PATH:/usr/local/go/bin
+Install the app by:
+
+```bash 
+git clone https://github.com/cosmos/scaffold.git
+cd scaffold
+make install
 ```
-
-These instructions can be used for linux and FreeBSD.
-
-### Windows
-
-If you are using windows, there are instructions on how to download the binary as a zip [here](https://golang.org/doc/install#windows)
-
-## Test
-
-At this point you should have installed Golang, to test it out type:
-
-```bash
-go version
-
-output:
-go version go1.13.3 darwin/amd64
-```
-
-The output of this command should be the version of go you are using. The version is recommended to be 1.13+.

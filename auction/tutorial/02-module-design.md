@@ -18,8 +18,6 @@ x/auction
 │       ├── query.go
 │       ├── rest.go
 │       └── tx.go
-├── exported
-│   └── exported.go
 ├── internal
 │   ├── keeper
 │   │   ├── invariants.go
@@ -56,4 +54,4 @@ x/auction
 - `handler.go` handles all the updates to state. The messages that you require for your application will be in `/internal/types/msgs.go`
 - `module.go` is module's implementation of the `AppModule` and `AppModuleBasic` interfaces.
 
-### Next you will begin coding, you will be able to start from a empty directoy
+### Next you will begin coding, you will be able to start from a empty directory.
