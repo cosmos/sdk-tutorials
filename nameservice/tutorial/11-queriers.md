@@ -6,48 +6,26 @@ order: 11
 
 ## Query Types
 
-Start by creating the `./x/nameservice/internal/types/querier.go` file. This is where you will define your querier types.
+Start by navigating to `./x/nameservice/internal/types/querier.go` file. This is where you will define your querier types.
 
-```go
-package types
-
-import "strings"
-
-// Query Result Payload for a resolve query
-type QueryResResolve struct {
-	Value string `json:"value"`
-}
-
-// implement fmt.Stringer
-func (r QueryResResolve) String() string {
-	return r.Value
-}
-
-// Query Result Payload for a names query
-type QueryResNames []string
-
-// implement fmt.Stringer
-func (n QueryResNames) String() string {
-	return strings.Join(n[:], "\n")
-}
-```
+<<<@/nameservice/x/nameservice/internal/types/querier.go
 
 ## Querier
 
-Now you can create the `./x/nameservice/internal/keeper/querier.go` file. This is the place to define which queries against application state users will be able to make. Your `nameservice` module will expose three queries:
+Now you can navigate to the `./x/nameservice/internal/keeper/querier.go` file. This is the place to define which queries against application state users will be able to make. Your `nameservice` module will expose three queries:
 
 - `resolve`: This takes a `name` and returns the `value` that is stored by the `nameservice`. This is similar to a DNS query.
 - `whois`: This takes a `name` and returns the `price`, `value`, and `owner` of the name. Used for figuring out how much names cost when you want to buy them.
 - `name` : This does not take a parameter, it returns all the names stored in the `nameservice` store.
 
-Start by defining the `NewQuerier` function which acts as a sub-router for queries to this module (similar the `NewHandler` function). Note that because there isn't an interface similar to `Msg` for queries, you need to manually define switch statement cases (they can't be pulled off of the query `.Route()` function):
+You will see `NewQuerier` already defined, this function acts as a sub-router for queries to this module (similar the `NewHandler` function). Note that because there isn't an interface similar to `Msg` for queries, you need to manually define switch statement cases (they can't be pulled off of the query `.Route()` function):
 
 ```go
 package keeper
 
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/sdk-tutorials/nameservice/x/nameservice/internal/types"
+	"github.com/[user]/[repo]/x/nameservice/internal/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"

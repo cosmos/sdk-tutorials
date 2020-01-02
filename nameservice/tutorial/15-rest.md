@@ -4,9 +4,7 @@ order: 15
 
 # NameService Module Rest Interface
 
-Your module can also expose a REST interface to allow programatic access to the module's functionality. To get started create a file to hold the HTTP handlers:
-
-- `./x/nameservice/client/rest/rest.go`
+Your module can also expose a REST interface to allow programatic access to the module's functionality. To get started navigate to `./x/nameservice/client/rest/rest.go` this file will hold the HTTP handlers:
 
 Add in the `imports` and `const`s to get started:
 
@@ -19,6 +17,11 @@ import (
 	"fmt"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
+	"github.com/[user]/[repo]/x/nameservice/types"
+
+	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/rest"
 
 	"github.com/gorilla/mux"
 )

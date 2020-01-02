@@ -15,6 +15,7 @@ All of the final source code for this tutorial project is in this directory (and
 - [`golang` >1.13.0](https://golang.org/doc/install) installed
 - Github account and either [Github CLI](https://hub.github.com/) or [Github Desktop (64-bit required)](https://help.github.com/en/desktop/getting-started-with-github-desktop/installing-github-desktop)
 - Desire to create your own blockchain!
+- The [scaffold tool](https://github.com/cosmos/scaffold) will be used to go through this tutorial. Clone the repo and install with `git clone git@github.com:cosmos/scaffold.git && cd scaffold && make`. Check out the repo for more detailed instructions.
 
 ## Tutorial
 

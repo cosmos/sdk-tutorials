@@ -6,7 +6,7 @@ order: 21
 
 ## Building the `nameservice` application
 
-If you want to build the `nameservice` application in this repo to see the functionalities, **Go 1.13.0+** is required .
+This repo contains a complete `nameservice` application. If you want to build this completed version **Go 1.13.0+** is required.
 
 Add some parameters to environment is necessary if you have never used the `go mod` before.
 
@@ -19,10 +19,13 @@ source ~/.bash_profile
 
 Now, you can install and run the application.
 
+If you have not completed the tutorial then you can follow the below cloning instructions:
+
 ```
 # Clone the source of the tutorial repository
 git clone https://github.com/cosmos/sdk-tutorials/nameservice.git
 cd sdk-tutorials
+cd namerservice
 ```
 
 ```bash
