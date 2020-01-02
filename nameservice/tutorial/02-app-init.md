@@ -55,7 +55,7 @@ Here is what `baseapp` does:
 - Help initialise your state.
 - Help set up queries.
 
-Now you need to rename the `appName` & `newApp` types to the name of your app in this case you can use `nameservice` & `nameServiceApp` for your application. This type will embed `baseapp` (embedding in Go similar to inheritance in other languages), meaning it will have access to all of `baseapp`'s methods.
+Now you need to rename the `appName` & `newApp` types to the name of your app. In this case you can use `nameservice` & `nameServiceApp`. This type will embed `baseapp` (embedding in Go similar to inheritance in other languages), meaning it will have access to all of `baseapp`'s methods.
 
 Great! You now have the start of your application. Currently you have a working blockchain, but we will customize it throughout this tutorial.
 
