@@ -18,7 +18,7 @@ import (
 	"net/http"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/[User]/[Repo]/x/nameservice/types"
+	"github.com/[user]/[repo]/x/nameservice/types"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"

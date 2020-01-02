@@ -8,7 +8,7 @@ The Cosmos SDK provides a standard interface for modules. This [`AppModule`](htt
 
 Start by opening two new files, `module.go` and `genesis.go`. We will implement the AppModule interface in `module.go` and the functions specific to genesis state management in `genesis.go`. The genesis-specific methods on your AppModule struct will be pass-though calls to those defined in `genesis.go`.
 
-Lets start with adding the following code to `module.go`.	The scaffolding tool has already filled in all the functions with the data that is needed, but there are a couple todo's, you will have to add in the modules that this module depends on in the `AppModule` type.
+Lets start with adding the following code to `module.go`. The scaffolding tool has already filled in all the functions with the data that is needed but there are still a couple of to-dos. You will have to add the modules that this module depends on in the `AppModule` type.
 
 <<<@/nameservice/x/nameservice/module.go
 

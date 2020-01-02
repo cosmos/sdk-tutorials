@@ -6,7 +6,7 @@ order: 21
 
 ## Building the `nameservice` application
 
-If you want to build the `nameservice` application in this repo to see the functionalities, **Go 1.13.0+** is required.
+This repo contains a complete `nameservice` application. If you want to build this completed version **Go 1.13.0+** is required.
 
 Add some parameters to environment is necessary if you have never used the `go mod` before.
 

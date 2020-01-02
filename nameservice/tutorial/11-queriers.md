@@ -25,7 +25,7 @@ package keeper
 
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/[User]/[repo]/x/nameservice/internal/types"
+	"github.com/[user]/[repo]/x/nameservice/internal/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"

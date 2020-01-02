@@ -97,7 +97,7 @@ package nameservice
 
 import (
 	"fmt"
-	"github.com/[User]/[repo]/x/nameservice/internal/types"
+	"github.com/[user]/[repo]/x/nameservice/internal/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 

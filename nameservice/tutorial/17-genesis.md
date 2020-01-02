@@ -10,7 +10,7 @@ Go to `x/nameservice/genesis.go` and you will see that a few things are missing.
 
 <<<@/nameservice/x/nameservice/genesis.go
 
-Next we will defined what the genesis state will be, the default genesis and a way to validate it so we don't run into any errors when we start the chain with preexisting state.
+Next we will define what the genesis state will be, the default genesis and a way to validate it so we don't run into any errors when we start the chain with preexisting state.
 
 <<<@/nameservice/x/nameservice/internal/types/genesis.go
 

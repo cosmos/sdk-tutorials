@@ -14,7 +14,7 @@ scaffold app lvl-1 [user] [repo] [flags]
 cd [repo]
 ```
 
-In `app.go`, it is define what the application does when it receives a transaction. But first, it needs to be able to receive transactions in the correct order. This is the role of the [Tendermint consensus engine](https://github.com/tendermint/tendermint).
+In `app.go` it is defined what the application does when it receives a transaction. But first, it needs to be able to receive transactions in the correct order. This is the role of the [Tendermint consensus engine](https://github.com/tendermint/tendermint).
 
 Links to godocs for each module and package imported:
 
