@@ -12,7 +12,6 @@ Add some parameters to environment is necessary if you have never used the `go m
 
 ```bash
 mkdir -p $HOME/go/bin
-echo "export GOPATH=$HOME/go" >> ~/.bash_profile
 echo "export GOBIN=\$GOPATH/bin" >> ~/.bash_profile
 echo "export PATH=\$PATH:\$GOBIN" >> ~/.bash_profile
 source ~/.bash_profile
@@ -74,7 +73,7 @@ nscli config trust-node true
 nsd gentx --name jack <or your key_name>
 ```
 
-After you have generated a genesis transaction, you will have to input the gentx into the genesis file, so that your nameservice chain is aware of the validators. To do so, run:
+After you have generated a genesis transaction, you will have to input the genTx into the genesis file, so that your nameservice chain is aware of the validators. To do so, run:
 
 `nsd collect-gentxs`
 

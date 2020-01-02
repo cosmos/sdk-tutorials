@@ -19,6 +19,6 @@ A few notes about the above code:
 - `ValidateGenesis()` validates the provided genesis state to ensure that expected invariants hold
 - `DefaultGenesisState()` is used mostly for testing. This provides a minimal GenesisState.
 - `InitGenesis()` is called on chain start, this function imports genesis state into the keeper.
-- `ExportGenesis()` is called after stopping the chain, this function loads application state into a GenesisState stuct to later be exported to `genesis.json` alongside data from the other modules.
+- `ExportGenesis()` is called after stopping the chain, this function loads application state into a GenesisState struct to later be exported to `genesis.json` alongside data from the other modules.
 
 ### Now your module has everything it needs to be incorporated into your Cosmos SDK application.

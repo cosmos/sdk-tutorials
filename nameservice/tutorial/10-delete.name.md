@@ -2,7 +2,6 @@
 order: 10
 ---
 
-
 # Delete Name
 
 ## MsgDeleteName
@@ -81,10 +80,10 @@ func handleMsgDeleteName(ctx sdk.Context, keeper Keeper, msg MsgDeleteName) sdk.
 	if !keeper.IsNamePresent(ctx, msg.Name) {
 		return types.ErrNameDoesNotExist(types.DefaultCodespace).Result()
 	}
-	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) { 
-		return sdk.ErrUnauthorized("Incorrect Owner").Result() 
+	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) {
+		return sdk.ErrUnauthorized("Incorrect Owner").Result()
 	}
-	keeper.DeleteWhois(ctx, msg.Name) 
+	keeper.DeleteWhois(ctx, msg.Name)
 	return sdk.Result{}
 }
 ```

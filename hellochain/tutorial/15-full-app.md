@@ -11,4 +11,4 @@ and add greeter's AppModuleBasic and AppModule alongside the other modules.
 
 Update your `app.go` to look like the following
 
-<<< @/hellochain/app.go{12,13,26,27,34,37,40,45,46,50,51,54}
+<<< @/hellochain/app.go{12,25,26,33,36,39,44,45,49,50,53}

@@ -2,7 +2,7 @@
 order: 15
 ---
 
-# Nameservice Module Rest Interface
+# NameService Module Rest Interface
 
 Your module can also expose a REST interface to allow programatic access to the module's functionality. To get started navigate to `./x/nameservice/client/rest/rest.go` this file will hold the HTTP handlers:
 
@@ -15,7 +15,6 @@ package rest
 
 import (
 	"fmt"
-	"net/http"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/[user]/[repo]/x/nameservice/types"

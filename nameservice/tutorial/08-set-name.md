@@ -2,7 +2,6 @@
 order: 8
 ---
 
-
 # SetName
 
 ## `MsgSetName`
