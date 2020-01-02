@@ -10,7 +10,7 @@ In the case of this tutorial we will be naming the module `nameservice`
 ```bash
 cd x/
 
-scaffold module [user/Github org] [repo] nameservice
+scaffold module [user] [repo] nameservice
 ```
 
 ## `types.go`
