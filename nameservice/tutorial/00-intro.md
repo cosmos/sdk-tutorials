@@ -66,7 +66,6 @@ Start by creating a new git repository:
 mkdir nameservice
 cd nameservice
 git init
-go mod init github.com/{ User }/nameservice
 ```
 
 Then, just follow along! The first step describes the design of your application.
