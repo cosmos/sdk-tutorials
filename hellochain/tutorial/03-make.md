@@ -24,7 +24,7 @@ all: install
 
 install: go.sum
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/hcd
-	go install -mod=readonly$(BUILD_FLAGS) ./cmd/hccli
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/hccli
 
 go.sum: go.mod
 		@echo "--> Ensure dependencies have not been modified"

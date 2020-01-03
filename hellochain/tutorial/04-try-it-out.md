@@ -98,11 +98,10 @@ $ hccli tx send $(hccli keys show alice -a) $(hccli keys show bob -a) 50hello
 
 ```
 
-These commmands will print a JSON representation of the Tx for you to inspect
+These commands will print a JSON representation of the Tx for you to inspect
 before entering your password to sign and broadcast it to your node. Query the
 account afterward to see if the balance changed.
 
 Ok well done, we now have a basic blockchain. It can send and receive coins,
 big deal. Now lets add some functionality of our own making to see how flexible
-the Cosmos SDK can be. 
-
+the Cosmos SDK can be.
