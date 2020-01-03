@@ -6,25 +6,26 @@ order: 21
 
 ## Building the `nameservice` application
 
-If you want to build the `nameservice` application in this repo to see the functionalities, **Go 1.13.0+** is required .
+This repo contains a complete `nameservice` application. If you want to build this completed version **Go 1.13.0+** is required.
 
 Add some parameters to environment is necessary if you have never used the `go mod` before.
 
 ```bash
 mkdir -p $HOME/go/bin
-echo "export GOPATH=$HOME/go" >> ~/.bash_profile
 echo "export GOBIN=\$GOPATH/bin" >> ~/.bash_profile
 echo "export PATH=\$PATH:\$GOBIN" >> ~/.bash_profile
-echo "export GO111MODULE=on" >> ~/.bash_profile
 source ~/.bash_profile
 ```
 
 Now, you can install and run the application.
 
+If you have not completed the tutorial then you can follow the below cloning instructions:
+
 ```
 # Clone the source of the tutorial repository
 git clone https://github.com/cosmos/sdk-tutorials/nameservice.git
-cd sdk-tutorials/nameservice
+cd sdk-tutorials
+cd namerservice
 ```
 
 ```bash
@@ -72,7 +73,7 @@ nscli config trust-node true
 nsd gentx --name jack <or your key_name>
 ```
 
-After you have generated a genesis transcation, you will have to input the gentx into the genesis file, so that your nameservice chain is aware of the validators. To do so, run:
+After you have generated a genesis transaction, you will have to input the genTx into the genesis file, so that your nameservice chain is aware of the validators. To do so, run:
 
 `nsd collect-gentxs`
 

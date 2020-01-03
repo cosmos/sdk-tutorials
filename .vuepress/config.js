@@ -6,6 +6,8 @@ module.exports = {
     }
   },
   themeConfig: {
+    // if your docs are in a different repo from your main project:
+    docsRepo: 'cosmos/sdk-tutorials',
     autoSidebar: false,
     sidebar: [
       {
