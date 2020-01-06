@@ -2,14 +2,21 @@
 order: 3
 ---
 
-
 # Types
 
-First Thing we're going to do is define a struct that holds all the metadata of a name. We will call this struct Whois after the ICANN DNS terminology.
+First thing we're going to do is create a module in the `/x/` folder with the scaffold tool using the below command:
+
+In the case of this tutorial we will be naming the module `nameservice`
+```bash
+cd x/
+
+scaffold module [user] [repo] nameservice
+```
 
 ## `types.go`
 
-Begin by creating the file `./x/nameservice/types/types.go` to hold the customs types for your module. In Cosmos SDK applications, the convention is that modules live in the `./x/` folder.
+Now we can continue with creating a module. Start by creating the file `types.go`in `./x/nameservice/internal/types` folder which will hold customs types for the module.
+> Notice we're using a directory called `internal`. This will prevent the contained modules from being accessed by external instances of Golang. To quote the original proposal: `An import of a path containing the element “internal” is disallowed if the importing code is outside the tree rooted at the parent of the “internal” directory.` [source](https://docs.google.com/document/d/1e8kOo3r51b2BWtTs_1uADIA5djfXhPT36s6eHVRIvaU/edit). If you know that the types need to be accessed by external code, consider moving it out of the `internal` directory.
 
 ## Whois
 

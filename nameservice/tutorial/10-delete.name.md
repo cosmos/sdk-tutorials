@@ -2,12 +2,11 @@
 order: 10
 ---
 
-
 # Delete Name
 
 ## MsgDeleteName
 
-Now it is time to define the `Msg` for deleting names and add it to the `./x/nameservice/types/msgs.go` file. This code is very similar to `SetName`:
+Now it is time to define the `Msg` for deleting names and add it to the `./x/nameservice/internal/types/msgs.go` file. This code is very similar to `SetName`:
 
 ```go
 // MsgDeleteName defines a DeleteName message
@@ -81,10 +80,10 @@ func handleMsgDeleteName(ctx sdk.Context, keeper Keeper, msg MsgDeleteName) sdk.
 	if !keeper.IsNamePresent(ctx, msg.Name) {
 		return types.ErrNameDoesNotExist(types.DefaultCodespace).Result()
 	}
-	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) { 
-		return sdk.ErrUnauthorized("Incorrect Owner").Result() 
+	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) {
+		return sdk.ErrUnauthorized("Incorrect Owner").Result()
 	}
-	keeper.DeleteWhois(ctx, msg.Name) 
+	keeper.DeleteWhois(ctx, msg.Name)
 	return sdk.Result{}
 }
 ```

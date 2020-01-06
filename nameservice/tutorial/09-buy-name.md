@@ -6,7 +6,7 @@ order: 9
 
 ## MsgBuyName
 
-Now it is time to define the `Msg` for buying names and add it to the `./x/nameservice/types/msgs.go` file. This code is very similar to `SetName`:
+Now it is time to define the `Msg` for buying names and add it to the `./x/nameservice/internal/types/msgs.go` file. This code is very similar to `SetName`:
 
 ```go
 // MsgBuyName defines the BuyName message
@@ -80,7 +80,7 @@ Finally, define the `BuyName` `handler` function which performs the state transi
 ```go
 // Handle a message to buy name
 func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result {
-	if keeper.GetPrice(ctx, msg.Name).IsAllGT(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
+	if keeper.GetPrice(ctx, msg.Name).IsAllGT(msg.Bid) { // Checks if the bid price is greater than the price paid by the current owner
 		return sdk.ErrInsufficientCoins("Bid not high enough").Result() // If not, throw an error
 	}
 	if keeper.HasOwner(ctx, msg.Name) {
