@@ -2,22 +2,20 @@ package types
 
 import (
 	"fmt"
-	"time"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/params"
 )
 
 // Default parameter namespace
 const (
-	DefaultParamspace           = ModuleName
+	DefaultParamspace = ModuleName
 	// TODO: Define your default parameters
 )
 
 // Parameter store keys
 var (
-	// TODO: Define your keys for the parameter store
-	// KeyParamName          = []byte("ParamName")
+// TODO: Define your keys for the parameter store
+// KeyParamName          = []byte("ParamName")
 )
 
 // ParamKeyTable for scavenge module
@@ -32,18 +30,14 @@ type Params struct {
 }
 
 // NewParams creates a new Params object
-func NewParams(/* TODO: Pass in the paramters*/) Params {
+func NewParams() Params {
 
-	return Params{
-		// TODO: Create your Params Type
-	}
+	return Params{}
 }
 
 // String implements the stringer interface for Params
 func (p Params) String() string {
-	return fmt.Sprintf(`
-	// TODO: Return all the params as a string
-	`, )
+	return fmt.Sprintf(``)
 }
 
 // ParamSetPairs - Implements params.ParamSet
@@ -57,6 +51,6 @@ func (p *Params) ParamSetPairs() params.ParamSetPairs {
 // DefaultParams defines the parameters for this module
 func DefaultParams() Params {
 	return NewParams(
-		// TODO: Pass in your default Params
+	// TODO: Pass in your default Params
 	)
 }
