@@ -12,32 +12,47 @@ func NewHandler(k Keeper) sdk.Handler {
 	return func(ctx sdk.Context, msg sdk.Msg) sdk.Result {
 		ctx = ctx.WithEventManager(sdk.NewEventManager())
 		switch msg := msg.(type) {
-		// TODO: Define your msg cases
-		// 
-		//Example:
-		// case MsgSet<Action>:
-		// 	return handleMsg<Action>(ctx, keeper, msg)
+		case MsgCreateScavenge:
+			return handleMsgCreateScavenge(ctx, k, msg)
 		default:
-			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName,  msg)
+			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
 			return sdk.ErrUnknownRequest(errMsg).Result()
 		}
 	}
 }
 
-// handde<Action> does x
-func handleMsg<Action>(ctx sdk.Context, msg MsgType, k Keeper) sdk.Result {
+// handdeCreateScavenge does x
+func handleMsgCreateScavenge(ctx sdk.Context, k Keeper, msg MsgCreateScavenge) sdk.Result {
 
-	err := k.<Action>(ctx, msg.ValidatorAddr)
+	var scavenge types.Scavenge
+	scavenge = types.Scavenge{
+		Creator:      msg.Creator,
+		Description:  msg.Description,
+		SolutionHash: msg.SolutionHash,
+		Reward:       msg.Reward,
+	}
+
+	isNew, err := k.SetScavenge(ctx, scavenge)
 	if err != nil {
 		return err.Result()
 	}
 
-	// TODO: Define your msg events
+	var attributeValueAction string
+	if isNew {
+		attributeValueAction = types.EventTypeCreateScavenge
+	} else {
+		attributeValueAction = types.EventTypeUpdateScavenge
+	}
+
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(
 			sdk.EventTypeMessage,
 			sdk.NewAttribute(sdk.AttributeKeyModule, types.AttributeValueCategory),
-			sdk.NewAttribute(sdk.AttributeKeySender, msg.ValidatorAddr.String()),
+			sdk.NewAttribute(sdk.AttributeKeyAction, attributeValueAction),
+			sdk.NewAttribute(sdk.AttributeKeySender, msg.Creator.String()),
+			sdk.NewAttribute(types.AttributeDescription, msg.Description),
+			sdk.NewAttribute(types.AttributeSolutionHash, msg.SolutionHash),
+			sdk.NewAttribute(types.AttributeReward, msg.Reward.String()),
 		),
 	)
 
