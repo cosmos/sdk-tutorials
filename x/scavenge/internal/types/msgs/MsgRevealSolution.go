@@ -11,16 +11,16 @@ var _ sdk.Msg = &MsgRevealSolution{}
 
 // MsgRevealSolution - struct for unjailing jailed validator
 type MsgRevealSolution struct {
-	Solver       sdk.AccAddress `json:"solver" yaml:"solver"`             // address of the scavenger solver
-	Solutionhash string         `json:"Solutionhash" yaml:"Solutionhash"` // Solutionhash of the scavenge
+	Scavenger    sdk.AccAddress `json:"scavenger" yaml:"scavenger"`       // address of the scavenger scavenger
+	SolutionHash string         `json:"solutionHash" yaml:"solutionHash"` // SolutionHash of the scavenge
 	Solution     string         `json:"solution" yaml:"solution"`         // solution of the scavenge
 }
 
 // NewMsgRevealSolution creates a new MsgRevealSolution instance
-func NewMsgRevealSolution(solver sdk.AccAddress, solutionHash string, solution string) MsgRevealSolution {
+func NewMsgRevealSolution(scavenger sdk.AccAddress, solutionHash string, solution string) MsgRevealSolution {
 	return MsgRevealSolution{
-		Solver:       solver,
-		Solutionhash: solutionHash,
+		Scavenger:    scavenger,
+		SolutionHash: solutionHash,
 		Solution:     solution,
 	}
 }
@@ -32,7 +32,7 @@ const RevealSolutionConst = "RevealSolution"
 func (msg MsgRevealSolution) Route() string { return types.RouterKey }
 func (msg MsgRevealSolution) Type() string  { return RevealSolutionConst }
 func (msg MsgRevealSolution) GetSigners() []sdk.AccAddress {
-	return []sdk.AccAddress{sdk.AccAddress(msg.Solver)}
+	return []sdk.AccAddress{sdk.AccAddress(msg.Scavenger)}
 }
 
 // GetSignBytes gets the bytes for the message signer to sign on
@@ -43,11 +43,11 @@ func (msg MsgRevealSolution) GetSignBytes() []byte {
 
 // ValidateBasic validity check for the AnteHandler
 func (msg MsgRevealSolution) ValidateBasic() sdk.Error {
-	if msg.Solver.Empty() {
+	if msg.Scavenger.Empty() {
 		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Creator can't be empty")
 	}
-	if msg.Solutionhash == "" {
-		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Solutionhash can't be empty")
+	if msg.SolutionHash == "" {
+		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "SolutionHash can't be empty")
 	}
 	if msg.Solution == "" {
 		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Solution can't be empty")

@@ -36,10 +36,10 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 }
 
 // GetCommit returns the commit of a solution
-func (k Keeper) GetCommit(ctx sdk.Context, solutionSolverHash string) (types.Commit, error) {
+func (k Keeper) GetCommit(ctx sdk.Context, solutionScavengerHash string) (types.Commit, error) {
 	store := ctx.KVStore(k.storeKey)
 	var commit types.Commit
-	byteKey := []byte(solutionSolverHash)
+	byteKey := []byte(solutionScavengerHash)
 	err := k.cdc.UnmarshalBinaryLengthPrefixed(store.Get(byteKey), &commit)
 	if err != nil {
 		return nil, err
@@ -61,10 +61,10 @@ func (k Keeper) GetScavenge(ctx sdk.Context, solutionHash string) (types.Scaveng
 
 // SetCommit sets a scavenge
 func (k Keeper) SetCommit(ctx sdk.Context, commit types.Commit) {
-	solutionSolverHash := commit.SolutionSolverHash
+	solutionScavengerHash := commit.SolutionScavengerHash
 	store := ctx.KVStore(k.storeKey)
 	bz := k.cdc.MustMarshalBinaryLengthPrefixed(commit)
-	store.Set([]byte(solutionSolverHash), bz)
+	store.Set([]byte(solutionScavengerHash), bz)
 }
 
 // SetScavenge sets a scavenge

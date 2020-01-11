@@ -16,7 +16,7 @@ type Scavenge struct {
 
 // Commit is the commit struct
 type Commit struct {
-	Solver             sdk.AccAddress `json:"solver" yaml:"solver"`                         // address of the scavenger solver
-	SolutionHash       string         `json:"solutionHash" yaml:"solutionHash"`             // SolutionHash of the scavenge
-	SolutionSolverHash string         `json:"solutionSolverHash" yaml:"solutionSolverHash"` // solution hash of the scavenge
+	Scavenger             sdk.AccAddress `json:"scavenger" yaml:"scavenger"`                         // address of the scavenger scavenger
+	SolutionHash          string         `json:"solutionHash" yaml:"solutionHash"`                   // SolutionHash of the scavenge
+	SolutionScavengerHash string         `json:"solutionScavengerHash" yaml:"solutionScavengerHash"` // solution hash of the scavenge
 }
