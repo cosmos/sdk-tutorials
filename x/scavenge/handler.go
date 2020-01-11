@@ -13,6 +13,8 @@ func NewHandler(k Keeper) sdk.Handler {
 	return func(ctx sdk.Context, msg sdk.Msg) sdk.Result {
 		ctx = ctx.WithEventManager(sdk.NewEventManager())
 		switch msg := msg.(type) {
+		case MsgCommitSolution:
+			return handleMsgCommitSolution(ctx, k, msg)
 		case MsgCreateScavenge:
 			return handleMsgCreateScavenge(ctx, k, msg)
 		default:
@@ -24,21 +26,19 @@ func NewHandler(k Keeper) sdk.Handler {
 
 // handleMsgCreateScavenge creates a new scavenge and moves the reward into escrow
 func handleMsgCreateScavenge(ctx sdk.Context, k Keeper, msg MsgCreateScavenge) sdk.Result {
-	var scavenge types.Scavenge
-	scavenge = types.Scavenge{
+	var scavenge = types.Scavenge{
 		Creator:      msg.Creator,
 		Description:  msg.Description,
 		SolutionHash: msg.SolutionHash,
 		Reward:       msg.Reward,
 	}
-	_, err := k.GetScavenge(scavenge.SolutionHash)
-	if err == nil {
-		// should not be abe to
+	previous, _ := k.GetScavenge(scavenge.SolutionHash)
+	if previous != nil {
 		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Scavenge with that solution hash already exists").Result()
 	}
 	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
 	sdkError := k.CoinKeeper.SendCoins(ctx, scavenge.Creator, moduleAcct, scavenge.Reward)
-	if err != nil {
+	if sdkError != nil {
 		return sdkError.Result()
 	}
 	k.SetScavenge(ctx, scavenge)
@@ -54,4 +54,29 @@ func handleMsgCreateScavenge(ctx sdk.Context, k Keeper, msg MsgCreateScavenge) s
 		),
 	)
 	return sdk.Result{Events: ctx.EventManager().Events()}
+}
+
+func handleMsgCommitSolution(ctx sdk.Context, k Keeper, msg MsgCommitSolution) sdk.Result {
+	var commit = types.Commit{
+		Solver:             msg.Solver,
+		SolutionHash:       msg.SolutionHash,
+		SolutionSolverHash: msg.SolutionSolverHash,
+	}
+	previous, _ := k.GetCommit(commit.SolutionSolverHash)
+	if previous != nil {
+		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Commit with that solution solver hash already exists").Result()
+	}
+	k.SetCommit(ctx, commit)
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			sdk.EventTypeMessage,
+			sdk.NewAttribute(sdk.AttributeKeyModule, types.AttributeValueCategory),
+			sdk.NewAttribute(sdk.AttributeKeyAction, types.EventTypeCommitSolution),
+			sdk.NewAttribute(sdk.AttributeKeySender, msg.Solver.String()),
+			sdk.NewAttribute(types.AttributeSolutionHash, msg.SolutionHash),
+			sdk.NewAttribute(types.AttributeSolutionSolverHash, msg.SolutionSolverHash),
+		),
+	)
+	return sdk.Result{Events: ctx.EventManager().Events()}
+
 }

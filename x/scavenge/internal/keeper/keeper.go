@@ -35,6 +35,18 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
 }
 
+// GetCommit returns the commit of a solution
+func (k Keeper) GetCommit(ctx sdk.Context, solutionSolverHash string) (types.Commit, error) {
+	store := ctx.KVStore(k.storeKey)
+	var commit types.Commit
+	byteKey := []byte(solutionSolverHash)
+	err := k.cdc.UnmarshalBinaryLengthPrefixed(store.Get(byteKey), &commit)
+	if err != nil {
+		return nil, err
+	}
+	return commit, nil
+}
+
 // GetScavenge returns the scavenge information
 func (k Keeper) GetScavenge(ctx sdk.Context, solutionHash string) (types.Scavenge, error) {
 	store := ctx.KVStore(k.storeKey)
@@ -47,17 +59,24 @@ func (k Keeper) GetScavenge(ctx sdk.Context, solutionHash string) (types.Scaveng
 	return scavenge, nil
 }
 
+// SetCommit sets a scavenge
+func (k Keeper) SetCommit(ctx sdk.Context, commit types.Commit) {
+	solutionSolverHash := commit.SolutionSolverHash
+	store := ctx.KVStore(k.storeKey)
+	bz := k.cdc.MustMarshalBinaryLengthPrefixed(commit)
+	store.Set([]byte(solutionSolverHash), bz)
+}
+
 // SetScavenge sets a scavenge
 func (k Keeper) SetScavenge(ctx sdk.Context, scavenge types.Scavenge) {
 	solutionHash := scavenge.SolutionHash
-
 	store := ctx.KVStore(k.storeKey)
 	bz := k.cdc.MustMarshalBinaryLengthPrefixed(scavenge)
 	store.Set([]byte(solutionHash), bz)
 }
 
-// DeleteScavenge deletes a scavenge
-func (k Keeper) DeleteScavenge(ctx sdk.Context, solutionHash string) {
-	store := ctx.KVStore(k.storeKey)
-	store.Delete([]byte(solutionHash))
-}
+// // DeleteScavenge deletes a scavenge
+// func (k Keeper) DeleteScavenge(ctx sdk.Context, solutionHash string) {
+// 	store := ctx.KVStore(k.storeKey)
+// 	store.Delete([]byte(solutionHash))
+// }
