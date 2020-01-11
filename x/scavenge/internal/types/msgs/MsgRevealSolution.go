@@ -11,17 +11,17 @@ var _ sdk.Msg = &MsgRevealSolution{}
 
 // MsgRevealSolution - struct for unjailing jailed validator
 type MsgRevealSolution struct {
-	Solver   sdk.AccAddress `json:"solver" yaml:"solver"`     // address of the scavenger solver
-	ID       uint64         `json:"ID" yaml:"ID"`             // ID of the scavenge
-	Solution string         `json:"solution" yaml:"solution"` // solution of the scavenge
+	Solver       sdk.AccAddress `json:"solver" yaml:"solver"`             // address of the scavenger solver
+	Solutionhash string         `json:"Solutionhash" yaml:"Solutionhash"` // Solutionhash of the scavenge
+	Solution     string         `json:"solution" yaml:"solution"`         // solution of the scavenge
 }
 
 // NewMsgRevealSolution creates a new MsgRevealSolution instance
-func NewMsgRevealSolution(solver sdk.AccAddress, id uint64, solution string) MsgRevealSolution {
+func NewMsgRevealSolution(solver sdk.AccAddress, solutionHash string, solution string) MsgRevealSolution {
 	return MsgRevealSolution{
-		Solver:   solver,
-		ID:       id,
-		Solution: solution,
+		Solver:       solver,
+		Solutionhash: solutionHash,
+		Solution:     solution,
 	}
 }
 
@@ -46,8 +46,8 @@ func (msg MsgRevealSolution) ValidateBasic() sdk.Error {
 	if msg.Solver.Empty() {
 		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Creator can't be empty")
 	}
-	if msg.ID == 0 {
-		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "ID can't be 0")
+	if msg.Solutionhash == "" {
+		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Solutionhash can't be empty")
 	}
 	if msg.Solution == "" {
 		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Solution can't be empty")

@@ -2,8 +2,8 @@ package scavenge
 
 import (
 	"github.com/okwme/scavenge/x/scavenge/internal/keeper"
-	"github.com/okwme/scavenge/x/scavenge/internal/types"
 	"github.com/okwme/scavenge/x/scavenge/internal/types/msgs"
+	"github.com/okwme/scavenge/x/scavenge/internal/types"
 )
 
 const (

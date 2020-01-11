@@ -11,15 +11,15 @@ var _ sdk.Msg = &MsgDeleteScavenge{}
 
 // MsgDeleteScavenge - struct for unjailing jailed validator
 type MsgDeleteScavenge struct {
-	ID      uint64         `json:"id" yaml:"id"`           // id of the scavenge
-	Creator sdk.AccAddress `json:"creator" yaml:"creator"` // address of the scavenger creator
+	SolutionHash string         `json:"solutionHash" yaml:"solutionHash"` // solutionHash of the scavenge
+	Creator      sdk.AccAddress `json:"creator" yaml:"creator"`           // address of the scavenger creator
 }
 
 // NewMsgDeleteScavenge creates a new MsgDeleteScavenge instance
-func NewMsgDeleteScavenge(id uint64, creator sdk.AccAddress) MsgDeleteScavenge {
+func NewMsgDeleteScavenge(solutionHash string, creator sdk.AccAddress) MsgDeleteScavenge {
 	return MsgDeleteScavenge{
-		ID:      id,
-		Creator: creator,
+		SolutionHash: solutionHash,
+		Creator:      creator,
 	}
 }
 
@@ -44,8 +44,8 @@ func (msg MsgDeleteScavenge) ValidateBasic() sdk.Error {
 	if msg.Creator.Empty() {
 		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Creator can't be empty")
 	}
-	if msg.ID == 0 {
-		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "ID can't be 0")
+	if msg.SolutionHash == "" {
+		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "SolutionHash can't be empty")
 	}
 	return nil
 }

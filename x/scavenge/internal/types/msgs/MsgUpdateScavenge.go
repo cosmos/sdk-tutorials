@@ -11,7 +11,6 @@ var _ sdk.Msg = &MsgUpdateScavenge{}
 
 // MsgUpdateScavenge - struct for unjailing jailed validator
 type MsgUpdateScavenge struct {
-	ID           uint64         `json:"id" yaml:"id"`                     // id of the scavenge
 	Signer       sdk.AccAddress `json:"signer" yaml:"signer"`             // signer of the msg
 	Creator      sdk.AccAddress `json:"creator" yaml:"creator"`           // address of the scavenger creator
 	Description  string         `json:"description" yaml:"description"`   // description of the scavenge
@@ -20,9 +19,8 @@ type MsgUpdateScavenge struct {
 }
 
 // NewMsgUpdateScavenge creates a new MsgUpdateScavenge instance
-func NewMsgUpdateScavenge(id uint64, signer, creator sdk.AccAddress, description, solutionHash string, reward sdk.Coins) MsgUpdateScavenge {
+func NewMsgUpdateScavenge(signer, creator sdk.AccAddress, description, solutionHash string, reward sdk.Coins) MsgUpdateScavenge {
 	return MsgUpdateScavenge{
-		ID:           id,
 		Signer:       signer,
 		Creator:      creator,
 		Description:  description,
@@ -52,8 +50,8 @@ func (msg MsgUpdateScavenge) ValidateBasic() sdk.Error {
 	if msg.Signer.Empty() {
 		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Signer can't be empty")
 	}
-	if msg.ID == 0 {
-		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "ID can't be 0")
+	if msg.SolutionHash == "" {
+		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "SolutionHash can't be empty")
 	}
 	return nil
 }
