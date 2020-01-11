@@ -5,6 +5,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/okwme/scavenge/x/scavenge/internal/types"
+	"github.com/tendermint/tendermint/crypto"
 )
 
 // NewHandler creates an sdk.Handler for all the scavenge type messages
@@ -21,9 +22,8 @@ func NewHandler(k Keeper) sdk.Handler {
 	}
 }
 
-// handdeCreateScavenge does x
+// handleMsgCreateScavenge creates a new scavenge and moves the reward into escrow
 func handleMsgCreateScavenge(ctx sdk.Context, k Keeper, msg MsgCreateScavenge) sdk.Result {
-
 	var scavenge types.Scavenge
 	scavenge = types.Scavenge{
 		Creator:      msg.Creator,
@@ -31,30 +31,27 @@ func handleMsgCreateScavenge(ctx sdk.Context, k Keeper, msg MsgCreateScavenge) s
 		SolutionHash: msg.SolutionHash,
 		Reward:       msg.Reward,
 	}
-
-	isNew, err := k.SetScavenge(ctx, scavenge)
+	_, err := k.GetScavenge(scavenge.SolutionHash)
+	if err == nil {
+		// should not be abe to
+		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Scavenge with that solution hash already exists").Result()
+	}
+	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
+	sdkError := k.CoinKeeper.SendCoins(ctx, scavenge.Creator, moduleAcct, scavenge.Reward)
 	if err != nil {
-		return err.Result()
+		return sdkError.Result()
 	}
-
-	var attributeValueAction string
-	if isNew {
-		attributeValueAction = types.EventTypeCreateScavenge
-	} else {
-		attributeValueAction = types.EventTypeUpdateScavenge
-	}
-
+	k.SetScavenge(ctx, scavenge)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(
 			sdk.EventTypeMessage,
 			sdk.NewAttribute(sdk.AttributeKeyModule, types.AttributeValueCategory),
-			sdk.NewAttribute(sdk.AttributeKeyAction, attributeValueAction),
+			sdk.NewAttribute(sdk.AttributeKeyAction, types.EventTypeCreateScavenge),
 			sdk.NewAttribute(sdk.AttributeKeySender, msg.Creator.String()),
 			sdk.NewAttribute(types.AttributeDescription, msg.Description),
 			sdk.NewAttribute(types.AttributeSolutionHash, msg.SolutionHash),
 			sdk.NewAttribute(types.AttributeReward, msg.Reward.String()),
 		),
 	)
-
 	return sdk.Result{Events: ctx.EventManager().Events()}
 }

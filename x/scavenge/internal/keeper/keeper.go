@@ -48,18 +48,12 @@ func (k Keeper) GetScavenge(ctx sdk.Context, solutionHash string) (types.Scaveng
 }
 
 // SetScavenge sets a scavenge
-func (k Keeper) SetScavenge(ctx sdk.Context, scavenge types.Scavenge) (bool, sdk.Error) {
+func (k Keeper) SetScavenge(ctx sdk.Context, scavenge types.Scavenge) {
 	solutionHash := scavenge.SolutionHash
-	previous, err := k.GetScavenge(solutionHash)
-	if err != nil {
-		return false, sdk.NewError(types.DefaultCodespace, types.CodeInvalid, err.Error())
 
-	}
-	var newScavenge = previous == nil
 	store := ctx.KVStore(k.storeKey)
 	bz := k.cdc.MustMarshalBinaryLengthPrefixed(scavenge)
 	store.Set([]byte(solutionHash), bz)
-	return newScavenge, nil
 }
 
 // DeleteScavenge deletes a scavenge
