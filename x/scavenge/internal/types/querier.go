@@ -1,26 +1,28 @@
 package types
 
-import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-)
+import "strings"
 
-// Query endpoints supported by the scavenge querier
+// query endpoints supported by the nameservice Querier
 const (
-	QueryParams    = "params"
-	//TODO: Describe query parametes
+	QueryListScavenges = "list"
+	QueryGetScavenge   = "get"
+	QueryCommit        = "commit"
 )
 
-/* 
-Below you will be able how to set your own queries:
+// // QueryResResolve Queries Result Payload for a resolve query
+// type QueryResResolve struct {
+// 	Value string `json:"value"`
+// }
 
-QueryInfoParams defines the params for the following queries:
-- 'custom/scavenge/signingInfo'
-type QueryParams struct {
-	ConsAddress sdk.ConsAddress
-}
+// // implement fmt.Stringer
+// func (r QueryResResolve) String() string {
+// 	return r.Value
+// }
 
-NewQueryInfoParams creates a new QueryInfoParams instance
-func NewQueryInfoParams(consAddr sdk.ConsAddress) QueryInfoParams {
-	return QueryInfoParams{consAddr}
+// QueryResScavenges Queries Result Payload for a names query
+type QueryResScavenges []string
+
+// implement fmt.Stringer
+func (n QueryResScavenges) String() string {
+	return strings.Join(n[:], "\n")
 }
-*/

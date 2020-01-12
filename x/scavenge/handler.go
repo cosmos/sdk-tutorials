@@ -35,8 +35,8 @@ func handleMsgCreateScavenge(ctx sdk.Context, k Keeper, msg MsgCreateScavenge) s
 		SolutionHash: msg.SolutionHash,
 		Reward:       msg.Reward,
 	}
-	previous, _ := k.GetScavenge(scavenge.SolutionHash)
-	if previous != nil {
+	_, err := k.GetScavenge(ctx, scavenge.SolutionHash)
+	if err == nil {
 		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Scavenge with that solution hash already exists").Result()
 	}
 	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
@@ -65,9 +65,9 @@ func handleMsgCommitSolution(ctx sdk.Context, k Keeper, msg MsgCommitSolution) s
 		SolutionHash:          msg.SolutionHash,
 		SolutionScavengerHash: msg.SolutionScavengerHash,
 	}
-	previous, _ := k.GetCommit(ctx, commit.SolutionScavengerHash)
-	if previous != nil {
-		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Commit with that solution scavenger hash already exists").Result()
+	_, err := k.GetCommit(ctx, commit.SolutionScavengerHash)
+	if err == nil {
+		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Commit with that hash already exists").Result()
 	}
 	k.SetCommit(ctx, commit)
 	ctx.EventManager().EmitEvent(
@@ -84,20 +84,19 @@ func handleMsgCommitSolution(ctx sdk.Context, k Keeper, msg MsgCommitSolution) s
 }
 
 func handleMsgRevealSolution(ctx sdk.Context, k Keeper, msg MsgRevealSolution) sdk.Result {
-	var solutionScavengerHash [32]byte
-	var solutionBytes = []byte(msg.solution)
-	var scavengerBytes = []byte(msg.Scavenger.String())
-	var solutionScavengerBytes = append(solutionBytes, scavengerBytes)
-	solutionScavengerHash = sha256.Sum256(solutionScavengerBytes)
-	commit, _ := k.GetCommit(ctx, solutionScavengerHash)
-	if commit == nil {
-		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Commit with that solution scavenger hash doesn't exists").Result()
+	var solutionScavengerBytes = []byte(msg.Solution + msg.Scavenger.String())
+	var solutionScavengerHash = sha256.Sum256(solutionScavengerBytes)
+	var solutionScavengerHashString = string(solutionScavengerHash[:])
+	_, err := k.GetCommit(ctx, solutionScavengerHashString)
+	if err != nil {
+		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Commit with that hash doesn't exists").Result()
 	}
 
-	var solutionHash = sha256.Sum256(solutionBytes)
+	var solutionHash = sha256.Sum256([]byte(msg.Solution))
+	var solutionHashString = string(solutionHash[:])
 	var scavenge types.Scavenge
-	scavenge, _ = k.GetScavenge(ctx, solutionHash)
-	if scavenge == nil {
+	scavenge, err = k.GetScavenge(ctx, solutionHashString)
+	if err != nil {
 		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Scavenge with that solution hash doesn't exists").Result()
 	}
 	if scavenge.Scavenger != nil {
@@ -118,11 +117,11 @@ func handleMsgRevealSolution(ctx sdk.Context, k Keeper, msg MsgRevealSolution) s
 			sdk.NewAttribute(sdk.AttributeKeyModule, types.AttributeValueCategory),
 			sdk.NewAttribute(sdk.AttributeKeyAction, types.EventTypeSolveScavenge),
 			sdk.NewAttribute(sdk.AttributeKeySender, msg.Scavenger.String()),
-			sdk.NewAttribute(types.AttributeSolutionHash, solutionHash),
+			sdk.NewAttribute(types.AttributeSolutionHash, solutionHashString),
 			sdk.NewAttribute(types.AttributeDescription, scavenge.Description),
-			sdk.NewAttribute(types.AttributeSolution, msg.solution),
+			sdk.NewAttribute(types.AttributeSolution, msg.Solution),
 			sdk.NewAttribute(types.AttributeScavenger, scavenge.Scavenger.String()),
-			sdk.NewAttribute(types.AttributeReward, msg.Reward.String()),
+			sdk.NewAttribute(types.AttributeReward, scavenge.Reward.String()),
 		),
 	)
 	return sdk.Result{Events: ctx.EventManager().Events()}

@@ -13,6 +13,7 @@ const (
 	AttributeSolution              = "solution"
 	AttributeSolutionHash          = "solutionHash"
 	AttributeReward                = "reward"
+	AttributeScavenger             = "scavenger"
 	AttributeSolutionScavengerHash = "solutionScavengerHash"
 
 	// TODO: Some events may not have values for that reason you want to emit that something happened.

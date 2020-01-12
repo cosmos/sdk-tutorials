@@ -39,10 +39,10 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 func (k Keeper) GetCommit(ctx sdk.Context, solutionScavengerHash string) (types.Commit, error) {
 	store := ctx.KVStore(k.storeKey)
 	var commit types.Commit
-	byteKey := []byte(solutionScavengerHash)
+	byteKey := []byte(types.CommitPrefix + solutionScavengerHash)
 	err := k.cdc.UnmarshalBinaryLengthPrefixed(store.Get(byteKey), &commit)
 	if err != nil {
-		return nil, err
+		return commit, err
 	}
 	return commit, nil
 }
@@ -51,10 +51,10 @@ func (k Keeper) GetCommit(ctx sdk.Context, solutionScavengerHash string) (types.
 func (k Keeper) GetScavenge(ctx sdk.Context, solutionHash string) (types.Scavenge, error) {
 	store := ctx.KVStore(k.storeKey)
 	var scavenge types.Scavenge
-	byteKey := []byte(solutionHash)
+	byteKey := []byte(types.ScavengePrefix + solutionHash)
 	err := k.cdc.UnmarshalBinaryLengthPrefixed(store.Get(byteKey), &scavenge)
 	if err != nil {
-		return nil, err
+		return scavenge, err
 	}
 	return scavenge, nil
 }
@@ -64,7 +64,8 @@ func (k Keeper) SetCommit(ctx sdk.Context, commit types.Commit) {
 	solutionScavengerHash := commit.SolutionScavengerHash
 	store := ctx.KVStore(k.storeKey)
 	bz := k.cdc.MustMarshalBinaryLengthPrefixed(commit)
-	store.Set([]byte(solutionScavengerHash), bz)
+	key := []byte(types.CommitPrefix + solutionScavengerHash)
+	store.Set(key, bz)
 }
 
 // SetScavenge sets a scavenge
@@ -72,7 +73,8 @@ func (k Keeper) SetScavenge(ctx sdk.Context, scavenge types.Scavenge) {
 	solutionHash := scavenge.SolutionHash
 	store := ctx.KVStore(k.storeKey)
 	bz := k.cdc.MustMarshalBinaryLengthPrefixed(scavenge)
-	store.Set([]byte(solutionHash), bz)
+	key := []byte(types.ScavengePrefix + solutionHash)
+	store.Set(key, bz)
 }
 
 // // DeleteScavenge deletes a scavenge
@@ -80,3 +82,15 @@ func (k Keeper) SetScavenge(ctx sdk.Context, scavenge types.Scavenge) {
 // 	store := ctx.KVStore(k.storeKey)
 // 	store.Delete([]byte(solutionHash))
 // }
+
+// GetScavengesIterator gets an iterator over all scavnges in which the keys are the solutionHashes and the values are the scavenges
+func (k Keeper) GetScavengesIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.storeKey)
+	return sdk.KVStorePrefixIterator(store, []byte(types.ScavengePrefix))
+}
+
+// GetCommitsIterator gets an iterator over all commits in which the keys are the prefix and solutionHashes and the values are the scavenges
+func (k Keeper) GetCommitsIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.storeKey)
+	return sdk.KVStorePrefixIterator(store, []byte(types.CommitPrefix))
+}
