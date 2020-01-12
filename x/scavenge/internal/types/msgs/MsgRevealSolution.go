@@ -1,6 +1,8 @@
 package msgs
 
 import (
+	"crypto/sha256"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/okwme/scavenge/x/scavenge/internal/types"
 )
@@ -17,10 +19,14 @@ type MsgRevealSolution struct {
 }
 
 // NewMsgRevealSolution creates a new MsgRevealSolution instance
-func NewMsgRevealSolution(scavenger sdk.AccAddress, solutionHash string, solution string) MsgRevealSolution {
+func NewMsgRevealSolution(scavenger sdk.AccAddress, solution string) MsgRevealSolution {
+
+	var solutionHash = sha256.Sum256([]byte(solution))
+	var solutionHashString = string(solutionHash[:])
+
 	return MsgRevealSolution{
 		Scavenger:    scavenger,
-		SolutionHash: solutionHash,
+		SolutionHash: solutionHashString,
 		Solution:     solution,
 	}
 }
@@ -51,6 +57,13 @@ func (msg MsgRevealSolution) ValidateBasic() sdk.Error {
 	}
 	if msg.Solution == "" {
 		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Solution can't be empty")
+	}
+
+	var solutionHash = sha256.Sum256([]byte(msg.Solution))
+	var solutionHashString = string(solutionHash[:])
+
+	if msg.SolutionHash != solutionHashString {
+		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Hash of solution doesn't equal solutionHash")
 	}
 	return nil
 }
