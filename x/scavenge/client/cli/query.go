@@ -2,6 +2,7 @@ package cli
 
 import (
 	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 
 	"github.com/spf13/cobra"
@@ -46,7 +47,7 @@ func GetCmdListScavenges(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/"+types.QueryListScavenges, queryRoute), nil)
 			if err != nil {
-				fmt.Printf("could not get scavenges\n" + err.Error())
+				fmt.Printf("could not get scavenges\n%s\n", err.Error())
 				return nil
 			}
 
@@ -67,7 +68,8 @@ func GetCmdGetScavenge(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/%s/%s", queryRoute, types.QueryGetScavenge, solutionHash), nil)
 			if err != nil {
-				fmt.Printf("could not resolve scavenge - %s \n", solutionHash)
+				fmt.Printf("could not resolve scavenge %s \n%s\n", solutionHash, err.Error())
+
 				return nil
 			}
 
@@ -87,11 +89,11 @@ func GetCmdGetCommit(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 			var solution = args[0]
 			var solutionHash = sha256.Sum256([]byte(solution))
-			var solutionHashString = string(solutionHash[:])
+			var solutionHashString = hex.EncodeToString(solutionHash[:])
 
 			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/%s/%s", queryRoute, types.QueryCommit, solutionHashString), nil)
 			if err != nil {
-				fmt.Printf("could not resolve commit for scavenge %s \n", solutionHashString)
+				fmt.Printf("could not resolve commit for scavenge %s \n%s\n", solutionHashString, err.Error())
 				return nil
 			}
 

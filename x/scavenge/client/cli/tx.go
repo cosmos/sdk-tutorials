@@ -2,6 +2,7 @@ package cli
 
 import (
 	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 
 	"github.com/spf13/cobra"
@@ -13,7 +14,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
 	"github.com/okwme/scavenge/x/scavenge/internal/types"
-	"github.com/okwme/scavenge/x/scavenge/internal/types/msgs"
 )
 
 // GetTxCmd returns the transaction commands for this module
@@ -52,9 +52,9 @@ func GetCmdCreateScavenge(cdc *codec.Codec) *cobra.Command {
 
 			var solution = args[1]
 			var solutionHash = sha256.Sum256([]byte(solution))
-			var solutionHashString = string(solutionHash[:])
+			var solutionHashString = hex.EncodeToString(solutionHash[:])
 
-			msg := msgs.NewMsgCreateScavenge(cliCtx.GetFromAddress(), args[0], solutionHashString, reward)
+			msg := types.NewMsgCreateScavenge(cliCtx.GetFromAddress(), args[2], solutionHashString, reward)
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -77,14 +77,14 @@ func GetCmdCommitSolution(cdc *codec.Codec) *cobra.Command {
 
 			var solution = args[0]
 			var solutionHash = sha256.Sum256([]byte(solution))
-			var solutionHashString = string(solutionHash[:])
+			var solutionHashString = hex.EncodeToString(solutionHash[:])
 
 			var scavenger = cliCtx.GetFromAddress().String()
 
 			var solutionScavengerHash = sha256.Sum256([]byte(solution + scavenger))
-			var solutionScavengerHashString = string(solutionScavengerHash[:])
+			var solutionScavengerHashString = hex.EncodeToString(solutionScavengerHash[:])
 
-			msg := msgs.NewMsgCommitSolution(cliCtx.GetFromAddress(), solutionHashString, solutionScavengerHashString)
+			msg := types.NewMsgCommitSolution(cliCtx.GetFromAddress(), solutionHashString, solutionScavengerHashString)
 			err := msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -107,7 +107,7 @@ func GetCmdRevealSolution(cdc *codec.Codec) *cobra.Command {
 
 			var solution = args[0]
 
-			msg := msgs.NewMsgRevealSolution(cliCtx.GetFromAddress(), solution)
+			msg := types.NewMsgRevealSolution(cliCtx.GetFromAddress(), solution)
 			err := msg.ValidateBasic()
 			if err != nil {
 				return err

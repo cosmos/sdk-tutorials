@@ -3,7 +3,6 @@ package scavenge
 import (
 	"github.com/okwme/scavenge/x/scavenge/internal/keeper"
 	"github.com/okwme/scavenge/x/scavenge/internal/types"
-	"github.com/okwme/scavenge/x/scavenge/internal/types/msgs"
 )
 
 const (
@@ -32,12 +31,12 @@ var (
 	ModuleCdc = types.ModuleCdc
 	// TODO: Fill out variable aliases
 
-	NewMsgCreateScavenge = msgs.NewMsgCreateScavenge
-	NewMsgDeleteScavenge = msgs.NewMsgDeleteScavenge
-	NewMsgUpdateScavenge = msgs.NewMsgUpdateScavenge
+	NewMsgCreateScavenge = types.NewMsgCreateScavenge
+	NewMsgDeleteScavenge = types.NewMsgDeleteScavenge
+	NewMsgUpdateScavenge = types.NewMsgUpdateScavenge
 
-	NewMsgCommitSolution = msgs.NewMsgCommitSolution
-	NewMsgRevealSolution = msgs.NewMsgRevealSolution
+	NewMsgCommitSolution = types.NewMsgCommitSolution
+	NewMsgRevealSolution = types.NewMsgRevealSolution
 )
 
 type (
@@ -46,12 +45,12 @@ type (
 	GenesisState = types.GenesisState
 	Params       = types.Params
 
-	MsgCreateScavenge = msgs.MsgCreateScavenge
-	MsgDeleteScavenge = msgs.MsgDeleteScavenge
-	MsgUpdateScavenge = msgs.MsgUpdateScavenge
+	MsgCreateScavenge = types.MsgCreateScavenge
+	MsgDeleteScavenge = types.MsgDeleteScavenge
+	MsgUpdateScavenge = types.MsgUpdateScavenge
 
-	MsgCommitSolution = msgs.MsgCommitSolution
-	MsgRevealSolution = msgs.MsgRevealSolution
+	MsgCommitSolution = types.MsgCommitSolution
+	MsgRevealSolution = types.MsgRevealSolution
 
 	// TODO: Fill out module types
 )

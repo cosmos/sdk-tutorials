@@ -36,7 +36,7 @@ func listScavenges(ctx sdk.Context, k Keeper) ([]byte, sdk.Error) {
 	iterator := k.GetScavengesIterator(ctx)
 
 	for ; iterator.Valid(); iterator.Next() {
-		scavengeHash:= RemovePrefixFromHash(iterator.Key(), []byte(types.ScavengePrefix))
+		scavengeHash := RemovePrefixFromHash(iterator.Key(), []byte(types.ScavengePrefix))
 		scavengeList = append(scavengeList, string(scavengeHash))
 	}
 

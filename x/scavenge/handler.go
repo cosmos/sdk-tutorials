@@ -2,6 +2,7 @@ package scavenge
 
 import (
 	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -86,14 +87,14 @@ func handleMsgCommitSolution(ctx sdk.Context, k Keeper, msg MsgCommitSolution) s
 func handleMsgRevealSolution(ctx sdk.Context, k Keeper, msg MsgRevealSolution) sdk.Result {
 	var solutionScavengerBytes = []byte(msg.Solution + msg.Scavenger.String())
 	var solutionScavengerHash = sha256.Sum256(solutionScavengerBytes)
-	var solutionScavengerHashString = string(solutionScavengerHash[:])
+	var solutionScavengerHashString = hex.EncodeToString(solutionScavengerHash[:])
 	_, err := k.GetCommit(ctx, solutionScavengerHashString)
 	if err != nil {
 		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Commit with that hash doesn't exists").Result()
 	}
 
 	var solutionHash = sha256.Sum256([]byte(msg.Solution))
-	var solutionHashString = string(solutionHash[:])
+	var solutionHashString = hex.EncodeToString(solutionHash[:])
 	var scavenge types.Scavenge
 	scavenge, err = k.GetScavenge(ctx, solutionHashString)
 	if err != nil {

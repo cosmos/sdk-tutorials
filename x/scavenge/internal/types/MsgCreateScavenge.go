@@ -1,8 +1,7 @@
-package msgs
+package types
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/okwme/scavenge/x/scavenge/internal/types"
 )
 
 // MsgCreateScavenge
@@ -31,7 +30,7 @@ func NewMsgCreateScavenge(creator sdk.AccAddress, description, solutionHash stri
 const CreateScavengeConst = "CreateScavenge"
 
 // nolint
-func (msg MsgCreateScavenge) Route() string { return types.RouterKey }
+func (msg MsgCreateScavenge) Route() string { return RouterKey }
 func (msg MsgCreateScavenge) Type() string  { return CreateScavengeConst }
 func (msg MsgCreateScavenge) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{sdk.AccAddress(msg.Creator)}
@@ -39,17 +38,17 @@ func (msg MsgCreateScavenge) GetSigners() []sdk.AccAddress {
 
 // GetSignBytes gets the bytes for the message signer to sign on
 func (msg MsgCreateScavenge) GetSignBytes() []byte {
-	bz := types.ModuleCdc.MustMarshalJSON(msg)
+	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
 // ValidateBasic validity check for the AnteHandler
 func (msg MsgCreateScavenge) ValidateBasic() sdk.Error {
 	if msg.Creator.Empty() {
-		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Creator can't be empty")
+		return sdk.NewError(DefaultCodespace, CodeInvalid, "Creator can't be empty")
 	}
 	if msg.SolutionHash == "" {
-		return sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "SolutionHash can't be empty")
+		return sdk.NewError(DefaultCodespace, CodeInvalid, "SolutionHash can't be empty")
 	}
 	return nil
 }
