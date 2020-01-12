@@ -6,7 +6,6 @@ type GenesisState struct {
 
 // NewGenesisState creates a new GenesisState object
 func NewGenesisState() GenesisState {
-
 	return GenesisState{}
 }
 

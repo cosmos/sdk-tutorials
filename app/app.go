@@ -24,18 +24,17 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/cosmos-sdk/x/supply"
+	"github.com/okwme/scavenge/x/scavenge"
 )
 
 const appName = "app"
 
 var (
 	// default home directories for the application CLI
-	// TODO: rename your cli
-	DefaultCLIHome = os.ExpandEnv("$HOME/.acli")
+	DefaultCLIHome = os.ExpandEnv("$HOME/.scavengeCLI")
 
 	// DefaultNodeHome sets the folder where the applcation data and configuration will be stored
-	// TODO: rename your daemon
-	DefaultNodeHome = os.ExpandEnv("$HOME/.aud")
+	DefaultNodeHome = os.ExpandEnv("$HOME/.scavengeD")
 
 	// NewBasicManager is in charge of setting up basic module elemnets
 	ModuleBasics = module.NewBasicManager(
@@ -48,7 +47,7 @@ var (
 		params.AppModuleBasic{},
 		slashing.AppModuleBasic{},
 		supply.AppModuleBasic{},
-		// TODO: Add your module(s) AppModuleBasic
+		scavenge.AppModuleBasic{},
 	)
 	// account permissions
 	maccPerms = map[string][]string{
@@ -84,13 +83,13 @@ type newApp struct {
 	distrKeeper    distr.Keeper
 	supplyKeeper   supply.Keeper
 	paramsKeeper   params.Keeper
-	// TODO: Add your module(s)
+	scavengeKeeper scavenge.Keeper
 
 	// Module Manager
 	mm *module.Manager
 }
 
-// NewNameServiceApp is a constructor function for nameServiceApp
+// NewInitApp is a constructor function for scavengeApp
 func NewInitApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest bool,
 	invCheckPeriod uint, baseAppOptions ...func(*bam.BaseApp)) *newApp {
 
@@ -102,9 +101,8 @@ func NewInitApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest b
 
 	bApp.SetAppVersion(version.Version)
 
-	// TODO: Add the keys that module requires
 	keys := sdk.NewKVStoreKeys(bam.MainStoreKey, auth.StoreKey, staking.StoreKey,
-		supply.StoreKey, distr.StoreKey, slashing.StoreKey, params.StoreKey)
+		supply.StoreKey, distr.StoreKey, slashing.StoreKey, params.StoreKey, scavenge.StoreKey)
 
 	tkeys := sdk.NewTransientStoreKeys(staking.TStoreKey, params.TStoreKey)
 
@@ -187,7 +185,12 @@ func NewInitApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest b
 			app.slashingKeeper.Hooks()),
 	)
 
-	// TODO: Add your module(s) keepers
+	app.scavengeKeeper = scavenge.NewKeeper(
+		app.bankKeeper,
+		app.cdc,
+		keys[scavenge.StoreKey],
+		scavenge.DefaultCodespace,
+	)
 
 	app.mm = module.NewManager(
 		genaccounts.NewAppModule(app.accountKeeper),
@@ -196,7 +199,7 @@ func NewInitApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest b
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
 		supply.NewAppModule(app.supplyKeeper, app.accountKeeper),
 		distr.NewAppModule(app.distrKeeper, app.supplyKeeper),
-		// TODO: Add your module(s)
+		scavenge.NewAppModule(app.scavengeKeeper, app.bankKeeper),
 		slashing.NewAppModule(app.slashingKeeper, app.stakingKeeper),
 		staking.NewAppModule(app.stakingKeeper, app.distrKeeper, app.accountKeeper, app.supplyKeeper),
 	)
@@ -214,7 +217,7 @@ func NewInitApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest b
 		auth.ModuleName,
 		bank.ModuleName,
 		slashing.ModuleName,
-		// TODO: Add your module(s)
+		scavenge.ModuleName,
 		supply.ModuleName,
 		genutil.ModuleName,
 	)
