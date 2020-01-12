@@ -20,7 +20,7 @@ import (
 func GetTxCmd(cdc *codec.Codec) *cobra.Command {
 	scavengeTxCmd := &cobra.Command{
 		Use:                        types.ModuleName,
-		Short:                      fmt.Sprintf("%S transactions subcommands", types.ModuleName),
+		Short:                      fmt.Sprintf("%s transactions subcommands", types.ModuleName),
 		DisableFlagParsing:         true,
 		SuggestionsMinimumDistance: 2,
 		RunE:                       client.ValidateCmd,
