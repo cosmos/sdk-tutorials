@@ -81,9 +81,9 @@ func GetCmdGetScavenge(queryRoute string, cdc *codec.Codec) *cobra.Command {
 }
 func GetCmdGetCommit(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "commited [solution]",
-		Short: "Query a commit by solution",
-		Args:  cobra.ExactArgs(1),
+		Use:   "commited [solution] [scavenger]",
+		Short: "Query a commit by solution and address of scavenger",
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
@@ -91,9 +91,14 @@ func GetCmdGetCommit(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			var solutionHash = sha256.Sum256([]byte(solution))
 			var solutionHashString = hex.EncodeToString(solutionHash[:])
 
-			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/%s/%s", queryRoute, types.QueryCommit, solutionHashString), nil)
+			var scavenger = args[1]
+
+			var solutionScavengerHash = sha256.Sum256([]byte(solution + scavenger))
+			var solutionScavengerHashString = hex.EncodeToString(solutionScavengerHash[:])
+
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/%s/%s", queryRoute, types.QueryCommit, solutionScavengerHashString), nil)
 			if err != nil {
-				fmt.Printf("could not resolve commit for scavenge %s \n%s\n", solutionHashString, err.Error())
+				fmt.Printf("could not resolve commit %s for scavenge %s \n%s\n", solutionScavengerHashString, solutionHashString, err.Error())
 				return nil
 			}
 
