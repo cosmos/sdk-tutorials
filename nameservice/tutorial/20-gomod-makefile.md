@@ -10,7 +10,7 @@ Help users build your application by writing a `./Makefile` in the root director
 
 > _*NOTE*_: The below Makefile contains some of same commands as the Cosmos SDK and Tendermint Makefiles.
 
-<<<@/nameservice/Makefile
++++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/Makefile
 
 ### How about including Ledger Nano S support?
 
@@ -18,11 +18,11 @@ This requires a few small changes:
 
 - Create a file `Makefile.ledger` with the following content:
 
-<<<@/nameservice/Makefile.ledger
++++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/Makefile.ledger
 
 - Add `include Makefile.ledger` at the beginning of the Makefile:
 
-<<<@/nameservice/Makefile
++++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/Makefile
 
 ## `go.mod`
 
@@ -33,7 +33,7 @@ Golang has a few dependency management tools. In this tutorial you will be using
 - You will have to run `go get ./...` to get all the modules the application is using. This command will get the dependency version stated in the `go.mod` file.
 - If you would like to use a specific version of a dependency then you have to run `go get github.com/<github_org>/<repo_name>@<version>`
 
-<<<@/nameservice/go.mod
++++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/go.mod
 
 ## Building the app
 

@@ -28,6 +28,6 @@ Each name will have three pieces of data associated with it.
 
 To start your SDK module, define your `nameservice.Whois` struct in the `./x/nameservice/internal/types/types.go` file:
 
-<<<@/nameservice/x/nameservice/internal/types/types.go
++++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/x/nameservice/internal/types/types.go
 
 As mentioned in the [Design doc](./app-design.md), if a name does not already have an owner, we want to initialize it with some MinPrice.

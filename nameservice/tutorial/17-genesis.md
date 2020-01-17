@@ -8,11 +8,11 @@ The AppModule interface includes a number of functions for use in initializing a
 
 Go to `x/nameservice/genesis.go` and you will see that a few things are missing. We have to fill them in according to the needs of the module. Below you will see what is missing:
 
-<<<@/nameservice/x/nameservice/genesis.go
++++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/x/nameservice/genesis.go
 
 Next we will define what the genesis state will be, the default genesis and a way to validate it so we don't run into any errors when we start the chain with preexisting state.
 
-<<<@/nameservice/x/nameservice/internal/types/genesis.go
++++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/x/nameservice/internal/types/genesis.go
 
 A few notes about the above code:
 

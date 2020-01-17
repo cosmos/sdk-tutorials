@@ -14,4 +14,4 @@ well as the body of the "greeting".
 
 Save the following in `x/greeter/internal/types/msgs.go`
 
-<<< @/hellochain/x/greeter/internal/types/msgs.go
++++ https://github.com/cosmos/sdk-tutorials/blob/master/hellochain/x/greeter/internal/types/msgs.go

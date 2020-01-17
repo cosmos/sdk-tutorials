@@ -12,4 +12,4 @@ state of Greetings on its own.
 
 Add this to `x/greeter/internal/keeper/keeper.go`
 
-<<< @/hellochain/x/greeter/internal/keeper/keeper.go
++++ https://github.com/cosmos/sdk-tutorials/blob/master/hellochain/x/greeter/internal/keeper/keeper.go

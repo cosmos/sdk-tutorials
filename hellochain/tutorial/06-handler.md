@@ -13,4 +13,4 @@ terms this would be the 'controller'.
 
 Add this to `x/greeter/handler.go`
 
-<<< @/hellochain/x/greeter/handler.go
++++ https://github.com/cosmos/sdk-tutorials/blob/master/hellochain/x/greeter/handler.go

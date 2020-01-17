@@ -13,7 +13,7 @@ The Cosmos SDK uses the [`cobra`](https://github.com/spf13/cobra) library for CL
 
 Start in `query.go`. Here, define `cobra.Command`s for each of your modules `Queriers` (`resolve`, and `whois`):
 
-<<<@/nameservice/x/nameservice/client/cli/query.go
++++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/x/nameservice/client/cli/query.go
 
 Notes on the above code:
 
@@ -30,7 +30,7 @@ Now that the query interactions are defined, it is time to move on to transactio
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-tutorials/nameservice/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }/x/nameservice`).
 
-<<<@/nameservice/x/nameservice/client/cli/tx.go
++++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/x/nameservice/client/cli/tx.go
 
 Notes on the above code:
 

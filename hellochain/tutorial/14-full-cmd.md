@@ -11,4 +11,4 @@ greeter into the ModuleBasicManager.
 Your `cmd/hcd/main.go` should look like this (you will need to add the two
 highlighted lines).
 
-<<< @/hellochain/cmd/hcd/main.go{13,8}
++++ https://github.com/cosmos/sdk-tutorials/blob/master/hellochain/cmd/hcd/main.go{13,8}
