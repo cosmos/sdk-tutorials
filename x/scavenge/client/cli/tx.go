@@ -89,7 +89,7 @@ func GetCmdCommitSolution(cdc *codec.Codec) *cobra.Command {
 			if err != nil {
 				return err
 			}
-
+			fmt.Println("ready:")
 			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
 		},
 	}

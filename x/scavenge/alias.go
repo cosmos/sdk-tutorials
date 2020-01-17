@@ -32,9 +32,6 @@ var (
 	// TODO: Fill out variable aliases
 
 	NewMsgCreateScavenge = types.NewMsgCreateScavenge
-	NewMsgDeleteScavenge = types.NewMsgDeleteScavenge
-	NewMsgUpdateScavenge = types.NewMsgUpdateScavenge
-
 	NewMsgCommitSolution = types.NewMsgCommitSolution
 	NewMsgRevealSolution = types.NewMsgRevealSolution
 )
@@ -46,9 +43,6 @@ type (
 	Params       = types.Params
 
 	MsgCreateScavenge = types.MsgCreateScavenge
-	MsgDeleteScavenge = types.MsgDeleteScavenge
-	MsgUpdateScavenge = types.MsgUpdateScavenge
-
 	MsgCommitSolution = types.MsgCommitSolution
 	MsgRevealSolution = types.MsgRevealSolution
 
