@@ -4,11 +4,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-// Local code type
+// CodeType is a Local code type
 type CodeType = sdk.CodeType
 
 const (
-	// Default scavenge codespace
+	// DefaultCodespace is a scavenge codespace
 	DefaultCodespace sdk.CodespaceType = ModuleName
 
 	CodeInvalid CodeType = 101
