@@ -77,11 +77,11 @@ func (k Keeper) SetScavenge(ctx sdk.Context, scavenge types.Scavenge) {
 	store.Set(key, bz)
 }
 
-// // DeleteScavenge deletes a scavenge
-// func (k Keeper) DeleteScavenge(ctx sdk.Context, solutionHash string) {
-// 	store := ctx.KVStore(k.storeKey)
-// 	store.Delete([]byte(solutionHash))
-// }
+// DeleteScavenge deletes a scavenge
+func (k Keeper) DeleteScavenge(ctx sdk.Context, solutionHash string) {
+	store := ctx.KVStore(k.storeKey)
+	store.Delete([]byte(solutionHash))
+}
 
 // GetScavengesIterator gets an iterator over all scavnges in which the keys are the solutionHashes and the values are the scavenges
 func (k Keeper) GetScavengesIterator(ctx sdk.Context) sdk.Iterator {

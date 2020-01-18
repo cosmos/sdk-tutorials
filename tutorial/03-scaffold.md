@@ -1,4 +1,4 @@
-# Get Started
+# Scaffold
 
 We'll be using a tool called `scaffold` to help us spin up a boilerplate app quickly. To use `scaffold` first clone and install it on your local machine:
 ```bash
@@ -66,4 +66,4 @@ Similarly it asks for your github username as `user` and the name repository nam
 ```bash
 scaffold module okwme scavenge scavenge
 ```
-Now we have generated a boilerplate application with a boilerplate module. Our next step will be to [define Messages]("04-define-messages.md").
+Now we have generated a boilerplate application with a boilerplate module. Our next step will be to [define Messages]("04-messages.md").

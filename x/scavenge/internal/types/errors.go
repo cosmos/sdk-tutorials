@@ -14,7 +14,7 @@ const (
 	CodeInvalid CodeType = 101
 )
 
-// You can see how they are constructed below:
-func ErrInvalid(codespace sdk.CodespaceType) sdk.Error {
-	return sdk.NewError(codespace, CodeInvalid, "custom error message")
-}
+// // You can see how they are constructed below:
+// func ErrInvalid(codespace sdk.CodespaceType) sdk.Error {
+// 	return sdk.NewError(codespace, CodeInvalid, "custom error message")
+// }

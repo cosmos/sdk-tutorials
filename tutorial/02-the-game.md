@@ -1,4 +1,4 @@
-# The App
+# The Game
  The app we're buildig today can be used in many different ways, but I'll be talking about it as scavenger hunt game. Scavenger hunts are all about someone setting up tasks or questions that challenge a participant to find solutions that come with some sort of a prize. The basic mechanics of this app are as follows:
  * Anyone can post a question with an encrypted answer.
  * This question comes paired with a bounty of coins.
@@ -16,4 +16,4 @@
 
  Another way of achieving this would be to have an Access Control List where there was an admin account that the video game company controlled. This admin account could confirm that you beat the level and then give you points. The problem with this is that it creates a single point of failure and a single target for trying to attack the system. If there is one key that rules the castle then the whole system is broken if that key is found. It also creates a problem with coordination if that Admin account has to be online all the time in order for players to get their points. If you use a commit reveal system then you have a more trustless architecture where you don't need permission to play. This design decisions has benefits and drawbacks, but paired with a careful implementation it can allow your game to scale without a single bottle neck or point of failure.
 
- Now that we know what we're building we can [get started]("./03-get-started").
+ Now that we know what we're building we can [get started]("./03-scaffold.md").
