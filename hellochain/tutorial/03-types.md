@@ -10,5 +10,4 @@ define this struct and other necessary components in a types file.
 
 Save this to `x/greeter/internal/types/types.go`
 
-+++ https://github.com/cosmos/sdk-tutorials/blob/master/hellochain/x/greeter/internal/types/types.go
-
+<<< @/hellochain/x/greeter/internal/types/types.go
