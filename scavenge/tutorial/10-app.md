@@ -1,6 +1,8 @@
 # App
 
-Our `scaffold` utility has already created a pretty complete `app.go` file for us inside of `./app/app.go`. This version of the `app.go` file is meant to be as simple of an app as possible. It contains all the necessary modules for using an app with coins/tokens, like the ones used in our bounty reward, as well as the modules needed to operate the application with one or many **Validators** via proof-of-stake (`staking` module). It also has access to the `auth` module which allows the app to deal with the concept of a public key controlled user account like we already saw in our module. One module which is missing but is part of the Cosmos SDK core set of features is the `gov` module which allows for a simple form of Governance to take place. This process includes making text proposals which can be voted on with coins or with delegation via liquid democracy. This module can also be used to update the logic of the application itself, via parameter changes which can affect specific parts of different modules.
+Our `scaffold` utility has already created a pretty complete `app.go` file for us inside of `./app/app.go`. This version of the `app.go` file is meant to be as simple of an app as possible. It contains only the necessary modules needed for using an app that knows about coins (`bank`), user accounts (`auth`) and securing the application with proof-of-stake (`staking`).
+
+One module which is missing but is part of the Cosmos SDK core set of features is `gov`, which allows for a simple form of governance to take place. This process includes making text proposals which can be voted on with coins or with delegation via [liquid democracy](https://en.wikipedia.org/wiki/Liquid_democracy). This module can also be used to update the logic of the application itself, via parameter changes which can affect specific parts of different modules.
 
 Mostly we can just follow the `TODO`s that are marked in the file and add the necessary information about our new module. Afterwards it should look like:
 
@@ -297,7 +299,7 @@ func (app *newApp) ModuleAccountAddrs() map[string]bool {
 }
 ```
 
-Something you might notice near the beginning of the file is that I have renamed the `DefaultCLIHome` and the `DefaultNodeHome`. These are the directories located on your machine where the history of your application and the configuration of your CLI are stored, as well as the encrypted public/private key information for the keys you generate on your machine. I renamed them to `scavengeCLI` and `scavengeD` to better reflect our application.
+Something you might notice near the beginning of the file is that I have renamed the `DefaultCLIHome` and the `DefaultNodeHome`. These are the directories located on your machine where the history of your application and the configuration of your CLI are stored, as well as the encrypted information for the keys you generate on your machine. I renamed them to `scavengeCLI` and `scavengeD` to better reflect our application.
 
 Since we don't want to use the generic commands for our CLI and our application given to us by the `scaffold` command, let's rename the files within `cmd` as well. We will rename `./cmd/acli/` to `./cmd/scavengeCLI` as well as `./cmd/aud` to `./cmd/scavengeD`. Inside our `./cmd/scavengeCLI/main.go` file we will also update to the following format:
 
@@ -545,6 +547,7 @@ func exportAppStateAndTMValidators(
 	return aApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
 }
 ```
+
 Finally we need to update our new `cmd` names within our `Makefile`. It should be updated to look like:
 ```go
 PACKAGES=$(shell go list ./... | grep -v '/simulation')
@@ -583,4 +586,4 @@ lint:
 
 Now our app is configured and ready to go!
 
-Let's [fire it up]("./11-run.md")!
+Let's [fire it up](./11-run.md)!

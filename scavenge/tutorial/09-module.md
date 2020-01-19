@@ -151,6 +151,6 @@ func (AppModule) EndBlock(_ sdk.Context, _ abci.RequestEndBlock) []abci.Validato
 
 Congratulationns you have completed the `scavenge` module!  
 
-This module is now able to be incorporated into any Cosmos SDK application!!
+This module is now able to be incorporated into any Cosmos SDK application.
 
-Since we don't want to _just_ build a module, but want to build an application that also uses that module, let's go though what the process of configuring an app looks like [here]("./10-app.md").
+Since we don't want to _just_ build a module, but want to build an application that also uses that module, let's go though what the process of configuring an app looks like [here](./10-app.md).

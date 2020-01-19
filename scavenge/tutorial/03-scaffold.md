@@ -1,6 +1,6 @@
 # Scaffold
 
-We'll be using a tool called `scaffold` to help us spin up a boilerplate app quickly. To use `scaffold` first clone and install it on your local machine:
+We'll be using a tool called [scaffold](https://github.com/cosmos/scaffold) to help us spin up a boilerplate app quickly. To use `scaffold` first clone and install it on your local machine:
 ```bash
 git clone git@github.com:cosmos/scaffold.git
 cd scaffold
@@ -44,7 +44,7 @@ Global Flags:
   -c, --config string        config file (default is $HOME/.scaffold.yaml)
   -o, --output-path string   Path to output
 ```
-We will use this command to generate a basic boilerplate application. The parameter `lvl` should be filled with `lvl-1` (which is currently the only lvl available). You should use your own github username for `user` and come up with a name for `repo`. I will be using `scavenge` as the repo name for this tutorial. Using my github handle (`okwme`) the final command should look like:
+We will use this command to generate a basic boilerplate application. The parameter `lvl` should be filled with `lvl-1` (which is currently the only lvl available). You should use your own github username for `user` and come up with a name for `repo`. I will be using `scavenge` as the repo name for this tutorial. Using my own github handle (`okwme`) the final command should look like:
 ```bash
 scaffold app lvl-1 okwme scavenge
 ```
@@ -62,8 +62,8 @@ Global Flags:
   -c, --config string        config file (default is $HOME/.scaffold.yaml)
   -o, --output-path string   Path to output
 ```
-Similarly it asks for your github username as `user` and the name repository name as `repo`. It also asks for the name you'd like to give to this new module. I will also be using the name `scavenge` for the module name during this tutorial.
+Similarly, it asks for your github username as `user` and the name repository name as `repo`. It also asks for the name you'd like to give to this new module. I will use the name `scavenge` for the module as well.
 ```bash
 scaffold module okwme scavenge scavenge
 ```
-Now we have generated a boilerplate application with a boilerplate module. Our next step will be to [define Messages]("04-messages.md").
+Now that we have generated a boilerplate application with a boilerplate module, our next step will be to define our [Messages](./04-messages.md).

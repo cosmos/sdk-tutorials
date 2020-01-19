@@ -68,8 +68,6 @@ Flags:
 Use "scavengeCLI [command] --help" for more information about a command.
 ```
 
-Awesome B)
-
 Now we should create some users within our app that have some initial coins that can be used as bounties for other players. First we create two users with the following commands:
 ```bash
 scavengeCLI keys add me
@@ -77,7 +75,7 @@ scavengeCLI keys add you
 ```
 Each command will come with a prompt to set a password to secure the account. I usually use `1234567890` when I'm developing so that I don't forget.
 
-Next you need to initialize your application using the Daemon command with a <moniker> (which is just a nickname for your machine) and a <chain-id> which will be a way to identify your application.
+Next you need to initialize your application using the Daemon command with a `<moniker>` (which is just a nickname for your machine) and a `<chain-id>` which will be a way to identify your application.
 
 ```bash
 scavengeD init mynode --chain-id scavenge
@@ -87,9 +85,9 @@ Now you can add your two accounts to the initial state of the application, calle
 scavengeD add-genesis-account $(scavengeCLI keys show me -a) 1000foo,100000000stake
 scavengeD add-genesis-account $(scavengeCLI keys show you -a) 1foo
 ```
-Notice we've combined two commands, which includes one from the Daemon and one from the CLI. The CLI command queries the accounts that we created but displays just their addresses. Addresses are a bit like the User ID. You'll also notice that we added some coins to the different users. For the user `me` we added some token called `foo` as well as some token called `stake`. We will be using `stake` within the Proof-Of-Stake validation process. Since the user `me` is the only user with `stake`, they will be the only **Validator** interacting with this application. That's great for our purposes since we're just playing around, but if you were to run an applicaiton in production, you might want to have a lot more Validators helping to make sure your app runs correctly.
+Notice we've combined two commands, which includes one from the Daemon and one from the CLI. The CLI command queries the accounts that we created but displays just their addresses. **Addresses are a bit like user IDs**. You'll also notice that we added some coins to the different users. For the user `me` we added some token called `foo` as well as some token called `stake`. We will be using `stake` within the Proof-Of-Stake validation process. Since the user `me` is the only user with `stake`, they will be the only **Validator** interacting with this application. That's great for our purposes since we're just playing around but if you were to run an application in production you might want to have a more Validators helping to make sure your app runs correctly.
 
-Before we start the application up it's good to configure your CLI to know that it will be interacting with this app, and not any other one. These commands will tell the CLI to talk just to this application:
+Before we start the application it's good to configure your CLI to know that it will be interacting with this app, and not any other one. These commands will tell the CLI to talk to just this application:
 
 ```bash
 scavengeCLI config chain-id scavenge
@@ -127,7 +125,7 @@ echo "1234567890" | scavengeD gentx --name me
 scavengeD collect-gentxs
 ```
 
-Now.Finally.You.Can.Run.Your.APPLICATION!
+**Now, _finally_, you can run your APPLICATION!** 
 
 To do so open a new terminal window and type the following:
 ```bash
@@ -135,4 +133,4 @@ scavengD start
 ```
 That's it! You're up and running!
 
-To interact with your application take a look at the example commands used to create and solve scavenges [here]("./12-play.md").
+To interact with your application take a look at the example commands used to create and solve scavenges [here](./12-play.md).

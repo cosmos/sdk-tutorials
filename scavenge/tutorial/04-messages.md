@@ -1,6 +1,8 @@
-# Define Messages
+# Messages
 
-Messages are a great place to start when building a module because they define the actions that your application can make. Think of all the scenarios where a user would be able to update the state of the application in any way. These should be boiled down into basic interactions, similar to **CRUD** (Create, Read, Update, Delete). Let's start with **Create**
+Messages are a great place to start when building a module because they define the actions that your application can make. Think of all the scenarios where a user would be able to update the state of the application in any way. These should be boiled down into basic interactions, similar to **CRUD** (Create, Read, Update, Delete).
+
+Let's start with **Create**
 
 ## MsgCreateScavenge
 Messages are `types` which live inside the `./x/scavenge/internal/types/` directory. There is already a `msg.go` file but we will make a new file for each Message type. We can use `msg.go` as a starting point by renaming it to `MsgCreateScavenge.go` like: 
@@ -67,12 +69,12 @@ func (msg MsgCreateScavenge) ValidateBasic() sdk.Error {
 ```
 
 Notice that all Messages in the app need to follow the `sdk.Msg` interface. The Message `struct` contains all the necessary information when creating a new scavenge: 
- * `Creator` - Who created it. This uses the `sdk.AccAddress` type which represents an account in the app controlled by public key cryptograhy.
- * `Description` - What is the question to be solved or description of the challenge.
- * `SolutionHash` - The scrambled solution.
+ * `Creator` - Who created it. This uses the `sdk.AccAddress` type which represents an account in the app controlled by public key cryptography.
+ * `Description` - What is the question to be solved (the description of the challenge).
+ * `SolutionHash` - The solution after being scrambled with a hash function.
  * `Reward` - This is the bounty that is awarded to whoever submits the answer first.
 
-The `Msg` interface requires some other methods be set, like validating the content of the struct, and confirming the msg was signed and submitted by the Creator.
+The `Msg` interface requires some other methods be set, like validating the contents of the struct, and confirming the message was signed and submitted by the `Creator`.
 
 Now that one can create a scavenge the only other essential action is to be able to solve it. This should be broken into two separate actions as described before: `MsgCommitSolution` and `MsgRevealSolution`. 
 
@@ -97,7 +99,7 @@ type MsgCommitSolution struct {
 }
 
 // NewMsgCommitSolution creates a new MsgCommitSolution instance
-func NewMsgCommitSolution(scavenger sdk.AccAddress, solutionHash string, solutionScavengerHash string) MsgCommitSolution { This uses the `sdk.AccAddress` type which represents an account in the app controlled by public key cryptograhy.
+func NewMsgCommitSolution(scavenger sdk.AccAddress, solutionHash string, solutionScavengerHash string) MsgCommitSolution {
 	return MsgCommitSolution{
 		Scavenger:             scavenger,
 		SolutionHash:          solutionHash,
@@ -224,10 +226,11 @@ The Message `struct` contains all the necessary information when revealing a sol
  * `SolutionHash` - The scrambled solution.
  * `Solution` - This is the plain text version of the solution.
 
+
  This message also fulfils the `sdk.Msg` interface.
 
  ## Codec
- Once we have defined our messages, we need to describe to our encoder how they should be stored as bytes. To do this we edit the file located at `./x/scavenge/internal/types/codec.go`. By describing our types as follows they will work with our encoding library, called Amino:
+ Once we have defined our messages, we need to describe to our encoder how they should be stored as bytes. To do this we edit the file located at `./x/scavenge/internal/types/codec.go`. By describing our types as follows they will work with our encoding library:
  ```go
  package types
 
@@ -255,4 +258,4 @@ func init() {
 
  It's great to have Messages, but we need somewhere to store the information they are sending. All persistent data related to this module should live in the module's `Keeper`.
 
- Let's make a `Keeper` for our Scavenge Module [here]("./05-keeper.md").
+ Let's make a `Keeper` for our Scavenge Module [here](./05-keeper.md).
