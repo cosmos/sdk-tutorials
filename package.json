@@ -4,8 +4,8 @@
   "description": "A collection of tutorials for building with the Cosmos SDK",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vuepress dev"
+    "serve": "vuepress dev --no-cache",
+    "build": "vuepress build --no-cache"
   },
   "repository": {
     "type": "git",
@@ -23,9 +23,6 @@
   },
   "homepage": "https://github.com/cosmos/sdk-tutorials#readme",
   "dependencies": {
-    "vuepress-theme-cosmos": "^1.0.30"
-  },
-  "devDependencies": {
-    "@vuepress/plugin-google-analytics": "^1.2.0"
+    "vuepress-theme-cosmos": "^1.0.140"
   }
 }
