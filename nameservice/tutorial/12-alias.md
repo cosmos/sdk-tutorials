@@ -14,7 +14,7 @@ First start by importing the "types" folder you have created.
 - A variable, which you will define to contain information such as your messages.
 - A type, here you will define the types you have created in the types folder.
 
-+++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/x/nameservice/alias.go
+<<< @/nameservice/x/nameservice/alias.go
 
 Now you have aliased your needed constants, variables, and types. We can move forward with the creation of the module.
 

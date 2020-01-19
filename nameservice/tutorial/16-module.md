@@ -10,7 +10,7 @@ Start by opening two new files, `module.go` and `genesis.go`. We will implement 
 
 Lets start with adding the following code to `module.go`. The scaffolding tool has already filled in all the functions with the data that is needed but there are still a couple of to-dos. You will have to add the modules that this module depends on in the `AppModule` type.
 
-+++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/x/nameservice/module.go
+<<< @/nameservice/x/nameservice/module.go
 
 To see more examples of AppModule implementation, check out some of the other modules in the SDK such as [x/staking](https://github.com/cosmos/cosmos-sdk/blob/master/x/staking/genesis.go)
 

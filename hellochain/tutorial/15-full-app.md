@@ -11,4 +11,4 @@ and add greeter's AppModuleBasic and AppModule alongside the other modules.
 
 Update your `app.go` to look like the following
 
-+++ https://github.com/cosmos/sdk-tutorials/blob/master/hellochain/app.go
+<<< @/hellochain/app.go

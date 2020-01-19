@@ -12,4 +12,4 @@ takes an optional "from" parameter.
 
 Save this in `x/greeter/internal/keeper/querier.go`
 
-+++ https://github.com/cosmos/sdk-tutorials/blob/master/hellochain/x/greeter/internal/keeper/querier.go
+<<< @/hellochain/x/greeter/internal/keeper/querier.go

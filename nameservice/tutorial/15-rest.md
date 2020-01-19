@@ -53,7 +53,7 @@ First create a `query.go` file to place all your querys in.
 
 Next, its time to define the handlers mentioned above. These will be very similar to the CLI methods defined earlier. Start with the queries `whois` and `resolve`:
 
-+++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/x/nameservice/client/rest/query.go
+<<< @/nameservice/x/nameservice/client/rest/query.go
 
 Notes on the above code:
 
@@ -66,7 +66,7 @@ First define a `tx.go` file to hold all your tx rest endpoints.
 
 Now define the `buyName`, `setName` and `deleteName` transaction routes. Notice these aren't actually sending the transactions to buy, set and delete names. That would require sending a password along with the request which would be a security issue. Instead these endpoints build and return each specific transaction which can then be signed in a secure manner and afterwards broadcast to the network using a standard endpoint like `/txs`.
 
-+++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/x/nameservice/client/rest/tx.go
+<<< @/nameservice/x/nameservice/client/rest/tx.go
 
 Notes on the above code:
 

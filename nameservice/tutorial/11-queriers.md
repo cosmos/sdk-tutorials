@@ -8,7 +8,7 @@ order: 11
 
 Start by navigating to `./x/nameservice/internal/types/querier.go` file. This is where you will define your querier types.
 
-+++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/x/nameservice/internal/types/querier.go
+<<< @/nameservice/x/nameservice/internal/types/querier.go
 
 ## Querier
 

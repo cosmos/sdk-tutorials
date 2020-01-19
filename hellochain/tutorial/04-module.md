@@ -20,4 +20,4 @@ Let's make use of `starter.BlankModule` to skip much of the boilerplate here.
 Then we will come back and implement the methods for our module that we need.
 Save the following in `x/greeter/module.go`
 
-+++ https://github.com/cosmos/sdk-tutorials/blob/master/hellochain/x/greeter/module.go
+<<< @/hellochain/x/greeter/module.go

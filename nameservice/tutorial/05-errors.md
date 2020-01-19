@@ -6,7 +6,7 @@ order: 5
 
 Start by navagating to the `errors.go` file within the types folder. Within your `errors.go` file, define errors that are custom to your module along with their codes.
 
-+++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/x/nameservice/internal/types/errors.go
+<<< @/nameservice/x/nameservice/internal/types/errors.go
 
 You must also add the corresponding method that'll be called at the time of error handling. For instance, let's say we try to delete a name that is not present in the store. In this case, an error should be thrown as the name does not exist.
 
