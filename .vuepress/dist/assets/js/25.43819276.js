@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[25],{309:function(t,n,e){"use strict";e.r(n);var o=e(1),u=Object(o.a)({},(function(){var t=this.$createElement,n=this._self._c||t;return n("div",[n("tm-layout",{scopedSlots:this._u([{key:"content",fn:function(){return[n("Content")]},proxy:!0}])})],1)}),[],!1,null,null,null);n.default=u.exports}}]);
