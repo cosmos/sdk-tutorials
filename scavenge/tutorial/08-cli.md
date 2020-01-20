@@ -1,3 +1,7 @@
+---
+order: 8
+---
+
 # CLI
 A Command Line Interface (CLI) will help us interact with our app once it is running on a machine somewhere. Each Module has it's own namespace within the CLI that gives it the ability to create and sign Messages destined to be handled by that module. It also comes with the ability to query the state of that module. When combined with the rest of the app, the CLI will let you do things like generate keys for a new account or check the status of an interaction you already had with the application.
 
@@ -13,6 +17,10 @@ Inside `GetTxCmd` we create a new module-specific command and call is `scavenge`
 
 
 Each function takes parameters from the **Cobra** CLI tool to create a new msg, sign it and submit it to the application to be processed. These functions should go into the `tx.go` file and look as follows:
+
+<<< @/scavenge/x/scavenge/client/cli/tx.go
+
+<!-->
 ```go
 package cli
 
@@ -134,6 +142,7 @@ func GetCmdRevealSolution(cdc *codec.Codec) *cobra.Command {
 	}
 }
 ```
+-->
 
 ### sha256
 Note that this file makes use of the `sha256` library for hashing our plain text solutions into the scrambled hashes. This activity takes place on the client side so the solutions are never leaked to any public entity which might want to sneak a peak and steal the bounty reward associated with the scavenges. You can also notice that the hashes are converted into hexadecimal representation to make them easy to read as strings (which is how they are ultimately stored in the keeper).
@@ -146,6 +155,10 @@ The `query.go` file contains similar **Cobra** commands that reserve a new name 
 
 
 After defining these commands, your `query.go` file should look like:
+
+<<< @/scavenge/x/scavenge/client/cli/query.go
+
+<!-->
 ```go
 package cli
 
@@ -258,6 +271,7 @@ func GetCmdGetCommit(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	}
 }
 ```
+-->
 
 Notice that this file also makes use of the `sha256` library for converting plain text into hexadecimal hash strings.
 

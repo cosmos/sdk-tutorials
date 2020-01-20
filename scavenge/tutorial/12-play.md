@@ -1,3 +1,7 @@
+---
+order: 12
+---
+
 # Play
 
 Your application is running! That's great but who cares unless you can play with it. The first command you will want to try is creating a new scavenge. Since our user `me` has way more `foo` token than the user `you`, let's create the scavenge from their account.

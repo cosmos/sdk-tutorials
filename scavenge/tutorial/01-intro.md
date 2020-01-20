@@ -1,7 +1,13 @@
-# Digital Scarcity and Gaming in Golang
-## Workshop by Billy Rennekamp
+---
+order: 1
+---
 
-### Hello and welcome to the text version of this workshop! 
+# Digital Scarcity and Gaming in Golang
+## GODays 2020 Workshop by [Billy Rennekamp](https://twitter.com/billyrennekamp)
+
+### Hello and welcome to the text version of this workshop ([slides](https://docs.google.com/presentation/d/1UG_Zi2FxMSWTmRBFhc4exXlJssAPasTq28cpTCHX2Ks/edit?usp=sharing))
+
+> If you are interested in getting started with the scavenger hunt game consider jumping ahead to [read about the game](./02-the-game.md) or to [just start building](./03-scaffold.md)!
 
 The goal of this session is to get you thinking about what is possible when developing applications that have access to **digital scarcity as a primitive**. The easiest way to think of scarcity is as money; If money grew on trees it would stop being _scarce_ and stop having value. We have a long history of software which deals with money, but it's never been a first class citizen in the programming environment. Instead, money has always been represented as a number or a float, and it has been up to a third party merchant service or some other process of exchange where the _representation_ of money is swapped for actual cash. If money were a primitive in a software environment, it would allow for **real economies to exist within games and applications**, taking one step further in erasing the line between games, life and play.
 

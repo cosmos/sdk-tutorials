@@ -1,3 +1,7 @@
+---
+order: 11
+---
+
 # Run
 
 Now that our module is built and our app is configured to use it we can start running our application! The first thing to do is make sure that the `go.mod` is correct. If you're using an IDE like vscode with `golang` extensions enabled, this should be done automatically for you after saving each file. You can also make sure all dependencies are present by running `go mod tidy`.
@@ -108,6 +112,10 @@ scavengeD collect-gentxs
 ```
 
 I usually combine all of these commands into a single executable file so that if I make changes to the application I don't have to run each one manually. Since some of the commands require a password to be entered I use bash piping to feed in my `1234567890` password. I put everything into a file called `./init.sh` so that it looks like so:
+
+<<< @/scavenge/init.sh
+
+<!-->
 ```bash
 #!/bin/bash
 rm -r ~/.scavengeCLI
@@ -124,6 +132,7 @@ scavengeCLI config trust-node true
 echo "1234567890" | scavengeD gentx --name me
 scavengeD collect-gentxs
 ```
+-->
 
 **Now, _finally_, you can run your APPLICATION!** 
 

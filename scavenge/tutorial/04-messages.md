@@ -1,3 +1,7 @@
+---
+order: 4
+---
+
 # Messages
 
 Messages are a great place to start when building a module because they define the actions that your application can make. Think of all the scenarios where a user would be able to update the state of the application in any way. These should be boiled down into basic interactions, similar to **CRUD** (Create, Read, Update, Delete).
@@ -11,6 +15,10 @@ Messages are `types` which live inside the `./x/scavenge/internal/types/` direct
 mv ./x/scavenge/internal/types/msg.go  ./x/scavenge/internal/types/MsgCreateScavenge.go
 ```
 Inside this new file we will uncomment and follow the instructions of renaming variables until it looks as follows:
+
+<<< @/scavenge/x/scavenge/internal/types/MsgCreateScavenge.go
+
+<!--
 ```go
 package types
 
@@ -137,6 +145,7 @@ func (msg MsgCommitSolution) ValidateBasic() sdk.Error {
 	return nil
 }
 ```
+-->
 
 The Message `struct` contains all the necessary information when creating the commit to a solution: 
  * `Scavenger` - Who is commiting the solution.
@@ -148,6 +157,10 @@ Similar to `MsgCreateScavenge` this type must fulfil the `sdk.Msg` interface by 
 ## MsgRevealSolution
 
 This message type should live in `./x/scavenge/internal/types/MsgRevealSolution.go` and look like:
+
+<<< @/scavenge/x/scavenge/internal/types/MsgRevealSolution.go
+
+<!--
 ```go
 package types
 
@@ -220,6 +233,7 @@ func (msg MsgRevealSolution) ValidateBasic() sdk.Error {
 	return nil
 }
 ```
+-->
 
 The Message `struct` contains all the necessary information when revealing a solution:
  * `Scavenger` - Who is revealing the solution.
@@ -231,6 +245,10 @@ The Message `struct` contains all the necessary information when revealing a sol
 
  ## Codec
  Once we have defined our messages, we need to describe to our encoder how they should be stored as bytes. To do this we edit the file located at `./x/scavenge/internal/types/codec.go`. By describing our types as follows they will work with our encoding library:
+
+ <<< @/scavenge/x/scavenge/internal/types/codec.go
+
+<!-->
  ```go
  package types
 
@@ -255,6 +273,7 @@ func init() {
 	ModuleCdc.Seal()
 }
 ```
+-->
 
  It's great to have Messages, but we need somewhere to store the information they are sending. All persistent data related to this module should live in the module's `Keeper`.
 

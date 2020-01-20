@@ -1,3 +1,7 @@
+---
+order: 7
+---
+
 # Querier
 
 In order to query the data of our app we need to make it accessible using our `Querier`. This piece of the app works in tandem with the `Keeper` to access state and return it. The `Querier` is defined in `./x/scavenge/internal/keeper/querier.go`. Our `scaffold` tool starts us out with some suggestions on how it should look, and similar to our `Handler` we want to handle different queried routes. You could make many different routes within the `Querier` for many different types of queries, but we will just make three:
@@ -7,6 +11,10 @@ In order to query the data of our app we need to make it accessible using our `Q
 
 
 Combined into a switch statement and with each of the functions fleshed out it should look as follows:
+
+<<< @/scavenge/x/scavenge/internal/keeper/querier.go
+
+<!-->
 ```go
 package keeper
 
@@ -86,9 +94,14 @@ func getCommit(ctx sdk.Context, path []string, k Keeper) (res []byte, sdkError s
 	return res, nil
 }
 ```
+-->
 
 ## Types
 You may notice that we use three different imported types on our initial switch statement. These are defined within our `./x/scavenge/internal/types/querier.go` file as simple strings. That file should look like the following:
+
+<<< @/scavenge/x/scavenge/internal/types/querier.go
+
+<!-->
 ```go
 package types
 
@@ -109,6 +122,7 @@ func (n QueryResScavenges) String() string {
 	return strings.Join(n[:], "\n")
 }
 ```
+-->
 
 Our queries are rather simple since we've already outfitted our `Keeper` with all the necessary functions to access state. You can see the iterator being used here as well.
 

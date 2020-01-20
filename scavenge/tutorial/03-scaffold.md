@@ -1,3 +1,7 @@
+---
+order: 3
+---
+
 # Scaffold
 
 We'll be using a tool called [scaffold](https://github.com/cosmos/scaffold) to help us spin up a boilerplate app quickly. To use `scaffold` first clone and install it on your local machine:

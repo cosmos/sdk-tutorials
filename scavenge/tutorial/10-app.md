@@ -1,3 +1,7 @@
+---
+order: 10
+---
+
 # App
 
 Our `scaffold` utility has already created a pretty complete `app.go` file for us inside of `./app/app.go`. This version of the `app.go` file is meant to be as simple of an app as possible. It contains only the necessary modules needed for using an app that knows about coins (`bank`), user accounts (`auth`) and securing the application with proof-of-stake (`staking`).
@@ -6,6 +10,9 @@ One module which is missing but is part of the Cosmos SDK core set of features i
 
 Mostly we can just follow the `TODO`s that are marked in the file and add the necessary information about our new module. Afterwards it should look like:
 
+<<< @/scavenge/app/app.go
+
+<!-->
 ```go
 package app
 
@@ -298,11 +305,15 @@ func (app *newApp) ModuleAccountAddrs() map[string]bool {
 	return modAccAddrs
 }
 ```
+-->
 
 Something you might notice near the beginning of the file is that I have renamed the `DefaultCLIHome` and the `DefaultNodeHome`. These are the directories located on your machine where the history of your application and the configuration of your CLI are stored, as well as the encrypted information for the keys you generate on your machine. I renamed them to `scavengeCLI` and `scavengeD` to better reflect our application.
 
 Since we don't want to use the generic commands for our CLI and our application given to us by the `scaffold` command, let's rename the files within `cmd` as well. We will rename `./cmd/acli/` to `./cmd/scavengeCLI` as well as `./cmd/aud` to `./cmd/scavengeD`. Inside our `./cmd/scavengeCLI/main.go` file we will also update to the following format:
 
+<<< @/scavenge/cmd/scavengeCLI/main.go
+
+<!-->
 ```go
 package main
 
@@ -446,8 +457,13 @@ func initConfig(cmd *cobra.Command) error {
 	return viper.BindPFlag(cli.OutputFlag, cmd.PersistentFlags().Lookup(cli.OutputFlag))
 }
 ```
+-->
 
 And within our `./cmd/scavengeD/main.go` we will update to the following format:
+
+<<< @/scavenge/cmd/scavengeD/main.go
+
+<!-->
 ```go
 package main
 
@@ -547,8 +563,13 @@ func exportAppStateAndTMValidators(
 	return aApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
 }
 ```
+-->
 
 Finally we need to update our new `cmd` names within our `Makefile`. It should be updated to look like:
+
+<<< @/scavenge/cmd/scavengeD/main.go
+
+<!-->
 ```go
 PACKAGES=$(shell go list ./... | grep -v '/simulation')
 
@@ -570,7 +591,7 @@ install: go.sum
 		go install -mod=readonly $(BUILD_FLAGS) ./cmd/scavengeCLI
 
 go.sum: go.mod
-		@echo "--> Ensure dependencies have not been modified"
+		@echo "-> Ensure dependencies have not been modified"
 		GO111MODULE=on go mod verify
 
 # Uncomment when you have some tests
@@ -579,10 +600,11 @@ go.sum: go.mod
 
 # look into .golangci.yml for enabling / disabling linters
 lint:
-	@echo "--> Running linter"
+	@echo "-> Running linter"
 	@golangci-lint run
 	@go mod verify
 ```
+-->
 
 Now our app is configured and ready to go!
 

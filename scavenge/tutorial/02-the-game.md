@@ -1,3 +1,7 @@
+---
+order: 2
+---
+
 # The Game
 
  The application we're building today can be used in many different ways but I'll be talking about it as **scavenger hunt** game. Scavenger hunts are all about someone setting up tasks or questions that challenge a participant to find solutions which come with some sort of a prize. The basic mechanics of the game are as follows:
