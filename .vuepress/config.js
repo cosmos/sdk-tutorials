@@ -22,6 +22,11 @@ module.exports = {
             title: 'Nameservice',
             path: '/nameservice/tutorial/',
             directory: true
+          },
+          {
+            title: 'Scavenge',
+            path: '/scavenge/tutorial/',
+            directory: true
           }
         ]
       }

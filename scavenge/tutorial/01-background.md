@@ -2,12 +2,11 @@
 order: 1
 ---
 
-# Digital Scarcity and Gaming in Golang
-## GODays 2020 Workshop by [Billy Rennekamp](https://twitter.com/billyrennekamp)
+# Background
 
-### Hello and welcome to the text version of this workshop ([slides](https://docs.google.com/presentation/d/1UG_Zi2FxMSWTmRBFhc4exXlJssAPasTq28cpTCHX2Ks/edit?usp=sharing))
+This tutorial was first presented as a workshop at [GODays 2020 Berlin](https://www.godays.io/) by [Billy Rennekamp](https://twitter.com/billyrennekamp). To view slides from this workshop please see [here](https://docs.google.com/presentation/d/1UG_Zi2FxMSWTmRBFhc4exXlJssAPasTq28cpTCHX2Ks/edit?usp=sharing). If you are interested in getting started with the scavenger hunt consider jumping ahead to [The Game](./02-the-game.md) or start building in [Scaffold](./03-scaffold.md)!
 
-> If you are interested in getting started with the scavenger hunt game consider jumping ahead to [read about the game](./02-the-game.md) or to [just start building](./03-scaffold.md)!
+---
 
 The goal of this session is to get you thinking about what is possible when developing applications that have access to **digital scarcity as a primitive**. The easiest way to think of scarcity is as money; If money grew on trees it would stop being _scarce_ and stop having value. We have a long history of software which deals with money, but it's never been a first class citizen in the programming environment. Instead, money has always been represented as a number or a float, and it has been up to a third party merchant service or some other process of exchange where the _representation_ of money is swapped for actual cash. If money were a primitive in a software environment, it would allow for **real economies to exist within games and applications**, taking one step further in erasing the line between games, life and play.
 
@@ -27,6 +26,4 @@ You might have guessed by now that what I'm really talking about are **Blockchai
 
 The state machine we are building will use an implementation of **proof-of-stake** called **Tendermint**, which is energy efficient and can consist of one or many validators, either trusted or byzantine. When building a system that handles _real_ scarcity, the integrity of that system becomes very important. One way to ensure that integrity is by sharing the responsibility of maintaining it with a large group of independently motivated participants as validators.
 
-So, now that we know a little more about **why** we might build an app like this, let's dive into the game itself...
-
-[Part 2 - The Game](./02-the-game.md)
+So, now that we know a little more about **why** we might build an app like this, let's dive into the game itself.

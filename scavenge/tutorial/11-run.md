@@ -115,25 +115,6 @@ I usually combine all of these commands into a single executable file so that if
 
 <<< @/scavenge/init.sh
 
-<!-->
-```bash
-#!/bin/bash
-rm -r ~/.scavengeCLI
-rm -r ~/.scavengeD
-echo "1234567890" | scavengeCLI keys add me
-echo "1234567890" | scavengeCLI keys add you
-scavengeD init mynode --chain-id scavenge
-scavengeD add-genesis-account $(scavengeCLI keys show me -a) 1000foo,100000000stake
-scavengeD add-genesis-account $(scavengeCLI keys show you -a) 1foo
-scavengeCLI config chain-id scavenge
-scavengeCLI config output json
-scavengeCLI config indent true
-scavengeCLI config trust-node true
-echo "1234567890" | scavengeD gentx --name me
-scavengeD collect-gentxs
-```
--->
-
 **Now, _finally_, you can run your APPLICATION!** 
 
 To do so open a new terminal window and type the following:
@@ -142,4 +123,4 @@ scavengD start
 ```
 That's it! You're up and running!
 
-To interact with your application take a look at the example commands used to create and solve scavenges [here](./12-play.md).
+To play with your application take a look at the example commands used to create and solve scavenges.

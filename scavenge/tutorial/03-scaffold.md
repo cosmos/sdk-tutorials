@@ -70,4 +70,4 @@ Similarly, it asks for your github username as `user` and the name repository na
 ```bash
 scaffold module okwme scavenge scavenge
 ```
-Now that we have generated a boilerplate application with a boilerplate module, our next step will be to define our [Messages](./04-messages.md).
+Now that we have generated a boilerplate application with a boilerplate module, our next step will be to define our Messages.
