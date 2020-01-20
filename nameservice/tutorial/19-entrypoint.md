@@ -20,7 +20,7 @@ Start by adding the following code to `cmd/nsd/main.go`:
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-tutorials/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }`).
 
-<<<@/nameservice/cmd/nsd/main.go
+<<< @/nameservice/cmd/nsd/main.go
 
 Notes on the above code:
 
@@ -32,7 +32,7 @@ Finish up by building the `nscli` command:
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-tutorials/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }`).
 
-<<<@/nameservice/cmd/nscli/main.go
+<<< @/nameservice/cmd/nscli/main.go
 
 Note:
 
