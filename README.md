@@ -11,7 +11,7 @@ _[The code for these tutorials (and this site) can be found here on Github](http
 
 This is the quick and simple "Hello World" introduction to building with the Cosmos SDK. You will build a fully-funcitonal blockchain with payment functionality and a custom "greeter" module. This tutorial makes use of the `utils/starter` package to reduce boilerplate and allow you to focus on the core concepts. Start here if you are evaluating Cosmos as your possible platform of choice.
 
-## [Nameservice](./nameservice/tutorial/00-intro.md)
+## [Nameservice](./nameservice/tutorial/00-background.md)
 
 The real deal, full-length tutorial in which you will build a fully functional naming service on a blockchain. This tutorial does not use the `starter` package, rather you will be configuring and composing a full application yourself.
 The nameservice tutorial also has translations and a slide deck. 
