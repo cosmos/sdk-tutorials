@@ -4,8 +4,7 @@
 
 _[The code for these tutorials (and this site) can be found here on Github](https://www.github.com/cosmos/sdk-tutorials)_
 
-**[Click here](./nameservice/tutorial/21-build-run.md)** for instructions on how to build and run the code.
-
+> If you are viewing this readme on github we have a site dedicated to show these tutorials [here](https://tutorials.cosmos.network/)
 
 ## [Hellochain](./hellochain/tutorial/00-intro.md)
 
@@ -15,8 +14,11 @@ This is the quick and simple "Hello World" introduction to building with the Cos
 
 The real deal, full-length tutorial in which you will build a fully functional naming service on a blockchain. This tutorial does not use the `starter` package, rather you will be configuring and composing a full application yourself.
 The nameservice tutorial also has translations and a slide deck. 
+
 #### [Live Testnet](https://talkshop.name)
 #### [Slides](https://docs.google.com/presentation/d/1aCMAdkVY-gfgnGNPTygwVk3o68czPQ_VYfvdMy9Ek5Q/edit?usp=sharing)
+
+**[Click here](./nameservice/tutorial/21-build-run.md)** for instructions on how to build and run the code.
 
 Translations:
 
