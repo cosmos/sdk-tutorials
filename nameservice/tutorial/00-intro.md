@@ -60,12 +60,4 @@ Through the course of this tutorial you will create the following files that mak
         └── module.go
 ```
 
-Start by creating a new git repository:
-
-```bash
-mkdir nameservice
-cd nameservice
-git init
-```
-
-Then, just follow along! The first step describes the design of your application.
+Follow along! The first step describes the design of your application.
