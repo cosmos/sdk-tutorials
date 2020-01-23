@@ -25,7 +25,7 @@ If you have not completed the tutorial then you can follow the below cloning ins
 # Clone the source of the tutorial repository
 git clone https://github.com/cosmos/sdk-tutorials.git
 cd sdk-tutorials
-cd namerservice
+cd nameservice
 ```
 
 ```bash
