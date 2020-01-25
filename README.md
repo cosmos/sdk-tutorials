@@ -4,6 +4,10 @@
 
 _[The code for these tutorials (and this site) can be found here on Github](https://www.github.com/cosmos/sdk-tutorials)_
 
+## Prerequisites
+
+After a quick [Development Environment Setup](SETUP.md), you're ready to select a tutorial from the list below.
+
 ## [Hellochain](./hellochain/tutorial/00-intro.md)
 
 This is the quick and simple "Hello World" introduction to building with the Cosmos SDK. You will build a fully-funcitonal blockchain with payment functionality and a custom "greeter" module. This tutorial makes use of the `utils/starter` package to reduce boilerplate and allow you to focus on the core concepts. Start here if you are evaluating Cosmos as your possible platform of choice.
