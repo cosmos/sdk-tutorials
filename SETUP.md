@@ -1,17 +1,10 @@
 # Development Environment Setup
 
-## Supported OS
+You'll need `go-lang 1.13.x`, `git` and `make` on your machine.
 
-The example instructions are for Ubuntu 18.04 and for any other OS using ubuntu on a virtual machine (Windows: WSL, VirtualBox, Docker.
+Use an Editor or an IDE of your choice, e.g. [Visual Studio Code](https://code.visualstudio.com/download).
 
-Native setup on other *nix systems should be similar.
-
-Windows native is not tested/supported, use WSL (Windows Subsystem for Linux) or another virtual machine running ubuntu 18.04.
-
-## Setup
-
-
-The go-language 1.13 and higher (for full info: [official go download page](https://golang.org/dl/) )
+## Ubuntu 18.04
 
 ```sh
 sudo add-apt-repository ppa:longsleep/golang-backports
@@ -24,4 +17,26 @@ go version  # should be go1.13.x
 echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.profile
 source ~/.profile
 ```
+
+`git` and `make` are already installed, if not:
+
+```sh
+sudo apt-get install git make
+```
+
+## Other *nix, Mac
+
+Use the package-manager of your system.
+
+## Windows
+
+Windows native is not tested/supported.
+
+You can use WSL (Windows Subsystem for Linux) or another virtual machine running ubuntu 18.04.
+
+## All OS
+
+Visit the [official golang download page](https://golang.org/dl/)
+
+
 
