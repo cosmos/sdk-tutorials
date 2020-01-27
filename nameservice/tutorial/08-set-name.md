@@ -54,18 +54,18 @@ The above functions are used by the SDK to route `Msgs` to the proper module for
 
 ```go
 // ValidateBasic runs stateless checks on the message
-func (msg MsgSetName) ValidateBasic() sdk.Error {
+func (msg MsgSetName) ValidateBasic() error {
 	if msg.Owner.Empty() {
-		return sdk.ErrInvalidAddress(msg.Owner.String())
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Owner.String())
 	}
 	if len(msg.Name) == 0 || len(msg.Value) == 0 {
-		return sdk.ErrUnknownRequest("Name and/or Value cannot be empty")
+		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Name and/or Value cannot be empty")
 	}
 	return nil
 }
 ```
 
-`ValidateBasic` is used to provide some basic **stateless** checks on the validity of the `Msg`. In this case, check that none of the attributes are empty. Note the use of the `sdk.Error` types here. The SDK provides a set of error types that are frequently encountered by application developers.
+`ValidateBasic` is used to provide some basic **stateless** checks on the validity of the `Msg`. In this case, check that none of the attributes are empty.
 
 ```go
 // GetSignBytes encodes the message for signing
