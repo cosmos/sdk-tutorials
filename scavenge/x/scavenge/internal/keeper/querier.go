@@ -5,12 +5,13 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/okwme/scavenge/x/scavenge/internal/types"
 )
 
 // NewQuerier creates a new querier for scavenge clients.
 func NewQuerier(k Keeper) sdk.Querier {
-	return func(ctx sdk.Context, path []string, req abci.RequestQuery) ([]byte, sdk.Error) {
+	return func(ctx sdk.Context, path []string, req abci.RequestQuery) ([]byte, error) {
 		switch path[0] {
 		case types.QueryListScavenges:
 			return listScavenges(ctx, k)
@@ -19,7 +20,7 @@ func NewQuerier(k Keeper) sdk.Querier {
 		case types.QueryCommit:
 			return getCommit(ctx, path[1:], k)
 		default:
-			return nil, sdk.ErrUnknownRequest("unknown scavenge query endpoint")
+			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "unknown scavenge query endpoint")
 		}
 	}
 }
@@ -30,7 +31,7 @@ func RemovePrefixFromHash(key []byte, prefix []byte) (hash []byte) {
 	return hash
 }
 
-func listScavenges(ctx sdk.Context, k Keeper) ([]byte, sdk.Error) {
+func listScavenges(ctx sdk.Context, k Keeper) ([]byte, error) {
 	var scavengeList types.QueryResScavenges
 
 	iterator := k.GetScavengesIterator(ctx)
@@ -42,36 +43,36 @@ func listScavenges(ctx sdk.Context, k Keeper) ([]byte, sdk.Error) {
 
 	res, err := codec.MarshalJSONIndent(k.cdc, scavengeList)
 	if err != nil {
-		return res, sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Could not marshal result to JSON")
+		return res, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
 	}
 
 	return res, nil
 }
 
-func getScavenge(ctx sdk.Context, path []string, k Keeper) (res []byte, sdkError sdk.Error) {
+func getScavenge(ctx sdk.Context, path []string, k Keeper) (res []byte, sdkError error) {
 	solutionHash := path[0]
 	scavenge, err := k.GetScavenge(ctx, solutionHash)
 	if err != nil {
-		return nil, sdk.NewError(types.DefaultCodespace, types.CodeInvalid, err.Error())
+		return nil, err
 	}
 
 	res, err = codec.MarshalJSONIndent(k.cdc, scavenge)
 	if err != nil {
-		return nil, sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Could not marshal result to JSON")
+		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
 	}
 
 	return res, nil
 }
 
-func getCommit(ctx sdk.Context, path []string, k Keeper) (res []byte, sdkError sdk.Error) {
+func getCommit(ctx sdk.Context, path []string, k Keeper) (res []byte, sdkError error) {
 	solutionScavengerHash := path[0]
 	commit, err := k.GetCommit(ctx, solutionScavengerHash)
 	if err != nil {
-		return nil, sdk.NewError(types.DefaultCodespace, types.CodeInvalid, err.Error())
+		return nil, err
 	}
 	res, err = codec.MarshalJSONIndent(k.cdc, commit)
 	if err != nil {
-		return nil, sdk.NewError(types.DefaultCodespace, types.CodeInvalid, "Could not marshal result to JSON")
+		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
 	}
 	return res, nil
 }

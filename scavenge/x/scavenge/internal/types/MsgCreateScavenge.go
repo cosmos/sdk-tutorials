@@ -43,12 +43,12 @@ func (msg MsgCreateScavenge) GetSignBytes() []byte {
 }
 
 // ValidateBasic validity check for the AnteHandler
-func (msg MsgCreateScavenge) ValidateBasic() sdk.Error {
+func (msg MsgCreateScavenge) ValidateBasic() error {
 	if msg.Creator.Empty() {
-		return sdk.NewError(DefaultCodespace, CodeInvalid, "Creator can't be empty")
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "creator can't be empty")
 	}
 	if msg.SolutionHash == "" {
-		return sdk.NewError(DefaultCodespace, CodeInvalid, "SolutionHash can't be empty")
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "solutionScavengerHash can't be empty")
 	}
 	return nil
 }

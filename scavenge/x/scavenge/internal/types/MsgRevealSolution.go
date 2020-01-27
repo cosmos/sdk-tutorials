@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // MsgRevealSolution
@@ -49,22 +50,22 @@ func (msg MsgRevealSolution) GetSignBytes() []byte {
 }
 
 // ValidateBasic validity check for the AnteHandler
-func (msg MsgRevealSolution) ValidateBasic() sdk.Error {
+func (msg MsgRevealSolution) ValidateBasic() error {
 	if msg.Scavenger.Empty() {
-		return sdk.NewError(DefaultCodespace, CodeInvalid, "Creator can't be empty")
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "creator can't be empty")
 	}
 	if msg.SolutionHash == "" {
-		return sdk.NewError(DefaultCodespace, CodeInvalid, "SolutionHash can't be empty")
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "solutionScavengerHash can't be empty")
 	}
 	if msg.Solution == "" {
-		return sdk.NewError(DefaultCodespace, CodeInvalid, "Solution can't be empty")
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "solutionHash can't be empty")
 	}
 
 	var solutionHash = sha256.Sum256([]byte(msg.Solution))
 	var solutionHashString = hex.EncodeToString(solutionHash[:])
 
 	if msg.SolutionHash != solutionHashString {
-		return sdk.NewError(DefaultCodespace, CodeInvalid, fmt.Sprintf("Hash of solution (%s) doesn't equal solutionHash (%s)", msg.SolutionHash, solutionHashString))
+		return dkerrors.Wrap(sdkerrors.ErrInvalidRequest, fmt.Sprintf("Hash of solution (%s) doesn't equal solutionHash (%s)", msg.SolutionHash, solutionHashString))
 	}
 	return nil
 }
