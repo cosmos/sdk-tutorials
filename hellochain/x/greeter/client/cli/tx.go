@@ -1,11 +1,12 @@
 package cli
 
 import (
-	//"fmt"
+	"bufio"
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
+	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
 
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -24,7 +25,7 @@ func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 		RunE:                       client.ValidateCmd,
 	}
 
-	greetingTxCmd.AddCommand(client.PostCommands(
+	greetingTxCmd.AddCommand(flags.PostCommands(
 		GetCmdSayHello(cdc),
 	)...)
 
@@ -51,8 +52,9 @@ func GetCmdSayHello(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
+			inBuf := bufio.NewReader(cmd.InOrStdin())
 			// used to construct, sign and encode the transaction (Tx) to send our greeting message
-			txBldr := auth.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
+			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
 
 			msg := gtypes.NewMsgGreet(sender, body, recipient)
 			err = msg.ValidateBasic()

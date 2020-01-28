@@ -7,6 +7,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
+	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/codec"
 
 	gtypes "github.com/cosmos/sdk-tutorials/hellochain/x/greeter/internal/types"
@@ -22,7 +23,7 @@ func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 		SuggestionsMinimumDistance: 2,
 		RunE:                       client.ValidateCmd,
 	}
-	greeterQueryCmd.AddCommand(client.GetCommands(
+	greeterQueryCmd.AddCommand(flags.GetCommands(
 		GetCmdListGreetings(storeKey, cdc),
 	)...)
 	return greeterQueryCmd
