@@ -1,12 +1,13 @@
 package keeper
 
 import (
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/sdk-tutorials/nameservice/x/nameservice/internal/types"
+	abci "github.com/tendermint/tendermint/abci/types"
 
+	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	abci "github.com/tendermint/tendermint/abci/types"
+	
+	"github.com/cosmos/sdk-tutorials/nameservice/x/nameservice/internal/types"
 )
 
 // query endpoints supported by the nameservice Querier
