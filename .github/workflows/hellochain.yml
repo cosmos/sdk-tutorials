@@ -15,6 +15,7 @@ jobs:
         echo "::add-path::$(go env GOPATH)/bin"
         echo "::set-env name=GO111MODULE::"on""
       shell: bash
+    - uses: actions/checkout@v2
     - name: Test Build
       run: |
         cd hellochain && make install
