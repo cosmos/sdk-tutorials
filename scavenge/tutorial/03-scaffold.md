@@ -8,6 +8,7 @@ We'll be using a tool called [scaffold](https://github.com/cosmos/scaffold) to h
 ```bash
 git clone git@github.com:cosmos/scaffold.git
 cd scaffold
+make tools
 make install
 scaffold --help
 ```

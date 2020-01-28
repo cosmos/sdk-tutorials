@@ -4,8 +4,9 @@
 
 _[The code for these tutorials (and this site) can be found here on Github](https://www.github.com/cosmos/sdk-tutorials)_
 
-**[Click here](./nameservice/tutorial/21-build-run.md)** for instructions on how to build and run the code.
+## Prerequisites
 
+After a quick [Development Environment Setup](SETUP.md), you're ready to select a tutorial from the list below.
 
 ## [Hellochain](./hellochain/tutorial/00-intro.md)
 
@@ -24,7 +25,7 @@ Translations:
 
 ### 
 
-## [Scavenge](./scavenge/tutorial/01-intro.md)
+## [Scavenge](./scavenge/tutorial/01-background.md)
 
 A scavenger hunt of sorts! Users post questions with hashed answers and bounties for whoever can solve them using a commit-reveal scheme that prevents front-running.
 
