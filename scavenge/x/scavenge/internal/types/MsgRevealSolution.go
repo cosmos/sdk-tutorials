@@ -65,7 +65,7 @@ func (msg MsgRevealSolution) ValidateBasic() error {
 	var solutionHashString = hex.EncodeToString(solutionHash[:])
 
 	if msg.SolutionHash != solutionHashString {
-		return dkerrors.Wrap(sdkerrors.ErrInvalidRequest, fmt.Sprintf("Hash of solution (%s) doesn't equal solutionHash (%s)", msg.SolutionHash, solutionHashString))
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, fmt.Sprintf("Hash of solution (%s) doesn't equal solutionHash (%s)", msg.SolutionHash, solutionHashString))
 	}
 	return nil
 }
