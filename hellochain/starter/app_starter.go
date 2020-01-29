@@ -238,11 +238,6 @@ func NewDefaultGenesisState() GenesisState {
 	return ModuleBasics.DefaultGenesis()
 }
 
-// Codec returns the app's codec
-func (app *AppStarter) Codec() *codec.Codec {
-	return app.Cdc
-}
-
 // ModuleAccountAddrs returns all the app's module account addresses.
 func (app *AppStarter) ModuleAccountAddrs() map[string]bool {
 	modAccAddrs := make(map[string]bool)
@@ -275,13 +270,23 @@ func (app *AppStarter) InitializeStarter() {
 	)
 
 	// initialize stores
-	app.MountKVStores(keys)
-	app.MountTransientStores(tkeys)
+	app.MountKVStores(app.keys)
+	app.MountTransientStores(app.tkeys)
 
 	err := app.LoadLatestVersion(app.keys[bam.MainStoreKey])
 	if err != nil {
 		tmos.Exit(err.Error())
 	}
+}
+
+// Codec returns simapp's codec
+func (app *AppStarter) Codec() *codec.Codec {
+	return app.Cdc
+}
+
+// SimulationManager implements the SimulationApp interface
+func (app *AppStarter) SimulationManager() *module.SimulationManager {
+	return app.sm
 }
 
 // NewAppCreator wraps and returns a function for instantiaing an app
