@@ -49,11 +49,13 @@ Global Flags:
   -c, --config string        config file (default is $HOME/.scaffold.yaml)
   -o, --output-path string   Path to output
 ```
-We will use this command to generate a basic boilerplate application. The parameter `lvl` should be filled with `lvl-1` (which is currently the only lvl available). You should use your own github username for `user` and come up with a name for `repo`. I will be using `scavenge` as the repo name for this tutorial. Using my own github handle (`okwme`) the final command should look like:
+We will use this command to generate a basic boilerplate application. First create a new working directory on your machine that you can use to start a new project. You might want to do this in your home directory by using `cd ~`. It doesn't really matter where but you probably don't want to stay inside of your `scaffold` directory.
+
+When it comes to starting your project with the `scaffold app` command, the parameter `lvl` should be filled with `lvl-1` (which is currently the only lvl available). You should use your own github username for `user` and come up with a name for `repo`. I will be using `scavenge` as the repo name for this tutorial. Using my own github handle (`okwme`) the final command should look like:
 ```bash
 scaffold app lvl-1 okwme scavenge
 ```
-This should generate a folder structure inside of a directory called `scavenge` of your current working directory. Now that we have an app boilerplate we want to add some custom functionality to it and build our scavenge module. First change into the app directory with `cd scavenge` then change into the modules directory with `cd x`. Now you can run the `module` command of the `scaffold` tool, but first check out the help screen of it with `scaffold module --help`:
+This should generate a folder structure inside of a directory called `scavenge` of your current working directory. Now that we have an app boilerplate we want to add some custom functionality to it and build our scavenge module. Change into the modules directory with `cd scavenge/x`. Now you can run the `module` command of the `scaffold` tool, but first check out the help screen of it with `scaffold module --help`:
 ```bash
 Generate an empty module for use in the Cosmos-SDK
 

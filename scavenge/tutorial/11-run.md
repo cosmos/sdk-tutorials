@@ -6,9 +6,9 @@ order: 11
 
 Now that our module is built and our app is configured to use it we can start running our application! The first thing to do is make sure that the `go.mod` is correct. If you're using an IDE like vscode with `golang` extensions enabled, this should be done automatically for you after saving each file. You can also make sure all dependencies are present by running `go mod tidy`.
 
-Once your dependencies are set, run `make install` to build your binaries! You will be creating two binaries. One is the `scavengeD` which is a daemon that runs your actual application. The other binary is `scavengeCLI` which is a tool for interacting with your running application.
+Once your dependencies are set, run `make` to build your binaries! You will be creating two binaries. One is the `scavengeD` which is a daemon that runs your actual application. The other binary is `scavengeCLI` which is a tool for interacting with your running application.
 
-After you run `make install` you want to make sure you have access to both of those binaries. You can do this by running the `scavengeD --help`, where you should see the following:
+After you run `make` you want to make sure you have access to both of those binaries. You can do this by running the `scavengeD --help`, where you should see the following:
 
 ```bash
 Scavenge Daemon (server)
@@ -119,7 +119,7 @@ I usually combine all of these commands into a single executable file so that if
 
 To do so open a new terminal window and type the following:
 ```bash
-scavengD start
+scavengeD start
 ```
 That's it! You're up and running!
 

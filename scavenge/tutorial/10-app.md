@@ -24,7 +24,7 @@ And within our `./cmd/scavengeD/main.go` we will update to the following format:
 
 Finally we need to update our new `cmd` names within our `Makefile`. It should be updated to look like:
 
-<<< @/scavenge/cmd/scavengeD/main.go
+<<< @/scavenge/Makefile
 
 Now our app is configured and ready to go!
 
