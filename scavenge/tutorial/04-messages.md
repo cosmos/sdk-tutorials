@@ -18,12 +18,30 @@ Inside this new file we will uncomment and follow the instructions of renaming v
 
 <<< @/scavenge/x/scavenge/internal/types/MsgCreateScavenge.go
 
-The Message `struct` contains all the necessary information when creating the commit to a solution: 
- * `Scavenger` - Who is commiting the solution.
+Notice that all Messages in the app need to follow the `sdk.Msg` interface. The Message `struct` contains all the necessary information when creating a new scavenge: 
+ * `Creator` - Who created it. This uses the `sdk.AccAddress` type which represents an account in the app controlled by public key cryptograhy.
+ * `Description` - What is the question to be solved or description of the challenge.
  * `SolutionHash` - The scrambled solution.
- * `SolutionScavengerHash` - This is the scramble of the solution combined with the Scavenger.
+ * `Reward` - This is the bounty that is awarded to whoever submits the answer first.
 
-Similar to `MsgCreateScavenge` this type must fulfil the `sdk.Msg` interface by containing methods to check who signed the msg and make sure the values included are all valid.
+The `Msg` interface requires some other methods be set, like validating the content of the `struct`, and confirming the msg was signed and submitted by the Creator.
+
+Now that one can create a scavenge the only other essential action is to be able to solve it. This should be broken into two separate actions as described before: `MsgCommitSolution` and `MsgRevealSolution`. 
+
+## MsgCommitSolution
+
+This message type should live in `./x/scavenge/internal/types/MsgCommitSolution.go` and look like:
+
+<<< @/scavenge/x/scavenge/internal/types/MsgCommitSolution.go
+
+The Message `struct` contains all the necessary information when revealing a solution:
+ * `Scavenger` - Who is revealing the solution.
+ * `SolutionHash` - The scrambled solution.
+ * `SolutionScavengerHash` - This is the plain text version of the solution.
+
+
+ This message also fulfils the `sdk.Msg` interface.
+
 
 ## MsgRevealSolution
 
