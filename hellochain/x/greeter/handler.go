@@ -10,12 +10,10 @@ import (
 // NewHandler returns a handler for "greeter" type messages.
 func NewHandler(keeper Keeper) sdk.Handler {
 	return func(ctx sdk.Context, msg sdk.Msg) (*sdk.Result, error) {
-		//return func(ctx sdk.Context, msg sdk.Msg) sdk.Result {
 		switch msg := msg.(type) {
 		case MsgGreet:
 			return handleMsgGreet(ctx, keeper, msg)
 		default:
-
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, fmt.Sprintf("Unrecognized greeter Msg type: %v", msg.Type()))
 
 		}
