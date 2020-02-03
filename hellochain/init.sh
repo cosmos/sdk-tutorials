@@ -12,6 +12,7 @@ hcd add-genesis-account $(hccli keys show test2 -a) 100000000000stake,1000hello
 
 hccli config output json
 hccli config indent true
+hccli config chain-id test
 hccli config trust-node true
 
 hcd start
