@@ -53,6 +53,7 @@ Through the course of this tutorial you will create the following files that mak
         │   └── types
         │       ├── codec.go
         │       ├── errors.go
+        │       ├── expected_keepers.go
         │       ├── key.go
         │       ├── msgs.go
         │       ├── querier.go

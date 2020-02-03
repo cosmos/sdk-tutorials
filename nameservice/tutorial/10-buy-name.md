@@ -1,5 +1,5 @@
 ---
-order: 9
+order: 10
 ---
 
 # BuyName
@@ -32,16 +32,15 @@ func (msg MsgBuyName) Route() string { return RouterKey }
 func (msg MsgBuyName) Type() string { return "buy_name" }
 
 // ValidateBasic runs stateless checks on the message
-func (msg MsgBuyName) ValidateBasic() sdk.Error {
+func (msg MsgBuyName) ValidateBasic() error {
 	if msg.Buyer.Empty() {
-		return sdk.ErrInvalidAddress(msg.Buyer.String())
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Buyer.String())
 	}
 	if len(msg.Name) == 0 {
-		return sdk.ErrUnknownRequest("Name cannot be empty")
+		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Name cannot be empty")
 	}
 	if !msg.Bid.IsAllPositive() {
-		return sdk.ErrInsufficientCoins("Bids must be positive")
-	}
+		return sdkerrors.ErrInsufficientFunds
 	return nil
 }
 

@@ -1,0 +1,21 @@
+name: Scavenge
+on: [pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-go@v1
+      id: go
+      with:
+        go-version: 1.13
+    - name: Setup env for GO
+    #  this is only used until the setup-go action is updated
+      run: |
+        echo "::set-env name=GOPATH::$(go env GOPATH)"
+        echo "::add-path::$(go env GOPATH)/bin"
+        echo "::set-env name=GO111MODULE::"on""
+      shell: bash
+    - uses: actions/checkout@v2
+    - name: Test Build
+      run: |
+        cd scavenge && make install

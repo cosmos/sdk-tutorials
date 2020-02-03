@@ -10,7 +10,7 @@ provides its specific `tx` and `query` functionality. Generally modules provide
 both CLI and REST client support but for this tutorial we will focus only on
 our CLI. Here we will implement `GetTxCmd` and `GetQueryCmd` for our `greeter`
 module's client package. These will then later be used to incorporate
-`greeter`'s functionatlity into our CLI tool.
+`greeter`'s functionality into our CLI tool.
 
 ## TxCmd
 

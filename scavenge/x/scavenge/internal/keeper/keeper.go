@@ -16,16 +16,14 @@ type Keeper struct {
 	CoinKeeper bank.Keeper
 	storeKey   sdk.StoreKey
 	cdc        *codec.Codec
-	codespace  sdk.CodespaceType
 }
 
 // NewKeeper creates a scavenge keeper
-func NewKeeper(coinKeeper bank.Keeper, cdc *codec.Codec, key sdk.StoreKey, codespace sdk.CodespaceType) Keeper {
+func NewKeeper(coinKeeper bank.Keeper, cdc *codec.Codec, key sdk.StoreKey) Keeper {
 	keeper := Keeper{
 		CoinKeeper: coinKeeper,
 		storeKey:   key,
 		cdc:        cdc,
-		codespace:  codespace,
 	}
 	return keeper
 }

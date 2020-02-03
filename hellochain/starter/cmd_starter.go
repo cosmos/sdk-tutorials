@@ -7,21 +7,21 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/cosmos/cosmos-sdk/client/keys"
-	"github.com/cosmos/cosmos-sdk/client/rpc"
-	"github.com/cosmos/cosmos-sdk/server"
-	"github.com/cosmos/cosmos-sdk/x/genaccounts"
-	genaccscli "github.com/cosmos/cosmos-sdk/x/genaccounts/client/cli"
-	"github.com/cosmos/cosmos-sdk/x/staking"
 	amino "github.com/tendermint/go-amino"
 	"github.com/tendermint/tendermint/libs/cli"
 
 	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/cosmos/cosmos-sdk/client/keys"
 	"github.com/cosmos/cosmos-sdk/client/lcd"
+	"github.com/cosmos/cosmos-sdk/client/rpc"
+	"github.com/cosmos/cosmos-sdk/server"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/x/auth"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
+	"github.com/cosmos/cosmos-sdk/x/staking"
 )
 
 // NewCLICommand returns a basic root CLI cmd to interact with a running SDK chain.
@@ -40,7 +40,7 @@ func NewCLICommand() *cobra.Command {
 		Short: "hellochain Client",
 	}
 
-	rootCmd.PersistentFlags().String(client.FlagChainID, "", "Chain ID of tendermint node")
+	rootCmd.PersistentFlags().String(flags.FlagChainID, "", "Chain ID of tendermint node")
 
 	// Add --chain-id to persistent flags and mark it required
 	rootCmd.PersistentPreRunE = func(_ *cobra.Command, _ []string) error {
@@ -51,11 +51,11 @@ func NewCLICommand() *cobra.Command {
 	rootCmd.AddCommand(
 		rpc.StatusCommand(),
 		client.ConfigCmd(DefaultCLIHome),
-		client.LineBreak,
+		flags.LineBreak,
 		lcd.ServeCommand(Cdc, registerRoutes),
-		client.LineBreak,
+		flags.LineBreak,
 		keys.Commands(),
-		client.LineBreak,
+		flags.LineBreak,
 	)
 	return rootCmd
 
@@ -77,7 +77,7 @@ func QueryCmd(cdc *amino.Codec) *cobra.Command {
 	queryCmd.AddCommand(
 		rpc.ValidatorCommand(cdc),
 		rpc.BlockCommand(),
-		client.LineBreak,
+		flags.LineBreak,
 		authcmd.GetAccountCmd(cdc),
 		authcmd.QueryTxCmd(cdc),
 		authcmd.QueryTxsByEventsCmd(cdc),
@@ -95,13 +95,13 @@ func TxCmd(cdc *amino.Codec) *cobra.Command {
 
 	txCmd.AddCommand(
 		bankcmd.SendTxCmd(cdc),
-		client.LineBreak,
+		flags.LineBreak,
 		authcmd.GetSignCommand(cdc),
 		authcmd.GetMultiSignCommand(cdc),
-		client.LineBreak,
+		flags.LineBreak,
 		authcmd.GetBroadcastCommand(cdc),
 		authcmd.GetEncodeCommand(cdc),
-		client.LineBreak,
+		flags.LineBreak,
 	)
 
 	return txCmd
@@ -121,7 +121,7 @@ func initConfig(cmd *cobra.Command) error {
 			return err
 		}
 	}
-	if err := viper.BindPFlag(client.FlagChainID, cmd.PersistentFlags().Lookup(client.FlagChainID)); err != nil {
+	if err := viper.BindPFlag(flags.FlagChainID, cmd.PersistentFlags().Lookup(flags.FlagChainID)); err != nil {
 		return err
 	}
 	if err := viper.BindPFlag(cli.EncodingFlag, cmd.PersistentFlags().Lookup(cli.EncodingFlag)); err != nil {
@@ -167,11 +167,11 @@ func NewServerCommand(params ServerCommandParams) *cobra.Command {
 
 	rootCmd.AddCommand(
 		genutilcli.InitCmd(ctx, cdc, ModuleBasics, DefaultNodeHome),
-		genutilcli.CollectGenTxsCmd(ctx, cdc, genaccounts.AppModuleBasic{}, DefaultNodeHome),
+		genutilcli.CollectGenTxsCmd(ctx, cdc, auth.GenesisAccountIterator{}, DefaultNodeHome),
 		genutilcli.GenTxCmd(ctx, cdc, ModuleBasics, staking.AppModuleBasic{},
-			genaccounts.AppModuleBasic{}, DefaultNodeHome, DefaultCLIHome),
+			auth.GenesisAccountIterator{}, DefaultNodeHome, DefaultCLIHome),
 		genutilcli.ValidateGenesisCmd(ctx, cdc, ModuleBasics),
-		genaccscli.AddGenesisAccountCmd(ctx, cdc, DefaultNodeHome, DefaultCLIHome),
+		AddGenesisAccountCmd(ctx, cdc, DefaultNodeHome, DefaultCLIHome),
 	)
 
 	server.AddCommands(ctx, cdc, rootCmd, params.AppCreator, params.AppExporter)

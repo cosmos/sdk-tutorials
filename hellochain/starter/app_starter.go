@@ -6,8 +6,8 @@ import (
 	"os"
 
 	abci "github.com/tendermint/tendermint/abci/types"
-	cmn "github.com/tendermint/tendermint/libs/common"
 	"github.com/tendermint/tendermint/libs/log"
+	tmos "github.com/tendermint/tendermint/libs/os"
 	pvm "github.com/tendermint/tendermint/privval"
 	tmtypes "github.com/tendermint/tendermint/types"
 
@@ -16,11 +16,11 @@ import (
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/server"
+	"github.com/cosmos/cosmos-sdk/simapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/genaccounts"
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	"github.com/cosmos/cosmos-sdk/x/params"
 	"github.com/cosmos/cosmos-sdk/x/supply"
@@ -41,7 +41,6 @@ var (
 
 func init() {
 	ModuleBasics = module.NewBasicManager(
-		genaccounts.AppModuleBasic{},
 		auth.AppModuleBasic{},
 		bank.AppModuleBasic{},
 		params.AppModuleBasic{},
@@ -49,16 +48,18 @@ func init() {
 	)
 }
 
+var _ simapp.App = (*AppStarter)(nil)
+
 // AppStarter is a basic app
 type AppStarter struct {
 	*bam.BaseApp // AppStarter extends BaseApp
 
-	// Keys to access the substores
-	keyMain    *sdk.KVStoreKey
-	keyAccount *sdk.KVStoreKey
-	keySupply  *sdk.KVStoreKey
-	keyParams  *sdk.KVStoreKey
-	tkeyParams *sdk.TransientStoreKey
+	// keys to access the substores
+	keys  map[string]*sdk.KVStoreKey
+	tkeys map[string]*sdk.TransientStoreKey
+
+	// subspaces
+	subspaces map[string]params.Subspace
 
 	// Keepers
 	accountKeeper auth.AccountKeeper
@@ -66,7 +67,12 @@ type AppStarter struct {
 	supplyKeeper  supply.Keeper
 	paramsKeeper  params.Keeper
 	Cdc           *codec.Codec
-	Mm            *module.Manager
+
+	// Module Manager
+	Mm *module.Manager
+
+	// simulation manager
+	sm *module.SimulationManager
 }
 
 // AppStarter implements abci.Application
@@ -141,7 +147,7 @@ func (app *AppStarter) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abc
 
 // LoadHeight loads the state at a given block height
 func (app *AppStarter) LoadHeight(height int64) error {
-	return app.LoadVersion(height, app.keyMain)
+	return app.LoadVersion(height, app.keys[bam.MainStoreKey])
 }
 
 // ExportAppStateAndValidators returns the Genesis and AppState for the apps modules
@@ -177,44 +183,47 @@ func NewAppStarter(appName string, logger log.Logger, db dbm.DB, moduleBasics ..
 
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(Cdc))
 
+	keys := sdk.NewKVStoreKeys(bam.MainStoreKey, auth.StoreKey,
+		supply.StoreKey, params.StoreKey)
+
+	tkeys := sdk.NewTransientStoreKeys(params.TStoreKey)
+
 	var app = &AppStarter{
-		Cdc:        Cdc,
-		BaseApp:    bApp,
-		keyMain:    sdk.NewKVStoreKey(bam.MainStoreKey),
-		keySupply:  sdk.NewKVStoreKey(supply.StoreKey),
-		keyAccount: sdk.NewKVStoreKey(auth.StoreKey),
-		keyParams:  sdk.NewKVStoreKey(params.StoreKey),
-		tkeyParams: sdk.NewTransientStoreKey(params.TStoreKey),
-		Mm:         &module.Manager{},
+		BaseApp:   bApp,
+		Cdc:       Cdc,
+		keys:      keys,
+		tkeys:     tkeys,
+		subspaces: make(map[string]params.Subspace),
 	}
 
-	app.paramsKeeper = params.NewKeeper(app.Cdc, app.keyParams, app.tkeyParams, params.DefaultCodespace)
-	authSubspace := app.paramsKeeper.Subspace(auth.DefaultParamspace)
-	bankSupspace := app.paramsKeeper.Subspace(bank.DefaultParamspace)
+	app.paramsKeeper = params.NewKeeper(app.Cdc, keys[params.StoreKey], tkeys[params.TStoreKey])
+	app.subspaces[auth.ModuleName] = app.paramsKeeper.Subspace(auth.DefaultParamspace)
+	app.subspaces[bank.ModuleName] = app.paramsKeeper.Subspace(bank.DefaultParamspace)
 
 	app.accountKeeper = auth.NewAccountKeeper(
 		app.Cdc,
-		app.keyAccount,
-		authSubspace,
+		keys[auth.StoreKey],
+		app.subspaces[auth.ModuleName],
 		auth.ProtoBaseAccount,
 	)
 
+	// The BankKeeper allows you perform sdk.Coins interactions
 	app.bankKeeper = bank.NewBaseKeeper(
 		app.accountKeeper,
-		bankSupspace,
-		bank.DefaultCodespace,
+		app.subspaces[bank.ModuleName],
 		app.ModuleAccountAddrs(),
 	)
 
+	// The SupplyKeeper collects transaction fees and renders them to the fee distribution module
 	app.supplyKeeper = supply.NewKeeper(
 		app.Cdc,
-		app.keySupply,
+		keys[supply.StoreKey],
 		app.accountKeeper,
 		app.bankKeeper,
-		maccPerms)
+		maccPerms,
+	)
 
 	app.Mm = module.NewManager(
-		genaccounts.NewAppModule(app.accountKeeper),
 		auth.NewAppModule(app.accountKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
 	)
@@ -227,11 +236,6 @@ type GenesisState map[string]json.RawMessage
 // NewDefaultGenesisState populates a GenesisState with each module's default
 func NewDefaultGenesisState() GenesisState {
 	return ModuleBasics.DefaultGenesis()
-}
-
-// GetCodec returns the app's codec
-func (app *AppStarter) GetCodec() *codec.Codec {
-	return app.Cdc
 }
 
 // ModuleAccountAddrs returns all the app's module account addresses.
@@ -248,7 +252,6 @@ func (app *AppStarter) ModuleAccountAddrs() map[string]bool {
 func (app *AppStarter) InitializeStarter() {
 
 	app.Mm.SetOrderInitGenesis(
-		genaccounts.ModuleName,
 		auth.ModuleName,
 		bank.ModuleName,
 	)
@@ -266,18 +269,24 @@ func (app *AppStarter) InitializeStarter() {
 		),
 	)
 
-	app.MountStores(
-		app.keyMain,
-		app.keyAccount,
-		app.keySupply,
-		app.keyParams,
-		app.tkeyParams,
-	)
+	// initialize stores
+	app.MountKVStores(app.keys)
+	app.MountTransientStores(app.tkeys)
 
-	err := app.LoadLatestVersion(app.keyMain)
+	err := app.LoadLatestVersion(app.keys[bam.MainStoreKey])
 	if err != nil {
-		cmn.Exit(err.Error())
+		tmos.Exit(err.Error())
 	}
+}
+
+// Codec returns simapp's codec
+func (app *AppStarter) Codec() *codec.Codec {
+	return app.Cdc
+}
+
+// SimulationManager implements the SimulationApp interface
+func (app *AppStarter) SimulationManager() *module.SimulationManager {
+	return app.sm
 }
 
 // NewAppCreator wraps and returns a function for instantiaing an app
