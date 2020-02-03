@@ -79,15 +79,14 @@ Finally, define the `DeleteName` `handler` function which performs the state tra
 // Handle a message to delete name
 func handleMsgDeleteName(ctx sdk.Context, keeper Keeper, msg MsgDeleteName) (*sdk.Result, error) {
 	if !keeper.IsNamePresent(ctx, msg.Name) {
-		return types.ErrNameDoesNotExist(types.DefaultCodespace).Result()
+		return nil, sdkerrors.Wrap(types.ErrNameDoesNotExist, msg.Name)
 	}
 	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) {
-		return sdk.ErrUnauthorized("Incorrect Owner").Result()
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner")
 	}
 
 	keeper.DeleteWhois(ctx, msg.Name)
-
-	return sdk.Result{}
+	return &sdk.Result{}, nil
 }
 ```
 
