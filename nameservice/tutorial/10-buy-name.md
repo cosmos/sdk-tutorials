@@ -34,13 +34,13 @@ func (msg MsgBuyName) Type() string { return "buy_name" }
 // ValidateBasic runs stateless checks on the message
 func (msg MsgBuyName) ValidateBasic() error {
 	if msg.Buyer.Empty() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Buyer.String())
+		return sdk.ErrInvalidAddress(m.Buyer.String())
 	}
 	if len(msg.Name) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Name cannot be empty")
+		return sdk.ErrUnknownRequest("Name cannot be empty")
 	}
 	if !msg.Bid.IsAllPositive() {
-		return sdkerrors.ErrInsufficientFunds
+		return sdk.ErrInsufficientCoins("Bids must be positive")
 	return nil
 }
 

@@ -32,10 +32,10 @@ func (msg MsgDeleteName) Type() string { return "delete_name" }
 // ValidateBasic runs stateless checks on the message
 func (msg MsgDeleteName) ValidateBasic() error {
 	if msg.Owner.Empty() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Owner.String())
+		return sdk.ErrInvalidAddress(m.Owner.String())
 	}
 	if len(msg.Name) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Name cannot be empty")
+		return sdk.ErrUnknownRequest("Name cannot be empty")
 	}
 	return nil
 }
