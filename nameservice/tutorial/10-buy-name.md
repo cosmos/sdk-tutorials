@@ -60,15 +60,14 @@ Next, in the `./x/nameservice/handler.go` file, add the `MsgBuyName` handler to 
 ```go
 // NewHandler returns a handler for "nameservice" type messages.
 func NewHandler(keeper Keeper) sdk.Handler {
-	return func(ctx sdk.Context, msg sdk.Msg) sdk.Result {
+	return func(ctx sdk.Context, msg sdk.Msg) (*sdk.Result, error) {
 		switch msg := msg.(type) {
 		case MsgSetName:
 			return handleMsgSetName(ctx, keeper, msg)
 		case MsgBuyName:
 			return handleMsgBuyName(ctx, keeper, msg)
 		default:
-			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type())
-			return sdk.ErrUnknownRequest(errMsg).Result()
+			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type()))
 		}
 	}
 }
@@ -78,24 +77,25 @@ Finally, define the `BuyName` `handler` function which performs the state transi
 
 ```go
 // Handle a message to buy name
-func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result {
-	if keeper.GetPrice(ctx, msg.Name).IsAllGT(msg.Bid) { // Checks if the bid price is greater than the price paid by the current owner
-		return sdk.ErrInsufficientCoins("Bid not high enough").Result() // If not, throw an error
+func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) (*sdk.Result, error) {
+	// Checks if the the bid price is greater than the price paid by the current owner
+	if keeper.GetPrice(ctx, msg.Name).IsAllGT(msg.Bid) {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Bid not high enough") // If not, throw an error
 	}
 	if keeper.HasOwner(ctx, msg.Name) {
 		err := keeper.CoinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, msg.Name), msg.Bid)
 		if err != nil {
-			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
+			return nil, err
 		}
 	} else {
 		_, err := keeper.CoinKeeper.SubtractCoins(ctx, msg.Buyer, msg.Bid) // If so, deduct the Bid amount from the sender
 		if err != nil {
-			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
+			return nil, err
 		}
 	}
 	keeper.SetOwner(ctx, msg.Name, msg.Buyer)
 	keeper.SetPrice(ctx, msg.Name, msg.Bid)
-	return sdk.Result{}
+	return &sdk.Result{}, nil
 }
 ```
 
