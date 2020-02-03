@@ -58,8 +58,8 @@ In this tutorial we will create an app with the following file structure.
 Start by creating a new git repository:
 
 ```bash
-mkdir -p $GOPATH/src/github.com/{ .Username }/hellochain
-cd $GOPATH/src/github.com/{ .Username }/hellochain
+mkdir -p hellochain
+cd hellochain
 git init
 ```
 
