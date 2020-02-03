@@ -14,5 +14,3 @@ hccli config output json
 hccli config indent true
 hccli config chain-id test
 hccli config trust-node true
-
-hcd start

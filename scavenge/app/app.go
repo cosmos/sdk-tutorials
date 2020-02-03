@@ -121,10 +121,11 @@ func NewInitApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest b
 
 	// Here you initialize your application with the store keys it requires
 	var app = &newApp{
-		BaseApp: bApp,
-		cdc:     cdc,
-		keys:    keys,
-		tkeys:   tkeys,
+		BaseApp:   bApp,
+		cdc:       cdc,
+		keys:      keys,
+		tkeys:     tkeys,
+		subspaces: make(map[string]params.Subspace),
 	}
 
 	// The ParamsKeeper handles parameter storage for the application
@@ -203,6 +204,7 @@ func NewInitApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest b
 		genutil.NewAppModule(app.accountKeeper, app.stakingKeeper, app.BaseApp.DeliverTx),
 		auth.NewAppModule(app.accountKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
+		scavenge.NewAppModule(app.scavengeKeeper, app.bankKeeper),
 		supply.NewAppModule(app.supplyKeeper, app.accountKeeper),
 		distr.NewAppModule(app.distrKeeper, app.accountKeeper, app.supplyKeeper, app.stakingKeeper),
 		slashing.NewAppModule(app.slashingKeeper, app.accountKeeper, app.stakingKeeper),
