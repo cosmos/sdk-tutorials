@@ -2,7 +2,6 @@ package types
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // RouterKey is the module name router key
@@ -33,10 +32,10 @@ func (msg MsgSetName) Type() string { return "set_name" }
 // ValidateBasic runs stateless checks on the message
 func (msg MsgSetName) ValidateBasic() error {
 	if msg.Owner.Empty() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Owner.String())
+		return sdk.ErrInvalidAddress(msg.Owner.String())
 	}
 	if len(msg.Name) == 0 || len(msg.Value) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Name and/or Value cannot be empty")
+		return sdk.ErrUnknownRequest("Name and/or Value cannot be empty")
 	}
 	return nil
 }
@@ -76,13 +75,13 @@ func (msg MsgBuyName) Type() string { return "buy_name" }
 // ValidateBasic runs stateless checks on the message
 func (msg MsgBuyName) ValidateBasic() error {
 	if msg.Buyer.Empty() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Buyer.String())
+		return sdk.ErrInvalidAddress(msg.Buyer.String())
 	}
 	if len(msg.Name) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Name cannot be empty")
+		return sdk.ErrUnknownRequest("Name cannot be empty")
 	}
 	if !msg.Bid.IsAllPositive() {
-		return sdkerrors.ErrInsufficientFunds
+		return sdk.ErrInsufficientCoins("Bids must be positive")
 	}
 	return nil
 }
@@ -120,10 +119,10 @@ func (msg MsgDeleteName) Type() string { return "delete_name" }
 // ValidateBasic runs stateless checks on the message
 func (msg MsgDeleteName) ValidateBasic() error {
 	if msg.Owner.Empty() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Owner.String())
+		return sdk.ErrInvalidAddress(msg.Owner.String())
 	}
 	if len(msg.Name) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Name cannot be empty")
+		return sdk.ErrUnknownRequest("Name cannot be empty")
 	}
 	return nil
 }
