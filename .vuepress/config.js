@@ -23,7 +23,7 @@ module.exports = {
             title: 'Scavenge',
             path: '/scavenge/tutorial/',
             directory: true
-          }
+          },
           {
             title: 'Eth Denver',
             path: '/eth-denver/',
