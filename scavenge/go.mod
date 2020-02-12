@@ -6,7 +6,7 @@ require (
 	github.com/btcsuite/btcd v0.0.0-20190523000118-16327141da8c // indirect
 	github.com/cosmos/cosmos-sdk v0.38.1
 	github.com/golang/mock v1.3.1 // indirect
-	github.com/gorilla/mux v1.7.3
+	github.com/gorilla/mux v1.7.4
 	github.com/onsi/ginkgo v1.8.0 // indirect
 	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/prometheus/common v0.6.0 // indirect

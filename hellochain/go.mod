@@ -4,7 +4,7 @@ go 1.12
 
 require (
 	github.com/cosmos/cosmos-sdk v0.38.1
-	github.com/gorilla/mux v1.7.3
+	github.com/gorilla/mux v1.7.4
 	github.com/onsi/ginkgo v1.8.0 // indirect
 	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/prometheus/client_golang v0.9.4 // indirect
