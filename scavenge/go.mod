@@ -1,4 +1,4 @@
-module github.com/okwme/scavenge
+module github.com/cosmos/sdk-tutorials/scavenge
 
 go 1.13
 

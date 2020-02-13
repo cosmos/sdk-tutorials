@@ -20,7 +20,7 @@ import (
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 
-	app "github.com/okwme/scavenge/app"
+	app "github.com/cosmos/sdk-tutorials/scavenge/app"
 )
 
 const flagInvCheckPeriod = "inv-check-period"
