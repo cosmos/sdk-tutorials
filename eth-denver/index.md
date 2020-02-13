@@ -1,30 +1,33 @@
 
 # Eth Denver Cosmos Burner Chain
 
-Welcome to the first official Cosmos Burner Chain! Following in the tradition of the Burner Wallet project (and other temporary low-security chains) we've built and launched a game chain to be used for the duration of the Eth Denver Hackathon. The goal of this chain is to provide a blueprint for your own application specific blockchain that interacts with other EVM based networks like Ethereum and xDai.
+**Welcome to the first official Cosmos Burner Chain!** Following in the tradition of the Burner Wallet project (and other temporary low-security chains) we've built and launched a game chain to be used for the duration of the Eth Denver Hackathon. The goal of this chain is to provide a blueprint for your own application specific blockchain that interacts with other EVM based networks like Ethereum and xDai.
 
-The Eth Denver Cosmos Burner Chain consists of a few moving pieces. The first of which is the Cosmos SDK itself. This is a framework, much like Ruby-on-Rails, for building new blockchains. It comes with a set of standard modules that handles a common set of features: Bank (Fungible Tokens like ERC-20), Auth (Accounts secured by public key cryptography), Proof-of-Stake + Slashing (together these modules handle a proof of stake validator set utilizing Tendermint Consensus with slashing conditions for equivocation and downtime) as well as Params (live updates to the chain) and Gov (a governance module that can be used for text proposals, param changes and directing a community pool of funds).
+The Eth Denver Cosmos Burner Chain consists of a few moving pieces. The first of which is the [Cosmos SDK](https://docs.cosmos.network/) itself. This is a framework, much like Ruby-on-Rails, for building application specific blockchains. It comes with a set of standard modules that handles a common set of features: [Bank](https://docs.cosmos.network/master/modules/bank/) (Fungible Tokens like ERC-20), [Auth](https://docs.cosmos.network/master/modules/auth/) (Accounts secured by public key cryptography), [Staking](https://docs.cosmos.network/master/modules/staking/) + [Slashing](https://docs.cosmos.network/master/modules/slashing/) (together these modules handle a proof of stake validator set utilizing Tendermint Consensus with slashing conditions for equivocation and downtime) as well as [Params](https://docs.cosmos.network/master/modules/params/) (live updates to the chain) and [Gov](https://docs.cosmos.network/master/modules/gov/) (a governance module that can be used for text proposals, param changes and directing a community pool of funds) and a few others for lower level tasks.
 
-Out of the core SDK modules, our Burner Chain uses Bank, Auth, Proof-of-Stake and Slashing. Outside of the standard fare it also uses Peggy, a new Module that was developed by Swish Labs with support from the Intechain Foundation. This module is essentially a bridge between EVM chains like Ethereum and xDai. It is used to transport Fungible Tokens and has recently been extended to support the transport of Non-Fungible Tokens as well (an integration with the Ethermint EVM module would allow arbitrary message transportation if you're looking for a cool hackathon project!). Our burner chain also uses the NFT Module which is in the "incubator" stage and hosted within the cosmos/modules repository. The final piece of our chain is the Scavenge Module, which is part of the sdk-tutorials repo. This module allows you to post a riddle with a bounty for whoever can solve it (You can also check out the Scavenge tutorial to learn how to build a custom module for the Cosmos SDK.)
+Out of the core SDK modules, our Burner Chain uses Bank, Auth, Staking and Slashing. Outside of the standard fare it also uses [Peggy](https://github.com/cosmos/peggy), a new Module that was developed by [Swish Labs](https://www.swishlabs.com/) with support from the [Intechain Foundation](https://interchain.io). This module is essentially a bridge between EVM chains like Ethereum and [xDai](https://www.xdaichain.com/). Peggy is used to transport Fungible Tokens but could be extended to transfer NFTs as well as arbitrary messages. The final piece of our chain is the [Scavenge Module](https://tutorials.cosmos.network/scavenge), which is part of the sdk-tutorials repo. This module allows you to post a riddle with a bounty for whoever can solve it.
 
 In summary the pieces that are included are:
- * Bank
- * Auth
- * Proof-of-Stake
- * Slashing
- * NFT
- * Peggy (oracle, ethbridge, nftbridge)
- * Scavenge
+ * [Bank](https://docs.cosmos.network/master/modules/bank/)
+ * [Auth](https://docs.cosmos.network/master/modules/auth/)
+ * [Staking](https://docs.cosmos.network/master/modules/staking/)
+ * [Slashing](https://docs.cosmos.network/master/modules/slashing/)
+ * [Peggy](https://github.com/cosmos/peggy)
+ * [Scavenge](https://tutorials.cosmos.network/scavenge)
 
-The purpose of the chain is to extend the Scavenger hunt game in order to interact with the Eth Denver BuffiDao game (If you haven't heard about BuffiDa take a look [here](https://buffidao.com)). Cosmos has 1200 XP to give out and 2 NFT badges (Big Brain and Cosmos Brain). We have locked all of them up within a peggy bridge contract deployed to the xDai chain. This contract is controlled by the validators of the Burner Chain which relay transactions between the two chains. In order to claim XP on the Cosmos Burner Chain you must first have signed up for our newsletter. You should have done that already if you are here, but if not head over [here](https://TODO). Afterwards you can claim your XP on the Cosmos burner chain where you will be able to move the XP back to the BuffiDai contract on xDai using the Peggy ETH bridge.
+# Peggy/Scavenge + BuffiDao
 
-To win MORE XP as well as the Bronze and Silver Badge NFTs you must play the Scavenge game! This is a series of riddles which results in a secret answer that is submitted via commit-reveal to the Cosmos Chain. Correct results are rewarded with XP as well as a burner chain native token called `brain`. The top two owners of `brain` at the end of the hackathon will win the two NFT Badges--Big Brain & Cosmos Brain.
-<img src="./big-brain-badge.png" style="display:block;margin:20px auto; max-width: 200px;">
-<img src="./cosmic-brain-badge.png" style="display:block;margin:20px auto; max-width: 200px;">
+The purpose of the chain is to extend the Scavenger hunt game in order to interact with the Eth Denver [BuffiDao](https://buffidao.com) game. Cosmos has **1200 XP** to give out and **2 NFT badges** (Big Brain and Cosmos Brain). We have locked all of them up within a peggy bridge contract deployed to the xDai chain. This contract is controlled by the validators of our Burner Chain which relay transactions between the two chains. In order to claim `XP` on the Cosmos Burner Chain you must first have signed up for our survey. You should have done that already if you are here, but if not head over [here](https://survey.zohopublic.com/zs/lDB3Xp). Afterwards you can claim your `XP` on the Cosmos burner chain where you will be able to move the `XP` back to the BuffiDai contract on xDai using the Peggy ETH bridge.
+
+To win MORE `XP` as well as the **Bronze** and **Silver** Badge NFTs you must play the Scavenge game! This is a series of riddles and scavenger hunts which result in secret answers that are submitted via commit-reveal to the Cosmos Chain. Correct results are rewarded with `XP` as well as a burner chain native token called `brain`. The top two owners of `brain` at the end of the hackathon will win the two NFT Badges--Big Brain & Cosmos Brain.
+<div style="text-align: center;">
+  <img src="./big-brain-badge.png" style="margin:20px; max-width: 200px; display: inline;">
+  <img src="./cosmic-brain-badge.png" style="margin:20px; max-width: 200px; display: inline;">
+</div>
 
 # Get your XP
 
-To get the XP begin by signing up for our newsletter at our Sponsor Booth. To claim the XP you'll need to build the Command Line Client for interacting with the Eth Denver Cosmos Burner Chain and generate a wallet. First make sure that you have [installed golang v13.0 or newer](https://golang.org/doc/install) and that your `$GOPATH` and `$GOHOME` are correctly configured.
+To get the `XP` begin by signing up for our newsletter at our Sponsor Booth. To claim the `XP` you'll need to build the Command Line Client for interacting with the Eth Denver Cosmos Burner Chain and generate a wallet. First make sure that you have [installed golang v13.0 or newer](https://golang.org/doc/install) and that your `$GOPATH` and `$GOHOME` are correctly configured.
 ```sh
 go version
 echo $GOPATH
@@ -99,7 +102,7 @@ Enter keyring passphrase:
   "mnemonic": "** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **"
 }
 ```
-This is your new account! Now that you know your account **address**, you need to send it to us so we can give you your XP! You can submit it via email to [billy@tendermint.com](mailto:billy@tendermint.com) with the email address you signed up for the newsletter with. I'll reply letting you know you've received the XP. Once you've received it you should be able to check your balance like this:
+This is your new account! Now that you know your account **address**, you need to send it to us so we can give you your `XP`! You can submit it via email to [billy@tendermint.com](mailto:billy@tendermint.com) with the email address you signed up for the survey with. I'll reply letting you know you've received the `XP`. Once you've received it you should be able to check your balance like this:
 ```sh
 > ebcli query account $(ebcli keys show nickname -a)
 Enter keyring passphrase:
@@ -120,9 +123,9 @@ Enter keyring passphrase:
 }
 ```
 This uses the `ebcli keys` as a sub-command to grab your account address and uses it as a parameter in the `ebcli query` command. 
-> If you have not yet received your XP tokens, you will see an error that your account does not exist. That's because accounts are not registered within the chain's memory until they execute their first transaction or receive a balance in some token.
+> If you have not yet received your `XP` tokens, you will see an error that your account does not exist. That's because accounts are not registered within the chain's memory until they execute their first transaction or receive a balance in some token.
 
-Once you have some XP you can send it back to your Ethereum address on the BuffiDai xDai chain. To do this use the following command:
+Once you have some `XP` you can send it back to your Ethereum address on the BuffiDai xDai chain. To do this use the following command:
 ```sh
 > ebcli tx ethbridge burn $(ebcli keys show nickname -a) <ethereum-recipient-address> 10XP --from nickname --chain-id peggy --ethereum-chain-id 100 --token-contract-address <XP-token-address> // TODO
 ```
@@ -130,7 +133,7 @@ You should be able to see the balance show up in your BuffiDao wallet!
 
 # Scavenger Hunt
 
-If you are ready to try earning more XP as well as `brain` in order to win the NFT Badges you should begin interacting with the Scavenge module. To get the first hint try printing out the questions being asked. These are stored by hashes of the answers. This means that once you think you know the answer, you can try hashing it to see if it matches the one recorded on the blockchain. To retrieve a list of all answer hashes use the following command:
+If you are ready to try earning more `XP` as well as `brain` in order to win the NFT Badges you should begin interacting with the Scavenge module. To get the first hint try printing out the questions being asked. These are stored by hashes of the answers. This means that once you think you know the answer, you can try hashing it to see if it matches the one recorded on the blockchain. To retrieve a list of all answer hashes use the following command:
 ```sh
 > ebcli query scavenge list
 [
@@ -188,15 +191,15 @@ If you see your name you should be able to confirm that you received the NFT rew
 ```sh
 ebcli query account $(ebcli keys show nickname -a)
 ```
-Now that you've earned the XP or `brain` you can transfer it to your Ethereum Address on the xDai chain. If it is XP, it originated on the xDai side so you will `burn` the peggy tokens like we saw before. The brain tokens are native to the burner chain so they would be locked and minted as wrapped brain on xDai. The following command demonstrated what that would look like:
+Now that you've earned the `XP` or `brain` you can transfer it to your Ethereum Address on the xDai chain. If it is `XP`, it originated on the xDai side so you will `burn` the peggy tokens like we saw before. The `brain` tokens are native to the burner chain so they would be locked and minted as wrapped `brain` on xDai. The following command demonstrated what that would look like:
 ```
-> ebcli tx ethbridge lock $(ebcli keys show nickname -a) <ethereum-recipient-address> 10brain --from nickname --chain-id peggy --ethereum-chain-id 100 --token-contract-address <XP-token-address>
+> ebcli tx ethbridge lock $(ebcli keys show nickname -a) <ethereum-recipient-address> 10brain --from nickname --chain-id peggy --ethereum-chain-id 100 --token-contract-address 0x164B88D11bD596956b6a7B1f662f11864EC1202e
 ```
 > Notice: You don't have to move the `brain` token to win the NFT. We will see who has the most `brain` at the end of the weekend and reward the NFT to them, but this does not require the `brain` to be on the xDai chain.
 
-Congratulations, you've just won XP and/or enough `brain` to get an NFT Badge on the Eth Denver Cosmos Burner Chain! This chain will shut down after it's purpose at this event but the assets you earned will live on to be used in the BuffiDAO community voting pool and stay with you on the much less ephemeral xDai and Ethereum blockchains!
+Congratulations, you've just won `XP` and/or enough `brain` to get an NFT Badge on the Eth Denver Cosmos Burner Chain! This chain will shut down after it's purpose at this event but the assets you earned will live on to be used in the BuffiDAO community voting pool and stay with you on the much less ephemeral xDai and Ethereum blockchains!
 
 If you enjoyed this Tutorial feel free to share to others who may also enjoy it! If you had any issues we'd love to hear about them! This tutorial is hosted on github where you can make a new issue and describe the difficulties you were experiencing. If you want help during the hackathon just look for someone at the Cosmos booth!
 
 If you want to stay up to date with me consider following my [twitter](https://twitter.com/billyrennekamp), [github](https://github.com/okwme) and/or [medium](https://medium.com/@billyrennekamp).
-> Special thanks to Marko, Dogemos, Nass, Sunny, Kelsey, Brent, Chjango and Peter!
+> Special thanks to Jazear, Marko, Dogemos, Nass, Sunny, Kelsey, Brent, Chjango and Peter!
