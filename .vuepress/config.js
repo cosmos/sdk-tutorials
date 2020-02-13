@@ -27,7 +27,7 @@ module.exports = {
           {
             title: 'Eth Denver',
             path: '/eth-denver/',
-            directory: true
+            directory: false
           }
         ]
       }
