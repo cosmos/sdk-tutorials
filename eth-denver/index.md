@@ -127,7 +127,10 @@ This uses the `ebcli keys` as a sub-command to grab your account address and use
 
 Once you have some `XP` you can send it back to your Ethereum address on the BuffiDai xDai chain. To do this use the following command:
 ```sh
-ebcli tx ethbridge burn $(ebcli keys show nickname -a) <ethereum-recipient-address> 10XP --from nickname --chain-id peggy --ethereum-chain-id 100 --token-contract-address <XP-token-address>
+ebcli tx ethbridge burn $(ebcli keys show nickname -a) ETHEREUM_RECIPIENT_ADDRESS 10XP \
+--from nickname \
+--ethereum-chain-id 100 \
+--token-contract-address XP_TOKEN_ADDRESS
 ```
 You should be able to see the balance show up in your BuffiDao wallet!
 
@@ -171,9 +174,9 @@ Your commit command should look like the following:
 ```sh
 ebcli scavenge commit "your answer" --from nickname
 ```
-This command will hash it on your behalf and submit the transaction after asking you to sign with the key you generated earlier. Once submitted you can confirm it was successful by taking the resulting <txhash> (looks like `9E869380BFD482DE05DD19B6DB00E3DB01B3E60F6422C12356D5F27459C8372C`) and querying the status of the tx as follows:
+This command will hash it on your behalf and submit the transaction after asking you to sign with the key you generated earlier. Once submitted you can confirm it was successful by taking the resulting `txhash` (looks like `9E869380BFD482DE05DD19B6DB00E3DB01B3E60F6422C12356D5F27459C8372C`) and querying the status of the tx as follows:
 ```sh
-ebcli query tx <txhash>
+ebcli query tx 9E869380BFD482DE05DD19B6DB00E3DB01B3E60F6422C12356D5F27459C8372C
 ```
 You should be able to see a series of events which were triggered when this transaction was sent. If it was successful you can proceed to reveal your answer and claim your reward:
 ```sh
@@ -181,11 +184,11 @@ ebcli scavenge reveal "your answer" --from nickname
 ```
 This command will build the transaction and submit it after you sign with your key. To check whether the transaction was successful you can run a similar command as we previously did to check the transaction status:
 ```sh
-ebcli query tx <txhash>
+ebcli query tx 9E869380BFD482DE05DD19B6DB00E3DB01B3E60F6422C12356D5F27459C8372C
 ```
 You could also query the scavange directly to see if your name shows up as the solver:
 ```sh
-ebcli query scavenge show <solutionHash>
+ebcli query scavenge show fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
 ```
 If you see your name you should be able to confirm that you received the NFT reward by using the following command:
 ```sh
@@ -193,7 +196,7 @@ ebcli query account $(ebcli keys show nickname -a)
 ```
 Now that you've earned the `XP` or `brain` you can transfer it to your Ethereum Address on the xDai chain. If it is `XP`, it originated on the xDai side so you will `burn` the peggy tokens like we saw before. The `brain` tokens are native to the burner chain so they would be locked and minted as wrapped `brain` on xDai. The following command demonstrated what that would look like:
 ```
-ebcli tx ethbridge lock $(ebcli keys show nickname -a) <ethereum-recipient-address> 10brain --from nickname --chain-id peggy --ethereum-chain-id 100 --token-contract-address 0x164B88D11bD596956b6a7B1f662f11864EC1202e
+ebcli tx ethbridge lock $(ebcli keys show nickname -a) ETHEREUM_ADDRESS_OF_RECIPIENT 10brain --from nickname --chain-id peggy --ethereum-chain-id 100 --token-contract-address 0x164B88D11bD596956b6a7B1f662f11864EC1202e
 ```
 > Notice: You don't have to move the `brain` token to win the NFT. We will see who has the most `brain` at the end of the weekend and reward the NFT to them, but this does not require the `brain` to be on the xDai chain.
 
