@@ -82,7 +82,7 @@ Flags:
 
 Use "ebcli [command] --help" for more information about a command.
 ```
-The first thing we'll want to do is add some values to the config of our CLI so you don't need to include them as flags with every other command. W'' add formatting the CLI results as well as point our CLI to the active burner node at http://167.99.167.78:26657 where it is running with the `chain-id` of `peggy`.
+The first thing we'll want to do is add some values to the config of our CLI so you don't need to include them as flags with every other command.We add `indent`, `format` to help with formatting the CLI results, We'll use `trust-node` and `node` to point our CLI to the active burner node at http://167.99.167.78:26657 where it is running with the `chain-id` of `peggy`.
 ```sh
 ebcli config indent true
 ebcli config format JSON
