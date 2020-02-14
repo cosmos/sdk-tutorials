@@ -1,6 +1,8 @@
 # HelloChain
 
 ### A "hello world" blockchain built with the Cosmos-SDK
+###  *****under repair at the moment, proceed with caution.
+
 
 !["Greetings Cosmonauts"](./space.png)
 
