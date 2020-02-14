@@ -5,6 +5,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
+	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/sdk-tutorials/nameservice/x/nameservice/internal/types"
 	"github.com/spf13/cobra"
@@ -18,11 +19,12 @@ func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 		SuggestionsMinimumDistance: 2,
 		RunE:                       client.ValidateCmd,
 	}
-	nameserviceQueryCmd.AddCommand(client.GetCommands(
+	nameserviceQueryCmd.AddCommand(flags.GetCommands(
 		GetCmdResolveName(storeKey, cdc),
 		GetCmdWhois(storeKey, cdc),
 		GetCmdNames(storeKey, cdc),
 	)...)
+
 	return nameserviceQueryCmd
 }
 
