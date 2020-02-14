@@ -196,13 +196,17 @@ ebcli query account $(ebcli keys show nickname -a)
 ```
 Now that you've earned the `XP` or `brain` you can transfer it to your Ethereum Address on the xDai chain. If it is `XP`, it originated on the xDai side so you will `burn` the peggy tokens like we saw before. The `brain` tokens are native to the burner chain so they would be locked and minted as wrapped `brain` on xDai. The following command demonstrated what that would look like:
 ```
-ebcli tx ethbridge lock $(ebcli keys show nickname -a) ETHEREUM_ADDRESS_OF_RECIPIENT 10brain --from nickname --chain-id peggy --ethereum-chain-id 100 --token-contract-address 0x164B88D11bD596956b6a7B1f662f11864EC1202e
+ebcli tx ethbridge lock $(ebcli keys show nickname -a) ETHEREUM_ADDRESS_OF_RECIPIENT 10brain \
+--from nickname \
+--ethereum-chain-id 100 \
+--token-contract-address 0x164B88D11bD596956b6a7B1f662f11864EC1202e
 ```
 > Notice: You don't have to move the `brain` token to win the NFT. We will see who has the most `brain` at the end of the weekend and reward the NFT to them, but this does not require the `brain` to be on the xDai chain.
 
-Congratulations, you've just won `XP` and/or enough `brain` to get an NFT Badge on the Eth Denver Cosmos Burner Chain! This chain will shut down after it's purpose at this event but the assets you earned will live on to be used in the BuffiDAO community voting pool and stay with you on the much less ephemeral xDai and Ethereum blockchains!
+# Congratulations
+You've just won `XP` and/or enough `brain` to get an **NFT Badge** on the Eth Denver Cosmos Burner Chain! This chain will shut down after it's purpose at this event but the assets you earned will live on to be used in the BuffiDAO community voting pool and stay with you on the much less ephemeral xDai and Ethereum blockchains!
 
-If you enjoyed this Tutorial feel free to share to others who may also enjoy it! If you had any issues we'd love to hear about them! This tutorial is hosted on [github](https://github.com/cosmos/tutorials) where you can make a new issue and describe the difficulties you were experiencing. The repo for the actual burner chain is in the `okwme/minimal-scavenge` branch of the [peggy repo](https://github.com/cosmos/peggy/tree/okwme/minimal-scavenge). If you want any help during the hackathon just look for someone at the Cosmos booth!
+If you enjoyed this tutorial feel free to share to others who may also enjoy it! If you had any issues we'd love to hear about them. This tutorial is hosted on [github](https://github.com/cosmos/tutorials) where you can make a new issue and describe the difficulties you were experiencing. The repo for the actual burner chain is in the `okwme/minimal-scavenge` branch of the [peggy repo](https://github.com/cosmos/peggy/tree/okwme/minimal-scavenge). If you want any help during the hackathon just look for someone at the Cosmos booth!
 
 If you want to stay up to date with me consider following my [twitter](https://twitter.com/billyrennekamp), [github](https://github.com/okwme) and/or [medium](https://medium.com/@billyrennekamp).
-> Special thanks to Jazear, Marko, Denis, Dogemos, Nass, Sunny, Kelsey, Brent, Chjango and Peter!`
+> Special thanks to Jazear, Marko, Denis, Dogemos, Nass, Sunny, Kelsey, Brent, Chjango and Peter!
