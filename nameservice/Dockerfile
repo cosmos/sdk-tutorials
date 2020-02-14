@@ -24,6 +24,5 @@ WORKDIR /root
 COPY --from=build-env /go/bin/nsd /usr/bin/nsd
 COPY --from=build-env /go/bin/nscli /usr/bin/nscli
 
-# Run gaiad by default, omit entrypoint to ease using container with gaiacli
-# CMD ["nsd"]
+# Run nsd by default, omit entrypoint to ease using container with gaiacli
 CMD ["nsd"]
