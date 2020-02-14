@@ -82,7 +82,7 @@ Flags:
 
 Use "ebcli [command] --help" for more information about a command.
 ```
-The first thing we'll want to do is add some values to the config of our CLI so you don't need to include them as flags with every other command. W'' add formatting the CLI results as well as point our CLI to the active burner node at http://167.99.167.78:26657 where it is running with the `chain-id` of `peggy`.
+The first thing we'll want to do is add some values to the config of our CLI so you don't need to include them as flags with every other command.We add `indent`, `format` to help with formatting the CLI results, We'll use `trust-node` and `node` to point our CLI to the active burner node at http://167.99.167.78:26657 where it is running with the `chain-id` of `peggy`.
 ```sh
 ebcli config indent true
 ebcli config format JSON
@@ -127,7 +127,10 @@ This uses the `ebcli keys` as a sub-command to grab your account address and use
 
 Once you have some `XP` you can send it back to your Ethereum address on the BuffiDai xDai chain. To do this use the following command:
 ```sh
-ebcli tx ethbridge burn $(ebcli keys show nickname -a) <ethereum-recipient-address> 10XP --from nickname --chain-id peggy --ethereum-chain-id 100 --token-contract-address <XP-token-address>
+ebcli tx ethbridge burn $(ebcli keys show nickname -a) ETHEREUM_RECIPIENT_ADDRESS 10XP \
+--from nickname \
+--ethereum-chain-id 100 \
+--token-contract-address XP_TOKEN_ADDRESS
 ```
 You should be able to see the balance show up in your BuffiDao wallet!
 
@@ -165,15 +168,15 @@ This will give you the description of the challenge and start you on your journe
 ```sh
 ebcli query scavenge list | jq ".[]" | xargs -I {} ebcli query scavenge get {}
 ```
-This should get you ready to begin solving the riddles! Once you think you have the answer you can submit it with a commit reveal scheme. This means that you first submit your address and it is hashed together with your address. That way no one can see what you think the answer is. Following this is the plain text submssion of your answer. At this point the app will hash your submission with your address to make sure you have already commited it. This prevents someone else from submitting your answer by watching the mempool of pending transactions.
+This should get you ready to begin solving the riddles! Once you think you have the answer you can submit it with a commit reveal scheme. This means that you first submit your answer and it is hashed together with your address (that way no one can see what you think the answer is). Following this is the plain text submssion of your answer. At this point the app will hash your submission with your address to make sure you have already commited it. This prevents someone else from submitting your answer by watching the mempool of pending transactions.
 
 Your commit command should look like the following:
 ```sh
 ebcli scavenge commit "your answer" --from nickname
 ```
-This command will hash it on your behalf and submit the transaction after asking you to sign with the key you generated earlier. Once submitted you can confirm it was successful by taking the resulting <txhash> (looks like `9E869380BFD482DE05DD19B6DB00E3DB01B3E60F6422C12356D5F27459C8372C`) and querying the status of the tx as follows:
+This command will hash it on your behalf and submit the transaction after asking you to sign with the key you generated earlier. Once submitted you can confirm it was successful by taking the resulting `txhash` (looks like `9E869380BFD482DE05DD19B6DB00E3DB01B3E60F6422C12356D5F27459C8372C`) and querying the status of the tx as follows:
 ```sh
-ebcli query tx <txhash>
+ebcli query tx 9E869380BFD482DE05DD19B6DB00E3DB01B3E60F6422C12356D5F27459C8372C
 ```
 You should be able to see a series of events which were triggered when this transaction was sent. If it was successful you can proceed to reveal your answer and claim your reward:
 ```sh
@@ -181,11 +184,11 @@ ebcli scavenge reveal "your answer" --from nickname
 ```
 This command will build the transaction and submit it after you sign with your key. To check whether the transaction was successful you can run a similar command as we previously did to check the transaction status:
 ```sh
-ebcli query tx <txhash>
+ebcli query tx 9E869380BFD482DE05DD19B6DB00E3DB01B3E60F6422C12356D5F27459C8372C
 ```
 You could also query the scavange directly to see if your name shows up as the solver:
 ```sh
-ebcli query scavenge show <solutionHash>
+ebcli query scavenge show fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
 ```
 If you see your name you should be able to confirm that you received the NFT reward by using the following command:
 ```sh
@@ -193,13 +196,18 @@ ebcli query account $(ebcli keys show nickname -a)
 ```
 Now that you've earned the `XP` or `brain` you can transfer it to your Ethereum Address on the xDai chain. If it is `XP`, it originated on the xDai side so you will `burn` the peggy tokens like we saw before. The `brain` tokens are native to the burner chain so they would be locked and minted as wrapped `brain` on xDai. The following command demonstrated what that would look like:
 ```
-ebcli tx ethbridge lock $(ebcli keys show nickname -a) <ethereum-recipient-address> 10brain --from nickname --chain-id peggy --ethereum-chain-id 100 --token-contract-address 0x164B88D11bD596956b6a7B1f662f11864EC1202e
+ebcli tx ethbridge lock $(ebcli keys show nickname -a) ETHEREUM_ADDRESS_OF_RECIPIENT 10brain \
+--from nickname \
+--ethereum-chain-id 100 \
+--token-contract-address 0x164B88D11bD596956b6a7B1f662f11864EC1202e
 ```
 > Notice: You don't have to move the `brain` token to win the NFT. We will see who has the most `brain` at the end of the weekend and reward the NFT to them, but this does not require the `brain` to be on the xDai chain.
 
-Congratulations, you've just won `XP` and/or enough `brain` to get an NFT Badge on the Eth Denver Cosmos Burner Chain! This chain will shut down after it's purpose at this event but the assets you earned will live on to be used in the BuffiDAO community voting pool and stay with you on the much less ephemeral xDai and Ethereum blockchains!
+# Congratulations
+You've just won `XP` and/or enough `brain` to get an **NFT Badge** on the Eth Denver Cosmos Burner Chain! This chain will shut down after it's purpose at this event but the assets you earned will live on to be used in the BuffiDAO community voting pool and stay with you on the much less ephemeral xDai and Ethereum blockchains!
 
-If you enjoyed this Tutorial feel free to share to others who may also enjoy it! If you had any issues we'd love to hear about them! This tutorial is hosted on [github](https://github.com/cosmos/tutorials) where you can make a new issue and describe the difficulties you were experiencing. The repo for the actual burner chain is in the `okwme/minimal-scavenge` branch of the [peggy repo](https://github.com/cosmos/peggy/tree/okwme/minimal-scavenge). If you want any help during the hackathon just look for someone at the Cosmos booth!
+If you enjoyed this tutorial feel free to share to others who may also enjoy it! If you had any issues we'd love to hear about them. This tutorial is hosted on [github](https://github.com/cosmos/tutorials) where you can make a new issue and describe the difficulties you were experiencing. The repo for the actual burner chain is in the `okwme/minimal-scavenge` branch of the [peggy repo](https://github.com/cosmos/peggy/tree/okwme/minimal-scavenge). If you want any help during the hackathon just look for someone at the Cosmos booth!
 
 If you want to stay up to date with me consider following my [twitter](https://twitter.com/billyrennekamp), [github](https://github.com/okwme) and/or [medium](https://medium.com/@billyrennekamp).
-> Special thanks to Jazear, Marko, Denis, Dogemos, Nass, Sunny, Kelsey, Brent, Chjango and Peter!
+
+> Special thanks to Denali, Marko, Denis, Dogemos, Nass, Sunny, Kelsey, Brent, Chjango and Peter!
