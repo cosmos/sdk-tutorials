@@ -25,7 +25,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/cosmos-sdk/x/supply"
-	"github.com/okwme/scavenge/x/scavenge"
+	"github.com/cosmos/sdk-tutorials/scavenge/x/scavenge"
 )
 
 const appName = "app"

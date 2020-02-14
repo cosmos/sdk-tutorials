@@ -12,7 +12,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/codec"
 
-	"github.com/okwme/scavenge/x/scavenge/internal/types"
+	"github.com/cosmos/sdk-tutorials/scavenge/x/scavenge/internal/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module

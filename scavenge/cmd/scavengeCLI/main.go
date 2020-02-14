@@ -14,7 +14,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/version"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
-	"github.com/okwme/scavenge/app"
+	"github.com/cosmos/sdk-tutorials/scavenge/app"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	amino "github.com/tendermint/go-amino"
