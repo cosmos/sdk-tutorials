@@ -165,7 +165,7 @@ This will give you the description of the challenge and start you on your journe
 ```sh
 ebcli query scavenge list | jq ".[]" | xargs -I {} ebcli query scavenge get {}
 ```
-This should get you ready to begin solving the riddles! Once you think you have the answer you can submit it with a commit reveal scheme. This means that you first submit your address and it is hashed together with your address. That way no one can see what you think the answer is. Following this is the plain text submssion of your answer. At this point the app will hash your submission with your address to make sure you have already commited it. This prevents someone else from submitting your answer by watching the mempool of pending transactions.
+This should get you ready to begin solving the riddles! Once you think you have the answer you can submit it with a commit reveal scheme. This means that you first submit your answer and it is hashed together with your address (that way no one can see what you think the answer is). Following this is the plain text submssion of your answer. At this point the app will hash your submission with your address to make sure you have already commited it. This prevents someone else from submitting your answer by watching the mempool of pending transactions.
 
 Your commit command should look like the following:
 ```sh
