@@ -46,14 +46,14 @@ make install
 
 This should result in building three binaries:
 ```sh
->  make install
+make install
 go install -mod=readonly ./cmd/ebd
 go install -mod=readonly ./cmd/ebcli
 go install -mod=readonly ./cmd/ebrelayer
 ```
 The first binary (`ebd`) is used for running a node within the network (we're just going to be connecting to a node that's already running). The second binary (`ebrelayer`) is for running a relayer between the burner chain and xDai. You won't be allowed to do this unless you also run a validator so we won't look further into it at this point. The third binary (`ebcli`) is the one we want. Try running the help command to see what it can do:
 ```sh
-> ebcli --help
+ebcli --help
 ethereum bridge client
 
 Usage:
@@ -92,7 +92,7 @@ ebcli config node tcp://167.99.167.78:26657
 ```
 Next you'll want to generate a new account for this chain. You should come up with a nickname for this account that you can use to reference it while making other commands later on. This will also show you the mnemonic phrase that secures the account as well as the public key and your address as a bech32 encoded version of your public key with a cosmos prefix (the prefix can be modified per chain).
 ```sh
-> ebcli keys add new nickname
+ebcli keys add new nickname
 Enter keyring passphrase:
 {
   "name": "nickname",
@@ -104,7 +104,7 @@ Enter keyring passphrase:
 ```
 This is your new account! Now that you know your account **address**, you need to send it to us so we can give you your `XP`! You can submit it via email to [billy@tendermint.com](mailto:billy@tendermint.com) with the email address you signed up for the survey with. I'll reply letting you know you've received the `XP`. Once you've received it you should be able to check your balance like this:
 ```sh
-> ebcli query account $(ebcli keys show nickname -a)
+ebcli query account $(ebcli keys show nickname -a)
 Enter keyring passphrase:
 {
   "type": "cosmos-sdk/Account",
@@ -127,7 +127,7 @@ This uses the `ebcli keys` as a sub-command to grab your account address and use
 
 Once you have some `XP` you can send it back to your Ethereum address on the BuffiDai xDai chain. To do this use the following command:
 ```sh
-> ebcli tx ethbridge burn $(ebcli keys show nickname -a) <ethereum-recipient-address> 10XP --from nickname --chain-id peggy --ethereum-chain-id 100 --token-contract-address <XP-token-address> // TODO
+ebcli tx ethbridge burn $(ebcli keys show nickname -a) <ethereum-recipient-address> 10XP --from nickname --chain-id peggy --ethereum-chain-id 100 --token-contract-address <XP-token-address> // TODO
 ```
 You should be able to see the balance show up in your BuffiDao wallet!
 
@@ -135,7 +135,7 @@ You should be able to see the balance show up in your BuffiDao wallet!
 
 If you are ready to try earning more `XP` as well as `brain` in order to win the NFT Badges you should begin interacting with the Scavenge module. To get the first hint try printing out the questions being asked. These are stored by hashes of the answers. This means that once you think you know the answer, you can try hashing it to see if it matches the one recorded on the blockchain. To retrieve a list of all answer hashes use the following command:
 ```sh
-> ebcli query scavenge list
+ebcli query scavenge list
 [
   "fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9",
   "fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9",
@@ -145,7 +145,7 @@ If you are ready to try earning more `XP` as well as `brain` in order to win the
 ```
 This will show you a list of hashes. Take each of the hashes and request more information about that specific question with the following command:
 ```sh
-> ebcli query scavenge get fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
+ebcli query scavenge get fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
 {
   "creator": "cosmos17pl55kygvp3gnqf2xqwye9lysgp2mndufzaup6",
   "description": "foo",
@@ -163,7 +163,7 @@ This will show you a list of hashes. Take each of the hashes and request more in
 ```
 This will give you the description of the challenge and start you on your journey to solving the problem. It will also show you whether someone has already beat you to the punch and solved the riddle ahead of you. If you'd like to combine these two commands you can install `jq` and use some bash-jitsu as follows:
 ```sh
-> ebcli query scavenge list | jq ".[]" | xargs -I {} ebcli query scavenge get {}
+ebcli query scavenge list | jq ".[]" | xargs -I {} ebcli query scavenge get {}
 ```
 This should get you ready to begin solving the riddles! Once you think you have the answer you can submit it with a commit reveal scheme. This means that you first submit your address and it is hashed together with your address. That way no one can see what you think the answer is. Following this is the plain text submssion of your answer. At this point the app will hash your submission with your address to make sure you have already commited it. This prevents someone else from submitting your answer by watching the mempool of pending transactions.
 
@@ -193,7 +193,7 @@ ebcli query account $(ebcli keys show nickname -a)
 ```
 Now that you've earned the `XP` or `brain` you can transfer it to your Ethereum Address on the xDai chain. If it is `XP`, it originated on the xDai side so you will `burn` the peggy tokens like we saw before. The `brain` tokens are native to the burner chain so they would be locked and minted as wrapped `brain` on xDai. The following command demonstrated what that would look like:
 ```
-> ebcli tx ethbridge lock $(ebcli keys show nickname -a) <ethereum-recipient-address> 10brain --from nickname --chain-id peggy --ethereum-chain-id 100 --token-contract-address 0x164B88D11bD596956b6a7B1f662f11864EC1202e
+ebcli tx ethbridge lock $(ebcli keys show nickname -a) <ethereum-recipient-address> 10brain --from nickname --chain-id peggy --ethereum-chain-id 100 --token-contract-address 0x164B88D11bD596956b6a7B1f662f11864EC1202e
 ```
 > Notice: You don't have to move the `brain` token to win the NFT. We will see who has the most `brain` at the end of the weekend and reward the NFT to them, but this does not require the `brain` to be on the xDai chain.
 
@@ -202,4 +202,4 @@ Congratulations, you've just won `XP` and/or enough `brain` to get an NFT Badge 
 If you enjoyed this Tutorial feel free to share to others who may also enjoy it! If you had any issues we'd love to hear about them! This tutorial is hosted on github where you can make a new issue and describe the difficulties you were experiencing. If you want help during the hackathon just look for someone at the Cosmos booth!
 
 If you want to stay up to date with me consider following my [twitter](https://twitter.com/billyrennekamp), [github](https://github.com/okwme) and/or [medium](https://medium.com/@billyrennekamp).
-> Special thanks to Jazear, Marko, Dogemos, Nass, Sunny, Kelsey, Brent, Chjango and Peter!
+> Special thanks to Jazear, Marko, Denis, Dogemos, Nass, Sunny, Kelsey, Brent, Chjango and Peter!
