@@ -8,19 +8,8 @@ Start by navigating to the `key.go` file in the types folder. Within the `key.go
 
 Defining keys that will be used throughout the application helps with writing [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) code.
 
-```go
-package types
+<<< @/nameservice/x/nameservice/internal/types/key.go
 
-const (
-	// module name
-	ModuleName = "nameservice"
+```
 
-	// StoreKey to be used when creating the KVStore
-	StoreKey = ModuleName
-
-	// RouterKey to be used for routing msgs
-	RouterKey = ModuleName
-
-	QuerierRoute = ModuleName
-)
 ```
