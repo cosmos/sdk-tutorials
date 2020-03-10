@@ -1,8 +1,8 @@
 package scavenge
 
 import (
-	"github.com/okwme/scavenge/x/scavenge/internal/keeper"
-	"github.com/okwme/scavenge/x/scavenge/internal/types"
+	"github.com/cosmos/sdk-tutorials/scavenge/x/scavenge/internal/keeper"
+	"github.com/cosmos/sdk-tutorials/scavenge/x/scavenge/internal/types"
 )
 
 const (
@@ -10,7 +10,6 @@ const (
 	RouterKey         = types.RouterKey
 	StoreKey          = types.StoreKey
 	DefaultParamspace = types.DefaultParamspace
-	DefaultCodespace  = types.DefaultCodespace
 	// QueryParams       = types.QueryParams
 	QuerierRoute = types.QuerierRoute
 )
@@ -27,7 +26,6 @@ var (
 	// variable aliases
 	ModuleCdc = types.ModuleCdc
 
-
 	NewMsgCreateScavenge = types.NewMsgCreateScavenge
 	NewMsgCommitSolution = types.NewMsgCommitSolution
 	NewMsgRevealSolution = types.NewMsgRevealSolution
@@ -35,7 +33,6 @@ var (
 
 type (
 	Keeper       = keeper.Keeper
-	CodeType     = types.CodeType
 	GenesisState = types.GenesisState
 	Params       = types.Params
 

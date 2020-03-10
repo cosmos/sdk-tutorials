@@ -1,5 +1,5 @@
 ---
-order: 15
+order: 16
 ---
 
 # NameService Module Rest Interface

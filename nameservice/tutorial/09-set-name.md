@@ -1,5 +1,5 @@
 ---
-order: 8
+order: 9
 ---
 
 # SetName
@@ -54,18 +54,18 @@ The above functions are used by the SDK to route `Msgs` to the proper module for
 
 ```go
 // ValidateBasic runs stateless checks on the message
-func (msg MsgSetName) ValidateBasic() sdk.Error {
+func (msg MsgSetName) ValidateBasic() error {
 	if msg.Owner.Empty() {
-		return sdk.ErrInvalidAddress(msg.Owner.String())
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Owner.String())
 	}
 	if len(msg.Name) == 0 || len(msg.Value) == 0 {
-		return sdk.ErrUnknownRequest("Name and/or Value cannot be empty")
+		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Name and/or Value cannot be empty")
 	}
 	return nil
 }
 ```
 
-`ValidateBasic` is used to provide some basic **stateless** checks on the validity of the `Msg`. In this case, check that none of the attributes are empty. Note the use of the `sdk.Error` types here. The SDK provides a set of error types that are frequently encountered by application developers.
+`ValidateBasic` is used to provide some basic **stateless** checks on the validity of the `Msg`. In this case, check that none of the attributes are empty.
 
 ```go
 // GetSignBytes encodes the message for signing
@@ -96,19 +96,21 @@ package nameservice
 
 import (
 	"fmt"
+
 	"github.com/[user]/[repo]/x/nameservice/internal/types"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // NewHandler returns a handler for "nameservice" type messages.
 func NewHandler(keeper Keeper) sdk.Handler {
-	return func(ctx sdk.Context, msg sdk.Msg) sdk.Result {
+	return func(ctx sdk.Context, msg sdk.Msg) (*sdk.Result, error) {
 		switch msg := msg.(type) {
 		case MsgSetName:
 			return handleMsgSetName(ctx, keeper, msg)
 		default:
-			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type())
-			return sdk.ErrUnknownRequest(errMsg).Result()
+			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type()))
 		}
 	}
 }
@@ -122,12 +124,12 @@ Now, you need to define the actual logic for handling the `MsgSetName` message i
 
 ```go
 // Handle a message to set name
-func handleMsgSetName(ctx sdk.Context, keeper Keeper, msg MsgSetName) sdk.Result {
+func handleMsgSetName(ctx sdk.Context, keeper Keeper, msg MsgSetName) (*sdk.Result, error) {
 	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) { // Checks if the the msg sender is the same as the current owner
-		return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner") // If not, throw an error
 	}
 	keeper.SetName(ctx, msg.Name, msg.Value) // If so, set the name to the value specified in the msg.
-	return sdk.Result{}                      // return
+	return &sdk.Result{}, nil                // return
 }
 ```
 

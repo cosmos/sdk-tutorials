@@ -9,9 +9,10 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
+	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/codec"
 
-	"github.com/okwme/scavenge/x/scavenge/internal/types"
+	"github.com/cosmos/sdk-tutorials/scavenge/x/scavenge/internal/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module
@@ -26,7 +27,7 @@ func GetQueryCmd(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	}
 
 	scavengeQueryCmd.AddCommand(
-		client.GetCommands(
+		flags.GetCommands(
 			GetCmdListScavenges(queryRoute, cdc),
 			GetCmdGetScavenge(queryRoute, cdc),
 			GetCmdGetCommit(queryRoute, cdc),

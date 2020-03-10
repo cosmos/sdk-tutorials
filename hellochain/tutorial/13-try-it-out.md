@@ -49,7 +49,7 @@ positive balance. The CLI package of `genutil` provides the command for us. We
 will give each account plenty of "stake" which is the default denomination for
 the bonding coin. We can also grant more coins of our own denomination. NOTE:
 the "$()" syntax allows us to execute a subcommand within our shell command in
-this case returning the address for a given acount.
+this case returning the address for a given account.
 
 ```bash
 $ hcd add-genesis-account $(hccli keys show alice -a) 100000000000stake,100hello
@@ -58,7 +58,7 @@ $ hcd add-genesis-account $(hccli keys show bob -a) 100000000000stake,1000hello
 
 ```
 
-Now start up your blockchain node. Dont worry it won't be able to find seeds.
+Now start up your blockchain node. Don't worry it won't be able to find seeds.
 
 ```bash
 $ hcd start
@@ -80,7 +80,7 @@ $ hccli status
 ```
 
 Now lets check our account balances and try sending a few transactions. These
-queries should return the acount balances you set in the add-genesis-account
+queries should return the account balances you set in the add-genesis-account
 command.
 
 ``` bash

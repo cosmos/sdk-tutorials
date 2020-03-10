@@ -50,18 +50,18 @@ SDK使用上述函数将`Msg`路由至合适的模块进行处理。它们还为
 
 ```go
 // ValidateBasic runs stateless checks on the message
-func (msg MsgSetName) ValidateBasic() sdk.Error {
+func (msg MsgSetName) ValidateBasic() error {
 	if msg.Owner.Empty() {
-		return sdk.ErrInvalidAddress(msg.Owner.String())
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Owner.String())
 	}
 	if len(msg.Name) == 0 || len(msg.Value) == 0 {
-		return sdk.ErrUnknownRequest("Name and/or Value cannot be empty")
+		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Name and/or Value cannot be empty")
 	}
 	return nil
 }
 ```
 
-`ValidateBasic`用于对`Msg`的有效性进行一些基本的**无状态**检查。在此情形下，请检查没有属性为空。请注意这里使用`sdk.Error`类型。 SDK提供了一组应用开发人员经常遇到的错误类型。
+`ValidateBasic`用于对`Msg`的有效性进行一些基本的**无状态**检查。在此情形下，请检查没有属性为空。
 
 ```go
 // GetSignBytes encodes the message for signing

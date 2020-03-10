@@ -9,11 +9,12 @@ module.exports = {
       {
         title: 'Tutorials',
         children: [
-          {
-            title: 'Hellochain',
-            path: '/hellochain/tutorial/',
-            directory: true,
-          },
+//         {
+          // title: 'Hellochain',
+          // path: '/hellochain/tutorial/',
+          // directory: true,
+          // 
+          // },
           {
             title: 'Nameservice',
             path: '/nameservice/tutorial/',
@@ -23,6 +24,11 @@ module.exports = {
             title: 'Scavenge',
             path: '/scavenge/tutorial/',
             directory: true
+          },
+          {
+            title: 'Eth Denver',
+            path: '/eth-denver/',
+            directory: false
           }
         ]
       }

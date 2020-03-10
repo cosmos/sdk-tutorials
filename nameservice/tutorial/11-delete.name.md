@@ -1,5 +1,5 @@
 ---
-order: 10
+order: 11
 ---
 
 # Delete Name
@@ -30,12 +30,12 @@ func (msg MsgDeleteName) Route() string { return RouterKey }
 func (msg MsgDeleteName) Type() string { return "delete_name" }
 
 // ValidateBasic runs stateless checks on the message
-func (msg MsgDeleteName) ValidateBasic() sdk.Error {
+func (msg MsgDeleteName) ValidateBasic() error {
 	if msg.Owner.Empty() {
-		return sdk.ErrInvalidAddress(msg.Owner.String())
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Owner.String())
 	}
 	if len(msg.Name) == 0 {
-		return sdk.ErrUnknownRequest("Name cannot be empty")
+		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Name cannot be empty")
 	}
 	return nil
 }
@@ -56,7 +56,7 @@ Next, in the `./x/nameservice/handler.go` file, add the `MsgDeleteName` handler 
 ```go
 // NewHandler returns a handler for "nameservice" type messages.
 func NewHandler(keeper Keeper) sdk.Handler {
-	return func(ctx sdk.Context, msg sdk.Msg) sdk.Result {
+	return func(ctx sdk.Context, msg sdk.Msg) (*sdk.Result, error) {
 		switch msg := msg.(type) {
 		case MsgSetName:
 			return handleMsgSetName(ctx, keeper, msg)
@@ -65,8 +65,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 		case MsgDeleteName:
 			return handleMsgDeleteName(ctx, keeper, msg)
 		default:
-			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type())
-			return sdk.ErrUnknownRequest(errMsg).Result()
+			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type()))
 		}
 	}
 }
@@ -76,15 +75,17 @@ Finally, define the `DeleteName` `handler` function which performs the state tra
 
 ```go
 // Handle a message to delete name
-func handleMsgDeleteName(ctx sdk.Context, keeper Keeper, msg MsgDeleteName) sdk.Result {
+// Handle a message to delete name
+func handleMsgDeleteName(ctx sdk.Context, keeper Keeper, msg MsgDeleteName) (*sdk.Result, error) {
 	if !keeper.IsNamePresent(ctx, msg.Name) {
-		return types.ErrNameDoesNotExist(types.DefaultCodespace).Result()
+		return nil, sdkerrors.Wrap(types.ErrNameDoesNotExist, msg.Name)
 	}
 	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.Name)) {
-		return sdk.ErrUnauthorized("Incorrect Owner").Result()
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner")
 	}
+
 	keeper.DeleteWhois(ctx, msg.Name)
-	return sdk.Result{}
+	return &sdk.Result{}, nil
 }
 ```
 

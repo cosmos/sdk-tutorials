@@ -2,6 +2,7 @@ package types
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // RouterKey is used to route messages and queriers to the greeter module
@@ -30,13 +31,13 @@ func (msg MsgGreet) Route() string { return RouterKey }
 func (msg MsgGreet) Type() string { return "greet" }
 
 // ValidateBasic runs stateless checks on the message
-func (msg MsgGreet) ValidateBasic() sdk.Error {
+func (msg MsgGreet) ValidateBasic() error {
 	if msg.Recipient.Empty() {
-		return sdk.ErrInvalidAddress(msg.Recipient.String())
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Recipient.String())
 	}
 	if len(msg.Sender) == 0 || len(msg.Body) == 0 || len(msg.Recipient) == 0 {
 
-		return sdk.ErrUnknownRequest("Sender, Recipient and/or Body cannot be empty")
+		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Sender, Recipient and/or Body cannot be empty")
 	}
 	return nil
 }

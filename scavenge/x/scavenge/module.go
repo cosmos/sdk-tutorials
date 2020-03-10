@@ -13,9 +13,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/okwme/scavenge/x/scavenge/client/cli"
-	"github.com/okwme/scavenge/x/scavenge/client/rest"
-	"github.com/okwme/scavenge/x/scavenge/internal/types"
+	"github.com/cosmos/sdk-tutorials/scavenge/x/scavenge/client/cli"
+	"github.com/cosmos/sdk-tutorials/scavenge/x/scavenge/client/rest"
+	"github.com/cosmos/sdk-tutorials/scavenge/x/scavenge/internal/types"
 )
 
 var (
