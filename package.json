@@ -24,5 +24,8 @@
   "homepage": "https://github.com/cosmos/sdk-tutorials#readme",
   "dependencies": {
     "vuepress-theme-cosmos": "^1.0.156"
+  },
+  "devDependencies": {
+    "@vuepress/plugin-google-analytics": "^1.3.1"
   }
 }
