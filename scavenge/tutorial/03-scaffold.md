@@ -69,7 +69,7 @@ Global Flags:
   -c, --config string        config file (default is $HOME/.scaffold.yaml)
   -o, --output-path string   Path to output
 ```
-Similarly, it asks for your github username as `user` and the name repository name as `repo`. It also asks for the name you'd like to give to this new module. I will use the name `scavenge` for the module as well.
+Similarly, it asks for your github username as `user` and the name repository name as `repo`. We will also choose to build from the `lvl-1` template. It also asks for the name you'd like to give to this new module. I will use the name `scavenge` for the module as well. 
 ```bash
 scaffold module lvl-1 okwme scavenge scavenge
 ```
