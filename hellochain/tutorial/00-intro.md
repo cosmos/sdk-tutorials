@@ -12,20 +12,9 @@ For this tutorial we are going to first build a "blank" application capable of
 only bank-like interactions and then add some arbitrary "hello world"
 functionality in the form of our `greeter` module. Nothing needs to be downloaded
 or cloned, we will create every file from scratch.
-
-### Starter
-
-To speed up this tutorial, A lot of basic functionality comes packaged for you
-in the [starter](https://github.com/cosmos/sdk-tutorials/tree/master/hellochain/starter)
-package. It will provide basic accounts, a bank, authentication, transaction
-(Tx) verification as well as some helper functions for building CLI tools.
-`starter` is your "crutch" for this tutorial. It is a heavily configured
-abstraction for the point of skipping boilerplate and getting something up and
-running quickly. Later, when you start the nameservice tutorial, you will kick
-out this "crutch", but for now let's include it.
-
 In this tutorial we will create an app with the following file structure.
 
+#TOOO make sure this is right
 ```bash
 ./hellochain
 ├── go.mod
@@ -54,6 +43,23 @@ In this tutorial we will create an app with the following file structure.
         ├── handler.go
 
 ```
+
+# Scaffold
+we will be using the [scaffold tool](https://github.com/cosmos/scaffoldihttps://github.com/cosmos/scaffold) to jumpstart our app and skip much of the boilerplate required.
+Install and test scaffold and test it with the following commands.
+```bash
+it clone git@github.com:cosmos/scaffold.git
+cd scaffold
+make tools
+make install
+scaffold --help
+```
+
+Use the following command to create the home directory for your "hello world" blockchain app containing the minimum necessary code (specified by the `lvl-1` arg) for a functioning PoS Tendermint blockchain app.
+zthe command requires you provide a github username and repo name from which it will construct your app's path
+```bash
+$ scaffold  app lvl-1 <github user name> <repo name>
+$scaffold app lvl-1 cosmos sdk-tutorials hellochain
 
 Start by creating a new git repository:
 
