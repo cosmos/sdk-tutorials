@@ -6,11 +6,10 @@ order: 3
 
 First thing we're going to do is create a module in the `/x/` folder with the scaffold tool using the below command:
 
-In the case of this tutorial we will be naming the module `nameservice`
-```bash
+In the case of this tutorial we will be naming the module `nameservice` and building from the`lvl-1` template.
+```bash1
 cd x/
-
-scaffold module [user] [repo] nameservice
+scaffold module lvl-1 [user] [repo] nameservice
 ```
 
 ## `types.go`

@@ -60,7 +60,7 @@ This should generate a folder structure inside of a directory called `scavenge` 
 Generate an empty module for use in the Cosmos-SDK
 
 Usage:
-  scaffold module [user] [repo] [moduleName] [flags]
+  scaffold module [lvl] [user] [repo] [moduleName] [flags]
 
 Flags:
   -h, --help   help for module
@@ -71,6 +71,6 @@ Global Flags:
 ```
 Similarly, it asks for your github username as `user` and the name repository name as `repo`. It also asks for the name you'd like to give to this new module. I will use the name `scavenge` for the module as well.
 ```bash
-scaffold module okwme scavenge scavenge
+scaffold module lvl-1 okwme scavenge scavenge
 ```
 Now that we have generated a boilerplate application with a boilerplate module, our next step will be to define our Messages.
