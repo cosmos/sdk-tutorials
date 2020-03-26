@@ -73,6 +73,8 @@ nscli config trust-node true
 nsd gentx --name jack <or your key_name>
 ```
 
+> Note: There is not a need to specify an amount as by default it will set the minimum.
+
 After you have generated a genesis transaction, you will have to input the genTx into the genesis file, so that your nameservice chain is aware of the validators. To do so, run:
 
 `nsd collect-gentxs`
