@@ -68,6 +68,7 @@ func handleMsgCommitSolution(ctx sdk.Context, k Keeper, msg MsgCommitSolution) (
 		SolutionScavengerHash: msg.SolutionScavengerHash,
 	}
 	_, err := k.GetCommit(ctx, commit.SolutionScavengerHash)
+	// should produce an error when commit is not found
 	if err == nil {
 		return nil, sdkerrors.Wrap(err, "Commit with that hash already exists")
 	}
