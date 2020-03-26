@@ -137,6 +137,12 @@ persistent_peers = "id@first_node_ip:26656"
 run "nscli status" on first node to get id.
 ```
 
+To find the node id, run the command:
+
+```bash
+nsd tendermint show-node-id
+```
+
 ## start this second node
 
 ```bash
