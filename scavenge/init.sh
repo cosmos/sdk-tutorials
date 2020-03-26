@@ -4,6 +4,8 @@ rm -r ~/.scavengeD
 
 scavengeD init mynode --chain-id scavenge
 
+scavengeCLI config keyring-backend test
+
 scavengeCLI keys add me
 scavengeCLI keys add you
 
@@ -15,5 +17,5 @@ scavengeCLI config output json
 scavengeCLI config indent true
 scavengeCLI config trust-node true
 
-scavengeD gentx --name me
+scavengeD gentx --name me --keyring-backend test
 scavengeD collect-gentxs
