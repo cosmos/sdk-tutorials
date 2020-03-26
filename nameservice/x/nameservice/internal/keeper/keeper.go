@@ -18,9 +18,9 @@ type Keeper struct {
 // NewKeeper creates new instances of the nameservice Keeper
 func NewKeeper(coinKeeper types.BankKeeper, storeKey sdk.StoreKey, cdc *codec.Codec) Keeper {
 	return Keeper{
-		CoinKeeper: coinKeeper,
-		storeKey:   storeKey,
 		cdc:        cdc,
+		storeKey:   storeKey,
+		CoinKeeper: coinKeeper,
 	}
 }
 
