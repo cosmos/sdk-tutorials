@@ -39,7 +39,7 @@ func handleMsgCreateScavenge(ctx sdk.Context, k Keeper, msg MsgCreateScavenge) (
 	}
 	_, err := k.GetScavenge(ctx, scavenge.SolutionHash)
 	if err == nil {
-		return nil, sdkerrors.Wrap(err, "Scavenge with that solution hash already exists")
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Scavenge with that solution hash already exists")
 	}
 	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
 	sdkError := k.CoinKeeper.SendCoins(ctx, scavenge.Creator, moduleAcct, scavenge.Reward)
@@ -70,7 +70,7 @@ func handleMsgCommitSolution(ctx sdk.Context, k Keeper, msg MsgCommitSolution) (
 	_, err := k.GetCommit(ctx, commit.SolutionScavengerHash)
 	// should produce an error when commit is not found
 	if err == nil {
-		return nil, sdkerrors.Wrap(err, "Commit with that hash already exists")
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Commit with that hash already exists")
 	}
 	k.SetCommit(ctx, commit)
 	ctx.EventManager().EmitEvent(
@@ -103,7 +103,7 @@ func handleMsgRevealSolution(ctx sdk.Context, k Keeper, msg MsgRevealSolution) (
 		return nil, sdkerrors.Wrap(err, "Scavenge with that solution hash doesn't exists")
 	}
 	if scavenge.Scavenger != nil {
-		return nil, sdkerrors.Wrap(err, "Scavenge has already been solved")
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Scavenge has already been solved")
 	}
 	scavenge.Scavenger = msg.Scavenger
 	scavenge.Solution = msg.Solution
