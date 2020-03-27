@@ -199,9 +199,9 @@ func NewNameServiceApp(
 	// The NameserviceKeeper is the Keeper from the module for this tutorial
 	// It handles interactions with the namestore
 	app.nsKeeper = nameservice.NewKeeper(
-		app.bankKeeper,
-		keys[nameservice.StoreKey],
 		app.cdc,
+		keys[nameservice.StoreKey],
+		app.bankKeeper,
 	)
 
 	app.mm = module.NewManager(
