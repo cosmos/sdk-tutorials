@@ -41,17 +41,25 @@ nscli help
 
 To initialize configuration and a `genesis.json` file for your application and an account for the transactions, start by running:
 
-> _*NOTE*_: In the below commands addresses are pulled using terminal utilities. You can also just input the raw strings saved from creating keys, shown below. The commands require [`jq`](https://stedolan.github.io/jq/download/) to be installed on your machine.
-
 > _*NOTE*_: If you have run the tutorial before, you can start from scratch with a `nsd unsafe-reset-all` or by deleting both of the home folders `rm -rf ~/.nscli ~/.nsd`
 
 > _*NOTE*_: If you have the Cosmos app for ledger and you want to use it, when you create the key with `nscli keys add jack` just add `--ledger` at the end. That's all you need. When you sign, `jack` will be recognized as a Ledger key and will require a device.
 
+> _*NOTE*_: The following commands combined with `rm -rf ~/.nscli ~/.nsd` are also collected in the `init.sh` file in the root directory of this project. You can execute all of these commands using default values at once by running `./init.sh` in your terminal.
+
 ```bash
 # Initialize configuration files and genesis file
-  # moniker is the name of your node
+# moniker is the name of your node
 nsd init <moniker> --chain-id namechain
 
+# Configure your CLI to eliminate need to declare them as flags
+nscli config chain-id namechain
+nscli config output json
+nscli config indent true
+nscli config trust-node true
+
+# We'll use the "test" keyring backend which save keys unencrypted in the configuration directory of your project (defaults to ~/.nsd). You should **never** use the "test" keyring backend in production. For more information about other options for keyring-backend take a look at https://docs.cosmos.network/master/interfaces/keyring.html
+nscli config keyring-backend test 
 
 # Copy the `Address` output here and save it for later use
 # [optional] add "--ledger" at the end to use a Ledger Nano S
@@ -64,13 +72,9 @@ nscli keys add alice
 nsd add-genesis-account $(nscli keys show jack -a) 1000nametoken,100000000stake
 nsd add-genesis-account $(nscli keys show alice -a) 1000nametoken,100000000stake
 
-# Configure your CLI to eliminate need for chain-id flag
-nscli config chain-id namechain
-nscli config output json
-nscli config indent true
-nscli config trust-node true
-
-nsd gentx --name jack <or your key_name>
+# The "nscli config" command saves configuration for the "nscli" command but not for "nsd" so we have to 
+# declare the keyring-backend with a flag here
+nsd gentx --name jack <or your key_name> --keyring-backend test
 ```
 
 > Note: There is not a need to specify an amount as by default it will set the minimum.
@@ -134,10 +138,9 @@ nsd init <moniker-2> --chain-id namechain
 ```bash
 vim /.nsd/config/config.toml
 persistent_peers = "id@first_node_ip:26656"
-run "nscli status" on first node to get id.
 ```
 
-To find the node id, run the command:
+To find the node id of the first machine, run the following command on that machine:
 
 ```bash
 nsd tendermint show-node-id
