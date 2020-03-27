@@ -9,12 +9,11 @@ module.exports = {
       {
         title: 'Tutorials',
         children: [
-//         {
-          // title: 'Hellochain',
-          // path: '/hellochain/tutorial/',
-          // directory: true,
-          // 
-          // },
+          {
+            title: 'Hellochain',
+            path: '/hellochain/tutorial/',
+            directory: true,
+          },
           {
             title: 'Nameservice',
             path: '/nameservice/tutorial/',
