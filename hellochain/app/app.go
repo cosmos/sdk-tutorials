@@ -111,7 +111,7 @@ type NewApp struct {
 // verify app interface at compile time
 var _ simapp.App = (*NewApp)(nil)
 
-// NewhellochainApp is a constructor function for hellochainApp
+// Newsdk-tutorialsApp is a constructor function for sdk-tutorialsApp
 func NewInitApp(
 	logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest bool,
 	invCheckPeriod uint, baseAppOptions ...func(*bam.BaseApp),

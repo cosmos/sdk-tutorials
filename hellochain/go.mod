@@ -1,4 +1,4 @@
-module github.com/cosmossdk-tutorials/hellochain
+module github.com/cosmos/sdk-tutorials
 
 go 1.13
 

@@ -24,7 +24,7 @@ import (
 	"github.com/tendermint/go-amino"
 	"github.com/tendermint/tendermint/libs/cli"
 
-	"github.com/cosmossdk-tutorials/hellochain/app"
+	"github.com/cosmos/sdk-tutorials/app"
 
 )
 
