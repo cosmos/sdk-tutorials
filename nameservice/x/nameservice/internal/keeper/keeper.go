@@ -16,11 +16,11 @@ type Keeper struct {
 }
 
 // NewKeeper creates new instances of the nameservice Keeper
-func NewKeeper(coinKeeper types.BankKeeper, storeKey sdk.StoreKey, cdc *codec.Codec) Keeper {
+func NewKeeper(cdc *codec.Codec, storeKey sdk.StoreKey, coinKeeper types.BankKeeper) Keeper {
 	return Keeper{
-		CoinKeeper: coinKeeper,
-		storeKey:   storeKey,
 		cdc:        cdc,
+		storeKey:   storeKey,
+		CoinKeeper: coinKeeper,
 	}
 }
 
