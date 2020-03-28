@@ -4,37 +4,44 @@ order: 0
 
 # Getting started
 
-Welcome to the quick and simple way to try out the Cosmos SDK. In this tutorial
-will be building Hellochain, a "Hello World" blockchain with a basic `greeter`
-module.
+Welcome to the quick and simple way to try out the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/) . In this tutorial
+will be building Hellochain, a "Hello World" blockchain with a basic `greeter` module.
 
 For this tutorial we are going to first build a "blank" application capable of
 only bank-like interactions and then add some arbitrary "hello world"
 functionality in the form of our `greeter` module. Nothing needs to be downloaded
 or cloned, we will create every file from scratch.
-In this tutorial we will create an app with the following file structure.
 
-#TOOO make sure this is right
+All of the final source code for this tutorial project is in this directory (and compiles). However, it is best to follow along manually and try building the project yourself!
+
+## Requirements
+
+- [`golang` >1.13.0](https://golang.org/doc/install) installed
+
+In this tutorial we will create an app with the following file structure. You do not need to download any code to get started as the top level `hellochain` directory will be created for you by the `scaffold` tool. For reference, a completed version of this app is contained in the `sdk-tutorials/hellochain` directory.
 ```bash
 ./hellochain
 ├── go.mod
 ├── Makefile
-├── app.go
-├── cmd
-│   ├── hccli
+├── app/
+  ├── app.go
+  ├── export.go
+├── cmd/
+│   ├── acli/
 │   │   └── main.go
-│   └── hcd
+│   └── aud/
 │       └── main.go
+        └── genaccounts.go
 └── x
     └── greeter
         ├── client
         │   ├── cli
         │   │   ├── query.go
         │   │   └── tx.go
-        ├── internal
-            ├── types
-            |  ├── msgs.go
-            |  └── types.go
+        ├── internal/
+              ├── types/
+              |  ├── msgs.go
+              |  └── types.go
             ├─ keeper
               └── querier.go
               ├── keeper.go
@@ -46,7 +53,7 @@ In this tutorial we will create an app with the following file structure.
 
 # Scaffold
 we will be using the [scaffold tool](https://github.com/cosmos/scaffoldihttps://github.com/cosmos/scaffold) to jumpstart our app and skip much of the boilerplate required.
-Install and test scaffold and test it with the following commands.
+Install and test scaffold  with the following commands.
 ```bash
 git clone git@github.com:cosmos/scaffold.git
 cd scaffold
