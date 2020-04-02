@@ -1,73 +1,143 @@
 package greeter
 
 import (
+	"encoding/json"
+
+	"github.com/gorilla/mux"
 	"github.com/spf13/cobra"
 
+	abci "github.com/tendermint/tendermint/abci/types"
+
+	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	starter "github.com/cosmos/hellochain/starter"
-	gtypes "github.com/cosmos/hellochain/x/greeter/types"
-
-	"github.com/cosmos/hellochain/x/greeter/client/cli"
+	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter/client/cli"
+	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter/client/rest"
 )
 
-var (
-	// ModuleCdc is the module's codec. It holds all the types for encoding in amino.
-	ModuleCdc = codec.New()
-)
-
-// AppModuleBasic is the standard form for basic non-dependant elements of an application module.
-type AppModuleBasic struct {
-	starter.BlankModuleBasic
-}
-
-// AppModule is the standard form for an application module
-type AppModule struct {
-	starter.BlankModule
-	keeper     Keeper
-	ModuleName string
-}
-
-// type check to ensure the interface is properly implemented
+// Type check to ensure the interface is properly implemented
 var (
 	_ module.AppModule      = AppModule{}
 	_ module.AppModuleBasic = AppModuleBasic{}
 )
 
-// RegisterCodec registers module Messages for encoding/decoding.
-func (AppModuleBasic) RegisterCodec(cdc *codec.Codec) {
-	cdc.RegisterConcrete(gtypes.MsgGreet{}, "greeter/SayHello", nil)
+// AppModuleBasic defines the basic application module used by the greeter module.
+type AppModuleBasic struct{}
+
+// Name returns the greeter module's name.
+func (AppModuleBasic) Name() string {
+	return ModuleName
 }
 
-// NewHandler returns a function for routing Messages to their appropriate handler functions.
+// RegisterCodec registers the greeter module's types for the given codec.
+func (AppModuleBasic) RegisterCodec(cdc *codec.Codec) {
+	RegisterCodec(cdc)
+}
+
+// DefaultGenesis returns default genesis state as raw bytes for the greeter
+// module.
+func (AppModuleBasic) DefaultGenesis() json.RawMessage {
+	return ModuleCdc.MustMarshalJSON(DefaultGenesisState())
+}
+
+// ValidateGenesis performs genesis state validation for the greeter module.
+func (AppModuleBasic) ValidateGenesis(bz json.RawMessage) error {
+	var data GenesisState
+	err := ModuleCdc.UnmarshalJSON(bz, &data)
+	if err != nil {
+		return err
+	}
+	return ValidateGenesis(data)
+}
+
+// RegisterRESTRoutes registers the REST routes for the greeter module.
+func (AppModuleBasic) RegisterRESTRoutes(ctx context.CLIContext, rtr *mux.Router) {
+	rest.RegisterRoutes(ctx, rtr)
+}
+
+// GetTxCmd returns the root tx command for the greeter module.
+func (AppModuleBasic) GetTxCmd(cdc *codec.Codec) *cobra.Command {
+	return cli.GetTxCmd(cdc)
+}
+
+// GetQueryCmd returns no root query command for the greeter module.
+func (AppModuleBasic) GetQueryCmd(cdc *codec.Codec) *cobra.Command {
+	return cli.GetQueryCmd(StoreKey, cdc)
+}
+
+//____________________________________________________________________________
+
+// AppModule implements an application module for the greeter module.
+type AppModule struct {
+	AppModuleBasic
+
+	keeper Keeper
+	// TODO: Add keepers that your application depends on
+}
+
+// NewAppModule creates a new AppModule object
+func NewAppModule(k Keeper /*TODO: Add Keepers that your module depends on*/) AppModule {
+	return AppModule{
+		AppModuleBasic: AppModuleBasic{},
+		keeper:         k,
+		// TODO: Add keepers that your application depends on
+	}
+}
+
+// Name returns the greeter module's name.
+func (AppModule) Name() string {
+	return ModuleName
+}
+
+// RegisterInvariants registers the greeter module invariants.
+// Invariants are tests ofapplication state that must be true or the chain halts.
+func (am AppModule) RegisterInvariants(_ sdk.InvariantRegistry) {}
+
+// Route returns the message routing key for the greeter module.
+func (AppModule) Route() string {
+	return RouterKey
+}
+
+// NewHandler returns an sdk.Handler for the greeter module.
 func (am AppModule) NewHandler() sdk.Handler {
 	return NewHandler(am.keeper)
 }
 
-// NewQuerierHandler returns a function for routing incoming Queries to the right querier.
+// QuerierRoute returns the greeter module's querier route name.
+func (AppModule) QuerierRoute() string {
+	return QuerierRoute
+}
+
+// NewQuerierHandler returns the greeter module sdk.Querier.
 func (am AppModule) NewQuerierHandler() sdk.Querier {
 	return NewQuerier(am.keeper)
 }
 
-// QuerierRoute is used for routing Queries to this module.
-func (am AppModule) QuerierRoute() string {
-	return am.ModuleName
+// InitGenesis performs genesis initialization for the greeter module. It returns
+// no validator updates.
+func (am AppModule) InitGenesis(ctx sdk.Context, data json.RawMessage) []abci.ValidatorUpdate {
+	var genesisState GenesisState
+	ModuleCdc.MustUnmarshalJSON(data, &genesisState)
+	InitGenesis(ctx, am.keeper, genesisState)
+	return []abci.ValidatorUpdate{}
 }
 
-// GetQueryCmd assembles and returns all the clie query CLI commands supported by the module.
-func (ab AppModuleBasic) GetQueryCmd(cdc *codec.Codec) *cobra.Command {
-	return cli.GetQueryCmd(gtypes.StoreKey, cdc)
-
+// ExportGenesis returns the exported genesis state as raw bytes for the greeter
+// module.
+func (am AppModule) ExportGenesis(ctx sdk.Context) json.RawMessage {
+	gs := ExportGenesis(ctx, am.keeper)
+	return ModuleCdc.MustMarshalJSON(gs)
 }
 
-// GetTxCmd assembles and returns all the clie query CLI commands supported by the module.
-func (ab AppModuleBasic) GetTxCmd(cdc *codec.Codec) *cobra.Command {
-	return cli.GetTxCmd(gtypes.StoreKey, cdc)
+// BeginBlock returns the begin blocker for the greeter module.
+// https://docs.cosmos.network/master/building-modules/beginblock-endblock.html
+func (am AppModule) BeginBlock(ctx sdk.Context, req abci.RequestBeginBlock) {
+	BeginBlocker(ctx, req, am.keeper)
 }
 
-// NewAppModule contstructs the full AppModule struct for this module.
-func NewAppModule(keeper Keeper) AppModule {
-	blank := starter.NewBlankModule(gtypes.ModuleName, keeper)
-	return AppModule{blank, keeper, gtypes.ModuleName}
+// EndBlock returns the end blocker for the greeter module. It returns no validator
+// updates.
+func (AppModule) EndBlock(_ sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
+	return []abci.ValidatorUpdate{}
 }

@@ -6,16 +6,16 @@ import (
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/hans/cosmos/x/mod-example/internal/types"
+	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter/types"
 )
 
-// GetParams returns the total set of mod-example parameters.
+// GetParams returns the total set of greeter parameters.
 func (k Keeper) GetParams(ctx sdk.Context) (params types.Params) {
 	k.paramspace.GetParamSet(ctx, &params)
 	return params
 }
 
-// SetParams sets the mod-example parameters to the param space.
+// SetParams sets the greeter parameters to the param space.
 func (k Keeper) SetParams(ctx sdk.Context, params types.Params) {
 	k.paramspace.SetParamSet(ctx, &params)
 }

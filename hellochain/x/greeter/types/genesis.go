@@ -1,6 +1,6 @@
 package types
 
-// GenesisState - all mod-example state that must be provided at genesis
+// GenesisState - all greeter state that must be provided at genesis
 type GenesisState struct {
 	// TODO: Fill out what is needed by the module for genesis
 }
@@ -19,7 +19,7 @@ func DefaultGenesisState() GenesisState {
 	}
 }
 
-// ValidateGenesis validates the mod-example genesis parameters
+// ValidateGenesis validates the greeter genesis parameters
 func ValidateGenesis(data GenesisState) error {
 	// TODO: Create a sanity check to make sure the state conforms to the modules needs
 	return nil

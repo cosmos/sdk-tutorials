@@ -1,4 +1,4 @@
-package mod-example
+package greeter
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"

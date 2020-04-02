@@ -10,7 +10,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/rest"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/hans/cosmos/x/mod-example/internal/types"
+	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter/types"
 )
 
 func registerTxRoutes(cliCtx context.CLIContext, r *mux.Router) {

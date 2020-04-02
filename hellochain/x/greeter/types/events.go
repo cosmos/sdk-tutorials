@@ -1,6 +1,6 @@
 package types
 
-// mod-example module event types
+// greeter module event types
 const (
 	// TODO: Create your event types
 	// EventType<Action>    		= "action"

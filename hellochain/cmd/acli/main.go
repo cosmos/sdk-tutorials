@@ -25,7 +25,6 @@ import (
 	"github.com/tendermint/tendermint/libs/cli"
 
 	"github.com/cosmos/sdk-tutorials/app"
-
 )
 
 func main() {

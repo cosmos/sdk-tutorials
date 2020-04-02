@@ -1,12 +1,12 @@
-package mod-example
+package greeter
 
 import (
-	"github.com/hans/cosmos/x/mod-example/internal/keeper"
-	"github.com/hans/cosmos/x/mod-example/internal/types"
+	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter/keeper"
+	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter/types"
 )
 
 const (
-	// TODO: define constants that you would like exposed from the internal package
+	// TODO: define constants that you would like exposed from your module
 
 	ModuleName        = types.ModuleName
 	RouterKey         = types.RouterKey
@@ -27,7 +27,7 @@ var (
 	// TODO: Fill out function aliases
 
 	// variable aliases
-	ModuleCdc     = types.ModuleCdc
+	ModuleCdc = types.ModuleCdc
 	// TODO: Fill out variable aliases
 )
 

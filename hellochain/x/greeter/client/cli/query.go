@@ -2,52 +2,37 @@ package cli
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	types "github.com/cosmos/hellochain/x/greeter/types"
+	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter/types"
 )
 
-// GetQueryCmd returns the parent query command for the greeter module
-func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
-
+// GetQueryCmd returns the cli query commands for this module
+func GetQueryCmd(queryRoute string, cdc *codec.Codec) *cobra.Command {
+	// Group greeter queries under a subcommand
 	greeterQueryCmd := &cobra.Command{
-		Use:                        "greeter",
-		Short:                      "Querying commands for the greeter module",
+		Use:                        types.ModuleName,
+		Short:                      fmt.Sprintf("Querying commands for the %s module", types.ModuleName),
 		DisableFlagParsing:         true,
 		SuggestionsMinimumDistance: 2,
 		RunE:                       client.ValidateCmd,
 	}
-	greeterQueryCmd.AddCommand(client.GetCommands(
-		GetCmdListGreetings(storeKey, cdc),
-	)...)
+
+	greeterQueryCmd.AddCommand(
+		flags.GetCommands(
+	// TODO: Add query Cmds
+		)...,
+	)
+
 	return greeterQueryCmd
 }
 
-// GetCmdListGreetings returns the command to list greetings for a given address
-func GetCmdListGreetings(queryRoute string, cdc *codec.Codec) *cobra.Command {
-
-	return &cobra.Command{
-		Use:   "list [addr]",
-		Short: "list greetings for address. Usage list [address]",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc)
-			addr := args[0]
-
-			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list/%s", queryRoute, addr), nil)
-			if err != nil {
-
-				return nil
-			}
-
-			out := types.NewQueryResGreetings()
-			cdc.MustUnmarshalJSON(res, &out)
-			return cliCtx.PrintOutput(out)
-		},
-	}
-}
+// TODO: Add Query Commands

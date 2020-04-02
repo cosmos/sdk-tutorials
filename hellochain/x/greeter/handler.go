@@ -2,31 +2,43 @@ package greeter
 
 import (
 	"fmt"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	gtypes "github.com/cosmos/hellochain/x/greeter/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-// NewHandler returns a handler for "greeter" type messages.
-func NewHandler(keeper Keeper) sdk.Handler {
-	return func(ctx sdk.Context, msg sdk.Msg) sdk.Result {
+// NewHandler creates an sdk.Handler for all the greeter type messages
+func NewHandler(k Keeper) sdk.Handler {
+	return func(ctx sdk.Context, msg sdk.Msg) (*sdk.Result, error) {
+		ctx = ctx.WithEventManager(sdk.NewEventManager())
 		switch msg := msg.(type) {
-		case gtypes.MsgGreet:
-			return handleMsgGreet(ctx, keeper, msg)
+		// TODO: Define your msg cases
+		// 
+		//Example:
+		// case Msg<Action>:
+		// 	return handleMsg<Action>(ctx, k, msg)
 		default:
-			errMsg := fmt.Sprintf("Unrecognized greeter Msg type: %v", msg.Type())
-			return sdk.ErrUnknownRequest(errMsg).Result()
+			errMsg := fmt.Sprintf("unrecognized %s message type: %T", ModuleName,  msg)
+			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 		}
 	}
 }
 
-func handleMsgGreet(ctx sdk.Context, keeper Keeper, msg gtypes.MsgGreet) sdk.Result {
-	if msg.Recipient == nil {
-		return sdk.ErrUnauthorized("Missing Recipient").Result() // If not, throw an error
+// handle<Action> does x
+func handleMsg<Action>(ctx sdk.Context, k Keeper, msg Msg<Action>) (*sdk.Result, error) {
+	err := k.<Action>(ctx, msg.ValidatorAddr)
+	if err != nil {
+		return nil, err
 	}
 
-	greeting := gtypes.NewGreeting(msg.Sender, msg.Body, msg.Recipient)
+	// TODO: Define your msg events
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			sdk.EventTypeMessage,
+			sdk.NewAttribute(sdk.AttributeKeyModule, AttributeValueCategory),
+			sdk.NewAttribute(sdk.AttributeKeySender, msg.ValidatorAddr.String()),
+		),
+	)
 
-	keeper.SetGreeting(ctx, greeting)
-
-	return sdk.Result{}
+	return &sdk.Result{Events: ctx.EventManager().Events()}, nil
 }
