@@ -20,6 +20,7 @@ All of the final source code for this tutorial project is in this directory (and
 
 In this tutorial we will create an app with the following file structure. You do not need to download any code to get started as the top level `hellochain` directory will be created for you by the `scaffold` tool. For reference, a completed version of this app is contained in the `sdk-tutorials/hellochain` directory.
 ```bash
+#ToDO check this
 ./hellochain
 ├── go.mod
 ├── Makefile

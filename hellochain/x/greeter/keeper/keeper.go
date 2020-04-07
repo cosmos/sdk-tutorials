@@ -3,7 +3,6 @@ package keeper
 import (
 	"fmt"
 
-	"github.com/tendermint/tendermint/crypto"
 	"github.com/tendermint/tendermint/libs/log"
 
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -38,7 +37,7 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 func (k Keeper) GetGreetings(ctx sdk.Context, key string) (types.GreetingsList, error) {
 	store := ctx.KVStore(k.storeKey)
 	/* TODO: Fill out this type*/
-	var item types.Greeting
+	var item types.GreetingsList
 	byteKey := []byte(key)
 	err := k.cdc.UnmarshalBinaryLengthPrefixed(store.Get(byteKey), &item)
 	if err != nil {
@@ -56,4 +55,8 @@ func (k Keeper) set(ctx sdk.Context, key string, value types.Greeting) {
 func (k Keeper) delete(ctx sdk.Context, key string) {
 	store := ctx.KVStore(k.storeKey)
 	store.Delete([]byte(key))
+}
+func (k Keeper) GetGreetingsIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.storeKey)
+	return sdk.KVStorePrefixIterator(store, nil)
 }
