@@ -48,7 +48,7 @@ func listGreetings(ctx sdk.Context, params []string, req abci.RequestQuery, keep
 
 	hellos, err := codec.MarshalJSONIndent(keeper.cdc, greetingList)
 	if err != nil {
-		return nilhellos sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
+		return hellos, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
 	}
 
 	return hellos, nil
