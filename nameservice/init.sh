@@ -5,18 +5,19 @@ rm -rf ~/.nscli
 
 nsd init test --chain-id=namechain
 
-nscli keys add test1
-nscli keys add test2
-
-nsd add-genesis-account $(nscli keys show test1 -a) 10000000000000000000000000stake,1000000nametoken
-nsd add-genesis-account $(nscli keys show test2 -a) 100000000000stake,1000nametoken
-
 nscli config output json
 nscli config indent true
 nscli config trust-node true
 nscli config chain-id namechain
+nscli config keyring-backend test
 
-nsd gentx --name test1
+nscli keys add jack
+nscli keys add alice
+
+nsd add-genesis-account $(nscli keys show jack -a) 1000nametoken,100000000stake
+nsd add-genesis-account $(nscli keys show alice -a) 1000nametoken,100000000stake
+
+nsd gentx --name jack --keyring-backend test
 
 echo "Collecting genesis txs..."
 nsd collect-gentxs

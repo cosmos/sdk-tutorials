@@ -93,7 +93,7 @@ func (am AppModule) NewHandler() sdk.Handler {
 	return NewHandler(am.keeper)
 }
 func (am AppModule) QuerierRoute() string {
-	return ModuleName
+	return QuerierRoute
 }
 
 func (am AppModule) NewQuerierHandler() sdk.Querier {
@@ -109,7 +109,8 @@ func (am AppModule) EndBlock(sdk.Context, abci.RequestEndBlock) []abci.Validator
 func (am AppModule) InitGenesis(ctx sdk.Context, data json.RawMessage) []abci.ValidatorUpdate {
 	var genesisState GenesisState
 	ModuleCdc.MustUnmarshalJSON(data, &genesisState)
-	return InitGenesis(ctx, am.keeper, genesisState)
+	InitGenesis(ctx, am.keeper, genesisState)
+	return []abci.ValidatorUpdate{}
 }
 
 func (am AppModule) ExportGenesis(ctx sdk.Context) json.RawMessage {
