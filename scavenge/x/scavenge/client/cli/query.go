@@ -5,14 +5,13 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/spf13/cobra"
-
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/spf13/cobra"
 
-	"github.com/cosmos/sdk-tutorials/scavenge/x/scavenge/internal/types"
+	"github.com/cosmos/sdk-tutorials/scavenge/x/scavenge/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module

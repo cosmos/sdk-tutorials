@@ -4,7 +4,7 @@ order: 6
 
 # Expected Keepers
 
-Next create a file within the `internal/types` directory called `expected_keepers.go`. In this file we will be defining what we expect other modules to have.
+Next create a file within the `/types` directory called `expected_keepers.go`. In this file we will be defining what we expect other modules to have.
 
 For example in the nameservice module we will be using the bank module to facilitate transfers between two parties. To make this happen we will rely on two functions from the bank module.
 
@@ -13,4 +13,4 @@ For example in the nameservice module we will be using the bank module to facili
 
 you can see below how the file is structured below:
 
-<<< @/nameservice/x/nameservice/internal/types/expected_keepers.go
+<<< @/nameservice/x/nameservice/types/expected_keepers.go

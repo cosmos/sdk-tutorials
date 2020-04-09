@@ -1,8 +1,8 @@
 package scavenge
 
 import (
-	"github.com/cosmos/sdk-tutorials/scavenge/x/scavenge/internal/keeper"
-	"github.com/cosmos/sdk-tutorials/scavenge/x/scavenge/internal/types"
+	"github.com/cosmos/sdk-tutorials/scavenge/x/scavenge/keeper"
+	"github.com/cosmos/sdk-tutorials/scavenge/x/scavenge/types"
 )
 
 const (
