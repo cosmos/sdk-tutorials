@@ -8,7 +8,7 @@ Start by navigating to the `key.go` file in the types folder. Within the `key.go
 
 Defining keys that will be used throughout the application helps with writing [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) code.
 
-<<< @/nameservice/x/nameservice/internal/types/key.go
+<<< @/nameservice/x/nameservice/types/key.go
 
 ```
 

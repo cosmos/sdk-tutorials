@@ -10,11 +10,11 @@
 
 每个域名有三个预期相关的数据：
 
-- Value - 域名解析出为的值。这是任意字符串，但将来您可以修改它以要求它适合特定格式，例如IP地址，DNS区域文件或区块链地址。
+- Value - 域名解析出为的值。这是任意字符串，但将来您可以修改它以要求它适合特定格式，例如 IP 地址，DNS 区域文件或区块链地址。
 - Owner - 该域名当前所有者的地址。
 - Price - 你需要为购买域名支付的费用。
 
-要开始你的 SDK 模块，在 `nameservice/x/nameservice/internal/types/types.go`  文件中定义 `nameservice.Whois` 结构。
+要开始你的 SDK 模块，在 `nameservice/x/nameservice/types/types.go` 文件中定义 `nameservice.Whois` 结构。
 
 ```go
 package nameservice
