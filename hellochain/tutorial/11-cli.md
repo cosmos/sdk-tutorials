@@ -1,16 +1,36 @@
 ---
 order: 13
 ---
-
 # CLI
 
-Now that we have implemented `greeter`'s client CLI commands, let's add them to
-our `hccli` CLI tool so we can create and query greetings!
+Now it's time to build the tools for interacting with our app (submitting
+transactions, queries, etc). Each module contains a client package that
+provides its specific `tx` and `query` functionality. Generally modules provide
+both CLI and REST client support. First we will implement `GetTxCmd` and `GetQueryCmd` for our `greeter`
+module's CLI command. these functions are included in the AppModule Interface and return cobra commands for our module,These will then later be used to incorporate
+`greeter`'s functionality into our app'sCLI tool.
 
-Your `cmd/hccli/main.go` should look like this (add the highlighted lines).
 
-<<< @/hellochain/cmd/hccli/main.go{8,13}
+## QueryCmd
 
-We call `starter.BuildModuleBasics()` to add `greeter`. `starter.GetTxCmd` and
-`starter.GetQueryCmd` collect the Tx and query commands for every module in the
-ModuleBasicManager (including `greeter`) to assemble a parent command.
+And for `greeter`'s `Query CmdListGreetings` we will implement `list`, the command for
+querying our blockchain for all greetings from a given address.
+
+And add this to `x/greeter/client/cli/query.go`
+
+<<< @/hellochain/x/greeter/client/cli/query.go
+
+
+## TxCmd
+
+
+For `greeter`'s `TxCmd` we will implement `CmdSayHello`, the command for creating and
+sending a greeting to an account address.
+
+Add this to `x/greeter/client/cli/tx.go`
+
+<<< @/hellochain/x/greeter/client/cli/tx.go
+
+For a more thorough explanation of an SDK module's CLI client see the [nameservice tutorial here](../../nameservice/tutorial/15-climd.)
+
+
