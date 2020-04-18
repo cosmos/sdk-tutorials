@@ -4,25 +4,26 @@ order: 02
 
 # Start your application
 
-Get started by creating a new app, we will be using the lvl-1 app which is provided by the scaffold tool.
+Let's get started by creating a new app, we'll be using the lvl-1 [app template](https://github.com/cosmos/scaffold/blob/master/docs/app.md) provided by the scaffold tool.
 
-You can fill in `user` with your Github username and `repo` with the name of the repo you are creating.
+Run the following command, where `user` is your Github username and `repo` is the name of the repo where you'll be creating your application, `nameservice-tutorial` for example. For now you don't need any flags, but scaffold allows you to choose extra configuration options at this step if you like.
 ```bash
 scaffold app lvl-1 [user] [repo] [flags]
 
 cd [repo]
 ```
 
-In `app.go` it is defined what the application does when it receives a transaction. But first, it needs to be able to receive transactions in the correct order. This is the role of the [Tendermint consensus engine](https://github.com/tendermint/tendermint).
+Inside the repo you just created you'll see three directories: `app` which holds the definition of the main state machine runtime, `cmd` with commands for interacting with the runtime, and `x` that contains the application-specific state machine subset and message/transaction processing logic that will be composed with the main runtime to form the complete state machine.
 
-Links to godocs for each module and package imported:
+In `app/app.go` we'll see the runtime logic describing what the application does when it receives a transaction. This file imports several modules and packages, the godocs of which can be found here:
 
 - [`log`](https://godoc.org/github.com/tendermint/tendermint/libs/log): Tendermint's logger.
 - [`auth`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth): The `auth` module for the Cosmos SDK.
 - [`dbm`](https://godoc.org/github.com/tendermint/tm-db): Code for working with the Tendermint database.
 - [`baseapp`](https://godoc.org/github.com/cosmos/cosmos-sdk/baseapp): See below
 
-A couple of the packages here are `tendermint` packages. Tendermint passes transactions from the network to the application through an interface called the [ABCI](https://docs.tendermint.com/master/spec/abci/). If you look at the architecture of the blockchain node you are building, it looks like the following:
+You'll notice several of the imported packages listed above are `Tendermint` packages. In order to build a blockchain application, the state machine must receive transactions in the correct order, which is the job of the [Tendermint consensus engine](https://github.com/tendermint/tendermint).  Tendermint passes transactions from the network to the application through an interface called the [ABCI](https://docs.tendermint.com/master/spec/abci/). The architecture of the blockchain node, including your App (state machine) and Tendermint (consensus layer) looks like the following:
+
 
 ```
 +---------------------+
