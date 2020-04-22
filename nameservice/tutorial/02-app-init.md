@@ -13,7 +13,7 @@ scaffold app lvl-1 [user] [repo] [flags]
 cd [repo]
 ```
 
-Inside the repo you just created you'll see three directories: `app` which holds the definition of the main state machine runtime, `cmd` with commands for interacting with the runtime, and `x` that contains the application-specific state machine subset and message/transaction processing logic that will be composed with the main runtime to form the complete state machine.
+Inside the repo you just created you'll see three directories: `app` which holds the definition of the main state machine runtime, `cmd` with commands for interacting with the runtime, and `x` that contains the application-specific modules with message/transaction processing logic that will be combined with the main runtime to form the complete state machine.
 
 In `app/app.go` we'll see the runtime logic describing what the application does when it receives a transaction. This file imports several modules and packages, the godocs of which can be found here:
 
