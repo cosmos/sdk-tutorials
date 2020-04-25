@@ -8,10 +8,10 @@ Now it's time to build the tools for interacting with our app (submitting
 transactions, queries, etc). Each module contains a client package that
 provides its specific `tx` and `query` client functionality. `tx` for sending transactions containing Messages that update the chain state and `query` for reading the chain state. 
 
-Generally modules provide both a CLI and a REST client both  that are bundled together alongside those of the other modules into a single REST server and CLI executable.
+Generally modules provide both a CLI and a REST client  that are bundled together alongside those of the other modules into a single REST server and CLI executable.
 
 
-Lets start with ourour CLI. Here we will implement `GetTxCmd` and `GetQueryCmd` for our `greeter`
+Lets start with our CLI. Here we will implement `GetTxCmd` and `GetQueryCmd` for our `greeter`
 module's client package. These will then later be used to incorporate
 `greeter`'s functionality into our CLI tool.
 

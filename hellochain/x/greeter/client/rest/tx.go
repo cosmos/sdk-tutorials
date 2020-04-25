@@ -1,7 +1,6 @@
 package rest
 
 import (
-	"bytes"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -10,14 +9,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/rest"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
+	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter/types"
 )
-
-func registerTxRoutes(cliCtx context.CLIContext, r *mux.Router) {
-	// r.HandleFunc(
-	// TODO: Define the Rest route ,
-	// Call the function which should be executed for this route),
-	// ).Methods("POST")
-}
 
 /*
 // Action TX body
@@ -42,16 +35,16 @@ func <Action>RequestHandlerFn(cliCtx context.CLIContext) http.HandlerFunc {
 	}
 }
 */
-type buyNameReq struct {
-	BaseReq rest.BaseReq `json:"base_req"`
-	Name    string       `json:"name"`
-	Amount  string       `json:"amount"`
-	Buyer   string       `json:"buyer"`
+type MsgGreetReq struct {
+	BaseReq   rest.BaseReq `json:"base_req"`
+	Body      string       `json:"name"`
+	Recipient string       `json:"recipient"`
+	Sender    string       `json:"sender"`
 }
 
-func buyNameHandler(cliCtx context.CLIContext) http.HandlerFunc {
+func GreetHandler(cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req buyNameReq
+		var req MsgGreetReq
 
 		if !rest.ReadRESTReq(w, r, cliCtx.Codec, &req) {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
@@ -63,20 +56,20 @@ func buyNameHandler(cliCtx context.CLIContext) http.HandlerFunc {
 			return
 		}
 
-		addr, err := sdk.AccAddressFromBech32(req.Buyer)
+		recipient, err := sdk.AccAddressFromBech32(req.Recipient)
+		sender, err := sdk.AccAddressFromBech32(req.Sender)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
-		coins, err := sdk.ParseCoins(req.Amount)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
 		// create the message
-		msg := types.NewMsgBuyName(req.Name, coins, addr)
+		msg := types.NewMsgGreet(sender, req.Body, recipient)
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())

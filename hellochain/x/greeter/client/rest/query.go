@@ -11,20 +11,18 @@ import (
 	"github.com/cosmos/sdk-tutorials/hellochain/x/greeter/types"
 )
 
-func registerQueryRoutes(cliCtx context.CLIContext, r *mux.Router) {
-	// TODO: Define your GET REST endpoints
-	r.HandleFunc(
-		"/mod-example/parameters",
-		queryParamsHandlerFn(cliCtx),
-	).Methods("GET")
-}
-
-func queryParamsHandlerFn(cliCtx context.CLIContext) http.HandlerFunc {
+func queryGreetingsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		cliCtx, ok := rest.ParseQueryHeightOrReturnBadRequest(w, cliCtx, r)
-		if !ok {
+		vars := mux.Vars(r)
+		paramType := vars[restName]
+
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/resolve/%s", storeName, paramType), nil)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
 		}
+
+		rest.PostProcessResponse(w, cliCtx, res)
 
 		route := fmt.Sprintf("custom/%s/parameters", types.QuerierRoute)
 
