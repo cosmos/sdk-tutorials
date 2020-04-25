@@ -15,8 +15,9 @@ include Makefile.ledger
 all: install
 
 install: go.sum
-		go install -mod=readonly $(BUILD_FLAGS) ./cmd/nsd
-		go install -mod=readonly $(BUILD_FLAGS) ./cmd/nscli
+		@echo "--> Installing nsd & nscli"
+		@go install -mod=readonly $(BUILD_FLAGS) ./cmd/nsd
+		@go install -mod=readonly $(BUILD_FLAGS) ./cmd/nscli
 
 go.sum: go.mod
 		@echo "--> Ensure dependencies have not been modified"
