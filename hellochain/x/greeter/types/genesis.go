@@ -1,26 +1,23 @@
 package types
 
 // GenesisState - all greeter state that must be provided at genesis
+//TODO specify empty genesis state struct
 type GenesisState struct {
-	// TODO: Fill out what is needed by the module for genesis
+	Greetings map[string]GreetingsList `json:greeting_lists"`
 }
 
-// NewGenesisState creates a new GenesisState object
-func NewGenesisState( /* TODO: Fill out with what is needed for genesis state */) GenesisState {
-	return GenesisState{
-		// TODO: Fill out according to your genesis state
-	}
+type DefaultGenesisState struct {
+	Greetings map[string]GreetingsList `json:greeting_lists"`
 }
 
-// DefaultGenesisState - default GenesisState used by Cosmos Hub
-func DefaultGenesisState() GenesisState {
-	return GenesisState{
-		// TODO: Fill out according to your genesis state, these values will be initialized but empty
-	}
+//TODO define greeter Genesis statefor exporting/importing chain state to json
+func NewGenesisState(greetingLists map[string]GreetingsList) GenesisState {
+	return GenesisState{}
 }
 
 // ValidateGenesis validates the greeter genesis parameters
 func ValidateGenesis(data GenesisState) error {
 	// TODO: Create a sanity check to make sure the state conforms to the modules needs
+
 	return nil
 }
