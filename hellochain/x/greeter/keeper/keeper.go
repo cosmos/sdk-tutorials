@@ -46,11 +46,19 @@ func (k Keeper) GetGreetings(ctx sdk.Context, key string) (types.GreetingsList, 
 	return item, nil
 }
 
-func (k Keeper) set(ctx sdk.Context, key string, value types.Greeting) {
+func (k Keeper) AppendGreeting(ctx sdk.Context, key string, greeting types.Greeting) {
 	store := ctx.KVStore(k.storeKey)
 	bz := k.cdc.MustMarshalBinaryLengthPrefixed(value)
 	store.Set([]byte(key), bz)
 }
+if greeting.Sender.Empty() {
+			return
+				}
+					store := ctx.KVStore(k.storeKey)
+						list := k.GetGreetings(ctx, greeting.Recipient, nil)
+							list = append(list, greeting)
+								store.AppendGreeting(greeting.Recipient.Bytes(), k.cdc.MustMarshalBinaryBare(list))
+							
 
 func (k Keeper) delete(ctx sdk.Context, key string) {
 	store := ctx.KVStore(k.storeKey)

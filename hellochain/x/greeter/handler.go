@@ -13,7 +13,7 @@ func NewHandler(k Keeper) sdk.Handler {
 		ctx = ctx.WithEventManager(sdk.NewEventManager())
 		switch msg := msg.(type) {
 		// TODO: Define your msg cases
-		case MsgGreet
+	case MsgGreet:
 		return handleMsgGreet(ctx, k, msg)
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", ModuleName,  msg)
@@ -23,11 +23,15 @@ func NewHandler(k Keeper) sdk.Handler {
 }
 
 // handleMsgGreet does saves the greeting under its recip[ient's address and emits a Greeting event
-func handleMsg<Action>(ctx sdk.Context, k Keeper, msg MsgGreet) *sdk.Result, error) {
-	err := k.<Action>(ctx, msg.ValidatorAddr)
+//TO inett ou keeper function
+func handleMsgGreet(ctx sdk.Context, k Keeper)(ctx, msg.ValidatorAddr){
 	if err != nil {
 		return nil, err
 	}
+	greeting := NewGreeting(msg.Sender, msg.Body, msg.Recipient)
+
+		keeper.AppendGreeting(msg.Recipient,ctx, greeting)
+		kk,.
 
 	// TODO: Define your msg events
 	ctx.EventManager().EmitEvent(
