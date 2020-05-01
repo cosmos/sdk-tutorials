@@ -41,6 +41,7 @@ func (msg MsgBuyName) ValidateBasic() error {
 	}
 	if !msg.Bid.IsAllPositive() {
 		return sdkerrors.ErrInsufficientFunds
+	}
 	return nil
 }
 
