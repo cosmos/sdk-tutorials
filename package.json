@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/cosmos/sdk-tutorials#readme",
   "dependencies": {
-    "@vuepress/plugin-google-analytics": "^1.4.1",
-    "vuepress-theme-cosmos": "^1.0.163"
+    "vuepress-theme-cosmos": "^1.0.164"
   }
 }
