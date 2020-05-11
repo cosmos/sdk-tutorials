@@ -66,6 +66,12 @@ Once we have defined our messages, we need to describe to our encoder how they s
 
 <<< @/scavenge/x/scavenge/types/codec.go
 
+## Alias
+
+Now that we have these new message types, we'd like to make sure other parts of the module can access them. To do so we use the `./x/scavenge/alias.go` file. This imports the types from the nested `types` directory and makes them accessible at the modules top level directory.
+
+<<< @/scavenge/x/scavenge/alias.go
+
 It's great to have Messages, but we need somewhere to store the information they are sending. All persistent data related to this module should live in the module's `Keeper`.
 
 Let's make a `Keeper` for our Scavenge Module next.
