@@ -68,10 +68,10 @@ func MakeCodec() *codec.Codec {
 	sdk.RegisterCodec(cdc)
 	codec.RegisterCrypto(cdc)
 
-	return cdc
+	return cdc.Seal()
 }
 
-type newApp struct {
+type NewApp struct {
 	*bam.BaseApp
 	cdc *codec.Codec
 
@@ -100,11 +100,11 @@ type newApp struct {
 }
 
 // verify app interface at compile time
-var _ simapp.App = (*newApp)(nil)
+var _ simapp.App = (*NewApp)(nil)
 
 // NewInitApp is a constructor function for scavengeApp
 func NewInitApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest bool,
-	invCheckPeriod uint, baseAppOptions ...func(*bam.BaseApp)) *newApp {
+	invCheckPeriod uint, baseAppOptions ...func(*bam.BaseApp)) *NewApp {
 
 	// First define the top level codec that will be shared by the different modules
 	cdc := MakeCodec()
@@ -120,7 +120,7 @@ func NewInitApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest b
 	tkeys := sdk.NewTransientStoreKeys(staking.TStoreKey, params.TStoreKey)
 
 	// Here you initialize your application with the store keys it requires
-	var app = &newApp{
+	var app = &NewApp{
 		BaseApp:   bApp,
 		cdc:       cdc,
 		keys:      keys,
@@ -264,7 +264,7 @@ func NewDefaultGenesisState() GenesisState {
 	return ModuleBasics.DefaultGenesis()
 }
 
-func (app *newApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+func (app *NewApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	var genesisState GenesisState
 
 	err := app.cdc.UnmarshalJSON(req.AppStateBytes, &genesisState)
@@ -275,30 +275,30 @@ func (app *newApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.
 	return app.mm.InitGenesis(ctx, genesisState)
 }
 
-func (app *newApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
+func (app *NewApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
 	return app.mm.BeginBlock(ctx, req)
 }
 
-func (app *newApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+func (app *NewApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	return app.mm.EndBlock(ctx, req)
 }
 
-func (app *newApp) LoadHeight(height int64) error {
+func (app *NewApp) LoadHeight(height int64) error {
 	return app.LoadVersion(height, app.keys[bam.MainStoreKey])
 }
 
 // Codec returns simapp's codec
-func (app *newApp) Codec() *codec.Codec {
+func (app *NewApp) Codec() *codec.Codec {
 	return app.cdc
 }
 
 // SimulationManager implements the SimulationApp interface
-func (app *newApp) SimulationManager() *module.SimulationManager {
+func (app *NewApp) SimulationManager() *module.SimulationManager {
 	return app.sm
 }
 
 // ModuleAccountAddrs returns all the app's module account addresses.
-func (app *newApp) ModuleAccountAddrs() map[string]bool {
+func (app *NewApp) ModuleAccountAddrs() map[string]bool {
 	modAccAddrs := make(map[string]bool)
 	for acc := range maccPerms {
 		modAccAddrs[supply.NewModuleAddress(acc).String()] = true
