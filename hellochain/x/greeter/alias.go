@@ -6,13 +6,10 @@ import (
 )
 
 const (
-	// TODO: define constants that you would like exposed from your module
-
-	ModuleName        = types.ModuleName
-	RouterKey         = types.RouterKey
-	StoreKey          = types.StoreKey
-	DefaultParamspace = types.DefaultParamspace
-	QuerierRoute      = types.QuerierRoute
+	ModuleName   = types.ModuleName
+	RouterKey    = types.RouterKey
+	StoreKey     = types.StoreKey
+	QuerierRoute = types.QuerierRoute
 )
 
 var (
@@ -22,12 +19,10 @@ var (
 	RegisterCodec   = types.RegisterCodec
 	NewGenesisState = types.NewGenesisState
 	ValidateGenesis = types.ValidateGenesis
-	// TODO: Fill out function aliases
-	NewGreeting = types.NewGreeting
+	NewGreeting     = types.NewGreeting
 
 	// variable aliases
 	ModuleCdc = types.ModuleCdc
-	// TODO: Fill out variable aliases
 )
 
 type (
@@ -36,7 +31,4 @@ type (
 	MsgGreet            = types.MsgGreet
 	Keeper              = keeper.Keeper
 	GenesisState        = types.GenesisState
-	Params              = types.Params
-
-	// TODO: Fill out module types
 )

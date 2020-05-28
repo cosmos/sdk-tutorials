@@ -4,12 +4,12 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 )
 
-// RegisterCodec registers concrete types on codec
+// RegisterCodec registers concrete types on codec.
 func RegisterCodec(cdc *codec.Codec) {
 	// TODO: Register the modules msgs
 }
 
-// ModuleCdc defines the module codec
+// ModuleCdc defines the module codec.
 var ModuleCdc *codec.Codec
 
 func init() {

@@ -9,8 +9,7 @@ will be building Hellochain, a "Hello World" blockchain with a basic `greeter` m
 
 For this tutorial we are going to first build a "blank" application capable of
 only bank-like interactions and then add some arbitrary "hello world"
-functionality in the form of our `greeter` module. Nothing needs to be downloaded
-or cloned, we will create every file from scratch.
+functionality in the form of our `greeter` module.
 
 All of the final source code for this tutorial project is in this directory (and compiles). However, it is best to follow along manually and try building the project yourself!
 
@@ -20,35 +19,53 @@ All of the final source code for this tutorial project is in this directory (and
 
 In this tutorial we will create an app with the following file structure. You do not need to download any code to get started as the top level `hellochain` directory will be created for you by the `scaffold` tool. For reference, a completed version of this app is contained in the `sdk-tutorials/hellochain` directory.
 ```bash
-#ToDO check this
+
 ./hellochain
-├── go.mod
 ├── Makefile
-├── app/
-  ├── app.go
-  ├── export.go
-├── cmd/
-│   ├── acli/
-│   │   └── main.go
-│   └── aud/
-│       └── main.go
-        └── genaccounts.go
+├── README.md
+├── app
+│   ├── app.go
+│   └── export.go
+├── cmd
+│   ├── acli
+│   │   └── main.go
+│   └── aud
+│       ├── genaccounts.go
+│       └── main.go
+├── go.mod
+├── go.sum
+├── init.sh
+├── space.png
 └── x
     └── greeter
-        ├── client
-        │   ├── cli
-        │   │   ├── query.go
-        │   │   └── tx.go
-        ├── internal/
-              ├── types/
-              |  ├── msgs.go
-              |  └── types.go
-            ├─ keeper
-              └── querier.go
-              ├── keeper.go
+        ├── README.md
+        ├── abci.go
         ├── alias.go
-        ├── module.go
+        ├── client
+        │   ├── cli
+        │   │   ├── query.go
+        │   │   └── tx.go
+        │   └── rest
+        │       ├── query.go
+        │       ├── rest.go
+        │       └── tx.go
+        ├── genesis.go
         ├── handler.go
+        ├── keeper
+        │   ├── keeper.go
+        │   ├── params.go
+        │   └── querier.go
+        ├── module.go
+        ├── spec
+        │   └── README.md
+        └── types
+            ├── codec.go
+            ├── errors.go
+            ├── expected_keepers.go
+            ├── genesis.go
+            ├── key.go
+            ├── msgs.go
+            └── types.go
 
 ```
 

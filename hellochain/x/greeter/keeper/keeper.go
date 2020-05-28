@@ -12,17 +12,15 @@ import (
 
 // Keeper of the greeter store
 type Keeper struct {
-	storeKey   sdk.StoreKey
-	cdc        *codec.Codec
-	paramspace types.ParamSubspace
+	storeKey sdk.StoreKey
+	cdc      *codec.Codec
 }
 
 // NewKeeper creates a greeter keeper
 func NewKeeper(cdc *codec.Codec, key sdk.StoreKey, paramspace types.ParamSubspace) Keeper {
 	keeper := Keeper{
-		storeKey:   key,
-		cdc:        cdc,
-		paramspace: paramspace.WithKeyTable(types.ParamKeyTable()),
+		storeKey: key,
+		cdc:      cdc,
 	}
 	return keeper
 }
@@ -34,13 +32,14 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 
 func (k Keeper) GetGreetings(ctx sdk.Context, key sdk.AccAddress) (types.GreetingsList, error) {
 	store := ctx.KVStore(k.storeKey)
-	/* TODO: Fill out this type*/
 	var item types.GreetingsList
 	byteKey := []byte(key)
+
 	err := k.cdc.UnmarshalBinaryLengthPrefixed(store.Get(byteKey), &item)
 	if err != nil {
 		return nil, err
 	}
+
 	return item, nil
 }
 
@@ -52,14 +51,20 @@ func (k Keeper) AppendGreeting(ctx sdk.Context, key string, greeting types.Greet
 	if err != nil {
 		return nil, greeting
 	}
+
 	list = append(list, greeting)
+
 	if greeting.Sender.Empty() {
+
 	}
+
 	store.Set(greeting.Recipient.Bytes(), k.cdc.MustMarshalBinaryBare(list))
+
 	return nil, greeting
 }
 
 func (k Keeper) GetGreetingsIterator(ctx sdk.Context) sdk.Iterator {
 	store := ctx.KVStore(k.storeKey)
+
 	return sdk.KVStorePrefixIterator(store, nil)
 }
