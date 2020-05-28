@@ -14,7 +14,7 @@ Mostly we can just follow the `TODO`s that are marked in the file and add the ne
 
 Something you might notice near the beginning of the file is that I have renamed the `DefaultCLIHome` and the `DefaultNodeHome`. These are the directories located on your machine where the history of your application and the configuration of your CLI are stored, as well as the encrypted information for the keys you generate on your machine. I renamed them to `scavengeCLI` and `scavengeD` to better reflect our application.
 
-Since we don't want to use the generic commands for our CLI and our application given to us by the `scaffold` command, let's rename the files within `cmd` as well. We will rename `./cmd/acli/` to `./cmd/scavengeCLI` as well as `./cmd/aud` to `./cmd/scavengeD`. Inside our `./cmd/scavengeCLI/main.go` file we will also update to the following format:
+Since we don't want to use the generic commands for our CLI and our application given to us by the `scaffold` command, let's rename the files within `cmd` as well. We will rename `./cmd/appcli/` to `./cmd/scavengeCLI` as well as `./cmd/appd` to `./cmd/scavengeD`. Inside our `./cmd/scavengeCLI/main.go` file we will also update to the following format:
 
 <<< @/scavenge/cmd/scavengeCLI/main.go
 

@@ -46,18 +46,17 @@ Through the course of this tutorial you will create the following files that mak
         │       └── tx.go
         ├── genesis.go
         ├── handler.go
-        ├── internal
-        │   ├── keeper
-        │   │   ├── keeper.go
-        │   │   └── querier.go
-        │   └── types
-        │       ├── codec.go
-        │       ├── errors.go
-        │       ├── expected_keepers.go
-        │       ├── key.go
-        │       ├── msgs.go
-        │       ├── querier.go
-        │       └── types.go
+        ├── keeper
+        │   ├── keeper.go
+        │   └── querier.go
+        ├── types
+        │   ├── codec.go
+        │   ├── errors.go
+        │   ├── expected_keepers.go
+        │   ├── key.go
+        │   ├── msgs.go
+        │   ├── querier.go
+        │   └── types.go
         └── module.go
 ```
 

@@ -111,7 +111,7 @@ Our finaly step is to tell the application that we're done configuring it. This 
 scavengeD collect-gentxs
 ```
 
-I usually combine all of these commands into a single executable file so that if I make changes to the application I don't have to run each one manually. Since some of the commands require a password to be entered I use bash piping to feed in my `1234567890` password. I put everything into a file called `./init.sh` so that it looks like so:
+I usually combine all of these commands into a single executable file so that if I make changes to the application I don't have to run each one manually. You can see here that I set the config to use `keyring-backend` to `test` so that we don't need to use a password every time. I put everything into a file called `./init.sh` so that it looks like so:
 
 <<< @/scavenge/init.sh
 

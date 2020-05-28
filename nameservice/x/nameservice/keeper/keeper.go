@@ -3,7 +3,7 @@ package keeper
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/sdk-tutorials/nameservice/x/nameservice/internal/types"
+	"github.com/cosmos/sdk-tutorials/nameservice/x/nameservice/types"
 )
 
 // Keeper maintains the link to storage and exposes getter/setter methods for the various parts of the state machine
@@ -16,23 +16,28 @@ type Keeper struct {
 }
 
 // NewKeeper creates new instances of the nameservice Keeper
-func NewKeeper(coinKeeper types.BankKeeper, storeKey sdk.StoreKey, cdc *codec.Codec) Keeper {
+func NewKeeper(cdc *codec.Codec, storeKey sdk.StoreKey, coinKeeper types.BankKeeper) Keeper {
 	return Keeper{
-		CoinKeeper: coinKeeper,
-		storeKey:   storeKey,
 		cdc:        cdc,
+		storeKey:   storeKey,
+		CoinKeeper: coinKeeper,
 	}
 }
 
 // Gets the entire Whois metadata struct for a name
 func (k Keeper) GetWhois(ctx sdk.Context, name string) types.Whois {
 	store := ctx.KVStore(k.storeKey)
+
 	if !k.IsNamePresent(ctx, name) {
 		return types.NewWhois()
 	}
+
 	bz := store.Get([]byte(name))
+
 	var whois types.Whois
+
 	k.cdc.MustUnmarshalBinaryBare(bz, &whois)
+
 	return whois
 }
 
@@ -41,7 +46,9 @@ func (k Keeper) SetWhois(ctx sdk.Context, name string, whois types.Whois) {
 	if whois.Owner.Empty() {
 		return
 	}
+
 	store := ctx.KVStore(k.storeKey)
+
 	store.Set([]byte(name), k.cdc.MustMarshalBinaryBare(whois))
 }
 

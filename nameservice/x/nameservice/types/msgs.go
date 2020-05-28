@@ -5,9 +5,6 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-// RouterKey is the module name router key
-const RouterKey = ModuleName // this was defined in your key.go file
-
 // MsgSetName defines a SetName message
 type MsgSetName struct {
 	Name  string         `json:"name"`
