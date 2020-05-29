@@ -1,5 +1,5 @@
 ---
-order: 13
+order: 9
 ---
 # CLI
 
@@ -32,5 +32,3 @@ Add this to `x/greeter/client/cli/tx.go`
 <<< @/hellochain/x/greeter/client/cli/tx.go
 
 For a more thorough explanation of an SDK module's CLI client see the [nameservice tutorial here](../../nameservice/tutorial/15-climd.)
-
-

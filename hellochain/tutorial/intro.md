@@ -85,51 +85,10 @@ the command requires you toprovide a github username and repo name from which it
 
 ```bash
 $ scaffold  app lvl-1 <github user name> <repo name>
-$scaffold app lvl-1 cosmos sdk-tutorials hellochain
 ```
 
+For this tutorial we will name the repo HelloChain, but you can add your Github username.
 
-
-Start by creating a new git repository:
-
-```bash
-mkdir -p hellochain
-cd hellochain
-git init
-```
-
-Then initialize your app as a go module:
-
-```bash
-cd ./hellochain
-go mod init
-```
-
-Now lets test our appp daemon command to ensure that our scaffolded app is correct. Here we will run`aud` our app daemon  and call the `init` command with the `--help` flag. we will call `init` again later in this tutorial when our chain is ready but for now lets check that all is working correctly.
-
-```bash
-$ cd hellochain
-$ go run cmd/aud/main.go cmd/audgenaccounts.go -- init  --help
-
-```
-You should see the following output
-```bash
-Initialize validators's and node's configuration files.
-
-Usage:
-  aud init [moniker] [flags]
-
-Flags:
-      --chain-id string   genesis file chain-id, if left blank will be randomly created
-  -h, --help              help for init
-  -o, --overwrite         overwrite the genesis.json file
-
-Global Flags:
-      --home string             directory for config and data (default "/Users/digitalhans/.aud")
-      --inv-check-period uint   Assert registered invariants every N blocks
-      --log_level string        Log level (default "main:info,state:info,*:error")
-      --trace                   print out full stack trace on errors
-```
 Ok now that we have a basic working app daemon, its time to construct our `greeter` module to add some functionality to our chain.
 
 
