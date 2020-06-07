@@ -9,6 +9,8 @@ Now that your module is ready, it can be incorporated in the `./app.go` file. Le
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-tutorials/nameservice/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }/x/nameservice`).
 
 ```go
+package app
+
 import (
 	"encoding/json"
 	"os"
