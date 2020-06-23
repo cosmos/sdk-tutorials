@@ -1,39 +1,66 @@
 module.exports = {
   theme: 'cosmos',
-  title: "Cosmos SDK Tutorials",
+  title: 'Cosmos SDK Tutorials',
   themeConfig: {
-    // if your docs are in a different repo from your main project:
+    repo: 'cosmos/sdk-tutorials',
     docsRepo: 'cosmos/sdk-tutorials',
     autoSidebar: false,
-    sidebar: [
-      {
-        title: 'Tutorials',
-        children: [
-//         {
-          // title: 'Hellochain',
-          // path: '/hellochain/tutorial/',
-          // directory: true,
-          // 
-          // },
-          {
-            title: 'Nameservice',
-            path: '/nameservice/tutorial/',
-            directory: true
-          },
-          {
-            title: 'Scavenge',
-            path: '/scavenge/tutorial/',
-            directory: true
-          },
-          {
-            title: 'Eth Denver',
-            path: '/eth-denver/',
-            directory: false
-          }
-        ]
-      }
-    ],
+    editLinks: true,
+    sidebar: {
+      auto: false,
+      nav: [
+        {
+          title: 'Tutorials',
+          children: [
+            {
+              title: 'Nameservice',
+              path: '/nameservice/tutorial/',
+              directory: true
+            },
+            {
+              title: 'Scavenge',
+              path: '/scavenge/tutorial/',
+              directory: true
+            },
+            {
+              title: 'Cosmos Burner Chain',
+              path: '/burner-chain/',
+              directory: true
+            }
+          ]
+        }
+      ],
+      footer: [
+        {
+          label: "sdk",
+          name: "Cosmos<br>SDK",
+          url: "https://docs.cosmos.network/",
+          color: "#5064FB",
+        },
+        {
+          label: "hub",
+          name: "Cosmos<br>Hub",
+          url: "https://hub.cosmos.network/",
+          color: "#BA3FD9",
+        },
+        {
+          label: "ibc",
+          name: "IBC<br>Protocol",
+          url: "https://github.com/cosmos/ics/tree/master/ibc",
+          color: "#E6900A",
+        },
+        {
+          label: "core",
+          name: "Tendermint<br>Core",
+          url: "https://docs.tendermint.com/",
+          color: "#00BB00",
+        },
+      ],
+    },
     footer: {
+      question: {
+        text: "Chat with Cosmos developers in <a href='https://discord.gg/W8trcGV' target='_blank'>Discord</a> or reach out on the <a href='https://forum.cosmos.network/c/tendermint' target='_blank'>SDK Developer Forum</a> to learn more."
+      },
       logo: "/logo-bw.svg",
       textLink: {
         text: "cosmos.network",
@@ -77,11 +104,11 @@ module.exports = {
             },
             {
               title: "Cosmos Hub",
-              url: "https://hub.cosmos.network/"
+              url: "https://hub.cosmos.network"
             },
             {
               title: "Tendermint Core",
-              url: "https://docs.tendermint.com/"
+              url: "https://docs.tendermint.com"
             }
           ]
         },
@@ -90,15 +117,15 @@ module.exports = {
           children: [
             {
               title: "Cosmos blog",
-              url: "https://blog.cosmos.network/"
+              url: "https://blog.cosmos.network"
             },
             {
               title: "Forum",
-              url: "https://forum.cosmos.network/"
+              url: "https://forum.cosmos.network"
             },
             {
               title: "Chat",
-              url: "https://riot.im/app/#/room/#cosmos-sdk:matrix.org"
+              url: "https://discord.gg/cr7N47p"
             }
           ]
         },
@@ -112,7 +139,7 @@ module.exports = {
             },
             {
               title: "Source code on GitHub",
-              url: "https://github.com/cosmos/cosmos-sdk/"
+              url: "https://github.com/cosmos/cosmos-sdk"
             }
           ]
         }
