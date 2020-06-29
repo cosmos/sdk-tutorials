@@ -14,7 +14,7 @@ description: Tutorials for the Cosmos SDK.
 The real deal, full-length tutorial in which you will build a fully functional naming service on a blockchain. This tutorial does not use the `starter` package, rather you will be configuring and composing a full application yourself.
 The nameservice tutorial also has translations and a slide deck.
 
-- [Live Testnet](https://talkshop.name)
+<!-- - [Live Testnet](https://talkshop.name) -->
 - [Slides](https://docs.google.com/presentation/d/1aCMAdkVY-gfgnGNPTygwVk3o68czPQ_VYfvdMy9Ek5Q/edit?usp=sharing)
 
 Translations:
