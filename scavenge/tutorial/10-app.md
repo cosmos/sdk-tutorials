@@ -10,21 +10,21 @@ One module which is missing but is part of the Cosmos SDK core set of features i
 
 Mostly we can just follow the `TODO`s that are marked in the file and add the necessary information about our new module. Afterwards it should look like:
 
-<<< @/scavenge/app/app.go
++++ https://github.com/cosmos/sdk-tutorials/blob/master/scavenge/app/app.go
 
 Something you might notice near the beginning of the file is that I have renamed the `DefaultCLIHome` and the `DefaultNodeHome`. These are the directories located on your machine where the history of your application and the configuration of your CLI are stored, as well as the encrypted information for the keys you generate on your machine. I renamed them to `scavengeCLI` and `scavengeD` to better reflect our application.
 
 Since we don't want to use the generic commands for our CLI and our application given to us by the `scaffold` command, let's rename the files within `cmd` as well. We will rename `./cmd/appcli/` to `./cmd/scavengeCLI` as well as `./cmd/appd` to `./cmd/scavengeD`. Inside our `./cmd/scavengeCLI/main.go` file we will also update to the following format:
 
-<<< @/scavenge/cmd/scavengeCLI/main.go
++++ https://github.com/cosmos/sdk-tutorials/blob/master/scavenge/cmd/scavengeCLI/main.go
 
 And within our `./cmd/scavengeD/main.go` we will update to the following format:
 
-<<< @/scavenge/cmd/scavengeD/main.go
++++ https://github.com/cosmos/sdk-tutorials/blob/master/scavenge/cmd/scavengeD/main.go
 
 Finally we need to update our new `cmd` names within our `Makefile`. It should be updated to look like:
 
-<<< @/scavenge/Makefile
++++ https://github.com/cosmos/sdk-tutorials/blob/master/scavenge/Makefile
 
 Now our app is configured and ready to go!
 
