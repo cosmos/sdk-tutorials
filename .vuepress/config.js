@@ -5,6 +5,7 @@ module.exports = {
     repo: 'cosmos/sdk-tutorials',
     docsRepo: 'cosmos/sdk-tutorials',
     editLinks: true,
+    label: 'sdk',
     sidebar: {
       auto: false,
       nav: [
