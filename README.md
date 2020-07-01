@@ -5,11 +5,7 @@ footer:
   newsletter: true
 ---
 
-# Tutorials for the Cosmos SDK
-
-<div>
-  <img src="./hellochain/space.png" style="max-width: 100px;">
-</div>
+# Cosmos SDK Tutorials
 
 ## [Nameservice](./nameservice/tutorial/00-intro.md)
 
