@@ -19,7 +19,7 @@ sending a greeting to an account address.
 
 Add this to `x/greeter/client/cli/tx.go`
 
-<<< @/hellochain/x/greeter/client/cli/tx.go
++++ https://github.com/cosmos/sdk-tutorials/blob/master/hellochain/x/greeter/client/cli/tx.go
 
 ## QueryCmd
 
@@ -28,7 +28,7 @@ querying our blockchain for all greetings from a given address.
 
 And add this to `x/greeter/client/cli/query.go`
 
-<<< @/hellochain/x/greeter/client/cli/query.go
++++ https://github.com/cosmos/sdk-tutorials/blob/master/hellochain/x/greeter/client/cli/query.go
 
 Ok great now its time to build our CLI tool
 
@@ -40,4 +40,6 @@ we've implemented.
 Update `/x/greeter/module.go` to reflect the following (updated lines
 highlighted).
 
-<<< @/hellochain/x/greeter/module.go{12,45,50,50,66}
+<!-- <<< @/hellochain/x/greeter/module.go{12,45,50,50,66} -->
+<!-- TODO -->
+<!-- +++ https://github.com/cosmos/sdk-tutorials/blob/master/hellochain/x/greeter/module.go{12,45,50,50,66} -->
