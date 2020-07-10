@@ -1,9 +1,9 @@
----
+<!-- ---
 title: Cosmos SDK Tutorials
 description: Tutorials for the Cosmos SDK.
 footer:
   newsletter: true
----
+--- -->
 
 # Cosmos SDK Tutorials
 
