@@ -41,8 +41,8 @@ This message type should live in `./x/scavenge/types/MsgCommitSolution.go` and l
 The Message `struct` contains all the necessary information when revealing a solution:
 
 - `Scavenger` - Who is revealing the solution.
-- `SolutionHash` - The scrambled solution.
-- `SolutionScavengerHash` - This is the plain text version of the solution.
+- `SolutionHash` - The scrambled solution (hash).
+- `SolutionScavengerHash` - This is the hash of the combination of the solution and the person who solved it.
 
 This message also fulfils the `sdk.Msg` interface.
 
