@@ -96,7 +96,7 @@ Since we don't need the default form component replace `<type-list />` with a ne
 
 ### `frontend/src/components/PollForm.vue`
 
-```jsx
+```js
 <template>
   <div>
     <app-input placeholder="Title" v-model="title" />
@@ -169,7 +169,7 @@ Add `<poll-list />` after the poll form component.
 
 ### `frontend/src/components/PollList.vue`
 
-```jsx
+```js
 <template>
   <div>
     <div v-for="poll in polls">
