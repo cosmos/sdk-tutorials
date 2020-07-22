@@ -79,13 +79,13 @@ func createPostHandler(cliCtx context.CLIContext) http.HandlerFunc {
 Inside an empty directory create `package.json`:
 
 ```sh
-$ npm init -y
+npm init -y
 ```
 
 Add dependencies:
 
 ```sh
-$ npm add parcel-bundler local-cors-proxy axios @tendermint/sig
+npm add parcel-bundler local-cors-proxy axios @tendermint/sig
 ```
 
 We'll be using `parcel-bundler` for bundling our dependencies and development server, `local-cors-proxy` for providing a CORS proxy server as a development replacement for something like Nginx, `axios` for HTTP requests and `@tendermint/sig` for interacting with our application.
@@ -247,7 +247,7 @@ init();
 Before we start using our application we need to make sure that the account we have generated exists on our chain. To do so we will send a nominal amount of tokens from an existing account to a new one.
 
 ```sh
-$ blogcli keys show user1
+blogcli keys show user1
 ```
 
 You will get information about one of the existing accounts (your values will be different):
@@ -264,7 +264,7 @@ You will get information about one of the existing accounts (your values will be
 Transfer some tokens from this account to the new one:
 
 ```sh
-$ blogcli tx send cosmos1wt47yve6l29yjtxtsajhltr2vqhf7mpw5n6fx6 cosmos152gzu3vzf7g9tu46vszgpac24lwr48vc8k8kkh 10foo --from=user1
+blogcli tx send cosmos1wt47yve6l29yjtxtsajhltr2vqhf7mpw5n6fx6 cosmos152gzu3vzf7g9tu46vszgpac24lwr48vc8k8kkh 10foo --from=user1
 ```
 
 Notice that the sender address `cosmos1wt47yve6l29yjtxtsajhltr2vqhf7mpw5n6fx6` is the one we got from running `blogcli keys show me` and the receiver account address `cosmos152gzu3vzf7g9tu46vszgpac24lwr48vc8k8kkh` is the one we have generated from the mnemonic in browser.
@@ -274,7 +274,7 @@ In this guide we're activating accounts manually, but in production apps you mig
 Now that you that we've created the app and set up our account, let's run it!
 
 ```
-$ npm run serve
+npm run serve
 ```
 
 Open `http://localhost:1234/` and try creating new posts. New posts should show up in the list after 2-4 seconds after submission. Notice that posts persist after you refresh the page.

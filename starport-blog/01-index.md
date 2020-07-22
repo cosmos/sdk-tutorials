@@ -285,17 +285,17 @@ starport serve
 
 This command installs dependencies, builds and initializes the app, and runs servers. You can also do it manually:
 
-1. `$ go mod tidy` cleans up dependencies.
-2. `$ make` builds your app and creates two binaries in your go path: `blogd` and `blogcli`.
+1. `go mod tidy` cleans up dependencies.
+2. `make` builds your app and creates two binaries in your go path: `blogd` and `blogcli`.
 3. Initialization scripts in the `Makefile` removes data directories, configures your app and generates two accounts. By default your app stores data in your home directory in `~/.blogd` and `~/.blogcli`. The script removes them, so every time you have a clean state.
-4. `$ blogd start` launches your app. After a couple of seconds you will see hashes of blocks being generated. Leave this terminal window open and open a new one.
+4. `blogd start` launches your app. After a couple of seconds you will see hashes of blocks being generated. Leave this terminal window open and open a new one.
 
 Note: depending on your OS and firewall settings, you may have to accept a prompt asking if your application's binary (`blogd` in this case) can accept external connections.
 
 Run the following command to create a post:
 
 ```sh
-$ blogcli tx blog create-post 'This is a post!" --from=user1
+blogcli tx blog create-post 'This is a post!" --from=user1
 ```
 
 “This is a post!” is a title for our post and `--from=user1` tells the program who is creating this post. `user1` is a label for your pair of keys used to sign the transaction, created by initialization script previously. Keys are stored in `~/.blogcli`.
@@ -332,7 +332,7 @@ import (
 ### Unknown command "create-post" for "blog"
 
 ```sh
-$ blogcli tx blog create-post Hello! --from=user1
+blogcli tx blog create-post Hello! --from=user1
 ERROR: unknown command "create-post" for "blog"
 ```
 
@@ -341,7 +341,7 @@ Make sure you’ve added `GetCmdCreatePost(cdc)`, to `func GetTxCmd` in `x/blog/
 ### Cannot encode unregistered concrete type
 
 ```sh
-$ blogcli tx blog create-post Hello! --from=user1
+blogcli tx blog create-post Hello! --from=user1
 panic: Cannot encode unregistered concrete type types.MsgCreatePost.
 ```
 

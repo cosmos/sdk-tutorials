@@ -94,19 +94,19 @@ This function uses an prefix iterator to loop through all the keys with a given 
 Now let’s see how it works. Run the following command to recompile your app, clear the data and relaunch the chain:
 
 ```sh
-$ starport serve
+starport serve
 ```
 
 After the app has launched, open a different terminal window and create a post:
 
 ```sh
-$ blogcli tx blog create-post Hello! --from=user1
+blogcli tx blog create-post Hello! --from=user1
 ```
 
 Now run the query to see the post:
 
 ```sh
-$ blogcli query blog list-posts
+blogcli query blog list-posts
 ```
 
 ```json
@@ -134,7 +134,7 @@ The result of this query is a base64 encoded string inside `result.response.valu
 ### `null`
 
 ```
-$ blogcli q blog list-posts
+blogcli q blog list-posts
 null
 ```
 

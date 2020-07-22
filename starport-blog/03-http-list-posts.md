@@ -48,7 +48,7 @@ To build your app and launch servers, run:
 starport serve
 ```
 
-Alternatively, follow instructions in Part 1 to recompile and relaunch your app and add some test posts to the store. Make sure `$ blogcli q blog list-posts` returns a list of posts.
+Alternatively, follow instructions in Part 1 to recompile and relaunch your app and add some test posts to the store. Make sure `blogcli q blog list-posts` returns a list of posts.
 
 To launch our HTTP server run the following command in a different terminal window:
 

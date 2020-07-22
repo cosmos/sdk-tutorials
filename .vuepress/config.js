@@ -32,6 +32,11 @@ module.exports = {
               path: "/starport-blog/",
               directory: true,
             },
+            {
+              title: "Starport Polling App",
+              path: "/starport-polling-app/",
+              directory: true,
+            },
           ],
         },
       ],
