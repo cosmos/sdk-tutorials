@@ -24,5 +24,8 @@
   "homepage": "https://github.com/cosmos/sdk-tutorials#readme",
   "dependencies": {
     "vuepress-theme-cosmos": "^1.0.168"
+  },
+  "devDependencies": {
+    "watchpack": "^1.6.1"
   }
 }
