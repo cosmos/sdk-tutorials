@@ -37,6 +37,11 @@ module.exports = {
               path: "/starport-polling-app/",
               directory: true,
             },
+            {
+              title: "Starport Smart Contracts",
+              path: "/starport-smart-contracts/",
+              directory: true,
+            },
           ],
         },
       ],
