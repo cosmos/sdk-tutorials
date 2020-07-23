@@ -32,7 +32,7 @@ starport app github.com/example/blog
 
 This blog app will store data in a persistent key-value store. Similarly to most key-value stores, you can retrieve, delete, update, and loop through keys to obtain the values you are interested in.
 
-We’ll be creating a simple todo list app, so let’s define the first type, the `Post`.
+We’ll be creating a simple blog-like application, so let’s define the first type, the `Post`.
 
 ## x/blog/types/types.go
 
