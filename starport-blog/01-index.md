@@ -24,7 +24,7 @@ brew install tendermint/tap/starport
 
 Alternatively, Starport can be built [from source](http://github.com/tendermint/starport).
 
-After `starport` is installed, use it to create the initial app structure:
+After `starport` is installed, use it to create the initial app structure inside a directory named `blog`:
 
 ```
 starport app github.com/example/blog
