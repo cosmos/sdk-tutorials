@@ -218,7 +218,7 @@ func handleMsgCreatePost(ctx sdk.Context, k Keeper, msg types.MsgCreatePost) (*s
 }
 ```
 
-In this handler you create a `Post` object (post type was defined in the very first step). You populate the post object with creator and title from the message (`msg.Creator` and `msg.Title`) and generate a unique ID with `uuid.New().String()`. Make sure to add `"github.com/google/uuid"` to the import at the top of this file.
+In this handler you create a `Post` object (post type was defined in the very first step). You populate the post object with creator and title from the message (`msg.Creator` and `msg.Title`) and use the unique ID that was generated in `tx.go` with `NewMsgCreatePost()` using `uuid.New().String()`.
 
 After creating a post object with creator, ID and title, message handler calls `k.CreatePost(ctx, post)`. “k” stands for Keeper, an abstraction used by the SDK that writes data to the store. Let’s define `CreatePost` keeper function.
 
