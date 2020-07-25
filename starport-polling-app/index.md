@@ -4,7 +4,7 @@
 
 We will be creating a simple poll application, in which a user can sign in, create polls, cast votes and see voting results. Creating a poll will cost 200 tokens, voting is free, and both actions will be available only for signed in users.
 
-For this tutorial we will be using [Starport](https://github.com/tendermint/starport), an easy to use tool for building blockchains. Install Starport and run the following command to create a voter project:
+For this tutorial we will be using [Starport](https://github.com/tendermint/starport), an easy to use tool for building blockchains. [Install Starport](https://github.com/tendermint/starport#installation) and run the following command to create a voter project:
 
 ```
 starport app github.com/alice/voter
@@ -262,7 +262,7 @@ Restart the application and try voting multiple times on a single poll, you'll s
 
 Let's make it so that creating a poll costs 200 tokens.
 
-This feature is very easy to add. We already require users to have accounts registered, and each user has tokens on balance. The only thing we need to do is to send coins from user's account to a module account before we create a poll. 
+This feature is very easy to add. We already require users to have accounts registered, and each user has tokens on balance. The only thing we need to do is to send coins from user's account to a module account before we create a poll.
 
 ## `x/voter/handlerMsgCreatePoll.go`:
 
