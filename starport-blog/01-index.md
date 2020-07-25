@@ -220,7 +220,7 @@ func handleMsgCreatePost(ctx sdk.Context, k Keeper, msg types.MsgCreatePost) (*s
 
 In this handler you create a `Post` object (post type was defined in the very first step). You populate the post object with creator and title from the message (`msg.Creator` and `msg.Title`) and use the unique ID that was generated in `tx.go` with `NewMsgCreatePost()` using `uuid.New().String()`.
 
-After creating a post object with creator, ID and title, message handler calls `k.CreatePost(ctx, post)`. “k” stands for Keeper, an abstraction used by the SDK that writes data to the store. Let’s define `CreatePost` keeper function.
+After creating a post object with creator, ID and title, the message handler calls `k.CreatePost(ctx, post)`. “k” stands for Keeper, an abstraction used by the SDK that writes data to the store. Let’s define the `CreatePost` keeper function.
 
 ## x/blog/keeper/keeper.go
 
