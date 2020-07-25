@@ -18,7 +18,7 @@ We'll be creating posts by sending `POST` requests to the same endpoint: `/blog/
 	r.HandleFunc("/blog/posts", createPostHandler(cliCtx)).Methods("POST")
 ```
 
-Now let's create `createPostHandler`.
+Now let's create `createPostHandler` inside a new file you should create at `x/blog/client/rest/tx.go`.
 
 ## `x/blog/client/rest/tx.go`
 
