@@ -165,7 +165,7 @@ starport type vote pollID value
 
 ### `frontend/src/views/Index.vue`
 
-Add `<poll-list />` after the poll form component.
+Add `<poll-list />` into the `frontend/src/view/Index.vue` file after the poll form component. Then make a new component at `frontend/src/components/PollList.vue` and add the following:
 
 ### `frontend/src/components/PollList.vue`
 
