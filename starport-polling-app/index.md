@@ -92,7 +92,7 @@ starport serve
 
 ### `frontend/src/view/Index.vue`
 
-Since we don't need the default form component replace `<type-list />` with a new component `<poll-form />`
+Since we don't need the default form component replace `<type-list />` inside of `frontent/src/views/Index.vue` with a new component `<poll-form />` that will be created in a new file at `frontend/src/components/PollForm.vue`.
 
 ### `frontend/src/components/PollForm.vue`
 
