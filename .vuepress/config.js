@@ -6,6 +6,9 @@ module.exports = {
     docsRepo: 'cosmos/sdk-tutorials',
     editLinks: true,
     label: 'sdk',
+    topbar: {
+      banner: false,
+    },
     sidebar: {
       auto: false,
       nav: [
