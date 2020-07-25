@@ -233,7 +233,7 @@ func (k Keeper) CreatePost(ctx sdk.Context, post types.Post) {
 }
 ```
 
-`CreatePost` creates a key by concatenating a post prefix with an ID. If you look back at how our store looks, you’ll notice keys have prefixes `post-0bae9f7d-20f8-4b51-9d5c-af9103177d66` in this case `post-` . The reason for this is you have one store, but you might want to keep different types of objects in it, like posts and users. Prefixing keys with `post-` and `user-` allows you to share one namespace between different types of objects.
+`CreatePost` creates a key by concatenating a post prefix with an ID. If you look back at how our store looks, you’ll notice keys have prefixes, which is why `post-0bae9f7d-20f8-4b51-9d5c-af9103177d66` contained the prefix `post-` . The reason for this is you have one store, but you might want to keep different types of objects in it, like posts and users. Prefixing keys with `post-` and `user-` allows you to share one storage space between different types of objects.
 
 ## x/blog/types/key.go
 
