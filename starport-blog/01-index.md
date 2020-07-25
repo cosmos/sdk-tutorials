@@ -184,7 +184,7 @@ func (msg MsgCreatePost) ValidateBasic() error {
 
 Going back to `GetCmdCreatePost` in `x/blog/client/cli/tx.go`, you'll see `MsgCreatePost` being created and broadcast with `GenerateOrBroadcastMsgs`.
 
-After being broadcasted, the messages are processed by handlers.
+After being broadcast, the messages are processed by an important part of the SDK, called **handlers**.
 
 ## x/blog/handler.go
 Begin by importing your new blog types that we created:
