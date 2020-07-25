@@ -76,7 +76,7 @@ func createPostHandler(cliCtx context.CLIContext) http.HandlerFunc {
 
 ## Setting up the client-side project
 
-Inside an empty directory create `package.json`:
+Inside a new empty directory create `package.json`:
 
 ```sh
 npm init -y
