@@ -182,7 +182,7 @@ func (msg MsgCreatePost) ValidateBasic() error {
 }
 ```
 
-Going back to `GetCmdCreatePost`, you created a new `MsgCreatePost` message and broadcasted it with `GenerateOrBroadcastMsgs`.
+Going back to `GetCmdCreatePost` in `x/blog/client/cli/tx.go`, you'll see `MsgCreatePost` being created and broadcast with `GenerateOrBroadcastMsgs`.
 
 After being broadcasted, the messages are processed by handlers.
 
