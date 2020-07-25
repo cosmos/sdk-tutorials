@@ -100,7 +100,7 @@ Replace `"scripts"` property in `package.json` with the following:
 }
 ```
 
-Responses from an HTTP server provided by `blogcli rest-server` do not provide `Access-Control-Allow-Origin` headers. This prevents client-side application running from different domains/ports from making successful requests due to browser's CORS policy. In production that can be managed by a web server like Nginx providing the right headers. In development we'll be using `local-cors-proxy` (`lcp`) to act as a proxy between our front-end and server.
+Responses from an HTTP server provided by `blogcli rest-server` do not provide `Access-Control-Allow-Origin` headers. This prevents client-side application running from different domains/ports from making successful requests due to most browsers' CORS policies. In production that can be managed by a web server like Nginx providing the right headers. In development we'll be using `local-cors-proxy` (`lcp`) to act as a proxy between our front-end and server.
 
 The commands under `scripts` work as follows: `preserve` runs first and launches `lcp` in background. `serve` launches a development server and `postserve` kills `lcp` process after you shutdown the server.
 
