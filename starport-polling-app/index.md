@@ -215,7 +215,7 @@ export default {
 </script>
 ```
 
-Poll list component lists for every poll lists all options as buttons. Selecting an option triggers a `submit` method that broadcasts transaction with "create vote" message and fetches data back from our application.
+The `PollList` component lists for every poll, all the options for that poll, as buttons. Selecting an option triggers a `submit` method that broadcasts a transaction with a "create vote" message and fetches data back from our application.
 
 By now should be able to see the same UI as in the first screenshot. Try creating polls and casting votes. You may notice that it's possible to cast multiple votes for one poll. This is not what we want, so let's fix this behaviour.
 
