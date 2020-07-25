@@ -187,7 +187,7 @@ Going back to `GetCmdCreatePost` in `x/blog/client/cli/tx.go`, you'll see `MsgCr
 After being broadcasted, the messages are processed by handlers.
 
 ## x/blog/handler.go
-
+Begin by importing your new blog types that we created:
 ```go
 import (
   // Existing imports...
