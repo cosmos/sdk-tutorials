@@ -10,7 +10,7 @@ Let's create a server that handles `GET` requests to `/blog/posts` endpoint by r
 import (
   // Existing imports...
   "fmt"
-	"net/http"
+  "net/http"
   "github.com/cosmos/cosmos-sdk/types/rest"
 )
 ```
