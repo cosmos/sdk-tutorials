@@ -46,7 +46,7 @@ Our voting applications has two types of entities: polls and votes. A poll is a 
 starport type poll title options
 ```
 
-This command generated code that handles creation of `poll` items. If we now run `starport serve` and visit [http://localhost:8080](http://localhost:8080) we will see a form for creating polls. It may take a short while to rebuild the app, so give it a couple of seconds.
+This command generated code that handles the creation of `poll` items. If we now run `starport serve` and visit [http://localhost:8080](http://localhost:8080) we will see a form for creating polls. It may take a short while to rebuild the app, so give it a couple of seconds.
 
 ![Application screenshot](./2.png)
 
