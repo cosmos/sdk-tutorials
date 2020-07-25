@@ -274,4 +274,4 @@ if err := k.CoinKeeper.SendCoins(ctx, poll.Creator, moduleAcct, payment); err !=
 
 Add the code above before `k.CreatePoll(ctx, poll)`. This way, if a user does not have enough tokens, the application will raise an error and will not proceed to creating a poll. Make sure to add `"[github.com/tendermint/tendermint/crypto](http://github.com/tendermint/tendermint/crypto)"` to the import statement (if your text editor didn't do that for you).
 
-Now, restart the app and try creating several polls to see this affects your token balance.
+Now, restart the app and try creating several polls to see how this affects your token balance.
