@@ -58,7 +58,7 @@ Let's take a look at some of the files modified by the `starport type` command.
 
 ### `x/voter/types/TypePoll.go`
 
-This file contains definition of the `Poll` type. We can see that a poll has two fields (creator and ID), which will be created automatically, and two fields (title and options) defined by us. Since we want `Options` to be a list of string, **replace `string` with `[]string`**
+This file contains definition of the `Poll` type. We can see that a poll has two fields (creator and ID), which will be created automatically, and two fields (title and options) defined by us. Since we want `Options` to be a list of strings, **replace `string` with `[]string`**
 
 ### `x/voter/types/MsgCreatePoll.go`
 
