@@ -44,7 +44,7 @@ type createPostReq struct {
 }
 ```
 
-`createPostHandler` first parses request parameters, performs basic validations, converts `Creator` field from string into SDK account address type, creates `MsgCreatePost` message.
+`createPostHandler` first parses request parameters, performs basic validations, converts `Creator` field from a string into an SDK account address type then finally creates `MsgCreatePost` message.
 
 ```go
 func createPostHandler(cliCtx context.CLIContext) http.HandlerFunc {
