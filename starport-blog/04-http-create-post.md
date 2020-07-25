@@ -185,7 +185,7 @@ const fetchPosts = () => {
 
 `fetchPosts` makes an HTTP GET request to `/blog/posts` and inserts the posts into the `<div id="posts">` container.
 
-Next, we need to define `createPost` function. It will take the value from the text input, fetch required account parameters from the server, fetch an unsigned transaction from the server, sign it using our private key from the wallet, broadcast it back to the server and fetch the list of posts again.
+Next, we need to define the `createPost` function. It will take the value from the text input, fetch the required account parameters from the server, fetch an unsigned transaction from the server, sign it using our private key from the wallet, broadcast it back to the server and fetch the list of posts again.
 
 ```js
 const createPost = () => {
