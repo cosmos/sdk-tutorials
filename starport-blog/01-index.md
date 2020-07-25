@@ -87,7 +87,7 @@ import (
 )
 ```
 
-This file already contains `func GetTxCmd` which defines custom `blogcli` commands. We will add the custom `create-post` command to our `blogcli` by first adding `GetCmdCreatePost`.
+This file already contains `func GetTxCmd` which defines custom `blogcli` commands. We will add the custom `create-post` command to our `blogcli` by first adding `GetCmdCreatePost` to `blogTxCmd`.
 
 ```go
   blogTxCmd.AddCommand(flags.PostCommands(
