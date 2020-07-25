@@ -199,7 +199,7 @@ You should already have `func NewHandler` defined which lists all available hand
 
 ```go
     switch msg := msg.(type) {
-    case MsgCreatePost:
+    case types.MsgCreatePost:
       return handleMsgCreatePost(ctx, k, msg)
     default:
 ```
