@@ -11,7 +11,7 @@ By following this beginner tutorial, you will end up with a simple blog app that
 
 Let's get started! The first step is to [install the `starport](https://github.com/tendermint/starport) CLI tool.
 
-After `starport` is installed, use it to create the initial app structure:
+After `starport` is installed, use it to create the initial app structure inside a directory named `blog`:
 
 ```
 starport app github.com/example/blog
@@ -74,7 +74,7 @@ import (
 )
 ```
 
-This file already contains `func GetTxCmd` which defines custom `blogcli` commands. We will add the custom `create-post` command to our `blogcli` by first adding `GetCmdCreatePost`.
+This file already contains `func GetTxCmd` which defines custom `blogcli` commands. We will add the custom `create-post` command to our `blogcli` by first adding `GetCmdCreatePost` to `blogTxCmd`.
 
 ```go
   blogTxCmd.AddCommand(flags.PostCommands(
@@ -105,10 +105,10 @@ func GetCmdCreatePost(cdc *codec.Codec) *cobra.Command {
 }
 ```
 
-The function above defines what happens when you run `create-post` subcommand. `create-post` takes one argument `[title]`, creates a message `NewMsgCreatePost` (with title as `args[0]`) and broadcasts this message.
+The function above defines what happens when you run the `create-post` subcommand. `create-post` takes one argument `[title]`, creates a message `NewMsgCreatePost` (with title as `args[0]`) and broadcasts this message to be processed in your application.
 This is a common pattern in the SDK: users make changes to the store by broadcasting messages. Both CLI commands and HTTP requests create messages that can be broadcasted in order for state transition to occur.
 
-Let’s define `NewMsgCreatePost`.
+Let’s define `NewMsgCreatePost` in a new file you should create as `x/blog/types/MsgCreatePost.go`.
 
 ## x/blog/types/MsgCreatePost.go
 
@@ -140,7 +140,7 @@ func NewMsgCreatePost(creator sdk.AccAddress, title string) MsgCreatePost {
 }
 ```
 
-`NewMsgCreatePost` is a constructor function that creates `MsgCreatePost` message. The following five functions have to be defined to implement `Msg` interface. They allow you to perform validation that doesn’t require access to store (like checking for empty values), etc.
+`NewMsgCreatePost` is a constructor function that creates the `MsgCreatePost` message. The following five functions have to be defined to implement the `Msg` interface. They allow you to perform validation that doesn’t require access to the store (like checking for empty values), etc.
 
 ```go
 // Route ...
@@ -169,12 +169,12 @@ func (msg MsgCreatePost) ValidateBasic() error {
 }
 ```
 
-Going back to `GetCmdCreatePost`, you created a new `MsgCreatePost` message and broadcasted it with `GenerateOrBroadcastMsgs`.
+Going back to `GetCmdCreatePost` in `x/blog/client/cli/tx.go`, you'll see `MsgCreatePost` being created and broadcast with `GenerateOrBroadcastMsgs`.
 
-After being broadcasted, the messages are processed by handlers.
+After being broadcast, the messages are processed by an important part of the SDK, called **handlers**.
 
 ## x/blog/handler.go
-
+Begin by importing your new blog types that we created:
 ```go
 import (
   // Existing imports...
@@ -186,7 +186,7 @@ You should already have `func NewHandler` defined which lists all available hand
 
 ```go
     switch msg := msg.(type) {
-    case MsgCreatePost:
+    case types.MsgCreatePost:
       return handleMsgCreatePost(ctx, k, msg)
     default:
 ```
@@ -194,7 +194,7 @@ You should already have `func NewHandler` defined which lists all available hand
 Now let’s define `handleMsgCreatePost`:
 
 ```go
-func handleMsgCreatePost(ctx sdk.Context, k Keeper, msg MsgCreatePost) (*sdk.Result, error) {
+func handleMsgCreatePost(ctx sdk.Context, k Keeper, msg types.MsgCreatePost) (*sdk.Result, error) {
   var post = types.Post{
     Creator: msg.Creator,
     ID:      msg.ID,
@@ -205,9 +205,9 @@ func handleMsgCreatePost(ctx sdk.Context, k Keeper, msg MsgCreatePost) (*sdk.Res
 }
 ```
 
-In this handler you create a `Post` object (post type was defined in the very first step). You populate the post object with creator and title from the message (`msg.Creator` and `msg.Title`) and generate a unique ID with `uuid.New().String()`. Make sure to add `"github.com/google/uuid"` to the import at the top of this file.
+In this handler you create a `Post` object (post type was defined in the very first step). You populate the post object with creator and title from the message (`msg.Creator` and `msg.Title`) and use the unique ID that was generated in `tx.go` with `NewMsgCreatePost()` using `uuid.New().String()`.
 
-After creating a post object with creator, ID and title, message handler calls `k.CreatePost(ctx, post)`. “k” stands for Keeper, an abstraction used by the SDK that writes data to the store. Let’s define `CreatePost` keeper function.
+After creating a post object with creator, ID and title, the message handler calls `k.CreatePost(ctx, post)`. “k” stands for Keeper, an abstraction used by the SDK that writes data to the store. Let’s define the `CreatePost` keeper function.
 
 ## x/blog/keeper/keeper.go
 
@@ -220,7 +220,7 @@ func (k Keeper) CreatePost(ctx sdk.Context, post types.Post) {
 }
 ```
 
-`CreatePost` creates a key by concatenating a post prefix with an ID. If you look back at how our store looks, you’ll notice keys have prefixes `post-0bae9f7d-20f8-4b51-9d5c-af9103177d66` in this case `post-` . The reason for this is you have one store, but you might want to keep different types of objects in it, like posts and users. Prefixing keys with `post-` and `user-` allows you to share one namespace between different types of objects.
+`CreatePost` creates a key by concatenating a post prefix with an ID. If you look back at how our store looks, you’ll notice keys have prefixes, which is why `post-0bae9f7d-20f8-4b51-9d5c-af9103177d66` contained the prefix `post-` . The reason for this is you have one store, but you might want to keep different types of objects in it, like posts and users. Prefixing keys with `post-` and `user-` allows you to share one storage space between different types of objects.
 
 ## x/blog/types/key.go
 

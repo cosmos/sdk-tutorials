@@ -46,7 +46,7 @@ Our voting applications has two types of entities: polls and votes. A poll is a 
 starport type poll title options
 ```
 
-This command generated code that handles creation of `poll` items. If we now run `starport serve` and visit [http://localhost:8080](http://localhost:8080) we will see a form for creating polls. It may take a short while to rebuild the app, so give it a couple of seconds.
+This command generated code that handles the creation of `poll` items. If we now run `starport serve` and visit [http://localhost:8080](http://localhost:8080) we will see a form for creating polls. It may take a short while to rebuild the app, so give it a couple of seconds.
 
 ![Application screenshot](./2.png)
 
@@ -165,7 +165,7 @@ starport type vote pollID value
 
 ### `frontend/src/views/Index.vue`
 
-Add `<poll-list />` after the poll form component.
+Add `<poll-list />` into the `frontend/src/view/Index.vue` file after the poll form component. Then make a new component at `frontend/src/components/PollList.vue` and add the following:
 
 ### `frontend/src/components/PollList.vue`
 
@@ -215,7 +215,7 @@ export default {
 </script>
 ```
 
-Poll list component lists for every poll lists all options as buttons. Selecting an option triggers a `submit` method that broadcasts transaction with "create vote" message and fetches data back from our application.
+The `PollList` component lists for every poll, all the options for that poll, as buttons. Selecting an option triggers a `submit` method that broadcasts a transaction with a "create vote" message and fetches data back from our application.
 
 By now should be able to see the same UI as in the first screenshot. Try creating polls and casting votes. You may notice that it's possible to cast multiple votes for one poll. This is not what we want, so let's fix this behaviour.
 
@@ -223,7 +223,7 @@ By now should be able to see the same UI as in the first screenshot. Try creatin
 
 To fix this issue we first have to understand how data is stored in our application.
 
-We can think of our data storage as a lexiographically order key value store. You can loop through the entries, filter by key prefix, add, update and delete entries. It is easier to visualize the store as a JSON:
+We can think of our data storage as a lexicographically ordered key value store. You can loop through the entries, filter by key prefix, add, update and delete entries. It is easier to visualize the store as JSON:
 
 ```json
 {
@@ -256,13 +256,15 @@ These strings are unique and we get duplicate votes. To fix that we need to make
 key := []byte(types.VotePrefix + vote.PollID + "-" + string(vote.Creator))
 ```
 
-Restart the application and try voting multiple times on a single poll.
+Restart the application and try voting multiple times on a single poll, you'll see you can vote as many times as you want but only your most recent vote is counted.
 
 ## Introducing a fee for creating polls
 
 Let's make it so that creating a poll costs 200 tokens.
 
-This feature is very easy to add. We already require users to have accounts registered, and each user has tokens on balance. The only thing we need to do is to send coins from user's account to a module account before we create a poll. `x/voter/handlerMsgCreatePoll.go`:
+This feature is very easy to add. We already require users to have accounts registered, and each user has tokens on balance. The only thing we need to do is to send coins from user's account to a module account before we create a poll. 
+
+## `x/voter/handlerMsgCreatePoll.go`:
 
 ```go
 moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
@@ -274,4 +276,4 @@ if err := k.CoinKeeper.SendCoins(ctx, poll.Creator, moduleAcct, payment); err !=
 
 Add the code above before `k.CreatePoll(ctx, poll)`. This way, if a user does not have enough tokens, the application will raise an error and will not proceed to creating a poll. Make sure to add `"[github.com/tendermint/tendermint/crypto](http://github.com/tendermint/tendermint/crypto)"` to the import statement (if your text editor didn't do that for you).
 
-Now, restart the app and try creating several polls to see this affects your token balance.
+Now, restart the app and try creating several polls to see how this affects your token balance.

@@ -267,11 +267,11 @@ Transfer some tokens from this account to the new one:
 blogcli tx send cosmos1wt47yve6l29yjtxtsajhltr2vqhf7mpw5n6fx6 cosmos152gzu3vzf7g9tu46vszgpac24lwr48vc8k8kkh 10foo --from=user1
 ```
 
-Notice that the sender address `cosmos1wt47yve6l29yjtxtsajhltr2vqhf7mpw5n6fx6` is the one we got from running `blogcli keys show me` and the receiver account address `cosmos152gzu3vzf7g9tu46vszgpac24lwr48vc8k8kkh` is the one we have generated from the mnemonic in browser.
+Notice that the sender address can be queried automatically using the sub-command `$(blogcli keys show user1 -a)` with the flag `-a` to show just the address and the receiver account address `cosmos152gzu3vzf7g9tu46vszgpac24lwr48vc8k8kkh` is the one we have generated from the mnemonic in the browser.
 
 In this guide we're activating accounts manually, but in production apps you might want to do it as part of a signing up process.
 
-Now that you that we've created the app and set up our account, let's run it!
+Now that we've created the app and set up our account, let's run it!
 
 ```
 npm run serve

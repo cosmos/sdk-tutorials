@@ -1,6 +1,6 @@
 # Smart contracts with CosmWasm
 
-Cosmos application are often written in Go using Cosmos SDK. The code gets compiled before the chain is launched and effectively the app becomes an intergral part of the chain. If you ever need to update the code of the application, the chain has to go though a process of upgrading.
+Cosmos application are often written in Go using the Cosmos SDK. The code gets compiled before the chain is launched and effectively the app becomes an intergral part of the chain. If you ever need to update the code of the application, the chain has to go though a process of upgrading.
 
 Another way of building applications is by writing smart contracts. A smart contract is a piece of code that gets written (uploaded) to the chain like any other transaction and then can be executed. The main difference (compared to an SDK module) is that you can create new contracts after the chain has launched, thus adding new functionality while the chain is running.
 
