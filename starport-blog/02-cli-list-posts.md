@@ -89,7 +89,7 @@ func listPosts(ctx sdk.Context, k Keeper) ([]byte, error) {
 }
 ```
 
-This function uses an prefix iterator to loop through all the keys with a given prefix (in our case `PostPrefix` is `"post-"`). We’re getting values by key with `store.Get` and appending them to postList. Finally, we unmarshal bytes back to JSON and return the result to the console.
+This function uses a prefix iterator to loop through all the keys with a given prefix (in our case `PostPrefix` is `"post-"`). We’re getting values by key with `store.Get` and appending them to `postList`. Finally, we unmarshal bytes back to JSON and return the result to the console.
 
 Now let’s see how it works. Run the following command to recompile your app, clear the data and relaunch the chain:
 
