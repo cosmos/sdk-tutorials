@@ -153,7 +153,7 @@ func NewMsgCreatePost(creator sdk.AccAddress, title string) MsgCreatePost {
 }
 ```
 
-`NewMsgCreatePost` is a constructor function that creates `MsgCreatePost` message. The following five functions have to be defined to implement `Msg` interface. They allow you to perform validation that doesn’t require access to store (like checking for empty values), etc.
+`NewMsgCreatePost` is a constructor function that creates the `MsgCreatePost` message. The following five functions have to be defined to implement the `Msg` interface. They allow you to perform validation that doesn’t require access to the store (like checking for empty values), etc.
 
 ```go
 // Route ...
