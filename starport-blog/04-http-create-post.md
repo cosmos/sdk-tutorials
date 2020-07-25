@@ -271,7 +271,7 @@ Notice that the sender address can be queried automatically using the sub-comman
 
 In this guide we're activating accounts manually, but in production apps you might want to do it as part of a signing up process.
 
-Now that you that we've created the app and set up our account, let's run it!
+Now that we've created the app and set up our account, let's run it!
 
 ```
 npm run serve
