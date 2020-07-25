@@ -262,7 +262,9 @@ Restart the application and try voting multiple times on a single poll.
 
 Let's make it so that creating a poll costs 200 tokens.
 
-This feature is very easy to add. We already require users to have accounts registered, and each user has tokens on balance. The only thing we need to do is to send coins from user's account to a module account before we create a poll. `x/voter/handlerMsgCreatePoll.go`:
+This feature is very easy to add. We already require users to have accounts registered, and each user has tokens on balance. The only thing we need to do is to send coins from user's account to a module account before we create a poll. 
+
+## `x/voter/handlerMsgCreatePoll.go`:
 
 ```go
 moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
