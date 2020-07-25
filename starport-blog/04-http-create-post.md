@@ -161,7 +161,7 @@ Now let's generate a wallet:
 const wallet = createWalletFromMnemonic(mnemonic);
 ```
 
-If you use the same mnemonic (think of it as a password), you will get the same wallet address: in out case `wallet.address` is `cosmos152gzu3vzf7g9tu46vszgpac24lwr48vc8k8kkh`. If you want to generate unique mnemonics for your users, you can use `bip39` package.
+If you use the same mnemonic (think of it as a password), you will get the same wallet address: in out case `wallet.address` is `cosmos152gzu3vzf7g9tu46vszgpac24lwr48vc8k8kkh`. If you want to generate unique mnemonics for your users, you can use `bip39` [package](https://www.npmjs.com/package/bip39).
 
 Our app will do two things: it will fetch a list of posts and create posts when "Create post" button is clicked.
 
