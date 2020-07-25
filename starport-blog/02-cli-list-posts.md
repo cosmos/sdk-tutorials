@@ -11,7 +11,7 @@ import (
 )
 ```
 
-Function GetQueryCmd is used for creating a list of `query` subcommands, it should already be defined. Edit the function to add `GetCmdListPosts` as a subcommand:
+Function `GetQueryCmd` is used for creating a list of `query` subcommands, it should already be defined. Edit the function to add `GetCmdListPosts` as a subcommand:
 
 ```go
   blogQueryCmd.AddCommand(
