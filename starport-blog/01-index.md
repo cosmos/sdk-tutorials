@@ -287,7 +287,7 @@ Run the following command to create a post:
 blogcli tx blog create-post "This is a post\!" --from=user1
 ```
 
-“This is a post!” is a title for our post and `--from=user1` tells the program who is creating this post. `user1` is a label for your pair of keys used to sign the transaction, created by initialization script previously. Keys are stored in `~/.blogcli`.
+“This is a post!” is a title for our post and `--from=user1` tells the program who is creating this post. `user1` is a label for your pair of keys used to sign the transaction, created by the initialization script located within the `/Makefile` previously. Keys are stored in `~/.blogcli`.
 
 After running the command and confirming it, you will see an object with “txhash” property with a value like `CA1491B39384A4F29E568F62B156E0F2D0601507EF499CE1B8F3930BAFE7F03C`.
 
