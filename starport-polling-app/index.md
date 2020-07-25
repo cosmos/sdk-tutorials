@@ -82,7 +82,7 @@ votercli tx voter create-poll "Text editors" "Emacs" "Vim" --from user1
 
 This command will generate a transaction with "create poll" message, sign it using a private key of `user1` (one of two users created by default) and broadcast it to the blockchain.
 
-The only modification we need to make is to change a line that reads arguments from the console: `argsOptions := args[:len(args)-1]`. This will assume that all arguments after the first one represent a list of options.
+The only modification we need to make is to change a line that reads arguments from the console: `argsOptions := args[1:len(args)]`. This will assume that all arguments after the first one represent a list of options.
 
 Now that we have made all the necessary changes to our app, let's take a look at the client-side application.
 

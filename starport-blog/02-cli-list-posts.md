@@ -43,7 +43,7 @@ func GetCmdListPosts(queryRoute string, cdc *codec.Codec) *cobra.Command {
 }
 ```
 
-`GetCmdListPosts` runs an ABCI query to fetch the data, unmarshals it back form binary to JSON and returns it to the console. ABCI is an interface between your app and Tendermint (a program responsible for replicating the state across machines). ABCI queries look like paths on a hierarchical filesystem. In our case, the query is `custom/blog/list-posts`. Before we continue, we need to define `QueryListPosts`.
+`GetCmdListPosts` runs an [ABCI](https://docs.tendermint.com/master/spec/abci/) query to fetch the data, unmarshals it back form binary to JSON and returns it to the console. ABCI is an interface between your app and Tendermint (a program responsible for replicating the state across machines). ABCI queries look like paths on a hierarchical filesystem. In our case, the query is `custom/blog/list-posts`. Before we continue, we need to define `QueryListPosts`.
 
 ## x/blog/types/querier.go
 
@@ -53,7 +53,7 @@ const (
 )
 ```
 
-## x/blog/client/cli/keeper/querier.go
+## x/blog/keeper/querier.go
 
 ```go
 import (
@@ -121,7 +121,7 @@ blogcli query blog list-posts
 
 That’s a newly created post along with your address and a unique ID. Try creating more posts and see the output.
 
-We can also make ABCI queries from the browser:
+We can also make [ABCI](https://docs.tendermint.com/master/spec/abci/) queries from the browser:
 
 ```
 http://localhost:26657/abci_query?path="custom/blog/list-posts"

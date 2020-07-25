@@ -5,24 +5,11 @@ By following this beginner tutorial, you will end up with a simple blog app that
 ## Prerequisites
 
 - A [recent version of Go](https://golang.org/doc/install) installed.
+- [Node.js](https://nodejs.org/) installed.
 
 ## Getting Started
 
-Let's get started! The first step is to install the `starport` CLI tool:
-
-### NPM
-
-```
-npm install -g @tendermint/starport
-```
-
-### Homebrew
-
-```
-brew install tendermint/tap/starport
-```
-
-Alternatively, Starport can be built [from source](http://github.com/tendermint/starport).
+Let's get started! The first step is to [install the `starport](https://github.com/tendermint/starport) CLI tool.
 
 After `starport` is installed, use it to create the initial app structure:
 
