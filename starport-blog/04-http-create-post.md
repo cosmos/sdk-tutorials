@@ -8,7 +8,6 @@ Let's create a front-end for our blog application. In this guide we will be writ
 import (
   // Existing imports...
   "github.com/example/blog/x/blog/types"
-	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
 )
 ```
 
