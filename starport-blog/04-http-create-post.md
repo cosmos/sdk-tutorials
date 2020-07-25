@@ -264,7 +264,7 @@ You will get information about one of the existing accounts (your values will be
 Transfer some tokens from this account to the new one:
 
 ```sh
-blogcli tx send cosmos1wt47yve6l29yjtxtsajhltr2vqhf7mpw5n6fx6 cosmos152gzu3vzf7g9tu46vszgpac24lwr48vc8k8kkh 10foo --from=user1
+blogcli tx send $(blogcli keys show user1 -a) cosmos152gzu3vzf7g9tu46vszgpac24lwr48vc8k8kkh 10foo --from=user1
 ```
 
 Notice that the sender address can be queried automatically using the sub-command `$(blogcli keys show user1 -a)` with the flag `-a` to show just the address and the receiver account address `cosmos152gzu3vzf7g9tu46vszgpac24lwr48vc8k8kkh` is the one we have generated from the mnemonic in the browser.
