@@ -297,7 +297,7 @@ To verify that the transaction has been processed, open a browser and visit the 
 http://localhost:26657/tx?hash=0xCA1491B39384A4F29E568F62B156E0F2D0601507EF499CE1B8F3930BAFE7F03C
 ```
 
-Congratulations! You have just created and launched your custom blockhain and sent the first transaction.
+Congratulations! You have just created and launched your custom blockchain and sent the first transaction 🎉
 
 ## Errors
 
