@@ -207,7 +207,7 @@ You should already have `func NewHandler` defined which lists all available hand
 Now let’s define `handleMsgCreatePost`:
 
 ```go
-func handleMsgCreatePost(ctx sdk.Context, k Keeper, msg MsgCreatePost) (*sdk.Result, error) {
+func handleMsgCreatePost(ctx sdk.Context, k Keeper, msg types.MsgCreatePost) (*sdk.Result, error) {
   var post = types.Post{
     Creator: msg.Creator,
     ID:      msg.ID,
