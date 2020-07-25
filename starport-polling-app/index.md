@@ -223,7 +223,7 @@ By now should be able to see the same UI as in the first screenshot. Try creatin
 
 To fix this issue we first have to understand how data is stored in our application.
 
-We can think of our data storage as a lexiographically order key value store. You can loop through the entries, filter by key prefix, add, update and delete entries. It is easier to visualize the store as a JSON:
+We can think of our data storage as a lexicographically ordered key value store. You can loop through the entries, filter by key prefix, add, update and delete entries. It is easier to visualize the store as JSON:
 
 ```json
 {
