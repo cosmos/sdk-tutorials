@@ -256,7 +256,7 @@ These strings are unique and we get duplicate votes. To fix that we need to make
 key := []byte(types.VotePrefix + vote.PollID + "-" + string(vote.Creator))
 ```
 
-Restart the application and try voting multiple times on a single poll.
+Restart the application and try voting multiple times on a single poll, you'll see you can vote as many times as you want but only your most recent vote is counted.
 
 ## Introducing a fee for creating polls
 
