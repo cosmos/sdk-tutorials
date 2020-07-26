@@ -86,7 +86,7 @@ The only modification we need to make is to change a line that reads arguments f
 
 Now that we have made all the necessary changes to our app, let's take a look at the client-side application.
 
-```jsx
+```
 starport serve
 ```
 
