@@ -90,6 +90,14 @@ Now that we have made all the necessary changes to our app, let's take a look at
 starport serve
 ```
 
+### Front-end application
+
+Starport has generated a basic front-end for our application. For convenience [Vue.js](https://vuejs.org) framework is used with [Vuex](https://vuex.vuejs.org/) for state management, but since all features of our application are exposed through an HTTP API, clients can be built using any language or framework.
+
+We'll be mostly interested in `frontend/src/views` directory, which contains page templates of our app, `frontend/src/store/index.js` handles sending transactions and receiving data from our blockchain and `frontend/src/components` directory, which contains components, like buttons and forms.
+
+Inside `frontend/src/store/index.js` we import [CosmJS](https://github.com/cosmwasm/cosmjs), a library for handling wallets, creating, signing and broadcasting transactions and define a Vuex store. We'll use `entitySubmit` function for sending data to our blockchain (like a JSON representing a newly created poll), `entityFetch` for requesting a list of polls and `accountUpdate` to fetch information about our token balance.
+
 ### `frontend/src/view/Index.vue`
 
 Since we don't need the default form component replace `<type-list />` inside of `frontent/src/views/Index.vue` with a new component `<poll-form />` that will be created in a new file at `frontend/src/components/PollForm.vue`.
