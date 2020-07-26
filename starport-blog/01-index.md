@@ -19,6 +19,12 @@ starport app github.com/example/blog
 
 One of the main features of Starport is code generation. The command above has generated a directory structure with a working blockchain application. Starport can also add data types to your app with `starport type` command. To see it in action, follow the poll application tutorial. In this guide, however, we'll create those files manually to understand how it all works under the hood.
 
+## Overview
+
+Let's take a quick look at what Starport has generated for us. `app/app.go` file imports and configures SDK modules and creates a constructor for our application that extends a [basic SDK application](https://docs.cosmos.network/master/core/baseapp.html) among other things. This app will use only a couple standard modules bundled with Cosmos SDK (including `auth` for dealing with accounts and `bank` for handling coin transfers) and one module (`x/blog`) that will contain custom functionality.
+
+In `cmd` directory we have source files of two programs for interacting with our application: `blogd` can configure genesis and launch the app and `blogcli` contains commands to send transactions and start an HTTP API server.
+
 This blog app will store data in a persistent key-value store. Similarly to most key-value stores, you can retrieve, delete, update, and loop through keys to obtain the values you are interested in.
 
 We’ll be creating a simple blog-like application, so let’s define the first type, the `Post`.
@@ -174,7 +180,9 @@ Going back to `GetCmdCreatePost` in `x/blog/client/cli/tx.go`, you'll see `MsgCr
 After being broadcast, the messages are processed by an important part of the SDK, called **handlers**.
 
 ## x/blog/handler.go
+
 Begin by importing your new blog types that we created:
+
 ```go
 import (
   // Existing imports...
