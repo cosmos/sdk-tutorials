@@ -67,7 +67,7 @@ With the Cosmos SDK, users can interact with your app with either a CLI (`blogcl
 
 ## x/blog/client/cli/tx.go
 
-In the `import` block, make sure to import these six additional packages:
+In the `import` block, make sure to import these five additional packages:
 
 ```go
 import (
