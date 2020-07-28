@@ -112,6 +112,7 @@ func GetCmdCreatePost(cdc *codec.Codec) *cobra.Command {
 ```
 
 The function above defines what happens when you run the `create-post` subcommand. `create-post` takes one argument `[title]`, creates a message `NewMsgCreatePost` (with title as `args[0]`) and broadcasts this message to be processed in your application.
+
 This is a common pattern in the SDK: users make changes to the store by broadcasting messages. Both CLI commands and HTTP requests create messages that can be broadcasted in order for state transition to occur.
 
 ## x/blog/types/MsgCreatePost.go
