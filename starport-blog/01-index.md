@@ -9,7 +9,7 @@ By following this beginner tutorial, you will end up with a simple blog app that
 
 ## Getting Started
 
-Let's get started! The first step is to [install the `starport](https://github.com/tendermint/starport) CLI tool.
+Let's get started! The first step is to [install the `starport`](https://github.com/tendermint/starport) CLI tool.
 
 After `starport` is installed, use it to create the initial app structure inside a directory named `blog`:
 
@@ -80,7 +80,7 @@ import (
 )
 ```
 
-This file already contains `func GetTxCmd` which defines custom `blogcli` commands. We will add the custom `create-post` command to our `blogcli` by first adding `GetCmdCreatePost` to `blogTxCmd`.
+This file already contains `func GetTxCmd` which defines custom `blogcli` [commands](https://docs.cosmos.network/master/building-modules/module-interfaces.html#cli). We will add the custom `create-post` command to our `blogcli` by first adding `GetCmdCreatePost` to `blogTxCmd`.
 
 ```go
   blogTxCmd.AddCommand(flags.PostCommands(
@@ -113,7 +113,7 @@ func GetCmdCreatePost(cdc *codec.Codec) *cobra.Command {
 
 The function above defines what happens when you run the `create-post` subcommand. `create-post` takes one argument `[title]`, creates a message `NewMsgCreatePost` (with title as `args[0]`) and broadcasts this message to be processed in your application.
 
-This is a common pattern in the SDK: users make changes to the store by broadcasting messages. Both CLI commands and HTTP requests create messages that can be broadcasted in order for state transition to occur.
+This is a common pattern in the SDK: users make changes to the store by broadcasting [messages](https://docs.cosmos.network/master/building-modules/messages-and-queries.html#messages). Both CLI commands and HTTP requests create messages that can be broadcasted in order for state transition to occur.
 
 ## x/blog/types/MsgCreatePost.go
 
@@ -250,7 +250,7 @@ const (
 ## x/blog/types/codec.go
 
 Finally, `store.Set(key, value)` writes our post to the store.
-Two last things to do is tell our encoder how our `MsgCreatePost` is converted to bytes.
+Two last things to do is tell our [encoder](https://docs.cosmos.network/master/core/encoding.html#amino) how our `MsgCreatePost` is converted to bytes.
 
 ```go
 func RegisterCodec(cdc *codec.Codec) {

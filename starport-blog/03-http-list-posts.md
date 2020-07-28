@@ -2,7 +2,7 @@
 
 At some point you may want to create a front-end to your application and interact with it by sending HTTP requests. In part 2 we've seen that sending requests to `/abci_query` is one way of getting data from your app. This works well for testing and certain specific usecases, but for a production application you may want to create a clean API for yourself and other users. This API should probably have short endpoints (without implementation details, like `abci`) and respond differently to HTTP verbs like GET and POST. You may also want to have some request processing logic that handles basic checks and data transformation. Luckily, Cosmos SDK provides just that.
 
-Let's create a server that handles `GET` requests to `/blog/posts` endpoint by returning a list of posts.
+Let's create a [server](https://docs.cosmos.network/master/building-modules/module-interfaces.html#rest) that handles `GET` requests to `/blog/posts` endpoint by returning a list of posts.
 
 ## `x/blog/client/rest/rest.go`
 

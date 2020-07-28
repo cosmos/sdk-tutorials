@@ -80,7 +80,7 @@ Add dependencies:
 npm add parcel-bundler local-cors-proxy axios @tendermint/sig
 ```
 
-We'll be using `parcel-bundler` for bundling our dependencies and development server, `local-cors-proxy` for providing a CORS proxy server as a development replacement for something like Nginx, `axios` for HTTP requests and `@tendermint/sig` for interacting with our application.
+We'll be using [`parcel-bundler`](https://parceljs.org/) for bundling our dependencies and development server, [`local-cors-proxy`](https://github.com/garmeeh/local-cors-proxy) for providing a CORS proxy server as a development replacement for something like Nginx, [`axios`](https://github.com/axios/axios) for HTTP requests and [`@tendermint/sig`](https://github.com/tendermint/sig) for interacting with our application.
 
 Replace `"scripts"` property in `package.json` with the following:
 
