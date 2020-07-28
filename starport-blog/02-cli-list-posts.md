@@ -4,6 +4,8 @@ To list created posts we will be using `blogcli query blog list-posts` command. 
 
 ## x/blog/client/cli/query.go
 
+Make sure to import the `context` package:
+
 ```go
 import (
   // Existing imports...
@@ -47,6 +49,8 @@ func GetCmdListPosts(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 ## x/blog/types/querier.go
 
+Define a `QueryListPosts` that will be used later on to dispatch query requests:
+
 ```go
 const (
   QueryListPosts = "list-posts"
@@ -54,6 +58,8 @@ const (
 ```
 
 ## x/blog/keeper/querier.go
+
+Import `types` package for the `QueryListPosts` constant and `codec` to be able to marshal data into JSON.
 
 ```go
 import (

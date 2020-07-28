@@ -21,11 +21,11 @@ One of the main features of Starport is code generation. The command above has g
 
 ## Overview
 
-Let's take a quick look at what Starport has generated for us. `app/app.go` file imports and configures SDK modules and creates a constructor for our application that extends a [basic SDK application](https://docs.cosmos.network/master/core/baseapp.html) among other things. This app will use only a couple standard modules bundled with Cosmos SDK (including `auth` for dealing with accounts and `bank` for handling coin transfers) and one module (`x/blog`) that will contain custom functionality.
+Let's take a quick look at what Starport has generated for us. [`app/app.go`](https://docs.cosmos.network/master/basics/app-anatomy.html#core-application-file) file imports and configures SDK modules and creates a constructor for our application that extends a [basic SDK application](https://docs.cosmos.network/master/core/baseapp.html) among other things. This app will use only a couple standard modules bundled with Cosmos SDK (including `auth` for dealing with accounts and `bank` for handling coin transfers) and one module (`x/blog`) that will contain custom functionality.
 
-In `cmd` directory we have source files of two programs for interacting with our application: `blogd` can configure genesis and launch the app and `blogcli` contains commands to send transactions and start an HTTP API server.
+In `cmd` directory we have source files of two programs for interacting with our application: `blogd` starts a full-node for your blockchian and `blogcli` enables you to query the full-node, either to update the state by sending a transaction or to read it via a query.
 
-This blog app will store data in a persistent key-value store. Similarly to most key-value stores, you can retrieve, delete, update, and loop through keys to obtain the values you are interested in.
+This blog app will store data in a persistent [key-value store](https://docs.cosmos.network/master/core/store.html). Similarly to most key-value stores, you can retrieve, delete, update, and loop through keys to obtain the values you are interested in.
 
 We’ll be creating a simple blog-like application, so let’s define the first type, the `Post`.
 
@@ -114,9 +114,9 @@ func GetCmdCreatePost(cdc *codec.Codec) *cobra.Command {
 The function above defines what happens when you run the `create-post` subcommand. `create-post` takes one argument `[title]`, creates a message `NewMsgCreatePost` (with title as `args[0]`) and broadcasts this message to be processed in your application.
 This is a common pattern in the SDK: users make changes to the store by broadcasting messages. Both CLI commands and HTTP requests create messages that can be broadcasted in order for state transition to occur.
 
-Let’s define `NewMsgCreatePost` in a new file you should create as `x/blog/types/MsgCreatePost.go`.
-
 ## x/blog/types/MsgCreatePost.go
+
+Let’s define `NewMsgCreatePost` in a new file you should create as `x/blog/types/MsgCreatePost.go`.
 
 ```go
 package types
@@ -177,7 +177,7 @@ func (msg MsgCreatePost) ValidateBasic() error {
 
 Going back to `GetCmdCreatePost` in `x/blog/client/cli/tx.go`, you'll see `MsgCreatePost` being created and broadcast with `GenerateOrBroadcastMsgs`.
 
-After being broadcast, the messages are processed by an important part of the SDK, called **handlers**.
+After being broadcast, the messages are processed by an important part of the application, called **handlers**.
 
 ## x/blog/handler.go
 
@@ -215,9 +215,11 @@ func handleMsgCreatePost(ctx sdk.Context, k Keeper, msg types.MsgCreatePost) (*s
 
 In this handler you create a `Post` object (post type was defined in the very first step). You populate the post object with creator and title from the message (`msg.Creator` and `msg.Title`) and use the unique ID that was generated in `tx.go` with `NewMsgCreatePost()` using `uuid.New().String()`.
 
-After creating a post object with creator, ID and title, the message handler calls `k.CreatePost(ctx, post)`. “k” stands for Keeper, an abstraction used by the SDK that writes data to the store. Let’s define the `CreatePost` keeper function.
+After creating a post object with creator, ID and title, the message handler calls `k.CreatePost(ctx, post)`. “k” stands for [Keeper](https://docs.cosmos.network/master/building-modules/keeper.html), an abstraction used by the SDK that writes data to the store. Let’s define the `CreatePost` keeper function.
 
 ## x/blog/keeper/keeper.go
+
+Add a `CreatePost` function that takes two arguments: a [context](https://docs.cosmos.network/master/core/context.html#context-definition) and a post.
 
 ```go
 func (k Keeper) CreatePost(ctx sdk.Context, post types.Post) {

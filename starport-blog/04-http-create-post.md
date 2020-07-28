@@ -4,13 +4,6 @@ Let's create a front-end for our blog application. In this guide we will be writ
 
 ## `x/blog/client/rest/rest.go`
 
-```go
-import (
-  // Existing imports...
-  "github.com/example/blog/x/blog/types"
-)
-```
-
 We'll be creating posts by sending `POST` requests to the same endpoint: `/blog/posts`. To add a handler add the following line to `func RegisterRoutes`:
 
 ```go

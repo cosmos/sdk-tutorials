@@ -6,6 +6,8 @@ Let's create a server that handles `GET` requests to `/blog/posts` endpoint by r
 
 ## `x/blog/client/rest/rest.go`
 
+Import the standard `fmt` and `net/http` packages and `rest` to process a response (include both a body of a reponse along with a height at which the resource was queried):
+
 ```go
 import (
   // Existing imports...
