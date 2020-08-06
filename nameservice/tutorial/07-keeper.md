@@ -31,8 +31,14 @@ type Keeper struct {
 
 A couple of notes about the above code:
 
-- 3 different `cosmos-sdk` packages are imported: - [`codec`](https://godoc.org/github.com/cosmos/cosmos-sdk/codec) - the `codec` provides tools to work with the Cosmos encoding format, [Amino](https://github.com/tendermint/go-amino). - [`bank`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank) - the `bank` module controls accounts and coin transfers. - [`types`](https://godoc.org/github.com/cosmos/cosmos-sdk/types) - `types` contains commonly used types throughout the SDK.
-- The `Keeper` struct. In this keeper there are a couple of key pieces: - [`bank.Keeper`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#Keeper) - This is a reference to the `Keeper` from the `bank` module. Including it allows code in this module to call functions from the `bank` module. The SDK uses an [object capabilities](https://en.wikipedia.org/wiki/Object-capability_model) approach to accessing sections of the application state. This is to allow developers to employ a least authority approach, limiting the capabilities of a faulty or malicious module from affecting parts of state it doesn't need access to. - [`*codec.Codec`](https://godoc.org/github.com/cosmos/cosmos-sdk/codec#Codec) - This is a pointer to the codec that is used by Amino to encode and decode binary structs. - [`sdk.StoreKey`](https://godoc.org/github.com/cosmos/cosmos-sdk/types#StoreKey) - This is a store key which gates access to a `sdk.KVStore` which persists the state of your application: the Whois struct that the name points to (i.e. `map[name]Whois`).
+- Two `cosmos-sdk` packages and `types` for your application are imported:
+  - [`codec`](https://godoc.org/github.com/cosmos/cosmos-sdk/codec) - the `codec` provides tools to work with the Cosmos encoding format, [Amino](https://github.com/tendermint/go-amino).
+  - [`types` (as sdk)](https://godoc.org/github.com/cosmos/cosmos-sdk/types) - this contains commonly used types throughout the SDK.
+  - `types` - it contains `BankKeeper` you have defined in previous section.
+- The `Keeper` struct. In this keeper there are a couple of key pieces:
+  - `types.BankKeeper` - This is an interface you had defined previous section to use `bank` module. Including it allows code in this module to call functions from the `bank` module. The SDK uses an [object capabilities](https://en.wikipedia.org/wiki/Object-capability_model) approach to accessing sections of the application state. This is to allow developers to employ a least authority approach, limiting the capabilities of a faulty or malicious module from affecting parts of state it doesn't need access to.
+  - [`*codec.Codec`](https://godoc.org/github.com/cosmos/cosmos-sdk/codec#Codec) - This is a pointer to the codec that is used by Amino to encode and decode binary structs.
+  - [`sdk.StoreKey`](https://godoc.org/github.com/cosmos/cosmos-sdk/types#StoreKey) - This is a store key which gates access to a `sdk.KVStore` which persists the state of your application: the Whois struct that the name points to (i.e. `map[name]Whois`).
 
 ## Getters and Setters
 
@@ -55,7 +61,7 @@ In this method, first get the store object for the `map[name]Whois` using the th
 
 Next, you insert the `<name, whois>` pair into the store using its `.Set([]byte, []byte)` method. As the store only takes `[]byte`, we use the Cosmos SDK encoding library called Amino to marshal the `Whois` struct to `[]byte` to be inserted into the store.
 
-If the owner field of a Whois is empty, we do not write anything to the store, as all names that exist must have an owner.
+If the owner field of a `Whois` is empty, we do not write anything to the store, as all names that exist must have an owner.
 
 Next, add a method to resolve the names (i.e. look up the `Whois` for the `name`):
 
@@ -73,9 +79,9 @@ func (k Keeper) GetWhois(ctx sdk.Context, name string) types.Whois {
 }
 ```
 
-Here, like in the `SetName` method, first access the store using the `StoreKey`. Next, instead of using the `Set` method on the store key, use the `.Get([]byte) []byte` method. As the parameter into the function, pass the key, which is the `name` string casted to `[]byte`, and get back the result in the form of `[]byte`. We once again use Amino, but this time to unmarshal the byteslice back into a `Whois` struct which we then return.
+Here, like in the `SetName` method, first access the store using the `storeKey`. Next, instead of using the `Set` method on the store key, use the `.Get([]byte) []byte` method. As the parameter into the function, pass the key, which is the `name` string casted to `[]byte`, and get back the result in the form of `[]byte`. We once again use Amino, but this time to unmarshal the byteslice back into a `Whois` struct which we then return.
 
-If a name currently does not exist in the store, it returns a new Whois, which has the minimumPrice initialized in it.
+If a name currently does not exist in the store, it returns a new `Whois`, which has the minimumPrice initialized in it.
 
 Next, add a method to delete the names:
 
@@ -87,9 +93,9 @@ func (k Keeper) DeleteWhois(ctx sdk.Context, name string) {
 }
 ```
 
-Here, like in the `SetName` method, first access the store using the `StoreKey`. Next, we delete the name from the store using its `.Delete([]byte)` method. As the store only takes `[]byte`, the `name` string is casted to `[]byte` while passing it as a function parameter.
+Here, like in the `SetName` method, first access the store using the `storeKey`. Next, we delete the name from the store using its `.Delete([]byte)` method. As the store only takes `[]byte`, the `name` string is casted to `[]byte` while passing it as a function parameter.
 
-Now, we add functions for getting specific parameters from the store based on the name. However, instead of rewriting the store getters and setters, we reuse the `GetWhois` and `SetWhois` functions. For example, to set a field, first we grab the whole Whois data, update our specific field, and put the new version back into the store.
+Now, we add functions for getting specific parameters from the store based on the name. However, instead of rewriting the store getters and setters, we reuse the `GetWhois` and `SetWhois` functions. For example, to set a field, first we grab the whole `Whois` data, update our specific field, and put the new version back into the store.
 
 ```go
 // ResolveName - returns the string that the name resolves to
@@ -109,7 +115,7 @@ func (k Keeper) HasOwner(ctx sdk.Context, name string) bool {
 	return !k.GetWhois(ctx, name).Owner.Empty()
 }
 
-// GetOwner - get the current owner of a name
+// GetOwner - gets the current owner of a name
 func (k Keeper) GetOwner(ctx sdk.Context, name string) sdk.AccAddress {
 	return k.GetWhois(ctx, name).Owner
 }
@@ -164,4 +170,4 @@ func NewKeeper(cdc *codec.Codec, storeKey sdk.StoreKey, coinKeeper types.BankKee
 }
 ```
 
-Next its time to move onto describing how users interact with your new store using `Msgs` and `Handlers`
+Next, its time to move onto describing how users interact with your new store using `Msgs` and `Handlers`.
