@@ -75,7 +75,6 @@ Finally, define the `DeleteName` `handler` function which performs the state tra
 
 ```go
 // Handle a message to delete name
-// Handle a message to delete name
 func handleMsgDeleteName(ctx sdk.Context, keeper Keeper, msg MsgDeleteName) (*sdk.Result, error) {
 	if !keeper.IsNamePresent(ctx, msg.Name) {
 		return nil, sdkerrors.Wrap(types.ErrNameDoesNotExist, msg.Name)
