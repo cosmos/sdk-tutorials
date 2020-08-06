@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "A collection of tutorials for building with the Cosmos SDK",
   "main": "index.js",
-  "scripts": {
-    "serve": "vuepress dev --no-cache",
-    "build": "vuepress build --no-cache"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cosmos/sdk-tutorials.git"
+  },
+  "scripts": {
+    "serve": "vuepress dev --no-cache",
+    "build": "vuepress build --no-cache"
   },
   "keywords": [
     "Cosmos",
