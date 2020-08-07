@@ -52,7 +52,7 @@ func GetCmdListGreetings(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			route := fmt.Sprintf("custom/%s/list/%s", queryRoute, addr)
 			res, _, err := cliCtx.QueryWithData(route, nil)
 			if err != nil {
-				return nil
+				return err
 			}
 
 			out := gtypes.NewQueryResGreetings()
