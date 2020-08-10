@@ -2,7 +2,7 @@
 order: 0
 ---
 
-# Create posts with HTTP
+# 4. Create posts with HTTP
 
 Let's create a front-end for our blog application. In this guide we will be writing a client-side application in JavaScript that can create a wallet (public/private key pair), fetch a list of posts from our server, create posts and send to our server.
 
