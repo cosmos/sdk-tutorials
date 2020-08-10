@@ -1,8 +1,4 @@
----
-order: 1
----
-
-# 1. Create posts
+# Create posts
 
 By following this beginner tutorial, you will end up with a simple blog app that is powered by the Cosmos SDK.
 
