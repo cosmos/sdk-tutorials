@@ -31,7 +31,7 @@ The goal of this chain is to provide a blueprint for your own application specif
 
 ## [Starport Blog](./starport-blog/01-index.md)
 
-Learn how Starport works by building a blog without scaffolding.
+Learn how Starport works by building a blog.
 
 ## [Starport Polling App](./starport-polling-app/index.md)
 
