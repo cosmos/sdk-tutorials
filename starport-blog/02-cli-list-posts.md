@@ -1,3 +1,7 @@
+---
+order: 2
+---
+
 # List posts
 
 To list created posts we will be using `blogcli query blog list-posts` command. `list-posts` subcommand hasn’t been defined yet, so let’s do it now. [Query commands](https://docs.cosmos.network/master/building-modules/querier.html) from the CLI are handled by `query.go`.
