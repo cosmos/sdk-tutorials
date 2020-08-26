@@ -118,8 +118,8 @@ a
   &__alt {
     margin-top: 0.75rem;
     margin-bottom: 2rem;
-    font-size: 1.25rem;
-    line-height: 1.75rem;
+    font-size: 1.5rem;
+    line-height: 2.25rem;
   }
 }
 
@@ -156,22 +156,21 @@ a
 
     &__tag {
       color: var(--tag-text-color);
-      font-size: 14px;
-      line-height: 20px;
+      font-size: 0.875rem;
+      line-height: 1.25rem;
       letter-spacing: 0.03em;
       text-transform: capitalize;
       background: var(--tag-background-color);
-      border-radius: 4px;
-      padding: 2px 8px;
+      border-radius: 0.25rem;
+      padding: 0.125rem 0.5rem;
       width: fit-content;
     }
 
     &__title {
-      font-weight: 500;
-      font-size: 1.25rem;
-      line-height: 1.75rem;
-      letter-spacing: -0.01em;
-      color: #000000;
+      font-weight: 600;
+      font-size: 1.125rem;
+      line-height: 1.6875rem;
+      color: var(--color-text, inherit);
       margin-bottom: 0.5rem;
     }
 
@@ -179,7 +178,7 @@ a
       font-size: 0.875rem;
       line-height: 1.25rem;
       letter-spacing: 0.03em;
-      color: rgba(0, 0, 0, 0.667);
+      color: var(--color-text-dim, inherit);
     }
   }
 }
@@ -191,8 +190,7 @@ a
   margin-bottom: 4rem;
 
   &__item {
-    color: var(--color-text, black);
-    transition: box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out;
+    color: var(--color-text, inherit);
 
     &:active {
       opacity: 0.7;
@@ -205,16 +203,16 @@ a
     }
 
     &__h1 {
-      font-size: 1.25rem;
+      font-size: 1rem;
       line-height: 1.5rem;
       font-weight: 600;
-      margin-top: 12px;
-      margin-bottom: 12px;
+      margin-top: 0.5rem;
+      margin-bottom: 0.25rem;
     }
 
     &__p {
       font-size: 0.875rem;
-      color: rgba(22, 25, 49, 0.65);
+      color: var(--color-text-dim, inherit);
       line-height: 1.25rem;
     }
 
@@ -228,6 +226,13 @@ a
   .p {
     font-size: 1.25rem;
     line-height: 1.75rem;
+
+    &__alt {
+      margin-top: 0.75rem;
+      margin-bottom: 2rem;
+      font-size: 1.5rem;
+      line-height: 2.25rem;
+    }
   }
 }
 
@@ -290,24 +295,6 @@ a
       padding: 0.1px 1rem 1rem;
       background: white;
       border-radius: 0.5rem;
-    }
-  }
-
-  .stack {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    margin-bottom: 3rem;
-
-    &__item {
-      &__text {
-        grid-template-columns: 3rem 1fr;
-        text-align: start;
-      }
-
-      &__h1 {
-        font-size: inherit;
-        line-height: inherit;
-        margin-bottom: 0.5rem;
-      }
     }
   }
 }

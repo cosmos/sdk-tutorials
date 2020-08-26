@@ -118,6 +118,10 @@ module.exports = {
             {
               title: "Tendermint Core",
               url: "https://docs.tendermint.com"
+            },
+            {
+              title: "IBC Protocol",
+              url: "https://github.com/cosmos/ics/tree/master/ibc"
             }
           ]
         },

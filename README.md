@@ -24,15 +24,15 @@ sections:
     url: /burner-chain/00-index.html
     tag: advanced
 stack:
-  - title: Starport Polling App
+  - title: Cosmos Code With Us - Building your first Cosmos app
     duration: "1:39:07"
     imgSrc: https://i.ytimg.com/vi/h6Ur_40LB9k/hq720.jpg
     url: https://www.youtube.com/watch?v=h6Ur_40LB9k
-  - title: Starport Overview
+  - title: Getting started with Starport, the easiest way to build a Cosmos SDK blockchain
     duration: "3:31"
     imgSrc: https://i.ytimg.com/vi/rmbPjCGDXek/hq720.jpg
     url: https://www.youtube.com/watch?v=rmbPjCGDXek
-  - title: Scavenger Hunt Tutorial
+  - title: Code with us - Scavenger Hunt Tutorial with Billy Rennekamp
     duration: "2:11:15"
     imgSrc: https://i.ytimg.com/vi/GfZjnMchKX0/hq720.jpg
     url: https://www.youtube.com/watch?v=GfZjnMchKX0
