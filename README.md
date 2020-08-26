@@ -9,36 +9,33 @@ sections:
     tag: beginner
   - title: Starport Blog
     desc: Learn how Starport works by building a blog.
-    url: /starport-blog/
+    url: /starport-blog/01-index.html
     tag: beginner
   - title: Scavenge
     desc: Users post questions with hashed answers and bounties for whoever can solve them using a commit-reveal scheme that prevents front-running.
-    url: /scavenge/tutorial/
+    url: /scavenge/tutorial/01-background.html
     tag: intermediate
   - title: Nameservice
     desc: Build a fully functional naming service on a blockchain.
-    url: /nameservice/tutorial/
+    url: /nameservice/tutorial/00-intro.html
     tag: advanced
   - title: Cosmos Burner Chain
     desc: Provide a blueprint for your own application specific blockchain that interacts with other EVM based networks like Ethereum and xDai.
-    url: /burner-chain/
+    url: /burner-chain/00-index.html
     tag: advanced
 stack:
   - title: Starport Polling App
-    desc: You think water moves fast? You should see ice. It moves like it has a mind. Like it knows it killed the world once and got a taste for murder.
-    color: "#5064FB"
-    label: sdk
-    url: http://docs.cosmos.network
+    duration: "1:39:07"
+    imgSrc: https://i.ytimg.com/vi/h6Ur_40LB9k/hq720.jpg
+    url: https://www.youtube.com/watch?v=h6Ur_40LB9k
   - title: Starport Overview
-    desc: You think water moves fast? You should see ice. It moves like it has a mind. Like it knows it killed the world once and got a taste for murder.
-    color: "#1A1F36"
-    label: ethereum-black
-    url: https://eth.wiki
+    duration: "3:31"
+    imgSrc: https://i.ytimg.com/vi/rmbPjCGDXek/hq720.jpg
+    url: https://www.youtube.com/watch?v=rmbPjCGDXek
   - title: Scavenger Hunt Tutorial
-    desc: You think water moves fast? You should see ice. It moves like it has a mind. Like it knows it killed the world once and got a taste for murder.
-    color: "#00BB00"
-    label: core
-    url: http://docs.tendermint.com
+    duration: "2:11:15"
+    imgSrc: https://i.ytimg.com/vi/GfZjnMchKX0/hq720.jpg
+    url: https://www.youtube.com/watch?v=GfZjnMchKX0
 footer:
   newsletter: false
 aside: false
