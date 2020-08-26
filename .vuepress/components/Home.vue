@@ -281,10 +281,6 @@ a
     &__item {
       margin-bottom: 0;
 
-      &__wrapper {
-        padding-bottom: 1.25rem;
-      }
-
       &:last-child .sections__item__wrapper {
         border-bottom: none;
       }
