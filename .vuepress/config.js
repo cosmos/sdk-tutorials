@@ -16,18 +16,8 @@ module.exports = {
           title: "Tutorials",
           children: [
             {
-              title: "Nameservice",
-              path: "/nameservice/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Scavenge",
-              path: "/scavenge/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Cosmos Burner Chain",
-              path: "/burner-chain/",
+              title: "Starport Polling App",
+              path: "/starport-polling-app/",
               directory: true,
             },
             {
@@ -36,13 +26,44 @@ module.exports = {
               directory: true,
             },
             {
-              title: "Starport Polling App",
-              path: "/starport-polling-app/",
+              title: "Scavenge",
+              path: "/scavenge/tutorial/",
+              directory: true,
+            },
+            {
+              title: "Nameservice",
+              path: "/nameservice/tutorial/",
+              directory: true,
+            },
+            {
+              title: "Cosmos Burner Chain",
+              path: "/burner-chain/",
               directory: true,
             },
           ],
         },
       ],
+    },
+    gutter: {
+      title: "Help & Support",
+      editLink: true,
+      chat: {
+        title: "Discord",
+        text: "Chat with Cosmos developers on Discord.",
+        url: "https://discordapp.com/channels/669268347736686612",
+        bg: "linear-gradient(225.11deg, #2E3148 0%, #161931 95.68%)"
+      },
+      forum: {
+        title: "Cosmos SDK Forum",
+        text: "Join the SDK Developer Forum to learn more.",
+        url: "https://forum.cosmos.network/",
+        bg: "linear-gradient(225deg, #46509F -1.08%, #2F3564 95.88%)",
+        logo: "cosmos"
+      },
+      github: {
+        title: "Found an Issue?",
+        text: "Help us improve this page by suggesting edits on GitHub."
+      }
     },
     footer: {
       question: {
@@ -82,6 +103,56 @@ module.exports = {
       ],
       smallprint:
         "This website is maintained by Tendermint Inc. The contents and opinions of this website are those of Tendermint Inc.",
+      links: [
+        {
+          title: "Documentation",
+          children: [
+            {
+              title: "Cosmos SDK",
+              url: "https://docs.cosmos.network"
+            },
+            {
+              title: "Cosmos Hub",
+              url: "https://hub.cosmos.network"
+            },
+            {
+              title: "Tendermint Core",
+              url: "https://docs.tendermint.com"
+            }
+          ]
+        },
+        {
+          title: "Community",
+          children: [
+            {
+              title: "Cosmos blog",
+              url: "https://blog.cosmos.network"
+            },
+            {
+              title: "Forum",
+              url: "https://forum.cosmos.network"
+            },
+            {
+              title: "Chat",
+              url: "https://discord.gg/W8trcGV"
+            }
+          ]
+        },
+        {
+          title: "Contributing",
+          children: [
+            {
+              title: "Contributing to the docs",
+              url:
+                "https://github.com/cosmos/cosmos-sdk/blob/master/docs/DOCS_README.md"
+            },
+            {
+              title: "Source code on GitHub",
+              url: "https://github.com/cosmos/cosmos-sdk/"
+            }
+          ]
+        }
+      ]
     },
   },
   plugins: [
