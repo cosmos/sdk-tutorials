@@ -98,7 +98,7 @@ We'll be mostly interested in `vue/src/views` directory, which contains page tem
 
 Inside `vue/src/store/index.js` we import [CosmJS](https://github.com/cosmwasm/cosmjs), a library for handling wallets, creating, signing and broadcasting transactions and define a Vuex store. We'll use `entitySubmit` function for sending data to our blockchain (like a JSON representing a newly created poll), `entityFetch` for requesting a list of polls and `accountUpdate` to fetch information about our token balance.
 
-### `vue/src/view/Index.vue`
+### `vue/src/views/Index.vue`
 
 Since we don't need the default form component replace `<type-list />` inside of `frontent/src/views/Index.vue` with a new component `<poll-form />` that will be created in a new file at `vue/src/components/PollForm.vue`.
 
