@@ -46,6 +46,7 @@ import (
 type Post struct {
   Creator sdk.AccAddress `json:"creator" yaml:"creator"`
   Title   string         `json:"title" yaml:"title"`
+  Body    string         `json:"body" yaml:"body"`
   ID      string         `json:"id" yaml:"id"`
 }
 ```
@@ -58,6 +59,7 @@ Posts in our key-value store will look like this:
 "post-0bae9f7d-20f8-4b51-9d5c-af9103177d66": {
   "Creator": "cosmos18cd5t4msvp2lpuvh99rwglrmjrrw9qx5h3f3gz",
   "Title": "This is a post!",
+  "Body": "Welcome to my blog app.",
   "ID": "0bae9f7d-20f8-4b51-9d5c-af9103177d66"
 },
 "post-8c6d8cd4-b4c9-4ba3-a683-e894db3f2605": {
@@ -67,7 +69,7 @@ Posts in our key-value store will look like this:
 
 Right now the store is empty. Let's figure out how to add posts.
 
-With the Cosmos SDK, users can interact with your app with either a CLI (`blogcli`) or by sending HTTP requests. Let's define the CLI command first. Users should be able to type `blogcli tx blog create-post "This is a post!" --from=user1` to add a post to your store. The `create-post` subcommand hasn’t been defined yet--let’s do it now.
+With the Cosmos SDK, users can interact with your app with either a CLI (`blogcli`) or by sending HTTP requests. Let's define the CLI command first. Users should be able to type `blogcli tx blog create-post 'This is a post!' 'Welcome to my blog app.' --from=user1` to add a post to your store. The `create-post` subcommand hasn’t been defined yet--let’s do it now.
 
 ## x/blog/client/cli/tx.go
 
@@ -96,26 +98,30 @@ At the end of the file, let's define `GetCmdCreatePost` itself.
 
 ```go
 func GetCmdCreatePost(cdc *codec.Codec) *cobra.Command {
-  return &cobra.Command{
-    Use:   "create-post [title]",
-    Short: "Creates a new post",
-    Args:  cobra.ExactArgs(1),
-    RunE: func(cmd *cobra.Command, args []string) error {
-      cliCtx := context.NewCLIContext().WithCodec(cdc)
-      inBuf := bufio.NewReader(cmd.InOrStdin())
-      txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
-      msg := types.NewMsgCreatePost(cliCtx.GetFromAddress(), args[0])
-      err := msg.ValidateBasic()
-      if err != nil {
-        return err
-      }
-      return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
-    },
-  }
+	return &cobra.Command{
+		Use:   "create-post [title] [body]",
+		Short: "Creates a new post",
+		Args:  cobra.MinimumNArgs(2),
+		RunE: func(cmd *cobra.Command, args []string) error {
+      argsTitle := string(args[0])
+      argsBody := string(args[1])
+      
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+			inBuf := bufio.NewReader(cmd.InOrStdin())
+			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
+			msg := types.NewMsgCreatePost(cliCtx.GetFromAddress(), argsTitle, argsBody)
+			err := msg.ValidateBasic()
+			if err != nil {
+				return err
+			}
+			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
+		},
+	}
 }
+
 ```
 
-The function above defines what happens when you run the `create-post` subcommand. `create-post` takes one argument `[title]`, creates a message `NewMsgCreatePost` (with title as `args[0]`) and broadcasts this message to be processed in your application.
+The function above defines what happens when you run the `create-post` subcommand. `create-post` takes two arguments `[title] [body]`, creates a message `NewMsgCreatePost` (with title as `args[0]` and `args[1]`) and broadcasts this message to be processed in your application.
 
 This is a common pattern in the SDK: users make changes to the store by broadcasting [messages](https://docs.cosmos.network/master/building-modules/messages-and-queries.html#messages). Both CLI commands and HTTP requests create messages that can be broadcasted in order for state transition to occur.
 
@@ -125,16 +131,20 @@ Let’s define `NewMsgCreatePost` in a new file you should create as `x/blog/typ
 
 ```go
 package types
+
 import (
-  sdk "github.com/cosmos/cosmos-sdk/types"
-  sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-  "github.com/google/uuid"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/google/uuid"
 )
+
 var _ sdk.Msg = &MsgCreatePost{}
+
 type MsgCreatePost struct {
+  ID      string
   Creator sdk.AccAddress `json:"creator" yaml:"creator"`
-  Title   string         `json:"title" yaml:"title"`
-  ID      string         `json:"id" yaml:"id"`
+  Title string `json:"title" yaml:"title"`
+  Body string `json:"body" yaml:"body"`
 }
 ```
 
@@ -142,12 +152,13 @@ Similarly to the post struct, `MsgCreatePost` contains creator and title propert
 
 ```go
 // NewMsgCreatePost creates the `MsgCreatePost` message
-func NewMsgCreatePost(creator sdk.AccAddress, title string) MsgCreatePost {
+func NewMsgCreatePost(creator sdk.AccAddress, title string, body string) MsgCreatePost {
   return MsgCreatePost{
-    Creator: creator,
-    Title:   title,
-    ID:      uuid.New().String(),
-  }
+    ID: uuid.New().String(),
+		Creator: creator,
+    Title: title,
+    Body: body,
+	}
 }
 ```
 
@@ -207,18 +218,21 @@ You should already have `func NewHandler` defined which lists all available hand
 Now let’s define `handleMsgCreatePost`:
 
 ```go
-func handleMsgCreatePost(ctx sdk.Context, k Keeper, msg types.MsgCreatePost) (*sdk.Result, error) {
-  var post = types.Post{
-    Creator: msg.Creator,
-    ID:      msg.ID,
-    Title:   msg.Title,
-  }
-  k.CreatePost(ctx, post)
-  return &sdk.Result{Events: ctx.EventManager().Events()}, nil
+func handleMsgCreatePost(ctx sdk.Context, k keeper.Keeper, msg types.MsgCreatePost) (*sdk.Result, error) {
+	var post = types.Post{
+		Creator: msg.Creator,
+		ID:      msg.ID,
+		Title:   msg.Title,
+		Body:    msg.Body,
+	}
+	k.CreatePost(ctx, post)
+
+	return &sdk.Result{Events: ctx.EventManager().Events()}, nil
 }
+
 ```
 
-In this handler you create a `Post` object (post type was defined in the very first step). You populate the post object with creator and title from the message (`msg.Creator` and `msg.Title`) and use the unique ID that was generated in `tx.go` with `NewMsgCreatePost()` using `uuid.New().String()`.
+In this handler you create a `Post` object (post type was defined in the very first step). You populate the post object with creator, title, and body from the message (`msg.Creator`, `msg.Title`, and `msg.Body`) and use the unique ID that was generated in `tx.go` with `NewMsgCreatePost()` using `uuid.New().String()`.
 
 After creating a post object with creator, ID and title, the message handler calls `k.CreatePost(ctx, post)`. “k” stands for [Keeper](https://docs.cosmos.network/master/building-modules/keeper.html), an abstraction used by the SDK that writes data to the store. Let’s define the `CreatePost` keeper function.
 
@@ -336,7 +350,7 @@ import (
 ### Unknown command "create-post" for "blog"
 
 ```sh
-blogcli tx blog create-post Hello! --from=user1
+blogcli tx blog create-post 'Hello!' 'My first post' --from=user1
 ERROR: unknown command "create-post" for "blog"
 ```
 

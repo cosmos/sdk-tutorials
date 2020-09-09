@@ -4,7 +4,7 @@ order: 2
 
 # List posts
 
-To list created posts we will be using `blogcli query blog list-posts` command. `list-posts` subcommand hasn’t been defined yet, so let’s do it now. [Query commands](https://docs.cosmos.network/master/building-modules/querier.html) from the CLI are handled by `query.go`.
+To list created posts we will be using `blogcli query blog list-post` command. `list-post` subcommand hasn’t been defined yet, so let’s do it now. [Query commands](https://docs.cosmos.network/master/building-modules/querier.html) from the CLI are handled by `query.go`.
 
 ## x/blog/client/cli/query.go
 
@@ -32,7 +32,7 @@ Now let’s define `GetCmdListPosts`:
 ```go
 func GetCmdListPosts(queryRoute string, cdc *codec.Codec) *cobra.Command {
   return &cobra.Command{
-    Use:   "list-posts",
+    Use:   "list-post",
     Short: "list all posts",
     RunE: func(cmd *cobra.Command, args []string) error {
       cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -49,7 +49,7 @@ func GetCmdListPosts(queryRoute string, cdc *codec.Codec) *cobra.Command {
 }
 ```
 
-`GetCmdListPosts` runs an [ABCI](https://docs.tendermint.com/master/spec/abci/) query to fetch the data, unmarshals it back form binary to JSON and returns it to the console. ABCI is an interface between your app and Tendermint (a program responsible for replicating the state across machines). ABCI queries look like paths on a hierarchical filesystem. In our case, the query is `custom/blog/list-posts`. Before we continue, we need to define `QueryListPosts`.
+`GetCmdListPosts` runs an [ABCI](https://docs.tendermint.com/master/spec/abci/) query to fetch the data, unmarshals it back form binary to JSON and returns it to the console. ABCI is an interface between your app and Tendermint (a program responsible for replicating the state across machines). ABCI queries look like paths on a hierarchical filesystem. In our case, the query is `custom/blog/list-post`. Before we continue, we need to define `QueryListPosts`.
 
 ## x/blog/types/querier.go
 
@@ -57,7 +57,7 @@ Define a `QueryListPosts` that will be used later on to dispatch query requests:
 
 ```go
 const (
-  QueryListPosts = "list-posts"
+  QueryListPosts = "list-post"
 )
 ```
 
@@ -110,13 +110,13 @@ starport serve
 After the app has launched, open a different terminal window and create a post:
 
 ```sh
-blogcli tx blog create-post Hello! --from=user1
+blogcli tx blog create-post 'Hello!' 'My first post' --from=user1
 ```
 
 Now run the query to see the post:
 
 ```sh
-blogcli query blog list-posts
+blogcli query blog list-post
 ```
 
 ```json
@@ -134,7 +134,7 @@ That’s a newly created post along with your address and a unique ID. Try creat
 We can also make [ABCI](https://docs.tendermint.com/master/spec/abci/) queries from the browser:
 
 ```
-http://localhost:26657/abci_query?path="custom/blog/list-posts"
+http://localhost:26657/abci_query?path="custom/blog/list-post"
 ```
 
 The result of this query is a base64 encoded string inside `result.response.value`. You can decode it using a browser’s built in JavaScript console: `atob("WwogIHsKICAgICJjcmV...")`.
@@ -144,7 +144,7 @@ The result of this query is a base64 encoded string inside `result.response.valu
 ### `null`
 
 ```
-blogcli q blog list-posts
+blogcli q blog list-post
 null
 ```
 

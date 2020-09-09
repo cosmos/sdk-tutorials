@@ -26,15 +26,15 @@ In this file you should see `func RegisterRoutes` used for registering HTTP endp
 Add the following line to register our first route:
 
 ```go
-	r.HandleFunc("/blog/posts", listPostsHandler(cliCtx, "blog")).Methods("GET")
+	r.HandleFunc("/blog/posts", listPostHandler(cliCtx, "blog")).Methods("GET")
 ```
 
-Now let's define `listPostsHandler` in the same package:
+Now let's define `listPostHandler` in the same package:
 
 ```go
-func listPostsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+func listPostHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list-posts", storeName), nil)
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list-post", storeName), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
@@ -44,9 +44,9 @@ func listPostsHandler(cliCtx context.CLIContext, storeName string) http.HandlerF
 }
 ```
 
-As many handler functions in Cosmos apps `listPostsHandler` takes context, which contains meta information about the app and its environment, as a first argument. We're also passing `storeName`, which in our case is `"blog"`.
+As many handler functions in Cosmos apps `listPostHandler` takes context, which contains meta information about the app and its environment, as a first argument. We're also passing `storeName`, which in our case is `"blog"`.
 
-Similarly to the CLI handler the function runs `QueryWithData` with a `custom/blog/list-posts` ABCI query. The `[]byte` return value then gets unmarshalled into JSON and returned to the handler.
+Similarly to the CLI handler the function runs `QueryWithData` with a `custom/blog/list-post` ABCI query. The `[]byte` return value then gets unmarshalled into JSON and returned to the handler.
 
 To build your app and launch servers, run:
 
@@ -54,7 +54,7 @@ To build your app and launch servers, run:
 starport serve
 ```
 
-Alternatively, follow instructions in Part 1 to recompile and relaunch your app and add some test posts to the store. Make sure `blogcli q blog list-posts` returns a list of posts.
+Alternatively, follow instructions in Part 1 to recompile and relaunch your app and add some test posts to the store. Make sure `blogcli q blog list-post` returns a list of posts.
 
 To launch our HTTP server run the following command in a different terminal window:
 

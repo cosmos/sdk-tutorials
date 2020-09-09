@@ -37,7 +37,7 @@ module.exports = {
             },
             {
               title: "Starport Blog",
-              path: "/starport-blog/",
+              path: "/starport-blog/tutorial/",
               directory: true,
             },
             {
