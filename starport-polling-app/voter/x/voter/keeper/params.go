@@ -6,7 +6,7 @@ import (
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/lukitsbrian/voter/x/voter/types"
+	"github.com/sdk-tutorials/starport-polling-app/voter/x/voter/types"
 )
 
 // GetParams returns the total set of voter parameters.

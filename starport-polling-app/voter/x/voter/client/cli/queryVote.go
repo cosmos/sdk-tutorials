@@ -6,7 +6,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/spf13/cobra"
-  "github.com/lukitsbrian/voter/x/voter/types"
+  "github.com/sdk-tutorials/starport-polling-app/voter/x/voter/types"
 )
 
 func GetCmdListVote(queryRoute string, cdc *codec.Codec) *cobra.Command {

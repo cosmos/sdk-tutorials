@@ -3,7 +3,7 @@ package keeper
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/lukitsbrian/voter/x/voter/types"
+	"github.com/sdk-tutorials/starport-polling-app/voter/x/voter/types"
 )
 
 func (k Keeper) CreateVote(ctx sdk.Context, vote types.Vote) {

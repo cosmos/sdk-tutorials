@@ -1,4 +1,4 @@
-module github.com/lukitsbrian/voter
+module github.com/sdk-tutorials/starport-polling-app/voter
 
 go 1.14
 

@@ -8,7 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/lukitsbrian/voter/x/voter/types"
+	"github.com/sdk-tutorials/starport-polling-app/voter/x/voter/types"
 )
 
 // GetTxCmd returns the transaction commands for this module

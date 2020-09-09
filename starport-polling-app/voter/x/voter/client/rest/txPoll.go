@@ -7,7 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/rest"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/lukitsbrian/voter/x/voter/types"
+	"github.com/sdk-tutorials/starport-polling-app/voter/x/voter/types"
 )
 
 type createPollRequest struct {

@@ -3,7 +3,7 @@ package voter
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
-	"github.com/lukitsbrian/voter/x/voter/keeper"
+	"github.com/sdk-tutorials/starport-polling-app/voter/x/voter/keeper"
 	// abci "github.com/tendermint/tendermint/abci/types"
 )
 

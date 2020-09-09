@@ -2,7 +2,7 @@ package keeper
 
 import (
   // this line is used by starport scaffolding
-	"github.com/lukitsbrian/voter/x/voter/types"
+	"github.com/sdk-tutorials/starport-polling-app/voter/x/voter/types"
 		
 	
 		

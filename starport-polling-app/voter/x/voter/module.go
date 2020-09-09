@@ -13,10 +13,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/lukitsbrian/voter/x/voter/client/cli"
-	"github.com/lukitsbrian/voter/x/voter/client/rest"
-	"github.com/lukitsbrian/voter/x/voter/keeper"
-	"github.com/lukitsbrian/voter/x/voter/types"
+	"github.com/sdk-tutorials/starport-polling-app/voter/x/voter/client/cli"
+	"github.com/sdk-tutorials/starport-polling-app/voter/x/voter/client/rest"
+	"github.com/sdk-tutorials/starport-polling-app/voter/x/voter/keeper"
+	"github.com/sdk-tutorials/starport-polling-app/voter/x/voter/types"
 )
 
 // Type check to ensure the interface is properly implemented
