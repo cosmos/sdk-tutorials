@@ -49,7 +49,7 @@ Build a voting application with a web-based UI.
 
 - [YouTube](https://www.youtube.com/watch?v=h6Ur_40LB9k)
 
-## [Starport Blog](./starport-blog/01-index.md)
+## [Starport Blog](./starport-blog/tutorial/01-index.md)
 
 Learn how Starport works by building a blog.
 
