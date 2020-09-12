@@ -7,6 +7,6 @@ import (
 type Post struct {
 	Creator sdk.AccAddress `json:"creator" yaml:"creator"`
 	ID      string         `json:"id" yaml:"id"`
-  Title string `json:"title" yaml:"title"`
-  Body string `json:"body" yaml:"body"`
+	Title   string         `json:"title" yaml:"title"`
+	Body    string         `json:"body" yaml:"body"`
 }

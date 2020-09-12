@@ -5,8 +5,8 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/sdk-tutorials/starport-blog/blog/x/blog/types"
 	"github.com/spf13/cobra"
-  "github.com/sdk-tutorials/starport-blog/blog/x/blog/types"
 )
 
 func GetCmdListPost(queryRoute string, cdc *codec.Codec) *cobra.Command {
