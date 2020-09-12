@@ -17,53 +17,35 @@ import (
 )
 ```
 
-Function `GetQueryCmd` is used for creating a list of `query` subcommands, it should already be defined. Edit the function to add `GetCmdListPosts` as a subcommand:
+Function `GetQueryCmd` is used for creating a list of `query` subcommands, it should already be defined. Edit the function to add `GetCmdListPost` as a subcommand:
 
 ```go
   blogQueryCmd.AddCommand(
     flags.GetCommands(
-      GetCmdListPosts(queryRoute, cdc),
+      GetCmdListPost(queryRoute, cdc),
     )...,
   )
 ```
 
-Now let’s define `GetCmdListPosts`:
+Now let’s define `GetCmdListPost`:
 
-```go
-func GetCmdListPosts(queryRoute string, cdc *codec.Codec) *cobra.Command {
-  return &cobra.Command{
-    Use:   "list-post",
-    Short: "list all posts",
-    RunE: func(cmd *cobra.Command, args []string) error {
-      cliCtx := context.NewCLIContext().WithCodec(cdc)
-      res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/"+types.QueryListPosts, queryRoute), nil)
-      if err != nil {
-        fmt.Printf("could not list posts\n%s\n", err.Error())
-        return nil
-      }
-      var out []types.Post
-      cdc.MustUnmarshalJSON(res, &out)
-      return cliCtx.PrintOutput(out)
-    },
-  }
-}
-```
+<<< @/starport-blog/blog/x/blog/client/cli/queryPost.go{12-28}
 
-`GetCmdListPosts` runs an [ABCI](https://docs.tendermint.com/master/spec/abci/) query to fetch the data, unmarshals it back form binary to JSON and returns it to the console. ABCI is an interface between your app and Tendermint (a program responsible for replicating the state across machines). ABCI queries look like paths on a hierarchical filesystem. In our case, the query is `custom/blog/list-post`. Before we continue, we need to define `QueryListPosts`.
+`GetCmdListPost` runs an [ABCI](https://docs.tendermint.com/master/spec/abci/) query to fetch the data, unmarshals it back form binary to JSON and returns it to the console. ABCI is an interface between your app and Tendermint (a program responsible for replicating the state across machines). ABCI queries look like paths on a hierarchical filesystem. In our case, the query is `custom/blog/list-post`. Before we continue, we need to define `QueryListPost`.
 
 ## x/blog/types/querier.go
 
-Define a `QueryListPosts` that will be used later on to dispatch query requests:
+Define a `QueryListPost` that will be used later on to dispatch query requests:
 
 ```go
 const (
-  QueryListPosts = "list-post"
+  QueryListPost = "list-post"
 )
 ```
 
 ## x/blog/keeper/querier.go
 
-Import `types` package for the `QueryListPosts` constant and `codec` to be able to marshal data into JSON.
+Import `types` package for the `QueryListPost` constant and `codec` to be able to marshal data into JSON.
 
 ```go
 import (
@@ -73,31 +55,18 @@ import (
 )
 ```
 
-`NewQuerier` acts as a dispatcher for query functions, it should already be defined. Modify the switch statement to include `listPosts`:
+`NewQuerier` acts as a dispatcher for query functions, it should already be defined. Modify the switch statement to include `listPost`:
 
 ```go
     switch path[0] {
-    case types.QueryListPosts:
-      return listPosts(ctx, k)
+    case types.QueryListPost:
+      return listPost(ctx, k)
     default:
 ```
 
-Now let’s define `listPosts`:
+Now let’s define `listPost`:
 
-```go
-func listPosts(ctx sdk.Context, k Keeper) ([]byte, error) {
-  var postList []types.Post
-  store := ctx.KVStore(k.storeKey)
-  iterator := sdk.KVStorePrefixIterator(store, []byte(types.PostPrefix))
-  for ; iterator.Valid(); iterator.Next() {
-    var post types.Post
-    k.cdc.MustUnmarshalBinaryLengthPrefixed(store.Get(iterator.Key()), &post)
-    postList = append(postList, post)
-  }
-  res := codec.MustMarshalJSONIndent(k.cdc, postList)
-  return res, nil
-}
-```
+<<< @/starport-blog/blog/x/blog/keeper/post.go{16-27}
 
 This function uses a prefix iterator to loop through all the keys with a given prefix (in our case `PostPrefix` is `"post-"`). We’re getting values by key with `store.Get` and appending them to `postList`. Finally, we unmarshal bytes back to JSON and return the result to the console.
 
@@ -110,7 +79,7 @@ starport serve
 After the app has launched, open a different terminal window and create a post:
 
 ```sh
-blogcli tx blog create-post 'Hello!' 'My first post' --from=user1
+blogcli tx blog create-post 'Hello!' 'This is my first blog post.' --from=user1
 ```
 
 Now run the query to see the post:
@@ -124,6 +93,7 @@ blogcli query blog list-post
   {
     "creator": "cosmos1mc6leyjdwd9ygxeqdnvtsh7ks3knptjf3s5lf9",
     "title": "Hello!",
+    "body": "This is my first blog post.",
     "id": "30808a80-799d-475c-9f5d-b382ea24d79c"
   }
 ]

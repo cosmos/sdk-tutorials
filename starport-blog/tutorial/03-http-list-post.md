@@ -31,18 +31,7 @@ Add the following line to register our first route:
 
 Now let's define `listPostHandler` in the same package:
 
-```go
-func listPostHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list-post", storeName), nil)
-		if err != nil {
-			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
-			return
-		}
-		rest.PostProcessResponse(w, cliCtx, res)
-	}
-}
-```
+<<< @/starport-blog/blog/x/blog/client/rest/queryPost.go{11-20}
 
 As many handler functions in Cosmos apps `listPostHandler` takes context, which contains meta information about the app and its environment, as a first argument. We're also passing `storeName`, which in our case is `"blog"`.
 
@@ -83,7 +72,8 @@ You should see a list of posts returned as JSON from a HTTP server:
   "result": [
     {
       "creator": "cosmos1ulpw5rtzd537s9v8g363wtvrxnz5fmrheh8hgm",
-      "title": "This is a post!",
+      "title": "Hello!",
+      "title": "This is a my first post",
       "id": "a07a0d36-e201-4c37-8d6b-be20f4f8f3d3"
     }
   ]

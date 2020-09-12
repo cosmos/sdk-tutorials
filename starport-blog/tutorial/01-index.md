@@ -33,23 +33,9 @@ This blog app will store data in a persistent [key-value store](https://docs.cos
 
 We’ll be creating a simple blog-like application, so let’s define the first type, the `Post`.
 
-## x/blog/types/types.go
+## x/blog/types/TypesPost.go
 
-```go
-package types
-
-import (
-  sdk "github.com/cosmos/cosmos-sdk/types"
-)
-
-// Post is a type containing Creator, Title, and ID
-type Post struct {
-  Creator sdk.AccAddress `json:"creator" yaml:"creator"`
-  Title   string         `json:"title" yaml:"title"`
-  Body    string         `json:"body" yaml:"body"`
-  ID      string         `json:"id" yaml:"id"`
-}
-```
+<<< @/starport-blog/blog/x/blog/types/TypePost.go
 
 The code above defines the three properties of a post: Creator, Title and ID. The SDK provides useful types to represent things like addresses, so we use `sdk.AccAddress` for Creator. A Title is stored as a string. Lastly, we generate unique global IDs for each post and also store them as strings.
 
@@ -96,7 +82,8 @@ This file already contains `func GetTxCmd` which defines custom `blogcli` [comma
 
 At the end of the file, let's define `GetCmdCreatePost` itself.
 
-```go
+<<< @/starport-blog/blog/x/blog/client/cli/txPost.go{16-36}
+<!-- ```go
 func GetCmdCreatePost(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "create-post [title] [body]",
@@ -119,7 +106,7 @@ func GetCmdCreatePost(cdc *codec.Codec) *cobra.Command {
 	}
 }
 
-```
+``` -->
 
 The function above defines what happens when you run the `create-post` subcommand. `create-post` takes two arguments `[title] [body]`, creates a message `NewMsgCreatePost` (with title as `args[0]` and `args[1]`) and broadcasts this message to be processed in your application.
 
@@ -129,7 +116,8 @@ This is a common pattern in the SDK: users make changes to the store by broadcas
 
 Let’s define `NewMsgCreatePost` in a new file you should create as `x/blog/types/MsgCreatePost.go`.
 
-```go
+<<< @/starport-blog/blog/x/blog/types/MsgCreatePost.go{1-17}
+<!-- ```go
 package types
 
 import (
@@ -146,11 +134,13 @@ type MsgCreatePost struct {
   Title string `json:"title" yaml:"title"`
   Body string `json:"body" yaml:"body"`
 }
-```
+``` -->
 
 Similarly to the post struct, `MsgCreatePost` contains creator and title properties. We don’t include ID property, because `MsgCreatePost` defines only the data we accept from the user—we will be generating ID automatically on the next step.
 
-```go
+<<< @/starport-blog/blog/x/blog/types/MsgCreatePost.go{18-25}
+
+<!-- ```go
 // NewMsgCreatePost creates the `MsgCreatePost` message
 func NewMsgCreatePost(creator sdk.AccAddress, title string, body string) MsgCreatePost {
   return MsgCreatePost{
@@ -160,10 +150,12 @@ func NewMsgCreatePost(creator sdk.AccAddress, title string, body string) MsgCrea
     Body: body,
 	}
 }
-```
+``` -->
 
 `NewMsgCreatePost` is a constructor function that creates the `MsgCreatePost` message. The following five functions have to be defined to implement the `Msg` interface. They allow you to perform validation that doesn’t require access to the store (like checking for empty values), etc.
 
+<<< @/starport-blog/blog/x/blog/types/MsgCreatePost.go{27-50}
+<!-- 
 ```go
 // Route ...
 func (msg MsgCreatePost) Route() string {
@@ -189,7 +181,7 @@ func (msg MsgCreatePost) ValidateBasic() error {
   }
   return nil
 }
-```
+``` -->
 
 Going back to `GetCmdCreatePost` in `x/blog/client/cli/tx.go`, you'll see `MsgCreatePost` being created and broadcast with `GenerateOrBroadcastMsgs`.
 
@@ -208,16 +200,19 @@ import (
 
 You should already have `func NewHandler` defined which lists all available handlers. Modify it to include a new function called `handleMsgCreatePost`.
 
-```go
+<<< @/starport-blog/blog/x/blog/handler.go{16,17,20,21,22}
+<!-- ```go
     switch msg := msg.(type) {
     case types.MsgCreatePost:
       return handleMsgCreatePost(ctx, k, msg)
     default:
-```
+``` -->
 
 Now let’s define `handleMsgCreatePost`:
 
-```go
+<<< @/starport-blog/blog/x/blog/handlerMsgCreatePost.go{9-19}
+
+<!-- ```go
 func handleMsgCreatePost(ctx sdk.Context, k keeper.Keeper, msg types.MsgCreatePost) (*sdk.Result, error) {
 	var post = types.Post{
 		Creator: msg.Creator,
@@ -230,7 +225,7 @@ func handleMsgCreatePost(ctx sdk.Context, k keeper.Keeper, msg types.MsgCreatePo
 	return &sdk.Result{Events: ctx.EventManager().Events()}, nil
 }
 
-```
+``` -->
 
 In this handler you create a `Post` object (post type was defined in the very first step). You populate the post object with creator, title, and body from the message (`msg.Creator`, `msg.Title`, and `msg.Body`) and use the unique ID that was generated in `tx.go` with `NewMsgCreatePost()` using `uuid.New().String()`.
 
@@ -240,14 +235,16 @@ After creating a post object with creator, ID and title, the message handler cal
 
 Add a `CreatePost` function that takes two arguments: a [context](https://docs.cosmos.network/master/core/context.html#context-definition) and a post.
 
-```go
+<<< @/starport-blog/blog/x/blog/keeper/post.go{9-14}
+
+<!-- ```go
 func (k Keeper) CreatePost(ctx sdk.Context, post types.Post) {
   store := ctx.KVStore(k.storeKey)
   key := []byte(types.PostPrefix + post.ID)
   value := k.cdc.MustMarshalBinaryLengthPrefixed(post)
   store.Set(key, value)
 }
-```
+``` -->
 
 `CreatePost` creates a key by concatenating a post prefix with an ID. If you look back at how our store looks, you’ll notice keys have prefixes, which is why `post-0bae9f7d-20f8-4b51-9d5c-af9103177d66` contained the prefix `post-` . The reason for this is you have one store, but you might want to keep different types of objects in it, like posts and users. Prefixing keys with `post-` and `user-` allows you to share one storage space between different types of objects.
 
@@ -255,7 +252,9 @@ func (k Keeper) CreatePost(ctx sdk.Context, post types.Post) {
 
 To define the post prefix add the following code:
 
-```go
+<<< @/starport-blog/blog/x/blog/types/key.go{17-19}
+
+<!-- ```go
 package types
 
 const (
@@ -263,33 +262,19 @@ const (
   // PostPrefix is used for keys in the KV store
   PostPrefix = "post-"
 )
-```
+``` -->
 
 ## x/blog/types/codec.go
 
 Finally, `store.Set(key, value)` writes our post to the store.
 Two last things to do is tell our [encoder](https://docs.cosmos.network/master/core/encoding.html#amino) how our `MsgCreatePost` is converted to bytes.
 
-```go
+<<< @/starport-blog/blog/x/blog/types/codec.go{8,9,11}
+<!-- ```go
 func RegisterCodec(cdc *codec.Codec) {
   cdc.RegisterConcrete(MsgCreatePost{}, "blog/CreatePost", nil)
 }
-```
-
-## x/blog/alias.go
-
-And modify `alias.go` to bring message types from types package to blog package:
-
-```go
-var (
-  // ...
-  NewMsgCreatePost = types.NewMsgCreatePost
-)
-type (
-  // ...
-  MsgCreatePost = types.MsgCreatePost
-)
-```
+``` -->
 
 ## Launch
 
@@ -313,7 +298,7 @@ Note: depending on your OS and firewall settings, you may have to accept a promp
 Run the following command to create a post:
 
 ```sh
-blogcli tx blog create-post "This is a post\!" --from=user1
+blogcli tx blog create-post "My first post" "This is a post\!" --from=user1
 ```
 
 “This is a post!” is a title for our post and `--from=user1` tells the program who is creating this post. `user1` is a label for your pair of keys used to sign the transaction, created by the initialization script located within the `/Makefile` previously. Keys are stored in `~/.blogcli`.
