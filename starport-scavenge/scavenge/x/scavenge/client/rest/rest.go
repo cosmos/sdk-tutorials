@@ -8,6 +8,5 @@ import (
 
 // RegisterRoutes registers scavenge-related REST handlers to a router
 func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router) {
-	registerQueryRoutes(cliCtx, r)
-	registerTxRoutes(cliCtx, r)
+  // this line is used by starport scaffolding
 }

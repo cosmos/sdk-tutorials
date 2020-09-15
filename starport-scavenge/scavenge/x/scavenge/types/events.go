@@ -2,16 +2,14 @@ package types
 
 // scavenge module event types
 const (
-	EventTypeCreateScavenge = "CreateScavenge"
-	EventTypeCommitSolution = "CommitSolution"
-	EventTypeSolveScavenge  = "SolveScavenge"
+	// TODO: Create your event types
+	// EventType<Action>    		= "action"
 
-	AttributeDescription           = "description"
-	AttributeSolution              = "solution"
-	AttributeSolutionHash          = "solutionHash"
-	AttributeReward                = "reward"
-	AttributeScavenger             = "scavenger"
-	AttributeSolutionScavengerHash = "solutionScavengerHash"
+	// TODO: Create keys fo your events, the values will be derivided from the msg
+	// AttributeKeyAddress  		= "address"
+
+	// TODO: Some events may not have values for that reason you want to emit that something happened.
+	// AttributeValueDoubleSign = "double_sign"
 
 	AttributeValueCategory = ModuleName
 )
