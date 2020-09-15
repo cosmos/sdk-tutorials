@@ -23,6 +23,7 @@ func GetTxCmd(cdc *codec.Codec) *cobra.Command {
 
 	scavengeTxCmd.AddCommand(flags.PostCommands(
     // this line is used by starport scaffolding
+		GetCmdCreateScavenge(cdc),
 	)...)
 
 	return scavengeTxCmd
