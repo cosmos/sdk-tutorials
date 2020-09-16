@@ -1,5 +1,5 @@
 package types
 
-
-const (QueryListScavenge = "list-scavenge")
-		
+const (
+	QueryListScavenge = "list-scavenge"
+)

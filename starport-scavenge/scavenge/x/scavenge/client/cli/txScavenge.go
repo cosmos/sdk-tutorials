@@ -2,7 +2,9 @@ package cli
 
 import (
 	"bufio"
-  
+	"crypto/sha256"
+	"encoding/hex"
+
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
@@ -15,24 +17,30 @@ import (
 
 func GetCmdCreateScavenge(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "create-scavenge [description] [solutionHash] [reward] [solution] [scavenger]",
+		Use:   "create-scavenge [description] [solution] [reward]",
 		Short: "Creates a new scavenge",
-		Args:  cobra.MinimumNArgs(2),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
-      argsDescription := string(args[0])
-      argsSolutionHash := string(args[1])
-      argsReward := string(args[2])
-      argsSolution := string(args[3])
-      argsScavenger := string(args[4])
-      
+
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			inBuf := bufio.NewReader(cmd.InOrStdin())
 			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
-			msg := types.NewMsgCreateScavenge(cliCtx.GetFromAddress(), argsDescription, argsSolutionHash, argsReward, argsSolution, argsScavenger)
-			err := msg.ValidateBasic()
+
+			var solution = args[1]
+			var solutionHash = sha256.Sum256([]byte(solution))
+			var solutionHashString = hex.EncodeToString(solutionHash[:])
+
+			reward, err := sdk.ParseCoins(args[2])
 			if err != nil {
 				return err
 			}
+
+			msg := types.NewMsgCreateScavenge(cliCtx.GetFromAddress(), args[0], solutionHashString, reward)
+			err = msg.ValidateBasic()
+			if err != nil {
+				return err
+			}
+
 			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
 		},
 	}
