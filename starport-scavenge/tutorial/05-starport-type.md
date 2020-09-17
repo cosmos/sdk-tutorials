@@ -15,7 +15,7 @@ Let's run the `starport type` command to generate our `scavenge` type -
 starport type scavenge description solutionHash reward solution scavenger
 ```
 
-<!-- From this command, we've added the following:
+From this command, we've made changes to the following files:
 - `scavenge/vue/src/store/app.js` - The `scavenge` type in our front-end application
 - `scavenge/x/scavenge/client/cli/query.go` - adding the `GetCmdListScavenge` query function to the CLI commands
 - `scavenge/x/scavenge/client/cli/queryScavenge.go` - defining the `GetCmdListScavenge` function
@@ -30,34 +30,41 @@ starport type scavenge description solutionHash reward solution scavenger
 - `scavenge/x/scavenge/keeper/scavenge.go` - Define the `CreateScavenge` and `listScavenge` functions
 - `scavenge/x/scavenge/types/MsgCreateScavenge.go` - define the  `MsgCreateScavenge` function
 - `scavenge/x/scavenge/types/TypeScavenge.go` - define the `Scavenge` type
-- `scavenge/x/scavenge/types/key.go` - add the `ScavengePrefix` constant
-- `scavenge/x/scavenge/types/querier.go` - add the `QueryListScavenge` constant -->
+- `scavenge/x/scavenge/types/key.go` - Adding the `ScavengePrefix` constant
+- `scavenge/x/scavenge/types/querier.go` - Adding the `QueryListScavenge` constant
 
-Currently, all the types we definied are of type `string` - this can seen at `scavenge/x/scavenge/types/TypeScavenge.go`. We need to delete the `ID` field, since we're going to be using the SolutionHash as the key, and update `Reward` to `sdk.Coin`, as well as `Scavenger` to `sdk.AccAddress`.
+We also want to create a second type, `Commit`, in order to prevent frontrunning.
 
-Once this is done, your struct should look like this - 
+```
+starport type commit solutionHash solutionScavengerHash
+```
+
+## Types
+
+Currently, all the types we definied are typed `string`. We will to delete the `ID` field, since we're going to be using the SolutionHash as the key. We also need to update `Reward` to `sdk.Coins`, as well as `Scavenger` to `sdk.AccAddress`, so we can make the payout once the scavenge is solved.
+
+Once this is done, your struct in `scavenge/x/scavenge/types/TypeScavenge.go` should look like this -
 
 ```
 type Scavenge struct {
 	Creator      sdk.AccAddress `json:"creator" yaml:"creator"`
 	Description  string         `json:"description" yaml:"description"`
 	SolutionHash string         `json:"solutionHash" yaml:"solutionHash"`
-	Reward       sdk.Coins       `json:"reward" yaml:"reward"`
+	Reward       sdk.Coins      `json:"reward" yaml:"reward"`
 	Solution     string         `json:"solution" yaml:"solution"`
 	Scavenger    sdk.AccAddress `json:"scavenger" yaml:"scavenger"`
 }
 ```
 
-Since we're using `SolutionHash` as the key, we need to update the field in our keeper `scavenge/x/scavenge/keeper/scavenge.go`.
 
-```
-func (k Keeper) CreateScavenge(ctx sdk.Context, scavenge types.Scavenge) {
-	store := ctx.KVStore(k.storeKey)
-	key := []byte(types.ScavengePrefix + scavenge.SolutionHash)
-	value := k.cdc.MustMarshalBinaryLengthPrefixed(scavenge)
-	store.Set(key, value)
-}
-```
+## Keeper
+
+Since we're using `SolutionHash` as the key, we need to update the field in our boilerplate keeper `scavenge/x/scavenge/keeper/scavenge.go`. It contains a basic keeper with references to CRUD operations like`Create`, `Set`, `Get`, `Delete`, and `list`.
+
+Our keeper stores all our data for our module. Sometimes a module will import the keeper of another module. This will allow state to be shared and modified across modules. Since we are dealing with coins in our module as bounty rewards, we will need to access the `bank` module's keeper (which we call `CoinKeeper`). Look at our completed `Keeper` and you can see where the `bank` keeper is referenced and how `Set`, `Get` and `Delete` are expanded:
+
+<<< starport-scavenge/scavenge/x/scavenge/keeper/scavenge.go
+
 
 
 Next, we need to update the fields in `MsgCreateScavenge.go`, since we only fill out the fields partially when creating new  scavenge objects
