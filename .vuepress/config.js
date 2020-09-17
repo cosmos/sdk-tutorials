@@ -37,7 +37,7 @@ module.exports = {
             },
             {
               title: "Starport Blog",
-              path: "/starport-blog/",
+              path: "/starport-blog/tutorial/",
               directory: true,
             },
             {
@@ -182,4 +182,12 @@ module.exports = {
       },
     ],
   ],
+  patterns: [
+    'burner-chain/*.md',
+    'README.md',
+    'nameservice/tutorial/*.md',
+    'scavenge/tutorial/*.md',
+    'starport-polling-app/*.md',
+    'starport-blog/tutorial/*.md',
+  ]
 };
