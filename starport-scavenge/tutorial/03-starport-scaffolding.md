@@ -18,14 +18,14 @@ npm i -g @tendermint/starport
 brew install tendermint/tap/starport
 ```
 
-### building from source
+#### building from source
 ```bash
 git clone https://github.com/tendermint/starport && cd starport && make
 ```
 
 
-Afterwards, you should see the following help screen displayed:
-```bash
+Afterwards, you can enter in `starport` in your terminal, and should see the following help text displayed:
+```sh
 $ starport
 A tool for scaffolding out Cosmos applications
 
@@ -61,13 +61,7 @@ Flags:
   -h, --help                    help for app
 ```
 
-Let's start by scaffolding our `scavenge` application:
-
-```bash
-starport app github.com/github-username/scavenge
-```
-
-This should generate a folder structure inside of a directory called `scavenge` of your current working directory, as well as build our scavenge module. 
+Let's start by scaffolding our `scavenge` application with `starport app`. This should generate a directory of folders called `scavenge` inside your current working directory, as well as scaffold our `scavenge` module. 
 
 ```bash
 $ starport app github.com/github-username/scavenge

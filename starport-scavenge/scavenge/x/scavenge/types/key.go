@@ -17,4 +17,7 @@ const (
 const (
 	ScavengePrefix = "scavenge-"
 )
-		
+
+const (
+	CommitPrefix = "commit-"
+)

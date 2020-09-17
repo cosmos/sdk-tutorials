@@ -10,7 +10,7 @@ module.exports = {
     ['meta', { name: "theme-color", content: "#ffffff" }],
     ['link', { rel: "icon", type: "image/svg+xml", href: "/favicon-svg.svg" }],
     ['link', { rel: "apple-touch-icon-precomposed", href: "/apple-touch-icon-precomposed.png" }],
-  ],  
+  ],
   themeConfig: {
     repo: "cosmos/sdk-tutorials",
     docsRepo: "cosmos/sdk-tutorials",
@@ -43,6 +43,11 @@ module.exports = {
             {
               title: "Scavenge",
               path: "/scavenge/tutorial/",
+              directory: true,
+            }, 
+            {
+              title: "Starport Scavenge",
+              path: "/starport-scavenge/tutorial/",
               directory: true,
             },
             {
@@ -187,6 +192,7 @@ module.exports = {
     'README.md',
     'nameservice/tutorial/*.md',
     'scavenge/tutorial/*.md',
+    'starport-scavenge/tutorial/*.md',
     'starport-polling-app/*.md',
     'starport-blog/*.md',
   ]
