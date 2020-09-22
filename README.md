@@ -36,6 +36,10 @@ stack:
     duration: "2:11:15"
     imgSrc: https://i.ytimg.com/vi/GfZjnMchKX0/hq720.jpg
     url: https://www.youtube.com/watch?v=GfZjnMchKX0
+  - title: Cosmos Code With Us - Front end name service application
+    duration: "1:59:34"
+    imgSrc: https://i.ytimg.com/vi/ooc9ODGxqcA/hq720.jpg
+    url: https://www.youtube.com/watch?v=ooc9ODGxqcA
 footer:
   newsletter: false
 aside: false
