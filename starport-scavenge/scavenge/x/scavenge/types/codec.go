@@ -6,9 +6,9 @@ import (
 
 // RegisterCodec registers concrete types on codec
 func RegisterCodec(cdc *codec.Codec) {
-  // this line is used by starport scaffolding
-		cdc.RegisterConcrete(MsgCreateCommit{}, "scavenge/CreateCommit", nil)
-		cdc.RegisterConcrete(MsgCreateScavenge{}, "scavenge/CreateScavenge", nil)
+	cdc.RegisterConcrete(MsgCreateScavenge{}, "scavenge/CreateScavenge", nil)
+	cdc.RegisterConcrete(MsgCommitSolution{}, "scavenge/CommitSolution", nil)
+	cdc.RegisterConcrete(MsgRevealSolution{}, "scavenge/RevealSolution", nil)
 }
 
 // ModuleCdc defines the module codec

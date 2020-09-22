@@ -45,3 +45,27 @@ func GetCmdCreateScavenge(cdc *codec.Codec) *cobra.Command {
 		},
 	}
 }
+
+func GetCmdRevealSolution(cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "reveal-solution [solution]",
+		Short: "Reveals a solution for scavenge",
+		Args:  cobra.ExactArgs(1), // Does your request require arguments
+		RunE: func(cmd *cobra.Command, args []string) error {
+
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+			inBuf := bufio.NewReader(cmd.InOrStdin())
+			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
+
+			var solution = args[0]
+
+			msg := types.NewMsgRevealSolution(cliCtx.GetFromAddress(), solution)
+			err := msg.ValidateBasic()
+			if err != nil {
+				return err
+			}
+
+			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
+		},
+	}
+}

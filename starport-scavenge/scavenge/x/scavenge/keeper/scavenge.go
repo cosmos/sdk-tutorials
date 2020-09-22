@@ -33,6 +33,9 @@ func (k Keeper) SetScavenge(ctx sdk.Context, scavenge types.Scavenge) {
 	store := ctx.KVStore(k.storeKey)
 	bz := k.cdc.MustMarshalBinaryLengthPrefixed(scavenge)
 	key := []byte(types.ScavengePrefix + solutionHash)
+
+	// You can set additional checks here
+
 	store.Set(key, bz)
 }
 

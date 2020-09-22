@@ -8,7 +8,7 @@ import (
 )
 
 type Commit struct {
-	Scavenger             sdk.AccAddress `json:"creator" yaml:"creator"`
+	Scavenger             sdk.AccAddress `json:"scavenger" yaml:"scavenger"`
 	SolutionHash          string         `json:"solutionHash" yaml:"solutionHash"`
 	SolutionScavengerHash string         `json:"solutionScavengerHash" yaml:"solutionScavengerHash"`
 }

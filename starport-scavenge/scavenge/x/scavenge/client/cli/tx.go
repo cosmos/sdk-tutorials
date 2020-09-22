@@ -22,9 +22,10 @@ func GetTxCmd(cdc *codec.Codec) *cobra.Command {
 	}
 
 	scavengeTxCmd.AddCommand(flags.PostCommands(
-    // this line is used by starport scaffolding
-		GetCmdCreateCommit(cdc),
+		// this line is used by starport scaffolding
+		GetCmdCommitSolution(cdc),
 		GetCmdCreateScavenge(cdc),
+		GetCmdRevealSolution(cdc),
 	)...)
 
 	return scavengeTxCmd

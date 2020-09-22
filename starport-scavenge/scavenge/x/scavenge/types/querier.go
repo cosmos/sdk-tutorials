@@ -5,5 +5,7 @@ const (
 	QueryGetScavenge  = "get-scavenge"
 )
 
-const (QueryListCommit = "list-commit")
-		
+const (
+	QueryListCommit = "list-commit"
+	QueryGetCommit  = "get-commit"
+)
