@@ -13,7 +13,7 @@ sections:
     tag: beginner
   - title: Scavenge
     desc: Users post questions with hashed answers and bounties for whoever can solve them using a commit-reveal scheme that prevents front-running.
-    url: /scavenge/tutorial/01-background.html
+    url: /starport-scavenge/tutorial/01-background.html
     tag: intermediate
   - title: Nameservice
     desc: Build a fully functional naming service on a blockchain.
@@ -53,7 +53,7 @@ Build a voting application with a web-based UI.
 
 Learn how Starport works by building a blog.
 
-## [Starport Scavenge](./starport-scavenge/scavenge/tutorial/01-background.md)
+## [Starport Scavenge](./starport-scavenge/tutorial/01-background.md)
 
 A scavenger hunt of sorts! Users post questions with hashed answers and bounties for whoever can solve them using a commit-reveal scheme that prevents front-running.
 
