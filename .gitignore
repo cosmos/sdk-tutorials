@@ -12,6 +12,8 @@ build
 node_modules/
 yarn-error.log
 .vuepress/dist
+.build/
+dist/
 
 # IDE
 .idea/
