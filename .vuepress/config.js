@@ -40,11 +40,11 @@ module.exports = {
               path: "/starport-blog/",
               directory: true,
             },
-            {
-              title: "Scavenge",
-              path: "/scavenge/tutorial/",
-              directory: true,
-            }, 
+            // {
+            //   title: "Scavenge",
+            //   path: "/scavenge/tutorial/",
+            //   directory: true,
+            // }, 
             {
               title: "Starport Scavenge",
               path: "/starport-scavenge/tutorial/",
@@ -191,7 +191,7 @@ module.exports = {
     'burner-chain/*.md',
     'README.md',
     'nameservice/tutorial/*.md',
-    'scavenge/tutorial/*.md',
+    // 'scavenge/tutorial/*.md',
     'starport-scavenge/tutorial/*.md',
     'starport-polling-app/*.md',
     'starport-blog/*.md',
