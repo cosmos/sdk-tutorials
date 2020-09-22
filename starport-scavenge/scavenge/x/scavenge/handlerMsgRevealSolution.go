@@ -39,6 +39,18 @@ func handleMsgRevealSolution(ctx sdk.Context, k keeper.Keeper, msg types.MsgReve
 		return nil, sdkError
 	}
 	k.SetScavenge(ctx, scavenge)
-
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			sdk.EventTypeMessage,
+			sdk.NewAttribute(sdk.AttributeKeyModule, types.AttributeValueCategory),
+			sdk.NewAttribute(sdk.AttributeKeyAction, types.EventTypeSolveScavenge),
+			sdk.NewAttribute(sdk.AttributeKeySender, msg.Scavenger.String()),
+			sdk.NewAttribute(types.AttributeSolutionHash, solutionHashString),
+			sdk.NewAttribute(types.AttributeDescription, scavenge.Description),
+			sdk.NewAttribute(types.AttributeSolution, msg.Solution),
+			sdk.NewAttribute(types.AttributeScavenger, scavenge.Scavenger.String()),
+			sdk.NewAttribute(types.AttributeReward, scavenge.Reward.String()),
+		),
+	)
 	return &sdk.Result{Events: ctx.EventManager().Events()}, nil
 }

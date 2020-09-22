@@ -19,6 +19,15 @@ func handleMsgCommitSolution(ctx sdk.Context, k keeper.Keeper, msg types.MsgComm
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Commit with that hash already exists")
 	}
 	k.CreateCommit(ctx, commit)
-
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			sdk.EventTypeMessage,
+			sdk.NewAttribute(sdk.AttributeKeyModule, types.AttributeValueCategory),
+			sdk.NewAttribute(sdk.AttributeKeyAction, types.EventTypeCommitSolution),
+			sdk.NewAttribute(sdk.AttributeKeySender, msg.Scavenger.String()),
+			sdk.NewAttribute(types.AttributeSolutionHash, msg.SolutionHash),
+			sdk.NewAttribute(types.AttributeSolutionScavengerHash, msg.SolutionScavengerHash),
+		),
+	)
 	return &sdk.Result{Events: ctx.EventManager().Events()}, nil
 }

@@ -28,6 +28,16 @@ func handleMsgCreateScavenge(ctx sdk.Context, k keeper.Keeper, msg types.MsgCrea
 	}
 
 	k.CreateScavenge(ctx, scavenge)
-
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			sdk.EventTypeMessage,
+			sdk.NewAttribute(sdk.AttributeKeyModule, types.AttributeValueCategory),
+			sdk.NewAttribute(sdk.AttributeKeyAction, types.EventTypeCreateScavenge),
+			sdk.NewAttribute(sdk.AttributeKeySender, msg.Creator.String()),
+			sdk.NewAttribute(types.AttributeDescription, msg.Description),
+			sdk.NewAttribute(types.AttributeSolutionHash, msg.SolutionHash),
+			sdk.NewAttribute(types.AttributeReward, msg.Reward.String()),
+		),
+	)
 	return &sdk.Result{Events: ctx.EventManager().Events()}, nil
 }
