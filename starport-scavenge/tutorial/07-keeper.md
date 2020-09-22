@@ -4,7 +4,7 @@ order: 7
 
 # Keeper
 
-After using the `scaffold` command you should have a boilerplate `Keeper` at `./x/scavenge/keeper/keeper.go`. It contains a basic keeper with references to basic functions like `Set`, `Get` and `Delete`.
+After using the `starport` command you should have a boilerplate `Keeper` at `./x/scavenge/keeper/keeper.go`. It contains a basic keeper with references to basic functions like `Set`, `Get` and `Delete`.
 
 Our keeper stores all our data for our module. Sometimes a module will import the keeper of another module. This will allow state to be shared and modified across modules. Since we are dealing with coins in our module as bounty rewards, we will need to access the `bank` module's keeper (which we call `CoinKeeper`). Look at our completed `Keeper` files and you can see where the `bank` keeper is referenced and how `Set`, `Get` and `Delete` are expanded:
 
