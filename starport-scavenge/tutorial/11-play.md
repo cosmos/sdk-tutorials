@@ -4,7 +4,7 @@ order: 11
 
 # Play
 
-Your application is running! That's great but who cares unless you can play with it. The first command you will want to try is creating a new scavenge. Since our user `me` has way more `foo` token than the user `you`, let's create the scavenge from their account.
+Your application is running! That's great but who cares unless you can play with it. The first command you will want to try is creating a new scavenge. Since our user `user1` has way more `token` token than the user `user2`, let's create the scavenge from their account.
 
 You can begin by running `scavengecli tx scavenge --help` to see all the commands we created for your new module. You should see the following options:
 ```bash
@@ -251,7 +251,7 @@ Global Flags:
   -o, --output string     Output format (text|json) (default "text")
       --trace             print out full stack trace on errors
 ```
-Let's follow the instructions and submit the answer as a commit on behalf of `you`:
+Let's follow the instructions and submit the answer as a commit on behalf of `user2`:
 ```bash
 scavengecli tx scavenge commit-solution "A stick" --from user2 -y
 ```
