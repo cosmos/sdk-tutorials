@@ -11,7 +11,7 @@ import (
 // and the keeper's address to pubkey map
 func InitGenesis(ctx sdk.Context, keeper keeper.Keeper, data types.GenesisState) {
 	for _, record := range data.WhoisRecords {
-		keeper.SetWhois(ctx, record)
+		keeper.SetWhois(ctx, record.Value, record)
 	}
 }
 

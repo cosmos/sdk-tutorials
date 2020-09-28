@@ -21,10 +21,6 @@ func handleMsgBuyName(ctx sdk.Context, keeper keeper.Keeper, msg types.MsgBuyNam
 		}
 	} else {
 		_, err := keeper.CoinKeeper.SubtractCoins(ctx, msg.Buyer, msg.Bid) // If so, deduct the Bid amount from the sender
-
-		keeper.CreateWhois(ctx, types.Whois{
-			Value: msg.Name,
-		})
 		if err != nil {
 			return nil, err
 		}

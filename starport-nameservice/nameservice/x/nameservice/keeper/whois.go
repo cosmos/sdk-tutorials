@@ -29,11 +29,11 @@ func (k Keeper) GetWhois(ctx sdk.Context, key string) (types.Whois, error) {
 }
 
 // SetWhois sets a whois
-func (k Keeper) SetWhois(ctx sdk.Context, whois types.Whois) {
-	whoisKey := whois.Value
+func (k Keeper) SetWhois(ctx sdk.Context, name string, whois types.Whois) {
+
 	store := ctx.KVStore(k.storeKey)
 	bz := k.cdc.MustMarshalBinaryLengthPrefixed(whois)
-	key := []byte(types.WhoisPrefix + whoisKey)
+	key := []byte(types.WhoisPrefix + name)
 	store.Set(key, bz)
 }
 
@@ -113,7 +113,7 @@ func (k Keeper) ResolveName(ctx sdk.Context, name string) string {
 func (k Keeper) SetName(ctx sdk.Context, name string, value string) {
 	whois, _ := k.GetWhois(ctx, name)
 	whois.Value = value
-	k.SetWhois(ctx, whois)
+	k.SetWhois(ctx, name, whois)
 }
 
 // HasOwner - returns whether or not the name already has an owner
@@ -126,7 +126,7 @@ func (k Keeper) HasOwner(ctx sdk.Context, name string) bool {
 func (k Keeper) SetOwner(ctx sdk.Context, name string, owner sdk.AccAddress) {
 	whois, _ := k.GetWhois(ctx, name)
 	whois.Owner = owner
-	k.SetWhois(ctx, whois)
+	k.SetWhois(ctx, name, whois)
 }
 
 // GetPrice - gets the current price of a name
@@ -139,7 +139,7 @@ func (k Keeper) GetPrice(ctx sdk.Context, name string) sdk.Coins {
 func (k Keeper) SetPrice(ctx sdk.Context, name string, price sdk.Coins) {
 	whois, _ := k.GetWhois(ctx, name)
 	whois.Price = price
-	k.SetWhois(ctx, whois)
+	k.SetWhois(ctx, name, whois)
 }
 
 // Check if the name is present in the store or not
@@ -151,5 +151,5 @@ func (k Keeper) IsNamePresent(ctx sdk.Context, name string) bool {
 // Get an iterator over all names in which the keys are the names and the values are the whois
 func (k Keeper) GetNamesIterator(ctx sdk.Context) sdk.Iterator {
 	store := ctx.KVStore(k.storeKey)
-	return sdk.KVStorePrefixIterator(store, []byte{})
+	return sdk.KVStorePrefixIterator(store, []byte(types.WhoisPrefix))
 }
