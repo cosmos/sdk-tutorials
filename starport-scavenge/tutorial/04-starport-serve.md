@@ -107,7 +107,7 @@ In a separate terminal, you can also `cd` into the `vue` directory and run `npm 
 ## Application
 
 
-Let's run `starport scavenge` again, as it does additional hot reloading for our app out of the box. After this, we can navigate to [`localhost:12345`](http://localhost:12345), where we should see the following landing page:
+Let's run `starport serve` again, as it does additional hot reloading for our app out of the box. After this, we can navigate to [`localhost:12345`](http://localhost:12345), where we should see the following landing page:
 
 ![](./img/ui.png)
 
