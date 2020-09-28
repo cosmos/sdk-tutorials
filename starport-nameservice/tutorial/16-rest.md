@@ -4,51 +4,21 @@ order: 16
 
 # NameService Module Rest Interface
 
-Your module can also expose a REST interface to allow programatic access to the module's functionality. To get started navigate to `./x/nameservice/client/rest/rest.go` this file will hold the HTTP handlers:
-
-Add in the `imports` and `const`s to get started:
+Your module can also expose a REST interface to allow programatic access to the module's functionality. To get started navigate to `./x/nameservice/client/rest/rest.go` this file will hold the HTTP handlers.
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-tutorials/nameservice/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }/x/nameservice`).
-
-```go
-package rest
-
-import (
-	"fmt"
-
-	"github.com/cosmos/cosmos-sdk/client/context"
-
-	"github.com/gorilla/mux"
-)
-
-const (
-	restName = "name"
-)
-```
 
 ### RegisterRoutes
 
 First, define the REST client interface for your module in a `RegisterRoutes` function. Have the routes all start with your module name to prevent name space collisions with other modules' routes:
 
-```go
-// RegisterRoutes - Central function to define routes that get registered by the main application
-func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, storeName string) {
-	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), namesHandler(cliCtx, storeName)).Methods("GET")
-	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), buyNameHandler(cliCtx)).Methods("POST")
-	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), setNameHandler(cliCtx)).Methods("PUT")
-	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}", storeName, restName), resolveNameHandler(cliCtx, storeName)).Methods("GET")
-	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}/whois", storeName, restName), whoIsHandler(cliCtx, storeName)).Methods("GET")
-	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), deleteNameHandler(cliCtx)).Methods("DELETE")
-}
-```
+<<< @/starport-nameservice/nameservice/x/nameservice/client/rest/rest.go
 
 ### Query Handlers
 
-First create a `query.go` file to place all your querys in.
+Next, its time to define the handlers mentioned above in `queryWhois.go`. These will be very similar to the CLI methods defined earlier. `listWhoisHandler` and `getWhoisHandler` should already be defined, and you can use `getWhois` as a template to write the `resolveNameHandler` function.
 
-Next, its time to define the handlers mentioned above. These will be very similar to the CLI methods defined earlier. Start with the queries `whois` and `resolve`:
-
-<<< @/nameservice/x/nameservice/client/rest/query.go
+<<< @/starport-nameservice/nameservice/x/nameservice/client/rest/queryWhois.go
 
 Notes on the above code:
 
@@ -57,11 +27,9 @@ Notes on the above code:
 
 ### Tx Handlers
 
-First define a `tx.go` file to hold all your tx rest endpoints.
+Now define the `buyName`, `setName` and `deleteName` transaction routes in `txWhois.go`. Notice these aren't actually sending the transactions to buy, set and delete names. That would require sending a password along with the request which would be a security issue. Instead these endpoints build and return each specific transaction which can then be signed in a secure manner and afterwards broadcast to the network using a standard endpoint like `/txs`.
 
-Now define the `buyName`, `setName` and `deleteName` transaction routes. Notice these aren't actually sending the transactions to buy, set and delete names. That would require sending a password along with the request which would be a security issue. Instead these endpoints build and return each specific transaction which can then be signed in a secure manner and afterwards broadcast to the network using a standard endpoint like `/txs`.
-
-<<< @/nameservice/x/nameservice/client/rest/tx.go
+<<< @/starport-nameservice/nameservice/x/nameservice/client/rest/txWhois.go
 
 Notes on the above code:
 

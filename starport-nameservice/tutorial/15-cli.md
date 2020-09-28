@@ -4,16 +4,16 @@ order: 15
 
 # Nameservice Module CLI
 
-The Cosmos SDK uses the [`cobra`](https://github.com/spf13/cobra) library for CLI interactions. This library makes it easy for each module to expose its own commands. To get started defining the user's CLI interactions with your module, create the following files:
+The Cosmos SDK uses the [`cobra`](https://github.com/spf13/cobra) library for CLI interactions. This library makes it easy for each module to expose its own commands. The `type` command should have scaffolded the following files for us - 
 
-- `./x/nameservice/client/cli/query.go`
-- `./x/nameservice/client/cli/tx.go`
+- `./x/nameservice/client/cli/queryWhois.go`
+- `./x/nameservice/client/cli/txWhois.go`
 
 ## Queries
 
-Start in `query.go`. Here, define `cobra.Command`s for each of your modules `Queriers` (`resolve`, and `whois`):
+Start in `queryWhois.go`. Here, define `cobra.Command`s for each of your modules `Queriers` (`resolve`, and `whois`):
 
-<<< @/nameservice/x/nameservice/client/cli/query.go
+<<< @/starport-nameservice/nameservice/x/nameservice/client/rest/queryWhois.go
 
 Notes on the above code:
 
@@ -26,11 +26,15 @@ Notes on the above code:
 
 ## Transactions
 
-Now that the query interactions are defined, it is time to move on to transaction generation in `tx.go`:
+Now that the query interactions are defined, it is time to move on to transaction generation in `txWhois.go`:
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-tutorials/nameservice/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }/x/nameservice`).
 
-<<< @/nameservice/x/nameservice/client/cli/tx.go
+<<< @/starport-nameservice/nameservice/x/nameservice/client/cli/txWhois.go
+
+We also need to add the commands to our `tx` command:
+
+<<< @/starport-nameservice/nameservice/x/nameservice/client/cli/tx.go{24-29}
 
 Notes on the above code:
 

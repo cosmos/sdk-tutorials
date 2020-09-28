@@ -1,10 +1,10 @@
 ---
-order: 8
+order: 7
 ---
 
 # Msgs and Handlers
 
-Now that you have the `Keeper` setup, it is time to build the `Msgs` and `Handlers` that actually allow users to buy names and set values for them.
+Now that you have the `Keeper` setup, it is time to update the `Msgs` and `Handlers` so that users can buy names and set values for them.
 
 ## `Msgs`
 
@@ -40,5 +40,7 @@ type Msg interface {
 `Handlers` define the action that needs to be taken (which stores need to get updated, how, and under what conditions) when a given `Msg` is received.
 
 In this module you have three types of `Msgs` that users can send to interact with the application state: [`SetName`](set-name.md), [`BuyName`](./buy-name.md) and [`DeleteName`](./delete-name.md). They will each have an associated `Handler`.
+
+We can see that a few files have already been scaffolded by the `type` command, and we can modify these files to fit our needs for messages and handlers.
 
 Now that you have a better understanding of `Msgs` and `Handlers`, you can start building your first message: `SetName`

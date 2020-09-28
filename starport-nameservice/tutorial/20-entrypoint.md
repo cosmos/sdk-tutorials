@@ -6,33 +6,33 @@ order: 20
 
 In Golang the convention is to place files that compile to a binary in the `./cmd` folder of a project. For your application there are 2 binaries that you want to create:
 
-- `nsd`: This binary is similar to `bitcoind` or other cryptocurrency daemons in that it maintains p2p connections, propagates transactions, handles local storage and provides an RPC interface to interact with the network. In this case, Tendermint is used for networking and transaction ordering.
-- `nscli`: This binary provides commands that allow users to interact with your application.
+- `nameserviced`: This binary is similar to `bitcoind` or other cryptocurrency daemons in that it maintains p2p connections, propagates transactions, handles local storage and provides an RPC interface to interact with the network. In this case, Tendermint is used for networking and transaction ordering.
+- `nameservicecli`: This binary provides commands that allow users to interact with your application.
 
-To get started create two files in your project directory that will instantiate these binaries:
+We should have the following two files already scaffolded for us:
 
-- `./cmd/nsd/main.go`
-- `./cmd/nscli/main.go`
+- `./cmd/nameserviced/main.go`
+- `./cmd/nameservicecli/main.go`
 
-## `nsd`
+## `nameserviced`
 
-Start by adding the following code to `cmd/nsd/main.go`:
+Start by verifying that your `cmd/nameserviced/main.go` looks like this:
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-tutorials/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }`).
 
-<<< @/nameservice/cmd/nsd/main.go
+<<< @/starport-nameservice/nameservice/cmd/nameserviced/main.go
 
 Notes on the above code:
 
 - Most of the code above combines the CLI commands from Tendermint, Cosmos-SDK and your Nameservice module.
 
-## `nscli`
+## `nameservicecli`
 
-Finish up by building the `nscli` command:
+Finish up by confirming your `nameservicecli` command looks as follows:
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-tutorials/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }`).
 
-<<< @/nameservice/cmd/nscli/main.go
+<<< @/starport-nameservice/nameservice/cmd/nameservicecli/main.go
 
 Note:
 

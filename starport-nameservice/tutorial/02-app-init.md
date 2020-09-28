@@ -8,10 +8,11 @@ Get started by creating a new app, we will be using the lvl-1 app which is provi
 
 You can fill in `user` with your Github username and `repo` with the name of the repo you are creating.
 ```bash
-scaffold app lvl-1 [user] [repo] [flags]
-
-cd [repo]
+starport app github.com/user/nameservice
+cd nameservice
 ```
+
+## Overview
 
 In `app.go` it is defined what the application does when it receives a transaction. But first, it needs to be able to receive transactions in the correct order. This is the role of the [Tendermint consensus engine](https://github.com/tendermint/tendermint).
 
@@ -59,6 +60,10 @@ Now you need to rename the `appName` & `NewApp` types to the name of your app. I
 Great! You now have the start of your application. Currently you have a working blockchain, but we will customize it throughout this tutorial.
 
 `baseapp` has no knowledge of the routes or user interactions you want to use in your application. The primary role of your application is to define these routes. Another role is to define the initial state. Both these things require that you add modules to your application.
+
+## Running your application
+
+
 
 As you have seen in the [application design](./app-design.md) section, you need a few modules for your nameservice: `auth`, `bank`, `staking`, `distribution`, `slashing` and `nameservice`. The first five already exist, but not the last! The `nameservice` module will define the bulk of your state machine. The next step is to build it.
 

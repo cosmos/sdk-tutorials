@@ -6,13 +6,13 @@ order: 18
 
 The AppModule interface includes a number of functions for use in initializing and exporting GenesisState for the chain. The `ModuleBasicManager` calls these functions on each module when starting, stopping or exporting the chain. Here is a very basic implementation that you can expand upon.
 
-Go to `x/nameservice/genesis.go` and you will see that a few things are missing. We have to fill them in according to the needs of the module. Below you will see what is missing:
+Go to `x/nameservice/types/genesis.go` and we will define what the genesis state will be, the default genesis and a way to validate it so we don't run into any errors when we start the chain with preexisting state.
 
-<<< @/nameservice/x/nameservice/genesis.go
+<<< @/scavenge-nameservice.nameservice/x/nameservice/types/genesis.go
 
-Next we will define what the genesis state will be, the default genesis and a way to validate it so we don't run into any errors when we start the chain with preexisting state.
+Next we can update our `x/nameservice/genesis.go` file, and modify the functions `InitGenesis` and `ExportGenesis`
 
-<<< @/nameservice/x/nameservice/types/genesis.go
+<<< @/scavenge-nameservice/nameservice/x/nameservice/genesis.go
 
 A few notes about the above code:
 

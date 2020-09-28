@@ -8,58 +8,57 @@ order: 12
 
 Start by navigating to `./x/nameservice/types/querier.go` file. This is where you will define your querier types.
 
-<<< @/nameservice/x/nameservice/types/querier.go
+<<< @/starport-nameservice/nameservice/x/nameservice/types/querier.go
 
 ## Querier
 
 Now you can navigate to the `./x/nameservice/keeper/querier.go` file. This is the place to define which queries against application state users will be able to make. Your `nameservice` module will expose three queries:
 
-- `resolve`: This takes a `name` and returns the `value` that is stored by the `nameservice`. This is similar to a DNS query.
-- `whois`: This takes a `name` and returns the `price`, `value`, and `owner` of the name. Used for figuring out how much names cost when you want to buy them.
-- `name` : This does not take a parameter, it returns all the names stored in the `nameservice` store.
+- `resolveName`: This takes a `name` and returns the `value` that is stored by the `nameservice`. This is similar to a DNS query.
+- `getWhois`: This takes a `name` and returns the `price`, `value`, and `owner` of the name. Used for figuring out how much names cost when you want to buy them.
+- `listWhois` : This does not take a parameter, it returns all the names stored in the `nameservice` store.
 
-You will see `NewQuerier` already defined, this function acts as a sub-router for queries to this module (similar the `NewHandler` function). Note that because there isn't an interface similar to `Msg` for queries, you need to manually define switch statement cases (they can't be pulled off of the query `.Route()` function):
+You will see `NewQuerier` already defined, this function acts as a sub-router for queries to this module (similar the `NewHandler` function). Note that because there isn't an interface similar to `Msg` for queries, you need to modify the switch statement cases (they can't be pulled off of the query `.Route()` function):
+
+<<< @/starport-nameservice/nameservice/x/nameservice/keeper/querier.go
+
+Now that the router is defined, we can verify that our querier functions in `./x/nameservice/keeper/whois.go` looks like this:
 
 ```go
-package keeper
+//
+// Functions used by querier
+//
 
-import (
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/sdk-tutorials/nameservice/x/nameservice/types"
-
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	abci "github.com/tendermint/tendermint/abci/types"
-)
-
-// query endpoints supported by the nameservice Querier
-const (
-	QueryResolve = "resolve"
-	QueryWhois   = "whois"
-	QueryNames   = "names"
-)
-
-// NewQuerier is the module level router for state queries
-func NewQuerier(keeper Keeper) sdk.Querier {
-	return func(ctx sdk.Context, path []string, req abci.RequestQuery) (res []byte, err error) {
-		switch path[0] {
-		case QueryResolve:
-			return queryResolve(ctx, path[1:], req, keeper)
-		case QueryWhois:
-			return queryWhois(ctx, path[1:], req, keeper)
-		case QueryNames:
-			return queryNames(ctx, req, keeper)
-		default:
-			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "unknown nameservice query endpoint")
-		}
+func listWhois(ctx sdk.Context, k Keeper) ([]byte, error) {
+	var whoisList []types.Whois
+	store := ctx.KVStore(k.storeKey)
+	iterator := sdk.KVStorePrefixIterator(store, []byte(types.WhoisPrefix))
+	for ; iterator.Valid(); iterator.Next() {
+		var whois types.Whois
+		k.cdc.MustUnmarshalBinaryLengthPrefixed(store.Get(iterator.Key()), &whois)
+		whoisList = append(whoisList, whois)
 	}
+	res := codec.MustMarshalJSONIndent(k.cdc, whoisList)
+	return res, nil
 }
-```
 
-Now that the router is defined, define the inputs and responses for each query:
+func getWhois(ctx sdk.Context, path []string, k Keeper) (res []byte, sdkError error) {
+	key := path[0]
+	whois, err := k.GetWhois(ctx, key)
+	if err != nil {
+		return nil, err
+	}
 
-```go
-// nolint: unparam
-func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
+	res, err = codec.MarshalJSONIndent(k.cdc, whois)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
+	}
+
+	return res, nil
+}
+
+// Resolves a name, returns the value
+func resolveName(ctx sdk.Context, path []string, keeper Keeper) ([]byte, error) {
 	value := keeper.ResolveName(ctx, path[0])
 
 	if value == "" {
@@ -73,36 +72,9 @@ func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper 
 
 	return res, nil
 }
-
-// nolint: unparam
-func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
-	whois := keeper.GetWhois(ctx, path[0])
-
-	res, err := codec.MarshalJSONIndent(keeper.cdc, whois)
-	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
-	}
-
-	return res, nil
-}
-
-func queryNames(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
-	var namesList types.QueryResNames
-
-	iterator := keeper.GetNamesIterator(ctx)
-
-	for ; iterator.Valid(); iterator.Next() {
-		namesList = append(namesList, string(iterator.Key()))
-	}
-
-	res, err := codec.MarshalJSONIndent(keeper.cdc, namesList)
-	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
-	}
-
-	return res, nil
-}
 ```
+
+Note that `listWhois` and `getWhois` should already be defined, so you would only need to add `resolveName`.
 
 Notes on the above code:
 

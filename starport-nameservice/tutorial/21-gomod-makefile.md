@@ -10,7 +10,34 @@ Help users build your application by writing a `./Makefile` in the root director
 
 > _*NOTE*_: The below Makefile contains some of same commands as the Cosmos SDK and Tendermint Makefiles.
 
-+++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/Makefile
+```
+PACKAGES=$(shell go list ./... | grep -v '/simulation')
+
+VERSION := $(shell echo $(shell git describe --tags) | sed 's/^v//')
+COMMIT := $(shell git log -1 --format='%H')
+
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=NameService \
+	-X github.com/cosmos/cosmos-sdk/version.ServerName=nameserviced \
+	-X github.com/cosmos/cosmos-sdk/version.ClientName=nameservicecli \
+	-X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
+	-X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) 
+
+BUILD_FLAGS := -ldflags '$(ldflags)'
+
+all: install
+
+install: go.sum
+		@echo "--> Installing nameserviced & nameservicecli"
+		@go install -mod=readonly $(BUILD_FLAGS) ./cmd/nameserviced
+		@go install -mod=readonly $(BUILD_FLAGS) ./cmd/nameservicecli
+
+go.sum: go.mod
+		@echo "--> Ensure dependencies have not been modified"
+		GO111MODULE=on go mod verify
+
+test:
+	@go test -mod=readonly $(PACKAGES)
+```
 
 ### How about including Ledger Nano S support?
 
@@ -22,7 +49,12 @@ This requires a few small changes:
 
 - Add `include Makefile.ledger` at the beginning of the Makefile:
 
-+++ https://github.com/cosmos/sdk-tutorials/blob/master/nameservice/Makefile
+```
+BUILD_FLAGS := -ldflags '$(ldflags)'
+
+include Makefile.ledger
+all: install
+```
 
 ## `go.mod`
 
@@ -42,8 +74,8 @@ Golang has a few dependency management tools. In this tutorial you will be using
 make install
 
 # Now you should be able to run the following commands:
-nsd help
-nscli help
+nameserviced help
+nameservicecli help
 ```
 
 ### Congratulations, you have finished your nameservice application! Try running and interacting with it!

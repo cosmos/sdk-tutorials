@@ -4,9 +4,16 @@ order: 9
 
 # SetName
 
-## `MsgSetName`
+## `MsgSetSetName`
 
-The naming convention for the SDK `Msgs` is `Msg{ .Action }`. The first action to implement is `SetName`, so we'll call it `MsgSetName`. This `Msg` allows the owner of a name to set the return value for that name within the resolver. Start by defining `MsgSetName` in the file called `./x/nameservice/types/msgs.go`:
+The naming convention for the SDK `Msgs` is `Msg{ .Action }`. The first action to implement is `SetName`, so we'll call it `MsgSetName`. This `Msg` allows the owner of a name to set the return value for that name within the resolver. Start by renaming the `./x/nameservice/types/MsgSetWhois.go` file to  `./x/nameservice/types/MsgSetName.go`. 
+
+```
+mv x/nameservice/types/MsgSetWhois.go x/nameservice/types/MsgSetName.go
+```
+
+It would also help to find-and-replace `MsgSetWhois` to `MsgSetName` in your project, to avoid errors from popping up later o.
+Afterwards, we can start making slight modifications to our file, starting by updating `MsgSetName` - 
 
 ```go
 package types
