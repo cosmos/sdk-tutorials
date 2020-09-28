@@ -5,6 +5,8 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
+// This Msg sets values for a name, and has been modified using search-and-replace to our Msg needs.
+
 var _ sdk.Msg = &MsgSetName{}
 
 type MsgSetName struct {

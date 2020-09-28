@@ -8,7 +8,8 @@ import (
 	"github.com/cosmos/sdk-tutorials/starport-nameservice/nameservice/x/nameservice/types"
 )
 
-// CreateWhois creates a whois
+// CreateWhois creates a whois. This function is included in starport type scaffolding.
+// We won't use this function in our application, so it can be commented out.
 func (k Keeper) CreateWhois(ctx sdk.Context, whois types.Whois) {
 	store := ctx.KVStore(k.storeKey)
 	key := []byte(types.WhoisPrefix + whois.Value)
@@ -28,7 +29,7 @@ func (k Keeper) GetWhois(ctx sdk.Context, key string) (types.Whois, error) {
 	return whois, nil
 }
 
-// SetWhois sets a whois
+// SetWhois sets a whois. We modified this function to use the `name` value as the key instead of msg.ID
 func (k Keeper) SetWhois(ctx sdk.Context, name string, whois types.Whois) {
 
 	store := ctx.KVStore(k.storeKey)
@@ -75,7 +76,7 @@ func getWhois(ctx sdk.Context, path []string, k Keeper) (res []byte, sdkError er
 	return res, nil
 }
 
-// nolint: unparam
+// Resolves a name, returns the value
 func resolveName(ctx sdk.Context, path []string, keeper Keeper) ([]byte, error) {
 	value := keeper.ResolveName(ctx, path[0])
 

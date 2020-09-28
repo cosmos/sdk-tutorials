@@ -5,6 +5,8 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
+// This Msg deletes a name. It was originally called MsgDeleteWhois, and has been modified using search-and-replace to our Msg needs.
+
 var _ sdk.Msg = &MsgDeleteName{}
 
 type MsgDeleteName struct {

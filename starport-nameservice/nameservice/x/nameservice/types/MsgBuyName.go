@@ -5,6 +5,8 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
+// Originally, this file was named MsgCreateWhois, and has been modified using search-and-replace to our Msg needs.
+
 // MsgBuyName defines the BuyName message
 type MsgBuyName struct {
 	Name  string         `json:"name"`
