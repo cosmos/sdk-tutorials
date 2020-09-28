@@ -8,5 +8,11 @@ import (
 
 // RegisterRoutes registers nameservice-related REST handlers to a router
 func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router) {
-  // this line is used by starport scaffolding
+	// this line is used by starport scaffolding
+	r.HandleFunc("/nameservice/whois", listWhoisHandler(cliCtx, "nameservice")).Methods("GET")
+	r.HandleFunc("/nameservice/whois/{key}", resolveNameHandler(cliCtx, "nameservice")).Methods("GET")
+	r.HandleFunc("/nameservice/whois/{key}/resolve", getWhoisHandler(cliCtx, "nameservice")).Methods("GET")
+	r.HandleFunc("/nameservice/whois", setWhoisHandler(cliCtx)).Methods("PUT")
+	r.HandleFunc("/nameservice/whois", deleteWhoisHandler(cliCtx)).Methods("DELETE")
+
 }
