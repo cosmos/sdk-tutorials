@@ -42,7 +42,7 @@ Afterwards, it initializes our `genesis.json` file based on the contents of the 
 
 This setup can also be performed manually using the `nameserviced` and `nameservicecli` commands, which are available after the application is built.
 
-<<< @/starport-scavenge/scavenge/init.sh
+<<< @/starport-nameservice/nameservice/init.sh
 
 > _*NOTE*_: If you have run the tutorial before, you can start from scratch with a `nameserviced unsafe-reset-all` or by deleting both of the home folders `rm -rf ~/.nameservicecli ~/.nameserviced`
 
