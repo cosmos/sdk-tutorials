@@ -13,7 +13,7 @@ The Cosmos SDK uses the [`cobra`](https://github.com/spf13/cobra) library for CL
 
 Start in `queryWhois.go`. Here, define `cobra.Command`s for each of your modules `Queriers` (`resolve`, and `whois`):
 
-<<< @/starport-nameservice/nameservice/x/nameservice/client/rest/queryWhois.go
+<<< @/starport-nameservice/nameservice/x/nameservice/client/cli/queryWhois.go
 
 Notes on the above code:
 
@@ -34,7 +34,7 @@ Now that the query interactions are defined, it is time to move on to transactio
 
 We also need to add the commands to our `tx` command:
 
-<<< @/starport-nameservice/nameservice/x/nameservice/client/cli/tx.go{24-29}
+<<< @/starport-nameservice/nameservice/x/nameservice/client/cli/tx.go
 
 Notes on the above code:
 
