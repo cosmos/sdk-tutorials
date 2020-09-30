@@ -52,15 +52,15 @@ nameservicecli tx sign unsignedTx.json --from jack --offline --chain-id namechai
 nameservicecli tx broadcast signedTx.json
 
 # Query the value for the name jack just set
-$ curl -s http://localhost:1317/nameservice/names/jack1.id
+$ curl -s http://localhost:1317/nameservice/whois/jack1.id/resolve
 # 8.8.4.4
 
 # Query whois for the name jack just bought
-$ curl -s http://localhost:1317/nameservice/names/jack1.id/whois
+$ curl -s http://localhost:1317/nameservice/whois/jack1.id
 # > {"value":"8.8.8.8","owner":"cosmos127qa40nmq56hu27ae263zvfk3ey0tkapwk0gq6","price":[{"denom":"STAKE","amount":"10"}]}
 
 # Alice buys name from jack
-$ curl -X POST -s http://localhost:1317/nameservice/names --data-binary '{"base_req":{"from":"'$(nameservicecli keys show alice -a)'","chain_id":"namechain"},"name":"jack1.id","amount":"10nametoken","buyer":"'$(nameservicecli keys show alice -a)'"}' > unsignedTx.json
+$ curl -X POST -s http://localhost:1317/nameservice/whois --data-binary '{"base_req":{"from":"'$(nameservicecli keys show alice -a)'","chain_id":"namechain"},"name":"jack1.id","amount":"10nametoken","buyer":"'$(nameservicecli keys show alice -a)'"}' > unsignedTx.json
 
 # Again we need to sign and broadcast
 # NOTE: The account number has changed to 1 and the sequence is now 2, according to the query of alice's account

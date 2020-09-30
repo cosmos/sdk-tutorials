@@ -8,11 +8,11 @@ The AppModule interface includes a number of functions for use in initializing a
 
 Go to `x/nameservice/types/genesis.go` and we will define what the genesis state will be, the default genesis and a way to validate it so we don't run into any errors when we start the chain with preexisting state.
 
-<<< @/scavenge-nameservice.nameservice/x/nameservice/types/genesis.go
+<<< @/starport-nameservice/nameservice/x/nameservice/types/genesis.go
 
 Next we can update our `x/nameservice/genesis.go` file, and modify the functions `InitGenesis` and `ExportGenesis`
 
-<<< @/scavenge-nameservice/nameservice/x/nameservice/genesis.go
+<<< @/starport-nameservice/nameservice/x/nameservice/genesis.go
 
 A few notes about the above code:
 
