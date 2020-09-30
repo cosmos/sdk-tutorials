@@ -7,7 +7,7 @@ jobs:
     - uses: actions/setup-go@v1
       id: go
       with:
-        go-version: 1.13
+        go-version: 1.14
     - name: Setup env for GO
     #  this is only used until the setup-go action is updated
       run: |
