@@ -13,7 +13,7 @@ import (
 type buyNameRequest struct {
 	BaseReq rest.BaseReq `json:"base_req"`
 	Buyer   string       `json:"buyer"`
-	Name    string       `json:"Name"`
+	Name    string       `json:"name"`
 	Price   string       `json:"price"`
 }
 

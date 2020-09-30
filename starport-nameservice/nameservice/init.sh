@@ -17,7 +17,7 @@ nameservicecli keys add user2
 nameserviced add-genesis-account $(nameservicecli keys show user1 -a) 1000nametoken,100000000stake
 nameserviced add-genesis-account $(nameservicecli keys show user2 -a) 1000nametoken,100000000stake
 
-nameserviced gentx --name jack --keyring-backend test
+nameserviced gentx --name user1 --keyring-backend test
 
 echo "Collecting genesis txs..."
 nameserviced collect-gentxs

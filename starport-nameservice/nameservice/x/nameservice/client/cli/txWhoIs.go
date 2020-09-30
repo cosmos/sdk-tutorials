@@ -17,7 +17,7 @@ func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "buy-name [name] [price]",
 		Short: "Buys a new name",
-		Args:  cobra.MinimumNArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsName := string(args[0])
 
@@ -44,7 +44,7 @@ func GetCmdSetWhois(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "set-name [value] [name]",
 		Short: "Set a new name",
-		Args:  cobra.MinimumNArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsValue := args[0]
 			argsName := args[1]
