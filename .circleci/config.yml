@@ -31,7 +31,7 @@ jobs:
       - checkout
       - run:
           name: nameservice test-cover
-          command: cd nameservice && make test
+          command: cd starport-nameservice/nameservice && make test
 
   deploy-website:
     executor: website
