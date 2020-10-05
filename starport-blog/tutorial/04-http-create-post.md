@@ -134,6 +134,7 @@ Next, we need to define the `createPost` function. It will take the value from t
 const createPost = () => {
   // Getting a post title value from text input
   const title = document.getElementById("input").value;
+  const body = document.getElementById("body").value;
   // Fetching account parameters: sequence and account_number
   axios.get(`${API}/auth/accounts/${wallet.address}`).then(({ data }) => {
     const account = data.result.value;
@@ -153,6 +154,7 @@ const createPost = () => {
       },
       creator: wallet.address,
       title,
+      body,
     };
     // Fetching am unsigned transaction
     axios.post(`${API}/blog/post`, req).then(({ data }) => {
