@@ -155,7 +155,7 @@ const createPost = () => {
       title,
     };
     // Fetching am unsigned transaction
-    axios.post(`${API}/blog/posts`, req).then(({ data }) => {
+    axios.post(`${API}/blog/post`, req).then(({ data }) => {
       const tx = data.value;
       // Signing the transaction with the private key and meta info
       const stdTx = signTx(tx, meta, wallet);
