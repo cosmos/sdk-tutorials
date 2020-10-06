@@ -17,7 +17,7 @@ sections:
     tag: intermediate
   - title: Nameservice
     desc: Build a fully functional naming service on a blockchain.
-    url: /starport-nameservice/tutorial/00-intro.html
+    url: /nameservice/tutorial/00-intro.html
     tag: advanced
   - title: Cosmos Burner Chain
     desc: Provide a blueprint for your own application specific blockchain that interacts with other EVM based networks like Ethereum and xDai.
@@ -64,7 +64,7 @@ A scavenger hunt of sorts! Users post questions with hashed answers and bounties
 - [YouTube](https://www.youtube.com/watch?v=GfZjnMchKX0)
 - [Slides](https://docs.google.com/presentation/d/1UG_Zi2FxMSWTmRBFhc4exXlJssAPasTq28cpTCHX2Ks/edit?usp=sharing)
 
-## [Nameservice](./starport-nameservice/tutorial/00-intro.md)
+## [Nameservice](./nameservice/tutorial/00-intro.md)
 
 The real deal, full-length tutorial in which you will build a fully functional naming service on a blockchain. This tutorial does not use the `starter` package, rather you will be configuring and composing a full application yourself.
 The nameservice tutorial also has translations and a slide deck.
@@ -74,7 +74,7 @@ The nameservice tutorial also has translations and a slide deck.
 
 Translations:
 
-- [中文](./starport-nameservice/tutorial/README_cn.md)
+- [中文](./nameservice/tutorial/README_cn.md)
 
 ## [Cosmos Burner Chain](./burner-chain/00-index.md)
 

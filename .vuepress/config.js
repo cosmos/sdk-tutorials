@@ -47,7 +47,7 @@ module.exports = {
             },
             {
               title: "Nameservice",
-              path: "/starport-nameservice/tutorial/",
+              path: "/nameservice/tutorial/",
               directory: true,
             },
             {
@@ -180,7 +180,7 @@ module.exports = {
   patterns: [
     'burner-chain/*.md',
     'README.md',
-    'starport-nameservice/tutorial/*.md',
+    'nameservice/tutorial/*.md',
     'scavenge/tutorial/*.md',
     'starport-polling-app/*.md',
     'starport-blog/tutorial/*.md',
