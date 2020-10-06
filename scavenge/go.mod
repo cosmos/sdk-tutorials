@@ -3,7 +3,7 @@ module github.com/cosmos/sdk-tutorials/scavenge
 go 1.13
 
 require (
-	github.com/cosmos/cosmos-sdk v0.39.0
+	github.com/cosmos/cosmos-sdk v0.39.1
 	github.com/golang/mock v1.4.3 // indirect
 	github.com/gorilla/mux v1.7.4
 	github.com/onsi/ginkgo v1.8.0 // indirect
