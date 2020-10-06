@@ -74,7 +74,7 @@ The nameservice tutorial also has translations and a slide deck.
 
 Translations:
 
-- [中文](./nameservice/README_cn.md)
+- [中文](./nameservice/tutorial/README_cn.md)
 
 ## [Cosmos Burner Chain](./burner-chain/00-index.md)
 
