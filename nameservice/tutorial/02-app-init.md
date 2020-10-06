@@ -63,6 +63,6 @@ Great! You now have the start of your application. Currently you have a working 
 
 ## Running your application
 
-As you have seen in the [application design](./app-design.md) section, you need a few modules for your nameservice: `auth`, `bank`, `staking`, `distribution`, `slashing` and `nameservice`. The first five already exist, but not the last! The `nameservice` module will define the bulk of your state machine. The next step is to build it.
+As you have seen in the [application design](./01-app-design.md) section, you need a few modules for your nameservice: `auth`, `bank`, `staking`, `distribution`, `slashing` and `nameservice`. The first five already exist, but not the last! The `nameservice` module will define the bulk of your state machine. The next step is to build it.
 
 ### In order to complete your application, you need to include modules. Go ahead and start building your nameservice module. You will come back to `app.go` later.
