@@ -3,13 +3,13 @@ layout: home
 title: Cosmos SDK Tutorials
 description: Tutorials for the Cosmos SDK
 sections:
-  - title: Starport Polling App
+  - title: Voter
     desc: Build a voting application with a web-based UI.
-    url: /starport-polling-app/
+    url: /voter/
     tag: beginner
-  - title: Starport Blog
+  - title: Blog
     desc: Learn how Starport works by building a blog.
-    url: /starport-blog/tutorial/01-index.html
+    url: /blog/tutorial/01-index.html
     tag: beginner
   - title: Scavenge
     desc: Users post questions with hashed answers and bounties for whoever can solve them using a commit-reveal scheme that prevents front-running.
@@ -47,13 +47,13 @@ aside: false
 
 # Cosmos SDK Tutorials
 
-## [Starport Polling App](./starport-polling-app/index.md)
+## [Voter](./voter/index.md)
 
 Build a voting application with a web-based UI.
 
 - [YouTube](https://www.youtube.com/watch?v=h6Ur_40LB9k)
 
-## [Starport Blog](./starport-blog/tutorial/01-index.md)
+## [Blog](./blog/tutorial/01-index.md)
 
 Learn how Starport works by building a blog.
 
