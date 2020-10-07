@@ -9,7 +9,7 @@ sections:
     tag: beginner
   - title: Starport Blog
     desc: Learn how Starport works by building a blog.
-    url: /starport-blog/01-index.html
+    url: /starport-blog/tutorial/01-index.html
     tag: beginner
   - title: Scavenge
     desc: Users post questions with hashed answers and bounties for whoever can solve them using a commit-reveal scheme that prevents front-running.
@@ -36,6 +36,10 @@ stack:
     duration: "2:11:15"
     imgSrc: https://i.ytimg.com/vi/GfZjnMchKX0/hq720.jpg
     url: https://www.youtube.com/watch?v=GfZjnMchKX0
+  - title: Cosmos Code With Us - Front end name service application
+    duration: "1:59:34"
+    imgSrc: https://i.ytimg.com/vi/ooc9ODGxqcA/hq720.jpg
+    url: https://www.youtube.com/watch?v=ooc9ODGxqcA
 footer:
   newsletter: false
 aside: false
@@ -49,7 +53,7 @@ Build a voting application with a web-based UI.
 
 - [YouTube](https://www.youtube.com/watch?v=h6Ur_40LB9k)
 
-## [Starport Blog](./starport-blog/01-index.md)
+## [Starport Blog](./starport-blog/tutorial/01-index.md)
 
 Learn how Starport works by building a blog.
 

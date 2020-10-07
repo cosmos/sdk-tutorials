@@ -37,7 +37,7 @@ module.exports = {
             },
             {
               title: "Starport Blog",
-              path: "/starport-blog/",
+              path: "/starport-blog/tutorial/",
               directory: true,
             },
             {
@@ -161,13 +161,8 @@ module.exports = {
           title: "Contributing",
           children: [
             {
-              title: "Contributing to the docs",
-              url:
-                "https://github.com/cosmos/cosmos-sdk/blob/master/docs/DOCS_README.md"
-            },
-            {
               title: "Source code on GitHub",
-              url: "https://github.com/cosmos/cosmos-sdk/"
+              url: "https://github.com/cosmos/sdk-tutorials"
             }
           ]
         }
@@ -182,4 +177,12 @@ module.exports = {
       },
     ],
   ],
+  patterns: [
+    'burner-chain/*.md',
+    'README.md',
+    'nameservice/tutorial/*.md',
+    'scavenge/tutorial/*.md',
+    'starport-polling-app/*.md',
+    'starport-blog/tutorial/*.md',
+  ]
 };
