@@ -17,8 +17,7 @@ const (
 const (
 	PostPrefix = "post-"
 )
-		
+
 const (
 	CommentPrefix = "comment-"
 )
-		

@@ -17,8 +17,7 @@ const (
 const (
 	PollPrefix = "poll-"
 )
-		
+
 const (
 	VotePrefix = "vote-"
 )
-		

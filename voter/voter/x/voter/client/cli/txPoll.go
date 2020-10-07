@@ -20,7 +20,7 @@ func GetCmdCreatePoll(cdc *codec.Codec) *cobra.Command {
 		Args:  cobra.MinimumNArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsTitle := string(args[0])
-			argsOptions := args[1:len(args)]
+			argsOptions := args[1:]
 
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			inBuf := bufio.NewReader(cmd.InOrStdin())

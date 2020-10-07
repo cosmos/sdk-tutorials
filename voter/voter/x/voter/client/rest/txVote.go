@@ -4,18 +4,17 @@ import (
 	"net/http"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/rest"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/sdk-tutorials/voter/voter/x/voter/types"
 )
 
 type createVoteRequest struct {
 	BaseReq rest.BaseReq `json:"base_req"`
-	Creator string `json:"creator"`
-	PollID string `json:"pollID"`
-	Value string `json:"value"`
-	
+	Creator string       `json:"creator"`
+	PollID  string       `json:"pollID"`
+	Value   string       `json:"value"`
 }
 
 func createVoteHandler(cliCtx context.CLIContext) http.HandlerFunc {
@@ -34,7 +33,7 @@ func createVoteHandler(cliCtx context.CLIContext) http.HandlerFunc {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
-		msg := types.NewMsgCreateVote(creator,  req.PollID,  req.Value, )
+		msg := types.NewMsgCreateVote(creator, req.PollID, req.Value)
 		utils.WriteGenerateStdTxResponse(w, cliCtx, baseReq, []sdk.Msg{msg})
 	}
 }

@@ -1,9 +1,9 @@
 package keeper
 
 import (
+	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/sdk-tutorials/blog/blog/x/blog/types"
-  "github.com/cosmos/cosmos-sdk/codec"
 )
 
 func (k Keeper) CreateComment(ctx sdk.Context, comment types.Comment) {
@@ -14,14 +14,14 @@ func (k Keeper) CreateComment(ctx sdk.Context, comment types.Comment) {
 }
 
 func listComment(ctx sdk.Context, k Keeper) ([]byte, error) {
-  var commentList []types.Comment
-  store := ctx.KVStore(k.storeKey)
-  iterator := sdk.KVStorePrefixIterator(store, []byte(types.CommentPrefix))
-  for ; iterator.Valid(); iterator.Next() {
-    var comment types.Comment
-    k.cdc.MustUnmarshalBinaryLengthPrefixed(store.Get(iterator.Key()), &comment)
-    commentList = append(commentList, comment)
-  }
-  res := codec.MustMarshalJSONIndent(k.cdc, commentList)
-  return res, nil
+	var commentList []types.Comment
+	store := ctx.KVStore(k.storeKey)
+	iterator := sdk.KVStorePrefixIterator(store, []byte(types.CommentPrefix))
+	for ; iterator.Valid(); iterator.Next() {
+		var comment types.Comment
+		k.cdc.MustUnmarshalBinaryLengthPrefixed(store.Get(iterator.Key()), &comment)
+		commentList = append(commentList, comment)
+	}
+	res := codec.MustMarshalJSONIndent(k.cdc, commentList)
+	return res, nil
 }
