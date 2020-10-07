@@ -22,7 +22,7 @@ module.exports = {
       index: "cosmos-sdk_tutorials"
     },
     topbar: {
-      banner: false,
+      banner: true,
     },
     sidebar: {
       auto: false,
