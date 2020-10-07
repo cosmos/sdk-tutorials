@@ -10,7 +10,7 @@ module.exports = {
     ['meta', { name: "theme-color", content: "#ffffff" }],
     ['link', { rel: "icon", type: "image/svg+xml", href: "/favicon-svg.svg" }],
     ['link', { rel: "apple-touch-icon-precomposed", href: "/apple-touch-icon-precomposed.png" }],
-  ],  
+  ],
   themeConfig: {
     repo: "cosmos/sdk-tutorials",
     docsRepo: "cosmos/sdk-tutorials",
@@ -22,7 +22,7 @@ module.exports = {
       index: "cosmos-sdk_tutorials"
     },
     topbar: {
-      banner: false,
+      banner: true,
     },
     sidebar: {
       auto: false,

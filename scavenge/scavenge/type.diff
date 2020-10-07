@@ -1,0 +1,118 @@
+diff --git a/scavenge/scavenge/vue/src/store/app.js b/scavenge/scavenge/vue/src/store/app.js
+index 7946172..e32ed81 100644
+--- a/scavenge/scavenge/vue/src/store/app.js
++++ b/scavenge/scavenge/vue/src/store/app.js
+@@ -1,5 +1,6 @@
+ module.exports = {
+   types: [
+     // this line is used by starport scaffolding
++		{ type: "scavenge", fields: ["description", "solutionHash", "reward", "solution", "scavenger", ] },
+   ],
+ };
+diff --git a/scavenge/scavenge/x/scavenge/client/cli/query.go b/scavenge/scavenge/x/scavenge/client/cli/query.go
+index d0f5f5b..5279c02 100644
+--- a/scavenge/scavenge/x/scavenge/client/cli/query.go
++++ b/scavenge/scavenge/x/scavenge/client/cli/query.go
+@@ -30,6 +30,7 @@ func GetQueryCmd(queryRoute string, cdc *codec.Codec) *cobra.Command {
+ 	scavengeQueryCmd.AddCommand(
+ 		flags.GetCommands(
+       // this line is used by starport scaffolding
++			GetCmdListScavenge(queryRoute, cdc),
+ 		)...,
+ 	)
+ 
+diff --git a/scavenge/scavenge/x/scavenge/client/cli/tx.go b/scavenge/scavenge/x/scavenge/client/cli/tx.go
+index 6cbf0dc..d73326c 100644
+--- a/scavenge/scavenge/x/scavenge/client/cli/tx.go
++++ b/scavenge/scavenge/x/scavenge/client/cli/tx.go
+@@ -23,6 +23,7 @@ func GetTxCmd(cdc *codec.Codec) *cobra.Command {
+ 
+ 	scavengeTxCmd.AddCommand(flags.PostCommands(
+     // this line is used by starport scaffolding
++		GetCmdCreateScavenge(cdc),
+ 	)...)
+ 
+ 	return scavengeTxCmd
+diff --git a/scavenge/scavenge/x/scavenge/client/rest/rest.go b/scavenge/scavenge/x/scavenge/client/rest/rest.go
+index 2043a5c..e74c811 100644
+--- a/scavenge/scavenge/x/scavenge/client/rest/rest.go
++++ b/scavenge/scavenge/x/scavenge/client/rest/rest.go
+@@ -9,4 +9,6 @@ import (
+ // RegisterRoutes registers scavenge-related REST handlers to a router
+ func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router) {
+   // this line is used by starport scaffolding
++	r.HandleFunc("/scavenge/scavenge", listScavengeHandler(cliCtx, "scavenge")).Methods("GET")
++	r.HandleFunc("/scavenge/scavenge", createScavengeHandler(cliCtx)).Methods("POST")
+ }
+diff --git a/scavenge/scavenge/x/scavenge/handler.go b/scavenge/scavenge/x/scavenge/handler.go
+index 2666169..6e64e57 100644
+--- a/scavenge/scavenge/x/scavenge/handler.go
++++ b/scavenge/scavenge/x/scavenge/handler.go
+@@ -15,6 +15,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
+ 		ctx = ctx.WithEventManager(sdk.NewEventManager())
+ 		switch msg := msg.(type) {
+     // this line is used by starport scaffolding
++		case types.MsgCreateScavenge:
++			return handleMsgCreateScavenge(ctx, k, msg)
+ 		default:
+ 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
+ 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
+diff --git a/scavenge/scavenge/x/scavenge/keeper/querier.go b/scavenge/scavenge/x/scavenge/keeper/querier.go
+index f50e50c..3ea42c2 100644
+--- a/scavenge/scavenge/x/scavenge/keeper/querier.go
++++ b/scavenge/scavenge/x/scavenge/keeper/querier.go
+@@ -2,6 +2,8 @@ package keeper
+ 
+ import (
+   // this line is used by starport scaffolding
++	"github.com/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
++		
+ 	abci "github.com/tendermint/tendermint/abci/types"
+ 
+ 	sdk "github.com/cosmos/cosmos-sdk/types"
+@@ -13,6 +15,8 @@ func NewQuerier(k Keeper) sdk.Querier {
+ 	return func(ctx sdk.Context, path []string, req abci.RequestQuery) ([]byte, error) {
+ 		switch path[0] {
+     // this line is used by starport scaffolding # 2
++		case types.QueryListScavenge:
++			return listScavenge(ctx, k)
+ 		default:
+ 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "unknown scavenge query endpoint")
+ 		}
+diff --git a/scavenge/scavenge/x/scavenge/types/codec.go b/scavenge/scavenge/x/scavenge/types/codec.go
+index 690c6a0..53b4f56 100644
+--- a/scavenge/scavenge/x/scavenge/types/codec.go
++++ b/scavenge/scavenge/x/scavenge/types/codec.go
+@@ -7,6 +7,7 @@ import (
+ // RegisterCodec registers concrete types on codec
+ func RegisterCodec(cdc *codec.Codec) {
+   // this line is used by starport scaffolding
++		cdc.RegisterConcrete(MsgCreateScavenge{}, "scavenge/CreateScavenge", nil)
+ }
+ 
+ // ModuleCdc defines the module codec
+diff --git a/scavenge/scavenge/x/scavenge/types/key.go b/scavenge/scavenge/x/scavenge/types/key.go
+index eeb079c..88bb3f6 100644
+--- a/scavenge/scavenge/x/scavenge/types/key.go
++++ b/scavenge/scavenge/x/scavenge/types/key.go
+@@ -13,3 +13,8 @@ const (
+ 	// QuerierRoute to be used for querier msgs
+ 	QuerierRoute = ModuleName
+ )
++
++const (
++	ScavengePrefix = "scavenge-"
++)
++		
+\ No newline at end of file
+diff --git a/scavenge/scavenge/x/scavenge/types/querier.go b/scavenge/scavenge/x/scavenge/types/querier.go
+index 5bb13ec..0aa8d54 100644
+--- a/scavenge/scavenge/x/scavenge/types/querier.go
++++ b/scavenge/scavenge/x/scavenge/types/querier.go
+@@ -1,2 +1,5 @@
+ package types
+ 
++
++const (QueryListScavenge = "list-scavenge")
++		
+\ No newline at end of file
