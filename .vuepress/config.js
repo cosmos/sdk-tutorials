@@ -31,18 +31,18 @@ module.exports = {
           title: "Tutorials",
           children: [
             {
-              title: "Starport Polling App",
-              path: "/starport-polling-app/",
+              title: "Voter",
+              path: "/voter/",
               directory: true,
             },
             {
-              title: "Starport Blog",
-              path: "/starport-blog/tutorial/",
+              title: "Blog",
+              path: "/blog/tutorial/",
               directory: true,
             },
             {
-              title: "Starport Scavenge",
-              path: "/starport-scavenge/tutorial/",
+              title: "Scavenge",
+              path: "/scavenge/tutorial/",
               directory: true,
             },
             {
@@ -181,8 +181,8 @@ module.exports = {
     'burner-chain/*.md',
     'README.md',
     'nameservice/tutorial/*.md',
-    'starport-scavenge/tutorial/*.md',
-    'starport-polling-app/*.md',
-    'starport-blog/tutorial/*.md',
+    'scavenge/tutorial/*.md',
+    'voter/*.md',
+    'blog/tutorial/*.md',
   ]
 };

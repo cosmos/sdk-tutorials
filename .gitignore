@@ -12,6 +12,7 @@ build
 node_modules/
 yarn-error.log
 .vuepress/dist
+.cache/
 .build/
 dist/
 
