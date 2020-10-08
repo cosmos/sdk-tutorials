@@ -16,7 +16,7 @@ Inside the `voter` directory we can see several files and directories:
 
 - `app` contains files that connect all of the moving parts of your application.
 - `cmd` is responsible for `voterd` and `votercli` programs, which respectively allow you to start your application and interact with it.
-- `frontend` contains a web user interface for your app, reponsible for everything you see on the screenshot above.
+- `vue` contains a web user interface for your app, reponsible for everything you see on the screenshot above.
 - `x` contains the main building blocks of you app: modules. Right now we have only one: `voter`.
 
 Our project's directory contains all the code required to build and launch a blockchain-based app. Let's try launching our app by running starport serve inside our project:
@@ -94,15 +94,15 @@ starport serve
 
 Starport has generated a basic front-end for our application. For convenience [Vue.js](https://vuejs.org) framework is used with [Vuex](https://vuex.vuejs.org/) for state management, but since all features of our application are exposed through an HTTP API, clients can be built using any language or framework.
 
-We'll be mostly interested in `frontend/src/views` directory, which contains page templates of our app, `frontend/src/store/index.js` handles sending transactions and receiving data from our blockchain and `frontend/src/components` directory, which contains components, like buttons and forms.
+We'll be mostly interested in `vue/src/views` directory, which contains page templates of our app, `vue/src/store/index.js` handles sending transactions and receiving data from our blockchain and `vue/src/components` directory, which contains components, like buttons and forms.
 
-Inside `frontend/src/store/index.js` we import [CosmJS](https://github.com/cosmwasm/cosmjs), a library for handling wallets, creating, signing and broadcasting transactions and define a Vuex store. We'll use `entitySubmit` function for sending data to our blockchain (like a JSON representing a newly created poll), `entityFetch` for requesting a list of polls and `accountUpdate` to fetch information about our token balance.
+Inside `vue/src/store/index.js` we import [CosmJS](https://github.com/cosmwasm/cosmjs), a library for handling wallets, creating, signing and broadcasting transactions and define a Vuex store. We'll use `entitySubmit` function for sending data to our blockchain (like a JSON representing a newly created poll), `entityFetch` for requesting a list of polls and `accountUpdate` to fetch information about our token balance.
 
-### `frontend/src/view/Index.vue`
+### `vue/src/views/Index.vue`
 
-Since we don't need the default form component replace `<type-list />` inside of `frontent/src/views/Index.vue` with a new component `<poll-form />` that will be created in a new file at `frontend/src/components/PollForm.vue`.
+Since we don't need the default form component replace `<type-list />` inside of `frontent/src/views/Index.vue` with a new component `<poll-form />` that will be created in a new file at `vue/src/components/PollForm.vue`.
 
-### `frontend/src/components/PollForm.vue`
+### `vue/src/components/PollForm.vue`
 
 ```js
 <template>
@@ -171,11 +171,11 @@ A vote type contains poll ID and a value (string representation of the selected 
 starport type vote pollID value
 ```
 
-### `frontend/src/views/Index.vue`
+### `vue/src/views/Index.vue`
 
-Add `<poll-list />` into the `frontend/src/view/Index.vue` file after the poll form component. Then make a new component at `frontend/src/components/PollList.vue` and add the following:
+Add `<poll-list />` into the `vue/src/view/Index.vue` file after the poll form component. Then make a new component at `vue/src/components/PollList.vue` and add the following:
 
-### `frontend/src/components/PollList.vue`
+### `vue/src/components/PollList.vue`
 
 ```js
 <template>
