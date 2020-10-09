@@ -13,10 +13,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/sdk-tutorials/voter/voter/x/voter/client/cli"
-	"github.com/sdk-tutorials/voter/voter/x/voter/client/rest"
-	"github.com/sdk-tutorials/voter/voter/x/voter/keeper"
-	"github.com/sdk-tutorials/voter/voter/x/voter/types"
+	"github.com/cosmos/sdk-tutorials/voter/voter/x/voter/client/cli"
+	"github.com/cosmos/sdk-tutorials/voter/voter/x/voter/client/rest"
+	"github.com/cosmos/sdk-tutorials/voter/voter/x/voter/keeper"
+	"github.com/cosmos/sdk-tutorials/voter/voter/x/voter/types"
 )
 
 // Type check to ensure the interface is properly implemented

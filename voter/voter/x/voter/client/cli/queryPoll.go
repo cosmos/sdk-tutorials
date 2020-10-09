@@ -5,7 +5,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/sdk-tutorials/voter/voter/x/voter/types"
+	"github.com/cosmos/sdk-tutorials/voter/voter/x/voter/types"
 	"github.com/spf13/cobra"
 )
 

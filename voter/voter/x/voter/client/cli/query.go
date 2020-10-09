@@ -13,7 +13,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	// sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/sdk-tutorials/voter/voter/x/voter/types"
+	"github.com/cosmos/sdk-tutorials/voter/voter/x/voter/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module

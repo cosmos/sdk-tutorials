@@ -5,7 +5,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
+	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
 	"github.com/spf13/cobra"
 )
 
