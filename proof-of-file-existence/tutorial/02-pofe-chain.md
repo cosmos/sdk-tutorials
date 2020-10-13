@@ -47,7 +47,7 @@ However, we want to modify our application so it better fits our requirements.
 
 The first thing we want to do is get rid of all the `Set` actions. In reality, you could keep these, but we won't be using them in our application.
 
-Start by deleting the `poe/x/pofe/handlerMsgSetClaim.go` and `poe/x/pofe/handlerMsgSetClaim.go` files.
+Start by deleting the `poe/x/pofe/handlerMsgSetClaim.go` and `poe/x/pofe/types/MsgSetClaim.go` files.
 
 Once this is done, you should see some errors pop up in the window that is running your applcation, saying that it can't find references to the `MsgSetClaim` struct and the `handlerMsgSetClaim` function.
 
