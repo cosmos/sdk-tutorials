@@ -8,7 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
+	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
 )
 
 // Keeper of the scavenge store

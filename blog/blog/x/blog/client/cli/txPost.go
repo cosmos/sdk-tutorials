@@ -10,7 +10,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/sdk-tutorials/blog/blog/x/blog/types"
+	"github.com/cosmos/sdk-tutorials/blog/blog/x/blog/types"
 )
 
 func GetCmdCreatePost(cdc *codec.Codec) *cobra.Command {

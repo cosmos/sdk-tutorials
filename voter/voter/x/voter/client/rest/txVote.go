@@ -7,7 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/rest"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/sdk-tutorials/voter/voter/x/voter/types"
+	"github.com/cosmos/sdk-tutorials/voter/voter/x/voter/types"
 )
 
 type createVoteRequest struct {

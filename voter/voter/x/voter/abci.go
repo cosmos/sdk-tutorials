@@ -2,7 +2,7 @@ package voter
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/sdk-tutorials/voter/voter/x/voter/keeper"
+	"github.com/cosmos/sdk-tutorials/voter/voter/x/voter/keeper"
 	abci "github.com/tendermint/tendermint/abci/types"
 	// abci "github.com/tendermint/tendermint/abci/types"
 )
