@@ -154,7 +154,7 @@ a
       flex-direction: row;
 
       &__item {
-        margin-left: 0.5rem;
+        margin-right: 0.5rem;
         color: var(--tag-text-color);
         font-size: 0.875rem;
         line-height: 1.25rem;
@@ -162,7 +162,7 @@ a
         text-transform: capitalize;
         background: var(--tag-background-color);
         border-radius: 0.25rem;
-        padding: 0.125rem 0.5rem;
+        padding: 0.25rem 0.5rem 0.125rem;
         width: fit-content;
       }
 
