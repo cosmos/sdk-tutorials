@@ -34,9 +34,9 @@ export default {
         beginner: ["#5064FB", "#FFFFFF"],
         intermediate: ["#FFFFFF", "#5064FB"],
         advanced: ["#FFFFFF", "rgba(0, 2, 36, 0.928)"],
-        launchpad: ["#FFFFFF", "rgba(0, 2, 36, 0.928)"],
-        stargate: ["#FFFFFF", "rgba(0, 2, 36, 0.928)"],
-        starport: ["#FFFFFF", "rgba(0, 2, 36, 0.928)"],
+        launchpad: ["#FFFFFF", "#3D60A4"],
+        stargate: ["#FFFFFF", "#AC454C"],
+        starport: ["#FFFFFF", "#7A236C"],
       },
     };
   },
@@ -150,10 +150,11 @@ a
     }
 
     &__tags {
-      display: flex;
       flex-direction: row;
 
       &__item {
+        display: inline-block;
+        margin-bottom: 0.5rem;
         margin-right: 0.5rem;
         color: var(--tag-text-color);
         font-size: 0.875rem;
