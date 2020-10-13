@@ -11,6 +11,10 @@ sections:
     desc: Learn how Starport works by building a blog.
     url: /blog/tutorial/01-index.html
     tag: beginner
+  - title: Proof of File Existence
+    desc: Create a Proof of File Existence blockchain using Starport
+    url: /proof-of-file-existence/tutorial/01-intro.html
+    tag: beginner
   - title: Scavenge
     desc: Users post questions with hashed answers and bounties for whoever can solve them using a commit-reveal scheme that prevents front-running.
     url: /scavenge/tutorial/01-background.html
@@ -56,6 +60,10 @@ Build a voting application with a web-based UI.
 ## [Blog](./blog/tutorial/01-index.md)
 
 Learn how Starport works by building a blog.
+
+## [Proof of File Existence](./proof-of-file-existence/tutorial/01-intro.md)
+
+Build a Proof of File Existence blockchain using Starport.
 
 ## [Scavenge](./scavenge/tutorial/01-background.md)
 
