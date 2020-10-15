@@ -1,6 +1,9 @@
 # pofe
 
-**pofe** is a blockchain application built using Cosmos SDK and Tendermint and generated with [Starport](https://github.com/tendermint/starport).
+**pofe** (Proof ) is a blockchain application built using Cosmos SDK and Tendermint and generated with [Starport](https://github.com/tendermint/starport).
+
+A Proof of File Existence can help prove the authenticity of a certain file at a particular timestamp. This is done by calculating the hash of any given file (the proof), and uploading the hash to the blockchain (timestamping).
+
 
 ## Get started
 

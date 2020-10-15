@@ -31,7 +31,7 @@ Cosmos' version is: Launchpad
 
 ## Creating our `Claim` type
 
-Switch back to the `pofe` directory and create a type called `claim` with the field `proof`:
+Switch back to terminal inside the `pofe` directory and create a type called `claim` with the field `proof`:
 
 ```
 starport type claim proof:string
@@ -45,16 +45,7 @@ However, we want to modify our application so it better fits our requirements.
 
 ## Modifying our application
 
-The first thing we want to do is get rid of all the `Set` actions. In reality, you could keep these, but we won't be using them in our application.
-
-Start by deleting the `poe/x/pofe/handlerMsgSetClaim.go` and `poe/x/pofe/types/MsgSetClaim.go` files.
-
-Once this is done, you should see some errors pop up in the window that is running your applcation, saying that it can't find references to the `MsgSetClaim` struct and the `handlerMsgSetClaim` function.
-
-This can be fixed by removing functions or lines of code that implement these in the files.
-
-
-Next, we want to implement an interface that allows someone to hash a file and submit the hash to the blockchain, without directly uploading its contents. We'll be implementing this via the command line in `./x/pofe/client/cli/txClaim.go`:
+We want to implement an interface that allows someone to hash a file and submit the hash to the blockchain, without directly uploading its contents. We'll be implementing this via the command line in `./x/pofe/client/cli/txClaim.go`:
 
 ```go
 package cli
@@ -101,7 +92,7 @@ func GetCmdCreateClaim(cdc *codec.Codec) *cobra.Command {
 }
 ```
 
-Lastly, instead of using the auto-generated uuid `ID` as our key, we will be using the `Proof` value in our struct instead. This will make it a lot easier to query an occurrence of `Proof` in our database. We can start by modifying the `CreateClaim` method in our `./x/pofe/keeper/claim.go` file to use `claim.Proof` instead of `claim.ID`.
+Lastly, instead of using the auto-generated uuid `ID` as our key, we will be using the `Proof` value in our struct instead. This will make it a lot easier to query an occurrence of `Proof` in our database. We can start by modifying the `CreateClaim` method in our `./x/pofe/keeper/claim.go` file, as well as all other relevant files that use `claim.ID`, to use `claim.Proof` instead of `claim.ID`.
 
 ```go
 func (k Keeper) CreateClaim(ctx sdk.Context, claim types.Claim) {
@@ -112,9 +103,9 @@ func (k Keeper) CreateClaim(ctx sdk.Context, claim types.Claim) {
 }
 ```
 
-According our application design, we would only need the `Creator` and the hash of the file. In this case, we can find and replace all instances of `ID` in our files. The easiest way to do this is via a text editor and search for all instances where `ID` is being used and remove them.
+According our application design, we would only need the `Creator` and the hash of the file `Proof`. We can leave instances of `ID` in the struct for the sake of this tutorial.
 
-A different, more incremental way of doing this, would be to remove the `ID` field from the `Claim` struct inside the `./x/pofe/types/TypeClaim.go` file so it looks as follows:
+However, if you wish to clean up you struct and methods, an incremental way of doing this would be to remove the `ID` field from the `Claim` struct inside the `./x/pofe/types/TypeClaim.go` file so it looks as follows:
 
 ```go
 type Claim struct {

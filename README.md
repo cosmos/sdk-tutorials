@@ -12,7 +12,7 @@ sections:
     url: /blog/tutorial/01-index.html
     tag: beginner
   - title: Proof of File Existence
-    desc: Create a Proof of File Existence blockchain using Starport
+    desc: Learn how to prove ownership and verify documents by building a PoFE blockchain using Starport.
     url: /proof-of-file-existence/tutorial/01-intro.html
     tag: beginner
   - title: Scavenge
@@ -63,7 +63,7 @@ Learn how Starport works by building a blog.
 
 ## [Proof of File Existence](./proof-of-file-existence/tutorial/01-intro.md)
 
-Build a Proof of File Existence blockchain using Starport.
+Ever wanted to prove you had something at a certain date or time? Or make sure your a document was valid? Learn about the use cases of Proof of File Existence while building blockchain using Starport.
 
 ## [Scavenge](./scavenge/tutorial/01-background.md)
 

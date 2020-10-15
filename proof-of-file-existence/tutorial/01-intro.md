@@ -16,7 +16,7 @@ The SHA256 hash of the file is also known as a checksum. When uploading the chec
 
 - Timestamping documents
 
-    You can take any document and submit the hash as a Proof of File Existence has on the blockchain. That way, you can prove that you had the file at the time when you submitted the block by sharing the file and letting others calculate the checksum. Afterwards, a link to the transaction containing that hash can be shared, proving existence of the file at the time the transaction was performed
+    You can take any document and submit the hash as a Proof of File Existence on the blockchain. That way, you can prove that you had the file at the time when you submitted the block by sharing the file and letting others calculate the checksum. Afterwards, a link to the transaction containing that hash can be shared, proving existence of the file at the time the transaction was performed
 
 - Document Integrity
 
@@ -30,6 +30,17 @@ Our application is relatively simple - we want to implement a blockchain where a
 
 [Starport](https://github.com/tendermint/starport/blob/develop/docs/01%20Introduction/01_starport_introduction/introduction.md) is a tool for scaffolding custom blockchains.
 
-First, we need to [install `starport`](https://github.com/tendermint/starport/blob/develop/docs/install.md), which can be done with either a simple `npm install -g @tendermint/starport`, or `brew install tendermint/tap/starport`.
+First, we need to [install `starport`](https://github.com/tendermint/starport/blob/develop/docs/install.md), via `npm`, `brew`, or via source:
+```
+npm install -g @tendermint/starport
+```
+
+```
+brew install tendermint/tap/starport
+```
+
+```
+git clone https://github.com/tendermint/starport && cd starport && make
+```
 
 Now, we can start building our app!
