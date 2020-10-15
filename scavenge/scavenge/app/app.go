@@ -22,9 +22,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/params"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/cosmos-sdk/x/supply"
-	"github.com/sdk-tutorials/scavenge/scavenge/x/scavenge"
-	scavengekeeper "github.com/sdk-tutorials/scavenge/scavenge/x/scavenge/keeper"
-	scavengetypes "github.com/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
+	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge"
+	scavengekeeper "github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/keeper"
+	scavengetypes "github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
 	// this line is used by starport scaffolding
 )
 

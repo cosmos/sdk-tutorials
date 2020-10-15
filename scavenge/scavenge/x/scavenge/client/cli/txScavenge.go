@@ -12,7 +12,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
+	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
 )
 
 func GetCmdCreateScavenge(cdc *codec.Codec) *cobra.Command {

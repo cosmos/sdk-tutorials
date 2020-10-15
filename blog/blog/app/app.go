@@ -22,9 +22,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/params"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/cosmos-sdk/x/supply"
-	"github.com/sdk-tutorials/blog/blog/x/blog"
-	blogkeeper "github.com/sdk-tutorials/blog/blog/x/blog/keeper"
-	blogtypes "github.com/sdk-tutorials/blog/blog/x/blog/types"
+	"github.com/cosmos/sdk-tutorials/blog/blog/x/blog"
+	blogkeeper "github.com/cosmos/sdk-tutorials/blog/blog/x/blog/keeper"
+	blogtypes "github.com/cosmos/sdk-tutorials/blog/blog/x/blog/types"
 	// this line is used by starport scaffolding
 )
 

@@ -13,10 +13,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/sdk-tutorials/blog/blog/x/blog/client/cli"
-	"github.com/sdk-tutorials/blog/blog/x/blog/client/rest"
-	"github.com/sdk-tutorials/blog/blog/x/blog/keeper"
-	"github.com/sdk-tutorials/blog/blog/x/blog/types"
+	"github.com/cosmos/sdk-tutorials/blog/blog/x/blog/client/cli"
+	"github.com/cosmos/sdk-tutorials/blog/blog/x/blog/client/rest"
+	"github.com/cosmos/sdk-tutorials/blog/blog/x/blog/keeper"
+	"github.com/cosmos/sdk-tutorials/blog/blog/x/blog/types"
 )
 
 // Type check to ensure the interface is properly implemented

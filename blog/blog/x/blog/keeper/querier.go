@@ -2,7 +2,7 @@ package keeper
 
 import (
 	// this line is used by starport scaffolding
-	"github.com/sdk-tutorials/blog/blog/x/blog/types"
+	"github.com/cosmos/sdk-tutorials/blog/blog/x/blog/types"
 
 	abci "github.com/tendermint/tendermint/abci/types"
 

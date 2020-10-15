@@ -13,10 +13,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/sdk-tutorials/scavenge/scavenge/x/scavenge/client/cli"
-	"github.com/sdk-tutorials/scavenge/scavenge/x/scavenge/client/rest"
-	"github.com/sdk-tutorials/scavenge/scavenge/x/scavenge/keeper"
-	"github.com/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
+	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/client/cli"
+	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/client/rest"
+	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/keeper"
+	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
 )
 
 // Type check to ensure the interface is properly implemented
