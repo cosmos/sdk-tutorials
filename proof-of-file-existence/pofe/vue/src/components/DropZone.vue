@@ -75,8 +75,4 @@ export default {
   margin-bottom: 2rem;
   border-radius: 0.5rem;
 }
-/* div {
-  font-family: "Inter", "Helvetica", sans-serif;
-} */
-
 </style>
