@@ -4,7 +4,7 @@
       <sp-sign-in />
       <sp-bank-balances />
       <sp-token-send />
-      <upload-proof />
+      <drop-zone />
       <!-- this line is used by starport scaffolding # 4 -->
       <sp-type-form type="claim" :fields="['proof']" />
     </div>
@@ -13,9 +13,9 @@
 
 <script>
 import * as sp from "@tendermint/vue";
-import UploadProof from "@/components/UploadProof";
+import DropZone from "@/components/DropZone";
 
 export default {
-  components: { ...sp, UploadProof },
+  components: { ...sp, DropZone },
 };
 </script>

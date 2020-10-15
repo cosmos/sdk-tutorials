@@ -1,8 +1,9 @@
 <template>
   <div>
     <sp-h3>Calculate Proof</sp-h3>
-    <input type="file" @change="hash" id="file" />
-    {{ hashed }}
+    <div id="drop-zone" @drop.prevent="hash" @dragover.prevent>
+      {{ hashed || placeholderText }}
+    </div>
     <sp-button
       @click="submit"
       :loading="flight"
@@ -23,21 +24,21 @@ export default {
   },
   data() {
     return {
+      placeholderText: "Drag and drop a file here",
       hashed: "",
       flight: false,
     };
   },
   methods: {
     hash(e) {
-      const files = e.target.files
+      const files = e.dataTransfer.items;
       if (!files.length) return;
-      
       // Read the file and hash it
       const reader = new FileReader();
       reader.onload = (ev) => {
         this.hashed = sha256(ev.target.result);
       };
-      reader.readAsArrayBuffer(files[0]);
+      reader.readAsArrayBuffer(files[0].getAsFile());
     },
     async submit() {
       // Submit
@@ -62,13 +63,20 @@ export default {
 </script>
 
 <style scoped>
-div {
+#drop-zone {
   font-family: "Inter", "Helvetica", sans-serif;
-}
-
-input {
-  font-size: inherit;
-  margin-top: 2rem;
+  height: 20rem;
+  line-height: 20rem;
+  font-size: 1.25rem;
+  background-color:rgb(247, 247, 247);
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
   margin-bottom: 2rem;
+  border-radius: 0.5rem;
 }
+/* div {
+  font-family: "Inter", "Helvetica", sans-serif;
+} */
+
 </style>
