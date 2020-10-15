@@ -1,4 +1,4 @@
-module github.com/sdk-tutorials/scavenge/scavenge
+module github.com/cosmos/sdk-tutorials/scavenge/scavenge
 
 go 1.14
 

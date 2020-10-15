@@ -1,4 +1,4 @@
-module github.com/sdk-tutorials/blog/blog
+module github.com/cosmos/sdk-tutorials/blog/blog
 
 go 1.14
 

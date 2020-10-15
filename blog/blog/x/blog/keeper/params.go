@@ -7,7 +7,7 @@ import (
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/sdk-tutorials/blog/blog/x/blog/types"
+	"github.com/cosmos/sdk-tutorials/blog/blog/x/blog/types"
 )
 
 // GetParams returns the total set of blog parameters.

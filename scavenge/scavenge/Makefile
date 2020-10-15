@@ -16,8 +16,8 @@ all: install
 
 .PHONY: install
 install: go.sum
-		go install -mod=readonly $(BUILD_FLAGS) ./cmd/scavengeD
-		go install -mod=readonly $(BUILD_FLAGS) ./cmd/scavengeCLI
+		go install $(BUILD_FLAGS) ./cmd/scavengeD
+		go install $(BUILD_FLAGS) ./cmd/scavengeCLI
 		npm --prefix ./vue i --save 
 		npm --prefix ./vue run build
 

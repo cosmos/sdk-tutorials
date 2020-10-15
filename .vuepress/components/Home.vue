@@ -11,7 +11,8 @@
     .sections__wrapper
       .sections
         router-link.sections__item(tag="a" :to="section.url" v-for="section in $frontmatter.sections")
-          .sections__item__tag(:style="{'--tag-text-color': `${tagColor[section.tag][0]}`, '--tag-background-color': `${tagColor[section.tag][1]}`}") {{section.tag}}
+          .sections__item__tags
+            .sections__item__tags__item(:style="{'--tag-text-color': `${tagColor[tag][0]}`, '--tag-background-color': `${tagColor[tag][1]}`}" v-for="tag in section.tags") {{tag}}
           .sections__item__wrapper
             .sections__item__title {{section.title}}
             .sections__item__desc {{section.desc}}
@@ -30,22 +31,16 @@ export default {
   data() {
     return {
       tagColor: {
-        beginner: [
-          '#5064FB',
-          '#FFFFFF',
-        ],
-        intermediate: [
-          '#FFFFFF',
-          '#5064FB',
-        ],
-        advanced: [
-          '#FFFFFF',
-          'rgba(0, 2, 36, 0.928)',
-        ],
+        beginner: ["#5064FB", "#FFFFFF"],
+        intermediate: ["#FFFFFF", "#5064FB"],
+        advanced: ["#FFFFFF", "rgba(0, 2, 36, 0.928)"],
+        launchpad: ["#FFFFFF", "#3D60A4"],
+        stargate: ["#FFFFFF", "#AC454C"],
+        starport: ["#FFFFFF", "#7A236C"],
       },
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -154,16 +149,24 @@ a
       opacity: 0.7;
     }
 
-    &__tag {
-      color: var(--tag-text-color);
-      font-size: 0.875rem;
-      line-height: 1.25rem;
-      letter-spacing: 0.03em;
-      text-transform: capitalize;
-      background: var(--tag-background-color);
-      border-radius: 0.25rem;
-      padding: 0.125rem 0.5rem;
-      width: fit-content;
+    &__tags {
+      flex-direction: row;
+
+      &__item {
+        display: inline-block;
+        margin-bottom: 0.5rem;
+        margin-right: 0.5rem;
+        color: var(--tag-text-color);
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        letter-spacing: 0.03em;
+        text-transform: capitalize;
+        background: var(--tag-background-color);
+        border-radius: 0.25rem;
+        padding: 0.25rem 0.5rem 0.125rem;
+        width: fit-content;
+      }
+
     }
 
     &__title {

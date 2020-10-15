@@ -6,27 +6,43 @@ sections:
   - title: Voter
     desc: Build a voting application with a web-based UI.
     url: /voter/
-    tag: beginner
+    tags: 
+      - beginner
+      - starport
+      - launchpad
   - title: Blog
     desc: Learn how Starport works by building a blog.
     url: /blog/tutorial/01-index.html
-    tag: beginner
+    tags: 
+      - beginner
+      - starport
+      - launchpad
   - title: Proof of File Existence
     desc: Learn how to prove ownership and verify documents by building a PoFE blockchain using Starport.
     url: /proof-of-file-existence/tutorial/01-intro.html
-    tag: beginner
+    tags: 
+      - beginner
+      - starport
+      - launchpad
   - title: Scavenge
     desc: Users post questions with hashed answers and bounties for whoever can solve them using a commit-reveal scheme that prevents front-running.
     url: /scavenge/tutorial/01-background.html
-    tag: intermediate
+    tags: 
+      - intermediate
+      - starport
+      - launchpad
   - title: Nameservice
     desc: Build a fully functional naming service on a blockchain.
     url: /nameservice/tutorial/00-intro.html
-    tag: advanced
+    tags: 
+      - advanced
+      - starport
+      - launchpad
   - title: Cosmos Burner Chain
     desc: Provide a blueprint for your own application specific blockchain that interacts with other EVM based networks like Ethereum and xDai.
     url: /burner-chain/00-index.html
-    tag: advanced
+    tags: 
+      - advanced
 stack:
   - title: Cosmos Code With Us - Building your first Cosmos app
     duration: "1:39:07"

@@ -13,7 +13,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	// sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
+	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module

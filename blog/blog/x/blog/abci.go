@@ -2,7 +2,7 @@ package blog
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/sdk-tutorials/blog/blog/x/blog/keeper"
+	"github.com/cosmos/sdk-tutorials/blog/blog/x/blog/keeper"
 	abci "github.com/tendermint/tendermint/abci/types"
 	// abci "github.com/tendermint/tendermint/abci/types"
 )

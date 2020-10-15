@@ -1,4 +1,4 @@
-module github.com/sdk-tutorials/voter/voter
+module github.com/cosmos/sdk-tutorials/voter/voter
 
 go 1.14
 
