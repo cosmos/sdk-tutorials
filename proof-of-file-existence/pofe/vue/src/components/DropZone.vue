@@ -56,7 +56,6 @@ export default {
       // Clear fields
       this.flight = false;
       this.hashed = "";
-      document.getElementById("file").value = "";
     },
   },
 };
@@ -69,9 +68,7 @@ export default {
   line-height: 20rem;
   font-size: 1.25rem;
   background-color:rgb(247, 247, 247);
-  justify-content: center;
   text-align: center;
-  vertical-align: middle;
   margin-bottom: 2rem;
   border-radius: 0.5rem;
 }

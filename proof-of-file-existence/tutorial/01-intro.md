@@ -43,4 +43,10 @@ brew install tendermint/tap/starport
 git clone https://github.com/tendermint/starport && cd starport && make
 ```
 
+Alternatively, you can set up a one-click in-browser [Starport environment](https://gitpod.io/#https://github.com/tendermint/starport/).
+
+```
+https://gitpod.io/#https://github.com/tendermint/starport/
+```
+
 Now, we can start building our app!

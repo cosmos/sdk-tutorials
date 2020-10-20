@@ -66,18 +66,20 @@ import (
 	"github.com/lukitsbrian/poe/x/pofe/types"
 )
 
+// CLI transaction command to create a claim
 func GetCmdCreateClaim(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "create-claim [path]",
-		Short: "Creates a new claim",
+		Use:   "create-claim [path-to-file]",
+		Short: "Creates a new claim from a path to a file",
 		Args:  cobra.MinimumNArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			// accept a filepath
+			// accept a filepath, read the file, and hash it
 			hasher := sha256.New()
 			s, _ := ioutil.ReadFile(args[0])
 			hasher.Write(s)
 			argsProof := hex.EncodeToString(hasher.Sum(nil))
 
+			// automatically scaffolded by `starport type`
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			inBuf := bufio.NewReader(cmd.InOrStdin())
 			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
@@ -146,3 +148,5 @@ If you ever want to remove or delete the claim, you can simply run the command:
 ```
 pofecli tx pofe delete-claim 534f056e58115dd106d026e00da22a32f8c776a0cd5b3dd6431598d73b5f623c --from user1
 ```
+
+In the next section, we will be implementing a user interface in vue for our application.
