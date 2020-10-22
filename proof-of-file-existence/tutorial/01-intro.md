@@ -6,6 +6,8 @@ order: 0
 
 A Proof of File Existence can help prove the authenticity of a certain file at a particular time.
 
+[Follow this this tutorial with a video!](https://www.youtube.com/watch?v=PGLAW-HrzWg)
+
 ## How can we create a Proof of File Existence?
 
 Creating a proof of file existence can be done performing a SHA256 hash of the file or document you wish to prove exist. We can [assume](https://stackoverflow.com/questions/4014090/is-it-safe-to-ignore-the-possibility-of-sha-collisions-in-practice) that the output of a SHA256 hash function will be unique for each input, and won't be prone to collisions.

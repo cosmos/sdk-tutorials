@@ -52,6 +52,10 @@ stack:
     duration: "3:31"
     imgSrc: https://i.ytimg.com/vi/rmbPjCGDXek/hq720.jpg
     url: https://www.youtube.com/watch?v=rmbPjCGDXek
+  - title: Building a PoFE blockchain with Starport
+    duration: "56:28"
+    imgSrc: https://i.ytimg.com/vi/PGLAW-HrzWg/hq720.jpg
+    url: https://www.youtube.com/watch?v=PGLAW-HrzWg
   - title: Code with us - Scavenger Hunt Tutorial with Billy Rennekamp
     duration: "2:11:15"
     imgSrc: https://i.ytimg.com/vi/GfZjnMchKX0/hq720.jpg
@@ -72,6 +76,8 @@ aside: false
 Build a voting application with a web-based UI.
 
 - [YouTube](https://www.youtube.com/watch?v=h6Ur_40LB9k)
+- [YouTube (CN)](https://www.youtube.com/watch?v=Cc--vbUxAxI)
+- [YouTube (RU)](https://www.youtube.com/watch?v=kRJAbS-xgBQ)
 
 ## [Blog](./blog/tutorial/01-index.md)
 
@@ -80,6 +86,8 @@ Learn how Starport works by building a blog.
 ## [Proof of File Existence](./proof-of-file-existence/tutorial/01-intro.md)
 
 Ever wanted to prove you had something at a certain date or time? Or make sure your a document was valid? Learn about the use cases of Proof of File Existence while building blockchain using Starport.
+
+- [YouTube](https://www.youtube.com/watch?v=PGLAW-HrzWg)
 
 ## [Scavenge](./scavenge/tutorial/01-background.md)
 
