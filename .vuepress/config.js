@@ -39,6 +39,11 @@ module.exports = {
               title: "Blog",
               path: "/blog/tutorial/",
               directory: true,
+            },            
+            {
+              title: "PoFE",
+              path: "/proof-of-file-existence/tutorial/",
+              directory: true,
             },
             {
               title: "Scavenge",
@@ -182,6 +187,7 @@ module.exports = {
     'README.md',
     'nameservice/tutorial/*.md',
     'scavenge/tutorial/*.md',
+    'proof-of-file-existence/tutorial/*.md',
     'voter/*.md',
     'blog/tutorial/*.md',
   ]
