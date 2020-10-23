@@ -6,7 +6,7 @@ order: 0
 
 A Proof of File Existence can help prove the authenticity of a certain file at a particular time.
 
-[Follow this this tutorial with a video!](https://www.youtube.com/watch?v=PGLAW-HrzWg)
+[Follow this tutorial with a video!](https://www.youtube.com/watch?v=PGLAW-HrzWg)
 
 ## How can we create a Proof of File Existence?
 
