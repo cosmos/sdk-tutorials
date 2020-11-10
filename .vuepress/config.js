@@ -10,7 +10,7 @@ module.exports = {
     ['meta', { name: "theme-color", content: "#ffffff" }],
     ['link', { rel: "icon", type: "image/svg+xml", href: "/favicon-svg.svg" }],
     ['link', { rel: "apple-touch-icon-precomposed", href: "/apple-touch-icon-precomposed.png" }],
-  ],  
+  ],
   themeConfig: {
     repo: "cosmos/sdk-tutorials",
     docsRepo: "cosmos/sdk-tutorials",
@@ -22,7 +22,7 @@ module.exports = {
       index: "cosmos-sdk_tutorials"
     },
     topbar: {
-      banner: false,
+      banner: true,
     },
     sidebar: {
       auto: false,
@@ -31,13 +31,18 @@ module.exports = {
           title: "Tutorials",
           children: [
             {
-              title: "Starport Polling App",
-              path: "/starport-polling-app/",
+              title: "Voter",
+              path: "/voter/",
               directory: true,
             },
             {
-              title: "Starport Blog",
-              path: "/starport-blog/tutorial/",
+              title: "Blog",
+              path: "/blog/tutorial/",
+              directory: true,
+            },            
+            {
+              title: "PoFE",
+              path: "/proof-of-file-existence/tutorial/",
               directory: true,
             },
             {
@@ -182,7 +187,8 @@ module.exports = {
     'README.md',
     'nameservice/tutorial/*.md',
     'scavenge/tutorial/*.md',
-    'starport-polling-app/*.md',
-    'starport-blog/tutorial/*.md',
+    'proof-of-file-existence/tutorial/*.md',
+    'voter/*.md',
+    'blog/tutorial/*.md',
   ]
 };

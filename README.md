@@ -3,26 +3,46 @@ layout: home
 title: Cosmos SDK Tutorials
 description: Tutorials for the Cosmos SDK
 sections:
-  - title: Starport Polling App
+  - title: Voter
     desc: Build a voting application with a web-based UI.
-    url: /starport-polling-app/
-    tag: beginner
-  - title: Starport Blog
+    url: /voter/
+    tags: 
+      - beginner
+      - starport
+      - launchpad
+  - title: Blog
     desc: Learn how Starport works by building a blog.
-    url: /starport-blog/tutorial/01-index.html
-    tag: beginner
+    url: /blog/tutorial/01-index.html
+    tags: 
+      - beginner
+      - starport
+      - launchpad
+  - title: Proof of File Existence
+    desc: Learn how to prove ownership and verify documents by building a PoFE blockchain using Starport.
+    url: /proof-of-file-existence/tutorial/01-intro.html
+    tags: 
+      - beginner
+      - starport
+      - launchpad
   - title: Scavenge
     desc: Users post questions with hashed answers and bounties for whoever can solve them using a commit-reveal scheme that prevents front-running.
     url: /scavenge/tutorial/01-background.html
-    tag: intermediate
+    tags: 
+      - intermediate
+      - starport
+      - launchpad
   - title: Nameservice
     desc: Build a fully functional naming service on a blockchain.
     url: /nameservice/tutorial/00-intro.html
-    tag: advanced
+    tags: 
+      - advanced
+      - starport
+      - launchpad
   - title: Cosmos Burner Chain
     desc: Provide a blueprint for your own application specific blockchain that interacts with other EVM based networks like Ethereum and xDai.
     url: /burner-chain/00-index.html
-    tag: advanced
+    tags: 
+      - advanced
 stack:
   - title: Cosmos Code With Us - Building your first Cosmos app
     duration: "1:39:07"
@@ -32,6 +52,10 @@ stack:
     duration: "3:31"
     imgSrc: https://i.ytimg.com/vi/rmbPjCGDXek/hq720.jpg
     url: https://www.youtube.com/watch?v=rmbPjCGDXek
+  - title: Building a PoFE blockchain with Starport
+    duration: "56:28"
+    imgSrc: https://i.ytimg.com/vi/PGLAW-HrzWg/hq720.jpg
+    url: https://www.youtube.com/watch?v=PGLAW-HrzWg
   - title: Code with us - Scavenger Hunt Tutorial with Billy Rennekamp
     duration: "2:11:15"
     imgSrc: https://i.ytimg.com/vi/GfZjnMchKX0/hq720.jpg
@@ -47,15 +71,23 @@ aside: false
 
 # Cosmos SDK Tutorials
 
-## [Starport Polling App](./starport-polling-app/index.md)
+## [Voter](./voter/index.md)
 
 Build a voting application with a web-based UI.
 
 - [YouTube](https://www.youtube.com/watch?v=h6Ur_40LB9k)
+- [YouTube (CN)](https://www.youtube.com/watch?v=Cc--vbUxAxI)
+- [YouTube (RU)](https://www.youtube.com/watch?v=kRJAbS-xgBQ)
 
-## [Starport Blog](./starport-blog/tutorial/01-index.md)
+## [Blog](./blog/tutorial/01-index.md)
 
 Learn how Starport works by building a blog.
+
+## [Proof of File Existence](./proof-of-file-existence/tutorial/01-intro.md)
+
+Ever wanted to prove you had something at a certain date or time? Or make sure your a document was valid? Learn about the use cases of Proof of File Existence while building blockchain using Starport.
+
+- [YouTube](https://www.youtube.com/watch?v=PGLAW-HrzWg)
 
 ## [Scavenge](./scavenge/tutorial/01-background.md)
 
@@ -74,7 +106,7 @@ The nameservice tutorial also has translations and a slide deck.
 
 Translations:
 
-- [中文](./nameservice/README_cn.md)
+- [中文](./nameservice/tutorial/README_cn.md)
 
 ## [Cosmos Burner Chain](./burner-chain/00-index.md)
 
