@@ -11,11 +11,13 @@
     .sections__wrapper
       .sections
         router-link.sections__item(tag="a" :to="section.url" v-for="section in $frontmatter.sections")
-          .sections__item__tags
-            .sections__item__tags__item(:style="{'--tag-text-color': `${tagColor[tag][0]}`, '--tag-background-color': `${tagColor[tag][1]}`}" v-for="tag in section.tags") {{tag}}
+          .sections__item__difficulty
+            .sections__item__difficulty__item(:style="{'--tag-text-color': `${tagColor[section.difficulty][0]}`, '--tag-background-color': `${tagColor[section.difficulty][1]}`}") {{ section.difficulty }}
           .sections__item__wrapper
             .sections__item__title {{section.title}}
             .sections__item__desc {{section.desc}}
+          .sections__item__tags
+            .sections__item__tags__item(v-for="tag in section.tags") {{tag}}
     .h2 Videos
     .stack
       a.stack__item(:href="item.url" target="_blank" rel="noreferrer noopener" v-for="item in $frontmatter.stack")
@@ -149,14 +151,33 @@ a
       opacity: 0.7;
     }
 
+    &__difficulty {
+      flex-direction: row;
+
+      &__item {
+        display: inline-block;
+        margin-right: 0.5rem;
+        color: var(--tag-text-color);
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        letter-spacing: 0.03em;
+        text-transform: capitalize;
+        background: var(--tag-background-color);
+        border-radius: 0.25rem;
+        padding: 0.25rem 0.5rem 0.125rem;
+        width: fit-content;
+      }
+
+    }
+
     &__tags {
       flex-direction: row;
 
       &__item {
         display: inline-block;
-        margin-bottom: 0.5rem;
         margin-right: 0.5rem;
-        color: var(--tag-text-color);
+        color: var(--color-text-dim, inherit);
+        border: 1px solid rgba(0,0,0,0.07);
         font-size: 0.875rem;
         line-height: 1.25rem;
         letter-spacing: 0.03em;
