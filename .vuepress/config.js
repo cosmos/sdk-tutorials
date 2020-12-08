@@ -181,6 +181,12 @@ module.exports = {
         ga: "UA-51029217-13",
       },
     ],
+    [
+      "vuepress-plugin-google-tag-manager",
+      {
+        id: "GTM-TBX48R6"
+      }
+    ],
   ],
   patterns: [
     'burner-chain/*.md',
