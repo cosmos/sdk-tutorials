@@ -18,7 +18,7 @@ Let's get started! The first step is to [install the `starport`](https://github.
 After `starport` is installed, use it to create the initial app structure inside a directory named `blog`:
 
 ```
-starport app github.com/example/blog
+starport app github.com/example/blog --sdk-version=launchpad
 ```
 
 One of the main features of Starport is code generation. The command above has generated a directory structure with a working blockchain application. Starport can also add data types to your app with `starport type` command. To see it in action, follow the poll application tutorial. In this guide, however, we'll create those files manually to understand how it all works under the hood.
