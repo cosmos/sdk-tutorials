@@ -12,7 +12,7 @@ We will be creating a simple poll application, in which a user can sign in, crea
 For this tutorial we will be using [Starport](https://github.com/tendermint/starport), an easy to use tool for building blockchains. [Install Starport](https://github.com/tendermint/starport#installation) and run the following command to create a voter project:
 
 ```
-starport app github.com/alice/voter
+starport app github.com/alice/voter --sdk-version=launchpad
 ```
 
 Starport `app` command will scaffold a project structure for your application in a `voter` directory. Make sure to replace `alice` with your GitHub username.
