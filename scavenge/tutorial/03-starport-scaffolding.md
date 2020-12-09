@@ -59,12 +59,13 @@ Usage:
 Flags:
       --address-prefix string   Address prefix (default "cosmos")
   -h, --help                    help for app
+      --sdk-version string      Target Cosmos-SDK Version -launchpad -stargate (default "stargate")
 ```
 
 Let's start by scaffolding our `scavenge` application with `starport app`. This should generate a directory of folders called `scavenge` inside your current working directory, as well as scaffold our `scavenge` module. 
 
 ```bash
-$ starport app github.com/github-username/scavenge
+$ starport app github.com/github-username/scavenge --sdk-version="launchpad"
 
 ⭐️ Successfully created a Cosmos app 'scavenge'.
 👉 Get started with the following commands:
