@@ -6,7 +6,7 @@ order: 02
 
 Get started by creating a new app, we will be using the lvl-1 app which is provided by the scaffold tool.
 
-You can fill in `user` with your Github username and `repo` with the name of the repo you are creating.
+You can fill in `user` with your Github username and `repo` with the name of the repo you are creating. 
 ```bash
 starport app github.com/user/nameservice --sdk-version="launchpad"
 cd nameservice
