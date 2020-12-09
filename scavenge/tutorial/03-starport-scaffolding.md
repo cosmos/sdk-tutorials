@@ -65,7 +65,7 @@ Flags:
 Let's start by scaffolding our `scavenge` application with `starport app`. This should generate a directory of folders called `scavenge` inside your current working directory, as well as scaffold our `scavenge` module. 
 
 ```bash
-$ starport app github.com/github-username/scavenge --sdk-version=launchpad
+$ starport app github.com/github-username/scavenge --sdk-version="launchpad"
 
 ⭐️ Successfully created a Cosmos app 'scavenge'.
 👉 Get started with the following commands:
