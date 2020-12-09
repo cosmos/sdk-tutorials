@@ -45,8 +45,9 @@ However, we want to modify our application so it better fits our requirements.
 
 ## Modifying our application
 
-We want to implement an interface that allows someone to hash a file and submit the hash to the blockchain, without directly uploading its contents. We'll be implementing this via the command line in `./x/pofe/client/cli/txClaim.go`:
+We want to implement an interface that allows someone to hash a file and submit the hash to the blockchain, without directly uploading its contents. We'll be implementing this via the CLI in `./x/pofe/client/cli/txClaim.go`.
 
+First, make sure to import the following packages:
 ```go
 package cli
 
@@ -63,9 +64,13 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/lukitsbrian/poe/x/pofe/types"
+	"github.com/cosmos/sdk-tutorials/proof-of-file-existence/pofe/x/pofe/types"
 )
+```
 
+Next, we want to update our `GetCmdCreateClaim` function so it looks as follows:
+
+```go
 // CLI transaction command to create a claim
 func GetCmdCreateClaim(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
@@ -93,6 +98,8 @@ func GetCmdCreateClaim(cdc *codec.Codec) *cobra.Command {
 	}
 }
 ```
+
+We can keep the `GetCmdSetClaim` and `GetCmdDeleteClaim` functions as is.
 
 Lastly, instead of using the auto-generated uuid `ID` as our key, we will be using the `Proof` value in our struct instead. This will make it a lot easier to query an occurrence of `Proof` in our database. We can start by modifying the `CreateClaim` method in our `./x/pofe/keeper/claim.go` file, as well as all other relevant files that use `claim.ID`, to use `claim.Proof` instead of `claim.ID`.
 
