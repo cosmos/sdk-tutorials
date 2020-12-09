@@ -68,7 +68,7 @@ import (
 )
 ```
 
-Next, we want to update out `GetCmdCreateClaim` function so it looks as follows:
+Next, we want to update our `GetCmdCreateClaim` function so it looks as follows:
 
 ```go
 // CLI transaction command to create a claim
