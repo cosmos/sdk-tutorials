@@ -8,10 +8,10 @@ First thing we're going to do is create a type in the `/x/nameservice` folder wi
 
 
 ```bash
-starport type name value price
+starport type whois value price
 ```
 
-Currently, we're only passing two values when scaffolding the `whois` type, because there are additional fields that we will be replacing. In all uses of `whois`, we'll be removing the auto-generated `ID` field, and replacing the `Creator` field with `Owner` to reflect ownership of the name.
+Currently, we're only passing two values when scaffolding the `whois` type, because there are additional fields that we will be replacing. In all uses of `whois`, we'll be removing the auto-generated `ID` field and replacing the `Creator` field with `Owner` to reflect ownership of the name.
 
 ## `types.go`
 
