@@ -187,7 +187,6 @@ a
         padding: 0.25rem 0.5rem 0.125rem;
         width: fit-content;
       }
-
     }
 
     &__title {
