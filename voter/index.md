@@ -73,9 +73,15 @@ To write anything to a blockchain or perform any other state transition a client
 
 Going back to `MsgCreatePoll.go`, we need to make options to be stored as a list instead of a string. Replace `Options string` with `Options []string` in `MsgCreatePoll` struct and `options string` with `options []string` in the arguments of `NewMsgCreatePoll` function.
 
+### `x/voter/handlerMsgSetPoll.go`
+
+The same changes that we had to do before, in the `MsgSetPoll` struct we replace `Options string` with `Options []string`. And accordingly change the `options` input for the `NewMsgSetPoll` function right below from `string` to `[]string`
+
 ### `x/voter/client/rest/txPoll.go`
 
 Replace `Options string` with `Options []string` in `createPollRequest` struct.
+
+The same for the `setPollRequest` struct further down in the same file.
 
 ### `x/voter/client/cli/txPoll.go`
 
@@ -87,7 +93,9 @@ votercli tx voter create-poll "Text editors" "Emacs" "Vim" --from user1
 
 This command will generate a transaction with "create poll" message, sign it using a private key of `user1` (one of two users created by default) and broadcast it to the blockchain.
 
-The only modification we need to make is to change a line that reads arguments from the console: `argsOptions := args[1:len(args)]`. This will assume that all arguments after the first one represent a list of options.
+The modification we need to make is to change a line that reads arguments from the console: `argsOptions := args[1:len(args)]`. This will assume that all arguments after the first one represent a list of options. In the next step you see the variable `msg` declared a few lines later, `argsOptions` should not be changed into a string here, so change `string(argsOptions)` to `argsOptions`.
+
+The same modifications will need to be done for `GetCmdSetPoll` further below. This time it reads `argsOptions := args[2:len(args)]`, should be the declaration for this variable now, als further change again `string(argsOptions)` to `argsOptions`.
 
 Now that we have made all the necessary changes to our app, let's take a look at the client-side application.
 
@@ -99,7 +107,7 @@ starport serve
 
 Starport has generated a basic front-end for our application. For convenience [Vue.js](https://vuejs.org) framework is used with [Vuex](https://vuex.vuejs.org/) for state management, but since all features of our application are exposed through an HTTP API, clients can be built using any language or framework.
 
-We'll be mostly interested in `vue/src/views` directory, which contains page templates of our app, `vue/src/store/index.js` handles sending transactions and receiving data from our blockchain and `vue/src/components` directory, which contains components, like buttons and forms.
+We'll be mostly interested in `vue/src/views` directory, which contains page templates of our app, `vue/src/store/index.js` handles sending transactions and receiving data from our blockchain and [components](https://github.com/tendermint/vue/tree/master/src/components) directory, which contains components, like buttons and forms.
 
 Inside `vue/src/store/index.js` we import [CosmJS](https://github.com/cosmwasm/cosmjs), a library for handling wallets, creating, signing and broadcasting transactions and define a Vuex store. We'll use `entitySubmit` function for sending data to our blockchain (like a JSON representing a newly created poll), `entityFetch` for requesting a list of polls and `accountUpdate` to fetch information about our token balance.
 
