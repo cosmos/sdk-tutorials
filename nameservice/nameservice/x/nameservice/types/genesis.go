@@ -28,13 +28,13 @@ func ValidateGenesis(data GenesisState) error {
 	// TODO: Create a sanity check to make sure the state conforms to the modules needs
 	for _, record := range data.WhoisRecords {
 		if record.Owner == nil {
-			return fmt.Errorf("invalid WhoisRecord: Value: %s. Error: Missing Owner", record.Value)
+			return fmt.Errorf("invalid WhoisRecord: Owner: %s. Error: Missing Owner", record.Owner)
 		}
 		if record.Value == "" {
-			return fmt.Errorf("invalid WhoisRecord: Owner: %s. Error: Missing Value", record.Owner)
+			return fmt.Errorf("invalid WhoisRecord: Value: %s. Error: Missing Value", record.Value)
 		}
 		if record.Price == nil {
-			return fmt.Errorf("invalid WhoisRecord: Value: %s. Error: Missing Price", record.Value)
+			return fmt.Errorf("invalid WhoisRecord: Price: %s. Error: Missing Price", record.Price)
 		}
 	}
 	return nil
