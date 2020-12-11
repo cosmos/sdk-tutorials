@@ -110,3 +110,4 @@ Translations:
 ## [Cosmos Burner Chain](./burner-chain/00-index.md)
 
 The goal of this chain is to provide a blueprint for your own application specific blockchain that interacts with other EVM based networks like Ethereum and xDai.
+
