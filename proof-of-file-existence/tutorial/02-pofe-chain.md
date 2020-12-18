@@ -8,7 +8,7 @@ order: 1
 We can scaffold our application by running `starport app github.com/user/pofe`. This creates a new folder called `pofe` which contains the code for your app.
 
 ```
-starport app github.com/user/pofe
+starport app github.com/user/pofe --sdk-version launchpad
 ```
 
 ## Run application
@@ -64,7 +64,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/cosmos/sdk-tutorials/proof-of-file-existence/pofe/x/pofe/types"
+	"github.com/user/pofe/x/pofe/types"
 )
 ```
 
@@ -104,11 +104,23 @@ We can keep the `GetCmdSetClaim` and `GetCmdDeleteClaim` functions as is.
 Lastly, instead of using the auto-generated uuid `ID` as our key, we will be using the `Proof` value in our struct instead. This will make it a lot easier to query an occurrence of `Proof` in our database. We can start by modifying the `CreateClaim` method in our `./x/pofe/keeper/claim.go` file, as well as all other relevant files that use `claim.ID`, to use `claim.Proof` instead of `claim.ID`.
 
 ```go
-func (k Keeper) CreateClaim(ctx sdk.Context, claim types.Claim) {
+// CreateClaim creates a claim
+func (k Keeper) CreateClaim(ctx sdk.Context, msg types.MsgCreateClaim) {
+	// Create the claim
+	count := k.GetClaimCount(ctx)
+    var claim = types.Claim{
+        Creator: msg.Creator,
+        ID:      strconv.FormatInt(count, 10),
+        Proof: msg.Proof,
+    }
+
 	store := ctx.KVStore(k.storeKey)
 	key := []byte(types.ClaimPrefix + claim.Proof)
 	value := k.cdc.MustMarshalBinaryLengthPrefixed(claim)
 	store.Set(key, value)
+
+	// Update claim count
+    k.SetClaimCount(ctx, count+1)
 }
 ```
 
