@@ -15,11 +15,14 @@ All of the final source code for this tutorial project is in this directory (and
 - [`golang` >1.13.0](https://golang.org/doc/install) installed
 - Github account and either [Github CLI](https://hub.github.com/) or [Github Desktop (64-bit required)](https://help.github.com/en/desktop/getting-started-with-github-desktop/installing-github-desktop)
 - Desire to create your own blockchain!
-- The [starport tool](https://github.com/tendermint/starport) will be used to go through this tutorial. The fastest way to install it is via npm (`npm i -g @tendermint/starport`) or brew (`brew install tendermint/tap/starport`). You could also clone the repository and build it from source - 
+
+For this tutorial we will be using [Starport](https://github.com/tendermint/starport) v0.0.10, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
-git clone https://github.com/tendermint/starport && cd starport && make
+curl https://i.jpillora.com/tendermint/starport@v0.0.10! | bash
 ```
+
+You can also use Starport v0.0.10 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.0.10). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
 
 ## Tutorial
 
