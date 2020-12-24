@@ -2,17 +2,28 @@
 order: 1
 ---
 
-
 # Polling app
 
 ![Application screenshot](./1.png)
 
 We will be creating a simple poll application, in which a user can sign in, create polls, cast votes and see voting results. Creating a poll will cost 200 tokens, voting is free, and both actions will be available only for signed in users.
 
-For this tutorial we will be using [Starport](https://github.com/tendermint/starport), an easy to use tool for building blockchains. [Install Starport](https://github.com/tendermint/starport#installation) and run the following command to create a voter project:
+## Requirements 
+
+For this tutorial we will be using [Starport](https://github.com/tendermint/starport) v0.0.10, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
-starport app github.com/alice/voter --sdk-version="launchpad"
+curl https://i.jpillora.com/tendermint/starport@v0.0.10! | bash
+```
+
+You can also use Starport v0.0.10 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.0.10). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
+
+## Creating a blockchain
+
+Run the following command to create a voter project:
+
+```
+starport app github.com/alice/voter
 ```
 
 Starport `app` command will scaffold a project structure for your application in a `voter` directory. Make sure to replace `alice` with your GitHub username.

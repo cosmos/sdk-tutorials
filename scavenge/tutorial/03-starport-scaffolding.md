@@ -3,26 +3,17 @@ order: 3
 ---
 
 # Starport
+## Requirements 
 
-We'll be using a tool called [starport](https://github.com/tendermint/starport) to help us spin up a boilerplate app quickly. 
+For this tutorial we will be using [Starport](https://github.com/tendermint/starport) v0.0.10, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
 
-You can install `starport` via `npm`, `brew`, or building it from [source](https://github.com/tendermint/starport).
-
-#### npm install
-```bash
-npm i -g @tendermint/starport
+```
+curl https://i.jpillora.com/tendermint/starport@v0.0.10! | bash
 ```
 
-#### homebrew installation
-```bash
-brew install tendermint/tap/starport
-```
+You can also use Starport v0.0.10 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.0.10). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
 
-#### building from source
-```bash
-git clone https://github.com/tendermint/starport && cd starport && make
-```
-
+## Creating a blockchain
 
 Afterwards, you can enter in `starport` in your terminal, and should see the following help text displayed:
 ```sh

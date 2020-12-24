@@ -6,10 +6,15 @@ order: 1
 
 By following this beginner tutorial, you will end up with a simple blog app that is powered by the Cosmos SDK.
 
-## Prerequisites
+## Requirements 
 
-- A [recent version of Go](https://golang.org/doc/install) installed.
-- [Node.js](https://nodejs.org/) installed.
+For this tutorial we will be using [Starport](https://github.com/tendermint/starport) v0.0.10, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
+
+```
+curl https://i.jpillora.com/tendermint/starport@v0.0.10! | bash
+```
+
+You can also use Starport v0.0.10 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.0.10). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
 
 ## Getting Started
 
@@ -18,7 +23,7 @@ Let's get started! The first step is to [install the `starport`](https://github.
 After `starport` is installed, use it to create the initial app structure inside a directory named `blog`:
 
 ```
-starport app github.com/example/blog --sdk-version="launchpad"
+starport app github.com/example/blog
 ```
 
 One of the main features of Starport is code generation. The command above has generated a directory structure with a working blockchain application. Starport can also add data types to your app with `starport type` command. To see it in action, follow the poll application tutorial. In this guide, however, we'll create those files manually to understand how it all works under the hood.

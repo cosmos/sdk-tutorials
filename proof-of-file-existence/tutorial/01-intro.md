@@ -28,27 +28,14 @@ The SHA256 hash of the file is also known as a checksum. When uploading the chec
 
 Our application is relatively simple - we want to implement a blockchain where a user can choose a file, hash its contents, and upload the file to the blockchain directly. We also want to give the owner the ability to revoke the claim.
 
-## Requirements
+## Requirements 
 
-[Starport](https://github.com/tendermint/starport/blob/develop/docs/01%20Introduction/01_starport_introduction/introduction.md) is a tool for scaffolding custom blockchains.
-
-First, we need to [install `starport`](https://github.com/tendermint/starport/blob/develop/docs/install.md), via `npm`, `brew`, or via source:
-```
-npm install -g @tendermint/starport
-```
+For this tutorial we will be using [Starport](https://github.com/tendermint/starport) v0.12.0, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
-brew install tendermint/tap/starport
+curl https://i.jpillora.com/tendermint/starport@v0.12.0! | bash
 ```
 
-```
-git clone https://github.com/tendermint/starport && cd starport && make
-```
-
-Alternatively, you can set up a one-click in-browser [Starport environment](https://gitpod.io/#https://github.com/tendermint/starport/).
-
-```
-https://gitpod.io/#https://github.com/tendermint/starport/
-```
+You can also use Starport v0.12.0 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.12.0). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
 
 Now, we can start building our app!
