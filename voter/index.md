@@ -10,7 +10,7 @@ We will be creating a simple poll application, in which a user can sign in, crea
 
 ## Requirements 
 
-For this tutorial we will be using Starport v0.0.10, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
+For this tutorial we will be using [Starport](https://github.com/tendermint/starport) v0.0.10, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
 curl https://i.jpillora.com/tendermint/starport@v0.0.10! | bash

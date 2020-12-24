@@ -30,7 +30,7 @@ Our application is relatively simple - we want to implement a blockchain where a
 
 ## Requirements 
 
-For this tutorial we will be using Starport v0.12.0, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
+For this tutorial we will be using [Starport](https://github.com/tendermint/starport) v0.12.0, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
 curl https://i.jpillora.com/tendermint/starport@v0.12.0! | bash

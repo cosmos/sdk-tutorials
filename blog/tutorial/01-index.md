@@ -8,7 +8,7 @@ By following this beginner tutorial, you will end up with a simple blog app that
 
 ## Requirements 
 
-For this tutorial we will be using Starport v0.0.10, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
+For this tutorial we will be using [Starport](https://github.com/tendermint/starport) v0.0.10, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
 curl https://i.jpillora.com/tendermint/starport@v0.0.10! | bash
