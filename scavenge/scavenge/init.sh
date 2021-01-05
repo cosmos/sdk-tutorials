@@ -1,20 +1,20 @@
 #!/bin/bash
-rm -r ~/.scavengeCLI
-rm -r ~/.scavengeD
+rm -r ~/.scavengecli
+rm -r ~/.scavenged
 
-scavengeD init mynode --chain-id scavenge
+scavenged init mynode --chain-id scavenge
 
-scavengeCLI config keyring-backend test
-scavengeCLI config chain-id scavenge
-scavengeCLI config output json
-scavengeCLI config indent true
-scavengeCLI config trust-node true
+scavengecli config keyring-backend test
+scavengecli config chain-id scavenge
+scavengecli config output json
+scavengecli config indent true
+scavengecli config trust-node true
 
-scavengeCLI keys add user1
-scavengeCLI keys add user2
-scavengeD add-genesis-account $(scavengeCLI keys show user1 -a) 1000token,100000000stake
-scavengeD add-genesis-account $(scavengeCLI keys show user2 -a) 500token
+scavengecli keys add user1
+scavengecli keys add user2
+scavenged add-genesis-account $(scavengecli keys show user1 -a) 1000token,100000000stake
+scavenged add-genesis-account $(scavengecli keys show user2 -a) 500token
 
-scavengeD gentx --name user1 --keyring-backend test
+scavenged gentx --name user1 --keyring-backend test
 
-scavengeD collect-gentxs 
+scavenged collect-gentxs 
