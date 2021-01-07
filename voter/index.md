@@ -23,7 +23,7 @@ You can also use Starport v0.0.10 on the web in a [browser-based IDE](http://git
 Run the following command to create a voter project:
 
 ```
-starport app github.com/alice/voter
+starport app github.com/alice/voter --sdk-version="launchpad"
 ```
 
 Starport `app` command will scaffold a project structure for your application in a `voter` directory. Make sure to replace `alice` with your GitHub username.
