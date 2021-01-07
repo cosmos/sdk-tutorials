@@ -8,15 +8,6 @@ To list created posts we will be using `blogcli query blog list-post` command. `
 
 ## x/blog/client/cli/query.go
 
-Make sure to import the `context` package:
-
-```go
-import (
-  // Existing imports...
-  "github.com/cosmos/cosmos-sdk/client/context"
-)
-```
-
 Function `GetQueryCmd` is used for creating a list of `query` subcommands, it should already be defined. Edit the function to add `GetCmdListPost` as a subcommand:
 
 ```go
@@ -39,9 +30,9 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
-  "github.com/spf13/cobra"
+    "github.com/spf13/cobra"
   
-  "github.com/example/blog/x/blog/types"
+    "github.com/example/blog/x/blog/types"
 )
 
 func GetCmdListPost(queryRoute string, cdc *codec.Codec) *cobra.Command {
@@ -78,13 +69,12 @@ const (
 
 ## x/blog/keeper/querier.go
 
-Import `types` package for the `QueryListPost` constant and `codec` to be able to marshal data into JSON.
+Import `types` package for the `QueryListPost` constant.
 
 ```go
 import (
   // Existing imports ...
   "github.com/example/blog/x/blog/types"
-  "github.com/cosmos/cosmos-sdk/codec"
 )
 ```
 
