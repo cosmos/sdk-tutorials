@@ -14,17 +14,56 @@ We'll be creating posts by sending `POST` requests to the same endpoint: `/blog/
 	r.HandleFunc("/blog/posts", createPostHandler(cliCtx)).Methods("POST")
 ```
 
-Now let's create `createPostHandler` inside a new file you should create at `x/blog/client/rest/tx.go`.
+Now let's create `createPostHandler` inside a new file you should create at `x/blog/client/rest/txPost.go`.
 
-## `x/blog/client/rest/tx.go`
+### x/blog/client/rest/txPost.go
 
-We will need a `createPostReq` type that represents the request that we will be sending from the client:
+We will need a `createPostRequest` type that represents the request that we will be sending from the client:
 
-<<< @/blog/blog/x/blog/client/rest/txPost.go{1-18}
+```go
+package rest
+
+import (
+	"net/http"
+
+	"github.com/cosmos/cosmos-sdk/client/context"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/rest"
+	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
+	"github.com/example/blog/x/blog/types"
+)
+
+type createPostRequest struct {
+	BaseReq rest.BaseReq `json:"base_req"`
+	Creator string       `json:"creator"`
+	Title   string       `json:"title"`
+	Body    string       `json:"body"`
+}
+
+func createPostHandler(cliCtx context.CLIContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req createPostRequest
+		if !rest.ReadRESTReq(w, r, cliCtx.Codec, &req) {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
+			return
+		}
+		baseReq := req.BaseReq.Sanitize()
+		if !baseReq.ValidateBasic(w) {
+			return
+		}
+		creator, err := sdk.AccAddressFromBech32(req.Creator)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+		msg := types.NewMsgCreatePost(creator, req.Title, req.Body)
+		utils.WriteGenerateStdTxResponse(w, cliCtx, baseReq, []sdk.Msg{msg})
+	}
+}
+
+```
 
 `createPostHandler` first parses request parameters, performs basic validations, converts `Creator` field from a string into an SDK account address type then finally creates `MsgCreatePost` message.
-
-<<< @/blog/blog/x/blog/client/rest/txPost.go{20-39}
 
 ## Setting up the client-side project
 
@@ -49,7 +88,7 @@ Replace `"scripts"` property in `package.json` with the following:
   "preserve": "lcp --proxyUrl http://localhost:1317 &",
   "serve": "parcel index.html",
   "postserve": "pkill -f lcp"
-}
+},
 ```
 
 Responses from an HTTP server provided by `blogcli rest-server` do not provide `Access-Control-Allow-Origin` headers. This prevents client-side application running from different domains/ports from making successful requests due to most browsers' CORS policies. In production that can be managed by a web server like Nginx providing the right headers. In development we'll be using `local-cors-proxy` (`lcp`) to act as a proxy between our front-end and server.
@@ -60,76 +99,94 @@ The commands under `scripts` work as follows: `preserve` runs first and launches
 
 Our `index.html` file will contain only the minimal amount of markup:
 
-<<< @/blog/blog/frontend/index.html
+### frontend/index.html
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Blog</title>
+  </head>
+  <body>
+    <h1>Blog</h1>
+    <input placeholder="Post title" type="text" id="title" />
+    <input placeholder="Post body" type="text" id="body" />
+    <button id="button">Create post</button>
+    <div id="posts"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
+```
 
 `<input/>` provides a text input for a title of a new post. `<button>` will submit a new post to our server. `<div id="post>` is an empty container which will be populated by a list of posts. We load `script.js` after all other markup has been loaded.
 
 Now let's create `script.js`.
 
-## `script.js`
+### frontend/index.html
 
 Our app will depend on `axios` and `@tendermint/sig`:
 
-<<< @/blog/blog/frontend/script.js{1,6}
-
-<<< @/blog/blog/frontend/script.js{8}
-<!-- 
 ```js
+import axios from "axios";
+import {
+    createWalletFromMnemonic,
+    signTx,
+    createBroadcastTx,
+} from "@tendermint/sig";
+
 const API = "http://localhost:8010/proxy";
-``` -->
+```
 
 HTTP-server runs on `localhost:1317`. Due to CORS we need to route our requests through a proxy: we're using `local-cors-proxy`, which uses the above URL by default.
 
 First, we need to create an account: a public/private key pair, which we will use for signing our (create post) transactions before broadcasting them to the server. We'll be using a mnemonic, from which the keys will be generated.
 
-<<< @/blog/blog/frontend/script.js{10}
-<!-- 
+### frontend/script.js
+
 ```js
 const mnemonic =
   "solid play vibrant paper clinic talent people employ august camp april reduce";
-``` -->
+```
 
 Now let's generate a wallet:
 
-<<< @/blog/blog/frontend/script.js{12}
-
-<!-- ```js
+```js
 const wallet = createWalletFromMnemonic(mnemonic);
-``` -->
+```
 
 If you use the same mnemonic (think of it as a password), you will get the same wallet address: in out case `wallet.address` is `cosmos152gzu3vzf7g9tu46vszgpac24lwr48vc8k8kkh`. If you want to generate unique mnemonics for your users, you can use `bip39` [package](https://www.npmjs.com/package/bip39).
 
 Our app will do two things: it will fetch a list of posts and create posts when "Create post" button is clicked.
 
-<<< @/blog/blog/frontend/script.js{14-17}
+### frontend/script.js
 
-<!-- ```js
+```js
 const init = () => {
   fetchPosts();
   document.getElementById("button").addEventListener("click", createPost);
 };
-``` -->
+```
 
 For `init()` to work we need to define two functions: `fetchPosts` and `createPost`.
 
-<<< @/blog/blog/frontend/script.js{19-24}
+### frontend/script.js{19-24}
 
-<!-- ```js
+```js
 const fetchPosts = () => {
   axios.get(`${API}/blog/posts`).then(({ data }) => {
     const posts = JSON.stringify(data.result);
     document.getElementById("posts").innerText = posts;
   });
 };
-``` -->
+```
 
 `fetchPosts` makes an HTTP GET request to `/blog/posts` and inserts the posts into the `<div id="posts">` container.
 
 Next, we need to define the `createPost` function. It will take the value from the text input, fetch the required account parameters from the server, fetch an unsigned transaction from the server, sign it using our private key from the wallet, broadcast it back to the server and fetch the list of posts again.
 
-<<< @/blog/blog/frontend/script.js{26-71}
+### frontend/script.js
 
-<!-- 
 ```js
 const createPost = () => {
   // Getting a post title value from text input
@@ -157,7 +214,7 @@ const createPost = () => {
       body,
     };
     // Fetching am unsigned transaction
-    axios.post(`${API}/blog/post`, req).then(({ data }) => {
+    axios.post(`${API}/blog/posts`, req).then(({ data }) => {
       const tx = data.value;
       // Signing the transaction with the private key and meta info
       const stdTx = signTx(tx, meta, wallet);
@@ -179,15 +236,15 @@ const createPost = () => {
     });
   });
 };
-``` -->
+```
 
-Run init to initialize our app:
+In the end, run init to initialize our app:
 
-<<< @/blog/blog/frontend/script.js{73}
+### frontend/script.js
 
-<!-- ```js
+```js
 init();
-``` -->
+```
 
 ## Creating an account
 

@@ -31,7 +31,30 @@ Add the following line to register our first route:
 
 Now let's define `listPostHandler` in the same package:
 
-<<< @/blog/blog/x/blog/client/rest/queryPost.go{11-20}
+### x/blog/client/rest/queryPost.go
+
+```go
+package rest
+
+import (
+	"fmt"
+	"net/http"
+
+	"github.com/cosmos/cosmos-sdk/client/context"
+	"github.com/cosmos/cosmos-sdk/types/rest"
+)
+
+func listPostHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list-post", storeName), nil)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
+			return
+		}
+		rest.PostProcessResponse(w, cliCtx, res)
+	}
+}
+```
 
 As many handler functions in Cosmos apps `listPostHandler` takes context, which contains meta information about the app and its environment, as a first argument. We're also passing `storeName`, which in our case is `"blog"`.
 

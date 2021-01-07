@@ -12,5 +12,16 @@ After using the mnemonic from the output of `starport serve`, you can use this U
 
 You can modify which fields to allow when creating the types in `vue/src/store/app.js` - 
 
-<<< @/blog/blog/vue/src/store/app.js
+### vue/src/store/app.js
+
+```js
+module.exports = {
+  types: [
+    // this line is used by starport scaffolding
+		{ type: "comment", fields: ["body", "postID", ] },
+		{ type: "post", fields: ["title", "body", ] },
+  ],
+};
+
+```
 
