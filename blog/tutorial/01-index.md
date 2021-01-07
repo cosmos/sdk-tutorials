@@ -202,15 +202,6 @@ After being broadcast, the messages are processed by an important part of the ap
 
 ## x/blog/handler.go
 
-Begin by checking if the new blog types that we created is imported:
-
-```go
-import (
-  // Existing imports...
-  "github.com/example/blog/x/blog/types"
-)
-```
-
 You should already have `func NewHandler` defined which lists all available handlers. Modify it to include a new function called `handleMsgCreatePost`.
 
 ```go
