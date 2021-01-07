@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@tendermint/sig": "^0.6.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "local-cors-proxy": "^1.1.0",
     "parcel-bundler": "^1.12.4"
   }
