@@ -3,7 +3,7 @@ package keeper
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/sdk-tutorials/blog/blog/x/blog/types"
+	"github.com/example/blog/x/blog/types"
 )
 
 func (k Keeper) CreatePost(ctx sdk.Context, post types.Post) {

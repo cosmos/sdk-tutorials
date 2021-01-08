@@ -85,7 +85,7 @@ You should see a list of posts returned as JSON from a HTTP server:
     {
       "creator": "cosmos1ulpw5rtzd537s9v8g363wtvrxnz5fmrheh8hgm",
       "title": "Hello!",
-      "title": "This is a my first post",
+      "body": "This is a my first post",
       "id": "a07a0d36-e201-4c37-8d6b-be20f4f8f3d3"
     }
   ]

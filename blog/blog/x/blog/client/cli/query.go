@@ -13,7 +13,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	// sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/cosmos/sdk-tutorials/blog/blog/x/blog/types"
+	"github.com/example/blog/x/blog/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module
@@ -29,8 +29,7 @@ func GetQueryCmd(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 	blogQueryCmd.AddCommand(
 		flags.GetCommands(
-			// this line is used by starport scaffolding
-			GetCmdListComment(queryRoute, cdc),
+			// this line is used by starport scaffolding # 1
 			GetCmdListPost(queryRoute, cdc),
 		)...,
 	)

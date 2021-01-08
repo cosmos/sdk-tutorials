@@ -15,6 +15,7 @@ type MsgCreatePost struct {
 	Body    string         `json:"body" yaml:"body"`
 }
 
+// NewMsgCreatePost creates the `MsgCreatePost` message
 func NewMsgCreatePost(creator sdk.AccAddress, title string, body string) MsgCreatePost {
 	return MsgCreatePost{
 		ID:      uuid.New().String(),
@@ -24,23 +25,28 @@ func NewMsgCreatePost(creator sdk.AccAddress, title string, body string) MsgCrea
 	}
 }
 
+// Route ...
 func (msg MsgCreatePost) Route() string {
 	return RouterKey
 }
 
+// Type ...
 func (msg MsgCreatePost) Type() string {
 	return "CreatePost"
 }
 
+// GetSigners ...
 func (msg MsgCreatePost) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{sdk.AccAddress(msg.Creator)}
 }
 
+// GetSignBytes ...
 func (msg MsgCreatePost) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
+// ValidateBasic ...
 func (msg MsgCreatePost) ValidateBasic() error {
 	if msg.Creator.Empty() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "creator can't be empty")

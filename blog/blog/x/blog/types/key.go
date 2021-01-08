@@ -12,12 +12,7 @@ const (
 
 	// QuerierRoute to be used for querier msgs
 	QuerierRoute = ModuleName
-)
 
-const (
+	// PostPrefix is used for keys in the KV store
 	PostPrefix = "post-"
-)
-
-const (
-	CommentPrefix = "comment-"
 )
