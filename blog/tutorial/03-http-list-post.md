@@ -10,17 +10,6 @@ Let's create a [server](https://docs.cosmos.network/master/building-modules/modu
 
 ## `x/blog/client/rest/rest.go`
 
-Import the standard `fmt` and `net/http` packages and `rest` to process a response (include both a body of a reponse along with a height at which the resource was queried):
-
-```go
-import (
-  // Existing imports...
-  "fmt"
-  "net/http"
-  "github.com/cosmos/cosmos-sdk/types/rest"
-)
-```
-
 In this file you should see `func RegisterRoutes` used for registering HTTP endpoints and handler functions.
 
 Add the following line to register our first route:
