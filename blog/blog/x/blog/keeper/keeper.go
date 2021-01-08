@@ -8,7 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/sdk-tutorials/blog/blog/x/blog/types"
+	"github.com/example/blog/x/blog/types"
 )
 
 // Keeper of the blog store

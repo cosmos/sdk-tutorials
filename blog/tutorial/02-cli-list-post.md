@@ -8,15 +8,6 @@ To list created posts we will be using `blogcli query blog list-post` command. `
 
 ## x/blog/client/cli/query.go
 
-Make sure to import the `context` package:
-
-```go
-import (
-  // Existing imports...
-  "github.com/cosmos/cosmos-sdk/client/context"
-)
-```
-
 Function `GetQueryCmd` is used for creating a list of `query` subcommands, it should already be defined. Edit the function to add `GetCmdListPost` as a subcommand:
 
 ```go
@@ -27,9 +18,42 @@ Function `GetQueryCmd` is used for creating a list of `query` subcommands, it sh
   )
 ```
 
-Now let’s define `GetCmdListPost`:
+Now let’s define `GetCmdListPost` in a queryPost.go file:
 
-<<< @/blog/blog/x/blog/client/cli/queryPost.go{12-28}
+## x/blog/client/cli/queryPost.go
+
+```go
+package cli
+
+import (
+	"fmt"
+
+	"github.com/cosmos/cosmos-sdk/client/context"
+	"github.com/cosmos/cosmos-sdk/codec"
+    "github.com/spf13/cobra"
+  
+    "github.com/example/blog/x/blog/types"
+)
+
+func GetCmdListPost(queryRoute string, cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "list-post",
+		Short: "list all post",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/"+types.QueryListPost, queryRoute), nil)
+			if err != nil {
+				fmt.Printf("could not list Post\n%s\n", err.Error())
+				return nil
+			}
+			var out []types.Post
+			cdc.MustUnmarshalJSON(res, &out)
+			return cliCtx.PrintOutput(out)
+		},
+	}
+}
+
+```
 
 `GetCmdListPost` runs an [ABCI](https://docs.tendermint.com/master/spec/abci/) query to fetch the data, unmarshals it back form binary to JSON and returns it to the console. ABCI is an interface between your app and Tendermint (a program responsible for replicating the state across machines). ABCI queries look like paths on a hierarchical filesystem. In our case, the query is `custom/blog/list-post`. Before we continue, we need to define `QueryListPost`.
 
@@ -45,13 +69,12 @@ const (
 
 ## x/blog/keeper/querier.go
 
-Import `types` package for the `QueryListPost` constant and `codec` to be able to marshal data into JSON.
+Import `types` package for the `QueryListPost` constant.
 
 ```go
 import (
   // Existing imports ...
   "github.com/example/blog/x/blog/types"
-  "github.com/cosmos/cosmos-sdk/codec"
 )
 ```
 
@@ -66,7 +89,33 @@ import (
 
 Now let’s define `listPost`:
 
-<<< @/blog/blog/x/blog/keeper/post.go{16-27}
+### x/blog/keeper/post.go
+
+Make sure to add the codec to the previous imports.
+
+```go
+import (
+  // Existing imports ...
+	"github.com/cosmos/cosmos-sdk/codec"
+)
+```
+
+Then add the `listPost` function.
+
+```go
+func listPost(ctx sdk.Context, k Keeper) ([]byte, error) {
+	var postList []types.Post
+	store := ctx.KVStore(k.storeKey)
+	iterator := sdk.KVStorePrefixIterator(store, []byte(types.PostPrefix))
+	for ; iterator.Valid(); iterator.Next() {
+		var post types.Post
+		k.cdc.MustUnmarshalBinaryLengthPrefixed(store.Get(iterator.Key()), &post)
+		postList = append(postList, post)
+	}
+	res := codec.MustMarshalJSONIndent(k.cdc, postList)
+	return res, nil
+}
+```
 
 This function uses a prefix iterator to loop through all the keys with a given prefix (in our case `PostPrefix` is `"post-"`). We’re getting values by key with `store.Get` and appending them to `postList`. Finally, we unmarshal bytes back to JSON and return the result to the console.
 

@@ -7,7 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/rest"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/cosmos/sdk-tutorials/blog/blog/x/blog/types"
+	"github.com/example/blog/x/blog/types"
 )
 
 type createPostRequest struct {
