@@ -2,7 +2,9 @@
   <div>
     
     <div v-for="poll in polls" v-bind:key="poll.id">
-      <app-text type="h2">Poll {{ poll.title }}</app-text>
+      <SpH3>
+        Poll {{ poll.title }}
+      </SpH3>
       <app-radio-item
         @click.native="submit(poll.id, option)"
         v-for="option in poll.options"
@@ -15,7 +17,11 @@
 </template>
 
 <script>
+import * as sp from "@tendermint/vue";
+import AppRadioItem from "./AppRadioItem";
+import AppText from "./AppText";
 export default {
+  components: { AppText, AppRadioItem, ...sp },
   data() {
     return {
       selected: ""

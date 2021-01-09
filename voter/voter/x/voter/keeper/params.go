@@ -1,5 +1,4 @@
 package keeper
-
 /*
 // TODO: Define if your module needs Parameters, if not this can be deleted
 
@@ -7,7 +6,7 @@ import (
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/sdk-tutorials/voter/voter/x/voter/types"
+	"github.com/alice/voter/x/voter/types"
 )
 
 // GetParams returns the total set of voter parameters.

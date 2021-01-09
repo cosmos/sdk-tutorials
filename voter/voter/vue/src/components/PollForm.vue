@@ -1,16 +1,18 @@
 <template>
   <div>
-    <app-input placeholder="Title" v-model="title" />
+    <sp-input placeholder="Title" v-model="title" />
     <div v-for="option in options">
-      <app-input placeholder="Option" v-model="option.title" />
+      <sp-input placeholder="Option" v-model="option.title" />
     </div>
-    <app-button @click.native="add">Add option</app-button>
-    <app-button @click.native="submit">Create poll</app-button>
+    <sp-button @click.native="add">+ Add option</sp-button>
+    <sp-button @click.native="submit">Create poll</sp-button>
   </div>
 </template>
 
 <script>
+import * as sp from "@tendermint/vue";
 export default {
+  components: { ...sp },
   data() {
     return {
       title: "",

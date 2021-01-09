@@ -5,40 +5,42 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-var _ sdk.Msg = &MsgCreatePoll{}
+var _ sdk.Msg = &MsgSetPoll{}
 
-type MsgCreatePoll struct {
+type MsgSetPoll struct {
+	ID      string         `json:"id" yaml:"id"`
 	Creator sdk.AccAddress `json:"creator" yaml:"creator"`
 	Title   string         `json:"title" yaml:"title"`
 	Options []string       `json:"options" yaml:"options"`
 }
 
-func NewMsgCreatePoll(creator sdk.AccAddress, title string, options []string) MsgCreatePoll {
-	return MsgCreatePoll{
+func NewMsgSetPoll(creator sdk.AccAddress, id string, title string, options []string) MsgSetPoll {
+	return MsgSetPoll{
+		ID:      id,
 		Creator: creator,
 		Title:   title,
 		Options: options,
 	}
 }
 
-func (msg MsgCreatePoll) Route() string {
+func (msg MsgSetPoll) Route() string {
 	return RouterKey
 }
 
-func (msg MsgCreatePoll) Type() string {
-	return "CreatePoll"
+func (msg MsgSetPoll) Type() string {
+	return "SetPoll"
 }
 
-func (msg MsgCreatePoll) GetSigners() []sdk.AccAddress {
+func (msg MsgSetPoll) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{sdk.AccAddress(msg.Creator)}
 }
 
-func (msg MsgCreatePoll) GetSignBytes() []byte {
+func (msg MsgSetPoll) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg MsgCreatePoll) ValidateBasic() error {
+func (msg MsgSetPoll) ValidateBasic() error {
 	if msg.Creator.Empty() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "creator can't be empty")
 	}

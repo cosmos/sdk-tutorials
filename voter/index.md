@@ -237,9 +237,9 @@ starport serve
 
 Starport has generated a basic front-end for our application. For convenience [Vue.js](https://vuejs.org) framework is used with [Vuex](https://vuex.vuejs.org/) for state management, but since all features of our application are exposed through an HTTP API, clients can be built using any language or framework.
 
-We'll be mostly interested in `vue/src/views` directory, which contains page templates of our app, `vue/src/store/index.js` handles sending transactions and receiving data from our blockchain and `vue/src/components` directory, which contains components, like buttons and forms.
+We'll be mostly interested in `vue/src/views` directory, which contains page templates of our app, `vue/src/store/index.js` handles sending transactions and receiving data from our blockchain and [`@tendermint/vue`](https://github.com/tendermint/vue/) directory, which contains components, like buttons and forms.
 
-Inside `vue/src/store/index.js` we import [CosmJS](https://github.com/cosmwasm/cosmjs), a library for handling wallets, creating, signing and broadcasting transactions and define a Vuex store. We'll use `entitySubmit` function for sending data to our blockchain (like a JSON representing a newly created poll), `entityFetch` for requesting a list of polls and `accountUpdate` to fetch information about our token balance.
+Inside `vue/src/store/index.js` we import [@tendermint/vue/src/store/cosmos](https://github.com/tendermint/vue/blob/develop/src/store/cosmos.js) which uses [CosmJS](https://github.com/cosmwasm/cosmjs), a library for handling wallets, creating, signing and broadcasting transactions and define a Vuex store. We'll use `entitySubmit` function for sending data to our blockchain (like a JSON representing a newly created poll), `entityFetch` for requesting a list of polls and `accountUpdate` to fetch information about our token balance.
 
 ### `vue/src/views/Index.vue`
 
@@ -248,7 +248,7 @@ Since we don't need the default form component replace
 <sp-type-form type="poll" :fields="['title', 'options', ]" module="voter" />
 ```
 
-inside of `vue/src/views/Index.vue` with a new component 
+inside of `vue/src/views/Index.vue` with a new component and a Title
  
  ```js
 <SpH3>
@@ -256,8 +256,6 @@ inside of `vue/src/views/Index.vue` with a new component
 </SpH3>
 <poll-form />
  ```
-
-that will be created in a new file in a new `components` directory  `vue/src/components/PollForm.vue`.
 
 In the `<script></script>` tags below, we import our component like this
 
@@ -270,7 +268,11 @@ export default {
 };
 ```
 
+For our PollForm we need to create a new directory `components` in our `vue/src/` path. In this directory we create a new file `PollForm.vue` and fill our first component with life.
+
 ### `vue/src/components/PollForm.vue`
+
+We create our PollForm component. Which will have a title and two buttons.
 
 ```js
 <template>
@@ -320,6 +322,8 @@ export default {
 We also need to setup our Vue store.
 
 ### `vue/src/store/app.js`
+
+Creating a new `app.js` file to hold our `types`.
 
 ```js
 module.exports = {
@@ -446,7 +450,8 @@ starport type vote pollID value
 
 ### `vue/src/views/Index.vue`
 
-Add `<poll-list />` into the `vue/src/view/Index.vue` file after the poll form component. 
+Delete the just bootstrapped for us `<sp-type-form type="vote" :fields="['pollID', 'value', ]" module="voter" />`.
+Add `<poll-list />` into the `vue/src/view/Index.vue` file after the poll form component we just created. 
 
 Update the imports below in the `<script></script>` tags as follows:
 
@@ -672,6 +677,8 @@ We can think of our data storage as a lexicographically ordered key value store.
 ```
 
 Both `poll-` and `vote-` are prefixes. They are added to keys for ease of filtering. By convention, prefixes are defined in `x/voter/types/key.go`.
+
+### `x/voter/keeper/vote.go`
 
 Whenever a user casts a vote, a new "create vote" message is handled by a handler and is passed to a keeper. Keeper takes a `vote-` prefix, adds a UUID (unique to every message) and uses this string as a key. `x/voter/keeper/vote.go`:
 
