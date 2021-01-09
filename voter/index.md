@@ -261,15 +261,14 @@ that will be created in a new file in a new `components` directory  `vue/src/com
 
 In the `<script></script>` tags below, we import our component like this
 
-<script>
+```js
 import * as sp from "@tendermint/vue";
 import PollForm from "../components/PollForm";
 
 export default {
   components: { PollForm, ...sp },
 };
-</script>
-
+```
 
 ### `vue/src/components/PollForm.vue`
 
@@ -284,8 +283,11 @@ export default {
     <sp-button @click.native="submit">Create poll</sp-button>
   </div>
 </template>
+```
 
-<script>
+in between `<script></script>` tags below this:
+
+```js
 import * as sp from "@tendermint/vue";
 export default {
   components: { ...sp },
@@ -313,7 +315,6 @@ export default {
     }
   }
 };
-</script>
 ```
 
 We also need to setup our Vue store.
@@ -411,14 +412,12 @@ In our main `App.vue` file, we make sure to initialize the Cosmos Wallet functio
 In the `<script></script>` tag at the end of the file, we dispatch to initialize our own app and the cosmos Vue framework
 
 ```js
-<script>
 export default {
   created() {
     this.$store.dispatch("cosmos/init");
     this.$store.dispatch("init");
   },
 };
-</script>
 ```
 
 Refresh the page, sign in with a password and create a new poll. It takes a couple of seconds to process a transaction. Now, if you visit [http://localhost:1317/voter/poll](http://localhost:1317/voter/poll) you should see a list of polls (this endpoint is defined in `x/voter/rest/queryPoll.go`):
@@ -451,7 +450,7 @@ Add `<poll-list />` into the `vue/src/view/Index.vue` file after the poll form c
 
 Update the imports below in the `<script></script>` tags as follows:
 
-<script>
+```js
 import * as sp from "@tendermint/vue";
 import PollForm from "../components/PollForm";
 import PollList from "../components/PollList";
@@ -459,7 +458,7 @@ import PollList from "../components/PollList";
 export default {
   components: { PollForm, PollList, ...sp },
 };
-</script>
+```
 
 
 Then make a new component at `vue/src/components/PollList.vue` and add the following:
@@ -484,8 +483,10 @@ Then make a new component at `vue/src/components/PollList.vue` and add the follo
     </div>
   </div>
 </template>
+```
+in between `<script></script>` tags below this:
 
-<script>
+```js
 import * as sp from "@tendermint/vue";
 import AppRadioItem from "./AppRadioItem";
 import AppText from "./AppText";
@@ -517,7 +518,6 @@ export default {
     }
   }
 };
-</script>
 ```
 
 The `PollList` component lists for every poll, all the options for that poll, as buttons. Selecting an option triggers a `submit` method that broadcasts a transaction with a "create vote" message and fetches data back from our application.
@@ -588,15 +588,16 @@ Two components are still missing from our App, to make it a bit better looking. 
   transform: scale(0.998);
 }
 </style>
+```
 
-<script>
+In the `<script></script>` tag below this:
+
+```js
 export default {
   props: {
     value: "",
   },
 };
-</script>
-
 ```
 
 
@@ -630,8 +631,11 @@ export default {
   font-size: 0.85rem;
 }
 </style>
+```
 
-<script>
+In between `<script></script>` tags below this
+
+```js
 export default {
   props: {
     type: {
@@ -639,9 +643,8 @@ export default {
     },
   },
 };
-</script>
-
 ```
+
 
 By now should be able to see the same UI as in the first screenshot. Try creating polls and casting votes. You may notice that it's possible to cast multiple votes for one poll. This is not what we want, so let's fix this behaviour.
 
