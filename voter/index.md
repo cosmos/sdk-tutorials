@@ -30,6 +30,10 @@ Starport `app` command will scaffold a project structure for your application in
 
 Inside the `voter` directory we can see several files and directories:
 
+```bash
+cd voter
+```
+
 - `app` contains files that connect all of the moving parts of your application.
 - `cmd` is responsible for `voterd` and `votercli` programs, which respectively allow you to start your application and interact with it.
 - `vue` contains a web user interface for your app, reponsible for everything you see on the screenshot above.
@@ -205,6 +209,16 @@ The modification we need to make is to change a line that reads arguments from t
 
 In the function `GetCmdCreatePoll`
 
+replace
+```go
+Args:  cobra.ExactArgs(2),
+```
+with
+
+```go
+Args:  cobra.MinimumNArgs(2),
+```
+
 ```go
 argsOptions := args[1:len(args)]
 ```
@@ -215,7 +229,42 @@ The variable `msg` is defined to read a string of argOptions, delete the stringi
 msg := types.NewMsgCreatePoll(cliCtx.GetFromAddress(), string(argsTitle), argsOptions)
 ```
 
+We end up with the following function
+
+```go
+func GetCmdCreatePoll(cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "create-poll [title] [options]",
+		Short: "Creates a new poll",
+		Args:  cobra.MinimumNArgs(2),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			argsTitle := string(args[0])
+			argsOptions := args[1:len(args)]
+
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+			inBuf := bufio.NewReader(cmd.InOrStdin())
+			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
+			msg := types.NewMsgCreatePoll(cliCtx.GetFromAddress(), string(argsTitle), argsOptions)
+			err := msg.ValidateBasic()
+			if err != nil {
+				return err
+			}
+			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
+		},
+	}
+}
+```
+
 The same changes will need to be done for the function `GetCmdSetPoll`
+
+And in the `GetCmdSetPoll` we set
+```go
+Args:  cobra.ExactArgs(3),
+```
+to
+```go
+Args:  cobra.MinimumNArgs(3),
+```
 
 ```go
 argsOptions := args[2:len(args)]
@@ -226,6 +275,33 @@ msg := types.NewMsgSetPoll(cliCtx.GetFromAddress(), id, string(argsTitle), argsO
 ```
 
 This will assume that all arguments after the first one represent a list of options.
+
+We end up with the following function
+
+```go
+func GetCmdSetPoll(cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "set-poll [id]  [title] [options]",
+		Short: "Set a new poll",
+		Args:  cobra.MinimumNArgs(3),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			id := args[0]
+			argsTitle := string(args[1])
+			argsOptions := args[2:len(args)]
+
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+			inBuf := bufio.NewReader(cmd.InOrStdin())
+			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
+			msg := types.NewMsgSetPoll(cliCtx.GetFromAddress(), id, string(argsTitle), argsOptions)
+			err := msg.ValidateBasic()
+			if err != nil {
+				return err
+			}
+			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
+		},
+	}
+}
+```
 
 Now that we have made all the necessary changes to our app, let's take a look at the client-side application.
 
@@ -306,14 +382,14 @@ export default {
     async submit() {
       const payload = {
         type: "poll",
+        module: "voter",
         body: {
           title: this.title,
           options: this.options.map(o => o.title)
         }
       };
-      await this.$store.dispatch("entitySubmit", payload);
-			await this.$store.dispatch("entityFetch", payload);
-			await this.$store.dispatch("accountUpdate");
+      await this.$store.dispatch("cosmos/entitySubmit", payload);
+        await this.$store.dispatch("cosmos/entityFetch", payload);
     }
   }
 };
@@ -321,90 +397,17 @@ export default {
 
 We also need to setup our Vue store.
 
-### `vue/src/store/app.js`
-
-Creating a new `app.js` file to hold our `types`.
-
-```js
-module.exports = {
-    types: [
-      // this line is used by starport scaffolding
-          { type: "vote", fields: ["pollID", "value", ] },
-          { type: "poll", fields: ["title", "options", ] },
-    ],
-  };
-  
-```
-
 ### `vue/src/store/index.js`
 
 ```js
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios";
-import app from "./app.js";
 import cosmos from "@tendermint/vue/src/store/cosmos.js";
 
 Vue.use(Vuex);
 
-const API = "http://localhost:1317";
-const ADDRESS_PREFIX = "cosmos"
-
 export default new Vuex.Store({
   modules: { cosmos },
-  state: {
-    app,
-    account: {},
-    chain_id: "",
-    data: {},
-    client: null,
-  },
-  mutations: {
-    chainIdSet(state, { chain_id }) {
-      state.chain_id = chain_id;
-    },
-    entitySet(state, { type, body }) {
-      const updated = {};
-      updated[type] = body;
-      state.data = { ...state.data, ...updated };
-    },
-    clientUpdate(state, { client }) {
-      state.client = client;
-    },
-  },
-  actions: {
-    async init({ dispatch, state }) {
-      await dispatch("chainIdFetch");
-      state.app.types.forEach(({ type }) => {
-        dispatch("entityFetch", { type });
-      });
-    },
-    async chainIdFetch({ commit }) {
-      const node_info = (await axios.get(`${API}/node_info`)).data.node_info;
-      commit("chainIdSet", { chain_id: node_info.network });
-    },
-    async entityFetch({ state, commit }, { type }) {
-      const { chain_id } = state;
-      const url = `${API}/${chain_id}/${type}`;
-      const body = (await axios.get(url)).data.result;
-      commit("entitySet", { type, body });
-    },
-    async accountUpdate({ state, commit }) {
-      const url = `${API}/auth/accounts/${cosmos.state.account.address}`;
-      const acc = (await axios.get(url)).data;
-      const account = acc.result.value;
-      commit("accountUpdate", { account });
-    },
-    async entitySubmit({ state }, { type, body }) {
-      const { chain_id } = state;
-      const creator = cosmos.state.account.address;
-      const base_req = { chain_id, from: creator };
-      const req = { base_req, creator, ...body };
-      const { data } = await axios.post(`${API}/${chain_id}/${type}`, req);
-      const { msg, fee, memo } = data.value;
-      return await cosmos.state.client.signAndPost(msg, fee, memo);
-    },
-  },
 });
 
 ```
@@ -419,7 +422,7 @@ In the `<script></script>` tag at the end of the file, we dispatch to initialize
 export default {
   created() {
     this.$store.dispatch("cosmos/init");
-    this.$store.dispatch("init");
+    this.$store.dispatch("cosmos/entityFetch", {type: "poll", module: "voter"});
   },
 };
 ```
@@ -495,6 +498,7 @@ in between `<script></script>` tags below this:
 import * as sp from "@tendermint/vue";
 import AppRadioItem from "./AppRadioItem";
 import AppText from "./AppText";
+import {countBy } from "lodash"
 export default {
   components: { AppText, AppRadioItem, ...sp },
   data() {
@@ -504,22 +508,22 @@ export default {
   },
   computed: {
     polls() {
-      return this.$store.state.data.poll || [];
+      return this.$store.state.cosmos.data["voter/poll"] || [];
     },
     votes() {
-      return this.$store.state.data.vote || [];
+      return this.$store.state.cosmos.data["voter/vote"] || [];
     }
   },
   methods: {
     results(id) {
       const results = this.votes.filter(v => v.pollID === id);
-      return this.$lodash.countBy(results, "value");
+      return countBy(results, "value");
     },
     async submit(pollID, value) {
       const type = { type: "vote" };
       const body = { pollID, value };
-      await this.$store.dispatch("entitySubmit", { ...type, body });
-      await this.$store.dispatch("entityFetch", type);
+      await this.$store.dispatch("cosmos/entitySubmit", { ...type, module:"voter", body });
+      await this.$store.dispatch("cosmos/entityFetch", {...type, module: "voter"});
     }
   }
 };
@@ -527,29 +531,7 @@ export default {
 
 The `PollList` component lists for every poll, all the options for that poll, as buttons. Selecting an option triggers a `submit` method that broadcasts a transaction with a "create vote" message and fetches data back from our application.
 
-Since we are using `lodash`, we need to make sure it is loaded in our `main.js` file
-
-### `vue/src/main.js`
-
-```js
-import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
-import _ from "lodash";
-
-Vue.config.productionTip = false;
-
-Object.defineProperty(Vue.prototype, "$lodash", { value: _ });
-
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount("#app");
-```
-
-Two components are still missing from our App, to make it a bit better looking. Let's add `AppRadioItem.vue` and `Apptext.vue`.
+Two components are still missing from our App, to make it a bit better looking. Let's add `AppRadioItem.vue` and `AppText.vue`.
 
 ### `vue/src/components/AppRadioItem.vue`
 
@@ -606,7 +588,7 @@ export default {
 ```
 
 
-### `vue/src/components/Apptext.vue`
+### `vue/src/components/AppText.vue`
 
 ```js
 <template>
@@ -650,6 +632,19 @@ export default {
 };
 ```
 
+Now in our `App.vue` we need to update to fetch our votes. In the `<script></script>` tag we should have the following resulting code:
+
+### `vue/src/App.vue`
+
+```js
+export default {
+  created() {
+    this.$store.dispatch("cosmos/init");
+    this.$store.dispatch("cosmos/entityFetch", {type: "poll", module: "voter"});
+    this.$store.dispatch("cosmos/entityFetch", {type: "vote", module: "voter"});
+  },
+};
+```
 
 By now should be able to see the same UI as in the first screenshot. Try creating polls and casting votes. You may notice that it's possible to cast multiple votes for one poll. This is not what we want, so let's fix this behaviour.
 
@@ -729,7 +724,6 @@ func handleMsgCreatePoll(ctx sdk.Context, k keeper.Keeper, msg types.MsgCreatePo
 
 	return &sdk.Result{Events: ctx.EventManager().Events()}, nil
 }
-
 ```
 
 The fee payment happens before `k.CreatePoll(ctx, poll)`. This way, if a user does not have enough tokens, the application will raise an error and will not proceed to creating a poll. Make sure to have `"github.com/tendermint/tendermint/crypto"` added to the import statement (if your text editor didn't do that for you).

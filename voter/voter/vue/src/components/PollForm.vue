@@ -26,14 +26,14 @@ export default {
     async submit() {
       const payload = {
         type: "poll",
+        module: "voter",
         body: {
           title: this.title,
           options: this.options.map(o => o.title)
         }
       };
-      await this.$store.dispatch("entitySubmit", payload);
-			await this.$store.dispatch("entityFetch", payload);
-			await this.$store.dispatch("accountUpdate");
+      await this.$store.dispatch("cosmos/entitySubmit", payload);
+        await this.$store.dispatch("cosmos/entityFetch", payload);
     }
   }
 };

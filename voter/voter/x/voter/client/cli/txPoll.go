@@ -17,7 +17,7 @@ func GetCmdCreatePoll(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "create-poll [title] [options]",
 		Short: "Creates a new poll",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.MinimumNArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsTitle := string(args[0])
 			argsOptions := args[1:len(args)]
@@ -39,7 +39,7 @@ func GetCmdSetPoll(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "set-poll [id]  [title] [options]",
 		Short: "Set a new poll",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.MinimumNArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			id := args[0]
 			argsTitle := string(args[1])
