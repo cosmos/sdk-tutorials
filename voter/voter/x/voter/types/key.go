@@ -15,9 +15,12 @@ const (
 )
 
 const (
-	PollPrefix = "poll-"
+	PollPrefix = "poll-value-"
+	PollCountPrefix = "poll-count-"
 )
-
+		
 const (
-	VotePrefix = "vote-"
+	VotePrefix = "vote-value-"
+	VoteCountPrefix = "vote-count-"
 )
+		
