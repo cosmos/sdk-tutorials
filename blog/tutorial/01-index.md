@@ -32,7 +32,7 @@ One of the main features of Starport is code generation. The command above has g
 
 Let's take a quick look at what Starport has generated for us. [`app/app.go`](https://docs.cosmos.network/master/basics/app-anatomy.html#core-application-file) file imports and configures SDK modules and creates a constructor for our application that extends a [basic SDK application](https://docs.cosmos.network/master/core/baseapp.html) among other things. This app will use only a couple standard modules bundled with Cosmos SDK (including `auth` for dealing with accounts and `bank` for handling coin transfers) and one module (`x/blog`) that will contain custom functionality.
 
-In `cmd` directory we have source files of two programs for interacting with our application: `blogd` starts a full-node for your blockchian and `blogcli` enables you to query the full-node, either to update the state by sending a transaction or to read it via a query.
+In `cmd` directory we have source files of two programs for interacting with our application: `blogd` starts a full-node for your blockchain and `blogcli` enables you to query the full-node, either to update the state by sending a transaction or to read it via a query.
 
 This blog app will store data in a persistent [key-value store](https://docs.cosmos.network/master/core/store.html). Similarly to most key-value stores, you can retrieve, delete, update, and loop through keys to obtain the values you are interested in.
 

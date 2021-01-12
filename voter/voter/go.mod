@@ -1,11 +1,10 @@
-module github.com/cosmos/sdk-tutorials/voter/voter
+module github.com/alice/voter
 
-go 1.14
+go 1.15
 
 require (
 	github.com/cosmos/cosmos-sdk v0.39.1
 	github.com/golang/mock v1.4.3 // indirect
-	github.com/google/uuid v1.0.0
 	github.com/gorilla/mux v1.7.4
 	github.com/onsi/ginkgo v1.8.0 // indirect
 	github.com/onsi/gomega v1.5.0 // indirect
