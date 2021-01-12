@@ -8,7 +8,7 @@ order: 1
 We can scaffold our application by running `starport app github.com/user/pofe`. This creates a new folder called `pofe` which contains the code for your app.
 
 ```
-starport app github.com/user/pofe
+starport app github.com/user/pofe --sdk-version launchpad
 ```
 
 ## Run application
@@ -33,8 +33,12 @@ Cosmos' version is: Launchpad
 
 Switch back to terminal inside the `pofe` directory and create a type called `claim` with the field `proof`:
 
-```
+```bash
 starport type claim proof:string
+```
+
+```bash
+🎉 Created a type `claim`.
 ```
 
 This creates the `claim` type, as well as adding its relevant CLI commands, handlers, messages, type, queriers, and keepers.
@@ -47,24 +51,18 @@ However, we want to modify our application so it better fits our requirements.
 
 We want to implement an interface that allows someone to hash a file and submit the hash to the blockchain, without directly uploading its contents. We'll be implementing this via the CLI in `./x/pofe/client/cli/txClaim.go`.
 
-First, make sure to import the following packages:
+### `x/pofe/client/cli/txClaim.go`
+
+First, make sure to add the import of the following packages:
 ```go
 package cli
 
 import (
-	"bufio"
+	...
+
 	"crypto/sha256"
 	"encoding/hex"
 	"io/ioutil"
-
-	"github.com/spf13/cobra"
-
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/cosmos/sdk-tutorials/proof-of-file-existence/pofe/x/pofe/types"
 )
 ```
 
@@ -103,6 +101,8 @@ We can keep the `GetCmdSetClaim` and `GetCmdDeleteClaim` functions as is.
 
 Lastly, instead of using the auto-generated uuid `ID` as our key, we will be using the `Proof` value in our struct instead. This will make it a lot easier to query an occurrence of `Proof` in our database. We can start by modifying the `CreateClaim` method in our `./x/pofe/keeper/claim.go` file, as well as all other relevant files that use `claim.ID`, to use `claim.Proof` instead of `claim.ID`.
 
+### `x/pofe/keeper/claim.go`
+
 ```go
 func (k Keeper) CreateClaim(ctx sdk.Context, claim types.Claim) {
 	store := ctx.KVStore(k.storeKey)
@@ -112,18 +112,31 @@ func (k Keeper) CreateClaim(ctx sdk.Context, claim types.Claim) {
 }
 ```
 
-According our application design, we would only need the `Creator` and the hash of the file `Proof`. We can leave instances of `ID` in the struct for the sake of this tutorial.
+In order to import types.Claim from the kepper, we have to edit our `handlerMsgCreateClaim.go` file in
 
-However, if you wish to clean up you struct and methods, an incremental way of doing this would be to remove the `ID` field from the `Claim` struct inside the `./x/pofe/types/TypeClaim.go` file so it looks as follows:
+### `x/pofe/handerMsgCreateClaim.go`
 
 ```go
-type Claim struct {
-	Creator sdk.AccAddress `json:"creator" yaml:"creator"`
-	Proof   string         `json:"proof" yaml:"proof"`
-}
-```
+package pofe
 
-In your second window, you should see errors pop up, which you can incrementally change based on the errors shown.
+import (
+	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	"github.com/user/pofe/x/pofe/keeper"
+	"github.com/user/pofe/x/pofe/types"
+)
+
+func handleMsgCreateClaim(ctx sdk.Context, k keeper.Keeper, msg types.MsgCreateClaim) (*sdk.Result, error) {
+	var claim = types.Claim{
+		Creator: msg.Creator,
+		Proof:   msg.Proof,
+	}
+	k.CreateClaim(ctx, claim)
+
+	return &sdk.Result{Events: ctx.EventManager().Events()}, nil
+}
+
+```
 
 ## Submit a Proof of File Existence claim
 
