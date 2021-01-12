@@ -18,8 +18,11 @@ all: install
 install: go.sum
 		go install $(BUILD_FLAGS) ./cmd/scavenged
 		go install $(BUILD_FLAGS) ./cmd/scavengecli
+	
+build_fe:
 		npm --prefix ./vue i --save 
 		npm --prefix ./vue run build
+.PHONY: build_fe
 
 go.sum: go.mod
 		@echo "--> Ensure dependencies have not been modified"
