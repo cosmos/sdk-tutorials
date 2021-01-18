@@ -8,7 +8,7 @@ order: 3
 For this tutorial we will be using [Starport](https://github.com/tendermint/starport) v0.0.10, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
-curl https://i.jpillora.com/tendermint/starport@v0.0.10! | bash
+curl https://get.starport.network/starport@v0.0.10! | bash
 ```
 
 You can also use Starport v0.0.10 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.0.10). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
