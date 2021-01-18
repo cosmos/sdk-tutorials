@@ -48,4 +48,14 @@ After defining these commands, your files should look like:
 #### `queryCommit.go`
 <<< @/scavenge/scavenge/x/scavenge/client/cli/queryCommit.go
 
+# REST
+
+The rest endpoints need to get updated according to our application
+
+#### `rest/txCommit.go`
+<<< @/scavenge/scavenge/x/scavenge/client/rest/txCommit.go
+
+#### `rest/txScavenge.go`
+<<< @/scavenge/scavenge/x/scavenge/client/rest/txScavenge.go
+
 Your application is now complete! In the next step, we can start playing our game.

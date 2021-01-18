@@ -13,8 +13,22 @@ Running the `starport type` command should have already added a `handlerMsgCreat
 #### `handlerMsgCreateScavenge.go`
 <<< @/scavenge/scavenge/x/scavenge/handlerMsgCreateScavenge.go
 
+#### `handlerMsgSetScavenge.go`
+<<< @/scavenge/scavenge/x/scavenge/handlerMsgSetScavenge.go
+
+#### `handlerMsgDeleteScavenge.go`
+<<< @/scavenge/scavenge/x/scavenge/handlerMsgDeleteScavenge.go
+
 #### `handlerMsgCommitSolution.go`
+We rename our `handlerMsgCreateCommit.go` to `handlerMsgCommitSolution.go`
+
 <<< @/scavenge/scavenge/x/scavenge/handlerMsgCommitSolution.go
+
+#### `handlerMsgSetCommit.go`
+<<< @/scavenge/scavenge/x/scavenge/handlerMsgSetCommit.go
+
+#### `handlerMsgDeleteCommit.go`
+<<< @/scavenge/scavenge/x/scavenge/handlerMsgDeleteCommit.go
 
 #### `handlerMsgRevealSolution.go`
 <<< @/scavenge/scavenge/x/scavenge/handlerMsgRevealSolution.go

@@ -27,6 +27,14 @@ The `Msg` interface requires some other methods be set, like validating the cont
 
 Now that one can create a scavenge the only other essential action is to be able to solve it. This should be broken into two separate actions as described before: `MsgCommitSolution` and `MsgRevealSolution`.
 
+## MsgSetScavenge
+
+<<< @/scavenge/scavenge/x/scavenge/types/MsgSetScavenge.go
+
+## MsgDeleteScavenge
+
+<<< @/scavenge/scavenge/x/scavenge/types/MsgDeleteScavenge.go
+
 ## MsgCommitSolution
 
 We rename our `./x/scavenge/types/MsgCreateCommit.go` to `./x/scavenge/types/MsgCommitSolution.go`.
@@ -42,6 +50,14 @@ The Message `struct` contains all the necessary information when revealing a sol
 - `SolutionScavengerHash` - This is the hash of the combination of the solution and the person who solved it.
 
 This message also fulfils the `sdk.Msg` interface.
+
+## MsgSetCommit
+
+<<< @/scavenge/scavenge/x/scavenge/types/MsgSetCommit.go
+
+## MsgDeleteCommit
+
+<<< @/scavenge/scavenge/x/scavenge/types/MsgDeleteCommit.go
 
 ## MsgRevealSolution
 

@@ -9,7 +9,7 @@ Let's follow the commands to run our application.
 ```bash
 $ cd scavenge
 $ starport serve
-Cosmos\' version is: Launchpad
+Cosmos version is: Launchpad
 
 📦 Installing dependencies...
 🛠️  Building the app...
