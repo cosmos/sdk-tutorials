@@ -6,7 +6,6 @@ require (
 	github.com/btcsuite/btcd v0.21.0-beta // indirect
 	github.com/confio/ics23/go v0.6.3 // indirect
 	github.com/cosmos/cosmos-sdk v0.39.1
-	github.com/cosmos/iavl v0.12.2 // indirect
 	github.com/dgraph-io/badger/v2 v2.2007.2 // indirect
 	github.com/gogo/gateway v1.1.0 // indirect
 	github.com/golang/mock v1.4.3 // indirect
@@ -23,8 +22,8 @@ require (
 	github.com/spf13/viper v1.7.1
 	github.com/syndtr/goleveldb v1.0.1-0.20200815110645-5c35d600f0ca // indirect
 	github.com/tendermint/go-amino v0.15.1
-	github.com/tendermint/tendermint v0.33.9
-	github.com/tendermint/tm-db v0.5.2
+	github.com/tendermint/tendermint v0.34.2
+	github.com/tendermint/tm-db v0.6.3
 	go.etcd.io/bbolt v1.3.5 // indirect
 	golang.org/x/crypto v0.0.0-20201016220609-9e8e0b390897 // indirect
 	google.golang.org/genproto v0.0.0-20201111145450-ac7456db90a6 // indirect
