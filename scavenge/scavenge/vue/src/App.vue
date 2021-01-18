@@ -5,17 +5,18 @@
 </template>
 
 <style>
-.sp-container {
-  margin: 0 auto;
-  max-width: 800px;
-  padding: 1rem;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+body {
+  margin: 0;
+  font-family: "Inter", "Helvetica", sans-serif;
 }
 </style>
 
 <script>
 export default {
   created() {
-    this.$store.dispatch("cosmos/init");
-  },
+    this.$store.dispatch("init");
+  }
 };
 </script>
