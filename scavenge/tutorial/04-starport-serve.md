@@ -9,6 +9,7 @@ Let's follow the commands to run our application.
 ```bash
 $ cd scavenge
 $ starport serve
+Cosmos\' version is: Launchpad
 
 📦 Installing dependencies...
 🛠️  Building the app...
@@ -109,13 +110,13 @@ In a separate terminal, you can also `cd` into the `vue` directory and run `npm 
 
 Let's run `starport serve` again, as it does additional hot reloading for our app out of the box. After this, we can navigate to [`localhost:12345`](http://localhost:12345), where we should see the following landing page:
 
-![](./img/ui.png)
+![](./img/localhost_12345.png)
 
 This landing page re-iterates the fact that we have a web server, consensus engine, and frontend vue application running.
 
 Let's visit our vue app at `localhost:8080`:
 
-![](./img/fe.png)
+![](./img/localhost_8080.png)
 
 You can use this page to sign in using the mnemonics provided in your terminal, as well perform CRUD operations on your application.
 

@@ -29,7 +29,9 @@ Now that one can create a scavenge the only other essential action is to be able
 
 ## MsgCommitSolution
 
-This message type should live in `./x/scavenge/types/MsgCommitSolution.go` and look like:
+We rename our `./x/scavenge/types/MsgCreateCommit.go` to `./x/scavenge/types/MsgCommitSolution.go`.
+
+The message type that describes how to commit a solution should live in `./x/scavenge/types/MsgCommitSolution.go` and look like:
 
 <<< @/scavenge/scavenge/x/scavenge/types/MsgCommitSolution.go
 
@@ -54,6 +56,8 @@ The Message `struct` contains all the necessary information when revealing a sol
 - `Solution` - This is the plain text version of the solution.
 
 This message also fulfils the `sdk.Msg` interface.
+
+Especially look into the `ValidateBasic` function. It validates if all the necessary inputs are made to reveal a solution and creates the sha256 hash out of the submitted solution.
 
 ## Codec
 
