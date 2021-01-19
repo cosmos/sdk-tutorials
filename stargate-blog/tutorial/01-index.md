@@ -36,9 +36,9 @@ In `cmd` directory we have source files of two programs for interacting with our
 
 This blog app will store data in a persistent [key-value store](https://docs.cosmos.network/master/core/store.html). Similarly to most key-value stores, you can retrieve, delete, update, and loop through keys to obtain the values you are interested in.
 
-We’ll be creating a simple blog-like application, so let’s define the first proto type, the `post`.
+We’ll be creating a simple blog-like application, so let’s define the first proto type, the `Post` in the `post.proto` file.
 
-## blog/proto/post.proto
+## proto/post.proto
 
 ```go
 syntax = "proto3";
@@ -59,18 +59,6 @@ message MsgCreatePost {
   string creator = 1;
   string title = 2; 
   string body = 3; 
-}
-
-message MsgUpdatePost {
-  string creator = 1;
-  string id = 2;
-  string title = 3; 
-  string body = 4; 
-}
-
-message MsgDeletePost {
-  string creator = 1;
-  string id = 2;
 }
 
 ```
@@ -106,12 +94,14 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/cosmos/cosmos-sdk/client/tx"
 	// "github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/example/blog/x/blog/types"
 )
 ```
 
-This file already contains `func GetTxCmd` which defines custom `blogcli` [commands](https://docs.cosmos.network/master/building-modules/module-interfaces.html#cli). We will add the custom `create-post` command to our `blogcli` by first adding `GetCmdCreatePost` to `blogTxCmd`.
+This file already contains `func GetTxCmd` which defines custom `blogd` [commands](https://docs.cosmos.network/master/building-modules/module-interfaces.html#cli). We will add the custom `create-post` command to our `blogd` by first adding `GetCmdCreatePost` to `blogTxCmd`.
 
 ```go
   cmd.AddCommand(CmdCreatePost())
@@ -169,7 +159,7 @@ import (
 var _ sdk.Msg = &MsgCreatePost{}
 ```
 
-Similarly to the post struct, `MsgCreatePost` contains our proto definition.
+Similarly to the post proto, `MsgCreatePost` contains our post definition.
 
 ```go
 func NewMsgCreatePost(creator string, title string, body string) *MsgCreatePost {
@@ -202,7 +192,7 @@ func (msg *MsgCreatePost) GetSigners() []sdk.AccAddress {
   return []sdk.AccAddress{creator}
 }
 // GetSignBytes ...
-func (msg MsgCreatePost) GetSignBytes() []byte {
+func (msg *MsgCreatePost) GetSignBytes() []byte {
   bz := ModuleCdc.MustMarshalJSON(msg)
   return sdk.MustSortJSON(bz)
 }
@@ -226,7 +216,7 @@ You should already have `func NewHandler` defined which lists all available hand
 
 ```go
     switch msg := msg.(type) {
-    case types.MsgCreatePost:
+    case *types.MsgCreatePost:
       return handleMsgCreatePost(ctx, k, msg)
     default:
 ```
@@ -235,14 +225,23 @@ Let's create the handler in `handler_post.go` file
 
 ## x/blog/handler_post.go
 
-Now let’s define `handleMsgCreatePost`:
+Now let’s define `handleMsgCreatePost` in a new file `handler_post.go`:
 
 ```go
+package blog
+
+import (
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/example/blog/x/blog/keeper"
+	"github.com/example/blog/x/blog/types"
+)
+
 func handleMsgCreatePost(ctx sdk.Context, k keeper.Keeper, msg *types.MsgCreatePost) (*sdk.Result, error) {
 	k.CreatePost(ctx, *msg)
 
 	return &sdk.Result{Events: ctx.EventManager().ABCIEvents()}, nil
 }
+
 
 ```
 
@@ -250,22 +249,99 @@ After creating a post object with creator, ID and title, the message handler cal
 
 ## x/blog/keeper/post.go
 
-Add a `CreatePost` function that takes two arguments: a [context](https://docs.cosmos.network/master/core/context.html#context-definition) and a post.
+First, create a new file `post.go` in the `keeper/` directory.
+Then, add a `CreatePost` function that takes two arguments: a [context](https://docs.cosmos.network/master/core/context.html#context-definition) and a post. Also, `GetPostCount` and `SetPostCount functions`.
 
 ```go
 package keeper
 
 import (
+	"strconv"
+
+	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/example/blog/x/blog/types"
 )
 
-func (k Keeper) CreatePost(ctx sdk.Context, post types.Post) {
-	store := ctx.KVStore(k.storeKey)
-	key := []byte(types.PostPrefix + post.ID)
-	value := k.cdc.MustMarshalBinaryLengthPrefixed(post)
-	store.Set(key, value)
+// GetPostCount get the total number of post
+func (k Keeper) GetPostCount(ctx sdk.Context) int64 {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PostCountKey))
+	byteKey := types.KeyPrefix(types.PostCountKey)
+	bz := store.Get(byteKey)
+
+	// Count doesn't exist: no element
+	if bz == nil {
+		return 0
+	}
+
+	// Parse bytes
+	count, err := strconv.ParseInt(string(bz), 10, 64)
+	if err != nil {
+		// Panic because the count should be always formattable to int64
+		panic("cannot decode count")
+	}
+
+	return count
 }
+
+// SetPostCount set the total number of post
+func (k Keeper) SetPostCount(ctx sdk.Context, count int64) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PostCountKey))
+	byteKey := types.KeyPrefix(types.PostCountKey)
+	bz := []byte(strconv.FormatInt(count, 10))
+	store.Set(byteKey, bz)
+}
+
+func (k Keeper) CreatePost(ctx sdk.Context, msg types.MsgCreatePost) {
+	// Create the post
+	count := k.GetPostCount(ctx)
+	var post = types.Post{
+		Creator: msg.Creator,
+		Id:      strconv.FormatInt(count, 10),
+		Title:   msg.Title,
+		Body:    msg.Body,
+	}
+
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PostKey))
+	key := types.KeyPrefix(types.PostKey + post.Id)
+	value := k.cdc.MustMarshalBinaryBare(&post)
+	store.Set(key, value)
+
+	// Update post count
+	k.SetPostCount(ctx, count+1)
+}
+
+func (k Keeper) GetPost(ctx sdk.Context, key string) types.Post {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PostKey))
+	var post types.Post
+	k.cdc.MustUnmarshalBinaryBare(store.Get(types.KeyPrefix(types.PostKey + key)), &post)
+	return post
+}
+
+func (k Keeper) HasPost(ctx sdk.Context, id string) bool {
+	store :=  prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PostKey))
+	return store.Has(types.KeyPrefix(types.PostKey + id))
+}
+
+func (k Keeper) GetPostOwner(ctx sdk.Context, key string) string {
+    return k.GetPost(ctx, key).Creator
+}
+
+func (k Keeper) GetAllPost(ctx sdk.Context) (msgs []types.Post) {
+    store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PostKey))
+	iterator := sdk.KVStorePrefixIterator(store, types.KeyPrefix(types.PostKey))
+
+	defer iterator.Close()
+
+	for ; iterator.Valid(); iterator.Next() {
+		var msg types.Post
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &msg)
+        msgs = append(msgs, msg)
+	}
+
+    return
+}
+
 
 ```
 
@@ -333,7 +409,7 @@ starport serve
 This command installs dependencies, builds and initializes the app, and runs servers. You can also do it manually:
 
 1. `go mod tidy` cleans up dependencies.
-2. `make` builds your app and creates two binaries in your go path: `blogd` and `blogcli`.
+2. `make` builds your app and creates a binary in your go path: `blogd`.
 3. Initialization scripts in the `Makefile` removes data directories, configures your app and generates two accounts. By default your app stores data in your home directory in `~/.blogd`. The script removes them, so every time you have a clean state.
 4. `blogd start` launches your app. After a couple of seconds you will see hashes of blocks being generated. Leave this terminal window open and open a new one.
 
@@ -349,32 +425,21 @@ blogd tx blog create-post "My first post" "This is a post\!" --from=user1
 
 After running the command and confirming it, you will see an object with “txhash” property with a value like `CA1491B39384A4F29E568F62B156E0F2D0601507EF499CE1B8F3930BAFE7F03C`.
 
-To verify that the transaction has been processed, open a browser and visit the following URL (make sure to replace `CA14...` with the value of your txhash but make sure to keep the `0x` prefix):
+To verify that the transaction has been processed, open a browser and visit the following URL (make sure to replace `CA14...` with the value of your txhash but make sure to have the `0x` prefix):
 
 ```
 http://localhost:26657/tx?hash=0xCA1491B39384A4F29E568F62B156E0F2D0601507EF499CE1B8F3930BAFE7F03C
 ```
 
+Also check out a basic block overview at
+
+```
+http://localhost:12345/#/blocks
+```
+
 Congratulations! You have just created and launched your custom blockchain and sent the first transaction 🎉
 
 ## Errors
-
-### Cannot find module providing package
-
-```
-x/blog/client/cli/tx.go:12:2: cannot find module providing package github.com/cosmos/cosmos-sdk/client/utils: import lookup disabled by -mod=readonly
-x/blog/client/cli/tx.go:75:59: undefined: sdk
-```
-
-Make sure you import all required packages in x/blog/client/cli/tx.go:
-
-```go
-import (
-  // ...
-  sdk "github.com/cosmos/cosmos-sdk/types"
-  "github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-)
-```
 
 ### Unknown command "create-post" for "blog"
 

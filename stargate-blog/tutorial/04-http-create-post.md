@@ -8,10 +8,43 @@ Let's create a front-end for our blog application. In this guide we will be writ
 
 ## `x/blog/client/rest/rest.go`
 
-We'll be creating posts by sending `POST` requests to the same endpoint: `/blog/posts`. To add a handler add the following line to `func RegisterRoutes`:
+We'll be creating posts by sending `POST` requests to the same endpoint: `/blog/posts`. To add a handler add the `createPostHandler` to `func RegisterRoutes`. Your file should look like this
 
 ```go
-	r.HandleFunc("/blog/posts", createPostHandler(clientCtx)).Methods("POST")
+package rest
+
+import (
+	"github.com/gorilla/mux"
+
+	"github.com/cosmos/cosmos-sdk/client"
+    // this line is used by starport scaffolding # 1
+)
+
+const (
+    MethodGet = "GET"
+)
+
+// RegisterRoutes registers blog-related REST handlers to a router
+func RegisterRoutes(clientCtx client.Context, r *mux.Router) {
+    // this line is used by starport scaffolding # 2
+	registerQueryRoutes(clientCtx, r)
+	registerTxHandlers(clientCtx, r)
+
+}
+
+func registerQueryRoutes(clientCtx client.Context, r *mux.Router) {
+    // this line is used by starport scaffolding # 3
+    r.HandleFunc("/blog/posts/{id}", getPostHandler(clientCtx)).Methods("GET")
+    r.HandleFunc("/blog/posts", listPostHandler(clientCtx)).Methods("GET")
+
+}
+
+func registerTxHandlers(clientCtx client.Context, r *mux.Router) {
+    // this line is used by starport scaffolding # 4
+    r.HandleFunc("/blog/posts", createPostHandler(clientCtx)).Methods("POST")
+}
+
+
 ```
 
 Now let's create `createPostHandler` inside a new file you should create at `x/blog/client/rest/txPost.go`.
@@ -25,19 +58,25 @@ package rest
 
 import (
 	"net/http"
+	"strconv"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
+    "github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/tx"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/rest"
-	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
 	"github.com/example/blog/x/blog/types"
+    "github.com/gorilla/mux"
 )
+
+// Used to not have an error if strconv is unused
+var _ = strconv.Itoa(42)
 
 type createPostRequest struct {
 	BaseReq rest.BaseReq `json:"base_req"`
-	Creator string       `json:"creator"`
-	Title   string       `json:"title"`
-	Body    string       `json:"body"`
+	Creator string `json:"creator"`
+	Title string `json:"title"`
+	Body string `json:"body"`
+	
 }
 
 func createPostHandler(clientCtx client.Context) http.HandlerFunc {
@@ -59,14 +98,17 @@ func createPostHandler(clientCtx client.Context) http.HandlerFunc {
 			return
 		}
 
+		
 		parsedTitle := req.Title
-
+		
 		parsedBody := req.Body
+		
 
 		msg := types.NewMsgCreatePost(
 			req.Creator,
 			parsedTitle,
 			parsedBody,
+			
 		)
 
 		tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)
@@ -76,6 +118,7 @@ func createPostHandler(clientCtx client.Context) http.HandlerFunc {
 ```
 
 `createPostHandler` first parses request parameters, performs basic validations, converts `Creator` field from a string into an SDK account address type then finally creates `MsgCreatePost` message.
+
 
 ## Creating an account
 
@@ -102,7 +145,7 @@ The passphrase for this account is:
 `solid play vibrant paper clinic talent people employ august camp april reduce`
 
 ```sh
-blogd tx send $(blogd keys show user1 -a) cosmos152gzu3vzf7g9tu46vszgpac24lwr48vc8k8kkh 10token --from=user1
+blogd tx bank send $(blogd keys show user1 -a) cosmos152gzu3vzf7g9tu46vszgpac24lwr48vc8k8kkh 10token --from=user1
 ```
 
 Notice that the sender address can be queried automatically using the sub-command `$(blogd keys show user1 -a)` with the flag `-a` to show just the address and the receiver account address `cosmos152gzu3vzf7g9tu46vszgpac24lwr48vc8k8kkh` is the one we have generated from the mnemonic.

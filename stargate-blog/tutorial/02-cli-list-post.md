@@ -4,14 +4,64 @@ order: 2
 
 # List posts
 
-To list created posts we will be using `blogd query blog list-post` command. `list-post` subcommand hasn’t been defined yet, so let’s do it now. [Query commands](https://docs.cosmos.network/master/building-modules/querier.html) from the CLI are handled by `query.go`.
+To list created posts we will be using `blogd query blog list-post` and `blogd query blog get-post` command. `list-post` and `get-post` subcommand hasn’t been defined yet, so let’s do it now. [Query commands](https://docs.cosmos.network/master/building-modules/querier.html) from the CLI are handled by `query.go`.
+
+First we define our proto files, in `blog/proto`
+
+## blog/proto/query.go
+
+```go
+syntax = "proto3";
+package example.blog.blog;
+
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+// this line is used by starport scaffolding # 1
+import "blog/post.proto";
+
+option go_package = "github.com/example/blog/x/blog/types";
+
+// Query defines the gRPC querier service.
+service Query {
+    // this line is used by starport scaffolding # 2
+	rpc Post(QueryGetPostRequest) returns (QueryGetPostResponse) {
+		option (google.api.http).get = "/example/blog/blog/post/{id}";
+	}
+	rpc PostAll(QueryAllPostRequest) returns (QueryAllPostResponse) {
+		option (google.api.http).get = "/example/blog/blog/post";
+	}
+
+}
+
+// this line is used by starport scaffolding # 3
+message QueryGetPostRequest {
+	string id = 1;
+}
+
+message QueryGetPostResponse {
+	Post Post = 1;
+}
+
+message QueryAllPostRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllPostResponse {
+	repeated Post Post = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+```
+
+In our proto file we define the structure of the API endpoint, as well as our request and response structure of the post.
 
 ## x/blog/client/cli/query.go
 
-Function `GetQueryCmd` is used for creating a list of `query` subcommands, it should already be defined. Edit the function to add `CmdListPost` as a subcommand:
+Function `GetQueryCmd` is used for creating a list of `query` subcommands, it should already be defined. Edit the function to add `CmdListPost` and `CmdShowPost` as a subcommand:
 
 ```go
-  cmd.AddCommand(CmdListPost())
+	cmd.AddCommand(CmdListPost())
+	cmd.AddCommand(CmdShowPost())
 ```
 
 Now let’s define `CmdListPost` in a queryPost.go file:
@@ -66,18 +116,55 @@ func CmdListPost() *cobra.Command {
     return cmd
 }
 
+func CmdShowPost() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "show-post [id]",
+		Short: "shows a post",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+            clientCtx := client.GetClientContextFromCmd(cmd)
+            clientCtx, err := client.ReadQueryCommandFlags(clientCtx, cmd.Flags())
+            if err != nil {
+                return err
+            }
+
+            queryClient := types.NewQueryClient(clientCtx)
+
+            params := &types.QueryGetPostRequest{
+                Id: args[0],
+            }
+
+            res, err := queryClient.Post(context.Background(), params)
+            if err != nil {
+                return err
+            }
+
+            return clientCtx.PrintOutput(res)
+		},
+	}
+
+	flags.AddQueryFlagsToCmd(cmd)
+
+    return cmd
+}
+
+
 ```
 
-`CmdListPost` runs an [ABCI](https://docs.tendermint.com/master/spec/abci/) query to fetch the data, unmarshals it back form binary to JSON and returns it to the console. ABCI is an interface between your app and Tendermint (a program responsible for replicating the state across machines). ABCI queries look like paths on a hierarchical filesystem. In our case, the query is `custom/blog/list-post`. Before we continue, we need to define `QueryListPost`.
+`CmdListPost` and `CmdShowPost` run an [ABCI](https://docs.tendermint.com/master/spec/abci/) query to fetch the data, unmarshals it back form binary to JSON and returns it to the console. ABCI is an interface between your app and Tendermint (a program responsible for replicating the state across machines). ABCI queries look like paths on a hierarchical filesystem. In our case, the query is `custom/blog/list-post`. Before we continue, we need to define `QueryListPost`.
 
 ## x/blog/types/query.go
 
 Define a `QueryListPost` that will be used later on to dispatch query requests:
 
 ```go
+package types
+
 const (
-  QueryListPost = "list-post"
+	QueryGetPost  = "get-post"
+	QueryListPost = "list-post"
 )
+
 ```
 
 ## x/blog/keeper/query.go
@@ -95,27 +182,30 @@ import (
 
 ```go
     switch path[0] {
+    case types.QueryGetPost:
+      return getPost(ctx, path[1], k, legacyQuerierCdc)
+
     case types.QueryListPost:
-      return listPost(ctx, k)
+      return listPost(ctx, k, legacyQuerierCdc)
+
     default:
 ```
 
 Now let’s define `listPost`:
 
-### x/blog/keeper/post.go
+### x/blog/keeper/query_post.go
 
-Make sure to add the codec to the previous imports.
+Make sure to add the codec to the previous import and add the `listPost` and `getPost` function in a new file called `query_post.go` in our keeper.
 
 ```go
+package keeper
+
 import (
-  // Existing imports ...
 	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
-```
 
-Then add the `listPost` function.
-
-```go
 func listPost(ctx sdk.Context, keeper Keeper, legacyQuerierCdc *codec.LegacyAmino) ([]byte, error) {
 	msgs := keeper.GetAllPost(ctx)
 
@@ -125,6 +215,92 @@ func listPost(ctx sdk.Context, keeper Keeper, legacyQuerierCdc *codec.LegacyAmin
 	}
 
 	return bz, nil
+}
+
+func getPost(ctx sdk.Context, id string, keeper Keeper, legacyQuerierCdc *codec.LegacyAmino) ([]byte, error) {
+	msg := keeper.GetPost(ctx, id)
+
+	bz, err := codec.MarshalJSONIndent(legacyQuerierCdc, msg)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
+	}
+
+	return bz, nil
+}
+
+```
+
+In the keeper we define also the grpc of our queryPost function.
+
+### x/block/keeper/grpc_query_post.go
+
+```go
+package keeper
+
+import (
+	"context"
+
+	"github.com/cosmos/cosmos-sdk/store/prefix"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/query"
+	"github.com/example/blog/x/blog/types"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+)
+
+func (k Keeper) PostAll(c context.Context, req *types.QueryAllPostRequest) (*types.QueryAllPostResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+
+	var posts []*types.Post
+	ctx := sdk.UnwrapSDKContext(c)
+
+	store := ctx.KVStore(k.storeKey)
+	postStore := prefix.NewStore(store, types.KeyPrefix(types.PostKey))
+
+	pageRes, err := query.Paginate(postStore, req.Pagination, func(key []byte, value []byte) error {
+		var post types.Post
+		if err := k.cdc.UnmarshalBinaryBare(value, &post); err != nil {
+			return err
+		}
+
+		posts = append(posts, &post)
+		return nil
+	})
+
+	if err != nil {
+		return nil, status.Error(codes.Internal, err.Error())
+	}
+
+	return &types.QueryAllPostResponse{Post: posts, Pagination: pageRes}, nil
+}
+
+func (k Keeper) Post(c context.Context, req *types.QueryGetPostRequest) (*types.QueryGetPostResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+
+	var post types.Post
+	ctx := sdk.UnwrapSDKContext(c)
+
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PostKey))
+	k.cdc.MustUnmarshalBinaryBare(store.Get(types.KeyPrefix(types.PostKey + req.Id)), &post)
+
+	return &types.QueryGetPostResponse{Post: &post}, nil
+}
+
+```
+
+We add the grpc query handler to our module on 
+
+### x/blog/module.go
+
+We add to the `RegisterGRPCGatewayRoutes`
+
+```go
+func (AppModuleBasic) RegisterGRPCGatewayRoutes(clientCtx client.Context, mux *runtime.ServeMux) {
+    types.RegisterQueryHandlerClient(context.Background(), mux, types.NewQueryClient(clientCtx))
 }
 ```
 

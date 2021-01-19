@@ -15,7 +15,8 @@ In this file you should see `func RegisterRoutes` used for registering HTTP endp
 Add the following line to register our first route:
 
 ```go
-	r.HandleFunc("/blog/posts", listPostHandler(cliCtx, "blog")).Methods("GET")
+    r.HandleFunc("/blog/posts/{id}", getPostHandler(clientCtx)).Methods("GET")
+    r.HandleFunc("/blog/posts", listPostHandler(clientCtx)).Methods("GET")
 ```
 
 Now let's define `listPostHandler` in the same package:
@@ -47,6 +48,22 @@ func listPostHandler(clientCtx client.Context) http.HandlerFunc {
 		rest.PostProcessResponse(w, clientCtx, res)
 	}
 }
+
+func getPostHandler(clientCtx client.Context) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+        id := mux.Vars(r)["id"]
+
+		res, height, err := clientCtx.QueryWithData(fmt.Sprintf("custom/%s/get-post/%s", types.QuerierRoute, id), nil)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
+			return
+		}
+
+		clientCtx = clientCtx.WithHeight(height)
+		rest.PostProcessResponse(w, clientCtx, res)
+	}
+}
+
 ```
 
 As many handler functions in Cosmos apps `listPostHandler` takes context, which contains meta information about the app and its environment, as a first argument. 
