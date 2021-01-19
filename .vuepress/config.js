@@ -39,7 +39,12 @@ module.exports = {
               title: "Blog",
               path: "/blog/tutorial/",
               directory: true,
-            },            
+            },         
+            {
+              title: "Stargate Blog",
+              path: "/stargate-blog/tutorial/",
+              directory: true,
+            },      
             {
               title: "PoFE",
               path: "/proof-of-file-existence/tutorial/",
@@ -190,5 +195,6 @@ module.exports = {
     'proof-of-file-existence/tutorial/*.md',
     'voter/*.md',
     'blog/tutorial/*.md',
+    'stargate-blog/tutorial/*.md',
   ]
 };

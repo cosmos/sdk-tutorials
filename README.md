@@ -17,6 +17,13 @@ sections:
     tags: 
       - starport
       - launchpad
+  - title: Blog
+    desc: Learn how Starport works by building a blog.
+    url: /stargate-blog/tutorial/01-index.html
+    difficulty: beginner
+    tags: 
+      - starport
+      - stargate
   - title: Proof of File Existence
     desc: Learn how to prove ownership and verify documents by building a PoFE blockchain using Starport.
     url: /proof-of-file-existence/tutorial/01-intro.html
@@ -79,6 +86,10 @@ Build a voting application with a web-based UI.
 - [YouTube (RU)](https://www.youtube.com/watch?v=kRJAbS-xgBQ)
 
 ## [Blog](./blog/tutorial/01-index.md)
+
+Learn how Starport works by building a blog.
+
+## [Blog](./stargate-blog/tutorial/01-index.md)
 
 Learn how Starport works by building a blog.
 
