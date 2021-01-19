@@ -33,7 +33,7 @@ Global Flags:
 Use "scavengecli tx scavenge [command] --help" for more information about a command.
 ```
 
-We want to use the `create-scavenge` command so let's check the help screen for it as well like `scavengecli scavenge create-scavenge --help`. It should look like:
+We want to use the `create-scavenge` command so let's check the help screen for it as well like `scavengecli tx scavenge create-scavenge --help`. It should look like:
 
 ```bash
 $ scavengecli tx scavenge create-scavenge --help
@@ -525,7 +525,7 @@ This should show a healthy account balance of `569token` since `user2` began wit
 ```
 If you'd like to take a look at the completed scavenge you can first query all scavenges with:
 ```bash
-scavengecli q scavenge list 
+scavengecli q scavenge list-scavenge
 ```
 To see the specific one just use 
 ```bash

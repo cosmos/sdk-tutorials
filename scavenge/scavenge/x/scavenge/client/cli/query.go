@@ -13,7 +13,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	// sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
+	"github.com/github-username/scavenge/x/scavenge/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module
@@ -29,7 +29,7 @@ func GetQueryCmd(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 	scavengeQueryCmd.AddCommand(
 		flags.GetCommands(
-			// this line is used by starport scaffolding
+      // this line is used by starport scaffolding # 1
 			GetCmdListCommit(queryRoute, cdc),
 			GetCmdGetCommit(queryRoute, cdc),
 			GetCmdListScavenge(queryRoute, cdc),

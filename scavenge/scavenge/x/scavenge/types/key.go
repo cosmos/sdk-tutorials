@@ -15,9 +15,12 @@ const (
 )
 
 const (
-	ScavengePrefix = "scavenge-"
+	ScavengePrefix = "scavenge-value-"
+	ScavengeCountPrefix = "scavenge-count-"
 )
-
+		
 const (
-	CommitPrefix = "commit-"
+	CommitPrefix = "commit-value-"
+	CommitCountPrefix = "commit-count-"
 )
+		

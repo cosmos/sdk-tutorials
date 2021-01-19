@@ -27,9 +27,19 @@ The `Msg` interface requires some other methods be set, like validating the cont
 
 Now that one can create a scavenge the only other essential action is to be able to solve it. This should be broken into two separate actions as described before: `MsgCommitSolution` and `MsgRevealSolution`.
 
+## MsgSetScavenge
+
+<<< @/scavenge/scavenge/x/scavenge/types/MsgSetScavenge.go
+
+## MsgDeleteScavenge
+
+<<< @/scavenge/scavenge/x/scavenge/types/MsgDeleteScavenge.go
+
 ## MsgCommitSolution
 
-This message type should live in `./x/scavenge/types/MsgCommitSolution.go` and look like:
+We rename our `./x/scavenge/types/MsgCreateCommit.go` to `./x/scavenge/types/MsgCommitSolution.go`.
+
+The message type that describes how to commit a solution should live in `./x/scavenge/types/MsgCommitSolution.go` and look like:
 
 <<< @/scavenge/scavenge/x/scavenge/types/MsgCommitSolution.go
 
@@ -40,6 +50,14 @@ The Message `struct` contains all the necessary information when revealing a sol
 - `SolutionScavengerHash` - This is the hash of the combination of the solution and the person who solved it.
 
 This message also fulfils the `sdk.Msg` interface.
+
+## MsgSetCommit
+
+<<< @/scavenge/scavenge/x/scavenge/types/MsgSetCommit.go
+
+## MsgDeleteCommit
+
+<<< @/scavenge/scavenge/x/scavenge/types/MsgDeleteCommit.go
 
 ## MsgRevealSolution
 
@@ -54,6 +72,8 @@ The Message `struct` contains all the necessary information when revealing a sol
 - `Solution` - This is the plain text version of the solution.
 
 This message also fulfils the `sdk.Msg` interface.
+
+Especially look into the `ValidateBasic` function. It validates if all the necessary inputs are made to reveal a solution and creates the sha256 hash out of the submitted solution.
 
 ## Codec
 

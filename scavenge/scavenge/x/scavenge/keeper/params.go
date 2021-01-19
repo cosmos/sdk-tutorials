@@ -1,5 +1,4 @@
 package keeper
-
 /*
 // TODO: Define if your module needs Parameters, if not this can be deleted
 
@@ -7,7 +6,7 @@ import (
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
+	"github.com/github-username/scavenge/x/scavenge/types"
 )
 
 // GetParams returns the total set of scavenge parameters.

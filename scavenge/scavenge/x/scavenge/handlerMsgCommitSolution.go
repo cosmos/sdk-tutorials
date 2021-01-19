@@ -3,8 +3,9 @@ package scavenge
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/keeper"
-	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
+
+	"github.com/github-username/scavenge/x/scavenge/keeper"
+	"github.com/github-username/scavenge/x/scavenge/types"
 )
 
 func handleMsgCommitSolution(ctx sdk.Context, k keeper.Keeper, msg types.MsgCommitSolution) (*sdk.Result, error) {

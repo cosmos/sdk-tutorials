@@ -8,13 +8,27 @@ In order for a **Message** to reach a **Keeper**, it has to go through a **Handl
 
 Our Handler will go in `./x/scavenge/handler.go` and will follow the suggestions outlined in the boilerplate. We will create handler functions in separate files named `handler<Action.go` for each of our three `Message` types, `MsgCreateScavenge`, `MsgCommitSolution` and `MsgRevealSolution`.
 
-Running the `starport type` command should have already added a `handlerMsgCreateScavenge.go` and a `handlerMsgCreateCommit.go` file. In essence, you can rename `handlerMsgCreateCommit` to `handlerMsgCommitSolution`, and copy the template for `HandlerMsgRevealSolution`. We'll be modifying the files to look as follows:
+Running the `starport type` command should have already added a `handlerMsgCreateScavenge.go` and a `handlerMsgCreateCommit.go` file. In essence, you can rename `handlerMsgCreateCommit` to `handlerMsgCommitSolution`. Make a copy and use it as the template for `handlerMsgRevealSolution`. We'll be modifying the files to look as follows:
 
 #### `handlerMsgCreateScavenge.go`
 <<< @/scavenge/scavenge/x/scavenge/handlerMsgCreateScavenge.go
 
+#### `handlerMsgSetScavenge.go`
+<<< @/scavenge/scavenge/x/scavenge/handlerMsgSetScavenge.go
+
+#### `handlerMsgDeleteScavenge.go`
+<<< @/scavenge/scavenge/x/scavenge/handlerMsgDeleteScavenge.go
+
 #### `handlerMsgCommitSolution.go`
+We rename our `handlerMsgCreateCommit.go` to `handlerMsgCommitSolution.go`
+
 <<< @/scavenge/scavenge/x/scavenge/handlerMsgCommitSolution.go
+
+#### `handlerMsgSetCommit.go`
+<<< @/scavenge/scavenge/x/scavenge/handlerMsgSetCommit.go
+
+#### `handlerMsgDeleteCommit.go`
+<<< @/scavenge/scavenge/x/scavenge/handlerMsgDeleteCommit.go
 
 #### `handlerMsgRevealSolution.go`
 <<< @/scavenge/scavenge/x/scavenge/handlerMsgRevealSolution.go
@@ -26,7 +40,7 @@ After we're done, we need to register these functions inside our main handler:
 
 ## moduleAcct
 
-You might notice the use of `moduleAcct` within the `handleMsgCreateScavenge` and `handleMsgRevealSolution` handler functions. This account is not controlled by a public key pair, but is a reference to an account that is owned by this actual module. It is used to hold the bounty reward that is attached to a scavenge until that scavenge has been solved, at which point the bounty is paid to the account who solved the scavenge.
+You might notice the use of `moduleAcct` within the `handlerMsgCreateScavenge` and `handlerMsgRevealSolution` handler functions. This account is not controlled by a public key pair, but is a reference to an account that is owned by this actual module. It is used to hold the bounty reward that is attached to a scavenge until that scavenge has been solved, at which point the bounty is paid to the account who solved the scavenge.
 
 ## Events
 

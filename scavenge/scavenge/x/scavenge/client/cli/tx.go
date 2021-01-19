@@ -8,7 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
+	"github.com/github-username/scavenge/x/scavenge/types"
 )
 
 // GetTxCmd returns the transaction commands for this module
@@ -22,10 +22,14 @@ func GetTxCmd(cdc *codec.Codec) *cobra.Command {
 	}
 
 	scavengeTxCmd.AddCommand(flags.PostCommands(
-		// this line is used by starport scaffolding
+		// this line is used by starport scaffolding # 1
 		GetCmdCommitSolution(cdc),
-		GetCmdCreateScavenge(cdc),
 		GetCmdRevealSolution(cdc),
+		GetCmdSetCommit(cdc),
+		GetCmdDeleteCommit(cdc),
+		GetCmdCreateScavenge(cdc),
+		GetCmdSetScavenge(cdc),
+		GetCmdDeleteScavenge(cdc),
 	)...)
 
 	return scavengeTxCmd

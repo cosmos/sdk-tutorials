@@ -16,22 +16,26 @@ starport type scavenge description solutionHash reward solution scavenger
 ```
 
 From this command, we've made changes to the following files:
-- `scavenge/vue/src/store/app.js` - The `scavenge` type in our front-end application
+- `scavenge/vue/src/views/Index.vue` - The `scavenge` type in our front-end application
 - `scavenge/x/scavenge/client/cli/query.go` - adding the `GetCmdListScavenge` query function to the CLI commands
-- `scavenge/x/scavenge/client/cli/queryScavenge.go` - defining the `GetCmdListScavenge` function
-- `scavenge/x/scavenge/client/cli/tx.go` - adding `GetCmdCreateScavenge` transaction function to the CLI commands
-- `scavenge/x/scavenge/client/cli/txScavenge.go` - defining the `GetCmdCreateScavenge` function
-- `scavenge/x/scavenge/client/rest/queryScavenge.go` - defining the `listScavengeHandler` query function
-- `scavenge/x/scavenge/client/rest/txScavenge.go` - defining the `createScavengeRequest` type and `createScavengeHandler` function
-- `scavenge/x/scavenge/client/rest/rest.go` - adding the `listScavengeHandler` and `createScavengeHandler` function to the CLI commands
-- `scavenge/x/scavenge/handler.go` - handle the case where `MsgCreateScavenge` is passed, and handle it
+- `scavenge/x/scavenge/client/cli/queryScavenge.go` - defining the `GetCmdListScavenge` and `GetCmdGetScavenge` function
+- `scavenge/x/scavenge/client/cli/tx.go` - adding `GetCmdCreateScavenge`, `GetCmdSetScavenge` and `GetCmdDeleteScavenge` transaction function to the CLI commands
+- `scavenge/x/scavenge/client/cli/txScavenge.go` - defining the `GetCmdCreateScavenge`, `GetCmdSetScavenge` and `GetCmdDeleteScavenge` function
+- `scavenge/x/scavenge/client/rest/queryScavenge.go` - defining the `listScavengeHandler` and `getScavengeHandler` query function
+- `scavenge/x/scavenge/client/rest/txScavenge.go` - defining the `createScavengeRequest` type and `createScavengeHandler` function, the `setScavengeRequest` type and `setScavengeHandler` function, the `deleteScavengeRequest` type and `deleteScavengeHandler` function
+- `scavenge/x/scavenge/client/rest/rest.go` - adding the `createScavengeHandler`, `listScavengeHandler`, `getScavengeHandler`, `setScavengeHandler` and deleteScavengeHandler functions to the REST API
+- `scavenge/x/scavenge/handler.go` - handle the case where `MsgCreateScavenge`, `MsgSetScavenge` and `MsgDeleteScavenge` is passed, and handle it
 - `scavenge/x/scavenge/handlerMsgCreateScavenge.go` - define `handleMsgCreateScavenge`, which creates the scavenge
-- `scavenge/x/scavenge/keeper/querier.go` - Handle the `QueryListScavenge` case to use the `listScavenge` function
-- `scavenge/x/scavenge/keeper/scavenge.go` - Define the `CreateScavenge` and `listScavenge` functions
+- `scavenge/x/scavenge/handlerMsgSetScavenge.go` - define `handleMsgSetScavenge`, which updates the scavenge
+- `scavenge/x/scavenge/handlerMsgDeleteScavenge.go` - define `handleMsgDeleteScavenge`, which deletes the scavenge
+- `scavenge/x/scavenge/keeper/querier.go` - Handle the `QueryListScavenge` case to use the `listScavenge` function and the `QueryGetScavenge` case to use the `getScavenge` function
+- `scavenge/x/scavenge/keeper/scavenge.go` - Define the `GetScavengeCount`, `SetScavengeCount`, `CreateScavenge`, `GetScavenge`, `SetScavenge`, `DeleteScavenge`, `listScavenge`, `getScavenge`, `GetScavengeOwner` and `ScavengeExists` functions
 - `scavenge/x/scavenge/types/MsgCreateScavenge.go` - define the  `MsgCreateScavenge` function
+- `scavenge/x/scavenge/types/MsgDeleteScavenge.go` - define the  `MsgDeleteScavenge` function
+- `scavenge/x/scavenge/types/MsgSetScavenge.go` - define the  `MsgSetScavenge` function
 - `scavenge/x/scavenge/types/TypeScavenge.go` - define the `Scavenge` type
-- `scavenge/x/scavenge/types/key.go` - Adding the `ScavengePrefix` constant
-- `scavenge/x/scavenge/types/querier.go` - Adding the `QueryListScavenge` constant
+- `scavenge/x/scavenge/types/key.go` - Adding the `ScavengePrefix` and `ScavengeCountPrefix` constant
+- `scavenge/x/scavenge/types/querier.go` - Adding the `QueryListScavenge` and `QueryGetScavenge` constant
 
 We also want to create a second type, `Commit`, in order to prevent frontrunning of our submitted solutions as mentioned earlier.
 
