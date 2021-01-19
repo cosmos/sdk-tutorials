@@ -4,11 +4,11 @@ order: 6
 
 # User interface
 
-Once you navigate to the UI, the following `vue` UI at `localhost:8080` - 
+Once you navigate to the UI, the following `vue` UI should be displayed at `localhost:8080` - 
 
 ![](./userinterface.png)
 
-After using the mnemonic from the output of `starport serve`, you can use this UI to perform `create` and `list` operations for your blog application's `post` and `comment` types.
+Use the **mnemonic** created after `starport serve` -> `Created an account. Password (mnemonic): ...` to login and enable user to perform `create` and `list` operations for your blog application's `post` and `comment` types.
 
 ### vue/src/views/Index.vue
 
