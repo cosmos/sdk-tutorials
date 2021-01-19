@@ -1,0 +1,9 @@
+syntax = "proto3";
+package example.blog.blog;
+
+option go_package = "github.com/example/blog/x/blog/types";
+
+// GenesisState defines the capability module's genesis state.
+message GenesisState {
+}
+
