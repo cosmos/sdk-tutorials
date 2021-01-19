@@ -13,7 +13,7 @@ starport app github.com/user/pofe --sdk-version launchpad
 
 ## Run application
 
-After scaffolding our application, let's open up a separate terminal window in the newly created `pofe` folder and run `starport serve`, which will start our application. Here, you should be able to see the following output, as well as any errors that show up in your application.
+After scaffolding our application, let's open up a separate terminal window in the newly created `pofe` folder and run `starport serve`, which will start our application. Here, you should be able to see the following output, as well as any errors that might show up in your application.
 
 ```
 $ starport serve
@@ -28,10 +28,11 @@ Cosmos' version is: Launchpad
 
 🚀 Get started: http://localhost:12345/
 ```
+*Note: use* `starport serve --verbose` *to visualize detailed operations happening in the background* 
 
 ## Creating our `Claim` type
 
-Switch back to terminal inside the `pofe` directory and create a type called `claim` with the field `proof`:
+Open a new terminal inside the `pofe` directory and create a type called `claim` with the field `proof`:
 
 ```bash
 starport type claim proof:string
@@ -43,7 +44,7 @@ starport type claim proof:string
 
 This creates the `claim` type, as well as adding its relevant CLI commands, handlers, messages, type, queriers, and keepers.
 
-At this point, we have a working application that we can use - you can verify this by checking the output of the secondary terminal window.
+At this point, we have a working application - you can verify this by checking the output of the secondary terminal window.
 
 However, we want to modify our application so it better fits our requirements.
 
