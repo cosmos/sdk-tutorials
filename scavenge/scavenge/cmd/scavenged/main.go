@@ -13,7 +13,7 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 	dbm "github.com/tendermint/tm-db"
 
-	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/app"
+	"github.com/github-username/scavenge/app"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client/debug"

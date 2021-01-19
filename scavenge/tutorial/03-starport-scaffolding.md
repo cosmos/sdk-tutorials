@@ -5,13 +5,13 @@ order: 3
 # Starport
 ## Requirements 
 
-For this tutorial we will be using [Starport](https://github.com/tendermint/starport) v0.0.10, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
+For this tutorial we will be using [Starport](https://github.com/tendermint/starport) v0.13.1, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
-curl https://get.starport.network/starport@v0.0.10! | bash
+curl https://get.starport.network/starport@v0.13.1! | bash
 ```
 
-You can also use Starport v0.0.10 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.0.10). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
+You can also use Starport v0.13.1 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.13.1). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
 
 ## Creating a blockchain
 
@@ -24,9 +24,12 @@ Usage:
   starport [command]
 
 Available Commands:
-  add         Adds a feature to a project.
   app         Generates an empty application
+  build       Builds an app and installs binaries
+  chain       Relay connects blockchains via IBC protocol
   help        Help about any command
+  module      Manage cosmos modules for your app
+  network     Create and start blockchains collaboratively
   serve       Launches a reloading server
   type        Generates CRUD actions for type
   version     Version will output the current build information

@@ -6,13 +6,13 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/types/rest"
-	"github.com/cosmos/sdk-tutorials/scavenge/scavenge/x/scavenge/types"
 	"github.com/gorilla/mux"
+
 )
 
 func listScavengeHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/%s", storeName, types.QueryListCommit), nil)
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list-scavenge", storeName), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
@@ -26,7 +26,7 @@ func getScavengeHandler(cliCtx context.CLIContext, storeName string) http.Handle
 		vars := mux.Vars(r)
 		key := vars["key"]
 
-		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/%s/%s", storeName, types.QueryGetScavenge, key), nil)
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/get-scavenge/%s", storeName, key), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
