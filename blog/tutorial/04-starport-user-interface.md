@@ -20,3 +20,9 @@ To see a form for creating `post` items in your app add a `<sp-type-form/>` comp
     <sp-type-form path="example.blog.blog" type="post" :fields="[ ['creator', 1, 'string'] , ['title', 2, 'string'] , ['body', 3, 'string'] ]" />
   </div>
 ```
+
+Learn more about available components and cosmos logic that you can use on your `vue` frontend, visit the `@tendermint/vue` library at [github.com/tendermint/vue](https://github.com/tendermint/vue)
+
+🎉 Congratulations, you have created a blockchain with a blog feature. 
+
+To continue, learn more about [Starport](https://github.com/tendermint/starport/tree/develop/docs) or [Continue with another tutorial](https://tutorials.cosmos.network/).

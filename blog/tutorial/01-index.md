@@ -476,7 +476,7 @@ Congratulations! You have just created and launched your custom blockchain and s
 
 ### Unknown command "create-post" for "blog"
 
-```sh
+```bash
 blogd tx blog create-post 'Hello!' 'My first post' --from=user1
 ERROR: unknown command "create-post" for "blog"
 ```
@@ -485,9 +485,17 @@ Make sure you’ve added `cmd.AddCommand(CmdCreatePost())`, to `func GetTxCmd` i
 
 ### Cannot encode unregistered concrete type
 
-```sh
+```bash
 blogd tx blog create-post Hello! --from=user1
 panic: Cannot encode unregistered concrete type types.MsgCreatePost.
 ```
 
 Make sure you’ve added `cdc.RegisterConcrete(MsgCreatePost{}, "blog/CreatePost", nil)` to `func RegisterCodec` in `x/blog/types/codec.go`.
+
+### not found: key not found
+
+```bash
+Error: rpc error: code = NotFound desc = account cosmos1t3rafxvy3ggluchm5sjzetj9wt50eq9hjay6f2 not found: key not found
+```
+
+Make sure that you wait for the first block to be created after bootstrapping a chain again.

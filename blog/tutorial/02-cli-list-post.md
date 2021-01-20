@@ -8,7 +8,7 @@ To list created posts we will be using `blogd query blog list-post` and `blogd q
 
 First we define our proto files, in `proto/blog`
 
-## proto/blog/query.go
+## proto/blog/query.proto
 
 ```go
 syntax = "proto3";
@@ -64,7 +64,7 @@ Function `GetQueryCmd` is used for creating a list of `query` subcommands, it sh
 	cmd.AddCommand(CmdShowPost())
 ```
 
-Now let’s define `CmdListPost` in a queryPost.go file:
+Now let’s define `CmdListPost` in a new `queryPost.go` file:
 
 ## x/blog/client/cli/queryPost.go
 
@@ -169,15 +169,6 @@ const (
 
 ## x/blog/keeper/query.go
 
-Import `types` package for the `QueryListPost` constant.
-
-```go
-import (
-  // Existing imports ...
-  "github.com/example/blog/x/blog/types"
-)
-```
-
 `NewQuerier` acts as a dispatcher for query functions, it should already be defined. Modify the switch statement to include `listPost`:
 
 ```go
@@ -194,6 +185,8 @@ import (
 Now let’s define `listPost`:
 
 ### x/blog/keeper/query_post.go
+
+Create a new file `query_post.go` in the `keeper/` directory
 
 Make sure to add the codec to the previous import and add the `listPost` and `getPost` function in a new file called `query_post.go` in our keeper.
 
@@ -296,7 +289,7 @@ We add the grpc query handler to our module on
 
 ### x/blog/module.go
 
-We add to the `RegisterGRPCGatewayRoutes`, make sure to import `context`
+Let's make sure to import `context` and add the `RegisterGRPCGatewayRoutes` 
 
 ```go
 import (
