@@ -45,6 +45,8 @@ Our project's directory contains all the code required to build and launch a blo
 starport serve
 ```
 
+You should be able to see the following output - *as well as any errors that might show up in your application.*
+
 ```
 📦 Installing dependencies...
 🚧 Building the application...
@@ -56,11 +58,15 @@ starport serve
 🚀 Get started: http://localhost:12345/
 ```
 
+*Note: use* `starport serve --verbose` *to visualize detailed operations happening in the background*
+
 Congratulations! You now have a blockchain application running on your machine in just two commands. It doesn't do anything yet, so let's work on that.
 
 Our voting applications has two types of entities: polls and votes. A poll is a type that has a `title` and a list of `options`.
 
 ## Adding polls
+
+Open a new terminal in `voter` directory and run the following: 
 
 ```
 starport type poll title options
