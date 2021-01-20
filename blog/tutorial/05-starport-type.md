@@ -19,7 +19,7 @@ Let's say we want to add functionality for users to comment on posts, which woul
 starport type comment body postID
 ```
 
-Running this command will create and add all the core functionality for the type `comment`, including registering entrypoints in `rest/` and `cli/`, as well as defining the relevant `types`, `handler`, `messages`, and `keeper`.
+Running this command will create and add all the core functionality for the type `comment`, including registering entrypoints in `rest/` and `cli/`, as well as defining the relevant `types`, `handler`, `messages`, `keeper`, and `proto`.
 
 
 Once this is done, run `starport serve` and it will start up your backend server, the consensus engine, and a frontend user interface. This information is available when you run your application and visit `localhost:12345`.

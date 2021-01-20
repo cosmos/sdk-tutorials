@@ -15,7 +15,8 @@ In this file you should see `func RegisterRoutes` used for registering HTTP endp
 Add the following line to register our first route:
 
 ```go
-	r.HandleFunc("/blog/posts", listPostHandler(cliCtx, "blog")).Methods("GET")
+    r.HandleFunc("/blog/posts/{id}", getPostHandler(clientCtx)).Methods("GET")
+    r.HandleFunc("/blog/posts", listPostHandler(clientCtx)).Methods("GET")
 ```
 
 Now let's define `listPostHandler` in the same package:
@@ -29,23 +30,43 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
+	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/types/rest"
+	"github.com/example/blog/x/blog/types"
+    "github.com/gorilla/mux"
 )
 
-func listPostHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+func listPostHandler(clientCtx client.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list-post", storeName), nil)
+		res, height, err := clientCtx.QueryWithData(fmt.Sprintf("custom/%s/list-post", types.QuerierRoute), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
 		}
-		rest.PostProcessResponse(w, cliCtx, res)
+
+		clientCtx = clientCtx.WithHeight(height)
+		rest.PostProcessResponse(w, clientCtx, res)
 	}
 }
+
+func getPostHandler(clientCtx client.Context) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+        id := mux.Vars(r)["id"]
+
+		res, height, err := clientCtx.QueryWithData(fmt.Sprintf("custom/%s/get-post/%s", types.QuerierRoute, id), nil)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
+			return
+		}
+
+		clientCtx = clientCtx.WithHeight(height)
+		rest.PostProcessResponse(w, clientCtx, res)
+	}
+}
+
 ```
 
-As many handler functions in Cosmos apps `listPostHandler` takes context, which contains meta information about the app and its environment, as a first argument. We're also passing `storeName`, which in our case is `"blog"`.
+As many handler functions in Cosmos apps `listPostHandler` takes context, which contains meta information about the app and its environment, as a first argument. 
 
 Similarly to the CLI handler the function runs `QueryWithData` with a `custom/blog/list-post` ABCI query. The `[]byte` return value then gets unmarshalled into JSON and returned to the handler.
 
@@ -55,20 +76,7 @@ To build your app and launch servers, run:
 starport serve
 ```
 
-Alternatively, follow instructions in Part 1 to recompile and relaunch your app and add some test posts to the store. Make sure `blogcli q blog list-post` returns a list of posts.
-
-To launch our HTTP server run the following command in a different terminal window:
-
-```
-blogcli rest-server
-```
-
-You should see server logs streaming in the terminal:
-
-```
-I[2020-06-07|11:19:14.921] Starting application REST service (chain-id: "blog")... module=rest-server
-I[2020-06-07|11:19:14.921] Starting RPC HTTP server on 127.0.0.1:1317   module=rest-server
-```
+Alternatively, follow instructions in Part 1 to recompile and relaunch your app and add some test posts to the store. Make sure `blogd q blog list-post` returns a list of posts.
 
 As we can see by default the server runs on `1317` port. Let's make a request to our handler:
 

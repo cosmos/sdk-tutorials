@@ -11,4 +11,4 @@ jobs:
     - uses: actions/checkout@v2
     - name: Test Build
       run: |
-        cd stargate-blog/blog && go get ./... && make install
+        cd blog-legacy/blog && go get ./... && make install
