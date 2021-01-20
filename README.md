@@ -12,7 +12,7 @@ sections:
       - launchpad
   - title: Blog
     desc: Learn how Starport works by building a blog.
-    url: /stargate-blog/tutorial/01-index.html
+    url: /blog/tutorial/01-index.html
     difficulty: beginner
     tags: 
       - starport
