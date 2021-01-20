@@ -198,7 +198,7 @@ func (msg MsgCreatePost) ValidateBasic() error {
 
 Going back to `GetCmdCreatePost` in `x/blog/client/cli/tx.go`, you'll see `MsgCreatePost` being created and broadcast with `GenerateOrBroadcastMsgs`.
 
-After being broadcast, the messages are processed by an important part of the application, called [**handlers**](https://docs.cosmos.network/master/building-modules/handler.html).
+After being broadcast, the messages are processed by an important part of the application, called [**handlers**](https://docs.cosmos.network/v0.39/building-modules/handler.html).
 
 ## x/blog/handler.go
 
