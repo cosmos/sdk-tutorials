@@ -36,8 +36,8 @@ module.exports = {
               directory: true,
             },
             {
-              title: "Blog",
-              path: "/blog/tutorial/",
+              title: "Blog (legacy)",
+              path: "/blog-legacy/tutorial/",
               directory: true,
             },            
             {
@@ -189,6 +189,6 @@ module.exports = {
     'scavenge/tutorial/*.md',
     'proof-of-file-existence/tutorial/*.md',
     'voter/*.md',
-    'blog/tutorial/*.md',
+    'blog-legacy/tutorial/*.md',
   ]
 };
