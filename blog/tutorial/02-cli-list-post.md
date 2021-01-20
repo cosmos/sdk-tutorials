@@ -6,9 +6,9 @@ order: 2
 
 To list created posts we will be using `blogd query blog list-post` and `blogd query blog get-post` command. `list-post` and `get-post` subcommand hasn’t been defined yet, so let’s do it now. [Query commands](https://docs.cosmos.network/master/building-modules/querier.html) from the CLI are handled by `query.go`.
 
-First we define our proto files, in `blog/proto`
+First we define our proto files, in `proto/blog`
 
-## blog/proto/query.go
+## proto/blog/query.go
 
 ```go
 syntax = "proto3";
@@ -296,7 +296,14 @@ We add the grpc query handler to our module on
 
 ### x/blog/module.go
 
-We add to the `RegisterGRPCGatewayRoutes`
+We add to the `RegisterGRPCGatewayRoutes`, make sure to import `context`
+
+```go
+import (
+	"context"
+	// ... other imports
+)
+```
 
 ```go
 func (AppModuleBasic) RegisterGRPCGatewayRoutes(clientCtx client.Context, mux *runtime.ServeMux) {

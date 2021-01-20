@@ -38,7 +38,7 @@ This blog app will store data in a persistent [key-value store](https://docs.cos
 
 We’ll be creating a simple blog-like application, so let’s define the first proto type, the `Post` in the `post.proto` file.
 
-## proto/post.proto
+## proto/blog/post.proto
 
 ```go
 syntax = "proto3";

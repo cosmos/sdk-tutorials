@@ -17,6 +17,6 @@ To see a form for creating `post` items in your app add a `<sp-type-form/>` comp
 ```vue
   <div class="sp-container">
     <!-- sp-sign-in, sp-bank-balances, etc. -->
-    <sp-type-form type="posts" :fields="['title', 'body']"/>
+    <sp-type-form path="example.blog.blog" type="post" :fields="[ ['creator', 1, 'string'] , ['title', 2, 'string'] , ['body', 3, 'string'] ]" />
   </div>
 ```
