@@ -44,7 +44,8 @@ Our project's directory contains all the code required to build and launch a blo
 ```
 starport serve
 ```
-You should be able to see the following outpu - *as well as any errors that might show up in your application*
+
+You should be able to see the following output - *as well as any errors that might show up in your application.*
 
 ```
 📦 Installing dependencies...
