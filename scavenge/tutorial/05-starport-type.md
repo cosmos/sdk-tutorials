@@ -9,7 +9,7 @@ In this section, we'll be explaining how to quickly scaffold types for your appl
 
 ## `starport type`
 
-Let's run the `starport type` command to generate our `scavenge` type - 
+Open a new terminal under project's folder and run the following `starport type` command to generate our `scavenge` type: 
 
 ```
 starport type scavenge description solutionHash reward solution scavenger
