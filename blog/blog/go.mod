@@ -3,17 +3,21 @@ module github.com/example/blog
 go 1.15
 
 require (
-	github.com/cosmos/cosmos-sdk v0.39.1
-	github.com/golang/mock v1.4.3 // indirect
-	github.com/google/uuid v1.0.0
-	github.com/gorilla/mux v1.7.4
-	github.com/onsi/ginkgo v1.8.0 // indirect
-	github.com/onsi/gomega v1.5.0 // indirect
-	github.com/spf13/afero v1.2.2 // indirect
-	github.com/spf13/cobra v1.0.0
-	github.com/spf13/viper v1.7.0
-	github.com/tendermint/go-amino v0.15.1
-	github.com/tendermint/tendermint v0.33.7
-	github.com/tendermint/tm-db v0.5.1
-	golang.org/x/net v0.0.0-20200520182314-0ba52f642ac2 // indirect
+	github.com/cosmos/cosmos-sdk v0.40.0-rc3
+	github.com/gogo/protobuf v1.3.2
+	github.com/golang/protobuf v1.4.3
+	github.com/gorilla/mux v1.8.0
+	github.com/grpc-ecosystem/grpc-gateway v1.15.2
+	github.com/pelletier/go-toml v1.8.0
+	github.com/regen-network/cosmos-proto v0.3.1
+	github.com/spf13/cast v1.3.1
+	github.com/spf13/cobra v1.1.1
+	github.com/spf13/pflag v1.0.5
+	github.com/tendermint/tendermint v0.34.0-rc6
+	github.com/tendermint/tm-db v0.6.2
+	google.golang.org/genproto v0.0.0-20201014134559-03b6142f0dc9
+	google.golang.org/grpc v1.33.0
+
 )
+
+replace github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.2-alpha.regen.4
