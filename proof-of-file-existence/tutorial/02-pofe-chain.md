@@ -145,13 +145,19 @@ Once there are no more errors to run through, we can start submitting claims on 
 
 Let's start with the easiest one - let's say we want to prove that we made this blockchain.
 
-When we run `starport serve`, we're also building the application to a binary called `pofed`, so we can use this file to submit a claim.
+When we run `starport serve`, we're also building the application to a binary called `pofed`, so we can use this file to submit a claim:
 
 ```
 pofecli tx pofe create-claim $(which pofed) --from user1
 ```
 
-After confirming the transaction, run `pofecli q pofe list-claim`, and you should see an output like this:
+After confirming the transaction, run:
+
+``` 
+pofecli q pofe list-claim
+```
+
+You should see an output like this:
 
 ```
 [
@@ -164,7 +170,7 @@ After confirming the transaction, run `pofecli q pofe list-claim`, and you shoul
 
 Congratulations! Your claim is now on the blockchain, proving you built this app!
 
-If you ever want to remove or delete the claim, you can simply run the command:
+If you ever want to remove or delete the claim, you can simply run the command by - of course - replacing the proof:
 
 ```
 pofecli tx pofe delete-claim 534f056e58115dd106d026e00da22a32f8c776a0cd5b3dd6431598d73b5f623c --from user1
