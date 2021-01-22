@@ -4,7 +4,7 @@ order: 4
 
 # Starting our application
 
-Let's follow the commands to run our application.
+Follow these commands to run our application:
 
 ```bash
 $ cd scavenge
@@ -25,7 +25,7 @@ Cosmos version is: Launchpad
 ## Breaking down the `starport serve` command
 
 From the output above, we can see the following has occurred:
-- Two accounts were created with the respective [mnemonics](https://support.mycrypto.com/general-knowledge/cryptography/how-do-mnemonic-phrases-work). Later on in this tutuorial, you'll use these to log in and interact with your application.
+- Two accounts were created with the respective [mnemonics](https://support.mycrypto.com/general-knowledge/cryptography/how-do-mnemonic-phrases-work). Later on in this tutorial, you'll use them to log in and interact with your application.
 - Our Tendermint consensus engine (think of it as a database) is running at `http://localhost:26657`
 - A web server is running at `http://localhost:1317`
 - A landing page is running at `http://localhost:12345`
@@ -73,7 +73,7 @@ lint:
 	@go mod verify
 ```
 
-After the application builds, the `serve` command initializes the application based on the information provided in the `config.yml` file.
+After building the application, the `serve` command initializes the application based on the information provided in the `config.yml` file:
 
 <<< @/scavenge/scavenge/config.yml
 
@@ -120,6 +120,6 @@ Let's visit our vue app at `localhost:8080`:
 
 You can use this page to sign in using the mnemonics provided in your terminal, as well perform CRUD operations on your application.
 
-Currently, it it only contains the boilerplate application which lets you sign in, but will contain additional contents after you scaffold some types.
+Currently, it only contains the boilerplate application which lets you sign in, but will contain additional contents after you scaffold some types.
 
 Since we didn't add any types, we will start defining them in the next section.
