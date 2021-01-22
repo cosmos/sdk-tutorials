@@ -1,29 +1,78 @@
 package cli
 
 import (
-	"fmt"
+	"context"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/spf13/cobra"
-
+	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/example/blog/x/blog/types"
+	"github.com/spf13/cobra"
 )
 
-func GetCmdListPost(queryRoute string, cdc *codec.Codec) *cobra.Command {
-	return &cobra.Command{
+func CmdListPost() *cobra.Command {
+	cmd := &cobra.Command{
 		Use:   "list-post",
 		Short: "list all post",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc)
-			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/"+types.QueryListPost, queryRoute), nil)
+			clientCtx := client.GetClientContextFromCmd(cmd)
+			clientCtx, err := client.ReadQueryCommandFlags(clientCtx, cmd.Flags())
 			if err != nil {
-				fmt.Printf("could not list Post\n%s\n", err.Error())
-				return nil
+				return err
 			}
-			var out []types.Post
-			cdc.MustUnmarshalJSON(res, &out)
-			return cliCtx.PrintOutput(out)
+
+			pageReq, err := client.ReadPageRequest(cmd.Flags())
+			if err != nil {
+				return err
+			}
+
+			queryClient := types.NewQueryClient(clientCtx)
+
+			params := &types.QueryAllPostRequest{
+				Pagination: pageReq,
+			}
+
+			res, err := queryClient.PostAll(context.Background(), params)
+			if err != nil {
+				return err
+			}
+
+			return clientCtx.PrintOutput(res)
 		},
 	}
+
+	flags.AddQueryFlagsToCmd(cmd)
+
+	return cmd
+}
+
+func CmdShowPost() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "show-post [id]",
+		Short: "shows a post",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx := client.GetClientContextFromCmd(cmd)
+			clientCtx, err := client.ReadQueryCommandFlags(clientCtx, cmd.Flags())
+			if err != nil {
+				return err
+			}
+
+			queryClient := types.NewQueryClient(clientCtx)
+
+			params := &types.QueryGetPostRequest{
+				Id: args[0],
+			}
+
+			res, err := queryClient.Post(context.Background(), params)
+			if err != nil {
+				return err
+			}
+
+			return clientCtx.PrintOutput(res)
+		},
+	}
+
+	flags.AddQueryFlagsToCmd(cmd)
+
+	return cmd
 }
