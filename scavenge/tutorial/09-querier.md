@@ -8,10 +8,10 @@ In order to query the data of our app we need to make it accessible using our `Q
 
 You could make many different routes within the `Querier` for many different types of queries, but we will make just three:
 
-- `listScavenge` will list all scavenges
-- `getScavenge` will get a single scavenge by `solutionHash`
 - `listCommit` will list all commits
 - `getCommit` will get a single commit by `solutionScavengerHash`
+- `listScavenge` will list all scavenges
+- `getScavenge` will get a single scavenge by `solutionHash`
 
 Combined into a switch statement and with each of the functions fleshed out, the file should look as follows:
 

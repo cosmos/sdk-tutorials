@@ -10,7 +10,7 @@ The CLI for our module is broken into two files called `tx.go` and `query.go` wh
 ## tx.go
 The `tx.go` file contains `GetTxCmd` which is a standard method within the Cosmos SDK. It is referenced later in the `module.go` file which describes exactly which attributes a modules has. This makes it easier to incorporate different modules for different reasons at the level of the actual application. After all, we are focusing on a module at this point, but later we will create an application that utilizes this module as well as other modules which are already available within the Cosmos SDK.
 
-Inside `GetTxCmd` we create a new module-specific command and call is `scavenge`. Within this command we add a sub-command for each Message type we've defined: 
+Inside `GetTxCmd` we create a new module-specific command and call it `scavenge`. Within this command we add a sub-command for each Message type we've defined: 
 * `GetCmdCreateScavenge`
 * `GetCmdCommitSolution`
 * `GetCmdRevealSolution`
@@ -28,14 +28,14 @@ Each function takes parameters from the **Cobra** CLI tool to create a new msg, 
 <<< @/scavenge/scavenge/x/scavenge/client/cli/txCommit.go
 
 ### sha256
-Note that the `txScavenge` and `txCommit` files file make use of the `sha256` library for hashing our plain text solutions into the scrambled hashes. This activity takes place on the client side so the solutions are never leaked to any public entity which might want to sneak a peak and steal the bounty reward associated with the scavenges. You can also notice that the hashes are converted into hexadecimal representation to make them easy to read as strings (which is how they are ultimately stored in the keeper).
+Note that the `txScavenge` and `txCommit` files make use of the `sha256` library for hashing our plain text solutions into the scrambled hashes. This activity takes place on the client side so the solutions are never leaked to any public entity which might want to sneak a peak and steal the bounty reward associated with the scavenges. You can also notice that the hashes are converted into hexadecimal representation to make them easy to read as strings (which is how they are ultimately stored in the keeper).
 
 ## query.go
-The `query.go` file contains similar **Cobra** commands that reserve a new name space for referencing our `scavenge` module. Instead of creating and submitting messages however, the `query.go` and `query<Type>.go` files create queries and return the results in human readable form. The queries it handles are the same we defined in our `querier.go` file earlier:
-* `GetCmdListScavenge`
-* `GetCmdGetScavenge`
+The `query.go` file contains similar **Cobra** commands that reserve a new name space for referencing our `scavenge` module. However, instead of creating and submitting messages, the `query.go` and `query<Type>.go` files creates queries and returns the results in human readable form. The queries it handles are the same we defined in our `querier.go` file earlier:
 * `GetCmdListCommit`
 * `GetCmdGetCommit`
+* `GetCmdListScavenge`
+* `GetCmdGetScavenge`
 
 After defining these commands, your files should look like:
 
