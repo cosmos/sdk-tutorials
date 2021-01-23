@@ -48,7 +48,7 @@ After defining these commands, your files should look like:
 #### `queryCommit.go`
 <<< @/scavenge/scavenge/x/scavenge/client/cli/queryCommit.go
 
-# REST
+## REST
 
 The rest endpoints need to get updated according to our application
 
