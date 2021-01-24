@@ -64,14 +64,14 @@ func createScavengeHandler(cliCtx context.CLIContext) http.HandlerFunc {
 }
 
 type setScavengeRequest struct {
-	BaseReq      rest.BaseReq `json:"base_req"`
-	ID           string       `json:"id"`
-	Creator      string       `json:"creator"`
-	Description  string       `json:"description"`
-	SolutionHash string       `json:"solutionHash"`
-	Reward       string       `json:"reward"`
-	Solution     string       `json:"solution"`
-	Scavenger    string       `json:"scavenger"`
+	BaseReq      rest.BaseReq   `json:"base_req"`
+	ID           string         `json:"id"`
+	Creator      string         `json:"creator"`
+	Description  string         `json:"description"`
+	SolutionHash string         `json:"solutionHash"`
+	Reward       string         `json:"reward"`
+	Solution     string         `json:"solution"`
+	Scavenger    sdk.AccAddress `json:"scavenger"`
 }
 
 func setScavengeHandler(cliCtx context.CLIContext) http.HandlerFunc {
