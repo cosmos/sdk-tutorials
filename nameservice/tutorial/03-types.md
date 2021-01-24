@@ -29,4 +29,9 @@ To start your SDK module, define your `nameservice.Whois` struct in the `./x/nam
 
 <<< @/nameservice/nameservice/x/nameservice/types/TypeWhois.go
 
+**Note:** after updating your `TypeWhois.go` file and reloading your app `starport serve` some compiling erros might appear due to change of some attribute types from `string` to `sdk.Coins`. Perform the following changes: 
+- `./x/nameservice/client/txWhois.go` - find and replace `string(argsPrice)` by `sdk.Coins(argsPrice)`
+- `./x/nameservice/types/MsgCreateWhois.go` - change `Price` type from `string` to `sdk.Coins` and `NewMsgCreateWhois` function `price` parameter's type.
+- `./x/nameservice/types/MsgSetWhois.go` - change `Price` type from `string` to `sdk.Coins` and `NewMsgSetWhois` function `price` parameter's type. 
+
 As mentioned in the [Design doc](./app-design.md), if a name does not already have an owner, we want to initialize it with some MinPrice.

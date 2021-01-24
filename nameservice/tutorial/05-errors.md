@@ -4,7 +4,7 @@ order: 5
 
 # Errors
 
-Start by navagating to the `errors.go` file within the types folder. Within your `errors.go` file, define errors that are custom to your module along with their codes.
+Start by navigating to the `errors.go` file within the types folder. Within your `errors.go` file, define errors that are custom to your module along with their codes.
 
 <<< @/nameservice/nameservice/x/nameservice/types/errors.go
 
