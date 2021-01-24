@@ -19,7 +19,7 @@ Our keeper stores all our data for our module. Sometimes a module will import th
 
 ## Commits and Scavenges
 
-You may notice reference to `types.Commit` and `types.Scavenge` throughout the `Keeper`. These are new structs defined in `./x/scavenge/types/type<Type>.go` that contain all necessary information about different scavenge challenges, and different commited solutions to those challenges. They appear similar to the `Msg` types we saw earlier because they contain similar information. We will be making some modifications to the scaffolded files.
+You may notice reference to `types.Commit` and `types.Scavenge` throughout the `Keeper`. These are new structs defined in `./x/scavenge/types/type<Type>.go` that contain all necessary information about different scavenge challenges and different commited solutions to those challenges. They appear similar to the `Msg` types we saw earlier because they contain similar information. We will be making some modifications to the scaffolded files.
 
 In the `TypeScavenge.go` file, we need to delete the `ID` field, since we're going to be using the `SolutionHash` as the key. We also need to update `Reward` to `sdk.Coins`, as well as `Scavenger` to `sdk.AccAddress`, so we can make the payout once the scavenge is solved.
 
@@ -31,7 +31,7 @@ For `TypeCommit.go`, we need to delete the `ID` field, and rename the `Creator` 
 
 <<< @/scavenge/scavenge/x/scavenge/types/TypeCommit.go
 
-You can imagine that an unsolved `Scavenge` would contain a `nil` value for the fields `Solution` and `Scavenger` before they are solved. You might also notice that each type has the `String` method. This allows us to render the struct as a string for rendering.
+You can imagine that an unsolved `Scavenge` would contain a `nil` value for the fields `Solution` and `Scavenger` before they are solved. You might also notice that each type has the `String` method. This helps rendering the struct as a string.
 
 ## Prefixes
 

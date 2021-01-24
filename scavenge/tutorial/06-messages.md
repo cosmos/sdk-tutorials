@@ -19,7 +19,7 @@ Inside this new file we will be removing some of the fields that won't be used w
 Notice that all Messages in the app need to follow the `sdk.Msg` interface. The Message `struct` contains all the necessary information when creating a new scavenge:
 
 - `Creator` - Who created it. This uses the `sdk.AccAddress` type which represents an account in the app controlled by public key cryptograhy.
-- `Description` - What is the question to be solved or description of the challenge.
+- `Description` - The question to be solved or description of the challenge.
 - `SolutionHash` - The scrambled solution.
 - `Reward` - This is the bounty that is awarded to whoever submits the answer first.
 
@@ -29,7 +29,9 @@ Now that one can create a scavenge the only other essential action is to be able
 
 ## MsgCommitSolution
 
-We rename our `./x/scavenge/types/MsgCreateCommit.go` to `./x/scavenge/types/MsgCommitSolution.go`.
+Rename our `./x/scavenge/types/MsgCreateCommit.go` to `./x/scavenge/types/MsgCommitSolution.go`.
+
+Replace functions parameters to reflect `MsgCommitSolution` instead of previous `MsgCreateCommit`.
 
 The message type that describes how to commit a solution should live in `./x/scavenge/types/MsgCommitSolution.go` and look like:
 
@@ -39,7 +41,7 @@ The Message `struct` contains all the necessary information when revealing a sol
 
 - `Scavenger` - Who is revealing the solution.
 - `SolutionHash` - The scrambled solution (hash).
-- `SolutionScavengerHash` - This is the hash of the combination of the solution and the person who solved it.
+- `SolutionScavengerHash` - That is the hashed combination of the solution and the person who solved it.
 
 This message also fulfils the `sdk.Msg` interface.
 
@@ -53,7 +55,7 @@ The Message `struct` contains all the necessary information when revealing a sol
 
 - `Scavenger` - Who is revealing the solution.
 - `SolutionHash` - The scrambled solution.
-- `Solution` - This is the plain text version of the solution.
+- `Solution` - The plain text version of the solution.
 
 This message also fulfils the `sdk.Msg` interface.
 
