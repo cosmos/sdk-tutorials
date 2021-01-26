@@ -13,10 +13,10 @@ type MsgSetScavenge struct {
 	SolutionHash string         `json:"solutionHash" yaml:"solutionHash"`
 	Reward       string         `json:"reward" yaml:"reward"`
 	Solution     string         `json:"solution" yaml:"solution"`
-	Scavenger    string         `json:"scavenger" yaml:"scavenger"`
+	Scavenger    sdk.AccAddress `json:"scavenger" yaml:"scavenger"`
 }
 
-func NewMsgSetScavenge(creator sdk.AccAddress, description string, solutionHash string, reward string, solution string, scavenger string) MsgSetScavenge {
+func NewMsgSetScavenge(creator sdk.AccAddress, description string, solutionHash string, reward string, solution string, scavenger sdk.AccAddress) MsgSetScavenge {
 	return MsgSetScavenge{
 		Creator:      creator,
 		Description:  description,

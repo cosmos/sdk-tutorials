@@ -85,7 +85,7 @@ func GetCmdSetScavenge(cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			inBuf := bufio.NewReader(cmd.InOrStdin())
 			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
-			msg := types.NewMsgSetScavenge(cliCtx.GetFromAddress(), string(argsDescription), string(argsSolutionHash), string(argsReward), string(argsSolution), string(argsScavenger))
+			msg := types.NewMsgSetScavenge(cliCtx.GetFromAddress(), string(argsDescription), string(argsSolutionHash), string(argsReward), string(argsSolution), sdk.AccAddress(argsScavenger))
 			err := msg.ValidateBasic()
 			if err != nil {
 				return err

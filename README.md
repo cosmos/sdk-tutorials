@@ -16,7 +16,7 @@ sections:
     difficulty: beginner
     tags: 
       - starport
-      - launchpad
+      - stargate
   - title: Proof of File Existence
     desc: Learn how to prove ownership and verify documents by building a PoFE blockchain using Starport.
     url: /proof-of-file-existence/tutorial/01-intro.html

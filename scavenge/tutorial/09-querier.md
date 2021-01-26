@@ -4,12 +4,14 @@ order: 9
 
 # Querier
 
-In order to query the data of our app we need to make it accessible using our `Querier`. This piece of the app works in tandem with the `Keeper` to access state and return it. The `Querier` is defined in `./x/scavenge/keeper/querier.go`. Our `starport` tool starts us out with some suggestions on how it should look, and similar to our `Handler` we want to handle different queried routes. You could make many different routes within the `Querier` for many different types of queries, but we will just make three:
+In order to query the data of our app we need to make it accessible using our `Querier`. This piece of the app works in tandem with the `Keeper` to access state and return it. The `Querier` is defined in `./x/scavenge/keeper/querier.go`. Our `starport` tool starts us out with some suggestions on how it should look, and similarly to our `Handler` we want to handle different queried routes. 
 
-- `listScavenge` will list all scavenges
-- `getScavenge` will get a single scavenge by `solutionHash`
+You could make many different routes within the `Querier` for many different types of queries, but we will make just three:
+
 - `listCommit` will list all commits
 - `getCommit` will get a single commit by `solutionScavengerHash`
+- `listScavenge` will list all scavenges
+- `getScavenge` will get a single scavenge by `solutionHash`
 
 Combined into a switch statement and with each of the functions fleshed out, the file should look as follows:
 

@@ -1,4 +1,4 @@
-vue/node_modules
-vue/dist
-vue/.cache
-build
+frontend/node_modules
+frontend/dist
+frontend/.cache
+secret.yml
