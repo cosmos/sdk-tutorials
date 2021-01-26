@@ -32,7 +32,7 @@ Now that the query interactions are defined, it is time to move on to transactio
 
 <<< @/nameservice/nameservice/x/nameservice/client/cli/txWhois.go
 
-We also need to add the commands to our `tx` command:
+We also need to add the commands to our `tx` command in `x/nameservice/client/cli/tx.go` file:
 
 <<< @/nameservice/nameservice/x/nameservice/client/cli/tx.go
 

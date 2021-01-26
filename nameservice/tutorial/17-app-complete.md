@@ -4,7 +4,7 @@ order: 19
 
 # Complete App
 
-When you used the `starport type` command, your application has already been incorporated in the `./app.go` file. 
+When you used the `starport type` command, your application has already been incorporated in the `.app/app.go` file. 
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-tutorials/nameservice/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }/x/nameservice`).
 
