@@ -12,7 +12,6 @@ The naming convention for the SDK `Msgs` is `Msg{ .Action }`. The first action t
 mv x/nameservice/types/MsgSetWhois.go x/nameservice/types/MsgSetName.go
 ```
 
-It would also help to find-and-replace `MsgSetWhois` to `MsgSetName` in your project, to avoid errors from popping up later o.
 Afterwards, we can start making slight modifications to our file, starting by updating `MsgSetName` - 
 
 ```go
@@ -98,7 +97,13 @@ Now that `MsgSetName` is specified, the next step is to define what action(s) ne
 
 `NewHandler` is essentially a sub-router that directs messages coming into this module to the proper handler. At the moment, there is only one `Msg`/`Handler`.
 
-Now, you need to define the actual logic for handling the `MsgSetName` message in `handleMsgSetName`:
+Let's rename our `x/nameservice/handlerMsgSetWhois.go` to `x/nameservice/handlerMsgSetName.go`.
+
+```
+mv x/nameservice/handlerMsgSetWhois.go x/nameservice/handlerMsgSetName.go
+```
+
+Then, define the actual logic for handling the `MsgSetName` message in `handleMsgSetName`:
 
 > _*NOTE*_: The naming convention for handler names in the SDK is `handleMsg{ .Action }`
 
@@ -115,7 +120,7 @@ func handleMsgSetName(ctx sdk.Context, keeper Keeper, msg MsgSetName) (*sdk.Resu
 
 In this function, check to see if the `Msg` sender is actually the owner of the name (`keeper.GetOwner`). If so, they can set the name by calling the function on the `Keeper`. If not, throw an error and return that to the user.
 
-In the file (`./x/nameservice/handler.go`) add the following code:
+In the file (`./x/nameservice/handler.go`) make sure to replace the `types.MsgSetWhois` with the following code:
 
 ```go
 package nameservice
@@ -142,4 +147,4 @@ func NewHandler(keeper Keeper) sdk.Handler {
 }
 ```
 
-### Great, now owners can `SetName`s! But what if a name doesn't have an owner yet? Your module needs a way for users to buy names! Let us define define the `BuyName` message
+Great, now owners can `SetName`s! But what if a name doesn't have an owner yet? Your module needs a way for users to buy names! Let us define define the `BuyName` message
