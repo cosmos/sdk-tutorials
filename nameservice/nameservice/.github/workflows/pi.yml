@@ -1,0 +1,67 @@
+# This is a basic workflow that is manually triggered
+
+name: nameservice Pi
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on: [push, pull_request]
+
+
+# This workflow makes a 64 bit Raspberry Pi Ubuntu Server Image.
+# It does not have the security issues mentioned here: https://github.com/tendermint/tendermint/blob/master/docs/tendermint-core/running-in-production.md#validator-signing-on-32-bit-architectures-or-arm
+# Later, more devices will be supported, as well.
+
+
+jobs:
+  build:
+    name: nameservice Pi Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out nameservice
+        uses: actions/checkout@v2
+
+      - name: Setup go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.15
+
+      - name: Compile nameservice
+        run: |
+            cd cmd/nameserviced
+            go build .
+            cd ..
+            cd nameservicecli
+            go build .
+        env:
+          GOOS: linux
+          GOARCH: arm64
+
+      - name: Upload nameservice Arm64 CLI
+        uses: actions/upload-artifact@v2
+        with:
+          name: nameservicecli arm64
+          path: cmd/nameservicecli/nameservicecli
+
+      - name: Upload nameservice Arm64 daemon
+        uses: actions/upload-artifact@v2
+        with:
+          name: nameserviced arm64
+          path: cmd/nameserviced/nameserviced
+
+      - name: Build nameservice.img
+        run: docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build .pi/pibuild.json
+
+      - name: Install PiShrink
+        run: |
+          wget https://raw.githubusercontent.com/Drewsif/PiShrink/master/pishrink.sh
+          chmod +x pishrink.sh
+          sudo mv pishrink.sh /usr/local/bin
+
+      - name: Shrink nameservice.img
+        run: sudo pishrink.sh -a -Z -v nameservice.img
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: nameservice PI
+          path: nameservice.img.xz

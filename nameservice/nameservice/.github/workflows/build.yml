@@ -1,0 +1,80 @@
+# This is a basic workflow that is manually triggered
+
+name: nameservice
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on: [push, pull_request]
+
+# This workflow makes x86_64 binaries for mac, windows, and linux.
+
+
+jobs:
+  mac-windows:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        targetos: [windows, darwin]
+    name: nameservice for ${{ matrix.targetos }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.15
+        env:
+          GOOS: ${{ matrix.targetos }}
+
+      - name: Compile
+        run: |
+          cd cmd/nameserviced
+          go build .
+          cd ..
+          cd nameservicecli
+          go build .
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: nameservicecli ${{ matrix.targetos }}
+          path: cmd/nameservicecli/nameservicecli
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: nameserviced ${{ matrix.targetos }}
+          path: cmd/nameserviced/nameserviced
+
+  linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [arm64, riscv64, amd64]
+
+    name: nameservice for ${{ matrix.arch }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.15
+        env:
+          GOARCH: ${{ matrix.arch }}
+
+      - name: Compile
+        run: |
+          cd cmd/nameserviced
+          go build .
+          cd ..
+          cd nameservicecli
+          go build .
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: nameservicecli ${{ matrix.arch }}
+          path: cmd/nameservicecli/nameservicecli
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: nameserviced ${{ matrix.arch }}
+          path: cmd/nameserviced/nameserviced
