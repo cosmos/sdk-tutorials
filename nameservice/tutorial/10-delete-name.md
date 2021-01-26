@@ -7,7 +7,13 @@ order: 11
 ## MsgDeleteName
 
 
-Now it is time to update the `Msg` for deleting names and add it to the `./x/nameservice/types/MsgDeleteName.go` file. 
+Now it is time to update the `Msg` for deleting names. Let's rename our `MsgDeleteWhois.go` to `MsgDeleteName.go`
+
+```
+mv x/nameservice/MsgDeleteWhois.go x/nameservice/MsgDeleteName.go
+```
+
+add it to the `./x/nameservice/types/MsgDeleteName.go` file. 
 
 <<< @/nameservice/nameservice/x/nameservice/types/MsgDeleteName.go
 
