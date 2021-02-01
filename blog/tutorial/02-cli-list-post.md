@@ -85,8 +85,7 @@ func CmdListPost() *cobra.Command {
 		Use:   "list-post",
 		Short: "list all post",
 		RunE: func(cmd *cobra.Command, args []string) error {
-            clientCtx := client.GetClientContextFromCmd(cmd)
-            clientCtx, err := client.ReadQueryCommandFlags(clientCtx, cmd.Flags())
+            clientCtx, err := client.GetClientTxContext(cmd)
             if err != nil {
                 return err
             }
@@ -107,7 +106,7 @@ func CmdListPost() *cobra.Command {
                 return err
             }
 
-            return clientCtx.PrintOutput(res)
+            return clientCtx.PrintProto(res)
 		},
 	}
 
@@ -122,8 +121,7 @@ func CmdShowPost() *cobra.Command {
 		Short: "shows a post",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-            clientCtx := client.GetClientContextFromCmd(cmd)
-            clientCtx, err := client.ReadQueryCommandFlags(clientCtx, cmd.Flags())
+            clientCtx, err := client.GetClientTxContext(cmd)
             if err != nil {
                 return err
             }
@@ -139,7 +137,7 @@ func CmdShowPost() *cobra.Command {
                 return err
             }
 
-            return clientCtx.PrintOutput(res)
+            return clientCtx.PrintProto(res) 
 		},
 	}
 

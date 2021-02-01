@@ -17,3 +17,4 @@ message MsgCreatePost {
   string title = 2; 
   string body = 3; 
 }
+
