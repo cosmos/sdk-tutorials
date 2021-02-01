@@ -8,13 +8,13 @@ By following this beginner tutorial, you will end up with a simple blog app that
 
 ## Requirements 
 
-For this tutorial we will be using [Starport](https://github.com/tendermint/starport) v0.13.1, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
+For this tutorial we will be using [Starport](https://github.com/tendermint/starport) v0.13.2, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
-curl https://get.starport.network/starport@v0.13.1! | bash
+curl https://get.starport.network/starport@v0.13.2! | bash
 ```
 
-You can also use Starport v0.13.1 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.13.1). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
+You can also use Starport v0.13.2 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.13.2). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
 
 ## Getting Started
 
@@ -119,8 +119,7 @@ func CmdCreatePost() *cobra.Command {
       argsTitle := string(args[0])
       argsBody := string(args[1])
       
-        	clientCtx := client.GetClientContextFromCmd(cmd)
-			clientCtx, err := client.ReadTxCommandFlags(clientCtx, cmd.Flags())
+			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
@@ -217,7 +216,7 @@ You should already have `func NewHandler` defined which lists all available hand
 ```go
     switch msg := msg.(type) {
     case *types.MsgCreatePost:
-      return handleMsgCreatePost(ctx, k, msg)
+        return handleMsgCreatePost(ctx, k, msg)
     default:
 ```
 
@@ -482,6 +481,19 @@ ERROR: unknown command "create-post" for "blog"
 ```
 
 Make sure you’ve added `cmd.AddCommand(CmdCreatePost())`, to `func GetTxCmd` in `x/blog/client/cli/tx.go`.
+
+### Unrecognized blog message type
+
+```bash
+blogd tx blog create-post 'Hello!' 'My first post' --from=user1
+ERROR: unrecognized blog message type
+```
+
+Make sure you have added 
+`case *types.MsgCreatePost:
+	return handleMsgCreatePost(ctx, k, msg)
+`
+to `func NewHandler` in `x/blog/handler.go`
 
 ### Cannot encode unregistered concrete type
 

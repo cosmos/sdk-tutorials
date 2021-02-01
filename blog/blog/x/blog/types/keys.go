@@ -16,6 +16,7 @@ const (
 	// MemStoreKey defines the in-memory store key
 	MemStoreKey = "mem_capability"
 
+	// PostPrefix is used for keys in the KV store
 	PostKey      = "Post-value-"
 	PostCountKey = "Post-count-"
 )
@@ -23,3 +24,8 @@ const (
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
+
+const (
+	CommentKey= "Comment-value-"
+	CommentCountKey= "Comment-count-"
+)

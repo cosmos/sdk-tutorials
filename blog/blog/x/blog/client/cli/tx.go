@@ -24,6 +24,11 @@ func GetTxCmd() *cobra.Command {
 	}
 
 	// this line is used by starport scaffolding # 1
+
+	cmd.AddCommand(CmdCreateComment())
+	cmd.AddCommand(CmdUpdateComment())
+	cmd.AddCommand(CmdDeleteComment())
+
 	cmd.AddCommand(CmdCreatePost())
 	return cmd
 }
@@ -37,8 +42,7 @@ func CmdCreatePost() *cobra.Command {
 			argsTitle := string(args[0])
 			argsBody := string(args[1])
 
-			clientCtx := client.GetClientContextFromCmd(cmd)
-			clientCtx, err := client.ReadTxCommandFlags(clientCtx, cmd.Flags())
+			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
