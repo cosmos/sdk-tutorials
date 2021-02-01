@@ -29,4 +29,4 @@ To start your SDK module, define your `nameservice.Whois` struct in the `./x/nam
 
 <<< @/nameservice/nameservice/x/nameservice/types/TypeWhois.go
 
-As mentioned in the [Design doc](./app-design.md), if a name does not already have an owner, we want to initialize it with some MinPrice.
+As mentioned in the [Design doc](./01-app-design.md), if a name does not already have an owner, we want to initialize it with some MinPrice.
