@@ -12,6 +12,11 @@ Now it is time to define the `Msg` for buying names and add it to the `./x/names
 mv x/nameservice/types/MsgCreateWhois.go x/nameservice/types/MsgBuyName.go
 ```
 
+Replace `handlerMsgCreateWhois` by `handlerMsgBuyName`:
+```
+mv x/nameservice/handlerMsgCreateWhois.go x/nameservice/handlerMsgBuyName.go
+```
+
 <<< @/nameservice/nameservice/x/nameservice/types/MsgBuyName.go
 
 Next, in the `./x/nameservice/handler.go` file, add the `MsgBuyName` handler to the module router:
@@ -40,6 +45,8 @@ Let's rename `handlerMsgCreateWhois.go` to `handlerMsgBuyName.go`
 mv x/nameservice/handlerMsgCreateWhois.go x/nameservice/handlerMsgBuyName.go
 ```
 
+Go to `./x/nameservice/handlerMsgBuyName.go` 
+
 <<< @/nameservice/nameservice/x/nameservice/handlerMsgBuyName.go
 
 First check to make sure that the bid is higher than the current price. Then, check to see whether the name already has an owner. If it does, the former owner will receive the money from the `Buyer`.
@@ -50,4 +57,4 @@ If either `SubtractCoins` or `SendCoins` returns a non-nil error, the handler th
 
 > _*NOTE*_: This handler uses functions from the `coinKeeper` to perform currency operations. If your application is performing currency operations you may want to take a look at the [godocs for this module](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#BaseKeeper) to see what functions it exposes.
 
-### Great, now owners can `BuyName`s! But what if they don't want the name any longer? Your module needs a way for users to delete names! Let us define define the `DeleteName` message.
+### Great, now owners can `BuyName`s! But what if they don't want the name any longer? Your module needs a way for users to delete names! Let us define the `DeleteName` message.

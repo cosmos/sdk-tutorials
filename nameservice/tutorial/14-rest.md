@@ -4,13 +4,13 @@ order: 15
 
 # NameService Module Rest Interface
 
-Your module can also expose a REST interface to allow programatic access to the module's functionality. To get started navigate to `./x/nameservice/client/rest/rest.go` this file will hold the HTTP handlers.
+Your module can also expose a REST interface to allow programatic access to the module's functionality. To get started navigate to `./x/nameservice/client/rest/rest.go` where HTTP handlers are held.
 
 > _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-tutorials/nameservice/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }/x/nameservice`).
 
 ### RegisterRoutes
 
-First, define the REST client interface for your module in a `RegisterRoutes` function. Have the routes all start with your module name to prevent name space collisions with other modules' routes:
+First, define the REST client interface for your module in a `RegisterRoutes` function. Have the routes all starting with your module name to prevent name space collisions with other modules' routes:
 
 <<< @/nameservice/nameservice/x/nameservice/client/rest/rest.go
 

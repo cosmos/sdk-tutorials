@@ -15,8 +15,17 @@ mv x/nameservice/types/MsgDeleteWhois.go x/nameservice/types/MsgDeleteName.go
 
 add it to the `./x/nameservice/types/MsgDeleteName.go` file. 
 
+Replace `MsgDeleteWhois` by `MsgDeleteName`:
+```
+mv x/nameservice/types/MsgDeleteWhois.go x/nameservice/types/MsgDeleteName.go
+```
+
 <<< @/nameservice/nameservice/x/nameservice/types/MsgDeleteName.go
 
+Replace `handlerMsgDeleteWhois` by `handlerMsgDeleteName`:
+```
+mv x/nameservice/handlerMsgDeleteWhois.go x/nameservice/handlerMsgDeleteName.go
+```
 
 Finally, define the `DeleteName` `handler` function which performs the state transitions triggered by the message. Keep in mind that at this point the message has had its `ValidateBasic` function run so there has been some input verification. However, `ValidateBasic` cannot query application state. Validation logic that is dependent on network state (e.g. account balances) should be performed in the `handler` function.
 

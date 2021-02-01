@@ -81,7 +81,7 @@ nameservicecli query nameservice resolve jack.id
 # > 8.8.8.8
 
 # Try out a whois query against the name you just registered
-nameservicecli query nameservice whois jack.id
+nameservicecli query nameservice get-whois jack.id
 # > {"value":"8.8.8.8","owner":"cosmos1l7k5tdt2qam0zecxrx78yuw447ga54dsmtpk2s","price":[{"denom":"nametoken","amount":"5"}]}
 
 # Alice buys name from jack
@@ -91,7 +91,7 @@ nameservicecli tx nameservice buy-name jack.id 10nametoken --from alice
 nameservicecli tx nameservice delete-name jack.id --from alice
 
 # Try out a whois query against the name you just deleted
-nameservicecli query nameservice whois jack.id
+nameservicecli query nameservice get-whois jack.id
 # > {"value":"","owner":"","price":[{"denom":"nametoken","amount":"1"}]}
 ```
 

@@ -1,0 +1,31 @@
+syntax = "proto3";
+package example.blog.blog;
+
+option go_package = "github.com/example/blog/x/blog/types";
+
+import "gogoproto/gogo.proto";
+
+message Comment {
+  string creator = 1;
+  string id = 2;
+  string body = 3; 
+  string postID = 4; 
+}
+
+message MsgCreateComment {
+  string creator = 1;
+  string body = 2; 
+  string postID = 3; 
+}
+
+message MsgUpdateComment {
+  string creator = 1;
+  string id = 2;
+  string body = 3; 
+  string postID = 4; 
+}
+
+message MsgDeleteComment {
+  string creator = 1;
+  string id = 2;
+}

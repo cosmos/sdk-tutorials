@@ -10,9 +10,9 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func listPostHandler(clientCtx client.Context) http.HandlerFunc {
+func listCommentHandler(clientCtx client.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		res, height, err := clientCtx.QueryWithData(fmt.Sprintf("custom/%s/list-post", types.QuerierRoute), nil)
+		res, height, err := clientCtx.QueryWithData(fmt.Sprintf("custom/%s/list-comment", types.QuerierRoute), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
@@ -23,11 +23,11 @@ func listPostHandler(clientCtx client.Context) http.HandlerFunc {
 	}
 }
 
-func getPostHandler(clientCtx client.Context) http.HandlerFunc {
+func getCommentHandler(clientCtx client.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id := mux.Vars(r)["id"]
 
-		res, height, err := clientCtx.QueryWithData(fmt.Sprintf("custom/%s/get-post/%s", types.QuerierRoute, id), nil)
+		res, height, err := clientCtx.QueryWithData(fmt.Sprintf("custom/%s/get-comment/%s", types.QuerierRoute, id), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return

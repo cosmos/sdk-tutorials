@@ -3,11 +3,10 @@ package app
 import (
 	"io"
 	"os"
-    "path/filepath"
+	"path/filepath"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec/types"
-    "github.com/pelletier/go-toml"
 	"github.com/spf13/cast"
 
 	abci "github.com/tendermint/tendermint/abci/types"
@@ -16,6 +15,7 @@ import (
 	dbm "github.com/tendermint/tm-db"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
+	"github.com/cosmos/cosmos-sdk/client/grpc/tmservice"
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/server/api"
@@ -78,21 +78,20 @@ import (
 	upgradeclient "github.com/cosmos/cosmos-sdk/x/upgrade/client"
 	upgradekeeper "github.com/cosmos/cosmos-sdk/x/upgrade/keeper"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
-	tmjson "github.com/tendermint/tendermint/libs/json"
-	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
-	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
 	appparams "github.com/example/blog/app/params"
 	"github.com/example/blog/x/blog"
 	blogkeeper "github.com/example/blog/x/blog/keeper"
 	blogtypes "github.com/example/blog/x/blog/types"
+	tmjson "github.com/tendermint/tendermint/libs/json"
+	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
+const Name = "blog"
+
 var (
 	// DefaultNodeHome default home directories for the application daemon
-	DefaultNodeHome = func(appName string) string {
-		return os.ExpandEnv("$HOME/.blog")
-	}
+	DefaultNodeHome string
 
 	// ModuleBasics defines the module BasicManager is in charge of setting up basic,
 	// non-dependant module elements, such as codec registration
@@ -142,13 +141,20 @@ var (
 	_ servertypes.Application = (*App)(nil)
 )
 
+func init() {
+	userHomeDir, err := os.UserHomeDir()
+	if err != nil {
+		panic(err)
+	}
+
+	DefaultNodeHome = filepath.Join(userHomeDir, "."+Name)
+}
+
 // App extends an ABCI application, but with most of its parameters exported.
 // They are exported for convenience in creating helper functions, as object
 // capabilities aren't needed for testing.
 type App struct {
 	*baseapp.BaseApp
-
-	appName string
 
 	cdc               *codec.LegacyAmino
 	appCodec          codec.Marshaler
@@ -191,7 +197,7 @@ type App struct {
 // New returns a reference to an initialized Gaia.
 // NewSimApp returns a reference to an initialized SimApp.
 func New(
-	appName string, logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest bool, skipUpgradeHeights map[int64]bool,
+	logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest bool, skipUpgradeHeights map[int64]bool,
 	homePath string, invCheckPeriod uint, encodingConfig appparams.EncodingConfig,
 	appOpts servertypes.AppOptions, baseAppOptions ...func(*baseapp.BaseApp),
 ) *App {
@@ -200,7 +206,7 @@ func New(
 	cdc := encodingConfig.Amino
 	interfaceRegistry := encodingConfig.InterfaceRegistry
 
-	bApp := baseapp.NewBaseApp(appName, logger, db, encodingConfig.TxConfig.TxDecoder(), baseAppOptions...)
+	bApp := baseapp.NewBaseApp(Name, logger, db, encodingConfig.TxConfig.TxDecoder(), baseAppOptions...)
 	bApp.SetCommitMultiStoreTracer(traceStore)
 	bApp.SetAppVersion(version.Version)
 	bApp.SetInterfaceRegistry(interfaceRegistry)
@@ -210,7 +216,7 @@ func New(
 		minttypes.StoreKey, distrtypes.StoreKey, slashingtypes.StoreKey,
 		govtypes.StoreKey, paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey,
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
-        blogtypes.StoreKey,
+		blogtypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -218,7 +224,6 @@ func New(
 
 	app := &App{
 		BaseApp:           bApp,
-		appName:           appName,
 		cdc:               cdc,
 		appCodec:          appCodec,
 		interfaceRegistry: interfaceRegistry,
@@ -276,7 +281,7 @@ func New(
 
 	// Create IBC Keeper
 	app.IBCKeeper = ibckeeper.NewKeeper(
-		appCodec, keys[ibchost.StoreKey], app.StakingKeeper, scopedIBCKeeper,
+		appCodec, keys[ibchost.StoreKey], app.GetSubspace(ibchost.ModuleName), app.StakingKeeper, scopedIBCKeeper,
 	)
 
 	// register the proposal types
@@ -312,7 +317,7 @@ func New(
 	app.EvidenceKeeper = *evidenceKeeper
 
 	app.blogKeeper = *blogkeeper.NewKeeper(
-        appCodec, keys[blogtypes.StoreKey], keys[blogtypes.MemStoreKey],
+		appCodec, keys[blogtypes.StoreKey], keys[blogtypes.MemStoreKey],
 	)
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
@@ -531,28 +536,23 @@ func (app *App) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig
 	// Register legacy tx routes.
 	authrest.RegisterTxRoutes(clientCtx, apiSvr.Router)
 	// Register new tx routes from grpc-gateway.
-	authtx.RegisterGRPCGatewayRoutes(clientCtx, apiSvr.GRPCRouter)
+	authtx.RegisterGRPCGatewayRoutes(clientCtx, apiSvr.GRPCGatewayRouter)
+	// Register new tendermint queries routes from grpc-gateway.
+	tmservice.RegisterGRPCGatewayRoutes(clientCtx, apiSvr.GRPCGatewayRouter)
 
 	// Register legacy and grpc-gateway routes for all modules.
 	ModuleBasics.RegisterRESTRoutes(clientCtx, apiSvr.Router)
-	ModuleBasics.RegisterGRPCGatewayRoutes(clientCtx, apiSvr.GRPCRouter)
+	ModuleBasics.RegisterGRPCGatewayRoutes(clientCtx, apiSvr.GRPCGatewayRouter)
 }
 
 // RegisterTxService implements the Application.RegisterTxService method.
 func (app *App) RegisterTxService(clientCtx client.Context) {
-	// TODO remove this workaround after https://github.com/cosmos/cosmos-sdk/pull/7840 has merged.
-	// -- right now, clientCtx does not have a Client set. this workaround fixes that.
-	config, err := toml.LoadFile(filepath.Join(DefaultNodeHome(""), "config/config.toml"))
-	if err != nil {
-		panic(err)
-	}
-	client, err := rpchttp.New(config.Get("rpc.laddr").(string), "/websocket")
-	if err != nil {
-		panic(err)
-	}
-	clientCtx = clientCtx.WithClient(client)
-	// -- end of the workaround.
 	authtx.RegisterTxService(app.BaseApp.GRPCQueryRouter(), clientCtx, app.BaseApp.Simulate, app.interfaceRegistry)
+}
+
+// RegisterTendermintService implements the Application.RegisterTendermintService method.
+func (app *App) RegisterTendermintService(clientCtx client.Context) {
+	tmservice.RegisterTendermintService(app.BaseApp.GRPCQueryRouter(), clientCtx, app.interfaceRegistry)
 }
 
 // GetMaccPerms returns a copy of the module account permissions
@@ -577,6 +577,7 @@ func initParamsKeeper(appCodec codec.BinaryMarshaler, legacyAmino *codec.LegacyA
 	paramsKeeper.Subspace(govtypes.ModuleName).WithKeyTable(govtypes.ParamKeyTable())
 	paramsKeeper.Subspace(crisistypes.ModuleName)
 	paramsKeeper.Subspace(ibctransfertypes.ModuleName)
+	paramsKeeper.Subspace(ibchost.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper
