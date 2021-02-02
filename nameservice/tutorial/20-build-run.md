@@ -38,7 +38,7 @@ starport serve
 
 Before running our application, `starport serve` runs a build similar to that in our `Makefile`.
 
-Afterwards, it initializes our `genesis.json` file based on the contents of the `config.yml` file. You can see we've defined two `accounts` to the genesis, `jack` and `alice`, and have set up `jack` as the validator for the node we're going to run.
+Afterwards, it initializes our `genesis.json` file based on the contents of the `config.yml` file. You can see we've defined two `accounts` to the genesis, `user1` and `user2`, and have set up `user1` as the validator for the node we're going to run.
 
 This setup can also be performed manually using the `nameserviced` and `nameservicecli` commands, which are available after the application is built.
 
@@ -46,7 +46,7 @@ This setup can also be performed manually using the `nameserviced` and `nameserv
 
 > _*NOTE*_: If you have run the tutorial before, you can start from scratch with a `nameserviced unsafe-reset-all` or by deleting both of the home folders `rm -rf ~/.nameservicecli ~/.nameserviced`
 
-> _*NOTE*_: If you have the Cosmos app for ledger and you want to use it, when you create the key with `nameservicecli keys add jack` just add `--ledger` at the end. That's all you need. When you sign, `jack` will be recognized as a Ledger key and will require a device.
+> _*NOTE*_: If you have the Cosmos app for ledger and you want to use it, when you create the key with `nameservicecli keys add user1` just add `--ledger` at the end. That's all you need. When you sign, `user1` will be recognized as a Ledger key and will require a device.
 
 > _*NOTE*_: The following commands combined with `rm -rf ~/.nameservicecli ~/.nameserviced` are also collected in the `init.sh` file in the root directory of this project. You can execute all of these commands using default values at once by running `./init.sh` in your terminal.
 
@@ -67,31 +67,31 @@ You have run your first node successfully.
 
 ```bash
 # First check the accounts to ensure they have funds
-nameservicecli query account $(nameservicecli keys show jack -a)
-nameservicecli query account $(nameservicecli keys show alice -a)
+nameservicecli query account $(nameservicecli keys show user1 -a)
+nameservicecli query account $(nameservicecli keys show user2 -a)
 
 # Buy your first name using your coins from the genesis file
-nameservicecli tx nameservice buy-name jack.id 5nametoken --from jack
+nameservicecli tx nameservice buy-name user1.id 5nametoken --from user1
 
 # Set the value for the name you just bought
-nameservicecli tx nameservice set-name jack.id 8.8.8.8 --from jack
+nameservicecli tx nameservice set-name user1.id 8.8.8.8 --from user1
 
 # Try out a resolve query against the name you registered
-nameservicecli query nameservice resolve jack.id
+nameservicecli query nameservice resolve user1.id
 # > 8.8.8.8
 
 # Try out a whois query against the name you just registered
-nameservicecli query nameservice get-whois jack.id
+nameservicecli query nameservice get-whois user1.id
 # > {"value":"8.8.8.8","owner":"cosmos1l7k5tdt2qam0zecxrx78yuw447ga54dsmtpk2s","price":[{"denom":"nametoken","amount":"5"}]}
 
-# Alice buys name from jack
-nameservicecli tx nameservice buy-name jack.id 10nametoken --from alice
+# user2 buys name from user1
+nameservicecli tx nameservice buy-name user1.id 10nametoken --from user2
 
-# Alice decides to delete the name she just bought from jack
-nameservicecli tx nameservice delete-name jack.id --from alice
+# user2 decides to delete the name she just bought from user1
+nameservicecli tx nameservice delete-name user1.id --from user2
 
 # Try out a whois query against the name you just deleted
-nameservicecli query nameservice get-whois jack.id
+nameservicecli query nameservice get-whois user1.id
 # > {"value":"","owner":"","price":[{"denom":"nametoken","amount":"1"}]}
 ```
 
