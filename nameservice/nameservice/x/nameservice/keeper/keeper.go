@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	// this line is used by starport scaffolding # 1
 	"fmt"
 
 	"github.com/tendermint/tendermint/libs/log"
@@ -8,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/sdk-tutorials/nameservice/nameservice/x/nameservice/types"
+	"github.com/user/nameservice/x/nameservice/types"
 )
 
 // Keeper of the nameservice store

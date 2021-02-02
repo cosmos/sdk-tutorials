@@ -5,19 +5,17 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-// This Msg deletes a name. It was originally called MsgDeleteWhois, and has been modified using search-and-replace to our Msg needs.
-
 var _ sdk.Msg = &MsgDeleteName{}
 
 type MsgDeleteName struct {
-	Name  string         `json:"name" yaml:"name"`
-	Owner sdk.AccAddress `json:"owner" yaml:"owner"`
+	ID      string         `json:"id" yaml:"id"`
+	Creator sdk.AccAddress `json:"creator" yaml:"creator"`
 }
 
-func NewMsgDeleteName(name string, owner sdk.AccAddress) MsgDeleteName {
+func NewMsgDeleteName(id string, creator sdk.AccAddress) MsgDeleteName {
 	return MsgDeleteName{
-		Name:  name,
-		Owner: owner,
+		ID:      id,
+		Creator: creator,
 	}
 }
 
@@ -30,7 +28,7 @@ func (msg MsgDeleteName) Type() string {
 }
 
 func (msg MsgDeleteName) GetSigners() []sdk.AccAddress {
-	return []sdk.AccAddress{sdk.AccAddress(msg.Owner)}
+	return []sdk.AccAddress{sdk.AccAddress(msg.Creator)}
 }
 
 func (msg MsgDeleteName) GetSignBytes() []byte {
@@ -39,8 +37,8 @@ func (msg MsgDeleteName) GetSignBytes() []byte {
 }
 
 func (msg MsgDeleteName) ValidateBasic() error {
-	if msg.Owner.Empty() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "owner can't be empty")
+	if msg.Creator.Empty() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "creator can't be empty")
 	}
 	return nil
 }

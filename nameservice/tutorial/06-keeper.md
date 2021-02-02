@@ -8,11 +8,11 @@ The main core of a Cosmos SDK module is a piece called the `Keeper`. It is what 
 
 ## Keeper Struct
 
-Your `nameservice.Keeper` should already be defined in the `./x/nameservice/keeper/keeper.go` file. Defined in this generated file are a few extra items that we will not cover at this time, for this reason we will start by clearing the `keeper.go` file in favor of following this tutorial.
+Your `nameservice.Keeper` should already be defined in the `./x/nameservice/keeper/keeper.go` file. Let's have a short introduction of the `keeper.go` file.
 
 <<< @/nameservice/nameservice/x/nameservice/keeper/keeper.go
 
-A couple of notes about the above code:
+A couple of notes about the code:
 
 - Two `cosmos-sdk` packages and `types` for your application are imported:
   - [`types` (as sdk)](https://godoc.org/github.com/cosmos/cosmos-sdk/types) - this contains commonly used types throughout the SDK.
@@ -24,11 +24,13 @@ A couple of notes about the above code:
 
 ## Getters and Setters
 
+In our `keeper` directory we find the `whois.go` file which has been created with our `starport type` command.
+
 The `type` command has already scaffolded most of our required getters and setters (CRUD operations) - however, we need to make a few changes, as we are using a `Name` as the key for each `Whois`, which is not defined in the type itself.
 
 We will also be adding functions for getting specific parameters from the store based on the name. However, instead of rewriting the store getters and setters, we reuse the `GetWhois` and `SetWhois` functions.
 
-Afterwards, your file should look like this.
+Afterwards, your `x/nameservice/keeper/whois.go` file should look like this.
 
 <<< @/nameservice/nameservice/x/nameservice/keeper/whois.go
 

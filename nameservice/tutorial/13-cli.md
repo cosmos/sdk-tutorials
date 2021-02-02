@@ -34,6 +34,8 @@ Now that the query interactions are defined, it is time to move on to transactio
 
 We also need to add the commands to our `tx` command in `x/nameservice/client/cli/tx.go` file:
 
+`./x/nameservice/client/cli/tx.go`
+
 <<< @/nameservice/nameservice/x/nameservice/client/cli/tx.go
 
 Notes on the above code:

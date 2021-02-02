@@ -39,6 +39,12 @@ func NewHandler(keeper Keeper) sdk.Handler {
 
 Finally, update the `BuyName` `handler` function which performs the state transitions triggered by the message. Keep in mind that at this point the message has had its `ValidateBasic` function run so there has been some input verification. However, `ValidateBasic` cannot query application state. Validation logic that is dependent on network state (e.g. account balances) should be performed in the `handler` function.
 
+Let's rename `handlerMsgCreateWhois.go` to `handlerMsgBuyName.go`
+
+```
+mv x/nameservice/handlerMsgCreateWhois.go x/nameservice/handlerMsgBuyName.go
+```
+
 Go to `./x/nameservice/handlerMsgBuyName.go` 
 
 <<< @/nameservice/nameservice/x/nameservice/handlerMsgBuyName.go

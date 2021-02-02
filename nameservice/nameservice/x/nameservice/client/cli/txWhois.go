@@ -10,7 +10,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/cosmos/sdk-tutorials/nameservice/nameservice/x/nameservice/types"
+	"github.com/user/nameservice/x/nameservice/types"
 )
 
 func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
@@ -52,7 +52,7 @@ func GetCmdSetWhois(cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			inBuf := bufio.NewReader(cmd.InOrStdin())
 			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
-			msg := types.NewMsgSetName(cliCtx.GetFromAddress(), argsValue, argsName)
+			msg := types.NewMsgSetName(argsName, argsValue, cliCtx.GetFromAddress())
 			err := msg.ValidateBasic()
 			if err != nil {
 				return err

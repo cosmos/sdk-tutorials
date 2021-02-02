@@ -6,8 +6,8 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/types/rest"
-	"github.com/cosmos/sdk-tutorials/nameservice/nameservice/x/nameservice/types"
 	"github.com/gorilla/mux"
+	"github.com/user/nameservice/x/nameservice/types"
 )
 
 func listWhoisHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {

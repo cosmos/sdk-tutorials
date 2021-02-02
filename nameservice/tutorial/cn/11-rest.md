@@ -20,7 +20,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/rest"
-	"github.com/cosmos/sdk-tutorials/nameservice/x/nameservice"
+	"github.com/user/nameservice/x/nameservice"
 
 	"github.com/gorilla/mux"
 )

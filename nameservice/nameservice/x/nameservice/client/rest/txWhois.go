@@ -7,7 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/rest"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/cosmos/sdk-tutorials/nameservice/nameservice/x/nameservice/types"
+	"github.com/user/nameservice/x/nameservice/types"
 )
 
 type buyNameRequest struct {
@@ -54,7 +54,7 @@ type setWhoisRequest struct {
 	BaseReq rest.BaseReq `json:"base_req"`
 	Name    string       `json:"name"`
 	Value   string       `json:"value"`
-	Owner   string       `json:"owner"`
+	Creator string       `json:"creator"`
 }
 
 func setWhoisHandler(cliCtx context.CLIContext) http.HandlerFunc {
@@ -68,12 +68,12 @@ func setWhoisHandler(cliCtx context.CLIContext) http.HandlerFunc {
 		if !baseReq.ValidateBasic(w) {
 			return
 		}
-		addr, err := sdk.AccAddressFromBech32(req.Owner)
+		addr, err := sdk.AccAddressFromBech32(req.Creator)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
-		msg := types.NewMsgSetName(addr, req.Value, req.Name)
+		msg := types.NewMsgSetName(req.Name, req.Value, addr)
 
 		err = msg.ValidateBasic()
 		if err != nil {

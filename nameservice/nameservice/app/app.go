@@ -22,9 +22,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/params"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/cosmos-sdk/x/supply"
-	"github.com/cosmos/sdk-tutorials/nameservice/nameservice/x/nameservice"
-	nameservicekeeper "github.com/cosmos/sdk-tutorials/nameservice/nameservice/x/nameservice/keeper"
-	nameservicetypes "github.com/cosmos/sdk-tutorials/nameservice/nameservice/x/nameservice/types"
+	"github.com/user/nameservice/x/nameservice"
+	nameservicekeeper "github.com/user/nameservice/x/nameservice/keeper"
+	nameservicetypes "github.com/user/nameservice/x/nameservice/types"
 	// this line is used by starport scaffolding
 )
 

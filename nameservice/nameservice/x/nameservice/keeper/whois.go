@@ -1,12 +1,43 @@
 package keeper
 
 import (
+	"strconv"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/sdk-tutorials/nameservice/nameservice/x/nameservice/types"
+	"github.com/user/nameservice/x/nameservice/types"
 )
+
+// GetWhoisCount get the total number of whois
+func (k Keeper) GetWhoisCount(ctx sdk.Context) int64 {
+	store := ctx.KVStore(k.storeKey)
+	byteKey := []byte(types.WhoisCountPrefix)
+	bz := store.Get(byteKey)
+
+	// Count doesn't exist: no element
+	if bz == nil {
+		return 0
+	}
+
+	// Parse bytes
+	count, err := strconv.ParseInt(string(bz), 10, 64)
+	if err != nil {
+		// Panic because the count should be always formattable to int64
+		panic("cannot decode count")
+	}
+
+	return count
+}
+
+// SetWhoisCount set the total number of whois
+func (k Keeper) SetWhoisCount(ctx sdk.Context, count int64) {
+	store := ctx.KVStore(k.storeKey)
+	byteKey := []byte(types.WhoisCountPrefix)
+	bz := []byte(strconv.FormatInt(count, 10))
+	store.Set(byteKey, bz)
+}
 
 // CreateWhois creates a whois. This function is included in starport type scaffolding.
 // We won't use this function in our application, so it can be commented out.
@@ -92,10 +123,10 @@ func resolveName(ctx sdk.Context, path []string, keeper Keeper) ([]byte, error) 
 	return res, nil
 }
 
-// Get owner of the item
-func (k Keeper) GetOwner(ctx sdk.Context, key string) sdk.AccAddress {
+// Get creator of the item
+func (k Keeper) GetCreator(ctx sdk.Context, key string) sdk.AccAddress {
 	whois, _ := k.GetWhois(ctx, key)
-	return whois.Owner
+	return whois.Creator
 }
 
 // Check if the key exists in the store
@@ -118,15 +149,15 @@ func (k Keeper) SetName(ctx sdk.Context, name string, value string) {
 }
 
 // HasOwner - returns whether or not the name already has an owner
-func (k Keeper) HasOwner(ctx sdk.Context, name string) bool {
+func (k Keeper) HasCreator(ctx sdk.Context, name string) bool {
 	whois, _ := k.GetWhois(ctx, name)
-	return !whois.Owner.Empty()
+	return !whois.Creator.Empty()
 }
 
 // SetOwner - sets the current owner of a name
-func (k Keeper) SetOwner(ctx sdk.Context, name string, owner sdk.AccAddress) {
+func (k Keeper) SetCreator(ctx sdk.Context, name string, creator sdk.AccAddress) {
 	whois, _ := k.GetWhois(ctx, name)
-	whois.Owner = owner
+	whois.Creator = creator
 	k.SetWhois(ctx, name, whois)
 }
 
@@ -153,4 +184,19 @@ func (k Keeper) IsNamePresent(ctx sdk.Context, name string) bool {
 func (k Keeper) GetNamesIterator(ctx sdk.Context) sdk.Iterator {
 	store := ctx.KVStore(k.storeKey)
 	return sdk.KVStorePrefixIterator(store, []byte(types.WhoisPrefix))
+}
+
+// Get creator of the item
+func (k Keeper) GetWhoisOwner(ctx sdk.Context, key string) sdk.AccAddress {
+	whois, err := k.GetWhois(ctx, key)
+	if err != nil {
+		return nil
+	}
+	return whois.Creator
+}
+
+// Check if the key exists in the store
+func (k Keeper) WhoisExists(ctx sdk.Context, key string) bool {
+	store := ctx.KVStore(k.storeKey)
+	return store.Has([]byte(types.WhoisPrefix + key))
 }

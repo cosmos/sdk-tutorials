@@ -1,4 +1,8 @@
-# nameservice
+# nameservice UI
+
+This is the [vuejs](https://vuejs.org/) user inteface to nameservice.
+
+It provides UI components including login, and a template for you to do additonal development.
 
 ## Project setup
 

@@ -13,7 +13,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	// sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/cosmos/sdk-tutorials/nameservice/nameservice/x/nameservice/types"
+	"github.com/user/nameservice/x/nameservice/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module
@@ -29,10 +29,9 @@ func GetQueryCmd(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 	nameserviceQueryCmd.AddCommand(
 		flags.GetCommands(
-			// this line is used by starport scaffolding
+      // this line is used by starport scaffolding # 1
 			GetCmdListWhois(queryRoute, cdc),
 			GetCmdGetWhois(queryRoute, cdc),
-			GetCmdResolveName(queryRoute, cdc),
 		)...,
 	)
 

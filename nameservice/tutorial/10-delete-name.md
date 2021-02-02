@@ -7,7 +7,13 @@ order: 11
 ## MsgDeleteName
 
 
-Now it is time to update the `Msg` for deleting names and add it to the `./x/nameservice/types/MsgDeleteName.go` file. 
+Now it is time to update the `Msg` for deleting names. Let's rename our `MsgDeleteWhois.go` to `MsgDeleteName.go`
+
+```
+mv x/nameservice/types/MsgDeleteWhois.go x/nameservice/types/MsgDeleteName.go
+```
+
+add it to the `./x/nameservice/types/MsgDeleteName.go` file. 
 
 Replace `MsgDeleteWhois` by `MsgDeleteName`:
 ```
@@ -44,5 +50,13 @@ func NewHandler(keeper Keeper) sdk.Handler {
 	}
 }
 ```
+
+Let's rename our `handlerMsgDeleteWhois.go` to `handlerMsgDeleteName.go`
+
+```
+mv x/nameservice/handlerMsgDeleteWhois.go x/nameservice/handlerMsgDeleteName.go
+```
+
+<<< @/nameservice/nameservice/x/nameservice/handlerMsgDeleteName.go
 
 ### Now that you have your `Msgs` and `Handlers` defined it's time to learn about making the data from these transactions [available for querying.

@@ -2,8 +2,8 @@ package nameservice
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/sdk-tutorials/nameservice/nameservice/x/nameservice/keeper"
-	"github.com/cosmos/sdk-tutorials/nameservice/nameservice/x/nameservice/types"
+	"github.com/user/nameservice/x/nameservice/keeper"
+	"github.com/user/nameservice/x/nameservice/types"
 	// abci "github.com/tendermint/tendermint/abci/types"
 )
 
