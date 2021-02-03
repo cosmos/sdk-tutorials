@@ -7,7 +7,8 @@ order: 1
 This tutorial will present a guide on how to migrate your Cosmos SDK application from Launchpad to Stargate. The Stargate release comes with many features and enhancements, such as IBC, efficiency gains, protobuf support, and more.
 
 ## Requirements
-To assist with this tutorial, we will be using Starport. 
+
+We will be using Starport to assist us with the migration.
 
 Install it by entering:
 
@@ -17,7 +18,7 @@ curl https://get.starport.network/starport! | bash
 
 We will be migrating the Proof of File existence tutorial from Launchpad to Stargate.
 
-In order to obtain the code for the Proof of File Existence application, you can follow the tutorial [here](https://tutorials.cosmos.network/proof-of-file-existence/tutorial/01-intro.html), or clone [this] repository.
+In order to obtain the code for the Proof of File Existence application, you can follow the tutorial [here](https://tutorials.cosmos.network/proof-of-file-existence/tutorial/01-intro.html), or clone [this](https://github.com/cosmos/sdk-tutorials/tree/master/proof-of-file-existence/pofe) repository.
 
 ## Resources
 
