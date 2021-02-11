@@ -3,7 +3,71 @@ order: 2
 ---
 # Module migration
 
-In this section, we will be migrating the `pofe` module from our Launchpad application. 
+In this section, we will be migrating the `pofe` module from our Launchpad application.
+
+## Module differences
+
+Before proceeding with the migration, it is important to note the differences between Launchpad and Stargate modules. Below is an overview of the differences when scaffolding a module with Starport -
+
+```sh
+# # removed in Staragte
+# +++ added in Stargate 
+
+├── proto
+│   └── pofe
+│       ├── +++ claim.proto
+│       ├── +++ genesis.proto
+│       └── +++ query.proto
+└── x
+    └── pofe
+        ├── client
+        │   ├── cli
+        │   │   ├── query.go
+        │   │   ├── queryClaim.go
+        │   │   ├── tx.go
+        │   │   └── txClaim.go
+        │   └── rest
+        │       ├── queryClaim.go
+        │       ├── rest.go
+        │       └── txClaim.go
+        ├── genesis.go
+        ├── handler.go
+        ├── +++ handler_claim.go
+        ├── # handlerMsgCreateClaim.go
+        ├── # handlerMsgDeleteClaim.go
+        ├── # handlerMsgSetClaim.go
+        ├── keeper
+        │   ├── claim.go
+        │   ├── +++ grpc_query.go
+        │   ├── +++ grpc_query_claim.go
+        │   ├── keeper.go
+        │   ├── # params.go
+        │   ├── # querier.go
+        │   ├── +++ query.go
+        │   └── +++ query_claim.go
+        ├── module.go
+        └── types
+            ├── # MsgCreateClaim.go
+            ├── # MsgDeleteClaim.go
+            ├── # MsgSetClaim.go
+            ├── +++ messages_claim.go
+            ├── # TypeClaim.go
+            ├── +++ claim.pb.go
+            ├── codec.go
+            ├── errors.go
+            ├── # events.go
+            ├── # expected_keepers.go
+            ├── genesis.go
+            ├── +++ genesis.pb.go
+            ├── keys.go
+            ├── # params.go
+            ├── query.go
+            ├── +++ query.pb.go
+            ├── +++ query.pb.gw.go
+            └── types.go
+```
+
+One of the key differences is the integration of gRPC and protobuf in your application. Protobufs are an efficient method for serializing messages and the current industry standard.
 
 ## Scaffolding your Stargate module
 
@@ -134,7 +198,7 @@ message QueryAllClaimResponse {
 }
 ```
 
-If you are unfamiliar with gRPC, a simple explanation is that each gRPC query is registered with a message structure that it receives, and the message structure    of the response. For example, `QueryGetClaimRequest` would require an string `id`, and would return a `Claim`, which is defined in the `claim.proto` file in the same directory.
+If you are unfamiliar with gRPC, a simple explanation is that each gRPC query is registered with a message structure that it receives, and the message structure of the response. For example, `QueryGetClaimRequest` would require an string `id`, and would return a `Claim`, which is defined in the `claim.proto` file in the same directory.
 
 As a matter of fact, these messages will be used to generate the messages used in the application. You will notice this in `x/pofe/types/claim.pb.go` - take for example the `Claim` type. There will also be a few pre-generated helper functions including getters and marshaling methods for the messages.
 
@@ -227,9 +291,9 @@ func (m *Claim) GetProof() string {
 // MsgCreateClaim, MsgUpdateClaim, MsgDeleteClaim
 ```
 
-Note that you can also generate these `.pb.go` files by running `./scripts/protocgen`, which will update the aforementioned files.
+Note that you can also generate these `.pb.go` files by running `./scripts/protocgen`.
 
-The same concept goes for the query methods - so updating the `proto/pofe/query.proto` file and running the script will regenerate the contents of `types/query.pb.go` and `query.pb.gw.go`.
+The same concept goes for the query methods - so updating the `proto/pofe/query.proto` file and running the script will update the contents of `types/query.pb.go` and `query.pb.gw.go`.
 
 Now, we can continue to migrate our logic to Stargate!
 

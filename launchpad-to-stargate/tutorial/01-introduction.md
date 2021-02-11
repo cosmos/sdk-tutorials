@@ -13,10 +13,10 @@ We will be using Starport to assist us with the migration.
 Install it by entering:
 
 ```bash
-curl https://get.starport.network/starport! | bash
+curl https://get.starport.network/starport@v0.13.1! | bash
 ```
 
-We will be migrating the Proof of File existence tutorial from Launchpad to Stargate.
+We will be migrating the Proof of File existence tutorial from Launchpad to Stargate. At the time of writing, Launchpad is at `v0.39.1` and Stargate is `v0.40.0` of the Cosmos SDK.
 
 In order to obtain the code for the Proof of File Existence application, you can follow the tutorial [here](https://tutorials.cosmos.network/proof-of-file-existence/tutorial/01-intro.html), or clone [this](https://github.com/cosmos/sdk-tutorials/tree/master/proof-of-file-existence/pofe) repository.
 
@@ -27,6 +27,20 @@ Throughout this guide, we will be regularly referencing this [document](https://
 As the design of Cosmos SDK application is meant to be modular and composable, it is possible to migrate an application from Launchpad to Stargate by copying the modules over to a boiler Stargate application and updating a few of the commands mentioned in the migration docs. We will be using Starport to assist with scaffolding new files which will be used as a baseline for migrating your application logic.
 
 ## Boilerplate application
+
+Place the Launchpad PoFe application in a `launchpad` directory and next to it a `stargate` directory. We will aim at moving the logic from one application to the other and have your blockchain Stargate ready by the end of the tutorial.
+
+The directory structure should look like this:
+
+```sh
+.
+├── launchpad # launchpad application directory
+│   └── pofe 
+│       ├── app
+│       │   ...
+└── stargate # stargate application directory
+
+```
 
 Once you have your application ready, we will be using Starport to assist us with the migration to Stargate.
 
@@ -148,7 +162,7 @@ pofe
 
 The first key change in the application is that `pofecli` no longer exists, and all of its functionality has been consolidated into `pofed`. You will still be able to access commands from `pofecli` in `pofed`.
 
-The second notable change in the app structure is the integration of protobufs. Protobufs are a compiled form of messaging and therefore more performant than their JSON REST Api counterparts.
+The second notable change in the app structure is the integration of protobufs. Protobufs are a compiled form of messaging and therefore more performant than their JSONRPC counterparts.
 
 This includes folders such as `pofe/internal`, `pofe/scripts`, `pofe/third_party`, and `pofe/proto`, as well as files following the regex `*.pb.go` and `*.pb.gw.go`.
 
