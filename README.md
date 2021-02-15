@@ -24,6 +24,13 @@ sections:
     tags:
       - starport
       - launchpad
+  - title: Launchpad to Stargate
+    desc: Efficiently migrate your Cosmos SDK applications or modules from Launchpad to Stargate using Starport.
+    url: /launchpad-to-stargate/tutorial/01-introduction.html
+    difficulty: beginner
+    tags:
+      - starport
+      - stargate
   - title: Scavenge
     desc: Users post questions with hashed answers and bounties for whoever can solve them using a commit-reveal scheme that prevents front-running.
     url: /scavenge/tutorial/01-background.html

@@ -51,6 +51,11 @@ module.exports = {
               directory: true,
             },
             {
+              title: "PoFE - Launchpad to Stargate",
+              path: "/launchpad-to-stargate/tutorial/",
+              directory: true,
+            },
+            {
               title: "Scavenge",
               path: "/scavenge/tutorial/",
               directory: true,
@@ -193,6 +198,7 @@ module.exports = {
     'nameservice/tutorial/*.md',
     'scavenge/tutorial/*.md',
     'proof-of-file-existence/tutorial/*.md',
+    'launchpad-to-stargate/tutorial/*.md',
     'voter/*.md',
     'blog-legacy/tutorial/*.md',
     'blog/tutorial/*.md',
