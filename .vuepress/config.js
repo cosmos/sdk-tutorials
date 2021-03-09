@@ -31,6 +31,11 @@ module.exports = {
           title: "Tutorials",
           children: [
             {
+              title: "IBC Hello World",
+              path: "/hello-world/tutorial/",
+              directory: true,
+            },
+            {
               title: "Voter",
               path: "/voter/",
               directory: true,
@@ -193,6 +198,7 @@ module.exports = {
     ],
   ],
   patterns: [
+    'hello-world/tutorial/*.md',
     'burner-chain/*.md',
     'README.md',
     'nameservice/tutorial/*.md',

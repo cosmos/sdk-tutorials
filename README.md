@@ -3,6 +3,13 @@ layout: home
 title: Cosmos SDK Tutorials
 description: Tutorials for the Cosmos SDK
 sections:
+  - title: IBC Hello World
+    desc: Build a Hello World application on two blockchains and learn how to connect them with IBC.
+    url: /hello-world/tutorial/index.md
+    difficulty: beginner
+    tags: 
+      - starport
+      - stargate
   - title: Voter
     desc: Build a voting application with a web-based UI.
     url: /voter/
