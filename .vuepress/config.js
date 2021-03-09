@@ -39,11 +39,6 @@ module.exports = {
               title: "Blog",
               path: "/blog/tutorial/",
               directory: true,
-            },     
-            {
-              title: "Blog (legacy)",
-              path: "/blog-legacy/tutorial/",
-              directory: true,
             },            
             {
               title: "PoFE",
@@ -51,7 +46,7 @@ module.exports = {
               directory: true,
             },
             {
-              title: "PoFE - Launchpad to Stargate",
+              title: "PoFE - Migration",
               path: "/launchpad-to-stargate/tutorial/",
               directory: true,
             },
@@ -72,6 +67,16 @@ module.exports = {
             },
           ],
         },
+        {
+          title: "Legacy Tutorials",
+          children: [
+            {
+              title: "Blog",
+              path: "/blog-legacy/tutorial/",
+              directory: true,
+            },    
+          ]
+        }
       ],
     },
     gutter: {
