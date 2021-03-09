@@ -31,16 +31,19 @@
         img(:src="item.image" alt="Image").stack__item__image
         .stack__item__text
           .stack__item__h1 {{item.title}}
-          .stack__item__p {{item.date}}
+          .stack__item__p {{ format(parseISO(item.date), 'MMM d, yyyy') }}
     tm-help-support
 </template>
 
 <script>
 import axios from "axios";
+import { format, parseISO } from 'date-fns';
 
 export default {
   data() {
     return {
+      format,
+      parseISO,
       tagColor: {
         beginner: ["#5064FB", "#FFFFFF"],
         intermediate: ["#FFFFFF", "#5064FB"],
@@ -54,7 +57,7 @@ export default {
   },
   async mounted() {
     this.articlesList = (await axios.get(
-      "https://feed.blog.tendermint.com/medium"
+      "https://feed.blog.tendermint.com/cosmos/tag/tutorial"
     )).data.map(item => ({
         date: new Date(item.date).toISOString().substr(0, 10),
         title: item.title,
@@ -230,7 +233,7 @@ a
 .stack {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, minmax(300px, 1fr));
   margin-bottom: 4rem;
 
   &__item {
@@ -266,6 +269,12 @@ a
   }
 }
 
+@media screen and (max-width: 1331px) {
+  .stack {
+    grid-template-columns: repeat(2, minmax(300px, 1fr));
+  }
+}
+
 @media screen and (max-width: 1136px) {
   .p {
     font-size: 1.25rem;
@@ -277,6 +286,12 @@ a
       font-size: 1.5rem;
       line-height: 2.25rem;
     }
+  }
+}
+
+@media screen and (max-width: 1007px) {
+  .stack {
+    grid-template-columns: repeat(1, minmax(300px, 1fr));
   }
 }
 
