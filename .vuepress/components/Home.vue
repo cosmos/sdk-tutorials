@@ -27,7 +27,7 @@
           .stack__item__p {{item.duration}}
     .h2 Articles
     .stack
-      a.stack__item(:href="item.url" target="_blank" rel="noreferrer noopener" v-for="item in articlesList")
+      a.stack__item(:href="item.link" target="_blank" rel="noreferrer noopener" v-for="item in articlesList")
         img(:src="item.image" alt="Image").stack__item__image
         .stack__item__text
           .stack__item__h1 {{item.title}}
