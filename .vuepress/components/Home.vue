@@ -25,10 +25,19 @@
         .stack__item__text
           .stack__item__h1 {{item.title}}
           .stack__item__p {{item.duration}}
+    .h2 Articles
+    .stack
+      a.stack__item(:href="item.url" target="_blank" rel="noreferrer noopener" v-for="item in articlesList")
+        img(:src="item.image" alt="Image").stack__item__image
+        .stack__item__text
+          .stack__item__h1 {{item.title}}
+          .stack__item__p {{item.date}}
     tm-help-support
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -40,8 +49,20 @@ export default {
         stargate: ["#FFFFFF", "#AC454C"],
         starport: ["#FFFFFF", "#7A236C"],
       },
+      articlesList: []
     };
   },
+  async mounted() {
+    this.articlesList = (await axios.get(
+      "https://feed.blog.tendermint.com/medium"
+    )).data.map(item => ({
+        date: new Date(item.date).toISOString().substr(0, 10),
+        title: item.title,
+        link: item.link,
+        image: item.image.replace('/max/1024/', '/max/768/')
+      }))
+      .slice(0, 6);
+  }
 };
 </script>
 
