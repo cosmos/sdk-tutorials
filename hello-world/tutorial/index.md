@@ -310,18 +310,18 @@ validator:
   name: alice
   staked: "100000000stake"
 faucet:
-  port: 4501
+  host: "0.0.0.0:4501"
   name: bob
   coins:
     - "5token"
-servers:
-  rpc-address: "0.0.0.0:26659"
-  p2p-address: "0.0.0.0:26658"
-  prof-address: "0.0.0.0:6061"
-  grpc-address: "0.0.0.0:9091"
-  api-address: "0.0.0.0:1318"
-  frontend-address: "0.0.0.0:8081"
-  dev-ui-address: "0.0.0.0:12346"
+host:
+  rpc: "0.0.0.0:26659"
+  p2p: "0.0.0.0:26658"
+  prof: "0.0.0.0:6061"
+  grpc: "0.0.0.0:9091"
+  api: "0.0.0.0:1318"
+  frontend: "0.0.0.0:8081"
+  dev-ui: "0.0.0.0:12346"
 genesis:
   chain_id: "mars"
 init:
