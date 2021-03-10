@@ -1,7 +1,12 @@
+---
+order: 1
+---
+
 # IBC Hello World
 
-The Hello World example is a time-honored tradition in computer programming. In this exercise you will learn how to build an IBC module for the Cosmos SDK, build your own blockchain app and use the Interblockchain Communication Protocol (IBC).
-The IBC Protocol is an important part of the Cosmos SDK ecosystem. 
+The Hello World example is a time-honored tradition in computer programming.
+
+The Interblockchain Communication Protocol is an important part of the Cosmos SDK ecosystem. 
 Understanding how to create and send packets across blockchain will help you navigate between blockchains with the Cosmos SDK.
 
 **You will learn how to**
@@ -9,12 +14,12 @@ Understanding how to create and send packets across blockchain will help you nav
 - Navigate between blockchains using the Cosmos SDK and the Starport Relayer.
 - Create a basic blog post and save the post on another blockchain.
 
-# What is Cosmos SDK and IBC
+## What is Cosmos SDK and IBC?
 
-The Cosmos SDK is a framework to create a blockchain app. The goal of the Cosmos SDK is to allow developers to easily create custom blockchains that can natively interoperate with other blockchains.
-The IBC module in the Cosmos SDk is the standard for the interaction between two blockchains. It defines how packets and messages are constructed to be interpreted by the sending and the receiving blockchain.
-With the relayer you can connect two blockchains, you will learn how to create a blockchain and then startup the relayer with Starport to connect two blockchains.
-This tutorial teaches you essentials like modules, IBC packets, relayer and the lifecycle of packets routed through IBC.
+The Cosmos SDK is a framework to create a blockchain app. The Cosmos SDK allows developers to easily create custom blockchains that can natively interoperate with other blockchains.
+The IBC module in the Cosmos SDK is the standard for the interaction between two blockchains. The IBC module defines how packets and messages are constructed to be interpreted by the sending and the receiving blockchain.
+The Cosmos IBC relayer package lets you can connect between sets of IBC-enabled chains. This tutorial teaches you how to create two blockchains and then start and use the relayer with Starport to connect two blockchains.
+This tutorial covers essentials like modules, IBC packets, relayer, and the lifecycle of packets routed through IBC.
 
 ## Prerequisites 
 
@@ -63,12 +68,12 @@ The blog module contains the logic for creating blog posts and routing them thro
 starport module create blog --ibc
 ```
 
-This will create a new directory with the code for an IBC module into `planet/x/blog`. 
-The `--ibc` flag makes sure to all the logic for an IBC module scaffolded.
+A new directory with the code for an IBC module is created in `planet/x/blog`. 
+The `--ibc` flag includes all the logic for the scaffolded IBC module.
 
 1. Create the transction types for the module. 
-With using the `starport type` command you can scaffold a transaction message with starport.
-The module will have the logic for:
+Use the `starport type` command to scaffold a transaction message with Starport.
+The module has the logic for:
 
 - Creating Blog posts
 - Processing acknowledgments for sent posts
@@ -263,17 +268,15 @@ The blockchain is now ready!
 
 Spin up the blockchain and send a blog post from one blockchain app to the other.
 
-You will need various terminal windows to complete these next steps.
+Various terminal windows are required to complete these next steps.
 
 ## Test the IBC modules
 
-### Start the chains
-
 To test the IBC module, start two blockchain networks on the same machine. Both blockchains use the same source code. Each blockchain has a unique chain ID.
 
-We will have a blockchain network named `earth` and the other name `mars`.
+One blockchain is named `earth` and the other blockchain is named `mars`.
 
-We need the two following files in the project directory:
+The following files are required in the project directory:
 
 `planet/earth.yml`
 
@@ -456,7 +459,7 @@ pagination:
   total: "2"
 ```
 
-You can also a post from Mars:
+You can also send a post from Mars:
 
 ```
 planetd tx blog send-ibcPost blog channel-0 "Hello" "Hello Earth, I'm Alice from Mars" --from alice --chain-id mars --home ~/.mars --node tcp://localhost:26659
@@ -481,5 +484,11 @@ pagination:
   total: "1"
 ```
 
-🎉 **Congratulation, you built a Hello World blockchain app as an IBC module. You have used the relayer to connect two blockchains with each other and  transferred IBC packets from one blockchain to another.** 🎉 
+🎉 **Congratulations.**  🎉 
+
+By completing this tutorial, you’ve learned to build an IBC module for the Cosmos SDK, build your own blockchain app, and use the Interblockchain Communication Protocol (IBC).
+Here’s what you accomplished in this tutorial:
+- Built a Hello World blockchain app as an IBC module
+- Used the relayer to connect two blockchains with each other
+- Transferred IBC packets from one blockchain to another 
 
