@@ -48,7 +48,7 @@ After the transaction is acknowledged by the receiving chain, you know that the 
 - Sent posts that are acknowledged and timed out contain the title and the target chain of the post. These identifiers are visible on the parameter `chain`. 
 The following chart shows the lifecycle of a packet that travels through IBC.
 
-[The Lifecycle of an IBC packet in the blog module](https://whimsical.com/ibc-hello-world-Mtnd3ERtqeLZDXapDLGR8P)
+[![The Lifecycle of an IBC packet in the blog module](./packet_sendpost.png)](./packet_sendpost.png)
 
 ## Initialize the Blockchain
 
