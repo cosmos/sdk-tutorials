@@ -311,7 +311,7 @@ validator:
   name: alice
   staked: "100000000stake"
 faucet:
-  host: "0.0.0.0:4501"
+  host: ":4501"
   name: bob
   coins:
     - "5token"
