@@ -269,7 +269,7 @@ The blockchain is now ready!
 
 Spin up the blockchain and send a blog post from one blockchain app to the other.
 
-Various terminal windows are required to complete these next steps.
+Multiple terminal windows are required to complete these next steps.
 
 ## Test the IBC modules
 
