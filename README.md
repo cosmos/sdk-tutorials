@@ -5,7 +5,7 @@ description: Tutorials for the Cosmos SDK
 sections:
   - title: IBC Hello World
     desc: Build a Hello World blockchain app as an IBC module. Learn how to use the relayer to connect two blockchains with each other and use IBC packets to transfer data from one blockchain to another.
-    url: /hello-world/tutorial/index.md
+    url: /hello-world/tutorial/
     difficulty: beginner
     tags: 
       - starport
