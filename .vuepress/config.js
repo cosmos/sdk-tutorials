@@ -30,6 +30,22 @@ module.exports = {
         {
           title: "Tutorials",
           children: [
+
+            {
+              title: "Blog",
+              path: "/blog/tutorial/",
+              directory: true,
+            }, 
+            {
+              title: "PoFE - Migration",
+              path: "/launchpad-to-stargate/tutorial/",
+              directory: true,
+            },
+          ],
+        },
+        {
+          title: "Legacy Tutorials",
+          children: [
             {
               title: "Voter",
               path: "/voter/",
@@ -37,22 +53,12 @@ module.exports = {
             },
             {
               title: "Blog",
-              path: "/blog/tutorial/",
-              directory: true,
-            },     
-            {
-              title: "Blog (legacy)",
               path: "/blog-legacy/tutorial/",
               directory: true,
-            },            
+            },               
             {
               title: "PoFE",
               path: "/proof-of-file-existence/tutorial/",
-              directory: true,
-            },
-            {
-              title: "PoFE - Launchpad to Stargate",
-              path: "/launchpad-to-stargate/tutorial/",
               directory: true,
             },
             {
@@ -70,8 +76,8 @@ module.exports = {
               path: "/burner-chain/",
               directory: true,
             },
-          ],
-        },
+          ]
+        }
       ],
     },
     gutter: {
