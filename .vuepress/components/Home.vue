@@ -57,7 +57,7 @@ export default {
   },
   async mounted() {
     this.articlesList = (await axios.get(
-      "https://feed.blog.tendermint.com/cosmos/tag/tutorial"
+      "https://backend.tendermint.com/cosmos/tag/tutorial"
     )).data.map(item => ({
         date: new Date(item.date).toISOString().substr(0, 10),
         title: item.title,
