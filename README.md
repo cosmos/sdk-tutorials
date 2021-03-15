@@ -31,7 +31,7 @@ sections:
     tags:
       - starport
       - launchpad
-  - title: Launchpad to Stargate
+  - title: Proof of File Existence Migration
     desc: Efficiently migrate your Cosmos SDK applications or modules from Launchpad to Stargate using Starport.
     url: /launchpad-to-stargate/tutorial/01-introduction.html
     difficulty: beginner
