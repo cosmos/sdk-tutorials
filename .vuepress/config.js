@@ -41,6 +41,11 @@ module.exports = {
               path: "/launchpad-to-stargate/tutorial/",
               directory: true,
             },
+            {
+              title: "IBC Hello World",
+              path: "/hello-world/tutorial/",
+              directory: true,
+            },
           ],
         },
         {
@@ -199,6 +204,7 @@ module.exports = {
     ],
   ],
   patterns: [
+    'hello-world/tutorial/*.md',
     'burner-chain/*.md',
     'README.md',
     'nameservice/tutorial/*.md',
