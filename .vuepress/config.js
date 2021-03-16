@@ -41,16 +41,16 @@ module.exports = {
               path: "/launchpad-to-stargate/tutorial/",
               directory: true,
             },
-          ],
-        },
-        {
-          title: "Legacy Tutorials",
-          children: [
             {
               title: "IBC Hello World",
               path: "/hello-world/tutorial/",
               directory: true,
             },
+          ],
+        },
+        {
+          title: "Legacy Tutorials",
+          children: [
             {
               title: "Voter",
               path: "/voter/",

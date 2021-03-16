@@ -184,6 +184,8 @@ Append the type instance as `PostID` on receiving the packet:
 - the `title` is the Title of the blog post
 - the `content` is the Content of the blog post
 
+In the `ibcPost.go` file, make sure to import `"strconv"`, below `"errors"`, then add the following code:
+
 ```go
 // planet/x/blog/keeper/ibcPost.go
 // OnRecvIbcPostPacket processes packet reception
@@ -199,6 +201,7 @@ func (k Keeper) OnRecvIbcPostPacket(ctx sdk.Context, packet channeltypes.Packet,
 		data.Title,
 		data.Content,
 	)
+  packetAck.PostID = strconv.FormatUint(id, 10)
 
 	return packetAck, nil
 }
