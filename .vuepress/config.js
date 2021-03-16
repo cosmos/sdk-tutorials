@@ -28,7 +28,7 @@ module.exports = {
       auto: false,
       nav: [
         {
-          title: "Tutorials",
+          title: "Stargate Tutorials",
           children: [
 
             {
@@ -49,7 +49,7 @@ module.exports = {
           ],
         },
         {
-          title: "Legacy Tutorials",
+          title: "Launchpad Tutorials",
           children: [
             {
               title: "Voter",
