@@ -18,13 +18,6 @@
             .sections__item__desc {{section.desc}}
           .sections__item__tags
             .sections__item__tags__item(v-for="tag in section.tags") {{tag}}
-    .h2 Videos
-    .stack
-      a.stack__item(:href="item.url" target="_blank" rel="noreferrer noopener" v-for="item in $frontmatter.stack")
-        img(:src="item.imgSrc" alt="Image").stack__item__image
-        .stack__item__text
-          .stack__item__h1 {{item.title}}
-          .stack__item__p {{item.duration}}
     .h2 Articles
     .stack
       a.stack__item(:href="item.link" target="_blank" rel="noreferrer noopener" v-for="item in articlesList")
@@ -32,6 +25,13 @@
         .stack__item__text
           .stack__item__h1 {{item.title}}
           .stack__item__p {{ format(parseISO(item.date), 'MMM d, yyyy') }}
+    .h2 Videos
+    .stack
+      a.stack__item(:href="item.url" target="_blank" rel="noreferrer noopener" v-for="item in $frontmatter.stack")
+        img(:src="item.imgSrc" alt="Image").stack__item__image
+        .stack__item__text
+          .stack__item__h1 {{item.title}}
+          .stack__item__p {{item.duration}}
     tm-help-support
 </template>
 
