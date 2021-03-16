@@ -48,7 +48,7 @@ After the transaction is acknowledged by the receiving chain, you know that the 
 - Sent posts that are acknowledged and timed out contain the title and the target chain of the post. These identifiers are visible on the parameter `chain`. 
 The following chart shows the lifecycle of a packet that travels through IBC.
 
-[![The Lifecycle of an IBC packet in the blog module](./packet_sendpost.png)](./packet_sendpost.png)
+![The Lifecycle of an IBC packet in the blog module](./packet_sendpost.png)
 
 ## Initialize the Blockchain
 
@@ -184,7 +184,7 @@ Append the type instance as `PostID` on receiving the packet:
 - the `title` is the Title of the blog post
 - the `content` is the Content of the blog post
 
-In the `ibcPost.go` file, make sure to import `"strconv"`, below `"errors"`, then add the following code:
+In the `ibcPost.go` file, make sure to import `"strconv"` below `"errors"`, then modify `OnRecvIbcPostPacket` with the following code:
 
 ```go
 // planet/x/blog/keeper/ibcPost.go
@@ -195,13 +195,13 @@ func (k Keeper) OnRecvIbcPostPacket(ctx sdk.Context, packet channeltypes.Packet,
 		return packetAck, err
 	}
 
-	packetAck.PostID = k.AppendPost(
+	id := k.AppendPost(
 		ctx,
 		packet.SourcePort+"-"+packet.SourceChannel+"-"+data.Creator,
 		data.Title,
 		data.Content,
 	)
-  packetAck.PostID = strconv.FormatUint(id, 10)
+	packetAck.PostID = strconv.FormatUint(id, 10)
 
 	return packetAck, nil
 }
