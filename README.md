@@ -25,6 +25,10 @@ sections:
       - starport
       - stargate
 stack:
+  - title: Starport v0.15: IBC Hello, world!
+    duration: "10:21"
+    imgSrc: https://i.ytimg.com/vi/NmytpuD33lY/hq720.jpg
+    url: https://www.youtube.com/watch?v=NmytpuD33lY
   - title: Cosmos Code With Us - Building your first Cosmos app
     duration: "1:39:07"
     imgSrc: https://i.ytimg.com/vi/h6Ur_40LB9k/hq720.jpg
