@@ -2,9 +2,9 @@
 order: 2
 ---
 
-# App Desgin
+# App Design
 
-In this chapter you will learn how the interchain exchange module is designed. The module is called `ibcdex`.
+In this chapter you will learn how the interchain exchange module is designed.
 The module has orderbooks, buy- and sell orders for a user to create.
 First, an orderbook for a pair of token has to be created.
 After an ordebrook exists, you can create buy and sell orders for this pair of token.
@@ -29,16 +29,16 @@ This module is inspired by the [`ibc-transfer`](https://github.com/cosmos/cosmos
 ## Overview
 
 Assume you have two blockchains, one on Venus, one on Mars. The token to use on Venus is called `vcx`, the token on Mars `mcx`. 
-When exchanging a token from Mars to Venus, on the Venus blockchain you would end up with an IBC `voucher` token that looks like `ibc/Venus/Mars/mcx`. The IBC path indicates the route the token has made. 
+When exchanging a token from Mars to Venus, on the Venus blockchain you would end up with an IBC `voucher` token that looks like `ibc/Venus/mcx`. The IBC path indicates the route the token has made. 
 
 <!-- 
-A = Venus
-B = Mars
-- The source chain is named **A**
-- The target chain is named **B**
-- The token exchanged on chain A is named **A(t)**
-- The token exchanged on chain B is named **B(t)**
-- The token A(t) sent to B is named **ibc/B/A(t)** — *this is comparable to the voucher with `ibc-transfer`*
+A = Mars
+B = Venus
+- The source chain is named **Mars**
+- The target chain is named **Venus**
+- The token exchanged on chain Mars is named **MCX**
+- The token exchanged on chain Venus is named **VCX**
+- The token MCX sent to Venus is named **ibc/Venus/MCX** — *this is comparable to the voucher with `ibc-transfer`*
 - The token B(t) sent to A is named **ibc/A/B(t)**
 - The pair between A(t) and B(t) is named **A(t)/B(t)**
 - An account on a chain A is named **A(u)**

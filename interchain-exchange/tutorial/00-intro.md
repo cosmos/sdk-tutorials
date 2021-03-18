@@ -4,10 +4,10 @@ order: 1
 
 # Introduction
 
-The Interchain Exchange is a module to create buy and sell orders on a blockchain.
+The Interchain Exchange is a module to create buy and sell orders in between two blockchains.
 In this tutorial you will learn how to create a module that can create order pairs, buy and sell orders. You will be able to create buy and sell orders across blockchains, which enables to swap tokens from one blockchain to another.
 
-The code in this tutorial is purely written for a tutorial. It is not intended to be used in production.
+The code in this tutorial is purely written for a tutorial and only for educational purpose. It is not intended to be used in production.
 {synopsis}
 
 **You will learn how to**
