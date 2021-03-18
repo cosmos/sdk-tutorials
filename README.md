@@ -25,7 +25,7 @@ sections:
       - starport
       - stargate
 stack:
-  - title: Starport v0.15: IBC Hello, world!
+  - title: "Starport v0.15: IBC Hello, world!"
     duration: "10:21"
     imgSrc: https://i.ytimg.com/vi/NmytpuD33lY/hq720.jpg
     url: https://www.youtube.com/watch?v=NmytpuD33lY
