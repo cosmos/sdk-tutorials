@@ -37,7 +37,7 @@ import "errors"
 func (k msgServer) SendSourceSellOrder(goCtx context.Context, msg *types.MsgSendSourceSellOrder) (*types.MsgSendSourceSellOrderResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// Cannot send a order if the pair doesn't exist
+	// Cannot send a order if the orderbook pair doesn't exist
 	pairIndex := types.OrderBookIndex(msg.Port, msg.ChannelID, msg.AmountDenom, msg.PriceDenom)
 	_, found := k.GetSellOrderBook(ctx, pairIndex)
 	if !found {

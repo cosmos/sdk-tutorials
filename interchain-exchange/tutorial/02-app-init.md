@@ -4,7 +4,7 @@ order: 3
 
 #  Initialize the Blockchain
 
-In this chapter you create the basic blockchain app for the interchain exchange app. You will scaffold the blockchain, the module, the transaction, the IBC packets and messages. In the later chapters you will integrate more code into each of the transaction handlers.
+In this chapter you create the basic blockchain for the interchain exchange app. You will scaffold the blockchain, the module, the transaction, the IBC packets and messages. In the later chapters you will integrate more code into each of the transaction handlers.
 
 ## Install Starport
 

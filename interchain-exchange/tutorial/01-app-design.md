@@ -4,19 +4,48 @@ order: 2
 
 # App Desgin
 
+In this chapter you will learn how the interchain exchange module is designed. The module is called `ibcdex`.
+The module has orderbooks, buy- and sell orders for a user to create.
+First, an orderbook for a pair of token has to be created.
+After an ordebrook exists, you can create buy and sell orders for this pair of token.
+
+When a user exchanges a token with the `ibcdex`, you would receive a `voucher` of that token on the other blockchain.
+This is similar to how a `ibc-transfer` is constructed.
+Since a blockchain module does not have the rights to mint new token into existence, the token on the target chain would be locked up and the buyer would receive a `voucher` of that token.
+This process can be reversed when the `voucher` get burned again to enable back the original token. This will be explained throghout the tutorial in more detail.
+
 ## Assumption
 
-The module is trustless, there is no condition to check when opening a channel between two chains. Any pair of tokens can be exchanged between any pair of chains.
-
+For any pair of tokens you can create an orderbook. The orderbook can be created for the exchange of any tokens between any pair of chains. There is no condition to check for open channels between two chains.
 A specific chain cannot mint new of its native token. 
+<!-- The module is trustless, there is no condition to check when opening a channel between two chains. Any pair of tokens can be exchanged between any pair of chains. -->
 
-This module will have some similarities with the `ibc-transfer` module and use some code from this module (like the voucher creation). It will be a bit more complex but it is interesting as a tutorial because it gives us a case where you need:
+This module is inspired by the [`ibc-transfer`](https://github.com/cosmos/cosmos-sdk/tree/v0.42.1/x/ibc/applications/transfer) module and will have some similarities like the voucher creation. It will be a bit more complex but it will display how to create:
 
 - Several types of packets to send
 - Several types of acknowledgments to treat
 - Some more complex logic on how to treat a packet, an acknowledgement, a timeout and more
 
-<!-- ## Overview
+## Overview
+
+Assume you have two blockchains, one on Venus, one on Mars. The token to use on Venus is called `vcx`, the token on Mars `mcx`. 
+When exchanging a token from Mars to Venus, on the Venus blockchain you would end up with an IBC `voucher` token that looks like `ibc/Venus/Mars/mcx`. The IBC path indicates the route the token has made. 
+
+<!-- 
+A = Venus
+B = Mars
+- The source chain is named **A**
+- The target chain is named **B**
+- The token exchanged on chain A is named **A(t)**
+- The token exchanged on chain B is named **B(t)**
+- The token A(t) sent to B is named **ibc/B/A(t)** — *this is comparable to the voucher with `ibc-transfer`*
+- The token B(t) sent to A is named **ibc/A/B(t)**
+- The pair between A(t) and B(t) is named **A(t)/B(t)**
+- An account on a chain A is named **A(u)**
+- An account on a chain B is named **B(u)**
+- The representation of an account from chain A on chain B is named **B/A(u)**
+- The representation of an account from chain B on chain A is named **A/B(u)**
+
 
 - The source chain is named **A**
 - The target chain is named **B**

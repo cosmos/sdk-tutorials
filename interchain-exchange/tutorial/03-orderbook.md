@@ -4,18 +4,18 @@ order: 4
 
 # Create the Orderbook
 
-In this chapter you implement the code for the Orderbook, Buy orders and Sell orders.
+In this chapter you implement the code for the orderbook, Buy orders and Sell orders.
 
-The Orderbook will contain the interface and common logic for order books. Create new pairs to exchange.
-The Sell Order will contain the interface for creating sell orders on the Orderbook.
-The Buy Order will contain the interface for creating buy orders on the Orderbook.
+The orderbook will contain the interface and common logic for the exchange. On the orderbook you can create new pairs to exchange.
+The Sell Order will contain the interface for creating sell orders on the orderbook.
+The Buy Order will contain the interface for creating buy orders on the orderbook.
 
 <!-- [https://github.com/tendermint/interchange/tree/implementation-2/x/ibcdex/types](https://github.com/tendermint/interchange/tree/implementation-2/x/ibcdex/types) -->
 
 ## Add The Orderbook
 
 First, create a new file `orderbook.go` in the `ibcdex` module `types` directory.
-In this file, you will define the logic for creating a new Orderbook. 
+In this file, you will define the logic for creating a new orderbook. 
 
 Create a `orderbook.go` file and add the code:
 
