@@ -4,17 +4,35 @@ order: 4
 
 # Create the Orderbook
 
-In this chapter you implement the code for the orderbook, Buy orders and Sell orders.
+In this chapter you implement the code for the orderbook, buy orders and sell orders.
 
-The orderbook will contain the interface and common logic for the exchange. On the orderbook you can create new pairs to exchange.
-The Sell Order will contain the interface for creating sell orders on the orderbook.
-The Buy Order will contain the interface for creating buy orders on the orderbook.
-
-<!-- [https://github.com/tendermint/interchange/tree/implementation-2/x/ibcdex/types](https://github.com/tendermint/interchange/tree/implementation-2/x/ibcdex/types) -->
+In this chapter you will create a `orderbook.go` file with the interface for the orderbook. 
+The orderbook will allow to publish buy or sell orders. The orderbook for a certain pair of token has to be registered on the orderbook first. After registering a pair of token, you can add sell orders and buy orders to this orderbook.
+You will create the `sellorder.go` file with the interface of a sell order. A sell order contains the data of the token denomination and a price you offer to sell a token for.
+You will create the `buyorder.go` file with the interface of a buy order. A buy order contains the data of the token denomination and a price you offer to buy a token for.
+When a buy and a sell order match, the exchange will be executed.
 
 ## Add The Orderbook
 
-First, create a new file `orderbook.go` in the `ibcdex` module `types` directory.
+The protobuffer definition defines the data that an orderbook has. 
+Add the `Order` message to the `order.proto` file.
+
+```proto
+// proto/order.proto
+syntax = "proto3";
+package tendermint.interchange.ibcdex;
+
+option go_package = "github.com/tendermint/interchange/x/ibcdex/types";
+
+message Order {
+  int32 id = 1;
+  string creator = 2;
+  int32 amount = 3;
+  int32 price = 4;
+}
+```
+
+Create a new file `orderbook.go` in the `ibcdex` module `types` directory.
 In this file, you will define the logic for creating a new orderbook. 
 
 Create a `orderbook.go` file and add the code:
@@ -131,6 +149,27 @@ func checkAmountAndPrice(amount int32, price int32) error {
 ```
 
 ## Add The Sellorder
+
+Modify the `sellOrderBook.proto` file to have the fields for creating a sell order on the orderbook.
+The proto definition for the `SellOrderBook` should look like follows:
+
+```proto
+// proto/sellOrderBook.proto
+syntax = "proto3";
+package tendermint.interchange.ibcdex;
+
+option go_package = "github.com/tendermint/interchange/x/ibcdex/types";
+
+import "ibcdex/order.proto";
+
+message SellOrderBook {
+  string index = 2;
+  int32 orderIDTrack = 3;
+  string amountDenom = 4;
+  string priceDenom = 5;
+  repeated Order orders = 6;
+}
+```
 
 For the code of the sell orders, create a `sellorder.go` file in the `types` directory and add the following code:
 
@@ -320,7 +359,28 @@ func FillSellOrder(book BuyOrderBook, order Order) (
 ```
 ## Add The Buyorder
 
-For the buy orders, createa `buyorder.go` file in the `types` directory and add the following code:
+Modify the `buyOrderBook.proto` file to have the fields for creating a buy order on the orderbook.
+The proto definition for the `BuyOrderBook` should look like follows:
+
+```proto
+// proto/buyOrderBook.proto
+syntax = "proto3";
+package tendermint.interchange.ibcdex;
+
+option go_package = "github.com/tendermint/interchange/x/ibcdex/types";
+
+import "ibcdex/order.proto";
+
+message BuyOrderBook {
+  string index = 2;
+  int32 orderIDTrack = 3;
+  string amountDenom = 4;
+  string priceDenom = 5;
+  repeated Order orders = 6;
+}
+```
+
+For the buy orders, create a `buyorder.go` file in the `types` directory and add the following code:
 
 ```go
 package types
@@ -509,65 +569,7 @@ func FillBuyOrder(book SellOrderBook, order Order) (
 }
 ```
 
-<!-- You must copy these files in your project
-
-We also have `buyorder_test.go`, `orderbook_test.go`, and `sellorder_test.go` for unit tests -->
-
-
-## Proto definition
-
-Define the proto files. 
-The proto files for `order`, `sellOrderBook` and `buyOrderBook` define what parameters each of the messages will have.
-
-```proto
-// proto/order.proto
-syntax = "proto3";
-package tendermint.interchange.ibcdex;
-
-option go_package = "github.com/tendermint/interchange/x/ibcdex/types";
-
-message Order {
-  int32 id = 1;
-  string creator = 2;
-  int32 amount = 3;
-  int32 price = 4;
-}
-```
-
-We modify the proto for sell and buy order book by adding the list of orders
-
-```proto
-// proto/sellOrderBook.proto
-syntax = "proto3";
-package tendermint.interchange.ibcdex;
-
-option go_package = "github.com/tendermint/interchange/x/ibcdex/types";
-
-import "ibcdex/order.proto";
-
-message SellOrderBook {
-  string index = 2;
-  int32 orderIDTrack = 3;
-  string amountDenom = 4;
-  string priceDenom = 5;
-  repeated Order orders = 6;
-}
-```
-
-```proto
-// proto/buyOrderBook.proto
-syntax = "proto3";
-package tendermint.interchange.ibcdex;
-
-option go_package = "github.com/tendermint/interchange/x/ibcdex/types";
-
-import "ibcdex/order.proto";
-
-message BuyOrderBook {
-  string index = 2;
-  int32 orderIDTrack = 3;
-  string amountDenom = 4;
-  string priceDenom = 5;
-  repeated Order orders = 6;
-}
-```
+This finishes your code for the orderbook module with buy and sell orders.
+In the next chapters, you will make them IBC compatible. 
+You will have to deal with IBC packets that are sent over a blockchain.
+These packets will be received and acknowledged by the recipient blockchain.

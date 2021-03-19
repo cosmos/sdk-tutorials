@@ -87,7 +87,7 @@ func (k msgServer) SendBuyOrder(goCtx context.Context, msg *types.MsgSendBuyOrde
 }
 ```
 
-## onrecv
+## Create the OnRecv function
 
 - Update sell order book
 - Distribute gains to sellers
@@ -154,7 +154,7 @@ func (k Keeper) OnRecvBuyOrderPacket(ctx sdk.Context, packet channeltypes.Packet
 }
 ```
 
-## onack
+## Create the OnAcknowledgement function
 
 ```go
 // keeper/buyOrder.go
@@ -244,7 +244,7 @@ func (k Keeper) OnAcknowledgementBuyOrderPacket(ctx sdk.Context, packet channelt
 }
 ```
 
-## ontimeout
+## Create the OnTimeout function
 
 ```go
 // keeper/buyOrder.go

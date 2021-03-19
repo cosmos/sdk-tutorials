@@ -28,6 +28,7 @@ cd interchange
 ```
 
 A new directory named interchange is created. This directory contains a working blockchain app.
+Create a new IBC module next.
 
 ## Create the Module
 
@@ -67,7 +68,8 @@ starport packet buyOrder amountDenom amount:int priceDenom price:int --ack remai
 
 ## Cancel messages
 
-Cancelling orders is done locally in the network, there is no packet to send
+Cancelling orders is done locally in the network, there is no packet to send.
+Use the `message` command to create a message to cancel a sell or buy order.
 
 ```go
 starport message cancelSellOrder port channel amountDenom priceDenom orderID:int --desc "Cancel a sell order" --module ibcdex
@@ -76,10 +78,10 @@ starport message cancelBuyOrder port channel amountDenom priceDenom orderID:int 
 
 ## Denom trace
 
-The token denoms should have the same behavior as in the `ibctransfer` module:
+The token denoms should the same behavior as in the `ibc-transfer` module:
 
 - An external token received from a chain has a unique `denom`, reffered to as `voucher`
-- When a token sent to a chain is received back, the chain can resolve the voucher and convert it back to the original token denomination
+- When a token sent to a chain is sent back and received, the chain can resolve the voucher and convert it back to the original token denomination
 
 Vouchers are hashes, therefore you must store which original denomination is related to a voucher, you can do this with an indexed type.
 
@@ -94,6 +96,8 @@ starport type denomTrace port channel origin --indexed --module ibcdex
 Add two config files `mars.yml` and `venus.yml` to test two blockchain networks with specific token for each.
 Add the config files in the `interchain` folder.
 The native denoms for Mars will be `mcx` also known as `marscoin` and for Venus `vcx` known as `venuscoin`.
+
+Create the `mars.yml` file with your content:
 
 ```yaml
 # interchain/mars.yml
@@ -113,6 +117,8 @@ genesis:
 init:
   home: "$HOME/.mars"
 ```
+
+Create the `venus.yml` file with your content:
 
 ```yaml
 # interchain/venus.yml

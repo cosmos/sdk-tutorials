@@ -4,9 +4,13 @@ order: 5
 
 # Create Order Pairs
 
-## Order book indexes
+In the last chapter you have created the logic for the orderbook with buy and sell orders.
+In this chapter you will build the software to make the orderbook IBC compatible.
+This will require you to create the index for an orderbook, with their according messages on receive and on acknowledgement of the IBC packet.
 
-We defined the order books as indexed types in the store but we didn't define what is this index
+## Define the Orderbook Indexes
+
+You defined the order books as indexed types in the store but you have to specify how this index is with the following code:
 
 ```go
 // types/keys.go
@@ -30,9 +34,10 @@ func OrderBookIndex(
 
 ```
 
-## Pre-transmit
+## Check for existing pairs
 
-Check the pair doesn't exist
+A pair of token always has one orderbook that everyone can access in the app.
+When an orderbook pair already exists, it should throw an error.
 
 ```go
 // keeper/msg_server_createPair.go
@@ -54,9 +59,10 @@ func (k msgServer) SendCreatePair(goCtx context.Context, msg *types.MsgSendCreat
 }
 ```
 
-## Onrecv
+## Create the OnRecv function
 
-Create the buy order book
+When a packet with an orderbook creation is received, the validity of the transaction should be check with the `ValidateBasic()` function.
+If the pair does not exist yet, it can be added to the keeper.
 
 ```go
 // keeper/createPair.go
@@ -82,9 +88,10 @@ func (k Keeper) OnRecvCreatePairPacket(ctx sdk.Context, packet channeltypes.Pack
 }
 ```
 
-## onack
+## Create the OnAcknowledgement function
 
-Create the sell order book
+When a packet sent with IBC is valid and received, it must be acknowledged.
+
 
 ```go
 // keeper/createPair.go
@@ -115,6 +122,6 @@ func (k Keeper) OnAcknowledgementCreatePairPacket(ctx sdk.Context, packet channe
 }
 ```
 
-## ontimeout
+## No OnTimeout Consequences
 
-A timeout will have no consequences.
+A timeout will have no consequences in our scenario. The orderbook will not be acknowledged 

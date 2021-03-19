@@ -2,13 +2,16 @@
 order: 6
 ---
 
-# Sell Orders
+# Create the Sell Order IBC packet
 
-## Proto
+In this chapter you want to modify the IBC logic for creating sell orders on the IBC exchange.
+A sell order must be submitted to an existing orderbook.
+When you are dealing with a native token, these tokens will get locked until the IBC packets get reversed.
+When you are dealing with an IBC token, these will get burned and you receive back the native token.
 
-The packet is already generated. Though, we must add the seller information inside.
+## Modify the Proto Definition
 
-We didn't specify this value in the Starport command because Starport generate a command line with an argument for each value provided while we want to manually set the seller as the signer of the message
+The packet proto file for a sell order is already generated. Add the seller information.
 
 ```proto
 // packet.proto
@@ -25,10 +28,12 @@ message SellOrderPacketData {
 
 ### Pre-transmit
 
-- Check the pair exist
-- If IBC token, burn the tokens
-- If native token, lock the tokens
-- Save the voucher received on the target chain for later denom resolve
+Before a sell order will be submitted, make sure it contains the following logic:
+
+- Check if the pair exists on the orderbook
+- If the token is an IBC token, burn the tokens
+- If the token is a native token, lock the tokens
+- Save the voucher received on the target chain to later resolve a denom
 
 ```go
 // keeper/msg_server_sellOrder.go
@@ -90,10 +95,12 @@ func (k msgServer) SendSourceSellOrder(goCtx context.Context, msg *types.MsgSend
 }
 ```
 
-## onrecv
+## Create the OnRecv function
 
-- Update buy order book
-- Distribute sold A(t) to buyers
+
+
+- Update the buy orderbook
+- Distribute sold token to the buyer
 - Send to chain A the sell order after the fill attempt
 
 ```go
@@ -158,7 +165,7 @@ func (k Keeper) OnRecvSellOrderPacket(ctx sdk.Context, packet channeltypes.Packe
 }
 ```
 
-## onack
+## Create the OnAcknowledgement function
 
 - Chain A will store the remaining sell order in the sell order book and will distribute sold A(t) to the buyers and will distribute to the seller the price of the amount sold
 - On error we mint back the burned tokens
@@ -252,7 +259,7 @@ func (k Keeper) OnAcknowledgementSellOrderPacket(ctx sdk.Context, packet channel
 }
 ```
 
-## ontimeout
+## Create the OnTimeout function
 
 If timeout we mint back the native token
 
