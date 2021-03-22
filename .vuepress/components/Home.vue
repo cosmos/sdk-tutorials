@@ -11,20 +11,11 @@
     .sections__wrapper
       .sections
         router-link.sections__item(tag="a" :to="section.url" v-for="section in $frontmatter.sections")
-          .sections__item__difficulty
-            .sections__item__difficulty__item(:style="{'--tag-text-color': `${tagColor[section.difficulty][0]}`, '--tag-background-color': `${tagColor[section.difficulty][1]}`}") {{ section.difficulty }}
           .sections__item__wrapper
             .sections__item__title {{section.title}}
             .sections__item__desc {{section.desc}}
           .sections__item__tags
             .sections__item__tags__item(v-for="tag in section.tags") {{tag}}
-    .h2 Videos
-    .stack
-      a.stack__item(:href="item.url" target="_blank" rel="noreferrer noopener" v-for="item in $frontmatter.stack")
-        img(:src="item.imgSrc" alt="Image").stack__item__image
-        .stack__item__text
-          .stack__item__h1 {{item.title}}
-          .stack__item__p {{item.duration}}
     .h2 Articles
     .stack
       a.stack__item(:href="item.link" target="_blank" rel="noreferrer noopener" v-for="item in articlesList")
@@ -32,6 +23,13 @@
         .stack__item__text
           .stack__item__h1 {{item.title}}
           .stack__item__p {{ format(parseISO(item.date), 'MMM d, yyyy') }}
+    .h2 Videos
+    .stack
+      a.stack__item(:href="item.url" target="_blank" rel="noreferrer noopener" v-for="item in $frontmatter.stack")
+        img(:src="item.imgSrc" alt="Image").stack__item__image
+        .stack__item__text
+          .stack__item__h1 {{item.title}}
+          .stack__item__p {{item.duration}}
     tm-help-support
 </template>
 
@@ -44,14 +42,6 @@ export default {
     return {
       format,
       parseISO,
-      tagColor: {
-        beginner: ["#5064FB", "#FFFFFF"],
-        intermediate: ["#FFFFFF", "#5064FB"],
-        advanced: ["#FFFFFF", "rgba(0, 2, 36, 0.928)"],
-        launchpad: ["#FFFFFF", "#3D60A4"],
-        stargate: ["#FFFFFF", "#AC454C"],
-        starport: ["#FFFFFF", "#7A236C"],
-      },
       articlesList: []
     };
   },
@@ -155,7 +145,6 @@ a
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 14.75rem;
     position: relative;
     color: initial;
     border-radius: 0.5rem;
@@ -175,27 +164,9 @@ a
       opacity: 0.7;
     }
 
-    &__difficulty {
-      flex-direction: row;
-
-      &__item {
-        display: inline-block;
-        margin-right: 0.5rem;
-        color: var(--tag-text-color);
-        font-size: 0.875rem;
-        line-height: 1.25rem;
-        letter-spacing: 0.03em;
-        text-transform: capitalize;
-        background: var(--tag-background-color);
-        border-radius: 0.25rem;
-        padding: 0.25rem 0.5rem 0.125rem;
-        width: fit-content;
-      }
-
-    }
-
     &__tags {
       flex-direction: row;
+      margin-top: 1rem;
 
       &__item {
         display: inline-block;
@@ -218,10 +189,10 @@ a
       font-size: 1.125rem;
       line-height: 1.6875rem;
       color: var(--color-text, inherit);
-      margin-bottom: 0.5rem;
     }
 
     &__desc {
+      margin-top: 0.5rem;
       font-size: 0.875rem;
       line-height: 1.25rem;
       letter-spacing: 0.03em;
