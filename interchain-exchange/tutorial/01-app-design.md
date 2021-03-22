@@ -29,7 +29,7 @@ This module is inspired by the [`ibc-transfer`](https://github.com/cosmos/cosmos
 
 - Several types of packets to send
 - Several types of acknowledgments to treat
-- Some more complex logic on how to treat a packet, an receipt, on timeout and more
+- Some more complex logic on how to treat a packet, on receipt, on timeout and more
 
 ## Overview
 
@@ -43,7 +43,7 @@ As a typical exchange, a new pair implies the creation of an orderbook with orde
 
 Users from chain `Mars` will sell `MCX` and users from chain `Venus` will buy `MCX`. Therefore, we represent all orders to sell `MCX` on chain `Mars` and all the orders to buy `MCX` on chain `Venus`.
 
-In this example chain `Mars` holds the sell oders and chain `Venus` holds the buy orders.
+In this example blockchain `Mars` holds the sell oders and blockchain `Venus` holds the buy orders.
 
 ## Exchanging tokens back
 
