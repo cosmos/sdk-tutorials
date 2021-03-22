@@ -6,7 +6,13 @@ order: 9
 
 To test your application, add the test files to your code.
 
-## Order Book
+After you add the test files, change into the `interchange` directory with your termnial, then run
+
+```bash
+go test -timeout 30s ./x/ibcdex/types
+```
+
+## Create Tests for the Orderbook
 
 ```go
 // types/orderbook_test.go
@@ -349,7 +355,7 @@ func TestRestoreOrderBook(t *testing.T) {
 }
 ```
 
-## Buy Order
+##  Create Tests for the Buy Order
 
 ```go
 // types/buyorder.go
@@ -618,7 +624,7 @@ func TestFillBuyOrder(t *testing.T) {
 }
 ```
 
-## Sell Order
+## Create Tests for the Sell Order
 
 ```go
 // types/sellorder_test.go
@@ -885,4 +891,10 @@ func TestFillSellOrder(t *testing.T) {
 	}
 	simulateFillSellOrder(t, inputBook, inputOrder, expected)
 }
+```
+
+When the tests are successful, your output should be 
+
+```go
+ok      github.com/username/interchange/x/ibcdex/types       0.550s
 ```

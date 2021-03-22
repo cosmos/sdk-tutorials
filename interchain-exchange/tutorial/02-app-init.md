@@ -23,7 +23,7 @@ You can also use Starport v0.15.0 in a [browser-based IDE](http://gitpod.io/#htt
 Scaffold a new blockchain called `interchange`
 
 ```bash
-starport app github.com/tendermint/interchange
+starport app github.com/username/interchange
 cd interchange
 ```
 
