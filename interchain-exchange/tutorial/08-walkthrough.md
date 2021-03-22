@@ -4,9 +4,9 @@ order: 9
 
 # Walkthrough
 
-The software is ready. Now you can go through buying and selling a Token.
+The software is ready. Now you can go through: create an orderbook, buy and sell a Token.
 
-If you have started some tests with the relayer before, make sure to clear your old data with
+If you have started some tests with the relayer before, make sure to clear your old data on a new start with
 
 ```bash
 rm -rf ~/.relayer
@@ -25,7 +25,7 @@ starport serve -c venus.yml -r
 ## Configure the relayer
 
 Start the relayer, use `Mars` as source blockchain and `Venus` as target blockchain.
-The ports for `Mars` are default ports, while for `Venus` the port details can be found in the `venus.yml`.
+The ports for `Mars` are default ports, while for `Venus` the port details can be found in the `venus.yml` file.
 
 ```bash
 # relayer configuration
@@ -63,7 +63,7 @@ interchanged q ibcdex list-buyOrderBook --node tcp://localhost:26659
 
 ## Create an Orderbook
 
-Create an orderbook of a new pair of token for an exchange. 
+Create an orderbook for a new pair of token to the exchange. 
 Source blockchain is `Mars`, target blockchain is `Venus`.
 
 The orderbook is to sell `mcx` and buy `vcx` token.
@@ -132,7 +132,7 @@ Send a sell order for selling 10 `mcx` token for 15 `vcx` token.
 interchanged tx ibcdex send-sellOrder ibcdex channel-0 mcx 10 vcx 15 --from alice --chain-id mars --home ~/.mars
 ```
 
-Have a look at the sell orderbook:
+Check the sell orderbook:
 
 ```bash
 # Sell order book
@@ -163,7 +163,7 @@ Send a sell order for buying 10 `mcx` token for 5 `vcx` token.
 interchanged tx ibcdex send-buyOrder ibcdex channel-0 mcx 10 vcx 5 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
-Have a look at the buy orderbook:
+Check the buy orderbook:
 
 ```bash
 # Buy order book

@@ -20,7 +20,7 @@ This process can be reversed when the `voucher` get burned again to enable back 
 
 ## Assumption
 
-For a pair of tokens you can create an orderbook. The orderbook can be created for the exchange of any tokens between any pair of chains. There can only be one orderbook for a pair of token at the same time.
+For any pair of tokens you can create an orderbook. The orderbook can be created for the exchange of any tokens between any pair of chains. The requirement is to have the `ibcdex` module available. There can only be one orderbook for a pair of token at the same time.
 <!-- There is no condition to check for open channels between two chains. -->
 A specific chain cannot mint new of its native token. 
 <!-- The module is trustless, there is no condition to check when opening a channel between two chains. Any pair of tokens can be exchanged between any pair of chains. -->
@@ -34,7 +34,7 @@ This module is inspired by the [`ibc-transfer`](https://github.com/cosmos/cosmos
 ## Overview
 
 Assume you have two blockchains, one on `Venus`, one on `Mars`. The token to use on Venus is called `vcx`, the token on Mars `mcx`. 
-When exchanging a token from Mars to Venus, on the Venus blockchain you would end up with an IBC `voucher` token that looks like `ibc/Venus/mcx`. The IBC path indicates the route the token has made. 
+When exchanging a token from Mars to Venus, on the Venus blockchain you would end up with an IBC `voucher` token that looks like `ibc/Venus/mcx`. The IBC path indicates the path of the token. 
 This token `ibc/Venus/mcx` cannot be sold back using the same orderbook. If you want to "reverse" the exchange and receive back the Mars token, a new orderbook `ibc/Venux/mcx` to `mcx` needs to be created.
 
 ## Order books
@@ -43,19 +43,19 @@ As a typical exchange, a new pair implies the creation of an orderbook with orde
 
 Users from chain `Mars` will sell `MCX` and users from chain `Venus` will buy `MCX`. Therefore, we represent all orders to sell `MCX` on chain `Mars` and all the orders to buy `MCX` on chain `Venus`.
 
-In this example chain `Mars` holds the sell orderbook and chain `Venus` holds the buy orderbook.
+In this example chain `Mars` holds the sell oders and chain `Venus` holds the buy orders.
 
 ## Exchanging tokens back
 
-Like `ibc-transfer` each blockchain keep a trace of the token voucher created on the other chain.
+Like `ibc-transfer` each blockchain keep a trace of the token voucher created on the other blockchain.
 
-If a chain `Mars` sells `MCX` to `Venus` and `ibc/Venus/mcx` is minted on `Venus` then, if `ibc/Venus/mcx` is sold back on `Mars` the token minted will be `MCX`.
+If a blockchain `Mars` sells `MCX` to `Venus` and `ibc/Venus/mcx` is minted on `Venus` then, if `ibc/Venus/mcx` is sold back on `Mars` the token unlocked and received will be `MCX`.
 
 ## Features
 
 The features supported by the module are:
 
-- Creating an exchange for a token pair between two chains
+- Creating an exchange orderbook for a token pair between two chains
 - Send sell orders on source chain
 - Send buy orders on target chain
 - Cancel sell or buy orders

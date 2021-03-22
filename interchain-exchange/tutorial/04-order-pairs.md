@@ -34,7 +34,7 @@ func OrderBookIndex(
 
 ```
 
-## Check for existing pairs
+## Check for Existing Pairs
 
 A pair of token always has one orderbook that everyone can access in the app.
 When an orderbook pair already exists, it should throw an error.
@@ -59,7 +59,7 @@ func (k msgServer) SendCreatePair(goCtx context.Context, msg *types.MsgSendCreat
 }
 ```
 
-## Create the OnRecv function
+## Create the OnRecv Function
 
 When a packet with an orderbook creation is received, the validity of the transaction should be check with the `ValidateBasic()` function.
 If the pair does not exist yet, it can be added to the keeper.
@@ -88,7 +88,7 @@ func (k Keeper) OnRecvCreatePairPacket(ctx sdk.Context, packet channeltypes.Pack
 }
 ```
 
-## Create the OnAcknowledgement function
+## Create the OnAcknowledgement Function
 
 When a packet sent with IBC is valid and received, it must be acknowledged.
 When the acknowledgement is successful, add the sell orderbook to the database.
@@ -122,6 +122,6 @@ func (k Keeper) OnAcknowledgementCreatePairPacket(ctx sdk.Context, packet channe
 }
 ```
 
-## No OnTimeout Consequences
+## No Consequences OnTimeout
 
 A timeout will have no consequences in our scenario. The orderbook will not be acknowledged 

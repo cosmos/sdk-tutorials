@@ -9,7 +9,7 @@ In this chapter you will enable cancelling buy and sell orders.
 
 The function `RemoveOrderFromID` will be used to remove the buy or sell order from the orderbook.
 
-## Sell orders
+## Cancel the Sell Order
 
 To cancel a sell order, you have to get the ID of the specific sell order.
 Then you can use the function `RemoveOrderFromID` to remove the specific order from the orderbook and update the keeper accordingly.
@@ -63,7 +63,7 @@ func (k msgServer) CancelSellOrder(goCtx context.Context, msg *types.MsgCancelSe
 }
 ```
 
-## Buy Orders
+## Cancel the Buy Order
 
 To cancel a buy order, you have to get the ID of the specific buy order.
 Then you can use the function `RemoveOrderFromID` to remove the specific order from the orderbook and update the keeper accordingly.

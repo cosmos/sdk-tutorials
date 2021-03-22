@@ -22,7 +22,7 @@ message BuyOrderPacketData {
 }
 ```
 
-## Packet
+## About the IBC Packet
 
 The IBC packet has four different stages you need to consider: 
 1. Before transmitting the packet
@@ -98,7 +98,7 @@ func (k msgServer) SendBuyOrder(goCtx context.Context, msg *types.MsgSendBuyOrde
 }
 ```
 
-## Create the OnRecv function
+## Create the OnRecv Function
 
 - Update sell order book
 - Distribute gains to sellers
@@ -165,7 +165,7 @@ func (k Keeper) OnRecvBuyOrderPacket(ctx sdk.Context, packet channeltypes.Packet
 }
 ```
 
-## Create the OnAcknowledgement function
+## Create the OnAcknowledgement Function
 
 - Chain `Mars` will store the remaining buy order in the buy orderbook and will distribute sold `MCX` to the sellers and will mint the voucher token to the buyer the price of the amount bought
 - On error we mint back the burned tokens
@@ -258,7 +258,7 @@ func (k Keeper) OnAcknowledgementBuyOrderPacket(ctx sdk.Context, packet channelt
 }
 ```
 
-## Create the OnTimeout function
+## Create the OnTimeout Function
 
 In case the order has a timeout is is necessary to mint back the token for the user.
 

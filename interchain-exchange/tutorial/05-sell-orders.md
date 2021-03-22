@@ -24,7 +24,7 @@ message SellOrderPacketData {
 }
 ```
 
-## Packet
+## About the IBC Packet
 
 The IBC packet has four different stages you need to consider: 
 1. Before transmitting the packet
@@ -101,7 +101,7 @@ func (k msgServer) SendSourceSellOrder(goCtx context.Context, msg *types.MsgSend
 }
 ```
 
-## Create the OnRecv function
+## Create the OnRecv Function
 
 - Update the buy orderbook
 - Distribute sold token to the buyer
@@ -169,7 +169,7 @@ func (k Keeper) OnRecvSellOrderPacket(ctx sdk.Context, packet channeltypes.Packe
 }
 ```
 
-## Create the OnAcknowledgement function
+## Create the OnAcknowledgement Function
 
 - Chain `Mars` will store the remaining sell order in the sell orderbook and will distribute sold `MCX` to the buyers and will distribute to the seller the price of the amount sold
 - On error we mint back the burned tokens
@@ -263,7 +263,7 @@ func (k Keeper) OnAcknowledgementSellOrderPacket(ctx sdk.Context, packet channel
 }
 ```
 
-## Create the OnTimeout function
+## Create the OnTimeout Function
 
 If a timeout occurs, we mint back the native token.
 

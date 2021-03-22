@@ -76,7 +76,7 @@ starport message cancelSellOrder port channel amountDenom priceDenom orderID:int
 starport message cancelBuyOrder port channel amountDenom priceDenom orderID:int --desc "Cancel a buy order" --module ibcdex
 ```
 
-## Denom trace
+## Trace the Denom
 
 The token denoms should have the same behavior as described in the `ibc-transfer` module:
 
@@ -91,7 +91,7 @@ For a `voucher` you store: the source port ID, source channel ID and the origina
 starport type denomTrace port channel origin --indexed --module ibcdex
 ```
 
-## Config
+## Create the Configuration
 
 Add two config files `mars.yml` and `venus.yml` to test two blockchain networks with specific token for each.
 Add the config files in the `interchain` folder.

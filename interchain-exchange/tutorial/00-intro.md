@@ -21,8 +21,8 @@ If you want to spoil, please refer to the [example implementation](https://githu
 
 ## How the module works
 
-You will learn how to build an exchange that works with two blockchains. The module is called `ibcdex`.
-The module allows to open an exchange orderbook between a pair of token from one blockchain and a token on another blockchain. Both blockchains are required to have the `ibcdex` module available.
+You will learn how to build an exchange that works with two or more blockchains. The module is called `ibcdex`.
+The module allows to open an exchange orderbook between a pair of token from one blockchain and a token on another blockchain. The blockchains are required to have the `ibcdex` module available.
 Tokens can be bought or sold with Limit Orders on a simple orderbook, there is no notion of Liquidity Pool or AMM.
 
 The market is unidirectional: the token sold on the source chain cannot be bought back as it is, and the token bought from the target chain cannot be sold back using the same pair. If a token on a source chain is sold, it can only be bought back by creating a new pair on the orderbook. This is due to the nature of IBC, creating a `voucher` token on the target blockchain. In this tutorial you will learn the difference of a native blockchain token and a `voucher` token that is minted on another blockchain. You will learn how to create a second orderbook pair in order to receive the native token back.
