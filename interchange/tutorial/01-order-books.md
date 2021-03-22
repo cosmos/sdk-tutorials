@@ -1,4 +1,4 @@
-## Order book lib
+## Order book
 
 The files used for order book logic (all located in `types`):
 
@@ -14,9 +14,9 @@ We also have `buyorder_test.go`, `orderbook_test.go`, and `sellorder_test.go` fo
 
 ## Proto definition
 
-We must define the order book proto
+Let's create a proto file and define an `Order` type. An order consists of an amount of tokens to be exchanged, a price a token, incrementing ID and creator's address. We don't need to record denoms in orders, because information about denoms is stored in order books.
 
-```
+```proto
 // order.proto:
 syntax = "proto3";
 package tendermint.interchange.ibcdex;
@@ -31,9 +31,9 @@ message Order {
 }
 ```
 
-We modify the proto for sell and buy order book by adding the list of orders
+We now need to add a list of orders to order books: `repeated Order orders = 6;`. Since we're using `Order` type we need to make sure that we import the proto file `import "ibcdex/order.proto";`.
 
-```
+```proto
 // sellOrderBook.proto:
 syntax = "proto3";
 package tendermint.interchange.ibcdex;
@@ -51,8 +51,9 @@ message SellOrderBook {
 }
 ```
 
+Let's do the same in `BuyOrderBook.proto`.
 
-```
+```proto
 // buyOrderBook.proto:
 syntax = "proto3";
 package tendermint.interchange.ibcdex;

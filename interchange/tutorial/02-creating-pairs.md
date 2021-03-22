@@ -1,8 +1,14 @@
 # Creating pairs
 
-### Order book indexes
+```
+interchanged tx ibcdex send-createPair ibcdex channel-0 mcx vcx
+```
 
-We defined the order books as indexed types in the store but we didn't define what is this index
+Creating a MCX/VCX pair will create a MCX sell order book on Mars and a MCX buy order book on Venus.
+
+## Order book indexes
+
+We defined the order books as indexed types in the store but we didn't define what the index should be. Let's define an index as `portID-channelID-sourceDenom-targetDenom`. An example index will look like `ibcdex-channel-0-mcx-vcx`.
 
 ```go
 // types/keys.go:
@@ -25,9 +31,9 @@ func OrderBookIndex(
 }
 ```
 
-### Pre-transmit
+## Pre-transmit
 
-Check the pair doesn't exist
+When a user creates a new pair, they broadcast a transaction with a `MsgSendCreatePair` message. This message is processed in `SendCreatePair`. To prevent a user from creating two idential pairs, let's check that the pair being created does not exist in the store.
 
 ```go
 // keeper/msg_server_createPair.go:
@@ -49,10 +55,7 @@ func (k msgServer) SendCreatePair(goCtx context.Context, msg *types.MsgSendCreat
 }
 ```
 
-### onrecv
-
-Create the buy order book
-
+## onrecv
 
 ```go
 // keeper/createPair.go:
@@ -78,7 +81,7 @@ func (k Keeper) OnRecvCreatePairPacket(ctx sdk.Context, packet channeltypes.Pack
 }
 ```
 
-### onack
+## onack
 
 Create the sell order book
 
@@ -112,6 +115,6 @@ func (k Keeper) OnAcknowledgementCreatePairPacket(ctx sdk.Context, packet channe
 }
 ```
 
-### ontimeout
+## ontimeout
 
 Nothing happens for timeout

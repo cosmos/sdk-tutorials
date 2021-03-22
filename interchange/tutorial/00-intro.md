@@ -81,7 +81,7 @@ init:
   home: "$HOME/.mars"
 ```
 
-earth.yml:
+venus.yml:
 
 ```go
 accounts:
