@@ -156,6 +156,9 @@ func (k Keeper) OnRecvBuyOrderPacket(ctx sdk.Context, packet channeltypes.Packet
 
 ## Create the OnAcknowledgement function
 
+- Chain `Mars` will store the remaining buy order in the buy orderbook and will distribute sold `MCX` to the sellers and will mint the voucher token to the buyer the price of the amount bought
+- On error we mint back the burned tokens
+
 ```go
 // keeper/buyOrder.go
 func (k Keeper) OnAcknowledgementBuyOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.BuyOrderPacketData, ack channeltypes.Acknowledgement) error {
@@ -245,6 +248,8 @@ func (k Keeper) OnAcknowledgementBuyOrderPacket(ctx sdk.Context, packet channelt
 ```
 
 ## Create the OnTimeout function
+
+In case the order has a timeout is is necessary to mint back the token for the user.
 
 ```go
 // keeper/buyOrder.go

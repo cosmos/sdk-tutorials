@@ -4,15 +4,15 @@ order: 8
 
 # Cancel orders
 
-Canceling order is done locally
+You have implemented orderbooks, buy and sell orders. 
+In this chapter you will enable cancelling buy and sell orders. 
 
-Source chain can cancel sell orders
-
-Target chain can cancel buy order
+The function `RemoveOrderFromID` will be used to remove the buy or sell order from the orderbook.
 
 ## Sell orders
 
-We must retrieve the sell order book and remove the order. Thankfully, we have a method to remove order from the book from the ID
+To cancel a sell order, you have to get the ID of the specific sell order.
+Then you can use the function `RemoveOrderFromID` to remove the specific order from the orderbook and update the keeper accordingly.
 
 ```go
 // msg_server_cancelSellOrder.go
@@ -65,6 +65,9 @@ func (k msgServer) CancelSellOrder(goCtx context.Context, msg *types.MsgCancelSe
 
 ## Buy Orders
 
+To cancel a buy order, you have to get the ID of the specific buy order.
+Then you can use the function `RemoveOrderFromID` to remove the specific order from the orderbook and update the keeper accordingly.
+
 ```go
 // msg_server_cancelBuyOrder.go
 func (k msgServer) CancelBuyOrder(goCtx context.Context, msg *types.MsgCancelBuyOrder) (*types.MsgCancelBuyOrderResponse, error) {
@@ -113,3 +116,6 @@ func (k msgServer) CancelBuyOrder(goCtx context.Context, msg *types.MsgCancelBuy
 	return &types.MsgCancelBuyOrderResponse{}, nil
 }
 ```
+
+That finishes all necessary functions needed for the `ibcdex` module. In this chapter you have implemented the design for cancelling specific buy or sell orders.
+In the next chapter, you will be able to use and interact with your `ibcdex` module. You will be using the command line to create orderbooks, buy and sell orders on the `Mars` and `Venus` blockchain.

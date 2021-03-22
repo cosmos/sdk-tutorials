@@ -158,7 +158,7 @@ func (k Keeper) OnRecvSellOrderPacket(ctx sdk.Context, packet channeltypes.Packe
 		}
 	}
 
-	// Save the new order book
+	// Save the new orderbook
 	k.SetBuyOrderBook(ctx, book)
 
 	return packetAck, nil
@@ -167,7 +167,7 @@ func (k Keeper) OnRecvSellOrderPacket(ctx sdk.Context, packet channeltypes.Packe
 
 ## Create the OnAcknowledgement function
 
-- Chain A will store the remaining sell order in the sell order book and will distribute sold A(t) to the buyers and will distribute to the seller the price of the amount sold
+- Chain `Mars` will store the remaining sell order in the sell orderbook and will distribute sold `MCX` to the buyers and will distribute to the seller the price of the amount sold
 - On error we mint back the burned tokens
 
 ```go
