@@ -9,7 +9,7 @@ The module has orderbooks, buy- and sell orders.
 First, an orderbook for a pair of token has to be created.
 After an ordebrook exists, you can create buy and sell orders for this pair of token.
 
-The module will make use of the Interblockchain Communication Standard [IBC](https://github.com/cosmos/ics/blob/master/ibc/2_IBC_ARCHITECTURE.md). With use of the IBC, the module can either create orderbooks for tokens on the same blockchain, or have several blockchains interact and exchange their tokens. 
+The module will make use of the Interblockchain Communication Standard [IBC](https://github.com/cosmos/ics/blob/master/ibc/2_IBC_ARCHITECTURE.md). With use of the IBC, the module can create orderbooks for tokens to have multiple blockchains interact and exchange their tokens. 
 You will be able to create an orderbook pair with one token from one blockchain and another token from a different blockchain. We will call the module you create in this tutorial `ibcdex`.
 Both blockchains will need to have the `ibcdex` module installed and running.
 
@@ -20,16 +20,16 @@ This process can be reversed when the `voucher` get burned again to enable back 
 
 ## Assumption
 
-For any pair of tokens you can create an orderbook. The orderbook can be created for the exchange of any tokens between any pair of chains. There can only be one orderbook for a pair of token.
+For a pair of tokens you can create an orderbook. The orderbook can be created for the exchange of any tokens between any pair of chains. There can only be one orderbook for a pair of token at the same time.
 <!-- There is no condition to check for open channels between two chains. -->
 A specific chain cannot mint new of its native token. 
 <!-- The module is trustless, there is no condition to check when opening a channel between two chains. Any pair of tokens can be exchanged between any pair of chains. -->
 
-This module is inspired by the [`ibc-transfer`](https://github.com/cosmos/cosmos-sdk/tree/v0.42.1/x/ibc/applications/transfer) module and will have some similarities like the voucher creation. It will be a bit more complex but it will display how to create:
+This module is inspired by the [`ibc-transfer`](https://github.com/cosmos/cosmos-sdk/tree/v0.42.1/x/ibc/applications/transfer) module and will have some similarities, like the `voucher` creation. It will be more complex but it will display how to create:
 
 - Several types of packets to send
 - Several types of acknowledgments to treat
-- Some more complex logic on how to treat a packet, an acknowledgement, a timeout and more
+- Some more complex logic on how to treat a packet, an receipt, on timeout and more
 
 ## Overview
 
@@ -43,7 +43,7 @@ As a typical exchange, a new pair implies the creation of an orderbook with orde
 
 Users from chain `Mars` will sell `MCX` and users from chain `Venus` will buy `MCX`. Therefore, we represent all orders to sell `MCX` on chain `Mars` and all the orders to buy `MCX` on chain `Venus`.
 
-Chain `Mars` contains in its store a sell orderbook and chain `Venus` contains a buy orderbook.
+In this example chain `Mars` holds the sell orderbook and chain `Venus` holds the buy orderbook.
 
 ## Exchanging tokens back
 

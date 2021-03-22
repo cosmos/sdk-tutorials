@@ -4,7 +4,7 @@ order: 6
 
 # Create the Sell Order IBC packet
 
-In this chapter you want to modify the IBC logic for creating sell orders on the IBC exchange.
+In this chapter you want to modify the IBC logic to create sell orders on the IBC exchange.
 A sell order must be submitted to an existing orderbook.
 When you are dealing with a native token, these tokens will get locked until the IBC packets get reversed.
 When you are dealing with an IBC token, these will get burned and you receive back the native token.
@@ -25,6 +25,12 @@ message SellOrderPacketData {
 ```
 
 ## Packet
+
+The IBC packet has four different stages you need to consider: 
+1. Before transmitting the packet
+2. On Receipt of a packet
+3. On Acknowledgment of a packet
+4. On Timeout of a packet
 
 ### Pre-transmit
 
@@ -96,8 +102,6 @@ func (k msgServer) SendSourceSellOrder(goCtx context.Context, msg *types.MsgSend
 ```
 
 ## Create the OnRecv function
-
-
 
 - Update the buy orderbook
 - Distribute sold token to the buyer
@@ -261,7 +265,7 @@ func (k Keeper) OnAcknowledgementSellOrderPacket(ctx sdk.Context, packet channel
 
 ## Create the OnTimeout function
 
-If timeout we mint back the native token
+If a timeout occurs, we mint back the native token.
 
 ```go
 // keeper/sellOrder.go

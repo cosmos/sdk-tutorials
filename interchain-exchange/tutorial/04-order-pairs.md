@@ -10,7 +10,7 @@ This will require you to create the index for an orderbook, with their according
 
 ## Define the Orderbook Indexes
 
-You defined the order books as indexed types in the store but you have to specify how this index is with the following code:
+You defined the order books as indexed types in the store but you have to specify how this index is defined with the following code:
 
 ```go
 // types/keys.go
@@ -91,7 +91,7 @@ func (k Keeper) OnRecvCreatePairPacket(ctx sdk.Context, packet channeltypes.Pack
 ## Create the OnAcknowledgement function
 
 When a packet sent with IBC is valid and received, it must be acknowledged.
-
+When the acknowledgement is successful, add the sell orderbook to the database.
 
 ```go
 // keeper/createPair.go

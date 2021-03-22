@@ -4,7 +4,7 @@ order: 3
 
 #  Initialize the Blockchain
 
-In this chapter you create the basic blockchain for the interchain exchange app. You will scaffold the blockchain, the module, the transaction, the IBC packets and messages. In the later chapters you will integrate more code into each of the transaction handlers.
+In this chapter you create the basic blockchain module for the interchain exchange app. You will scaffold the blockchain, the module, the transaction, the IBC packets and messages. In the later chapters you will integrate more code into each of the transaction handlers.
 
 ## Install Starport
 
@@ -78,14 +78,14 @@ starport message cancelBuyOrder port channel amountDenom priceDenom orderID:int 
 
 ## Denom trace
 
-The token denoms should the same behavior as in the `ibc-transfer` module:
+The token denoms should have the same behavior as described in the `ibc-transfer` module:
 
 - An external token received from a chain has a unique `denom`, reffered to as `voucher`
-- When a token sent to a chain is sent back and received, the chain can resolve the voucher and convert it back to the original token denomination
+- When a token which is sent to a blockchain is sent back and received, the chain can resolve the voucher and convert it back to the original token denomination
 
-Vouchers are hashes, therefore you must store which original denomination is related to a voucher, you can do this with an indexed type.
+`Voucher` tokens are represented as hashes, therefore you must store which original denomination is related to a voucher, you can do this with an indexed type.
 
-For a voucher, you store: the source port ID, source channel ID and the original denom
+For a `voucher` you store: the source port ID, source channel ID and the original denom
 
 ```go
 starport type denomTrace port channel origin --indexed --module ibcdex
@@ -148,3 +148,5 @@ genesis:
 init:
   home: "$HOME/.venus"
 ```
+
+Implement the code for the orderbook in the next chapter.

@@ -9,7 +9,7 @@ In this chapter you implement the code for the orderbook, buy orders and sell or
 In this chapter you will create a `orderbook.go` file with the interface for the orderbook. 
 The orderbook will allow to publish buy or sell orders. The orderbook for a certain pair of token has to be registered on the orderbook first. After registering a pair of token, you can add sell orders and buy orders to this orderbook.
 You will create the `sellorder.go` file with the interface of a sell order. A sell order contains the data of the token denomination and a price you offer to sell a token for.
-You will create the `buyorder.go` file with the interface of a buy order. A buy order contains the data of the token denomination and a price you offer to buy a token for.
+You will create the `buyorder.go` file with the interface of a buy order. A buy order contains the data of the token denomination and a price you offer to buy a token for. Buy orders and sell orders will live on different blockchain apps.
 When a buy and a sell order match, the exchange will be executed.
 
 ## Add The Orderbook

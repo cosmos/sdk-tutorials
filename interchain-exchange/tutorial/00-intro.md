@@ -15,15 +15,16 @@ If you want to spoil, please refer to the [example implementation](https://githu
 **You will learn how to**
 - Create a blockchain with Starport
 - Create a Cosmos SDK IBC module
-- How to create an orderbook that hosts buy and sell orders with a module
-- Send packets from one blockchain to another
-- How to deal with timeouts and acknowledgements of the packets
+- Create an orderbook that hosts buy and sell orders with a module
+- Send IBC packets from one blockchain to another
+- Deal with timeouts and acknowledgements of IBC packets
 
 ## How the module works
 
-The module allows to open an exchange orderbook between a pair of tokens on the source chain and a token on the target chain. 
+You will learn how to build an exchange that works with two blockchains. The module is called `ibcdex`.
+The module allows to open an exchange orderbook between a pair of token from one blockchain and a token on another blockchain. Both blockchains are required to have the `ibcdex` module available.
 Tokens can be bought or sold with Limit Orders on a simple orderbook, there is no notion of Liquidity Pool or AMM.
 
-The market is unidirectional: the token sold on the source chain cannot be bought back and the token bought from the target chain cannot be sold back using the same pair. If a token on a source chain is sold, it can only be bought back by creating a new pair on the orderbook.
+The market is unidirectional: the token sold on the source chain cannot be bought back as it is, and the token bought from the target chain cannot be sold back using the same pair. If a token on a source chain is sold, it can only be bought back by creating a new pair on the orderbook. This is due to the nature of IBC, creating a `voucher` token on the target blockchain. In this tutorial you will learn the difference of a native blockchain token and a `voucher` token that is minted on another blockchain. You will learn how to create a second orderbook pair in order to receive the native token back.
 
 In the next chapter you will learn details about the design of the interblockchain exchange.

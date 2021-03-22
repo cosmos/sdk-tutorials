@@ -2,16 +2,19 @@
 order: 7
 ---
 
-# Buy Orders
+# Create the Buy Order IBC packet
 
-## Proto
+In this chapter you want to modify the IBC logic to create buy orders on the IBC exchange.
+The logic is very similar to the previous sell order chapter.
 
-Same as sell order. We add the buyer
+## Modify the Proto Definition
 
-```go
+Add the buyer to the proto file definition
+
+```proto
 // packet.proto
 message BuyOrderPacketData {
-	string amountDenom = 1;
+  string amountDenom = 1;
   int32 amount = 2;
   string priceDenom = 3;
   int32 price = 4;
@@ -21,12 +24,20 @@ message BuyOrderPacketData {
 
 ## Packet
 
+The IBC packet has four different stages you need to consider: 
+1. Before transmitting the packet
+2. On Receipt of a packet
+3. On Acknowledgment of a packet
+4. On Timeout of a packet
+
 ### Pre-transmit
 
-- Check the pair exist
-- If IBC token, burn the tokens
-- If native token, lock the tokens
-- Save the voucher received on the target chain for denom resolution
+Before a sell order will be submitted, make sure it contains the following logic:
+
+- Check if the pair exists on the orderbook
+- If the token is an IBC token, burn the tokens
+- If the token is a native token, lock the tokens
+- Save the voucher received on the target chain to later resolve a denom
 
 ```go
 // keeper/msg_server_buyOrder.go
