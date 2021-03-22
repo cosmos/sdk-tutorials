@@ -14,6 +14,11 @@ Understanding how to create and send packets across blockchain will help you nav
 - Navigate between blockchains using the Cosmos SDK and the Starport Relayer.
 - Create a basic blog post and save the post on another blockchain.
 
+<i>Follow this tutorial on YouTube</i>
+
+<a href="https://www.youtube.com/watch?v=NmytpuD33lY" target="_blank">
+<img src="https://i.ytimg.com/vi/NmytpuD33lY/hq720.jpg" alt="IBC Hello World Tutorial" width="150"/></a>
+
 ## What is Cosmos SDK and IBC?
 
 The Cosmos SDK is a framework to create a blockchain app. The Cosmos SDK allows developers to easily create custom blockchains that can natively interoperate with other blockchains.

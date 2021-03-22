@@ -6,25 +6,26 @@ sections:
   - title: IBC Hello World
     desc: Build a Hello World blockchain app as an IBC module. Learn how to use the relayer to connect two blockchains with each other and use IBC packets to transfer data from one blockchain to another.
     url: /hello-world/tutorial/
-    difficulty: beginner
     tags: 
       - starport
       - stargate
   - title: Blog
     desc: Learn how Starport works by building a blog.
     url: /blog/tutorial/01-index.html
-    difficulty: beginner
     tags: 
       - starport
       - stargate
   - title: Proof of File Existence Migration
     desc: Efficiently migrate your Cosmos SDK applications or modules from Launchpad to Stargate using Starport.
     url: /launchpad-to-stargate/tutorial/01-introduction.html
-    difficulty: beginner
     tags:
       - starport
       - stargate
 stack:
+  - title: "Starport v0.15: IBC Hello, world!"
+    duration: "10:21"
+    imgSrc: https://i.ytimg.com/vi/NmytpuD33lY/hq720.jpg
+    url: https://www.youtube.com/watch?v=NmytpuD33lY
   - title: Cosmos Code With Us - Building your first Cosmos app
     duration: "1:39:07"
     imgSrc: https://i.ytimg.com/vi/h6Ur_40LB9k/hq720.jpg
