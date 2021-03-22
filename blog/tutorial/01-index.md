@@ -407,7 +407,7 @@ starport serve
 
 This command installs dependencies, builds and initializes the app, and runs servers. You can also do it manually:
 
-Fist, create a `Makefile` in your `/blog` root directory
+First, create a `Makefile` in your `/blog` root directory
 
 ### Makefile
 
