@@ -76,7 +76,7 @@ Let's create orderbooks for a pair of tokens.
 interchanged tx ibcdex send-createPair ibcdex channel-0 mcx vcx --from alice --chain-id mars --home ~/.mars
 ```
 
-`send-createPair` command will create, sign and broadcast a transaction containing a `MsgSendCreatePair` message. The command accepts 4 arguments: port name (`ibcdex`) defined in the source code, channel name (`channel-0`) created by the module and two denom strings. We also need to specify chain ID and a custom home directory.
+`send-createPair` command will create, sign and broadcast a transaction containing a `MsgSendCreatePair` message. The command accepts 4 arguments: port name (`ibcdex`) defined in the source code, channel name (`channel-0`) created by the module and two denom strings. Specify chain ID and a custom home directory.
 
 `MsgSendCreatePair`
 
