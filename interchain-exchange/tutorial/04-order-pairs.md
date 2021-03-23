@@ -13,7 +13,7 @@ This will require you to create the index for an orderbook, with their according
 You defined the order books as indexed types in the store but you have to specify how this index is defined with the following code:
 
 ```go
-// types/keys.go
+// x/ibcdex/types/keys.go
 import "fmt"
 
 //...
@@ -40,7 +40,7 @@ A pair of token always has one orderbook that everyone can access in the app.
 When an orderbook pair already exists, it should throw an error.
 
 ```go
-// keeper/msg_server_createPair.go
+// x/ibcdex/keeper/msg_server_createPair.go
 import "errors"
 
 //...
@@ -65,7 +65,7 @@ When a packet with an orderbook creation is received, the validity of the transa
 If the pair does not exist yet, it can be added to the keeper.
 
 ```go
-// keeper/createPair.go
+// x/ibcdex/keeper/createPair.go
 func (k Keeper) OnRecvCreatePairPacket(ctx sdk.Context, packet channeltypes.Packet, data types.CreatePairPacketData) (packetAck types.CreatePairPacketAck, err error) {
 	// validate packet data upon receiving
 	if err := data.ValidateBasic(); err != nil {
@@ -94,7 +94,7 @@ When a packet sent with IBC is valid and received, it must be acknowledged.
 When the acknowledgement is successful, add the sell orderbook to the database.
 
 ```go
-// keeper/createPair.go
+// x/ibcdex/keeper/createPair.go
 func (k Keeper) OnAcknowledgementCreatePairPacket(ctx sdk.Context, packet channeltypes.Packet, data types.CreatePairPacketData, ack channeltypes.Acknowledgement) error {
 	switch dispatchedAck := ack.Response.(type) {
 	case *channeltypes.Acknowledgement_Error:

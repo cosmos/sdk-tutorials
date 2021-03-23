@@ -1,12 +1,12 @@
 ---
-order: 9
+order: 11
 ---
 
 # Write tests
 
 To test your application, add the test files to your code.
 
-After you add the test files, change into the `interchange` directory with your termnial, then run
+After you add the test files below, change into the `interchange` directory with your terminal, then run
 
 ```bash
 go test -timeout 30s ./x/ibcdex/types
