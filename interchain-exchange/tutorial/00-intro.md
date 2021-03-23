@@ -5,7 +5,7 @@ order: 1
 # Introduction
 
 The Interchain Exchange is a module to create buy and sell orders in between blockchains.
-In this tutorial you will learn how to create a Cosmos SDK module which can create order pairs, buy and sell orders. You will be able to create orderbooks, buy and sell orders across blockchains, which enables to swap tokens from one blockchain to another.
+In this tutorial you will learn how to create a Cosmos SDK module which can create order pairs, buy and sell orders. You will be able to create orderbooks, buy and sell orders across blockchains.
 
 The code in this tutorial is purely written for a tutorial and only for educational purpose. It is not intended to be used in production.
 {synopsis}
