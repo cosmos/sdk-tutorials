@@ -69,7 +69,7 @@ Source blockchain is `Mars`, target blockchain is `Venus`.
 
 The orderbook is to sell `mcx` and buy `vcx` token. -->
 
-Let's create orderbooks for a pair of tokens.
+Create orderbooks for a pair of tokens.
 
 ```bash
 # create the pair
