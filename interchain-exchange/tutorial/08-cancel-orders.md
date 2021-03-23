@@ -1,5 +1,5 @@
 ---
-order: 8
+order: 9
 ---
 
 # Cancel orders
@@ -15,7 +15,7 @@ To cancel a sell order, you have to get the ID of the specific sell order.
 Then you can use the function `RemoveOrderFromID` to remove the specific order from the orderbook and update the keeper accordingly.
 
 ```go
-// msg_server_cancelSellOrder.go
+// x/ibcdex/keeper/msg_server_cancelSellOrder.go
 func (k msgServer) CancelSellOrder(goCtx context.Context, msg *types.MsgCancelSellOrder) (*types.MsgCancelSellOrderResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -43,7 +43,7 @@ func (k msgServer) CancelSellOrder(goCtx context.Context, msg *types.MsgCancelSe
 	book = newBook.(types.SellOrderBook)
 	k.SetSellOrderBook(ctx, book)
 
-  // Refund seller with remaining amount
+    // Refund seller with remaining amount
 	seller, err := sdk.AccAddressFromBech32(order.Creator)
 	if err != nil {
 		return &types.MsgCancelSellOrderResponse{}, err
@@ -69,7 +69,7 @@ To cancel a buy order, you have to get the ID of the specific buy order.
 Then you can use the function `RemoveOrderFromID` to remove the specific order from the orderbook and update the keeper accordingly.
 
 ```go
-// msg_server_cancelBuyOrder.go
+// x/ibcdex/keeper/msg_server_cancelBuyOrder.go
 func (k msgServer) CancelBuyOrder(goCtx context.Context, msg *types.MsgCancelBuyOrder) (*types.MsgCancelBuyOrderResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 

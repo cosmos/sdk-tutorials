@@ -10,7 +10,7 @@ In this tutorial you will learn how to create a Cosmos SDK module which can crea
 The code in this tutorial is purely written for a tutorial and only for educational purpose. It is not intended to be used in production.
 {synopsis}
 
-If you want to spoil, please refer to the [example implementation](https://github.com/tendermint/interchange).
+If you want to see the end result, please refer to the [example implementation](https://github.com/tendermint/interchange).
 
 **You will learn how to**
 - Create a blockchain with Starport

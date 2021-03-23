@@ -41,8 +41,8 @@ starport module create ibcdex --ibc --ordering unordered
 
 ## Create the Transaction Types
 
-Create two types of transactions and use the Starport `type` command. 
-The two commands below will create a `sellOrderBook` and `buyOrderBook` transaction. 
+To scaffold two types with create, read, update and delete (CRUD) actions use the Starport `type` command.
+The two commands below will create `sellOrderBook` and `buyOrderBook` types. 
 
 ```bash
 starport type sellOrderBook orderIDTrack:int amountDenom priceDenom --indexed --module ibcdex
@@ -52,19 +52,26 @@ starport type buyOrderBook orderIDTrack:int amountDenom priceDenom --indexed --m
 The values are: 
 - `orderIDTrack`, which is an internal counter in the order book to assign the orders an ID.
 - `amountDenom`, which will represent which token will be sold and in which quantity
-- `priceDenom` what price you are selling your token 
+- `priceDenom`, what price you are selling your token 
 
-The flag `--indexed` adds an index to the transaction, the `--module ibcdex` adds this transaction to the `ibcdex` module.
+The flag `--indexed` flag creates an "indexed type". Without this flag, a type is implemented like a list with new items appended. Indexed types act like key-value stores.
+
+The `--module ibcdex` flag specifies that the type should be scaffolded in the `ibcdex` module.
 
 ## Create the IBC Packets
 
-Create three packets for IBC, to create a new orderbook pair `createPair`, create a sell order `sellOrder`, create a buy order `buyOrder`.
+Create three packets for IBC:
+- an orderbook pair `createPair` 
+- a sell order `sellOrder` 
+- a buy order `buyOrder`
 
 ```bash
 starport packet createPair sourceDenom targetDenom --module ibcdex
 starport packet sellOrder amountDenom amount:int priceDenom price:int --ack remainingAmount:int,gain:int --module ibcdex
 starport packet buyOrder amountDenom amount:int priceDenom price:int --ack remainingAmount:int,purchase:int --module ibcdex
 ```
+
+The optional `--ack` flag defines field names and types of the acknowledgment returned after the packet has been received by the target chain. Value of `--ack` is a comma-separated (no spaces) list of names with optional types appended after a colon.
 
 ## Cancel messages
 
@@ -76,12 +83,14 @@ starport message cancelSellOrder port channel amountDenom priceDenom orderID:int
 starport message cancelBuyOrder port channel amountDenom priceDenom orderID:int --desc "Cancel a buy order" --module ibcdex
 ```
 
+The optional `--desc` flag let's you define a description of the CLI command used to broadcast a transaction with the message.
+
 ## Trace the Denom
 
 The token denoms should have the same behavior as described in the `ibc-transfer` module:
 
 - An external token received from a chain has a unique `denom`, reffered to as `voucher`
-- When a token which is sent to a blockchain is sent back and received, the chain can resolve the voucher and convert it back to the original token denomination
+- When a token is sent to a blockchain and then sent back and received, the chain can resolve the voucher and convert it back to the original token denomination
 
 `Voucher` tokens are represented as hashes, therefore you must store which original denomination is related to a voucher, you can do this with an indexed type.
 
