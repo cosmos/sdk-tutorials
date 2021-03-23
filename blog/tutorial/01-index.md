@@ -8,17 +8,17 @@ By following this beginner tutorial, you will end up with a simple blog app that
 
 ## Requirements 
 
-For this tutorial we will be using [Starport](https://github.com/tendermint/starport) v0.13.2, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
+For this tutorial you will use [Starport](https://github.com/tendermint/starport) v0.15.0, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
-curl https://get.starport.network/starport@v0.13.2! | bash
+curl https://get.starport.network/starport@v0.15.0! | bash
 ```
 
-You can also use Starport v0.13.2 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.13.2). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
+You can also use Starport v0.15.0 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.0). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
 
 ## Getting Started
 
-Let's get started! The first step is to [install the `starport`](https://github.com/tendermint/starport) CLI tool.
+Get started! The first step is to [install the `starport`](https://github.com/tendermint/starport) CLI tool.
 
 After `starport` is installed, use it to create the initial app structure inside a directory named `blog`:
 
@@ -26,21 +26,25 @@ After `starport` is installed, use it to create the initial app structure inside
 starport app github.com/example/blog
 ```
 
-One of the main features of Starport is code generation. The command above has generated a directory structure with a working blockchain application. Starport can also add data types to your app with `starport type` command. To see it in action, follow the poll application tutorial. In this guide, however, we'll create those files manually to understand how it all works under the hood.
+One of the main features of Starport is code generation. The command above has generated a directory structure with a working blockchain application. Starport can also add data types to your app with `starport type` command. To see it in action, follow the poll application tutorial. In this guide, however, you will create those files manually to understand how it all works under the hood.
 
 ## Overview
 
-Let's take a quick look at what Starport has generated for us. [`app/app.go`](https://docs.cosmos.network/master/basics/app-anatomy.html#core-application-file) file imports and configures SDK modules and creates a constructor for our application that extends a [basic SDK application](https://docs.cosmos.network/master/core/baseapp.html) among other things. This app will use only a couple standard modules bundled with Cosmos SDK (including `auth` for dealing with accounts and `bank` for handling coin transfers) and one module (`x/blog`) that will contain custom functionality.
+Take a quick look at what Starport has generated for us. [`app/app.go`](https://docs.cosmos.network/master/basics/app-anatomy.html#core-application-file) file imports and configures SDK modules and creates a constructor for the application that extends a [basic SDK application](https://docs.cosmos.network/master/core/baseapp.html) among other things. This app will use only a couple standard modules bundled with Cosmos SDK (including `auth` for dealing with accounts and `bank` for handling coin transfers) and one module (`x/blog`) that will contain custom functionality.
 
-In `cmd` directory we have source files of two programs for interacting with our application: `blogd` starts a full-node for your blockchain and enables you to query the full-node, either to update the state by sending a transaction or to read it via a query.
+In `cmd` directory you have source files of two programs for interacting with our application: `blogd` starts a full-node for your blockchain and enables you to query the full-node, either to update the state by sending a transaction or to read it via a query.
 
 This blog app will store data in a persistent [key-value store](https://docs.cosmos.network/master/core/store.html). Similarly to most key-value stores, you can retrieve, delete, update, and loop through keys to obtain the values you are interested in.
 
-We’ll be creating a simple blog-like application, so let’s define the first proto type, the `Post` in the `post.proto` file.
+Create a simple blog-like application and define the first proto type, the `Post` in the `post.proto` file.
 
-## proto/blog/post.proto
 
-```go
+## Create the Proto File
+
+Create the `post.proto` file.
+
+```proto
+// proto/blog/post.proto
 syntax = "proto3";
 package example.blog.blog;
 
@@ -65,7 +69,7 @@ message MsgCreatePost {
 
 The code above defines the three properties of a post: Creator, Title, Body and ID. We generate unique global IDs for each post and also store them as strings.
 
-Posts in our key-value store will look like this:
+Posts in the key-value store will look like this:
 
 ```
 "post-0": {
@@ -79,15 +83,18 @@ Posts in our key-value store will look like this:
 }
 ```
 
-Right now the store is empty. Let's figure out how to add posts.
+Right now the store is empty. Next, define how the user adds a posts.
 
 With the Cosmos SDK, users can interact with your app with either a CLI (`blogd`) or by sending HTTP requests. Let's define the CLI command first. Users should be able to type `blogd tx blog create-post 'This is a post!' 'Welcome to my blog app.' --from=user1` to add a post to your store. The `create-post` subcommand hasn’t been defined yet--let’s do it now.
 
-## x/blog/client/cli/tx.go
+## Create the CLI Function
+
+Open the CLI transaction file `x/blog/client/cli/tx.go`.
 
 In the `import` block, make sure to import these four packages:
 
 ```go
+// x/blog/client/cli/tx.go
 import (
 	"fmt"
 
