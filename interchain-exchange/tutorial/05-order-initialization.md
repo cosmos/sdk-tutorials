@@ -4,9 +4,8 @@ order: 6
 
 # Initialize the Orders
 
-In this chapter you will initialize the bank keeper and the modules. 
-You will add the bank module initialization to the blockchain app that you have created so you can use it in the exchange module. 
-In this chapter you will make sure that there can be no new native tokens created on a blockchain, which will secure the exchange module from any blockchain misbehaviour.
+In this chapter you will initialize the bank keeper into `ibcdex` and update the module in the `app.go` file. 
+You will make sure that there can be no new native tokens minted on a blockchain, which will secure the exchange module from any counterparty misbehaviour.
 
 ## Add the bank keeper to the module
 
@@ -96,15 +95,15 @@ maccPerms = map[string][]string{
 }
 ```
 
-## Ensure No Native Token are Minted
+## Ensure no native token is minted
 
-Ensure that no new native tokens are minted in case the module is connected to a faulty blockchain. Rename this functionality into lock and unlock and reuse functions from `ibc-transfer` module with an escrow address to ensure no new token creation.
+Ensure that no new native tokens are minted in case the module is connected to a malicious or faulty counterparty. Rename this functionality into lock and unlock and reuse functions from `ibc-transfer` module with an escrow address to ensure no new token creation.
 
 For non-native tokens, use the _module accounts_ functionality.
 
-To abstract the process of deciding if a token must be locked or burned, introduce `SafeBurn` and `SafeMint`. Those functions will check if the denom is native to the chain or a voucher.
+To abstract the process of deciding if a token must be locked or burned, create the `SafeBurn` and `SafeMint` functions. Those functions will check if the denom is native to the chain or a voucher.
 
-Consider that any denom staring with `ibc/` is a voucher.
+Consider that any denom starting with `ibc/` is a voucher.
 
 Define utilitary functions.
 
@@ -274,16 +273,16 @@ func (k Keeper) UnlockTokens(
 }
 ```
 
-## Declare the Denom
+## Declare the denom
 
-The token denoms should have the same behavior as the `ibc-transfer` module.
+The token denoms should have the a similar behavior as you have learned from the `ibc-transfer` module.
 
-- An external token received from a chain has a unique denom, reffered to as `voucher`
+- An external token received from a chain has a unique denom, referred to as `voucher`
 - When a token sent to a chain is received back, the chain can resolve the voucher and convert it back to the original token denomination
 
 Vouchers are hashes, therefore you must store which original denomination is related to a voucher, do this with an `indexed` type transaction.
 
-For a voucher store: 
+For a voucher, store the following information: 
 - the source port ID 
 - source channel ID 
 - the original denom
