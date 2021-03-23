@@ -8,9 +8,10 @@ To list created posts we will be using `blogd query blog list-post` and `blogd q
 
 First we define our proto files, in `proto/blog`
 
-## proto/blog/query.proto
+## Add the Query Proto File
 
-```go
+```proto
+// proto/blog/query.proto
 syntax = "proto3";
 package example.blog.blog;
 
@@ -50,25 +51,30 @@ message QueryAllPostResponse {
 	repeated Post Post = 1;
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
-
 ```
 
 In our proto file we define the structure of the API endpoint, as well as our request and response structure of the post.
 
-## x/blog/client/cli/query.go
+## Edit the Query Functions in the CLI
 
 Function `GetQueryCmd` is used for creating a list of `query` subcommands, it should already be defined. Edit the function to add `CmdListPost` and `CmdShowPost` as a subcommand:
 
 ```go
+// x/blog/client/cli/query.go
+	
+	// this line is used by starport scaffolding # 1
 	cmd.AddCommand(CmdListPost())
 	cmd.AddCommand(CmdShowPost())
 ```
 
-Now let’s define `CmdListPost` in a new `queryPost.go` file:
+Now define `CmdListPost` in a new `queryPost.go` file:
 
-## x/blog/client/cli/queryPost.go
+## Add the Query Post to the CLI
+
+Create the `x/blog/client/cli/queryPost.go` file.
 
 ```go
+// x/blog/client/cli/queryPost.go
 package cli
 
 import (
@@ -145,17 +151,16 @@ func CmdShowPost() *cobra.Command {
 
     return cmd
 }
-
-
 ```
 
 `CmdListPost` and `CmdShowPost` run an [ABCI](https://docs.tendermint.com/master/spec/abci/) query to fetch the data, unmarshals it back form binary to JSON and returns it to the console. ABCI is an interface between your app and Tendermint (a program responsible for replicating the state across machines). ABCI queries look like paths on a hierarchical filesystem. In our case, the query is `custom/blog/list-post`. Before we continue, we need to define `QueryListPost`.
 
-## x/blog/types/query.go
+## Add the Two Query Commands to the Types
 
 Define a `QueryListPost` that will be used later on to dispatch query requests:
 
 ```go
+// x/blog/types/query.go
 package types
 
 const (
@@ -165,11 +170,12 @@ const (
 
 ```
 
-## x/blog/keeper/query.go
+## Add the Query Functions to the Keeper
 
 `NewQuerier` acts as a dispatcher for query functions, it should already be defined. Modify the switch statement to include `listPost`:
 
 ```go
+// x/blog/keeper/query.go
     switch path[0] {
     case types.QueryGetPost:
       return getPost(ctx, path[1], k, legacyQuerierCdc)
@@ -180,15 +186,16 @@ const (
     default:
 ```
 
-Now let’s define `listPost`:
+Now define `listPost`:
 
-### x/blog/keeper/query_post.go
+### Add the Query Post Functions to the Keeper
 
 Create a new file `query_post.go` in the `keeper/` directory
 
 Make sure to add the codec to the previous import and add the `listPost` and `getPost` function in a new file called `query_post.go` in our keeper.
 
 ```go
+// x/blog/keeper/query_post.go
 package keeper
 
 import (
@@ -223,9 +230,10 @@ func getPost(ctx sdk.Context, id string, keeper Keeper, legacyQuerierCdc *codec.
 
 In the keeper we define also the grpc of our queryPost function.
 
-### x/block/keeper/grpc_query_post.go
+### Add GRPC functionality
 
 ```go
+// x/block/keeper/grpc_query_post.go
 package keeper
 
 import (
@@ -285,18 +293,22 @@ func (k Keeper) Post(c context.Context, req *types.QueryGetPostRequest) (*types.
 
 We add the grpc query handler to our module on 
 
-### x/blog/module.go
+### Add GRPC to the Module Handler
 
 Let's make sure to import `context` and add the `RegisterGRPCGatewayRoutes` 
 
 ```go
+// x/blog/module.go
 import (
 	"context"
 	// ... other imports
 )
 ```
 
+Search for the `RegisterGRPCGatewayRoutes` function and add the `RegisterQueryHandlerClient`
+
 ```go
+// x/blog/module.go
 func (AppModuleBasic) RegisterGRPCGatewayRoutes(clientCtx client.Context, mux *runtime.ServeMux) {
     types.RegisterQueryHandlerClient(context.Background(), mux, types.NewQueryClient(clientCtx))
 }
@@ -335,7 +347,7 @@ blogd query blog list-post
 
 That’s a newly created post along with your address and a unique ID. Try creating more posts and see the output.
 
-We can also make [ABCI](https://docs.tendermint.com/master/spec/abci/) queries from the browser:
+You can also make [ABCI](https://docs.tendermint.com/master/spec/abci/) queries from the browser:
 
 ```
 http://localhost:26657/abci_query?path="custom/blog/list-post"
