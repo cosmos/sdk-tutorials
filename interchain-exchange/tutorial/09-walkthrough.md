@@ -24,7 +24,7 @@ starport serve -c venus.yml -r
 
 ## Configure the relayer
 
-Configure the relayer between `Mars` and `Venus` blockchains. Use the `--advanved` flag to pass custom port name and version. For `Mars` use the default ports, for `Venus` ports are specified in `venus.yml`. IBC port and version is defined in the source code of the module.
+Configure the relayer between `Mars` and `Venus` blockchains. Use the `--advanced` flag to pass custom port name and version. For `Mars` use the default ports, for `Venus` ports are specified in `venus.yml`. IBC port and version is defined in the source code of the module.
 
 ```bash
 # relayer configuration
