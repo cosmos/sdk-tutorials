@@ -41,8 +41,8 @@ starport module create ibcdex --ibc --ordering unordered
 
 ## Create the Transaction Types
 
-Create two types of transactions and use the Starport `type` command. 
-The two commands below will create a `sellOrderBook` and `buyOrderBook` transaction. 
+To scaffold two types with create, read, update and delete (CRUD) actions use the Starport `type` command.
+The two commands below will create `sellOrderBook` and `buyOrderBook` types. 
 
 ```bash
 starport type sellOrderBook orderIDTrack:int amountDenom priceDenom --indexed --module ibcdex
@@ -54,7 +54,9 @@ The values are:
 - `amountDenom`, which will represent which token will be sold and in which quantity
 - `priceDenom` what price you are selling your token 
 
-The flag `--indexed` adds an index to the transaction, the `--module ibcdex` adds this transaction to the `ibcdex` module.
+The flag `--indexed` flag creates an "indexed type". Without this flag, a type is implemented like a list with new items appended. Indexed types act like key-value stores.
+
+The `--module ibcdex` flag specifies that the type should be scaffolded in the `ibcdex` module.
 
 ## Create the IBC Packets
 
@@ -66,6 +68,8 @@ starport packet sellOrder amountDenom amount:int priceDenom price:int --ack rema
 starport packet buyOrder amountDenom amount:int priceDenom price:int --ack remainingAmount:int,purchase:int --module ibcdex
 ```
 
+The optional `--ack` flag defines field names and types of the acknowledgment returned after the packet has been received by the target chain. Value of `--ack` is a comma-separated (no spaces) list of names with optional types appended after a colon.
+
 ## Cancel messages
 
 Cancelling orders is done locally in the network, there is no packet to send.
@@ -75,6 +79,8 @@ Use the `message` command to create a message to cancel a sell or buy order.
 starport message cancelSellOrder port channel amountDenom priceDenom orderID:int --desc "Cancel a sell order" --module ibcdex
 starport message cancelBuyOrder port channel amountDenom priceDenom orderID:int --desc "Cancel a buy order" --module ibcdex
 ```
+
+The optional `--desc` flag let's you define a description of the CLI command used to broadcast a transaction with the message.
 
 ## Trace the Denom
 

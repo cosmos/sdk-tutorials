@@ -7,7 +7,7 @@ order: 2
 In this chapter you will learn how the interchain exchange module is designed.
 The module has orderbooks, buy- and sell orders.
 First, an orderbook for a pair of token has to be created.
-After an ordebrook exists, you can create buy and sell orders for this pair of token.
+After an orderbook exists, you can create buy and sell orders for this pair of token.
 
 The module will make use of the Interblockchain Communication Standard [IBC](https://github.com/cosmos/ics/blob/master/ibc/2_IBC_ARCHITECTURE.md). With use of the IBC, the module can create orderbooks for tokens to have multiple blockchains interact and exchange their tokens. 
 You will be able to create an orderbook pair with one token from one blockchain and another token from a different blockchain. We will call the module you create in this tutorial `ibcdex`.
@@ -33,8 +33,8 @@ This module is inspired by the [`ibc-transfer`](https://github.com/cosmos/cosmos
 
 ## Overview
 
-Assume you have two blockchains, one on `Venus`, one on `Mars`. The token to use on Venus is called `vcx`, the token on Mars `mcx`. 
-When exchanging a token from Mars to Venus, on the Venus blockchain you would end up with an IBC `voucher` token that looks like `ibc/Venus/mcx`. The IBC path indicates the path of the token. 
+Assume you have two blockchains: `Venus` and `Mars`. The native token on Venus is called `vcx`, the token on Mars is `mcx`. 
+When exchanging a token from Mars to Venus, on the Venus blockchain you would end up with an IBC `voucher` token with a denom that looks like `ibc/B5CB286...A7B21307F `. The long string of characters after `ibc/` is a denom trace hash of a token transferred through IBC. Using the blockchain's API you can get a denom trace from that hash. Denom trace consists of a `base_denom` and a `path`. In our example, `base_denom` will be `mcx` and the `path` will contain pairs of ports and channels through which the token has been transferred. For a single-hop transfer `path` will look like `transfer/channel-0`. Learn more about token paths in [ICS 20](https://github.com/cosmos/ics/tree/master/spec/ics-020-fungible-token-transfer).
 This token `ibc/Venus/mcx` cannot be sold back using the same orderbook. If you want to "reverse" the exchange and receive back the Mars token, a new orderbook `ibc/Venux/mcx` to `mcx` needs to be created.
 
 ## Order books
