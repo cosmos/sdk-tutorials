@@ -30,7 +30,8 @@ One of the main features of Starport is code generation. The command above has g
 
 ## Overview
 
-Take a quick look at what Starport has generated for us. [`app/app.go`](https://docs.cosmos.network/master/basics/app-anatomy.html#core-application-file) file imports and configures SDK modules and creates a constructor for the application that extends a [basic SDK application](https://docs.cosmos.network/master/core/baseapp.html) among other things. This app will use only a couple standard modules bundled with Cosmos SDK (including `auth` for dealing with accounts and `bank` for handling coin transfers) and one module (`x/blog`) that will contain custom functionality.
+Take a quick look at what Starport has generated for us: 
+The [`app/app.go`](https://docs.cosmos.network/master/basics/app-anatomy.html#core-application-file) file imports and configures SDK modules and creates a constructor for the application that extends a [basic SDK application](https://docs.cosmos.network/master/core/baseapp.html) among other things. This app will use only a couple standard modules bundled with Cosmos SDK (including `auth` for dealing with accounts and `bank` for handling coin transfers) and one module (`x/blog`) that will contain custom functionality.
 
 In `cmd` directory you have source files of two programs for interacting with our application: `blogd` starts a full-node for your blockchain and enables you to query the full-node, either to update the state by sending a transaction or to read it via a query.
 
@@ -108,9 +109,10 @@ import (
 )
 ```
 
-This file already contains `func GetTxCmd` which defines custom `blogd` [commands](https://docs.cosmos.network/master/building-modules/module-interfaces.html#cli). We will add the custom `create-post` command to our `blogd` by first adding `GetCmdCreatePost` to `blogTxCmd`.
+This file already contains the function `GetTxCmd` which defines custom `blogd` [commands](https://docs.cosmos.network/master/building-modules/module-interfaces.html#cli). We will add the custom `create-post` command to our `blogd` by first adding `GetCmdCreatePost` to `blogTxCmd`.
 
 ```go
+  // this line is used by starport scaffolding # 1
   cmd.AddCommand(CmdCreatePost())
 ```
 
@@ -150,11 +152,12 @@ The function above defines what happens when you run the `create-post` subcomman
 
 This is a common pattern in the SDK: users make changes to the store by broadcasting [messages](https://docs.cosmos.network/master/building-modules/messages-and-queries.html#messages). Both CLI commands and HTTP requests create messages that can be broadcasted in order for state transition to occur.
 
-## x/blog/types/messages_post.go
+## Define the Message to Create a Post
 
-Let’s define `NewMsgCreatePost` in a new file you should create as `x/blog/types/messages_post.go`.
+Define `NewMsgCreatePost` in a new file you should create as `x/blog/types/messages_post.go`.
 
 ```go
+// x/blog/types/messages_post.go
 package types
 
 import (
@@ -216,24 +219,26 @@ Going back to `GetCmdCreatePost` in `x/blog/client/cli/tx.go`, you'll see `MsgCr
 
 After being broadcast, the messages are processed by an important part of the application, called [**handlers**](https://docs.cosmos.network/master/building-modules/handler.html).
 
-## x/blog/handler.go
+## Modify the Handler
 
-You should already have `func NewHandler` defined which lists all available handlers. Modify it to include a new function called `handleMsgCreatePost`.
+You should already have the function `NewHandler` defined which lists all available handlers. Modify it to include a new function called `handleMsgCreatePost`.
 
 ```go
+	//x/blog/handler.go
     switch msg := msg.(type) {
     case *types.MsgCreatePost:
         return handleMsgCreatePost(ctx, k, msg)
     default:
 ```
 
-Let's create the handler in `handler_post.go` file
+Create the handler in `handler_post.go` file
 
-## x/blog/handler_post.go
+## Create the Post Handler
 
-Now let’s define `handleMsgCreatePost` in a new file `handler_post.go`:
+Define the function `handleMsgCreatePost` in a new file `handler_post.go`:
 
 ```go
+// x/blog/handler_post.go
 package blog
 
 import (
@@ -247,18 +252,17 @@ func handleMsgCreatePost(ctx sdk.Context, k keeper.Keeper, msg *types.MsgCreateP
 
 	return &sdk.Result{Events: ctx.EventManager().ABCIEvents()}, nil
 }
-
-
 ```
 
-After creating a post object with creator, ID and title, the message handler calls `k.CreatePost(ctx, post)`. “k” stands for [Keeper](https://docs.cosmos.network/master/building-modules/keeper.html), an abstraction used by the SDK that writes data to the store. Let’s define the `CreatePost` keeper function in a new `keeper/post.go` file.
+After creating a post object with creator, ID and title, the message handler calls `k.CreatePost(ctx, post)`. “k” stands for [Keeper](https://docs.cosmos.network/master/building-modules/keeper.html), an abstraction used by the SDK that writes data to the store. Define the `CreatePost` keeper function in a new `keeper/post.go` file.
 
-## x/blog/keeper/post.go
+## Add the Post Keeper
 
 First, create a new file `post.go` in the `keeper/` directory.
 Then, add a `CreatePost` function that takes two arguments: a [context](https://docs.cosmos.network/master/core/context.html#context-definition) and a post. Also, `GetPostCount` and `SetPostCount functions`.
 
 ```go
+// x/blog/keeper/post.go
 package keeper
 
 import (
@@ -348,32 +352,33 @@ func (k Keeper) GetAllPost(ctx sdk.Context) (msgs []types.Post) {
     return
 }
 
-
 ```
 
 `CreatePost` creates a key by concatenating a post prefix with an ID. If you look back at how our store looks, you’ll notice keys have prefixes, which is why `post-0bae9f7d-20f8-4b51-9d5c-af9103177d66` contained the prefix `post-` . The reason for this is you have one store, but you might want to keep different types of objects in it, like posts and users. Prefixing keys with `post-` and `user-` allows you to share one storage space between different types of objects.
 
-## x/blog/types/keys.go
+## Add the Prefix for a Post
 
 To define the post prefix add the following code:
 
 ```go
+// x/blog/types/keys.go
 package types
 
 const (
-  // Other constants...
-  // PostPrefix is used for keys in the KV store
+	// Other constants...
+	// PostPrefix is used for keys in the KV store
   	PostKey= "Post-value-"
-	  PostCountKey= "Post-count-"
+	PostCountKey= "Post-count-"
 )
 ```
 
-## x/blog/types/codec.go
+## Add the Codec
 
 Finally, `store.Set(key, value)` writes our post to the store.
-Two last things to do is tell our [encoder](https://docs.cosmos.network/master/core/encoding.html#amino) how our `MsgCreatePost` is converted to bytes.
+Two last things to do is tell our [encoder](https://docs.cosmos.network/master/core/encoding.html#amino) how the `MsgCreatePost` is converted to bytes.
 
 ```go
+// x/blog/types/codec.go
 package types
 
 import (
@@ -402,11 +407,11 @@ var (
 
 ```
 
-## Launch
+## Launch the Application
 
-Now we are ready to build and start our app and create some posts.
+Now you are ready to build and start the app and create some posts.
 
-To launch your application run:
+To launch the application run:
 
 ```
 starport serve
@@ -416,7 +421,7 @@ This command installs dependencies, builds and initializes the app, and runs ser
 
 First, create a `Makefile` in your `/blog` root directory
 
-### Makefile
+### Create a Makefile
 
 ```bash
 PACKAGES=$(shell go list ./... | grep -v '/simulation')
@@ -457,17 +462,17 @@ Note: depending on your OS and firewall settings, you may have to accept a promp
 Run the following command to create a post:
 
 ```sh
-blogd tx blog create-post "My first post" "This is a post\!" --from=user1
+blogd tx blog create-post "My first post" "This is a post\!" --from=alice
 ```
 
-“This is a post!” is a title for our post and `--from=user1` tells the program who is creating this post. `user1` is a label for your pair of keys used to sign the transaction, created by the initialization script located within the `/Makefile` previously. Keys are stored in `~/.blogd`.
+“My first post” is a title for our post and `--from=alice` tells the program who is creating this post. `alice` is a label for your pair of keys used to sign the transaction, created by the initialization script located within the `/Makefile` previously. Keys are stored in `~/.blogd`.
 
-After running the command and confirming it, you will see an object with “txhash” property with a value like `CA1491B39384A4F29E568F62B156E0F2D0601507EF499CE1B8F3930BAFE7F03C`.
+After running the command and confirming it, you will see an object with “txhash” property with a value like `4B7B68DEACC7CDF3243965A449095B4AB895C9D9BDF0516725BF2173794A9B3C`.
 
-To verify that the transaction has been processed, open a browser and visit the following URL (make sure to replace `CA14...` with the value of your txhash but make sure to have the `0x` prefix):
+To verify that the transaction has been processed, open a browser and visit the following URL (make sure to replace `4B7B6...` with the value of your txhash but make sure to have the `0x` prefix):
 
 ```
-http://localhost:26657/tx?hash=0xCA1491B39384A4F29E568F62B156E0F2D0601507EF499CE1B8F3930BAFE7F03C
+http://localhost:26657/tx?hash=0x4B7B68DEACC7CDF3243965A449095B4AB895C9D9BDF0516725BF2173794A9B3C
 ```
 
 Also check out a basic block overview at
@@ -478,7 +483,7 @@ http://localhost:12345/#/blocks
 
 Congratulations! You have just created and launched your custom blockchain and sent the first transaction 🎉
 
-## Errors
+## Forgot something?
 
 ### Unknown command "create-post" for "blog"
 
