@@ -46,6 +46,11 @@ module.exports = {
               path: "/hello-world/tutorial/",
               directory: true,
             },
+            {
+              title: "Interchain Exchange",
+              path: "/interchain-exchange/tutorial/",
+              directory: true,
+            },
           ],
         },
         {
@@ -214,5 +219,6 @@ module.exports = {
     'voter/*.md',
     'blog-legacy/tutorial/*.md',
     'blog/tutorial/*.md',
+    'interchain-exchange/tutorial/*.md',
   ]
 };
