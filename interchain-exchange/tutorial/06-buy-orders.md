@@ -57,7 +57,7 @@ func (k msgServer) SendBuyOrder(goCtx context.Context, msg *types.MsgSendBuyOrde
 		return &types.MsgSendBuyOrderResponse{}, err
 	}
 	
-// Use SafeBurn to ensure no new native tokens are minted
+    // Use SafeBurn to ensure no new native tokens are minted
 	if err := k.SafeBurn(
 		ctx,
 		msg.Port,
@@ -105,7 +105,7 @@ func (k msgServer) SendBuyOrder(goCtx context.Context, msg *types.MsgSendBuyOrde
 - Send to chain B the buy order after the fill attempt
 
 ```go
-// x/ibcdex/keeper//buyOrder.go
+// x/ibcdex/keeper/buyOrder.go
 func (k Keeper) OnRecvBuyOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.BuyOrderPacketData) (packetAck types.BuyOrderPacketAck, err error) {
 	// validate packet data upon receiving
 	if err := data.ValidateBasic(); err != nil {
