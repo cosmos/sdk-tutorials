@@ -31,6 +31,8 @@ Configure the relayer between `Mars` and `Venus` blockchains. We'll be using the
 starport relayer configure -a --source-rpc "http://0.0.0.0:26657" --source-faucet "http://0.0.0.0:4500" --source-port "ibcdex" --source-version "ibcdex-1" --target-rpc "http://0.0.0.0:26659" --target-faucet "http://0.0.0.0:4501" --target-port "ibcdex" --target-version "ibcdex-1"
 ```
 
+`starport relayer configure` creates configuration files for a connection between blockchains, generates relayer accounts and requests tokens from faucets (if available).
+
 ## Connect the relayer
 
 After the relayer is configured with the two blockchains, start running it and connect the two blockchains.
@@ -62,17 +64,21 @@ interchanged q ibcdex list-buyOrderBook --node tcp://localhost:26659
 
 ## Create an Orderbook
 
-Create an orderbook for a new pair of token to the exchange. 
+<!-- Create an orderbook for a new pair of token to the exchange. 
 Source blockchain is `Mars`, target blockchain is `Venus`.
 
-The orderbook is to sell `mcx` and buy `vcx` token.
+The orderbook is to sell `mcx` and buy `vcx` token. -->
+
+Let's create orderbooks for a pair of tokens.
 
 ```bash
 # create the pair
 interchanged tx ibcdex send-createPair ibcdex channel-0 mcx vcx --from alice --chain-id mars --home ~/.mars
 ```
 
-Display current order books available
+`send-createPair` command will create, sign and broadcast a transaction containing a `MsgSendCreatePair` message. The command accepts 4 arguments: port name (`ibcdex`) defined in the source code, channel name (`channel-0`) created by the module and two denom strings. We also need to specify chain ID and a custom home directory.
+
+`MsgSendCreatePair`
 
 ```bash
 # show the orderbooks
