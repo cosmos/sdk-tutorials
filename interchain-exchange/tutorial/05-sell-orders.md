@@ -14,7 +14,7 @@ When you are dealing with an IBC token, these will get burned and you receive ba
 The packet proto file for a sell order is already generated. Add the seller information.
 
 ```proto
-// packet.proto
+// proto/packet.proto
 message SellOrderPacketData {
   string amountDenom = 1;
   int32 amount = 2;
@@ -42,7 +42,7 @@ Before a sell order will be submitted, make sure it contains the following logic
 - Save the voucher received on the target chain to later resolve a denom
 
 ```go
-// keeper/msg_server_sellOrder.go
+// x/ibcdex/keeper/msg_server_sellOrder.go
 import "errors"
 
 func (k msgServer) SendSourceSellOrder(goCtx context.Context, msg *types.MsgSendSourceSellOrder) (*types.MsgSendSourceSellOrderResponse, error) {
@@ -108,7 +108,7 @@ func (k msgServer) SendSourceSellOrder(goCtx context.Context, msg *types.MsgSend
 - Send to chain A the sell order after the fill attempt
 
 ```go
-// keeper/sellOrder.go
+// x/ibcdex/keeper/sellOrder.go
 // OnRecvSellOrderPacket processes packet reception
 func (k Keeper) OnRecvSellOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.SellOrderPacketData) (packetAck types.SellOrderPacketAck, err error) {
 	// validate packet data upon receiving
@@ -175,7 +175,7 @@ func (k Keeper) OnRecvSellOrderPacket(ctx sdk.Context, packet channeltypes.Packe
 - On error we mint back the burned tokens
 
 ```go
-// keeper/sellOrder.go
+// x/ibcdex/keeper/sellOrder.go
 func (k Keeper) OnAcknowledgementSellOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.SellOrderPacketData, ack channeltypes.Acknowledgement) error {
 	switch dispatchedAck := ack.Response.(type) {
 	case *channeltypes.Acknowledgement_Error:
@@ -268,7 +268,7 @@ func (k Keeper) OnAcknowledgementSellOrderPacket(ctx sdk.Context, packet channel
 If a timeout occurs, we mint back the native token.
 
 ```go
-// keeper/sellOrder.go
+// x/ibcdex/keeper/sellOrder.go
 func (k Keeper) OnTimeoutSellOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.SellOrderPacketData) error {
 	// In case of error we mint back the native token
 	receiver, err := sdk.AccAddressFromBech32(data.Seller)

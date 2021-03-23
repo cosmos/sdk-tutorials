@@ -4,10 +4,10 @@ order: 4
 
 # Create the Orderbook
 
-In this chapter you implement the code for the orderbook, buy orders and sell orders.
+In this chapter you implement the code for the orderbook, for buy orders and sell orders.
 
 In this chapter you will create a `orderbook.go` file with the interface for the orderbook. 
-The orderbook will allow to publish buy or sell orders. The orderbook for a certain pair of token has to be registered on the orderbook first. After registering a pair of token, you can add sell orders and buy orders to this orderbook.
+The orderbook will allow to publish buy or sell orders. The orderbook for a certain pair of token has to be registered first. After registering the orderbook for a pair of token, you can add sell orders and buy orders.
 You will create the `sellorder.go` file with the interface of a sell order. A sell order contains the data of the token denomination and a price you offer to sell a token for.
 You will create the `buyorder.go` file with the interface of a buy order. A buy order contains the data of the token denomination and a price you offer to buy a token for. Buy orders and sell orders will live on different blockchain apps.
 When a buy and a sell order match, the exchange will be executed.
@@ -33,12 +33,12 @@ message Order {
 ```
 
 Create a new file `orderbook.go` in the `ibcdex` module `types` directory.
-In this file, you will define the logic for creating a new orderbook. 
+In this file, you will define the logic to create a new orderbook. 
 
 Create a `orderbook.go` file and add the code:
 
 ```go
-// x/ibcdex/orderbook.go
+// x/ibcdex/types/orderbook.go
 package types
 
 import (
@@ -97,9 +97,9 @@ func UpdateOrderBook(book OrderBook, order Order) OrderBook {
 	return book
 }
 
-// RestoreOrderBook restores the order book from a order book transition
+// RestoreOrderBook restores the orderbook from an orderbook transition
 func RestoreOrderBook(book OrderBook, liquidated []Order) OrderBook {
-	// Restore all liquidation inside the order book
+	// Restore all liquidation inside the orderbook
 	for _, liquidation := range liquidated {
 		book = UpdateOrderBook(book, liquidation)
 	}
@@ -174,6 +174,7 @@ message SellOrderBook {
 For the code of the sell orders, create a `sellorder.go` file in the `types` directory and add the following code:
 
 ```go
+// x/ibcdex/types/sellorder.go
 package types
 
 import (
@@ -357,6 +358,7 @@ func FillSellOrder(book BuyOrderBook, order Order) (
 	return book, remainingSellOrder, liquidatedList, totalGain, filled
 }
 ```
+
 ## Add The Buyorder
 
 Modify the `buyOrderBook.proto` file to have the fields for creating a buy order on the orderbook.
@@ -383,6 +385,7 @@ message BuyOrderBook {
 For the buy orders, create a `buyorder.go` file in the `types` directory and add the following code:
 
 ```go
+// x/ibcdex/types/buyorder.go
 package types
 
 import (
@@ -571,5 +574,5 @@ func FillBuyOrder(book SellOrderBook, order Order) (
 
 This finishes your code for the orderbook module with buy and sell orders.
 In the next chapters, you will make them IBC compatible. 
-You will have to deal with IBC packets that are sent over a blockchain.
+You will have to implement how IBC packets are handled that are sent over a blockchain.
 These packets will be received and acknowledged by the recipient blockchain.

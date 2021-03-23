@@ -12,7 +12,7 @@ The logic is very similar to the previous sell order chapter.
 Add the buyer to the proto file definition
 
 ```proto
-// packet.proto
+// proto/packet.proto
 message BuyOrderPacketData {
   string amountDenom = 1;
   int32 amount = 2;
@@ -40,7 +40,7 @@ Before a sell order will be submitted, make sure it contains the following logic
 - Save the voucher received on the target chain to later resolve a denom
 
 ```go
-// keeper/msg_server_buyOrder.go
+// x/ibcdex/keeper//msg_server_buyOrder.go
 func (k msgServer) SendBuyOrder(goCtx context.Context, msg *types.MsgSendBuyOrder) (*types.MsgSendBuyOrderResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -105,7 +105,7 @@ func (k msgServer) SendBuyOrder(goCtx context.Context, msg *types.MsgSendBuyOrde
 - Send to chain B the buy order after the fill attempt
 
 ```go
-// keeper/buyOrder.go
+// x/ibcdex/keeper//buyOrder.go
 func (k Keeper) OnRecvBuyOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.BuyOrderPacketData) (packetAck types.BuyOrderPacketAck, err error) {
 	// validate packet data upon receiving
 	if err := data.ValidateBasic(); err != nil {
@@ -171,7 +171,7 @@ func (k Keeper) OnRecvBuyOrderPacket(ctx sdk.Context, packet channeltypes.Packet
 - On error we mint back the burned tokens
 
 ```go
-// keeper/buyOrder.go
+// x/ibcdex/keeper/buyOrder.go
 func (k Keeper) OnAcknowledgementBuyOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.BuyOrderPacketData, ack channeltypes.Acknowledgement) error {
 	switch dispatchedAck := ack.Response.(type) {
 	case *channeltypes.Acknowledgement_Error:
@@ -263,7 +263,7 @@ func (k Keeper) OnAcknowledgementBuyOrderPacket(ctx sdk.Context, packet channelt
 In case the order has a timeout is is necessary to mint back the token for the user.
 
 ```go
-// keeper/buyOrder.go
+// x/ibcdex/keeper/buyOrder.go
 func (k Keeper) OnTimeoutBuyOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.BuyOrderPacketData) error {
 	// In case of error we mint back the native token
 	receiver, err := sdk.AccAddressFromBech32(data.Buyer)
