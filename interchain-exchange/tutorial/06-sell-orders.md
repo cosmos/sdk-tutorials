@@ -1,5 +1,5 @@
 ---
-order: 6
+order: 7
 ---
 
 # Create the Sell Order IBC packet
