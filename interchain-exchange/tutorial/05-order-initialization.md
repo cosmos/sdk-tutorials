@@ -9,7 +9,7 @@ You will make sure that there can be no new native tokens minted on a blockchain
 
 ## Add the bank keeper to the module
 
-Add the keeper to the `ibcdex` module. First, in the `types` directory.
+Add the bank keeper reference to the `ibcdex` module. First, in the `types` directory.
 
 ```go
 // x/ibcdex/types/expected_keeper.go
@@ -275,7 +275,8 @@ func (k Keeper) UnlockTokens(
 
 ## Declare the denom
 
-The token denoms should have the a similar behavior as you have learned from the `ibc-transfer` module.
+As defined in the [App Design](./01-app-design.md), token sent with IBC will create `voucher` token.
+The following rules apply:
 
 - An external token received from a chain has a unique denom, referred to as `voucher`
 - When a token sent to a chain is received back, the chain can resolve the voucher and convert it back to the original token denomination
