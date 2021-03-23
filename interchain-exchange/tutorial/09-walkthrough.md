@@ -78,10 +78,11 @@ interchanged tx ibcdex send-createPair ibcdex channel-0 mcx vcx --from alice --c
 
 `send-createPair` command will create, sign and broadcast a transaction containing a `MsgSendCreatePair` message. The command accepts 4 arguments: port name (`ibcdex`) defined in the source code, channel name (`channel-0`) created by the module and two denom strings. Specify chain ID and a custom home directory.
 
-`MsgSendCreatePair`
+`MsgSendCreatePair` will trigger sending an IBC packet. When the packet is received by the target chain, a buy order book is created for `vcx` tokens on Venus, and acknowledgement is sent back to the source chain. When acknowledgement is received, a sell order book is created for `mcx` tokens on Mars.
+
+Query both blockchains for order books:
 
 ```bash
-# show the orderbooks
 interchanged q ibcdex list-sellOrderBook
 interchanged q ibcdex list-buyOrderBook --node tcp://localhost:26659
 ```
