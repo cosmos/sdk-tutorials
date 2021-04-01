@@ -4,6 +4,9 @@ import { Api } from "./rest";
 import { MsgCreatePoll } from "./types/voter/tx";
 import { MsgUpdatePoll } from "./types/voter/tx";
 import { MsgDeletePoll } from "./types/voter/tx";
+import { MsgDeleteVote } from "./types/voter/tx";
+import { MsgUpdateVote } from "./types/voter/tx";
+import { MsgCreateVote } from "./types/voter/tx";
 interface TxClientOptions {
     addr: string;
 }
@@ -16,6 +19,9 @@ declare const txClient: (wallet: OfflineSigner, { addr: addr }?: TxClientOptions
     msgCreatePoll: (data: MsgCreatePoll) => EncodeObject;
     msgUpdatePoll: (data: MsgUpdatePoll) => EncodeObject;
     msgDeletePoll: (data: MsgDeletePoll) => EncodeObject;
+    msgDeleteVote: (data: MsgDeleteVote) => EncodeObject;
+    msgUpdateVote: (data: MsgUpdateVote) => EncodeObject;
+    msgCreateVote: (data: MsgCreateVote) => EncodeObject;
 }>;
 interface QueryClientOptions {
     addr: string;

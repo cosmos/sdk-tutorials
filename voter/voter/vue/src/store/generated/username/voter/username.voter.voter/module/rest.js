@@ -155,11 +155,38 @@ export class Api extends HttpClient {
          *
          * @tags Query
          * @name QueryPoll
-         * @summary this line is used by starport scaffolding # 2
          * @request GET:/username/voter/voter/poll/{id}
          */
         this.queryPoll = (id, params = {}) => this.request({
             path: `/username/voter/voter/poll/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryVoteAll
+         * @request GET:/username/voter/voter/vote
+         */
+        this.queryVoteAll = (query, params = {}) => this.request({
+            path: `/username/voter/voter/vote`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryVote
+         * @summary this line is used by starport scaffolding # 2
+         * @request GET:/username/voter/voter/vote/{id}
+         */
+        this.queryVote = (id, params = {}) => this.request({
+            path: `/username/voter/voter/vote/${id}`,
             method: "GET",
             format: "json",
             ...params,

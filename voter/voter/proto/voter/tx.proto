@@ -8,12 +8,41 @@ option go_package = "github.com/username/voter/x/voter/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateVote(MsgCreateVote) returns (MsgCreateVoteResponse);
+  rpc UpdateVote(MsgUpdateVote) returns (MsgUpdateVoteResponse);
+  rpc DeleteVote(MsgDeleteVote) returns (MsgDeleteVoteResponse);
   rpc CreatePoll(MsgCreatePoll) returns (MsgCreatePollResponse);
   rpc UpdatePoll(MsgUpdatePoll) returns (MsgUpdatePollResponse);
   rpc DeletePoll(MsgDeletePoll) returns (MsgDeletePollResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateVote {
+  string creator = 1;
+  string pollID = 2;
+  string value = 3;
+}
+
+message MsgCreateVoteResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateVote {
+  string creator = 1;
+  uint64 id = 2;
+  string pollID = 3;
+  string value = 4;
+}
+
+message MsgUpdateVoteResponse { }
+
+message MsgDeleteVote {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteVoteResponse { }
+
 message MsgCreatePoll {
   string creator = 1;
   string title = 2;

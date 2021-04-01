@@ -2,6 +2,7 @@ syntax = "proto3";
 package username.voter.voter;
 
 // this line is used by starport scaffolding # genesis/proto/import
+import "voter/vote.proto";
 import "voter/poll.proto";
 
 option go_package = "github.com/username/voter/x/voter/types";
@@ -9,6 +10,7 @@ option go_package = "github.com/username/voter/x/voter/types";
 // GenesisState defines the capability module's genesis state.
 message GenesisState {
     // this line is used by starport scaffolding # genesis/proto/state
+		repeated Vote voteList = 2; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated Poll pollList = 1; // this line is used by starport scaffolding # genesis/proto/stateField
 }
 

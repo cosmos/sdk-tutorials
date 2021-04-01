@@ -5,10 +5,16 @@ import { Api } from "./rest";
 import { MsgCreatePoll } from "./types/voter/tx";
 import { MsgUpdatePoll } from "./types/voter/tx";
 import { MsgDeletePoll } from "./types/voter/tx";
+import { MsgDeleteVote } from "./types/voter/tx";
+import { MsgUpdateVote } from "./types/voter/tx";
+import { MsgCreateVote } from "./types/voter/tx";
 const types = [
     ["/username.voter.voter.MsgCreatePoll", MsgCreatePoll],
     ["/username.voter.voter.MsgUpdatePoll", MsgUpdatePoll],
     ["/username.voter.voter.MsgDeletePoll", MsgDeletePoll],
+    ["/username.voter.voter.MsgDeleteVote", MsgDeleteVote],
+    ["/username.voter.voter.MsgUpdateVote", MsgUpdateVote],
+    ["/username.voter.voter.MsgCreateVote", MsgCreateVote],
 ];
 const registry = new Registry(types);
 const defaultFee = {
@@ -25,6 +31,9 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
         msgCreatePoll: (data) => ({ typeUrl: "/username.voter.voter.MsgCreatePoll", value: data }),
         msgUpdatePoll: (data) => ({ typeUrl: "/username.voter.voter.MsgUpdatePoll", value: data }),
         msgDeletePoll: (data) => ({ typeUrl: "/username.voter.voter.MsgDeletePoll", value: data }),
+        msgDeleteVote: (data) => ({ typeUrl: "/username.voter.voter.MsgDeleteVote", value: data }),
+        msgUpdateVote: (data) => ({ typeUrl: "/username.voter.voter.MsgUpdateVote", value: data }),
+        msgCreateVote: (data) => ({ typeUrl: "/username.voter.voter.MsgCreateVote", value: data }),
     };
 };
 const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) => {

@@ -5,6 +5,32 @@ import * as Long from "long";
 export const protobufPackage = "username.voter.voter";
 
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateVote {
+  creator: string;
+  pollID: string;
+  value: string;
+}
+
+export interface MsgCreateVoteResponse {
+  id: number;
+}
+
+export interface MsgUpdateVote {
+  creator: string;
+  id: number;
+  pollID: string;
+  value: string;
+}
+
+export interface MsgUpdateVoteResponse {}
+
+export interface MsgDeleteVote {
+  creator: string;
+  id: number;
+}
+
+export interface MsgDeleteVoteResponse {}
+
 export interface MsgCreatePoll {
   creator: string;
   title: string;
@@ -30,6 +56,409 @@ export interface MsgDeletePoll {
 }
 
 export interface MsgDeletePollResponse {}
+
+const baseMsgCreateVote: object = { creator: "", pollID: "", value: "" };
+
+export const MsgCreateVote = {
+  encode(message: MsgCreateVote, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.pollID !== "") {
+      writer.uint32(18).string(message.pollID);
+    }
+    if (message.value !== "") {
+      writer.uint32(26).string(message.value);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateVote {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateVote } as MsgCreateVote;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.pollID = reader.string();
+          break;
+        case 3:
+          message.value = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateVote {
+    const message = { ...baseMsgCreateVote } as MsgCreateVote;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.pollID !== undefined && object.pollID !== null) {
+      message.pollID = String(object.pollID);
+    } else {
+      message.pollID = "";
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = String(object.value);
+    } else {
+      message.value = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateVote): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.pollID !== undefined && (obj.pollID = message.pollID);
+    message.value !== undefined && (obj.value = message.value);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateVote>): MsgCreateVote {
+    const message = { ...baseMsgCreateVote } as MsgCreateVote;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.pollID !== undefined && object.pollID !== null) {
+      message.pollID = object.pollID;
+    } else {
+      message.pollID = "";
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    } else {
+      message.value = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgCreateVoteResponse: object = { id: 0 };
+
+export const MsgCreateVoteResponse = {
+  encode(
+    message: MsgCreateVoteResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateVoteResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateVoteResponse } as MsgCreateVoteResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateVoteResponse {
+    const message = { ...baseMsgCreateVoteResponse } as MsgCreateVoteResponse;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id);
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateVoteResponse): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = message.id);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgCreateVoteResponse>
+  ): MsgCreateVoteResponse {
+    const message = { ...baseMsgCreateVoteResponse } as MsgCreateVoteResponse;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgUpdateVote: object = { creator: "", id: 0, pollID: "", value: "" };
+
+export const MsgUpdateVote = {
+  encode(message: MsgUpdateVote, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id);
+    }
+    if (message.pollID !== "") {
+      writer.uint32(26).string(message.pollID);
+    }
+    if (message.value !== "") {
+      writer.uint32(34).string(message.value);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateVote {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgUpdateVote } as MsgUpdateVote;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.pollID = reader.string();
+          break;
+        case 4:
+          message.value = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgUpdateVote {
+    const message = { ...baseMsgUpdateVote } as MsgUpdateVote;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id);
+    } else {
+      message.id = 0;
+    }
+    if (object.pollID !== undefined && object.pollID !== null) {
+      message.pollID = String(object.pollID);
+    } else {
+      message.pollID = "";
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = String(object.value);
+    } else {
+      message.value = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgUpdateVote): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.id !== undefined && (obj.id = message.id);
+    message.pollID !== undefined && (obj.pollID = message.pollID);
+    message.value !== undefined && (obj.value = message.value);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateVote>): MsgUpdateVote {
+    const message = { ...baseMsgUpdateVote } as MsgUpdateVote;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = 0;
+    }
+    if (object.pollID !== undefined && object.pollID !== null) {
+      message.pollID = object.pollID;
+    } else {
+      message.pollID = "";
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    } else {
+      message.value = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgUpdateVoteResponse: object = {};
+
+export const MsgUpdateVoteResponse = {
+  encode(_: MsgUpdateVoteResponse, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateVoteResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgUpdateVoteResponse } as MsgUpdateVoteResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgUpdateVoteResponse {
+    const message = { ...baseMsgUpdateVoteResponse } as MsgUpdateVoteResponse;
+    return message;
+  },
+
+  toJSON(_: MsgUpdateVoteResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<MsgUpdateVoteResponse>): MsgUpdateVoteResponse {
+    const message = { ...baseMsgUpdateVoteResponse } as MsgUpdateVoteResponse;
+    return message;
+  },
+};
+
+const baseMsgDeleteVote: object = { creator: "", id: 0 };
+
+export const MsgDeleteVote = {
+  encode(message: MsgDeleteVote, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteVote {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgDeleteVote } as MsgDeleteVote;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgDeleteVote {
+    const message = { ...baseMsgDeleteVote } as MsgDeleteVote;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id);
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgDeleteVote): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.id !== undefined && (obj.id = message.id);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteVote>): MsgDeleteVote {
+    const message = { ...baseMsgDeleteVote } as MsgDeleteVote;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgDeleteVoteResponse: object = {};
+
+export const MsgDeleteVoteResponse = {
+  encode(_: MsgDeleteVoteResponse, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteVoteResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgDeleteVoteResponse } as MsgDeleteVoteResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgDeleteVoteResponse {
+    const message = { ...baseMsgDeleteVoteResponse } as MsgDeleteVoteResponse;
+    return message;
+  },
+
+  toJSON(_: MsgDeleteVoteResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<MsgDeleteVoteResponse>): MsgDeleteVoteResponse {
+    const message = { ...baseMsgDeleteVoteResponse } as MsgDeleteVoteResponse;
+    return message;
+  },
+};
 
 const baseMsgCreatePoll: object = { creator: "", title: "", options: "" };
 
@@ -456,6 +885,9 @@ export const MsgDeletePollResponse = {
 /** Msg defines the Msg service. */
 export interface Msg {
   /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateVote(request: MsgCreateVote): Promise<MsgCreateVoteResponse>;
+  UpdateVote(request: MsgUpdateVote): Promise<MsgUpdateVoteResponse>;
+  DeleteVote(request: MsgDeleteVote): Promise<MsgDeleteVoteResponse>;
   CreatePoll(request: MsgCreatePoll): Promise<MsgCreatePollResponse>;
   UpdatePoll(request: MsgUpdatePoll): Promise<MsgUpdatePollResponse>;
   DeletePoll(request: MsgDeletePoll): Promise<MsgDeletePollResponse>;
@@ -466,6 +898,42 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc) {
     this.rpc = rpc;
   }
+  CreateVote(request: MsgCreateVote): Promise<MsgCreateVoteResponse> {
+    const data = MsgCreateVote.encode(request).finish();
+    const promise = this.rpc.request(
+      "username.voter.voter.Msg",
+      "CreateVote",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreateVoteResponse.decode(new Reader(data))
+    );
+  }
+
+  UpdateVote(request: MsgUpdateVote): Promise<MsgUpdateVoteResponse> {
+    const data = MsgUpdateVote.encode(request).finish();
+    const promise = this.rpc.request(
+      "username.voter.voter.Msg",
+      "UpdateVote",
+      data
+    );
+    return promise.then((data) =>
+      MsgUpdateVoteResponse.decode(new Reader(data))
+    );
+  }
+
+  DeleteVote(request: MsgDeleteVote): Promise<MsgDeleteVoteResponse> {
+    const data = MsgDeleteVote.encode(request).finish();
+    const promise = this.rpc.request(
+      "username.voter.voter.Msg",
+      "DeleteVote",
+      data
+    );
+    return promise.then((data) =>
+      MsgDeleteVoteResponse.decode(new Reader(data))
+    );
+  }
+
   CreatePoll(request: MsgCreatePoll): Promise<MsgCreatePollResponse> {
     const data = MsgCreatePoll.encode(request).finish();
     const promise = this.rpc.request(
