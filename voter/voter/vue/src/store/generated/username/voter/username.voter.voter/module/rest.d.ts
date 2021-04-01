@@ -115,7 +115,7 @@ export interface VoterVote {
     /** @format uint64 */
     id?: string;
     pollID?: string;
-    voteValue?: string;
+    option?: string;
 }
 export declare type QueryParamsType = Record<string | number, any>;
 export declare type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;

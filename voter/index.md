@@ -496,8 +496,14 @@ Refresh the page, sign in with a password and create a new poll. It takes a coup
 
 A vote type contains poll ID and a value (string representation of the selected option).
 
-```json
-starport type vote pollID voteValue
+```bash
+starport type vote pollID option
+```
+
+and restart the application with
+
+```bash
+starport serve --reset-once
 ```
 
 ### `vue/src/views/Index.vue`

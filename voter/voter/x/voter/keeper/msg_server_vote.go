@@ -16,7 +16,7 @@ func (k msgServer) CreateVote(goCtx context.Context, msg *types.MsgCreateVote) (
 		ctx,
 		msg.Creator,
 		msg.PollID,
-		msg.VoteValue,
+		msg.Option,
 	)
 
 	return &types.MsgCreateVoteResponse{
@@ -28,10 +28,10 @@ func (k msgServer) UpdateVote(goCtx context.Context, msg *types.MsgUpdateVote) (
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var vote = types.Vote{
-		Creator:   msg.Creator,
-		Id:        msg.Id,
-		PollID:    msg.PollID,
-		VoteValue: msg.VoteValue,
+		Creator: msg.Creator,
+		Id:      msg.Id,
+		PollID:  msg.PollID,
+		Option:  msg.Option,
 	}
 
 	// Checks that the element exists

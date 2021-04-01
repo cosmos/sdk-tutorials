@@ -2,7 +2,7 @@
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "username.voter.voter";
-const baseVote = { creator: "", id: 0, pollID: "", voteValue: "" };
+const baseVote = { creator: "", id: 0, pollID: "", option: "" };
 export const Vote = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== "") {
@@ -14,8 +14,8 @@ export const Vote = {
         if (message.pollID !== "") {
             writer.uint32(26).string(message.pollID);
         }
-        if (message.voteValue !== "") {
-            writer.uint32(34).string(message.voteValue);
+        if (message.option !== "") {
+            writer.uint32(34).string(message.option);
         }
         return writer;
     },
@@ -36,7 +36,7 @@ export const Vote = {
                     message.pollID = reader.string();
                     break;
                 case 4:
-                    message.voteValue = reader.string();
+                    message.option = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -65,11 +65,11 @@ export const Vote = {
         else {
             message.pollID = "";
         }
-        if (object.voteValue !== undefined && object.voteValue !== null) {
-            message.voteValue = String(object.voteValue);
+        if (object.option !== undefined && object.option !== null) {
+            message.option = String(object.option);
         }
         else {
-            message.voteValue = "";
+            message.option = "";
         }
         return message;
     },
@@ -78,7 +78,7 @@ export const Vote = {
         message.creator !== undefined && (obj.creator = message.creator);
         message.id !== undefined && (obj.id = message.id);
         message.pollID !== undefined && (obj.pollID = message.pollID);
-        message.voteValue !== undefined && (obj.voteValue = message.voteValue);
+        message.option !== undefined && (obj.option = message.option);
         return obj;
     },
     fromPartial(object) {
@@ -101,11 +101,11 @@ export const Vote = {
         else {
             message.pollID = "";
         }
-        if (object.voteValue !== undefined && object.voteValue !== null) {
-            message.voteValue = object.voteValue;
+        if (object.option !== undefined && object.option !== null) {
+            message.option = object.option;
         }
         else {
-            message.voteValue = "";
+            message.option = "";
         }
         return message;
     },

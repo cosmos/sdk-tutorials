@@ -8,7 +8,7 @@ export const protobufPackage = "username.voter.voter";
 export interface MsgCreateVote {
   creator: string;
   pollID: string;
-  voteValue: string;
+  option: string;
 }
 
 export interface MsgCreateVoteResponse {
@@ -19,7 +19,7 @@ export interface MsgUpdateVote {
   creator: string;
   id: number;
   pollID: string;
-  voteValue: string;
+  option: string;
 }
 
 export interface MsgUpdateVoteResponse {}
@@ -57,7 +57,7 @@ export interface MsgDeletePoll {
 
 export interface MsgDeletePollResponse {}
 
-const baseMsgCreateVote: object = { creator: "", pollID: "", voteValue: "" };
+const baseMsgCreateVote: object = { creator: "", pollID: "", option: "" };
 
 export const MsgCreateVote = {
   encode(message: MsgCreateVote, writer: Writer = Writer.create()): Writer {
@@ -67,8 +67,8 @@ export const MsgCreateVote = {
     if (message.pollID !== "") {
       writer.uint32(18).string(message.pollID);
     }
-    if (message.voteValue !== "") {
-      writer.uint32(26).string(message.voteValue);
+    if (message.option !== "") {
+      writer.uint32(26).string(message.option);
     }
     return writer;
   },
@@ -87,7 +87,7 @@ export const MsgCreateVote = {
           message.pollID = reader.string();
           break;
         case 3:
-          message.voteValue = reader.string();
+          message.option = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -109,10 +109,10 @@ export const MsgCreateVote = {
     } else {
       message.pollID = "";
     }
-    if (object.voteValue !== undefined && object.voteValue !== null) {
-      message.voteValue = String(object.voteValue);
+    if (object.option !== undefined && object.option !== null) {
+      message.option = String(object.option);
     } else {
-      message.voteValue = "";
+      message.option = "";
     }
     return message;
   },
@@ -121,7 +121,7 @@ export const MsgCreateVote = {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
     message.pollID !== undefined && (obj.pollID = message.pollID);
-    message.voteValue !== undefined && (obj.voteValue = message.voteValue);
+    message.option !== undefined && (obj.option = message.option);
     return obj;
   },
 
@@ -137,10 +137,10 @@ export const MsgCreateVote = {
     } else {
       message.pollID = "";
     }
-    if (object.voteValue !== undefined && object.voteValue !== null) {
-      message.voteValue = object.voteValue;
+    if (object.option !== undefined && object.option !== null) {
+      message.option = object.option;
     } else {
-      message.voteValue = "";
+      message.option = "";
     }
     return message;
   },
@@ -210,7 +210,7 @@ const baseMsgUpdateVote: object = {
   creator: "",
   id: 0,
   pollID: "",
-  voteValue: "",
+  option: "",
 };
 
 export const MsgUpdateVote = {
@@ -224,8 +224,8 @@ export const MsgUpdateVote = {
     if (message.pollID !== "") {
       writer.uint32(26).string(message.pollID);
     }
-    if (message.voteValue !== "") {
-      writer.uint32(34).string(message.voteValue);
+    if (message.option !== "") {
+      writer.uint32(34).string(message.option);
     }
     return writer;
   },
@@ -247,7 +247,7 @@ export const MsgUpdateVote = {
           message.pollID = reader.string();
           break;
         case 4:
-          message.voteValue = reader.string();
+          message.option = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -274,10 +274,10 @@ export const MsgUpdateVote = {
     } else {
       message.pollID = "";
     }
-    if (object.voteValue !== undefined && object.voteValue !== null) {
-      message.voteValue = String(object.voteValue);
+    if (object.option !== undefined && object.option !== null) {
+      message.option = String(object.option);
     } else {
-      message.voteValue = "";
+      message.option = "";
     }
     return message;
   },
@@ -287,7 +287,7 @@ export const MsgUpdateVote = {
     message.creator !== undefined && (obj.creator = message.creator);
     message.id !== undefined && (obj.id = message.id);
     message.pollID !== undefined && (obj.pollID = message.pollID);
-    message.voteValue !== undefined && (obj.voteValue = message.voteValue);
+    message.option !== undefined && (obj.option = message.option);
     return obj;
   },
 
@@ -308,10 +308,10 @@ export const MsgUpdateVote = {
     } else {
       message.pollID = "";
     }
-    if (object.voteValue !== undefined && object.voteValue !== null) {
-      message.voteValue = object.voteValue;
+    if (object.option !== undefined && object.option !== null) {
+      message.option = object.option;
     } else {
-      message.voteValue = "";
+      message.option = "";
     }
     return message;
   },

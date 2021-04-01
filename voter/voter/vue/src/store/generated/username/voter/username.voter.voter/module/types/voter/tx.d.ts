@@ -4,7 +4,7 @@ export declare const protobufPackage = "username.voter.voter";
 export interface MsgCreateVote {
     creator: string;
     pollID: string;
-    voteValue: string;
+    option: string;
 }
 export interface MsgCreateVoteResponse {
     id: number;
@@ -13,7 +13,7 @@ export interface MsgUpdateVote {
     creator: string;
     id: number;
     pollID: string;
-    voteValue: string;
+    option: string;
 }
 export interface MsgUpdateVoteResponse {
 }

@@ -13,10 +13,10 @@ import (
 )
 
 type createVoteRequest struct {
-	BaseReq   rest.BaseReq `json:"base_req"`
-	Creator   string       `json:"creator"`
-	PollID    string       `json:"pollID"`
-	VoteValue string       `json:"voteValue"`
+	BaseReq rest.BaseReq `json:"base_req"`
+	Creator string       `json:"creator"`
+	PollID  string       `json:"pollID"`
+	Option  string       `json:"option"`
 }
 
 func createVoteHandler(clientCtx client.Context) http.HandlerFunc {
@@ -40,12 +40,12 @@ func createVoteHandler(clientCtx client.Context) http.HandlerFunc {
 
 		parsedPollID := req.PollID
 
-		parsedVoteValue := req.VoteValue
+		parsedOption := req.Option
 
 		msg := types.NewMsgCreateVote(
 			req.Creator,
 			parsedPollID,
-			parsedVoteValue,
+			parsedOption,
 		)
 
 		tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)
@@ -53,10 +53,10 @@ func createVoteHandler(clientCtx client.Context) http.HandlerFunc {
 }
 
 type updateVoteRequest struct {
-	BaseReq   rest.BaseReq `json:"base_req"`
-	Creator   string       `json:"creator"`
-	PollID    string       `json:"pollID"`
-	VoteValue string       `json:"voteValue"`
+	BaseReq rest.BaseReq `json:"base_req"`
+	Creator string       `json:"creator"`
+	PollID  string       `json:"pollID"`
+	Option  string       `json:"option"`
 }
 
 func updateVoteHandler(clientCtx client.Context) http.HandlerFunc {
@@ -85,13 +85,13 @@ func updateVoteHandler(clientCtx client.Context) http.HandlerFunc {
 
 		parsedPollID := req.PollID
 
-		parsedVoteValue := req.VoteValue
+		parsedOption := req.Option
 
 		msg := types.NewMsgUpdateVote(
 			req.Creator,
 			id,
 			parsedPollID,
-			parsedVoteValue,
+			parsedOption,
 		)
 
 		tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)
