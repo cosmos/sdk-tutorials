@@ -357,20 +357,23 @@ Now that you have made all the necessary changes to the app, take a look at the 
 
 ### Front-end application
 
-Starport has generated a basic front-end for our application. For convenience [Vue.js](https://vuejs.org) framework is used with [Vuex](https://vuex.vuejs.org/) for state management, but since all features of our application are exposed through an HTTP API, clients can be built using any language or framework.
+Starport has generated a basic front-end for the app. For convenience [Vue.js](https://vuejs.org) framework is used with [Vuex](https://vuex.vuejs.org/) for state management, but since all features of the app are exposed through an HTTP API, clients can be built using any language or framework.
 
-We'll be mostly interested in `vue/src/views` directory, which contains page templates of our app, `vue/src/store/index.js` handles sending transactions and receiving data from our blockchain and [`@tendermint/vue`](https://github.com/tendermint/vue/) directory, which contains components, like buttons and forms.
+You will be mostly interested in `vue/src/views` directory, which contains page templates of our app. `vue/src/store/` handles sending transactions and receiving data from our blockchain and [`@tendermint/vue`](https://github.com/tendermint/vue/) directory, which contains components, like buttons and forms. It contains the generated protobuffer file definitions that were defined in the `vue/src/store/generated/username/voter/username.voter.voter` directory.
 
-Inside `vue/src/store/index.js` we import [@tendermint/vue/src/store/cosmos](https://github.com/tendermint/vue/blob/develop/src/store/cosmos.js) which uses [CosmJS](https://github.com/cosmwasm/cosmjs), a library for handling wallets, creating, signing and broadcasting transactions and define a Vuex store. We'll use `entitySubmit` function for sending data to our blockchain (like a JSON representing a newly created poll), `entityFetch` for requesting a list of polls and `accountUpdate` to fetch information about our token balance.
+Inside `vue/src/store/generated/username/voter/username.voter.voter/index.js` you can see the generated transactions `MsgCreatePoll`, `MsgUpdatePoll`, `MsgDeletePoll` which use [CosmJS](https://github.com/cosmwasm/cosmjs), a library for handling wallets, creating, signing and broadcasting transactions and define a Vuex store.
 
-### `vue/src/views/Index.vue`
+## Add your Module Component to the Frontend
 
-Since we don't need the default form component replace 
+Navigate to the views directory in `vue/src/views`
+
+Since we don't need the default form component replace inside of `vue/src/views/Types.vue`
+
 ```js
-<sp-type-form type="poll" :fields="['title', 'options', ]" module="voter" />
+<SpType modulePath="username.voter.voter" moduleType="Poll"  />
 ```
 
-inside of `vue/src/views/Index.vue` with a new component and a Title
+with a new component and a title
  
  ```js
 <SpH3>
