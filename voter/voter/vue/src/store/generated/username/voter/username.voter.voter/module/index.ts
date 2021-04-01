@@ -4,21 +4,21 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgCreatePoll } from "./types/voter/tx";
-import { MsgUpdatePoll } from "./types/voter/tx";
-import { MsgDeletePoll } from "./types/voter/tx";
-import { MsgDeleteVote } from "./types/voter/tx";
 import { MsgUpdateVote } from "./types/voter/tx";
 import { MsgCreateVote } from "./types/voter/tx";
+import { MsgDeleteVote } from "./types/voter/tx";
+import { MsgCreatePoll } from "./types/voter/tx";
+import { MsgDeletePoll } from "./types/voter/tx";
+import { MsgUpdatePoll } from "./types/voter/tx";
 
 
 const types = [
-  ["/username.voter.voter.MsgCreatePoll", MsgCreatePoll],
-  ["/username.voter.voter.MsgUpdatePoll", MsgUpdatePoll],
-  ["/username.voter.voter.MsgDeletePoll", MsgDeletePoll],
-  ["/username.voter.voter.MsgDeleteVote", MsgDeleteVote],
   ["/username.voter.voter.MsgUpdateVote", MsgUpdateVote],
   ["/username.voter.voter.MsgCreateVote", MsgCreateVote],
+  ["/username.voter.voter.MsgDeleteVote", MsgDeleteVote],
+  ["/username.voter.voter.MsgCreatePoll", MsgCreatePoll],
+  ["/username.voter.voter.MsgDeletePoll", MsgDeletePoll],
+  ["/username.voter.voter.MsgUpdatePoll", MsgUpdatePoll],
   
 ];
 
@@ -46,12 +46,12 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee=defaultFee, memo=null }: SignAndBroadcastOptions) => memo?client.signAndBroadcast(address, msgs, fee,memo):client.signAndBroadcast(address, msgs, fee),
-    msgCreatePoll: (data: MsgCreatePoll): EncodeObject => ({ typeUrl: "/username.voter.voter.MsgCreatePoll", value: data }),
-    msgUpdatePoll: (data: MsgUpdatePoll): EncodeObject => ({ typeUrl: "/username.voter.voter.MsgUpdatePoll", value: data }),
-    msgDeletePoll: (data: MsgDeletePoll): EncodeObject => ({ typeUrl: "/username.voter.voter.MsgDeletePoll", value: data }),
-    msgDeleteVote: (data: MsgDeleteVote): EncodeObject => ({ typeUrl: "/username.voter.voter.MsgDeleteVote", value: data }),
     msgUpdateVote: (data: MsgUpdateVote): EncodeObject => ({ typeUrl: "/username.voter.voter.MsgUpdateVote", value: data }),
     msgCreateVote: (data: MsgCreateVote): EncodeObject => ({ typeUrl: "/username.voter.voter.MsgCreateVote", value: data }),
+    msgDeleteVote: (data: MsgDeleteVote): EncodeObject => ({ typeUrl: "/username.voter.voter.MsgDeleteVote", value: data }),
+    msgCreatePoll: (data: MsgCreatePoll): EncodeObject => ({ typeUrl: "/username.voter.voter.MsgCreatePoll", value: data }),
+    msgDeletePoll: (data: MsgDeletePoll): EncodeObject => ({ typeUrl: "/username.voter.voter.MsgDeletePoll", value: data }),
+    msgUpdatePoll: (data: MsgUpdatePoll): EncodeObject => ({ typeUrl: "/username.voter.voter.MsgUpdatePoll", value: data }),
     
   };
 };

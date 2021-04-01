@@ -20,7 +20,7 @@ service Msg {
 message MsgCreateVote {
   string creator = 1;
   string pollID = 2;
-  string value = 3;
+  string voteValue = 3;
 }
 
 message MsgCreateVoteResponse {
@@ -31,7 +31,7 @@ message MsgUpdateVote {
   string creator = 1;
   uint64 id = 2;
   string pollID = 3;
-  string value = 4;
+  string voteValue = 4;
 }
 
 message MsgUpdateVoteResponse { }

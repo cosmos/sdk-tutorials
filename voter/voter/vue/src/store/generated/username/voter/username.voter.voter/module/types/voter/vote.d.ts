@@ -4,7 +4,7 @@ export interface Vote {
     creator: string;
     id: number;
     pollID: string;
-    value: string;
+    voteValue: string;
 }
 export declare const Vote: {
     encode(message: Vote, writer?: Writer): Writer;

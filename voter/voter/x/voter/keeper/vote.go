@@ -42,15 +42,15 @@ func (k Keeper) AppendVote(
 	ctx sdk.Context,
 	creator string,
 	pollID string,
-	value string,
+	voteValue string,
 ) uint64 {
 	// Create the vote
 	count := k.GetVoteCount(ctx)
 	var vote = types.Vote{
-		Creator: creator,
-		Id:      count,
-		PollID:  pollID,
-		Value:   value,
+		Creator:   creator,
+		Id:        count,
+		PollID:    pollID,
+		VoteValue: voteValue,
 	}
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.VoteKey))

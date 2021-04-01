@@ -3,10 +3,7 @@
 		<div class="container">
       	<!-- this line is used by starport scaffolding # 4 -->
 		<SpType modulePath="username.voter.voter" moduleType="Vote"  />
-		<SpH3>
-			Polls
-		</SpH3>
-		<poll-form />
+		<SpType modulePath="username.voter.voter" moduleType="Poll"  />
 		</div>
 	</div>
 </template>

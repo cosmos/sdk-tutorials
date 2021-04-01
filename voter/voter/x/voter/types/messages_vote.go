@@ -7,11 +7,11 @@ import (
 
 var _ sdk.Msg = &MsgCreateVote{}
 
-func NewMsgCreateVote(creator string, pollID string, value string) *MsgCreateVote {
+func NewMsgCreateVote(creator string, pollID string, voteValue string) *MsgCreateVote {
 	return &MsgCreateVote{
-		Creator: creator,
-		PollID:  pollID,
-		Value:   value,
+		Creator:   creator,
+		PollID:    pollID,
+		VoteValue: voteValue,
 	}
 }
 
@@ -46,12 +46,12 @@ func (msg *MsgCreateVote) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateVote{}
 
-func NewMsgUpdateVote(creator string, id uint64, pollID string, value string) *MsgUpdateVote {
+func NewMsgUpdateVote(creator string, id uint64, pollID string, voteValue string) *MsgUpdateVote {
 	return &MsgUpdateVote{
-		Id:      id,
-		Creator: creator,
-		PollID:  pollID,
-		Value:   value,
+		Id:        id,
+		Creator:   creator,
+		PollID:    pollID,
+		VoteValue: voteValue,
 	}
 }
 

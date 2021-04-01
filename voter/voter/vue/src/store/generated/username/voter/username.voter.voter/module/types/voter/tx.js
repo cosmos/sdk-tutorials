@@ -2,7 +2,7 @@
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
 export const protobufPackage = "username.voter.voter";
-const baseMsgCreateVote = { creator: "", pollID: "", value: "" };
+const baseMsgCreateVote = { creator: "", pollID: "", voteValue: "" };
 export const MsgCreateVote = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== "") {
@@ -11,8 +11,8 @@ export const MsgCreateVote = {
         if (message.pollID !== "") {
             writer.uint32(18).string(message.pollID);
         }
-        if (message.value !== "") {
-            writer.uint32(26).string(message.value);
+        if (message.voteValue !== "") {
+            writer.uint32(26).string(message.voteValue);
         }
         return writer;
     },
@@ -30,7 +30,7 @@ export const MsgCreateVote = {
                     message.pollID = reader.string();
                     break;
                 case 3:
-                    message.value = reader.string();
+                    message.voteValue = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -53,11 +53,11 @@ export const MsgCreateVote = {
         else {
             message.pollID = "";
         }
-        if (object.value !== undefined && object.value !== null) {
-            message.value = String(object.value);
+        if (object.voteValue !== undefined && object.voteValue !== null) {
+            message.voteValue = String(object.voteValue);
         }
         else {
-            message.value = "";
+            message.voteValue = "";
         }
         return message;
     },
@@ -65,7 +65,7 @@ export const MsgCreateVote = {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
         message.pollID !== undefined && (obj.pollID = message.pollID);
-        message.value !== undefined && (obj.value = message.value);
+        message.voteValue !== undefined && (obj.voteValue = message.voteValue);
         return obj;
     },
     fromPartial(object) {
@@ -82,11 +82,11 @@ export const MsgCreateVote = {
         else {
             message.pollID = "";
         }
-        if (object.value !== undefined && object.value !== null) {
-            message.value = object.value;
+        if (object.voteValue !== undefined && object.voteValue !== null) {
+            message.voteValue = object.voteValue;
         }
         else {
-            message.value = "";
+            message.voteValue = "";
         }
         return message;
     },
@@ -142,7 +142,12 @@ export const MsgCreateVoteResponse = {
         return message;
     },
 };
-const baseMsgUpdateVote = { creator: "", id: 0, pollID: "", value: "" };
+const baseMsgUpdateVote = {
+    creator: "",
+    id: 0,
+    pollID: "",
+    voteValue: "",
+};
 export const MsgUpdateVote = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== "") {
@@ -154,8 +159,8 @@ export const MsgUpdateVote = {
         if (message.pollID !== "") {
             writer.uint32(26).string(message.pollID);
         }
-        if (message.value !== "") {
-            writer.uint32(34).string(message.value);
+        if (message.voteValue !== "") {
+            writer.uint32(34).string(message.voteValue);
         }
         return writer;
     },
@@ -176,7 +181,7 @@ export const MsgUpdateVote = {
                     message.pollID = reader.string();
                     break;
                 case 4:
-                    message.value = reader.string();
+                    message.voteValue = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -205,11 +210,11 @@ export const MsgUpdateVote = {
         else {
             message.pollID = "";
         }
-        if (object.value !== undefined && object.value !== null) {
-            message.value = String(object.value);
+        if (object.voteValue !== undefined && object.voteValue !== null) {
+            message.voteValue = String(object.voteValue);
         }
         else {
-            message.value = "";
+            message.voteValue = "";
         }
         return message;
     },
@@ -218,7 +223,7 @@ export const MsgUpdateVote = {
         message.creator !== undefined && (obj.creator = message.creator);
         message.id !== undefined && (obj.id = message.id);
         message.pollID !== undefined && (obj.pollID = message.pollID);
-        message.value !== undefined && (obj.value = message.value);
+        message.voteValue !== undefined && (obj.voteValue = message.voteValue);
         return obj;
     },
     fromPartial(object) {
@@ -241,11 +246,11 @@ export const MsgUpdateVote = {
         else {
             message.pollID = "";
         }
-        if (object.value !== undefined && object.value !== null) {
-            message.value = object.value;
+        if (object.voteValue !== undefined && object.voteValue !== null) {
+            message.voteValue = object.voteValue;
         }
         else {
-            message.value = "";
+            message.voteValue = "";
         }
         return message;
     },

@@ -12,19 +12,19 @@ import (
 
 func CmdCreateVote() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-vote [pollID] [value]",
+		Use:   "create-vote [pollID] [voteValue]",
 		Short: "Creates a new vote",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsPollID := string(args[0])
-			argsValue := string(args[1])
+			argsVoteValue := string(args[1])
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreateVote(clientCtx.GetFromAddress().String(), string(argsPollID), string(argsValue))
+			msg := types.NewMsgCreateVote(clientCtx.GetFromAddress().String(), string(argsPollID), string(argsVoteValue))
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -39,7 +39,7 @@ func CmdCreateVote() *cobra.Command {
 
 func CmdUpdateVote() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "update-vote [id] [pollID] [value]",
+		Use:   "update-vote [id] [pollID] [voteValue]",
 		Short: "Update a vote",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -49,14 +49,14 @@ func CmdUpdateVote() *cobra.Command {
 			}
 
 			argsPollID := string(args[1])
-			argsValue := string(args[2])
+			argsVoteValue := string(args[2])
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgUpdateVote(clientCtx.GetFromAddress().String(), id, string(argsPollID), string(argsValue))
+			msg := types.NewMsgUpdateVote(clientCtx.GetFromAddress().String(), id, string(argsPollID), string(argsVoteValue))
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -71,7 +71,7 @@ func CmdUpdateVote() *cobra.Command {
 
 func CmdDeleteVote() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "delete-vote [id] [pollID] [value]",
+		Use:   "delete-vote [id] [pollID] [voteValue]",
 		Short: "Delete a vote by id",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {

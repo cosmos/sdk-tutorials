@@ -150,7 +150,7 @@ export interface VoterVote {
   /** @format uint64 */
   id?: string;
   pollID?: string;
-  value?: string;
+  voteValue?: string;
 }
 
 export type QueryParamsType = Record<string | number, any>;
