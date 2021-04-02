@@ -2,8 +2,8 @@ import { txClient, queryClient } from './module'
 // @ts-ignore
 import { SpVuexError } from '@starport/vuex'
 
-import { Vote } from "./module/types/voter/vote"
 import { Poll } from "./module/types/voter/poll"
+import { Vote } from "./module/types/voter/vote"
 
 
 async function initTxClient(vuexGetters) {
@@ -37,8 +37,8 @@ const getDefaultState = () => {
         PollAll: {},
         
         _Structure: {
-            Vote: getStructure(Vote.fromPartial({})),
             Poll: getStructure(Poll.fromPartial({})),
+            Vote: getStructure(Vote.fromPartial({})),
             
 		},
 		_Subscriptions: new Set(),
@@ -190,17 +190,17 @@ export default {
 			}
 		},
 		
-		async sendMsgUpdatePoll({ rootGetters }, { value, fee, memo }) {
+		async sendMsgCreatePoll({ rootGetters }, { value, fee, memo }) {
 			try {
-				const msg = await (await initTxClient(rootGetters)).msgUpdatePoll(value)
+				const msg = await (await initTxClient(rootGetters)).msgCreatePoll(value)
 				const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], {fee: { amount: fee, 
   gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e.toString()=='wallet is required') {
-					throw new SpVuexError('TxClient:MsgUpdatePoll:Init', 'Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgCreatePoll:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgUpdatePoll:Send', 'Could not broadcast Tx.')
+					throw new SpVuexError('TxClient:MsgCreatePoll:Send', 'Could not broadcast Tx.')
 				}
 			}
 		},
@@ -218,6 +218,20 @@ export default {
 				}
 			}
 		},
+		async sendMsgCreateVote({ rootGetters }, { value, fee, memo }) {
+			try {
+				const msg = await (await initTxClient(rootGetters)).msgCreateVote(value)
+				const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], {fee: { amount: fee, 
+  gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e.toString()=='wallet is required') {
+					throw new SpVuexError('TxClient:MsgCreateVote:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCreateVote:Send', 'Could not broadcast Tx.')
+				}
+			}
+		},
 		async sendMsgUpdateVote({ rootGetters }, { value, fee, memo }) {
 			try {
 				const msg = await (await initTxClient(rootGetters)).msgUpdateVote(value)
@@ -229,6 +243,20 @@ export default {
 					throw new SpVuexError('TxClient:MsgUpdateVote:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgUpdateVote:Send', 'Could not broadcast Tx.')
+				}
+			}
+		},
+		async sendMsgUpdatePoll({ rootGetters }, { value, fee, memo }) {
+			try {
+				const msg = await (await initTxClient(rootGetters)).msgUpdatePoll(value)
+				const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], {fee: { amount: fee, 
+  gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e.toString()=='wallet is required') {
+					throw new SpVuexError('TxClient:MsgUpdatePoll:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgUpdatePoll:Send', 'Could not broadcast Tx.')
 				}
 			}
 		},
@@ -246,44 +274,16 @@ export default {
 				}
 			}
 		},
-		async sendMsgCreatePoll({ rootGetters }, { value, fee, memo }) {
+		
+		async MsgCreatePoll({ rootGetters }, { value }) {
 			try {
 				const msg = await (await initTxClient(rootGetters)).msgCreatePoll(value)
-				const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], {fee: { amount: fee, 
-  gas: "200000" }, memo})
-				return result
+				return msg
 			} catch (e) {
 				if (e.toString()=='wallet is required') {
 					throw new SpVuexError('TxClient:MsgCreatePoll:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgCreatePoll:Send', 'Could not broadcast Tx.')
-				}
-			}
-		},
-		async sendMsgCreateVote({ rootGetters }, { value, fee, memo }) {
-			try {
-				const msg = await (await initTxClient(rootGetters)).msgCreateVote(value)
-				const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], {fee: { amount: fee, 
-  gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e.toString()=='wallet is required') {
-					throw new SpVuexError('TxClient:MsgCreateVote:Init', 'Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new SpVuexError('TxClient:MsgCreateVote:Send', 'Could not broadcast Tx.')
-				}
-			}
-		},
-		
-		async MsgUpdatePoll({ rootGetters }, { value }) {
-			try {
-				const msg = await (await initTxClient(rootGetters)).msgUpdatePoll(value)
-				return msg
-			} catch (e) {
-				if (e.toString()=='wallet is required') {
-					throw new SpVuexError('TxClient:MsgUpdatePoll:Init', 'Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new SpVuexError('TxClient:MsgUpdatePoll:Create', 'Could not create message.')
+					throw new SpVuexError('TxClient:MsgCreatePoll:Create', 'Could not create message.')
 				}
 			}
 		},
@@ -299,6 +299,18 @@ export default {
 				}
 			}
 		},
+		async MsgCreateVote({ rootGetters }, { value }) {
+			try {
+				const msg = await (await initTxClient(rootGetters)).msgCreateVote(value)
+				return msg
+			} catch (e) {
+				if (e.toString()=='wallet is required') {
+					throw new SpVuexError('TxClient:MsgCreateVote:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCreateVote:Create', 'Could not create message.')
+				}
+			}
+		},
 		async MsgUpdateVote({ rootGetters }, { value }) {
 			try {
 				const msg = await (await initTxClient(rootGetters)).msgUpdateVote(value)
@@ -311,6 +323,18 @@ export default {
 				}
 			}
 		},
+		async MsgUpdatePoll({ rootGetters }, { value }) {
+			try {
+				const msg = await (await initTxClient(rootGetters)).msgUpdatePoll(value)
+				return msg
+			} catch (e) {
+				if (e.toString()=='wallet is required') {
+					throw new SpVuexError('TxClient:MsgUpdatePoll:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgUpdatePoll:Create', 'Could not create message.')
+				}
+			}
+		},
 		async MsgDeleteVote({ rootGetters }, { value }) {
 			try {
 				const msg = await (await initTxClient(rootGetters)).msgDeleteVote(value)
@@ -320,30 +344,6 @@ export default {
 					throw new SpVuexError('TxClient:MsgDeleteVote:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgDeleteVote:Create', 'Could not create message.')
-				}
-			}
-		},
-		async MsgCreatePoll({ rootGetters }, { value }) {
-			try {
-				const msg = await (await initTxClient(rootGetters)).msgCreatePoll(value)
-				return msg
-			} catch (e) {
-				if (e.toString()=='wallet is required') {
-					throw new SpVuexError('TxClient:MsgCreatePoll:Init', 'Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new SpVuexError('TxClient:MsgCreatePoll:Create', 'Could not create message.')
-				}
-			}
-		},
-		async MsgCreateVote({ rootGetters }, { value }) {
-			try {
-				const msg = await (await initTxClient(rootGetters)).msgCreateVote(value)
-				return msg
-			} catch (e) {
-				if (e.toString()=='wallet is required') {
-					throw new SpVuexError('TxClient:MsgCreateVote:Init', 'Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new SpVuexError('TxClient:MsgCreateVote:Create', 'Could not create message.')
 				}
 			}
 		},

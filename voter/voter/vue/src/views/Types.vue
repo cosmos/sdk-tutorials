@@ -2,11 +2,11 @@
 	<div>
 		<div class="container">
       	<!-- this line is used by starport scaffolding # 4 -->
-	<SpH3>
- Polls
-</SpH3>
-<poll-form />
- <poll-list /> i
+			<SpH3>
+				Polls
+			</SpH3>
+			<poll-form />
+			<poll-list />
 		</div>
 	</div>
 </template>
@@ -18,7 +18,7 @@ import PollList from "../components/PollList";
 
 export default {
 	name: 'Types',
-  components: { PollForm,PollList },
+	components: { PollForm,PollList },
 }
 </script>
 

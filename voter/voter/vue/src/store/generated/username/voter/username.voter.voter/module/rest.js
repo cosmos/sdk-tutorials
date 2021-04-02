@@ -130,7 +130,7 @@ export class HttpClient {
     }
 }
 /**
- * @title voter/vote.proto
+ * @title voter/tx.proto
  * @version version not set
  */
 export class Api extends HttpClient {

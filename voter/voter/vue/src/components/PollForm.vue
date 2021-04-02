@@ -14,7 +14,9 @@ export default {
   data() {
     return {
       title: "",
-      options: [],
+      options: [{
+        title: "",
+      }],
     };
   },
   computed: {
