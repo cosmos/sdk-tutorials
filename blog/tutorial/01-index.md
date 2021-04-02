@@ -474,7 +474,7 @@ To verify that the transaction has been processed, open a browser and visit the 
 ```
 http://localhost:26657/tx?hash=0x4B7B68DEACC7CDF3243965A449095B4AB895C9D9BDF0516725BF2173794A9B3C
 ```
-
+In the URL, retain the `0x` prefix but replace `4B7B6...` with the value of your txhash:
 Also check out a basic block overview at
 
 ```
