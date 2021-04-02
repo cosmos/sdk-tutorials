@@ -2,15 +2,23 @@
 	<div>
 		<div class="container">
       	<!-- this line is used by starport scaffolding # 4 -->
-		<SpType modulePath="username.voter.voter" moduleType="Vote"  />
-		<SpType modulePath="username.voter.voter" moduleType="Poll"  />
+	<SpH3>
+ Polls
+</SpH3>
+<poll-form />
+ <poll-list /> i
 		</div>
 	</div>
 </template>
 
 <script>
+
+import PollForm from "../components/PollForm";
+import PollList from "../components/PollList";
+
 export default {
-	name: 'Types'
+	name: 'Types',
+  components: { PollForm,PollList },
 }
 </script>
 

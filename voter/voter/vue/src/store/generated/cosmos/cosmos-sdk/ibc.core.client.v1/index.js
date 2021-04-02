@@ -1,14 +1,14 @@
 import { txClient, queryClient } from './module';
 // @ts-ignore
 import { SpVuexError } from '@starport/vuex';
+import { GenesisMetadata } from "./module/types/ibc/core/client/v1/genesis";
+import { IdentifiedGenesisMetadata } from "./module/types/ibc/core/client/v1/genesis";
 import { IdentifiedClientState } from "./module/types/ibc/core/client/v1/client";
 import { ConsensusStateWithHeight } from "./module/types/ibc/core/client/v1/client";
 import { ClientConsensusStates } from "./module/types/ibc/core/client/v1/client";
 import { ClientUpdateProposal } from "./module/types/ibc/core/client/v1/client";
 import { Height } from "./module/types/ibc/core/client/v1/client";
 import { Params } from "./module/types/ibc/core/client/v1/client";
-import { GenesisMetadata } from "./module/types/ibc/core/client/v1/genesis";
-import { IdentifiedGenesisMetadata } from "./module/types/ibc/core/client/v1/genesis";
 async function initTxClient(vuexGetters) {
     return await txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
@@ -37,14 +37,14 @@ const getDefaultState = () => {
         ConsensusStates: {},
         ClientParams: {},
         _Structure: {
+            GenesisMetadata: getStructure(GenesisMetadata.fromPartial({})),
+            IdentifiedGenesisMetadata: getStructure(IdentifiedGenesisMetadata.fromPartial({})),
             IdentifiedClientState: getStructure(IdentifiedClientState.fromPartial({})),
             ConsensusStateWithHeight: getStructure(ConsensusStateWithHeight.fromPartial({})),
             ClientConsensusStates: getStructure(ClientConsensusStates.fromPartial({})),
             ClientUpdateProposal: getStructure(ClientUpdateProposal.fromPartial({})),
             Height: getStructure(Height.fromPartial({})),
             Params: getStructure(Params.fromPartial({})),
-            GenesisMetadata: getStructure(GenesisMetadata.fromPartial({})),
-            IdentifiedGenesisMetadata: getStructure(IdentifiedGenesisMetadata.fromPartial({})),
         },
         _Subscriptions: new Set(),
     };
@@ -237,22 +237,6 @@ export default {
                 }
             }
         },
-        async sendMsgUpdateClient({ rootGetters }, { value, fee, memo }) {
-            try {
-                const msg = await (await initTxClient(rootGetters)).msgUpdateClient(value);
-                const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
-            }
-            catch (e) {
-                if (e.toString() == 'wallet is required') {
-                    throw new SpVuexError('TxClient:MsgUpdateClient:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgUpdateClient:Send', 'Could not broadcast Tx.');
-                }
-            }
-        },
         async sendMsgCreateClient({ rootGetters }, { value, fee, memo }) {
             try {
                 const msg = await (await initTxClient(rootGetters)).msgCreateClient(value);
@@ -266,6 +250,22 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgCreateClient:Send', 'Could not broadcast Tx.');
+                }
+            }
+        },
+        async sendMsgUpdateClient({ rootGetters }, { value, fee, memo }) {
+            try {
+                const msg = await (await initTxClient(rootGetters)).msgUpdateClient(value);
+                const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e.toString() == 'wallet is required') {
+                    throw new SpVuexError('TxClient:MsgUpdateClient:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgUpdateClient:Send', 'Could not broadcast Tx.');
                 }
             }
         },
@@ -299,20 +299,6 @@ export default {
                 }
             }
         },
-        async MsgUpdateClient({ rootGetters }, { value }) {
-            try {
-                const msg = await (await initTxClient(rootGetters)).msgUpdateClient(value);
-                return msg;
-            }
-            catch (e) {
-                if (e.toString() == 'wallet is required') {
-                    throw new SpVuexError('TxClient:MsgUpdateClient:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgUpdateClient:Create', 'Could not create message.');
-                }
-            }
-        },
         async MsgCreateClient({ rootGetters }, { value }) {
             try {
                 const msg = await (await initTxClient(rootGetters)).msgCreateClient(value);
@@ -324,6 +310,20 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgCreateClient:Create', 'Could not create message.');
+                }
+            }
+        },
+        async MsgUpdateClient({ rootGetters }, { value }) {
+            try {
+                const msg = await (await initTxClient(rootGetters)).msgUpdateClient(value);
+                return msg;
+            }
+            catch (e) {
+                if (e.toString() == 'wallet is required') {
+                    throw new SpVuexError('TxClient:MsgUpdateClient:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgUpdateClient:Create', 'Could not create message.');
                 }
             }
         },
