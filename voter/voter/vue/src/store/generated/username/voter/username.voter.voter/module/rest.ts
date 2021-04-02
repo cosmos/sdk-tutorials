@@ -345,7 +345,7 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title voter/tx.proto
+ * @title voter/vote.proto
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {

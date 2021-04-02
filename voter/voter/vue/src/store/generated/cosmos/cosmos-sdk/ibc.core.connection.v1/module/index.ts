@@ -5,16 +5,16 @@ import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
 import { MsgConnectionOpenAck } from "./types/ibc/core/connection/v1/tx";
+import { MsgConnectionOpenTry } from "./types/ibc/core/connection/v1/tx";
 import { MsgConnectionOpenConfirm } from "./types/ibc/core/connection/v1/tx";
 import { MsgConnectionOpenInit } from "./types/ibc/core/connection/v1/tx";
-import { MsgConnectionOpenTry } from "./types/ibc/core/connection/v1/tx";
 
 
 const types = [
   ["/ibc.core.connection.v1.MsgConnectionOpenAck", MsgConnectionOpenAck],
+  ["/ibc.core.connection.v1.MsgConnectionOpenTry", MsgConnectionOpenTry],
   ["/ibc.core.connection.v1.MsgConnectionOpenConfirm", MsgConnectionOpenConfirm],
   ["/ibc.core.connection.v1.MsgConnectionOpenInit", MsgConnectionOpenInit],
-  ["/ibc.core.connection.v1.MsgConnectionOpenTry", MsgConnectionOpenTry],
   
 ];
 
@@ -43,9 +43,9 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee=defaultFee, memo=null }: SignAndBroadcastOptions) => memo?client.signAndBroadcast(address, msgs, fee,memo):client.signAndBroadcast(address, msgs, fee),
     msgConnectionOpenAck: (data: MsgConnectionOpenAck): EncodeObject => ({ typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenAck", value: data }),
+    msgConnectionOpenTry: (data: MsgConnectionOpenTry): EncodeObject => ({ typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenTry", value: data }),
     msgConnectionOpenConfirm: (data: MsgConnectionOpenConfirm): EncodeObject => ({ typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenConfirm", value: data }),
     msgConnectionOpenInit: (data: MsgConnectionOpenInit): EncodeObject => ({ typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenInit", value: data }),
-    msgConnectionOpenTry: (data: MsgConnectionOpenTry): EncodeObject => ({ typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenTry", value: data }),
     
   };
 };

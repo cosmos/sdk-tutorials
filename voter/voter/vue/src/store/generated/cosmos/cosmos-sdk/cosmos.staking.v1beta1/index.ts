@@ -2,6 +2,7 @@ import { txClient, queryClient } from './module'
 // @ts-ignore
 import { SpVuexError } from '@starport/vuex'
 
+import { LastValidatorPower } from "./module/types/cosmos/staking/v1beta1/genesis"
 import { HistoricalInfo } from "./module/types/cosmos/staking/v1beta1/staking"
 import { CommissionRates } from "./module/types/cosmos/staking/v1beta1/staking"
 import { Commission } from "./module/types/cosmos/staking/v1beta1/staking"
@@ -22,7 +23,6 @@ import { DelegationResponse } from "./module/types/cosmos/staking/v1beta1/stakin
 import { RedelegationEntryResponse } from "./module/types/cosmos/staking/v1beta1/staking"
 import { RedelegationResponse } from "./module/types/cosmos/staking/v1beta1/staking"
 import { Pool } from "./module/types/cosmos/staking/v1beta1/staking"
-import { LastValidatorPower } from "./module/types/cosmos/staking/v1beta1/genesis"
 
 
 async function initTxClient(vuexGetters) {
@@ -66,6 +66,7 @@ const getDefaultState = () => {
         Params: {},
         
         _Structure: {
+            LastValidatorPower: getStructure(LastValidatorPower.fromPartial({})),
             HistoricalInfo: getStructure(HistoricalInfo.fromPartial({})),
             CommissionRates: getStructure(CommissionRates.fromPartial({})),
             Commission: getStructure(Commission.fromPartial({})),
@@ -86,7 +87,6 @@ const getDefaultState = () => {
             RedelegationEntryResponse: getStructure(RedelegationEntryResponse.fromPartial({})),
             RedelegationResponse: getStructure(RedelegationResponse.fromPartial({})),
             Pool: getStructure(Pool.fromPartial({})),
-            LastValidatorPower: getStructure(LastValidatorPower.fromPartial({})),
             
 		},
 		_Subscriptions: new Set(),
@@ -483,6 +483,20 @@ export default {
 			}
 		},
 		
+		async sendMsgBeginRedelegate({ rootGetters }, { value, fee, memo }) {
+			try {
+				const msg = await (await initTxClient(rootGetters)).msgBeginRedelegate(value)
+				const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], {fee: { amount: fee, 
+  gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e.toString()=='wallet is required') {
+					throw new SpVuexError('TxClient:MsgBeginRedelegate:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgBeginRedelegate:Send', 'Could not broadcast Tx.')
+				}
+			}
+		},
 		async sendMsgDelegate({ rootGetters }, { value, fee, memo }) {
 			try {
 				const msg = await (await initTxClient(rootGetters)).msgDelegate(value)
@@ -539,21 +553,19 @@ export default {
 				}
 			}
 		},
-		async sendMsgBeginRedelegate({ rootGetters }, { value, fee, memo }) {
+		
+		async MsgBeginRedelegate({ rootGetters }, { value }) {
 			try {
 				const msg = await (await initTxClient(rootGetters)).msgBeginRedelegate(value)
-				const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], {fee: { amount: fee, 
-  gas: "200000" }, memo})
-				return result
+				return msg
 			} catch (e) {
 				if (e.toString()=='wallet is required') {
 					throw new SpVuexError('TxClient:MsgBeginRedelegate:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgBeginRedelegate:Send', 'Could not broadcast Tx.')
+					throw new SpVuexError('TxClient:MsgBeginRedelegate:Create', 'Could not create message.')
 				}
 			}
 		},
-		
 		async MsgDelegate({ rootGetters }, { value }) {
 			try {
 				const msg = await (await initTxClient(rootGetters)).msgDelegate(value)
@@ -599,18 +611,6 @@ export default {
 					throw new SpVuexError('TxClient:MsgUndelegate:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgUndelegate:Create', 'Could not create message.')
-				}
-			}
-		},
-		async MsgBeginRedelegate({ rootGetters }, { value }) {
-			try {
-				const msg = await (await initTxClient(rootGetters)).msgBeginRedelegate(value)
-				return msg
-			} catch (e) {
-				if (e.toString()=='wallet is required') {
-					throw new SpVuexError('TxClient:MsgBeginRedelegate:Init', 'Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new SpVuexError('TxClient:MsgBeginRedelegate:Create', 'Could not create message.')
 				}
 			}
 		},
