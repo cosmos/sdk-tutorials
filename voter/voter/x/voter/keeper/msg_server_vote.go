@@ -12,6 +12,13 @@ import (
 func (k msgServer) CreateVote(goCtx context.Context, msg *types.MsgCreateVote) (*types.MsgCreateVoteResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	voteList := k.GetAllVote(ctx)
+	for _, existingVote := range voteList {
+		if existingVote.Creator == msg.Creator && existingVote.PollID == msg.PollID {
+			return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Vote already casted.")
+		}
+	}
+
 	id := k.AppendVote(
 		ctx,
 		msg.Creator,

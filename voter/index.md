@@ -353,13 +353,33 @@ In order for the app to recognize the changes that you have made, reset the appl
 starport serve --reset-once
 ```
 
+## Add the Votes
+
+Up to now you have created a blockchain where users can create polls. Users will need to vote on the options of the poll.
+Create the code to cast votes on an existing poll.
+
+A vote type transaction has the poll ID and an option - the string representation of the selected answer.
+
+```bash
+starport type vote pollID option
+```
+
+Now restart the application with
+
+```bash
+starport serve --reset-once
+```
+
+Remember, every time you reset the application state, you will have new passphrases. The reset restores all the data from your previously created state and you will receive new passphrases with new tokens. Mind to update your wallet accounts in the frontend once you reset the state of the blockchain.
+{synopsis}
+
 Now that you have made all the necessary changes to the app, take a look at the client-side application.
 
 ### Front-end application
 
 Starport has generated a basic front-end for the app. For convenience [Vue.js](https://vuejs.org) framework is used with [Vuex](https://vuex.vuejs.org/) for state management, but since all features of the app are exposed through an HTTP API, clients can be built using any language or framework.
 
-You will be mostly interested in `vue/src/views` directory, which contains page templates of our app. `vue/src/store/` handles sending transactions and receiving data from our blockchain and [`@tendermint/vue`](https://github.com/tendermint/vue/) directory, which contains components, like buttons and forms. It contains the generated protobuffer file definitions that were defined in the `vue/src/store/generated/username/voter/username.voter.voter` directory.
+You will be mostly interested in `vue/src/views` directory and the `vue/src/components` directory. These directories contain the code for the page templates of our app. `vue/src/store/` handles sending transactions and receiving data from our blockchain and [`@tendermint/vue`](https://github.com/tendermint/vue/) directory, which contains components, like buttons and forms. It contains the generated protobuffer file definitions that were defined in the `vue/src/store/generated/username/voter/username.voter.voter` directory.
 
 Inside `vue/src/store/generated/username/voter/username.voter.voter/index.js` you can see the generated transactions `MsgCreatePoll`, `MsgUpdatePoll`, `MsgDeletePoll` which use [CosmJS](https://github.com/cosmwasm/cosmjs), a library for handling wallets, creating, signing and broadcasting transactions and define a Vuex store.
 
@@ -370,113 +390,109 @@ Navigate to the views directory in `vue/src/views`
 Since we don't need the default form component replace inside of `vue/src/views/Types.vue`
 
 ```js
+<SpType modulePath="username.voter.voter" moduleType="Vote"  />
 <SpType modulePath="username.voter.voter" moduleType="Poll"  />
 ```
 
-with a new component and a title
+with two new components and a title
  
  ```js
-<SpH3>
-  Polls
-</SpH3>
-<poll-form />
+			<SpH3>
+				Polls
+			</SpH3>
+			<poll-form />
+			<poll-list />
  ```
 
-In the `<script></script>` tags below, we import our component like this
+In the `<script></script>` tags below, import the component like this
 
 ```js
-import * as sp from "@tendermint/vue";
 import PollForm from "../components/PollForm";
+import PollList from "../components/PollList";
 
 export default {
-  components: { PollForm, ...sp },
-};
+	name: 'Types',
+	components: { PollForm, PollList },
+}
 ```
 
-For our PollForm we need to create a new directory `components` in our `vue/src/` path. In this directory we create a new file `PollForm.vue` and fill our first component with life.
+Start creating the components.
 
-### `vue/src/components/PollForm.vue`
+## Create the PollForm Component
 
-We create our PollForm component. Which will have a title and two buttons.
+For the PollForm, create a new file `PollForm.vue` in the `vue/src/components` directory. 
 
-```js
+The component has a title and two buttons.
+
+```vue
 <template>
   <div>
-    <sp-input placeholder="Title" v-model="title" />
-    <div v-for="option in options">
-      <sp-input placeholder="Option" v-model="option.title" />
+    <input class="sp-input" placeholder="Title" v-model="title" />
+    <div v-for="(option, index) in options" v-bind:key="'option' + index">
+      <input class="sp-input" placeholder="Option" v-model="option.title" />
     </div>
-    <sp-button @click.native="add">+ Add option</sp-button>
-    <sp-button @click.native="submit">Create poll</sp-button>
+    <sp-button @click="add">+ Add option</sp-button>
+    <sp-button @click="submit">Create poll</sp-button>
   </div>
 </template>
 ```
 
-in between `<script></script>` tags below this:
+In between `<script></script>` tags below the javacsript code.
+The Form manages the input of the user and broadcasts the transaction to the blockchain if the form gets submitted.
 
 ```js
-import * as sp from "@tendermint/vue";
 export default {
-  components: { ...sp },
+  name: "PollForm",
   data() {
     return {
       title: "",
-      options: []
+      options: [{
+        title: "",
+      }],
     };
+  },
+  computed: {
+
+		currentAccount() {
+			if (this._depsLoaded) {
+				if (this.loggedIn) {
+					return this.$store.getters['common/wallet/address']
+				} else {
+					return null
+				}
+			} else {
+				return null
+			}
+		},
+		loggedIn() {
+			if (this._depsLoaded) {
+				return this.$store.getters['common/wallet/loggedIn']
+			} else {
+				return false
+			}
+		}
   },
   methods: {
     add() {
       this.options = [...this.options, { title: "" }];
     },
     async submit() {
-      const payload = {
-        type: "poll",
-        module: "voter",
-        body: {
-          title: this.title,
-          options: this.options.map(o => o.title)
-        }
+      const value = {
+        creator: this.currentAccount,
+        title: this.title,
+        options: this.options.map((o) => o.title),
       };
-      await this.$store.dispatch("cosmos/entitySubmit", payload);
-        await this.$store.dispatch("cosmos/entityFetch", payload);
-    }
-  }
-};
-```
-
-We also need to setup our Vue store.
-
-### `vue/src/store/index.js`
-
-```js
-import Vue from "vue";
-import Vuex from "vuex";
-import cosmos from "@tendermint/vue/src/store/cosmos.js";
-
-Vue.use(Vuex);
-
-export default new Vuex.Store({
-  modules: { cosmos },
-});
-
-```
-
-In our main `App.vue` file, we make sure to initialize the Cosmos Wallet functions that we created as follows:
-
-### `vue/src/App.vue`
-
-In the `<script></script>` tag at the end of the file, we dispatch to initialize our own app and the cosmos Vue framework
-
-```js
-export default {
-  created() {
-    this.$store.dispatch("cosmos/init");
-    this.$store.dispatch("cosmos/entityFetch", {type: "poll", module: "voter"});
+      await this.$store.dispatch("username.voter.voter/sendMsgCreatePoll", {
+        value,
+        fee: [],
+      });
+    },
   },
 };
 ```
 
-Refresh the page, sign in with a password and create a new poll. It takes a couple of seconds to process a transaction. Now, if you visit [http://localhost:1317/voter/poll](http://localhost:1317/voter/poll) you should see a list of polls (this endpoint is defined in `x/voter/rest/queryPoll.go`):
+
+Refresh the page, sign in with a password and create a new poll. It takes a couple of seconds to process a transaction. Now, if you visit [http://localhost:1317/voter/poll](http://localhost:1317/voter/poll) you should see a list of polls (this endpoint is defined in `x/voter/client/rest/queryPoll.go`):
 
 ```json
 {
@@ -492,52 +508,17 @@ Refresh the page, sign in with a password and create a new poll. It takes a coup
 }
 ```
 
-## Adding votes
+### Create the Poll List Component
 
-A vote type contains poll ID and a value (string representation of the selected option).
-
-```bash
-starport type vote pollID option
-```
-
-and restart the application with
-
-```bash
-starport serve --reset-once
-```
-
-### `vue/src/views/Index.vue`
-
-Delete the just bootstrapped for us `<sp-type-form type="vote" :fields="['pollID', 'value', ]" module="voter" />`.
-Add `<poll-list />` into the `vue/src/view/Index.vue` file after the poll form component we just created. 
-
-Update the imports below in the `<script></script>` tags as follows:
-
-```js
-import * as sp from "@tendermint/vue";
-import PollForm from "../components/PollForm";
-import PollList from "../components/PollList";
-
-export default {
-  components: { PollForm, PollList, ...sp },
-};
-```
-
-
-Then make a new component at `vue/src/components/PollList.vue` and add the following:
-
-### `vue/src/components/PollList.vue`
+Create a new component `PollList.vue` in `vue/src/components/PollList.vue`.
 
 ```js
 <template>
   <div>
-    
-    <div v-for="poll in polls" v-bind:key="poll.id">
-      <SpH3>
-        Poll {{ poll.title }}
-      </SpH3>
+    <div v-for="poll in polls" v-bind:key="'poll' + poll.id">
+      <SpH3> Poll {{ poll.title }} </SpH3>
       <app-radio-item
-        @click.native="submit(poll.id, option)"
+        @click="submit(poll.id, option)"
         v-for="option in poll.options"
         v-bind:key="option"
         :value="option"
@@ -550,45 +531,80 @@ Then make a new component at `vue/src/components/PollList.vue` and add the follo
 in between `<script></script>` tags below this:
 
 ```js
-import * as sp from "@tendermint/vue";
 import AppRadioItem from "./AppRadioItem";
 import AppText from "./AppText";
-import {countBy } from "lodash"
+import { countBy } from "lodash";
+
 export default {
-  components: { AppText, AppRadioItem, ...sp },
+  components: { AppText, AppRadioItem },
   data() {
     return {
-      selected: ""
+      selected: "",
     };
   },
   computed: {
+
+		currentAccount() {
+			if (this._depsLoaded) {
+				if (this.loggedIn) {
+					return this.$store.getters['common/wallet/address']
+				} else {
+					return null
+				}
+			} else {
+				return null
+			}
+		},
+		loggedIn() {
+			if (this._depsLoaded) {
+				return this.$store.getters['common/wallet/loggedIn']
+			} else {
+				return false
+			}
+		},
     polls() {
-      return this.$store.state.cosmos.data["voter/poll"] || [];
+      return (
+        this.$store.getters["username.voter.voter/getPollAll"]({
+          params: {}
+        })?.Poll ?? []
+      );
     },
     votes() {
-      return this.$store.state.cosmos.data["voter/vote"] || [];
-    }
+      return (
+        this.$store.getters["username.voter.voter/getVoteAll"]({
+          params: {}
+        })?.Vote ?? []
+      );
+    },
   },
   methods: {
     results(id) {
-      const results = this.votes.filter(v => v.pollID === id);
-      return countBy(results, "value");
+      const results = this.votes.filter((v) => v.pollID === id);
+      return countBy(results, "option");
     },
-    async submit(pollID, value) {
-      const type = { type: "vote" };
-      const body = { pollID, value };
-      await this.$store.dispatch("cosmos/entitySubmit", { ...type, module:"voter", body });
-      await this.$store.dispatch("cosmos/entityFetch", {...type, module: "voter"});
-    }
-  }
+    async submit(pollID, option) {
+      
+      const value = { creator: this.currentAccount, pollID, option };
+      await this.$store.dispatch("username.voter.voter/sendMsgCreateVote", {
+        value,
+        fee: [],
+      });
+      await this.$store.dispatch("username.voter.voter/QueryPollAll", {
+        options: { subscribe: true, all: true },
+        params: {},
+      });
+    },
+  },
 };
 ```
 
-The `PollList` component lists for every poll, all the options for that poll, as buttons. Selecting an option triggers a `submit` method that broadcasts a transaction with a "create vote" message and fetches data back from our application.
+The `PollList` component lists every poll, including the options for that poll as buttons. Selecting an option triggers a `submit` method that broadcasts a transaction with a "create vote" message and fetches data back from our application.
 
 Two components are still missing from our App, to make it a bit better looking. Let's add `AppRadioItem.vue` and `AppText.vue`.
 
-### `vue/src/components/AppRadioItem.vue`
+### Add the Options Component
+
+`vue/src/components/AppRadioItem.vue`
 
 ```js
 <template>
@@ -643,7 +659,9 @@ export default {
 ```
 
 
-### `vue/src/components/AppText.vue`
+### Add the Poll List Text Component
+
+`vue/src/components/AppText.vue`
 
 ```js
 <template>
@@ -687,68 +705,137 @@ export default {
 };
 ```
 
-Now in our `App.vue` we need to update to fetch our votes. In the `<script></script>` tag we should have the following resulting code:
+Now in the `App.vue` you need to update the JavaScript to fetch the votes.
 
-### `vue/src/App.vue`
+### Update the Frontend App
+
+The App file handles the transactions of the components. Modify the script in `vue/src/App.vue` to look the following 
 
 ```js
+import './scss/app.scss'
+import '@starport/vue/lib/starport-vue.css'
+import Sidebar from './components/Sidebar'
+
 export default {
-  created() {
-    this.$store.dispatch("cosmos/init");
-    this.$store.dispatch("cosmos/entityFetch", {type: "poll", module: "voter"});
-    this.$store.dispatch("cosmos/entityFetch", {type: "vote", module: "voter"});
-  },
-};
+	components: {
+		Sidebar
+	},
+	data() {
+		return {
+			initialized: false
+		}
+	},
+	computed: {
+		hasWallet() {
+			return this.$store.hasModule([ 'common', 'wallet'])
+		}
+	},
+	async created() {
+		await this.$store.dispatch('common/env/init')
+		this.initialized = true
+		await this.$store.dispatch("username.voter.voter/QueryPollAll",{options:{subscribe:true, all:true},params:{}})
+		await this.$store.dispatch("username.voter.voter/QueryVoteAll",{options:{subscribe:true, all:true},params:{}})
+	},
+	errorCaptured(err) {
+		console.log(err)
+		return false
+	}
+}
 ```
 
-By now should be able to see the same UI as in the first screenshot. Try creating polls and casting votes. You may notice that it's possible to cast multiple votes for one poll. This is not what we want, so let's fix this behaviour.
+By now should be able to see the same UI as in the first screenshot. Try creating polls and casting votes.
+You may notice that it's possible to cast multiple votes for one poll. This is not what we want, so let's fix this behaviour.
 
-## Casting votes only once
+## Access the API
 
-To fix this issue we first have to understand how data is stored in our application.
+To fix this issue you first have to understand how data is stored in our application.
 
-We can think of our data storage as a lexicographically ordered key value store. You can loop through the entries, filter by key prefix, add, update and delete entries. It is easier to visualize the store as JSON:
+Think of the data storage as a lexicographically ordered key value store. 
+You can loop through the entries, filter by key prefix, add, update and delete entries. 
+It is easier to visualize the store as JSON.
 
+When you create a poll and cast on vote, this is the resulting JSON.
+
+See the API and JSON output of your created Poll endpoint at http://localhost:1317/username/voter/voter/poll 
 ```json
 {
-  "poll-1a266241-c58d-4cbc-bacf-aaf939c95de1": {
-    "creator": "cosmos15c6g4v5yvq0hy3kjllyr9ytlx45r936y0m6dm6",
-    "id": "1a266241-c58d-4cbc-bacf-aaf939c95de1",
-    "title": "Soft drinks",
-    "options": ["Coca-Cola", "Pepsi"]
-  },
-  "vote-cd63b110-2959-45b0-8ce3-afa2fb7a5652": {
-    "creator": "cosmos15c6g4v5yvq0hy3kjllyr9ytlx45r936y0m6dm6",
-    "id": "cd63b110-2959-45b0-8ce3-afa2fb7a5652",
-    "pollID": "1a266241-c58d-4cbc-bacf-aaf939c95de1",
-    "value": "Pepsi"
+  "Poll": [
+    {
+      "creator": "cosmos1vedd97ku2n8qtsccrfna5gg0repdnk0a9cl7ze",
+      "id": "0",
+      "title": "Soft drinks",
+      "options": ["Coca-Cola", "Pepsi"]
+    }
+  ],
+  "pagination": {
+    "next_key": null,
+    "total": "1"
   }
 }
 ```
 
-Both `poll-` and `vote-` are prefixes. They are added to keys for ease of filtering. By convention, prefixes are defined in `x/voter/types/key.go`.
+For the votes you can go to the page on http://localhost:1317/username/voter/voter/vote 
 
-### `x/voter/keeper/vote.go`
+```json
 
-Whenever a user casts a vote, a new "create vote" message is handled by a handler and is passed to a keeper. Keeper takes a `vote-` prefix, adds a UUID (unique to every message) and uses this string as a key. `x/voter/keeper/vote.go`:
-
-```go
-key := []byte(types.VotePrefix + vote.ID)
+{
+  "Vote": [
+    {
+      "creator": "cosmos1vedd97ku2n8qtsccrfna5gg0repdnk0a9cl7ze",
+      "id": "0",
+      "pollID": "0",
+      "option": "Pepsi"
+    }
+  ],
+  "pagination": {
+    "next_key": null,
+    "total": "2"
+  }
+}
 ```
 
-These strings are unique and we get duplicate votes. To fix that we need to make sure a keeper records every vote only once by choosing the right key. In our case, we can use poll ID and creator address to make sure that one user can cast only one vote per poll.
+The endpoint paths are defined by the username you use when bootstrapping the application with Starport, together with your module name.
+
+Looking into this data, you can see the combination of `creator` and `pollID` is what we are looking for. Each account should only be allowed to have 1 vote per pollID.
+
+## Limit to One Vote per User
+
+The logic for access to a certain transaction should be in the `keeper` directory. For the votes transaction logic, open the `msg_server_vote.go` file at `x/voter/keeper/msg_server_vote.go` and modify the `CreateVote` function.
 
 ```go
-key := []byte(types.VotePrefix + vote.PollID + "-" + string(vote.Creator))
+func (k msgServer) CreateVote(goCtx context.Context, msg *types.MsgCreateVote) (*types.MsgCreateVoteResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+
+  // Get all existing votes
+	voteList := k.GetAllVote(ctx)
+	for _, existingVote := range voteList {
+    // Check if the account has already voted on this PollID
+		if existingVote.Creator == msg.Creator && existingVote.PollID == msg.PollID {
+      // Return an error when a vote has been casted by this account on this PollID
+			return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Vote already casted.")
+		}
+	}
+
+	id := k.AppendVote(
+		ctx,
+		msg.Creator,
+		msg.PollID,
+		msg.Option,
+	)
+
+	return &types.MsgCreateVoteResponse{
+		Id: id,
+	}, nil
+}
 ```
 
-Restart the application and try voting multiple times on a single poll, you'll see you can vote as many times as you want but only your most recent vote is counted.
+Now when you restart the app, in the frontend you should be able to only cast 1 vote per poll.
 
 ## Introducing a fee for creating polls
 
-Let's make it so that creating a poll costs 200 tokens.
+Add the logic for the transaction, that creating a poll costs 200 tokens.
 
-This feature is very easy to add. We already require users to have accounts registered, and each user has tokens on balance. The only thing we need to do is to send coins from user's account to a module account before we create a poll.
+We already require users to have accounts registered, and each user has tokens on balance. The only thing you need to do is to send coins from user's account to a module account before we create a poll.
 
 ## `x/voter/handlerMsgCreatePoll.go`:
 
