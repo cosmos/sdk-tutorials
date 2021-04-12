@@ -12,13 +12,12 @@
 </template>
 
 <script>
-
 import PollForm from "../components/PollForm";
 import PollList from "../components/PollList";
 
 export default {
 	name: 'Types',
-	components: { PollForm,PollList },
+	components: { PollForm, PollList },
 }
 </script>
 
