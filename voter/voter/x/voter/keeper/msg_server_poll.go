@@ -6,11 +6,25 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/tendermint/tendermint/crypto"
 	"github.com/username/voter/x/voter/types"
 )
 
 func (k msgServer) CreatePoll(goCtx context.Context, msg *types.MsgCreatePoll) (*types.MsgCreatePollResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
+	feeCoins, err := sdk.ParseCoinsNormalized("200token")
+	if err != nil {
+		return nil, err
+	}
+	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+	if err := k.bankKeeper.SendCoins(ctx, creatorAddress, moduleAcct, feeCoins); err != nil {
+		return nil, err
+	}
 
 	id := k.AppendPoll(
 		ctx,

@@ -320,7 +320,7 @@ func New(
 	app.EvidenceKeeper = *evidenceKeeper
 
 	app.voterKeeper = *voterkeeper.NewKeeper(
-		appCodec, keys[votertypes.StoreKey], keys[votertypes.MemStoreKey],
+		appCodec, keys[votertypes.StoreKey], keys[votertypes.MemStoreKey], app.BankKeeper,
 	)
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition

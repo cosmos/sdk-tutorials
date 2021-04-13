@@ -837,38 +837,107 @@ Add the logic for the transaction, that creating a poll costs 200 tokens.
 
 We already require users to have accounts registered, and each user has tokens on balance. The only thing you need to do is to send coins from user's account to a module account before we create a poll.
 
-## `x/voter/handlerMsgCreatePoll.go`:
+## Add the Bank Keeper to the Module
 
+First, load the `expected_keepers` in the `x/voter/types/expected_keepers.go` file.
+This will define all the bank functions available in your module.
 
 ```go
-package voter
+package types
 
-import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
+import sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/alice/voter/x/voter/keeper"
-	"github.com/alice/voter/x/voter/types"
-	"github.com/tendermint/tendermint/crypto"
-)
-
-func handleMsgCreatePoll(ctx sdk.Context, k keeper.Keeper, msg types.MsgCreatePoll) (*sdk.Result, error) {
-	var poll = types.Poll{
-		Creator: msg.Creator,
-		Title:   msg.Title,
-		Options: msg.Options,
-	}
-	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
-	payment, _ := sdk.ParseCoins("200token")
-	if err := k.CoinKeeper.SendCoins(ctx, poll.Creator, moduleAcct, payment); err != nil {
-		return nil, err
-	}
-	k.CreatePoll(ctx, msg)
-
-	return &sdk.Result{Events: ctx.EventManager().Events()}, nil
+// BankKeeper defines the expected bank keeper
+type BankKeeper interface {
+	SendCoins(ctx sdk.Context, fromAddr sdk.AccAddress, toAddr sdk.AccAddress, amt sdk.Coins) error
+	MintCoins(ctx sdk.Context, moduleName string, amt sdk.Coins) error
+	BurnCoins(ctx sdk.Context, moduleName string, amt sdk.Coins) error
+	SendCoinsFromModuleToAccount(ctx sdk.Context, senderModule string, recipientAddr sdk.AccAddress, amt sdk.Coins) error
+	SendCoinsFromAccountToModule(ctx sdk.Context, senderAddr sdk.AccAddress, recipientModule string, amt sdk.Coins) error
 }
 ```
 
-The fee payment happens before `k.CreatePoll(ctx, poll)`. This way, if a user does not have enough tokens, the application will raise an error and will not proceed to creating a poll. Make sure to have `"github.com/tendermint/tendermint/crypto"` added to the import statement (if your text editor didn't do that for you).
+Second, add the keeper to the `x/voter/keeper/keeper.go` file.
+Add it to the `type` as well as the `NewKeeper` function as follows:
+
+```go
+type (
+	Keeper struct {
+		cdc        codec.Marshaler
+		storeKey   sdk.StoreKey
+		memKey     sdk.StoreKey
+		bankKeeper types.BankKeeper
+	}
+)
+
+func NewKeeper(cdc codec.Marshaler, storeKey, memKey sdk.StoreKey, bankKeeper types.BankKeeper) *Keeper {
+	return &Keeper{
+		cdc:        cdc,
+		storeKey:   storeKey,
+		memKey:     memKey,
+		bankKeeper: bankKeeper,
+	}
+}
+```
+
+Finally, add the bank module to the `app.go` file in `x/app/app.go`
+
+```go
+app.voterKeeper = *voterkeeper.NewKeeper(
+  appCodec, keys[votertypes.StoreKey], keys[votertypes.MemStoreKey], app.BankKeeper,
+)
+```
+
+Now you are ready to use all the bank functions that you added to the expected keepers file above.
+Next you will define how the transaction will require the funds in order to exectue the transaction.
+
+## Modify the Message with the price
+
+Modify the msg at `x/voter/keeper/msg_server_poll.go`.
+
+```go
+package keeper
+
+import (
+	"context"
+	"fmt"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/tendermint/tendermint/crypto"
+	"github.com/username/voter/x/voter/types"
+)
+
+func (k msgServer) CreatePoll(goCtx context.Context, msg *types.MsgCreatePoll) (*types.MsgCreatePollResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
+	feeCoins, err := sdk.ParseCoinsNormalized("200token")
+	if err != nil {
+		return nil, err
+	}
+	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+	if err := k.bankKeeper.SendCoins(ctx, creatorAddress, moduleAcct, feeCoins); err != nil {
+		return nil, err
+	}
+
+	id := k.AppendPoll(
+		ctx,
+		msg.Creator,
+		msg.Title,
+		msg.Options,
+	)
+
+	return &types.MsgCreatePollResponse{
+		Id: id,
+	}, nil
+}
+```
+
+The fee payment happens before `k.AppendPoll`. This way, if a user does not have enough tokens, the application will raise an error and will not proceed to creating a poll. Make sure to have `"github.com/tendermint/tendermint/crypto"` added to the import statement (if your text editor didn't do that for you).
 
 Now, restart the app and try creating several polls to see how this affects your token balance.
 

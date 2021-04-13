@@ -12,17 +12,19 @@ import (
 
 type (
 	Keeper struct {
-		cdc      codec.Marshaler
-		storeKey sdk.StoreKey
-		memKey   sdk.StoreKey
+		cdc        codec.Marshaler
+		storeKey   sdk.StoreKey
+		memKey     sdk.StoreKey
+		bankKeeper types.BankKeeper
 	}
 )
 
-func NewKeeper(cdc codec.Marshaler, storeKey, memKey sdk.StoreKey) *Keeper {
+func NewKeeper(cdc codec.Marshaler, storeKey, memKey sdk.StoreKey, bankKeeper types.BankKeeper) *Keeper {
 	return &Keeper{
-		cdc:      cdc,
-		storeKey: storeKey,
-		memKey:   memKey,
+		cdc:        cdc,
+		storeKey:   storeKey,
+		memKey:     memKey,
+		bankKeeper: bankKeeper,
 	}
 }
 
