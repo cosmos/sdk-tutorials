@@ -765,7 +765,7 @@ It is easier to visualize the store as JSON.
 
 When you create a poll and cast on vote, this is the resulting JSON.
 
-See the API and JSON output of your created Poll endpoint at http://localhost:1317/username/voter/voter/poll 
+See the API and JSON output of your created Poll endpoint at [http://localhost:1317/username/voter/voter/poll](http://localhost:1317/username/voter/voter/poll)
 ```json
 {
   "Poll": [
@@ -783,7 +783,7 @@ See the API and JSON output of your created Poll endpoint at http://localhost:13
 }
 ```
 
-For the votes you can go to the page on http://localhost:1317/username/voter/voter/vote 
+For the votes you can go to the API page on [http://localhost:1317/username/voter/voter/vote](http://localhost:1317/username/voter/voter/vote) 
 
 ```json
 
@@ -815,12 +815,12 @@ The logic for access to a certain transaction should be in the `keeper` director
 func (k msgServer) CreateVote(goCtx context.Context, msg *types.MsgCreateVote) (*types.MsgCreateVoteResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-  // Get all existing votes
+  	// Get all existing votes
 	voteList := k.GetAllVote(ctx)
 	for _, existingVote := range voteList {
-    // Check if the account has already voted on this PollID
+    	// Check if the account has already voted on this PollID
 		if existingVote.Creator == msg.Creator && existingVote.PollID == msg.PollID {
-      // Return an error when a vote has been casted by this account on this PollID
+      		// Return an error when a vote has been casted by this account on this PollID
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Vote already casted.")
 		}
 	}
