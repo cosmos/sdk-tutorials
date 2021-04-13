@@ -398,7 +398,7 @@ with two new components and a title
  
  ```js
 			<SpH3>
-				Polls
+				Voter Module
 			</SpH3>
 			<poll-form />
 			<poll-list />
@@ -427,12 +427,20 @@ The component has a title and two buttons.
 ```vue
 <template>
   <div>
-    <input class="sp-input" placeholder="Title" v-model="title" />
-    <div v-for="(option, index) in options" v-bind:key="'option' + index">
-      <input class="sp-input" placeholder="Option" v-model="option.title" />
+    <div class="sp-voter__main sp-box sp-shadow sp-form-group">
+        <form class="sp-voter__main__form">
+          <div class="sp-voter__main__rcpt__header sp-box-header">
+            Create a Poll
+          </div>
+
+          <input class="sp-input" placeholder="Title" v-model="title" />
+          <div v-for="(option, index) in options" v-bind:key="'option' + index">
+            <input class="sp-input" placeholder="Option" v-model="option.title" />
+          </div>
+          <sp-button @click="add">+ Add option</sp-button>
+          <sp-button @click="submit">Create poll</sp-button>
+        </form>
     </div>
-    <sp-button @click="add">+ Add option</sp-button>
-    <sp-button @click="submit">Create poll</sp-button>
   </div>
 </template>
 ```
@@ -515,8 +523,9 @@ Create a new component `PollList.vue` in `vue/src/components/PollList.vue`.
 ```js
 <template>
   <div>
+    <SpH3> List of Polls </SpH3>
     <div v-for="poll in polls" v-bind:key="'poll' + poll.id">
-      <SpH3> Poll {{ poll.title }} </SpH3>
+      <SpH3> {{poll.id}}. {{ poll.title }} </SpH3>
       <app-radio-item
         @click="submit(poll.id, option)"
         v-for="option in poll.options"
