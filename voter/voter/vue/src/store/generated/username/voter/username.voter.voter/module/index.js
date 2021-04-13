@@ -3,18 +3,18 @@ import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
 import { MsgUpdateVote } from "./types/voter/tx";
-import { MsgDeleteVote } from "./types/voter/tx";
-import { MsgUpdatePoll } from "./types/voter/tx";
 import { MsgCreateVote } from "./types/voter/tx";
-import { MsgDeletePoll } from "./types/voter/tx";
 import { MsgCreatePoll } from "./types/voter/tx";
+import { MsgUpdatePoll } from "./types/voter/tx";
+import { MsgDeleteVote } from "./types/voter/tx";
+import { MsgDeletePoll } from "./types/voter/tx";
 const types = [
     ["/username.voter.voter.MsgUpdateVote", MsgUpdateVote],
-    ["/username.voter.voter.MsgDeleteVote", MsgDeleteVote],
-    ["/username.voter.voter.MsgUpdatePoll", MsgUpdatePoll],
     ["/username.voter.voter.MsgCreateVote", MsgCreateVote],
-    ["/username.voter.voter.MsgDeletePoll", MsgDeletePoll],
     ["/username.voter.voter.MsgCreatePoll", MsgCreatePoll],
+    ["/username.voter.voter.MsgUpdatePoll", MsgUpdatePoll],
+    ["/username.voter.voter.MsgDeleteVote", MsgDeleteVote],
+    ["/username.voter.voter.MsgDeletePoll", MsgDeletePoll],
 ];
 const registry = new Registry(types);
 const defaultFee = {
@@ -29,11 +29,11 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
     return {
         signAndBroadcast: (msgs, { fee = defaultFee, memo = null }) => memo ? client.signAndBroadcast(address, msgs, fee, memo) : client.signAndBroadcast(address, msgs, fee),
         msgUpdateVote: (data) => ({ typeUrl: "/username.voter.voter.MsgUpdateVote", value: data }),
-        msgDeleteVote: (data) => ({ typeUrl: "/username.voter.voter.MsgDeleteVote", value: data }),
-        msgUpdatePoll: (data) => ({ typeUrl: "/username.voter.voter.MsgUpdatePoll", value: data }),
         msgCreateVote: (data) => ({ typeUrl: "/username.voter.voter.MsgCreateVote", value: data }),
-        msgDeletePoll: (data) => ({ typeUrl: "/username.voter.voter.MsgDeletePoll", value: data }),
         msgCreatePoll: (data) => ({ typeUrl: "/username.voter.voter.MsgCreatePoll", value: data }),
+        msgUpdatePoll: (data) => ({ typeUrl: "/username.voter.voter.MsgUpdatePoll", value: data }),
+        msgDeleteVote: (data) => ({ typeUrl: "/username.voter.voter.MsgDeleteVote", value: data }),
+        msgDeletePoll: (data) => ({ typeUrl: "/username.voter.voter.MsgDeletePoll", value: data }),
     };
 };
 const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) => {

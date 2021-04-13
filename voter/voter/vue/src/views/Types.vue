@@ -3,7 +3,7 @@
 		<div class="container">
       	<!-- this line is used by starport scaffolding # 4 -->
 			<SpH3>
-				Polls
+				Voter Module
 			</SpH3>
 			<poll-form />
 			<poll-list />

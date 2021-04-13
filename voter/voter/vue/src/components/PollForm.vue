@@ -1,11 +1,19 @@
 <template>
   <div>
-    <input class="sp-input" placeholder="Title" v-model="title" />
-    <div v-for="(option, index) in options" v-bind:key="'option' + index">
-      <input class="sp-input" placeholder="Option" v-model="option.title" />
+    <div class="sp-voter__main sp-box sp-shadow sp-form-group">
+        <form class="sp-voter__main__form">
+          <div class="sp-voter__main__rcpt__header sp-box-header">
+            Create a Poll
+          </div>
+
+          <input class="sp-input" placeholder="Title" v-model="title" />
+          <div v-for="(option, index) in options" v-bind:key="'option' + index">
+            <input class="sp-input" placeholder="Option" v-model="option.title" />
+          </div>
+          <sp-button @click="add">+ Add option</sp-button>
+          <sp-button @click="submit">Create poll</sp-button>
+        </form>
     </div>
-    <sp-button @click="add">+ Add option</sp-button>
-    <sp-button @click="submit">Create poll</sp-button>
   </div>
 </template>
 <script>

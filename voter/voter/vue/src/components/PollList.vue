@@ -1,7 +1,8 @@
 <template>
   <div>
+    <SpH3> List of Polls </SpH3>
     <div v-for="poll in polls" v-bind:key="'poll' + poll.id">
-      <SpH3> Poll {{ poll.title }} </SpH3>
+      <SpH3> {{poll.id}}. {{ poll.title }} </SpH3>
       <app-radio-item
         @click="submit(poll.id, option)"
         v-for="option in poll.options"
@@ -12,6 +13,26 @@
     </div>
   </div>
 </template>
+<style>
+.button {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.1s;
+  font-weight: 500;
+  outline: none;
+  border: none;
+  background: rgba(0, 0, 0, 0.01);
+  width: 100%;
+  font-family: inherit;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: inherit;
+}
+</style>
 <script>
 import AppRadioItem from "./AppRadioItem";
 import AppText from "./AppText";
