@@ -200,12 +200,14 @@ func (k Keeper) OnRecvIbcPostPacket(ctx sdk.Context, packet channeltypes.Packet,
 		return packetAck, err
 	}
 
-	id := k.AppendPost(
-		ctx,
-		packet.SourcePort+"-"+packet.SourceChannel+"-"+data.Creator,
-		data.Title,
-		data.Content,
-	)
+  id := k.AppendPost(
+    ctx,
+    types.Post{
+      Creator: packet.SourcePort+"-"+packet.SourceChannel+"-"+data.Creator,
+      Title: data.Title,
+      Content: data.Content,
+    },
+  )
 	packetAck.PostID = strconv.FormatUint(id, 10)
 
 	return packetAck, nil
@@ -237,13 +239,15 @@ func (k Keeper) OnAcknowledgementIbcPostPacket(ctx sdk.Context, packet channelty
 			return errors.New("cannot unmarshal acknowledgment")
 		}
 
-		k.AppendSentPost(
-			ctx,
-			data.Creator,
-			packetAck.PostID,
-			data.Title,
-			packet.DestinationPort+"-"+packet.DestinationChannel,
-		)
+    k.AppendSentPost(
+      ctx,
+      types.SentPost{
+        Creator: data.Creator,
+        PostID: packetAck.PostID,
+        Title: data.Title,
+        Chain: packet.DestinationPort+"-"+packet.DestinationChannel,
+      },
+    )
 
 		return nil
 	default:
@@ -261,12 +265,14 @@ Store posts that have not been received by target chains in `timedoutPost` posts
 // OnTimeoutIbcPostPacket responds to the case where a packet has not been transmitted because of a timeout
 func (k Keeper) OnTimeoutIbcPostPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IbcPostPacketData) error {
 
-	k.AppendTimedoutPost(
-		ctx,
-		data.Creator,
-		data.Title,
-		packet.DestinationPort+"-"+packet.DestinationChannel,
-	)
+  k.AppendTimedoutPost(
+    ctx,
+    types.TimedoutPost{
+      Creator: data.Creator,
+      Title: data.Title,
+      Chain: packet.DestinationPort+"-"+packet.DestinationChannel,
+    },
+  )
 
 	return nil
 }
