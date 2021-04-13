@@ -10,7 +10,7 @@ sections:
       - starport
       - stargate
   - title: Interchain Exchange
-    desc: Build an Exchange blockchain app as an IBC module. The module you will build can create orderbooks, buy and sell orders across blockchains. Learn how to use IBC, IBC packets and the relayer.
+    desc: Build an Exchange blockchain app as an IBC module. You will build a module that can create orderbooks and buy and sell orders across blockchains. Learn how to use IBC, IBC packets, and the relayer.
     url: /interchain-exchange/tutorial/00-intro.html
     tags: 
       - starport
