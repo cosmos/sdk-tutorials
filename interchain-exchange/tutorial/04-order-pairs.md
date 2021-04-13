@@ -4,11 +4,11 @@ order: 5
 
 # Create Order Pairs
 
-In the last chapter you have created the logic for the orderbook with buy and sell orders.
-In this chapter you will build the software to make the orderbook IBC compatible.
-This will require you to create the index for an orderbook, with their according messages on receive and on acknowledgement of the IBC packet.
+In the last chapter you have created the logic for the order book with buy and sell orders.
+In this chapter you will build the software to make the order book IBC compatible.
+This will require you to create the index for an order book, with their according messages on receive and on acknowledgement of the IBC packet.
 
-## Define the Orderbook Indexes
+## Define the Order Book Indexes
 
 You defined the order books as indexed types in the store but you have to specify how this index is defined with the following code:
 
@@ -36,8 +36,8 @@ func OrderBookIndex(
 
 ## Check for Existing Pairs
 
-A pair of token always has one orderbook that everyone can access in the app.
-When an orderbook pair already exists, it should throw an error.
+A pair of token always has one order book that everyone can access in the app.
+When an order book pair already exists, it should throw an error.
 
 ```go
 // x/ibcdex/keeper/msg_server_createPair.go
@@ -61,7 +61,7 @@ func (k msgServer) SendCreatePair(goCtx context.Context, msg *types.MsgSendCreat
 
 ## Create the OnRecv Function
 
-When a packet with an orderbook creation is received, the validity of the transaction should be check with the `ValidateBasic()` function.
+When a packet with an order book creation is received, the validity of the transaction should be check with the `ValidateBasic()` function.
 If the pair does not exist yet, it can be added to the keeper.
 
 ```go
@@ -91,7 +91,7 @@ func (k Keeper) OnRecvCreatePairPacket(ctx sdk.Context, packet channeltypes.Pack
 ## Create the OnAcknowledgement Function
 
 When a packet sent with IBC is valid and received, it must be acknowledged.
-When the acknowledgement is successful, add the sell orderbook to the database.
+When the acknowledgement is successful, add the sell order book to the database.
 
 ```go
 // x/ibcdex/keeper/createPair.go
@@ -124,4 +124,4 @@ func (k Keeper) OnAcknowledgementCreatePairPacket(ctx sdk.Context, packet channe
 
 ## No Consequences OnTimeout
 
-A timeout will have no consequences in our scenario. The orderbook will not be acknowledged 
+A timeout will have no consequences in our scenario. The order book will not be acknowledged 
