@@ -32,15 +32,15 @@ module.exports = {
           children: [
 
             {
-              title: "Blog",
-              path: "/blog/tutorial/",
-              directory: true,
-            }, 
-            {
               title: "IBC Hello World",
               path: "/hello-world/tutorial/",
               directory: true,
             },
+            {
+              title: "Blog",
+              path: "/blog/tutorial/",
+              directory: true,
+            }, 
             {
               title: "Interchain Exchange",
               path: "/interchain-exchange/tutorial/",
@@ -49,7 +49,7 @@ module.exports = {
           ],
         },
         {
-          title: "Migration v0.39 to v0.40",
+          title: "Migration Cosmos SDK v0.39 to v0.40",
           children: [
             {
               title: "PoFE - Migration",
