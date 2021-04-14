@@ -28,7 +28,7 @@ module.exports = {
       auto: false,
       nav: [
         {
-          title: "Stargate Tutorials",
+          title: "v0.40+ Stargate Tutorials",
           children: [
 
             {
@@ -36,11 +36,6 @@ module.exports = {
               path: "/blog/tutorial/",
               directory: true,
             }, 
-            {
-              title: "PoFE - Migration",
-              path: "/launchpad-to-stargate/tutorial/",
-              directory: true,
-            },
             {
               title: "IBC Hello World",
               path: "/hello-world/tutorial/",
@@ -54,7 +49,17 @@ module.exports = {
           ],
         },
         {
-          title: "Launchpad Tutorials",
+          title: "Migration v0.39 to v0.40",
+          children: [
+            {
+              title: "PoFE - Migration",
+              path: "/launchpad-to-stargate/tutorial/",
+              directory: true,
+            },
+          ]
+        },
+        {
+          title: "v0.39 Tutorials",
           children: [
             {
               title: "Voter",

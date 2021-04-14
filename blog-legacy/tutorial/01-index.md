@@ -3,7 +3,7 @@ order: 1
 ---
 
 ***
-❗ This tutorial uses the Cosmos SDK v0.39 as "Launchpad" LTS. Cosmos SDK v0.40 has been released in January 2021 and contains major upgrades and new features. v0.39 is for all projects prior this date. When you start newly, it is recommended to use v0.40 [here](/blog/tutorial/). Learn more about it [here](https://blog.cosmos.network/launchpad-a-pre-stargate-stable-version-of-the-cosmos-sdk-e0c58d8c4e24).
+❗ This tutorial uses the Cosmos SDK v0.39 LTS. Cosmos SDK v0.40 has been released in January 2021 and contains major upgrades and new features. v0.39 is for all projects prior this date. When you start newly, it is recommended to use v0.40 [here](/blog/tutorial/). Learn more about it [here](https://blog.cosmos.network/launchpad-a-pre-stargate-stable-version-of-the-cosmos-sdk-e0c58d8c4e24).
 ***
 
 # Create posts

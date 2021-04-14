@@ -3,11 +3,11 @@ order: 2
 ---
 # Module migration
 
-In this section, we will be migrating the `pofe` module from our Launchpad application.
+In this section, we will be migrating the `pofe` module from our v0.39 application.
 
 ## Module differences
 
-Before proceeding with the migration, it is important to note the differences between Launchpad and Stargate modules. Below is an overview of the differences when scaffolding a module with Starport -
+Before proceeding with the migration, it is important to note the differences between v0.39 and v0.40 Stargate modules. Below is an overview of the differences when scaffolding a module with Starport -
 
 ```sh
 # # removed in Staragte
@@ -73,9 +73,9 @@ One of the key differences is the integration of gRPC and protobuf in your appli
 
 In theory, you **could** copy a module over from your existing application and make relevant changes based off [this](https://docs.cosmos.network/master/migrations/app_and_modules.html) document - if that is your preferred method, of migrating your modules, then you are better off following the aforementioned documentation.
 
-Instead, we will be using Starport to genrate fresh Stargate-compatible files and migrate the logic from our Launchpad application. Note that we will also have to change some of the logic to make it Stargate compatible.
+Instead, we will be using Starport to genrate fresh Stargate-compatible files and migrate the logic from our v0.39 application. Note that we will also have to change some of the logic to make it Stargate compatible.
 
-Essentially, we need to inspect the `Claim` type that is defined in our Launchpad application.
+Essentially, we need to inspect the `Claim` type that is defined in our v0.39 application.
 
 ```go
 // launchpad/pofe/x/pofe/types/TypeClaim.go
@@ -116,7 +116,7 @@ Once this is done, you should see a few new files added to your application -
 
 ## Protobuf and gRPC
 
-Compared to your Launchpad application, the key differences in type scaffolding is the addition of `proto/pofe/claim.proto`, `x/pofe/keeper/grpc_query_claim.go`, and `x/pofe/types/query_pb.go` files.
+Compared to your v0.39 application, the key differences in type scaffolding is the addition of `proto/pofe/claim.proto`, `x/pofe/keeper/grpc_query_claim.go`, and `x/pofe/types/query_pb.go` files.
 
 If you take a look inside the `claim.proto` file, you will see the following file which contains transaction (`tx`) messages. We can always assume that these transaction messages will mutate state.
 
@@ -683,6 +683,6 @@ confirm transaction before signing and broadcasting [y/N]: y
 
 ## Migrating your own application
 
-Throughout this tutorial, we have shown you how to migrate your application from Launchpad to Stargate with the help of Starport, which will always generate the most up-to-date Cosmos SDK boilerplate code. One might be expectd to migrate their application manually by following the documentation, which is still a viable options, albeit less efficient. 
+Throughout this tutorial, we have shown you how to migrate your application from v0.39 to v0.40+ Stargate with the help of Starport, which will always generate the most up-to-date Cosmos SDK boilerplate code. One might be expectd to migrate their application manually by following the documentation, which is still a viable options, albeit less efficient. 
 
 The approach we used in this tutorial minimizes the changes we had to make when migrating the application - we only had to migrate the custom logic that was implemented, rather than modifying each individual file that needed to be updated. Having boilerplate code also allows us to reference it as an example when examining the fundamental changes within the application itself when making the necessary changes.

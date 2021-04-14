@@ -22,7 +22,7 @@ sections:
       - starport
       - stargate
   - title: Proof of File Existence Migration
-    desc: Efficiently migrate your Cosmos SDK applications or modules from Launchpad to Stargate using Starport.
+    desc: Efficiently migrate your Cosmos SDK applications or modules from v0.39 to v0.40+ using Starport.
     url: /launchpad-to-stargate/tutorial/01-introduction.html
     tags:
       - starport
