@@ -40,7 +40,9 @@ Before a sell order will be submitted, make sure it contains the following logic
 - Save the voucher received on the target chain to later resolve a denom
 
 ```go
-// x/ibcdex/keeper//msg_server_buyOrder.go
+// x/ibcdex/keeper/msg_server_buyOrder.go
+import "errors"
+
 func (k msgServer) SendBuyOrder(goCtx context.Context, msg *types.MsgSendBuyOrder) (*types.MsgSendBuyOrderResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
