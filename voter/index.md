@@ -536,6 +536,12 @@ Create a new component `PollList.vue` in `vue/src/components/PollList.vue`.
     </div>
   </div>
 </template>
+<style>
+.option-radio > .button {
+  height: 40px;
+  width: 50%;
+}
+</style>
 ```
 in between `<script></script>` tags below this:
 
