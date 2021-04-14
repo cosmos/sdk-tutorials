@@ -8,7 +8,7 @@ By following this beginner tutorial, you will end up with a simple blog app that
 
 ## Requirements 
 
-For this tutorial you will use [Starport](https://github.com/tendermint/starport) v0.15.0, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
+This tutorial uses [Starport](https://github.com/tendermint/starport) v0.15.0. Starport offers everything you need to build, test, and launch your blockchain.  To install `starport`, run the following command:
 
 ```
 curl https://get.starport.network/starport@v0.15.0! | bash
@@ -474,8 +474,8 @@ To verify that the transaction has been processed, open a browser and visit the 
 ```
 http://localhost:26657/tx?hash=0x4B7B68DEACC7CDF3243965A449095B4AB895C9D9BDF0516725BF2173794A9B3C
 ```
-
-Also check out a basic block overview at
+In the URL, retain the `0x` prefix but replace `4B7B6...` with the value of your txhash:
+You can check out a basic block overview in a web browser:
 
 ```
 http://localhost:12345/#/blocks

@@ -34,7 +34,7 @@ The IBC packet has four different stages you need to consider:
 
 Before a sell order will be submitted, make sure it contains the following logic:
 
-- Check if the pair exists on the orderbook
+- Check if the pair exists on the order book
 - If the token is an IBC token, burn the tokens
 - If the token is a native token, lock the tokens
 - Save the voucher received on the target chain to later resolve a denom
@@ -169,7 +169,7 @@ func (k Keeper) OnRecvBuyOrderPacket(ctx sdk.Context, packet channeltypes.Packet
 
 ## Create the OnAcknowledgement Function
 
-- Chain `Mars` will store the remaining buy order in the buy orderbook and will distribute sold `MCX` to the sellers and will mint the voucher token to the buyer the price of the amount bought
+- Chain `Mars` will store the remaining buy order in the buy order book and will distribute sold `MCX` to the sellers and will mint the voucher token to the buyer the price of the amount bought
 - On error we mint back the burned tokens
 
 ```go
