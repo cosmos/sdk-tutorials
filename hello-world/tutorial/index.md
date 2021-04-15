@@ -68,7 +68,7 @@ After the transaction is acknowledged by the receiving chain, you know that the 
 
 ![The Lifecycle of an IBC packet in the Blog Module](./packet_sendpost.png)
 
-## Build your blockchain app
+## Build your Blockchain App
 
 Use Starport to scaffold the blockchain app and the blog module.
 
@@ -167,7 +167,7 @@ planetd tx blog send-ibcPost [portID] [channelD] [title] [content]
 
 After you create the types and transactions, you must manually insert the logic to manage updates in the data tables. Modify the source code to save the data as specified earlier in this tutorial.
 
-## 1\. Add Creator to the Blog Post Packet
+## 1\. Add creator to the blog post packet
 
 Start with the proto file that defines the structure of the IBC packet.
 
@@ -206,7 +206,7 @@ To make sure the receiving chain has content on the creator of a blog post, add 
     )
 ```
 
-## 2\. Receive the Post
+## 2\. Receive the post
 
 The methods for primary transaction logic are in the `planet/x/blog/keeper/ibcPost.go` file. Use these methods to manage IBC packets:
 
@@ -255,7 +255,7 @@ func (k Keeper) OnRecvIbcPostPacket(ctx sdk.Context, packet channeltypes.Packet,
 }
 ```
 
-## 3\. Receive the Post Acknowledgement
+## 3\. Receive the post acknowledgement
 
 On the sending blockchain, store a `sentPost` so you know that the post has been received on the target chain.
 
@@ -296,7 +296,7 @@ func (k Keeper) OnAcknowledgementIbcPostPacket(ctx sdk.Context, packet channelty
 }
 ```
 
-## 4\. Store Information about the Timed-out Packet
+## 4\. Store information about the timed-out packet
 
 Store posts that have not been received by target chains in `timedoutPost` posts. This logic follows the same format as `sentPost`.
 
@@ -317,7 +317,7 @@ func (k Keeper) OnTimeoutIbcPostPacket(ctx sdk.Context, packet channeltypes.Pack
 
 This last step completes the basic `blog` module setup. The blockchain is now ready!
 
-## Use the IBC modules
+## Use the IBC Modules
 
 You can now spin up the blockchain and send a blog post from one blockchain app to the other. Multiple terminal windows are required to complete these next steps.
 
@@ -391,7 +391,7 @@ Open a different terminal window and run the following command to start the `mar
 starport serve -c mars.yml
 ```
 
-## 2\. Configure and start the Relayer
+## 2\. Configure and start the relayer
 
 First, configure the relayer. Use the Starport `configure` command with the `--advanced` option:
 
