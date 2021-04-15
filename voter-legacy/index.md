@@ -6,11 +6,11 @@ order: 1
 
 ![Application screenshot](./1.png)
 
-We will be creating a simple poll application, in which a user can sign in, create polls, cast votes and see voting results. Creating a poll will cost 200 tokens, voting is free, and both actions will be available only for signed in users.
+Create a simple poll application so a user can sign in, create polls, cast votes, and see voting results. Creating a poll costs 200 tokens, voting is free, and actions are restricted to signed-in users.
 
 ## Requirements 
 
-For this tutorial we will be using [Starport](https://github.com/tendermint/starport) v0.14.0, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
+This tutorial uses [Starport](https://github.com/tendermint/starport) v0.14.0, a developer-friendly interface for building blockchains with the Cosmos SDK. To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
 curl https://get.starport.network/starport@v0.14.0! | bash
@@ -26,20 +26,20 @@ Run the following command to create a voter project:
 starport app github.com/alice/voter --sdk-version launchpad
 ```
 
-Starport `app` command will scaffold a project structure for your application in a `voter` directory. Make sure to replace `alice` with your GitHub username.
+The Starport `app` command scaffolds a project structure for your application in a `voter` directory. Make sure to replace `alice` with your GitHub username.
 
-Inside the `voter` directory we can see several files and directories:
+Several files and directories are generated in the `voter` directory:
 
 ```bash
 cd voter
 ```
 
 - `app` contains files that connect all of the moving parts of your application.
-- `cmd` is responsible for `voterd` and `votercli` programs, which respectively allow you to start your application and interact with it.
-- `vue` contains a web user interface for your app, reponsible for everything you see on the screenshot above.
-- `x` contains the main building blocks of you app: modules. Right now we have only one: `voter`.
+- `cmd` is responsible for `voterd` and `votercli` programs that allow you to start and interact with your application.
+- `vue` contains a web user interface for your app, responsible for everything you see on the user interface.
+- `x` contains the main building blocks of your app: modules. Right now there is only one module: `voter`.
 
-Our project's directory contains all the code required to build and launch a blockchain-based app. Let's try launching our app by running starport serve inside our project:
+Your project directory contains all of the code that is required to build and launch a blockchain-based app. Now, you can try to launch your app by running starport serve inside your project:
 
 ```
 starport serve
@@ -76,19 +76,23 @@ starport type poll title options
 🎉 Created a type `poll`
 ```
 
-This command generated code that handles the creation of `poll` items. If we now run `starport serve` and visit [http://localhost:8080](http://localhost:8080) we will see a form for creating polls. It may take a short while to rebuild the app, so give it a couple of seconds.
+This command generated code that handles the creation of `poll` items. 
+
+ Now you can run the `starport serve` command and visit [http://localhost:8080](http://localhost:8080) to see a form for creating polls. It may take a short while to rebuild the app, so give it a couple of seconds.
 
 ![Application screenshot](./2.png)
 
 Sign in with one of the passwords printed in the console and try creating a poll. You should see a new object created and displayed above the form. You have successfully created an object and stored it on the blockchain!
 
-This, however, does not look and work exactly like we need. We should be able to add option fields (and store them as an array) and they should be displayed as interactive buttons.
+This, however, does not look and work exactly like you might need. You can add option fields and store them as an array. You can make the option fields display as interactive buttons in your app.
 
-Let's take a look at some of the files modified by the `starport type` command.
+Take a look at some of the files that were modified by the `starport type` command.
 
 ### `x/voter/types/TypePoll.go`
 
-This file contains definition of the `Poll` type. We can see that a poll has two fields (creator and ID), which will be created automatically, and two fields (title and options) defined by us. Since we want `Options` to be a list of strings, **replace `string` with `[]string`**
+This file contains the definition of the `Poll` type. A poll has two fields (creator and ID) that are created automatically and two fields (title and options) that you define.
+
+To define `Options` as a list of strings, **replace `string` with `[]string`**
 
 ```go
 package types
@@ -112,7 +116,7 @@ type Poll struct {
 
 This file defines a message that creates a poll.
 
-We need to make options to be stored as a list instead of a string. Replace `Options string` with `Options []string` in `MsgCreatePoll` struct and `options string` with `options []string` in the arguments of `NewMsgCreatePoll` function.
+To make options store as a list instead of a string, replace `Options string` with `Options []string` in `MsgCreatePoll` struct and `options string` with `options []string` in the arguments of `NewMsgCreatePoll` function.
 
 ```go
 package types
@@ -145,7 +149,7 @@ To write anything to a blockchain or perform any other state transition a client
 
 ### `x/voter/types/MsgSetPoll.go`
 
-Also in the `MsgSetPoll` we need to modify our `Options string` to `[]string`
+In the `MsgSetPoll` file, modify the `Options string` to `[]string`
 
 ```go
 package types
@@ -189,7 +193,7 @@ type createPollRequest struct {
 }
 ```
 
-Also further below in the `setPollRequest` struct.
+Also in the `setPollRequest` struct.
 
 ```go
 type setPollRequest struct {
@@ -203,15 +207,15 @@ type setPollRequest struct {
 
 ### `x/voter/client/cli/txPoll.go`
 
-A user will also be able to interact with our application through a command line interface.
+To enable users to interact with your application through a command-line interface:
 
 ```
 votercli tx voter create-poll "Text editors" "Emacs" "Vim" --from user1
 ```
 
-This command will generate a transaction with "create poll" message, sign it using a private key of `user1` (one of two users created by default) and broadcast it to the blockchain.
+This command generates a transaction with the "create poll" message. Sign the transaction using a private key of `user1` (one of two users created by default) and broadcast it to the blockchain.
 
-The modification we need to make is to change a line that reads arguments from the console. 
+Now make a modification to change the line that reads arguments from the console. 
 
 In the function `GetCmdCreatePoll`
 
@@ -235,7 +239,7 @@ The variable `msg` is defined to read a string of argOptions, delete the stringi
 msg := types.NewMsgCreatePoll(cliCtx.GetFromAddress(), string(argsTitle), argsOptions)
 ```
 
-We end up with the following function
+You end up with the following function
 
 ```go
 func GetCmdCreatePoll(cdc *codec.Codec) *cobra.Command {
@@ -261,9 +265,9 @@ func GetCmdCreatePoll(cdc *codec.Codec) *cobra.Command {
 }
 ```
 
-The same changes will need to be done for the function `GetCmdSetPoll`
+Now make the same changes for the function `GetCmdSetPoll`
 
-And in the `GetCmdSetPoll` we set
+In the `GetCmdSetPoll`, set
 ```go
 Args:  cobra.ExactArgs(3),
 ```
@@ -280,9 +284,9 @@ argsOptions := args[2:len(args)]
 msg := types.NewMsgSetPoll(cliCtx.GetFromAddress(), id, string(argsTitle), argsOptions)
 ```
 
-This will assume that all arguments after the first one represent a list of options.
+This change assumes that all arguments after the first one represent a list of options.
 
-We end up with the following function
+You end up with the following function
 
 ```go
 func GetCmdSetPoll(cdc *codec.Codec) *cobra.Command {
@@ -339,7 +343,7 @@ inside of `vue/src/views/Index.vue` with a new component and a Title
 <poll-form />
  ```
 
-In the `<script></script>` tags below, we import our component like this
+In the `<script></script>` tags below, import the component like this
 
 ```js
 import * as sp from "@tendermint/vue";
@@ -350,11 +354,11 @@ export default {
 };
 ```
 
-For our PollForm we need to create a new directory `components` in our `vue/src/` path. In this directory we create a new file `PollForm.vue` and fill our first component with life.
+For our PollForm, you need to create a new directory `components` in your `vue/src/` path. In this directory, create a new file `PollForm.vue` and fill your first component with life.
 
 ### `vue/src/components/PollForm.vue`
 
-We create our PollForm component. Which will have a title and two buttons.
+Create the PollForm component to have a title and two buttons.
 
 ```js
 <template>
@@ -401,7 +405,7 @@ export default {
 };
 ```
 
-We also need to setup our Vue store.
+Now set up your Vue store.
 
 ### `vue/src/store/index.js`
 
@@ -418,11 +422,11 @@ export default new Vuex.Store({
 
 ```
 
-In our main `App.vue` file, we make sure to initialize the Cosmos Wallet functions that we created as follows:
+In the main `App.vue` file, initialize the Cosmos Wallet functions that you created:
 
 ### `vue/src/App.vue`
 
-In the `<script></script>` tag at the end of the file, we dispatch to initialize our own app and the cosmos Vue framework
+In the `<script></script>` tag at the end of the file, dispatch to initialize your own app and the cosmos Vue framework
 
 ```js
 export default {
@@ -459,7 +463,7 @@ starport type vote pollID value
 
 ### `vue/src/views/Index.vue`
 
-Delete the just bootstrapped for us `<sp-type-form type="vote" :fields="['pollID', 'value', ]" module="voter" />`.
+Delete the just bootstrapped for you `<sp-type-form type="vote" :fields="['pollID', 'value', ]" module="voter" />`.
 Add `<poll-list />` into the `vue/src/view/Index.vue` file after the poll form component we just created. 
 
 Update the imports below in the `<script></script>` tags as follows:
@@ -537,7 +541,7 @@ export default {
 
 The `PollList` component lists for every poll, all the options for that poll, as buttons. Selecting an option triggers a `submit` method that broadcasts a transaction with a "create vote" message and fetches data back from our application.
 
-Two components are still missing from our App, to make it a bit better looking. Let's add `AppRadioItem.vue` and `AppText.vue`.
+Two components are still missing from our app to make it a bit better looking. Add  the `AppRadioItem.vue` and `AppText.vue` components.
 
 ### `vue/src/components/AppRadioItem.vue`
 
@@ -638,7 +642,7 @@ export default {
 };
 ```
 
-Now in our `App.vue` we need to update to fetch our votes. In the `<script></script>` tag we should have the following resulting code:
+In `App.vue` you need to update to fetch votes. In the `<script></script>` tag is the resulting code:
 
 ### `vue/src/App.vue`
 
@@ -652,13 +656,13 @@ export default {
 };
 ```
 
-By now should be able to see the same UI as in the first screenshot. Try creating polls and casting votes. You may notice that it's possible to cast multiple votes for one poll. This is not what we want, so let's fix this behaviour.
+By now, you should see the same UI as shown in the first screenshot. Try creating polls and casting votes. You may notice that it's possible to cast multiple votes for one poll. This behavior is not what we want, so let's fix the app.
 
 ## Casting votes only once
 
-To fix this issue we first have to understand how data is stored in our application.
+To fix this issue, you must understand how data is stored in your application.
 
-We can think of our data storage as a lexicographically ordered key value store. You can loop through the entries, filter by key prefix, add, update and delete entries. It is easier to visualize the store as JSON:
+You can think of our data storage as a lexicographically ordered key-value store. You can loop through the entries, filter by key prefix, add, update and delete entries. It is easier to visualize the store as JSON:
 
 ```json
 {
@@ -687,7 +691,7 @@ Whenever a user casts a vote, a new "create vote" message is handled by a handle
 key := []byte(types.VotePrefix + vote.ID)
 ```
 
-These strings are unique and we get duplicate votes. To fix that we need to make sure a keeper records every vote only once by choosing the right key. In our case, we can use poll ID and creator address to make sure that one user can cast only one vote per poll.
+These strings are unique but it is possible to get duplicate votes. To fix that scenario, make sure a keeper records every vote only once by choosing the right key. In this case, you can use poll ID and creator address to make sure that one user can cast only one vote per poll.
 
 ```go
 key := []byte(types.VotePrefix + vote.PollID + "-" + string(vote.Creator))
@@ -697,9 +701,9 @@ Restart the application and try voting multiple times on a single poll, you'll s
 
 ## Introducing a fee for creating polls
 
-Let's make it so that creating a poll costs 200 tokens.
+Now make it so that creating a poll costs 200 tokens.
 
-This feature is very easy to add. We already require users to have accounts registered, and each user has tokens on balance. The only thing we need to do is to send coins from user's account to a module account before we create a poll.
+This feature is very easy to add. You already require users to have accounts registered and each user has tokens on balance. The only thing you need to do is to send coins from the user's account to a module account before we create a poll.
 
 ## `x/voter/handlerMsgCreatePoll.go`:
 
@@ -732,8 +736,8 @@ func handleMsgCreatePoll(ctx sdk.Context, k keeper.Keeper, msg types.MsgCreatePo
 }
 ```
 
-The fee payment happens before `k.CreatePoll(ctx, poll)`. This way, if a user does not have enough tokens, the application will raise an error and will not proceed to creating a poll. Make sure to have `"github.com/tendermint/tendermint/crypto"` added to the import statement (if your text editor didn't do that for you).
+The fee payment happens before `k.CreatePoll(ctx, poll)`. This way, if a user does not have enough tokens, the application raises an error and does not proceed to creating a poll. Make sure to have `"github.com/tendermint/tendermint/crypto"` added to the import statement (if your text editor didn't do that for you).
 
 Now, restart the app and try creating several polls to see how this affects your token balance.
 
-Congratulations, you have built a blockchain voting application.
+Congratulations! You successfully built a blockchain voting application.
