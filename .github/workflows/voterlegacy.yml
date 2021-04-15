@@ -16,4 +16,4 @@ jobs:
     - uses: actions/checkout@v2
     - name: Test Build
       run: |
-        cd voter-/voter && go get ./... && make install
+        cd voter-legacy/voter && go get ./... && make install
