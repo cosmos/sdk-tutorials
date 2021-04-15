@@ -33,7 +33,7 @@ Create a new IBC module next.
 ## Create the Module
 
 Scaffold a module inside your blockchain named `ibcdex` with IBC capabilities.
-The ibcdex module contains the logic for creating and maintaining orderbooks and routing them through IBC to the second blockchain.
+The ibcdex module contains the logic for creating and maintaining order books and routing them through IBC to the second blockchain.
 
 ```bash
 starport module create ibcdex --ibc --ordering unordered
@@ -61,7 +61,7 @@ The `--module ibcdex` flag specifies that the type should be scaffolded in the `
 ## Create the IBC Packets
 
 Create three packets for IBC:
-- an orderbook pair `createPair` 
+- an order book pair `createPair` 
 - a sell order `sellOrder` 
 - a buy order `buyOrder`
 
@@ -158,4 +158,4 @@ init:
   home: "$HOME/.venus"
 ```
 
-Implement the code for the orderbook in the next chapter.
+Implement the code for the order book in the next chapter.

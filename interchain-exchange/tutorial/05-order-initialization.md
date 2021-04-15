@@ -116,6 +116,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	ibctransfertypes "github.com/cosmos/cosmos-sdk/x/ibc/applications/transfer/types"
 	"github.com/tendermint/interchange/x/ibcdex/types"
+	"strings"
 )
 
 // isIBCToken checks if the token came from the IBC module
