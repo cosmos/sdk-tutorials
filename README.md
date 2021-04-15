@@ -65,43 +65,7 @@ aside: false
 
 # Cosmos SDK Tutorials
 
-## [Voter](./voter/index.md)
+The repo manages and publishes the [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
 
-Build a voting application with a web-based UI.
+For information about the repo, see [CONTRIBUTING](../CONTRIBUTING.md). 
 
-- [YouTube](https://www.youtube.com/watch?v=h6Ur_40LB9k)
-- [YouTube (CN)](https://www.youtube.com/watch?v=Cc--vbUxAxI)
-- [YouTube (RU)](https://www.youtube.com/watch?v=kRJAbS-xgBQ)
-
-## [Blog](./blog/tutorial/01-index.md)
-
-Learn how Starport works by building a blog.
-
-## [Proof of File Existence](./proof-of-file-existence/tutorial/01-intro.md)
-
-Ever wanted to prove you had something at a certain date or time? Or make sure your a document was valid? Learn about the use cases of Proof of File Existence while building blockchain using Starport.
-
-- [YouTube](https://www.youtube.com/watch?v=PGLAW-HrzWg)
-
-## [Scavenge](./scavenge/tutorial/01-background.md)
-
-A scavenger hunt of sorts! Users post questions with hashed answers and bounties for whoever can solve them using a commit-reveal scheme that prevents front-running.
-
-- [YouTube](https://www.youtube.com/watch?v=GfZjnMchKX0)
-- [Slides](https://docs.google.com/presentation/d/1UG_Zi2FxMSWTmRBFhc4exXlJssAPasTq28cpTCHX2Ks/edit?usp=sharing)
-
-## [Nameservice](./nameservice/tutorial/00-intro.md)
-
-The real deal, full-length tutorial in which you will build a fully functional naming service on a blockchain. This tutorial does not use the `starter` package, rather you will be configuring and composing a full application yourself.
-The nameservice tutorial also has translations and a slide deck.
-
-<!-- - [Live Testnet](https://talkshop.name) -->
-- [Slides](https://docs.google.com/presentation/d/1aCMAdkVY-gfgnGNPTygwVk3o68czPQ_VYfvdMy9Ek5Q/edit?usp=sharing)
-
-Translations:
-
-- [中文](./nameservice/tutorial/README_cn.md)
-
-## [Cosmos Burner Chain](./burner-chain/00-index.md)
-
-The goal of this chain is to provide a blueprint for your own application specific blockchain that interacts with other EVM based networks like Ethereum and xDai.
