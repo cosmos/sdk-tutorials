@@ -51,6 +51,11 @@ module.exports = {
               path: "/interchain-exchange/tutorial/",
               directory: true,
             },
+            {
+              title: "Nameservice",
+              path: "/nameservice/tutorial/",
+              directory: true,
+            },
           ],
         },
         {

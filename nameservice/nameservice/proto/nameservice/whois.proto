@@ -1,0 +1,13 @@
+syntax = "proto3";
+package username.nameservice.nameservice;
+
+option go_package = "github.com/username/nameservice/x/nameservice/types";
+
+import "gogoproto/gogo.proto";
+
+message Whois {
+  string owner = 1;
+  uint64 id = 2;
+  string name = 3; 
+  int32 price = 4; 
+}

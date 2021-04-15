@@ -1,0 +1,39 @@
+# This is a basic workflow that is manually triggered
+
+name: nameservice
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on: [push, pull_request]
+
+# This workflow makes x86_64 binaries for mac, windows, and linux.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [amd64, arm64]
+        targetos: [windows, darwin, linux]
+    name: nameservice ${{ matrix.arch }} for ${{ matrix.targetos }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.15
+        env:
+          GOOS: ${{ matrix.targetos }}
+          GOARCH: ${{ matrix.arch }}
+
+      - name: Compile
+        run: |
+          go mod download
+          cd cmd/nameserviced
+          go build .
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: nameserviced ${{ matrix.targetos }} ${{ matrix.arch }}
+          path: cmd/nameserviced/nameserviced
+
