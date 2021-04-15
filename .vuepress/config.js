@@ -78,7 +78,7 @@ module.exports = {
             },
             {
               title: "Nameservice",
-              path: "/nameservice/tutorial/",
+              path: "/nameservice-legacy/tutorial/",
               directory: true,
             },
             {
@@ -213,6 +213,7 @@ module.exports = {
     'burner-chain/*.md',
     'README.md',
     'nameservice/tutorial/*.md',
+    'nameservice-legacy/tutorial/*.md',
     'scavenge/tutorial/*.md',
     'proof-of-file-existence/tutorial/*.md',
     'launchpad-to-stargate/tutorial/*.md',
