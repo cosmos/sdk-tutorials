@@ -2,19 +2,19 @@
 order: 4
 ---
 
-# Create the Orderbook
+# Create the Order Book
 
-In this chapter you implement the code for the orderbook, for buy orders and sell orders.
+In this chapter you implement the code for the order book, for buy orders and sell orders.
 
-In this chapter you will create a `orderbook.go` file with the interface for the orderbook. 
-The orderbook will allow to publish buy or sell orders. The orderbook for a certain pair of token has to be registered first. After registering the orderbook for a pair of token, you can add sell orders and buy orders.
+In this chapter you will create a `orderbook.go` file with the interface for the order book. 
+The order book will allow to publish buy or sell orders. The order book for a certain pair of token has to be registered first. After registering the order book for a pair of token, you can add sell orders and buy orders.
 You will create the `sellorder.go` file with the interface of a sell order. A sell order contains the data of the token denomination and a price you offer to sell a token for.
 You will create the `buyorder.go` file with the interface of a buy order. A buy order contains the data of the token denomination and a price you offer to buy a token for. Buy orders and sell orders will live on different blockchain apps.
 When a buy and a sell order match, the exchange will be executed.
 
-## Add The Orderbook
+## Add The Order Book
 
-The protobuffer definition defines the data that an orderbook has. 
+The protobuffer definition defines the data that an order book has. 
 Add the `Order` message to the `order.proto` file.
 
 ```proto
@@ -33,7 +33,7 @@ message Order {
 ```
 
 Create a new file `orderbook.go` in the `ibcdex` module `types` directory.
-In this file, you will define the logic to create a new orderbook. 
+In this file, you will define the logic to create a new order book. 
 
 Create a `orderbook.go` file and add the code:
 
@@ -150,7 +150,7 @@ func checkAmountAndPrice(amount int32, price int32) error {
 
 ## Add The Sellorder
 
-Modify the `sellOrderBook.proto` file to have the fields for creating a sell order on the orderbook.
+Modify the `sellOrderBook.proto` file to have the fields for creating a sell order on the order book.
 The proto definition for the `SellOrderBook` should look like follows:
 
 ```proto
@@ -361,7 +361,7 @@ func FillSellOrder(book BuyOrderBook, order Order) (
 
 ## Add The Buyorder
 
-Modify the `buyOrderBook.proto` file to have the fields for creating a buy order on the orderbook.
+Modify the `buyOrderBook.proto` file to have the fields for creating a buy order on the order book.
 The proto definition for the `BuyOrderBook` should look like follows:
 
 ```proto
@@ -572,7 +572,7 @@ func FillBuyOrder(book SellOrderBook, order Order) (
 }
 ```
 
-This finishes your code for the orderbook module with buy and sell orders.
+This finishes your code for the order book module with buy and sell orders.
 In the next chapters, you will make them IBC compatible. 
 You will have to implement how IBC packets are handled that are sent over a blockchain.
 These packets will be received and acknowledged by the recipient blockchain.
