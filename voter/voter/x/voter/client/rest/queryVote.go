@@ -4,33 +4,36 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
+	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/types/rest"
 	"github.com/gorilla/mux"
-
+	"github.com/username/voter/x/voter/types"
 )
 
-func listVoteHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+func listVoteHandler(clientCtx client.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list-vote", storeName), nil)
+		res, height, err := clientCtx.QueryWithData(fmt.Sprintf("custom/%s/list-vote", types.QuerierRoute), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
 		}
-		rest.PostProcessResponse(w, cliCtx, res)
+
+		clientCtx = clientCtx.WithHeight(height)
+		rest.PostProcessResponse(w, clientCtx, res)
 	}
 }
 
-func getVoteHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+func getVoteHandler(clientCtx client.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		vars := mux.Vars(r)
-		key := vars["key"]
+		id := mux.Vars(r)["id"]
 
-		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/get-vote/%s", storeName, key), nil)
+		res, height, err := clientCtx.QueryWithData(fmt.Sprintf("custom/%s/get-vote/%s", types.QuerierRoute, id), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
 		}
-		rest.PostProcessResponse(w, cliCtx, res)
+
+		clientCtx = clientCtx.WithHeight(height)
+		rest.PostProcessResponse(w, clientCtx, res)
 	}
 }

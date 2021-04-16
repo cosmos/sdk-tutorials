@@ -15,6 +15,12 @@ sections:
     tags: 
       - starport
       - stargate
+  - title: Voter
+    desc: Learn to create a blockchain Voter application. Create Polls and have accounts Vote on your blockchain.
+    url: /voter/index.html
+    tags: 
+      - starport
+      - stargate
   - title: Blog
     desc: Learn how Starport works by building a blog.
     url: /blog/tutorial/01-index.html

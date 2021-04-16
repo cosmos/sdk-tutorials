@@ -4,144 +4,134 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/types/rest"
-	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
+	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/tx"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/alice/voter/x/voter/types"
+	"github.com/cosmos/cosmos-sdk/types/rest"
+	"github.com/gorilla/mux"
+	"github.com/username/voter/x/voter/types"
 )
-
-// Used to not have an error if strconv is unused
-var _ = strconv.Itoa(42)
 
 type createVoteRequest struct {
 	BaseReq rest.BaseReq `json:"base_req"`
-	Creator string `json:"creator"`
-	PollID string `json:"pollID"`
-	Value string `json:"value"`
-	
+	Creator string       `json:"creator"`
+	PollID  string       `json:"pollID"`
+	Option  string       `json:"option"`
 }
 
-func createVoteHandler(cliCtx context.CLIContext) http.HandlerFunc {
+func createVoteHandler(clientCtx client.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req createVoteRequest
-		if !rest.ReadRESTReq(w, r, cliCtx.Codec, &req) {
+		if !rest.ReadRESTReq(w, r, clientCtx.LegacyAmino, &req) {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
 			return
 		}
+
 		baseReq := req.BaseReq.Sanitize()
 		if !baseReq.ValidateBasic(w) {
 			return
 		}
-		creator, err := sdk.AccAddressFromBech32(req.Creator)
+
+		_, err := sdk.AccAddressFromBech32(req.Creator)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
-		
 		parsedPollID := req.PollID
-		
-		parsedValue := req.Value
-		
+
+		parsedOption := req.Option
 
 		msg := types.NewMsgCreateVote(
-			creator,
+			req.Creator,
 			parsedPollID,
-			parsedValue,
-			
+			parsedOption,
 		)
 
-		err = msg.ValidateBasic()
-		if err != nil {
-			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
-			return
-		}
-
-		utils.WriteGenerateStdTxResponse(w, cliCtx, baseReq, []sdk.Msg{msg})
+		tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)
 	}
 }
 
-type setVoteRequest struct {
+type updateVoteRequest struct {
 	BaseReq rest.BaseReq `json:"base_req"`
-	ID 		string `json:"id"`
-	Creator string `json:"creator"`
-	PollID string `json:"pollID"`
-	Value string `json:"value"`
-	
+	Creator string       `json:"creator"`
+	PollID  string       `json:"pollID"`
+	Option  string       `json:"option"`
 }
 
-func setVoteHandler(cliCtx context.CLIContext) http.HandlerFunc {
+func updateVoteHandler(clientCtx client.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req setVoteRequest
-		if !rest.ReadRESTReq(w, r, cliCtx.Codec, &req) {
+		id, err := strconv.ParseUint(mux.Vars(r)["id"], 10, 64)
+		if err != nil {
+			return
+		}
+
+		var req updateVoteRequest
+		if !rest.ReadRESTReq(w, r, clientCtx.LegacyAmino, &req) {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
 			return
 		}
+
 		baseReq := req.BaseReq.Sanitize()
 		if !baseReq.ValidateBasic(w) {
 			return
 		}
-		creator, err := sdk.AccAddressFromBech32(req.Creator)
+
+		_, err = sdk.AccAddressFromBech32(req.Creator)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
-		
 		parsedPollID := req.PollID
-		
-		parsedValue := req.Value
-		
 
-		msg := types.NewMsgSetVote(
-			creator,
-			req.ID,
+		parsedOption := req.Option
+
+		msg := types.NewMsgUpdateVote(
+			req.Creator,
+			id,
 			parsedPollID,
-			parsedValue,
-			
+			parsedOption,
 		)
 
-		err = msg.ValidateBasic()
-		if err != nil {
-			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
-			return
-		}
-
-		utils.WriteGenerateStdTxResponse(w, cliCtx, baseReq, []sdk.Msg{msg})
+		tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)
 	}
 }
 
 type deleteVoteRequest struct {
 	BaseReq rest.BaseReq `json:"base_req"`
-	Creator string `json:"creator"`
-	ID 		string `json:"id"`
+	Creator string       `json:"creator"`
 }
 
-func deleteVoteHandler(cliCtx context.CLIContext) http.HandlerFunc {
+func deleteVoteHandler(clientCtx client.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		id, err := strconv.ParseUint(mux.Vars(r)["id"], 10, 64)
+		if err != nil {
+			return
+		}
+
 		var req deleteVoteRequest
-		if !rest.ReadRESTReq(w, r, cliCtx.Codec, &req) {
+		if !rest.ReadRESTReq(w, r, clientCtx.LegacyAmino, &req) {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
 			return
 		}
+
 		baseReq := req.BaseReq.Sanitize()
 		if !baseReq.ValidateBasic(w) {
 			return
 		}
-		creator, err := sdk.AccAddressFromBech32(req.Creator)
-		if err != nil {
-			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
-			return
-		}
-		msg := types.NewMsgDeleteVote(req.ID, creator)
 
-		err = msg.ValidateBasic()
+		_, err = sdk.AccAddressFromBech32(req.Creator)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
-		utils.WriteGenerateStdTxResponse(w, cliCtx, baseReq, []sdk.Msg{msg})
+		msg := types.NewMsgDeleteVote(
+			req.Creator,
+			id,
+		)
+
+		tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)
 	}
 }
