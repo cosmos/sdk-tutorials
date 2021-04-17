@@ -6,29 +6,33 @@ order: 1
 
 The Hello World example is a time-honored tradition in computer programming.
 
-The Interblockchain Communication Protocol is an important part of the Cosmos SDK ecosystem. 
-Understanding how to create and send packets across blockchain will help you navigate between blockchains with the Cosmos SDK.
+The Inter-Blockchain Communication protocol (IBC) is an important part of the Cosmos SDK ecosystem.
+
+This tutorial builds an understanding of how to create and send packets across blockchain. This foundational knowledge helps you navigate between blockchains with the Cosmos SDK.
 
 **You will learn how to**
-- Use Interblockchain Communication Protocol (IBC) to create and send packets between blockchains.
+
+- Use IBC to create and send packets between blockchains.
 - Navigate between blockchains using the Cosmos SDK and the Starport Relayer.
 - Create a basic blog post and save the post on another blockchain.
 
-<i>Follow this tutorial on YouTube</i>
+_Follow this tutorial on YouTube_
 
-<a href="https://www.youtube.com/watch?v=NmytpuD33lY" target="_blank">
-<img src="https://i.ytimg.com/vi/NmytpuD33lY/hq720.jpg" alt="IBC Hello World Tutorial" width="150"/></a>
+[![IBC Hello World Tutorial](https://i.ytimg.com/vi/NmytpuD33lY/hq720.jpg)](https://www.youtube.com/watch?v=NmytpuD33lY)
 
 ## What is Cosmos SDK and IBC?
 
 The Cosmos SDK is a framework to create a blockchain app. The Cosmos SDK allows developers to easily create custom blockchains that can natively interoperate with other blockchains.
+
 The IBC module in the Cosmos SDK is the standard for the interaction between two blockchains. The IBC module defines how packets and messages are constructed to be interpreted by the sending and the receiving blockchain.
+
 The Cosmos IBC relayer package lets you can connect between sets of IBC-enabled chains. This tutorial teaches you how to create two blockchains and then start and use the relayer with Starport to connect two blockchains.
+
 This tutorial covers essentials like modules, IBC packets, relayer, and the lifecycle of packets routed through IBC.
 
-## Prerequisites 
+## Prerequisites
 
-This tutorial uses [Starport](https://github.com/tendermint/starport) v0.15.0. The Starport tool is the easiest way to build a blockchain. 
+This tutorial uses [Starport](https://github.com/tendermint/starport) v0.15.0\. The Starport tool is the easiest way to build a blockchain.
 
 To install `starport` into `/usr/local/bin`, run the following command:
 
@@ -36,83 +40,124 @@ To install `starport` into `/usr/local/bin`, run the following command:
 curl https://get.starport.network/starport@v0.15.0! | bash
 ```
 
-You can also use Starport v0.15.0 in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.0). For more installation options, see [Install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
+When the installation succeeds, you see this message:
+
+```
+Installed at /usr/local/bin/starport
+```
+
+You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.0), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
 
 ## Create a Blockchain App
 
-Create a blockchain app with a blog module to write posts on other blockchains that contain the Hello World message (or rather Hello Mars, Hello Cosmos and Hello Earth) for an IBC module.
+Create a blockchain app with a blog module to write posts on other blockchains that contain the Hello World message. For this tutorial, you can write posts for the Cosmos SDK universe that contain Hello Mars, Hello Cosmos, and Hello Earth messages.
 
-For this simple example, create an app that contains a blog module that has a post transaction with title and text. 
+For this simple example, create an app that contains a blog module that has a post transaction with title and text.
 
 After you define the logic, run two blockchains that have this module installed.
-- The chains can send posts between each other using IBC. 
+
+- The chains can send posts between each other using IBC.
+
 - On the sending chain, save the `acknowledged` and `timed out` posts.
 
 After the transaction is acknowledged by the receiving chain, you know that the post is saved on both blockchains.
-- The sending chain has the additional data `postID`. 
-- Sent posts that are acknowledged and timed out contain the title and the target chain of the post. These identifiers are visible on the parameter `chain`. 
-The following chart shows the lifecycle of a packet that travels through IBC.
 
-![The Lifecycle of an IBC packet in the blog module](./packet_sendpost.png)
+- The sending chain has the additional data `postID`.
 
-## Initialize the Blockchain
+- Sent posts that are acknowledged and timed out contain the title and the target chain of the post. These identifiers are visible on the parameter `chain`. The following chart shows the lifecycle of a packet that travels through IBC.
 
-Scaffold a new blockchain named `planet`
+![The Lifecycle of an IBC packet in the Blog Module](./packet_sendpost.png)
+
+## Build your Blockchain App
+
+Use Starport to scaffold the blockchain app and the blog module.
+
+### 1\. Build the new blockchain
+
+To scaffold a new blockchain named `planet`:
 
 ```go
 starport app github.com/user/planet
 cd planet
 ```
 
-A new directory named planet is created. This directory contains a working blockchain app.
+A new directory named `planet` is created in your home directory. The `planet` directory contains a working blockchain app.cd
 
-Scaffold a module inside your blockchain named `blog` with IBC capabilities.
-The blog module contains the logic for creating blog posts and routing them through IBC to the second blockchain.
+### 2\. Scaffold the blog module inside your blockchain
+
+Next, use Starport to scaffold a blog module with IBC capabilities. The blog module contains the logic for creating blog posts and routing them through IBC to the second blockchain.
+
+To scaffold a module named `blog`:
 
 ```go
 starport module create blog --ibc
 ```
 
-A new directory with the code for an IBC module is created in `planet/x/blog`. 
-The `--ibc` flag includes all the logic for the scaffolded IBC module.
+A new directory with the code for an IBC module is created in `planet/x/blog`. Modules scaffolded with the `--ibc` flag include all the logic for the scaffolded IBC module.
 
-1. Create the transaction types for the module. 
-Use the `starport type` command to scaffold the boilerplate code for creating, reading, updating and deleting (CRUD) objects on your blockchain.
-The module has the logic for:
+### 3\. Generate CRUD actions for types
 
-- Creating Blog posts
+Next, create the CRUD actions for the blog module types.
+
+Use the `starport type` command to scaffold the boilerplate code for the create, read, update, and delete (CRUD) actions.
+
+These `starport type` commands create CRUD code for the following transactions:
+
+- Creating blog posts
+
+  ```go
+  starport type post title content --module blog
+  ```
+
 - Processing acknowledgments for sent posts
-- Managing post time outs 
+
+  ```go
+  starport type sentPost postID title chain --module blog
+  ```
+
+- Managing post timeouts
+
+  ```go
+  starport type timedoutPost title chain --module blog
+  ```
+
+The scaffolded code includes proto files for defining data structures, messages, messages handlers, keepers for modifying the state, and CLI commands.
+
+### Starport type command overview
 
 ```go
-starport type post title content --module blog
-starport type sentPost postID title chain --module blog
-starport type timedoutPost title chain --module blog
+starport type [typeName] [field1] [field2] ... [flags]
 ```
 
-These three `starport type` commands create CRUD code for managing post, sent posts and timed-out posts types. The scaffolded code includes proto files for defining data structures, messages, messages handlers, keepers for modifying the state and CLI commands.
+The first argument of the `starport type [typeName]` command specifies the name of the type being created. For the blog app, you created `post`, `sentPost`, and `timedoutPost` types.
 
-To manage multiple modules within your Starport app, use the `--module` flag to define which module the new transaction type is added to.
+The next arguments define the fields that are associated with the type. For the blog app, you created `title`, `content`, `postID`, and `chain` fields.
 
-The first argument of the starport type command specifies the name of the type being created, the following arguments define fields associated with the type. `--module` is an optional flag that allows to specify in which module the type will be scaffolded (without this flag the type is scaffolded in the module that matches the name of the repo).
-{synopsis}
+The `--module` flag defines which module the new transaction type is added to. This optional flag lets you manage multiple modules within your Starport app. The `--module` specifies which module the type is scaffolded in. When the flag is not present, the type is scaffolded in the module that matches the name of the repo).
 
-Scaffold a sendable and interpretable IBC packet that contains the title and the content of the blog post. 
+### 4\. Scaffold a sendable and interpretable IBC packet
 
-The title and content will be stored on the target chain, while the `postID` will be acknowledged on the sending chain.
+Now you need to generate packet code that contains the title and the content of the blog post.
 
-While the `starport type` command creates a new transaction type, the `starport packet` command creates the logic for an IBC packet that can be sent to another blockchain. 
-{synopsis}
+The `starport packet` command creates the logic for an IBC packet that can be sent to another blockchain.
+
+- The `title` and `content` are stored on the target chain.
+
+- The `postID` is acknowledged on the sending chain.
+
+To scaffold a sendable and interpretable IBC packet:
 
 ```go
 starport packet ibcPost title content --ack postID --module blog
 ```
 
-Notice the fields in the `ibcPost` packet match the ones in the `post` type created earlier.
-- The `--ack` flag defines which identifier is returned to the sending blockchain.
-- The `--module` flag specifies that the packet should be created in a particular IBC module.
+Notice the fields in the `ibcPost` packet match the fields in the `post` type that you created earlier.
 
-The `starport packet` command also scaffolds a CLI command that is capable of sending an IBC packet:
+- The `--ack` flag defines which identifier is returned to the sending blockchain.
+
+- The `--module` flag specifies to create the packet in a particular IBC module.
+
+The `starport packet` command also scaffolds the CLI command that is capable of sending an IBC packet:
 
 ```go
 planetd tx blog send-ibcPost [portID] [channelD] [title] [content]
@@ -120,14 +165,13 @@ planetd tx blog send-ibcPost [portID] [channelD] [title] [content]
 
 ## Modify the Source Code
 
-After creating the types and transactions, you must manually insert the logic to manage updates in the data tables.
-Modify the source code to save the data as specified earlier in this tutorial.
+After you create the types and transactions, you must manually insert the logic to manage updates in the data tables. Modify the source code to save the data as specified earlier in this tutorial.
 
-### Add Creator to the Blog Post Packet
+### 1\. Add creator to the blog post packet
 
 Start with the proto file that defines the structure of the IBC packet.
-To identify the creator of the post in the receiving blockchain, add the creator field inside the packet. 
-We did not specify this field directly in the command because it would automatically become a parameter in `SendIbcPost` CLI command. 
+
+To identify the creator of the post in the receiving blockchain, add the creator field inside the packet. This field was not specified directly in the command because it would automatically become a parameter in the `SendIbcPost` CLI command.
 
 ```go
 // planet/proto/blog/packet.proto
@@ -140,30 +184,29 @@ message IbcPostPacketData {
 }
 ```
 
-To make sure the receiving chain has content on the creator of a blog post, add this value to the IBC `packet`.
-The content of the `sender` of the message is automatically included in `SendIbcPost` message. The sender is verified as the signer of the message, so you can add the `msg.Sender` as the creator to the new packet before it is sent over IBC.
+To make sure the receiving chain has content on the creator of a blog post, add this value to the IBC `packet`. The content of the `sender` of the message is automatically included in `SendIbcPost` message. The sender is verified as the signer of the message, so you can add the `msg.Sender` as the creator to the new packet before it is sent over IBC.
 
 ```go
 // planet/x/blog/keeper/msg_server_ibcPost.go
 // Construct the packet
-	var packet types.IbcPostPacketData
+    var packet types.IbcPostPacketData
 
-	packet.Title = msg.Title
-	packet.Content = msg.Content
-	packet.Creator = msg.Sender // < ---
-	
-	// Transmit the packet
-	err := k.TransmitIbcPostPacket(
-		ctx,
-		packet,
-		msg.Port,
-		msg.ChannelID,
-		clienttypes.ZeroHeight(),
-		msg.TimeoutTimestamp,
-	)
+    packet.Title = msg.Title
+    packet.Content = msg.Content
+    packet.Creator = msg.Sender // < ---
+
+    // Transmit the packet
+    err := k.TransmitIbcPostPacket(
+        ctx,
+        packet,
+        msg.Port,
+        msg.ChannelID,
+        clienttypes.ZeroHeight(),
+        msg.TimeoutTimestamp,
+    )
 ```
 
-## Receive the Post
+### 2\. Receive the post
 
 The methods for primary transaction logic are in the `planet/x/blog/keeper/ibcPost.go` file. Use these methods to manage IBC packets:
 
@@ -174,45 +217,45 @@ The methods for primary transaction logic are in the `planet/x/blog/keeper/ibcPo
 
 You must modify the source code to add the logic inside those functions so that the data tables are modified accordingly.
 
-On reception of the message, we create a new post with the title and the content on the receiving chain.
+On reception of the post message, create a new post with the title and the content on the receiving chain.
 
 To identify the blockchain app that a message is originating from and who created the message, use an identifier in the following format:
 
 `<portID>-<channelID>-<creatorAddress>`
 
-Finally, the AppendPost function that is generated by Starport returns the ID of the new appended post. You can return this value to the source chain through acknowledgment.
+Finally, the Starport-generated AppendPost function returns the ID of the new appended post. You can return this value to the source chain through acknowledgment.
 
 Append the type instance as `PostID` on receiving the packet:
 
-- the context `ctx` is an [immutable data structure](https://docs.cosmos.network/master/core/context.html#go-context-package) that has header data from the transaction. [See how the context is initiated](https://github.com/cosmos/cosmos-sdk/blob/master/types/context.go#L71)
-- the identifier format that you defined earlier
-- the `title` is the Title of the blog post
-- the `content` is the Content of the blog post
+- The context `ctx` is an [immutable data structure](https://docs.cosmos.network/master/core/context.html#go-context-package) that has header data from the transaction. See [how the context is initiated](https://github.com/cosmos/cosmos-sdk/blob/master/types/context.go#L71)
+- The identifier format that you defined earlier
+- The `title` is the Title of the blog post
+- The `content` is the Content of the blog post
 
-In the `ibcPost.go` file, make sure to import `"strconv"` below `"errors"`, then modify `OnRecvIbcPostPacket` with the following code:
+In the `ibcPost.go` file, make sure to import `"strconv"` below `"errors"`, and then modify `OnRecvIbcPostPacket` with the following code:
 
 ```go
 // planet/x/blog/keeper/ibcPost.go
 // OnRecvIbcPostPacket processes packet reception
 func (k Keeper) OnRecvIbcPostPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IbcPostPacketData) (packetAck types.IbcPostPacketAck, err error) {
-	// validate packet data upon receiving
-	if err := data.ValidateBasic(); err != nil {
-		return packetAck, err
-	}
+    // validate packet data upon receiving
+    if err := data.ValidateBasic(); err != nil {
+        return packetAck, err
+    }
 
-	id := k.AppendPost(
-		ctx,
-		packet.SourcePort+"-"+packet.SourceChannel+"-"+data.Creator,
-		data.Title,
-		data.Content,
-	)
-	packetAck.PostID = strconv.FormatUint(id, 10)
+    id := k.AppendPost(
+        ctx,
+        packet.SourcePort+"-"+packet.SourceChannel+"-"+data.Creator,
+        data.Title,
+        data.Content,
+    )
+    packetAck.PostID = strconv.FormatUint(id, 10)
 
-	return packetAck, nil
+    return packetAck, nil
 }
 ```
 
-### Receive the Post Acknowledgement
+### 3\. Receive the post acknowledgement
 
 On the sending blockchain, store a `sentPost` so you know that the post has been received on the target chain.
 
@@ -224,36 +267,36 @@ When a packet is scaffolded, the default type for the received acknowledgment da
 // OnAcknowledgementIbcPostPacket responds to the the success or failure of a packet
 // acknowledgement written on the receiving chain.
 func (k Keeper) OnAcknowledgementIbcPostPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IbcPostPacketData, ack channeltypes.Acknowledgement) error {
-	switch dispatchedAck := ack.Response.(type) {
-	case *channeltypes.Acknowledgement_Error:
-		// We will not treat acknowledgment error in this tutorial
-		return nil
-	case *channeltypes.Acknowledgement_Result:
-		// Decode the packet acknowledgment
-		var packetAck types.IbcPostPacketAck
-		err := packetAck.Unmarshal(dispatchedAck.Result)
-		if err != nil {
-			// The counter-party module doesn't implement the correct acknowledgment format
-			return errors.New("cannot unmarshal acknowledgment")
-		}
+    switch dispatchedAck := ack.Response.(type) {
+    case *channeltypes.Acknowledgement_Error:
+        // We will not treat acknowledgment error in this tutorial
+        return nil
+    case *channeltypes.Acknowledgement_Result:
+        // Decode the packet acknowledgment
+        var packetAck types.IbcPostPacketAck
+        err := packetAck.Unmarshal(dispatchedAck.Result)
+        if err != nil {
+            // The counter-party module doesn't implement the correct acknowledgment format
+            return errors.New("cannot unmarshal acknowledgment")
+        }
 
-		k.AppendSentPost(
-			ctx,
-			data.Creator,
-			packetAck.PostID,
-			data.Title,
-			packet.DestinationPort+"-"+packet.DestinationChannel,
-		)
+        k.AppendSentPost(
+            ctx,
+            data.Creator,
+            packetAck.PostID,
+            data.Title,
+            packet.DestinationPort+"-"+packet.DestinationChannel,
+        )
 
-		return nil
-	default:
-		// The counter-party module doesn't implement the correct acknowledgment format
-		return errors.New("invalid acknowledgment format")
-	}
+        return nil
+    default:
+        // The counter-party module doesn't implement the correct acknowledgment format
+        return errors.New("invalid acknowledgment format")
+    }
 }
 ```
 
-### Store Information about the Timed-out Packet
+### 4\. Store information about the timed-out packet
 
 Store posts that have not been received by target chains in `timedoutPost` posts. This logic follows the same format as `sentPost`.
 
@@ -261,25 +304,24 @@ Store posts that have not been received by target chains in `timedoutPost` posts
 // OnTimeoutIbcPostPacket responds to the case where a packet has not been transmitted because of a timeout
 func (k Keeper) OnTimeoutIbcPostPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IbcPostPacketData) error {
 
-	k.AppendTimedoutPost(
-		ctx,
-		data.Creator,
-		data.Title,
-		packet.DestinationPort+"-"+packet.DestinationChannel,
-	)
+    k.AppendTimedoutPost(
+        ctx,
+        data.Creator,
+        data.Title,
+        packet.DestinationPort+"-"+packet.DestinationChannel,
+    )
 
-	return nil
+    return nil
 }
 ```
 
-This is the basic `blog` module setup.
-The blockchain is now ready!
+This last step completes the basic `blog` module setup. The blockchain is now ready!
 
-Spin up the blockchain and send a blog post from one blockchain app to the other.
+## Use the IBC Modules
 
-Multiple terminal windows are required to complete these next steps.
+You can now spin up the blockchain and send a blog post from one blockchain app to the other. Multiple terminal windows are required to complete these next steps.
 
-## Test the IBC modules
+### 1\. Test the IBC modules
 
 To test the IBC module, start two blockchain networks on the same machine. Both blockchains use the same source code. Each blockchain has a unique chain ID.
 
@@ -337,19 +379,19 @@ init:
   home: "$HOME/.mars"
 ```
 
-Open a terminal window and run the following command to start the "earth" blockchain:
+Open a terminal window and run the following command to start the `earth` blockchain:
 
 ```
 starport serve -c earth.yml
 ```
 
-Open another terminal window and run the following command to start the "mars" blockchain:
+Open a different terminal window and run the following command to start the `mars` blockchain:
 
 ```
 starport serve -c mars.yml
 ```
 
-### Start the Relayer
+### 2\. Configure and start the relayer
 
 First, configure the relayer. Use the Starport `configure` command with the `--advanced` option:
 
@@ -401,7 +443,7 @@ Listening and relaying packets between chains...
 ---------------------------------------------
 ```
 
-### Send packets
+### 3\. Send packets
 
 You can now send packets and verify the received posts:
 
@@ -498,11 +540,11 @@ pagination:
   total: "1"
 ```
 
-🎉 **Congratulations.**  🎉 
+## 🎉 Congratulations 🎉
 
-By completing this tutorial, you’ve learned to build an IBC module for the Cosmos SDK, build your own blockchain app, and use the Interblockchain Communication Protocol (IBC).
-Here’s what you accomplished in this tutorial:
+By completing this tutorial, you've learned to build an IBC module for the Cosmos SDK, build your own blockchain app, modify the source code, and use the Inter-Blockchain Communication protocol (IBC). Here's what you accomplished in this tutorial:
+
 - Built a Hello World blockchain app as an IBC module
+- Modified the generated code to add CRUD action logic
 - Used the relayer to connect two blockchains with each other
-- Transferred IBC packets from one blockchain to another 
-
+- Transferred IBC packets from one blockchain to another

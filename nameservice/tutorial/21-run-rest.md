@@ -32,7 +32,7 @@ curl -s http://localhost:1317/auth/accounts/$(nameservicecli keys show user2 -a)
 
 # Buy another name for user1, first create the raw transaction
 # NOTE: Be sure to specialize this request for your specific environment, also the "buyer" and "from" should be the same address
-curl -X POST -s http://localhost:1317/nameservice/whois --data-binary '{"base_req":{"from":"'$(nameservicecli keys show user1 -a)'","chain_id":"namechain"},"name":"user1.id","amount":"5nametoken","buyer":"'$(nameservicecli keys show user1 -a)'"}' > unsignedTx.json
+curl -X POST -s http://localhost:1317/nameservice/whois --data-binary '{"base_req":{"from":"'$(nameservicecli keys show user1 -a)'","chain_id":"namechain"},"name":"user1.id","price":"5nametoken","buyer":"'$(nameservicecli keys show user1 -a)'"}' > unsignedTx.json
 
 # Then sign this transaction
 # NOTE: In a real environment the raw transaction should be signed on the client side. Also the sequence needs to be adjusted, depending on what the query of user2's account has shown.
@@ -44,7 +44,7 @@ nameservicecli tx broadcast signedTx.json
 
 # Set the data for that name that user1 just bought
 # NOTE: Be sure to specialize this request for your specific environment, also the "owner" and "from" should be the same address
-curl -X PUT -s http://localhost:1317/nameservice/whois --data-binary '{"base_req":{"from":"'$(nameservicecli keys show user1 -a)'","chain_id":"namechain"},"name":"user1.id","value":"8.8.4.4","owner":"'$(nameservicecli keys show user1 -a)'"}' > unsignedTx.json
+curl -X PUT -s http://localhost:1317/nameservice/whois --data-binary '{"base_req":{"from":"'$(nameservicecli keys show user1 -a)'","chain_id":"namechain"},"name":"user1.id","value":"8.8.4.4","creator":"'$(nameservicecli keys show user1 -a)'"}' > unsignedTx.json
 # > {"check_tx":{"gasWanted":"200000","gasUsed":"1242"},"deliver_tx":{"log":"Msg 0: ","gasWanted":"200000","gasUsed":"1352","tags":[{"key":"YWN0aW9u","value":"c2V0X25hbWU="}]},"hash":"B4DF0105D57380D60524664A2E818428321A0DCA1B6B2F091FB3BEC54D68FAD7","height":"26"}
 
 # Again we need to sign and broadcast
@@ -70,7 +70,7 @@ nameservicecli tx broadcast signedTx.json
 
 # Now, user2 no longer needs the name she bought from jack and hence deletes it
 # NOTE: Only the owner can delete the name. Since she is one, she can delete the name she bought from jack
-$ curl -XDELETE -s http://localhost:1317/nameservice/names --data-binary '{"base_req":{"from":"'$(nameservicecli keys show user2 -a)'","chain_id":"namechain"},"name":"user1.id","owner":"'$(nameservicecli keys show user2 -a)'"}' > unsignedTx.json
+$ curl -X DELETE -s http://localhost:1317/nameservice/whois --data-binary '{"base_req":{"from":"'$(nameservicecli keys show user2 -a)'","chain_id":"namechain"},"name":"user1.id","owner":"'$(nameservicecli keys show user2 -a)'"}' > unsignedTx.json
 
 # And a final time sign and broadcast
 # NOTE: The account number is still 1, but the sequence is changed to 3, according to the query of user2's account
