@@ -9,9 +9,9 @@ sections:
     tags: 
       - starport
       - stargate
-  - title: Interchain Exchange
-    desc: Build an Exchange blockchain app as an IBC module. You will build a module that can create orderbooks and buy and sell orders across blockchains. Learn how to use IBC, IBC packets, and the relayer.
-    url: /interchain-exchange/tutorial/00-intro.html
+  - title: Blog
+    desc: Learn how Starport works by building a blog.
+    url: /blog/tutorial/01-index.html
     tags: 
       - starport
       - stargate
@@ -21,14 +21,14 @@ sections:
     tags: 
       - starport
       - stargate
-  - title: Blog
-    desc: Learn how Starport works by building a blog.
-    url: /blog/tutorial/01-index.html
+  - title: Interchain Exchange
+    desc: Build an Exchange blockchain app as an IBC module. You will build a module that can create orderbooks and buy and sell orders across blockchains. Learn how to use IBC, IBC packets, and the relayer.
+    url: /interchain-exchange/tutorial/00-intro.html
     tags: 
       - starport
       - stargate
   - title: Proof of File Existence Migration
-    desc: Efficiently migrate your Cosmos SDK applications or modules from Launchpad to Stargate using Starport.
+    desc: Efficiently migrate your Cosmos SDK applications or modules from v0.39 to v0.40+ using Starport.
     url: /launchpad-to-stargate/tutorial/01-introduction.html
     tags:
       - starport
