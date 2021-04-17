@@ -1,81 +1,99 @@
 package cli
 
 import (
-	"bufio"
-    
 	"github.com/spf13/cobra"
+	"strconv"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/alice/voter/x/voter/types"
+	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/username/voter/x/voter/types"
 )
 
-func GetCmdCreateVote(cdc *codec.Codec) *cobra.Command {
-	return &cobra.Command{
-		Use:   "create-vote [pollID] [value]",
+func CmdCreateVote() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "create-vote [pollID] [option]",
 		Short: "Creates a new vote",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			argsPollID := string(args[0] )
-			argsValue := string(args[1] )
-			
-			cliCtx := context.NewCLIContext().WithCodec(cdc)
-			inBuf := bufio.NewReader(cmd.InOrStdin())
-			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
-			msg := types.NewMsgCreateVote(cliCtx.GetFromAddress(), string(argsPollID), string(argsValue))
-			err := msg.ValidateBasic()
+			argsPollID := string(args[0])
+			argsOption := string(args[1])
+
+			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
-			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
+
+			msg := types.NewMsgCreateVote(clientCtx.GetFromAddress().String(), string(argsPollID), string(argsOption))
+			if err := msg.ValidateBasic(); err != nil {
+				return err
+			}
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},
 	}
+
+	flags.AddTxFlagsToCmd(cmd)
+
+	return cmd
 }
 
-
-func GetCmdSetVote(cdc *codec.Codec) *cobra.Command {
-	return &cobra.Command{
-		Use:   "set-vote [id]  [pollID] [value]",
-		Short: "Set a new vote",
+func CmdUpdateVote() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "update-vote [id] [pollID] [option]",
+		Short: "Update a vote",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			id := args[0]
-			argsPollID := string(args[1])
-			argsValue := string(args[2])
-			
-			cliCtx := context.NewCLIContext().WithCodec(cdc)
-			inBuf := bufio.NewReader(cmd.InOrStdin())
-			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
-			msg := types.NewMsgSetVote(cliCtx.GetFromAddress(), id, string(argsPollID), string(argsValue))
-			err := msg.ValidateBasic()
+			id, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
 				return err
 			}
-			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
+
+			argsPollID := string(args[1])
+			argsOption := string(args[2])
+
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+
+			msg := types.NewMsgUpdateVote(clientCtx.GetFromAddress().String(), id, string(argsPollID), string(argsOption))
+			if err := msg.ValidateBasic(); err != nil {
+				return err
+			}
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},
 	}
+
+	flags.AddTxFlagsToCmd(cmd)
+
+	return cmd
 }
 
-func GetCmdDeleteVote(cdc *codec.Codec) *cobra.Command {
-	return &cobra.Command{
-		Use:   "delete-vote [id]",
-		Short: "Delete a new vote by ID",
+func CmdDeleteVote() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "delete-vote [id] [pollID] [option]",
+		Short: "Delete a vote by id",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-
-			cliCtx := context.NewCLIContext().WithCodec(cdc)
-			inBuf := bufio.NewReader(cmd.InOrStdin())
-			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
-
-			msg := types.NewMsgDeleteVote(args[0], cliCtx.GetFromAddress())
-			err := msg.ValidateBasic()
+			id, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
 				return err
 			}
-			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
+
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+
+			msg := types.NewMsgDeleteVote(clientCtx.GetFromAddress().String(), id)
+			if err := msg.ValidateBasic(); err != nil {
+				return err
+			}
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},
 	}
+
+	flags.AddTxFlagsToCmd(cmd)
+
+	return cmd
 }

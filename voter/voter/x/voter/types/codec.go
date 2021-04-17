@@ -2,25 +2,40 @@ package types
 
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
+	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/msgservice"
 )
 
-// RegisterCodec registers concrete types on codec
-func RegisterCodec(cdc *codec.Codec) {
-  // this line is used by starport scaffolding # 1
-		cdc.RegisterConcrete(MsgCreateVote{}, "voter/CreateVote", nil)
-		cdc.RegisterConcrete(MsgSetVote{}, "voter/SetVote", nil)
-		cdc.RegisterConcrete(MsgDeleteVote{}, "voter/DeleteVote", nil)
-		cdc.RegisterConcrete(MsgCreatePoll{}, "voter/CreatePoll", nil)
-		cdc.RegisterConcrete(MsgSetPoll{}, "voter/SetPoll", nil)
-		cdc.RegisterConcrete(MsgDeletePoll{}, "voter/DeletePoll", nil)
+func RegisterCodec(cdc *codec.LegacyAmino) {
+	// this line is used by starport scaffolding # 2
+	cdc.RegisterConcrete(&MsgCreateVote{}, "voter/CreateVote", nil)
+	cdc.RegisterConcrete(&MsgUpdateVote{}, "voter/UpdateVote", nil)
+	cdc.RegisterConcrete(&MsgDeleteVote{}, "voter/DeleteVote", nil)
+
+	cdc.RegisterConcrete(&MsgCreatePoll{}, "voter/CreatePoll", nil)
+	cdc.RegisterConcrete(&MsgUpdatePoll{}, "voter/UpdatePoll", nil)
+	cdc.RegisterConcrete(&MsgDeletePoll{}, "voter/DeletePoll", nil)
+
 }
 
-// ModuleCdc defines the module codec
-var ModuleCdc *codec.Codec
+func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
+	// this line is used by starport scaffolding # 3
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateVote{},
+		&MsgUpdateVote{},
+		&MsgDeleteVote{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreatePoll{},
+		&MsgUpdatePoll{},
+		&MsgDeletePoll{},
+	)
 
-func init() {
-	ModuleCdc = codec.New()
-	RegisterCodec(ModuleCdc)
-	codec.RegisterCrypto(ModuleCdc)
-	ModuleCdc.Seal()
+	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)
 }
+
+var (
+	amino     = codec.NewLegacyAmino()
+	ModuleCdc = codec.NewAminoCodec(amino)
+)

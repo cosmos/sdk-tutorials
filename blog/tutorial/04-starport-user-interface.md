@@ -10,15 +10,18 @@ Once you navigate to the UI, the following `vue` UI at `localhost:8080` -
 
 After using the mnemonic from the output of `starport serve`, you can use this UI to perform `create` and `list` operations for your blog application's `post` and `comment` types.
 
-### vue/src/views/Index.vue
+### Inspect the Frontend
 
-To see a form for creating `post` items in your app add a `<sp-type-form/>` component:
+Open the file at `vue/src/views/Types.vue`.
+
+To see a form for creating `post` items in your app add a `<SpType ... />` component:
 
 ```vue
-  <div class="sp-container">
-    <!-- sp-sign-in, sp-bank-balances, etc. -->
-    <sp-type-form path="example.blog.blog" type="post" :fields="[ ['creator', 1, 'string'] , ['title', 2, 'string'] , ['body', 3, 'string'] ]" />
-  </div>
+	<div class="sp-container">
+		<!-- this line is used by starport scaffolding # 4 -->
+		<SpType modulePath="example.blog.blog" moduleType="Post" />
+		<SpType modulePath="example.blog.blog" moduleType="Comment" />
+	</div>
 ```
 
 Learn more about available components and cosmos logic that you can use on your `vue` frontend, visit the `@tendermint/vue` library at [github.com/tendermint/vue](https://github.com/tendermint/vue)
