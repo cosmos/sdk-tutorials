@@ -73,7 +73,7 @@ One of the key differences is the integration of gRPC and protobuf in your appli
 
 In theory, you **could** copy a module from your existing application and make relevant changes based on the information in the [App and Modules Migration](https://docs.cosmos.network/v0.42/migrations/app_and_modules.html#app-and-modules-migration) documentation. 
 
-Instead, we will be using Starport to genrate fresh Stargate-compatible files and migrate the logic from our v0.39 application. Note that we will also have to change some of the logic to make it Stargate compatible.
+This tutorial uses Starport to generate fresh Stargate-compatible files and migrate the logic from a v0.39 application. You will also change some of the logic to make your application Stargate compatible.
 
 The first step is to inspect the `Claim` type that is defined in your v0.39 application.
 
