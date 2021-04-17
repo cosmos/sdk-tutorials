@@ -1,26 +1,43 @@
 package types
 
-// GenesisState - all voter state that must be provided at genesis
-type GenesisState struct {
-	// TODO: Fill out what is needed by the module for genesis
-}
+import (
+	"fmt"
+)
 
-// NewGenesisState creates a new GenesisState object
-func NewGenesisState( /* TODO: Fill out with what is needed for genesis state */ ) GenesisState {
-	return GenesisState{
-		// TODO: Fill out according to your genesis state
+// DefaultIndex is the default capability global index
+const DefaultIndex uint64 = 1
+
+// DefaultGenesis returns the default Capability genesis state
+func DefaultGenesis() *GenesisState {
+	return &GenesisState{
+		// this line is used by starport scaffolding # genesis/types/default
+		VoteList: []*Vote{},
+		PollList: []*Poll{},
 	}
 }
 
-// DefaultGenesisState - default GenesisState used by Cosmos Hub
-func DefaultGenesisState() GenesisState {
-	return GenesisState{
-		// TODO: Fill out according to your genesis state, these values will be initialized but empty
-	}
-}
+// Validate performs basic genesis state validation returning an error upon any
+// failure.
+func (gs GenesisState) Validate() error {
+	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated ID in vote
+	voteIdMap := make(map[uint64]bool)
 
-// ValidateGenesis validates the voter genesis parameters
-func ValidateGenesis(data GenesisState) error {
-	// TODO: Create a sanity check to make sure the state conforms to the modules needs
+	for _, elem := range gs.VoteList {
+		if _, ok := voteIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for vote")
+		}
+		voteIdMap[elem.Id] = true
+	}
+	// Check for duplicated ID in poll
+	pollIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.PollList {
+		if _, ok := pollIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for poll")
+		}
+		pollIdMap[elem.Id] = true
+	}
+
 	return nil
 }

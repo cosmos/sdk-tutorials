@@ -1,19 +1,18 @@
 package keeper
 
 import (
+	"encoding/binary"
 	"strconv"
 
+	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-
-	"github.com/alice/voter/x/voter/types"
-	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/username/voter/x/voter/types"
 )
 
 // GetVoteCount get the total number of vote
-func (k Keeper) GetVoteCount(ctx sdk.Context) int64 {
-	store := ctx.KVStore(k.storeKey)
-	byteKey := []byte(types.VoteCountPrefix)
+func (k Keeper) GetVoteCount(ctx sdk.Context) uint64 {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.VoteCountKey))
+	byteKey := types.KeyPrefix(types.VoteCountKey)
 	bz := store.Get(byteKey)
 
 	// Count doesn't exist: no element
@@ -22,9 +21,9 @@ func (k Keeper) GetVoteCount(ctx sdk.Context) int64 {
 	}
 
 	// Parse bytes
-	count, err := strconv.ParseInt(string(bz), 10, 64)
+	count, err := strconv.ParseUint(string(bz), 10, 64)
 	if err != nil {
-		// Panic because the count should be always formattable to int64
+		// Panic because the count should be always formattable to iint64
 		panic("cannot decode count")
 	}
 
@@ -32,103 +31,95 @@ func (k Keeper) GetVoteCount(ctx sdk.Context) int64 {
 }
 
 // SetVoteCount set the total number of vote
-func (k Keeper) SetVoteCount(ctx sdk.Context, count int64) {
-	store := ctx.KVStore(k.storeKey)
-	byteKey := []byte(types.VoteCountPrefix)
-	bz := []byte(strconv.FormatInt(count, 10))
+func (k Keeper) SetVoteCount(ctx sdk.Context, count uint64) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.VoteCountKey))
+	byteKey := types.KeyPrefix(types.VoteCountKey)
+	bz := []byte(strconv.FormatUint(count, 10))
 	store.Set(byteKey, bz)
 }
 
-// CreateVote creates a vote
-func (k Keeper) CreateVote(ctx sdk.Context, msg types.MsgCreateVote) {
+// AppendVote appends a vote in the store with a new id and update the count
+func (k Keeper) AppendVote(
+	ctx sdk.Context,
+	creator string,
+	pollID string,
+	option string,
+) uint64 {
 	// Create the vote
 	count := k.GetVoteCount(ctx)
 	var vote = types.Vote{
-		Creator: msg.Creator,
-		ID:      strconv.FormatInt(count, 10),
-		PollID:  msg.PollID,
-		Value:   msg.Value,
+		Creator: creator,
+		Id:      count,
+		PollID:  pollID,
+		Option:  option,
 	}
 
-	store := ctx.KVStore(k.storeKey)
-	key := []byte(types.VotePrefix + vote.PollID + "-" + string(vote.Creator))
-	value := k.cdc.MustMarshalBinaryLengthPrefixed(vote)
-	store.Set(key, value)
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.VoteKey))
+	value := k.cdc.MustMarshalBinaryBare(&vote)
+	store.Set(GetVoteIDBytes(vote.Id), value)
 
 	// Update vote count
 	k.SetVoteCount(ctx, count+1)
+
+	return count
 }
 
-// GetVote returns the vote information
-func (k Keeper) GetVote(ctx sdk.Context, key string) (types.Vote, error) {
-	store := ctx.KVStore(k.storeKey)
-	var vote types.Vote
-	byteKey := []byte(types.VotePrefix + key)
-	err := k.cdc.UnmarshalBinaryLengthPrefixed(store.Get(byteKey), &vote)
-	if err != nil {
-		return vote, err
-	}
-	return vote, nil
-}
-
-// SetVote sets a vote
+// SetVote set a specific vote in the store
 func (k Keeper) SetVote(ctx sdk.Context, vote types.Vote) {
-	voteKey := vote.ID
-	store := ctx.KVStore(k.storeKey)
-	bz := k.cdc.MustMarshalBinaryLengthPrefixed(vote)
-	key := []byte(types.VotePrefix + voteKey)
-	store.Set(key, bz)
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.VoteKey))
+	b := k.cdc.MustMarshalBinaryBare(&vote)
+	store.Set(GetVoteIDBytes(vote.Id), b)
 }
 
-// DeleteVote deletes a vote
-func (k Keeper) DeleteVote(ctx sdk.Context, key string) {
-	store := ctx.KVStore(k.storeKey)
-	store.Delete([]byte(types.VotePrefix + key))
+// GetVote returns a vote from its id
+func (k Keeper) GetVote(ctx sdk.Context, id uint64) types.Vote {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.VoteKey))
+	var vote types.Vote
+	k.cdc.MustUnmarshalBinaryBare(store.Get(GetVoteIDBytes(id)), &vote)
+	return vote
 }
 
-//
-// Functions used by querier
-//
+// HasVote checks if the vote exists in the store
+func (k Keeper) HasVote(ctx sdk.Context, id uint64) bool {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.VoteKey))
+	return store.Has(GetVoteIDBytes(id))
+}
 
-func listVote(ctx sdk.Context, k Keeper) ([]byte, error) {
-	var voteList []types.Vote
-	store := ctx.KVStore(k.storeKey)
-	iterator := sdk.KVStorePrefixIterator(store, []byte(types.VotePrefix))
+// GetVoteOwner returns the creator of the vote
+func (k Keeper) GetVoteOwner(ctx sdk.Context, id uint64) string {
+	return k.GetVote(ctx, id).Creator
+}
+
+// RemoveVote removes a vote from the store
+func (k Keeper) RemoveVote(ctx sdk.Context, id uint64) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.VoteKey))
+	store.Delete(GetVoteIDBytes(id))
+}
+
+// GetAllVote returns all vote
+func (k Keeper) GetAllVote(ctx sdk.Context) (list []types.Vote) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.VoteKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+
+	defer iterator.Close()
+
 	for ; iterator.Valid(); iterator.Next() {
-		var vote types.Vote
-		k.cdc.MustUnmarshalBinaryLengthPrefixed(store.Get(iterator.Key()), &vote)
-		voteList = append(voteList, vote)
+		var val types.Vote
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		list = append(list, val)
 	}
-	res := codec.MustMarshalJSONIndent(k.cdc, voteList)
-	return res, nil
+
+	return
 }
 
-func getVote(ctx sdk.Context, path []string, k Keeper) (res []byte, sdkError error) {
-	key := path[0]
-	vote, err := k.GetVote(ctx, key)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err = codec.MarshalJSONIndent(k.cdc, vote)
-	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
-	}
-
-	return res, nil
+// GetVoteIDBytes returns the byte representation of the ID
+func GetVoteIDBytes(id uint64) []byte {
+	bz := make([]byte, 8)
+	binary.BigEndian.PutUint64(bz, id)
+	return bz
 }
 
-// Get creator of the item
-func (k Keeper) GetVoteOwner(ctx sdk.Context, key string) sdk.AccAddress {
-	vote, err := k.GetVote(ctx, key)
-	if err != nil {
-		return nil
-	}
-	return vote.Creator
-}
-
-// Check if the key exists in the store
-func (k Keeper) VoteExists(ctx sdk.Context, key string) bool {
-	store := ctx.KVStore(k.storeKey)
-	return store.Has([]byte(types.VotePrefix + key))
+// GetVoteIDFromBytes returns ID in uint64 format from a byte array
+func GetVoteIDFromBytes(bz []byte) uint64 {
+	return binary.BigEndian.Uint64(bz)
 }

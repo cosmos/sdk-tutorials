@@ -16,6 +16,8 @@ Then you can use the function `RemoveOrderFromID` to remove the specific order f
 
 ```go
 // x/ibcdex/keeper/msg_server_cancelSellOrder.go
+import "errors"
+
 func (k msgServer) CancelSellOrder(goCtx context.Context, msg *types.MsgCancelSellOrder) (*types.MsgCancelSellOrderResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -70,6 +72,8 @@ Then you can use the function `RemoveOrderFromID` to remove the specific order f
 
 ```go
 // x/ibcdex/keeper/msg_server_cancelBuyOrder.go
+import "errors"
+
 func (k msgServer) CancelBuyOrder(goCtx context.Context, msg *types.MsgCancelBuyOrder) (*types.MsgCancelBuyOrderResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 

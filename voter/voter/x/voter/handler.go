@@ -4,29 +4,44 @@ import (
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/alice/voter/x/voter/keeper"
-	"github.com/alice/voter/x/voter/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/username/voter/x/voter/keeper"
+	"github.com/username/voter/x/voter/types"
 )
 
 // NewHandler ...
 func NewHandler(k keeper.Keeper) sdk.Handler {
+	msgServer := keeper.NewMsgServerImpl(k)
+
 	return func(ctx sdk.Context, msg sdk.Msg) (*sdk.Result, error) {
 		ctx = ctx.WithEventManager(sdk.NewEventManager())
+
 		switch msg := msg.(type) {
-    // this line is used by starport scaffolding # 1
-		case types.MsgCreateVote:
-			return handleMsgCreateVote(ctx, k, msg)
-		case types.MsgSetVote:
-			return handleMsgSetVote(ctx, k, msg)
-		case types.MsgDeleteVote:
-			return handleMsgDeleteVote(ctx, k, msg)
-		case types.MsgCreatePoll:
-			return handleMsgCreatePoll(ctx, k, msg)
-		case types.MsgSetPoll:
-			return handleMsgSetPoll(ctx, k, msg)
-		case types.MsgDeletePoll:
-			return handleMsgDeletePoll(ctx, k, msg)
+		// this line is used by starport scaffolding # 1
+		case *types.MsgCreateVote:
+			res, err := msgServer.CreateVote(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+
+		case *types.MsgUpdateVote:
+			res, err := msgServer.UpdateVote(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+
+		case *types.MsgDeleteVote:
+			res, err := msgServer.DeleteVote(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+
+		case *types.MsgCreatePoll:
+			res, err := msgServer.CreatePoll(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+
+		case *types.MsgUpdatePoll:
+			res, err := msgServer.UpdatePoll(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+
+		case *types.MsgDeletePoll:
+			res, err := msgServer.DeletePoll(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
