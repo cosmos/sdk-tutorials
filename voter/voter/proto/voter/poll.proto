@@ -1,0 +1,13 @@
+syntax = "proto3";
+package username.voter.voter;
+
+option go_package = "github.com/username/voter/x/voter/types";
+
+import "gogoproto/gogo.proto";
+
+message Poll {
+  string creator = 1;
+  uint64 id = 2;
+  string title = 3; 
+  repeated string options = 4; 
+}

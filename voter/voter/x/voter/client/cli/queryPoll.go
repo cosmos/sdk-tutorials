@@ -1,51 +1,76 @@
 package cli
 
 import (
-	"fmt"
+	"context"
+	"strconv"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cobra"
-    "github.com/alice/voter/x/voter/types"
+	"github.com/username/voter/x/voter/types"
 )
 
-func GetCmdListPoll(queryRoute string, cdc *codec.Codec) *cobra.Command {
-	return &cobra.Command{
+func CmdListPoll() *cobra.Command {
+	cmd := &cobra.Command{
 		Use:   "list-poll",
 		Short: "list all poll",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc)
-			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/"+types.QueryListPoll, queryRoute), nil)
+			clientCtx := client.GetClientContextFromCmd(cmd)
+
+			pageReq, err := client.ReadPageRequest(cmd.Flags())
 			if err != nil {
-				fmt.Printf("could not list Poll\n%s\n", err.Error())
-				return nil
+				return err
 			}
-			var out []types.Poll
-			cdc.MustUnmarshalJSON(res, &out)
-			return cliCtx.PrintOutput(out)
+
+			queryClient := types.NewQueryClient(clientCtx)
+
+			params := &types.QueryAllPollRequest{
+				Pagination: pageReq,
+			}
+
+			res, err := queryClient.PollAll(context.Background(), params)
+			if err != nil {
+				return err
+			}
+
+			return clientCtx.PrintProto(res)
 		},
 	}
+
+	flags.AddQueryFlagsToCmd(cmd)
+
+	return cmd
 }
 
-func GetCmdGetPoll(queryRoute string, cdc *codec.Codec) *cobra.Command {
-	return &cobra.Command{
-		Use:   "get-poll [key]",
-		Short: "Query a poll by key",
+func CmdShowPoll() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "show-poll [id]",
+		Short: "shows a poll",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc)
-			key := args[0]
+			clientCtx := client.GetClientContextFromCmd(cmd)
 
-			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/%s/%s", queryRoute, types.QueryGetPoll, key), nil)
+			queryClient := types.NewQueryClient(clientCtx)
+
+			id, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
-				fmt.Printf("could not resolve poll %s \n%s\n", key, err.Error())
-
-				return nil
+				return err
 			}
 
-			var out types.Poll
-			cdc.MustUnmarshalJSON(res, &out)
-			return cliCtx.PrintOutput(out)
+			params := &types.QueryGetPollRequest{
+				Id: id,
+			}
+
+			res, err := queryClient.Poll(context.Background(), params)
+			if err != nil {
+				return err
+			}
+
+			return clientCtx.PrintProto(res)
 		},
 	}
+
+	flags.AddQueryFlagsToCmd(cmd)
+
+	return cmd
 }

@@ -1,23 +1,51 @@
 <template>
-  <div>
-    <router-view />
-  </div>
+	<div v-if="initialized">
+		<SpWallet ref="wallet" v-on:dropdown-opened="$refs.menu.closeDropdown()" />
+		<SpLayout>
+			<template v-slot:sidebar>
+				<Sidebar />
+			</template>
+			<template v-slot:content>
+				<router-view />
+			</template>
+		</SpLayout>
+	</div>
 </template>
 
 <style>
-.sp-container {
-  margin: 0 auto;
-  max-width: 800px;
-  padding: 1rem;
+body {
+	margin: 0;
 }
 </style>
 
 <script>
+import './scss/app.scss'
+import '@starport/vue/lib/starport-vue.css'
+import Sidebar from './components/Sidebar'
+
 export default {
-  created() {
-    this.$store.dispatch("cosmos/init");
-    this.$store.dispatch("cosmos/entityFetch", {type: "poll", module: "voter"});
-    this.$store.dispatch("cosmos/entityFetch", {type: "vote", module: "voter"});
-  },
-};
+	components: {
+		Sidebar
+	},
+	data() {
+		return {
+			initialized: false
+		}
+	},
+	computed: {
+		hasWallet() {
+			return this.$store.hasModule([ 'common', 'wallet'])
+		}
+	},
+	async created() {
+		await this.$store.dispatch('common/env/init')
+		this.initialized = true
+		await this.$store.dispatch("username.voter.voter/QueryPollAll",{options:{subscribe:true, all:true},params:{}})
+		await this.$store.dispatch("username.voter.voter/QueryVoteAll",{options:{subscribe:true, all:true},params:{}})
+	},
+	errorCaptured(err) {
+		console.log(err)
+		return false
+	}
+}
 </script>
