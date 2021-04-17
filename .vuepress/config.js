@@ -37,6 +37,11 @@ module.exports = {
               directory: true,
             }, 
             {
+              title: "Voter",
+              path: "/voter/",
+              directory: true,
+            },
+            {
               title: "PoFE - Migration",
               path: "/launchpad-to-stargate/tutorial/",
               directory: true,
@@ -63,7 +68,7 @@ module.exports = {
           children: [
             {
               title: "Voter",
-              path: "/voter/",
+              path: "/voter-legacy/",
               directory: true,
             },
             {
@@ -223,6 +228,7 @@ module.exports = {
     'proof-of-file-existence/tutorial/*.md',
     'launchpad-to-stargate/tutorial/*.md',
     'voter/*.md',
+    'voter-legacy/*.md',
     'blog-legacy/tutorial/*.md',
     'blog/tutorial/*.md',
     'interchain-exchange/tutorial/*.md',
