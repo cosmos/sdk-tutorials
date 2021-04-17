@@ -49,10 +49,10 @@ module.exports = {
           ],
         },
         {
-          title: "Migration Cosmos SDK v0.39 to v0.40",
+          title: "Migrate Cosmos SDK v0.39 to v0.40",
           children: [
             {
-              title: "PoFE - Migration",
+              title: "PoFE Migration",
               path: "/launchpad-to-stargate/tutorial/",
               directory: true,
             },
