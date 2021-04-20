@@ -88,7 +88,7 @@ To launch the app from the `voter` project directory:
 starport serve
 ```
 
-The following output is returned, along with any errors that might show up in your application. Two default users and their mnemonics are created.
+The following output is returned, along with any errors that might show up in your application. Two default users and their mnemonic passphrases are created.
 
 ```
 Cosmos SDK's version is: Stargate v0.40.0 (or above)
@@ -105,16 +105,6 @@ Cosmos SDK's version is: Stargate v0.40.0 (or above)
 
 🚀 Get started: http://localhost:12345
 ```
-
-1. Stop the app and launch again with details
-
-  - Press `Ctrl C` to stop the app. <!-- how do most people stop the running app? not sure how this works, I pressed control C -->
-
-  - Use the verbose option to visualize the background operation details:
-
-    `starport serve --verbose`
-
-    <!-- why do we tell them this? do we want the verbose details running all the time? do we want to tell them to stop and restart starport serve? -->
 
 **Congratulations!** You successfully created and launched a blockchain application.
 
