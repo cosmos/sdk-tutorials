@@ -2,16 +2,18 @@
 order: 3
 ---
 
-# Types
+# Identify your Types
 
-First thing we're going to do is create a type in the `/x/nameservice` folder with the `starport` tool using the following command:
-
+First thing you are going to do is to create a transaction type in the `nameservice` module with the `starport` tool using the following command:
 
 ```bash
 starport type whois name price:int
 ```
 
-Currently, we're only passing two values when scaffolding the `whois` type, because there are additional fields that we will be replacing. In all uses of `whois`, we'll be replacing the `Creator` field with `Owner` to reflect ownership of the name.
+Currently, we're only passing two values when scaffolding the `whois` type, because there are additional fields that we will be replacing. 
+
+Starport scaffold a `whois` transaction type with a `creator` field, for the whois module, this field should be called `owner`.
+In all uses of `whois`, replace the `Creator` field with `Owner` to reflect ownership of a `whois`.
 
 ## Replace Creator with Owner
 
@@ -364,10 +366,10 @@ func (k msgServer) DeleteWhois(goCtx context.Context, msg *types.MsgDeleteWhois)
 
 ```
 
-You have now touched and seen most places that are relevant to a new scaffolded message.
-Continue with the Whois implementation logic.
+You have now seen most places that are relevant to a new scaffolded message.
+In the next chapter, continue with the Whois implementation logic.
 
-## Whois
+## The Structure of a Whois
 
 Each name will have three pieces of data associated with it.
 

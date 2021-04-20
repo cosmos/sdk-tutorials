@@ -4,15 +4,15 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
+import { MsgCreateWhois } from "./types/nameservice/tx";
 import { MsgUpdateWhois } from "./types/nameservice/tx";
 import { MsgDeleteWhois } from "./types/nameservice/tx";
-import { MsgCreateWhois } from "./types/nameservice/tx";
 
 
 const types = [
+  ["/username.nameservice.nameservice.MsgCreateWhois", MsgCreateWhois],
   ["/username.nameservice.nameservice.MsgUpdateWhois", MsgUpdateWhois],
   ["/username.nameservice.nameservice.MsgDeleteWhois", MsgDeleteWhois],
-  ["/username.nameservice.nameservice.MsgCreateWhois", MsgCreateWhois],
   
 ];
 
@@ -40,9 +40,9 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee=defaultFee, memo=null }: SignAndBroadcastOptions) => memo?client.signAndBroadcast(address, msgs, fee,memo):client.signAndBroadcast(address, msgs, fee),
+    msgCreateWhois: (data: MsgCreateWhois): EncodeObject => ({ typeUrl: "/username.nameservice.nameservice.MsgCreateWhois", value: data }),
     msgUpdateWhois: (data: MsgUpdateWhois): EncodeObject => ({ typeUrl: "/username.nameservice.nameservice.MsgUpdateWhois", value: data }),
     msgDeleteWhois: (data: MsgDeleteWhois): EncodeObject => ({ typeUrl: "/username.nameservice.nameservice.MsgDeleteWhois", value: data }),
-    msgCreateWhois: (data: MsgCreateWhois): EncodeObject => ({ typeUrl: "/username.nameservice.nameservice.MsgCreateWhois", value: data }),
     
   };
 };

@@ -50,7 +50,7 @@ func (k msgServer) UpdateWhois(goCtx context.Context, msg *types.MsgUpdateWhois)
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
 
-	k.SetWhois(ctx, whois)
+	k.SetWhois(ctx, msg.Name, whois)
 
 	return &types.MsgUpdateWhoisResponse{}, nil
 }

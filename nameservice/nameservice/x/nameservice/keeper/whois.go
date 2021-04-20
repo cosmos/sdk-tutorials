@@ -64,11 +64,13 @@ func (k Keeper) AppendWhois(
 	return count
 }
 
-// SetWhois set a specific whois in the store
-func (k Keeper) SetWhois(ctx sdk.Context, whois types.Whois) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.WhoisKey))
-	b := k.cdc.MustMarshalBinaryBare(&whois)
-	store.Set(GetWhoisIDBytes(whois.Id), b)
+// SetWhois sets a whois. We modified this function to use the `name` value as the key instead of msg.ID
+func (k Keeper) SetWhois(ctx sdk.Context, name string, whois types.Whois) {
+
+	store := ctx.KVStore(k.storeKey)
+	bz := k.cdc.MustMarshalBinaryBare(&whois)
+	key := []byte(types.WhoisKey + name)
+	store.Set(key, bz)
 }
 
 // GetWhois returns a whois from its id

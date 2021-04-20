@@ -2,7 +2,7 @@
 order: 4
 ---
 
-# Keys
+# The Identifier of your Blockchain Modules
 
 Start by navigating to the `keys.go` file in the `types` folder. Within the `keys.go` file, you will see that the keys which will be used throughout the creation of the module have already been created.
 

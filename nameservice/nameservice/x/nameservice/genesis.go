@@ -12,7 +12,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	// this line is used by starport scaffolding # genesis/module/init
 	// Set all the whois
 	for _, elem := range genState.WhoisList {
-		k.SetWhois(ctx, *elem)
+		k.SetWhois(ctx, elem.Name, *elem)
 	}
 
 	// Set whois count

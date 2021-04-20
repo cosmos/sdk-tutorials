@@ -125,6 +125,22 @@ export default {
                 return {};
             }
         },
+        async sendMsgCreateWhois({ rootGetters }, { value, fee, memo }) {
+            try {
+                const msg = await (await initTxClient(rootGetters)).msgCreateWhois(value);
+                const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e.toString() == 'wallet is required') {
+                    throw new SpVuexError('TxClient:MsgCreateWhois:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgCreateWhois:Send', 'Could not broadcast Tx.');
+                }
+            }
+        },
         async sendMsgUpdateWhois({ rootGetters }, { value, fee, memo }) {
             try {
                 const msg = await (await initTxClient(rootGetters)).msgUpdateWhois(value);
@@ -157,19 +173,17 @@ export default {
                 }
             }
         },
-        async sendMsgCreateWhois({ rootGetters }, { value, fee, memo }) {
+        async MsgCreateWhois({ rootGetters }, { value }) {
             try {
                 const msg = await (await initTxClient(rootGetters)).msgCreateWhois(value);
-                const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
+                return msg;
             }
             catch (e) {
                 if (e.toString() == 'wallet is required') {
                     throw new SpVuexError('TxClient:MsgCreateWhois:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgCreateWhois:Send', 'Could not broadcast Tx.');
+                    throw new SpVuexError('TxClient:MsgCreateWhois:Create', 'Could not create message.');
                 }
             }
         },
@@ -198,20 +212,6 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgDeleteWhois:Create', 'Could not create message.');
-                }
-            }
-        },
-        async MsgCreateWhois({ rootGetters }, { value }) {
-            try {
-                const msg = await (await initTxClient(rootGetters)).msgCreateWhois(value);
-                return msg;
-            }
-            catch (e) {
-                if (e.toString() == 'wallet is required') {
-                    throw new SpVuexError('TxClient:MsgCreateWhois:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgCreateWhois:Create', 'Could not create message.');
                 }
             }
         },
