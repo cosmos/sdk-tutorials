@@ -72,7 +72,7 @@ After the transaction is acknowledged by the receiving chain, you know that the 
 
 Use Starport to scaffold the blockchain app and the blog module.
 
-### 1 Build the new blockchain
+### Build the new blockchain
 
 To scaffold a new blockchain named `planet`:
 
@@ -83,7 +83,7 @@ cd planet
 
 A new directory named `planet` is created in your home directory. The `planet` directory contains a working blockchain app.
 
-### 2 Scaffold the blog module inside your blockchain
+### Scaffold the blog module inside your blockchain
 
 Next, use Starport to scaffold a blog module with IBC capabilities. The blog module contains the logic for creating blog posts and routing them through IBC to the second blockchain.
 
@@ -95,7 +95,7 @@ starport module create blog --ibc
 
 A new directory with the code for an IBC module is created in `planet/x/blog`. Modules scaffolded with the `--ibc` flag include all the logic for the scaffolded IBC module.
 
-### 3 Generate CRUD actions for types
+### Generate CRUD actions for types
 
 Next, create the CRUD actions for the blog module types.
 
@@ -135,7 +135,7 @@ The next arguments define the fields that are associated with the type. For the 
 
 The `--module` flag defines which module the new transaction type is added to. This optional flag lets you manage multiple modules within your Starport app. The `--module` specifies which module the type is scaffolded in. When the flag is not present, the type is scaffolded in the module that matches the name of the repo).
 
-### 4 Scaffold a sendable and interpretable IBC packet
+### Scaffold a sendable and interpretable IBC packet
 
 Now you need to generate packet code that contains the title and the content of the blog post.
 
@@ -167,7 +167,7 @@ planetd tx blog send-ibcPost [portID] [channelD] [title] [content]
 
 After you create the types and transactions, you must manually insert the logic to manage updates in the data tables. Modify the source code to save the data as specified earlier in this tutorial.
 
-### 1 Add creator to the blog post packet
+### Add creator to the blog post packet
 
 Start with the proto file that defines the structure of the IBC packet.
 
@@ -206,7 +206,7 @@ To make sure the receiving chain has content on the creator of a blog post, add 
     )
 ```
 
-### 2 Receive the post
+### Receive the post
 
 The methods for primary transaction logic are in the `planet/x/blog/keeper/ibcPost.go` file. Use these methods to manage IBC packets:
 
@@ -255,7 +255,7 @@ func (k Keeper) OnRecvIbcPostPacket(ctx sdk.Context, packet channeltypes.Packet,
 }
 ```
 
-### 3 Receive the post acknowledgement
+### Receive the post acknowledgement
 
 On the sending blockchain, store a `sentPost` so you know that the post has been received on the target chain.
 
@@ -296,7 +296,7 @@ func (k Keeper) OnAcknowledgementIbcPostPacket(ctx sdk.Context, packet channelty
 }
 ```
 
-### 4 Store information about the timed-out packet
+### Store information about the timed-out packet
 
 Store posts that have not been received by target chains in `timedoutPost` posts. This logic follows the same format as `sentPost`.
 
@@ -321,7 +321,7 @@ This last step completes the basic `blog` module setup. The blockchain is now re
 
 You can now spin up the blockchain and send a blog post from one blockchain app to the other. Multiple terminal windows are required to complete these next steps.
 
-### 1 Test the IBC modules
+### Test the IBC modules
 
 To test the IBC module, start two blockchain networks on the same machine. Both blockchains use the same source code. Each blockchain has a unique chain ID.
 
@@ -391,7 +391,7 @@ Open a different terminal window and run the following command to start the `mar
 starport serve -c mars.yml
 ```
 
-### 2 Configure and start the relayer
+### Configure and start the relayer
 
 First, configure the relayer. Use the Starport `configure` command with the `--advanced` option:
 
@@ -443,7 +443,7 @@ Listening and relaying packets between chains...
 ---------------------------------------------
 ```
 
-### 3 Send packets
+### Send packets
 
 You can now send packets and verify the received posts:
 
