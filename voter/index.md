@@ -23,12 +23,12 @@ This tutorial builds an understanding of creating a blockchain app, adding and m
 
 ## Requirements
 
-This tutorial uses [Starport](https://github.com/tendermint/starport) v0.15.0\. The Starport tool is the easiest way to build a blockchain.
+This tutorial uses [Starport](https://docs.starport.network/) v0.15.1\. The Starport tool is the easiest way to build a blockchain.
 
 To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
-curl https://get.starport.network/starport@v0.15.0! | bash
+curl https://get.starport.network/starport@v0.15.1! | bash
 ```
 
 When the installation succeeds, you see this message:
@@ -37,7 +37,7 @@ When the installation succeeds, you see this message:
 Installed at /usr/local/bin/starport
 ```
 
-You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.0), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
+You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
 
 ## Identify the Voting App Goals
 
@@ -59,13 +59,12 @@ The create poll transaction fee is 200 tokens. Voting is free.
 
 Use Starport to scaffold the blockchain app and the voting module.
 
-1. Build the new blockchain
+### 1 Build the new blockchain
 
 To scaffold a new blockchain named voter:
 
 ```
 starport app github.com/username/voter
-cd voter
 ```
 
 A new directory named `voter` is created in your home directory.
@@ -80,15 +79,16 @@ The `voter` directory contains a working blockchain app and all of the code to b
 
 Cosmos SDK modules are the building blocks of apps. If you are new to Cosmos SDK modules, see [Introduction to SDK Modules](https://docs.cosmos.network/master/building-modules/intro.html).
 
-1. Launch the voter app
+### 2 Launch the voter app
 
 To launch the app from the `voter` project directory:
 
 ```
+cd voter
 starport serve
 ```
 
-The following output is returned, along with any errors that might show up in your application. Two default users and their mnemonic passphrases are created.
+The following output is returned, along with any errors that might show up in your application. Two default users and their mnemonic pass phrases are created.
 
 ```
 Cosmos SDK's version is: Stargate v0.40.0 (or above)
@@ -110,11 +110,11 @@ Cosmos SDK's version is: Stargate v0.40.0 (or above)
 
 ## Add a Poll Transaction
 
-The voter app doesn't do anything yet, so the next step is to add some transaction types.
+The voter app doesn't do anything yet, so the next step is to add some types. Adding types generates files that implement create, read, update, and delete (CRUD) functionality for a custom new type.
 
 The voting applications has two types of entities: polls and votes.
 
-1. Add the poll type
+### 1 Add the poll type
 
 A poll type has a `title` and a list of `options`.
 
@@ -132,9 +132,12 @@ After the poll type is successfully created, you see:
 
 With this command, you generated the code that handles the creation of `poll` items.
 
-1. Look at the frontend user interface
+### 2 Look at the frontend user interface
 
-To see the app frontend form for creating polls, run `starport serve` and visit <http://localhost:8080>.
+To see the app frontend form for creating polls:
+
+- Run `starport serve`
+- Visit <http://localhost:8080>
 
 It takes a few minutes to rebuild the app, so give it a couple of seconds.
 
@@ -142,13 +145,22 @@ It takes a few minutes to rebuild the app, so give it a couple of seconds.
 
  ![Application screenshot](./2.png)
 
-1. Sign in as Alice
+### 3 Sign in as Alice
 
-Sign in with the passphrases for Alice. The mnemonic passphrases are printed in the console. The tutorial has generously given Alice some tokens so she can use the app to generate a poll.
+Sign in with the passphrases for Alice. The mnemonic passphrases that were printed in the console after you ran the `starport serve` command.
 
-1. Create a poll
+The tutorial has generously given Alice some tokens so she can use the app to generate a poll.
 
-Now that you are signed in as Alice, click `Access Wallet` and then `Import existing wallet`. Enter one of the passphrases that is in your console. Now you can give your wallet a name and password. The wallet can handle multiple accounts, give it a name in order to easier recognise wallets in the future. For this example, naming this wallet `voter` would make sense. You can find your newly created transaction type in the `Custom Type` navigation point. Enter an example value for Title and Poll option to see the workflow. You should see a new object created and displayed next to the form. You have successfully created an object and stored it on the blockchain!
+### 4 Create a poll
+
+Now that you are signed in as Alice, you can access a wallet that has the tokens required to create a poll.
+
+The wallet in the voter app can handle multiple accounts. Give your wallet a descriptive name and password. Using a descriptive wallet name helps you recognize this wallet in future transactions. For this example, naming this wallet `voter` makes sense.
+
+1. Click `Access Wallet` and then `Import existing wallet`.
+2. Enter the passphrase for Alice that was output to your console when you launched the voter app with the `starport serve` command. 3.
+
+You can find your newly created transaction type in the `Custom Type` navigation point on the web browser frontend app. Enter an example value for Title and Poll option to see the workflow. You should see a new object created and displayed next to the form. You have successfully created an object and stored it on the blockchain!
 
 This, however, does not look and work exactly like initially explained. You should be able to add more option fields (and store them as an array) and they should be displayed as interactive buttons.
 
