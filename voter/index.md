@@ -39,7 +39,7 @@ Installed at /usr/local/bin/starport
 
 You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
 
-## Identify the Voting App Goals
+## Voting App Goals
 
 Create a blockchain poll app with a voting module. The app requires that the app user can:
 
@@ -59,7 +59,7 @@ The create poll transaction fee is 200 tokens. Voting is free.
 
 Use Starport to scaffold the blockchain app and the voting module.
 
-### 1 Build the new blockchain
+### Build the new blockchain
 
 To scaffold a new blockchain named voter:
 
@@ -79,7 +79,7 @@ The `voter` directory contains a working blockchain app and all of the code to b
 
 Cosmos SDK modules are the building blocks of apps. If you are new to Cosmos SDK modules, see [Introduction to SDK Modules](https://docs.cosmos.network/master/building-modules/intro.html).
 
-### 2 Launch the voter app
+### Launch the voter app
 
 To launch the app from the `voter` project directory:
 
@@ -114,7 +114,7 @@ The voter app doesn't do anything yet, so the next step is to add some types. Ad
 
 The voting applications has two types of entities: polls and votes.
 
-### 1 Add the poll type
+### Add the poll type
 
 A poll type has a `title` and a list of `options`.
 
@@ -132,37 +132,37 @@ After the poll type is successfully created, you see:
 
 With this command, you generated the code that handles the creation of `poll` items.
 
-### 2 Look at the frontend user interface
+### View the frontend user interface
 
 To see the app frontend form for creating polls:
 
 - Run `starport serve`
-- Visit <http://localhost:8080>
+- Visit [<http://localhost:8080]http://localhost:8080>
 
-It takes a few minutes to rebuild the app, so give it a couple of seconds.
+It takes a few minutes to rebuild the app, so give it a couple of seconds. If your localhost:8080 is already in use, your app can be viewed on the next available port.
 
-<!-- oops mine is broken after stopped and restarted starport serve: ``` Failed to compile. ./node_modules/@starport/vuex/lib/modules/common/relayers/relayers.js Module not found: Error: Can't resolve '@confio/relayer/build/main' in '/Users/barriebyron/voter/vue/node_modules/@starport/vuex/lib/modules/common/relayers' ``` -->
+![Application screenshot](./2.png)
 
- ![Application screenshot](./2.png)
+### Sign in as Alice
 
-### 3 Sign in as Alice
+On the app frontend, sign in as Alice. The mnemonic passphrases for Alice and Bob were printed in the console after you ran the `starport serve` command.
 
-Sign in with the passphrases for Alice. The mnemonic passphrases that were printed in the console after you ran the `starport serve` command.
+After you are signed in as Alice, you can import an existing wallet that was created with the app. The wallet in the voter app can handle multiple accounts, so give your wallet a descriptive name. Using a descriptive wallet name helps you recognize this wallet in future transactions. For this example, naming this wallet `voter` makes sense.
 
-The tutorial has generously given Alice some tokens so she can use the app to generate a poll.
+1. Click **Access Wallet** and then click **Import existing wallet**.
+2. Enter the passphrase for Alice that was output to your console when you launched the voter app with the `starport serve` command.
+3. Name your wallet `voter` and enter a password.
+4. Click **Done**.
 
-### 4 Create a poll
+Now you want to view the custom `poll` type you created earlier.
 
-Now that you are signed in as Alice, you can access a wallet that has the tokens required to create a poll.
+## View the Poll Type
 
-The wallet in the voter app can handle multiple accounts. Give your wallet a descriptive name and password. Using a descriptive wallet name helps you recognize this wallet in future transactions. For this example, naming this wallet `voter` makes sense.
+To view the newly created `poll` transaction type, click the **Custom Type** navigation point on the web browser frontend app.
 
-1. Click `Access Wallet` and then `Import existing wallet`.
-2. Enter the passphrase for Alice that was output to your console when you launched the voter app with the `starport serve` command. 3.
+To see the workflow, enter an example value for Title and Poll options. A new object is created and displayed next to the form. You have successfully created an object and stored it on the blockchain!
 
-You can find your newly created transaction type in the `Custom Type` navigation point on the web browser frontend app. Enter an example value for Title and Poll option to see the workflow. You should see a new object created and displayed next to the form. You have successfully created an object and stored it on the blockchain!
-
-This, however, does not look and work exactly like initially explained. You should be able to add more option fields (and store them as an array) and they should be displayed as interactive buttons.
+This object, however, does not look and work exactly like a poll. You need to be able to add more option fields and store them as an array. You want the option fields to display as interactive buttons.
 
 Take a look at some of the files modified by the `starport type` command.
 
