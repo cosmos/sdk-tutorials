@@ -160,53 +160,56 @@ Now you want to view the custom `poll` type you created earlier.
 
 To view the newly created `poll` transaction type, click the **Custom Type** navigation point on the web browser frontend app.
 
-To see the workflow, enter an example value for Title and Poll options. A new object is created and displayed next to the form. You have successfully created an object and stored it on the blockchain!
+To see the workflow to create a poll, enter an example value for the title and poll options. A new object is created and displayed next to the new poll form. You have successfully created an object and stored it on the blockchain!
 
-This object, however, does not look and work exactly like a poll. You need to be able to add more option fields and store them as an array. You want the option fields to display as interactive buttons.
+This object, however, does not look and work exactly like a poll. You need to be able to add option fields and store them as an array. You want the option fields to display as interactive buttons.
 
 Take a look at some of the files modified by the `starport type` command.
 
 ## Modify the Protobuffer Types
 
-To have multiple options, you need to change the value `string options` in the Protobuffer definitions. Open the `proto/voter` directory and look into the `poll.proto` and `tx.proto` files.
+To have multiple options in the poll, you must change the value `string options` in the Protobuffer definitions.
 
-Add the keyword `repeated` before the options to allow passing an array of strings. In the `proto/voter/poll.proto` file, modify the Poll message options field as follows:
+1. In the `proto/voter` directory, open the `poll.proto` file.
+2. To allow passing an array of strings, add the keyword `repeated` before `string options`:
 
-```proto
-message Poll {
+  ```proto
+  message Poll {
   string creator = 1;
   uint64 id = 2;
   string title = 3;
   repeated string options = 4;
-}
-```
+  }
+  ```
 
-In the `proto/voter/tx.proto` file you have the CRUD (Create, Read, Update and Delete) types for the poll transaction. Update the `options` field for the messages `MsgCreatePoll` and `MsgUpdatePoll`.
+In the `proto/voter/tx.proto` file, update the CRUD (Create, Read, Update and Delete) types for the poll transaction.
 
-```proto
-message MsgCreatePoll {
-  string creator = 1;
-  string title = 2;
-  repeated string options = 3;
-}
-```
+1. Add the keyword `repeated` before `string options` for the `MsgCreatePoll` message:
 
 ```proto
-message MsgUpdatePoll {
+   message MsgCreatePoll {
+   string creator = 1;
+   string title = 2;
+   repeated string options = 3;
+   }
+```
+
+And the `MsgUpdatePoll` message:
+
+```proto
+  message MsgUpdatePoll {
   string creator = 1;
   uint64 id = 2;
   string title = 3;
   repeated string options = 4;
-}
+  }
 ```
 
 ## Modify the Poll Transaction Message
 
-Navigate to the file at `x/voter/types/message_poll.go`.
+Navigate to the file at `x/voter/types/message_poll.go` that defines a message that creates a poll.
 
-This file defines a message that creates a poll.
-
-We need to make options to be stored as a list instead of a string. Replace `options string` with `options []string` in the `NewMsgCreatePoll` and `NewMsgUpdatePoll` functions.
+1. To store the options as a list instead of a string, replace `options string` with `options []string` in the `NewMsgCreatePoll` function:
 
 ```go
 // x/voter/types/message_poll.go
@@ -218,6 +221,8 @@ func NewMsgCreatePoll(creator string, title string, options []string) *MsgCreate
     }
 }
 ```
+
+And also in the `NewMsgUpdatePoll` function:
 
 ```go
 // x/voter/types/message_poll.go
@@ -231,13 +236,21 @@ func NewMsgUpdatePoll(creator string, id uint64, title string, options []string)
 }
 ```
 
-To write anything to a blockchain or perform any other state transition a client (web app in our case) makes an HTTP POST request with a title and options to <http://localhost:1317/voter/poll> endpoint handler for which is defined in `x/voter/client/rest/txPoll.go`. The handler creates an unsigned transaction which contains an array of messages. The client then signs the transaction and sends it to <http://localhost:1317/txs>. The application processes the transaction by sending each message to a corresponding handler, in our case `x/voter/handler.go`. A handler then calls a `CreatePoll` function defined in `x/voter/keeper/poll.go` which writes the poll data into the store.
+## How the Poll Data is Stored
+
+To write anything to a blockchain or perform any other state transition a client, in our case the voter web app, makes an HTTP POST request. The POST request with a title and options goes to the <http://localhost:1317/voter/poll> endpoint handler that is defined in `x/voter/client/rest/txPoll.go`.
+
+The handler creates an unsigned transaction that contains an array of messages. The client then signs the transaction and sends it to <http://localhost:1317/txs>. The application processes the transaction by sending each message to a corresponding handler, in our case `x/voter/handler.go`.
+
+A handler then calls a `CreatePoll` function that is defined in `x/voter/keeper/poll.go` that writes the poll data into the store.
 
 ## Modify the Poll Keeper
 
 The keeper adds the polls to the blockchain database.
 
-Navigate to the file at `x/voter/keeper/poll.go` and change the `options` parameter from `string` to `[]string` in the `AppendPoll` function
+Navigate to the file at `x/voter/keeper/poll.go`. You need to make the same changes to modify the poll keeper to use the list of options.
+
+- Change the `options` parameter from `string` to `[]string` in the `AppendPoll` function:
 
 ```go
 // x/voter/keeper/poll.go
@@ -269,7 +282,7 @@ func (k Keeper) AppendPoll(
 
 ## Modify the REST Endpoint
 
-The rest endpoint is defined in the file `x/voter/client/rest/txPoll.go`.
+The REST endpoint is defined in the file `x/voter/client/rest/txPoll.go`.
 
 Replace `Options string` with `Options []string` in `createPollRequest` struct.
 
@@ -282,7 +295,7 @@ type createPollRequest struct {
 }
 ```
 
-Also further below in the `updatePollRequest` struct.
+And also in the `updatePollRequest` struct.
 
 ```go
 type updatePollRequest struct {
@@ -295,21 +308,21 @@ type updatePollRequest struct {
 
 ### Modify the CLI Transaction
 
-A user will also be able to interact with our application through a command line interface.
+A poll app user can also interact with your application by using a command line interface.
 
 The CLI definition is available at `x/voter/client/cli/txPoll.go`.
+
+For example:
 
 ```
 votercli tx voter create-poll "Text editors" "Emacs" "Vim" --from alice
 ```
 
-This command will generate a transaction with "create poll" message, sign it using a private key of `alice` (one of two users created by default) and broadcast it to the blockchain.
+This command generates a transaction with "create poll" message, sign it using a private key of `alice` (one of two users created by default), and broadcast the transaction to the blockchain.
 
-The modification we need to make is to change a line that reads arguments from the console.
+The modification you need to make is to change a line that reads arguments from the console.
 
-In the function `CmdCreatePoll`
-
-replace
+In the function `CmdCreatePoll` replace:
 
 ```go
 Args:  cobra.ExactArgs(2),
