@@ -236,7 +236,7 @@ func NewMsgUpdatePoll(creator string, id uint64, title string, options []string)
 }
 ```
 
-## How the Poll Data is Stored
+## About the Poll Keeper
 
 To write anything to a blockchain or perform any other state transition a client, in our case the voter web app, makes an HTTP POST request. The POST request with a title and options goes to the <http://localhost:1317/voter/poll> endpoint handler that is defined in `x/voter/client/rest/txPoll.go`.
 
@@ -244,7 +244,7 @@ The handler creates an unsigned transaction that contains an array of messages. 
 
 A handler then calls a `CreatePoll` function that is defined in `x/voter/keeper/poll.go` that writes the poll data into the store.
 
-## Modify the Poll Keeper
+### Modify the Poll Keeper
 
 The keeper adds the polls to the blockchain database.
 
