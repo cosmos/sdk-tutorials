@@ -28,7 +28,7 @@ module.exports = {
       auto: false,
       nav: [
         {
-          title: "v0.40+ Stargate Tutorials",
+          title: "Tutorials",
           children: [
             {
               title: "IBC Hello World",
@@ -53,7 +53,7 @@ module.exports = {
           ],
         },
         {
-          title: "Migrate Cosmos SDK v0.39 to v0.40",
+          title: "Migrate to Stargate",
           children: [
             {
               title: "PoFE Migration",
