@@ -16,7 +16,7 @@ To install `starport` into `/usr/local/bin`, run the following command:
 curl https://get.starport.network/starport@v0.15.1! | bash
 ```
 
-You can also use Starport v0.15.1 in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1). For more installation options, see [install Starport](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://github.com/tendermint/starport/blob/develop/docs/intro/install.md).
+You can also use Starport v0.15.1 in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1). For more installation options, see [install Starport](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [install Starport](https://github.com/tendermint/starport/blob/develop/docs/intro/install.md).
 
 ## Create the Blockchain
 
