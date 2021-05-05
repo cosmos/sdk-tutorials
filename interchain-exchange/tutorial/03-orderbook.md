@@ -160,7 +160,7 @@ package username.interchange.ibcdex;
 
 option go_package = "github.com/username/interchange/x/ibcdex/types";
 
-import "ibcdex/order.proto";
+import "ibcdex/order.proto"; // <--
 
 message SellOrderBook {
   string creator = 1;
@@ -168,7 +168,7 @@ message SellOrderBook {
   int32 orderIDTrack = 3;
   string amountDenom = 4;
   string priceDenom = 5;
-  repeated Order orders = 6;
+  repeated Order orders = 6;  // <--
 }
 ```
 
@@ -372,7 +372,7 @@ package username.interchange.ibcdex;
 
 option go_package = "github.com/username/interchange/x/ibcdex/types";
 
-import "ibcdex/order.proto";
+import "ibcdex/order.proto"; // <--
 
 message BuyOrderBook {
   string creator = 1;
@@ -380,7 +380,7 @@ message BuyOrderBook {
   int32 orderIDTrack = 3;
   string amountDenom = 4;
   string priceDenom = 5;
-  repeated Order orders = 6;
+  repeated Order orders = 6; // <--
 }
 ```
 

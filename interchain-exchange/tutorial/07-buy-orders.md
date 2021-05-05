@@ -18,7 +18,7 @@ message BuyOrderPacketData {
   int32 amount = 2;
   string priceDenom = 3;
   int32 price = 4;
-  string buyer = 5;
+  string buyer = 5; // <--
 }
 ```
 
@@ -77,7 +77,7 @@ func (k msgServer) SendBuyOrder(goCtx context.Context, msg *types.MsgSendBuyOrde
 	// Construct the packet
 	var packet types.BuyOrderPacketData
 
-	packet.Buyer = msg.Sender              // <- Manually specify the buyer here
+	packet.Buyer = msg.Sender // <- Manually specify the buyer here
 	packet.AmountDenom = msg.AmountDenom
 	packet.Amount = msg.Amount
 	packet.PriceDenom = msg.PriceDenom

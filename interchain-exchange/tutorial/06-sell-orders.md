@@ -20,7 +20,7 @@ message SellOrderPacketData {
   int32 amount = 2;
   string priceDenom = 3;
   int32 price = 4;
-  string seller = 5;
+  string seller = 5;  // <--
 }
 ```
 
@@ -78,7 +78,7 @@ func (k msgServer) SendSourceSellOrder(goCtx context.Context, msg *types.MsgSend
 	// Construct the packet
 	var packet types.SellOrderPacketData
 
-	packet.Seller = msg.Sender              // <- Manually specify the seller here
+	packet.Seller = msg.Sender  // <- Manually specify the seller here
 	packet.AmountDenom = msg.AmountDenom
 	packet.Amount = msg.Amount
 	packet.PriceDenom = msg.PriceDenom
