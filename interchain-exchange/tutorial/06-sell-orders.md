@@ -45,7 +45,7 @@ Before a sell order will be submitted, make sure it contains the following logic
 // x/ibcdex/keeper/msg_server_sellOrder.go
 import "errors"
 
-func (k msgServer) SendSourceSellOrder(goCtx context.Context, msg *types.MsgSendSourceSellOrder) (*types.MsgSendSourceSellOrderResponse, error) {
+func (k msgServer) SendSellOrder(goCtx context.Context, msg *types.MsgSendSourceSellOrder) (*types.MsgSendSourceSellOrderResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// Cannot send a order if the order book pair doesn't exist
