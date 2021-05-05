@@ -115,7 +115,7 @@ import (
 	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	ibctransfertypes "github.com/cosmos/cosmos-sdk/x/ibc/applications/transfer/types"
-	"github.com/tendermint/interchange/x/ibcdex/types"
+	"github.com/username/interchange/x/ibcdex/types"
 	"strings"
 )
 
@@ -302,7 +302,7 @@ package keeper
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	ibctransfertypes "github.com/cosmos/cosmos-sdk/x/ibc/applications/transfer/types"
-	"github.com/tendermint/interchange/x/ibcdex/types"
+	"github.com/username/interchange/x/ibcdex/types"
 )
 
 // VoucherDenom returns the voucher of the denom from the port ID and channel ID

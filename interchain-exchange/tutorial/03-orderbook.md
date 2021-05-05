@@ -18,11 +18,11 @@ The protobuffer definition defines the data that an order book has.
 Add the `Order` message to the `order.proto` file.
 
 ```proto
-// proto/order.proto
+// proto/ibcdex/order.proto
 syntax = "proto3";
-package tendermint.interchange.ibcdex;
+package username.interchange.ibcdex;
 
-option go_package = "github.com/tendermint/interchange/x/ibcdex/types";
+option go_package = "github.com/username/interchange/x/ibcdex/types";
 
 message Order {
   int32 id = 1;
@@ -154,15 +154,16 @@ Modify the `sellOrderBook.proto` file to have the fields for creating a sell ord
 The proto definition for the `SellOrderBook` should look like follows:
 
 ```proto
-// proto/sellOrderBook.proto
+// proto/ibcdex/sellOrderBook.proto
 syntax = "proto3";
-package tendermint.interchange.ibcdex;
+package username.interchange.ibcdex;
 
-option go_package = "github.com/tendermint/interchange/x/ibcdex/types";
+option go_package = "github.com/username/interchange/x/ibcdex/types";
 
 import "ibcdex/order.proto";
 
 message SellOrderBook {
+  string creator = 1;
   string index = 2;
   int32 orderIDTrack = 3;
   string amountDenom = 4;
@@ -365,15 +366,16 @@ Modify the `buyOrderBook.proto` file to have the fields for creating a buy order
 The proto definition for the `BuyOrderBook` should look like follows:
 
 ```proto
-// proto/buyOrderBook.proto
+// proto/ibcdex/buyOrderBook.proto
 syntax = "proto3";
-package tendermint.interchange.ibcdex;
+package username.interchange.ibcdex;
 
-option go_package = "github.com/tendermint/interchange/x/ibcdex/types";
+option go_package = "github.com/username/interchange/x/ibcdex/types";
 
 import "ibcdex/order.proto";
 
 message BuyOrderBook {
+  string creator = 1;
   string index = 2;
   int32 orderIDTrack = 3;
   string amountDenom = 4;

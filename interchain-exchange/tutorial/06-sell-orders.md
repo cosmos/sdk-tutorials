@@ -14,7 +14,7 @@ When you are dealing with an IBC token, these will get burned and you receive ba
 The packet proto file for a sell order is already generated. Add the seller information.
 
 ```proto
-// proto/packet.proto
+// proto/ibcdex/packet.proto
 message SellOrderPacketData {
   string amountDenom = 1;
   int32 amount = 2;

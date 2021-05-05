@@ -12,7 +12,7 @@ The logic is very similar to the previous sell order chapter.
 Add the buyer to the proto file definition
 
 ```proto
-// proto/packet.proto
+// proto/ibcdex/packet.proto
 message BuyOrderPacketData {
   string amountDenom = 1;
   int32 amount = 2;
