@@ -34,13 +34,21 @@ starport relayer configure -a \
 --source-faucet "http://0.0.0.0:4500" \
 --source-port "ibcdex" \
 --source-version "ibcdex-1" \
---source-gasprice "0.0000025token" \
 --target-rpc "http://0.0.0.0:26659" \
 --target-faucet "http://0.0.0.0:4501" \
 --target-port "ibcdex" \
---target-version "ibcdex-1" \
---target-gasprice "0.0000025token"
+--target-version "ibcdex-1"
 ```
+
+when prompted enter `0.0000025token` as source and target gas price:
+
+```bash
+...
+? Source Gas Price 0.0000025token
+? Target Gas Price 0.0000025token
+...
+```
+
 
 ## Connect the relayer
 
