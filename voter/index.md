@@ -8,7 +8,7 @@ This tutorial creates a simple blockchain poll application.
 
 ![Application screenshot](./1.png)
 
-This tutorial builds an understanding of creating a blockchain app, adding and modifying types for a transaction, editing messages, and designing the front end app.
+This tutorial builds understanding as it walks you through creating a blockchain app, adding and modifying types for a transaction, editing messages, and designing the front end app.
 
 **You will learn how to**
 
@@ -23,7 +23,9 @@ This tutorial builds an understanding of creating a blockchain app, adding and m
 
 ## Requirements
 
-This tutorial uses [Starport](https://docs.starport.network/) v0.15.1\. The Starport tool is the easiest way to build a blockchain.
+This tutorial requires [Starport](https://docs.starport.network/) v0.15.1\. The tutorial is based on this specific version of Starport.
+
+The Starport tool is the easiest way to build a blockchain and accelerates chain development.
 
 To install `starport` into `/usr/local/bin`, run the following command:
 
@@ -37,11 +39,11 @@ When the installation succeeds, you see this message:
 Installed at /usr/local/bin/starport
 ```
 
-You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
+You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://docs.starport.network/intro/install.html).
 
 ## Voting App Goals
 
-Create a blockchain poll app with a voting module. The app requires that the app user can:
+Create a blockchain poll app with a voting module. The app requires that the end user can:
 
 - Sign in
 - Create polls
@@ -50,10 +52,12 @@ Create a blockchain poll app with a voting module. The app requires that the app
 
 Design the app so that you can:
 
-- Collect transaction fees
-- Restrict transactions only to signed in users
+- Collect transaction fees:
 
-The create poll transaction fee is 200 tokens. Voting is free.
+  - The create poll transaction fee is 200 tokens.
+  - Voting is free.
+
+- Restrict transactions only to signed in users.
 
 ## Build your Blockchain App
 
@@ -69,13 +73,13 @@ starport app github.com/username/voter
 
 A new directory named `voter` is created in your home directory.
 
-The `voter` directory contains a working blockchain app and all of the code to build and launch a blockchain-based app, including these files and directories:
+The `voter` directory contains a working blockchain app and all of the code you need to build and launch a blockchain-based app, including these files and directories:
 
 - `app` contains files that connect all of the moving parts of your application
 - `cmd` is responsible for the `voterd` daemon that starts and interacts with the app
 - `proto` contains the protobuf types
 - `vue` contains the web user interface as shown at the top of this tutorial
-- `x` contains the `voter` module
+- `x` contains the Cosmos SDK `voter` module
 
 Cosmos SDK modules are the building blocks of apps. If you are new to Cosmos SDK modules, see [Introduction to SDK Modules](https://docs.cosmos.network/master/building-modules/intro.html).
 
@@ -132,14 +136,14 @@ After the poll type is successfully created, you see:
 
 With this command, you generated the code that handles the creation of `poll` items.
 
-### View the frontend user interface
+### View the front-end user interface
 
-To see the app frontend form for creating polls:
+To see the app front-end form for creating polls:
 
 - Run `starport serve`
-- Visit [<http://localhost:8080]http://localhost:8080>
+- Visit <http://localhost:8080>
 
-It takes a few minutes to rebuild the app, so give it a couple of seconds. If your localhost:8080 is already in use, your app can be viewed on the next available port.
+It takes a few minutes to rebuild the app, so give it a couple of seconds. If your `localhost:8080` is already in use, your app can be viewed on the next available port.
 
 ![Application screenshot](./2.png)
 
@@ -334,17 +338,25 @@ with
 Args:  cobra.MinimumNArgs(2),
 ```
 
+and replace:
+
+```go
+argsOptions := string(args[1])
+```
+
+with
+
 ```go
 argsOptions := args[1:len(args)]
 ```
 
-The variable `msg` is defined to read a string of argOptions, delete the stringification
+The variable `msg` is defined to read a string of argOptions, delete the stringification:
 
 ```go
 msg := types.NewMsgCreatePoll(clientCtx.GetFromAddress().String(), string(argsTitle), argsOptions)
 ```
 
-We end up with the following function
+You end up with the following function:
 
 ```go
 func CmdCreatePoll() *cobra.Command {
@@ -375,31 +387,27 @@ func CmdCreatePoll() *cobra.Command {
 }
 ```
 
-Similar changes will need to be done for the function `CmdUpdatePoll`
-
-And in the `CmdUpdatePoll` we set
-
-```go
-Args:  cobra.ExactArgs(3),
-```
-
-to
+Now make similar changes for the function `CmdUpdatePoll`:
 
 ```go
 Args:  cobra.MinimumNArgs(3),
 ```
 
+and
+
 ```go
 argsOptions := args[2:len(args)]
 ```
+
+and
 
 ```go
 msg := types.NewMsgUpdatePoll(clientCtx.GetFromAddress().String(), id, string(argsTitle), argsOptions)
 ```
 
-This will assume that all arguments after the first one represent a list of options.
+These changes assume that all arguments after the first one represent a list of options.
 
-You end up with the following function
+You end up with the following function:
 
 ```go
 func CmdUpdatePoll() *cobra.Command {
@@ -435,7 +443,7 @@ func CmdUpdatePoll() *cobra.Command {
 }
 ```
 
-In order for the app to recognize the changes that you have made, reset the application first before running it the next time
+For the app to recognize the changes that you have made, reset the application before you run it again. To reset the app:
 
 ```
 starport serve --reset-once
@@ -443,21 +451,21 @@ starport serve --reset-once
 
 ## Add the Votes
 
-Up to now you have created a blockchain where users can create polls. Users will need to vote on the options of the poll. Create the code to cast votes on an existing poll.
+At this point, you have created a blockchain where users can create polls. To enable the end users to cast votes on an existing poll, now it's time to create the code to make that happen.
 
-A vote type transaction has the poll ID and an option - the string representation of the selected answer.
+A vote type transaction has the poll ID and an option. An option is the string representation of the selected answer.
 
 ```bash
 starport type vote pollID option
 ```
 
-Now restart the application with
+Now, restart the application. Remember to use the `--reset-once` flag to recognize the code changes.
 
 ```bash
 starport serve --reset-once
 ```
 
-Remember, every time you reset the application state, you will have new passphrases. The reset restores all the data from your previously created state and you will receive new passphrases with new tokens. Mind to update your wallet accounts in the frontend once you reset the state of the blockchain. {synopsis}
+Remember, every time you reset the application state, all of the data from your previously created state is saved. When the app restarts, you receive new passphrases and new tokens. Make sure to update your wallet accounts in the frontend after you reset the state of the blockchain. {synopsis}
 
 Now that you have made all the necessary changes to the app, take a look at the client-side application.
 
