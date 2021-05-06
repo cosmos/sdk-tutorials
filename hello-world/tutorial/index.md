@@ -344,13 +344,13 @@ accounts:
   - name: alice
     coins: ["1000token", "100000000stake"]
   - name: bob
-    coins: ["500token"]
+    coins: ["500token", "100000000stake"]
 validator:
   name: alice
   staked: "100000000stake"
 faucet:
   name: bob
-  coins: ["5token"]
+  coins: ["5token", "100000stake"]
 genesis:
   chain_id: "earth"
 init:
@@ -364,15 +364,14 @@ accounts:
   - name: alice
     coins: ["1000token", "1000000000stake"]
   - name: bob
-    coins: ["500token"]
+    coins: ["500token", "100000000stake"]
 validator:
   name: alice
   staked: "100000000stake"
 faucet:
   host: ":4501"
   name: bob
-  coins:
-    - "5token"
+  coins: ["5token", "100000stake"]
 host:
   rpc: ":26659"
   p2p: ":26658"
@@ -404,7 +403,17 @@ starport serve -c mars.yml
 First, configure the relayer. Use the Starport `configure` command with the `--advanced` option:
 
 ```
-starport relayer configure --advanced --source-rpc "http://0.0.0.0:26657" --source-faucet "http://0.0.0.0:4500" --source-port "blog" --source-version "blog-1" --target-rpc "http://0.0.0.0:26659" --target-faucet "http://0.0.0.0:4501" --target-port "blog" --target-version "blog-1"
+starport relayer configure -a \
+--source-rpc "http://0.0.0.0:26657" \
+--source-faucet "http://0.0.0.0:4500" \
+--source-port "blog" \
+--source-version "blog-1" \
+--source-gasprice "0.0000025stake" \
+--target-rpc "http://0.0.0.0:26659" \
+--target-faucet "http://0.0.0.0:4501" \
+--target-port "blog" \
+--target-version "blog-1" \
+--target-gasprice "0.0000025stake"
 ```
 
 The output looks like:
@@ -417,12 +426,12 @@ Setting up chains
 🔐  Account on "source" is "cosmos1xcxgzq75yrxzd0tu2kwmwajv7j550dkj7m00za"
 
  |· received coins from a faucet
- |· (balance: 5token)
+ |· (balance: 100000stake,5token)
 
 🔐  Account on "target" is "cosmos1nxg8e4mfp5v7sea6ez23a65rvy0j59kayqr8cx"
 
  |· received coins from a faucet
- |· (balance: 5token)
+ |· (balance: 100000stake,5token)
 
 ⛓  Configured chains: earth-mars
 ```

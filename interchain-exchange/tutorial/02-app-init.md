@@ -114,13 +114,13 @@ accounts:
   - name: alice
     coins: ["1000token", "100000000stake", "1000mcx"]
   - name: bob
-    coins: ["500token", "1000mcx"]
+    coins: ["500token", "1000mcx", "100000000stake"]
 validator:
   name: alice
   staked: "100000000stake"
 faucet:
   name: bob
-  coins: ["5token"]
+  coins: ["5token", "100000stake"]
 genesis:
   chain_id: "mars"
 init:
@@ -135,15 +135,14 @@ accounts:
   - name: alice
     coins: ["1000token", "1000000000stake", "1000vcx"]
   - name: bob
-    coins: ["500token", "1000vcx"]
+    coins: ["500token", "1000vcx", "100000000stake"]
 validator:
   name: alice
   staked: "100000000stake"
 faucet:
   host: ":4501"
   name: bob
-  coins:
-    - "5token"
+  coins: ["5token", "100000stake"]
 host:
   rpc: ":26659"
   p2p: ":26658"
