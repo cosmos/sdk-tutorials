@@ -46,7 +46,7 @@ When the installation succeeds, you see this message:
 Installed at /usr/local/bin/starport
 ```
 
-You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [install Starport](https://github.com/tendermint/starport/blob/develop/docs/intro/install.md).
+You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://github.com/tendermint/starport/blob/develop/docs/intro/install.md).
 
 ## Create a Blockchain App
 
