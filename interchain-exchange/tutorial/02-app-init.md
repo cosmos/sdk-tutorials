@@ -103,13 +103,13 @@ starport type denomTrace port channel origin --indexed --module ibcdex
 ## Create the Configuration
 
 Add two config files `mars.yml` and `venus.yml` to test two blockchain networks with specific token for each.
-Add the config files in the `interchain` folder.
+Add the config files in the `interchange` folder.
 The native denoms for Mars will be `mcx` also known as `marscoin` and for Venus `vcx` known as `venuscoin`.
 
 Create the `mars.yml` file with your content:
 
 ```yaml
-# interchain/mars.yml
+# mars.yml
 accounts:
   - name: alice
     coins: ["1000token", "100000000stake", "1000mcx"]
@@ -130,7 +130,7 @@ init:
 Create the `venus.yml` file with your content:
 
 ```yaml
-# interchain/venus.yml
+# venus.yml
 accounts:
   - name: alice
     coins: ["1000token", "1000000000stake", "1000vcx"]
