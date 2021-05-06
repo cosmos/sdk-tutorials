@@ -45,8 +45,8 @@ To scaffold two types with create, read, update and delete (CRUD) actions use th
 The two commands below will create `sellOrderBook` and `buyOrderBook` types. 
 
 ```bash
-starport type sellOrderBook orderIDTrack:int amountDenom priceDenom --indexed --module ibcdex
-starport type buyOrderBook orderIDTrack:int amountDenom priceDenom --indexed --module ibcdex
+starport type sellOrderBook orderIDTrack:int amountDenom priceDenom --indexed --no-message --module ibcdex
+starport type buyOrderBook orderIDTrack:int amountDenom priceDenom --indexed --no-message --module ibcdex
 ```
 
 The values are: 
@@ -97,7 +97,7 @@ The token denoms should have the same behavior as described in the `ibc-transfer
 For a `voucher` you store: the source port ID, source channel ID and the original denom
 
 ```go
-starport type denomTrace port channel origin --indexed --module ibcdex
+starport type denomTrace port channel origin --indexed --no-message --module ibcdex
 ```
 
 ## Create the Configuration
