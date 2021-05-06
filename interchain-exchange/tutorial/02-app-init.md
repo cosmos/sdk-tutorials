@@ -8,15 +8,15 @@ In this chapter you create the basic blockchain module for the interchain exchan
 
 ## Install Starport
 
-This tutorial uses [Starport](https://github.com/tendermint/starport) v0.15.0. The Starport tool is the easiest way to build a blockchain. 
+This tutorial uses [Starport](https://github.com/tendermint/starport) v0.15.1. The Starport tool is the easiest way to build a blockchain. 
 
 To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
-curl https://get.starport.network/starport@v0.15.0! | bash
+curl https://get.starport.network/starport@v0.15.1! | bash
 ```
 
-You can also use Starport v0.15.0 in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.0). For more installation options, see [Install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
+You can also use Starport v0.15.1 in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1). For more installation options, see [Install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
 
 ## Create the Blockchain
 
@@ -33,7 +33,7 @@ Create a new IBC module next.
 ## Create the Module
 
 Scaffold a module inside your blockchain named `ibcdex` with IBC capabilities.
-The ibcdex module contains the logic for creating and maintaining orderbooks and routing them through IBC to the second blockchain.
+The ibcdex module contains the logic for creating and maintaining order books and routing them through IBC to the second blockchain.
 
 ```bash
 starport module create ibcdex --ibc --ordering unordered
@@ -61,7 +61,7 @@ The `--module ibcdex` flag specifies that the type should be scaffolded in the `
 ## Create the IBC Packets
 
 Create three packets for IBC:
-- an orderbook pair `createPair` 
+- an order book pair `createPair` 
 - a sell order `sellOrder` 
 - a buy order `buyOrder`
 
@@ -158,4 +158,4 @@ init:
   home: "$HOME/.venus"
 ```
 
-Implement the code for the orderbook in the next chapter.
+Implement the code for the order book in the next chapter.

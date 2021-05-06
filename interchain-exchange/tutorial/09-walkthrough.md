@@ -4,7 +4,7 @@ order: 10
 
 # Walkthrough
 
-The software is ready. Now you can go through: create an orderbook, buy and sell a Token.
+The software is ready. Now you can go through: create an order book, buy and sell a Token.
 
 If you have started some tests with the relayer before, make sure to clear your old data on a new start with
 
@@ -61,12 +61,12 @@ interchanged q ibcdex list-sellOrderBook
 interchanged q ibcdex list-buyOrderBook --node tcp://localhost:26659
 ```
 
-## Create an Orderbook
+## Create an Order Book
 
-Create an orderbook for a new pair of token to the exchange. 
+Create an order book for a new pair of token to the exchange. 
 Source blockchain is `Mars`, target blockchain is `Venus`.
 
-The orderbook is to sell `mcx` and buy `vcx` token.
+The order book is to sell `mcx` and buy `vcx` token.
 
 ```bash
 # create the pair
@@ -132,7 +132,7 @@ Send a sell order for selling 10 `mcx` token for 15 `vcx` token.
 interchanged tx ibcdex send-sellOrder ibcdex channel-0 mcx 10 vcx 15 --from alice --chain-id mars --home ~/.mars
 ```
 
-Check the sell orderbook:
+Check the sell order book:
 
 ```bash
 # Sell order book
@@ -163,7 +163,7 @@ Send a sell order for buying 10 `mcx` token for 5 `vcx` token.
 interchanged tx ibcdex send-buyOrder ibcdex channel-0 mcx 10 vcx 5 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
-Check the buy orderbook:
+Check the buy order book:
 
 ```bash
 # Buy order book
@@ -538,15 +538,15 @@ DenomTrace:
   port: ibcde
 ```
 
-As initially explained, the process cannot be reversed on the same orderbook.
-Create a new orderbook pair to reverse the exchange path.
+As initially explained, the process cannot be reversed on the same order book.
+Create a new order book pair to reverse the exchange path.
 
 ```bash
 # Create a pair in the opposite way
 interchanged tx ibcdex send-createPair ibcdex channel-0 ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833 ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33 --from alice --chain-id mars --home ~/.mars
 ```
 
-The orderbook is now created on both blockchains, check for the SellOrderbook on `Mars` and Buyorderbook on `Venus` respectively.
+The order book is now created on both blockchains, check for the SellOrderbook on `Mars` and Buyorderbook on `Venus` respectively.
 
 ```bash
 # On Mars:
@@ -621,10 +621,10 @@ balances:
 ```
 
 Congratulations, you have build and used the `ibcdex` module successfully.
-- You have created orderbooks across blockchain token pairs. 
+- You have created order books across blockchain token pairs. 
 - You have successfully created buy orders and sell orders.
 - You have matched orders in full and partially.
-- You have created an orderbook for an exchange from Mars to Venus, and another from Venus to Mars with the voucher token.
+- You have created an order book for an exchange from Mars to Venus, and another from Venus to Mars with the voucher token.
 - You have successfully made an exchange from one blockchain to the other and returned back the original token.
 
 In the next chapter you will learn how to add tests to your blockchain module to make sure the logic you are expecting is actually executed. 

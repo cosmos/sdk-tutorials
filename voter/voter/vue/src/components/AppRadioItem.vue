@@ -37,11 +37,10 @@
   transform: scale(0.998);
 }
 </style>
-
 <script>
 export default {
   props: {
     value: "",
   },
-};
+}
 </script>

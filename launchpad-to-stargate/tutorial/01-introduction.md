@@ -2,9 +2,9 @@
 order: 1
 ---
 
-# Migrating from Launchpad to Stargate using Starport
+# Migrating from v0.39 to v0.40 and later using Starport
 
-This tutorial will present a guide on how to migrate your Cosmos SDK application from Launchpad to Stargate. The Stargate release comes with many features and enhancements, such as IBC, efficiency gains, protobuf support, and more.
+This tutorial is a guide to migrate your Cosmos SDK application from v0.39 and earlier (Launchpad) to v0.40 and later (Stargate). The Cosmos SDK v0.40 release comes with many features and enhancements, such as IBC, efficiency gains, protobuf support, and more.
 
 ## Requirements
 
@@ -16,19 +16,22 @@ Install it by entering:
 curl https://get.starport.network/starport@v0.13.1! | bash
 ```
 
-We will be migrating the Proof of File existence tutorial from Launchpad to Stargate. At the time of writing, Launchpad is at `v0.39.1` and Stargate is `v0.40.0` of the Cosmos SDK.
+This tutorial migrates the Proof of File existence (PoFE) tutorial from v0.39 and earlier to v0.40 and later (Stargate). The tutorial examples show a migration from Cosmos SDK version `v0.39.1` to `v0.40.0`.
 
-In order to obtain the code for the Proof of File Existence application, you can follow the tutorial [here](https://tutorials.cosmos.network/proof-of-file-existence/tutorial/01-intro.html), or clone [this](https://github.com/cosmos/sdk-tutorials/tree/master/proof-of-file-existence/pofe) repository.
+To get the code for the Proof of File Existence (PoFE) application, clone the [pofe repo](https://github.com/cosmos/sdk-tutorials/tree/master/proof-of-file-existence/pofe).
 
 ## Resources
 
-Throughout this guide, we will be regularly referencing this [document](https://docs.cosmos.network/master/migrations/app_and_modules.html), as it contains crucial information about how to migrate a module and application from Launchpad to Stargate
+This tutorial regularly references the [App and Modules Migration](https://docs.cosmos.network/master/migrations/app_and_modules.html) documentation that contains crucial information about how to migrate a module and application from v0.39 to v0.40 and later (Stargate). 
 
-As the design of Cosmos SDK application is meant to be modular and composable, it is possible to migrate an application from Launchpad to Stargate by copying the modules over to a boiler Stargate application and updating a few of the commands mentioned in the migration docs. We will be using Starport to assist with scaffolding new files which will be used as a baseline for migrating your application logic.
+The modular and composable design of Cosmos SDK applications simplifies the migration process by copying modules from v0.39 to a boilerplate Stargate v0.40 and later application and then updating the commands. This tutorial uses Starport to scaffold new files that are used as a baseline for migrating your application logic.
 
 ## Boilerplate application
 
-Place the Launchpad PoFe application in a `launchpad` directory and next to it a `stargate` directory. We will aim at moving the logic from one application to the other and have your blockchain Stargate ready by the end of the tutorial.
+In this tutorial, you move the logic from the `launchpad` application to the `stargate` application to make your blockchain Stargate-ready.
+
+1. Put the v0.39 PoFE application in a `launchpad` directory.
+1. Create an adjacent `stargate` directory. 
 
 The directory structure should look like this:
 
@@ -164,6 +167,6 @@ The first key change in the application is that `pofecli` no longer exists, and 
 
 The second notable change in the app structure is the integration of protobufs. Protobufs are a compiled form of messaging and therefore more performant than their JSONRPC counterparts.
 
-This includes folders such as `pofe/internal`, `pofe/scripts`, `pofe/third_party`, and `pofe/proto`, as well as files following the regex `*.pb.go` and `*.pb.gw.go`.
+The directory includes `pofe/internal`, `pofe/scripts`, `pofe/third_party`, and `pofe/proto` folders and the regex `*.pb.go` and `*.pb.gw.go` files.
 
-Now we have a better understanding of the differences in our application. In the next section, we will migrate our application from Launchpad to Stargate.
+Now you have a better understanding of the differences in your application and are prepared to migrate your application from v0.39 to v0.40 and later (Stargate).

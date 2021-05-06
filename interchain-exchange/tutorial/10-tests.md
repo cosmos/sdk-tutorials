@@ -12,7 +12,7 @@ After you add the test files below, change into the `interchange` directory with
 go test -timeout 30s ./x/ibcdex/types
 ```
 
-## Create Tests for the Orderbook
+## Create Tests for the Order Book
 
 ```go
 // types/orderbook_test.go

@@ -28,22 +28,21 @@ module.exports = {
       auto: false,
       nav: [
         {
-          title: "Stargate Tutorials",
+          title: "Tutorials",
           children: [
-
+            {
+              title: "IBC Hello World",
+              path: "/hello-world/tutorial/",
+              directory: true,
+            },
             {
               title: "Blog",
               path: "/blog/tutorial/",
               directory: true,
             }, 
             {
-              title: "PoFE - Migration",
-              path: "/launchpad-to-stargate/tutorial/",
-              directory: true,
-            },
-            {
-              title: "IBC Hello World",
-              path: "/hello-world/tutorial/",
+              title: "Voter",
+              path: "/voter/",
               directory: true,
             },
             {
@@ -54,40 +53,15 @@ module.exports = {
           ],
         },
         {
-          title: "Launchpad Tutorials",
+          title: "Migrate to Stargate",
           children: [
             {
-              title: "Voter",
-              path: "/voter/",
-              directory: true,
-            },
-            {
-              title: "Blog",
-              path: "/blog-legacy/tutorial/",
-              directory: true,
-            },               
-            {
-              title: "PoFE",
-              path: "/proof-of-file-existence/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Scavenge",
-              path: "/scavenge/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Nameservice",
-              path: "/nameservice/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Cosmos Burner Chain",
-              path: "/burner-chain/",
+              title: "PoFE Migration",
+              path: "/launchpad-to-stargate/tutorial/",
               directory: true,
             },
           ]
-        }
+        },
       ],
     },
     gutter: {
@@ -217,6 +191,7 @@ module.exports = {
     'proof-of-file-existence/tutorial/*.md',
     'launchpad-to-stargate/tutorial/*.md',
     'voter/*.md',
+    'voter-legacy/*.md',
     'blog-legacy/tutorial/*.md',
     'blog/tutorial/*.md',
     'interchain-exchange/tutorial/*.md',

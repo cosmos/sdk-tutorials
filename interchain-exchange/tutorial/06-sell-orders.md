@@ -5,7 +5,7 @@ order: 7
 # Create the Sell Order IBC packet
 
 In this chapter you want to modify the IBC logic to create sell orders on the IBC exchange.
-A sell order must be submitted to an existing orderbook.
+A sell order must be submitted to an existing order book.
 When you are dealing with a native token, these tokens will get locked until the IBC packets get reversed.
 When you are dealing with an IBC token, these will get burned and you receive back the native token.
 
@@ -36,7 +36,7 @@ The IBC packet has four different stages you need to consider:
 
 Before a sell order will be submitted, make sure it contains the following logic:
 
-- Check if the pair exists on the orderbook
+- Check if the pair exists on the order book
 - If the token is an IBC token, burn the tokens
 - If the token is a native token, lock the tokens
 - Save the voucher received on the target chain to later resolve a denom
@@ -48,7 +48,7 @@ import "errors"
 func (k msgServer) SendSourceSellOrder(goCtx context.Context, msg *types.MsgSendSourceSellOrder) (*types.MsgSendSourceSellOrderResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// Cannot send a order if the orderbook pair doesn't exist
+	// Cannot send a order if the order book pair doesn't exist
 	pairIndex := types.OrderBookIndex(msg.Port, msg.ChannelID, msg.AmountDenom, msg.PriceDenom)
 	_, found := k.GetSellOrderBook(ctx, pairIndex)
 	if !found {
@@ -103,7 +103,7 @@ func (k msgServer) SendSourceSellOrder(goCtx context.Context, msg *types.MsgSend
 
 ## Create the OnRecv Function
 
-- Update the buy orderbook
+- Update the buy order book
 - Distribute sold token to the buyer
 - Send to chain A the sell order after the fill attempt
 
@@ -162,7 +162,7 @@ func (k Keeper) OnRecvSellOrderPacket(ctx sdk.Context, packet channeltypes.Packe
 		}
 	}
 
-	// Save the new orderbook
+	// Save the new order book
 	k.SetBuyOrderBook(ctx, book)
 
 	return packetAck, nil
@@ -171,7 +171,7 @@ func (k Keeper) OnRecvSellOrderPacket(ctx sdk.Context, packet channeltypes.Packe
 
 ## Create the OnAcknowledgement Function
 
-- Chain `Mars` will store the remaining sell order in the sell orderbook and will distribute sold `MCX` to the buyers and will distribute to the seller the price of the amount sold
+- Chain `Mars` will store the remaining sell order in the sell order book and will distribute sold `MCX` to the buyers and will distribute to the seller the price of the amount sold
 - On error we mint back the burned tokens
 
 ```go
