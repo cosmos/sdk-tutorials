@@ -106,19 +106,19 @@ These `starport type` commands create CRUD code for the following transactions:
 - Creating blog posts
 
   ```go
-  starport type post title content --module blog
+  starport type post title content --module blog --no-message
   ```
 
 - Processing acknowledgments for sent posts
 
   ```go
-  starport type sentPost postID title chain --module blog
+  starport type sentPost postID title chain --module blog --no-message
   ```
 
 - Managing post timeouts
 
   ```go
-  starport type timedoutPost title chain --module blog
+  starport type timedoutPost title chain --module blog --no-message
   ```
 
 The scaffolded code includes proto files for defining data structures, messages, messages handlers, keepers for modifying the state, and CLI commands.
@@ -134,6 +134,8 @@ The first argument of the `starport type [typeName]` command specifies the name 
 The next arguments define the fields that are associated with the type. For the blog app, you created `title`, `content`, `postID`, and `chain` fields.
 
 The `--module` flag defines which module the new transaction type is added to. This optional flag lets you manage multiple modules within your Starport app. The `--module` specifies which module the type is scaffolded in. When the flag is not present, the type is scaffolded in the module that matches the name of the repo).
+
+By default, when scaffolding a new type, messages that can be sent by users for CRUD operations are scaffolded as well. The flag `--no-message` can be provided to disable this feature. We provide this option for our app since we want the posts to be created upon reception of IBC packets and not directly from the user's messages.
 
 ### 4\. Scaffold a sendable and interpretable IBC packet
 
