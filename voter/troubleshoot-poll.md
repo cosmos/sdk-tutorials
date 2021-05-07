@@ -10,7 +10,7 @@ The polling app tutorial involves many steps. Use these troubleshooting tips to 
 
 **Problem** The voter app in Vue is locked. ![voter locked screenshot](./voter-locked.png)
 
-**Cause** The front end app automatically locks when the app is reset.
+**Cause** The front end app automatically locks when the app is reset. The app is reset when you make changes to the code, for example, adding a type.
 
 **Solution**
 
