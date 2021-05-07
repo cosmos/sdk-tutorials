@@ -39,17 +39,6 @@ starport relayer configure -a \
 --target-port "ibcdex" \
 --target-version "ibcdex-1"
 ```
-
-when prompted enter `0.0000025token` as source and target gas price:
-
-```bash
-...
-? Source Gas Price 0.0000025token
-? Target Gas Price 0.0000025token
-...
-```
-
-
 ## Connect the relayer
 
 After the relayer is configured with the two blockchains, start running it and connect the two blockchains.
