@@ -451,9 +451,11 @@ starport serve --reset-once
 
 ## Add the Votes
 
-At this point, you have created a blockchain where users can create polls. To enable the end users to cast votes on an existing poll, now it's time to create the code to make that happen.
+At this point, you have created a blockchain that lets users can create polls. Now it's time to enable the end users to cast votes on an existing poll.
 
 A vote type transaction has the poll ID and an option. An option is the string representation of the selected answer.
+
+To create the type:
 
 ```bash
 starport type vote pollID option
@@ -465,30 +467,41 @@ Now, restart the application. Remember to use the `--reset-once` flag to recogni
 starport serve --reset-once
 ```
 
-Remember, every time you reset the application state, all of the data from your previously created state is saved. When the app restarts, you receive new passphrases and new tokens. Make sure to update your wallet accounts in the frontend after you reset the state of the blockchain. {synopsis}
+Each time you reset the application state, all of the data from your previously created state is saved.
 
-Now that you have made all the necessary changes to the app, take a look at the client-side application.
+However, each time the app restarts, you receive new passphrases and new tokens. Make sure to update your wallet accounts in the frontend after you reset the state of the blockchain. {synopsis}
 
-### Front-end application
+Now that you have made all the required changes to the app, take a look at the client-side application.
 
-Starport has generated a basic front-end for the app. For convenience [Vue.js](https://vuejs.org) framework is used with [Vuex](https://vuex.vuejs.org/) for state management, but since all features of the app are exposed through an HTTP API, clients can be built using any language or framework.
+### Front-end Application
 
-You will be mostly interested in `vue/src/views` directory and the `vue/src/components` directory. These directories contain the code for the page templates of our app. `vue/src/store/` handles sending transactions and receiving data from our blockchain and [`@tendermint/vue`](https://github.com/tendermint/vue/) directory, which contains components, like buttons and forms. It contains the generated protobuffer file definitions that were defined in the `vue/src/store/generated/username/voter/username.voter.voter` directory.
+Starport has generated a basic front end for the app. For convenience, [Vue.js](https://vuejs.org) framework is used with [Vuex](https://vuex.vuejs.org/) for state management. Because all features of the app are exposed through an HTTP API, clients can be built using any language or framework.
 
-Inside `vue/src/store/generated/username/voter/username.voter.voter/index.js` you can see the generated transactions `MsgCreatePoll`, `MsgUpdatePoll`, `MsgDeletePoll` which use [CosmJS](https://github.com/cosmwasm/cosmjs), a library for handling wallets, creating, signing and broadcasting transactions and define a Vuex store.
+For the front-end app, you can focus on the content of these directories:
 
-## Add your Module Component to the Frontend
+- `vue/src/views`
+- `vue/src/components`
 
-Navigate to the views directory in `vue/src/views`
+  These directories contain the code for the page templates of your app.
 
-Since we don't need the default form component replace inside of `vue/src/views/Types.vue`
+- `vue/src/store/`
+
+  Handles sending transactions and receiving data from your blockchain and the [`@tendermint/vue`](https://github.com/tendermint/vue/)directory that contains UI components, like buttons and forms. This directory contains the generated protobuffer file definitions that were defined in the `vue/src/store/generated/username/voter/username.voter.voter` directory.
+
+- `vue/src/store/generated/username/voter/username.voter.voter/index.js` has the generated transactions `MsgCreatePoll`, `MsgUpdatePoll`, `MsgDeletePoll` that use the [CosmJS](https://github.com/cosmwasm/cosmjs) library for handling wallets, creating, signing and broadcasting transactions and defines a Vuex store.
+
+## Add the Voter Module Component to the Frontend
+
+1. Navigate to the `views` directory in `vue/src/views`.
+
+2. Since you don't need the default form component, replace the content of `vue/src/views/Types.vue`:
 
 ```javascript
 <SpType modulePath="username.voter.voter" moduleType="Vote"  />
 <SpType modulePath="username.voter.voter" moduleType="Poll"  />
 ```
 
-with two new components and a title
+with two new components and a title:
 
 ```javascript
             <SpH3>
@@ -498,7 +511,7 @@ with two new components and a title
             <poll-list />
 ```
 
-In the `<script></script>` tags below, import the component like this
+1. In the `<script>` tag, import the component like this:
 
 ```javascript
 import PollForm from "../components/PollForm";
