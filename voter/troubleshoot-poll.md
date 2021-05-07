@@ -23,6 +23,14 @@ There are two parts to unlocking the voter app.
 
 **Symptom** You might have introduced syntax errors or types when you made the required updates to the code files.
 
-Verify the syntax of the changes you made in the *.go files.
+Verify the syntax of the changes you made in the *.go files. You might see an error like this:
 
+```
 Waiting for a fix before retrying... 🛠️ Building proto... cannot build app:
+```
+
+**Solution**
+
+1. Resolve any code errors.
+2. Save the files.
+3. Restart the app with the `starport serve`. command.
