@@ -473,9 +473,9 @@ However, each time the app restarts, you receive new passphrases and new tokens.
 
 Now that you have made all the required changes to the app, take a look at the client-side application.
 
-### Front-end Application
+## Front-end Application
 
-Starport has generated a basic front end for the app. For convenience, [Vue.js](https://vuejs.org) framework is used with [Vuex](https://vuex.vuejs.org/) for state management. Because all features of the app are exposed through an HTTP API, clients can be built using any language or framework.
+Starport automatically generated a basic front end for the app. For convenience, [Vue.js](https://vuejs.org) framework is used with [Vuex](https://vuex.vuejs.org/) for state management. Because all features of the app are exposed through an HTTP API, you can build clients using any language or framework.
 
 For the front-end app, you can focus on the content of these directories:
 
@@ -511,9 +511,10 @@ with two new components and a title:
             <poll-list />
 ```
 
-1. In the `<script>` tag, import the component like this:
+1. To import the component, add the import statements in the `<script>` tag like this:
 
 ```javascript
+<script>
 import PollForm from "../components/PollForm";
 import PollList from "../components/PollList";
 
@@ -521,211 +522,219 @@ export default {
     name: 'Types',
     components: { PollForm, PollList },
 }
+</script>
 ```
 
-Start creating the components.
+Now you can start creating the PollForm and PollList components.
 
-## Create the PollForm Component
+### Create the PollForm Component
 
-For the PollForm, create a new file `PollForm.vue` in the `vue/src/components` directory.
+1. For the PollForm, create a new file `PollForm.vue` in the `vue/src/components` directory.
+2. Add this code to give the PollForm component a title and two buttons:
 
-The component has a title and two buttons.
-
-```vue
-<template>
+  ```vue
+  <template>
   <div>
-    <div class="sp-voter__main sp-box sp-shadow sp-form-group">
-        <form class="sp-voter__main__form">
-          <div class="sp-voter__main__rcpt__header sp-box-header">
-            Create a Poll
-          </div>
-
-          <input class="sp-input" placeholder="Title" v-model="title" />
-          <div v-for="(option, index) in options" v-bind:key="'option' + index">
-            <input class="sp-input" placeholder="Option" v-model="option.title" />
-          </div>
-          <sp-button @click="add">+ Add option</sp-button>
-          <sp-button @click="submit">Create poll</sp-button>
-        </form>
-    </div>
+  <div class="sp-voter__main sp-box sp-shadow sp-form-group">
+  <form class="sp-voter__main__form">
+  <div class="sp-voter__main__rcpt__header sp-box-header">
+  Create a Poll
   </div>
-</template>
-```
 
-In between `<script></script>` tags below the javacsript code. The Form manages the input of the user and broadcasts the transaction to the blockchain if the form gets submitted.
+  <input class="sp-input" placeholder="Title" v-model="title" />
+  <div v-for="(option, index) in options" v-bind:key="'option' + index">
+  <input class="sp-input" placeholder="Option" v-model="option.title" />
+  </div>
+  <sp-button @click="add">+ Add option</sp-button>
+  <sp-button @click="submit">Create poll</sp-button>
+  </form>
+  </div>
+  </div>
+  </template>
+  ```
 
-```javascript
-export default {
+3. After the JavaScript code, add code in the `<script>` tag to enable the PollForm to manage user input of the user and broadcast transactions to the blockchain when the form gets submitted:
+
+  ```javascript
+  <script>
+  export default {
   name: "PollForm",
   data() {
-    return {
-      title: "",
-      options: [{
-        title: "",
-      }],
-    };
+  return {
+  title: "",
+  options: [{
+  title: "",
+  }],
+  };
   },
   computed: {
 
-        currentAccount() {
-            if (this._depsLoaded) {
-                if (this.loggedIn) {
-                    return this.$store.getters['common/wallet/address']
-                } else {
-                    return null
-                }
-            } else {
-                return null
-            }
-        },
-        loggedIn() {
-            if (this._depsLoaded) {
-                return this.$store.getters['common/wallet/loggedIn']
-            } else {
-                return false
-            }
-        }
+  currentAccount() {
+  if (this._depsLoaded) {
+  if (this.loggedIn) {
+  return this.$store.getters['common/wallet/address']
+  } else {
+  return null
+  }
+  } else {
+  return null
+  }
+  },
+  loggedIn() {
+  if (this._depsLoaded) {
+  return this.$store.getters['common/wallet/loggedIn']
+  } else {
+  return false
+  }
+  }
   },
   methods: {
-    add() {
-      this.options = [...this.options, { title: "" }];
-    },
-    async submit() {
-      const value = {
-        creator: this.currentAccount,
-        title: this.title,
-        options: this.options.map((o) => o.title),
-      };
-      await this.$store.dispatch("username.voter.voter/sendMsgCreatePoll", {
-        value,
-        fee: [],
-      });
-    },
+  add() {
+  this.options = [...this.options, { title: "" }];
   },
-};
-```
+  async submit() {
+  const value = {
+  creator: this.currentAccount,
+  title: this.title,
+  options: this.options.map((o) => o.title),
+  };
+  await this.$store.dispatch("username.voter.voter/sendMsgCreatePoll", {
+  value,
+  fee: [],
+  });
+  },
+  },
+  };
+  </script>
+  ```
 
-Refresh the page, sign in with a password and create a new poll. It takes a couple of seconds to process a transaction. Now, if you visit <http://localhost:1317/voter/poll> you should see a list of polls (this endpoint is defined in `x/voter/client/rest/queryPoll.go`):
+4. Refresh the page.
 
-```json
-{
+5. Sign in as an end user with a password.
+
+6. Create a new poll. It takes a few seconds to process the transaction.
+
+7. Now, visit <http://localhost:1317/voter/poll> . This endpoint is defined in `x/voter/client/rest/queryPoll.go`:
+
+  ```json
+  {
   "height": "0",
   "result": [
-    {
-      "creator": "cosmos19qqa7j73735w4pcx9mkkaxr00af7p432n62tv6",
-      "id": "826477ab-0005-4e68-8031-19758d331681",
-      "title": "A poll title",
-      "options": ["First option", "The second option"]
-    }
+  {
+  "creator": "cosmos19qqa7j73735w4pcx9mkkaxr00af7p432n62tv6",
+  "id": "826477ab-0005-4e68-8031-19758d331681",
+  "title": "A poll title",
+  "options": ["First option", "The second option"]
+  }
   ]
-}
-```
+  }
+  ```
 
 ### Create the Poll List Component
 
-Create a new component `PollList.vue` in `vue/src/components/PollList.vue`.
+1. Create a new component `PollList.vue` in `vue/src/components/PollList.vue`.
 
-```javascript
-<template>
+  ```javascript
+  <template>
   <div>
-    <SpH3> List of Polls </SpH3>
-    <div v-for="poll in polls" v-bind:key="'poll' + poll.id">
-      <SpH3> {{poll.id}}. {{ poll.title }} </SpH3>
-      <app-radio-item
-        @click="submit(poll.id, option)"
-        v-for="option in poll.options"
-        v-bind:key="option"
-        :value="option"
-      />
-      <app-text type="subtitle">Results: {{ results(poll.id) }}</app-text>
-    </div>
+  <SpH3> List of Polls </SpH3>
+  <div v-for="poll in polls" v-bind:key="'poll' + poll.id">
+  <SpH3> {{poll.id}}. {{ poll.title }} </SpH3>
+  <app-radio-item
+  @click="submit(poll.id, option)"
+  v-for="option in poll.options"
+  v-bind:key="option"
+  :value="option"
+  />
+  <app-text type="subtitle">Results: {{ results(poll.id) }}</app-text>
   </div>
-</template>
-<style>
-.option-radio > .button {
+  </div>
+  </template>
+  <style>
+  .option-radio > .button {
   height: 40px;
   width: 50%;
-}
-</style>
-```
+  }
+  </style>
+  ```
 
-in between `<script></script>` tags below this:
+2. Add the `<script>` tag and import the UI components:
 
-```javascript
-import AppRadioItem from "./AppRadioItem";
-import AppText from "./AppText";
-import { countBy } from "lodash";
+  ```javascript
+  import AppRadioItem from "./AppRadioItem";
+  import AppText from "./AppText";
+  import { countBy } from "lodash";
 
-export default {
+  export default {
   components: { AppText, AppRadioItem },
   data() {
-    return {
-      selected: "",
-    };
+  return {
+  selected: "",
+  };
   },
   computed: {
 
-        currentAccount() {
-            if (this._depsLoaded) {
-                if (this.loggedIn) {
-                    return this.$store.getters['common/wallet/address']
-                } else {
-                    return null
-                }
-            } else {
-                return null
-            }
-        },
-        loggedIn() {
-            if (this._depsLoaded) {
-                return this.$store.getters['common/wallet/loggedIn']
-            } else {
-                return false
-            }
-        },
-    polls() {
-      return (
-        this.$store.getters["username.voter.voter/getPollAll"]({
-          params: {}
-        })?.Poll ?? []
-      );
-    },
-    votes() {
-      return (
-        this.$store.getters["username.voter.voter/getVoteAll"]({
-          params: {}
-        })?.Vote ?? []
-      );
-    },
+  currentAccount() {
+  if (this._depsLoaded) {
+  if (this.loggedIn) {
+   return this.$store.getters['common/wallet/address']
+  } else {
+   return null
+  }
+  } else {
+  return null
+  }
+  },
+  loggedIn() {
+  if (this._depsLoaded) {
+  return this.$store.getters['common/wallet/loggedIn']
+  } else {
+  return false
+  }
+  },
+  polls() {
+  return (
+  this.$store.getters["username.voter.voter/getPollAll"]({
+  params: {}
+  })?.Poll ?? []
+  );
+  },
+  votes() {
+  return (
+  this.$store.getters["username.voter.voter/getVoteAll"]({
+  params: {}
+  })?.Vote ?? []
+  );
+  },
   },
   methods: {
-    results(id) {
-      const results = this.votes.filter((v) => v.pollID === id);
-      return countBy(results, "option");
-    },
-    async submit(pollID, option) {
-
-      const value = { creator: this.currentAccount, pollID, option };
-      await this.$store.dispatch("username.voter.voter/sendMsgCreateVote", {
-        value,
-        fee: [],
-      });
-      await this.$store.dispatch("username.voter.voter/QueryPollAll", {
-        options: { subscribe: true, all: true },
-        params: {},
-      });
-    },
+  results(id) {
+  const results = this.votes.filter((v) => v.pollID === id);
+  return countBy(results, "option");
   },
-};
-```
+  async submit(pollID, option) {
 
-The `PollList` component lists every poll, including the options for that poll as buttons. Selecting an option triggers a `submit` method that broadcasts a transaction with a "create vote" message and fetches data back from our application.
+  const value = { creator: this.currentAccount, pollID, option };
+  await this.$store.dispatch("username.voter.voter/sendMsgCreateVote", {
+  value,
+  fee: [],
+  });
+  await this.$store.dispatch("username.voter.voter/QueryPollAll", {
+  options: { subscribe: true, all: true },
+  params: {},
+  });
+  },
+  },
+  };
+  ```
 
-Two components are still missing from our App, to make it a bit better looking. Let's add `AppRadioItem.vue` and `AppText.vue`.
+The `PollList` component you just created lists every poll, including the options for that poll as buttons. Selecting an option triggers a `submit` method that broadcasts a transaction with a "create vote" message and fetches data back from your application.
+
+Two components are still missing from your app to make look more like a voting poll. You can add the `AppRadioItem.vue` and `AppText.vue` UI options.
 
 ### Add the Options Component
 
-`vue/src/components/AppRadioItem.vue`
+In `vue/src/components/AppRadioItem.vue`, add:
 
 ```javascript
 <template>
@@ -769,19 +778,21 @@ Two components are still missing from our App, to make it a bit better looking. 
 </style>
 ```
 
-In the `<script></script>` tag below this:
+In the `<script>` tag, add:
 
 ```javascript
+<script>
 export default {
   props: {
     value: "",
   },
 };
+</script>
 ```
 
 ### Add the Poll List Text Component
 
-`vue/src/components/AppText.vue`
+Now you can add the text for the poll list in `vue/src/components/AppText.vue`:
 
 ```javascript
 <template>
@@ -813,7 +824,7 @@ export default {
 </style>
 ```
 
-In between `<script></script>` tags below this
+In the `<script>` tag, add:
 
 ```javascript
 export default {
@@ -825,13 +836,14 @@ export default {
 };
 ```
 
-Now in the `App.vue` you need to update the JavaScript to fetch the votes.
+### Update the Front-end App
 
-### Update the Frontend App
+Now, update the JavaScript in `vue/src/App.vue` to fetch the votes.
 
-The App file handles the transactions of the components. Modify the script in `vue/src/App.vue` to look the following
+The `App.vue` file handles the transactions of the components. Modify the `<script>` tag to look like:
 
 ```javascript
+<script>
 import './scss/app.scss'
 import '@starport/vue/lib/starport-vue.css'
 import Sidebar from './components/Sidebar'
@@ -861,19 +873,18 @@ export default {
         return false
     }
 }
+</script>
 ```
 
-By now should be able to see the same UI as in the first screenshot. Try creating polls and casting votes. You may notice that it's possible to cast multiple votes for one poll. This is not what we want, so let's fix this behaviour.
+By now you should be able to see the same UI that you saw in the first screenshot. Try creating polls and casting votes. You might notice that it's possible to cast multiple votes for one poll. This is not what you want, so you can fix that behaviour.
 
 ## Access the API
 
-To fix this issue you first have to understand how data is stored in our application.
+To fix this issue, you first have to understand how data is stored in your application.
 
-Think of the data storage as a lexicographically ordered key value store. You can loop through the entries, filter by key prefix, add, update and delete entries. It is easier to visualize the store as JSON.
+Think of the data storage as a lexicographically ordered key-value store. You can loop through the entries, filter by key prefix, add, update, and delete entries. It is easier to visualize the store as JSON.
 
-When you create a poll and cast on vote, this is the resulting JSON.
-
-See the API and JSON output of your created Poll endpoint at <http://localhost:1317/username/voter/voter/poll>
+When you create a poll and cast a vote, this is the resulting JSON:
 
 ```json
 {
@@ -892,7 +903,9 @@ See the API and JSON output of your created Poll endpoint at <http://localhost:1
 }
 ```
 
-For the votes you can go to the API page on <http://localhost:1317/username/voter/voter/vote>
+See the API and JSON output of your created Poll endpoint at <http://localhost:1317/username/voter/voter/poll>
+
+To see the votes, go to the API page on <http://localhost:1317/username/voter/voter/vote>
 
 ```json
 
@@ -912,13 +925,13 @@ For the votes you can go to the API page on <http://localhost:1317/username/vote
 }
 ```
 
-The endpoint paths are defined by the username you use when bootstrapping the application with Starport, together with your module name.
+The endpoint paths are defined by the username you used when bootstrapping the application with Starport, together with the module name.
 
-Looking into this data, you can see the combination of `creator` and `pollID` is what we are looking for. Each account should only be allowed to have 1 vote per pollID.
+Looking into this data, you can see that the combination of `creator` and `pollID` is what you are looking for. Each account should be allowed to have only 1 vote per pollID.
 
 ## Limit to One Vote per User
 
-The logic for access to a certain transaction should be in the `keeper` directory. For the votes transaction logic, open the `msg_server_vote.go` file at `x/voter/keeper/msg_server_vote.go` and modify the `CreateVote` function.
+The logic for access to a certain transaction is in the `keeper` directory. For the votes transaction logic, open the `msg_server_vote.go` file at `x/voter/keeper/msg_server_vote.go`, and modify the `CreateVote` function.
 
 ```go
 func (k msgServer) CreateVote(goCtx context.Context, msg *types.MsgCreateVote) (*types.MsgCreateVoteResponse, error) {
@@ -947,17 +960,17 @@ func (k msgServer) CreateVote(goCtx context.Context, msg *types.MsgCreateVote) (
 }
 ```
 
-Now when you restart the app, in the frontend you should be able to only cast 1 vote per poll.
+Now when you restart the app, in the frontend you can cast only 1 vote per poll.
 
-## Introducing a fee for creating polls
+## Introducing a Fee for Creating Polls
 
-Add the logic for the transaction, that creating a poll costs 200 tokens.
+Add the logic for the transaction so that creating a poll costs 200 tokens.
 
-We already require users to have accounts registered, and each user has tokens on balance. The only thing you need to do is to send coins from user's account to a module account before we create a poll.
+You already require users to have accounts registered. Each user has tokens on balance. The only thing you need to do is to send coins from the user's account to a module account before you create a poll.
 
-## Add the Bank Keeper to the Module
+## Add the Bank Keeper to the Voter Module
 
-First, load the `expected_keepers` in the `x/voter/types/expected_keepers.go` file. This will define all the bank functions available in your module.
+First, load the `expected_keepers` in the `x/voter/types/expected_keepers.go` file to define all of the bank functions you want to make available in your module.
 
 ```go
 package types
@@ -974,7 +987,7 @@ type BankKeeper interface {
 }
 ```
 
-Second, add the keeper to the `x/voter/keeper/keeper.go` file. Add it to the `type` as well as the `NewKeeper` function as follows:
+Second, add the keeper to the `x/voter/keeper/keeper.go` file. Add it to the `type` and the `NewKeeper` function as follows:
 
 ```go
 type (
@@ -996,7 +1009,7 @@ func NewKeeper(cdc codec.Marshaler, storeKey, memKey sdk.StoreKey, bankKeeper ty
 }
 ```
 
-Finally, add the bank module to the `app.go` file in `x/app/app.go`
+Finally, add the bank module to the `app.go` file in `x/app/app.go`:
 
 ```go
 app.voterKeeper = *voterkeeper.NewKeeper(
@@ -1004,7 +1017,7 @@ app.voterKeeper = *voterkeeper.NewKeeper(
 )
 ```
 
-Now you are ready to use all the bank functions that you added to the expected keepers file above. Next you will define how the transaction will require the funds in order to exectue the transaction.
+<!-- here is how far I got, but my app doesn't work yet --> Now, you are ready to use all the bank functions that you added to the expected keepers file above. Next, you need to define how the transaction will require the funds in order to exectue the transaction.
 
 ## Modify the Message with the price
 
