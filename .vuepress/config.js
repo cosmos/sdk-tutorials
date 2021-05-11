@@ -28,7 +28,7 @@ module.exports = {
       auto: false,
       nav: [
         {
-          title: "v0.40+ Stargate Tutorials",
+          title: "Tutorials",
           children: [
             {
               title: "IBC Hello World",
@@ -53,7 +53,7 @@ module.exports = {
           ],
         },
         {
-          title: "Migrate Cosmos SDK v0.39 to v0.40",
+          title: "Migrate to Stargate",
           children: [
             {
               title: "PoFE Migration",
@@ -62,41 +62,6 @@ module.exports = {
             },
           ]
         },
-        {
-          title: "v0.39 Tutorials",
-          children: [
-            {
-              title: "Voter",
-              path: "/voter-legacy/",
-              directory: true,
-            },
-            {
-              title: "Blog",
-              path: "/blog-legacy/tutorial/",
-              directory: true,
-            },               
-            {
-              title: "PoFE",
-              path: "/proof-of-file-existence/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Scavenge",
-              path: "/scavenge/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Nameservice",
-              path: "/nameservice/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Cosmos Burner Chain",
-              path: "/burner-chain/",
-              directory: true,
-            },
-          ]
-        }
       ],
     },
     gutter: {
