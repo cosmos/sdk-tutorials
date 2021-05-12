@@ -8,7 +8,7 @@ jobs:
         id: go
         with:
           go-version: 1.15
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
       - name: Test Build
         run: |
           cd proof-of-file-existence/pofe && go get ./... && make install
