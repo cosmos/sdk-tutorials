@@ -29,9 +29,16 @@ The ports for `Mars` are default ports, while for `Venus` the port details can b
 
 ```bash
 # relayer configuration
-starport relayer configure -a --source-rpc "http://0.0.0.0:26657" --source-faucet "http://0.0.0.0:4500" --source-port "ibcdex" --source-version "ibcdex-1" --target-rpc "http://0.0.0.0:26659" --target-faucet "http://0.0.0.0:4501" --target-port "ibcdex" --target-version "ibcdex-1"
+starport relayer configure -a \
+--source-rpc "http://0.0.0.0:26657" \
+--source-faucet "http://0.0.0.0:4500" \
+--source-port "ibcdex" \
+--source-version "ibcdex-1" \
+--target-rpc "http://0.0.0.0:26659" \
+--target-faucet "http://0.0.0.0:4501" \
+--target-port "ibcdex" \
+--target-version "ibcdex-1"
 ```
-
 ## Connect the relayer
 
 After the relayer is configured with the two blockchains, start running it and connect the two blockchains.
