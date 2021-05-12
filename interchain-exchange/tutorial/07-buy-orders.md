@@ -12,13 +12,13 @@ The logic is very similar to the previous sell order chapter.
 Add the buyer to the proto file definition
 
 ```proto
-// proto/packet.proto
+// proto/ibcdex/packet.proto
 message BuyOrderPacketData {
   string amountDenom = 1;
   int32 amount = 2;
   string priceDenom = 3;
   int32 price = 4;
-  string buyer = 5;
+  string buyer = 5; // <--
 }
 ```
 
@@ -77,7 +77,7 @@ func (k msgServer) SendBuyOrder(goCtx context.Context, msg *types.MsgSendBuyOrde
 	// Construct the packet
 	var packet types.BuyOrderPacketData
 
-	packet.Buyer = msg.Sender              // <- Manually specify the buyer here
+	packet.Buyer = msg.Sender // <- Manually specify the buyer here
 	packet.AmountDenom = msg.AmountDenom
 	packet.Amount = msg.Amount
 	packet.PriceDenom = msg.PriceDenom

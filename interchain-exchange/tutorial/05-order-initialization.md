@@ -39,7 +39,7 @@ type (
 		channelKeeper types.ChannelKeeper
 		portKeeper    types.PortKeeper
 		scopedKeeper  capabilitykeeper.ScopedKeeper
-		bankKeeper    types.BankKeeper
+		bankKeeper    types.BankKeeper  // <--
 	}
 )
 
@@ -50,7 +50,7 @@ func NewKeeper(
 	channelKeeper types.ChannelKeeper,
 	portKeeper types.PortKeeper,
 	scopedKeeper capabilitykeeper.ScopedKeeper,
-	bankKeeper types.BankKeeper,
+	bankKeeper types.BankKeeper,  // <--
 ) *Keeper {
 	return &Keeper{
 		cdc:           cdc,
@@ -59,7 +59,7 @@ func NewKeeper(
 		channelKeeper: channelKeeper,
 		portKeeper:    portKeeper,
 		scopedKeeper:  scopedKeeper,
-		bankKeeper:    bankKeeper,
+		bankKeeper:    bankKeeper,  // <--
 	}
 }
 ```
@@ -69,13 +69,13 @@ Lastly, the `app.go` file that describes which modules are used in the blockchai
 ```go
 // app/app.go
 app.ibcdexKeeper = *ibcdexkeeper.NewKeeper(
-  appCodec,
+	appCodec,
 	keys[ibcdextypes.StoreKey],
 	keys[ibcdextypes.MemStoreKey],
 	app.IBCKeeper.ChannelKeeper,
 	&app.IBCKeeper.PortKeeper,
 	scopedIbcdexKeeper,
-	app.BankKeeper,
+	app.BankKeeper,  // <--
 )
 ```
 
@@ -91,7 +91,7 @@ maccPerms = map[string][]string{
     stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
     govtypes.ModuleName:            {authtypes.Burner},
     ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
-    ibcdextypes.ModuleName: 		{authtypes.Minter, authtypes.Burner}, // <--
+    ibcdextypes.ModuleName:         {authtypes.Minter, authtypes.Burner}, // <--
 }
 ```
 
@@ -115,7 +115,7 @@ import (
 	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	ibctransfertypes "github.com/cosmos/cosmos-sdk/x/ibc/applications/transfer/types"
-	"github.com/tendermint/interchange/x/ibcdex/types"
+	"github.com/username/interchange/x/ibcdex/types"
 	"strings"
 )
 
@@ -302,7 +302,7 @@ package keeper
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	ibctransfertypes "github.com/cosmos/cosmos-sdk/x/ibc/applications/transfer/types"
-	"github.com/tendermint/interchange/x/ibcdex/types"
+	"github.com/username/interchange/x/ibcdex/types"
 )
 
 // VoucherDenom returns the voucher of the denom from the port ID and channel ID
