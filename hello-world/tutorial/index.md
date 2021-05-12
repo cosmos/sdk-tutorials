@@ -32,7 +32,11 @@ This tutorial covers essentials like modules, IBC packets, relayer, and the life
 
 ## Prerequisites
 
-This tutorial uses [Starport](https://github.com/tendermint/starport) v0.15.1\. The Starport tool is the easiest way to build a blockchain.
+This tutorial requires [Starport](https://docs.starport.network/) v0.15.1\.
+
+**Important** The tutorial is based on this specific version of Starport and is not supported for other versions.
+
+The Starport tool is the easiest way to build a blockchain.
 
 To install `starport` into `/usr/local/bin`, run the following command:
 
