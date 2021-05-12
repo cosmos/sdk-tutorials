@@ -23,7 +23,9 @@ This tutorial builds understanding as it walks you through creating a blockchain
 
 ## Requirements
 
-This tutorial requires [Starport](https://docs.starport.network/) v0.15.1\. The tutorial is based on this specific version of Starport.
+This tutorial requires [Starport](https://docs.starport.network/) v0.15.1.
+
+**Important** The tutorial is based on this specific version of Starport and is not supported for other versions.
 
 The Starport tool is the easiest way to build a blockchain and accelerates chain development.
 
