@@ -6,13 +6,13 @@ order: 1
 
 ![Application screenshot](./1.png)
 
-In this tutorial you will learn how to create a simple blockchain poll application. A user can sign in, create polls, cast votes and see voting results. Creating a poll will cost 200 tokens, voting is free, both actions will be available only for signed in users.
+In this tutorial you will learn how to create a simple blockchain poll application. A user will be able to sign in, create polls, cast votes and see voting results. We will then expand the functionality, adding a charge to create polls. A poll will cost 200 tokens, voting will be free, and both actions will be available only for signed in users.
 
 ## Requirements 
 
 For this tutorial you will be using [Starport](https://github.com/tendermint/starport) v0.15.1, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
 
-```
+```sh
 curl https://get.starport.network/starport@v0.15.1! | bash
 ```
 
@@ -22,11 +22,19 @@ You can also use Starport v0.15.1 on the web in a [browser-based IDE](http://git
 
 Run the following command to create a voter project:
 
-```
+```sh
 starport app github.com/username/voter
 ```
 
-Starport `app` command will scaffold a project structure for your application in a `voter` directory. Make sure to replace `username` with your GitHub username.
+The Starport `app` command will scaffold a project structure for your application in a `voter` directory. Make sure to replace `username` with your GitHub username.
+
+**Important!** In code examples throughout this tutorial, whenever you see `username` substitute in _your username_. You will need to do this in some of the Vue and REST API examples later.
+
+e.g. a user `yoda` would run:
+
+```sh
+starport app github.com/yoda/voter
+```
 
 Inside the `voter` directory you can see several files and directories:
 
@@ -42,7 +50,7 @@ cd voter
 
 The project's directory contains all the code required to build and launch a blockchain-based app. Try launching the app by running starport serve inside the project:
 
-```
+```sh
 starport serve
 ```
 
@@ -74,7 +82,7 @@ The voting applications has two types of entities: polls and votes. A poll is a 
 
 Open a new terminal in `voter` directory and run the following: 
 
-```
+```sh
 starport type poll title options
 ```
 
@@ -229,7 +237,7 @@ A user will also be able to interact with our application through a command line
 
 The CLI definition is available at `x/voter/client/cli/txPoll.go`.
 
-```
+```sh
 votercli tx voter create-poll "Text editors" "Emacs" "Vim" --from alice
 ```
 
@@ -349,7 +357,7 @@ func CmdUpdatePoll() *cobra.Command {
 
 In order for the app to recognize the changes that you have made, reset the application first before running it the next time 
 
-```
+```sh
 starport serve --reset-once
 ```
 
@@ -377,6 +385,8 @@ Now that you have made all the necessary changes to the app, take a look at the 
 
 ### Front-end application
 
+**Important!** Remember that wherever you see `username` you should substitute in the GitHub username you used in the very first step to scaffold your app.
+
 Starport has generated a basic front-end for the app. For convenience [Vue.js](https://vuejs.org) framework is used with [Vuex](https://vuex.vuejs.org/) for state management, but since all features of the app are exposed through an HTTP API, clients can be built using any language or framework.
 
 You will be mostly interested in `vue/src/views` directory and the `vue/src/components` directory. These directories contain the code for the page templates of our app. `vue/src/store/` handles sending transactions and receiving data from our blockchain and [`@tendermint/vue`](https://github.com/tendermint/vue/) directory, which contains components, like buttons and forms. It contains the generated protobuffer file definitions that were defined in the `vue/src/store/generated/username/voter/username.voter.voter` directory.
@@ -387,14 +397,14 @@ Inside `vue/src/store/generated/username/voter/username.voter.voter/index.js` yo
 
 Navigate to the views directory in `vue/src/views`
 
-Since we don't need the default form component replace inside of `vue/src/views/Types.vue`
+Since we don't need the default form component inside of `vue/src/views/Types.vue`, the following two lines should be removed:
 
 ```js
 <SpType modulePath="username.voter.voter" moduleType="Vote"  />
 <SpType modulePath="username.voter.voter" moduleType="Poll"  />
 ```
 
-with two new components and a title
+...and replaced with with two new components and a title:
  
  ```js
 			<SpH3>
@@ -404,9 +414,10 @@ with two new components and a title
 			<poll-list />
  ```
 
-In the `<script></script>` tags below, import the component like this
+Underneath the template code, add paste this code to import the component. The `<script></script>` tags contain Javascript code.
 
 ```js
+<script>
 import PollForm from "../components/PollForm";
 import PollList from "../components/PollList";
 
@@ -414,9 +425,12 @@ export default {
 	name: 'Types',
 	components: { PollForm, PollList },
 }
+</script>
 ```
 
-Start creating the components.
+Now we can start creating the components.
+
+**Note:** Some of the following steps depend on one another. If you look at your front-end before creating all the components that depend on one another, things may break. Don't worry if so - just complete the steps and everything should work fine once wired up correctly.
 
 ## Create the PollForm Component
 
@@ -424,7 +438,7 @@ For the PollForm, create a new file `PollForm.vue` in the `vue/src/components` d
 
 The component has a title and two buttons.
 
-```vue
+```js
 <template>
   <div>
     <div class="sp-voter__main sp-box sp-shadow sp-form-group">
@@ -445,10 +459,12 @@ The component has a title and two buttons.
 </template>
 ```
 
-In between `<script></script>` tags below the javacsript code.
+Underneath, paste the following Javascript code. The `<script></script>` tags mark it as Javascript rather than template code.
+
 The Form manages the input of the user and broadcasts the transaction to the blockchain if the form gets submitted.
 
 ```js
+<script>
 export default {
   name: "PollForm",
   data() {
@@ -497,6 +513,7 @@ export default {
     },
   },
 };
+</script>
 ```
 
 
@@ -543,9 +560,11 @@ Create a new component `PollList.vue` in `vue/src/components/PollList.vue`.
 }
 </style>
 ```
-in between `<script></script>` tags below this:
+
+Then paste this below:
 
 ```js
+<script>
 import AppRadioItem from "./AppRadioItem";
 import AppText from "./AppText";
 import { countBy } from "lodash";
@@ -611,11 +630,12 @@ export default {
     },
   },
 };
+</script>
 ```
 
 The `PollList` component lists every poll, including the options for that poll as buttons. Selecting an option triggers a `submit` method that broadcasts a transaction with a "create vote" message and fetches data back from our application.
 
-Two components are still missing from our App, to make it a bit better looking. Let's add `AppRadioItem.vue` and `AppText.vue`.
+Two components are still missing from our app. Let's add `AppRadioItem.vue` and `AppText.vue`.
 
 ### Add the Options Component
 
@@ -663,14 +683,16 @@ Two components are still missing from our App, to make it a bit better looking. 
 </style>
 ```
 
-In the `<script></script>` tag below this:
+Paste the Javascript below, as in previous steps:
 
 ```js
+<script>
 export default {
   props: {
     value: "",
   },
 };
+</script>
 ```
 
 
@@ -708,9 +730,10 @@ export default {
 </style>
 ```
 
-In between `<script></script>` tags below this
+Paste this underneath:
 
 ```js
+<script>
 export default {
   props: {
     type: {
@@ -718,6 +741,7 @@ export default {
     },
   },
 };
+</script>
 ```
 
 Now in the `App.vue` you need to update the JavaScript to fetch the votes.
@@ -759,7 +783,10 @@ export default {
 ```
 
 By now should be able to see the same UI as in the first screenshot. Try creating polls and casting votes.
+
 You may notice that it's possible to cast multiple votes for one poll. This is not what we want, so let's fix this behaviour.
+
+**Important!** If you can't create polls and votes, check the Javascript console in your browser to see what errors are shown. If you see a problem with API routes, it is probably because you need to replace `username` from the code snippets above with your GitHub username. e.g. `"username.voter.voter/QueryPollAll"` would become `"yoda.voter.voter/QueryPollAll"` for a GitHub user called `yoda`.
 
 ## Access the API
 
@@ -809,7 +836,7 @@ For the votes you can go to the API page on [http://localhost:1317/username/vote
 }
 ```
 
-The endpoint paths are defined by the username you use when bootstrapping the application with Starport, together with your module name.
+The endpoint paths are defined by the username you use when bootstrapping the application with Starport, together with your module name. So, to use our running example, `yoda` would find the above example at `http://localhost:1317/yoda/voter/voter/vote`.
 
 Looking into this data, you can see the combination of `creator` and `pollID` is what we are looking for. Each account should only be allowed to have 1 vote per pollID.
 
@@ -895,7 +922,7 @@ func NewKeeper(cdc codec.Marshaler, storeKey, memKey sdk.StoreKey, bankKeeper ty
 }
 ```
 
-Finally, add the bank module to the `app.go` file in `x/app/app.go`
+Finally, add the bank module to the `app.go` file in `app/app.go`, inside the `New` function.
 
 ```go
 app.voterKeeper = *voterkeeper.NewKeeper(
