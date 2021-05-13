@@ -2,6 +2,17 @@
 
 This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
 
+## Tutorials are version-specific
+
+The code and the docs for each tutorial are based on a specific version of the software. Be sure to download and use the right version.
+
+## Contributing
+
+Thank you for helping us to create and maintain awesome tutorials.
+
+- To provide feedback, file an issue and provide abundant details to help us understand how we can make it better.
+- To provide feedback and a fix, you can make a direct contribution. This repo is protected since we provide the code and the docs to help you learn. If you're not a member or maintainer, fork the repo and then submit a PR from your forked repo to master.
+
 ## Metadata
 
 The layout metadata at the top of the README.md file controls how the tutorial page is published. Write permissions are limited to preserve the structure and contents.

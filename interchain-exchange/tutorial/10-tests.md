@@ -22,7 +22,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/crypto/keys/ed25519"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
-	"github.com/tendermint/interchange/x/ibcdex/types"
+	"github.com/username/interchange/x/ibcdex/types"
 	"math/rand"
 	"sort"
 	"testing"
@@ -363,7 +363,7 @@ package types_test
 
 import (
 	"github.com/stretchr/testify/require"
-	"github.com/tendermint/interchange/x/ibcdex/types"
+	"github.com/username/interchange/x/ibcdex/types"
 	"sort"
 	"testing"
 )
@@ -632,7 +632,7 @@ package types_test
 
 import (
 	"github.com/stretchr/testify/require"
-	"github.com/tendermint/interchange/x/ibcdex/types"
+	"github.com/username/interchange/x/ibcdex/types"
 	"sort"
 	"testing"
 )
