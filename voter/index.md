@@ -4,49 +4,99 @@ order: 1
 
 # Polling app
 
+This tutorial creates a simple blockchain poll application.
+
 ![Application screenshot](./1.png)
 
-In this tutorial you will learn how to create a simple blockchain poll application. A user can sign in, create polls, cast votes and see voting results. Creating a poll will cost 200 tokens, voting is free, both actions will be available only for signed in users.
+This tutorial builds understanding as it walks you through creating a blockchain app, adding and modifying types for a transaction, editing messages, and designing the front-end app.
 
-## Requirements 
+**You will learn how to**
 
-For this tutorial you will be using [Starport](https://github.com/tendermint/starport) v0.15.1, an easy to use tool for building blockchains. To install `starport` into `/usr/local/bin`, run the following command:
+- Create a simple blockchain poll application
+- Design a front-end app that lets an end user sign in, create polls, cast votes, and see voting results
+- Add logic to require funds to execute the create poll transaction
+- Modify a REST endpoint
+- Modify CLI transactions
+- Add module components to the front-end app
+- Add a bank keeper to the module
+- Modify a message
 
-```
+## Requirements
+
+This tutorial requires [Starport](https://docs.starport.network/) v0.15.1.
+
+**Important** The tutorial is based on this specific version of Starport and is not supported for other versions.
+
+The Starport tool is the easiest way to build a blockchain and accelerates chain development.
+
+To install `starport` into `/usr/local/bin`, run the following command:
+
+```sh
 curl https://get.starport.network/starport@v0.15.1! | bash
 ```
 
-You can also use Starport v0.15.1 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
-
-## Creating a blockchain
-
-Run the following command to create a voter project:
+When the installation succeeds, you see this message:
 
 ```
+Installed at /usr/local/bin/starport
+```
+
+You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://docs.starport.network/intro/install.html).
+
+## Voting App Goals
+
+Create a blockchain poll app with a voting module. The app requires that the app end user can:
+
+- Sign in
+- Create polls
+- Cast votes
+- See voting results
+
+Design the app so that you can:
+
+- Collect transaction fees:
+
+  - The create poll transaction fee is 200 tokens.
+  - Voting is free.
+
+- Restrict transactions only to signed in poll app end users.
+
+## Build your Blockchain App
+
+Use Starport to scaffold the blockchain app and the voting module.
+
+**Important** In the code examples throughout this tutorial, when you see `username` be sure to substitute it with _your username_. You need to do this in some of the Vue and REST API examples later. The app end user in this tutorial is alice. {synopsis}
+
+### Build the new blockchain
+
+To scaffold a new blockchain named voter:
+
+```sh
 starport app github.com/username/voter
 ```
 
-Starport `app` command will scaffold a project structure for your application in a `voter` directory. Make sure to replace `username` with your GitHub username.
+A new directory named `voter` is created in your home directory.
 
-Inside the `voter` directory you can see several files and directories:
+The `voter` directory contains a working blockchain app and all of the code you need to build and launch a blockchain-based app, including these files and directories:
 
-```bash
+- `app` contains files that connect all of the moving parts of your application
+- `cmd` is responsible for the `voterd` daemon that starts and interacts with the app
+- `proto` contains the protobuf types
+- `vue` contains the web user interface as shown at the top of this tutorial
+- `x` contains the Cosmos SDK `voter` module
+
+Cosmos SDK modules are the building blocks of apps. If you are new to Cosmos SDK modules, see [Introduction to SDK Modules](https://docs.cosmos.network/master/building-modules/intro.html).
+
+### Launch the voter app
+
+To launch the app from the `voter` project directory:
+
+```sh
 cd voter
-```
-
-- `app` contains files that connect all of the moving parts of your application.
-- `cmd` is responsible for the `voterd` daemon, which respectively allow you to start your application and interact with it.
-- `proto` contains the protobuffer types of the blockchain application
-- `vue` contains a web user interface for your app, reponsible for everything you see on the screenshot above.
-- `x` contains the main building blocks of you app: modules. Right now we have only one: `voter`.
-
-The project's directory contains all the code required to build and launch a blockchain-based app. Try launching the app by running starport serve inside the project:
-
-```
 starport serve
 ```
 
-You should be able to see the following output - *as well as any errors that might show up in your application.*
+The following output is returned, along with any errors that might show up in your application. Two default users and their mnemonic pass phrases are created.
 
 ```
 Cosmos SDK's version is: Stargate v0.40.0 (or above)
@@ -55,8 +105,8 @@ Cosmos SDK's version is: Stargate v0.40.0 (or above)
 📦 Installing dependencies...
 🛠️  Building the app...
 💿 Initializing the app...
-🙂 Created account "alice" with address "cosmos1lx7vqts97yxcamu838g8h6qp5gz4ddu7dsgq4k" with mnemonic: "front gloom sell trouble butter oval gain renew slogan crouch manual sponsor skull round banana note banner glance card topple circle slogan moon model"
-🙂 Created account "bob" with address "cosmos1alkea94k20qwd3vk67qkg2fn2a83zauzdkz7gj" with mnemonic: "alarm stereo cute purse crystal verify goddess crop tide soda trim butter unfold embody arrive venue purpose vapor velvet odor orbit expire disease chuckle"
+🙂 Created account "alice" with address "cosmos1qn662mssj0wtagnxyvld7pksjaghzvmsw889t7" with mnemonic: "anger drive runway keen enroll shoot frequent dentist captain neither wire person entry exact income sail divorce fresh initial feel boss mule target fly"
+🙂 Created account "bob" with address "cosmos1jfx0jqeamwj6dnzhk5g64l53ydcmrsmdm6hlcw" with mnemonic: "yard layer vacuum side coyote cousin another settle agree thunder lumber before portion embody hood practice captain axis fish zero mother bitter example ski"
 🌍 Running a Cosmos 'voter' app with Tendermint at http://localhost:26657.
 🌍 Running a server at http://localhost:1317 (LCD)
 🌍 Running a faucet at http://:4500
@@ -64,564 +114,639 @@ Cosmos SDK's version is: Stargate v0.40.0 (or above)
 🚀 Get started: http://localhost:12345
 ```
 
-*Note: use* `starport serve --verbose` *to visualize detailed operations happening in the background*
-
-Congratulations! You now have a blockchain application running on your machine in just two commands. It doesn't do anything yet, add some transaction types next.
-
-The voting applications has two types of entities: polls and votes. A poll is a type that has a `title` and a list of `options`.
+**Congratulations!** You successfully created and launched a blockchain application.
 
 ## Add a Poll Transaction
 
-Open a new terminal in `voter` directory and run the following: 
+The voter app doesn't do anything yet, so the next step is to add some types. Adding types generates files that implement create, read, update, and delete (CRUD) functionality for a custom new type.
 
-```
+The voting applications has two types of entities: polls and votes.
+
+### Add the poll type
+
+A poll type has a `title` and a list of `options`.
+
+In a new terminal window, run the following command in the `voter` directory:
+
+```sh
 starport type poll title options
 ```
+
+After the poll type is successfully created, you see:
 
 ```
 🎉 Created a type `poll`
 ```
 
-This command generated code that handles the creation of `poll` items. If you run `starport serve` and visit [http://localhost:8080](http://localhost:8080) you will see a form for creating polls. It may take a short while to rebuild the app, so give it a couple of seconds.
+With this command, you generated the code that handles the creation of `poll` items.
+
+### View the Front-end User Interface
+
+To see the front-end app form for creating polls:
+
+- Run `starport serve`
+- Visit <http://localhost:8080>
+
+It takes a few minutes to rebuild the app, so give it a couple of seconds. If your `localhost:8080` is already in use, your app can be viewed on the next available port.
 
 ![Application screenshot](./2.png)
 
-Sign in with one of the passphrases printed in the console and try creating a poll. Click on `Access Wallet` and then `Import existing wallet`. Enter one of the passphrases that is in your console. Now you can give your wallet a name and password. The wallet can handle multiple accounts, give it a name in order to easier recognise wallets in the future. For this example, naming this wallet `voter` would make sense. 
-You can find your newly created transaction type in the `Custom Type` navigation point. Enter an example value for Title and Poll option to see the workflow.
-You should see a new object created and displayed next to the form. You have successfully created an object and stored it on the blockchain!
+### Sign in as Alice
 
-This, however, does not look and work exactly like initially explained. You should be able to add more option fields (and store them as an array) and they should be displayed as interactive buttons.
+On the front-end app, sign in as end user Alice. The mnemonic passphrases for Alice and Bob were printed in the console after you ran the `starport serve` command.
+
+After you are signed in as Alice, you can import an existing wallet that was created with the app. The wallet in the voter app can handle multiple accounts, so give your wallet a descriptive name. Using a descriptive wallet name helps you recognize this wallet in future transactions. For this example, naming this wallet `voter` makes sense.
+
+1. Click **Access Wallet** and then click **Import existing wallet**.
+2. Enter the passphrase for Alice that was output to your console when you launched the voter app with the `starport serve` command.
+3. Name your wallet `voter` and enter a password.
+4. Click **Done**.
+
+Now you want to view the custom `poll` type you created earlier.
+
+## View the Poll Type
+
+To view the newly created `poll` transaction type, click the **Custom Type** navigation point on the web browser front-end app.
+
+To see the workflow to create a poll, enter an example value for the title and poll options. A new object is created and displayed next to the new poll form. You have successfully created an object and stored it on the blockchain!
+
+This object, however, does not look and work exactly like a poll. You need to be able to add option fields and store them as an array. You want the option fields to display as interactive buttons.
 
 Take a look at some of the files modified by the `starport type` command.
 
 ## Modify the Protobuffer Types
 
-To have multiple options, you need to change the value `string options` in the Protobuffer definitions. Open the `proto/voter` directory and look into the `poll.proto` and `tx.proto` files.
+To have multiple options in the poll, you must change the value `string options` in the Protobuffer definitions.
 
-Add the keyword `repeated` before the options to allow passing an array of strings.
-In the `proto/voter/poll.proto` file, modify the Poll message options field as follows:
+1. In the `proto/voter` directory, open the `poll.proto` file.
+2. To allow passing an array of strings, add the keyword `repeated` before `string options`:
 
-```proto
-message Poll {
-  string creator = 1;
-  uint64 id = 2;
-  string title = 3; 
-  repeated string options = 4; 
-}
-```
-
-In the `proto/voter/tx.proto` file you have the CRUD (Create, Read, Update and Delete) types for the poll transaction. Update the `options` field for the messages `MsgCreatePoll` and `MsgUpdatePoll`.
-
-```proto
-message MsgCreatePoll {
-  string creator = 1;
-  string title = 2;
-  repeated string options = 3;
-}
-```
-
-```proto
-message MsgUpdatePoll {
+  ```proto
+  message Poll {
   string creator = 1;
   uint64 id = 2;
   string title = 3;
   repeated string options = 4;
-}
+  }
+  ```
+
+In the `proto/voter/tx.proto` file, update the CRUD (Create, Read, Update and Delete) types for the poll transaction.
+
+1. Add the keyword `repeated` before `string options` for the `MsgCreatePoll` message:
+
+```proto
+   message MsgCreatePoll {
+   string creator = 1;
+   string title = 2;
+   repeated string options = 3;
+   }
+```
+
+And the `MsgUpdatePoll` message:
+
+```proto
+  message MsgUpdatePoll {
+  string creator = 1;
+  uint64 id = 2;
+  string title = 3;
+  repeated string options = 4;
+  }
 ```
 
 ## Modify the Poll Transaction Message
 
-Navigate to the file at `x/voter/types/message_poll.go`.
+Navigate to the `message_poll.go` file at `x/voter/types/message_poll.go` that defines a message that creates a poll.
 
-This file defines a message that creates a poll.
-
-We need to make options to be stored as a list instead of a string. Replace `options string` with `options []string` in the `NewMsgCreatePoll` and `NewMsgUpdatePoll` functions.
+1. To store the options as a list instead of a string, replace `options string` with `options []string` in the `NewMsgCreatePoll` function:
 
 ```go
 // x/voter/types/message_poll.go
 func NewMsgCreatePoll(creator string, title string, options []string) *MsgCreatePoll {
-	return &MsgCreatePoll{
-		Creator: creator,
-		Title:   title,
-		Options: options,
-	}
+    return &MsgCreatePoll{
+        Creator: creator,
+        Title:   title,
+        Options: options,
+    }
 }
 ```
 
+And also in the `NewMsgUpdatePoll` function:
 
 ```go
 // x/voter/types/message_poll.go
 func NewMsgUpdatePoll(creator string, id uint64, title string, options []string) *MsgUpdatePoll {
-	return &MsgUpdatePoll{
-		Id:      id,
-		Creator: creator,
-		Title:   title,
-		Options: options,
-	}
+    return &MsgUpdatePoll{
+        Id:      id,
+        Creator: creator,
+        Title:   title,
+        Options: options,
+    }
 }
 ```
 
-To write anything to a blockchain or perform any other state transition a client (web app in our case) makes an HTTP POST request with a title and options to [http://localhost:1317/voter/poll](http://localhost:1317/voter/poll) endpoint handler for which is defined in `x/voter/client/rest/txPoll.go`. The handler creates an unsigned transaction which contains an array of messages. The client then signs the transaction and sends it to [http://localhost:1317/txs](http://localhost:1317/txs). The application processes the transaction by sending each message to a corresponding handler, in our case `x/voter/handler.go`. A handler then calls a `CreatePoll` function defined in `x/voter/keeper/poll.go` which writes the poll data into the store.
+## About the Poll Keeper
 
-## Modify the Poll Keeper 
+To write anything to a blockchain or perform any other state transition, a client makes an HTTP POST request. In our case, the voter web app is the client.
 
-The keeper adds the polls to the blockchain database. 
+The POST request with a title and options goes to the <http://localhost:1317/voter/poll> endpoint handler that is defined in `x/voter/client/rest/txPoll.go`.
 
-Navigate to the file at `x/voter/keeper/poll.go` and change the `options` parameter from `string` to `[]string` in the `AppendPoll` function
+The handler creates an unsigned transaction that contains an array of messages. The client then signs the transaction and sends it to <http://localhost:1317/txs>. The application processes the transaction by sending each message to a corresponding handler, in our case `x/voter/handler.go`.
+
+A handler then calls a `CreatePoll` function that is defined in `x/voter/keeper/poll.go` that writes the poll data into the store.
+
+### Modify the Poll Keeper
+
+The keeper adds the polls to the blockchain database.
+
+Navigate to the `poll.go` file at `x/voter/keeper/poll.go`. You need to make the same changes to modify the poll keeper to use the list of options.
+
+- Change the `options` parameter from `string` to `[]string` in the `AppendPoll` function:
 
 ```go
 // x/voter/keeper/poll.go
 func (k Keeper) AppendPoll(
-	ctx sdk.Context,
-	creator string,
-	title string,
-	options []string,
+    ctx sdk.Context,
+    creator string,
+    title string,
+    options []string,
 ) uint64 {
-	// Create the poll
-	count := k.GetPollCount(ctx)
-	var poll = types.Poll{
-		Creator: creator,
-		Id:      count,
-		Title:   title,
-		Options: options,
-	}
+    // Create the poll
+    count := k.GetPollCount(ctx)
+    var poll = types.Poll{
+        Creator: creator,
+        Id:      count,
+        Title:   title,
+        Options: options,
+    }
 
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PollKey))
-	value := k.cdc.MustMarshalBinaryBare(&poll)
-	store.Set(GetPollIDBytes(poll.Id), value)
+    store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PollKey))
+    value := k.cdc.MustMarshalBinaryBare(&poll)
+    store.Set(GetPollIDBytes(poll.Id), value)
 
-	// Update poll count
-	k.SetPollCount(ctx, count+1)
+    // Update poll count
+    k.SetPollCount(ctx, count+1)
 
-	return count
+    return count
 }
 ```
 
 ## Modify the REST Endpoint
 
-The rest endpoint is defined in the file `x/voter/client/rest/txPoll.go`.
+The REST endpoint is defined in the `txPoll.go` file at `x/voter/client/rest/txPoll.go`.
 
-Replace `Options string` with `Options []string` in `createPollRequest` struct.
+1. Replace `Options string` with `Options []string` in the `createPollRequest` struct.
 
-```go
-type createPollRequest struct {
-	BaseReq rest.BaseReq `json:"base_req"`
-	Creator string       `json:"creator"`
-	Title   string       `json:"title"`
-	Options []string     `json:"options"`
-}
-```
+  ```go
+  type createPollRequest struct {
+  BaseReq rest.BaseReq `json:"base_req"`
+  Creator string       `json:"creator"`
+  Title   string       `json:"title"`
+  Options []string     `json:"options"`
+  }
+  ```
 
-Also further below in the `updatePollRequest` struct.
+2. And also in the `updatePollRequest` struct.
 
 ```go
 type updatePollRequest struct {
-	BaseReq rest.BaseReq `json:"base_req"`
-	Creator string       `json:"creator"`
-	Title   string       `json:"title"`
-	Options []string     `json:"options"`
+    BaseReq rest.BaseReq `json:"base_req"`
+    Creator string       `json:"creator"`
+    Title   string       `json:"title"`
+    Options []string     `json:"options"`
 }
 ```
 
 ### Modify the CLI Transaction
 
-A user will also be able to interact with our application through a command line interface.
+A poll app end user can also interact with your application by using a command line interface.
 
 The CLI definition is available at `x/voter/client/cli/txPoll.go`.
 
-```
+For example:
+
+```sh
 votercli tx voter create-poll "Text editors" "Emacs" "Vim" --from alice
 ```
 
-This command will generate a transaction with "create poll" message, sign it using a private key of `alice` (one of two users created by default) and broadcast it to the blockchain.
+This command generates a transaction with a create poll message, signs the transaction using the private key of app end user `alice`, and broadcasts the transaction to the blockchain. Remember, `alice` is one of two users that this tutorial created by default.
 
-The modification we need to make is to change a line that reads arguments from the console. 
+The modification you need to make is to change a line that reads arguments from the console.
 
-In the function `CmdCreatePoll`
+In the function `CmdCreatePoll` replace:
 
-replace
 ```go
 Args:  cobra.ExactArgs(2),
 ```
+
 with
 
 ```go
 Args:  cobra.MinimumNArgs(2),
 ```
 
+and replace:
+
+```go
+argsOptions := string(args[1])
+```
+
+with
+
 ```go
 argsOptions := args[1:len(args)]
 ```
 
-The variable `msg` is defined to read a string of argOptions, delete the stringification
+The variable `msg` is defined to read a string of argOptions, so delete the stringification from `argsOptions`:
 
 ```go
 msg := types.NewMsgCreatePoll(clientCtx.GetFromAddress().String(), string(argsTitle), argsOptions)
 ```
 
-We end up with the following function
+You end up with the following function:
 
 ```go
 func CmdCreatePoll() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "create-poll [title] [options]",
-		Short: "Creates a new poll",
-		Args:  cobra.MinimumNArgs(2),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			argsTitle := string(args[0])
-			argsOptions := args[1:len(args)]
+    cmd := &cobra.Command{
+        Use:   "create-poll [title] [options]",
+        Short: "Creates a new poll",
+        Args:  cobra.MinimumNArgs(2),
+        RunE: func(cmd *cobra.Command, args []string) error {
+            argsTitle := string(args[0])
+            argsOptions := args[1:len(args)]
 
-			clientCtx, err := client.GetClientTxContext(cmd)
-			if err != nil {
-				return err
-			}
+            clientCtx, err := client.GetClientTxContext(cmd)
+            if err != nil {
+                return err
+            }
 
-			msg := types.NewMsgCreatePoll(clientCtx.GetFromAddress().String(), string(argsTitle), argsOptions)
-			if err := msg.ValidateBasic(); err != nil {
-				return err
-			}
-			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
-		},
-	}
+            msg := types.NewMsgCreatePoll(clientCtx.GetFromAddress().String(), string(argsTitle), argsOptions)
+            if err := msg.ValidateBasic(); err != nil {
+                return err
+            }
+            return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+        },
+    }
 
-	flags.AddTxFlagsToCmd(cmd)
+    flags.AddTxFlagsToCmd(cmd)
 
-	return cmd
+    return cmd
 }
 ```
 
-Similar changes will need to be done for the function `CmdUpdatePoll`
+Now make similar changes for the function `CmdUpdatePoll`:
 
-And in the `CmdUpdatePoll` we set
-```go
-Args:  cobra.ExactArgs(3),
-```
-to
 ```go
 Args:  cobra.MinimumNArgs(3),
 ```
+
+and
 
 ```go
 argsOptions := args[2:len(args)]
 ```
 
+and
+
 ```go
 msg := types.NewMsgUpdatePoll(clientCtx.GetFromAddress().String(), id, string(argsTitle), argsOptions)
 ```
 
-This will assume that all arguments after the first one represent a list of options.
+These changes assume that all arguments after the first one represent a list of options.
 
-You end up with the following function
+You end up with the following function:
 
 ```go
 func CmdUpdatePoll() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "update-poll [id] [title] [options]",
-		Short: "Update a poll",
-		Args:  cobra.MinimumNArgs(3),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
+    cmd := &cobra.Command{
+        Use:   "update-poll [id] [title] [options]",
+        Short: "Update a poll",
+        Args:  cobra.MinimumNArgs(3),
+        RunE: func(cmd *cobra.Command, args []string) error {
+            id, err := strconv.ParseUint(args[0], 10, 64)
+            if err != nil {
+                return err
+            }
 
-			argsTitle := string(args[1])
-			argsOptions := args[2:len(args)]
+            argsTitle := string(args[1])
+            argsOptions := args[2:len(args)]
 
-			clientCtx, err := client.GetClientTxContext(cmd)
-			if err != nil {
-				return err
-			}
+            clientCtx, err := client.GetClientTxContext(cmd)
+            if err != nil {
+                return err
+            }
 
-			msg := types.NewMsgUpdatePoll(clientCtx.GetFromAddress().String(), id, string(argsTitle), argsOptions)
-			if err := msg.ValidateBasic(); err != nil {
-				return err
-			}
-			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
-		},
-	}
+            msg := types.NewMsgUpdatePoll(clientCtx.GetFromAddress().String(), id, string(argsTitle), argsOptions)
+            if err := msg.ValidateBasic(); err != nil {
+                return err
+            }
+            return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+        },
+    }
 
-	flags.AddTxFlagsToCmd(cmd)
+    flags.AddTxFlagsToCmd(cmd)
 
-	return cmd
+    return cmd
 }
 ```
 
-In order for the app to recognize the changes that you have made, reset the application first before running it the next time 
+For the app to recognize the changes that you have made, reset the application before you run it again. To reset the app:
 
-```
+```sh
 starport serve --reset-once
 ```
 
 ## Add the Votes
 
-Up to now you have created a blockchain where users can create polls. Users will need to vote on the options of the poll.
-Create the code to cast votes on an existing poll.
+At this point, you have created a blockchain that lets app end users create polls. Now it's time to enable the app end users to cast votes on an existing poll.
 
-A vote type transaction has the poll ID and an option - the string representation of the selected answer.
+To create the vote type:
 
 ```bash
 starport type vote pollID option
 ```
 
-Now restart the application with
+- A vote type transaction has the poll ID and an option.
+- An option is the string representation of the selected answer.
+
+Now, restart the application. Remember to use the `--reset-once` flag to recognize the code changes.
 
 ```bash
 starport serve --reset-once
 ```
 
-Remember, every time you reset the application state, you will have new passphrases. The reset restores all the data from your previously created state and you will receive new passphrases with new tokens. Mind to update your wallet accounts in the frontend once you reset the state of the blockchain.
-{synopsis}
+Each time you reset the application state, all of the data from your previously created state is saved.
 
-Now that you have made all the necessary changes to the app, take a look at the client-side application.
+Each time the app restarts, the app end users alice and bob receive new passphrases and new tokens. Make sure to update the wallet accounts in the front-end app after you reset the state of the blockchain. {synopsis}
 
-### Front-end application
+Now that you have made all the required changes to the app, take a look at the client-side application.
 
-Starport has generated a basic front-end for the app. For convenience [Vue.js](https://vuejs.org) framework is used with [Vuex](https://vuex.vuejs.org/) for state management, but since all features of the app are exposed through an HTTP API, clients can be built using any language or framework.
+## Front-end Application
 
-You will be mostly interested in `vue/src/views` directory and the `vue/src/components` directory. These directories contain the code for the page templates of our app. `vue/src/store/` handles sending transactions and receiving data from our blockchain and [`@tendermint/vue`](https://github.com/tendermint/vue/) directory, which contains components, like buttons and forms. It contains the generated protobuffer file definitions that were defined in the `vue/src/store/generated/username/voter/username.voter.voter` directory.
+Starport automatically generated a basic front end for the app. For convenience, [Vue.js](https://vuejs.org) framework is used with [Vuex](https://vuex.vuejs.org/) for state management. Because all features of the app are exposed through an HTTP API, you can build clients using any language or framework.
 
-Inside `vue/src/store/generated/username/voter/username.voter.voter/index.js` you can see the generated transactions `MsgCreatePoll`, `MsgUpdatePoll`, `MsgDeletePoll` which use [CosmJS](https://github.com/cosmwasm/cosmjs), a library for handling wallets, creating, signing and broadcasting transactions and define a Vuex store.
+For the front-end app, you can focus on the content of these directories:
 
-## Add your Module Component to the Frontend
+- `vue/src/views`
+- `vue/src/components`
 
-Navigate to the views directory in `vue/src/views`
+  These directories contain the code for the page templates of your app.
 
-Since we don't need the default form component replace inside of `vue/src/views/Types.vue`
+- `vue/src/store/`
 
-```js
-<SpType modulePath="username.voter.voter" moduleType="Vote"  />
-<SpType modulePath="username.voter.voter" moduleType="Poll"  />
-```
+  Handles sending transactions and receiving data from your blockchain and the [`@tendermint/vue`](https://github.com/tendermint/vue/)directory that contains UI components, like buttons and forms. This directory contains the generated protobuffer file definitions that were defined in the `vue/src/store/generated/username/voter/username.voter.voter` directory.
 
-with two new components and a title
- 
- ```js
-			<SpH3>
-				Voter Module
-			</SpH3>
-			<poll-form />
-			<poll-list />
- ```
+- `vue/src/store/generated/username/voter/username.voter.voter/index.js` has the generated transactions `MsgCreatePoll`, `MsgUpdatePoll`, `MsgDeletePoll` that use the [CosmJS](https://github.com/cosmwasm/cosmjs) library for handling wallets, creating, signing and broadcasting transactions and defines a Vuex store.
 
-In the `<script></script>` tags below, import the component like this
+## Add the Voter Module Component to the Front End
 
-```js
-import PollForm from "../components/PollForm";
-import PollList from "../components/PollList";
+1. Navigate to the `views` directory in `vue/src/views`.
 
-export default {
-	name: 'Types',
-	components: { PollForm, PollList },
-}
-```
+2. Since you don't need the default form component, replace these two lines in `vue/src/views/Types.vue`:
 
-Start creating the components.
+  ```javascript
+  <SpType modulePath="username.voter.voter" moduleType="Vote"  />
+  <SpType modulePath="username.voter.voter" moduleType="Poll"  />
+  ```
 
-## Create the PollForm Component
+  with two new components and a title:
 
-For the PollForm, create a new file `PollForm.vue` in the `vue/src/components` directory. 
+  ```javascript
+  <SpH3>
+  Voter Module
+  </SpH3>
+  <poll-form />
+  <poll-list />
+  ```
 
-The component has a title and two buttons.
+3. To import the component, add the import statements in the `<script>` tag after the template code. The `<script>` tag contains JavaScript code.
 
-```vue
-<template>
+  ```javascript
+  <script>
+  import PollForm from "../components/PollForm";
+  import PollList from "../components/PollList";
+
+  export default {
+  name: 'Types',
+  components: { PollForm, PollList },
+  }
+  </script>
+  ```
+
+Now you can start creating the PollForm and PollList components.
+
+### Create the PollForm Component
+
+**Note:** Some of the following steps depend on one another. If you look at your front-end app before you have updated all of the components that depend on one another, the front-end app might not load because you have not yet completed code updates for all of the dependencies. Don't worry if the front-end app doesn't load at this point. Just complete the steps. Everything should work fine after the tutorial is completed and the pieces are wired up correctly. {synopsis}
+
+1. For the PollForm, create a new file `PollForm.vue` in the `vue/src/components` directory.
+2. Add this code to give the PollForm component a title and two buttons:
+
+  ```javascript
+  <template>
   <div>
-    <div class="sp-voter__main sp-box sp-shadow sp-form-group">
-        <form class="sp-voter__main__form">
-          <div class="sp-voter__main__rcpt__header sp-box-header">
-            Create a Poll
-          </div>
-
-          <input class="sp-input" placeholder="Title" v-model="title" />
-          <div v-for="(option, index) in options" v-bind:key="'option' + index">
-            <input class="sp-input" placeholder="Option" v-model="option.title" />
-          </div>
-          <sp-button @click="add">+ Add option</sp-button>
-          <sp-button @click="submit">Create poll</sp-button>
-        </form>
-    </div>
+  <div class="sp-voter__main sp-box sp-shadow sp-form-group">
+  <form class="sp-voter__main__form">
+  <div class="sp-voter__main__rcpt__header sp-box-header">
+  Create a Poll
   </div>
-</template>
-```
 
-In between `<script></script>` tags below the javacsript code.
-The Form manages the input of the user and broadcasts the transaction to the blockchain if the form gets submitted.
+  <input class="sp-input" placeholder="Title" v-model="title" />
+  <div v-for="(option, index) in options" v-bind:key="'option' + index">
+  <input class="sp-input" placeholder="Option" v-model="option.title" />
+  </div>
+  <sp-button @click="add">+ Add option</sp-button>
+  <sp-button @click="submit">Create poll</sp-button>
+  </form>
+  </div>
+  </div>
+  </template>
+  ```
 
-```js
-export default {
+3. After the template code, add code in the `<script>` tag to enable the PollForm to manage user input of the user and broadcast transactions to the blockchain when the form gets submitted. The `<script>` tag marks this code as JavaScript rather than template code.
+
+  ```javascript
+  <script>
+  export default {
   name: "PollForm",
   data() {
-    return {
-      title: "",
-      options: [{
-        title: "",
-      }],
-    };
+  return {
+  title: "",
+  options: [{
+  title: "",
+  }],
+  };
   },
   computed: {
 
-		currentAccount() {
-			if (this._depsLoaded) {
-				if (this.loggedIn) {
-					return this.$store.getters['common/wallet/address']
-				} else {
-					return null
-				}
-			} else {
-				return null
-			}
-		},
-		loggedIn() {
-			if (this._depsLoaded) {
-				return this.$store.getters['common/wallet/loggedIn']
-			} else {
-				return false
-			}
-		}
+  currentAccount() {
+  if (this._depsLoaded) {
+  if (this.loggedIn) {
+  return this.$store.getters['common/wallet/address']
+  } else {
+  return null
+  }
+  } else {
+  return null
+  }
+  },
+  loggedIn() {
+  if (this._depsLoaded) {
+  return this.$store.getters['common/wallet/loggedIn']
+  } else {
+  return false
+  }
+  }
   },
   methods: {
-    add() {
-      this.options = [...this.options, { title: "" }];
-    },
-    async submit() {
-      const value = {
-        creator: this.currentAccount,
-        title: this.title,
-        options: this.options.map((o) => o.title),
-      };
-      await this.$store.dispatch("username.voter.voter/sendMsgCreatePoll", {
-        value,
-        fee: [],
-      });
-    },
+  add() {
+  this.options = [...this.options, { title: "" }];
   },
-};
-```
+  async submit() {
+  const value = {
+  creator: this.currentAccount,
+  title: this.title,
+  options: this.options.map((o) => o.title),
+  };
+  await this.$store.dispatch("username.voter.voter/sendMsgCreatePoll", {
+  value,
+  fee: [],
+  });
+  },
+  },
+  };
+  </script>
+  ```
 
+4. Refresh the page.
 
-Refresh the page, sign in with a password and create a new poll. It takes a couple of seconds to process a transaction. Now, if you visit [http://localhost:1317/voter/poll](http://localhost:1317/voter/poll) you should see a list of polls (this endpoint is defined in `x/voter/client/rest/queryPoll.go`):
+5. Sign in as an app end user with a password.
 
-```json
-{
+6. Create a new poll. It takes a few seconds to process the transaction.
+
+7. Now, visit <http://localhost:1317/voter/poll>. This endpoint is defined in `x/voter/client/rest/queryPoll.go`:
+
+  ```json
+  {
   "height": "0",
   "result": [
-    {
-      "creator": "cosmos19qqa7j73735w4pcx9mkkaxr00af7p432n62tv6",
-      "id": "826477ab-0005-4e68-8031-19758d331681",
-      "title": "A poll title",
-      "options": ["First option", "The second option"]
-    }
+  {
+  "creator": "cosmos19qqa7j73735w4pcx9mkkaxr00af7p432n62tv6",
+  "id": "826477ab-0005-4e68-8031-19758d331681",
+  "title": "A poll title",
+  "options": ["First option", "The second option"]
+  }
   ]
-}
-```
+  }
+  ```
 
 ### Create the Poll List Component
 
-Create a new component `PollList.vue` in `vue/src/components/PollList.vue`.
+1. Create a new `PollList.vue` file for the component in `vue/src/components/`.
 
-```js
-<template>
+  ```javascript
+  <template>
   <div>
-    <SpH3> List of Polls </SpH3>
-    <div v-for="poll in polls" v-bind:key="'poll' + poll.id">
-      <SpH3> {{poll.id}}. {{ poll.title }} </SpH3>
-      <app-radio-item
-        @click="submit(poll.id, option)"
-        v-for="option in poll.options"
-        v-bind:key="option"
-        :value="option"
-      />
-      <app-text type="subtitle">Results: {{ results(poll.id) }}</app-text>
-    </div>
+  <SpH3> List of Polls </SpH3>
+  <div v-for="poll in polls" v-bind:key="'poll' + poll.id">
+  <SpH3> {{poll.id}}. {{ poll.title }} </SpH3>
+  <app-radio-item
+  @click="submit(poll.id, option)"
+  v-for="option in poll.options"
+  v-bind:key="option"
+  :value="option"
+  />
+  <app-text type="subtitle">Results: {{ results(poll.id) }}</app-text>
   </div>
-</template>
-<style>
-.option-radio > .button {
+  </div>
+  </template>
+  <style>
+  .option-radio > .button {
   height: 40px;
   width: 50%;
-}
-</style>
-```
-in between `<script></script>` tags below this:
+  }
+  </style>
+  ```
 
-```js
-import AppRadioItem from "./AppRadioItem";
-import AppText from "./AppText";
-import { countBy } from "lodash";
+2. Add the `<script>` tag and the JavaScript code to import the UI components:
 
-export default {
+  ```javascript
+  <script>
+  import AppRadioItem from "./AppRadioItem";
+  import AppText from "./AppText";
+  import { countBy } from "lodash";
+
+  export default {
   components: { AppText, AppRadioItem },
   data() {
-    return {
-      selected: "",
-    };
+  return {
+  selected: "",
+  };
   },
   computed: {
 
-		currentAccount() {
-			if (this._depsLoaded) {
-				if (this.loggedIn) {
-					return this.$store.getters['common/wallet/address']
-				} else {
-					return null
-				}
-			} else {
-				return null
-			}
-		},
-		loggedIn() {
-			if (this._depsLoaded) {
-				return this.$store.getters['common/wallet/loggedIn']
-			} else {
-				return false
-			}
-		},
-    polls() {
-      return (
-        this.$store.getters["username.voter.voter/getPollAll"]({
-          params: {}
-        })?.Poll ?? []
-      );
-    },
-    votes() {
-      return (
-        this.$store.getters["username.voter.voter/getVoteAll"]({
-          params: {}
-        })?.Vote ?? []
-      );
-    },
+  currentAccount() {
+  if (this._depsLoaded) {
+  if (this.loggedIn) {
+  return this.$store.getters['common/wallet/address']
+  } else {
+  return null
+  }
+  } else {
+  return null
+  }
+  },
+  loggedIn() {
+  if (this._depsLoaded) {
+  return this.$store.getters['common/wallet/loggedIn']
+  } else {
+  return false
+  }
+  },
+  polls() {
+  return (
+  this.$store.getters["username.voter.voter/getPollAll"]({
+  params: {}
+  })?.Poll ?? []
+  );
+  },
+  votes() {
+  return (
+  this.$store.getters["username.voter.voter/getVoteAll"]({
+  params: {}
+  })?.Vote ?? []
+  );
+  },
   },
   methods: {
-    results(id) {
-      const results = this.votes.filter((v) => v.pollID === id);
-      return countBy(results, "option");
-    },
-    async submit(pollID, option) {
-      
-      const value = { creator: this.currentAccount, pollID, option };
-      await this.$store.dispatch("username.voter.voter/sendMsgCreateVote", {
-        value,
-        fee: [],
-      });
-      await this.$store.dispatch("username.voter.voter/QueryPollAll", {
-        options: { subscribe: true, all: true },
-        params: {},
-      });
-    },
+  results(id) {
+  const results = this.votes.filter((v) => v.pollID === id);
+  return countBy(results, "option");
   },
-};
-```
+  async submit(pollID, option) {
 
-The `PollList` component lists every poll, including the options for that poll as buttons. Selecting an option triggers a `submit` method that broadcasts a transaction with a "create vote" message and fetches data back from our application.
+  const value = { creator: this.currentAccount, pollID, option };
+  await this.$store.dispatch("username.voter.voter/sendMsgCreateVote", {
+  value,
+  fee: [],
+  });
+  await this.$store.dispatch("username.voter.voter/QueryPollAll", {
+  options: { subscribe: true, all: true },
+  params: {},
+  });
+  },
+  },
+  };
+  ```
 
-Two components are still missing from our App, to make it a bit better looking. Let's add `AppRadioItem.vue` and `AppText.vue`.
+The `PollList` component you just created lists every poll, including the options for that poll as buttons. Selecting an option triggers a `submit` method that broadcasts a transaction with a create vote message and fetches data back from your application.
+
+Two components are still missing from your app to make look more like a voting poll. Now you can add the `AppRadioItem.vue` and `AppText.vue` UI options.
 
 ### Add the Options Component
 
-`vue/src/components/AppRadioItem.vue`
+In `vue/src/components/AppRadioItem.vue`, add:
 
-```js
+```javascript
 <template>
   <div>
     <button class="button">{{ value }}</button>
@@ -663,22 +788,23 @@ Two components are still missing from our App, to make it a bit better looking. 
 </style>
 ```
 
-In the `<script></script>` tag below this:
+In a `<script>` tag, add the JavaScript code:
 
-```js
+```javascript
+<script>
 export default {
   props: {
     value: "",
   },
 };
+</script>
 ```
-
 
 ### Add the Poll List Text Component
 
-`vue/src/components/AppText.vue`
+Now you can add the text for the poll list in `vue/src/components/AppText.vue`:
 
-```js
+```javascript
 <template>
   <div>
     <div :class="[`${type}`]">
@@ -708,9 +834,10 @@ export default {
 </style>
 ```
 
-In between `<script></script>` tags below this
+In a `<script>` tag, add:
 
-```js
+```javascript
+<script>
 export default {
   props: {
     type: {
@@ -718,60 +845,59 @@ export default {
     },
   },
 };
+</script>
 ```
 
-Now in the `App.vue` you need to update the JavaScript to fetch the votes.
+### Update the Front-end App
 
-### Update the Frontend App
+Now, update the JavaScript in `vue/src/App.vue` to fetch the votes.
 
-The App file handles the transactions of the components. Modify the script in `vue/src/App.vue` to look the following 
+The `App.vue` file handles the transactions of the components. Modify the code in the `<script>` tag to look like:
 
-```js
+```javascript
+<script>
 import './scss/app.scss'
 import '@starport/vue/lib/starport-vue.css'
 import Sidebar from './components/Sidebar'
 
 export default {
-	components: {
-		Sidebar
-	},
-	data() {
-		return {
-			initialized: false
-		}
-	},
-	computed: {
-		hasWallet() {
-			return this.$store.hasModule([ 'common', 'wallet'])
-		}
-	},
-	async created() {
-		await this.$store.dispatch('common/env/init')
-		this.initialized = true
-		await this.$store.dispatch("username.voter.voter/QueryPollAll",{options:{subscribe:true, all:true},params:{}})
-		await this.$store.dispatch("username.voter.voter/QueryVoteAll",{options:{subscribe:true, all:true},params:{}})
-	},
-	errorCaptured(err) {
-		console.log(err)
-		return false
-	}
+    components: {
+        Sidebar
+    },
+    data() {
+        return {
+            initialized: false
+        }
+    },
+    computed: {
+        hasWallet() {
+            return this.$store.hasModule([ 'common', 'wallet'])
+        }
+    },
+    async created() {
+        await this.$store.dispatch('common/env/init')
+        this.initialized = true
+        await this.$store.dispatch("username.voter.voter/QueryPollAll",{options:{subscribe:true, all:true},params:{}})
+        await this.$store.dispatch("username.voter.voter/QueryVoteAll",{options:{subscribe:true, all:true},params:{}})
+    },
+    errorCaptured(err) {
+        console.log(err)
+        return false
+    }
 }
+</script>
 ```
 
-By now should be able to see the same UI as in the first screenshot. Try creating polls and casting votes.
-You may notice that it's possible to cast multiple votes for one poll. This is not what we want, so let's fix this behaviour.
+By now you should be able to see the same front-end app UI that you saw in the first screenshot. Try creating polls and casting votes. You might notice that it's possible to cast multiple votes for one poll. This activity is not what you want, so you can fix that behavior.
 
 ## Access the API
 
-To fix this issue you first have to understand how data is stored in our application.
+To fix this issue, you first have to understand how data is stored in your application.
 
-Think of the data storage as a lexicographically ordered key value store. 
-You can loop through the entries, filter by key prefix, add, update and delete entries. 
-It is easier to visualize the store as JSON.
+Think of the data storage as a lexicographically ordered key-value store. You can loop through the entries, filter by key prefix, add, update, and delete entries. It is easier to visualize the store as JSON.
 
-When you create a poll and cast on vote, this is the resulting JSON.
+When you create a poll and cast a vote, this is the resulting JSON:
 
-See the API and JSON output of your created Poll endpoint at [http://localhost:1317/username/voter/voter/poll](http://localhost:1317/username/voter/voter/poll)
 ```json
 {
   "Poll": [
@@ -789,7 +915,9 @@ See the API and JSON output of your created Poll endpoint at [http://localhost:1
 }
 ```
 
-For the votes you can go to the API page on [http://localhost:1317/username/voter/voter/vote](http://localhost:1317/username/voter/voter/vote) 
+See the API and JSON output of your created poll endpoint at <http://localhost:1317/username/voter/voter/poll>.
+
+To see the votes, go to the API endpoint at <http://localhost:1317/username/voter/voter/vote>.
 
 ```json
 
@@ -809,53 +937,57 @@ For the votes you can go to the API page on [http://localhost:1317/username/vote
 }
 ```
 
-The endpoint paths are defined by the username you use when bootstrapping the application with Starport, together with your module name.
+The endpoint paths are defined by the username that you used when bootstrapping the application with Starport, together with the module name. So, if your GitHub user name is `yoda`, then you can find:
 
-Looking into this data, you can see the combination of `creator` and `pollID` is what we are looking for. Each account should only be allowed to have 1 vote per pollID.
+- The poll endpoint at <<http://localhost:1317/yoda/voter/voter/poll>
+- The API endpoint at `http://localhost:1317/yoda/voter/voter/vote`
+
+Looking into this data, you can see that the combination of `creator` and `pollID` is what you are looking for.
 
 ## Limit to One Vote per User
 
-The logic for access to a certain transaction should be in the `keeper` directory. For the votes transaction logic, open the `msg_server_vote.go` file at `x/voter/keeper/msg_server_vote.go` and modify the `CreateVote` function.
+Each account should be allowed to have only 1 vote per pollID.
+
+The logic for access to a certain transaction is in the `keeper` directory. For the votes transaction logic, open the `msg_server_vote.go` file at `x/voter/keeper/msg_server_vote.go`, and modify the `CreateVote` function to check if the account has already voted and to return an error when a subsequent vote is cast.
 
 ```go
 func (k msgServer) CreateVote(goCtx context.Context, msg *types.MsgCreateVote) (*types.MsgCreateVoteResponse, error) {
-	ctx := sdk.UnwrapSDKContext(goCtx)
+    ctx := sdk.UnwrapSDKContext(goCtx)
 
-  	// Get all existing votes
-	voteList := k.GetAllVote(ctx)
-	for _, existingVote := range voteList {
-    	// Check if the account has already voted on this PollID
-		if existingVote.Creator == msg.Creator && existingVote.PollID == msg.PollID {
-      		// Return an error when a vote has been casted by this account on this PollID
-			return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Vote already casted.")
-		}
-	}
+      // Get all existing votes
+    voteList := k.GetAllVote(ctx)
+    for _, existingVote := range voteList {
+        // Check if the account has already voted on this PollID
+        if existingVote.Creator == msg.Creator && existingVote.PollID == msg.PollID {
+              // Return an error when a vote has been cast by this account on this PollID
+            return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Vote already casted.")
+        }
+    }
 
-	id := k.AppendVote(
-		ctx,
-		msg.Creator,
-		msg.PollID,
-		msg.Option,
-	)
+    id := k.AppendVote(
+        ctx,
+        msg.Creator,
+        msg.PollID,
+        msg.Option,
+    )
 
-	return &types.MsgCreateVoteResponse{
-		Id: id,
-	}, nil
+    return &types.MsgCreateVoteResponse{
+        Id: id,
+    }, nil
 }
 ```
 
-Now when you restart the app, in the frontend you should be able to only cast 1 vote per poll.
+After you restart the app, a front-end app user can cast only 1 vote per poll.
 
-## Introducing a fee for creating polls
+## Introducing a Fee for Creating Polls
 
-Add the logic for the transaction, that creating a poll costs 200 tokens.
+Add the logic for the transaction so that creating a poll costs 200 tokens.
 
-We already require users to have accounts registered, and each user has tokens on balance. The only thing you need to do is to send coins from user's account to a module account before we create a poll.
+You already require users to have accounts registered. Each app end user has tokens on balance. The only thing you need to do is to send coins from the app end user's account to a module account before you create a poll.
 
-## Add the Bank Keeper to the Module
+## Add the Bank Keeper to the Voter Module
 
-First, load the `expected_keepers` in the `x/voter/types/expected_keepers.go` file.
-This will define all the bank functions available in your module.
+First, load the `expected_keepers` in the `x/voter/types/expected_keepers.go` file to define all of the bank functions you want to make available in your module.
 
 ```go
 package types
@@ -864,96 +996,106 @@ import sdk "github.com/cosmos/cosmos-sdk/types"
 
 // BankKeeper defines the expected bank keeper
 type BankKeeper interface {
-	SendCoins(ctx sdk.Context, fromAddr sdk.AccAddress, toAddr sdk.AccAddress, amt sdk.Coins) error
-	MintCoins(ctx sdk.Context, moduleName string, amt sdk.Coins) error
-	BurnCoins(ctx sdk.Context, moduleName string, amt sdk.Coins) error
-	SendCoinsFromModuleToAccount(ctx sdk.Context, senderModule string, recipientAddr sdk.AccAddress, amt sdk.Coins) error
-	SendCoinsFromAccountToModule(ctx sdk.Context, senderAddr sdk.AccAddress, recipientModule string, amt sdk.Coins) error
+    SendCoins(ctx sdk.Context, fromAddr sdk.AccAddress, toAddr sdk.AccAddress, amt sdk.Coins) error
+    MintCoins(ctx sdk.Context, moduleName string, amt sdk.Coins) error
+    BurnCoins(ctx sdk.Context, moduleName string, amt sdk.Coins) error
+    SendCoinsFromModuleToAccount(ctx sdk.Context, senderModule string, recipientAddr sdk.AccAddress, amt sdk.Coins) error
+    SendCoinsFromAccountToModule(ctx sdk.Context, senderAddr sdk.AccAddress, recipientModule string, amt sdk.Coins) error
 }
 ```
 
-Second, add the keeper to the `x/voter/keeper/keeper.go` file.
-Add it to the `type` as well as the `NewKeeper` function as follows:
+Second, add the `bankKeeper` keeper to the `x/voter/keeper/keeper.go` file. Add it to the `type` and the `NewKeeper` function as follows:
 
 ```go
 type (
-	Keeper struct {
-		cdc        codec.Marshaler
-		storeKey   sdk.StoreKey
-		memKey     sdk.StoreKey
-		bankKeeper types.BankKeeper
-	}
+    Keeper struct {
+        cdc        codec.Marshaler
+        storeKey   sdk.StoreKey
+        memKey     sdk.StoreKey
+        bankKeeper types.BankKeeper
+    }
 )
 
 func NewKeeper(cdc codec.Marshaler, storeKey, memKey sdk.StoreKey, bankKeeper types.BankKeeper) *Keeper {
-	return &Keeper{
-		cdc:        cdc,
-		storeKey:   storeKey,
-		memKey:     memKey,
-		bankKeeper: bankKeeper,
-	}
+    return &Keeper{
+        cdc:        cdc,
+        storeKey:   storeKey,
+        memKey:     memKey,
+        bankKeeper: bankKeeper,
+    }
 }
 ```
 
-Finally, add the bank module to the `app.go` file in `x/app/app.go`
+Finally, add the bank module in the New function to the `voterKeeper` in the `app.go` file in `app/app.go`.
 
-```go
+In the keeper loading section, replace:
+
+```code
+app.voterKeeper = *voterkeeper.NewKeeper(
+  appCodec, keys[votertypes.StoreKey], keys[votertypes.MemStoreKey],
+)
+```
+
+with
+
+```code
 app.voterKeeper = *voterkeeper.NewKeeper(
   appCodec, keys[votertypes.StoreKey], keys[votertypes.MemStoreKey], app.BankKeeper,
 )
 ```
 
-Now you are ready to use all the bank functions that you added to the expected keepers file above.
-Next you will define how the transaction will require the funds in order to exectue the transaction.
+Now, you are ready to use all of the bank functions that you added to the expected keepers file. The next step is to define the transaction to require the funds to execute the create poll transaction.
 
-## Modify the Message with the price
+## Modify the Create Poll Message with the Price
 
-Modify the msg at `x/voter/keeper/msg_server_poll.go`.
+Modify the msg at `x/voter/keeper/msg_server_poll.go`:
 
 ```go
 package keeper
 
 import (
-	"context"
-	"fmt"
+    "context"
+    "fmt"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/tendermint/tendermint/crypto"
-	"github.com/username/voter/x/voter/types"
+    sdk "github.com/cosmos/cosmos-sdk/types"
+    sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+    "github.com/tendermint/tendermint/crypto"
+    "github.com/username/voter/x/voter/types"
 )
 
 func (k msgServer) CreatePoll(goCtx context.Context, msg *types.MsgCreatePoll) (*types.MsgCreatePollResponse, error) {
-	ctx := sdk.UnwrapSDKContext(goCtx)
+    ctx := sdk.UnwrapSDKContext(goCtx)
 
-	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
-	feeCoins, err := sdk.ParseCoinsNormalized("200token")
-	if err != nil {
-		return nil, err
-	}
-	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return nil, err
-	}
-	if err := k.bankKeeper.SendCoins(ctx, creatorAddress, moduleAcct, feeCoins); err != nil {
-		return nil, err
-	}
+    moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
+    feeCoins, err := sdk.ParseCoinsNormalized("200token")
+    if err != nil {
+        return nil, err
+    }
+    creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
+    if err != nil {
+        return nil, err
+    }
+    if err := k.bankKeeper.SendCoins(ctx, creatorAddress, moduleAcct, feeCoins); err != nil {
+        return nil, err
+    }
 
-	id := k.AppendPoll(
-		ctx,
-		msg.Creator,
-		msg.Title,
-		msg.Options,
-	)
+    id := k.AppendPoll(
+        ctx,
+        msg.Creator,
+        msg.Title,
+        msg.Options,
+    )
 
-	return &types.MsgCreatePollResponse{
-		Id: id,
-	}, nil
+    return &types.MsgCreatePollResponse{
+        Id: id,
+    }, nil
 }
 ```
 
-The fee payment happens before `k.AppendPoll`. This way, if a user does not have enough tokens, the application will raise an error and will not proceed to creating a poll. Make sure to have `"github.com/tendermint/tendermint/crypto"` added to the import statement (if your text editor didn't do that for you).
+The fee payment occurs before `k.AppendPoll` so if an end user does not have enough tokens, the application raises an error and does not proceed with creating a poll.
 
-Now, restart the app and try creating several polls to see how this affects your token balance.
+The import statement requires `"github.com/tendermint/tendermint/crypto"`. Be sure to add this repo to the import statement if your text editor didn't do that for you.
+
+Now, restart the app and try creating several polls to see how the transaction affects your token balance.
 
 Congratulations, you have built a blockchain voting application.
