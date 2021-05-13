@@ -48,7 +48,7 @@ Work-in-process tutorials might have content and code in other repos.
 
 2. Local tutorials require JavaScript. If needed, install [npm](https://docs.npmjs.com/cli/v6/commands/npm-install).
 
-3. Install the npm packages for the SDK tutorials:
+3. For each branch you work in, install the npm packages for the SDK tutorials:
 
   ```
   npm install
