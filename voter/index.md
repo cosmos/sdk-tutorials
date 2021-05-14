@@ -511,13 +511,13 @@ For the front-end app, you can focus on the content of these directories:
 
   with two new components and the `Voter Module` title:
 
-    ```javascript
-          <SpH3>
-            Voter Module
-          </SpH3>
-          <poll-form />
-          <poll-list />
-    ```
+  ```javascript
+  <SpH3>
+    Voter Module
+  </SpH3>
+  <poll-form />
+  <poll-list />
+  ```
 
 3. To import the component, add the import statements in the `<script>` tag after the template code. The `<script>` tag contains JavaScript code.
 
