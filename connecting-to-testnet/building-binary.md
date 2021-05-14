@@ -21,6 +21,8 @@ Clone the code repository:
 git clone --branch v1.0.1 https://github.com/b-harvest/gravity-dex
 ```
 
+We're using `b-harvest/gravity-dex`, which is `cosmos/gaia` (the source code behind Cosmos Hub) with the `tendermint/liquidity` module (source code of Gravity DEX) imported.
+
 Install node's binary `gaiad`:
 
 ```
