@@ -61,18 +61,18 @@ Start the node:
 gaiad start
 ```
 
-Your node should start syncing and over time will catch up with the network. By default, your node's RPC should be accessible on http://localhost:26657 and API on http://localhost:1317.
+Your node should start syncing and over time will catch up with the network. By default, your node's RPC should be accessible on [http://localhost:26657](http://localhost:26657) and API on [http://localhost:1317](http://localhost:1317).
 
-## Endpoints
+## Public Endpoints
 
 You can also connect to the Cosmos Hub testnet using the following endpoints:
 
-| Service      | URL                                                                            |
-| ------------ | ------------------------------------------------------------------------------ |
-| RPC          | [https://rpc.testnet.cosmos.network](https://rpc.testnet.cosmos.network)       |
-| API          | [https://api.testnet.cosmos.network](https://api.testnet.cosmos.network)       |
-| gRPC         | [https://grpc.testnet.cosmos.network](https://grpc.testnet.cosmos.network)     |
-| Token faucet | [https://faucet.testnet.cosmos.network](https://faucet.testnet.cosmos.network) |
+| Service      | URL                                                                                    |
+| ------------ | -------------------------------------------------------------------------------------- |
+| RPC          | [https://rpc.testnet.cosmos.network:443](https://rpc.testnet.cosmos.network:443)       |
+| API          | [https://api.testnet.cosmos.network:443](https://api.testnet.cosmos.network:443)       |
+| gRPC         | [https://grpc.testnet.cosmos.network:443](https://grpc.testnet.cosmos.network:443)     |
+| Token faucet | [https://faucet.testnet.cosmos.network:443](https://faucet.testnet.cosmos.network:443) |
 
 ## Requesting Tokens from a Faucet
 
