@@ -465,8 +465,9 @@ To create the vote type:
 starport type vote pollID option
 ```
 
-- A vote type transaction has the poll ID and an option.
-- An option is the string representation of the selected answer.
+This command creates a vote type transaction with:
+- A poll ID
+- An option that is a string representation of the selected answer
 
 Now, restart the application. Remember to use the `--reset-once` flag to recognize the code changes.
 
@@ -508,114 +509,112 @@ For the front-end app, you can focus on the content of these directories:
   <SpType modulePath="username.voter.voter" moduleType="Poll"  />
   ```
 
-  with two new components and a title:
+  with two new components and the `Voter Module` title:
 
-  ```javascript
-  <SpH3>
-  Voter Module
-  </SpH3>
-  <poll-form />
-  <poll-list />
-  ```
+    ```javascript
+          <SpH3>
+            Voter Module
+          </SpH3>
+          <poll-form />
+          <poll-list />
+    ```
 
 3. To import the component, add the import statements in the `<script>` tag after the template code. The `<script>` tag contains JavaScript code.
 
-  ```javascript
-  <script>
-  import PollForm from "../components/PollForm";
-  import PollList from "../components/PollList";
+    ```javascript
+    <script>
+    import PollForm from "../components/PollForm";
+    import PollList from "../components/PollList";
 
-  export default {
-  name: 'Types',
-  components: { PollForm, PollList },
-  }
-  </script>
-  ```
+    export default {
+      name: 'Types',
+      components: { PollForm, PollList },
+    }
+    </script>
+    ```
 
 Now you can start creating the PollForm and PollList components.
 
 ### Create the PollForm Component
 
-**Note:** Some of the following steps depend on one another. If you look at your front-end app before you have updated all of the components that depend on one another, the front-end app might not load because you have not yet completed code updates for all of the dependencies. Don't worry if the front-end app doesn't load at this point. Just complete the steps. Everything should work fine after the tutorial is completed and the pieces are wired up correctly. {synopsis}
+**Note:** Some of the following steps depend on one another. If you look at your front-end app before you have updated all of the components that depend on one another, the front-end app might not load. Don't worry if the front-end app doesn't load at this point, this expected behavior happens because you have not yet completed code updates for all of the dependencies. Just complete the steps. Everything should work fine after the tutorial is completed and the pieces are wired up correctly. {synopsis}
 
 1. For the PollForm, create a new file `PollForm.vue` in the `vue/src/components` directory.
 2. Add this code to give the PollForm component a title and two buttons:
 
-  ```javascript
-  <template>
-  <div>
-  <div class="sp-voter__main sp-box sp-shadow sp-form-group">
-  <form class="sp-voter__main__form">
-  <div class="sp-voter__main__rcpt__header sp-box-header">
-  Create a Poll
-  </div>
+    ```vue
+    <template>
+      <div>
+        <div class="sp-voter__main sp-box sp-shadow sp-form-group">
+            <form class="sp-voter__main__form">
+              <div class="sp-voter__main__rcpt__header sp-box-header">
+                Create a Poll
+              </div>
 
-  <input class="sp-input" placeholder="Title" v-model="title" />
-  <div v-for="(option, index) in options" v-bind:key="'option' + index">
-  <input class="sp-input" placeholder="Option" v-model="option.title" />
-  </div>
-  <sp-button @click="add">+ Add option</sp-button>
-  <sp-button @click="submit">Create poll</sp-button>
-  </form>
-  </div>
-  </div>
-  </template>
-  ```
+              <input class="sp-input" placeholder="Title" v-model="title" />
+              <div v-for="(option, index) in options" v-bind:key="'option' + index">
+                <input class="sp-input" placeholder="Option" v-model="option.title" />
+              </div>
+              <sp-button @click="add">+ Add option</sp-button>
+              <sp-button @click="submit">Create poll</sp-button>
+            </form>
+        </div>
+      </div>
+    </template>
+    ```
 
 3. After the template code, add code in the `<script>` tag to enable the PollForm to manage user input of the user and broadcast transactions to the blockchain when the form gets submitted. The `<script>` tag marks this code as JavaScript rather than template code.
 
-  ```javascript
-  <script>
-  export default {
-  name: "PollForm",
-  data() {
-  return {
-  title: "",
-  options: [{
-  title: "",
-  }],
-  };
-  },
-  computed: {
+    ```javascript
+    export default {
+      name: "PollForm",
+      data() {
+        return {
+          title: "",
+          options: [{
+            title: "",
+          }],
+        };
+      },
+      computed: {
 
-  currentAccount() {
-  if (this._depsLoaded) {
-  if (this.loggedIn) {
-  return this.$store.getters['common/wallet/address']
-  } else {
-  return null
-  }
-  } else {
-  return null
-  }
-  },
-  loggedIn() {
-  if (this._depsLoaded) {
-  return this.$store.getters['common/wallet/loggedIn']
-  } else {
-  return false
-  }
-  }
-  },
-  methods: {
-  add() {
-  this.options = [...this.options, { title: "" }];
-  },
-  async submit() {
-  const value = {
-  creator: this.currentAccount,
-  title: this.title,
-  options: this.options.map((o) => o.title),
-  };
-  await this.$store.dispatch("username.voter.voter/sendMsgCreatePoll", {
-  value,
-  fee: [],
-  });
-  },
-  },
-  };
-  </script>
-  ```
+        currentAccount() {
+          if (this._depsLoaded) {
+            if (this.loggedIn) {
+              return this.$store.getters['common/wallet/address']
+            } else {
+              return null
+            }
+          } else {
+            return null
+          }
+        },
+        loggedIn() {
+          if (this._depsLoaded) {
+            return this.$store.getters['common/wallet/loggedIn']
+          } else {
+            return false
+          }
+        }
+      },
+      methods: {
+        add() {
+          this.options = [...this.options, { title: "" }];
+        },
+        async submit() {
+          const value = {
+            creator: this.currentAccount,
+            title: this.title,
+            options: this.options.map((o) => o.title),
+          };
+          await this.$store.dispatch("username.voter.voter/sendMsgCreatePoll", {
+            value,
+            fee: [],
+          });
+        },
+      },
+    };
+    ```
 
 4. Refresh the page.
 
@@ -627,15 +626,15 @@ Now you can start creating the PollForm and PollList components.
 
   ```json
   {
-  "height": "0",
-  "result": [
-  {
-  "creator": "cosmos19qqa7j73735w4pcx9mkkaxr00af7p432n62tv6",
-  "id": "826477ab-0005-4e68-8031-19758d331681",
-  "title": "A poll title",
-  "options": ["First option", "The second option"]
-  }
-  ]
+    "height": "0",
+    "result": [
+      {
+        "creator": "cosmos19qqa7j73735w4pcx9mkkaxr00af7p432n62tv6",
+        "id": "826477ab-0005-4e68-8031-19758d331681",
+        "title": "A poll title",
+        "options": ["First option", "The second option"]
+      }
+    ]
   }
   ```
 
@@ -643,100 +642,101 @@ Now you can start creating the PollForm and PollList components.
 
 1. Create a new `PollList.vue` file for the component in `vue/src/components/`.
 
-  ```javascript
-  <template>
-  <div>
-  <SpH3> List of Polls </SpH3>
-  <div v-for="poll in polls" v-bind:key="'poll' + poll.id">
-  <SpH3> {{poll.id}}. {{ poll.title }} </SpH3>
-  <app-radio-item
-  @click="submit(poll.id, option)"
-  v-for="option in poll.options"
-  v-bind:key="option"
-  :value="option"
-  />
-  <app-text type="subtitle">Results: {{ results(poll.id) }}</app-text>
-  </div>
-  </div>
-  </template>
-  <style>
-  .option-radio > .button {
-  height: 40px;
-  width: 50%;
-  }
-  </style>
-  ```
+    ```javascript
+    <template>
+      <div>
+        <SpH3> List of Polls </SpH3>
+        <div v-for="poll in polls" v-bind:key="'poll' + poll.id">
+          <SpH3> {{poll.id}}. {{ poll.title }} </SpH3>
+          <app-radio-item
+            @click="submit(poll.id, option)"
+            v-for="option in poll.options"
+            v-bind:key="option"
+            :value="option"
+          />
+          <app-text type="subtitle">Results: {{ results(poll.id) }}</app-text>
+        </div>
+      </div>
+    </template>
+    <style>
+    .option-radio > .button {
+      height: 40px;
+      width: 50%;
+    }
+    </style>
+    ```
 
 2. Add the `<script>` tag and the JavaScript code to import the UI components:
 
-  ```javascript
-  <script>
-  import AppRadioItem from "./AppRadioItem";
-  import AppText from "./AppText";
-  import { countBy } from "lodash";
+    ```javascript
+    <script>
+    import AppRadioItem from "./AppRadioItem";
+    import AppText from "./AppText";
+    import { countBy } from "lodash";
 
-  export default {
-  components: { AppText, AppRadioItem },
-  data() {
-  return {
-  selected: "",
-  };
-  },
-  computed: {
+    export default {
+      components: { AppText, AppRadioItem },
+      data() {
+        return {
+          selected: "",
+        };
+      },
+      computed: {
 
-  currentAccount() {
-  if (this._depsLoaded) {
-  if (this.loggedIn) {
-  return this.$store.getters['common/wallet/address']
-  } else {
-  return null
-  }
-  } else {
-  return null
-  }
-  },
-  loggedIn() {
-  if (this._depsLoaded) {
-  return this.$store.getters['common/wallet/loggedIn']
-  } else {
-  return false
-  }
-  },
-  polls() {
-  return (
-  this.$store.getters["username.voter.voter/getPollAll"]({
-  params: {}
-  })?.Poll ?? []
-  );
-  },
-  votes() {
-  return (
-  this.$store.getters["username.voter.voter/getVoteAll"]({
-  params: {}
-  })?.Vote ?? []
-  );
-  },
-  },
-  methods: {
-  results(id) {
-  const results = this.votes.filter((v) => v.pollID === id);
-  return countBy(results, "option");
-  },
-  async submit(pollID, option) {
-
-  const value = { creator: this.currentAccount, pollID, option };
-  await this.$store.dispatch("username.voter.voter/sendMsgCreateVote", {
-  value,
-  fee: [],
-  });
-  await this.$store.dispatch("username.voter.voter/QueryPollAll", {
-  options: { subscribe: true, all: true },
-  params: {},
-  });
-  },
-  },
-  };
-  ```
+        currentAccount() {
+          if (this._depsLoaded) {
+            if (this.loggedIn) {
+              return this.$store.getters['common/wallet/address']
+            } else {
+              return null
+            }
+          } else {
+            return null
+          }
+        },
+        loggedIn() {
+          if (this._depsLoaded) {
+            return this.$store.getters['common/wallet/loggedIn']
+          } else {
+            return false
+          }
+        },
+        polls() {
+          return (
+            this.$store.getters["username.voter.voter/getPollAll"]({
+              params: {}
+            })?.Poll ?? []
+          );
+        },
+        votes() {
+          return (
+            this.$store.getters["username.voter.voter/getVoteAll"]({
+              params: {}
+            })?.Vote ?? []
+          );
+        },
+      },
+      methods: {
+        results(id) {
+          const results = this.votes.filter((v) => v.pollID === id);
+          return countBy(results, "option");
+        },
+        async submit(pollID, option) {
+          
+          const value = { creator: this.currentAccount, pollID, option };
+          await this.$store.dispatch("username.voter.voter/sendMsgCreateVote", {
+            value,
+            fee: [],
+          });
+          await this.$store.dispatch("username.voter.voter/QueryPollAll", {
+            options: { subscribe: true, all: true },
+            params: {},
+          });
+        },
+      },
+    };
+    </script>
+    ```
 
 The `PollList` component you just created lists every poll, including the options for that poll as buttons. Selecting an option triggers a `submit` method that broadcasts a transaction with a create vote message and fetches data back from your application.
 
