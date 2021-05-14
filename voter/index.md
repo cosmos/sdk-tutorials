@@ -504,20 +504,20 @@ For the front-end app, you can focus on the content of these directories:
 
 2. Since you don't need the default form component, replace these two lines in `vue/src/views/Types.vue`:
 
-  ```javascript
-  <SpType modulePath="username.voter.voter" moduleType="Vote"  />
-  <SpType modulePath="username.voter.voter" moduleType="Poll"  />
-  ```
+    ```javascript
+    <SpType modulePath="username.voter.voter" moduleType="Vote"  />
+    <SpType modulePath="username.voter.voter" moduleType="Poll"  />
+    ```
 
-  with two new components and the `Voter Module` title:
+    with two new components and the `Voter Module` title:
 
-  ```javascript
-  <SpH3>
-    Voter Module
-  </SpH3>
-  <poll-form />
-  <poll-list />
-  ```
+    ```javascript
+    <SpH3>
+      Voter Module
+    </SpH3>
+    <poll-form />
+    <poll-list />
+    ```
 
 3. To import the component, add the import statements in the `<script>` tag after the template code. The `<script>` tag contains JavaScript code.
 
@@ -624,19 +624,19 @@ Now you can start creating the PollForm and PollList components.
 
 7. Now, visit <http://localhost:1317/voter/poll>. This endpoint is defined in `x/voter/client/rest/queryPoll.go`:
 
-  ```json
-  {
-    "height": "0",
-    "result": [
-      {
-        "creator": "cosmos19qqa7j73735w4pcx9mkkaxr00af7p432n62tv6",
-        "id": "826477ab-0005-4e68-8031-19758d331681",
-        "title": "A poll title",
-        "options": ["First option", "The second option"]
-      }
-    ]
-  }
-  ```
+    ```json
+    {
+      "height": "0",
+      "result": [
+        {
+          "creator": "cosmos19qqa7j73735w4pcx9mkkaxr00af7p432n62tv6",
+          "id": "826477ab-0005-4e68-8031-19758d331681",
+          "title": "A poll title",
+          "options": ["First option", "The second option"]
+        }
+      ]
+    }
+    ```
 
 ### Create the Poll List Component
 
