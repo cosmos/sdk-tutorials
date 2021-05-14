@@ -55,13 +55,5 @@ This installation method removes existing Go installations, installs Go in `/usr
 
 
 
-what is the best way to be awesome in our technical setup?
-the first technical hurdle for devs is how to get started with
-cosmos sdk and tendermint and gaia how to run these applications
-how to clone sdk repos
-simapp 
-how to test changes in cosmos sdk
-
-https://github.com/cosmos/cosmos-sdk/tree/master/simapp 
 
 
