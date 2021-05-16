@@ -4,7 +4,7 @@ order: 2
 
 # Using the CLI
 
-After building node's binary `gaiad` and initializing the node with `gaiad init`, you can use the binary to interact with the testnet either through a full-node running locally or through public endpoints.
+After [building](./building-binary.md) node's binary `gaiad` and initializing the node with `gaiad init`, you can use the binary to interact with the testnet either through a full-node running locally or through public endpoints.
 
 ## Creating a Key Pair
 
@@ -50,13 +50,19 @@ parent attract shuffle cloth oblige split abstract melt party ancient torch gran
 
 ## Requesting Tokens from the Faucet
 
+In your terminal, run the following:
+
 ```
 curl -X POST -d '{"address": "cosmos14fgy2tk5szqlt9wrtntzcghjrzsz9y7yq45yt2"}' https://faucet.testnet.cosmos.network
 ```
 
+When the tokens are sent, you will see the following answer.
+
 ```
 {"transfers":[{"coin":"10000000uphoton","status":"ok"}]}
 ```
+
+After you have received the token, you can query your balance and confirm they arrived.
 
 ## Querying Balances
 
