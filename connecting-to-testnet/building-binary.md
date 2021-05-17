@@ -63,4 +63,4 @@ Start the node:
 gaiad start
 ```
 
-Your node should start syncing and over time will catch up with the network. By default, your node's RPC should be accessible on [http://localhost:26657](http://localhost:26657) and API on [http://localhost:1317](http://localhost:1317).
+Your node should start syncing and over time will catch up with the network. By default, your node's RPC is accessible on [http://localhost:26657](http://localhost:26657).
