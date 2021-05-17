@@ -4,7 +4,7 @@ order: 2
 
 # List posts
 
-To list created posts we will be using `blogd query blog list-post` and `blogd query blog get-post` command. The `list-post` and `get-post` subcommands haven’t been defined yet, so let’s do it now. [Query commands](https://docs.cosmos.network/master/building-modules/querier.html) from the CLI are handled by `query.go`.
+To list created posts you use the `blogd query blog list-post` and `blogd query blog get-post` commands. The `list-post` and `get-post` subcommands haven’t been defined yet, so let’s do it now. [Query commands](https://docs.cosmos.network/master/building-modules/querier.html) from the CLI are handled by `query.go`.
 
 First we define our proto files, in `proto/blog`
 
@@ -52,7 +52,7 @@ message QueryAllPostResponse {
 }
 ```
 
-In our proto file we define the structure of the API endpoint, as well as our request and response structure of the post.
+In our proto file you define the structure of the API endpoint, as well as your request and response structure of the post.
 
 ## Edit the Query Functions in the CLI
 
@@ -153,7 +153,7 @@ func CmdShowPost() *cobra.Command {
 }
 ```
 
-`CmdListPost` and `CmdShowPost` run an [ABCI](https://docs.tendermint.com/master/spec/abci/) query to fetch the data, unmarshals it back form binary to JSON and returns it to the console. ABCI is an interface between your app and Tendermint (a program responsible for replicating the state across machines). ABCI queries look like paths on a hierarchical filesystem. In our case, the query is `custom/blog/list-post`. Before we continue, we need to define `QueryListPost`.
+`CmdListPost` and `CmdShowPost` run an [ABCI](https://docs.tendermint.com/master/spec/abci/) query to fetch the data, unmarshals it back form binary to JSON and returns it to the console. ABCI is an interface between your app and Tendermint (a program responsible for replicating the state across machines). ABCI queries look like paths on a hierarchical filesystem. In our case, the query is `custom/blog/list-post`. Before you continue, you need to define `QueryListPost`.
 
 ## Add the Two Query Commands to the Types
 
@@ -227,7 +227,7 @@ func getPost(ctx sdk.Context, id string, keeper Keeper, legacyQuerierCdc *codec.
 }
 ```
 
-In the keeper we define also the grpc of our queryPost function.
+In the keeper you also define the grpc of the queryPost function.
 
 ### Add GRPC functionality
 
@@ -289,11 +289,11 @@ func (k Keeper) Post(c context.Context, req *types.QueryGetPostRequest) (*types.
 }
 ```
 
-We add the grpc query handler to our module on 
-
 ### Add GRPC to the Module Handler
 
-Let's make sure to import `context` and add the `RegisterGRPCGatewayRoutes` 
+You add the grpc query handler to your module.
+
+Make sure to import `context` and add the `RegisterGRPCGatewayRoutes`:
 
 ```go
 // x/blog/module.go
@@ -313,9 +313,9 @@ func (AppModuleBasic) RegisterGRPCGatewayRoutes(clientCtx client.Context, mux *r
 }
 ```
 
-This function uses a prefix iterator to loop through all the keys with a given prefix (in our case `PostKey` is `"Post-value-"`). We’re getting values by key with `store.Get` and appending them to `postList`. Finally, we unmarshal bytes back to JSON and return the result to the console.
+This function uses a prefix iterator to loop through all the keys with a given prefix (in our case `PostKey` is `"Post-value-"`). You get values by key with `store.Get` and appending them to `postList`. Finally, unmarshal bytes back to JSON and return the result to the console.
 
-Now let’s see how it works. Run the following command to recompile your app, clear the data and relaunch the chain:
+Now, you can see how it works. Run the following command to recompile your app, clear the data and relaunch the chain:
 
 ```sh
 starport serve
@@ -360,4 +360,4 @@ blogd q blog list-post
 null
 ```
 
-This is actually not an error, but may be a bit confusing. If you've added a post and immediately issued `list-post` subcommand, you may get a `null`. This happens, because it takes several seconds to process the block. After a couple of seconds you should be able to see output of `list-post` subcommand.
+This `null` is actually not an error, but might be a bit confusing. If you've added a post and immediately issued `list-post` subcommand, you may get a `null`. This happens because it takes several seconds to process the block. After a couple of seconds you should be able to see output of `list-post` subcommand.
