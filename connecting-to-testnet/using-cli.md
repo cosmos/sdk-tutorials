@@ -4,9 +4,17 @@ order: 3
 
 # Using the CLI
 
-After [building](./building-binary.md) node's binary `gaiad` and initializing the node with `gaiad init`, you can use the binary to interact with the testnet by running a full node locally or through public endpoints.
+By completing the steps in [Building and Starting a Full Node](./building-binary.md), you have successfully:
+
+- [Built](./building-binary.md) your node's binary `gaiad`
+- Initialized the node with `gaiad init`
+- Started the node with `gaiad start`
+
+Now you can use the binary to interact with the testnet by running a full node locally or by using public endpoints.
 
 ## Creating a Key Pair
+
+Create a key pair for user alice:
 
 ```
 gaiad keys add alice
@@ -27,6 +35,8 @@ It is the only way to recover your account if you ever forget your password.
 
 wave vague strong repeat mango infant suffer busy vault movie rubber crystal found object stuff miracle odor box crystal owner shoe token van alone
 ```
+
+Create a key pair for user bob:
 
 ```
 gaiad keys add bob
