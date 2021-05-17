@@ -4,14 +4,12 @@ order: 1
 
 # About the Testnet Tutorial 
 
-In this tutorial, you connect to the Cosmos testnetwork to learn how to:
+In this tutorial, you learn how to:
 
 - Get and install the software
 - Start the Node
 - Use the Cosmos SDK CLI
-- Connect to the public endpoints
-
-In this guide you'll learn how to start a full node and interface with a Cosmos Hub [**testnet**](index.md).
+- Interact with the Cosmos Hub [**testnet**](index.md)
 
 ## Requirements
 
