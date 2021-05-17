@@ -17,9 +17,7 @@ The [Cosmos Network](https://cosmos.network) is an expanding ecosystem of connec
 
 ## What is a testnet?
 
-A testnet in our purpose describes a network create with the Cosmos SDK that has been created to test applications.
-It is created so app creator can connect and use the functionality they expect with a real network.
-The state of a testnet can be reset at any time.
+A testnet is a network launched for developers and validators to test the functionality of the blockchain before the main network is launched. The state of a testnet can be reset at any time.
 
 ## Public Endpoints
 
