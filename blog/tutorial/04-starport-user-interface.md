@@ -4,7 +4,7 @@ order: 4
 
 # User interface
 
-Once you navigate to the UI, the following `vue` UI at `localhost:8080` - 
+After you navigate to the UI, the following `vue` UI is available at `localhost:8080`: 
 
 ![](./userinterface.png)
 
@@ -24,7 +24,7 @@ To see a form for creating `post` items in your app add a `<SpType ... />` compo
 	</div>
 ```
 
-Learn more about available components and cosmos logic that you can use on your `vue` frontend, visit the `@tendermint/vue` library at [github.com/tendermint/vue](https://github.com/tendermint/vue)
+Learn more about available components and Cosmos SDK logic that you can use on your `vue` frontend, visit the `@tendermint/vue` library at [github.com/tendermint/vue](https://github.com/tendermint/vue)
 
 🎉 Congratulations, you have created a blockchain with a blog feature. 
 

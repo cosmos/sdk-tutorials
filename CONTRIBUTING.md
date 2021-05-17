@@ -10,6 +10,7 @@ The code and the docs for each tutorial are based on a specific version of the s
 
 Thank you for helping us to create and maintain awesome tutorials.
 
+- To set up your environment for success, you can follow our [technical set up](TECHNICAL-SETUP.md) guidelines.
 - To provide feedback, file an issue and provide abundant details to help us understand how we can make it better.
 - To provide feedback and a fix, you can make a direct contribution. This repo is protected since we provide the code and the docs to help you learn. If you're not a member or maintainer, fork the repo and then submit a PR from your forked repo to master.
 
