@@ -55,13 +55,13 @@ where `YOUR_MONIKER` is a placeholder for a string that identifies your node. Be
     - For operating systems other than macOS:
 
     ```
-    sed -i 's/seeds =.*/seeds = "30dce239c56cfd25cf0cebf5726c7c8be1e46f66@104.196.38.186:31819,754a5f864adc5a60b287d4aed4f0ab11d8b056c8@34.73.24.113:31654"/g' ~/.gaia/config/config.toml
+    sed -i 's/seeds =.*/seeds = "30dce239c56cfd25cf0cebf5726c7c8be1e46f66@p2p.testnet.cosmos.network:31819,754a5f864adc5a60b287d4aed4f0ab11d8b056c8@p2p.testnet.cosmos.network:31654"/g' ~/.gaia/config/config.toml
     ```
 
     - For macOS operating systems:
 
     ```
-    sed -i '' 's/seeds =.*/seeds = "30dce239c56cfd25cf0cebf5726c7c8be1e46f66@104.196.38.186:31819,754a5f864adc5a60b287d4aed4f0ab11d8b056c8@34.73.24.113:31654"/g' ~/.gaia/config/config.toml
+    sed -i '' 's/seeds =.*/seeds = "30dce239c56cfd25cf0cebf5726c7c8be1e46f66@p2p.testnet.cosmos.network:31819,754a5f864adc5a60b287d4aed4f0ab11d8b056c8@p2p.testnet.cosmos.network:31654"/g' ~/.gaia/config/config.toml
     ```
 
 1. Start the node:
