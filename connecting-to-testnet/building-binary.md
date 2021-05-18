@@ -43,12 +43,11 @@ where `YOUR_MONIKER` is a placeholder for a string that identifies your node. Be
 
 ## Starting a Node
 
-1. Download the genesis file:
+1. Download and save the genesis file in the data directory of your node:
 
     ```
     curl -s https://rpc.testnet.cosmos.network/genesis | jq -r .result.genesis > ~/.gaia/config/genesis.json
     ```
-1. Save the genesis file in the data directory of your node.
 
 1. Add seed nodes using the command that is suitable for your environment. 
 
