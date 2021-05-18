@@ -37,9 +37,26 @@ Work-in-process tutorials might have content and code in other repos.
 
 - The Tendermint (All in Bits) Design team owns the front end and publishing. Be sure to check with @lovincyrus for details about the metadata for layout and publishing tutorials.
 
-## Local builds
+## Viewing Tutorial Builds
 
-1. Clone the tutorials repo to your local machine and change to that directory. For example:
+There are two ways to see what your changes will look like in production before the updated pages are published. 
+
+- When a PR is ready for review, you can see a deployed preview on a URL that is unique for that PR.
+- While a PR is in DRAFT mode, you can preview a local build.
+
+### Preview PRs on a Deployed Preview 
+
+After the PR moves from **Draft** to **Ready for review**, the CI status checks generate a Netlify deploy preview. Netlify keeps this preview up to date as you continue to work and commit new changes to the same branch.
+
+To view a deployed preview on a **Ready for review** PR, click the **Details** link on the netlify commit status line:
+
+![deploy-preview](./deploy-preview.png)
+
+### Preview Draft PRs on a Local Web Browser
+
+Since the deploy preview doesn't work on Draft PRs, follow these steps to preview the tutorial build on a local web browser.
+
+1. If you haven't already, clone the tutorials repo to your local machine and change to that directory. For example:
 
   ```
   cd ~/github
