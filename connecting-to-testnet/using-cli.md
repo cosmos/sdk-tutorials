@@ -1,12 +1,20 @@
 ---
-order: 2
+order: 3
 ---
 
 # Using the CLI
 
-After [building](./building-binary.md) node's binary `gaiad` and initializing the node with `gaiad init`, you can use the binary to interact with the testnet either through a full-node running locally or through public endpoints.
+By completing the steps in [Building and Starting a Full Node](./building-binary.md), you have successfully:
+
+- [Built](./building-binary.md) your node's binary `gaiad`
+- Initialized the node with `gaiad init`
+- Started the node with `gaiad start`
+
+Now you can use the binary to interact with the testnet by running a full node locally or by using public endpoints.
 
 ## Creating a Key Pair
+
+Create a key pair for user alice:
 
 ```
 gaiad keys add alice
@@ -27,6 +35,8 @@ It is the only way to recover your account if you ever forget your password.
 
 wave vague strong repeat mango infant suffer busy vault movie rubber crystal found object stuff miracle odor box crystal owner shoe token van alone
 ```
+
+Create a key pair for user bob:
 
 ```
 gaiad keys add bob
@@ -50,29 +60,35 @@ parent attract shuffle cloth oblige split abstract melt party ancient torch gran
 
 ## Requesting Tokens from the Faucet
 
-In your terminal, run the following:
+In your terminal, run the following command:
 
 ```
 curl -X POST -d '{"address": "cosmos14fgy2tk5szqlt9wrtntzcghjrzsz9y7yq45yt2"}' https://faucet.testnet.cosmos.network
 ```
 
-When the tokens are sent, you will see the following answer.
+When the tokens are sent, you see the following response:
 
 ```
 {"transfers":[{"coin":"10000000uphoton","status":"ok"}]}
 ```
 
-After you have received the token, you can query your balance and confirm they arrived.
+After you have received the token, you can query your balance and confirm the tokens have arrived.
 
 ## Querying Balances
 
-Using the locally running full-node (make sure your node is started and has finished syncing):
+Use one of these methods to query balances.
 
-```
-gaiad q bank balances $(gaiad keys show alice -a)
-```
+To query balances using the locally running full node:
 
-Using a public RPC endpoint:
+1. Make sure your node is started and has finished syncing.
+
+1. Run this command:
+
+    ```
+    gaiad q bank balances $(gaiad keys show alice -a)
+    ```
+
+To query balances using a public RPC endpoint:
 
 ```
 gaiad q bank balances $(gaiad keys show alice -a) --node https://rpc.testnet.cosmos.network:443
@@ -89,9 +105,13 @@ pagination:
 
 ## Sending Tokens
 
+To use the CLI to send tokens:
+
 ```
 gaiad tx bank send $(gaiad keys show alice -a) $(gaiad keys show bob -a) 1000uphoton --from alice --node https://rpc.testnet.cosmos.network:443 --chain-id cosmoshub-testnet
 ```
+
+Then query the balance:
 
 ```
 gaiad q bank balances $(gaiad keys show bob -a) --node https://rpc.testnet.cosmos.network:443
@@ -105,3 +125,7 @@ pagination:
   next_key: null
   total: "0"
 ```
+
+## Using Gravity DEX CLI 
+
+For Gravity DEX commands, see the [liquidity module client docs](https://github.com/tendermint/liquidity/blob/develop/doc/client.md).
