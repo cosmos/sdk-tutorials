@@ -2,6 +2,7 @@
 parent:
   title: Connecting to a Testnet
 order: 0
+description: Start a node, use the Cosmos SDK CLI, and interact with the Cosmos Hub testnet.
 ---
 
 # The Cosmos Hub Testnet
