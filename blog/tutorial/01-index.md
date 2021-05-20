@@ -1,5 +1,6 @@
 ---
 order: 1
+description: Build a blockchain blog app, create types and CLI functions, define messages, list posts, and create a front-end user interface.
 ---
 
 # Create posts
