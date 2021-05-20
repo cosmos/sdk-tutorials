@@ -18,7 +18,7 @@ For this tutorial we will be using [Starport](https://github.com/tendermint/star
 curl https://get.starport.network/starport@v0.13.1! | bash
 ```
 
-You can also use Starport v0.13.1 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.13.1). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
+You can also use Starport v0.13.1 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.13.1). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/intro/install.md).
 
 ## Getting Started
 

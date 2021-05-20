@@ -67,5 +67,5 @@ aside: false
 
 The repo manages and publishes the [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
 
-For information about the repo, see [CONTRIBUTING](../CONTRIBUTING.md). 
+For information about the repo, see [CONTRIBUTING](CONTRIBUTING.md). 
 

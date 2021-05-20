@@ -32,7 +32,11 @@ This tutorial covers essentials like modules, IBC packets, relayer, and the life
 
 ## Prerequisites
 
-This tutorial uses [Starport](https://github.com/tendermint/starport) v0.15.1. The Starport tool is the easiest way to build a blockchain.
+This tutorial requires [Starport](https://docs.starport.network/) v0.15.1\.
+
+**Important** The tutorial is based on this specific version of Starport and is not supported for other versions.
+
+The Starport tool is the easiest way to build a blockchain.
 
 To install `starport` into `/usr/local/bin`, run the following command:
 
@@ -46,7 +50,7 @@ When the installation succeeds, you see this message:
 Installed at /usr/local/bin/starport
 ```
 
-You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
+You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://docs.starport.network/intro/install.html).
 
 ## Create a Blockchain App
 
@@ -72,7 +76,7 @@ After the transaction is acknowledged by the receiving chain, you know that the 
 
 Use Starport to scaffold the blockchain app and the blog module.
 
-### 1\. Build the new blockchain
+### Build the new blockchain
 
 To scaffold a new blockchain named `planet`:
 
@@ -81,9 +85,9 @@ starport app github.com/user/planet
 cd planet
 ```
 
-A new directory named `planet` is created in your home directory. The `planet` directory contains a working blockchain app.cd
+A new directory named `planet` is created in your home directory. The `planet` directory contains a working blockchain app.
 
-### 2\. Scaffold the blog module inside your blockchain
+### Scaffold the blog module inside your blockchain
 
 Next, use Starport to scaffold a blog module with IBC capabilities. The blog module contains the logic for creating blog posts and routing them through IBC to the second blockchain.
 
@@ -95,7 +99,7 @@ starport module create blog --ibc
 
 A new directory with the code for an IBC module is created in `planet/x/blog`. Modules scaffolded with the `--ibc` flag include all the logic for the scaffolded IBC module.
 
-### 3\. Generate CRUD actions for types
+### Generate CRUD actions for types
 
 Next, create the CRUD actions for the blog module types.
 
@@ -137,7 +141,7 @@ The `--module` flag defines which module the new transaction type is added to. T
 
 By default, when scaffolding a new type, messages that can be sent by users for CRUD operations are scaffolded as well. The flag `--no-message` can be provided to disable this feature. We provide this option for our app since we want the posts to be created upon reception of IBC packets and not directly from the user's messages.
 
-### 4\. Scaffold a sendable and interpretable IBC packet
+### Scaffold a sendable and interpretable IBC packet
 
 Now you need to generate packet code that contains the title and the content of the blog post.
 
@@ -169,7 +173,7 @@ planetd tx blog send-ibcPost [portID] [channelD] [title] [content]
 
 After you create the types and transactions, you must manually insert the logic to manage updates in the data tables. Modify the source code to save the data as specified earlier in this tutorial.
 
-### 1\. Add creator to the blog post packet
+### Add creator to the blog post packet
 
 Start with the proto file that defines the structure of the IBC packet.
 
@@ -208,7 +212,7 @@ To make sure the receiving chain has content on the creator of a blog post, add 
     )
 ```
 
-### 2\. Receive the post
+### Receive the post
 
 The methods for primary transaction logic are in the `planet/x/blog/keeper/ibcPost.go` file. Use these methods to manage IBC packets:
 
@@ -259,7 +263,7 @@ func (k Keeper) OnRecvIbcPostPacket(ctx sdk.Context, packet channeltypes.Packet,
 }
 ```
 
-### 3\. Receive the post acknowledgement
+### Receive the post acknowledgement
 
 On the sending blockchain, store a `sentPost` so you know that the post has been received on the target chain.
 
@@ -303,7 +307,7 @@ func (k Keeper) OnAcknowledgementIbcPostPacket(ctx sdk.Context, packet channelty
 }
 ```
 
-### 4\. Store information about the timed-out packet
+### Store information about the timed-out packet
 
 Store posts that have not been received by target chains in `timedoutPost` posts. This logic follows the same format as `sentPost`.
 
@@ -329,7 +333,7 @@ This last step completes the basic `blog` module setup. The blockchain is now re
 
 You can now spin up the blockchain and send a blog post from one blockchain app to the other. Multiple terminal windows are required to complete these next steps.
 
-### 1\. Test the IBC modules
+### Test the IBC modules
 
 To test the IBC module, start two blockchain networks on the same machine. Both blockchains use the same source code. Each blockchain has a unique chain ID.
 
@@ -398,7 +402,7 @@ Open a different terminal window and run the following command to start the `mar
 starport serve -c mars.yml
 ```
 
-### 2\. Configure and start the relayer
+### Configure and start the relayer
 
 First, configure the relayer. Use the Starport `configure` command with the `--advanced` option:
 
@@ -462,7 +466,7 @@ Listening and relaying packets between chains...
 ---------------------------------------------
 ```
 
-### 3\. Send packets
+### Send packets
 
 You can now send packets and verify the received posts:
 
@@ -561,7 +565,9 @@ pagination:
 
 ## 🎉 Congratulations 🎉
 
-By completing this tutorial, you've learned to build an IBC module for the Cosmos SDK, build your own blockchain app, modify the source code, and use the Inter-Blockchain Communication protocol (IBC). Here's what you accomplished in this tutorial:
+By completing this tutorial, you've learned to build an IBC module for the Cosmos SDK, build your own blockchain app, modify the source code, and use the Inter-Blockchain Communication protocol (IBC).
+
+Here's what you accomplished in this tutorial:
 
 - Built a Hello World blockchain app as an IBC module
 - Modified the generated code to add CRUD action logic

@@ -4,7 +4,16 @@ order: 1
 
 # Create posts
 
-By following this beginner tutorial, you will end up with a simple blog app that is powered by the Cosmos SDK.
+By following this beginner tutorial, you end up with a simple blog app that is powered by the Cosmos SDK.
+
+**You will learn how to**
+
+- Build a blockchain app `blogd` 
+- Create CLI functions 
+- Define messages to create blog posts
+- List created posts
+- Generate transaction types to add functionality
+- Create and inspect the front-end user interface
 
 ## Requirements 
 
@@ -14,7 +23,7 @@ This tutorial uses [Starport](https://github.com/tendermint/starport) v0.15.1. S
 curl https://get.starport.network/starport@v0.15.1! | bash
 ```
 
-You can also use Starport v0.15.1 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
+You can also use Starport v0.15.1 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/intro/install.md).
 
 ## Getting Started
 
@@ -26,16 +35,16 @@ After `starport` is installed, use it to create the initial app structure inside
 starport app github.com/example/blog
 ```
 
-One of the main features of Starport is code generation. The command above has generated a directory structure with a working blockchain application. Starport can also add data types to your app with `starport type` command. To see it in action, follow the poll application tutorial. In this guide, however, you will create those files manually to understand how it all works under the hood.
+One of the main features of Starport is code generation. The command above has generated a directory structure with a working blockchain application. Starport can also add data types to your app with `starport type` command. To see it in action, follow the poll application tutorial. In this guide, however, you create those files manually to understand how it all works under the hood.
 
 ## Overview
 
 Take a quick look at what Starport has generated for us: 
-The [`app/app.go`](https://docs.cosmos.network/master/basics/app-anatomy.html#core-application-file) file imports and configures SDK modules and creates a constructor for the application that extends a [basic SDK application](https://docs.cosmos.network/master/core/baseapp.html) among other things. This app will use only a couple standard modules bundled with Cosmos SDK (including `auth` for dealing with accounts and `bank` for handling coin transfers) and one module (`x/blog`) that will contain custom functionality.
+The [`app/app.go`](https://docs.cosmos.network/master/basics/app-anatomy.html#core-application-file) file imports and configures SDK modules and creates a constructor for the application that extends a [basic SDK application](https://docs.cosmos.network/master/core/baseapp.html) among other things. This app uses only a couple standard modules bundled with Cosmos SDK (including `auth` for dealing with accounts and `bank` for handling coin transfers) and one module (`x/blog`) that contains custom functionality.
 
-In `cmd` directory you have source files of two programs for interacting with our application: `blogd` starts a full-node for your blockchain and enables you to query the full-node, either to update the state by sending a transaction or to read it via a query.
+In `cmd` directory you have source files of two programs for interacting with your application: `blogd` starts a full-node for your blockchain and enables you to query the full-node, either to update the state by sending a transaction or to read it via a query.
 
-This blog app will store data in a persistent [key-value store](https://docs.cosmos.network/master/core/store.html). Similarly to most key-value stores, you can retrieve, delete, update, and loop through keys to obtain the values you are interested in.
+This blog app stores data in a persistent [key-value store](https://docs.cosmos.network/master/core/store.html). Similarly to most key-value stores, you can retrieve, delete, update, and loop through keys to obtain the values you are interested in.
 
 Create a simple blog-like application and define the first proto type, the `Post` in the `post.proto` file.
 
@@ -67,9 +76,9 @@ message MsgCreatePost {
 }
 ```
 
-The code above defines the four properties of a post: Creator, Title, Body and ID. We generate unique global IDs for each post and also store them as strings.
+The code above defines the four properties of a post: Creator, Title, Body and ID. Unique global IDs are generated for each post and also store them as strings.
 
-Posts in the key-value store will look like this:
+Posts in the key-value store look like this:
 
 ```
 "post-0": {
@@ -107,7 +116,7 @@ import (
 )
 ```
 
-This file already contains the function `GetTxCmd` which defines custom `blogd` [commands](https://docs.cosmos.network/master/building-modules/module-interfaces.html#cli). We will add the custom `create-post` command to our `blogd` by first adding `CmdCreatePost` to `blogTxCmd`.
+This file already contains the function `GetTxCmd` which defines custom `blogd` [commands](https://docs.cosmos.network/master/building-modules/module-interfaces.html#cli). Now you can add the custom `create-post` command to `blogd` by first adding `CmdCreatePost` to `blogTxCmd`.
 
 ```go
 	// this line is used by starport scaffolding # 1
@@ -165,7 +174,7 @@ import (
 var _ sdk.Msg = &MsgCreatePost{}
 ```
 
-Similarly to the post proto, `MsgCreatePost` contains our post definition.
+Similarly to the post proto, `MsgCreatePost` contains the post definition.
 
 ```go
 func NewMsgCreatePost(creator string, title string, body string) *MsgCreatePost {
@@ -256,12 +265,17 @@ func handleMsgCreatePost(ctx sdk.Context, k keeper.Keeper, msg *types.MsgCreateP
 }
 ```
 
-After creating a post object with creator, ID and title, the message handler calls `k.CreatePost(ctx, post)`. “k” stands for [Keeper](https://docs.cosmos.network/master/building-modules/keeper.html), an abstraction used by the SDK that writes data to the store. Define the `CreatePost` keeper function in a new `keeper/post.go` file.
+After creating a post object with creator, ID and title, the message handler calls `k.CreatePost(ctx, post)`. 
+- “k” stands for [Keeper](https://docs.cosmos.network/master/building-modules/keeper.html), an abstraction used by the SDK that writes data to the store. 
+- Define the `CreatePost` keeper function in a new `keeper/post.go` file.
 
 ## Add the Post Keeper
 
 First, create a new file `post.go` in the `keeper/` directory.
-Then, add a `CreatePost` function that takes two arguments: a [context](https://docs.cosmos.network/master/core/context.html#context-definition) and a post. Also, `GetPostCount` and `SetPostCount functions`.
+Then, add a `CreatePost` function that takes two arguments: 
+- A [context](https://docs.cosmos.network/master/core/context.html#context-definition) 
+- A post
+- Also, the `GetPostCount` and `SetPostCount`  functions
 
 ```go
 // x/blog/keeper/post.go
@@ -355,7 +369,7 @@ func (k Keeper) GetAllPost(ctx sdk.Context) (msgs []types.Post) {
 }
 ```
 
-`CreatePost` creates a key by concatenating a post prefix with an ID. If you look back at how our store looks, you’ll notice keys have prefixes, for example `Post-value-0bae9f7d-20f8-4b51-9d5c-af9103177d66` contains the prefix `Post-value-` . The reason for this is you have one store, but you might want to keep different types of objects in it, like posts and users. Prefixing keys such as `Post-value-` and `User-value-` allows you to share one storage space between different types of objects.
+`CreatePost` creates a key by concatenating a post prefix with an ID. If you look back at how  the store looks, you’ll notice keys have prefixes, for example `Post-value-0bae9f7d-20f8-4b51-9d5c-af9103177d66` contains the prefix `Post-value-` . The reason for this is you have one store, but you might want to keep different types of objects in it, like posts and users. Prefixing keys such as `Post-value-` and `User-value-` allows you to share one storage space between different types of objects.
 
 ## Add the Prefix for a Post
 
@@ -378,8 +392,8 @@ const (
 
 ## Add the Codec
 
-Finally, `store.Set(key, value)` writes our post to the store.
-Two last things to do is tell our [encoder](https://docs.cosmos.network/master/core/encoding.html#amino) how the `MsgCreatePost` is converted to bytes.
+Finally, `store.Set(key, value)` writes your post to the store.
+Two last things to do is tell your [encoder](https://docs.cosmos.network/master/core/encoding.html#amino) how the `MsgCreatePost` is converted to bytes.
 
 ```go
 // x/blog/types/codec.go
@@ -457,19 +471,22 @@ test:
 1. `go mod tidy` cleans up dependencies.
 2. `make` builds your app and creates a binary in your go path: `blogd`.
 3. Initialization scripts in the `Makefile` removes data directories, configures your app and generates two accounts. By default your app stores data in your home directory in `~/.blogd`. The script removes them, so every time you have a clean state.
-4. `blogd start` launches your app. After a couple of seconds you will see hashes of blocks being generated. Leave this terminal window open and open a new one.
+4. `blogd start` launches your app. After a couple of seconds you see hashes of blocks being generated. Leave this terminal window open and open a new one.
 
 Note: depending on your OS and firewall settings, you may have to accept a prompt asking if your application's binary (`blogd` in this case) can accept external connections.
 
 Run the following command to create a post:
 
 ```sh
-blogd tx blog create-post "My first post" "This is a post\!" --from=alice
+blogd tx blog create-post "My first post" "This is a post\!" --from=alice --chain-id="blog"
 ```
 
-“My first post” is a title for our post and `--from=alice` tells the program who is creating this post. `alice` is a label for your pair of keys used to sign the transaction, created by the initialization script located within the `/Makefile` previously. Keys are stored in `~/.blogd`.
+- “My first post” is a title for your post and `--from=alice` tells the program who is creating this post. 
+- `alice` is a label for your pair of keys used to sign the transaction, created by the initialization script located within the `/Makefile` previously. 
+- `--chain-id="blog"` specifies to send the transaction to the `blog` chain-id
+- Keys are stored in `~/.blogd`.
 
-After running the command and confirming it, you will see an object with “txhash” property with a value like `4B7B68DEACC7CDF3243965A449095B4AB895C9D9BDF0516725BF2173794A9B3C`.
+After running the command and confirming it, you see an object with “txhash” property with a value like `4B7B68DEACC7CDF3243965A449095B4AB895C9D9BDF0516725BF2173794A9B3C`.
 
 To verify that the transaction has been processed, open a browser and visit the following URL (make sure to replace `4B7B6...` with the value of your txhash but make sure to have the `0x` prefix):
 

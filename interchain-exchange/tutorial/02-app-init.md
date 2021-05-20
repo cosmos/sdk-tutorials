@@ -16,7 +16,7 @@ To install `starport` into `/usr/local/bin`, run the following command:
 curl https://get.starport.network/starport@v0.15.1! | bash
 ```
 
-You can also use Starport v0.15.1 in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1). For more installation options, see [Install Starport](https://github.com/tendermint/starport/blob/develop/docs/1%20Introduction/2%20Install.md).
+You can also use Starport v0.15.1 in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1). For more installation options, see [install Starport](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [install Starport](https://github.com/tendermint/starport/blob/develop/docs/intro/install.md).
 
 ## Create the Blockchain
 
@@ -103,13 +103,13 @@ starport type denomTrace port channel origin --indexed --no-message --module ibc
 ## Create the Configuration
 
 Add two config files `mars.yml` and `venus.yml` to test two blockchain networks with specific token for each.
-Add the config files in the `interchain` folder.
+Add the config files in the `interchange` folder.
 The native denoms for Mars will be `mcx` also known as `marscoin` and for Venus `vcx` known as `venuscoin`.
 
 Create the `mars.yml` file with your content:
 
 ```yaml
-# interchain/mars.yml
+# mars.yml
 accounts:
   - name: alice
     coins: ["1000token", "100000000stake", "1000mcx"]
@@ -130,7 +130,7 @@ init:
 Create the `venus.yml` file with your content:
 
 ```yaml
-# interchain/venus.yml
+# venus.yml
 accounts:
   - name: alice
     coins: ["1000token", "1000000000stake", "1000vcx"]

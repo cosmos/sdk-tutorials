@@ -43,7 +43,6 @@ starport relayer configure -a \
 --target-gasprice "0.0000025stake" \
 --target-prefix "cosmos"
 ```
-
 ## Connect the relayer
 
 After the relayer is configured with the two blockchains, start running it and connect the two blockchains.

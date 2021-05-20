@@ -14,13 +14,13 @@ When you are dealing with an IBC token, these will get burned and you receive ba
 The packet proto file for a sell order is already generated. Add the seller information.
 
 ```proto
-// proto/packet.proto
+// proto/ibcdex/packet.proto
 message SellOrderPacketData {
   string amountDenom = 1;
   int32 amount = 2;
   string priceDenom = 3;
   int32 price = 4;
-  string seller = 5;
+  string seller = 5;  // <--
 }
 ```
 
@@ -45,7 +45,7 @@ Before a sell order will be submitted, make sure it contains the following logic
 // x/ibcdex/keeper/msg_server_sellOrder.go
 import "errors"
 
-func (k msgServer) SendSourceSellOrder(goCtx context.Context, msg *types.MsgSendSourceSellOrder) (*types.MsgSendSourceSellOrderResponse, error) {
+func (k msgServer) SendSellOrder(goCtx context.Context, msg *types.MsgSendSourceSellOrder) (*types.MsgSendSourceSellOrderResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// Cannot send a order if the order book pair doesn't exist
@@ -78,7 +78,7 @@ func (k msgServer) SendSourceSellOrder(goCtx context.Context, msg *types.MsgSend
 	// Construct the packet
 	var packet types.SellOrderPacketData
 
-	packet.Seller = msg.Sender              // <- Manually specify the seller here
+	packet.Seller = msg.Sender  // <- Manually specify the seller here
 	packet.AmountDenom = msg.AmountDenom
 	packet.Amount = msg.Amount
 	packet.PriceDenom = msg.PriceDenom

@@ -2,14 +2,43 @@ module.exports = {
   theme: "cosmos",
   title: "Cosmos SDK Tutorials",
   head: [
-    ['link', { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" }],
-    ['link', { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" }],
-    ['link', { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" }],
-    ['link', { rel: "manifest", href: "/site.webmanifest" }],
-    ['meta', { name: "msapplication-TileColor", content: "#2e3148" }],
-    ['meta', { name: "theme-color", content: "#ffffff" }],
-    ['link', { rel: "icon", type: "image/svg+xml", href: "/favicon-svg.svg" }],
-    ['link', { rel: "apple-touch-icon-precomposed", href: "/apple-touch-icon-precomposed.png" }],
+    [
+      "link",
+      {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "/apple-touch-icon.png",
+      },
+    ],
+    [
+      "link",
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "32x32",
+        href: "/favicon-32x32.png",
+      },
+    ],
+    [
+      "link",
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "16x16",
+        href: "/favicon-16x16.png",
+      },
+    ],
+    ["link", { rel: "manifest", href: "/site.webmanifest" }],
+    ["meta", { name: "msapplication-TileColor", content: "#2e3148" }],
+    ["meta", { name: "theme-color", content: "#ffffff" }],
+    ["link", { rel: "icon", type: "image/svg+xml", href: "/favicon-svg.svg" }],
+    [
+      "link",
+      {
+        rel: "apple-touch-icon-precomposed",
+        href: "/apple-touch-icon-precomposed.png",
+      },
+    ],
   ],
   themeConfig: {
     repo: "cosmos/sdk-tutorials",
@@ -19,7 +48,7 @@ module.exports = {
     algolia: {
       id: "BH4D9OD16A",
       key: "7976d773390a0be350dc24b0571eee15",
-      index: "cosmos-sdk_tutorials"
+      index: "cosmos-sdk_tutorials",
     },
     topbar: {
       banner: true,
@@ -39,7 +68,7 @@ module.exports = {
               title: "Blog",
               path: "/blog/tutorial/",
               directory: true,
-            }, 
+            },
             {
               title: "Voter",
               path: "/voter/",
@@ -48,6 +77,11 @@ module.exports = {
             {
               title: "Interchain Exchange",
               path: "/interchain-exchange/tutorial/",
+              directory: true,
+            },
+            {
+              title: "Connecting to a Testnet",
+              path: "/connecting-to-testnet/",
               directory: true,
             },
           ],
@@ -60,7 +94,7 @@ module.exports = {
               path: "/launchpad-to-stargate/tutorial/",
               directory: true,
             },
-          ]
+          ],
         },
       ],
     },
@@ -71,19 +105,19 @@ module.exports = {
         title: "Discord",
         text: "Chat with Cosmos developers on Discord.",
         url: "https://discordapp.com/channels/669268347736686612",
-        bg: "linear-gradient(225.11deg, #2E3148 0%, #161931 95.68%)"
+        bg: "linear-gradient(225.11deg, #2E3148 0%, #161931 95.68%)",
       },
       forum: {
         title: "Cosmos SDK Forum",
         text: "Join the SDK Developer Forum to learn more.",
         url: "https://forum.cosmos.network/",
         bg: "linear-gradient(225deg, #46509F -1.08%, #2F3564 95.88%)",
-        logo: "cosmos"
+        logo: "cosmos",
       },
       github: {
         title: "Found an Issue?",
-        text: "Help us improve this page by suggesting edits on GitHub."
-      }
+        text: "Help us improve this page by suggesting edits on GitHub.",
+      },
     },
     footer: {
       question: {
@@ -129,49 +163,49 @@ module.exports = {
           children: [
             {
               title: "Cosmos SDK",
-              url: "https://docs.cosmos.network"
+              url: "https://docs.cosmos.network",
             },
             {
               title: "Cosmos Hub",
-              url: "https://hub.cosmos.network"
+              url: "https://hub.cosmos.network",
             },
             {
               title: "Tendermint Core",
-              url: "https://docs.tendermint.com"
+              url: "https://docs.tendermint.com",
             },
             {
               title: "IBC Protocol",
-              url: "https://github.com/cosmos/ics/tree/master/ibc"
-            }
-          ]
+              url: "https://github.com/cosmos/ics/tree/master/ibc",
+            },
+          ],
         },
         {
           title: "Community",
           children: [
             {
               title: "Cosmos blog",
-              url: "https://blog.cosmos.network"
+              url: "https://blog.cosmos.network",
             },
             {
               title: "Forum",
-              url: "https://forum.cosmos.network"
+              url: "https://forum.cosmos.network",
             },
             {
               title: "Chat",
-              url: "https://discord.gg/W8trcGV"
-            }
-          ]
+              url: "https://discord.gg/W8trcGV",
+            },
+          ],
         },
         {
           title: "Contributing",
           children: [
             {
               title: "Source code on GitHub",
-              url: "https://github.com/cosmos/sdk-tutorials"
-            }
-          ]
-        }
-      ]
+              url: "https://github.com/cosmos/sdk-tutorials",
+            },
+          ],
+        },
+      ],
     },
   },
   plugins: [
@@ -183,17 +217,18 @@ module.exports = {
     ],
   ],
   patterns: [
-    'hello-world/tutorial/*.md',
-    'burner-chain/*.md',
-    'README.md',
-    'nameservice/tutorial/*.md',
-    'scavenge/tutorial/*.md',
-    'proof-of-file-existence/tutorial/*.md',
-    'launchpad-to-stargate/tutorial/*.md',
-    'voter/*.md',
-    'voter-legacy/*.md',
-    'blog-legacy/tutorial/*.md',
-    'blog/tutorial/*.md',
-    'interchain-exchange/tutorial/*.md',
-  ]
+    "hello-world/tutorial/*.md",
+    "burner-chain/*.md",
+    "README.md",
+    "nameservice/tutorial/*.md",
+    "scavenge/tutorial/*.md",
+    "proof-of-file-existence/tutorial/*.md",
+    "launchpad-to-stargate/tutorial/*.md",
+    "voter/*.md",
+    "connecting-to-testnet/*.md",
+    "voter-legacy/*.md",
+    "blog-legacy/tutorial/*.md",
+    "blog/tutorial/*.md",
+    "interchain-exchange/tutorial/*.md",
+  ],
 };
