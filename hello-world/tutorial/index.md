@@ -409,11 +409,13 @@ starport relayer configure -a \
 --source-port "blog" \
 --source-version "blog-1" \
 --source-gasprice "0.0000025stake" \
+--source-prefix "cosmos" \
 --target-rpc "http://0.0.0.0:26659" \
 --target-faucet "http://0.0.0.0:4501" \
 --target-port "blog" \
 --target-version "blog-1" \
---target-gasprice "0.0000025stake"
+--target-gasprice "0.0000025stake" \
+--target-prefix "cosmos"
 ```
 
 The output looks like:
