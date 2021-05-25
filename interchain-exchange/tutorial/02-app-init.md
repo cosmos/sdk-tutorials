@@ -8,15 +8,15 @@ In this chapter you create the basic blockchain module for the interchain exchan
 
 ## Install Starport
 
-This tutorial uses [Starport](https://github.com/tendermint/starport) v0.15.1. The Starport tool is the easiest way to build a blockchain. 
+This tutorial uses [Starport](https://github.com/tendermint/starport) v0.16.0. The Starport tool is the easiest way to build a blockchain. 
 
 To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
-curl https://get.starport.network/starport@v0.15.1! | bash
+curl https://get.starport.network/starport@v0.16.0! | bash
 ```
 
-You can also use Starport v0.15.1 in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1). For more installation options, see [install Starport](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [install Starport](https://github.com/tendermint/starport/blob/develop/docs/intro/install.md).
+You can also use Starport v0.16.0 in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1). For more installation options, see [install Starport](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [install Starport](https://github.com/tendermint/starport/blob/develop/docs/intro/install.md).
 
 ## Create the Blockchain
 

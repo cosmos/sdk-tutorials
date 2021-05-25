@@ -32,7 +32,7 @@ This tutorial covers essentials like modules, IBC packets, relayer, and the life
 
 ## Prerequisites
 
-This tutorial requires [Starport](https://docs.starport.network/) v0.15.1\.
+This tutorial requires [Starport](https://docs.starport.network/) v0.16.0\.
 
 **Important** The tutorial is based on this specific version of Starport and is not supported for other versions.
 
@@ -41,7 +41,7 @@ The Starport tool is the easiest way to build a blockchain.
 To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
-curl https://get.starport.network/starport@v0.15.1! | bash
+curl https://get.starport.network/starport@v0.16.0! | bash
 ```
 
 When the installation succeeds, you see this message:
