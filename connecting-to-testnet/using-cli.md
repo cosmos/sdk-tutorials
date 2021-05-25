@@ -60,7 +60,9 @@ parent attract shuffle cloth oblige split abstract melt party ancient torch gran
 
 ## Requesting Tokens from the Faucet
 
-In your terminal, run the following command:
+This testnet uses two token denominations: `stake` (the staking token) and `uphoton`.
+
+To get tokens, in your terminal, run the following command:
 
 ```
 curl -X POST -d '{"address": "cosmos14fgy2tk5szqlt9wrtntzcghjrzsz9y7yq45yt2"}' https://faucet.testnet.cosmos.network
@@ -69,10 +71,10 @@ curl -X POST -d '{"address": "cosmos14fgy2tk5szqlt9wrtntzcghjrzsz9y7yq45yt2"}' h
 When the tokens are sent, you see the following response:
 
 ```
-{"transfers":[{"coin":"10000000uphoton","status":"ok"}]}
+{"transfers":[{"coin":"10000000stake","status":"ok"},{"coin":"10000000uphoton","status":"ok"}]}
 ```
 
-After you have received the token, you can query your balance and confirm the tokens have arrived.
+After you have received the tokens, you can query your balance and confirm the tokens have arrived.
 
 ## Querying Balances
 

@@ -1,5 +1,6 @@
 ---
 order: 1
+description: Create a Cosmos SDK module that can create order pairs, buy and sell orders across blockchains, and swap tokens between blockchains.
 ---
 
 # Introduction
