@@ -9,7 +9,7 @@ The software is ready. Now you can go through: create an order book, buy and sel
 If you have started some tests with the relayer before, make sure to clear your old data on a new start with
 
 ```bash
-rm -rf ~/.relayer
+rm ~/.starport/relayer/config.yml
 ```
 
 ## Start the Blockchains
