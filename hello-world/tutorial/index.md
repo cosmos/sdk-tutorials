@@ -138,9 +138,9 @@ The first argument of the `starport type [typeName]` command specifies the name 
 
 The next arguments define the fields that are associated with the type. For the blog app, you created `title`, `content`, `postID`, and `chain` fields.
 
-The `--module` flag defines which module the new transaction type is added to. This optional flag lets you manage multiple modules within your Starport app. The `--module` specifies which module the type is scaffolded in. When the flag is not present, the type is scaffolded in the module that matches the name of the repo).
+The `--module` flag defines which module the new transaction type is added to. This optional flag lets you manage multiple modules within your Starport app. When the flag is not present, the type is scaffolded in the module that matches the name of the repo.
 
-By default, when scaffolding a new type, messages that can be sent by users for CRUD operations are scaffolded as well. The flag `--no-message` can be provided to disable this feature. We provide this option for our app since we want the posts to be created upon reception of IBC packets and not directly from the user's messages.
+When a new type is scaffolded, the default behavior is to scaffold messages that can be sent by users for CRUD operations. The `--no-message` flag disables this feature. We provide this option for our app since we want the posts to be created upon reception of IBC packets and not directly from the user's messages.
 
 ### Scaffold a sendable and interpretable IBC packet
 
