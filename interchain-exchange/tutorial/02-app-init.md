@@ -4,7 +4,7 @@ order: 3
 
 #  Initialize the Blockchain
 
-In this chapter you create the basic blockchain module for the interchain exchange app. You will scaffold the blockchain, the module, the transaction, the IBC packets and messages. In the later chapters you will integrate more code into each of the transaction handlers.
+In this chapter you create the basic blockchain module for the interchain exchange app. You scaffold the blockchain, the module, the transaction, the IBC packets and messages. In the later chapters you  integrate more code into each of the transaction handlers.
 
 ## Install Starport
 
@@ -42,7 +42,7 @@ starport module create ibcdex --ibc --ordering unordered
 ## Create the Transaction Types
 
 To scaffold two types with create, read, update and delete (CRUD) actions use the Starport `type` command.
-The two commands below will create `sellOrderBook` and `buyOrderBook` types. 
+The following commands create `sellOrderBook` and `buyOrderBook` types. 
 
 ```bash
 starport type sellOrderBook orderIDTrack:int amountDenom priceDenom --indexed --no-message --module ibcdex
@@ -50,9 +50,9 @@ starport type buyOrderBook orderIDTrack:int amountDenom priceDenom --indexed --n
 ```
 
 The values are: 
-- `orderIDTrack`, which is an internal counter in the order book to assign the orders an ID.
-- `amountDenom`, which will represent which token will be sold and in which quantity
-- `priceDenom`, what price you are selling your token 
+- `orderIDTrack` an internal counter in the order book to assign the orders an ID.
+- `amountDenom` represents which token will be sold and in which quantity
+- `priceDenom` the token selling price 
 
 The flag `--indexed` flag creates an "indexed type". Without this flag, a type is implemented like a list with new items appended. Indexed types act like key-value stores.
 
@@ -83,14 +83,14 @@ starport message cancelSellOrder port channel amountDenom priceDenom orderID:int
 starport message cancelBuyOrder port channel amountDenom priceDenom orderID:int --desc "Cancel a buy order" --module ibcdex
 ```
 
-The optional `--desc` flag let's you define a description of the CLI command used to broadcast a transaction with the message.
+The optional `--desc` flag lets you define a description of the CLI command that is used to broadcast a transaction with the message.
 
 ## Trace the Denom
 
-The token denoms should have the same behavior as described in the `ibc-transfer` module:
+The token denoms must have the same behavior as described in the `ibc-transfer` module:
 
-- An external token received from a chain has a unique `denom`, reffered to as `voucher`
-- When a token is sent to a blockchain and then sent back and received, the chain can resolve the voucher and convert it back to the original token denomination
+- An external token received from a chain has a unique `denom`, reffered to as `voucher`.
+- When a token is sent to a blockchain and then sent back and received, the chain can resolve the voucher and convert it back to the original token denomination.
 
 `Voucher` tokens are represented as hashes, therefore you must store which original denomination is related to a voucher, you can do this with an indexed type.
 
@@ -104,7 +104,7 @@ starport type denomTrace port channel origin --indexed --no-message --module ibc
 
 Add two config files `mars.yml` and `venus.yml` to test two blockchain networks with specific token for each.
 Add the config files in the `interchange` folder.
-The native denoms for Mars will be `mcx` also known as `marscoin` and for Venus `vcx` known as `venuscoin`.
+The native denoms for Mars are `mcx`, also known as `marscoin`, and for Venus `vcx`, also known as `venuscoin`.
 
 Create the `mars.yml` file with your content:
 

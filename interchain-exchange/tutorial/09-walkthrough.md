@@ -4,9 +4,9 @@ order: 10
 
 # Walkthrough
 
-The software is ready. Now you can go through: create an order book, buy and sell a Token.
+The software is ready. Now you can go through: create an order book, buy a token, and sell a token.
 
-If you have started some tests with the relayer before, make sure to clear your old data on a new start with
+If you have already started tests with the relayer, make sure to clear your old data on a new start with:
 
 ```bash
 rm ~/.starport/relayer/config.yml
@@ -14,7 +14,7 @@ rm ~/.starport/relayer/config.yml
 
 ## Start the Blockchains
 
-Start the networks, as input use the `mars.yml` and `venus.yml` for each blockchain accordingly.
+Start the networks. For input, use the `mars.yml` and `venus.yml` for each blockchain.
 
 ```bash
 # start networks
@@ -24,8 +24,8 @@ starport serve -c venus.yml -r
 
 ## Configure the relayer
 
-Start the relayer, use `Mars` as source blockchain and `Venus` as target blockchain.
-The ports for `Mars` are default ports, while for `Venus` the port details can be found in the `venus.yml` file.
+Start the relayer, use `Mars` as the source blockchain and `Venus` as the target blockchain.
+The ports for `Mars` are default ports. For `Venus`, the port details are in the `venus.yml` file.
 
 ```bash
 # relayer configuration
@@ -45,7 +45,7 @@ starport relayer configure -a \
 ```
 ## Connect the relayer
 
-After the relayer is configured with the two blockchains, start running it and connect the two blockchains.
+After the relayer is configured with the two blockchains, start running the relayer and connect the two blockchains.
 
 ```bash
 # relayer connection
@@ -54,7 +54,7 @@ starport relayer connect
 
 ## Commands Overview
 
-Commands that you are mostly going to use in this walkthrough are:
+Commands that you are use in this walkthrough are:
 
 ```bash
 # To get account balances during the tutorial:
@@ -74,8 +74,8 @@ interchanged q ibcdex list-buyOrderBook --node tcp://localhost:26659
 
 ## Create an Order Book
 
-Create an order book for a new pair of token to the exchange. 
-Source blockchain is `Mars`, target blockchain is `Venus`.
+Create an order book for a new pair of tokens to the exchange. 
+The source blockchain is `Mars`. The  target blockchain is `Venus`.
 
 The order book is to sell `mcx` and buy `vcx` token.
 
@@ -84,7 +84,7 @@ The order book is to sell `mcx` and buy `vcx` token.
 interchanged tx ibcdex send-createPair ibcdex channel-0 mcx vcx --from alice --chain-id mars --home ~/.mars
 ```
 
-Display current order books available
+Display current order books available:
 
 ```bash
 # show the orderbooks
@@ -98,7 +98,7 @@ Command to create a `packet` with a sell order:
 
 `interchanged tx ibcdex send-sellOrder [src-port] [src-channel] [amountDenom] [amount] [priceDenom] [price]`
 
-This sell order will sell 10 `mcx` token for 15 `vcx` token.
+This sell order sells 10 `mcx` token for 15 `vcx` token.
 
 ```bash
 # Create and send the sell order
@@ -111,7 +111,7 @@ Command to create a `packet` with a buy order:
 
 `interchanged tx ibcdex send-buyOrder [src-port] [src-channel] [amountDenom] [amount] [priceDenom] [price]`
 
-This sell order will buy 10 `mcx` token for 5 `vcx` token.
+This sell order buys 10 `mcx` token for 5 `vcx` token.
 
 ```bash
 # Create and send the buy order
@@ -200,7 +200,7 @@ pagination:
 
 ## Complete Exchange with a Sell Order
 
-Now, send a sell order packet, that fills a previously created buy order.
+Now, send a sell order packet that fills a previously created buy order.
 
 ```bash
 # Perform a sell order that get completely filled
@@ -233,7 +233,7 @@ BuyOrderBook:
 
 ## Compare Balances
 
-After the exchange has been exectured, compare the new balances and see the new `IBC` token voucher in your balance.
+After the exchange has been executed, compare the new balances and see the new `IBC` token voucher in your balance.
 
 ```bash
 # Get balance
@@ -430,7 +430,8 @@ balances:
 interchanged tx ibcdex cancelSellOrder ibcdex channel-0 mcx vcx 0 --from alice --chain-id mars --home ~/.mars
 ```
 
-Result
+Result:
+
 ```
 SellOrderBook:
 - amountDenom: mcx
@@ -447,7 +448,8 @@ SellOrderBook:
 interchanged tx ibcdex cancelBuyOrder ibcdex channel-0 mcx vcx 3 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
-Result
+Result:
+
 ```
 BuyOrderBook:
 - amountDenom: mcx
@@ -459,34 +461,36 @@ BuyOrderBook:
 
 ## Exchange a Token and Return to Original Token
 
-After the exchange from a Token from blockchain `Mars` to `Venus`, you will end up with a voucher token on the `Venus` blockchain. The voucher token was minted into existence on the `Venus` blockchain while locked up on the `Mars` blockchain. When the process is reversed, the token vouchers on the `Venus` will be burned and the original token on `Mars` can get unlocked.
+After the exchange of a token from blockchain `Mars` to `Venus`, you end up with a voucher token on the `Venus` blockchain. The voucher token was minted into existence on the `Venus` blockchain while locked up on the `Mars` blockchain. When the process is reversed, the token vouchers on the `Venus` is burned and the original token on `Mars` can get unlocked.
 
-Practice this exercise with the following commands:
+Practice this exercise with the following commands.
 
-First, create the order pair.
+First, create the order pair:
 
 ```bash
 interchanged tx ibcdex send-createPair ibcdex channel-0 mcx vcx --from alice --chain-id mars --home ~/.mars
 ```
 
-Create the sell order
+Create the sell order:
 
 ```bash
 interchanged tx ibcdex send-sellOrder ibcdex channel-0 mcx 10 vcx 15 --from alice --chain-id mars --home ~/.mars
 ```
 
-Create the matching buy order
+Create the matching buy order:
 
 ```bash
 interchanged tx ibcdex send-buyOrder ibcdex channel-0 mcx 10 vcx 15 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
-Get the balances
+Get the balances:
+
 ```bash
 interchanged q bank balances cosmos1d745lvvgnrcuzggeze0du30vsdg3y0fmq7p5ct
 ```
 
-Result
+Result:
+
 ```bash
 balances:
 - amount: "150"
@@ -499,13 +503,14 @@ balances:
   denom: token
 ```
 
-See the balance on `Venus` blockchain
+See the balance on `Venus` blockchain:
 
 ```bash
 interchanged q bank balances cosmos14r4pkeat7v6r5n5msr4a33c8lptqrryqau3zrg  --node tcp://localhost:26659
 ```
 
-Result
+Result:
+
 ```bash
 balances:
 - amount: "10"
@@ -518,14 +523,15 @@ balances:
   denom: vcx
 ```
 
-Check the denom tracing, the path of the token on `Mars`.
+Check the denom tracing and the path of the token on `Mars`:
 
 ```bash
  # See on each chain the saved trace denom
 interchanged q ibcdex list-denomTrace
 ```
 
-Result
+Result:
+
 ```bash
 DenomTrace:
 - channel: channel-0
@@ -534,13 +540,14 @@ DenomTrace:
   port: ibcdex
 ```
 
-See the path of the token voucher received on `Venus`.
+See the path of the token voucher received on `Venus`:
 
 ```bash
 interchanged q ibcdex list-denomTrace --node tcp://localhost:26659
 ```
 
-Result
+Result:
+
 ```bash
 DenomTrace:
 - channel: channel-0
@@ -549,15 +556,16 @@ DenomTrace:
   port: ibcde
 ```
 
-As initially explained, the process cannot be reversed on the same order book.
-Create a new order book pair to reverse the exchange path.
+As explained earlier, the process cannot be reversed on the same order book. 
+
+To reverse the exchange path, create a new order book pair:
 
 ```bash
 # Create a pair in the opposite way
 interchanged tx ibcdex send-createPair ibcdex channel-0 ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833 ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33 --from alice --chain-id mars --home ~/.mars
 ```
 
-The order book is now created on both blockchains, check for the SellOrderbook on `Mars` and Buyorderbook on `Venus` respectively.
+The order book is now created on both blockchains. Check for the SellOrderbook on `Mars` and Buyorderbook on `Venus` respectively.
 
 ```bash
 # On Mars:
@@ -579,28 +587,29 @@ BuyOrderBook:
   priceDenom: ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33
 ```
 
-With the following commands you can exchange the token from the voucher back to the original token denomination.
+Exchange the token from the voucher back to the original token denomination with the following commands.
 
-Create the sell order on `Mars`
+Create the sell order on `Mars`:
 
 ```bash
 # Exchange tokens back
 interchanged tx ibcdex send-sellOrder ibcdex channel-0 ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833 10 ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33 1 --from alice --chain-id mars --home ~/.mars
 ```
 
-Create the buy order on `Venus`
+Create the buy order on `Venus`:
 
 ```bash
 interchanged tx ibcdex send-buyOrder ibcdex channel-0 ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833 5 ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33 1 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
-See balances on `Mars`
+See balances on `Mars`:
 
 ```bash
 interchanged q bank balances cosmos1d745lvvgnrcuzggeze0du30vsdg3y0fmq7p5ct
 ```
 
-Result
+Result:
+
 ```bash
 balances:
 - amount: "140"
@@ -613,12 +622,14 @@ balances:
   denom: token
 ```
 
-See balances on `Venus`
+See balances on `Venus`:
+
 ```bash
 interchanged q bank balances cosmos14r4pkeat7v6r5n5msr4a33c8lptqrryqau3zrg  --node tcp://localhost:26659
 ```
 
-Result
+Result:
+
 ```bash
 balances:
 - amount: "5"
@@ -631,11 +642,11 @@ balances:
   denom: vcx
 ```
 
-Congratulations, you have build and used the `ibcdex` module successfully.
-- You have created order books across blockchain token pairs. 
-- You have successfully created buy orders and sell orders.
-- You have matched orders in full and partially.
-- You have created an order book for an exchange from Mars to Venus, and another from Venus to Mars with the voucher token.
-- You have successfully made an exchange from one blockchain to the other and returned back the original token.
+Congratulations, you successfully built and used the `ibcdex` module.
+- You created order books across blockchain token pairs. 
+- You successfully created buy orders and sell orders.
+- You matched orders in full and in part.
+- You created an order book for an exchange from Mars to Venus, and another order book from Venus to Mars with the voucher token.
+- You successfully made an exchange from one blockchain to the other and returned the original token.
 
-In the next chapter you will learn how to add tests to your blockchain module to make sure the logic you are expecting is actually executed. 
+In the next chapter you learn how to add tests to your blockchain module to make sure the logic you are expecting is actually executed. 
