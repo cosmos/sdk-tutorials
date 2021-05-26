@@ -19,3 +19,6 @@ dist/
 # IDE
 .idea/
 *.iml
+
+# vscode 
+*.code-workspace 

@@ -1,5 +1,6 @@
 ---
 order: 1
+description: Create a simple blockchain poll application, add types and messages, and design the front-end app.
 ---
 
 # Polling app

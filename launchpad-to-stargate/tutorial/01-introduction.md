@@ -1,5 +1,6 @@
 ---
 order: 1
+description: Migrate your Cosmos SDK application from v0.39 and earlier (Launchpad) to v0.40 and later (Stargate).
 ---
 
 # Migrating from v0.39 to v0.40 and later using Starport
