@@ -33,7 +33,7 @@ This tutorial covers essentials like modules, IBC packets, relayer, and the life
 
 ## Prerequisites
 
-This tutorial requires [Starport](https://docs.starport.network/) v0.15.1\.
+This tutorial requires [Starport](https://docs.starport.network/) v0.16.0\.
 
 **Important** The tutorial is based on this specific version of Starport and is not supported for other versions.
 
@@ -42,7 +42,7 @@ The Starport tool is the easiest way to build a blockchain.
 To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
-curl https://get.starport.network/starport@v0.15.1! | bash
+curl https://get.starport.network/starport@v0.16.0! | bash
 ```
 
 When the installation succeeds, you see this message:
@@ -111,19 +111,19 @@ These `starport type` commands create CRUD code for the following transactions:
 - Creating blog posts
 
   ```go
-  starport type post title content --module blog
+  starport type post title content --module blog --no-message
   ```
 
 - Processing acknowledgments for sent posts
 
   ```go
-  starport type sentPost postID title chain --module blog
+  starport type sentPost postID title chain --module blog --no-message
   ```
 
 - Managing post timeouts
 
   ```go
-  starport type timedoutPost title chain --module blog
+  starport type timedoutPost title chain --module blog --no-message
   ```
 
 The scaffolded code includes proto files for defining data structures, messages, messages handlers, keepers for modifying the state, and CLI commands.
@@ -138,7 +138,9 @@ The first argument of the `starport type [typeName]` command specifies the name 
 
 The next arguments define the fields that are associated with the type. For the blog app, you created `title`, `content`, `postID`, and `chain` fields.
 
-The `--module` flag defines which module the new transaction type is added to. This optional flag lets you manage multiple modules within your Starport app. The `--module` specifies which module the type is scaffolded in. When the flag is not present, the type is scaffolded in the module that matches the name of the repo).
+The `--module` flag defines which module the new transaction type is added to. This optional flag lets you manage multiple modules within your Starport app. When the flag is not present, the type is scaffolded in the module that matches the name of the repo.
+
+When a new type is scaffolded, the default behavior is to scaffold messages that can be sent by users for CRUD operations. The `--no-message` flag disables this feature. We provide this option for our app since we want the posts to be created upon reception of IBC packets and not directly from the user's messages.
 
 ### Scaffold a sendable and interpretable IBC packet
 
@@ -250,9 +252,11 @@ func (k Keeper) OnRecvIbcPostPacket(ctx sdk.Context, packet channeltypes.Packet,
 
     id := k.AppendPost(
         ctx,
-        packet.SourcePort+"-"+packet.SourceChannel+"-"+data.Creator,
-        data.Title,
-        data.Content,
+        types.Post{
+            Creator: packet.SourcePort+"-"+packet.SourceChannel+"-"+data.Creator,
+            Title: data.Title,
+            Content: data.Content,
+        },
     )
     packetAck.PostID = strconv.FormatUint(id, 10)
 
@@ -279,19 +283,22 @@ func (k Keeper) OnAcknowledgementIbcPostPacket(ctx sdk.Context, packet channelty
     case *channeltypes.Acknowledgement_Result:
         // Decode the packet acknowledgment
         var packetAck types.IbcPostPacketAck
-        err := packetAck.Unmarshal(dispatchedAck.Result)
-        if err != nil {
+        
+        if err := types.ModuleCdc.UnmarshalJSON(dispatchedAck.Result, &packetAck); err != nil {
             // The counter-party module doesn't implement the correct acknowledgment format
             return errors.New("cannot unmarshal acknowledgment")
         }
 
         k.AppendSentPost(
             ctx,
-            data.Creator,
-            packetAck.PostID,
-            data.Title,
-            packet.DestinationPort+"-"+packet.DestinationChannel,
+            types.SentPost{
+                Creator: data.Creator,
+                PostID: packetAck.PostID,
+                Title: data.Title,
+                Chain: packet.DestinationPort+"-"+packet.DestinationChannel,
+            }, 
         )
+
 
         return nil
     default:
@@ -308,12 +315,13 @@ Store posts that have not been received by target chains in `timedoutPost` posts
 ```go
 // OnTimeoutIbcPostPacket responds to the case where a packet has not been transmitted because of a timeout
 func (k Keeper) OnTimeoutIbcPostPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IbcPostPacketData) error {
-
     k.AppendTimedoutPost(
         ctx,
-        data.Creator,
-        data.Title,
-        packet.DestinationPort+"-"+packet.DestinationChannel,
+        types.TimedoutPost{
+            Creator: data.Creator,
+            Title: data.Title,
+            Chain: packet.DestinationPort+"-"+packet.DestinationChannel,
+        },
     )
 
     return nil
@@ -341,13 +349,13 @@ accounts:
   - name: alice
     coins: ["1000token", "100000000stake"]
   - name: bob
-    coins: ["500token"]
+    coins: ["500token", "100000000stake"]
 validator:
   name: alice
   staked: "100000000stake"
 faucet:
   name: bob
-  coins: ["5token"]
+  coins: ["5token", "100000stake"]
 genesis:
   chain_id: "earth"
 init:
@@ -361,15 +369,14 @@ accounts:
   - name: alice
     coins: ["1000token", "1000000000stake"]
   - name: bob
-    coins: ["500token"]
+    coins: ["500token", "100000000stake"]
 validator:
   name: alice
   staked: "100000000stake"
 faucet:
   host: ":4501"
   name: bob
-  coins:
-    - "5token"
+  coins: ["5token", "100000stake"]
 host:
   rpc: ":26659"
   p2p: ":26658"
@@ -401,7 +408,19 @@ starport serve -c mars.yml
 First, configure the relayer. Use the Starport `configure` command with the `--advanced` option:
 
 ```
-starport relayer configure --advanced --source-rpc "http://0.0.0.0:26657" --source-faucet "http://0.0.0.0:4500" --source-port "blog" --source-version "blog-1" --target-rpc "http://0.0.0.0:26659" --target-faucet "http://0.0.0.0:4501" --target-port "blog" --target-version "blog-1"
+starport relayer configure -a \
+--source-rpc "http://0.0.0.0:26657" \
+--source-faucet "http://0.0.0.0:4500" \
+--source-port "blog" \
+--source-version "blog-1" \
+--source-gasprice "0.0000025stake" \
+--source-prefix "cosmos" \
+--target-rpc "http://0.0.0.0:26659" \
+--target-faucet "http://0.0.0.0:4501" \
+--target-port "blog" \
+--target-version "blog-1" \
+--target-gasprice "0.0000025stake" \
+--target-prefix "cosmos"
 ```
 
 The output looks like:
@@ -414,12 +433,12 @@ Setting up chains
 🔐  Account on "source" is "cosmos1xcxgzq75yrxzd0tu2kwmwajv7j550dkj7m00za"
 
  |· received coins from a faucet
- |· (balance: 5token)
+ |· (balance: 100000stake,5token)
 
 🔐  Account on "target" is "cosmos1nxg8e4mfp5v7sea6ez23a65rvy0j59kayqr8cx"
 
  |· received coins from a faucet
- |· (balance: 5token)
+ |· (balance: 100000stake,5token)
 
 ⛓  Configured chains: earth-mars
 ```
