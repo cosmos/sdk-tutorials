@@ -117,7 +117,7 @@ import (
 )
 ```
 
-This file already contains the function `GetTxCmd` which defines custom `blogd` [commands](https://docs.cosmos.network/master/building-modules/module-interfaces.html#cli). Now you can add the custom `create-post` command to `blogd` by first adding `CmdCreatePost` to `blogTxCmd`.
+This file already contains the function `GetTxCmd` which defines custom `blogd` [commands](https://docs.cosmos.network/master/building-modules/module-interfaces.html#cli). Now you can add the custom `create-post` command to `blogd` by first adding `CmdCreatePost` to `cmd`.
 
 ```go
 	// this line is used by starport scaffolding # 1
@@ -155,7 +155,7 @@ func CmdCreatePost() *cobra.Command {
 }
 ```
 
-The function above defines what happens when you run the `create-post` subcommand. `create-post` takes two arguments `[title] [body]`, creates a message `NewMsgCreatePost` (with title as `args[0]` and `args[1]`) and broadcasts this message to be processed in your application.
+The function above defines what happens when you run the `create-post` subcommand. `create-post` takes two arguments `[title] [body]`, creates a message `NewMsgCreatePost` (with title as `args[0]` and body as `args[1]`) and broadcasts this message to be processed in your application.
 
 This is a common pattern in the SDK: users make changes to the store by broadcasting [messages](https://docs.cosmos.network/master/building-modules/messages-and-queries.html#messages). Both CLI commands and HTTP requests create messages that can be broadcasted in order for state transition to occur.
 
