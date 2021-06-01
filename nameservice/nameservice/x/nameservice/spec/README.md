@@ -2,7 +2,7 @@
 
 ## Abstract
 
-<!-- TODO: Create a abstract definition of what this module does, what functionality does it enable and how it can be used. -->
+<!-- TODO: Create a abstract definition of what this module does, what functionality does it enable and how it can be used. -->This module manages names that can be used like DNS to resolve content from a human readable format. The most common usage of name services in blockchains is to resolve a human readable name to an account address.
 
 ## Contents
 
