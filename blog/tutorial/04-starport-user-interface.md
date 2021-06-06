@@ -3,11 +3,13 @@ order: 4
 ---
 
 # User interface
-To enable to web UI cd into the vue directory and run these commands:
-
+To enable to web UI cd into `vue/`
+```
 npm install
 npm run serve
 npm run build
+```
+
 
 After you navigate to the UI, the following `vue` UI is available at `localhost:8080`: 
 
