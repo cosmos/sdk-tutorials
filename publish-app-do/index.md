@@ -10,7 +10,7 @@ description: Publish the application on an Ubuntu 20.04 droplet on Digital Ocean
 In this tutorial you will learn how to publish your blockchain application on Digital Ocean.
 
 In the first chapter, create a new Cosmos SDk blockchain with Starport.
-Upload it to Digital Ocean and configure the firewall, open the ports and then add a SSL certificate with Nginx.
+Upload it to Digital Ocean and access the app on the web.
 
 This guide can be helpful with other cloud services, some details might change.
 To have the best experience following this tutorial, it is recommended to use Digital Ocean. As operating system from your side, we expect MacOS or a Linux distribution. Be aware when using Windows, some steps might change significantly.
@@ -18,9 +18,9 @@ To have the best experience following this tutorial, it is recommended to use Di
 **You will learn how to**
 
 - Create a Droplet on Digital Ocean
+- Create a Cosmos SDK blockchain app with starport
 - Upload your app to the Droplet
 - Run the app on the Droplet
-- Setup a basic firewall
 
 ## Host your app on Digital Ocean
 
