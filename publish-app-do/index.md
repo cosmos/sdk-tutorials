@@ -218,6 +218,10 @@ After your blockchain built and serves, your Starport app shows at last
 🌍 Token faucet: http://0.0.0.0:4500
 ```
 
+You can detach from the `tmux` session with pressing on your keyboard `ctrl + b`, then lift your fingers and press `d`.
+To rejoin the session, use `tmux a -t starport`
+In case you want to stop your app, within the `tmux` session use `ctrl + c`. 
+
 You can now access these endpoints from the web, visit `YOURIP:1317` to see the swagger page for the Blockchain API.
 
 Congratulations. You have your blockchain app running on the web.
