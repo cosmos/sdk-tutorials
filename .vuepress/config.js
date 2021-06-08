@@ -84,6 +84,11 @@ module.exports = {
               path: "/connecting-to-testnet/",
               directory: true,
             },
+            {
+              title: "Publish your app on Digital Ocean",
+              path: "/publish-app-do/",
+              directory: true,
+            },
           ],
         },
         {
@@ -230,5 +235,6 @@ module.exports = {
     "blog-legacy/tutorial/*.md",
     "blog/tutorial/*.md",
     "interchain-exchange/tutorial/*.md",
+    "publish-app-do/*.md",
   ],
 };
