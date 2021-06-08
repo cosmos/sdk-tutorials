@@ -17,10 +17,10 @@ To have the best experience following this tutorial, it is recommended to use Di
 
 **You will learn how to**
 
-- Create a droplet on Digital Ocean
-- Upload your app to the droplet
+- Create a Droplet on Digital Ocean
+- Upload your app to the Droplet
+- Run the app on the Droplet
 - Setup a basic firewall
-- Open the API with SSL
 
 ## Host your app on Digital Ocean
 
@@ -29,7 +29,7 @@ To have the app accessible on the web will allow other apps or new nodes to conn
 
 ### Prerequisites
 
-You will need an account with [Digital Ocean](https://cloud.digitalocean.com/). If you do not have one, the first droplet should come for free, as you get a sign-up bonus from Digital Ocean.
+You will need an account with [Digital Ocean](https://cloud.digitalocean.com/). If you do not have one, the first Droplet should come for free, as you get a sign-up bonus from Digital Ocean.
 
 ### Installing Go
 
@@ -52,7 +52,7 @@ curl https://get.starport.network/starport! | bash
 This command will fetch the `starport` binary and install it into `/usr/local/bin`. If this command throws a permission error, lose `!` and it will download the binary in the current directory, you can then move it manually into your `$PATH`.
 
 
-## Create a new droplet on Digital Ocean
+## Create a new Droplet on Digital Ocean
 
 Log into your Digital Ocean account, go to the [cloud](https://cloud.digitalocean.com/).
 Click on Create in the top bar and then `Droplet`.
@@ -61,22 +61,23 @@ We will choose Ubuntu 20.04 (LTS) x64 as image.
 
 ![Ubuntu 20.04 Image](do-ubuntu-image.png "Choose Ubuntu 20.04")
 
-In the next step you can choose the size of an image. For a regular (not computing intense) blockchain app, 2GB Ram and 1 CPU are sufficient in size. This droplet comes with a cost of 10 USD per month.
+In the next step you can choose the size of an image. For a regular (not computing intense) blockchain app, 2GB Ram and 1 CPU are sufficient in size. This Droplet comes with a cost of 10 USD per month.
 
 ![Digital Ocean Droplet Size](do-droplet-size.png "Digital Ocean Droplet Size")
 
-As Authentication, access via ssh key is recommended. [Learn how to setup your SSH key](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-2) and use it as authentication method to access your droplet.
+As Authentication, access via ssh key is recommended. [Learn how to setup your SSH key](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-2) and use it as authentication method to access your Droplet.
 
-Optionally add a droplet name and click "Create Droplet".
+Optionally add a Droplet name and click "Create Droplet".
 
-In the list of your droplets you see your new droplet. Copy the IP address and open your terminal.
+In the list of your Droplets you see your new Droplet. Copy the IP address and open your terminal.
 
 In your terminal, you type `ssh root@<IP address>` to access your new node.
 
 ### Setup Your Server
 
 To setup your server, we will need to install a few tools which will help us to publish your blockchain app.
-First, install [Go](https://golang.org/dl/).
+
+First, Install [Go](https://golang.org/dl/).
 
 At the time of writing the version is 1.16.5.
 
@@ -130,6 +131,29 @@ which should print
 go version go1.16.5 linux/amd64
 ```
 
+To install Starport, we will need `make`, install it with
+
+```bash
+sudo apt-get install make
+```
+
+Install Starport
+
+```bash
+git clone https://github.com/tendermint/starport --depth=1
+cd starport
+git checkout v0.16.1
+make install
+```
+
+Verify your Starport installation with 
+
+```bash
+starport version
+# starport version v0.16.1 linux/amd64 -build date: 2021-06-08T10:19:48
+# git object hash: 795a99480ba050615bc026b603161362c815a20d
+```
+
 Since we did not add a new user on the Droplet, we will be working with `root` in the `/root` directory.
 Create a new directory for your app. 
 
@@ -167,4 +191,33 @@ On your local machine, use the following command to upload the app directory to 
 
 `scp -r <appname> root@<IP address>:/root/app`
 
-This uploads your local app to your Digital Ocean droplet, into the `/root/app` directory
+This uploads your local app to your Digital Ocean droplet, into the `/root/app` directory.
+
+After the upload finished, navigate on your Droplet into the `/root/app/<appname>` directory.
+
+To be able to log-off from the SSH shell after starting Starport, here we will use `tmux`, you can use other process manager such as `screen` or `pm2`.
+
+Start a new tmux session with
+
+```bash
+tmux new -s starport
+```
+
+In this terminal, run
+
+```bash
+starport serve
+```
+
+After your blockchain built and serves, your Starport app shows at last
+
+
+```
+🌍 Tendermint node: http://0.0.0.0:26657
+🌍 Blockchain API: http://0.0.0.0:1317
+🌍 Token faucet: http://0.0.0.0:4500
+```
+
+You can now access these endpoints from the web, visit `YOURIP:1317` to see the swagger page for the Blockchain API.
+
+Congratulations. You have your blockchain app running on the web.
