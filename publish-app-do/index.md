@@ -1,11 +1,11 @@
 ---
 parent:
-  title: Publish app on Digital Ocean
+  title: Publish your Starport app on Digital Ocean
 order: 0
-description: Publish the application on an Ubuntu 20.04 droplet on Digital Ocean.
+description: Publish the Starport blockchain application on an Ubuntu 20.04 droplet on Digital Ocean.
 ---
 
-# Publish your blockchain app on Digital Ocean
+# Publish your Starport blockchain app on Digital Ocean
 
 In this tutorial you will learn how to publish your blockchain application on Digital Ocean.
 
@@ -22,14 +22,9 @@ To have the best experience following this tutorial, it is recommended to use Di
 - Upload your app to the Droplet
 - Run the app on the Droplet
 
-## Host your app on Digital Ocean
+## Create your Starport app
 
-Digital Ocean offers cloud server. We will use the Digital Ocean infrastructure to publish a Cosmos SDK blockchain application. This will ensure the app will run permanently and is accessible on the web. 
-To have the app accessible on the web will allow other apps or new nodes to connect to your blockchain network.
-
-### Prerequisites
-
-You will need an account with [Digital Ocean](https://cloud.digitalocean.com/). If you do not have one, the first Droplet should come for free, as you get a sign-up bonus from Digital Ocean.
+To create a starport app, make sure Go and Starport are installed. Afterwards, create a Starport blockchain app with a few commands.
 
 ### Installing Go
 
@@ -51,6 +46,29 @@ curl https://get.starport.network/starport! | bash
 
 This command will fetch the `starport` binary and install it into `/usr/local/bin`. If this command throws a permission error, lose `!` and it will download the binary in the current directory, you can then move it manually into your `$PATH`.
 
+Create the Starport application on your local computer, which we want to upload to our droplet.
+Create a new directory and run Starport to create a new Cosmos SDK blockchain app.
+
+On your local computer, run
+
+```bash
+mkdir digitalocean
+cd digitalocean
+starport app github.com/<username>/<appname>
+```
+
+This creates a blockchain app with backend and frontend. The default scaffold is a working blockchain app with the functionality similar to the Cosmos Hub ($ATOM). Learn about the [Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html) or [ATOM](https://cosmos.network/features).
+
+If you want to change any parameters of the blockchain, [learn how to configure](https://docs.starport.network/configure/) your blockchain app with Starport.
+
+## Host your app on Digital Ocean
+
+Digital Ocean offers cloud server. We will use the Digital Ocean infrastructure to publish a Cosmos SDK blockchain application. This will ensure the app will run permanently and is accessible on the web. 
+To have the app accessible on the web will allow other apps or new nodes to connect to your blockchain network.
+
+### Prerequisites
+
+You will need an account with [Digital Ocean](https://cloud.digitalocean.com/). If you do not have one, the first Droplet should come for free, as you get a sign-up bonus from Digital Ocean.
 
 ## Create a new Droplet on Digital Ocean
 
@@ -59,11 +77,11 @@ Click on Create in the top bar and then `Droplet`.
 
 We will choose Ubuntu 20.04 (LTS) x64 as image.
 
-![Ubuntu 20.04 Image](do-ubuntu-image.png "Choose Ubuntu 20.04")
+![Ubuntu 20.04 Image](./do-ubuntu-image.png "Choose Ubuntu 20.04")
 
 In the next step you can choose the size of an image. For a regular (not computing intense) blockchain app, 2GB Ram and 1 CPU are sufficient in size. This Droplet comes with a cost of 10 USD per month.
 
-![Digital Ocean Droplet Size](do-droplet-size.png "Digital Ocean Droplet Size")
+![Digital Ocean Droplet Size](./do-droplet-size.png "Digital Ocean Droplet Size")
 
 As Authentication, access via ssh key is recommended. [Learn how to setup your SSH key](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-2) and use it as authentication method to access your Droplet.
 
@@ -161,25 +179,6 @@ Create a new directory for your app.
 cd /root
 mkdir app
 ```
-
-
-## Create your Starport app
-
-Create the Starport application on your local computer, which we want to upload to our droplet.
-Create a new directory and run Starport to create a new Cosmos SDK blockchain app.
-
-On your local computer, run
-
-```bash
-mkdir digitalocean
-cd digitalocean
-starport app github.com/<username>/<appname>
-```
-
-My `<username>` is tosch, while I call the app `digitalocean`, which is for the sake of this tutorial.
-You might already have a working blockchain app or create a new one with a new that you can remember easily.
-
-If you want to change any parameters of the blockchain, [learn how to configure](https://docs.starport.network/configure/) your blockchain app with Starport.
 
 ## Upload your app to the Droplet
 
