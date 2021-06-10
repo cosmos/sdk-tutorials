@@ -3,7 +3,10 @@ order: 4
 ---
 
 # User interface
-To enable to web UI cd into `vue/`
+To enable the web UI:
+
+ 1. Change to the `vue/` directory.
+ 1. Run these commands: 
 ```
 npm install
 npm run serve
