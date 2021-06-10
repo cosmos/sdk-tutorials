@@ -1,7 +1,7 @@
 <!--
 This is an article template you can use as a quick starting point when writing Cosmos SDK conceptual tutorials. 
 
-After you review the template, delete the comments and begin writing your outline or article. Examples of Markdown formatting syntax are provided at the very bottom of this template.
+After you review the template, delete the comments and begin writing your outline or article. Examples of Markdown formatting syntax are provided at the bottom of this template.
 
 As you write, refer to industry style and formatting guidelines. 
 
@@ -60,7 +60,6 @@ Another introduction
 Your content
 
 Transition to the next section
-
 
 ## Conclusion
 
