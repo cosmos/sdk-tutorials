@@ -7,11 +7,11 @@ To enable the web UI:
 
  1. Change to the `vue/` directory.
  1. Run these commands: 
-```
-npm install
-npm run serve
-npm run build
-```
+    ```
+    npm install
+    npm run serve
+    npm run build
+    ```
 
 
 After you navigate to the UI, the following `vue` UI is available at `localhost:8080`: 
