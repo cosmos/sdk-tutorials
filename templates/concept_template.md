@@ -19,11 +19,17 @@ We admire and respect these resources:
 
 <!-- Use Title Case for all Titles -->
 
-<!-- Learn about the title, introduction, and Goals sections at https://do.co/style#title-introduction-and-goals -->
+<!-- We like the way Digital Ocean explains things, you can learn about the title, introduction, and Goals sections at https://do.co/style#title-introduction-and-goals -->
 
 <!-- Learn about formatting headers at https://do.co/style#headers -->
 
 ### Introduction
+
+TODO @barriebyron define our structure
+CONCEPT
+TODO add examples in templates
+TODO issue for notices styles
+TODO issue for code styles
 
 <!-- Our articles have a specific structure. Learn more at https://do.co/style/structure -->
 
