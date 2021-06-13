@@ -17,8 +17,8 @@ To have the best experience following this tutorial, it is recommended to use Di
 
 **You will learn how to**
 
-- Create a Droplet on Digital Ocean
 - Create a Cosmos SDK blockchain app with starport
+- Create a Droplet on Digital Ocean
 - Upload your app to the Droplet
 - Run the app on the Droplet
 
@@ -49,7 +49,7 @@ This command will fetch the `starport` binary and install it into `/usr/local/bi
 Create the Starport application on your local computer, which we want to upload to our droplet.
 Create a new directory and run Starport to create a new Cosmos SDK blockchain app.
 
-On your local computer, run
+On your local computer, in the terminal run
 
 ```bash
 mkdir digitalocean
