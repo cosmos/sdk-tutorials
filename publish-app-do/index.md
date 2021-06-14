@@ -382,6 +382,17 @@ gex
 
 When it says `1` in the `Connected Peers` box, then everything is setup successfully.
 
+## Access API and RPC
+
+Now you can access the API. The swagger documentation is available at:
+
+http://<IP address>:1317
+
+While the RPC is available on
+
+http://<IP address>:26657
+
+
 ## Optional: Setup a firewall on your Droplet
 
 In order to reduce load and attacks to your droplet, you can setup a firewall.
