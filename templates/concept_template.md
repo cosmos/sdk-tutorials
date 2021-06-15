@@ -1,5 +1,5 @@
 <!--
-This is an article template you can use as a quick starting point when writing Cosmos SDK conceptual tutorials. 
+Use this article template as a quick starting point when writing Cosmos SDK conceptual tutorials. 
 
 After you review the template, delete the comments and begin writing your outline or article. Examples of Markdown formatting syntax are provided at the bottom of this template.
 
@@ -17,38 +17,39 @@ We admire and respect these resources:
 
 # Understanding [Some Concept]
 
-<!-- Use Title Case for all Titles -->
+<!-- Use Title Case for all Titles, see https://capitalizemytitle.com/ -->
 
 <!-- We like the way Digital Ocean explains things, you can learn about the title, introduction, and Goals sections at https://do.co/style#title-introduction-and-goals -->
 
-<!-- Learn about formatting headers at https://do.co/style#headers -->
 
 ### Introduction
 
-TODO @barriebyron define our structure
-CONCEPT
-TODO add examples in templates
-TODO issue for notices styles
-TODO issue for code styles
-
-<!-- Our articles have a specific structure. Learn more at https://do.co/style/structure -->
+<!-- Our articles have a consistent structure that includes an introduction, a conclusion, and any prerequisites necessary for a reader to get started. However, the specific structure depends on the type of article.
+This template is to explain a concept. Conceptual articles can include, but do not require a prerequisites section, a Goals section, and might not follow the step convention.
+-->
 
 Introductory paragraph about the topic that explains what this topic is about and why the reader should care; what problem does it solve?
 
+<!-- For example:
+By integrating the Rosetta API in your Cosmos SDK blockchain application, exchanges are capable of listing your cryptocurrency coin.
+-->
+
 In this guide, you will [explore] [some thing]...
-
+<!-- For example:
+Add the RosettaCommand to your application root command file.
+>
 When you're finished, you'll be able to...
-
+<!-- For example:
+Run Rosetta in your application CLI.
+>
 ## Prerequisites
 
-<!-- Prerequisites let you leverage existing tutorials so you don't have to repeat installation or setup steps in your tutorial.  -->
+<!-- Prerequisites let you leverage existing tutorials so you don't have to repeat core concepts, installation, or setup steps in your tutorial.  -->
 
 
 ## 
 
-<!-- For more information on steps, see https://do.co/style/#steps -->
-
-Introduction to the step. What are we going to do and why are we doing it?
+Introduction to the concept. What are we going to do and why are we doing it?
 
 First....
 
