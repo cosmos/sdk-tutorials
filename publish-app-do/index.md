@@ -1,6 +1,6 @@
 ---
 parent:
-  title: Publish your Starport app on Digital Ocean
+  title: Deploy your Starport Blockchain on Digital Ocean
 order: 0
 description: Publish the Starport blockchain application on an Ubuntu 20.04 droplet on Digital Ocean.
 ---
@@ -9,7 +9,7 @@ description: Publish the Starport blockchain application on an Ubuntu 20.04 drop
 
 In this tutorial you will learn how to publish your blockchain application on Digital Ocean.
 
-In the first chapter, create a new Cosmos SDk blockchain with Starport.
+In the first chapter, create a new Cosmos SDK blockchain with Starport.
 Upload it to Digital Ocean and access the app on the web.
 
 This guide can be helpful with other cloud services, some details might change.
@@ -113,7 +113,7 @@ To be able to login as the new user, copy your ssh public key to the new users h
 rsync --archive --chown=appuser:appuser ~/.ssh /home/appuser
 ```
 
-To setup your server to install and run the starport app, we will need to install a few tools which will help us to publish your blockchain app.
+To set up your server to install and run the Starport app, we will need to install a few tools which will help us to publish your blockchain app.
 
 Install [Go](https://golang.org/dl/).
 
@@ -132,7 +132,7 @@ Extract the archive and keep it in /usr/local
 sudo tar -xvf go1.16.5.linux-amd64.tar.gz -C /usr/local
 ```
 
-You will now have a directory called go in the /usr/local directory. Next, recursively change this directory’s owner and group to appuser:
+You will now have a directory called go in the `/usr/local` directory. Next, recursively change this directory’s owner and group to `appuser`:
 
 ```bash
 sudo chown -R appuser:appuser /usr/local/go
@@ -412,4 +412,3 @@ sudo ufw allow 1317/tcp
 sudo ufw allow 8080/tcp
 sudo ufw --force enable
 ```
-

@@ -85,7 +85,7 @@ module.exports = {
               directory: true,
             },
             {
-              title: "Publish your app on Digital Ocean",
+              title: "Deploy Your Blockchain on Digital Ocean",
               path: "/publish-app-do/",
               directory: true,
             },
