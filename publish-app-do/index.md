@@ -113,6 +113,12 @@ To be able to login as the new user, copy your ssh public key to the new users h
 rsync --archive --chown=appuser:appuser ~/.ssh /home/appuser
 ```
 
+Now switch to your newly created user
+
+```bash
+su - appuser
+```
+
 To set up your server to install and run the Starport app, we will need to install a few tools which will help us to publish your blockchain app.
 
 Install [Go](https://golang.org/dl/).
