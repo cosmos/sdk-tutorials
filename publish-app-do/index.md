@@ -1,24 +1,22 @@
 ---
 parent:
-  title: Deploy your Starport Blockchain on Digital Ocean
+  title: Deploy your Starport Blockchain on DigitalOcean
 order: 0
-description: Publish the Starport blockchain application on an Ubuntu 20.04 droplet on Digital Ocean.
+description: Publish a Starport blockchain application on an Ubuntu 20.04 droplet on DigitalOcean.
 ---
 
-# Publish your Starport blockchain app on Digital Ocean
+# Publish Your Starport Blockchain App on DigitalOcean
 
-In this tutorial you will learn how to publish your blockchain application on Digital Ocean.
+In this tutorial, you will publish your blockchain application an Ubuntu 20.04 droplet on DigitalOcean.
 
-In the first chapter, create a new Cosmos SDK blockchain with Starport.
-Upload it to Digital Ocean and access the app on the web.
+This article is written for DigitalOcean. While this information can be helpful with other cloud services, the details apply only to DigitalOcean Droplets. Because DigitalOcean DigitalOcean Droplets are Linux-based virtual machines (VMs) The operating system steps apply to MacOS or a Linux distribution. Be aware when using Windows, some steps might change significantly.
 
-This guide can be helpful with other cloud services, some details might change.
-To have the best experience following this tutorial, it is recommended to use Digital Ocean. As operating system from your side, we expect MacOS or a Linux distribution. Be aware when using Windows, some steps might change significantly.
+For the best experience using this tutorial, we recommend using DigitalOcean. 
 
 **You will learn how to**
 
 - Create a Cosmos SDK blockchain app with starport
-- Create a Droplet on Digital Ocean
+- Create a Droplet on DigitalOcean
 - Upload your app to the Droplet
 - Run the app on the Droplet
 
@@ -61,18 +59,18 @@ This creates a blockchain app with backend and frontend. The default scaffold is
 
 If you want to change any parameters of the blockchain, [learn how to configure](https://docs.starport.network/configure/) your blockchain app with Starport.
 
-## Host your app on Digital Ocean
+## Host your app on DigitalOcean
 
-Digital Ocean offers cloud server. We will use the Digital Ocean infrastructure to publish a Cosmos SDK blockchain application. This will ensure the app will run permanently and is accessible on the web. 
+DigitalOcean offers cloud server. We will use the DigitalOcean infrastructure to publish a Cosmos SDK blockchain application. This will ensure the app will run permanently and is accessible on the web. 
 To have the app accessible on the web will allow other apps or new nodes to connect to your blockchain network.
 
 ### Prerequisites
 
-You will need an account with [Digital Ocean](https://cloud.digitalocean.com/). If you do not have one, the first Droplet should come for free, as you get a sign-up bonus from Digital Ocean.
+You will need an account with [DigitalOcean](https://cloud.digitalocean.com/). If you do not have one, the first Droplet should come for free, as you get a sign-up bonus from DigitalOcean.
 
-## Create a new Droplet on Digital Ocean
+## Create a new Droplet on DigitalOcean
 
-Log into your Digital Ocean account, go to the [cloud](https://cloud.digitalocean.com/).
+Log into your DigitalOcean account, go to the [cloud](https://cloud.digitalocean.com/).
 Click on Create in the top bar and then `Droplet`.
 
 We will choose Ubuntu 20.04 (LTS) x64 as image.
@@ -81,7 +79,7 @@ We will choose Ubuntu 20.04 (LTS) x64 as image.
 
 In the next step you can choose the size of an image. For a regular (not computing intense) blockchain app, 2GB Ram and 1 CPU are sufficient in size. This Droplet comes with a cost of 10 USD per month.
 
-![Digital Ocean Droplet Size](./do-droplet-size.png "Digital Ocean Droplet Size")
+![DigitalOcean Droplet Size](./do-droplet-size.png "DigitalOcean Droplet Size")
 
 As Authentication, access via ssh key is recommended. [Learn how to setup your SSH key](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-2) and use it as authentication method to access your Droplet.
 
@@ -191,7 +189,7 @@ On your local machine, use the following command to upload the app directory to 
 
 `scp -r <appname> appuser@<IP address>:/home/appuser/`
 
-This uploads your local app to your Digital Ocean droplet, into the `/home/appuser` directory, the home directory of the `appuser`.
+This uploads your local app to your DigitalOcean droplet, into the `/home/appuser` directory, the home directory of the `appuser`.
 
 After the upload finished, navigate on your Droplet into the `/home/appuser/<appname>` directory.
 
@@ -329,13 +327,13 @@ Check the logs with
 sudo journalctl -u digitaloceand -f
 ```
 
-Your app is now running on Digital Ocean.
+Your app is now running on DigitalOcean.
 
 ## Connect your local running chain to the published chain
 
 To connect your local running chain with the published app, you have to find the node you just created with the IP. Then download the genesis file and configure your app to connect to the published node.
 
-On your Digital Ocean droplet, find the hash of the node by typing
+On your DigitalOcean droplet, find the hash of the node by typing
 
 ```bash
 digitaloceand tendermint show-node-id
@@ -402,7 +400,7 @@ http://<IP address>:26657
 ## Optional: Setup a firewall on your Droplet
 
 In order to reduce load and attacks to your droplet, you can setup a firewall.
-Digital Ocean does provide a nice UI for creating a firewall and you can use the one Digital Ocean provides as well. In this tutorial it will be a bit more generalistic approach and use the `ufw` firewall to block anything that is not related to your blockchain app.
+DigitalOcean does provide a nice UI for creating a firewall and you can use the one DigitalOcean provides as well. In this tutorial it will be a bit more generalistic approach and use the `ufw` firewall to block anything that is not related to your blockchain app.
 
 Setup the following rules for ufw, to make it work with your blockchain app.
 
