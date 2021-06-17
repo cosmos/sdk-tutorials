@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Introductie",
+      "description": "De introductietekst (maximum 100 karakters)"
+    },
+    {
+      "label": "Quiz type",
+      "options": [
+        {
+          "label": "Rekenkundige Bewerkingen Quiz"
+        },
+        {
+          "label": "Lineaire Vergelijkingen Quiz"
+        }
+      ]
+    },
+    {
+      "label": "Rekenkundig type",
+      "options": [
+        {
+          "label": "Optellen"
+        },
+        {
+          "label": "Aftrekken"
+        },
+        {
+          "label": "Vermenigvuldigen"
+        },
+        {
+          "label": "Delen"
+        }
+      ]
+    },
+    {
+      "label": "Vergelijkingstype",
+      "options": [
+        {
+          "label": "Eenvoudig [ 3x = 12 ]"
+        },
+        {
+          "label": "Gemiddeld [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Moeilijk [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Breuken inschakelen",
+      "description": "Inschakelen om breuken in vergelijkingen toe te staan."
+    },
+    {
+      "label": "Max aantal vragen"
+    },
+    {
+      "label": "Gebruikersinterface vertalingen",
+      "fields": [
+        {
+          "label": "Score tijdens de quiz",
+          "default": "Score:"
+        },
+        {
+          "label": "Tijd",
+          "default": "Tijd: @time"
+        },
+        {
+          "label": "Kop resultaten pagina",
+          "default": "Beëindigd!"
+        },
+        {
+          "label": "Start label",
+          "default": "Start!"
+        },
+        {
+          "label": "Startknop label",
+          "default": "Start"
+        },
+        {
+          "label": "Tekst van de Opnieuw proberen knop",
+          "default": "Opnieuw proberen"
+        },
+        {
+          "label": "Readspeaker tekst voor het juiste antwoord",
+          "default": "Juist"
+        },
+        {
+          "label": "Readspeaker tekst voor het foute antwoord",
+          "default": "Onjuist. Het juiste antwoord was :num"
+        },
+        {
+          "label": "Readspeaker label voor de timer",
+          "default": "voortgang in uren, minuten en seconden."
+        },
+        {
+          "label": "Readspeaker tekst voor de vraag",
+          "default": "Waaraan is :rekenkundige gelijk?"
+        },
+        {
+          "label": "Readspeaker tekst voor vergelijkingsvraag",
+          "default": "Voor de vergelijking :equation, waaraan is :item gelijk?"
+        },
+        {
+          "label": "Readspeaker tekst voor vergelijkingsvariabele",
+          "default": "Waaraan is :item gelijk?"
+        },
+        {
+          "label": "Plusteken tekst",
+          "default": "plus"
+        },
+        {
+          "label": "Minteken tekst",
+          "default": "min"
+        },
+        {
+          "label": "Maalteken tekst",
+          "default": "maal"
+        },
+        {
+          "label": "Deelteken tekst",
+          "default": "gedeeld door"
+        },
+        {
+          "label": "Is gelijk aan tekst",
+          "default": "is gelijk aan"
+        },
+        {
+          "label": "Dia nummer tekst",
+          "description": "Geeft het nummer van de huidige dia en het totaal aantal dia's aan, variabelen zijn :num en :total",
+          "default": "Dia :num van :total"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,298 @@
+.h5p-baq {
+  font-family: "Lato", sans-serif;
+  overflow: hidden;
+  background: #1394c7;
+  color: #fff;
+  font-size: 28px;
+  text-align: center;
+
+  display: table;
+  height: 100%;
+  min-height: 200px;
+  width: 100%;
+}
+.h5p-baq * {
+  box-sizing: border-box;
+  line-height: 1.25;
+  text-shadow: 5px 2px 2px rgba(1, 72, 118, 0.5);
+}
+.h5p-baq .h5p-joubelui-score-bar * {
+  line-height: 0.7;
+  text-shadow: none;
+}
+.h5p-baq .h5p-joubelui-score-bar {
+  margin: 1em 0 0.5em;;
+  font-size: 0.7em;
+  max-width: 80%;
+}
+.h5p-baq .h5p-joubelui-button {
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.h5p-baq .h5p-joubelui-button:focus {
+  outline: 2px dashed #fff;
+  outline-offset: 4px;
+}
+.h5p-baq-game {
+  display: table-cell;
+}
+/* Don not show progress when igniting or when showing results*/
+.h5p-baq-game.counting-down .h5p-joubelui-progressbar,
+.h5p-baq-game.result-page .h5p-joubelui-progressbar {
+  visibility: hidden;
+}
+.h5p-baq-game .h5p-joubelui-progressbar {
+  z-index: 1;
+  overflow: hidden;
+}
+/* Intro page */
+.h5p-baq-intro-page {
+  height: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background: #1394c7;
+}
+.h5p-baq-intro-page-inner {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.h5p-baq-intro-page > .h5p-baq-intro-page-title {
+  font-weight: bold;
+  line-height: 1.1;
+  font-size: 0.9em;
+  margin-bottom: 0.8em;
+}
+.h5p-baq-intro-page > .h5p-baq-intro-page-title > span {
+  display: inline-block;
+  max-width: 80%;
+}
+.h5p-joubelui-button.mq-control-button {
+  padding: 0.2em 2em;
+  background: #0072bb;
+  border: none; /* Reset borders */
+  border-bottom: 0.2em solid #014876;
+  margin-top: 1em;
+
+  transition: background-color 1s;
+}
+.h5p-joubelui-button:hover {
+  background-color: #005f9b;
+}
+.h5p-baq-countdown.current {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+.h5p-baq-countdown-inner {
+  height: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+.h5p-baq-countdown-text {
+  position: relative;
+  z-index: 100;
+  font-size: 1.5em;
+  display: inline-block;
+  background: #0072bb;
+  min-width: 4em;
+  padding: .5em;
+  border: 0.2em solid #fff;
+}
+.h5p-baq-countdown-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: #014876;
+
+  -webkit-transition: height 3s ease-in-out;
+  -moz-transition: height 3s ease-in-out;
+  -ms-transition: height 3s ease-in-out;
+  transition: height 3s ease-in-out;
+}
+.h5p-baq-countdown-bg.fuel {
+  height: 100%;
+}
+
+.h5p-joubel-ui-slide {
+  height: auto;
+}
+
+/* Hide statusbar on resultpage */
+.h5p-baq-game.result-page > .timer,
+.h5p-baq-game.counting-down > .timer,
+.h5p-baq-game.result-page > .h5p-baq-score-widget,
+.h5p-baq-game.counting-down > .h5p-baq-score-widget {
+  display: none;
+}
+.h5p-baq-game > .timer,
+.h5p-baq-game > .h5p-baq-score-widget {
+  position: absolute;
+  top: 0;
+  padding: 0.5em;
+  font-size: 0.5em;
+  line-height: 1;
+  z-index: 1;
+  text-shadow: 1px 1px 2px rgba(1, 72, 118, 0.5);
+}
+.h5p-baq-game > .timer {
+  right: 0;
+}
+
+.h5p-baq-game > .timer.aria-timer {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.h5p-baq-game > .h5p-baq-score-widget {
+  left: 0;
+  min-width: 3em;
+}
+.h5p-baq-score-widget-number {
+  padding: 0 .3em;
+  background-color: #fff;
+  color: #1394c7;
+  border-radius: 2px;
+}
+.h5p-baq-score-widget-number * {
+  text-shadow: none;
+}
+.h5p-baq .question {
+  margin: 1em 0 0 0;
+  font-size: 1.5em;
+  text-align: center;
+}
+.h5p-baq-alternatives {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-content: flex-end;
+  align-content: flex-end;
+
+  padding: .5em .5em 1em .5em;
+}
+.h5p-baq-alternatives > .h5p-joubelui-button {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 29%;
+  padding: 0.1em;
+  margin: 0.2em;
+
+  background: transparent;
+  border-width: 0.1em;
+  border-color: #fff;
+  border-style: solid;
+
+  text-align: center;
+  font-size: 1.5em;
+
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  -moz-transition: -moz-transform 0.3s ease-in-out;
+  -ms-transition: -ms-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+}
+@media screen and (max-width: 570px) {
+  .h5p-baq-alternatives > .h5p-joubelui-button {
+    width: 40%;
+  }
+}
+@media screen and (max-device-width: 570px) and (orientation:landscape) {
+  .h5p-baq-alternatives > .h5p-joubelui-button {
+    width: 29%;
+  }
+}
+.h5p-baq-alternatives > .h5p-joubelui-button:active,
+.h5p-baq-alternatives > .h5p-joubelui-button:hover {
+  background: #005f9b;
+}
+.h5p-baq-alternatives > .h5p-joubelui-button.reveal-correct {
+  background: #49837E;
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  position: relative;
+  font-weight: bold;
+}
+.h5p-baq-alternatives > .h5p-joubelui-button.reveal-wrong {
+  -webkit-transform: scale(.8);
+  -moz-transformtransform: scale(.8);
+  -ms-transform: scale(.8);
+  transform: scale(.8);
+  position: relative;
+}
+.h5p-baq-result-page.current {
+  text-align: center;
+  font-weight: bold;
+  display: table;
+  table-layout: fixed;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.h5p-baq-result-page-feedback > * {
+  line-height: 1.2em;
+}
+.h5p-baq-result-page-header {
+  font-size: 1.3em;
+}
+.h5p-baq-result-page-time {
+  font-size: 0.8em;
+}
+.h5p-baq-result-page-feedback {
+  height: 100%;
+  width: 100%;
+  display: table-cell;
+  vertical-align: middle;
+}
+/*.h5p-baq-grid-results {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: none;
+  z-index: -1;
+}
+.h5p-baq-grid-results td {
+  padding: 0;
+  border: none;
+  background: pink;
+}*/
+
+.h5p-baq-game .hidden-but-read,
+.h5p-baq-live-feedback {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}

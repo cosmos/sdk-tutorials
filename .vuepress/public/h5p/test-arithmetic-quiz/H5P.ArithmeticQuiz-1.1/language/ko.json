@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "소개",
+      "description": "소개 텍스트 (최대 100자)"
+    },
+    {
+      "label": "퀴즈 타입",
+      "options": [
+        {
+          "label": "계산 퀴즈"
+        },
+        {
+          "label": "방정식 퀴즈"
+        }
+      ]
+    },
+    {
+      "label": "산수 유형",
+      "options": [
+        {
+          "label": "덧셈"
+        },
+        {
+          "label": "뺄셈"
+        },
+        {
+          "label": "곱셈"
+        },
+        {
+          "label": "나눗셈"
+        }
+      ]
+    },
+    {
+      "label": "방정식 유형",
+      "options": [
+        {
+          "label": "기본 [ 3x = 12 ]"
+        },
+        {
+          "label": "중급 [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "고급 [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "분수 활성화",
+      "description": "방정식에서 분수 활성화."
+    },
+    {
+      "label": "최대 질문 수"
+    },
+    {
+      "label": "사용자 인터페이스 변환",
+      "fields": [
+        {
+          "label": "퀴즈 중에 점수 매기기",
+          "default": "점수:"
+        },
+        {
+          "label": "시간",
+          "default": "시간: @time"
+        },
+        {
+          "label": "결과 페이지 헤더",
+          "default": "완료!"
+        },
+        {
+          "label": "출발 라벨",
+          "default": "출발!"
+        },
+        {
+          "label": "시작 버튼 라벨",
+          "default": "시작"
+        },
+        {
+          "label": "재시도 버튼 라벨",
+          "default": "재시도"
+        },
+        {
+          "label": "정답에 대한 자동 읽어주기 텍스트",
+          "default": "정답"
+        },
+        {
+          "label": "오답에 대한 자동 읽어주기 텍스트",
+          "default": "오답. 정답은 :num 입니다."
+        },
+        {
+          "label": "시간에 대한 자동읽어주기 텍스트",
+          "default": "시간, 분, 초로 걸린 기간."
+        },
+        {
+          "label": "문제에 대한 자동읽어주기 텍스트",
+          "default": ":arithmetic 계산의 답은?"
+        },
+        {
+          "label": "방정식에 대한 자동읽어주기 텍스트",
+          "default": "방정식 :equation 에 대해 :item 의 답은?"
+        },
+        {
+          "label": "방정식 변수에 대한 자동읽어주기 텍스트",
+          "default": ":item 답은?"
+        },
+        {
+          "label": "더하기 텍스트",
+          "default": "플러스"
+        },
+        {
+          "label": "빼기 텍스트",
+          "default": "빼기"
+        },
+        {
+          "label": "곱하기 텍스트",
+          "default": "곱하기"
+        },
+        {
+          "label": "나누기 텍스트",
+          "default": "나누기"
+        },
+        {
+          "label": "이퀄 사인",
+          "default": "이퀄"
+        },
+        {
+          "label": "슬라이드 번호 텍스트",
+          "description": "현재 슬라이드와 총 슬라이드 수 알림, 변수는 :num 및 :total",
+          "default": "총 :total 중 :num"
+        }
+      ]
+    }
+  ]
+}

@@ -230,5 +230,6 @@ module.exports = {
     "blog-legacy/tutorial/*.md",
     "blog/tutorial/*.md",
     "interchain-exchange/tutorial/*.md",
+    "feature-test/*.md"
   ],
 };

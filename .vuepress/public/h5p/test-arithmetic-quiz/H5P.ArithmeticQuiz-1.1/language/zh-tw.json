@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "簡介",
+      "description": "簡介文字(最多100個字元)"
+    },
+    {
+      "label": "Quiz type",
+      "options": [
+        {
+          "label": "Arithmetic Operations Quiz"
+        },
+        {
+          "label": "Linear Equations Quiz"
+        }
+      ]
+    },
+    {
+      "label": "算術類型",
+      "options": [
+        {
+          "label": "加法"
+        },
+        {
+          "label": "減法"
+        },
+        {
+          "label": "乘法"
+        },
+        {
+          "label": "除法"
+        }
+      ]
+    },
+    {
+      "label": "Equation type",
+      "options": [
+        {
+          "label": "Basic [ 3x = 12 ]"
+        },
+        {
+          "label": "Intermediate [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Advanced [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Enable fractions",
+      "description": "Enable to allow fractions in equations."
+    },
+    {
+      "label": "最多題數"
+    },
+    {
+      "label": "使用者介面翻譯",
+      "fields": [
+        {
+          "label": "測驗期間得分",
+          "default": "得分:"
+        },
+        {
+          "label": "時間",
+          "default": "時間: @time"
+        },
+        {
+          "label": "測驗結果頁面標題",
+          "default": "完成!"
+        },
+        {
+          "label": "開始名稱",
+          "default": "開始!"
+        },
+        {
+          "label": "開始功能鈕名稱",
+          "default": "開始"
+        },
+        {
+          "label": "重試功能鈕名稱",
+          "default": "重試"
+        },
+        {
+          "label": "閱讀器導讀文字-正確答案",
+          "default": "正確"
+        },
+        {
+          "label": "閱讀器導讀文字-錯誤答案",
+          "default": "不正確. 正確答案為:num"
+        },
+        {
+          "label": "閱讀器導讀文字-計時器",
+          "default": "持續時間 時、分、秒."
+        },
+        {
+          "label": "閱讀器導讀文字-問題",
+          "default": "什麼是算術平均?"
+        },
+        {
+          "label": "Readspeaker text for equation question",
+          "default": "For the equation :equation, what does :item equal?"
+        },
+        {
+          "label": "Readspeaker text for equation variable",
+          "default": "What does :item equal?"
+        },
+        {
+          "label": "以文字表述加法運算符號",
+          "default": "加上"
+        },
+        {
+          "label": "以文字表述減法運算符號",
+          "default": "減去"
+        },
+        {
+          "label": "以文字表述乘法運算符號",
+          "default": "乘以"
+        },
+        {
+          "label": "以文字表述除法運算符號",
+          "default": "以...去除..."
+        },
+        {
+          "label": "Equality sign text",
+          "default": "equals"
+        },
+        {
+          "label": "簡報頁碼",
+          "description": "顯示當前簡報頁碼及總頁碼 :num / :total",
+          "default": "簡報 :num / :total"
+        }
+      ]
+    }
+  ]
+}

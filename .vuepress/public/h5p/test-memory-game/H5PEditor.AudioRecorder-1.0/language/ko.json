@@ -1,0 +1,23 @@
+{
+  "libraryStrings":{
+    "title":"오디오 녹음기",
+    "recordAnswer":"녹음",
+    "pause":"일시멈춤",
+    "continue":"계속",
+    "done":"완료",
+    "retry":"초기화",
+    "microphoneNotSupported":"마이크가 지원되지 않음. 마이크 녹음을 허용하는 브라우저를 사용하고 있는지 확인하십시오.",
+    "microphoneInaccessible":"마이크에 접근할 수 없음. 브라우저 마이크가 활성화되어 있는지 확인하십시오.",
+    "insecureNotAllowed":"이 페이지는 HTTPS를 사용하여 제공되지 않으므로 브라우저에서 마이크 액세스가 허용되지 않는다. 작성자에게 문의하고 HTTPS를 사용하여 마이크에 대한 액세스를 요청하십시오.",
+    "statusReadyToRecord":"아래 버튼을 눌러 녹화를 시작하십시오.",
+    "statusRecording":"녹음중...",
+    "statusPaused":"녹음 일시멈춤",
+    "statusFinishedRecording":"아래 녹음을 들어보세요.",
+    "downloadRecording":" \"Insert\" (삽입) 버튼을 눌러 이 녹음을 사용하세요.",
+    "retryDialogHeaderText":"녹음을 다시 하시겠습니까?",
+    "retryDialogBodyText":"\"Retry\" (재시도) 버튼을 누르면 현재 녹음이 지워집니다.",
+    "retryDialogConfirmText":"재시도",
+    "retryDialogCancelText":"취소",
+    "statusCantCreateTheAudioFile":"오디오 파일을 만들 수 없습니다."
+  }
+}

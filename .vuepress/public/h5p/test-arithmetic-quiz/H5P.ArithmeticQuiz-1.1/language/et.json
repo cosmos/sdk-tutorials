@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Sissejuhatus",
+      "description": "Sissejuhatav tekst (kuni 100 märki)"
+    },
+    {
+      "label": "Quiz type",
+      "options": [
+        {
+          "label": "Arithmetic Operations Quiz"
+        },
+        {
+          "label": "Linear Equations Quiz"
+        }
+      ]
+    },
+    {
+      "label": "Tehte tüüp",
+      "options": [
+        {
+          "label": "Liitmine"
+        },
+        {
+          "label": "Lahutamine"
+        },
+        {
+          "label": "Korrutamine"
+        },
+        {
+          "label": "Jagamine"
+        }
+      ]
+    },
+    {
+      "label": "Equation type",
+      "options": [
+        {
+          "label": "Basic [ 3x = 12 ]"
+        },
+        {
+          "label": "Intermediate [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Advanced [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Enable fractions",
+      "description": "Enable to allow fractions in equations."
+    },
+    {
+      "label": "Küsimuste suurim hulk"
+    },
+    {
+      "label": "Kasutajaliidese tõlked",
+      "fields": [
+        {
+          "label": "Punktisumma viktoriini ajal",
+          "default": "Punktisumma:"
+        },
+        {
+          "label": "Aeg",
+          "default": "Aeg: @time"
+        },
+        {
+          "label": "Tulemuste lehe päis",
+          "default": "Valmis!"
+        },
+        {
+          "label": "Käivita nupu tekst",
+          "default": "Käivita!"
+        },
+        {
+          "label": "Alusta nupu tekst",
+          "default": "Alusta"
+        },
+        {
+          "label": "Proovi uuesti nupu tekst",
+          "default": "Proovi uuesti"
+        },
+        {
+          "label": "Õige vastuse tekstilugeri tekst",
+          "default": "Õige"
+        },
+        {
+          "label": "Vale vastuse tekstilugeri tekst",
+          "default": "Vale. Õige vastus oli :num"
+        },
+        {
+          "label": "Tekstilugeri tekst taimerile",
+          "default": "Kestus tundides, minutites ja sekundites."
+        },
+        {
+          "label": "Tekstilugeri tekst küsimusele",
+          "default": "Kui palju on :arithmetic ?"
+        },
+        {
+          "label": "Readspeaker text for equation question",
+          "default": "For the equation :equation, what does :item equal?"
+        },
+        {
+          "label": "Readspeaker text for equation variable",
+          "default": "What does :item equal?"
+        },
+        {
+          "label": "Liitmistehte tekst",
+          "default": "pluss"
+        },
+        {
+          "label": "Lahutamistehte tekst",
+          "default": "miinus"
+        },
+        {
+          "label": "Korrutamistehte tekst",
+          "default": "korda"
+        },
+        {
+          "label": "Lahutamistehte tekst",
+          "default": "jagatud"
+        },
+        {
+          "label": "Equality sign text",
+          "default": "equals"
+        },
+        {
+          "label": "Leheküljenumbri tekst",
+          "description": "Väljastab jooksva lehekülje ja lehtede koguhulga arvud. Muutujad on :num ja :total",
+          "default": "Lehekülg :num / :total"
+        }
+      ]
+    }
+  ]
+}

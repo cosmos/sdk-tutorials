@@ -1,0 +1,121 @@
+{
+  "semantics": [
+    {
+      "widgets": [
+        {
+          "label": "Výchozí"
+        }
+      ],
+      "label": "Karty",
+      "entity": "karta",
+      "field": {
+        "label": "Karta",
+        "fields": [
+          {
+            "label": "Obrázek"
+          },
+          {
+            "label": "Alternativní text pro obrázek",
+            "description": "Popište, co lze na fotografii vidět. Text je čten pomocí nástrojů převodu textu na řeč, které potřebují zrakově hendikepovaní uživatelé."
+          },
+          {
+            "label": "Zvuková stopa",
+            "description": "Volitelný zvuk, který se přehraje při otočení karty."
+          },
+          {
+            "label": "Odpovídající obrázek",
+            "description": "Volitelný obrázek, který bude odpovídat namísto použití dvou karet se stejným obrázkem."
+          },
+          {
+            "label": "Alternativní text pro odpovídající obrázek",
+            "description": "Popište, co lze na fotografii vidět. Text je čten pomocí nástrojů převodu textu na řeč, které potřebují zrakově hendikepovaní uživatelé."
+          },
+          {
+            "label": "Odpovídající zvuková stopa",
+            "description": "Volitelný zvuk, který se přehraje při otočení druhé karty."
+          },
+          {
+            "label": "Popis",
+            "description": "Volitelný krátký text, který se objeví, jakmile jsou nalezeny dvě odpovídající karty."
+          }
+        ]
+      }
+    },
+    {
+      "label": "Nastavení chování",
+      "description": "Tyto možnosti vám umožní řídit, jak se hra bude chovat.",
+      "fields": [
+        {
+          "label": "Umístit karty do čtverce",
+          "description": "Při rozložení karet se bude snažit porovnat počet sloupců a řádků. Poté budou karty upraveny podle velikosti kontejneru."
+        },
+        {
+          "label": "Počet karet k použití",
+          "description": "Pokud toto nastavíte na číslo větší než 2, bude hra vybírat náhodné karty ze seznamu karet."
+        },
+        {
+          "label": "Tlačítko pro opakování pokusu o ukončení hry"
+        }
+      ]
+    },
+    {
+      "label": "Vzhled a pocit",
+      "description": "Ovládat vizuální prvky hry.",
+      "fields": [
+        {
+          "label": "Barva motivu",
+          "description": "Vyberte barvu pro vytvoření motivu pro vaši karetní hru."
+        },
+        {
+          "label": "Zadní strana karty",
+          "description": "Použijte vlastní zadní stranu karet."
+        }
+      ]
+    },
+    {
+      "label": "Localizace",
+      "fields": [
+        {
+          "label": "Text pro otočení karet",
+          "default": "Otočení karet"
+        },
+        {
+          "label": "Text pro strávený čas",
+          "default": "Strávený čas"
+        },
+        {
+          "label": "Text zpětné vazby",
+          "default": "Výborně!"
+        },
+        {
+          "label": "Text tlačítka Zkusit znovu",
+          "default": "Zkusit znovu?"
+        },
+        {
+          "label": "Text tlačítka Zavřít",
+          "default": "Zavřít"
+        },
+        {
+          "label": "Popisek hry",
+          "default": "Paměťová hra. Najděte odpovídající karty. (Pexeso)."
+        },
+        {
+          "label": "Popisek konce hry",
+          "default": "Všechny karty byly nalezeny."
+        },
+        {
+          "label": "Popisek indexu karty",
+          "default": "Karta %num:"
+        },
+        {
+          "label": "Popisek neotočené karty",
+          "default": "Neotočená."
+        },
+        {
+          "label": "Popisek shody karet",
+          "default": "Nalezena shoda."
+        }
+      ]
+    }
+  ]
+}
