@@ -70,137 +70,169 @@ Use the DigitalOcean infrastructure to publish a Cosmos SDK blockchain applicati
 
 1. From the Create menu in the top right of the control panel, click **Droplets**.
 
-1. Choose the Ubuntu 20.04 (LTS) x64 image:
+1. Choose the Ubuntu 20.04 (LTS) x64 image and a Shared CPU Basic plan:
 
     ![Ubuntu 20.04 Image](./do-ubuntu-image.png "Choose Ubuntu 20.04")
 
-    In the next step you can choose the size of an image. Basic virtual machines offer a mix of memory and compute resources. For a typical blockchain app that is not computing intense, 2 GB Ram and 1 CPU are sufficient for your dev/test environment. 
+1. Choose your memory and compute resources. Virtual machines offer a mix of memory and compute resources. For a typical blockchain app that is not computing intense, 2 GB Ram/1 CPU are sufficient for your development and test environment.
 
-![DigitalOcean Droplet Size](./do-droplet-size.png "DigitalOcean Droplet Size")
+    ![DigitalOcean Droplet Size](./do-droplet-size.png "DigitalOcean Droplet Size")
 
-As Authentication, access via ssh key is recommended. [Learn how to setup your SSH key](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-2) and use it as authentication method to access your Droplet.
+1. Accept the default datacenter region and VPC network selections. 
 
-Optionally add a Droplet name and click "Create Droplet".
+1. We recommend SSH keys for your **Authentication** method to access your Droplet. [Learn how to setup your SSH key](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-2).
 
-In the list of your Droplets you see your new Droplet. Copy the IP address and open your terminal.
+1. For **How many Droplets?** accept the default 1 Droplet selection. 
 
-In your terminal, you type `ssh root@<IP address>` to access your new node.
+1. For **Choose a hostname** you can optionally add an identifying name. 
 
-### Setup Your Server
+1. For **Tags** you can optionally add one or more tags.
 
-First, create a new user that will run the blockchain. You can choose a username, in this example you can use `appuser` as username.
+1. For **Select Project** you can accept the default project.
+
+1. Do not select **Add backups**.
+
+1. Select **Create Droplet**.
+
+You new Droplet is shown in the list of your Droplets. 
+
+### Access Your New Node 
+
+Congratulations, you are now ready to connect to your new node. 
+
+1. In the list of Droplets in the DigitalOcean Control Panel, you can mouse over the IP address to copy it into your clipboard.
+
+1. Open a terminal window and type `ssh root@<IP address>` to connect to your new node. See (How to Connect to your Droplet with OpenSSH)[https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/openssh/].
+
+### Create a User to Run the Blockchain
+
+First, create a user that to run the blockchain. For this example, you can use `appuser` as the username. Use the `adduser` command:
 
 ```bash
 adduser appuser
 ```
 
-You will be prompted to enter a new password for appuser. After entering a password, you will be asked for Full Name, Room Number, Work Phone, Home Phone or Others, hit ENTER to use the default values.
+When prompted, enter and confirm a password for `appuser`. 
 
-The new user is created, to have it all the rights in the system you will need to add it to the `sudo` group.
+After the password is successfully updated, you are prompted to change the user information for appuser. Press ENTER to use the default values. Type `Y` to confirm the information is correct.
+
+To give appropriate permissions, add `appuser` to the `sudo` group:
 
 ```bash
 usermod -aG sudo appuser
 ```
 
-To be able to login as the new user, copy your ssh public key to the new users home directory
+See [How To Create a New Sudo-enabled User on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-sudo-enabled-user-on-ubuntu-18-04-quickstart).
+
+To be able to login as `appuser`, copy your ssh public key to the new home directory for `appuser`:
 
 ```bash
 rsync --archive --chown=appuser:appuser ~/.ssh /home/appuser
 ```
 
-Now switch to your newly created user
+Now, switch to your new user account:
 
 ```bash
 su - appuser
 ```
 
-To set up your server to install and run the Starport app, we will need to install a few tools which will help us to publish your blockchain app.
+### Set Up Your Server 
 
-Install [Go](https://golang.org/dl/).
+To set up your server to install and run the Starport app, you need to install a few tools to help us to publish your blockchain app.
 
-At the time of writing the version is 1.16.5.
+1. Install [Go](https://golang.org/dl/).
 
-```bash
-cd ~
-wget https://golang.org/dl/go1.16.5.linux-amd64.tar.gz
-sha256sum go1.16.5.linux-amd64.tar.gz
-# b12c23023b68de22f74c0524f10b753e7b08b1504cb7e417eccebdd3fae49061  go1.16.5.linux-amd64.tar.gz
-```
+    At the time of writing the tutorial, the latest version of Go is 1.16.5.
 
-Extract the archive and keep it in /usr/local
+    ```bash
+    cd ~
+    wget https://golang.org/dl/go1.16.5.linux-amd64.tar.gz
+    sha256sum go1.16.5.linux-amd64.tar.gz
+    # b12c23023b68de22f74c0524f10b753e7b08b1504cb7e417eccebdd3fae49061  go1.16.5.linux-amd64.tar.gz
+    ```
 
-```bash
-sudo tar -xvf go1.16.5.linux-amd64.tar.gz -C /usr/local
-```
+1. Extract the archive and keep it in `/usr/local`:
 
-You will now have a directory called go in the `/usr/local` directory. Next, recursively change this directory’s owner and group to `appuser`:
+    ```bash
+    sudo tar -xvf go1.16.5.linux-amd64.tar.gz -C /usr/local
+    ```
 
-```bash
-sudo chown -R appuser:appuser /usr/local/go
-```
+    A directory named `go` is now in the `/usr/local` directory.
+    
+1. Next, recursively change this directory’s owner and group to `appuser`:
 
-Add the go paths to your profile
+    ```bash
+    sudo chown -R appuser:appuser /usr/local/go
+    ```
 
-```bash
-nano ~/.profile
-```
+1. Add the go paths to your profile:
 
-At the end of the file, add the following two lines
+    ```bash
+    nano ~/.profile
+    ```
 
-```bash
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
-```
+    At the end of the file, add the following two lines:
 
-To update your profile
+    ```bash
+    export GOPATH=$HOME/go
+    export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
+    ```
 
-```bash
-source ~/.profile
-```
+1. Update your profile:
 
-Now you can verify your go installation with 
+    ```bash
+    source ~/.profile
+    ```
 
-```bash
-go version
-```
+1. Verify your go installation:
 
-which should print
+    ```bash
+    go version
+    ```
 
-```bash
-go version go1.16.5 linux/amd64
-```
+    The results:
 
-To use Starport, install the Starport CLI.
+    ```bash
+    go version go1.16.5 linux/amd64
+    ```
 
-```bash
-curl https://get.starport.network/starport! | sudo bash
-``` 
+1. To use Starport, install the Starport CLI:
 
-## Upload your app to the Droplet
+    ```bash
+    curl https://get.starport.network/starport! | sudo bash
+    ``` 
+    The latest stable version of Starport is installed. 
 
-There are a few methods available to upload your app to the Droplet. One convinient way might be to upload the app to GitHub and then download it on your Droplet again. Starport creates a new GitHub repository for you to make it convinient to add it to your repositories.
+## Upload Your App to the Droplet
 
-We will upload the files now with `scp`, to avoid a few extra steps. 
+Several methods are available to upload your app to the Droplet.
 
-On your local machine, use the following command to upload the app directory to your server.
+One convenient method is to upload the app to GitHub and then download it on your Droplet. Starport creates a GitHub repository that makes it convenient to add your app to your repositories.
 
-`scp -r <appname> appuser@<IP address>:/home/appuser/`
+To upload the files, you can use `scp` to avoid a few extra steps. 
 
-This uploads your local app to your DigitalOcean droplet, into the `/home/appuser` directory, the home directory of the `appuser`.
+1. In a terminal window on your local machine, use the following command to upload the local app directory to your DigitalOcean server:
 
-After the upload finished, navigate on your Droplet into the `/home/appuser/<appname>` directory.
+    `scp -r <appname> appuser@<IP address>:/home/appuser/`
+
+    This command uploads your local app to your DigitalOcean Droplet to `/home/appuser`, the home directory of `appuser`.
+
+1. In a terminal window on the Droplet, you can change to the `/home/appuser/<appname>` directory after the upload is completed:
+
+    `cd <appname>`
 
 ## Install your app
 
-To install your app and configuration, use the Starport CLI
+To install your app and configuration, use the Starport CLI:
 
 ```bash
 cd /home/appuser/<appname>
 starport serve
 ```
 
-This will build your Starport app, create a genesis file and your configuration.
-You will see an output similar to
+The `starport serve` command builds your Starport app, creates a genesis file, and creates your configuration.
+
+You see an output similar to:
 
 ```bash
 Cosmos SDK's version is: Stargate v0.40.0 (or later)
@@ -217,15 +249,16 @@ Genesis transaction written to "/home/appuser/.digitalocean/config/gentx/gentx-8
 🌍 Token faucet: http://0.0.0.0:4500
 ```
 
-Abort the running process with the shortcut ctrl+c
+Press Ctrl+C to stop the chain that you started with the `starport serve` command.
 
-When everything worked fine, you can confirm the installation with 
+To confirm the installation, start the app:
 
 ```bash
-digitaloceand
+<appname>d
 ```
+For example, type `digitaloceand`.
 
-and it prints
+When all of these steps were successful, the output prints:
 
 ```bash
 Stargate CosmosHub App
@@ -266,10 +299,13 @@ Use "digitaloceand [command] --help" for more information about a command.
 
 ## Create a Systemd process
 
-The `starport serve` command helps installing, building and configuring your app for a new blockchain. You received tokens on newly created accounts.
-It is not meant to be run for a long time in production. In order for the app to run for a longer time, a systemd process is recommended.
+The `starport serve` command helps installing, building, and configuring your app for a new blockchain. You received tokens on newly created accounts.
 
-Create the log files and a systemd file to manage your process while you can log off from the terminal and be confident it keeps running, even when the server restarts.
+This new app is useful only for development purposes and is not intended to be run for a long time in production. 
+
+For the app to run for a longer time, you need a `systemd` process.
+
+Create the log files and a `systemd` file to manage your process so that you can log off from the terminal and be confident the app keeps running even when the server restarts.
 
 ```bash
 sudo mkdir -p /var/log/digitaloceand
@@ -278,14 +314,13 @@ sudo touch /var/log/digitaloceand/digitaloceand_error.log
 sudo touch /etc/systemd/system/digitaloceand.service
 ```
 
-Now enter the systemd service file with nano and fill in your application details
+Use nano to edit the systemd service file:
 
 ```bash
 sudo nano /etc/systemd/system/digitaloceand.service
 ```
 
-
-Add the following content to the file
+Add your application details to the file:
 
 ```bash
 [Unit]
@@ -304,21 +339,21 @@ LimitNOFILE=4096
 WantedBy=multi-user.target
 ```
 
-Close and save the file with the shortcut ctrl+x, then type Y and press Enter
+To close and save the file, press Ctrl+x. Then type `Y` and press Enter. 
 
-Next step is to enable the file, to be available even after a system start.
+The next step is to enable the file so the app is available even after a system start:
 
 ```bash
 sudo systemctl enable digitaloceand.service
 ```
 
-Now start the process
+Now start the process:
 
 ```bash
 sudo systemctl start digitaloceand.service
 ```
 
-Check the logs with
+Check the logs with:
 
 ```bash
 sudo journalctl -u digitaloceand -f
@@ -328,78 +363,86 @@ Your app is now running on DigitalOcean.
 
 ## Connect your local running chain to the published chain
 
-To connect your local running chain with the published app, you have to find the node you just created with the IP. Then download the genesis file and configure your app to connect to the published node.
+To connect your local running chain with the published app, you need to:
 
-On your DigitalOcean droplet, find the hash of the node by typing
+- Find the node you just created with the IP address
+- Download the genesis file
+- Configure your app to connect to the published node
+
+On your DigitalOcean droplet, find the hash of the node by typing:
 
 ```bash
 digitaloceand tendermint show-node-id
-# e.g. 85ef06cb86aa501cceb9ed0a497a02503f5aa57f
+# For example, 85ef06cb86aa501cceb9ed0a497a02503f5aa57f
 ```
 
-Each node will have a different node id. 
-Back on your local machine, initialise your blockchain with
+Each node has a different node id. 
+
+At a terminal window back on your local machine, initialize your blockchain with:
 
 ```bash
 digitaloceand init localnode
 ```
 
-Now download the `genesis.json` file from your node
+Next, download the `genesis.json` file from your node:
 
 ```bash
 scp appuser@<IP address>:/home/appuser/.digitalocean/config/genesis.json ~/.digitalocean/config/
 ```
 
-Now add the published node ID and IP into the configuration file.
+Then add the published node ID and IP into the configuration file.
 
 ```bash
 nano ~/.digitalocean/config/config.toml
 ```
 
-Use the node-id we had before, together with the IP and default port.
+Add a persistent connection. Use the node-id from the Droplet together with the IP address and default port:
 
 ```bash
 # Comma separated list of nodes to keep persistent connections to
 persistent_peers = "85ef06cb86aa501cceb9ed0a497a02503f5aa57f@<IP address>:26656"
 ```
 
-Start the node 
+Start the node:
 
 ```bash
 digitaloceand start
 ```
 
-You can use a tool like `gex` to see if you are connected to a node. You can install this on your remote and local machine with
+You can use a tool like gex to see if you are connected to a node. You can install gex on your remote and local machine with
 
 ```bash
 go get -u github.com/cosmos/gex
 ```
 
-Afterwards start it with
+Afterward gex is installed, start the gex tool with:
 
 ```bash
 gex
 ```
 
-When it says `1` in the `Connected Peers` box, then everything is setup successfully.
+When `1` shows in the `Connected Peers` box, then everything is setup successfully.
 
 ## Access API and RPC
 
-Now you can access the API. The swagger documentation is available at:
+Now, you can access the API. The Swagger documentation is available at:
 
 http://<IP address>:1317
 
-While the RPC is available on
+While the RPC is available on:
 
 http://<IP address>:26657
 
 
-## Optional: Setup a firewall on your Droplet
+## Optional: Set Up a Firewall on Your Droplet
 
-In order to reduce load and attacks to your droplet, you can setup a firewall.
-DigitalOcean does provide a nice UI for creating a firewall and you can use the one DigitalOcean provides as well. In this tutorial it will be a bit more generalistic approach and use the `ufw` firewall to block anything that is not related to your blockchain app.
+To reduce load and attacks to your droplet, you can set up a firewall.
 
-Setup the following rules for ufw, to make it work with your blockchain app.
+Although DigitalOcean provides a nice UI for creating a firewall, this tutorial uses a general approach with the `ufw` command. 
+
+Use the `ufw` command to block everything that is not related to your blockchain app.
+
+Setup the following rules for `ufw` to make it work with your blockchain app:
 
 ```bash
 sudo ufw default deny incoming
