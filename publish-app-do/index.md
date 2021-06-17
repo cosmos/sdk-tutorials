@@ -223,7 +223,7 @@ To upload the files, you can use `scp` to avoid a few extra steps.
 
 ## Install your app
 
-To install your app and configuration, use the Starport CLI:
+To install your app and configuration on the Droplet, use the Starport CLI:
 
 ```bash
 cd /home/appuser/<appname>
@@ -301,9 +301,9 @@ Use "digitaloceand [command] --help" for more information about a command.
 
 The `starport serve` command helps installing, building, and configuring your app for a new blockchain. You received tokens on newly created accounts.
 
-This new app is useful only for development purposes and is not intended to be run for a long time in production. 
+This new app is useful only for development purposes and is not intended to be run for an extended time or in production. 
 
-For the app to run for a longer time, you need a `systemd` process.
+For the app to run for a longer time, you need a `systemd` process on your Droplet.
 
 Create the log files and a `systemd` file to manage your process so that you can log off from the terminal and be confident the app keeps running even when the server restarts.
 
@@ -347,7 +347,7 @@ The next step is to enable the file so the app is available even after a system 
 sudo systemctl enable digitaloceand.service
 ```
 
-Now start the process:
+Now start the systemd process:
 
 ```bash
 sudo systemctl start digitaloceand.service
@@ -390,7 +390,7 @@ Next, download the `genesis.json` file from your node:
 scp appuser@<IP address>:/home/appuser/.digitalocean/config/genesis.json ~/.digitalocean/config/
 ```
 
-Then add the published node ID and IP into the configuration file.
+Then add the published node ID and IP into the configuration file on your local machine:
 
 ```bash
 nano ~/.digitalocean/config/config.toml
@@ -409,7 +409,7 @@ Start the node:
 digitaloceand start
 ```
 
-You can use a tool like gex to see if you are connected to a node. You can install gex on your remote and local machine with
+You can use a tool like gex to see if you are connected to a node. You can install gex on your remote and local machine. Run this command at a terminal window on each machine:
 
 ```bash
 go get -u github.com/cosmos/gex
