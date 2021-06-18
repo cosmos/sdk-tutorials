@@ -167,7 +167,7 @@ Notice the fields in the `ibcPost` packet match the fields in the `post` type th
 The `starport packet` command also scaffolds the CLI command that is capable of sending an IBC packet:
 
 ```go
-planetd tx blog send-ibcPost [portID] [channelD] [title] [content]
+planetd tx blog send-ibc-post [portID] [channelD] [title] [content]
 ```
 
 ## Modify the Source Code
@@ -194,7 +194,7 @@ message IbcPostPacketData {
 To make sure the receiving chain has content on the creator of a blog post, add this value to the IBC `packet`. The content of the `sender` of the message is automatically included in `SendIbcPost` message. The sender is verified as the signer of the message, so you can add the `msg.Sender` as the creator to the new packet before it is sent over IBC.
 
 ```go
-// planet/x/blog/keeper/msg_server_ibcPost.go
+// planet/x/blog/keeper/msg_server_ibc_post.go
 // Construct the packet
     var packet types.IbcPostPacketData
 
@@ -215,7 +215,7 @@ To make sure the receiving chain has content on the creator of a blog post, add 
 
 ### Receive the post
 
-The methods for primary transaction logic are in the `planet/x/blog/keeper/ibcPost.go` file. Use these methods to manage IBC packets:
+The methods for primary transaction logic are in the `planet/x/blog/keeper/ibc_post.go` file. Use these methods to manage IBC packets:
 
 - `TransmitIbcPostPacket` is called manually to send the packet over IBC. This method also defines the logic before the packet is sent over IBC to another blockchain app.
 - `OnRecvIbcPostPacket` hook is automatically called when a packet is received on the chain. This method defines the packet reception logic.
@@ -242,7 +242,7 @@ Append the type instance as `PostID` on receiving the packet:
 In the `ibcPost.go` file, make sure to import `"strconv"` below `"errors"`, and then modify `OnRecvIbcPostPacket` with the following code:
 
 ```go
-// planet/x/blog/keeper/ibcPost.go
+// planet/x/blog/keeper/ibc_post.go
 // OnRecvIbcPostPacket processes packet reception
 func (k Keeper) OnRecvIbcPostPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IbcPostPacketData) (packetAck types.IbcPostPacketAck, err error) {
     // validate packet data upon receiving
@@ -472,7 +472,7 @@ Listening and relaying packets between chains...
 You can now send packets and verify the received posts:
 
 ```
-planetd tx blog send-ibcPost blog channel-0 "Hello" "Hello Mars, I'm Alice from Earth" --from alice --chain-id earth --home ~/.earth
+planetd tx blog send-ibc-post blog channel-0 "Hello" "Hello Mars, I'm Alice from Earth" --from alice --chain-id earth --home ~/.earth
 ```
 
 To verify that the post has been received on Mars:
@@ -497,7 +497,7 @@ pagination:
 To check if the packet has been acknowledged on Earth:
 
 ```
-planetd q blog list-sentPost
+planetd q blog list-sent-post
 ```
 
 Output:
@@ -517,13 +517,13 @@ pagination:
 To test timeout, set the timeout time of a packet to 1 nanosecond, verify that the packet is timed out, and check the timed-out posts:
 
 ```
-planetd tx blog send-ibcPost blog channel-0 "Sorry" "Sorry Mars, you will never see this post" --from alice --chain-id earth --home ~/.earth --packet-timeout-timestamp 1
+planetd tx blog send-ibc-post blog channel-0 "Sorry" "Sorry Mars, you will never see this post" --from alice --chain-id earth --home ~/.earth --packet-timeout-timestamp 1
 ```
 
 Check the timed-out posts:
 
 ```
-planetd q blog list-timedoutPost
+planetd q blog list-timedout-post
 ```
 
 Results:
@@ -542,7 +542,7 @@ pagination:
 You can also send a post from Mars:
 
 ```
-planetd tx blog send-ibcPost blog channel-0 "Hello" "Hello Earth, I'm Alice from Mars" --from alice --chain-id mars --home ~/.mars --node tcp://localhost:26659
+planetd tx blog send-ibc-post blog channel-0 "Hello" "Hello Earth, I'm Alice from Mars" --from alice --chain-id mars --home ~/.mars --node tcp://localhost:26659
 ```
 
 List post on Earth:
