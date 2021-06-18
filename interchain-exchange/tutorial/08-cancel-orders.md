@@ -15,7 +15,7 @@ To cancel a sell order, you have to get the ID of the specific sell order.
 Then you can use the function `RemoveOrderFromID` to remove the specific order from the order book and update the keeper accordingly.
 
 ```go
-// x/ibcdex/keeper/msg_server_cancelSellOrder.go
+// x/ibcdex/keeper/msg_server_cancel_sell_order.go
 import "errors"
 
 func (k msgServer) CancelSellOrder(goCtx context.Context, msg *types.MsgCancelSellOrder) (*types.MsgCancelSellOrderResponse, error) {
@@ -71,7 +71,7 @@ To cancel a buy order, you have to get the ID of the specific buy order.
 Then you can use the function `RemoveOrderFromID` to remove the specific order from the order book and update the keeper accordingly.
 
 ```go
-// x/ibcdex/keeper/msg_server_cancelBuyOrder.go
+// x/ibcdex/keeper/msg_server_cancel_buy_order.go
 import "errors"
 
 func (k msgServer) CancelBuyOrder(goCtx context.Context, msg *types.MsgCancelBuyOrder) (*types.MsgCancelBuyOrderResponse, error) {

@@ -66,10 +66,10 @@ interchanged q bank balances [address] --node tcp://localhost:26659
 
 # To show the order book
 # For mars
-interchanged q ibcdex list-sellOrderBook
+interchanged q ibcdex list-sell-order-book
 
 # For venus
-interchanged q ibcdex list-buyOrderBook --node tcp://localhost:26659
+interchanged q ibcdex list-buy-order-book --node tcp://localhost:26659
 ```
 
 ## Create an Order Book
@@ -81,57 +81,57 @@ The order book is to sell `mcx` and buy `vcx` token.
 
 ```bash
 # create the pair
-interchanged tx ibcdex send-createPair ibcdex channel-0 mcx vcx --from alice --chain-id mars --home ~/.mars
+interchanged tx ibcdex send-create-pair ibcdex channel-0 mcx vcx --from alice --chain-id mars --home ~/.mars
 ```
 
 Display current order books available:
 
 ```bash
 # show the orderbooks
-interchanged q ibcdex list-sellOrderBook
-interchanged q ibcdex list-buyOrderBook --node tcp://localhost:26659
+interchanged q ibcdex list-sell-order-book
+interchanged q ibcdex list-buy-order-book --node tcp://localhost:26659
 ```
 
 ## Create a sell order
 
 Command to create a `packet` with a sell order:
 
-`interchanged tx ibcdex send-sellOrder [src-port] [src-channel] [amountDenom] [amount] [priceDenom] [price]`
+`interchanged tx ibcdex send-sell-order [src-port] [src-channel] [amount-denom] [amount] [priceDenom] [price]`
 
 This sell order sells 10 `mcx` token for 15 `vcx` token.
 
 ```bash
 # Create and send the sell order
-interchanged tx ibcdex send-sellOrder ibcdex channel-0 mcx 10 vcx 15 --from alice --chain-id mars --home ~/.mars
+interchanged tx ibcdex send-sell-order ibcdex channel-0 mcx 10 vcx 15 --from alice --chain-id mars --home ~/.mars
 ```
 
 ## Create a buy order
 
 Command to create a `packet` with a buy order:
 
-`interchanged tx ibcdex send-buyOrder [src-port] [src-channel] [amountDenom] [amount] [priceDenom] [price]`
+`interchanged tx ibcdex send-buy-order [src-port] [src-channel] [amount-denom] [amount] [price-denom] [price]`
 
 This sell order buys 10 `mcx` token for 5 `vcx` token.
 
 ```bash
 # Create and send the buy order
-interchanged tx ibcdex send-buyOrder ibcdex channel-0 mcx 10 vcx 5 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
+interchanged tx ibcdex send-buy-order ibcdex channel-0 mcx 10 vcx 5 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
 ## Cancel Buy or Sell Order
 
 Command to create a `packet` with a cancel buy and sell order:
 
-`interchanged tx ibcdex cancelSellOrder [port] [channel] [amountDenom] [priceDenom] [orderID]`
+`interchanged tx ibcdex cancel-sell-order [port] [channel] [amount-denom] [price-denom] [order-id]`
 
-`interchanged tx ibcdex cancelBuyOrder [port] [channel] [amountDenom] [priceDenom] [orderID]`
+`interchanged tx ibcdex cancel-buy-order [port] [channel] [amount-denom] [price-denom] [order-id]`
 
 ```bash
 # Sell order
-interchanged tx ibcdex cancelSellOrder ibcdex channel-0 mcx vcx 0 --from alice --chain-id mars --home ~/.mars
+interchanged tx ibcdex cancel-sell-order ibcdex channel-0 mcx vcx 0 --from alice --chain-id mars --home ~/.mars
 
 # Buy order
-interchanged tx ibcdex cancelBuyOrder ibcdex channel-0 mcx vcx 3 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
+interchanged tx ibcdex cancel-buy-order ibcdex channel-0 mcx vcx 3 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
 ## Exchange Tokens
@@ -140,14 +140,14 @@ Send a sell order for selling 10 `mcx` token for 15 `vcx` token.
 
 ```bash
 # Sell order
-interchanged tx ibcdex send-sellOrder ibcdex channel-0 mcx 10 vcx 15 --from alice --chain-id mars --home ~/.mars
+interchanged tx ibcdex send-sell-order ibcdex channel-0 mcx 10 vcx 15 --from alice --chain-id mars --home ~/.mars
 ```
 
 Check the sell order book:
 
 ```bash
 # Sell order book
-interchanged q ibcdex list-sellOrderBook
+interchanged q ibcdex list-sell-order-book
 ```
 
 Result
@@ -171,14 +171,14 @@ Send a sell order for buying 10 `mcx` token for 5 `vcx` token.
 
 ```bash
 # Buy order
-interchanged tx ibcdex send-buyOrder ibcdex channel-0 mcx 10 vcx 5 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
+interchanged tx ibcdex send-buy-order ibcdex channel-0 mcx 10 vcx 5 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
 Check the buy order book:
 
 ```bash
 # Buy order book
-interchanged q ibcdex list-buyOrderBook --node tcp://localhost:26659
+interchanged q ibcdex list-buy-order-book --node tcp://localhost:26659
 ```
 
 Result
@@ -204,7 +204,7 @@ Now, send a sell order packet that fills a previously created buy order.
 
 ```bash
 # Perform a sell order that get completely filled
-interchanged tx ibcdex send-sellOrder ibcdex channel-0 mcx 5 vcx 3 --from alice --chain-id mars --home ~/.mars
+interchanged tx ibcdex send-sell-order ibcdex channel-0 mcx 5 vcx 3 --from alice --chain-id mars --home ~/.mars
 ```
 
 Result
@@ -260,7 +260,7 @@ pagination:
 
 ```bash
 # Filled buy order
-interchanged tx ibcdex send-buyOrder ibcdex channel-0 mcx 5 vcx 15 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
+interchanged tx ibcdex send-buy-order ibcdex channel-0 mcx 5 vcx 15 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
 Result
@@ -327,7 +327,7 @@ balances:
 
 ```bash
 # Sell order that gets partially filled
-interchanged tx ibcdex send-sellOrder ibcdex channel-0 mcx 10 vcx 3 --from alice --chain-id mars --home ~/.mars
+interchanged tx ibcdex send-sell-order ibcdex channel-0 mcx 10 vcx 3 --from alice --chain-id mars --home ~/.mars
 ```
 
 Result
@@ -377,7 +377,7 @@ balances:
 
 ```bash
 # Buy order that gets partially filled
-interchanged tx ibcdex send-buyOrder ibcdex channel-0 mcx 10 vcx 5 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
+interchanged tx ibcdex send-buy-order ibcdex channel-0 mcx 10 vcx 5 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
 Result
@@ -427,7 +427,7 @@ balances:
 
 ```bash
 # Cancel a sell order
-interchanged tx ibcdex cancelSellOrder ibcdex channel-0 mcx vcx 0 --from alice --chain-id mars --home ~/.mars
+interchanged tx ibcdex cancel-sell-order ibcdex channel-0 mcx vcx 0 --from alice --chain-id mars --home ~/.mars
 ```
 
 Result:
@@ -445,7 +445,7 @@ SellOrderBook:
 
 ```bash
 # Cancel a buy order
-interchanged tx ibcdex cancelBuyOrder ibcdex channel-0 mcx vcx 3 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
+interchanged tx ibcdex cancel-buy-order ibcdex channel-0 mcx vcx 3 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
 Result:
@@ -468,19 +468,19 @@ Practice this exercise with the following commands.
 First, create the order pair:
 
 ```bash
-interchanged tx ibcdex send-createPair ibcdex channel-0 mcx vcx --from alice --chain-id mars --home ~/.mars
+interchanged tx ibcdex send-create-pair ibcdex channel-0 mcx vcx --from alice --chain-id mars --home ~/.mars
 ```
 
 Create the sell order:
 
 ```bash
-interchanged tx ibcdex send-sellOrder ibcdex channel-0 mcx 10 vcx 15 --from alice --chain-id mars --home ~/.mars
+interchanged tx ibcdex send-sell-order ibcdex channel-0 mcx 10 vcx 15 --from alice --chain-id mars --home ~/.mars
 ```
 
 Create the matching buy order:
 
 ```bash
-interchanged tx ibcdex send-buyOrder ibcdex channel-0 mcx 10 vcx 15 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
+interchanged tx ibcdex send-buy-order ibcdex channel-0 mcx 10 vcx 15 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
 Get the balances:
@@ -527,7 +527,7 @@ Check the denom tracing and the path of the token on `Mars`:
 
 ```bash
  # See on each chain the saved trace denom
-interchanged q ibcdex list-denomTrace
+interchanged q ibcdex list-denom-trace
 ```
 
 Result:
@@ -543,7 +543,7 @@ DenomTrace:
 See the path of the token voucher received on `Venus`:
 
 ```bash
-interchanged q ibcdex list-denomTrace --node tcp://localhost:26659
+interchanged q ibcdex list-denom-trace --node tcp://localhost:26659
 ```
 
 Result:
@@ -562,10 +562,10 @@ To reverse the exchange path, create a new order book pair:
 
 ```bash
 # Create a pair in the opposite way
-interchanged tx ibcdex send-createPair ibcdex channel-0 ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833 ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33 --from alice --chain-id mars --home ~/.mars
+interchanged tx ibcdex send-create-pair ibcdex channel-0 ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833 ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33 --from alice --chain-id mars --home ~/.mars
 ```
 
-The order book is now created on both blockchains. Check for the SellOrderbook on `Mars` and Buyorderbook on `Venus` respectively.
+The order book is now created on both blockchains. Check for the SellOrderBook on `Mars` and BuyOrderBook on `Venus` respectively.
 
 ```bash
 # On Mars:
@@ -593,13 +593,13 @@ Create the sell order on `Mars`:
 
 ```bash
 # Exchange tokens back
-interchanged tx ibcdex send-sellOrder ibcdex channel-0 ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833 10 ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33 1 --from alice --chain-id mars --home ~/.mars
+interchanged tx ibcdex send-sell-order ibcdex channel-0 ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833 10 ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33 1 --from alice --chain-id mars --home ~/.mars
 ```
 
 Create the buy order on `Venus`:
 
 ```bash
-interchanged tx ibcdex send-buyOrder ibcdex channel-0 ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833 5 ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33 1 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
+interchanged tx ibcdex send-buy-order ibcdex channel-0 ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833 5 ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33 1 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
 See balances on `Mars`:

@@ -45,12 +45,12 @@ To scaffold two types with create, read, update and delete (CRUD) actions use th
 The following commands create `sellOrderBook` and `buyOrderBook` types. 
 
 ```bash
-starport type sellOrderBook orderIDTrack:int amountDenom priceDenom --indexed --no-message --module ibcdex
-starport type buyOrderBook orderIDTrack:int amountDenom priceDenom --indexed --no-message --module ibcdex
+starport type sellOrderBook orderIdTrack:int amountDenom priceDenom --indexed --no-message --module ibcdex
+starport type buyOrderBook orderIdTrack:int amountDenom priceDenom --indexed --no-message --module ibcdex
 ```
 
 The values are: 
-- `orderIDTrack` an internal counter in the order book to assign the orders an ID.
+- `orderIdTrack` an internal counter in the order book to assign the orders an ID.
 - `amountDenom` represents which token will be sold and in which quantity
 - `priceDenom` the token selling price 
 
@@ -79,8 +79,8 @@ Cancelling orders is done locally in the network, there is no packet to send.
 Use the `message` command to create a message to cancel a sell or buy order.
 
 ```go
-starport message cancelSellOrder port channel amountDenom priceDenom orderID:int --desc "Cancel a sell order" --module ibcdex
-starport message cancelBuyOrder port channel amountDenom priceDenom orderID:int --desc "Cancel a buy order" --module ibcdex
+starport message cancel-sell-order port channel amountDenom priceDenom orderID:int --desc "Cancel a sell order" --module ibcdex
+starport message cancel-buy-order port channel amountDenom priceDenom orderID:int --desc "Cancel a buy order" --module ibcdex
 ```
 
 The optional `--desc` flag lets you define a description of the CLI command that is used to broadcast a transaction with the message.

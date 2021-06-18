@@ -150,11 +150,11 @@ func checkAmountAndPrice(amount int32, price int32) error {
 
 ## Add The Sellorder
 
-Modify the `sellOrderBook.proto` file to have the fields for creating a sell order on the order book.
+Modify the `sell_order_book.proto` file to have the fields for creating a sell order on the order book.
 The proto definition for the `SellOrderBook` should look like follows:
 
 ```proto
-// proto/ibcdex/sellOrderBook.proto
+// proto/ibcdex/sell_order_book.proto
 syntax = "proto3";
 package username.interchange.ibcdex;
 
@@ -165,7 +165,7 @@ import "ibcdex/order.proto"; // <--
 message SellOrderBook {
   string creator = 1;
   string index = 2;
-  int32 orderIDTrack = 3;
+  int32 orderIdTrack = 3;
   string amountDenom = 4;
   string priceDenom = 5;
   repeated Order orders = 6;  // <--
@@ -232,13 +232,13 @@ func (book SellOrderBook) SetOrder(index int, order Order) (OrderBook, error) {
 
 // GetNextOrderID gets the ID of the next order to append
 func (book SellOrderBook) GetNextOrderID() int32 {
-	return book.OrderIDTrack
+	return book.OrderIdTrack
 }
 
 // IncrementNextOrderID updates the ID tracker for sell orders
 func (book SellOrderBook) IncrementNextOrderID() OrderBook {
 	// Even numbers to have different ID than buy orders
-	book.OrderIDTrack += 2
+	book.OrderIdTrack += 2
 
 	return book
 }
@@ -266,7 +266,7 @@ func (book SellOrderBook) RemoveOrderFromID(id int32) (OrderBook, error) {
 
 func NewSellOrderBook(AmountDenom string, PriceDenom string) SellOrderBook {
 	return SellOrderBook{
-		OrderIDTrack: 0,
+		OrderIdTrack: 0,
 		AmountDenom:  AmountDenom,
 		PriceDenom:   PriceDenom,
 	}
@@ -362,11 +362,11 @@ func FillSellOrder(book BuyOrderBook, order Order) (
 
 ## Add The Buyorder
 
-Modify the `buyOrderBook.proto` file to have the fields for creating a buy order on the order book.
+Modify the `buy_order_book.proto` file to have the fields for creating a buy order on the order book.
 The proto definition for the `BuyOrderBook` should look like follows:
 
 ```proto
-// proto/ibcdex/buyOrderBook.proto
+// proto/ibcdex/buy_order_book.proto
 syntax = "proto3";
 package username.interchange.ibcdex;
 
@@ -377,7 +377,7 @@ import "ibcdex/order.proto"; // <--
 message BuyOrderBook {
   string creator = 1;
   string index = 2;
-  int32 orderIDTrack = 3;
+  int32 orderIdTrack = 3;
   string amountDenom = 4;
   string priceDenom = 5;
   repeated Order orders = 6; // <--
@@ -445,13 +445,13 @@ func (book BuyOrderBook) SetOrder(index int, order Order) (OrderBook, error) {
 
 // GetNextOrderID gets the ID of the next order to append
 func (book BuyOrderBook) GetNextOrderID() int32 {
-	return book.OrderIDTrack
+	return book.OrderIdTrack
 }
 
 // IncrementNextOrderID updates the ID tracker for buy orders
 func (book BuyOrderBook) IncrementNextOrderID() OrderBook {
 	// Even numbers to have different ID than buy orders
-	book.OrderIDTrack += 2
+	book.OrderIdTrack += 2
 
 	return book
 }
@@ -479,7 +479,7 @@ func (book BuyOrderBook) RemoveOrderFromID(id int32) (OrderBook, error) {
 
 func NewBuyOrderBook(AmountDenom string, PriceDenom string) BuyOrderBook {
 	return BuyOrderBook{
-		OrderIDTrack: 1,
+		OrderIdTrack: 1,
 		AmountDenom:  AmountDenom,
 		PriceDenom:   PriceDenom,
 	}
