@@ -89,6 +89,11 @@ module.exports = {
               path: "/publish-app-do/",
               directory: true,
             },
+            {
+              title: "Install Starport",
+              path: "/starport/",
+              directory: true,
+            },
           ],
         },
         {
@@ -236,5 +241,6 @@ module.exports = {
     "blog/tutorial/*.md",
     "interchain-exchange/tutorial/*.md",
     "publish-app-do/*.md",
+    "starport/*.md",
   ],
 };
