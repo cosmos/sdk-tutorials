@@ -36,7 +36,7 @@ For the best experience using this tutorial, we recommend using DigitalOcean.
 To complete this guide, you will need:
 
 - A [DigitalOcean](https://cloud.digitalocean.com/) account. If you do not have an account, DigitalOcean may offer a free trial to let you build Basic Droplets. 
-- A supported version of [Starport](https://docs.starport.network/). To install Starport, see ../[Install Starport](https://docs.starport.network/intro/install.html). 
+- A supported version of [Starport](https://docs.starport.network/). To install Starport, see [Install Starport](https://docs.starport.network/intro/install.html). 
 - Go (version 1.16 or higher). See [Download and install Go](https://golang.org/doc/install) documentation. Using brew to install Go is not recommended. 
 
 
@@ -66,9 +66,9 @@ Use the DigitalOcean infrastructure to publish a Cosmos SDK blockchain applicati
 
 ### Create a Droplet on DigitalOcean
 
-1. Log into your DigitalOcean account and from the [control panel](https://cloud.digitalocean.com/).
+1. Log into your DigitalOcean account and access the [control panel](https://cloud.digitalocean.com/).
 
-1. From the Create menu in the top right of the control panel, click **Droplets**.
+1. From the **Create** menu in the top right of the control panel, click **Droplets**.
 
 1. Choose the Ubuntu 20.04 (LTS) x64 image and a Shared CPU Basic plan:
 
@@ -102,7 +102,7 @@ Congratulations, you are now ready to connect to your new node.
 
 1. In the list of Droplets in the DigitalOcean Control Panel, you can mouse over the IP address to copy it into your clipboard.
 
-1. Open a terminal window and type `ssh root@<IP address>` to connect to your new node. See (How to Connect to your Droplet with OpenSSH)[https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/openssh/].
+1. Open a terminal window and type `ssh root@<IP address>` to connect to your new node. See [How to Connect to your Droplet with OpenSSH](https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/openssh/).
 
 ### Create a User to Run the Blockchain
 
