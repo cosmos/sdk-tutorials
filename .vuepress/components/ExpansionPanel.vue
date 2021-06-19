@@ -2,7 +2,7 @@
     div.container
         div.inner-container
             button.styled-button(v-on:click="toggleContent")
-                img(:src="this.expanded ? expandLessIcon : expandMoreIcon")
+                img(:src="expandIcon" :class="this.expanded ? 'expanded' : 'collapsed'")
                 p {{this.title}}
             div.content(v-show="expanded")
                 slot
@@ -10,16 +10,14 @@
 
 <script>
 
-import expandLessIcon from '../public/expand-less.svg'
-import expandMoreIcon from '../public/expand-more.svg'
+import expandIcon from '../public/expand-more.svg'
 
 export default {
     props: ['title'],
     data() {
         return {
             expanded: false,
-            expandLessIcon,
-            expandMoreIcon
+            expandIcon
         };
     },
     methods: {
@@ -57,6 +55,20 @@ export default {
 
         &:hover {
             background-color #F1F2F7;
+        }
+
+        .expanded {
+            transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            transition: transform 0.2s linear;
+        }
+
+        .collapsed {
+            transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            transition: transform 0.2s linear;
         }
 
         img {
