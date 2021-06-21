@@ -22,9 +22,15 @@ Click the GitHub icon in the sidebar for GitHub integration and follow the promp
 
 Master your terminal to be happy.
 
-1. On MacOS, install the [iTerm2](https://iterm2.com/) OSS terminal emulator. 
+### iTerm2 Terminal Emulator
 
-1. Install and set up [zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH) as the default shell.
+On macOS, install the [iTerm2](https://iterm2.com/) OSS terminal emulator as a replacement for the default Terminal app. Installing iTerm2 as a replacement for Terminal provides an updated version of the Bash shell that supports useful features like programmable completion.
+
+### Using ZSH as Your Default Shell
+
+The Z shell, also known as zsh, is a UNIX shell that is built on top of the macOS default Bourne shell.
+
+1. If you want to set your default shell to zsh, install and set up [zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH) as the default shell.
 
 1. Install these plugins:
     - [zsh-auto-suggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
@@ -40,12 +46,12 @@ Master your terminal to be happy.
     )
     ```
 
-1. Log out and log back in to the terminal to use your new default shell.
+1. Log out and log back in to the terminal to use your new default zsh shell.
 
 
 ## Install Go 
 
-This installation method removes existing Go installations, installs Go in `/usr/local/go/bin/go`, and sets the environmental variables.
+This installation method removes existing Go installations, installs Go in `/usr/local/go/bin/go`, and sets the environment variables.
 
 1. Go to <https://golang.org/dl>.
 1. Download the binary release that is suitable for your system. 
