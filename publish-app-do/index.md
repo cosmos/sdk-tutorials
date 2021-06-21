@@ -425,11 +425,11 @@ When `1` shows in the `Connected Peers` box, then everything is setup successful
 
 Now, you can access the API. The Swagger documentation is available at:
 
-http://<IP address>:1317
+`http://<IP address>:1317`
 
 While the RPC is available on:
 
-http://<IP address>:26657
+`http://<IP address>:26657`
 
 
 ## Optional: Set Up a Firewall on Your Droplet
