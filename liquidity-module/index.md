@@ -25,11 +25,21 @@ In this tutorial, you create your own blockchain, send tokens to another blockch
 
 ## Prerequisites
 
-This tutorial uses [Starport](https://github.com/tendermint/starport) v0.16.0. The Starport tool is the easiest way to build a blockchain. 
+Before you start the tutorial, install the prerequisite software. 
 
 - [Install Starport](../starport/index.md) v0.16.0 <!-- link to the new tutorial file for this prereq to install Starport https://github.com/cosmos/sdk-tutorials/pull/694/commits/9a988d64408df16dad61412b7c542f6dd1fa4bee  -->
 
-**Important** The tutorial is based on this specific version of Starport and is not supported for other versions.
+        **Important** This tutorial uses [Starport](https://github.com/tendermint/starport) v0.16.0. The tutorial is based on this specific version of Starport and is not supported for other versions.
+
+- Install the Gravity DEX binary:
+
+        ```markdown
+        git clone https://github.com/b-harvest/gravity-dex.git
+        cd gravity-dex
+        make install
+
+        gaiad
+        ```
 
 ## Create the Blockchain
 
@@ -42,7 +52,7 @@ cd myblockchain
 
 ## Add Your Token in the Configuration
 
-*Note: The minimum reserve coin amount for a pool in the liquidity module is 1,000,000. Make sure you create enough tokens for your liquidity pools.*
+**Note** The minimum reserve coin amount for a pool in the liquidity module is 1,000,000. Make sure you create enough tokens for your liquidity pools.
 
 Open the `config.yml` file in the top-level folder of your app directory. 
 
@@ -72,7 +82,7 @@ You see output similar to this output, but with different account passphrases:
 
 A relayer is software to connect two blockchains. Configure the relayer with your endpoints to create a connection between your blockchain and the testnet. After the connection is established, you can send tokens from one blockchain to the other blockchain.
 
-*Note: If you previously used the relayer, follow these steps to remove exiting relayer and Starport configurations:
+**Note** If you previously used the relayer, follow these steps to remove exiting relayer and Starport configurations:
 
 - Remove your existing relayer config:
     
@@ -119,7 +129,7 @@ curl -X POST -d '{"address": "cosmosxxxxx"}' https://faucet.testnet.cosmos.netwo
 
 After you see a success message, you can check your balance. 
 
-*See balance* [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx)
+See your balance at [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx).
 
 ## Send Your Own Token to the Testnet
 
@@ -131,20 +141,10 @@ At your local terminal, enter this liquidity module command to transfer your tok
 myblockchaind tx ibc-transfer transfer transfer channel-0 cosmos16080vqxrjyngxfdkzj54uewszkztk6n3nv6f57 "500mytoken" --from username
 ```
 
-After your transaction is complete, check your balance on the Gravity DEX testnet to confirm that your token transfer.
+After your transaction is complete, check your balance on the Gravity DEX testnet to confirm your token transfer.
 
-## Create a pool with my token
+## Create a Pool with My Token
 
-Prerequisite: 
-Install the Gravity DEX binary
-
-```markdown
-git clone https://github.com/b-harvest/gravity-dex.git
-cd gravity-dex
-make install
-
-gaiad
-```
 
 RPC	[https://rpc.testnet.cosmos.network:443](https://rpc.testnet.cosmos.network/)
 
