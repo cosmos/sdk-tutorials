@@ -28,15 +28,15 @@ For the best experience using this tutorial, we recommend using DigitalOcean.
 
 **Important** Placeholder values are used in the code examples throughout this tutorial:
 
-    - When you see username be sure to substitute it with your username.
-    - Although you can use digitalocean as your directory and app name, you can replace it with your own app name. 
+- When you see username be sure to substitute it with your username.
+- Although you can use digitalocean as your directory and app name, you can replace it with your own app name. 
 
 ### Prerequisites
 
 To complete this guide, you will need:
 
 - A [DigitalOcean](https://cloud.digitalocean.com/) account. If you do not have an account, DigitalOcean may offer a free trial to let you build Basic Droplets. 
-- A supported version of [Starport](https://docs.starport.network/). To install Starport, see [Install Starport](https://docs.starport.network/intro/install.html). 
+- A supported version of [Starport](https://docs.starport.network/). To install Starport, see [Install Starport](../starport/install.md). 
 - Go (version 1.16 or higher). See [Download and install Go](https://golang.org/doc/install) documentation. Using brew to install Go is not recommended. 
 
 
@@ -49,9 +49,9 @@ Create a directory and run Starport to create a Cosmos SDK blockchain app.
 On your local computer, run these commands in a terminal window:
 
 ```bash
-mkdir digitalocean
-cd digitalocean
-starport app github.com/<username>/<appname>
+mkdir blockchain
+cd blockchain
+starport app github.com/<username>/digitalocean
 ```
 
 A blockchain app with backend and frontend is created. The default scaffold is a working blockchain app with the functionality that is similar to the Cosmos Hub ($ATOM). Learn about the [Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html) and [ATOM](https://cosmos.network/features).
@@ -136,9 +136,9 @@ Now, switch to your new user account:
 su - appuser
 ```
 
-### Set Up Your Server 
+### Set Up Your Droplet 
 
-To set up your server to install and run the Starport app, you need to install a few tools to help us to publish your blockchain app.
+To set up your Droplet, you need to install a few tools to help us to publish your blockchain app.
 
 1. Install [Go](https://golang.org/dl/).
 
@@ -211,22 +211,21 @@ One convenient method is to upload the app to GitHub and then download it on you
 
 To upload the files, you can use `scp` to avoid a few extra steps. 
 
-1. In a terminal window on your local machine, use the following command to upload the local app directory to your DigitalOcean server:
+1. In a terminal window on your local machine, make sure you are in the parent directory of the Starport repo that you created earlier. For example, `/Users/username/blockchain` is the parent directory of your `digitalocean` app directory. From the `/Users/username/blockchain` directory, use the following command to upload the local app directory to your DigitalOcean server:
 
-    `scp -r <appname> appuser@<IP address>:/home/appuser/`
+    `scp -r digitalocean appuser@<IP address>:/home/appuser/`
 
-    This command uploads your local app to your DigitalOcean Droplet to `/home/appuser`, the home directory of `appuser`.
-
-1. In a terminal window on the Droplet, you can change to the `/home/appuser/<appname>` directory after the upload is completed:
-
-    `cd <appname>`
+    This command uploads your local `digitalocean` app to your home directory on your DigitalOcean Droplet, `/home/appuser`. 
 
 ## Install your app
 
-To install your app and configuration on the Droplet, use the Starport CLI:
+1. In a terminal window on the Droplet, you can change to the `/home/appuser/digitalocean` directory after the upload is completed:
+
+    `cd digitalocean`
+    
+1. To install your app and configuration on the Droplet, use the Starport CLI:
 
 ```bash
-cd /home/appuser/<appname>
 starport serve
 ```
 
@@ -251,12 +250,11 @@ Genesis transaction written to "/home/appuser/.digitalocean/config/gentx/gentx-8
 
 Press Ctrl+C to stop the chain that you started with the `starport serve` command.
 
-To confirm the installation, start the app:
+To confirm the installation (and celebrate your success), start the app:
 
 ```bash
-<appname>d
+digitaloceand
 ```
-For example, type `digitaloceand`.
 
 When all of these steps were successful, the output prints:
 
