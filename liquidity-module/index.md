@@ -1,16 +1,18 @@
 ---
 order: 0
-description: Use the Tendermint liquidity module to create pools, deposit and withdraw from pools with tokens sent via IBC.
+description: Use the Tendermint liquidity module to create pools, deposit to pools, and withdraw from pools with tokens sent using IBC.
 ---
 
-# Understanding the liquidity module
+# Understanding the Liquidity Module
 
-The liquidity module, on the Cosmos Hub known as Gravity DEX, enables users to create liquidity pools and swap tokens. 
+The liquidity module, known on the Cosmos Hub as Gravity DEX, enables users to create liquidity pools and swap tokens. 
 
 ## Introduction
 
-When using your Cosmos based blockchains you want to enable users to trade tokens. You can have multiple tokens on your blockchain or have tokens from external blockchains sent with IBC to your blockchain. The liquidity module allows users to trade those tokens on your blockchain, using pools. Each pool represents a token pair and, once created, allows the user to swap from one token to the other.
-In this tutorial you will learn how to create your own blockchain, send token to another blockchain, create a pool, deposit and withdraw from a pool and swap tokens.
+When using your Cosmos SDK-based blockchains, you want to enable users to trade tokens. You can have multiple tokens on your blockchain or have tokens from external blockchains sent to your blocking using inter-blockchain communication protocol (IBC). The liquidity module allows users to use pools to trade those tokens on your blockchain. Each pool represents a token pair and allows the user to swap from one token to the other token.
+In this tutorial, you create your own blockchain, send tokens to another blockchain, create a pool, deposit to a pool, withdraw from a pool, and swap tokens.
+
+**Important** In the code examples throughout this tutorial, when you see username be sure to substitute your username. 
 
 **You will learn how to:**
 
@@ -21,33 +23,30 @@ In this tutorial you will learn how to create your own blockchain, send token to
 - Create a pool with your token
 - Use the pool with your token
 
-## Install Starport
+## Prerequisites
 
 This tutorial uses [Starport](https://github.com/tendermint/starport) v0.16.0. The Starport tool is the easiest way to build a blockchain. 
 
-To install `starport` into `/usr/local/bin`, run the following command:
+- [Install Starport](../starport/index.md) v0.16.0 <!-- link to the new tutorial file for this prereq to install Starport https://github.com/cosmos/sdk-tutorials/pull/694/commits/9a988d64408df16dad61412b7c542f6dd1fa4bee  -->
 
-```
-curl https://get.starport.network/starport@v0.16.0! | bash
-```
-
-You can also use Starport v0.16.0 in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1). For more installation options, see [install Starport](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.16.0), but this tutorial assumes you are using a local Starport installation. See [install Starport](https://github.com/tendermint/starport/blob/develop/docs/intro/install.md).
+**Important** The tutorial is based on this specific version of Starport and is not supported for other versions.
 
 ## Create the Blockchain
 
-Scaffold a new blockchain called `myblockchain`
+Scaffold a new blockchain called `myblockchain`:
 
 ```bash
 starport app github.com/username/myblockchain
 cd myblockchain
 ```
 
-## Add your token in the configuration.
+## Add Your Token in the Configuration
 
-Open the `config.yml` file. 
-In the `accounts` parameter, add your username and new token:
+*Note: The minimum reserve coin amount for a pool in the liquidity module is 1,000,000. Make sure you create enough tokens for your liquidity pools.*
 
-*Note: the minimum reserve coin amount for a pool in the liquidity module is 1,000,000, make sure to have enough tokens created*
+Open the `config.yml` file in the top-level folder of your app directory. 
+
+For the `accounts` parameter, add your username and your new token:
 
 ```yml
 accounts:
@@ -55,29 +54,39 @@ accounts:
     coins: ["10000token", "50000000stake", "1000000000000mytoken"]
 ```
 
-## Start your blockchain
+## Start Your Blockchain
 
-Start your blockchain with running the command in your terminal.
+To start your blockchain, run this command in your local terminal:
 
 ```bash
 starport serve
 ```
 
-You should see an output similar to this, with different account passphrases.
+You see output similar to this output, but with different account passphrases:
 
 ```bash
 
 ```
 
-## Configure the relayer
+## Configure the Relayer
 
-The relayer is a software to connect two blockchains. Configure it with your endpoints so you can have connection between your blokchain and the testnet. After the connection is established, you will be able to send token from one blockchain to the other.
+A relayer is software to connect two blockchains. Configure the relayer with your endpoints to create a connection between your blockchain and the testnet. After the connection is established, you can send tokens from one blockchain to the other blockchain.
 
-*Note: If you already used the relayer before, you might want to remove existing relayer config: rm -r $HOME/.relayer/*
+*Note: If you previously used the relayer, follow these steps to remove exiting relayer and Starport configurations:
 
-*Note: If you already used the relayer before, delete all configuration that you used before rm -r $HOME/.starport/*
+- Remove your existing relayer config:
+    
+    ```bash
+    rm -r $HOME/.relayer/*
+    ```
 
-Configure the relayer to create a connection between your local chain and the chain you want to connect to. In this example, the chain target will be the Gravity DEX testnet.
+- Delete previous configuration files:
+
+    ```
+    rm -r $HOME/.starport/*
+    ```
+
+Configure the relayer to create a connection between your local chain and the chain you want to connect to. In this example, the chain target is the Gravity DEX testnet.
 
 ```markdown
 starport relayer configure
@@ -87,42 +96,42 @@ For the local `source` chain, use the default values.
 For the testnet `target` chain, use the following values.
 
 
-Target RPC: [https://rpc.testnet.cosmos.network:443](https://rpc.testnet.cosmos.network/)
+- Target RPC: [https://rpc.testnet.cosmos.network:443](https://rpc.testnet.cosmos.network/)
 
-Token Faucet: [https://faucet.testnet.cosmos.network:443](https://faucet.testnet.cosmos.network/)
+- Token Faucet: [https://faucet.testnet.cosmos.network:443](https://faucet.testnet.cosmos.network/)
 
-Target Gas Price (0.025uatom): 0.025stake
+- Target Gas Price (0.025uatom): 0.025stake
 
 
-Connect the chains
+Connect the chains:
 
 ```markdown
 starport relayer connect
 ```
 
-## Get Token from the Faucet
+## Get Token From the Faucet
 
-From the terminal output that `starport serve` created for you, use the `username` accounts address and claim token from the faucet
+From the terminal output that `starport serve` created for you, use the `username` accounts address and claim tokens from the faucet:
 
 ```markdown
 curl -X POST -d '{"address": "cosmosxxxxx"}' https://faucet.testnet.cosmos.network
 ```
 
-When you get a success message, you can check your balance.
+After you see a success message, you can check your balance. 
 
 *See balance* [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx)
 
-## Send your own Token to the testnet
+## Send Your Own Token to the Testnet
 
-Now that your account on testnet is funded with testnet token, send your own token to the testnet.
+Now that your account on testnet is funded with testnet tokens, you can send your own token to the testnet. 
 
-Use your terminal to send your own created token to the testnet using the command line.
+At your local terminal, enter this liquidity module command to transfer your token to the testnet:
 
 ```bash
 myblockchaind tx ibc-transfer transfer transfer channel-0 cosmos16080vqxrjyngxfdkzj54uewszkztk6n3nv6f57 "500mytoken" --from username
 ```
 
-Once again, check your balance on the Gravity DEX testnet to confirm your token have arrived.
+After your transaction is complete, check your balance on the Gravity DEX testnet to confirm that your token transfer.
 
 ## Create a pool with my token
 
