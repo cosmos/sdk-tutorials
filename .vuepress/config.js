@@ -84,6 +84,11 @@ module.exports = {
               path: "/connecting-to-testnet/",
               directory: true,
             },
+            {
+              title: "Understanding the Liquidity Module",
+              path: "liquidity-module/",
+              directory: true,
+            },
           ],
         },
         {
@@ -230,5 +235,6 @@ module.exports = {
     "blog-legacy/tutorial/*.md",
     "blog/tutorial/*.md",
     "interchain-exchange/tutorial/*.md",
+    "liquidity-module/*.md",
   ],
 };
