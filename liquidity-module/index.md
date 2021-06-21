@@ -54,7 +54,7 @@ cd myblockchain
 
 **Note** The minimum reserve coin amount for a pool in the liquidity module is 1,000,000. Make sure you create enough tokens for your liquidity pools.
 
-Open the `config.yml` file in the top-level folder of your app directory. 
+Navigate to the top-level folder of your app directory and edit the `config.yml` file. 
 
 For the `accounts` parameter, add your username and your new token:
 
@@ -145,40 +145,45 @@ After your transaction is complete, check your balance on the Gravity DEX testne
 
 ## Create a Pool with My Token
 
+With the liquidity module and gaiad binary installed and `gaiad` running, use these links to explore your app:
 
-RPC	[https://rpc.testnet.cosmos.network:443](https://rpc.testnet.cosmos.network/)
+- RPC [https://rpc.testnet.cosmos.network:443](https://rpc.testnet.cosmos.network/)
 
-API	[https://api.testnet.cosmos.network:443](https://api.testnet.cosmos.network/)
+- API[https://api.testnet.cosmos.network:443](https://api.testnet.cosmos.network/)
 
-gRPC	[https://grpc.testnet.cosmos.network:443](https://grpc.testnet.cosmos.network/)
+- gRPC [https://grpc.testnet.cosmos.network:443](https://grpc.testnet.cosmos.network/)
 
-Token faucet	[https://faucet.testnet.cosmos.network:443](https://faucet.testnet.cosmos.network/)
+- Token faucet [https://faucet.testnet.cosmos.network:443](https://faucet.testnet.cosmos.network/)
 
-**Get all available token, your token should now be listed**
+### Verify Your Token Supply 
 
-https://api.testnet.cosmos.network/cosmos/bank/v1beta1/supply
+You can get all available tokens. Your token is now listed. See:
 
-https://api.testnet.cosmos.network/ibc/applications/transfer/v1beta1/denom_traces
+- https://api.testnet.cosmos.network/cosmos/bank/v1beta1/supply
 
-**Create the Pool**
+- https://api.testnet.cosmos.network/ibc/applications/transfer/v1beta1/denom_traces
+
+## Create a Liquidity Pool
+
+To create a liquidity pool:
 
 ```bash
 gaiad tx liquidity create-pool 1 1100000uphoton,1500000ibc/longibchash --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443
 ```
 
-Confirm the pool has been created
+Confirm the pool has been created. See:
 
 [https://api.testnet.cosmos.network/tendermint/liquidity/v1beta1/pools](https://api.testnet.cosmos.network/tendermint/liquidity/v1beta1/pools)
 
 
 ## Swap Token
 
-You have uphoton and want the new IBC coin
+You are ready to swap tokens! You have uphoton token and want to swap for the new IBC coin:
 
 ```markdown
 gaiad tx liquidity swap 1 1 100000uphoton ibc/longibchash 0.1 0.003 --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://[rpc.testnet.cosmos.network:443](https://rpc.testnet.cosmos.network/)
 ```
 
-Check balance on new account that made the trade
+Check the balance on the new account that made the trade:
 
 [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmos15zk2xl8acjl9g4hrxlsrhtf07dkecyay3yapys](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmos15zk2xl8acjl9g4hrxlsrhtf07dkecyay3yapys)
