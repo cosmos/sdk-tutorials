@@ -85,6 +85,11 @@ module.exports = {
               directory: true,
             },
             {
+              title: "Understanding IBC Denoms",
+              path: "understanding-ibc-denoms/",
+              directory: true,
+            },
+            {
               title: "Understanding the Liquidity Module",
               path: "liquidity-module/",
               directory: true,
@@ -248,5 +253,6 @@ module.exports = {
     "liquidity-module/*.md",
     "publish-app-do/*.md",
     "starport/*.md",
+    "understanding-ibc-denoms/*.md",
   ],
 };
