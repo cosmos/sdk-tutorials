@@ -22,12 +22,10 @@
                 setTimeout(this.resizeH5P, 500);
                 setTimeout(this.resizeH5P, 1000);
             })
+            window.addEventListener("resize", this.resizeH5P);
         },
         updated() {
             this.resizeH5P();
-        },
-        created() {
-            window.addEventListener("resize", this.resizeH5P);
         },
         destroyed() {
             window.removeEventListener("resize", this.resizeH5P);
