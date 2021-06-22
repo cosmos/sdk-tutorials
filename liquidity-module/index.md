@@ -124,7 +124,7 @@ Be patient, using the `starport serve` command is powerful and takes a few minut
 
 A relayer is software to connect two blockchains. Configure the relayer with your endpoints to create a connection between your blockchain and the testnet. After the connection is established, you can send tokens from one blockchain to the other blockchain.
 
-### Remove Existing Relayer and Starpport Configurations
+### Remove Existing Relayer and Starport Configurations
 
 If you previously used the relayer, follow these steps to remove exiting relayer and Starport configurations:
 
