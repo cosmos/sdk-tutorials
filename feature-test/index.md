@@ -5,6 +5,13 @@ description: Test our features
 
 # Feature test
 
+## Expansion Panel
+<ExpansionPanel title="Title test">
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet ligula sed dolor tincidunt, vel pulvinar risus faucibus. Donec in sodales turpis, faucibus aliquet quam. Sed faucibus ac arcu et sollicitudin. Nam mauris nisl, pulvinar at tempus vel, molestie quis est. Maecenas efficitur, neque sed varius cursus, magna ligula facilisis ex, non gravida eros lacus sed odio. Suspendisse lacus risus, feugiat vitae commodo sit amet, vestibulum in nulla. Morbi accumsan massa nisi, non feugiat ex tristique non. Praesent pharetra nisl tincidunt nunc tincidunt venenatis. Proin finibus luctus porttitor. Aenean mauris nibh, ultrices ac tellus ac, congue vehicula velit. Duis posuere vestibulum ante, nec dignissim leo scelerisque at. Phasellus id mi at nisi rutrum tristique. Sed malesuada finibus gravida. Nullam eu est consequat, egestas velit in, blandit sem.
+
+</ExpansionPanel>
+
 ## Code group
 
 <CodeGroup>
