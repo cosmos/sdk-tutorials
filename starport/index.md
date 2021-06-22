@@ -19,10 +19,10 @@ To upgrade your Starport installation, see [Install Starport](https://docs.starp
 
 You can specify a specific version in the curl command.
 
-For example, to install `starport` v0.15.1, run the following command:
+For example, to install `starport` v0.16.2, run the following command:
 
 ```sh
-curl https://get.starport.network/starport@v0.15.1! | bash
+curl https://get.starport.network/starport@v0.16.2! | bash
 ```
 
 # Install the Latest Version of Starport
@@ -43,7 +43,7 @@ starport --version
 The results show the release details. For example:
 
 ```code
-starport version v0.16.1 darwin/amd64 -build date: 2021-05-31T13:21:26Z
+starport version v0.16.2 darwin/amd64 -build date: 2021-06-22T05:43:46Z
 ```
 
 # Installation Result
