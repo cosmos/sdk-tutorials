@@ -29,17 +29,17 @@ Before you start the tutorial, install the prerequisite software.
 
 - [Install Starport](../starport/index.md) v0.16.0 <!-- link to the new tutorial file for this prereq to install Starport https://github.com/cosmos/sdk-tutorials/pull/694/commits/9a988d64408df16dad61412b7c542f6dd1fa4bee  -->
 
-        **Important** This tutorial uses [Starport](https://github.com/tendermint/starport) v0.16.0. The tutorial is based on this specific version of Starport and is not supported for other versions.
+    **Important** This tutorial uses [Starport](https://github.com/tendermint/starport) v0.16.0. The tutorial is based on this specific version of Starport and is not supported for other versions.
 
 - Install the Gravity DEX binary:
 
-        ```markdown
-        git clone https://github.com/b-harvest/gravity-dex.git
-        cd gravity-dex
-        make install
+    ```bash
+    git clone https://github.com/b-harvest/gravity-dex.git
+    cd gravity-dex
+    make install
 
-        gaiad
-        ```
+    gaiad
+    ```
 
 ## Create the Blockchain
 
