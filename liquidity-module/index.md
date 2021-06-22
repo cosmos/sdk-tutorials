@@ -27,9 +27,9 @@ In this tutorial, you create your own blockchain, send tokens to another blockch
 
 Before you start the tutorial, install the prerequisite software. 
 
-- [Install Starport](../starport/index.md) v0.16.0 <!-- link to the new tutorial file for this prereq to install Starport https://github.com/cosmos/sdk-tutorials/pull/694/commits/9a988d64408df16dad61412b7c542f6dd1fa4bee  -->
+- [Install Starport](../starport/index.md) v0.16.2 <!-- link to the new tutorial file for this prereq to install Starport https://github.com/cosmos/sdk-tutorials/pull/694/commits/9a988d64408df16dad61412b7c542f6dd1fa4bee  -->
 
-    **Important** This tutorial uses [Starport](https://github.com/tendermint/starport) v0.16.0. The tutorial is based on this specific version of Starport and is not supported for other versions.
+    **Important** This tutorial uses [Starport](https://github.com/tendermint/starport) v0.16.2. The tutorial is based on this specific version of Starport and is not supported for other versions.
 
 - Install the Gravity DEX binary:
 
@@ -38,7 +38,13 @@ Before you start the tutorial, install the prerequisite software.
     cd gravity-dex
     make install
 
-    gaiad
+    gaiad version
+    ```
+
+    The output of `gaiad version` should print something like
+    
+    ```bash
+    gravity-dex-fa647b0fefe5508e9c975b3d4f095db2d3d20a13
     ```
 
 ## Create the Blockchain
@@ -125,11 +131,58 @@ For the testnet `target` chain, use the following values.
 
 - Target Gas Price (0.025uatom): 0.025stake
 
+When everything runs successful, you will see the following output with a different account address:
+
+```bash
+🔐  Account on "source" is "cosmos174n26d8n223aje53dznlfahpv54np970wr3ae7"
+ 
+ |· received coins from a faucet
+ |· (balance: 100000stake,5token)
+
+🔐  Account on "target" is "cosmos174n26d8n223aje53dznlfahpv54np970wr3ae7"
+ 
+ |· received coins from a faucet
+ |· (balance: 10000000stake,10000000uphoton)
+
+⛓  Configured chains: myblockchain-cosmoshub-testnet
+```
 
 Connect the chains:
 
 ```markdown
 starport relayer connect
+```
+
+It will start to connect your two blockchains, you will see an output while it does
+
+```bash
+◣ Linking paths between chains... 
+```
+
+When successful, your output will be
+
+```bash
+
+---------------------------------------------
+Linking chains
+---------------------------------------------
+
+✓ Linked chains with 1 paths.
+  - myblockchain-cosmoshub-testnet
+
+Continuing with 1 paths...
+
+---------------------------------------------
+Chains by paths
+---------------------------------------------
+
+myblockchain-cosmoshub-testnet:
+    myblockchain      > (port: transfer) (channel: channel-0)
+    cosmoshub-testnet > (port: transfer) (channel: channel-9)
+
+---------------------------------------------
+Listening and relaying packets between chains...
+---------------------------------------------
 ```
 
 ## Get Token From the Faucet
@@ -162,6 +215,8 @@ Make sure to replace `cosmosxxxxx` with your address.
 
 See your balance at [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx).
 
+Take a closer look at the `ibc/denomhash` denominator. When you create a new pool, this will be the denom you need to input to make a pair with one of the existing native token, on our testnet we will create a pair with `uphoton`.
+
 ## Create a Pool with My Token
 
 With the liquidity module and gaiad binary installed, use these links to explore your app:
@@ -183,6 +238,32 @@ Check the following resources to get an overview of the activity on the testnet 
 
 - https://api.testnet.cosmos.network/ibc/applications/transfer/v1beta1/denom_traces
 
+## Add your Starport blockchain account to gaiad
+
+To access Starport `username` account on `gaiad`, add it to the keychain.
+
+```bash
+gaiad keys add username --recover
+```
+
+It will ask you for the passphrase, that you see in the terminal window of running `starport serve` on your `myblockchaind`
+
+```bash
+> Enter your bip39 mnemonic
+```
+
+Add `username`s mnemonic passphrase and hit enter. You will see something similar to the following output
+
+```bash
+- name: username
+  type: local
+  address: cosmos1780t4erzwrvr9x6jvqjxduwkuk3ex3fnhqzza5
+  pubkey: cosmospub1addwnpepqfs05yqcjghqzct5y39r33r5ew47pjqkvcj7ezngufazy0eqsyx65vtut0h
+  mnemonic: ""
+  threshold: 0
+  pubkeys: []
+```
+
 ## Create a Liquidity Pool
 
 To create a liquidity pool, enter the following command:
@@ -201,7 +282,7 @@ Confirm the pool has been created. See:
 
 You are ready to swap tokens! You now have uphoton token in your account and want to swap for the new IBC coin:
 
-```markdown
+```bash
 gaiad tx liquidity swap 1 1 100000uphoton ibc/longibchash 0.1 0.003 --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://[rpc.testnet.cosmos.network:443](https://rpc.testnet.cosmos.network/)
 ```
 
