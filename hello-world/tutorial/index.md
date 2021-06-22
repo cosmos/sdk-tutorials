@@ -33,7 +33,7 @@ This tutorial covers essentials like modules, IBC packets, relayer, and the life
 
 ## Prerequisites
 
-This tutorial requires [Starport](https://docs.starport.network/) v0.16.0\.
+This tutorial requires [Starport](https://docs.starport.network/) v0.16.
 
 **Important** The tutorial is based on this specific version of Starport and is not supported for other versions.
 
@@ -42,7 +42,7 @@ The Starport tool is the easiest way to build a blockchain.
 To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
-curl https://get.starport.network/starport@v0.16.0! | bash
+curl https://get.starport.network/starport@v0.16.2! | bash
 ```
 
 When the installation succeeds, you see this message:
@@ -51,7 +51,7 @@ When the installation succeeds, you see this message:
 Installed at /usr/local/bin/starport
 ```
 
-You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://docs.starport.network/intro/install.html).
+You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.16.2), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://docs.starport.network/intro/install.html).
 
 ## Create a Blockchain App
 
