@@ -103,7 +103,8 @@ All this is totally different if the blockchain does not use Tendermint consensu
 
 The good news is there is [an issue for a "Active/Expired/Frozen/" status](https://github.com/cosmos/ibc-go/issues/98) which will automatically check that the IBC client is within the trusting period.
 
-# Reaching the other blockchain
+## Reaching the other blockchain
+
 So far we have found the IBC channel, client, and the chain ID of the corresponding blockchain. But we still don't know how to connect to it!
 
 A database of chain IDs and their nodes is still something the Cosmos community is trying to solve. There are currently 2 solutions:
@@ -116,14 +117,14 @@ Every chain ID is represented by a folder, and within that folder there is a `pe
 
 There is [already a tool](https://github.com/apeunit/cosmos-registrar) started by Jack Zampolin and further developed by Ape Unit to automate claiming and updating a chain ID. Updating in this case means committing a fresh peerlist to the repo - it should be run with a cronjob. Its state is best described as v1.0, so go ahead and report any bugs as Github issues.
 
-# Verifying the other blockchain
+## Verifying the other blockchain
 Let's assume you are now connected to a node belonging to chain B, and chain A has a IBC light client pointing to chain B, and vice versa.
 
 First, you must verify that the node of 'chain B' is indeed the same 'chain B' that is registered in [github.com/cosmos/registry](https://github.com/cosmos/registry).
 Then, you must verify that chain A's IBC light client is pointing to that very same 'chain B'.
 Lastly, you must verify that chain B's IBC light client is pointing to chain A.
 
-## that 'chain B' is the one mentioned in github.com/cosmos/registry
+### that 'chain B' is the one mentioned in github.com/cosmos/registry
 Check the `light-roots/latest.json` file under each chain ID folder in [cosmos/registry](https://github.com/cosmos/registry). It is created when a chain ID is first claimed.
 
 ```json
@@ -191,7 +192,7 @@ $ curl localhost:26657/commit?height=70
   }
 ```
 
-## that chain A's IBC client is pointing to 'chain B' (and vice versa)
+### that chain A's IBC client is pointing to 'chain B' (and vice versa)
 As of 25 May 2021, official `gaiad` releases will not output the hashes in the same format and you must compile `gaiad` with `ibc-go` at commit [4570955](https://github.com/cosmos/ibc-go/commit/457095517b7832c42ecf13571fee1e550fec02d0).
 IBC won't tell you where to find a node from chain B, but once you've found one, you can get chain B's app hashes at certain block heights and compare them with what the chain B IBC light client on chain A tells you.
 
@@ -220,14 +221,14 @@ timestamp: "2021-05-20T13:49:41.169759553Z"
 ```
 
 
-# Getting lower level: querying IBC via gaiad's GRPC endpoints
+## Getting lower level: querying IBC via gaiad's GRPC endpoints
 So far we understand on a high level what needs to be done. But what is actually going on under the hood? How is `gaiad` getting all that data, and how can you access it from another SDK or programming language, for example CosmJS?
 
 At a low level, the `gaiad` instance invoked from my shell is contacting another `gaiad` instance that is running a blockchain node using its GRPC endpoint. SDKs make it easier to query these GRPC endpoints, but as of the time of writing, only the `main` branch of CosmJS have methods for accessing these IBC queries, not 0.24.1, which is the latest available from NPM.
 
 You may be familiar with `curl` when developing HTTP REST APIs. The equivalent for GRPC is `grpcurl`. Install it and follow these steps.
 
-## Start two chains connnected via IBC
+### Start two chains connnected via IBC
 
 Install gaiad v4.2.1
 ```
@@ -316,7 +317,7 @@ pagination:
   total: "0"
 ```
 
-## Performing the low level GRPC queries using grpcurl
+### Performing the low level GRPC queries using grpcurl
 Now that we have a private IBC testnet setup, we can query the IBC endpoints:
 ```
 $ grpcurl -plaintext -import-path ./third_party/proto -import-path ./proto \
@@ -355,7 +356,7 @@ localhost:9091 ibc.core.channel.v1.Query/ChannelClientState
 ```
 The ClientState is a raw binary blob (in Protobuf parlance, an `Any` or "any type") that grpcurl cannot parse, hence the error. However, as you remember from the above ClientState querying example using `gaiad`, `gaiad` can of course parse the ClientState binary data.
 
-# tl;dr
+## tl;dr
 Many parts are still under development, but the gist is that once you:
 
 1. Look up the IBC client ID and chain ID of the chain that sent you the IBC asset
