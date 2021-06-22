@@ -33,7 +33,7 @@ This tutorial covers essentials like modules, IBC packets, relayer, and the life
 
 ## Prerequisites
 
-This tutorial requires [Starport](https://docs.starport.network/) v0.16.
+This tutorial requires [Starport](https://docs.starport.network/) v0.16.2
 
 **Important** The tutorial is based on this specific version of Starport and is not supported for other versions.
 
