@@ -60,7 +60,7 @@ For the `accounts` parameter, add your username and your new token:
 
 ```yml
 accounts:
-	- name: username
+  - name: username
     coins: ["10000token", "50000000stake", "1000000000000mytoken"]
 ```
 
@@ -72,10 +72,23 @@ To start your blockchain, run this command in your local terminal:
 starport serve
 ```
 
-You see output similar to this output, but with different account passphrases:
+You see output similar to the following output, but with different account passphrases and addresses:
 
 ```bash
+Cosmos SDK's version is: Stargate v0.40.0 (or later)
 
+🔄 Resetting the app state...
+🛠️  Building proto...
+📦 Installing dependencies...
+🛠️  Building the blockchain...
+💿 Initializing the app...
+🙂 Created account "alice" with address "cosmos1qur6tvu7p4khtr5zzcx0uk5fq06hfk5xflw83e" with mnemonic: "tank film icon helmet myth devote velvet rib behind exhaust move pass endless combine bag congress pool bean shoulder issue trouble banner best nice"
+🙂 Created account "bob" with address "cosmos1w8w3t8rhv5zpvdscy9332wp4tugkg0ezskf95u" with mnemonic: "attract shoulder person upset dream category finish detect country track edge planet crack gloom soldier together hockey arena panel horn rapid zero common marriage"
+🙂 Created account "username" with address "cosmos1mr3ss57xexzg7j377vfd24d3vv3vy0e3mpuj6y" with mnemonic: "parent butter piece picnic north thumb knife denial toy silk juice diary cruise idle pink repair radar brisk decide sugar gap joke palm day"
+Genesis transaction written to "/Users/youruser/.myblockchaind/config/gentx/gentx-2e8a6a680b4f9adaecfafbc6ecad8b96ef8b9157.json"
+🌍 Tendermint node: http://0.0.0.0:26657
+🌍 Blockchain API: http://0.0.0.0:1317
+🌍 Token faucet: http://0.0.0.0:4500
 ```
 
 ## Configure the Relayer
@@ -108,7 +121,7 @@ For the testnet `target` chain, use the following values.
 
 - Target RPC: [https://rpc.testnet.cosmos.network:443](https://rpc.testnet.cosmos.network/)
 
-- Token Faucet: [https://faucet.testnet.cosmos.network:443](https://faucet.testnet.cosmos.network/)
+- Target Token Faucet: [https://faucet.testnet.cosmos.network:443](https://faucet.testnet.cosmos.network/)
 
 - Target Gas Price (0.025uatom): 0.025stake
 
@@ -121,13 +134,14 @@ starport relayer connect
 
 ## Get Token From the Faucet
 
-From the terminal output that `starport serve` created for you, use the `username` accounts address and claim tokens from the faucet:
+From the terminal output that `starport serve` created for you, use the `username` accounts address and claim tokens from the faucet.
+Make sure to add your account address into the `address` field. Replace `cosmosxxxxx` with the address you saw in your user account on running `starport serve`.
 
 ```markdown
 curl -X POST -d '{"address": "cosmosxxxxx"}' https://faucet.testnet.cosmos.network
 ```
 
-After you see a success message, you can check your balance. 
+After you see a success message, you can check your balance. Make sure to replace `cosmosxxxxx` with your address from the previous step.
 
 See your balance at [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx).
 
@@ -135,17 +149,22 @@ See your balance at [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/bala
 
 Now that your account on testnet is funded with testnet tokens, you can send your own token to the testnet. 
 
-At your local terminal, enter this liquidity module command to transfer your token to the testnet:
+At your local terminal, enter the IBC module command to transfer your token to the testnet. 
+Make sure to replace `cosmosxxxxx` with your address, `mytoken` with your token name and `username` with your username.
 
 ```bash
-myblockchaind tx ibc-transfer transfer transfer channel-0 cosmos16080vqxrjyngxfdkzj54uewszkztk6n3nv6f57 "500mytoken" --from username
+myblockchaind tx ibc-transfer transfer transfer channel-0 cosmosxxxxx "500mytoken" --from username
 ```
 
 After your transaction is complete, check your balance on the Gravity DEX testnet to confirm your token transfer.
 
+Make sure to replace `cosmosxxxxx` with your address.
+
+See your balance at [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx).
+
 ## Create a Pool with My Token
 
-With the liquidity module and gaiad binary installed and `gaiad` running, use these links to explore your app:
+With the liquidity module and gaiad binary installed, use these links to explore your app:
 
 - RPC [https://rpc.testnet.cosmos.network:443](https://rpc.testnet.cosmos.network/)
 
@@ -157,7 +176,8 @@ With the liquidity module and gaiad binary installed and `gaiad` running, use th
 
 ### Verify Your Token Supply 
 
-You can get all available tokens. Your token is now listed. See:
+You can get all available tokens. Your token is now listed. 
+Check the following resources to get an overview of the activity on the testnet and find your token.
 
 - https://api.testnet.cosmos.network/cosmos/bank/v1beta1/supply
 
@@ -165,7 +185,8 @@ You can get all available tokens. Your token is now listed. See:
 
 ## Create a Liquidity Pool
 
-To create a liquidity pool:
+To create a liquidity pool, enter the following command:
+Make sure to replace `longibchash` with the hash denom you received on the previous step. Replace `username` with your account username.
 
 ```bash
 gaiad tx liquidity create-pool 1 1100000uphoton,1500000ibc/longibchash --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443
@@ -178,7 +199,7 @@ Confirm the pool has been created. See:
 
 ## Swap Token
 
-You are ready to swap tokens! You have uphoton token and want to swap for the new IBC coin:
+You are ready to swap tokens! You now have uphoton token in your account and want to swap for the new IBC coin:
 
 ```markdown
 gaiad tx liquidity swap 1 1 100000uphoton ibc/longibchash 0.1 0.003 --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://[rpc.testnet.cosmos.network:443](https://rpc.testnet.cosmos.network/)
