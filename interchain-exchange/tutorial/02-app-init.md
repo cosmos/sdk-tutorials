@@ -23,7 +23,7 @@ You can also use Starport v0.16.0 in a [browser-based IDE](http://gitpod.io/#htt
 Scaffold a new blockchain called `interchange`
 
 ```bash
-starport app github.com/username/interchange
+starport scaffold chain github.com/username/interchange --no-default-module
 cd interchange
 ```
 
