@@ -45,11 +45,12 @@ Before you start the tutorial, install the prerequisite software.
     git clone https://github.com/b-harvest/gravity-dex.git
     ```
     
-    - Copy the software to the right location:  
+    - Move into the directory and install software to the right location:  
 
     ```bash
     cd gravity-dex && make install
     ```
+
     - Verify the gaiad version:  
 
     ```bash
@@ -59,7 +60,7 @@ Before you start the tutorial, install the prerequisite software.
     The output of `gaiad version` prints something like:
     
     ```bash
-    add-liquidity-module-to-gaia-022f6eea5ec93995bc175c556e37e30cae22e1f6
+    gravity-dex-fa647b0fefe5508e9c975b3d4f095db2d3d20a13
     ```
 
 ## Create the Blockchain
@@ -111,7 +112,7 @@ Cosmos SDK's version is: Stargate v0.40.0 (or later)
 💿 Initializing the app...
 🙂 Created account "alice" with address "cosmos1qur6tvu7p4khtr5zzcx0uk5fq06hfk5xflw83e" with mnemonic: "tank film icon helmet myth devote velvet rib behind exhaust move pass endless combine bag congress pool bean shoulder issue trouble banner best nice"
 🙂 Created account "bob" with address "cosmos1w8w3t8rhv5zpvdscy9332wp4tugkg0ezskf95u" with mnemonic: "attract shoulder person upset dream category finish detect country track edge planet crack gloom soldier together hockey arena panel horn rapid zero common marriage"
-🙂 Created account "joy20" with address "cosmos1mr3ss57xexzg7j377vfd24d3vv3vy0e3mpuj6y" with mnemonic: "parent butter piece picnic north thumb knife denial toy silk juice diary cruise idle pink repair radar brisk decide sugar gap joke palm day"
+🙂 Created account "username" with address "cosmos1mr3ss57xexzg7j377vfd24d3vv3vy0e3mpuj6y" with mnemonic: "parent butter piece picnic north thumb knife denial toy silk juice diary cruise idle pink repair radar brisk decide sugar gap joke palm day"
 Genesis transaction written to "/Users/joy20/.myblockchaind/config/gentx/gentx-2e8a6a680b4f9adaecfafbc6ecad8b96ef8b9157.json"
 🌍 Tendermint node: http://0.0.0.0:26657
 🌍 Blockchain API: http://0.0.0.0:1317
