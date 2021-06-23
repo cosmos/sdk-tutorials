@@ -8,31 +8,29 @@ description: Send tokens with IBC and trace your Denom, understand how Denoms wo
 # Understanding IBC Denoms with Gaia
 
 In this tutorial you will learn how to use IBC denoms with Gaia, the Cosmos Hub Software.
+Explore the low level details of what it means to identify a token received via IBC to one's account, find out which chain it came from, contact that chain and verify that it exists and is still running.
 
-IBC has been a long time in the making, and only just recently has the necessary bits been implemented so that we can actually start playing with it.
-
-Today we shall explore the low level details of what it really means to identify a token received via IBC to one's account, to find out which chain it came from, contact that chain and verify that it exists and is still running.
-
-Let's say one day you list the status of your account, and you've received a new `ibc/` token:
+Imagine you've received a new `ibc/` token on a blockchain:
 `1000000ibc/27A6394C3F9FF9C9DCF5DFFADF9BB5FE9A37C7E92B006199894CF1824DF9AC7C,100000000000samoleans,99999977256stake`
 
 Just like `samoleans` or `stake`, `ibc/27A639...` is the denomination of the token received via IBC, but `27A639...` is a hash of the denomination, IBC port and channel.
 
 Why is it a hash? because if the token took multiple hops from other blockchains to get to our account, the path would get unbearably long and Cosmos-SDK has a 64 character limit on the denomination of the token.
 
-The tradeoff, of course, is that one must query the node to find out what the actual path and denomination is. This is called the denomtrace. `gaiad` has a GRPC interface at (in this case) 9090, and I will show you later how to query this interface directly. For now, follow along with the easy to use `gaiad` subcommands.
+The tradeoff is that one must query the node to find out what the actual path and denomination is. This is called the `denomtrace`. `gaiad` has a GRPC interface at port -by default- 9090, and you will learn later how to query this interface directly. For now, follow along with the `gaiad` subcommands.
 
-```
-$ gaiad q ibc-transfer denom-trace 27A6394C3F9FF9C9DCF5DFFADF9BB5FE9A37C7E92B006199894CF1824DF9AC7C --node tcp://localhost:26557
+```bash
+gaiad q ibc-transfer denom-trace 27A6394C3F9FF9C9DCF5DFFADF9BB5FE9A37C7E92B006199894CF1824DF9AC7C --node tcp://localhost:26557
 denom_trace:
   base_denom: samoleans
   path: transfer/channel-0
 ```
 
-From this we now know that there is an IBC port `transfer` and channel `channel-0`. But we want to know the IBC light client (why is it called a light client? because it is a light client of the _other_ chain, keeping track of its blockhashes) behind the port and channel, we need to perform another query:
+From this you now know that there is an IBC port `transfer` and channel `channel-0`. But you will want to know the IBC light client behind the port and channel, you need to perform another query. Why is it called a light client? Because it is a light client of the _other_ chain, keeping track of its blockhashes.
+The `ibc channel client-state transfer` command will explain the details of the denomination path. 
 
 ```
-$ gaiad q ibc channel client-state transfer channel-0 --node tcp://localhost:26557
+gaiad q ibc channel client-state transfer channel-0 --node tcp://localhost:26557
 client_id: 07-tendermint-0
 client_state:
   '@type': /ibc.lightclients.tendermint.v1.ClientState
@@ -99,15 +97,16 @@ Anybody can start a chain with the same chain ID, but the IBC client ID is gener
 * Ensure the IBC client isn't expired.
 In the event that Tendermint consensus fails (>1/3 of validators produce a conflicting block), _and_ proof of this is submitted on chain, the IBC client will become frozen, and `frozen_height` will be nonzero. In the future, this will become a simple true/false.
 `latest_height.revision_height` is the block height when the IBC client was last updated. To ensure that it is still up to date, one would have to query the blockchain itself for the block height 43, and ensure that the timestamp of that block + the `trusting_period` of 1209600s/336h/14d is beyond the current time.
-All this is totally different if the blockchain does not use Tendermint consensus.
+These information will be different if the blockchain does not use Tendermint consensus.
 
 The good news is there is [an issue for a "Active/Expired/Frozen/" status](https://github.com/cosmos/ibc-go/issues/98) which will automatically check that the IBC client is within the trusting period.
 
 ## Reaching the other blockchain
 
-So far we have found the IBC channel, client, and the chain ID of the corresponding blockchain. But we still don't know how to connect to it!
+So far you have found the IBC channel, client, and the chain ID of the corresponding blockchain. But you still don't know how to connect to it!
 
 A database of chain IDs and their nodes is still something the Cosmos community is trying to solve. There are currently 2 solutions:
+
 1. Chain Name Service (decentralized)
 The [CNS](https://github.com/tendermint/cns) is a Cosmos SDK module that the Cosmos Hub will one day run. As a hub through which cross-chain transactions go through, it only makes sense for the Cosmos Hub to host the critical information on how to reach the other chain IDs. The problem is that it is new and still under development.
 
@@ -115,7 +114,7 @@ The [CNS](https://github.com/tendermint/cns) is a Cosmos SDK module that the Cos
 [github.com/cosmos/registry](https://github.com/cosmos/registry) is a stopgap solution. Each chain ID will have a folder describing its genesis and a list of peers. A blockchain operator claims his chain ID by forking this repository, create a branch with his chain ID, and submit a pull request to include it in the official `cosmos/registry` of chain IDs.
 Every chain ID is represented by a folder, and within that folder there is a `peers.json` that has a list of nodes that you can connect to.
 
-There is [already a tool](https://github.com/apeunit/cosmos-registrar) started by Jack Zampolin and further developed by Ape Unit to automate claiming and updating a chain ID. Updating in this case means committing a fresh peerlist to the repo - it should be run with a cronjob. Its state is best described as v1.0, so go ahead and report any bugs as Github issues.
+There is already a tool, the [cosmos-registrar](https://github.com/apeunit/cosmos-registrar) started by Jack Zampolin and further developed by Ape Unit to automate claiming and updating a chain ID. Updating in this case means committing a fresh peerlist to the GitHub repository - it should be run with a cronjob. Its state is best described as v1.0, so go ahead and report any bugs as Github issues.
 
 ## Verifying the other blockchain
 Let's assume you are now connected to a node belonging to chain B, and chain A has a IBC light client pointing to chain B, and vice versa.
