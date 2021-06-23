@@ -131,7 +131,7 @@ Command to create a `packet` with a cancel buy and sell order:
 interchanged tx ibcdex cancelSellOrder ibcdex channel-0 mcx vcx 0 --from alice --chain-id mars --home ~/.mars
 
 # Buy order
-interchanged tx ibcdex cancelBuyOrder ibcdex channel-0 mcx vcx 3 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
+interchanged tx ibcdex cancelBuyOrder ibcdex channel-0 mcx vcx 0 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
 ## Exchange Tokens
@@ -445,7 +445,7 @@ SellOrderBook:
 
 ```bash
 # Cancel a buy order
-interchanged tx ibcdex cancelBuyOrder ibcdex channel-0 mcx vcx 3 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
+interchanged tx ibcdex cancelBuyOrder ibcdex channel-0 mcx vcx 0 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
 Result:
