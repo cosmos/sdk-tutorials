@@ -38,11 +38,9 @@ func (k msgServer) CancelSellOrder(goCtx context.Context, msg *types.MsgCancelSe
 	}
 
 	// Remove order
-	newBook, err := book.RemoveOrderFromID(msg.OrderID)
-	if err != nil {
+	if err := book.RemoveOrderFromID(msg.OrderID); err != nil {
 		return &types.MsgCancelSellOrderResponse{}, err
 	}
-	book = newBook.(types.SellOrderBook)
 	k.SetSellOrderBook(ctx, book)
 
     // Refund seller with remaining amount
@@ -94,11 +92,9 @@ func (k msgServer) CancelBuyOrder(goCtx context.Context, msg *types.MsgCancelBuy
 	}
 
 	// Remove order
-	newBook, err := book.RemoveOrderFromID(msg.OrderID)
-	if err != nil {
+	if err := book.RemoveOrderFromID(msg.OrderID); err != nil {
 		return &types.MsgCancelBuyOrderResponse{}, err
 	}
-	book = newBook.(types.BuyOrderBook)
 	k.SetBuyOrderBook(ctx, book)
 
   // Refund buyer with remaining price amount
