@@ -60,6 +60,12 @@ module.exports = {
           title: "Tutorials",
           children: [
             {
+              title: "Install Starport",
+              path: "/starport/",
+              directory: true,
+            },
+            
+            {
               title: "IBC Hello World",
               path: "/hello-world/tutorial/",
               directory: true,
@@ -92,11 +98,6 @@ module.exports = {
             {
               title: "Deploy Your Blockchain on Digital Ocean",
               path: "/publish-app-do/",
-              directory: true,
-            },
-            {
-              title: "Install Starport",
-              path: "/starport/",
               directory: true,
             },
           ],
