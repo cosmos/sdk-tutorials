@@ -300,8 +300,9 @@ To create a liquidity pool, enter the following command:
 Make sure to replace `longibchash` with the hash denom you received on the previous step. Replace `username` with your account username.
 
 ```bash
-gaiad tx liquidity create-pool 1 1100000uphoton,1500000ibc/longibchash --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443
+gaiad tx liquidity create-pool 1 1100000uphoton,1500000ibc/longibchash --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443 --gas 2000000 -y
 ```
+**Optional:** Add -y flag to bypass confirmation prompt
 
 Confirm the pool has been created. See:
 
@@ -318,4 +319,6 @@ gaiad tx liquidity swap 1 1 100000uphoton ibc/longibchash 0.1 0.003 --from usern
 
 Check the balance on the new account that made the trade:
 
-[https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmos15zk2xl8acjl9g4hrxlsrhtf07dkecyay3yapys](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmos15zk2xl8acjl9g4hrxlsrhtf07dkecyay3yapys)
+[https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
+
+Make sure to replace `cosmosxxxxx` with your address.
