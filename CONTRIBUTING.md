@@ -42,7 +42,7 @@ The layout metadata at the top of the README.md file controls how the tutorial p
 
 Each Cosmos SDK tutorial lives in a self-describing folder: `blog`, `hello-world`, `voter`, and so on.
 
-Two sub-folders are present for most of the production-ready tutorial:
+Two sub-folders are present for most of the production-ready tutorials:
 
 - A self-describing sub-folder for the app and the rest of the code that runs the tutorial.
 - A `tutorial` sub-folder for the Markdown files (*.md) that build the published tutorial docs.
