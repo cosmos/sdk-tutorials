@@ -8,6 +8,9 @@
     - `go get -v golang.org/x/tools/gopls`
     - Select `Install all` for all packages
 
+Be sure to set up [Visual Studio Code](https://code.visualstudio.com/docs/setup/setup-overview) for your environment. 
+
+**Tip** On MacOS, install `code` in $PATH to enable [Launching Visual Studio Code from the command line](https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line). Open the Command Palette (Cmd+Shift+P) and type 'shell command'.  
 
 ## GitHub Integration
 
