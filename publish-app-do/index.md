@@ -31,14 +31,13 @@ For the best experience using this tutorial, we recommend using DigitalOcean.
 - When you see username be sure to substitute it with your username.
 - Although you can use digitalocean as your directory and app name, you can replace it with your own app name. 
 
-### Prerequisites
+## Requirements
 
 To complete this guide, you will need:
 
 - A [DigitalOcean](https://cloud.digitalocean.com/) account. If you do not have an account, DigitalOcean may offer a free trial to let you build Basic Droplets. 
 - A supported version of [Starport](https://docs.starport.network/). To install Starport, see [Install Starport](../starport/install.md). 
 - Go (version 1.16 or higher). See [Download and install Go](https://golang.org/doc/install) documentation. Using brew to install Go is not recommended. 
-
 
 ## Step 1 — Create Your Starport App
 
