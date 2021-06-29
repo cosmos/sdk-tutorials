@@ -237,7 +237,7 @@ After your transaction is complete, check your balance on the Gravity DEX testne
 
 Make sure to replace `cosmosxxxxx` with your address.
 
-**Tip** Sometimes transactions don't go through in first try. Make sure you check your terminal window created by your relayer. It should have the following output.
+**Tip** Sometimes transactions don't go through on the first try. Make sure you check the terminal window that shows the relayer process and verify that you see output similar to the following output:
 
  ```markdown
  Relay 1 packets from myblockchain => cosmoshub-testnet
