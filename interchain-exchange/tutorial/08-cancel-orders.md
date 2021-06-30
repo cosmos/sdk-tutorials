@@ -23,13 +23,13 @@ func (k msgServer) CancelSellOrder(goCtx context.Context, msg *types.MsgCancelSe
 
 	// Retrieve the book
 	pairIndex := types.OrderBookIndex(msg.Port, msg.Channel, msg.AmountDenom, msg.PriceDenom)
-	book, found := k.GetSellOrderBook(ctx, pairIndex)
+	s, found := k.GetSellOrderBook(ctx, pairIndex)
 	if !found {
 		return &types.MsgCancelSellOrderResponse{}, errors.New("the pair doesn't exist")
 	}
 
 	// Check order creator
-	order, err := book.GetOrderFromID(msg.OrderID)
+	order, err := s.book.GetOrderFromID(msg.OrderID)
 	if err != nil {
 		return &types.MsgCancelSellOrderResponse{}, err
 	}
@@ -38,10 +38,10 @@ func (k msgServer) CancelSellOrder(goCtx context.Context, msg *types.MsgCancelSe
 	}
 
 	// Remove order
-	if err := book.RemoveOrderFromID(msg.OrderID); err != nil {
+	if err := s.book.RemoveOrderFromID(msg.OrderID); err != nil {
 		return &types.MsgCancelSellOrderResponse{}, err
 	}
-	k.SetSellOrderBook(ctx, book)
+	k.SetSellOrderBook(ctx, s)
 
     // Refund seller with remaining amount
 	seller, err := sdk.AccAddressFromBech32(order.Creator)
@@ -77,13 +77,13 @@ func (k msgServer) CancelBuyOrder(goCtx context.Context, msg *types.MsgCancelBuy
 
 	// Retrieve the book
 	pairIndex := types.OrderBookIndex(msg.Port, msg.Channel, msg.AmountDenom, msg.PriceDenom)
-	book, found := k.GetBuyOrderBook(ctx, pairIndex)
+	b, found := k.GetBuyOrderBook(ctx, pairIndex)
 	if !found {
 		return &types.MsgCancelBuyOrderResponse{}, errors.New("the pair doesn't exist")
 	}
 
 	// Check order creator
-	order, err := book.GetOrderFromID(msg.OrderID)
+	order, err := b.book.GetOrderFromID(msg.OrderID)
 	if err != nil {
 		return &types.MsgCancelBuyOrderResponse{}, err
 	}
@@ -92,10 +92,10 @@ func (k msgServer) CancelBuyOrder(goCtx context.Context, msg *types.MsgCancelBuy
 	}
 
 	// Remove order
-	if err := book.RemoveOrderFromID(msg.OrderID); err != nil {
+	if err := b.book.RemoveOrderFromID(msg.OrderID); err != nil {
 		return &types.MsgCancelBuyOrderResponse{}, err
 	}
-	k.SetBuyOrderBook(ctx, book)
+	k.SetBuyOrderBook(ctx, b)
 
   // Refund buyer with remaining price amount
 	buyer, err := sdk.AccAddressFromBech32(order.Creator)
