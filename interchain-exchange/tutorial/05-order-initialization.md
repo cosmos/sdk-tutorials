@@ -319,7 +319,7 @@ func VoucherDenom(port string, channel string, denom string) string {
 
 	voucher := denomTrace.IBCDenom()
 
-	return voucher
+	return voucher[:16]
 }
 
 // SaveVoucherDenom saves the voucher denom to be able to convert it back later
