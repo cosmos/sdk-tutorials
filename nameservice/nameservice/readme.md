@@ -5,7 +5,7 @@
 ## Get started
 
 ```
-starport serve
+starport chain serve
 ```
 
 `serve` command installs dependencies, initializes and runs the application.

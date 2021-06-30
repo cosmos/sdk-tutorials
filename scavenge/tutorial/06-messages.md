@@ -83,7 +83,7 @@ Once we have defined our messages, we need to describe to our encoder how they s
 
 <<< @/scavenge/scavenge/x/scavenge/types/codec.go
 
-**Note:** in case you have restarted the app using `starport serve` some errors might appear due to changes on our **type** files. Don't panic! All these changes will be covered during the next session.
+**Note:** in case you have restarted the app using `starport chain serve` some errors might appear due to changes on our **type** files. Don't panic! All these changes will be covered during the next session.
 
 Awesome, It's great to have Messages, but we need somewhere to store the information they are sending. All persistent data related to this module should live in the module's `Keeper`.
 

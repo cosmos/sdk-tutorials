@@ -73,7 +73,7 @@ Use Starport to scaffold the blockchain app and the voting module.
 To scaffold a new blockchain named voter:
 
 ```sh
-starport app github.com/username/voter
+starport scaffold chain github.com/username/voter
 ```
 
 A new directory named `voter` is created in your home directory.
@@ -94,7 +94,7 @@ To launch the app from the `voter` project directory:
 
 ```sh
 cd voter
-starport serve
+starport chain serve
 ```
 
 The following output is returned, along with any errors that might show up in your application. Two default users and their mnemonic pass phrases are created.
@@ -145,7 +145,8 @@ With this command, you generated the code that handles the creation of `poll` it
 
 To see the front-end app form for creating polls:
 
-- Run `starport serve`
+- Run `starport chain serve`
+- In a new terminal window, run the UI: `cd vue && npm i && npm run serve`  
 - Visit <http://localhost:8080>
 
 It takes a few minutes to rebuild the app, so give it a couple of seconds. If your `localhost:8080` is already in use, your app can be viewed on the next available port.
@@ -154,12 +155,12 @@ It takes a few minutes to rebuild the app, so give it a couple of seconds. If yo
 
 ### Sign in as Alice
 
-On the front-end app, sign in as end user Alice. The mnemonic passphrases for Alice and Bob were printed in the console after you ran the `starport serve` command.
+On the front-end app, sign in as end user Alice. The mnemonic passphrases for Alice and Bob were printed in the console after you ran the `starport chain serve` command.
 
 After you are signed in as Alice, you can import an existing wallet that was created with the app. The wallet in the voter app can handle multiple accounts, so give your wallet a descriptive name. Using a descriptive wallet name helps you recognize this wallet in future transactions. For this example, naming this wallet `voter` makes sense.
 
 1. Click **Access Wallet** and then click **Import existing wallet**.
-2. Enter the passphrase for Alice that was output to your console when you launched the voter app with the `starport serve` command.
+2. Enter the passphrase for Alice that was output to your console when you launched the voter app with the `starport chain serve` command.
 3. Name your wallet `voter` and enter a password.
 4. Click **Done**.
 
@@ -453,7 +454,7 @@ func CmdUpdatePoll() *cobra.Command {
 For the app to recognize the changes that you have made, reset the application before you run it again. To reset the app:
 
 ```sh
-starport serve --reset-once
+starport chain serve --reset-once
 ```
 
 ## Add the Votes
@@ -473,7 +474,7 @@ This command creates a vote type transaction with:
 Now, restart the application. Remember to use the `--reset-once` flag to recognize the code changes.
 
 ```bash
-starport serve --reset-once
+starport chain serve --reset-once
 ```
 
 Each time you reset the application state, all of the data from your previously created state is saved.

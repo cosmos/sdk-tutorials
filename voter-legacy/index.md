@@ -23,7 +23,7 @@ You can also use Starport v0.14.0 on the web in a [browser-based IDE](http://git
 Run the following command to create a voter project:
 
 ```
-starport app github.com/alice/voter --sdk-version launchpad
+starport scaffold chain github.com/alice/voter --sdk-version launchpad
 ```
 
 The Starport `app` command scaffolds a project structure for your application in a `voter` directory. Make sure to replace `alice` with your GitHub username.
@@ -39,10 +39,10 @@ cd voter
 - `vue` contains a web user interface for your app, responsible for everything you see on the user interface.
 - `x` contains the main building blocks of your app: modules. Right now there is only one module: `voter`.
 
-Your project directory contains all of the code that is required to build and launch a blockchain-based app. Now, you can try to launch your app by running starport serve inside your project:
+Your project directory contains all of the code that is required to build and launch a blockchain-based app. Now, you can try to launch your app by running starport chain serve inside your project:
 
 ```
-starport serve
+starport chain serve
 ```
 
 You should be able to see the following output - *as well as any errors that might show up in your application.*
@@ -58,7 +58,7 @@ You should be able to see the following output - *as well as any errors that mig
 🚀 Get started: http://localhost:12345/
 ```
 
-*Note: use* `starport serve --verbose` *to visualize detailed operations happening in the background*
+*Note: use* `starport chain serve --verbose` *to visualize detailed operations happening in the background*
 
 Congratulations! You now have a blockchain application running on your machine in just two commands. It doesn't do anything yet, so let's work on that.
 
@@ -78,7 +78,7 @@ starport type poll title options
 
 This command generated code that handles the creation of `poll` items. 
 
- Now you can run the `starport serve` command and visit [http://localhost:8080](http://localhost:8080) to see a form for creating polls. It may take a short while to rebuild the app, so give it a couple of seconds.
+ Now you can run the `starport chain serve` command and visit [http://localhost:8080](http://localhost:8080) to see a form for creating polls. It may take a short while to rebuild the app, so give it a couple of seconds.
 
 ![Application screenshot](./2.png)
 
@@ -316,7 +316,7 @@ func GetCmdSetPoll(cdc *codec.Codec) *cobra.Command {
 Now that we have made all the necessary changes to our app, let's take a look at the client-side application.
 
 ```
-starport serve
+starport chain serve
 ```
 
 ### Front-end application

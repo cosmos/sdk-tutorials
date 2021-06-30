@@ -5,18 +5,18 @@ order: 1
 
 # Building our PoFE blockchain using Starport
 
-We can scaffold our application by running `starport app github.com/user/pofe`. This creates a new folder called `pofe` which contains the code for your app.
+We can scaffold our application by running `starport scaffold chain github.com/user/pofe`. This creates a new folder called `pofe` which contains the code for your app.
 
 ```
-starport app github.com/user/pofe --sdk-version launchpad
+starport scaffold chain github.com/user/pofe --sdk-version launchpad
 ```
 
 ## Run application
 
-After scaffolding our application, let's open up a separate terminal window in the newly created `pofe` folder and run `starport serve`, which will start our application. Here, you should be able to see the following output, as well as any errors that might show up in your application.
+After scaffolding our application, let's open up a separate terminal window in the newly created `pofe` folder and run `starport chain serve`, which will start our application. Here, you should be able to see the following output, as well as any errors that might show up in your application.
 
 ```
-$ starport serve
+$ starport chain serve
 Cosmos' version is: Launchpad
 
 📦 Installing dependencies...
@@ -28,7 +28,7 @@ Cosmos' version is: Launchpad
 
 🚀 Get started: http://localhost:12345/
 ```
-*Note: use* `starport serve --verbose` *to visualize detailed operations happening in the background* 
+*Note: use* `starport chain serve --verbose` *to visualize detailed operations happening in the background* 
 
 ## Creating our `Claim` type
 
@@ -145,7 +145,7 @@ Once there are no more errors to run through, we can start submitting claims on 
 
 Let's start with the easiest one - let's say we want to prove that we made this blockchain.
 
-When we run `starport serve`, we're also building the application to a binary called `pofed`, so we can use this file to submit a claim:
+When we run `starport chain serve`, we're also building the application to a binary called `pofed`, so we can use this file to submit a claim:
 
 ```
 pofecli tx pofe create-claim $(which pofed) --from user1

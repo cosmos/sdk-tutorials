@@ -318,7 +318,7 @@ This function uses a prefix iterator to loop through all the keys with a given p
 Now, you can see how it works. Run the following command to recompile your app, clear the data and relaunch the chain:
 
 ```sh
-starport serve
+starport chain serve
 ```
 
 After the app has launched, open a different terminal window and create a post:

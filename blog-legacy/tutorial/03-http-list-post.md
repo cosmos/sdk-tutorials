@@ -52,7 +52,7 @@ Similarly to the CLI handler the function runs `QueryWithData` with a `custom/bl
 To build your app and launch servers, run:
 
 ```
-starport serve
+starport chain serve
 ```
 
 Alternatively, follow instructions in Part 1 to recompile and relaunch your app and add some test posts to the store. Make sure `blogcli q blog list-post` returns a list of posts.

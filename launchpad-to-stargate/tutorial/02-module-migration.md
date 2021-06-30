@@ -669,7 +669,7 @@ func GetTxCmd() *cobra.Command {
 
 ```
 
-Once this has been updated, we can try to run the app with `starport serve`, and our application should run as expected!
+Once this has been updated, we can try to run the app with `starport chain serve`, and our application should run as expected!
 
 ```sh
 $ pofed tx pofe create-claim $(which pofed) --from=user1

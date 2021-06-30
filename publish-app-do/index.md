@@ -50,7 +50,7 @@ On your local computer, run these commands in a terminal window:
 ```bash
 mkdir blockchain
 cd blockchain
-starport app github.com/<username>/digitalocean
+starport scaffold chain github.com/<username>/digitalocean
 ```
 
 A blockchain app with backend and frontend is created. The default scaffold is a working blockchain app with the functionality that is similar to the Cosmos Hub ($ATOM). Learn about the [Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html) and [ATOM](https://cosmos.network/features).
@@ -225,10 +225,10 @@ To upload the files, you can use `scp` to avoid a few extra steps.
 1. To install your app and configuration on the Droplet, use the Starport CLI:
 
 ```bash
-starport serve
+starport chain serve
 ```
 
-The `starport serve` command builds your Starport app, creates a genesis file, and creates your configuration.
+The `starport chain serve` command builds your Starport app, creates a genesis file, and creates your configuration.
 
 You see an output similar to:
 
@@ -247,7 +247,7 @@ Genesis transaction written to "/home/appuser/.digitalocean/config/gentx/gentx-8
 🌍 Token faucet: http://0.0.0.0:4500
 ```
 
-Press Ctrl+C to stop the chain that you started with the `starport serve` command.
+Press Ctrl+C to stop the chain that you started with the `starport chain serve` command.
 
 To confirm the installation (and celebrate your success), start the app:
 
@@ -296,7 +296,7 @@ Use "digitaloceand [command] --help" for more information about a command.
 
 ## Create a Systemd process
 
-The `starport serve` command helps installing, building, and configuring your app for a new blockchain. You received tokens on newly created accounts.
+The `starport chain serve` command helps installing, building, and configuring your app for a new blockchain. You received tokens on newly created accounts.
 
 This new app is useful only for development purposes and is not intended to be run for an extended time or in production. 
 

@@ -12,7 +12,7 @@ You will make sure that there can be no new native tokens minted on a blockchain
 Add the bank keeper reference to the `ibcdex` module. First, in the `types` directory.
 
 ```go
-// x/ibcdex/types/expected_keeper.go
+// x/ibcdex/types/expected_keeper_ibc.go
 package types
 
 import sdk "github.com/cosmos/cosmos-sdk/types"
@@ -70,8 +70,8 @@ Lastly, the `app.go` file that describes which modules are used in the blockchai
 // app/app.go
 app.ibcdexKeeper = *ibcdexkeeper.NewKeeper(
 	appCodec,
-	keys[ibcdextypes.StoreKey],
-	keys[ibcdextypes.MemStoreKey],
+	keys[ibcdexmoduletypes.StoreKey],
+	keys[ibcdexmoduletypes.MemStoreKey],
 	app.IBCKeeper.ChannelKeeper,
 	&app.IBCKeeper.PortKeeper,
 	scopedIbcdexKeeper,
@@ -91,7 +91,7 @@ maccPerms = map[string][]string{
     stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
     govtypes.ModuleName:            {authtypes.Burner},
     ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
-    ibcdextypes.ModuleName:         {authtypes.Minter, authtypes.Burner}, // <--
+    ibcdexmoduletypes.ModuleName:   {authtypes.Minter, authtypes.Burner}, // <--
 }
 ```
 

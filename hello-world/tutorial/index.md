@@ -82,7 +82,7 @@ Use Starport to scaffold the blockchain app and the blog module.
 To scaffold a new blockchain named `planet`:
 
 ```go
-starport app github.com/user/planet
+starport scaffold chain github.com/user/planet
 cd planet
 ```
 
@@ -167,7 +167,7 @@ Notice the fields in the `ibcPost` packet match the fields in the `post` type th
 The `starport packet` command also scaffolds the CLI command that is capable of sending an IBC packet:
 
 ```go
-planetd tx blog send-ibcPost [portID] [channelD] [title] [content]
+planetd tx blog send-ibc-post [postID] [channelD] [title] [content]
 ```
 
 ## Modify the Source Code
@@ -234,7 +234,7 @@ Finally, the Starport-generated AppendPost function returns the ID of the new ap
 
 Append the type instance as `PostID` on receiving the packet:
 
-- The context `ctx` is an [immutable data structure](https://docs.cosmos.network/master/core/context.html#go-context-package) that has header data from the transaction. See [how the context is initiated](https://github.com/cosmos/cosmos-sdk/blob/master/types/context.go#L71)
+- The context `ctx` is an [immutable data structure](https://docs.cosmos.network/master/core/context.html#go-context-package) that has header data from the transaction. See [how the context is initiated](https://github.com/cosmos/cosmos-sdk/blob/151d6c5e97e87d97f0f5872c35b43fc0a821f101/types/context.go#L80-L94)
 - The identifier format that you defined earlier
 - The `title` is the Title of the blog post
 - The `content` is the Content of the blog post
@@ -394,13 +394,13 @@ init:
 Open a terminal window and run the following command to start the `earth` blockchain:
 
 ```
-starport serve -c earth.yml
+starport chain serve -c earth.yml
 ```
 
 Open a different terminal window and run the following command to start the `mars` blockchain:
 
 ```
-starport serve -c mars.yml
+starport chain serve -c mars.yml
 ```
 
 ### Configure and start the relayer
@@ -472,7 +472,7 @@ Listening and relaying packets between chains...
 You can now send packets and verify the received posts:
 
 ```
-planetd tx blog send-ibcPost blog channel-0 "Hello" "Hello Mars, I'm Alice from Earth" --from alice --chain-id earth --home ~/.earth
+planetd tx blog send-ibc-post blog channel-0 "Hello" "Hello Mars, I'm Alice from Earth" --from alice --chain-id earth --home ~/.earth
 ```
 
 To verify that the post has been received on Mars:
@@ -497,7 +497,7 @@ pagination:
 To check if the packet has been acknowledged on Earth:
 
 ```
-planetd q blog list-sentPost
+planetd q blog list-sent-post
 ```
 
 Output:
@@ -517,7 +517,7 @@ pagination:
 To test timeout, set the timeout time of a packet to 1 nanosecond, verify that the packet is timed out, and check the timed-out posts:
 
 ```
-planetd tx blog send-ibcPost blog channel-0 "Sorry" "Sorry Mars, you will never see this post" --from alice --chain-id earth --home ~/.earth --packet-timeout-timestamp 1
+planetd tx blog send-ibc-post blog channel-0 "Sorry" "Sorry Mars, you will never see this post" --from alice --chain-id earth --home ~/.earth --packet-timeout-timestamp 1
 ```
 
 Check the timed-out posts:
@@ -542,7 +542,7 @@ pagination:
 You can also send a post from Mars:
 
 ```
-planetd tx blog send-ibcPost blog channel-0 "Hello" "Hello Earth, I'm Alice from Mars" --from alice --chain-id mars --home ~/.mars --node tcp://localhost:26659
+planetd tx blog send-ibc-post blog channel-0 "Hello" "Hello Earth, I'm Alice from Mars" --from alice --chain-id mars --home ~/.mars --node tcp://localhost:26659
 ```
 
 List post on Earth:

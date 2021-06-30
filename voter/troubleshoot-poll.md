@@ -17,7 +17,7 @@ The polling app tutorial involves many steps. Use these troubleshooting tips to 
 There are two parts to unlocking the voter app.
 
 1. Click the **Locked** element on the front-end app to expose the lock icon, and then click the lock icon. Enter the password you created when you named your wallet `voter` in the [Sign in as Alice](./voter/#sign-in-as-alice) step.
-2. Make sure that your blockchain app is running in the terminal window where you launched the voter app with the `starport serve` command. If the app is not running, launch it again. Run the `starport serve` command in the `voter` directory.
+2. Make sure that your blockchain app is running in the terminal window where you launched the voter app with the `starport chain serve` command. If the app is not running, launch it again. Run the `starport chain serve` command in the `voter` directory.
 
 ### Building proto... cannot build app errors
 
@@ -33,7 +33,7 @@ Waiting for a fix before retrying... 🛠️ Building proto... cannot build app:
 
 1. Resolve any code errors.
 2. Save the files.
-3. Restart the app with the `starport serve` command.
+3. Restart the app with the `starport chain serve` command.
 
 ### Front-end App Doesn't Load
 

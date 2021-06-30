@@ -40,7 +40,7 @@ A pair of token always has one order book that everyone can access in the app.
 When an order book pair already exists, it should throw an error.
 
 ```go
-// x/ibcdex/keeper/msg_server_createPair.go
+// x/ibcdex/keeper/msg_server_create_pair.go
 import "errors"
 
 //...
@@ -65,7 +65,7 @@ When a packet with an order book creation is received, the validity of the trans
 If the pair does not exist yet, it can be added to the keeper.
 
 ```go
-// x/ibcdex/keeper/createPair.go
+// x/ibcdex/keeper/create_pair.go
 func (k Keeper) OnRecvCreatePairPacket(ctx sdk.Context, packet channeltypes.Packet, data types.CreatePairPacketData) (packetAck types.CreatePairPacketAck, err error) {
 	// validate packet data upon receiving
 	if err := data.ValidateBasic(); err != nil {
@@ -94,7 +94,7 @@ When a packet sent with IBC is valid and received, it must be acknowledged.
 When the acknowledgement is successful, add the sell order book to the database.
 
 ```go
-// x/ibcdex/keeper/createPair.go
+// x/ibcdex/keeper/create_pair.go
 func (k Keeper) OnAcknowledgementCreatePairPacket(ctx sdk.Context, packet channeltypes.Packet, data types.CreatePairPacketData, ack channeltypes.Acknowledgement) error {
 	switch dispatchedAck := ack.Response.(type) {
 	case *channeltypes.Acknowledgement_Error:

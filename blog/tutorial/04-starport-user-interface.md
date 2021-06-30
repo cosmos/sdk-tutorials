@@ -8,7 +8,7 @@ After you navigate to the UI, the following `vue` UI is available at `localhost:
 
 ![](./userinterface.png)
 
-After using the mnemonic from the output of `starport serve`, you can use this UI to perform `create` and `list` operations for your blog application's `post` and `comment` types.
+After using the mnemonic from the output of `starport chain serve`, you can use this UI to perform `create` and `list` operations for your blog application's `post` and `comment` types.
 
 ### Inspect the Frontend
 

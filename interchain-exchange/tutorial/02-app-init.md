@@ -23,7 +23,7 @@ You can also use Starport v0.16.2 in a [browser-based IDE](http://gitpod.io/#htt
 Scaffold a new blockchain called `interchange`
 
 ```bash
-starport app github.com/username/interchange
+starport scaffold chain github.com/username/interchange
 cd interchange
 ```
 
@@ -78,8 +78,8 @@ Cancelling orders is done locally in the network, there is no packet to send.
 Use the `message` command to create a message to cancel a sell or buy order.
 
 ```go
-starport message cancelSellOrder port channel amountDenom priceDenom orderID:int --desc "Cancel a sell order" --module ibcdex
-starport message cancelBuyOrder port channel amountDenom priceDenom orderID:int --desc "Cancel a buy order" --module ibcdex
+starport message cancel-sell-order port channel amountDenom priceDenom orderID:int --desc "Cancel a sell order" --module ibcdex
+starport message cancel-buy-order port channel amountDenom priceDenom orderID:int --desc "Cancel a buy order" --module ibcdex
 ```
 
 The optional `--desc` flag lets you define a description of the CLI command that is used to broadcast a transaction with the message.

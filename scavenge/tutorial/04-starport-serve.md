@@ -8,7 +8,7 @@ Follow these commands to run our application:
 
 ```bash
 $ cd scavenge
-$ starport serve
+$ starport chain serve
 Cosmos version is: Launchpad
 
 📦 Installing dependencies...
@@ -22,7 +22,7 @@ Cosmos version is: Launchpad
 
 ```
 
-## Breaking down the `starport serve` command
+## Breaking down the `starport chain serve` command
 
 From the output above, we can see the following has occurred:
 - Two accounts were created with the respective [mnemonics](https://support.mycrypto.com/general-knowledge/cryptography/how-do-mnemonic-phrases-work). Later on in this tutorial, you'll use them to log in and interact with your application.
@@ -32,7 +32,7 @@ From the output above, we can see the following has occurred:
 
 Before starting up our application, the `serve` command runs a build for our Cosmos SDK application as well as our Vue frontend.
 
-The build process executed by `starport serve` is similar to running `make install` in the following `Makefile`.
+The build process executed by `starport chain serve` is similar to running `make install` in the following `Makefile`.
 
 ```
 PACKAGES=$(shell go list ./... | grep -v '/simulation')
@@ -108,7 +108,7 @@ In a separate terminal, you can also `cd` into the `vue` directory and run `npm 
 ## Application
 
 
-Let's run `starport serve` again, as it does additional hot reloading for our app out of the box. After this, we can navigate to [`localhost:12345`](http://localhost:12345), where we should see the following landing page:
+Let's run `starport chain serve` again, as it does additional hot reloading for our app out of the box. After this, we can navigate to [`localhost:12345`](http://localhost:12345), where we should see the following landing page:
 
 ![](./img/localhost_12345.png)
 

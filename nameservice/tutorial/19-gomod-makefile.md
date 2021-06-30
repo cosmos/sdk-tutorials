@@ -4,7 +4,7 @@ order: 21
 
 # Starport serve
 
-Having bootstrapped your application with starport you can use the Starport utility `starport serve` to get your blockchain running. Make sure to include your `nametoken` into your `config.yml` file
+Having bootstrapped your application with starport you can use the Starport utility `starport chain serve` to get your blockchain running. Make sure to include your `nametoken` into your `config.yml` file
 
 <<< @/nameservice/nameservice/config.yml
 

@@ -8,7 +8,7 @@ A Proof of File Existence can help prove the authenticity of a certain file at a
 ## Get started
 
 ```
-starport serve
+starport chain serve
 ```
 
 `serve` command installs dependencies, initializes and runs the application.

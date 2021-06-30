@@ -8,7 +8,7 @@ Get started by creating a new app, we will be using the lvl-1 app which is provi
 
 You can fill in `user` with your Github username and `repo` with the name of the repo you are creating. 
 ```bash
-starport app github.com/user/nameservice --sdk-version="launchpad"
+starport scaffold chain github.com/user/nameservice --sdk-version="launchpad"
 cd nameservice
 ```
 

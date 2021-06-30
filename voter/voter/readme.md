@@ -5,7 +5,7 @@
 ## Get started
 
 ```
-starport serve
+starport chain serve
 ```
 
 `serve` command installs dependencies, builds, initializes and starts your blockchain in development.

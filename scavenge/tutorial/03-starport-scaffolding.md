@@ -41,14 +41,14 @@ Flags:
 Use "starport [command] --help" for more information about a command.
 ```
 
-Now that the `starport` command is available, you can scaffold an application by using the `starport app` command:
+Now that the `starport` command is available, you can scaffold an application by using the `starport scaffold chain` command:
 
 ```bash
-$ starport app --help
+$ starport scaffold chain --help
 Generates an empty application
 
 Usage:
-  starport app [github.com/org/repo] [flags]
+  starport scaffold chain [github.com/org/repo] [flags]
 
 Flags:
       --address-prefix string   Address prefix (default "cosmos")
@@ -56,16 +56,16 @@ Flags:
       --sdk-version string      Target Cosmos-SDK Version -launchpad -stargate (default "stargate")
 ```
 
-Let's start by scaffolding our `scavenge` application with `starport app`. This should generate a directory of folders called `scavenge` inside your current working directory, as well as scaffold our `scavenge` module. 
+Let's start by scaffolding our `scavenge` application with `starport scaffold chain`. This should generate a directory of folders called `scavenge` inside your current working directory, as well as scaffold our `scavenge` module. 
 
 ```bash
-$ starport app github.com/github-username/scavenge --sdk-version="launchpad"
+$ starport scaffold chain github.com/github-username/scavenge --sdk-version="launchpad"
 
 ⭐️ Successfully created a Cosmos app 'scavenge'.
 👉 Get started with the following commands:
 
  % cd scavenge
- % starport serve
+ % starport chain serve
 
 NOTE: add --verbose flag for verbose (detailed) output.
 ```

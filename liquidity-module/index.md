@@ -68,7 +68,7 @@ Before you start the tutorial, install the prerequisite software.
 Scaffold a new blockchain called `myblockchain`:
 
 ```bash
-starport app github.com/username/myblockchain
+starport scaffold chain github.com/username/myblockchain
 ```
 Change to the blockchain directory:
 
@@ -97,7 +97,7 @@ The minimum reserve coin amount for a pool in the liquidity module is 1,000,000.
 To start your blockchain, run this command in your local terminal:
 
 ```bash
-starport serve
+starport chain serve
 ```
 
 You see output similar to the following output, but with different account passphrases and addresses:
@@ -119,7 +119,7 @@ Genesis transaction written to "/Users/joy20/.myblockchaind/config/gentx/gentx-2
 🌍 Token faucet: http://0.0.0.0:4500
 ```
 
-Be patient, using the `starport serve` command is powerful and takes a few minutes. You are starting your sovereign application-specific blockchain in development and this command is doing all the work for you. Everything you need is being scaffolded so you can focus on business logic.
+Be patient, using the `starport chain serve` command is powerful and takes a few minutes. You are starting your sovereign application-specific blockchain in development and this command is doing all the work for you. Everything you need is being scaffolded so you can focus on business logic.
 
 ## Configure the Relayer
 
@@ -211,8 +211,8 @@ Listening and relaying packets between chains...
 
 ## Get Token From the Faucet
 
-From the terminal output that `starport serve` created for you, use the `username` accounts address and claim tokens from the faucet.
-Make sure to add your account address into the `address` field. Replace `cosmosxxxxx` with the address you saw in your user account on running `starport serve`.
+From the terminal output that `starport chain serve` created for you, use the `username` accounts address and claim tokens from the faucet.
+Make sure to add your account address into the `address` field. Replace `cosmosxxxxx` with the address you saw in your user account on running `starport chain serve`.
 
 ```markdown
 curl -X POST -d '{"address": "cosmosxxxxx"}' https://faucet.testnet.cosmos.network
@@ -279,7 +279,7 @@ To access Starport `username` account on `gaiad`, add it to the keychain.
 gaiad keys add username --recover
 ```
 
-It will ask you for the passphrase, that you see in the terminal window of running `starport serve` on your `myblockchaind`
+It will ask you for the passphrase, that you see in the terminal window of running `starport chain serve` on your `myblockchaind`
 
 ```bash
 > Enter your bip39 mnemonic

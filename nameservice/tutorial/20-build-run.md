@@ -6,10 +6,10 @@ order: 22
 
 ## Building the `nameservice` application
 
-This repo contains a complete `nameservice` application, scaffolded with starport. You should be able to run the application using `starport serve` in the home directory:
+This repo contains a complete `nameservice` application, scaffolded with starport. You should be able to run the application using `starport chain serve` in the home directory:
 
 ```
-$ starport serve
+$ starport chain serve
 
 📦 Installing dependencies...
 🛠️  Building the app...
@@ -31,12 +31,12 @@ If you have not completed the tutorial then you can follow the below cloning ins
 git clone https://github.com/cosmos/sdk-tutorials.git
 cd sdk-tutorials
 cd nameservice/nameservice
-starport serve
+starport chain serve
 ```
 
-## Breaking down the `starport serve` command
+## Breaking down the `starport chain serve` command
 
-Before running our application, `starport serve` runs a build similar to that in our `Makefile`.
+Before running our application, `starport chain serve` runs a build similar to that in our `Makefile`.
 
 Afterwards, it initializes our `genesis.json` file based on the contents of the `config.yml` file. You can see we've defined two `accounts` to the genesis, `user1` and `user2`, and have set up `user1` as the validator for the node we're going to run.
 
