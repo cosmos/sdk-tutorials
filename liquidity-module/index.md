@@ -129,12 +129,6 @@ A relayer is software to connect two blockchains. Configure the relayer with you
 
 If you previously used the relayer, follow these steps to remove exiting relayer and Starport configurations:
 
-- Remove your existing relayer config:
-    
-    ```bash
-    rm -r $HOME/.relayer/*
-    ```
-
 - Delete previous configuration files:
 
     ```
@@ -236,12 +230,21 @@ At your local terminal, enter the IBC module command to transfer your token to t
 Make sure to replace `cosmosxxxxx` with your address, `mytoken` with your token name and `username` with your username.
 
 ```bash
-myblockchaind tx ibc-transfer transfer transfer channel-0 cosmosxxxxx "500mytoken" --from username
+myblockchaind tx ibc-transfer transfer transfer channel-0 cosmosxxxxx "15000000mytoken" --from username
 ```
 
 After your transaction is complete, check your balance on the Gravity DEX testnet to confirm your token transfer.
 
 Make sure to replace `cosmosxxxxx` with your address.
+
+**Tip** Sometimes transactions don't go through on the first try. Make sure you check the terminal window that shows the relayer process and verify that you see output similar to the following output:
+
+ ```markdown
+ Relay 1 packets from myblockchain => cosmoshub-testnet
+ Relay 1 packets from myblockchain => cosmoshub-testnet
+ Relay 1 acks from cosmoshub-testnet => myblockchain
+ Relay 1 acks from cosmoshub-testnet => myblockchain
+ ```
 
 See your balance at [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx).
 
@@ -253,7 +256,7 @@ With the liquidity module and gaiad binary installed, use these links to explore
 
 - RPC [https://rpc.testnet.cosmos.network:443](https://rpc.testnet.cosmos.network/)
 
-- API[https://api.testnet.cosmos.network:443](https://api.testnet.cosmos.network/)
+- API [https://api.testnet.cosmos.network:443](https://api.testnet.cosmos.network/)
 
 - gRPC [https://grpc.testnet.cosmos.network:443](https://grpc.testnet.cosmos.network/)
 
@@ -300,8 +303,9 @@ To create a liquidity pool, enter the following command:
 Make sure to replace `longibchash` with the hash denom you received on the previous step. Replace `username` with your account username.
 
 ```bash
-gaiad tx liquidity create-pool 1 1100000uphoton,1500000ibc/longibchash --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443
+gaiad tx liquidity create-pool 1 1100000uphoton,1500000ibc/longibchash --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443 --gas 2000000 -y
 ```
+**Optional:** Add -y flag to bypass confirmation prompt
 
 Confirm the pool has been created. See:
 
@@ -318,4 +322,6 @@ gaiad tx liquidity swap 1 1 100000uphoton ibc/longibchash 0.1 0.003 --from usern
 
 Check the balance on the new account that made the trade:
 
-[https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmos15zk2xl8acjl9g4hrxlsrhtf07dkecyay3yapys](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmos15zk2xl8acjl9g4hrxlsrhtf07dkecyay3yapys)
+[https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
+
+Make sure to replace `cosmosxxxxx` with your address.
