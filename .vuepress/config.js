@@ -60,6 +60,12 @@ module.exports = {
           title: "Tutorials",
           children: [
             {
+              title: "Install Starport",
+              path: "/starport/",
+              directory: true,
+            },
+            
+            {
               title: "IBC Hello World",
               path: "/hello-world/tutorial/",
               directory: true,
@@ -82,6 +88,16 @@ module.exports = {
             {
               title: "Connecting to a Testnet",
               path: "/connecting-to-testnet/",
+              directory: true,
+            },
+            {
+              title: "Understanding the Liquidity Module",
+              path: "liquidity-module/",
+              directory: true,
+            },
+            {
+              title: "Deploy Your Blockchain on Digital Ocean",
+              path: "/publish-app-do/",
               directory: true,
             },
           ],
@@ -230,5 +246,8 @@ module.exports = {
     "blog-legacy/tutorial/*.md",
     "blog/tutorial/*.md",
     "interchain-exchange/tutorial/*.md",
+    "liquidity-module/*.md",
+    "publish-app-do/*.md",
+    "starport/*.md",
   ],
 };

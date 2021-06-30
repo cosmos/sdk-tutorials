@@ -42,10 +42,19 @@ When you're finished, you'll be able to...
 <!-- For example:
 Run Rosetta in your application CLI.
 >
-## Prerequisites
+## Requirements
 
-<!-- Prerequisites let you leverage existing tutorials so you don't have to repeat core concepts, installation, or setup steps in your tutorial.  -->
+<!-- Requirements let you leverage existing tutorials so you don't have to repeat core concepts, installation, or setup steps in your tutorial. 
 
+The purpose is to spell out exactly what the reader should have or do before they follow the current tutorial. The format is a bulleted list that the reader can use as a checklist. Each bullet point must link to a specific page or existing tutorial that covers the necessary content if one exists. This allows you to rely on existing content known to work instead of starting from scratch.
+ 
+Our tutorials take the reader from a fresh deployment to a working setup, so they should start from the beginning or include a prerequisite tutorial that does.
+
+Common requirements for tutorials include:
+
+Local software needed, such as Go and Starport. For example:
+-->
+- [Install Starport](../starport/index.md) v0.16.2 <!--(or whatever version applies)-->
 
 ## 
 
