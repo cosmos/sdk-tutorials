@@ -637,7 +637,7 @@ During a successful transmission, an IBC packet goes through 4 stages:
 
 In the following section you'll be implementing packet reception logic in the `OnRecvCreatePairPacket` function and packet acknowledgement logic in the `OnAcknowledgementCreatePairPacket` function. Timeout function will be left empty.
 
-## `OnRecv` Function Implementation
+## `OnRecv`
 
 On the target chain when an IBC packet is recieved, the module should check whether a book already exists, if not, create a new buy order book for specified denoms.
 
@@ -719,7 +719,7 @@ message Order {
 }
 ```
 
-## `OnAcknowledgement` Function Implementation
+## `OnAcknowledgement`
 
 On the source chain when an IBC acknowledgement is recieved, the module should check whether a book already exists, if not, create a new sell order book for specified denoms.
 
@@ -979,7 +979,7 @@ maccPerms = map[string][]string{
 }
 ```
 
-### `SaveVoucherDenom` Implementation
+### `SaveVoucherDenom`
 
 `SaveVoucherDenom` saves the voucher denom to be able to convert it back later.
 
@@ -1019,13 +1019,17 @@ func VoucherDenom(port string, channel string, denom string) string {
   // construct the denomination trace from the full raw denomination
   denomTrace := ibctransfertypes.ParseDenomTrace(prefixedDenom)
   voucher := denomTrace.IBCDenom()
-  return voucher
+  return voucher[:16]
 }
 ```
 
-## `OnRecv` Function Implementation
+## `OnRecv`
 
-When a "sell order" packet is received on the target chain, the module should 
+When a "sell order" packet is received on the target chain, the module should  ????
+
+- Update the sell order book
+- Distribute sold token to the buyer
+- Send to chain A the sell order after the fill attempt
 
 ```go
 // x/ibcdex/keeper/sellOrder.go
@@ -1237,7 +1241,7 @@ func (k Keeper) UnlockTokens(ctx sdk.Context, sourcePort string, sourceChannel s
 }
 ```
 
-## `OnAcknowledgement` Function Implementation
+## `OnAcknowledgement`
 
 Once an IBC packet is processed on the target chain, an acknowledgement is returned to the source chain and processed in `OnAcknowledgementSellOrderPacket`. The module on the source chain will store the remaining sell order in the sell order book and will distribute sold tokens to the buyers and will distribute to the seller the price of the amount sold. On error the module mints the burned tokens.
 
@@ -1433,7 +1437,7 @@ func (book *OrderBook) insertOrder(order Order, ordering Ordering) {
 }
 ```
 
-## `OnTimeout` Function Implementation
+## `OnTimeout`
 
 If a timeout occurs, we mint back the native token.
 
@@ -1506,7 +1510,7 @@ func (k msgServer) SendBuyOrder(goCtx context.Context, msg *types.MsgSendBuyOrde
 }
 ```
 
-## `OnRecv` Function Implementation
+## `OnRecv`
 
 - Update the buy order book
 - Distribute sold token to the buyer
@@ -1637,7 +1641,7 @@ func (s *SellOrderBook) LiquidateFromBuyOrder(order Order) (remainingBuyOrder Or
 }
 ```
 
-## `OnAcknowledgement` Function Implementation
+## `OnAcknowledgement`
 
 - Chain `Mars` will store the remaining sell order in the sell order book and will distribute sold `MCX` to the buyers and will distribute to the seller the price of the amount sold
 - On error we mint back the burned tokens
@@ -1729,7 +1733,7 @@ func (b *BuyOrderBook) AppendOrder(creator string, amount int32, price int32) (i
 }
 ```
 
-## `OnTimeout` Function Implementation
+## `OnTimeout`
 
 If a timeout occurs, we mint back the native token.
 
@@ -1752,7 +1756,7 @@ func (k Keeper) OnTimeoutSellOrderPacket(ctx sdk.Context, packet channeltypes.Pa
 
 You have implemented order books, buy and sell orders.  In this chapter you will enable cancelling buy and sell orders. 
 
-## Cancel the Sell Order
+## Cancel a Sell Order
 
 To cancel a sell order, you have to get the ID of the specific sell order. Then you can use the function `RemoveOrderFromID` to remove the specific order from the order book and update the keeper accordingly.
 
@@ -1822,7 +1826,7 @@ func (book *OrderBook) RemoveOrderFromID(id int32) error {
 }
 ```
 
-## Cancel the Buy Order
+## Cancel a Buy Order
 
 To cancel a buy order, you have to get the ID of the specific buy order. Then you can use the function `RemoveOrderFromID` to remove the specific order from the order book and update the keeper accordingly.
 
