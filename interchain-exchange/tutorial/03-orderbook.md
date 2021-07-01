@@ -195,11 +195,11 @@ func (book *OrderBook) insertOrder(order Order, ordering Ordering) {
 
 ## Add The Sellorder
 
-Modify the `sellOrderBook.proto` file to add the order book into the sell order book.
+Modify the `sell_order_book.proto` file to add the order book into the sell order book.
 The proto definition for the `SellOrderBook` should look like follows:
 
 ```proto
-// proto/ibcdex/sellOrderBook.proto
+// proto/ibcdex/sell_order_book.proto
 syntax = "proto3";
 package username.interchange.ibcdex;
 

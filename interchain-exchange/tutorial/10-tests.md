@@ -16,7 +16,7 @@ go test -timeout 30s ./x/ibcdex/types
 
 ```go
 // types/order_book_test.go
-package types_test
+package types
 
 import (
 	"math/rand"
@@ -25,7 +25,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/crypto/keys/ed25519"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
-	"github.com/tendermint/interchange/x/ibcdex/types"
 )
 
 func GenString(n int) string {
@@ -45,11 +44,11 @@ func GenAddress() string {
 }
 
 func GenAmount() int32 {
-	return int32(rand.Intn(int(types.MaxAmount)) + 1)
+	return int32(rand.Intn(int(MaxAmount)) + 1)
 }
 
 func GenPrice() int32 {
-	return int32(rand.Intn(int(types.MaxPrice)) + 1)
+	return int32(rand.Intn(int(MaxPrice)) + 1)
 }
 
 func GenPair() (string, string) {
@@ -68,21 +67,21 @@ func MockAccount(str string) string {
 	return str
 }
 
-func OrderListToOrderBook(list []types.Order) types.OrderBook {
-	listCopy := make([]*types.Order, len(list))
+func OrderListToOrderBook(list []Order) OrderBook {
+	listCopy := make([]*Order, len(list))
 	for i, order := range list {
 		order := order
 		listCopy[i] = &order
 	}
 
-	return types.OrderBook{
+	return OrderBook{
 		IdCount: 0,
 		Orders:  listCopy,
 	}
 }
 
 func TestRemoveOrderFromID(t *testing.T) {
-	inputList := []types.Order{
+	inputList := []Order{
 		{Id: 3, Creator: MockAccount("3"), Amount: 2, Price: 10},
 		{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
 		{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
@@ -90,7 +89,7 @@ func TestRemoveOrderFromID(t *testing.T) {
 	}
 
 	book := OrderListToOrderBook(inputList)
-	expectedList := []types.Order{
+	expectedList := []Order{
 		{Id: 3, Creator: MockAccount("3"), Amount: 2, Price: 10},
 		{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 		{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
@@ -101,7 +100,7 @@ func TestRemoveOrderFromID(t *testing.T) {
 	require.Equal(t, expectedBook, book)
 
 	book = OrderListToOrderBook(inputList)
-	expectedList = []types.Order{
+	expectedList = []Order{
 		{Id: 3, Creator: MockAccount("3"), Amount: 2, Price: 10},
 		{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
 		{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
@@ -112,7 +111,7 @@ func TestRemoveOrderFromID(t *testing.T) {
 	require.Equal(t, expectedBook, book)
 
 	book = OrderListToOrderBook(inputList)
-	expectedList = []types.Order{
+	expectedList = []Order{
 		{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
 		{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 		{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
@@ -124,7 +123,7 @@ func TestRemoveOrderFromID(t *testing.T) {
 
 	book = OrderListToOrderBook(inputList)
 	err = book.RemoveOrderFromID(4)
-	require.ErrorIs(t, err, types.ErrOrderNotFound)
+	require.ErrorIs(t, err, ErrOrderNotFound)
 }
 ```
 
@@ -132,27 +131,26 @@ func TestRemoveOrderFromID(t *testing.T) {
 
 ```go
 // types/buy_order_book_test.go
-package types_test
+package types
 
 import (
 	"testing"
 	"sort"
 
 	"github.com/stretchr/testify/require"
-	"github.com/tendermint/interchange/x/ibcdex/types"
 )
 
-func OrderListToBuyOrderBook(list []types.Order) types.BuyOrderBook {
-	listCopy := make([]*types.Order, len(list))
+func OrderListToBuyOrderBook(list []Order) BuyOrderBook {
+	listCopy := make([]*Order, len(list))
 	for i, order := range list {
 		order := order
 		listCopy[i] = &order
 	}
 
-	book := types.BuyOrderBook{
+	book := BuyOrderBook{
 		AmountDenom: "foo",
 		PriceDenom:  "bar",
-		Book: &types.OrderBook{
+		Book: &OrderBook{
 			IdCount: 0,
 			Orders:  listCopy,
 		},
@@ -161,30 +159,30 @@ func OrderListToBuyOrderBook(list []types.Order) types.BuyOrderBook {
 }
 
 func TestAppendOrder(t *testing.T) {
-	buyBook := types.NewBuyOrderBook(GenPair())
+	buyBook := NewBuyOrderBook(GenPair())
 
 	// Prevent zero amount
 	seller, amount, price := GenOrder()
 	_, err := buyBook.AppendOrder(seller, 0, price)
-	require.ErrorIs(t, err, types.ErrZeroAmount)
+	require.ErrorIs(t, err, ErrZeroAmount)
 
 	// Prevent big amount
-	_, err = buyBook.AppendOrder(seller, types.MaxAmount+1, price)
-	require.ErrorIs(t, err, types.ErrMaxAmount)
+	_, err = buyBook.AppendOrder(seller, MaxAmount+1, price)
+	require.ErrorIs(t, err, ErrMaxAmount)
 
 	// Prevent zero price
 	_, err = buyBook.AppendOrder(seller, amount, 0)
-	require.ErrorIs(t, err, types.ErrZeroPrice)
+	require.ErrorIs(t, err, ErrZeroPrice)
 
 	// Prevent big price
-	_, err = buyBook.AppendOrder(seller, amount, types.MaxPrice+1)
-	require.ErrorIs(t, err, types.ErrMaxPrice)
+	_, err = buyBook.AppendOrder(seller, amount, MaxPrice+1)
+	require.ErrorIs(t, err, ErrMaxPrice)
 
 	// Can append buy orders
 	for i := 0; i < 20; i++ {
 		// Append a new order
 		creator, amount, price := GenOrder()
-		newOrder := types.Order{
+		newOrder := Order{
 			Id:      buyBook.Book.IdCount,
 			Creator: creator,
 			Amount:  amount,
@@ -206,9 +204,9 @@ func TestAppendOrder(t *testing.T) {
 }
 
 type liquidateSellRes struct {
-	Book       []types.Order
-	Remaining  types.Order
-	Liquidated types.Order
+	Book       []Order
+	Remaining  Order
+	Liquidated Order
 	Gain       int32
 	Match      bool
 	Filled     bool
@@ -216,8 +214,8 @@ type liquidateSellRes struct {
 
 func simulateLiquidateFromSellOrder(
 	t *testing.T,
-	inputList []types.Order,
-	inputOrder types.Order,
+	inputList []Order,
+	inputOrder Order,
 	expected liquidateSellRes,
 ) {
 	book := OrderListToBuyOrderBook(inputList)
@@ -242,13 +240,13 @@ func simulateLiquidateFromSellOrder(
 
 func TestLiquidateFromSellOrder(t *testing.T) {
 	// No match for empty book
-	inputOrder := types.Order{Id: 10, Creator: MockAccount("1"), Amount: 100, Price: 30}
-	book := OrderListToBuyOrderBook([]types.Order{})
+	inputOrder := Order{Id: 10, Creator: MockAccount("1"), Amount: 100, Price: 30}
+	book := OrderListToBuyOrderBook([]Order{})
 	_, _, _, match, _ := book.LiquidateFromSellOrder(inputOrder)
 	require.False(t, match)
 
 	// Buy book
-	inputBook := []types.Order{
+	inputBook := []Order{
 		{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
 		{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 		{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
@@ -260,15 +258,15 @@ func TestLiquidateFromSellOrder(t *testing.T) {
 	require.False(t, match)
 
 	// Entirely filled (30 < 50)
-	inputOrder = types.Order{Id: 10, Creator: MockAccount("1"), Amount: 30, Price: 22}
+	inputOrder = Order{Id: 10, Creator: MockAccount("1"), Amount: 30, Price: 22}
 	expected := liquidateSellRes{
-		Book: []types.Order{
+		Book: []Order{
 			{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
 			{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 			{Id: 0, Creator: MockAccount("0"), Amount: 20, Price: 25},
 		},
-		Remaining:  types.Order{Id: 10, Creator: MockAccount("1"), Amount: 0, Price: 22},
-		Liquidated: types.Order{Id: 0, Creator: MockAccount("0"), Amount: 30, Price: 25},
+		Remaining:  Order{Id: 10, Creator: MockAccount("1"), Amount: 0, Price: 22},
+		Liquidated: Order{Id: 0, Creator: MockAccount("0"), Amount: 30, Price: 25},
 		Gain:       int32(30 * 25),
 		Match:      true,
 		Filled:     true,
@@ -276,14 +274,14 @@ func TestLiquidateFromSellOrder(t *testing.T) {
 	simulateLiquidateFromSellOrder(t, inputBook, inputOrder, expected)
 
 	// Entirely filled and liquidated ( 50 = 50)
-	inputOrder = types.Order{Id: 10, Creator: MockAccount("1"), Amount: 50, Price: 15}
+	inputOrder = Order{Id: 10, Creator: MockAccount("1"), Amount: 50, Price: 15}
 	expected = liquidateSellRes{
-		Book: []types.Order{
+		Book: []Order{
 			{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
 			{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 		},
-		Remaining:  types.Order{Id: 10, Creator: MockAccount("1"), Amount: 0, Price: 15},
-		Liquidated: types.Order{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
+		Remaining:  Order{Id: 10, Creator: MockAccount("1"), Amount: 0, Price: 15},
+		Liquidated: Order{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
 		Gain:       int32(50 * 25),
 		Match:      true,
 		Filled:     true,
@@ -291,14 +289,14 @@ func TestLiquidateFromSellOrder(t *testing.T) {
 	simulateLiquidateFromSellOrder(t, inputBook, inputOrder, expected)
 
 	// Not filled and entirely liquidated (60 > 50)
-	inputOrder = types.Order{Id: 10, Creator: MockAccount("1"), Amount: 60, Price: 10}
+	inputOrder = Order{Id: 10, Creator: MockAccount("1"), Amount: 60, Price: 10}
 	expected = liquidateSellRes{
-		Book: []types.Order{
+		Book: []Order{
 			{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
 			{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 		},
-		Remaining:  types.Order{Id: 10, Creator: MockAccount("1"), Amount: 10, Price: 10},
-		Liquidated: types.Order{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
+		Remaining:  Order{Id: 10, Creator: MockAccount("1"), Amount: 10, Price: 10},
+		Liquidated: Order{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
 		Gain:       int32(50 * 25),
 		Match:      true,
 		Filled:     false,
@@ -307,17 +305,17 @@ func TestLiquidateFromSellOrder(t *testing.T) {
 }
 
 type fillSellRes struct {
-	Book       []types.Order
-	Remaining  types.Order
-	Liquidated []types.Order
+	Book       []Order
+	Remaining  Order
+	Liquidated []Order
 	Gain       int32
 	Filled     bool
 }
 
 func simulateFillSellOrder(
 	t *testing.T,
-	inputList []types.Order,
-	inputOrder types.Order,
+	inputList []Order,
+	inputOrder Order,
 	expected fillSellRes,
 ) {
 	book := OrderListToBuyOrderBook(inputList)
@@ -340,21 +338,21 @@ func simulateFillSellOrder(
 }
 
 func TestFillSellOrder(t *testing.T) {
-	var inputBook []types.Order
+	var inputBook []Order
 
 	// Empty book
-	inputOrder := types.Order{Id: 10, Creator: MockAccount("1"), Amount: 30, Price: 30}
+	inputOrder := Order{Id: 10, Creator: MockAccount("1"), Amount: 30, Price: 30}
 	expected := fillSellRes{
-		Book:       []types.Order{},
+		Book:       []Order{},
 		Remaining:  inputOrder,
-		Liquidated: []types.Order(nil),
+		Liquidated: []Order(nil),
 		Gain:       int32(0),
 		Filled:     false,
 	}
 	simulateFillSellOrder(t, inputBook, inputOrder, expected)
 
 	// No match
-	inputBook = []types.Order{
+	inputBook = []Order{
 		{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
 		{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 		{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
@@ -362,21 +360,21 @@ func TestFillSellOrder(t *testing.T) {
 	expected = fillSellRes{
 		Book:       inputBook,
 		Remaining:  inputOrder,
-		Liquidated: []types.Order(nil),
+		Liquidated: []Order(nil),
 		Gain:       int32(0),
 		Filled:     false,
 	}
 	simulateFillSellOrder(t, inputBook, inputOrder, expected)
 
 	// First order liquidated, not filled
-	inputOrder = types.Order{Id: 10, Creator: MockAccount("1"), Amount: 60, Price: 22}
+	inputOrder = Order{Id: 10, Creator: MockAccount("1"), Amount: 60, Price: 22}
 	expected = fillSellRes{
-		Book: []types.Order{
+		Book: []Order{
 			{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
 			{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 		},
-		Remaining: types.Order{Id: 10, Creator: MockAccount("1"), Amount: 10, Price: 22},
-		Liquidated: []types.Order{
+		Remaining: Order{Id: 10, Creator: MockAccount("1"), Amount: 10, Price: 22},
+		Liquidated: []Order{
 			{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
 		},
 		Gain:   int32(50 * 25),
@@ -385,14 +383,14 @@ func TestFillSellOrder(t *testing.T) {
 	simulateFillSellOrder(t, inputBook, inputOrder, expected)
 
 	// Filled with two order
-	inputOrder = types.Order{Id: 10, Creator: MockAccount("1"), Amount: 60, Price: 18}
+	inputOrder = Order{Id: 10, Creator: MockAccount("1"), Amount: 60, Price: 18}
 	expected = fillSellRes{
-		Book: []types.Order{
+		Book: []Order{
 			{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
 			{Id: 1, Creator: MockAccount("1"), Amount: 190, Price: 20},
 		},
-		Remaining: types.Order{Id: 10, Creator: MockAccount("1"), Amount: 0, Price: 18},
-		Liquidated: []types.Order{
+		Remaining: Order{Id: 10, Creator: MockAccount("1"), Amount: 0, Price: 18},
+		Liquidated: []Order{
 			{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
 			{Id: 1, Creator: MockAccount("1"), Amount: 10, Price: 20},
 		},
@@ -402,11 +400,11 @@ func TestFillSellOrder(t *testing.T) {
 	simulateFillSellOrder(t, inputBook, inputOrder, expected)
 
 	// Not filled, buy order book liquidated
-	inputOrder = types.Order{Id: 10, Creator: MockAccount("1"), Amount: 300, Price: 10}
+	inputOrder = Order{Id: 10, Creator: MockAccount("1"), Amount: 300, Price: 10}
 	expected = fillSellRes{
-		Book:      []types.Order{},
-		Remaining: types.Order{Id: 10, Creator: MockAccount("1"), Amount: 20, Price: 10},
-		Liquidated: []types.Order{
+		Book:      []Order{},
+		Remaining: Order{Id: 10, Creator: MockAccount("1"), Amount: 20, Price: 10},
+		Liquidated: []Order{
 			{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
 			{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 			{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
@@ -422,26 +420,26 @@ func TestFillSellOrder(t *testing.T) {
 
 ```go
 // types/sell_order_book_test.go
-package types_test
+package types
 
 import (
-	"github.com/tendermint/interchange/x/ibcdex/types"
 	"testing"
-	"github.com/stretchr/testify/require"
 	"sort"
+	
+	"github.com/stretchr/testify/require"
 )
 
-func OrderListToSellOrderBook(list []types.Order) types.SellOrderBook {
-	listCopy := make([]*types.Order, len(list))
+func OrderListToSellOrderBook(list []Order) SellOrderBook {
+	listCopy := make([]*Order, len(list))
 	for i, order := range list {
 		order := order
 		listCopy[i] = &order
 	}
 
-	book := types.SellOrderBook{
+	book := SellOrderBook{
 		AmountDenom: "foo",
 		PriceDenom:  "bar",
-		Book: &types.OrderBook{
+		Book: &OrderBook{
 			IdCount: 0,
 			Orders:  listCopy,
 		},
@@ -450,30 +448,30 @@ func OrderListToSellOrderBook(list []types.Order) types.SellOrderBook {
 }
 
 func TestSellOrderBook_AppendOrder(t *testing.T) {
-	sellBook := types.NewSellOrderBook(GenPair())
+	sellBook := NewSellOrderBook(GenPair())
 
 	// Prevent zero amount
 	seller, amount, price := GenOrder()
 	_, err := sellBook.AppendOrder(seller, 0, price)
-	require.ErrorIs(t, err, types.ErrZeroAmount)
+	require.ErrorIs(t, err, ErrZeroAmount)
 
 	// Prevent big amount
-	_, err = sellBook.AppendOrder(seller, types.MaxAmount+1, price)
-	require.ErrorIs(t, err, types.ErrMaxAmount)
+	_, err = sellBook.AppendOrder(seller, MaxAmount+1, price)
+	require.ErrorIs(t, err, ErrMaxAmount)
 
 	// Prevent zero price
 	_, err = sellBook.AppendOrder(seller, amount, 0)
-	require.ErrorIs(t, err, types.ErrZeroPrice)
+	require.ErrorIs(t, err, ErrZeroPrice)
 
 	// Prevent big price
-	_, err = sellBook.AppendOrder(seller, amount, types.MaxPrice+1)
-	require.ErrorIs(t, err, types.ErrMaxPrice)
+	_, err = sellBook.AppendOrder(seller, amount, MaxPrice+1)
+	require.ErrorIs(t, err, ErrMaxPrice)
 
 	// Can append sell orders
 	for i := 0; i < 20; i++ {
 		// Append a new order
 		creator, amount, price := GenOrder()
-		newOrder := types.Order{
+		newOrder := Order{
 			Id:      sellBook.Book.IdCount,
 			Creator: creator,
 			Amount:  amount,
@@ -493,9 +491,9 @@ func TestSellOrderBook_AppendOrder(t *testing.T) {
 }
 
 type liquidateBuyRes struct {
-	Book       []types.Order
-	Remaining  types.Order
-	Liquidated types.Order
+	Book       []Order
+	Remaining  Order
+	Liquidated Order
 	Purchase   int32
 	Match      bool
 	Filled     bool
@@ -503,8 +501,8 @@ type liquidateBuyRes struct {
 
 func simulateLiquidateFromBuyOrder(
 	t *testing.T,
-	inputList []types.Order,
-	inputOrder types.Order,
+	inputList []Order,
+	inputOrder Order,
 	expected liquidateBuyRes,
 ) {
 	book := OrderListToSellOrderBook(inputList)
@@ -528,13 +526,13 @@ func simulateLiquidateFromBuyOrder(
 
 func TestLiquidateFromBuyOrder(t *testing.T) {
 	// No match for empty book
-	inputOrder := types.Order{Id: 10, Creator: MockAccount("1"), Amount: 100, Price: 10}
-	book := OrderListToSellOrderBook([]types.Order{})
+	inputOrder := Order{Id: 10, Creator: MockAccount("1"), Amount: 100, Price: 10}
+	book := OrderListToSellOrderBook([]Order{})
 	_, _, _, match, _ := book.LiquidateFromBuyOrder(inputOrder)
 	require.False(t, match)
 
 	// Sell book
-	inputBook := []types.Order{
+	inputBook := []Order{
 		{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
 		{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 		{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
@@ -546,15 +544,15 @@ func TestLiquidateFromBuyOrder(t *testing.T) {
 	require.False(t, match)
 
 	// Entirely filled (30 > 15)
-	inputOrder = types.Order{Id: 10, Creator: MockAccount("1"), Amount: 20, Price: 30}
+	inputOrder = Order{Id: 10, Creator: MockAccount("1"), Amount: 20, Price: 30}
 	expected := liquidateBuyRes{
-		Book: []types.Order{
+		Book: []Order{
 			{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
 			{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 			{Id: 2, Creator: MockAccount("2"), Amount: 10, Price: 15},
 		},
-		Remaining:  types.Order{Id: 10, Creator: MockAccount("1"), Amount: 0, Price: 30},
-		Liquidated: types.Order{Id: 2, Creator: MockAccount("2"), Amount: 20, Price: 15},
+		Remaining:  Order{Id: 10, Creator: MockAccount("1"), Amount: 0, Price: 30},
+		Liquidated: Order{Id: 2, Creator: MockAccount("2"), Amount: 20, Price: 15},
 		Purchase:   int32(20),
 		Match:      true,
 		Filled:     true,
@@ -562,14 +560,14 @@ func TestLiquidateFromBuyOrder(t *testing.T) {
 	simulateLiquidateFromBuyOrder(t, inputBook, inputOrder, expected)
 
 	// Entirely filled (30 = 30)
-	inputOrder = types.Order{Id: 10, Creator: MockAccount("1"), Amount: 30, Price: 30}
+	inputOrder = Order{Id: 10, Creator: MockAccount("1"), Amount: 30, Price: 30}
 	expected = liquidateBuyRes{
-		Book: []types.Order{
+		Book: []Order{
 			{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
 			{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 		},
-		Remaining:  types.Order{Id: 10, Creator: MockAccount("1"), Amount: 0, Price: 30},
-		Liquidated: types.Order{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
+		Remaining:  Order{Id: 10, Creator: MockAccount("1"), Amount: 0, Price: 30},
+		Liquidated: Order{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
 		Purchase:   int32(30),
 		Match:      true,
 		Filled:     true,
@@ -577,14 +575,14 @@ func TestLiquidateFromBuyOrder(t *testing.T) {
 	simulateLiquidateFromBuyOrder(t, inputBook, inputOrder, expected)
 
 	// Not filled and entirely liquidated (60 > 30)
-	inputOrder = types.Order{Id: 10, Creator: MockAccount("1"), Amount: 60, Price: 30}
+	inputOrder = Order{Id: 10, Creator: MockAccount("1"), Amount: 60, Price: 30}
 	expected = liquidateBuyRes{
-		Book: []types.Order{
+		Book: []Order{
 			{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
 			{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 		},
-		Remaining:  types.Order{Id: 10, Creator: MockAccount("1"), Amount: 30, Price: 30},
-		Liquidated: types.Order{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
+		Remaining:  Order{Id: 10, Creator: MockAccount("1"), Amount: 30, Price: 30},
+		Liquidated: Order{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
 		Purchase:   int32(30),
 		Match:      true,
 		Filled:     false,
@@ -593,17 +591,17 @@ func TestLiquidateFromBuyOrder(t *testing.T) {
 }
 
 type fillBuyRes struct {
-	Book       []types.Order
-	Remaining  types.Order
-	Liquidated []types.Order
+	Book       []Order
+	Remaining  Order
+	Liquidated []Order
 	Purchase   int32
 	Filled     bool
 }
 
 func simulateFillBuyOrder(
 	t *testing.T,
-	inputList []types.Order,
-	inputOrder types.Order,
+	inputList []Order,
+	inputOrder Order,
 	expected fillBuyRes,
 ) {
 	book := OrderListToSellOrderBook(inputList)
@@ -626,21 +624,21 @@ func simulateFillBuyOrder(
 }
 
 func TestFillBuyOrder(t *testing.T) {
-	var inputBook []types.Order
+	var inputBook []Order
 
 	// Empty book
-	inputOrder := types.Order{Id: 10, Creator: MockAccount("1"), Amount: 30, Price: 10}
+	inputOrder := Order{Id: 10, Creator: MockAccount("1"), Amount: 30, Price: 10}
 	expected := fillBuyRes{
-		Book:       []types.Order{},
+		Book:       []Order{},
 		Remaining:  inputOrder,
-		Liquidated: []types.Order(nil),
+		Liquidated: []Order(nil),
 		Purchase:   int32(0),
 		Filled:     false,
 	}
 	simulateFillBuyOrder(t, inputBook, inputOrder, expected)
 
 	// No match
-	inputBook = []types.Order{
+	inputBook = []Order{
 		{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
 		{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 		{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
@@ -648,21 +646,21 @@ func TestFillBuyOrder(t *testing.T) {
 	expected = fillBuyRes{
 		Book:       inputBook,
 		Remaining:  inputOrder,
-		Liquidated: []types.Order(nil),
+		Liquidated: []Order(nil),
 		Purchase:   int32(0),
 		Filled:     false,
 	}
 	simulateFillBuyOrder(t, inputBook, inputOrder, expected)
 
 	// First order liquidated, not filled
-	inputOrder = types.Order{Id: 10, Creator: MockAccount("1"), Amount: 60, Price: 18}
+	inputOrder = Order{Id: 10, Creator: MockAccount("1"), Amount: 60, Price: 18}
 	expected = fillBuyRes{
-		Book: []types.Order{
+		Book: []Order{
 			{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
 			{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 		},
-		Remaining: types.Order{Id: 10, Creator: MockAccount("1"), Amount: 30, Price: 18},
-		Liquidated: []types.Order{
+		Remaining: Order{Id: 10, Creator: MockAccount("1"), Amount: 30, Price: 18},
+		Liquidated: []Order{
 			{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
 		},
 		Purchase: int32(30),
@@ -671,14 +669,14 @@ func TestFillBuyOrder(t *testing.T) {
 	simulateFillBuyOrder(t, inputBook, inputOrder, expected)
 
 	// Filled with two order
-	inputOrder = types.Order{Id: 10, Creator: MockAccount("1"), Amount: 60, Price: 22}
+	inputOrder = Order{Id: 10, Creator: MockAccount("1"), Amount: 60, Price: 22}
 	expected = fillBuyRes{
-		Book: []types.Order{
+		Book: []Order{
 			{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
 			{Id: 1, Creator: MockAccount("1"), Amount: 170, Price: 20},
 		},
-		Remaining: types.Order{Id: 10, Creator: MockAccount("1"), Amount: 0, Price: 22},
-		Liquidated: []types.Order{
+		Remaining: Order{Id: 10, Creator: MockAccount("1"), Amount: 0, Price: 22},
+		Liquidated: []Order{
 			{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
 			{Id: 1, Creator: MockAccount("1"), Amount: 30, Price: 20},
 		},
@@ -688,11 +686,11 @@ func TestFillBuyOrder(t *testing.T) {
 	simulateFillBuyOrder(t, inputBook, inputOrder, expected)
 
 	// Not filled, sell order book liquidated
-	inputOrder = types.Order{Id: 10, Creator: MockAccount("1"), Amount: 300, Price: 30}
+	inputOrder = Order{Id: 10, Creator: MockAccount("1"), Amount: 300, Price: 30}
 	expected = fillBuyRes{
-		Book:      []types.Order{},
-		Remaining: types.Order{Id: 10, Creator: MockAccount("1"), Amount: 20, Price: 30},
-		Liquidated: []types.Order{
+		Book:      []Order{},
+		Remaining: Order{Id: 10, Creator: MockAccount("1"), Amount: 20, Price: 30},
+		Liquidated: []Order{
 			{Id: 2, Creator: MockAccount("2"), Amount: 30, Price: 15},
 			{Id: 1, Creator: MockAccount("1"), Amount: 200, Price: 20},
 			{Id: 0, Creator: MockAccount("0"), Amount: 50, Price: 25},
