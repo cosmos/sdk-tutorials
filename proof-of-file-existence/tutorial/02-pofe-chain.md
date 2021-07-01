@@ -5,7 +5,7 @@ order: 1
 
 # Building our PoFE blockchain using Starport
 
-We can scaffold our application by running `starport scaffold chain github.com/user/pofe`. This creates a new folder called `pofe` which contains the code for your app.
+We can scaffold our application by running `starport scaffold chain github.com/user/pofe`. This command creates a new folder called `pofe` that contains the code for your app.
 
 ```
 starport scaffold chain github.com/user/pofe --sdk-version launchpad

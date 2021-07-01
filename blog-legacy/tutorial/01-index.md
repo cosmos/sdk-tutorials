@@ -30,7 +30,7 @@ After `starport` is installed, use it to create the initial app structure inside
 starport scaffold chain github.com/example/blog --sdk-version launchpad
 ```
 
-One of the main features of Starport is code generation. The command above has generated a directory structure with a working blockchain application. Starport can also add data types to your app with `starport type` command. To see it in action, follow the poll application tutorial. In this guide, however, we'll create those files manually to understand how it all works under the hood.
+One of the main features of Starport is code generation. The preceding command has generated a directory structure with a working blockchain application. You can also add data types to your app with the `starport type` command. To see code generation in action, follow the poll application tutorial. In this guide, however, we'll create those files manually to learn how Starport code generation works.
 
 ## Overview
 
@@ -294,7 +294,7 @@ To launch your application run:
 starport chain serve
 ```
 
-This command installs dependencies, builds and initializes the app, and runs servers. You can also do it manually:
+This command installs dependencies, builds and initializes the app, and runs servers. You can also do these tasks manually:
 
 1. `go mod tidy` cleans up dependencies.
 2. `make` builds your app and creates two binaries in your go path: `blogd` and `blogcli`.

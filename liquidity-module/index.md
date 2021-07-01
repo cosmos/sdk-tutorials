@@ -279,7 +279,7 @@ To access Starport `username` account on `gaiad`, add it to the keychain.
 gaiad keys add username --recover
 ```
 
-It will ask you for the passphrase, that you see in the terminal window of running `starport chain serve` on your `myblockchaind`
+The command prompts you for the passphrase. You can find the passphrase in the terminal window that is running `starport chain serve` on your `myblockchaind`
 
 ```bash
 > Enter your bip39 mnemonic
