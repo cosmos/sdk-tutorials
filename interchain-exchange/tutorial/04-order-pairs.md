@@ -62,7 +62,7 @@ func (k msgServer) SendCreatePair(goCtx context.Context, msg *types.MsgSendCreat
 ## Create the OnRecv Function
 
 When a packet with an order book creation is received, the validity of the transaction should be check with the `ValidateBasic()` function.
-If the pair does not exist yet, it can be added to the keeper.
+If the pair does not exist, you can add it to the keeper.
 
 ```go
 // x/ibcdex/keeper/create_pair.go
@@ -91,7 +91,7 @@ func (k Keeper) OnRecvCreatePairPacket(ctx sdk.Context, packet channeltypes.Pack
 ## Create the OnAcknowledgement Function
 
 When a packet sent with IBC is valid and received, it must be acknowledged.
-When the acknowledgement is successful, add the sell order book to the database.
+After the acknowledgement is successful, add the sell order book to the database.
 
 ```go
 // x/ibcdex/keeper/create_pair.go

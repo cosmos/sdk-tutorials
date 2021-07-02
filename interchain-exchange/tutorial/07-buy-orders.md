@@ -104,7 +104,7 @@ func (k msgServer) SendBuyOrder(goCtx context.Context, msg *types.MsgSendBuyOrde
 
 - Update sell order book
 - Distribute gains to sellers
-- Send to chain B the buy order after the fill attempt
+- Send the buy order to chain B after the fill attempt
 
 ```go
 // x/ibcdex/keeper/buy_order.go

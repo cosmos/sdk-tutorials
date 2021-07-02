@@ -239,7 +239,7 @@ Append the type instance as `PostID` on receiving the packet:
 - The `title` is the Title of the blog post
 - The `content` is the Content of the blog post
 
-In the `ibcPost.go` file, make sure to import `"strconv"` below `"errors"`, and then modify `OnRecvIbcPostPacket` with the following code:
+In the `ibcPost.go` file, make sure to import `"strconv"` after `"errors"`, and then modify `OnRecvIbcPostPacket` with the following code:
 
 ```go
 // planet/x/blog/keeper/ibc_post.go

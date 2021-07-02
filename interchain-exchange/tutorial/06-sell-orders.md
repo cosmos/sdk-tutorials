@@ -39,7 +39,7 @@ Before a sell order will be submitted, make sure it contains the following logic
 - Check if the pair exists on the order book
 - If the token is an IBC token, burn the tokens
 - If the token is a native token, lock the tokens
-- Save the voucher received on the target chain to later resolve a denom
+- Save the voucher received on the target chain so it will be available later to resolve a denom
 
 ```go
 // x/ibcdex/keeper/msg_server_sell_order.go
@@ -105,7 +105,7 @@ func (k msgServer) SendSellOrder(goCtx context.Context, msg *types.MsgSendSource
 
 - Update the buy order book
 - Distribute sold token to the buyer
-- Send to chain A the sell order after the fill attempt
+- Send the sell order to chain A after the fill attempt
 
 ```go
 // x/ibcdex/keeper/sell_order.go
