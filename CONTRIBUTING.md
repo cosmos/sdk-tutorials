@@ -53,9 +53,9 @@ Work-in-process tutorials might have content and code in other repos.
 
 - The Tendermint (All in Bits) DevX team develops the tutorial code and dependencies. Our team includes [@fadeev](https://github.com/fadeev), [@lubtd](https://github.com/lubtd), [@ilgooz](https://github.com/ilgooz), [@Pantani](https://github.com/Pantani), and other talented developers. Don't they do an amazing job?
 
-- The Tendermint (All in Bits) EcoDev Engineering team ([@toschdev](https://github.com/toschdev), [@barriebyron](https://github.com/barriebyron), [@alijnmerchant21](https://github.com/alijnmerchant21, and more incoming team members) manages the developer experience and owns the tutorial doc content.
+- The Tendermint (All in Bits) EcoDev Engineering team ([@toschdev](https://github.com/toschdev), [@barriebyron](https://github.com/barriebyron), [@alijnmerchant21](https://github.com/alijnmerchant21), and [@soniasingla](https://github.com/soniasingla)) manages the developer experience and owns the tutorial doc content.
 
-- The Tendermint (All in Bits) Design team owns the front end and publishing. Be sure to check with @lovincyrus for details about the metadata for layout and publishing tutorials.
+- The Tendermint (All in Bits) Design team owns the front end and publishing. Be sure to check with [@lovincyrus](https://github.com/lovincyrus) for details about the metadata for layout and publishing tutorials.
 
 ## Viewing Tutorial Builds
 
