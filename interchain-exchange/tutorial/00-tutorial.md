@@ -111,7 +111,7 @@ You can also use Starport v0.16.2 in a [browser-based IDE](http://gitpod.io/#htt
 Scaffold a new blockchain called `interchange`
 
 ```bash
-starport app github.com/username/interchange
+starport scaffold chain github.com/username/interchange --no-default-module
 cd interchange
 ```
 
@@ -168,8 +168,8 @@ Cancelling orders is done locally in the network, there is no packet to send.
 Use the `message` command to create a message to cancel a sell or buy order.
 
 ```go
-starport message cancelSellOrder port channel amountDenom priceDenom orderID:int --desc "Cancel a sell order" --module ibcdex
-starport message cancelBuyOrder port channel amountDenom priceDenom orderID:int --desc "Cancel a buy order" --module ibcdex
+starport message cancel-sell-order port channel amountDenom priceDenom orderID:int --desc "Cancel a sell order" --module ibcdex
+starport message cancel-buy-order port channel amountDenom priceDenom orderID:int --desc "Cancel a buy order" --module ibcdex
 ```
 
 The optional `--desc` flag lets you define a description of the CLI command that is used to broadcast a transaction with the message.
@@ -608,7 +608,7 @@ You need `send-createPair` to do the following:
 `SendCreatePair` function was created during the IBC packet scaffolding. Currently, it creates an IBC packet, populates it with source and target denoms and transmits this packet over IBC. Add the logic to check for an existing order book for a particular pair of denoms.
 
 ```go
-// x/ibcdex/keeper/msg_server_createPair.go
+// x/ibcdex/keeper/msg_server_create_pair.go
 import "errors"
 
 //...
@@ -642,7 +642,7 @@ In the following section you'll be implementing packet reception logic in the `O
 On the target chain when an IBC packet is recieved, the module should check whether a book already exists, if not, create a new buy order book for specified denoms.
 
 ```go
-// x/ibcdex/keeper/createPair.go
+// x/ibcdex/keeper/create_pair.go
 func (k Keeper) OnRecvCreatePairPacket(ctx sdk.Context, packet channeltypes.Packet, data types.CreatePairPacketData) (packetAck types.CreatePairPacketAck, err error) {
   // ...
   // Get an order book index
@@ -676,10 +676,10 @@ func NewBuyOrderBook(AmountDenom string, PriceDenom string) BuyOrderBook {
 }
 ```
 
-Modify the `buyOrderBook.proto` file to add an order book to the buy order book.
+Modify the buy_order_book.proto file to have the fields for creating a buy order on the order book.
 
 ```proto
-// proto/ibcdex/buyOrderBook.proto
+// proto/ibcdex/buy_order_book.proto
 import "ibcdex/order.proto";
 
 message BuyOrderBook {
@@ -766,7 +766,7 @@ func NewSellOrderBook(AmountDenom string, PriceDenom string) SellOrderBook {
 Modify the `sellOrderBook.proto` file to add the order book into the buy order book. The proto definition for the `SellOrderBook` should look like follows:
 
 ```proto
-// proto/ibcdex/sellOrderBook.proto
+// proto/ibcdex/sell_order_book.proto
 // ...
 import "ibcdex/order.proto";
 
@@ -806,7 +806,7 @@ Sell orders are created using `send-sellOrder`. This command creates a transacti
 * Transmit an IBC packet to the target chain
 
 ```go
-// x/ibcdex/keeper/msg_server_sellOrder.go
+// x/ibcdex/keeper/msg_server_sell_order.go
 import "errors"
 
 func (k msgServer) SendSellOrder(goCtx context.Context, msg *types.MsgSendSellOrder) (*types.MsgSendSourceSellOrderResponse, error) {
@@ -1032,7 +1032,7 @@ When a "sell order" packet is received on the target chain, the module should  ?
 - Send to chain A the sell order after the fill attempt
 
 ```go
-// x/ibcdex/keeper/sellOrder.go
+// x/ibcdex/keeper/sell_order.go
 func (k Keeper) OnRecvSellOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.SellOrderPacketData) (packetAck types.SellOrderPacketAck, err error) {
 	if err := data.ValidateBasic(); err != nil {
 		return packetAck, err
@@ -1246,7 +1246,7 @@ func (k Keeper) UnlockTokens(ctx sdk.Context, sourcePort string, sourceChannel s
 Once an IBC packet is processed on the target chain, an acknowledgement is returned to the source chain and processed in `OnAcknowledgementSellOrderPacket`. The module on the source chain will store the remaining sell order in the sell order book and will distribute sold tokens to the buyers and will distribute to the seller the price of the amount sold. On error the module mints the burned tokens.
 
 ```go
-// x/ibcdex/keeper/sellOrder.go
+// x/ibcdex/keeper/sell_order.go
 func (k Keeper) OnAcknowledgementSellOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.SellOrderPacketData, ack channeltypes.Acknowledgement) error {
 	switch dispatchedAck := ack.Response.(type) {
 	case *channeltypes.Acknowledgement_Error:
@@ -1442,7 +1442,7 @@ func (book *OrderBook) insertOrder(order Order, ordering Ordering) {
 If a timeout occurs, we mint back the native token.
 
 ```go
-// x/ibcdex/keeper/sellOrder.go
+// x/ibcdex/keeper/sell_order.go
 func (k Keeper) OnTimeoutSellOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.SellOrderPacketData) error {
 	// In case of error we mint back the native token
 	receiver, err := sdk.AccAddressFromBech32(data.Seller)
@@ -1738,7 +1738,7 @@ func (b *BuyOrderBook) AppendOrder(creator string, amount int32, price int32) (i
 If a timeout occurs, we mint back the native token.
 
 ```go
-// x/ibcdex/keeper/sellOrder.go
+// x/ibcdex/keeper/sell_order.go
 func (k Keeper) OnTimeoutSellOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.SellOrderPacketData) error {
 	// In case of error we mint back the native token
 	receiver, err := sdk.AccAddressFromBech32(data.Seller)
