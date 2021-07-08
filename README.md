@@ -34,6 +34,26 @@ sections:
       - starport
       - stargate
 stack:
+  - title: "Code with Us: Dive into Starport, IBC and Gravity DEX Protocol"
+    duration: "1:00:27"
+    imgSrc: https://i.ytimg.com/vi/GxaqpzMk0jk/hq720.jpg
+    url: https://youtu.be/GxaqpzMk0jk
+  - title: "Starport v0.16: Sending tokens to Cosmos Hub with IBC"
+    duration: "6:28"
+    imgSrc: https://i.ytimg.com/vi/-AuExRijtrA/hq720.jpg
+    url: https://youtu.be/-AuExRijtrA
+  - title: "Starport Intro"
+    duration: "4:12"
+    imgSrc: https://i.ytimg.com/vi/5RqAIE0b8Kw/hq720.jpg
+    url: https://youtu.be/5RqAIE0b8Kw
+  - title: "CosmWasm & IBC - The New Horizon"
+    duration: "44:32"
+    imgSrc: https://i.ytimg.com/vi/QdKTkJHj4jY/hq720.jpg
+    url: https://youtu.be/QdKTkJHj4jY
+  - title: "Blockchain Performance Measured Correctly"
+    duration: "1:16:56"
+    imgSrc: https://i.ytimg.com/vi/QdKTkJHj4jY/hq720.jpg
+    url: https://www.youtube.com/watch?v=QdKTkJHj4jY
   - title: "Starport v0.15: IBC Hello, world!"
     duration: "10:21"
     imgSrc: https://i.ytimg.com/vi/NmytpuD33lY/hq720.jpg
