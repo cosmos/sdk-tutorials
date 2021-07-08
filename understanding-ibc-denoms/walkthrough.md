@@ -25,7 +25,7 @@ A database of chain IDs and their nodes is something the Cosmos community is sti
 
   The [cosmos-registrar](https://github.com/apeunit/cosmos-registrar) is an an existing tool that was started by Jack Zampolin and further developed by Ape Unit. the cosmos-registrar automates claiming and updating a chain ID. In this case, updating a chain ID means committing a fresh peerlist to the GitHub repository. This commit should be run with a cronjob. Its state is best described as v1.0, so go ahead and report any bugs as Github issues.
 
-## Verifying the Other (source) Blockchain
+## Verifying the Other (source) Blockchain with the Cosmos Registry
 
 Let's assume you are now connected to a node that belongs to chain B. 
 
@@ -113,6 +113,7 @@ Response:
     "canonical": true
   }
 ```
+
 *Look in particular at the result.commit.block_id.hash property*
 
 As of 25 May 2021, official `gaiad` releases do not output the hashes in the same format so you must compile `gaiad` with `ibc-go` at commit [4570955](https://github.com/cosmos/ibc-go/commit/457095517b7832c42ecf13571fee1e550fec02d0).
@@ -346,7 +347,7 @@ Result:
 }
 ```
 
-The ClientState is a raw binary blob. In protobuf world, raw binary blob is an `Any` or "any type" that grpcurl cannot parse and results in an error. 
+The ClientState is a raw binary blob. In protobuf world, raw binary blob is an `Any` or "any type" that grpcurl cannot parse and results in an error.
 
 However, as you learned from the preceding ClientState querying example, `gaiad` can of course parse the ClientState binary data.
 

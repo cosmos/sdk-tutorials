@@ -61,13 +61,13 @@ Your balance now looks like:
 
 `1000000ibc/27A6394C3F9FF9C9DCF5DFFADF9BB5FE9A37C7E92B006199894CF1824DF9AC7C,100000000000samoleans,99999977256stake`
 
-Just like `samoleans` or `stake`, `ibc/27A639...` is the denomination (denom) of the token received from IBC, but `27A639...` is a hash of the denom, IBC port, and channel.
+Just like `samoleans` or `stake`, `ibc/27A639...` is the denomination (denom) of the token received from IBC, the latter part behind the slash `27A639...` is a hash of the denom, IBC port, and channel.
 
 Why is `27A639...` a hash? Paths that track the token on multiple hops from other blockchains to your account would be unbearably long. The Cosmos SDK has a 64-character limit on the denomination of the token.
 
-The tradeoff is that you must query the node to find out what the actual path and denomination is. This node query is called the `denomtrace`. 
+The tradeoff is that you must query the node to find out what the actual path and denomination is. This node query is called the `denomtrace`.
 
-In Cosmos SDK, the Gaia daemon `gaiad` provides a gRPC interface. The default gRPC port is 9090. In this tutorial, you will learn to query this interface directly. 
+In Cosmos SDK, the Gaia daemon `gaiad` provides a gRPC interface. The default gRPC port is 9090. In this tutorial, you will learn to query this interface directly.
 
 For now, follow along with the `gaiad` subcommands. Replace the hash with your IBC denom hash.
 
@@ -83,9 +83,9 @@ denom_trace:
   path: transfer/channel-0
 ```
 
-From this command, you now know that there is an IBC port `transfer` and channel `channel-0`. But to know the IBC light client behind the port and channel, you need to perform another query. 
+From this command, you now know that there is an IBC port `transfer` and channel `channel-0`. But to know the IBC light client behind the port and channel, you need to perform another query.
 
-Why is it called a light client? Because it is a light client of the _other_ chain, keeping track of its blockhashes. The `ibc channel client-state transfer` command  explains the details of the denom path. 
+Why is it called a light client? Because it is a light client of the _other_ chain, keeping track of its blockhashes. The `ibc channel client-state transfer` command  explains the details of the denom path.
 
 ```bash
 gaiad q ibc channel client-state transfer channel-0 --node tcp://localhost:26557
@@ -167,4 +167,3 @@ The `latest_height.revision_height` is the block height when the IBC client was 
 This information will be different if the blockchain does not use Tendermint consensus.
 
 The good news is there is [an issue for a "Active/Expired/Frozen/" status](https://github.com/cosmos/ibc-go/issues/98) that will automatically check if the IBC client is within the trusting period.
-
