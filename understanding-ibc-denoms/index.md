@@ -11,7 +11,7 @@ One of the most powerful technologies using the Cosmos SDK is the Interblockchai
 
 ## Introduction
 
-The current most used feature is sending token from one blockchain to another. When sending a token from one blockchain to another, you will end up with a token `voucher` on the other blockchain.
+The current most used feature with IBC is sending token from one blockchain to another. When sending a token from one blockchain to another, you will end up with a token `voucher` on the other (target) blockchain.
 
 Imagine two blockchains, blockchain A and blockchain B. In the beginning, you have your token on blockchain A.
 
@@ -59,52 +59,52 @@ The `voucher` token that were introduced are called IBC Denominations (IBC denom
 Imagine that you've received a new `ibc/` token on blockchain B where you initially held `samoleans` and `stake` token.
 Your balance now looks like:
 
-`1000000ibc/27A6394C3F9FF9C9DCF5DFFADF9BB5FE9A37C7E92B006199894CF1824DF9AC7C,100000000000samoleans,99999977256stake`
+`1000000ibc/CDC4587874B85BEA4FCEC3CEA5A1195139799A1FEE711A07D972537E18FDA39D,100000000000samoleans,99999977256stake`
 
-Just like `samoleans` or `stake`, `ibc/27A639...` is the denomination (denom) of the token received from IBC, the latter part behind the slash `27A639...` is a hash of the denom, IBC port, and channel.
+Just like `samoleans` or `stake`, `ibc/CDC458787...` is the denomination (denom) of the token received from IBC, the latter part behind the slash `CDC458787...` is a hash of the denom, IBC port, and channel.
 
-Why is `27A639...` a hash? Paths that track the token on multiple hops from other blockchains to your account would be unbearably long. The Cosmos SDK has a 64-character limit on the denomination of the token.
+Why is `CDC458787...` a hash? It contains paths that track the token on multiple hops from other blockchains to your account, it could potentially be unbearably long when directly printing the path. Additionally, the Cosmos SDK has a 64-character limit on the denomination of the token.
 
-The tradeoff is that you must query the node to find out what the actual path and denomination is. This node query is called the `denomtrace`.
+The tradeoff of using a hash is that you must query a node to find out what the actual path and denomination is. This query is called the `denomtrace`.
 
 In Cosmos SDK, the Gaia daemon `gaiad` provides a gRPC interface. The default gRPC port is 9090. In this tutorial, you will learn to query this interface directly.
 
 For now, follow along with the `gaiad` subcommands. Replace the hash with your IBC denom hash.
 
 ```bash
-gaiad q ibc-transfer denom-trace 27A6394C3F9FF9C9DCF5DFFADF9BB5FE9A37C7E92B006199894CF1824DF9AC7C --node tcp://localhost:26557
+gaiad query ibc-transfer denom-trace CDC4587874B85BEA4FCEC3CEA5A1195139799A1FEE711A07D972537E18FDA39D --node https://rpc.testnet.cosmos.network:443
 ```
 
 Response:
 
 ```bash
 denom_trace:
-  base_denom: samoleans
-  path: transfer/channel-0
+  base_denom: moon
+  path: transfer/channel-14
 ```
 
-From this command, you now know that there is an IBC port `transfer` and channel `channel-0`. But to know the IBC light client behind the port and channel, you need to perform another query.
+From this command, you now know that there is an IBC port `transfer` and channel `channel-14`. But to know the IBC light client behind the port and channel, you need to perform another query.
 
 Why is it called a light client? Because it is a light client of the _other_ chain, keeping track of its blockhashes. The `ibc channel client-state transfer` command  explains the details of the denom path.
 
 ```bash
-gaiad q ibc channel client-state transfer channel-0 --node tcp://localhost:26557
+gaiad query ibc channel client-state transfer channel-14 --node https://rpc.cosmos.network:443
 ```
 
 Response
 
 ```bash
-client_id: 07-tendermint-0
+client_id: 07-tendermint-18
 client_state:
   '@type': /ibc.lightclients.tendermint.v1.ClientState
-  allow_update_after_expiry: false
-  allow_update_after_misbehaviour: false
-  chain_id: ibc-0
+  allow_update_after_expiry: true
+  allow_update_after_misbehaviour: true
+  chain_id: mars
   frozen_height:
     revision_height: "0"
     revision_number: "0"
   latest_height:
-    revision_height: "43"
+    revision_height: "2207"
     revision_number: "0"
   max_clock_drift: 600s
   proof_specs:
@@ -143,7 +143,7 @@ client_state:
     max_depth: 0
     min_depth: 0
   trust_level:
-    denomination: "3"
+    denominator: "3"
     numerator: "1"
   trusting_period: 1209600s
   unbonding_period: 1814400s
