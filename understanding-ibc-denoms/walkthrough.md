@@ -39,8 +39,13 @@ Finally, you must verify that chain B's IBC light client is pointing to chain A 
 
 Check the `light-roots/latest.json` file under each chain ID folder in [cosmos/registry](https://github.com/cosmos/registry). This folder is created when a chain ID is first claimed.
 
-```json
-$ cat light-roots/latest.json
+```bash
+cat light-roots/latest.json
+```
+
+Response
+
+```bash
 {
   "trust-height": 70,
   "trust-hash": "78AD39C7DBB0C28AA1DD4DBF909E8FC37522CAB177484871AB3FBD18B2F165B4"
@@ -49,8 +54,13 @@ $ cat light-roots/latest.json
 
 Connect to one of the peers in `peers.json`. Its block at height 70 should have the hash `78AD39C7DBB0C28AA1DD4DBF909E8FC37522CAB177484871AB3FBD18B2F165B4`.
 
-```sh
-$ curl localhost:26657/commit?height=70
+```bash
+curl localhost:26657/commit?height=70
+```
+
+Response:
+
+```bash
 {
   "jsonrpc": "2.0",
   "id": -1,
@@ -84,7 +94,7 @@ $ curl localhost:26657/commit?height=70
         "height": "70",
         "round": 0,
         "block_id": {
->>>>>>>>> "hash": "78AD39C7DBB0C28AA1DD4DBF909E8FC37522CAB177484871AB3FBD18B2F165B4", <<<<<<<<<<<<<<<<
+          "hash": "78AD39C7DBB0C28AA1DD4DBF909E8FC37522CAB177484871AB3FBD18B2F165B4",
           "parts": {
             "total": 1,
             "hash": "0292B8FC1A1FC2862699AD0CC33AEB5719DC183EA04705C1D4C8F01C0ABAD3E2"
@@ -103,6 +113,7 @@ $ curl localhost:26657/commit?height=70
     "canonical": true
   }
 ```
+*Look in particular at the result.commit.block_id.hash property*
 
 As of 25 May 2021, official `gaiad` releases do not output the hashes in the same format so you must compile `gaiad` with `ibc-go` at commit [4570955](https://github.com/cosmos/ibc-go/commit/457095517b7832c42ecf13571fee1e550fec02d0).
 
@@ -111,7 +122,12 @@ IBC won't tell you where to find a node from chain B, but after you've found one
 Querying chain A's IBC light client for chain B:
 
 ```bash
-$ gaiad q ibc client consensus-states 07-tendermint-0 --node tcp://localhost:27000
+gaiad q ibc client consensus-states 07-tendermint-0 --node tcp://localhost:27000
+```
+
+Response:
+
+```bash
 consensus_states:
 - consensus_state:
     '@type': /ibc.lightclients.tendermint.v1.ConsensusState
@@ -125,14 +141,19 @@ consensus_states:
 ```
 
 Now compare with chain B:
+
 ```bash
-$ gaiad q ibc client node-state --node tcp://localhost:27010 --height 906
+gaiad q ibc client node-state --node tcp://localhost:27010 --height 906
+```
+
+Response:
+
+```bash
 next_validators_hash: A19419B856881CD94A27E0ED7EC6ADAD9FA749C5543D601E39AC6C4FB95CD8E0
 root:
   hash: IbhPNTZYeUYdk3pfZHHWP8VG/gefxGxkkvUuTrmVKkA=
 timestamp: "2021-05-20T13:49:41.169759553Z"
 ```
-
 
 ## Getting Lower Level: Querying IBC By Using gaiad gRPC Endpoints
 
@@ -164,15 +185,26 @@ Download the relayer, tell it to use gaiad v4.2.1, start two chains.
 git clone https://github.com/iqlusioninc/relayer
 cd relayer
 nano Makefile
+```
 
+Edit the following content
+
+```make
 ...
 SDKCOMMIT := $(shell go list -m -u -f '{{.Version}}' github.com/cosmos/cosmos-s>
 GAIA_VERSION := v4.2.1
 AKASH_VERSION := v0.10.2
-...
+```
 
+Now execute the `two-chainz` script
 
-$ ./scripts/two-chainz
+```bash
+./scripts/two-chainz
+```
+
+Result
+
+```bash
 ...
 Creating gaiad instance: home=./data | chain-id=ibc-0 | p2p=:26656 | rpc=:26657 | profiling=:6060 | grpc=:9090
 Change settings in config.toml file...
@@ -204,10 +236,21 @@ echo "Balance of $(rly chains address ibc-1) on ibc-1:"
 rly q balance ibc-1
 ```
 
-Run `connect.sh`:
+Make the script executable with
 
 ```bash
-$ ./connect.sh
+chmod +x connect.sh
+```
+
+Now run `connect.sh`:
+
+```bash
+./connect.sh
+```
+
+Result:
+
+```bash
 I[2021-04-23|15:12:33.406] - [ibc-0] -> creating client on ibc-0 for ibc-1 header-height{5} trust-period(336h0m0s)
 ...
 I[2021-04-23|15:12:55.023] ★ Channel created: [ibc-0]chan{channel-0}port{transfer} -> [ibc-1]chan{channel-0}port{transfer}
@@ -227,8 +270,14 @@ Balance of cosmos1957r6c38kc6gy94w0k9t7ear8xdg4j8xvm80xq on ibc-1:
 From the last line, you can see that `rly` unwraps IBC denomtrace so that you can see the denom is `1000000transfer/channel-0/samoleans`. As you learned in the first section, `gaiad q ibc-transfer denom-trace` also unwraps the denomtrace for you. 
 
 The `gaiad q bank` does not unwrap the denomtrace:
+
 ```bash
-$ gaiad q bank balances cosmos1957r6c38kc6gy94w0k9t7ear8xdg4j8xvm80xq --node tcp://localhost:26557
+gaiad q bank balances cosmos1957r6c38kc6gy94w0k9t7ear8xdg4j8xvm80xq --node tcp://localhost:26557
+```
+
+Result:
+
+```bash
 balances:
 - amount: "1000000"
   denom: ibc/27A6394C3F9FF9C9DCF5DFFADF9BB5FE9A37C7E92B006199894CF1824DF9AC7C
@@ -243,12 +292,19 @@ pagination:
 
 ### Performing the Low Level gRPC Queries Using grpcurl
 
-Now that you have a private IBC testnet setup, you can query the IBC endpoints:
+Now that you have a private IBC testnet setup, you can query the IBC endpoints.
+
+First, the `DenomTraces`.
 
 ```bash
-$ grpcurl -plaintext -import-path ./third_party/proto -import-path ./proto \
+grpcurl -plaintext -import-path ./third_party/proto -import-path ./proto \
 -proto ./proto/ibc/applications/transfer/v1/query.proto \
 localhost:9091 ibc.applications.transfer.v1.Query/DenomTraces
+```
+
+Result:
+
+```bash
 {
   "denomTraces": [
     {
@@ -260,11 +316,20 @@ localhost:9091 ibc.applications.transfer.v1.Query/DenomTraces
     "total": "1"
   }
 }
+```
 
-$ grpcurl -plaintext -import-path ./third_party/proto -import-path ./proto \
+Then the `ChannelClientState`.
+
+```bash
+grpcurl -plaintext -import-path ./third_party/proto -import-path ./proto \
 -proto ./proto/ibc/core/channel/v1/query.proto \
 -d '{"port_id": "transfer", "channel_id": "channel-0"}' \
 localhost:9091 ibc.core.channel.v1.Query/ChannelClientState
+```
+
+Result:
+
+```bash
 {
   "identifiedClientState": {
     "clientId": "07-tendermint-0",
@@ -281,7 +346,7 @@ localhost:9091 ibc.core.channel.v1.Query/ChannelClientState
 }
 ```
 
-The ClientState is a raw binary blob. In protobuf parlance, raw binary blob is an `Any` or "any type" that grpcurl cannot parse and results in an error. 
+The ClientState is a raw binary blob. In protobuf world, raw binary blob is an `Any` or "any type" that grpcurl cannot parse and results in an error. 
 
 However, as you learned from the preceding ClientState querying example, `gaiad` can of course parse the ClientState binary data.
 

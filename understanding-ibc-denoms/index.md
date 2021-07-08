@@ -73,6 +73,11 @@ For now, follow along with the `gaiad` subcommands. Replace the hash with your I
 
 ```bash
 gaiad q ibc-transfer denom-trace 27A6394C3F9FF9C9DCF5DFFADF9BB5FE9A37C7E92B006199894CF1824DF9AC7C --node tcp://localhost:26557
+```
+
+Response:
+
+```bash
 denom_trace:
   base_denom: samoleans
   path: transfer/channel-0
@@ -84,6 +89,11 @@ Why is it called a light client? Because it is a light client of the _other_ cha
 
 ```bash
 gaiad q ibc channel client-state transfer channel-0 --node tcp://localhost:26557
+```
+
+Response
+
+```bash
 client_id: 07-tendermint-0
 client_state:
   '@type': /ibc.lightclients.tendermint.v1.ClientState
