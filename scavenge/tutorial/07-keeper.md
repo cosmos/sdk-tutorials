@@ -4,51 +4,163 @@ order: 7
 
 # Keeper
 
-After using the `starport` command you should have a boilerplate `Keeper` at `./x/scavenge/keeper/keeper.go`. It contains a basic keeper with references to basic functions like `Set`, `Get` and `Delete`.
+## Create Scavenge
 
-Our keeper stores all our data for our module. Sometimes a module will import the keeper of another module. This will allow state to be shared and modified across modules. Since we are dealing with coins in our module as bounty rewards, we will need to access the `bank` module's keeper (which we call `CoinKeeper`). Look at our completed `Keeper` files and you can see where the `bank` keeper is referenced and how `Set`, `Get` and `Delete` are expanded:
+Create scavenge method should do the following:
 
-#### `keeper/keeper.go`
-<<< @/scavenge/scavenge/x/scavenge/keeper/keeper.go
+* Check that a scavenge with a given solution hash doesn't exist
+* Send tokens from scavenge creator account to a module account
+* Write the scavenge to the store
 
-#### `keeper/scavenge.go`
-<<< @/scavenge/scavenge/x/scavenge/keeper/scavenge.go
+```go
+// x/scavenge/keeper/msg_server_create_scavenge.go
+func (k msgServer) CreateScavenge(goCtx context.Context, msg *types.MsgCreateScavenge) (*types.MsgCreateScavengeResponse, error) {
+  // get context that contains information about the environment, such as block height
+	ctx := sdk.UnwrapSDKContext(goCtx)
+  // create a new scavenge from the data in the MsgCreateScavenge message
+	var scavenge = types.Scavenge{
+		Index:        msg.SolutionHash,
+		Creator:      msg.Creator,
+		Description:  msg.Description,
+		SolutionHash: msg.SolutionHash,
+		Reward:       msg.Reward,
+	}
+  // try getting a scavenge from the store using the solution hash as the key
+	_, isFound := k.GetScavenge(ctx, scavenge.SolutionHash)
+  // return an error if a scavenge already exists in the store
+	if isFound {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Scavenge with that solution hash already exists")
+	}
+  // get address of the Scavenge module account
+	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
+  // convert the message creator address from a string into sdk.AccAddress
+	scavenger, err := sdk.AccAddressFromBech32(scavenge.Creator)
+	if err != nil {
+		panic(err)
+	}
+  // convert tokens from string into sdk.Coins
+	reward, err := sdk.ParseCoinsNormalized(scavenge.Reward)
+	if err != nil {
+		panic(err)
+	}
+  // send tokens from the scavenge creator to the module account
+	sdkError := k.bankKeeper.SendCoins(ctx, scavenger, moduleAcct, reward)
+	if sdkError != nil {
+		return nil, sdkError
+	}
+  // write the scavenge to the store
+	k.SetScavenge(ctx, scavenge)
+	return &types.MsgCreateScavengeResponse{}, nil
+}
+```
 
-#### `keeper/commit.go`
-<<< @/scavenge/scavenge/x/scavenge/keeper/commit.go
+Notice the use of `moduleAcct`. This account is not controlled by a public key pair, but is a reference to an account that is owned by this actual module. It is used to hold the bounty reward that is attached to a scavenge until that scavenge has been solved, at which point the bounty is paid to the account who solved the scavenge.
 
-## Commits and Scavenges
+`CreateScavenge` uses `SendCoins` method from the `bank` module. In the beginning when scaffolding a module you used `--dep bank` to specify a dependency between the `scavenge` and `bank` modules. This created an `expected_keepers.go` file with a `BankKeeper` interface. Add `SendCoins` to be able to use it in the keeper methods of the `scavenge` module.
 
-You may notice reference to `types.Commit` and `types.Scavenge` throughout the `Keeper`. These are new structs defined in `./x/scavenge/types/type<Type>.go` that contain all necessary information about different scavenge challenges and different commited solutions to those challenges. They appear similar to the `Msg` types we saw earlier because they contain similar information. We will be making some modifications to the scaffolded files.
+```go
+// x/scavenge/types/expected_keepers.go
+type BankKeeper interface {
+	SendCoins(ctx sdk.Context, fromAddr sdk.AccAddress, toAddr sdk.AccAddress, amt sdk.Coins) error
+}
+```
 
-In the `TypeScavenge.go` file, we need to delete the `ID` field, since we're going to be using the `SolutionHash` as the key. We also need to update `Reward` to `sdk.Coins`, as well as `Scavenger` to `sdk.AccAddress`, so we can make the payout once the scavenge is solved.
+## Commit Solution
 
-Once this is done, your struct in `scavenge/x/scavenge/types/TypeScavenge.go` should look like this -
+Commit solution method should do the following:
 
-<<< @/scavenge/scavenge/x/scavenge/types/TypeScavenge.go
+* Check that commit with a given hash doesn't exist in the store
+* Write a new commit to the store
 
-For `TypeCommit.go`, we need to delete the `ID` field, and rename the `Creator` field to `Scavenger`.
+```go
+// x/scavenge/keeper/msg_server_commit_solution.go
+func (k msgServer) CommitSolution(goCtx context.Context, msg *types.MsgCommitSolution) (*types.MsgCommitSolutionResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+  // create a new commit from the information in the MsgCommitSolution message
+	var commit = types.Commit{
+		Index:                 msg.SolutionScavengerHash,
+		Creator:               msg.Creator,
+		SolutionHash:          msg.SolutionHash,
+		SolutionScavengerHash: msg.SolutionScavengerHash,
+	}
+  // try getting a commit from the store using the solution+scavenger hash as the key
+	_, isFound := k.GetCommit(ctx, commit.SolutionScavengerHash)
+	// return an error if a commit already exists in the store
+	if isFound {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Commit with that hash already exists")
+	}
+  // write commit to the store
+	k.SetCommit(ctx, commit)
+	return &types.MsgCommitSolutionResponse{}, nil
+}
+```
 
-<<< @/scavenge/scavenge/x/scavenge/types/TypeCommit.go
+## Reveal Solution
 
-You can imagine that an unsolved `Scavenge` would contain a `nil` value for the fields `Solution` and `Scavenger` before they are solved. You might also notice that each type has the `String` method. This helps rendering the struct as a string.
+Reveal solution method should do the following:
 
-## Prefixes
+* Check that a commit with a given hash exists in the store
+* Check that a scavenge with a given solution hash exists in the store
+* Check that the scavenge hasn't already been solved
+* Send tokens from the module account to the account that revealed the correct anwer
+* Write the updated scavenge to the store
 
-You may notice the use of `types.ScavengePrefix`, `types.ScavengeCountPrefix` and `types.CommitPrefix` or `types.CommitCountPrefix`. These are defined in a file called `./x/scavenge/types/key.go` and help us keep our `Keeper` organized. The `Keeper` is really just a key value store. That means that, similar to an `Object` in javascript, all values are referenced under a key. To access a value, you need to know the key under which it is stored. This is a bit like a unique identifier (UID).
-
-When storing a `Scavenge` we use the key of the `SolutionHash` as a unique ID, for a `Commit` we use the key of the `SolutionScavengeHash`. However, since we are storing these two data types in the same location, we may want to distinguish between the types of hashes we use as keys. We can do this by adding prefixes to the hashes that allow us to recognize which is which. For `Scavenge` we see the prefix `scavenge-value` and `scavenge-count`, for `Commit` we see the prefix `commit-value` and `commit-count`. 
-
-You should see these in your `key.go` file so it looks as follows:
-
-<<< @/scavenge/scavenge/x/scavenge/types/key.go
-
-## Iterators
-
-Sometimes you will want to access a `Commit` or a `Scavenge` directly by their key. That's why we have the methods `GetCommit` and `GetScavenge`. 
-
-However, sometimes you will want to get every `Scavenge` at once or every `Commit` at once. To do this we use an **Iterator** called `KVStorePrefixIterator`. This utility comes from the `cosmos sdk` and iterates over a key store. If you provide a prefix, it will only iterate over the keys that contain that prefix. Since we have prefixes defined for our `Scavenge` and our `Commit` we can use them here to only return our desired data types.
-
----
-
-Now that you've seen the `Keeper` where every `Commit` and `Scavenge` are stored, we need to connect the messages to the this storage. This process is called _handling_ the messages and is done inside the `Handler`.
+```go
+// x/scavenge/keeper/msg_server_reveal_solution.go
+func (k msgServer) RevealSolution(goCtx context.Context, msg *types.MsgRevealSolution) (*types.MsgRevealSolutionResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+  // concatenate a solution and a scavenger address and convert it to bytes
+	var solutionScavengerBytes = []byte(msg.Solution + msg.Creator)
+  // find the hash of solution and address
+	var solutionScavengerHash = sha256.Sum256(solutionScavengerBytes)
+  // convert the hash to a string
+	var solutionScavengerHashString = hex.EncodeToString(solutionScavengerHash[:])
+  // try getting a commit using the the hash of solution and address
+	_, isFound := k.GetCommit(ctx, solutionScavengerHashString)
+  // return an error if a commit doesn't exist
+	if !isFound {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Commit with that hash doesn't exists")
+	}
+  // find a hash of the solution
+	var solutionHash = sha256.Sum256([]byte(msg.Solution))
+  // encode the solution hash to string
+	var solutionHashString = hex.EncodeToString(solutionHash[:])
+	var scavenge types.Scavenge
+  // get a scavenge from the stre using the solution hash
+	scavenge, isFound = k.GetScavenge(ctx, solutionHashString)
+  // return an error if the solution doesn't exist
+	if !isFound {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Scavenge with that solution hash doesn't exists")
+	}
+  // check that the scavenger property contains a valid address
+	_, err := sdk.AccAddressFromBech32(scavenge.Scavenger)
+  // return an error if a scavenge has already been solved
+	if err == nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Scavenge has already been solved")
+	}
+  // save the scavebger address to the scavenge
+	scavenge.Scavenger = msg.Creator
+  // save the correct solution to the scavenge
+	scavenge.Solution = msg.Solution
+  // get address of the module account
+	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
+  // convert scavenger address from string to sdk.AccAddress
+	scavenger, err := sdk.AccAddressFromBech32(scavenge.Scavenger)
+	if err != nil {
+		panic(err)
+	}
+  // parse tokens from a string to sdk.Coins
+	reward, err := sdk.ParseCoinsNormalized(scavenge.Reward)
+	if err != nil {
+		panic(err)
+	}
+  // send tokens from a module account to the scavenger
+	sdkError := k.bankKeeper.SendCoins(ctx, moduleAcct, scavenger, reward)
+	if sdkError != nil {
+		return nil, sdkError
+	}
+  // save the udpated scavenge to the store
+	k.SetScavenge(ctx, scavenge)
+	return &types.MsgRevealSolutionResponse{}, nil
+}
+```
