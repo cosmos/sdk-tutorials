@@ -65,7 +65,20 @@ aside: false
 
 # Cosmos SDK Tutorials
 
-The repo manages and publishes the [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
+The [Cosmos SDK Tutorials](https://tutorials.cosmos.network/) teach you how to use Cosmos SDK, the world’s most popular framework for building application-specific blockchains. Tutorials provide step-by-step instructions to help you build foundational knowledge and learn how to use Starport and the Cosmos SDK, including: 
 
-For information about the repo, see [CONTRIBUTING](CONTRIBUTING.md). 
+- Foundational knowledge to help you navigate between blockchains with the Cosmos SDK
+- Learn how Starport works
+- Create a blockchain polling application
+- Build an exchange that works with two or more blockchains
+- Interact with the Cosmos Hub testnet to test the functionality of your blockchain
+- Use the liquidity module, known on the Cosmos Hub as Gravity DEX, to create liquidity pools so users can swap tokens
+- Publish your blockchain application to a Droplet on DigitalOcean
+
+The code and docs for each tutorial are based on a specific version of the software. Be sure to follow the tutorial instructions to download and use the right version.
+
+Use the tutorials landing page as your entry point to articles on [Cosmos blog](https://blog.cosmos.network/), videos on [Cosmos YouTube](https://www.youtube.com/c/CosmosProject/videos), and ways to get help and support. 
+
+
+This repo manages and publishes the tutorials. For details, see [CONTRIBUTING](CONTRIBUTING.md). 
 

@@ -45,12 +45,11 @@ To scaffold two types with create, read, update and delete (CRUD) actions use th
 The following commands create `sellOrderBook` and `buyOrderBook` types. 
 
 ```bash
-starport type sellOrderBook orderIDTrack:int amountDenom priceDenom --indexed --no-message --module ibcdex
-starport type buyOrderBook orderIDTrack:int amountDenom priceDenom --indexed --no-message --module ibcdex
+starport type sellOrderBook amountDenom priceDenom --indexed --no-message --module ibcdex
+starport type buyOrderBook amountDenom priceDenom --indexed --no-message --module ibcdex
 ```
 
 The values are: 
-- `orderIDTrack` an internal counter in the order book to assign the orders an ID.
 - `amountDenom` represents which token will be sold and in which quantity
 - `priceDenom` the token selling price 
 

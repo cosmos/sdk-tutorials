@@ -122,7 +122,7 @@ func (k Keeper) OnRecvBuyOrderPacket(ctx sdk.Context, packet channeltypes.Packet
 	}
 
 	// Fill buy order
-	book, remaining, liquidated, purchase, _ := types.FillBuyOrder(book, types.Order{
+	remaining, liquidated, purchase, _ := book.FillBuyOrder(types.Order{
 		Amount: data.Amount,
 		Price: data.Price,
 	})
@@ -213,8 +213,7 @@ func (k Keeper) OnAcknowledgementBuyOrderPacket(ctx sdk.Context, packet channelt
 
 		// Append the remaining amount of the order
 		if packetAck.RemainingAmount > 0 {
-			newBook, _, err := types.AppendOrder(
-				book,
+			_, err := book.AppendOrder(
 				data.Buyer,
 				packetAck.RemainingAmount,
 				data.Price,
@@ -222,7 +221,6 @@ func (k Keeper) OnAcknowledgementBuyOrderPacket(ctx sdk.Context, packet channelt
 			if err != nil {
 				return err
 			}
-			book = newBook.(types.BuyOrderBook)
 
 			// Save the new order book
 			k.SetBuyOrderBook(ctx, book)
