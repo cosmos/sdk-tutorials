@@ -71,12 +71,19 @@ successfully created light client for ibc-0 by trusting endpoint http://localhos
 successfully created light client for ibc-1 by trusting endpoint http://localhost:26557...
 ```
 
-There are now two blockchains running on your computer.
+There are now two blockchains running in the background on your computer.
 There is `ibc-0` which is the source blockchain and `ibc-1` as the target blockchain.
 
-With the following script you will link the two blockchains.
-Execute the following steps to make an IBC transfer between chains.
+In case you want to stop the blockchains, use the following command 
 
+```bash
+# Stop existing gaiad processes when you are 
+killall gaiad &> /dev/null
+```
+
+Proceed with linking your blockchains and sending tokens from `ibc-0` to `ibc-1` with the relayer.
+
+With the following script you will link the two blockchains.
 First, link the two blockchains with each other.
 
 ```bash
