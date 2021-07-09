@@ -60,8 +60,8 @@ stack:
     url: https://youtu.be/5RqAIE0b8Kw
   - title: "CosmWasm & IBC - The New Horizon"
     duration: "44:32"
-    imgSrc: https://i.ytimg.com/vi/QdKTkJHj4jY/hq720.jpg
-    url: https://youtu.be/QdKTkJHj4jY
+    imgSrc: https://i.ytimg.com/vi/42eePmGk6D8/hq720.jpg
+    url: https://youtu.be/42eePmGk6D8
   - title: "Blockchain Performance Measured Correctly"
     duration: "1:16:56"
     imgSrc: https://i.ytimg.com/vi/QdKTkJHj4jY/hq720.jpg
