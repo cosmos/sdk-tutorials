@@ -39,6 +39,12 @@ sections:
     tags: 
       - starport
       - stargate
+  - title: Deploy your blockchain on Digital Ocean
+    desc: Create a new blockchain with Starport. Deploy this blockchain on a cloud provider like Digital Ocean. Connect your local chain to the deployed chain.
+    url: /publish-app-do/index.html
+    tags: 
+      - starport
+      - stargate
   - title: Migrate a blockchain - Proof of File Existence example
     desc: Efficiently migrate your Cosmos SDK applications or modules from v0.39 to v0.40+ using Starport.
     url: /launchpad-to-stargate/tutorial/01-introduction.html
