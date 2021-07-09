@@ -28,24 +28,15 @@ make build && cp build/gaiad $GOPATH/bin/gaiad
 Use cosmos-sdk v0.42.4:
 
 ```bash
+git clone https://github.com/cosmos/cosmos-sdk
 cd cosmos-sdk && git checkout v0.42.4 && make proto-all # you need docker
 ```
 
 Download the relayer, tell it to use gaiad v4.2.1, start two chains.
 
 ```bash
-git clone https://github.com/iqlusioninc/relayer
+git clone https://github.com/cosmos/relayer
 cd relayer
-nano Makefile
-```
-
-Edit the following content
-
-```make
-...
-SDKCOMMIT := $(shell go list -m -u -f '{{.Version}}' github.com/cosmos/cosmos-s>
-GAIA_VERSION := v4.2.1
-AKASH_VERSION := v0.10.2
 ```
 
 Now execute the `two-chainz` script
@@ -57,28 +48,79 @@ Now execute the `two-chainz` script
 Result
 
 ```bash
-...
+GAIA VERSION INFO:
+name: NewApp
+server_name: <appd>
+version: 1.0.0
+commit: 261f4b8cb754f1b7ef5a7b4c8c7973fc21275b92
+build_tags: ""
+go: go version go1.16 darwin/amd64
+build_deps:
+
+[...]
+
+Generating gaia configurations...
 Creating gaiad instance: home=./data | chain-id=ibc-0 | p2p=:26656 | rpc=:26657 | profiling=:6060 | grpc=:9090
 Change settings in config.toml file...
 Creating gaiad instance: home=./data | chain-id=ibc-1 | p2p=:26556 | rpc=:26557 | profiling=:6061 | grpc=:9091
-...
+
+[...]
+
+Creating light clients...
+successfully created light client for ibc-0 by trusting endpoint http://localhost:26657...
+successfully created light client for ibc-1 by trusting endpoint http://localhost:26557...
 ```
 
-The relayer Makefile actually rebuilds gaiad based on the version that was set in the Makefile. This command built the same version as before, just for safety's sake.
+There are now two blockchains running on your computer.
+There is `ibc-0` which is the source blockchain and `ibc-1` as the target blockchain.
 
-Create a shell script called `connect.sh` with this content:
+With the following script you will link the two blockchains.
+Execute the following steps to make an IBC transfer between chains.
+
+First, link the two blockchains with each other.
 
 ```bash
-#!/bin/bash
 rly tx link demo -d -o 3s
+```
 
+Query the balances of the source blockchain account
+
+```bash
 rly q balance ibc-0
+```
+
+Response:
+
+```bash
+99998000000samoleans,99999977419stake
+```
+
+Query the balances of the target blockchain account
+
+```bash
 rly q balance ibc-1
+```
 
+Response:
+
+```bash
+100000000000samoleans,99999982051stake
+```
+
+Transfer token from one blockchain to another.
+
+```bash
 rly tx transfer ibc-0 ibc-1 1000000samoleans $(rly chains address ibc-1)
-echo "waiting for 2 seconds for the tx to confirm"
-sleep 2
+```
 
+Response:
+
+```bash
+I[2021-07-09|02:12:50.834] ✔ [ibc-0]@{550} - msg(0:transfer) hash(477E2D52D9FB08E1E3F076EB2CC7B1B343224B7475598AC1C0A088CE42AEC892) 
+```
+
+
+```bash
 rly tx relay-packets demo -d
 sleep 2
 rly tx relay-acknowledgements demo -d
@@ -119,7 +161,7 @@ Balance of cosmos1957r6c38kc6gy94w0k9t7ear8xdg4j8xvm80xq on ibc-1:
 1000000transfer/channel-0/samoleans,100000000000samoleans,99999977240stake
 ```
 
-From the last line, you can see that `rly` unwraps IBC denomtrace so that you can see the denom is `1000000transfer/channel-0/samoleans`. As you learned in the first section, `gaiad q ibc-transfer denom-trace` also unwraps the denomtrace for you. 
+From the last line, you can see that `rly` unwraps IBC denomtrace so that you can see the denom is `1000000transfer/channel-0/samoleans`. As you learned in the first section, `gaiad q ibc-transfer denom-trace` also unwraps the denomtrace for you.
 
 The `gaiad q bank` does not unwrap the denomtrace:
 
