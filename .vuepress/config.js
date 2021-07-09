@@ -60,28 +60,43 @@ module.exports = {
           title: "Tutorials",
           children: [
             {
-              title: "IBC Hello World",
-              path: "/hello-world/tutorial/",
+              title: "Install Starport",
+              path: "/starport/",
               directory: true,
             },
             {
-              title: "Blog",
+              title: "Create a Blog Module",
               path: "/blog/tutorial/",
               directory: true,
             },
             {
-              title: "Voter",
+              title: "Create a Voting Module",
               path: "/voter/",
               directory: true,
             },
             {
-              title: "Interchain Exchange",
+              title: "Create a IBC Hello World module",
+              path: "/hello-world/tutorial/",
+              directory: true,
+            },
+            {
+              title: "Create an IBC Interchain Exchange module",
               path: "/interchain-exchange/tutorial/",
               directory: true,
             },
             {
-              title: "Connecting to a Testnet",
+              title: "Connect to the cosmoshub-testnet",
               path: "/connecting-to-testnet/",
+              directory: true,
+            },
+            {
+              title: "Understand the Liquidity Module",
+              path: "liquidity-module/",
+              directory: true,
+            },
+            {
+              title: "Deploy Your Blockchain on Digital Ocean",
+              path: "/publish-app-do/",
               directory: true,
             },
           ],
@@ -90,7 +105,7 @@ module.exports = {
           title: "Migrate to Stargate",
           children: [
             {
-              title: "PoFE Migration",
+              title: "Proof of File Existence example",
               path: "/launchpad-to-stargate/tutorial/",
               directory: true,
             },
@@ -230,5 +245,8 @@ module.exports = {
     "blog-legacy/tutorial/*.md",
     "blog/tutorial/*.md",
     "interchain-exchange/tutorial/*.md",
+    "liquidity-module/*.md",
+    "publish-app-do/*.md",
+    "starport/*.md",
   ],
 };

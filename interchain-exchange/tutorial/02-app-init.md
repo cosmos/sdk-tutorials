@@ -8,15 +8,15 @@ In this chapter you create the basic blockchain module for the interchain exchan
 
 ## Install Starport
 
-This tutorial uses [Starport](https://github.com/tendermint/starport) v0.16.0. The Starport tool is the easiest way to build a blockchain. 
+This tutorial uses [Starport](https://github.com/tendermint/starport) v0.16.2 The Starport tool is the easiest way to build a blockchain. 
 
 To install `starport` into `/usr/local/bin`, run the following command:
 
 ```
-curl https://get.starport.network/starport@v0.16.0! | bash
+curl https://get.starport.network/starport@v0.16.2! | bash
 ```
 
-You can also use Starport v0.16.0 in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1). For more installation options, see [install Starport](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1), but this tutorial assumes you are using a local Starport installation. See [install Starport](https://github.com/tendermint/starport/blob/develop/docs/intro/install.md).
+You can also use Starport v0.16.2 in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.16.2), but this tutorial assumes you are using a local Starport installation. For more installation options, see [install Starport](https://docs.starport.network/intro/install.html).
 
 ## Create the Blockchain
 
@@ -45,12 +45,11 @@ To scaffold two types with create, read, update and delete (CRUD) actions use th
 The following commands create `sellOrderBook` and `buyOrderBook` types. 
 
 ```bash
-starport type sellOrderBook orderIDTrack:int amountDenom priceDenom --indexed --no-message --module ibcdex
-starport type buyOrderBook orderIDTrack:int amountDenom priceDenom --indexed --no-message --module ibcdex
+starport type sellOrderBook amountDenom priceDenom --indexed --no-message --module ibcdex
+starport type buyOrderBook amountDenom priceDenom --indexed --no-message --module ibcdex
 ```
 
 The values are: 
-- `orderIDTrack` an internal counter in the order book to assign the orders an ID.
 - `amountDenom` represents which token will be sold and in which quantity
 - `priceDenom` the token selling price 
 
