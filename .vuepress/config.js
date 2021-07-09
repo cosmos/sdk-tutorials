@@ -64,29 +64,28 @@ module.exports = {
               path: "/starport/",
               directory: true,
             },
-            
             {
-              title: "IBC Hello World",
-              path: "/hello-world/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Blog",
+              title: "Create a Blog Module",
               path: "/blog/tutorial/",
               directory: true,
             },
             {
-              title: "Voter",
+              title: "Create a Voting Module",
               path: "/voter/",
               directory: true,
             },
             {
-              title: "Interchain Exchange",
+              title: "Create a IBC Hello World module",
+              path: "/hello-world/tutorial/",
+              directory: true,
+            },
+            {
+              title: "Create an IBC Interchain Exchange module",
               path: "/interchain-exchange/tutorial/",
               directory: true,
             },
             {
-              title: "Connecting to a Testnet",
+              title: "Connect to the cosmoshub-testnet",
               path: "/connecting-to-testnet/",
               directory: true,
             },
@@ -96,7 +95,7 @@ module.exports = {
               directory: true,
             },
             {
-              title: "Understanding the Liquidity Module",
+              title: "Understand the Liquidity Module",
               path: "liquidity-module/",
               directory: true,
             },
@@ -111,7 +110,7 @@ module.exports = {
           title: "Migrate to Stargate",
           children: [
             {
-              title: "PoFE Migration",
+              title: "Proof of File Existence example",
               path: "/launchpad-to-stargate/tutorial/",
               directory: true,
             },
