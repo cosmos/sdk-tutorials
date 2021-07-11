@@ -326,7 +326,7 @@ The CLI definition is available at `x/voter/client/cli/txPoll.go`.
 For example:
 
 ```sh
-votercli tx voter create-poll "Text editors" "Emacs" "Vim" --from alice
+voterd tx voter create-poll "Text editors" "Emacs" "Vim" --from alice
 ```
 
 This command generates a transaction with a create poll message, signs the transaction using the private key of app end user `alice`, and broadcasts the transaction to the blockchain. Remember, `alice` is one of two users that this tutorial created by default.
