@@ -26,8 +26,7 @@ In this tutorial you will learn the format of the `voucher` token on blockchain 
 
 - Trace the IBC Denom
 - Understand how Denoms work
-- Explore the low-level details of what it means to identify a token received using IBC to your account
-- Send tokens with IBC
+
 - Find out which chain the token came from
 - Contact that "source" chain, and verify that it exists and is still running.
 
@@ -38,7 +37,7 @@ Install the gaia binary:
 ```bash
 git clone https://github.com/cosmos/gaia.git
 cd gaia
-git checkout v4.2.1
+git checkout v5.0.0
 make install
 
 gaiad version
@@ -47,7 +46,7 @@ gaiad version
 The output of `gaiad version` should print
 
 ```bash
-4.2.1
+v5.0.0
 ```
 
 ## What is this IBC denom
