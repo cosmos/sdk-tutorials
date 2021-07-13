@@ -143,9 +143,14 @@ With this command, you generated the code that handles the creation of `poll` it
 
 ### View the Front-end User Interface
 
-To see the front-end app form for creating polls:
+To see the front-end app form for creating polls navigate to the `vue` directory in a new tab/window:
 
-- Run `starport serve`
+```sh
+cd vue
+npm install
+npm run serve
+```
+
 - Visit <http://localhost:8080>
 
 It takes a few minutes to rebuild the app, so give it a couple of seconds. If your `localhost:8080` is already in use, your app can be viewed on the next available port.
