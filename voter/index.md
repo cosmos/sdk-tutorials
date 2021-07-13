@@ -100,19 +100,18 @@ starport serve
 The following output is returned, along with any errors that might show up in your application. Two default users and their mnemonic pass phrases are created.
 
 ```
-Cosmos SDK's version is: Stargate v0.40.0 (or above)
+Cosmos SDK's version is: Stargate v0.40.0 (or later)
 
 🛠️  Building proto...
 📦 Installing dependencies...
-🛠️  Building the app...
+🛠️  Building the blockchain...
 💿 Initializing the app...
 🙂 Created account "alice" with address "cosmos1qn662mssj0wtagnxyvld7pksjaghzvmsw889t7" with mnemonic: "anger drive runway keen enroll shoot frequent dentist captain neither wire person entry exact income sail divorce fresh initial feel boss mule target fly"
 🙂 Created account "bob" with address "cosmos1jfx0jqeamwj6dnzhk5g64l53ydcmrsmdm6hlcw" with mnemonic: "yard layer vacuum side coyote cousin another settle agree thunder lumber before portion embody hood practice captain axis fish zero mother bitter example ski"
-🌍 Running a Cosmos 'voter' app with Tendermint at http://localhost:26657.
-🌍 Running a server at http://localhost:1317 (LCD)
-🌍 Running a faucet at http://:4500
+🌍 Tendermint node: http://0.0.0.0:26657
+🌍 Blockchain API: http://0.0.0.0:1317
+🌍 Token faucet: http://0.0.0.0:4500
 
-🚀 Get started: http://localhost:12345
 ```
 
 **Congratulations!** You successfully created and launched a blockchain application.
