@@ -33,6 +33,12 @@ sections:
     tags: 
       - starport
       - stargate
+  - title: Understand IBC denoms
+    desc: In this tutorial you will learn what IBC denoms are. How to use the relayer, connect blockchains, and find the path to an unknown blockchain.
+    url: /connecting-to-testnet/index.html
+    tags: 
+      - starport
+      - stargate
   - title: Understand the liquidity module
     desc: The liquidity module powers the Gravity DEX. Learn how to create your own token with Starport, send it with IBC to the cosmoshub-testnet and create a new pool using the liquidity module. Swap your token with your created pool.
     url: /liquidity-module/index.html
