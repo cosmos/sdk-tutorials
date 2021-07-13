@@ -17,6 +17,8 @@ The liquidity module allows users to use pools to trade those tokens on your blo
 
 In this tutorial, you create your own blockchain, send tokens to another blockchain, create a pool, deposit to a pool, withdraw from a pool, and swap tokens.
 
+You can follow the [code with us session] (https://www.youtube.com/watch?v=GxaqpzMk0jk&t=978s) for hands-on experience
+
 **Important** In the code examples throughout this tutorial, when you see username be sure to substitute your username. 
 
 **You will learn how to:**
@@ -227,7 +229,8 @@ See your balance at [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/bala
 Now that your account on testnet is funded with testnet tokens, you can send your own token to the testnet. 
 
 At your local terminal, enter the IBC module command to transfer your token to the testnet. 
-Make sure to replace `cosmosxxxxx` with your address, `mytoken` with your token name and `username` with your username.
+Make sure to replace `cosmosxxxxx` with your address, `mytoken` with your token name, `username` with your username and `channel-0` with channel
+**Note:** Make sure to use *channel* as shown in terminal when you run `starport relayer connect`
 
 ```bash
 myblockchaind tx ibc-transfer transfer transfer channel-0 cosmosxxxxx "15000000mytoken" --from username
@@ -237,7 +240,7 @@ After your transaction is complete, check your balance on the Gravity DEX testne
 
 Make sure to replace `cosmosxxxxx` with your address.
 
-**Tip** Sometimes transactions don't go through on the first try. Make sure you check the terminal window that shows the relayer process and verify that you see output similar to the following output:
+**Tip:** Sometimes transactions don't go through on the first try. Make sure you check the terminal window that shows the relayer process and verify that you see output similar to the following output:
 
  ```markdown
  Relay 1 packets from myblockchain => cosmoshub-testnet
@@ -317,11 +320,51 @@ Confirm the pool has been created. See:
 You are ready to swap tokens! You now have uphoton token in your account and want to swap for the new IBC coin:
 
 ```bash
-gaiad tx liquidity swap 1 1 100000uphoton ibc/longibchash 0.1 0.003 --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://[rpc.testnet.cosmos.network:443](https://rpc.testnet.cosmos.network/)
+gaiad tx liquidity swap 1 1 100000uphoton ibc/longibchash 0.1 0.003 --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443 -y
 ```
+**Optional:** Add -y flag to bypass confirmation prompt
 
 Check the balance on the new account that made the trade:
 
 [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
 
 Make sure to replace `cosmosxxxxx` with your address.
+
+
+## Deposit Token
+
+You can Deposit tokens to the pool you have created.
+
+```bash
+gaiad tx liquidity deposit 1 100uphoton,100ibc/longibchash --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443 -y
+```
+**Optional:** Add -y flag to bypass confirmation prompt
+
+**Note:** Deposits must be the same coin denoms as the reserve coins.
+
+Check the balance on the new deposit that you have made:
+
+[https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
+
+
+## Withdraw Token
+
+You can also withdraw tokens from the pool you have created.
+
+```bash
+gaiad tx liquidity withdraw 1 100pool-id --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443
+```
+**Note:** Make sure to replace pool-id found [here] (https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
+
+
+## 🎉 Congratulations 🎉
+
+By completing this tutorial you have learned how to use liquidity module.
+
+Here’s what you accomplished in this tutorial:
+
+- Creating a Blockchain with Starport and connecting to testnet
+- Creating a new liquidity pool with IBC token
+- Swap tokens within the pool
+- Deposit tokens to the pool
+- Withdraw tokens from the pool
