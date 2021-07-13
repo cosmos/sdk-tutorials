@@ -35,7 +35,7 @@ sections:
       - stargate
   - title: Understand IBC denoms
     desc: In this tutorial you will learn what IBC denoms are. How to use the relayer, connect blockchains, and find the path to an unknown blockchain.
-    url: /connecting-to-testnet/index.html
+    url: /understanding-ibc-denoms/index.html
     tags: 
       - starport
       - stargate
