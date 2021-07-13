@@ -17,7 +17,7 @@ The liquidity module allows users to use pools to trade those tokens on your blo
 
 In this tutorial, you create your own blockchain, send tokens to another blockchain, create a pool, deposit to a pool, withdraw from a pool, and swap tokens.
 
-You can follow the [code with us session] (https://www.youtube.com/watch?v=GxaqpzMk0jk&t=978s) for hands-on experience
+You can follow the [code with us session](https://www.youtube.com/watch?v=GxaqpzMk0jk&t=978s) for hands-on experience
 
 **Important** In the code examples throughout this tutorial, when you see username be sure to substitute your username. 
 
@@ -230,6 +230,7 @@ Now that your account on testnet is funded with testnet tokens, you can send you
 
 At your local terminal, enter the IBC module command to transfer your token to the testnet. 
 Make sure to replace `cosmosxxxxx` with your address, `mytoken` with your token name, `username` with your username and `channel-0` with channel
+
 **Note:** Make sure to use *channel* as shown in terminal when you run `starport relayer connect`
 
 ```bash
@@ -354,7 +355,11 @@ You can also withdraw tokens from the pool you have created.
 ```bash
 gaiad tx liquidity withdraw 1 100pool-id --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443
 ```
-**Note:** Make sure to replace pool-id found [here] (https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
+**Note:** Make sure to replace pool-id found [here](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
+
+Check the balance on the new withdrawal that you have made:
+
+[https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
 
 
 ## 🎉 Congratulations 🎉
