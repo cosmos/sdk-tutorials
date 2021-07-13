@@ -10,7 +10,9 @@ description: Send tokens with IBC and trace your denom, understand how denoms wo
 In chapter 1 you learned how to find the IBC channel, client, and the chain ID of a corresponding blockchain.
 
 It is still an unsolved problem to list all possible blockchain paths.
-A database of chain IDs and their nodes is something Cosmos is still working to solve. There are two solutions under development:
+Any created blockchain and create a new `channel` to another blockchain without revealing too much of its information.
+
+One approach to solve this is with a centralized or decentralized database of chain IDs and their nodes. There are two solutions under development:
 
 - Chain Name Service (decentralized)
 
@@ -24,7 +26,9 @@ A database of chain IDs and their nodes is something Cosmos is still working to 
 
   The [cosmos-registrar](https://github.com/apeunit/cosmos-registrar) is an an existing tool that was started by Jack Zampolin and further developed by Ape Unit. the cosmos-registrar automates claiming and updating a chain ID. In this case, updating a chain ID means committing a fresh peerlist to the GitHub repository. This commit should be run with a cronjob. Its state is best described as v1.0, so go ahead and report any bugs as Github issues.
 
-## Verifying the Other (source) Blockchain with Cosmos Registry
+## Cosmos Registry
+
+In this chapter we will look into verifying the Other (source) blockchain with Cosmos Registry
 
 Let's assume you are now connected to a node that belongs to chain B.
 
