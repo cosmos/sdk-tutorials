@@ -176,12 +176,11 @@ One approach to solve this is with a centralized or decentralized database of ch
 
 - Chain Name Service (decentralized)
 
-  The [CNS](https://github.com/tendermint/cns) is a Cosmos SDK module that the Cosmos Hub will one day run. As a hub through which cross-chain transactions go through, it only makes sense for the Cosmos Hub to host the critical information on how to reach the other chain IDs. The problem is that CNS is new and still under development.
+  The [CNS](https://github.com/tendermint/cns) is aimed to be a Cosmos SDK module that the Cosmos Hub will one day run. As a hub through which cross-chain transactions go, it only makes sense for the Cosmos Hub to host the critical information on how to reach the other chain IDs. It is still new and under development.
 
 - Cosmos Registry (semi-decentralized)
 
-  Semi-automatically updated Github repo.
-  The [github.com/cosmos/registry](https://github.com/cosmos/registry) repo is a stopgap solution. Each chain ID has a folder describing its genesis and a list of peers. To claim their chain ID, a blockchain operator must fork this repo, create a branch with their chain ID, and submit a pull request to include their chain ID in the official `cosmos/registry` of chain IDs.
+  The [github.com/cosmos/registry](https://github.com/cosmos/registry) repo is a "stopgap" solution. Each chain ID has a folder describing its genesis and a list of peers. To claim their chain ID, a blockchain operator must fork this repo, create a branch with their chain ID, and submit a pull request to include their chain ID in the official `cosmos/registry` of chain IDs.
 
   Every chain ID is represented by a folder, and within that foldera `peers.json` file contains a list of nodes that you can connect to.
 
