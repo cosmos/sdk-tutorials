@@ -20,12 +20,12 @@ Imagine two blockchains, blockchain A and blockchain B. In the beginning, you ha
 
 When sending the token with IBC to another blockchain, your token will be locked up on blockchain A and create a `voucher` replacement token on blockchain B. The only way to unlock the locked tokens on blockchain A is to "send back" the `voucher` token on blockchain B. The `voucher` token on blockchain B in result will be burned.
 
-In this tutorial you will learn the format of the `voucher` token on blockchain B. What information they include, how they look like and how to make sense of them.
+In this tutorial you will learn the format of the `voucher` token on blockchain B. What information they include, how they look like and how to make sense of them. The information of the token is described as an `IBC denom`. You can parse this IBC denom and receive information about the `voucher` and from which blockchain it came from.
 
 **You will learn how to:**
 
-- Trace the IBC Denom
-- Understand how Denoms work
+- Trace the IBC denom
+- Understand how denoms work
 - Find out which chain the token came from
 
 ## Requirements
