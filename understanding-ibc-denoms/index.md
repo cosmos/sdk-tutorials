@@ -1,11 +1,11 @@
 ---
 parent:
-  title: Understanding IBC Denoms with Gaia
+  title: Understand IBC Denoms with Gaia
 order: 0
-description: Send tokens with IBC and trace your denom, understand how denoms work.
+description: Send tokens with IBC and trace a denom, understand how denoms work.
 ---
 
-# Understanding IBC Denoms with Gaia
+# Understand IBC Denoms with Gaia
 
 One of the most powerful technologies using the Cosmos SDK is the Interblockchain Communication Protocol (IBC). While with Cosmos every blockchain is intended to be soverign and application specific, with IBC every blockchain can connect to another blockchain using IBC. This will eventually create a system of soverign but connected blockchains.
 
@@ -66,7 +66,7 @@ The tradeoff of using a hash is that you must query a node to find out what the 
 
 In Cosmos SDK, the Gaia daemon `gaiad` provides a gRPC interface. The default gRPC port is 9090. In this tutorial, you will learn to query this interface directly.
 
-For now, follow along with the `gaiad` subcommands. Replace the hash with your IBC denom hash.
+For now, follow along with the `gaiad` subcommands.
 
 ```bash
 gaiad query ibc-transfer denom-trace CDC4587874B85BEA4FCEC3CEA5A1195139799A1FEE711A07D972537E18FDA39D --node https://rpc.testnet.cosmos.network:443
@@ -178,11 +178,15 @@ One approach to solve this is with a centralized or decentralized database of ch
 
   The [CNS](https://github.com/tendermint/cns) is a Cosmos SDK module that the Cosmos Hub will one day run. As a hub through which cross-chain transactions go through, it only makes sense for the Cosmos Hub to host the critical information on how to reach the other chain IDs. The problem is that CNS is new and still under development.
 
-- Semi-automatically updated Github repo (semi-decentralized)
+- Cosmos Registry (semi-decentralized)
 
+  Semi-automatically updated Github repo.
   The [github.com/cosmos/registry](https://github.com/cosmos/registry) repo is a stopgap solution. Each chain ID has a folder describing its genesis and a list of peers. To claim their chain ID, a blockchain operator must fork this repo, create a branch with their chain ID, and submit a pull request to include their chain ID in the official `cosmos/registry` of chain IDs.
 
   Every chain ID is represented by a folder, and within that foldera `peers.json` file contains a list of nodes that you can connect to.
 
-  The [cosmos-registrar](https://github.com/apeunit/cosmos-registrar) is an an existing tool that was started by Jack Zampolin and further developed by Ape Unit. the cosmos-registrar automates claiming and updating a chain ID. In this case, updating a chain ID means committing a fresh peerlist to the GitHub repository. This commit should be run with a cronjob. Its state is best described as v1.0, so go ahead and report any bugs as Github issues.
+- Cosmos Registrar (semi-decentralized)
+  
+  The [cosmos-registrar](https://github.com/apeunit/cosmos-registrar) is a tool that was started by Jack Zampolin and further developed by Ape Unit. The cosmos-registrar automates claiming and updating a chain ID. In this case, updating a chain ID means committing a fresh peerlist to the GitHub repository. This commit should be run with a cronjob. Its state is best described as v1.0, so go ahead and report any bugs as Github issues.
 
+Choose which approach suites you and your usecase best.
