@@ -2,25 +2,33 @@
 parent:
   title: Understand IBC Denoms with Gaia
 order: 0
-description: Send tokens with IBC and trace a denom, understand how denoms work.
+description: Send tokens with IBC, trace a denom, and understand how denoms work.
 ---
 
 # Understand IBC Denoms with Gaia
 
-One of the most powerful technologies when using the Cosmos SDK is the Interblockchain Communication Protocol (IBC). While with Cosmos every blockchain is intended to be soverign and application specific, with IBC every blockchain can connect to another blockchain using the IBC protocol. This will eventually create a system of soverign _and_ connected blockchains.
+One of the most powerful technologies when using the Cosmos SDK is the Interblockchain Communication Protocol (IBC). In the Cosmos ecosystem, every blockchain is intended to be sovereign and application-specific. With IBC, every blockchain can connect to another blockchain using the IBC protocol. This communication protocol will eventually create a system of sovereign _and_ connected blockchains.
 
 ## Introduction
 
-The current most used feature with IBC is sending token from one blockchain to another. When sending a token from one blockchain to another, you will end up with a token `voucher` on the other (target) blockchain.
+The most used feature of IBC is to send tokens from one blockchain to another. When sending a token to another blockchain, a token `voucher` is generated on the other (target) blockchain.
 
 Imagine two blockchains, blockchain A and blockchain B. In the beginning, you have your token on blockchain A.
 
 ![IBC token transfer](./ibc_token.png "IBC token transfer")
 *Sending token from blockchain A to blockchain B*
 
-When sending the token with IBC to another blockchain, your token will be locked up on blockchain A and create a `voucher` replacement token on blockchain B. The only way to unlock the locked tokens on blockchain A is to "send back" the `voucher` token on blockchain B. The `voucher` token on blockchain B in result will be burned.
+The value that tokens represent can be transferred across chains, but the token itself cannot. When sending the tokens with IBC to another blockchain:
 
-In this tutorial you will learn the format of the `voucher` token on blockchain B. What information they include, how they look like and how to make sense of them. The information of the token is described as an `IBC denom`. You can parse this IBC denom and receive information about the `voucher` and from which blockchain it came from.
+1. - Blockchain A locks the tokens and relays proof to blockchain B
+2. - Blockchain B mints its own representative tokens in the form of _voucher_ replacement tokens
+3. - Blockchain B sends the voucher tokens back to blockchain A
+4. - The voucher tokens are destroyed (burned) on blockchain B
+5. - The locked tokens on blockchain A are unlocked
+
+The only way to unlock the locked tokens on blockchain A is to send the voucher token back from blockchain B. The result is that the voucher token on blockchain B is burned. The burn process purposefully takes the tokens out of circulation.
+
+In this tutorial, you learn the format of the voucher token on blockchain B. You learn what information the token voucher includes and what the token voucher looks like, and you learn how to make sense of them. The information of the token is described as an IBC denom. You can parse this IBC denom to receive information about the voucher and learn which blockchain the token voucher came from.
 
 **You will learn how to:**
 
@@ -41,30 +49,35 @@ make install
 gaiad version
 ```
 
-The output of `gaiad version` should print
+The output of `gaiad version` should print:
 
 ```bash
 v5.0.0
 ```
 
-## What is this IBC denom
+## What Is This IBC Denom
 
-The `voucher` token that were introduced are called IBC Denominations (IBC denom). They are the result of a token transfer using IBC from one blockchain to another. The format of the token is
+The `voucher` tokens introduced in the asset transfer are called IBC Denominations (IBC denom). The voucher tokens are the result of a token transfer using IBC from one blockchain to another. The format of the voucher token is:
 
 `ibc/DENOMHASH`.
 
 Imagine that you've received a new `ibc/` token on blockchain B where you initially held `samoleans` and `stake` token.
+
 Your balance now looks like:
 
 `1000000ibc/CDC4587874B85BEA4FCEC3CEA5A1195139799A1FEE711A07D972537E18FDA39D,100000000000samoleans,99999977256stake`
 
-Just like `samoleans` or `stake`, `ibc/CDC458787...` is the denomination (denom) of the token received from IBC, the latter part behind the slash `CDC458787...` is a hash of the denom, IBC port, and channel.
+Just like `samoleans` or `stake`, `ibc/CDC458787...` is the denomination (denom) of the token received from IBC. After `ibc/CDC458787...` is a hash of the denom, the IBC port, and the channel.
 
-Why is `CDC458787...` a hash? It contains paths that track the token on multiple hops from other blockchains to your account, it could potentially be unbearably long when directly printing the path. Additionally, the Cosmos SDK has a 64-character limit on the denomination of the token.
+Why is `CDC458787...` a hash? 
 
-The tradeoff of using a hash is that you must query a node to find out what the actual path and denomination is. This query is called the `denomtrace`.
+- The hash contains paths that track the token on multiple hops from other blockchains to your account. 
+- This path could potentially be unbearably long when directly printing the path. 
+- The Cosmos SDK has a 64-character limit on the denomination of the token.
 
-Follow along with the `gaiad` subcommands to query the denom and learn about the channel they came from.
+The tradeoff of using a hash is that you must query a node to find out what the actual path and denomination is. This query is called the _denomtrace_.
+
+Follow along with the `gaiad` subcommands to query the denom and learn about the channel the tokens came from.
 
 ```bash
 gaiad query ibc-transfer denom-trace CDC4587874B85BEA4FCEC3CEA5A1195139799A1FEE711A07D972537E18FDA39D --node https://rpc.testnet.cosmos.network:443
@@ -78,7 +91,7 @@ denom_trace:
   path: transfer/channel-14
 ```
 
-From this command, you now know that there is an IBC port `transfer` and channel `channel-14`. But to know the IBC light client behind the port and channel, you need to perform another query.
+From the command output, you now know that there is an IBC port `transfer` and channel `channel-14`. But to know the IBC light client behind the port and channel, you need to perform another query.
 
 Why is it called a light client? Because it is a light client of the _other_ chain, keeping track of its blockhashes. The `ibc channel client-state transfer` command  explains the details of the denom path.
 
@@ -86,7 +99,7 @@ Why is it called a light client? Because it is a light client of the _other_ cha
 gaiad query ibc channel client-state transfer channel-14 --node https://rpc.cosmos.network:443
 ```
 
-Response
+Response:
 
 ```bash
 client_id: 07-tendermint-18
@@ -149,43 +162,44 @@ client_state:
 
 That's a lot of information, but it doesn't answer the question: how do you know if this IBC client can be relied upon?
 
-### The chain ID and The client ID
+### The Chain ID and the Client ID
 
-Anybody can start a chain with the same chain ID, but the IBC client ID is generated by the [Cosmos SDK IBC Keeper module](https://github.com/cosmos/ibc-go/blob/e012a4af5614f8774bcb595962012455667db2cf/modules/core/02-client/keeper/keeper.go#L56) (ICS-02 does not specify a standard for IBC client IDs). A Chain Name Service and the not-so-decentralized Github chain-registrar repo can verify the combination of the two. Both the Chain Name Service and the chain-registrar repo are under development.
+Anybody can start a chain with the same chain ID. However, the IBC client ID is generated by the [Cosmos SDK IBC Keeper module](https://github.com/cosmos/ibc-go/blob/e012a4af5614f8774bcb595962012455667db2cf/modules/core/02-client/keeper/keeper.go#L56) (ICS-02 does not specify a standard for IBC client IDs). A Chain Name Service and the not-so-decentralized Github chain-registrar repo can verify the combination of the chain ID and the client ID. Both the Chain Name Service and the chain-registrar repo are under development and are considered experimental.
 
-### Ensure the IBC client isn't expired
+### Ensure the IBC Client Isn't Expired
 
-In the event that Tendermint consensus fails (if >1/3 of validators produce a conflicting block), _and_ proof of this consensus failure is submitted on chain, the IBC client becomes frozen with a `frozen_height` that is nonzero. In the above example this is not the case.
+In the event that Tendermint consensus fails (if >1/3 of validators produce a conflicting block), _and_ proof of this consensus failure is submitted on-chain, the IBC client becomes frozen with a `frozen_height` that is nonzero. In the previous example, the output of `gaiad query ibc channel client-state` confirms the client status and you know the IBC client is not expired. 
 
-The `latest_height.revision_height` is the block height when the IBC client was last updated. To ensure that the block height is still up to date, you would have to query the blockchain itself for the block height 2207, and ensure that the timestamp of that block + the `trusting_period` of 1209600s/336h/14d is beyond the current time.
+The `latest_height.revision_height` is the block height when the IBC client was last updated. To ensure that the block height is still up to date, you would have to query the blockchain itself for the block height 2207, and ensure that the timestamp of that block + the `trusting_period` of 1209600s/336h/14d is after the current time.
 
-For example using the query:
+For example, you can verify the IBC client status using the query:
 
 ```bash
 gaiad query block 5200792 --node https://rpc.cosmos.network:443
 ```
 
-## Find another Blockchains Path
+## Find the Path of Another Blockchain
 
-It is still an unsolved problem to list all possible blockchain paths.
+Being able to list all possible blockchain paths is still an unsolved problem.
+
 Any created blockchain can create a new `channel` to another blockchain without revealing too much of its information.
 
-Currently channels need to be communicated with each other from person to person to be trustable. This way you can identify by an IBC denom which tokens to accept for an app.
+Currently, channels must communicate with each other using a person-to-person protocol to be trustable. This person-to-person communication protocol uses an IBC denom so you can identify which tokens to accept for an app.
 
-One approach to solve this is with a centralized or decentralized database of chain IDs and their nodes. There are two solutions under development:
+One approach to solve this problem is to use a centralized or decentralized database of chain IDs and their nodes.  There are two solutions under development:
 
 - Chain Name Service (decentralized)
 
-  The [CNS](https://github.com/tendermint/cns) is aimed to be a Cosmos SDK module that the Cosmos Hub will one day run. As a hub through which cross-chain transactions go, it only makes sense for the Cosmos Hub to host the critical information on how to reach the other chain IDs. It is still new and under development.
+  The [CNS](https://github.com/tendermint/cns) aims to be a Cosmos SDK module that the Cosmos Hub will one day run. As a hub through which cross-chain transactions go, it only makes sense for the Cosmos Hub to host the critical information on how to reach the other chain IDs. CNS is still new and under development.
 
 - Cosmos Registry (semi-decentralized)
 
-  The [github.com/cosmos/registry](https://github.com/cosmos/registry) repo is a "stopgap" solution. Each chain ID has a folder describing its genesis and a list of peers. To claim their chain ID, a blockchain operator must fork this repo, create a branch with their chain ID, and submit a pull request to include their chain ID in the official `cosmos/registry` of chain IDs.
+  The [github.com/cosmos/registry](https://github.com/cosmos/registry) repo is a stopgap solution. Each chain ID has a folder describing its genesis and a list of peers. To claim their chain ID, a blockchain operator must fork the `registry` repo, create a branch with their chain ID, and submit a pull request to include their chain ID in the official `cosmos/registry` of chain IDs.
 
-  Every chain ID is represented by a folder, and within that foldera `peers.json` file contains a list of nodes that you can connect to.
+  Every chain ID is represented by a folder, and within that folder a `peers.json` file contains a list of nodes that you can connect to.
 
 - Cosmos Registrar (semi-decentralized)
   
   The [cosmos-registrar](https://github.com/apeunit/cosmos-registrar) is a tool that was started by Jack Zampolin and further developed by Ape Unit. The cosmos-registrar automates claiming and updating a chain ID. In this case, updating a chain ID means committing a fresh peerlist to the GitHub repository. This commit should be run with a cronjob. Its state is best described as v1.0, so go ahead and report any bugs as Github issues.
 
-Choose which approach suites you and your usecase best.
+Choose the approach that best suits you and your use case.
