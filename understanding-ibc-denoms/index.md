@@ -64,9 +64,7 @@ Why is `CDC458787...` a hash? It contains paths that track the token on multiple
 
 The tradeoff of using a hash is that you must query a node to find out what the actual path and denomination is. This query is called the `denomtrace`.
 
-In Cosmos SDK, the Gaia daemon `gaiad` provides a gRPC interface. The default gRPC port is 9090. In this tutorial, you will learn to query this interface directly.
-
-For now, follow along with the `gaiad` subcommands.
+Follow along with the `gaiad` subcommands to query the denom and learn about the channel they came from.
 
 ```bash
 gaiad query ibc-transfer denom-trace CDC4587874B85BEA4FCEC3CEA5A1195139799A1FEE711A07D972537E18FDA39D --node https://rpc.testnet.cosmos.network:443
