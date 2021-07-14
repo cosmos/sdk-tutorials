@@ -90,7 +90,7 @@ module.exports = {
               directory: true,
             },
             {
-              title: "Understanding IBC Denoms",
+              title: "Understand IBC Denoms",
               path: "understanding-ibc-denoms/",
               directory: true,
             },
