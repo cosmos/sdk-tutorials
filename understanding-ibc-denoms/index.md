@@ -165,10 +165,6 @@ For example using the query:
 gaiad query block 5200792 --node https://rpc.cosmos.network:443
 ```
 
-This information will be different if the blockchain does not use Tendermint consensus.
-
-The good news is there is [an issue for a "Active/Expired/Frozen/" status](https://github.com/cosmos/ibc-go/issues/98) that will automatically check if the IBC client is within the trusting period.
-
 ## Find another Blockchains Path
 
 It is still an unsolved problem to list all possible blockchain paths.
