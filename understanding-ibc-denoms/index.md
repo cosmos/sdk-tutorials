@@ -155,9 +155,15 @@ Anybody can start a chain with the same chain ID, but the IBC client ID is gener
 
 ### Ensure the IBC client isn't expired
 
-In the event that Tendermint consensus fails (if >1/3 of validators produce a conflicting block), _and_ proof of this consensus failure is submitted on chain, the IBC client becomes frozen with a `frozen_height` that is nonzero. In future iterations, this consensus failure will become a simple true/false status.
+In the event that Tendermint consensus fails (if >1/3 of validators produce a conflicting block), _and_ proof of this consensus failure is submitted on chain, the IBC client becomes frozen with a `frozen_height` that is nonzero. In the above example this is not the case.
 
-The `latest_height.revision_height` is the block height when the IBC client was last updated. To ensure that the block height is still up to date, you would have to query the blockchain itself for the block height 43, and ensure that the timestamp of that block + the `trusting_period` of 1209600s/336h/14d is beyond the current time.
+The `latest_height.revision_height` is the block height when the IBC client was last updated. To ensure that the block height is still up to date, you would have to query the blockchain itself for the block height 2207, and ensure that the timestamp of that block + the `trusting_period` of 1209600s/336h/14d is beyond the current time.
+
+For example using the query:
+
+```bash
+gaiad query block 5200792 --node https://rpc.cosmos.network:443
+```
 
 This information will be different if the blockchain does not use Tendermint consensus.
 
