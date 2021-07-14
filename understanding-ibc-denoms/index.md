@@ -7,7 +7,7 @@ description: Send tokens with IBC and trace a denom, understand how denoms work.
 
 # Understand IBC Denoms with Gaia
 
-One of the most powerful technologies using the Cosmos SDK is the Interblockchain Communication Protocol (IBC). While with Cosmos every blockchain is intended to be soverign and application specific, with IBC every blockchain can connect to another blockchain using IBC. This will eventually create a system of soverign but connected blockchains.
+One of the most powerful technologies when using the Cosmos SDK is the Interblockchain Communication Protocol (IBC). While with Cosmos every blockchain is intended to be soverign and application specific, with IBC every blockchain can connect to another blockchain using the IBC protocol. This will eventually create a system of soverign _and_ connected blockchains.
 
 ## Introduction
 
