@@ -21,8 +21,6 @@ If you want to see the end result, please refer to the [example implementation](
 
 **Order books** are electronic lists of *buy* and *sell* orders for specific financial instruments - For example, cryptocurrencies. An order book lists the number of tokens being *bid* on (buy) or *offered* (sell) at each price point or market depth. Order books also identify the market participants behind the buy and sell orders. These lists help traders and also improve market transparency by providing valuable trading information.
 
-**Sell Order**
-
 **Sell order** enables a broker (blockchain) to sell tokens. A sell order may take any of a number of forms. Depending on the nature of the order, the broker (blockchain) may execute it at the best available price when the order is made, at a set price designated by the client (user), or according to a more complicated formula.
 
 **Buy Order**
