@@ -23,7 +23,7 @@ If you want to see the end result, please refer to the [example implementation](
 
 **Sell order** enables a broker (blockchain) to sell tokens. A sell order may take any of a number of forms. Depending on the nature of the order, the broker (blockchain) may execute it at the best available price when the order is made, at a set price designated by the client (user), or according to a more complicated formula.
 
-**Buy order** is an instruction from an investor (client / user) to a broker (blockchain) to buy a certain amount of tokens. Buy orders may take various forms. For example, an investor (client / user) may instruct the broker (blockchain) to buy immediately at the best available price, or to wait until a certain price is reached.
+**Buy orders** are instructions from an investor (client or user) to a broker (blockchain) to buy a certain amount of tokens. Buy orders can take various forms. For example, an investor (client or user) can instruct the broker (blockchain) to buy immediately at the best available price or wait until a certain price is reached.
 
 ## How the module works
 
