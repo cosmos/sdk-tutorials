@@ -49,7 +49,7 @@ In the next chapter you will learn details about the design of the interblockcha
 
 In this chapter you will learn how the interchain exchange module is designed. The module has **order books**, **buy** and **sell orders.** First, an order book for a pair of token has to be created. After an order book exists, you can create buy and sell orders for this pair of token.
 
-The module will make use of the Inter-Blockchain Communication Standard [IBC](https://github.com/cosmos/ics/blob/master/ibc/2_IBC_ARCHITECTURE.md). With use of the IBC, the module can create order books for tokens to have multiple blockchains interact and exchange their tokens. <!-- The link provided gives a 404. -->
+The module will make use of the Inter-Blockchain Communication Standard [IBC](https://ibcprotocol.org/). With the use of IBC, the module can create order books for tokens to have multiple blockchains interact and exchange their tokens.
 
 You will be able to create an order book pair with one token from one blockchain and another token from another blockchain. We will call the module you create in this tutorial `ibcdex`.
 Both blockchains will need to have the `ibcdex` module installed and running.
