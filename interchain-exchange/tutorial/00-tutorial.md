@@ -40,7 +40,6 @@ Tokens can be bought or sold with Limit Orders on a simple order book, there is 
 
 The market is unidirectional: the token sold on the source chain cannot be bought back as it is, and the token bought from the target chain cannot be sold back using the same pair. If a token on a source chain is sold, it can only be bought back by creating a new pair on the order book. This is due to the nature of IBC, creating a `voucher` token on the target blockchain. In this tutorial you will learn the difference of a native blockchain token and a `voucher` token that is minted on another blockchain. You will learn how to create a second order book pair in order to receive the native token back.
 
-<!-- The above comment on line 27 is a bit hard to follow. Adding an example below for easier understanding.-->
 
 For example: There are two `ibc` enabled chains - Earth_chain and Venus_chain. 
 
