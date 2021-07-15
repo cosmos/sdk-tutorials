@@ -42,7 +42,7 @@ In the next chapter you will learn details about the design of the interblockcha
 
 # App Design
 
-In this chapter you will learn how the interchain exchange module is designed. The module has **order books**, **buy** and **sell orders.** First, an order book for a pair of token has to be created. After an order book exists, you can create buy and sell orders for this pair of token.
+This section describes how the interchain exchange module is designed. The module has order books, buy orders, and sell orders. First, an order book for a pair of tokens must be created. After an order book exists, you can create buy and sell orders for this pair of tokens.
 
 The module will make use of the Inter-Blockchain Communication Standard [IBC](https://ibcprotocol.org/). With the use of IBC, the module can create order books for tokens to have multiple blockchains interact and exchange their tokens.
 
