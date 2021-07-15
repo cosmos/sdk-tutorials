@@ -16,23 +16,42 @@ If you want to see the end result, please refer to the [example implementation](
 - Send IBC packets from one blockchain to another
 - Deal with timeouts and acknowledgements of IBC packets
 
+## Concepts good to know
+
+**Order Books**
+
+**Order books** are electronic list of *buy* and *sell* orders for specific financial instrument - For eg: cryptocurrencies.
+An order book lists the number of tokens being *bid* (buy) on or *offered* (sell) at each price point, or market depth. It also identifies the market participants behind the buy and sell orders. These lists help traders and also improve market transparency because they provide valuable trading information.
+
+**Sell Order**
+
+**Sell order** enables a broker (blockchain) to sell tokens. A sell order may take any of a number of forms. Depending on the nature of the order, the broker (blockchain) may execute it at the best available price when the order is made, at a set price designated by the client (user), or according to a more complicated formula.
+
+**Buy Order**
+
+**Buy order** is an instruction from an investor (client / user) to a broker (blockchain) to buy a certain amount of tokens. Buy orders may take various forms. For example, an investor (client / user) may instruct the broker (blockchain) to buy immediately at the best available price, or to wait until a certain price is reached.
+
 ## How the module works
 
 You will learn how to build an exchange that works with two or more blockchains. The module is called `ibcdex`.
 
-The module allows to open an exchange order book between a pair of token from one blockchain and a token on another blockchain. The blockchains are required to have the `ibcdex` module available.
+The module allows to open an exchange order book between a pair of token within a blockchain network and between a pair of token on another blockchain network. The blockchains are required to have the `ibcdex` module available.
 
 Tokens can be bought or sold with Limit Orders on a simple order book, there is no notion of Liquidity Pool or AMM.
 
 The market is unidirectional: the token sold on the source chain cannot be bought back as it is, and the token bought from the target chain cannot be sold back using the same pair. If a token on a source chain is sold, it can only be bought back by creating a new pair on the order book. This is due to the nature of IBC, creating a `voucher` token on the target blockchain. In this tutorial you will learn the difference of a native blockchain token and a `voucher` token that is minted on another blockchain. You will learn how to create a second order book pair in order to receive the native token back.
 
+<!-- The above comment on line 27 is a bit hard to follow. Adding an example below for easier understanding.-->
+
+For example: There are two `ibc` enabled chains - Earth_chain and Venus_chain. 
+
 In the next chapter you will learn details about the design of the interblockchain exchange.
 
 # App Design
 
-In this chapter you will learn how the interchain exchange module is designed. The module has order books, buy- and sell orders. First, an order book for a pair of token has to be created. After an order book exists, you can create buy and sell orders for this pair of token.
+In this chapter you will learn how the interchain exchange module is designed. The module has **order books**, **buy** and **sell orders.** First, an order book for a pair of token has to be created. After an order book exists, you can create buy and sell orders for this pair of token.
 
-The module will make use of the Inter-Blockchain Communication Standard [IBC](https://github.com/cosmos/ics/blob/master/ibc/2_IBC_ARCHITECTURE.md). With use of the IBC, the module can create order books for tokens to have multiple blockchains interact and exchange their tokens. 
+The module will make use of the Inter-Blockchain Communication Standard [IBC](https://github.com/cosmos/ics/blob/master/ibc/2_IBC_ARCHITECTURE.md). With use of the IBC, the module can create order books for tokens to have multiple blockchains interact and exchange their tokens. <!-- The link provided gives a 404. -->
 
 You will be able to create an order book pair with one token from one blockchain and another token from another blockchain. We will call the module you create in this tutorial `ibcdex`.
 Both blockchains will need to have the `ibcdex` module installed and running.
@@ -57,6 +76,7 @@ This module is inspired by the [`ibc-transfer`](https://github.com/cosmos/cosmos
 - Several types of acknowledgments to treat
 - Some more complex logic on how to treat a packet on receipt, on timeout and more
 
+
 ## Overview
 
 Assume you have two blockchains: `Venus` and `Mars`. The native token on Venus is called `vcx`, the token on Mars is `mcx`. 
@@ -75,7 +95,7 @@ In this example blockchain `Mars` holds the sell oders and blockchain `Venus` ho
 
 ## Exchanging tokens back
 
-Like `ibc-transfer` each blockchain keep a trace of the token voucher created on the other blockchain.
+Like `ibc-transfer` each blockchain keeps a trace of the token voucher created on the other blockchain.
 
 If a blockchain `Mars` sells `MCX` to `Venus` and `ibc/Venus/mcx` is minted on `Venus` then, if `ibc/Venus/mcx` is sold back on `Mars` the token unlocked and received will be `MCX`.
 
@@ -129,7 +149,7 @@ starport module create ibcdex --ibc --ordering unordered
 
 ## Create CRUD logic for Buy and Sell Order Books
 
-To scaffold two types with create, read, update and delete (CRUD) actions use the Starport `type` command.
+To scaffold two *types* with create, read, update and delete (CRUD) actions use the Starport `type` command.
 The following commands create `sellOrderBook` and `buyOrderBook` types. 
 
 ```bash
@@ -178,10 +198,10 @@ The optional `--desc` flag lets you define a description of the CLI command that
 
 The token denoms must have the same behavior as described in the `ibc-transfer` module:
 
-- An external token received from a chain has a unique `denom`, reffered to as `voucher`.
+- An external token received from a chain has a unique `denom`, referred to as `voucher`.
 - When a token is sent to a blockchain and then sent back and received, the chain can resolve the voucher and convert it back to the original token denomination.
 
-`Voucher` tokens are represented as hashes, therefore you must store which original denomination is related to a voucher, you can do this with an indexed type.
+`Voucher` tokens are represented as hashes, therefore you must store which original denomination is related to a voucher; you can do this with an indexed type.
 
 For a `voucher` you store: the source port ID, source channel ID and the original denom
 
@@ -351,7 +371,9 @@ BuyOrderBook:
 
 ## Performing an Exchange with a Sell Order
 
-We now have two orders open for MCX: a sell order on the source chain (for 10mcx at 15vcx) and a buy order on the target chain (for 5mcx at 5vcx). Let's perform an exchange by sending a sell order to the source chain.
+<!-- This is a bit difficult to follow. Using a simpler example to illustrate exchange with sell order. Simplifying the calculations by using coherent values for a token and integer amount -->
+
+<!-- We now have two orders open for MCX: a sell order on the source chain (for 10mcx at 15vcx) and a buy order on the target chain (for 5mcx at 5vcx). Let's perform an exchange by sending a sell order to the source chain.
 
 ```
 # Sell order broadcasted to the source chain
@@ -394,17 +416,62 @@ balances:
 - amount: "5" # increased from 0
   denom: ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33 # mcx voucher
 ```
+-->
+
+We now have two orders open for `marscoin`: a *sell order* on the **source chain** (for 20 `marscoin` at 5 `venuscoin`) and a *buy order* on the **target chain** (for 5 `marscoin` at 5 `venuscoin`). Let's perform an exchange by sending a sell order to the source chain.
+
+```
+# Sell order broadcasted to the source chain
+interchanged tx ibcdex send-sellOrder ibcdex channel-0 mcx 20 vcx 5
+```
+
+The sell order (for 5 `marscoin` at 5 `venuscoin`) was filled on the target chain by the buy order. The amount of the buy order on the target chain has decreased by 5 `marscoin`.
+
+```yml
+# Target blockchain
+BuyOrderBook:
+- amountDenom: mcx
+  creator: ""
+  index: ibcdex-channel-0-mcx-vcx
+  orderIDTrack: 5
+  orders:
+  - amount: 15 # decreased from 20
+    creator: cosmos1qlrz3peenc6s3xjv9k97e8ef72nk3qn3a0xax2
+    id: 3
+    price: 5
+  priceDenom: vcx
+```
+
+The sender of the filled sell order exchanged 5 `marscoin` for 25 `venuscoin` vouchers. 25 vouchers is a product of the amount of the sell order (5 `marscoin`) and price of the buy order (5 `venuscoin`).
+
+```yml
+# Source blockchain
+balances:
+- amount: "25" # increased from 0
+  denom: ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833 # vcx voucher
+- amount: "985" # decreased from 990
+  denom: mcx
+```
+
+The counterparty (sender of the buy mcx order) received 5 `marscoin` vouchers. `venuscoin` balance hasn't changed, because the correct amount of `venuscoin` (50) were locked at the creation of the buy order during the previous step.
+
+```yml
+# Target blockchain
+balances:
+- amount: "5" # increased from 0
+  denom: ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33 # mcx voucher
+```
 
 ## Performing an Exchange with a Buy Order
 
-An order is sent to buy 5mcx for 15vcx.
+An order is sent to buy 5 `marscoin` for 15 `venuscoin`.
 
 ```
 # Buy order broadcasted to the target chain
 interchanged tx ibcdex send-buyOrder ibcdex channel-0 mcx 5 vcx 15
 ```
 
-A buy order is immediately filled on the source chain and sell order creator recived 75 vcx vouchers. The sell order amount is decreased by the amount of the filled buy order (by 5mcx).
+A buy order is immediately filled on the source chain and sell order creator received 75 `venuscoin` vouchers. The sell order amount is decreased by the amount of the filled buy order (by 5 `marscoin`).
 
 ```yml
 # Source blockchain
@@ -424,7 +491,7 @@ SellOrderBook:
   priceDenom: vcx
 ```
 
-Creator of the buy order received 5 mcx vouchers for 75 vcx (5mcx * 15vcx).
+Creator of the buy order received 5 `marscoin` vouchers for 75 `venuscoin` (5 `marscoin` * 15 `venuscoin`).
 
 ```yml
 # Target blockchain
@@ -437,14 +504,14 @@ balances:
 
 ## Complete Exchange with a Partially Filled Sell Order
 
-An order is sent to sell 10mcx for 3vcx.
+An order is sent to sell 10 `marscoin` for 3 `venuscoin`.
 
 ```
 # Source blockchain
 interchanged tx ibcdex send-sellOrder ibcdex channel-0 mcx 10 vcx 3
 ```
 
-The sell amount is 10mcx, but the opened buy order amount is only 5mcx. The buy order gets filled completely and removed from the order book. The author of the previously created buy order recived 10 mcx vouchers from the exchange.
+The sell amount is 10 `marscoin`, but the opened buy order amount is only 5 `marscoin`. The buy order gets filled completely and removed from the order book. The author of the previously created buy order recived 10 `marscoin` vouchers from the exchange.
 
 ```yml
 # Target blockchain
@@ -460,7 +527,7 @@ BuyOrderBook:
   priceDenom: vcx
 ```
 
-The author of the sell order successfuly exchanged 5 mcx and recived 25 vcx vouchers. The other 5mcx created a sell order.
+The author of the sell order successfuly exchanged 5 `marscoin` and received 25 `venuscoin` vouchers. The other 5mcx created a sell order.
 
 ```yml
 # Source blockchain
@@ -487,14 +554,14 @@ SellOrderBook:
 
 ## Complete Exchange with a Partially Filled Buy Order
 
-An order is created to buy 10 mcx for 5 vcx.
+An order is created to buy 10 `marscoin` for 5 `venuscoin`.
 
 ```
 # Target blockchain
 interchanged tx ibcdex send-buyOrder ibcdex channel-0 mcx 10 vcx 5
 ```
 
-The buy order is partially filled for 5mcx. An existing sell order for 5 mcx (with a price of 3 vcx) on the source chain has been completely filled and removed from the order book. The author of the closed sell order recived 15 vcx vouchers (product of 5mcx and 3vcx).
+The buy order is partially filled for 5 `marscoin`. An existing sell order for 5 `marscoin` (with a price of 3 `venuscoin`) on the source chain has been completely filled and removed from the order book. The author of the closed sell order recived 15 vcx vouchers (product of 5 `marscoin` and 3 `venuscoin`).
 
 ```yml
 # Source blockchain
@@ -515,7 +582,7 @@ SellOrderBook:
   priceDenom: vcx
 ```
 
-Author of buy order recieves 5 mcx vouchers and 50 vcx of their tokens get locked. The 5mcx amount not filled by the sell order creates a buy order on the target chain.
+Author of buy order recieves 5 `marscoin` vouchers and 50 `venuscoin` of their tokens get locked. The 5 `marscoin` amount not filled by the sell order creates a buy order on the target chain.
 
 ```yml
 # Target blockchain
@@ -539,7 +606,7 @@ BuyOrderBook:
 
 ## Cancelling Orders
 
-After the exchanges we have two orders open: sell order on the source chain (5mcx for 15vcx) and a buy order on the target chain (5mcx for 5vcx).
+After the exchanges we have two orders open: sell order on the source chain (5 `marscoin` for 15 `venuscoin`) and a buy order on the target chain (5 `marscoin` for 5 `venuscoin`).
 
 Cancelling a sell order:
 
@@ -577,7 +644,7 @@ Buy order book on the target blokchain is now empty.
 
 In this chapter you will implement the logic for creating order books.
 
-In Cosmos SDK the state is stored in a key-value store. Each order book will be stored under a unique key composed of four values: port ID, channel ID, source denom and target denom. For example, an order book for `mcx` and `vcx` could be stored under `ibcdex-channel-4-mcx-vcx`. Define a function that returns an order book store key.
+In Cosmos SDK the state is stored in a key-value store. Each order book will be stored under a unique key composed of four values: port ID, channel ID, source denom and target denom. For example, an order book for `mcx` (`marscoin`) and `vcx` (`venuscoin`) could be stored under `ibcdex-channel-4-mcx-vcx`. Define a function that returns an order book store key.
 
 ```go
 // x/ibcdex/types/keys.go
@@ -630,7 +697,7 @@ func (k msgServer) SendCreatePair(goCtx context.Context, msg *types.MsgSendCreat
 
 During a successful transmission, an IBC packet goes through 4 stages:
 
-1. Message processing before packet transmission (on the source cahin)
+1. Message processing before packet transmission (on the source chain)
 2. Reception of a packet (on the target chain)
 3. Acknowledgment of a packet (on the source chain)
 4. Timeout of a packet (on the source chain)
@@ -1025,7 +1092,7 @@ func VoucherDenom(port string, channel string, denom string) string {
 
 ## `OnRecv`
 
-When a "sell order" packet is received on the target chain, the module should  ????
+When a "sell order" packet is received on the target chain, the module should:
 
 - Update the sell order book
 - Distribute sold token to the buyer
@@ -1076,7 +1143,7 @@ func (k Keeper) OnRecvSellOrderPacket(ctx sdk.Context, packet channeltypes.Packe
 
 ### `FillSellOrder`
 
-`FillSellOrder` try to fill the sell order with the order book and returns all the side effects.
+`FillSellOrder` tries to fill the sell order with the order book and returns all the side effects.
 
 ```go
 // x/ibcdex/types/buy_order_book.go
