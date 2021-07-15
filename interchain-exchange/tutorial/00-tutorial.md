@@ -16,7 +16,7 @@ If you want to see the end result, please refer to the [example implementation](
 - Send IBC packets from one blockchain to another
 - Deal with timeouts and acknowledgements of IBC packets
 
-## Concepts good to know
+## Foundational Concepts
 
 **Order Books**
 
