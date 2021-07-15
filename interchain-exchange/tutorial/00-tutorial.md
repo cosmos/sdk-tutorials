@@ -20,8 +20,7 @@ If you want to see the end result, please refer to the [example implementation](
 
 **Order Books**
 
-**Order books** are electronic list of *buy* and *sell* orders for specific financial instrument - For eg: cryptocurrencies.
-An order book lists the number of tokens being *bid* (buy) on or *offered* (sell) at each price point, or market depth. It also identifies the market participants behind the buy and sell orders. These lists help traders and also improve market transparency because they provide valuable trading information.
+**Order books** are electronic lists of *buy* and *sell* orders for specific financial instruments - For example, cryptocurrencies. An order book lists the number of tokens being *bid* on (buy) or *offered* (sell) at each price point or market depth. Order books also identify the market participants behind the buy and sell orders. These lists help traders and also improve market transparency by providing valuable trading information.
 
 **Sell Order**
 
