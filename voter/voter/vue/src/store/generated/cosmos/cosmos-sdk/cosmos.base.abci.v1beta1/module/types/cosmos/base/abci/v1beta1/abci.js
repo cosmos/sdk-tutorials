@@ -1,45 +1,45 @@
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { Any } from "../../../../google/protobuf/any";
-import { Event } from "../../../../tendermint/abci/types";
-export const protobufPackage = "cosmos.base.abci.v1beta1";
+import * as Long from 'long';
+import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { Any } from '../../../../google/protobuf/any';
+import { Event } from '../../../../tendermint/abci/types';
+export const protobufPackage = 'cosmos.base.abci.v1beta1';
 const baseTxResponse = {
     height: 0,
-    txhash: "",
-    codespace: "",
+    txhash: '',
+    codespace: '',
     code: 0,
-    data: "",
-    rawLog: "",
-    info: "",
+    data: '',
+    rawLog: '',
+    info: '',
     gasWanted: 0,
     gasUsed: 0,
-    timestamp: "",
+    timestamp: ''
 };
 export const TxResponse = {
     encode(message, writer = Writer.create()) {
         if (message.height !== 0) {
             writer.uint32(8).int64(message.height);
         }
-        if (message.txhash !== "") {
+        if (message.txhash !== '') {
             writer.uint32(18).string(message.txhash);
         }
-        if (message.codespace !== "") {
+        if (message.codespace !== '') {
             writer.uint32(26).string(message.codespace);
         }
         if (message.code !== 0) {
             writer.uint32(32).uint32(message.code);
         }
-        if (message.data !== "") {
+        if (message.data !== '') {
             writer.uint32(42).string(message.data);
         }
-        if (message.rawLog !== "") {
+        if (message.rawLog !== '') {
             writer.uint32(50).string(message.rawLog);
         }
         for (const v of message.logs) {
             ABCIMessageLog.encode(v, writer.uint32(58).fork()).ldelim();
         }
-        if (message.info !== "") {
+        if (message.info !== '') {
             writer.uint32(66).string(message.info);
         }
         if (message.gasWanted !== 0) {
@@ -51,7 +51,7 @@ export const TxResponse = {
         if (message.tx !== undefined) {
             Any.encode(message.tx, writer.uint32(90).fork()).ldelim();
         }
-        if (message.timestamp !== "") {
+        if (message.timestamp !== '') {
             writer.uint32(98).string(message.timestamp);
         }
         return writer;
@@ -120,13 +120,13 @@ export const TxResponse = {
             message.txhash = String(object.txhash);
         }
         else {
-            message.txhash = "";
+            message.txhash = '';
         }
         if (object.codespace !== undefined && object.codespace !== null) {
             message.codespace = String(object.codespace);
         }
         else {
-            message.codespace = "";
+            message.codespace = '';
         }
         if (object.code !== undefined && object.code !== null) {
             message.code = Number(object.code);
@@ -138,13 +138,13 @@ export const TxResponse = {
             message.data = String(object.data);
         }
         else {
-            message.data = "";
+            message.data = '';
         }
         if (object.rawLog !== undefined && object.rawLog !== null) {
             message.rawLog = String(object.rawLog);
         }
         else {
-            message.rawLog = "";
+            message.rawLog = '';
         }
         if (object.logs !== undefined && object.logs !== null) {
             for (const e of object.logs) {
@@ -155,7 +155,7 @@ export const TxResponse = {
             message.info = String(object.info);
         }
         else {
-            message.info = "";
+            message.info = '';
         }
         if (object.gasWanted !== undefined && object.gasWanted !== null) {
             message.gasWanted = Number(object.gasWanted);
@@ -179,7 +179,7 @@ export const TxResponse = {
             message.timestamp = String(object.timestamp);
         }
         else {
-            message.timestamp = "";
+            message.timestamp = '';
         }
         return message;
     },
@@ -218,13 +218,13 @@ export const TxResponse = {
             message.txhash = object.txhash;
         }
         else {
-            message.txhash = "";
+            message.txhash = '';
         }
         if (object.codespace !== undefined && object.codespace !== null) {
             message.codespace = object.codespace;
         }
         else {
-            message.codespace = "";
+            message.codespace = '';
         }
         if (object.code !== undefined && object.code !== null) {
             message.code = object.code;
@@ -236,13 +236,13 @@ export const TxResponse = {
             message.data = object.data;
         }
         else {
-            message.data = "";
+            message.data = '';
         }
         if (object.rawLog !== undefined && object.rawLog !== null) {
             message.rawLog = object.rawLog;
         }
         else {
-            message.rawLog = "";
+            message.rawLog = '';
         }
         if (object.logs !== undefined && object.logs !== null) {
             for (const e of object.logs) {
@@ -253,7 +253,7 @@ export const TxResponse = {
             message.info = object.info;
         }
         else {
-            message.info = "";
+            message.info = '';
         }
         if (object.gasWanted !== undefined && object.gasWanted !== null) {
             message.gasWanted = object.gasWanted;
@@ -277,18 +277,18 @@ export const TxResponse = {
             message.timestamp = object.timestamp;
         }
         else {
-            message.timestamp = "";
+            message.timestamp = '';
         }
         return message;
-    },
+    }
 };
-const baseABCIMessageLog = { msgIndex: 0, log: "" };
+const baseABCIMessageLog = { msgIndex: 0, log: '' };
 export const ABCIMessageLog = {
     encode(message, writer = Writer.create()) {
         if (message.msgIndex !== 0) {
             writer.uint32(8).uint32(message.msgIndex);
         }
-        if (message.log !== "") {
+        if (message.log !== '') {
             writer.uint32(18).string(message.log);
         }
         for (const v of message.events) {
@@ -333,7 +333,7 @@ export const ABCIMessageLog = {
             message.log = String(object.log);
         }
         else {
-            message.log = "";
+            message.log = '';
         }
         if (object.events !== undefined && object.events !== null) {
             for (const e of object.events) {
@@ -367,7 +367,7 @@ export const ABCIMessageLog = {
             message.log = object.log;
         }
         else {
-            message.log = "";
+            message.log = '';
         }
         if (object.events !== undefined && object.events !== null) {
             for (const e of object.events) {
@@ -375,12 +375,12 @@ export const ABCIMessageLog = {
             }
         }
         return message;
-    },
+    }
 };
-const baseStringEvent = { type: "" };
+const baseStringEvent = { type: '' };
 export const StringEvent = {
     encode(message, writer = Writer.create()) {
-        if (message.type !== "") {
+        if (message.type !== '') {
             writer.uint32(10).string(message.type);
         }
         for (const v of message.attributes) {
@@ -416,7 +416,7 @@ export const StringEvent = {
             message.type = String(object.type);
         }
         else {
-            message.type = "";
+            message.type = '';
         }
         if (object.attributes !== undefined && object.attributes !== null) {
             for (const e of object.attributes) {
@@ -443,7 +443,7 @@ export const StringEvent = {
             message.type = object.type;
         }
         else {
-            message.type = "";
+            message.type = '';
         }
         if (object.attributes !== undefined && object.attributes !== null) {
             for (const e of object.attributes) {
@@ -451,15 +451,15 @@ export const StringEvent = {
             }
         }
         return message;
-    },
+    }
 };
-const baseAttribute = { key: "", value: "" };
+const baseAttribute = { key: '', value: '' };
 export const Attribute = {
     encode(message, writer = Writer.create()) {
-        if (message.key !== "") {
+        if (message.key !== '') {
             writer.uint32(10).string(message.key);
         }
-        if (message.value !== "") {
+        if (message.value !== '') {
             writer.uint32(18).string(message.value);
         }
         return writer;
@@ -490,13 +490,13 @@ export const Attribute = {
             message.key = String(object.key);
         }
         else {
-            message.key = "";
+            message.key = '';
         }
         if (object.value !== undefined && object.value !== null) {
             message.value = String(object.value);
         }
         else {
-            message.value = "";
+            message.value = '';
         }
         return message;
     },
@@ -512,16 +512,16 @@ export const Attribute = {
             message.key = object.key;
         }
         else {
-            message.key = "";
+            message.key = '';
         }
         if (object.value !== undefined && object.value !== null) {
             message.value = object.value;
         }
         else {
-            message.value = "";
+            message.value = '';
         }
         return message;
-    },
+    }
 };
 const baseGasInfo = { gasWanted: 0, gasUsed: 0 };
 export const GasInfo = {
@@ -591,15 +591,15 @@ export const GasInfo = {
             message.gasUsed = 0;
         }
         return message;
-    },
+    }
 };
-const baseResult = { log: "" };
+const baseResult = { log: '' };
 export const Result = {
     encode(message, writer = Writer.create()) {
         if (message.data.length !== 0) {
             writer.uint32(10).bytes(message.data);
         }
-        if (message.log !== "") {
+        if (message.log !== '') {
             writer.uint32(18).string(message.log);
         }
         for (const v of message.events) {
@@ -641,7 +641,7 @@ export const Result = {
             message.log = String(object.log);
         }
         else {
-            message.log = "";
+            message.log = '';
         }
         if (object.events !== undefined && object.events !== null) {
             for (const e of object.events) {
@@ -676,7 +676,7 @@ export const Result = {
             message.log = object.log;
         }
         else {
-            message.log = "";
+            message.log = '';
         }
         if (object.events !== undefined && object.events !== null) {
             for (const e of object.events) {
@@ -684,7 +684,7 @@ export const Result = {
             }
         }
         return message;
-    },
+    }
 };
 const baseSimulationResponse = {};
 export const SimulationResponse = {
@@ -758,12 +758,12 @@ export const SimulationResponse = {
             message.result = undefined;
         }
         return message;
-    },
+    }
 };
-const baseMsgData = { msgType: "" };
+const baseMsgData = { msgType: '' };
 export const MsgData = {
     encode(message, writer = Writer.create()) {
-        if (message.msgType !== "") {
+        if (message.msgType !== '') {
             writer.uint32(10).string(message.msgType);
         }
         if (message.data.length !== 0) {
@@ -797,7 +797,7 @@ export const MsgData = {
             message.msgType = String(object.msgType);
         }
         else {
-            message.msgType = "";
+            message.msgType = '';
         }
         if (object.data !== undefined && object.data !== null) {
             message.data = bytesFromBase64(object.data);
@@ -817,7 +817,7 @@ export const MsgData = {
             message.msgType = object.msgType;
         }
         else {
-            message.msgType = "";
+            message.msgType = '';
         }
         if (object.data !== undefined && object.data !== null) {
             message.data = object.data;
@@ -826,7 +826,7 @@ export const MsgData = {
             message.data = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const baseTxMsgData = {};
 export const TxMsgData = {
@@ -883,14 +883,14 @@ export const TxMsgData = {
             }
         }
         return message;
-    },
+    }
 };
 const baseSearchTxsResult = {
     totalCount: 0,
     count: 0,
     pageNumber: 0,
     pageTotal: 0,
-    limit: 0,
+    limit: 0
 };
 export const SearchTxsResult = {
     encode(message, writer = Writer.create()) {
@@ -1041,21 +1041,21 @@ export const SearchTxsResult = {
             }
         }
         return message;
-    },
+    }
 };
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -1065,17 +1065,17 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

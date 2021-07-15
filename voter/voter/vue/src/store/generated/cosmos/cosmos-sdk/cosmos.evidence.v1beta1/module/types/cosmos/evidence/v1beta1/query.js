@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { Reader, Writer } from "protobufjs/minimal";
-import { Any } from "../../../google/protobuf/any";
-import { PageRequest, PageResponse, } from "../../../cosmos/base/query/v1beta1/pagination";
-export const protobufPackage = "cosmos.evidence.v1beta1";
+import { Reader, Writer } from 'protobufjs/minimal';
+import { Any } from '../../../google/protobuf/any';
+import { PageRequest, PageResponse } from '../../../cosmos/base/query/v1beta1/pagination';
+export const protobufPackage = 'cosmos.evidence.v1beta1';
 const baseQueryEvidenceRequest = {};
 export const QueryEvidenceRequest = {
     encode(message, writer = Writer.create()) {
@@ -52,7 +52,7 @@ export const QueryEvidenceRequest = {
             message.evidenceHash = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const baseQueryEvidenceResponse = {};
 export const QueryEvidenceResponse = {
@@ -106,7 +106,7 @@ export const QueryEvidenceResponse = {
             message.evidence = undefined;
         }
         return message;
-    },
+    }
 };
 const baseQueryAllEvidenceRequest = {};
 export const QueryAllEvidenceRequest = {
@@ -120,7 +120,7 @@ export const QueryAllEvidenceRequest = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseQueryAllEvidenceRequest,
+            ...baseQueryAllEvidenceRequest
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -137,7 +137,7 @@ export const QueryAllEvidenceRequest = {
     },
     fromJSON(object) {
         const message = {
-            ...baseQueryAllEvidenceRequest,
+            ...baseQueryAllEvidenceRequest
         };
         if (object.pagination !== undefined && object.pagination !== null) {
             message.pagination = PageRequest.fromJSON(object.pagination);
@@ -157,7 +157,7 @@ export const QueryAllEvidenceRequest = {
     },
     fromPartial(object) {
         const message = {
-            ...baseQueryAllEvidenceRequest,
+            ...baseQueryAllEvidenceRequest
         };
         if (object.pagination !== undefined && object.pagination !== null) {
             message.pagination = PageRequest.fromPartial(object.pagination);
@@ -166,7 +166,7 @@ export const QueryAllEvidenceRequest = {
             message.pagination = undefined;
         }
         return message;
-    },
+    }
 };
 const baseQueryAllEvidenceResponse = {};
 export const QueryAllEvidenceResponse = {
@@ -183,7 +183,7 @@ export const QueryAllEvidenceResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseQueryAllEvidenceResponse,
+            ...baseQueryAllEvidenceResponse
         };
         message.evidence = [];
         while (reader.pos < end) {
@@ -204,7 +204,7 @@ export const QueryAllEvidenceResponse = {
     },
     fromJSON(object) {
         const message = {
-            ...baseQueryAllEvidenceResponse,
+            ...baseQueryAllEvidenceResponse
         };
         message.evidence = [];
         if (object.evidence !== undefined && object.evidence !== null) {
@@ -236,7 +236,7 @@ export const QueryAllEvidenceResponse = {
     },
     fromPartial(object) {
         const message = {
-            ...baseQueryAllEvidenceResponse,
+            ...baseQueryAllEvidenceResponse
         };
         message.evidence = [];
         if (object.evidence !== undefined && object.evidence !== null) {
@@ -251,7 +251,7 @@ export const QueryAllEvidenceResponse = {
             message.pagination = undefined;
         }
         return message;
-    },
+    }
 };
 export class QueryClientImpl {
     constructor(rpc) {
@@ -259,28 +259,28 @@ export class QueryClientImpl {
     }
     Evidence(request) {
         const data = QueryEvidenceRequest.encode(request).finish();
-        const promise = this.rpc.request("cosmos.evidence.v1beta1.Query", "Evidence", data);
+        const promise = this.rpc.request('cosmos.evidence.v1beta1.Query', 'Evidence', data);
         return promise.then((data) => QueryEvidenceResponse.decode(new Reader(data)));
     }
     AllEvidence(request) {
         const data = QueryAllEvidenceRequest.encode(request).finish();
-        const promise = this.rpc.request("cosmos.evidence.v1beta1.Query", "AllEvidence", data);
+        const promise = this.rpc.request('cosmos.evidence.v1beta1.Query', 'AllEvidence', data);
         return promise.then((data) => QueryAllEvidenceResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -290,11 +290,11 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }

@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { Any } from "../../../google/protobuf/any";
-import { Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "cosmos.evidence.v1beta1";
+import { Any } from '../../../google/protobuf/any';
+import { Writer, Reader } from 'protobufjs/minimal';
+export const protobufPackage = 'cosmos.evidence.v1beta1';
 const baseGenesisState = {};
 export const GenesisState = {
     encode(message, writer = Writer.create()) {
@@ -57,5 +57,5 @@ export const GenesisState = {
             }
         }
         return message;
-    },
+    }
 };

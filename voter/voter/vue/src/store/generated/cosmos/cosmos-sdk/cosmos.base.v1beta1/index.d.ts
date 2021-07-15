@@ -1,3 +1,8 @@
+import { Coin } from "./module/types/cosmos/base/v1beta1/coin";
+import { DecCoin } from "./module/types/cosmos/base/v1beta1/coin";
+import { IntProto } from "./module/types/cosmos/base/v1beta1/coin";
+import { DecProto } from "./module/types/cosmos/base/v1beta1/coin";
+export { Coin, DecCoin, IntProto, DecProto };
 declare const _default: {
     namespaced: boolean;
     state: {

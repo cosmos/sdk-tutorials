@@ -24,28 +24,28 @@ import '@starport/vue/lib/starport-vue.css'
 import Sidebar from './components/Sidebar'
 
 export default {
-	components: {
-		Sidebar
-	},
-	data() {
-		return {
-			initialized: false
-		}
-	},
-	computed: {
-		hasWallet() {
-			return this.$store.hasModule([ 'common', 'wallet'])
-		}
-	},
-	async created() {
-		await this.$store.dispatch('common/env/init')
-		this.initialized = true
-		await this.$store.dispatch("username.voter.voter/QueryPollAll",{options:{subscribe:true, all:true},params:{}})
-		await this.$store.dispatch("username.voter.voter/QueryVoteAll",{options:{subscribe:true, all:true},params:{}})
-	},
-	errorCaptured(err) {
-		console.log(err)
-		return false
-	}
+    components: {
+        Sidebar
+    },
+    data() {
+        return {
+            initialized: false
+        }
+    },
+    computed: {
+        hasWallet() {
+            return this.$store.hasModule([ 'common', 'wallet'])
+        }
+    },
+    async created() {
+        await this.$store.dispatch('common/env/init')
+        this.initialized = true
+        await this.$store.dispatch("cosmonaut.voter.voter/QueryPollAll",{options:{subscribe:true, all:true},params:{}})
+        await this.$store.dispatch("cosmonaut.voter.voter/QueryVoteAll",{options:{subscribe:true, all:true},params:{}})
+    },
+    errorCaptured(err) {
+        console.log(err)
+        return false
+    }
 }
 </script>

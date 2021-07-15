@@ -1,19 +1,19 @@
 /* eslint-disable */
-import { Reader, util, configure, Writer } from "protobufjs/minimal";
-import * as Long from "long";
-import { Channel, Packet } from "../../../../ibc/core/channel/v1/channel";
-import { Height } from "../../../../ibc/core/client/v1/client";
-export const protobufPackage = "ibc.core.channel.v1";
-const baseMsgChannelOpenInit = { portId: "", signer: "" };
+import { Reader, util, configure, Writer } from 'protobufjs/minimal';
+import * as Long from 'long';
+import { Channel, Packet } from '../../../../ibc/core/channel/v1/channel';
+import { Height } from '../../../../ibc/core/client/v1/client';
+export const protobufPackage = 'ibc.core.channel.v1';
+const baseMsgChannelOpenInit = { portId: '', signer: '' };
 export const MsgChannelOpenInit = {
     encode(message, writer = Writer.create()) {
-        if (message.portId !== "") {
+        if (message.portId !== '') {
             writer.uint32(10).string(message.portId);
         }
         if (message.channel !== undefined) {
             Channel.encode(message.channel, writer.uint32(18).fork()).ldelim();
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(26).string(message.signer);
         }
         return writer;
@@ -47,7 +47,7 @@ export const MsgChannelOpenInit = {
             message.portId = String(object.portId);
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channel !== undefined && object.channel !== null) {
             message.channel = Channel.fromJSON(object.channel);
@@ -59,7 +59,7 @@ export const MsgChannelOpenInit = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -79,7 +79,7 @@ export const MsgChannelOpenInit = {
             message.portId = object.portId;
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channel !== undefined && object.channel !== null) {
             message.channel = Channel.fromPartial(object.channel);
@@ -91,10 +91,10 @@ export const MsgChannelOpenInit = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgChannelOpenInitResponse = {};
 export const MsgChannelOpenInitResponse = {
@@ -105,7 +105,7 @@ export const MsgChannelOpenInitResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgChannelOpenInitResponse,
+            ...baseMsgChannelOpenInitResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -119,7 +119,7 @@ export const MsgChannelOpenInitResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgChannelOpenInitResponse,
+            ...baseMsgChannelOpenInitResponse
         };
         return message;
     },
@@ -129,29 +129,29 @@ export const MsgChannelOpenInitResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgChannelOpenInitResponse,
+            ...baseMsgChannelOpenInitResponse
         };
         return message;
-    },
+    }
 };
 const baseMsgChannelOpenTry = {
-    portId: "",
-    previousChannelId: "",
-    counterpartyVersion: "",
-    signer: "",
+    portId: '',
+    previousChannelId: '',
+    counterpartyVersion: '',
+    signer: ''
 };
 export const MsgChannelOpenTry = {
     encode(message, writer = Writer.create()) {
-        if (message.portId !== "") {
+        if (message.portId !== '') {
             writer.uint32(10).string(message.portId);
         }
-        if (message.previousChannelId !== "") {
+        if (message.previousChannelId !== '') {
             writer.uint32(18).string(message.previousChannelId);
         }
         if (message.channel !== undefined) {
             Channel.encode(message.channel, writer.uint32(26).fork()).ldelim();
         }
-        if (message.counterpartyVersion !== "") {
+        if (message.counterpartyVersion !== '') {
             writer.uint32(34).string(message.counterpartyVersion);
         }
         if (message.proofInit.length !== 0) {
@@ -160,7 +160,7 @@ export const MsgChannelOpenTry = {
         if (message.proofHeight !== undefined) {
             Height.encode(message.proofHeight, writer.uint32(50).fork()).ldelim();
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(58).string(message.signer);
         }
         return writer;
@@ -206,14 +206,14 @@ export const MsgChannelOpenTry = {
             message.portId = String(object.portId);
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.previousChannelId !== undefined &&
             object.previousChannelId !== null) {
             message.previousChannelId = String(object.previousChannelId);
         }
         else {
-            message.previousChannelId = "";
+            message.previousChannelId = '';
         }
         if (object.channel !== undefined && object.channel !== null) {
             message.channel = Channel.fromJSON(object.channel);
@@ -226,7 +226,7 @@ export const MsgChannelOpenTry = {
             message.counterpartyVersion = String(object.counterpartyVersion);
         }
         else {
-            message.counterpartyVersion = "";
+            message.counterpartyVersion = '';
         }
         if (object.proofInit !== undefined && object.proofInit !== null) {
             message.proofInit = bytesFromBase64(object.proofInit);
@@ -241,7 +241,7 @@ export const MsgChannelOpenTry = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -271,14 +271,14 @@ export const MsgChannelOpenTry = {
             message.portId = object.portId;
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.previousChannelId !== undefined &&
             object.previousChannelId !== null) {
             message.previousChannelId = object.previousChannelId;
         }
         else {
-            message.previousChannelId = "";
+            message.previousChannelId = '';
         }
         if (object.channel !== undefined && object.channel !== null) {
             message.channel = Channel.fromPartial(object.channel);
@@ -291,7 +291,7 @@ export const MsgChannelOpenTry = {
             message.counterpartyVersion = object.counterpartyVersion;
         }
         else {
-            message.counterpartyVersion = "";
+            message.counterpartyVersion = '';
         }
         if (object.proofInit !== undefined && object.proofInit !== null) {
             message.proofInit = object.proofInit;
@@ -309,10 +309,10 @@ export const MsgChannelOpenTry = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgChannelOpenTryResponse = {};
 export const MsgChannelOpenTryResponse = {
@@ -323,7 +323,7 @@ export const MsgChannelOpenTryResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgChannelOpenTryResponse,
+            ...baseMsgChannelOpenTryResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -337,7 +337,7 @@ export const MsgChannelOpenTryResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgChannelOpenTryResponse,
+            ...baseMsgChannelOpenTryResponse
         };
         return message;
     },
@@ -347,30 +347,30 @@ export const MsgChannelOpenTryResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgChannelOpenTryResponse,
+            ...baseMsgChannelOpenTryResponse
         };
         return message;
-    },
+    }
 };
 const baseMsgChannelOpenAck = {
-    portId: "",
-    channelId: "",
-    counterpartyChannelId: "",
-    counterpartyVersion: "",
-    signer: "",
+    portId: '',
+    channelId: '',
+    counterpartyChannelId: '',
+    counterpartyVersion: '',
+    signer: ''
 };
 export const MsgChannelOpenAck = {
     encode(message, writer = Writer.create()) {
-        if (message.portId !== "") {
+        if (message.portId !== '') {
             writer.uint32(10).string(message.portId);
         }
-        if (message.channelId !== "") {
+        if (message.channelId !== '') {
             writer.uint32(18).string(message.channelId);
         }
-        if (message.counterpartyChannelId !== "") {
+        if (message.counterpartyChannelId !== '') {
             writer.uint32(26).string(message.counterpartyChannelId);
         }
-        if (message.counterpartyVersion !== "") {
+        if (message.counterpartyVersion !== '') {
             writer.uint32(34).string(message.counterpartyVersion);
         }
         if (message.proofTry.length !== 0) {
@@ -379,7 +379,7 @@ export const MsgChannelOpenAck = {
         if (message.proofHeight !== undefined) {
             Height.encode(message.proofHeight, writer.uint32(50).fork()).ldelim();
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(58).string(message.signer);
         }
         return writer;
@@ -425,27 +425,27 @@ export const MsgChannelOpenAck = {
             message.portId = String(object.portId);
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = String(object.channelId);
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         if (object.counterpartyChannelId !== undefined &&
             object.counterpartyChannelId !== null) {
             message.counterpartyChannelId = String(object.counterpartyChannelId);
         }
         else {
-            message.counterpartyChannelId = "";
+            message.counterpartyChannelId = '';
         }
         if (object.counterpartyVersion !== undefined &&
             object.counterpartyVersion !== null) {
             message.counterpartyVersion = String(object.counterpartyVersion);
         }
         else {
-            message.counterpartyVersion = "";
+            message.counterpartyVersion = '';
         }
         if (object.proofTry !== undefined && object.proofTry !== null) {
             message.proofTry = bytesFromBase64(object.proofTry);
@@ -460,7 +460,7 @@ export const MsgChannelOpenAck = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -487,27 +487,27 @@ export const MsgChannelOpenAck = {
             message.portId = object.portId;
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = object.channelId;
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         if (object.counterpartyChannelId !== undefined &&
             object.counterpartyChannelId !== null) {
             message.counterpartyChannelId = object.counterpartyChannelId;
         }
         else {
-            message.counterpartyChannelId = "";
+            message.counterpartyChannelId = '';
         }
         if (object.counterpartyVersion !== undefined &&
             object.counterpartyVersion !== null) {
             message.counterpartyVersion = object.counterpartyVersion;
         }
         else {
-            message.counterpartyVersion = "";
+            message.counterpartyVersion = '';
         }
         if (object.proofTry !== undefined && object.proofTry !== null) {
             message.proofTry = object.proofTry;
@@ -525,10 +525,10 @@ export const MsgChannelOpenAck = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgChannelOpenAckResponse = {};
 export const MsgChannelOpenAckResponse = {
@@ -539,7 +539,7 @@ export const MsgChannelOpenAckResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgChannelOpenAckResponse,
+            ...baseMsgChannelOpenAckResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -553,7 +553,7 @@ export const MsgChannelOpenAckResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgChannelOpenAckResponse,
+            ...baseMsgChannelOpenAckResponse
         };
         return message;
     },
@@ -563,22 +563,22 @@ export const MsgChannelOpenAckResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgChannelOpenAckResponse,
+            ...baseMsgChannelOpenAckResponse
         };
         return message;
-    },
+    }
 };
 const baseMsgChannelOpenConfirm = {
-    portId: "",
-    channelId: "",
-    signer: "",
+    portId: '',
+    channelId: '',
+    signer: ''
 };
 export const MsgChannelOpenConfirm = {
     encode(message, writer = Writer.create()) {
-        if (message.portId !== "") {
+        if (message.portId !== '') {
             writer.uint32(10).string(message.portId);
         }
-        if (message.channelId !== "") {
+        if (message.channelId !== '') {
             writer.uint32(18).string(message.channelId);
         }
         if (message.proofAck.length !== 0) {
@@ -587,7 +587,7 @@ export const MsgChannelOpenConfirm = {
         if (message.proofHeight !== undefined) {
             Height.encode(message.proofHeight, writer.uint32(34).fork()).ldelim();
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(42).string(message.signer);
         }
         return writer;
@@ -627,13 +627,13 @@ export const MsgChannelOpenConfirm = {
             message.portId = String(object.portId);
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = String(object.channelId);
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         if (object.proofAck !== undefined && object.proofAck !== null) {
             message.proofAck = bytesFromBase64(object.proofAck);
@@ -648,7 +648,7 @@ export const MsgChannelOpenConfirm = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -671,13 +671,13 @@ export const MsgChannelOpenConfirm = {
             message.portId = object.portId;
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = object.channelId;
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         if (object.proofAck !== undefined && object.proofAck !== null) {
             message.proofAck = object.proofAck;
@@ -695,10 +695,10 @@ export const MsgChannelOpenConfirm = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgChannelOpenConfirmResponse = {};
 export const MsgChannelOpenConfirmResponse = {
@@ -709,7 +709,7 @@ export const MsgChannelOpenConfirmResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgChannelOpenConfirmResponse,
+            ...baseMsgChannelOpenConfirmResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -723,7 +723,7 @@ export const MsgChannelOpenConfirmResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgChannelOpenConfirmResponse,
+            ...baseMsgChannelOpenConfirmResponse
         };
         return message;
     },
@@ -733,25 +733,25 @@ export const MsgChannelOpenConfirmResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgChannelOpenConfirmResponse,
+            ...baseMsgChannelOpenConfirmResponse
         };
         return message;
-    },
+    }
 };
 const baseMsgChannelCloseInit = {
-    portId: "",
-    channelId: "",
-    signer: "",
+    portId: '',
+    channelId: '',
+    signer: ''
 };
 export const MsgChannelCloseInit = {
     encode(message, writer = Writer.create()) {
-        if (message.portId !== "") {
+        if (message.portId !== '') {
             writer.uint32(10).string(message.portId);
         }
-        if (message.channelId !== "") {
+        if (message.channelId !== '') {
             writer.uint32(18).string(message.channelId);
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(26).string(message.signer);
         }
         return writer;
@@ -785,19 +785,19 @@ export const MsgChannelCloseInit = {
             message.portId = String(object.portId);
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = String(object.channelId);
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         if (object.signer !== undefined && object.signer !== null) {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -814,22 +814,22 @@ export const MsgChannelCloseInit = {
             message.portId = object.portId;
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = object.channelId;
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         if (object.signer !== undefined && object.signer !== null) {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgChannelCloseInitResponse = {};
 export const MsgChannelCloseInitResponse = {
@@ -840,7 +840,7 @@ export const MsgChannelCloseInitResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgChannelCloseInitResponse,
+            ...baseMsgChannelCloseInitResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -854,7 +854,7 @@ export const MsgChannelCloseInitResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgChannelCloseInitResponse,
+            ...baseMsgChannelCloseInitResponse
         };
         return message;
     },
@@ -864,22 +864,22 @@ export const MsgChannelCloseInitResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgChannelCloseInitResponse,
+            ...baseMsgChannelCloseInitResponse
         };
         return message;
-    },
+    }
 };
 const baseMsgChannelCloseConfirm = {
-    portId: "",
-    channelId: "",
-    signer: "",
+    portId: '',
+    channelId: '',
+    signer: ''
 };
 export const MsgChannelCloseConfirm = {
     encode(message, writer = Writer.create()) {
-        if (message.portId !== "") {
+        if (message.portId !== '') {
             writer.uint32(10).string(message.portId);
         }
-        if (message.channelId !== "") {
+        if (message.channelId !== '') {
             writer.uint32(18).string(message.channelId);
         }
         if (message.proofInit.length !== 0) {
@@ -888,7 +888,7 @@ export const MsgChannelCloseConfirm = {
         if (message.proofHeight !== undefined) {
             Height.encode(message.proofHeight, writer.uint32(34).fork()).ldelim();
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(42).string(message.signer);
         }
         return writer;
@@ -928,13 +928,13 @@ export const MsgChannelCloseConfirm = {
             message.portId = String(object.portId);
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = String(object.channelId);
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         if (object.proofInit !== undefined && object.proofInit !== null) {
             message.proofInit = bytesFromBase64(object.proofInit);
@@ -949,7 +949,7 @@ export const MsgChannelCloseConfirm = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -972,13 +972,13 @@ export const MsgChannelCloseConfirm = {
             message.portId = object.portId;
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = object.channelId;
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         if (object.proofInit !== undefined && object.proofInit !== null) {
             message.proofInit = object.proofInit;
@@ -996,10 +996,10 @@ export const MsgChannelCloseConfirm = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgChannelCloseConfirmResponse = {};
 export const MsgChannelCloseConfirmResponse = {
@@ -1010,7 +1010,7 @@ export const MsgChannelCloseConfirmResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgChannelCloseConfirmResponse,
+            ...baseMsgChannelCloseConfirmResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -1024,7 +1024,7 @@ export const MsgChannelCloseConfirmResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgChannelCloseConfirmResponse,
+            ...baseMsgChannelCloseConfirmResponse
         };
         return message;
     },
@@ -1034,12 +1034,12 @@ export const MsgChannelCloseConfirmResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgChannelCloseConfirmResponse,
+            ...baseMsgChannelCloseConfirmResponse
         };
         return message;
-    },
+    }
 };
-const baseMsgRecvPacket = { signer: "" };
+const baseMsgRecvPacket = { signer: '' };
 export const MsgRecvPacket = {
     encode(message, writer = Writer.create()) {
         if (message.packet !== undefined) {
@@ -1051,7 +1051,7 @@ export const MsgRecvPacket = {
         if (message.proofHeight !== undefined) {
             Height.encode(message.proofHeight, writer.uint32(26).fork()).ldelim();
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(34).string(message.signer);
         }
         return writer;
@@ -1104,7 +1104,7 @@ export const MsgRecvPacket = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -1148,10 +1148,10 @@ export const MsgRecvPacket = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgRecvPacketResponse = {};
 export const MsgRecvPacketResponse = {
@@ -1183,9 +1183,9 @@ export const MsgRecvPacketResponse = {
     fromPartial(_) {
         const message = { ...baseMsgRecvPacketResponse };
         return message;
-    },
+    }
 };
-const baseMsgTimeout = { nextSequenceRecv: 0, signer: "" };
+const baseMsgTimeout = { nextSequenceRecv: 0, signer: '' };
 export const MsgTimeout = {
     encode(message, writer = Writer.create()) {
         if (message.packet !== undefined) {
@@ -1200,7 +1200,7 @@ export const MsgTimeout = {
         if (message.nextSequenceRecv !== 0) {
             writer.uint32(32).uint64(message.nextSequenceRecv);
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(42).string(message.signer);
         }
         return writer;
@@ -1263,7 +1263,7 @@ export const MsgTimeout = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -1316,10 +1316,10 @@ export const MsgTimeout = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgTimeoutResponse = {};
 export const MsgTimeoutResponse = {
@@ -1351,9 +1351,9 @@ export const MsgTimeoutResponse = {
     fromPartial(_) {
         const message = { ...baseMsgTimeoutResponse };
         return message;
-    },
+    }
 };
-const baseMsgTimeoutOnClose = { nextSequenceRecv: 0, signer: "" };
+const baseMsgTimeoutOnClose = { nextSequenceRecv: 0, signer: '' };
 export const MsgTimeoutOnClose = {
     encode(message, writer = Writer.create()) {
         if (message.packet !== undefined) {
@@ -1371,7 +1371,7 @@ export const MsgTimeoutOnClose = {
         if (message.nextSequenceRecv !== 0) {
             writer.uint32(40).uint64(message.nextSequenceRecv);
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(50).string(message.signer);
         }
         return writer;
@@ -1440,7 +1440,7 @@ export const MsgTimeoutOnClose = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -1501,10 +1501,10 @@ export const MsgTimeoutOnClose = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgTimeoutOnCloseResponse = {};
 export const MsgTimeoutOnCloseResponse = {
@@ -1515,7 +1515,7 @@ export const MsgTimeoutOnCloseResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgTimeoutOnCloseResponse,
+            ...baseMsgTimeoutOnCloseResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -1529,7 +1529,7 @@ export const MsgTimeoutOnCloseResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgTimeoutOnCloseResponse,
+            ...baseMsgTimeoutOnCloseResponse
         };
         return message;
     },
@@ -1539,12 +1539,12 @@ export const MsgTimeoutOnCloseResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgTimeoutOnCloseResponse,
+            ...baseMsgTimeoutOnCloseResponse
         };
         return message;
-    },
+    }
 };
-const baseMsgAcknowledgement = { signer: "" };
+const baseMsgAcknowledgement = { signer: '' };
 export const MsgAcknowledgement = {
     encode(message, writer = Writer.create()) {
         if (message.packet !== undefined) {
@@ -1559,7 +1559,7 @@ export const MsgAcknowledgement = {
         if (message.proofHeight !== undefined) {
             Height.encode(message.proofHeight, writer.uint32(34).fork()).ldelim();
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(42).string(message.signer);
         }
         return writer;
@@ -1618,7 +1618,7 @@ export const MsgAcknowledgement = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -1670,10 +1670,10 @@ export const MsgAcknowledgement = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgAcknowledgementResponse = {};
 export const MsgAcknowledgementResponse = {
@@ -1684,7 +1684,7 @@ export const MsgAcknowledgementResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgAcknowledgementResponse,
+            ...baseMsgAcknowledgementResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -1698,7 +1698,7 @@ export const MsgAcknowledgementResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgAcknowledgementResponse,
+            ...baseMsgAcknowledgementResponse
         };
         return message;
     },
@@ -1708,10 +1708,10 @@ export const MsgAcknowledgementResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgAcknowledgementResponse,
+            ...baseMsgAcknowledgementResponse
         };
         return message;
-    },
+    }
 };
 export class MsgClientImpl {
     constructor(rpc) {
@@ -1719,68 +1719,68 @@ export class MsgClientImpl {
     }
     ChannelOpenInit(request) {
         const data = MsgChannelOpenInit.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.channel.v1.Msg", "ChannelOpenInit", data);
+        const promise = this.rpc.request('ibc.core.channel.v1.Msg', 'ChannelOpenInit', data);
         return promise.then((data) => MsgChannelOpenInitResponse.decode(new Reader(data)));
     }
     ChannelOpenTry(request) {
         const data = MsgChannelOpenTry.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.channel.v1.Msg", "ChannelOpenTry", data);
+        const promise = this.rpc.request('ibc.core.channel.v1.Msg', 'ChannelOpenTry', data);
         return promise.then((data) => MsgChannelOpenTryResponse.decode(new Reader(data)));
     }
     ChannelOpenAck(request) {
         const data = MsgChannelOpenAck.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.channel.v1.Msg", "ChannelOpenAck", data);
+        const promise = this.rpc.request('ibc.core.channel.v1.Msg', 'ChannelOpenAck', data);
         return promise.then((data) => MsgChannelOpenAckResponse.decode(new Reader(data)));
     }
     ChannelOpenConfirm(request) {
         const data = MsgChannelOpenConfirm.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.channel.v1.Msg", "ChannelOpenConfirm", data);
+        const promise = this.rpc.request('ibc.core.channel.v1.Msg', 'ChannelOpenConfirm', data);
         return promise.then((data) => MsgChannelOpenConfirmResponse.decode(new Reader(data)));
     }
     ChannelCloseInit(request) {
         const data = MsgChannelCloseInit.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.channel.v1.Msg", "ChannelCloseInit", data);
+        const promise = this.rpc.request('ibc.core.channel.v1.Msg', 'ChannelCloseInit', data);
         return promise.then((data) => MsgChannelCloseInitResponse.decode(new Reader(data)));
     }
     ChannelCloseConfirm(request) {
         const data = MsgChannelCloseConfirm.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.channel.v1.Msg", "ChannelCloseConfirm", data);
+        const promise = this.rpc.request('ibc.core.channel.v1.Msg', 'ChannelCloseConfirm', data);
         return promise.then((data) => MsgChannelCloseConfirmResponse.decode(new Reader(data)));
     }
     RecvPacket(request) {
         const data = MsgRecvPacket.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.channel.v1.Msg", "RecvPacket", data);
+        const promise = this.rpc.request('ibc.core.channel.v1.Msg', 'RecvPacket', data);
         return promise.then((data) => MsgRecvPacketResponse.decode(new Reader(data)));
     }
     Timeout(request) {
         const data = MsgTimeout.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.channel.v1.Msg", "Timeout", data);
+        const promise = this.rpc.request('ibc.core.channel.v1.Msg', 'Timeout', data);
         return promise.then((data) => MsgTimeoutResponse.decode(new Reader(data)));
     }
     TimeoutOnClose(request) {
         const data = MsgTimeoutOnClose.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.channel.v1.Msg", "TimeoutOnClose", data);
+        const promise = this.rpc.request('ibc.core.channel.v1.Msg', 'TimeoutOnClose', data);
         return promise.then((data) => MsgTimeoutOnCloseResponse.decode(new Reader(data)));
     }
     Acknowledgement(request) {
         const data = MsgAcknowledgement.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.channel.v1.Msg", "Acknowledgement", data);
+        const promise = this.rpc.request('ibc.core.channel.v1.Msg', 'Acknowledgement', data);
         return promise.then((data) => MsgAcknowledgementResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -1790,17 +1790,17 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

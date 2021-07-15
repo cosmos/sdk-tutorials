@@ -1,5 +1,5 @@
-import { Writer, Reader } from "protobufjs/minimal";
-import { MerklePrefix } from "../../../../ibc/core/commitment/v1/commitment";
+import { Writer, Reader } from 'protobufjs/minimal';
+import { MerklePrefix } from '../../../../ibc/core/commitment/v1/commitment';
 export declare const protobufPackage = "ibc.core.connection.v1";
 /**
  * State defines if a connection is in one of the following states:

@@ -1,8 +1,8 @@
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { Height } from "../../../../ibc/core/client/v1/client";
-export const protobufPackage = "ibc.core.channel.v1";
+import * as Long from 'long';
+import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { Height } from '../../../../ibc/core/client/v1/client';
+export const protobufPackage = 'ibc.core.channel.v1';
 /**
  * State defines if a channel is in one of the following states:
  * CLOSED, INIT, TRYOPEN, OPEN or UNINITIALIZED.
@@ -30,22 +30,22 @@ export var State;
 export function stateFromJSON(object) {
     switch (object) {
         case 0:
-        case "STATE_UNINITIALIZED_UNSPECIFIED":
+        case 'STATE_UNINITIALIZED_UNSPECIFIED':
             return State.STATE_UNINITIALIZED_UNSPECIFIED;
         case 1:
-        case "STATE_INIT":
+        case 'STATE_INIT':
             return State.STATE_INIT;
         case 2:
-        case "STATE_TRYOPEN":
+        case 'STATE_TRYOPEN':
             return State.STATE_TRYOPEN;
         case 3:
-        case "STATE_OPEN":
+        case 'STATE_OPEN':
             return State.STATE_OPEN;
         case 4:
-        case "STATE_CLOSED":
+        case 'STATE_CLOSED':
             return State.STATE_CLOSED;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return State.UNRECOGNIZED;
     }
@@ -53,17 +53,17 @@ export function stateFromJSON(object) {
 export function stateToJSON(object) {
     switch (object) {
         case State.STATE_UNINITIALIZED_UNSPECIFIED:
-            return "STATE_UNINITIALIZED_UNSPECIFIED";
+            return 'STATE_UNINITIALIZED_UNSPECIFIED';
         case State.STATE_INIT:
-            return "STATE_INIT";
+            return 'STATE_INIT';
         case State.STATE_TRYOPEN:
-            return "STATE_TRYOPEN";
+            return 'STATE_TRYOPEN';
         case State.STATE_OPEN:
-            return "STATE_OPEN";
+            return 'STATE_OPEN';
         case State.STATE_CLOSED:
-            return "STATE_CLOSED";
+            return 'STATE_CLOSED';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 /** Order defines if a channel is ORDERED or UNORDERED */
@@ -83,16 +83,16 @@ export var Order;
 export function orderFromJSON(object) {
     switch (object) {
         case 0:
-        case "ORDER_NONE_UNSPECIFIED":
+        case 'ORDER_NONE_UNSPECIFIED':
             return Order.ORDER_NONE_UNSPECIFIED;
         case 1:
-        case "ORDER_UNORDERED":
+        case 'ORDER_UNORDERED':
             return Order.ORDER_UNORDERED;
         case 2:
-        case "ORDER_ORDERED":
+        case 'ORDER_ORDERED':
             return Order.ORDER_ORDERED;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return Order.UNRECOGNIZED;
     }
@@ -100,20 +100,20 @@ export function orderFromJSON(object) {
 export function orderToJSON(object) {
     switch (object) {
         case Order.ORDER_NONE_UNSPECIFIED:
-            return "ORDER_NONE_UNSPECIFIED";
+            return 'ORDER_NONE_UNSPECIFIED';
         case Order.ORDER_UNORDERED:
-            return "ORDER_UNORDERED";
+            return 'ORDER_UNORDERED';
         case Order.ORDER_ORDERED:
-            return "ORDER_ORDERED";
+            return 'ORDER_ORDERED';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 const baseChannel = {
     state: 0,
     ordering: 0,
-    connectionHops: "",
-    version: "",
+    connectionHops: '',
+    version: ''
 };
 export const Channel = {
     encode(message, writer = Writer.create()) {
@@ -129,7 +129,7 @@ export const Channel = {
         for (const v of message.connectionHops) {
             writer.uint32(34).string(v);
         }
-        if (message.version !== "") {
+        if (message.version !== '') {
             writer.uint32(42).string(message.version);
         }
         return writer;
@@ -194,7 +194,7 @@ export const Channel = {
             message.version = String(object.version);
         }
         else {
-            message.version = "";
+            message.version = '';
         }
         return message;
     },
@@ -246,18 +246,18 @@ export const Channel = {
             message.version = object.version;
         }
         else {
-            message.version = "";
+            message.version = '';
         }
         return message;
-    },
+    }
 };
 const baseIdentifiedChannel = {
     state: 0,
     ordering: 0,
-    connectionHops: "",
-    version: "",
-    portId: "",
-    channelId: "",
+    connectionHops: '',
+    version: '',
+    portId: '',
+    channelId: ''
 };
 export const IdentifiedChannel = {
     encode(message, writer = Writer.create()) {
@@ -273,13 +273,13 @@ export const IdentifiedChannel = {
         for (const v of message.connectionHops) {
             writer.uint32(34).string(v);
         }
-        if (message.version !== "") {
+        if (message.version !== '') {
             writer.uint32(42).string(message.version);
         }
-        if (message.portId !== "") {
+        if (message.portId !== '') {
             writer.uint32(50).string(message.portId);
         }
-        if (message.channelId !== "") {
+        if (message.channelId !== '') {
             writer.uint32(58).string(message.channelId);
         }
         return writer;
@@ -350,19 +350,19 @@ export const IdentifiedChannel = {
             message.version = String(object.version);
         }
         else {
-            message.version = "";
+            message.version = '';
         }
         if (object.portId !== undefined && object.portId !== null) {
             message.portId = String(object.portId);
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = String(object.channelId);
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         return message;
     },
@@ -416,30 +416,30 @@ export const IdentifiedChannel = {
             message.version = object.version;
         }
         else {
-            message.version = "";
+            message.version = '';
         }
         if (object.portId !== undefined && object.portId !== null) {
             message.portId = object.portId;
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = object.channelId;
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         return message;
-    },
+    }
 };
-const baseCounterparty = { portId: "", channelId: "" };
+const baseCounterparty = { portId: '', channelId: '' };
 export const Counterparty = {
     encode(message, writer = Writer.create()) {
-        if (message.portId !== "") {
+        if (message.portId !== '') {
             writer.uint32(10).string(message.portId);
         }
-        if (message.channelId !== "") {
+        if (message.channelId !== '') {
             writer.uint32(18).string(message.channelId);
         }
         return writer;
@@ -470,13 +470,13 @@ export const Counterparty = {
             message.portId = String(object.portId);
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = String(object.channelId);
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         return message;
     },
@@ -492,40 +492,40 @@ export const Counterparty = {
             message.portId = object.portId;
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = object.channelId;
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         return message;
-    },
+    }
 };
 const basePacket = {
     sequence: 0,
-    sourcePort: "",
-    sourceChannel: "",
-    destinationPort: "",
-    destinationChannel: "",
-    timeoutTimestamp: 0,
+    sourcePort: '',
+    sourceChannel: '',
+    destinationPort: '',
+    destinationChannel: '',
+    timeoutTimestamp: 0
 };
 export const Packet = {
     encode(message, writer = Writer.create()) {
         if (message.sequence !== 0) {
             writer.uint32(8).uint64(message.sequence);
         }
-        if (message.sourcePort !== "") {
+        if (message.sourcePort !== '') {
             writer.uint32(18).string(message.sourcePort);
         }
-        if (message.sourceChannel !== "") {
+        if (message.sourceChannel !== '') {
             writer.uint32(26).string(message.sourceChannel);
         }
-        if (message.destinationPort !== "") {
+        if (message.destinationPort !== '') {
             writer.uint32(34).string(message.destinationPort);
         }
-        if (message.destinationChannel !== "") {
+        if (message.destinationChannel !== '') {
             writer.uint32(42).string(message.destinationChannel);
         }
         if (message.data.length !== 0) {
@@ -589,27 +589,27 @@ export const Packet = {
             message.sourcePort = String(object.sourcePort);
         }
         else {
-            message.sourcePort = "";
+            message.sourcePort = '';
         }
         if (object.sourceChannel !== undefined && object.sourceChannel !== null) {
             message.sourceChannel = String(object.sourceChannel);
         }
         else {
-            message.sourceChannel = "";
+            message.sourceChannel = '';
         }
         if (object.destinationPort !== undefined &&
             object.destinationPort !== null) {
             message.destinationPort = String(object.destinationPort);
         }
         else {
-            message.destinationPort = "";
+            message.destinationPort = '';
         }
         if (object.destinationChannel !== undefined &&
             object.destinationChannel !== null) {
             message.destinationChannel = String(object.destinationChannel);
         }
         else {
-            message.destinationChannel = "";
+            message.destinationChannel = '';
         }
         if (object.data !== undefined && object.data !== null) {
             message.data = bytesFromBase64(object.data);
@@ -661,27 +661,27 @@ export const Packet = {
             message.sourcePort = object.sourcePort;
         }
         else {
-            message.sourcePort = "";
+            message.sourcePort = '';
         }
         if (object.sourceChannel !== undefined && object.sourceChannel !== null) {
             message.sourceChannel = object.sourceChannel;
         }
         else {
-            message.sourceChannel = "";
+            message.sourceChannel = '';
         }
         if (object.destinationPort !== undefined &&
             object.destinationPort !== null) {
             message.destinationPort = object.destinationPort;
         }
         else {
-            message.destinationPort = "";
+            message.destinationPort = '';
         }
         if (object.destinationChannel !== undefined &&
             object.destinationChannel !== null) {
             message.destinationChannel = object.destinationChannel;
         }
         else {
-            message.destinationChannel = "";
+            message.destinationChannel = '';
         }
         if (object.data !== undefined && object.data !== null) {
             message.data = object.data;
@@ -703,15 +703,15 @@ export const Packet = {
             message.timeoutTimestamp = 0;
         }
         return message;
-    },
+    }
 };
-const basePacketState = { portId: "", channelId: "", sequence: 0 };
+const basePacketState = { portId: '', channelId: '', sequence: 0 };
 export const PacketState = {
     encode(message, writer = Writer.create()) {
-        if (message.portId !== "") {
+        if (message.portId !== '') {
             writer.uint32(10).string(message.portId);
         }
-        if (message.channelId !== "") {
+        if (message.channelId !== '') {
             writer.uint32(18).string(message.channelId);
         }
         if (message.sequence !== 0) {
@@ -754,13 +754,13 @@ export const PacketState = {
             message.portId = String(object.portId);
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = String(object.channelId);
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         if (object.sequence !== undefined && object.sequence !== null) {
             message.sequence = Number(object.sequence);
@@ -788,13 +788,13 @@ export const PacketState = {
             message.portId = object.portId;
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = object.channelId;
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         if (object.sequence !== undefined && object.sequence !== null) {
             message.sequence = object.sequence;
@@ -809,7 +809,7 @@ export const PacketState = {
             message.data = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const baseAcknowledgement = {};
 export const Acknowledgement = {
@@ -880,21 +880,21 @@ export const Acknowledgement = {
             message.error = undefined;
         }
         return message;
-    },
+    }
 };
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -904,17 +904,17 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

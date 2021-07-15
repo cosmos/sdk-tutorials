@@ -1,11 +1,11 @@
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { IdentifiedClientState, ClientConsensusStates, Params, } from "../../../../ibc/core/client/v1/client";
-export const protobufPackage = "ibc.core.client.v1";
+import * as Long from 'long';
+import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { IdentifiedClientState, ClientConsensusStates, Params } from '../../../../ibc/core/client/v1/client';
+export const protobufPackage = 'ibc.core.client.v1';
 const baseGenesisState = {
     createLocalhost: false,
-    nextClientSequence: 0,
+    nextClientSequence: 0
 };
 export const GenesisState = {
     encode(message, writer = Writer.create()) {
@@ -179,7 +179,7 @@ export const GenesisState = {
             message.nextClientSequence = 0;
         }
         return message;
-    },
+    }
 };
 const baseGenesisMetadata = {};
 export const GenesisMetadata = {
@@ -245,12 +245,12 @@ export const GenesisMetadata = {
             message.value = new Uint8Array();
         }
         return message;
-    },
+    }
 };
-const baseIdentifiedGenesisMetadata = { clientId: "" };
+const baseIdentifiedGenesisMetadata = { clientId: '' };
 export const IdentifiedGenesisMetadata = {
     encode(message, writer = Writer.create()) {
-        if (message.clientId !== "") {
+        if (message.clientId !== '') {
             writer.uint32(10).string(message.clientId);
         }
         for (const v of message.clientMetadata) {
@@ -262,7 +262,7 @@ export const IdentifiedGenesisMetadata = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseIdentifiedGenesisMetadata,
+            ...baseIdentifiedGenesisMetadata
         };
         message.clientMetadata = [];
         while (reader.pos < end) {
@@ -283,14 +283,14 @@ export const IdentifiedGenesisMetadata = {
     },
     fromJSON(object) {
         const message = {
-            ...baseIdentifiedGenesisMetadata,
+            ...baseIdentifiedGenesisMetadata
         };
         message.clientMetadata = [];
         if (object.clientId !== undefined && object.clientId !== null) {
             message.clientId = String(object.clientId);
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.clientMetadata !== undefined && object.clientMetadata !== null) {
             for (const e of object.clientMetadata) {
@@ -312,14 +312,14 @@ export const IdentifiedGenesisMetadata = {
     },
     fromPartial(object) {
         const message = {
-            ...baseIdentifiedGenesisMetadata,
+            ...baseIdentifiedGenesisMetadata
         };
         message.clientMetadata = [];
         if (object.clientId !== undefined && object.clientId !== null) {
             message.clientId = object.clientId;
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.clientMetadata !== undefined && object.clientMetadata !== null) {
             for (const e of object.clientMetadata) {
@@ -327,21 +327,21 @@ export const IdentifiedGenesisMetadata = {
             }
         }
         return message;
-    },
+    }
 };
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -351,17 +351,17 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

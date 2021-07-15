@@ -1,4 +1,4 @@
-import { txClient, queryClient } from './module'
+import { txClient, queryClient, MissingWalletError } from './module'
 // @ts-ignore
 import { SpVuexError } from '@starport/vuex'
 
@@ -8,6 +8,8 @@ import { DelayedVestingAccount } from "./module/types/cosmos/vesting/v1beta1/ves
 import { Period } from "./module/types/cosmos/vesting/v1beta1/vesting"
 import { PeriodicVestingAccount } from "./module/types/cosmos/vesting/v1beta1/vesting"
 
+
+export { BaseVestingAccount, ContinuousVestingAccount, DelayedVestingAccount, Period, PeriodicVestingAccount };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -19,6 +21,17 @@ async function initQueryClient(vuexGetters) {
 	return await queryClient({
 		addr: vuexGetters['common/env/apiCosmos']
 	})
+}
+
+function mergeResults(value, next_values) {
+	for (let prop of Object.keys(next_values)) {
+		if (Array.isArray(next_values[prop])) {
+			value[prop]=[...value[prop], ...next_values[prop]]
+		}else{
+			value[prop]=next_values[prop]
+		}
+	}
+	return value
 }
 
 function getStructure(template) {
@@ -34,14 +47,14 @@ function getStructure(template) {
 
 const getDefaultState = () => {
 	return {
-        
-        _Structure: {
-            BaseVestingAccount: getStructure(BaseVestingAccount.fromPartial({})),
-            ContinuousVestingAccount: getStructure(ContinuousVestingAccount.fromPartial({})),
-            DelayedVestingAccount: getStructure(DelayedVestingAccount.fromPartial({})),
-            Period: getStructure(Period.fromPartial({})),
-            PeriodicVestingAccount: getStructure(PeriodicVestingAccount.fromPartial({})),
-            
+				
+				_Structure: {
+						BaseVestingAccount: getStructure(BaseVestingAccount.fromPartial({})),
+						ContinuousVestingAccount: getStructure(ContinuousVestingAccount.fromPartial({})),
+						DelayedVestingAccount: getStructure(DelayedVestingAccount.fromPartial({})),
+						Period: getStructure(Period.fromPartial({})),
+						PeriodicVestingAccount: getStructure(PeriodicVestingAccount.fromPartial({})),
+						
 		},
 		_Subscriptions: new Set(),
 	}
@@ -68,14 +81,14 @@ export default {
 		}
 	},
 	getters: {
-        
+				
 		getTypeStructure: (state) => (type) => {
 			return state._Structure[type].fields
 		}
 	},
 	actions: {
 		init({ dispatch, rootGetters }) {
-			console.log('init')
+			console.log('Vuex module: cosmos.vesting.v1beta1 initialized!')
 			if (rootGetters['common/env/client']) {
 				rootGetters['common/env/client'].on('newblock', () => {
 					dispatch('StoreUpdate')
@@ -89,35 +102,42 @@ export default {
 			commit('UNSUBSCRIBE', subscription)
 		},
 		async StoreUpdate({ state, dispatch }) {
-			state._Subscriptions.forEach((subscription) => {
-				dispatch(subscription.action, subscription.payload)
+			state._Subscriptions.forEach(async (subscription) => {
+				try {
+					await dispatch(subscription.action, subscription.payload)
+				}catch(e) {
+					throw new SpVuexError('Subscriptions: ' + e.message)
+				}
 			})
 		},
 		
-		async sendMsgCreateVestingAccount({ rootGetters }, { value, fee, memo }) {
+		async sendMsgCreateVestingAccount({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
-				const msg = await (await initTxClient(rootGetters)).msgCreateVestingAccount(value)
-				const result = await (await initTxClient(rootGetters)).signAndBroadcast([msg], {fee: { amount: fee, 
-  gas: "200000" }, memo})
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateVestingAccount(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
 				return result
 			} catch (e) {
-				if (e.toString()=='wallet is required') {
+				if (e == MissingWalletError) {
 					throw new SpVuexError('TxClient:MsgCreateVestingAccount:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgCreateVestingAccount:Send', 'Could not broadcast Tx.')
+					throw new SpVuexError('TxClient:MsgCreateVestingAccount:Send', 'Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
 		
 		async MsgCreateVestingAccount({ rootGetters }, { value }) {
 			try {
-				const msg = await (await initTxClient(rootGetters)).msgCreateVestingAccount(value)
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateVestingAccount(value)
 				return msg
 			} catch (e) {
-				if (e.toString()=='wallet is required') {
+				if (e == MissingWalletError) {
 					throw new SpVuexError('TxClient:MsgCreateVestingAccount:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgCreateVestingAccount:Create', 'Could not create message.')
+					throw new SpVuexError('TxClient:MsgCreateVestingAccount:Create', 'Could not create message: ' + e.message)
+					
 				}
 			}
 		},

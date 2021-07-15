@@ -1,20 +1,20 @@
 /* eslint-disable */
-import { Reader, Writer } from "protobufjs/minimal";
-export const protobufPackage = "cosmos.crisis.v1beta1";
+import { Reader, Writer } from 'protobufjs/minimal';
+export const protobufPackage = 'cosmos.crisis.v1beta1';
 const baseMsgVerifyInvariant = {
-    sender: "",
-    invariantModuleName: "",
-    invariantRoute: "",
+    sender: '',
+    invariantModuleName: '',
+    invariantRoute: ''
 };
 export const MsgVerifyInvariant = {
     encode(message, writer = Writer.create()) {
-        if (message.sender !== "") {
+        if (message.sender !== '') {
             writer.uint32(10).string(message.sender);
         }
-        if (message.invariantModuleName !== "") {
+        if (message.invariantModuleName !== '') {
             writer.uint32(18).string(message.invariantModuleName);
         }
-        if (message.invariantRoute !== "") {
+        if (message.invariantRoute !== '') {
             writer.uint32(26).string(message.invariantRoute);
         }
         return writer;
@@ -48,20 +48,20 @@ export const MsgVerifyInvariant = {
             message.sender = String(object.sender);
         }
         else {
-            message.sender = "";
+            message.sender = '';
         }
         if (object.invariantModuleName !== undefined &&
             object.invariantModuleName !== null) {
             message.invariantModuleName = String(object.invariantModuleName);
         }
         else {
-            message.invariantModuleName = "";
+            message.invariantModuleName = '';
         }
         if (object.invariantRoute !== undefined && object.invariantRoute !== null) {
             message.invariantRoute = String(object.invariantRoute);
         }
         else {
-            message.invariantRoute = "";
+            message.invariantRoute = '';
         }
         return message;
     },
@@ -80,23 +80,23 @@ export const MsgVerifyInvariant = {
             message.sender = object.sender;
         }
         else {
-            message.sender = "";
+            message.sender = '';
         }
         if (object.invariantModuleName !== undefined &&
             object.invariantModuleName !== null) {
             message.invariantModuleName = object.invariantModuleName;
         }
         else {
-            message.invariantModuleName = "";
+            message.invariantModuleName = '';
         }
         if (object.invariantRoute !== undefined && object.invariantRoute !== null) {
             message.invariantRoute = object.invariantRoute;
         }
         else {
-            message.invariantRoute = "";
+            message.invariantRoute = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgVerifyInvariantResponse = {};
 export const MsgVerifyInvariantResponse = {
@@ -107,7 +107,7 @@ export const MsgVerifyInvariantResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgVerifyInvariantResponse,
+            ...baseMsgVerifyInvariantResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -121,7 +121,7 @@ export const MsgVerifyInvariantResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgVerifyInvariantResponse,
+            ...baseMsgVerifyInvariantResponse
         };
         return message;
     },
@@ -131,10 +131,10 @@ export const MsgVerifyInvariantResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgVerifyInvariantResponse,
+            ...baseMsgVerifyInvariantResponse
         };
         return message;
-    },
+    }
 };
 export class MsgClientImpl {
     constructor(rpc) {
@@ -142,7 +142,7 @@ export class MsgClientImpl {
     }
     VerifyInvariant(request) {
         const data = MsgVerifyInvariant.encode(request).finish();
-        const promise = this.rpc.request("cosmos.crisis.v1beta1.Msg", "VerifyInvariant", data);
+        const promise = this.rpc.request('cosmos.crisis.v1beta1.Msg', 'VerifyInvariant', data);
         return promise.then((data) => MsgVerifyInvariantResponse.decode(new Reader(data)));
     }
 }
