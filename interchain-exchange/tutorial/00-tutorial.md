@@ -637,7 +637,9 @@ Buy order book on the target blokchain is now empty.
 
 In this section, you implement the logic for creating order books.
 
-In Cosmos SDK the state is stored in a key-value store. Each order book will be stored under a unique key composed of four values: port ID, channel ID, source denom and target denom. For example, an order book for `mcx` (`marscoin`) and `vcx` (`venuscoin`) could be stored under `ibcdex-channel-4-mcx-vcx`. Define a function that returns an order book store key.
+In Cosmos SDK, the state is stored in a key-value store. Each order book is stored under a unique key that is composed of four values: port ID, channel ID, source denom, and target denom. 
+
+For example, an order book for `mcx` (`marscoin`) and `vcx` (`venuscoin`) could be stored under `ibcdex-channel-4-mcx-vcx`. Define a function that returns an order book store key.
 
 ```go
 // x/ibcdex/types/keys.go
