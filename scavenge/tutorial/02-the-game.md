@@ -11,7 +11,7 @@ The application we're building today can be used in many different ways but I'll
 * Anyone can post an answer to this question. If the answer is correct, that person receives the bounty of coins.**
 
 
-Something to note here is that when dealing with a public network with latency, it is possible that something like a [man-in-the-middle attack](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) could take place. Instead of pretending to be one of the parties, an attacker would take the sensitive information from one party and use it for their own benefit. This is actually called [Front Running](https://en.wikipedia.org/wiki/Front_running) and happens as follows:
+Something to note here is that when dealing with a public network with latency, it is possible that something like a [man-in-the-middle attack](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) could take place. Instead of pretending to be one of the parties, an attacker would take the sensitive information from one party and use it for their own benefit. This scenario is actually called [Front Running](https://en.wikipedia.org/wiki/Front_running) and happens as follows:
 
 1. You post the answer to some question with a bounty attacked to it.
 2. Someone else sees you posting the answer and posts it themselves right before you.
