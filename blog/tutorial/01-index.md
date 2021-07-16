@@ -9,8 +9,8 @@ By following this beginner tutorial, you end up with a simple blog app that is p
 
 **You will learn how to**
 
-- Build a blockchain app `blogd` 
-- Create CLI functions 
+- Build a blockchain app `blogd`
+- Create CLI functions
 - Define messages to create blog posts
 - List created posts
 - Generate transaction types to add functionality
@@ -18,29 +18,29 @@ By following this beginner tutorial, you end up with a simple blog app that is p
 
 ## Requirements 
 
-This tutorial uses [Starport](https://github.com/tendermint/starport) v0.15.1. Starport offers everything you need to build, test, and launch your blockchain.  To install `starport`, run the following command:
+This tutorial uses [Starport](https://github.com/tendermint/starport) v0.17.0. Starport offers everything you need to build, test, and launch your blockchain.  To install `starport`, run the following command:
 
 ```
-curl https://get.starport.network/starport@v0.15.1! | bash
+curl https://get.starport.network/starport@v0.17.0! | bash
 ```
 
-You can also use Starport v0.15.1 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.15.1). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/intro/install.md).
+You can also use Starport v0.17.0 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.17.0). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/intro/install.md).
 
 ## Getting Started
 
-Get started! The first step is to [install the `starport`](https://github.com/tendermint/starport) CLI tool.
+Get started! The first step is to [install the `starport`](https://docs.starport.network) CLI tool.
 
 After `starport` is installed, use it to create the initial app structure inside a directory named `blog`:
 
-```
-starport app github.com/example/blog
+```bash
+starport scaffold chain github.com/example/blog
 ```
 
 One of the main features of Starport is code generation. The command above has generated a directory structure with a working blockchain application. Starport can also add data types to your app with `starport type` command. To see it in action, follow the poll application tutorial. In this guide, however, you create those files manually to understand how it all works under the hood.
 
 ## Overview
 
-Take a quick look at what Starport has generated for us: 
+Take a quick look at what Starport has generated for us:
 The [`app/app.go`](https://docs.cosmos.network/master/basics/app-anatomy.html#core-application-file) file imports and configures SDK modules and creates a constructor for the application that extends a [basic SDK application](https://docs.cosmos.network/master/core/baseapp.html) among other things. This app uses only a couple standard modules bundled with Cosmos SDK (including `auth` for dealing with accounts and `bank` for handling coin transfers) and one module (`x/blog`) that contains custom functionality.
 
 In `cmd` directory you have source files of two programs for interacting with your application: `blogd` starts a full-node for your blockchain and enables you to query the full-node, either to update the state by sending a transaction or to read it via a query.
@@ -48,7 +48,6 @@ In `cmd` directory you have source files of two programs for interacting with yo
 This blog app stores data in a persistent [key-value store](https://docs.cosmos.network/master/core/store.html). Similarly to most key-value stores, you can retrieve, delete, update, and loop through keys to obtain the values you are interested in.
 
 Create a simple blog-like application and define the first proto type, the `Post` in the `post.proto` file.
-
 
 ## Create the Proto File
 
@@ -81,7 +80,7 @@ The code above defines the four properties of a post: Creator, Title, Body and I
 
 Posts in the key-value store look like this:
 
-```
+```json
 "post-0": {
   "Creator": "cosmos18cd5t4msvp2lpuvh99rwglrmjrrw9qx5h3f3gz",
   "Title": "This is a post!",
@@ -231,7 +230,7 @@ After being broadcast, the messages are processed by an important part of the ap
 
 ## Modify the Handler
 
-You should already have the function `NewHandler` defined which lists all available handlers. Modify it to include a new function called `handleMsgCreatePost`.
+You already have the function `NewHandler` defined which lists all available handlers. Modify it to include a new function called `handleMsgCreatePost`.
 
 ```go
 // x/blog/handler.go
@@ -243,9 +242,9 @@ You should already have the function `NewHandler` defined which lists all availa
 		default:
 ```
 
-Create the handler in `handler_post.go` file
-
 ## Create the Post Handler
+
+Create the handler in `handler_post.go` file
 
 Define the function `handleMsgCreatePost` in a new file `handler_post.go`:
 
@@ -266,15 +265,17 @@ func handleMsgCreatePost(ctx sdk.Context, k keeper.Keeper, msg *types.MsgCreateP
 }
 ```
 
-After creating a post object with creator, ID and title, the message handler calls `k.CreatePost(ctx, post)`. 
-- “k” stands for [Keeper](https://docs.cosmos.network/master/building-modules/keeper.html), an abstraction used by the SDK that writes data to the store. 
+After creating a post object with creator, ID and title, the message handler calls `k.CreatePost(ctx, post)`.
+
+- “k” stands for [Keeper](https://docs.cosmos.network/master/building-modules/keeper.html), an abstraction used by the SDK that writes data to the store.
 - Define the `CreatePost` keeper function in a new `keeper/post.go` file.
 
 ## Add the Post Keeper
 
 First, create a new file `post.go` in the `keeper/` directory.
-Then, add a `CreatePost` function that takes two arguments: 
-- A [context](https://docs.cosmos.network/master/core/context.html#context-definition) 
+Then, add a `CreatePost` function that takes two arguments:
+
+- A [context](https://docs.cosmos.network/master/core/context.html#context-definition)
 - A post
 - Also, the `GetPostCount` and `SetPostCount`  functions
 
@@ -431,8 +432,8 @@ Now you are ready to build and start the app and create some posts.
 
 To launch the application run:
 
-```
-starport serve
+```bash
+starport chain serve
 ```
 
 This command installs dependencies, builds and initializes the app, and runs servers. You can also do it manually:
@@ -468,7 +469,6 @@ test:
 	@go test -mod=readonly $(PACKAGES)
 ```
 
-
 1. `go mod tidy` cleans up dependencies.
 2. `make` builds your app and creates a binary in your go path: `blogd`.
 3. Initialization scripts in the `Makefile` removes data directories, configures your app and generates two accounts. By default your app stores data in your home directory in `~/.blogd`. The script removes them, so every time you have a clean state.
@@ -483,7 +483,7 @@ blogd tx blog create-post "My first post" "This is a post\!" --from=alice --chai
 ```
 
 - “My first post” is a title for your post and `--from=alice` tells the program who is creating this post. 
-- `alice` is a label for your pair of keys used to sign the transaction, created by the initialization script located within the `/Makefile` previously. 
+- `alice` is a label for your pair of keys used to sign the transaction, created by the initialization script located within the `/Makefile` previously.
 - `--chain-id="blog"` specifies to send the transaction to the `blog` chain-id
 - Keys are stored in `~/.blogd`.
 
@@ -491,19 +491,20 @@ After running the command and confirming it, you see an object with “txhash”
 
 To verify that the transaction has been processed, open a browser and visit the following URL (make sure to replace `4B7B6...` with the value of your txhash but make sure to have the `0x` prefix):
 
-```
+```url
 http://localhost:26657/tx?hash=0x4B7B68DEACC7CDF3243965A449095B4AB895C9D9BDF0516725BF2173794A9B3C
 ```
+
 In the URL, retain the `0x` prefix but replace `4B7B6...` with the value of your txhash:
 You can check out a basic block overview in a web browser:
 
-```
+```url
 http://localhost:12345/#/blocks
 ```
 
 Congratulations! You have just created and launched your custom blockchain and sent the first transaction 🎉
 
-## Forgot something?
+## Forgot something? Seen errors are
 
 ### Unknown command "create-post" for "blog"
 
@@ -521,16 +522,20 @@ blogd tx blog create-post 'Hello!' 'My first post' --from=alice
 ERROR: unrecognized blog message type
 ```
 
-Make sure you have added 
+Make sure you have added
+
+```go
 `case *types.MsgCreatePost:
 	return handleMsgCreatePost(ctx, k, msg)
 `
+```
+
 to `func NewHandler` in `x/blog/handler.go`
 
 ### Cannot encode unregistered concrete type
 
 ```bash
-blogd tx blog create-post Hello! --from=alice
+blogd tx blog create-post "Hello!" "My first post" --from=alice
 panic: Cannot encode unregistered concrete type types.MsgCreatePost.
 ```
 
