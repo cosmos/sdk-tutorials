@@ -80,6 +80,11 @@ module.exports = {
               directory: true,
             },
             {
+              title: "Scavenger Hunt",
+              path: "/scavenge/tutorial/",
+              directory: true,
+            },
+            {
               title: "Create an IBC Interchain Exchange module",
               path: "/interchain-exchange/tutorial/",
               directory: true,
@@ -87,6 +92,11 @@ module.exports = {
             {
               title: "Connect to the cosmoshub-testnet",
               path: "/connecting-to-testnet/",
+              directory: true,
+            },
+            {
+              title: "Understand IBC Denoms",
+              path: "understanding-ibc-denoms/",
               directory: true,
             },
             {
@@ -248,5 +258,6 @@ module.exports = {
     "liquidity-module/*.md",
     "publish-app-do/*.md",
     "starport/*.md",
+    "understanding-ibc-denoms/*.md",
   ],
 };
