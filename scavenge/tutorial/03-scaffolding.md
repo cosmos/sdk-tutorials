@@ -28,7 +28,7 @@ cd scavenge
 
 Inside the project directory you can execute other Starport commands to start a blockchain node, scaffold modules, messages, types, generate code, and much more.
 
-In a Cosmos SDK blockchain application-specific logic is implemented in separate modules. This keeps code easy to understand and reuse.
+In a Cosmos SDK blockchain, application-specific logic is implemented in separate modules. Using modules keeps code easy to understand and reuse.
 
 Scaffold a new module called `scavenge`. Based on our design the `scavenge` module will be sending tokens between participants. Sending tokens is implemented in the standard `bank` module. Specify `bank` as a dependency using the optional `--dep` flag.
 
