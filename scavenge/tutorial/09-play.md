@@ -16,14 +16,14 @@ starport chain serve
 
 ## Creating a Scavenge
 
-Let's follow the instructions and create a new scavenge. The first parameter we need is the `solution`, but probably we should also know what the actual quesiton is that our solution solves (our `description`). How about our challenge question be something family friendly like: `What's brown and sticky?`. Of course the only solution to this question is: `A stick`.
+Let's follow the instructions and submit a new scavenge. The first parameter we need is the `solution`, but probably we should also know what the actual quesiton is that our solution solves (our `description`). How about our challenge question be something family friendly like: `What's brown and sticky?`. Of course the only solution to this question is: `A stick`.
 
 Next we should specify our `reward`. Let's give away `100token` as a reward for solving our scavenge.
 
 Now we have all the pieces needed to create our message. Let's piece them all together, adding the flag `--from` so the CLI knows who is sending it:
 
 ```
-scavenged tx scavenge create-scavenge "A stick" "What's brown and sticky?" 100token --from alice
+scavenged tx scavenge submit-scavenge "A stick" "What's brown and sticky?" 100token --from alice
 ```
 
 ```json
@@ -31,7 +31,7 @@ scavenged tx scavenge create-scavenge "A stick" "What's brown and sticky?" 100to
   "body": {
     "messages": [
       {
-        "@type": "/cosmonaut.scavenge.scavenge.MsgCreateScavenge",
+        "@type": "/cosmonaut.scavenge.scavenge.MsgSubmitScavenge",
         "creator": "cosmos1wzgkalxjhaqtznrzzp0xy5jgkxx82xaa660jxh",
         "solutionHash": "2f9457a6e8fb202f9e10389a143a383106268c460743dd59d723c0f82d9ba906",
         "description": "What's brown and sticky?",
@@ -58,7 +58,7 @@ scavenged tx scavenge create-scavenge "A stick" "What's brown and sticky?" 100to
   "codespace": "",
   "code": 0,
   "data": "0A100A0E43726561746553636176656E6765",
-  "raw_log": "[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"CreateScavenge\"},{\"key\":\"sender\",\"value\":\"cosmos1wzgkalxjhaqtznrzzp0xy5jgkxx82xaa660jxh\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"cosmos13aupkh5020l9u6qquf7lvtcxhtr5jjama2kwyg\"},{\"key\":\"sender\",\"value\":\"cosmos1wzgkalxjhaqtznrzzp0xy5jgkxx82xaa660jxh\"},{\"key\":\"amount\",\"value\":\"100token\"}]}]}]",
+  "raw_log": "[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"SubmitScavenge\"},{\"key\":\"sender\",\"value\":\"cosmos1wzgkalxjhaqtznrzzp0xy5jgkxx82xaa660jxh\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"cosmos13aupkh5020l9u6qquf7lvtcxhtr5jjama2kwyg\"},{\"key\":\"sender\",\"value\":\"cosmos1wzgkalxjhaqtznrzzp0xy5jgkxx82xaa660jxh\"},{\"key\":\"amount\",\"value\":\"100token\"}]}]}]",
   "logs": [
     {
       "msg_index": 0,
@@ -67,7 +67,7 @@ scavenged tx scavenge create-scavenge "A stick" "What's brown and sticky?" 100to
         {
           "type": "message",
           "attributes": [
-            { "key": "action", "value": "CreateScavenge" },
+            { "key": "action", "value": "SubmitScavenge" },
             {
               "key": "sender",
               "value": "cosmos1wzgkalxjhaqtznrzzp0xy5jgkxx82xaa660jxh"
@@ -110,7 +110,7 @@ scavenged q tx CE401E1F95FC583355BF6ABB823A4655185E2983CACE7C430E22CC7B573152DD 
   "codespace": "",
   "code": 0,
   "data": "0A100A0E43726561746553636176656E6765",
-  "raw_log": "[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"CreateScavenge\"},{\"key\":\"sender\",\"value\":\"cosmos1wzgkalxjhaqtznrzzp0xy5jgkxx82xaa660jxh\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"cosmos13aupkh5020l9u6qquf7lvtcxhtr5jjama2kwyg\"},{\"key\":\"sender\",\"value\":\"cosmos1wzgkalxjhaqtznrzzp0xy5jgkxx82xaa660jxh\"},{\"key\":\"amount\",\"value\":\"100token\"}]}]}]",
+  "raw_log": "[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"SubmitScavenge\"},{\"key\":\"sender\",\"value\":\"cosmos1wzgkalxjhaqtznrzzp0xy5jgkxx82xaa660jxh\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"cosmos13aupkh5020l9u6qquf7lvtcxhtr5jjama2kwyg\"},{\"key\":\"sender\",\"value\":\"cosmos1wzgkalxjhaqtznrzzp0xy5jgkxx82xaa660jxh\"},{\"key\":\"amount\",\"value\":\"100token\"}]}]}]",
   "logs": [
     {
       "msg_index": 0,
@@ -119,7 +119,7 @@ scavenged q tx CE401E1F95FC583355BF6ABB823A4655185E2983CACE7C430E22CC7B573152DD 
         {
           "type": "message",
           "attributes": [
-            { "key": "action", "value": "CreateScavenge" },
+            { "key": "action", "value": "SubmitScavenge" },
             {
               "key": "sender",
               "value": "cosmos1wzgkalxjhaqtznrzzp0xy5jgkxx82xaa660jxh"
@@ -151,7 +151,7 @@ scavenged q tx CE401E1F95FC583355BF6ABB823A4655185E2983CACE7C430E22CC7B573152DD 
     "body": {
       "messages": [
         {
-          "@type": "/cosmonaut.scavenge.scavenge.MsgCreateScavenge",
+          "@type": "/cosmonaut.scavenge.scavenge.MsgSubmitScavenge",
           "creator": "cosmos1wzgkalxjhaqtznrzzp0xy5jgkxx82xaa660jxh",
           "solutionHash": "2f9457a6e8fb202f9e10389a143a383106268c460743dd59d723c0f82d9ba906",
           "description": "What's brown and sticky?",

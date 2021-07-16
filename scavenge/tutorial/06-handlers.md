@@ -8,7 +8,7 @@ In order for a **Message** to reach a **Keeper**, it has to go through a **Handl
 
 Module-wide message handler is defined in `x/scavenge/handler.go`. Three message types were added to the handler:
 
-* `MsgCreateScavenge`
+* `MsgSubmitScavenge`
 * `MsgCommitSolution`
 * `MsgRevealSolution`
 

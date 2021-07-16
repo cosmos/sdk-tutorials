@@ -13,11 +13,11 @@ Create scavenge method should do the following:
 * Write the scavenge to the store
 
 ```go
-// x/scavenge/keeper/msg_server_create_scavenge.go
-func (k msgServer) CreateScavenge(goCtx context.Context, msg *types.MsgCreateScavenge) (*types.MsgCreateScavengeResponse, error) {
+// x/scavenge/keeper/msg_server_submit_scavenge.go
+func (k msgServer) SubmitScavenge(goCtx context.Context, msg *types.MsgSubmitScavenge) (*types.MsgSubmitScavengeResponse, error) {
   // get context that contains information about the environment, such as block height
 	ctx := sdk.UnwrapSDKContext(goCtx)
-  // create a new scavenge from the data in the MsgCreateScavenge message
+  // create a new scavenge from the data in the MsgSubmitScavenge message
 	var scavenge = types.Scavenge{
 		Index:        msg.SolutionHash,
 		Creator:      msg.Creator,
@@ -50,13 +50,13 @@ func (k msgServer) CreateScavenge(goCtx context.Context, msg *types.MsgCreateSca
 	}
   // write the scavenge to the store
 	k.SetScavenge(ctx, scavenge)
-	return &types.MsgCreateScavengeResponse{}, nil
+	return &types.MsgSubmitScavengeResponse{}, nil
 }
 ```
 
 Notice the use of `moduleAcct`. This account is not controlled by a public key pair, but is a reference to an account that is owned by this actual module. It is used to hold the bounty reward that is attached to a scavenge until that scavenge has been solved, at which point the bounty is paid to the account who solved the scavenge.
 
-`CreateScavenge` uses `SendCoins` method from the `bank` module. In the beginning when scaffolding a module you used `--dep bank` to specify a dependency between the `scavenge` and `bank` modules. This created an `expected_keepers.go` file with a `BankKeeper` interface. Add `SendCoins` to be able to use it in the keeper methods of the `scavenge` module.
+`SubmitScavenge` uses `SendCoins` method from the `bank` module. In the beginning when scaffolding a module you used `--dep bank` to specify a dependency between the `scavenge` and `bank` modules. This created an `expected_keepers.go` file with a `BankKeeper` interface. Add `SendCoins` to be able to use it in the keeper methods of the `scavenge` module.
 
 ```go
 // x/scavenge/types/expected_keepers.go
