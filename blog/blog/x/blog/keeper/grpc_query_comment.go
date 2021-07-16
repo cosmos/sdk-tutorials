@@ -5,6 +5,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/example/blog/x/blog/types"
 	"google.golang.org/grpc/codes"
@@ -47,8 +48,12 @@ func (k Keeper) Comment(c context.Context, req *types.QueryGetCommentRequest) (*
 	var comment types.Comment
 	ctx := sdk.UnwrapSDKContext(c)
 
+	if !k.HasComment(ctx, req.Id) {
+		return nil, sdkerrors.ErrKeyNotFound
+	}
+
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CommentKey))
-	k.cdc.MustUnmarshalBinaryBare(store.Get(types.KeyPrefix(types.CommentKey+req.Id)), &comment)
+	k.cdc.MustUnmarshalBinaryBare(store.Get(GetCommentIDBytes(req.Id)), &comment)
 
 	return &types.QueryGetCommentResponse{Comment: &comment}, nil
 }
