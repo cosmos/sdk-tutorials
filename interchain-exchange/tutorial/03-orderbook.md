@@ -195,11 +195,11 @@ func (book *OrderBook) insertOrder(order Order, ordering Ordering) {
 
 ## Add The Sellorder
 
-Modify the `sellOrderBook.proto` file to add the order book into the sell order book.
+Modify the `sell_order_book.proto` file to add the order book into the sell order book.
 The proto definition for the `SellOrderBook` should look like follows:
 
 ```proto
-// proto/ibcdex/sellOrderBook.proto
+// proto/ibcdex/sell_order_book.proto
 syntax = "proto3";
 package username.interchange.ibcdex;
 
@@ -326,11 +326,11 @@ func (s *SellOrderBook) FillBuyOrder(order Order) (
 
 ## Add The Buyorder
 
-Modify the `buyOrderBook.proto` file to add the order book into the buy order book.
+Modify the `buy_order_book.proto` file to add the order book into the buy order book.
 The proto definition for the `BuyOrderBook` should look like follows:
 
 ```proto
-// proto/ibcdex/buyOrderBook.proto
+// proto/ibcdex/buy_order_book.proto
 syntax = "proto3";
 package username.interchange.ibcdex;
 
@@ -357,10 +357,10 @@ package types
 func NewBuyOrderBook(AmountDenom string, PriceDenom string) BuyOrderBook {
 	book := NewOrderBook()
 	return BuyOrderBook{
-		AmountDenom: AmountDenom,
-		PriceDenom: PriceDenom,
-		Book: &book,
-	}
+        AmountDenom: AmountDenom,
+        PriceDenom: PriceDenom,
+        Book: &book,
+    }
 }
 
  // AppendOrder appends an order in buy order book
