@@ -4,13 +4,23 @@ order: 9
 
 # Play
 
+## Starting the Blockchain
+
+To start your blockchain in development, run the following command:
+
+```
+starport chain serve
+```
+
+`serve` will build the chain's binary, initialize a data directory and start a node in development. Keep it running in one terminal window and open another one to execute commands.
+
+## Creating a Scavenge
+
 Let's follow the instructions and create a new scavenge. The first parameter we need is the `solution`, but probably we should also know what the actual quesiton is that our solution solves (our `description`). How about our challenge question be something family friendly like: `What's brown and sticky?`. Of course the only solution to this question is: `A stick`.
 
 Next we should specify our `reward`. Let's give away `100token` as a reward for solving our scavenge.
 
 Now we have all the pieces needed to create our message. Let's piece them all together, adding the flag `--from` so the CLI knows who is sending it:
-
-## Creating a Scavenge
 
 ```
 scavenged tx scavenge create-scavenge "A stick" "What's brown and sticky?" 100token --from alice
