@@ -75,6 +75,11 @@ module.exports = {
               directory: true,
             },
             {
+              title: "Create a Namerservice Module",
+              path: "/nameservice/tutorial/",
+              directory: true,
+            },
+            {
               title: "Create a IBC Hello World module",
               path: "/hello-world/tutorial/",
               directory: true,

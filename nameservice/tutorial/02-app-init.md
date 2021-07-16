@@ -4,17 +4,19 @@ order: 2
 
 # Scaffolding
 
-We'll be using a CLI tool called [Starport](https://github.com/tendermint/starport) to create a new Cosmos SDK blockchain. To use `starport` [install it](https://docs.starport.network/intro/install.html) on your local machine:
+Use [Starport](https://github.com/tendermint/starport) CLI tool to create a new Cosmos SDK blockchain. To use `starport` [install it](https://docs.starport.network/intro/install.html) on your local machine:
 
-```
+```bash
 curl https://get.starport.network/starport | bash
 ```
 
-Scaffold anew Cosmos SDK blockchain using the `starport scaffold chain` command. The command accepts one argument: the Go module path that will be used for the project.
+This tutorial was created with Starport v0.17. Make sure you have the same version to be confident everything works as expected.
+
+Scaffold a new Cosmos SDK blockchain using the `starport scaffold chain` command. The command accepts one argument: the Go module path that will be used for the project.
 
 By default a chain is scaffolded with a new empty Cosmos SDK module. Use the `--no-module` flag to skip module scaffolding.
 
-```
+```bash
 starport scaffold chain github.com/cosmonaut/nameservice --no-module
 ```
 
@@ -22,7 +24,7 @@ This command created a new directory `nameservice` with a brand new Cosmos SDK b
 
 Change the current directory to `nameservice`:
 
-```
+```bash
 cd nameservice
 ```
 
@@ -32,7 +34,7 @@ In a Cosmos SDK blockchain application-specific logic is implemented in separate
 
 Scaffold a new module called `nameservice`. Based on our design the `nameservice` module will be sending tokens between participants. Sending tokens is implemented in the standard `bank` module. Specify `bank` as a dependency using the optional `--dep` flag.
 
-```
+```bash
 starport scaffold module nameservice --dep bank
 ```
 
