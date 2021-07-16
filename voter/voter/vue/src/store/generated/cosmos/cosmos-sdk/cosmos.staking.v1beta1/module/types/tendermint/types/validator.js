@@ -1,8 +1,8 @@
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { PublicKey } from "../../tendermint/crypto/keys";
-export const protobufPackage = "tendermint.types";
+import * as Long from 'long';
+import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { PublicKey } from '../../tendermint/crypto/keys';
+export const protobufPackage = 'tendermint.types';
 const baseValidatorSet = { totalVotingPower: 0 };
 export const ValidatorSet = {
     encode(message, writer = Writer.create()) {
@@ -102,7 +102,7 @@ export const ValidatorSet = {
             message.totalVotingPower = 0;
         }
         return message;
-    },
+    }
 };
 const baseValidator = { votingPower: 0, proposerPriority: 0 };
 export const Validator = {
@@ -181,8 +181,7 @@ export const Validator = {
             (obj.pubKey = message.pubKey
                 ? PublicKey.toJSON(message.pubKey)
                 : undefined);
-        message.votingPower !== undefined &&
-            (obj.votingPower = message.votingPower);
+        message.votingPower !== undefined && (obj.votingPower = message.votingPower);
         message.proposerPriority !== undefined &&
             (obj.proposerPriority = message.proposerPriority);
         return obj;
@@ -215,7 +214,7 @@ export const Validator = {
             message.proposerPriority = 0;
         }
         return message;
-    },
+    }
 };
 const baseSimpleValidator = { votingPower: 0 };
 export const SimpleValidator = {
@@ -270,8 +269,7 @@ export const SimpleValidator = {
             (obj.pubKey = message.pubKey
                 ? PublicKey.toJSON(message.pubKey)
                 : undefined);
-        message.votingPower !== undefined &&
-            (obj.votingPower = message.votingPower);
+        message.votingPower !== undefined && (obj.votingPower = message.votingPower);
         return obj;
     },
     fromPartial(object) {
@@ -289,21 +287,21 @@ export const SimpleValidator = {
             message.votingPower = 0;
         }
         return message;
-    },
+    }
 };
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -313,17 +311,17 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

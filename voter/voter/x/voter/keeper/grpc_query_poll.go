@@ -3,11 +3,11 @@ package keeper
 import (
 	"context"
 
+	"github.com/cosmonaut/voter/x/voter/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
-	"github.com/username/voter/x/voter/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
