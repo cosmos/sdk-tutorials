@@ -80,6 +80,11 @@ module.exports = {
               directory: true,
             },
             {
+              title: "Scavenger Hunt",
+              path: "/scavenge/tutorial/",
+              directory: true,
+            },
+            {
               title: "Create an IBC Interchain Exchange module",
               path: "/interchain-exchange/tutorial/",
               directory: true,
