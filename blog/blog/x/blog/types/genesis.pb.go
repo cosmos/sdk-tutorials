@@ -22,8 +22,11 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// GenesisState defines the capability module's genesis state.
+// GenesisState defines the blog module's genesis state.
 type GenesisState struct {
+	// this line is used by starport scaffolding # genesis/proto/state
+	CommentList  []*Comment `protobuf:"bytes,1,rep,name=commentList,proto3" json:"commentList,omitempty"`
+	CommentCount uint64     `protobuf:"varint,2,opt,name=commentCount,proto3" json:"commentCount,omitempty"`
 }
 
 func (m *GenesisState) Reset()         { *m = GenesisState{} }
@@ -59,6 +62,20 @@ func (m *GenesisState) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GenesisState proto.InternalMessageInfo
 
+func (m *GenesisState) GetCommentList() []*Comment {
+	if m != nil {
+		return m.CommentList
+	}
+	return nil
+}
+
+func (m *GenesisState) GetCommentCount() uint64 {
+	if m != nil {
+		return m.CommentCount
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*GenesisState)(nil), "example.blog.blog.GenesisState")
 }
@@ -66,15 +83,19 @@ func init() {
 func init() { proto.RegisterFile("blog/genesis.proto", fileDescriptor_087544457035c34f) }
 
 var fileDescriptor_087544457035c34f = []byte{
-	// 128 bytes of a gzipped FileDescriptorProto
+	// 188 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x4a, 0xca, 0xc9, 0x4f,
 	0xd7, 0x4f, 0x4f, 0xcd, 0x4b, 0x2d, 0xce, 0x2c, 0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12,
-	0x4c, 0xad, 0x48, 0xcc, 0x2d, 0xc8, 0x49, 0xd5, 0x03, 0xc9, 0x81, 0x09, 0x25, 0x3e, 0x2e, 0x1e,
-	0x77, 0x88, 0x9a, 0xe0, 0x92, 0xc4, 0x92, 0x54, 0x27, 0xbb, 0x13, 0x8f, 0xe4, 0x18, 0x2f, 0x3c,
-	0x92, 0x63, 0x7c, 0xf0, 0x48, 0x8e, 0x71, 0xc2, 0x63, 0x39, 0x86, 0x0b, 0x8f, 0xe5, 0x18, 0x6e,
-	0x3c, 0x96, 0x63, 0x88, 0x52, 0x49, 0xcf, 0x2c, 0xc9, 0x28, 0x4d, 0xd2, 0x4b, 0xce, 0xcf, 0xd5,
-	0x87, 0x9a, 0xa3, 0x0f, 0xb6, 0xa3, 0x02, 0x42, 0x95, 0x54, 0x16, 0xa4, 0x16, 0x27, 0xb1, 0x81,
-	0x6d, 0x32, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0xc2, 0x43, 0x4c, 0x3b, 0x7f, 0x00, 0x00, 0x00,
+	0x4c, 0xad, 0x48, 0xcc, 0x2d, 0xc8, 0x49, 0xd5, 0x03, 0xc9, 0x81, 0x09, 0x29, 0x88, 0xb2, 0xe4,
+	0xfc, 0xdc, 0xdc, 0xd4, 0xbc, 0x12, 0x88, 0x32, 0xa5, 0x02, 0x2e, 0x1e, 0x77, 0x88, 0xbe, 0xe0,
+	0x92, 0xc4, 0x92, 0x54, 0x21, 0x1b, 0x2e, 0x6e, 0xa8, 0x02, 0x9f, 0xcc, 0xe2, 0x12, 0x09, 0x46,
+	0x05, 0x66, 0x0d, 0x6e, 0x23, 0x29, 0x3d, 0x0c, 0xc3, 0xf4, 0x9c, 0x21, 0xaa, 0x82, 0x90, 0x95,
+	0x0b, 0x29, 0x71, 0xf1, 0x40, 0xb9, 0xce, 0xf9, 0xa5, 0x79, 0x25, 0x12, 0x4c, 0x0a, 0x8c, 0x1a,
+	0x2c, 0x41, 0x28, 0x62, 0x4e, 0x76, 0x27, 0x1e, 0xc9, 0x31, 0x5e, 0x78, 0x24, 0xc7, 0xf8, 0xe0,
+	0x91, 0x1c, 0xe3, 0x84, 0xc7, 0x72, 0x0c, 0x17, 0x1e, 0xcb, 0x31, 0xdc, 0x78, 0x2c, 0xc7, 0x10,
+	0xa5, 0x92, 0x9e, 0x59, 0x92, 0x51, 0x9a, 0xa4, 0x97, 0x9c, 0x9f, 0xab, 0x0f, 0xb5, 0x50, 0x1f,
+	0xec, 0xe4, 0x0a, 0x08, 0x55, 0x52, 0x59, 0x90, 0x5a, 0x9c, 0xc4, 0x06, 0x76, 0xb8, 0x31, 0x20,
+	0x00, 0x00, 0xff, 0xff, 0x9f, 0x66, 0xb4, 0x43, 0xf5, 0x00, 0x00, 0x00,
 }
 
 func (m *GenesisState) Marshal() (dAtA []byte, err error) {
@@ -97,6 +118,25 @@ func (m *GenesisState) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.CommentCount != 0 {
+		i = encodeVarintGenesis(dAtA, i, uint64(m.CommentCount))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.CommentList) > 0 {
+		for iNdEx := len(m.CommentList) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.CommentList[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -117,6 +157,15 @@ func (m *GenesisState) Size() (n int) {
 	}
 	var l int
 	_ = l
+	if len(m.CommentList) > 0 {
+		for _, e := range m.CommentList {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	if m.CommentCount != 0 {
+		n += 1 + sovGenesis(uint64(m.CommentCount))
+	}
 	return n
 }
 
@@ -155,16 +204,66 @@ func (m *GenesisState) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: GenesisState: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CommentList", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CommentList = append(m.CommentList, &Comment{})
+			if err := m.CommentList[len(m.CommentList)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CommentCount", wireType)
+			}
+			m.CommentCount = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.CommentCount |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipGenesis(dAtA[iNdEx:])
 			if err != nil {
 				return err
 			}
-			if skippy < 0 {
-				return ErrInvalidLengthGenesis
-			}
-			if (iNdEx + skippy) < 0 {
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
 				return ErrInvalidLengthGenesis
 			}
 			if (iNdEx + skippy) > l {

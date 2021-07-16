@@ -10,7 +10,7 @@ import (
 	// "github.com/cosmos/cosmos-sdk/client/flags"
 	// sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/username/voter/x/voter/types"
+	"github.com/cosmonaut/voter/x/voter/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module

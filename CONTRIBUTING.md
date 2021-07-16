@@ -14,7 +14,7 @@ Thank you for helping us to create and maintain awesome tutorials.
 - To provide feedback, file an issue and provide abundant details to help us understand how we can make it better.
 - To provide feedback and a fix, you can make a direct contribution. This repo is protected since we provide the code and the docs to help you learn. If you're not a member or maintainer, fork the repo and then submit a PR from your forked repo to master.
 
-## Writing and contributing 
+## Writing and contributing
 
 We welcome contributions to the tutorials. Our technical content follows the Google developer documentation style guide:
 
@@ -59,12 +59,12 @@ Work-in-process tutorials might have content and code in other repos.
 
 ## Viewing Tutorial Builds
 
-There are two ways to see what your changes will look like in production before the updated pages are published. 
+There are two ways to see what your changes will look like in production before the updated pages are published.
 
 - When a PR is ready for review, you can see a deployed preview on a URL that is unique for that PR.
 - While a PR is in DRAFT mode, you can preview a local build.
 
-### Preview PRs on a Deployed Preview 
+### Preview PRs on a Deployed Preview
 
 After the PR moves from **Draft** to **Ready for review**, the CI status checks generate a Netlify deploy preview. Netlify keeps this preview up to date as you continue to work and commit new changes to the same branch.
 
@@ -78,7 +78,7 @@ Since the deploy preview doesn't work on Draft PRs, follow these steps to previe
 
 1. If you haven't already, clone the tutorials repo to your local machine and change to that directory. For example:
 
-    ```
+    ```bash
     cd ~/github
     git clone https://github.com/cosmos/sdk-tutorials
     cd sdk-tutorials
@@ -88,13 +88,13 @@ Since the deploy preview doesn't work on Draft PRs, follow these steps to previe
 
 3. For each branch you work in, install the npm packages for the SDK tutorials:
 
-    ```
+    ```bash
     npm install
     ```
 
 4. Start the local instance of the tutorial build:
 
-    ```
+    ```bash
     npm run serve
     ```
 

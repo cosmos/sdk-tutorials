@@ -84,7 +84,7 @@ func (msg *MsgUpdatePoll) ValidateBasic() error {
 	return nil
 }
 
-var _ sdk.Msg = &MsgCreatePoll{}
+var _ sdk.Msg = &MsgDeletePoll{}
 
 func NewMsgDeletePoll(creator string, id uint64) *MsgDeletePoll {
 	return &MsgDeletePoll{
