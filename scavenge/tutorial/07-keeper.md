@@ -8,12 +8,23 @@ order: 7
 
 Create scavenge method should do the following:
 
-* Check that a scavenge with a given solution hash doesn't exist
-* Send tokens from scavenge creator account to a module account
-* Write the scavenge to the store
+- Check that a scavenge with a given solution hash doesn't exist
+- Send tokens from scavenge creator account to a module account
+- Write the scavenge to the store
 
 ```go
 // x/scavenge/keeper/msg_server_submit_scavenge.go
+package keeper
+
+import (
+	"context"
+
+	"github.com/cosmonaut/scavenge/x/scavenge/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/tendermint/tendermint/crypto"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+)
+
 func (k msgServer) SubmitScavenge(goCtx context.Context, msg *types.MsgSubmitScavenge) (*types.MsgSubmitScavengeResponse, error) {
   // get context that contains information about the environment, such as block height
 	ctx := sdk.UnwrapSDKContext(goCtx)
@@ -60,20 +71,37 @@ Notice the use of `moduleAcct`. This account is not controlled by a public key p
 
 ```go
 // x/scavenge/types/expected_keepers.go
+package types
+
+import (
+	sdk "github.com/cosmos/cosmos-sdk/types"
+)
+
 type BankKeeper interface {
 	SendCoins(ctx sdk.Context, fromAddr sdk.AccAddress, toAddr sdk.AccAddress, amt sdk.Coins) error
 }
+
 ```
 
 ## Commit Solution
 
 Commit solution method should do the following:
 
-* Check that commit with a given hash doesn't exist in the store
-* Write a new commit to the store
+- Check that commit with a given hash doesn't exist in the store
+- Write a new commit to the store
 
 ```go
 // x/scavenge/keeper/msg_server_commit_solution.go
+package keeper
+
+import (
+	"context"
+
+	"github.com/cosmonaut/scavenge/x/scavenge/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+)
+
 func (k msgServer) CommitSolution(goCtx context.Context, msg *types.MsgCommitSolution) (*types.MsgCommitSolutionResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
   // create a new commit from the information in the MsgCommitSolution message
@@ -99,14 +127,26 @@ func (k msgServer) CommitSolution(goCtx context.Context, msg *types.MsgCommitSol
 
 Reveal solution method should do the following:
 
-* Check that a commit with a given hash exists in the store
-* Check that a scavenge with a given solution hash exists in the store
-* Check that the scavenge hasn't already been solved
-* Send tokens from the module account to the account that revealed the correct anwer
-* Write the updated scavenge to the store
+- Check that a commit with a given hash exists in the store
+- Check that a scavenge with a given solution hash exists in the store
+- Check that the scavenge hasn't already been solved
+- Send tokens from the module account to the account that revealed the correct anwer
+- Write the updated scavenge to the store
 
 ```go
 // x/scavenge/keeper/msg_server_reveal_solution.go
+package keeper
+
+import (
+	"context"
+
+	"github.com/cosmonaut/scavenge/x/scavenge/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+
+	"github.com/tendermint/tendermint/crypto"
+)
+
 func (k msgServer) RevealSolution(goCtx context.Context, msg *types.MsgRevealSolution) (*types.MsgRevealSolutionResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
   // concatenate a solution and a scavenger address and convert it to bytes

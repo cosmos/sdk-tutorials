@@ -46,3 +46,5 @@ Use `starport scaffold map` to create the same logic for a `commit` type.
 ```
 starport scaffold map commit solutionHash solutionScavengerHash --no-message
 ```
+
+This concludes the transaction types that you need for the Scavenge app.
