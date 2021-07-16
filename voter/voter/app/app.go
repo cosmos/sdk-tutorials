@@ -2,18 +2,20 @@ package app
 
 import (
 	"io"
+	"net/http"
 	"os"
 	"path/filepath"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/spf13/cast"
-
+	"github.com/tendermint/spm/openapiconsole"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/libs/log"
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
 
+	"github.com/cosmonaut/voter/docs"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client/grpc/tmservice"
 	"github.com/cosmos/cosmos-sdk/client/rpc"
@@ -81,14 +83,19 @@ import (
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 	tmjson "github.com/tendermint/tendermint/libs/json"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
-	appparams "github.com/username/voter/app/params"
-	"github.com/username/voter/x/voter"
-	voterkeeper "github.com/username/voter/x/voter/keeper"
-	votertypes "github.com/username/voter/x/voter/types"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
+	votermodule "github.com/cosmonaut/voter/x/voter"
+	votermodulekeeper "github.com/cosmonaut/voter/x/voter/keeper"
+	votermoduletypes "github.com/cosmonaut/voter/x/voter/types"
+
+	"github.com/tendermint/spm/cosmoscmd"
 )
 
-const Name = "voter"
+const (
+	AccountAddressPrefix = "cosmos"
+	Name                 = "voter"
+)
 
 // this line is used by starport scaffolding # stargate/wasm/app/enabledProposals
 
@@ -131,8 +138,8 @@ var (
 		evidence.AppModuleBasic{},
 		transfer.AppModuleBasic{},
 		vesting.AppModuleBasic{},
-		voter.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
+		votermodule.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -144,11 +151,12 @@ var (
 		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
 		govtypes.ModuleName:            {authtypes.Burner},
 		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
+		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 )
 
 var (
-	_ CosmosApp               = (*App)(nil)
+	_ cosmoscmd.CosmosApp     = (*App)(nil)
 	_ servertypes.Application = (*App)(nil)
 )
 
@@ -198,21 +206,27 @@ type App struct {
 	ScopedIBCKeeper      capabilitykeeper.ScopedKeeper
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
 
-	voterKeeper voterkeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
+
+	VoterKeeper votermodulekeeper.Keeper
 
 	// the module manager
 	mm *module.Manager
 }
 
 // New returns a reference to an initialized Gaia.
-// NewSimApp returns a reference to an initialized SimApp.
 func New(
-	logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest bool, skipUpgradeHeights map[int64]bool,
-	homePath string, invCheckPeriod uint, encodingConfig appparams.EncodingConfig,
-	// this line is used by starport scaffolding # stargate/app/newArgument
-	appOpts servertypes.AppOptions, baseAppOptions ...func(*baseapp.BaseApp),
-) *App {
+	logger log.Logger,
+	db dbm.DB,
+	traceStore io.Writer,
+	loadLatest bool,
+	skipUpgradeHeights map[int64]bool,
+	homePath string,
+	invCheckPeriod uint,
+	encodingConfig cosmoscmd.EncodingConfig,
+	appOpts servertypes.AppOptions,
+	baseAppOptions ...func(*baseapp.BaseApp),
+) cosmoscmd.App {
 
 	appCodec := encodingConfig.Marshaler
 	cdc := encodingConfig.Amino
@@ -228,8 +242,8 @@ func New(
 		minttypes.StoreKey, distrtypes.StoreKey, slashingtypes.StoreKey,
 		govtypes.StoreKey, paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey,
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
-		votertypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
+		votermoduletypes.StoreKey,
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
 	memKeys := sdk.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
@@ -256,6 +270,7 @@ func New(
 	// grant capabilities for the ibc and ibc-transfer modules
 	scopedIBCKeeper := app.CapabilityKeeper.ScopeToModule(ibchost.ModuleName)
 	scopedTransferKeeper := app.CapabilityKeeper.ScopeToModule(ibctransfertypes.ModuleName)
+	// this line is used by starport scaffolding # stargate/app/scopedKeeper
 
 	// add keepers
 	app.AccountKeeper = authkeeper.NewAccountKeeper(
@@ -319,16 +334,20 @@ func New(
 	// If evidence needs to be handled for the app, set routes in router here and seal
 	app.EvidenceKeeper = *evidenceKeeper
 
-	app.voterKeeper = *voterkeeper.NewKeeper(
-		appCodec, keys[votertypes.StoreKey], keys[votertypes.MemStoreKey], app.BankKeeper,
-	)
-
-	// this line is used by starport scaffolding # stargate/app/keeperDefinition
-
 	app.GovKeeper = govkeeper.NewKeeper(
 		appCodec, keys[govtypes.StoreKey], app.GetSubspace(govtypes.ModuleName), app.AccountKeeper, app.BankKeeper,
 		&stakingKeeper, govRouter,
 	)
+
+	app.VoterKeeper = *votermodulekeeper.NewKeeper(
+		appCodec,
+		keys[votermoduletypes.StoreKey],
+		keys[votermoduletypes.MemStoreKey],
+		app.BankKeeper,
+	)
+	voterModule := votermodule.NewAppModule(appCodec, app.VoterKeeper)
+
+	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// Create static IBC router, add transfer route, then set and seal it
 	ibcRouter := porttypes.NewRouter()
@@ -365,8 +384,8 @@ func New(
 		ibc.NewAppModule(app.IBCKeeper),
 		params.NewAppModule(app.ParamsKeeper),
 		transferModule,
-		voter.NewAppModule(appCodec, app.voterKeeper),
 		// this line is used by starport scaffolding # stargate/app/appModule
+		voterModule,
 	)
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -399,8 +418,8 @@ func New(
 		genutiltypes.ModuleName,
 		evidencetypes.ModuleName,
 		ibctransfertypes.ModuleName,
-		votertypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
+		votermoduletypes.ModuleName,
 	)
 
 	app.mm.RegisterInvariants(&app.CrisisKeeper)
@@ -441,6 +460,7 @@ func New(
 
 	app.ScopedIBCKeeper = scopedIBCKeeper
 	app.ScopedTransferKeeper = scopedTransferKeeper
+	// this line is used by starport scaffolding # stargate/app/beforeInitReturn
 
 	return app
 }
@@ -547,6 +567,10 @@ func (app *App) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig
 	// Register legacy and grpc-gateway routes for all modules.
 	ModuleBasics.RegisterRESTRoutes(clientCtx, apiSvr.Router)
 	ModuleBasics.RegisterGRPCGatewayRoutes(clientCtx, apiSvr.GRPCGatewayRouter)
+
+	// register app's OpenAPI routes.
+	apiSvr.Router.Handle("/static/openapi.yml", http.FileServer(http.FS(docs.Docs)))
+	apiSvr.Router.HandleFunc("/", openapiconsole.Handler(Name, "/static/openapi.yml"))
 }
 
 // RegisterTxService implements the Application.RegisterTxService method.
@@ -583,6 +607,7 @@ func initParamsKeeper(appCodec codec.BinaryMarshaler, legacyAmino *codec.LegacyA
 	paramsKeeper.Subspace(ibctransfertypes.ModuleName)
 	paramsKeeper.Subspace(ibchost.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
+	paramsKeeper.Subspace(votermoduletypes.ModuleName)
 
 	return paramsKeeper
 }

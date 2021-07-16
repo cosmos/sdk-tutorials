@@ -1,15 +1,15 @@
 package keeper
 
 import (
-	"strconv"
-
+	"encoding/binary"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/example/blog/x/blog/types"
+	"strconv"
 )
 
-// GetCommentCount get the total number of comment
-func (k Keeper) GetCommentCount(ctx sdk.Context) int64 {
+// GetCommentCount get the total number of TypeName.LowerCamel
+func (k Keeper) GetCommentCount(ctx sdk.Context) uint64 {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CommentCountKey))
 	byteKey := types.KeyPrefix(types.CommentCountKey)
 	bz := store.Get(byteKey)
@@ -20,9 +20,9 @@ func (k Keeper) GetCommentCount(ctx sdk.Context) int64 {
 	}
 
 	// Parse bytes
-	count, err := strconv.ParseInt(string(bz), 10, 64)
+	count, err := strconv.ParseUint(string(bz), 10, 64)
 	if err != nil {
-		// Panic because the count should be always formattable to int64
+		// Panic because the count should be always formattable to uint64
 		panic("cannot decode count")
 	}
 
@@ -30,71 +30,90 @@ func (k Keeper) GetCommentCount(ctx sdk.Context) int64 {
 }
 
 // SetCommentCount set the total number of comment
-func (k Keeper) SetCommentCount(ctx sdk.Context, count int64) {
+func (k Keeper) SetCommentCount(ctx sdk.Context, count uint64) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CommentCountKey))
 	byteKey := types.KeyPrefix(types.CommentCountKey)
-	bz := []byte(strconv.FormatInt(count, 10))
+	bz := []byte(strconv.FormatUint(count, 10))
 	store.Set(byteKey, bz)
 }
 
-func (k Keeper) CreateComment(ctx sdk.Context, msg types.MsgCreateComment) {
+// AppendComment appends a comment in the store with a new id and update the count
+func (k Keeper) AppendComment(
+	ctx sdk.Context,
+	comment types.Comment,
+) uint64 {
 	// Create the comment
 	count := k.GetCommentCount(ctx)
-	var comment = types.Comment{
-		Creator: msg.Creator,
-		Id:      strconv.FormatInt(count, 10),
-		Body:    msg.Body,
-		PostID:  msg.PostID,
-	}
+
+	// Set the ID of the appended value
+	comment.Id = count
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CommentKey))
-	key := types.KeyPrefix(types.CommentKey + comment.Id)
-	value := k.cdc.MustMarshalBinaryBare(&comment)
-	store.Set(key, value)
+	appendedValue := k.cdc.MustMarshalBinaryBare(&comment)
+	store.Set(GetCommentIDBytes(comment.Id), appendedValue)
 
 	// Update comment count
 	k.SetCommentCount(ctx, count+1)
+
+	return count
 }
 
-func (k Keeper) UpdateComment(ctx sdk.Context, comment types.Comment) {
+// SetComment set a specific comment in the store
+func (k Keeper) SetComment(ctx sdk.Context, comment types.Comment) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CommentKey))
 	b := k.cdc.MustMarshalBinaryBare(&comment)
-	store.Set(types.KeyPrefix(types.CommentKey+comment.Id), b)
+	store.Set(GetCommentIDBytes(comment.Id), b)
 }
 
-func (k Keeper) GetComment(ctx sdk.Context, key string) types.Comment {
+// GetComment returns a comment from its id
+func (k Keeper) GetComment(ctx sdk.Context, id uint64) types.Comment {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CommentKey))
 	var comment types.Comment
-	k.cdc.MustUnmarshalBinaryBare(store.Get(types.KeyPrefix(types.CommentKey+key)), &comment)
+	k.cdc.MustUnmarshalBinaryBare(store.Get(GetCommentIDBytes(id)), &comment)
 	return comment
 }
 
-func (k Keeper) HasComment(ctx sdk.Context, id string) bool {
+// HasComment checks if the comment exists in the store
+func (k Keeper) HasComment(ctx sdk.Context, id uint64) bool {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CommentKey))
-	return store.Has(types.KeyPrefix(types.CommentKey + id))
+	return store.Has(GetCommentIDBytes(id))
 }
 
-func (k Keeper) GetCommentOwner(ctx sdk.Context, key string) string {
-	return k.GetComment(ctx, key).Creator
+// GetCommentOwner returns the creator of the
+func (k Keeper) GetCommentOwner(ctx sdk.Context, id uint64) string {
+	return k.GetComment(ctx, id).Creator
 }
 
-// DeleteComment deletes a comment
-func (k Keeper) DeleteComment(ctx sdk.Context, key string) {
+// RemoveComment removes a comment from the store
+func (k Keeper) RemoveComment(ctx sdk.Context, id uint64) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CommentKey))
-	store.Delete(types.KeyPrefix(types.CommentKey + key))
+	store.Delete(GetCommentIDBytes(id))
 }
 
-func (k Keeper) GetAllComment(ctx sdk.Context) (msgs []types.Comment) {
+// GetAllComment returns all comment
+func (k Keeper) GetAllComment(ctx sdk.Context) (list []types.Comment) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CommentKey))
-	iterator := sdk.KVStorePrefixIterator(store, types.KeyPrefix(types.CommentKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
 
 	for ; iterator.Valid(); iterator.Next() {
-		var msg types.Comment
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &msg)
-		msgs = append(msgs, msg)
+		var val types.Comment
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		list = append(list, val)
 	}
 
 	return
+}
+
+// GetCommentIDBytes returns the byte representation of the ID
+func GetCommentIDBytes(id uint64) []byte {
+	bz := make([]byte, 8)
+	binary.BigEndian.PutUint64(bz, id)
+	return bz
+}
+
+// GetCommentIDFromBytes returns ID in uint64 format from a byte array
+func GetCommentIDFromBytes(bz []byte) uint64 {
+	return binary.BigEndian.Uint64(bz)
 }

@@ -1,9 +1,11 @@
 syntax = "proto3";
-package username.voter.voter;
+package cosmonaut.voter.voter;
 
 // this line is used by starport scaffolding # proto/tx/import
+import "voter/vote.proto";
+import "voter/poll.proto";
 
-option go_package = "github.com/username/voter/x/voter/types";
+option go_package = "github.com/cosmonaut/voter/x/voter/types";
 
 // Msg defines the Msg service.
 service Msg {

@@ -131,7 +131,7 @@ Command to create a `packet` with a cancel buy and sell order:
 interchanged tx ibcdex cancel-sell-order ibcdex channel-0 mcx vcx 0 --from alice --chain-id mars --home ~/.mars
 
 # Buy order
-interchanged tx ibcdex cancel-buy-order ibcdex channel-0 mcx vcx 3 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
+interchanged tx ibcdex cancel-buy-order ibcdex channel-0 mcx vcx 0 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
 ## Exchange Tokens
@@ -244,7 +244,7 @@ Result
 ```bash
 balances:
 - amount: "25"
-  denom: ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833
+  denom: ibc/50D70B7748FB
 - amount: "985"
   denom: mcx
 - amount: "0"
@@ -297,7 +297,7 @@ Result
 ```bash
 balances:
 - amount: "100"
-  denom: ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833
+  denom: ibc/50D70B7748FB
 - amount: "985"
   denom: mcx
 - amount: "0"
@@ -314,7 +314,7 @@ Result
 ```
 balances:
 - amount: "10"
-  denom: ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33
+  denom: ibc/99678A10AF68
 - amount: "900000000"
   denom: stake
 - amount: "1000"
@@ -364,7 +364,7 @@ Result
 ```bash
 balances:
 - amount: "125"
-  denom: ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833
+  denom: ibc/50D70B7748FB
 - amount: "975"
   denom: mcx
 - amount: "0"
@@ -414,7 +414,7 @@ Result
 ```bash
 balances:
 - amount: "20"
-  denom: ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33
+  denom: ibc/99678A10AF68
 - amount: "900000000"
   denom: stake
 - amount: "1000"
@@ -445,7 +445,7 @@ SellOrderBook:
 
 ```bash
 # Cancel a buy order
-interchanged tx ibcdex cancel-buy-order ibcdex channel-0 mcx vcx 3 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
+interchanged tx ibcdex cancel-buy-order ibcdex channel-0 mcx vcx 0 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
 Result:
@@ -494,7 +494,7 @@ Result:
 ```bash
 balances:
 - amount: "150"
-  denom: ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833
+  denom: ibc/50D70B7748FB
 - amount: "990"
   denom: mcx
 - amount: "0"
@@ -514,7 +514,7 @@ Result:
 ```bash
 balances:
 - amount: "10"
-  denom: ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33
+  denom: ibc/99678A10AF68
 - amount: "900000000"
   denom: stake
 - amount: "1000"
@@ -535,7 +535,7 @@ Result:
 ```bash
 DenomTrace:
 - channel: channel-0
-  index: ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33
+  index: ibc/99678A10AF68
   origin: mcx
   port: ibcdex
 ```
@@ -551,7 +551,7 @@ Result:
 ```bash
 DenomTrace:
 - channel: channel-0
-  index: ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833
+  index: ibc/50D70B7748FB
   origin: vcx
   port: ibcde
 ```
@@ -562,7 +562,7 @@ To reverse the exchange path, create a new order book pair:
 
 ```bash
 # Create a pair in the opposite way
-interchanged tx ibcdex send-create-pair ibcdex channel-0 ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833 ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33 --from alice --chain-id mars --home ~/.mars
+interchanged tx ibcdex send-create-pair ibcdex channel-0 ibc/50D70B7748FB ibc/99678A10AF68 --from alice --chain-id mars --home ~/.mars
 ```
 
 The order book is now created on both blockchains. Check for the SellOrderBook on `Mars` and BuyOrderBook on `Venus` respectively.
@@ -570,21 +570,21 @@ The order book is now created on both blockchains. Check for the SellOrderBook o
 ```bash
 # On Mars:
 SellOrderBook:
-- amountDenom: ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833
-  index: ibcdex-channel-0-ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833-ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33
+- amountDenom: ibc/50D70B7748FB
+  index: ibcdex-channel-0-ibc/50D70B7748FB-ibc/99678A10AF68
   orderIDTrack: 0
   orders: []
-  priceDenom: ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33
+  priceDenom: ibc/99678A10AF68
 ```
 
 ```bash
 # On Venus
 BuyOrderBook:
-- amountDenom: ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833
-  index: ibcdex-channel-0-ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833-ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33
+- amountDenom: ibc/50D70B7748FB
+  index: ibcdex-channel-0-ibc/50D70B7748FB-ibc/99678A10AF68
   orderIDTrack: 1
   orders: []
-  priceDenom: ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33
+  priceDenom: ibc/99678A10AF68
 ```
 
 Exchange the token from the voucher back to the original token denomination with the following commands.
@@ -593,13 +593,13 @@ Create the sell order on `Mars`:
 
 ```bash
 # Exchange tokens back
-interchanged tx ibcdex send-sell-order ibcdex channel-0 ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833 10 ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33 1 --from alice --chain-id mars --home ~/.mars
+interchanged tx ibcdex send-sell-order ibcdex channel-0 ibc/50D70B7748FB 10 ibc/99678A10AF68 1 --from alice --chain-id mars --home ~/.mars
 ```
 
 Create the buy order on `Venus`:
 
 ```bash
-interchanged tx ibcdex send-buy-order ibcdex channel-0 ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833 5 ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33 1 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
+interchanged tx ibcdex send-buy-order ibcdex channel-0 ibc/50D70B7748FB 5 ibc/99678A10AF68 1 --from alice --chain-id venus --home ~/.venus --node tcp://localhost:26659
 ```
 
 See balances on `Mars`:
@@ -613,7 +613,7 @@ Result:
 ```bash
 balances:
 - amount: "140"
-  denom: ibc/50D70B7748FB8AA69F09114EC9E5615C39E07381FE80E628A1AF63A6F5C79833
+  denom: ibc/50D70B7748FB
 - amount: "995"
   denom: mcx
 - amount: "0"
@@ -633,7 +633,7 @@ Result:
 ```bash
 balances:
 - amount: "5"
-  denom: ibc/99678A10AF684E33E88959727F2455AE42CCC64CD76ECFA9691E1B5A32342D33
+  denom: ibc/99678A10AF68
 - amount: "900000000"
   denom: stake
 - amount: "1000"
