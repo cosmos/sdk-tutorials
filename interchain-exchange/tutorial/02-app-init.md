@@ -36,7 +36,7 @@ Scaffold a module inside your blockchain named `ibcdex` with IBC capabilities.
 The ibcdex module contains the logic for creating and maintaining order books and routing them through IBC to the second blockchain.
 
 ```bash
-starport scaffold module create ibcdex --ibc --ordering unordered
+starport scaffold module ibcdex --ibc --ordering unordered
 ```
 
 ## Create the Transaction Types
