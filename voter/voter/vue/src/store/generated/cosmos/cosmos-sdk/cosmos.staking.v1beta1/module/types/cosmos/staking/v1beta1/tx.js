@@ -1,14 +1,14 @@
 /* eslint-disable */
-import { Reader, Writer } from "protobufjs/minimal";
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { Description, CommissionRates, } from "../../../cosmos/staking/v1beta1/staking";
-import { Any } from "../../../google/protobuf/any";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-export const protobufPackage = "cosmos.staking.v1beta1";
+import { Reader, Writer } from 'protobufjs/minimal';
+import { Timestamp } from '../../../google/protobuf/timestamp';
+import { Description, CommissionRates } from '../../../cosmos/staking/v1beta1/staking';
+import { Any } from '../../../google/protobuf/any';
+import { Coin } from '../../../cosmos/base/v1beta1/coin';
+export const protobufPackage = 'cosmos.staking.v1beta1';
 const baseMsgCreateValidator = {
-    minSelfDelegation: "",
-    delegatorAddress: "",
-    validatorAddress: "",
+    minSelfDelegation: '',
+    delegatorAddress: '',
+    validatorAddress: ''
 };
 export const MsgCreateValidator = {
     encode(message, writer = Writer.create()) {
@@ -18,13 +18,13 @@ export const MsgCreateValidator = {
         if (message.commission !== undefined) {
             CommissionRates.encode(message.commission, writer.uint32(18).fork()).ldelim();
         }
-        if (message.minSelfDelegation !== "") {
+        if (message.minSelfDelegation !== '') {
             writer.uint32(26).string(message.minSelfDelegation);
         }
-        if (message.delegatorAddress !== "") {
+        if (message.delegatorAddress !== '') {
             writer.uint32(34).string(message.delegatorAddress);
         }
-        if (message.validatorAddress !== "") {
+        if (message.validatorAddress !== '') {
             writer.uint32(42).string(message.validatorAddress);
         }
         if (message.pubkey !== undefined) {
@@ -89,21 +89,21 @@ export const MsgCreateValidator = {
             message.minSelfDelegation = String(object.minSelfDelegation);
         }
         else {
-            message.minSelfDelegation = "";
+            message.minSelfDelegation = '';
         }
         if (object.delegatorAddress !== undefined &&
             object.delegatorAddress !== null) {
             message.delegatorAddress = String(object.delegatorAddress);
         }
         else {
-            message.delegatorAddress = "";
+            message.delegatorAddress = '';
         }
         if (object.validatorAddress !== undefined &&
             object.validatorAddress !== null) {
             message.validatorAddress = String(object.validatorAddress);
         }
         else {
-            message.validatorAddress = "";
+            message.validatorAddress = '';
         }
         if (object.pubkey !== undefined && object.pubkey !== null) {
             message.pubkey = Any.fromJSON(object.pubkey);
@@ -160,21 +160,21 @@ export const MsgCreateValidator = {
             message.minSelfDelegation = object.minSelfDelegation;
         }
         else {
-            message.minSelfDelegation = "";
+            message.minSelfDelegation = '';
         }
         if (object.delegatorAddress !== undefined &&
             object.delegatorAddress !== null) {
             message.delegatorAddress = object.delegatorAddress;
         }
         else {
-            message.delegatorAddress = "";
+            message.delegatorAddress = '';
         }
         if (object.validatorAddress !== undefined &&
             object.validatorAddress !== null) {
             message.validatorAddress = object.validatorAddress;
         }
         else {
-            message.validatorAddress = "";
+            message.validatorAddress = '';
         }
         if (object.pubkey !== undefined && object.pubkey !== null) {
             message.pubkey = Any.fromPartial(object.pubkey);
@@ -189,7 +189,7 @@ export const MsgCreateValidator = {
             message.value = undefined;
         }
         return message;
-    },
+    }
 };
 const baseMsgCreateValidatorResponse = {};
 export const MsgCreateValidatorResponse = {
@@ -200,7 +200,7 @@ export const MsgCreateValidatorResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgCreateValidatorResponse,
+            ...baseMsgCreateValidatorResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -214,7 +214,7 @@ export const MsgCreateValidatorResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgCreateValidatorResponse,
+            ...baseMsgCreateValidatorResponse
         };
         return message;
     },
@@ -224,28 +224,28 @@ export const MsgCreateValidatorResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgCreateValidatorResponse,
+            ...baseMsgCreateValidatorResponse
         };
         return message;
-    },
+    }
 };
 const baseMsgEditValidator = {
-    validatorAddress: "",
-    commissionRate: "",
-    minSelfDelegation: "",
+    validatorAddress: '',
+    commissionRate: '',
+    minSelfDelegation: ''
 };
 export const MsgEditValidator = {
     encode(message, writer = Writer.create()) {
         if (message.description !== undefined) {
             Description.encode(message.description, writer.uint32(10).fork()).ldelim();
         }
-        if (message.validatorAddress !== "") {
+        if (message.validatorAddress !== '') {
             writer.uint32(18).string(message.validatorAddress);
         }
-        if (message.commissionRate !== "") {
+        if (message.commissionRate !== '') {
             writer.uint32(26).string(message.commissionRate);
         }
-        if (message.minSelfDelegation !== "") {
+        if (message.minSelfDelegation !== '') {
             writer.uint32(34).string(message.minSelfDelegation);
         }
         return writer;
@@ -289,20 +289,20 @@ export const MsgEditValidator = {
             message.validatorAddress = String(object.validatorAddress);
         }
         else {
-            message.validatorAddress = "";
+            message.validatorAddress = '';
         }
         if (object.commissionRate !== undefined && object.commissionRate !== null) {
             message.commissionRate = String(object.commissionRate);
         }
         else {
-            message.commissionRate = "";
+            message.commissionRate = '';
         }
         if (object.minSelfDelegation !== undefined &&
             object.minSelfDelegation !== null) {
             message.minSelfDelegation = String(object.minSelfDelegation);
         }
         else {
-            message.minSelfDelegation = "";
+            message.minSelfDelegation = '';
         }
         return message;
     },
@@ -333,23 +333,23 @@ export const MsgEditValidator = {
             message.validatorAddress = object.validatorAddress;
         }
         else {
-            message.validatorAddress = "";
+            message.validatorAddress = '';
         }
         if (object.commissionRate !== undefined && object.commissionRate !== null) {
             message.commissionRate = object.commissionRate;
         }
         else {
-            message.commissionRate = "";
+            message.commissionRate = '';
         }
         if (object.minSelfDelegation !== undefined &&
             object.minSelfDelegation !== null) {
             message.minSelfDelegation = object.minSelfDelegation;
         }
         else {
-            message.minSelfDelegation = "";
+            message.minSelfDelegation = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgEditValidatorResponse = {};
 export const MsgEditValidatorResponse = {
@@ -360,7 +360,7 @@ export const MsgEditValidatorResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgEditValidatorResponse,
+            ...baseMsgEditValidatorResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -374,7 +374,7 @@ export const MsgEditValidatorResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgEditValidatorResponse,
+            ...baseMsgEditValidatorResponse
         };
         return message;
     },
@@ -384,18 +384,18 @@ export const MsgEditValidatorResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgEditValidatorResponse,
+            ...baseMsgEditValidatorResponse
         };
         return message;
-    },
+    }
 };
-const baseMsgDelegate = { delegatorAddress: "", validatorAddress: "" };
+const baseMsgDelegate = { delegatorAddress: '', validatorAddress: '' };
 export const MsgDelegate = {
     encode(message, writer = Writer.create()) {
-        if (message.delegatorAddress !== "") {
+        if (message.delegatorAddress !== '') {
             writer.uint32(10).string(message.delegatorAddress);
         }
-        if (message.validatorAddress !== "") {
+        if (message.validatorAddress !== '') {
             writer.uint32(18).string(message.validatorAddress);
         }
         if (message.amount !== undefined) {
@@ -433,14 +433,14 @@ export const MsgDelegate = {
             message.delegatorAddress = String(object.delegatorAddress);
         }
         else {
-            message.delegatorAddress = "";
+            message.delegatorAddress = '';
         }
         if (object.validatorAddress !== undefined &&
             object.validatorAddress !== null) {
             message.validatorAddress = String(object.validatorAddress);
         }
         else {
-            message.validatorAddress = "";
+            message.validatorAddress = '';
         }
         if (object.amount !== undefined && object.amount !== null) {
             message.amount = Coin.fromJSON(object.amount);
@@ -467,14 +467,14 @@ export const MsgDelegate = {
             message.delegatorAddress = object.delegatorAddress;
         }
         else {
-            message.delegatorAddress = "";
+            message.delegatorAddress = '';
         }
         if (object.validatorAddress !== undefined &&
             object.validatorAddress !== null) {
             message.validatorAddress = object.validatorAddress;
         }
         else {
-            message.validatorAddress = "";
+            message.validatorAddress = '';
         }
         if (object.amount !== undefined && object.amount !== null) {
             message.amount = Coin.fromPartial(object.amount);
@@ -483,7 +483,7 @@ export const MsgDelegate = {
             message.amount = undefined;
         }
         return message;
-    },
+    }
 };
 const baseMsgDelegateResponse = {};
 export const MsgDelegateResponse = {
@@ -515,22 +515,22 @@ export const MsgDelegateResponse = {
     fromPartial(_) {
         const message = { ...baseMsgDelegateResponse };
         return message;
-    },
+    }
 };
 const baseMsgBeginRedelegate = {
-    delegatorAddress: "",
-    validatorSrcAddress: "",
-    validatorDstAddress: "",
+    delegatorAddress: '',
+    validatorSrcAddress: '',
+    validatorDstAddress: ''
 };
 export const MsgBeginRedelegate = {
     encode(message, writer = Writer.create()) {
-        if (message.delegatorAddress !== "") {
+        if (message.delegatorAddress !== '') {
             writer.uint32(10).string(message.delegatorAddress);
         }
-        if (message.validatorSrcAddress !== "") {
+        if (message.validatorSrcAddress !== '') {
             writer.uint32(18).string(message.validatorSrcAddress);
         }
-        if (message.validatorDstAddress !== "") {
+        if (message.validatorDstAddress !== '') {
             writer.uint32(26).string(message.validatorDstAddress);
         }
         if (message.amount !== undefined) {
@@ -571,21 +571,21 @@ export const MsgBeginRedelegate = {
             message.delegatorAddress = String(object.delegatorAddress);
         }
         else {
-            message.delegatorAddress = "";
+            message.delegatorAddress = '';
         }
         if (object.validatorSrcAddress !== undefined &&
             object.validatorSrcAddress !== null) {
             message.validatorSrcAddress = String(object.validatorSrcAddress);
         }
         else {
-            message.validatorSrcAddress = "";
+            message.validatorSrcAddress = '';
         }
         if (object.validatorDstAddress !== undefined &&
             object.validatorDstAddress !== null) {
             message.validatorDstAddress = String(object.validatorDstAddress);
         }
         else {
-            message.validatorDstAddress = "";
+            message.validatorDstAddress = '';
         }
         if (object.amount !== undefined && object.amount !== null) {
             message.amount = Coin.fromJSON(object.amount);
@@ -614,21 +614,21 @@ export const MsgBeginRedelegate = {
             message.delegatorAddress = object.delegatorAddress;
         }
         else {
-            message.delegatorAddress = "";
+            message.delegatorAddress = '';
         }
         if (object.validatorSrcAddress !== undefined &&
             object.validatorSrcAddress !== null) {
             message.validatorSrcAddress = object.validatorSrcAddress;
         }
         else {
-            message.validatorSrcAddress = "";
+            message.validatorSrcAddress = '';
         }
         if (object.validatorDstAddress !== undefined &&
             object.validatorDstAddress !== null) {
             message.validatorDstAddress = object.validatorDstAddress;
         }
         else {
-            message.validatorDstAddress = "";
+            message.validatorDstAddress = '';
         }
         if (object.amount !== undefined && object.amount !== null) {
             message.amount = Coin.fromPartial(object.amount);
@@ -637,7 +637,7 @@ export const MsgBeginRedelegate = {
             message.amount = undefined;
         }
         return message;
-    },
+    }
 };
 const baseMsgBeginRedelegateResponse = {};
 export const MsgBeginRedelegateResponse = {
@@ -651,7 +651,7 @@ export const MsgBeginRedelegateResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgBeginRedelegateResponse,
+            ...baseMsgBeginRedelegateResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -668,7 +668,7 @@ export const MsgBeginRedelegateResponse = {
     },
     fromJSON(object) {
         const message = {
-            ...baseMsgBeginRedelegateResponse,
+            ...baseMsgBeginRedelegateResponse
         };
         if (object.completionTime !== undefined && object.completionTime !== null) {
             message.completionTime = fromJsonTimestamp(object.completionTime);
@@ -689,7 +689,7 @@ export const MsgBeginRedelegateResponse = {
     },
     fromPartial(object) {
         const message = {
-            ...baseMsgBeginRedelegateResponse,
+            ...baseMsgBeginRedelegateResponse
         };
         if (object.completionTime !== undefined && object.completionTime !== null) {
             message.completionTime = object.completionTime;
@@ -698,18 +698,15 @@ export const MsgBeginRedelegateResponse = {
             message.completionTime = undefined;
         }
         return message;
-    },
+    }
 };
-const baseMsgUndelegate = {
-    delegatorAddress: "",
-    validatorAddress: "",
-};
+const baseMsgUndelegate = { delegatorAddress: '', validatorAddress: '' };
 export const MsgUndelegate = {
     encode(message, writer = Writer.create()) {
-        if (message.delegatorAddress !== "") {
+        if (message.delegatorAddress !== '') {
             writer.uint32(10).string(message.delegatorAddress);
         }
-        if (message.validatorAddress !== "") {
+        if (message.validatorAddress !== '') {
             writer.uint32(18).string(message.validatorAddress);
         }
         if (message.amount !== undefined) {
@@ -747,14 +744,14 @@ export const MsgUndelegate = {
             message.delegatorAddress = String(object.delegatorAddress);
         }
         else {
-            message.delegatorAddress = "";
+            message.delegatorAddress = '';
         }
         if (object.validatorAddress !== undefined &&
             object.validatorAddress !== null) {
             message.validatorAddress = String(object.validatorAddress);
         }
         else {
-            message.validatorAddress = "";
+            message.validatorAddress = '';
         }
         if (object.amount !== undefined && object.amount !== null) {
             message.amount = Coin.fromJSON(object.amount);
@@ -781,14 +778,14 @@ export const MsgUndelegate = {
             message.delegatorAddress = object.delegatorAddress;
         }
         else {
-            message.delegatorAddress = "";
+            message.delegatorAddress = '';
         }
         if (object.validatorAddress !== undefined &&
             object.validatorAddress !== null) {
             message.validatorAddress = object.validatorAddress;
         }
         else {
-            message.validatorAddress = "";
+            message.validatorAddress = '';
         }
         if (object.amount !== undefined && object.amount !== null) {
             message.amount = Coin.fromPartial(object.amount);
@@ -797,7 +794,7 @@ export const MsgUndelegate = {
             message.amount = undefined;
         }
         return message;
-    },
+    }
 };
 const baseMsgUndelegateResponse = {};
 export const MsgUndelegateResponse = {
@@ -852,7 +849,7 @@ export const MsgUndelegateResponse = {
             message.completionTime = undefined;
         }
         return message;
-    },
+    }
 };
 export class MsgClientImpl {
     constructor(rpc) {
@@ -860,27 +857,27 @@ export class MsgClientImpl {
     }
     CreateValidator(request) {
         const data = MsgCreateValidator.encode(request).finish();
-        const promise = this.rpc.request("cosmos.staking.v1beta1.Msg", "CreateValidator", data);
+        const promise = this.rpc.request('cosmos.staking.v1beta1.Msg', 'CreateValidator', data);
         return promise.then((data) => MsgCreateValidatorResponse.decode(new Reader(data)));
     }
     EditValidator(request) {
         const data = MsgEditValidator.encode(request).finish();
-        const promise = this.rpc.request("cosmos.staking.v1beta1.Msg", "EditValidator", data);
+        const promise = this.rpc.request('cosmos.staking.v1beta1.Msg', 'EditValidator', data);
         return promise.then((data) => MsgEditValidatorResponse.decode(new Reader(data)));
     }
     Delegate(request) {
         const data = MsgDelegate.encode(request).finish();
-        const promise = this.rpc.request("cosmos.staking.v1beta1.Msg", "Delegate", data);
+        const promise = this.rpc.request('cosmos.staking.v1beta1.Msg', 'Delegate', data);
         return promise.then((data) => MsgDelegateResponse.decode(new Reader(data)));
     }
     BeginRedelegate(request) {
         const data = MsgBeginRedelegate.encode(request).finish();
-        const promise = this.rpc.request("cosmos.staking.v1beta1.Msg", "BeginRedelegate", data);
+        const promise = this.rpc.request('cosmos.staking.v1beta1.Msg', 'BeginRedelegate', data);
         return promise.then((data) => MsgBeginRedelegateResponse.decode(new Reader(data)));
     }
     Undelegate(request) {
         const data = MsgUndelegate.encode(request).finish();
-        const promise = this.rpc.request("cosmos.staking.v1beta1.Msg", "Undelegate", data);
+        const promise = this.rpc.request('cosmos.staking.v1beta1.Msg', 'Undelegate', data);
         return promise.then((data) => MsgUndelegateResponse.decode(new Reader(data)));
     }
 }
@@ -898,7 +895,7 @@ function fromJsonTimestamp(o) {
     if (o instanceof Date) {
         return o;
     }
-    else if (typeof o === "string") {
+    else if (typeof o === 'string') {
         return new Date(o);
     }
     else {

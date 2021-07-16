@@ -1,12 +1,12 @@
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { Any } from "../../../../google/protobuf/any";
-export const protobufPackage = "ibc.core.client.v1";
-const baseIdentifiedClientState = { clientId: "" };
+import * as Long from 'long';
+import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { Any } from '../../../../google/protobuf/any';
+export const protobufPackage = 'ibc.core.client.v1';
+const baseIdentifiedClientState = { clientId: '' };
 export const IdentifiedClientState = {
     encode(message, writer = Writer.create()) {
-        if (message.clientId !== "") {
+        if (message.clientId !== '') {
             writer.uint32(10).string(message.clientId);
         }
         if (message.clientState !== undefined) {
@@ -40,7 +40,7 @@ export const IdentifiedClientState = {
             message.clientId = String(object.clientId);
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.clientState !== undefined && object.clientState !== null) {
             message.clientState = Any.fromJSON(object.clientState);
@@ -65,7 +65,7 @@ export const IdentifiedClientState = {
             message.clientId = object.clientId;
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.clientState !== undefined && object.clientState !== null) {
             message.clientState = Any.fromPartial(object.clientState);
@@ -74,7 +74,7 @@ export const IdentifiedClientState = {
             message.clientState = undefined;
         }
         return message;
-    },
+    }
 };
 const baseConsensusStateWithHeight = {};
 export const ConsensusStateWithHeight = {
@@ -91,7 +91,7 @@ export const ConsensusStateWithHeight = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseConsensusStateWithHeight,
+            ...baseConsensusStateWithHeight
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -111,7 +111,7 @@ export const ConsensusStateWithHeight = {
     },
     fromJSON(object) {
         const message = {
-            ...baseConsensusStateWithHeight,
+            ...baseConsensusStateWithHeight
         };
         if (object.height !== undefined && object.height !== null) {
             message.height = Height.fromJSON(object.height);
@@ -139,7 +139,7 @@ export const ConsensusStateWithHeight = {
     },
     fromPartial(object) {
         const message = {
-            ...baseConsensusStateWithHeight,
+            ...baseConsensusStateWithHeight
         };
         if (object.height !== undefined && object.height !== null) {
             message.height = Height.fromPartial(object.height);
@@ -154,12 +154,12 @@ export const ConsensusStateWithHeight = {
             message.consensusState = undefined;
         }
         return message;
-    },
+    }
 };
-const baseClientConsensusStates = { clientId: "" };
+const baseClientConsensusStates = { clientId: '' };
 export const ClientConsensusStates = {
     encode(message, writer = Writer.create()) {
-        if (message.clientId !== "") {
+        if (message.clientId !== '') {
             writer.uint32(10).string(message.clientId);
         }
         for (const v of message.consensusStates) {
@@ -195,7 +195,7 @@ export const ClientConsensusStates = {
             message.clientId = String(object.clientId);
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.consensusStates !== undefined &&
             object.consensusStates !== null) {
@@ -223,7 +223,7 @@ export const ClientConsensusStates = {
             message.clientId = object.clientId;
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.consensusStates !== undefined &&
             object.consensusStates !== null) {
@@ -232,22 +232,22 @@ export const ClientConsensusStates = {
             }
         }
         return message;
-    },
+    }
 };
 const baseClientUpdateProposal = {
-    title: "",
-    description: "",
-    clientId: "",
+    title: '',
+    description: '',
+    clientId: ''
 };
 export const ClientUpdateProposal = {
     encode(message, writer = Writer.create()) {
-        if (message.title !== "") {
+        if (message.title !== '') {
             writer.uint32(10).string(message.title);
         }
-        if (message.description !== "") {
+        if (message.description !== '') {
             writer.uint32(18).string(message.description);
         }
-        if (message.clientId !== "") {
+        if (message.clientId !== '') {
             writer.uint32(26).string(message.clientId);
         }
         if (message.header !== undefined) {
@@ -287,19 +287,19 @@ export const ClientUpdateProposal = {
             message.title = String(object.title);
         }
         else {
-            message.title = "";
+            message.title = '';
         }
         if (object.description !== undefined && object.description !== null) {
             message.description = String(object.description);
         }
         else {
-            message.description = "";
+            message.description = '';
         }
         if (object.clientId !== undefined && object.clientId !== null) {
             message.clientId = String(object.clientId);
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.header !== undefined && object.header !== null) {
             message.header = Any.fromJSON(object.header);
@@ -312,8 +312,7 @@ export const ClientUpdateProposal = {
     toJSON(message) {
         const obj = {};
         message.title !== undefined && (obj.title = message.title);
-        message.description !== undefined &&
-            (obj.description = message.description);
+        message.description !== undefined && (obj.description = message.description);
         message.clientId !== undefined && (obj.clientId = message.clientId);
         message.header !== undefined &&
             (obj.header = message.header ? Any.toJSON(message.header) : undefined);
@@ -325,19 +324,19 @@ export const ClientUpdateProposal = {
             message.title = object.title;
         }
         else {
-            message.title = "";
+            message.title = '';
         }
         if (object.description !== undefined && object.description !== null) {
             message.description = object.description;
         }
         else {
-            message.description = "";
+            message.description = '';
         }
         if (object.clientId !== undefined && object.clientId !== null) {
             message.clientId = object.clientId;
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.header !== undefined && object.header !== null) {
             message.header = Any.fromPartial(object.header);
@@ -346,7 +345,7 @@ export const ClientUpdateProposal = {
             message.header = undefined;
         }
         return message;
-    },
+    }
 };
 const baseHeight = { revisionNumber: 0, revisionHeight: 0 };
 export const Height = {
@@ -418,9 +417,9 @@ export const Height = {
             message.revisionHeight = 0;
         }
         return message;
-    },
+    }
 };
-const baseParams = { allowedClients: "" };
+const baseParams = { allowedClients: '' };
 export const Params = {
     encode(message, writer = Writer.create()) {
         for (const v of message.allowedClients) {
@@ -475,22 +474,22 @@ export const Params = {
             }
         }
         return message;
-    },
+    }
 };
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

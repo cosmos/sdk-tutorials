@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { Params, Metadata } from "../../../cosmos/bank/v1beta1/bank";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "cosmos.bank.v1beta1";
+import { Params, Metadata } from '../../../cosmos/bank/v1beta1/bank';
+import { Coin } from '../../../cosmos/base/v1beta1/coin';
+import { Writer, Reader } from 'protobufjs/minimal';
+export const protobufPackage = 'cosmos.bank.v1beta1';
 const baseGenesisState = {};
 export const GenesisState = {
     encode(message, writer = Writer.create()) {
@@ -128,12 +128,12 @@ export const GenesisState = {
             }
         }
         return message;
-    },
+    }
 };
-const baseBalance = { address: "" };
+const baseBalance = { address: '' };
 export const Balance = {
     encode(message, writer = Writer.create()) {
-        if (message.address !== "") {
+        if (message.address !== '') {
             writer.uint32(10).string(message.address);
         }
         for (const v of message.coins) {
@@ -169,7 +169,7 @@ export const Balance = {
             message.address = String(object.address);
         }
         else {
-            message.address = "";
+            message.address = '';
         }
         if (object.coins !== undefined && object.coins !== null) {
             for (const e of object.coins) {
@@ -196,7 +196,7 @@ export const Balance = {
             message.address = object.address;
         }
         else {
-            message.address = "";
+            message.address = '';
         }
         if (object.coins !== undefined && object.coins !== null) {
             for (const e of object.coins) {
@@ -204,5 +204,5 @@ export const Balance = {
             }
         }
         return message;
-    },
+    }
 };

@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { Reader, Writer } from "protobufjs/minimal";
-import { Any } from "../../../../google/protobuf/any";
-export const protobufPackage = "ibc.core.client.v1";
-const baseMsgCreateClient = { signer: "" };
+import { Reader, Writer } from 'protobufjs/minimal';
+import { Any } from '../../../../google/protobuf/any';
+export const protobufPackage = 'ibc.core.client.v1';
+const baseMsgCreateClient = { signer: '' };
 export const MsgCreateClient = {
     encode(message, writer = Writer.create()) {
         if (message.clientState !== undefined) {
@@ -11,7 +11,7 @@ export const MsgCreateClient = {
         if (message.consensusState !== undefined) {
             Any.encode(message.consensusState, writer.uint32(18).fork()).ldelim();
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(26).string(message.signer);
         }
         return writer;
@@ -57,7 +57,7 @@ export const MsgCreateClient = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -92,10 +92,10 @@ export const MsgCreateClient = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgCreateClientResponse = {};
 export const MsgCreateClientResponse = {
@@ -106,7 +106,7 @@ export const MsgCreateClientResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgCreateClientResponse,
+            ...baseMsgCreateClientResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -120,7 +120,7 @@ export const MsgCreateClientResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgCreateClientResponse,
+            ...baseMsgCreateClientResponse
         };
         return message;
     },
@@ -130,21 +130,21 @@ export const MsgCreateClientResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgCreateClientResponse,
+            ...baseMsgCreateClientResponse
         };
         return message;
-    },
+    }
 };
-const baseMsgUpdateClient = { clientId: "", signer: "" };
+const baseMsgUpdateClient = { clientId: '', signer: '' };
 export const MsgUpdateClient = {
     encode(message, writer = Writer.create()) {
-        if (message.clientId !== "") {
+        if (message.clientId !== '') {
             writer.uint32(10).string(message.clientId);
         }
         if (message.header !== undefined) {
             Any.encode(message.header, writer.uint32(18).fork()).ldelim();
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(26).string(message.signer);
         }
         return writer;
@@ -178,7 +178,7 @@ export const MsgUpdateClient = {
             message.clientId = String(object.clientId);
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.header !== undefined && object.header !== null) {
             message.header = Any.fromJSON(object.header);
@@ -190,7 +190,7 @@ export const MsgUpdateClient = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -208,7 +208,7 @@ export const MsgUpdateClient = {
             message.clientId = object.clientId;
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.header !== undefined && object.header !== null) {
             message.header = Any.fromPartial(object.header);
@@ -220,10 +220,10 @@ export const MsgUpdateClient = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgUpdateClientResponse = {};
 export const MsgUpdateClientResponse = {
@@ -234,7 +234,7 @@ export const MsgUpdateClientResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgUpdateClientResponse,
+            ...baseMsgUpdateClientResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -248,7 +248,7 @@ export const MsgUpdateClientResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgUpdateClientResponse,
+            ...baseMsgUpdateClientResponse
         };
         return message;
     },
@@ -258,15 +258,15 @@ export const MsgUpdateClientResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgUpdateClientResponse,
+            ...baseMsgUpdateClientResponse
         };
         return message;
-    },
+    }
 };
-const baseMsgUpgradeClient = { clientId: "", signer: "" };
+const baseMsgUpgradeClient = { clientId: '', signer: '' };
 export const MsgUpgradeClient = {
     encode(message, writer = Writer.create()) {
-        if (message.clientId !== "") {
+        if (message.clientId !== '') {
             writer.uint32(10).string(message.clientId);
         }
         if (message.clientState !== undefined) {
@@ -281,7 +281,7 @@ export const MsgUpgradeClient = {
         if (message.proofUpgradeConsensusState.length !== 0) {
             writer.uint32(42).bytes(message.proofUpgradeConsensusState);
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(50).string(message.signer);
         }
         return writer;
@@ -324,7 +324,7 @@ export const MsgUpgradeClient = {
             message.clientId = String(object.clientId);
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.clientState !== undefined && object.clientState !== null) {
             message.clientState = Any.fromJSON(object.clientState);
@@ -350,7 +350,7 @@ export const MsgUpgradeClient = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -382,7 +382,7 @@ export const MsgUpgradeClient = {
             message.clientId = object.clientId;
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.clientState !== undefined && object.clientState !== null) {
             message.clientState = Any.fromPartial(object.clientState);
@@ -414,10 +414,10 @@ export const MsgUpgradeClient = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgUpgradeClientResponse = {};
 export const MsgUpgradeClientResponse = {
@@ -428,7 +428,7 @@ export const MsgUpgradeClientResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgUpgradeClientResponse,
+            ...baseMsgUpgradeClientResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -442,7 +442,7 @@ export const MsgUpgradeClientResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgUpgradeClientResponse,
+            ...baseMsgUpgradeClientResponse
         };
         return message;
     },
@@ -452,21 +452,21 @@ export const MsgUpgradeClientResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgUpgradeClientResponse,
+            ...baseMsgUpgradeClientResponse
         };
         return message;
-    },
+    }
 };
-const baseMsgSubmitMisbehaviour = { clientId: "", signer: "" };
+const baseMsgSubmitMisbehaviour = { clientId: '', signer: '' };
 export const MsgSubmitMisbehaviour = {
     encode(message, writer = Writer.create()) {
-        if (message.clientId !== "") {
+        if (message.clientId !== '') {
             writer.uint32(10).string(message.clientId);
         }
         if (message.misbehaviour !== undefined) {
             Any.encode(message.misbehaviour, writer.uint32(18).fork()).ldelim();
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(26).string(message.signer);
         }
         return writer;
@@ -500,7 +500,7 @@ export const MsgSubmitMisbehaviour = {
             message.clientId = String(object.clientId);
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.misbehaviour !== undefined && object.misbehaviour !== null) {
             message.misbehaviour = Any.fromJSON(object.misbehaviour);
@@ -512,7 +512,7 @@ export const MsgSubmitMisbehaviour = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -532,7 +532,7 @@ export const MsgSubmitMisbehaviour = {
             message.clientId = object.clientId;
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.misbehaviour !== undefined && object.misbehaviour !== null) {
             message.misbehaviour = Any.fromPartial(object.misbehaviour);
@@ -544,10 +544,10 @@ export const MsgSubmitMisbehaviour = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgSubmitMisbehaviourResponse = {};
 export const MsgSubmitMisbehaviourResponse = {
@@ -558,7 +558,7 @@ export const MsgSubmitMisbehaviourResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgSubmitMisbehaviourResponse,
+            ...baseMsgSubmitMisbehaviourResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -572,7 +572,7 @@ export const MsgSubmitMisbehaviourResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgSubmitMisbehaviourResponse,
+            ...baseMsgSubmitMisbehaviourResponse
         };
         return message;
     },
@@ -582,10 +582,10 @@ export const MsgSubmitMisbehaviourResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgSubmitMisbehaviourResponse,
+            ...baseMsgSubmitMisbehaviourResponse
         };
         return message;
-    },
+    }
 };
 export class MsgClientImpl {
     constructor(rpc) {
@@ -593,38 +593,38 @@ export class MsgClientImpl {
     }
     CreateClient(request) {
         const data = MsgCreateClient.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.client.v1.Msg", "CreateClient", data);
+        const promise = this.rpc.request('ibc.core.client.v1.Msg', 'CreateClient', data);
         return promise.then((data) => MsgCreateClientResponse.decode(new Reader(data)));
     }
     UpdateClient(request) {
         const data = MsgUpdateClient.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.client.v1.Msg", "UpdateClient", data);
+        const promise = this.rpc.request('ibc.core.client.v1.Msg', 'UpdateClient', data);
         return promise.then((data) => MsgUpdateClientResponse.decode(new Reader(data)));
     }
     UpgradeClient(request) {
         const data = MsgUpgradeClient.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.client.v1.Msg", "UpgradeClient", data);
+        const promise = this.rpc.request('ibc.core.client.v1.Msg', 'UpgradeClient', data);
         return promise.then((data) => MsgUpgradeClientResponse.decode(new Reader(data)));
     }
     SubmitMisbehaviour(request) {
         const data = MsgSubmitMisbehaviour.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.client.v1.Msg", "SubmitMisbehaviour", data);
+        const promise = this.rpc.request('ibc.core.client.v1.Msg', 'SubmitMisbehaviour', data);
         return promise.then((data) => MsgSubmitMisbehaviourResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -634,11 +634,11 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }

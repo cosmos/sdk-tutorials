@@ -1,7 +1,7 @@
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "tendermint.crypto";
+import * as Long from 'long';
+import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+export const protobufPackage = 'tendermint.crypto';
 const baseProof = { total: 0, index: 0 };
 export const Proof = {
     encode(message, writer = Writer.create()) {
@@ -112,7 +112,7 @@ export const Proof = {
             }
         }
         return message;
-    },
+    }
 };
 const baseValueOp = {};
 export const ValueOp = {
@@ -181,18 +181,18 @@ export const ValueOp = {
             message.proof = undefined;
         }
         return message;
-    },
+    }
 };
-const baseDominoOp = { key: "", input: "", output: "" };
+const baseDominoOp = { key: '', input: '', output: '' };
 export const DominoOp = {
     encode(message, writer = Writer.create()) {
-        if (message.key !== "") {
+        if (message.key !== '') {
             writer.uint32(10).string(message.key);
         }
-        if (message.input !== "") {
+        if (message.input !== '') {
             writer.uint32(18).string(message.input);
         }
-        if (message.output !== "") {
+        if (message.output !== '') {
             writer.uint32(26).string(message.output);
         }
         return writer;
@@ -226,19 +226,19 @@ export const DominoOp = {
             message.key = String(object.key);
         }
         else {
-            message.key = "";
+            message.key = '';
         }
         if (object.input !== undefined && object.input !== null) {
             message.input = String(object.input);
         }
         else {
-            message.input = "";
+            message.input = '';
         }
         if (object.output !== undefined && object.output !== null) {
             message.output = String(object.output);
         }
         else {
-            message.output = "";
+            message.output = '';
         }
         return message;
     },
@@ -255,27 +255,27 @@ export const DominoOp = {
             message.key = object.key;
         }
         else {
-            message.key = "";
+            message.key = '';
         }
         if (object.input !== undefined && object.input !== null) {
             message.input = object.input;
         }
         else {
-            message.input = "";
+            message.input = '';
         }
         if (object.output !== undefined && object.output !== null) {
             message.output = object.output;
         }
         else {
-            message.output = "";
+            message.output = '';
         }
         return message;
-    },
+    }
 };
-const baseProofOp = { type: "" };
+const baseProofOp = { type: '' };
 export const ProofOp = {
     encode(message, writer = Writer.create()) {
-        if (message.type !== "") {
+        if (message.type !== '') {
             writer.uint32(10).string(message.type);
         }
         if (message.key.length !== 0) {
@@ -315,7 +315,7 @@ export const ProofOp = {
             message.type = String(object.type);
         }
         else {
-            message.type = "";
+            message.type = '';
         }
         if (object.key !== undefined && object.key !== null) {
             message.key = bytesFromBase64(object.key);
@@ -340,7 +340,7 @@ export const ProofOp = {
             message.type = object.type;
         }
         else {
-            message.type = "";
+            message.type = '';
         }
         if (object.key !== undefined && object.key !== null) {
             message.key = object.key;
@@ -355,7 +355,7 @@ export const ProofOp = {
             message.data = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const baseProofOps = {};
 export const ProofOps = {
@@ -412,21 +412,21 @@ export const ProofOps = {
             }
         }
         return message;
-    },
+    }
 };
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -436,17 +436,17 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

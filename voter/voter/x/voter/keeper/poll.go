@@ -2,14 +2,13 @@ package keeper
 
 import (
 	"encoding/binary"
-	"strconv"
-
+	"github.com/cosmonaut/voter/x/voter/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/username/voter/x/voter/types"
+	"strconv"
 )
 
-// GetPollCount get the total number of poll
+// GetPollCount get the total number of TypeName.LowerCamel
 func (k Keeper) GetPollCount(ctx sdk.Context) uint64 {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PollCountKey))
 	byteKey := types.KeyPrefix(types.PollCountKey)
@@ -23,7 +22,7 @@ func (k Keeper) GetPollCount(ctx sdk.Context) uint64 {
 	// Parse bytes
 	count, err := strconv.ParseUint(string(bz), 10, 64)
 	if err != nil {
-		// Panic because the count should be always formattable to iint64
+		// Panic because the count should be always formattable to uint64
 		panic("cannot decode count")
 	}
 
@@ -41,22 +40,17 @@ func (k Keeper) SetPollCount(ctx sdk.Context, count uint64) {
 // AppendPoll appends a poll in the store with a new id and update the count
 func (k Keeper) AppendPoll(
 	ctx sdk.Context,
-	creator string,
-	title string,
-	options []string,
+	poll types.Poll,
 ) uint64 {
 	// Create the poll
 	count := k.GetPollCount(ctx)
-	var poll = types.Poll{
-		Creator: creator,
-		Id:      count,
-		Title:   title,
-		Options: options,
-	}
+
+	// Set the ID of the appended value
+	poll.Id = count
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PollKey))
-	value := k.cdc.MustMarshalBinaryBare(&poll)
-	store.Set(GetPollIDBytes(poll.Id), value)
+	appendedValue := k.cdc.MustMarshalBinaryBare(&poll)
+	store.Set(GetPollIDBytes(poll.Id), appendedValue)
 
 	// Update poll count
 	k.SetPollCount(ctx, count+1)
@@ -85,7 +79,7 @@ func (k Keeper) HasPoll(ctx sdk.Context, id uint64) bool {
 	return store.Has(GetPollIDBytes(id))
 }
 
-// GetPollOwner returns the creator of the poll
+// GetPollOwner returns the creator of the
 func (k Keeper) GetPollOwner(ctx sdk.Context, id uint64) string {
 	return k.GetPoll(ctx, id).Creator
 }

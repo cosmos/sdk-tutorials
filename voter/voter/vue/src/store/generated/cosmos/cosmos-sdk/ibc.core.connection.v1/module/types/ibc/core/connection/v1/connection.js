@@ -1,8 +1,8 @@
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { MerklePrefix } from "../../../../ibc/core/commitment/v1/commitment";
-export const protobufPackage = "ibc.core.connection.v1";
+import * as Long from 'long';
+import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { MerklePrefix } from '../../../../ibc/core/commitment/v1/commitment';
+export const protobufPackage = 'ibc.core.connection.v1';
 /**
  * State defines if a connection is in one of the following states:
  * INIT, TRYOPEN, OPEN or UNINITIALIZED.
@@ -25,19 +25,19 @@ export var State;
 export function stateFromJSON(object) {
     switch (object) {
         case 0:
-        case "STATE_UNINITIALIZED_UNSPECIFIED":
+        case 'STATE_UNINITIALIZED_UNSPECIFIED':
             return State.STATE_UNINITIALIZED_UNSPECIFIED;
         case 1:
-        case "STATE_INIT":
+        case 'STATE_INIT':
             return State.STATE_INIT;
         case 2:
-        case "STATE_TRYOPEN":
+        case 'STATE_TRYOPEN':
             return State.STATE_TRYOPEN;
         case 3:
-        case "STATE_OPEN":
+        case 'STATE_OPEN':
             return State.STATE_OPEN;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return State.UNRECOGNIZED;
     }
@@ -45,21 +45,21 @@ export function stateFromJSON(object) {
 export function stateToJSON(object) {
     switch (object) {
         case State.STATE_UNINITIALIZED_UNSPECIFIED:
-            return "STATE_UNINITIALIZED_UNSPECIFIED";
+            return 'STATE_UNINITIALIZED_UNSPECIFIED';
         case State.STATE_INIT:
-            return "STATE_INIT";
+            return 'STATE_INIT';
         case State.STATE_TRYOPEN:
-            return "STATE_TRYOPEN";
+            return 'STATE_TRYOPEN';
         case State.STATE_OPEN:
-            return "STATE_OPEN";
+            return 'STATE_OPEN';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
-const baseConnectionEnd = { clientId: "", state: 0, delayPeriod: 0 };
+const baseConnectionEnd = { clientId: '', state: 0, delayPeriod: 0 };
 export const ConnectionEnd = {
     encode(message, writer = Writer.create()) {
-        if (message.clientId !== "") {
+        if (message.clientId !== '') {
             writer.uint32(10).string(message.clientId);
         }
         for (const v of message.versions) {
@@ -113,7 +113,7 @@ export const ConnectionEnd = {
             message.clientId = String(object.clientId);
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.versions !== undefined && object.versions !== null) {
             for (const e of object.versions) {
@@ -154,8 +154,7 @@ export const ConnectionEnd = {
             (obj.counterparty = message.counterparty
                 ? Counterparty.toJSON(message.counterparty)
                 : undefined);
-        message.delayPeriod !== undefined &&
-            (obj.delayPeriod = message.delayPeriod);
+        message.delayPeriod !== undefined && (obj.delayPeriod = message.delayPeriod);
         return obj;
     },
     fromPartial(object) {
@@ -165,7 +164,7 @@ export const ConnectionEnd = {
             message.clientId = object.clientId;
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.versions !== undefined && object.versions !== null) {
             for (const e of object.versions) {
@@ -191,20 +190,20 @@ export const ConnectionEnd = {
             message.delayPeriod = 0;
         }
         return message;
-    },
+    }
 };
 const baseIdentifiedConnection = {
-    id: "",
-    clientId: "",
+    id: '',
+    clientId: '',
     state: 0,
-    delayPeriod: 0,
+    delayPeriod: 0
 };
 export const IdentifiedConnection = {
     encode(message, writer = Writer.create()) {
-        if (message.id !== "") {
+        if (message.id !== '') {
             writer.uint32(10).string(message.id);
         }
-        if (message.clientId !== "") {
+        if (message.clientId !== '') {
             writer.uint32(18).string(message.clientId);
         }
         for (const v of message.versions) {
@@ -261,13 +260,13 @@ export const IdentifiedConnection = {
             message.id = String(object.id);
         }
         else {
-            message.id = "";
+            message.id = '';
         }
         if (object.clientId !== undefined && object.clientId !== null) {
             message.clientId = String(object.clientId);
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.versions !== undefined && object.versions !== null) {
             for (const e of object.versions) {
@@ -309,8 +308,7 @@ export const IdentifiedConnection = {
             (obj.counterparty = message.counterparty
                 ? Counterparty.toJSON(message.counterparty)
                 : undefined);
-        message.delayPeriod !== undefined &&
-            (obj.delayPeriod = message.delayPeriod);
+        message.delayPeriod !== undefined && (obj.delayPeriod = message.delayPeriod);
         return obj;
     },
     fromPartial(object) {
@@ -320,13 +318,13 @@ export const IdentifiedConnection = {
             message.id = object.id;
         }
         else {
-            message.id = "";
+            message.id = '';
         }
         if (object.clientId !== undefined && object.clientId !== null) {
             message.clientId = object.clientId;
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.versions !== undefined && object.versions !== null) {
             for (const e of object.versions) {
@@ -352,15 +350,15 @@ export const IdentifiedConnection = {
             message.delayPeriod = 0;
         }
         return message;
-    },
+    }
 };
-const baseCounterparty = { clientId: "", connectionId: "" };
+const baseCounterparty = { clientId: '', connectionId: '' };
 export const Counterparty = {
     encode(message, writer = Writer.create()) {
-        if (message.clientId !== "") {
+        if (message.clientId !== '') {
             writer.uint32(10).string(message.clientId);
         }
-        if (message.connectionId !== "") {
+        if (message.connectionId !== '') {
             writer.uint32(18).string(message.connectionId);
         }
         if (message.prefix !== undefined) {
@@ -397,13 +395,13 @@ export const Counterparty = {
             message.clientId = String(object.clientId);
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.connectionId !== undefined && object.connectionId !== null) {
             message.connectionId = String(object.connectionId);
         }
         else {
-            message.connectionId = "";
+            message.connectionId = '';
         }
         if (object.prefix !== undefined && object.prefix !== null) {
             message.prefix = MerklePrefix.fromJSON(object.prefix);
@@ -430,13 +428,13 @@ export const Counterparty = {
             message.clientId = object.clientId;
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.connectionId !== undefined && object.connectionId !== null) {
             message.connectionId = object.connectionId;
         }
         else {
-            message.connectionId = "";
+            message.connectionId = '';
         }
         if (object.prefix !== undefined && object.prefix !== null) {
             message.prefix = MerklePrefix.fromPartial(object.prefix);
@@ -445,9 +443,9 @@ export const Counterparty = {
             message.prefix = undefined;
         }
         return message;
-    },
+    }
 };
-const baseClientPaths = { paths: "" };
+const baseClientPaths = { paths: '' };
 export const ClientPaths = {
     encode(message, writer = Writer.create()) {
         for (const v of message.paths) {
@@ -502,12 +500,12 @@ export const ClientPaths = {
             }
         }
         return message;
-    },
+    }
 };
-const baseConnectionPaths = { clientId: "", paths: "" };
+const baseConnectionPaths = { clientId: '', paths: '' };
 export const ConnectionPaths = {
     encode(message, writer = Writer.create()) {
-        if (message.clientId !== "") {
+        if (message.clientId !== '') {
             writer.uint32(10).string(message.clientId);
         }
         for (const v of message.paths) {
@@ -543,7 +541,7 @@ export const ConnectionPaths = {
             message.clientId = String(object.clientId);
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.paths !== undefined && object.paths !== null) {
             for (const e of object.paths) {
@@ -570,7 +568,7 @@ export const ConnectionPaths = {
             message.clientId = object.clientId;
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.paths !== undefined && object.paths !== null) {
             for (const e of object.paths) {
@@ -578,12 +576,12 @@ export const ConnectionPaths = {
             }
         }
         return message;
-    },
+    }
 };
-const baseVersion = { identifier: "", features: "" };
+const baseVersion = { identifier: '', features: '' };
 export const Version = {
     encode(message, writer = Writer.create()) {
-        if (message.identifier !== "") {
+        if (message.identifier !== '') {
             writer.uint32(10).string(message.identifier);
         }
         for (const v of message.features) {
@@ -619,7 +617,7 @@ export const Version = {
             message.identifier = String(object.identifier);
         }
         else {
-            message.identifier = "";
+            message.identifier = '';
         }
         if (object.features !== undefined && object.features !== null) {
             for (const e of object.features) {
@@ -646,7 +644,7 @@ export const Version = {
             message.identifier = object.identifier;
         }
         else {
-            message.identifier = "";
+            message.identifier = '';
         }
         if (object.features !== undefined && object.features !== null) {
             for (const e of object.features) {
@@ -654,22 +652,22 @@ export const Version = {
             }
         }
         return message;
-    },
+    }
 };
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

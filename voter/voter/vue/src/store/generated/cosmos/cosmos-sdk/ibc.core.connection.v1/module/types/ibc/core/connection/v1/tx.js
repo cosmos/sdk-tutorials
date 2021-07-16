@@ -1,18 +1,18 @@
 /* eslint-disable */
-import { Reader, util, configure, Writer } from "protobufjs/minimal";
-import * as Long from "long";
-import { Counterparty, Version, } from "../../../../ibc/core/connection/v1/connection";
-import { Any } from "../../../../google/protobuf/any";
-import { Height } from "../../../../ibc/core/client/v1/client";
-export const protobufPackage = "ibc.core.connection.v1";
+import { Reader, util, configure, Writer } from 'protobufjs/minimal';
+import * as Long from 'long';
+import { Counterparty, Version } from '../../../../ibc/core/connection/v1/connection';
+import { Any } from '../../../../google/protobuf/any';
+import { Height } from '../../../../ibc/core/client/v1/client';
+export const protobufPackage = 'ibc.core.connection.v1';
 const baseMsgConnectionOpenInit = {
-    clientId: "",
+    clientId: '',
     delayPeriod: 0,
-    signer: "",
+    signer: ''
 };
 export const MsgConnectionOpenInit = {
     encode(message, writer = Writer.create()) {
-        if (message.clientId !== "") {
+        if (message.clientId !== '') {
             writer.uint32(10).string(message.clientId);
         }
         if (message.counterparty !== undefined) {
@@ -24,7 +24,7 @@ export const MsgConnectionOpenInit = {
         if (message.delayPeriod !== 0) {
             writer.uint32(32).uint64(message.delayPeriod);
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(42).string(message.signer);
         }
         return writer;
@@ -64,7 +64,7 @@ export const MsgConnectionOpenInit = {
             message.clientId = String(object.clientId);
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.counterparty !== undefined && object.counterparty !== null) {
             message.counterparty = Counterparty.fromJSON(object.counterparty);
@@ -88,7 +88,7 @@ export const MsgConnectionOpenInit = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -103,8 +103,7 @@ export const MsgConnectionOpenInit = {
             (obj.version = message.version
                 ? Version.toJSON(message.version)
                 : undefined);
-        message.delayPeriod !== undefined &&
-            (obj.delayPeriod = message.delayPeriod);
+        message.delayPeriod !== undefined && (obj.delayPeriod = message.delayPeriod);
         message.signer !== undefined && (obj.signer = message.signer);
         return obj;
     },
@@ -114,7 +113,7 @@ export const MsgConnectionOpenInit = {
             message.clientId = object.clientId;
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.counterparty !== undefined && object.counterparty !== null) {
             message.counterparty = Counterparty.fromPartial(object.counterparty);
@@ -138,10 +137,10 @@ export const MsgConnectionOpenInit = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgConnectionOpenInitResponse = {};
 export const MsgConnectionOpenInitResponse = {
@@ -152,7 +151,7 @@ export const MsgConnectionOpenInitResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgConnectionOpenInitResponse,
+            ...baseMsgConnectionOpenInitResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -166,7 +165,7 @@ export const MsgConnectionOpenInitResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgConnectionOpenInitResponse,
+            ...baseMsgConnectionOpenInitResponse
         };
         return message;
     },
@@ -176,23 +175,23 @@ export const MsgConnectionOpenInitResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgConnectionOpenInitResponse,
+            ...baseMsgConnectionOpenInitResponse
         };
         return message;
-    },
+    }
 };
 const baseMsgConnectionOpenTry = {
-    clientId: "",
-    previousConnectionId: "",
+    clientId: '',
+    previousConnectionId: '',
     delayPeriod: 0,
-    signer: "",
+    signer: ''
 };
 export const MsgConnectionOpenTry = {
     encode(message, writer = Writer.create()) {
-        if (message.clientId !== "") {
+        if (message.clientId !== '') {
             writer.uint32(10).string(message.clientId);
         }
-        if (message.previousConnectionId !== "") {
+        if (message.previousConnectionId !== '') {
             writer.uint32(18).string(message.previousConnectionId);
         }
         if (message.clientState !== undefined) {
@@ -222,7 +221,7 @@ export const MsgConnectionOpenTry = {
         if (message.consensusHeight !== undefined) {
             Height.encode(message.consensusHeight, writer.uint32(90).fork()).ldelim();
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(98).string(message.signer);
         }
         return writer;
@@ -285,14 +284,14 @@ export const MsgConnectionOpenTry = {
             message.clientId = String(object.clientId);
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.previousConnectionId !== undefined &&
             object.previousConnectionId !== null) {
             message.previousConnectionId = String(object.previousConnectionId);
         }
         else {
-            message.previousConnectionId = "";
+            message.previousConnectionId = '';
         }
         if (object.clientState !== undefined && object.clientState !== null) {
             message.clientState = Any.fromJSON(object.clientState);
@@ -344,7 +343,7 @@ export const MsgConnectionOpenTry = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -361,8 +360,7 @@ export const MsgConnectionOpenTry = {
             (obj.counterparty = message.counterparty
                 ? Counterparty.toJSON(message.counterparty)
                 : undefined);
-        message.delayPeriod !== undefined &&
-            (obj.delayPeriod = message.delayPeriod);
+        message.delayPeriod !== undefined && (obj.delayPeriod = message.delayPeriod);
         if (message.counterpartyVersions) {
             obj.counterpartyVersions = message.counterpartyVersions.map((e) => e ? Version.toJSON(e) : undefined);
         }
@@ -397,14 +395,14 @@ export const MsgConnectionOpenTry = {
             message.clientId = object.clientId;
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.previousConnectionId !== undefined &&
             object.previousConnectionId !== null) {
             message.previousConnectionId = object.previousConnectionId;
         }
         else {
-            message.previousConnectionId = "";
+            message.previousConnectionId = '';
         }
         if (object.clientState !== undefined && object.clientState !== null) {
             message.clientState = Any.fromPartial(object.clientState);
@@ -465,10 +463,10 @@ export const MsgConnectionOpenTry = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgConnectionOpenTryResponse = {};
 export const MsgConnectionOpenTryResponse = {
@@ -479,7 +477,7 @@ export const MsgConnectionOpenTryResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgConnectionOpenTryResponse,
+            ...baseMsgConnectionOpenTryResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -493,7 +491,7 @@ export const MsgConnectionOpenTryResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgConnectionOpenTryResponse,
+            ...baseMsgConnectionOpenTryResponse
         };
         return message;
     },
@@ -503,22 +501,22 @@ export const MsgConnectionOpenTryResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgConnectionOpenTryResponse,
+            ...baseMsgConnectionOpenTryResponse
         };
         return message;
-    },
+    }
 };
 const baseMsgConnectionOpenAck = {
-    connectionId: "",
-    counterpartyConnectionId: "",
-    signer: "",
+    connectionId: '',
+    counterpartyConnectionId: '',
+    signer: ''
 };
 export const MsgConnectionOpenAck = {
     encode(message, writer = Writer.create()) {
-        if (message.connectionId !== "") {
+        if (message.connectionId !== '') {
             writer.uint32(10).string(message.connectionId);
         }
-        if (message.counterpartyConnectionId !== "") {
+        if (message.counterpartyConnectionId !== '') {
             writer.uint32(18).string(message.counterpartyConnectionId);
         }
         if (message.version !== undefined) {
@@ -542,7 +540,7 @@ export const MsgConnectionOpenAck = {
         if (message.consensusHeight !== undefined) {
             Height.encode(message.consensusHeight, writer.uint32(74).fork()).ldelim();
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(82).string(message.signer);
         }
         return writer;
@@ -597,14 +595,14 @@ export const MsgConnectionOpenAck = {
             message.connectionId = String(object.connectionId);
         }
         else {
-            message.connectionId = "";
+            message.connectionId = '';
         }
         if (object.counterpartyConnectionId !== undefined &&
             object.counterpartyConnectionId !== null) {
             message.counterpartyConnectionId = String(object.counterpartyConnectionId);
         }
         else {
-            message.counterpartyConnectionId = "";
+            message.counterpartyConnectionId = '';
         }
         if (object.version !== undefined && object.version !== null) {
             message.version = Version.fromJSON(object.version);
@@ -644,7 +642,7 @@ export const MsgConnectionOpenAck = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -689,14 +687,14 @@ export const MsgConnectionOpenAck = {
             message.connectionId = object.connectionId;
         }
         else {
-            message.connectionId = "";
+            message.connectionId = '';
         }
         if (object.counterpartyConnectionId !== undefined &&
             object.counterpartyConnectionId !== null) {
             message.counterpartyConnectionId = object.counterpartyConnectionId;
         }
         else {
-            message.counterpartyConnectionId = "";
+            message.counterpartyConnectionId = '';
         }
         if (object.version !== undefined && object.version !== null) {
             message.version = Version.fromPartial(object.version);
@@ -745,10 +743,10 @@ export const MsgConnectionOpenAck = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgConnectionOpenAckResponse = {};
 export const MsgConnectionOpenAckResponse = {
@@ -759,7 +757,7 @@ export const MsgConnectionOpenAckResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgConnectionOpenAckResponse,
+            ...baseMsgConnectionOpenAckResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -773,7 +771,7 @@ export const MsgConnectionOpenAckResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgConnectionOpenAckResponse,
+            ...baseMsgConnectionOpenAckResponse
         };
         return message;
     },
@@ -783,15 +781,15 @@ export const MsgConnectionOpenAckResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgConnectionOpenAckResponse,
+            ...baseMsgConnectionOpenAckResponse
         };
         return message;
-    },
+    }
 };
-const baseMsgConnectionOpenConfirm = { connectionId: "", signer: "" };
+const baseMsgConnectionOpenConfirm = { connectionId: '', signer: '' };
 export const MsgConnectionOpenConfirm = {
     encode(message, writer = Writer.create()) {
-        if (message.connectionId !== "") {
+        if (message.connectionId !== '') {
             writer.uint32(10).string(message.connectionId);
         }
         if (message.proofAck.length !== 0) {
@@ -800,7 +798,7 @@ export const MsgConnectionOpenConfirm = {
         if (message.proofHeight !== undefined) {
             Height.encode(message.proofHeight, writer.uint32(26).fork()).ldelim();
         }
-        if (message.signer !== "") {
+        if (message.signer !== '') {
             writer.uint32(34).string(message.signer);
         }
         return writer;
@@ -809,7 +807,7 @@ export const MsgConnectionOpenConfirm = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgConnectionOpenConfirm,
+            ...baseMsgConnectionOpenConfirm
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -835,13 +833,13 @@ export const MsgConnectionOpenConfirm = {
     },
     fromJSON(object) {
         const message = {
-            ...baseMsgConnectionOpenConfirm,
+            ...baseMsgConnectionOpenConfirm
         };
         if (object.connectionId !== undefined && object.connectionId !== null) {
             message.connectionId = String(object.connectionId);
         }
         else {
-            message.connectionId = "";
+            message.connectionId = '';
         }
         if (object.proofAck !== undefined && object.proofAck !== null) {
             message.proofAck = bytesFromBase64(object.proofAck);
@@ -856,7 +854,7 @@ export const MsgConnectionOpenConfirm = {
             message.signer = String(object.signer);
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
     },
@@ -875,13 +873,13 @@ export const MsgConnectionOpenConfirm = {
     },
     fromPartial(object) {
         const message = {
-            ...baseMsgConnectionOpenConfirm,
+            ...baseMsgConnectionOpenConfirm
         };
         if (object.connectionId !== undefined && object.connectionId !== null) {
             message.connectionId = object.connectionId;
         }
         else {
-            message.connectionId = "";
+            message.connectionId = '';
         }
         if (object.proofAck !== undefined && object.proofAck !== null) {
             message.proofAck = object.proofAck;
@@ -899,10 +897,10 @@ export const MsgConnectionOpenConfirm = {
             message.signer = object.signer;
         }
         else {
-            message.signer = "";
+            message.signer = '';
         }
         return message;
-    },
+    }
 };
 const baseMsgConnectionOpenConfirmResponse = {};
 export const MsgConnectionOpenConfirmResponse = {
@@ -913,7 +911,7 @@ export const MsgConnectionOpenConfirmResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgConnectionOpenConfirmResponse,
+            ...baseMsgConnectionOpenConfirmResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -927,7 +925,7 @@ export const MsgConnectionOpenConfirmResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgConnectionOpenConfirmResponse,
+            ...baseMsgConnectionOpenConfirmResponse
         };
         return message;
     },
@@ -937,10 +935,10 @@ export const MsgConnectionOpenConfirmResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgConnectionOpenConfirmResponse,
+            ...baseMsgConnectionOpenConfirmResponse
         };
         return message;
-    },
+    }
 };
 export class MsgClientImpl {
     constructor(rpc) {
@@ -948,38 +946,38 @@ export class MsgClientImpl {
     }
     ConnectionOpenInit(request) {
         const data = MsgConnectionOpenInit.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.connection.v1.Msg", "ConnectionOpenInit", data);
+        const promise = this.rpc.request('ibc.core.connection.v1.Msg', 'ConnectionOpenInit', data);
         return promise.then((data) => MsgConnectionOpenInitResponse.decode(new Reader(data)));
     }
     ConnectionOpenTry(request) {
         const data = MsgConnectionOpenTry.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.connection.v1.Msg", "ConnectionOpenTry", data);
+        const promise = this.rpc.request('ibc.core.connection.v1.Msg', 'ConnectionOpenTry', data);
         return promise.then((data) => MsgConnectionOpenTryResponse.decode(new Reader(data)));
     }
     ConnectionOpenAck(request) {
         const data = MsgConnectionOpenAck.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.connection.v1.Msg", "ConnectionOpenAck", data);
+        const promise = this.rpc.request('ibc.core.connection.v1.Msg', 'ConnectionOpenAck', data);
         return promise.then((data) => MsgConnectionOpenAckResponse.decode(new Reader(data)));
     }
     ConnectionOpenConfirm(request) {
         const data = MsgConnectionOpenConfirm.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.connection.v1.Msg", "ConnectionOpenConfirm", data);
+        const promise = this.rpc.request('ibc.core.connection.v1.Msg', 'ConnectionOpenConfirm', data);
         return promise.then((data) => MsgConnectionOpenConfirmResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -989,17 +987,17 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

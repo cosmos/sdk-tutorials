@@ -1,8 +1,8 @@
-import { Reader, Writer } from "protobufjs/minimal";
-import { Channel, IdentifiedChannel, PacketState } from "../../../../ibc/core/channel/v1/channel";
-import { Height, IdentifiedClientState } from "../../../../ibc/core/client/v1/client";
-import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
-import { Any } from "../../../../google/protobuf/any";
+import { Reader, Writer } from 'protobufjs/minimal';
+import { Channel, IdentifiedChannel, PacketState } from '../../../../ibc/core/channel/v1/channel';
+import { Height, IdentifiedClientState } from '../../../../ibc/core/client/v1/client';
+import { PageRequest, PageResponse } from '../../../../cosmos/base/query/v1beta1/pagination';
+import { Any } from '../../../../google/protobuf/any';
 export declare const protobufPackage = "ibc.core.channel.v1";
 /** QueryChannelRequest is the request type for the Query/Channel RPC method */
 export interface QueryChannelRequest {

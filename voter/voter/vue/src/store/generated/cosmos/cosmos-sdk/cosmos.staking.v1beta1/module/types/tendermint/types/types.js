@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { Timestamp } from "../../google/protobuf/timestamp";
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { Proof } from "../../tendermint/crypto/proof";
-import { Consensus } from "../../tendermint/version/types";
-import { ValidatorSet } from "../../tendermint/types/validator";
-export const protobufPackage = "tendermint.types";
+import { Timestamp } from '../../google/protobuf/timestamp';
+import * as Long from 'long';
+import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { Proof } from '../../tendermint/crypto/proof';
+import { Consensus } from '../../tendermint/version/types';
+import { ValidatorSet } from '../../tendermint/types/validator';
+export const protobufPackage = 'tendermint.types';
 /** BlockIdFlag indicates which BlcokID the signature is for */
 export var BlockIDFlag;
 (function (BlockIDFlag) {
@@ -18,19 +18,19 @@ export var BlockIDFlag;
 export function blockIDFlagFromJSON(object) {
     switch (object) {
         case 0:
-        case "BLOCK_ID_FLAG_UNKNOWN":
+        case 'BLOCK_ID_FLAG_UNKNOWN':
             return BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN;
         case 1:
-        case "BLOCK_ID_FLAG_ABSENT":
+        case 'BLOCK_ID_FLAG_ABSENT':
             return BlockIDFlag.BLOCK_ID_FLAG_ABSENT;
         case 2:
-        case "BLOCK_ID_FLAG_COMMIT":
+        case 'BLOCK_ID_FLAG_COMMIT':
             return BlockIDFlag.BLOCK_ID_FLAG_COMMIT;
         case 3:
-        case "BLOCK_ID_FLAG_NIL":
+        case 'BLOCK_ID_FLAG_NIL':
             return BlockIDFlag.BLOCK_ID_FLAG_NIL;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return BlockIDFlag.UNRECOGNIZED;
     }
@@ -38,15 +38,15 @@ export function blockIDFlagFromJSON(object) {
 export function blockIDFlagToJSON(object) {
     switch (object) {
         case BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN:
-            return "BLOCK_ID_FLAG_UNKNOWN";
+            return 'BLOCK_ID_FLAG_UNKNOWN';
         case BlockIDFlag.BLOCK_ID_FLAG_ABSENT:
-            return "BLOCK_ID_FLAG_ABSENT";
+            return 'BLOCK_ID_FLAG_ABSENT';
         case BlockIDFlag.BLOCK_ID_FLAG_COMMIT:
-            return "BLOCK_ID_FLAG_COMMIT";
+            return 'BLOCK_ID_FLAG_COMMIT';
         case BlockIDFlag.BLOCK_ID_FLAG_NIL:
-            return "BLOCK_ID_FLAG_NIL";
+            return 'BLOCK_ID_FLAG_NIL';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 /** SignedMsgType is a type of signed message in the consensus. */
@@ -63,19 +63,19 @@ export var SignedMsgType;
 export function signedMsgTypeFromJSON(object) {
     switch (object) {
         case 0:
-        case "SIGNED_MSG_TYPE_UNKNOWN":
+        case 'SIGNED_MSG_TYPE_UNKNOWN':
             return SignedMsgType.SIGNED_MSG_TYPE_UNKNOWN;
         case 1:
-        case "SIGNED_MSG_TYPE_PREVOTE":
+        case 'SIGNED_MSG_TYPE_PREVOTE':
             return SignedMsgType.SIGNED_MSG_TYPE_PREVOTE;
         case 2:
-        case "SIGNED_MSG_TYPE_PRECOMMIT":
+        case 'SIGNED_MSG_TYPE_PRECOMMIT':
             return SignedMsgType.SIGNED_MSG_TYPE_PRECOMMIT;
         case 32:
-        case "SIGNED_MSG_TYPE_PROPOSAL":
+        case 'SIGNED_MSG_TYPE_PROPOSAL':
             return SignedMsgType.SIGNED_MSG_TYPE_PROPOSAL;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return SignedMsgType.UNRECOGNIZED;
     }
@@ -83,15 +83,15 @@ export function signedMsgTypeFromJSON(object) {
 export function signedMsgTypeToJSON(object) {
     switch (object) {
         case SignedMsgType.SIGNED_MSG_TYPE_UNKNOWN:
-            return "SIGNED_MSG_TYPE_UNKNOWN";
+            return 'SIGNED_MSG_TYPE_UNKNOWN';
         case SignedMsgType.SIGNED_MSG_TYPE_PREVOTE:
-            return "SIGNED_MSG_TYPE_PREVOTE";
+            return 'SIGNED_MSG_TYPE_PREVOTE';
         case SignedMsgType.SIGNED_MSG_TYPE_PRECOMMIT:
-            return "SIGNED_MSG_TYPE_PRECOMMIT";
+            return 'SIGNED_MSG_TYPE_PRECOMMIT';
         case SignedMsgType.SIGNED_MSG_TYPE_PROPOSAL:
-            return "SIGNED_MSG_TYPE_PROPOSAL";
+            return 'SIGNED_MSG_TYPE_PROPOSAL';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 const basePartSetHeader = { total: 0 };
@@ -160,7 +160,7 @@ export const PartSetHeader = {
             message.hash = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const basePart = { index: 0 };
 export const Part = {
@@ -248,7 +248,7 @@ export const Part = {
             message.proof = undefined;
         }
         return message;
-    },
+    }
 };
 const baseBlockID = {};
 export const BlockID = {
@@ -319,15 +319,15 @@ export const BlockID = {
             message.partSetHeader = undefined;
         }
         return message;
-    },
+    }
 };
-const baseHeader = { chainId: "", height: 0 };
+const baseHeader = { chainId: '', height: 0 };
 export const Header = {
     encode(message, writer = Writer.create()) {
         if (message.version !== undefined) {
             Consensus.encode(message.version, writer.uint32(10).fork()).ldelim();
         }
-        if (message.chainId !== "") {
+        if (message.chainId !== '') {
             writer.uint32(18).string(message.chainId);
         }
         if (message.height !== 0) {
@@ -436,7 +436,7 @@ export const Header = {
             message.chainId = String(object.chainId);
         }
         else {
-            message.chainId = "";
+            message.chainId = '';
         }
         if (object.height !== undefined && object.height !== null) {
             message.height = Number(object.height);
@@ -549,7 +549,7 @@ export const Header = {
             message.chainId = object.chainId;
         }
         else {
-            message.chainId = "";
+            message.chainId = '';
         }
         if (object.height !== undefined && object.height !== null) {
             message.height = object.height;
@@ -627,7 +627,7 @@ export const Header = {
             message.proposerAddress = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const baseData = {};
 export const Data = {
@@ -684,7 +684,7 @@ export const Data = {
             }
         }
         return message;
-    },
+    }
 };
 const baseVote = { type: 0, height: 0, round: 0, validatorIndex: 0 };
 export const Vote = {
@@ -802,8 +802,7 @@ export const Vote = {
     },
     toJSON(message) {
         const obj = {};
-        message.type !== undefined &&
-            (obj.type = signedMsgTypeToJSON(message.type));
+        message.type !== undefined && (obj.type = signedMsgTypeToJSON(message.type));
         message.height !== undefined && (obj.height = message.height);
         message.round !== undefined && (obj.round = message.round);
         message.blockId !== undefined &&
@@ -877,7 +876,7 @@ export const Vote = {
             message.signature = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const baseCommit = { height: 0, round: 0 };
 export const Commit = {
@@ -994,7 +993,7 @@ export const Commit = {
             }
         }
         return message;
-    },
+    }
 };
 const baseCommitSig = { blockIdFlag: 0 };
 export const CommitSig = {
@@ -1107,7 +1106,7 @@ export const CommitSig = {
             message.signature = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const baseProposal = { type: 0, height: 0, round: 0, polRound: 0 };
 export const Proposal = {
@@ -1215,8 +1214,7 @@ export const Proposal = {
     },
     toJSON(message) {
         const obj = {};
-        message.type !== undefined &&
-            (obj.type = signedMsgTypeToJSON(message.type));
+        message.type !== undefined && (obj.type = signedMsgTypeToJSON(message.type));
         message.height !== undefined && (obj.height = message.height);
         message.round !== undefined && (obj.round = message.round);
         message.polRound !== undefined && (obj.polRound = message.polRound);
@@ -1278,7 +1276,7 @@ export const Proposal = {
             message.signature = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const baseSignedHeader = {};
 export const SignedHeader = {
@@ -1350,7 +1348,7 @@ export const SignedHeader = {
             message.commit = undefined;
         }
         return message;
-    },
+    }
 };
 const baseLightBlock = {};
 export const LightBlock = {
@@ -1426,7 +1424,7 @@ export const LightBlock = {
             message.validatorSet = undefined;
         }
         return message;
-    },
+    }
 };
 const baseBlockMeta = { blockSize: 0, numTxs: 0 };
 export const BlockMeta = {
@@ -1538,7 +1536,7 @@ export const BlockMeta = {
             message.numTxs = 0;
         }
         return message;
-    },
+    }
 };
 const baseTxProof = {};
 export const TxProof = {
@@ -1624,21 +1622,21 @@ export const TxProof = {
             message.proof = undefined;
         }
         return message;
-    },
+    }
 };
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -1648,13 +1646,13 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }
 function toTimestamp(date) {
     const seconds = date.getTime() / 1000;
@@ -1670,7 +1668,7 @@ function fromJsonTimestamp(o) {
     if (o instanceof Date) {
         return o;
     }
-    else if (typeof o === "string") {
+    else if (typeof o === 'string') {
         return new Date(o);
     }
     else {
@@ -1679,7 +1677,7 @@ function fromJsonTimestamp(o) {
 }
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

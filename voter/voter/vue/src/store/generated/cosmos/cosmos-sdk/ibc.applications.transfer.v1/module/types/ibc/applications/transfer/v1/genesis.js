@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { DenomTrace, Params, } from "../../../../ibc/applications/transfer/v1/transfer";
-import { Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "ibc.applications.transfer.v1";
-const baseGenesisState = { portId: "" };
+import { DenomTrace, Params } from '../../../../ibc/applications/transfer/v1/transfer';
+import { Writer, Reader } from 'protobufjs/minimal';
+export const protobufPackage = 'ibc.applications.transfer.v1';
+const baseGenesisState = { portId: '' };
 export const GenesisState = {
     encode(message, writer = Writer.create()) {
-        if (message.portId !== "") {
+        if (message.portId !== '') {
             writer.uint32(10).string(message.portId);
         }
         for (const v of message.denomTraces) {
@@ -47,7 +47,7 @@ export const GenesisState = {
             message.portId = String(object.portId);
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.denomTraces !== undefined && object.denomTraces !== null) {
             for (const e of object.denomTraces) {
@@ -82,7 +82,7 @@ export const GenesisState = {
             message.portId = object.portId;
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.denomTraces !== undefined && object.denomTraces !== null) {
             for (const e of object.denomTraces) {
@@ -96,5 +96,5 @@ export const GenesisState = {
             message.params = undefined;
         }
         return message;
-    },
+    }
 };

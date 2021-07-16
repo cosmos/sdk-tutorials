@@ -1,8 +1,8 @@
-import { Reader, Writer } from "protobufjs/minimal";
-import { ConnectionEnd, IdentifiedConnection } from "../../../../ibc/core/connection/v1/connection";
-import { Height, IdentifiedClientState } from "../../../../ibc/core/client/v1/client";
-import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
-import { Any } from "../../../../google/protobuf/any";
+import { Reader, Writer } from 'protobufjs/minimal';
+import { ConnectionEnd, IdentifiedConnection } from '../../../../ibc/core/connection/v1/connection';
+import { Height, IdentifiedClientState } from '../../../../ibc/core/client/v1/client';
+import { PageRequest, PageResponse } from '../../../../cosmos/base/query/v1beta1/pagination';
+import { Any } from '../../../../google/protobuf/any';
 export declare const protobufPackage = "ibc.core.connection.v1";
 /**
  * QueryConnectionRequest is the request type for the Query/Connection RPC

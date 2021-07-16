@@ -1,7 +1,7 @@
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "google.protobuf";
+import * as Long from 'long';
+import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+export const protobufPackage = 'google.protobuf';
 export var FieldDescriptorProto_Type;
 (function (FieldDescriptorProto_Type) {
     /**
@@ -49,61 +49,61 @@ export var FieldDescriptorProto_Type;
 export function fieldDescriptorProto_TypeFromJSON(object) {
     switch (object) {
         case 1:
-        case "TYPE_DOUBLE":
+        case 'TYPE_DOUBLE':
             return FieldDescriptorProto_Type.TYPE_DOUBLE;
         case 2:
-        case "TYPE_FLOAT":
+        case 'TYPE_FLOAT':
             return FieldDescriptorProto_Type.TYPE_FLOAT;
         case 3:
-        case "TYPE_INT64":
+        case 'TYPE_INT64':
             return FieldDescriptorProto_Type.TYPE_INT64;
         case 4:
-        case "TYPE_UINT64":
+        case 'TYPE_UINT64':
             return FieldDescriptorProto_Type.TYPE_UINT64;
         case 5:
-        case "TYPE_INT32":
+        case 'TYPE_INT32':
             return FieldDescriptorProto_Type.TYPE_INT32;
         case 6:
-        case "TYPE_FIXED64":
+        case 'TYPE_FIXED64':
             return FieldDescriptorProto_Type.TYPE_FIXED64;
         case 7:
-        case "TYPE_FIXED32":
+        case 'TYPE_FIXED32':
             return FieldDescriptorProto_Type.TYPE_FIXED32;
         case 8:
-        case "TYPE_BOOL":
+        case 'TYPE_BOOL':
             return FieldDescriptorProto_Type.TYPE_BOOL;
         case 9:
-        case "TYPE_STRING":
+        case 'TYPE_STRING':
             return FieldDescriptorProto_Type.TYPE_STRING;
         case 10:
-        case "TYPE_GROUP":
+        case 'TYPE_GROUP':
             return FieldDescriptorProto_Type.TYPE_GROUP;
         case 11:
-        case "TYPE_MESSAGE":
+        case 'TYPE_MESSAGE':
             return FieldDescriptorProto_Type.TYPE_MESSAGE;
         case 12:
-        case "TYPE_BYTES":
+        case 'TYPE_BYTES':
             return FieldDescriptorProto_Type.TYPE_BYTES;
         case 13:
-        case "TYPE_UINT32":
+        case 'TYPE_UINT32':
             return FieldDescriptorProto_Type.TYPE_UINT32;
         case 14:
-        case "TYPE_ENUM":
+        case 'TYPE_ENUM':
             return FieldDescriptorProto_Type.TYPE_ENUM;
         case 15:
-        case "TYPE_SFIXED32":
+        case 'TYPE_SFIXED32':
             return FieldDescriptorProto_Type.TYPE_SFIXED32;
         case 16:
-        case "TYPE_SFIXED64":
+        case 'TYPE_SFIXED64':
             return FieldDescriptorProto_Type.TYPE_SFIXED64;
         case 17:
-        case "TYPE_SINT32":
+        case 'TYPE_SINT32':
             return FieldDescriptorProto_Type.TYPE_SINT32;
         case 18:
-        case "TYPE_SINT64":
+        case 'TYPE_SINT64':
             return FieldDescriptorProto_Type.TYPE_SINT64;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return FieldDescriptorProto_Type.UNRECOGNIZED;
     }
@@ -111,43 +111,43 @@ export function fieldDescriptorProto_TypeFromJSON(object) {
 export function fieldDescriptorProto_TypeToJSON(object) {
     switch (object) {
         case FieldDescriptorProto_Type.TYPE_DOUBLE:
-            return "TYPE_DOUBLE";
+            return 'TYPE_DOUBLE';
         case FieldDescriptorProto_Type.TYPE_FLOAT:
-            return "TYPE_FLOAT";
+            return 'TYPE_FLOAT';
         case FieldDescriptorProto_Type.TYPE_INT64:
-            return "TYPE_INT64";
+            return 'TYPE_INT64';
         case FieldDescriptorProto_Type.TYPE_UINT64:
-            return "TYPE_UINT64";
+            return 'TYPE_UINT64';
         case FieldDescriptorProto_Type.TYPE_INT32:
-            return "TYPE_INT32";
+            return 'TYPE_INT32';
         case FieldDescriptorProto_Type.TYPE_FIXED64:
-            return "TYPE_FIXED64";
+            return 'TYPE_FIXED64';
         case FieldDescriptorProto_Type.TYPE_FIXED32:
-            return "TYPE_FIXED32";
+            return 'TYPE_FIXED32';
         case FieldDescriptorProto_Type.TYPE_BOOL:
-            return "TYPE_BOOL";
+            return 'TYPE_BOOL';
         case FieldDescriptorProto_Type.TYPE_STRING:
-            return "TYPE_STRING";
+            return 'TYPE_STRING';
         case FieldDescriptorProto_Type.TYPE_GROUP:
-            return "TYPE_GROUP";
+            return 'TYPE_GROUP';
         case FieldDescriptorProto_Type.TYPE_MESSAGE:
-            return "TYPE_MESSAGE";
+            return 'TYPE_MESSAGE';
         case FieldDescriptorProto_Type.TYPE_BYTES:
-            return "TYPE_BYTES";
+            return 'TYPE_BYTES';
         case FieldDescriptorProto_Type.TYPE_UINT32:
-            return "TYPE_UINT32";
+            return 'TYPE_UINT32';
         case FieldDescriptorProto_Type.TYPE_ENUM:
-            return "TYPE_ENUM";
+            return 'TYPE_ENUM';
         case FieldDescriptorProto_Type.TYPE_SFIXED32:
-            return "TYPE_SFIXED32";
+            return 'TYPE_SFIXED32';
         case FieldDescriptorProto_Type.TYPE_SFIXED64:
-            return "TYPE_SFIXED64";
+            return 'TYPE_SFIXED64';
         case FieldDescriptorProto_Type.TYPE_SINT32:
-            return "TYPE_SINT32";
+            return 'TYPE_SINT32';
         case FieldDescriptorProto_Type.TYPE_SINT64:
-            return "TYPE_SINT64";
+            return 'TYPE_SINT64';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 export var FieldDescriptorProto_Label;
@@ -161,16 +161,16 @@ export var FieldDescriptorProto_Label;
 export function fieldDescriptorProto_LabelFromJSON(object) {
     switch (object) {
         case 1:
-        case "LABEL_OPTIONAL":
+        case 'LABEL_OPTIONAL':
             return FieldDescriptorProto_Label.LABEL_OPTIONAL;
         case 2:
-        case "LABEL_REQUIRED":
+        case 'LABEL_REQUIRED':
             return FieldDescriptorProto_Label.LABEL_REQUIRED;
         case 3:
-        case "LABEL_REPEATED":
+        case 'LABEL_REPEATED':
             return FieldDescriptorProto_Label.LABEL_REPEATED;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return FieldDescriptorProto_Label.UNRECOGNIZED;
     }
@@ -178,13 +178,13 @@ export function fieldDescriptorProto_LabelFromJSON(object) {
 export function fieldDescriptorProto_LabelToJSON(object) {
     switch (object) {
         case FieldDescriptorProto_Label.LABEL_OPTIONAL:
-            return "LABEL_OPTIONAL";
+            return 'LABEL_OPTIONAL';
         case FieldDescriptorProto_Label.LABEL_REQUIRED:
-            return "LABEL_REQUIRED";
+            return 'LABEL_REQUIRED';
         case FieldDescriptorProto_Label.LABEL_REPEATED:
-            return "LABEL_REPEATED";
+            return 'LABEL_REPEATED';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 /** Generated classes can be optimized for speed or code size. */
@@ -201,16 +201,16 @@ export var FileOptions_OptimizeMode;
 export function fileOptions_OptimizeModeFromJSON(object) {
     switch (object) {
         case 1:
-        case "SPEED":
+        case 'SPEED':
             return FileOptions_OptimizeMode.SPEED;
         case 2:
-        case "CODE_SIZE":
+        case 'CODE_SIZE':
             return FileOptions_OptimizeMode.CODE_SIZE;
         case 3:
-        case "LITE_RUNTIME":
+        case 'LITE_RUNTIME':
             return FileOptions_OptimizeMode.LITE_RUNTIME;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return FileOptions_OptimizeMode.UNRECOGNIZED;
     }
@@ -218,13 +218,13 @@ export function fileOptions_OptimizeModeFromJSON(object) {
 export function fileOptions_OptimizeModeToJSON(object) {
     switch (object) {
         case FileOptions_OptimizeMode.SPEED:
-            return "SPEED";
+            return 'SPEED';
         case FileOptions_OptimizeMode.CODE_SIZE:
-            return "CODE_SIZE";
+            return 'CODE_SIZE';
         case FileOptions_OptimizeMode.LITE_RUNTIME:
-            return "LITE_RUNTIME";
+            return 'LITE_RUNTIME';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 export var FieldOptions_CType;
@@ -238,16 +238,16 @@ export var FieldOptions_CType;
 export function fieldOptions_CTypeFromJSON(object) {
     switch (object) {
         case 0:
-        case "STRING":
+        case 'STRING':
             return FieldOptions_CType.STRING;
         case 1:
-        case "CORD":
+        case 'CORD':
             return FieldOptions_CType.CORD;
         case 2:
-        case "STRING_PIECE":
+        case 'STRING_PIECE':
             return FieldOptions_CType.STRING_PIECE;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return FieldOptions_CType.UNRECOGNIZED;
     }
@@ -255,13 +255,13 @@ export function fieldOptions_CTypeFromJSON(object) {
 export function fieldOptions_CTypeToJSON(object) {
     switch (object) {
         case FieldOptions_CType.STRING:
-            return "STRING";
+            return 'STRING';
         case FieldOptions_CType.CORD:
-            return "CORD";
+            return 'CORD';
         case FieldOptions_CType.STRING_PIECE:
-            return "STRING_PIECE";
+            return 'STRING_PIECE';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 export var FieldOptions_JSType;
@@ -277,16 +277,16 @@ export var FieldOptions_JSType;
 export function fieldOptions_JSTypeFromJSON(object) {
     switch (object) {
         case 0:
-        case "JS_NORMAL":
+        case 'JS_NORMAL':
             return FieldOptions_JSType.JS_NORMAL;
         case 1:
-        case "JS_STRING":
+        case 'JS_STRING':
             return FieldOptions_JSType.JS_STRING;
         case 2:
-        case "JS_NUMBER":
+        case 'JS_NUMBER':
             return FieldOptions_JSType.JS_NUMBER;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return FieldOptions_JSType.UNRECOGNIZED;
     }
@@ -294,13 +294,13 @@ export function fieldOptions_JSTypeFromJSON(object) {
 export function fieldOptions_JSTypeToJSON(object) {
     switch (object) {
         case FieldOptions_JSType.JS_NORMAL:
-            return "JS_NORMAL";
+            return 'JS_NORMAL';
         case FieldOptions_JSType.JS_STRING:
-            return "JS_STRING";
+            return 'JS_STRING';
         case FieldOptions_JSType.JS_NUMBER:
-            return "JS_NUMBER";
+            return 'JS_NUMBER';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 /**
@@ -320,16 +320,16 @@ export var MethodOptions_IdempotencyLevel;
 export function methodOptions_IdempotencyLevelFromJSON(object) {
     switch (object) {
         case 0:
-        case "IDEMPOTENCY_UNKNOWN":
+        case 'IDEMPOTENCY_UNKNOWN':
             return MethodOptions_IdempotencyLevel.IDEMPOTENCY_UNKNOWN;
         case 1:
-        case "NO_SIDE_EFFECTS":
+        case 'NO_SIDE_EFFECTS':
             return MethodOptions_IdempotencyLevel.NO_SIDE_EFFECTS;
         case 2:
-        case "IDEMPOTENT":
+        case 'IDEMPOTENT':
             return MethodOptions_IdempotencyLevel.IDEMPOTENT;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return MethodOptions_IdempotencyLevel.UNRECOGNIZED;
     }
@@ -337,13 +337,13 @@ export function methodOptions_IdempotencyLevelFromJSON(object) {
 export function methodOptions_IdempotencyLevelToJSON(object) {
     switch (object) {
         case MethodOptions_IdempotencyLevel.IDEMPOTENCY_UNKNOWN:
-            return "IDEMPOTENCY_UNKNOWN";
+            return 'IDEMPOTENCY_UNKNOWN';
         case MethodOptions_IdempotencyLevel.NO_SIDE_EFFECTS:
-            return "NO_SIDE_EFFECTS";
+            return 'NO_SIDE_EFFECTS';
         case MethodOptions_IdempotencyLevel.IDEMPOTENT:
-            return "IDEMPOTENT";
+            return 'IDEMPOTENT';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 const baseFileDescriptorSet = {};
@@ -401,22 +401,22 @@ export const FileDescriptorSet = {
             }
         }
         return message;
-    },
+    }
 };
 const baseFileDescriptorProto = {
-    name: "",
-    package: "",
-    dependency: "",
+    name: '',
+    package: '',
+    dependency: '',
     publicDependency: 0,
     weakDependency: 0,
-    syntax: "",
+    syntax: ''
 };
 export const FileDescriptorProto = {
     encode(message, writer = Writer.create()) {
-        if (message.name !== "") {
+        if (message.name !== '') {
             writer.uint32(10).string(message.name);
         }
-        if (message.package !== "") {
+        if (message.package !== '') {
             writer.uint32(18).string(message.package);
         }
         for (const v of message.dependency) {
@@ -450,7 +450,7 @@ export const FileDescriptorProto = {
         if (message.sourceCodeInfo !== undefined) {
             SourceCodeInfo.encode(message.sourceCodeInfo, writer.uint32(74).fork()).ldelim();
         }
-        if (message.syntax !== "") {
+        if (message.syntax !== '') {
             writer.uint32(98).string(message.syntax);
         }
         return writer;
@@ -541,13 +541,13 @@ export const FileDescriptorProto = {
             message.name = String(object.name);
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.package !== undefined && object.package !== null) {
             message.package = String(object.package);
         }
         else {
-            message.package = "";
+            message.package = '';
         }
         if (object.dependency !== undefined && object.dependency !== null) {
             for (const e of object.dependency) {
@@ -601,7 +601,7 @@ export const FileDescriptorProto = {
             message.syntax = String(object.syntax);
         }
         else {
-            message.syntax = "";
+            message.syntax = '';
         }
         return message;
     },
@@ -675,13 +675,13 @@ export const FileDescriptorProto = {
             message.name = object.name;
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.package !== undefined && object.package !== null) {
             message.package = object.package;
         }
         else {
-            message.package = "";
+            message.package = '';
         }
         if (object.dependency !== undefined && object.dependency !== null) {
             for (const e of object.dependency) {
@@ -735,15 +735,15 @@ export const FileDescriptorProto = {
             message.syntax = object.syntax;
         }
         else {
-            message.syntax = "";
+            message.syntax = '';
         }
         return message;
-    },
+    }
 };
-const baseDescriptorProto = { name: "", reservedName: "" };
+const baseDescriptorProto = { name: '', reservedName: '' };
 export const DescriptorProto = {
     encode(message, writer = Writer.create()) {
-        if (message.name !== "") {
+        if (message.name !== '') {
             writer.uint32(10).string(message.name);
         }
         for (const v of message.field) {
@@ -841,7 +841,7 @@ export const DescriptorProto = {
             message.name = String(object.name);
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.field !== undefined && object.field !== null) {
             for (const e of object.field) {
@@ -962,7 +962,7 @@ export const DescriptorProto = {
             message.name = object.name;
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.field !== undefined && object.field !== null) {
             for (const e of object.field) {
@@ -1011,7 +1011,7 @@ export const DescriptorProto = {
             }
         }
         return message;
-    },
+    }
 };
 const baseDescriptorProto_ExtensionRange = { start: 0, end: 0 };
 export const DescriptorProto_ExtensionRange = {
@@ -1031,7 +1031,7 @@ export const DescriptorProto_ExtensionRange = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseDescriptorProto_ExtensionRange,
+            ...baseDescriptorProto_ExtensionRange
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -1054,7 +1054,7 @@ export const DescriptorProto_ExtensionRange = {
     },
     fromJSON(object) {
         const message = {
-            ...baseDescriptorProto_ExtensionRange,
+            ...baseDescriptorProto_ExtensionRange
         };
         if (object.start !== undefined && object.start !== null) {
             message.start = Number(object.start);
@@ -1088,7 +1088,7 @@ export const DescriptorProto_ExtensionRange = {
     },
     fromPartial(object) {
         const message = {
-            ...baseDescriptorProto_ExtensionRange,
+            ...baseDescriptorProto_ExtensionRange
         };
         if (object.start !== undefined && object.start !== null) {
             message.start = object.start;
@@ -1109,7 +1109,7 @@ export const DescriptorProto_ExtensionRange = {
             message.options = undefined;
         }
         return message;
-    },
+    }
 };
 const baseDescriptorProto_ReservedRange = { start: 0, end: 0 };
 export const DescriptorProto_ReservedRange = {
@@ -1126,7 +1126,7 @@ export const DescriptorProto_ReservedRange = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseDescriptorProto_ReservedRange,
+            ...baseDescriptorProto_ReservedRange
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -1146,7 +1146,7 @@ export const DescriptorProto_ReservedRange = {
     },
     fromJSON(object) {
         const message = {
-            ...baseDescriptorProto_ReservedRange,
+            ...baseDescriptorProto_ReservedRange
         };
         if (object.start !== undefined && object.start !== null) {
             message.start = Number(object.start);
@@ -1170,7 +1170,7 @@ export const DescriptorProto_ReservedRange = {
     },
     fromPartial(object) {
         const message = {
-            ...baseDescriptorProto_ReservedRange,
+            ...baseDescriptorProto_ReservedRange
         };
         if (object.start !== undefined && object.start !== null) {
             message.start = object.start;
@@ -1185,7 +1185,7 @@ export const DescriptorProto_ReservedRange = {
             message.end = 0;
         }
         return message;
-    },
+    }
 };
 const baseExtensionRangeOptions = {};
 export const ExtensionRangeOptions = {
@@ -1244,23 +1244,23 @@ export const ExtensionRangeOptions = {
             }
         }
         return message;
-    },
+    }
 };
 const baseFieldDescriptorProto = {
-    name: "",
+    name: '',
     number: 0,
     label: 1,
     type: 1,
-    typeName: "",
-    extendee: "",
-    defaultValue: "",
+    typeName: '',
+    extendee: '',
+    defaultValue: '',
     oneofIndex: 0,
-    jsonName: "",
-    proto3Optional: false,
+    jsonName: '',
+    proto3Optional: false
 };
 export const FieldDescriptorProto = {
     encode(message, writer = Writer.create()) {
-        if (message.name !== "") {
+        if (message.name !== '') {
             writer.uint32(10).string(message.name);
         }
         if (message.number !== 0) {
@@ -1272,19 +1272,19 @@ export const FieldDescriptorProto = {
         if (message.type !== 1) {
             writer.uint32(40).int32(message.type);
         }
-        if (message.typeName !== "") {
+        if (message.typeName !== '') {
             writer.uint32(50).string(message.typeName);
         }
-        if (message.extendee !== "") {
+        if (message.extendee !== '') {
             writer.uint32(18).string(message.extendee);
         }
-        if (message.defaultValue !== "") {
+        if (message.defaultValue !== '') {
             writer.uint32(58).string(message.defaultValue);
         }
         if (message.oneofIndex !== 0) {
             writer.uint32(72).int32(message.oneofIndex);
         }
-        if (message.jsonName !== "") {
+        if (message.jsonName !== '') {
             writer.uint32(82).string(message.jsonName);
         }
         if (message.options !== undefined) {
@@ -1348,7 +1348,7 @@ export const FieldDescriptorProto = {
             message.name = String(object.name);
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.number !== undefined && object.number !== null) {
             message.number = Number(object.number);
@@ -1372,19 +1372,19 @@ export const FieldDescriptorProto = {
             message.typeName = String(object.typeName);
         }
         else {
-            message.typeName = "";
+            message.typeName = '';
         }
         if (object.extendee !== undefined && object.extendee !== null) {
             message.extendee = String(object.extendee);
         }
         else {
-            message.extendee = "";
+            message.extendee = '';
         }
         if (object.defaultValue !== undefined && object.defaultValue !== null) {
             message.defaultValue = String(object.defaultValue);
         }
         else {
-            message.defaultValue = "";
+            message.defaultValue = '';
         }
         if (object.oneofIndex !== undefined && object.oneofIndex !== null) {
             message.oneofIndex = Number(object.oneofIndex);
@@ -1396,7 +1396,7 @@ export const FieldDescriptorProto = {
             message.jsonName = String(object.jsonName);
         }
         else {
-            message.jsonName = "";
+            message.jsonName = '';
         }
         if (object.options !== undefined && object.options !== null) {
             message.options = FieldOptions.fromJSON(object.options);
@@ -1440,7 +1440,7 @@ export const FieldDescriptorProto = {
             message.name = object.name;
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.number !== undefined && object.number !== null) {
             message.number = object.number;
@@ -1464,19 +1464,19 @@ export const FieldDescriptorProto = {
             message.typeName = object.typeName;
         }
         else {
-            message.typeName = "";
+            message.typeName = '';
         }
         if (object.extendee !== undefined && object.extendee !== null) {
             message.extendee = object.extendee;
         }
         else {
-            message.extendee = "";
+            message.extendee = '';
         }
         if (object.defaultValue !== undefined && object.defaultValue !== null) {
             message.defaultValue = object.defaultValue;
         }
         else {
-            message.defaultValue = "";
+            message.defaultValue = '';
         }
         if (object.oneofIndex !== undefined && object.oneofIndex !== null) {
             message.oneofIndex = object.oneofIndex;
@@ -1488,7 +1488,7 @@ export const FieldDescriptorProto = {
             message.jsonName = object.jsonName;
         }
         else {
-            message.jsonName = "";
+            message.jsonName = '';
         }
         if (object.options !== undefined && object.options !== null) {
             message.options = FieldOptions.fromPartial(object.options);
@@ -1503,12 +1503,12 @@ export const FieldDescriptorProto = {
             message.proto3Optional = false;
         }
         return message;
-    },
+    }
 };
-const baseOneofDescriptorProto = { name: "" };
+const baseOneofDescriptorProto = { name: '' };
 export const OneofDescriptorProto = {
     encode(message, writer = Writer.create()) {
-        if (message.name !== "") {
+        if (message.name !== '') {
             writer.uint32(10).string(message.name);
         }
         if (message.options !== undefined) {
@@ -1542,7 +1542,7 @@ export const OneofDescriptorProto = {
             message.name = String(object.name);
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.options !== undefined && object.options !== null) {
             message.options = OneofOptions.fromJSON(object.options);
@@ -1567,7 +1567,7 @@ export const OneofDescriptorProto = {
             message.name = object.name;
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.options !== undefined && object.options !== null) {
             message.options = OneofOptions.fromPartial(object.options);
@@ -1576,12 +1576,12 @@ export const OneofDescriptorProto = {
             message.options = undefined;
         }
         return message;
-    },
+    }
 };
-const baseEnumDescriptorProto = { name: "", reservedName: "" };
+const baseEnumDescriptorProto = { name: '', reservedName: '' };
 export const EnumDescriptorProto = {
     encode(message, writer = Writer.create()) {
-        if (message.name !== "") {
+        if (message.name !== '') {
             writer.uint32(10).string(message.name);
         }
         for (const v of message.value) {
@@ -1639,7 +1639,7 @@ export const EnumDescriptorProto = {
             message.name = String(object.name);
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.value !== undefined && object.value !== null) {
             for (const e of object.value) {
@@ -1700,7 +1700,7 @@ export const EnumDescriptorProto = {
             message.name = object.name;
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.value !== undefined && object.value !== null) {
             for (const e of object.value) {
@@ -1724,7 +1724,7 @@ export const EnumDescriptorProto = {
             }
         }
         return message;
-    },
+    }
 };
 const baseEnumDescriptorProto_EnumReservedRange = { start: 0, end: 0 };
 export const EnumDescriptorProto_EnumReservedRange = {
@@ -1741,7 +1741,7 @@ export const EnumDescriptorProto_EnumReservedRange = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseEnumDescriptorProto_EnumReservedRange,
+            ...baseEnumDescriptorProto_EnumReservedRange
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -1761,7 +1761,7 @@ export const EnumDescriptorProto_EnumReservedRange = {
     },
     fromJSON(object) {
         const message = {
-            ...baseEnumDescriptorProto_EnumReservedRange,
+            ...baseEnumDescriptorProto_EnumReservedRange
         };
         if (object.start !== undefined && object.start !== null) {
             message.start = Number(object.start);
@@ -1785,7 +1785,7 @@ export const EnumDescriptorProto_EnumReservedRange = {
     },
     fromPartial(object) {
         const message = {
-            ...baseEnumDescriptorProto_EnumReservedRange,
+            ...baseEnumDescriptorProto_EnumReservedRange
         };
         if (object.start !== undefined && object.start !== null) {
             message.start = object.start;
@@ -1800,12 +1800,12 @@ export const EnumDescriptorProto_EnumReservedRange = {
             message.end = 0;
         }
         return message;
-    },
+    }
 };
-const baseEnumValueDescriptorProto = { name: "", number: 0 };
+const baseEnumValueDescriptorProto = { name: '', number: 0 };
 export const EnumValueDescriptorProto = {
     encode(message, writer = Writer.create()) {
-        if (message.name !== "") {
+        if (message.name !== '') {
             writer.uint32(10).string(message.name);
         }
         if (message.number !== 0) {
@@ -1820,7 +1820,7 @@ export const EnumValueDescriptorProto = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseEnumValueDescriptorProto,
+            ...baseEnumValueDescriptorProto
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -1843,13 +1843,13 @@ export const EnumValueDescriptorProto = {
     },
     fromJSON(object) {
         const message = {
-            ...baseEnumValueDescriptorProto,
+            ...baseEnumValueDescriptorProto
         };
         if (object.name !== undefined && object.name !== null) {
             message.name = String(object.name);
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.number !== undefined && object.number !== null) {
             message.number = Number(object.number);
@@ -1877,13 +1877,13 @@ export const EnumValueDescriptorProto = {
     },
     fromPartial(object) {
         const message = {
-            ...baseEnumValueDescriptorProto,
+            ...baseEnumValueDescriptorProto
         };
         if (object.name !== undefined && object.name !== null) {
             message.name = object.name;
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.number !== undefined && object.number !== null) {
             message.number = object.number;
@@ -1898,12 +1898,12 @@ export const EnumValueDescriptorProto = {
             message.options = undefined;
         }
         return message;
-    },
+    }
 };
-const baseServiceDescriptorProto = { name: "" };
+const baseServiceDescriptorProto = { name: '' };
 export const ServiceDescriptorProto = {
     encode(message, writer = Writer.create()) {
-        if (message.name !== "") {
+        if (message.name !== '') {
             writer.uint32(10).string(message.name);
         }
         for (const v of message.method) {
@@ -1945,7 +1945,7 @@ export const ServiceDescriptorProto = {
             message.name = String(object.name);
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.method !== undefined && object.method !== null) {
             for (const e of object.method) {
@@ -1982,7 +1982,7 @@ export const ServiceDescriptorProto = {
             message.name = object.name;
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.method !== undefined && object.method !== null) {
             for (const e of object.method) {
@@ -1996,24 +1996,24 @@ export const ServiceDescriptorProto = {
             message.options = undefined;
         }
         return message;
-    },
+    }
 };
 const baseMethodDescriptorProto = {
-    name: "",
-    inputType: "",
-    outputType: "",
+    name: '',
+    inputType: '',
+    outputType: '',
     clientStreaming: false,
-    serverStreaming: false,
+    serverStreaming: false
 };
 export const MethodDescriptorProto = {
     encode(message, writer = Writer.create()) {
-        if (message.name !== "") {
+        if (message.name !== '') {
             writer.uint32(10).string(message.name);
         }
-        if (message.inputType !== "") {
+        if (message.inputType !== '') {
             writer.uint32(18).string(message.inputType);
         }
-        if (message.outputType !== "") {
+        if (message.outputType !== '') {
             writer.uint32(26).string(message.outputType);
         }
         if (message.options !== undefined) {
@@ -2065,19 +2065,19 @@ export const MethodDescriptorProto = {
             message.name = String(object.name);
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.inputType !== undefined && object.inputType !== null) {
             message.inputType = String(object.inputType);
         }
         else {
-            message.inputType = "";
+            message.inputType = '';
         }
         if (object.outputType !== undefined && object.outputType !== null) {
             message.outputType = String(object.outputType);
         }
         else {
-            message.outputType = "";
+            message.outputType = '';
         }
         if (object.options !== undefined && object.options !== null) {
             message.options = MethodOptions.fromJSON(object.options);
@@ -2122,19 +2122,19 @@ export const MethodDescriptorProto = {
             message.name = object.name;
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.inputType !== undefined && object.inputType !== null) {
             message.inputType = object.inputType;
         }
         else {
-            message.inputType = "";
+            message.inputType = '';
         }
         if (object.outputType !== undefined && object.outputType !== null) {
             message.outputType = object.outputType;
         }
         else {
-            message.outputType = "";
+            message.outputType = '';
         }
         if (object.options !== undefined && object.options !== null) {
             message.options = MethodOptions.fromPartial(object.options);
@@ -2157,36 +2157,36 @@ export const MethodDescriptorProto = {
             message.serverStreaming = false;
         }
         return message;
-    },
+    }
 };
 const baseFileOptions = {
-    javaPackage: "",
-    javaOuterClassname: "",
+    javaPackage: '',
+    javaOuterClassname: '',
     javaMultipleFiles: false,
     javaGenerateEqualsAndHash: false,
     javaStringCheckUtf8: false,
     optimizeFor: 1,
-    goPackage: "",
+    goPackage: '',
     ccGenericServices: false,
     javaGenericServices: false,
     pyGenericServices: false,
     phpGenericServices: false,
     deprecated: false,
     ccEnableArenas: false,
-    objcClassPrefix: "",
-    csharpNamespace: "",
-    swiftPrefix: "",
-    phpClassPrefix: "",
-    phpNamespace: "",
-    phpMetadataNamespace: "",
-    rubyPackage: "",
+    objcClassPrefix: '',
+    csharpNamespace: '',
+    swiftPrefix: '',
+    phpClassPrefix: '',
+    phpNamespace: '',
+    phpMetadataNamespace: '',
+    rubyPackage: ''
 };
 export const FileOptions = {
     encode(message, writer = Writer.create()) {
-        if (message.javaPackage !== "") {
+        if (message.javaPackage !== '') {
             writer.uint32(10).string(message.javaPackage);
         }
-        if (message.javaOuterClassname !== "") {
+        if (message.javaOuterClassname !== '') {
             writer.uint32(66).string(message.javaOuterClassname);
         }
         if (message.javaMultipleFiles === true) {
@@ -2201,7 +2201,7 @@ export const FileOptions = {
         if (message.optimizeFor !== 1) {
             writer.uint32(72).int32(message.optimizeFor);
         }
-        if (message.goPackage !== "") {
+        if (message.goPackage !== '') {
             writer.uint32(90).string(message.goPackage);
         }
         if (message.ccGenericServices === true) {
@@ -2222,25 +2222,25 @@ export const FileOptions = {
         if (message.ccEnableArenas === true) {
             writer.uint32(248).bool(message.ccEnableArenas);
         }
-        if (message.objcClassPrefix !== "") {
+        if (message.objcClassPrefix !== '') {
             writer.uint32(290).string(message.objcClassPrefix);
         }
-        if (message.csharpNamespace !== "") {
+        if (message.csharpNamespace !== '') {
             writer.uint32(298).string(message.csharpNamespace);
         }
-        if (message.swiftPrefix !== "") {
+        if (message.swiftPrefix !== '') {
             writer.uint32(314).string(message.swiftPrefix);
         }
-        if (message.phpClassPrefix !== "") {
+        if (message.phpClassPrefix !== '') {
             writer.uint32(322).string(message.phpClassPrefix);
         }
-        if (message.phpNamespace !== "") {
+        if (message.phpNamespace !== '') {
             writer.uint32(330).string(message.phpNamespace);
         }
-        if (message.phpMetadataNamespace !== "") {
+        if (message.phpMetadataNamespace !== '') {
             writer.uint32(354).string(message.phpMetadataNamespace);
         }
-        if (message.rubyPackage !== "") {
+        if (message.rubyPackage !== '') {
             writer.uint32(362).string(message.rubyPackage);
         }
         for (const v of message.uninterpretedOption) {
@@ -2333,14 +2333,14 @@ export const FileOptions = {
             message.javaPackage = String(object.javaPackage);
         }
         else {
-            message.javaPackage = "";
+            message.javaPackage = '';
         }
         if (object.javaOuterClassname !== undefined &&
             object.javaOuterClassname !== null) {
             message.javaOuterClassname = String(object.javaOuterClassname);
         }
         else {
-            message.javaOuterClassname = "";
+            message.javaOuterClassname = '';
         }
         if (object.javaMultipleFiles !== undefined &&
             object.javaMultipleFiles !== null) {
@@ -2373,7 +2373,7 @@ export const FileOptions = {
             message.goPackage = String(object.goPackage);
         }
         else {
-            message.goPackage = "";
+            message.goPackage = '';
         }
         if (object.ccGenericServices !== undefined &&
             object.ccGenericServices !== null) {
@@ -2420,45 +2420,45 @@ export const FileOptions = {
             message.objcClassPrefix = String(object.objcClassPrefix);
         }
         else {
-            message.objcClassPrefix = "";
+            message.objcClassPrefix = '';
         }
         if (object.csharpNamespace !== undefined &&
             object.csharpNamespace !== null) {
             message.csharpNamespace = String(object.csharpNamespace);
         }
         else {
-            message.csharpNamespace = "";
+            message.csharpNamespace = '';
         }
         if (object.swiftPrefix !== undefined && object.swiftPrefix !== null) {
             message.swiftPrefix = String(object.swiftPrefix);
         }
         else {
-            message.swiftPrefix = "";
+            message.swiftPrefix = '';
         }
         if (object.phpClassPrefix !== undefined && object.phpClassPrefix !== null) {
             message.phpClassPrefix = String(object.phpClassPrefix);
         }
         else {
-            message.phpClassPrefix = "";
+            message.phpClassPrefix = '';
         }
         if (object.phpNamespace !== undefined && object.phpNamespace !== null) {
             message.phpNamespace = String(object.phpNamespace);
         }
         else {
-            message.phpNamespace = "";
+            message.phpNamespace = '';
         }
         if (object.phpMetadataNamespace !== undefined &&
             object.phpMetadataNamespace !== null) {
             message.phpMetadataNamespace = String(object.phpMetadataNamespace);
         }
         else {
-            message.phpMetadataNamespace = "";
+            message.phpMetadataNamespace = '';
         }
         if (object.rubyPackage !== undefined && object.rubyPackage !== null) {
             message.rubyPackage = String(object.rubyPackage);
         }
         else {
-            message.rubyPackage = "";
+            message.rubyPackage = '';
         }
         if (object.uninterpretedOption !== undefined &&
             object.uninterpretedOption !== null) {
@@ -2470,8 +2470,7 @@ export const FileOptions = {
     },
     toJSON(message) {
         const obj = {};
-        message.javaPackage !== undefined &&
-            (obj.javaPackage = message.javaPackage);
+        message.javaPackage !== undefined && (obj.javaPackage = message.javaPackage);
         message.javaOuterClassname !== undefined &&
             (obj.javaOuterClassname = message.javaOuterClassname);
         message.javaMultipleFiles !== undefined &&
@@ -2498,16 +2497,14 @@ export const FileOptions = {
             (obj.objcClassPrefix = message.objcClassPrefix);
         message.csharpNamespace !== undefined &&
             (obj.csharpNamespace = message.csharpNamespace);
-        message.swiftPrefix !== undefined &&
-            (obj.swiftPrefix = message.swiftPrefix);
+        message.swiftPrefix !== undefined && (obj.swiftPrefix = message.swiftPrefix);
         message.phpClassPrefix !== undefined &&
             (obj.phpClassPrefix = message.phpClassPrefix);
         message.phpNamespace !== undefined &&
             (obj.phpNamespace = message.phpNamespace);
         message.phpMetadataNamespace !== undefined &&
             (obj.phpMetadataNamespace = message.phpMetadataNamespace);
-        message.rubyPackage !== undefined &&
-            (obj.rubyPackage = message.rubyPackage);
+        message.rubyPackage !== undefined && (obj.rubyPackage = message.rubyPackage);
         if (message.uninterpretedOption) {
             obj.uninterpretedOption = message.uninterpretedOption.map((e) => e ? UninterpretedOption.toJSON(e) : undefined);
         }
@@ -2523,14 +2520,14 @@ export const FileOptions = {
             message.javaPackage = object.javaPackage;
         }
         else {
-            message.javaPackage = "";
+            message.javaPackage = '';
         }
         if (object.javaOuterClassname !== undefined &&
             object.javaOuterClassname !== null) {
             message.javaOuterClassname = object.javaOuterClassname;
         }
         else {
-            message.javaOuterClassname = "";
+            message.javaOuterClassname = '';
         }
         if (object.javaMultipleFiles !== undefined &&
             object.javaMultipleFiles !== null) {
@@ -2563,7 +2560,7 @@ export const FileOptions = {
             message.goPackage = object.goPackage;
         }
         else {
-            message.goPackage = "";
+            message.goPackage = '';
         }
         if (object.ccGenericServices !== undefined &&
             object.ccGenericServices !== null) {
@@ -2610,45 +2607,45 @@ export const FileOptions = {
             message.objcClassPrefix = object.objcClassPrefix;
         }
         else {
-            message.objcClassPrefix = "";
+            message.objcClassPrefix = '';
         }
         if (object.csharpNamespace !== undefined &&
             object.csharpNamespace !== null) {
             message.csharpNamespace = object.csharpNamespace;
         }
         else {
-            message.csharpNamespace = "";
+            message.csharpNamespace = '';
         }
         if (object.swiftPrefix !== undefined && object.swiftPrefix !== null) {
             message.swiftPrefix = object.swiftPrefix;
         }
         else {
-            message.swiftPrefix = "";
+            message.swiftPrefix = '';
         }
         if (object.phpClassPrefix !== undefined && object.phpClassPrefix !== null) {
             message.phpClassPrefix = object.phpClassPrefix;
         }
         else {
-            message.phpClassPrefix = "";
+            message.phpClassPrefix = '';
         }
         if (object.phpNamespace !== undefined && object.phpNamespace !== null) {
             message.phpNamespace = object.phpNamespace;
         }
         else {
-            message.phpNamespace = "";
+            message.phpNamespace = '';
         }
         if (object.phpMetadataNamespace !== undefined &&
             object.phpMetadataNamespace !== null) {
             message.phpMetadataNamespace = object.phpMetadataNamespace;
         }
         else {
-            message.phpMetadataNamespace = "";
+            message.phpMetadataNamespace = '';
         }
         if (object.rubyPackage !== undefined && object.rubyPackage !== null) {
             message.rubyPackage = object.rubyPackage;
         }
         else {
-            message.rubyPackage = "";
+            message.rubyPackage = '';
         }
         if (object.uninterpretedOption !== undefined &&
             object.uninterpretedOption !== null) {
@@ -2657,13 +2654,13 @@ export const FileOptions = {
             }
         }
         return message;
-    },
+    }
 };
 const baseMessageOptions = {
     messageSetWireFormat: false,
     noStandardDescriptorAccessor: false,
     deprecated: false,
-    mapEntry: false,
+    mapEntry: false
 };
 export const MessageOptions = {
     encode(message, writer = Writer.create()) {
@@ -2779,8 +2776,7 @@ export const MessageOptions = {
         }
         if (object.noStandardDescriptorAccessor !== undefined &&
             object.noStandardDescriptorAccessor !== null) {
-            message.noStandardDescriptorAccessor =
-                object.noStandardDescriptorAccessor;
+            message.noStandardDescriptorAccessor = object.noStandardDescriptorAccessor;
         }
         else {
             message.noStandardDescriptorAccessor = false;
@@ -2804,7 +2800,7 @@ export const MessageOptions = {
             }
         }
         return message;
-    },
+    }
 };
 const baseFieldOptions = {
     ctype: 0,
@@ -2812,7 +2808,7 @@ const baseFieldOptions = {
     jstype: 0,
     lazy: false,
     deprecated: false,
-    weak: false,
+    weak: false
 };
 export const FieldOptions = {
     encode(message, writer = Writer.create()) {
@@ -2986,7 +2982,7 @@ export const FieldOptions = {
             }
         }
         return message;
-    },
+    }
 };
 const baseOneofOptions = {};
 export const OneofOptions = {
@@ -3045,7 +3041,7 @@ export const OneofOptions = {
             }
         }
         return message;
-    },
+    }
 };
 const baseEnumOptions = { allowAlias: false, deprecated: false };
 export const EnumOptions = {
@@ -3142,7 +3138,7 @@ export const EnumOptions = {
             }
         }
         return message;
-    },
+    }
 };
 const baseEnumValueOptions = { deprecated: false };
 export const EnumValueOptions = {
@@ -3220,7 +3216,7 @@ export const EnumValueOptions = {
             }
         }
         return message;
-    },
+    }
 };
 const baseServiceOptions = { deprecated: false };
 export const ServiceOptions = {
@@ -3298,7 +3294,7 @@ export const ServiceOptions = {
             }
         }
         return message;
-    },
+    }
 };
 const baseMethodOptions = { deprecated: false, idempotencyLevel: 0 };
 export const MethodOptions = {
@@ -3398,21 +3394,21 @@ export const MethodOptions = {
             }
         }
         return message;
-    },
+    }
 };
 const baseUninterpretedOption = {
-    identifierValue: "",
+    identifierValue: '',
     positiveIntValue: 0,
     negativeIntValue: 0,
     doubleValue: 0,
-    aggregateValue: "",
+    aggregateValue: ''
 };
 export const UninterpretedOption = {
     encode(message, writer = Writer.create()) {
         for (const v of message.name) {
             UninterpretedOption_NamePart.encode(v, writer.uint32(18).fork()).ldelim();
         }
-        if (message.identifierValue !== "") {
+        if (message.identifierValue !== '') {
             writer.uint32(26).string(message.identifierValue);
         }
         if (message.positiveIntValue !== 0) {
@@ -3427,7 +3423,7 @@ export const UninterpretedOption = {
         if (message.stringValue.length !== 0) {
             writer.uint32(58).bytes(message.stringValue);
         }
-        if (message.aggregateValue !== "") {
+        if (message.aggregateValue !== '') {
             writer.uint32(66).string(message.aggregateValue);
         }
         return writer;
@@ -3481,7 +3477,7 @@ export const UninterpretedOption = {
             message.identifierValue = String(object.identifierValue);
         }
         else {
-            message.identifierValue = "";
+            message.identifierValue = '';
         }
         if (object.positiveIntValue !== undefined &&
             object.positiveIntValue !== null) {
@@ -3510,7 +3506,7 @@ export const UninterpretedOption = {
             message.aggregateValue = String(object.aggregateValue);
         }
         else {
-            message.aggregateValue = "";
+            message.aggregateValue = '';
         }
         return message;
     },
@@ -3528,8 +3524,7 @@ export const UninterpretedOption = {
             (obj.positiveIntValue = message.positiveIntValue);
         message.negativeIntValue !== undefined &&
             (obj.negativeIntValue = message.negativeIntValue);
-        message.doubleValue !== undefined &&
-            (obj.doubleValue = message.doubleValue);
+        message.doubleValue !== undefined && (obj.doubleValue = message.doubleValue);
         message.stringValue !== undefined &&
             (obj.stringValue = base64FromBytes(message.stringValue !== undefined
                 ? message.stringValue
@@ -3551,7 +3546,7 @@ export const UninterpretedOption = {
             message.identifierValue = object.identifierValue;
         }
         else {
-            message.identifierValue = "";
+            message.identifierValue = '';
         }
         if (object.positiveIntValue !== undefined &&
             object.positiveIntValue !== null) {
@@ -3583,18 +3578,18 @@ export const UninterpretedOption = {
             message.aggregateValue = object.aggregateValue;
         }
         else {
-            message.aggregateValue = "";
+            message.aggregateValue = '';
         }
         return message;
-    },
+    }
 };
 const baseUninterpretedOption_NamePart = {
-    namePart: "",
-    isExtension: false,
+    namePart: '',
+    isExtension: false
 };
 export const UninterpretedOption_NamePart = {
     encode(message, writer = Writer.create()) {
-        if (message.namePart !== "") {
+        if (message.namePart !== '') {
             writer.uint32(10).string(message.namePart);
         }
         if (message.isExtension === true) {
@@ -3606,7 +3601,7 @@ export const UninterpretedOption_NamePart = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseUninterpretedOption_NamePart,
+            ...baseUninterpretedOption_NamePart
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -3626,13 +3621,13 @@ export const UninterpretedOption_NamePart = {
     },
     fromJSON(object) {
         const message = {
-            ...baseUninterpretedOption_NamePart,
+            ...baseUninterpretedOption_NamePart
         };
         if (object.namePart !== undefined && object.namePart !== null) {
             message.namePart = String(object.namePart);
         }
         else {
-            message.namePart = "";
+            message.namePart = '';
         }
         if (object.isExtension !== undefined && object.isExtension !== null) {
             message.isExtension = Boolean(object.isExtension);
@@ -3645,19 +3640,18 @@ export const UninterpretedOption_NamePart = {
     toJSON(message) {
         const obj = {};
         message.namePart !== undefined && (obj.namePart = message.namePart);
-        message.isExtension !== undefined &&
-            (obj.isExtension = message.isExtension);
+        message.isExtension !== undefined && (obj.isExtension = message.isExtension);
         return obj;
     },
     fromPartial(object) {
         const message = {
-            ...baseUninterpretedOption_NamePart,
+            ...baseUninterpretedOption_NamePart
         };
         if (object.namePart !== undefined && object.namePart !== null) {
             message.namePart = object.namePart;
         }
         else {
-            message.namePart = "";
+            message.namePart = '';
         }
         if (object.isExtension !== undefined && object.isExtension !== null) {
             message.isExtension = object.isExtension;
@@ -3666,7 +3660,7 @@ export const UninterpretedOption_NamePart = {
             message.isExtension = false;
         }
         return message;
-    },
+    }
 };
 const baseSourceCodeInfo = {};
 export const SourceCodeInfo = {
@@ -3723,14 +3717,14 @@ export const SourceCodeInfo = {
             }
         }
         return message;
-    },
+    }
 };
 const baseSourceCodeInfo_Location = {
     path: 0,
     span: 0,
-    leadingComments: "",
-    trailingComments: "",
-    leadingDetachedComments: "",
+    leadingComments: '',
+    trailingComments: '',
+    leadingDetachedComments: ''
 };
 export const SourceCodeInfo_Location = {
     encode(message, writer = Writer.create()) {
@@ -3744,10 +3738,10 @@ export const SourceCodeInfo_Location = {
             writer.int32(v);
         }
         writer.ldelim();
-        if (message.leadingComments !== "") {
+        if (message.leadingComments !== '') {
             writer.uint32(26).string(message.leadingComments);
         }
-        if (message.trailingComments !== "") {
+        if (message.trailingComments !== '') {
             writer.uint32(34).string(message.trailingComments);
         }
         for (const v of message.leadingDetachedComments) {
@@ -3759,7 +3753,7 @@ export const SourceCodeInfo_Location = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseSourceCodeInfo_Location,
+            ...baseSourceCodeInfo_Location
         };
         message.path = [];
         message.span = [];
@@ -3807,7 +3801,7 @@ export const SourceCodeInfo_Location = {
     },
     fromJSON(object) {
         const message = {
-            ...baseSourceCodeInfo_Location,
+            ...baseSourceCodeInfo_Location
         };
         message.path = [];
         message.span = [];
@@ -3827,14 +3821,14 @@ export const SourceCodeInfo_Location = {
             message.leadingComments = String(object.leadingComments);
         }
         else {
-            message.leadingComments = "";
+            message.leadingComments = '';
         }
         if (object.trailingComments !== undefined &&
             object.trailingComments !== null) {
             message.trailingComments = String(object.trailingComments);
         }
         else {
-            message.trailingComments = "";
+            message.trailingComments = '';
         }
         if (object.leadingDetachedComments !== undefined &&
             object.leadingDetachedComments !== null) {
@@ -3872,7 +3866,7 @@ export const SourceCodeInfo_Location = {
     },
     fromPartial(object) {
         const message = {
-            ...baseSourceCodeInfo_Location,
+            ...baseSourceCodeInfo_Location
         };
         message.path = [];
         message.span = [];
@@ -3892,14 +3886,14 @@ export const SourceCodeInfo_Location = {
             message.leadingComments = object.leadingComments;
         }
         else {
-            message.leadingComments = "";
+            message.leadingComments = '';
         }
         if (object.trailingComments !== undefined &&
             object.trailingComments !== null) {
             message.trailingComments = object.trailingComments;
         }
         else {
-            message.trailingComments = "";
+            message.trailingComments = '';
         }
         if (object.leadingDetachedComments !== undefined &&
             object.leadingDetachedComments !== null) {
@@ -3908,7 +3902,7 @@ export const SourceCodeInfo_Location = {
             }
         }
         return message;
-    },
+    }
 };
 const baseGeneratedCodeInfo = {};
 export const GeneratedCodeInfo = {
@@ -3965,13 +3959,13 @@ export const GeneratedCodeInfo = {
             }
         }
         return message;
-    },
+    }
 };
 const baseGeneratedCodeInfo_Annotation = {
     path: 0,
-    sourceFile: "",
+    sourceFile: '',
     begin: 0,
-    end: 0,
+    end: 0
 };
 export const GeneratedCodeInfo_Annotation = {
     encode(message, writer = Writer.create()) {
@@ -3980,7 +3974,7 @@ export const GeneratedCodeInfo_Annotation = {
             writer.int32(v);
         }
         writer.ldelim();
-        if (message.sourceFile !== "") {
+        if (message.sourceFile !== '') {
             writer.uint32(18).string(message.sourceFile);
         }
         if (message.begin !== 0) {
@@ -3995,7 +3989,7 @@ export const GeneratedCodeInfo_Annotation = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseGeneratedCodeInfo_Annotation,
+            ...baseGeneratedCodeInfo_Annotation
         };
         message.path = [];
         while (reader.pos < end) {
@@ -4030,7 +4024,7 @@ export const GeneratedCodeInfo_Annotation = {
     },
     fromJSON(object) {
         const message = {
-            ...baseGeneratedCodeInfo_Annotation,
+            ...baseGeneratedCodeInfo_Annotation
         };
         message.path = [];
         if (object.path !== undefined && object.path !== null) {
@@ -4042,7 +4036,7 @@ export const GeneratedCodeInfo_Annotation = {
             message.sourceFile = String(object.sourceFile);
         }
         else {
-            message.sourceFile = "";
+            message.sourceFile = '';
         }
         if (object.begin !== undefined && object.begin !== null) {
             message.begin = Number(object.begin);
@@ -4073,7 +4067,7 @@ export const GeneratedCodeInfo_Annotation = {
     },
     fromPartial(object) {
         const message = {
-            ...baseGeneratedCodeInfo_Annotation,
+            ...baseGeneratedCodeInfo_Annotation
         };
         message.path = [];
         if (object.path !== undefined && object.path !== null) {
@@ -4085,7 +4079,7 @@ export const GeneratedCodeInfo_Annotation = {
             message.sourceFile = object.sourceFile;
         }
         else {
-            message.sourceFile = "";
+            message.sourceFile = '';
         }
         if (object.begin !== undefined && object.begin !== null) {
             message.begin = object.begin;
@@ -4100,21 +4094,21 @@ export const GeneratedCodeInfo_Annotation = {
             message.end = 0;
         }
         return message;
-    },
+    }
 };
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -4124,17 +4118,17 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

@@ -1,5 +1,5 @@
-import { Writer, Reader } from "protobufjs/minimal";
-import { IdentifiedConnection, ConnectionPaths } from "../../../../ibc/core/connection/v1/connection";
+import { Writer, Reader } from 'protobufjs/minimal';
+import { IdentifiedConnection, ConnectionPaths } from '../../../../ibc/core/connection/v1/connection';
 export declare const protobufPackage = "ibc.core.connection.v1";
 /** GenesisState defines the ibc connection submodule's genesis state. */
 export interface GenesisState {

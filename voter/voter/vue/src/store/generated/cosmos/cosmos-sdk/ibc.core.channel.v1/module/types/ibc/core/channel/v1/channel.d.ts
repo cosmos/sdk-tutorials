@@ -1,5 +1,5 @@
-import { Writer, Reader } from "protobufjs/minimal";
-import { Height } from "../../../../ibc/core/client/v1/client";
+import { Writer, Reader } from 'protobufjs/minimal';
+import { Height } from '../../../../ibc/core/client/v1/client';
 export declare const protobufPackage = "ibc.core.channel.v1";
 /**
  * State defines if a channel is in one of the following states:

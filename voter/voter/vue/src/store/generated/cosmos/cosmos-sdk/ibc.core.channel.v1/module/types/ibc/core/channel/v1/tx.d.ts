@@ -1,6 +1,6 @@
-import { Reader, Writer } from "protobufjs/minimal";
-import { Channel, Packet } from "../../../../ibc/core/channel/v1/channel";
-import { Height } from "../../../../ibc/core/client/v1/client";
+import { Reader, Writer } from 'protobufjs/minimal';
+import { Channel, Packet } from '../../../../ibc/core/channel/v1/channel';
+import { Height } from '../../../../ibc/core/client/v1/client';
 export declare const protobufPackage = "ibc.core.channel.v1";
 /**
  * MsgChannelOpenInit defines an sdk.Msg to initialize a channel handshake. It
