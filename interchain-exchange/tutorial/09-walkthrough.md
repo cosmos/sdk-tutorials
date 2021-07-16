@@ -18,8 +18,8 @@ Start the networks. For input, use the `mars.yml` and `venus.yml` for each block
 
 ```bash
 # start networks
-starport serve -c mars.yml -r
-starport serve -c venus.yml -r
+starport chain serve -c mars.yml -r
+starport chain serve -c venus.yml -r
 ```
 
 ## Configure the relayer

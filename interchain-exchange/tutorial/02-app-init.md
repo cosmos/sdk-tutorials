@@ -23,7 +23,7 @@ You can also use Starport v0.16.2 in a [browser-based IDE](http://gitpod.io/#htt
 Scaffold a new blockchain called `interchange`
 
 ```bash
-starport scaffold chain github.com/username/interchange --no-default-module
+starport scaffold chain github.com/username/interchange --no-module
 cd interchange
 ```
 
@@ -36,24 +36,22 @@ Scaffold a module inside your blockchain named `ibcdex` with IBC capabilities.
 The ibcdex module contains the logic for creating and maintaining order books and routing them through IBC to the second blockchain.
 
 ```bash
-starport module create ibcdex --ibc --ordering unordered
+starport scaffold module create ibcdex --ibc --ordering unordered
 ```
 
 ## Create the Transaction Types
 
-To scaffold two types with create, read, update and delete (CRUD) actions use the Starport `type` command.
-The following commands create `sellOrderBook` and `buyOrderBook` types. 
+To scaffold two types with create, read, update and delete (CRUD) actions use the Starport `map` command.
+The following commands create `sellOrderBook` and `buyOrderBook` types that are indexed with an index in the store (like key-value stores). 
 
 ```bash
-starport type sellOrderBook amountDenom priceDenom --indexed --no-message --module ibcdex
-starport type buyOrderBook amountDenom priceDenom --indexed --no-message --module ibcdex
+starport scaffold map sellOrderBook amountDenom priceDenom --no-message --module ibcdex
+starport scaffold map buyOrderBook amountDenom priceDenom --no-message --module ibcdex
 ```
 
 The values are: 
 - `amountDenom` represents which token will be sold and in which quantity
 - `priceDenom` the token selling price 
-
-The flag `--indexed` flag creates an "indexed type". Without this flag, a type is implemented like a list with new items appended. Indexed types act like key-value stores.
 
 The `--module ibcdex` flag specifies that the type should be scaffolded in the `ibcdex` module.
 
@@ -65,9 +63,9 @@ Create three packets for IBC:
 - a buy order `buyOrder`
 
 ```bash
-starport packet createPair sourceDenom targetDenom --module ibcdex
-starport packet sellOrder amountDenom amount:int priceDenom price:int --ack remainingAmount:int,gain:int --module ibcdex
-starport packet buyOrder amountDenom amount:int priceDenom price:int --ack remainingAmount:int,purchase:int --module ibcdex
+starport scaffold packet createPair sourceDenom targetDenom --module ibcdex
+starport scaffold packet sellOrder amountDenom amount:int priceDenom price:int --ack remainingAmount:int,gain:int --module ibcdex
+starport scaffold packet buyOrder amountDenom amount:int priceDenom price:int --ack remainingAmount:int,purchase:int --module ibcdex
 ```
 
 The optional `--ack` flag defines field names and types of the acknowledgment returned after the packet has been received by the target chain. Value of `--ack` is a comma-separated (no spaces) list of names with optional types appended after a colon.
@@ -78,8 +76,8 @@ Cancelling orders is done locally in the network, there is no packet to send.
 Use the `message` command to create a message to cancel a sell or buy order.
 
 ```go
-starport message cancel-sell-order port channel amountDenom priceDenom orderID:int --desc "Cancel a sell order" --module ibcdex
-starport message cancel-buy-order port channel amountDenom priceDenom orderID:int --desc "Cancel a buy order" --module ibcdex
+starport scaffold message cancel-sell-order port channel amountDenom priceDenom orderID:int --desc "Cancel a sell order" --module ibcdex
+starport scaffold message cancel-buy-order port channel amountDenom priceDenom orderID:int --desc "Cancel a buy order" --module ibcdex
 ```
 
 The optional `--desc` flag lets you define a description of the CLI command that is used to broadcast a transaction with the message.
@@ -96,7 +94,7 @@ The token denoms must have the same behavior as described in the `ibc-transfer` 
 For a `voucher` you store: the source port ID, source channel ID and the original denom
 
 ```go
-starport type denomTrace port channel origin --indexed --no-message --module ibcdex
+starport scaffold map denomTrace port channel origin --no-message --module ibcdex
 ```
 
 ## Create the Configuration
