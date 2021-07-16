@@ -150,9 +150,9 @@ The `--module ibcdex` flag specifies that the type should be scaffolded in the `
 
 Create three packets for IBC:
 
-- an order book pair `createPair` 
-- a sell order `sellOrder` 
-- a buy order `buyOrder`
+- an order book pair `create_pair` 
+- a sell order `sell-order` 
+- a buy order `buy-order`
 
 ```bash
 starport packet createPair sourceDenom targetDenom --module ibcdex
@@ -186,7 +186,7 @@ The token denoms must have the same behavior as described in the `ibc-transfer` 
 For a `voucher` you store: the source port ID, source channel ID and the original denom
 
 ```go
-starport type denomTrace port channel origin --indexed --no-message --module ibcdex
+starport type denom-trace port channel origin --indexed --no-message --module ibcdex
 ```
 
 ## Create the Configuration
@@ -255,13 +255,13 @@ Implement the code for the order book in the next chapter.
 Using the exchange starts from creating a order book for a pair of tokens:
 
 ```
-interchanged tx ibcdex send-createPair [src-port] [src-channel] [sourceDenom] [targetDenom]
+interchanged tx ibcdex send-create-pair [src-port] [src-channel] [sourceDenom] [targetDenom]
 
 # Create pair broadcasted to the source blockchain
-interchanged tx ibcdex send-createPair ibcdex channel-0 mcx vcx
+interchanged tx ibcdex send-create-pair ibcdex channel-0 mcx vcx
 ```
 
-A pair of token is defined by two denominations: source denom (in this example, `mcx`) and target denom (`vcx`). Creating an orderbook affects state on the source blockchain (to which the transaction was broadcasted) and the target blockchain. On the source blockchain `send-createPair` creates an empty sell order book and on the target blockchain a buy order book is created.
+A pair of token is defined by two denominations: source denom (in this example, `mcx`) and target denom (`vcx`). Creating an orderbook affects state on the source blockchain (to which the transaction was broadcasted) and the target blockchain. On the source blockchain `send-create-pair` creates an empty sell order book and on the target blockchain a buy order book is created.
 
 ```yml
 # Created a sell order book on the source blockchain
@@ -269,7 +269,7 @@ SellOrderBook:
 - amountDenom: mcx
   creator: ""
   index: ibcdex-channel-0-mcx-vcx
-  orderIDTrack: 0
+  orderIdTrack: 0
   orders: []
   priceDenom: vcx
 ```
@@ -280,7 +280,7 @@ BuyOrderBook:
 - amountDenom: mcx
   creator: ""
   index: ibcdex-channel-0-mcx-vcx
-  orderIDTrack: 1
+  orderIdTrack: 1
   orders: []
   priceDenom: vcx
 ```
@@ -292,13 +292,13 @@ To make it possible `createPair` first sends an IBC packet to the target chain. 
 Once an order book is created, the next step is to create a sell order:
 
 ```
-interchanged tx ibcdex send-sellOrder [src-port] [src-channel] [amountDenom] [amount] [priceDenom] [price]
+interchanged tx ibcdex send-sell-order [src-port] [src-channel] [amountDenom] [amount] [priceDenom] [price]
 
 # Sell order broadcasted to the source blockchain
-interchanged tx ibcdex send-sellOrder ibcdex channel-0 mcx 10 vcx 15
+interchanged tx ibcdex send-sell-order ibcdex channel-0 mcx 10 vcx 15
 ```
 
-The `send-sellOrder` command broadcasts a message that locks tokens on the source blockchain and creates a new sell order on the source blockchain.
+The `send-sell-order` command broadcasts a message that locks tokens on the source blockchain and creates a new sell order on the source blockchain.
 
 ```yml
 # Source blockchain
@@ -309,7 +309,7 @@ SellOrderBook:
 - amountDenom: mcx
   creator: ""
   index: ibcdex-channel-0-mcx-vcx
-  orderIDTrack: 2
+  orderIdTrack: 2
   orders: # a new sell order is created
   - amount: 10
     creator: cosmos1v3p3j7c64c4ls32pcjct333e8vqe45gwwa289q
@@ -323,13 +323,13 @@ SellOrderBook:
 A buy order has the same set of arguments: amount of tokens to be purchased and a price.
 
 ```
-`interchanged tx ibcdex send-buyOrder [src-port] [src-channel] [amountDenom] [amount] [priceDenom] [price]`
+`interchanged tx ibcdex send-buy-order [src-port] [src-channel] [amountDenom] [amount] [priceDenom] [price]`
 
 # Buy order broadcasted to the target blockchain
-interchanged tx ibcdex send-buyOrder ibcdex channel-0 mcx 10 vcx 5
+interchanged tx ibcdex send-buy-order ibcdex channel-0 mcx 10 vcx 5
 ```
 
-The `send-buyOrder` command locks tokens on the target blockchain and creates a buy order book on the target blockchain.
+The `send-buy-order` command locks tokens on the target blockchain and creates a buy order book on the target blockchain.
 
 ```yml
 # Target blockchain
@@ -340,7 +340,7 @@ BuyOrderBook:
 - amountDenom: mcx
   creator: ""
   index: ibcdex-channel-0-mcx-vcx
-  orderIDTrack: 3
+  orderIdTrack: 3
   orders: # a new buy order is created
   - amount: 10
     creator: cosmos1qlrz3peenc6s3xjv9k97e8ef72nk3qn3a0xax2
@@ -355,7 +355,7 @@ We now have two orders open for MCX: a sell order on the source chain (for 10mcx
 
 ```
 # Sell order broadcasted to the source chain
-interchanged tx ibcdex send-sellOrder ibcdex channel-0 mcx 5 vcx 3
+interchanged tx ibcdex send-sell-order ibcdex channel-0 mcx 5 vcx 3
 ```
 
 The sell order (for 5mcx at 3vcx) was filled on the target chain by the buy order. The amount of the buy order on the target chain has decreased by 5mcx.
@@ -366,7 +366,7 @@ BuyOrderBook:
 - amountDenom: mcx
   creator: ""
   index: ibcdex-channel-0-mcx-vcx
-  orderIDTrack: 5
+  orderIdTrack: 5
   orders:
   - amount: 5 # decreased from 10
     creator: cosmos1qlrz3peenc6s3xjv9k97e8ef72nk3qn3a0xax2
@@ -401,7 +401,7 @@ An order is sent to buy 5mcx for 15vcx.
 
 ```
 # Buy order broadcasted to the target chain
-interchanged tx ibcdex send-buyOrder ibcdex channel-0 mcx 5 vcx 15
+interchanged tx ibcdex send-buy-order ibcdex channel-0 mcx 5 vcx 15
 ```
 
 A buy order is immediately filled on the source chain and sell order creator recived 75 vcx vouchers. The sell order amount is decreased by the amount of the filled buy order (by 5mcx).
@@ -415,7 +415,7 @@ SellOrderBook:
 - amountDenom: mcx
   creator: ""
   index: ibcdex-channel-0-mcx-vcx
-  orderIDTrack: 4
+  orderIdTrack: 4
   orders:
   - amount: 5 # decreased from 10
     creator: cosmos1v3p3j7c64c4ls32pcjct333e8vqe45gwwa289q
@@ -441,7 +441,7 @@ An order is sent to sell 10mcx for 3vcx.
 
 ```
 # Source blockchain
-interchanged tx ibcdex send-sellOrder ibcdex channel-0 mcx 10 vcx 3
+interchanged tx ibcdex send-sell-order ibcdex channel-0 mcx 10 vcx 3
 ```
 
 The sell amount is 10mcx, but the opened buy order amount is only 5mcx. The buy order gets filled completely and removed from the order book. The author of the previously created buy order recived 10 mcx vouchers from the exchange.
@@ -455,7 +455,7 @@ BuyOrderBook:
 - amountDenom: mcx
   creator: ""
   index: ibcdex-channel-0-mcx-vcx
-  orderIDTrack: 5
+  orderIdTrack: 5
   orders: [] # buy order with amount 5mcx has been closed
   priceDenom: vcx
 ```
@@ -473,7 +473,7 @@ balances:
 SellOrderBook:
   creator: ""
   index: ibcdex-channel-0-mcx-vcx
-  orderIDTrack: 6
+  orderIdTrack: 6
   orders:
   - amount: 5 # hasn't changed
     creator: cosmos1v3p3j7c64c4ls32pcjct333e8vqe45gwwa289q
@@ -491,7 +491,7 @@ An order is created to buy 10 mcx for 5 vcx.
 
 ```
 # Target blockchain
-interchanged tx ibcdex send-buyOrder ibcdex channel-0 mcx 10 vcx 5
+interchanged tx ibcdex send-buy-order ibcdex channel-0 mcx 10 vcx 5
 ```
 
 The buy order is partially filled for 5mcx. An existing sell order for 5 mcx (with a price of 3 vcx) on the source chain has been completely filled and removed from the order book. The author of the closed sell order recived 15 vcx vouchers (product of 5mcx and 3vcx).
@@ -505,7 +505,7 @@ SellOrderBook:
 - amountDenom: mcx
   creator: ""
   index: ibcdex-channel-0-mcx-vcx
-  orderIDTrack: 6
+  orderIdTrack: 6
   orders:
   - amount: 5 # order hasn't changed
     creator: cosmos1v3p3j7c64c4ls32pcjct333e8vqe45gwwa289q
@@ -528,7 +528,7 @@ BuyOrderBook:
 - amountDenom: mcx
   creator: ""
   index: ibcdex-channel-0-mcx-vcx
-  orderIDTrack: 7
+  orderIdTrack: 7
   orders:
   - amount: 5 # new buy order is created
     creator: cosmos1qlrz3peenc6s3xjv9k97e8ef72nk3qn3a0xax2
@@ -545,7 +545,7 @@ Cancelling a sell order:
 
 ```
 # Source blockchain
-interchanged tx ibcdex cancelSellOrder ibcdex channel-0 mcx vcx 2
+interchanged tx ibcdex cancel-sell-order ibcdex channel-0 mcx vcx 2
 ```
 
 ```yml
@@ -561,7 +561,7 @@ Cancelling a buy order:
 
 ```
 # Target blockchain
-interchanged tx ibcdex cancelBuyOrder ibcdex channel-0 mcx vcx 5
+interchanged tx ibcdex cancel-buy-order ibcdex channel-0 mcx vcx 5
 ```
 
 ```yml
@@ -589,9 +589,9 @@ func OrderBookIndex( portID string, channelID string, sourceDenom string, target
 }
 ```
 
-`send-createPair` is used to create order books. This command creates and broadcasts a transaction with a message of type `SendCreatePair`. The message gets routed to the `ibcdex` module, processed by the message handler in `x/ibcdex/handler.go` and finally a `SendCreatePair` keeper method is called.
+`send-create-pair` is used to create order books. This command creates and broadcasts a transaction with a message of type `SendCreatePair`. The message gets routed to the `ibcdex` module, processed by the message handler in `x/ibcdex/handler.go` and finally a `SendCreatePair` keeper method is called.
 
-You need `send-createPair` to do the following:
+You need `send-create-pair` to do the following:
 
 * When processing `SendCreatePair` message on the source chain
   * Check that an order book with the given pair of denoms does not yet exist
@@ -724,7 +724,7 @@ message Order {
 On the source chain when an IBC acknowledgement is recieved, the module should check whether a book already exists, if not, create a new sell order book for specified denoms.
 
 ```go
-// x/ibcdex/keeper/createPair.go
+// x/ibcdex/keeper/create_pair.go
 func (k Keeper) OnAcknowledgementCreatePairPacket(ctx sdk.Context, packet channeltypes.Packet, data types.CreatePairPacketData, ack channeltypes.Acknowledgement) error {
 	switch dispatchedAck := ack.Response.(type) {
 	case *channeltypes.Acknowledgement_Error:
@@ -763,7 +763,7 @@ func NewSellOrderBook(AmountDenom string, PriceDenom string) SellOrderBook {
 }
 ```
 
-Modify the `sellOrderBook.proto` file to add the order book into the buy order book. The proto definition for the `SellOrderBook` should look like follows:
+Modify the `sell_order_book.proto` file to add the order book into the buy order book. The proto definition for the `SellOrderBook` should look like follows:
 
 ```proto
 // proto/ibcdex/sell_order_book.proto
@@ -776,7 +776,7 @@ message SellOrderBook {
 }
 ```
 
-In this chapter we implemented the logic behind `send-createPair` command that upon recieving of an IBC packet on the target chain creates a buy order book and upon recieving of an IBC acknowledgement on the source chain creates a sell order book.
+In this chapter we implemented the logic behind `send-create-pair` command that upon recieving of an IBC packet on the target chain creates a buy order book and upon recieving of an IBC acknowledgement on the source chain creates a sell order book.
 
 # Creating Sell Orders
 
@@ -794,7 +794,7 @@ message SellOrderPacketData {
 
 ## `SendSellOrder` Message Handling
 
-Sell orders are created using `send-sellOrder`. This command creates a transaction with a `SendSellOrder` message, which triggers the `SendSellOrder` keeper method.
+Sell orders are created using `send-sell-order`. This command creates a transaction with a `SendSellOrder` message, which triggers the `SendSellOrder` keeper method.
 
 `SendSellOrder` should:
 
@@ -1017,8 +1017,8 @@ func VoucherDenom(port string, channel string, denom string) string {
   // NOTE: sourcePrefix contains the trailing "/"
   prefixedDenom := sourcePrefix + denom
   // construct the denomination trace from the full raw denomination
-  denomTrace := ibctransfertypes.ParseDenomTrace(prefixedDenom)
-  voucher := denomTrace.IBCDenom()
+  denom-trace := ibctransfertypes.ParseDenomTrace(prefixedDenom)
+  voucher := denom-trace.IBCDenom()
   return voucher[:16]
 }
 ```
@@ -1517,7 +1517,7 @@ func (k msgServer) SendBuyOrder(goCtx context.Context, msg *types.MsgSendBuyOrde
 - Send to chain A the sell order after the fill attempt
 
 ```go
-// x/ibcdex/keeper/buyOrder.go
+// x/ibcdex/keeper/buy_order.go
 func (k Keeper) OnRecvBuyOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.BuyOrderPacketData) (packetAck types.BuyOrderPacketAck, err error) {
 	// validate packet data upon receiving
 	if err := data.ValidateBasic(); err != nil {
@@ -1647,7 +1647,7 @@ func (s *SellOrderBook) LiquidateFromBuyOrder(order Order) (remainingBuyOrder Or
 - On error we mint back the burned tokens
 
 ```go
-// x/ibcdex/keeper/buyOrder.go
+// x/ibcdex/keeper/buy_order.go
 func (k Keeper) OnAcknowledgementBuyOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.BuyOrderPacketData, ack channeltypes.Acknowledgement) error {
 	switch dispatchedAck := ack.Response.(type) {
 	case *channeltypes.Acknowledgement_Error:
@@ -1761,7 +1761,7 @@ You have implemented order books, buy and sell orders.  In this chapter you will
 To cancel a sell order, you have to get the ID of the specific sell order. Then you can use the function `RemoveOrderFromID` to remove the specific order from the order book and update the keeper accordingly.
 
 ```go
-// x/ibcdex/keeper/msg_server_cancelSellOrder.go
+// x/ibcdex/keeper/msg_server_cancel_sell_order.go
 import "errors"
 
 func (k msgServer) CancelSellOrder(goCtx context.Context, msg *types.MsgCancelSellOrder) (*types.MsgCancelSellOrderResponse, error) {
@@ -1831,7 +1831,7 @@ func (book *OrderBook) RemoveOrderFromID(id int32) error {
 To cancel a buy order, you have to get the ID of the specific buy order. Then you can use the function `RemoveOrderFromID` to remove the specific order from the order book and update the keeper accordingly.
 
 ```go
-// x/ibcdex/keeper/msg_server_cancelBuyOrder.go
+// x/ibcdex/keeper/msg_server_cancel_buy_order.go
 import "errors"
 
 func (k msgServer) CancelBuyOrder(goCtx context.Context, msg *types.MsgCancelBuyOrder) (*types.MsgCancelBuyOrderResponse, error) {
