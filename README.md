@@ -15,6 +15,12 @@ sections:
     tags: 
       - starport
       - stargate
+  - title: Scavenge Hunt
+    desc: Build a blockchain app that allows you to post challenges that can be solved by anyone on the blockchain. Learn about using module accounts and implementing CLI commands with the Scavenge Hunt.
+    url: /scavenge/tutorial/01-background.html
+    tags: 
+      - starport
+      - stargate
   - title: Create a IBC Hello World module
     desc: Build a Hello World blockchain app as an IBC module. Learn how to use the relayer to connect two blockchains with each other and use IBC packets to transfer data from one blockchain to another.
     url: /hello-world/tutorial/
