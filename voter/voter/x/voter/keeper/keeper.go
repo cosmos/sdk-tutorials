@@ -5,9 +5,10 @@ import (
 
 	"github.com/tendermint/tendermint/libs/log"
 
+	"github.com/cosmonaut/voter/x/voter/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/username/voter/x/voter/types"
+	// this line is used by starport scaffolding # ibc/keeper/import
 )
 
 type (

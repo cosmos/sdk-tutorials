@@ -436,13 +436,13 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_Vote_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"username", "voter", "vote", "id"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Vote_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"cosmonaut", "voter", "vote", "id"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_VoteAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"username", "voter", "vote"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_VoteAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"cosmonaut", "voter", "vote"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Poll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"username", "voter", "poll", "id"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Poll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"cosmonaut", "voter", "poll", "id"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_PollAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"username", "voter", "poll"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_PollAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"cosmonaut", "voter", "poll"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (
