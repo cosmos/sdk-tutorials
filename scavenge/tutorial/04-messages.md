@@ -62,7 +62,7 @@ Reveal solution message needs only one field:
 * Solution - this is the plain text version of the solution.
 
 ```
-starport s message reveal-solution solution
+starport scaffold message reveal-solution solution
 ```
 
 Information about the scavenger (creator of the message is automatically included) and solution hash can be deterministically derived from the solution string.
