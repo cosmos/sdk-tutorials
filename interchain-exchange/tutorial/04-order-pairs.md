@@ -124,4 +124,4 @@ func (k Keeper) OnAcknowledgementCreatePairPacket(ctx sdk.Context, packet channe
 
 ## No Consequences OnTimeout
 
-A timeout will have no consequences in our scenario. The order book will not be acknowledged 
+A timeout will have no consequences in our scenario. The order book will not be acknowledged.

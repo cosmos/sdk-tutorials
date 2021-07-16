@@ -41,7 +41,7 @@ starport scaffold module ibcdex --ibc --ordering unordered
 
 ## Create the Transaction Types
 
-To scaffold two types with create, read, update and delete (CRUD) actions use the Starport `map` command.
+To scaffold two types with create, read, update, and delete (CRUD) actions use the Starport `map` command.
 The following commands create `sellOrderBook` and `buyOrderBook` types that are indexed with an index in the store (like key-value stores). 
 
 ```bash
