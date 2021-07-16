@@ -1,4 +1,4 @@
-import { txClient, queryClient } from './module'
+import { txClient, queryClient, MissingWalletError } from './module'
 // @ts-ignore
 import { SpVuexError } from '@starport/vuex'
 
@@ -7,6 +7,8 @@ import { DecCoin } from "./module/types/cosmos/base/v1beta1/coin"
 import { IntProto } from "./module/types/cosmos/base/v1beta1/coin"
 import { DecProto } from "./module/types/cosmos/base/v1beta1/coin"
 
+
+export { Coin, DecCoin, IntProto, DecProto };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -18,6 +20,17 @@ async function initQueryClient(vuexGetters) {
 	return await queryClient({
 		addr: vuexGetters['common/env/apiCosmos']
 	})
+}
+
+function mergeResults(value, next_values) {
+	for (let prop of Object.keys(next_values)) {
+		if (Array.isArray(next_values[prop])) {
+			value[prop]=[...value[prop], ...next_values[prop]]
+		}else{
+			value[prop]=next_values[prop]
+		}
+	}
+	return value
 }
 
 function getStructure(template) {
@@ -33,13 +46,13 @@ function getStructure(template) {
 
 const getDefaultState = () => {
 	return {
-        
-        _Structure: {
-            Coin: getStructure(Coin.fromPartial({})),
-            DecCoin: getStructure(DecCoin.fromPartial({})),
-            IntProto: getStructure(IntProto.fromPartial({})),
-            DecProto: getStructure(DecProto.fromPartial({})),
-            
+				
+				_Structure: {
+						Coin: getStructure(Coin.fromPartial({})),
+						DecCoin: getStructure(DecCoin.fromPartial({})),
+						IntProto: getStructure(IntProto.fromPartial({})),
+						DecProto: getStructure(DecProto.fromPartial({})),
+						
 		},
 		_Subscriptions: new Set(),
 	}
@@ -66,14 +79,14 @@ export default {
 		}
 	},
 	getters: {
-        
+				
 		getTypeStructure: (state) => (type) => {
 			return state._Structure[type].fields
 		}
 	},
 	actions: {
 		init({ dispatch, rootGetters }) {
-			console.log('init')
+			console.log('Vuex module: cosmos.base.v1beta1 initialized!')
 			if (rootGetters['common/env/client']) {
 				rootGetters['common/env/client'].on('newblock', () => {
 					dispatch('StoreUpdate')
@@ -87,8 +100,12 @@ export default {
 			commit('UNSUBSCRIBE', subscription)
 		},
 		async StoreUpdate({ state, dispatch }) {
-			state._Subscriptions.forEach((subscription) => {
-				dispatch(subscription.action, subscription.payload)
+			state._Subscriptions.forEach(async (subscription) => {
+				try {
+					await dispatch(subscription.action, subscription.payload)
+				}catch(e) {
+					throw new SpVuexError('Subscriptions: ' + e.message)
+				}
 			})
 		},
 		

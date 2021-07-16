@@ -1,12 +1,12 @@
 /* eslint-disable */
-import { Reader, util, configure, Writer } from "protobufjs/minimal";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import * as Long from "long";
-import { Header } from "../../tendermint/types/types";
-import { ProofOps } from "../../tendermint/crypto/proof";
-import { EvidenceParams, ValidatorParams, VersionParams, } from "../../tendermint/types/params";
-import { PublicKey } from "../../tendermint/crypto/keys";
-export const protobufPackage = "tendermint.abci";
+import { Reader, util, configure, Writer } from 'protobufjs/minimal';
+import { Timestamp } from '../../google/protobuf/timestamp';
+import * as Long from 'long';
+import { Header } from '../../tendermint/types/types';
+import { ProofOps } from '../../tendermint/crypto/proof';
+import { EvidenceParams, ValidatorParams, VersionParams } from '../../tendermint/types/params';
+import { PublicKey } from '../../tendermint/crypto/keys';
+export const protobufPackage = 'tendermint.abci';
 export var CheckTxType;
 (function (CheckTxType) {
     CheckTxType[CheckTxType["NEW"] = 0] = "NEW";
@@ -16,13 +16,13 @@ export var CheckTxType;
 export function checkTxTypeFromJSON(object) {
     switch (object) {
         case 0:
-        case "NEW":
+        case 'NEW':
             return CheckTxType.NEW;
         case 1:
-        case "RECHECK":
+        case 'RECHECK':
             return CheckTxType.RECHECK;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return CheckTxType.UNRECOGNIZED;
     }
@@ -30,11 +30,11 @@ export function checkTxTypeFromJSON(object) {
 export function checkTxTypeToJSON(object) {
     switch (object) {
         case CheckTxType.NEW:
-            return "NEW";
+            return 'NEW';
         case CheckTxType.RECHECK:
-            return "RECHECK";
+            return 'RECHECK';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 export var EvidenceType;
@@ -47,16 +47,16 @@ export var EvidenceType;
 export function evidenceTypeFromJSON(object) {
     switch (object) {
         case 0:
-        case "UNKNOWN":
+        case 'UNKNOWN':
             return EvidenceType.UNKNOWN;
         case 1:
-        case "DUPLICATE_VOTE":
+        case 'DUPLICATE_VOTE':
             return EvidenceType.DUPLICATE_VOTE;
         case 2:
-        case "LIGHT_CLIENT_ATTACK":
+        case 'LIGHT_CLIENT_ATTACK':
             return EvidenceType.LIGHT_CLIENT_ATTACK;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return EvidenceType.UNRECOGNIZED;
     }
@@ -64,13 +64,13 @@ export function evidenceTypeFromJSON(object) {
 export function evidenceTypeToJSON(object) {
     switch (object) {
         case EvidenceType.UNKNOWN:
-            return "UNKNOWN";
+            return 'UNKNOWN';
         case EvidenceType.DUPLICATE_VOTE:
-            return "DUPLICATE_VOTE";
+            return 'DUPLICATE_VOTE';
         case EvidenceType.LIGHT_CLIENT_ATTACK:
-            return "LIGHT_CLIENT_ATTACK";
+            return 'LIGHT_CLIENT_ATTACK';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 export var ResponseOfferSnapshot_Result;
@@ -92,25 +92,25 @@ export var ResponseOfferSnapshot_Result;
 export function responseOfferSnapshot_ResultFromJSON(object) {
     switch (object) {
         case 0:
-        case "UNKNOWN":
+        case 'UNKNOWN':
             return ResponseOfferSnapshot_Result.UNKNOWN;
         case 1:
-        case "ACCEPT":
+        case 'ACCEPT':
             return ResponseOfferSnapshot_Result.ACCEPT;
         case 2:
-        case "ABORT":
+        case 'ABORT':
             return ResponseOfferSnapshot_Result.ABORT;
         case 3:
-        case "REJECT":
+        case 'REJECT':
             return ResponseOfferSnapshot_Result.REJECT;
         case 4:
-        case "REJECT_FORMAT":
+        case 'REJECT_FORMAT':
             return ResponseOfferSnapshot_Result.REJECT_FORMAT;
         case 5:
-        case "REJECT_SENDER":
+        case 'REJECT_SENDER':
             return ResponseOfferSnapshot_Result.REJECT_SENDER;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return ResponseOfferSnapshot_Result.UNRECOGNIZED;
     }
@@ -118,19 +118,19 @@ export function responseOfferSnapshot_ResultFromJSON(object) {
 export function responseOfferSnapshot_ResultToJSON(object) {
     switch (object) {
         case ResponseOfferSnapshot_Result.UNKNOWN:
-            return "UNKNOWN";
+            return 'UNKNOWN';
         case ResponseOfferSnapshot_Result.ACCEPT:
-            return "ACCEPT";
+            return 'ACCEPT';
         case ResponseOfferSnapshot_Result.ABORT:
-            return "ABORT";
+            return 'ABORT';
         case ResponseOfferSnapshot_Result.REJECT:
-            return "REJECT";
+            return 'REJECT';
         case ResponseOfferSnapshot_Result.REJECT_FORMAT:
-            return "REJECT_FORMAT";
+            return 'REJECT_FORMAT';
         case ResponseOfferSnapshot_Result.REJECT_SENDER:
-            return "REJECT_SENDER";
+            return 'REJECT_SENDER';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 export var ResponseApplySnapshotChunk_Result;
@@ -152,25 +152,25 @@ export var ResponseApplySnapshotChunk_Result;
 export function responseApplySnapshotChunk_ResultFromJSON(object) {
     switch (object) {
         case 0:
-        case "UNKNOWN":
+        case 'UNKNOWN':
             return ResponseApplySnapshotChunk_Result.UNKNOWN;
         case 1:
-        case "ACCEPT":
+        case 'ACCEPT':
             return ResponseApplySnapshotChunk_Result.ACCEPT;
         case 2:
-        case "ABORT":
+        case 'ABORT':
             return ResponseApplySnapshotChunk_Result.ABORT;
         case 3:
-        case "RETRY":
+        case 'RETRY':
             return ResponseApplySnapshotChunk_Result.RETRY;
         case 4:
-        case "RETRY_SNAPSHOT":
+        case 'RETRY_SNAPSHOT':
             return ResponseApplySnapshotChunk_Result.RETRY_SNAPSHOT;
         case 5:
-        case "REJECT_SNAPSHOT":
+        case 'REJECT_SNAPSHOT':
             return ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return ResponseApplySnapshotChunk_Result.UNRECOGNIZED;
     }
@@ -178,19 +178,19 @@ export function responseApplySnapshotChunk_ResultFromJSON(object) {
 export function responseApplySnapshotChunk_ResultToJSON(object) {
     switch (object) {
         case ResponseApplySnapshotChunk_Result.UNKNOWN:
-            return "UNKNOWN";
+            return 'UNKNOWN';
         case ResponseApplySnapshotChunk_Result.ACCEPT:
-            return "ACCEPT";
+            return 'ACCEPT';
         case ResponseApplySnapshotChunk_Result.ABORT:
-            return "ABORT";
+            return 'ABORT';
         case ResponseApplySnapshotChunk_Result.RETRY:
-            return "RETRY";
+            return 'RETRY';
         case ResponseApplySnapshotChunk_Result.RETRY_SNAPSHOT:
-            return "RETRY_SNAPSHOT";
+            return 'RETRY_SNAPSHOT';
         case ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT:
-            return "REJECT_SNAPSHOT";
+            return 'REJECT_SNAPSHOT';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 const baseRequest = {};
@@ -553,12 +553,12 @@ export const Request = {
             message.applySnapshotChunk = undefined;
         }
         return message;
-    },
+    }
 };
-const baseRequestEcho = { message: "" };
+const baseRequestEcho = { message: '' };
 export const RequestEcho = {
     encode(message, writer = Writer.create()) {
-        if (message.message !== "") {
+        if (message.message !== '') {
             writer.uint32(10).string(message.message);
         }
         return writer;
@@ -586,7 +586,7 @@ export const RequestEcho = {
             message.message = String(object.message);
         }
         else {
-            message.message = "";
+            message.message = '';
         }
         return message;
     },
@@ -601,10 +601,10 @@ export const RequestEcho = {
             message.message = object.message;
         }
         else {
-            message.message = "";
+            message.message = '';
         }
         return message;
-    },
+    }
 };
 const baseRequestFlush = {};
 export const RequestFlush = {
@@ -636,12 +636,12 @@ export const RequestFlush = {
     fromPartial(_) {
         const message = { ...baseRequestFlush };
         return message;
-    },
+    }
 };
-const baseRequestInfo = { version: "", blockVersion: 0, p2pVersion: 0 };
+const baseRequestInfo = { version: '', blockVersion: 0, p2pVersion: 0 };
 export const RequestInfo = {
     encode(message, writer = Writer.create()) {
-        if (message.version !== "") {
+        if (message.version !== '') {
             writer.uint32(10).string(message.version);
         }
         if (message.blockVersion !== 0) {
@@ -681,7 +681,7 @@ export const RequestInfo = {
             message.version = String(object.version);
         }
         else {
-            message.version = "";
+            message.version = '';
         }
         if (object.blockVersion !== undefined && object.blockVersion !== null) {
             message.blockVersion = Number(object.blockVersion);
@@ -711,7 +711,7 @@ export const RequestInfo = {
             message.version = object.version;
         }
         else {
-            message.version = "";
+            message.version = '';
         }
         if (object.blockVersion !== undefined && object.blockVersion !== null) {
             message.blockVersion = object.blockVersion;
@@ -726,15 +726,15 @@ export const RequestInfo = {
             message.p2pVersion = 0;
         }
         return message;
-    },
+    }
 };
-const baseRequestSetOption = { key: "", value: "" };
+const baseRequestSetOption = { key: '', value: '' };
 export const RequestSetOption = {
     encode(message, writer = Writer.create()) {
-        if (message.key !== "") {
+        if (message.key !== '') {
             writer.uint32(10).string(message.key);
         }
-        if (message.value !== "") {
+        if (message.value !== '') {
             writer.uint32(18).string(message.value);
         }
         return writer;
@@ -765,13 +765,13 @@ export const RequestSetOption = {
             message.key = String(object.key);
         }
         else {
-            message.key = "";
+            message.key = '';
         }
         if (object.value !== undefined && object.value !== null) {
             message.value = String(object.value);
         }
         else {
-            message.value = "";
+            message.value = '';
         }
         return message;
     },
@@ -787,24 +787,24 @@ export const RequestSetOption = {
             message.key = object.key;
         }
         else {
-            message.key = "";
+            message.key = '';
         }
         if (object.value !== undefined && object.value !== null) {
             message.value = object.value;
         }
         else {
-            message.value = "";
+            message.value = '';
         }
         return message;
-    },
+    }
 };
-const baseRequestInitChain = { chainId: "", initialHeight: 0 };
+const baseRequestInitChain = { chainId: '', initialHeight: 0 };
 export const RequestInitChain = {
     encode(message, writer = Writer.create()) {
         if (message.time !== undefined) {
             Timestamp.encode(toTimestamp(message.time), writer.uint32(10).fork()).ldelim();
         }
-        if (message.chainId !== "") {
+        if (message.chainId !== '') {
             writer.uint32(18).string(message.chainId);
         }
         if (message.consensusParams !== undefined) {
@@ -867,7 +867,7 @@ export const RequestInitChain = {
             message.chainId = String(object.chainId);
         }
         else {
-            message.chainId = "";
+            message.chainId = '';
         }
         if (object.consensusParams !== undefined &&
             object.consensusParams !== null) {
@@ -929,7 +929,7 @@ export const RequestInitChain = {
             message.chainId = object.chainId;
         }
         else {
-            message.chainId = "";
+            message.chainId = '';
         }
         if (object.consensusParams !== undefined &&
             object.consensusParams !== null) {
@@ -956,15 +956,15 @@ export const RequestInitChain = {
             message.initialHeight = 0;
         }
         return message;
-    },
+    }
 };
-const baseRequestQuery = { path: "", height: 0, prove: false };
+const baseRequestQuery = { path: '', height: 0, prove: false };
 export const RequestQuery = {
     encode(message, writer = Writer.create()) {
         if (message.data.length !== 0) {
             writer.uint32(10).bytes(message.data);
         }
-        if (message.path !== "") {
+        if (message.path !== '') {
             writer.uint32(18).string(message.path);
         }
         if (message.height !== 0) {
@@ -1010,7 +1010,7 @@ export const RequestQuery = {
             message.path = String(object.path);
         }
         else {
-            message.path = "";
+            message.path = '';
         }
         if (object.height !== undefined && object.height !== null) {
             message.height = Number(object.height);
@@ -1047,7 +1047,7 @@ export const RequestQuery = {
             message.path = object.path;
         }
         else {
-            message.path = "";
+            message.path = '';
         }
         if (object.height !== undefined && object.height !== null) {
             message.height = object.height;
@@ -1062,7 +1062,7 @@ export const RequestQuery = {
             message.prove = false;
         }
         return message;
-    },
+    }
 };
 const baseRequestBeginBlock = {};
 export const RequestBeginBlock = {
@@ -1180,7 +1180,7 @@ export const RequestBeginBlock = {
             }
         }
         return message;
-    },
+    }
 };
 const baseRequestCheckTx = { type: 0 };
 export const RequestCheckTx = {
@@ -1248,7 +1248,7 @@ export const RequestCheckTx = {
             message.type = 0;
         }
         return message;
-    },
+    }
 };
 const baseRequestDeliverTx = {};
 export const RequestDeliverTx = {
@@ -1297,7 +1297,7 @@ export const RequestDeliverTx = {
             message.tx = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const baseRequestEndBlock = { height: 0 };
 export const RequestEndBlock = {
@@ -1348,7 +1348,7 @@ export const RequestEndBlock = {
             message.height = 0;
         }
         return message;
-    },
+    }
 };
 const baseRequestCommit = {};
 export const RequestCommit = {
@@ -1380,7 +1380,7 @@ export const RequestCommit = {
     fromPartial(_) {
         const message = { ...baseRequestCommit };
         return message;
-    },
+    }
 };
 const baseRequestListSnapshots = {};
 export const RequestListSnapshots = {
@@ -1412,7 +1412,7 @@ export const RequestListSnapshots = {
     fromPartial(_) {
         const message = { ...baseRequestListSnapshots };
         return message;
-    },
+    }
 };
 const baseRequestOfferSnapshot = {};
 export const RequestOfferSnapshot = {
@@ -1483,7 +1483,7 @@ export const RequestOfferSnapshot = {
             message.appHash = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const baseRequestLoadSnapshotChunk = { height: 0, format: 0, chunk: 0 };
 export const RequestLoadSnapshotChunk = {
@@ -1503,7 +1503,7 @@ export const RequestLoadSnapshotChunk = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseRequestLoadSnapshotChunk,
+            ...baseRequestLoadSnapshotChunk
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -1526,7 +1526,7 @@ export const RequestLoadSnapshotChunk = {
     },
     fromJSON(object) {
         const message = {
-            ...baseRequestLoadSnapshotChunk,
+            ...baseRequestLoadSnapshotChunk
         };
         if (object.height !== undefined && object.height !== null) {
             message.height = Number(object.height);
@@ -1557,7 +1557,7 @@ export const RequestLoadSnapshotChunk = {
     },
     fromPartial(object) {
         const message = {
-            ...baseRequestLoadSnapshotChunk,
+            ...baseRequestLoadSnapshotChunk
         };
         if (object.height !== undefined && object.height !== null) {
             message.height = object.height;
@@ -1578,9 +1578,9 @@ export const RequestLoadSnapshotChunk = {
             message.chunk = 0;
         }
         return message;
-    },
+    }
 };
-const baseRequestApplySnapshotChunk = { index: 0, sender: "" };
+const baseRequestApplySnapshotChunk = { index: 0, sender: '' };
 export const RequestApplySnapshotChunk = {
     encode(message, writer = Writer.create()) {
         if (message.index !== 0) {
@@ -1589,7 +1589,7 @@ export const RequestApplySnapshotChunk = {
         if (message.chunk.length !== 0) {
             writer.uint32(18).bytes(message.chunk);
         }
-        if (message.sender !== "") {
+        if (message.sender !== '') {
             writer.uint32(26).string(message.sender);
         }
         return writer;
@@ -1598,7 +1598,7 @@ export const RequestApplySnapshotChunk = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseRequestApplySnapshotChunk,
+            ...baseRequestApplySnapshotChunk
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -1621,7 +1621,7 @@ export const RequestApplySnapshotChunk = {
     },
     fromJSON(object) {
         const message = {
-            ...baseRequestApplySnapshotChunk,
+            ...baseRequestApplySnapshotChunk
         };
         if (object.index !== undefined && object.index !== null) {
             message.index = Number(object.index);
@@ -1636,7 +1636,7 @@ export const RequestApplySnapshotChunk = {
             message.sender = String(object.sender);
         }
         else {
-            message.sender = "";
+            message.sender = '';
         }
         return message;
     },
@@ -1650,7 +1650,7 @@ export const RequestApplySnapshotChunk = {
     },
     fromPartial(object) {
         const message = {
-            ...baseRequestApplySnapshotChunk,
+            ...baseRequestApplySnapshotChunk
         };
         if (object.index !== undefined && object.index !== null) {
             message.index = object.index;
@@ -1668,10 +1668,10 @@ export const RequestApplySnapshotChunk = {
             message.sender = object.sender;
         }
         else {
-            message.sender = "";
+            message.sender = '';
         }
         return message;
-    },
+    }
 };
 const baseResponse = {};
 export const Response = {
@@ -2055,12 +2055,12 @@ export const Response = {
             message.applySnapshotChunk = undefined;
         }
         return message;
-    },
+    }
 };
-const baseResponseException = { error: "" };
+const baseResponseException = { error: '' };
 export const ResponseException = {
     encode(message, writer = Writer.create()) {
-        if (message.error !== "") {
+        if (message.error !== '') {
             writer.uint32(10).string(message.error);
         }
         return writer;
@@ -2088,7 +2088,7 @@ export const ResponseException = {
             message.error = String(object.error);
         }
         else {
-            message.error = "";
+            message.error = '';
         }
         return message;
     },
@@ -2103,15 +2103,15 @@ export const ResponseException = {
             message.error = object.error;
         }
         else {
-            message.error = "";
+            message.error = '';
         }
         return message;
-    },
+    }
 };
-const baseResponseEcho = { message: "" };
+const baseResponseEcho = { message: '' };
 export const ResponseEcho = {
     encode(message, writer = Writer.create()) {
-        if (message.message !== "") {
+        if (message.message !== '') {
             writer.uint32(10).string(message.message);
         }
         return writer;
@@ -2139,7 +2139,7 @@ export const ResponseEcho = {
             message.message = String(object.message);
         }
         else {
-            message.message = "";
+            message.message = '';
         }
         return message;
     },
@@ -2154,10 +2154,10 @@ export const ResponseEcho = {
             message.message = object.message;
         }
         else {
-            message.message = "";
+            message.message = '';
         }
         return message;
-    },
+    }
 };
 const baseResponseFlush = {};
 export const ResponseFlush = {
@@ -2189,20 +2189,20 @@ export const ResponseFlush = {
     fromPartial(_) {
         const message = { ...baseResponseFlush };
         return message;
-    },
+    }
 };
 const baseResponseInfo = {
-    data: "",
-    version: "",
+    data: '',
+    version: '',
     appVersion: 0,
-    lastBlockHeight: 0,
+    lastBlockHeight: 0
 };
 export const ResponseInfo = {
     encode(message, writer = Writer.create()) {
-        if (message.data !== "") {
+        if (message.data !== '') {
             writer.uint32(10).string(message.data);
         }
-        if (message.version !== "") {
+        if (message.version !== '') {
             writer.uint32(18).string(message.version);
         }
         if (message.appVersion !== 0) {
@@ -2251,13 +2251,13 @@ export const ResponseInfo = {
             message.data = String(object.data);
         }
         else {
-            message.data = "";
+            message.data = '';
         }
         if (object.version !== undefined && object.version !== null) {
             message.version = String(object.version);
         }
         else {
-            message.version = "";
+            message.version = '';
         }
         if (object.appVersion !== undefined && object.appVersion !== null) {
             message.appVersion = Number(object.appVersion);
@@ -2297,13 +2297,13 @@ export const ResponseInfo = {
             message.data = object.data;
         }
         else {
-            message.data = "";
+            message.data = '';
         }
         if (object.version !== undefined && object.version !== null) {
             message.version = object.version;
         }
         else {
-            message.version = "";
+            message.version = '';
         }
         if (object.appVersion !== undefined && object.appVersion !== null) {
             message.appVersion = object.appVersion;
@@ -2326,18 +2326,18 @@ export const ResponseInfo = {
             message.lastBlockAppHash = new Uint8Array();
         }
         return message;
-    },
+    }
 };
-const baseResponseSetOption = { code: 0, log: "", info: "" };
+const baseResponseSetOption = { code: 0, log: '', info: '' };
 export const ResponseSetOption = {
     encode(message, writer = Writer.create()) {
         if (message.code !== 0) {
             writer.uint32(8).uint32(message.code);
         }
-        if (message.log !== "") {
+        if (message.log !== '') {
             writer.uint32(26).string(message.log);
         }
-        if (message.info !== "") {
+        if (message.info !== '') {
             writer.uint32(34).string(message.info);
         }
         return writer;
@@ -2377,13 +2377,13 @@ export const ResponseSetOption = {
             message.log = String(object.log);
         }
         else {
-            message.log = "";
+            message.log = '';
         }
         if (object.info !== undefined && object.info !== null) {
             message.info = String(object.info);
         }
         else {
-            message.info = "";
+            message.info = '';
         }
         return message;
     },
@@ -2406,16 +2406,16 @@ export const ResponseSetOption = {
             message.log = object.log;
         }
         else {
-            message.log = "";
+            message.log = '';
         }
         if (object.info !== undefined && object.info !== null) {
             message.info = object.info;
         }
         else {
-            message.info = "";
+            message.info = '';
         }
         return message;
-    },
+    }
 };
 const baseResponseInitChain = {};
 export const ResponseInitChain = {
@@ -2513,25 +2513,25 @@ export const ResponseInitChain = {
             message.appHash = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const baseResponseQuery = {
     code: 0,
-    log: "",
-    info: "",
+    log: '',
+    info: '',
     index: 0,
     height: 0,
-    codespace: "",
+    codespace: ''
 };
 export const ResponseQuery = {
     encode(message, writer = Writer.create()) {
         if (message.code !== 0) {
             writer.uint32(8).uint32(message.code);
         }
-        if (message.log !== "") {
+        if (message.log !== '') {
             writer.uint32(26).string(message.log);
         }
-        if (message.info !== "") {
+        if (message.info !== '') {
             writer.uint32(34).string(message.info);
         }
         if (message.index !== 0) {
@@ -2549,7 +2549,7 @@ export const ResponseQuery = {
         if (message.height !== 0) {
             writer.uint32(72).int64(message.height);
         }
-        if (message.codespace !== "") {
+        if (message.codespace !== '') {
             writer.uint32(82).string(message.codespace);
         }
         return writer;
@@ -2607,13 +2607,13 @@ export const ResponseQuery = {
             message.log = String(object.log);
         }
         else {
-            message.log = "";
+            message.log = '';
         }
         if (object.info !== undefined && object.info !== null) {
             message.info = String(object.info);
         }
         else {
-            message.info = "";
+            message.info = '';
         }
         if (object.index !== undefined && object.index !== null) {
             message.index = Number(object.index);
@@ -2643,7 +2643,7 @@ export const ResponseQuery = {
             message.codespace = String(object.codespace);
         }
         else {
-            message.codespace = "";
+            message.codespace = '';
         }
         return message;
     },
@@ -2677,13 +2677,13 @@ export const ResponseQuery = {
             message.log = object.log;
         }
         else {
-            message.log = "";
+            message.log = '';
         }
         if (object.info !== undefined && object.info !== null) {
             message.info = object.info;
         }
         else {
-            message.info = "";
+            message.info = '';
         }
         if (object.index !== undefined && object.index !== null) {
             message.index = object.index;
@@ -2719,10 +2719,10 @@ export const ResponseQuery = {
             message.codespace = object.codespace;
         }
         else {
-            message.codespace = "";
+            message.codespace = '';
         }
         return message;
-    },
+    }
 };
 const baseResponseBeginBlock = {};
 export const ResponseBeginBlock = {
@@ -2779,15 +2779,15 @@ export const ResponseBeginBlock = {
             }
         }
         return message;
-    },
+    }
 };
 const baseResponseCheckTx = {
     code: 0,
-    log: "",
-    info: "",
+    log: '',
+    info: '',
     gasWanted: 0,
     gasUsed: 0,
-    codespace: "",
+    codespace: ''
 };
 export const ResponseCheckTx = {
     encode(message, writer = Writer.create()) {
@@ -2797,10 +2797,10 @@ export const ResponseCheckTx = {
         if (message.data.length !== 0) {
             writer.uint32(18).bytes(message.data);
         }
-        if (message.log !== "") {
+        if (message.log !== '') {
             writer.uint32(26).string(message.log);
         }
-        if (message.info !== "") {
+        if (message.info !== '') {
             writer.uint32(34).string(message.info);
         }
         if (message.gasWanted !== 0) {
@@ -2812,7 +2812,7 @@ export const ResponseCheckTx = {
         for (const v of message.events) {
             Event.encode(v, writer.uint32(58).fork()).ldelim();
         }
-        if (message.codespace !== "") {
+        if (message.codespace !== '') {
             writer.uint32(66).string(message.codespace);
         }
         return writer;
@@ -2872,13 +2872,13 @@ export const ResponseCheckTx = {
             message.log = String(object.log);
         }
         else {
-            message.log = "";
+            message.log = '';
         }
         if (object.info !== undefined && object.info !== null) {
             message.info = String(object.info);
         }
         else {
-            message.info = "";
+            message.info = '';
         }
         if (object.gasWanted !== undefined && object.gasWanted !== null) {
             message.gasWanted = Number(object.gasWanted);
@@ -2901,7 +2901,7 @@ export const ResponseCheckTx = {
             message.codespace = String(object.codespace);
         }
         else {
-            message.codespace = "";
+            message.codespace = '';
         }
         return message;
     },
@@ -2942,13 +2942,13 @@ export const ResponseCheckTx = {
             message.log = object.log;
         }
         else {
-            message.log = "";
+            message.log = '';
         }
         if (object.info !== undefined && object.info !== null) {
             message.info = object.info;
         }
         else {
-            message.info = "";
+            message.info = '';
         }
         if (object.gasWanted !== undefined && object.gasWanted !== null) {
             message.gasWanted = object.gasWanted;
@@ -2971,18 +2971,18 @@ export const ResponseCheckTx = {
             message.codespace = object.codespace;
         }
         else {
-            message.codespace = "";
+            message.codespace = '';
         }
         return message;
-    },
+    }
 };
 const baseResponseDeliverTx = {
     code: 0,
-    log: "",
-    info: "",
+    log: '',
+    info: '',
     gasWanted: 0,
     gasUsed: 0,
-    codespace: "",
+    codespace: ''
 };
 export const ResponseDeliverTx = {
     encode(message, writer = Writer.create()) {
@@ -2992,10 +2992,10 @@ export const ResponseDeliverTx = {
         if (message.data.length !== 0) {
             writer.uint32(18).bytes(message.data);
         }
-        if (message.log !== "") {
+        if (message.log !== '') {
             writer.uint32(26).string(message.log);
         }
-        if (message.info !== "") {
+        if (message.info !== '') {
             writer.uint32(34).string(message.info);
         }
         if (message.gasWanted !== 0) {
@@ -3007,7 +3007,7 @@ export const ResponseDeliverTx = {
         for (const v of message.events) {
             Event.encode(v, writer.uint32(58).fork()).ldelim();
         }
-        if (message.codespace !== "") {
+        if (message.codespace !== '') {
             writer.uint32(66).string(message.codespace);
         }
         return writer;
@@ -3067,13 +3067,13 @@ export const ResponseDeliverTx = {
             message.log = String(object.log);
         }
         else {
-            message.log = "";
+            message.log = '';
         }
         if (object.info !== undefined && object.info !== null) {
             message.info = String(object.info);
         }
         else {
-            message.info = "";
+            message.info = '';
         }
         if (object.gasWanted !== undefined && object.gasWanted !== null) {
             message.gasWanted = Number(object.gasWanted);
@@ -3096,7 +3096,7 @@ export const ResponseDeliverTx = {
             message.codespace = String(object.codespace);
         }
         else {
-            message.codespace = "";
+            message.codespace = '';
         }
         return message;
     },
@@ -3137,13 +3137,13 @@ export const ResponseDeliverTx = {
             message.log = object.log;
         }
         else {
-            message.log = "";
+            message.log = '';
         }
         if (object.info !== undefined && object.info !== null) {
             message.info = object.info;
         }
         else {
-            message.info = "";
+            message.info = '';
         }
         if (object.gasWanted !== undefined && object.gasWanted !== null) {
             message.gasWanted = object.gasWanted;
@@ -3166,10 +3166,10 @@ export const ResponseDeliverTx = {
             message.codespace = object.codespace;
         }
         else {
-            message.codespace = "";
+            message.codespace = '';
         }
         return message;
-    },
+    }
 };
 const baseResponseEndBlock = {};
 export const ResponseEndBlock = {
@@ -3277,7 +3277,7 @@ export const ResponseEndBlock = {
             }
         }
         return message;
-    },
+    }
 };
 const baseResponseCommit = { retainHeight: 0 };
 export const ResponseCommit = {
@@ -3346,7 +3346,7 @@ export const ResponseCommit = {
             message.retainHeight = 0;
         }
         return message;
-    },
+    }
 };
 const baseResponseListSnapshots = {};
 export const ResponseListSnapshots = {
@@ -3403,7 +3403,7 @@ export const ResponseListSnapshots = {
             }
         }
         return message;
-    },
+    }
 };
 const baseResponseOfferSnapshot = { result: 0 };
 export const ResponseOfferSnapshot = {
@@ -3455,7 +3455,7 @@ export const ResponseOfferSnapshot = {
             message.result = 0;
         }
         return message;
-    },
+    }
 };
 const baseResponseLoadSnapshotChunk = {};
 export const ResponseLoadSnapshotChunk = {
@@ -3469,7 +3469,7 @@ export const ResponseLoadSnapshotChunk = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseResponseLoadSnapshotChunk,
+            ...baseResponseLoadSnapshotChunk
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -3486,7 +3486,7 @@ export const ResponseLoadSnapshotChunk = {
     },
     fromJSON(object) {
         const message = {
-            ...baseResponseLoadSnapshotChunk,
+            ...baseResponseLoadSnapshotChunk
         };
         if (object.chunk !== undefined && object.chunk !== null) {
             message.chunk = bytesFromBase64(object.chunk);
@@ -3501,7 +3501,7 @@ export const ResponseLoadSnapshotChunk = {
     },
     fromPartial(object) {
         const message = {
-            ...baseResponseLoadSnapshotChunk,
+            ...baseResponseLoadSnapshotChunk
         };
         if (object.chunk !== undefined && object.chunk !== null) {
             message.chunk = object.chunk;
@@ -3510,12 +3510,12 @@ export const ResponseLoadSnapshotChunk = {
             message.chunk = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const baseResponseApplySnapshotChunk = {
     result: 0,
     refetchChunks: 0,
-    rejectSenders: "",
+    rejectSenders: ''
 };
 export const ResponseApplySnapshotChunk = {
     encode(message, writer = Writer.create()) {
@@ -3536,7 +3536,7 @@ export const ResponseApplySnapshotChunk = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseResponseApplySnapshotChunk,
+            ...baseResponseApplySnapshotChunk
         };
         message.refetchChunks = [];
         message.rejectSenders = [];
@@ -3569,7 +3569,7 @@ export const ResponseApplySnapshotChunk = {
     },
     fromJSON(object) {
         const message = {
-            ...baseResponseApplySnapshotChunk,
+            ...baseResponseApplySnapshotChunk
         };
         message.refetchChunks = [];
         message.rejectSenders = [];
@@ -3611,7 +3611,7 @@ export const ResponseApplySnapshotChunk = {
     },
     fromPartial(object) {
         const message = {
-            ...baseResponseApplySnapshotChunk,
+            ...baseResponseApplySnapshotChunk
         };
         message.refetchChunks = [];
         message.rejectSenders = [];
@@ -3632,7 +3632,7 @@ export const ResponseApplySnapshotChunk = {
             }
         }
         return message;
-    },
+    }
 };
 const baseConsensusParams = {};
 export const ConsensusParams = {
@@ -3752,7 +3752,7 @@ export const ConsensusParams = {
             message.version = undefined;
         }
         return message;
-    },
+    }
 };
 const baseBlockParams = { maxBytes: 0, maxGas: 0 };
 export const BlockParams = {
@@ -3822,7 +3822,7 @@ export const BlockParams = {
             message.maxGas = 0;
         }
         return message;
-    },
+    }
 };
 const baseLastCommitInfo = { round: 0 };
 export const LastCommitInfo = {
@@ -3876,7 +3876,7 @@ export const LastCommitInfo = {
         const obj = {};
         message.round !== undefined && (obj.round = message.round);
         if (message.votes) {
-            obj.votes = message.votes.map((e) => e ? VoteInfo.toJSON(e) : undefined);
+            obj.votes = message.votes.map((e) => (e ? VoteInfo.toJSON(e) : undefined));
         }
         else {
             obj.votes = [];
@@ -3898,12 +3898,12 @@ export const LastCommitInfo = {
             }
         }
         return message;
-    },
+    }
 };
-const baseEvent = { type: "" };
+const baseEvent = { type: '' };
 export const Event = {
     encode(message, writer = Writer.create()) {
-        if (message.type !== "") {
+        if (message.type !== '') {
             writer.uint32(10).string(message.type);
         }
         for (const v of message.attributes) {
@@ -3939,7 +3939,7 @@ export const Event = {
             message.type = String(object.type);
         }
         else {
-            message.type = "";
+            message.type = '';
         }
         if (object.attributes !== undefined && object.attributes !== null) {
             for (const e of object.attributes) {
@@ -3966,7 +3966,7 @@ export const Event = {
             message.type = object.type;
         }
         else {
-            message.type = "";
+            message.type = '';
         }
         if (object.attributes !== undefined && object.attributes !== null) {
             for (const e of object.attributes) {
@@ -3974,7 +3974,7 @@ export const Event = {
             }
         }
         return message;
-    },
+    }
 };
 const baseEventAttribute = { index: false };
 export const EventAttribute = {
@@ -4059,7 +4059,7 @@ export const EventAttribute = {
             message.index = false;
         }
         return message;
-    },
+    }
 };
 const baseTxResult = { height: 0, index: 0 };
 export const TxResult = {
@@ -4168,7 +4168,7 @@ export const TxResult = {
             message.result = undefined;
         }
         return message;
-    },
+    }
 };
 const baseValidator = { power: 0 };
 export const Validator = {
@@ -4236,7 +4236,7 @@ export const Validator = {
             message.power = 0;
         }
         return message;
-    },
+    }
 };
 const baseValidatorUpdate = { power: 0 };
 export const ValidatorUpdate = {
@@ -4309,7 +4309,7 @@ export const ValidatorUpdate = {
             message.power = 0;
         }
         return message;
-    },
+    }
 };
 const baseVoteInfo = { signedLastBlock: false };
 export const VoteInfo = {
@@ -4385,7 +4385,7 @@ export const VoteInfo = {
             message.signedLastBlock = false;
         }
         return message;
-    },
+    }
 };
 const baseEvidence = { type: 0, height: 0, totalVotingPower: 0 };
 export const Evidence = {
@@ -4520,7 +4520,7 @@ export const Evidence = {
             message.totalVotingPower = 0;
         }
         return message;
-    },
+    }
 };
 const baseSnapshot = { height: 0, format: 0, chunks: 0 };
 export const Snapshot = {
@@ -4643,7 +4643,7 @@ export const Snapshot = {
             message.metadata = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 export class ABCIApplicationClientImpl {
     constructor(rpc) {
@@ -4651,93 +4651,93 @@ export class ABCIApplicationClientImpl {
     }
     Echo(request) {
         const data = RequestEcho.encode(request).finish();
-        const promise = this.rpc.request("tendermint.abci.ABCIApplication", "Echo", data);
+        const promise = this.rpc.request('tendermint.abci.ABCIApplication', 'Echo', data);
         return promise.then((data) => ResponseEcho.decode(new Reader(data)));
     }
     Flush(request) {
         const data = RequestFlush.encode(request).finish();
-        const promise = this.rpc.request("tendermint.abci.ABCIApplication", "Flush", data);
+        const promise = this.rpc.request('tendermint.abci.ABCIApplication', 'Flush', data);
         return promise.then((data) => ResponseFlush.decode(new Reader(data)));
     }
     Info(request) {
         const data = RequestInfo.encode(request).finish();
-        const promise = this.rpc.request("tendermint.abci.ABCIApplication", "Info", data);
+        const promise = this.rpc.request('tendermint.abci.ABCIApplication', 'Info', data);
         return promise.then((data) => ResponseInfo.decode(new Reader(data)));
     }
     SetOption(request) {
         const data = RequestSetOption.encode(request).finish();
-        const promise = this.rpc.request("tendermint.abci.ABCIApplication", "SetOption", data);
+        const promise = this.rpc.request('tendermint.abci.ABCIApplication', 'SetOption', data);
         return promise.then((data) => ResponseSetOption.decode(new Reader(data)));
     }
     DeliverTx(request) {
         const data = RequestDeliverTx.encode(request).finish();
-        const promise = this.rpc.request("tendermint.abci.ABCIApplication", "DeliverTx", data);
+        const promise = this.rpc.request('tendermint.abci.ABCIApplication', 'DeliverTx', data);
         return promise.then((data) => ResponseDeliverTx.decode(new Reader(data)));
     }
     CheckTx(request) {
         const data = RequestCheckTx.encode(request).finish();
-        const promise = this.rpc.request("tendermint.abci.ABCIApplication", "CheckTx", data);
+        const promise = this.rpc.request('tendermint.abci.ABCIApplication', 'CheckTx', data);
         return promise.then((data) => ResponseCheckTx.decode(new Reader(data)));
     }
     Query(request) {
         const data = RequestQuery.encode(request).finish();
-        const promise = this.rpc.request("tendermint.abci.ABCIApplication", "Query", data);
+        const promise = this.rpc.request('tendermint.abci.ABCIApplication', 'Query', data);
         return promise.then((data) => ResponseQuery.decode(new Reader(data)));
     }
     Commit(request) {
         const data = RequestCommit.encode(request).finish();
-        const promise = this.rpc.request("tendermint.abci.ABCIApplication", "Commit", data);
+        const promise = this.rpc.request('tendermint.abci.ABCIApplication', 'Commit', data);
         return promise.then((data) => ResponseCommit.decode(new Reader(data)));
     }
     InitChain(request) {
         const data = RequestInitChain.encode(request).finish();
-        const promise = this.rpc.request("tendermint.abci.ABCIApplication", "InitChain", data);
+        const promise = this.rpc.request('tendermint.abci.ABCIApplication', 'InitChain', data);
         return promise.then((data) => ResponseInitChain.decode(new Reader(data)));
     }
     BeginBlock(request) {
         const data = RequestBeginBlock.encode(request).finish();
-        const promise = this.rpc.request("tendermint.abci.ABCIApplication", "BeginBlock", data);
+        const promise = this.rpc.request('tendermint.abci.ABCIApplication', 'BeginBlock', data);
         return promise.then((data) => ResponseBeginBlock.decode(new Reader(data)));
     }
     EndBlock(request) {
         const data = RequestEndBlock.encode(request).finish();
-        const promise = this.rpc.request("tendermint.abci.ABCIApplication", "EndBlock", data);
+        const promise = this.rpc.request('tendermint.abci.ABCIApplication', 'EndBlock', data);
         return promise.then((data) => ResponseEndBlock.decode(new Reader(data)));
     }
     ListSnapshots(request) {
         const data = RequestListSnapshots.encode(request).finish();
-        const promise = this.rpc.request("tendermint.abci.ABCIApplication", "ListSnapshots", data);
+        const promise = this.rpc.request('tendermint.abci.ABCIApplication', 'ListSnapshots', data);
         return promise.then((data) => ResponseListSnapshots.decode(new Reader(data)));
     }
     OfferSnapshot(request) {
         const data = RequestOfferSnapshot.encode(request).finish();
-        const promise = this.rpc.request("tendermint.abci.ABCIApplication", "OfferSnapshot", data);
+        const promise = this.rpc.request('tendermint.abci.ABCIApplication', 'OfferSnapshot', data);
         return promise.then((data) => ResponseOfferSnapshot.decode(new Reader(data)));
     }
     LoadSnapshotChunk(request) {
         const data = RequestLoadSnapshotChunk.encode(request).finish();
-        const promise = this.rpc.request("tendermint.abci.ABCIApplication", "LoadSnapshotChunk", data);
+        const promise = this.rpc.request('tendermint.abci.ABCIApplication', 'LoadSnapshotChunk', data);
         return promise.then((data) => ResponseLoadSnapshotChunk.decode(new Reader(data)));
     }
     ApplySnapshotChunk(request) {
         const data = RequestApplySnapshotChunk.encode(request).finish();
-        const promise = this.rpc.request("tendermint.abci.ABCIApplication", "ApplySnapshotChunk", data);
+        const promise = this.rpc.request('tendermint.abci.ABCIApplication', 'ApplySnapshotChunk', data);
         return promise.then((data) => ResponseApplySnapshotChunk.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -4747,13 +4747,13 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }
 function toTimestamp(date) {
     const seconds = date.getTime() / 1000;
@@ -4769,7 +4769,7 @@ function fromJsonTimestamp(o) {
     if (o instanceof Date) {
         return o;
     }
-    else if (typeof o === "string") {
+    else if (typeof o === 'string') {
         return new Date(o);
     }
     else {
@@ -4778,7 +4778,7 @@ function fromJsonTimestamp(o) {
 }
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

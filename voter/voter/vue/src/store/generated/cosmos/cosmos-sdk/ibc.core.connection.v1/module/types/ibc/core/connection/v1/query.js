@@ -1,15 +1,15 @@
 /* eslint-disable */
-import { Reader, util, configure, Writer } from "protobufjs/minimal";
-import * as Long from "long";
-import { ConnectionEnd, IdentifiedConnection, } from "../../../../ibc/core/connection/v1/connection";
-import { Height, IdentifiedClientState, } from "../../../../ibc/core/client/v1/client";
-import { PageRequest, PageResponse, } from "../../../../cosmos/base/query/v1beta1/pagination";
-import { Any } from "../../../../google/protobuf/any";
-export const protobufPackage = "ibc.core.connection.v1";
-const baseQueryConnectionRequest = { connectionId: "" };
+import { Reader, util, configure, Writer } from 'protobufjs/minimal';
+import * as Long from 'long';
+import { ConnectionEnd, IdentifiedConnection } from '../../../../ibc/core/connection/v1/connection';
+import { Height, IdentifiedClientState } from '../../../../ibc/core/client/v1/client';
+import { PageRequest, PageResponse } from '../../../../cosmos/base/query/v1beta1/pagination';
+import { Any } from '../../../../google/protobuf/any';
+export const protobufPackage = 'ibc.core.connection.v1';
+const baseQueryConnectionRequest = { connectionId: '' };
 export const QueryConnectionRequest = {
     encode(message, writer = Writer.create()) {
-        if (message.connectionId !== "") {
+        if (message.connectionId !== '') {
             writer.uint32(10).string(message.connectionId);
         }
         return writer;
@@ -37,7 +37,7 @@ export const QueryConnectionRequest = {
             message.connectionId = String(object.connectionId);
         }
         else {
-            message.connectionId = "";
+            message.connectionId = '';
         }
         return message;
     },
@@ -53,10 +53,10 @@ export const QueryConnectionRequest = {
             message.connectionId = object.connectionId;
         }
         else {
-            message.connectionId = "";
+            message.connectionId = '';
         }
         return message;
-    },
+    }
 };
 const baseQueryConnectionResponse = {};
 export const QueryConnectionResponse = {
@@ -76,7 +76,7 @@ export const QueryConnectionResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseQueryConnectionResponse,
+            ...baseQueryConnectionResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -99,7 +99,7 @@ export const QueryConnectionResponse = {
     },
     fromJSON(object) {
         const message = {
-            ...baseQueryConnectionResponse,
+            ...baseQueryConnectionResponse
         };
         if (object.connection !== undefined && object.connection !== null) {
             message.connection = ConnectionEnd.fromJSON(object.connection);
@@ -134,7 +134,7 @@ export const QueryConnectionResponse = {
     },
     fromPartial(object) {
         const message = {
-            ...baseQueryConnectionResponse,
+            ...baseQueryConnectionResponse
         };
         if (object.connection !== undefined && object.connection !== null) {
             message.connection = ConnectionEnd.fromPartial(object.connection);
@@ -155,7 +155,7 @@ export const QueryConnectionResponse = {
             message.proofHeight = undefined;
         }
         return message;
-    },
+    }
 };
 const baseQueryConnectionsRequest = {};
 export const QueryConnectionsRequest = {
@@ -169,7 +169,7 @@ export const QueryConnectionsRequest = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseQueryConnectionsRequest,
+            ...baseQueryConnectionsRequest
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -186,7 +186,7 @@ export const QueryConnectionsRequest = {
     },
     fromJSON(object) {
         const message = {
-            ...baseQueryConnectionsRequest,
+            ...baseQueryConnectionsRequest
         };
         if (object.pagination !== undefined && object.pagination !== null) {
             message.pagination = PageRequest.fromJSON(object.pagination);
@@ -206,7 +206,7 @@ export const QueryConnectionsRequest = {
     },
     fromPartial(object) {
         const message = {
-            ...baseQueryConnectionsRequest,
+            ...baseQueryConnectionsRequest
         };
         if (object.pagination !== undefined && object.pagination !== null) {
             message.pagination = PageRequest.fromPartial(object.pagination);
@@ -215,7 +215,7 @@ export const QueryConnectionsRequest = {
             message.pagination = undefined;
         }
         return message;
-    },
+    }
 };
 const baseQueryConnectionsResponse = {};
 export const QueryConnectionsResponse = {
@@ -235,7 +235,7 @@ export const QueryConnectionsResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseQueryConnectionsResponse,
+            ...baseQueryConnectionsResponse
         };
         message.connections = [];
         while (reader.pos < end) {
@@ -259,7 +259,7 @@ export const QueryConnectionsResponse = {
     },
     fromJSON(object) {
         const message = {
-            ...baseQueryConnectionsResponse,
+            ...baseQueryConnectionsResponse
         };
         message.connections = [];
         if (object.connections !== undefined && object.connections !== null) {
@@ -299,7 +299,7 @@ export const QueryConnectionsResponse = {
     },
     fromPartial(object) {
         const message = {
-            ...baseQueryConnectionsResponse,
+            ...baseQueryConnectionsResponse
         };
         message.connections = [];
         if (object.connections !== undefined && object.connections !== null) {
@@ -320,12 +320,12 @@ export const QueryConnectionsResponse = {
             message.height = undefined;
         }
         return message;
-    },
+    }
 };
-const baseQueryClientConnectionsRequest = { clientId: "" };
+const baseQueryClientConnectionsRequest = { clientId: '' };
 export const QueryClientConnectionsRequest = {
     encode(message, writer = Writer.create()) {
-        if (message.clientId !== "") {
+        if (message.clientId !== '') {
             writer.uint32(10).string(message.clientId);
         }
         return writer;
@@ -334,7 +334,7 @@ export const QueryClientConnectionsRequest = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseQueryClientConnectionsRequest,
+            ...baseQueryClientConnectionsRequest
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -351,13 +351,13 @@ export const QueryClientConnectionsRequest = {
     },
     fromJSON(object) {
         const message = {
-            ...baseQueryClientConnectionsRequest,
+            ...baseQueryClientConnectionsRequest
         };
         if (object.clientId !== undefined && object.clientId !== null) {
             message.clientId = String(object.clientId);
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         return message;
     },
@@ -368,18 +368,18 @@ export const QueryClientConnectionsRequest = {
     },
     fromPartial(object) {
         const message = {
-            ...baseQueryClientConnectionsRequest,
+            ...baseQueryClientConnectionsRequest
         };
         if (object.clientId !== undefined && object.clientId !== null) {
             message.clientId = object.clientId;
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         return message;
-    },
+    }
 };
-const baseQueryClientConnectionsResponse = { connectionPaths: "" };
+const baseQueryClientConnectionsResponse = { connectionPaths: '' };
 export const QueryClientConnectionsResponse = {
     encode(message, writer = Writer.create()) {
         for (const v of message.connectionPaths) {
@@ -397,7 +397,7 @@ export const QueryClientConnectionsResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseQueryClientConnectionsResponse,
+            ...baseQueryClientConnectionsResponse
         };
         message.connectionPaths = [];
         while (reader.pos < end) {
@@ -421,7 +421,7 @@ export const QueryClientConnectionsResponse = {
     },
     fromJSON(object) {
         const message = {
-            ...baseQueryClientConnectionsResponse,
+            ...baseQueryClientConnectionsResponse
         };
         message.connectionPaths = [];
         if (object.connectionPaths !== undefined &&
@@ -459,7 +459,7 @@ export const QueryClientConnectionsResponse = {
     },
     fromPartial(object) {
         const message = {
-            ...baseQueryClientConnectionsResponse,
+            ...baseQueryClientConnectionsResponse
         };
         message.connectionPaths = [];
         if (object.connectionPaths !== undefined &&
@@ -481,12 +481,12 @@ export const QueryClientConnectionsResponse = {
             message.proofHeight = undefined;
         }
         return message;
-    },
+    }
 };
-const baseQueryConnectionClientStateRequest = { connectionId: "" };
+const baseQueryConnectionClientStateRequest = { connectionId: '' };
 export const QueryConnectionClientStateRequest = {
     encode(message, writer = Writer.create()) {
-        if (message.connectionId !== "") {
+        if (message.connectionId !== '') {
             writer.uint32(10).string(message.connectionId);
         }
         return writer;
@@ -495,7 +495,7 @@ export const QueryConnectionClientStateRequest = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseQueryConnectionClientStateRequest,
+            ...baseQueryConnectionClientStateRequest
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -512,13 +512,13 @@ export const QueryConnectionClientStateRequest = {
     },
     fromJSON(object) {
         const message = {
-            ...baseQueryConnectionClientStateRequest,
+            ...baseQueryConnectionClientStateRequest
         };
         if (object.connectionId !== undefined && object.connectionId !== null) {
             message.connectionId = String(object.connectionId);
         }
         else {
-            message.connectionId = "";
+            message.connectionId = '';
         }
         return message;
     },
@@ -530,16 +530,16 @@ export const QueryConnectionClientStateRequest = {
     },
     fromPartial(object) {
         const message = {
-            ...baseQueryConnectionClientStateRequest,
+            ...baseQueryConnectionClientStateRequest
         };
         if (object.connectionId !== undefined && object.connectionId !== null) {
             message.connectionId = object.connectionId;
         }
         else {
-            message.connectionId = "";
+            message.connectionId = '';
         }
         return message;
-    },
+    }
 };
 const baseQueryConnectionClientStateResponse = {};
 export const QueryConnectionClientStateResponse = {
@@ -559,7 +559,7 @@ export const QueryConnectionClientStateResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseQueryConnectionClientStateResponse,
+            ...baseQueryConnectionClientStateResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -582,7 +582,7 @@ export const QueryConnectionClientStateResponse = {
     },
     fromJSON(object) {
         const message = {
-            ...baseQueryConnectionClientStateResponse,
+            ...baseQueryConnectionClientStateResponse
         };
         if (object.identifiedClientState !== undefined &&
             object.identifiedClientState !== null) {
@@ -618,7 +618,7 @@ export const QueryConnectionClientStateResponse = {
     },
     fromPartial(object) {
         const message = {
-            ...baseQueryConnectionClientStateResponse,
+            ...baseQueryConnectionClientStateResponse
         };
         if (object.identifiedClientState !== undefined &&
             object.identifiedClientState !== null) {
@@ -640,16 +640,16 @@ export const QueryConnectionClientStateResponse = {
             message.proofHeight = undefined;
         }
         return message;
-    },
+    }
 };
 const baseQueryConnectionConsensusStateRequest = {
-    connectionId: "",
+    connectionId: '',
     revisionNumber: 0,
-    revisionHeight: 0,
+    revisionHeight: 0
 };
 export const QueryConnectionConsensusStateRequest = {
     encode(message, writer = Writer.create()) {
-        if (message.connectionId !== "") {
+        if (message.connectionId !== '') {
             writer.uint32(10).string(message.connectionId);
         }
         if (message.revisionNumber !== 0) {
@@ -664,7 +664,7 @@ export const QueryConnectionConsensusStateRequest = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseQueryConnectionConsensusStateRequest,
+            ...baseQueryConnectionConsensusStateRequest
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -687,13 +687,13 @@ export const QueryConnectionConsensusStateRequest = {
     },
     fromJSON(object) {
         const message = {
-            ...baseQueryConnectionConsensusStateRequest,
+            ...baseQueryConnectionConsensusStateRequest
         };
         if (object.connectionId !== undefined && object.connectionId !== null) {
             message.connectionId = String(object.connectionId);
         }
         else {
-            message.connectionId = "";
+            message.connectionId = '';
         }
         if (object.revisionNumber !== undefined && object.revisionNumber !== null) {
             message.revisionNumber = Number(object.revisionNumber);
@@ -721,13 +721,13 @@ export const QueryConnectionConsensusStateRequest = {
     },
     fromPartial(object) {
         const message = {
-            ...baseQueryConnectionConsensusStateRequest,
+            ...baseQueryConnectionConsensusStateRequest
         };
         if (object.connectionId !== undefined && object.connectionId !== null) {
             message.connectionId = object.connectionId;
         }
         else {
-            message.connectionId = "";
+            message.connectionId = '';
         }
         if (object.revisionNumber !== undefined && object.revisionNumber !== null) {
             message.revisionNumber = object.revisionNumber;
@@ -742,15 +742,15 @@ export const QueryConnectionConsensusStateRequest = {
             message.revisionHeight = 0;
         }
         return message;
-    },
+    }
 };
-const baseQueryConnectionConsensusStateResponse = { clientId: "" };
+const baseQueryConnectionConsensusStateResponse = { clientId: '' };
 export const QueryConnectionConsensusStateResponse = {
     encode(message, writer = Writer.create()) {
         if (message.consensusState !== undefined) {
             Any.encode(message.consensusState, writer.uint32(10).fork()).ldelim();
         }
-        if (message.clientId !== "") {
+        if (message.clientId !== '') {
             writer.uint32(18).string(message.clientId);
         }
         if (message.proof.length !== 0) {
@@ -765,7 +765,7 @@ export const QueryConnectionConsensusStateResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseQueryConnectionConsensusStateResponse,
+            ...baseQueryConnectionConsensusStateResponse
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -791,7 +791,7 @@ export const QueryConnectionConsensusStateResponse = {
     },
     fromJSON(object) {
         const message = {
-            ...baseQueryConnectionConsensusStateResponse,
+            ...baseQueryConnectionConsensusStateResponse
         };
         if (object.consensusState !== undefined && object.consensusState !== null) {
             message.consensusState = Any.fromJSON(object.consensusState);
@@ -803,7 +803,7 @@ export const QueryConnectionConsensusStateResponse = {
             message.clientId = String(object.clientId);
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.proof !== undefined && object.proof !== null) {
             message.proof = bytesFromBase64(object.proof);
@@ -833,7 +833,7 @@ export const QueryConnectionConsensusStateResponse = {
     },
     fromPartial(object) {
         const message = {
-            ...baseQueryConnectionConsensusStateResponse,
+            ...baseQueryConnectionConsensusStateResponse
         };
         if (object.consensusState !== undefined && object.consensusState !== null) {
             message.consensusState = Any.fromPartial(object.consensusState);
@@ -845,7 +845,7 @@ export const QueryConnectionConsensusStateResponse = {
             message.clientId = object.clientId;
         }
         else {
-            message.clientId = "";
+            message.clientId = '';
         }
         if (object.proof !== undefined && object.proof !== null) {
             message.proof = object.proof;
@@ -860,7 +860,7 @@ export const QueryConnectionConsensusStateResponse = {
             message.proofHeight = undefined;
         }
         return message;
-    },
+    }
 };
 export class QueryClientImpl {
     constructor(rpc) {
@@ -868,43 +868,43 @@ export class QueryClientImpl {
     }
     Connection(request) {
         const data = QueryConnectionRequest.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.connection.v1.Query", "Connection", data);
+        const promise = this.rpc.request('ibc.core.connection.v1.Query', 'Connection', data);
         return promise.then((data) => QueryConnectionResponse.decode(new Reader(data)));
     }
     Connections(request) {
         const data = QueryConnectionsRequest.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.connection.v1.Query", "Connections", data);
+        const promise = this.rpc.request('ibc.core.connection.v1.Query', 'Connections', data);
         return promise.then((data) => QueryConnectionsResponse.decode(new Reader(data)));
     }
     ClientConnections(request) {
         const data = QueryClientConnectionsRequest.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.connection.v1.Query", "ClientConnections", data);
+        const promise = this.rpc.request('ibc.core.connection.v1.Query', 'ClientConnections', data);
         return promise.then((data) => QueryClientConnectionsResponse.decode(new Reader(data)));
     }
     ConnectionClientState(request) {
         const data = QueryConnectionClientStateRequest.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.connection.v1.Query", "ConnectionClientState", data);
+        const promise = this.rpc.request('ibc.core.connection.v1.Query', 'ConnectionClientState', data);
         return promise.then((data) => QueryConnectionClientStateResponse.decode(new Reader(data)));
     }
     ConnectionConsensusState(request) {
         const data = QueryConnectionConsensusStateRequest.encode(request).finish();
-        const promise = this.rpc.request("ibc.core.connection.v1.Query", "ConnectionConsensusState", data);
+        const promise = this.rpc.request('ibc.core.connection.v1.Query', 'ConnectionConsensusState', data);
         return promise.then((data) => QueryConnectionConsensusStateResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -914,17 +914,17 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

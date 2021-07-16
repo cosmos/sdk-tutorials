@@ -1,7 +1,7 @@
-import { Reader, Writer } from "protobufjs/minimal";
-import { Any } from "../../../../google/protobuf/any";
-import { Height, IdentifiedClientState, ConsensusStateWithHeight, Params } from "../../../../ibc/core/client/v1/client";
-import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
+import { Reader, Writer } from 'protobufjs/minimal';
+import { Any } from '../../../../google/protobuf/any';
+import { Height, IdentifiedClientState, ConsensusStateWithHeight, Params } from '../../../../ibc/core/client/v1/client';
+import { PageRequest, PageResponse } from '../../../../cosmos/base/query/v1beta1/pagination';
 export declare const protobufPackage = "ibc.core.client.v1";
 /**
  * QueryClientStateRequest is the request type for the Query/ClientState RPC

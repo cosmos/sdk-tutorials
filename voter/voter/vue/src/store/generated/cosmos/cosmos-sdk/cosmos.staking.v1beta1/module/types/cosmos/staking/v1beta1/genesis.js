@@ -1,8 +1,8 @@
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { Params, Validator, Delegation, UnbondingDelegation, Redelegation, } from "../../../cosmos/staking/v1beta1/staking";
-export const protobufPackage = "cosmos.staking.v1beta1";
+import * as Long from 'long';
+import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { Params, Validator, Delegation, UnbondingDelegation, Redelegation } from '../../../cosmos/staking/v1beta1/staking';
+export const protobufPackage = 'cosmos.staking.v1beta1';
 const baseGenesisState = { exported: false };
 export const GenesisState = {
     encode(message, writer = Writer.create()) {
@@ -220,12 +220,12 @@ export const GenesisState = {
             message.exported = false;
         }
         return message;
-    },
+    }
 };
-const baseLastValidatorPower = { address: "", power: 0 };
+const baseLastValidatorPower = { address: '', power: 0 };
 export const LastValidatorPower = {
     encode(message, writer = Writer.create()) {
-        if (message.address !== "") {
+        if (message.address !== '') {
             writer.uint32(10).string(message.address);
         }
         if (message.power !== 0) {
@@ -259,7 +259,7 @@ export const LastValidatorPower = {
             message.address = String(object.address);
         }
         else {
-            message.address = "";
+            message.address = '';
         }
         if (object.power !== undefined && object.power !== null) {
             message.power = Number(object.power);
@@ -281,7 +281,7 @@ export const LastValidatorPower = {
             message.address = object.address;
         }
         else {
-            message.address = "";
+            message.address = '';
         }
         if (object.power !== undefined && object.power !== null) {
             message.power = object.power;
@@ -290,21 +290,21 @@ export const LastValidatorPower = {
             message.power = 0;
         }
         return message;
-    },
+    }
 };
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -314,17 +314,17 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

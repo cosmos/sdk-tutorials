@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { CommitmentProof } from "../../../../confio/proofs";
-import { Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "ibc.core.commitment.v1";
+import { CommitmentProof } from '../../../../confio/proofs';
+import { Writer, Reader } from 'protobufjs/minimal';
+export const protobufPackage = 'ibc.core.commitment.v1';
 const baseMerkleRoot = {};
 export const MerkleRoot = {
     encode(message, writer = Writer.create()) {
@@ -49,7 +49,7 @@ export const MerkleRoot = {
             message.hash = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const baseMerklePrefix = {};
 export const MerklePrefix = {
@@ -98,9 +98,9 @@ export const MerklePrefix = {
             message.keyPrefix = new Uint8Array();
         }
         return message;
-    },
+    }
 };
-const baseMerklePath = { keyPath: "" };
+const baseMerklePath = { keyPath: '' };
 export const MerklePath = {
     encode(message, writer = Writer.create()) {
         for (const v of message.keyPath) {
@@ -155,7 +155,7 @@ export const MerklePath = {
             }
         }
         return message;
-    },
+    }
 };
 const baseMerkleProof = {};
 export const MerkleProof = {
@@ -212,21 +212,21 @@ export const MerkleProof = {
             }
         }
         return message;
-    },
+    }
 };
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -236,11 +236,11 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }

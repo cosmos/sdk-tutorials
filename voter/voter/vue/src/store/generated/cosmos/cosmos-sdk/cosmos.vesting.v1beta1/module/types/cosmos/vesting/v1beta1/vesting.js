@@ -1,9 +1,9 @@
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { BaseAccount } from "../../../cosmos/auth/v1beta1/auth";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-export const protobufPackage = "cosmos.vesting.v1beta1";
+import * as Long from 'long';
+import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { BaseAccount } from '../../../cosmos/auth/v1beta1/auth';
+import { Coin } from '../../../cosmos/base/v1beta1/coin';
+export const protobufPackage = 'cosmos.vesting.v1beta1';
 const baseBaseVestingAccount = { endTime: 0 };
 export const BaseVestingAccount = {
     encode(message, writer = Writer.create()) {
@@ -154,7 +154,7 @@ export const BaseVestingAccount = {
             message.endTime = 0;
         }
         return message;
-    },
+    }
 };
 const baseContinuousVestingAccount = { startTime: 0 };
 export const ContinuousVestingAccount = {
@@ -171,7 +171,7 @@ export const ContinuousVestingAccount = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseContinuousVestingAccount,
+            ...baseContinuousVestingAccount
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -191,7 +191,7 @@ export const ContinuousVestingAccount = {
     },
     fromJSON(object) {
         const message = {
-            ...baseContinuousVestingAccount,
+            ...baseContinuousVestingAccount
         };
         if (object.baseVestingAccount !== undefined &&
             object.baseVestingAccount !== null) {
@@ -219,7 +219,7 @@ export const ContinuousVestingAccount = {
     },
     fromPartial(object) {
         const message = {
-            ...baseContinuousVestingAccount,
+            ...baseContinuousVestingAccount
         };
         if (object.baseVestingAccount !== undefined &&
             object.baseVestingAccount !== null) {
@@ -235,7 +235,7 @@ export const ContinuousVestingAccount = {
             message.startTime = 0;
         }
         return message;
-    },
+    }
 };
 const baseDelayedVestingAccount = {};
 export const DelayedVestingAccount = {
@@ -291,7 +291,7 @@ export const DelayedVestingAccount = {
             message.baseVestingAccount = undefined;
         }
         return message;
-    },
+    }
 };
 const basePeriod = { length: 0 };
 export const Period = {
@@ -367,7 +367,7 @@ export const Period = {
             }
         }
         return message;
-    },
+    }
 };
 const basePeriodicVestingAccount = { startTime: 0 };
 export const PeriodicVestingAccount = {
@@ -467,22 +467,22 @@ export const PeriodicVestingAccount = {
             }
         }
         return message;
-    },
+    }
 };
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

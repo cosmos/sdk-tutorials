@@ -1,8 +1,8 @@
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { IdentifiedChannel, PacketState, } from "../../../../ibc/core/channel/v1/channel";
-export const protobufPackage = "ibc.core.channel.v1";
+import * as Long from 'long';
+import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { IdentifiedChannel, PacketState } from '../../../../ibc/core/channel/v1/channel';
+export const protobufPackage = 'ibc.core.channel.v1';
 const baseGenesisState = { nextChannelSequence: 0 };
 export const GenesisState = {
     encode(message, writer = Writer.create()) {
@@ -232,15 +232,15 @@ export const GenesisState = {
             message.nextChannelSequence = 0;
         }
         return message;
-    },
+    }
 };
-const basePacketSequence = { portId: "", channelId: "", sequence: 0 };
+const basePacketSequence = { portId: '', channelId: '', sequence: 0 };
 export const PacketSequence = {
     encode(message, writer = Writer.create()) {
-        if (message.portId !== "") {
+        if (message.portId !== '') {
             writer.uint32(10).string(message.portId);
         }
-        if (message.channelId !== "") {
+        if (message.channelId !== '') {
             writer.uint32(18).string(message.channelId);
         }
         if (message.sequence !== 0) {
@@ -277,13 +277,13 @@ export const PacketSequence = {
             message.portId = String(object.portId);
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = String(object.channelId);
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         if (object.sequence !== undefined && object.sequence !== null) {
             message.sequence = Number(object.sequence);
@@ -306,13 +306,13 @@ export const PacketSequence = {
             message.portId = object.portId;
         }
         else {
-            message.portId = "";
+            message.portId = '';
         }
         if (object.channelId !== undefined && object.channelId !== null) {
             message.channelId = object.channelId;
         }
         else {
-            message.channelId = "";
+            message.channelId = '';
         }
         if (object.sequence !== undefined && object.sequence !== null) {
             message.sequence = object.sequence;
@@ -321,22 +321,22 @@ export const PacketSequence = {
             message.sequence = 0;
         }
         return message;
-    },
+    }
 };
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

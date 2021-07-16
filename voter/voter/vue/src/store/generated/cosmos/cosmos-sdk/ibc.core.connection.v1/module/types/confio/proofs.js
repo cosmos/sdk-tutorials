@@ -1,6 +1,6 @@
 /* eslint-disable */
-import { Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "ics23";
+import { Writer, Reader } from 'protobufjs/minimal';
+export const protobufPackage = 'ics23';
 export var HashOp;
 (function (HashOp) {
     /** NO_HASH - NO_HASH is the default if no data passed. Note this is an illegal argument some places. */
@@ -16,25 +16,25 @@ export var HashOp;
 export function hashOpFromJSON(object) {
     switch (object) {
         case 0:
-        case "NO_HASH":
+        case 'NO_HASH':
             return HashOp.NO_HASH;
         case 1:
-        case "SHA256":
+        case 'SHA256':
             return HashOp.SHA256;
         case 2:
-        case "SHA512":
+        case 'SHA512':
             return HashOp.SHA512;
         case 3:
-        case "KECCAK":
+        case 'KECCAK':
             return HashOp.KECCAK;
         case 4:
-        case "RIPEMD160":
+        case 'RIPEMD160':
             return HashOp.RIPEMD160;
         case 5:
-        case "BITCOIN":
+        case 'BITCOIN':
             return HashOp.BITCOIN;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return HashOp.UNRECOGNIZED;
     }
@@ -42,19 +42,19 @@ export function hashOpFromJSON(object) {
 export function hashOpToJSON(object) {
     switch (object) {
         case HashOp.NO_HASH:
-            return "NO_HASH";
+            return 'NO_HASH';
         case HashOp.SHA256:
-            return "SHA256";
+            return 'SHA256';
         case HashOp.SHA512:
-            return "SHA512";
+            return 'SHA512';
         case HashOp.KECCAK:
-            return "KECCAK";
+            return 'KECCAK';
         case HashOp.RIPEMD160:
-            return "RIPEMD160";
+            return 'RIPEMD160';
         case HashOp.BITCOIN:
-            return "BITCOIN";
+            return 'BITCOIN';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 /**
@@ -88,34 +88,34 @@ export var LengthOp;
 export function lengthOpFromJSON(object) {
     switch (object) {
         case 0:
-        case "NO_PREFIX":
+        case 'NO_PREFIX':
             return LengthOp.NO_PREFIX;
         case 1:
-        case "VAR_PROTO":
+        case 'VAR_PROTO':
             return LengthOp.VAR_PROTO;
         case 2:
-        case "VAR_RLP":
+        case 'VAR_RLP':
             return LengthOp.VAR_RLP;
         case 3:
-        case "FIXED32_BIG":
+        case 'FIXED32_BIG':
             return LengthOp.FIXED32_BIG;
         case 4:
-        case "FIXED32_LITTLE":
+        case 'FIXED32_LITTLE':
             return LengthOp.FIXED32_LITTLE;
         case 5:
-        case "FIXED64_BIG":
+        case 'FIXED64_BIG':
             return LengthOp.FIXED64_BIG;
         case 6:
-        case "FIXED64_LITTLE":
+        case 'FIXED64_LITTLE':
             return LengthOp.FIXED64_LITTLE;
         case 7:
-        case "REQUIRE_32_BYTES":
+        case 'REQUIRE_32_BYTES':
             return LengthOp.REQUIRE_32_BYTES;
         case 8:
-        case "REQUIRE_64_BYTES":
+        case 'REQUIRE_64_BYTES':
             return LengthOp.REQUIRE_64_BYTES;
         case -1:
-        case "UNRECOGNIZED":
+        case 'UNRECOGNIZED':
         default:
             return LengthOp.UNRECOGNIZED;
     }
@@ -123,25 +123,25 @@ export function lengthOpFromJSON(object) {
 export function lengthOpToJSON(object) {
     switch (object) {
         case LengthOp.NO_PREFIX:
-            return "NO_PREFIX";
+            return 'NO_PREFIX';
         case LengthOp.VAR_PROTO:
-            return "VAR_PROTO";
+            return 'VAR_PROTO';
         case LengthOp.VAR_RLP:
-            return "VAR_RLP";
+            return 'VAR_RLP';
         case LengthOp.FIXED32_BIG:
-            return "FIXED32_BIG";
+            return 'FIXED32_BIG';
         case LengthOp.FIXED32_LITTLE:
-            return "FIXED32_LITTLE";
+            return 'FIXED32_LITTLE';
         case LengthOp.FIXED64_BIG:
-            return "FIXED64_BIG";
+            return 'FIXED64_BIG';
         case LengthOp.FIXED64_LITTLE:
-            return "FIXED64_LITTLE";
+            return 'FIXED64_LITTLE';
         case LengthOp.REQUIRE_32_BYTES:
-            return "REQUIRE_32_BYTES";
+            return 'REQUIRE_32_BYTES';
         case LengthOp.REQUIRE_64_BYTES:
-            return "REQUIRE_64_BYTES";
+            return 'REQUIRE_64_BYTES';
         default:
-            return "UNKNOWN";
+            return 'UNKNOWN';
     }
 }
 const baseExistenceProof = {};
@@ -253,7 +253,7 @@ export const ExistenceProof = {
             }
         }
         return message;
-    },
+    }
 };
 const baseNonExistenceProof = {};
 export const NonExistenceProof = {
@@ -346,7 +346,7 @@ export const NonExistenceProof = {
             message.right = undefined;
         }
         return message;
-    },
+    }
 };
 const baseCommitmentProof = {};
 export const CommitmentProof = {
@@ -430,9 +430,7 @@ export const CommitmentProof = {
                 ? NonExistenceProof.toJSON(message.nonexist)
                 : undefined);
         message.batch !== undefined &&
-            (obj.batch = message.batch
-                ? BatchProof.toJSON(message.batch)
-                : undefined);
+            (obj.batch = message.batch ? BatchProof.toJSON(message.batch) : undefined);
         message.compressed !== undefined &&
             (obj.compressed = message.compressed
                 ? CompressedBatchProof.toJSON(message.compressed)
@@ -466,13 +464,13 @@ export const CommitmentProof = {
             message.compressed = undefined;
         }
         return message;
-    },
+    }
 };
 const baseLeafOp = {
     hash: 0,
     prehashKey: 0,
     prehashValue: 0,
-    length: 0,
+    length: 0
 };
 export const LeafOp = {
     encode(message, writer = Writer.create()) {
@@ -599,7 +597,7 @@ export const LeafOp = {
             message.prefix = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const baseInnerOp = { hash: 0 };
 export const InnerOp = {
@@ -684,7 +682,7 @@ export const InnerOp = {
             message.suffix = new Uint8Array();
         }
         return message;
-    },
+    }
 };
 const baseProofSpec = { maxDepth: 0, minDepth: 0 };
 export const ProofSpec = {
@@ -798,14 +796,14 @@ export const ProofSpec = {
             message.minDepth = 0;
         }
         return message;
-    },
+    }
 };
 const baseInnerSpec = {
     childOrder: 0,
     childSize: 0,
     minPrefixLength: 0,
     maxPrefixLength: 0,
-    hash: 0,
+    hash: 0
 };
 export const InnerSpec = {
     encode(message, writer = Writer.create()) {
@@ -970,7 +968,7 @@ export const InnerSpec = {
             message.hash = 0;
         }
         return message;
-    },
+    }
 };
 const baseBatchProof = {};
 export const BatchProof = {
@@ -1027,7 +1025,7 @@ export const BatchProof = {
             }
         }
         return message;
-    },
+    }
 };
 const baseBatchEntry = {};
 export const BatchEntry = {
@@ -1103,7 +1101,7 @@ export const BatchEntry = {
             message.nonexist = undefined;
         }
         return message;
-    },
+    }
 };
 const baseCompressedBatchProof = {};
 export const CompressedBatchProof = {
@@ -1185,7 +1183,7 @@ export const CompressedBatchProof = {
             }
         }
         return message;
-    },
+    }
 };
 const baseCompressedBatchEntry = {};
 export const CompressedBatchEntry = {
@@ -1261,7 +1259,7 @@ export const CompressedBatchEntry = {
             message.nonexist = undefined;
         }
         return message;
-    },
+    }
 };
 const baseCompressedExistenceProof = { path: 0 };
 export const CompressedExistenceProof = {
@@ -1286,7 +1284,7 @@ export const CompressedExistenceProof = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseCompressedExistenceProof,
+            ...baseCompressedExistenceProof
         };
         message.path = [];
         while (reader.pos < end) {
@@ -1321,7 +1319,7 @@ export const CompressedExistenceProof = {
     },
     fromJSON(object) {
         const message = {
-            ...baseCompressedExistenceProof,
+            ...baseCompressedExistenceProof
         };
         message.path = [];
         if (object.key !== undefined && object.key !== null) {
@@ -1361,7 +1359,7 @@ export const CompressedExistenceProof = {
     },
     fromPartial(object) {
         const message = {
-            ...baseCompressedExistenceProof,
+            ...baseCompressedExistenceProof
         };
         message.path = [];
         if (object.key !== undefined && object.key !== null) {
@@ -1388,7 +1386,7 @@ export const CompressedExistenceProof = {
             }
         }
         return message;
-    },
+    }
 };
 const baseCompressedNonExistenceProof = {};
 export const CompressedNonExistenceProof = {
@@ -1408,7 +1406,7 @@ export const CompressedNonExistenceProof = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseCompressedNonExistenceProof,
+            ...baseCompressedNonExistenceProof
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -1431,7 +1429,7 @@ export const CompressedNonExistenceProof = {
     },
     fromJSON(object) {
         const message = {
-            ...baseCompressedNonExistenceProof,
+            ...baseCompressedNonExistenceProof
         };
         if (object.key !== undefined && object.key !== null) {
             message.key = bytesFromBase64(object.key);
@@ -1466,7 +1464,7 @@ export const CompressedNonExistenceProof = {
     },
     fromPartial(object) {
         const message = {
-            ...baseCompressedNonExistenceProof,
+            ...baseCompressedNonExistenceProof
         };
         if (object.key !== undefined && object.key !== null) {
             message.key = object.key;
@@ -1487,21 +1485,21 @@ export const CompressedNonExistenceProof = {
             message.right = undefined;
         }
         return message;
-    },
+    }
 };
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+    ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64) {
     const bin = atob(b64);
     const arr = new Uint8Array(bin.length);
@@ -1511,11 +1509,11 @@ function bytesFromBase64(b64) {
     return arr;
 }
 const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+    ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr) {
     const bin = [];
     for (let i = 0; i < arr.byteLength; ++i) {
         bin.push(String.fromCharCode(arr[i]));
     }
-    return btoa(bin.join(""));
+    return btoa(bin.join(''));
 }

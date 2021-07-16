@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/username/voter/x/voter/types"
+	"github.com/cosmonaut/voter/x/voter/types"
 )
 
 type msgServer struct {

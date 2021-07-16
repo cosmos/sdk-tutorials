@@ -1,5 +1,5 @@
-import { Writer, Reader } from "protobufjs/minimal";
-import { IdentifiedClientState, ClientConsensusStates, Params } from "../../../../ibc/core/client/v1/client";
+import { Writer, Reader } from 'protobufjs/minimal';
+import { IdentifiedClientState, ClientConsensusStates, Params } from '../../../../ibc/core/client/v1/client';
 export declare const protobufPackage = "ibc.core.client.v1";
 /** GenesisState defines the ibc client submodule's genesis state. */
 export interface GenesisState {

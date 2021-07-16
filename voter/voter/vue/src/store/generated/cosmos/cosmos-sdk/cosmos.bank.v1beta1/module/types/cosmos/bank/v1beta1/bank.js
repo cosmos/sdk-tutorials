@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "cosmos.bank.v1beta1";
+import { Coin } from '../../../cosmos/base/v1beta1/coin';
+import { Writer, Reader } from 'protobufjs/minimal';
+export const protobufPackage = 'cosmos.bank.v1beta1';
 const baseParams = { defaultSendEnabled: false };
 export const Params = {
     encode(message, writer = Writer.create()) {
@@ -79,12 +79,12 @@ export const Params = {
             message.defaultSendEnabled = false;
         }
         return message;
-    },
+    }
 };
-const baseSendEnabled = { denom: "", enabled: false };
+const baseSendEnabled = { denom: '', enabled: false };
 export const SendEnabled = {
     encode(message, writer = Writer.create()) {
-        if (message.denom !== "") {
+        if (message.denom !== '') {
             writer.uint32(10).string(message.denom);
         }
         if (message.enabled === true) {
@@ -118,7 +118,7 @@ export const SendEnabled = {
             message.denom = String(object.denom);
         }
         else {
-            message.denom = "";
+            message.denom = '';
         }
         if (object.enabled !== undefined && object.enabled !== null) {
             message.enabled = Boolean(object.enabled);
@@ -140,7 +140,7 @@ export const SendEnabled = {
             message.denom = object.denom;
         }
         else {
-            message.denom = "";
+            message.denom = '';
         }
         if (object.enabled !== undefined && object.enabled !== null) {
             message.enabled = object.enabled;
@@ -149,12 +149,12 @@ export const SendEnabled = {
             message.enabled = false;
         }
         return message;
-    },
+    }
 };
-const baseInput = { address: "" };
+const baseInput = { address: '' };
 export const Input = {
     encode(message, writer = Writer.create()) {
-        if (message.address !== "") {
+        if (message.address !== '') {
             writer.uint32(10).string(message.address);
         }
         for (const v of message.coins) {
@@ -190,7 +190,7 @@ export const Input = {
             message.address = String(object.address);
         }
         else {
-            message.address = "";
+            message.address = '';
         }
         if (object.coins !== undefined && object.coins !== null) {
             for (const e of object.coins) {
@@ -217,7 +217,7 @@ export const Input = {
             message.address = object.address;
         }
         else {
-            message.address = "";
+            message.address = '';
         }
         if (object.coins !== undefined && object.coins !== null) {
             for (const e of object.coins) {
@@ -225,12 +225,12 @@ export const Input = {
             }
         }
         return message;
-    },
+    }
 };
-const baseOutput = { address: "" };
+const baseOutput = { address: '' };
 export const Output = {
     encode(message, writer = Writer.create()) {
-        if (message.address !== "") {
+        if (message.address !== '') {
             writer.uint32(10).string(message.address);
         }
         for (const v of message.coins) {
@@ -266,7 +266,7 @@ export const Output = {
             message.address = String(object.address);
         }
         else {
-            message.address = "";
+            message.address = '';
         }
         if (object.coins !== undefined && object.coins !== null) {
             for (const e of object.coins) {
@@ -293,7 +293,7 @@ export const Output = {
             message.address = object.address;
         }
         else {
-            message.address = "";
+            message.address = '';
         }
         if (object.coins !== undefined && object.coins !== null) {
             for (const e of object.coins) {
@@ -301,7 +301,7 @@ export const Output = {
             }
         }
         return message;
-    },
+    }
 };
 const baseSupply = {};
 export const Supply = {
@@ -358,12 +358,12 @@ export const Supply = {
             }
         }
         return message;
-    },
+    }
 };
-const baseDenomUnit = { denom: "", exponent: 0, aliases: "" };
+const baseDenomUnit = { denom: '', exponent: 0, aliases: '' };
 export const DenomUnit = {
     encode(message, writer = Writer.create()) {
-        if (message.denom !== "") {
+        if (message.denom !== '') {
             writer.uint32(10).string(message.denom);
         }
         if (message.exponent !== 0) {
@@ -405,7 +405,7 @@ export const DenomUnit = {
             message.denom = String(object.denom);
         }
         else {
-            message.denom = "";
+            message.denom = '';
         }
         if (object.exponent !== undefined && object.exponent !== null) {
             message.exponent = Number(object.exponent);
@@ -439,7 +439,7 @@ export const DenomUnit = {
             message.denom = object.denom;
         }
         else {
-            message.denom = "";
+            message.denom = '';
         }
         if (object.exponent !== undefined && object.exponent !== null) {
             message.exponent = object.exponent;
@@ -453,21 +453,21 @@ export const DenomUnit = {
             }
         }
         return message;
-    },
+    }
 };
-const baseMetadata = { description: "", base: "", display: "" };
+const baseMetadata = { description: '', base: '', display: '' };
 export const Metadata = {
     encode(message, writer = Writer.create()) {
-        if (message.description !== "") {
+        if (message.description !== '') {
             writer.uint32(10).string(message.description);
         }
         for (const v of message.denomUnits) {
             DenomUnit.encode(v, writer.uint32(18).fork()).ldelim();
         }
-        if (message.base !== "") {
+        if (message.base !== '') {
             writer.uint32(26).string(message.base);
         }
-        if (message.display !== "") {
+        if (message.display !== '') {
             writer.uint32(34).string(message.display);
         }
         return writer;
@@ -506,7 +506,7 @@ export const Metadata = {
             message.description = String(object.description);
         }
         else {
-            message.description = "";
+            message.description = '';
         }
         if (object.denomUnits !== undefined && object.denomUnits !== null) {
             for (const e of object.denomUnits) {
@@ -517,20 +517,19 @@ export const Metadata = {
             message.base = String(object.base);
         }
         else {
-            message.base = "";
+            message.base = '';
         }
         if (object.display !== undefined && object.display !== null) {
             message.display = String(object.display);
         }
         else {
-            message.display = "";
+            message.display = '';
         }
         return message;
     },
     toJSON(message) {
         const obj = {};
-        message.description !== undefined &&
-            (obj.description = message.description);
+        message.description !== undefined && (obj.description = message.description);
         if (message.denomUnits) {
             obj.denomUnits = message.denomUnits.map((e) => e ? DenomUnit.toJSON(e) : undefined);
         }
@@ -548,7 +547,7 @@ export const Metadata = {
             message.description = object.description;
         }
         else {
-            message.description = "";
+            message.description = '';
         }
         if (object.denomUnits !== undefined && object.denomUnits !== null) {
             for (const e of object.denomUnits) {
@@ -559,14 +558,14 @@ export const Metadata = {
             message.base = object.base;
         }
         else {
-            message.base = "";
+            message.base = '';
         }
         if (object.display !== undefined && object.display !== null) {
             message.display = object.display;
         }
         else {
-            message.display = "";
+            message.display = '';
         }
         return message;
-    },
+    }
 };

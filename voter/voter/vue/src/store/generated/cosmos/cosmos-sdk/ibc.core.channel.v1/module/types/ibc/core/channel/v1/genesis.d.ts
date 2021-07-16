@@ -1,5 +1,5 @@
-import { Writer, Reader } from "protobufjs/minimal";
-import { IdentifiedChannel, PacketState } from "../../../../ibc/core/channel/v1/channel";
+import { Writer, Reader } from 'protobufjs/minimal';
+import { IdentifiedChannel, PacketState } from '../../../../ibc/core/channel/v1/channel';
 export declare const protobufPackage = "ibc.core.channel.v1";
 /** GenesisState defines the ibc channel submodule's genesis state. */
 export interface GenesisState {

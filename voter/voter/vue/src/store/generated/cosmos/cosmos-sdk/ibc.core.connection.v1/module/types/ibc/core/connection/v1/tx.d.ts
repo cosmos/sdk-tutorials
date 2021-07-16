@@ -1,7 +1,7 @@
-import { Reader, Writer } from "protobufjs/minimal";
-import { Counterparty, Version } from "../../../../ibc/core/connection/v1/connection";
-import { Any } from "../../../../google/protobuf/any";
-import { Height } from "../../../../ibc/core/client/v1/client";
+import { Reader, Writer } from 'protobufjs/minimal';
+import { Counterparty, Version } from '../../../../ibc/core/connection/v1/connection';
+import { Any } from '../../../../google/protobuf/any';
+import { Height } from '../../../../ibc/core/client/v1/client';
 export declare const protobufPackage = "ibc.core.connection.v1";
 /**
  * MsgConnectionOpenInit defines the msg sent by an account on Chain A to

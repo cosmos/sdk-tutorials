@@ -1,5 +1,5 @@
-import { Reader, Writer } from "protobufjs/minimal";
-import { Any } from "../../../../google/protobuf/any";
+import { Reader, Writer } from 'protobufjs/minimal';
+import { Any } from '../../../../google/protobuf/any';
 export declare const protobufPackage = "ibc.core.client.v1";
 /** MsgCreateClient defines a message to create an IBC client */
 export interface MsgCreateClient {

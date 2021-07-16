@@ -1,12 +1,12 @@
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { Any } from "../../../google/protobuf/any";
-export const protobufPackage = "cosmos.auth.v1beta1";
-const baseBaseAccount = { address: "", accountNumber: 0, sequence: 0 };
+import * as Long from 'long';
+import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { Any } from '../../../google/protobuf/any';
+export const protobufPackage = 'cosmos.auth.v1beta1';
+const baseBaseAccount = { address: '', accountNumber: 0, sequence: 0 };
 export const BaseAccount = {
     encode(message, writer = Writer.create()) {
-        if (message.address !== "") {
+        if (message.address !== '') {
             writer.uint32(10).string(message.address);
         }
         if (message.pubKey !== undefined) {
@@ -52,7 +52,7 @@ export const BaseAccount = {
             message.address = String(object.address);
         }
         else {
-            message.address = "";
+            message.address = '';
         }
         if (object.pubKey !== undefined && object.pubKey !== null) {
             message.pubKey = Any.fromJSON(object.pubKey);
@@ -90,7 +90,7 @@ export const BaseAccount = {
             message.address = object.address;
         }
         else {
-            message.address = "";
+            message.address = '';
         }
         if (object.pubKey !== undefined && object.pubKey !== null) {
             message.pubKey = Any.fromPartial(object.pubKey);
@@ -111,15 +111,15 @@ export const BaseAccount = {
             message.sequence = 0;
         }
         return message;
-    },
+    }
 };
-const baseModuleAccount = { name: "", permissions: "" };
+const baseModuleAccount = { name: '', permissions: '' };
 export const ModuleAccount = {
     encode(message, writer = Writer.create()) {
         if (message.baseAccount !== undefined) {
             BaseAccount.encode(message.baseAccount, writer.uint32(10).fork()).ldelim();
         }
-        if (message.name !== "") {
+        if (message.name !== '') {
             writer.uint32(18).string(message.name);
         }
         for (const v of message.permissions) {
@@ -164,7 +164,7 @@ export const ModuleAccount = {
             message.name = String(object.name);
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.permissions !== undefined && object.permissions !== null) {
             for (const e of object.permissions) {
@@ -201,7 +201,7 @@ export const ModuleAccount = {
             message.name = object.name;
         }
         else {
-            message.name = "";
+            message.name = '';
         }
         if (object.permissions !== undefined && object.permissions !== null) {
             for (const e of object.permissions) {
@@ -209,14 +209,14 @@ export const ModuleAccount = {
             }
         }
         return message;
-    },
+    }
 };
 const baseParams = {
     maxMemoCharacters: 0,
     txSigLimit: 0,
     txSizeCostPerByte: 0,
     sigVerifyCostEd25519: 0,
-    sigVerifyCostSecp256k1: 0,
+    sigVerifyCostSecp256k1: 0
 };
 export const Params = {
     encode(message, writer = Writer.create()) {
@@ -354,22 +354,22 @@ export const Params = {
             message.sigVerifyCostSecp256k1 = 0;
         }
         return message;
-    },
+    }
 };
 var globalThis = (() => {
-    if (typeof globalThis !== "undefined")
+    if (typeof globalThis !== 'undefined')
         return globalThis;
-    if (typeof self !== "undefined")
+    if (typeof self !== 'undefined')
         return self;
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
         return window;
-    if (typeof global !== "undefined")
+    if (typeof global !== 'undefined')
         return global;
-    throw "Unable to locate global object";
+    throw 'Unable to locate global object';
 })();
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

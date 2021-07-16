@@ -1,5 +1,5 @@
-import { CommitmentProof } from "../../../../confio/proofs";
-import { Writer, Reader } from "protobufjs/minimal";
+import { CommitmentProof } from '../../../../confio/proofs';
+import { Writer, Reader } from 'protobufjs/minimal';
 export declare const protobufPackage = "ibc.core.commitment.v1";
 /**
  * MerkleRoot defines a merkle root hash.

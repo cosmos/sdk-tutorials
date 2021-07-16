@@ -1,4 +1,4 @@
-import { Writer, Reader } from "protobufjs/minimal";
+import { Writer, Reader } from 'protobufjs/minimal';
 export declare const protobufPackage = "ics23";
 export declare enum HashOp {
     /** NO_HASH - NO_HASH is the default if no data passed. Note this is an illegal argument some places. */
