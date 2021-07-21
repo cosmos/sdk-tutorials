@@ -11,15 +11,15 @@ The liquidity module, known on the Cosmos Hub as Gravity DEX, enables users to c
 
 ## Use Liquidity Pools to Trade Tokens
 
-When using your Cosmos SDK-based blockchains, you want to enable users to trade tokens. You can have multiple tokens on your blockchain or have tokens from external blockchains sent to your blocking using inter-blockchain communication protocol (IBC). 
+When using Cosmos SDK-based blockchains, you want to enable users to trade tokens. You can have multiple tokens on your blockchain or have tokens from external blockchains sent to your blockchain using the inter-blockchain communication protocol (IBC). 
 
-The liquidity module allows users to use pools to trade those tokens on your blockchain. Each pool represents a token pair and allows the user to swap from one token to the other token.
+The liquidity module uses liquidity pools to trade tokens on your blockchain. Each pool represents a token pair and allows the user to swap assets from one token to another token.
 
 In this tutorial, you create your own blockchain, send tokens to another blockchain, create a pool, deposit to a pool, withdraw from a pool, and swap tokens.
 
-You can follow the [code with us session](https://www.youtube.com/watch?v=GxaqpzMk0jk&t=978s) for hands-on experience
+You can follow the [code with us session](https://www.youtube.com/watch?v=GxaqpzMk0jk&t=978s) for hands-on experience.
 
-**Important** In the code examples throughout this tutorial, when you see username be sure to substitute your username. 
+**Important:** In the code examples throughout this tutorial, when you see username be sure to substitute your username. 
 
 **You will learn how to:**
 
@@ -27,9 +27,8 @@ You can follow the [code with us session](https://www.youtube.com/watch?v=Gxaqpz
 - Create your own token on your blockchain
 - Connect your blockchain to the testnet
 - Send your own token with IBC to the testnet
-- Create a pool with your token
-- Use the pool with your token
-
+- Create a liquidity pool with your token
+- Use the liquidity pool with your token
 
 ## Requirements
 
@@ -37,74 +36,88 @@ Before you start the tutorial, install the prerequisite software.
 
 - [Install Starport](../starport/index.md) v0.16.2
 
-    **Important** This tutorial uses [Starport](https://github.com/tendermint/starport) v0.16.2. The tutorial is based on this specific version of Starport and is not supported for other versions.
+    **Important:** This tutorial uses [Starport](https://github.com/tendermint/starport) v0.16.2. The tutorial is based on this specific version of Starport and is not supported for other versions.
 
 - Install the Gravity DEX binary
 
     - Clone the repo:
 
-    ```bash
-    git clone https://github.com/b-harvest/gravity-dex.git
+    ```sh
+    git clone https://github.com/cosmos/gaia.git
     ```
     
-    - Move into the directory and install software to the right location:  
+    - Move into the `gaia` directory and checkout the `v5.0.0` release. Gravity DEX (liquidity module) is available only in v5.0.0 and higher versions. 
+    
+    ```sh
+    cd gaia && git checkout v5.0.0
+    ```
+    
+    - Install the gaia software in that location:  
 
-    ```bash
-    cd gravity-dex && make install
+    ```sh
+    make install
     ```
 
     - Verify the gaiad version:  
 
-    ```bash
+    ```sh
     gaiad version
     ```
 
-    The output of `gaiad version` prints something like:
+    The output of `gaiad version` prints:
     
-    ```bash
-    gravity-dex-fa647b0fefe5508e9c975b3d4f095db2d3d20a13
+    ```sh
+    v5.0.0
     ```
 
 ## Create the Blockchain
 
+**Tip:** Remember to substitute your username in the following examples.
+
 Scaffold a new blockchain called `myblockchain`:
 
-```bash
+```sh
 starport app github.com/username/myblockchain
 ```
 Change to the blockchain directory:
 
-```bash
+```sh
 cd myblockchain
 ```
 
 ## Add Your Token in the Configuration
 
-Navigate to the top-level folder of your app directory `myblockchain` and use any text editor to edit the `config.yml` file. 
+Before you start your myblockchain app, add your account. Your account includes your username and your new token. 
 
-For the `accounts` parameter, add your username and your new token:
+1. Navigate to the top-level folder of your app directory `myblockchain`.
 
-```yml
-accounts:
-  - name: username
-    coins: ["10000token", "50000000stake", "1000000000000mytoken"]
-```
+1. Use any text editor to edit the `config.yml` file. 
 
-**Tip** To add your coins, use a list of strings for the initial coins with denominations. You can follow the `.yml` syntax for the auto-generated users `alice` and `bob`.
+1. For the `accounts` parameter, add your username and your new token. 
 
-The minimum reserve coin amount for a pool in the liquidity module is 1,000,000. Make sure you create enough tokens for your liquidity pools. This entry creates enough tokens to create 10 liquidity pools (1000000000000).
+  In this example, create your new token with a self-describing name. For example, `myusernametoken` where `username` is your username:
+
+  ```json
+  accounts:
+    - name: username
+      coins: ["10000token", "50000000stake", "1000000000000myusernametoken"]
+  ```
+
+**Tip:** Use a comma-separated list of strings with denominations to add the initial coins. You can follow the `.yml` syntax for the auto-generated users `alice` and `bob`.
+
+The minimum reserve coin amount for a pool in the liquidity module is 1,000,000. You must create enough tokens for your liquidity pools. This sample entry creates enough tokens (1000000000000) to create 10 liquidity pools (10*1000000=1000000000000).
 
 ## Start Your Blockchain
 
 To start your blockchain, run this command in your local terminal:
 
-```bash
+```sh
 starport serve
 ```
 
 You see output similar to the following output, but with different account passphrases and addresses:
 
-```bash
+```sh
 Cosmos SDK's version is: Stargate v0.40.0 (or later)
 
 🔄 Resetting the app state...
@@ -123,43 +136,45 @@ Genesis transaction written to "/Users/joy20/.myblockchaind/config/gentx/gentx-2
 
 Be patient, using the `starport serve` command is powerful and takes a few minutes. You are starting your sovereign application-specific blockchain in development and this command is doing all the work for you. Everything you need is being scaffolded so you can focus on business logic.
 
+Keep this terminal window open and available. You won't run any more commands in this terminal window, but you will return to this window throughout this tutorial to copy your account address and mnemonic passphrase.  
+
 ## Configure the Relayer
 
-A relayer is software to connect two blockchains. Configure the relayer with your endpoints to create a connection between your blockchain and the testnet. After the connection is established, you can send tokens from one blockchain to the other blockchain.
+A relayer is software to connect two blockchains. Configure the relayer with your endpoints to create a connection between your blockchain and the Gravity DEX testnet. After the connection is established, you can send tokens from one blockchain to the other blockchain.
 
-### Remove Existing Relayer and Starport Configurations
+### Remove Existing Starport Configurations
 
-If you previously used the relayer, follow these steps to remove exiting relayer and Starport configurations:
+In a new terminal window, remove your existing Starport configurations if you previously used Starport.
 
-- Delete previous configuration files:
-
-    ```
-    rm -r $HOME/.starport/*
-    ```
+```sh
+rm -r $HOME/.starport/*
+```
 
 If existing configurations do not exist, the command returns `no matches found` and no action is taken.
 
-### Create Your Connection 
+### Create a Connection to the Cosmos Hub testnet
 
-Configure the relayer to create a connection between your local chain and the chain you want to connect to. In this example, the chain you want to connect to is the Gravity DEX testnet.
+In the same terminal window, configure the relayer to create a connection between your local chain and the chain you want to connect to. In this example, the chain you want to connect to is the Cosmos Hub testnet.
 
-```markdown
+```sh
 starport relayer configure
 ```
 
-- For the local `source` chain, use the default values.
-- For the testnet `target` chain, use the following values.
+- For each local `source` chain argument, press Enter to use the default values.
+- For the testnet `target` chain, use the following values:
 
 
 - Target RPC: [https://rpc.testnet.cosmos.network:443](https://rpc.testnet.cosmos.network/)
 
 - Target Token Faucet: [https://faucet.testnet.cosmos.network:443](https://faucet.testnet.cosmos.network/)
 
-- Target Gas Price (0.025uatom): 0.025stake
+- Target Gas Price (0.025uatom): `0.025stake`
 
-When everything runs successfully, you see the following output with a different account address:
+- Target Address Prefix (cosmos): `cosmos`
 
-```bash
+After you configure the relayer and everything runs successfully, you see the following output, but of course with a different account address. The account address is the same on source and target.
+
+```code
 🔐  Account on "source" is "cosmos174n26d8n223aje53dznlfahpv54np970wr3ae7"
  
  |· received coins from a faucet
@@ -171,6 +186,9 @@ When everything runs successfully, you see the following output with a different
  |· (balance: 10000000stake,10000000uphoton)
 
 ⛓  Configured chains: myblockchain-cosmoshub-testnet
+
+Note: Mnemonics for relayer accounts are stored unencrypted in the `/Users/username/.starport/relayer/config.yml` file.
+This may change in the future. Until then, use them only for small amounts of tokens.
 ```
 
 Connect the chains:
@@ -179,13 +197,13 @@ Connect the chains:
 starport relayer connect
 ```
 
-It will start to connect your two blockchains, you will see an output while it does
+While your two blockchains start to connect, you will see this message:
 
 ```bash
 ◣ Linking paths between chains... 
 ```
 
-When successful, your output will be
+After your blockchain connection is successful, your output is something like:
 
 ```bash
 
@@ -204,92 +222,179 @@ Chains by paths
 
 myblockchain-cosmoshub-testnet:
     myblockchain      > (port: transfer) (channel: channel-0)
-    cosmoshub-testnet > (port: transfer) (channel: channel-9)
+    cosmoshub-testnet > (port: transfer) (channel: channel-74)
 
 ---------------------------------------------
 Listening and relaying packets between chains...
 ---------------------------------------------
 ```
 
-## Get Token From the Faucet
+The target channel number increments each time a blockchain connects to the testnet. The target channel number might be different for you. In this example:
 
-From the terminal output that `starport serve` created for you, use the `username` accounts address and claim tokens from the faucet.
-Make sure to add your account address into the `address` field. Replace `cosmosxxxxx` with the address you saw in your user account on running `starport serve`.
+- The name of the source port for `myblockchain` is `transfer` and the source channel is `channel-0`.
+- The name of the target port for `cosmoshub-testnet` is also named `transfer` and the target channel is `channel-73`.
 
-```markdown
+Leave this relayer terminal window open. You won't run any more commands in this terminal window, but the relayer process continues to runs here. You can view this window to confirm that  inter-blockchain transfers are successful.
+
+## Get Tokens from the Faucet
+
+To claim tokens from the faucet, use a new terminal window. Now you have three terminal windows open for this tutorial. 
+
+**Tip:** To provide access to the different processes that run during the tutorial, you can divide a single terminal window into three terminal windows so you can: 
+
+  1. See the `starport serve` output with your account address and mnemonic
+  2. See the relayer process output to confirm your transactions
+  3. Run the liquidity transaction commands
+
+For example, use this 3-way split iTerm2 window:
+
+![3-way iTerm2 window](./terminalwindow-split3.png)
+
+To claim tokens from the testnet faucet, run this command and provide the cosmos address that was output to the terminal when you ran the `starport serve` command:
+
+```curl
 curl -X POST -d '{"address": "cosmosxxxxx"}' https://faucet.testnet.cosmos.network
 ```
 
-After you see a success message, you can check your balance. Make sure to replace `cosmosxxxxx` with your address from the previous step.
+A successful command run returns output like this:
 
-See your balance at [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx).
-
-## Send Your Own Token to the Testnet
-
-Now that your account on testnet is funded with testnet tokens, you can send your own token to the testnet. 
-
-At your local terminal, enter the IBC module command to transfer your token to the testnet. 
-Make sure to replace `cosmosxxxxx` with your address, `mytoken` with your token name, `username` with your username and `channel-0` with channel
-
-**Note:** Make sure to use *channel* as shown in terminal when you run `starport relayer connect`
-
-```bash
-myblockchaind tx ibc-transfer transfer transfer channel-0 cosmosxxxxx "15000000mytoken" --from username
+```json
+{"transfers":[{"coin":"10000000stake","status":"ok"},{"coin":"10000000uphoton","status":"ok"}]}%
 ```
 
-After your transaction is complete, check your balance on the Gravity DEX testnet to confirm your token transfer.
+### Check Your Balance 
 
-Make sure to replace `cosmosxxxxx` with your address.
+Now that the token transfer is successful, you can check your balance. 
 
-**Tip:** Sometimes transactions don't go through on the first try. Make sure you check the terminal window that shows the relayer process and verify that you see output similar to the following output:
+Make sure to replace `cosmosxxxxx` with your address from the previous step.
 
- ```markdown
+To see your balance, go to [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx).
+
+The balance returns something like:
+
+```json
+{
+  "balances": [
+    {
+      "denom": "stake",
+      "amount": "10000000"
+    },
+    {
+      "denom": "uphoton",
+      "amount": "10000000"
+    }
+  ],
+  "pagination": {
+    "next_key": null,
+    "total": "2"
+  }
+}
+```
+
+## Send Your Own Tokens to the Testnet
+
+Now that your account is funded with testnet tokens, you can send your own tokens to the testnet. 
+
+At your local terminal, run the `tx ibc-transfer transfer` command to transfer your tokens to the testnet. 
+
+The usage of the `tx ibc-transfer transfer` command is:
+
+```bash
+Usage:
+  <appd> tx ibc-transfer transfer [src-port] [src-channel] [receiver] [amount] [--from username]
+```
+
+**Tip:** Per the command usage, make sure to provide the correct values. Replace: 
+
+- `[src-port]` with `target`
+- `[src-channel]` with `channel-0` 
+
+    The port and channel were output to the terminal when you ran `starport relayer connect` and can be viewed on the terminal window that is running the relayer process:
+
+    ```code
+    Chains by paths
+    ---------------------------------------------
+
+    myblockchain-cosmoshub-testnet:
+        myblockchain    > (port: transfer) (channel: channel-0)
+    ```
+
+- `[receiver]` with your `cosmosxxxxx` account address
+
+    Your cosmos account address was output to the terminal where the `starport serve` command was run. 
+
+- `[amount]` with `"15000000myusernametoken"`  
+
+- `username` in the `[--from username]` flag with your username
+
+For this example, the command to transfer your token to the testnet is:
+
+```bash
+myblockchaind tx ibc-transfer transfer transfer channel-0 cosmosxxxxx "15000000myusernametoken" --from username
+```
+
+When prompted to `confirm transaction before signing and broadcasting [y/N]:` make sure you review all of the parameters, especially the receiving cosmos address, type `y`, and then press Enter to confirm the transaction. 
+
+When your command is run successfully, you receive a JSON response that starts with a non-zero block `{"height":...` and a `"txhash"` then you know the command was accepted and was run without errors. 
+
+After your transaction is complete, check your balance on the  testnet to confirm your token transfer.
+
+**Tip:** To confirm that the transfer is successful, you can check the terminal window that shows the relayer process. You know the transfer is successful when you see output similar to:
+
+ ```sh
  Relay 1 packets from myblockchain => cosmoshub-testnet
  Relay 1 packets from myblockchain => cosmoshub-testnet
  Relay 1 acks from cosmoshub-testnet => myblockchain
  Relay 1 acks from cosmoshub-testnet => myblockchain
  ```
 
-See your balance at [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx).
+You can run the command again if needed. Sometimes transactions don't go through on the first try.
 
-Take a closer look at the `ibc/denomhash` denominator. When you create a new pool, this will be the denom you need to input to make a pair with one of the existing native token, on our testnet we will create a pair with `uphoton`.
+See your balance at [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx).
 
-## Create a Pool with My Token
+You have a new token as a result of the IBC transfer. The denom of your new token starts with `ibc/` and then a denomhash. Your new denom will look something like this:
 
-With the liquidity module and gaiad binary installed, use these links to explore your app:
+```json
+    {
+      "denom": "ibc/699CF694D09492BF9B8A49DE81C835C25A0B5DA8EC0D5EAAA591C2C52A4E36EE",
+      "amount": "15000000"
+    },
+ 
+ ```
 
-- RPC [https://rpc.testnet.cosmos.network:443](https://rpc.testnet.cosmos.network/)
+Take a closer look at the entry `ibc/` followed by a long hash. Learn more about the IBC denom, see [Understand IBC Denoms with Gaia](../understanding-ibc-denoms.md). 
 
-- API [https://api.testnet.cosmos.network:443](https://api.testnet.cosmos.network/)
-
-- gRPC [https://grpc.testnet.cosmos.network:443](https://grpc.testnet.cosmos.network/)
-
-- Token faucet [https://faucet.testnet.cosmos.network:443](https://faucet.testnet.cosmos.network/)
+When you create a liquidity pool, this `ibc/denomhash` is the denom you must provide to make a token pair with one of the existing native tokens. For the testnet, you can create a token pair with `uphoton`.
 
 ### Verify Your Token Supply 
 
-You can get all available tokens. Your token is now listed. 
-Check the following resources to get an overview of the activity on the testnet and find your token.
+You now have access to all the available tokens that you transferred to the testnet. Your new token from your blockchain is now listed at the `supply` API endpoint. 
 
-- https://api.testnet.cosmos.network/cosmos/bank/v1beta1/supply
+Check the following resources for an overview of the activity on the testnet and find your token.
+
+- https://api.testnet.cosmos.network/cosmos/bank/v1beta1/supply 
+
+  This supply endpoint shows all of the tokens on the testnet. You can search for your token. 
 
 - https://api.testnet.cosmos.network/ibc/applications/transfer/v1beta1/denom_traces
 
+  To verify your denom is in testnet supply, search for your denom. If there is are duplicate denoms with the same name, look by denom and channel.  
+
 ## Add your Starport blockchain account to gaiad
 
-To access Starport `username` account on `gaiad`, add it to the keychain.
+To access Starport `username` account on `gaiad`, add your username to the keychain. In the same terminal window (the one you used to run the `ibc-transfer` command):
 
 ```bash
 gaiad keys add username --recover
 ```
 
-It will ask you for the passphrase, that you see in the terminal window of running `starport serve` on your `myblockchaind`
+You are prompted to enter the mnemonic passphrase that was output to the terminal window where you ran the `starport serve` command on your `myblockchaind`:
 
 ```bash
 > Enter your bip39 mnemonic
 ```
 
-Add `username`s mnemonic passphrase and hit enter. You will see something similar to the following output
+Add the `username` mnemonic passphrase and press Enter. You see output similar to:
 
 ```bash
 - name: username
@@ -303,15 +408,19 @@ Add `username`s mnemonic passphrase and hit enter. You will see something simila
 
 ## Create a Liquidity Pool
 
-To create a liquidity pool, enter the following command:
-Make sure to replace `longibchash` with the hash denom you received on the previous step. Replace `username` with your account username.
+Run the `liquidity create-pool` command to create a liquidity pool with two tokens: 1100000uphoton and 1500000ibc/denomhash. 
+
+Make sure to replace `ibc/denomhash` with the hash denom you received on the previous step and that you can verify in the [testnet supply](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/supply). 
+
+Replace `username` with your account username.
 
 ```bash
-gaiad tx liquidity create-pool 1 1100000uphoton,1500000ibc/longibchash --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443 --gas 2000000 -y
+gaiad tx liquidity create-pool 1 1100000uphoton,1500000ibc/denomhash --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443 --gas 2000000 -y
 ```
-**Optional:** Add -y flag to bypass confirmation prompt
 
-Confirm the pool has been created. See:
+The optional `-y` flag specifies to bypass the confirmation prompt. 
+
+Confirm the pool has been created. See the pools endpoint:
 
 [https://api.testnet.cosmos.network/tendermint/liquidity/v1beta1/pools](https://api.testnet.cosmos.network/tendermint/liquidity/v1beta1/pools)
 
@@ -323,7 +432,8 @@ You are ready to swap tokens! You now have uphoton token in your account and wan
 ```bash
 gaiad tx liquidity swap 1 1 100000uphoton ibc/longibchash 0.1 0.003 --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443 -y
 ```
-**Optional:** Add -y flag to bypass confirmation prompt
+
+The optional `-y` flag specifies to bypass the confirmation prompt. 
 
 Check the balance on the new account that made the trade:
 
