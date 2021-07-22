@@ -161,6 +161,7 @@ starport relayer configure
 ```
 
 - For each local `source` chain argument, press Enter to use the default values.
+
 - For the testnet `target` chain, use the following values:
 
 
@@ -232,7 +233,7 @@ Listening and relaying packets between chains...
 The target channel number increments each time a blockchain connects to the testnet. The target channel number might be different for you. In this example:
 
 - The name of the source port for `myblockchain` is `transfer` and the source channel is `channel-0`.
-- The name of the target port for `cosmoshub-testnet` is also named `transfer` and the target channel is `channel-73`.
+- The name of the target port for `cosmoshub-testnet` is also `transfer` and the target channel is `channel-73`.
 
 Leave this relayer terminal window open. You won't run any more commands in this terminal window, but the relayer process continues to runs here. You can view this window to confirm that  inter-blockchain transfers are successful.
 
@@ -378,9 +379,9 @@ Check the following resources for an overview of the activity on the testnet and
 
 - https://api.testnet.cosmos.network/ibc/applications/transfer/v1beta1/denom_traces
 
-  To verify your denom is in testnet supply, search for your denom. If there is are duplicate denoms with the same name, look by denom and channel.  
+  The denom_traces endpoint shows that your denom is in testnet supply, search for your denom. If there is are duplicate denoms with the same name, look by denom and channel.  
 
-## Add your Starport blockchain account to gaiad
+## Add Your Starport Blockchain Account To gaiad
 
 To access Starport `username` account on `gaiad`, add your username to the keychain. In the same terminal window (the one you used to run the `ibc-transfer` command):
 
@@ -388,13 +389,15 @@ To access Starport `username` account on `gaiad`, add your username to the keych
 gaiad keys add username --recover
 ```
 
-You are prompted to enter the mnemonic passphrase that was output to the terminal window where you ran the `starport serve` command on your `myblockchaind`:
+You are prompted to enter the 
 
 ```bash
 > Enter your bip39 mnemonic
 ```
 
-Add the `username` mnemonic passphrase and press Enter. You see output similar to:
+When prompted, paste in the mnemonic passphrase that was output to the terminal window where you ran the `starport serve` command on your `myblockchaind` and press Enter. 
+
+You see output similar to:
 
 ```bash
 - name: username
@@ -425,15 +428,15 @@ Confirm the pool has been created. See the pools endpoint:
 [https://api.testnet.cosmos.network/tendermint/liquidity/v1beta1/pools](https://api.testnet.cosmos.network/tendermint/liquidity/v1beta1/pools)
 
 
-## Swap Token
+## Swap Tokens
 
 You are ready to swap tokens! You now have uphoton token in your account and want to swap for the new IBC coin:
 
 ```bash
-gaiad tx liquidity swap 1 1 100000uphoton ibc/longibchash 0.1 0.003 --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443 -y
+gaiad tx liquidity swap 1 1 100000uphoton ibc/longibchash 0.1 0.003 --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443
 ```
 
-The optional `-y` flag specifies to bypass the confirmation prompt. 
+You can also use the optional `-y` flag to bypass the confirmation prompt. 
 
 Check the balance on the new account that made the trade:
 
@@ -441,45 +444,47 @@ Check the balance on the new account that made the trade:
 
 Make sure to replace `cosmosxxxxx` with your address.
 
+## Deposit Tokens
 
-## Deposit Token
-
-You can Deposit tokens to the pool you have created.
+You can deposit tokens to the liquidity pool that you created:
 
 ```bash
-gaiad tx liquidity deposit 1 100uphoton,100ibc/longibchash --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443 -y
+gaiad tx liquidity deposit 1 100uphoton,100ibc/longibchash --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443
 ```
-**Optional:** Add -y flag to bypass confirmation prompt
 
-**Note:** Deposits must be the same coin denoms as the reserve coins.
+You can use the optional `-y` flag to bypass the confirmation prompt. 
+
+Deposits must be the same coin denoms as the reserve coins.
 
 Check the balance on the new deposit that you have made:
 
 [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
 
 
-## Withdraw Token
+## Withdraw Tokens
 
-You can also withdraw tokens from the pool you have created.
+You can also withdraw tokens from the pool that you created:
 
 ```bash
 gaiad tx liquidity withdraw 1 100pool-id --from username --chain-id cosmoshub-testnet --gas-prices "0.025stake" --node https://rpc.testnet.cosmos.network:443
 ```
-**Note:** Make sure to replace pool-id found [here](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
 
-Check the balance on the new withdrawal that you have made:
+Make sure to replace `pool-id` with the pool-id that you see on the [pools endpoint](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx).
+
+Check the balance on the new withdrawal that you made:
 
 [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
 
 
 ## 🎉 Congratulations 🎉
 
-By completing this tutorial you have learned how to use liquidity module.
+By completing this tutorial, you have learned how to use the liquidity module.
 
 Here’s what you accomplished in this tutorial:
 
-- Creating a Blockchain with Starport and connecting to testnet
-- Creating a new liquidity pool with IBC token
-- Swap tokens within the pool
-- Deposit tokens to the pool
-- Withdraw tokens from the pool
+- Created a blockchain with Starport 
+- Connected your blockchain to the Cosmos Hub testnet
+- Created a liquidity pool with an IBC token
+- Swapped tokens within the pool
+- Deposited tokens to the pool
+- Withdrew tokens from the pool
