@@ -117,6 +117,8 @@ aside: false
 
 This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
 
+Note: The layout metadata at the top of the README.md file controls how the tutorial page is published. Write permissions are limited to preserve the structure and contents.
+
 These tutorials guide you through actionable steps and walk-throughs to teach you how to use Starport and the Cosmos SDK. The Cosmos SDK is the world’s most popular framework for building application-specific blockchains. Tutorials provide step-by-step instructions to help you build foundational knowledge and learn how to use Starport and the Cosmos SDK, including: 
 
 - Foundational knowledge to help you navigate between blockchains with the Cosmos SDK
