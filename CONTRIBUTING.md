@@ -6,7 +6,6 @@ This repo contains the code and content for the published [Cosmos SDK Tutorials]
 
 The code and the docs for each tutorial are based on a specific version of the software. Be sure to download and use the right version.
 
-## Contributing
 
 Thank you for helping us to create and maintain awesome tutorials.
 
