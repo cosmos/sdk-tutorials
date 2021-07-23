@@ -24,7 +24,7 @@
   "homepage": "https://github.com/cosmos/sdk-tutorials#readme",
   "dependencies": {
     "axios": "^0.21.1",
-    "crypto-js": "^4.0.0",
+    "crypto-js": "^4.1.1",
     "date-fns": "^2.19.0",
     "vuepress-theme-cosmos": "^1.0.182"
   }
