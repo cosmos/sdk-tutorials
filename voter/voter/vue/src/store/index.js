@@ -6,7 +6,7 @@ const store = createStore({
 		return {}
 	},
 	mutations: {},
-	actions: {},
+	actions: {}
 })
 init(store)
 export default store

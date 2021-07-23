@@ -11,10 +11,14 @@ option go_package = "github.com/example/blog/x/blog/types";
 
 // Query defines the gRPC querier service.
 service Query {
-    // this line is used by starport scaffolding # 2
+	// this line is used by starport scaffolding # 2
+
+	// Queries a comment by id.
 	rpc Comment(QueryGetCommentRequest) returns (QueryGetCommentResponse) {
 		option (google.api.http).get = "/example/blog/blog/comment/{id}";
 	}
+
+	// Queries a list of comment items.
 	rpc CommentAll(QueryAllCommentRequest) returns (QueryAllCommentResponse) {
 		option (google.api.http).get = "/example/blog/blog/comment";
 	}
@@ -25,12 +29,11 @@ service Query {
 	rpc PostAll(QueryAllPostRequest) returns (QueryAllPostResponse) {
 		option (google.api.http).get = "/example/blog/blog/post";
 	}
-
 }
 
 // this line is used by starport scaffolding # 3
 message QueryGetCommentRequest {
-	string id = 1;
+	uint64 id = 1;
 }
 
 message QueryGetCommentResponse {
@@ -61,5 +64,3 @@ message QueryAllPostResponse {
 	repeated Post Post = 1;
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
-
-

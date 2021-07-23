@@ -1,8 +1,8 @@
-# blog UI
+App UI
 
-This is the [vuejs](https://vuejs.org/) user inteface to blog.
+This is the [vuejs](https://vuejs.org/) user interface for your app.
 
-It provides UI components including login, and a template for you to do additonal development.
+The vue.js framework for building your user interface helps with rapid app development. The framework provides UI components including a login and an HTML-based template.
 
 ## Project setup
 

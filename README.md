@@ -15,6 +15,12 @@ sections:
     tags: 
       - starport
       - stargate
+  - title: Scavenge Hunt
+    desc: Build a blockchain app that allows you to post challenges that can be solved by anyone on the blockchain. Learn about using module accounts and implementing CLI commands with the Scavenge Hunt.
+    url: /scavenge/tutorial/01-background.html
+    tags: 
+      - starport
+      - stargate
   - title: Create a IBC Hello World module
     desc: Build a Hello World blockchain app as an IBC module. Learn how to use the relayer to connect two blockchains with each other and use IBC packets to transfer data from one blockchain to another.
     url: /hello-world/tutorial/
@@ -32,6 +38,12 @@ sections:
     url: /connecting-to-testnet/index.html
     tags: 
       - starport
+      - stargate
+  - title: Understand IBC denoms
+    desc: In this tutorial, you learn what IBC denoms are, how to use the relayer, connect blockchains, and find the path to an unknown blockchain.
+    url: /understanding-ibc-denoms/index.html
+    tags: 
+      - gaia
       - stargate
   - title: Understand the liquidity module
     desc: The liquidity module powers the Gravity DEX. Learn how to create your own token with Starport, send it with IBC to the cosmoshub-testnet and create a new pool using the liquidity module. Swap your token with your created pool.
@@ -119,4 +131,3 @@ Use the tutorials landing page as your entry point to articles on [Cosmos blog](
 
 
 This repo manages and publishes the tutorials. For details, see [CONTRIBUTING](CONTRIBUTING.md). 
-
