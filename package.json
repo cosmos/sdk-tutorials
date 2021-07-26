@@ -25,7 +25,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "crypto-js": "^4.0.0",
-    "date-fns": "^2.19.0",
+    "date-fns": "^2.23.0",
     "vuepress-theme-cosmos": "^1.0.182"
   }
 }
