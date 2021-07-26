@@ -1,21 +1,31 @@
-# Cosmos SDK Tutorials repo
 
-This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
+# Contributing
 
-## Tutorials are version-specific
+- [Contributing](#contributing)
+  - [Using this repo](#using-this-repo)
+  - [Writing and contributing](#writing-and-contributing)
+  - [Folder structure](#folder-structure)
+  - [Who works on the tutorials?](#who-works-on-the-tutorials)
+  - [Viewing Tutorial Builds](#viewing-tutorial-builds)
+    - [Preview PRs on a Deployed Preview](#preview-prs-on-a-deployed-preview)
+    - [Preview Draft PRs on a Local Web Browser](#preview-draft-prs-on-a-local-web-browser)
+  
 
-The code and the docs for each tutorial are based on a specific version of the software. Be sure to download and use the right version.
+Thank you considering making contributions. We appreciate your interest in helping us to create and maintain awesome tutorials.
 
+- To set up your environment for success, follow our [technical set up](TECHNICAL-SETUP.md) guidelines.
 
-Thank you for helping us to create and maintain awesome tutorials.
+## Using this repo
 
-- To set up your environment for success, you can follow our [technical set up](TECHNICAL-SETUP.md) guidelines.
 - To provide feedback, file an issue and provide abundant details to help us understand how we can make it better.
-- To provide feedback and a fix, you can make a direct contribution. This repo is protected since we provide the code and the docs to help you learn. If you're not a member or maintainer, fork the repo and then submit a PR from your forked repo to master.
+- To provide feedback and a fix, you can make a direct contribution. This repo is protected since we provide the code and the docs to help you learn. If you're not a member or maintainer, fork the repo and then submit a pull request (PR) from your forked repo to master.
+- Start by creating a **Draft Pull Request**. Create your draft PR early, even if your work is just beginning or incomplete. Your draft PR indicates to the community that you're working on something and provides a space for conversations early in the development process. Merging is blocked for `Draft` PRs, so it's a safe way to experiment and invite comments. 
 
 ## Writing and contributing
 
-We welcome contributions to the tutorials. Our technical content follows the Google developer documentation style guide:
+We welcome contributions to the tutorials. 
+
+Our technical content follows the Google developer documentation style guide:
 
 - [Google developer documentation style guide](https://developers.google.com/style)
 - [Highlights](https://developers.google.com/style/highlights)
@@ -25,17 +35,12 @@ We welcome contributions to the tutorials. Our technical content follows the Goo
 - [Cross-references](https://developers.google.com/style/cross-references)
 - [Present tense](https://developers.google.com/style/tense)
 
-The Google guidelines include more material than listed here, and are used as a
-guide that enables easy decision making about proposed content changes. 
+The Google guidelines include more material than is listed here and are used as a guide that enables easy decision making about proposed content changes. 
 
 Other useful resources:
 
 - [Google Technical Writing Courses](https://developers.google.com/tech-writing)
 - [GitHub Guides Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
-
-## Metadata
-
-The layout metadata at the top of the README.md file controls how the tutorial page is published. Write permissions are limited to preserve the structure and contents.
 
 ## Folder structure
 
@@ -46,13 +51,13 @@ Two sub-folders are present for most of the production-ready tutorials:
 - A self-describing sub-folder for the app and the rest of the code that runs the tutorial.
 - A `tutorial` sub-folder for the Markdown files (*.md) that build the published tutorial docs.
 
-Work-in-process tutorials might have content and code in other repos.
+Work-in-progress tutorials might have content and code in other repos.
 
 ## Who works on the tutorials?
 
 - The Tendermint (All in Bits) DevX team develops the tutorial code and dependencies. Our team includes [@fadeev](https://github.com/fadeev), [@lubtd](https://github.com/lubtd), [@ilgooz](https://github.com/ilgooz), [@Pantani](https://github.com/Pantani), and other talented developers. Don't they do an amazing job?
 
-- The Tendermint (All in Bits) EcoDev Engineering team ([@toschdev](https://github.com/toschdev), [@barriebyron](https://github.com/barriebyron), [@alijnmerchant21](https://github.com/alijnmerchant21), and [@soniasingla](https://github.com/soniasingla)) manages the developer experience and owns the tutorial doc content.
+- The Tendermint (All in Bits) EcoDev Engineering team manages the developer experience and owns the tutorial doc content. We are [@toschdev](https://github.com/toschdev), [@barriebyron](https://github.com/barriebyron), [@alijnmerchant21](https://github.com/alijnmerchant21), and [@soniasingla](https://github.com/soniasingla). 
 
 - The Tendermint (All in Bits) Design team owns the front end and publishing. Be sure to check with [@lovincyrus](https://github.com/lovincyrus) for details about the metadata for layout and publishing tutorials.
 
@@ -101,4 +106,4 @@ Since the deploy preview doesn't work on Draft PRs, follow these steps to previe
 
 5. You can now view the tutorial build on a local web browser. Isn't this fun?
 
-    Tip: On a mac, press the command key and click `http://localhost:8080/` for quick access.
+    Tip: On a mac, press the command key and click `http://localhost:8080/` for quick access to the local preview. If you are already using port 8080 on your local machine, the preview increments to the next available port 8081, and so on. 
