@@ -102,7 +102,11 @@ Since the deploy preview doesn't work on Draft PRs, follow these steps to previe
     npm run serve
     ```
 
-  A successful client compile looks like: `> VuePress dev server listening at http://localhost:8080/ ✔ Client Compiled successfully in 280.71ms success [12:06:28] Build 03d41f finished in 283 ms! ( http://localhost:8080/ )`
+    A successful client compile looks like: 
+    
+    ```bash
+    > VuePress dev server listening at http://localhost:8080/ ✔ Client Compiled successfully in 280.71ms success [12:06:28] Build 03d41f finished in 283 ms! ( http://localhost:8080/ )
+    ```
 
 5. You can now view the tutorial build on a local web browser. Isn't this fun?
 
