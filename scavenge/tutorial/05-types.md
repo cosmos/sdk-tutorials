@@ -18,7 +18,7 @@ Use `starport scaffold map` command to scaffold the `scavenge` type and the code
 starport scaffold map scavenge solutionHash solution description reward scavenger --no-message
 ```
 
-`starport scaffold map` created and mofidied several files:
+`starport scaffold map` created and modified several files:
 
 * `proto/scavenge/scavenge.proto`: the `Scavenge` type defined as a proto message.
 * `proto/scavenge/query.proto`: queries to get data from the blockchain defined as proto messages and registered in the `Query` service.
