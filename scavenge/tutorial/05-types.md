@@ -31,7 +31,7 @@ starport scaffold map scavenge solutionHash solution description reward scavenge
 * `x/scavenge/client/cli/query.go`: registering CLI commands.
 * `x/scavenge/client/cli/query_scavenge_test.go`: tests for CLI commands.
 * `x/scavenge/types/keys.go`: a string as a prefix in the key used to store scavenges in the state.
-* `x/scavenge/genesis.go`: logic for exporting and exporting the state.
+* `x/scavenge/genesis.go`: logic for importing and exporting the state.
 * `x/scavenge/types/genesis.go`: logic for validating the genesis file.
 * `x/scavenge/module.go`: registering gRPC gateway routes.
 
