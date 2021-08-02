@@ -18,7 +18,7 @@ Use `starport scaffold map` command to scaffold the `scavenge` type and the code
 starport scaffold map scavenge solutionHash solution description reward scavenger --no-message
 ```
 
-`starport scaffold map` created and mofidied several files:
+`starport scaffold map` created and modified several files:
 
 * `proto/scavenge/scavenge.proto`: the `Scavenge` type defined as a proto message.
 * `proto/scavenge/query.proto`: queries to get data from the blockchain defined as proto messages and registered in the `Query` service.
@@ -31,7 +31,7 @@ starport scaffold map scavenge solutionHash solution description reward scavenge
 * `x/scavenge/client/cli/query.go`: registering CLI commands.
 * `x/scavenge/client/cli/query_scavenge_test.go`: tests for CLI commands.
 * `x/scavenge/types/keys.go`: a string as a prefix in the key used to store scavenges in the state.
-* `x/scavenge/genesis.go`: logic for exporting and exporting the state.
+* `x/scavenge/genesis.go`: logic for importing and exporting the state.
 * `x/scavenge/types/genesis.go`: logic for validating the genesis file.
 * `x/scavenge/module.go`: registering gRPC gateway routes.
 

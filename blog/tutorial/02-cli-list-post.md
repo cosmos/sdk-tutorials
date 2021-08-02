@@ -376,7 +376,7 @@ That’s a newly created post along with your address and a unique ID. Try creat
 You can also make [ABCI](https://docs.tendermint.com/master/spec/abci/) queries from the browser:
 
 ```url
-http://localhost:26657/abci_query?path="custom/blog/list-post"
+http://localhost:26657/abci_query?path="/example.blog.blog.Query/PostAll"
 ```
 
 The result of this query is a base64 encoded string inside `result.response.value`. You can decode it using a browser’s built in JavaScript console: `atob("WwogIHsKICAgICJjcmV...")`.
