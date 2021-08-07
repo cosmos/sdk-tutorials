@@ -221,12 +221,12 @@ And the `MsgUpdatePoll` message:
 
 ## Modify the Poll Transaction Message
 
-Navigate to the `message_poll.go` file at `x/voter/types/message_poll.go` that defines a message that creates a poll.
+Navigate to the `message_poll.go` file at `x/voter/types/messages_poll.go` that defines a message that creates a poll.
 
 1. To store the options as a list instead of a string, replace `options string` with `options []string` in the `NewMsgCreatePoll` function:
 
 ```go
-// x/voter/types/message_poll.go
+// x/voter/types/messages_poll.go
 func NewMsgCreatePoll(creator string, title string, options []string) *MsgCreatePoll {
     return &MsgCreatePoll{
         Creator: creator,
@@ -239,7 +239,7 @@ func NewMsgCreatePoll(creator string, title string, options []string) *MsgCreate
 And also in the `NewMsgUpdatePoll` function:
 
 ```go
-// x/voter/types/message_poll.go
+// x/voter/types/messages_poll.go
 func NewMsgUpdatePoll(creator string, id uint64, title string, options []string) *MsgUpdatePoll {
     return &MsgUpdatePoll{
         Id:      id,
