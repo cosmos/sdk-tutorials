@@ -1,5 +1,5 @@
 syntax = "proto3";
-package username.voter.voter;
+package cosmonaut.voter.voter;
 
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
@@ -7,23 +7,31 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "voter/vote.proto";
 import "voter/poll.proto";
 
-option go_package = "github.com/username/voter/x/voter/types";
+option go_package = "github.com/cosmonaut/voter/x/voter/types";
 
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a vote by id.
 	rpc Vote(QueryGetVoteRequest) returns (QueryGetVoteResponse) {
-		option (google.api.http).get = "/username/voter/voter/vote/{id}";
-	}
-	rpc VoteAll(QueryAllVoteRequest) returns (QueryAllVoteResponse) {
-		option (google.api.http).get = "/username/voter/voter/vote";
+		option (google.api.http).get = "/cosmonaut/voter/voter/vote/{id}";
 	}
 
-	rpc Poll(QueryGetPollRequest) returns (QueryGetPollResponse) {
-		option (google.api.http).get = "/username/voter/voter/poll/{id}";
+	// Queries a list of vote items.
+	rpc VoteAll(QueryAllVoteRequest) returns (QueryAllVoteResponse) {
+		option (google.api.http).get = "/cosmonaut/voter/voter/vote";
 	}
+
+
+	// Queries a poll by id.
+	rpc Poll(QueryGetPollRequest) returns (QueryGetPollResponse) {
+		option (google.api.http).get = "/cosmonaut/voter/voter/poll/{id}";
+	}
+
+	// Queries a list of poll items.
 	rpc PollAll(QueryAllPollRequest) returns (QueryAllPollResponse) {
-		option (google.api.http).get = "/username/voter/voter/poll";
+		option (google.api.http).get = "/cosmonaut/voter/voter/poll";
 	}
 
 }

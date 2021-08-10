@@ -1,5 +1,5 @@
-import { Writer, Reader } from "protobufjs/minimal";
-import { Any } from "../../../../google/protobuf/any";
+import { Writer, Reader } from 'protobufjs/minimal';
+import { Any } from '../../../../google/protobuf/any';
 export declare const protobufPackage = "ibc.core.client.v1";
 /**
  * IdentifiedClientState defines a client state with an additional client

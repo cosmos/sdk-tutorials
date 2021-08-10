@@ -39,10 +39,10 @@ Before a sell order will be submitted, make sure it contains the following logic
 - Check if the pair exists on the order book
 - If the token is an IBC token, burn the tokens
 - If the token is a native token, lock the tokens
-- Save the voucher received on the target chain to later resolve a denom
+- Save the voucher received on the target chain so it will be available later to resolve a denom
 
 ```go
-// x/ibcdex/keeper/msg_server_sellOrder.go
+// x/ibcdex/keeper/msg_server_sell_order.go
 import "errors"
 
 func (k msgServer) SendSellOrder(goCtx context.Context, msg *types.MsgSendSourceSellOrder) (*types.MsgSendSourceSellOrderResponse, error) {
@@ -105,10 +105,10 @@ func (k msgServer) SendSellOrder(goCtx context.Context, msg *types.MsgSendSource
 
 - Update the buy order book
 - Distribute sold token to the buyer
-- Send to chain A the sell order after the fill attempt
+- Send the sell order to chain A after the fill attempt
 
 ```go
-// x/ibcdex/keeper/sellOrder.go
+// x/ibcdex/keeper/sell_order.go
 // OnRecvSellOrderPacket processes packet reception
 func (k Keeper) OnRecvSellOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.SellOrderPacketData) (packetAck types.SellOrderPacketAck, err error) {
 	// validate packet data upon receiving
@@ -124,7 +124,7 @@ func (k Keeper) OnRecvSellOrderPacket(ctx sdk.Context, packet channeltypes.Packe
 	}
 
 	// Fill sell order
-	book, remaining, liquidated, gain, _ := types.FillSellOrder(book, types.Order{
+	remaining, liquidated, gain, _ := book.FillSellOrder(types.Order{
 		Amount: data.Amount,
 		Price:  data.Price,
 	})
@@ -175,7 +175,7 @@ func (k Keeper) OnRecvSellOrderPacket(ctx sdk.Context, packet channeltypes.Packe
 - On error we mint back the burned tokens
 
 ```go
-// x/ibcdex/keeper/sellOrder.go
+// x/ibcdex/keeper/sell_order.go
 func (k Keeper) OnAcknowledgementSellOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.SellOrderPacketData, ack channeltypes.Acknowledgement) error {
 	switch dispatchedAck := ack.Response.(type) {
 	case *channeltypes.Acknowledgement_Error:
@@ -215,8 +215,7 @@ func (k Keeper) OnAcknowledgementSellOrderPacket(ctx sdk.Context, packet channel
 
 		// Append the remaining amount of the order
 		if packetAck.RemainingAmount > 0 {
-			newBook, _, err := types.AppendOrder(
-				book,
+			_, err := book.AppendOrder(
 				data.Seller,
 				packetAck.RemainingAmount,
 				data.Price,
@@ -224,7 +223,6 @@ func (k Keeper) OnAcknowledgementSellOrderPacket(ctx sdk.Context, packet channel
 			if err != nil {
 				return err
 			}
-			book = newBook.(types.SellOrderBook)
 
 			// Save the new order book
 			k.SetSellOrderBook(ctx, book)
@@ -268,7 +266,7 @@ func (k Keeper) OnAcknowledgementSellOrderPacket(ctx sdk.Context, packet channel
 If a timeout occurs, we mint back the native token.
 
 ```go
-// x/ibcdex/keeper/sellOrder.go
+// x/ibcdex/keeper/sel_order.go
 func (k Keeper) OnTimeoutSellOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.SellOrderPacketData) error {
 	// In case of error we mint back the native token
 	receiver, err := sdk.AccAddressFromBech32(data.Seller)

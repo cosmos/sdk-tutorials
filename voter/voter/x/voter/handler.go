@@ -3,10 +3,10 @@ package voter
 import (
 	"fmt"
 
+	"github.com/cosmonaut/voter/x/voter/keeper"
+	"github.com/cosmonaut/voter/x/voter/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/username/voter/x/voter/keeper"
-	"github.com/username/voter/x/voter/types"
 )
 
 // NewHandler ...

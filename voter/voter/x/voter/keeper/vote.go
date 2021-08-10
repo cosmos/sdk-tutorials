@@ -2,14 +2,13 @@ package keeper
 
 import (
 	"encoding/binary"
-	"strconv"
-
+	"github.com/cosmonaut/voter/x/voter/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/username/voter/x/voter/types"
+	"strconv"
 )
 
-// GetVoteCount get the total number of vote
+// GetVoteCount get the total number of TypeName.LowerCamel
 func (k Keeper) GetVoteCount(ctx sdk.Context) uint64 {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.VoteCountKey))
 	byteKey := types.KeyPrefix(types.VoteCountKey)
@@ -23,7 +22,7 @@ func (k Keeper) GetVoteCount(ctx sdk.Context) uint64 {
 	// Parse bytes
 	count, err := strconv.ParseUint(string(bz), 10, 64)
 	if err != nil {
-		// Panic because the count should be always formattable to iint64
+		// Panic because the count should be always formattable to uint64
 		panic("cannot decode count")
 	}
 
@@ -41,22 +40,17 @@ func (k Keeper) SetVoteCount(ctx sdk.Context, count uint64) {
 // AppendVote appends a vote in the store with a new id and update the count
 func (k Keeper) AppendVote(
 	ctx sdk.Context,
-	creator string,
-	pollID string,
-	option string,
+	vote types.Vote,
 ) uint64 {
 	// Create the vote
 	count := k.GetVoteCount(ctx)
-	var vote = types.Vote{
-		Creator: creator,
-		Id:      count,
-		PollID:  pollID,
-		Option:  option,
-	}
+
+	// Set the ID of the appended value
+	vote.Id = count
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.VoteKey))
-	value := k.cdc.MustMarshalBinaryBare(&vote)
-	store.Set(GetVoteIDBytes(vote.Id), value)
+	appendedValue := k.cdc.MustMarshalBinaryBare(&vote)
+	store.Set(GetVoteIDBytes(vote.Id), appendedValue)
 
 	// Update vote count
 	k.SetVoteCount(ctx, count+1)
@@ -85,7 +79,7 @@ func (k Keeper) HasVote(ctx sdk.Context, id uint64) bool {
 	return store.Has(GetVoteIDBytes(id))
 }
 
-// GetVoteOwner returns the creator of the vote
+// GetVoteOwner returns the creator of the
 func (k Keeper) GetVoteOwner(ctx sdk.Context, id uint64) string {
 	return k.GetVote(ctx, id).Creator
 }

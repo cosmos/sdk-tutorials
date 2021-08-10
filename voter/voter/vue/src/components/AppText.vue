@@ -27,10 +27,10 @@
 </style>
 <script>
 export default {
-   props: {
+  props: {
     type: {
       default: "p1",
     },
   },
-}
+};
 </script>

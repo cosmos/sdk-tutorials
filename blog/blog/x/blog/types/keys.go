@@ -14,18 +14,24 @@ const (
 	QuerierRoute = ModuleName
 
 	// MemStoreKey defines the in-memory store key
-	MemStoreKey = "mem_capability"
+	MemStoreKey = "mem_blog"
 
-	// PostPrefix is used for keys in the KV store
-	PostKey      = "Post-value-"
+	// PostKey defines the post value store key
+	PostKey = "Post-value-"
+
+	// PostCountKey defines the post count store key
 	PostCountKey = "Post-count-"
+
+	// this line is used by starport scaffolding # ibc/keys/name
 )
+
+// this line is used by starport scaffolding # ibc/keys/port
 
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
 
 const (
-	CommentKey= "Comment-value-"
-	CommentCountKey= "Comment-count-"
+	CommentKey      = "Comment-value-"
+	CommentCountKey = "Comment-count-"
 )

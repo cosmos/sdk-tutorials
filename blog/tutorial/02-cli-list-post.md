@@ -157,7 +157,7 @@ func CmdShowPost() *cobra.Command {
 
 ## Add the Two Query Commands to the Types
 
-Define a `QueryListPost` that will be used later on to dispatch query requests:
+Define a `QueryListPost` in a new file `blog/types/query.go` that will be used later on to dispatch query requests:
 
 ```go
 // x/blog/types/query.go
@@ -172,21 +172,46 @@ const (
 
 ## Add the Query Functions to the Keeper
 
-`NewQuerier` acts as a dispatcher for query functions, it should already be defined. Modify the switch statement to include `listPost`:
+`NewQuerier` acts as a dispatcher for query functions, it should already be defined. Modify the switch statement to include `listPost`. Create the `x/blog/keeper/query.go` file:
 
 ```go
 // x/blog/keeper/query.go
+package keeper
+
+import (
+	// this line is used by starport scaffolding # 1
+	"github.com/example/blog/x/blog/types"
+
+	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+
+	abci "github.com/tendermint/tendermint/abci/types"
+)
+
+func NewQuerier(k Keeper, legacyQuerierCdc *codec.LegacyAmino) sdk.Querier {
+	return func(ctx sdk.Context, path []string, req abci.RequestQuery) ([]byte, error) {
+		var (
+			res []byte
+			err error
+		)
 
 		switch path[0] {
-		// this line is used by starport scaffolding # 2
 		case types.QueryGetPost:
 			return getPost(ctx, path[1], k, legacyQuerierCdc)
+
 		case types.QueryListPost:
 			return listPost(ctx, k, legacyQuerierCdc)
 		default:
+			err = sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "unknown %s query endpoint: %s", types.ModuleName, path[0])
+		}
+
+		return res, err
+	}
+}
 ```
 
-Now define `listPost`:
+Next, define `listPost`:
 
 ### Add the Query Post Functions to the Keeper
 
@@ -317,45 +342,50 @@ This function uses a prefix iterator to loop through all the keys with a given p
 
 Now, you can see how it works. Run the following command to recompile your app, clear the data and relaunch the chain:
 
-```sh
-starport serve
+```bash
+starport chain serve
 ```
 
 After the app has launched, open a different terminal window and create a post:
 
-```sh
+```bash
 blogd tx blog create-post 'Hello!' 'This is my first blog post.' --from=alice
 ```
 
+And confirm the transaction with (y).
+
 Now run the query to see the post:
 
-```sh
+```bash
 blogd query blog list-post
 ```
 
-```
+```bash
 Post:
 - body: This is my first blog post.
-  creator: cosmos1mc6leyjdwd9ygxeqdnvtsh7ks3knptjf3s5lf9
+  creator: cosmos1f9jvhkt8we0m0nkq63a7rqa2wnfhu4waappk3q
   id: "0"
   title: Hello!
+pagination:
+  next_key: null
+  total: "1"
 ```
 
 That’s a newly created post along with your address and a unique ID. Try creating more posts and see the output.
 
 You can also make [ABCI](https://docs.tendermint.com/master/spec/abci/) queries from the browser:
 
-```
-http://localhost:26657/abci_query?path="custom/blog/list-post"
+```url
+http://localhost:26657/abci_query?path="/example.blog.blog.Query/PostAll"
 ```
 
 The result of this query is a base64 encoded string inside `result.response.value`. You can decode it using a browser’s built in JavaScript console: `atob("WwogIHsKICAgICJjcmV...")`.
 
-## Errors
+## Known Errors
 
 ### `null`
 
-```
+```bash
 blogd q blog list-post
 null
 ```
