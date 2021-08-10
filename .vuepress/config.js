@@ -121,6 +121,31 @@ module.exports = {
             },
           ],
         },
+        {
+          title: "B9lab content",
+          children: [
+            {
+              title: "introduction - What is Cosmos?",
+              path: "/b9lab-content/introduction",
+              directory: true,
+            },
+            {
+              title: "High level concepts - Main concepts of the Cosmos SDK",
+              path: "/b9lab-content/high-level-concepts",
+              directory: true,
+            },
+            {
+              title: "Run someone else's basic Cosmos blockchain",
+              path: "/b9lab-content/someone-else-blockchain",
+              directory: true,
+            },
+            {
+              title: "First steps in making our own Cosmos blockchain",
+              path: "/b9lab-content/own-blockchain",
+              directory: true,
+            },
+          ],
+        },
       ],
     },
     gutter: {
@@ -259,6 +284,7 @@ module.exports = {
     "publish-app-do/*.md",
     "starport/*.md",
     "understanding-ibc-denoms/*.md",
-    "feature-test/*.md"
+    "feature-test/*.md",
+    "b9lab-content/*/*.md"
   ],
 };
