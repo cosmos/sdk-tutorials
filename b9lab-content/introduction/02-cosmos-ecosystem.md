@@ -1,1 +1,0 @@
-# Cosmos Ecosystem

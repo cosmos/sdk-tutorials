@@ -1,1 +1,0 @@
-# Transactions and transactions lifecycle

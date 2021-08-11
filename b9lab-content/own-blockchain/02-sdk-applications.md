@@ -1,1 +1,0 @@
-# Cosmos SDK applications

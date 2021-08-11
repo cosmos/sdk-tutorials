@@ -125,23 +125,33 @@ module.exports = {
           title: "B9lab content",
           children: [
             {
-              title: "introduction - What is Cosmos?",
-              path: "/b9lab-content/introduction",
+              title: "Welcome (WIP)",
+              path: "/b9lab-content/1-welcome",
               directory: true,
             },
             {
-              title: "High level concepts - Main concepts of the Cosmos SDK",
-              path: "/b9lab-content/high-level-concepts",
+              title: "What is Cosmos?",
+              path: "/b9lab-content/2-what-is-cosmos",
               directory: true,
             },
             {
-              title: "Run someone else's basic Cosmos blockchain",
-              path: "/b9lab-content/someone-else-blockchain",
+              title: "Main Concepts",
+              path: "/b9lab-content/3-main-concepts",
               directory: true,
             },
             {
-              title: "First steps in making our own Cosmos blockchain",
-              path: "/b9lab-content/own-blockchain",
+              title: "Running a Chain",
+              path: "/b9lab-content/4-running-a-chain",
+              directory: true,
+            },
+            {
+              title: "My own Cosmos Chain",
+              path: "/b9lab-content/5-my-own-chain",
+              directory: true,
+            },
+            {
+              title: "What's Next?",
+              path: "/b9lab-content/6-whats-next",
               directory: true,
             },
           ],
