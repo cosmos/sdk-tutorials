@@ -174,7 +174,7 @@ import (
 var _ sdk.Msg = &MsgCreatePost{}
 ```
 
-Similarly to the post proto, `MsgCreatePost` contains the post definition.
+Similarly to the post proto, `MsgCreatePost` contains the post definition. `MsgCreatePost` will be automatically generated when you launch the application, so don't worry about errors if you see any.
 
 ```go
 func NewMsgCreatePost(creator string, title string, body string) *MsgCreatePost {
