@@ -1,5 +1,11 @@
 # Getting ATOM & Staking
 
+<!--
+
+This content could be linked to from https://cosmos.network/learn/get-atom as a step-by-step.
+
+-->
+
 The [Cosmos Hub](https://hub.cosmos.network) is the first among equals of Cosmos blockchains. The ATOM is the native token of the Cosmos Hub, also called the staking token. You need some ATOM to be able to transact on the Cosmos Hub, or to participate in the proof-of-stake consensus. Because of its usefulness, there are markets that determine the ATOM price in common currencies.
 
 So let's get our feet wet. We are going to:
