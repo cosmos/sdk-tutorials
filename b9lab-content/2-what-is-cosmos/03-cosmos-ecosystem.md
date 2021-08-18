@@ -16,9 +16,11 @@ In addition to the vast number of tokens, a variety of applications and services
 
 Currently, 249 applications and services build on Cosmos. Most applications and projects deal with finance, closely followed by infrastructure. Privacy, marketplace, social impact, and social applications and projects are less common.
 
---> include in tip box
+<HighlightBox type="tip">
+
 Do you want to take a look at the current list of applications and services built on Cosmos? Take a look at the [Cosmos ecosystem overview](https://cosmos.network/ecosystem/apps/?ref=cosmonautsworld)!
---> end of tip box
+
+</HighlightBox>
 
 Deployment on the mainnet has been conducted for most applications and projects. The rest is currently either in proof of concept, development, or was just deployed to the testnet.
 
@@ -30,7 +32,8 @@ The main aim of the Cosmos network is to provide an **ecosystem for easy blockch
 
 Each chain in the Cosmos ecosystem relies on **BFT consensus algorithms**, such as the [Tendermint](https://github.com/tendermint/tendermint) consensus. This ensures a common consensus mechanism at work in all chains build on the Cosmos SDK.
 
---> Include as info box
+<HighlightBox type="info">
+
 Tendermint is a BFT consensus algorithm and a consensus engine. It is a Replicated State Machine (RSM) that helps replicating an application on several machines. As such, it guarantees BFT properties for distributed systems and their applications.
 
 It does this in:
@@ -41,16 +44,21 @@ It does this in:
 Tendermint is widely used across the industry and the most mature BFT consensus engine for Proof-of-Stake (PoS) blockchains. It is used in case of the [Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html), [IRIS Hub](https://www.irishub.rw/), [Binance Chain](https://www.binance.org/en), [Terra](https://www.terra.money/), and [Kava](https://www.kava.io/).
 
 For more on Tendermint, a look into this [introduction](https://docs.tendermint.com/master/introduction/what-is-tendermint.html) can be very helpful.
---> End info box
+
+</HighlightBox>
 
 Until Cosmos came along, developing a smart contract was much easier than building a whole new chain. With the Cosmos SDK, entire flexible, secure, high performance, and sovereign **application-specific blockchains** can be developed. To allow this, building modular, adaptable, and interchangeable open-source development tools is at the center of Cosmos.
 
---> Include in a tip box
+<HighlightBox type="tip">
+
 If you want to explore more on application-specific blockchains, take a look at the section on **[A Blockchain App Architecture]()**.
 --> Include link to mod. 2, section 1
---> End of tip box
+
+</HighlightBox>
 
 Focusing on customizability and interoperability leads to establishing a stable universe determined by the same rules that apply to the whole ecosystem equally.
+
+--> Include hotspot image of ecosystem
 
 ## The Cosmos SDK - Modularity and Customizing
 
@@ -102,17 +110,21 @@ One such Peg-Zone implementation for Ethereum is the **Gravity DEX bridge**.
 
 The Cosmos SDK draws its modularity from so-called modules, that define most of the applications logic.
 
---> add in info box
+<HighlightBox type="info">
+
 Want to learn more about modules in the Cosmos SDK? Check out the [corresponding section](includelinktosection)!
---> end of info box
+
+</HighlightBox>
 
 [Atlas](https://atlas.cosmos.network/) implements a registry for such modules. In it, developers can publish and update Cosmos SDK modules. It is a very helpful tool for developers that wish to get an overview of all existing modules to develop their own application.
 
 Additionally, Atlas offers a [node explorer](https://atlas.cosmos.network/nodes) and provides Tendermint node crawling functionality allowing to explore Tendermint-based networks in regard to the type of nodes in the networks.
 
---> include in tip box
+<HighlightBox type="tip">
+
 If you want to dive deeper into the node explorer, take a look at the [documentation](https://github.com/cosmos/atlas/blob/main/docs/node-explorer.md).
---> end tip box
+
+</HighlightBox>
 
 ## Starport - Building Application-Specific Blockchains with one command
 
@@ -125,9 +137,11 @@ With Starport developers can:
 * Allow for inter-chain token transfers by using its built-in IBC relayer to send value and data to different chains;
 * Benefit of a fast-developed Front-end with automatically generated APIs in JavaScript, TypeScript, and Vue.
 
---> Include in tip box
+<HighlightBox type="tip">
+
 Already want to dive deep into Starport? Take a closer look into the [official documentation](https://docs.starport.network/).
---> end tip box
+
+</HighlightBox>
 
 When you scaffold with Starport, key management, creating validators, and transferring tokens can be done through the CLI.
 
@@ -145,23 +159,27 @@ With CosmWasm, smart contracts can run on multiple chains with the help of the I
 
 CosmWasm is written as a module to be plugged into the Cosmos SDK while leveraging the speed of Wasm and the power of Rust.
 
---> include as tip box
-For a deeper dive, see the [CosmWasm documentation](https://docs.cosmwasm.com/docs/0.14/)
---> end tip box
+<HighlightBox type="tip">
 
-## Alternative blockchain frameworks and SDKs - Overview: The ecosystem and alternative frameworks
+For a deeper dive, see the [CosmWasm documentation](https://docs.cosmwasm.com/docs/0.14/)
+
+</HighlightBox>
+
+## The Possibility of Using Alternative Blockchain Frameworks and SDKs
 
 As the Cosmos SDK is modular, developers can port existing codebases in Go on top of the SDK. This gives developers the opportunity to build on Cosmos without having to comprise too much on the tool set and environment used.
 
 For example, with [Ethermint](https://github.com/cosmos/ethermint) developers can port the EVM to make it a Cosmos SDK module compatible and combinable with existing modules. Thus, Ethermint blockchains are compatible with Cosmos.
 
---> add in info box
+<HighlightBox type="info">
+
 Ethermint is a software developed to port the EVM into a Cosmos module. It makes scalable, high-throughput, PoS blockchains possible. These are fully compatible with Ethereum and the Cosmos SDK.
 
 It is Web3 compatible, achieves a high throughput with Tendermint, and horizontal scaling with IBC. It provides a Web3, JSON-RPB layer to interact with Ethereum clients and tooling.
 
 For more on Ethermint, consult the [documentation](https://github.com/cosmos/ethermint).
---> end info box
+
+</HighlightBox>
 
 All Ethereum tools, such as Truffle and Metamask are compatible with Etheremint. Developers can even port their smart contracts to interact with the Cosmos ecosystem. Building a chain is not necessary to develop Cosmos-compatible smart contracts, it can be all done with Ethermint.
 

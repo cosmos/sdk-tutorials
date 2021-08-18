@@ -2,7 +2,7 @@
 
 Let's begin our journey with a brief recapitulation of blockchain technology and how Cosmos came into being.
 
-## The World of Blockchains - From public general-purpose to purpose-built chains
+## The World of Blockchains - From Public General-Purpose to Purpose-Built Chains
 
 Although it took until 2008 for the technology to be created, achievements in computer science and cryptography laid the ground for what latter came. You can find the origins of blockchain technology in the 1980s and 1990s. 
 
@@ -10,13 +10,15 @@ Work on append-only, cryptographically secured logs using hashing, authenticatio
 
 With the arriving of the new millennium, on October 31, 2008, an individual or group calling itself Satoshi Nakamoto proposed introducing a **P2P network for a digital currency**. Sending online payments directly between parties **independently of financial institutions and third parties** based on a public, decentralized application became a reality with **Bitcoin** and its consensus mechanism called Proof-of-Work (PoW).
 
---> Include info box
+<HighlightBox type="info">
+
 Proof-of-Work (PoW), used to achieve BFT, can be understood as a cryptographic puzzle solved by a network's node, called miner. The puzzle is a task of pre-defined, arbitrary difficulty.
 
 In most cases, the task consists of a search for an unknown, random number (a nonce). When the miner combines the nonce with ordered transactions in a block, it results in a hash value with pre-defined criteria. Finding the nonce is evidence of considerable effort, or work, invested in the search; Each node uses its computing power to be the first to solve the puzzle, winning the right to author the latest block.
 
 Here, economic incentives come into play: The node that announces a solution first receives a reward. This incentivizes participation, investing computing power into solving the task, and helps maintain the network's functioning.
---> End info box
+
+</HighlightBox>
 
 With the introduction of Bitcoin, the **development of decentralized applications (dApps)** - applications build on a decentralized network - began. In the early days, developing dApps could only be done by **forking the Bitcoin codebase** or **building on the codebase**. Additionally, Bitcoin's monolithic codebase and limited, not user-friendly scripting language made dApp development a tedious and complex process for developers.
 
@@ -68,9 +70,11 @@ The development of further and more complex applications requiring a more flexib
 
 In 2014, Jae Kwon and Ethan Buchman founded the Cosmos network with its consensus algorithm, [Tendermint](https://tendermint.com/). Initially, Cosmos was an open-source community project built by the Tendermint team. Since then, the organization assisting with the development and launch of the network is called the **Interchain Foundation** (ICF). It is a Swiss non-profit that after an initial coin offering (ICO) in 2017 raised funds to finance the development of open-source projects building on the Cosmos network.
 
---> Include as tip box
+<HighlightBox type="tip">
+
 Take a look at the 2019 [Cosmos White Paper](https://v1.cosmos.network/resources/whitepaper) to find out more about the origins of Cosmos!
---> End tip box
+
+</HighlightBox>
 
 Cosmos' founding **vision** is that of an easy development environment for blockchain technology addressing the main issues of previous blockchain projects and providing interoperability between chains. So to say, an **internet of blockchains**.
 
@@ -92,6 +96,12 @@ Cosmos addresses **two types of scalability**:
 In a blockchain context, vertical scalability is achieved through optimization of, for example, the consensus mechanism and applications running on the chain. One scales the blockchain itself by increasing the number of transactions being processed. Cosmos achieves vertical scalability with the help of the Tendermint BFT, as it increases the number of transactions per second. Cosmos currently conducts transactions in seven seconds. The only remaining bottleneck is then the application.
 
 Consensus mechanism and application optimization can only take one so far. To surpass the limits of vertical scalability, Cosmos' multi-chain architecture allows for an application to run parallel on different chains while being operated by the same validator set. This horizontal scalability theoretically allows for infinite scalability.
+
+<HighlightBox type="info">
+
+A **validator** is one or more cooperating computers that participate in the consensus by, among other things, creating blocks.
+
+</HighlightBox>
 
 ### How Does Cosmos Promote Sovereignty?
 
