@@ -1,36 +1,36 @@
 # Blockchain Technology and Cosmos
 
-Let's begin our journey with a brief recapitulation of blockchain technology and how Cosmos came into being.
+Let's begin our journey with a brief review of blockchain technology and how Cosmos came into being.
 
 ## The World of Blockchains - From Public General-Purpose to Purpose-Built Chains
 
-Although it took until 2008 for the technology to be created, achievements in computer science and cryptography laid the ground for what latter came. You can find the origins of blockchain technology in the 1980s and 1990s. 
+The building blocks of blockchain technology can be found in the 1980s and 1990s, when breakthroughs in computer science and cryptography laid the necessary groundwork. Eventually, it took until 2008 for blockchain technology per se to be invented.
 
-Work on append-only, cryptographically secured logs using hashing, authentication keys, and encryption keys, as well as the conceptual development of smart contracts and consensus mechanisms in peer-to-peer (P2P) networks with BFT.
+Necessary preliminary work included append-only, cryptographically secure logs using hashing, authentication and encryption keys, as well as the conceptual development of smart contracts and consensus mechanisms in peer-to-peer (P2P) networks with Byzantine fault-tolerance (BFT).
 
-With the arriving of the new millennium, on October 31, 2008, an individual or group calling itself Satoshi Nakamoto proposed introducing a **P2P network for a digital currency**. Sending online payments directly between parties **independently of financial institutions and third parties** based on a public, decentralized application became a reality with **Bitcoin** and its consensus mechanism called Proof-of-Work (PoW).
+On a fateful October 31, 2008, an individual or group calling itself Satoshi Nakamoto proposed a **P2P network for a digital currency**, calling it **Bitcoin**. It introduced a novel consensus  mechanism called Proof-of-Work (PoW). Suddenly, it became possible to send online payments directly between parties **independently of financial institutions and trusted third parties**. Bitcoin became the first public, decentralized application.
 
 <HighlightBox type="info">
 
-Proof-of-Work (PoW), used to achieve BFT, can be understood as a cryptographic puzzle solved by a network's node, called miner. The puzzle is a task of pre-defined, arbitrary difficulty.
+Proof-of-Work (PoW), used to achieve BFT, is best described as a cryptographic puzzle solved by a network's node, called miner. The puzzle is a task of pre-defined, arbitrary difficulty. At the scale of the network, the outcome is akin to a lottery with a single winning node.
 
-In most cases, the task consists of a search for an unknown, random number (a nonce). When the miner combines the nonce with ordered transactions in a block, it results in a hash value with pre-defined criteria. Finding the nonce is evidence of considerable effort, or work, invested in the search; Each node uses its computing power to be the first to solve the puzzle, winning the right to author the latest block.
+In most cases, the task consists of a search for an unknown, random number (in the jargon, a nonce). For it to be a winning nonce, when combined with ordered transactions in a block, the result ought to be a hash value matching pre-defined criteria. Finding the nonce is evidence of considerable effort, or work, invested in the search. Each node uses its computing power to be the first to solve the puzzle, winning the right to author the latest block.
 
 Here, economic incentives come into play: The node that announces a solution first receives a reward. This incentivizes participation, investing computing power into solving the task, and helps maintain the network's functioning.
 
 </HighlightBox>
 
-With the introduction of Bitcoin, the **development of decentralized applications (dApps)** - applications build on a decentralized network - began. In the early days, developing dApps could only be done by **forking the Bitcoin codebase** or **building on the codebase**. Additionally, Bitcoin's monolithic codebase and limited, not user-friendly scripting language made dApp development a tedious and complex process for developers.
+With the introduction of Bitcoin, the **development of decentralized applications (dApps)** - applications built on a decentralized network - began. In the early days, developing dApps could only be done by **forking the Bitcoin codebase** or **building on it**. However, Bitcoin's monolithic codebase and limited, not user-friendly scripting language made dApp development a tedious and complex process for developers.
 
 <ExpansionPanel title="The Basics of Blockchain">
 
-**Blockchain protocols** are programs that **hold a state** and modify it depending on the received inputs. The **state's consensus is deterministic**, meaning if you begin with the same genesis state and replicate all conducted changes, you will always achieve the same state. A blockchain has a **canonical transaction history**.
+**Blockchain protocols** define programs that **hold a state** and how to modify it according to the received inputs. Those inputs are transactions. The consensus ensures that a blockchain has a **canonical transaction history**. It follows that the **state is deterministic**, meaning if you begin with the same genesis state and replicate all conducted changes, you always achieve the same state.
 
-Blockchain architectures consist of **three layers**:
+Blockchain architectures can be split into **three layers**:
 
-* **Network-layer:** Focused on propagating transactions and consensus-related messages;
-* **Consensus-layer:** A mechanism build to allow for consensus between the single nodes of a P2P network;
-* **Application-layer:** State machine, which defines the applications' state and updates it with the processing of transactions.
+* **Network layer:** Tasked with propagating transactions and consensus-related messages;
+* **Consensus layer:** Runs the consensus protocol between the single nodes of a P2P network;
+* **Application layer:** In effect, running a state machine, which defines the applications' state and updates it with the processing of transactions.
 
 </ExpansionPanel>
 
@@ -50,7 +50,7 @@ When it comes to **scalability** of public blockchains, all dApps are limited by
 
 State **finality** is an additional concern. Whereas finality is given when committed blocks with transactions can no longer be reverted/revoked. It is of importance to differentiate between *probabilistic and absolute finality*.
 
-**Probabilistic finality** means the finality of a transaction dependent on how probable reverting a block is, i.e. the probability of removing a transaction. The more blocks come after the block containing a specific transaction, the less probable a reverted transaction becomes, as the longest chain rule applies in the case of forks. 
+**Probabilistic finality** means the finality of a transaction dependent on how probable reverting a block is, i.e. the probability of removing a transaction. The more blocks come after the block containing a specific transaction, the less probable a reverted transaction becomes, as the longest chain rule applies in the case of forks.
 
 On the other hand, **absolute finality** is a trait of BFT-based protocols. Finality comes as soon as a transaction and block are verified. There is no scenario, which could result in a revoked transaction.
 
