@@ -105,6 +105,11 @@ module.exports = {
               directory: true,
             },
             {
+              title: "Understand the Authz Module",
+              path: "authz-module/",
+              directory: true,
+            },
+            {
               title: "Deploy Your Blockchain on Digital Ocean",
               path: "/publish-app-do/",
               directory: true,
@@ -256,6 +261,7 @@ module.exports = {
     "blog/tutorial/*.md",
     "interchain-exchange/tutorial/*.md",
     "liquidity-module/*.md",
+    "authz-module/*.md",
     "publish-app-do/*.md",
     "starport/*.md",
     "understanding-ibc-denoms/*.md",
