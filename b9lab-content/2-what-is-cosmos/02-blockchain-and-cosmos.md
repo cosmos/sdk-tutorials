@@ -14,13 +14,13 @@ On a fateful October 31, 2008, an individual or group calling itself Satoshi Nak
 
 Proof-of-Work (PoW), used to achieve BFT, is best described as a cryptographic puzzle solved by a network's node, called miner. The puzzle is a task of pre-defined, arbitrary difficulty. At the scale of the network, the outcome is akin to a lottery with a single winning node.
 
-In most cases, the task consists of a search for an unknown, random number (in the jargon, a nonce). For it to be a winning nonce, when combined with ordered transactions in a block, the result ought to be a hash value matching pre-defined criteria. Finding the nonce is evidence of considerable effort, or work, invested in the search. Each node uses its computing power to be the first to solve the puzzle, winning the right to author the latest block.
+In most cases, the task consists of a search for an unknown, random number (in the jargon, a nonce). For it to be a winning nonce, when combined with ordered transactions in a block, the result ought to be a hash value matching a pre-defined criteria. Finding the nonce is evidence of considerable effort, or work, invested in the search. Each node uses its computing power to be the first to solve the puzzle, winning the right to author the latest block.
 
 Here, economic incentives come into play: The node that announces a solution first receives a reward. This incentivizes participation, investing computing power into solving the task, and helps maintain the network's functioning.
 
 </HighlightBox>
 
-With the introduction of Bitcoin, the **development of decentralized applications (dApps)** - applications built on a decentralized network - began. In the early days, developing dApps could only be done by **forking the Bitcoin codebase** or **building on it**. However, Bitcoin's monolithic codebase and limited, not user-friendly scripting language made dApp development a tedious and complex process for developers.
+With the introduction of Bitcoin, the **development of decentralized applications (DApps)** - applications built on a decentralized network - began. In the early days, developing DApps could only be done by **forking the Bitcoin codebase** or **building on it**. However, Bitcoin's monolithic codebase and limited, not user-friendly scripting language made DApp development a tedious and complex process for developers.
 
 <ExpansionPanel title="The Basics of Blockchain">
 
@@ -46,7 +46,7 @@ Even though the launch of Ethereum with its EVM was a big step forward, some **i
 
 Even with the EVM, the whole variety of possible use cases could not be implemented with Ethereum. As the EVM basically is a sandbox, it is tailored to use cases. Simplistic use cases can be implemented with it but are **limited in regard to design and efficiency by the limitations of the sandbox**. Additionally, developing on Ethereum also bears limitations when it comes to programming languages.
 
-When it comes to **scalability** of public blockchains, all dApps are limited by their transaction processing speed. In PoW chains such as Bitcoin or Ethereum, developers have to compete for the chain's limited resources.
+When it comes to **scalability** of public blockchains, all DApps are limited by their transaction processing speed. In PoW chains such as Bitcoin or Ethereum, developers have to compete for the chain's limited resources.
 
 State **finality** is an additional concern. Whereas finality is given when committed blocks with transactions can no longer be reverted/revoked. It is of importance to differentiate between *probabilistic and absolute finality*.
 
@@ -117,4 +117,4 @@ In the Cosmos universe, the standardization of architecture components while als
 
 As the same ground rules apply, i.e. standardization of components, it becomes easier for users to navigate different blockchains and applications. At the same time, it makes blockchain development easier.
 
-In the end, Cosmos makes the world easier for developers while making dApps easier to use.
+In the end, Cosmos makes the world easier for developers while making DApps easier to use.
