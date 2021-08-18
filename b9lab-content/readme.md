@@ -20,14 +20,14 @@ You can find the feature test file in /feature-test locally, or on [our staging 
 |               | Overview                                                   |
 |---------------|------------------------------------------------------------|
 | Main branch   | `content-updates`                                          |
-| Workflow      | `feature` --> `content-updates`                            |
+| Workflow      | `feature` --> `b9lab-content-updates`                            |
 | Naming schema | `is-feature-description` where `is` are your name initials |
 | Merge by      | All                                                        |
 | Manager       | Citlali                                                    |
 
-On our git (gitlab), you can always find the most recent content on the `content-updates` branch.
-* To work on an update, branch out of `content-updates` into a feature branch, named `xx-your-feature-description`, where `xx` are your name initials (two letter code).
-* When complete, setup a merge request from your branch toward `content-updates`. If a review is required, you can request a review directly, otherwise you can merge into `content-updates` directly, if no further check or discussion is required.
+On our git (gitlab), you can always find the most recent content on the `b9lab-content-updates` branch.
+* To work on an update, branch out of `b9lab-content-updates` into a feature branch, named `xx-your-feature-description`, where `xx` are your name initials (two letter code).
+* When complete, setup a merge request from your branch toward `b9lab-content-updates`. If a review is required, you can request a review directly, otherwise you can merge into `b9lab-content-updates` directly, if no further check or discussion is required.
 * In case of questions, please ping Citlali.
 * Never push to main!
 
