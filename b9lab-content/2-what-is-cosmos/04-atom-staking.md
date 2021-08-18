@@ -187,7 +187,7 @@ Now, your 0.9 ATOM is available. It is sitting there in your wallet, and it will
 
 * The benefit of it is that, unlike a bank, which holds your assets in a custodial wallet, when you delegate your ATOM, you remain in charge of your ATOM, so the validator does not have access to your assets. Think of your stake as a weighted vote of confidence.
 * A non-zero risk is that the validator you chose behaves incorrectly, or even maliciously, which exposes you proportionally to the same protocol penalties as the faulty validator.
-* Also keep in mind that the amount you delegate is locked away, and you would need 3 weeks to have access to it again, should you so decide.
+* Also keep in mind that the amount you delegate is locked away, and you would need 21 days to have access to it again, should you so decide.
 
 Let's **find a validator and delegate to it**. Past performance is no indicator of future performance, but in our case, we are going to believe it is.
 

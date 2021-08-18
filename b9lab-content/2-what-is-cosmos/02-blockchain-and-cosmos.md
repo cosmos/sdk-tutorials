@@ -22,8 +22,7 @@ Here, economic incentives come into play: The node that announces a solution fir
 
 With the introduction of Bitcoin, the **development of decentralized applications (dApps)** - applications build on a decentralized network - began. In the early days, developing dApps could only be done by **forking the Bitcoin codebase** or **building on the codebase**. Additionally, Bitcoin's monolithic codebase and limited, not user-friendly scripting language made dApp development a tedious and complex process for developers.
 
---> Include in an expandable box:
-## The Basics of Blockchain
+<ExpansionPanel title="The Basics of Blockchain">
 
 **Blockchain protocols** are programs that **hold a state** and modify it depending on the received inputs. The **state's consensus is deterministic**, meaning if you begin with the same genesis state and replicate all conducted changes, you will always achieve the same state. A blockchain has a **canonical transaction history**.
 
@@ -32,7 +31,8 @@ Blockchain architectures consist of **three layers**:
 * **Network-layer:** Focused on propagating transactions and consensus-related messages;
 * **Consensus-layer:** A mechanism build to allow for consensus between the single nodes of a P2P network;
 * **Application-layer:** State machine, which defines the applications' state and updates it with the processing of transactions.
---> end of expandable box
+
+</ExpansionPanel>
 
 After the introduction of Bitcoin, several so-called **public chains** came into being. Among them was **Ethereum** in 2014, a public blockchcain with smart contract functionality that allows for applications based on these self-executing, self-enforcing, and self-verifying account holding objects. Other general-purpose chains followed.
 

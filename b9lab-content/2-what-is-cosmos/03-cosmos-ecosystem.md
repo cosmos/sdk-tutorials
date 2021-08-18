@@ -96,6 +96,8 @@ Cosmos implements a **modular architecture with two blockchain classes**: **Hubs
 
 **Hubs** connect these so-called Zones. Hubs are blockchains designed to connect the heterogenous blockchains, i.e. Zones. Once a Zone connects to a Hub through an IBC connection, automatic access between the Zones connected to the Hub becomes possible. Now, data and value can be sent and received between the Zones without the risk of double-spending tokens. This limits the number of connections that need to be established for interoperability.
 
+--> Include hotspot image on Zones and Hubs
+
 An example of such a specific chain is the **[Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html)**. It was the first Hub to be created. It is a public, Proof-of-Stake (PoS) blockchain with a native token, ATOM. The Cosmos Hub can be understood as a router facilitating, among others, transactions between the Cosmos' chains. For example, transaction fees can be paid in different tokens as long as the Zone trusts the Cosmos Hub and the other Zones connected to it.
 
 *How is the bridge established when we are dealing with a non-Tendermint chain?* The IBC connection is not limited to Tendermint-based chains.
