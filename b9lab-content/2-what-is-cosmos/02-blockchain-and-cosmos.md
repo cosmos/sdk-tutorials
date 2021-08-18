@@ -8,19 +8,19 @@ The building blocks of blockchain technology can be found in the 1980s and 1990s
 
 Necessary preliminary work included append-only, cryptographically secure logs using hashing, authentication and encryption keys, as well as the conceptual development of smart contracts and consensus mechanisms in peer-to-peer (P2P) networks with Byzantine fault-tolerance (BFT).
 
-On a fateful October 31, 2008, an individual or group calling itself Satoshi Nakamoto proposed a **P2P network for a digital currency**, calling it **Bitcoin**. It introduced a novel consensus  mechanism called Proof-of-Work (PoW). Suddenly, it became possible to send online payments directly between parties **independently of financial institutions and trusted third parties**. Bitcoin, the first public, decentralized application.
+On a fateful October 31, 2008, an individual or group calling itself Satoshi Nakamoto proposed a **P2P network for a digital currency**, calling it **Bitcoin**. It introduced a novel consensus  mechanism called Proof-of-Work (PoW). Suddenly, it became possible to send online payments directly between parties **independently of financial institutions and trusted third parties**. Bitcoin became the first public, decentralized application.
 
 <HighlightBox type="info">
 
 Proof-of-Work (PoW), used to achieve BFT, is best described as a cryptographic puzzle solved by a network's node, called miner. The puzzle is a task of pre-defined, arbitrary difficulty. At the scale of the network, the outcome is akin to a lottery with a single winning node.
 
-In most cases, the task consists of a search for an unknown, random number (in the jargon, a nonce). For it to be a winning nonce, when combined with ordered transactions in a block, the result ought to be a hash value matching a pre-defined criteria. Finding the nonce is evidence of considerable effort, or work, invested in the search. Each node uses its computing power to be the first to solve the puzzle, winning the right to author the latest block.
+In most cases, the task consists of a search for an unknown, random number (in the jargon, a nonce). For it to be a winning nonce, when combined with ordered transactions in a block, the result ought to be a hash value matching pre-defined criteria. Finding the nonce is evidence of considerable effort, or work, invested in the search. Each node uses its computing power to be the first to solve the puzzle, winning the right to author the latest block.
 
 Here, economic incentives come into play: The node that announces a solution first receives a reward. This incentivizes participation, investing computing power into solving the task, and helps maintain the network's functioning.
 
 </HighlightBox>
 
-With the introduction of Bitcoin, the **development of decentralized applications (DApps)** - applications built on a decentralized network - began. In the early days, developing DApps could only be done by **forking the Bitcoin codebase** or **building on it**. However, Bitcoin's monolithic codebase and limited, not user-friendly scripting language made DApp development a tedious and complex process for developers.
+With the introduction of Bitcoin, the **development of decentralized applications (dApps)** - applications built on a decentralized network - began. In the early days, developing dApps could only be done by **forking the Bitcoin codebase** or **building on it**. However, Bitcoin's monolithic codebase and limited, not user-friendly scripting language made dApp development a tedious and complex process for developers.
 
 <ExpansionPanel title="The Basics of Blockchain">
 
@@ -30,7 +30,7 @@ Blockchain architectures can be split into **three layers**:
 
 * **Network layer:** Tasked with propagating transactions and consensus-related messages;
 * **Consensus layer:** Runs the consensus protocol between the single nodes of a P2P network;
-* **Application layer:** In effect running a state machine, which defines the applications' state and updates it with the processing of transactions.
+* **Application layer:** In effect, running a state machine, which defines the applications' state and updates it with the processing of transactions.
 
 </ExpansionPanel>
 
