@@ -1,6 +1,6 @@
 # The Cosmos Ecosystem
 
-**Cosmos** is a **network of independent blockchains**. All powered by consensus algorithms with Byzantine Fault-Tolerance (BFT) and connected through an inter-blockchain communication protocol allowing for value exchanges (i.e. token transfers) between blockchains without the need of involving exchanges and changes to the chain's sovereignty. As such, Cosmos is not comparable to a blockchain product per se, but rather is an ecosystem of blockchains.
+**Cosmos** is a **network of independent blockchains**. All powered by consensus algorithms with Byzantine Fault-Tolerance (BFT) and connected through an inter-blockchain communication protocol allowing for value transfers (i.e. token transfers) and communication between blockchains without the need of involving exchanges and changes to the chain's sovereignty. As such, Cosmos is not comparable to a blockchain product per se, but rather is an ecosystem of blockchains.
 
 ## A Whole Universe to Discover - Tokens, Wallets, Apps, and Services
 
