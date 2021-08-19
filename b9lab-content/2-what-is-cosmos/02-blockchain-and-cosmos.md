@@ -34,35 +34,35 @@ Blockchain architectures can be split into **three layers**:
 
 </ExpansionPanel>
 
-After the introduction of Bitcoin, several so-called **public chains** came into being. Among them was **Ethereum** in 2014, a public blockchcain with smart contract functionality that allows for applications based on these self-executing, self-enforcing, and self-verifying account holding objects. Other general-purpose chains followed.
+After the introduction of Bitcoin, several so-called **public chains** came into being. Among them was **Ethereum** in 2014, a public blockchain with smart contract functionality. That enables applications based on these self-executing, self-enforcing, and self-verifying account holding objects. Other general-purpose chains followed.
 
 --> Include image with historic overview of blockchains
 
-Ethereum can be seen as a response to the difficulties of developing on Bitcoin.
+Ethereum can be seen as a response to the difficulties of developing smart contracts on Bitcoin.
 
-With Ethereum, the application layer of the chain became a virtual machine, the **Ethereum Virtual Machine (EVM)**. The EVM allowed processing smart contracts to provide a single chain on which to deploy programs (i.e. smart contracts).
+With Ethereum, the application layer of the chain took the form of a virtual machine, the **Ethereum Virtual Machine (EVM)**. The EVM runs smart contracts thereby providing a single chain on which to deploy programs (i.e. smart contracts).
 
-Even though the launch of Ethereum with its EVM was a big step forward, some **issues of general-purpose, public blockchains remained**: low flexibility for developers, scalability, state finality, speed, and sovereignty.
+Even though the launch of Ethereum with its EVM was a big step forward, some **issues of general-purpose, public blockchains remained**: low flexibility for developers,  speed, throughput, scalability, state finality, and sovereignty.
 
-Even with the EVM, the whole variety of possible use cases could not be implemented with Ethereum. As the EVM basically is a sandbox, it is tailored to use cases. Simplistic use cases can be implemented with it but are **limited in regard to design and efficiency by the limitations of the sandbox**. Additionally, developing on Ethereum also bears limitations when it comes to programming languages.
+Despite its many benefits, the EVM is a sandbox that delineates the range of implementable use cases. Simplistic and some complex use cases can be implemented with it but are nonetheless **limited in regard to design and efficiency by the limitations of the sandbox**. Additionally, developers are limited to those programming languages that are tailor-made for the EVM.
 
-When it comes to **scalability** of public blockchains, all DApps are limited by their transaction processing speed. In PoW chains such as Bitcoin or Ethereum, developers have to compete for the chain's limited resources.
+Talking about speed in blockchains means addressing the **transaction speed**, i.e the time it takes to confirm a transaction. Speed is naturally impacted by the target delay between blocks, e.g. 10 minutes in Bitcoin and 15 seconds in Ethereum. Speed is also impacted by the backlog of equally worthy pending transactions all competing to be included in the same blocks.
 
-State **finality** is an additional concern. Whereas finality is given when committed blocks with transactions can no longer be reverted/revoked. It is of importance to differentiate between *probabilistic and absolute finality*.
+**Throughput** describes how many transactions can the network handle per unit of time. It can be limited for reasons of physical network bandwidth, computer resources, or even by decisions embedded in the protocol. Not all DApps have the same throughput requirements, though, but if they are implemented on a general-purpose blockchains, they all have to make do with the _average_ resulting throughput. This impacts the **scalability** of a given DApp.
 
-**Probabilistic finality** means the finality of a transaction dependent on how probable reverting a block is, i.e. the probability of removing a transaction. The more blocks come after the block containing a specific transaction, the less probable a reverted transaction becomes, as the longest chain rule applies in the case of forks.
+**State finality** is an additional concern. Finality describes whether and when committed blocks with transactions can no longer be reverted/revoked. It is important to differentiate between *probabilistic* and *absolute finality*.
 
-On the other hand, **absolute finality** is a trait of BFT-based protocols. Finality comes as soon as a transaction and block are verified. There is no scenario, which could result in a revoked transaction.
+**Probabilistic finality** describes the finality of a transaction dependent on how probable reverting a block is, i.e. the probability of removing a transaction. The more blocks come after the block containing a specific transaction, the less probable a transaction may be reverted, as the longest chain rule applies in the case of forks.
 
-Talking about speed in blockchains means addressing the **transaction speed**, i.e the time it takes to confirm a transaction. The transaction speed also determines how scalable a blockchain is.
+On the other hand, **absolute finality** is a trait of BFT-based protocols. Finality comes as soon as a transaction and block are verified. There are no scenarios in which a transaction could be revoked after it has been finalized.
 
-Developing on Ethereum translates to having **two layers of governance**: The chain's governance and the application's governance. The chain's governance limits the application's governance leading to the latter being a requirement for changes in the application.
+When developing on Ethereum, the developer needs to contend with **two layers of governance**: The chain's governance and the application's governance. Whatever the DApp developers wish for their application's governance, they must contend with the underlying chain's governance.
 
-As a reaction to the public character of previous blockchain projects and the necessities for privacy in certain industries, more and more **private/managed chains**, i.e. blockchains with access barriers and sophisticated permission management. Platforms for permissioned networks such as R3's Corda and the Hyperledger Project's Hyperledger Fabric from the Linux Foundation launched.
+Given the features of existing public blockchain projects and the requirements for privacy in certain industries, a push started in favor of **private/managed chains**, i.e. blockchains with access barriers and sophisticated permission management. Platforms for permissioned networks such as R3's Corda and the Hyperledger Project's Hyperledger Fabric from the Linux Foundation are such examples.
 
-The development of further and more complex applications requiring a more flexible environment led to the launch of multiple **purpose-built chains**, specialized on providing a platform tailored to the necessities of certain applications (i.e. use cases). Still these blockchains remained environments limited by the use cases they were envisioned for.
+The eventual development of further and more complex applications required a more flexible environment. This led to the launch of multiple **purpose-built chains**, each providing a platform tailored to the necessities of its application, i.e. use case. Still, each of these blockchains acted as environments limited by the use cases they were envisioned for.
 
-**General-purpose chains are limited to simplistic use case applications, while purpose-built chains only fit certain use cases.** The question arises: *Is it possible to build a platform for all use cases that does not bring the limitations of general-purpose chains?*
+**General-purpose chains are limited to simplistic use case applications, while purpose-built chains only fit certain use cases.** The question arises: *Is it possible to build a platform for all use cases that does away with the limitations of general-purpose chains?*
 
 ## Why Cosmos?
 
