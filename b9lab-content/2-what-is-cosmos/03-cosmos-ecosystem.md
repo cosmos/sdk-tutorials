@@ -1,30 +1,30 @@
 # The Cosmos Ecosystem
 
-**Cosmos** is a network of independent blockchains. All powered by consensus algorithms with Byzantine Fault-Tolerance (BFT). All connected through an inter-blockchain communication protocol (IBC) enabling value transfers (e.g. token transfers) and other communication. All this without involving exchanges nor compromising the chain's sovereignty. As such, Cosmos is akin to **a blockchain ecosystem** rather than a blockchain product per se.
+**Cosmos** is a network of independent blockchains. All powered by consensus algorithms with Byzantine Fault-Tolerance (BFT). All connected through an inter-blockchain communication protocol (IBC) enabling value transfers (e.g. token transfers) and other communication. All this without the need to involve exchanges nor compromise the chains' sovereignty.
+
+More than this, Cosmos is also **a blockchain ecosystem**, complete with protocols, SDK, tokens, wallets, applications, repositories, services and tools.
 
 ## A Whole Universe to Discover - Tokens, Wallets, Apps, and Services
 
-Cosmos is an ever-expanding ecosystem of tokens, wallets, tools, and interconnected apps and services, all built for a decentralized future.
+Fittingly, Cosmos is an ever-expanding ecosystem of tokens, wallets, tools, and interconnected apps and services, all built for the decentralized future.
 
-At the time of writing, almost $100 billion in digital assets are under management and secured by Cosmos. Digital assets on Cosmos include fungible and non-fungible tokens (NFT). To conduct settlements, bespoke issuance, and inflation/deflation in-application tokens can be issued.
+At the time of writing, almost **$100 billion in digital assets** are under management and secured by Cosmos. Digital assets on Cosmos include fungible and non-fungible tokens (NFT). You can issue in-application tokens to conduct settlements, bespoke issuance, inflation / deflation, and more.
 
-Among the tokens secured by Cosmos are the [Binance Coin](https://www.binance.com/en/bnb), [Terra](https://www.terra.money/), and of course, ATOM.
-
-Token issuance on Cosmos is attractive due to the flexibility developers have. Usually, building on a blockchain leads to inheriting its constraints. In Cosmos, as developers build an application-specific blockchain, they decide on the constraints. So to say, constraints are self-imposed instead of being external.
+Among the fungible tokens secured by Cosmos are the [Binance Coin](https://www.binance.com/en/bnb), [Terra](https://www.terra.money/), and of course, ATOM. Because they are defined on application-specific blockchains, their developers are free from the constraints of a hypothetical general-purpose blockchain.
 
 In addition to the vast number of tokens, a variety of applications and services, as well as wallets, and explorers are based on Cosmos.
 
-Currently, 249 applications and services build on Cosmos. At the time of writing, most applications and projects deal with finance, closely followed by infrastructure. Privacy, marketplace, social impact, and social applications and projects are less common.
+Currently, **249 applications and services** build on Cosmos. At the time of writing, most applications and projects deal with finance, closely followed by infrastructure. Privacy, marketplace, social impact, and social applications and projects are less common.
 
 <HighlightBox type="tip">
 
-Do you want to take a look at the current list of applications and services built on Cosmos? Take a look at the [Cosmos ecosystem overview](https://cosmos.network/ecosystem/apps/?ref=cosmonautsworld)!
+Do you want an up-to-date list of applications and services built on Cosmos? Head to the [Cosmos ecosystem overview](https://cosmos.network/ecosystem/apps/?ref=cosmonautsworld)!
 
 </HighlightBox>
 
-Deployment on the mainnet has been conducted for most applications and projects. The rest is currently either in proof of concept, development, or was deployed to the testnet only.
+Deployment on the mainnet has been conducted for most applications and projects. The rest is currently either in proof of concept, development, or was deployed to a testnet only.
 
-Moreover, 33 wallets and block explorers for Cosmos are part of the ecosystem. Most are Android (such as the [Atomic Walllet](https://atomicwallet.io/) and [Coinex]()) or iOS wallets (like [AirGap](https://airgap.it/) and [Wallet.io](https://walletio.io/)), but there are also a number of web wallets (like [EXODUS](https://www.exodus.com) and [Keplr](https://wallet.keplr.app/)).
+Moreover, [**33 wallets**](https://cosmos.network/ecosystem/wallets) and block explorers for Cosmos are part of the ecosystem. Most are for Android, such as the [Atomic Walllet](https://atomicwallet.io/) and [Coinex](), or iOS, like [AirGap](https://airgap.it/) and [Wallet.io](https://walletio.io/), but there are also a number of web wallets, like [EXODUS](https://www.exodus.com) and [Keplr](https://wallet.keplr.app/).
 
 ## Main Components
 

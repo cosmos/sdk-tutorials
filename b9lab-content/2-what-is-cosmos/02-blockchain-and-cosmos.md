@@ -2,10 +2,11 @@
 
 Let's begin our journey with a brief review of blockchain technology, how Cosmos came into being, and what it brings to the world:
 
+* An internet of blockchains.
 * A better DApp user experience.
 * A simplified specialised DApp development experience.
 * Facilitated scalability.
-* Sovereignty to DApps.
+* Increased sovereignty to DApps.
 * Speed and fast finality.
 
 ## The World of Blockchains - From Public General-Purpose to Purpose-Built Chains
