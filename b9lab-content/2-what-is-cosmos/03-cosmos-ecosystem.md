@@ -1,8 +1,10 @@
 # The Cosmos Ecosystem
 
-**Cosmos** is a network of independent blockchains. All powered by consensus algorithms with Byzantine Fault-Tolerance (BFT). All connected through an inter-blockchain communication protocol (IBC) enabling value transfers (e.g. token transfers) and other communication. All this without the need to involve exchanges nor compromise the chains' sovereignty.
+**Cosmos** is a network of independent blockchains. All powered by consensus algorithms with Byzantine Fault-Tolerance (BFT). All connected through the Inter-Blockchain Communication protocol (IBC) enabling value transfers (e.g. token transfers) and other communication. All this without the need to involve exchanges nor compromise the chains' sovereignty.
 
 More than this, Cosmos is also **a blockchain ecosystem**, complete with protocols, SDK, tokens, wallets, applications, repositories, services, and tools.
+
+Let's review them.
 
 ## A Whole Universe to Discover - Tokens, Wallets, Apps, and Services
 
@@ -10,7 +12,7 @@ Fittingly, Cosmos is an ever-expanding ecosystem of tokens, wallets, tools, and 
 
 At the time of writing, almost **$100 billion in digital assets** are under management and secured by Cosmos. Digital assets on Cosmos include fungible and non-fungible tokens (NFT). You can issue in-application tokens to conduct settlements, bespoke issuance, inflation/deflation, and more.
 
-Among the fungible tokens secured by Cosmos are the [Binance Coin](https://www.binance.com/en/bnb), [Terra](https://www.terra.money/), and of course, ATOM. Because they are defined on application-specific blockchains, their developers are free from the constraints of a hypothetical general-purpose blockchain.
+Among the fungible tokens secured by Cosmos are the [Binance Coin](https://www.binance.com/en/bnb), [Terra](https://www.terra.money/), and of course, ATOM. Remember that because they are defined on application-specific blockchains, their developers are free from the constraints of a hypothetical general-purpose blockchain.
 
 In addition to the vast number of tokens, a variety of applications and services, as well as wallets, and explorers are based on Cosmos.
 
@@ -22,30 +24,15 @@ Do you want an up-to-date list of applications and services built on Cosmos? Hea
 
 </HighlightBox>
 
-Deployment on the mainnet has been conducted for most applications and projects. The rest is currently either in proof of concept, development, or was deployed to a testnet only.
+As you might expect, not all applications are at the same stage of development. Namely, deployment on the mainnet has been conducted for most applications and projects. The rest is currently either in proof of concept, development, or was deployed to a testnet only.
 
-Moreover, [**33 wallets**](https://cosmos.network/ecosystem/wallets) and block explorers for Cosmos are part of the ecosystem. Most are for Android, such as the [Atomic Walllet](https://atomicwallet.io/) and [Coinex](https://www.coinex.com/), or iOS, like [AirGap](https://airgap.it/) and [Wallet.io](https://walletio.io/), but there are also a number of web wallets, like [EXODUS](https://www.exodus.com) and [Keplr](https://wallet.keplr.app/).
+Moreover, [**33 wallets**](https://cosmos.network/ecosystem/wallets) and block explorers for Cosmos are part of the ecosystem. Most are for Android, such as the [Atomic Walllet](https://atomicwallet.io/) and [Coinex](https://www.coinex.com/), or iOS, like [AirGap](https://airgap.it/) and [Wallet.io](https://walletio.io/), but you can also find a number of web wallets, like [Exodus](https://www.exodus.com) and [Keplr](https://wallet.keplr.app/).
 
 ## Main Components
 
-The main aim of the Cosmos network is to provide an **ecosystem for easy blockchain development** based on the Tendermint BFT and the inter-blockchain communication protocol (IBC) thanks to the so-called [Cosmos SDK](https://v1.cosmos.network/sdk).
+The main aim of the Cosmos network is to provide an **ecosystem for easy blockchain development** based on the Tendermint BFT and the Inter-Blockchain Communication protocol (IBC) thanks to the so-called [Cosmos SDK](https://v1.cosmos.network/sdk).
 
-Each chain in the Cosmos ecosystem relies on **BFT consensus algorithms**, such as the [Tendermint](https://github.com/tendermint/tendermint) consensus. This ensures a common consensus mechanism at work in all chains built on the Cosmos SDK.
-
-<HighlightBox type="info">
-
-Tendermint is a BFT consensus algorithm and a consensus engine. It is a Replicated State Machine (RSM) that helps replicating an application on several machines. As such, it guarantees BFT properties for distributed systems and their applications.
-
-It does this in:
-
-* a **secure** manner - Tendermint continues working even if up to 1/3 of machines fail, and
-* a **consistent** way - every machine computes the same state and accesses the same transaction log.
-
-Tendermint is widely used across the industry and the most mature BFT consensus engine for Proof-of-Stake (PoS) blockchains. It is used in case of the [Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html), [IRIS Hub](https://www.irishub.rw/), [Binance Chain](https://www.binance.org/en), [Terra](https://www.terra.money/), and [Kava](https://www.kava.io/).
-
-For more on Tendermint, a look into this [introduction](https://docs.tendermint.com/master/introduction/what-is-tendermint.html) can be very helpful.
-
-</HighlightBox>
+Each chain in the Cosmos ecosystem relies on **fast-finality BFT consensus algorithms**, such as the [Tendermint](https://github.com/tendermint/tendermint) consensus. This ensures a common consensus mechanism at work in all chains of the network. Tendermint itself is used in case of the [Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html), [IRIS Hub](https://www.irishub.rw/), [Binance Chain](https://www.binance.org/en), [Terra](https://www.terra.money/), and [Kava](https://www.kava.io/).
 
 Before Cosmos came along, developing a smart contract was much easier than building a whole new chain. Now, with the Cosmos SDK, entire flexible, secure, high performance, and sovereign **application-specific blockchains** can be developed. To allow this, building modular, adaptable, and interchangeable open-source development tools is at the center of Cosmos' mission.
 
