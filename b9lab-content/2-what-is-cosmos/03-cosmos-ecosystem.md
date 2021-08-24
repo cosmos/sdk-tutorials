@@ -2,13 +2,13 @@
 
 **Cosmos** is a network of independent blockchains. All powered by consensus algorithms with Byzantine Fault-Tolerance (BFT). All connected through an inter-blockchain communication protocol (IBC) enabling value transfers (e.g. token transfers) and other communication. All this without the need to involve exchanges nor compromise the chains' sovereignty.
 
-More than this, Cosmos is also **a blockchain ecosystem**, complete with protocols, SDK, tokens, wallets, applications, repositories, services and tools.
+More than this, Cosmos is also **a blockchain ecosystem**, complete with protocols, SDK, tokens, wallets, applications, repositories, services, and tools.
 
 ## A Whole Universe to Discover - Tokens, Wallets, Apps, and Services
 
 Fittingly, Cosmos is an ever-expanding ecosystem of tokens, wallets, tools, and interconnected apps and services, all built for the decentralized future.
 
-At the time of writing, almost **$100 billion in digital assets** are under management and secured by Cosmos. Digital assets on Cosmos include fungible and non-fungible tokens (NFT). You can issue in-application tokens to conduct settlements, bespoke issuance, inflation / deflation, and more.
+At the time of writing, almost **$100 billion in digital assets** are under management and secured by Cosmos. Digital assets on Cosmos include fungible and non-fungible tokens (NFT). You can issue in-application tokens to conduct settlements, bespoke issuance, inflation/deflation, and more.
 
 Among the fungible tokens secured by Cosmos are the [Binance Coin](https://www.binance.com/en/bnb), [Terra](https://www.terra.money/), and of course, ATOM. Because they are defined on application-specific blockchains, their developers are free from the constraints of a hypothetical general-purpose blockchain.
 
@@ -24,7 +24,7 @@ Do you want an up-to-date list of applications and services built on Cosmos? Hea
 
 Deployment on the mainnet has been conducted for most applications and projects. The rest is currently either in proof of concept, development, or was deployed to a testnet only.
 
-Moreover, [**33 wallets**](https://cosmos.network/ecosystem/wallets) and block explorers for Cosmos are part of the ecosystem. Most are for Android, such as the [Atomic Walllet](https://atomicwallet.io/) and [Coinex](), or iOS, like [AirGap](https://airgap.it/) and [Wallet.io](https://walletio.io/), but there are also a number of web wallets, like [EXODUS](https://www.exodus.com) and [Keplr](https://wallet.keplr.app/).
+Moreover, [**33 wallets**](https://cosmos.network/ecosystem/wallets) and block explorers for Cosmos are part of the ecosystem. Most are for Android, such as the [Atomic Walllet](https://atomicwallet.io/) and [Coinex](https://www.coinex.com/), or iOS, like [AirGap](https://airgap.it/) and [Wallet.io](https://walletio.io/), but there are also a number of web wallets, like [EXODUS](https://www.exodus.com) and [Keplr](https://wallet.keplr.app/).
 
 ## Main Components
 
@@ -70,9 +70,9 @@ The aim of the SDK is to create an ecosystem of components that not only help sp
 
 The ready-built modules of the Cosmos SDK can be easily used - It is as simple as importing modules into the application. Additionally, developers can create their own modules to introduce specific functionalities. It is expected that, with the growth of the ecosystem, the number of modules will grow, thereby facilitating the development of more complex applications.
 
-*Building on modular components, many of those you did not write yourself? Although it sounds like an increased potential for attacks, and faulty ori malicious nodes operating undetected? One does not have to worry.*
+*Building on modular components, many of those you did not write yourself? Although it sounds like an increased potential for attacks, and faulty or malicious nodes operating undetected? One does not have to worry.*
 
-The Cosmos SDK is built on a foundation of [object-capability model](https://docs.cosmos.network/master/core/ocap.html). It not only favors modularity, it also encapsulates code implementation. Thus, capabilities constrain security boundaries between modules.
+The Cosmos SDK is built on a foundation of the [object-capability model](https://docs.cosmos.network/master/core/ocap.html). It not only favors modularity, it also encapsulates code implementation. Thus, capabilities constrain security boundaries between modules.
 
 The default consensus mechanism available to build with the SDK is [Tendermint Core](https://docs.tendermint.com/master/).
 
@@ -80,13 +80,13 @@ The default consensus mechanism available to build with the SDK is [Tendermint C
 
 The [Inter-Blockchain Communication (IBC) protocol](https://ibcprotocol.org/) is the basis for **interoperability** in Cosmos. It leverages Tendermint's instant finality to allow for the transfer of value (i.e. tokens) and data communication between heterogenous chains. Blockchains with different applications and architecture specifications become interoperable whether or not they share a validator set.
 
-Without IBC, the interoperability of heterogenous chains is difficult to achieve because they may implement the consensus, networking, and application layers in various ways. On the other hand, as soon as a blockchain is compatible with IBC, it becomes interoperable with others. IBC has few requirements to make a chain compatible: Mainly, the consensus layer must have fast and absolute finality.
+Without IBC, the interoperability of heterogenous chains is difficult to achieve because they may implement the consensus, networking, and application layers in various ways. As soon as a blockchain is compatible with IBC, it becomes interoperable with others. IBC has few requirements to make a chain compatible: Mainly, the consensus layer must have fast and absolute finality.
 
 *With these chain-to-chain connections now possible, how can we create a network of blockchains?*
 
-The first naive idea would be to connect each blockchain with the other chains through direct IBC connections. Unfortunately this would quickly lead to a very large, expensive, and ultimately unmanageable number of connections in the network. In fact, the number of connections in the network would increase quadratically with the number of blockchains.
+The first naive idea would be to connect each blockchain with the other chains through direct IBC connections. Unfortunately, this would quickly lead to a very large, expensive, and ultimately unmanageable number of connections in the network. In fact, the number of connections in the network would increase quadratically with the number of blockchains.
 
-A second idea, one that reduces the number of connections necessary back down to the number of chains, would be to introduce an intermediate entity that facilitates the transfer between chains, in a hub and spoke model. Unfortunately, this would bring back unwelcome centralization.
+A second idea, one that **reduces the number of connections necessary** back down to the number of chains, would be to introduce an intermediate entity that facilitates the transfer between chains, in a hub and spoke model. Unfortunately, this would bring back unwelcome centralization.
 
 *How could we uphold decentralization then?*
 
@@ -96,7 +96,7 @@ Cosmos implements a **modular architecture with two blockchain classes**: **hubs
 
 **Zones** are heterogenous blockchains carrying out the authentication of accounts and transactions, the creation and distribution of tokens, and the execution of changes to the chain.
 
-**Hubs** connect these so-called zones. Hubs are blockchains designed to connect the heterogenous blockchains, i.e. zones. Once a zone connects to a hub through an IBC connection, it gets automatic access to the other zones connected to the hub. At this point, data and value can be sent and received between the zones without risk, for instance of double-spending tokens. This helps reduce the number of chain-to-chain connections that need to be established for interoperability.
+**Hubs** connect these so-called zones. Hubs are blockchains designed to connect heterogenous blockchains, i.e. zones. Once a zone connects to a hub through an IBC connection, it gets automatic access to the other zones connected to the hub. At this point, data and value can be sent and received between the zones without risk, for instance of double-spending tokens. This helps reduce the number of chain-to-chain connections that need to be established for interoperability.
 
 --> Include hotspot image on zones and hubs
 
@@ -106,7 +106,7 @@ An example of such a specific chain is the **[Cosmos Hub](https://hub.cosmos.net
 
 If the other non-Tendermint chain is a **fast-finality chain**, i.e. a blockchain using a fast-finality consensus algorithm, the connection can be established by adapting IBC to work with the non-Tendermint consensus mechanism.
 
-If the other chain is a **probabilistic-finality chain**, i.e. a blockchain without fast finality like those relying on PoW, a simple adaptation of IBC is not sufficient. Instead, a more elaborate setup is required. More precisely, a proxy-chain, a so-called **peg-zone**, helps establish interoperability. Peg-zones are fast-finality blockchains tracking chain states to establish finality. The peg-zone chain itself is IBC-compatible and actes as the **bridge** between the rest of the IBC network, i.e. its blockchains, and the probabilistic-finality chain.
+If the other chain is a **probabilistic-finality chain**, i.e. a blockchain without fast finality like those relying on Proof-of-Work (PoW), a simple adaptation of IBC is not sufficient. Instead, a more elaborate setup is required. More precisely, a proxy-chain, a so-called **peg-zone**, helps establish interoperability. Peg-zones are fast-finality blockchains tracking chain states to establish finality. The peg-zone chain itself is IBC-compatible and acts as the **bridge** between the rest of the IBC network, i.e. its blockchains, and the probabilistic-finality chain.
 
 One such peg-zone implementation exists for Ethereum and is named the **Gravity DEX bridge**.
 
@@ -132,7 +132,7 @@ If you want to dive deeper into the node explorer, take a look at its [documenta
 
 ## Starport - Building Application-Specific Blockchains with one command
 
-[Starport](https://cosmos.network/starport/) is a developer-friendly command-line interface (CLI) tool for application-specific blockchains building on Tendermint and the Cosmos SDK. The CLI tool offers everything developers need to build, test, and launch a chain. It accelerates blockchain development by scaffolding and assembling all components needed for a production-ready blockchain. Starport makes the process from initial idea to production 95% faster, i.e. lets you build a blockchain in minutes. This lets developers focus better on the business logic of their application.
+[Starport](https://cosmos.network/starport/) is a developer-friendly command-line interface (CLI) tool for application-specific blockchains building on Tendermint and the Cosmos SDK. The CLI tool offers everything developers need to build, test, and launch a chain. It accelerates blockchain development by scaffolding and assembling all components needed for a production-ready blockchain. Starport makes the process from initial idea to production 95% faster, i.e. lets you build a blockchain in minutes. This lets developers focus more strongly on the business logic of their application.
 
 With Starport developers can:
 
@@ -147,7 +147,7 @@ Already want to dive deep into Starport? Take a closer look into its [official d
 
 </HighlightBox>
 
-When you scaffold with Starport, things like key management, creating validators, and transferring tokens can be done through the CLI.
+When you scaffold with Starport, things like key management, creating validators and transferring tokens can be done through the CLI.
 
 ## CosmWasm - Multi-Chain Smart Contracts
 
@@ -155,9 +155,9 @@ When you scaffold with Starport, things like key management, creating validators
 
 Its key features are:
 
-* Mature tools for the development and testing of smart contracts;
-* Close integration with the Cosmos SDK and ecosystem;
-* And secure architecture to avoid attack vectors.
+* Mature tools for the development and testing of smart contracts,
+* Close integration with the Cosmos SDK and ecosystem, and
+* A secure architecture to avoid attack vectors.
 
 With CosmWasm, smart contracts can run on multiple chains with the help of the IBC protocol. It adds further flexibility for developers and makes smart contract development faster.
 
