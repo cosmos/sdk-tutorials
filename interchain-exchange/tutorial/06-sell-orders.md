@@ -266,7 +266,7 @@ func (k Keeper) OnAcknowledgementSellOrderPacket(ctx sdk.Context, packet channel
 If a timeout occurs, we mint back the native token.
 
 ```go
-// x/ibcdex/keeper/sel_order.go
+// x/ibcdex/keeper/sell_order.go
 func (k Keeper) OnTimeoutSellOrderPacket(ctx sdk.Context, packet channeltypes.Packet, data types.SellOrderPacketData) error {
 	// In case of error we mint back the native token
 	receiver, err := sdk.AccAddressFromBech32(data.Seller)
