@@ -2,11 +2,11 @@
 
 Let's begin our journey with a brief review of blockchain technology, how Cosmos came into being, and what it brings to the world:
 
-* An internet of blockchains;
-* A better DApp user experience;
-* A simplified specialised DApp development experience;
-* Facilitated scalability;
-* Increased sovereignty to DApps;
+* An internet of blockchains,
+* A better DApp user experience,
+* A simplified specialised DApp development experience,
+* Facilitated scalability,
+* Increased sovereignty to DApps, and
 * Speed and fast finality.
 
 ## The World of Blockchains - From Public General-Purpose to Purpose-Built Chains
@@ -43,7 +43,7 @@ Bitcoin's codebase may have been monolithic, but it nevertheless was a blockchai
 
 </ExpansionPanel>
 
-After the introduction of Bitcoin, several so-called **public chains** came into being. Among them was **Ethereum** in 2014, a public blockchain with **smart contract** functionality. This smart-contract functionality enables applications based on these self-executing, self-enforcing, and self-verifying account holding objects. Other general-purpose chains followed.
+After the introduction of Bitcoin, several so-called **public chains** came into being. Among them was **Ethereum** in 2014, a public blockchain with **smart-contract** functionality. This functionality enables applications based on these self-executing, self-enforcing, and self-verifying account holding objects. Other general-purpose chains followed.
 
 --> Include image with historic overview of blockchains
 
@@ -67,9 +67,9 @@ On the other hand, **absolute finality** is a trait of protocols based on Proof-
 
 <ExpansionPanel title="What kind of sorcery is this?">
 
-PoS can have absolute finality because the totally staked amount is known at all times. Indeed, it takes a _public_ transaction to stake and another to unstake. You quickly figure out that if 51% of the stakers agree on 1 block, then that's it, that's the block.
+PoS can have absolute finality because the totally staked amount is known at all times. Indeed, it takes a _public_ transaction to stake and another to unstake. You quickly figure out that if 51% of the stakers agree on one block, then that's it, that's the block.
 
-That's different from PoW, where the total hashing capacity is unknown and can only be estimated by a combination of the difficulty of the puzzle and the speed at which new blocks are issued. To add or remove hashing capacity, all it takes is to surreptitiously turn on or off machines.
+This is different from PoW, where the total hashing capacity is unknown and can only be estimated by a combination of the difficulty of the puzzle and the speed at which new blocks are issued. To add or remove hashing capacity, all it takes is to surreptitiously turn on or off machines.
 
 Incidentally, when hashing capacity is removed too abruptly, it results in a drop in the network transaction throughput as blocks suddenly fail to be issued around the target interval.
 
@@ -93,8 +93,8 @@ Tendermint is a BFT consensus algorithm and a consensus engine. It is a Replicat
 
 It does this in:
 
-* a **secure** manner - Tendermint continues working even if up to 1/3 of machines fail, and
-* a **consistent** way - every machine computes the same state and accesses the same transaction log.
+* A **secure** manner - Tendermint continues working even if up to 1/3 of machines fail, and
+* A **consistent** way - every machine computes the same state and accesses the same transaction log.
 
 Tendermint is widely used across the industry and the most mature BFT consensus engine for Proof-of-Stake (PoS) blockchains.
 
