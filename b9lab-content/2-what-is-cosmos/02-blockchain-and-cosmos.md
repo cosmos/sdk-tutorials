@@ -2,11 +2,11 @@
 
 Let's begin our journey with a brief review of blockchain technology, how Cosmos came into being, and what it brings to the world:
 
-* An internet of blockchains.
-* A better DApp user experience.
-* A simplified specialised DApp development experience.
-* Facilitated scalability.
-* Increased sovereignty to DApps.
+* An internet of blockchains;
+* A better DApp user experience;
+* A simplified specialised DApp development experience;
+* Facilitated scalability;
+* Increased sovereignty to DApps;
 * Speed and fast finality.
 
 ## The World of Blockchains - From Public General-Purpose to Purpose-Built Chains
@@ -87,7 +87,7 @@ Cosmos' founding **vision** is that of an easy development environment for block
 
 *How is Cosmos an internet of blockchains?* Cosmos is a **network of interoperable blockchains**, each implemented with different properties suitable for their individual use cases. Cosmos lets developers create blockchains that maintain sovereignty, free from any "main chain" governance, that allow for fast transaction processing, and that are interoperable. With this, a great variety of use cases become possible.
 
-To achieve this vision and type of network, the ecosystem relies on an **open source toolkit**, including the [Inter-Blockchain Communication (IBC)](https://ibcprotocol.org/) protocol, its implementation in [Cosmos SDK](https://v1.cosmos.network/sdk), and [Tendermint](https://tendermint.com/) as the base layer with state finality. The toolkit, a set of modular, adaptable, and interchangeable tools, helps not only to quickly spin up a blockchain, but also facilitates the customization of secure and scalable chains.
+To achieve this vision and type of network, the ecosystem relies on an **open source toolkit**, including the [Inter-Blockchain Communication (IBC)](https://ibcprotocol.org/) protocol, its implementation in the [Cosmos SDK](https://v1.cosmos.network/sdk), and [Tendermint](https://tendermint.com/) as the base layer with state finality. The toolkit, a set of modular, adaptable, and interchangeable tools, helps not only to quickly spin up a blockchain, but also facilitates the customization of secure and scalable chains.
 
 Let's now look at the problems Cosmos solves.
 
@@ -100,9 +100,9 @@ Cosmos addresses **two types of scalability**:
 * **Horizontal scalability**: Scaling by adding similar machines to the network. When scaling out, horizontally, the network can accept more nodes to participate in the state replication, consensus observation, and any activity that queries the state.
 * **Vertical scalability**: Scaling by improving the network's components so as to increase its computational power. When scaling up, vertically, the network can accept more transactions, and any activity that modifies the state.
 
-In a blockchain context, vertical scalability is typically achieved through optimization of the consensus mechanism and applications running on the chain. On the consensus side, Cosmos achieves vertical scalability with the help of the Tendermint BFT. For instance, the Cosmos Hub currently conducts transactions in seven seconds. In a single blockchain context, the only remaining bottleneck is then the application.
+In a blockchain context, vertical scalability is typically achieved through the optimization of the consensus mechanism and applications running on the chain. On the consensus side, Cosmos achieves vertical scalability with the help of the Tendermint BFT. For instance, the Cosmos Hub currently conducts transactions in seven seconds. In a single blockchain context, the only remaining bottleneck is then the application.
 
-Consensus mechanism and application optimization of one blockchain can only take one so far. To overcome the limits of vertical scalability, Cosmos' multi-chain architecture allows for **one application to run in parallel** on different chains, all the while being operated by the same validator set. This inter-chain horizontal scalability theoretically allows for infinite vertical-like scalability.
+Consensus mechanism and application optimization of one's blockchain can only take one so far. To overcome the limits of vertical scalability, Cosmos' multi-chain architecture allows for **one application to run in parallel** on different chains, all the while being operated by the same validator set. This inter-chain horizontal scalability theoretically allows for infinite vertical-like scalability.
 
 <HighlightBox type="info">
 
@@ -112,13 +112,13 @@ A **validator** is one or more cooperating computers that participate in the con
 
 ### How Does Cosmos Promote Sovereignty?
 
-Applications deployed on general purpose blockchains all share the same underlying environment. When a change in the application needs to be made, it not only depends on the governance structures of the application but also that of the environment, i.e. the governance mechanisms set by the protocol on which the application builds. Thus, the chain's governance limits the application's sovereignty. For this reason, it is often called a **two-layer governance**.
+Applications deployed on general-purpose blockchains all share the same underlying environment. When a change in the application needs to be made, it not only depends on the governance structures of the application but also on that of the environment, i.e. the governance mechanisms set by the protocol on which the application builds. Thus, the chain's governance limits the application's sovereignty. For this reason, it is often called a **two-layer governance**.
 
 Cosmos resolves this issue as one can build a blockchain tailored to the application. There are no limits to the application's governance if every chain is maintained by its own set of validators. Cosmos follows a design of a **one-layer governance**.
 
 ### How Does Cosmos Improve User Experience?
 
-In the world of traditional general purpose blockchains, application design and efficiency are limited for blockchain developers. They have to find the simplistic use case the blockchain is designed for.
+In the world of traditional general-purpose blockchains, application design and efficiency are limited for blockchain developers. They have to find the simplistic use case the blockchain is designed for.
 
 In the Cosmos universe, the standardization of architecture components, while still providing customization opportunities, frees up the possibility of unconstrained, seamless, and intuitive user experiences.
 
