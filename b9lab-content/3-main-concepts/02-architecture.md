@@ -76,7 +76,7 @@ Later, we will dive into the Inter-Blockchain Protocol (IBC). **IBC** is a commo
 
 Importantly, application, consensus and network layers are contained within the custom blockchain node that forms the foundation of the custom blockchain. 
 
-![ABCI](ABCI.png)
+![ABCI](./images/ABCI.png)
 
 Tendermint passes confirmed transactions to the application layer through the Application Blockchain Interface. The application layer must implement the ABCI, which is a socket protocol. In this way, Tendermint is unconcerned with the interpretation of transactions and the application layer can be unconcerned with propagation, broadcast, confirmation, network formation, and other lower-level concerns that Tendermint attends to, unless it wants to inspect such properties.  
 
