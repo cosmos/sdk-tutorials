@@ -163,6 +163,22 @@ When it is confirmed, your pending staking rewards start accruing. Not that fast
 
 ![Keplr accruing rewards](./images/keplr-accruing-rewards.png)
 
-Your rewards are said to be pending because you need to claim them before you get them for real. Of course, the claim transaction has its own fees, so it is best for you to wait that your rewards exceed the transaction fees before submitting any claim transaction.
+Your rewards are said to be pending because you need to claim them before you get them for real. Of course, the claim transaction has its own fees, so it is best for you to wait that your rewards exceed the transaction fees before submitting any claim transaction. And with only 0.8 ATOM staked, you need to wait about 10 days to get something barely worth the claim transaction.
+
+## Claim your ATOM
+
+You did it. You waited 10 days, and there you are, accruing rewards.
+
+![Keplr accruing good rewards](./images/keplr-accruing-good-rewards.png)
+
+That's enough to cover the claim transaction, so let's go ahead and claim it. Again, choose low fees to make it worth it.
+
+![Keplr claim rewards](./images/keplr-claim-rewards.png)
+
+Now you can see how your rewards went straight to your available part of the wallet.
+
+![Keplr increased available](./images/keplr-increased-available.png)
+
+If you want to restake this amount, and benefit from the compound effect, go ahead, but make sure you are not losing too much in transaction costs.
 
 This completes this exercise, where you got yourself set up to participate in the Cosmos Hub network, and even participate in its security. Your stake is working for you as you continue your training.
