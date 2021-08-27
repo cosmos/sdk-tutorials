@@ -10,7 +10,7 @@ description: Accounts, addresses and keys in Cosmos.
 
 An account is a pair of keys called PubKey, a public key, and PrivKey, a private key. A public is a unique identifier for a user or entity that is safe to disclose.  
 
-Private keys are sensitive information that users are required to manage confidentially. Private keys are used to sign information in a way that **proves** to others that the message was signed by someone using the private key that corresponds to a given public key. This is done without revealing the private key itself. 
+Private keys are sensitive information that users are required to manage confidentially. Private keys are used to sign information in a way that **proves** to others that the message was signed by someone using the private key that corresponds to a given public key. This is done without revealing the private key itself.
 
 ## Public Key Cryptography
 
@@ -21,11 +21,11 @@ Asymmetric cryptography has two primary applications:
 * **Authentication**, because the public key serves as a verification instrument for the private key pair;
 * **Encryption**, because only the private key can decrypt the information encrypted with the public key.
 
-We will focus on the Authentication aspect. 
+We will focus on the Authentication aspect.
 
 Compared to symmetric key algorithms, asymmetric ones do not require parties to use a secure channel to exchange the keys for encryption and decryption.
 
-Public key cryptography assures confidentiality, authenticity and non-repudiability. Examples of applications include [S/MIME](https://en.wikipedia.org/wiki/S/MIME) and [GPG](https://en.wikipedia.org/wiki/GNU_Privacy_Guard), as well as the basis of several Internet standards like [SSL](https://www.ssl.com/faqs/faq-what-is-ssl/) and [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security). 
+Public key cryptography assures confidentiality, authenticity and non-repudiability. Examples of applications include [S/MIME](https://en.wikipedia.org/wiki/S/MIME) and [GPG](https://en.wikipedia.org/wiki/GNU_Privacy_Guard), as well as the basis of several Internet standards like [SSL](https://www.ssl.com/faqs/faq-what-is-ssl/) and [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security).
 
 Due to its computational complexity, asymmetric cryptography is normally applied to small data blocks. In a hybrid system, symmetric and asymmetric cryptography are combined. For example, asymmetric encryption could be employed to transfer a symmetric encryption, which would then be used as an encryption key for the message. Examples of this hybrid system include [PGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy).
 
@@ -44,36 +44,36 @@ Alice wants to make sure that Bob's public announcement is indeed from Bob:
 * Bob sends Alice his announcement and its signature
 * Alice verifies the signature with Bob's public key
 
-When Alice has verified the signature, she will see that the announcement was signed using the private key that corresponds to Bob’s public key which is already known to represent Bob. 
+When Alice has verified the signature, she will see that the announcement was signed using the private key that corresponds to Bob’s public key which is already known to represent Bob.
 
-In summary, private keys are used to **prove** that messages originate from owners of accounts that are known by their public keys. More precisely, signatures **prove** that messages were signed by someone with knowledge of the private key that corresponds to a given public key. This is the basis of user authentication in a blockchain. For this reason, private keys are jealously guarded secrets. 
+In summary, private keys are used to **prove** that messages originate from owners of accounts that are known by their public keys. More precisely, signatures **prove** that messages were signed by someone with knowledge of the private key that corresponds to a given public key. This is the basis of user authentication in a blockchain. For this reason, private keys are jealously guarded secrets.
 
 ## Hyper-Deterministic Wallets
 
-Blockchains generally maintain ledgers of user accounts and rely on public key cryptography for user authentication. Implicitly, knowledge of one’s public and private keys is a requirement for executing transactions. Client software applications known as wallets provide methods to generate new key pairs and store them between sessions, as well as basic services such as creating transactions, signing messages, interacting with applications (for example, web pages) and communicating with the blockchain. 
+Blockchains generally maintain ledgers of user accounts and rely on public key cryptography for user authentication. Implicitly, knowledge of one’s public and private keys is a requirement for executing transactions. Client software applications known as wallets provide methods to generate new key pairs and store them between sessions, as well as basic services such as creating transactions, signing messages, interacting with applications (for example, web pages) and communicating with the blockchain.
 
-Although it is technically feasible to generate and store multiple key pairs in a wallet, key management is less than ideal for users in that scenario. Given that all keys would exist in one place only, users would need to devise ways to recover those keys in adverse situations such as the loss or destruction of the computer. To put it simply, the more accounts, the more keys to back up. 
+Although it is technically feasible to generate and store multiple key pairs in a wallet, key management is less than ideal for users in that scenario. Given that all keys would exist in one place only, users would need to devise ways to recover those keys in adverse situations such as the loss or destruction of the computer. To put it simply, the more accounts, the more keys to back up.
 
-A Hyper-deterministic Wallet uses a single seed phrase to generate many key pairs. In this way, only the seed phrase needs to be backed up. 
+A Hyper-deterministic Wallet uses a single seed phrase to generate many key pairs. In this way, only the seed phrase needs to be backed up.
 
 Cosmos SDK uses [BIP32](https://en.bitcoin.it/wiki/BIP_0032) which allows users to generate a set of accounts from an initial secret that usually consists of 12 or 24 words known as the mnemonic. Importantly, key pairs can always be reproduced from the mnemonic.
 
-To see BIP32 in action, visit [https://www.bip32.net/](https://www.bip32.net/). Click `Show entropy details` and enter random data in the `Entropy` field. This reveals an important aspect of the initial seed generation process. A source of randomness is essential. As you provide entropy, the `BIP39 Mnemonic` field will begin to populate with words. Scrolling down further and selecting the `BIP39` tab under `Derived Addresses`, you will see `Public Key` and `Private Key` pairs. 
+To see BIP32 in action, visit [https://www.bip32.net/](https://www.bip32.net/). Click `Show entropy details` and enter random data in the `Entropy` field. This reveals an important aspect of the initial seed generation process. A source of randomness is essential. As you provide entropy, the `BIP39 Mnemonic` field will begin to populate with words. Scrolling down further and selecting the `BIP39` tab under `Derived Addresses`, you will see `Public Key` and `Private Key` pairs.
 
-Like most blockchain implementations, Cosmos derives addresses from the public keys. More on this below. 
+Like most blockchain implementations, Cosmos derives addresses from the public keys. More on this below.
 
 ![hd accounts](./images/hd-accounts.png)
 
-Using BIP39, a user is required only to store their BIP39 mnemonic in a safe and confidential manner. All key pairs can be reconstructed from the mnemonic because it’s deterministic. There is no practical upper limit to the number of key pairs that can be generated from a single mnemonic, hence the name hyper-deterministic that is used to describe this approach to key generation. 
+Using BIP39, a user is required only to store their BIP39 mnemonic in a safe and confidential manner. All key pairs can be reconstructed from the mnemonic because it’s deterministic. There is no practical upper limit to the number of key pairs that can be generated from a single mnemonic, hence the name hyper-deterministic that is used to describe this approach to key generation.
 
 ## Keyring, Addresses and Address Types
 
-In the Cosmos SDK, keys are stored and managed in an object called a Keyring. 
+In the Cosmos SDK, keys are stored and managed in an object called a Keyring.
 
-Authentication is implemented as signature verification. 
+Authentication is implemented as signature verification.
 
 * Users generate transactions, sign transactions and send the signed transaction to the blockchain.
-* Transactions are formatted with the public key as part of the message. Signatures are verified by confirming that the signature’s public key matches the public key in the message. If the message is signed by anyone other than the purported sender, then the signature is invalid and the transaction is rejected. 
+* Transactions are formatted with the public key as part of the message. Signatures are verified by confirming that the signature’s public key matches the public key in the message. If the message is signed by anyone other than the purported sender, then the signature is invalid and the transaction is rejected.
 
 In case the foregoing is unclear, consider the following pseudo message:
 
@@ -99,11 +99,11 @@ As you might guess, there is more than one implementation of the public key sign
 
 ## Accounts
 
-The `BaseAccount` object provides the basic account implementation that stores authentication information. 
+The `BaseAccount` object provides the basic account implementation that stores authentication information.
 
 ## Public Keys
 
-These are generally not used to reference accounts (see Addresses, below). Public keys do exist and they are accessible through the `cryptoTypes.PubKey` interface. This facilitates operations developers may find useful such as signing off-chain messages or using a public key for other out-of-band operations. 
+These are generally not used to reference accounts (see Addresses, below). Public keys do exist and they are accessible through the `cryptoTypes.PubKey` interface. This facilitates operations developers may find useful such as signing off-chain messages or using a public key for other out-of-band operations.
 
 ## Addresses
 
@@ -115,4 +115,27 @@ An address is the public information normally used to reference an account. Addr
 
 ## Keyring
 
-The Keyring object stores and manages multiple accounts. In the SDK, the Keyring object implements the Keyring interface. 
+The Keyring object stores and manages multiple accounts. In the SDK, the Keyring object implements the Keyring interface.
+
+## Long-running exercise
+
+Previously, our ABCI application accepted anonymous checkers moves. This was a problem. With accounts, we are going to restrict moves to the right player.
+
+1. If we planned on staying with a single game, we would do the following:
+    * In our `/store`, we would add:
+        * `/store/players/black: Address`
+        * `/store/players/red: Address`
+    * In our `DeliverTx` code, or whichever equivalent in the Cosmos SDK, before calling [`Move()`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274), we would confirm that the move is coming from the right player.
+2. But because we want to eventually handle multiple games, we need to define a `FullGame` type in storage, and assign players there, in pseudo-code:
+    ```
+    struct FullGame {
+        board: Game, // Which contains the Pieces and the Turn when in memory.
+        players: {
+            black: Address,
+            red: Address
+        }
+    }
+    ```
+    Then, we would have a `Move()` function on the `FullGame` that confirms that the move comes from the right player. For now, we do not look at the serialization of this `FullGame`, and at what path(s) it would go, but we keep in mind that we will need to have all elements serialized.
+
+TODO: in code.
