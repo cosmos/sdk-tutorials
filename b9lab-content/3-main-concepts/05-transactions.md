@@ -1,8 +1,14 @@
+---
+title: "Transactions"
+order: 5
+description: Transactions in Cosmos.
+---
+
 # Transactions
 
 Transactions are objects created by end-users to trigger state changes in the application. They are comprised of metadata that defines a context and `sdkMsgs` that trigger state changes within a module through the module’s Protobuf message service. 
 
-## Transaction process, end-user
+## Transaction Process, End-user
 
 While there is much to explore as we journey through the stack, let us first describe the transaction process from a user perspective. 
 
@@ -13,7 +19,7 @@ While there is much to explore as we journey through the stack, let us first des
 
 From a user perspective, **decide** and **sign** are the main interactions, while **generate** and **broadcast** are attended by the user interface and other automations. 
 
-## Transaction objects
+## Transaction Objects
 
 Transaction objects are SDK types that implement the `Tx` interface. They contain the following methods:
 
@@ -22,7 +28,7 @@ Transaction objects are SDK types that implement the `Tx` interface. They contai
 
 As a developer, you should rarely manipulate a Tx directly. It is an intermediate type used for transaction generation. Instead, developers should prefer the TxBuilder interface. 
 
-## Signing transactions
+## Signing Transactions
 
 Every message in a transaction must be signed by the addresses specified by its `GetSigners`. The SDK currently allows signing transactions in two different ways:
 
@@ -41,7 +47,7 @@ In this context, messages, or `sdk.Msgs` are module-specific objects that trigge
 This design puts more responsibility on module developers, allowing application developers to reuse common functionalities without having to implement state transition logic repetitively.
 While messages contain the information for state transition logic, a transaction's other metadata and relevant information are stored in the `TxBuilder` and `Context`.
 
-## Transaction generation
+## Transaction Generation
 
 The TxBuilder interface contains metadata closely related to the generation of transactions. The end-user can freely set these parameters for the transaction to be generated.
 
@@ -62,7 +68,7 @@ Here's a pseudo-code snippet of how to generate and encode a transaction, using 
 txBuilder := txConfig.NewTxBuilder()
 txBuilder.SetMsgs(...) // and other setters on txBuilder
 ```
-## Broadcast the transaction
+## Broadcast the Transaction
 Once the transaction bytes are generated and signed there are currently three primary ways of broadcasting it. 
 
 Application developers create entrypoints to the application by creating a command-line interface, gRPC and/or REST interface, typically found in the application's ./cmd folder. These interfaces allow users to interact with the application.

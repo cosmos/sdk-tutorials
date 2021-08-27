@@ -1,6 +1,12 @@
+---
+title: "Accounts"
+order: 4
+description: Accounts, addresses and keys in Cosmos.
+---
+
 # Accounts
 
-## What is an account?
+## What is an Account?
 
 An account is a pair of keys called PubKey, a public key, and PrivKey, a private key. A public is a unique identifier for a user or entity that is safe to disclose.  
 
@@ -25,11 +31,11 @@ Due to its computational complexity, asymmetric cryptography is normally applied
 
 The length of keys is vital. Asymmetric cryptographic keys are usually very long. One can keep in mind a general principle: the longer the key, the more difficult it is to break the code. To break an asymmetric key with a brute force attack, the attacker needs to try every possible key. The longer the key is, the more difficult it is to guess.
 
-## Public / private key
+## Public/Private Keys
 
 Asymetric keys always come in pairs and offer their owner various capabilities. Those capabilities are based on cryptographic mathematics. As their name suggests, the public key is meant to be distributed to whoever is relevant, while the private key is to be jealously guarded. This is akin to publicizing your house address, but keeping the key to your house private. Do not be Dilbert's CEO, a story in 2 parts.
 
-### Sign and verify example
+### Sign and Verify Example
 
 Alice wants to make sure that Bob's public announcement is indeed from Bob:
 
@@ -60,7 +66,7 @@ Like most blockchain implementations, Cosmos derives addresses from the public k
 
 Using BIP39, a user is required only to store their BIP39 mnemonic in a safe and confidential manner. All key pairs can be reconstructed from the mnemonic because it’s deterministic. There is no practical upper limit to the number of key pairs that can be generated from a single mnemonic, hence the name hyper-deterministic that is used to describe this approach to key generation. 
 
-## Keyring, address and types of addresses
+## Keyring, Addresses and Address Types
 
 In the Cosmos SDK, keys are stored and managed in an object called a Keyring. 
 
@@ -81,7 +87,7 @@ Message: {
 ```
 Passing `Payload` into the signature verification function will return a sender. The derived sender must match the sender in the `Payload` itself. This will confirm that the `Payload` could only originate from someone with knowledge of the private key corresponding to `Sender: “0x1234”`
 
-## Signature schemes
+## Signature Schemes
 
 As you might guess, there is more than one implementation of the public key signature process described so far. Cosmos SDK supports the following digital key schemes for creating digital signatures:
 

@@ -1,3 +1,9 @@
+---
+title: "A Blockchain App Architecture"
+order: 2
+description: Architecture of a blockchain application built with Cosmos.
+---
+
 # A Blockchain App Architecture
 
 ## What is Tendermint
@@ -115,7 +121,7 @@ This state machine definition is silent on the processes that confirm and propag
 
 ![ABCI](./images/ABCI_2.png)
 
-## Additional details
+## Additional Details
 
 Many transactions that could be broadcast should not be broadcast. Examples include malformed transactions and spam-like artifacts. Since Tendermint is agnostic about transaction interpretation it cannot make this determination on its own. Therefore, the Application Blockchain Interface includes a `CheckTx` method that Tendermint uses to ask the application layer if the transaction meets minimum acceptability criteria. Applications implement this function. 
 
