@@ -35,7 +35,7 @@ And we store the board at `/store/board`, and return it in the response's `Value
 
 > `func Parse(s string) (*Game, error)`
 
-We also need to store whose turn it is to play. We choose to have a `bool` at `/store/turn`.
+Sadly, the `String()` function does not save the `.Turn` field, so we need to store whose turn it is to play on our own. We choose to have a `string` at `/store/turn` with the color of the player.
 
 To store this state, our application needs its own database. It needs to store a state at a certain Merkle root value, too, so that it can be recalled at a later date. This is another implementation _detail_ that we need to address when creating our application.
 
@@ -101,8 +101,8 @@ For the sake of the exercise, let's imagine that we emit some information in two
 ],
 [
     { key: "name", value: "boardState", index: true },
-    { key: "whiteCount", value: uint32, index: false },
-    { key: "whiteKingCount", value: uint32, index: false },
+    { key: "blackCount", value: uint32, index: false },
+    { key: "blackKingCount", value: uint32, index: false },
     { key: "redCount", value: uint32, index: false },
     { key: "redKingCount", value: uint32, index: false }
 ]
@@ -121,8 +121,8 @@ For the sake of the argument, let's assume that we want to tally what happened i
 ```
 [
     { key: "name", value: "aggregateAction", index: true },
-    { key: "whiteCapturedCount", value: uint32, index: false },
-    { key: "whiteKingCapturedCount", value: uint32, index: false },
+    { key: "blackCapturedCount", value: uint32, index: false },
+    { key: "blackKingCapturedCount", value: uint32, index: false },
     { key: "redCapturedCount", value: uint32, index: false },
     { key: "redKingCapturedCount", value: uint32, index: false }
 ]
@@ -138,7 +138,7 @@ After having returned and saved, the application may also keep a pointer in its 
 
 As a hacky side-note, this `data` need not be strictly a Merkle root hash. It could well be any bytes as long as the result is deterministic, as mentioned earlier, and collision-resistant, and that the application can recover the state out of it. For instance, if we took our only board and serialized it differently, we could return the board state as such.
 
-Namely, we have 64 cells, out of which only 32 are being used. Each cell has either nothing, a white pawn, a white king, a red pawn, or a red king. That's 5 possibilities, which can easily fit in a byte. So we need 32 bytes to describe the board. Since the first bit of a byte is never used when counting to 5, perhaps we can use the very first bit to indicate whose turn it is to play.
+Namely, we have 64 cells, out of which only 32 are being used. Each cell has either nothing, a black pawn, a black king, a red pawn, or a red king. That's 5 possibilities, which can easily fit in a byte. So we need 32 bytes to describe the board. Since the first bit of a byte is never used when counting to 5, perhaps we can use the very first bit to indicate whose turn it is to play.
 
 So here we go, we have a deterministic blockchain state, collision-resistant since the same value indicates an identical state, no external database to handle, and the full state is always stored in the block header.
 
