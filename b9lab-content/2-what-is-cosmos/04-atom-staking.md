@@ -1,4 +1,4 @@
-# Getting ATOM & Staking
+# Getting ATOM and Staking
 
 <!--
 

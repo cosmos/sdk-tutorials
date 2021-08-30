@@ -1,1 +1,1 @@
-# Consensus on Cosmos
+# Consensus on Cosmos Blockchains

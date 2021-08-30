@@ -146,7 +146,7 @@ module.exports = {
               directory: true,
             },
             {
-              title: "My own Cosmos Chain",
+              title: "My Own Cosmos Chain",
               path: "/b9lab-content/5-my-own-chain",
               directory: true,
             },

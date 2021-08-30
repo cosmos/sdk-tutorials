@@ -1,1 +1,1 @@
-# Running a Node, API & CLI
+# Running a Node, API, and CLI

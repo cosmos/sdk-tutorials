@@ -4,7 +4,7 @@ order: 2
 description: Architecture of a blockchain application built with Cosmos.
 ---
 
-# A Blockchain App Architecture
+# Blockchain App Architecture
 
 ## What is Tendermint
 
