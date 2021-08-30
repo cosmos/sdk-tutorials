@@ -1,18 +1,50 @@
 # Information for B9lab
 
 ## B9lab Cosmos developer platform readme
-This project runs on [vuepress](https://vuepress.vuejs.org/)
+
+This project runs on [vuepress](https://vuepress.vuejs.org/).
 
 Related repositories:
+
 * [sdk-tutorials on Github (upstream)](https://github.com/cosmos/sdk-tutorials)
-* [sdk-tutorials on B9lab gitlab](https://git.b9lab.com/client-projects/cosmos/cosmos-developer-platform)
+* [sdk-tutorials on private B9lab GitLab](https://git.b9lab.com/client-projects/cosmos/cosmos-developer-platform)
 * [vuepress-theme-cosmos](https://github.com/cosmos/vuepress-theme-cosmos)
 
 ## Local development
-Install the application with
-`npm install`
-and run it with 
-`npm run serve`
+
+To contribute to this project, install the Developer Portal application to enable preview on a local web browser.
+
+1. If you haven't already, clone the repo to your local machine and change to that directory. For example:
+
+    ```bash
+    cd ~/github
+    git clone https://git.b9lab.com/client-projects/cosmos/cosmos-developer-platform
+    cd cosmos
+    ```
+
+2. Local tutorials require JavaScript. If needed, install [npm](https://docs.npmjs.com/cli/v6/commands/npm-install).
+
+3. For each branch you work in, install the npm packages for the Developer Portal:
+
+    ```bash
+    npm install
+    ```
+
+4. Start the local instance of the portal build:
+
+    ```bash
+    npm run serve
+    ```
+
+    A successful client compile looks like: 
+    
+    ```bash
+    > VuePress dev server listening at http://localhost:8080/ ✔ Client Compiled successfully in 280.71ms success [12:06:28] Build 03d41f finished in 283 ms! ( http://localhost:8080/ )
+    ```
+
+5. You can now view the portal build on a local web browser. 
+
+    Tip: On a Mac, press the command key and click `http://localhost:8080/` for quick access to the local preview. If you are already using port 8080 on your local machine, the preview increments to the next available port 8081, and so on. 
 
 ## Features
 You can find the feature test file in /feature-test locally, or on [our staging server](http://prview-w4572v20dp8fqtbd7v.s3-website-eu-west-1.amazonaws.com/feature-test)

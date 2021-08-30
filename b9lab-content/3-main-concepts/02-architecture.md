@@ -1,1 +1,1 @@
-# A Blockchain App Architecture
+# Blockchain App Architecture
