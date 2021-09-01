@@ -63,11 +63,6 @@ Set the keyring backend:
 simd config keyring-backend test
 ```
 
-Set the broadcast mode:
-```
-simd config broadcast-mode block
-```
-
 ## Key Setup
 
 Create a couple test keys. You will use the `--recover` option so that the addresses used within the example commands below are consistent.
@@ -123,12 +118,16 @@ simd collect-gentxs
 
 ## Start Chain
 
+You are now ready to start a single node network on your local machine.
+
 Start the chain:
 ```
 simd start
 ```
 
 ## Submit Proposal
+
+In order to demonstrate an authorization to vote on a governance proposal, you'll need to first create a governance proposal.
 
 Create proposal:
 ```
@@ -142,6 +141,10 @@ simd q gov proposal 1
 
 ## Grant Authorization
 
+Next, the granter will need to `grant` an authorization to the grantee.
+
+The authorization will be a "generic" authorization, meaning there are no limits on the authorization. In this case, the grantee will be able to vote as many times as they want until the granter revokes the authorization.
+
 Create authorization:
 ```
 simd tx authz grant cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt generic --msg-type /cosmos.gov.v1beta1.MsgVote --from alice
@@ -153,6 +156,8 @@ simd q authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzag
 ```
 
 ## Generate Transaction
+
+In order for the grantee to execute a message on behalf of the granter, the grantee will first need to generate an unsigned transaction where the transaction author (the `--from` address) is the granter. 
 
 Create unsigned transaction:
 ```
@@ -166,6 +171,8 @@ cat tx.json
 
 ## Execute Transaction
 
+Finally, the grantee can sign and send the transaction using the `exec` command. The author of the transaction (the `--from` address) will be the grantee.
+
 Sign and send transaction:
 ```
 simd tx authz exec tx.json --from bob
@@ -175,3 +182,23 @@ View vote:
 ```
 simd q gov vote 1 cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh
 ```
+
+## Revoke Authorization
+
+If the granter would like to revoke the authorization from the grantee, the granter can use the `revoke` command.
+
+Revoke authorization:
+```
+simd tx authz revoke cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote --from alice
+```
+
+View authorization:
+```
+simd q authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote
+```
+
+## 🎉 Congratulations 🎉
+
+By completing this tutorial, you have learned how to use the authz module.
+
+To learn more about the authorization module and different types of authorizations, check out the [authz module documentation](https://docs.cosmos.network/v0.43/modules/authz/).
