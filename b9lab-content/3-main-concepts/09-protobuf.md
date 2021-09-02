@@ -30,14 +30,6 @@ For more on encoding in Cosmos: https://docs.cosmos.network/master/core/encoding
 Protobuf documentation overview: https://docs.cosmos.network/master/core/proto-docs.html 
 </HighlightBox>
 
-## Long-running exercise
-
-We have defined a number of data types: our transactions and our `FullGame`. Perhaps it is time to define them in Protobuf so as to enjoy its serialization facilities.
-
-We try to reuse the pre-existing `Game` if possible. Otherwise, we provide a transformer so as to reuse the rules code.
-
-<!-- TODO code detail. -->
-
 ## gRPC
 
 gRPC can use Protobuf as both its Interface Definition Language and as its underlying message interchange format. With gRPC, a client can directly call a method on a server application on a different machine as if it were a local object. 
@@ -61,3 +53,10 @@ The core of a Cosmos SDK application mainly consists of Type Definitions and Con
 * Reference to **codec**: Defaulted to go-amino, the codec in your Cosmos SDK application can be substituted with other suitable encoding frameworks as long as they persist data stores in byte slices and are deterministic.
 Reference to Module Manager: A reference to an object containing a list of the applications modules, known as the Module Manager.
 
+## Long-running exercise
+
+We have defined a number of data types: our transactions and our `FullGame`. Perhaps it is time to define them in Protobuf so as to enjoy its serialization facilities.
+
+We try to reuse the pre-existing `Game` if possible. Otherwise, we provide a transformer so as to reuse the rules code.
+
+<!-- TODO code detail. -->
