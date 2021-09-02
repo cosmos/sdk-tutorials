@@ -74,8 +74,9 @@ gRPC-gateway REST endpoints support external clients that may not wish to use gR
 
 <HighlightBox type=”info”>
 gRPC-gateway documentation: [https://grpc-ecosystem.github.io/grpc-gateway/](https://grpc-ecosystem.github.io/grpc-gateway/)
-Command-Line Commands
 </HighLightBox>
+
+### Command-Line Commands
 
 Each module defines commands for a command-line interface (CLI). Commands related to a module are defined in a folder called `client/cli`. The CLI divides commands into two categories, transactions and queries, defined in `tx.go` and `query.go` respectively.
 
