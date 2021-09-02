@@ -82,7 +82,7 @@ Use Starport to scaffold the blockchain app and the blog module.
 To scaffold a new blockchain named `planet`:
 
 ```go
-starport app github.com/user/planet
+starport scaffold chain github.com/user/planet
 cd planet
 ```
 
@@ -95,7 +95,7 @@ Next, use Starport to scaffold a blog module with IBC capabilities. The blog mod
 To scaffold a module named `blog`:
 
 ```go
-starport module create blog --ibc
+starport scaffold module blog --ibc
 ```
 
 A new directory with the code for an IBC module is created in `planet/x/blog`. Modules scaffolded with the `--ibc` flag include all the logic for the scaffolded IBC module.
@@ -104,26 +104,26 @@ A new directory with the code for an IBC module is created in `planet/x/blog`. M
 
 Next, create the CRUD actions for the blog module types.
 
-Use the `starport type` command to scaffold the boilerplate code for the create, read, update, and delete (CRUD) actions.
+Use the `starport scaffold list` command to scaffold the boilerplate code for the create, read, update, and delete (CRUD) actions.
 
-These `starport type` commands create CRUD code for the following transactions:
+These `starport scaffold list` commands create CRUD code for the following transactions:
 
 - Creating blog posts
 
   ```go
-  starport type post title content --module blog --no-message
+  starport scaffold list post title content --module blog --no-message
   ```
 
 - Processing acknowledgments for sent posts
 
   ```go
-  starport type sentPost postID title chain --module blog --no-message
+  starport scaffold list sentPost postID title chain --module blog --no-message
   ```
 
 - Managing post timeouts
 
   ```go
-  starport type timedoutPost title chain --module blog --no-message
+  starport scaffold list timedoutPost title chain --module blog --no-message
   ```
 
 The scaffolded code includes proto files for defining data structures, messages, messages handlers, keepers for modifying the state, and CLI commands.
@@ -131,10 +131,10 @@ The scaffolded code includes proto files for defining data structures, messages,
 ### Starport type command overview
 
 ```go
-starport type [typeName] [field1] [field2] ... [flags]
+starport scaffold list [typeName] [field1] [field2] ... [flags]
 ```
 
-The first argument of the `starport type [typeName]` command specifies the name of the type being created. For the blog app, you created `post`, `sentPost`, and `timedoutPost` types.
+The first argument of the `starport scaffold list [typeName]` command specifies the name of the type being created. For the blog app, you created `post`, `sentPost`, and `timedoutPost` types.
 
 The next arguments define the fields that are associated with the type. For the blog app, you created `title`, `content`, `postID`, and `chain` fields.
 
@@ -146,7 +146,7 @@ When a new type is scaffolded, the default behavior is to scaffold messages that
 
 Now you need to generate packet code that contains the title and the content of the blog post.
 
-The `starport packet` command creates the logic for an IBC packet that can be sent to another blockchain.
+The `starport scaffold packet` command creates the logic for an IBC packet that can be sent to another blockchain.
 
 - The `title` and `content` are stored on the target chain.
 
@@ -155,7 +155,7 @@ The `starport packet` command creates the logic for an IBC packet that can be se
 To scaffold a sendable and interpretable IBC packet:
 
 ```go
-starport packet ibcPost title content --ack postID --module blog
+starport scaffold packet ibcPost title content --ack postID --module blog
 ```
 
 Notice the fields in the `ibcPost` packet match the fields in the `post` type that you created earlier.
@@ -239,7 +239,7 @@ Append the type instance as `PostID` on receiving the packet:
 - The `title` is the Title of the blog post
 - The `content` is the Content of the blog post
 
-In the `ibcPost.go` file, make sure to import `"strconv"` after `"errors"`, and then modify `OnRecvIbcPostPacket` with the following code:
+In the `ibc_post.go` file, make sure to import `"strconv"` after `"errors"`, and then modify `OnRecvIbcPostPacket` with the following code:
 
 ```go
 // planet/x/blog/keeper/ibc_post.go
@@ -394,13 +394,13 @@ init:
 Open a terminal window and run the following command to start the `earth` blockchain:
 
 ```
-starport serve -c earth.yml
+starport chain serve -c earth.yml
 ```
 
 Open a different terminal window and run the following command to start the `mars` blockchain:
 
 ```
-starport serve -c mars.yml
+starport chain serve -c mars.yml
 ```
 
 ### Configure and start the relayer
