@@ -53,6 +53,10 @@ Each module defines two Protobuf services:
 * **Msg**: a set of RPC methods related 1:1 to Protobuf request types to handle messages 
 * **Query**: gRPC query service to handle to queries
 
+<HighlightBox type="info">
+See here for an introduction to Protobuf services if the topic is new to you: [https://www.ionos.com/digitalguide/websites/web-development/protocol-buffers-explained/](https://www.ionos.com/digitalguide/websites/web-development/protocol-buffers-explained/)
+</HighlightBox>
+
 ### Msg Service
 
 * A best practice is to define the `Msg` Protobuf service in the `tx.proto` file.
