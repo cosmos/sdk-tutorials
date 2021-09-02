@@ -15,8 +15,4 @@ One of these blockchains is the [Cosmos Hub](https://cosmos.network/features). M
 
 A testnet is a network launched for developers and validators to test the functionality of the blockchain before the main network is launched. The state of a testnet can be reset at any time.
 
-## Tutorial Testnet
-
-The source code repo `cosmos/gaia` offers more functionality because it adds the `tendermint/liquidity` module that is the source code of Gravity DEX to the `cosmos/gaia` source code behind Cosmos Hub.
-
 Now that you know what a testnet is, it's time to get started. See [About the Testnet Tutorial](testnet-tutorial.md).
