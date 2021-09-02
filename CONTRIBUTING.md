@@ -26,7 +26,7 @@ We welcome contributions to the tutorials. Our technical content follows the Goo
 - [Cross-references](https://developers.google.com/style/cross-references)
 - [Present tense](https://developers.google.com/style/tense)
 
-The Google guidelines include more material than is listed here, and are used as a
+The Google guidelines include more material than listed here and are used as a
 guide that enables easy decision making about proposed content changes. 
 
 Other useful resources:
