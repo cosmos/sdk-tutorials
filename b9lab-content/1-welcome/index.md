@@ -1,3 +1,3 @@
-# Welcome to the SDK Developer Platform!
+# Welcome to the Cosmos SDK Developer Platform
 
 Main landingpage
