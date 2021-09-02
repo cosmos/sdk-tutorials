@@ -17,6 +17,6 @@ A testnet is a network launched for developers and validators to test the functi
 
 ## Tutorial Testnet
 
-The source code repo `b-harvest/gravity-dex` offers more functionality because it adds the `tendermint/liquidity` module that is the source code of Gravity DEX to the `cosmos/gaia` source code behind Cosmos Hub.
+The source code repo `cosmos/gaia` offers more functionality because it adds the `tendermint/liquidity` module that is the source code of Gravity DEX to the `cosmos/gaia` source code behind Cosmos Hub.
 
 Now that you know what a testnet is, it's time to get started. See [About the Testnet Tutorial](testnet-tutorial.md).
