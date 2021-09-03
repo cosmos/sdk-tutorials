@@ -139,25 +139,4 @@ Other ABCI message handlers are implemented:
 
 See: https://github.com/cosmos/cosmos-sdk/blob/master/docs/core/baseapp.md#checktx 
 
-### gRPC routing
 
-<HighlightBox type=”info”>
-gRPC Query Router: https://github.com/cosmos/cosmos-sdk/blob/master/docs/core/baseapp.md 
-</HighlightBox>
-
-A query is a  request for information made by end-users of sn applications through an interface and processed by a full-node. Available information includes:
-
-* information about the network, 
-* Information about the application itself, and 
-* Information about the application state
-
-Queries do not require consensus to be processed (as they do not trigger state-transitions) and can therefore be fully handled independently by a full node.
-
-<HighlightBox info=”info”>
-Query lifecycles: Creating, handling queries with the CLI, RPC and application query handling.
-https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/query-lifecycle.md 
-</HighlightBox>
-
-## Long running exercise. Query:
-
-We define the queries we need: “load game”, “is move valid”.
