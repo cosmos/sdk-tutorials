@@ -491,7 +491,7 @@ Post:
   title: Hello
 pagination:
   next_key: null
-  total: "1"
+  total: "0"
 ```
 
 To check if the packet has been acknowledged on Earth:
@@ -511,7 +511,7 @@ SentPost:
   title: Hello
 pagination:
   next_key: null
-  total: "1"
+  total: "0"
 ```
 
 To test timeout, set the timeout time of a packet to 1 nanosecond, verify that the packet is timed out, and check the timed-out posts:
@@ -536,7 +536,7 @@ TimedoutPost:
   title: Sorry
 pagination:
   next_key: null
-  total: "2"
+  total: "0"
 ```
 
 You can also send a post from Mars:
@@ -561,7 +561,7 @@ Post:
   title: Hello
 pagination:
   next_key: null
-  total: "1"
+  total: "0"
 ```
 
 ## 🎉 Congratulations 🎉
