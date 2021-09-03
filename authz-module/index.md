@@ -65,7 +65,7 @@ simd config keyring-backend test
 
 ## Key Setup
 
-Create a couple test keys. You will use the `--recover` option so that the addresses used within the example commands below are consistent.
+Create a couple of test keys. Use the `--recover` option so that the addresses used in the following example commands are consistent.
 
 Add a key for Alice:
 ```
