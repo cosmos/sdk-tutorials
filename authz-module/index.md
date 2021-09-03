@@ -171,7 +171,7 @@ cat tx.json
 
 ## Execute Transaction
 
-Finally, the grantee can sign and send the transaction using the `exec` command. The author of the transaction (the `--from` address) will be the grantee.
+Finally, the grantee can sign and send the transaction using the `exec` command. The author of the transaction (the `--from` address) is the grantee.
 
 Sign and send transaction:
 ```
