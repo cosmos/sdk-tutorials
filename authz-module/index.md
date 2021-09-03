@@ -89,7 +89,7 @@ shuffle oppose diagram wire rubber apart blame entire thought firm carry swim ol
 
 ## Chain Setup
 
-The following steps will start a chain for the simulation application (`simapp`).
+The following commands start a chain for the simulation application (`simapp`).
 
 Initialize the node:
 ```
