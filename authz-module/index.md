@@ -127,7 +127,7 @@ simd start
 
 ## Submit Proposal
 
-In order to demonstrate an authorization to vote on a governance proposal, you'll need to first create a governance proposal.
+To demonstrate an authorization to vote on a governance proposal, you must first create a governance proposal.
 
 Create proposal:
 ```
