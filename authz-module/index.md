@@ -7,7 +7,7 @@ description: Use the Cosmos SDK authz module to grant authorizations from one ac
 
 # Authz Module
 
-The authz ("authorization") module enables a granter to grant authorizations to a grantee that allows the grantee to execute messages on behalf of the granter.
+The authz (authorization) module enables a granter to grant authorizations to a grantee that allows the grantee to execute messages on behalf of the granter.
 
 ## Use Authz to Grant Authorizations
 
