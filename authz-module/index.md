@@ -141,9 +141,9 @@ simd q gov proposal 1
 
 ## Grant Authorization
 
-Next, the granter will need to `grant` an authorization to the grantee.
+Next, the granter must `grant` an authorization to the grantee.
 
-The authorization will be a "generic" authorization, meaning there are no limits on the authorization. In this case, the grantee will be able to vote as many times as they want until the granter revokes the authorization.
+The authorization is a "generic" authorization, meaning there are no limits on the authorization. In this case, the grantee is able to vote as many times as they want until the granter revokes the authorization.
 
 Create authorization:
 ```
