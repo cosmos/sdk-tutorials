@@ -185,7 +185,7 @@ simd q gov vote 1 cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh
 
 ## Revoke Authorization
 
-If the granter would like to revoke the authorization from the grantee, the granter can use the `revoke` command.
+The granter can revoke the authorization from the grantee using the `revoke` command.
 
 Revoke authorization:
 ```
