@@ -1,0 +1,28 @@
+syntax = "proto3";
+package user.planet.blog;
+
+option go_package = "github.com/user/planet/x/blog/types";
+
+message BlogPacketData {
+    oneof packet {
+        NoData noData = 1;
+        // this line is used by starport scaffolding # ibc/packet/proto/field
+				IbcPostPacketData ibcPostPacket = 2; // this line is used by starport scaffolding # ibc/packet/proto/field/number
+    }
+}
+
+message NoData {
+}
+
+// this line is used by starport scaffolding # ibc/packet/proto/message
+// IbcPostPacketData defines a struct for the packet payload
+message IbcPostPacketData {
+	  string title = 1;
+  string content = 2;
+  string creator = 3;
+}
+
+// IbcPostPacketAck defines a struct for the packet acknowledgment
+message IbcPostPacketAck {
+	  string postID = 1;
+}

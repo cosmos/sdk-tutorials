@@ -1,0 +1,99 @@
+syntax = "proto3";
+package user.planet.blog;
+
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+// this line is used by starport scaffolding # 1
+import "blog/timedout_post.proto";
+import "blog/sent_post.proto";
+import "blog/post.proto";
+
+option go_package = "github.com/user/planet/x/blog/types";
+
+// Query defines the gRPC querier service.
+service Query {
+    // this line is used by starport scaffolding # 2
+
+	// Queries a timedoutPost by id.
+	rpc TimedoutPost(QueryGetTimedoutPostRequest) returns (QueryGetTimedoutPostResponse) {
+		option (google.api.http).get = "/user/planet/blog/timedoutPost/{id}";
+	}
+
+	// Queries a list of timedoutPost items.
+	rpc TimedoutPostAll(QueryAllTimedoutPostRequest) returns (QueryAllTimedoutPostResponse) {
+		option (google.api.http).get = "/user/planet/blog/timedoutPost";
+	}
+
+
+	// Queries a sentPost by id.
+	rpc SentPost(QueryGetSentPostRequest) returns (QueryGetSentPostResponse) {
+		option (google.api.http).get = "/user/planet/blog/sentPost/{id}";
+	}
+
+	// Queries a list of sentPost items.
+	rpc SentPostAll(QueryAllSentPostRequest) returns (QueryAllSentPostResponse) {
+		option (google.api.http).get = "/user/planet/blog/sentPost";
+	}
+
+
+	// Queries a post by id.
+	rpc Post(QueryGetPostRequest) returns (QueryGetPostResponse) {
+		option (google.api.http).get = "/user/planet/blog/post/{id}";
+	}
+
+	// Queries a list of post items.
+	rpc PostAll(QueryAllPostRequest) returns (QueryAllPostResponse) {
+		option (google.api.http).get = "/user/planet/blog/post";
+	}
+
+}
+
+// this line is used by starport scaffolding # 3
+message QueryGetTimedoutPostRequest {
+	uint64 id = 1;
+}
+
+message QueryGetTimedoutPostResponse {
+	TimedoutPost TimedoutPost = 1;
+}
+
+message QueryAllTimedoutPostRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllTimedoutPostResponse {
+	repeated TimedoutPost TimedoutPost = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+message QueryGetSentPostRequest {
+	uint64 id = 1;
+}
+
+message QueryGetSentPostResponse {
+	SentPost SentPost = 1;
+}
+
+message QueryAllSentPostRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllSentPostResponse {
+	repeated SentPost SentPost = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+message QueryGetPostRequest {
+	uint64 id = 1;
+}
+
+message QueryGetPostResponse {
+	Post Post = 1;
+}
+
+message QueryAllPostRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllPostResponse {
+	repeated Post Post = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

@@ -1,0 +1,15 @@
+accounts:
+  - name: alice
+    coins: ["1000token", "100000000stake"]
+  - name: bob
+    coins: ["500token", "100000000stake"]
+validator:
+  name: alice
+  staked: "100000000stake"
+faucet:
+  name: bob
+  coins: ["5token", "100000stake"]
+genesis:
+  chain_id: "earth"
+init:
+  home: "$HOME/.earth"

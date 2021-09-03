@@ -1,0 +1,13 @@
+syntax = "proto3";
+package user.planet.blog;
+
+option go_package = "github.com/user/planet/x/blog/types";
+
+import "gogoproto/gogo.proto";
+
+message Post {
+  string creator = 1;
+  uint64 id = 2;
+  string title = 3; 
+  string content = 4; 
+}
