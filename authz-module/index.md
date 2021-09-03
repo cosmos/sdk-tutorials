@@ -48,7 +48,7 @@ You should see `0.43.0` printed to the console.
 <!-- TODO: update tip to use `unsafe-reset-all` with better user experience -->
 
 ::: tip
-If you have used `simd` before, you may already have a `.simapp` directory in you home directory. If you would like to keep the previous data, either save the directory to another location or use the `--home` flag and specify a different directory for each command in the following instructions. If not, remove the previous directory (`rm -rf ~/.simapp`).
+If you have used `simd` before, you might already have a `.simapp` directory in your home directory. To keep the previous data, either save the directory to another location or use the `--home` flag and specify a different directory for each command in the following instructions. If you don't want to keep the previous data, remove the previous directory (`rm -rf ~/.simapp`).
 :::
 
 Run the following commands to configure the `simd` binary.
