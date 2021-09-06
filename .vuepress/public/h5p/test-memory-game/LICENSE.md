@@ -1,10 +1,7 @@
 # Font Awesome v4.5.0
 
-This is a part of the official font-awesome@4.5.0 dist package, available at https://github.com/FortAwesome/Font-Awesome/releases/tag/v4.5.0
-
-
-# [Font Awesome v4.5.0](http://fontawesome.io)
-### The iconic font and CSS framework
+This is a part of the official font-awesome@4.5.0 dist package, available from [http://fontawesome.io](http://fontawesome.io).
+[4.5.0 Release on GitHub](https://github.com/FortAwesome/Font-Awesome/releases/tag/v4.5.0)
 
 ## License
 - The Font Awesome font is licensed under the SIL OFL 1.1:
