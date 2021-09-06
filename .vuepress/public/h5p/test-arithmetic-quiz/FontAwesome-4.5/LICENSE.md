@@ -3,10 +3,10 @@
 This is a part of the official font-awesome@4.5.0 dist package, available at https://github.com/FortAwesome/Font-Awesome/releases/tag/v4.5.0
 
 
-#[Font Awesome v4.5.0](http://fontawesome.io)
-###The iconic font and CSS framework
+# [Font Awesome v4.5.0](http://fontawesome.io)
+### The iconic font and CSS framework
 
-##License
+## License
 - The Font Awesome font is licensed under the SIL OFL 1.1:
   - http://scripts.sil.org/OFL
 - Font Awesome CSS, LESS, and Sass files are licensed under the MIT License:
