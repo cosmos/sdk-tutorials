@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Uvod",
+      "description": "Uvodno besedilo za pojasnitev naloge (največ 100 znakov)"
+    },
+    {
+      "label": "Tip kviza",
+      "options": [
+        {
+          "label": "Aritmetične operacije"
+        },
+        {
+          "label": "Linearne enačbe"
+        }
+      ]
+    },
+    {
+      "label": "Tip operacije",
+      "options": [
+        {
+          "label": "Seštevanje"
+        },
+        {
+          "label": "Odštevanje"
+        },
+        {
+          "label": "Množenje"
+        },
+        {
+          "label": "Deljenje"
+        }
+      ]
+    },
+    {
+      "label": "Težavnost enačb",
+      "options": [
+        {
+          "label": "Osnovna [ 3x = 12 ]"
+        },
+        {
+          "label": "Nadaljevalna [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Napredna [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Omogoči ulomke",
+      "description": "Nastavitev v enačbah dovoli ulomke."
+    },
+    {
+      "label": "Največje število vprašanj"
+    },
+    {
+      "label": "Prevodi uporabniškega vmesnika",
+      "fields": [
+        {
+          "label": "Besedilo za točkovanje kviza",
+          "default": "Točke:"
+        },
+        {
+          "label": "Besedilo za porabljen čas",
+          "default": "Čas za dokončanje: @time"
+        },
+        {
+          "label": "Naslov ob zaključku kviza",
+          "default": "Zaključeno!"
+        },
+        {
+          "label": "Besedilo začetek reševanja kviza",
+          "default": "Zdaj!"
+        },
+        {
+          "label": "Besedilo gumba za začetek odštevanja",
+          "default": "Začetek"
+        },
+        {
+          "label": "Besedilo za ponoven poskus",
+          "default": "Poskusi ponovno"
+        },
+        {
+          "label": "Besedilo za bralnike zaslona ob pravilnem odgovoru",
+          "default": "Pravilen odgovor"
+        },
+        {
+          "label": "Besedilo za bralnike zaslona ob nepravilnem odgovoru",
+          "default": "Nepravilen odgovor. Pravilna izbira bi bila :num"
+        },
+        {
+          "label": "Besedilo o trajanju kviza za bralnike zaslona",
+          "default": "Trajanje kviza v urah, minutah in sekundah."
+        },
+        {
+          "label": "Besedilo vprašanja za bralnike zaslona",
+          "default": "Kaj je rešitev :arithmetic ?"
+        },
+        {
+          "label": "Besedilo vprašanja z linearno enačbo za bralnike zaslona",
+          "default": "Katera neznanka :item reši enačbo :equation ?"
+        },
+        {
+          "label": "Besedilo za neznanko enačbe za bralnike zaslona",
+          "default": "Kolikšna je vrednost neznanke :item ?"
+        },
+        {
+          "label": "Besedilo operatorja za seštevanje",
+          "default": "plus"
+        },
+        {
+          "label": "Besedilo operatorja za odštevanje",
+          "default": "minus"
+        },
+        {
+          "label": "Besedilo operatorja za množenje",
+          "default": "krat"
+        },
+        {
+          "label": "Besedilo operatorja za deljenje",
+          "default": "deljeno"
+        },
+        {
+          "label": "Besedilo operatorja za rešitev",
+          "default": "je enako"
+        },
+        {
+          "label": "besedilo za število strani",
+          "description": ":num in :total sta spremenljivki",
+          "default": "Stran :num od :total"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Introduksjonstekst",
+      "description": "Tekst vises på forsiden"
+    },
+    {
+      "label": "Quiz type",
+      "options": [
+        {
+          "label": "Arithmetic Operations Quiz"
+        },
+        {
+          "label": "Linear Equations Quiz"
+        }
+      ]
+    },
+    {
+      "label": "Aritmetisk type",
+      "options": [
+        {
+          "label": "Addisjon (pluss)"
+        },
+        {
+          "label": "Subtraksjon (minus)"
+        },
+        {
+          "label": "Multiplikasjon (gange)"
+        },
+        {
+          "label": "Divisjon (dele)"
+        }
+      ]
+    },
+    {
+      "label": "Equation type",
+      "options": [
+        {
+          "label": "Basic [ 3x = 12 ]"
+        },
+        {
+          "label": "Intermediate [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Advanced [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Enable fractions",
+      "description": "Enable to allow fractions in equations."
+    },
+    {
+      "label": "Maksimalt antall spørsmål"
+    },
+    {
+      "label": "Oversettelser for brukergrensesnittet",
+      "fields": [
+        {
+          "label": "Poengtilbakemelding under quizen",
+          "default": "Poeng:"
+        },
+        {
+          "label": "Tid",
+          "default": "Tid: @time"
+        },
+        {
+          "label": "Overskrift på resultatsiden",
+          "default": "Ferdig!"
+        },
+        {
+          "label": "Kjør etikett",
+          "default": "KJØR!"
+        },
+        {
+          "label": "Etikett på start-knapp",
+          "default": "Start"
+        },
+        {
+          "label": "Tekst til \"Prøv igjen\" knapp",
+          "default": "Prøv igjen"
+        },
+        {
+          "label": "Rett svar tekst for hjelpemiddelteknologi",
+          "default": "Riktig"
+        },
+        {
+          "label": "Galt svar tekst for hjelpemiddelteknologi",
+          "default": "Feil svar. Rett var :num"
+        },
+        {
+          "label": "Hjelpetekst for nedtellingsklokke for hjelpemiddelteknologier",
+          "default": "Tid brukt i timer, minutter og sekunder"
+        },
+        {
+          "label": "Spørsmålstekst for hjelpemiddelteknologi",
+          "default": "Hva er :arithmetic lik?"
+        },
+        {
+          "label": "Readspeaker text for equation question",
+          "default": "For the equation :equation, what does :item equal?"
+        },
+        {
+          "label": "Readspeaker text for equation variable",
+          "default": "What does :item equal?"
+        },
+        {
+          "label": "Pluss tegn til tekst",
+          "default": "pluss"
+        },
+        {
+          "label": "Minus tegn til tekst",
+          "default": "minus"
+        },
+        {
+          "label": "Multiplikasjon til tekst",
+          "default": "ganger"
+        },
+        {
+          "label": "Divisjon til tekst",
+          "default": "delt på"
+        },
+        {
+          "label": "Equality sign text",
+          "default": "equals"
+        },
+        {
+          "label": "Side nummer tekst",
+          "description": "Angir nåværende side og totalt antall sider, variabler er :num og :total",
+          "default": "Side :num av :total"
+        }
+      ]
+    }
+  ]
+}

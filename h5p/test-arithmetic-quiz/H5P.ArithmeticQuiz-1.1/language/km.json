@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Intro",
+      "description": "The intro text (maximum 100 characters)"
+    },
+    {
+      "label": "Quiz type",
+      "options": [
+        {
+          "label": "Arithmetic Operations Quiz"
+        },
+        {
+          "label": "Linear Equations Quiz"
+        }
+      ]
+    },
+    {
+      "label": "Arithmetic type",
+      "options": [
+        {
+          "label": "Addition"
+        },
+        {
+          "label": "Subtraction"
+        },
+        {
+          "label": "Multiplication"
+        },
+        {
+          "label": "Division"
+        }
+      ]
+    },
+    {
+      "label": "Equation type",
+      "options": [
+        {
+          "label": "Basic [ 3x = 12 ]"
+        },
+        {
+          "label": "Intermediate [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Advanced [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Enable fractions",
+      "description": "Enable to allow fractions in equations."
+    },
+    {
+      "label": "Max number of questions"
+    },
+    {
+      "label": "User interface translations",
+      "fields": [
+        {
+          "label": "Scoring during quiz",
+          "default": "ពិន្ទុ:"
+        },
+        {
+          "label": "Time",
+          "default": "ពេល: @time"
+        },
+        {
+          "label": "Result page header",
+          "default": "បានបញ្ចប់!"
+        },
+        {
+          "label": "Go label",
+          "default": "ផ្តើម!"
+        },
+        {
+          "label": "Start button label",
+          "default": "ចាប់ផ្តើម"
+        },
+        {
+          "label": "Retry button label",
+          "default": "សាកម្តងទៀត"
+        },
+        {
+          "label": "Readspeaker text for correct answer",
+          "default": "ត្រឹមត្រូវ"
+        },
+        {
+          "label": "Readspeaker text for incorrect answer",
+          "default": "មិនត្រឹមត្រូវ។ ចម្លើយត្រឹមត្រូវគឺ :num"
+        },
+        {
+          "label": "Readspeaker label for the timer",
+          "default": "ពេលគិតជាម៉ោង នាទី និងវិនាទី។"
+        },
+        {
+          "label": "Readspeaker text for question",
+          "default": ":arithmetic ស្មើប៉ុន្មាន?"
+        },
+        {
+          "label": "Readspeaker text for equation question",
+          "default": "សម្រាប់សមីការ :equation, :item ស្មើប៉ុន្មាន?"
+        },
+        {
+          "label": "Readspeaker text for equation variable",
+          "default": ":item ស្មើប៉ុន្មាន?"
+        },
+        {
+          "label": "Plus operator text",
+          "default": "បូកនឹង"
+        },
+        {
+          "label": "Subtraction operator text",
+          "default": "ដកនឹង"
+        },
+        {
+          "label": "Multiplication operator text",
+          "default": "គុណនឹង"
+        },
+        {
+          "label": "Division operator text",
+          "default": "ចែកនឹង"
+        },
+        {
+          "label": "Equality sign text",
+          "default": "ស្មើ"
+        },
+        {
+          "label": "Slide number text",
+          "description": "Announces current slide and total number of slides, variables are :num and :total",
+          "default": "ស្លាយ :num ក្នុងចំណោម :total"
+        }
+      ]
+    }
+  ]
+}

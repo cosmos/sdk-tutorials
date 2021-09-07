@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Sarrera",
+      "description": "Sarrerako testua (gehienez 100 karaktere)"
+    },
+    {
+      "label": "Galdetegi mota",
+      "options": [
+        {
+          "label": "Eragiketa aritmetikoen galdetegia"
+        },
+        {
+          "label": "Ekuazio linealen galdetegia"
+        }
+      ]
+    },
+    {
+      "label": "Eragiketa aritmetiko mota",
+      "options": [
+        {
+          "label": "Batuketa"
+        },
+        {
+          "label": "Kenketa"
+        },
+        {
+          "label": "Biderketa"
+        },
+        {
+          "label": "Zatiketa"
+        }
+      ]
+    },
+    {
+      "label": "Ekuazio mota",
+      "options": [
+        {
+          "label": "Oinarrizkoa [ 3x = 12 ]"
+        },
+        {
+          "label": "Ertaina [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Aurreratua [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Gaitu zatikiak",
+      "description": "Gaitu ezazu ekuazioetan zatikiak baimentzeko."
+    },
+    {
+      "label": "Gehienezko galdera kopurua"
+    },
+    {
+      "label": "Erabiltzaile interfazearen itzulpenak",
+      "fields": [
+        {
+          "label": "Probaren bitarteko puntuazioa",
+          "default": "Puntuazioa:"
+        },
+        {
+          "label": "Denbora",
+          "default": "Denbora: @time"
+        },
+        {
+          "label": "Emaitza orriaren titulua",
+          "default": "Bukatu da!"
+        },
+        {
+          "label": "Abio etiketa",
+          "default": "AURRERA!"
+        },
+        {
+          "label": "Hasierako botoiaren etiketa",
+          "default": "Hasi"
+        },
+        {
+          "label": "Berriro saiatzeko botoiaren etiketa",
+          "default": "Berriro"
+        },
+        {
+          "label": "Erantzun zuzenerako mezua",
+          "default": "Ongi"
+        },
+        {
+          "label": "Erantzun okerretarako irakurgailuaren testua",
+          "default": "Gaizki. Erantzun zuzena hau da :num"
+        },
+        {
+          "label": "Tenporizadorearen mezua",
+          "default": "Iraupena ordu, minutu eta segundotan."
+        },
+        {
+          "label": "Galderaren irakurgailuaren testua",
+          "default": "Zer egiten du :aritmetikoki berdina?"
+        },
+        {
+          "label": "Irakurgailuetarako testua ekuazio-galderetan",
+          "default": ":equation ekuaziorako, zein da :item aldagaiaren emaitza?"
+        },
+        {
+          "label": "Irakurgailuetarako testua ekuazio-aldagaietarako",
+          "default": "Zein da :item aldagaiaren emaitza?"
+        },
+        {
+          "label": "Batuketaren eragilearen testua",
+          "default": "gehi"
+        },
+        {
+          "label": "Kenketaren eragilearen testua",
+          "default": "ken"
+        },
+        {
+          "label": "Biderketaren eragilearen testua",
+          "default": "bider"
+        },
+        {
+          "label": "Zatiketaren eragilearen testua",
+          "default": "zati"
+        },
+        {
+          "label": "Berdinketaren testu-zeinua",
+          "default": "berdin"
+        },
+        {
+          "label": "Diapositiba zenbakiaren testua",
+          "description": "Oraingo diapositiba eta diapositiba kopuru osoaren berri ematen du, aldagaiak dira :num and :total",
+          "default": "Diapositiba :num / :total"
+        }
+      ]
+    }
+  ]
+}

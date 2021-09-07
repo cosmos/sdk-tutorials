@@ -1,0 +1,23 @@
+{
+  "libraryStrings":{
+    "title":"Audio rekordér",
+    "recordAnswer":"Záznam",
+    "pause":"Pauza",
+    "continue":"Pokračovat",
+    "done":"Hotovo",
+    "retry":"Resetovat",
+    "microphoneNotSupported":"Mikrofon není podporován. Ujistěte se, že používáte prohlížeč, který umožňuje nahrávání mikrofonu.",
+    "microphoneInaccessible":"Mikrofon není přístupný. Ujistěte se, že je v prohlížeči povolen mikrofon.",
+    "insecureNotAllowed":"Ve vašem prohlížeči není povolen přístup k mikrofonu, protože tato stránka se nezobrazuje pomocí protokolu HTTPS. Obraťte se na autora a požádejte ho, aby to zpřístupnil pomocí protokolu HTTPS",
+    "statusReadyToRecord":"Stisknutím tlačítka níže zahájíte nahrávání.",
+    "statusRecording":"Nahrávání...",
+    "statusPaused":"Nahrávání pozastaveno.",
+    "statusFinishedRecording":"Poslechněte si níže uvedený záznam.",
+    "downloadRecording":"Chcete-li použít tento záznam, stiskněte tlačítko  \"Vložit\" .",
+    "retryDialogHeaderText":"Opakovat nahrávání?",
+    "retryDialogBodyText":"Stisknutím \"Opakovat\" ztratíte aktuální nahrávku.",
+    "retryDialogConfirmText":"Opakovat",
+    "retryDialogCancelText":"CancZrušitel",
+    "statusCantCreateTheAudioFile":"Zvukový soubor nelze vytvořit."
+  }
+}

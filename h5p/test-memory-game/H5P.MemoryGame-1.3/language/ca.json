@@ -1,0 +1,121 @@
+{
+  "semantics": [
+    {
+      "widgets": [
+        {
+          "label": "Opció predeterminada"
+        }
+      ],
+      "label": "Cartes",
+      "entity": "carta",
+      "field": {
+        "label": "Carta",
+        "fields": [
+          {
+            "label": "Imatge"
+          },
+          {
+            "label": "Text alternatiu per a la imatge",
+            "description": "Descriu el que es pot veure a la foto. El text és llegit per les eines de text a veu que necessiten els usuaris amb deficiència visual."
+          },
+          {
+            "label": "Pista d’àudio",
+            "description": "So opcional que es reprodueix en girar una carta."
+          },
+          {
+            "label": "Imatge coincident",
+            "description": "Imatge opcional per emparellar en lloc d’utilitzar dues cartes amb la mateixa imatge."
+          },
+          {
+            "label": "Text alternatiu per a la imatge",
+            "description": "Descriu el que es pot veure a la foto. El text és llegit per les eines de text a veu que necessiten els usuaris amb deficiència visual."
+          },
+          {
+            "label": "Pista d’àudio per a una coincidència",
+            "description": "So opcional que es reprodueix quan es gira la segona carta."
+          },
+          {
+            "label": "Descripció",
+            "description": "Text breu opcional que es mostrarà quan es trobin les dues cartes coincidents."
+          }
+        ]
+      }
+    },
+    {
+      "label": "Opcions de comportament",
+      "description": "Aquestes opcions us permeten controlar com es comporta el joc.",
+      "fields": [
+        {
+          "label": "Distribueix les cartes formant un quadrat",
+          "description": "Es provarà de fer coincidir el nombre de files i de columnes en disposar les cartes. Després, les cartes s’ajustaran al contenidor."
+        },
+        {
+          "label": "Nombre de targetes a utilitzar",
+          "description": "Si configureu aquest valor amb un número més gran que 2, el joc seleccionarà les cartes aleatòriament de la llista de cartes."
+        },
+        {
+          "label": "Afegeix el botó per tornar-ho a provar quan el joc finalitzi"
+        }
+      ]
+    },
+    {
+      "label": "Aspecte visual",
+      "description": "Controleu els elements visuals del joc.",
+      "fields": [
+        {
+          "label": "Color del tema",
+          "description": "Trieu un color per crear un tema per al joc de cartes."
+        },
+        {
+          "label": "Revers de la carta",
+          "description": "Utilitzeu un revers personalitzat per a les cartes."
+        }
+      ]
+    },
+    {
+      "label": "Localització",
+      "fields": [
+        {
+          "label": "Text dels girs de cartes",
+          "default": "Girs de cartes"
+        },
+        {
+          "label": "Text de temps transcorregut",
+          "default": "Temps dedicat"
+        },
+        {
+          "label": "Text del suggeriment",
+          "default": "Correcte!"
+        },
+        {
+          "label": "Text del botó \"Torna-ho a provar\"",
+          "default": "Voleu tornar-ho a provar?"
+        },
+        {
+          "label": "Etiqueta del botó de tancar",
+          "default": "Tanca"
+        },
+        {
+          "label": "Etiqueta del joc",
+          "default": "Joc de memòria.  Cerca les targetes coincidents."
+        },
+        {
+          "label": "Etiqueta \"El joc ha finalitzat\"",
+          "default": "S’han emparellat totes les cartes."
+        },
+        {
+          "label": "Etiqueta d’indexació de les cartes",
+          "default": "Carta %num:"
+        },
+        {
+          "label": "Etiqueta per a les cartes no girades",
+          "default": "Sense girar."
+        },
+        {
+          "label": "Etiqueta per a les cartes coincidents",
+          "default": "S’ha trobat una coincidència."
+        }
+      ]
+    }
+  ]
+}

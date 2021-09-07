@@ -1,0 +1,121 @@
+{
+  "semantics": [
+    {
+      "widgets": [
+        {
+          "label": "Predefinito"
+        }
+      ],
+      "label": "Carte",
+      "entity": "carta",
+      "field": {
+        "label": "Carta",
+        "fields": [
+          {
+            "label": "Immagine"
+          },
+          {
+            "label": "Testo alternativo per l'immagine",
+            "description": "Descrivi cosa si può vedere nella foto. Il testo è letto da strumenti di sintesi vocale necessari a utenti ipovedenti"
+          },
+          {
+            "label": "Traccia audio",
+            "description": "Un suono facoltativo che viene riprodotto quando si gira la scheda"
+          },
+          {
+            "label": "Immagine corrispondente",
+            "description": "Un'immagine facoltativa da abbinare anziché usare due carte con la stessa immagine"
+          },
+          {
+            "label": "Testo alternativo per immagini corrispondenti",
+            "description": "Descrivi cosa si può vedere nella foto. Il testo è letto da strumenti di sintesi vocale necessari a utenti ipovedenti"
+          },
+          {
+            "label": "Traccia audio corrispondente",
+            "description": "Un suono facoltativo che viene riprodotto quando si gira la seconda carta"
+          },
+          {
+            "label": "Descrizione",
+            "description": "Un breve testo facoltativo che apparirà quando vengono trovate due carte corrispondenti"
+          }
+        ]
+      }
+    },
+    {
+      "label": "Impostazioni di esecuzione",
+      "description": "Queste opzioni permettono di controllare il comportamento del gioco",
+      "fields": [
+        {
+          "label": "Posiziona le carte in un quadrato",
+          "description": "Cercherà di far corrispondere il numero di colonne e righe durante la disposizione delle carte. In seguito, le carte saranno ridimensionate per adattarsi al contenitore"
+        },
+        {
+          "label": "Numero di carte da usare",
+          "description": "Impostandolo su un numero maggiore di 2, il gioco sceglierà le carte dall'elenco in maniera del tutto casuale"
+        },
+        {
+          "label": "Aggiungi un pulsante per riprovare quanto il gioco è finito"
+        }
+      ]
+    },
+    {
+      "label": "Aspetto e soddisfazione (look and feel)",
+      "description": "Controlla gli effetti visivi del gioco",
+      "fields": [
+        {
+          "label": "Colore del tema",
+          "description": "Scegli un colore per creare una tema per il tuo gioco di carte"
+        },
+        {
+          "label": "Dietro della carta",
+          "description": "Usa un retro personalizzato per le tue carte"
+        }
+      ]
+    },
+    {
+      "label": "Localizzazione",
+      "fields": [
+        {
+          "label": "Testo per i giri di carta",
+          "default": "Giri di carta"
+        },
+        {
+          "label": "Testo per il tempo trascorso",
+          "default": "Tempo trascorso"
+        },
+        {
+          "label": "Testo del feedback",
+          "default": "Buon lavoro!"
+        },
+        {
+          "label": "Testo del pulsante per riprovare",
+          "default": "Vuoi riprovare?"
+        },
+        {
+          "label": "Etichetta del pulsante di chiusura",
+          "default": "Chiudi"
+        },
+        {
+          "label": "Etichetta del gioco",
+          "default": "Gioco di memoria. Trova le carte corrispondenti"
+        },
+        {
+          "label": "Etichetta di fine gioco",
+          "default": "Tutte le carte sono state trovate"
+        },
+        {
+          "label": "Etichetta di indicizzazione della carta",
+          "default": "Carta %num:"
+        },
+        {
+          "label": "Etichetta della carta non voltata",
+          "default": "Non voltata"
+        },
+        {
+          "label": "Etichetta della cartata abbinata",
+          "default": "Trovata corrispondenza"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "semantics": [
+    {
+      "widgets": [
+        {
+          "label": "Default"
+        }
+      ],
+      "label": "Karte",
+      "entity": "karte",
+      "field": {
+        "label": "Karte",
+        "fields": [
+          {
+            "label": "Slika"
+          },
+          {
+            "label": "Alternativni tekst za sliku",
+            "description": "Opiši šta može biti viđeno na slici. Tekst se čita elektronski za vizualno neuparene korisnike."
+          },
+          {
+            "label": "Audio traka",
+            "description": "Opcionalan zvuk koji se čuje kada se okrene karta."
+          },
+          {
+            "label": "Ista slika",
+            "description": "Opcionalna slika koja se koristi umjesto dvije iste slike."
+          },
+          {
+            "label": "Alternativni tekst za sliku podudaranja",
+            "description": "Opiši šta može biti viđeno na slici. Tekst se čita elektronski za vizualno neuparene korisnike."
+          },
+          {
+            "label": "Zvuk podudaranja",
+            "description": "Opcionalan zvuk koji se čuje kada se okrene druga karta."
+          },
+          {
+            "label": "Opis",
+            "description": "Kratak tekst koji će biti prikazan čim se pronađu dvije iste karte."
+          }
+        ]
+      }
+    },
+    {
+      "label": "Podešavanje ponašanja",
+      "description": "These options will let you control how the game behaves.",
+      "fields": [
+        {
+          "label": "Poredaj karte u redove ",
+          "description": "Will try to match the number of columns and rows when laying out the cards. Afterward, the cards will be scaled to fit the container."
+        },
+        {
+          "label": "Broj karata za upotrebu",
+          "description": "Setting this to a number greater than 2 will make the game pick random cards from the list of cards."
+        },
+        {
+          "label": "Dodaj dugme za ponovni pokušaj kada je igra gotova"
+        }
+      ]
+    },
+    {
+      "label": "Pogledaj i osjeti",
+      "description": "Kontroliraj u igri ono što vidiš.",
+      "fields": [
+        {
+          "label": "Boja teme",
+          "description": "Choose a color to create a theme for your card game."
+        },
+        {
+          "label": "Pozadina karte",
+          "description": "Use a custom back for your cards."
+        }
+      ]
+    },
+    {
+      "label": "Prijevod",
+      "fields": [
+        {
+          "label": "Tekst kad se okrene karta ",
+          "default": "Okrenuta karta"
+        },
+        {
+          "label": "Tekst za provedeno vrijeme",
+          "default": "Provedeno vrijeme"
+        },
+        {
+          "label": "Feedback tekst",
+          "default": "BRAVO!"
+        },
+        {
+          "label": "Tekst na dugmetu pokušaj ponovo",
+          "default": "Pokušaj ponovo?"
+        },
+        {
+          "label": "Oznaka za dugme zatvori",
+          "default": "Zatvori"
+        },
+        {
+          "label": "Oznaka za igru",
+          "default": "Memory igra. Pronađi kartu koja se podudara."
+        },
+        {
+          "label": "Oznaka za završenu igru",
+          "default": "Sve karte su pronađene."
+        },
+        {
+          "label": "Oznaka za indeksiranje karata",
+          "default": "Karta %num:"
+        },
+        {
+          "label": "Oznaka za neokrenutu kartu",
+          "default": "Neokrenuta."
+        },
+        {
+          "label": "Oznaka za kartu podudaranja",
+          "default": "Pronađeno podudaranje."
+        }
+      ]
+    }
+  ]
+}

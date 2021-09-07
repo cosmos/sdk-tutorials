@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Cyflwyniad",
+      "description": "Testun cyflwyniad (uchafswm o 100 nod)"
+    },
+    {
+      "label": "Math y cwis",
+      "options": [
+        {
+          "label": "Cwis Gweithrediadau Rhifyddeg"
+        },
+        {
+          "label": "Cwis Hafaliadau Llinol"
+        }
+      ]
+    },
+    {
+      "label": "Mathau rhifyddol",
+      "options": [
+        {
+          "label": "Adio"
+        },
+        {
+          "label": "Tynnu"
+        },
+        {
+          "label": "Lluosi"
+        },
+        {
+          "label": "Rhannu"
+        }
+      ]
+    },
+    {
+      "label": "Math yr hafaliad",
+      "options": [
+        {
+          "label": "Sylfaenol [ 3x = 12 ]"
+        },
+        {
+          "label": "Canolradd [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Uwch [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Galluogi ffracsiynau",
+      "description": "Galluogwch er mwyn caniatáu ffracsiynau mewn hafaliadau."
+    },
+    {
+      "label": "Uchafswm y cwestiynau"
+    },
+    {
+      "label": "Cyfieithiadau y Rhyngwyneb Defnyddiwr",
+      "fields": [
+        {
+          "label": "Sgorio yn ystod cwis",
+          "default": "Sgôr:"
+        },
+        {
+          "label": "Amser",
+          "default": "Amser: @time"
+        },
+        {
+          "label": "Pennyn tudalen canlyniadau",
+          "default": "Gorffen!"
+        },
+        {
+          "label": "Label mynd",
+          "default": "EWCH!"
+        },
+        {
+          "label": "Label y botwm dechrau",
+          "default": "Dechrau"
+        },
+        {
+          "label": "Label y botwm ailgeisio",
+          "default": "Ailgeisio"
+        },
+        {
+          "label": "Testun darllenydd am ateb cywir",
+          "default": "Cywir"
+        },
+        {
+          "label": "Testun darllenydd am ateb anghywir",
+          "default": "Anghywir. Yr ateb cywir oedd :num"
+        },
+        {
+          "label": "Testun darllenydd am yr amserydd",
+          "default": "Cyfnod mewn oriau, munudau ac eiliadau."
+        },
+        {
+          "label": "Testun darllenydd ar gyfer cwestiwn",
+          "default": "I beth ydy :arithmetic yn hafal?"
+        },
+        {
+          "label": "Testun darllenydd ar gyfer cwestiwn hafaliad",
+          "default": "Ar gyfer yr hafaliad :equation, i beth ydy :item yn hafal?"
+        },
+        {
+          "label": "Testun darllenydd am newidyn mewn hafaliad",
+          "default": "I beth ydy :item yn hafal?"
+        },
+        {
+          "label": "Testun y gweithredydd plws",
+          "default": "plws"
+        },
+        {
+          "label": "Testun y gweithredydd minws",
+          "default": "minws"
+        },
+        {
+          "label": "Testun y gweithredydd lluosi",
+          "default": "lluosi"
+        },
+        {
+          "label": "Testun y gweithredydd rhannu",
+          "default": "rhannu gan"
+        },
+        {
+          "label": "Testun yr arwydd hafal",
+          "default": "yn hafal i"
+        },
+        {
+          "label": "Testun rhif y sleid",
+          "description": "Y datgan y sleid gyfredol a chyfanswm nifer y sleidiau, y newidynnau yw :num a :total",
+          "default": "Sleid :num allan o :total"
+        }
+      ]
+    }
+  ]
+}

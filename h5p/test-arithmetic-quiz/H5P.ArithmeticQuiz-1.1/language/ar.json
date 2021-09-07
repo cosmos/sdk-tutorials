@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "مقدمة",
+      "description": "نص المقدمة (بحد أقصى 100 محرف)"
+    },
+    {
+      "label": "Quiz type",
+      "options": [
+        {
+          "label": "Arithmetic Operations Quiz"
+        },
+        {
+          "label": "Linear Equations Quiz"
+        }
+      ]
+    },
+    {
+      "label": "نوع الحساب",
+      "options": [
+        {
+          "label": "إضافة"
+        },
+        {
+          "label": "طرح"
+        },
+        {
+          "label": "ضرب"
+        },
+        {
+          "label": "قسمة"
+        }
+      ]
+    },
+    {
+      "label": "Equation type",
+      "options": [
+        {
+          "label": "Basic [ 3x = 12 ]"
+        },
+        {
+          "label": "Intermediate [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Advanced [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Enable fractions",
+      "description": "Enable to allow fractions in equations."
+    },
+    {
+      "label": "العدد الاعظمي للأسئلة"
+    },
+    {
+      "label": "ترجمة واجهة المستخدم",
+      "fields": [
+        {
+          "label": "التسجيل خلال الاختبار",
+          "default": "Score:"
+        },
+        {
+          "label": "الوقت",
+          "default": "Time: @time"
+        },
+        {
+          "label": "ترويسة صفحة النتيجة",
+          "default": "Finished!"
+        },
+        {
+          "label": "اذهب الى الللافتة",
+          "default": "GO!"
+        },
+        {
+          "label": "لافتة زر البدء",
+          "default": "Start"
+        },
+        {
+          "label": "لافتة زر اعادة المحاولة",
+          "default": "Retry"
+        },
+        {
+          "label": "تحويل النص الى  كلام من اجل الاجابة الصحيحة",
+          "default": "Correct"
+        },
+        {
+          "label": "تحويل النص الى كلام من اجل الاجابة الخاطئة",
+          "default": "Incorrect. Correct answer was :num"
+        },
+        {
+          "label": "لافتة النص المحول الى كلام من اجل المؤقت",
+          "default": "Duration in hours, minutes and seconds."
+        },
+        {
+          "label": "لافتة النص المحول الى كلام من اجل السؤال ",
+          "default": "What does :arithmetic equal?"
+        },
+        {
+          "label": "Readspeaker text for equation question",
+          "default": "For the equation :equation, what does :item equal?"
+        },
+        {
+          "label": "Readspeaker text for equation variable",
+          "default": "What does :item equal?"
+        },
+        {
+          "label": "نص المعامل +",
+          "default": "plus"
+        },
+        {
+          "label": "نص المعامل -",
+          "default": "minus"
+        },
+        {
+          "label": "نص معامل الضرب",
+          "default": "times"
+        },
+        {
+          "label": "نص نعامل القسمة",
+          "default": "divided by"
+        },
+        {
+          "label": "Equality sign text",
+          "default": "equals"
+        },
+        {
+          "label": "نص رقم الشريحة",
+          "description": "تعلن عن الشريحة الحالية والعدد الإجمالي للشرائح ، والمتغيرات هي: num و: total",
+          "default": "Slide :num of :total"
+        }
+      ]
+    }
+  ]
+}

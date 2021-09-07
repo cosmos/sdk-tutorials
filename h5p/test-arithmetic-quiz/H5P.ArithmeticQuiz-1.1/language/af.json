@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Inleiding",
+      "description": "Inleidingteks (maksimum 100 karakters)"
+    },
+    {
+      "label": "Vasvraetipe",
+      "options": [
+        {
+          "label": "Wiskundige bewerkings vasvrae"
+        },
+        {
+          "label": "Liniêre vergelykingsvasvrae"
+        }
+      ]
+    },
+    {
+      "label": "Rekenkundige soort",
+      "options": [
+        {
+          "label": "Optel"
+        },
+        {
+          "label": "Aftrek"
+        },
+        {
+          "label": "Vermenigvuldiging"
+        },
+        {
+          "label": "Deel"
+        }
+      ]
+    },
+    {
+      "label": "Vergelyking tipe",
+      "options": [
+        {
+          "label": "Basies [ 3x = 12 ]"
+        },
+        {
+          "label": "Intermediêr [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Gevorderd [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Aktiveer breuke",
+      "description": "Aktiveer om breuke in vergelykings toe te laat."
+    },
+    {
+      "label": "Maksimum aantal vrae"
+    },
+    {
+      "label": "Gebruikers paneelbord vertalings",
+      "fields": [
+        {
+          "label": "Telling tydens vasvrae",
+          "default": "Telling:"
+        },
+        {
+          "label": "Tyd",
+          "default": "Tyd: @time"
+        },
+        {
+          "label": "Uitslae bladsyopskrif",
+          "default": "Klaar!"
+        },
+        {
+          "label": "Gaan etiket",
+          "default": "BEGIN!"
+        },
+        {
+          "label": "Beginknoppie etiket",
+          "default": "Begin"
+        },
+        {
+          "label": "Probeer weer knoppie etiket",
+          "default": "Probeer weer"
+        },
+        {
+          "label": "Spreekleserteks vir regte antwoord",
+          "default": "Reg"
+        },
+        {
+          "label": "Spreekleserteks vir verkeerde antwoord",
+          "default": "Verkeerd. Die regte antwoord was :num"
+        },
+        {
+          "label": "Spreekleseretiket vir die stophorlosie",
+          "default": "Tydsduur in ure, minute en sekondes."
+        },
+        {
+          "label": "Spreekleserteks vir vraag",
+          "default": "Waaraan is :arithmetic gelyk aan?"
+        },
+        {
+          "label": "Spreekleserteks vir vergelykingvraag",
+          "default": "Vir die vergelyking :equation, waaraan is :item gelyk aan?"
+        },
+        {
+          "label": "Spreekleserteks vir vergelykingveranderlike",
+          "default": "Waaraan is :item gelyk aan?"
+        },
+        {
+          "label": "Optel operateurteks",
+          "default": "plus"
+        },
+        {
+          "label": "Aftrek operateur teks",
+          "default": "minus"
+        },
+        {
+          "label": "Maal operateurteks",
+          "default": "maal"
+        },
+        {
+          "label": "Deel operateurteks",
+          "default": "gedeel deur"
+        },
+        {
+          "label": "Gelykaan tekenteks",
+          "default": "gelyk aan"
+        },
+        {
+          "label": "Skyfienommer teks",
+          "description": "Maak huidige skyfie en totale aantal skyfies bekend, veranderlikes is :num en :total",
+          "default": "Slide :num van :total"
+        }
+      ]
+    }
+  ]
+}
