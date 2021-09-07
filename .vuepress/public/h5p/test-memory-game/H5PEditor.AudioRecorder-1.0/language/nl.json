@@ -1,0 +1,23 @@
+{
+  "libraryStrings":{
+    "title":"Audio opname",
+    "recordAnswer":"Opnemen",
+    "pause":"Pauzeren",
+    "continue":"Doorgaan",
+    "done":"Voltooid",
+    "retry":"Opnieuw instellen",
+    "microphoneNotSupported":"Microfoon wordt niet ondersteund. Maak gebruik van een browser die opname van de microfoon toestaat.",
+    "microphoneInaccessible":"Kan geen toegang krijgen tot microfoon. Zorg ervoor dat de microfoon (in je browser) is ingeschakeld.",
+    "insecureNotAllowed":"Toegang tot microfoon is niet toegestaan in je browser omdat deze pagina niet via HTTPS geladen is. Neem contact op met de auteur, en vraag hem HTTPS beschikbaar te maken",
+    "statusReadyToRecord":"Klik de knop hieronder om de opname te starten.",
+    "statusRecording":"Opnemen...",
+    "statusPaused":"Opname gepauzeerd.",
+    "statusFinishedRecording":"Luister naar de opname hieronder.",
+    "downloadRecording":"Klik de knop \"Invoegen\" om deze opname te gebruiken.",
+    "retryDialogHeaderText":"Opnieuw opnemen?",
+    "retryDialogBodyText":"Door \"Opnieuw proberen\" te klikken, verlies je je huidige opname.",
+    "retryDialogConfirmText":"Opnieuw proberen",
+    "retryDialogCancelText":"Annuleren",
+    "statusCantCreateTheAudioFile":"Kan audiobestand niet maken."
+  }
+}

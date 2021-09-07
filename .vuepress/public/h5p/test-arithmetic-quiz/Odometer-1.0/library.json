@@ -1,0 +1,21 @@
+{
+  "title": "Odometer",
+  "description": "Odometer (http://github.hubspot.com/odometer/)",
+  "majorVersion": 1,
+  "minorVersion": 0,
+  "patchVersion": 3,
+  "runnable": 0,
+  "author": "HubSpot",
+  "license": "MIT",
+  "machineName": "Odometer",
+  "preloadedJs": [
+    {
+      "path": "odometer.min.js"
+    }
+  ],
+  "preloadedCss": [
+    {
+      "path": "themes/odometer-theme-default.css"
+    }
+  ]
+}

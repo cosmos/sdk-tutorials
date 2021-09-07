@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Intro",
+      "description": "The intro text (maximum 100 characters)"
+    },
+    {
+      "label": "Quiz type",
+      "options": [
+        {
+          "label": "Arithmetic Operations Quiz"
+        },
+        {
+          "label": "Linear Equations Quiz"
+        }
+      ]
+    },
+    {
+      "label": "Arithmetic type",
+      "options": [
+        {
+          "label": "Addition"
+        },
+        {
+          "label": "Subtraction"
+        },
+        {
+          "label": "Multiplication"
+        },
+        {
+          "label": "Division"
+        }
+      ]
+    },
+    {
+      "label": "Equation type",
+      "options": [
+        {
+          "label": "Basic [ 3x = 12 ]"
+        },
+        {
+          "label": "Intermediate [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Advanced [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Enable fractions",
+      "description": "Enable to allow fractions in equations."
+    },
+    {
+      "label": "Max number of questions"
+    },
+    {
+      "label": "User interface translations",
+      "fields": [
+        {
+          "label": "Scoring during quiz",
+          "default": "Score:"
+        },
+        {
+          "label": "Time",
+          "default": "Time: @time"
+        },
+        {
+          "label": "Result page header",
+          "default": "Finished!"
+        },
+        {
+          "label": "Go label",
+          "default": "GO!"
+        },
+        {
+          "label": "Start button label",
+          "default": "Start"
+        },
+        {
+          "label": "Retry button label",
+          "default": "Försök på nytt"
+        },
+        {
+          "label": "Readspeaker text for correct answer",
+          "default": "Correct"
+        },
+        {
+          "label": "Readspeaker text for incorrect answer",
+          "default": "Incorrect. Correct answer was :num"
+        },
+        {
+          "label": "Readspeaker label for the timer",
+          "default": "Duration in hours, minutes and seconds."
+        },
+        {
+          "label": "Readspeaker text for question",
+          "default": "What does :arithmetic equal?"
+        },
+        {
+          "label": "Readspeaker text for equation question",
+          "default": "For the equation :equation, what does :item equal?"
+        },
+        {
+          "label": "Readspeaker text for equation variable",
+          "default": "What does :item equal?"
+        },
+        {
+          "label": "Plus operator text",
+          "default": "plus"
+        },
+        {
+          "label": "Subtraction operator text",
+          "default": "minus"
+        },
+        {
+          "label": "Multiplication operator text",
+          "default": "times"
+        },
+        {
+          "label": "Division operator text",
+          "default": "divided by"
+        },
+        {
+          "label": "Equality sign text",
+          "default": "equals"
+        },
+        {
+          "label": "Slide number text",
+          "description": "Announces current slide and total number of slides, variables are :num and :total",
+          "default": "Slide :num of :total"
+        }
+      ]
+    }
+  ]
+}

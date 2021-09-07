@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Introduzione",
+      "description": "Testo introduttivo (massimo 100 caratteri)"
+    },
+    {
+      "label": "Tipo di compito",
+      "options": [
+        {
+          "label": "Compito con operazioni aritmetiche"
+        },
+        {
+          "label": "Compito con equazioni lineari"
+        }
+      ]
+    },
+    {
+      "label": "Tipo di aritmetica",
+      "options": [
+        {
+          "label": "Addizione"
+        },
+        {
+          "label": "Sottrazione"
+        },
+        {
+          "label": "Moltiplicazione"
+        },
+        {
+          "label": "Divisione"
+        }
+      ]
+    },
+    {
+      "label": "Tipo di equazione",
+      "options": [
+        {
+          "label": "Elementare [ 3x = 12 ]"
+        },
+        {
+          "label": "Intermedio [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Avanzato [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Abilita le frazioni",
+      "description": "Abilita per permettere le frazioni nelle equazioni."
+    },
+    {
+      "label": "Numero massimo di domande"
+    },
+    {
+      "label": "Traduzioni dell'interfaccia utente",
+      "fields": [
+        {
+          "label": "Punteggio durante il compito",
+          "default": "Punteggio:"
+        },
+        {
+          "label": "Tempo",
+          "default": "Tempo: @time"
+        },
+        {
+          "label": "Intestazione della pagina del risultato",
+          "default": "Terminato!"
+        },
+        {
+          "label": "Etichetta del pulsante Vai",
+          "default": "VAI!"
+        },
+        {
+          "label": "Etichetta del pulsante di avvio",
+          "default": "Inizio"
+        },
+        {
+          "label": "Etichetta del pulsante Riprova",
+          "default": "Riprova"
+        },
+        {
+          "label": "Testo del lettore vocale in caso di risposta corretta",
+          "default": "Corretto"
+        },
+        {
+          "label": "Testo del lettore vocale in caso di risposta sbagliata",
+          "default": "Sbagliato. La risposta corretta è :num"
+        },
+        {
+          "label": "Etichetta del lettore vocale per il timer",
+          "default": "Durata in ore, minuti e secondi."
+        },
+        {
+          "label": "Testo del lettore vocale per la domanda",
+          "default": "A che cosa equivale :arithmetic?"
+        },
+        {
+          "label": "Testo del lettore vocale per la domanda dell'equazione",
+          "default": "Nell'equazione :equation, che cosa equivale a :item?"
+        },
+        {
+          "label": "Testo del lettore vocale per la variabile dell'equazione",
+          "default": "A che cosa equivale :item?"
+        },
+        {
+          "label": "Testo dell'operatore di addizione",
+          "default": "più"
+        },
+        {
+          "label": "Testo dell'operatore di sottrazione",
+          "default": "meno"
+        },
+        {
+          "label": "Testo dell'operatore di moltiplicazione",
+          "default": "volte"
+        },
+        {
+          "label": "Testo dell'operatore di divisione",
+          "default": "diviso per"
+        },
+        {
+          "label": "Testo del segno di uguaglianza",
+          "default": "uguale"
+        },
+        {
+          "label": "Testo del numero di slide",
+          "description": "Indica la slide corrente e il numero totale di slide. Le variabili sono :num e :total",
+          "default": "Slide :num su :total"
+        }
+      ]
+    }
+  ]
+}

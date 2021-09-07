@@ -1,0 +1,23 @@
+{
+  "libraryStrings":{
+    "title":"Grabadora de Audio",
+    "recordAnswer":"Grabar",
+    "pause":"Pausa",
+    "continue":"Continuar",
+    "done":"Terminar",
+    "retry":"Reiniciar",
+    "microphoneNotSupported":"Micrófono no soportado. Asegúrese de utilizar un navegador que permitar grabar con micrófono.",
+    "microphoneInaccessible":"Micrófono no está accesible. Asegúrese de que esté habilitado el micrófono del navegador.",
+    "insecureNotAllowed":"Acceso al micrófono no está permitido en su navegador porque esta página no está servida usando HTTPS. Por favor póngase en contacto con el autor y pídale que la haga disponible usando HTTPS",
+    "statusReadyToRecord":"Presione el botón inferior para comenzar a grabar.",
+    "statusRecording":"Grabando...",
+    "statusPaused":"Grabación pausada.",
+    "statusFinishedRecording":"Escuchar la grabación inferior.",
+    "downloadRecording":"Presione el botón \"Insertar\" para usar esta grabación.",
+    "retryDialogHeaderText":"¿Reintentar grabación?",
+    "retryDialogBodyText":"Al oprimir \"Reintentar\" Usted perderá su grabación actual.",
+    "retryDialogConfirmText":"Reintentar",
+    "retryDialogCancelText":"Cancelar",
+    "statusCantCreateTheAudioFile":"No se puede crear el archivo de audio."
+  }
+}

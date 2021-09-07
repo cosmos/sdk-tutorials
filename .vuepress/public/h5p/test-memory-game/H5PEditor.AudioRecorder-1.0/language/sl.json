@@ -1,0 +1,23 @@
+{
+  "libraryStrings":{
+    "title":"Snemalnik zvoka",
+    "recordAnswer":"Snemaj",
+    "pause":"Premor",
+    "continue":"Nadaljuj",
+    "done":"Zaključi",
+    "retry":"Ponastavi",
+    "microphoneNotSupported":"Mikrofon ni podprt. Priporočam uporabo brskalnika, ki omogoča snemanje z mikrofonom.",
+    "microphoneInaccessible":"Mikrofon ni dostopen oz. omogočen. Priporočam pregled nastavitev brskalnika.",
+    "insecureNotAllowed":"Dostop do mikrofona v tem brskalniku ni dovoljen, saj stran deluje le z varno povezavo (HTTPS). Obrnite se na avtorja vsebin oz. administratorja spletne strani.",
+    "statusReadyToRecord":"Po kliku na spodnji gumb se bo začelo snemanje.",
+    "statusRecording":"Snemam ...",
+    "statusPaused":"Snemanje je začasno prekinjeno.",
+    "statusFinishedRecording":"V spodnjem predvajalniku je možno posnetek predvajati.",
+    "downloadRecording":"S klikom na gumb \"Vstavi\" bo uporabljen ta posnetek.",
+    "retryDialogHeaderText":"Ponovitev snemanja?",
+    "retryDialogBodyText":"S klikom na gumb \"Poskusi ponovno\" bo izgubljen ta posnetek.",
+    "retryDialogConfirmText":"Poskusi ponovno",
+    "retryDialogCancelText":"Prekliči",
+    "statusCantCreateTheAudioFile":"Zvočne datoteke ni mogoče ustvariti."
+  }
+}
