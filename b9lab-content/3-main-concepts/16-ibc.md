@@ -128,8 +128,8 @@ When the acknowledgement is received successfully on the original sender chain, 
 
 IBC can use Tendermint chains to bridge with IBC but also non-Tendermint chains. Two types of non-Tendermint chains are supported:
 
-* FAST-FINALITY CHAINS: any fast-finality consensus algorithms can connect with Cosmos by adapting IBC
-* PROBABILISTIC-FINALITY CHAINS: blockchains that do not have fast-finality, like Proof-of-Work chains, things get a bit trickier. In this case, IBC uses a special kind of proxy-chain called a Peg-Zone.
+* **Fast-Finality chains**: Any fast-finality consensus algorithms can connect with Cosmos by adapting IBC
+* **Probabilistic**: Things get a bit more complicated for blockchains that do not have fast finality, like Proof-of-Work chains. In this case, IBC uses a special kind of proxy-chain called a Peg-Zone. 
 
 ### Ethereum peg zone:
 
@@ -139,7 +139,7 @@ IBC can use Tendermint chains to bridge with IBC but also non-Tendermint chains.
 A Peg-Zone is a blockchain that tracks the state of another blockchain. The Peg-Zone itself has fast-finality and is therefore compatible with IBC. Its role is to establish finality for the blockchain it bridges.
 
 <HighlightBox info=”info”>
-The Tendermint team is working on a Peg-Zone implementation for the Ethereum chain called the Gravity bridge: https://github.com/cosmos/gravity-bridge 
+The Tendermint team is working on a Peg-Zone implementation for the Ethereum chain called the [Gravity bridge](./17-bridges.html).
 </HighlightBox>
 
 <!-- TODO -->
@@ -150,11 +150,9 @@ https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosm
 
 Relayers - What is a relayer? How are relayers used in Cosmos? How can one manage and deploy relayers? Hermes as an example
 https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/relayer.md 
+
+
 Token transfers with IBC
-Long running exercise. Foreign tokens:
-We want to play with foreign tokens. How to implement.
-NFT transfers with IBC
-Custom applications using IBC
 
 
 ## Long-running exercise
