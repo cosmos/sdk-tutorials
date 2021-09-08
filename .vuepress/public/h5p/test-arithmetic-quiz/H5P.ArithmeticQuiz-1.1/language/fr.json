@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Introduction",
+      "description": "Le texte d'introduction (maximum 100 caractères)"
+    },
+    {
+      "label": "Type du quiz",
+      "options": [
+        {
+          "label": "Quiz d'opérations arithmétiques"
+        },
+        {
+          "label": "Quiz d'équations linéaires"
+        }
+      ]
+    },
+    {
+      "label": "Type d'opération",
+      "options": [
+        {
+          "label": "Addition"
+        },
+        {
+          "label": "Soustraction"
+        },
+        {
+          "label": "Multiplication"
+        },
+        {
+          "label": "Division"
+        }
+      ]
+    },
+    {
+      "label": "Type d'équation",
+      "options": [
+        {
+          "label": "Basique [ 3x = 12 ]"
+        },
+        {
+          "label": "Intermédiaire [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Avancée [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Activer les fractions",
+      "description": "Aurotiser les fractions dans les équations."
+    },
+    {
+      "label": "Nombre maximum de questions"
+    },
+    {
+      "label": "Traduction de l'interface utilisateurs",
+      "fields": [
+        {
+          "label": "Score qui s'affiche pendant le quiz",
+          "default": "Score :"
+        },
+        {
+          "label": "Temps",
+          "default": "Temps écoulé : @time"
+        },
+        {
+          "label": "Titre de la page de résultats",
+          "default": "C'est terminé !"
+        },
+        {
+          "label": "Texte du bouton GO",
+          "default": "GO !"
+        },
+        {
+          "label": "Texte du bouton de départ",
+          "default": "Commencer"
+        },
+        {
+          "label": "Texte du bouton \"Recommencer\"",
+          "default": "Recommencer"
+        },
+        {
+          "label": "Texte exprimé par la synthèse vocale en cas de réponse correcte",
+          "default": "Réponse correcte"
+        },
+        {
+          "label": "Texte exprimé par la synthèse vocale en cas de réponse incorrecte",
+          "default": "Réponse incorrecte"
+        },
+        {
+          "label": "Chronomètre exprimé par la synthèse vocale",
+          "default": "Durée en heures, minutes et secondes."
+        },
+        {
+          "label": "Question exprimée par la synthèse vocale",
+          "default": "Combien font :arithmetic ?"
+        },
+        {
+          "label": "Texte de l'orateur pour la question de l'équation",
+          "default": "Pour cette équation :equation, combien vaut :item?"
+        },
+        {
+          "label": "Texte de l'orateur pour une variable de l'équation",
+          "default": "Combien vaut :item?"
+        },
+        {
+          "label": "Texte pour le signe de l'addition",
+          "default": "plus"
+        },
+        {
+          "label": "Texte pour le signe de la soustraction",
+          "default": "moins"
+        },
+        {
+          "label": "Texte pour le signe de la multiplication",
+          "default": "fois"
+        },
+        {
+          "label": "Texte pour le signe de la division",
+          "default": "divisé par"
+        },
+        {
+          "label": "Texte pour le signe de l'égalité",
+          "default": "Egal"
+        },
+        {
+          "label": "Texte du numéro de diapositive",
+          "description": "Annonce la diapositive en cours et le nombre total de diapositives, les variables sont :sum et :total",
+          "default": "Diapositive :num sur :total"
+        }
+      ]
+    }
+  ]
+}

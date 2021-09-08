@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Einführungstext",
+      "description": "maximal 100 Zeichen"
+    },
+    {
+      "label": "Art des Quiz",
+      "options": [
+        {
+          "label": "Quiz mit Rechenaufgaben"
+        },
+        {
+          "label": "Quiz mit linearen Gleichungen"
+        }
+      ]
+    },
+    {
+      "label": "Rechenart",
+      "options": [
+        {
+          "label": "Addition"
+        },
+        {
+          "label": "Subtraktion"
+        },
+        {
+          "label": "Multiplikation"
+        },
+        {
+          "label": "Division"
+        }
+      ]
+    },
+    {
+      "label": "Art der Gleichung",
+      "options": [
+        {
+          "label": "Anfänger [ 3x = 12 ]"
+        },
+        {
+          "label": "Fortgeschrittene [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Profi [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Brüche erlauben",
+      "description": "Auswählen, um Brüche in Gleichungen zuzulassen"
+    },
+    {
+      "label": "Maximale Aufgabenzahl"
+    },
+    {
+      "label": "Bezeichnungen und Beschriftungen",
+      "fields": [
+        {
+          "label": "Erreichte Punkte während des Quiz",
+          "default": "Punktzahl:"
+        },
+        {
+          "label": "Zeit",
+          "default": "Zeit: @time"
+        },
+        {
+          "label": "Überschrift der Ergebnisseite",
+          "default": "Fertig!"
+        },
+        {
+          "label": "Beschriftung für \"Los\"",
+          "default": "Los!"
+        },
+        {
+          "label": "Beschriftung des \"Start\"-Buttons",
+          "default": "Start"
+        },
+        {
+          "label": "Beschriftung des \"Wiederholen\"-Buttons",
+          "default": "Wiederholen"
+        },
+        {
+          "label": "Text, den ein Vorlesewerkzeug bei einer richtigen Antwort vorliest (Barrierefreiheit)",
+          "default": "Richtig"
+        },
+        {
+          "label": "Text, den ein Vorlesewerkzeug bei einer falschen Antwort vorliest (Barrierefreiheit)",
+          "default": "Falsch. Die richtige Antwort wäre :num."
+        },
+        {
+          "label": "Text, den ein Vorlesewerkzeug für den Timer vorliest (Barrierefreiheit)",
+          "default": "Dauer in Stunden, Minuten und Sekunden."
+        },
+        {
+          "label": "Text, den ein Vorlesewerkzeug bei Rechenaufgaben vorliest (Barrierefreiheit)",
+          "default": "Was ergibt :arithmetic?"
+        },
+        {
+          "label": "Text, den ein Vorlesewerkzeug bei Gleichungsaufgaben vorliest (Barrierefreiheit)",
+          "default": "Was ist in der Gleichung :equation die Lösung für :item?"
+        },
+        {
+          "label": "Text, den ein Vorlesewerkzeug für die Unbekannte in Gleichungen vorliest (Barrierefreiheit)",
+          "default": "Was ist die Lösung für :item?"
+        },
+        {
+          "label": "Text, den ein Vorlesewerkzeug für das Pluszeichen vorliest (Barrierefreiheit)",
+          "default": "plus"
+        },
+        {
+          "label": "Text, den ein Vorlesewerkzeug für das Minuszeichen vorliest (Barrierefreiheit)",
+          "default": "minus"
+        },
+        {
+          "label": "Text, den ein Vorlesewerkzeug für das Malzeichen vorliest (Barrierefreiheit)",
+          "default": "mal"
+        },
+        {
+          "label": "Text, den ein Vorlesewerkzeug für das Divisionszeichen vorliest (Barrierefreiheit)",
+          "default": "geteilt durch"
+        },
+        {
+          "label": "Text, den ein Vorlesewerkzeug für das Gleichheitszeichen vorliest (Barrierefreiheit)",
+          "default": "ist gleich"
+        },
+        {
+          "label": "Text, den ein Vorlesewerkzeug für die Aufgabennummer vorliest (Barrierefreiheit)",
+          "description": "Gibt die derzeitige Aufgabennummer und die Gesamtzahl der Aufgaben an. Platzhalter sind :num und :total",
+          "default": "Aufgabe :num von :total"
+        }
+      ]
+    }
+  ]
+}

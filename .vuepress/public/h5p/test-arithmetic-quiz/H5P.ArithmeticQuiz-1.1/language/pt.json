@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Introdução",
+      "description": "Texto introdutório (máximo 100 caracteres)"
+    },
+    {
+      "label": "Tipo de teste",
+      "options": [
+        {
+          "label": "Teste de Operações Aritméticas"
+        },
+        {
+          "label": "Teste de Equações Lineares"
+        }
+      ]
+    },
+    {
+      "label": "Tipo de operação aritmética",
+      "options": [
+        {
+          "label": "Adição"
+        },
+        {
+          "label": "Subtração"
+        },
+        {
+          "label": "Multiplicação"
+        },
+        {
+          "label": "Divisão"
+        }
+      ]
+    },
+    {
+      "label": "Tipo de equação",
+      "options": [
+        {
+          "label": "Básica [ 3x = 12 ]"
+        },
+        {
+          "label": "Intermédia [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Avançada [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Permitir frações",
+      "description": "Ative esta opção para permitir frações nas equações."
+    },
+    {
+      "label": "Número máximo de perguntas"
+    },
+    {
+      "label": "Traduções da interface de utilizador",
+      "fields": [
+        {
+          "label": "Pontuação no teste",
+          "default": "Pontuação:"
+        },
+        {
+          "label": "Tempo",
+          "default": "Tempo: @time"
+        },
+        {
+          "label": "Cabeçalho da página do resultado",
+          "default": "Terminado!"
+        },
+        {
+          "label": "Rótulo do botão Começar",
+          "default": "Começar!"
+        },
+        {
+          "label": "Rótulo do botão Iniciar",
+          "default": "Iniciar"
+        },
+        {
+          "label": "Rótulo do botão Tentar novamente",
+          "default": "Tentar novamente"
+        },
+        {
+          "label": "Texto do leitor de ecrã para resposta correta",
+          "default": "Correta"
+        },
+        {
+          "label": "Texto do leitor de ecrã para resposta incorreta",
+          "default": "Incorreta. A resposta correta é :num"
+        },
+        {
+          "label": "Rótulo do leitor de ecrã para o temporizador",
+          "default": "Duração em horas, minutos e segundos."
+        },
+        {
+          "label": "Texto do leitor de ecrã para pergunta",
+          "default": "Qual é o resultado de :arithmetic?"
+        },
+        {
+          "label": "Texto leitor de ecrã para a pergunta da equação",
+          "default": "Para a equação :equation, qual é o valor de :item?"
+        },
+        {
+          "label": "Texto do leitor de ecrã para variável da equação",
+          "default": "Qual o valor de :item?"
+        },
+        {
+          "label": "Texto do operador da adição",
+          "default": "mais"
+        },
+        {
+          "label": "Texto do operador da subtração",
+          "default": "menos"
+        },
+        {
+          "label": "Texto do operador da multiplicação",
+          "default": "vezes"
+        },
+        {
+          "label": "Texto do operador da divisão",
+          "default": "a dividir por"
+        },
+        {
+          "label": "Texto do operador de igual",
+          "default": "é igual a"
+        },
+        {
+          "label": "Texto do número do slide",
+          "description": "Mostra o slide atual e o número total de slides. As variáveis são :num e :total",
+          "default": "Slide :num de :total"
+        }
+      ]
+    }
+  ]
+}

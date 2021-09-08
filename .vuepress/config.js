@@ -121,6 +121,43 @@ module.exports = {
             },
           ],
         },
+        /* Start of B9lab Content - WIP
+        {
+          title: "B9lab content",
+          children: [
+            {
+              title: "Welcome (WIP)",
+              path: "/b9lab-content/1-welcome",
+              directory: true,
+            },
+            {
+              title: "What is Cosmos?",
+              path: "/b9lab-content/2-what-is-cosmos",
+              directory: true,
+            },
+            {
+              title: "Main Concepts",
+              path: "/b9lab-content/3-main-concepts",
+              directory: true,
+            },
+            {
+              title: "Running a Chain",
+              path: "/b9lab-content/4-running-a-chain",
+              directory: true,
+            },
+            {
+              title: "My Own Cosmos Chain",
+              path: "/b9lab-content/5-my-own-chain",
+              directory: true,
+            },
+            {
+              title: "What's Next?",
+              path: "/b9lab-content/6-whats-next",
+              directory: true,
+            },
+          ],
+        },
+        END OF B9lab Content - WIP */
       ],
     },
     gutter: {
@@ -259,5 +296,7 @@ module.exports = {
     "publish-app-do/*.md",
     "starport/*.md",
     "understanding-ibc-denoms/*.md",
+    "feature-test/*.md",
+    "b9lab-content/*/*.md"
   ],
 };

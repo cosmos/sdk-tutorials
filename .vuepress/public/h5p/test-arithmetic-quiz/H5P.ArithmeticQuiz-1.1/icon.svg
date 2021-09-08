@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225">
+  <defs>
+    <style>
+      .cls-1 {
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        fill: #3d6084;
+      }
+
+      .cls-3 {
+        opacity: 0.2;
+        mix-blend-mode: multiply;
+      }
+
+      .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-5 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <title>arithmetic quiz</title>
+  <g class="cls-1">
+    <g id="Layer_2" data-name="Layer 2">
+      <g id="arithmetic_quiz" data-name="arithmetic quiz">
+        <g>
+          <circle class="cls-2" cx="204" cy="113.5" r="87.63"/>
+          <g>
+            <g class="cls-3">
+              <rect x="161.02" y="83.54" width="39.07" height="9.28"/>
+              <rect x="175.91" y="68.64" width="9.28" height="39.07"/>
+              <rect x="161.02" y="140.63" width="39.07" height="9.28" transform="translate(-49.84 170.22) rotate(-45)"/>
+              <rect x="175.91" y="125.73" width="9.28" height="39.07" transform="translate(-49.84 170.22) rotate(-45)"/>
+              <rect x="215.56" y="83.54" width="36.66" height="9.28"/>
+              <rect x="215.56" y="140.63" width="36.66" height="9.28"/>
+              <circle cx="233.61" cy="132.89" r="5.9"/>
+              <circle cx="233.61" cy="157.52" r="5.9"/>
+            </g>
+            <g>
+              <g>
+                <rect class="cls-4" x="158.39" y="80.92" width="39.07" height="9.28"/>
+                <rect class="cls-4" x="173.29" y="66.02" width="9.28" height="39.07"/>
+              </g>
+              <g>
+                <rect class="cls-4" x="158.39" y="138.01" width="39.07" height="9.28" transform="translate(-48.75 167.6) rotate(-45)"/>
+                <rect class="cls-4" x="173.29" y="123.11" width="9.28" height="39.07" transform="translate(-48.75 167.6) rotate(-45)"/>
+              </g>
+              <rect class="cls-4" x="212.94" y="80.92" width="36.66" height="9.28"/>
+              <rect class="cls-4" x="212.94" y="138.01" width="36.66" height="9.28"/>
+              <circle class="cls-4" cx="230.99" cy="130.27" r="5.9"/>
+              <circle class="cls-4" cx="230.99" cy="154.9" r="5.9"/>
+            </g>
+          </g>
+        </g>
+        <rect class="cls-5" width="400" height="225"/>
+      </g>
+    </g>
+  </g>
+</svg>

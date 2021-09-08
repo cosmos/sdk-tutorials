@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Johdanto",
+      "description": "Johdantoteksti (Max 100 merkkiä)"
+    },
+    {
+      "label": "Tentin tyyppi",
+      "options": [
+        {
+          "label": "Aritmeettisten operaatioiden tentti"
+        },
+        {
+          "label": "Lineaaristen yhtälöiden tentti"
+        }
+      ]
+    },
+    {
+      "label": "Laskutyyppi",
+      "options": [
+        {
+          "label": "Summa"
+        },
+        {
+          "label": "Vähennys"
+        },
+        {
+          "label": "Kerto"
+        },
+        {
+          "label": "Jako"
+        }
+      ]
+    },
+    {
+      "label": "Yhtälötyyppi",
+      "options": [
+        {
+          "label": "Yksinkertainen [ 3x = 12 ]"
+        },
+        {
+          "label": "Keskitasoinen [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Edistynyt [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Salli murtoluvut",
+      "description": "Aseta päälle salliaksesi murtoluvut yhtälöissä."
+    },
+    {
+      "label": "Kysymyksien enimmäismäärä"
+    },
+    {
+      "label": "Käyttöliittymän omat tekstit",
+      "fields": [
+        {
+          "label": "Tehtävänaikainen pistelasku",
+          "default": "Pisteet:"
+        },
+        {
+          "label": "Aika",
+          "default": "Aika: @time"
+        },
+        {
+          "label": "Tulossivun otsikko",
+          "default": "Tehty!"
+        },
+        {
+          "label": "Käynnistä painikkeen teksti",
+          "default": "Käynnistä!"
+        },
+        {
+          "label": "Aloita painikkeen teksti",
+          "default": "Aloita"
+        },
+        {
+          "label": "Painikkeen Yritä uudelleen teksti",
+          "default": "Yritä uudelleen"
+        },
+        {
+          "label": "Readspeaker teksti oikealle vastaukselle",
+          "default": "Oikein"
+        },
+        {
+          "label": "Readspeaker teksti väärälle vastaukselle",
+          "default": "Väärin. Oikea vastaus oli :num"
+        },
+        {
+          "label": "Readspeaker selite ajastimelle",
+          "default": "Kesto tunneissa, minuuteissa ja sekunneissa."
+        },
+        {
+          "label": "Readspeaker teksti kysymykselle",
+          "default": "Kuinka paljon on :arithmetic"
+        },
+        {
+          "label": "Readspeaker text for equation question",
+          "default": "For the equation :equation, what does :item equal?"
+        },
+        {
+          "label": "Readspeaker text for equation variable",
+          "default": "What does :item equal?"
+        },
+        {
+          "label": "Summaoperaattorin teksti",
+          "default": "plus"
+        },
+        {
+          "label": "Vähennysoperaattorin teksti",
+          "default": "miinus"
+        },
+        {
+          "label": "Kerroinoperaattorin teksti",
+          "default": "kertaa"
+        },
+        {
+          "label": "Jako-operaattorin teksti",
+          "default": "jaettuna"
+        },
+        {
+          "label": "Yhtäsuuri-merkin teksti ",
+          "default": "on yhtä suuri kuin"
+        },
+        {
+          "label": "Sivunumeron teksti",
+          "description": "Ilmoittaa nykyisen sivunumeron ja sivumäärän. Muuttujat :num ja :total",
+          "default": "Sivu :num / :total"
+        }
+      ]
+    }
+  ]
+}

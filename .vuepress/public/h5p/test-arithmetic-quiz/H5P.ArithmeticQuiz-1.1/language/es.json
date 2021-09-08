@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Introducción",
+      "description": "El texto introductorio (máximo 100 caracteres)"
+    },
+    {
+      "label": "Tipo de examen",
+      "options": [
+        {
+          "label": "Examen de Operaciones Aritméticas"
+        },
+        {
+          "label": "Examen de ecuaciones Lineales"
+        }
+      ]
+    },
+    {
+      "label": "Tipo Aritmético",
+      "options": [
+        {
+          "label": "Suma"
+        },
+        {
+          "label": "Resta"
+        },
+        {
+          "label": "Multiplicación"
+        },
+        {
+          "label": "División"
+        }
+      ]
+    },
+    {
+      "label": "Tipo de ecuación",
+      "options": [
+        {
+          "label": "Básica [ 3x = 12 ]"
+        },
+        {
+          "label": "Intermedia [ 4x - 3 = 13 ]"
+        },
+        {
+          "label": "Avanzada [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Habilitar fracciones",
+      "description": "Habilitar el permitir fracciones en ecuaciones."
+    },
+    {
+      "label": "Máx número de preguntas"
+    },
+    {
+      "label": "Traducciones de la Interfase del Usuario",
+      "fields": [
+        {
+          "label": "Puntuación durante el examen",
+          "default": "Puntaje:"
+        },
+        {
+          "label": "Tiempo",
+          "default": "Tiempo: @time"
+        },
+        {
+          "label": "Encabezado de página de resultados",
+          "default": "¡Terminado!"
+        },
+        {
+          "label": "Etiqueta Ir",
+          "default": "ÏR!"
+        },
+        {
+          "label": "Etiqueta botón Iniciar",
+          "default": "Iniciar"
+        },
+        {
+          "label": "Etiqueta botón Reintentar",
+          "default": "Reintentar"
+        },
+        {
+          "label": "Texto de Lector de voz para respuesta correcta",
+          "default": "Correcta"
+        },
+        {
+          "label": "Texto de Lector de voz para respuesta incorrecta",
+          "default": "Incorrecta. La respuesta correcta era :num"
+        },
+        {
+          "label": "Etiqueta de Lector de voz para el cronómetro",
+          "default": "Duración en horas, minutos y segundos."
+        },
+        {
+          "label": "Texto de Lector de voz para pregunta",
+          "default": "¿A qué es igual :arithmetic ?"
+        },
+        {
+          "label": "Texto de Lector de voz par pregunta de ecuación",
+          "default": "Para la ecuación :equation, ¿a qué es igual :item ?"
+        },
+        {
+          "label": "Texto de Lector de voz para variable de ecuación",
+          "default": "¿A qué es igual :item ?"
+        },
+        {
+          "label": "Texto operador Más",
+          "default": "más"
+        },
+        {
+          "label": "Texto operador resta",
+          "default": "menos"
+        },
+        {
+          "label": "Texto operador multiplicación",
+          "default": "por"
+        },
+        {
+          "label": "Texto operador división",
+          "default": "dividido entre"
+        },
+        {
+          "label": "Texto de signo Igualdad",
+          "default": "es igual a"
+        },
+        {
+          "label": "Texto de número de pantalla",
+          "description": "Anuncia la pantalla actual y el número total de  pantallas, las variables son :num y :total",
+          "default": "Pantalla :num de :total"
+        }
+      ]
+    }
+  ]
+}

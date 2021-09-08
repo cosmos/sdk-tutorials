@@ -1,0 +1,135 @@
+{
+  "semantics": [
+    {
+      "label": "Introducció",
+      "description": "El text d’introducció (màxim 100 caràcters)"
+    },
+    {
+      "label": "Tipus de qüestionari",
+      "options": [
+        {
+          "label": "Qüestionari d’operacions aritmètiques"
+        },
+        {
+          "label": "Qüestionari d’equacions lineals"
+        }
+      ]
+    },
+    {
+      "label": "Tipus d’aritmètica",
+      "options": [
+        {
+          "label": "Suma"
+        },
+        {
+          "label": "Resta"
+        },
+        {
+          "label": "Multiplicació"
+        },
+        {
+          "label": "Divisió"
+        }
+      ]
+    },
+    {
+      "label": "Tipus d’equació",
+      "options": [
+        {
+          "label": "Basic [ 3x = 12 ]"
+        },
+        {
+          "label": "Intermedi [4x - 3 = 13]"
+        },
+        {
+          "label": "Avançat [ 5x + 3 = 3x + 15 ]"
+        }
+      ]
+    },
+    {
+      "label": "Activa les fraccions",
+      "description": "Activa per permetre fraccions en equacions."
+    },
+    {
+      "label": "Nombre màxim de preguntes"
+    },
+    {
+      "label": "Traduccions de la interfície d’usuari",
+      "fields": [
+        {
+          "label": "Puntuació durant el qüestionari",
+          "default": "Puntuació:"
+        },
+        {
+          "label": "Temps",
+          "default": "Temps: @time"
+        },
+        {
+          "label": "Encapçalament de la pàgina de resultats",
+          "default": "Heu acabat!"
+        },
+        {
+          "label": "Etiqueta Endavant!",
+          "default": "ENDAVANT!"
+        },
+        {
+          "label": "Inicia button label",
+          "default": "Inicia"
+        },
+        {
+          "label": "Etiqueta del botó \"Tornar-ho a provar\"",
+          "default": "Tornar-ho a provar"
+        },
+        {
+          "label": "Text de l’altaveu de lectura per a una resposta correcta",
+          "default": "Correctee"
+        },
+        {
+          "label": "Text de l’altaveu de lectura per a una resposta incorrecta",
+          "default": "Incorrect. Correcte answer was :num"
+        },
+        {
+          "label": "Etiqueta de l’altaveu de lectura per al temporitzador",
+          "default": "Durada en hores, minuts i segons."
+        },
+        {
+          "label": "Text de l’altaveu de lectura per a una pregunta",
+          "default": "Quin és el resultat de :arithmetic?"
+        },
+        {
+          "label": "Text de l’altaveu de lectura per a una pregunta d’equació",
+          "default": "A l’equació :equation, què representa :item?"
+        },
+        {
+          "label": "Text de l’altaveu de lectura per a una variable d’equació",
+          "default": "Quin és el resultat de :item?"
+        },
+        {
+          "label": "Text de l’operador més",
+          "default": "més"
+        },
+        {
+          "label": "Resta operator text",
+          "default": "menys"
+        },
+        {
+          "label": "Text de l’operador de multiplicació",
+          "default": "vegades"
+        },
+        {
+          "label": "Text de l’operador de divisió",
+          "default": "dividit per"
+        },
+        {
+          "label": "Text del signe igual",
+          "default": "igual"
+        },
+        {
+          "label": "Text del número de diapositiva",
+          "description": "Anuncia la diapositiva actual i el nombre total de diapositives, les variables són :num i :total",
+          "default": "Diapositiva :num de :total"
+        }
+      ]
+    }
+  ]
+}
