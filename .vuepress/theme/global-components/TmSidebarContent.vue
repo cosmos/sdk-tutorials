@@ -218,7 +218,8 @@ export default {
   },
   methods: {
     isVisible(title) {
-      return title.includes("B9lab") ? window.location.origin.includes("deploy-preview") : !(this.$themeConfig.sidebar.auto == false && title === '');
+      const allowedOrigin = window.location.origin.includes("deploy-preview") || window.location.origin.includes("localhost:") || window.location.origin.includes("127.0.0.1");
+      return title.includes("B9lab") ? allowedOrigin : !(this.$themeConfig.sidebar.auto == false && title === '');
     }
   }
 };
