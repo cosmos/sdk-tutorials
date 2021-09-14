@@ -389,7 +389,7 @@ func CmdUpdatePoll() *cobra.Command {
 Run and reset the app state of your blockchain with:
 
 ```sh
-starport serve --reset-once
+starport chain serve --reset-once
 ```
 
 ## Add the Votes
