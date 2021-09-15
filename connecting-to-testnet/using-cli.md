@@ -16,11 +16,11 @@ Now you can use the binary to interact with the testnet by running a full node l
 
 Create a key pair for user alice:
 
-```
+```bash
 gaiad keys add alice
 ```
 
-```
+```bash
 - name: alice
   type: local
   address: cosmos14fgy2tk5szqlt9wrtntzcghjrzsz9y7yq45yt2
@@ -38,11 +38,11 @@ wave vague strong repeat mango infant suffer busy vault movie rubber crystal fou
 
 Create a key pair for user bob:
 
-```
+```bash
 gaiad keys add bob
 ```
 
-```
+```bash
 - name: bob
   type: local
   address: cosmos18crmvhzeqt3k3razrqy06rksg3am7c9t522s6l
@@ -64,14 +64,14 @@ This testnet uses two token denominations: `stake` (the staking token) and `upho
 
 To get tokens, in your terminal, run the following command:
 
-```
+```bash
 curl -X POST -d '{"address": "cosmos14fgy2tk5szqlt9wrtntzcghjrzsz9y7yq45yt2"}' https://faucet.testnet.cosmos.network
 ```
 
 When the tokens are sent, you see the following response:
 
-```
-{"transfers":[{"coin":"10000000stake","status":"ok"},{"coin":"10000000uphoton","status":"ok"}]}
+```bash
+{"transfers":[{"coin":"10000000uphoton","status":"ok"}]}
 ```
 
 After you have received the tokens, you can query your balance and confirm the tokens have arrived.
@@ -86,17 +86,17 @@ To query balances using the locally running full node:
 
 1. Run this command:
 
-    ```
+    ```bash
     gaiad q bank balances $(gaiad keys show alice -a)
     ```
 
 To query balances using a public RPC endpoint:
 
-```
+```bash
 gaiad q bank balances $(gaiad keys show alice -a) --node https://rpc.testnet.cosmos.network:443
 ```
 
-```
+```bash
 balances:
 - amount: "10000000"
   denom: uphoton
@@ -109,17 +109,17 @@ pagination:
 
 To use the CLI to send tokens:
 
-```
+```bash
 gaiad tx bank send $(gaiad keys show alice -a) $(gaiad keys show bob -a) 1000uphoton --from alice --node https://rpc.testnet.cosmos.network:443 --chain-id cosmoshub-testnet
 ```
 
 Then query the balance:
 
-```
+```bash
 gaiad q bank balances $(gaiad keys show bob -a) --node https://rpc.testnet.cosmos.network:443
 ```
 
-```
+```bash
 balances:
 - amount: "1000"
   denom: uphoton
@@ -128,6 +128,6 @@ pagination:
   total: "0"
 ```
 
-## Using Gravity DEX CLI 
+## Using Gravity DEX CLI
 
 For Gravity DEX commands, see the [liquidity module client docs](https://github.com/tendermint/liquidity/blob/develop/doc/client.md).
