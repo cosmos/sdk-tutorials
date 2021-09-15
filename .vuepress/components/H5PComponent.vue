@@ -17,7 +17,7 @@
         components: {
             h5p
         },
-        created() {
+        beforeMount() {
             this.addResizerScript();
         },
         methods: {
