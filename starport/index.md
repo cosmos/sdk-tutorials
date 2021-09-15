@@ -42,7 +42,7 @@ curl https://get.starport.network/starport! | bash
 To verify the version of Starport you have installed:
 
 ```sh
-starport --version
+starport version
 ```
 
 The results show the release details. For example:
