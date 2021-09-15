@@ -15,7 +15,7 @@ The Starport tool is the easiest way to build a blockchain and accelerate chain 
 
 ## Upgrading Your Starport Installation
 
-To upgrade your Starport installation, see [Install Starport](https://docs.starport.network/intro/install.html).
+To upgrade your Starport installation, see [Install Starport](https://docs.starport.network/guide/install.html).
 
 ## Install a Specific Version of Starport
 
