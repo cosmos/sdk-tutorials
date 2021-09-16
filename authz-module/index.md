@@ -7,11 +7,11 @@ description: Use the Cosmos SDK authz module to grant authorizations from one ac
 
 # Authz Module
 
-The authz (authorization) module enables a granter to grant authorizations to a grantee that allows the grantee to execute messages on behalf of the granter. The authz module is different from the auth (authentication) module, which is responsible for specifying the base transaction and account types.
+The [authz](https://docs.cosmos.network/v0.44/modules/authz/) (authorization) module enables a granter to grant an authorization to a grantee that allows the grantee to execute messages on behalf of the granter. The authz module is different from the [auth](https://docs.cosmos.network/v0.44/modules/auth/) (authentication) module that is responsible for specifying the base transaction and account types.
 
 ## Use Authz to Grant Authorizations
 
-By implementing the [authz module](https://docs.cosmos.network/v0.43/modules/authz/), Cosmos SDK application developers give users the ability to grant certain privileges to other users. For example, a user might want another user to vote on their behalf and so, rather than giving the other user access to their account, the user would grant an authorization that allows the other user to execute `MsgVote` on their behalf.
+By implementing the authz module, Cosmos SDK application developers give users the ability to grant certain privileges to other users. For example, a user might want another user to vote on their behalf and so, rather than giving the other user access to their account, the user would grant an authorization that allows the other user to execute `MsgVote` on their behalf.
 
 How users decide to use the authz module is up to them. In one case, a validator might want to create a separate account for voting in order to keep their validator key more secure. In another case, a DAO might want to distribute authorizations to members of the decentralized autonomous organization (DAO) in which case a multisg account would grant authorizations to individual accounts and members of the DAO would be able to execute messages without requiring signatures from all the other members.
 
@@ -22,26 +22,30 @@ In this tutorial, you spin up a single node network using the simulation applica
 Before you start the tutorial, you need to install the `simd` binary.
 
 Clone the `cosmos-sdk` repository:
-```
+
+```bash
 git clone https://github.com/cosmos/cosmos-sdk
 ```
 
-Change directories and check out `v0.43.0`:
-```
-cd cosmos-sdk && git checkout v0.43.0
+Change directories and check out `v0.44.0`:
+
+```bash
+cd cosmos-sdk && git checkout v0.44.0
 ```
 
 Install the `simd` binary:
-```
+
+```bash
 make install
 ```
 
 Check to make sure the installation was successful:
-```
+
+```bash
 simd version
 ```
 
-You should see `0.43.0` printed to the console.
+You should see `0.44.0` printed to the console.
 
 ## Configuration
 
@@ -54,12 +58,14 @@ If you have used `simd` before, you might already have a `.simapp` directory in 
 Run the following commands to configure the `simd` binary.
 
 Set the chain ID:
-```
+
+```bash
 simd config chain-id demo
 ```
 
 Set the keyring backend:
-```
+
+```bash
 simd config keyring-backend test
 ```
 
@@ -68,22 +74,26 @@ simd config keyring-backend test
 Create a couple of test keys. Use the `--recover` option so that the addresses used in the following example commands are consistent.
 
 Add a key for Alice:
-```
+
+```bash
 simd keys add alice --recover
 ```
 
 Enter the following mnemonic:
-```
+
+```bash
 plunge hundred health electric victory foil marine elite shiver tonight away verify vacuum giant pencil ocean nest pledge okay endless try spirit special start
 ```
 
 Add a key for Bob:
-```
+
+```bash
 simd keys add bob --recover
 ```
 
 Enter the following mnemonic:
-```
+
+```bash
 shuffle oppose diagram wire rubber apart blame entire thought firm carry swim old head police panther lyrics road must silly sting dirt hard organ
 ```
 
@@ -92,27 +102,32 @@ shuffle oppose diagram wire rubber apart blame entire thought firm carry swim ol
 The following commands start a chain for the simulation application (`simapp`).
 
 Initialize the node:
-```
+
+```bash
 simd init test --chain-id demo
 ```
 
 Add Alice and an initial balance to the genesis file:
-```
-simd add-genesis-account alice 5000000000stake
+
+```bash
+simd add-genesis-account alice 5000000000stake --keyring-backend test
 ```
 
 Add Bob and an initial balance to the genesis file:
-```
-simd add-genesis-account bob 5000000000stake
+
+```bash
+simd add-genesis-account bob 5000000000stake --keyring-backend test
 ```
 
 Generate a transaction adding Alice to the initial validator set:
-```
+
+```bash
 simd gentx alice 1000000stake --chain-id demo
 ```
 
 Add the validator transaction to the genesis file:
-```
+
+```bash
 simd collect-gentxs
 ```
 
@@ -121,7 +136,8 @@ simd collect-gentxs
 You are now ready to start a single node network on your local machine.
 
 Start the chain:
-```
+
+```bash
 simd start
 ```
 
@@ -130,12 +146,14 @@ simd start
 To demonstrate an authorization to vote on a governance proposal, you must first create a governance proposal.
 
 Create proposal:
-```
+
+```bash
 simd tx gov submit-proposal --title="Test Authorization" --description="Is Bob authorized to vote?" --type="Text" --deposit="10000000stake" --from alice
 ```
 
 View proposal:
-```
+
+```bash
 simd q gov proposal 1
 ```
 
@@ -146,12 +164,14 @@ Next, the granter must `grant` an authorization to the grantee.
 The authorization is a "generic" authorization, meaning there are no limits on the authorization. In this case, the grantee is able to vote as many times as they want until the granter revokes the authorization.
 
 Create authorization:
-```
+
+```bash
 simd tx authz grant cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt generic --msg-type /cosmos.gov.v1beta1.MsgVote --from alice
 ```
 
 View authorization:
-```
+
+```bash
 simd q authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote
 ```
 
@@ -160,12 +180,14 @@ simd q authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzag
 In order for the grantee to execute a message on behalf of the granter, the grantee must first generate an unsigned transaction where the transaction author (the `--from` address) is the granter. 
 
 Create unsigned transaction:
-```
+
+```bash
 simd tx gov vote 1 yes --from cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh --generate-only > tx.json
 ```
 
 View transaction:
-```
+
+```bash
 cat tx.json
 ```
 
@@ -174,12 +196,14 @@ cat tx.json
 Finally, the grantee can sign and send the transaction using the `exec` command. The author of the transaction (the `--from` address) is the grantee.
 
 Sign and send transaction:
-```
+
+```bash
 simd tx authz exec tx.json --from bob
 ```
 
 View vote:
-```
+
+```bash
 simd q gov vote 1 cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh
 ```
 
@@ -188,12 +212,14 @@ simd q gov vote 1 cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh
 The granter can revoke the authorization from the grantee using the `revoke` command.
 
 Revoke authorization:
-```
+
+```bash
 simd tx authz revoke cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote --from alice
 ```
 
 View authorization:
-```
+
+```bash
 simd q authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote
 ```
 
@@ -201,4 +227,4 @@ simd q authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzag
 
 By completing this tutorial, you have learned how to use the authz module.
 
-To learn more about the authorization module and different types of authorizations, check out the [authz module documentation](https://docs.cosmos.network/v0.43/modules/authz/).
+To learn more about the authorization module and different types of authorizations, check out the [authz module documentation](https://docs.cosmos.network/v0.44/modules/authz/).
