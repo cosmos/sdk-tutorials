@@ -13,7 +13,7 @@ The [authz](https://docs.cosmos.network/v0.44/modules/authz/) (authorization) mo
 
 By implementing the authz module, Cosmos SDK application developers give users the ability to grant certain privileges to other users. For example, a user might want another user to vote on their behalf and so, rather than giving the other user access to their account, the user would grant an authorization that allows the other user to execute `MsgVote` on their behalf.
 
-How users decide to use the authz module is up to them. In one case, a validator might want to create a separate account for voting in order to keep their validator key more secure. In another case, a DAO might want to distribute authorizations to members of the decentralized autonomous organization (DAO) in which case a multisg account would grant authorizations to individual accounts and members of the DAO would be able to execute messages without requiring signatures from all the other members.
+How users decide to use the authz module is up to them. In one case, a validator might want to create a separate account for voting in order to keep their validator key more secure. In another case, a decentralized autonomous organization (DAO) might want to distribute authorizations to members of the DAO in which case a multisg account would grant authorizations to individual accounts and members of the DAO would be able to execute messages without requiring signatures from all the other members.
 
 In this tutorial, you spin up a single node network using the simulation application in Cosmos SDK (`simapp`), grant an authorization to another account, and then execute a message on behalf of the granter as the grantee.
 
@@ -225,6 +225,13 @@ simd q authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzag
 
 ## 🎉 Congratulations 🎉
 
-By completing this tutorial, you have learned how to use the authz module.
+By completing this tutorial, you have learned how to use the authz module:
+
+- Configured and used the simulation application (simapp)
+- Created a government proposal
+- Created an authorization 
+- Generated and executed an unsigned transaction
+- Revoked authorization
+
 
 To learn more about the authorization module and different types of authorizations, check out the [authz module documentation](https://docs.cosmos.network/v0.44/modules/authz/).
