@@ -119,7 +119,7 @@ Add Bob and an initial balance to the genesis file:
 simd add-genesis-account bob 5000000000stake --keyring-backend test
 ```
 
-Generate a transaction adding Alice to the initial validator set:
+Generate a transaction to add Alice to the initial validator set:
 
 ```bash
 simd gentx alice 1000000stake --chain-id demo
@@ -161,7 +161,7 @@ simd q gov proposal 1
 
 Next, the granter must `grant` an authorization to the grantee.
 
-The authorization is a "generic" authorization, meaning there are no limits on the authorization. In this case, the grantee is able to vote as many times as they want until the granter revokes the authorization.
+The authorization is a "generic" authorization, which means there are no limits on the authorization. Other [authorization types](https://docs.cosmos.network/v0.44/modules/authz/01_concepts.html#built-in-authorizations) include "send", "delegate", "unbond", and "redelegate" in which case a limit on the amount of tokens can be set by the granter. In this case, the grantee is able to vote as many times as they want until the granter revokes the authorization.
 
 Create authorization:
 
