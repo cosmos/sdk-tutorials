@@ -76,7 +76,7 @@ Before you start the tutorial, install the prerequisite software.
 
 ## Create the Blockchain
 
-Scaffold a new blockchain called `myblockchain`:
+Scaffold a new blockchain called `myblockchain`, replace `username` with your username:
 
 ```bash
 starport scaffold chain github.com/username/myblockchain
