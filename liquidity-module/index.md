@@ -37,7 +37,9 @@ Before you start the tutorial, install the prerequisite software.
 
 - [Install Starport](../starport/index.md) v0.17.3 or later
 
-    **Important** This tutorial uses [Starport](https://github.com/tendermint/starport) v0.16.2. The tutorial is based on this specific version of Starport and is not supported for older versions.
+    **Important** This tutorial is supported for specific Starport and gaia versions and is not supported for older versions. Be sure to use: 
+    - [Starport](https://github.com/tendermint/starport) v0.17.3
+    - [gaia](https://github.com/cosmos/gaia/) v5.0.5
 
 - Install the Gravity DEX binary
 
