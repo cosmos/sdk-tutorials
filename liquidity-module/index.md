@@ -49,7 +49,7 @@ Before you start the tutorial, install the prerequisite software.
     git clone https://github.com/cosmos/gaia && cd gaia
     ```
     
-    - Check the current version 
+    - Check out the required version 
 
     ```bash
     git checkout v5.0.5
