@@ -428,7 +428,7 @@ Make sure to replace the first `1` with your `pool id` obtained in previous step
 
 - Replace `pool-id` with the id that you can see on [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
 
-You will see something similar to `poolFE384B6C9AE769A67754EAD275832A5A6DAA6E2C769A1E1D281E596DD47AA36D`
+    You see a pool id that is similar to `poolFE384B6C9AE769A67754EAD275832A5A6DAA6E2C769A1E1D281E596DD47AA36D`.
 - Replace `cosmosxxxxx` with your address
 
 
