@@ -43,7 +43,7 @@ Before you start the tutorial, install the prerequisite software.
 
 - Install the Gravity DEX binary
 
-    - Clone the repo:
+    - Clone the gaia repo:
 
     ```bash
     git clone https://github.com/cosmos/gaia && cd gaia
