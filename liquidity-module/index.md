@@ -405,7 +405,7 @@ You can deposit tokens to the pool you have created.
 gaiad tx liquidity deposit 1 100uphoton,100ibc/longibchash --from username --chain-id cosmoshub-testnet --gas-prices "0.025uphoton" --node https://rpc.testnet.cosmos.network:443
 ```
 
-Make sure to replace the first `1` with your `pool id` obtained in previous step.
+Make sure to replace the first `1` with your pool id.
 
 
 **Note:** Deposits must be the same coin denoms as the reserve coins.
