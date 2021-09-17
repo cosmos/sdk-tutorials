@@ -410,7 +410,7 @@ Make sure to replace the first `1` with your pool id.
 
 **Note:** Deposits must be the same coin denoms as the reserve coins.
 
-Check the balance on the new deposit that you made:
+Check the balance on the new deposit that you made.
 
 - [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
 
