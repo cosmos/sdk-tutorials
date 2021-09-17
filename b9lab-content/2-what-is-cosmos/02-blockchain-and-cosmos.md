@@ -1,13 +1,13 @@
 # Blockchain Technology and Cosmos
 
-Let's begin our journey with a brief review of blockchain technology, how Cosmos came into being, and what it brings to the world:
+Begin your journey with this brief review of blockchain technology, how Cosmos came into being, and what it brings to the world:
 
-* An internet of blockchains,
-* A better DApp user experience,
-* A simplified specialised DApp development experience,
-* Facilitated scalability,
-* Increased sovereignty to DApps, and
-* Speed and fast finality.
+* An internet of blockchains
+* A better dApp user experience
+* A simplified specialized dAapp development experience
+* Facilitated scalability
+* Increased sovereignty to dApps
+* Speed and fast finality
 
 ## The World of Blockchains - From Public General-Purpose to Purpose-Built Chains
 
