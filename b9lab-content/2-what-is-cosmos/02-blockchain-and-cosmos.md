@@ -9,7 +9,7 @@ Begin your journey with this brief review of blockchain technology, how Cosmos c
 * Increased sovereignty to dApps
 * Speed and fast finality
 
-## The World of Blockchains - From Public General-Purpose to Purpose-Built Chains
+## The World of Blockchains — From Public General Purpose to Purpose-Built Chains
 
 The building blocks of blockchain technology can be found in the 1980s and 1990s, when breakthroughs in computer science and cryptography laid the necessary groundwork. Eventually, it took until 2008 for blockchain technology per se to be invented.
 
