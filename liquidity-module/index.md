@@ -53,7 +53,6 @@ Before you start the tutorial, install the prerequisite software.
     git checkout v5.0.5
     ```
     
-    Note: You can find latest version here - https://github.com/cosmos/gaia/releases
     
     - Install the software:
     
