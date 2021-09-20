@@ -377,6 +377,7 @@ After you successfully query the pool you should see an output similar to:
 ```
 
 You can also query a specific pool by `pool id` using the following command:
+
 ```bash
 gaiad query liquidity pool 6
 ```
