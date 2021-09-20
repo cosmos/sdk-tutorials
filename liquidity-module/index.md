@@ -45,34 +45,33 @@ Before you start the tutorial, install the prerequisite software.
 
     - Clone the gaia repo:
 
-    ```bash
-    git clone https://github.com/cosmos/gaia && cd gaia
-    ```
+      ```bash
+      git clone https://github.com/cosmos/gaia && cd gaia
+      ```
     
     - Check out the required version 
 
-    ```bash
-    git checkout v5.0.5
-    ```
-    
+      ```bash
+      git checkout v5.0.5
+      ```
     
     - Install the software:
     
-    ```bash
-    make install
-    ```
+      ```bash
+      make install
+      ```
 
     - Verify the gaiad version:  
 
-    ```bash
-    gaiad version
-    ```
+      ```bash
+      gaiad version
+      ```
 
     The output of `gaiad version` prints something like:
     
-    ```bash
-    v5.0.5
-    ```
+      ```bash
+      v5.0.5
+      ```
 
 ## Create the Blockchain
 
@@ -233,7 +232,7 @@ curl -X POST -d '{"address": "cosmosxxxxx"}' https://faucet.testnet.cosmos.netwo
 
 After you see the success message, you can check your balance. 
 
-See your balance at [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx). Make sure to replace `cosmosxxxxx` with your address from the previous step.
+See your balance at [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx). Make sure to replace `cosmosxxxxx` with your address.
 
 ## Send Your Own Token to the Testnet
 
@@ -266,6 +265,7 @@ See your balance at [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/bala
 Take a closer look at the `ibc/denomhash` denominator. When you create a new pool, you in put this denom to make a pair with one of the existing native token. On the testnet, create a pair with `uphoton`.
 
 **Tip:** See the balance of `uphoton` and `ibc/denomhash` on terminal:
+
 ```bash
 gaiad query bank balances cosmosxxxx --node https://testnet.cosmos.network:443
 ```
@@ -335,15 +335,20 @@ After you successfully enter your mnemonic, you see output similar to:
 
 ## Create a Liquidity Pool
 
-To: create a liquidity pool with the `gaiad tx liquidity create-pool` command:
+To create a liquidity pool with the `gaiad tx liquidity create-pool` command:
 
 ```bash
 gaiad tx liquidity create-pool 1 1100000uphoton,1500000ibc/longibchash --from username --chain-id cosmoshub-testnet --gas-prices "0.025uphoton" --node https://rpc.testnet.cosmos.network:443 --gas 2000000
 ```
 
+where:
+
+- 1 is the type of pool to create
+- 1100000uphoton,1500000ibc/longibchash is the token pair of the pool
+
 For this example command, be sure to:
 
-- Replace `longibchash` with the hash denom that you received on the previous step
+- Replace `longibchash` with the hash denom that you received when you query the balance
 - Replace `username` with your account username
 
 To confirm the pool has been created:
@@ -376,7 +381,7 @@ After you successfully query the pool you should see an output similar to:
   type_id: 1
 ```
 
-You can also query a specific pool by `pool id` using the following command:
+You can also query a specific pool by `id` using the following command:
 
 ```bash
 gaiad query liquidity pool 6
@@ -392,7 +397,16 @@ You are ready to swap tokens! You now have uphoton token in your account and wan
 gaiad tx liquidity swap 1 1 100000uphoton ibc/longibchash 0.1 0.003 --from username --chain-id cosmoshub-testnet --gas-prices "0.025uphoton" --node https://rpc.testnet.cosmos.network:443
 ```
 
-Make sure to replace the first `1` with your `pool id` obtained in previous step.
+Make sure to replace the `1` with your pool `id` (the pool id is assigned at creation).
+
+where: 
+
+- 1 is your pool id (the pool id is assigned at creation)
+- 1 is instant swap type
+- 100000uphoton is first token in the pair
+- ibc/longibchash is the second token in the pair
+- 0.1 the order price 
+- 0.003 the swap fee for the tx
 
 Check the balance on the new account that made the trade:
 
@@ -408,8 +422,7 @@ You can deposit tokens to the pool you have created.
 gaiad tx liquidity deposit 1 100uphoton,100ibc/longibchash --from username --chain-id cosmoshub-testnet --gas-prices "0.025uphoton" --node https://rpc.testnet.cosmos.network:443
 ```
 
-Make sure to replace the first `1` with your pool id.
-
+Make sure to replace the `1` with your pool `id` (the pool id is assigned at creation).
 
 **Note:** Deposits must be the same coin denoms as the reserve coins.
 
@@ -424,10 +437,15 @@ Make sure to replace `cosmosxxxxx` with your address.
 You can also withdraw tokens from the pool you have created.
 
 ```bash
-gaiad tx liquidity withdraw 1 100pool-id --from username --chain-id cosmoshub-testnet --gas-prices "0.025uphoton" --node https://rpc.testnet.cosmos.network:443
+gaiad tx liquidity withdraw 1 pool-coin --from username --chain-id cosmoshub-testnet --gas-prices "0.025uphoton" --node https://rpc.testnet.cosmos.network:443
 ```
 
-Make sure to replace the first `1` with your `pool id` obtained in previous step.
+where:
+
+- 1 is the pool id that was assigned at pool creation
+- pool-coin the denom of the liquidity pool, in this case the token pair
+
+Make sure to replace the `1` with your pool `id` (the pool id is assigned at creation).
 
 - Replace `pool-id` with the id that you can see on [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
 
