@@ -381,7 +381,8 @@ You can also query a specific pool by `pool id` using the following command:
 ```bash
 gaiad query liquidity pool 6
 ```
-Make sure to replace `6` with your `pool id`
+
+Make sure to replace `6` with your pool id.
 
 ## Swap Token
 
