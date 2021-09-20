@@ -270,7 +270,8 @@ Take a closer look at the `ibc/denomhash` denominator. When you create a new poo
 gaiad query bank balances cosmosxxxx --node https://testnet.cosmos.network:443
 ```
 
-After you successfully query the balance, you will see an output similar to:
+After you successfully query the balance, you see an output similar to:
+
 ```markdown
 balances:
 - amount: "13500000"
