@@ -99,7 +99,7 @@ shuffle oppose diagram wire rubber apart blame entire thought firm carry swim ol
 
 ## Chain Setup
 
-The following commands start a chain for the simulation application (`simapp`).
+The following commands set up a chain using the simulation application (`simapp`).
 
 Initialize the node:
 
@@ -143,7 +143,7 @@ simd start
 
 ## Submit Proposal
 
-To demonstrate an authorization to vote on a governance proposal, you must first create a governance proposal.
+To demonstrate an authorization to vote on a governance proposal, you must first create a governance proposal. The following command creates a text proposal that includes the minimun deposit, which allows the governance proposal to immediately enter the voting period. For more information about the command and the flag options, run `simd tx gov submit-proposal --help`.
 
 Create proposal:
 
@@ -228,10 +228,10 @@ simd q authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzag
 By completing this tutorial, you have learned how to use the authz module:
 
 - Configured and used the simulation application (simapp)
-- Created a government proposal
-- Created an authorization 
-- Generated and executed an unsigned transaction
-- Revoked authorization
-
+- Created a governance proposal
+- Created a voting authorization
+- Generated an unsigned transaction
+- Signed and executed a transaction
+- Revoked a voting authorization
 
 To learn more about the authorization module and different types of authorizations, check out the [authz module documentation](https://docs.cosmos.network/v0.44/modules/authz/).
