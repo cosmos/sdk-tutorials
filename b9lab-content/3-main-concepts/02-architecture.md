@@ -129,7 +129,7 @@ When blocks are received, Tendermint calls the `DeliverTx` method to pass the in
 
 Additionally, `BeginBlock` and `EndBlock` messages are broadcast even if blocks contain no transactions. This provides positive confirmation of basic connectivity and no operation time periods. These methods facilitate the execution of scheduled processes that should run in any case because they call methods at the application level where developers can define processes. It is wise to be cautious about adding too much computational weight at the start or completion of each block since the blocks arrive at approximately one-second intervals and too much work could slow down your blockchain.
 
-Any application that uses Tendermint for consensus must implement the Application Blockchain Interface. Fortunately, you do not have to because the Cosmos SDK provides a boilerplate known as the BaseApp to get you started.
+Any application that uses Tendermint for consensus must implement the Application Blockchain Interface. Fortunately, you do not have to do this manually because the Cosmos SDK provides a boilerplate known as the BaseApp to get you started.
 
 In the following exercise, you will create a minimal distributed state machine with the Cosmos SDK. Your state machine will rely on Tendermint for consensus.
 
