@@ -159,4 +159,4 @@ In the Cosmos universe, the standardization of architecture components, while st
 
 Further, as the same ground rules apply, i.e. standardization of components, it becomes easier for users to navigate between different blockchains and applications. At the same time, it makes blockchain development easier.
 
-In the end, Cosmos makes the world easier for developers while making DApps easier to use.
+In the end, Cosmos makes the world easier for developers while making dApps easier to use. Cosmos enables sovereignty, with interoperability!
