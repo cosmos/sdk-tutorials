@@ -85,7 +85,7 @@ The eventual development of further and more complex applications required a mor
 
 ## How does Cosmos fit into the general development of blockchain technology?
 
-In 2014, Jae Kwon and Ethan Buchman founded the Cosmos network with its consensus algorithm, [Tendermint](https://tendermint.com/).
+In 2016, Jae Kwon and Ethan Buchman founded the Cosmos network with its consensus algorithm, [Tendermint](https://tendermint.com/). Already in 2014, Kwon invented the original Tendermint mechanism. Later in 2015, Buchman and Kwon began working together, and jointly founded Tendermint Inc by the end of the year.
 
 <ExpansionPanel title="The skinny on Tendermint">
 
