@@ -160,7 +160,7 @@ For a deeper dive, see the [CosmWasm documentation](https://docs.cosmwasm.com/do
 
 As the Cosmos SDK is modular, developers can port existing codebases in Go on top of the SDK. This gives developers the opportunity to build on Cosmos without having to comprise too much on the tool set and environment used.
 
-For example, with [Ethermint](https://github.com/cosmos/ethermint) developers can port the Ethereum Virtual Machine (EVM) to make it a Cosmos SDK module compatible and combinable with existing modules. Thus, Ethermint blockchains are compatible with Cosmos.
+For example, with [Ethermint](https://github.com/cosmos/ethermint) developers can use the Ethereum Virtual Machine (EVM) from the main Go Ethereum client as a Cosmos SDK module compatible and combinable with existing modules. Thus, Ethermint blockchains are compatible with Cosmos.
 
 <HighlightBox type="info">
 
