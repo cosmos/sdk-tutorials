@@ -34,7 +34,7 @@ The main aim of the Cosmos network is to provide an **ecosystem for easy blockch
 
 Each chain in the Cosmos ecosystem relies on **fast-finality BFT consensus algorithms**, such as the [Tendermint](https://github.com/tendermint/tendermint) consensus. This ensures a common consensus mechanism at work in all chains of the network. Tendermint itself is used in case of the [Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html), [IRIS Hub](https://www.irishub.rw/), [Binance Chain](https://www.binance.org/en), [Terra](https://www.terra.money/), and [Kava](https://www.kava.io/).
 
-Before Cosmos came along, developing a smart contract was much easier than building a whole new chain. Now, with the Cosmos SDK, entire flexible, secure, high performance, and sovereign **application-specific blockchains** can be developed. To allow this, building modular, adaptable, and interchangeable open-source development tools is at the center of Cosmos' mission.
+Before Cosmos came along, developing a whole new chain was much more difficult and expensive than building a smart contract. Now, with the Cosmos SDK, entire flexible, secure, high performance, and sovereign **application-specific blockchains** can be developed. To allow this, building modular, adaptable, and interchangeable open-source development tools is at the center of Cosmos' mission.
 
 <HighlightBox type="tip">
 
