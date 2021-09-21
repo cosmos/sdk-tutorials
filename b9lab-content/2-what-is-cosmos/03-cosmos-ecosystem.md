@@ -95,7 +95,7 @@ If the other non-Tendermint chain is a **fast-finality chain**, i.e. a blockchai
 
 If the other chain is a **probabilistic-finality chain**, i.e. a blockchain without fast finality like those relying on Proof-of-Work (PoW), a simple adaptation of IBC is not sufficient. Instead, a more elaborate setup is required. More precisely, a proxy-chain, a so-called **peg-zone**, helps establish interoperability. Peg-zones are fast-finality blockchains tracking chain states to establish finality. The peg-zone chain itself is IBC-compatible and acts as the **bridge** between the rest of the IBC network, i.e. its blockchains, and the probabilistic-finality chain.
 
-One such peg-zone implementation exists for Ethereum and is named the **Gravity DEX bridge**.
+One such peg-zone implementation exists for Ethereum and is named the **Gravity Bridge**.
 
 ## Atlas - Cosmos SDK Module Registry and Node Explorer
 
