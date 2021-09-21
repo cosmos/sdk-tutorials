@@ -2,15 +2,15 @@
 
 This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
 
-## Tutorials are version-specific
+## Most Tutorials are Version-Specific
 
-The code and the docs for each tutorial are based on a specific version of the software. Be sure to download and use the right version.
+If the tutorial instructs you to download a specific version, that means that the code and the docs for each tutorial are tested, supported, and based on a specific version of the software. Be sure to download and use the right version.
 
 ## Contributing
 
 Thank you for helping us to create and maintain awesome tutorials.
 
-- To set up your environment for success, you can follow our [technical set up](TECHNICAL-SETUP.md) guidelines.
+- To set up your environment for success, follow the [technical set up](TECHNICAL-SETUP.md) guidelines.
 - To provide feedback, file an issue and provide abundant details to help us understand how we can make it better.
 - To provide feedback and a fix, you can make a direct contribution. This repo is protected since we provide the code and the docs to help you learn. If you're not a member or maintainer, fork the repo and then submit a PR from your forked repo to master.
 
@@ -26,7 +26,7 @@ We welcome contributions to the tutorials. Our technical content follows the Goo
 - [Cross-references](https://developers.google.com/style/cross-references)
 - [Present tense](https://developers.google.com/style/tense)
 
-The Google guidelines include more material than listed here, and are used as a
+The Google guidelines include more material than listed here and are used as a
 guide that enables easy decision making about proposed content changes. 
 
 Other useful resources:
@@ -51,11 +51,7 @@ Work-in-process tutorials might have content and code in other repos.
 
 ## Who works on the tutorials?
 
-- The Tendermint (All in Bits) DevX team develops the tutorial code and dependencies. Our team includes [@fadeev](https://github.com/fadeev), [@lubtd](https://github.com/lubtd), [@ilgooz](https://github.com/ilgooz), [@Pantani](https://github.com/Pantani), and other talented developers. Don't they do an amazing job?
-
-- The Tendermint (All in Bits) EcoDev Engineering team ([@toschdev](https://github.com/toschdev), [@barriebyron](https://github.com/barriebyron), [@alijnmerchant21](https://github.com/alijnmerchant21), and [@soniasingla](https://github.com/soniasingla)) manages the developer experience and owns the tutorial doc content.
-
-- The Tendermint (All in Bits) Design team owns the front end and publishing. Be sure to check with [@lovincyrus](https://github.com/lovincyrus) for details about the metadata for layout and publishing tutorials.
+Meet the people [behind the Cosmos SDK and contributors](https://github.com/cosmos/sdk-tutorials/graphs/contributors). 
 
 ## Viewing Tutorial Builds
 
