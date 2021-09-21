@@ -17,6 +17,12 @@ Necessary preliminary work included append-only, cryptographically secure logs u
 
 On the fateful October 31, 2008, an individual, or group, calling itself Satoshi Nakamoto proposed a **P2P network for a digital currency**, calling it **Bitcoin**. It introduced a novel consensus mechanism, now referred to as Nakamoto Consensus, that uses Proof-of-Work (PoW) to enable nodes to reach agreement in a decentralized network. Suddenly, it became possible to send online payments directly between parties **independently of financial institutions and trusted third parties**. Bitcoin became the first public, decentralized application.
 
+<HighlightBox type="info">
+
+  Want to take a look at the [Bitcoin White Paper](https://bitcoin.org/bitcoin.pdf)?
+
+</HighlightBox>
+
 <ExpansionPanel title="I heard about PoW, tell me more">
 
 Proof-of-Work (PoW), used to achieve BFT, is best described as a cryptographic puzzle solved by a network's node, called miner. The puzzle is a task of pre-defined, arbitrary difficulty. At the scale of the network, the outcome is akin to a lottery with a single winning node.
