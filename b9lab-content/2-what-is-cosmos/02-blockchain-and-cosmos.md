@@ -43,7 +43,7 @@ Although Bitcoin's codebase is monolithic, its blockchain architecture can be sp
 
 </ExpansionPanel>
 
-After the introduction of Bitcoin, several so-called **public chains** came into being. Among them was **Ethereum** in 2014, a public blockchain with **smart-contract** functionality. This functionality enables applications based on these self-executing, self-enforcing, and self-verifying account holding objects. Other general-purpose chains followed.
+After the introduction of Bitcoin, several so-called public chains came into being. Among them was Ethereum in 2014, a public blockchain with smart-contract functionality. This functionality enables applications based on self-executing, self-enforcing, and self-verifying account holding objects. Other general-purpose chains followed.
 
 --> Include image with historic overview of blockchains
 
