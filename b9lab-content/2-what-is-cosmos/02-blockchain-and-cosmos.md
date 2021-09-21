@@ -116,7 +116,7 @@ For more on Tendermint, have a look at this helpful [introduction](https://docs.
 
 </ExpansionPanel>
 
-Initially, Cosmos was an open-source community project built by the Tendermint team. Since then, the **Interchain Foundation** (ICF) has assisted with the development and launch of the network. The ICF is a Swiss non-profit that after an initial coin offering (ICO) in 2017 raised funds to finance the development of open-source projects building on the Cosmos network.
+Initially, Cosmos was an open-source community project built by the Tendermint team. Since then, the **Interchain Foundation** (ICF) has assisted with the development and launch of the network. The ICF is a Swiss non-profit that after an initial fundraising event in 2017 raised funds to finance the development of open-source projects building on the Cosmos network.
 
 Cosmos' founding **vision** is that of an easy development environment for blockchain technology, by addressing the main issues of previous blockchain projects and providing interoperability between chains. To foster, so to say, an **internet of blockchains**.
 
