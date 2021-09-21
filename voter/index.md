@@ -42,7 +42,7 @@ When the installation succeeds, you see this message:
 Installed at /usr/local/bin/starport
 ```
 
-You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.17.0), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://docs.starport.network/intro/install.html).
+You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.17.0), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://docs.starport.network/guide/install.html).
 
 ## Voting App Goals
 
@@ -389,7 +389,7 @@ func CmdUpdatePoll() *cobra.Command {
 Run and reset the app state of your blockchain with:
 
 ```sh
-starport serve --reset-once
+starport chain serve --reset-once
 ```
 
 ## Add the Votes
