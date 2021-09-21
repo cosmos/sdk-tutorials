@@ -35,11 +35,11 @@ Blockchain protocols define programs that hold a state and describe how to modif
 
 The consensus ensures that a blockchain has a canonical transaction history. So it follows that the state is deterministic, meaning if you begin with the same genesis state and replicate all conducted changes, you always achieve the same state.
 
-Bitcoin's codebase may have been monolithic, but it nevertheless was a blockchain architecture, i.e. could be split into **three layers**:
+Although Bitcoin's codebase is monolithic, its blockchain architecture can be split into three layers:
 
-* **Network layer:** Tasked with discovering nodes and propagating transactions and consensus-related messages between single nodes;
-* **Consensus layer:** Runs the consensus protocol between the single nodes of a P2P network;
-* **Application layer:** In effect, running a state machine, which defines the application's state and updates it with the processing of transactions, in accordance with the result of the consensus.
+* Network layer: Tasked with discovering nodes and propagating transactions and consensus-related messages between single nodes;
+* Consensus layer: Runs the consensus protocol between the single nodes of a P2P network;
+* Application layer: In effect, running a state machine that defines the application's state and updates it with the processing of transactions, in accordance with the result of the consensus.
 
 </ExpansionPanel>
 
