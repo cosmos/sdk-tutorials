@@ -67,7 +67,7 @@ On the other hand, **absolute finality** is a trait of protocols based on Proof-
 
 <ExpansionPanel title="What kind of sorcery is this?">
 
-PoS can have absolute finality because the totally staked amount is known at all times. Indeed, it takes a _public_ transaction to stake and another to unstake. You quickly figure out that if 51% of the stakers agree on one block, then that's it, that's the block.
+PoS can have absolute finality because the totally staked amount is known at all times. Indeed, it takes a _public_ transaction to stake and another to unstake. You quickly figure out that if some majority of the stakers agree on one block, then that's it, that's the block.
 
 This is different from PoW, where the total hashing capacity is unknown and can only be estimated by a combination of the difficulty of the puzzle and the speed at which new blocks are issued. To add or remove hashing capacity, all it takes is to surreptitiously turn on or off machines.
 
