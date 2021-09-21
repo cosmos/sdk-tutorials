@@ -91,7 +91,15 @@ The eventual development of further and more complex applications required a mor
 
 ## How does Cosmos fit into the general development of blockchain technology?
 
-In 2016, Jae Kwon and Ethan Buchman founded the Cosmos network with its consensus algorithm, [Tendermint](https://tendermint.com/). Already in 2014, Kwon invented the original Tendermint mechanism. Later in 2015, Buchman and Kwon began working together, and jointly founded Tendermint Inc by the end of the year.
+In 2016, Jae Kwon and Ethan Buchman founded the Cosmos network with its consensus algorithm, [Tendermint](https://tendermint.com/).
+
+<HighlightBox type="tip">
+
+Take a look at the 2019 [Cosmos White Paper](https://v1.cosmos.network/resources/whitepaper) to find out more about the origins of Cosmos!
+
+</HighlightBox>
+
+Already in 2014, Kwon invented the original Tendermint mechanism. Later in 2015, Buchman and Kwon began working together, and jointly founded Tendermint Inc by the end of the year.
 
 <ExpansionPanel title="The skinny on Tendermint">
 
@@ -109,12 +117,6 @@ For more on Tendermint, have a look at this helpful [introduction](https://docs.
 </ExpansionPanel>
 
 Initially, Cosmos was an open-source community project built by the Tendermint team. Since then, the **Interchain Foundation** (ICF) has assisted with the development and launch of the network. The ICF is a Swiss non-profit that after an initial coin offering (ICO) in 2017 raised funds to finance the development of open-source projects building on the Cosmos network.
-
-<HighlightBox type="tip">
-
-Take a look at the 2019 [Cosmos White Paper](https://v1.cosmos.network/resources/whitepaper) to find out more about the origins of Cosmos!
-
-</HighlightBox>
 
 Cosmos' founding **vision** is that of an easy development environment for blockchain technology, by addressing the main issues of previous blockchain projects and providing interoperability between chains. To foster, so to say, an **internet of blockchains**.
 
