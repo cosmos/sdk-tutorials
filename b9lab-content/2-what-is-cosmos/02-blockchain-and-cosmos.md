@@ -1,21 +1,27 @@
 # Blockchain Technology and Cosmos
 
-Let's begin our journey with a brief review of blockchain technology, how Cosmos came into being, and what it brings to the world:
+Begin your journey with this brief review of blockchain technology, how Cosmos came into being, and what it brings to the world:
 
-* An internet of blockchains,
-* A better DApp user experience,
-* A simplified specialised DApp development experience,
-* Facilitated scalability,
-* Increased sovereignty to DApps, and
-* Speed and fast finality.
+* An internet of blockchains
+* A better dApp user experience
+* A simplified specialized dAapp development experience
+* Facilitated scalability
+* Increased sovereignty to dApps
+* Speed and fast finality
 
-## The World of Blockchains - From Public General-Purpose to Purpose-Built Chains
+## The World of Blockchains — From Public General Purpose to Purpose-Built Chains
 
-The building blocks of blockchain technology can be found in the 1980s and 1990s, when breakthroughs in computer science and cryptography laid the necessary groundwork. Eventually, it took until 2008 for blockchain technology per se to be invented.
+The building blocks of blockchain technology can be found in the 1980s and 1990s when breakthroughs in computer science and cryptography laid the necessary groundwork. Blockchain technology per se was invented in 2008.
 
 Necessary preliminary work included append-only, cryptographically secure logs using hashing, authentication and encryption keys, as well as the conceptual development of smart contracts and consensus mechanisms in peer-to-peer (P2P) networks with Byzantine fault-tolerance (BFT).
 
-On a fateful October 31, 2008, an individual, or group, calling itself Satoshi Nakamoto proposed a **P2P network for a digital currency**, calling it **Bitcoin**. It introduced a novel consensus  mechanism called Proof-of-Work (PoW). Suddenly, it became possible to send online payments directly between parties **independently of financial institutions and trusted third parties**. Bitcoin became the first public, decentralized application.
+On the fateful October 31, 2008, an individual, or group, calling itself Satoshi Nakamoto proposed a **P2P network for a digital currency**, calling it **Bitcoin**. It introduced a novel consensus mechanism, now referred to as Nakamoto Consensus, that uses Proof-of-Work (PoW) to enable nodes to reach agreement in a decentralized network. Suddenly, it became possible to send online payments directly between parties **independently of financial institutions and trusted third parties**. Bitcoin became the first public, decentralized application.
+
+<HighlightBox type="info">
+
+  Want to take a look at the [Bitcoin White Paper](https://bitcoin.org/bitcoin.pdf)?
+
+</HighlightBox>
 
 <ExpansionPanel title="I heard about PoW, tell me more">
 
@@ -27,23 +33,23 @@ Here, economic incentives come into play: The node that announces a solution fir
 
 </ExpansionPanel>
 
-With the introduction of Bitcoin, the **development of decentralized applications (DApps)** - applications built on a decentralized network - began. In the early days, developing DApps could only be done by **forking the Bitcoin codebase** or **building on it**. However, Bitcoin's monolithic codebase and limited, not user-friendly scripting language made DApp development a tedious and complex process for developers.
+With the introduction of Bitcoin, the development of applications built on a decentralized network (dApps) began. In the early days, developing dApps could be done only by forking or building on the Bitcoin codebase. However, Bitcoin's monolithic codebase and limited, not-user-friendly scripting language made dApp development a tedious and complex process for developers.
 
 <ExpansionPanel title="What's a Blockchain, really?">
 
-**Blockchain protocols** define programs that **hold a state** and that describe how to modify it according to the received inputs. Those inputs are called transactions.
+Blockchain protocols define programs that hold a state and describe how to modify the state according to the received inputs. Those inputs are called transactions.
 
-The consensus ensures that a blockchain has a **canonical transaction history**. It follows that the **state is deterministic**, meaning if you begin with the same genesis state and replicate all conducted changes, you always achieve the same state.
+The consensus ensures that a blockchain has a canonical transaction history. So it follows that the state is deterministic, meaning if you begin with the same genesis state and replicate all conducted changes, you always achieve the same state.
 
-Bitcoin's codebase may have been monolithic, but it nevertheless was a blockchain architecture, i.e. could be split into **three layers**:
+Although Bitcoin's codebase is monolithic, its blockchain architecture can be split into three layers:
 
-* **Network layer:** Tasked with discovering nodes and propagating transactions and consensus-related messages between single nodes;
-* **Consensus layer:** Runs the consensus protocol between the single nodes of a P2P network;
-* **Application layer:** In effect, running a state machine, which defines the application's state and updates it with the processing of transactions, in accordance with the result of the consensus.
+* Network layer: Tasked with discovering nodes and propagating transactions and consensus-related messages between single nodes;
+* Consensus layer: Runs the consensus protocol between the single nodes of a P2P network;
+* Application layer: In effect, running a state machine that defines the application's state and updates it with the processing of transactions, in accordance with the result of the consensus.
 
 </ExpansionPanel>
 
-After the introduction of Bitcoin, several so-called **public chains** came into being. Among them was **Ethereum** in 2014, a public blockchain with **smart-contract** functionality. This functionality enables applications based on these self-executing, self-enforcing, and self-verifying account holding objects. Other general-purpose chains followed.
+After the introduction of Bitcoin, several so-called public chains came into being. Among them was Ethereum in 2014, a public blockchain with smart-contract functionality. This functionality enables applications based on self-executing, self-enforcing, and self-verifying account holding objects. Other general-purpose chains followed.
 
 --> Include image with historic overview of blockchains
 
@@ -67,7 +73,7 @@ On the other hand, **absolute finality** is a trait of protocols based on Proof-
 
 <ExpansionPanel title="What kind of sorcery is this?">
 
-PoS can have absolute finality because the totally staked amount is known at all times. Indeed, it takes a _public_ transaction to stake and another to unstake. You quickly figure out that if 51% of the stakers agree on one block, then that's it, that's the block.
+PoS can have absolute finality because the totally staked amount is known at all times. Indeed, it takes a _public_ transaction to stake and another to unstake. You quickly figure out that if some majority of the stakers agree on one block, then that's it, that's the block.
 
 This is different from PoW, where the total hashing capacity is unknown and can only be estimated by a combination of the difficulty of the puzzle and the speed at which new blocks are issued. To add or remove hashing capacity, all it takes is to surreptitiously turn on or off machines.
 
@@ -85,15 +91,23 @@ The eventual development of further and more complex applications required a mor
 
 ## How does Cosmos fit into the general development of blockchain technology?
 
-In 2014, Jae Kwon and Ethan Buchman founded the Cosmos network with its consensus algorithm, [Tendermint](https://tendermint.com/).
+In 2016, Jae Kwon and Ethan Buchman founded the Cosmos network with its consensus algorithm, [Tendermint](https://tendermint.com/).
+
+<HighlightBox type="tip">
+
+Take a look at the 2019 [Cosmos White Paper](https://v1.cosmos.network/resources/whitepaper) to find out more about the origins of Cosmos!
+
+</HighlightBox>
+
+Already in 2014, Kwon invented the original Tendermint mechanism. Later in 2015, Buchman and Kwon began working together, and jointly founded Tendermint Inc by the end of the year.
 
 <ExpansionPanel title="The skinny on Tendermint">
 
-Tendermint is a BFT consensus algorithm and a consensus engine. It is a Replicated State Machine (RSM) that helps replicating an application on several machines. As such, it guarantees BFT properties for distributed systems and their applications.
+Tendermint is a BFT consensus algorithm and a consensus engine. It enables applications to be replicated, in sync, on many machines. The result is known as a Replicated State Machine with Byzantine Fault Tolerance. It guarantees BFT properties for distributed systems and their applications.
 
 It does this in:
 
-* A **secure** manner - Tendermint continues working even if up to 1/3 of machines fail, and
+* A **secure** manner - Tendermint continues working even if up to 1/3 of machines fail or misbehave, and
 * A **consistent** way - every machine computes the same state and accesses the same transaction log.
 
 Tendermint is widely used across the industry and the most mature BFT consensus engine for Proof-of-Stake (PoS) blockchains.
@@ -102,13 +116,7 @@ For more on Tendermint, have a look at this helpful [introduction](https://docs.
 
 </ExpansionPanel>
 
-Initially, Cosmos was an open-source community project built by the Tendermint team. Since then, the **Interchain Foundation** (ICF) has assisted with the development and launch of the network. The ICF is a Swiss non-profit that after an initial coin offering (ICO) in 2017 raised funds to finance the development of open-source projects building on the Cosmos network.
-
-<HighlightBox type="tip">
-
-Take a look at the 2019 [Cosmos White Paper](https://v1.cosmos.network/resources/whitepaper) to find out more about the origins of Cosmos!
-
-</HighlightBox>
+Initially, Cosmos was an open-source community project built by the Tendermint team. Since then, the **Interchain Foundation** (ICF) has assisted with the development and launch of the network. The ICF is a Swiss non-profit that after an initial fundraising event in 2017 raised funds to finance the development of open-source projects building on the Cosmos network.
 
 Cosmos' founding **vision** is that of an easy development environment for blockchain technology, by addressing the main issues of previous blockchain projects and providing interoperability between chains. To foster, so to say, an **internet of blockchains**.
 
@@ -151,4 +159,4 @@ In the Cosmos universe, the standardization of architecture components, while st
 
 Further, as the same ground rules apply, i.e. standardization of components, it becomes easier for users to navigate between different blockchains and applications. At the same time, it makes blockchain development easier.
 
-In the end, Cosmos makes the world easier for developers while making DApps easier to use.
+In the end, Cosmos makes the world easier for developers while making dApps easier to use. Cosmos enables sovereignty, with interoperability!

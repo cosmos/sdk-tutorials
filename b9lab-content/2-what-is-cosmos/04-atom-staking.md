@@ -44,14 +44,14 @@ Now, with the Keplr extension installed and the above warning, let's create a ne
 
 ![Keplr create menu](./images/keplr-create-menu.png)
 
-Click _Create new account_. The page that opens offers you a mnemonic and asks you for a password. Because **you are in charge**, it is important to understand the following points:
+Click _Create new account_. The page that opens offers you a mnemonic, a secret list of words, and asks you for a password. Because **you are in charge**, it is important to understand the following points:
 
-1. Whoever knows the **mnemonic seed** has access to **all** the assets in this wallet as easily as you with your own wallet. This means that:
+1. Whoever knows the **mnemonic seed**, the list of words, has access to **all** the assets in this wallet as easily as you with your own wallet. This means that:
     1. Nobody else should be looking at your screen right now. If that is not the case, click _Back_.
     2. You should share it only with trusted partners, if at all. An exchange, a proof-of-stake validator, another blockchain service, or "someone from Cosmos" on the phone are _not_ trusted partners.
     3. You should save it in safe places, typically on paper, so that you can import it back in this or another wallet at a later date.
 2. Keplr will save your seed on disk but encrypted.
-3. Keplr is asking you for the **encryption password**.
+3. Keplr is asking you for the **encryption password**, which will be used to encrypt your mnemonic on your computer.
     1. It should be a strong password.
     2. You should save it too.
     3. Keplr will ask you for it every first time you open it and for important actions.
@@ -90,7 +90,7 @@ Now would be a good time for you to save your mnemonic and password safely befor
 
 ## Purchase 1 ATOM
 
-How you do it is highly dependent on what your preferences are. But roughly, you need to get on an exchange and, for instance, purchase 1 ATOM, which is worth 16 USD at the time of writing. You can get any amount you wish, although don't get less than 0.3 ATOM so that it does not get all consumed in transaction fees before the end of this exercise.
+How you do it is highly dependent on what your preferences are. But roughly, you need to get on an exchange and, for instance, purchase 1 ATOM. You can get any amount you wish, although don't get less than 0.3 ATOM so that it does not get all consumed in transaction fees before the end of this exercise.
 
 As found [here](https://cosmos.network/learn/get-atom), [this](https://messari.io/asset/cosmos/markets) is a list of exchanges that are known by Cosmos for carrying the ATOM token.
 
