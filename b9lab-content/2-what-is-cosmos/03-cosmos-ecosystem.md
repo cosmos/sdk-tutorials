@@ -16,7 +16,7 @@ Among the fungible tokens secured by Cosmos are the [Binance Coin](https://www.b
 
 In addition to the vast number of tokens, a variety of applications and services, as well as wallets, and explorers are based on Cosmos.
 
-Currently, **249 applications and services** build on Cosmos. At the time of writing, most applications and projects deal with finance, closely followed by infrastructure. Privacy, marketplace, social impact, and social applications and projects are less common.
+Currently, **hundreds of applications and services** build on Cosmos. At the time of writing, most applications and projects deal with finance, closely followed by infrastructure. Privacy, marketplace, social impact, and social applications and projects are less common.
 
 <HighlightBox type="tip">
 
@@ -34,7 +34,7 @@ The main aim of the Cosmos network is to provide an **ecosystem for easy blockch
 
 Each chain in the Cosmos ecosystem relies on **fast-finality BFT consensus algorithms**, such as the [Tendermint](https://github.com/tendermint/tendermint) consensus. This ensures a common consensus mechanism at work in all chains of the network. Tendermint itself is used in case of the [Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html), [IRIS Hub](https://www.irishub.rw/), [Binance Chain](https://www.binance.org/en), [Terra](https://www.terra.money/), and [Kava](https://www.kava.io/).
 
-Before Cosmos came along, developing a smart contract was much easier than building a whole new chain. Now, with the Cosmos SDK, entire flexible, secure, high performance, and sovereign **application-specific blockchains** can be developed. To allow this, building modular, adaptable, and interchangeable open-source development tools is at the center of Cosmos' mission.
+Before Cosmos came along, developing a whole new chain was much more difficult and expensive than building a smart contract. Now, with the Cosmos SDK, entire flexible, secure, high performance, and sovereign **application-specific blockchains** can be developed. To allow this, building modular, adaptable, and interchangeable open-source development tools is at the center of Cosmos' mission.
 
 <HighlightBox type="tip">
 
@@ -95,7 +95,7 @@ If the other non-Tendermint chain is a **fast-finality chain**, i.e. a blockchai
 
 If the other chain is a **probabilistic-finality chain**, i.e. a blockchain without fast finality like those relying on Proof-of-Work (PoW), a simple adaptation of IBC is not sufficient. Instead, a more elaborate setup is required. More precisely, a proxy-chain, a so-called **peg-zone**, helps establish interoperability. Peg-zones are fast-finality blockchains tracking chain states to establish finality. The peg-zone chain itself is IBC-compatible and acts as the **bridge** between the rest of the IBC network, i.e. its blockchains, and the probabilistic-finality chain.
 
-One such peg-zone implementation exists for Ethereum and is named the **Gravity DEX bridge**.
+One such peg-zone implementation exists for Ethereum and is named the **Gravity Bridge**.
 
 ## Atlas - Cosmos SDK Module Registry and Node Explorer
 
@@ -160,7 +160,7 @@ For a deeper dive, see the [CosmWasm documentation](https://docs.cosmwasm.com/do
 
 As the Cosmos SDK is modular, developers can port existing codebases in Go on top of the SDK. This gives developers the opportunity to build on Cosmos without having to comprise too much on the tool set and environment used.
 
-For example, with [Ethermint](https://github.com/cosmos/ethermint) developers can port the Ethereum Virtual Machine (EVM) to make it a Cosmos SDK module compatible and combinable with existing modules. Thus, Ethermint blockchains are compatible with Cosmos.
+For example, with [Ethermint](https://github.com/cosmos/ethermint) developers can use the Ethereum Virtual Machine (EVM) from the main Go Ethereum client as a Cosmos SDK module compatible and combinable with existing modules. Thus, Ethermint blockchains are compatible with Cosmos.
 
 <HighlightBox type="info">
 
