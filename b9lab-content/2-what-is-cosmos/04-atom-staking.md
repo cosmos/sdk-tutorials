@@ -90,7 +90,7 @@ Now would be a good time for you to save your mnemonic and password safely befor
 
 ## Purchase 1 ATOM
 
-How you do it is highly dependent on what your preferences are. But roughly, you need to get on an exchange and, for instance, purchase 1 ATOM, which is worth 16 USD at the time of writing. You can get any amount you wish, although don't get less than 0.3 ATOM so that it does not get all consumed in transaction fees before the end of this exercise.
+How you do it is highly dependent on what your preferences are. But roughly, you need to get on an exchange and, for instance, purchase 1 ATOM. You can get any amount you wish, although don't get less than 0.3 ATOM so that it does not get all consumed in transaction fees before the end of this exercise.
 
 As found [here](https://cosmos.network/learn/get-atom), [this](https://messari.io/asset/cosmos/markets) is a list of exchanges that are known by Cosmos for carrying the ATOM token.
 
