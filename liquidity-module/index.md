@@ -67,7 +67,7 @@ Before you start the tutorial, install the prerequisite software.
       gaiad version
       ```
 
-    The output of `gaiad version` prints something like:
+      The output of `gaiad version` prints something like:
     
       ```bash
       v5.0.5
@@ -225,10 +225,11 @@ From the terminal output that `starport chain serve` created for you, use the `u
 
 ```markdown
 curl -X POST -d '{"address": "cosmosxxxxx"}' https://faucet.testnet.cosmos.network
+```
 
 - Make sure to add your account address into the `address` field
-- Replace `cosmosxxxxx` with the address you saw in your user account on running `starport chain serve`.
-```
+- Replace `cosmosxxxxx` with the address you saw in your user account when you run the `starport chain serve` command
+
 
 After you see the success message, you can check your balance. 
 
@@ -239,17 +240,17 @@ See your balance at [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/bala
 Now that your account on testnet is funded with testnet tokens, you can send your own token to the testnet. 
 
 At your local terminal, enter the IBC module command to transfer your token to the testnet. 
-Make sure to replace `cosmosxxxxx` with your address, `mytoken` with your token name, `username` with your username and `channel-0` with channel
-
-**Note:** Make sure to use *channel* as shown in terminal when you run `starport relayer connect`
 
 ```bash
 myblockchaind tx ibc-transfer transfer transfer channel-0 cosmosxxxxx "15000000mytoken" --from username
 ```
 
-After your transaction is complete, check your balance on the Gravity DEX testnet to confirm your token transfer.
+Make sure to replace: 
 
-Make sure to replace `cosmosxxxxx` with your address.
+- `cosmosxxxxx` with your address
+- `mytoken` with your token name
+- `username` with your username
+- `channel-0` with the channel that is shown in the terminal where you ran the `starport relayer connect` command
 
 **Tip:** Sometimes transactions don't go through on the first try. Make sure you check the terminal window that shows the relayer process and verify that you see output similar to the following output:
 
@@ -260,11 +261,13 @@ Make sure to replace `cosmosxxxxx` with your address.
  Relay 1 acks from cosmoshub-testnet => myblockchain
  ```
 
+After your transaction is complete, check your balance on the Gravity DEX testnet to confirm your token transfer.
+
 See your balance at [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxxxx).
 
-Take a closer look at the `ibc/denomhash` denominator. When you create a new pool, you in put this denom to make a pair with one of the existing native token. On the testnet, create a pair with `uphoton`.
+Take a closer look at the `ibc/denomhash`. When you create a new pool, you use this denom to create a pair with one of the existing native tokens. On the testnet, create a pair with `uphoton` and the `ibc/denomhash`.
 
-**Tip:** See the balance of `uphoton` and `ibc/denomhash` on terminal:
+**Tip:** To query the balance of `uphoton` and `ibc/denomhash` on your terminal:
 
 ```bash
 gaiad query bank balances cosmosxxxx --node https://testnet.cosmos.network:443
