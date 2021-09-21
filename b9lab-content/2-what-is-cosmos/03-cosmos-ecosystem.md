@@ -16,7 +16,7 @@ Among the fungible tokens secured by Cosmos are the [Binance Coin](https://www.b
 
 In addition to the vast number of tokens, a variety of applications and services, as well as wallets, and explorers are based on Cosmos.
 
-Currently, **249 applications and services** build on Cosmos. At the time of writing, most applications and projects deal with finance, closely followed by infrastructure. Privacy, marketplace, social impact, and social applications and projects are less common.
+Currently, **hundreds of applications and services** build on Cosmos. At the time of writing, most applications and projects deal with finance, closely followed by infrastructure. Privacy, marketplace, social impact, and social applications and projects are less common.
 
 <HighlightBox type="tip">
 
