@@ -27,7 +27,7 @@ Here, economic incentives come into play: The node that announces a solution fir
 
 </ExpansionPanel>
 
-With the introduction of Bitcoin, the **development of decentralized applications (DApps)** - applications built on a decentralized network - began. In the early days, developing DApps could only be done by **forking the Bitcoin codebase** or **building on it**. However, Bitcoin's monolithic codebase and limited, not user-friendly scripting language made DApp development a tedious and complex process for developers.
+With the introduction of Bitcoin, the development of applications built on a decentralized network (dApps) began. In the early days, developing dApps could be done only by forking or building on the Bitcoin codebase. However, Bitcoin's monolithic codebase and limited, not-user-friendly scripting language made dApp development a tedious and complex process for developers.
 
 <ExpansionPanel title="What's a Blockchain, really?">
 
