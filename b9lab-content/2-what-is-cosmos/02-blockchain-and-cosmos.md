@@ -103,7 +103,7 @@ Already in 2014, Kwon invented the original Tendermint mechanism. Later in 2015,
 
 <ExpansionPanel title="The skinny on Tendermint">
 
-Tendermint is a BFT consensus algorithm and a consensus engine. It is a Replicated State Machine (RSM) that helps replicating an application on several machines. As such, it guarantees BFT properties for distributed systems and their applications.
+Tendermint is a BFT consensus algorithm and a consensus engine. It enables applications to be replicated, in sync, on many machines. The result is known as a Replicated State Machine with Byzantine Fault Tolerance. It guarantees BFT properties for distributed systems and their applications.
 
 It does this in:
 
