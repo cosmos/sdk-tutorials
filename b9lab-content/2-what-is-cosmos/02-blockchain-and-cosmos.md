@@ -107,7 +107,7 @@ Tendermint is a BFT consensus algorithm and a consensus engine. It enables appli
 
 It does this in:
 
-* A **secure** manner - Tendermint continues working even if up to 1/3 of machines fail, and
+* A **secure** manner - Tendermint continues working even if up to 1/3 of machines fail or misbehave, and
 * A **consistent** way - every machine computes the same state and accesses the same transaction log.
 
 Tendermint is widely used across the industry and the most mature BFT consensus engine for Proof-of-Stake (PoS) blockchains.
