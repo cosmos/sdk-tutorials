@@ -31,9 +31,9 @@ With the introduction of Bitcoin, the development of applications built on a dec
 
 <ExpansionPanel title="What's a Blockchain, really?">
 
-**Blockchain protocols** define programs that **hold a state** and that describe how to modify it according to the received inputs. Those inputs are called transactions.
+Blockchain protocols define programs that hold a state and describe how to modify the state according to the received inputs. Those inputs are called transactions.
 
-The consensus ensures that a blockchain has a **canonical transaction history**. It follows that the **state is deterministic**, meaning if you begin with the same genesis state and replicate all conducted changes, you always achieve the same state.
+The consensus ensures that a blockchain has a canonical transaction history. So it follows that the state is deterministic, meaning if you begin with the same genesis state and replicate all conducted changes, you always achieve the same state.
 
 Bitcoin's codebase may have been monolithic, but it nevertheless was a blockchain architecture, i.e. could be split into **three layers**:
 
