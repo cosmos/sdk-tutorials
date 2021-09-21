@@ -69,9 +69,9 @@ Before you start the tutorial, install the prerequisite software.
 
     The output of `gaiad version` prints something like:
     
-      ```bash
-      v5.0.5
-      ```
+    ```bash
+    v5.0.5
+    ```
 
 ## Create the Blockchain
 
@@ -353,7 +353,8 @@ For this example command, be sure to:
 
 To confirm the pool has been created:
 
-- Visit [https://api.testnet.cosmos.network/cosmos/liquidity/v1beta1/pools](https://api.testnet.cosmos.network/cosmos/liquidity/v1beta1/pools)
+- Visit 
+  [https://api.testnet.cosmos.network/cosmos/liquidity/v1beta1/pools](https://api.testnet.cosmos.network/cosmos/liquidity/v1beta1/pools)
 
 **Tip:** Verify the pool created on terminal:
 ```bash
@@ -428,7 +429,7 @@ Make sure to replace the `1` with your pool `id` (the pool id is assigned at cre
 
 Check the balance on the new deposit that you made.
 
-- [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
+[https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
 
 Make sure to replace `cosmosxxxxx` with your address.
 
@@ -447,7 +448,8 @@ where:
 
 Make sure to replace the `1` with your pool `id` (the pool id is assigned at creation).
 
-- Replace `pool-id` with the id that you can see on [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
+- Replace `pool-id` with the id that you can see on 
+  [https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx](https://api.testnet.cosmos.network/cosmos/bank/v1beta1/balances/cosmosxxx)
 
     You see a pool id that is similar to `poolFE384B6C9AE769A67754EAD275832A5A6DAA6E2C769A1E1D281E596DD47AA36D`.
 - Replace `cosmosxxxxx` with your address
