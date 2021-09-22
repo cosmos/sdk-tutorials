@@ -2,9 +2,11 @@
 
 ## Simapp
 
-Let us try to run a blockhain and see how we can interact with it. For this purpose we will start with an educational sample called [Simapp](https://github.com/cosmos/cosmos-sdk/blob/master/simapp/).
+Run a blockhain and discover how to interact with it. 
 
-First let us create a folder and clone the cosmos-sdk into it:
+Start with an educational sample called [Simapp](https://github.com/cosmos/cosmos-sdk/blob/master/simapp/).
+
+Firstm create a folder and clone the cosmos-sdk into that folder:
 
 ```bash
 $ mkdir cosmos
@@ -12,20 +14,20 @@ $ cd cosmos
 $ git clone https://github.com/cosmos/cosmos-sdk
 ```
 
-Then we can start with building:
+Then build the cosmos-sdk:
 
 ```bash
 $ cd cosmos-sdk
 $ make build
 ```
 
-This may take a few minutes and should create a build folder and a simapp binary you can observe with:
+This may take a few minutes. It will create a build folder and a simapp binary:
 
 ```bash
 $ ls build
 ```
 
-Good, first let us reset the database(which will be in the initial state anyway if this is the first time you are testing simapp):
+Now, reset the database. The database will be in the initial state in any case if this is the first time you have used (which will be in the initial state anyway if this is the first time you are testing simapp:
 
 ```bash
 $ ./simd unsafe-reset-all
@@ -34,24 +36,24 @@ $ ./simd unsafe-reset-all
 3:58PM INF Generated private validator file keyFile=/Users/b9lab/.simapp/config/priv_validator_key.json stateFile=/Users/b9lab/.simapp/data/priv_validator_state.json
 ```
 
-As you can see it will list you the files set to initial state and their locations.
+As you can see, it will list the files set to the initial state and their locations.
 
-Now we can initialize the application:
+Now, initialize the application:
 
 ```bash
 $ ./simd init demo
 {"app_message":{"auth":{"accounts":[],"params":{"max_memo_characters":"256","sig_verify_cost_ed25519":"590","sig_verify_cost_secp256k1":"1000","tx_sig_limit":"7","tx_size_cost_per_byte":"10"}},"authz":{"authorization":[]},"bank":{"balances":[],"denom_metadata":[],"params":{"default_send_enabled":true,"send_enabled":[]},"supply":[]},"capability":{"index":"1","owners":[]},"crisis":{"constant_fee":{"amount":"1000","denom":"stake"}},"distribution":{"delegator_starting_infos":[],"delegator_withdraw_infos":[],"fee_pool":{"community_pool":[]},"outstanding_rewards":[],"params":{"base_proposer_reward":"0.010000000000000000","bonus_proposer_reward":"0.040000000000000000","community_tax":"0.020000000000000000","withdraw_addr_enabled":true},"previous_proposer":"","validator_accumulated_commissions":[],"validator_current_rewards":[],"validator_historical_rewards":[],"validator_slash_events":[]},"evidence":{"evidence":[]},"feegrant":{"allowances":[]},"genutil":{"gen_txs":[]},"gov":{"deposit_params":{"max_deposit_period":"172800s","min_deposit":[{"amount":"10000000","denom":"stake"}]},"deposits":[],"proposals":[],"starting_proposal_id":"1","tally_params":{"quorum":"0.334000000000000000","threshold":"0.500000000000000000","veto_threshold":"0.334000000000000000"},"votes":[],"voting_params":{"voting_period":"172800s"}},"mint":{"minter":{"annual_provisions":"0.000000000000000000","inflation":"0.130000000000000000"},"params":{"blocks_per_year":"6311520","goal_bonded":"0.670000000000000000","inflation_max":"0.200000000000000000","inflation_min":"0.070000000000000000","inflation_rate_change":"0.130000000000000000","mint_denom":"stake"}},"params":null,"slashing":{"missed_blocks":[],"params":{"downtime_jail_duration":"600s","min_signed_per_window":"0.500000000000000000","signed_blocks_window":"100","slash_fraction_double_sign":"0.050000000000000000","slash_fraction_downtime":"0.010000000000000000"},"signing_infos":[]},"staking":{"delegations":[],"exported":false,"last_total_power":"0","last_validator_powers":[],"params":{"bond_denom":"stake","historical_entries":10000,"max_entries":7,"max_validators":100,"unbonding_time":"1814400s"},"redelegations":[],"unbonding_delegations":[],"validators":[]},"upgrade":{},"vesting":{}},"chain_id":"test-chain-rT4wZY","gentxs_dir":"","moniker":"demo","node_id":"cf6bff39bb84da39d214138ebba8bcba4ccb848d"}
 ```
 
-In the output you can see that our chain_id is test-chain-rT4wZY. We could determine the chainid by passing the flag --chain-id.
+In the output you can see that your chain_id is test-chain-rT4wZY. We could determine the chainid by passing the flag --chain-id.
 
-We can confirm our initializion:
+Inspect the initial configuration:
 
 ```bash
 $ cat ~/.simapp/config/genesis.json 
 ```
 
-Now let us list our keys:
+Inspect your keys:
 
 ```bash
 $ ./simd keys list
@@ -59,7 +61,7 @@ $ ./simd keys list
 
 ```
 
-As expected we not have any keys yet. Let us add a new key:
+As you might have expected, you do not have any keys yet. Add a new key:
 
 ```bash
 $ ./simd keys add b9lab
@@ -82,9 +84,9 @@ You can see the mnemonic at the end of the output:
 ivory uniform actual spot floor vessel monster rose yellow noise smile odor veteran human reason miss stadium phrase assault puzzle sentence approve coral apology
 ```
 
-those are the words you need to keep in order to recover your key.
+Tis sequence of words is a mnemonic you can use to recover your public and private keys. In a production setting, the mnenonic should be stored in a reliable and confidential fashion such as a key-management infrastructure. 
 
-You can confirm that the key is added with:
+Confirm that the key is has been added:
 
 ```bash
 $ ./simd keys list
@@ -96,29 +98,31 @@ or with:
 $ ./simd keys show b9lab
 ```
 
-Now we need to add this key/account to the genesis file:
+A cosmos-sdk blockchain relies on validators to produce blocks. Validators are normally added and removed through an on-chain governance process, but initially there is no validator to generate the block in which such a transaction might exist. Your chain needs an account for bootstrapping purposes. 
+
+Add your key (also know as an account) to the genesis file:
 
 ```bash
 $ ./simd add-genesis-account b9lab 100000000stake
 ```
 
-the suffix stake in the amount is configured in the genesis file and is the unit for the tokens in this chain. You can check it with:
+The suffix, stake appended to the amount and configured in the genesis file is the unit for the tokens in this chain. This command `100000000` to your account. Check it with:
 
 ```bash
 $ cat ~/.simapp/config/genesis.json | grep -A 2 -B 2 stake
 ```
 
-So because our blockchain is not running now, we need to include transactions in the genesis file.
+Because your blockchain is not actually running yet, you need to include bootstrap transactions in the genesis file.
 
 
-Note: We need the 2/3 threshold for validation, so we will stake 70000000stake of our 100000000stake in the b9lab account we just created. 
+Note: In this scenario, you will need the 2/3 threshold for validation, so you will stake 70000000stake of our 100000000stake in the b9lab account we just created. 
 
 ```bash
 $ ./simd gentx b9lab 70000000stake --chain-id test-chain-rT4wZY
 Genesis transaction written to "/Users/muratoener/.simapp/config/gentx/gentx-cf6bff39bb84da39d214138ebba8bcba4ccb848d.json"
 ```
 
-Let us update our genesis file:
+Update your genesis file:
 
 ```bash
 $ ./simd collect-gentxs
@@ -126,7 +130,7 @@ $ ./simd collect-gentxs
 
 ```
 
-Finally we can start our blockchain:
+Now, start your blockchain:
 
 ```bash
 $ ./simd start
@@ -140,7 +144,7 @@ $ ./simd start
 
 ```
 
-Now you should see blocks producing and validating. Open a new terminal and check the balances:
+You will see blocks producing and validating. Open a new terminal and check the balances:
 
 ```bash
 $ ./simd query bank balances $(./simd keys show b9lab -a)
@@ -152,7 +156,7 @@ pagination:
   total: "0"
 ```
 
-We can create another key for a student and send some tokens to it:
+Create another key for a student and send it some tokens:
 
 ```bash
 $ ./simd keys add student
@@ -164,13 +168,13 @@ $ ./simd keys add student
   mnemonic: ""
 
 
-**Important** write this mnemonic phrase in a safe place.
+**Important** record this mnemonic phrase in a safe place.
 It is the only way to recover your account if you ever forget your password.
 
 gown all scissors page panel table hill acoustic junior run winter cement mass clump moon adjust glare never satoshi easily illness hip rib multiply
 ```
 
-Let us just confirm the balance of the new account:
+Confirm the balance of the new account:
 
 ```bash
 $ ./simd query bank balances $(./simd keys show student -a)
@@ -180,7 +184,7 @@ pagination:
   total: "0"
 ```
 
-this account does not have any balance, in fact it is not in the blockchain yet. We need to send a transaction to change this new accounts balance:
+This account does not have a balance. In fact, it is not in the blockchain yet. We need to send a transaction to change this new accounts balance:
 
 ```bash
 $./simd tx bank send $(./simd keys show b9lab -a) $(./simd keys show student -a) 10stake --chain-id test-chain-rT4wZY
@@ -202,9 +206,9 @@ tx: null
 txhash: D2CCFD91452F8C144BB1E7B54B9723EE3ED85925EE2C8AD843392721D072B895
 ```
 
-As you can see it will ask you to confirm the signing and broadcasting and shows you usefull information like gas_used.
+As you can see, it will ask you to confirm the signing and broadcasting and shows you usefull information such as gas_used.
 
-Let us now check again the balance of the student:
+Now check the balance of the student again:
 
 ```bash
 ./simd query bank balances $(./simd keys show student -a)
@@ -218,7 +222,7 @@ pagination:
 
 ## CLI
 
-Let us first have a look at the cosmos-sdk/simapp/simd/main.go:
+Inspect cosmos-sdk/simapp/simd/main.go:
 
 ```golang
 package main
@@ -248,13 +252,13 @@ func main() {
 
 ```
 
-You can see that it imports github.com/cosmos/cosmos-sdk/simapp/simd/cmd for the CLI, which you can see at cosmos-sdk/simapp/simd/cmd/root.go:
+You can see, it imports github.com/cosmos/cosmos-sdk/simapp/simd/cmd for the CLI, which you can see at cosmos-sdk/simapp/simd/cmd/root.go:
 
 ```golang
 func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 ```
 
-In it things like application name are defined:
+Basic properties such as the application name are defined:
 
 ```golang
 rootCmd := &cobra.Command{
@@ -263,7 +267,7 @@ rootCmd := &cobra.Command{
 ```
 
 
-In addition you can observe that cobra is imported and used for the CLI:
+In addition, observe that cobra is imported and used for the CLI:
 
 ```golang
 
@@ -281,7 +285,7 @@ In addition you can observe that cobra is imported and used for the CLI:
   )
 ```
 
-Another important file is `app.go`, in which each module and keykeeper needs to be imported. So first thing you will see is a huge list of modules. 
+Also explain `app.go` in which each module and keykeeper will be imported. The first thing you will see is a considerable list of modules that are used by most cosmos-sdk apps:
 
 ```golang
 
