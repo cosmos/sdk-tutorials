@@ -49,6 +49,7 @@ where `YOUR_MONIKER` is a placeholder for a string that identifies your node. Be
     ```
 
 1. Add seed nodes using the command that is suitable for your environment.
+//seeds are not connecting
 
     - For operating systems other than macOS:
 
