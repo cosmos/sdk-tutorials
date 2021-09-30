@@ -288,5 +288,22 @@ In addition, observe that cobra is imported and used for the CLI:
 Also explain `app.go` in which each module and keykeeper will be imported. The first thing you will see is a considerable list of modules that are used by most cosmos-sdk apps:
 
 ```golang
+...
+  "github.com/cosmos/cosmos-sdk/x/auth"
+  "github.com/cosmos/cosmos-sdk/x/auth/ante"
+  authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
+  authsims "github.com/cosmos/cosmos-sdk/x/auth/simulation"
+  authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
+  authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+  "github.com/cosmos/cosmos-sdk/x/auth/vesting"
+  "github.com/cosmos/cosmos-sdk/x/bank"
+  bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
+  banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
+  "github.com/cosmos/cosmos-sdk/x/capability"
+  capabilitykeeper "github.com/cosmos/cosmos-sdk/x/capability/keeper"
+  capabilitytypes "github.com/cosmos/cosmos-sdk/x/capability/types"
+...
 
 ```
+
+The modules in the `/cosmos-sdk/x/` folder are maintained by the Cosmos team. To understand a module, best way is to have a look at the according `spec` folder. Have a look at the `cosmos-sdk/x/bank/spec/01_state.md` to understand the state of the bank module which we used in this section.
