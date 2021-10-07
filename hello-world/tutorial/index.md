@@ -45,6 +45,16 @@ To install `starport` into `/usr/local/bin`, run the following command:
 curl https://get.starport.network/starport@v0.16.2! | bash
 ```
 
+In case the above command does not work, use the following:
+
+```
+curl https://get.starport.network/starport > starport.sh
+bash starport.sh
+mv starport /usr/local/bin/
+```
+
+Use sudo in front of the command, if you do get a permission denied error.
+
 When the installation succeeds, you see this message:
 
 ```
