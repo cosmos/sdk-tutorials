@@ -24,6 +24,17 @@ This tutorial uses [Starport](https://github.com/tendermint/starport) v0.17.0. S
 curl https://get.starport.network/starport@v0.17.0! | bash
 ```
 
+
+In case the above command does not work, use the following:
+
+```
+curl https://get.starport.network/starport > starport.sh
+bash starport.sh
+mv starport /usr/local/bin/
+```
+
+Use sudo in front of the command, if you do get a permission denied error.
+
 You can also use Starport v0.17.0 on the web in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.17.0). Learn more about other ways to [install Starport](https://github.com/tendermint/starport/blob/develop/docs/intro/install.md).
 
 ## Getting Started
