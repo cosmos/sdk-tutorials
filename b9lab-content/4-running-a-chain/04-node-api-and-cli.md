@@ -14,7 +14,7 @@ $ cd cosmos
 $ git clone https://github.com/cosmos/cosmos-sdk
 ```
 
-Then build the cosmos-sdk:
+Then build `cosmos-sdk`:
 
 ```bash
 $ cd cosmos-sdk
