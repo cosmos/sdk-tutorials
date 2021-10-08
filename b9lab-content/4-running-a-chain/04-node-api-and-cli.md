@@ -38,7 +38,7 @@ $ ./simd unsafe-reset-all
 
 As you can see, it will list the files set to the initial state and their locations.
 
-Now, initialize the application:
+Now, initialize the application. Initialization creates the genesis block and initial chain state:
 
 ```bash
 $ ./simd init demo
@@ -53,7 +53,7 @@ Inspect the initial configuration:
 $ cat ~/.simapp/config/genesis.json 
 ```
 
-Inspect your keys:
+Inspect your keys. These are held in the backend keyring which is operating system key ring by default:
 
 ```bash
 $ ./simd keys list
@@ -98,7 +98,7 @@ or with:
 $ ./simd keys show b9lab
 ```
 
-A cosmos-sdk blockchain relies on validators to produce blocks. Validators are normally added and removed through an on-chain governance process, but initially there is no validator to generate the block in which such a transaction might exist. Your chain needs an account for bootstrapping purposes. 
+A cosmos-sdk blockchain relies on validators to produce blocks. Validators are normally added and removed through an on-chain governance process. The governance process relies on transactions to execute changes. Initially, there is no validator to generate the block with a transaction that adds a validator. Your chain needs a validator account for bootstrapping purposes. Defining an account to serve as a validator at the outsets breaks the circular dependency that would otherwise exist. 
 
 Add your key (also know as an account) to the genesis file:
 
