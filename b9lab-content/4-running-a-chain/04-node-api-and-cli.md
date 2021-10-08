@@ -38,7 +38,7 @@ $ ./simd unsafe-reset-all
 
 As you can see, it will list the files set to the initial state and their locations.
 
-Now, initialize the application:
+Now, initialize the application. Initialization creates the genesis block and initial chain state:
 
 ```bash
 $ ./simd init demo
@@ -53,7 +53,7 @@ Inspect the initial configuration:
 $ cat ~/.simapp/config/genesis.json 
 ```
 
-Inspect your keys:
+Inspect your keys. These are held in the backend keyring which is operating system key ring by default:
 
 ```bash
 $ ./simd keys list
