@@ -38,7 +38,7 @@ $ ./simd unsafe-reset-all
 
 As you can see, it will list the files set to the initial state and their locations.
 
-Now, initialize the application:
+Now, initialize the application. Initialization creates the genesis block and initial chain state:
 
 ```bash
 $ ./simd init demo
