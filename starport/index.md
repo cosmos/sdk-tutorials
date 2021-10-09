@@ -60,3 +60,11 @@ When the installation succeeds, you see this message:
 ```bash
 Installed at /usr/local/bin/starport
 ```
+## Forgot something? Seen errors are
+### mv: cannot move './starport' to '/usr/local/bin/starport': Permission denied
+For Linux users, this error is because `/usr` is managed by `apt`. Therefore, whatever you copy in there can change or break your system. To fix this error, you have to copy `starport` from the `tmpinstalldir` folder to the `/bin` folder. Run the command below to copy `starport` from the `tmpinstalldir` folder to the `/bin` folder with the `sudo` command.
+
+```
+sudo cp /tmp/tmpinstalldir/starport /usr/local/bin
+```
+Run the `starport version` command to verify that `starport` has been moved successfully.
