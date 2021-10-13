@@ -10,7 +10,7 @@
 
 <script>
 
-import expandIcon from '../public/expand-more.svg'
+import expandIcon from '../public/expand-more-icon.svg'
 
 export default {
     props: ['title'],
@@ -42,7 +42,7 @@ export default {
         width: 100%;
     }
     .styled-button {
-        padding: 32px;
+        padding: 20px;
         border-radius: 20px;
         display: flex;
         align-items: center;
@@ -54,8 +54,8 @@ export default {
         background: none;
         outline: none;
         cursor: pointer;
-        font-weight: 600;
-        color: var(--color-text-dim);
+        color: var(--color-text-strong);
+        font-weight: bold;
 
         &:hover {
             background-color: var(--semi-transparent-color);
@@ -79,6 +79,7 @@ export default {
             width: auto;
             margin-block: auto;
             margin-right: 1.5rem;
+            filter: var(--img-filter);
         }
 
         p {
