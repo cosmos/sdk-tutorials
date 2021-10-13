@@ -1,24 +1,26 @@
 <template>
   <ClientOnly>
     <div class="theme-code-group">
-      <div class="theme-code-group__nav">
-        <ul class="theme-code-group__ul">
-          <li
-            v-for="(tab, i) in codeTabs"
-            :key="tab.title"
-            class="theme-code-group__li"
-          >
-            <button
-              class="theme-code-group__nav-tab"
-              :class="{
-                'theme-code-group__nav-tab-active': i === activeCodeTabIndex,
-              }"
-              @click="changeCodeTab(i)"
+      <div class="theme-code-group__nav-wrapper">
+        <div class="theme-code-group__nav">
+          <ul class="theme-code-group__ul">
+            <li
+              v-for="(tab, i) in codeTabs"
+              :key="tab.title"
+              class="theme-code-group__li"
             >
-              {{ tab.title }}
-            </button>
-          </li>
-        </ul>
+              <button
+                class="theme-code-group__nav-tab"
+                :class="{
+                  'theme-code-group__nav-tab-active': i === activeCodeTabIndex,
+                }"
+                @click="changeCodeTab(i)"
+              >
+                {{ tab.title }}
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
       <slot />
       <pre
@@ -80,15 +82,18 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .theme-code-group {}
+  .theme-code-group {
+    border-radius: 0px 0px 20px 20px;
+  }
+  .theme-code-group__nav-wrapper {
+    position: relative;
+  }
   .theme-code-group__nav {
-    margin-bottom: -40px;
-    background-color: $codeBgColor;
-    padding-bottom: 5px;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    padding-left: 10px;
-    padding-top: 10px;
+    inset 0;
+    background: var(--background-color-primary);
+    margin-bottom: -50px;
+    border-radius: 20px 20px 0px 0px;
+    border: 1px solid var(--color-light-gray);
   }
   .theme-code-group__ul {
     margin: auto 0;
@@ -96,21 +101,21 @@ export default {
     display: inline-flex;
     list-style: none;
   }
-  .theme-code-group__li {}
+  .theme-code-group__li {
+    margin-block: 0px;
+    margin-inline: 10px;
+  }
   .theme-code-group__nav-tab {
     border: 0;
-    padding: 5px;
+    padding: 20px;
     cursor: pointer;
     background-color: transparent;
     font-size: 0.85em;
     line-height: 1.4;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--color-text);
     font-weight: 600;
   }
   .theme-code-group__nav-tab-active {
-    border-bottom: #42b983 1px solid;
-  }
-  .pre-blank {
-    color: #42b983;
+    border-bottom: var(--color-text) 1px solid;
   }
 </style>
