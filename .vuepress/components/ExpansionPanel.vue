@@ -30,17 +30,20 @@ export default {
 
 <style lang="stylus" scoped>
     .container {
-        background-color: rgba(176,180,207,0.09);
-        border-radius: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background: var(--background-color-secondary);
+        border-radius: 20px;
         margin-top: 3rem;
         margin-bottom: 3rem;
-        color: rgba(22,25,49,0.9);
-        font-size: 1rem;
-        line-height: 1.625rem;
+    }
+    .inner-container {
+        width: 100%;
     }
     .styled-button {
-        padding: 1rem;
-        border-radius: 0.5rem;
+        padding: 32px;
+        border-radius: 20px;
         display: flex;
         align-items: center;
         width: 100%;
@@ -52,9 +55,10 @@ export default {
         outline: none;
         cursor: pointer;
         font-weight: 600;
+        color: var(--color-text-dim);
 
         &:hover {
-            background-color #F1F2F7;
+            background-color: var(--semi-transparent-color);
         }
 
         .expanded {
@@ -74,7 +78,7 @@ export default {
         img {
             width: auto;
             margin-block: auto;
-            margin-right: 0.5rem;
+            margin-right: 1.5rem;
         }
 
         p {
@@ -82,9 +86,9 @@ export default {
         }
     }
     .content {
-        padding-inline: 1.5rem;
+        padding-inline: 32px;
         padding-bottom: 1rem;
-        color: black;
+        color: var(--color-text);
 
         p {
             margin-top: 0.5rem;
