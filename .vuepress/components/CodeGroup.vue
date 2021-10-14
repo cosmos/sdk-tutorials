@@ -102,7 +102,8 @@ export default {
     list-style: none;
   }
   .theme-code-group__li {
-    margin-block: 0px;
+    margin-top: 0px;
+    margin-bottom: -1px;
     margin-inline: 10px;
   }
   .theme-code-group__nav-tab {
