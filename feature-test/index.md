@@ -14,12 +14,87 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet ligula sed
 
 ## Code group
 
+
+```py [https://github.com/cosmos/cosmos-sdk/blob/master/scripts/linkify_changelog.py]
+for line in fileinput.input(inplace=1):
+    line = re.sub(r"\s\\#([0-9]+)", r" [\\#\1](https://github.com/cosmos/cosmos-sdk/issues/\1)", line.rstrip())
+    print(line)
+```
+
 <CodeGroup>
 <CodeGroupItem title="JavaScript" active>
 
-```js
+```js [https://github.com/cosmos/cosmos-sdk/blob/master/scripts/linkify_changelog.py]
 import { SpH3, SpButton } from "@tendermint/vue";
 
+export default {
+  components: {
+    SpH3,
+    SpButton,
+  },
+  data() {
+    return {
+      placeholderText: "Drag and drop a file here",
+      hashed: "",
+      flight: false,
+    };
+  },
+  methods: {
+    hash(e) {},
+    async submit() {},
+  }
+}
+export default {
+  components: {
+    SpH3,
+    SpButton,
+  },
+  data() {
+    return {
+      placeholderText: "Drag and drop a file here",
+      hashed: "",
+      flight: false,
+    };
+  },
+  methods: {
+    hash(e) {},
+    async submit() {},
+  }
+}
+export default {
+  components: {
+    SpH3,
+    SpButton,
+  },
+  data() {
+    return {
+      placeholderText: "Drag and drop a file here",
+      hashed: "",
+      flight: false,
+    };
+  },
+  methods: {
+    hash(e) {},
+    async submit() {},
+  }
+}
+export default {
+  components: {
+    SpH3,
+    SpButton,
+  },
+  data() {
+    return {
+      placeholderText: "Drag and drop a file here",
+      hashed: "",
+      flight: false,
+    };
+  },
+  methods: {
+    hash(e) {},
+    async submit() {},
+  }
+}
 export default {
   components: {
     SpH3,
@@ -83,19 +158,19 @@ Info box description
 
 <HighlightBox type="tip">
 
-Tip box description
+ Tip box description Tip box description  Tip box description Tip box description Tip box description Tip box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description
 
 </HighlightBox>
 
 <HighlightBox type="warn">
 
-Warning box description
+Warning box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description
 
 </HighlightBox>
 
 <HighlightBox type="reading">
 
-Reading box description
+Reading box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description
 
 </HighlightBox>
 
