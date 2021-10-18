@@ -20,7 +20,9 @@
                             .tools__item__content
                                 h4.tools__item__content__title {{tool.title}}
                                 .tools__item__content__description {{tool.description}}
-                                .tools__item__content__links Links
+                                .tools__item__content__links
+                                    a(v-for="link in tool.links" :href="link.url").link {{link.name}}
+
             .support__wrapper
             .newsletter__wrapper
 
@@ -93,7 +95,16 @@
                 &__description
                     margin-bottom 20px
                     
-    
+
+    .link
+        margin-right 20px
+        cursor pointer
+        font-weight 500
+        color var(--color-text-strong)
+
+        &:after
+            content '\2197'
+            padding-left 0.1875em
 
 
 </style>
