@@ -68,7 +68,7 @@ a
 .search {
   display: flex;
   align-items: center;
-  color: rgba(22, 25, 49, 0.65);
+  color: var(--color-text);
   padding-top: 1rem;
   width: calc(var(--aside-width) - 6rem);
   cursor: pointer;
@@ -171,7 +171,7 @@ a
       &__item {
         display: inline-block;
         margin-right: 0.5rem;
-        color: var(--color-text-dim, inherit);
+        color: var(--color-text);
         border: 1px solid rgba(0,0,0,0.07);
         font-size: 0.875rem;
         line-height: 1.25rem;
@@ -188,7 +188,7 @@ a
       font-weight: 600;
       font-size: 1.125rem;
       line-height: 1.6875rem;
-      color: var(--color-text, inherit);
+      color: var(--color-text-strong);
     }
 
     &__desc {
@@ -196,7 +196,7 @@ a
       font-size: 0.875rem;
       line-height: 1.25rem;
       letter-spacing: 0.03em;
-      color: var(--color-text-dim, inherit);
+      color: var(--color-text);
     }
   }
 }
@@ -230,7 +230,7 @@ a
 
     &__p {
       font-size: 0.875rem;
-      color: var(--color-text-dim, inherit);
+      color: var(--color-text, inherit);
       line-height: 1.25rem;
     }
 
