@@ -8,10 +8,17 @@
             .custom__layout__header__nav
         .custom__layout__content
             h1 Developer Portal
+            .custom__layout__content__intro 
+                .overline beginner
+                h2.custom__layout__content__intro__title Cosmos Academy
+                .info-label ~126 Hours
+
+                .custom__layout__content__intro__desc A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
+                .custom__layout__content__intro__link Start learning
             .tutorials__wrapper
             .articles__wrapper
             .tools__wrapper
-                h2 Tools
+                h3 Tools
                 .tools
                     .tools__item(v-for="tool in $frontmatter.tools")
                         .tools__item__container
@@ -54,6 +61,35 @@
             width 100%
             padding-inline 4rem
             padding-block 1rem
+
+        &__content__intro
+            border-radius 20px
+            background url("/cosmos-intro-image.svg"), var(--background-color-secondary)
+            background-position bottom right
+            padding 48px
+            margin-top 50px
+            position relative
+
+            @media screen and (max-width: 480px)
+                padding 24px
+
+            &__title
+                margin-block 10px
+
+            &__desc
+                margin-top 20px
+
+            &__link
+                font-weight 500
+                color var(--color-text-strong)
+                margin-top 20px
+                
+                &:after
+                    content '\2192'
+                    padding-left 0.1875em
+
+            &__image
+                position: absolute;
 
     .tools
         margin-top 20px
@@ -105,6 +141,9 @@
         &:after
             content '\2197'
             padding-left 0.1875em
+    
+    .tools__wrapper
+        margin-top 50px
 
 
 </style>
