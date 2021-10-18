@@ -280,6 +280,7 @@ module.exports = {
     "hello-world/tutorial/*.md",
     "burner-chain/*.md",
     "README.md",
+    "home/*.md",
     "nameservice/tutorial/*.md",
     "scavenge/tutorial/*.md",
     "proof-of-file-existence/tutorial/*.md",
