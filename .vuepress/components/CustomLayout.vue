@@ -8,15 +8,13 @@
             .custom__layout__header__nav
         .custom__layout__content
             h1 Developer Portal
-            .custom__layout__content__intro
-                .custom__layout__content__intro__container
-                    .overline-label beginner
-                    h2.custom__layout__content__intro__title Cosmos Academy
-                    .info-label ~126 Hours
+            card(imageUrl="/graphics-sdk-course.png" mobileImageUrl="/graphics-sdk-course-mobile.png")
+                .overline-label beginner
+                h2.custom__layout__content__intro__title Cosmos Academy
+                .info-label ~126 Hours
 
-                    .custom__layout__content__intro__desc A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
-                    .custom__layout__content__intro__link Start learning
-                img(src="/graphics-sdk-course-mobile.png").custom__layout__content__intro__image
+                .custom__layout__content__intro__desc A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
+                .custom__layout__content__intro__link Start learning
             .tutorials__wrapper
                 h3 Tutorials
                 .tutorials
@@ -48,9 +46,17 @@
                                     a(v-for="link in tool.links" :href="link.url").link {{link.name}}
 
             .support__wrapper
+                card(imageUrl="/support-image.png" mobileImageUrl="/support-image-mobile.png")
+                    .overline-label custom support
+                    h2.custom__layout__content__support__title Looking for help bringing your project to life?
+                    .custom__layout__content__support__desc Apply for support and get help with funding applications, grants, technology, architechture,  and introductions to ecosystem insiders.
+                    .custom__layout__content__support__action 
+                        a Talk to us
+
             .newsletter__wrapper
 
         .custom__layout__footer
+            tm-footer(full="true")
 </template>
 
 <style lang="stylus" scoped>
@@ -75,38 +81,11 @@
             padding-block 1rem
 
         &__footer
-            width 100%
-            padding-inline 4rem
-            padding-block 1rem
+
+            @media screen and (min-width: 833px)
+                padding-inline 124px
 
         &__content__intro
-            border-radius 20px
-            background-color var(--background-color-secondary)
-            background-image url("/graphics-sdk-course.png")
-            background-repeat no-repeat
-            background-position right
-            padding 48px
-            margin-top 50px
-            position relative
-            display flex
-
-            &__image
-                display none
-
-            @media screen and (max-width: 480px)
-                padding 24px
-                flex-direction column
-                background-image none
-
-                &__image
-                    display block
-                    margin -24px
-
-            &__container
-                width 60%
-
-                @media screen and (max-width: 480px)
-                    width 100%
 
             &__title
                 margin-block 10px
@@ -121,6 +100,28 @@
                 
                 &:after
                     content '\2192'
+                    padding-left 0.1875em
+
+        &__content__support
+
+            &__title
+                margin-block 10px
+
+            &__desc
+                margin-top 20px
+
+            &__action
+                background var(--color-text)
+                font-weight 500
+                color var(--background-color-primary)
+                margin-top 40px
+                border-radius 10px
+                padding-block 20px
+                padding-inline 60px
+                width: fit-content;
+                
+                &:after
+                    content '\2197'
                     padding-left 0.1875em
 
     .tools
