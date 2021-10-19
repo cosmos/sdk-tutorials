@@ -9,14 +9,29 @@
         .custom__layout__content
             h1 Developer Portal
             .custom__layout__content__intro 
-                .overline beginner
+                .overline-label beginner
                 h2.custom__layout__content__intro__title Cosmos Academy
                 .info-label ~126 Hours
 
                 .custom__layout__content__intro__desc A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
                 .custom__layout__content__intro__link Start learning
             .tutorials__wrapper
+                h3 Tutorials
+                .tutorials
+                    .tutorials__item(v-for="tutorial in $frontmatter.tutorials")
+
             .articles__wrapper
+                .articles__wrapper__title
+                    h3 Articles
+                    a(href="/").link More articles
+                .articles
+                    .articles__item(v-for="article in $frontmatter.articles")
+                        .articles__item__container
+                            .articles__item__image(v-bind:style="{'background-image': `url(${article.image})`}")
+                            .articles__item__content
+                                .overline-label.articles__item__content__date {{article.date}}
+                                h4.articles__item__content__title {{article.title}}
+                                .info-label.articles__item__content__time {{article.time}} minute read
             .tools__wrapper
                 h3 Tools
                 .tools
@@ -25,7 +40,7 @@
                             .tools__item__icon
                                 img(:src="tool.image" :alt="tool.title")
                             .tools__item__content
-                                h4.tools__item__content__title {{tool.title}}
+                                h5.tools__item__content__title {{tool.title}}
                                 .tools__item__content__description {{tool.description}}
                                 .tools__item__content__links
                                     a(v-for="link in tool.links" :href="link.url").link {{link.name}}
@@ -110,7 +125,7 @@
                 height 100%
                 margin-block 10px
 
-                @media screen and (max-width: 800px)
+                @media screen and (max-width: 832px)
                     flex-direction column
 
             &__icon
@@ -130,9 +145,69 @@
 
                 &__description
                     margin-bottom 20px
+
+    .articles
+        padding-top: 20px
+        display flex
+        overflow hidden
+        overflow-x: auto;
+
+        margin-inline -128px
+        padding-inline 113px
+
+        @media screen and (max-width: 480px)
+            margin-inline -24px
+            padding-inline 9px
+        
+        @media screen and (min-width: 480px) and (max-width: 832px)
+            margin-inline -48px
+            padding-inline 33px
+
+        &__item
+            padding-inline 15px
+
+            &__container
+                background var(--background-color-secondary)
+                border-radius 20px
+                display flex
+                flex-direction column
+                height 100%
+                width 30vw
+
+                @media screen and (min-width: 481px) and (max-width: 832px)
+                    width 40vw
+
+                @media screen and (max-width: 480px)
+                    width 80vw
+
+            &__image
+                height 200px
+                flex-grow 0
+                background-size cover
+                border-top-left-radius 20px
+                border-top-right-radius 20px
+
+            &__content
+                padding 48px
+                flex-grow 1
+                display flex
+                flex-direction column
+                justify-content space-between
+
+                @media screen and (min-width: 481px) and (max-width: 832px)
+                    padding 32px
+
+                @media screen and (max-width: 480px)
+                    padding 24px
+
+                &__title
+                    margin-block 20px
+
+
                     
 
     .link
+        margin-block auto
         margin-right 20px
         cursor pointer
         font-weight 500
@@ -145,5 +220,14 @@
     .tools__wrapper
         margin-top 50px
 
+    .tutorials__wrapper
+        margin-top 50px
+
+    .articles__wrapper
+        margin-top 50px
+
+        &__title
+            display flex
+            justify-content space-between
 
 </style>
