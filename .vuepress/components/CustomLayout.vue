@@ -8,13 +8,15 @@
             .custom__layout__header__nav
         .custom__layout__content
             h1 Developer Portal
-            .custom__layout__content__intro 
-                .overline-label beginner
-                h2.custom__layout__content__intro__title Cosmos Academy
-                .info-label ~126 Hours
+            .custom__layout__content__intro
+                .custom__layout__content__intro__container
+                    .overline-label beginner
+                    h2.custom__layout__content__intro__title Cosmos Academy
+                    .info-label ~126 Hours
 
-                .custom__layout__content__intro__desc A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
-                .custom__layout__content__intro__link Start learning
+                    .custom__layout__content__intro__desc A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
+                    .custom__layout__content__intro__link Start learning
+                img(src="/graphics-sdk-course-mobile.png").custom__layout__content__intro__image
             .tutorials__wrapper
                 h3 Tutorials
                 .tutorials
@@ -79,14 +81,32 @@
 
         &__content__intro
             border-radius 20px
-            background url("/cosmos-intro-image.svg"), var(--background-color-secondary)
-            background-position bottom right
+            background-color var(--background-color-secondary)
+            background-image url("/graphics-sdk-course.png")
+            background-repeat no-repeat
+            background-position right
             padding 48px
             margin-top 50px
             position relative
+            display flex
+
+            &__image
+                display none
 
             @media screen and (max-width: 480px)
                 padding 24px
+                flex-direction column
+                background-image none
+
+                &__image
+                    display block
+                    margin -24px
+
+            &__container
+                width 60%
+
+                @media screen and (max-width: 480px)
+                    width 100%
 
             &__title
                 margin-block 10px
@@ -102,9 +122,6 @@
                 &:after
                     content '\2192'
                     padding-left 0.1875em
-
-            &__image
-                position: absolute;
 
     .tools
         margin-top 20px
@@ -229,5 +246,8 @@
         &__title
             display flex
             justify-content space-between
+
+        .link
+            margin-right 0px
 
 </style>
