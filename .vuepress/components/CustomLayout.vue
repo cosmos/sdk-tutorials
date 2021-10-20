@@ -6,6 +6,8 @@
             .custom__layout__header__logo
                 
             .custom__layout__header__nav
+            .custom__layout__header__search
+                search-bar
         .custom__layout__content
             h1 Developer Portal
             card(imageUrl="/graphics-sdk-course.png" mobileImageUrl="/graphics-sdk-course-mobile.png")
@@ -15,6 +17,7 @@
 
                 .custom__layout__content__intro__desc A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
                 .custom__layout__content__intro__link Start learning
+                    icon-arrow(type="right").custom__layout__content__intro__link__icon
             .tutorials__wrapper
                 h3 Tutorials
                 .tutorials
@@ -24,6 +27,7 @@
                 .articles__wrapper__title
                     h3 Articles
                     a(href="/").link More articles
+                        icon-arrow.link__icon
                 .articles
                     .articles__item(v-for="article in $frontmatter.articles")
                         .articles__item__container
@@ -44,6 +48,7 @@
                                 .tools__item__content__description {{tool.description}}
                                 .tools__item__content__links
                                     a(v-for="link in tool.links" :href="link.url").link {{link.name}}
+                                        icon-arrow.link__icon
 
             .support__wrapper
                 card(imageUrl="/support-image.png" mobileImageUrl="/support-image-mobile.png")
@@ -52,6 +57,7 @@
                     .custom__layout__content__support__desc Apply for support and get help with funding applications, grants, technology, architechture,  and introductions to ecosystem insiders.
                     .custom__layout__content__support__action 
                         a Talk to us
+                            icon-arrow(fill="var(--background-color-primary)" type="top-right").link__icon
 
             .newsletter__wrapper
 
@@ -63,7 +69,7 @@
     .mode-switch-container
         position absolute
         padding-top 1rem
-        top 1rem
+        top 3rem
         right 2rem
 
     .custom__layout
@@ -72,57 +78,66 @@
         @media screen and (max-width: 480px)
             padding-inline 24px
         
-        @media screen and (min-width: 480px) and (max-width: 832px)
+        @media screen and (min-width: 480px) and (max-width: 1024px)
             padding-inline 48px
 
         &__header
             width 100%
-            padding-inline 2rem
-            padding-block 1rem
 
         &__footer
 
-            @media screen and (min-width: 833px)
+            @media screen and (min-width: 1025px)
                 padding-inline 124px
 
-        &__content__intro
+        &__content
+            margin-top 32px
+        
+            &__intro
 
-            &__title
-                margin-block 10px
+                &__title
+                    margin-block 10px
 
-            &__desc
-                margin-top 20px
+                &__desc
+                    margin-top 20px
 
-            &__link
-                font-weight 500
-                color var(--color-text-strong)
-                margin-top 20px
-                
-                &:after
-                    content '\2192'
-                    padding-left 0.1875em
+                &__link
+                    display flex
+                    font-weight 500
+                    color var(--color-text-strong)
+                    margin-top 20px
 
-        &__content__support
+                    &__icon
+                        margin-block auto
+                        margin-left 10px
+                        width 15px
+                        height 15px
 
-            &__title
-                margin-block 10px
+            &__support
 
-            &__desc
-                margin-top 20px
+                &__title
+                    margin-block 10px
 
-            &__action
-                background var(--color-text)
-                font-weight 500
-                color var(--background-color-primary)
-                margin-top 40px
-                border-radius 10px
-                padding-block 20px
-                padding-inline 60px
-                width: fit-content;
-                
-                &:after
-                    content '\2197'
-                    padding-left 0.1875em
+                &__desc
+                    margin-top 20px
+
+                &__action
+                    background var(--color-text)
+                    font-weight 500
+                    color var(--background-color-primary)
+                    margin-top 40px
+                    border-radius 10px
+                    padding-block 20px
+                    padding-inline 60px
+                    width fit-content
+                    
+                    a
+                        display flex
+
+                        svg
+                            fill var(--background-color-primary)
+                            width 10px
+                            height 10px
+
 
     .tools
         margin-top 20px
@@ -143,7 +158,7 @@
                 height 100%
                 margin-block 10px
 
-                @media screen and (max-width: 832px)
+                @media screen and (max-width: 1024px)
                     flex-direction column
 
             &__icon
@@ -164,6 +179,9 @@
                 &__description
                     margin-bottom 20px
 
+                &__links
+                    display flex
+
     .articles
         padding-top: 20px
         display flex
@@ -177,7 +195,7 @@
             margin-inline -24px
             padding-inline 9px
         
-        @media screen and (min-width: 480px) and (max-width: 832px)
+        @media screen and (min-width: 480px) and (max-width: 1024px)
             margin-inline -48px
             padding-inline 33px
 
@@ -190,9 +208,9 @@
                 display flex
                 flex-direction column
                 height 100%
-                width 30vw
+                width 25vw
 
-                @media screen and (min-width: 481px) and (max-width: 832px)
+                @media screen and (min-width: 481px) and (max-width: 1024px)
                     width 40vw
 
                 @media screen and (max-width: 480px)
@@ -212,7 +230,7 @@
                 flex-direction column
                 justify-content space-between
 
-                @media screen and (min-width: 481px) and (max-width: 832px)
+                @media screen and (min-width: 481px) and (max-width: 1024px)
                     padding 32px
 
                 @media screen and (max-width: 480px)
@@ -230,10 +248,12 @@
         cursor pointer
         font-weight 500
         color var(--color-text-strong)
+        display flex
 
-        &:after
-            content '\2197'
-            padding-left 0.1875em
+        &__icon
+            margin-left 10px
+            width 10px
+            height 10px
     
     .tools__wrapper
         margin-top 50px
