@@ -32,7 +32,16 @@
             .tutorials__wrapper
                 h3 Tutorials
                 .tutorials
-                    .tutorials__item(v-for="tutorial in $frontmatter.tutorials")
+                    .tutorials__item__small
+                        card
+                            .overline-label intermediate
+                            h4.tutorials__item__small__title Nullam id dolor id nibh ultricies vehicula ut id elit.
+                            .tutorials__item__small__desc Contributors, assemble! <br/> We are always looking for content to help new Cosmosnauts understand and explore the cosmos.
+                            .info-label 10 minute read
+                    .tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}")
+                        .overline-label starport
+                        h2.tutorials__item__large__title Build a chain in minutes
+
 
             .articles__wrapper
                 .articles__wrapper__title
@@ -218,6 +227,53 @@
                             width 10px
                             height 10px
 
+    .tutorials
+        display flex
+
+        @media screen and (max-width: 480px)
+            flex-direction column
+
+        &__item
+            &__small
+                width 25vw
+                flex-grow 0
+
+                &__title
+                    margin-block 20px
+
+                &__desc
+                    margin-bottom 20px
+
+                @media screen and (min-width: 481px) and (max-width: 1024px)
+                    width 50%
+                    margin-right: 16px
+
+                @media screen and (max-width: 480px)
+                    width 100%
+
+            &__large
+                flex-grow 1
+                border-radius 20px
+                background-color var(--background-color-secondary)
+                background-repeat no-repeat
+                background-position right
+                background-size cover
+                padding 48px
+                margin-top 50px
+                margin-left: 32px
+                display flex
+                flex-direction column
+                justify-content end
+
+                @media screen and (min-width: 481px) and (max-width: 1024px)
+                    width 50%
+                    margin-left: 16px
+
+                @media screen and (max-width: 480px)
+                    width 100%
+                    margin-left: 0px
+                    padding 24px
+                    padding-top 192px
 
     .tools
         margin-top 20px
@@ -323,9 +379,6 @@
 
                 &__title
                     margin-block 20px
-
-
-                    
 
     .link
         margin-block auto
