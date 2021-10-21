@@ -79,8 +79,6 @@
                         a Talk to us
                             icon-arrow(fill="var(--background-color-primary)" type="top-right").link__icon
 
-            .newsletter__wrapper
-
         .custom__layout__footer
             tm-footer(full="true")
 </template>
