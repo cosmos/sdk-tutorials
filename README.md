@@ -1,5 +1,13 @@
 <!--
 layout: CustomLayout
+nav:
+  items:
+    - name: Learn
+      url: /
+    - name: Explore
+      url: /
+    - name: Build
+      url: /
 tutorials: 
 articles:
   - title: Bitcoin Is Coming to Cosmos with interBTC
