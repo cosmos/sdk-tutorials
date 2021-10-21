@@ -57,7 +57,7 @@ Ethereum can be seen as a response to the difficulties of developing smart contr
 
 With Ethereum, the application layer of the chain took the form of a virtual machine, the **Ethereum Virtual Machine (EVM)**. The EVM runs smart contracts thereby providing a single chain on which to deploy all sorts of programs (i.e. smart contracts).
 
-Even though the launch of Ethereum with its EVM was a big step forward, some **issues of general-purpose, public blockchains remained**: low flexibility for developers,  speed, throughput, scalability, state finality, and sovereignty.
+Even though the launch of Ethereum with its EVM was a big step forward, some **issues of general-purpose, public blockchains remained**: low flexibility for developers, speed, throughput, scalability, state finality, and sovereignty.
 
 Despite its many benefits, the EVM is a sandbox that delineates the range of implementable use cases. Simplistic and some complex use cases can be implemented with it but are nonetheless **limited in regard to design and efficiency by the limitations of the sandbox**. Additionally, developers are limited to programming languages that are tailor-made for the EVM.
 
