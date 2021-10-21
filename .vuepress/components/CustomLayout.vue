@@ -79,11 +79,25 @@
                         a Talk to us
                             icon-arrow(fill="var(--background-color-primary)" type="top-right").link__icon
 
+            .modules
+                card-module(v-for="module in $frontmatter.modules" :module="module").modules__item
+
+
+
+
         .custom__layout__footer
             tm-footer(full="true")
 </template>
 
 <style lang="stylus" scoped>
+    .modules
+        display flex
+        flex-direction column
+        margin-top 48px
+
+        &__item
+            margin-top 32px
+
     .mode-switch-container
         position absolute
         padding-top 1rem
@@ -121,7 +135,7 @@
 
                     &__icon
                         margin-block auto
-                        margin-left 10px
+                        margin-left 5px
                         width 15px
                         height 15px
 
@@ -195,7 +209,7 @@
 
                     &__icon
                         margin-block auto
-                        margin-left 10px
+                        margin-left 5px
                         width 15px
                         height 15px
 
@@ -387,7 +401,7 @@
         display flex
 
         &__icon
-            margin-left 10px
+            margin-left 5px
             width 10px
             height 10px
     
