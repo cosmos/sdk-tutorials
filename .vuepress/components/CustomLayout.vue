@@ -104,6 +104,8 @@
 
         &__content
             padding-inline 128px
+            max-width 1440px 
+            margin auto
 
             @media screen and (max-width: 480px)
                 padding-inline 24px
@@ -257,23 +259,21 @@
         overflow-x auto
         -ms-overflow-style none
         scrollbar-width none
+        width 100vw
+        margin-left calc(50% - 50vw)
+        padding-inline calc(50vw - 50%)
 
         &::-webkit-scrollbar
             display none
 
-        margin-inline -128px
-        padding-inline 113px
-
-        @media screen and (max-width: 480px)
-            margin-inline -24px
-            padding-inline 9px
-        
-        @media screen and (min-width: 480px) and (max-width: 1024px)
-            margin-inline -48px
-            padding-inline 33px
-
         &__item
             padding-inline 15px
+
+            &:last-child
+                padding-right 0px
+            
+            &:first-child
+                padding-left 0px
 
             &__container
                 background var(--background-color-secondary)

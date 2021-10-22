@@ -25,6 +25,21 @@ articles:
     time: 2
     url: /feature-test
     image: https://i.ytimg.com/vi/GfZjnMchKX0/hq720.jpg
+  - title: Bitcoin Is Coming to Cosmos with interBTC
+    date: Thursday, April 9
+    time: 2
+    url: /feature-test
+    image: https://i.ytimg.com/vi/GfZjnMchKX0/hq720.jpg
+  - title: DeFi Oracle Band Protocol Boosts Interoperability within the Cosmos Ecosystem
+    date: Thursday, April 9
+    time: 2
+    url: /feature-test
+    image: https://i.ytimg.com/vi/GfZjnMchKX0/hq720.jpg
+  - title: Bringing DeFi to Cosmos The Gravity DEX protocol is live
+    date: Thursday, April 9
+    time: 2
+    url: /feature-test
+    image: https://i.ytimg.com/vi/GfZjnMchKX0/hq720.jpg
 tools:
   - title: Cosmos SDK
     description: A framework for building public blockchains.
