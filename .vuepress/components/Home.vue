@@ -1,327 +1,87 @@
 <template lang="pug">
-  div
-    .search__container
-      .search(@click="$emit('search', true)")
-        .search__icon
-          icon-search
-        .search__text Search
-    .h1 {{$frontmatter.title}}
-    .intro
-      .p__alt Learn how to use #[a(href="https://github.com/cosmos/cosmos-sdk" target="_blank" rel="noreferrer noopener") Cosmos SDK], the world’s most popular framework for building application-specific blockchains.
-    .sections__wrapper
-      .sections
-        router-link.sections__item(tag="a" :to="section.url" v-for="section in $frontmatter.sections")
-          .sections__item__wrapper
-            .sections__item__title {{section.title}}
-            .sections__item__desc {{section.desc}}
-          .sections__item__tags
-            .sections__item__tags__item(v-for="tag in section.tags") {{tag}}
-    .h2 Articles
-    .stack
-      a.stack__item(:href="item.link" target="_blank" rel="noreferrer noopener" v-for="item in articlesList")
-        img(:src="item.image" alt="Image").stack__item__image
-        .stack__item__text
-          .stack__item__h1 {{item.title}}
-          .stack__item__p {{ format(parseISO(item.date), 'MMM d, yyyy') }}
-    .h2 Videos
-    .stack
-      a.stack__item(:href="item.url" target="_blank" rel="noreferrer noopener" v-for="item in $frontmatter.stack")
-        img(:src="item.imgSrc" alt="Image").stack__item__image
-        .stack__item__text
-          .stack__item__h1 {{item.title}}
-          .stack__item__p {{item.duration}}
-    tm-help-support
+	div.home
+		.mode-switch-container
+			.mode-switch-container__wrapper
+				tm-mode-switch
+		custom-header
+		.home__content
+			h1 Developer Portal
+			card(imageUrl="/graphics-sdk-course.png" mobileImageUrl="/graphics-sdk-course-mobile.png").home__content__intro
+				.overline-label welcome to
+				h2.home__content__intro__title Cosmos Academy
+				.home__content__intro__desc Cosmos is a network of interoperable blockchains build on BFT consensus. 
+				.home__content__intro__desc The ever-expanding ecosystem provides SDKs, tokens and wallets, applications and services. Discover the Cosmos SDK to develop application-specific blockchains. 
+				.home__content__intro__desc Are you ready to begin your journey through the Cosmos?
+				.home__content__intro__link Start course
+					icon-arrow(type="right").home__content__intro__link__icon
+			.modules
+				card-module(v-for="module in $frontmatter.modules" :module="module").modules__item
+
+		.home__footer
+			tm-footer(full="true")
 </template>
 
-<script>
-import axios from "axios";
-import { format, parseISO } from 'date-fns';
-
-export default {
-  data() {
-    return {
-      format,
-      parseISO,
-      articlesList: []
-    };
-  },
-  async mounted() {
-    this.articlesList = (await axios.get(
-      "https://backend.tendermint.com/cosmos/tag/tutorial"
-    )).data.map(item => ({
-        date: new Date(item.date).toISOString().substr(0, 10),
-        title: item.title,
-        link: item.link,
-        image: item.image.replace('/max/1024/', '/max/768/')
-      }))
-      .slice(0, 6);
-  }
-};
-</script>
 
 <style lang="stylus" scoped>
-a
-  color var(--color-link)
-  text-decoration none
-  cursor pointer
+	.modules
+		display flex
+		flex-direction column
+		margin-top 48px
 
-.search {
-  display: flex;
-  align-items: center;
-  color: var(--color-text);
-  padding-top: 1rem;
-  width: calc(var(--aside-width) - 6rem);
-  cursor: pointer;
-  transition: color 0.15s ease-out;
+		&__item
+			margin-top 32px
 
-  &:hover {
-    color: var(--color-text, black);
-  }
+	.mode-switch-container
+		position absolute
+		padding-top 1rem
+		top 3rem
+		left 50%
+		margin-inline auto
 
-  &__container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
+		&__wrapper
+			position relative
+			left -50%
 
-  &__icon {
-    width: 1.5rem;
-    height: 1.5rem;
-    fill: #aaa;
-    margin-right: 0.5rem;
-    transition: fill 0.15s ease-out;
-  }
+	.home
+		&__footer
+				padding-inline 128px
 
-  &:hover &__icon {
-    fill: var(--color-text, black);
-  }
-}
+				@media screen and (max-width: 480px)
+					padding-inline 24px
+				
+				@media screen and (min-width: 480px) and (max-width: 1024px)
+					padding-inline 48px
 
-.intro {
-  width: 100%;
-  max-width: 800px;
-}
+				@media screen and (min-width: 1025px)
+					padding-inline 124px
 
-.h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  line-height: 3.25rem;
-  letter-spacing: -0.02em;
-  padding-top: 2.5rem;
-}
+		&__content
+			padding-inline 128px
+			margin-top 32px
 
-.h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-top: 4.5rem;
-  margin-bottom: 1rem;
-  line-height: 2.25rem;
-  letter-spacing: -0.01em;
-  padding: 1.5rem 0;
-}
+			@media screen and (max-width: 480px)
+				padding-inline 24px
+		
+			@media screen and (min-width: 480px) and (max-width: 1024px)
+				padding-inline 48px
 
-.p {
-  font-size: 1.5rem;
-  line-height: 2.25rem;
+			&__intro
 
-  &__alt {
-    margin-top: 0.75rem;
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
-    line-height: 2.25rem;
-  }
-}
+				&__title
+					margin-block 10px
 
-.sections {
-  display: grid;
-  margin-top: 3rem;
-  margin-bottom: 5rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+				&__desc
+					margin-top 20px
 
-  &__item {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    color: initial;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    background: linear-gradient(318.04deg, #FFFFFF 52.42%, #EBEDFF 81.42%);
-    box-shadow: 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05);
-    transition: box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out;
+				&__link
+					display flex
+					font-weight 500
+					color var(--color-text-strong)
+					margin-top 20px
 
-    &:hover:not(:active) {
-      box-shadow: 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05);
-      transform: translateY(-2px);
-      transition-duration: 0.1s;
-    }
-
-    &:active {
-      transition-duration: 0s;
-      opacity: 0.7;
-    }
-
-    &__tags {
-      flex-direction: row;
-      margin-top: 1rem;
-
-      &__item {
-        display: inline-block;
-        margin-right: 0.5rem;
-        color: var(--color-text);
-        border: 1px solid rgba(0,0,0,0.07);
-        font-size: 0.875rem;
-        line-height: 1.25rem;
-        letter-spacing: 0.03em;
-        text-transform: capitalize;
-        background: var(--tag-background-color);
-        border-radius: 0.25rem;
-        padding: 0.25rem 0.5rem 0.125rem;
-        width: fit-content;
-      }
-    }
-
-    &__title {
-      font-weight: 600;
-      font-size: 1.125rem;
-      line-height: 1.6875rem;
-      color: var(--color-text-strong);
-    }
-
-    &__desc {
-      margin-top: 0.5rem;
-      font-size: 0.875rem;
-      line-height: 1.25rem;
-      letter-spacing: 0.03em;
-      color: var(--color-text);
-    }
-  }
-}
-
-.stack {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(3, minmax(300px, 1fr));
-  margin-bottom: 4rem;
-
-  &__item {
-    color: var(--color-text, inherit);
-
-    &:active {
-      opacity: 0.7;
-      transition-duration: 0s;
-    }
-
-    &__image {
-      width: 100%;
-      object-fit: cover;
-    }
-
-    &__h1 {
-      font-size: 1rem;
-      line-height: 1.5rem;
-      font-weight: 600;
-      margin-top: 0.5rem;
-      margin-bottom: 0.25rem;
-    }
-
-    &__p {
-      font-size: 0.875rem;
-      color: var(--color-text, inherit);
-      line-height: 1.25rem;
-    }
-
-    &__text {
-      text-align: left;
-    }
-  }
-}
-
-@media screen and (max-width: 1331px) {
-  .stack {
-    grid-template-columns: repeat(2, minmax(300px, 1fr));
-  }
-}
-
-@media screen and (max-width: 1136px) {
-  .p {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-
-    &__alt {
-      margin-top: 0.75rem;
-      margin-bottom: 2rem;
-      font-size: 1.5rem;
-      line-height: 2.25rem;
-    }
-  }
-}
-
-@media screen and (max-width: 1007px) {
-  .stack {
-    grid-template-columns: repeat(1, minmax(300px, 1fr));
-  }
-}
-
-@media screen and (max-width: 832px) {
-  .h1 {
-    padding-top: 3.5rem;
-  }
-
-  .search__container {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 752px) {
-  .search {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .h1 {
-    font-size: 2rem;
-    line-height: 2.25rem;
-    margin-bottom: 1rem;
-  }
-
-  .h2 {
-    font-size: 1.5rem;
-    line-height: 2rem;
-    margin-top: 3rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .p__alt {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-  .sections {
-    margin-bottom: 0;
-    margin-top: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    margin-left: -1rem;
-    margin-right: -1rem;
-
-    &__item {
-      margin-bottom: 0;
-
-      &:last-child .sections__item__wrapper {
-        border-bottom: none;
-      }
-    }
-
-    &__wrapper {
-      position: relative;
-      padding: 0.1px 1rem 1rem;
-      background: white;
-      border-radius: 0.5rem;
-    }
-  }
-}
+					&__icon
+						margin-block auto
+						margin-left 5px
+						width 15px
+						height 15px
 </style>
