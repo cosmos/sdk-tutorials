@@ -1,0 +1,3 @@
+[submodule ".vuepress/theme"]
+	path = .vuepress/theme
+	url = git@git.b9lab.com:client-projects/cosmos/cosmos-platform-theme-fork.git
