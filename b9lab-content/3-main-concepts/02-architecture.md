@@ -42,7 +42,7 @@ In a Tendermint blockchain, transactions are irreversibly finalized upon block c
 
 ## Tendermint BFT
 
-[Tendermint BFT](https://tendermint.com/core/) packages the **networking and consensus** layers of a blockchain and presents a socket protocol, the Application Blockchain Interface (**ABCI**) to the application layer. Developers focus on higher-order concerns while delegating peer-discovery, validator selection, staking, upgrades, and consensus to the Tendermint BFT. The consensus engine running in one process controls the state machine, the application, running in another process.
+[Tendermint BFT](https://tendermint.com/core/) packages the **networking and consensus** layers of a blockchain and presents an interface, the Application Blockchain Interface (**ABCI**) to the application layer. Developers focus on higher-order concerns while delegating peer-discovery, validator selection, staking, upgrades, and consensus to the Tendermint BFT. The consensus engine running in one process controls the state machine, the application, running in another process. ABCI presents a socket for use by applications written in other languages. When the application is written in the same language as the Tendermint implementation, the socket is not used. 
 
 The architecture is equally appropriate for **private or public** blockchains.
 
