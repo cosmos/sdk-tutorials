@@ -24,7 +24,7 @@ Do you want an up-to-date list of applications and services built on Cosmos? Hea
 
 </HighlightBox>
 
-As you might expect, not all applications are at the same stage of development. Namely, deployment on the mainnet has been conducted for most applications and projects. The rest is currently either in proof of concept, development, or was deployed to a testnet only.
+As you might expect, not all applications are at the same stage of development. While most applications and projects are deployed on the mainnet, some are currently either in proof of concept, development, or have been deployed to a testnet only.
 
 Moreover, [**33 wallets**](https://cosmos.network/ecosystem/wallets) and block explorers for Cosmos are part of the ecosystem. Most are for Android, such as the [Atomic Walllet](https://atomicwallet.io/) and [Coinex](https://www.coinex.com/), or iOS, like [AirGap](https://airgap.it/) and [Wallet.io](https://walletio.io/), but you can also find a number of web wallets, like [Exodus](https://www.exodus.com) and [Keplr](https://wallet.keplr.app/).
 
