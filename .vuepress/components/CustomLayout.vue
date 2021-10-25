@@ -6,7 +6,7 @@
         custom-header
         .custom__layout__content
             h1 Developer Portal
-            card(imageUrl="/graphics-sdk-course.png" mobileImageUrl="/graphics-sdk-course-mobile.png")
+            card(imageUrl="/graphics-sdk-course.png")
                 .overline-label beginner
                 h2.custom__layout__content__intro__title Cosmos Academy
                 .info-label ~126 Hours
@@ -56,7 +56,7 @@
                                         icon-arrow.link__icon
 
             .support__wrapper
-                card(imageUrl="/support-image.png" mobileImageUrl="/support-image-mobile.png")
+                card(imageUrl="/support-image.png")
                     .overline-label custom support
                     h2.custom__layout__content__support__title Looking for help bringing your project to life?
                     .custom__layout__content__support__desc Apply for support and get help with funding applications, grants, technology, architechture,  and introductions to ecosystem insiders.
@@ -92,15 +92,14 @@
 
         &__footer
             padding-inline 128px
+            max-width 1440px 
+            margin auto
 
             @media screen and (max-width: 480px)
                 padding-inline 24px
             
             @media screen and (min-width: 480px) and (max-width: 1024px)
                 padding-inline 48px
-
-            @media screen and (min-width: 1025px)
-                padding-inline 124px
 
         &__content
             padding-inline 128px

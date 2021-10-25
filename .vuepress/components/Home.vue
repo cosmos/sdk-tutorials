@@ -5,15 +5,17 @@
 				tm-mode-switch
 		custom-header
 		.home__content
-			h1 Developer Portal
-			card(imageUrl="/graphics-sdk-course.png" mobileImageUrl="/graphics-sdk-course-mobile.png").home__content__intro
-				.overline-label welcome to
-				h2.home__content__intro__title Cosmos Academy
-				.home__content__intro__desc Cosmos is a network of interoperable blockchains build on BFT consensus. 
-				.home__content__intro__desc The ever-expanding ecosystem provides SDKs, tokens and wallets, applications and services. Discover the Cosmos SDK to develop application-specific blockchains. 
-				.home__content__intro__desc Are you ready to begin your journey through the Cosmos?
-				.home__content__intro__link Start course
-					icon-arrow(type="right").home__content__intro__link__icon
+			.home__content__intro
+				.home__content__intro__content
+					.overline-label welcome to
+					h2.home__content__intro__content__title Cosmos Academy
+					.home__content__intro__content__desc Cosmos is a network of interoperable blockchains build on BFT consensus. 
+					.home__content__intro__content__desc The ever-expanding ecosystem provides SDKs, tokens and wallets, applications and services. Discover the Cosmos SDK to develop application-specific blockchains. 
+					.home__content__intro__content__desc Are you ready to begin your journey through the Cosmos?
+					a.home__content__intro__content__link Start course
+						icon-arrow(fill="var(--background-color-primary)" type="right").home__content__intro__content__link__icon
+				.home__content__intro__image
+					img(src="/graphics-sdk-course.png")
 			.modules
 				card-module(v-for="module in $frontmatter.modules" :module="module").modules__item
 
@@ -44,44 +46,71 @@
 
 	.home
 		&__footer
-				padding-inline 128px
-
-				@media screen and (max-width: 480px)
-					padding-inline 24px
-				
-				@media screen and (min-width: 480px) and (max-width: 1024px)
-					padding-inline 48px
-
-				@media screen and (min-width: 1025px)
-					padding-inline 124px
+			padding-inline 128px
 
 		&__content
 			padding-inline 128px
 			margin-top 32px
 
-			@media screen and (max-width: 480px)
+			&__intro
+				display flex
+				align-items center
+
+				&__image
+					margin-left 16px
+					margin-right calc(50% - 50vw)
+
+					img
+						width 100%
+
+				&__content
+					&__title
+						margin-block 10px
+
+					&__desc
+						margin-top 20px
+
+					&__link
+						display flex
+						font-weight 500
+						color var(--background-color-primary)
+						margin-top 32px
+						background var(--color-text)
+						border-radius 10px
+						padding-block 20px
+						padding-inline 60px
+						width fit-content
+
+						&__icon
+							margin-left 5px
+							width 10px
+							height 10px
+	
+	@media screen and (max-width: 480px)
+		.home
+			&__footer
 				padding-inline 24px
+
+			&__content
+				padding-inline 24px
+
+				&__intro
+					flex-direction column-reverse
+
+					&__content
+						&__link
+							justify-content center
+							width 100%
+
+					&__image
+						margin-inline calc(50% - 50vw)
+						margin-bottom 32px
 		
-			@media screen and (min-width: 480px) and (max-width: 1024px)
+	@media screen and (min-width: 480px) and (max-width: 1024px)
+		.home
+			&__footer
 				padding-inline 48px
 
-			&__intro
-
-				&__title
-					margin-block 10px
-
-				&__desc
-					margin-top 20px
-
-				&__link
-					display flex
-					font-weight 500
-					color var(--color-text-strong)
-					margin-top 20px
-
-					&__icon
-						margin-block auto
-						margin-left 5px
-						width 15px
-						height 15px
+			&__content
+				padding-inline 48px
 </style>
