@@ -54,7 +54,7 @@ Blockchains generally maintain ledgers of user accounts and rely on public key c
 
 Although it is technically feasible to generate and store multiple key pairs in a wallet, key management is less than ideal for users in that scenario. Given that all keys would exist in one place only, users would need to devise ways to recover those keys in adverse situations such as the loss or destruction of the computer. To put it simply, the more accounts, the more keys to back up.
 
-A Hyper-deterministic Wallet uses a single seed phrase to generate many key pairs. In this way, only the seed phrase needs to be backed up.
+A Hierarchical-Deterministic (HD) Wallet uses a single seed phrase to generate many key pairs. In this way, only the seed phrase needs to be backed up.
 
 Cosmos SDK uses [BIP32](https://en.bitcoin.it/wiki/BIP_0032) which allows users to generate a set of accounts from an initial secret that usually consists of 12 or 24 words known as the mnemonic. Importantly, key pairs can always be reproduced from the mnemonic.
 
