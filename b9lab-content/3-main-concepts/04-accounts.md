@@ -29,7 +29,7 @@ Public key cryptography assures confidentiality, authenticity and non-repudiabil
 
 Due to its computational complexity, asymmetric cryptography is normally applied to small data blocks. In a hybrid system, symmetric and asymmetric cryptography are combined. For example, asymmetric encryption could be employed to transfer a symmetric encryption, which would then be used as an encryption key for the message. Examples of this hybrid system include [PGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy).
 
-The length of keys is vital. Asymmetric cryptographic keys are usually very long. One can keep in mind a general principle: the longer the key, the more difficult it is to break the code. To break an asymmetric key with a brute force attack, the attacker needs to try every possible key. The longer the key is, the more difficult it is to guess.
+The length of keys is vital. Asymmetric cryptographic keys are usually very long. One can keep in mind a general principle: the longer the key, the more difficult it is to break the code. To break an asymmetric key with a brute force attack, the attacker would need to try every possible key.
 
 ## Public/Private Keys
 
