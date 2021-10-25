@@ -8,7 +8,7 @@ description: Accounts, addresses and keys in Cosmos.
 
 ## What is an Account?
 
-An account is a pair of keys called PubKey (a public key), and PrivKey (a private key). A public is a unique identifier for a user or entity that is safe to disclose.  
+An account is a pair of keys called PubKey (a public key), and PrivKey (a private key). A public key is a unique identifier for a user or entity that is safe to disclose.  
 
 Private keys are sensitive information that users are required to manage confidentially. Private keys are used to sign information in a way that **proves** to others that the message was signed by someone using the private key that corresponds to a given public key. This is done without revealing the private key itself.
 
