@@ -73,7 +73,7 @@ In the Cosmos SDK, keys are stored and managed in an object called a Keyring.
 Authentication is implemented as signature verification.
 
 * Users generate transactions, sign transactions and send the signed transaction to the blockchain.
-* Transactions are formatted with the public key as part of the message. Signatures are verified by confirming that the signature’s public key matches the public key in the message. If the message is signed by anyone other than the purported sender, then the signature is invalid and the transaction is rejected.
+* Transactions are formatted with the public key as part of the message. Signatures are verified by confirming that the signature’s public key matches the public key associated with the sender. If the message is signed by anyone other than the purported sender, then the signature is invalid and the transaction is rejected.
 
 In case the foregoing is unclear, consider the following pseudo message:
 
