@@ -124,6 +124,8 @@ Cosmos' founding **vision** is that of an easy development environment for block
 
 To achieve this vision and type of network, the ecosystem relies on an **open source toolkit**, including the [Inter-Blockchain Communication (IBC)](https://ibcprotocol.org/) protocol, its implementation in the [Cosmos SDK](https://v1.cosmos.network/sdk), and [Tendermint](https://tendermint.com/) as the base layer with state finality. The toolkit, a set of modular, adaptable, and interchangeable tools, helps not only to quickly spin up a blockchain, but also facilitates the customization of secure and scalable chains.
 
+As brief introduction to this terminolody, Cosmos is a network of interoperable application blockchainss. Cosmos application blockchains are built with the Cosmos SDK which enables developers to quickly create a unique blockchain for their specific use-case. The Cosmos SDK includes the prerequisites that enable created blockchains to participate in inter-chain communications, throughout the Cosmos, using the Inter-Blockchain protocol (IBC), Cosmos application blockchains built with the Cosmos SDK use Tendermint consensus. Each of these topics is unfolded in more detail in the sections that follow. 
+
 Let's now look at the problems Cosmos solves.
 
 ### How Does Cosmos Solve the Scalability Issue?
