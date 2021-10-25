@@ -56,7 +56,6 @@ Click _Create new account_. The page that opens offers you a mnemonic, a secret 
     2. You should save it too.
     3. Keplr will ask you for it every first time you open it and for important actions.
 4. If your computer or the encrypted mnemonic seed file is stolen, your wallet assets are as protected as your password is strong.
-5. If you are starting now with weak security because you plan on keeping only very little value in your wallet, consider creating a new mnemonic and password in the future when you plan on holding more value. In effect, act as if your _weaker_ wallet had been compromised, and as if a thief is ambushed waiting for you to put more in it.
 
 ![Keplr mnemonic page](./images/keplr-mnemonic-step.png)
 
