@@ -79,10 +79,11 @@ In case the foregoing is unclear, consider the following pseudo message:
 
 ```
 Message: {
-      Payload: {
-  Sender: “0x1234”,
-  Data: “Hello World”}
-      Signature: “0xabcd”
+  Payload: {
+    Sender: “0x1234”,
+    Data: “Hello World”
+  },
+  Signature: “0xabcd”
 }
 ```
 Passing `Payload` into the signature verification function will return a sender. The derived sender must match the sender in the `Payload` itself. This will confirm that the `Payload` could only originate from someone with knowledge of the private key corresponding to `Sender: “0x1234”`
