@@ -6,7 +6,7 @@ description: Transactions in Cosmos.
 
 # Transactions
 
-Transactions are objects created by end-users to trigger state changes in the application. They are comprised of metadata that defines a context and `sdkMsgs` that trigger state changes within a module through the module’s Protobuf message service.
+Transactions are objects created by end-users to trigger state changes in the application. They are comprised of metadata that defines a context and `sdk.Msgs` that trigger state changes within a module through the module’s Protobuf message service.
 
 ## Transaction Process, End-user
 
