@@ -58,7 +58,12 @@ The TxBuilder interface contains metadata closely related to the generation of t
 * `TimeoutHeight`:, block height until which the transaction is valid.
 * `Signatures`: the array of signatures from all signers of the transaction.
 
-As there are currently two modes for signing transactions, there are also two implementations of TxBuilder. There is a wrapper for `SIGN_MODE_DIRECT` and the `StdTxBuilder` for `SIGN_MODE_LEGACY_AMINO_JSON`. However, the two possibilities should normally be hidden away because end-users should prefer the overarching `TxConfig` interface. `TxConfig` is an app-wide configuration for managing transactions. Most importantly, it holds the information about whether to sign each transaction with SIGN_MODE_DIRECT or SIGN_MODE_LEGACY_AMINO_JSON.
+As there are currently two modes for signing transactions, there are also two implementations of TxBuilder. 
+
+* Wrapper for `SIGN_MODE_DIRECT`, which can sign transactions with both SIGN_MODE_DIRECT and SIGN_MODE_LEGACY_AMINO_JSON (recommended)
+* StdTxBuilder, which can only sign with SIGN_MODE_LEGACY_AMINO_JSON
+
+`TxConfig` is an app-wide configuration for managing transactions. Most importantly, it holds the information about whether to sign each transaction with SIGN_MODE_DIRECT or SIGN_MODE_LEGACY_AMINO_JSON. SIGN_MODE_DIRECT is recommended. 
 
 By calling `txBuilder := txConfig.NewTxBuilder()`, a new TxBuilder will be created with the appropriate sign mode.Once TxBuilder is correctly populated with the setters described above, `TxConfig` will also take care of correctly encoding the bytes (again, either using `SIGN_MODE_DIRECT` or `SIGN_MODE_LEGACY_AMINO_JSON`).
 
