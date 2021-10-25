@@ -149,6 +149,8 @@ As you can imagine, beyond the rules of the game, there is a lot we need to take
 
 Here is how we would do it. We _would_ do it, because we are here to learn the Cosmos SDK primarily, not to become proficient at implementing ABCI.
 
+<-- TODO: Perhaps we can kick this off with a flow-diagram to give an overview to a relatively heavy section? -->
+
 We want to show the minimum viable ABCI state machine. Tendermint does not concern itself with whether proposed transactions are valid, and about how the state changes after such a transaction. It delegates those to the state machine, which will _transform_ transactions into game moves and states.
 
 #### Start the application
