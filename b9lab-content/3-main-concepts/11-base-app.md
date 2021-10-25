@@ -1,6 +1,6 @@
 # Base App
 
-BaseApp is a boilerplate implementation of a Cosmos SDK application. This abstraction implements functionalities that every Cosmos application needs starting with an implementation of the Tendermind Application Blockchain Interface (ABCI). 
+BaseApp is a boilerplate implementation of a Cosmos SDK application. This abstraction implements functionalities that every Cosmos application needs starting with an implementation of the Tendermint Application Blockchain Interface (ABCI). 
 
 Tendermint consensus is application agnostic. It establishes the canonical transaction list and sends confirmed transactions to Cosmos SDK applications for interpretation, and the reverse - receives transactions from Cosmos SDK applications and submits them to the validators for confirmation. 
 
