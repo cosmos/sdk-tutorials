@@ -151,11 +151,13 @@ A **validator** is one or more cooperating computers that participate in the con
 
 Applications deployed on general-purpose blockchains all share the same underlying environment. When a change in the application needs to be made, it not only depends on the governance structures of the application but also on that of the environment, i.e. the governance mechanisms set by the protocol on which the application builds. Thus, the chain's governance limits the application's sovereignty. For this reason, it is often called a **two-layer governance**.
 
-Cosmos resolves this issue as one can build a blockchain tailored to the application. There are no limits to the application's governance if every chain is maintained by its own set of validators. Cosmos follows a design of a **one-layer governance**.
+For example, an application on a typical blockchain can have its own governance structure but it exists atop blockchain governance, and in most cases, the blockchain itself can upgrade in ways that break applications. In this way, the application's sovereignty is diminished in a two-layer governance scenario. 
+
+Cosmos resolves this issue as one can build a blockchain tailored to the application. There are no limits to the application's governance when every chain is maintained by its own set of validators. Cosmos follows a design of a **one-layer governance**.
 
 ### How Does Cosmos Improve User Experience?
 
-In the world of traditional general-purpose blockchains, application design and efficiency are limited for blockchain developers. They have to find the simplistic use case the blockchain is designed for.
+In the world of traditional general-purpose blockchains, application design and efficiency are limited for blockchain developers. 
 
 In the Cosmos universe, the standardization of architecture components, while still providing customization opportunities, frees up the possibility of unconstrained, seamless, and intuitive user experiences.
 
