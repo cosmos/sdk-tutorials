@@ -37,7 +37,7 @@ Components https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/overview.md
 
 IBC clients are light clients that are identified by a unique client ID. IBC clients track the consensus states of other blockchains and the proof specs of those blockchains that are required to properly verify proofs against the client's consensus state.
 
-A client can be associated with any number of connections to multiple chains
+A client can be associated with any number of connections to the counterparty chain
 
 Supported IBC clients::
 
