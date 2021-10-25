@@ -8,7 +8,7 @@ description: Architecture of a blockchain application built with Cosmos.
 
 ## What is Tendermint
 
-Created in 2014, Tendermint accelerates the development of distinct blockchains by attending to general concerns so that those concerns don’t need to be recreated by developers in each case. You may already be using Tendermint without awareness of this since blockchains including [Hyperledger Burrow](https://hyperledger.github.io/burrow/#/) and [Binance Chain](https://www.binance.org/en/smartChain)  use Tendermint.
+Created in 2014, Tendermint accelerates the development of distinct blockchains by providing a ready-made networking and consensus solution so that these don’t have to be recreated by developers in each case. You may already be using Tendermint without awareness of this since blockchains including [Hyperledger Burrow](https://hyperledger.github.io/burrow/#/) and [Binance Chain](https://www.binance.org/en/smartChain)  use Tendermint.
 
 More specifically, Tendermint modules attend to consensus and networking, two important components of any blockchain. This frees developers to consider what the blockchain should do at an application level without descending into lower-level blockchain concerns such as peer discovery, block propagation, consensus and transaction finalization. Without Tendermint, developers would be forced to build software to address those concerns which would add additional time, complexity and cost to the blockchain applications they have in mind.
 
