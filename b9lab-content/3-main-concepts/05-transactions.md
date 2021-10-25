@@ -13,7 +13,7 @@ Transactions are objects created by end-users to trigger state changes in the ap
 While there is much to explore as we journey through the stack, let us first describe the transaction process from a user perspective.
 
 * **Decide** on the messages to put into the transaction. This is normally done with the assistance of a wallet or application and a user interface.
-* **Generate** the transaction using the SDK's `TxBuilder`. `TxBuilder` is the preferred way to generate a transaction.
+* **Generate** the transaction using the SDK's `TxBuilder`. `TxBuilder` is the preferred way for an application to generate a transaction.
 * **Sign** the transaction. Transactions must be signed before the validators will include them in a block.
 * **Broadcast** the signed transaction using one of the available interfaces.
 
