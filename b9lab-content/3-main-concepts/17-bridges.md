@@ -10,7 +10,7 @@ The Gravity Bridge consists of several components.
 
 * **Gravity.sol**: An Ethereum contract on the Ethereum blockchain.
 * **Cosmos Gravity module**: A Cosmos module designed to run on the Cosmos Hub.
-* **Orachestator**: A program which is run on Cosmos Validators, monitoring the Ethereum chain and submitting events that occur on Ethereum to Cosmos as messages.
+* **Orchestator**: A program which is run on Cosmos Validators, monitoring the Ethereum chain and submitting events that occur on Ethereum to Cosmos as messages.
 * **Relayers**: A network of nodes that compete for the opportunity to earn fees for sending transactions on behalf of the Cosmos Validators.
 
 In summary, tokens are locked on the Ethereum side by sending them to the `Gravity.sol` contract. This emits an event that is observable to Validators running the Orchastrator. When a quorum of Validators agrees that tokens have been locked on Ethereum, including the requisite confirmation blocks, a Relayer is selected to send an intruction to Cosmos Gravity module which issues new tokens. This is non-dilutive meaning it doesn't increase the circulating support because an equal number of tokens is locked on the Ethereum side. 
