@@ -16,6 +16,13 @@
 						icon-arrow(fill="var(--background-color-primary)" type="right").home__content__intro__content__link__icon
 				.home__content__intro__image
 					img(src="/graphics-sdk-course.png")
+			.home__content__get-started
+				.home__content__get-started__image
+					img(width="100%" src="/graphics-sdk-course-1.png")
+				.home__content__get-started__content
+					.overline-label get started
+					h2.home__content__get-started__content__title Ready to start?
+					.home__content__get-started__content__desc Get started right away, begin with the introductory chapter.
 			.modules
 				card-module(v-for="module in $frontmatter.modules" :module="module").modules__item
 
@@ -28,7 +35,6 @@
 	.modules
 		display flex
 		flex-direction column
-		margin-top 48px
 
 		&__item
 			margin-top 32px
@@ -52,6 +58,24 @@
 			padding-inline 128px
 			margin-top 32px
 
+			&__get-started
+				display flex
+				align-items center
+
+				&__image
+					width 50%
+					margin-right 48px
+					margin-bottom -100px
+				
+				&__content
+					width 50%
+
+					&__title
+							margin-block 10px
+
+					&__desc
+						margin-top 32px
+
 			&__intro
 				display flex
 				align-items center
@@ -59,16 +83,20 @@
 				&__image
 					margin-left 16px
 					margin-right calc(50% - 50vw)
+					width 50%
 
 					img
 						width 100%
 
 				&__content
+					width 50%
+
 					&__title
 						margin-block 10px
 
 					&__desc
 						margin-top 20px
+						font-size 21px
 
 					&__link
 						display flex
@@ -98,13 +126,26 @@
 					flex-direction column-reverse
 
 					&__content
+						width 100%
 						&__link
 							justify-content center
 							width 100%
 
 					&__image
+						width 100%
 						margin-inline calc(50% - 50vw)
 						margin-bottom 32px
+
+				&__get-started
+					flex-direction column
+
+					&__image
+						width 100vw
+						margin-inline calc(50% - 50vw)
+						margin-bottom -100px
+					
+					&__content
+						width 100%
 		
 	@media screen and (min-width: 480px) and (max-width: 1024px)
 		.home
