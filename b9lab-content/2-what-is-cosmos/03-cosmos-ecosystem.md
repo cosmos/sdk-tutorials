@@ -130,7 +130,7 @@ With Starport developers can:
 
 <HighlightBox type="tip">
 
-Already want to dive deep into Starport? Take a closer look into its [official documentation](https://docs.starport.network/).
+Already want to dive deep into Starport? Take a closer look into the official [Starport documentation](https://docs.starport.com/).
 
 </HighlightBox>
 
