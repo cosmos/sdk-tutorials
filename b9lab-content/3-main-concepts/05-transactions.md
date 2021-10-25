@@ -34,7 +34,7 @@ Every message in a transaction must be signed by the addresses specified by its 
 
 * `SIGN_MODE_DIRECT` (preferred): The most used implementation of the Tx interface is the Protobuf Tx message, which is used in SIGN_MODE_DIRECT, Once signed by all signers, the `body_bytes`, `auth_info_bytes` and signatures are gathered into `TxRaw`, whose serialized bytes are broadcasted over the network.
 
-* `SIGN_MODE_LEGACY_AMINO_JSON`: The legacy implementation of the Tx interface is the StdTx struct from x/auth. The document signed by all signers is `StdSignDoc` which is encoded into bytes using Amino JSON. Once all signatures are gathered into StdTx, StdTx is serialized using Amino JSON, and these bytes are broadcasted over the network.
+* `SIGN_MODE_LEGACY_AMINO_JSON`: The legacy implementation of the Tx interface is the StdTx struct from x/auth. The document signed by all signers is `StdSignDoc` which is encoded into bytes using Amino JSON. Once all signatures are gathered into StdTx, StdTx is serialized using Amino JSON, and these bytes are broadcasted over the network. This method is being deprecated. 
 
 ## Messages
 
