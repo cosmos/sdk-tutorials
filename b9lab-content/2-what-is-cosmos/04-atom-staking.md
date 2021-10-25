@@ -48,7 +48,7 @@ Click _Create new account_. The page that opens offers you a mnemonic, a secret 
 
 1. Whoever knows the **mnemonic seed**, the list of words, has access to **all** the assets in this wallet as easily as you with your own wallet. This means that:
     1. Nobody else should be looking at your screen right now. If that is not the case, click _Back_.
-    2. You should share it only with trusted partners, if at all. An exchange, a proof-of-stake validator, another blockchain service, or "someone from Cosmos" on the phone are _not_ trusted partners.
+    2. You should share it only with trusted partners, if at all. DO NOT share it with an exchange, a proof-of-stake validator, another blockchain service, or "someone from Cosmos" on the phone  - these are _not_ trusted partners.
     3. You should save it in safe places, typically on paper, so that you can import it back in this or another wallet at a later date.
 2. Keplr will save your seed on disk but encrypted.
 3. Keplr is asking you for the **encryption password**, which will be used to encrypt your mnemonic on your computer.
