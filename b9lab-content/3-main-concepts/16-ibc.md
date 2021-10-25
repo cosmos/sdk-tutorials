@@ -126,7 +126,7 @@ When the acknowledgement is received successfully on the original sender chain, 
 
 ## Types of chain
 
-IBC can use Tendermint chains to bridge with IBC but also non-Tendermint chains. Two types of non-Tendermint chains are supported:
+Chains using the Tendermint consensus algorithm can bridge using IBC, but also non-Tendermint chains can use IBC. Two types of non-Tendermint chains are supported:
 
 * **Fast-Finality chains**: Any fast-finality consensus algorithms can connect with Cosmos by adapting IBC
 * **Probabilistic**: Things get a bit more complicated for blockchains that do not have fast finality, like Proof-of-Work chains. In this case, IBC uses a special kind of proxy-chain called a Peg-Zone. 
