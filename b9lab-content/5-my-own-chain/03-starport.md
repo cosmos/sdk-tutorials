@@ -50,7 +50,9 @@ Flags:
 Use "starport [command] --help" for more information about a command.
 ```
 
-There is a very good [introduction tutorial](https://docs.starport.network/guide/hello.html) provided by the [Starport documentation](https://docs.starport.network/) which you should first check and try to see the Hello-World response at [http://localhost:1317/cosmonaut/hello/hello/posts](http://localhost:1317/cosmonaut/hello/hello/posts). 
+An introductory tutorial is a great place to start your journey into the Cosmos ecosystem. Head on over to the [Hello, World](https://docs.starport.network/guide/hello.html) tutorial in the [Starport Developer Guide](https://docs.starport.com/). 
+
+You can see the Hello-World response at [http://localhost:1317/cosmonaut/hello/hello/posts](http://localhost:1317/cosmonaut/hello/hello/posts). 
 
 ## Your chain
 
