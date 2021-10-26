@@ -181,7 +181,7 @@ func CmdCreatePost() *cobra.Command {
     ...
 ```
 
-Starport uses the Vue.js frontend, so you will find a function in the `starport/chain/vue/src/store/generated/alice/chain/alice.chain.chain/index.js`:
+Starport uses the Vue.js frontend, so you can find a function in the `starport/chain/vue/src/store/generated/alice/chain/alice.chain.chain/index.js` file:
 
 ```javascript
         async MsgCreatePost({ rootGetters }, { value }) {
