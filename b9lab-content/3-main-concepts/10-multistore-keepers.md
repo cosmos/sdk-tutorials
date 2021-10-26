@@ -14,7 +14,7 @@ When a module needs to interact with the state defined in another module, it doe
 
 Keepers are generally defined in a `/keeper/keeper.go` file locating in the module’s folder.
 
-By convention, the type keeper of a module is named simply `Keeper.go` and usually follows the following structure:
+By convention, the type keeper of a module is named simply `keeper.go` and usually follows the following structure:
 
 ```
 type Keeper struct {
