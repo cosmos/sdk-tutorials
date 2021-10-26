@@ -144,7 +144,7 @@ $ ./simd start
 
 ```
 
-You will see blocks producing and validating. Open a new terminal and check the balances:
+In the terminal window where you ran the command, you see blocks producing and validating. Open a new terminal to check the balances:
 
 ```bash
 $ ./simd query bank balances $(./simd keys show b9lab -a)
