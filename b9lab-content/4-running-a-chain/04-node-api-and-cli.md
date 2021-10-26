@@ -84,7 +84,7 @@ You can see the mnemonic at the end of the output:
 ivory uniform actual spot floor vessel monster rose yellow noise smile odor veteran human reason miss stadium phrase assault puzzle sentence approve coral apology
 ```
 
-Tis sequence of words is a mnemonic you can use to recover your public and private keys. In a production setting, the mnenonic should be stored in a reliable and confidential fashion such as a key-management infrastructure. 
+This sequence of words is a mnemonic that you can use to recover your public and private keys. In a production setting, the mnemonic must be stored in a reliable and confidential fashion such as a key-management infrastructure. 
 
 Confirm that the key is has been added:
 
