@@ -184,7 +184,7 @@ pagination:
   total: "0"
 ```
 
-This account does not have a balance. In fact, it is not in the blockchain yet. We need to send a transaction to change this new accounts balance:
+This account does not have a balance. In fact, the new account is not yet in the blockchain. You need to send a transaction to change this new account's balance:
 
 ```bash
 $./simd tx bank send $(./simd keys show b9lab -a) $(./simd keys show student -a) 10stake --chain-id test-chain-rT4wZY
