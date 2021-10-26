@@ -22,7 +22,7 @@ $ rustup target list --installed
 $ rustup target add wasm32-unknown-unknown
 ```
 
-Create a folder and clonde the [wasmd](https://github.com/CosmWasm/wasmd) repository into it:
+Create a folder and clone the [wasmd](https://github.com/CosmWasm/wasmd) repository into it:
 
 ```bash
 $ git clone https://github.com/CosmWasm/wasmd.git
