@@ -98,7 +98,7 @@ or with:
 $ ./simd keys show b9lab
 ```
 
-A cosmos-sdk blockchain relies on validators to produce blocks. Validators are normally added and removed through an on-chain governance process, but initially there is no validator to generate the block in which such a transaction might exist. Your chain needs an account for bootstrapping purposes. 
+A Cosmos SDK blockchain relies on validators to produce blocks. Validators are added and removed through an on-chain governance process. Initially, there is no validator to generate the block in which such a transaction might exist. Your chain needs an account for bootstrapping purposes. 
 
 Add your key (also know as an account) to the genesis file:
 
