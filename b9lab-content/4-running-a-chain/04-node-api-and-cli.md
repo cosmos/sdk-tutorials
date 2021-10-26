@@ -6,7 +6,7 @@ Run a blockhain and discover how to interact with it.
 
 Start with an educational sample called [Simapp](https://github.com/cosmos/cosmos-sdk/blob/master/simapp/).
 
-Firstm create a folder and clone the cosmos-sdk into that folder:
+First, create and change directory into a `cosmos` folder and then clone the `cosmos-sdk` repo into that folder:
 
 ```bash
 $ mkdir cosmos
