@@ -21,7 +21,7 @@ $ cd cosmos-sdk
 $ make build
 ```
 
-This may take a few minutes. It will create a build folder and a simapp binary:
+The build takes a few minutes and creates a `build` folder and a `simapp` binary:
 
 ```bash
 $ ls build
