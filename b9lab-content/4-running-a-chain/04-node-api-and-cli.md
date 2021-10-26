@@ -222,7 +222,7 @@ pagination:
 
 ## CLI
 
-Inspect cosmos-sdk/simapp/simd/main.go:
+Inspect the `cosmos-sdk/simapp/simd/main.go` file:
 
 ```golang
 package main
