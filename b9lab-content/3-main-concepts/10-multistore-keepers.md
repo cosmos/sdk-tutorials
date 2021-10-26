@@ -30,7 +30,7 @@ type Keeper struct {
 
 * An `expected` keeper is a keeper external to a module that is required by the internal keeper of said module. External keepers are listed in the internal keeper's type definition as interfaces. These interfaces are themselves defined in an `expected_keepers.go` file in the root of the module's folder. In this context, interfaces are used to reduce the number of dependencies, as well as to facilitate the maintenance of the module itself.
 * `storeKeys` grant access to the store(s) of the multistore managed by the module. They should always remain unexposed to external modules.
-* `cdc` is the codec used to marshall and unmarshall structs to/from []byte. The cdc can be any of codec.BinaryCodec, codec.JSONCodec or codec.Codec based on your requirements. It can be either a proto or amino codec as long as they implement these interfaces.
+* `cdc` is the codec used to marshall and unmarshall structs to/from []byte. The `cdc` can be any of `codec.BinaryCodec`, `codec.JSONCodec` or `codec.Codec` based on your requirements. Note that `code.Codec` includes the other interfaces. It can be either a proto or amino codec as long as they implement these interfaces.
 
 Each keeper has its own constructor function which is called from the application's constructor function. This is where keepers are instantiated and where developers make sure to pass correct instances of modules' keepers to other modules that require them.
 
