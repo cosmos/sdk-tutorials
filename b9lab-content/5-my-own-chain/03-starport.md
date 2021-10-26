@@ -123,7 +123,7 @@ You can observe the endpoints of the blockchain in the output of the `starport c
 🌍 Token faucet: http://0.0.0.0:4500
 ```
 
-If you make any change in the source, Starport will rebuild the binaries before starting the blockchain and keep the state. 
+After you make any changes in the source, Starport rebuilds the binaries before starting the blockchain and keeps the state. 
 
 Now, create a front end. Find the commands in the commands in the `readme.md` in the `chain` folder:
 
