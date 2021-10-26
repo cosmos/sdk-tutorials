@@ -28,14 +28,6 @@ Transaction objects are SDK types that implement the `Tx` interface. They contai
 
 As a developer, you should rarely manipulate a Tx directly. It is an intermediate type used for transaction generation. Instead, developers should prefer the TxBuilder interface.
 
-## Signing Transactions
-
-Every message in a transaction must be signed by the addresses specified by its `GetSigners`. The SDK currently allows signing transactions in two different ways:
-
-* `SIGN_MODE_DIRECT` (preferred): The most used implementation of the Tx interface is the Protobuf Tx message, which is used in SIGN_MODE_DIRECT, Once signed by all signers, the `body_bytes`, `auth_info_bytes` and signatures are gathered into `TxRaw`, whose serialized bytes are broadcasted over the network.
-
-* `SIGN_MODE_LEGACY_AMINO_JSON`: The legacy implementation of the Tx interface is the StdTx struct from x/auth. The document signed by all signers is `StdSignDoc` which is encoded into bytes using Amino JSON. Once all signatures are gathered into StdTx, StdTx is serialized using Amino JSON, and these bytes are broadcasted over the network. This method is being deprecated. 
-
 ## Messages
 
 <HighlightBox type=”info”>
@@ -73,6 +65,15 @@ Here's a pseudo-code snippet of how to generate and encode a transaction, using 
 txBuilder := txConfig.NewTxBuilder()
 txBuilder.SetMsgs(...) // and other setters on txBuilder
 ```
+
+## Signing Transactions
+
+Every message in a transaction must be signed by the addresses specified by its `GetSigners`. The SDK currently allows signing transactions in two different ways:
+
+* `SIGN_MODE_DIRECT` (preferred): The most used implementation of the Tx interface is the Protobuf Tx message, which is used in SIGN_MODE_DIRECT, Once signed by all signers, the `body_bytes`, `auth_info_bytes` and signatures are gathered into `TxRaw`, whose serialized bytes are broadcasted over the network.
+
+* `SIGN_MODE_LEGACY_AMINO_JSON`: The legacy implementation of the Tx interface is the StdTx struct from x/auth. The document signed by all signers is `StdSignDoc` which is encoded into bytes using Amino JSON. Once all signatures are gathered into StdTx, StdTx is serialized using Amino JSON, and these bytes are broadcasted over the network. This method is being deprecated. 
+
 ## Broadcast the Transaction
 Once the transaction bytes are generated and signed there are currently three primary ways of broadcasting it.
 
@@ -91,7 +92,6 @@ The SDK also exposes a few other module-agnostic gRPC services, one of them bein
 The Tx service exposes a handful of utility functions, such as simulating a transaction or querying a transaction, and also one method to broadcast transactions.
 
 Example: [https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#programmatically-with-go](https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#programmatically-with-go)
-
 
 ### REST
 Each gRPC method has its corresponding REST endpoint, generated using gRPC-gateway.
