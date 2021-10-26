@@ -13,7 +13,7 @@ $ curl https://get.starport.network/starport! | bash
 $ sudo mv starport /usr/local/bin/
 ```
 
-And verify your installation with a version request:
+To verify the version of Starport you have installed:
 
 ```bash
 $ starport version
