@@ -156,7 +156,7 @@ pagination:
   total: "0"
 ```
 
-Create another account for a student and send that account some tokens:
+Create another account named "student" and send that account some tokens:
 
 ```bash
 $ ./simd keys add student
