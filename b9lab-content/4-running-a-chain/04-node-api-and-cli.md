@@ -27,7 +27,7 @@ The build takes a few minutes and creates a `build` folder and a `simapp` binary
 $ ls build
 ```
 
-Now, reset the database. The database will be in the initial state in any case if this is the first time you have used (which will be in the initial state anyway if this is the first time you are testing simapp:
+Now, reset the database. Run this step even if this is the first time you are testing `simapp` when the database is already in the initial state:
 
 ```bash
 $ ./simd unsafe-reset-all
