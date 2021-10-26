@@ -116,7 +116,7 @@ faucet:
   coins: ["5token", "100000stake"]
 ```
 
-in this file cou can set the accounts and the validator. In addition you can let Starport generate a client and a faucet. 
+In this file, you can set the accounts and the validator. In addition, you can let Starport generate a client and a faucet. 
 
 You can observe the endpoints of the blockchain in the output of the `starport chain serve` command:
 
