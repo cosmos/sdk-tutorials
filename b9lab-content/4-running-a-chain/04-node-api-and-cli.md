@@ -252,7 +252,7 @@ func main() {
 
 ```
 
-You can see, it imports github.com/cosmos/cosmos-sdk/simapp/simd/cmd for the CLI, which you can see at cosmos-sdk/simapp/simd/cmd/root.go:
+You can see imports for `github.com/cosmos/cosmos-sdk/simapp/simd/cmd` for the CLI that you can see in the `cosmos-sdk/simapp/simd/cmd/root.go` file:
 
 ```golang
 func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
