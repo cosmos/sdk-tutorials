@@ -62,12 +62,14 @@ You can create a chain for Alice with:
 $ starport scaffold chain github.com/alice/chain
 ```
 
-The scaffolding will take some time. After the scaffolding you will have a folder `chain`. 
-In it you will see that we have 
-  - a folder for the application called `app`, 
-  - a folder for the commands called `cmd`, 
-  - a folder for the protobuff definitions called `proto`,
-  - a folder for the UI called `vue`, see [Vue.js](https://vuejs.org/).
+The scaffolding takes some time as it generates the source code for a fully functional ready-to-use blockchain. After the chain is scaffolded, you have a folder `chain`. 
+
+The `chain` folder contains a number of generated files and directories that make up the structure of a Cosmos SDK blockchain:
+
+  - A folder for the application called `app`
+  - A folder for the commands called `cmd`
+  - A folder for the protobuff definitions called `proto`
+  - A folder for the UI called `vue`, see [Vue.js](https://vuejs.org/)
 
 You can observe in the code following lines:
 
