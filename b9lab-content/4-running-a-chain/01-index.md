@@ -1,3 +1,3 @@
 # Running a Chain Overview
 
-In this section, we will clone the cosmos-sdk and start and test an educational sample. This way we can ensure that everything cosmos-sdk needs is properly installed and understand the components without need of generating new code.
+In this section, you clone the `cosmos-sdk` repo first. Then you start and test an educational sample. By following these steps, you have access to the `cosmos-sdk` codebase and the Cosmos SDK components so you don't have to generate new code. 
