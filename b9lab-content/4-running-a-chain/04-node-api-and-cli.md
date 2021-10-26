@@ -206,7 +206,7 @@ tx: null
 txhash: D2CCFD91452F8C144BB1E7B54B9723EE3ED85925EE2C8AD843392721D072B895
 ```
 
-As you can see, it will ask you to confirm the signing and broadcasting and shows you usefull information such as gas_used.
+You are prompted to confirm the transaction before signing and broadcasting. The command output includes useful information such as `gas_used`.
 
 Now check the balance of the student again:
 
