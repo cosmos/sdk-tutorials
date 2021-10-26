@@ -130,7 +130,7 @@ $ ./simd collect-gentxs
 
 ```
 
-Now, start your blockchain:
+Now, start your signle-node blockchain:
 
 ```bash
 $ ./simd start
