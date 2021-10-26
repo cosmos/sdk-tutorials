@@ -85,14 +85,17 @@ So in the `chain` folder, run:
 $ starport chain serve
 ```
 
-The `starport chain serve` command will do several things:
-  - install all dependicies
-  - it will build protobuff files
-  - compile the application
-  - it will initialize the node with a single validator
-  - it will add accounts
+The `starport chain serve` command downloads dependencies and compiles the source code into a binary called `chaind`. The command:
 
-so at the end it will give you a testnet with a node running. Take a look at the `config.yml` file in the `chain` folder:
+  - Installs all dependicies
+  - Builds protobuff files
+  - Compiles the application
+  - Initializes the node with a single validator
+  - Adds accounts
+
+After this command completes, you have a testnet with a running node. 
+
+Take a look at the `config.yml` file in the `chain` folder:
 
 ```yaml
 accounts:
