@@ -28,6 +28,7 @@ Create a folder and clonde the [wasmd](https://github.com/CosmWasm/wasmd) reposi
 $ git clone https://github.com/CosmWasm/wasmd.git
 $ cd wasmd
 $ git checkout v0.18.0
+$ make install
 ```
 
 Verify your installation:
