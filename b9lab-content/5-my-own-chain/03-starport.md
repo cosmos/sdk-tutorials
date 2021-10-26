@@ -2,13 +2,12 @@
 
 ## Install
 
-One very easy way to create Blockchain applications with the Cosmos SDK is to use Starport. You can install it via:
+The quickest and simplest way to create blockchain applications with the Cosmos SDK is to use Starport. 
+
+To install Starport at the command line:
 
 ```bash
 $ curl https://get.starport.network/starport! | bash
-```
-
-In case you face permission issues for writing into `usr/local/bin`, you can move the starport executable manually with:
 
 ```bash
 $ sudo mv starport /usr/local/bin/
