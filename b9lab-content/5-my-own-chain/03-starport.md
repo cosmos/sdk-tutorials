@@ -71,13 +71,13 @@ The `chain` folder contains a number of generated files and directories that mak
   - A folder for the protobuff definitions called `proto`
   - A folder for the UI called `vue`, see [Vue.js](https://vuejs.org/)
 
-You can observe in the code following lines:
+In the code, you can observe the following line that provides helpful context:
 
 ```golang
 // this line is used by starport scaffolding # 1
 ```
 
-so you should not replace those files in order to keep Starport working.
+Do not remove or replace this line in your code as it keeps Starport working.
 
 So in the `chain` folder, run:
 
