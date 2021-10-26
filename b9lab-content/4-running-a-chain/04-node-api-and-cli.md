@@ -36,7 +36,7 @@ $ ./simd unsafe-reset-all
 3:58PM INF Generated private validator file keyFile=/Users/b9lab/.simapp/config/priv_validator_key.json stateFile=/Users/b9lab/.simapp/data/priv_validator_state.json
 ```
 
-As you can see, it will list the files set to the initial state and their locations.
+The command output lists all of the files that are set to the initial state and their locations.
 
 Now, initialize the application:
 
