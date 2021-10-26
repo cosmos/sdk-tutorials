@@ -15,7 +15,7 @@ CosmWasm is adaptable to different development environments by design and makes 
 
 ## Install
 
-As usuall with the Cosmos SDK, you will need to have installed Go. In addition, you will install Rust in order to write smart contracts. Go to https://rustup.rs/ and install Rust. Set the wasm32 target:
+As usual with the Cosmos SDK, you will need to have installed Go. In addition, you will install Rust in order to write smart contracts. Go to https://rustup.rs/ and install Rust. Set the wasm32 target:
 
 ```bash
 $ rustup target list --installed
