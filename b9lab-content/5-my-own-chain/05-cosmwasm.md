@@ -90,7 +90,7 @@ $ wasmd query bank balances $(wasmd keys show wallet2 --address) --node $RPC
 In another location, clone the contract samples:
 
 ```bash
-$ git clone https://github.com/CosmWasm/cw-examples
+$ git clone https://github.com/InterWasm/cw-contracts
 $ cd cw-examples/contracts/
 $ cargo wasm
 ```
