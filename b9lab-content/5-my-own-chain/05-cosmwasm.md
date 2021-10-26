@@ -64,7 +64,7 @@ $ export LCD="https://lcd.pebblenet.cosmwasm.com"
 $ export FAUCET="https://faucet.pebblenet.cosmwasm.com"
 
 $ export COSMOVISOR_VERSION="v0.42.9"
-$ export COSMOVISOR_HOME=/root/.wasmd
+$ export COSMOVISOR_HOME=$HOME/.wasmd
 $ export COSMOVISOR_NAME=wasmd
 ```
 
