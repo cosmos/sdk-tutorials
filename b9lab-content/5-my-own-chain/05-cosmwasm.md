@@ -120,7 +120,8 @@ $ ls -allh artifacts/cw_nameservice.wasm
 Now upload the contract to the blockchain:
 
 ```bash
-$ wasmd tx wasm store artifacts/cw_nameservice.wasm --from wallet --node $RPC --chain-id pebblenet-1 --gas-prices 0.001upebble --gas auto --gas-adjustment 1.3
+$ RES=$(wasmd tx wasm store artifacts/cw_nameservice.wasm --from wallet --node $RPC --chain-id pebblenet-1 --gas-prices 0.001upebble --gas auto --gas-adjustment 1.3)
+$ CODE_ID=$(echo $RES | jq -r '.logs[0].events[-1].attributes[0].value')
 ```
 
 The response will return a `code_id` value, which you will use in the next steps.
