@@ -91,7 +91,7 @@ In another location, clone the contract samples:
 
 ```bash
 $ git clone https://github.com/InterWasm/cw-contracts
-$ cd cw-examples/contracts/
+$ cd cw-contracts/contracts/
 $ cargo wasm
 ```
 
