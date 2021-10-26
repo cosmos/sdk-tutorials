@@ -141,7 +141,11 @@ Now you can see Alices balance. In addition in the left bar, you can navigate to
 $  starport scaffold message createPost title body
 ```
 
-In the terminal output, you will see a list of files which are created or modified by the `message` command:
+The starport scaffold message command accepts the message name `createPost` as the first argument and a list of fields (`title` and `body`) for the message. 
+
+By default, a message is scaffolded in a module with a name that matches the name of the project, in this case, `chain`. 
+
+In the terminal output, you see the list of files that are created or modified by the `message` command:
 
 ```bash
 modify proto/chain/tx.proto
