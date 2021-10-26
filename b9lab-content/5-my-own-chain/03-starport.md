@@ -125,7 +125,7 @@ You can observe the endpoints of the blockchain in the output of the `starport c
 
 After you make any changes in the source, Starport rebuilds the binaries before starting the blockchain and keeps the state. 
 
-Now, create a front end. Find the commands in the commands in the `readme.md` in the `chain` folder:
+Now, create a front end using the commands provided in the `readme.md` file in the `chain` folder:
 
 ```bash
 $ cd vue
