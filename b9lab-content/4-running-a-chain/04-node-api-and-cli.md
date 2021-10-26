@@ -106,7 +106,7 @@ Add your key (also know as an account) to the genesis file:
 $ ./simd add-genesis-account b9lab 100000000stake
 ```
 
-The suffix, stake appended to the amount and configured in the genesis file is the unit for the tokens in this chain. This command `100000000` to your account. Check it with:
+The `stake` suffix is appended to the amount, configured in the genesis file, is established as the unit for the tokens in this chain. This command adds `100000000` stake to your account. Check the `genesis.json` file with:
 
 ```bash
 $ cat ~/.simapp/config/genesis.json | grep -A 2 -B 2 stake
