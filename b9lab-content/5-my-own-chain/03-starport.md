@@ -135,7 +135,9 @@ $ npm run serve
 
 Navigate to [http://localhost:8080/](http://localhost:8080/). See that no wallet is created or imported yet. Use the mnemonic for Alice in the output of the `starport chain serve` command to import a wallet.
 
-Now you can see Alices balance. In addition in the left bar, you can navigate to the custom type which will be empty at the moment. You can create a `message` with:
+Now you can see the balance of Alice's account. 
+
+In the sidebar, select **Custom Type** to view the custom type. There are no custom types yet, so this page is empty at the moment. You can create a `message` with:
 
 ```bash
 $  starport scaffold message createPost title body
