@@ -59,7 +59,11 @@ The ready-built modules of the Cosmos SDK can be easily used - It is as simple a
 
 *Building on modular components, many of those you did not write yourself? Although it sounds like an increased potential for attacks, and faulty or malicious nodes operating undetected? One does not have to worry.*
 
-The Cosmos SDK is built on a foundation of the [object-capability model](https://docs.cosmos.network/master/core/ocap.html). It not only favors modularity, it also encapsulates code implementation. Thus, capabilities constrain security boundaries between modules.
+The Cosmos SDK is built on a foundation of the [object-capability model](https://docs.cosmos.network/master/core/ocap.html). It not only favors modularity, it also encapsulates code implementation. In a nutshell, an object-capability model ensures that:
+
+* There is no way for objects in memory to be discovered just by going through the composed objects of others.
+* The only way to have references to objects is to have been given their references.
+* And the only way to access a service is to have been given the relevant object references.
 
 The default consensus mechanism available to build with the SDK is [Tendermint Core](https://docs.tendermint.com/master/).
 
