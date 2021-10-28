@@ -95,7 +95,7 @@ In 2016, Jae Kwon and Ethan Buchman founded the Cosmos network with its consensu
 
 <HighlightBox type="tip">
 
-Take a look at the 2019 [Cosmos White Paper](https://v1.cosmos.network/resources/whitepaper) to find out more about the origins of Cosmos!
+Take a look at the 2016 [Cosmos White Paper](https://v1.cosmos.network/resources/whitepaper) to find out more about the origins of Cosmos!
 
 </HighlightBox>
 
