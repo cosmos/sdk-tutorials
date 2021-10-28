@@ -42,7 +42,7 @@ In a Tendermint blockchain, transactions are irreversibly finalized upon block c
 
 ## Tendermint BFT
 
-[Tendermint BFT](https://tendermint.com/core/) packages the **networking and consensus** layers of a blockchain and presents an interface, the Application Blockchain Interface (**ABCI**) to the application layer. Developers focus on higher-order concerns while delegating peer-discovery, validator selection, staking, upgrades, and consensus to the Tendermint BFT. The consensus engine running in one process controls the state machine, the application, running in another process. ABCI presents a socket for use by applications written in other languages. When the application is written in the same language as the Tendermint implementation, the socket is not used. 
+[Tendermint BFT](https://tendermint.com/core/) packages the **networking and consensus** layers of a blockchain and presents an interface, the Application Blockchain Interface (**ABCI**) to the application layer. Developers focus on higher-order concerns while delegating peer-discovery, validator selection, staking, upgrades, and consensus to the Tendermint BFT. The consensus engine running in one process controls the state machine, the application, running in another process. ABCI presents a socket for use by applications written in other languages. When the application is written in the same language as the Tendermint implementation, the socket is not used.
 
 The architecture is equally appropriate for **private or public** blockchains.
 
@@ -209,7 +209,7 @@ It is better _not_ to check whether we have a [valid move](https://github.com/ba
 
 > `func (game *Game) ValidMove(src, dst Pos) bool`
 
-As a transaction may contain a move that is valid only when actually delivered, for instance if it needs another move to take place before it.
+Checking whether a move is valid with regards to the board, needs the board to have been updated beforehand. Alas, the board is updated only up to the point where the transactions have been delivered. And you may have a situation where 2 transactions have been sent one after the other, both in fact valid. In this rare situation, if you tested the move in the second transaction against the board, it would appear invalid because the first transaction had been checked but not delivered yet. Therefore, testing a move on the board at CheckTx time is better avoided.
 
 #### `DeliverTx`: a transaction is added and needs to be processed
 
