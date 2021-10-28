@@ -21,7 +21,7 @@ From a user perspective, **decide** and **sign** are the main interactions, whil
 
 ## Transaction Objects
 
-Transaction objects are SDK types that implement the `Tx` interface. They contain the following methods:
+Transaction objects are signed containers. They contain signed messages. Each message represents an action targeted at a given module. As a whole, a transaction therefore describes an indivisible set of actions that should take place. You can see its Protobuf description [here](https://github.com/cosmos/cosmos-sdk/blob/0a3660d/proto/cosmos/tx/v1beta1/tx.proto#L14-L26). To make it a Cosmos SDK transaction, an object also has to conform to the `Tx` whose notable functions are:
 
 * `GetMsgs`: unwraps the transaction and returns a list of contained `sdk.Msg` - one transaction may have one or multiple messages.
 * `ValidateBasic`: includes lightweight, stateless checks used by ABCI message’s `CheckTx` and `DeliverTx` to make sure transactions are not invalid. For example, the auth module's StdTx ValidateBasic function checks that its transactions are signed by the correct number of signers and that the fees do not exceed the user's maximum. Note that this function is to be distinct from the ValidateBasic functions for sdk.Msgs, which perform basic validity checks on messages only. For example, when runTx is checking a transaction created from the auth module, it first runs ValidateBasic on each message, then runs the auth module AnteHandler which calls ValidateBasic for the transaction itself.
@@ -50,12 +50,12 @@ The TxBuilder interface contains metadata closely related to the generation of t
 * `TimeoutHeight`:, block height until which the transaction is valid.
 * `Signatures`: the array of signatures from all signers of the transaction.
 
-As there are currently two modes for signing transactions, there are also two implementations of TxBuilder. 
+As there are currently two modes for signing transactions, there are also two implementations of TxBuilder.
 
 * Wrapper for `SIGN_MODE_DIRECT`, which can sign transactions with both SIGN_MODE_DIRECT and SIGN_MODE_LEGACY_AMINO_JSON (recommended)
 * StdTxBuilder, which can only sign with SIGN_MODE_LEGACY_AMINO_JSON
 
-`TxConfig` is an app-wide configuration for managing transactions. Most importantly, it holds the information about whether to sign each transaction with SIGN_MODE_DIRECT or SIGN_MODE_LEGACY_AMINO_JSON. SIGN_MODE_DIRECT is recommended. 
+`TxConfig` is an app-wide configuration for managing transactions. Most importantly, it holds the information about whether to sign each transaction with SIGN_MODE_DIRECT or SIGN_MODE_LEGACY_AMINO_JSON. SIGN_MODE_DIRECT is recommended.
 
 By calling `txBuilder := txConfig.NewTxBuilder()`, a new TxBuilder will be created with the appropriate sign mode.Once TxBuilder is correctly populated with the setters described above, `TxConfig` will also take care of correctly encoding the bytes (again, either using `SIGN_MODE_DIRECT` or `SIGN_MODE_LEGACY_AMINO_JSON`).
 
@@ -72,7 +72,7 @@ Every message in a transaction must be signed by the addresses specified by its 
 
 * `SIGN_MODE_DIRECT` (preferred): The most used implementation of the Tx interface is the Protobuf Tx message, which is used in SIGN_MODE_DIRECT, Once signed by all signers, the `body_bytes`, `auth_info_bytes` and signatures are gathered into `TxRaw`, whose serialized bytes are broadcasted over the network.
 
-* `SIGN_MODE_LEGACY_AMINO_JSON`: The legacy implementation of the Tx interface is the StdTx struct from x/auth. The document signed by all signers is `StdSignDoc` which is encoded into bytes using Amino JSON. Once all signatures are gathered into StdTx, StdTx is serialized using Amino JSON, and these bytes are broadcasted over the network. This method is being deprecated. 
+* `SIGN_MODE_LEGACY_AMINO_JSON`: The legacy implementation of the Tx interface is the StdTx struct from x/auth. The document signed by all signers is `StdSignDoc` which is encoded into bytes using Amino JSON. Once all signatures are gathered into StdTx, StdTx is serialized using Amino JSON, and these bytes are broadcasted over the network. This method is being deprecated.
 
 ## Broadcast the Transaction
 Once the transaction bytes are generated and signed there are currently three primary ways of broadcasting it.
