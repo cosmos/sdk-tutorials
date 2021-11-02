@@ -2,20 +2,20 @@
 
 ## The Inter-Blockchain Protocol
 
-The Inter-Blockchain Protocol, IBC, is used to send data from one blockchain to another. In Cosmos, most applications execute on their own purpose-built blockchain running their own validator set. These are the application-specific blockchains built with Cosmos SDK. 
+The Inter-Blockchain Protocol, IBC, is used to send data from one blockchain to another. In Cosmos, most applications execute on their own purpose-built blockchain running their own validator set. These are the application-specific blockchains built with Cosmos SDK.
 
-Applications on one chain may have a need to communicate with applications on another blockchain. For example, an application could accept tokens from another blockchain as a form of payment. Interoperability at this level calls for a method of exchanging data about the state or the transactions on another blockchain. 
+Applications on one chain may have a need to communicate with applications on another blockchain. For example, an application could accept tokens from another blockchain as a form of payment. Interoperability at this level calls for a method of exchanging data about the state or the transactions on another blockchain.
 
-While such bridges between blockchains can be built and do exist, they are generally constructed in an ad hoc manner. In contracts, IBC provides all Cosmos SDK applications with a common protocol and framework for implementing standardized inter-blockchain communication. 
+While such bridges between blockchains can be built and do exist, they are generally constructed in an ad hoc manner. In contracts, IBC provides all Cosmos SDK applications with a common protocol and framework for implementing standardized inter-blockchain communication.
 
 ## Requirements
 
 Applications that use IBC must meet the following requirements:
 
-* Bind to one or more ports
-* Define the packet data
-* Define optional acknowledgement structures and methods to encode and decode them
-* Implement the IBCModule interface
+* Bind to one or more ports.
+* Define the packet data.
+* Define optional acknowledgement structures and methods to encode and decode them.
+* Implement the IBCModule interface.
 
 ## Modular design
 
@@ -30,20 +30,22 @@ Modules do not require in-depth knowledge of the low-level details of clients, c
 ## Components
 
 <HighlightBox type=”info”>
-Components https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/overview.md 
+
+Components https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/overview.md
+
 </HighlightBox>
 
 ### Clients
 
 IBC clients are light clients that are identified by a unique client ID. IBC clients track the consensus states of other blockchains and the proof specs of those blockchains that are required to properly verify proofs against the client's consensus state.
 
-A client can be associated with any number of connections to the counterparty chain
+A client can be associated with any number of connections to multiple chains
 
 Supported IBC clients::
 
-* **Solo Machine light client**: devices such as phones, browsers, or laptops - https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/06-solomachine 
-* **Tendermint light client**: The default for Cosmos SDK-based chains - https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint 
-* **Localhost (loopback) client**: Useful for testing, simulation, and relaying packets to modules on the same application - https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/09-localhost 
+* **Solo Machine light client**: devices such as phones, browsers, or laptops - https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/06-solomachine
+* **Tendermint light client**: The default for Cosmos SDK-based chains - https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint
+* **Localhost (loopback) client**: Useful for testing, simulation, and relaying packets to modules on the same application - https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/09-localhost
 
 ### Connections
 
@@ -51,13 +53,13 @@ A connection encapsulates two `ConnectionEnd` objects on two separate blockchain
 
 ### Proofs & paths
 
-In IBC, blockchains do not directly pass messages to each other over the network.To communicat, blockchains commit state to a precisely defined path reserved for a specific message type and a specific counterparty. Relayers monitor for updates to these paths and relay messages by submitting the data stored under the path along with a proof of that data to the counterparty chain. The paths that all IBC implementations must support for committing IBC messages are defined in ICS-24 host requirements: https://github.com/cosmos/ics/tree/master/spec/core/ics-024-host-requirements. The proof format that all implementations must produce and verify is defined in ICS-23 implementation - https://github.com/confio/ics23 
+In IBC, blockchains do not directly pass messages to each other over the network.To communicat, blockchains commit state to a precisely defined path reserved for a specific message type and a specific counterparty. Relayers monitor for updates to these paths and relay messages by submitting the data stored under the path along with a proof of that data to the counterparty chain. The paths that all IBC implementations must support for committing IBC messages are defined in ICS-24 host requirements: https://github.com/cosmos/ics/tree/master/spec/core/ics-024-host-requirements. The proof format that all implementations must produce and verify is defined in ICS-23 implementation - https://github.com/confio/ics23
 
 ### Capabilities
 
 IBC is intended to work in execution environments where modules do not necessarily trust each other. IBC needs to authenticate module actions on ports and channels. Only modules with the appropriate permissions can use the channels. (https://github.com/cosmos/cosmos-sdk/blob/master/docs/architecture/adr-003-dynamic-capability-store.md)
 
-Upon binding to a port or creating a channel for a module, IBC returns a dynamic capability that the module must claim to use that port or channel. This binding strategy prevents other modules from using that port or channel since those modules do not own the appropriate capability. 
+Upon binding to a port or creating a channel for a module, IBC returns a dynamic capability that the module must claim to use that port or channel. This binding strategy prevents other modules from using that port or channel since those modules do not own the appropriate capability.
 
 IBC modules do not need to interact at all with these lower-level abstractions. The relevant abstraction layer for IBC application developers is that of channels and ports.
 As self-contained modules, module on one blockchain can communicate with other modules on other blockchains by sending, receiving, and acknowledging packets through channels that are uniquely identified by the (channelID, portID) tuple
@@ -107,7 +109,7 @@ Modules send custom application data to each other inside the Data []byte field 
 IBC works over a distributed network + relies on potentially faulty relayers to relay messages between ledgers. IBC must handle the case where a packet does not get sent to its destination in a timely manner or at all. Packets must specify a timeout height or timeout timestamp after which a packet can no longer be successfully received on the destination chain:
 **timeout is reached**: proof-of-packet timeout can be submitted to the original chain which can then perform application-specific logic to timeout the packet, perhaps by rolling back the packet send changes (refunding senders any locked funds, and so on.
 
-In ORDERED channels, a timeout of a single packet in the channel closes the channel. In the UNORDERED case, packets can be received in any order. IBC writes a packet receipt for each sequence it has received in the UNORDERED channel. 
+In ORDERED channels, a timeout of a single packet in the channel closes the channel. In the UNORDERED case, packets can be received in any order. IBC writes a packet receipt for each sequence it has received in the UNORDERED channel.
 
 ### Acknowledgement
 
@@ -126,20 +128,25 @@ When the acknowledgement is received successfully on the original sender chain, 
 
 ## Types of chain
 
-Chains using the Tendermint consensus algorithm can bridge using IBC, but also non-Tendermint chains can use IBC. Two types of non-Tendermint chains are supported:
+IBC can use Tendermint chains to bridge with IBC but also non-Tendermint chains. Two types of non-Tendermint chains are supported:
 
-* **Fast-Finality chains**: Any fast-finality consensus algorithms can connect with Cosmos by adapting IBC
-* **Probabilistic**: Things get a bit more complicated for blockchains that do not have fast finality, like Proof-of-Work chains. In this case, IBC uses a special kind of proxy-chain called a Peg-Zone. 
+* FAST-FINALITY CHAINS: any fast-finality consensus algorithms can connect with Cosmos by adapting IBC
+* PROBABILISTIC-FINALITY CHAINS: blockchains that do not have fast-finality, like Proof-of-Work chains, things get a bit trickier. In this case, IBC uses a special kind of proxy-chain called a Peg-Zone.
 
 ### Ethereum peg zone:
 
-<HighlightBox type=”info”> https://blog.cosmos.network/the-internet-of-blockchains-how-cosmos-does-interoperability-starting-with-the-ethereum-peg-zone-8744d4d2bc3f
+<HighlightBox type=”info”>
+
+https://blog.cosmos.network/the-internet-of-blockchains-how-cosmos-does-interoperability-starting-with-the-ethereum-peg-zone-8744d4d2bc3f
+
 </HighlightBox>
 
 A Peg-Zone is a blockchain that tracks the state of another blockchain. The Peg-Zone itself has fast-finality and is therefore compatible with IBC. Its role is to establish finality for the blockchain it bridges.
 
 <HighlightBox info=”info”>
-The Tendermint team is working on a Peg-Zone implementation for the Ethereum chain called the [Gravity bridge](./17-bridges.html).
+
+The Tendermint team is working on a Peg-Zone implementation for the Ethereum chain called the Gravity bridge: https://github.com/cosmos/gravity-bridge
+
 </HighlightBox>
 
 <!-- TODO -->
@@ -149,18 +156,47 @@ https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosm
 
 
 Relayers - What is a relayer? How are relayers used in Cosmos? How can one manage and deploy relayers? Hermes as an example
-https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/relayer.md 
-
-
+https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/relayer.md
 Token transfers with IBC
+Long running exercise. Foreign tokens:
+We want to play with foreign tokens. How to implement.
+NFT transfers with IBC
+Custom applications using IBC
 
+<ExpansionPanel title="Show me some code for my checkers blockchain">
 
-## Long-running exercise
+With the introduction of IBC, you now want to let players choose to play with foreign tokens. More precisely:
 
-Now we want to let players choose to play with foreign tokens. So:
+* Upon creation, the game information must state which token in which the wager will be denominated.
+* The different payments have to be updated so that they don't use the default token.
 
-* The `CreateGameTx` transaction needs to be able to specify the token to use, on top of the amount.
-* The _billing_ needs to be updated.
-* The leaderboard does not need to be adjusted because it is already per token type. We don't want to do another migration example, that's why we had to be clever about the leaderboard structure.
+Denominating the wager into another token is just a matter of allowing another string that uniquely identifies the token:
 
-TODO decide how it looks like. 
+```go
+type StoredGame struct {
+    ...
+    Token string
+}
+
+type MsgCreateGame struct {
+    ...
+    Token string
+}
+```
+You can add a helper function to `StoredGame` such that:
+
+```go
+func (storedGame *StoredGame) GetWagerCoin() (wager sdk.Coin) {
+    return sdk.NewCoin(storedGame.Token, sdk.NewInt(int64(storedGame.Wager)))
+}
+```
+With that, the payments are updated with:
+
+```go
+err = k.bank.SendCoinsFromAccountToModule(ctx, black, "checkers", sdk.NewCoins(storedGame.GetWagerCoin()))
+// or
+err = k.bank.SendCoinsFromModuleToAccount(ctx, "checkers", winnerAddress, sdk.NewCoins(winnings))
+```
+There is nothing more to it in this simple use of _foreign_ tokens.
+
+</ExpansionPanel>
