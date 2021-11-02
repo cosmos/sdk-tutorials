@@ -53,7 +53,7 @@ Inspect the initial configuration:
 $ cat ~/.simapp/config/genesis.json 
 ```
 
-Inspect your keys:
+Inspect your keys. These are held in the backend keyring which is operating system key ring by default:
 
 ```bash
 $ ./simd keys list
