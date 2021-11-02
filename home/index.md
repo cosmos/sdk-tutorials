@@ -1,13 +1,5 @@
 ---
 layout: CourseLandingPage
-nav:
-  items:
-    - name: Learn
-      url: /
-    - name: Explore
-      url: /
-    - name: Build
-      url: /
 modules:
   - number: 01
     title: What is Cosmos?
