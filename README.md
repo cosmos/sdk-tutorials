@@ -1,5 +1,5 @@
 <!--
-layout: CustomLayout
+layout: LandingPage
 nav:
   items:
     - name: Learn

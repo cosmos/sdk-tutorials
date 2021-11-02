@@ -1,9 +1,5 @@
 <template lang="pug">
-	div.home
-		.mode-switch-container
-			.mode-switch-container__wrapper
-				tm-mode-switch
-		custom-header
+	custom-layout
 		.home__content
 			.home__content__intro
 				.home__content__intro__content
@@ -36,8 +32,6 @@
 						.resources__item__links
 							a(v-for="link in resource.links" :href="link.url").resources__item__links__item {{link.name}}
 								icon-arrow.resources__item__links__item__icon
-		.home__footer
-			tm-footer(full="true")
 </template>
 
 
@@ -117,24 +111,8 @@
 						width 10px
 						height 10px
 
-
-	.mode-switch-container
-		position absolute
-		padding-top 1rem
-		top 3rem
-		left 50%
-		margin-inline auto
-
-		&__wrapper
-			position relative
-			left -50%
-
 	.home
-		&__footer
-			padding-inline 128px
-
 		&__content
-			padding-inline 128px
 			margin-top 64px
 
 			&__get-started
@@ -148,9 +126,10 @@
 				
 				&__content
 					width 50%
+					margin-bottom -80px
 
 					&__title
-							margin-block 10px
+						margin-block 10px
 
 					&__desc
 						margin-top 32px
@@ -195,12 +174,7 @@
 	
 	@media screen and (max-width: 480px)
 		.home
-			&__footer
-				padding-inline 24px
-
 			&__content
-				padding-inline 24px
-
 				&__intro
 					flex-direction column-reverse
 
@@ -225,16 +199,9 @@
 					
 					&__content
 						width 100%
+						margin-bottom 32px
 
 		.resources
 			&__wrapper
 				margin-top 64px
-		
-	@media screen and (min-width: 480px) and (max-width: 1024px)
-		.home
-			&__footer
-				padding-inline 48px
-
-			&__content
-				padding-inline 48px
 </style>

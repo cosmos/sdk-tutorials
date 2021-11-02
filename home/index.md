@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: CourseLandingPage
 nav:
   items:
     - name: Learn
