@@ -217,7 +217,7 @@ Errors should be common or general errors which can be further wrapped to provid
 
 Modules should define and register their custom errors in x/{module}/errors.go. Registration of errors is handled via the `types/errors` package.
 
-Each custom module error must provide the codespace, which is typically the module name (for example, "distribution") and is unique per module, and a uint32 code. Together, the codespace and code provide a globally unique SDK error. Typically, the error code is monotonically increasing but does not necessarily have to be.
+Each custom module error must provide a codespace, which is typically the module name (for example, "distribution"), and a uint32 code. Together, the codespace and code provide a globally unique SDK error. Typically, the error code is monotonically increasing but does not necessarily have to be.
 
 The only restrictions on error codes are the following:
 
