@@ -18,7 +18,7 @@ Modules include **core** functionality that provides the basic functionality eve
 
 * a boilerplate implementation of the Application Blockchain Interface (ABCI) that communicates with the underlying Tendermint consensus engine
 * a general-purpose data store that persists the module state called `multistore`
-* a server and interfaces to facilitate interactions with the node.
+* a server and interfaces to facilitate interactions with other modules.
 
 Modules implement the majority of application logic while **core** attends to wiring and infrastructure concerns and enables modules to be composed into higher-order modules.
 
