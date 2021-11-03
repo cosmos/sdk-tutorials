@@ -63,7 +63,7 @@ See here for an introduction to Protobuf services if the topic is new to you: [h
 * Each module should implement the `RegisterServices` method as part of the `AppModule` interface.
 * Service methods should use a “Keeper” that defines the storage layout and presents methods for updating the state to implement state updates.
 
-### gRPC Query Service
+#### gRPC Query Service
 
 * Allows users to query the state using gRPC.
 * Each gRPC endpoint corresponds to a service method, starting with the rpc keyword, inside the gRPC Query Service.
