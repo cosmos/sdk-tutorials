@@ -2,7 +2,7 @@
 
 ## Overview
 
-Protocol buffers, also called Protobuf in the short form, are an open source, extensible,  cross-platform and language-neutral method of serializing object data, primarily for network communication. Libraries for multiple platforms parse a common interface description language to generate source code for encoding and decoding streams of bytes representing structured data. 
+Protocol buffers, also called Protobuf in the short form, are an open source, extensible, cross-platform and language-agnostic method of serializing object data, primarily for network communication and storage. Libraries for multiple languages parse a common interface description language to generate source code for encoding and decoding streams of bytes representing structured data. 
 
 Originally designed and developed by Google, Protobuf has been an open source project since 2008 and services as the basis for Remote Procedure Call (RPC) systems. 
 
