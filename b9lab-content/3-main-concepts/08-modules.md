@@ -94,7 +94,7 @@ Keepers are defined in `keeper.go`. Keeper’s type definition generally consist
 
 ## Core Modules
 
-Cosmos SDK includes core modules that address common concerns with well-solved, standardized implementations.
+The Cosmos SDK includes a set of core modules that address common concerns with well-solved, standardized implementations.
 
 Core modules address application needs such as tokens, staking and governance. Core modules offer several advantages over ad hoc solutions:
 
