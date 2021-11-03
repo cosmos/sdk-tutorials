@@ -14,7 +14,7 @@ Each message is routed to the appropriate module via `baseApp’s` `MsgServiceRo
 
 ## MsgService
 
-Although it is technically feasible to proceed to create a novel `MsgService`, the recommended approach is to define `Protobuf` `Msg` service. Each module will have exactly one Protobuf Msg service defined in `tx.proto` and there will be a RPC service method for each message type in the module. Implicitly, the ProtoBuf message service defines the interface layer of the state mutating processes contained within the module.
+Although it is technically feasible to create a novel `MsgService`, the recommended approach is to define a `Protobuf` `Msg` service. Each module will have exactly one Protobuf Msg service defined in `tx.proto` and there will be a RPC service method for each message type in the module. Implicitly, the ProtoBuf message service defines the interface layer of the state mutating processes contained within the module.
 
 ### Example MsgService
 
