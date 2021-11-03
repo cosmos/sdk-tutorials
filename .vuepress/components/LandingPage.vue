@@ -1,67 +1,70 @@
 <template lang="pug">
     custom-layout
-        h1 Developer Portal
-        card(imageUrl="/graphics-sdk-course.png")
-            .overline-label beginner
-            h2.content__intro__title Cosmos Academy
-            .info-label ~126 Hours
+        .content
+            h1 Developer Portal
+            card(imageUrl="/graphics-sdk-course.png")
+                .overline-label beginner
+                h2.content__intro__title Cosmos Academy
+                .info-label ~126 Hours
 
-            .content__intro__desc A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
-            a(href="/home").content__intro__link Start learning
-                icon-arrow(type="right").content__intro__link__icon
-        .tutorials__wrapper
-            h3 Tutorials
-            .tutorials
-                .tutorials__item__small
-                    card
-                        .overline-label intermediate
-                        h4.tutorials__item__small__title Nullam id dolor id nibh ultricies vehicula ut id elit.
-                        .tutorials__item__small__desc Contributors, assemble! <br/> We are always looking for content to help new Cosmosnauts understand and explore the cosmos.
-                        .info-label 10 minute read
-                .tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}")
-                    .overline-label starport
-                    h2.tutorials__item__large__title Build a chain in minutes
+                .content__intro__desc A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
+                a(href="/home").content__intro__link Start learning
+                    icon-arrow(type="right").content__intro__link__icon
+            .tutorials__wrapper
+                h3 Tutorials
+                .tutorials
+                    .tutorials__item__small
+                        card
+                            .overline-label intermediate
+                            h4.tutorials__item__small__title Nullam id dolor id nibh ultricies vehicula ut id elit.
+                            .tutorials__item__small__desc Contributors, assemble! <br/> We are always looking for content to help new Cosmosnauts understand and explore the cosmos.
+                            .info-label 10 minute read
+                    .tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}")
+                        .overline-label starport
+                        h2.tutorials__item__large__title Build a chain in minutes
 
 
-        .articles__wrapper
-            .articles__wrapper__title
-                h3 Articles
-                a(href="/").link More articles
-                    icon-arrow.link__icon
-            .articles
-                .articles__item(v-for="article in $frontmatter.articles")
-                    .articles__item__container
-                        .articles__item__image(v-bind:style="{'background-image': `url(${article.image})`}")
-                        .articles__item__content
-                            .overline-label.articles__item__content__date {{article.date}}
-                            h4.articles__item__content__title {{article.title}}
-                            .info-label.articles__item__content__time {{article.time}} minute read
-        .tools__wrapper
-            h3 Tools
-            .tools
-                .tools__item(v-for="tool in $frontmatter.tools")
-                    .tools__item__container
-                        .tools__item__icon
-                            img(:src="tool.image" :alt="tool.title")
-                        .tools__item__content
-                            h5.tools__item__content__title {{tool.title}}
-                            .tools__item__content__description {{tool.description}}
-                            .tools__item__content__links
-                                a(v-for="link in tool.links" :href="link.url").link {{link.name}}
-                                    icon-arrow.link__icon
+            .articles__wrapper
+                .articles__wrapper__title
+                    h3 Articles
+                    a(href="/").link More articles
+                        icon-arrow.link__icon
+                .articles
+                    .articles__item(v-for="article in $frontmatter.articles")
+                        .articles__item__container
+                            .articles__item__image(v-bind:style="{'background-image': `url(${article.image})`}")
+                            .articles__item__content
+                                .overline-label.articles__item__content__date {{article.date}}
+                                h4.articles__item__content__title {{article.title}}
+                                .info-label.articles__item__content__time {{article.time}} minute read
+            .tools__wrapper
+                h3 Tools
+                .tools
+                    .tools__item(v-for="tool in $frontmatter.tools")
+                        .tools__item__container
+                            .tools__item__icon
+                                img(:src="tool.image" :alt="tool.title")
+                            .tools__item__content
+                                h5.tools__item__content__title {{tool.title}}
+                                .tools__item__content__description {{tool.description}}
+                                .tools__item__content__links
+                                    a(v-for="link in tool.links" :href="link.url").link {{link.name}}
+                                        icon-arrow.link__icon
 
-        .support__wrapper
-            card(imageUrl="/support-image.png")
-                .overline-label custom support
-                h2.content__support__title Looking for help bringing your project to life?
-                .content__support__desc Apply for support and get help with funding applications, grants, technology, architechture,  and introductions to ecosystem insiders.
-                .content__support__action 
-                    a Talk to us
-                        icon-arrow(fill="var(--background-color-primary)" type="top-right").link__icon
+            .support__wrapper
+                card(imageUrl="/support-image.png")
+                    .overline-label custom support
+                    h2.content__support__title Looking for help bringing your project to life?
+                    .content__support__desc Apply for support and get help with funding applications, grants, technology, architechture,  and introductions to ecosystem insiders.
+                    .content__support__action 
+                        a Talk to us
+                            icon-arrow(fill="var(--background-color-primary)" type="top-right").link__icon
 </template>
 
 <style lang="stylus" scoped>
     .content
+        margin-top 32px
+
         &__intro
 
             &__title
