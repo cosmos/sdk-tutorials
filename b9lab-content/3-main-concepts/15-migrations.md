@@ -36,9 +36,9 @@ type Plan struct {
 
 A "Sidecar" is a binary the nodes can run to attend to processes outside of Cosmos binaries. This can include steps such as downloading and compiling software from a certain commit in a repo.
 
-### Handler
+### UpgradeHandler
 
-A "Handler" may be executed after the Sidecar process is finished and the binary has been upgraded. A handler attends to on-chain activities that may be necessary before normal processing resumes. A handler may trigger a StoreLoader. 
+An "UpgradeHandler" may be executed after the Sidecar process is finished and the binary has been upgraded. Am UpgradeHandler attends to on-chain activities that may be necessary before normal processing resumes. Am UpgradeHandler may trigger a StoreLoader. 
 
 ### StoreLoader
 
