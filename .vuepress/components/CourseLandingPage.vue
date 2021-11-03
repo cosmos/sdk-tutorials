@@ -114,6 +114,8 @@
 	.home
 		&__content
 			margin-top 64px
+			max-width var(--content-max-width)
+			margin-inline auto
 
 			&__get-started
 				display flex
