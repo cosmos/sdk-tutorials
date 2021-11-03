@@ -28,7 +28,7 @@ For developers, most of the work involved in building an SDK application revolve
 
 ## Module Components
 
-It is a best practice to define a module in the `x/moduleName` folder, not to be confused with the SDK’s `x/` folder that already exists. For example, the module called Checkers would go in `x/Checkers`.
+It is a best practice to define a module in the `x/moduleName` folder, not to be confused with the SDK’s `x/` folder that already exists. For example, the module called Checkers would go in `x/checkers`.
 
 Modules implement several concerns:
 
