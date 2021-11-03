@@ -57,7 +57,7 @@ Each module defines two Protobuf services:
 See here for an introduction to Protobuf services if the topic is new to you: [https://www.ionos.com/digitalguide/websites/web-development/protocol-buffers-explained/](https://www.ionos.com/digitalguide/websites/web-development/protocol-buffers-explained/)
 </HighlightBox>
 
-### Msg Service
+#### Msg Service
 
 * A best practice is to define the `Msg` Protobuf service in the `tx.proto` file.
 * Each module should implement the `RegisterServices` method as part of the `AppModule` interface.
