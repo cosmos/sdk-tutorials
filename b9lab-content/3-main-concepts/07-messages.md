@@ -6,7 +6,7 @@ In Cosmos, a transaction contains one or more messages for the module to process
 
 ## Flow
 
-Transactions containing one or more valid messages are serialized and confirmed by the Tendermint consensus. Recall that Tendermint is agnostic about interpretation of the transactions. When a transaction is included in a block, it is confirmed and finalized with no possibility of chain reorganization or cancellation.
+Transactions containing one or more valid messages are serialized and confirmed by the Tendermint consensus engine. Recall that Tendermint is both agnostic about interpretation of the transactions and has absolute finality. When a transaction is included in a block, it is confirmed and finalized with no possibility of chain reorganization or cancellation.
 
 The confirmed transaction is passed to the Cosmos SDK for interpretation. The `BaseApp` you use to begin module development of your custom modules attends to the first stages of interpretation. It decodes each message contained in the transaction.
 
