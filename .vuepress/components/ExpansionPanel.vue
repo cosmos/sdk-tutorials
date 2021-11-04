@@ -2,22 +2,18 @@
     div.container
         div.inner-container
             button.styled-button(v-on:click="toggleContent")
-                img(:src="expandIcon" :class="this.expanded ? 'expanded' : 'collapsed'")
+                icon-arrow.icon(type="bottom")(:class="this.expanded ? 'expanded' : 'collapsed'")
                 p {{this.title}}
             div.content(v-show="expanded")
                 slot
 </template>
 
 <script>
-
-import expandIcon from '../public/expand-more-icon.svg'
-
 export default {
     props: ['title'],
     data() {
         return {
-            expanded: false,
-            expandIcon
+            expanded: false
         };
     },
     methods: {
@@ -76,11 +72,12 @@ export default {
             transition: transform 0.2s linear;
         }
 
-        img {
-            width: auto;
+        .icon {
+            display: block;
             margin-block: auto;
-            margin-right: 1.5rem;
-            filter: var(--img-filter);
+            margin-right: 15px;
+            width: 15px;
+            height: 15px;
         }
 
         p {
