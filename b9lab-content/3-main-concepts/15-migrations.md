@@ -20,6 +20,8 @@ A Cosmos SDK blockchain built for a specific application can be upgraded without
 
 ## Process Overview
 
+![Plan and upgrade handler](./images/state-migration.jpg)
+
 ### Plan
 
 A "Plan" is an upgrade process to take place at a specific block height in the future. It includes a SideCar (see below) that executes when the upgrade process commences, a name of the plan and block height at which to execute. Importantly, acceptance or rejection of the plan is managed through the normal governance process. A "cancel proposal" can be submitted and adopted which prevents the plan from executing. Cancellation is contingent on knowing that a given Plan is a poor idea before the upgrade happens.  
