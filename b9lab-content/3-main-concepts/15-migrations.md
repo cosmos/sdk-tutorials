@@ -74,7 +74,14 @@ For a more detailed explanation of the upgrade process, refer to the [Cosmos SDK
 
 </HighlightBox>
 
-## Long-running exercise
+<ExpansionPanel title="Show me some code for my checkers blockchain">
+
+Until now you have seen code samples for your checkers blockchain. Let's imagine that it has been running in production for some time and you want now to introduce leaderboards. In particular:
+
+* Any player who has ever played should have a tally of games won, lost, drawn and forfeited.
+* There should be a leaderboard that lists the players with the most wins, but in limited number. For instance only with the top 100.
+
+The lucky part is that all past games have been kept in the state. What needs to be done is to go through them and update the players with their tallies, and add the leaderboard.
 
 It is late after everything has been coded and we want to introduce player stats and a leaderboard of players, which lists the number of games won, lost, and rejected, plus the wagers won and lost. So we need:
 
@@ -116,3 +123,5 @@ It is late after everything has been coded and we want to introduce player stats
     * To populate with the result of previous games. Is it possible to achieve this with past events only, if past games were deleted from storage?
 
 TODO write new code and the migration script.
+
+</ExpansionPanel>
