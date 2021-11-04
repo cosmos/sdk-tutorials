@@ -37,6 +37,11 @@ export default {
         border-radius: 20px;
         margin-top: 3rem;
         margin-bottom: 3rem;
+
+        &:hover:not(:active) {
+            transform translateY(-2px);
+            transition-duration 0.1s;
+        }
     }
     .inner-container {
         width: 100%;
@@ -56,10 +61,6 @@ export default {
         cursor: pointer;
         color: var(--color-text-strong);
         font-weight: bold;
-
-        &:hover {
-            background-color: var(--semi-transparent-color);
-        }
 
         .expanded {
             transform: rotate(180deg);
