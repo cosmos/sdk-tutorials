@@ -125,8 +125,8 @@ module.exports = {
           title: "B9lab content",
           children: [
             {
-              title: "Welcome (WIP)",
-              path: "/b9lab-content/1-welcome",
+              title: "Welcome",
+              path: "/b9lab-content/1-welcome/",
               directory: true,
             },
             {

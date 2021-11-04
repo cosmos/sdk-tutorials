@@ -8,7 +8,7 @@
                 .info-label ~126 Hours
 
                 .content__intro__desc A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
-                a(href="/home").content__intro__link Start learning
+                a(href="/b9lab-content/1-welcome").content__intro__link Start learning
                     icon-arrow(type="right").content__intro__link__icon
             .tutorials__wrapper
                 h3 Tutorials

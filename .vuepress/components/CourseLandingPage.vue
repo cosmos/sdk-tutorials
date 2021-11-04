@@ -20,7 +20,7 @@
 					h2.home__content__get-started__content__title Ready to start?
 					.home__content__get-started__content__desc Get started right away, begin with the introductory chapter.
 			.modules
-				card-module(v-for="module in $frontmatter.modules" :module="module").modules__item
+				card-module(v-for="module in this.modules" :module="module").modules__item
 			.resources__wrapper
 				h3.resources__title Developer resources
 				.resources
@@ -207,3 +207,59 @@
 			&__wrapper
 				margin-top 64px
 </style>
+
+<script>
+export default {
+	computed: {
+		modules() {
+			const folderPath = this.$page.path.split("/").filter(item => item !== "")[0];
+			const submodules = this.$site.pages
+				.filter(page => page.path.includes(folderPath) && page.path != this.$page.path)
+				.sort((a, b) => a.path.localeCompare(b.path));
+			const modules = this.formatModules(submodules);
+			
+			return Object.values(modules);
+		},
+	},
+	methods: {
+		formatModules(submodules) {
+			return submodules.reduce((formattedModules, item) => {
+				const index = item.path.split("/").filter(item => item !== "")[1];
+				
+				if (!formattedModules[index]) {
+					formattedModules[index] = {
+						title: item.frontmatter.parent?.title,
+						description: item.frontmatter.parent?.description,
+						number: item.frontmatter.parent?.number,
+						url: item.path,
+						submodules: [{
+							title: item.title,
+							description: item.frontmatter.description,
+							tag: item.frontmatter.tag,
+							url: item.path
+						}]
+					};
+				} else {
+					formattedModules[index].submodules = (formattedModules[index].submodules || []).concat({
+						title: item.title,
+						description: item.frontmatter.description,
+						tag: item.frontmatter.tag,
+						url: item.path
+					});
+					if (!formattedModules[index].title && item.frontmatter.parent?.title) {
+						formattedModules[index].title = item.frontmatter.parent?.title;
+					}
+					if (!formattedModules[index].description && item.frontmatter.parent?.description) {
+						formattedModules[index].description = item.frontmatter.parent?.description;
+					}
+					if (!formattedModules[index].number && item.frontmatter.parent?.number) {
+						formattedModules[index].number = item.frontmatter.parent?.number;
+					}
+				}
+
+				return formattedModules;
+			}, {});
+		}
+	}
+}
+</script>
