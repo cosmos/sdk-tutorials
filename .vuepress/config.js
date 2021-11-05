@@ -267,6 +267,16 @@ module.exports = {
         },
       ],
     },
+    tags: {
+      'deep-dive': {
+        color: 'var(--color-secondary)',
+        label: 'Deep dive'
+      },
+      'fast-track': {
+        color: 'var(--color-primary)',
+        label: 'Fast track'
+      }
+    }
   },
   plugins: [
     [
