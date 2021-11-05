@@ -8,6 +8,8 @@ Applications on one chain may have a need to communicate with applications on an
 
 While such bridges between blockchains can be built and do exist, they are generally constructed in an ad hoc manner. In contracts, IBC provides all Cosmos SDK applications with a common protocol and framework for implementing standardized inter-blockchain communication. 
 
+[IBC Relay](./images/IBC-relay.png)
+
 ## Requirements
 
 Applications that use IBC must meet the following requirements:
@@ -142,7 +144,7 @@ A Peg-Zone is a blockchain that tracks the state of another blockchain. The Peg-
 The Tendermint team is working on a Peg-Zone implementation for the Ethereum chain called the [Gravity bridge](./17-bridges.html).
 </HighlightBox>
 
-<!-- TODO -->
+<!-- TODO 
 Paradigms and implications
 Interchain accounts
 https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11
@@ -164,3 +166,4 @@ Now we want to let players choose to play with foreign tokens. So:
 * The leaderboard does not need to be adjusted because it is already per token type. We don't want to do another migration example, that's why we had to be clever about the leaderboard structure.
 
 TODO decide how it looks like. 
+-->
