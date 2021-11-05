@@ -8,7 +8,7 @@ Applications on one chain may have a need to communicate with applications on an
 
 While such bridges between blockchains can be built and do exist, they are generally constructed in an ad hoc manner. In contracts, IBC provides all Cosmos SDK applications with a common protocol and framework for implementing standardized inter-blockchain communication. 
 
-[IBC Relay](./images/IBC-relay.png)
+![IBC Relay](./images/IBC-relay.png)
 
 ## Requirements
 
