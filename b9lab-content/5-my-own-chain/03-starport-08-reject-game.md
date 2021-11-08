@@ -6,7 +6,7 @@ description: You reject a game.
 
 # The Reject Game Elements
 
-A natural counterpart to anyone being to create a game for any two other players, is for these players to be able to reject a game. However, a player should not be allowed to reject a game once they have made their first move. Anyway, as you are already accustomed with Starport, see [Create Message](./03-startport-04-create-message) and [Create Handling](./03-startport-05-create-handling), let's go right to business. It is sufficient to say that to reject a game, a player only needs to specify:
+A natural counterpart to anyone being able to create a game for any two other players, is for these players to be able to reject a game. However, a player should not be allowed to reject a game once they have made their first move. Anyway, as you are already accustomed with Starport, see [Create Message](./03-startport-04-create-message) and [Create Handling](./03-startport-05-create-handling), let's go right to business. It is sufficient to say that to reject a game, a player only needs to specify:
 
 * The id of the game to reject. Let's call the field `idValue`.
 * Nothing else really, as the signer of the message is implicitly the player.
@@ -20,7 +20,7 @@ $ starport scaffold message rejectGame idValue --module checkers
 ```
 It has created all the boilerplate for you and has left a single place so that you can write the meat of your code. In `x/checkers/keeper/msg_server_reject_game.go`:
 
-```go
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/93d048c2b7fbdc26825b41bd043d6203ec9c861c/x/checkers/keeper/msg_server_reject_game.go#L10-L17]
 func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (*types.MsgRejectGameResponse, error) {
     ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -52,8 +52,7 @@ Or, if it complains:
 $ starport chain serve --reset-once
 ```
 
-
-This `MoveCount` should start at `0` and increment by `1` on each move. So first, in `x/checkers/keeper/msg_server_create_game.go`:
+This `MoveCount` should start at `0` and increment by `1` on each move. So adjust, first, in `x/checkers/keeper/msg_server_create_game.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_create_game.go#L26]
 storedGame := types.StoredGame{
@@ -73,13 +72,13 @@ Now you are ready to handle a rejection request.
 
 ## The Reject Handling Part
 
-You declare the following new errors in `x/checkers/types/errors.go`:
+As a convenience, and to follow Cosmos SDK conventions, you declare the following new errors in `x/checkers/types/errors.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/types/errors.go#L19-L20]
 ErrRedAlreadyPlayed   = sdkerrors.Register(ModuleName, 1108, "red player has already played")
 ErrBlackAlreadyPlayed = sdkerrors.Register(ModuleName, 1109, "black player has already played")
 ```
-Since you have seen how to add events to action handling, you also add an event on rejection. So you prepare the keys in `x/checkers/types/keys.go`:
+Since you have seen how to add events to action handling, you also add an event on rejection. For that, you prepare the keys in `x/checkers/types/keys.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/types/keys.go#L41-L45]
 const (
@@ -88,7 +87,6 @@ const (
     RejectGameEventIdValue = "IdValue"
 )
 ```
-
 Now, the reject steps are:
 
 * Fetch the relevant information:

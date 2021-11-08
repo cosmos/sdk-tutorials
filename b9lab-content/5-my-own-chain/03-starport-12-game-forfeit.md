@@ -6,7 +6,7 @@ description: You enforce expiration of games.
 
 # The Expired Game Elements
 
-In the previous sections you prepared the ground to be able to enforce a expiration games, namely:
+In the previous sections you prepared the ground to be able to enforce the expiration of games, namely:
 
 * A FIFO that always has old games at its head and freshly updated games at its tail.
 * A deadline field to guide the expiration.
@@ -17,7 +17,7 @@ In the previous sections you prepared the ground to be able to enforce a expirat
 An expired game will expire in two different ways:
 
 1. It was never really played on, so it is removed quietly.
-2. It was played on, making a proper game, expiry here means a forfeit by the player who failed to play.
+2. It was played on, making it a proper game, expiry here means a forfeit by the player who failed to play.
 
 In the second case, you want to emit a new event, one that differentiates it from a win where a move was involved. Let's define the new keys in `x/checkers/types/keys.go`:
 

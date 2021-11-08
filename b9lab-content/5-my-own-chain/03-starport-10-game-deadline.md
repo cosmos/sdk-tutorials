@@ -6,7 +6,7 @@ description: You expire games proper.
 
 # A Game Deadline
 
-In the previous section you introduced a FIFO that keeps the _oldest_ games at the head of the FIFO, and the most recently updated games at the tail. An old game does not necessarily means it is expired. To ascertain that, you need to add a new field `deadline` to a game, and test against it. Let's prepare the field.
+In the previous section you introduced a FIFO that keeps the _oldest_ games at the head of the FIFO, and the most recently updated games at the tail. A game just being old does not necessarily means it is expired. To ascertain that, you need to add a new field `deadline` to a game, and test against it. Let's prepare the field.
 
 ## New Information
 
@@ -23,7 +23,7 @@ To have Starport and Protobuf recompile this file, you can use:
 ```sh
 $ starport chain serve
 ```
-On each update, the deadline will always be _now_, defined as the block's time, plus a fixed duration. Let's declare this duration in `x/checkers/types/keys.go`, along with how the date is represented in the saved game, as a string:
+Let's decide that on each update, the deadline will always be _now_, defined as the block's time, plus a fixed duration. Let's declare this duration in `x/checkers/types/keys.go`, along with how the date is represented in the saved game, as a string:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0d0e36a8ac86cddc457610856ddaab1b356cee84/x/checkers/types/keys.go#L38-L39]
 const (
@@ -34,7 +34,7 @@ const (
 
 ## Date Manipulation
 
-You can help yourself with helper functions that will encode and decode the deadline in storage. First a new error in `x/checkers/types/errors.go`:
+You can help yourself with helper functions that encode and decode the deadline in storage. First a new error in `x/checkers/types/errors.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0d0e36a8ac86cddc457610856ddaab1b356cee84/x/checkers/types/errors.go#L21]
 ErrInvalidDeadline = sdkerrors.Register(ModuleName, 1110, "deadline cannot be parsed: %s")
