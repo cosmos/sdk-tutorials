@@ -50,9 +50,11 @@
 		overflow-x auto
 		-ms-overflow-style none
 		scrollbar-width none
-		width 100vw
-		margin-left calc(50% - 50vw)
-		padding-inline calc(50vw - 50%)
+
+		@media screen and (max-width: 1024px)
+			width 100vw
+			margin-left calc(50% - 50vw)
+			padding-inline calc(50vw - 50%)
 
 		&::-webkit-scrollbar
 			display none
@@ -65,8 +67,8 @@
 			margin-block 10px
 			display flex
 			flex-direction column
-			width 25vw
 			justify-content space-between
+			flex 1 1 0px
 
 			@media screen and (min-width: 481px) and (max-width: 1024px)
 				width 40vw
