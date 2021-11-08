@@ -15,7 +15,7 @@ For this to happen you need to open a way for the player to hit the rules' `Move
 What does the player have to pass along for a proper check?
 
 * The game id, let's call the field `IdValue`.
-* Which player this is about: `player`. In queries, there is no signer, and so no `Creator`.
+* Which player this is about: `player`. You need to specify it because in queries, there is no signer, and so no `Creator`. Make it simpler and expect `"black"` or `"red"` in this field.
 * The position to start from: `fromX` and `fromY`.
 * The position to land on: `toX` and `toY`.
 
@@ -24,7 +24,7 @@ What information ought to be returned?
 * A boolean whether the move is valid: `Possible`.
 * A text reason as to why the move is not valid, to be nice: `Reason`.
 
-You can now create the query message object with Starport. Keep in mind that you can give only one return value:
+You can now create the query message object with Starport. Keep in mind that you can give only one return value in the Starport `scaffold` command:
 
 ```sh
 $ starport scaffold query canPlayMove idValue player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool
@@ -54,7 +54,7 @@ As with a transaction message, Starport has created the boilerplate for you:
 
 ## Query Handling
 
-So let's see what needs to be done to answer the player's query, in `x/checkers/keeper/grpc_query_can_play_move.go`. Here, you make a difference in errors between:
+So let's see what needs to be done to answer the player's query, in `x/checkers/keeper/grpc_query_can_play_move.go`. Here, you differentiate between two types of errors:
 
 * Those that relate to the move, in which case you give a reason.
 * Those that relate to the impossibility of testing the move, in which case you return an error.
@@ -77,7 +77,7 @@ if storedGame.Winner != rules.NO_PLAYER.Color {
     }, nil
 }
 ```
-Is the player given a valid player:
+Is the `player` given a valid player:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L37-L47]
 var player rules.Player
@@ -106,7 +106,7 @@ if !game.TurnIs(player) {
     }, nil
 }
 ```
-Attempt the move **in memory** and report back:
+Attempt the move, **in memory** because that's what happens when handling a query, and report back:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L62-L77]
 _, moveErr := game.Move(

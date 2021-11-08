@@ -69,7 +69,7 @@ ctx.EventManager().EmitEvent(
     )
 )
 ```
-Let's evidently, in order to avoid surprises down the road, you ought to also modify the creator function among the interface definition of `MsgCreateGame`, in `x/checkers/types/message_create_game.go`:
+Less evidently, in order to avoid surprises down the road, you ought to also modify the creator function among the interface definition of `MsgCreateGame`, in `x/checkers/types/message_create_game.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/types/message_create_game.go#L15]
 func NewMsgCreateGame(creator string, red string, black string, wager uint64) *MsgCreateGame {
@@ -82,7 +82,7 @@ func NewMsgCreateGame(creator string, red string, black string, wager uint64) *M
 
 ## Preparing Your Keeper
 
-Saving a field named `Wager`, however well named, does not make players pay it or receive rewards. You need to add the handling actions. This handling has to ask the Bank to do the necessary. For this to be possible, your keeper needs to ask for a bank instance during setup. Remember that, because of the object-capability model throughout the Cosmos SDK, the only way to have access to a capability is to being given the reference to an instance that has this capability.
+Saving a field named `Wager`, however well named, does not make players pay it or receive rewards. You need to add the handling actions. This handling has to ask the Bank to do the necessary. For this to be possible, your keeper needs to ask for a bank instance during setup. Remember that, because of the object-capability model throughout the Cosmos SDK, the only way to have access to a capability is to be given the reference to an instance that has this capability.
 
 What does your keeper need to do? It needs to keep in escrow the wager when the game is being played, and to pay back when the game is resolved. Good thing, the bank happens to have functions to transfer tokens from any account to your module, and vice-versa.
 
@@ -94,7 +94,7 @@ type BankKeeper interface {
     SendCoinsFromAccountToModule(ctx sdk.Context, senderAddr sdk.AccAddress, recipientModule string, amt sdk.Coins) error
 }
 ```
-These 2 functions need to exactly match those declared [here](https://github.com/cosmos/cosmos-sdk/blob/8b78406/x/bank/keeper/keeper.go#L37-L39), copy / paste to the rescue. The magic of Go is that any object that has your 2 functions above will be a `BankKeeper`. Because the bank's keeper has these 2 functions, it will one.
+These 2 functions need to exactly match those declared [here](https://github.com/cosmos/cosmos-sdk/blob/8b78406/x/bank/keeper/keeper.go#L37-L39), copy / paste to the rescue. The magic of Go is that any object that has your 2 functions above will be a `BankKeeper`. Because the bank's keeper has these 2 functions, it will be one.
 
 Now with the requirements declared, it is time to make sure your keeper receives a reference. First, add a `BankKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
 
@@ -225,7 +225,7 @@ In the above, the `Must` prefix means that it either takes place or a panic is i
         panic(fmt.Sprintf(types.ErrCannotRefundWager.Error(), rules.BLACK_PLAYER.Color))
     }
     ```
-    Once again, if the module can pay, then it is a panic as the escrow has failed.
+    Once again, if the module cannot pay, then it is a panic as the escrow has failed.
 
 ## Insert Wager Handling
 

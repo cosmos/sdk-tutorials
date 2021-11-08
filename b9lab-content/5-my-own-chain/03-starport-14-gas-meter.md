@@ -10,7 +10,7 @@ As of now, players can start playing checkers with your Cosmos blockchain. They 
 
 ## New Information
 
-Let's you landed on values you think are reasonable. Save them in `x/checkers/types/keys.go`:
+Let's say you landed on values you think are reasonable. Save them in `x/checkers/types/keys.go`:
 
 ```go
 const (
