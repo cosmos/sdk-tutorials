@@ -24,7 +24,7 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
     return &types.MsgCreateGameResponse{}, nil
 }
 ```
-Now, it should be apparent to you why picking Starport was shrewd. All the message processing code was created for you and all you are left to do is the meaty part of the action.
+Now, it should be apparent to you why picking Starport was a shrewd move. All the message processing code was created for you and all you are left to do is the meaty part of the action.
 
 Given that you have already done a lot of the preparation work, let's see what that involves. Here `rules` represent the ready-made file with the rules of the game you imported:
 
@@ -46,7 +46,7 @@ Given that you have already done a lot of the preparation work, let's see what t
         Black:   msg.Black,
     }
     ```
-* Confirm that the values in it are correct:
+* Confirm that the values in it are correct, in effect checking the validity of the players' addresses:
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/msg_server_create_game.go#L27-L30]
     err := storedGame.Validate()
     if err != nil {
@@ -58,12 +58,12 @@ Given that you have already done a lot of the preparation work, let's see what t
     k.Keeper.SetStoredGame(ctx, storedGame)
     ```
 * Prepare the ground for the next game:
-    ```go
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/msg_server_create_game.go#L33-L34]
     nextGame.IdValue++
     k.Keeper.SetNextGame(ctx, nextGame)
     ```
 * And return the newly created id for reference:
-    ```go []
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/msg_server_create_game.go#L36-L38]
     return &types.MsgCreateGameResponse{
         IdValue: newIndex,
     }, nil
@@ -75,5 +75,6 @@ As you can see, proper preparation in the previous sections made this handling a
 * To add an event.
 * To consume some gas.
 * To facilitate eventual deadline enforcement.
+* To add _money_ handling.
 
 With the game created, it's time to move to playing it.
