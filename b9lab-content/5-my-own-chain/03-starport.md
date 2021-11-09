@@ -11,8 +11,7 @@ On top of that, Starport will handle some compilation, run a local blockchain no
 To install Starport at the command line:
 
 ```sh
-$ curl https://get.starport.network/starport! | bash
-$ sudo mv starport /usr/local/bin/
+$ curl https://get.starport.com/starport! | bash
 ```
 Once installed, you can verify the version of Starport you have:
 
