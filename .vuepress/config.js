@@ -276,6 +276,10 @@ module.exports = {
         color: 'var(--color-primary)',
         label: 'Fast track'
       }
+    },
+    feedback: {
+      formId: "xnqlpgvw",
+      captchaSiteKey: "6Lc9GtkaAAAAANsk9HXQU2zu8Ta5tI5R7Kr_zgly",
     }
   },
   plugins: [
