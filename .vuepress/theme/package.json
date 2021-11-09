@@ -1,0 +1,88 @@
+{
+  "_args": [
+    [
+      "vuepress-theme-cosmos@1.0.182",
+      "/Users/gioelebonifetto/Documents/b9lab/cosmos-developer-platform"
+    ]
+  ],
+  "_from": "vuepress-theme-cosmos@1.0.182",
+  "_id": "vuepress-theme-cosmos@1.0.182",
+  "_inBundle": false,
+  "_integrity": "sha512-Mc1ZOsSqLGgbB9xEXsx5QkHUBkKXOoDgkjrp5iX+fwmM4TCmR4MWbTlKpEzfzsxZ1DuixtwVkv0MT+eNvD2Lfw==",
+  "_location": "/vuepress-theme-cosmos",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "vuepress-theme-cosmos@1.0.182",
+    "name": "vuepress-theme-cosmos",
+    "escapedName": "vuepress-theme-cosmos",
+    "rawSpec": "1.0.182",
+    "saveSpec": null,
+    "fetchSpec": "1.0.182"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/vuepress-theme-cosmos/-/vuepress-theme-cosmos-1.0.182.tgz",
+  "_spec": "1.0.182",
+  "_where": "/Users/gioelebonifetto/Documents/b9lab/cosmos-developer-platform",
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/cosmos/vuepress-theme-cosmos/issues"
+  },
+  "dependencies": {
+    "@cosmos-ui/vue": "^0.35.0",
+    "@vuepress/plugin-google-analytics": "1.7.1",
+    "algoliasearch": "^4.2.0",
+    "axios": "^0.21.0",
+    "cheerio": "^1.0.0-rc.3",
+    "clipboard-copy": "^3.1.0",
+    "entities": "2.1.0",
+    "esm": "^3.2.25",
+    "gray-matter": "^4.0.2",
+    "hotkeys-js": "3.8.1",
+    "jsonp": "^0.2.1",
+    "markdown-it": "^12.0.0",
+    "markdown-it-attrs": "^3.0.3",
+    "prismjs": "^1.22.0",
+    "pug": "^3.0.1",
+    "pug-plain-loader": "^1.0.0",
+    "stylus": "^0.54.8",
+    "stylus-loader": "^3.0.2",
+    "tiny-cookie": "^2.3.2",
+    "v-runtime-template": "^1.10.0",
+    "vuepress": "^1.5.4",
+    "vuepress-plugin-google-tag-manager": "0.0.5",
+    "vuepress-plugin-sitemap": "^2.3.1"
+  },
+  "description": "Theme for VuePress static site generator used by Tendermint and Cosmos projects.",
+  "devDependencies": {
+    "core-js": "^3.6.5",
+    "is-svg": "^4.2.2",
+    "node-forge": "^0.10.0",
+    "set-value": "^3.0.2",
+    "ssri": "^8.0.1",
+    "watchpack": "^2.0.0"
+  },
+  "homepage": "https://github.com/cosmos/vuepress-theme-cosmos#readme",
+  "keywords": [
+    "documentation",
+    "docs",
+    "cosmos",
+    "tendermint",
+    "vuepress",
+    "theme"
+  ],
+  "license": "Apache 2.0",
+  "main": "index.js",
+  "name": "vuepress-theme-cosmos",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cosmos/vuepress-theme-cosmos.git"
+  },
+  "scripts": {
+    "postversion": "git push && git push --tags"
+  },
+  "version": "1.0.182"
+}
