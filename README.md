@@ -45,10 +45,8 @@ tools:
   - title: Hermes Relayer
     description: Rust implementation of relayer for IBC.
     links:
-      - name: Learn more
-        url: 
       - name: Documentation
-        url: 
+        url: https://hermes.informal.systems/
     image: /generic-star-icon.svg
   - title: IBC
     description: Industry standard protocol for inter-blockchain communication.
