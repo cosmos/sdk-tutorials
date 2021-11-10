@@ -24,7 +24,7 @@ tools:
       - name: Learn more
         url: 
       - name: Documentation
-        url: 
+        url: https://docs.cosmos.network/
     image: /cosmos-sdk-icon.svg
   - title: Tendermint Core
     description: Blockchain consensus engine and application interface.
