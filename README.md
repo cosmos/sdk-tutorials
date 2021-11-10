@@ -30,7 +30,7 @@ tools:
     description: Blockchain consensus engine and application interface.
     links:
       - name: Learn more
-        url: 
+        url: https://tendermint.com/core/
       - name: Documentation
         url: 
     image: /tendermint-icon.svg
