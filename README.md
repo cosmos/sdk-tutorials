@@ -40,7 +40,7 @@ tools:
       - name: Learn more
         url: https://starport.com/
       - name: Documentation
-        url: 
+        url: https://docs.starport.com/
     image: /starport-icon.svg
   - title: Hermes Relayer
     description: Rust implementation of relayer for IBC.
