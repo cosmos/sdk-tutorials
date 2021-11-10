@@ -1,18 +1,16 @@
 <template lang="pug">
 	custom-layout
 		.home__content
-			.home__content__intro
+			.home__content__intro(v-if="$frontmatter.intro")
 				.home__content__intro__content
-					.overline-label welcome to
-					h2.home__content__intro__content__title Cosmos Academy
-					.home__content__intro__content__desc Cosmos is a network of interoperable blockchains build on BFT consensus. 
-					.home__content__intro__content__desc The ever-expanding ecosystem provides SDKs, tokens and wallets, applications and services. Discover the Cosmos SDK to develop application-specific blockchains. 
-					.home__content__intro__content__desc Are you ready to begin your journey through the Cosmos?
-					a.home__content__intro__content__link Start course
+					.overline-label(v-if="$frontmatter.intro.overline") {{$frontmatter.intro.overline}}
+					h2.home__content__intro__content__title {{$frontmatter.intro.title}}
+					.home__content__intro__content__desc(v-html="$frontmatter.intro.description")
+					a.home__content__intro__content__link(v-if="$frontmatter.intro.action" :href="$frontmatter.intro.action.url") {{$frontmatter.intro.action.label}}
 						icon-arrow(fill="var(--background-color-primary)" type="right").home__content__intro__content__link__icon
-				.home__content__intro__image
-					img(src="/graphics-sdk-course.png")
-			.home__content__get-started
+				.home__content__intro__image(v-if="$frontmatter.intro.image")
+					img(:src="$frontmatter.intro.image")
+			.home__content__get-started(v-if="$frontmatter.main")
 				.home__content__get-started__image
 					img(width="100%" src="/graphics-sdk-course-1.png")
 				.home__content__get-started__content
@@ -21,7 +19,7 @@
 					.home__content__get-started__content__desc Get started right away, begin with the introductory chapter.
 			.modules
 				card-module(v-for="module in this.modules" :module="module").modules__item
-			.resources__wrapper
+			.resources__wrapper(v-if="$frontmatter.resources")
 				h3.resources__title Developer resources
 				.resources
 					.resources__item(v-for="resource in $frontmatter.resources")
@@ -141,6 +139,7 @@
 			&__intro
 				display flex
 				align-items center
+				margin-bottom 32px
 
 				&__image
 					margin-left 16px
@@ -214,11 +213,14 @@
 export default {
 	computed: {
 		modules() {
-			const folderPath = this.$page.path.split("/").filter(item => item !== "")[0];
+			const path = this.$page.path.split("/").filter(item => item !== "");
+			const folderPath = this.$frontmatter.main ? path[0] : path[1];
 			const submodules = this.$site.pages
-				.filter(page => page.path.includes(folderPath) && page.path != this.$page.path)
+				.filter(page => page.path.includes(folderPath) && (this.$frontmatter.main ? page.path != this.$page.path : true))
 				.sort((a, b) => a.path.localeCompare(b.path));
 			const modules = this.formatModules(submodules);
+
+			console.log(modules)
 			
 			return Object.values(modules);
 		},
