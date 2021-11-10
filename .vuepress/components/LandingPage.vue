@@ -53,7 +53,7 @@
                                         icon-arrow.link__icon
 
             .support__wrapper
-                card(imageUrl="/support-image.png")
+                card(imageUrl="/support-image.png").support__card
                     .overline-label custom support
                     h2.content__support__title Need help bringing your project to life?
                     .content__support__desc Apply for support and get help with funding applications, grants, technology, architecture, and getting in touch with the ecosystem.
@@ -98,7 +98,7 @@
                 margin-top 20px
 
             &__action
-                background var(--color-text)
+                background var(--color-text-strong)
                 font-weight 500
                 color var(--background-color-primary)
                 margin-top 40px
@@ -296,8 +296,12 @@
     .tutorials__wrapper
         margin-top 96px
 
-    .support__wrapper
-        margin-block 96px
+    .support
+        &__card
+            background-position right bottom !important
+
+        &__wrapper
+            margin-block 96px
 
     .articles__wrapper
         margin-top 96px
