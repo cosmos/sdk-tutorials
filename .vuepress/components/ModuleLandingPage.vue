@@ -235,7 +235,6 @@ export default {
 						title: item.frontmatter.parent?.title,
 						description: item.frontmatter.parent?.description,
 						number: item.frontmatter.parent?.number,
-						url: item.path,
 						submodules: [{
 							title: item.title,
 							description: item.frontmatter.description,
@@ -243,6 +242,9 @@ export default {
 							url: item.path
 						}]
 					};
+					if (item.path != this.$page.path) {
+						formattedModules[index].url = item.path;
+					}
 				} else {
 					formattedModules[index].submodules = (formattedModules[index].submodules || []).concat({
 						title: item.title,
@@ -258,6 +260,9 @@ export default {
 					}
 					if (!formattedModules[index].number && item.frontmatter.parent?.number) {
 						formattedModules[index].number = item.frontmatter.parent?.number;
+					}
+					if (!formattedModules[index].url) {
+						formattedModules[index].url = item.path;
 					}
 				}
 
