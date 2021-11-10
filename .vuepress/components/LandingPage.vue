@@ -208,6 +208,12 @@
                 &__links
                     display flex
 
+                    @media screen and (max-width: 480px)
+                        flex-direction column
+                        
+                        .link
+                            margin-top 10px
+
     .articles
         padding-top: 32px
         display flex
