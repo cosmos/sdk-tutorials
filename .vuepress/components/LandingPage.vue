@@ -2,14 +2,15 @@
     custom-layout
         .content
             h1 Developer Portal
-            card(imageUrl="/graphics-sdk-course.png")
-                .overline-label beginner
-                h2.content__intro__title Cosmos Academy
-                .info-label ~126 Hours
+            a(href="/b9lab-content/1-welcome")
+                card(imageUrl="/graphics-sdk-course.png")
+                    .overline-label beginner
+                    h2.content__intro__title Cosmos Academy
+                    .info-label ~126 Hours
 
-                .content__intro__desc A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
-                a(href="/b9lab-content/1-welcome").content__intro__link Start learning
-                    icon-arrow(type="right").content__intro__link__icon
+                    .content__intro__desc A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
+                    .content__intro__link Start learning
+                        icon-arrow(type="right").content__intro__link__icon
             .tutorials__wrapper
                 h3 Tutorials
                 .tutorials
