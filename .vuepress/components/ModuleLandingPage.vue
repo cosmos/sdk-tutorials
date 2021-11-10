@@ -68,13 +68,16 @@
 			display flex
 			flex-direction column
 			justify-content space-between
-			flex 1 1 0px
+
+			@media screen and (min-width: 481px)
+				flex 1 1 0px
 
 			@media screen and (min-width: 481px) and (max-width: 1024px)
 				width 40vw
 
 			@media screen and (max-width: 480px)
-				width 80vw
+				width 60vw
+				flex-shrink 0
 
 			&:last-child
 				padding-right 0px

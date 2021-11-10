@@ -57,7 +57,7 @@
                                         span {{link.name}}
 
             .support__wrapper.mt-10
-                card(imageUrl="/support-image.png" :bigCard="true")
+                card(imageUrl="/support-image.png" :bigCard="true").support__card
                     .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted custom support
                     h2.content__support__title.mt-6 Need help bringing your project to life?
                     .mt-5.tm-lh-copy.tm-muted.tm-measure-narrow Apply for support and get help with funding applications, grants, technology, architecture, and getting in touch with the ecosystem.
@@ -186,6 +186,9 @@
                 margin-bottom 10px
                 text-align center
 
+                @media screen and (max-width: 1024px)
+                    text-align start
+
                 img
                     width 3.5rem
                     height 3.5rem
@@ -205,8 +208,10 @@
                     @media screen and (max-width: 480px)
                         flex-direction column
                         
-                        .link
+                        .tm-link
+                            margin-left 0
                             margin-top 10px
+                            width fit-content
 
     .articles
         display flex
@@ -319,5 +324,13 @@
 
         .articles__wrapper
             margin-top 64px
+
+        .content__support__action
+            padding-block 10px
+            width 100%
+        
+        .tm-button
+            padding-inline 0px
+            width 100%
 
 </style>
