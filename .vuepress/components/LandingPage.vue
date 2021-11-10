@@ -17,7 +17,7 @@
                     .tutorials__item__small
                         card
                             .overline-label intermediate
-                            h4.tutorials__item__small__title Nullam id dolor id nibh ultricies vehicula ut id elit.
+                            h4.tutorials__item__small__title Learn to use the Cosmos SDK with our tutorials.
                             .tutorials__item__small__desc Contributors, assemble! <br/> We are always looking for content to help new Cosmosnauts understand and explore the cosmos.
                             .info-label 10 minute read
                     .tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}")
