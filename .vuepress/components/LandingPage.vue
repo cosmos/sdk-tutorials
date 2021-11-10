@@ -2,26 +2,27 @@
     custom-layout
         .content
             h1 Developer Portal
-            card(imageUrl="/graphics-sdk-course.png")
-                .overline-label beginner
-                h2.content__intro__title Cosmos Academy
-                .info-label ~126 Hours
+            a(href="/b9lab-content/1-welcome")
+                card(imageUrl="/graphics-sdk-course.png")
+                    .overline-label beginner
+                    h2.content__intro__title Cosmos Academy
+                    .info-label ~126 Hours
 
-                .content__intro__desc A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
-                a(href="/b9lab-content/1-welcome").content__intro__link Start learning
-                    icon-arrow(type="right").content__intro__link__icon
+                    .content__intro__desc Want to discover how to use the Cosmos SDK to build application-specific blockchains? Take your first steps in the Cosmos universe with a look into this complete and comprehensive course.
+                    .content__intro__link Start learning
+                        icon-arrow(type="right").content__intro__link__icon
             .tutorials__wrapper
                 h3 Tutorials
                 .tutorials
                     .tutorials__item__small
                         card
                             .overline-label intermediate
-                            h4.tutorials__item__small__title Nullam id dolor id nibh ultricies vehicula ut id elit.
+                            h4.tutorials__item__small__title Learn to use the Cosmos SDK with our tutorials.
                             .tutorials__item__small__desc Contributors, assemble! <br/> We are always looking for content to help new Cosmosnauts understand and explore the cosmos.
                             .info-label 10 minute read
                     .tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}")
                         .overline-label starport
-                        h2.tutorials__item__large__title Build a chain in minutes
+                        h2.tutorials__item__large__title Build a chain in hours
 
 
             .articles__wrapper
@@ -52,10 +53,10 @@
                                         icon-arrow.link__icon
 
             .support__wrapper
-                card(imageUrl="/support-image.png")
+                card(imageUrl="/support-image.png").support__card
                     .overline-label custom support
-                    h2.content__support__title Looking for help bringing your project to life?
-                    .content__support__desc Apply for support and get help with funding applications, grants, technology, architechture,  and introductions to ecosystem insiders.
+                    h2.content__support__title Need help bringing your project to life?
+                    .content__support__desc Apply for support and get help with funding applications, grants, technology, architecture, and getting in touch with the ecosystem.
                     .content__support__action 
                         a Talk to us
                             icon-arrow(fill="var(--background-color-primary)" type="top-right").link__icon
@@ -97,7 +98,7 @@
                 margin-top 20px
 
             &__action
-                background var(--color-text)
+                background var(--color-text-strong)
                 font-weight 500
                 color var(--background-color-primary)
                 margin-top 40px
@@ -182,7 +183,7 @@
                 border-bottom 1px solid var(--semi-transparent-color-2)
                 display flex
                 height 100%
-                margin-block 10px
+                margin-block 22px
 
                 @media screen and (max-width: 1024px)
                     flex-direction column
@@ -207,6 +208,12 @@
 
                 &__links
                     display flex
+
+                    @media screen and (max-width: 480px)
+                        flex-direction column
+                        
+                        .link
+                            margin-top 10px
 
     .articles
         padding-top: 32px
@@ -284,13 +291,20 @@
             height 10px
     
     .tools__wrapper
-        margin-top 50px
+        margin-top 96px
 
     .tutorials__wrapper
-        margin-top 50px
+        margin-top 96px
+
+    .support
+        &__card
+            background-position right bottom !important
+
+        &__wrapper
+            margin-block 96px
 
     .articles__wrapper
-        margin-top 50px
+        margin-top 96px
 
         &__title
             display flex
@@ -298,5 +312,18 @@
 
         .link
             margin-right 0px
+
+    @media screen and (max-width: 480px)
+        .tools__wrapper
+            margin-top 64px
+
+        .tutorials__wrapper
+            margin-top 64px
+
+        .support__wrapper
+            margin-block 64px
+
+        .articles__wrapper
+            margin-top 64px
 
 </style>
