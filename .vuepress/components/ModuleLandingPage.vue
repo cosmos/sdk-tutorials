@@ -18,7 +18,7 @@
 					h2.home__content__get-started__content__title Ready to start?
 					.home__content__get-started__content__desc Get started right away, begin with the introductory chapter.
 			.modules
-				card-module(v-for="module in this.modules" :module="module").modules__item
+				card-module(v-for="module in this.modules" :module="module" :startExpanded="!$frontmatter.main").modules__item
 			.resources__wrapper(v-if="$frontmatter.resources")
 				h3.resources__title Developer resources
 				.resources
