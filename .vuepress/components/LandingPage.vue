@@ -53,7 +53,7 @@
                                 h5 {{tool.title}}
                                 .mt-3 {{tool.description}}
                                 .mt-6.tools__item__content__links
-                                    a(v-for="link in tool.links" :href="link.url").tm-link.tm-lh-solid.tm-medium.tm-link-external
+                                    a(v-for="link in tool.links" :href="link.url" target="_blank").tm-link.tm-lh-solid.tm-medium.tm-link-external
                                         span {{link.name}}
 
             .support__wrapper.mt-10

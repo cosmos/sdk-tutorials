@@ -38,7 +38,7 @@ tools:
     description: All-in-one platform to build, launch, and maintain apps on a sovereign and secured blockchain.
     links:
       - name: Learn more
-        url: 
+        url: https://starport.com/
       - name: Documentation
         url: 
     image: /starport-icon.svg
