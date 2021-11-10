@@ -32,7 +32,7 @@ tools:
       - name: Learn more
         url: https://tendermint.com/core/
       - name: Documentation
-        url: 
+        url: https://docs.tendermint.com/
     image: /tendermint-icon.svg
   - title: Starport
     description: All-in-one platform to build, launch, and maintain apps on a sovereign and secured blockchain.
