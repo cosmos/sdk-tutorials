@@ -3,20 +3,22 @@
 		.home__content
 			.home__content__intro(v-if="$frontmatter.intro")
 				.home__content__intro__content
-					.overline-label(v-if="$frontmatter.intro.overline") {{$frontmatter.intro.overline}}
+					.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$frontmatter.intro.overline") {{$frontmatter.intro.overline}}
 					h2.home__content__intro__content__title {{$frontmatter.intro.title}}
-					.home__content__intro__content__desc(v-html="$frontmatter.intro.description")
-					a.home__content__intro__content__link(v-if="$frontmatter.intro.action" :href="$frontmatter.intro.action.url") {{$frontmatter.intro.action.label}}
-						icon-arrow(fill="var(--background-color-primary)" type="right").home__content__intro__content__link__icon
+					.home__content__intro__content__desc.tm-measure-narrower(v-html="$frontmatter.intro.description")
+					a.tm-button.mt-7(v-if="$frontmatter.intro.action" :href="$frontmatter.intro.action.url") {{$frontmatter.intro.action.label}}
+						span Start course &rarr;
 				.home__content__intro__image(v-if="$frontmatter.intro.image")
 					img(:src="$frontmatter.intro.image")
 			.home__content__get-started(v-if="$frontmatter.main")
 				.home__content__get-started__image
 					img(width="100%" src="/graphics-sdk-course-1.png")
 				.home__content__get-started__content
-					.overline-label get started
+					.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted get started
 					h2.home__content__get-started__content__title Ready to start?
-					.home__content__get-started__content__desc Get started right away, begin with the introductory chapter.
+					.home__content__get-started__content__desc
+						div Get started right away,
+						div begin with the introductory chapter.
 			.modules
 				card-module(v-for="module in this.modules" :module="module" :startExpanded="!$frontmatter.main").modules__item
 			.resources__wrapper(v-if="$frontmatter.resources")
@@ -28,8 +30,8 @@
 						h5.resources__item__title {{resource.title}}
 						.resources__item__description {{resource.description}}
 						.resources__item__links
-							a(v-for="link in resource.links" :href="link.url").resources__item__links__item {{link.name}}
-								icon-arrow.resources__item__links__item__icon
+							a(v-for="link in resource.links" :href="link.url").tm-link.tm-link-external.tm-medium
+								span {{link.name}}
 </template>
 
 
