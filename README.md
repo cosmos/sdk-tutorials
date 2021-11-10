@@ -67,8 +67,6 @@ tools:
   - title: Gaia
     description: Software powering Cosmos Hub, the heart of the Cosmos network, and home of the ATOM token.
     links:
-      - name: Learn more
-        url: 
       - name: Documentation
         url: https://hub.cosmos.network/main/hub-overview/overview.html
     image: /generic-star-icon.svg
