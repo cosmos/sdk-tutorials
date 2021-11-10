@@ -1,5 +1,5 @@
 <template lang="pug">
-    custom-layout
+    custom-layout(:hideMobileMenu="true")
         .content
             h1.tm-title.tm-lh-title.tm-rf6.tm-bold Developer Portal
             a(href="/b9lab-content/1-welcome")

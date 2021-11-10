@@ -1,5 +1,5 @@
 <template lang="pug">
-	custom-layout
+	custom-layout(:hideMobileMenu="true")
 		.home__content
 			.home__content__intro(v-if="$frontmatter.intro")
 				.home__content__intro__content
