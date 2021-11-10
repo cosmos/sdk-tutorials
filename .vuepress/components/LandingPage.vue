@@ -1,77 +1,77 @@
 <template lang="pug">
     custom-layout
         .content
-            h1 Developer Portal
-            card(imageUrl="/graphics-sdk-course.png")
-                .overline-label beginner
-                h2.content__intro__title Cosmos Academy
-                .info-label ~126 Hours
+            h1.tm-title.tm-lh-title.tm-rf6.tm-bold Developer Portal
+            card.mt-9(imageUrl="/graphics-sdk-course.png")
+                .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted beginner
+                h2.mt-1 Cosmos Academy
+                .info-label.tm-lh-title.tm-rf-1.tm-muted ~126 Hours
 
-                .content__intro__desc A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
-                a(href="/b9lab-content/1-welcome").content__intro__link Start learning
-                    icon-arrow(type="right").content__intro__link__icon
-            .tutorials__wrapper
-                h3 Tutorials
+                .content__intro__desc.tm-measure-narrow.tm-lh-copy.tm-muted A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
+                a(href="/b9lab-content/1-welcome").tm-link.mt-7.mb-5.tm-rf1.tm-medium
+                    span Start learning
+                    icon-arrow(type="right").icon-external.content__intro__link__icon
+            .tutorials__wrapper.mt-10
+                h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tutorials
                 .tutorials
                     .tutorials__item__small
                         card
-                            .overline-label intermediate
-                            h4.tutorials__item__small__title Nullam id dolor id nibh ultricies vehicula ut id elit.
-                            .tutorials__item__small__desc Contributors, assemble! <br/> We are always looking for content to help new Cosmosnauts understand and explore the cosmos.
-                            .info-label 10 minute read
+                            .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted intermediate
+                            h4.mt-7 Nullam id dolor id nibh ultricies vehicula ut id elit.
+                            .mt-7.tm-lh-copy.tm-muted Contributors, assemble! <br/> We are always looking for content to help new Cosmosnauts understand and explore the cosmos.
+                            .mt-7.info-label.tm-rf-1.tm-muted 10 minute read
                     .tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}")
-                        .overline-label starport
-                        h2.tutorials__item__large__title Build a chain in minutes
+                        .tm-measure
+                            .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted starport
+                            h2.mt-5 Build a chain in&nbsp;minutes
 
 
-            .articles__wrapper
+            .articles__wrapper.mt-10
                 .articles__wrapper__title
-                    h3 Articles
-                    a(href="/").link More articles
-                        icon-arrow.link__icon
-                .articles
+                    h3.tm-title.tm-lh-title.tm-rf3.tm-bold Articles
+                    div
+                        a(href="/").tm-link.tm-lh-solid.tm-rf1.tm-medium.tm-link-external
+                            span More articles
+                .articles.mt-8
                     .articles__item(v-for="article in $frontmatter.articles")
                         .articles__item__container
                             .articles__item__image(v-bind:style="{'background-image': `url(${article.image})`}")
                             .articles__item__content
-                                .overline-label.articles__item__content__date {{article.date}}
+                                .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.articles__item__content__date {{article.date}}
                                 h4.articles__item__content__title {{article.title}}
-                                .info-label.articles__item__content__time {{article.time}} minute read
-            .tools__wrapper
-                h3 Tools
-                .tools
+                                .info-label.articles__item__content__time.tm-rf-1.tm-muted.tm-lh-title {{article.time}} minute read
+
+            .tools__wrapper.mt-10
+                h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tools
+                .tools.mt-8
                     .tools__item(v-for="tool in $frontmatter.tools")
                         .tools__item__container
                             .tools__item__icon
                                 img(:src="tool.image" :alt="tool.title")
                             .tools__item__content
-                                h5.tools__item__content__title {{tool.title}}
-                                .tools__item__content__description {{tool.description}}
-                                .tools__item__content__links
-                                    a(v-for="link in tool.links" :href="link.url").link {{link.name}}
-                                        icon-arrow.link__icon
+                                h5 {{tool.title}}
+                                .mt-3 {{tool.description}}
+                                .mt-6.tools__item__content__links
+                                    a(v-for="link in tool.links" :href="link.url").tm-link.tm-lh-solid.tm-medium.tm-link-external
+                                        span {{link.name}}
 
-            .support__wrapper
-                card(imageUrl="/support-image.png")
-                    .overline-label custom support
-                    h2.content__support__title Looking for help bringing your project to life?
-                    .content__support__desc Apply for support and get help with funding applications, grants, technology, architechture,  and introductions to ecosystem insiders.
-                    .content__support__action 
-                        a Talk to us
-                            icon-arrow(fill="var(--background-color-primary)" type="top-right").link__icon
+            .support__wrapper.mt-10
+                card(imageUrl="/support-image.png" :bigCard="true")
+                    .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted custom support
+                    h2.content__support__title.mt-6 Looking for help bringing your project to&nbsp;life?
+                    .mt-5.tm-lh-copy.tm-muted.tm-measure-narrow Apply for support and get help with funding applications, grants, technology, architechture,  and introductions to ecosystem insiders.
+                    .content__support__action.mt-8
+                        a.tm-button.tm-button-external 
+                            span Talk to us
 </template>
 
 <style lang="stylus" scoped>
     .content
-        margin-top 32px
+        margin-top var(--spacing-9)
         max-width var(--content-max-width)
         margin-inline auto
 
         &__intro
-
-            &__title
-                margin-block 10px
-
             &__desc
                 margin-top 20px
 
@@ -91,28 +91,13 @@
         &__support
 
             &__title
-                margin-block 10px
+                max-width: 35rem
 
             &__desc
                 margin-top 20px
 
             &__action
-                background var(--color-text)
-                font-weight 500
-                color var(--background-color-primary)
-                margin-top 40px
-                border-radius 10px
-                padding-block 20px
-                padding-inline 60px
                 width fit-content
-                
-                a
-                    display flex
-
-                    svg
-                        fill var(--background-color-primary)
-                        width 10px
-                        height 10px
 
     .tutorials
         display flex
@@ -122,14 +107,8 @@
 
         &__item
             &__small
-                width 25vw
+                width 25.8vw
                 flex-grow 0
-
-                &__title
-                    margin-block 20px
-
-                &__desc
-                    margin-bottom 20px
 
                 .card
                     margin-top 32px
@@ -166,50 +145,55 @@
                     padding-top 192px
 
     .tools
-        margin-top 32px
         display flex
         flex-wrap wrap
-        width 100%
+        margin-left calc(-1 * var(--spacing-5))
+        margin-right calc(-1 * var(--spacing-5))
 
         &__item
-            padding 10px
+            padding-left var(--spacing-5)
+            padding-right var(--spacing-5)
+            margin-bottom var(--spacing-5)
             width 50%
+            &:last-child
+                margin-bottom 0
 
             @media screen and (max-width: 480px)
                 width 100%
             
             &__container
+                padding-top var(--spacing-5)
+                padding-bottom var(--spacing-5)
                 border-bottom 1px solid var(--semi-transparent-color-2)
                 display flex
                 height 100%
-                margin-block 10px
 
                 @media screen and (max-width: 1024px)
                     flex-direction column
 
             &__icon
-                margin-right 20px
+                flex-shrink 0
+                width 6.5rem
                 margin-bottom 10px
+                text-align center
 
                 img
-                    width 50px
-                    height 50px
+                    width 3.5rem
+                    height 3.5rem
                     margin 0
                     filter var(--img-filter)
             
             &__content
-
-                &__title
-                    margin-bottom 10px
-
-                &__description
-                    margin-bottom 20px
+                padding-bottom var(--spacing-6)
 
                 &__links
                     display flex
+                    > *
+                        margin-left var(--spacing-6)
+                        &:first-child
+                            margin-left 0
 
     .articles
-        padding-top: 32px
         display flex
         overflow hidden
         overflow-x auto
@@ -248,7 +232,8 @@
                     width 80vw
 
             &__image
-                height 200px
+                height 0
+                padding-bottom 56%
                 flex-grow 0
                 background-size cover
                 border-top-left-radius 20px
@@ -268,7 +253,7 @@
                     padding 24px
 
                 &__title
-                    margin-block 20px
+                    margin-block var(--spacing-5)
 
     .link
         margin-block auto
@@ -283,18 +268,12 @@
             width 10px
             height 10px
     
-    .tools__wrapper
-        margin-top 50px
-
-    .tutorials__wrapper
-        margin-top 50px
-
     .articles__wrapper
-        margin-top 50px
 
         &__title
             display flex
             justify-content space-between
+            align-items center
 
         .link
             margin-right 0px

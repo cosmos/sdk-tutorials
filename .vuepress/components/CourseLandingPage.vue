@@ -3,22 +3,24 @@
 		.home__content
 			.home__content__intro
 				.home__content__intro__content
-					.overline-label welcome to
+					.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted welcome to
 					h2.home__content__intro__content__title Cosmos Academy
-					.home__content__intro__content__desc Cosmos is a network of interoperable blockchains build on BFT consensus. 
-					.home__content__intro__content__desc The ever-expanding ecosystem provides SDKs, tokens and wallets, applications and services. Discover the Cosmos SDK to develop application-specific blockchains. 
-					.home__content__intro__content__desc Are you ready to begin your journey through the Cosmos?
-					a.home__content__intro__content__link Start course
-						icon-arrow(fill="var(--background-color-primary)" type="right").home__content__intro__content__link__icon
+					.home__content__intro__content__desc.tm-measure-narrower Cosmos is a network of interoperable blockchains build on BFT consensus. 
+					.home__content__intro__content__desc.tm-measure-narrower The ever-expanding ecosystem provides SDKs, tokens and wallets, applications and services. Discover the Cosmos SDK to develop application-specific blockchains. 
+					.home__content__intro__content__desc.tm-measure-narrower Are you ready to begin your journey through the Cosmos?
+					a.tm-button.mt-7
+						span Start course &rarr;
 				.home__content__intro__image
 					img(src="/graphics-sdk-course.png")
 			.home__content__get-started
 				.home__content__get-started__image
 					img(width="100%" src="/graphics-sdk-course-1.png")
 				.home__content__get-started__content
-					.overline-label get started
+					.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted get started
 					h2.home__content__get-started__content__title Ready to start?
-					.home__content__get-started__content__desc Get started right away, begin with the introductory chapter.
+					.home__content__get-started__content__desc
+						div Get started right away,
+						div begin with the introductory chapter.
 			.modules
 				card-module(v-for="module in this.modules" :module="module").modules__item
 			.resources__wrapper
@@ -30,8 +32,8 @@
 						h5.resources__item__title {{resource.title}}
 						.resources__item__description {{resource.description}}
 						.resources__item__links
-							a(v-for="link in resource.links" :href="link.url").resources__item__links__item {{link.name}}
-								icon-arrow.resources__item__links__item__icon
+							a(v-for="link in resource.links" :href="link.url").tm-link.tm-link-external.tm-medium
+								span {{link.name}}
 </template>
 
 
