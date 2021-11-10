@@ -55,7 +55,7 @@
             .support__wrapper
                 card(imageUrl="/support-image.png")
                     .overline-label custom support
-                    h2.content__support__title Looking for help bringing your project to life?
+                    h2.content__support__title Need help bringing your project to life?
                     .content__support__desc Apply for support and get help with funding applications, grants, technology, architechture,  and introductions to ecosystem insiders.
                     .content__support__action 
                         a Talk to us
