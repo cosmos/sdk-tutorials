@@ -62,7 +62,7 @@ tools:
     description: Smart contracting platform built for Cosmos ecosystem.
     links:
       - name: Learn more
-        url: 
+        url: https://cosmwasm.com/
       - name: Documentation
         url: 
     image: /starport-icon.svg
