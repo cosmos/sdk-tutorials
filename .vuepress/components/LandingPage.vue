@@ -56,7 +56,7 @@
                 card(imageUrl="/support-image.png")
                     .overline-label custom support
                     h2.content__support__title Need help bringing your project to life?
-                    .content__support__desc Apply for support and get help with funding applications, grants, technology, architechture,  and introductions to ecosystem insiders.
+                    .content__support__desc Apply for support and get help with funding applications, grants, technology, architecture, and getting in touch with the ecosystem.
                     .content__support__action 
                         a Talk to us
                             icon-arrow(fill="var(--background-color-primary)" type="top-right").link__icon
