@@ -56,7 +56,7 @@ tools:
       - name: Learn more
         url: https://ibcprotocol.org/
       - name: Documentation
-        url: 
+        url: https://github.com/cosmos/ibc
     image: /ibc-icon.svg
   - title: CosmWasm
     description: Smart contracting platform built for Cosmos ecosystem.
