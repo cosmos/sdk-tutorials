@@ -8,7 +8,7 @@
                     h2.content__intro__title Cosmos Academy
                     .info-label ~126 Hours
 
-                    .content__intro__desc A complete and comprehensive course that enables you to use the Cosmos SDK to build and extend blockchains.
+                    .content__intro__desc Want to discover how to use the Cosmos SDK to build application-specific blockchains? Take your first steps in the Cosmos universe with a look into this complete and comprehensive course.
                     .content__intro__link Start learning
                         icon-arrow(type="right").content__intro__link__icon
             .tutorials__wrapper
