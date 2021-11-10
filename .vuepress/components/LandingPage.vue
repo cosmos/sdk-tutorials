@@ -182,7 +182,7 @@
                 border-bottom 1px solid var(--semi-transparent-color-2)
                 display flex
                 height 100%
-                margin-block 10px
+                margin-block 22px
 
                 @media screen and (max-width: 1024px)
                     flex-direction column
