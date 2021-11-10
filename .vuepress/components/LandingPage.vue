@@ -290,13 +290,16 @@
             height 10px
     
     .tools__wrapper
-        margin-top 50px
+        margin-top 96px
 
     .tutorials__wrapper
-        margin-top 50px
+        margin-top 96px
+
+    .support__wrapper
+        margin-block 96px
 
     .articles__wrapper
-        margin-top 50px
+        margin-top 96px
 
         &__title
             display flex
@@ -304,5 +307,18 @@
 
         .link
             margin-right 0px
+
+    @media screen and (max-width: 480px)
+        .tools__wrapper
+            margin-top 64px
+
+        .tutorials__wrapper
+            margin-top 64px
+
+        .support__wrapper
+            margin-block 64px
+
+        .articles__wrapper
+            margin-top 64px
 
 </style>
