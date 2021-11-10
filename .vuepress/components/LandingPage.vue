@@ -21,7 +21,7 @@
                             .info-label 10 minute read
                     .tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}")
                         .overline-label starport
-                        h2.tutorials__item__large__title Build a chain in minutes
+                        h2.tutorials__item__large__title Build a chain in hours
 
 
             .articles__wrapper
