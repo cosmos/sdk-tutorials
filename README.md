@@ -22,7 +22,7 @@ tools:
     description: A framework for building public blockchains.
     links:
       - name: Learn more
-        url: 
+        url: https://v1.cosmos.network/sdk
       - name: Documentation
         url: https://docs.cosmos.network/
     image: /cosmos-sdk-icon.svg
