@@ -72,7 +72,7 @@ tools:
       - name: Learn more
         url: 
       - name: Documentation
-        url: 
+        url: https://hub.cosmos.network/main/hub-overview/overview.html
     image: /generic-star-icon.svg
 -->
 
