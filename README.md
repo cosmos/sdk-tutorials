@@ -54,7 +54,7 @@ tools:
     description: Industry standard protocol for inter-blockchain communication.
     links:
       - name: Learn more
-        url: 
+        url: https://ibcprotocol.org/
       - name: Documentation
         url: 
     image: /ibc-icon.svg
