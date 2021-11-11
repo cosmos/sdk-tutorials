@@ -32,7 +32,9 @@ As a developer, you should rarely manipulate a Tx directly. It is an intermediat
 ## Messages
 
 <HighlightBox type=”info”>
+
 Transaction messages are not to be confused with ABCI messages that define interactions between Tendermint and application layers.
+
 </HighlightBox>
 
 In this context, messages, or `sdk.Msgs` are module-specific objects that trigger state transitions within the scope of the module they belong to. Module developers define module messages by adding methods to the Protobuf Msg service and defining a `MsgServer`. Each `sdk.Msgs` is related to exactly one Protobuf Msg service RPC, defined inside each module's `tx.proto` file. A Cosmos SDK app router automatically maps every `sdk.Msg` to a corresponding RPC service which routes it to the appropriate method. Protobuf generates a MsgServer interface for each module Msg service, and the module developer implements this interface.

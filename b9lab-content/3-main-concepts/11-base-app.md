@@ -130,7 +130,9 @@ When messages and queries are received by the application, they must be routed t
 ### Msg Service Router 
 
 <HighlightBox type=”info”>
+
 https://github.com/cosmos/cosmos-sdk/blob/master/docs/core/baseapp.md 
+
 </HighlightBox>
 
 The main ABCI messages that BaseApp implements are `CheckTx` and `DeliverTx`.
