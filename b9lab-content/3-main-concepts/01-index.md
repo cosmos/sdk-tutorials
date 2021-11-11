@@ -3,7 +3,7 @@ parent:
   title: Main Concepts
   description: A universe made up of particles
   number: 2
-tag: deep-dive
+tag: 
 layout: ModuleLandingPage
 order: 0
 intro:
@@ -40,4 +40,4 @@ resources:
     image: /ibc-icon.svg
 ---
 
-# Cosmos SDK Overview
+# Chapter Overview - Main Concepts in the Cosmos SDK

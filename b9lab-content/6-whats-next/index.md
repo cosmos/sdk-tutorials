@@ -3,7 +3,7 @@ parent:
   title: What's Next?
   description: Continue your Cosmos journey
   number: 5
-tag: fast-track
+tag: 
 layout: ModuleLandingPage
 order: 0
 intro:

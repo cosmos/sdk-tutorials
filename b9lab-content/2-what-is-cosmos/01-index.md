@@ -4,7 +4,7 @@ parent:
   description: From the vision to the ecosystem
   number: 1
 description: How does Cosmos as a network of interoperable blockchains fit into the overall development of blockchain technology?
-tag: deep-dive
+tag: fast-track
 layout: ModuleLandingPage
 order: 0
 intro:
@@ -41,4 +41,4 @@ resources:
     image: /ibc-icon.svg
 ---
 
-# Overview
+# Chapter Overview - Cosmos, Its Ecosystem, and ATOM
