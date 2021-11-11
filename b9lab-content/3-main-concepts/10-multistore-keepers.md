@@ -2,7 +2,7 @@
 title: "Multistore and Keepers"
 order: 8
 description: Store types, the AnteHandler, and keepers
-tag:
+tag: deep-dive
 ---
 
 # Multistore and Keepers

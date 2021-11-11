@@ -2,7 +2,7 @@
 title: "Messages"
 order: 5
 description: Introduction to MsgService and the flow of messages
-tag:
+tag: deep-dive
 ---
 
 # Messages

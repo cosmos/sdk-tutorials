@@ -2,7 +2,7 @@
 title: "Migrations"
 order: 13
 description: How to handle on-chain upgrades
-tag:
+tag: deep-dive
 ---
 
 # Migrations

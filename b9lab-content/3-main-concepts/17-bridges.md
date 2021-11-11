@@ -2,7 +2,7 @@
 title: "Bridges"
 order: 15
 description: Bridging to other blockchains on different protocols 
-tag:
+tag: deep-dive
 ---
 
 # Bridges

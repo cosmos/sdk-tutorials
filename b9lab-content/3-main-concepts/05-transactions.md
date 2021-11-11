@@ -2,7 +2,7 @@
 title: "Transactions"
 order: 4
 description: Generating, signing, and broadcasting transactions
-tag:
+tag: deep-dive
 ---
 
 # Transactions

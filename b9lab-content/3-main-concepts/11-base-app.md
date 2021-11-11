@@ -2,7 +2,7 @@
 title: "BaseApp"
 order: 9
 description: Working with BaseApp to implement apps
-tag:
+tag: deep-dive
 ---
 
 # BaseApp

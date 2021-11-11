@@ -2,7 +2,7 @@
 title: "Events"
 order: 11
 description: Using events in app development
-tag:
+tag: deep-dive
 ---
 
 # Events
