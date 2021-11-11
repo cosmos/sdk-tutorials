@@ -45,7 +45,9 @@ If you want to explore more on application-specific blockchains, take a look at 
 
 Focusing on customizability and interoperability leads to establishing a stable universe determined by the same rules that apply to the whole ecosystem equally.
 
---> Include hotspot image of ecosystem
+![The ecosystem](./images/constellation.png)
+
+<! --- Include hotspot image of ecosystem
 
 ## The Cosmos SDK - Modularity and Customizing
 
