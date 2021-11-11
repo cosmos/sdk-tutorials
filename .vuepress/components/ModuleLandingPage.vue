@@ -2,10 +2,10 @@
 	custom-layout(:hideMobileMenu="true")
 		.home__content
 			.home__content__intro(v-if="$frontmatter.intro")
-				.home__content__intro__content
+				.home__content__intro__content(:class="$frontmatter.intro.image ? 'home__content__intro__content__small' : ''")
 					.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$frontmatter.intro.overline") {{$frontmatter.intro.overline}}
 					h2.home__content__intro__content__title {{$frontmatter.intro.title}}
-					.home__content__intro__content__desc.tm-measure-narrower(v-html="$frontmatter.intro.description")
+					.home__content__intro__content__desc(v-html="$frontmatter.intro.description" :class="$frontmatter.intro.image ? 'tm-measure-narrower' : ''")
 					a.tm-button.mt-7(v-if="$frontmatter.intro.action" :href="$frontmatter.intro.action.url")
 						span {{$frontmatter.intro.action.label}} &rarr;
 				.home__content__intro__image(v-if="$frontmatter.intro.image")
@@ -17,8 +17,8 @@
 					.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted get started
 					h2.home__content__get-started__content__title Ready to start?
 					.home__content__get-started__content__desc
-						div Get started right away,
-						div begin with the introductory chapter.
+						div If you just want to get started right away, why not begin with the introductory chapter?
+						div If you are unsure which sections to tackle, keep an eye out for the Deep dive and Fast track tags for orientation.
 			.modules
 				card-module(v-for="module in this.modules" :module="module" :startExpanded="!$frontmatter.main").modules__item
 			.resources__wrapper(v-if="$frontmatter.resources")
@@ -155,7 +155,10 @@
 						width 100%
 
 				&__content
-					width 50%
+					width 100%
+
+					&__small
+						width 50%
 
 					&__title
 						margin-block 10px
@@ -187,7 +190,9 @@
 					flex-direction column-reverse
 
 					&__content
-						width 100%
+						&__small
+							width 100%
+
 						&__link
 							justify-content center
 							width 100%

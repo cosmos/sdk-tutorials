@@ -39,7 +39,7 @@
                             .articles__item__image(v-bind:style="{'background-image': `url(${article.image})`}")
                             .articles__item__content
                                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.articles__item__content__date {{article.date}}
-                                h4.articles__item__content__title {{article.title}}
+                                h4.articles__item__content__title.mx-5 {{article.title}}
                                 .info-label.articles__item__content__time.tm-rf-1.tm-muted.tm-lh-title {{article.time}} minute read
 
             .tools__wrapper.mt-10
@@ -61,7 +61,7 @@
                     .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted custom support
                     h2.content__support__title.mt-6 Need help bringing your project to life?
                     .mt-5.tm-lh-copy.tm-muted.tm-measure-narrow Apply for support and get help with funding applications, grants, technology, architecture, and getting in touch with the ecosystem.
-                    .content__support__action.mt-8
+                    .mt-8
                         a.tm-button.tm-button-external 
                             span Talk to us
 </template>
@@ -96,16 +96,6 @@
 
             &__desc
                 margin-top 20px
-
-            &__action
-                background var(--color-text-strong)
-                font-weight 500
-                color var(--background-color-primary)
-                margin-top 40px
-                border-radius 10px
-                padding-block 20px
-                padding-inline 60px
-                width fit-content
 
     .tutorials
         display flex
@@ -272,9 +262,6 @@
                 @media screen and (max-width: 480px)
                     padding 24px
 
-                &__title
-                    margin-block var(--spacing-5)
-
     .link
         margin-block auto
         margin-right 20px
@@ -324,10 +311,6 @@
 
         .articles__wrapper
             margin-top 64px
-
-        .content__support__action
-            padding-block 10px
-            width 100%
         
         .tm-button
             padding-inline 0px

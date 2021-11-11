@@ -1,42 +1,43 @@
 ---
 parent:
   title: What's Next?
-  description: Description
+  description: Continue your Cosmos journey
   number: 5
 tag: fast-track
 layout: ModuleLandingPage
+order: 0
 intro:
-  overline: welcome to
-  title: Cosmos Academy
-  image: /cosmos_dev_portal_module-05-lp.png
+  overline: Continue your Cosmos journey
+  title: What's Next?
+  image: 
   description: |
-    Cosmos is a network of interoperable blockchains build on BFT consensus. <br/><br/>
-    The ever-expanding ecosystem provides SDKs, tokens and wallets, applications and services. Discover the Cosmos SDK to develop application-specific blockchains. <br/><br/>
-    Are you ready to begin your journey through the Cosmos?
+    Are you ready to further continue your journey with Cosmos? What’s next? <br/><br/>
+    There is a vast number of opportunities waiting: Do you want to develop your own application-specific blockchain? Or, contribute to the SDK development? <br/><br/>
+    Here you can find some information on where to find the Cosmos community, a contact form, and information on the grants program to help you navigate your journey.
 resources:
   - title: Cosmos SDK
-    description: A framework for building public blockchains.
+    description: A framework to build application-specific blockchains
     links:
       - name: Documentation
-        url: 
+        url: https://docs.cosmos.network/
     image: /cosmos-sdk-icon.svg
   - title: Tendermint Core
-    description: Blockchain consensus engine and application interface.
+    description: Blockchain consensus engine and application interface
     links:
       - name: Documentation
-        url: 
+        url: https://docs.tendermint.com/
     image: /tendermint-icon.svg
   - title: Cosmos Hub
-    description: First interconnected public blockchain on Cosmos network.
+    description: First interconnected public blockchain on the Cosmos network
     links:
       - name: Documentation
-        url: 
+        url: https://hub.cosmos.network/
     image: /cosmos-sdk-icon.svg
   - title: IBC
-    description: Industry standard protocol for inter-blockchain communication.
+    description: Industry standard protocol for inter-blockchain communication
     links:
       - name: Documentation
-        url: 
+        url: https://ibc.cosmos.network/
     image: /ibc-icon.svg
 ---
 

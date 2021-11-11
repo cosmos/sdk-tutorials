@@ -1,4 +1,11 @@
-# Base App
+---
+title: "BaseApp"
+order: 8
+description: Working with BaseApp to implement apps
+tag: deep-dive
+---
+
+# BaseApp
 
 BaseApp is a boilerplate implementation of a Cosmos SDK application. This abstraction implements functionalities that every Cosmos application needs starting with an implementation of the Tendermint Application Blockchain Interface (ABCI). 
 
@@ -123,7 +130,9 @@ When messages and queries are received by the application, they must be routed t
 ### Msg Service Router 
 
 <HighlightBox type=”info”>
+
 https://github.com/cosmos/cosmos-sdk/blob/master/docs/core/baseapp.md 
+
 </HighlightBox>
 
 The main ABCI messages that BaseApp implements are `CheckTx` and `DeliverTx`.

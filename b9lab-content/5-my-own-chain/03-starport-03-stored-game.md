@@ -1,6 +1,6 @@
 ---
 title: The Stored Game Object
-order: 4
+order: 5
 description: You create the object that stores a game.
 ---
 

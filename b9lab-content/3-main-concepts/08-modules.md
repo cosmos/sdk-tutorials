@@ -1,3 +1,10 @@
+---
+title: "Modules"
+order: 5
+description: Core Cosmos SDK modules and their components
+tag: deep-dive
+---
+
 # Modules
 
 ## Overview

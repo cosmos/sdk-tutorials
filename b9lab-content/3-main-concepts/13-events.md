@@ -1,3 +1,10 @@
+---
+title: "Events"
+order: 10
+description: Using events in app development
+tag: deep-dive
+---
+
 # Events
 
 An event is an object that contains information about the execution of the application. Events are used by service providers (block explorers, wallets) to track execution of various messages and index transactions.

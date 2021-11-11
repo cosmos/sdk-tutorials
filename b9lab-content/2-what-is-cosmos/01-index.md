@@ -3,41 +3,41 @@ parent:
   title: What is Cosmos?
   description: From the vision to the ecosystem
   number: 1
-description: How does Cosmos network of interoperable chains fit into blockchain technology
+description: How does Cosmos as a network of interoperable blockchains fit into the overall development of blockchain technology?
 tag: deep-dive
 layout: ModuleLandingPage
+order: 0
 intro:
-  overline: welcome to
-  title: Cosmos Academy
-  image: /cosmos_dev_portal_module-01-lp.png
+  overline: From the vision to the ecosystem
+  title: What is Cosmos?
+  image: /cosmos_dev_portal_module-02-lp.png
   description: |
-    Cosmos is a network of interoperable blockchains build on BFT consensus. <br/><br/>
-    The ever-expanding ecosystem provides SDKs, tokens and wallets, applications and services. Discover the Cosmos SDK to develop application-specific blockchains. <br/><br/>
-    Are you ready to begin your journey through the Cosmos?
+    How does Cosmos as a network of interoperable blockchains fit into the overall development of blockchain technology? <br/><br/>
+    Dive into the history of blockchain and Cosmos, and discover the Cosmos ecosystem – It is a galaxy of wallets, services, tokens, and dApps. Then, get your first Cosmos Hub native token and find out how to stake your ATOM.
 resources:
   - title: Cosmos SDK
-    description: A framework for building public blockchains.
+    description: A framework to build application-specific blockchains
     links:
       - name: Documentation
-        url: 
+        url: https://docs.cosmos.network/
     image: /cosmos-sdk-icon.svg
   - title: Tendermint Core
-    description: Blockchain consensus engine and application interface.
+    description: Blockchain consensus engine and application interface
     links:
       - name: Documentation
-        url: 
+        url: https://docs.tendermint.com/
     image: /tendermint-icon.svg
   - title: Cosmos Hub
-    description: First interconnected public blockchain on Cosmos network.
+    description: First interconnected public blockchain on the Cosmos network
     links:
       - name: Documentation
-        url: 
+        url: https://hub.cosmos.network/
     image: /cosmos-sdk-icon.svg
   - title: IBC
-    description: Industry standard protocol for inter-blockchain communication.
+    description: Industry standard protocol for inter-blockchain communication
     links:
       - name: Documentation
-        url: 
+        url: https://ibc.cosmos.network/
     image: /ibc-icon.svg
 ---
 

@@ -1,3 +1,10 @@
+---
+title: "Running a Node, API, and CLI"
+order: 1
+description: Interacting with a Cosmos SDK chain through SimApp
+tag: deep-dive
+---
+
 # Running a Node, API, and CLI
 
 ## Compile Simapp

@@ -1,3 +1,10 @@
+---
+title: "Messages"
+order: 4
+description: Introduction to MsgService and the flow of messages
+tag: deep-dive
+---
+
 # Messages
 
 Messages are one of two primary objects handled by a module in Cosmos. The other is queries. As you might expect, queries inspect the module state and are always read-only and messages inform the state and have the potential to alter the state, also known as state mutating.

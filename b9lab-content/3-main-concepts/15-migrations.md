@@ -1,3 +1,10 @@
+---
+title: "Migrations"
+order: 12
+description: How to handle on-chain upgrades
+tag: deep-dive
+---
+
 # Migrations
 
 ## On-chain Upgrades

@@ -1,7 +1,8 @@
 ---
 title: "A Blockchain App Architecture"
-order: 2
-description: Architecture of a blockchain application built with Cosmos.
+order: 1
+description: ABCI, Tendermint, and state machines
+tag: fast-track
 ---
 
 # A Blockchain App Architecture
@@ -57,11 +58,13 @@ Tendermint BFT is not concerned with the interpretation of transactions. That wo
 *Block time* is approximately seven seconds and blocks may contain thousands of transactions. Transactions are finalized and cannot be overturned as soon as they appear in a block.
 
 <HighlightBox type="info">
+
 For a deeper dive, visit:
 
 Podcast on consensus systems with Ethan Buchman: https://softwareengineeringdaily.com/2018/03/26/consensus-systems-with-ethan-buchman/
 Tendermint BFT engine is connected to the application by a socket protocol called the Application Blockchain Interface (ABCI).
 Tendermint ecosystem: https://tendermint.com/core/#ecosystem
+
 </HighlightBox>
 
 ## Application Blockchain Interface
@@ -77,7 +80,9 @@ Developers who have worked with blockchains based on the Ethereum Virtual Machin
 Developers create the Application Layer using the **Cosmos SDK**. The Cosmos SDK provides both a scaffold to get started and a rich set of modules that address common concerns. The Cosmos SDK provides a head start and a framework for getting started as well as a rich set of modules that address common concerns such as governance, tokens, other standards, and interactions with other blockchains through the Inter-Blockchain Protocol (IBC). Creation of a purpose-built blockchain with Cosmos SDK is largely a process of selecting, configuring, and integrating well-solved modules, also known as composing modules. This greatly reduces the scope of original development required since development is focused mostly on the truly novel aspects of the application.
 
 <HighlightBox type="info">
+
 Later, we will dive into the Inter-Blockchain Protocol (IBC). **IBC** is a common framework for exchanging information between blockchains. For now, it is enough to know that it exists and it enables seamless interaction between blockchains that want to exchange information, such as tokens. In summary, this enables communication between applications that run on separate purpose-built blockchains.
+
 </HighlightBox>
 
 Importantly, application, consensus and network layers are contained within the custom blockchain node that forms the foundation of the custom blockchain.
@@ -91,12 +96,14 @@ Since the ABCI is a sockets protocol, developers are free to create blockchains 
 This is, itself, a considerable step forward that simplifies the creation of unique blockchains.
 
 <HighlightBox type="info">
+
 More detailed information the ABCI can be found here:
 
 * A prose specification [https://github.com/tendermint/abci/blob/master/specification.md]
 * A protobuf file [https://github.com/tendermint/abci/blob/master/types/types.proto]
 * A Go interface [https://github.com/tendermint/abci/blob/master/types/application.go]
 * Documentation [http://tendermint.readthedocs.io/en/master/]:
+
 </HighlightBox>
 
 ## State Machines

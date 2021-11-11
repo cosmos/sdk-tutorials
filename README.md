@@ -54,7 +54,7 @@ tools:
       - name: Learn more
         url: https://ibcprotocol.org/
       - name: Documentation
-        url: https://github.com/cosmos/ibc
+        url: https://ibc.cosmos.network/
     image: /ibc-icon.svg
   - title: CosmWasm
     description: Smart contracting platform built for Cosmos ecosystem.
@@ -68,7 +68,7 @@ tools:
     description: Software powering Cosmos Hub, the heart of the Cosmos network, and home of the ATOM token.
     links:
       - name: Documentation
-        url: https://hub.cosmos.network/main/hub-overview/overview.html
+        url: https://hub.cosmos.network/
     image: /generic-star-icon.svg
 -->
 

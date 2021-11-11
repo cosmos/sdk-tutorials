@@ -5,38 +5,39 @@ parent:
   number: 3
 tag: fast-track
 layout: ModuleLandingPage
+order: 0
 intro:
-  overline: welcome to
-  title: Cosmos Academy
-  image: /cosmos_dev_portal_module-03-lp.png
+  overline: Run a chain for the first time
+  title: Running a Chain
+  image: /cosmos_dev_portal_module-04-lp.png
   description: |
-    Cosmos is a network of interoperable blockchains build on BFT consensus. <br/><br/>
-    The ever-expanding ecosystem provides SDKs, tokens and wallets, applications and services. Discover the Cosmos SDK to develop application-specific blockchains. <br/><br/>
-    Are you ready to begin your journey through the Cosmos?
+    Do you want to find out how to interact with Cosmos chains? Let’s take it step-by-step with SimApp. <br/><br/>
+    In the end, you will know how to run a node. <br/><br/>
+    A cosmos of chains is awaiting!
 resources:
   - title: Cosmos SDK
-    description: A framework for building public blockchains.
+    description: A framework to build application-specific blockchains
     links:
       - name: Documentation
-        url: 
+        url: https://docs.cosmos.network/
     image: /cosmos-sdk-icon.svg
   - title: Tendermint Core
-    description: Blockchain consensus engine and application interface.
+    description: Blockchain consensus engine and application interface
     links:
       - name: Documentation
-        url: 
+        url: https://docs.tendermint.com/
     image: /tendermint-icon.svg
   - title: Cosmos Hub
-    description: First interconnected public blockchain on Cosmos network.
+    description: First interconnected public blockchain on the Cosmos network
     links:
       - name: Documentation
-        url: 
+        url: https://hub.cosmos.network/
     image: /cosmos-sdk-icon.svg
   - title: IBC
-    description: Industry standard protocol for inter-blockchain communication.
+    description: Industry standard protocol for inter-blockchain communication
     links:
       - name: Documentation
-        url: 
+        url: https://ibc.cosmos.network/
     image: /ibc-icon.svg
 ---
 
