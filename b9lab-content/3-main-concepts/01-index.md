@@ -6,34 +6,33 @@ parent:
 tag: deep-dive
 layout: ModuleLandingPage
 intro:
-  overline: welcome to
-  title: Cosmos Academy
-  image: /cosmos_dev_portal_module-02-lp.png
+  overline: A universe made up of particles
+  title: Main Concepts
+  image: /cosmos_dev_portal_module-03-lp.png
   description: |
-    Cosmos is a network of interoperable blockchains build on BFT consensus. <br/><br/>
-    The ever-expanding ecosystem provides SDKs, tokens and wallets, applications and services. Discover the Cosmos SDK to develop application-specific blockchains. <br/><br/>
-    Are you ready to begin your journey through the Cosmos?
+    Enjoy an introduction on the main components of the Cosmos SDK. <br/><br/>
+    From Tendermint to the IBC Protocol, there is a whole universe waiting to be discovered.
 resources:
   - title: Cosmos SDK
-    description: A framework for building public blockchains.
+    description: A framework to build application-specific blockchains
     links:
       - name: Documentation
         url: 
     image: /cosmos-sdk-icon.svg
   - title: Tendermint Core
-    description: Blockchain consensus engine and application interface.
+    description: Blockchain consensus engine and application interface
     links:
       - name: Documentation
         url: 
     image: /tendermint-icon.svg
   - title: Cosmos Hub
-    description: First interconnected public blockchain on Cosmos network.
+    description: First interconnected public blockchain on the Cosmos network
     links:
       - name: Documentation
         url: 
     image: /cosmos-sdk-icon.svg
   - title: IBC
-    description: Industry standard protocol for inter-blockchain communication.
+    description: Industry standard protocol for inter-blockchain communication
     links:
       - name: Documentation
         url: 
