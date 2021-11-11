@@ -39,7 +39,7 @@
                             .articles__item__image(v-bind:style="{'background-image': `url(${article.image})`}")
                             .articles__item__content
                                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.articles__item__content__date {{article.date}}
-                                h4.articles__item__content__title {{article.title}}
+                                h4.articles__item__content__title.mx-5 {{article.title}}
                                 .info-label.articles__item__content__time.tm-rf-1.tm-muted.tm-lh-title {{article.time}} minute read
 
             .tools__wrapper.mt-10
@@ -261,9 +261,6 @@
 
                 @media screen and (max-width: 480px)
                     padding 24px
-
-                &__title
-                    margin-block var(--spacing-5)
 
     .link
         margin-block auto
