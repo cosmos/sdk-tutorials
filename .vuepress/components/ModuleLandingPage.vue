@@ -2,10 +2,10 @@
 	custom-layout(:hideMobileMenu="true")
 		.home__content
 			.home__content__intro(v-if="$frontmatter.intro")
-				.home__content__intro__content
+				.home__content__intro__content(:class="$frontmatter.intro.image ? 'home__content__intro__content__small' : ''")
 					.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$frontmatter.intro.overline") {{$frontmatter.intro.overline}}
 					h2.home__content__intro__content__title {{$frontmatter.intro.title}}
-					.home__content__intro__content__desc.tm-measure-narrower(v-html="$frontmatter.intro.description")
+					.home__content__intro__content__desc(v-html="$frontmatter.intro.description" :class="$frontmatter.intro.image ? 'tm-measure-narrower' : ''")
 					a.tm-button.mt-7(v-if="$frontmatter.intro.action" :href="$frontmatter.intro.action.url")
 						span {{$frontmatter.intro.action.label}} &rarr;
 				.home__content__intro__image(v-if="$frontmatter.intro.image")
@@ -155,7 +155,10 @@
 						width 100%
 
 				&__content
-					width 50%
+					width 100%
+
+					&__small
+						width 50%
 
 					&__title
 						margin-block 10px
@@ -187,7 +190,9 @@
 					flex-direction column-reverse
 
 					&__content
-						width 100%
+						&__small
+							width 100%
+
 						&__link
 							justify-content center
 							width 100%
