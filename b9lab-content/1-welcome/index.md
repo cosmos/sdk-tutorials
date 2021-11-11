@@ -17,25 +17,25 @@ resources:
     description: A framework for building public blockchains.
     links:
       - name: Documentation
-        url: 
+        url: https://docs.cosmos.network/
     image: /cosmos-sdk-icon.svg
   - title: Tendermint Core
     description: Blockchain consensus engine and application interface.
     links:
       - name: Documentation
-        url: 
+        url: https://docs.tendermint.com/
     image: /tendermint-icon.svg
   - title: Cosmos Hub
     description: First interconnected public blockchain on Cosmos network.
     links:
       - name: Documentation
-        url: 
+        url: https://hub.cosmos.network/main/hub-overview/overview.html
     image: /cosmos-sdk-icon.svg
   - title: IBC
     description: Industry standard protocol for inter-blockchain communication.
     links:
       - name: Documentation
-        url: 
+        url: https://ibcprotocol.org/
     image: /ibc-icon.svg
 ---
 
