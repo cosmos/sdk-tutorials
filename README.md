@@ -22,57 +22,53 @@ tools:
     description: A framework for building public blockchains.
     links:
       - name: Learn more
-        url: 
+        url: https://v1.cosmos.network/sdk
       - name: Documentation
-        url: 
+        url: https://docs.cosmos.network/
     image: /cosmos-sdk-icon.svg
   - title: Tendermint Core
     description: Blockchain consensus engine and application interface.
     links:
       - name: Learn more
-        url: 
+        url: https://tendermint.com/core/
       - name: Documentation
-        url: 
+        url: https://docs.tendermint.com/
     image: /tendermint-icon.svg
   - title: Starport
     description: All-in-one platform to build, launch, and maintain apps on a sovereign and secured blockchain.
     links:
       - name: Learn more
-        url: 
+        url: https://starport.com/
       - name: Documentation
-        url: 
+        url: https://docs.starport.com/
     image: /starport-icon.svg
   - title: Hermes Relayer
     description: Rust implementation of relayer for IBC.
     links:
-      - name: Learn more
-        url: 
       - name: Documentation
-        url: 
+        url: https://hermes.informal.systems/
     image: /generic-star-icon.svg
   - title: IBC
     description: Industry standard protocol for inter-blockchain communication.
     links:
       - name: Learn more
-        url: 
+        url: https://ibcprotocol.org/
       - name: Documentation
-        url: 
+        url: https://github.com/cosmos/ibc
     image: /ibc-icon.svg
   - title: CosmWasm
     description: Smart contracting platform built for Cosmos ecosystem.
     links:
       - name: Learn more
-        url: 
+        url: https://cosmwasm.com/
       - name: Documentation
-        url: 
+        url: https://docs.cosmwasm.com/docs/0.16/
     image: /starport-icon.svg
   - title: Gaia
     description: Software powering Cosmos Hub, the heart of the Cosmos network, and home of the ATOM token.
     links:
-      - name: Learn more
-        url: 
       - name: Documentation
-        url: 
+        url: https://hub.cosmos.network/main/hub-overview/overview.html
     image: /generic-star-icon.svg
 -->
 
