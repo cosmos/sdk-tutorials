@@ -1,3 +1,10 @@
+---
+title: "The Cosmos Ecosystem"
+order: 3
+description: A universe to discover
+tag: fast-track
+---
+
 # The Cosmos Ecosystem
 
 **Cosmos** is a network of independent blockchains. All powered by consensus algorithms with Byzantine Fault-Tolerance (BFT). All connected through the Inter-Blockchain Communication protocol (IBC) enabling value transfers (e.g. token transfers) and other communication. All this without the need to involve exchanges nor compromise the chains' sovereignty.

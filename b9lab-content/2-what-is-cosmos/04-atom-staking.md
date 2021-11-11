@@ -1,3 +1,10 @@
+---
+title: "Getting ATOM and Staking"
+order: 4
+description: Staking your first ATOM
+tag: fast-track
+---
+
 # Getting ATOM and Staking
 
 <!--

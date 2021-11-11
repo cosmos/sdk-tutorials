@@ -1,7 +1,8 @@
 ---
 title: "A Blockchain App Architecture"
 order: 2
-description: Architecture of a blockchain application built with Cosmos.
+description: ABCI, Tendermint, and state machines
+tag: fast-track
 ---
 
 # A Blockchain App Architecture

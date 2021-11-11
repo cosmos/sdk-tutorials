@@ -1,7 +1,8 @@
 ---
 title: "Transactions"
-order: 5
-description: Transactions in Cosmos.
+order: 4
+description: Generating, signing, and broadcasting transactions
+tag: deep-dive
 ---
 
 # Transactions

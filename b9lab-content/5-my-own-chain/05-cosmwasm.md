@@ -1,3 +1,10 @@
+---
+title: "CosmWasm"
+order: 4
+description: Multi-chain smart contracts
+tag: deep-dive
+---
+
 # CosmWasm
 
 CosmWasm offers multi-chain solutions for smart contracts through an actor model design focused on providing a library.
