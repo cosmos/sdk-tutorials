@@ -30,7 +30,7 @@
 						h5.resources__item__title {{resource.title}}
 						.resources__item__description {{resource.description}}
 						.resources__item__links
-							a(v-for="link in resource.links" :href="link.url").tm-link.tm-link-external.tm-medium
+							a(v-for="link in resource.links" :href="link.url" target="_blank").tm-link.tm-link-external.tm-medium
 								span {{link.name}}
 </template>
 
