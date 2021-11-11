@@ -1,3 +1,10 @@
+---
+title: "Blockchain Technology and Cosmos"
+order: 2
+description: Cosmos as part of blockchain technology
+tag: 
+---
+
 # Blockchain Technology and Cosmos
 
 Begin your journey with this brief review of blockchain technology, how Cosmos came into being, and what it brings to the world:

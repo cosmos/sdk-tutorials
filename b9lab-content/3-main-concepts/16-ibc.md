@@ -1,6 +1,11 @@
-# IBC
+---
+title: "The Inter-Blockchain Communication Protocol"
+order: 14
+description: Connecting chains with the IBC Protocol
+tag:
+---
 
-## The Inter-Blockchain Protocol
+# The Inter-Blockchain Communication Protocol
 
 The Inter-Blockchain Protocol, IBC, is used to send data from one blockchain to another. In Cosmos, most applications execute on their own purpose-built blockchain running their own validator set. These are the application-specific blockchains built with Cosmos SDK.
 
