@@ -6,13 +6,12 @@ parent:
 tag: deep-dive
 layout: ModuleLandingPage
 intro:
-  overline: Welcome!
-  title: Cosmos Academy
-  image: /cosmos_dev_portal_module-02-lp.png
+  overline: A universe made up of particles
+  title: Main Concepts
+  image: /cosmos_dev_portal_module-03-lp.png
   description: |
-    Cosmos is a network of interoperable blockchains build on BFT consensus. <br/><br/>
-    The ever-expanding ecosystem provides SDKs, tokens and wallets, applications and services. Discover the Cosmos SDK to develop application-specific blockchains. <br/><br/>
-    Are you ready to begin your journey?
+    Enjoy an introduction on the main components of the Cosmos SDK. <br/><br/>
+    From Tendermint to the IBC Protocol, there is a whole universe waiting to be discovered.
 resources:
   - title: Cosmos SDK
     description: A framework to build application-specific blockchains

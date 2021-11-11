@@ -6,13 +6,13 @@ parent:
 tag: fast-track
 layout: ModuleLandingPage
 intro:
-  overline: Welcome!
-  title: Cosmos Academy
-  image: /cosmos_dev_portal_module-03-lp.png
+  overline: Run a chain for the first time
+  title: Running a Chain
+  image: /cosmos_dev_portal_module-04-lp.png
   description: |
-    Cosmos is a network of interoperable blockchains build on BFT consensus. <br/><br/>
-    The ever-expanding ecosystem provides SDKs, tokens and wallets, applications and services. Discover the Cosmos SDK to develop application-specific blockchains. <br/><br/>
-    Are you ready to begin your journey?
+    Do you want to find out how to interact with Cosmos chains? Let’s take it step-by-step with SimApp. <br/><br/>
+    In the end, you will know how to run a node. <br/><br/>
+    A cosmos of chains is awaiting!
 resources:
   - title: Cosmos SDK
     description: A framework to build application-specific blockchains
