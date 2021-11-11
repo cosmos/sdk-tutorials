@@ -17,6 +17,8 @@ A keeper can be thought of quite literally as the gatekeeper of a module's store
 
 When a module needs to interact with the state defined in another module, it does so by interacting with methods of the other module’s keeper. Developers control the interactions their module can have with other modules by defining methods and controlling access.
 
+[](./images/keeper.png)
+
 ## Format
 
 Keepers are generally defined in a `/keeper/Keeper.go` file locating in the module’s folder.
