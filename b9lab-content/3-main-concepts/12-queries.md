@@ -1,6 +1,6 @@
 ---
 title: "Queries"
-order: 10
+order: 9
 description: Query lifecycle and working with queries 
 tag: deep-dive
 ---

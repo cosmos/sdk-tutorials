@@ -1,6 +1,7 @@
 ---
 layout: ModuleLandingPage
 main: true
+order: 0
 intro:
   overline: Welcome!
   title: Cosmos Academy
@@ -29,13 +30,13 @@ resources:
     description: First interconnected public blockchain on the Cosmos network
     links:
       - name: Documentation
-        url: https://hub.cosmos.network/main/hub-overview/overview.html
+        url: https://hub.cosmos.network/
     image: /cosmos-sdk-icon.svg
   - title: IBC
     description: Industry standard protocol for inter-blockchain communication
     links:
       - name: Documentation
-        url: https://ibcprotocol.org/
+        url: https://ibc.cosmos.network/
     image: /ibc-icon.svg
 ---
 

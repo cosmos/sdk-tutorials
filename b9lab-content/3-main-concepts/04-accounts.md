@@ -1,6 +1,6 @@
 ---
 title: "Accounts"
-order: 3
+order: 2
 description: Discover how accounts, addresses, keys, and keyrings relate to each other
 tag: deep-dive
 ---

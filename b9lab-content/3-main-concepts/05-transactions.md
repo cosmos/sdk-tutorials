@@ -1,6 +1,6 @@
 ---
 title: "Transactions"
-order: 4
+order: 3
 description: Generating, signing, and broadcasting transactions
 tag: deep-dive
 ---

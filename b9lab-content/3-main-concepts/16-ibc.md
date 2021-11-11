@@ -1,6 +1,6 @@
 ---
 title: "The Inter-Blockchain Communication Protocol"
-order: 14
+order: 13
 description: Connecting chains with the IBC Protocol
 tag: deep-dive
 ---

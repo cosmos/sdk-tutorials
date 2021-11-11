@@ -1,6 +1,6 @@
 ---
 title: "BaseApp"
-order: 9
+order: 8
 description: Working with BaseApp to implement apps
 tag: deep-dive
 ---

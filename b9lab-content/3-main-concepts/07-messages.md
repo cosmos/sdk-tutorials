@@ -1,6 +1,6 @@
 ---
 title: "Messages"
-order: 5
+order: 4
 description: Introduction to MsgService and the flow of messages
 tag: deep-dive
 ---

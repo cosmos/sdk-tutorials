@@ -1,6 +1,6 @@
 ---
 title: "Protobuf"
-order: 7
+order: 6
 description: Working with Protocol Buffers
 tag: deep-dive
 ---

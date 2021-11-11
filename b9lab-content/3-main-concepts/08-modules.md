@@ -1,6 +1,6 @@
 ---
 title: "Modules"
-order: 6
+order: 5
 description: Core Cosmos SDK modules and their components
 tag: deep-dive
 ---

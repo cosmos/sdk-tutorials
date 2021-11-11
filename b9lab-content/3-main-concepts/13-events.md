@@ -1,6 +1,6 @@
 ---
 title: "Events"
-order: 11
+order: 10
 description: Using events in app development
 tag: deep-dive
 ---

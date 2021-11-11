@@ -5,6 +5,7 @@ parent:
   number: 5
 tag: fast-track
 layout: ModuleLandingPage
+order: 0
 intro:
   overline: Continue your Cosmos journey
   title: What's Next?
@@ -18,25 +19,25 @@ resources:
     description: A framework to build application-specific blockchains
     links:
       - name: Documentation
-        url: 
+        url: https://docs.cosmos.network/
     image: /cosmos-sdk-icon.svg
   - title: Tendermint Core
     description: Blockchain consensus engine and application interface
     links:
       - name: Documentation
-        url: 
+        url: https://docs.tendermint.com/
     image: /tendermint-icon.svg
   - title: Cosmos Hub
     description: First interconnected public blockchain on the Cosmos network
     links:
       - name: Documentation
-        url: 
+        url: https://hub.cosmos.network/
     image: /cosmos-sdk-icon.svg
   - title: IBC
     description: Industry standard protocol for inter-blockchain communication
     links:
       - name: Documentation
-        url: 
+        url: https://ibc.cosmos.network/
     image: /ibc-icon.svg
 ---
 
