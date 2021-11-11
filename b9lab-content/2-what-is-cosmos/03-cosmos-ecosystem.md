@@ -46,13 +46,15 @@ Before Cosmos came along, developing a whole new chain was much more difficult a
 <HighlightBox type="tip">
 
 If you want to explore more on application-specific blockchains, take a look at the section on **[A Blockchain App Architecture]()**.
---> Include link to mod. 2, section 1
+<!--- Include link to mod. 2, section 1 -->
 
 </HighlightBox>
 
 Focusing on customizability and interoperability leads to establishing a stable universe determined by the same rules that apply to the whole ecosystem equally.
 
---> Include hotspot image of ecosystem
+![The ecosystem](./images/constellation.png)
+
+<!--- Include hotspot image of ecosystem zoom in: (./images/constellation-zoom.png -->
 
 ## The Cosmos SDK - Modularity and Customizing
 
@@ -91,6 +93,8 @@ A second idea, one that **reduces the number of connections necessary** back dow
 First, by keeping the capability of chain-to-chain connections made possible by **IBC**. Second, by creating a flexible multi-hub and spoke model whereby a spoke gets automatic access to all the other spokes of the hub it connected to. This is the road **Cosmos** took.
 
 Cosmos implements a **modular architecture with two blockchain classes**: **hubs** and **zones**.
+
+![A hub with multiple zones](./images/hub-zones.png)
 
 **Zones** are heterogenous blockchains carrying out the authentication of accounts and transactions, the creation and distribution of tokens, and the execution of changes to the chain.
 
