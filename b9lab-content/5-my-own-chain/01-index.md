@@ -3,7 +3,7 @@ parent:
   title: My Own Cosmos Chain
   description: It all comes together
   number: 4
-tag: fast-track
+tag: deep-dive
 layout: ModuleLandingPage
 order: 0
 intro:
@@ -40,4 +40,4 @@ resources:
     image: /ibc-icon.svg
 ---
 
-# Your Own Chain Overview
+# Chapter Overview - First Steps to Run Your Own Chain
