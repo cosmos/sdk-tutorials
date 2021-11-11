@@ -12,7 +12,7 @@ intro:
     Are you ready to begin your journey?
   action: 
     label: Start course
-    url: /b9lab-content/2-what-is-cosmos/01-index
+    url: /b9lab-content/2-what-is-cosmos/01-index.html
 resources:
   - title: Cosmos SDK
     description: A framework to build application-specific blockchains

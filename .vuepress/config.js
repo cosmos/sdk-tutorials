@@ -122,7 +122,7 @@ module.exports = {
           ],
         },
         {
-          title: "B9lab content",
+          title: "Cosmos Academy (beta)",
           children: [
             {
               title: "Welcome",
