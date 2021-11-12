@@ -92,7 +92,7 @@ Each module defines commands for a command-line interface (CLI). Commands relate
 
 Keepers are the gatekeepers to the module’s store(s). It is mandatory to go through a module’s keeper in order to access the store(s). A keeper contains the layout of storage within the store and methods to update and inspect it. If you come from a Module-View-Controller (MVC) world, then it helps to think of the keeper as the controller.
 
-Other modules may need access to a store, but other modules are also potentially malicious or poorly written. For this reason, developers need to consider who/what should have access to their module store(s). Additionally, to prevent a module from accessing randomly another modules at runtime, a module that needs access to another needs to declare its intent to use another module at construction. At this point, such a module is granted a runtime key that lets it access the other module. Only modules that hold this key to a store can access the store.
+Other modules may need access to a store, but other modules are also potentially malicious or poorly written. For this reason, developers need to consider who/what should have access to their module store(s). Additionally, to prevent a module from randomly accessing another module at runtime, a module that needs access to another needs to declare its intent to use another module at construction. At this point, such a module is granted a runtime key that lets it access the other module. Only modules that hold this key to a store can access the store.
 
 Keepers are defined in `keeper.go`. Keeper’s type definition generally consists of keys to the module’s store in the `multistore`, references to other modules’ keepers and a reference to the application’s codec.
 
