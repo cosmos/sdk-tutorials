@@ -14,7 +14,7 @@ Private keys are sensitive information that users are required to manage confide
 
 ## Public Key Cryptography
 
-Modern cryptographic systems leverage computer capabilities to make accessible the power of certain mathematical functions. Public key cryptography, also known as **asymmetric cryptography**, is a cryptographic system that employs pairs of keys. Every pair consists of a public and a private key. The public key can be shared publicly and the security of the system is not endangered as long as the private key is not disclosed.
+Public key cryptography, also known as **asymmetric cryptography**, is a cryptographic system that employs pairs of keys. Every pair consists of a public and a private key. The public key can be shared publicly and the security of the system is not endangered as long as the private key is not disclosed.
 
 Asymmetric cryptography has two primary applications:
 
