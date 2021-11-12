@@ -229,8 +229,6 @@ export default {
 				.filter(page => page.path.includes(folderPath) && (this.$frontmatter.main ? page.path != this.$page.path : true))
 				.sort((a, b) => a.path.localeCompare(b.path));
 			const modules = this.formatModules(submodules);
-
-			console.log(modules)
 			
 			return Object.values(modules);
 		},
