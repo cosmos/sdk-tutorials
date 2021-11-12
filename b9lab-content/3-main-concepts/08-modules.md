@@ -30,7 +30,7 @@ For developers, most of the work involved in building a Cosmos SDK application r
 
 It is a best practice to define a module in the `x/moduleName` folder, not to be confused with the Cosmos SDK’s `x/` folder that already exists. For example, the module called Checkers would go in `x/Checkers`.
 
-Modules implement several concerns:
+Modules implement several elements:
 
 * **Interfaces**: facilitate communication between modules and composition of multiple modules into coherent applications.
 * **Protobuf**: one `Msg` service to handle messages and one `gRPC` Query service to handle queries.
