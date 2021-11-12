@@ -12,19 +12,19 @@
                     a(href="/b9lab-content/1-welcome").tm-link.mt-7.mb-5.tm-rf1.tm-medium
                         span Start learning
                         icon-arrow(type="right").icon-external.content__intro__link__icon
-            .tutorials__wrapper.mt-10
-                h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tutorials
-                .tutorials
-                    .tutorials__item__small
-                        card
-                            .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted intermediate
-                            h4.mt-7 Learn to use the Cosmos SDK with our tutorials.
-                            .mt-7.tm-lh-copy.tm-muted Contributors, assemble! <br/> We are always looking for content to help new Cosmosnauts understand and explore the cosmos.
-                            .mt-7.info-label.tm-rf-1.tm-muted 10 minute read
-                    .tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}")
-                        .tm-measure
-                            .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted starport
-                            h2.mt-5 Build a chain in hours
+            //- .tutorials__wrapper.mt-10
+            //-     h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tutorials
+            //-     .tutorials
+            //-         .tutorials__item__small
+            //-             card
+            //-                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted intermediate
+            //-                 h4.mt-7 Learn to use the Cosmos SDK with our tutorials.
+            //-                 .mt-7.tm-lh-copy.tm-muted Contributors, assemble! <br/> We are always looking for content to help new Cosmosnauts understand and explore the cosmos.
+            //-                 .mt-7.info-label.tm-rf-1.tm-muted 10 minute read
+            //-         .tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}")
+            //-             .tm-measure
+            //-                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted starport
+            //-                 h2.mt-5 Build a chain in hours
 
 
             .articles__wrapper.mt-10(v-if="$frontmatter.articles")
