@@ -168,7 +168,7 @@ Similarly, you will only accept the right players in transactions, as you will l
 
 ## The Rest of The Game Object
 
-Defining the players is good, but the stored game is not complete unless we add the game proper. Conveniently, you can [serialize](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L303), and [deserialize](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L331) it, so we can already confirm that:
+Defining the players is good, but the stored game is not complete unless we add game details such as the current board state and the game's unique identifier. Conveniently, you can [serialize](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L303), and [deserialize](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L331) the board state, so we can already confirm the following struct:
 
 ```go
 type StoredGame struct {
