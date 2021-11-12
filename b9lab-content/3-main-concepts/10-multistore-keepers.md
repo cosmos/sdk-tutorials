@@ -431,7 +431,7 @@ Those among you with a well-placed paranoia must be asking whether you can ensur
 
 Fortunately, the timeout duration is fixed and the same for all games. This means that those `n` games that all expire in a given block have all been created or updated at roughly the same time. Or in effect, at roughly the same block height `h` give or take a margin of error `h-1` and `h+1`. These created and updated games are in limited number, as per the validators rules. So if by any chance, all games in blocks `h-1`, `h` and `h+1` expire now, then the `EndBlock` function would have to expire 3 times as many games as a block can handle. This is the worst case scenario, and still sounds manageable.
 
-As a corollary, you should be careful about letting the game creator pick a timeout duration. That would open an avenue for a malicious actor to, for instance, stagger game creations over a large number of blocks, with decreasing timeouts, so that they all expire at the same time.
+Because of this, you should be careful about letting the game creator pick a timeout duration. That would open an avenue for a malicious actor to, for instance, stagger game creations over a large number of blocks, with decreasing timeouts, so that they all expire at the same time.
 
 ## Gas costs
 
