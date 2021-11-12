@@ -18,9 +18,9 @@ Queries do not require consensus to be processed (as they do not trigger state-t
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-If you used Starport, it has already created queries for you, for instance queries to get one stored game or a list of them. However, you still don't have a way to check whether a move will work. It would be wasteful to send a transaction with an invalid move. It is better to catch such a mistake before submitting a transaction. Let's remedy that. You are going to create a query that informs whether a move can be played.
+If you used Starport, it has already created queries for you, such as queries to get one stored game, or a list of them. However, you still don't have a way to check whether a move will work. It would be wasteful to send a transaction with an invalid move. It is better to catch such a mistake before submitting a transaction. Let's fix that. You are going to create a query that informs whether a move can be played.
 
-Here again Starport can help you with the simple command:
+Again, Starport can help you here with a simple command:
 
 ```sh
 $ starport scaffold query canPlayMove idValue player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool
