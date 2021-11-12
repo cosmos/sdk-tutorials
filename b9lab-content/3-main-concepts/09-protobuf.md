@@ -36,8 +36,8 @@ Go developers access the setters and getters in the generated source code throug
 
 <HighlightBox type=”info”>
 
-For more on encoding in Cosmos: https://docs.cosmos.network/master/core/encoding.html
-Protobuf documentation overview: https://docs.cosmos.network/master/core/proto-docs.html
+[For more on encoding in Cosmos](https://docs.cosmos.network/master/core/encoding.html)
+[Protobuf documentation overview](https://docs.cosmos.network/master/core/proto-docs.html)
 
 </HighlightBox>
 
