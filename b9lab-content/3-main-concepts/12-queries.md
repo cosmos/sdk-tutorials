@@ -98,7 +98,7 @@ So now you are left with filling in the gaps under TODO. Simple:
         }, nil
     }
     ```
-5. If all was ok, tell it:
+5. If all checks passed, return the OK status:
     ```go
     return &types.QueryCanPlayMoveResponse{
         Possible: true,
