@@ -427,7 +427,7 @@ This is where you write the necessary code, preferably in the keeper. For instan
 ```go
 am.keeper.ForfeitExpiredGames(sdk.WrapSDKContext(ctx))
 ```
-Those among you with a well-placed paranoia must be asking whether you can ensure that the execution of this `EndBlock` does not become prohibitively expensive. After all, the number of games to potentially expire is unbounded, which is a recipe for disaster in the blockchain world. Is there a situation or an attack vector that would make this is a possibility?
+Those among you with a well-placed paranoia must be asking whether you can ensure that the execution of this `EndBlock` does not become prohibitively expensive. After all, the number of games to potentially expire is unbounded, which is a recipe for disaster in the blockchain world. Is there a situation or an attack vector that would make this a possibility? And what can we do to prevent it?
 
 Fortunately, the timeout duration is fixed and the same for all games. This means that those `n` games that all expire in a given block have all been created or updated at roughly the same time. Or in effect, at roughly the same block height `h` give or take a margin of error `h-1` and `h+1`. These created and updated games are in limited number, as per the validators rules. So if by any chance, all games in blocks `h-1`, `h` and `h+1` expire now, then the `EndBlock` function would have to expire 3 times as many games as a block can handle. This is the worst case scenario, and still sounds manageable.
 
