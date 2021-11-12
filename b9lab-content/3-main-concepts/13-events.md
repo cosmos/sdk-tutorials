@@ -7,7 +7,7 @@ In the Cosmos SDK, events are implemented as an alias of the ABCI `event` type i
 Events allow app developers to attach additional information. This means that transactions might be queried using the events:
 
 ```
-// Event allows application developers to attach additional information to
+// Events allows application developers to attach additional information to
 // ResponseBeginBlock, ResponseEndBlock, ResponseCheckTx and ResponseDeliverTx.
 // Later, transactions may be queried using these events.
 message Event {
