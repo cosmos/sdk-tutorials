@@ -33,7 +33,7 @@ The length of keys is vital. Asymmetric cryptographic keys are usually very long
 
 ## Public/Private Keys
 
-Asymetric keys always come in pairs and offer their owner various capabilities. Those capabilities are based on cryptographic mathematics. As their name suggests, the public key is meant to be distributed to whoever is relevant, while the private key is to be jealously guarded. This is akin to publicizing your house address, but keeping the key to your house private. Do not be Dilbert's CEO, [a story](http://dilbert.com/strip/2018-10-26) in [2 parts](http://dilbert.com/strip/2018-10-27).
+Asymetric keys always come in pairs and offer their owner various capabilities. Those capabilities are based on cryptographic mathematics. As their name suggests, the public key is meant to be distributed to whoever is relevant, while the private key is to remain a secret. This is similar to sharing your house address, but keeping the key to your house private. Don't be Dilbert's CEO, [a story](http://dilbert.com/strip/2018-10-26) in [2 parts](http://dilbert.com/strip/2018-10-27).
 
 ### Sign and Verify Example
 
