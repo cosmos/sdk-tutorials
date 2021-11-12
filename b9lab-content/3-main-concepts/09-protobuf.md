@@ -84,7 +84,7 @@ How are you to add such cryptic commands without any error?
 
 ## Move Upstream
 
-This is where Protobuf comes in to simplify your life yet more. The same `StoredGame` can in fact be declared as:
+This is where Protobuf comes in to simplify your life even more. The same `StoredGame` can in fact be declared as:
 
 ```protobuf
 message StoredGame {
