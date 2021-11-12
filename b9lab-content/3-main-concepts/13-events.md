@@ -78,7 +78,7 @@ The main `eventCategories` you can subscribe to are:
 
 <HighlightBox type=”info”>
 
-→ full list of event categories [here](https://godoc.org/github.com/tendermint/tendermint/types#pkg-constants)
+→ You can find a full list of event categories [here](https://godoc.org/github.com/tendermint/tendermint/types#pkg-constants)
 
 </HighlightBox>
 
