@@ -9,10 +9,12 @@ tag: deep-dive
 
 CosmWasm offers multi-chain solutions for smart contracts through an actor model design focused on providing a library.
 
-<div class="tip">
+<HighlightBox type=tip>
+
 The actor model is a design pattern for reliable, distributed systems. It is the pattern underlying CosmWasm smart contracts. In the model, the actor has access to the internal state, and actors can only message each other through a so-called dispatcher, that maintains the state and maps addresses to code and storage.
-Want to read more on the actor model? Check out <a href="https://docs.cosmwasm.com/docs/0.16/architecture/actor">the CosmWasm documentation</a>.
-</div>
+Want to read more on the actor model? Check out [the CosmWasm documentation](https://docs.cosmwasm.com/docs/0.16/architecture/actor).
+
+</HighlightBox>
 
 CosmWasm is designed so that the code is agnostic to the details of underlying chains. CosmWasm only requires a Cosmos SDK application to embed the `Wasm` module. 
 
@@ -22,7 +24,7 @@ CosmWasm is adaptable to different development environments by design and makes 
 
 ## Install
 
-As usual with the Cosmos SDK, you will need to have installed Go. In addition, you will install Rust in order to write smart contracts. Go to https://rustup.rs/ and install Rust. Set the wasm32 target:
+As usual with the Cosmos SDK, you will need to have installed Go. In addition, you will install Rust in order to write smart contracts. Go to [https://rustup.rs/](https://rustup.rs/) and install Rust. Set the wasm32 target:
 
 ```bash
 $ rustup target list --installed

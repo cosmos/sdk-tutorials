@@ -36,7 +36,7 @@ Modules do not require in-depth knowledge of the low-level details of clients, c
 
 <HighlightBox type=”info”>
 
-Components https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/overview.md
+Components [https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/overview.md](https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/overview.md)
 
 </HighlightBox>
 
@@ -48,9 +48,9 @@ A client can be associated with any number of connections to multiple chains
 
 Supported IBC clients::
 
-* **Solo Machine light client**: devices such as phones, browsers, or laptops - https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/06-solomachine
-* **Tendermint light client**: The default for Cosmos SDK-based chains - https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint
-* **Localhost (loopback) client**: Useful for testing, simulation, and relaying packets to modules on the same application - https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/09-localhost
+* **Solo Machine light client**: devices such as phones, browsers, or laptops - [https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/06-solomachine](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/06-solomachine)
+* **Tendermint light client**: The default for Cosmos SDK-based chains - [https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint)
+* **Localhost (loopback) client**: Useful for testing, simulation, and relaying packets to modules on the same application - [https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/09-localhost](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/09-localhost)
 
 ### Connections
 
@@ -58,11 +58,11 @@ A connection encapsulates two `ConnectionEnd` objects on two separate blockchain
 
 ### Proofs & paths
 
-In IBC, blockchains do not directly pass messages to each other over the network.To communicat, blockchains commit state to a precisely defined path reserved for a specific message type and a specific counterparty. Relayers monitor for updates to these paths and relay messages by submitting the data stored under the path along with a proof of that data to the counterparty chain. The paths that all IBC implementations must support for committing IBC messages are defined in ICS-24 host requirements: https://github.com/cosmos/ics/tree/master/spec/core/ics-024-host-requirements. The proof format that all implementations must produce and verify is defined in ICS-23 implementation - https://github.com/confio/ics23
+In IBC, blockchains do not directly pass messages to each other over the network.To communicat, blockchains commit state to a precisely defined path reserved for a specific message type and a specific counterparty. Relayers monitor for updates to these paths and relay messages by submitting the data stored under the path along with a proof of that data to the counterparty chain. The paths that all IBC implementations must support for committing IBC messages are defined in ICS-24 host requirements: [https://github.com/cosmos/ics/tree/master/spec/core/ics-024-host-requirements](https://github.com/cosmos/ics/tree/master/spec/core/ics-024-host-requirements). The proof format that all implementations must produce and verify is defined in ICS-23 implementation - [https://github.com/confio/ics23](https://github.com/confio/ics23)
 
 ### Capabilities
 
-IBC is intended to work in execution environments where modules do not necessarily trust each other. IBC needs to authenticate module actions on ports and channels. Only modules with the appropriate permissions can use the channels. (https://github.com/cosmos/cosmos-sdk/blob/master/docs/architecture/adr-003-dynamic-capability-store.md)
+IBC is intended to work in execution environments where modules do not necessarily trust each other. IBC needs to authenticate module actions on ports and channels. Only modules with the appropriate permissions can use the channels. ([https://github.com/cosmos/cosmos-sdk/blob/master/docs/architecture/adr-003-dynamic-capability-store.md](https://github.com/cosmos/cosmos-sdk/blob/master/docs/architecture/adr-003-dynamic-capability-store.md))
 
 Upon binding to a port or creating a channel for a module, IBC returns a dynamic capability that the module must claim to use that port or channel. This binding strategy prevents other modules from using that port or channel since those modules do not own the appropriate capability.
 
@@ -142,7 +142,7 @@ IBC can use Tendermint chains to bridge with IBC but also non-Tendermint chains.
 
 <HighlightBox type=”info”>
 
-https://blog.cosmos.network/the-internet-of-blockchains-how-cosmos-does-interoperability-starting-with-the-ethereum-peg-zone-8744d4d2bc3f
+[https://blog.cosmos.network/the-internet-of-blockchains-how-cosmos-does-interoperability-starting-with-the-ethereum-peg-zone-8744d4d2bc3f](https://blog.cosmos.network/the-internet-of-blockchains-how-cosmos-does-interoperability-starting-with-the-ethereum-peg-zone-8744d4d2bc3f)
 
 </HighlightBox>
 
@@ -150,18 +150,18 @@ A Peg-Zone is a blockchain that tracks the state of another blockchain. The Peg-
 
 <HighlightBox info=”info”>
 
-The Tendermint team is working on a Peg-Zone implementation for the Ethereum chain called the Gravity bridge: https://github.com/cosmos/gravity-bridge
+The Tendermint team is working on a Peg-Zone implementation for the Ethereum chain called the [Gravity bridge](https://github.com/cosmos/gravity-bridge)
 
 </HighlightBox>
 
 <!-- TODO -->
 Paradigms and implications
 Interchain accounts
-https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11
+[https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11](https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11)
 
 
 Relayers - What is a relayer? How are relayers used in Cosmos? How can one manage and deploy relayers? Hermes as an example
-https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/relayer.md
+[https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/relayer.md](https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/relayer.md)
 Token transfers with IBC
 Long running exercise. Foreign tokens:
 We want to play with foreign tokens. How to implement.

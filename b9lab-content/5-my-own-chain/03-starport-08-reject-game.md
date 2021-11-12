@@ -6,7 +6,7 @@ description: You reject a game.
 
 # The Reject Game Elements
 
-A natural counterpart to anyone being to create a game for any two other players, is for these players to be able to reject a game. However, a player should not be allowed to reject a game once they have made their first move. Anyway, as you are already accustomed with Starport, see [Create Message](./03-startport-04-create-message) and [Create Handling](./03-startport-05-create-handling), let's go right to business. It is sufficient to say that to reject a game, a player only needs to specify:
+A natural counterpart to anyone being to create a game for any two other players, is for these players to be able to reject a game. However, a player should not be allowed to reject a game once they have made their first move. Anyway, as you are already accustomed with Starport, see [Create Message](./03-starport-04-create-message.md) and [Create Handling](./03-starport-05-create-handling.md), let's go right to business. It is sufficient to say that to reject a game, a player only needs to specify:
 
 * The id of the game to reject. Let's call the field `idValue`.
 * Nothing else really, as the signer of the message is implicitly the player.
