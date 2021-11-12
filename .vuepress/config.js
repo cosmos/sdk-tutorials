@@ -252,7 +252,7 @@ module.exports = {
               url: "https://forum.cosmos.network",
             },
             {
-              title: "Chat",
+              title: "Discord",
               url: "https://discord.gg/cosmosnetwork",
             },
           ],
