@@ -151,4 +151,4 @@ With the callbacks in place, it is time to code the expiry proper. In `x/checker
     k.SetNextGame(ctx, nextGame)
     ```
 
-And that's all there is to it. For an explanation as to why this setup is resistant to attack from an unbounded number of expired games, see [A Game FIFO](./03-starport-09-game-fifo).
+And that's all there is to it. For an explanation as to why this setup is resistant to attack from an unbounded number of expired games, see [A Game FIFO](./03-starport-09-game-fifo.md).

@@ -6,7 +6,7 @@ description: You play a game.
 
 # The Play Game Elements
 
-In order to see in details what Starport would create, refer back to [The Create Game Message](./03-starport-04-create-message). Here, it is sufficient to say that to play a game, a player only needs to specify:
+In order to see in details what Starport would create, refer back to [The Create Game Message](./03-starport-04-create-message.md). Here, it is sufficient to say that to play a game, a player only needs to specify:
 
 * The id of the game to play in. Let's call the field `idValue`.
 * The initial position of the pawn to play. Let's call the fields `fromX` and `fromY`.

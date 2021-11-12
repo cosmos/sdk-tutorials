@@ -40,7 +40,7 @@ Extending the application with BaseApp gives the former access to all of BaseApp
 
 ### Type Definition
 
-The BaseApp type holds many important parameters for any Cosmos SDK based application:  https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc3/baseapp/baseapp.go#L46-L131 
+The BaseApp type holds many important parameters for any Cosmos SDK based application:  [https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc3/baseapp/baseapp.go#L46-L131](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc3/baseapp/baseapp.go#L46-L131)
 
 **Bootstrapping**
 
@@ -131,7 +131,7 @@ When messages and queries are received by the application, they must be routed t
 
 <HighlightBox type=”info”>
 
-https://github.com/cosmos/cosmos-sdk/blob/master/docs/core/baseapp.md 
+[https://github.com/cosmos/cosmos-sdk/blob/master/docs/core/baseapp.md](https://github.com/cosmos/cosmos-sdk/blob/master/docs/core/baseapp.md)
 
 </HighlightBox>
 
@@ -146,6 +146,6 @@ Other ABCI message handlers are implemented:
 * Info
 * Query
 
-See: https://github.com/cosmos/cosmos-sdk/blob/master/docs/core/baseapp.md#checktx 
+See: [CheckTx](https://github.com/cosmos/cosmos-sdk/blob/master/docs/core/baseapp.md#checktx)
 
 
