@@ -200,7 +200,7 @@ Without repeating all of the above, you can decide on:
         return &types.MsgPlayMoveResponse{}, nil
     }
     ```
-2. The **reject message**, which should be valid only if the player never played. Again if you create it with Starport:
+2. The **reject message**, which should be valid only if the player never played any moves in this game. Again, if you create it with Starport:
     ```sh
     $ starport scaffold message rejectGame idValue --module checkers
     ```
