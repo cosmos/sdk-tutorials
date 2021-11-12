@@ -459,6 +459,6 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
     ...
 }
 ```
-Where and how much to charge for gas is an economics as well as a game theoretic concern. So you should think about what you want to incentivize or disincentivize, at which junctures, and charge accordingly.
+Where and how much to charge for gas is an economical, as well as a game theoretical concern. So you should think about what you want to incentivize or disincentivize, at which junctures, and charge accordingly.
 
 </ExpansionPanel>
