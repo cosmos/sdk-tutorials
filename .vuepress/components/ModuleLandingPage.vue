@@ -230,7 +230,10 @@ export default {
 				.sort((a, b) => a.path.localeCompare(b.path));
 			const modules = this.formatModules(submodules);
 			
-			return Object.values(modules);
+			return Object.values(modules).map(item => {
+				item.submodules.sort((a, b) => a.order - b.order);
+				return item;
+			});
 		},
 	},
 	methods: {
@@ -247,7 +250,8 @@ export default {
 							title: item.title,
 							description: item.frontmatter.description,
 							tag: item.frontmatter.tag,
-							url: item.path
+							url: item.path,
+							order: item.frontmatter.order
 						}]
 					};
 					if (item.path != this.$page.path) {
@@ -258,7 +262,8 @@ export default {
 						title: item.title,
 						description: item.frontmatter.description,
 						tag: item.frontmatter.tag,
-						url: item.path
+						url: item.path,
+						order: item.frontmatter.order
 					});
 					if (!formattedModules[index].title && item.frontmatter.parent?.title) {
 						formattedModules[index].title = item.frontmatter.parent?.title;
