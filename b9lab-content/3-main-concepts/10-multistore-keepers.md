@@ -383,7 +383,7 @@ if deadline.Before(ctx.BlockTime()) {
 
 ## How To Expire Games
 
-Ok, but when do you verify that the game has expired? An interesting feature of an ABCI application is that you can do some action at the end of each block. Should you load all games and filter for those that have expired? No. That would be extremely expensive. Better keep a FIFO where fresh games are pushed back to the tail and therefore the head contains the next games to expire.
+Ok, but when do you verify that the game has expired? An interesting feature of an ABCI application is that you can have it perform some actions at the end of each block. Should you load all games and filter for those that have expired? No. That would be extremely expensive. Better keep a FIFO where fresh games are pushed back to the tail so that the head contains the next games to expire.
 
 In the context of the Cosmos SDK, you need to keep track of where the FIFO starts and stops by saving the corresponding game ids:
 
