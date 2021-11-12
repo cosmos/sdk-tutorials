@@ -206,7 +206,7 @@ func (k Keeper) GetAllStoredGame(ctx sdk.Context) (list []types.StoredGame) {
 ```
 Notice the `MustMarshalBinaryBare` and `MustUnmarshalBinaryBare` functions in the `codec` above. They need to be instructed as to how to proceed with the marshaling. Fortunately, Protobuf took care of this for us. See the [previous section](./09-protobuf) for that.
 
-## Boilerplate Boilerplate Everywhere!
+## Boilerplate, Boilerplate Everywhere!
 
 Also notice how the `Set`, `Get`, `Remove`, and `GetAll` functions above look like boilerplate too. Do you have to redo these functions for every type? **No**. In fact, it was all created with this Starport command:
 
