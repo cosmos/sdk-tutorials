@@ -97,7 +97,7 @@ message StoredGame {
   uint64 wager = 7;
 }
 ```
-The `= 1` parts indicate how each field is identified in the serialized output, and additionally provides backward compatibility. Down the road, to preserve backward compatibility, if you add or remove fields, make sure to not reuse numbers for new fields, but to keep increasing the `= x` value.
+The `= 1` parts indicate how each field is identified in the serialized output, and additionally provides backward compatibility. As your application upgrades to newer versions, make sure to not reuse numbers for new fields, but to keep increasing the `= x` value to preserve backward compatibility.
 
 When _compiling_ it, Protobuf will add the `protobuf:"bytes..."` elements. Similarly, the messages to create a game can be declared in Protobuf as:
 
