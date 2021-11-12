@@ -27,7 +27,7 @@
                             h2.mt-5 Build a chain in hours
 
 
-            .articles__wrapper.mt-10
+            .articles__wrapper.mt-10(v-if="$frontmatter.articles")
                 .articles__wrapper__title
                     h3.tm-title.tm-lh-title.tm-rf3.tm-bold Articles
                     div
@@ -56,14 +56,14 @@
                                     a(v-for="link in tool.links" :href="link.url" target="_blank").tm-link.tm-lh-solid.tm-medium.tm-link-external
                                         span {{link.name}}
 
-            .support__wrapper.mt-10
-                card(imageUrl="/support-image.png" :bigCard="true").support__card
-                    .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted custom support
-                    h2.content__support__title.mt-6 Need help bringing your project to life?
-                    .mt-5.tm-lh-copy.tm-muted.tm-measure-narrow Apply for support and get help with funding applications, grants, technology, architecture, and getting in touch with the ecosystem.
-                    .mt-8
-                        a.tm-button.tm-button-external 
-                            span Talk to us
+            //- .support__wrapper.mt-10
+            //-     card(imageUrl="/support-image.png" :bigCard="true").support__card
+            //-         .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted custom support
+            //-         h2.content__support__title.mt-6 Need help bringing your project to life?
+            //-         .mt-5.tm-lh-copy.tm-muted.tm-measure-narrow Apply for support and get help with funding applications, grants, technology, architecture, and getting in touch with the ecosystem.
+            //-         .mt-8
+            //-             a.tm-button.tm-button-external 
+            //-                 span Talk to us
 </template>
 
 <style lang="stylus" scoped>
