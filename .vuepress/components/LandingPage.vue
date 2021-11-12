@@ -6,25 +6,25 @@
                 card.mt-9(imageUrl="/graphics-sdk-course.png")
                     .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted beginner
                     h2.mt-1 Cosmos Academy
-                    .info-label.tm-lh-title.tm-rf-1.tm-muted ~126 Hours
+                    //- .info-label.tm-lh-title.tm-rf-1.tm-muted ~126 Hours
 
                     .content__intro__desc.tm-measure-narrow.tm-lh-copy.tm-muted Want to discover how to use the Cosmos SDK to build application-specific blockchains? Take your first steps in the Cosmos universe with a look into this complete and comprehensive course.
                     a(href="/b9lab-content/1-welcome").tm-link.mt-7.mb-5.tm-rf1.tm-medium
                         span Start learning
                         icon-arrow(type="right").icon-external.content__intro__link__icon
-            //- .tutorials__wrapper.mt-10
-            //-     h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tutorials
-            //-     .tutorials
-            //-         .tutorials__item__small
-            //-             card
-            //-                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted intermediate
-            //-                 h4.mt-7 Learn to use the Cosmos SDK with our tutorials.
-            //-                 .mt-7.tm-lh-copy.tm-muted Contributors, assemble! <br/> We are always looking for content to help new Cosmosnauts understand and explore the cosmos.
-            //-                 .mt-7.info-label.tm-rf-1.tm-muted 10 minute read
-            //-         .tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}")
-            //-             .tm-measure
-            //-                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted starport
-            //-                 h2.mt-5 Build a chain in hours
+            .tutorials__wrapper.mt-10
+                h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tutorials
+                .tutorials
+                    a.tutorials__item__small(href="/understanding-ibc-denoms/")
+                        card
+                            .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted intermediate
+                            h4.mt-7 Understand IBC denoms
+                            .mt-7.tm-lh-copy.tm-muted In this tutorial, you learn what IBC denoms are, how to use the relayer, connect blockchains, and find the path to an unknown blockchain.
+                            .mt-7.info-label.tm-rf-1.tm-muted 10 minute read
+                    a.tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}" href="https://docs.starport.com/" target="_blank")
+                        .tm-measure
+                            .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted starport
+                            h2.mt-5 Build a chain in hours
 
 
             .articles__wrapper.mt-10(v-if="$frontmatter.articles")
