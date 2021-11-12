@@ -278,8 +278,8 @@ module.exports = {
       }
     },
     feedback: {
-      formId: "xnqlpgvw",
-      captchaSiteKey: "6Lc9GtkaAAAAANsk9HXQU2zu8Ta5tI5R7Kr_zgly",
+      formId: "xyylrkbl",
+      captchaSiteKey: "6Ldu_iwdAAAAAF_kmEKihLNwB4qQNsGr9ox5t3Xd",
     }
   },
   plugins: [
