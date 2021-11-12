@@ -217,7 +217,7 @@ module.exports = {
         },
       ],
       smallprint:
-        "† This website is maintained by Tendermint. The contents and opinions of this website are those of Tendermint. Tendermint provides links to cryptocurrency exchanges as a service to the public. Tendermint does not warrant that the information provided by these websites is correct, complete, and up-to-date. Tendermint is not responsible for their content and expressly rejects any liability for damages of any kind resulting from the use, reference to, or reliance on any information contained within these websites.",
+        "",
       links: [
         {
           title: "Documentation",
