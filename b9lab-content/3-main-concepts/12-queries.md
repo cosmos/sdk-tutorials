@@ -2,7 +2,7 @@
 
 ### gRPC routing
 
-A query is a request for information made by end-users of an applications through an interface and processed by a full-node. Available information includes:
+A query is a request for information made by end-users of an application through an interface and processed by a full-node. Available information includes:
 
 * Information about the network.
 * Information about the application itself.
