@@ -10,7 +10,7 @@ Originally designed and developed by Google, Protobuf has been an open source pr
 
 <HighlightBox type=”info”>
 
-Google provides the [gRPC project](https://blog.conan.io/2019/03/06/Serializing-your-data-with-Protobuf.html), a universal RPC framework, that supports Protobuf directly. See the section entitled Compiler Invocation for more information about the process.
+Google provides the [gRPC project](https://blog.conan.io/2019/03/06/Serializing-your-data-with-Protobuf.html), a universal RPC framework that supports Protobuf directly. See the section titled [Compiler Invocation](https://developers.google.com/protocol-buffers/docs/reference/cpp-generated#invocation) for more information about this process.
 
 </HighlightBox>
 
