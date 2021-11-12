@@ -6,7 +6,7 @@ Protocol buffers, also called Protobuf in the short form, are an open source, ex
 
 Originally designed and developed by Google, Protobuf has been an open source project since 2008 and services as the basis for Remote Procedure Call (RPC) systems.
 
-`.proto` files contain data structures called messages. A compiler, `protoc`, interprets the `.proto` file and generates source code in supported languages,  C++, C#, Dart, Go, Java and Python.
+`.proto` files contain data structures called messages. A compiler, `protoc`, interprets the `.proto` file and generates source code in supported languages, such as Go, C++, C#, Dart, Java, Python, and others.
 
 <HighlightBox type=”info”>
 
