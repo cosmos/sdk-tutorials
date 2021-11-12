@@ -105,7 +105,7 @@ So now you are left with filling in the gaps under TODO. Simple:
         Reason:   "ok",
     }, nil
     ```
-Of note is that the player's move will be tested against the latest validated state of the blockchain. It does not test against the intermediate state being calculated when transactions are being delivered. Nor does it test again the potential state that would result from delivering the transactions still in the transaction pool.
+Of note is that the player's move will be tested against the latest validated state of the blockchain. It does not test against the intermediate state being calculated as transactions are being delivered. Nor does it test against the potential state that would result from delivering the transactions still in the transaction pool.
 
 In practice, this means that a player could test their move only if the opponent's move has been included in a block.
 
