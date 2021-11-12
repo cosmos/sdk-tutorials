@@ -65,7 +65,7 @@ Additionally, in the Cosmos ecosystem, you will likely interact with more than o
 
 A **hierarchical deterministic wallet** uses a single seed phrase to generate many key pairs. In this way, only the seed phrase needs to be backed up.
 
-Cosmos SDK uses [BIP32](https://en.bitcoin.it/wiki/BIP_0032) which allows users to generate a set of accounts from an initial secret that usually consists of 12 or 24 words known as the mnemonic. The words are not random ones, but instead are to be picked from the official BIP32 dictionary. Importantly, key pairs can always be reproduced from the mnemonic.
+Cosmos SDK uses [BIP32](https://en.bitcoin.it/wiki/BIP_0032) which allows users to generate a set of accounts from an initial **secret** and a **derivation path**, which contains some input data such as a blockchain identifier and account index, among others. Since BIP39, this initial secret is mostly generated with 12 or 24 words known as the mnemonic, taken from a standardized dictionary. Importantly, key pairs can always be mathematically reproduced from the mnemonic and the derivation path, which explains the deterministic nature of wallets.
 
 To see BIP32 in action, visit [bip32.net](https://www.bip32.net/). Click `Show entropy details` and enter random data in the `Entropy` field. This reveals an important aspect of the initial seed generation process. A source of randomness is essential. As you provide entropy, the `BIP39 Mnemonic` field begins to populate with words. Scroll down further and select the `BIP32` `Derivation Path` tab, then, under `Derived Addresses`, you now see `Public Key` and `Private Key` pairs.
 
