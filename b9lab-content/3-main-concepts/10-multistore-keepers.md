@@ -118,7 +118,7 @@ In the [Accounts](./04-accounts) section, you were introduced to the elements of
 
 You need to decide under what structure to store a game in storage. The Cosmos SDK partitions the global storage per module, with `checkers` being its own module. Therefore, you need to take care of how to store games in the checkers module's own corner of the key / value pair storage.
 
-The first idea would be to attribute a unique id to a game and to store the game value at that id. However, for the sake of clarity and so as to be able to differentiate with other stored elements in the future, you ought to add a prefix to that id. In pseudo-Go-code, the storage structure would therefore look like this:
+The first idea would be to attribute a unique id to a game and to store the game value at that id. However, for the sake of clarity and so as to be able to differentiate with other stored elements in the future, you ought to add a prefix to that id. In pseudo Go code, the storage structure would therefore look like this:
 
 ```go
 // Pseudo-code
