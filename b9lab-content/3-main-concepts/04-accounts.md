@@ -73,7 +73,7 @@ Like most blockchain implementations, Cosmos derives addresses from the public k
 
 ![hd accounts](./images/hd-accounts.png)
 
-Using BIP39 or one of its variants, a user is required only to store their BIP39 mnemonic in a safe and confidential manner. All key pairs can be reconstructed from the mnemonic because it’s deterministic. There is no practical upper limit to the number of key pairs that can be generated from a single mnemonic, hence the name hierarchical deterministic that is used to describe this approach to key generation.
+Using BIP39 or one of its variants, a user is required only to store their BIP39 mnemonic in a safe and confidential manner. All key pairs can be reconstructed from the mnemonic because it’s deterministic. The input taken from the [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) derivation path is used to generate a key pair for every blockchain using one single mnemonic, hence the name hierarchical deterministic that is used to describe this approach to key generation.
 
 ## Keyring, Addresses and Address Types
 
