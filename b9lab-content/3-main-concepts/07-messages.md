@@ -148,7 +148,7 @@ A sample of things Starport did for you:
 
 The meat of the subject, that is. To create the game in place of `// TODO: Handling the message`. What does it take?
 
-1. Decide on how to create a new and unique game id: `newIndex`. See [how to build your own chain](../5-my-own-chain/01-index) for more details, and not further clutter this section.
+1. Decide on how to create a new and unique game id: `newIndex`. See [how to build your own chain](../5-my-own-chain/01-index) for more details, so we avoid diving too deep in this section.
 2. Extract and verify addresses, such as:
     ```go
     red, err := sdk.AccAddressFromBech32(msg.Red)
