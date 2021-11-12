@@ -51,7 +51,7 @@ Cosmos SDK uses Protobuf definitions to generate client and server code:
 
 <ExpansionPanel title="Show me code for my checkers blockchain">
 
-Previously, the ABCI application knew of a single transaction type, that of a checkers move, with 4 `int`. With multiple games, this is no longer sufficient, nor viable. Additionally, because you are now on your way to using the Cosmos SDK, you need to conform to its `Tx` ways, which means that you have to create messages that are then placed into a transaction.
+Previously, the ABCI application knew of a single transaction type: that of a checkers move with 4 `int` values. With multiple games, this is no longer sufficient, nor viable. Additionally, because you are now on your way to using the Cosmos SDK, you need to conform to its `Tx` ways, which means that you have to create messages that are then placed into a transaction.
 
 ## What we need
 
