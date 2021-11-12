@@ -52,7 +52,7 @@ func (k Keeper) CanPlayMove(goCtx context.Context, req *types.QueryCanPlayMoveRe
     return &types.QueryCanPlayMoveResponse{}, nil
 }
 ```
-So now you are left with filling this in. Simply:
+So now you are left with filling in the gaps under TODO. Simple:
 
 1. Is the game finished? Actually, for this one, you ought to add a `Winner` to your `StoredGame` first.
 2. Is it an expected player?
