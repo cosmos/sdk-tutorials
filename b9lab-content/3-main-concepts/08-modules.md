@@ -260,7 +260,7 @@ The initial ideas are:
 * When doing their first move, which is interpreted as "challenge accepted", each player is billed the amount. Obviously the amount should not be deducted on the game creation, as it is good business to first ask for acceptance from the payer.
     * If the opponent rejects the game, or the game times out, at this point, then the first player gets refunded.
 * Subsequent moves by a player do not cost anything.
-* If a game ends in a win or times out on a forfeit, then the winning player gets double the wager amount.
+* If a game ends in a win or times out on a forfeit, the winning player gets the total wager amount.
 * If a game ends in a draw, then both players get back their amount.
 
 How would this look like in terms of code? You need to add the wager to:
