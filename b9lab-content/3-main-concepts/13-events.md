@@ -105,7 +105,7 @@ ctx.EventManager().EmitEvent(
 ```
 From this model, it is easy to add events to the other transaction types, where you keep in mind that the events are meant to inform and notify relevant parties.
 
-You ought to also emit an event for games that have timed out. After all, this is part of their lifecycle. You would do it in the end blocker:
+You should also emit an event for games that have timed out. After all, this is part of their lifecycle. You would do that in the end blocker:
 
 ```go
 ctx.EventManager().EmitEvent(
