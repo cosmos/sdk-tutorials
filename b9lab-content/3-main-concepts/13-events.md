@@ -2,7 +2,7 @@
 
 An event is an object that contains information about the execution of the application. Events are used by service providers (block explorers, wallets) to track execution of various messages and index transactions.
 
-In Cosmo SDK, events are implemented as an alias of ABCI `event` type in the forms `{eventType}.{attributeKey}={attributeValue}`.
+In the Cosmos SDK, events are implemented as an alias of the ABCI `event` type in the forms `{eventType}.{attributeKey}={attributeValue}`.
 
 Events allow app developers to attach additional information. This means that transactions might be queried using the events:
 
