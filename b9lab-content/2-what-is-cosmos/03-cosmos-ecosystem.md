@@ -120,7 +120,7 @@ The Cosmos SDK draws its modularity from so-called modules, which define most of
 
 <HighlightBox type="info">
 
-Want to learn more about modules in the Cosmos SDK? Check out the [corresponding section](includelinktosection)!
+Want to learn more about modules in the Cosmos SDK? Check out the [corresponding section](../3-main-concepts/08-modules.md)!
 
 </HighlightBox>
 
