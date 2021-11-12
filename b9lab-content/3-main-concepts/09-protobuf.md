@@ -16,8 +16,8 @@ Google provides the [gRPC project](https://blog.conan.io/2019/03/06/Serializing-
 
 ### Working with Protocol Buffers
 
-Define a data structure in a `.proto` file. This is a normal text file with descriptive syntax. Data is represented as a message containing name-value pairs called fields.
-Compile your Protobuf Schema. `.protoc` generates data access classes with accessors for each field in your preferred language according to command-line options. Accessors include serializing, deserializing and parsing.
+The `.proto` file is used to define a data structure. This is a normal text file with descriptive syntax. Data is represented as a message containing name-value pairs called fields.
+To compile your Protobuf Schema, the `.protoc` file generates data access classes with accessors for each field in your preferred language according to command-line options. Accessors include serializing, deserializing and parsing.
 
 ## Protobuf Basics for Go
 
