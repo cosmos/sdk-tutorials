@@ -112,7 +112,7 @@ More info: https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/gas-fees
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-In the [Accounts](./04-accounts) section, you were introduced to the elements of the stored game, but were left in the dark about where this game is stored. In light of what you learned above, let's remedy that.
+In the [Accounts](./04-accounts) section, you were introduced to the elements of the stored game, but were left in the dark about where this game is stored. In light of what you learned above, let's fix that.
 
 ## Game Object in Storage
 
