@@ -2,7 +2,7 @@
 
 Transactions execute in a context that includes information about the current state of the application, the block and the transaction. 
 
-Context is represented as data structures  that carry information about the current state of the application and are intended to be passed from function to function. Context provides access to branched storage (a safe branch of the entire state) as well as useful objects and information like gasMeter, block height, consensus parameters and more.
+Context is represented as data structures that carry information about the current state of the application and are intended to be passed from function to function. Context provides access to branched storage (a safe branch of the entire state) as well as useful objects and information like gasMeter, block height, consensus parameters and more.
 
 The SDK Context is a custom data structure that contains Go's stdlib context as its base, and has many additional types within its definition that are specific to the Cosmos SDK. 
 
