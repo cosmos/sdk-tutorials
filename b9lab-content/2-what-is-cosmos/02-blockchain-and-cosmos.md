@@ -1,6 +1,6 @@
 ---
 title: "Blockchain Technology and Cosmos"
-order: 1
+order: 2
 description: Cosmos as part of blockchain technology
 tag: fast-track
 ---

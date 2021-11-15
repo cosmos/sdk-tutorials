@@ -1,6 +1,6 @@
 ---
 title: "The Cosmos Ecosystem"
-order: 2
+order: 3
 description: A universe to discover
 tag: fast-track
 ---
