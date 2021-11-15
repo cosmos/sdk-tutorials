@@ -119,7 +119,7 @@
 
     .content {
         margin-top: 10px;
-        width: 100%;
+        width: max-content;
 
         p {
             margin: 0px;
