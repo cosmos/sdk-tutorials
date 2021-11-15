@@ -56,8 +56,6 @@ tools:
     image: /generic-star-icon.svg
 -->
 
-# Cosmos SDK Tutorials
-
 This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
 
 Note: The layout metadata at the top of the README.md file controls how the tutorial page is published. Write permissions are limited to preserve the structure and contents.

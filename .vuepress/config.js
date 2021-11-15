@@ -1,6 +1,6 @@
 module.exports = {
   theme: "cosmos",
-  title: "Cosmos SDK Tutorials",
+  title: "Cosmos Developer Portal",
   head: [
     [
       "link",
