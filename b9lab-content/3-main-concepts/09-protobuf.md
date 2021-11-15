@@ -116,7 +116,7 @@ message MsgCreateGameResponse {
 
 ## Enter Starport
 
-Can this too be created for you? Yes. If you use Starport and commands like:
+When Starport creates a message for you, it also creates the gRPC definitions and Go handling code. Using commands, like the ones below, is relatively easy to achieve for your own chain:
 
 ```sh
 $ starport scaffold map storedGame game turn red black wager:uint --module checkers --no-message
