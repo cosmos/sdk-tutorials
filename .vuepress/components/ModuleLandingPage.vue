@@ -63,26 +63,29 @@
 			margin-top 96px
 
 		&__item
-			padding 10px
-			margin-block 10px
+			padding 32px
+			margin 10px
 			display flex
 			flex-direction column
 			justify-content space-between
+			border-radius 16px
+			background var(--background-color-secondary)
 
-			@media screen and (min-width: 481px)
+			@media screen and (min-width: 1025px)
 				flex 1 1 0px
 
 			@media screen and (min-width: 481px) and (max-width: 1024px)
 				width 40vw
+				flex-shrink 0
 
 			@media screen and (max-width: 480px)
 				width 60vw
 				flex-shrink 0
 
 			&:last-child
-				padding-right 0px
+				margin-right 0px
 			&:first-child
-				padding-left 0px
+				margin-left 0px
 
 			&__icon
 				margin-right 20px
