@@ -130,8 +130,8 @@ When the acknowledgement is received successfully on the original sender chain, 
 
 IBC can use Tendermint chains to bridge with IBC but also non-Tendermint chains. Two types of non-Tendermint chains are supported:
 
-* FAST-FINALITY CHAINS: any fast-finality consensus algorithms can connect with Cosmos by adapting IBC
-* PROBABILISTIC-FINALITY CHAINS: blockchains that do not have fast-finality, like Proof-of-Work chains, things get a bit trickier. In this case, IBC uses a special kind of proxy-chain called a Peg-Zone.
+* **Fast-finality chains**: any fast-finality consensus algorithms can connect with Cosmos by adapting IBC.
+* **Probabilistic-finality chains**: for blockchains that do not have fast-finality, like Proof-of-Work chains, things get a bit trickier. In this case, IBC uses a special kind of proxy-chain called a Peg-Zone.
 
 ### Ethereum peg zone:
 
