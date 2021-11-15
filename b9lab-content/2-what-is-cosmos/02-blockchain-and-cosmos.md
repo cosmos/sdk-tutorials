@@ -20,7 +20,7 @@ Begin your journey with this brief review of blockchain technology, how Cosmos c
 
 The building blocks of blockchain technology can be found in the 1980s and 1990s when breakthroughs in computer science and cryptography laid the necessary groundwork. Blockchain technology per se was invented in 2008.
 
-The necessary breakthroughs included append-only, provably correct transaction logs using built-in error checking, strong authentication and encryption using public keys, mature theories of fault-tolerant systems, widespread understanding of peer-to-peer systems and, of course, the advent of the internet and ubiquitous connectivity and powerful client-side computers.
+The necessary breakthroughs included append-only, provably correct transaction logs using built-in error checking, strong authentication and encryption using public keys, mature theories of fault-tolerant systems, widespread understanding of peer-to-peer systems, and, of course, the advent of the internet and ubiquitous connectivity and powerful client-side computers.
 
 On the fateful October 31, 2008, an individual, or group, calling itself Satoshi Nakamoto proposed a **P2P network for a digital currency**, calling it **Bitcoin**. It introduced a novel consensus mechanism, now referred to as Nakamoto Consensus, that uses Proof-of-Work (PoW) to enable nodes to reach agreement in a decentralized network. Suddenly, it became possible to send online payments directly between parties **independently of financial institutions and trusted third parties**. Bitcoin became the first public, decentralized application.
 
@@ -32,9 +32,9 @@ On the fateful October 31, 2008, an individual, or group, calling itself Satoshi
 
 <ExpansionPanel title="I heard about PoW, tell me more">
 
-Proof-of-Work (PoW), used to achieve BFT, is best described as a cryptographic puzzle solved by a network's node, called miner. The puzzle is a task of pre-defined, arbitrary difficulty. At the current scale of the network, the outcome is akin to a lottery with a single winning node.
+Proof-of-Work (PoW), used to achieve BFT, is best described as a cryptographic puzzle solved by a network's node, called a miner. The puzzle is a task of pre-defined, arbitrary difficulty. At the current scale of the network, the outcome is akin to a lottery with a single winning node.
 
-In most PoW systems, the task consists of a search for an unknown, random number (in the jargon, a nonce). For it to be a winning nonce, when combined with ordered transactions in a block, the result ought to be a hash value matching a pre-defined criteria. Finding the nonce is evidence of considerable effort, or work, invested in the search. Each node uses its computing power to be the first to solve the puzzle, winning the right to author the latest block.
+In most PoW systems, the task consists of a search for an unknown, random number (in the jargon, a nonce). For it to be a winning nonce, when combined with ordered transactions in a block, the result ought to be a hash value matching pre-defined criteria. Finding the nonce is evidence of considerable effort, or work, invested in the search. Each node uses its computing power to be the first to solve the puzzle, winning the right to author the latest block.
 
 Here, economic incentives come into play: The node that announces a solution first receives a reward. This incentivizes participation, investing computing power into solving the task, and helps maintain the network's functioning.
 
@@ -52,7 +52,7 @@ Although Bitcoin's codebase is monolithic, its blockchain architecture can be sp
 
 * Network layer: Tasked with discovering nodes and propagating transactions and consensus-related messages between single nodes;
 * Consensus layer: Runs the consensus protocol between the single nodes of a P2P network;
-* Application layer: In effect, running a state machine that defines the application's state and updates it with the processing of transactions, in accordance with the result of the consensus.
+* Application layer: In effect, running a state machine that defines the application's state and updates it with the processing of transactions, per the result of the consensus.
 
 </ExpansionPanel>
 
@@ -74,13 +74,13 @@ Talking about speed in blockchains means addressing the **transaction speed**, i
 
 **State finality** is an additional concern. Finality describes whether and when committed blocks with transactions can no longer be reverted/revoked. It is important to differentiate between *probabilistic* and *absolute finality*.
 
-**Probabilistic finality** describes the finality of a transaction dependent on how probable reverting a block is, i.e. the probability of removing a transaction. The more blocks come after the block containing a specific transaction, the less probable a transaction may be reverted, as _longest_ or _heaviest chain rules_ apply in the case of forks.
+**Probabilistic finality** describes the finality of a transaction dependending on how probable reverting a block is, i.e. the probability of removing a transaction. The more blocks come after the block containing a specific transaction, the less probable a transaction may be reverted, as _longest_ or _heaviest chain rules_ apply in the case of forks.
 
 On the other hand, **absolute finality** is a trait of protocols based on Proof-of-Stake (PoS). Finality comes as soon as a transaction and block are verified. There are no scenarios in which a transaction could be revoked after it has been finalized.
 
 <ExpansionPanel title="What kind of sorcery is this?">
 
-PoS can have absolute finality because the totally staked amount is known at all times. Indeed, it takes a _public_ transaction to stake and another to unstake. You quickly figure out that if some majority of the stakers agree on one block, then that's it, that's the block.
+PoS can have absolute finality because the total staked amount is known at all times. Indeed, it takes a _public_ transaction to stake and another to unstake. You quickly figure out that if some majority of the stakers agree on one block, then that's it, that's the block.
 
 This is different from PoW, where the total hashing capacity is unknown and can only be estimated by a combination of the difficulty of the puzzle and the speed at which new blocks are issued. To add or remove hashing capacity, all it takes is to surreptitiously turn on or off machines.
 
@@ -117,7 +117,7 @@ It does this in:
 * A **secure** manner - Tendermint continues working even if up to 1/3 of machines fail or misbehave, and
 * A **consistent** way - every machine computes the same state and accesses the same transaction log.
 
-Tendermint is widely used across the industry and the most mature BFT consensus engine for Proof-of-Stake (PoS) blockchains.
+Tendermint is widely used across the industry and is the most mature BFT consensus engine for Proof-of-Stake (PoS) blockchains.
 
 For more on Tendermint, have a look at this helpful [introduction](https://docs.tendermint.com/master/introduction/what-is-tendermint.html).
 
@@ -129,9 +129,9 @@ Cosmos' founding **vision** is that of an easy development environment for block
 
 *How is Cosmos an internet of blockchains?* Cosmos is a **network of interoperable blockchains**, each implemented with different properties suitable for their individual use cases. Cosmos lets developers create blockchains that maintain sovereignty, free from any "main chain" governance, that allow for fast transaction processing, and that are interoperable. With this, a great variety of use cases become possible.
 
-To achieve this vision and type of network, the ecosystem relies on an **open source toolkit**, including the [Inter-Blockchain Communication (IBC)](https://ibcprotocol.org/) protocol, its implementation in the [Cosmos SDK](https://v1.cosmos.network/sdk), and [Tendermint](https://tendermint.com/) as the base layer with state finality. The toolkit, a set of modular, adaptable, and interchangeable tools, helps not only to quickly spin up a blockchain, but also facilitates the customization of secure and scalable chains.
+To achieve this vision and type of network, the ecosystem relies on an **open-source toolkit**, including the [Inter-Blockchain Communication (IBC)](https://ibcprotocol.org/) protocol, its implementation in the [Cosmos SDK](https://v1.cosmos.network/sdk), and [Tendermint](https://tendermint.com/) as the base layer with state finality. The toolkit, a set of modular, adaptable, and interchangeable tools, helps not only to quickly spin up a blockchain but also facilitates the customization of secure and scalable chains.
 
-As a brief introduction to this terminolody, Cosmos is a network of interoperable application blockchainss. Cosmos application blockchains are built with the Cosmos SDK which enables developers to quickly create a unique blockchain for their specific use-case. The Cosmos SDK includes the prerequisites that enable created blockchains to participate in inter-chain communications, throughout the Cosmos, using the Inter-Blockchain protocol (IBC), Cosmos application blockchains built with the Cosmos SDK use Tendermint consensus. Each of these topics is unfolded in more detail in the sections that follow. 
+As a brief introduction to this terminology, Cosmos is a network of interoperable application blockchains. Cosmos application blockchains are built with the Cosmos SDK which enables developers to quickly create a unique blockchain for their specific use case. The Cosmos SDK includes the prerequisites that enable created blockchains to participate in inter-chain communications, throughout the Cosmos, using the Inter-Blockchain protocol (IBC), Cosmos application blockchains built with the Cosmos SDK use Tendermint consensus. Each of these topics is unfolded in more detail in the sections that follow. 
 
 Let's now look at the problems Cosmos solves.
 
@@ -142,11 +142,11 @@ As mentioned previously, scalability is a big issue area when it comes to blockc
 Cosmos addresses **two types of scalability**:
 
 * **Horizontal scalability**: Scaling by adding similar machines to the network. When scaling out, horizontally, the network can accept more nodes to participate in the state replication, consensus observation, and any activity that queries the state.
-* **Vertical scalability**: Scaling by improving the network's components so as to increase its computational power. When scaling up, vertically, the network can accept more transactions, and any activity that modifies the state.
+* **Vertical scalability**: Scaling by improving the network's components to increase its computational power. When scaling up, vertically, the network can accept more transactions and any activity that modifies the state.
 
 In a blockchain context, vertical scalability is typically achieved through the optimization of the consensus mechanism and applications running on the chain. On the consensus side, Cosmos achieves vertical scalability with the help of the Tendermint BFT. For instance, the Cosmos Hub currently conducts transactions in seven seconds. In a single blockchain context, the only remaining bottleneck is then the application.
 
-Consensus mechanism and application optimization of one's blockchain can only take one so far. To overcome the limits of vertical scalability, Cosmos' multi-chain architecture allows for **one application to run in parallel** on different chains, all the while being operated by the same validator set. This inter-chain horizontal scalability theoretically allows for infinite vertical-like scalability.
+The consensus mechanism and application optimization of one's blockchain can only take one so far. To overcome the limits of vertical scalability, Cosmos' multi-chain architecture allows for **one application to run in parallel** on different chains, all the while being operated by the same validator set. This inter-chain horizontal scalability theoretically allows for infinite vertical-like scalability.
 
 <HighlightBox type="info">
 
