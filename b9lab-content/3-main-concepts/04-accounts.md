@@ -1,7 +1,7 @@
 ---
 title: "Accounts"
-order: 4
-description: Accounts, addresses and keys in Cosmos.
+order: 3
+description: Discover how accounts, addresses, keys, and keyrings relate to each other
 ---
 
 # Accounts
