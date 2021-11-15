@@ -62,7 +62,7 @@ IBC is intended to work in execution environments where modules do not necessari
 Upon binding to a port or creating a channel for a module, IBC returns a dynamic capability that the module must claim to use that port or channel. This binding strategy prevents other modules from using that port or channel since those modules do not own the appropriate capability.
 
 IBC modules do not need to interact at all with these lower-level abstractions. The relevant abstraction layer for IBC application developers is that of channels and ports.
-As self-contained modules, module on one blockchain can communicate with other modules on other blockchains by sending, receiving, and acknowledging packets through channels that are uniquely identified by the (channelID, portID) tuple
+As self-contained modules, module on one blockchain can communicate with other modules on other blockchains by sending, receiving, and acknowledging packets through channels that are uniquely identified by the (channelID, portID) tuple.
 
 An analogy to consider is IBC modules as internet apps on a computer. A channel can then be conceptualized as an IP connection, with the IBC portID like an IP port, and the IBC channelID is like an IP address
 
