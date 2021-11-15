@@ -6,7 +6,7 @@ In Cosmos, a transaction contains one or more messages for the module to process
 
 <HighlightBox type=”info”>
 
-When an account signs a message, it in effect signs an array of bytes. This array of bytes is the result of a serialization from the message itself, therefore this conversion needs to be deterministic for the signature to be verifiable at a later date. This is why you define a canonical representation of the message, typically with the parameters ordered alphabetically.
+When an account signs a message, it in effect signs an array of bytes. This array of bytes is the result of a serialization from the message itself, therefore this conversion needs to be deterministic for the signature to be verifiable at a later date. This is why you define a canonical bytes representation of the message, typically with the parameters ordered alphabetically.
 
 </HighlightBox>
 
@@ -16,15 +16,15 @@ Transactions containing one or more valid messages are serialized and confirmed 
 
 The confirmed transaction is passed to the Cosmos SDK for interpretation. The `BaseApp` you use to begin module development of your custom modules attends to the first stages of interpretation. It decodes each message contained in the transaction.
 
-Each message is routed to the appropriate module via `baseApp’s` `MsgServiceRouter`. Each module has its own `MsgService` that processes each received message.
+Each message is routed to the appropriate module via `BaseApp`’s `MsgServiceRouter`. Each module has its own `MsgService` that processes each received message.
 
 ## MsgService
 
 Although it is technically feasible to proceed to create a novel `MsgService`, the recommended approach is to define a Protobuf `Msg` service. Each module will have exactly one Protobuf `Msg` service defined in `tx.proto` and there will be a RPC service method for each message type in the module. Implicitly, the ProtoBuf message service defines the interface layer of the state mutating processes contained within the module.
 
-### Example MsgService
+Example MsgService:
 
-```
+```protobuf
 // Msg defines the bank Msg service.
 service Msg {
   // Send defines a method for sending coins from one account to another account.
@@ -37,7 +37,7 @@ service Msg {
 
 In the example above we can see that:
 
-* Each `Msg` service method has  exactly one argument, which must implement the `sdk.Msg` interface and a Protobuf response.
+* Each `Msg` service method has  exactly one argument, such as `MsgSend`, which must implement the `sdk.Msg` interface and a Protobuf response.
 * The standard naming convention is to call the RPC argument `Msg<service-rpc-name>` and the RPC response `Msg<service-rpc-name>Response`.
 
 ## Code Generation with Cosmos SDK
@@ -49,19 +49,23 @@ Cosmos SDK uses Protobuf definitions to generate client and server code:
 * Implementation of a module [`Msg` service](https://docs.cosmos.network/master/building-modules/msg-services.html).
 * Method to define messages using Msg services - [Amino `LegacyMsg`](https://docs.cosmos.network/master/building-modules/messages-and-queries.html#legacy-amino-legacymsgs).
 
+## Next Up
+
+Have a look at the code example below or head straight to the [next section](./08-modules) to learn more about modules.
+
 <ExpansionPanel title="Show me code for my checkers blockchain">
 
 Previously, the ABCI application knew of a single transaction type: that of a checkers move with 4 `int` values. With multiple games, this is no longer sufficient, nor viable. Additionally, because you are now on your way to using the Cosmos SDK, you need to conform to its `Tx` ways, which means that you have to create messages that are then placed into a transaction.
 
-## What we need
+## What you need
 
 Let's describe the messages you need:
 
-1. First, in the former _Play_ transaction, your 4 `int` need to move from the transaction to a `sdk.Msg` wrapped in said transaction. Just 4 flat `int` is no longer good enough as you need to follow the `sdk.Msg` interface, and also to identify to which game a move is meant for, and to distinguish a move message from other message types.
+1. First, in the former _Play_ transaction, your 4 `int` need to move from the transaction to a `sdk.Msg` wrapped in said transaction. Just 4 flat `int` is no longer good enough as you need to follow the `sdk.Msg` interface, and also to identify for which game a move is meant, and to distinguish a move message from other message types.
 2. Second, you need to add a message type to create a new game. When this is done, someone will create a new game, and this new game will mention someone else, i.e. the other player, or, say, the 2 players. This newly created game would be identified by a generated id, which needs to be returned to the message creator as a courtesy.
 3. Third, it would be a welcome idea for the other person to be able to reject the challenge. That would have the added benefit of clearing the state of stale un-started games.
 
-## How we proceed
+## How to proceed
 
 Let's have a closer look at the messages around the **creation of a game**.
 
@@ -86,7 +90,7 @@ With the messages defined, you need to declare how the message should be handled
 2. Writing the code that handles the message and creates the new game in storage.
 3. But also putting hooks, and callbacks at the right places in the general message handling.
 
-Fortunately, **Starport** can assist us with creating what is, in essence, boilerplate, in points 1 and 3 above.
+Fortunately, **Starport** can assist you with creating what is, in essence, boilerplate, in points 1 and 3 above.
 
 <HighlightBox type="tip">
 
@@ -99,7 +103,7 @@ In fact, Starport can help you create all that plus the `MsgCreateGame` and `Msg
 ```sh
 $ starport scaffold message createGame red black --module checkers --response idValue
 ```
-Starport would create a whole lot of files, see [how to build your own chain](../5-my-own-chain/01-index) for the details, and make additions to existing files.
+Starport would create a whole lot of other files, see [how to build your own chain](../5-my-own-chain/01-index) for the details, and make additions to existing files.
 
 A sample of things Starport did for you:
 
@@ -178,7 +182,7 @@ The meat of the subject, that is. To create the game in place of `// TODO: Handl
     ```
 Not to forget, and it is worth mentioning here, that:
 
-* If you encounter an internal error, we should `panic("This situation should not happen")`.
+* If you encounter an internal error, you should `panic("This situation should not happen")`.
 * If you encounter a user or _regular_ error, like not enough funds, you should return a regular `error`.
 
 ## The other messages

@@ -33,7 +33,7 @@ The length of keys is vital. Asymmetric cryptographic keys are usually very long
 
 ## Public/Private Keys
 
-Asymetric keys always come in pairs and offer their owner various capabilities. Those capabilities are based on cryptographic mathematics. As their name suggests, the public key is meant to be distributed to whoever is relevant, while the private key is to remain a secret. This is similar to sharing your house address, but keeping the key to your house private. Don't be Dilbert's CEO, [a story](http://dilbert.com/strip/2018-10-26) in [2 parts](http://dilbert.com/strip/2018-10-27).
+Asymmetric keys always come in pairs and offer their owner various capabilities. Those capabilities are based on cryptographic mathematics. As their name suggests, the public key is meant to be distributed to whoever is relevant, while the private key is to remain a secret. This is similar to sharing your house address, but keeping the key to your house private. Don't be Dilbert's CEO, [a story](http://dilbert.com/strip/2018-10-26) in [2 parts](http://dilbert.com/strip/2018-10-27).
 
 ### Sign and Verify Example
 
@@ -48,20 +48,19 @@ When Alice has verified the signature, she will be convinced that the announceme
 
 In summary, private keys are used to **prove** that messages originate from owners of accounts that are known by their public keys. More precisely, signatures **prove** that messages were signed by someone with knowledge of the private key that corresponds to a given public key. This is the basis of user authentication in a blockchain. For this reason, private keys are jealously guarded secrets.
 
+<ExpansionPanel title="How to manage multiple key pairs over multiple blockchains">
+
 ## Hierarchical Deterministic Wallets
 
 Blockchains generally maintain ledgers of user accounts and rely on public key cryptography for user authentication. Implicitly, knowledge of one’s public and private keys is a requirement for executing transactions. Client software applications known as wallets provide methods to generate new key pairs and store them between sessions, as well as basic services such as creating transactions, signing messages, interacting with applications (for example, web pages) and communicating with the blockchain.
 
 Although it is technically feasible to generate and store multiple key pairs in a wallet, key management becomes tedious and error-prone quickly for users in that scenario. Given that all keys would exist in one place only, users would need to devise ways to recover those keys in adverse situations such as the loss or destruction of the computer. To put it simply, the more accounts, the more keys to back up.
 
-<ExpansionPanel title="Do I need many addresses, though?">
+### Do I need many addresses, though?
 
 Using multiple addresses can help you improve your privacy. You may be a single individual, or entity, but you may want to transact with others under different aliases.
 
 Additionally, in the Cosmos ecosystem, you will likely interact with more than one blockchain. It is convenient that your inevitably-different addresses on different blockchains can all stem from a single seed.
-
-</ExpansionPanel>
-
 
 A **hierarchical deterministic wallet** uses a single seed phrase to generate many key pairs. In this way, only the seed phrase needs to be backed up.
 
@@ -74,6 +73,8 @@ Like most blockchain implementations, Cosmos derives addresses from the public k
 ![hd accounts](./images/hd-accounts.png)
 
 Using BIP39 or one of its variants, a user is required only to store their BIP39 mnemonic in a safe and confidential manner. All key pairs can be reconstructed from the mnemonic because it’s deterministic. The input taken from the [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) derivation path is used to generate a key pair for every blockchain using one single mnemonic, hence the name hierarchical deterministic that is used to describe this approach to key generation.
+
+</ExpansionPanel>
 
 ## Keyring, Addresses and Address Types
 
@@ -126,6 +127,10 @@ An address is the public information normally used to reference an account. Addr
 ## Keyring
 
 The Keyring object stores and manages multiple accounts. In the SDK, the Keyring object implements the Keyring interface.
+
+## Next Up
+
+In the [next section](./05-transactions) you'll learn how transactions are generated and handled in the Cosmos SDK.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
