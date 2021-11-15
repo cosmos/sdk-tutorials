@@ -41,7 +41,7 @@
 		flex-direction column
 
 		&__item
-			margin-top 32px
+			margin-top 64px
 
 	.resources
 		display flex
