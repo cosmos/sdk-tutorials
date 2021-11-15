@@ -3,7 +3,7 @@ parent:
   title: Running a Chain
   description: Run a chain for the first time
   number: 3
-tag: fast-track
+tag: deep-dive
 layout: ModuleLandingPage
 order: 0
 intro:
@@ -41,6 +41,6 @@ resources:
     image: /ibc-icon.svg
 ---
 
-# Running a Chain Overview
+# Chapter Overview - Running a Node
 
 In this module, you clone the `cosmos-sdk` repo first. Then you start and test an educational sample. By following these steps, you have access to the `cosmos-sdk` codebase and the Cosmos SDK components so you don't have to generate new code. 

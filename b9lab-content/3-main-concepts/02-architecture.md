@@ -61,9 +61,9 @@ Tendermint BFT is not concerned with the interpretation of transactions. That wo
 
 For a deeper dive, visit:
 
-Podcast on consensus systems with Ethan Buchman: https://softwareengineeringdaily.com/2018/03/26/consensus-systems-with-ethan-buchman/
+Podcast on [consensus systems with Ethan Buchman](https://softwareengineeringdaily.com/2018/03/26/consensus-systems-with-ethan-buchman/)
 Tendermint BFT engine is connected to the application by a socket protocol called the Application Blockchain Interface (ABCI).
-Tendermint ecosystem: https://tendermint.com/core/#ecosystem
+Tendermint [ecosystem](https://tendermint.com/core/#ecosystem)
 
 </HighlightBox>
 
@@ -99,10 +99,10 @@ This is, itself, a considerable step forward that simplifies the creation of uni
 
 More detailed information the ABCI can be found here:
 
-* A prose specification [https://github.com/tendermint/abci/blob/master/specification.md]
-* A protobuf file [https://github.com/tendermint/abci/blob/master/types/types.proto]
-* A Go interface [https://github.com/tendermint/abci/blob/master/types/application.go]
-* Documentation [http://tendermint.readthedocs.io/en/master/]:
+* A prose [specification](https://github.com/tendermint/abci/blob/master/specification.md)
+* A [protobuf file](https://github.com/tendermint/abci/blob/master/types/types.proto)
+* A [Go interface](https://github.com/tendermint/abci/blob/master/types/application.go)
+* [Documentation](http://tendermint.readthedocs.io/en/master/)
 
 </HighlightBox>
 

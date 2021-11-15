@@ -13,7 +13,7 @@ Each Cosmos chain is a purpose-built blockchain and Cosmos SDK modules define th
 
 In summary, modules define most of the logic of Cosmos SDK applications.
 
-![transaction message flow to modules](./images/module_overview.png)
+![transaction message flow to modules](./images/message_processing.png)
 
 When a transaction is relayed from the underlying Tendermint consensus engine, `BaseApp` decomposes the `Messages` contained within the transaction. `BaseApp` routes messages to the appropriate module for processing. Interpretation and execution occurs when the appropriate module message handler receives the message.
 

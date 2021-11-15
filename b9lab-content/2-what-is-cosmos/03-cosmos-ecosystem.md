@@ -46,13 +46,15 @@ Before Cosmos came along, developing a whole new chain was much more difficult a
 <HighlightBox type="tip">
 
 If you want to explore more on application-specific blockchains, take a look at the section on **[A Blockchain App Architecture]()**.
---> Include link to mod. 2, section 1
+<!--- Include link to mod. 2, section 1 -->
 
 </HighlightBox>
 
 Focusing on customizability and interoperability leads to establishing a stable universe determined by the same rules that apply to the whole ecosystem equally.
 
---> Include hotspot image of ecosystem
+![The ecosystem](./images/constellation.png)
+
+<!--- Include hotspot image of ecosystem zoom in: (./images/constellation-zoom.png -->
 
 ## The Cosmos SDK - Modularity and Customizing
 
@@ -92,6 +94,8 @@ First, by keeping the capability of chain-to-chain connections made possible by 
 
 Cosmos implements a **modular architecture with two blockchain classes**: **hubs** and **zones**.
 
+![A hub with multiple zones](./images/hub-zones.png)
+
 **Zones** are heterogenous blockchains carrying out the authentication of accounts and transactions, the creation and distribution of tokens, and the execution of changes to the chain.
 
 **Hubs** connect these so-called zones. Hubs are blockchains designed to connect heterogenous blockchains, i.e. zones. Once a zone connects to a hub through an IBC connection, it gets automatic access to the other zones connected to the hub. At this point, data and value can be sent and received between the zones without risk, for instance of double-spending tokens. This helps reduce the number of chain-to-chain connections that need to be established for interoperability.
@@ -116,7 +120,7 @@ The Cosmos SDK draws its modularity from so-called modules, which define most of
 
 <HighlightBox type="info">
 
-Want to learn more about modules in the Cosmos SDK? Check out the [corresponding section](includelinktosection)!
+Want to learn more about modules in the Cosmos SDK? Check out the [Modules Section in Main Concepts](../3-main-concepts/08-modules.md)!
 
 </HighlightBox>
 

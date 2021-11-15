@@ -58,7 +58,7 @@ Although Bitcoin's codebase is monolithic, its blockchain architecture can be sp
 
 After the introduction of Bitcoin, several so-called public chains came into being. Among them was Ethereum in 2014, a public blockchain with smart-contract functionality. This functionality enables applications based on self-executing, self-enforcing, and self-verifying account holding objects. Other general-purpose chains followed.
 
---> Include image with historic overview of blockchains
+![Timeline of blockchain technology](./images/timeline.png)
 
 Ethereum can be seen as a response to the difficulties of developing smart contracts on Bitcoin.
 

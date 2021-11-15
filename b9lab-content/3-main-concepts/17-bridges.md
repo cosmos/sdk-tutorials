@@ -49,10 +49,10 @@ Cosmos full nodes do not verify events coming from Ethereum →  events are acce
 
 ## Links
 
-Explainer: https://blog.althea.net/gravity-bridge/ 
-Cosmos implementation: https://github.com/cosmos/gravity-bridge/
+Explainer: [https://blog.althea.net/gravity-bridge/](https://blog.althea.net/gravity-bridge/)
+Cosmos implementation: [https://github.com/cosmos/gravity-bridge/](https://github.com/cosmos/gravity-bridge/)
 
 Projects based on Gravity Bridge:
 
-Sommerlier: https://github.com/PeggyJV/gravity-bridge/ 
-Althea: https://github.com/althea-net/cosmos-gravity-bridge/
+Sommerlier: [https://github.com/PeggyJV/gravity-bridge/](https://github.com/PeggyJV/gravity-bridge/)
+Althea: [https://github.com/althea-net/cosmos-gravity-bridge/](https://github.com/althea-net/cosmos-gravity-bridge/)
