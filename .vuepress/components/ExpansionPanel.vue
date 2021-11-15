@@ -30,7 +30,7 @@ export default {
         flex-direction: column;
         align-items: flex-start;
         background: var(--background-color-secondary);
-        border-radius: 20px;
+        border-radius: 16px;
         margin-top: 3rem;
         margin-bottom: 3rem;
 
@@ -44,7 +44,7 @@ export default {
     }
     .styled-button {
         padding: 20px;
-        border-radius: 20px;
+        border-radius: 16px;
         display: flex;
         align-items: center;
         width: 100%;
