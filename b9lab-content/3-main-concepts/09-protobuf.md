@@ -122,8 +122,7 @@ When Starport creates a message for you, it also creates the gRPC definitions an
 $ starport scaffold map storedGame game turn red black wager:uint --module checkers --no-message
 $ starport scaffold message createGame red black wager:uint --module checkers --response idValue
 ```
-Head to [how to build your own chain](../5-my-own-chain/01-index) for more details on using Starport.
 
-When Starport creates a message for you, it also creates the gRPC definitions and Go handling code.
+If you want to dive straight into coding your own chain, head to [how to build your own chain](../5-my-own-chain/01-index) for more details on using Starport.
 
 </ExpansionPanel>
