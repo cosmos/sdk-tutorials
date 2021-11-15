@@ -165,9 +165,9 @@ Custom applications using IBC
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-With the introduction of IBC, you now want to let players choose to play with foreign tokens. More precisely:
+With the introduction of IBC, one could imagine you'd want to allow players to play with tokens from a different chain. To do that:
 
-* Upon creation, the game information must state which token in which the wager will be denominated.
+* The game information must state which token in which the wager will be denominated upon creation.
 * The different payments have to be updated so that they don't use the default token.
 
 Denominating the wager into another token is just a matter of allowing another string that uniquely identifies the token:
