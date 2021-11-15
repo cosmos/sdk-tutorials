@@ -106,8 +106,8 @@ Modules send custom application data to each other inside the Data []byte field 
 
 ### Receipts & timeouts
 
-IBC works over a distributed network + relies on potentially faulty relayers to relay messages between ledgers. IBC must handle the case where a packet does not get sent to its destination in a timely manner or at all. Packets must specify a timeout height or timeout timestamp after which a packet can no longer be successfully received on the destination chain:
-**timeout is reached**: proof-of-packet timeout can be submitted to the original chain which can then perform application-specific logic to timeout the packet, perhaps by rolling back the packet send changes (refunding senders any locked funds, and so on.
+IBC works over a distributed network and relies on potentially faulty relayers to relay messages between ledgers. There are cases where a packet does not get sent to its destination in a timely manner or at all, and IBC will need to handle those scenarios. Packets must specify a timeout height or timeout timestamp after which a packet can no longer be successfully received on the destination chain.
+When a timeout is reached, a proof-of-packet timeout can be submitted to the original chain which can then perform application-specific logic to timeout the packet, e.g. by rolling back the packet send changes (refunding senders any locked funds, and so on).
 
 In ORDERED channels, a timeout of a single packet in the channel closes the channel. In the UNORDERED case, packets can be received in any order. IBC writes a packet receipt for each sequence it has received in the UNORDERED channel.
 
