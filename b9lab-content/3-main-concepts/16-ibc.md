@@ -41,7 +41,7 @@ IBC clients are light clients that are identified by a unique client ID. IBC cli
 
 A client can be associated with any number of connections to multiple chains
 
-Supported IBC clients::
+Supported IBC clients:
 
 * **Solo Machine light client**: devices such as phones, browsers, or laptops - https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/06-solomachine
 * **Tendermint light client**: The default for Cosmos SDK-based chains - https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint
