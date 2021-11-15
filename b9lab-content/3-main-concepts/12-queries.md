@@ -12,7 +12,7 @@ Queries do not require consensus to be processed (as they do not trigger state-t
 
 <HighlightBox info=”info”>
 
-[Query lifecycles](https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/query-lifecycle.md): Creating, handling queries with the CLI, RPC and application query handling.
+To get a clear overview of the query lifecycle, visit the [detailed documentation](https://docs.cosmos.network/master/basics/query-lifecycle.html) and learn how a query is created, handled, and responded to through various means. 
 
 </HighlightBox>
 
