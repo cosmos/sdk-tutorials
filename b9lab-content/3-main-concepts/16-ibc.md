@@ -49,7 +49,7 @@ Supported IBC clients:
 
 ### Connections
 
-A connection encapsulates two `ConnectionEnd` objects on two separate blockchains. Each ConnectionEnd is associated with a client of the counterparty blockchain. The connection handshake is responsible for verifying that the light clients on each chain are correct for their respective counterparties. Connections are responsible for facilitating all cross-chain verification of the IBC state. A connection can be associated with any number of channels
+A connection encapsulates two `ConnectionEnd` objects on two separate blockchains. Each `ConnectionEnd` is associated with a client of the counter-party blockchain. The connection handshake is responsible for verifying that the light clients on each chain are correct for their respective counter-parties. Connections are responsible for facilitating all cross-chain verification of the IBC state. A connection can be associated with any number of channels.
 
 ### Proofs & paths
 
