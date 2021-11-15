@@ -439,7 +439,7 @@ The keeper also makes it easy for you to charge gas to the players as you see fi
 
 * Create game: costs 10. Conceptually, it should include the costs of closing a game. If that was not the case, the losing player would be incentivized to let the game hit its timeout.
 * Play move: costs 1. You could make it cost 0 when the player loses the game, in order to incentivize the player to conclude the game instead of letting it hit the time out.
-* Reject: costs 0 because you want to incentivize cleaning up the state. This transaction would still cost what Cosmos SDK bills for transactions.
+* Reject: costs 0 because you want to incentivize cleaning up the state. This transaction would still cost what your chain is configured to charge for basic transactions.
 
 So you define the cost:
 
