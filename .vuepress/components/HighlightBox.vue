@@ -12,10 +12,10 @@
         let icon;
 
         switch(type) {
-            case "info":
+            case "tip":
                 icon = "/hi-tip-icon.svg";
                 break;
-            case "tip":
+            case "info":
             case "reading":
                 icon = "/hi-info-icon.svg";
                 break;
@@ -78,7 +78,7 @@
         flex-wrap: wrap;
 
         &.info {
-            background: var(--color-primary);
+            background: var(--background-color-secondary);
         }
 
         &.tip {
@@ -86,7 +86,13 @@
         }
 
         &.warn, &.warning {
-            background: var(--color-danger);
+            background: var(--color-warning);
+            color: black
+            fill: black
+
+            .title {
+                color: black
+            }
         }
 
         &.reading {
@@ -113,7 +119,6 @@
             width: 20px;
             height: 20px;
             margin: 0;
-            filter: var(--img-filter);
         }
     }
 
