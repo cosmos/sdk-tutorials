@@ -11,7 +11,7 @@ Thank you for helping us improve Cosmos SDK tutorials.
 
 Use this form to submit a bug report for a specific tutorial. 
 
-To submit a bug report for the Developers Portal in general, use [Developers Portal bug report](devportal-bug-report.md).
+To submit a bug report for the Developer Portal in general, use [Developer Portal bug report](devportal-bug-report.md).
 
 **What tutorial are you working in?**
 Paste the URL of the Cosmos SDK tutorial.
