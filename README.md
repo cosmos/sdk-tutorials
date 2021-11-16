@@ -26,12 +26,6 @@ tools:
       - name: Documentation
         url: https://docs.starport.com/
     image: /starport-icon.svg
-  - title: Hermes Relayer
-    description: Rust implementation of relayer for IBC.
-    links:
-      - name: Documentation
-        url: https://hermes.informal.systems/
-    image: /generic-star-icon.svg
   - title: IBC
     description: Industry standard protocol for inter-blockchain communication.
     links:
