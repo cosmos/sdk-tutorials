@@ -155,7 +155,7 @@ When you scaffold with Starport, things like key management, creating validators
 
 ## CosmWasm - Multi-Chain Smart Contracts
 
-[CosmWasm](https://cosmwasm.com/) is a multi-chain platform for building robust DApps for Cosmos using smart contracts. It builds on Tendermint and the Cosmos SDK.
+[CosmWasm](https://cosmwasm.com/) is a multi-chain platform for building robust dApps for Cosmos using smart contracts. It builds on Tendermint and the Cosmos SDK.
 
 Its key features are:
 
