@@ -9,7 +9,7 @@ assignees: ''
 
 Thank you for helping us improve the Cosmos Developer Portal. 
 
-Use this form to submit a bug report for the Developers Portal in general (broken link, missing content, navigation, and so on). 
+Use this form to submit a bug report for the Developer Portal in general (broken link, missing content, navigation, and so on). 
 
 To submit a bug report for a specific tutorial, use [Cosmos SDK tutorials bug report](tutorials-bug-report.md).
 
