@@ -231,7 +231,7 @@ module.exports = {
             },
             {
               title: "IBC Protocol",
-              url: "https://github.com/cosmos/ics/tree/master/ibc",
+              url: "https://ibc.cosmos.network/",
             },
           ],
         },
