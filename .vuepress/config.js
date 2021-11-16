@@ -196,7 +196,7 @@ module.exports = {
         },
         {
           service: "linkedin",
-          url: "https://www.linkedin.com/company/tendermint/",
+          url: "https://www.linkedin.com/company/interchain-foundation/about/",
         },
         {
           service: "reddit",
