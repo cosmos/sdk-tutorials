@@ -30,9 +30,9 @@
             .articles__wrapper.mt-10(v-if="$frontmatter.articles")
                 .articles__wrapper__title
                     h3.tm-title.tm-lh-title.tm-rf3.tm-bold Articles
-                    div
-                        a(href="/").tm-link.tm-lh-solid.tm-rf1.tm-medium.tm-link-external
-                            span More articles
+                    //- div
+                    //-     a(href="/").tm-link.tm-lh-solid.tm-rf1.tm-medium.tm-link-external
+                    //-         span More articles
                 .articles.mt-8
                     .articles__item(v-for="article in $frontmatter.articles")
                         a.articles__item__container(:href="article.url" target="_blank")
