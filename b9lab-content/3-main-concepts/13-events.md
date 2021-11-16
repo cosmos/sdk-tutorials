@@ -7,14 +7,14 @@ tag: deep-dive
 
 # Events
 
-An event is an object that contains information about the execution of the application. Events are used by service providers (block explorers, wallets) to track execution of various messages and index transactions.
+An event is an object that contains information about the execution of the application. Events are used by service providers (block explorers, wallets, and IBC relayers) to track execution of various messages and index transactions.
 
-In Cosmo SDK, events are implemented as an alias of ABCI `event` type in the forms `{eventType}.{attributeKey}={attributeValue}`.
+In the Cosmos SDK, events are implemented as an alias of the ABCI `event` type in the forms `{eventType}.{attributeKey}={attributeValue}`.
 
 Events allow app developers to attach additional information. This means that transactions might be queried using the events:
 
 ```
-// Event allows application developers to attach additional information to
+// Events allows application developers to attach additional information to
 // ResponseBeginBlock, ResponseEndBlock, ResponseCheckTx and ResponseDeliverTx.
 // Later, transactions may be queried using these events.
 message Event {
@@ -85,7 +85,7 @@ The main `eventCategories` you can subscribe to are:
 
 <HighlightBox type=”info”>
 
-→ full list of event categories [here](https://godoc.org/github.com/tendermint/tendermint/types#pkg-constants)
+→ You can find a full list of event categories [here](https://godoc.org/github.com/tendermint/tendermint/types#pkg-constants)
 
 </HighlightBox>
 
@@ -112,7 +112,7 @@ ctx.EventManager().EmitEvent(
 ```
 From this model, it is easy to add events to the other transaction types, where you keep in mind that the events are meant to inform and notify relevant parties.
 
-You ought to also emit an event for games that have timed out. After all, this is part of their lifecycle. You would do it in the end blocker:
+You should also emit an event for games that have timed out. After all, this is part of their lifecycle. You would do that in the end blocker:
 
 ```go
 ctx.EventManager().EmitEvent(
