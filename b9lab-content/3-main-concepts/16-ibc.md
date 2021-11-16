@@ -48,7 +48,7 @@ IBC clients are light clients that are identified by a unique client ID. IBC cli
 
 A client can be associated with any number of connections to multiple chains
 
-Supported IBC clients::
+Supported IBC clients:
 
 * **Solo Machine light client**: devices such as phones, browsers, or laptops - [https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/06-solomachine](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/06-solomachine)
 * **Tendermint light client**: The default for Cosmos SDK-based chains - [https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint)
@@ -56,11 +56,11 @@ Supported IBC clients::
 
 ### Connections
 
-A connection encapsulates two `ConnectionEnd` objects on two separate blockchains. Each ConnectionEnd is associated with a client of the counterparty blockchain. The connection handshake is responsible for verifying that the light clients on each chain are correct for their respective counterparties. Connections are responsible for facilitating all cross-chain verification of the IBC state. A connection can be associated with any number of channels
+A connection encapsulates two `ConnectionEnd` objects on two separate blockchains. Each `ConnectionEnd` is associated with a client of the counter-party blockchain. The connection handshake is responsible for verifying that the light clients on each chain are correct for their respective counter-parties. Connections are responsible for facilitating all cross-chain verification of the IBC state. A connection can be associated with any number of channels.
 
 ### Proofs & paths
 
-In IBC, blockchains do not directly pass messages to each other over the network.To communicat, blockchains commit state to a precisely defined path reserved for a specific message type and a specific counterparty. Relayers monitor for updates to these paths and relay messages by submitting the data stored under the path along with a proof of that data to the counterparty chain. The paths that all IBC implementations must support for committing IBC messages are defined in ICS-24 host requirements: [https://github.com/cosmos/ics/tree/master/spec/core/ics-024-host-requirements](https://github.com/cosmos/ics/tree/master/spec/core/ics-024-host-requirements). The proof format that all implementations must produce and verify is defined in ICS-23 implementation - [https://github.com/confio/ics23](https://github.com/confio/ics23)
+In IBC, blockchains do not directly pass messages to each other over the network. To communicate, blockchains commit state to a precisely defined path reserved for a specific message type and a specific counterparty. Relayers monitor for updates to these paths and relay messages by submitting the data stored under the path along with a proof of that data to the counterparty chain. The paths that all IBC implementations must support for committing IBC messages are defined in the [ICS-24 implementation](https://github.com/cosmos/ics/tree/master/spec/core/ics-024-host-requirements) about host requirements. The proof format that all implementations must produce and verify is defined in the [ICS-23 implementation](https://github.com/confio/ics23).
 
 ### Capabilities
 
@@ -69,7 +69,7 @@ IBC is intended to work in execution environments where modules do not necessari
 Upon binding to a port or creating a channel for a module, IBC returns a dynamic capability that the module must claim to use that port or channel. This binding strategy prevents other modules from using that port or channel since those modules do not own the appropriate capability.
 
 IBC modules do not need to interact at all with these lower-level abstractions. The relevant abstraction layer for IBC application developers is that of channels and ports.
-As self-contained modules, module on one blockchain can communicate with other modules on other blockchains by sending, receiving, and acknowledging packets through channels that are uniquely identified by the (channelID, portID) tuple
+As self-contained modules, module on one blockchain can communicate with other modules on other blockchains by sending, receiving, and acknowledging packets through channels that are uniquely identified by the (channelID, portID) tuple.
 
 An analogy to consider is IBC modules as internet apps on a computer. A channel can then be conceptualized as an IP connection, with the IBC portID like an IP port, and the IBC channelID is like an IP address
 
@@ -113,8 +113,8 @@ Modules send custom application data to each other inside the Data []byte field 
 
 ### Receipts & timeouts
 
-IBC works over a distributed network + relies on potentially faulty relayers to relay messages between ledgers. IBC must handle the case where a packet does not get sent to its destination in a timely manner or at all. Packets must specify a timeout height or timeout timestamp after which a packet can no longer be successfully received on the destination chain:
-**timeout is reached**: proof-of-packet timeout can be submitted to the original chain which can then perform application-specific logic to timeout the packet, perhaps by rolling back the packet send changes (refunding senders any locked funds, and so on.
+IBC works over a distributed network and relies on potentially faulty relayers to relay messages between ledgers. There are cases where a packet does not get sent to its destination in a timely manner or at all, and IBC will need to handle those scenarios. Packets must specify a timeout height or timeout timestamp after which a packet can no longer be successfully received on the destination chain.
+When a timeout is reached, a proof-of-packet timeout can be submitted to the original chain which can then perform application-specific logic to timeout the packet, e.g. by rolling back the packet send changes (refunding senders any locked funds, and so on).
 
 In ORDERED channels, a timeout of a single packet in the channel closes the channel. In the UNORDERED case, packets can be received in any order. IBC writes a packet receipt for each sequence it has received in the UNORDERED channel.
 
@@ -137,8 +137,8 @@ When the acknowledgement is received successfully on the original sender chain, 
 
 IBC can use Tendermint chains to bridge with IBC but also non-Tendermint chains. Two types of non-Tendermint chains are supported:
 
-* FAST-FINALITY CHAINS: any fast-finality consensus algorithms can connect with Cosmos by adapting IBC
-* PROBABILISTIC-FINALITY CHAINS: blockchains that do not have fast-finality, like Proof-of-Work chains, things get a bit trickier. In this case, IBC uses a special kind of proxy-chain called a Peg-Zone.
+* **Fast-finality chains**: any fast-finality consensus algorithms can connect with Cosmos by adapting IBC.
+* **Probabilistic-finality chains**: for blockchains that do not have fast-finality, like Proof-of-Work chains, things get a bit trickier. In this case, IBC uses a special kind of proxy-chain called a Peg-Zone.
 
 ### Ethereum peg zone:
 
@@ -174,9 +174,9 @@ Custom applications using IBC
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-With the introduction of IBC, you now want to let players choose to play with foreign tokens. More precisely:
+With the introduction of IBC, one could imagine you'd want to allow players to play with tokens from a different chain. To do that:
 
-* Upon creation, the game information must state which token in which the wager will be denominated.
+* The game information must state which token in which the wager will be denominated upon creation.
 * The different payments have to be updated so that they don't use the default token.
 
 Denominating the wager into another token is just a matter of allowing another string that uniquely identifies the token:
