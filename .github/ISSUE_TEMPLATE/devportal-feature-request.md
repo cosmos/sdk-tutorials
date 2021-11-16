@@ -1,5 +1,5 @@
 ---
-name: Developers Portal feature request
+name: Developer Portal feature request
 about: Suggest a feature, improvement, or idea.
 title: ''
 labels: request
