@@ -45,7 +45,7 @@ Before Cosmos came along, developing a whole new chain was much more difficult a
 
 <HighlightBox type="tip">
 
-If you want to explore more on application-specific blockchains, take a look at the section on **[A Blockchain App Architecture]()**.
+If you want to explore more on application-specific blockchains, take a look at the section on **[A Blockchain App Architecture](../3-main-concepts/02-architecture.md)!**.
 <!--- Include link to mod. 2, section 1 -->
 
 </HighlightBox>
