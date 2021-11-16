@@ -13,6 +13,10 @@ intro:
   action: 
     label: Start course
     url: /b9lab-content/2-what-is-cosmos/01-index.html
+  secondtext: |
+    This is a beta version of the developer portal! It should help you take your first steps with the Cosmos sdk.
+    <br>It's still work in progress, so you will find plenty of typos and other small mistakes, but the overall concept is solid. We would be happy to get your feedback on the content so far. On the end of each page you find 3 icons to rate the page and a small box where you can give us feedback on things to improve. Enjoy your journey through the portal and good luck with HackAtom!
+
 resources:
   - title: Cosmos SDK
     description: A framework to build application-specific blockchains

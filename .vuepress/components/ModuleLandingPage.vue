@@ -10,6 +10,8 @@
 						span {{$frontmatter.intro.action.label}} &rarr;
 				.home__content__intro__image(v-if="$frontmatter.intro.image")
 					img(:src="$frontmatter.intro.image")
+			.home__content__secondtext(v-if="$frontmatter.intro.secondtext" v-html="$frontmatter.intro.secondtext")
+
 			.home__content__get-started(v-if="$frontmatter.main")
 				.home__content__get-started__image
 					img(width="100%" src="/graphics-sdk-course-1.png")
