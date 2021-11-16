@@ -11,7 +11,7 @@ Now that you have added the possible actions, including their return values, it 
 That's where events come in. Adding events to your application is as simple as:
 
 1. Defining the events you want to use.
-2. Emit them at the right locations.
+2. Emitting them at the right locations.
 
 ## Game Created Event
 
@@ -51,7 +51,7 @@ There is not much more to it. What would need to be done is the counterpart of t
 
 Since you also created a transaction to play a move, it is expected to inform the opponent about:
 
-* Alerting the relevant player.
+* Which player is relevant.
 * Which game this is about.
 * When such a move has happened, and what its outcome was.
 * Whether the game has been won.
@@ -70,7 +70,6 @@ const (
     PlayMoveEventWinner    = "Winner"
 )
 ```
-
 And emit the event in your file `x/checkers/keeper/msg_server_play_move.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/keeper/msg_server_play_move.go#L62-L72]
