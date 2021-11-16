@@ -10,16 +10,8 @@
 						span {{$frontmatter.intro.action.label}} &rarr;
 				.home__content__intro__image(v-if="$frontmatter.intro.image")
 					img(:src="$frontmatter.intro.image")
-			.home__content__get-started(v-if="$frontmatter.main")
-				.home__content__get-started__image
-					img(width="100%" src="/graphics-sdk-course-1.png")
-				.home__content__get-started__content
-					.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted get started
-					h2.home__content__get-started__content__title Ready to start?
-					.home__content__get-started__content__desc
-						div If you just want to get started right away, why not begin with the introductory chapter?
-						div If you are unsure which sections to tackle, keep an eye out for the Deep dive and Fast track tags for orientation.
 			.modules
+				h2 Course Modules
 				card-module(v-for="module in this.modules" :module="module" :startExpanded="!$frontmatter.main").modules__item
 			.resources__wrapper(v-if="$frontmatter.resources")
 				h3.resources__title Developer resources
@@ -37,6 +29,7 @@
 
 <style lang="stylus" scoped>
 	.modules
+		margin-top 96px
 		display flex
 		flex-direction column
 
