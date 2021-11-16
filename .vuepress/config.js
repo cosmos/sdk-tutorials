@@ -149,11 +149,6 @@ module.exports = {
               path: "/b9lab-content/5-my-own-chain",
               directory: true,
             },
-            {
-              title: "What's Next?",
-              path: "/b9lab-content/6-whats-next",
-              directory: true,
-            },
           ],
         },
       ],
@@ -200,8 +195,12 @@ module.exports = {
           url: "https://twitter.com/cosmos",
         },
         {
+          service: "discord",
+          url: "https://discord.gg/cosmosnetwork"
+        },
+        {
           service: "linkedin",
-          url: "https://www.linkedin.com/company/tendermint/",
+          url: "https://www.linkedin.com/company/interchain-foundation/about/",
         },
         {
           service: "reddit",
@@ -214,7 +213,7 @@ module.exports = {
         {
           service: "youtube",
           url: "https://www.youtube.com/c/CosmosProject",
-        },
+        }
       ],
       smallprint:
         "† This website is maintained by the Interchain Foundation (ICF). The contents and opinions of this website are those of the ICF. The ICF provides links to cryptocurrency exchanges as a service to the public. The ICF does not warrant that the information provided by these websites is correct, complete, and up-to-date. The ICF is not responsible for their content and expressly rejects any liability for damages of any kind resulting from the use, reference to, or reliance on any information contained within these websites.",
@@ -236,7 +235,7 @@ module.exports = {
             },
             {
               title: "IBC Protocol",
-              url: "https://github.com/cosmos/ics/tree/master/ibc",
+              url: "https://ibc.cosmos.network/",
             },
           ],
         },
