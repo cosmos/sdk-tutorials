@@ -13,7 +13,7 @@ Use this form to submit a bug report for the Developer Portal in general (broken
 
 To submit a bug report for a specific tutorial, use [Cosmos SDK tutorials bug report](tutorials-bug-report.md).
 
-**What is the specific Developers Portal page?**
+**What is the specific Developer Portal page?**
 Paste the URL here.
 
 **Describe the bug**
