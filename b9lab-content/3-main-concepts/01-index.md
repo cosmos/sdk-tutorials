@@ -4,7 +4,6 @@ parent:
   description: A universe made up of particles
   number: 2
 tag: 
-layout: ModuleLandingPage
 order: 0
 intro:
   overline: A universe made up of particles
@@ -40,4 +39,8 @@ resources:
     image: /ibc-icon.svg
 ---
 
+<ModuleLandingPage>
+
 # Chapter Overview - Main Concepts in the Cosmos SDK
+
+</ModuleLandingPage>

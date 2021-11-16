@@ -4,7 +4,6 @@ parent:
   description: It all comes together
   number: 4
 tag: deep-dive
-layout: ModuleLandingPage
 order: 0
 intro:
   overline: It all comes together
@@ -40,4 +39,8 @@ resources:
     image: /ibc-icon.svg
 ---
 
+<ModuleLandingPage>
+
 # Chapter Overview - First Steps to Run Your Own Chain
+
+</ModuleLandingPage>

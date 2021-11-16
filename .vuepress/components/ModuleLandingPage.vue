@@ -1,5 +1,5 @@
 <template lang="pug">
-	custom-layout(:hideMobileMenu="true")
+	component(:is="layout" :key="$route.path" :hideMobileMenu="true")
 		.home__content
 			.home__content__intro(v-if="$frontmatter.intro")
 				.home__content__intro__content(:class="$frontmatter.intro.image ? 'home__content__intro__content__small' : ''")
@@ -235,6 +235,9 @@ export default {
 				return item;
 			});
 		},
+		layout() {
+			return this.$frontmatter.main ? 'CustomLayout' : 'div';
+		}
 	},
 	methods: {
 		formatModules(submodules) {
