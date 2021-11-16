@@ -1,5 +1,5 @@
 ---
-name: Developers Portal bug report
+name: Developer Portal bug report
 about: Create a report to help us improve
 title: ''
 labels: report
