@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-Thank you for helping us improve the Cosmos Developers Portal. 
+Thank you for helping us improve the Cosmos Developer Portal. 
 
 Use this form to submit a feature request for a specific tutorial. 
 
