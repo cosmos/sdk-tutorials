@@ -9,22 +9,22 @@ tag: deep-dive
 
 ## Overview
 
-Protocol buffers, also called Protobuf in the short form, are an open source, extensible,  cross-platform and language-neutral method of serializing object data, primarily for network communication. Libraries for multiple platforms parse a common interface description language to generate source code for encoding and decoding streams of bytes representing structured data.
+Protocol buffers, also called Protobuf in the short form, are an open source, extensible, cross-platform and language-neutral method of serializing object data, primarily used for network communication. There are several libraries for multiple platforms that all use a common interface description language to generate source code for encoding and decoding streams of bytes representing structured data.
 
 Originally designed and developed by Google, Protobuf has been an open source project since 2008 and services as the basis for Remote Procedure Call (RPC) systems.
 
-`.proto` files contain data structures called messages. A compiler, `protoc`, interprets the `.proto` file and generates source code in supported languages,  C++, C#, Dart, Go, Java and Python.
+`.proto` files contain data structures called messages. A compiler, `protoc`, interprets the `.proto` file and generates source code in supported languages, such as Go, C++, C#, Dart, Java, Python, and others.
 
 <HighlightBox type=”info”>
 
-Google provides the [gRPC project](https://blog.conan.io/2019/03/06/Serializing-your-data-with-Protobuf.html), a universal RPC framework, that supports Protobuf directly. See the section entitled Compiler Invocation for more information about the process.
+Google provides the [gRPC project](https://blog.conan.io/2019/03/06/Serializing-your-data-with-Protobuf.html), a universal RPC framework that supports Protobuf directly. See the section titled [Compiler Invocation](https://developers.google.com/protocol-buffers/docs/reference/cpp-generated#invocation) for more information about this process.
 
 </HighlightBox>
 
 ### Working with Protocol Buffers
 
-Define a data structure in a `.proto` file. This is a normal text file with descriptive syntax. Data is represented as a message containing name-value pairs called fields.
-Compile your Protobuf Schema. `.protoc` generates data access classes with accessors for each field in your preferred language according to command-line options. Accessors include serializing, deserializing and parsing.
+The `.proto` file is used to define a data structure. This is a normal text file with descriptive syntax. Data is represented as a message containing name-value pairs called fields.
+To compile your Protobuf Schema, the `.protoc` file generates data access classes with accessors for each field in your preferred language according to command-line options. Accessors include serializing, deserializing and parsing.
 
 ## Protobuf Basics for Go
 
@@ -62,7 +62,7 @@ The core of a Cosmos SDK application mainly consists of type definitions and con
 * List of **Store Keys**: Each module in the Cosmos SDK uses multistore to persist their part of the state. Access to such stores requires a list of keys that are declared in the type definition of the app.
 * List of each module’s **Keepers**: A Keeper is an abstract piece in each module to handle the module's interaction with stores, specify references to other modules' keepers, and implement other core functionalities of the module. For cross-module interactions to work, all modules in the Cosmos SDK need to have their keepers declared in the app's type definition and exported as interfaces to other modules so that the keeper's methods of one module can be called and accessed in other modules, when authorized.
 * Reference to **codec**: Defaulted to go-amino, the codec in your Cosmos SDK application can be substituted with other suitable encoding frameworks as long as they persist data stores in byte slices and are deterministic.
-Reference to Module Manager: A reference to an object containing a list of the applications modules, known as the Module Manager.
+* Reference to Module Manager: A reference to an object containing a list of the applications modules, known as the Module Manager.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
@@ -91,7 +91,7 @@ How are you to add such cryptic commands without any error?
 
 ## Move Upstream
 
-This is where Protobuf comes in to simplify your life yet more. The same `StoredGame` can in fact be declared as:
+This is where Protobuf comes in to simplify your life even more. The same `StoredGame` can in fact be declared as:
 
 ```protobuf
 message StoredGame {
@@ -104,7 +104,7 @@ message StoredGame {
   uint64 wager = 7;
 }
 ```
-The `= 1` parts indicate how each field is identified in the serialized output, and additionally provides backward compatibility. Down the road, to preserve backward compatibility, if you add or remove fields, make sure to not reuse numbers for new fields, but to keep increasing the `= x` value.
+The `= 1` parts indicate how each field is identified in the serialized output, and additionally provides backward compatibility. As your application upgrades to newer versions, make sure to not reuse numbers for new fields, but to keep increasing the `= x` value to preserve backward compatibility.
 
 When _compiling_ it, Protobuf will add the `protobuf:"bytes..."` elements. Similarly, the messages to create a game can be declared in Protobuf as:
 
@@ -123,14 +123,13 @@ message MsgCreateGameResponse {
 
 ## Enter Starport
 
-Can this too be created for you? Yes. If you use Starport and commands like:
+When Starport creates a message for you, it also creates the gRPC definitions and Go handling code. Using commands, like the ones below, is relatively easy to achieve for your own chain:
 
 ```sh
 $ starport scaffold map storedGame game turn red black wager:uint --module checkers --no-message
 $ starport scaffold message createGame red black wager:uint --module checkers --response idValue
 ```
-Head to [how to build your own chain](../5-my-own-chain/01-index) for more details on using Starport.
 
-When Starport creates a message for you, it also creates the gRPC definitions and Go handling code.
+If you want to dive straight into coding your own chain, head to [how to build your own chain](../5-my-own-chain/01-index) for more details on using Starport.
 
 </ExpansionPanel>

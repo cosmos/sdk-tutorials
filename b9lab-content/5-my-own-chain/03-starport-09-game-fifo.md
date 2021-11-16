@@ -33,15 +33,15 @@ You need another data structure. The simplest one is a FIFO, First-In-First-Out,
 So when terminating expired games in `EndBlock`, you keep taking expired games that are at the head of the FIFO. And stop until the head has an on-going game. The cost is therefore:
 
 * `O(1)` on each game creation and game play.
-* `O(k)` where `k` is the number of expired games on each block. And of course `k < n`, normally by a lot.
+* `O(k)` where `k` is the number of expired games on each block. And of course `k <= n`, normally by a lot.
 
-Isn't `k` still an unbounded number of operations? Yes, but if you use the same expiration duration on each game, for `k` games to expire together in a block, these `k` games would all have had to see an action in the same previous one block. Give or take the block before or after. So in the worst case, the largest `EndBlock` computation will be proportional to the largest regular block in the past. This is a reasonable risk to take. And remember this assessment works only if the expiration duration is the same for all games, instead of being a parameter left to the game creator.
+Isn't `k` still an unbounded number of operations? Yes, but if you use the same expiration duration on each game, for `k` games to expire together in a block, these `k` games would all have had to see an action in the same previous one block. Give or take the block before or after. So in the worst case, the largest `EndBlock` computation will be proportional to the largest regular block in the past. This is a reasonable risk to take. And remember this back-of-the-envelope assessment works only if the expiration duration is the same for all games, instead of being a parameter left to the potentially malicious game creator.
 
 ## New Information
 
-How do you implement a FIFO given all the previous work?
+How do you implement a FIFO given all the previous work? Let's choose a doubly linked list for that.
 
-1. You need to keep the id of the head and the tail. The right place for that is `NextGame`. Good thing that it is already an object and is expandable. So in terms of code, in `proto/checkers/next_game.proto`:
+1. You need to keep the id of the head and that of the tail. A ready-made place for that is `NextGame`. Good thing that it is already an object and is expandable. So in terms of code, just add a bit in `proto/checkers/next_game.proto`:
     ```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/proto/checkers/next_game.proto#L11-L12]
     message NextGame {
         ...
@@ -57,7 +57,7 @@ How do you implement a FIFO given all the previous work?
         string afterId = 9; // Pertains to the FIFO. Towards tail.
     }
     ```
-3. There needs to be an id that indicates _no game_. Let's use `"-1"`. In `x/checkers/types/keys.go `:
+3. Finally, there needs to be an id that indicates _no game_. Let's use `"-1"`. In `x/checkers/types/keys.go `:
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/types/keys.go#L32-L34]
     const (
         NoFifoIdKey = "-1"
@@ -118,7 +118,7 @@ func (k Keeper) RemoveFromFifo(ctx sdk.Context, game *types.StoredGame, info *ty
     game.AfterId = types.NoFifoIdKey
 }
 ```
-Notice that it does not save the requested game in storage here. It only adjusts the fields in memory. On the other hand, it does save in storage the _before_ and _after_ games. Therefore it is advised to do a `SetStoredGame` after a call to this function so as to avoid having a mix of saves and memory states.
+Notice that it does not save the requested game in storage here. It only adjusts the fields in memory. On the other hand, it does save in storage the _before_ and _after_ games. Therefore it is advised to do a `SetStoredGame` after a call to this function so as to avoid having a mix of saves and memory states. Same with `SetNextGame`.
 
 And a function to send to the tail:
 
@@ -160,7 +160,6 @@ k.Keeper.SendToFifoTail(ctx, &storedGame, &nextGame)
 k.Keeper.SetStoredGame(ctx, storedGame)
 ...
 ```
-
 In `x/checkers/keeper/msg_server_play_move.go`, send the game back to the tail because it was freshly updated:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/keeper/msg_server_play_move.go#L58-L68]
@@ -175,7 +174,6 @@ storedGame.Game = game.String()
 k.Keeper.SetNextGame(ctx, nextGame)
 ...
 ```
-
 In `x/checkers/keeper/msg_server_reject_game.go`, remove the game from the FIFO at all:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/keeper/msg_server_reject_game.go#L34-L42]
@@ -190,5 +188,4 @@ k.Keeper.RemoveStoredGame(ctx, msg.IdValue)
 k.Keeper.SetNextGame(ctx, nextGame)
 ...
 ```
-
-That's about it. It involves some code but you should recognize the classical FIFO implementation. Of note is that here we do not have any expiry date on the games yet. You implemented purely a FIFO that is updated but whose head is never queried. Let's fix that in the next section.
+That's about it. It involves some code but you should recognize the classical doubly linked list implementation. Of note is that here we do not have any expiry date on the games yet. You implemented purely a FIFO that is updated but whose head is never queried. Let's fix that in the next section.
