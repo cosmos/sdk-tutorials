@@ -31,7 +31,7 @@ resources:
     links:
       - name: Documentation
         url: https://hub.cosmos.network/
-    image: /cosmos-sdk-icon.svg
+    image: /generic-star-icon.svg
   - title: IBC
     description: Industry standard protocol for inter-blockchain communication
     links:
