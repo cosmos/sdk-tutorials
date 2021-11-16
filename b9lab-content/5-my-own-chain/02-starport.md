@@ -213,7 +213,3 @@ async MsgCreatePost({ rootGetters }, { value }) {
 }
 ```
 You just created a fully working Cosmos SDK chain, one that forms the basis of the following guided exercise if you choose to follow it. You may remove the `CreatePost` message as it is not part of the guided exercise.
-
-## Next
-
-- [Create an IBC Interchain Exchange module](https://tutorials.cosmos.network/interchain-exchange/tutorial/00-intro.html)
