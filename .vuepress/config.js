@@ -149,11 +149,6 @@ module.exports = {
               path: "/b9lab-content/5-my-own-chain",
               directory: true,
             },
-            {
-              title: "What's Next?",
-              path: "/b9lab-content/6-whats-next",
-              directory: true,
-            },
           ],
         },
       ],
