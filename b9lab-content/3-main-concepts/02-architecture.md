@@ -106,7 +106,7 @@ More detailed information the ABCI can be found here:
 * A prose [specification](https://github.com/tendermint/abci/blob/master/specification.md)
 * A [protobuf file](https://github.com/tendermint/abci/blob/master/types/types.proto)
 * A [Go interface](https://github.com/tendermint/abci/blob/master/types/application.go)
-* [Documentation](http://tendermint.readthedocs.io/en/master/)
+* [Documentation](https://docs.tendermint.com/)
 
 </HighlightBox>
 
