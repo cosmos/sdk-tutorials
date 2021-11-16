@@ -35,7 +35,7 @@
                             span More articles
                 .articles.mt-8
                     .articles__item(v-for="article in $frontmatter.articles")
-                        .articles__item__container
+                        a.articles__item__container(:href="article.url" target="_blank")
                             .articles__item__image(v-bind:style="{'background-image': `url(${article.image})`}")
                             .articles__item__content
                                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.articles__item__content__date {{article.date}}
