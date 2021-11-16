@@ -53,17 +53,17 @@ articles:
     date: Monday, November 8
     time: 2
     url: https://interchain-io.medium.com/cosmos-hub-vega-upgrade-testnet-details-e9c5d69a59c
-    image: https://i.ytimg.com/vi/GfZjnMchKX0/hq720.jpg
+    image: /article-01.jpg
   - title: Tendermint v0.35
     date: Friday, November 5
     time: 4
     url: https://medium.com/tendermint/tendermint-v0-35-introduces-prioritized-mempool-a-makeover-to-the-peer-to-peer-network-more-61eea6ec572d
-    image: https://i.ytimg.com/vi/GfZjnMchKX0/hq720.jpg
+    image: /article-02.jpg
   - title: Multichain Landscape
     date: Monday, October 4
     time: 9
     url: https://blog.celestia.org/clusters/
-    image: https://i.ytimg.com/vi/GfZjnMchKX0/hq720.jpg
+    image: /article-03.jpg
 -->
 
 This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
