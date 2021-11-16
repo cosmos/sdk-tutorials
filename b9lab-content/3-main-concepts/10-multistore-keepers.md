@@ -69,7 +69,7 @@ The [`rootMulti.Store`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/st
 
 ### CacheMultistore
 
-Whenever the rootMulti.Store needs to be branched, a `cachemulti.Store` is used:  https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/cachemulti/store.go#L17-L28. `cachemulti.Store` branches all substores (creates a virtual store for each substore) in its constructor and hold them in Store.stores.
+Whenever the rootMulti.Store needs to be branched, a `cachemulti.Store` is used:  [https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/cachemulti/store.go#L17-L28] (https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/cachemulti/store.go#L17-L28). `cachemulti.Store` branches all substores (creates a virtual store for each substore) in its constructor and hold them in Store.stores.
 
 This is used primarily to create an isolated store, typically when it is necessary to mutate the state but it might be reverted later.
 
@@ -83,7 +83,7 @@ As the name suggests, `Transient.Store` is a KVStore that is discarded automatic
 
 The default implementation of KVStore and CommitKVStore is the `iavl.Store`. The IAVL.Store is a self-balancing binary search tree that ensures get and set operations are O(log n) when n is the number of elements in the tree.
 
-Each tree version is immutable nd can be retrieved even after a commit, depending on the pruning settings: [https://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md](ttps://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md)
+Each tree version is immutable nd can be retrieved even after a commit, depending on the pruning settings: [https://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md](https://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md)
 
 ## Additional KVStore Wrappers
 
