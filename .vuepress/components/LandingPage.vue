@@ -153,8 +153,6 @@
             padding-right var(--spacing-5)
             margin-bottom var(--spacing-5)
             width 50%
-            &:last-child
-                margin-bottom 0
 
             @media screen and (max-width: 480px)
                 width 100%
