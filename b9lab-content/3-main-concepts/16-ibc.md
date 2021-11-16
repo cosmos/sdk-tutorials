@@ -13,6 +13,8 @@ Applications on one chain may have a need to communicate with applications on an
 
 While such bridges between blockchains can be built and do exist, they are generally constructed in an ad hoc manner. In contracts, IBC provides all Cosmos SDK applications with a common protocol and framework for implementing standardized inter-blockchain communication.
 
+![IBC Relay](./images/IBC-relay.png)
+
 ## Requirements
 
 Applications that use IBC must meet the following requirements:
@@ -154,7 +156,7 @@ The Tendermint team is working on a Peg-Zone implementation for the Ethereum cha
 
 </HighlightBox>
 
-<!-- TODO -->
+<!-- TODO
 Paradigms and implications
 Interchain accounts
 [https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11](https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11)
@@ -167,6 +169,8 @@ Long running exercise. Foreign tokens:
 We want to play with foreign tokens. How to implement.
 NFT transfers with IBC
 Custom applications using IBC
+
+-->
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
