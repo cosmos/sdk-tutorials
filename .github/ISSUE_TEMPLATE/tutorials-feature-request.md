@@ -11,7 +11,7 @@ Thank you for helping us improve the Cosmos Developer Portal.
 
 Use this form to submit a feature request for a specific tutorial. 
 
-To submit a feature request for the Developers Portal in general, use [Cosmos SDK tutorials feature request](devportal-feature-request.md).
+To submit a feature request for the Developer Portal in general, use [Cosmos SDK tutorials feature request](devportal-feature-request.md).
 
 **Is your feature request related to a problem? Please describe.**
 
