@@ -183,7 +183,6 @@
                     width 3.5rem
                     height 3.5rem
                     margin 0
-                    filter var(--img-filter)
             
             &__content
                 padding-bottom var(--spacing-6)
