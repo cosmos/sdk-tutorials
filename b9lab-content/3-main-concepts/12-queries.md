@@ -12,7 +12,7 @@ Queries do not require consensus to be processed (as they do not trigger state-t
 
 <HighlightBox info=”info”>
 
-To get a clear overview of the query lifecycle, visit the [detailed documentation](https://docs.cosmos.network/master/basics/query-lifecycle.html) and learn how a query is created, handled, and responded to through various means. 
+To get a clear overview of the query lifecycle, visit the [detailed documentation](https://docs.cosmos.network/master/basics/query-lifecycle.html) and learn how a query is created, handled, and responded to through various means.
 
 </HighlightBox>
 
@@ -109,6 +109,6 @@ Of note is that the player's move will be tested against the latest validated st
 
 In practice, this means that a player could test their move only once the opponent's move has been included in a previous block. Fortunately, these kind of edge case scenarios won't be common in our checkers game, and we can expect little to no effect on the user experience.
 
-Of course this is not an exhaustive list of potential queries. Some examples of other possible queries would be to get a player's open games, or a to get a list of games that are timing out soon. This really depends on the needs of your application and how much functionality you're willing to provide.
+Of course this is not an exhaustive list of potential queries. Some examples of other possible queries would be to get a player's open games, or to get a list of games that are timing out soon. This really depends on the needs of your application and how much functionality you're willing to provide.
 
 </ExpansionPanel>
