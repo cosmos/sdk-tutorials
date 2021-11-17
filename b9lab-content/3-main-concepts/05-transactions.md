@@ -2,13 +2,14 @@
 title: "Transactions"
 order: 4
 description: Generating, signing, and broadcasting transactions
+tag: deep-dive
 ---
 
 # Transactions
 
 Transactions are objects created by end-users to trigger state changes in the application. They are comprised of metadata that defines a context and `sdk.Msgs` that trigger state changes within a module through the module’s Protobuf message service.
 
-## Transaction Process, End-user
+## Transaction process, end-user
 
 While there is much to explore as we journey through the stack, let us first describe the transaction process from a user perspective.
 
@@ -19,7 +20,7 @@ While there is much to explore as we journey through the stack, let us first des
 
 From a user perspective, **decide** and **sign** are the main interactions, while **generate** and **broadcast** are attended by the user interface and other automations.
 
-## Transaction Objects
+## Transaction objects
 
 Transaction objects are signed containers. They contain signed messages. Each message represents an action targeted at a given module. As a whole, a transaction therefore describes an indivisible set of actions that should take place. You can see its Protobuf description [here](https://github.com/cosmos/cosmos-sdk/blob/0a3660d/proto/cosmos/tx/v1beta1/tx.proto#L14-L26). To make it a Cosmos SDK transaction, an object also has to conform to the `Tx` whose notable functions are:
 
@@ -39,7 +40,7 @@ In this context, messages, or `sdk.Msgs` are module-specific objects that trigge
 This design puts more responsibility on module developers, allowing application developers to reuse common functionalities without having to implement state transition logic repetitively.
 While messages contain the information for state transition logic, a transaction's other metadata and relevant information are stored in the `TxBuilder` and `Context`.
 
-## Transaction Generation
+## Transaction generation
 
 The TxBuilder interface contains metadata closely related to the generation of transactions. The end-user can freely set these parameters for the transaction to be generated.
 
@@ -66,7 +67,7 @@ txBuilder := txConfig.NewTxBuilder()
 txBuilder.SetMsgs(...) // and other setters on txBuilder
 ```
 
-## Signing Transactions
+## Signing transactions
 
 Every message in a transaction must be signed by the addresses specified by its `GetSigners`. The SDK currently allows signing transactions in two different ways:
 

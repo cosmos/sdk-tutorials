@@ -2,6 +2,7 @@
 title: "A Blockchain App Architecture"
 order: 2
 description: ABCI, Tendermint, and state machines
+tag: fast-track
 ---
 
 # Blockchain App Architecture

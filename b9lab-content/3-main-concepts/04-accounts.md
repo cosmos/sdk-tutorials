@@ -2,17 +2,18 @@
 title: "Accounts"
 order: 3
 description: Discover how accounts, addresses, keys, and keyrings relate to each other
+tag: deep-dive
 ---
 
 # Accounts
 
-## What is an Account?
+## What is an account?
 
 An account is a pair of keys called PubKey (a public key), and PrivKey (a private key). A public key is a unique identifier for a user or entity that is safe to disclose.  
 
 Private keys are sensitive information that users are required to manage confidentially. Private keys are used to sign information in a way that **proves** to others that the message was signed by someone using the private key that corresponds to a given public key. This is done without revealing the private key itself.
 
-## Public Key Cryptography
+## Public key cryptography
 
 Modern cryptographic systems leverage computer capabilities to make accessible the power of certain mathematical functions. Public key cryptography, also known as **asymmetric cryptography**, is a cryptographic system that employs pairs of keys. Every pair consists of a public and a private key. The public key can be shared publicly and the security of the system is not endangered as long as the private key is not disclosed.
 
@@ -31,11 +32,11 @@ Due to its computational complexity, asymmetric cryptography is normally applied
 
 The length of keys is vital. Asymmetric cryptographic keys are usually very long. One can keep in mind a general principle: the longer the key, the more difficult it is to break the code. To break an asymmetric key with a brute force attack, the attacker would need to try every possible key.
 
-## Public/Private Keys
+## Public and private keys
 
 Asymetric keys always come in pairs and offer their owner various capabilities. Those capabilities are based on cryptographic mathematics. As their name suggests, the public key is meant to be distributed to whoever is relevant, while the private key is to be jealously guarded. This is akin to publicizing your house address, but keeping the key to your house private. Do not be Dilbert's CEO, a story in 2 parts.
 
-### Sign and Verify Example
+### Sign and verify: Example
 
 Alice wants to make sure that Bob's public announcement is indeed from Bob:
 
@@ -48,7 +49,7 @@ When Alice has verified the signature, she will see that the announcement was si
 
 In summary, private keys are used to **prove** that messages originate from owners of accounts that are known by their public keys. More precisely, signatures **prove** that messages were signed by someone with knowledge of the private key that corresponds to a given public key. This is the basis of user authentication in a blockchain. For this reason, private keys are jealously guarded secrets.
 
-## Hierarchical-Deterministic Wallets
+## Hierarchical-deterministic wallets
 
 Blockchains generally maintain ledgers of user accounts and rely on public key cryptography for user authentication. Implicitly, knowledge of one’s public and private keys is a requirement for executing transactions. Client software applications known as wallets provide methods to generate new key pairs and store them between sessions, as well as basic services such as creating transactions, signing messages, interacting with applications (for example, web pages) and communicating with the blockchain.
 
@@ -66,7 +67,7 @@ Like most blockchain implementations, Cosmos derives addresses from the public k
 
 Using BIP39, a user is required only to store their BIP39 mnemonic in a safe and confidential manner. All key pairs can be reconstructed from the mnemonic because it’s deterministic. There is no practical upper limit to the number of key pairs that can be generated from a single mnemonic, hence the name hyper-deterministic that is used to describe this approach to key generation.
 
-## Keyring, Addresses and Address Types
+## Keyring, addresses, and address types
 
 In the Cosmos SDK, keys are stored and managed in an object called a Keyring.
 
@@ -88,7 +89,7 @@ Message: {
 ```
 Passing `Payload` into the signature verification function will return a sender. The derived sender must match the sender in the `Payload` itself. This will confirm that the `Payload` could only originate from someone with knowledge of the private key corresponding to `Sender: “0x1234”`
 
-## Signature Schemes
+## Signature schemes
 
 As you might guess, there is more than one implementation of the public key signature process described so far. Cosmos SDK supports the following digital key schemes for creating digital signatures:
 
@@ -102,7 +103,7 @@ As you might guess, there is more than one implementation of the public key sign
 
 The `BaseAccount` object provides the basic account implementation that stores authentication information.
 
-## Public Keys
+## Public keys
 
 These are generally not used to reference accounts (see Addresses, below). Public keys do exist and they are accessible through the `cryptoTypes.PubKey` interface. This facilitates operations developers may find useful such as signing off-chain messages or using a public key for other out-of-band operations.
 
