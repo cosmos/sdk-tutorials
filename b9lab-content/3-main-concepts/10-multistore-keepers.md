@@ -11,7 +11,7 @@ tag: deep-dive
 
 So far we have described what we wanted to do:
 
-* Define a game id. How is defined? Probably incrementally.
+* Define a game id. How is it defined? Probably incrementally.
 * Save many `FullGame`s in storage for retrieval by id.
 * Save `FullGame` ids in an ordered list of their timeouts, for use in `EndBlock`.
 * Handle `CreateGameTx`, `MoveTx`, and `RejectTx`.
