@@ -19,7 +19,7 @@ When a transaction is relayed from the underlying Tendermint consensus engine, `
 
 Developers compose modules together using the Cosmos SDK to build custom application-specific blockchains.
 
-## Module Scope
+## Module scope
 
 Modules include **core** functionality that provides the basic functionality every blockchain node needs:
 
@@ -33,7 +33,7 @@ A module defines a subset of the overall state using one or more key/value store
 
 For developers, most of the work involved in building an SDK application revolves around building custom modules required by their application that do not exist yet, and integrating them with modules that do already exist into one coherent application.
 
-## Module Components
+## Module components
 
 It is a best practice to define a module in the `x/moduleName` folder, not to be confused with the SDK’s `x/` folder that already exists. For example, the module called Checkers would go in `x/checkers`.
 
@@ -53,7 +53,7 @@ Modules implement three application module interfaces:
 
 `AppModule` and `AppModuleBasic` are defined in `module.go`.
 
-### Protobuf Services
+### Protobuf services
 
 Each module defines two Protobuf services:
 
@@ -64,13 +64,13 @@ Each module defines two Protobuf services:
 See here for an introduction to Protobuf services if the topic is new to you: [https://www.ionos.com/digitalguide/websites/web-development/protocol-buffers-explained/](https://www.ionos.com/digitalguide/websites/web-development/protocol-buffers-explained/)
 </HighlightBox>
 
-#### Msg Service
+#### Msg service
 
 * A best practice is to define the `Msg` Protobuf service in the `tx.proto` file.
 * Each module should implement the `RegisterServices` method as part of the `AppModule` interface.
 * Service methods should use a “Keeper” that defines the storage layout and presents methods for updating the state to implement state updates.
 
-#### gRPC Query Service
+#### gRPC query service
 
 * Allows users to query the state using gRPC.
 * Each gRPC endpoint corresponds to a service method, starting with the rpc keyword, inside the gRPC Query Service.
@@ -87,7 +87,7 @@ gRPC-gateway REST endpoints support external clients that may not wish to use gR
 gRPC-gateway documentation: [https://grpc-ecosystem.github.io/grpc-gateway/](https://grpc-ecosystem.github.io/grpc-gateway/)
 </HighLightBox>
 
-### Command-Line Commands
+### Command-line commands
 
 Each module defines commands for a command-line interface (CLI). Commands related to a module are defined in a folder called `client/cli`. The CLI divides commands into two categories, transactions and queries, defined in `tx.go` and `query.go` respectively.
 
@@ -99,7 +99,7 @@ Other modules may need access to a store, but other modules are also potentially
 
 Keepers are defined in `keeper.go`. Keeper’s type definition generally consists of keys to the module’s store in the `multistore`, references to other modules’ keepers and a reference to the application’s codec.
 
-## Core Modules
+## Core modules
 
 The Cosmos SDK includes a set of core modules that address common concerns with well-solved, standardized implementations.
 
@@ -113,17 +113,17 @@ Developers create coherent applications by selecting and composing core modules 
 
 Explore the list of core modules and the application concerns they address: [https://github.com/cosmos/cosmos-sdk/tree/master/x](https://github.com/cosmos/cosmos-sdk/tree/master/x)
 
-## Long Running Exercise: Use Tokens
+## Long-running exercise: Use tokens
 
 Where we use tokens to play for money
 
-## Design Principles for Building Modules
+## Design principles for building modules
 
 * **Composability**: SDK applications are almost always composed of multiple modules. This means developers need to carefully consider the integration of their module not only with the core of the Cosmos SDK, but also with other modules. The former is achieved by following standard design patterns outlined [here](https://github.com/cosmos/cosmos-sdk/blob/master/docs/building-modules/intro.md#main-components-of-sdk-modules), while the latter is achieved by properly exposing the store(s) of the module via the keeper.
 * **Specialization**: A direct consequence of the composability feature is that modules should be specialized. Developers should carefully establish the scope of their module and not batch multiple functionalities into the same module. This separation of concerns enables modules to be re-used in other projects and improves the upgradability of the application. Specialization also plays an important role in the object-capabilities model of the Cosmos SDK.
 * **Capabilities**: Most modules need to read and/or write to the store(s) of other modules. However, in an open-source environment, it is possible for some modules to be malicious. That is why module developers need to carefully think not only about how their module interacts with other modules, but also about how to give access to the module's store(s). The Cosmos SDK takes a capabilities-oriented approach to inter-module security. This means that each store defined by a module is accessed by a key, which is held by the module's keeper. This keeper defines how to access the store(s) and under what conditions. Access to the module's store(s) is done by passing a reference to the module's keeper.
 
-## Recommended Folder Structure
+## Recommended folder structure
 
 These ideas are meant to be applied as suggestions. Application developers are encouraged to improve upon and contribute to module structure and development design.
 
