@@ -73,7 +73,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 
 ## Subscribing to Events
 
-You can use Tendermint's Websocket to subscribe to events by calling the subscribe RPC method.
+You can use Tendermint's [Websocket](https://docs.tendermint.com/master/tendermint-core/subscription.html#subscribing-to-events-via-websocket) to subscribe to events by calling the `subscribe` RPC method.
 
 The main `eventCategories` you can subscribe to are:
 
