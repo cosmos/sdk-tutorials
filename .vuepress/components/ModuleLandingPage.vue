@@ -23,10 +23,10 @@
 						div If you are unsure which sections to tackle, keep an eye out for the Deep dive and Fast track tags for orientation.
 			.modules
 				card-module(v-for="module in this.modules" :module="module" :startExpanded="!$frontmatter.main").modules__item
-			.resources__wrapper(v-if="$frontmatter.resources")
+			.resources__wrapper(v-if="$themeConfig.resources")
 				h3.resources__title Developer resources
 				.resources
-					.resources__item(v-for="resource in $frontmatter.resources")
+					.resources__item(v-for="resource in $themeConfig.resources")
 						.resources__item__icon
 							img(:src="resource.image" :alt="resource.title")
 						h5.resources__item__title {{resource.title}}
