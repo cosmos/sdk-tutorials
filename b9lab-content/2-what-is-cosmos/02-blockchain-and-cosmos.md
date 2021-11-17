@@ -50,8 +50,8 @@ The consensus mechanism ensures that a blockchain has a canonical transaction hi
 
 Although Bitcoin's codebase is monolithic, its blockchain architecture can be **split into three layers**:
 
-* Network layer: tasked with discovering nodes, and propagating transactions and consensus-related messages between single nodes;
-* Consensus layer: runs the consensus protocol between the single nodes of a P2P network;
+* Network layer: tasked with discovering nodes, and propagating transactions and consensus-related messages between single nodes.
+* Consensus layer: runs the consensus protocol between the single nodes of a P2P network.
 * Application layer: in effect, running a state machine that defines the application's state and updates it with the processing of transactions, per the result of the consensus.
 
 This layer model can be applied to blockchains in general.
@@ -114,8 +114,8 @@ Tendermint is a consensus algorithm with Byzantine Fault-Tolerance (BFT) and a c
 
 It does this in:
 
-* A **secure** manner - Tendermint continues working even if up to 1/3 of machines fail or misbehave, and
-* A **consistent** way - every machine computes the same state and accesses the same transaction log.
+* A **secure** manner. Tendermint continues working even if up to 1/3 of machines fail or misbehave.
+* A **consistent** way. Every machine computes the same state and accesses the same transaction log.
 
 Tendermint is widely used across the industry and is the most mature BFT consensus engine for PoS blockchains.
 
@@ -141,8 +141,8 @@ As mentioned previously, scalability is a big issue area when it comes to blockc
 
 This degree of scalability is possible as Cosmos addresses **two types of scalability**:
 
-* **Horizontal scalability:** Scaling by adding similar machines to the network. When scaling out, horizontally, the network can accept more nodes to participate in the state replication, consensus observation, and any activity that queries the state.
-* **Vertical scalability:** Scaling by improving the network's components to increase its computational power. When scaling up, vertically, the network can accept more transactions and any activity that modifies the state.
+* **Horizontal scalability.** Scaling by adding similar machines to the network. When scaling out, horizontally, the network can accept more nodes to participate in the state replication, consensus observation, and any activity that queries the state.
+* **Vertical scalability.** Scaling by improving the network's components to increase its computational power. When scaling up, vertically, the network can accept more transactions and any activity that modifies the state.
 
 In a blockchain context, vertical scalability is typically achieved through the optimization of the consensus mechanism and applications running on the chain. On the consensus side, Cosmos achieves vertical scalability with the help of the Tendermint BFT. For instance, the Cosmos Hub currently conducts transactions in seven seconds. In a single blockchain context, the only remaining bottleneck is then the application.
 
