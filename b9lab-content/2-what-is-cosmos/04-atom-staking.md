@@ -11,7 +11,7 @@ tag: fast-track
 
 The [Cosmos Hub](https://hub.cosmos.network) is the first among equals of Cosmos blockchains. ATOM is the native token of the Cosmos Hub, also called the staking token. You need some ATOM to be able to transact on the Cosmos Hub or to participate in the proof-of-stake (PoS) consensus. Because of its usefulness, some markets determine the ATOM price in common currencies.
 
-So let's get our feet wet. We are going to:
+So let's get your feet wet. You are going to:
 
 1. Get some ATOM.
 2. Participate in the consensus, thereby earning yield on our ATOMs while sleeping, or studying further.
@@ -24,7 +24,7 @@ We cover all the main concepts in the next chapter. For now, you will get throug
 
 The simple step of _get some ATOM_ hides multiple steps:
 
-1. Install a wallet application, and configure it safely. We will use [Keplr](https://keplr.app/).
+1. Install a wallet application, and configure it safely. You will use [Keplr](https://keplr.app/).
 2. Buy some ATOM on an exchange, and transfer them to your wallet.
 
 Let's get started.
