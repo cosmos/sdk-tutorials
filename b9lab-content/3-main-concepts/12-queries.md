@@ -107,8 +107,8 @@ So now you are left with filling in the gaps under TODO. Simple:
     ```
 Of note is that the player's move will be tested against the latest validated state of the blockchain. It does not test against the intermediate state being calculated as transactions are being delivered. Nor does it test against the potential state that would result from delivering the transactions still in the transaction pool.
 
-In practice, this means that a player could test their move only if the opponent's move has been included in a block.
+In practice, this means that a player could test their move only once the opponent's move has been included in a previous block. Fortunately, these kind of edge case scenarios won't be common in our checkers game, and we can expect little to no effect on the user experience.
 
-Examples of other possible queries. Get a player's games, or the games soon to time out.
+Of course this is not an exhaustive list of potential queries. Some examples of other possible queries would be to get a player's open games, or a to get a list of games that are timing out soon. This really depends on the needs of your application and how much functionality you're willing to provide.
 
 </ExpansionPanel>

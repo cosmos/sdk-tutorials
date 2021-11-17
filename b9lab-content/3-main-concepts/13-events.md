@@ -4,7 +4,7 @@ An event is an object that contains information about the execution of the appli
 
 In the Cosmos SDK, events are implemented as an alias of the ABCI `event` type in the forms `{eventType}.{attributeKey}={attributeValue}`.
 
-Events allow app developers to attach additional information. This means that transactions might be queried using the events:
+Events are objects that allow app developers to package important information about state transitions in an application. Instead of querying, events can be subscribed to using [websockets](https://docs.tendermint.com/master/tendermint-core/subscription.html#subscribing-to-events-via-websocket).
 
 ```
 // Events allows application developers to attach additional information to
@@ -20,6 +20,8 @@ message Event {
 ```
 
 ## Structure
+
+In the above, two elements stand out:
 
 * A `type` to categorize the Event at a high-level; for example, the Cosmos SDK uses the `message` _type_ to filter events by Msgs.
 * A list of `attributes` are key-value pairs that give more information about the categorized event. For example, for the "message" type, we can filter events by key-value pairs using `message.action={some_action}, message.module={some_module}` or `message.sender={a_sender}`.
