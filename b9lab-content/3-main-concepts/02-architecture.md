@@ -6,37 +6,37 @@ description: Architecture of a blockchain application built with Cosmos.
 
 # Blockchain App Architecture
 
-## What is Tendermint
+## What is Tendermint?
 
-Created in 2014, Tendermint accelerates the development of distinct blockchains by attending to general concerns so that those concerns don’t need to be recreated by developers in each case. You may already be using Tendermint without awareness of this since blockchains including [Hyperledger Burrow](https://hyperledger.github.io/burrow/#/) and [Binance Chain](https://www.binance.org/en/smartChain)  use Tendermint.
+Created in 2014, [Tendermint](https://tendermint.com/) accelerates the development of distinct blockchains by providing a ready-made networking and consensus solution so that these do not have to be recreated by developers for each case. You may already be using Tendermint without being aware of it since other blockchains, including [Hyperledger Burrow](https://hyperledger.github.io/burrow/#/) and the [Binance Chain](https://www.binance.org/en/smartChain), use Tendermint.
 
-More specifically, Tendermint modules attend to consensus and networking, two important components of any blockchain. This frees developers to consider what the blockchain should do at an application level without descending into lower-level blockchain concerns such as peer discovery, block propagation, consensus and transaction finalization. Without Tendermint, developers would be forced to build software to address those concerns which would add additional time, complexity and cost to the blockchain applications they have in mind.
+More specifically, Tendermint modules **attend to consensus and networking**, two important components of any blockchain. This frees developers to consider what the blockchain should do at an application level without descending into lower-level blockchain concerns such as peer discovery, block propagation, consensus and transaction finalization. Without Tendermint, developers would be forced to build software to address those concerns which would add additional time, complexity, and cost to the development of the blockchain applications they have in mind.
 
-![blockchain application architecture overview](./images/architecture_overview.png)
+![Blockchain application architecture overview](./images/architecture_overview.png)
 
-A blockchain node for an application-focused Cosmos blockchain consists of a state-machine, built with the Cosmos SDK, and consensus and networking, which is handled by Tendermint Core
+A blockchain node for an application-focused Cosmos blockchain consists of a state-machine, built with the Cosmos SDK, and consensus and networking, which are handled by the Tendermint Core
 
-As you might expect, Tendermint itself is modular and flexible. We will concentrate on the Tendermint Core used in Cosmos.
+As you might expect, Tendermint itself is modular and flexible. In the following, you will concentrate on the Tendermint Core used in Cosmos.
 
 ## Consensus in Tendermint Core and Cosmos
 
-In summary, Tendermint Core is a high-performance, consistent, and secure **consensus** module with strict fork accountability. It relies on Proof-of-Stake (PoS) with delegation and [Practical Byzantine Fault Tolerance](https://github.com/tendermint/tendermint). Participants signal support for well-behaved, reliable nodes that create and confirm blocks. Users signal support by staking ATOM with the possibility of acquiring a share of network transaction fees but also sharing in the risk of reduced returns or even losses should the node become unreliable.
+In summary, the Tendermint Core is a high-performance, consistent, and secure **consensus** module with strict fork accountability. It relies on Proof-of-Stake (PoS) with delegation and [Practical Byzantine Fault Tolerance](https://github.com/tendermint/tendermint). Participants signal support for well-behaved, reliable nodes that create and confirm blocks. Users signal support by staking ATOM with the possibility of acquiring a share of the network transaction fees but also sharing in the risk of reduced returns or even losses should the node become unreliable.
 
 Network participants are incentivized to stake ATOM in the fittest nodes that they deem most likely to provide a dependable service, and to withdraw their support should conditions change. In this way, a Cosmos blockchain is expected to adjust the validator configuration and continue even in adverse conditions.
 
-In more detail, only the top 100 nodes by staked ATOM, the **validators**, participate in the transaction finalization process. The privilege of creating a block is awarded in proportion to the ATOM tokens committed. For example, if a given validator has 15% of the ATOM staked to the top 100 nodes, then it can expect to receive the block creation privilege 15% of the time. The block is broadcast to the other validators, who are expected to respond promptly and correctly. They will absorb penalties for failing to do so.
+In more detail, only the top 100 nodes by staked ATOM, the **validators**, participate in the transaction finalization process. The privilege of creating a block is awarded in proportion to the ATOM tokens committed. For example, if a given validator has 15% of the ATOM staked to the top 100 nodes, then it can expect to receive the block creation privilege 15% of the time.
 
-Validators confirm candidate blocks. They can and must, of course, reject invalid blocks. They accept the block by returning their signature. When sufficient signatures have been collected by the block creator then the block is finalized and broadcast to the wider network.
+The block is broadcast to the other validators, who are expected to respond promptly and correctly. They will absorb penalties for failing to do so. Validators confirm candidate blocks. They can and must, of course, reject invalid blocks. They accept the block by returning their signature. When sufficient signatures have been collected by the block creator then the block is finalized and broadcast to the wider network.
 
-Interestingly, there is no ambiguity in this process. Either a block has the necessary signatures or it does not. If it does, insufficient signatories exist to overturn the block and the block can be described as **finalized** because there is no process in which the blockchain would be reorganized. This provides a level of certainty about transaction finalization that a probabilistic system like Proof-of-Work (PoW) cannot match.
+Interestingly, there is no ambiguity in this process. Either a block has the necessary signatures or it does not. If it does, insufficient signatories exist to overturn the block and the block can be understood as **finalized** because there is no process in which the blockchain would be reorganized. This provides a level of certainty when it comes to transaction finality that a probabilistic system like Proof-of-Work (PoW) cannot match.
 
-Aggressive block times are feasible because the process is aimed at high performance, dedicated validators with good network connectivity. This is quite different from PoW, which favors inclusion and must accommodate slower nodes with greater latency and less reliability. A Cosmos blockchain can handle thousands of transactions per second with confirmations in the order of seven seconds.
+Aggressive block times are feasible because the process is aimed at high performance, so to say dedicated validators with good network connectivity. This is quite different from PoW, which favors inclusion and must accommodate slower nodes with greater latency and less reliability. A Cosmos blockchain can handle thousands of transactions per second with confirmations taking seven seconds.
 
-Even though validation is delegated to a subset of all network nodes, the validators, the process avoids concentration of power. The community of users elect the validators, in a manner of speaking, by staking ATOM, participating in both the rewards and the risks of committing to provide a reliable, responsible block validation service.
+Even though validation is delegated to a subset of all network nodes, the validators, the process avoids concentration of power. The community of users elect the validators, in a manner of speaking, by staking ATOM and thus, participating in both the rewards and the risks of committing to provide a reliable, responsible block validation service.
 
 ## Upgradeability
 
-In any known blockchain, a change in the implementation requires an upgrade to the node software running in each node. In a disorderly process with voluntary participation this can result in a hard fork - a situation in which one constituency forges ahead with the old rules and another adopts new rules. While this arrangement has positive aspects and proponents, it also has clear disadvantages in settings where **certainty** is a strict requirementt. For example, uncertainty about transaction finalization (regardless of how miniscule the uncertainty might be) may be unacceptable in settings that are concerned with registries and large assets.
+In any known blockchain, a change in the implementation requires an upgrade to the node software running on each node. In a disorderly process with voluntary participation this can result in a hard fork - a situation in which one constituency forges ahead with the old rules and another adopts new rules. While this arrangement has positive aspects and proponents, it also has clear disadvantages in settings where **certainty** is a strict requirement. For example, uncertainty about transaction finality, regardless of how minuscule the uncertainty might be, may be unacceptable in settings that are concerned with registries and large assets.
 
 In a Tendermint blockchain, transactions are irreversibly finalized upon block creation and upgrades are themselves governed by the block creation and validation process, which leaves no room for uncertainty. Either the nodes agree to simultaneously upgrade their protocol, or the upgrade proposal fails.
 
@@ -44,144 +44,145 @@ Validators are the ones who vote. This means that delegators ought to be discern
 
 ## Tendermint BFT
 
-[Tendermint BFT](https://tendermint.com/core/) packages the **networking and consensus** layers of a blockchain and presents a socket protocol, the Application Blockchain Interface (**ABCI**) to the application layer. Developers focus on higher-order concerns while delegating peer-discovery, validator selection, staking, upgrades, and consensus to the Tendermint BFT. The consensus engine running in one process controls the state machine, the application, running in another process.
+[Tendermint BFT](https://tendermint.com/core/) packages the **networking and consensus layers** of a blockchain and presents a socket protocol to the application layer, the **Application Blockchain Interface (ABCI)**. Developers focus on higher-order concerns while delegating peer-discovery, validator selection, staking, upgrades, and consensus to the Tendermint BFT. The consensus engine running in one process controls the state machine, the application runs in another process. The architecture is equally appropriate for **private or public blockchains**.
 
-The architecture is equally appropriate for **private or public** blockchains.
+The Tendermint BFT provides security guarantees, including:
 
-Tendermint BFT provides security guarantees including:
-
-* **Forks** are never created provided that half or more validators are honest;
-* There is **strict accountability** for fork creation. Liability can be determined;
+* **Forks** are never created provided that half or more validators are honest.
+* There is **strict accountability** for fork creation. Liability can be determined.
 * Transactions are finalized as soon as a block is created.
 
-Tendermint BFT is not concerned with the interpretation of transactions. That would be the application layer (see below). Tendermint presents confirmed, well-formed transactions and blocks of transactions agnostically and facilitates the reverse - sending a transaction. Tendermint is un-opinionated about the meaning of the transactions.
+Tendermint BFT is not concerned with the interpretation of transactions. That would be the application layer. Tendermint presents confirmed, well-formed transactions and blocks of transactions agnostically and facilitates the reverse - sending a transaction. Tendermint is un-opinionated about the meaning transactions have.
 
-*Block time* is approximately seven seconds and blocks may contain thousands of transactions. Transactions are finalized and cannot be overturned as soon as they appear in a block.
+The *block time* is approximately seven seconds and blocks may contain thousands of transactions. Transactions are finalized and cannot be overturned as soon as they appear in a block.
 
 Additionally, Tendermint BFT uses what is known as a delayed execution model. This means that, when a block's transactions are presented to the application, the consensus layer has already agreed on the block, and therefore on the transactions. In a delayed model, the state of the application is known, and stored in the next block's header. Thus, delivering a block signals that the network has agreed not only on the block's transactions at height _n_, but also on the state of the application at the previous height _n - 1_.
 
 <HighlightBox type="info">
 
-For a deeper dive, visit:
+For a deeper dive on consensus and Tendermint, visit:
 
 * [Podcast on consensus systems with Ethan Buchman](https://softwareengineeringdaily.com/2018/03/26/consensus-systems-with-ethan-buchman/)
-* Tendermint BFT engine is connected to the application by a socket protocol called the Application Blockchain Interface (ABCI).
-* [Tendermint ecosystem](https://tendermint.com/core/#ecosystem)
+* [Tendermint: Ecosystem](https://tendermint.com/core/#ecosystem)
 
 </HighlightBox>
 
-## Application Blockchain Interface
+## Application Blockchain Interface (ABCI)
 
-There are at least two broad **approaches to application-level concerns** using blockchains. One way is to create a purpose-built blockchain where everything that can be done is defined in the protocol. The other method is to create a programmable state machine and push application concerns to a higher level, such as bytecode created by compilers interpreting higher-level languages. Ethereum-like blockchains are part of the second category. Only the state machine is defined in the on-chain protocol, which defines the rules of contract creation, interaction, and execution and little else.
+There are at least two broad **approaches to application-level concerns** using blockchains. One way is to create a purpose-built blockchain where everything that can be done is defined in the protocol. The other method is to create a programmable state machine and push application concerns to a higher level, such as bytecode created by compilers interpreting higher-level languages. Ethereum-like blockchains are part of the second category. Only the state machine is defined in the on-chain protocol, which defines the rules of contract creation, interaction, execution, and little else.
 
-This method is not without its limitations. First, very little is universally defined. Standards for basic concerns such as tokens emerge organically through voluntary participation. Second, contracts can and do contain repetitive code that may or may not correctly implement the developer’s intentions. Third, the inherent flexibility of it makes it challenging to reason about what is correct, or even what is friendly. Finally, there are practical limits to the complexity of operations that are very low as compared to what is possible in other settings. Those limits make it especially difficult to perform analysis or reorganize data, and developers are forced to adapt to the constraints.
+This method is not without its limitations. First, very little is universally defined. Standards for basic concerns such as tokens emerge organically through voluntary participation. Second, contracts can and do contain repetitive code that may or may not correctly implement the developer's intentions. Third, the inherent flexibility of it makes it challenging to reason about what is correct, or even what is friendly. Finally, there are practical limits to the complexity of operations that are very low as compared to what is possible in other settings. These limits make it especially difficult to perform analysis or reorganize data, and developers are forced to adapt to the constraints.
 
-A **purpose-built blockchain** is different. There are no hard limits the application developers themselves don’t believe are reasonable and necessary. There is no need to present a _Turing-complete_ language or general-purpose, programmable state machine because application concerns are addressed by the protocol the developers create.
+A **purpose-built or application-specific blockchain** is different. There are no hard limits the application developers themselves don’t believe are reasonable and necessary. There is no need to present a _Turing-complete_ language or a general-purpose, programmable state machine because application concerns are addressed by the protocol the developers create.
 
-Developers who have worked with blockchains based on the Ethereum Virtual Machine (EVM) will recognize a shift in the way concerns are addressed. Authorization and access control, the layout of storage (also known as the state), application governance - application logic, generally - are not implemented as contracts on a state machine. They become properties of a unique blockchain that is built for a singular purpose.
+Developers who have worked with blockchains based on the Ethereum Virtual Machine (EVM) will recognize a shift in the way concerns are addressed. Authorization and access control, the layout of storage (also known as the state), and application governance - application logic, generally - are not implemented as contracts on a state machine. They become properties of a unique blockchain that is built for a singular purpose.
 
-Developers create the Application Layer using the **Cosmos SDK**. The Cosmos SDK provides both a scaffold to get started and a rich set of modules that address common concerns. The Cosmos SDK provides a head start and a framework for getting started, as well as a rich set of modules that address common concerns such as governance, tokens, other standards, and interactions with other blockchains through the Inter-Blockchain Protocol (IBC). Creation of a purpose-built blockchain with Cosmos SDK is largely a process of selecting, configuring, and integrating well-solved modules, also known as composing modules. This greatly reduces the scope of original development required since development is focused mostly on the truly novel aspects of the application.
+Developers create the application layer using the **Cosmos SDK**. The Cosmos SDK provides both a scaffold to get started and a rich set of modules that address common concerns. It provides a head start and a framework for getting started, as well as a rich set of modules that address common concerns such as governance, tokens, other standards, and interactions with other blockchains through the Inter-Blockchain Communication protocol (IBC). The creation of a purpose-built blockchain with the Cosmos SDK is largely a process of selecting, configuring, and integrating well-solved modules, also known as composing modules. This greatly reduces the scope of original development required since development is mostly focused on the truly novel aspects of the application.
 
 <HighlightBox type="info">
 
-Later, we will dive into the Inter-Blockchain Protocol (IBC). **IBC** is a common framework for transferring information between blockchains built with Cosmos. For now, it is enough to know that it exists and it enables seamless interaction between blockchains that want to transfer information between each other, such as tokens. In summary, this enables communication between applications that run on separate purpose-built blockchains.
+Later, we will dive further into the IBC protocol. **IBC** is a common framework for exchanging information between blockchains. For now, it is enough to know that it exists and it enables seamless interaction between blockchains that want to transfer value (token transfers) and exchange information. In summary, it enables the communication between applications that run on separate purpose-built/application-specific blockchains.
 
 </HighlightBox>
 
-Importantly, application, consensus and network layers are contained within the custom blockchain node that forms the foundation of the custom blockchain.
+Importantly, the application, consensus, and network layers are contained within the custom blockchain node that forms the foundation of the custom blockchain.
 
-![ABCI](./images/ABCI.png)
+![Node, blockchain layers, and ABCI](./images/ABCI.png)
 
-Tendermint passes confirmed transactions to the application layer through the Application Blockchain Interface. The application layer must implement the ABCI, which is a socket protocol. In this way, Tendermint is unconcerned with the interpretation of transactions and the application layer can be unconcerned with propagation, broadcast, confirmation, network formation, and other lower-level concerns that Tendermint attends to, unless it wants to inspect such properties.  
+Tendermint passes confirmed transactions to the application layer through the Application Blockchain Interface. The application layer must implement the ABCI, which is a socket protocol. In this way, Tendermint is unconcerned with the interpretation of transactions and the application layer can be unconcerned with propagation, broadcast, confirmation, network formation, and other lower-level concerns that Tendermint attends to, unless it wants to inspect such properties.
 
 Since the ABCI is a sockets protocol, developers are free to create blockchains in any language that supports sockets, provided their application implements the ABCI. The ABCI defines the boundary between replication concerns and the application, which is a state machine.
 
-This is, itself, a considerable step forward that simplifies the creation of unique blockchains.
+This is itself a considerable step forward that simplifies the creation of unique blockchains.
 
 <HighlightBox type="info">
 
-More detailed information the ABCI can be found here:
+More detailed information on the ABCI can be found here:
 
-* [A prose specification](https://github.com/tendermint/abci/blob/master/specification.md).
-* [A protobuf file](https://github.com/tendermint/abci/blob/master/types/types.proto).
-* [A Go interface](https://github.com/tendermint/abci/blob/master/types/application.go).
-* [Documentation](http://tendermint.readthedocs.io/en/master/).
+* [ABCI GitHub repository: ABCI prose specification](https://github.com/tendermint/abci/blob/master/specification.md)
+* [Tendermint GitHub repository: A Protobuf file on types](https://github.com/tendermint/abci/blob/master/types/types.proto)
+* [Tendermint GitHub repository: A Go interface](https://github.com/tendermint/abci/blob/master/types/application.go)
+* [The Tendermint Core documentation](https://docs.tendermint.com/)
 
 </HighlightBox>
 
-## State Machines
+## State machines
 
-At its core, a blockchain is a replicated state machine. A state machine is a computer science concept, in which a machine can have multiple states but only one state at a time. And there is a state transition process, or a set of defined processes, which are the only way the state changes from the old state to a new state.
+At its core, a blockchain is a replicated state machine. A **state machine** is a computer science concept, in which a machine can have multiple states but only one state at a time. And there is a state transition process, or a set of defined processes, which are the only way the state changes from the old state (`S`) to a new state (`S'`).
 
-![state machine](./images/state_machine_1.png)
+![State machine](./images/state_machine_1.png)
 
-The state transition function in a blockchain is virtually synonymous with a transaction. Given an initial state, a confirmed transaction and a set of rules for interpreting that transaction, the machine transitions to a new state. The rules of interpretation are defined at the application layer.
+The **state transition function** in a blockchain is virtually synonymous with a transaction. Given an initial state, a confirmed transaction, and a set of rules for interpreting that transaction, the machine transitions to a new state. The rules of interpretation are defined at the application layer.
 
-Blockchains are deterministic, so the only correct interpretation of the transaction is the new state, shown as S-prime in the illustration above.
+Blockchains are deterministic, so the only correct interpretation of the transaction is the new state, shown as S-prime in the illustration above (`S'`).
 
 Blockchains are distributed and, in practice, transactions arrive in batches called blocks. There is a machine state that exists after the correct interpretation of each transaction in the block. Each transaction executes in the context of the state machine that resulted from every transaction that preceded it. The machine state that exists after all transactions in the block have been executed is a useful checkpoint, especially when one is interested in historic states.
 
-![state machine](./images/state_machine_2.png)
+![State machine](./images/state_machine_2.png)
 
 Developers can create the state machine using the Cosmos SDK. This includes storage organization, also known as the state, and the state transaction functions, which determine what is permissible and what, if any, adjustments to the state result from each kind of transaction.
 
-In this context, “consensus” establishes a canonical set of well-ordered blocks that contain well-ordered transactions. The chain of blocks is therefore a well-ordered set of all finalized transactions and all nodes agree that the canonical set is the only relevant set. Since the state machine defined by the developers is deterministic, there is only one correct interpretation of the canonical transaction set and, by extension, only one correct determination of the state machine when any given transaction is executed or at any block height.
+In this context, the "consensus" establishes a canonical set of well-ordered blocks that contain well-ordered transactions. The chain of blocks is therefore a well-ordered set of all finalized transactions, and all nodes agree that the canonical set is the only relevant set. Since the state machine defined by the developers is deterministic, there is only one correct interpretation of the canonical transaction set and, by extension, only one correct determination of the state machine when any given transaction is executed or at any block height.
+
+![The application, ABCI, and Tendermint](./images/ABCI_2.png)
 
 This state machine definition is silent on the processes that confirm and propagate transactions, and Tendermint is agnostic about the meaning of the blocks it organizes. The Tendermint consensus establishes the ordered set of transactions. By extension, the nodes reach consensus about the state of the application.
 
-![ABCI](./images/ABCI_2.png)
+## Additional details
 
-## Additional Details
-
-Many transactions that could be broadcast should not be broadcast. Examples include malformed transactions and spam-like artifacts. Since Tendermint is agnostic about transaction interpretation it cannot make this determination on its own. Therefore, the Application Blockchain Interface includes a `CheckTx` method that Tendermint uses to ask the application layer if the transaction meets minimum acceptability criteria. Applications implement this function.
+Many transactions that could be broadcast should not be broadcast. Examples include malformed transactions and spam-like artifacts. Since Tendermint is agnostic when it comes to transaction interpretation, it cannot make this determination on its own. Therefore, the Application Blockchain Interface includes a `CheckTx` method, which Tendermint uses to ask the application layer if the transaction meets the minimum acceptability criteria. Applications implement this function.
 
 When blocks are received, Tendermint calls the `DeliverTx` method to pass the information to the application layer for interpretation and possible state machine transition.
 
-Additionally, `BeginBlock` and `EndBlock` messages are called on the application layer even if blocks contain no transactions. This provides positive confirmation of basic connectivity and no operation time periods. These methods facilitate the execution of scheduled processes that should run in any case because they call methods at the application level where developers can define processes. It is wise to be cautious about adding too much computational weight at the start or completion of each block since the blocks arrive at approximately seven-second intervals and too much work could slow down your blockchain.
+Additionally, `BeginBlock` and `EndBlock` messages are called on the application layer even if blocks contain no transactions. This provides positive confirmation of basic connectivity and no operation time periods. These methods facilitate the execution of scheduled processes that should run in any case because they call methods at the application level, where developers can define processes. It is wise to be cautious about adding too much computational weight at the start or completion of each block since the blocks arrive at approximately seven-second intervals and too much work could slow down your blockchain.
 
-Any application that uses Tendermint for consensus must implement the Application Blockchain Interface. Fortunately, you do not have to do this manually because the Cosmos SDK provides a boilerplate known as the BaseApp to get you started.
+Any application that uses Tendermint for consensus must implement the ABCI. Fortunately, you do not have to do this manually because the Cosmos SDK provides a boilerplate known as BaseApp to get you started.
 
 In the following exercise, you will create a minimal distributed state machine with the Cosmos SDK. Your state machine will rely on Tendermint for consensus.
 
-## Some Code Perhaps?
+## Some code perhaps?
 
 With your learnings about Tendermint, could you **design** a minimal distributed state machine/blockchain that allows people to play the game of checkers? In the collapsed box below, you are invited to start this reflection and reinforce your understanding of Tendermint. Later, in other pages, you will do the same and design such a blockchain by using elements of the Cosmos SDK. You are free to skip it if this is not your thing.
 
 <ExpansionPanel title="Let's make a checkers blockchain">
 
-Here, you are introduced to a **design** project that you will bring forward as you learn more. In so doing, you will see how the Cosmos SDK improves your productivity by taking care of the boilerplate. It is still interesting to know about what the boilerplate is, in order to get a better overall picture.
+Here, you are introduced to a **design** project that you will bring forward as you learn more. In doing so, you will see how the Cosmos SDK improves your productivity by taking care of the boilerplate. It is still interesting to know about what the boilerplate is, in order to get a better overall picture.
 
-This is meant as a mental exercise. If you want to go from the design phase to the **implementation** phase, head to [Build your own chain](../5-my-own-chain/01-index.md).
+This is meant as a mental exercise. If you want to go from the design phase to the **implementation** phase, head to [My Own Cosmos Chain](../5-my-own-chain/01-index.md).
 
 ### The setup
 
-You are going to design a blockchain that lets interested people play checkers against each other. There are many versions of the rules. Let's choose [those](https://www.ducksters.com/games/checkers_rules.php). Also, the object of the exercise is to understand ABCI and learn Cosmos SDK, not to get lost in the proper implementation of the board state or of the rules of checkers. So you are going to use, and adapt, [this ready-made implementation](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go), with the additional rule that the board is 8x8 and played on black cells. The code will likely require adaptations as you go along. Also, you are not going to be overly concerned with a marketable GUI since, again, that would be a separate design project in itself. Of course, you still need to concern yourself with creating the groundwork for a GUI to be possible in the first place.
+You are going to design a blockchain that lets interested people play checkers against each other. There are many versions of the rules. Let's choose [these simple rules](https://www.ducksters.com/games/checkers_rules.php) for the purpose of this exercise. Also, the object of the exercise is to understand ABCI and learn more about working with the Cosmos SDK, not to get lost in the proper implementation of the board state or of the rules of checkers. So you are going to use, and adapt, [this ready-made implementation](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go), with the additional rule that the board is 8x8 and played on black cells. The code will likely require adaptations as you go along. Also, you are not going to be overly concerned with a marketable GUI since, again, that would be a separate design project in itself. Of course, you still need to concern yourself with creating the groundwork for a GUI to be possible in the first place.
 
-When you revisit this design exercise, in the next chapters, the goal is to improve it and use the Cosmos SDK as you learn its components. If you are not interested in learning more about ABCI, it is safe to skip what comes below and head straight to the rest of the learning elements.
+<HighlightBox type="info">
 
-As you can imagine, beyond the rules of the game, there is a lot you need to take care of. Therefore, as a start you ought to simplify to the maximum. Have a look at these [specs](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md) to see what the application needs to do to comply with ABCI, and try to figure out how barebones you would make your first, imperfect, checkers game blockchain.
+In the next chapters, when you revisit this design exercise, the goal is to improve it and use the Cosmos SDK as you learn about the different components. If you are not interested in learning more about ABCI, it is safe to skip what comes below and head straight to the rest of the learning elements.
 
-### “Make” the state machine
+</HighlightBox>
+
+As you can imagine, beyond the rules of the game, there is a lot you need to take care of. Therefore, as a start, you ought to simplify to the maximum. Have a look at these [ABCI specs](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md) to see what the application needs to do to comply with ABCI, and try to figure out how barebones you would make your first, imperfect, checkers game blockchain.
+
+### "Make" the state machine
 
 Here is how you would do it. You _would_ do it, because you are here to learn the Cosmos SDK primarily, not to become proficient at implementing ABCI.
 
-You want to show the minimum viable ABCI state machine. Tendermint does not concern itself with whether proposed transactions are valid, and about how the state changes after such a transaction. It delegates those to the state machine, which will _transform_ transactions into game moves and states.
+You want to show the minimum viable ABCI state machine. Tendermint does not concern itself with whether proposed transactions are valid, and about how the state changes after such a transaction. It delegates these to the state machine, which will _transform_ transactions into game moves and states.
 
 Let's go through the important junctures at which the application has to act.
 
 #### Start the application
 
-This state machine is an application that needs to start before it can receive any requests from Tendermint. You take this opportunity to load in memory static elements, here, the acceptable general moves. Fortunately, this code [exists already](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L75) and is run automatically when the module is loaded:
+This state machine is an application that needs to start before it can receive any requests from Tendermint. Take this opportunity to load in memory static elements, here, the acceptable general moves. Fortunately, this code [exists already](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L75) and is run automatically when the module is loaded:
 
 > `func init()`
 
-#### `Query`: _the_ game state
+#### `Query`: _The_ game state
 
-Yes, there will be a single game, a single board, in the whole blockchain. This is your way of simplifying. You can decide right away how to serialize the board without effort because you have [this function](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L303):
+For now, there will be a single game, a single board, in the whole blockchain. This is your way of simplifying. You can decide right away how to serialize the board without effort because you have [this function](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L303):
 
 > `func (game *Game) String() string`
 
-And you store the board at `/store/board`, and return it in the response's `Value`, when requested via the [`Query`](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#query) command at `path = "/store/board"`. If and when you need to reinstantiate the board state out of its serialized form, you [can call](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L331):
+And, you store the board at `/store/board`, and return it in the response's `Value`, when requested via the [`Query`](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#query) command at `path = "/store/board"`. If and when you need to reinstantiate the board state out of its serialized form, you [can call](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L331):
 
 > `func Parse(s string) (*Game, error)`
 
@@ -189,21 +190,21 @@ Sadly, the `String()` function does not save the `Game.Turn` field, so you need 
 
 To store this state, your application needs its own database. It needs to store a state at a certain Merkle root value, too, so that it can be recalled at a later date. This is another implementation _detail_ that you need to address when creating your application.
 
-#### `InitChain`: the initial chain state
+#### `InitChain`: The initial chain state
 
 [That's](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#initchain) where your only game is initialized. Tendermint sends `app_state_bytes: bytes` to your application, with the initial (genesis) state of the blockchain. In your case, you already know what it would look like, i.e. represent a single unstarted game. But your application is a good sport and:
 
-* Takes this initial state in;
-* Saves it in its database;
+* Takes this initial state in.
+* Saves it in its database.
 * Returns, in `app_hash: bytes`, the Merkle root hash corresponding to this genesis state.
 
 Notice how your application also has to handle the list of validators sent by Tendermint. Let's gloss over this _detail_.
 
-#### A serialized transaction.
+#### A serialized transaction
 
-Before talking about what to do with a transaction, you need to decide how to represent a move. In your ready-made game implementation, a position `Pos` is represented by [2 `int`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L42-L45), and a move by [2 `Pos`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L168). You can decide to represent a serialized move as 4 `int`, the first 2 for the original position `src`, and the next 2 for the destination position `dst`.
+Before talking about what to do with a transaction, you need to decide how to represent a move. In your ready-made game implementation, a position `Pos` is represented by [two `int`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L42-L45), and a move by [two `Pos`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L168). You can decide to represent a serialized move as four `int`, the first two for the original position `src`, and the next two for the destination position `dst`.
 
-#### `BeginBlock`: a new block is about to be created
+#### `BeginBlock`: A new block is about to be created
 
 [This command](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#beginblock) instructs the application to load its state at the right place. More precisely, inside `header: Header`, as per its [detailed definition](https://github.com/tendermint/spec/blob/c939e15/spec/core/data_structures.md#header), you find:
 
@@ -215,19 +216,19 @@ In case the header has omitted the `AppHash`, which should never happen, the app
 
 With this state loaded, the application is ready to respond to the upcoming `CheckTx` and `DeliverTx`.
 
-#### `CheckTx`: a new transaction appears in the transaction pool
+#### `CheckTx`: A new transaction appears in the transaction pool
 
 That's where Tendermint [asks](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#checktx) your application whether the transaction is worth keeping at all. Because you want to simplify to the maximum, you only concern yourself with whether there is a valid move in the transaction.
 
-For that, you check whether there are 4 `int` in the serialized information. You can also check that the `int` themselves are within the boundaries of the board, i.e. between `0` and `7`.
+For that, you check whether there are four `int` in the serialized information. You can also check that the `int` themselves are within the boundaries of the board, i.e. between `0` and `7`.
 
 It is better _not_ to check whether you have a [valid move](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L168):
 
 > `func (game *Game) ValidMove(src, dst Pos) bool`
 
-Checking whether a move is valid with regards to the board, needs the board to have been updated beforehand. Alas, the board is updated only up to the point where the transactions have been delivered. And you may have a situation where 2 transactions have been sent one after the other, both in fact valid. In this rare situation, if you tested the move in the second transaction against the board, it would appear invalid because the first transaction had been checked but not delivered yet. Therefore, testing a move on the board at CheckTx time is better avoided.
+Checking whether a move is valid with regards to the board, needs the board to have been updated beforehand. Alas, the board is updated only up to the point where the transactions have been delivered. And you may have a situation where two transactions have been sent one after the other, both in fact valid. In this rare situation, if you tested the move in the second transaction against the board, it would appear invalid because the first transaction had been checked but not delivered yet. Therefore, testing a move on the board at CheckTx time is better avoided.
 
-#### `DeliverTx`: a transaction is added and needs to be processed
+#### `DeliverTx`: A transaction is added and needs to be processed
 
 Now, a transaction [is finalized](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#delivertx). It is a matter of applying it to the latest board state. Conveniently, you can [call](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274):
 
@@ -262,7 +263,7 @@ If you come from the Ethereum world, you will recognize these as _events_, a.k.a
 
 Finally, it would be judicious to inform Tendermint about the `GasUsed (int64)`. Presumably each move costs the same so we can return `1`.
 
-#### `EndBlock`: the block is being wrapped up
+#### `EndBlock`: Wrapping up the block
 
 Now is [the time](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#endblock) to let Tendermint know about some things. Setting aside once more the validator thing, you need to let it know what events should be emitted, similarly to what happened on `DeliverTx`. In your case, you have only checkers moves, so it is not very clear what could be interesting to be searched at a later date.
 
@@ -278,11 +279,11 @@ For the sake of the argument, let's assume that you want to tally what happened 
 ]
 ```
 
-#### `Commit`: your work here is done
+#### `Commit`: Your work here is done
 
 The block that has previously ended has now been [confirmed](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#commit), and the application needs to save its state to storage, to its database. And return, as `data: []byte`, the Merkle root hash of the blockchain's state, which, as you recall, includes `/store/board`. As mentioned in [the docs](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#determinism), this hash needs to be deterministic after the sequence of the same `BeginBlock`, the same `DeliverTx`'s in the same order, and the same `EndBlock`.
 
-After having returned and saved, the application may also keep a pointer in its database as to which state is the latest, so it can purge the board from its memory. Indeed, the next `BeginBlock` will inform it which state to load; probably the same. In practice, the application ought to keep the state in memory so as to quickly build on it if the next `BeginBlock` fails to mention `AppHash`, or mentions the same.
+After having returned and saved, the application may also keep a pointer in its database as to which state is the latest, so it can purge the board from its memory. Indeed, the next `BeginBlock` will inform it which state to load; probably the same. In practice, the application ought to keep the state in memory to quickly build on it if the next `BeginBlock` fails to mention `AppHash`, or mentions the same.
 
 ### What if I like extreme serialization?
 
@@ -307,6 +308,6 @@ You have waved your hands as to how you would create a state machine for the che
 * You want to be able to easily add changes to your system in the future. See Cosmos SDK's migrations.
 * You want to open up so that players can decide to play for money with different tokens. See Cosmos SDK's IBC.
 
-The Cosmos SDK will assist you in attending all these concerns without having to reinvent the wheel. Let's go.
+The Cosmos SDK will assist you in attending to all these concerns without having to reinvent the wheel. Let's go.
 
 </ExpansionPanel>
