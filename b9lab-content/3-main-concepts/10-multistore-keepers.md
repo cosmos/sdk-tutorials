@@ -1,10 +1,17 @@
-# Multistore & Keepers
+---
+title: "Multistore and Keepers"
+order: 8
+description: Store types, the AnteHandler, and keepers
+tag: deep-dive
+---
+
+# Multistore and Keepers
 
 ## Long-running exercise
 
 So far we have described what we wanted to do:
 
-* Define a game id. How is defined? Probably incrementally.
+* Define a game id. How is it defined? Probably incrementally.
 * Save many `FullGame`s in storage for retrieval by id.
 * Save `FullGame` ids in an ordered list of their timeouts, for use in `EndBlock`.
 * Handle `CreateGameTx`, `MoveTx`, and `RejectTx`.
