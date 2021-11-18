@@ -71,7 +71,7 @@ ctx.EventManager().EmitEvent(
     )
 )
 ```
-Less evidently, in order to avoid surprises down the road, you ought to also modify the creator function among the interface definition of `MsgCreateGame`, in `x/checkers/types/message_create_game.go`:
+To avoid surprises later, modify the creator function among the interface definition of `MsgCreateGame` in `x/checkers/types/message_create_game.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/types/message_create_game.go#L15]
 func NewMsgCreateGame(creator string, red string, black string, wager uint64) *MsgCreateGame {
