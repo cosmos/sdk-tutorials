@@ -274,4 +274,4 @@ With the desired steps defined into their own functions, it is time to insert th
     }
     ```
 
-And with that, you have handled wagers. Players can start getting serious if they want.
+Congratulations, you have successfully handled wagers. Players can now start getting serious with the game.
