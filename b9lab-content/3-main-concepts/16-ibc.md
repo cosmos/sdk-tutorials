@@ -151,8 +151,6 @@ https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosm
 
 
 Relayers are an essential part of the IBC infrastructure and there are several implementations. To learn more about relaying, please visit [the IBC website](https://ibcprotocol.org/relayers/).
-https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/relayer.md
-Token transfers with IBC
 Long running exercise. Foreign tokens:
 We want to play with foreign tokens. How to implement.
 NFT transfers with IBC
