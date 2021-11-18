@@ -77,6 +77,8 @@ This new denomination now needs to be inserted in the relevant locations.
     )
     ```
 
-This was all rather simple. The difficulty was in fact in the IBC protocol and relayers. Your checkers blockchain is complete. It has the required features, and lets players play comfortably.
+To make these changes, the code updates themselves were not complex. The advanced usage is for the IBC protocol and relayers. 
+
+Congratulations! Your checkers blockchain is complete with the required features and lets players play comfortably.
 
 Complete? What if you wanted to introduce a new feature after it has been deployed and been running? That's the point of migrations in the next section.
