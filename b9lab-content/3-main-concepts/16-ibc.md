@@ -144,10 +144,6 @@ A Peg-Zone is a blockchain that tracks the state of another blockchain. The Peg-
 
 <HighlightBox info=”info”>
 
-The Tendermint team is working on a Peg-Zone implementation for the Ethereum chain called the Gravity bridge: https://github.com/cosmos/gravity-bridge
-
-</HighlightBox>
-
 <!-- TODO -->
 Paradigms and implications
 Interchain accounts
