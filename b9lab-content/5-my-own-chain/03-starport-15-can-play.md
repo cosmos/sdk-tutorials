@@ -1,7 +1,7 @@
 ---
 title: Can Play Query
 order: 17
-description: You help players make good transactions.
+description: Help players make good transactions.
 ---
 
 # Can Play Query
