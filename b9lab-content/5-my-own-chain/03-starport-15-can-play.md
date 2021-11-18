@@ -6,9 +6,9 @@ description: Help players make good transactions.
 
 # Can Play Query
 
-When a player makes a move, they send a transaction. This transaction can succeed but also fail for a number of reasons. One of these reasons is that the move was invalid. Would it not be good if the player could make sure, in code, that the move is valid on the board waiting for their turn? Yes, it would.
+When a player makes a move, they send a transaction. This transaction can succeed or fail for a number of reasons. One of these reasons is that the move was invalid. Would it not be helpful if the player could make sure, in code, that the move is valid on the board waiting for their turn? Yes, it would.
 
-For this to happen you need to open a way for the player to hit the rules' `Move` function without changing the blockchain state. That's where queries come in, they are evaluated in memory. As before, you get assistance from Starport.
+For this to happen you need to open a way for the player to hit the rules' `Move` function without changing the blockchain state. That's where queries come in. Queries are evaluated in memory. As before, you get assistance from Starport.
 
 ## New Information
 
