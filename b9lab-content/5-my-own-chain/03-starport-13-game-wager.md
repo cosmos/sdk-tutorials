@@ -155,7 +155,9 @@ func (k *Keeper) CollectWager(ctx sdk.Context, storedGame *types.StoredGame) err
 func (k *Keeper) MustPayWinnings(ctx sdk.Context, storedGame *types.StoredGame)
 func (k *Keeper) MustRefundWager(ctx sdk.Context, storedGame *types.StoredGame)
 ```
-In the above, the `Must` prefix means that it either takes place or a panic is issued. After all, if a player cannot pay the wager, it is a user-side error, and the user should be informed with a failed transaction. On the other hand, if the module cannot pay, it means the escrow account has failed. This is much more serious, an invariant has been violated and the whole application should be terminated.
+The `Must` prefix in the function means that the transaction either takes place or a panic is issued. After all, if a player cannot pay the wager, it is a user-side error, and the user must be informed of a failed transaction. 
+
+On the other hand, if the module cannot pay, it means the escrow account has failed. This error is much more serious, an invariant has been violated and the whole application must be terminated.
 
 1. **Collecting wagers** happens on a player's first move. This makes sense. Don't forget to differentiate between players:
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/wager_handler.go#L15-L36]
