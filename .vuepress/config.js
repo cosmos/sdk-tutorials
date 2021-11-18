@@ -280,7 +280,45 @@ module.exports = {
     feedback: {
       formId: "xyylrkbl",
       captchaSiteKey: "6Ldu_iwdAAAAAF_kmEKihLNwB4qQNsGr9ox5t3Xd",
-    }
+    },
+    resources: [
+      {
+        title: "Cosmos SDK",
+        description: "A framework to build application-specific blockchains",
+        links: [{
+          name: "Documentation",
+          url: "https://docs.cosmos.network/"
+        }],
+        image: "/cosmos-sdk-icon.svg"
+      },
+      {
+        title: "Tendermint Core",
+        description: "Blockchain consensus engine and application interface",
+        links: [{
+          name: "Documentation",
+          url: "https://docs.tendermint.com/"
+        }],
+        image: "/tendermint-icon.svg"
+      },
+      {
+        title: "Cosmos Hub",
+        description: "First interconnected public blockchain on the Cosmos network",
+        links: [{
+          name: "Documentation",
+          url: "https://hub.cosmos.network/"
+        }],
+        image: "/generic-star-icon.svg"
+      },
+      {
+        title: "IBC",
+        description: "Industry standard protocol for inter-blockchain communication",
+        links: [{
+          name: "Documentation",
+          url: "https://ibc.cosmos.network/"
+        }],
+        image: "/ibc-icon.svg"
+      }
+    ]
   },
   plugins: [
     [
