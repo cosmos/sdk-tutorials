@@ -8,6 +8,12 @@ On top of that, Starport will handle some compilation, run a local blockchain no
 
 ## Install
 
+<HighlightBox type="tip">
+
+Want to dedicate some time to dive deeper when it comes to installing Starport? Have a look at how to install Starport [in the Starport documentation](install Starport).
+
+</HighlightBox>
+
 To install Starport at the command line:
 
 ```sh
