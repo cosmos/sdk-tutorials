@@ -35,7 +35,7 @@ Remember that players can still reject games, so there is no risk that players c
 ```sh
 $ starport chain serve
 ```
-While you are at it, how about adding a helper function to `StoredGame`, using the Cosmos SDK's `Coin`, in `x/checkers/types/full_game.go`:
+While you are at it, how about adding a helper function to `StoredGame` using the Cosmos SDK `Coin` in `x/checkers/types/full_game.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/types/full_game.go#L71-L73]
 func (storedGame *StoredGame) GetWagerCoin() (wager sdk.Coin) {
