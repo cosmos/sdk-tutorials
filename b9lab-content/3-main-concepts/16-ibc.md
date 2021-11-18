@@ -136,8 +136,7 @@ IBC can use Tendermint chains to bridge with IBC but also non-Tendermint chains.
 ### Ethereum peg zone:
 
 <HighlightBox type=”info”>
-
-https://blog.cosmos.network/the-internet-of-blockchains-how-cosmos-does-interoperability-starting-with-the-ethereum-peg-zone-8744d4d2bc3f
+A great example of one of these peg-zones is the [Gravity Bridge](https://github.com/cosmos/gravity-bridge).
 
 </HighlightBox>
 
