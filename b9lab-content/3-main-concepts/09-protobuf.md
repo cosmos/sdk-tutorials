@@ -2,15 +2,15 @@
 
 ## Overview
 
-Protocol buffers, also called Protobuf in the short form, are an open source, extensible, cross-platform and language-neutral method of serializing object data, primarily used for network communication. There are several libraries for multiple platforms that all use a common interface description language to generate source code for encoding and decoding streams of bytes representing structured data.
+Protocol buffers, also called Protobuf in the short form, are an open-source, extensible, cross-platform, and language-neutral method of serializing object data, primarily used for network communication. There are several libraries for multiple platforms that all use a common interface description language to generate source code for encoding and decoding streams of bytes representing structured data.
 
-Originally designed and developed by Google, Protobuf has been an open source project since 2008 and serves as the basis for Remote Procedure Call (RPC) systems.
+Originally designed and developed by Google, Protobuf has been an open-source project since 2008 and serves as the basis for Remote Procedure Call (RPC) systems.
 
 `.proto` files contain data structures called messages. A compiler, `protoc`, interprets the `.proto` file and generates source code in supported languages, such as Go, C++, C#, Dart, Java, Python, and others.
 
 <HighlightBox type=”info”>
 
-Google provides the [gRPC project](https://blog.conan.io/2019/03/06/Serializing-your-data-with-Protobuf.html), a universal RPC framework that supports Protobuf directly. See the section titled [Compiler Invocation](https://developers.google.com/protocol-buffers/docs/reference/cpp-generated#invocation) for more information about this process.
+Google provides the [gRPC project](https://blog.conan.io/2019/03/06/Serializing-your-data-with-Protobuf.html), a universal RPC framework that supports Protobuf directly. See the section titled [Compiler Invocation](https://developers.google.com/protocol-buffers/docs/reference/cpp-generated#invocation) for more information on this process.
 
 </HighlightBox>
 
@@ -29,8 +29,9 @@ Go developers access the setters and getters in the generated source code throug
 
 <HighlightBox type=”info”>
 
-For more on encoding in Cosmos: https://docs.cosmos.network/master/core/encoding.html
-Protobuf documentation overview: https://docs.cosmos.network/master/core/proto-docs.html
+For more on encoding in Cosmos, take a peek at [the Cosmos SDK documentation on encoding](https://docs.cosmos.network/master/core/encoding.html).
+
+Here you can find the [Protobuf documentation overview](https://docs.cosmos.network/master/core/proto-docs.html).
 
 </HighlightBox>
 
@@ -57,7 +58,7 @@ The core of a Cosmos SDK application mainly consists of type definitions and con
 * Reference to **codec**: Defaulted to go-amino, the codec in your Cosmos SDK application can be substituted with other suitable encoding frameworks as long as they persist data stores in byte slices and are deterministic.
 * Reference to Module Manager: A reference to an object containing a list of the applications modules, known as the Module Manager.
 
-<ExpansionPanel title="Show me some code for my checkers blockchain">
+<ExpansionPanel title="Show me some code for my checker's blockchain">
 
 In the previous code samples, you saw something like:
 
@@ -72,7 +73,7 @@ type StoredGame struct {
     Wager uint64
 }
 ```
-With a _helpful_ note telling you that you still need to add serialization information like:
+With a _helpful_ note telling you that you still need to add serialization information, like:
 
 ```go
 type StoredGame struct {
@@ -82,7 +83,7 @@ type StoredGame struct {
 ```
 How are you to add such cryptic commands without any error?
 
-## Move Upstream
+## Move upstream
 
 This is where Protobuf comes in to simplify your life even more. The same `StoredGame` can in fact be declared as:
 
@@ -97,9 +98,9 @@ message StoredGame {
   uint64 wager = 7;
 }
 ```
-The `= 1` parts indicate how each field is identified in the serialized output, and additionally provides backward compatibility. As your application upgrades to newer versions, make sure to not reuse numbers for new fields, but to keep increasing the `= x` value to preserve backward compatibility.
+The `= 1` parts indicate how each field is identified in the serialized output and additionally, provides backward compatibility. As your application upgrades to newer versions, make sure to not reuse numbers for new fields but to keep increasing the `= x` value to preserve backward compatibility.
 
-When _compiling_ it, Protobuf will add the `protobuf:"bytes..."` elements. Similarly, the messages to create a game can be declared in Protobuf as:
+When _compiling_, Protobuf will add the `protobuf:"bytes..."` elements. Similarly, the messages to create a game can be declared in Protobuf as:
 
 ```protobuf
 message MsgCreateGame {
@@ -116,13 +117,16 @@ message MsgCreateGameResponse {
 
 ## Enter Starport
 
-When Starport creates a message for you, it also creates the gRPC definitions and Go handling code. Using commands like the ones below, makes it relatively easy to introduce Protobuf elements into your own chain:
+When Starport creates a message for you, it also creates the gRPC definitions and Go handling code. Using commands like the ones below makes it relatively easy to introduce Protobuf elements into your chain:
 
 ```sh
 $ starport scaffold map storedGame game turn red black wager:uint --module checkers --no-message
 $ starport scaffold message createGame red black wager:uint --module checkers --response idValue
 ```
+<HighlightBox type="tip">
 
-If you want to dive straight into coding your own chain, head to [how to build your own chain](../5-my-own-chain/01-index) for more details on using Starport.
+If you want to dive straight into coding your chain, head to [My Own Chain](../5-my-own-chain/01-index) for more details on using Starport.
+
+</HighlightBox>
 
 </ExpansionPanel>
