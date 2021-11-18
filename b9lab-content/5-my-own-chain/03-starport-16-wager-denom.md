@@ -1,7 +1,7 @@
 ---
 title: IBC Foreign Token Wager
 order: 18
-description: You let players wager any fungible token.
+description: Let players wager any fungible token.
 ---
 
 # IBC Foreign Token Wager
