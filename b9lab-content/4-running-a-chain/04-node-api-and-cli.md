@@ -190,7 +190,7 @@ $ ./simd init demo
 
 </ExpansionPanel>
 
-In the output, you can find your `chain_id`, which here happens to be `test-chain-rT4wZY`. Make a note of the one you have as you will need it later on to determine the chain id, by passing it to simapp via the flag `--chain-id`.
+In the output, you can find your `chain_id`, which in our build happens to be called `test-chain-rT4wZY`. Make a note of the one you have as you will need it later on to determine the chain id, by passing it to simapp via the flag `--chain-id`.
 
 You can inspect the initial configuration with:
 
