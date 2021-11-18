@@ -265,7 +265,7 @@ grep -A 10 balances ~/.simapp/config/genesis.json
 
 With this initial balance, and before you actually run your blockchain, you still need to escape the catch-22 and include your bootstrap transactions in the genesis file.
 
-Note: In this scenario, you must meet the 2/3 threshold for validation, so you must stake `70000000stake` of your `100000000stake` in the `b9lab` account you just created. Don't forget to use your own `--chain-id`.
+Note: In this scenario, you must meet the 2/3 threshold for validation, so you must stake at least `70000000stake` of your `100000000stake` in the `b9lab` account you just created. But make sure to not use all your stake, so you still have tokens to pay for gas. Don't forget to use your own `--chain-id`.
 
 ```bash
 $ ./simd gentx b9lab 70000000stake --chain-id test-chain-rT4wZY
