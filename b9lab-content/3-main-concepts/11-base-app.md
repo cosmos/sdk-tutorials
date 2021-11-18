@@ -1,4 +1,11 @@
-# Base App
+---
+title: "BaseApp"
+order: 9
+description: Working with BaseApp to implement apps
+tag: deep-dive
+---
+
+# BaseApp
 
 BaseApp is a boilerplate implementation of a Cosmos SDK application. This abstraction implements functionalities that every Cosmos application needs starting with an implementation of the Tendermint Application Blockchain Interface (ABCI). 
 
