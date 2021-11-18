@@ -243,7 +243,7 @@ $ ./simd keys show b9lab
 
 ## Make Yourself a Proper Validator
 
-As you know by now, a Cosmos SDK blockchain relies on identified validators to produce blocks. Validators are added and removed through an on-chain governance process, i.e. via transactions. Initially, there is no validator to generate any block in which such a transaction might be added. You are in a catch-22 situation. Your initialized, but unstarted, chain needs a genesis account and validator for bootstrapping purposes.
+As you know by now, a Cosmos SDK blockchain relies on identified validators to produce blocks. Initially, there is no validator to generate blocks. You are in a catch-22 situation. Your initialized and unstarted chain needs a genesis account and validator for bootstrapping purposes.
 
 Make your key (also known as an account) have an initial balance in the genesis file:
 
