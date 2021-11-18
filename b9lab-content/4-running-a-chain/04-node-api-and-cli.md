@@ -438,7 +438,7 @@ rootCmd.AddCommand(
 )
 ```
 
-Also explain [`simapp/app.go`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/app.go) in which each module and keykeeper will be imported. The first thing you will see is a considerable [list of modules](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/app.go#L33-L44) that are used by most cosmos-sdk apps:
+Also, have a look at [`simapp/app.go`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/app.go) in which each module and keykeeper will be imported. The first thing you will see is a considerable [list of modules](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/app.go#L33-L44) that are used by most cosmos-sdk apps:
 
 ```go
 ...
