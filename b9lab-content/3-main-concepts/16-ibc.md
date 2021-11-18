@@ -150,7 +150,7 @@ Interchain accounts
 https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11
 
 
-Relayers - What is a relayer? How are relayers used in Cosmos? How can one manage and deploy relayers? Hermes as an example
+Relayers are an essential part of the IBC infrastructure and there are several implementations. To learn more about relaying, please visit [the IBC website](https://ibcprotocol.org/relayers/).
 https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/relayer.md
 Token transfers with IBC
 Long running exercise. Foreign tokens:
