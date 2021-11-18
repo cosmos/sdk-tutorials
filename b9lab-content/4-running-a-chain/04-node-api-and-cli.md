@@ -207,7 +207,7 @@ $ ./simd keys list
 []
 ```
 
-As you might have expected, you do not have any keys yet. Let's remedy that and add a new key:
+As you might have expected, you do not have any keys yet. Let's fix that and add a new key:
 
 ```bash
 $ ./simd keys add b9lab
