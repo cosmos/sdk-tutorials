@@ -37,6 +37,12 @@ This update is going to be quick. In each relevant handler, add a line that cons
     ctx.GasMeter().ConsumeGas(types.RejectGameGas, "Reject game")
     ```
 
-Of course, you are free to be more elaborate and chisel the conditions that consume. Avoid calling `ConsumeGas` from within a loop, though. Instead, if you know the number of times your code loops, consume all the gas ahead of the loop. With this trick, if the signer had not sent enough gas, the transaction will run out of gas anyway, as if you had run the steps, except you didn't run them, and therefore saved computations on your node.
+Of course, you are free to be more elaborate and chisel the conditions that consume. 
+
+</HighlightBox type="tip">
+
+Avoid calling `ConsumeGas` from within a loop. Instead, if you know the number of times your code loops, consume all the gas ahead of the loop. With this trick, if the signer had not sent enough gas, the transaction runs out of gas anyway as if you had run the steps. This strategy saves computations on your node.
+
+</HighlightBox>
 
 Okay. Time to move on.
