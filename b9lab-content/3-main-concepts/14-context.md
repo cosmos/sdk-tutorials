@@ -1,3 +1,10 @@
+---
+title: "Context"
+order: 12
+description: Information on the state of the app, the block, and the transaction
+tag: deep-dive
+---
+
 # Context
 
 Transactions execute in a context that includes information about the current state of the application, the block and the transaction. 
