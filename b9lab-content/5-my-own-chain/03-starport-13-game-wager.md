@@ -84,7 +84,7 @@ func NewMsgCreateGame(creator string, red string, black string, wager uint64) *M
 
 ## Preparing Your Keeper
 
-Saving a field named `Wager`, however well named, does not make players pay it or receive rewards. You need to add the handling actions. This handling has to ask the Bank to do the necessary. For this to be possible, your keeper needs to ask for a bank instance during setup. Remember that, because of the object-capability model throughout the Cosmos SDK, the only way to have access to a capability is to be given the reference to an instance that has this capability.
+Saving a field named `Wager` is well named. However, the `Wager` field does not make players pay it or receive rewards. You need to add the handling actions. This handling action must ask the Bank module to perform the required transactions. Your keeper needs to ask for a bank instance during setup. Remember, with the object-capability model of the Cosmos SDK, the only way to have access to a capability is to be given the reference to an instance that already has this capability.
 
 What does your keeper need to do? It needs to keep in escrow the wager when the game is being played, and to pay back when the game is resolved. Good thing, the bank happens to have functions to transfer tokens from any account to your module, and vice-versa.
 
