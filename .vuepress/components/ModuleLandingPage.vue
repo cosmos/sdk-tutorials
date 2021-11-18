@@ -9,18 +9,8 @@
 					span {{$frontmatter.intro.action.label}} &rarr;
 			.home__content__intro__image(v-if="$frontmatter.intro.image")
 				img(:src="$frontmatter.intro.image")
-		.home__content__secondtext.tm-rf-1.tm-muted(v-if="$frontmatter.intro.secondtext" v-html="$frontmatter.intro.secondtext")
-
-		.home__content__get-started(v-if="$frontmatter.main")
-			.home__content__get-started__image
-				img(width="100%" src="/graphics-sdk-course-1.png")
-			.home__content__get-started__content
-				.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted get started
-				h2.home__content__get-started__content__title Ready to start?
-				.home__content__get-started__content__desc
-					div If you just want to get started right away, why not begin with the introductory chapter?
-					div If you are unsure which sections to tackle, keep an eye out for the Deep dive and Fast track tags for orientation.
 		.modules
+			h2 Course Modules
 			card-module(v-for="module in this.modules" :module="module" :startExpanded="!$frontmatter.main").modules__item
 		.resources__wrapper(v-if="$themeConfig.resources")
 			h3.resources__title Developer resources
@@ -38,11 +28,12 @@
 
 <style lang="stylus" scoped>
 	.modules
+		margin-top 96px
 		display flex
 		flex-direction column
 
 		&__item
-			margin-top 32px
+			margin-top 64px
 
 	.resources
 		display flex
@@ -64,26 +55,29 @@
 			margin-top 96px
 
 		&__item
-			padding 10px
-			margin-block 10px
+			padding 32px
+			margin 10px
 			display flex
 			flex-direction column
 			justify-content space-between
+			border-radius 16px
+			background var(--background-color-secondary)
 
-			@media screen and (min-width: 481px)
+			@media screen and (min-width: 1025px)
 				flex 1 1 0px
 
 			@media screen and (min-width: 481px) and (max-width: 1024px)
 				width 40vw
+				flex-shrink 0
 
 			@media screen and (max-width: 480px)
 				width 60vw
 				flex-shrink 0
 
 			&:last-child
-				padding-right 0px
+				margin-right 0px
 			&:first-child
-				padding-left 0px
+				margin-left 0px
 
 			&__icon
 				margin-right 20px
