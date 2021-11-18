@@ -1,7 +1,7 @@
 ---
 title: Gas Metering
 order: 16
-description: You make sure validators are rewarded proportional to their effort.
+description: Reward validators proportional to their effort.
 ---
 
 # Gas Metering
