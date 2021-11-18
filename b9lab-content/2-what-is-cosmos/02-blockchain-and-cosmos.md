@@ -146,7 +146,7 @@ This degree of scalability is possible as Cosmos addresses **two types of scalab
 
 In a blockchain context, vertical scalability is typically achieved through the optimization of the consensus mechanism and applications running on the chain. On the consensus side, Cosmos achieves vertical scalability with the help of the Tendermint BFT. For instance, the Cosmos Hub currently conducts transactions in seven seconds. In a single blockchain context, the only remaining bottleneck is then the application.
 
-The consensus mechanism and application optimization of one's blockchain can only take one so far. To overcome the limits of vertical scalability, Cosmos' multi-chain architecture allows for **one application to run in parallel** on different chains, all the while being operated by the same validator set. This inter-chain horizontal scalability theoretically allows for infinite vertical-like scalability.
+The consensus mechanism and application optimization of one's blockchain can only take one so far. To overcome the limits of vertical scalability, Cosmos' multi-chain architecture allows for **one application to run in parallel** on different but IBC-coordinated chains, whether operated by the same validator set or not. This inter-chain horizontal scalability theoretically allows for infinite vertical-like scalability, minus the coordination overhead.
 
 <HighlightBox type="info">
 
