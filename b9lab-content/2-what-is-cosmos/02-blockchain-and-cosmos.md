@@ -13,7 +13,7 @@ Begin your journey with this brief review of blockchain technology, how Cosmos c
 
 The building blocks of blockchain technology can be found in the 1980s and 1990s when breakthroughs in computer science and cryptography laid the necessary groundwork. Blockchain technology per se was invented in 2008.
 
-The necessary breakthroughs included append-only, provably correct transaction logs using built-in error checking, strong authentication and encryption using public keys, mature theories of fault-tolerant systems, widespread understanding of peer-to-peer systems and, of course, the advent of the internet and ubiquitous connectivity and powerful client-side computers.
+The necessary breakthroughs included append-only, provably correct transaction logs using built-in error checking, strong authentication and encryption using public keys, mature theories of fault-tolerant systems, widespread understanding of peer-to-peer systems, and, of course, the advent of the internet and ubiquitous connectivity and powerful client-side computers.
 
 On the fateful October 31, 2008, an individual, or group, calling itself Satoshi Nakamoto proposed a **P2P network for a digital currency**, calling it **Bitcoin**. It introduced a novel consensus mechanism, now referred to as Nakamoto Consensus, that uses Proof-of-Work (PoW) to enable nodes to reach agreement in a decentralized network. Suddenly, it became possible to send online payments directly between parties **independently of financial institutions and trusted third parties**. Bitcoin became the first public, decentralized application.
 
@@ -124,7 +124,7 @@ Cosmos' founding **vision** is that of an easy development environment for block
 
 To achieve this vision and type of network, the ecosystem relies on an **open source toolkit**, including the [Inter-Blockchain Communication (IBC)](https://ibcprotocol.org/) protocol, its implementation in the [Cosmos SDK](https://v1.cosmos.network/sdk), and [Tendermint](https://tendermint.com/) as the base layer with state finality. The toolkit, a set of modular, adaptable, and interchangeable tools, helps not only to quickly spin up a blockchain, but also facilitates the customization of secure and scalable chains.
 
-As a brief introduction to this terminolody, Cosmos is a network of interoperable application blockchainss. Cosmos application blockchains are built with the Cosmos SDK which enables developers to quickly create a unique blockchain for their specific use-case. The Cosmos SDK includes the prerequisites that enable created blockchains to participate in inter-chain communications, throughout the Cosmos, using the Inter-Blockchain protocol (IBC), Cosmos application blockchains built with the Cosmos SDK use Tendermint consensus. Each of these topics is unfolded in more detail in the sections that follow. 
+As a brief introduction to this terminolody, Cosmos is a network of interoperable application blockchains. Cosmos application blockchains are built with the Cosmos SDK, which enables developers to quickly create a unique blockchain for their specific use-case. The Cosmos SDK includes the pre-requisites that enable created blockchains to participate in inter-chain communications using the Inter-Blockchain Communication protocol (IBC). Cosmos application blockchains built with the Cosmos SDK use the Tendermint consensus. Each of these topics is unfolded in more detail in the sections that follow.
 
 Let's now look at the problems Cosmos solves.
 
@@ -151,7 +151,7 @@ A **validator** is one or more cooperating computers that participate in the con
 
 Applications deployed on general-purpose blockchains all share the same underlying environment. When a change in the application needs to be made, it not only depends on the governance structures of the application but also on that of the environment, i.e. the governance mechanisms set by the protocol on which the application builds. Thus, the chain's governance limits the application's sovereignty. For this reason, it is often called a **two-layer governance**.
 
-For example, an application on a typical blockchain can have its own governance structure but it exists atop blockchain governance and, in most cases, the blockchain itself can upgrade in ways that potentially break applications. Application sovereignty is therefore diminished in two-layer governance settings. 
+For example, an application on a typical blockchain can have its own governance structure but it exists a blockchain governance on top, and, in most cases, the blockchain itself can upgrade in ways that potentially break applications. Application sovereignty is therefore diminished in two-layer governance settings.
 
 Cosmos resolves this issue as one can build a blockchain tailored to the application. There are no limits to the application's governance when every chain is maintained by its own set of validators. Cosmos follows a design of a **one-layer governance**.
 
