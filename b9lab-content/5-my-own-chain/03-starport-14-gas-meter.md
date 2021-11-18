@@ -22,7 +22,7 @@ const (
 
 ## Add Handling
 
-This is going to be quick. In each relevant handler, you add a line that consumes the designated amount of gas:
+This update is going to be quick. In each relevant handler, add a line that consumes the designated amount of gas:
 
 1. In `x/checkers/keeper/msg_server_create_game.go`:
     ```go
