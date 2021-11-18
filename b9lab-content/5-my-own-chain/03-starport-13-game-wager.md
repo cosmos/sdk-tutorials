@@ -129,7 +129,7 @@ app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
     ...
 )
 ```
-This `app.BankKeeper` is a full bank keeper, which also conforms to your `BankKeeper` interface.
+This `app.BankKeeper` is a full bank keeper that also conforms to your `BankKeeper` interface.
 
 ## Preparing Expected Errors
 
