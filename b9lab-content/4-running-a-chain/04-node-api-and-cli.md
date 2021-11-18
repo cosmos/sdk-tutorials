@@ -225,10 +225,7 @@ It is the only way to recover your account if you ever forget your password.
 ivory uniform actual spot floor vessel monster rose yellow noise smile odor veteran human reason miss stadium phrase assault puzzle sentence approve coral apology
 ```
 
-You can see the mnemonic at the end of the output:
-```bash
-ivory uniform actual spot floor vessel monster rose yellow noise smile odor veteran human reason miss stadium phrase assault puzzle sentence approve coral apology
-```
+You can see the mnemonic at the end of the output above.
 
 This sequence of words is a mnemonic that you can use to recover your public and private keys. In a production setting, the mnemonic must be stored in a reliable and confidential fashion such as a key-management infrastructure.
 
