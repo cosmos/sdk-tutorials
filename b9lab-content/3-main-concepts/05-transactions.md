@@ -6,7 +6,7 @@ description: Transactions in Cosmos.
 
 # Transactions
 
-Transactions are objects created by end-users to trigger state changes in the application. They are comprised of metadata that defines a context and one or more `sdk.Msg` that trigger state changes within a module through the module’s Protobuf message service.
+Transactions are objects created by end-users to trigger state changes in the application. They are comprised of metadata that defines a context and one or more `sdk.Msg`s that trigger state changes within a module through the module’s Protobuf message service.
 
 ## Transaction Process, End-user
 
@@ -24,7 +24,7 @@ From a user perspective, **decide** and **sign** are the main interactions, whil
 Transaction objects are Cosmos SDK types that implement the `Tx` interface. They contain the following methods:
 
 * `GetMsgs`: unwraps the transaction and returns a list of contained `sdk.Msg` - one transaction may have one or multiple messages.
-* `ValidateBasic`: includes lightweight, stateless checks used by ABCI message’s `CheckTx` and `DeliverTx` to make sure transactions are not invalid. For example, the auth module's `StdTx` `ValidateBasic` function checks that its transactions are signed by the correct number of signers and that the fees do not exceed the user's maximum. Note that this function is to be distinct from the `ValidateBasic` functions for `sdk.Msg`, which perform basic validity checks on messages only. For example, when `runTx` is checking a transaction created from the auth module, it first runs `ValidateBasic` on each message, then runs the auth module's `AnteHandler` which calls `ValidateBasic` for the transaction itself.
+* `ValidateBasic`: includes lightweight, stateless checks used by ABCI message’s `CheckTx` and `DeliverTx` to make sure transactions are not invalid. For example, the auth module's `StdTx` `ValidateBasic` function checks that its transactions are signed by the correct number of signers and that the fees do not exceed the user's maximum. Note that this function is to be distinct from the `ValidateBasic` functions for `sdk.Msg`, which perform basic validity checks on messages only. For example, when `runTx` is checking a transaction created from the auth module, it first runs `ValidateBasic` on each message, then runs the auth module's `AnteHandler`, which calls `ValidateBasic` for the transaction itself.
 
 As a developer, you should rarely manipulate a Tx object directly. It is an intermediate type used for transaction generation. Instead, developers should prefer the `TxBuilder` interface.
 
@@ -32,15 +32,15 @@ As a developer, you should rarely manipulate a Tx object directly. It is an inte
 
 Every message in a transaction must be signed by the addresses specified by its `GetSigners`. The SDK currently allows signing transactions in two different ways:
 
-* `SIGN_MODE_DIRECT` (preferred): The most used implementation of the Tx interface is the Protobuf Tx message, which is used in `SIGN_MODE_DIRECT`, Once signed by all signers, the `body_bytes`, `auth_info_bytes` and signatures are gathered into `TxRaw`, whose serialized bytes are broadcast over the network.
+* `SIGN_MODE_DIRECT` (preferred): the most used implementation of the Tx interface is the Protobuf `Tx` message, which is used in `SIGN_MODE_DIRECT`. Once signed by all signers, the `body_bytes`, `auth_info_bytes`, and signatures are gathered into `TxRaw`, whose serialized bytes are broadcast over the network.
 
-* `SIGN_MODE_LEGACY_AMINO_JSON`: The legacy implementation of the Tx interface is the `StdTx` struct from the auth module. The document signed by all signers is `StdSignDoc` which is encoded into bytes using Amino JSON. Once all signatures are gathered into `StdTx`, `StdTx` is serialized using Amino JSON, and these bytes are broadcast over the network.
+* `SIGN_MODE_LEGACY_AMINO_JSON`: the legacy implementation of the `Tx` interface is the `StdTx` struct from the auth module. The document signed by all signers is `StdSignDoc`, which is encoded into bytes using Amino JSON. Once all signatures are gathered into `StdTx`, `StdTx` is serialized using Amino JSON, and these bytes are broadcast over the network.
 
 ## Messages
 
 <HighlightBox type=”info”>
 
-Transaction messages are not to be confused with ABCI messages that define interactions between Tendermint and application layers.
+Transaction messages are not to be confused with ABCI messages, which define interactions between Tendermint and application layers.
 
 </HighlightBox>
 
@@ -51,7 +51,7 @@ While messages contain the information for state transition logic, a transaction
 
 ## Transaction Generation
 
-The `TxBuilder` interface contains metadata closely related to the generation of transactions. The end-user can freely set these parameters for the transaction to be generated.
+The `TxBuilder` interface contains metadata closely related to the generation of transactions. The end-user can freely set these parameters for the transaction to be generated:
 
 * `Msgs`: the array of messages included in the transaction.
 * `GasLimit`: option chosen by the users for how to calculate how much gas they are willing to spend.
@@ -91,7 +91,6 @@ The Tx service exposes a handful of utility functions, such as simulating a tran
 
 Example: [https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#programmatically-with-go](https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#programmatically-with-go)
 
-
 ### REST
 Each gRPC method has its corresponding REST endpoint, generated using gRPC-gateway.
 Rather than using gRPC, you can also use HTTP to broadcast the same transaction, on the `POST` `/cosmos/tx/v1beta1/txs` endpoint.
@@ -107,14 +106,14 @@ The three methods presented above are actually higher abstractions over the Tend
 Example: [https://docs.tendermint.com/master/rpc/#/Tx](https://docs.tendermint.com/master/rpc/#/Tx)
 you can use the Tendermint RPC endpoints to directly broadcast the transaction through Tendermint, if you wish to.
 
-## Next Up
+## Next up
 
-In the [next section](./07-messages) you'll learn how transaction messages are generated and handled in the Cosmos SDK.
+In the [next section](./07-messages), you can learn how transaction messages are generated and handled in the Cosmos SDK.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-Previously, the ABCI application knew of a single transaction type, that of a checkers move, with 4 `int`. With multiple games, this is no longer sufficient, nor viable. Additionally, because you are now on your way to using the Cosmos SDK, you need to conform to its `Tx` ways, which means that you have to create messages that are then placed into a transaction.
+Previously, the ABCI application knew of a single transaction type, that of a checkers move, with four `int`. With multiple games, this is no longer sufficient, nor viable. Additionally, because you are now on your way to using the Cosmos SDK, you need to conform to its `Tx` ways, which means that you have to create messages that are then placed into a transaction.
 
-Let's have a look at the the [messages](./07-messages) section to learn how to do just that!
+Let's have a look at the [Messages](./07-messages) section to learn how to do just that.
 
 </ExpansionPanel>
