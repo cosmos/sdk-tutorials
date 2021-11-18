@@ -88,7 +88,7 @@ Saving a field named `Wager` is well named. However, the `Wager` field does not 
 
 What does your keeper need to do? It needs to keep in escrow the wager when the game is being played, and to pay back when the game is resolved. Good thing, the bank happens to have functions to transfer tokens from any account to your module, and vice-versa.
 
-Additionally, it is good practice to declare an interface that narrowly defines the functions you need for your purpose. The bank is capable of a lot but really, all you need here are 2 functions of bank. You _redeclare_ them in the file made for this purpose, `x/checkers/types/expected_keepers.go`:
+Additionally, a best practice is to declare an interface that narrowly defines the functions you need for your purpose. The bank is capable of a lot but really, all you need here are two of the bank functions. You must _redeclare_ the functions in the `x/checkers/types/expected_keepers.go` file made for this purpose:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/types/expected_keepers.go#L7-L10]
 type BankKeeper interface {
