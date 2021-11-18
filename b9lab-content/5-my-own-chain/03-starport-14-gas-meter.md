@@ -6,7 +6,7 @@ description: Reward validators proportional to their effort.
 
 # Gas Metering
 
-As of now, players can start playing checkers with your Cosmos blockchain. They have to pay transaction fees. At least the fee related to transporting the serialized bytes and the other metered parts, like bank. How about you add your own gas fees to reflect the different costs different transactions impose. Or you add costs to discourage spam.
+So far, players can start playing checkers with your Cosmos blockchain. Players must pay transaction fees. At least the fee related to transporting the serialized bytes and the other metered parts, like bank. Now you can add your own gas fees to reflect the costs that different transactions impose. Or you can add costs to discourage spam.
 
 ## New Information
 
