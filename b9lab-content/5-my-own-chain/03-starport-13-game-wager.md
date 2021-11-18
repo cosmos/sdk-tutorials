@@ -183,7 +183,7 @@ On the other hand, if the module cannot pay, it means the escrow account has fai
     }
     ```
     Then the same for the red player.
-2. **Paying winnings** takes place when the game has a declared winner. So first, get the winner. In this `MustPayWinnings`, no winner is not an acceptable situation, the caller of the function should be aware:
+2. **Paying winnings** takes place when the game has a declared winner. So first, get the winner. In this `MustPayWinnings`, no winner is not an acceptable situation, the caller of the function must be aware:
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/wager_handler.go#L42-L48]
     winnerAddress, found, err := storedGame.GetWinnerAddress()
     if err != nil {
