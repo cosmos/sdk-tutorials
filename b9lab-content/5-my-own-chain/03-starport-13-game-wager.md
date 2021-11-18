@@ -14,7 +14,7 @@ Start by letting players wager in the staking token of your application.
 
 ## New Information
 
-First, you need to add this wager value to the stored game in `proto/checkers/stored_game.proto`:
+First, add this wager value to the stored game in `proto/checkers/stored_game.proto`:
 
 ```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/proto/checkers/stored_game.proto#L20]
 message StoredGame {
