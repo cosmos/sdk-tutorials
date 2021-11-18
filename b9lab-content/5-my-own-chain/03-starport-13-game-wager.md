@@ -53,7 +53,7 @@ const (
     StoredGameEventWager = "Wager"
 )
 ```
-Then you need to add the field in the stored object in `x/checkers/keeper/msg_server_create_game.go`:
+Next, add the field in the stored object in `x/checkers/keeper/msg_server_create_game.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/msg_server_create_game.go#L29]
 storedGame := types.StoredGame{
