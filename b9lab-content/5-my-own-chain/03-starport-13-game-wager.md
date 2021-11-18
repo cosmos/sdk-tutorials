@@ -146,7 +146,9 @@ ErrNotInRefundState        = sdkerrors.Register(ModuleName, 1118, "game is not i
 
 ## Money Handling Steps
 
-With the bank now in your keeper, it is time to have your keeper handle the money. Better keep this concern into its own file as it will be reused on play, reject and forfeit. Create the new file `x/checkers/keeper/wager_handler.go` and add 3 functions, to collect a wager, refund it and pay winnings:
+With the bank now in your keeper, it is time to have your keeper handle the money. Better keep this concern into its own file as the keeper is reused on play, reject, and forfeit. 
+
+Create the new file `x/checkers/keeper/wager_handler.go` and add these three functions to collect a wager, refund a wager, and pay winnings:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/wager_handler.go]
 func (k *Keeper) CollectWager(ctx sdk.Context, storedGame *types.StoredGame) error
