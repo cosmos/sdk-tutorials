@@ -8,7 +8,9 @@ description: You let players play with money.
 
 With game expiry, you have now covered the game theoretic risks that arise when 2 players are playing a game. This tutorial lets you add an extra layer with wagers or stakes. Players choose to wager _money_ and the winner gets both wagers. The forfeiter loses their wager.
 
-Your application already includes all the necessary modules, in fact `bank` is the one you need. Let's start with letting players wager in the staking token of your application. This is the most straightforward way of doing.
+Your application already includes all the necessary modules. This tutorial relies on the `bank` module.
+
+Start by letting players wager in the staking token of your application. 
 
 ## New Information
 
