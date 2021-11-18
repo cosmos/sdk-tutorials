@@ -272,7 +272,7 @@ $ ./simd gentx b9lab 70000000stake --chain-id test-chain-rT4wZY
 Genesis transaction written to "/Users/muratoener/.simapp/config/gentx/gentx-cf6bff39bb84da39d214138ebba8bcba4ccb848d.json"
 ```
 
-After having created this genesis transaction into its own file, include it into your genesis file:
+After having created this genesis transaction into its own file, collect all the genesis transactions with `collect-gentxs` to include it into your genesis file:
 
 ```bash
 $ ./simd collect-gentxs
