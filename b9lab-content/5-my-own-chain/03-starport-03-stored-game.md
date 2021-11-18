@@ -52,7 +52,7 @@ Which will be used to prefix the keys at which the objects are stored.
 
 ## Protobuf Objects
 
-As you know, Starport creates the Protobuf objects first before compiling them. Therefore you have the `NextGame` object:
+As you know, Starport creates the Protobuf objects first in the `proto` directory before compiling them. Therefore you have the `NextGame` object:
 
 ```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/next_game.proto#L8-L11]
 message NextGame {
