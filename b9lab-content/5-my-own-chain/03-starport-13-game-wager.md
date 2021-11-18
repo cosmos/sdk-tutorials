@@ -96,7 +96,7 @@ type BankKeeper interface {
     SendCoinsFromAccountToModule(ctx sdk.Context, senderAddr sdk.AccAddress, recipientModule string, amt sdk.Coins) error
 }
 ```
-These 2 functions need to exactly match those declared [here](https://github.com/cosmos/cosmos-sdk/blob/8b78406/x/bank/keeper/keeper.go#L37-L39), copy / paste to the rescue. The magic of Go is that any object that has your 2 functions above will be a `BankKeeper`. Because the bank's keeper has these 2 functions, it will be one.
+These two functions must exactly match the functions declared in the bank [keeper.go](https://github.com/cosmos/cosmos-sdk/blob/8b78406/x/bank/keeper/keeper.go#L37-L39) file. Copy and paste to the rescue. The magic of Go is that any object that has these two functions is a `BankKeeper`. Because the bank's keeper has these two functions, it will be a `BankKeeper`.
 
 Now with the requirements declared, it is time to make sure your keeper receives a reference. First, add a `BankKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
 
