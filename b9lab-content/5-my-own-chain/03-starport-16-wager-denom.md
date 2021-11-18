@@ -6,7 +6,7 @@ description: Let players wager any fungible token.
 
 # IBC Foreign Token Wager
 
-When you introduced a wager, players could play a game and wager the base, staking, token of your blockchain application. What if they want to play with other _currencies_? Fortunately, with the use of IBC, your blockchain can represent a token from any other blockchain connected to yours. Here, you are agnostic as to which tokens are being represented, and who is taking care of relayers. Instead, your only concern is to enable the use of _foreign_ tokens.
+When you introduced a wager, players could play a game and wager the base staking token of your blockchain application. What if they want to play with other _currencies_? Fortunately, with the use of IBC, your blockchain can represent a token from any other blockchain connected to your chain. Here, you are agnostic to the tokens that are represented and to who is taking care of relayers. Instead, your only concern is to enable the use of _foreign_ tokens.
 
 ## New Information
 
