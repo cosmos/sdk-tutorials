@@ -22,7 +22,7 @@ message StoredGame {
     uint64 wager = 12;
 }
 ```
-Plus, so as to let different player leagues emerge, you ought to let players choose the wager they want, in `proto/checkers/tx.proto`:
+To let different player leagues emerge, you can let players choose the wager they want with these changes in `proto/checkers/tx.proto`:
 
 ```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/proto/checkers/tx.proto#L45]
 message MsgCreateGame {
