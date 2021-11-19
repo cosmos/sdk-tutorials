@@ -35,7 +35,7 @@ func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (
 
 A player cannot reject a game once they've played. However, as of now, you do not know whether a player played or not. To remediate this, you need to add a new field to the `StoredGame`. Let's call it `MoveCount`. So in `proto/checkers/stored_game.proto`:
 
-```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/proto/checkers/stored_game.proto#L15]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/proto/checkers/stored_game.proto#L15]
 storedGame := types.StoredGame{
     ...
     uint64 moveCount = 7;
@@ -44,12 +44,7 @@ storedGame := types.StoredGame{
 At this point, to have Protobuf recompile the relevant Go files, you may want to run:
 
 ```sh
-$ starport chain serve
-```
-Or, if it complains:
-
-```sh
-$ starport chain serve --reset-once
+$ starport generate proto-go
 ```
 
 This `MoveCount` should start at `0` and increment by `1` on each move. So adjust, first, in `x/checkers/keeper/msg_server_create_game.go`:
@@ -127,4 +122,9 @@ Now, the reject steps are:
     ```
 * Leave the returned object as is.
 
+You can confirm that your project at least compiles [with](https://docs.starport.network/cli/#starport-chain-build):
+
+```sh
+$ starport chain build
+```
 That's all there is to it. Once again, with Protobuf and Starport, a lot of the boilerplate was taken care of.

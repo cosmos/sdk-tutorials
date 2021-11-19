@@ -18,7 +18,7 @@ Just as in the previous section, it is quite straightforward.
 
 In `proto/checkers/stored_game.proto`:
 
-```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/e50ceaedb52cbbb2e802a1c887657cdc8f52f25b/proto/checkers/stored_game.proto#L19]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/e50ceaedb52cbbb2e802a1c887657cdc8f52f25b/proto/checkers/stored_game.proto#L19]
 message StoredGame {
     ...
     string winner = 11;
@@ -27,7 +27,7 @@ message StoredGame {
 To have Starport and Protobuf recompile this file, you can use:
 
 ```sh
-$ starport chain serve
+$ starport generate proto-go
 ```
 While you are at it, go and add a helper function to get the winner's address, if it exists, in `x/checkers/types/full_game.go`:
 
@@ -100,4 +100,4 @@ if storedGame.Winner != rules.NO_PLAYER.Color {
     return nil, types.ErrGameFinished
 }
 ```
-And that's about it. Now you are ready for real to handle the expiry of games.
+And that's about it. Confirm it compiles, and you are now ready for real to handle the expiry of games.

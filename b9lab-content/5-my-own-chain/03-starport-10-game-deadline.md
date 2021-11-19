@@ -12,7 +12,7 @@ In the previous section you introduced a FIFO that keeps the _oldest_ games at t
 
 So let's do that and add in `proto/checkers/stored_game.proto`:
 
-```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/0d0e36a8ac86cddc457610856ddaab1b356cee84/proto/checkers/stored_game.proto#L18]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/0d0e36a8ac86cddc457610856ddaab1b356cee84/proto/checkers/stored_game.proto#L18]
 message StoredGame {
     ...
     string deadline = 10;
@@ -21,7 +21,7 @@ message StoredGame {
 To have Starport and Protobuf recompile this file, you can use:
 
 ```sh
-$ starport chain serve
+$ starport generate proto-go
 ```
 Let's decide that on each update, the deadline will always be _now_, defined as the block's time, plus a fixed duration. Let's declare this duration in `x/checkers/types/keys.go`, along with how the date is represented in the saved game, as a string:
 
@@ -78,4 +78,11 @@ storedGame.MoveCount++
 storedGame.Deadline = types.FormatDeadline(types.GetNextDeadline(ctx))
 ...
 ```
+
+Finally, confirm that your project still compiles:
+
+```sh
+$ starport chain build
+```
+
 When it comes to adding and updating a deadline, that's about it. Of course, this deadline is not used yet. That's the object of a next section where the deadline and the FIFO are put to use to expire games that have reached their deadline. Before you can do that, there is one other field to add, see the next section.

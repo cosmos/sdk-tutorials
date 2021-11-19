@@ -42,7 +42,7 @@ Isn't `k` still an unbounded number of operations? Yes, but if you use the same 
 How do you implement a FIFO given all the previous work? Let's choose a doubly linked list for that.
 
 1. You need to keep the id of the head and that of the tail. A ready-made place for that is `NextGame`. Good thing that it is already an object and is expandable. So in terms of code, just add a bit in `proto/checkers/next_game.proto`:
-    ```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/proto/checkers/next_game.proto#L11-L12]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/proto/checkers/next_game.proto#L11-L12]
     message NextGame {
         ...
         string fifoHead = 3; // Will contain the index of the game at the head.
@@ -50,7 +50,7 @@ How do you implement a FIFO given all the previous work? Let's choose a doubly l
     }
     ```
 2. Each game needs to know which game is before it, and which is after it. The right place for this information is `StoredGame` itself. In `proto/checkers/stored_game.proto`:
-    ```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/proto/checkers/stored_game.proto#L16-L17]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/proto/checkers/stored_game.proto#L16-L17]
     message StoredGame {
         ...
         string beforeId = 8; // Pertains to the FIFO. Towards head.
@@ -67,7 +67,7 @@ How do you implement a FIFO given all the previous work? Let's choose a doubly l
 To have Starport and Protobuf recompile these files, you can use:
 
 ```sh
-$ starport chain serve
+$ starport chain build
 ```
 While you are adding the new information, do not forget to adjust the default genesis so that it has proper values in `x/checkers/types/genesis.go`:
 
