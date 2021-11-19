@@ -73,7 +73,7 @@ Blockchains are paused at the block height of an adopted plan. This initiates th
 
 ## Application-specific
 
-The SideCar, handler, and store loader are application-specific. At each block, the Cosmos SDK checks for a plan that should be executed before processing block transactions. If none exists, then processing continues as usual. If a plan is scheduled to run, then the Cosmos SDK pauses normal processing and loads the SideCar. When the SideCar is finished and the binaries are uploaded, it loads the handler and, optionally, the store loader.
+The SideCar, handler, and store loader are application-specific. At each block, the Cosmos SDK checks for a plan that should be executed before processing block transactions. If none exists, then processing continues as usual. If a plan is scheduled to run, then the Cosmos SDK pauses normal processing and loads the SideCar. When the SideCar is finished it loads the handler and, optionally, the store loader.
 
 Application developers build implementations of those components that are tailored to their application and use case.
 
