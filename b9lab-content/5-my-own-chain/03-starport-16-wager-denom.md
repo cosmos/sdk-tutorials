@@ -13,14 +13,14 @@ When you introduced a wager, players could play a game and wager the base stakin
 This is extremely simple. Instead of defaulting to `"stake"`, you now let players decide what string their token is. So you update:
 
 * The stored game, in `proto/checkers/stored_game.proto`:
-    ```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/9799e2cee1a0541932ec19d5cfdcdd955be0390f/proto/checkers/stored_game.proto#L21]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9799e2cee1a0541932ec19d5cfdcdd955be0390f/proto/checkers/stored_game.proto#L21]
     message StoredGame {
         ...
         string token = 13; // Denomination of the wager.
     }
     ```
 * The message to create a game, in `proto/checkers/tx.proto`:
-    ```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/9799e2cee1a0541932ec19d5cfdcdd955be0390f/proto/checkers/tx.proto#L46]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9799e2cee1a0541932ec19d5cfdcdd955be0390f/proto/checkers/tx.proto#L46]
     message MsgCreateGame {
         ...
         string token = 5; // Denomination of the wager.
@@ -30,7 +30,7 @@ This is extremely simple. Instead of defaulting to `"stake"`, you now let player
 To have Starport and Protobuf recompile both files, you can use:
 
 ```sh
-$ starport chain serve
+$ starport generate proto-go
 ```
 To avoid surprises down the road, also update the constructor, in `x/checkers/types/message_create_game.go`:
 
@@ -77,7 +77,7 @@ This new denomination now needs to be inserted in the relevant locations.
     )
     ```
 
-To make these changes, the code updates themselves were not complex. The advanced usage is for the IBC protocol and relayers. 
+To make these changes, the code updates themselves were not complex. The advanced usage is for the IBC protocol and relayers.
 
 Congratulations! Your checkers blockchain is complete with the required features and lets players play comfortably.
 

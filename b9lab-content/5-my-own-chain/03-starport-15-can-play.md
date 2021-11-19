@@ -31,7 +31,7 @@ $ starport scaffold query canPlayMove idValue player fromX:uint fromY:uint toX:u
 ```
 After that you add the reason:
 
-```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/proto/checkers/query.proto#L39-L51]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/proto/checkers/query.proto#L39-L51]
 message QueryCanPlayMoveRequest {
     string idValue = 1;
     string player = 2;
