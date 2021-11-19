@@ -21,7 +21,7 @@ Without software support for upgrades, upgrading a live chain is risky because a
 
 Smart contracts on EVM chains such as Ethereum are immutable software. By definition, they are difficult or impossible to change. Various strategies based on modularity can simulate the effects of upgrading the smart contracts but all known methods have inherent limitations. Chief among the limitations are the difficulties, impossibility, or prohibitive cost of re-organizing data at rest. This places a significant limitation on the types of upgrades that are feasible.
 
-A Cosmos SDK blockchain built for a specific application can be upgraded without forks and, if necessary, the existing data can be reorganized to prepare it for use by a new version of the application and blockchain.
+A Cosmos SDK blockchain built for a specific application can be upgraded without forks. In the case that a new version of the blockchain application uses a different data layout t han exists on chain, the existing data can be reorganized before the new version of the application comes online. The data migration is defined by the developer and runs in each node, quickly and cost-effectively before the node returns to service. 
 
 ## Process overview
 
