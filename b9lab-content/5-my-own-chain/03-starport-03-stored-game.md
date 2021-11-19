@@ -1,16 +1,36 @@
 ---
-title: The Stored Game Object
+title: Make a Checkers Blockchain
 order: 4
 description: You create the object that stores a game.
 ---
 
+# Make a Checkers Blockchain
+
+With Starport, you learned how to jump-start a brand new blockchain. Let's dive deeper and see how you would go about creating one that lets people play the game of checkers in a decentralized fashion.
+
+_The_ game of checkers? Ok, there are many versions of the rules. Let's choose [those](https://www.ducksters.com/games/checkers_rules.php). Also, the object of the deep dive is to learn about Starport and the Cosmos SDK, not to get lost in the proper implementation of the board state or of the rules of checkers. So let's use [this ready-made implementation](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go), with the additional rule that the board is 8x8 and played on black cells. It so happens that this code will not need adjustments. Also, you are not going to be overly concerned with a marketable GUI since, again, that would be a separate project in itself. Of course, you still need to concern yourself with creating the groundwork for a GUI to be possible in the first place.
+
+Here goes. If you did not already do it in the previous section, create your brand new blockchain with a `checkers` module:
+
+```sh
+$ starport scaffold chain github.com/alice/checkers
+```
+When it is all done, copy the [rules file](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go) into a `rules` folder inside your module, and change its package from `checkers` to `rules`. Let's do it by command-line, because why not:
+
+```sh
+$ cd checkers
+$ mkdir x/checkers/rules
+$ curl https://raw.githubusercontent.com/batkinson/checkers-go/a09daeb1548dd4cc0145d87c8da3ed2ea33a62e3/checkers/checkers.go | sed 's/package checkers/package rules/' > x/checkers/rules/checkers.go
+```
+With this done, it is time to move on to the first object to create.
+
 # The Stored Game Object
 
-With the base project and `checkers` module created and checkers rules imported, you can now focus on what is the minimum game information you need to keep in storage.
+Let's start with what is the minimum game information you need to keep in storage. No need to burden yourself with all bells and whistles at the start.
 
 * The red player: a string, the serialized address.
 * The black player: a string, the serialized address.
-* The game proper: a string, the game as it is serialized by the rules file.
+* The game proper: a string, the game as it is serialized by the _rules_ file.
 * Which player is to play next: a string.
 
 ## How To Store It
@@ -54,7 +74,7 @@ Which will be used to prefix the keys at which the objects are stored.
 
 As you know, Starport creates the Protobuf objects first in the `proto` directory before compiling them. Therefore you have the `NextGame` object:
 
-```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/next_game.proto#L8-L11]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/next_game.proto#L8-L11]
 message NextGame {
     string creator = 1;
     uint64 idValue = 2;
@@ -62,7 +82,7 @@ message NextGame {
 ```
 And the `StoredGame` object:
 
-```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/stored_game.proto#L8-L15]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/stored_game.proto#L8-L15]
 message StoredGame {
     string creator = 1;
     string index = 2;
@@ -94,7 +114,7 @@ type StoredGame struct {
 ```
 These are not the only Protobuf objects created. The genesis state is also defined in Protobuf, therefore you have:
 
-```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/genesis.proto#L11-L16]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/genesis.proto#L11-L16]
 import "checkers/stored_game.proto";
 import "checkers/next_game.proto";
 
@@ -113,7 +133,7 @@ type GenesisState struct {
 ```
 As part of the boilerplate objects created by Starport there are objects to query and receive these new meaty objects. In the case of `NextGame`, it looks a bit out of place, but keep in mind that Starport creates them according to a versatile model, which does not prevent you from making changes down the road:
 
-```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L51-L55]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L51-L55]
 message QueryGetNextGameRequest {}
 
 message QueryGetNextGameResponse {
@@ -122,7 +142,7 @@ message QueryGetNextGameResponse {
 ```
 In the case of the query objects for `StoredGame`, they look convenient:
 
-```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L35-L50]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L35-L50]
 message QueryGetStoredGameRequest {
     string index = 1;
 }
@@ -152,7 +172,7 @@ Notice how Starport has filed the different Protobuf messages into different fil
 
 As a note on the files Starport updates down the road, observe how those files have comments like:
 
-```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L14]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L14]
 // this line is used by starport scaffolding # 2
 ```
 Starport adds code right below them so keep these comments in place and you shall be fine. You can add your own code above or below, though.
@@ -177,7 +197,7 @@ Here, you can choose to start with no games, or, for some obscure reason, insert
 
 Beyond these created objects, Starport also created services that declare and define how to access the newly created storage objects. More precisely, when Starport created your module, it introduced empty service interfaces that it can fill in as you add objects and messages. In particular, it added to `service Query` how to query for your objects:
 
-```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L16-L30]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L16-L30]
 service Query {
     rpc StoredGame(QueryGetStoredGameRequest) returns (QueryGetStoredGameResponse) {
         option (google.api.http).get = "/xavierlepretre/checkers/checkers/storedGame/{index}";

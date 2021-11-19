@@ -25,7 +25,7 @@ This has created a certain number of files as can be seen [here](https://github.
 
 Again, it created simple Protobuf objects:
 
-```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/b3cf9ea4c554158e950bcfe58803e53eefc31090/proto/checkers/tx.proto#L15-L23]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/b3cf9ea4c554158e950bcfe58803e53eefc31090/proto/checkers/tx.proto#L15-L23]
 message MsgCreateGame {
     string creator = 1;
     string red = 2;
@@ -90,7 +90,7 @@ Now, because this is a message that is meant to be sent and received, Starport a
 
 The new function will receive this `MsgCreateGame`. Namely:
 
-```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/b3cf9ea4c554158e950bcfe58803e53eefc31090/proto/checkers/tx.proto#L11]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/b3cf9ea4c554158e950bcfe58803e53eefc31090/proto/checkers/tx.proto#L11]
 service Msg {
     rpc CreateGame(MsgCreateGame) returns (MsgCreateGameResponse);
 }

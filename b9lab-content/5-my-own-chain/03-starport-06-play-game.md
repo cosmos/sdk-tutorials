@@ -28,7 +28,7 @@ $ starport scaffold message playMove idValue fromX:uint fromY:uint toX:uint toY:
 Once more, Starport has created all the necessary Protobuf files and the boilerplate for you. All you are left to do is:
 
 * Add to `proto/checkers/tx.proto`:
-    ```proto [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/proto/checkers/tx.proto#L25-L30]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/proto/checkers/tx.proto#L25-L30]
     message MsgPlayMoveResponse {
         string idValue = 1;
         int64 capturedX = 2;
