@@ -1,10 +1,11 @@
 ---
-title: Make a Checkers Blockchain
+title: Make a Checkers' Blockchain
 order: 4
-description: You create the object that stores a game.
+description: You create the object that stores a game
+tag: deep-dive
 ---
 
-# Make a Checkers Blockchain
+# Make a Checkers' Blockchain
 
 With Starport, you learned how to jump-start a brand new blockchain. Let's dive deeper and see how you would go about creating one that lets people play the game of checkers in a decentralized fashion.
 
