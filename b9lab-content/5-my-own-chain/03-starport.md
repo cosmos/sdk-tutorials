@@ -1,3 +1,10 @@
+---
+title: "Starport"
+order: 2
+description: An easy way to build your application-specific blockchain
+tag: deep-dive
+---
+
 # Starport
 
 The Cosmos SDK provides the building blocks that make a complete Tendermint blockchain. One that, additionally, implements the IBC protocol. The _base app_ of the Cosmos SDK assembles these building blocks together and provides you with a fully running blockchain. All there is left to do for your specific blockchain application is to create your modules, their code, and integrate them with the base app so as to make it _your app_. That's still more work ahead.
