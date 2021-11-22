@@ -1,3 +1,10 @@
+---
+title: "CosmJS"
+order: 19
+description: Understanding the TypeScript library for the Cosmos SDK
+tag: deep-dive
+---
+
 # CosmJS
 
 [CosmJS](https://github.com/cosmos/cosmjs) is a TypeScript library for the Cosmos SDK. It is a [powerful tool](https://github.com/cosmos/cosmjs/wiki/What-can-CosmJS-do-for-me%3F), which can be used to create wallets, explorers, IBC relayers, and other dApps. It is written in TypeScript and therefore, can be used on the client or server side.
