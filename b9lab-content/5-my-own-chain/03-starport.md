@@ -94,7 +94,7 @@ The `checkers` folder contains several generated files and directories that make
 
 <HighlightBox type="tip">
 
-If Vue.JS is something new to you, check out the [Vue.js website](https://vuejs.org/) for more on this JavaScript framework.
+If Vue.js is something new to you, check out the [Vue.js website](https://vuejs.org/) for more on this JavaScript framework.
 
 </HighlightBox>
 
