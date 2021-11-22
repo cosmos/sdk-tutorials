@@ -48,7 +48,7 @@ const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) =
 export { txClient, queryClient, };
 ```
 
-It starts by importing `@cosmjs/stargate`, which is the client library for Cosmos SDK 0.40, 0.41, and 0.42 (Stargate). In addition, `@cosmjs/proto-signing` is used to add the type `MsgCreatePost` to the registry. The message type `MsgCreatePost` is defined in `starport/chain/vue/src/store/generated/alice/chain/alice.chain.chain/module/types/chain/tx.js` using [protobuf.js](https://protobufjs.github.io/protobuf.js/).
+It starts by importing `@cosmjs/stargate`, which is the client library for Cosmos SDK 0.40 and the following versions (Stargate). In addition, `@cosmjs/proto-signing` is used to add the type `MsgCreatePost` to the registry. The message type `MsgCreatePost` is defined in `starport/chain/vue/src/store/generated/alice/chain/alice.chain.chain/module/types/chain/tx.js` using [protobuf.js](https://protobufjs.github.io/protobuf.js/).
 
 `http://localhost:26657` is the Tendermint RPC node address, and it is used to send the transactions.
 `http://localhost:1317` is the high-level blockchain API. In the above code, it is used for queries.
