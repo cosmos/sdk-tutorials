@@ -311,7 +311,7 @@ So here you go, you have a deterministic blockchain state, which is collision-re
 You have waved your hands as to how you would create a state machine for the checkers game. You surely have already spotted a good number of shortcomings regarding your game blockchain. Let's see:
 
 * Anyone, including the opponent, can post an anonymous transaction and play, instead of the intended player. This makes it impossible to know who did what. You need to find a way to **identify the right player**. This will be addressed when we look at [Cosmos SDK's accounts and signatures](./04-accounts.md).
-* Instead of a single game, you would prefer **multiple games** running in parallel, all in a store with an elaborate data model. You need a well-defined store. This will be solved when you look at [Cosmos SDK's key store](linktosection).
+* Instead of a single game, you would prefer **multiple games** running in parallel, all in a store with an elaborate data model. You need a well-defined store. This will be solved when you look at [Cosmos SDK's key store](./10-multistore-keepers).
 * It would be good if you had an elegant way to serialize your data objects of interest and your transactions. For this, see the [Protobuf section](./09-protobuf.md).
 * You want to penalize spam and bad transactions, and also to be able to play for money. See [Cosmos SDK's tokens](linktosection).
 * You want to tailor gas costs according to the transaction type. After all, there is at least one new transaction type of _create a game_. See [Cosmos SDK's tokens and gas](./10-multistore-keepers.md).
