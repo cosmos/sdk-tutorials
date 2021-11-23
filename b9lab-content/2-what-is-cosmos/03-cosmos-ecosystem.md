@@ -24,15 +24,15 @@ Do you want an up-to-date list of applications and services built on Cosmos? Hea
 
 </HighlightBox>
 
-As you might expect, not all applications are at the same stage of development. Namely, deployment on the mainnet has been conducted for most applications and projects. The rest is currently either in proof of concept, development, or was deployed to a testnet only.
+As you might expect, not all applications are at the same stage of development. While most applications and projects are deployed on the mainnet, some are currently either in proof of concept, development, or have been deployed to a testnet only.
 
-Moreover, [**33 wallets**](https://cosmos.network/ecosystem/wallets) and block explorers for Cosmos are part of the ecosystem. Most are for Android, such as the [Atomic Walllet](https://atomicwallet.io/) and [Coinex](https://www.coinex.com/), or iOS, like [AirGap](https://airgap.it/) and [Wallet.io](https://walletio.io/), but you can also find a number of web wallets, like [Exodus](https://www.exodus.com) and [Keplr](https://wallet.keplr.app/).
+Moreover, [**33 wallets**](https://cosmos.network/ecosystem/wallets) and block explorers for Cosmos are part of the ecosystem. Most are for Android, such as the [Atomic Wallet](https://atomicwallet.io/) and [Coinex](https://www.coinex.com/), or iOS, like [AirGap](https://airgap.it/) and [Wallet.io](https://walletio.io/), but you can also find a number of web wallets, like [Exodus](https://www.exodus.com) and [Keplr](https://wallet.keplr.app/).
 
 ## Main Components
 
 The main aim of the Cosmos network is to provide an **ecosystem for easy blockchain development** based on the Tendermint BFT and the Inter-Blockchain Communication protocol (IBC) thanks to the so-called [Cosmos SDK](https://v1.cosmos.network/sdk).
 
-Each chain in the Cosmos ecosystem relies on **fast-finality BFT consensus algorithms**, such as the [Tendermint](https://github.com/tendermint/tendermint) consensus. This ensures a common consensus mechanism at work in all chains of the network. Tendermint itself is used in case of the [Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html), [IRIS Hub](https://www.irishub.rw/), [Binance Chain](https://www.binance.org/en), [Terra](https://www.terra.money/), and [Kava](https://www.kava.io/).
+Each chain in the Cosmos ecosystem relies on the Tendermint **fast-finality BFT consensus algorithm**. This ensures a common consensus mechanism at work in all chains of the network. As well as Cosmos, Tendermint is also used in [IRIS Hub](https://www.irishub.rw/), [Binance Chain](https://www.binance.org/en), [Terra](https://www.terra.money/), [Kava](https://www.kava.io/) and more.
 
 Before Cosmos came along, developing a whole new chain was much more difficult and expensive than building a smart contract. Now, with the Cosmos SDK, entire flexible, secure, high performance, and sovereign **application-specific blockchains** can be developed. To allow this, building modular, adaptable, and interchangeable open-source development tools is at the center of Cosmos' mission.
 
@@ -59,7 +59,11 @@ The ready-built modules of the Cosmos SDK can be easily used - It is as simple a
 
 *Building on modular components, many of those you did not write yourself? Although it sounds like an increased potential for attacks, and faulty or malicious nodes operating undetected? One does not have to worry.*
 
-The Cosmos SDK is built on a foundation of the [object-capability model](https://docs.cosmos.network/master/core/ocap.html). It not only favors modularity, it also encapsulates code implementation. Thus, capabilities constrain security boundaries between modules.
+The Cosmos SDK is built on a foundation of the [object-capability model](https://docs.cosmos.network/master/core/ocap.html). It not only favors modularity, it also encapsulates code implementation. In a nutshell, an object-capability model ensures that:
+
+* There is no way for objects in memory to be discovered just by going through the composed objects of others.
+* The only way to have references to objects is to have been given their references.
+* And the only way to access a service is to have been given the relevant object references.
 
 The default consensus mechanism available to build with the SDK is [Tendermint Core](https://docs.tendermint.com/master/).
 
@@ -67,7 +71,7 @@ The default consensus mechanism available to build with the SDK is [Tendermint C
 
 The [Inter-Blockchain Communication (IBC) protocol](https://ibcprotocol.org/) is the basis for **interoperability** in Cosmos. It leverages Tendermint's instant finality to allow for the transfer of value (i.e. tokens) and data communication between heterogenous chains. Blockchains with different applications and architecture specifications become interoperable whether or not they share a validator set.
 
-Without IBC, the interoperability of heterogenous chains is difficult to achieve because they may implement the consensus, networking, and application layers in various ways. As soon as a blockchain is compatible with IBC, it becomes interoperable with others. IBC has few requirements to make a chain compatible: Mainly, the consensus layer must have fast and absolute finality.
+Without IBC, the interoperability of heterogenous chains is difficult to achieve because they may implement the consensus, networking, and application layers in various ways. As soon as a blockchain is compatible with IBC, it becomes interoperable with others. 
 
 *With these chain-to-chain connections now possible, how can we create a network of blockchains?*
 
@@ -85,7 +89,9 @@ Cosmos implements a **modular architecture with two blockchain classes**: **hubs
 
 **Hubs** connect these so-called zones. Hubs are blockchains designed to connect heterogenous blockchains, i.e. zones. Once a zone connects to a hub through an IBC connection, it gets automatic access to the other zones connected to the hub. At this point, data and value can be sent and received between the zones without risk, for instance of double-spending tokens. This helps reduce the number of chain-to-chain connections that need to be established for interoperability.
 
---> Include hotspot image on zones and hubs
+There is no enforcement of an actual topology and a "Hub" is a "zone" with many connections to other zones. The zone referred to as the "Cosmos Hub" is the first instance of a zone and application zones can be expected to join it, but application zones are free to coalesce in any topology the developers find appropriate.
+
+Hubs and zones in testnet: [https://mapofzones.com/](https://mapofzones.com/)
 
 An example of such a specific chain is the **[Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html)**, the first hub to be created. It is a public, Proof-of-Stake (PoS) blockchain with a native token, ATOM. The Cosmos Hub can be understood as a router facilitating, among other things, transactions between the chains connected to it. For example, transaction fees can be paid in different tokens as long as the zone trusts the Cosmos Hub and the other zones connected to it.
 
@@ -130,7 +136,7 @@ With Starport developers can:
 
 <HighlightBox type="tip">
 
-Already want to dive deep into Starport? Take a closer look into its [official documentation](https://docs.starport.network/).
+Already want to dive deep into Starport? Take a closer look into the official [Starport documentation](https://docs.starport.com/).
 
 </HighlightBox>
 

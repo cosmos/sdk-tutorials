@@ -8,7 +8,7 @@ description: Architecture of a blockchain application built with Cosmos.
 
 ## What is Tendermint
 
-Created in 2014, Tendermint accelerates the development of distinct blockchains by attending to general concerns so that those concerns don’t need to be recreated by developers in each case. You may already be using Tendermint without awareness of this since blockchains including [Hyperledger Burrow](https://hyperledger.github.io/burrow/#/) and [Binance Chain](https://www.binance.org/en/smartChain)  use Tendermint.
+Created in 2014, Tendermint accelerates the development of distinct blockchains by providing a ready-made networking and consensus solution so that these don’t have to be recreated by developers in each case. You may already be using Tendermint without awareness of this since blockchains including [Hyperledger Burrow](https://hyperledger.github.io/burrow/#/) and [Binance Chain](https://www.binance.org/en/smartChain)  use Tendermint.
 
 More specifically, Tendermint modules attend to consensus and networking, two important components of any blockchain. This frees developers to consider what the blockchain should do at an application level without descending into lower-level blockchain concerns such as peer discovery, block propagation, consensus and transaction finalization. Without Tendermint, developers would be forced to build software to address those concerns which would add additional time, complexity and cost to the blockchain applications they have in mind.
 
@@ -24,7 +24,7 @@ In summary, Tendermint Core is a high-performance, consistent, and secure **cons
 
 Network participants are incentivized to stake ATOM in the fittest nodes that they deem most likely to provide a dependable service and to withdraw their support should conditions change. In this way, a Cosmos blockchain is expected to adjust the validator configuration and continue even in adverse conditions.
 
-In more detail, only the top 100 nodes by staked ATOM, the **validators**, participate in the transaction finalization process. The privilege of creating a block is awarded in proportion to the ATOM tokens committed. For example, if a given validator has 15% of the ATOM staked to the top 100 nodes, then it can expect to receive the block creation privilege 15% of the time. The block is broadcasted to the other validators, who are expected to respond promptly and correctly. They will absorb penalties for failing to do so.
+In more detail, only the top 150 nodes by staked ATOM, the **validators**, participate in the transaction finalization process. The privilege of creating a block is awarded in proportion to the voting power a validator has. Voting power is calculated as all ATOM tokens staked by a validator and its delegates. For example, if a given validator's voting power would be 15% of the total voting power of all validators, then it can expect to receive the block creation privilege 15% of the time. The block is broadcasted to the other validators, who are expected to respond promptly and correctly. They will absorb penalties for failing to do so.
 
 Validators confirm candidate blocks. They can and must, of course, reject invalid blocks. They accept the block by returning their signature. When sufficient signatures have been collected by the block creator then the block is finalized and broadcasted to the wider network.
 
@@ -42,7 +42,7 @@ In a Tendermint blockchain, transactions are irreversibly finalized upon block c
 
 ## Tendermint BFT
 
-[Tendermint BFT](https://tendermint.com/core/) packages the **networking and consensus** layers of a blockchain and presents a socket protocol, the Application Blockchain Interface (**ABCI**) to the application layer. Developers focus on higher-order concerns while delegating peer-discovery, validator selection, staking, upgrades, and consensus to the Tendermint BFT. The consensus engine running in one process controls the state machine, the application, running in another process.
+[Tendermint BFT](https://tendermint.com/core/) packages the **networking and consensus** layers of a blockchain and presents an interface, the Application Blockchain Interface (**ABCI**) to the application layer. Developers focus on higher-order concerns while delegating peer-discovery, validator selection, staking, upgrades, and consensus to the Tendermint BFT. The consensus engine running in one process controls the state machine, the application, running in another process. ABCI presents a socket for use by applications written in other languages. When the application is written in the same language as the Tendermint implementation, the socket is not used.
 
 The architecture is equally appropriate for **private or public** blockchains.
 
@@ -77,7 +77,7 @@ Developers who have worked with blockchains based on the Ethereum Virtual Machin
 Developers create the Application Layer using the **Cosmos SDK**. The Cosmos SDK provides both a scaffold to get started and a rich set of modules that address common concerns. The Cosmos SDK provides a head start and a framework for getting started as well as a rich set of modules that address common concerns such as governance, tokens, other standards, and interactions with other blockchains through the Inter-Blockchain Protocol (IBC). Creation of a purpose-built blockchain with Cosmos SDK is largely a process of selecting, configuring, and integrating well-solved modules, also known as composing modules. This greatly reduces the scope of original development required since development is focused mostly on the truly novel aspects of the application.
 
 <HighlightBox type="info">
-Later, we will dive into the Inter-Blockchain Protocol (IBC). **IBC** is a common framework for exchanging information between blockchains built with Cosmos. For now, it is enough to know that it exists and it enables seamless interaction between blockchains that want to exchange information, such as tokens. In summary, this enables communication between applications that run on separate purpose-built blockchains.
+Later, we will dive into the Inter-Blockchain Protocol (IBC). **IBC** is a common framework for exchanging information between blockchains. For now, it is enough to know that it exists and it enables seamless interaction between blockchains that want to exchange information, such as tokens. In summary, this enables communication between applications that run on separate purpose-built blockchains.
 </HighlightBox>
 
 Importantly, application, consensus and network layers are contained within the custom blockchain node that forms the foundation of the custom blockchain.
@@ -127,7 +127,7 @@ Many transactions that could be broadcast should not be broadcast. Examples incl
 
 When blocks are received, Tendermint calls the `DeliverTx` method to pass the information to the application layer for interpretation and possible state machine transition.
 
-Additionally, `BeginBlock` and `EndBlock` messages are broadcast even if blocks contain no transactions. This provides positive confirmation of basic connectivity and no operation time periods. These methods facilitate the execution of scheduled processes that should run in any case because they call methods at the application level where developers can define processes. It is wise to be cautious about adding too much computational weight at the start or completion of each block since the blocks arrive at approximately one-second intervals and too much work could slow down your blockchain.
+Additionally, `BeginBlock` and `EndBlock` messages are broadcast even if blocks contain no transactions. This provides positive confirmation of basic connectivity and no operation time periods. These methods facilitate the execution of scheduled processes that should run in any case because they call methods at the application level where developers can define processes. It is wise to be cautious about adding too much computational weight at the start or completion of each block since the blocks arrive at approximately seven-second intervals and too much work could slow down your blockchain.
 
 Any application that uses Tendermint for consensus must implement the Application Blockchain Interface. Fortunately, you do not have to do this manually because the Cosmos SDK provides a boilerplate known as the BaseApp to get you started.
 
@@ -148,6 +148,8 @@ As you can imagine, beyond the rules of the game, there is a lot we need to take
 ### “Make” the state machine
 
 Here is how we would do it. We _would_ do it, because we are here to learn the Cosmos SDK primarily, not to become proficient at implementing ABCI.
+
+<-- TODO: Perhaps we can kick this off with a flow-diagram to give an overview to a relatively heavy section? -->
 
 We want to show the minimum viable ABCI state machine. Tendermint does not concern itself with whether proposed transactions are valid, and about how the state changes after such a transaction. It delegates those to the state machine, which will _transform_ transactions into game moves and states.
 
@@ -207,7 +209,7 @@ It is better _not_ to check whether we have a [valid move](https://github.com/ba
 
 > `func (game *Game) ValidMove(src, dst Pos) bool`
 
-As a transaction may contain a move that is valid only when actually delivered, for instance if it needs another move to take place before it.
+Checking whether a move is valid with regards to the board, needs the board to have been updated beforehand. Alas, the board is updated only up to the point where the transactions have been delivered. And you may have a situation where 2 transactions have been sent one after the other, both in fact valid. In this rare situation, if you tested the move in the second transaction against the board, it would appear invalid because the first transaction had been checked but not delivered yet. Therefore, testing a move on the board at CheckTx time is better avoided.
 
 #### `DeliverTx`: a transaction is added and needs to be processed
 

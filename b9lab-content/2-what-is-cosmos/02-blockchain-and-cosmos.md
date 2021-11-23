@@ -13,7 +13,7 @@ Begin your journey with this brief review of blockchain technology, how Cosmos c
 
 The building blocks of blockchain technology can be found in the 1980s and 1990s when breakthroughs in computer science and cryptography laid the necessary groundwork. Blockchain technology per se was invented in 2008.
 
-Necessary preliminary work included append-only, cryptographically secure logs using hashing, authentication and encryption keys, as well as the conceptual development of smart contracts and consensus mechanisms in peer-to-peer (P2P) networks with Byzantine fault-tolerance (BFT).
+The necessary breakthroughs included append-only, provably correct transaction logs using built-in error checking, strong authentication and encryption using public keys, mature theories of fault-tolerant systems, widespread understanding of peer-to-peer systems, and, of course, the advent of the internet and ubiquitous connectivity and powerful client-side computers.
 
 On the fateful October 31, 2008, an individual, or group, calling itself Satoshi Nakamoto proposed a **P2P network for a digital currency**, calling it **Bitcoin**. It introduced a novel consensus mechanism, now referred to as Nakamoto Consensus, that uses Proof-of-Work (PoW) to enable nodes to reach agreement in a decentralized network. Suddenly, it became possible to send online payments directly between parties **independently of financial institutions and trusted third parties**. Bitcoin became the first public, decentralized application.
 
@@ -25,9 +25,9 @@ On the fateful October 31, 2008, an individual, or group, calling itself Satoshi
 
 <ExpansionPanel title="I heard about PoW, tell me more">
 
-Proof-of-Work (PoW), used to achieve BFT, is best described as a cryptographic puzzle solved by a network's node, called miner. The puzzle is a task of pre-defined, arbitrary difficulty. At the scale of the network, the outcome is akin to a lottery with a single winning node.
+Proof-of-Work (PoW), used to achieve BFT, is best described as a cryptographic puzzle solved by a network's node, called miner. The puzzle is a task of pre-defined, arbitrary difficulty. At the current scale of the network, the outcome is akin to a lottery with a single winning node.
 
-In most cases, the task consists of a search for an unknown, random number (in the jargon, a nonce). For it to be a winning nonce, when combined with ordered transactions in a block, the result ought to be a hash value matching a pre-defined criteria. Finding the nonce is evidence of considerable effort, or work, invested in the search. Each node uses its computing power to be the first to solve the puzzle, winning the right to author the latest block.
+In most PoW systems, the task consists of a search for an unknown, random number (in the jargon, a nonce). For it to be a winning nonce, when combined with ordered transactions in a block, the result ought to be a hash value matching a pre-defined criteria. Finding the nonce is evidence of considerable effort, or work, invested in the search. Each node uses its computing power to be the first to solve the puzzle, winning the right to author the latest block.
 
 Here, economic incentives come into play: The node that announces a solution first receives a reward. This incentivizes participation, investing computing power into solving the task, and helps maintain the network's functioning.
 
@@ -57,7 +57,7 @@ Ethereum can be seen as a response to the difficulties of developing smart contr
 
 With Ethereum, the application layer of the chain took the form of a virtual machine, the **Ethereum Virtual Machine (EVM)**. The EVM runs smart contracts thereby providing a single chain on which to deploy all sorts of programs (i.e. smart contracts).
 
-Even though the launch of Ethereum with its EVM was a big step forward, some **issues of general-purpose, public blockchains remained**: low flexibility for developers,  speed, throughput, scalability, state finality, and sovereignty.
+Even though the launch of Ethereum with its EVM was a big step forward, some **issues of general-purpose, public blockchains remained**: low flexibility for developers, speed, throughput, scalability, state finality, and sovereignty.
 
 Despite its many benefits, the EVM is a sandbox that delineates the range of implementable use cases. Simplistic and some complex use cases can be implemented with it but are nonetheless **limited in regard to design and efficiency by the limitations of the sandbox**. Additionally, developers are limited to programming languages that are tailor-made for the EVM.
 
@@ -95,7 +95,7 @@ In 2016, Jae Kwon and Ethan Buchman founded the Cosmos network with its consensu
 
 <HighlightBox type="tip">
 
-Take a look at the 2019 [Cosmos White Paper](https://v1.cosmos.network/resources/whitepaper) to find out more about the origins of Cosmos!
+Take a look at the 2016 [Cosmos White Paper](https://v1.cosmos.network/resources/whitepaper) to find out more about the origins of Cosmos!
 
 </HighlightBox>
 
@@ -124,6 +124,8 @@ Cosmos' founding **vision** is that of an easy development environment for block
 
 To achieve this vision and type of network, the ecosystem relies on an **open source toolkit**, including the [Inter-Blockchain Communication (IBC)](https://ibcprotocol.org/) protocol, its implementation in the [Cosmos SDK](https://v1.cosmos.network/sdk), and [Tendermint](https://tendermint.com/) as the base layer with state finality. The toolkit, a set of modular, adaptable, and interchangeable tools, helps not only to quickly spin up a blockchain, but also facilitates the customization of secure and scalable chains.
 
+As a brief introduction to this terminolody, Cosmos is a network of interoperable application blockchains. Cosmos application blockchains are built with the Cosmos SDK, which enables developers to quickly create a unique blockchain for their specific use-case. The Cosmos SDK includes the pre-requisites that enable created blockchains to participate in inter-chain communications using the Inter-Blockchain Communication protocol (IBC). Cosmos application blockchains built with the Cosmos SDK use the Tendermint consensus. Each of these topics is unfolded in more detail in the sections that follow.
+
 Let's now look at the problems Cosmos solves.
 
 ### How Does Cosmos Solve the Scalability Issue?
@@ -149,11 +151,13 @@ A **validator** is one or more cooperating computers that participate in the con
 
 Applications deployed on general-purpose blockchains all share the same underlying environment. When a change in the application needs to be made, it not only depends on the governance structures of the application but also on that of the environment, i.e. the governance mechanisms set by the protocol on which the application builds. Thus, the chain's governance limits the application's sovereignty. For this reason, it is often called a **two-layer governance**.
 
-Cosmos resolves this issue as one can build a blockchain tailored to the application. There are no limits to the application's governance if every chain is maintained by its own set of validators. Cosmos follows a design of a **one-layer governance**.
+For example, an application on a typical blockchain can have its own governance structure but it exists a blockchain governance on top, and, in most cases, the blockchain itself can upgrade in ways that potentially break applications. Application sovereignty is therefore diminished in two-layer governance settings.
+
+Cosmos resolves this issue as one can build a blockchain tailored to the application. There are no limits to the application's governance when every chain is maintained by its own set of validators. Cosmos follows a design of a **one-layer governance**.
 
 ### How Does Cosmos Improve User Experience?
 
-In the world of traditional general-purpose blockchains, application design and efficiency are limited for blockchain developers. They have to find the simplistic use case the blockchain is designed for.
+In the world of traditional general-purpose blockchains, application design and efficiency are limited for blockchain developers. 
 
 In the Cosmos universe, the standardization of architecture components, while still providing customization opportunities, frees up the possibility of unconstrained, seamless, and intuitive user experiences.
 
