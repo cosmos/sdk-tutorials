@@ -2,7 +2,7 @@
 
 ## The Inter-Blockchain Protocol
 
-The Inter-Blockchain Protocol, IBC, is used to send data from one blockchain to another. In Cosmos, most applications execute on their own purpose-built blockchain running their own validator set. These are the application-specific blockchains built with Cosmos SDK.
+The Inter-Blockchain Communicatio protocol (IBC) allows to send data from one blockchain to another. In Cosmos, most applications execute on their own purpose-built blockchain running their own validator set. These are the application-specific blockchains built with Cosmos SDK.
 
 Applications on one chain may have a need to communicate with applications on another blockchain. For example, an application could accept tokens from another blockchain as a form of payment. Interoperability at this level calls for a method of exchanging data about the state or the transactions on another blockchain.
 
@@ -23,7 +23,7 @@ IBC is an end-to-end, connection-oriented, stateful protocol for reliable, order
 
 This is accomplished by specifying a set of data structures, abstractions, and semantics that can be implemented by any distributed ledger provided they satisfy a small set of requirements.
 
-IBC can be used to build a wide range of cross-chain applications, which include token transfers, atomic swaps, multi-chain smart contracts (with or without mutually comprehensible virtual machines, and data & code sharding of various kinds.
+IBC can be used to build a wide range of cross-chain applications, which include token transfers, atomic swaps, multi-chain smart contracts (with or without mutually comprehensible virtual machines), and data and code sharding of various kinds.
 
 Modules do not require in-depth knowledge of the low-level details of clients, connections, and proof verification.
 
@@ -31,15 +31,13 @@ Modules do not require in-depth knowledge of the low-level details of clients, c
 
 <HighlightBox type=”info”>
 
-Components https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/overview.md
+You can find an overview with more information on components in the [SDK documentation on IBC](https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/overview.md#components-overview).
 
 </HighlightBox>
 
 ### Clients
 
-IBC clients are light clients that are identified by a unique client ID. IBC clients track the consensus states of other blockchains and the proof specs of those blockchains that are required to properly verify proofs against the client's consensus state.
-
-A client can be associated with any number of connections to multiple chains
+IBC clients are light clients that are identified by a unique client ID. IBC clients track the consensus states of other blockchains and the proof specs of those blockchains that are required to properly verify proofs against the client's consensus state. A client can be associated with any number of connections to multiple chains.
 
 Supported IBC clients:
 
@@ -49,11 +47,11 @@ Supported IBC clients:
 
 ### Connections
 
-A connection encapsulates two `ConnectionEnd` objects on two separate blockchains. Each `ConnectionEnd` is associated with a client of the counter-party blockchain. The connection handshake is responsible for verifying that the light clients on each chain are correct for their respective counter-parties. Connections are responsible for facilitating all cross-chain verification of the IBC state. A connection can be associated with any number of channels.
+A connection encapsulates two `ConnectionEnd` objects on two separate blockchains. Each `ConnectionEnd` is associated with a client of the counterparty blockchain. The connection handshake is responsible for verifying that the light clients on each chain are correct for their respective counterparties. Connections are responsible for facilitating all cross-chain verification of the IBC state. A connection can be associated with any number of channels.
 
 ### Proofs & paths
 
-In IBC, blockchains do not directly pass messages to each other over the network. To communicate, blockchains commit state to a precisely defined path reserved for a specific message type and a specific counter-party. Relayers monitor for updates to these paths and relay messages by submitting the data stored under the path along with a proof of that data to the counter-party chain. The paths that all IBC implementations must support for committing IBC messages are defined in the [ICS-24 implementation](https://github.com/cosmos/ics/tree/master/spec/core/ics-024-host-requirements) about host requirements. The proof format that all implementations must produce and verify is defined in the [ICS-23 implementation](https://github.com/confio/ics23).
+In IBC, blockchains do not directly pass messages to each other over the network. To communicate, blockchains commit state to a precisely defined path reserved for a specific message type and a specific counterparty. Relayers monitor for updates to these paths and relay messages by submitting the data stored under the path along with a proof of that data to the counterparty chain. The paths that all IBC implementations must support for committing IBC messages are defined in the [ICS-24 implementation](https://github.com/cosmos/ics/tree/master/spec/core/ics-024-host-requirements) about host requirements. The proof format that all implementations must produce and verify is defined in the [ICS-23 implementation](https://github.com/confio/ics23).
 
 ### Capabilities
 
@@ -106,17 +104,18 @@ Modules send custom application data to each other inside the Data []byte field 
 
 ### Receipts & timeouts
 
-IBC works over a distributed network and relies on potentially faulty relayers to relay messages between ledgers. There are cases where a packet does not get sent to its destination in a timely manner or at all, and IBC will need to handle those scenarios. Packets must specify a timeout height or timeout timestamp after which a packet can no longer be successfully received on the destination chain.
-When a timeout is reached, a proof-of-packet timeout can be submitted to the original chain which can then perform application-specific logic to timeout the packet, e.g. by rolling back the packet send changes (refunding senders any locked funds, and so on).
+IBC works over a distributed network and relies on potentially faulty relayers to relay messages between ledgers. There are cases where a packet does not get sent to its destination in a timely manner or at all, and IBC needs to handle these cases. Packets must specify a timeout height or timeout timestamp after which a packet can no longer be successfully received on the destination chain.
+
+When a timeout is reached, a proof-of-packet timeout can be submitted to the original chain, which can then perform the application-specific logic to timeout the packet (by rolling back the packet send changes - refunding senders any locked funds, and so on).
 
 In ORDERED channels, a timeout of a single packet in the channel closes the channel. In the UNORDERED case, packets can be received in any order. IBC writes a packet receipt for each sequence it has received in the UNORDERED channel.
 
 ### Acknowledgement
 
-Modules also write application-specific acknowledgements when processing a packet Acknowledgements can be done:
+Modules also write application-specific acknowledgements when processing a packet. Acknowledgements can be done:
 
-- Synchronously on `OnRecvPacket` if the module processes packets as soon as they are received from IBC module
-* Asynchronously if the module processes packets at some later point after receiving the packet
+* Synchronously on `OnRecvPacket` if the module processes packets as soon as they are received from IBC module.
+* Asynchronously if the module processes packets at some later point after receiving the packet.
 
 This acknowledgement data is opaque to IBC much like the packet Data and is treated by IBC as a simple byte string `[]byte`.
 
@@ -124,40 +123,39 @@ Receiver modules must encode their acknowledgement so that the sender module can
 
 After the acknowledgement has been written by the receiving chain, a relayer relays the acknowledgement back to the original sender module which then executes application-specific acknowledgment logic using the contents of the acknowledgement.
 
-When the acknowledgement is received successfully on the original sender chain, the IBC module deletes the corresponding packet commitment as it is no longer needed
+When the acknowledgement is received successfully on the original sender chain, the IBC module deletes the corresponding packet commitment as it is no longer needed.
 
 ## Types of chain
 
-IBC can use Tendermint chains to bridge with IBC but also non-Tendermint chains. Two types of non-Tendermint chains are supported:
+IBC can bridge Tendermint chains, but also non-Tendermint chains. Two types of non-Tendermint chains are supported:
 
-* **Fast-finality chains**: any fast-finality consensus algorithms can connect with Cosmos by adapting IBC.
-* **Probabilistic-finality chains**: for blockchains that do not have fast-finality, like Proof-of-Work chains, things get a bit trickier. In this case, IBC uses a special kind of proxy-chain called a Peg-Zone.
+* **Fast-finality chains:** any fast-finality consensus algorithms can connect with Cosmos by adapting IBC.
+* **Probabilistic-finality chains:** for blockchains that do not have fast-finality, like Proof-of-Work (PoW) chains, things get a bit trickier. In this case, IBC uses a special kind of proxy-chain called a peg-zone.
 
 ### Ethereum peg zone:
 
-<HighlightBox type=”info”>
-A great example of one of these peg-zones is the [Gravity Bridge](https://github.com/cosmos/gravity-bridge).
+<HighlightBox type="info">
+
+A great example of one of these peg-zones is the [Gravity Bridge](https://github.com/cosmos/gravity-bridge). For more information on it, take a look at the [section on bridges](./17-bridges.md).
 
 </HighlightBox>
 
-A Peg-Zone is a blockchain that tracks the state of another blockchain. The Peg-Zone itself has fast-finality and is therefore compatible with IBC. Its role is to establish finality for the blockchain it bridges.
+A Peg-Zone is a blockchain that tracks the state of another blockchain. The peg-zone itself has fast-finality and is therefore compatible with IBC. Its role is to establish finality for the blockchain it bridges.
 
-<HighlightBox info=”info”>
+<HighlightBox info="info">
 
-<!-- TODO -->
-Paradigms and implications
-Interchain accounts
-https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11
-
+For more on IBC, its paradigms, and Interchain accounts, a looks into Josh Lee's post from 2020 [Why Interchain Accounts Change Everything for Cosmos Interoperability](https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11) is recommendable. 
 
 Relayers are an essential part of the IBC infrastructure and there are several implementations. To learn more about relaying, please visit [the IBC website](https://ibcprotocol.org/relayers/).
 
-<ExpansionPanel title="Show me some code for my checkers blockchain">
+</HighlightBox>
 
-With the introduction of IBC, one could imagine you'd want to allow players to play with tokens from a different chain. To do that:
+<ExpansionPanel title="Show me some code for my checkers' blockchain">
 
-* The game information must state which token in which the wager will be denominated upon creation.
-* The different payments have to be updated so that they don't use the default token.
+With the introduction of IBC, you now want to allow players to play with tokens from a different chain. To do that:
+
+* The game information must state the token in which the wager will be denominated upon creation.
+* The different payments have to be updated so that they do not use the default token.
 
 Denominating the wager into another token is just a matter of allowing another string that uniquely identifies the token:
 
@@ -172,6 +170,7 @@ type MsgCreateGame struct {
     Token string
 }
 ```
+
 You can add a helper function to `StoredGame` such that:
 
 ```go
@@ -179,6 +178,7 @@ func (storedGame *StoredGame) GetWagerCoin() (wager sdk.Coin) {
     return sdk.NewCoin(storedGame.Token, sdk.NewInt(int64(storedGame.Wager)))
 }
 ```
+
 With that, the payments are updated with:
 
 ```go
@@ -186,6 +186,7 @@ err = k.bank.SendCoinsFromAccountToModule(ctx, black, "checkers", sdk.NewCoins(s
 // or
 err = k.bank.SendCoinsFromModuleToAccount(ctx, "checkers", winnerAddress, sdk.NewCoins(winnings))
 ```
+
 There is nothing more to it in this simple use of _foreign_ tokens.
 
 </ExpansionPanel>
