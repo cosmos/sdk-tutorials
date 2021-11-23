@@ -1,29 +1,32 @@
 ---
-title: The Create Game Message
+title: Create a Game Message
 order: 6
-description: You create the message to create a game.
+description: You create the message to create a game
 ---
 
-# The Create Game Message
+# Create a Game Message
 
-Now that your game objects have been defined in storage, and since you prevented, for good reason, a simple CRUD to set them, you need a message to instruct the checkers blockchain to create a game. What do you need it to expose?
+Now that your game objects have been defined in the storage. Since you prevented, for good reason, a simple CRUD to set the objects, you need a message to instruct the checkers' blockchain to create a game.
 
-* It does not need to specify the creator. Or rather, this is implicit because it shall be the signer of the message.
-* It does not need to specify the id of the game because the system uses an incrementing counter. On the other hand, the server needs to return the newly created id value since the eventual value cannot be known before the transaction is included in a block and the state computed. Let's call this `idValue`.
-* It does not need to specify the game board as it is under the full control of the checkers rules.
-* It needs to specify who is playing reds, let's call the field: `red`.
-* It needs to specify who is playing blacks, let's call the field: `black`.
+The message needs to:
 
-That's not much, so again, let's instruct Starport to take care of all this:
+* Not specify the creator: this is implicit because it shall be the signer of the message.
+* Not specify the ID of the game because the system uses an incrementing counter. On the other hand, the server needs to return the newly created ID value since the eventual value cannot be known before the transaction is included in a block and the state computed. Let's call this `idValue`.
+* Not specify the game board as it is under the full control of the checkers rules.
+* Specify who is playing reds. Let's call the field `red`.
+* Specify who is playing blacks. Let's call the field: `black`.
+
+Let's instruct Starport to take care of all this:
 
 ```sh
 $ starport scaffold message createGame red black --module checkers --response idValue
 ```
-This has created a certain number of files as can be seen [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/e78cba34926ba0adee23febb1ce44774e2c466b3), plus GUI elements seen [there](https://github.com/cosmos/b9-checkers-academy-draft/commit/dcf9f4724570146c8e0ad339aafb469d27dca0b9).
 
-## Protobuf Objects
+This creates a [certain number of files](https://github.com/cosmos/b9-checkers-academy-draft/commit/e78cba34926ba0adee23febb1ce44774e2c466b3), plus [some GUI elements](https://github.com/cosmos/b9-checkers-academy-draft/commit/dcf9f4724570146c8e0ad339aafb469d27dca0b9).
 
-Again, it created simple Protobuf objects:
+## Protobuf objects
+
+Again, simple Protobuf objects are created:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/b3cf9ea4c554158e950bcfe58803e53eefc31090/proto/checkers/tx.proto#L15-L23]
 message MsgCreateGame {
@@ -36,6 +39,7 @@ message MsgCreateGameResponse {
     string idValue = 1;
 }
 ```
+
 Which, when compiled yield:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b3cf9ea4c554158e950bcfe58803e53eefc31090/x/checkers/types/tx.pb.go#L31-L35]
@@ -45,6 +49,7 @@ type MsgCreateGame struct {
     Black   string `protobuf:"bytes,3,opt,name=black,proto3" json:"black,omitempty"`
 }
 ```
+
 And:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b3cf9ea4c554158e950bcfe58803e53eefc31090/x/checkers/types/tx.pb.go#L91-L93]
@@ -52,13 +57,17 @@ type MsgCreateGameResponse struct {
     IdValue string `protobuf:"bytes,1,opt,name=idValue,proto3" json:"idValue,omitempty"`
 }
 ```
-Plus the boilerplate to serialize the pair, which are files named `*.pb.go` that you should not edit. Starport also registered `MsgCreateGame` as a concrete message type with the two (de)serialization engines:
+
+Plus the boilerplate to serialize the pair, which are files named `*.pb.go`. You should not edit these files.
+
+Starport also registered `MsgCreateGame` as a concrete message type with the two (de-)serialization engines:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/types/codec.go#L14]
 func RegisterCodec(cdc *codec.LegacyAmino) {
     cdc.RegisterConcrete(&MsgCreateGame{}, "checkers/CreateGame", nil)
 }
 ```
+
 And:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/types/codec.go#L20-L22]
@@ -69,9 +78,10 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
     ...
 }
 ```
-Which is code that you probably need not change.
 
-Other boilerplate created by Starport is code to have the message conform to the `sdk.Msg` type like:
+Which is code that you, probably, do not need to change.
+
+Starport also creates boilerplate code to have the message conform to the `sdk.Msg` type, like:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/types/message_create_game.go#L26-L32]
 func (msg *MsgCreateGame) GetSigners() []sdk.AccAddress {
@@ -82,20 +92,26 @@ func (msg *MsgCreateGame) GetSigners() []sdk.AccAddress {
     return []sdk.AccAddress{creator}
 }
 ```
-This is code that is created only once and therefore that you can modify as you see fit.
 
-## Protobuf Service Interface
+This code is created only once. Therefore, you can modify it as you see fit.
 
-Now, because this is a message that is meant to be sent and received, Starport also added a new function to your gRPC interface that receives all transaction messages for the module. This interface is called `service Msg` and is declared inside `proto/checkers/tx.proto`. Starport created this `tx.proto` file at the beginning when you created your project. This is Starport's modus operandi, it files different concerns into different files so that it knows where to add elements when you instruct it. That's what it did here, adding a function to the empty `service Msg`.
+## Protobuf service interface
 
-The new function will receive this `MsgCreateGame`. Namely:
+Starport also adds a new function to your gRPC interface that receives all transaction messages for the module, because the message is meant to be sent and received. The interface is called `service Msg` and is declared inside `proto/checkers/tx.proto`.
+
+Starport creates this `tx.proto` file at the beginning when you create your project. This is Starport's modus operandi: Starport files different concerns into different files so that it knows where to add elements according to instructions received. Here, Starport adds a function to the empty `service Msg`.
+
+The new function receives this `MsgCreateGame`, namely:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/b3cf9ea4c554158e950bcfe58803e53eefc31090/proto/checkers/tx.proto#L11]
 service Msg {
     rpc CreateGame(MsgCreateGame) returns (MsgCreateGameResponse);
 }
 ```
-As an interface it does not describe what should happen when called, though. What Starport does, with the help of Protobuf, is compile the interface and create a default Go implementation. Now, since you are responsible for what creating a game means, Starport separated concerns into different files. The most relevant for you at this point is `x/checkers/keeper/msg_server_create_game.go`. It is created once and this is where you need to code the creation of the game proper:
+
+As an interface it does not describe what should happen when called, though. What Starport does, with the help of Protobuf, is compile the interface and create a default Go implementation.
+
+Since you are responsible to define "creating a game", Starport separates concerns into different files. At this point, the most relevant for you is `x/checkers/keeper/msg_server_create_game.go`, which is created once. In this file, you need to code in the creation of the game proper:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/keeper/msg_server_create_game.go#L10-L17]
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
@@ -107,6 +123,6 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
     return &types.MsgCreateGameResponse{}, nil
 }
 ```
-This is the object of the next section.
+This is the object of the [next section](./.md).
 
 <!-- Add GUI Elements -->

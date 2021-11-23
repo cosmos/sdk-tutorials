@@ -1,18 +1,20 @@
 ---
-title: The Create Game Handling
+title: Create the Game Handling
 order: 7
-description: You create a game proper.
+description: You create a proper game
 ---
 
-# The Create Game Handling
+# Create the Game Handling
 
-In the previous section, you added the message to create a game. But that was just that, a message, along with its serialization and dedicated gRPC function. There remains to add the code that actually:
+In the [previous section](./03-starport-04-create-message), you added the message to create a game, along with its serialization and dedicated gRPC function.
+
+There remains to add code that actually:
 
 * Creates a brand new game.
 * Saves it in storage.
-* Returns the id of the new game.
+* Returns the ID of the new game.
 
-Given how Starport has separated its concerns, it has isolated this concern into its separate file, `x/checkers/keeper/msg_server_create_game.go`, for you to edit:
+Given Starport's seperation of concerns, it isolates this concern into a separate file, `x/checkers/keeper/msg_server_create_game.go`, for you to edit:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/keeper/msg_server_create_game.go#L10-L17]
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
@@ -24,11 +26,13 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
     return &types.MsgCreateGameResponse{}, nil
 }
 ```
-Now, it should be apparent to you why picking Starport was a shrewd move. All the message processing code was created for you and all you are left to do is the meaty part of the action.
 
-Given that you have already done a lot of the preparation work, let's see what that involves. Here `rules` represent the ready-made file with the rules of the game you imported:
+Now, all the message processing code was created for you and all you are left to do is code the action. As you can see, opting for Starport is a wise decision.
 
-* Get the new game's id:
+Given that you have already done a lot of preparatory work, what does it involve to code in the action? `rules` represent the ready-made file with the imported rules of the game:
+
+* Get the new game's ID:
+
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/msg_server_create_game.go#L15-L19]
     nextGame, found := k.Keeper.GetNextGame(ctx)
     if !found {
@@ -36,7 +40,8 @@ Given that you have already done a lot of the preparation work, let's see what t
     }
     newIndex := strconv.FormatUint(nextGame.IdValue, 10)
     ```
-* Create the object to store:
+* Create the object to be stored:
+
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/msg_server_create_game.go#L20-L26]
     storedGame := types.StoredGame{
         Creator: msg.Creator,
@@ -46,35 +51,45 @@ Given that you have already done a lot of the preparation work, let's see what t
         Black:   msg.Black,
     }
     ```
-* Confirm that the values in it are correct, in effect checking the validity of the players' addresses:
+
+* Confirm that the values in it are correct by checking the validity of the players' addresses:
+
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/msg_server_create_game.go#L27-L30]
     err := storedGame.Validate()
     if err != nil {
         return nil, err
     }
     ```
-* Save it:
+
+* Save the game:
+
+<!-- Are we saving the game or the address? Please be more precise. -->
+
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/msg_server_create_game.go#L31]
     k.Keeper.SetStoredGame(ctx, storedGame)
     ```
-* Prepare the ground for the next game:
+
+* Prepare the ground for the next game with:
+
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/msg_server_create_game.go#L33-L34]
     nextGame.IdValue++
     k.Keeper.SetNextGame(ctx, nextGame)
     ```
-* And return the newly created id for reference:
+
+* Return the newly created ID for reference:
+
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/msg_server_create_game.go#L36-L38]
     return &types.MsgCreateGameResponse{
         IdValue: newIndex,
     }, nil
     ```
 
-As you can see, proper preparation in the previous sections made this handling a breeze. In the next sections, you will modify this handling:
+As you can see, proper preparation in the previous sections made handling this a breeze. In the next sections, you will modify this handling:
 
 * To add new fields to the stored information.
 * To add an event.
 * To consume some gas.
-* To facilitate eventual deadline enforcement.
+* To facilitate the eventual deadline enforcement.
 * To add _money_ handling.
 
-With the game created, it's time to move to playing it.
+Now, that a game is created, it is time to play it.
