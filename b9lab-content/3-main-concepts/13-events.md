@@ -1,10 +1,17 @@
+---
+title: "Events"
+order: 11
+description: Using events in app development
+tag: deep-dive
+---
+
 # Events
 
-An event is an object containing information about the execution of the application. Events are used by service providers (block explorers, wallets, and IBC relayers) to track the execution of various messages and index transactions.
+An event is an object that contains information about the execution of applications. Events are used by service providers (block explorers, wallets, etc.) to track the execution of various messages and index transactions.
 
-In the Cosmos SDK, events are implemented as an alias of the ABCI `event` type in the form `{eventType}.{attributeKey}={attributeValue}`.
+In the Cosmo SDK, events are implemented as an alias of the ABCI `event` type in the form `{eventType}.{attributeKey}={attributeValue}`.
 
-Events are objects that allow application developers to package important information about state transitions in an application. Instead of querying, events can be subscribed to using [WebSockets](https://docs.tendermint.com/master/tendermint-core/subscription.html#subscribing-to-events-via-websocket).
+Events allow application developers to attach additional information. This means that transactions might be queried using events:
 
 ```protobuf
 // Events allow application developers to attach additional information to
@@ -41,15 +48,11 @@ Events are returned to the underlying consensus engine in response to the follow
 * `CheckTx`
 * `DeliverTx`
 
-Events are managed by an abstraction called the `EventManager`. They are triggered from the module's Protobuf `Msg` service with `EventManager`.
+Events are managed by an abstraction called the `EventManager`. Events are triggered from the module's Protobuf `Msg` service with `EventManager`. Let's explore this abstraction further.
 
 ## `EventManager`
 
-For each of the four ABCI calls, `CheckTx`, `DeliverTx`, `BeginBlock`, and `EndBlock`, the `EventManager` keeps a list of events and delivers it in full as part of the ABCI response. After delivery in an ABCI response, the `EventManager` empties its list of events.
-
-In practice, the `EventManager` implements a simple wrapper around a slice of `Event` objects that can be emitted from and provides useful methods. One of the most-used methods by modules and application developers is `EmitEvent`.
-
-<HighlightBox type="info">
+`Eventmanager` tracks a list of events for the entire execution flow of a transaction or `BeginBlock`/`EndBlock`. `EventManager` implements a simple wrapper around a slice of event objects, that can be emitted from and provides useful methods. The most used method for Cosmos SDK module and application developers is `EmitEvent`.
 
 Module developers should handle event emission via `EventManager#EmitEvent` in each message handler and in each `BeginBlock` or `EndBlock` handler, accessed via the `Context`. Event emission generally follows this pattern:
 
@@ -72,8 +75,6 @@ func NewHandler(keeper Keeper) sdk.Handler {
     }
 }
 ```
-
-</HighlightBox>
 
 ## Subscribing to events
 

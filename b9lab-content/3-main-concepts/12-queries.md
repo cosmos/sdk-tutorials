@@ -1,6 +1,11 @@
-# Queries
+---
+title: "Queries"
+order: 10
+description: Query lifecycle and working with queries 
+tag: deep-dive
+---
 
-### gRPC routing
+# Queries
 
 A query is a request for information made by end-users of an application through an interface and processed by a full node. Available information includes:
 
