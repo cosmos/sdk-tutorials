@@ -1,5 +1,5 @@
 <template lang="pug">
-	.home__content
+	.home__content(:class="$frontmatter.main ? 'mt-10' : ''")
 		.home__content__intro(v-if="$frontmatter.intro")
 			.home__content__intro__content(:class="$frontmatter.intro.image ? 'home__content__intro__content__small' : ''")
 				.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$frontmatter.intro.overline") {{$frontmatter.intro.overline}}
@@ -16,13 +16,14 @@
 			h3.resources__title Developer resources
 			.resources
 				.resources__item(v-for="resource in $themeConfig.resources")
-					.resources__item__icon
-						img(:src="resource.image" :alt="resource.title")
-					h5.resources__item__title {{resource.title}}
-					.resources__item__description {{resource.description}}
-					.resources__item__links
-						a(v-for="link in resource.links" :href="link.url" target="_blank").tm-link.tm-link-external.tm-medium
-							span {{link.name}}
+					.resources__item__container
+						.resources__item__icon
+							img(:src="resource.image" :alt="resource.title")
+						h5.resources__item__title {{resource.title}}
+						.resources__item__description {{resource.description}}
+						.resources__item__links
+							a(v-for="link in resource.links" :href="link.url" target="_blank").tm-link.tm-link-external.tm-medium
+								span {{link.name}}
 </template>
 
 
@@ -38,15 +39,17 @@
 	.resources
 		display flex
 		margin-top 32px
-		overflow hidden
-		overflow-x auto
-		-ms-overflow-style none
-		scrollbar-width none
+		flex-wrap wrap
 
-		@media screen and (max-width: 1024px)
+		@media screen and (max-width: 480px)
 			width 100vw
 			margin-left calc(50% - 50vw)
 			padding-inline calc(50vw - 50%)
+			overflow hidden
+			overflow-x auto
+			-ms-overflow-style none
+			scrollbar-width none
+			flex-wrap nowrap
 
 		&::-webkit-scrollbar
 			display none
@@ -55,29 +58,40 @@
 			margin-top 96px
 
 		&__item
-			padding 32px
-			margin 10px
-			display flex
-			flex-direction column
-			justify-content space-between
-			border-radius 16px
-			background var(--background-color-secondary)
+			padding 10px
 
-			@media screen and (min-width: 1025px)
-				flex 1 1 0px
+			&:last-child
+				padding-right 0px
+			&:first-child
+				padding-left 0px
 
-			@media screen and (min-width: 481px) and (max-width: 1024px)
-				width 40vw
-				flex-shrink 0
+			@media screen and (min-width: 1313px)
+				flex 1 0 0px
+
+			@media screen and (min-width: 481px) and (max-width: 1312px)
+				max-width 50%
+				flex-grow 1
+
+				&:nth-child(even)
+					padding-right 0px
+					padding-left 10px
+				&:nth-child(odd)
+					padding-left 0px
+					padding-right 10px
+
 
 			@media screen and (max-width: 480px)
 				width 60vw
 				flex-shrink 0
 
-			&:last-child
-				margin-right 0px
-			&:first-child
-				margin-left 0px
+			&__container
+				padding 32px
+				display flex
+				flex-direction column
+				justify-content space-between
+				border-radius 16px
+				background var(--background-color-secondary)
+				height 100%
 
 			&__icon
 				margin-right 20px
@@ -113,7 +127,6 @@
 
 	.home
 		&__content
-			margin-top 64px
 			max-width var(--content-max-width)
 			margin-inline auto
 
