@@ -168,7 +168,7 @@ Whereas:
 * `query.proto`: the module's query service and related message type definitions.
 * `tx.proto`: the module's `Msg` service and related message type definitions.
 
-<!-- Here an introductory clause to the code is missing --> 
+A folder for your module(s)' code, which you structure as follows:
 
 ```shell
 x/{module_name}
