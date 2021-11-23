@@ -73,7 +73,7 @@ txBuilder.SetMsgs(...) // and other setters on txBuilder
 
 ## Broadcast the Transaction
 
-Once the transaction bytes are generated and signed there are currently three primary ways of broadcasting it.
+Once the transaction bytes are generated and signed there are currently three primary ways of broadcasting it: via the CLI, gRPC, or REST. Let's review them.
 
 Application developers create entrypoints to the application by creating a command-line interface, gRPC and/or REST interface, typically found in the application's `./cmd` folder. These interfaces allow users to interact with the application.
 
