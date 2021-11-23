@@ -42,7 +42,7 @@ tools:
       - name: Documentation
         url: https://docs.cosmwasm.com/docs/0.16/
     image: /cosmwasm-icon.svg
-  - title: Gaia
+  - title: Cosmos Hub
     description: Software powering Cosmos Hub, the heart of the Cosmos network, and home of the ATOM token.
     links:
       - name: Documentation

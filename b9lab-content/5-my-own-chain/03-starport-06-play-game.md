@@ -12,7 +12,7 @@ In order to see in details what Starport would create, refer back to [The Create
 * The initial position of the pawn to play. Let's call the fields `fromX` and `fromY`.
 * The final position of the pawn to play. Let's call the fields `toX` and `toY`.
 
-The player need not be made explicitly as a field in the message because implicitly it is the signer of the message. Let's name the object `PlayMove`. Now, unlike when creating the game, here you may want to return more than just a game id. In particular:
+The player need not be made explicit as a field in the message because, implicitly, it is the signer of the message. Let's name the object `PlayMove`. Now, unlike when creating the game, here you may want to return more than just a game id. In particular:
 
 * The game id. Let's call the field `idValue` too.
 * A potential captured piece. Let's call the fields `capturedX` and `capturedY`.
@@ -22,7 +22,7 @@ The player need not be made explicitly as a field in the message because implici
 
 Now, Starport only creates a response object with a single field. Not to worry, you can update the object after Starport has run. Therefore:
 
-```go
+```sh
 $ starport scaffold message playMove idValue fromX:uint fromY:uint toX:uint toY:uint --module checkers --response idValue
 ```
 Once more, Starport has created all the necessary Protobuf files and the boilerplate for you. All you are left to do is:
@@ -48,11 +48,11 @@ Once more, Starport has created all the necessary Protobuf files and the boilerp
     }
     ```
 
-You start getting the hang of it.
+You should start getting the hang of it.
 
 ## The Move Handling Part
 
-Below `rules` represent the ready-made file with the rules of the game you imported. And the following errors have been declared in `x/checkers/types/errors.go`:
+Below, `rules` represent the ready-made file with the rules of the game you imported earlier. And the following errors have been declared in `x/checkers/types/errors.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/types/errors.go#L14-L18]
 ErrGameNotFound     = sdkerrors.Register(ModuleName, 1104, "game by id not found: %s")
@@ -60,7 +60,6 @@ ErrCreatorNotPlayer = sdkerrors.Register(ModuleName, 1105, "message creator is n
 ErrNotPlayerTurn    = sdkerrors.Register(ModuleName, 1106, "player tried to play out of turn: %s")
 ErrWrongMove        = sdkerrors.Register(ModuleName, 1107, "wrong move")
 ```
-
 The steps are none other than:
 
 * Fetch the stored game information:
@@ -110,7 +109,7 @@ The steps are none other than:
         return nil, sdkerrors.Wrapf(moveErr, types.ErrWrongMove.Error())
     }
     ```
-* Prepare the board to be stored store, and store the information:
+* Prepare the updated board to be stored, and store the information:
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc/x/checkers/keeper/msg_server_play_move.go#L56-L58]
     storedGame.Game = game.String()
     storedGame.Turn = game.Turn.Color

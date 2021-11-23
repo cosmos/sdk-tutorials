@@ -69,7 +69,7 @@ The [`rootMulti.Store`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/st
 
 ### CacheMultistore
 
-Whenever the rootMulti.Store needs to be branched, a `cachemulti.Store` is used:  https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/cachemulti/store.go#L17-L28. `cachemulti.Store` branches all substores (creates a virtual store for each substore) in its constructor and hold them in Store.stores.
+Whenever the rootMulti.Store needs to be branched, a `cachemulti.Store` is used:  [https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/cachemulti/store.go#L17-L28] (https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/cachemulti/store.go#L17-L28). `cachemulti.Store` branches all substores (creates a virtual store for each substore) in its constructor and hold them in Store.stores.
 
 This is used primarily to create an isolated store, typically when it is necessary to mutate the state but it might be reverted later.
 
@@ -83,7 +83,7 @@ As the name suggests, `Transient.Store` is a KVStore that is discarded automatic
 
 The default implementation of KVStore and CommitKVStore is the `iavl.Store`. The IAVL.Store is a self-balancing binary search tree that ensures get and set operations are O(log n) when n is the number of elements in the tree.
 
-Each tree version is immutable nd can be retrieved even after a commit, depending on the pruning settings: [https://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md](ttps://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md)
+Each tree version is immutable nd can be retrieved even after a commit, depending on the pruning settings: [https://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md](https://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md)
 
 ## Additional KVStore Wrappers
 
@@ -121,13 +121,13 @@ More info: [https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/gas-fee
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-In the [Accounts](./04-accounts) section, you were introduced to the elements of the stored game, but were left in the dark about where this game is stored. In light of what you learned above, let's remedy that.
+In the [Accounts](./04-accounts) section, you were introduced to the elements of the stored game, but were left in the dark about where this game is stored. In light of what you learned above, let's fix that.
 
 ## Game Object in Storage
 
-You need to decide under what structure to store a game in storage. The Cosmos SDK partitions the global storage per module, with `checkers` being its own module. Therefore, you need to take care of how to store games in the checkers' module's own corner of the key / value pair storage.
+You need to decide under what structure to store a game in storage. The Cosmos SDK partitions the global storage per module, with `checkers` being its own module. Therefore, you need to take care of how to store games in the checkers module's own corner of the key / value pair storage.
 
-The first idea would be to attribute a unique id to a game and to store the game value at that id. However, for the sake of clarity and so as to be able to differentiate with other stored elements in the future, you ought to add a prefix to that id. In pseudo-Go-code, the storage structure would therefore look like this:
+The first idea would be to attribute a unique id to a game and to store the game value at that id. However, for the sake of clarity and so as to be able to differentiate with other stored elements in the future, you ought to add a prefix to that id. In pseudo Go code, the storage structure would therefore look like this:
 
 ```go
 // Pseudo-code
@@ -215,7 +215,7 @@ func (k Keeper) GetAllStoredGame(ctx sdk.Context) (list []types.StoredGame) {
 ```
 Notice the `MustMarshalBinaryBare` and `MustUnmarshalBinaryBare` functions in the `codec` above. They need to be instructed as to how to proceed with the marshaling. Fortunately, Protobuf took care of this for us. See the [previous section](./09-protobuf) for that.
 
-## Boilerplate Boilerplate Everywhere!
+## Boilerplate, Boilerplate Everywhere!
 
 Also notice how the `Set`, `Get`, `Remove`, and `GetAll` functions above look like boilerplate too. Do you have to redo these functions for every type? **No**. In fact, it was all created with this Starport command:
 
@@ -392,7 +392,7 @@ if deadline.Before(ctx.BlockTime()) {
 
 ## How To Expire Games
 
-Ok, but when do you verify that the game has expired? An interesting feature of an ABCI application is that you can do some action at the end of each block. Should you load all games and filter for those that have expired? No. That would be extremely expensive. Better keep a FIFO where fresh games are pushed back to the tail and therefore the head contains the next games to expire.
+Ok, but when do you verify that the game has expired? An interesting feature of an ABCI application is that you can have it perform some actions at the end of each block. Should you load all games and filter for those that have expired? No. That would be extremely expensive. Better keep a FIFO where fresh games are pushed back to the tail so that the head contains the next games to expire.
 
 In the context of the Cosmos SDK, you need to keep track of where the FIFO starts and stops by saving the corresponding game ids:
 
@@ -436,11 +436,11 @@ This is where you write the necessary code, preferably in the keeper. For instan
 ```go
 am.keeper.ForfeitExpiredGames(sdk.WrapSDKContext(ctx))
 ```
-Those among you with a well-placed paranoia must be asking whether you can ensure that the execution of this `EndBlock` does not become prohibitively expensive. After all, the number of games to potentially expire is unbounded, which is a recipe for disaster in the blockchain world. Is there a situation or an attack vector that would make this is a possibility?
+Those among you with a well-placed paranoia must be asking whether you can ensure that the execution of this `EndBlock` does not become prohibitively expensive. After all, the number of games to potentially expire is unbounded, which is a recipe for disaster in the blockchain world. Is there a situation or an attack vector that would make this a possibility? And what can we do to prevent it?
 
 Fortunately, the timeout duration is fixed and the same for all games. This means that those `n` games that all expire in a given block have all been created or updated at roughly the same time. Or in effect, at roughly the same block height `h` give or take a margin of error `h-1` and `h+1`. These created and updated games are in limited number, as per the validators rules. So if by any chance, all games in blocks `h-1`, `h` and `h+1` expire now, then the `EndBlock` function would have to expire 3 times as many games as a block can handle. This is the worst case scenario, and still sounds manageable.
 
-As a corollary, you should be careful about letting the game creator pick a timeout duration. That would open an avenue for a malicious actor to, for instance, stagger game creations over a large number of blocks, with decreasing timeouts, so that they all expire at the same time.
+Because of this, you should be careful about letting the game creator pick a timeout duration. That would open an avenue for a malicious actor to, for instance, stagger game creations over a large number of blocks, with decreasing timeouts, so that they all expire at the same time.
 
 ## Gas costs
 
@@ -448,7 +448,7 @@ The keeper also makes it easy for you to charge gas to the players as you see fi
 
 * Create game: costs 10. Conceptually, it should include the costs of closing a game. If that was not the case, the losing player would be incentivized to let the game hit its timeout.
 * Play move: costs 1. You could make it cost 0 when the player loses the game, in order to incentivize the player to conclude the game instead of letting it hit the time out.
-* Reject: costs 0 because you want to incentivize cleaning up the state. This transaction would still cost what Cosmos SDK bills for transactions.
+* Reject: costs 0 because you want to incentivize cleaning up the state. This transaction would still cost what your chain is configured to charge for basic transactions.
 
 So you define the cost:
 
@@ -468,6 +468,6 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
     ...
 }
 ```
-Where and how much to charge for gas is an economics as well as a game theoretic concern. So you should think about what you want to incentivize or disincentivize, at which junctures, and charge accordingly.
+Where and how much to charge for gas is an economical, as well as a game theoretical concern. So you should think about what you want to incentivize or disincentivize, at which junctures, and charge accordingly.
 
 </ExpansionPanel>

@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Queries
 
-A query is a request for information made by end-users of an applications through an interface and processed by a full-node. Available information includes:
+A query is a request for information made by end-users of an application through an interface and processed by a full-node. Available information includes:
 
 * Information about the network.
 * Information about the application itself.
@@ -17,15 +17,15 @@ Queries do not require consensus to be processed (as they do not trigger state-t
 
 <HighlightBox info=”info”>
 
-[Query lifecycles](https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/query-lifecycle.md): Creating, handling queries with the CLI, RPC and application query handling.
+To get a clear overview of the query lifecycle, visit the [detailed documentation](https://docs.cosmos.network/master/basics/query-lifecycle.html) and learn how a query is created, handled, and responded to through various means. 
 
 </HighlightBox>
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-If you used Starport, it has already created queries for you, for instance queries to get one stored game or a list of them. However, you still don't have a way to check whether a move will work. It would be wasteful to send a transaction with an invalid move. It is better to catch such a mistake before submitting a transaction. Let's remedy that. You are going to create a query that informs whether a move can be played.
+If you used Starport, it has already created queries for you, such as queries to get one stored game, or a list of them. However, you still don't have a way to check whether a move will work. It would be wasteful to send a transaction with an invalid move. It is better to catch such a mistake before submitting a transaction. Let's fix that. You are going to create a query that informs whether a move can be played.
 
-Here again Starport can help you with the simple command:
+Again, Starport can help you here with a simple command:
 
 ```sh
 $ starport scaffold query canPlayMove idValue player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool
@@ -57,7 +57,7 @@ func (k Keeper) CanPlayMove(goCtx context.Context, req *types.QueryCanPlayMoveRe
     return &types.QueryCanPlayMoveResponse{}, nil
 }
 ```
-So now you are left with filling this in. Simply:
+So now you are left with filling in the gaps under TODO. Simple:
 
 1. Is the game finished? Actually, for this one, you ought to add a `Winner` to your `StoredGame` first.
 2. Is it an expected player?
@@ -103,14 +103,14 @@ So now you are left with filling this in. Simply:
         }, nil
     }
     ```
-5. If all was ok, tell it:
+5. If all checks passed, return the OK status:
     ```go
     return &types.QueryCanPlayMoveResponse{
         Possible: true,
         Reason:   "ok",
     }, nil
     ```
-Of note is that the player's move will be tested against the latest validated state of the blockchain. It does not test against the intermediate state being calculated when transactions are being delivered. Nor does it test again the potential state that would result from delivering the transactions still in the transaction pool.
+Of note is that the player's move will be tested against the latest validated state of the blockchain. It does not test against the intermediate state being calculated as transactions are being delivered. Nor does it test against the potential state that would result from delivering the transactions still in the transaction pool.
 
 In practice, this means that a player could test their move only if the opponent's move has been included in a block.
 
