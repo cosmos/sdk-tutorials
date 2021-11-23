@@ -164,7 +164,7 @@ On the front-end app, sign in as end user Alice. The mnemonic passphrases for Al
 After you are signed in as Alice, you can import an existing wallet that was created with the app. The wallet in the voter app can handle multiple accounts, so give your wallet a descriptive name. Using a descriptive wallet name helps you recognize this wallet in future transactions. For this example, naming this wallet `voter` makes sense.
 
 1. Click **Access Wallet** and then click **Import existing wallet**.
-2. Enter the passphrase for Alice that was output to your console when you launched the voter app with the `starport serve` command and click **Next**
+2. Enter the passphrase for Alice that was output to your console when you launched the voter app with the `starport chain serve` command and click **Next**
 3. Name your wallet `voter` and enter a password.
 4. Click **Done**.
 
@@ -410,7 +410,7 @@ This command creates a vote type transaction with:
 Now, restart the application. Remember to use the `--reset-once` flag to recognize the code changes.
 
 ```bash
-starport serve --reset-once
+starport chain serve --reset-once
 ```
 
 Each time you reset the application state, all of the data from your previously created state is not saved.
