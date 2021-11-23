@@ -27,7 +27,7 @@ Modules include **core** functionality that provides the basic functionality eve
 * A general-purpose data store that persists the module state called `multistore`.
 * A server and interfaces to facilitate interactions with other modules.
 
-Modules implement the majority of the application logic while the **core** attends to wiring and infrastructure concerns and enables modules to be composed into higher-order modules.
+Modules implement the majority of the application logic while the **core** attends to wiring and infrastructure concerns and enabling modules to be composed into higher-order modules.
 
 A module defines a subset of the overall state using one or more key/value stores, known as `KVStore`, and a subset of message types that are needed by the application and do not exist yet. Modules also define interactions with other modules that do already exist.
 
