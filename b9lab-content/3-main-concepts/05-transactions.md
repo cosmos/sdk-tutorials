@@ -84,27 +84,24 @@ For the command-line interface, module developers create subcommands to add as c
 CLI commands actually bundle all the steps of transaction processing into one simple command: creating messages, generating transactions, signing and broadcasting.
 
 ### gRPC
+
 The principal usage of gRPC is in the context of module Query services.
 
-The SDK also exposes a few other module-agnostic gRPC services, one of them being the Tx service
-The Tx service exposes a handful of utility functions, such as simulating a transaction or querying a transaction, and also one method to broadcast transactions.
+The SDK also exposes a few other module-agnostic gRPC services, one of them being the `Tx` service. The `Tx` service exposes a handful of utility functions, such as simulating a transaction or querying a transaction, and also one method to [broadcast transactions](https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#broadcasting-a-transaction-1).
 
-Example: [https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#programmatically-with-go](https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#programmatically-with-go)
+Find more examples [here](https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#programmatically-with-go).
 
 ### REST
-Each gRPC method has its corresponding REST endpoint, generated using gRPC-gateway.
-Rather than using gRPC, you can also use HTTP to broadcast the same transaction, on the `POST` `/cosmos/tx/v1beta1/txs` endpoint.
 
-Example: [https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#using-rest](https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#using-rest)
+Each gRPC method has its corresponding REST endpoint, generated using gRPC-gateway. Rather than using gRPC, you can also use HTTP to broadcast the same transaction, on the `POST` `/cosmos/tx/v1beta1/txs` endpoint.
 
-Additionally:
+See an example [here](https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#using-rest).
 
 ### Tendermint RPC
 
 The three methods presented above are actually higher abstractions over the Tendermint RPC `/broadcast_tx_{async,sync,commit}` endpoints.
 
-Example: [https://docs.tendermint.com/master/rpc/#/Tx](https://docs.tendermint.com/master/rpc/#/Tx)
-you can use the Tendermint RPC endpoints to directly broadcast the transaction through Tendermint, if you wish to.
+For example, you can use the [Tendermint RPC endpoints](https://docs.tendermint.com/master/rpc/#/Tx) to directly broadcast the transaction through Tendermint, if you wish to.
 
 ## Next up
 
