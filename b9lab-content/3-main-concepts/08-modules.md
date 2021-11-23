@@ -24,25 +24,25 @@ Modules implement the majority of application logic while **core** attends to wi
 
 A module defines a subset of the overall state using one or more key/value stores, known as `KVStore`, and a subset of message types that are needed by the application and do not exist yet. Modules also define interactions with other modules that do already exist.
 
-For developers, most of the work involved in building a Cosmos SDK application revolves around building custom modules required by their application that do not exist yet, and integrating them with modules that do already exist into one coherent application. Existing modules can come either from the Cosmos SDK itself, or **come from third-party developers** and be downloaded from an online module repository.
+For developers, most of the work involved in building a Cosmos SDK application revolves around building custom modules required by their application that do not exist yet, and integrating them with modules that do already exist into one coherent application. Existing modules can come either from the Cosmos SDK itself or from **third-party developers** and can be downloaded from an online module repository.
 
 ## Module Components
 
-It is a best practice to define a module in the `x/moduleName` folder. For example, the module called Checkers would go in `x/checkers`. In fact, if you head over to the Cosmos SDK's base code, you can see that it also [defines its modules](https://github.com/cosmos/cosmos-sdk/tree/master/x) in an `x/` folder.
+It is a best practice to define a module in the `x/moduleName` folder. For example, the module called `Checkers` would go in `x/checkers`. In fact, if you head over to the Cosmos SDK's base code, you can see that it also [defines its modules](https://github.com/cosmos/cosmos-sdk/tree/master/x) in an `x/` folder.
 
 Modules implement several elements:
 
-* **Interfaces**: facilitate communication between modules and composition of multiple modules into coherent applications.
-* **Protobuf**: one `Msg` service to handle messages and one gRPC `Query` service to handle queries.
-* **Keeper**: a controller that defines the state and presents methods for updating and inspecting the state.
+* **Interfaces:** facilitate communication between modules and the composition of multiple modules into coherent applications.
+* **Protobuf:** one `Msg` service to handle messages and one gRPC `Query` service to handle queries.
+* **Keeper:** a controller that defines the state and presents methods for updating and inspecting the state.
 
 ### Interfaces
 
 To be integrated with the rest of the application, a module must implement three application module interfaces:
 
-* **`AppModuleBasic`**: implements non-dependent elements of the module.
-* **`AppModule`**: interdependent, specialized elements of the module that are unique to the application.
-* **`AppModuleGenesis`**: interdependent, genesis (i.e. initialization) elements of the module that establish the initial state of the blockchain at inception.
+* **`AppModuleBasic`:** implements non-dependent elements of the module.
+* **`AppModule`:** interdependent, specialized elements of the module that are unique to the application.
+* **`AppModuleGenesis`:** interdependent, genesis (initialization) elements of the module that establish the initial state of the blockchain at inception.
 
 You define `AppModule` and `AppModuleBasic`, and their functions, in your module's `x/moduleName/module.go` file.
 
@@ -50,20 +50,20 @@ You define `AppModule` and `AppModuleBasic`, and their functions, in your module
 
 Each module defines two Protobuf services:
 
-* **`Msg`**: a set of RPC methods related 1:1 to Protobuf request types to handle messages.
-* **`Query`**: gRPC query service to handle queries.
+* **`Msg`:** a set of RPC methods related 1:1 to Protobuf request types to handle messages.
+* **`Query:`** gRPC query service to handle queries.
 
 <HighlightBox type="info">
 
-See here for an introduction to Protobuf services if the topic is new to you: [Protocol Buffers](https://www.ionos.com/digitalguide/websites/web-development/protocol-buffers-explained/)
+If the topic is new to you, here you can find an introduction to [Protocol Buffers](https://www.ionos.com/digitalguide/websites/web-development/protocol-buffers-explained/).
 
 </HighlightBox>
 
-### `Msg` Service
+### `Msg` service
 
 * A best practice is to define the `Msg` Protobuf service in the `tx.proto` file.
 * Each module should implement the `RegisterServices` method as part of the `AppModule` interface. This lets the application know which messages and queries the module can handle.
-* Service methods should use a _Keeper_, which encapsulates knowledge about the storage layout and presents methods for updating the state.
+* Service methods should use a _keeper_, which encapsulates knowledge about the storage layout and presents methods for updating the state.
 
 ### gRPC `Query` Service
 
@@ -78,7 +78,7 @@ gRPC is a modern, open-source, high-performance framework that supports multiple
 
 gRPC-Gateway REST endpoints support external clients that may not wish to use gRPC. The Cosmos SDK provides a gRPC-gateway REST endpoint for each gRPC service.
 
-<HighlightBox type=”info”>
+<HighlightBox type="tip">
 
 Have a look at the [gRPC-Gateway](https://grpc-ecosystem.github.io/grpc-gateway/) documentation.
 
@@ -90,11 +90,11 @@ Each module defines commands for a command-line interface (CLI). Commands relate
 
 ### Keeper
 
-Keepers are the gatekeepers to the module’s store(s). It is mandatory to go through a module’s keeper in order to access the store(s). A keeper encapsulates the knowledge about the layout of storage within the store and contains methods to update and inspect it. If you come from a Module-View-Controller (MVC) world, then it helps to think of the keeper as the controller.
+Keepers are the gatekeepers to the module’s store(s). It is mandatory to go through a module’s keeper in order to access the store(s). A keeper encapsulates the knowledge about the layout of storage within the store and contains methods to update and inspect it. If you come from a module-view-controller (MVC) world, then it helps to think of the keeper as the controller.
 
-Other modules may need access to a store, but other modules are also potentially malicious or poorly written. For this reason, developers need to consider who/what should have access to their module store(s). Additionally, to prevent a module from randomly accessing another module at runtime, a module that needs access to another needs to declare its intent to use another module at construction. At this point, such a module is granted a runtime key that lets it access the other module. Only modules that hold this key to a store can access the store. This is part of what is called object-capability model.
+Other modules may need access to a store, but other modules are also potentially malicious or poorly written. For this reason, developers need to consider who/what should have access to their module store(s). Additionally, to prevent a module from randomly accessing another module at runtime, a module that needs access to another module needs to declare its intent to use another module at construction. At this point, such a module is granted a runtime key that lets it access the other module. Only modules that hold this key to a store can access the store. This is part of what is called an object-capability model.
 
-Keepers are defined in `keeper.go`. Keeper’s type definition generally consists of keys to the module’s own store in the `multistore`, references to other modules’ keepers and a reference to the application’s codec.
+Keepers are defined in `keeper.go`. Keeper's type definition generally consists of keys to the module's own store in the `multistore`, references to other modules' keepers and a reference to the application's codec.
 
 ## Core Modules
 
@@ -108,7 +108,11 @@ Core modules address application needs such as tokens, staking and governance. C
 
 Developers create coherent applications by selecting and composing core modules first, then implementing custom logic.
 
-Explore the list of core modules and the application concerns they address [here](https://github.com/cosmos/cosmos-sdk/tree/master/x).
+<HighlightBox type="tip">
+
+Why not explore the [list of core modules and the application concerns they address](https://github.com/cosmos/cosmos-sdk/tree/master/x)?
+
+</HighlightBox>
 
 ## Design Principles for Building Modules
 
@@ -136,11 +140,11 @@ proto
             └── tx.proto
 ```
 
-- `{module_name}.proto`: The module's common message type definitions.
-- `event.proto`: The module's message type definitions related to events.
-- `genesis.proto`: The module's message type definitions related to genesis state.
-- `query.proto`: The module's _Query_ service and related message type definitions.
-- `tx.proto`: The module's _Msg_ service and related message type definitions.
+* `{module_name}.proto`: the module's common message type definitions.
+* `event.proto`: the module's message type definitions related to events.
+* `genesis.proto`: the module's message type definitions related to genesis state.
+* `query.proto`: the module's _Query_ service and related message type definitions.
+* `tx.proto`: the module's _Msg_ service and related message type definitions.
 
 Then the rest of the code elements:
 
@@ -212,7 +216,13 @@ x/{module_name}
 
 ## Errors
 
-Modules are encouraged to define and register their own errors to provide better context on failed message or handler execution. Errors should be common or general errors which can be further wrapped to provide additional specific execution context. See [here](https://docs.cosmos.network/master/building-modules/errors.html) if you want more details.
+Modules are encouraged to define and register their own errors to provide better context on failed message or handler execution. Errors should be common or general errors which can be further wrapped to provide additional specific execution context.
+
+<HighlightBox type="tip">
+
+For more details, take a look at the [Cosmos SDK documentation on errors when building modules](https://docs.cosmos.network/master/building-modules/errors.html).
+
+</HighlightBox>
 
 ### Registration
 
@@ -227,7 +237,7 @@ The only restrictions on error codes are the following:
 
 <HighlightBox type="info">
 
-Note that the Cosmos SDK provides a core set of common errors. These errors are defined in [`types/errors/errors.go`](https://github.com/cosmos/cosmos-sdk/blob/master/types/errors/errors.go).
+The Cosmos SDK provides a core set of common errors. These errors are defined in [`types/errors/errors.go`](https://github.com/cosmos/cosmos-sdk/blob/master/types/errors/errors.go).
 
 </HighlightBox>
 
@@ -241,27 +251,26 @@ Regardless if an error is wrapped or not, the Cosmos SDK's errors package provid
 
 If a module error is registered, the Cosmos SDK errors package allows ABCI information to be extracted through the `ABCIInfo` API. The package also provides `ResponseCheckTx` and `ResponseDeliverTx` as auxiliary APIs to automatically get `CheckTx` and `DeliverTx` responses from an error.
 
-## Next Up
+## Next up
 
 Have a look at the code example below or head straight to the [next section](./09-protobuf) to learn more about Protobuf.
 
-<ExpansionPanel title="Show me some code for my checkers blockchain">
+<ExpansionPanel title="Show me some code for my checkers' blockchain">
 
-Now your application is starting to take shape.
+Now your application is starting to take shape. Let's take a closer look at some further expansions for your project.
 
-## The Checkers Module
+## The `checkers` module
 
-When you create your checkers blockchain application, you can, and ought to, include a majority of the standard modules like `auth`, `bank`, and so on. With the Cosmos SDK boilerplate in place, the _checkers part_ of your checkers application will most likely reside in a single `checkers` module. This is the module that you author.
+When you create your checkers' blockchain application, you can, and ought to, include a majority of the standard modules like `auth`, `bank`, and so on. With the Cosmos SDK boilerplate in place, the _checkers part_ of your checkers application will most likely reside in a single `checkers` module. This is the module that you author.
 
-## Game Wager
+## Game wager
 
 Earlier the goal was to let players play with _money_. Here, with the introduction of modules like `bank`, you can start handling that.
 
 The initial ideas are:
 
 * When creating a game, the wager amount is declared.
-* When doing their first move, which is interpreted as "challenge accepted", each player is billed the amount. Obviously the amount should not be deducted on the game creation, as it is good business to first ask for acceptance from the payer.
-    * If the opponent rejects the game, or the game times out, at this point, then the first player gets refunded.
+* When doing their first move, which is interpreted as "challenge accepted", each player is billed the amount. The amount should not be deducted on the game creation, as it is good business to first ask for acceptance from the player. If the opponent rejects the game, or the game times out, at this point, then the first player gets refunded.
 * Subsequent moves by a player do not cost anything.
 * If a game ends in a win or times out on a forfeit, the winning player gets the total wager amount.
 * If a game ends in a draw, then both players get back their amount.
@@ -269,13 +278,16 @@ The initial ideas are:
 How would this look like in terms of code? You need to add the wager to:
 
 * The game:
+
     ```go
     type StoredGame struct {
         ...
         Wager uint64
     }
     ```
+
 * The message to create a game:
+
     ```go
     type MsgCreateGame struct {
         ...
@@ -283,11 +295,11 @@ How would this look like in terms of code? You need to add the wager to:
     }
     ```
 
-## Wager Payment
+## Wager payment
 
-Then you need to decide how the tokens are being moved. When a player accepts a challenge, the amount is deducted from the player's balance. But where does it go? You could decide to burn the tokens and re-mint them at a later date, but this would make the total supply fluctuate wildly for no apparent benefit.
+Now, you need to decide how the tokens are being moved. When a player accepts a challenge, the amount is deducted from the player's balance. But where does it go? You could decide to burn the tokens and re-mint them at a later date, but this would make the total supply fluctuate wildly for no apparent benefit.
 
-Fortunately, it is possible to transfer from a player to a module. The module therefore acts like the escrow account for all games. So, when playing for the first time, a player would:
+Fortunately, it is possible to transfer from a player to a module. The module, therefore, acts as the escrow account for all games. So, when playing for the first time, a player would:
 
 ```go
 import (
@@ -305,6 +317,7 @@ if err != nil {
     return errors.New("Player cannot pay the wager")
 }
 ```
+
 Notice how `"stake"` identifies the likely name of the base token of your application, the token that is used with the consensus. Conversely, when paying a winner, you would have:
 
 ```go
@@ -320,8 +333,8 @@ if err != nil {
 As a matter of best practice, notice how:
 
 * When the player cannot pay, it is a _standard_ error, which is _easily_ fixed by the player.
-* When the escrow account cannot pay, it is a panic, an internal error, because if the escrow cannot pay it means there is a logic problem somewhere.
+* When the escrow account cannot pay, it is a panic (an internal error) because if the escrow cannot pay it means there is a logic problem somewhere.
 
-Here again, if you want to go beyond these out-of-context code samples and instead see more in details how to define all this, head to [how to build your own chain](../5-my-own-chain/01-index).
+Here again, if you want to go beyond these out-of-context code samples and instead see more in detail how to define all this, head to [My Own Chain](../5-my-own-chain/01-index).
 
 </ExpansionPanel>
