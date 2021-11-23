@@ -131,6 +131,7 @@ For more information on the subject, a closer look at the following resources co
 
 </HighlightBox>
 
+
 ## Long-running exercise
 
 So far we have described what we wanted to do:
