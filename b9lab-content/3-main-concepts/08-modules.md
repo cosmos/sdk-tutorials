@@ -147,7 +147,7 @@ These ideas are meant to be applied as suggestions. Application developers are e
 
 ### Structure
 
-A typical Cosmos SDK module can be structured as follows:
+A typical Cosmos SDK module can be structured as a folder named `proto` to contain all the data types defined with Protobuf:
 
 ```shell
 proto
