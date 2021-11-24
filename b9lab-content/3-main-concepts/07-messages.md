@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Messages
 
-<HighlightBox type="">
+<HighlightBox type="prereq">
 
 In this section, you will take a closer look at messages, `Msg`. It is recommended to take a look at the following previous sections to better understand messages:
 

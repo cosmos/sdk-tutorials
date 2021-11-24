@@ -7,7 +7,11 @@ tag: deep-dive
 
 # Make a Checkers' Blockchain
 
+<HighlightBox type="prereq">
+
 In the [Starport introduction section](./03-starport.md), you learned how to jump-start a brand new blockchain. Let's dive deeper and explore how you can create a blockchain that lets people play the game of checkers in a decentralized fashion.
+
+</HighlightBox>
 
 _The_ game of checkers? Ok, there are many versions of the rules. Let's choose [a very simple set of basic rules](https://www.ducksters.com/games/checkers_rules.php). The objective of this deep dive is to get acquainted with Starport and the Cosmos SDK, not to get lost in the rules of checkers or the proper implementation of the board state.
 
