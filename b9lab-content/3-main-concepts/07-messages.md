@@ -15,7 +15,7 @@ In this section, you will take a closer look at messages, `Msg`. It is recommend
 * [Accounts](./04-accounts.md)
 * [Transactions](./05-transactions.md)
 
-At the end of the section you can find a code example illustrating message creation and the inclusion of messages in transactions for our checkers' blockchain.
+At the end of the section you can find a code example illustrating message creation and the inclusion of messages in transactions for our checkers blockchain.
 
 Understanding `Msg` will help you prepare for the [next section on modules in the Cosmos SDK](./08-modules.md) as messages are a primary object handled by modules.
 
