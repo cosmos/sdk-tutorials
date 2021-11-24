@@ -45,6 +45,8 @@ Moreover, [**33 wallets**](https://cosmos.network/ecosystem/wallets) and block e
 
 Do you want to find out more about the wide variety of wallets in the Cosmos ecosystem? We recommend checking out the [wallets and block explorers for Cosmos](https://cosmos.network/ecosystem/wallets).
 
+</HighlightBox>
+
 ## Main components
 
 The main aim of the Cosmos network is to provide an **ecosystem for easy blockchain development** based on the Tendermint BFT and the Inter-Blockchain Communication protocol (IBC) with to the so-called [Cosmos SDK](https://v1.cosmos.network/sdk).
