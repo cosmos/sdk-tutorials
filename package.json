@@ -27,6 +27,8 @@
     "crypto-js": "^4.0.0",
     "date-fns": "^2.19.0",
     "vue-h5p": "^0.2.0",
-    "vuepress-theme-cosmos": "^1.0.182"
+    "vuepress-theme-cosmos": "^1.0.182",
+    "email-validator": "^2.0.4",
+    "querystring": "^0.2.0"
   }
 }

@@ -60,7 +60,7 @@ This layer model can be applied to blockchains in general.
 
 After the introduction of Bitcoin, several so-called public chains came into being. Among them was Ethereum in 2013, a public blockchain with smart-contract functionality. This functionality enables applications based on self-executing, self-enforcing, and self-verifying account holding objects. Other general-purpose chains followed.
 
-![Timeline of blockchain technology]()./images/timeline.png)
+![Timeline of blockchain technology](./images/timeline.png)
 
 Ethereum can be seen as a response to the difficulties of developing applications on Bitcoin.
 

@@ -1,28 +1,64 @@
 <template lang="pug">
-    div.wrapper
+    div.wrapper(v-bind:class="classType")
         div.icon(v-bind:class="classType")
             img.icon-image(v-bind:src="image")
+        p.title {{title}}
         div.content(v-bind:class="classType") 
             slot
 </template>
 
 <script>
-    const imageUrl = (type) => {
-        let icon = "/hi-info.svg"; // default
+    const getImageUrl = (type) => {
+        let icon;
 
-        if (type==="info") icon = "/hi-info.svg";
-        if (type==="tip") icon = "/hi-tip.svg";
-        if (type==="warn"|| type==="warning") icon = "/hi-warn.svg";
-        if (type==="reading") icon = "/hi-reading.svg";
+        switch(type) {
+            case "tip":
+                icon = "/hi-tip-icon.svg";
+                break;
+            case "info":
+            case "reading":
+                icon = "/hi-info-icon.svg";
+                break;
+            case "warn":
+            case "warning":
+                icon = "/hi-warn-icon.svg";
+                break;
+            default:
+                icon = "/hi-info-icon.svg";
+        }
 
         return icon;
+    }
+    const getTitle = (type) => {
+        let title;
+
+        switch(type) {
+            case "tip":
+                title = "Tip";
+                break;
+            case "info":
+                title = "Info";
+                break;
+            case "reading":
+                title = "Further reading";
+                break;
+            case "warn":
+            case "warning":
+                title = "Alert";
+                break;
+            default:
+                title = "Info";
+        }
+
+        return title;
     }
     export default {
         props: ['type'],
         data() {
             return {
                 classType: this.type,
-                image: imageUrl(this.type)
+                image: getImageUrl(this.type),
+                title: getTitle(this.type)
             };
         },
     }
@@ -30,95 +66,76 @@
 
 <style lang="stylus" scoped>
     .wrapper {
-        background: #EDEDED;
-        display: grid;
+        display: flex;
         width: 100%;
-        grid-template-columns: 120px auto;
         align-items: center;
-        margin: 1.5em 0px;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    }
-    
-    @media screen and (max-width: 600px) {
-        .wrapper {
-            display: block;
+        justify-content: start;
+        padding: 20px;
+        padding-top: 10px;
+        margin-bottom: 20px;
+        border-radius: 16px;
+        font-size: 21px;
+        flex-wrap: wrap;
+
+        &.info {
+            background: var(--background-color-secondary);
+        }
+
+        &.tip {
+            background: var(--background-color-secondary);
+        }
+
+        &.warn, &.warning {
+            background: var(--color-warning);
+            color: black
+            fill: black
+
+            .title {
+                color: black
+            }
+        }
+
+        &.reading {
+            background: var(--background-color-secondary);
+        }
+
+        .title {
+            color: var(--color-text-strong);
+            font-weight: bold;
+            
+            margin-top: 10px;
+            margin-bottom: 0px;
+            margin-right: 20px;
         }
     }
 
     .icon {
-        padding: 20px;
-        min-width: 120px;
-        min-height: 120px;
-        height: 100%;
+        margin-top: 10px;
+        margin-right: 20px;
         align-items: center;
         display: flex;
 
         img {
-            width: 80px;
+            width: 20px;
+            height: 20px;
             margin: 0;
-        }
-
-        &.info {
-            background: #2C7DF7;
-        }
-
-        &.tip {
-            background: #DE7150;
-        }
-
-        &.warn, &.warning {
-            background: #DD4F52;
-        }
-
-        &.reading {
-            background: #389C66;
         }
     }
 
     .content {
-        padding: 20px;
-        overflow: auto;
-        
-        &::before {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
-        }
-
+        margin-top: 10px;
+        width: max-content;
 
         p {
-            margin-bottom: 1.0rem;
+            margin: 0px;
         }
 
-        &.info {
-            &::before {
-                content: "Info";
-                color: #2C7DF7;
-            }
-        }
+    }
 
-        &.tip {
-            &::before {
-                content: "Tip";
-                color: #DE7150;
-            }
+    @media screen and (max-width: 600px) {
+        .content {
+            width: 100%;
         }
-
-        &.warn, &.warning {
-            &::before {
-                content: "Warning";
-                color: #DD4F52;
-            }
-        }
-
-        &.reading {
-            &::before {
-                content: "Further Reading";
-                color: #389C66;
-            }
-        }
-
     }
 
 </style>
