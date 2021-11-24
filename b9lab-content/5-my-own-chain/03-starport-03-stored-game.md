@@ -184,7 +184,7 @@ message QueryAllStoredGameResponse {
 }
 ```
 
-### Starport's modus operandi
+### Starport files
 
 Starport puts the different Protobuf messages into different files depending on their use:
 
