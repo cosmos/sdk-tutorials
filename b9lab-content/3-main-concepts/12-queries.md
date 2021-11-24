@@ -9,32 +9,122 @@ tag: deep-dive
 
 A query is a request for information made by end-users of an application through an interface and processed by a full node. Available information includes:
 
-* Information about the network
-* Information about the application itself 
-* Information about the application state
+* Information about the network.
+* Information about the application itself.
+* Information about the application state.
 
-Queries do not require consensus to be processed, as they do not trigger state transitions, and can therefore be fully handled independently by a full node.
+Queries do not require consensus to be processed as they do not trigger state transitions and can, therefore, be fully handled independently by a full node.
 
 <HighlightBox info=”info”>
 
-For an overview of the query lifecycles, a look into [creating and handling queries with the CLI and RPC, as well as application query handling]https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/query-lifecycle.md) in the Cosmos SDK documentation.
+To get a clear overview of the query lifecycle, visit the [detailed Cosmos SDK documentation](https://docs.cosmos.network/master/basics/query-lifecycle.html) and learn how a query is created, handled, and responded to through various means.
 
 </HighlightBox>
 
-## Long-running exercise
+<ExpansionPanel title="Show me some code for my checkers' blockchain">
 
-We need to think in terms of what a server system, or a GUI, would need:
+If you have used Starport so far, it has already created queries for you, such as queries to get one stored game or a list of them. However, you still do not have a way to check whether a move works/is valid. It would be wasteful to send a transaction with an invalid move. It is better to catch such a mistake before submitting a transaction. So, you are going to create a query to know whether a move is valid.
 
-1. A way to load a game by ID.
-2. A way to get current game Ids by player.
-3. Perhaps a way to get the game's timing out soon.
-4. A way to test whether a move will be accepted.
+Again, Starport can help you here with a simple command:
 
-Point 1 means we need to revisit our storage structure and keep a list of game IDs by player. Probably ordered by ID.
+```sh
+$ starport scaffold query canPlayMove idValue player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool
+```
 
-Point 4 assumes that the previous player's move is already confirmed in a block. This leads to the following questions:
+This creates the query objects:
 
-* Is there a way to test a move's validity while the previous player's move is still in the mempool?
-* Is there a way to make sure that if the next player sends their move before the previous one was confirmed, so to say both transactions are ordered _properly_?
+```go
+type QueryCanPlayMoveRequest struct {
+    IdValue string
+    Player  string
+    FromX   uint64
+    FromY   uint64
+    ToX     uint64
+    ToY     uint64
+}
 
-<!-- TODO define in code how these queries would be defined and routed. -->
+type QueryCanPlayMoveResponse struct {
+    Possible bool
+    Reason   string // Actually, you have to add this one by hand.
+}
+```
+
+It also created a function that looks familiar to you:
+
+```go
+func (k Keeper) CanPlayMove(goCtx context.Context, req *types.QueryCanPlayMoveRequest) (*types.QueryCanPlayMoveResponse, error) {
+    ...
+    // TODO: Process the query
+
+    return &types.QueryCanPlayMoveResponse{}, nil
+}
+```
+
+So now you are left with filling in the gaps under `TODO`. Simply put:
+
+1. Is the game finished? For this one, you ought to add a `Winner` to your `StoredGame` first.
+2. Is it an expected player?
+
+    ```go
+    var player rules.Player
+    if strings.Compare(rules.RED_PLAYER.Color, req.Player) == 0 {
+        player = rules.RED_PLAYER
+    } else if strings.Compare(rules.BLACK_PLAYER.Color, req.Player) == 0 {
+        player = rules.BLACK_PLAYER
+    } else {
+        return &types.QueryCanPlayMoveResponse{
+                Possible: false,
+                Reason:   "message creator is not a player",
+            }, nil
+    }
+    ```
+
+3. Is it the player's turn?
+
+    ```go
+    fullGame := storedGame.ToFullGame()
+        if !fullGame.Game.TurnIs(player) {
+            return &types.QueryCanPlayMoveResponse{
+                Possible: false,
+                Reason:   "player tried to play out of turn",
+            }, nil
+        }
+    ```
+
+4. Attempt the move in memory, without committing any new state:
+
+    ```go
+    _, moveErr := fullGame.Game.Move(
+        rules.Pos{
+            X: int(req.FromX),
+            Y: int(req.FromY),
+        },
+        rules.Pos{
+            X: int(req.ToX),
+            Y: int(req.ToY),
+        },
+    )
+    if moveErr != nil {
+        return &types.QueryCanPlayMoveResponse{
+            Possible: false,
+            Reason:   fmt.Sprintf("wrong move", moveErr.Error()),
+        }, nil
+    }
+    ```
+
+5. If all checks passed, return the OK status:
+
+    ```go
+    return &types.QueryCanPlayMoveResponse{
+        Possible: true,
+        Reason:   "ok",
+    }, nil
+    ```
+
+Note that the player's move will be tested against the latest validated state of the blockchain. It does not test against the intermediate state being calculated as transactions are delivered, nor does it test against the potential state that would result from delivering the transactions still in the transaction pool.
+
+In practice, a player can test their move only once the opponent's move is included in a previous block. Fortunately, these types of edge case scenarios are not common in our checkers game, and we can expect little to no effect on the user experience.
+
+Of course, this is not an exhaustive list of potential queries. Some examples of other possible queries would be to get a player's open games or to get a list of games that are timing out soon. It depends on the needs of your application and how much functionality you willingly provide.
+
+</ExpansionPanel>
