@@ -243,11 +243,11 @@ Your work is mostly done. Still, you want to create the game to replace `// TODO
 Not to forget:
 
 * If you encounter an internal error, you should `panic("This situation should not happen")`.
-* If you encounter a user or _regular_ error (like not enough funds), you should return a regular `error`.
+* If you encounter a user or _regular_ error, like insufficient funds, you should return a regular `error`.
 
 ## Other messages
 
-You can also implement other messages. Without repeating all of the above, you can include:
+You can also implement other messages. Without repeating all of the above you can include:
 
 1. The **play message** to implicitly accept the challenge when playing for the first time. If you create it with Starport use:
 
@@ -268,7 +268,7 @@ You can also implement other messages. Without repeating all of the above, you c
     }
     ```
 
-2. The **reject message**, only valid if the player never played any moves in this game. Again, if you create it with Starport:
+2. The **reject message**, only valid if the player never played any moves in this game. Using Starport:
 
     ```sh
     $ starport scaffold message rejectGame idValue --module checkers
