@@ -27,25 +27,25 @@ In the Cosmos SDK, a **transaction** contains **one or more messages**. After th
 
 <ExpansionPanel title="Signing a message">
 
-Remember from the [last section on transactions](./05-transactions.md) that transactions must be signed before a validators includes them in a block. Every message in a transaction must be signed by the addresses, as specified by `GetSigners`.
+Remember from the [last section on transactions](./05-transactions.md) that transactions must be signed before a validator includes them in a block. Every message in a transaction must be signed by the addresses, as specified by `GetSigners`.
 
 The Cosmos SDK currently allows signing transactions with either `SIGN_MODE_DIRECT` or `SIGN_MODE_LEGACY_AMINO_JSON`.
 
-When an account signs a message it signs an array of bytes. This array of bytes is what results when serializing the message. For the signature to be verifiable at a later date, this conversion needs to be deterministic. For this reason you define a canonical bytes representation of the message, typically with the parameters ordered alphabetically.
+When an account signs a message it signs an array of bytes. This array of bytes is what results when serializing the message. For the signature to be verifiable at a later date, this conversion needs to be deterministic. For this reason, you define a canonical bytes representation of the message, typically with the parameters ordered alphabetically.
 
 </ExpansionPanel>
 
 ## Messages and the transaction lifecycle
 
-Transactions, containing one or more valid messages, are serialized and confirmed by the Tendermint consensus engine. Recall that Tendermint is agnostic to the transaction interpretation and has absolute finality. When a transaction is included in a block, it is confirmed, and finalized (no possibility of chain re-organization or cancellation).
+Transactions containing one or more valid messages are serialized and confirmed by the Tendermint consensus engine. Recall that Tendermint is agnostic to the transaction interpretation and has absolute finality. When a transaction is included in a block, it is confirmed, and finalized (no possibility of chain re-organization or cancellation).
 
-The confirmed transaction is relayed to the Cosmos SDK application for interpretation. The `BaseApp`, you use to develop custom modules, attends to the first stages of interpretation. `BaseApp` decodes each message contained in the transaction.
+The confirmed transaction is relayed to the Cosmos SDK application for interpretation. The `BaseApp` used to develop custom modules attends to the first stages of interpretation. `BaseApp` decodes each message contained in the transaction.
 
 Each message is routed to the appropriate module via `BaseApp`’s `MsgServiceRouter`. Each module has its own `MsgService` that processes each received message.
 
 ## `MsgService`
 
-Although it is technically feasible to create a novel `MsgService`, the recommended approach is to define a Protobuf `Msg` service. Each module will have exactly one Protobuf `Msg` service defined in `tx.proto` and there is a RPC service method for each message type in the module. Implicitly, the Protobuf message service defines the interface layer of the state mutating processes contained within the module.
+Although it is technically feasible to create a novel `MsgService`, the recommended approach is to define a Protobuf `Msg` service. Each module will have exactly one Protobuf `Msg` service defined in `tx.proto` and there is an RPC service method for each message type in the module. The Protobuf message service implicitly defines the interface layer of the state mutating processes contained within the module.
 
 How does all of this translate into code? This is an example `MsgService`:
 
@@ -70,11 +70,11 @@ In the above example, we can see that:
 The Cosmos SDK uses Protobuf definitions to generate client and server code:
 
 * The `MsgServer` interface defines the server API for the `Msg` service. Its implementation is described in the [`Msg` services documentation](https://docs.cosmos.network/master/building-modules/msg-services.html).
-* Structures are generated for all RPC request and response types.
+* Structures are generated for all RPC requests and response types.
 
 <HighlightBox type="tip">
 
-If you want to dive deeper when it comes to messages, teh `Msg` service, and modules, take a look at:
+If you want to dive deeper when it comes to messages, the `Msg` service, and modules, take a look at:
 
 * The Cosmos SDK documentation on [`Msg` service](https://docs.cosmos.network/master/building-modules/msg-services.html)
 * The Cosmos SDK documentation on messages and queries addressing how to define messages using `Msg` services - [Amino `LegacyMsg`](https://docs.cosmos.network/master/building-modules/messages-and-queries.html#legacy-amino-legacymsgs)
@@ -87,7 +87,7 @@ You can have a look at the code example below to get a better sense of how the a
 
 <ExpansionPanel title="Show me code for my checkers' blockchain - Including messages">
 
-Previously, the ABCI application knew of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient, nor viable. Additionally, because you are on your way to use the Cosmos SDK, you need to conform to the SDK's way of handling `Tx`. So to say, you have to **create messages that are then included in a transaction**.
+Previously, the ABCI application knew of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient nor viable. Additionally, you need to conform to the SDK's way of handling `Tx`. So to say, you have to **create messages that are then included in a transaction**.
 
 ## What you need
 
@@ -127,7 +127,7 @@ With the messages defined, you need to declare how the message should be handled
 2. Writing the code that handles the message and creates the new game in the storage.
 3. Putting hooks and callbacks at the right places in the general message handling.
 
-Fortunately, **Starport** can assist you by creating a boilerplate for message serialization and correct hook and callback implementation, so to say points 1 and 3.
+Fortunately, **Starport** can assist you by creating a boilerplate for message serialization and correct hook and callback implementation (points 1 and 3).
 
 <HighlightBox type="tip">
 
@@ -135,7 +135,7 @@ If you want to go beyond these out-of-context code samples and instead see more 
 
 </HighlightBox>
 
-In fact, Starport can also help you create the `MsgCreateGame` and `MsgCreateGameResponse` objects with the following command:
+Starport can also help you create the `MsgCreateGame` and `MsgCreateGameResponse` objects with the following command:
 
 ```sh
 $ starport scaffold message createGame red black --module checkers --response idValue
@@ -143,7 +143,7 @@ $ starport scaffold message createGame red black --module checkers --response id
 
 <HighlightBox type="info">
 
-Starport creates a number of other files. For details and to guide you on how to make additions to existing files see the [My Own Chain chapter](../5-my-own-chain/01-index).
+Starport creates several other files. For details and to guide you on how to make additions to existing files see the [My Own Chain chapter](../5-my-own-chain/01-index).
 
 </HighlightBox>
 
@@ -187,7 +187,7 @@ Where `GetSigners` is [a requirement of `sdk.Msg`](https://github.com/cosmos/cos
     }
     ```
 
-4. Creating an empty shell of a file, `x/checkers/keeper/msg_server_create_game.go`, for you to include your code and the response message:
+4. Creating an empty shell of a file (`x/checkers/keeper/msg_server_create_game.go`) for you to include your code and the response message:
 
     ```go
     func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
@@ -202,7 +202,7 @@ Where `GetSigners` is [a requirement of `sdk.Msg`](https://github.com/cosmos/cos
 
 ## What is left to do?
 
-Most is done. Still, you want to create the game to replace `// TODO: Handling the message`. For this:
+Your work is mostly done. Still, you want to create the game to replace `// TODO: Handling the message`. For this:
 
 1. Decide on how to create a new and unique game ID: `newIndex`.
 2. Extract and verify addresses, such as:
@@ -243,7 +243,7 @@ Most is done. Still, you want to create the game to replace `// TODO: Handling t
 Not to forget, and it is worth mentioning here:
 
 * If you encounter an internal error, you should `panic("This situation should not happen")`.
-* If you encounter a user or _regular_ error (for example, not enough funds), you should return a regular `error`.
+* If you encounter a user or _regular_ error (like not enough funds), you should return a regular `error`.
 
 ## Other messages
 
@@ -255,7 +255,7 @@ You can opt to implement other messages. Without repeating all of the above, you
     $ starport scaffold message playMove idValue fromX:uint fromY:uint toX:uint toY:uint --module checkers --response idValue
     ```
 
-    Which yields, among others, the object files, callbacks, and a new file for you to include your code in:
+    Which yields among others the object files, callbacks, and a new file for you to include your code in:
 
     ```go
     func (k msgServer) PlayMove(goCtx context.Context, msg *types.MsgPlayMove) (*types.MsgPlayMoveResponse, error) {
@@ -289,14 +289,14 @@ You can opt to implement other messages. Without repeating all of the above, you
 
 ## Other considerations
 
-You can already begin contemplating game-theoretical situations for your checkers application. After all, a game involves two parties/players, and they may not always play nice.
+You can already begin contemplating game-theoretical situations for your checkers application. After all, a game involves two parties/players and they may not always play nice.
 
 What would happen if one of the two players has accepted the game by playing, but the other player has neither accepted nor rejected the game? You can address this scenario by:
 
-* Having a timeout after which the game is canceled. This cancelation could be handled automatically in ABCI's `EndBlock`, or rather its equivalent in the Cosmos SDK, without any of the players having to trigger the cancelation.
+* Having a timeout after which the game is canceled. This cancelation could be handled automatically in ABCI's `EndBlock`, without any of the players having to trigger the cancelation.
 * Keeping an index, a First-In-First-Out (FIFO) list, or a list of un-started games ordered by their cancelation time, so that this automatic trigger does not consume too many resources.
 
-What would happen if the player, whose turn it is, never shows up or never sends a valid transaction? To ensure functionality for your checkers application, consider:
+What would happen if the player never shows up or never sends a valid transaction? To ensure functionality for your checkers application, consider:
 
 * Having a timeout after which the game is forfeited. You could also automatically charge the forgetful player, if and when you implement a wager system.
 * Keeping an index of games that could be forfeited. If both timeouts are the same, you can keep a single FIFO list of games to clear from the head as necessary.
