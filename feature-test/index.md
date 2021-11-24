@@ -5,6 +5,10 @@ description: Test our features
 
 # Feature test
 
+## Video
+
+<YoutubePlayer videoId="6bq-JaViGRM"/>
+
 ## Expansion Panel
 <ExpansionPanel title="Title test">
 
