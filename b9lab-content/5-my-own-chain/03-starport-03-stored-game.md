@@ -9,17 +9,17 @@ tag: deep-dive
 
 <HighlightBox type="prereq">
 
-In the [Starport introduction section](./03-starport.md), you learned how to jump-start a brand new blockchain. Now, it is time to dive deeper: explore how you can create a blockchain to play the game of checkers in a decentralized fashion.
+In the [Starport introduction section](./03-starport.md) you learned how to jump-start a brand new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
 
-You can of course proceed with the following code exercise without reading the [Starport introduction](.03-starport.md), but it is highly recommended as a prerequisite for the exercises in the following
+You can of course dive into the following code exercise without reading the [Starport introduction](.03-starport.md), but it is highly recommended for the following exercise.
 
 </HighlightBox>
 
 A good start to developing a checkers blockchain is to define the ruleset of the game. There are many versions of the rules. Let's choose [a very simple set of basic rules](https://www.ducksters.com/games/checkers_rules.php) to not get lost in the rules of checkers or the proper implementation of the board state.
 
-Let's use [a ready-made implementation](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go), with the additional rule that the board is 8x8 and played on black cells. This code will not need adjustments.
+Use [a ready-made implementation](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go), with the additional rule that the board is 8x8 and played on black cells. This code will not need adjustments.
 
-Let's not be overly concerned with a marketable GUI. That would be a separate project in itself. Of course, you still need to set up the groundwork for a GUI to be possible.
+For the moment, do not focus on the GUI. You will only lay the foundation for an interface.
 
 If you did not already do it in the [previous section](./03-starport.md), create your brand new blockchain with a `checkers` module:
 
@@ -35,11 +35,11 @@ $ mkdir x/checkers/rules
 $ curl https://raw.githubusercontent.com/batkinson/checkers-go/a09daeb1548dd4cc0145d87c8da3ed2ea33a62e3/checkers/checkers.go | sed 's/package checkers/package rules/' > x/checkers/rules/checkers.go
 ```
 
-Now, it is time to create the first object.
+Now it is time to create the first object.
 
 ## The stored game object
 
-Let's start with the minimum game information needed to be kept in the storage:
+Begin with the minimum game information needed to be kept in the storage:
 
 * The red player: a string, the serialized address.
 * The black player: a string, the serialized address.
@@ -48,11 +48,11 @@ Let's start with the minimum game information needed to be kept in the storage:
 
 ### How to store
 
-After having decided **what** to store, you have to decide **how** to store a game. This is important if you want your blockchain application to accommodate multiple simultaneous games on an equal footing. The game is identified by an ID and retrievable by the same ID.
+Knowing **what** to store, you now have to decide **how** to store a game. This is important if you want your blockchain application to accommodate multiple simultaneous games. The game is identified by a unique ID.
 
-How do you create such an ID? You cannot let players choose it as this could lead to transactions failing for silly reasons like the proposed ID already being taken. It is better to have a counter incrementing on each new game. This is possible because the code execution happens in a single thread. Moreover, you cannot rely on a large random number like a universally unique identifier (UUID), because transactions have to be verifiable in the future.
+How to generate this ID? You cannot let players choose it as this could lead to transactions failing because of ID clash. It is better to have a counter incrementing on each new game. This is possible because the code execution happens in a single thread. Moreover, you cannot rely on a large random number like a universally unique identifier (UUID), because transactions have to be verifiable in the future.
 
-You need to keep such a counter in storage between transactions. Instead of a single counter, you can keep a unique object at a singular location. Then you can easily add to the counter when the need arises. Let's call `idValue` the counter.
+You need to keep such a counter in storage between transactions. Instead of a single counter, you can keep a unique object at a singular location. Then you can easily add to the counter as needed. Designate `idValue` the counter.
 
 You can rely on Starport's assistance:
 
@@ -63,7 +63,7 @@ You can rely on Starport's assistance:
     ```
 
     You need to add `--no-message` to not expose the counter to the outside world via a simple CRUD interface. You want to keep control of how this counter increments.
-* For games saved by ID, it calls this a map. If you choose the `StoredGame` name, you instruct Starport with `scaffold map`:
+* Using `StoredGame` name, instruct Starport with `scaffold map`:
 
     ```sh
     $ starport scaffold map storedGame game turn red black --module checkers --no-message
@@ -71,9 +71,9 @@ You can rely on Starport's assistance:
 
 Why the `--no-message`? You do not want the objects to be created or overwritten with a simple message. Instead, the application creates and updates the objects when receiving properly crafted messages like _create game_ or _play a move_.
 
-The Starport scaffold creates several files, as you can see [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/821f4592d78e5d689dcc349613c8efb11386f785) and [there](https://github.com/cosmos/b9-checkers-academy-draft/commit/463968fa94a7b6117428bb342c721176086a8d22).
+The Starport scaffold creates several files, as you can see [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/821f4592d78e5d689dcc349613c8efb11386f785) and [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/463968fa94a7b6117428bb342c721176086a8d22).
 
-For starters, the command added new constants:
+The command added new constants:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/keys.go#L28-L34]
 const (
@@ -89,7 +89,7 @@ These constants will be used as prefixes.
 
 ### Protobuf objects
 
-Starport creates the Protobuf objects in the `proto` directory before compiling them. Therefore, you have a `NextGame` object:
+Starport creates the Protobuf objects in the `proto` directory before compiling them. Here you find the `NextGame` object:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/next_game.proto#L8-L11]
 message NextGame {
@@ -98,7 +98,7 @@ message NextGame {
 }
 ```
 
-And a `StoredGame` object:
+And the `StoredGame` object:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/stored_game.proto#L8-L15]
 message StoredGame {
@@ -111,7 +111,7 @@ message StoredGame {
 }
 ```
 
-Both objects predictably compiled:
+Both objects compile to:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/next_game.pb.go#L26-L29]
 type NextGame struct {
@@ -144,7 +144,7 @@ message GenesisState {
 }
 ```
 
-Which is compiled into:
+Which is compiled to:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/genesis.pb.go#L26-L30]
 type GenesisState struct {
@@ -153,7 +153,7 @@ type GenesisState struct {
 }
 ```
 
-As part of the boilerplate objects created by Starport, there are objects to query and receive these new objects. `NextGame` might look out of place, but keep in mind Starport creates the objects according to a versatile model. This does not prevent you from making changes down the road:
+As part of the boilerplate objects created by Starport, you can find query objects. `NextGame` might look out of place, but keep in mind Starport creates the objects according to a model. This does not prevent you from making changes later:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L51-L55]
 message QueryGetNextGameRequest {}
@@ -163,7 +163,7 @@ message QueryGetNextGameResponse {
 }
 ```
 
-The query objects for `StoredGame` look convenient:
+The query objects for `StoredGame`:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L35-L50]
 message QueryGetStoredGameRequest {
@@ -186,14 +186,14 @@ message QueryAllStoredGameResponse {
 
 ### Starport's modus operandi
 
-Starport puts the different Protobuf messages into different files depending on their eventual use:
+Starport puts the different Protobuf messages into different files depending on their use:
 
-* `query.proto`: for the objects related to asking queries, so reading the state. Starport modifies this file as you add queries.
+* `query.proto`: for the objects related to reading the state. Starport modifies this file as you add queries.
 * `tx.proto`: for the objects that relate to updating the state. As you have only defined storage elements with `--no-message`, it is empty for now. The file will be modified as you add transaction-related elements.
 * `genesis.proto`: for the genesis. Starport modifies this file according to how your new storage elements evolve.
 * `next_game.proto` and `stored_game.proto`: separate files created once that remain untouched by Starport after their creation. You are free to modify them but be careful with the numbering.
 
-Observe how files updated by Starport include comments like:
+Files updated by Starport include comments like:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L14]
 // this line is used by starport scaffolding # 2
@@ -201,11 +201,11 @@ Observe how files updated by Starport include comments like:
 
 Starport adds code right below the comments. You could add your code above or below the comments. You will be fine if you keep these comments where they are.
 
-Some files created by Starport can be updated. You should not modify the Protobuf-compiled files `*.pb.go` and `*.pb.gw.go` as they are recreated on every re-run of Starport. Let's take a closer look at files to adjust.
+Some files created by Starport can be updated. You should not modify the Protobuf-compiled files `*.pb.go` and `*.pb.gw.go` as they are recreated on every re-run of Starport.
 
 ### Files to adjust
 
-Starport created files that you can and should update. For example, when it comes to the default genesis values:
+Starport creates files that you can and should update. For example, when it comes to the default genesis values:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/genesis.go#L16-L17]
 func DefaultGenesis() *GenesisState {
@@ -216,11 +216,11 @@ func DefaultGenesis() *GenesisState {
 }
 ```
 
-You can choose to start with no games or insert the number of games to start with. Choose the first ID of the first game. For the start, go with `0`.
+You can choose to start with no games or insert the number of games to start with. Choose the first ID of the first game. For the start go with `0`.
 
 ### Protobuf service interfaces
 
-Beyond the created objects, Starport also creates services that declare and define how to access the newly-created storage objects. When Starport creates your module, it introduces empty service interfaces that can be filled as you add objects and messages.
+Beyond the created objects Starport also creates services that declare and define how to access the newly-created storage objects. When Starport creates your module, it introduces empty service interfaces that can be filled as you add objects and messages.
 
 Starport added to `service Query` how to query for your objects:
 
@@ -240,7 +240,7 @@ service Query {
 }
 ```
 
-In the compilation of a service, Starport separates concerns into different files. Some files you should not edit and others you can edit:
+In the compilation of a service Starport separates concerns into different files. You need to customize:
 
 * The query parameters to serialize them and make them conform to the right Protobuf `Message` interface.
 * The primary implementation of the gRPC service.
@@ -249,8 +249,8 @@ In the compilation of a service, Starport separates concerns into different file
 
 ### Conclusion
 
-At this point, Starport got you covered and you did not have to do much. You confirmed the correct genesis value of `NextGame.IdValue`.
+At this point Starport has you covered and you did not have to do much. You confirmed the correct genesis value of `NextGame.IdValue`.
 
 ## Next up
 
-Want to continue developing your checkers blockchain? Go ahead to the [next section](./03-starport-04-creat-message.md) to learn all about creating a game message for your checkers blockchain.
+Want to continue developing your checkers blockchain? Go ahead to the [next section](./03-starport-04-creat-message.md) to learn all about creating a game message.
