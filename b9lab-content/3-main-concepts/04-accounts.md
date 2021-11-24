@@ -41,7 +41,7 @@ Alice wants to make sure that Bob's public announcement is indeed from Bob:
 * Bob sends Alice his announcement and its signature.
 * Alice verifies the signature with Bob's public key.
 
-When Alice has verified the signature, she will see that the announcement was signed using the private key that corresponds to Bob’s public key which is already known to represent Bob.
+When Alice has verified the signature, she will be convinced that the announcement was signed using the private key that corresponds to Bob’s public key, which is already known to represent Bob.
 
 In summary, private keys are used to **prove** that messages originate from the owners of accounts, known by their public keys. More precisely, signatures **prove** that messages were signed by someone that knows the private key that corresponds to a given public key. This is the basis of user authentication in a blockchain. For this reason, private keys are jealously guarded secrets.
 
@@ -122,29 +122,64 @@ An address is a public information normally used to reference an account. Addres
 
 The keyring object stores and manages multiple accounts. In the SDK, the keyring object implements the keyring interface.
 
-## Long-running exercise
+## Next up
 
-Previously, your ABCI application accepted anonymous checkers moves. This can be a problem. By introducing accounts, you are going to restrict the moves to the right player.
+In the [next section](./05-transactions), you will learn how transactions are generated and handled in the Cosmos SDK.
 
-If you planned on staying with a single game, you would do the following:
+<ExpansionPanel title="Show me some code for my checkers' blockchain">
 
-* In your `/store`, you would add:
-    * `/store/players/black: Address`
-    * `/store/players/red: Address`
-* In your `DeliverTx` code, or whichever equivalent in the Cosmos SDK, before calling [`Move()`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274), you would confirm that the move is coming from the right player.
+Previously, our ABCI application accepted anonymous checkers moves. This was a problem. With accounts, you can restrict moves to the right player.
 
-But because you want to eventually handle multiple games, you need to define a `FullGame` type in storage and assign players there, in pseudo-code:
+As first step to port the checkers' blockchain to the Cosmos SDK, you are going to differentiate between players and other actors. This will help to make sure there is no identity spoofing, that players do not play out of turn, and reward the correct winner when the time comes. You are also going to store the creator of a game, which may, or may not, be a player.
 
+## Game object
+
+Let's define some elements of the eventual stored game:
+
+```go
+type StoredGame struct {
+    Creator string // A stringified address for the creator of the game.
+    Red string // A stringified address for the player playing reds.
+    Black string // A stringified address for the player playing blacks.
+    ...
+}
 ```
-    struct FullGame {
-        board: Game, // Which contains the Pieces and the Turn when in memory.
-        players: {
-            black: Address,
-            red: Address
-        }
-    }
+
+How would you extract and serialize addresses? Easy, the extraction is handled like this:
+
+```go
+import (
+    sdk "github.com/cosmos/cosmos-sdk/types"
+)
+
+creator, err := sdk.AccAddressFromBech32(storedGame.Creator)
+if err != nil {
+    // Handle the error.
+}
+```
+While the serialization is handled in this way:
+
+```go
+var creator sdk.AccAddress
+storedGame.Creator = creator.String()
+```
+Similarly, you will only accept the right players regarding transactions - as you will learn in the next section.
+
+## Remaining game object
+
+Defining the players is good, but the stored game is not complete unless we add game details, for example, the current board state and the game's unique identifier. Conveniently, you can [serialize](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L303) and [deserialize](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L331) the board state, so we can already confirm the following struct:
+
+```go
+type StoredGame struct {
+    Creator string
+    Index string // The unique id that identifies this game.
+    Game string // The serialized board.
+    Turn string // "red" or "black"
+    Red string
+    Black string
+}
 ```
 
-Then, we would have a `Move()` function on the `FullGame`, which confirms that the move comes from the right player. For now, we do not look at the serialization of this `FullGame`, and at what path(s) it would go, but we keep in mind that we will need to have all elements serialized.
+If you want to go beyond these out-of-context code samples and instead see more in detail how to define all this, head to the [section on how to build your chain](../5-my-own-chain/01-index).
 
-TODO: in code.
+</ExpansionPanel>

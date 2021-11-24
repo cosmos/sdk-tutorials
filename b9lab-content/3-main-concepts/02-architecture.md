@@ -15,7 +15,7 @@ More specifically, Tendermint modules **attend to consensus and networking**, tw
 
 ![Blockchain application architecture overview](./images/architecture_overview.png)
 
-A blockchain node for an application-focused Cosmos blockchain consists of a state-machine built with the Cosmos SDK and consensus and networking, which are handled by the Tendermint Core.
+A blockchain node for an application-focused Cosmos blockchain consists of a state-machine, built with the Cosmos SDK, and consensus and networking, which are handled by the Tendermint Core
 
 As you might expect, Tendermint itself is modular and flexible. In the following, you will concentrate on the Tendermint Core used in Cosmos.
 
@@ -41,7 +41,7 @@ In any known blockchain, a change in the implementation requires an upgrade to t
 
 In a Tendermint blockchain, transactions are irreversibly finalized upon block creation and upgrades are themselves governed by the block creation and validation process, which leaves no room for uncertainty. Either the nodes agree to simultaneously upgrade their protocol, or the upgrade proposal fails.
 
-## Tendermint BFT
+Validators are the ones who vote. This means that delegators ought to be discerning when delegating, as this also lends their vote.
 
 [Tendermint BFT](https://tendermint.com/core/) packages the **networking and consensus layers** of a blockchain and presents an interface to the application layer, the **Application Blockchain Interface (ABCI)**. Developers focus on higher-order concerns while delegating peer-discovery, validator selection, staking, upgrades, and consensus to the Tendermint BFT. The consensus engine running in one process controls the state machine, the application runs in another process. The architecture is equally appropriate for **private or public blockchains**.
 
@@ -115,11 +115,11 @@ The **state transition function** in a blockchain is virtually synonymous with a
 
 Blockchains are deterministic, so the only correct interpretation of the transaction is the new state, shown as S-prime in the illustration above (`S'`).
 
-Blockchains are distributed and, in practice, transactions arrive in batches called blocks. There is a state machine that exists after the correct interpretation of each transaction in the block. Each transaction executes in the context of the state machine that resulted from every transaction that preceded it. The state machine that exists after all transactions in the block have been executed is a useful checkpoint, especially when one is interested in historic states.
+Blockchains are distributed and, in practice, transactions arrive in batches called blocks. There is a machine state that exists after the correct interpretation of each transaction in the block. Each transaction executes in the context of the state machine that resulted from every transaction that preceded it. The machine state that exists after all transactions in the block have been executed is a useful checkpoint, especially when one is interested in historic states.
 
-![state machine](./images/state_machine_2.png)
+![State machine](./images/state_machine_2.png)
 
-Developers create the state machine using the Cosmos SDK. This includes storage organization, also known as the state, and the state transaction functions which determine what is permissible and what, if any, adjustments to the state result from each kind of transaction.
+Developers can create the state machine using the Cosmos SDK. This includes storage organization, also known as the state, and the state transaction functions, which determine what is permissible and what, if any, adjustments to the state result from each kind of transaction.
 
 In this context, the "consensus" establishes a canonical set of well-ordered blocks that contain well-ordered transactions. The chain of blocks is therefore a well-ordered set of all finalized transactions, and all nodes agree that the canonical set is the only relevant set. Since the state machine defined by the developers is deterministic, there is only one correct interpretation of the canonical transaction set and, by extension, only one correct determination of the state machine when any given transaction is executed or at any block height.
 
@@ -139,29 +139,45 @@ Any application that uses Tendermint for consensus must implement the ABCI. Fort
 
 In the following exercise, you will create a minimal distributed state machine with the Cosmos SDK. Your state machine will rely on Tendermint for consensus.
 
-## Long-running exercise
+## Some code perhaps?
 
-Here, we introduce an exercise, a project, that you will work on as you learn more. In so doing, you will see how the Cosmos SDK improves your productivity by taking care of the boilerplate. It is still interesting to know what the boilerplate is, to get a better overall picture.
+With your learnings about Tendermint, could you **design** a minimal distributed state machine/blockchain that allows people to play the game of checkers? In the collapsed box below, you are invited to start this reflection and reinforce your understanding of Tendermint. Later, in other pages, you will continue to apply the learnings of the sections to your checkers game and design such a blockchain by using elements of the Cosmos SDK. You are free to skip it if this is not your thing.
+
+<ExpansionPanel title="Let's make a checkers blockchain">
+
+*What is this game of checkers all about?*
+
+This is the introduction to a **design project** that you can continue to grow and develop as you learn more. In doing so, you will see how the Cosmos SDK improves your productivity by handling the boilerplate. It is still interesting to know what the boilerplate is to get a better overall picture.
+
+<HighlightBox type="tip">
+
+This is meant as a mental exercise. If you want to go from the design phase to the **implementation** phase, head to [My Own Cosmos Chain](../5-my-own-chain/01-index.md).
+
+</HighlightBox>
 
 ### The setup
 
-You are going to create a blockchain that lets interested people play checkers against each other. There are many versions of the rules. Let's choose [these simple rules](https://www.ducksters.com/games/checkers_rules.php) for the purpose of this exercise. Also, the object of the exercise is to learn more about working with ABCI and the Cosmos SDK, not to get lost in the proper implementation of the board state or the rules of checkers. So you are going to use, and adapt, [this ready-made implementation](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go), with the additional rule that the board is 8x8 and played on black cells. The code will likely require adaptations as you go along. Also, you are not going to be overly concerned with a marketable GUI since, again, that would be a separate project in itself. Of course, you still need to concern yourself with creating the groundwork for a GUI to be possible in the first place.
+You are going to design a blockchain that lets people play checkers against each other. There are many versions of the rules. Let's choose [these simple rules](https://www.ducksters.com/games/checkers_rules.php) for the purpose of this exercise. The object of the exercise is to understand ABCI and learn more about working with the Cosmos SDK, not to get lost in the proper implementation of the board state or the rules of checkers. So you are going to use, and adapt, [this ready-made implementation](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go), with the additional rule that the board is 8x8 and played on black cells. The code will likely require adaptations as you go along. Also, you are not going to be overly concerned with a marketable GUI since, again, that would be a separate design project in itself. Of course, you still need to concern yourself with creating the groundwork for a GUI for it to be possible in the first place.
 
-When you return to this long-running exercise, in the next sections, the goal is to improve it and use the Cosmos SDK as you learn about the different components.
+<HighlightBox type="info">
 
-As you can imagine, beyond the rules of the game, there is a lot you need to take care of. Therefore, as a start, you ought to simplify to the maximum. Have a look at these [ABCI specs](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md) to see what the application needs to do to comply with ABCI, and try to figure out how you would make your first, imperfect, checkers game blockchain.
+In the next chapters, when you revisit this design exercise, the goal is to improve it and use the Cosmos SDK as you learn about the different components. If you are not interested in learning more about ABCI, it is safe to skip what comes below and head straight to the rest of the learning elements.
+
+</HighlightBox>
+
+As you can imagine, beyond the rules of the game, there is a lot you need to take care of. Therefore, as a start, you ought to simplify to the maximum. Have a look at these [ABCI specs](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md) to see what the application needs to do to comply with ABCI, and try to figure out which barebones you would use to make your first, imperfect, checkers game blockchain.
 
 ### "Make" the state machine
 
-Here is how you would "make" the state machine. You _would_ do it, because you are here to learn the Cosmos SDK primarily, not to become proficient at implementing ABCI.
+Here is how you _would_ do it to learn the Cosmos SDK primarily, not to become proficient at implementing ABCI.
 
-<-- TODO: Perhaps we can kick this off with a flow diagram to give an overview to a relatively heavy section? -->
+You want to show the minimum viable ABCI state machine. Tendermint does not concern itself with whether proposed transactions are valid, and about how the state changes after such a transaction. It delegates these to the state machine, which will _transform_ transactions into game moves and states.
 
-You want to show the minimum viable ABCI state machine. Tendermint does not concern itself with whether proposed transactions are valid, and about how the state changes after such a transaction. It delegates this to the state machine, which will _transform_ transactions into game moves and states.
+Let's go through the important junctures at which the application has to act.
 
 #### Start the application
 
-This state machine is an application that needs to start before it can receive any requests from Tendermint. Take this opportunity to load in memory the acceptable general moves. Fortunately, this code [exists already](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L75):
+This state machine is an application that needs to start before it can receive any requests from Tendermint. Take this opportunity to load in memory static elements, here, the acceptable general moves. Fortunately, this code [exists already](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L75) and is run automatically when the module is loaded:
 
 > `func init()`
 
@@ -199,7 +215,7 @@ You need to decide how to represent a move. In your ready-made implementation, a
 
 > `AppHash: []byte`: Arbitrary byte array returned by the application after executing and committing the previous block. It serves as the basis for validating any Merkle proofs that come from the ABCI application and represents the state of the actual application rather than the state of the blockchain itself. The first block's `block.Header.AppHash` is given by `ResponseInitChain.app_hash`.
 
-This instructs the application to load, from its database, the right state of the blockchain, which includes the correct `/store/board`. It is important to insist on the fact that the application needs to be able to load a known state at any _point in time_. Indeed, there could have been a crash or a restore of some sort that has desynchronized Tendermint and the application.
+This instructs the application to load from its database - the implementation _detail_ you skipped - the right state of the application, which includes the correct `/store/board`. It is important to insist on the fact that the application needs to be able to load a known state at any _point in time_. Indeed, there could have been a crash or a restore of some sort that has desynchronized Tendermint and the application.
 
 In case the header has omitted the `AppHash`, which should never happen, the application should work off the last state it has arrived at.
 
@@ -248,7 +264,7 @@ For the sake of the exercise, let's imagine that you emit some information in tw
 ]
 ```
 
-If you come from the Ethereum world, you will recognize these as _events_, a.k.a. indexed Solidity events, where the indexed fields are _topics_ in the transaction receipt logs.
+If you come from the Ethereum world, you will recognize these as _events_, a.k.a. Solidity events, where the indexed fields are _topics_ in the transaction receipt logs.
 
 Finally, it would be judicious to inform Tendermint about the `GasUsed (int64)`. Presumably, each move costs the same so you can return `1`.
 
@@ -270,11 +286,11 @@ For the sake of the argument, let's assume that you want to tally what happened 
 
 #### `Commit`: Your work here is done
 
-The block that has previously ended has now been [confirmed](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#commit), and the application needs to save its state to storage, to its database. And return, as `data: []byte`, the Merkle root hash of the blockchain's state, which, as you recall, includes `/store/board`. As mentioned in [the docs](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#determinism), this hash needs to be deterministic after the sequence of the same `BeginBlock`, the same `DeliverTx`'s in the same order, and the same `EndBlock`.
+The block, which has previously ended, has now been [confirmed](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#commit). The application needs to save its state to storage, to its database, and return, as `data: []byte`, the Merkle root hash of the blockchain's state, which, as you recall, includes `/store/board`. As mentioned in [the documentation](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#determinism), this hash needs to be deterministic after the sequence of the same `BeginBlock`, the same `DeliverTx`'s in the same order, and the same `EndBlock`.
 
 After having returned and saved, the application may also keep a pointer in its database as to which state is the latest, so it can purge the board from its memory. Indeed, the next `BeginBlock` will inform it which state to load; probably the same. In practice, the application ought to keep the state in memory to quickly build on it if the next `BeginBlock` fails to mention `AppHash`, or mentions the same.
 
-<ExpansionPanel title="What if I like extreme serialization?">
+### What if I like extreme serialization?
 
 As a hacky side-note, this `data` need not be strictly a Merkle root hash. It could well be any bytes as long as the result is deterministic, as mentioned earlier, and collision-resistant, and that the application can recover the state out of it. For instance, if you took your only board and serialized it differently, you could return the board state as such.
 
