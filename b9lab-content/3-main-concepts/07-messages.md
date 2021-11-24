@@ -1,8 +1,15 @@
+---
+title: "Messages"
+order: 5
+description: Introduction to MsgService and the flow of messages
+tag: deep-dive
+---
+
 # Messages
 
 Messages are one of two primary objects handled by a module in the Cosmos SDK. The other is queries. As you might expect, queries inspect the module state and are always read-only, and messages inform the state and have the potential to alter the state, also known as state mutating.
 
-In Cosmos, a transaction contains one or more messages for the module to process after the transaction is included in a block by the consensus layer.
+In Cosmos, a **transaction** contains one or more messages for the module to process after the transaction is included in a block by the consensus layer.
 
 <HighlightBox type=”info”>
 
@@ -12,9 +19,9 @@ When an account signs a message, it in effect signs an array of bytes. This arra
 
 ## Flow
 
-Transactions containing one or more valid messages are serialized and confirmed by the Tendermint consensus. Recall that Tendermint is agnostic about interpretation of the transactions. When a transaction is included in a block, it is confirmed and finalized with no possibility of chain reorganization or cancellation.
+Transactions containing one or more valid messages are serialized and confirmed by the Tendermint consensus engine. Recall, that Tendermint is both agnostic about the interpretation of the transactions and has absolute finality. When a transaction is included in a block, it is confirmed and finalized with no possibility of chain re-organization or cancellation.
 
-The confirmed transaction is passed to the Cosmos SDK for interpretation. The `BaseApp` you use to begin module development of your custom modules attends to the first stages of interpretation. It decodes each message contained in the transaction.
+The confirmed transaction is passed to the Cosmos SDK for interpretation. The `BaseApp` you use, to begin with the module development of your custom modules, attends to the first stages of interpretation. It decodes each message contained in the transaction.
 
 Each message is routed to the appropriate module via `BaseApp`’s `MsgServiceRouter`. Each module has its own `MsgService` that processes each received message.
 
@@ -35,16 +42,17 @@ service Msg {
 }
 ```
 
-In the example above we can see that:
+In the above example, we can see that:
 
 * Each `Msg` service method has exactly one argument, such as `MsgSend`, which must implement the `sdk.Msg` interface and a Protobuf response.
+
 * The standard naming convention is to call the RPC argument `Msg<service-rpc-name>` and the RPC response `Msg<service-rpc-name>Response`.
 
-## Code Generation with Cosmos SDK
+## Code generation with the Cosmos SDK
 
-Cosmos SDK uses Protobuf definitions to generate client and server code:
+The Cosmos SDK uses Protobuf definitions to generate client and server code:
 
-* The `MsgServer` interface defines the server API for the `Msg` service and its implementation is described as part of the [Msg services](https://docs.cosmos.network/master/building-modules/msg-services.html) documentation.
+* The `MsgServer` interface defines the server API for the `Msg` service and its implementation is described as part of the [`Msg` services documentation](https://docs.cosmos.network/master/building-modules/msg-services.html).
 * Structures are generated for all RPC request and response types.
 * Implementation of a module [`Msg` service](https://docs.cosmos.network/master/building-modules/msg-services.html).
 * Method to define messages using Msg services - [Amino `LegacyMsg`](https://docs.cosmos.network/master/building-modules/messages-and-queries.html#legacy-amino-legacymsgs).
@@ -272,5 +280,6 @@ What would happen if the player, whose turn it is, never shows up or never sends
 So, in pseudo-code, you add `timeout: Timestamp` to your `StoredGame` and update it every time something changes in the game. You can decide on a maximum delay: what about one day?
 
 Of note is that there are no _open_ challenges, meaning a player creates a game where the second player is unknown until someone steps in. So player matching is left outside of the blockchain. It is left to the enterprising student to incorporate it inside the blockchain by changing all models.
+
 
 </ExpansionPanel>

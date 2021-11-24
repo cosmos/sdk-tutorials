@@ -1,3 +1,10 @@
+---
+title: "Modules"
+order: 6
+description: Core Cosmos SDK modules and their components
+tag: deep-dive
+---
+
 # Modules
 
 ## Overview
@@ -6,13 +13,13 @@ Each Cosmos chain is a purpose-built blockchain and Cosmos SDK modules define th
 
 In summary, modules define most of the logic of Cosmos SDK applications.
 
-![transaction message flow to modules](./images/module_overview.png)
+![Transaction message flow to modules](./images/message_progressing.png)
 
-When a transaction is relayed from the underlying Tendermint consensus engine, `BaseApp` decomposes the `Messages` contained within the transaction. `BaseApp` routes messages to the appropriate module for processing. Interpretation and execution occurs when the appropriate module message handler receives the message.
+When a transaction is relayed from the underlying Tendermint consensus engine, `BaseApp` decomposes the `Messages` contained within the transaction. `BaseApp` routes messages to the appropriate module for processing. Interpretation and execution occur when the appropriate module message handler receives the message.
 
 Developers compose modules together using the Cosmos SDK to build custom application-specific blockchains.
 
-## Module Scope
+## Module scope
 
 Modules include **core** functionality that provides the basic functionality every blockchain node needs:
 
@@ -20,13 +27,14 @@ Modules include **core** functionality that provides the basic functionality eve
 * A general-purpose data store that persists the module state called `multistore`.
 * A server and interfaces to facilitate interactions with the node.
 
-Modules implement the majority of application logic while **core** attends to wiring and infrastructure concerns and enables modules to be composed into higher-order modules.
+Modules implement the majority of the application logic while the **core** attends to wiring and infrastructure concerns and enabling modules to be composed into higher-order modules.
 
 A module defines a subset of the overall state using one or more key/value stores, known as `KVStore`, and a subset of message types that are needed by the application and do not exist yet. Modules also define interactions with other modules that do already exist.
 
 For developers, most of the work involved in building a Cosmos SDK application revolves around building custom modules required by their application that do not exist yet, and integrating them with modules that do already exist into one coherent application. Existing modules can come either from the Cosmos SDK itself or from **third-party developers** and can be downloaded from an online module repository.
 
-## Module Components
+## Module components
+
 
 It is a best practice to define a module in the `x/moduleName` folder. For example, the module called `Checkers` would go in `x/checkers`. In fact, if you head over to the Cosmos SDK's base code, you can see that it also [defines its modules](https://github.com/cosmos/cosmos-sdk/tree/master/x) in an `x/` folder.
 
@@ -46,11 +54,12 @@ To be integrated with the rest of the application, a module must implement three
 
 You define `AppModule` and `AppModuleBasic`, and their functions, in your module's `x/moduleName/module.go` file.
 
-### Protobuf Services
+### Protobuf services
 
 Each module defines two Protobuf services:
 
 * **`Msg`:** a set of RPC methods related 1:1 to Protobuf request types to handle messages.
+
 * **`Query:`** gRPC query service to handle queries.
 
 <HighlightBox type="info">
@@ -74,7 +83,11 @@ If the topic is new to you, here you can find an introduction to [Protocol Buffe
 
 For each module, Protobuf generates a `QueryServer` interface containing all the service methods. Modules implement this `QueryServer` interface by providing the concrete implementation of each service method in separate files. These implementation methods are the handlers of the corresponding gRPC query endpoints. This division of concerns across different files makes the setup safe from a re-generation of files by Protobuf.
 
-gRPC is a modern, open-source, high-performance framework that supports multiple languages and is the recommended technique for external clients such as wallets, browsers and backend services to interact with a node.
+<HighlightBox type="info">
+
+gRPC is a modern, open-source, high-performance framework that supports multiple languages and is the recommended technique for external clients such as wallets, browsers, and backend services to interact with a node.
+
+</HighlightBox>
 
 gRPC-Gateway REST endpoints support external clients that may not wish to use gRPC. The Cosmos SDK provides a gRPC-gateway REST endpoint for each gRPC service.
 
@@ -84,11 +97,12 @@ Have a look at the [gRPC-Gateway](https://grpc-ecosystem.github.io/grpc-gateway/
 
 </HighLightBox>
 
-### Command-Line Commands
+### Command-line commands
 
 Each module defines commands for a command-line interface (CLI). Commands related to a module are defined in a folder called `client/cli`. The CLI divides commands into two categories, transactions and queries, the same as those you defined in `tx.go` and `query.go` respectively.
 
 ### Keeper
+
 
 Keepers are the gatekeepers to the module’s store(s). It is mandatory to go through a module’s keeper in order to access the store(s). A keeper encapsulates the knowledge about the layout of storage within the store and contains methods to update and inspect it. If you come from a module-view-controller (MVC) world, then it helps to think of the keeper as the controller.
 
@@ -96,17 +110,18 @@ Other modules may need access to a store, but other modules are also potentially
 
 Keepers are defined in `keeper.go`. Keeper's type definition generally consists of keys to the module's own store in the `multistore`, references to other modules' keepers and a reference to the application's codec.
 
-## Core Modules
+## Core modules
 
-Cosmos SDK includes core modules that address common concerns with well-solved, standardized implementations.
+The Cosmos SDK includes a set of core modules that address common concerns with well-solved, standardized implementations. Core modules address application needs such as tokens, staking, and governance.
 
-Core modules address application needs such as tokens, staking and governance. Core modules offer several advantages over ad hoc solutions:
+Core modules offer several advantages over ad-hoc solutions:
 
 * Standardization is established early, which helps ensure good interoperability with wallets, analytics, other modules and other Cosmos SDK applications.
 * Duplication of effort is significantly reduced because application developers focus on what is unique about their application.
-* Core modules are working examples of Cosmos SDK modules that provide strong hints about suggested structure, style and best practices.
+* Core modules are working examples of Cosmos SDK modules that provide strong hints about suggested structure, style, and best practices.
 
-Developers create coherent applications by selecting and composing core modules first, then implementing custom logic.
+Developers create coherent applications by selecting and composing core modules first and then implementing the custom logic.
+
 
 <HighlightBox type="tip">
 
@@ -114,19 +129,21 @@ Why not explore the [list of core modules and the application concerns they addr
 
 </HighlightBox>
 
-## Design Principles for Building Modules
+
+## Design principles when building modules
 
 * **Composability**: SDK applications are almost always composed of multiple modules. This means developers need to carefully consider the integration of their module not only with the core of the Cosmos SDK, but also with other modules. The former is achieved by following standard design patterns outlined [here](https://github.com/cosmos/cosmos-sdk/blob/master/docs/building-modules/intro.md#main-components-of-sdk-modules), while the latter is achieved by properly exposing the store(s) of the module via the keeper.
 * **Specialization**: A direct consequence of the composability feature is that modules should be specialized. Developers should carefully establish the scope of their module and not batch multiple functionalities into the same module. This separation of concerns enables modules to be re-used in other projects and improves the upgradability of the application. Specialization also plays an important role in the object-capability model of the Cosmos SDK.
 * **Capabilities**: Most modules need to read and/or write to the store(s) of other modules. However, in an open-source environment, it is possible for some modules to be malicious. That is why module developers need to carefully think not only about how their module interacts with other modules, but also about how to give access to the module's store(s). The Cosmos SDK takes a capabilities-oriented approach to inter-module security. This means that each store defined by a module is accessed by a runtime key, which is held by the module's keeper. This keeper defines how to access the store(s) and under what conditions. Access to the module's store(s) is done by passing a reference to the module's keeper.
 
-## Recommended Folder Structure
+## Recommended folder structure
 
-These ideas are meant to be applied as suggestions. Application developers are encouraged to improve upon and contribute to module structure and development design.
+These ideas are meant to be applied as suggestions. Application developers are encouraged to improve and contribute to the module structure and development design.
 
 ### Structure
 
 A typical Cosmos SDK module can be structured as follows. First, the serializable data types and Protobuf interfaces:
+
 
 ```shell
 proto
@@ -139,6 +156,7 @@ proto
             ├── query.proto
             └── tx.proto
 ```
+Whereas:
 
 * `{module_name}.proto`: the module's common message type definitions.
 * `event.proto`: the module's message type definitions related to events.
@@ -224,16 +242,18 @@ For more details, take a look at the [Cosmos SDK documentation on errors when bu
 
 </HighlightBox>
 
+
 ### Registration
 
 Modules should define and register their custom errors in `x/{module}/errors.go`. Registration of errors is handled via the `types/errors` package.
 
 Each custom module error must provide the codespace, which is typically the module name (for example, "distribution") and is unique per module, and a `uint32` code. Together, the codespace and code provide a globally unique Cosmos SDK error. Typically, the error code is monotonically increasing but does not necessarily have to be.
 
+
 The only restrictions on error codes are the following:
 
-* Must be greater than one, as a code value of one is reserved for internal errors.
-* Must be unique within the module.
+* It must be greater than one, as a code value of one is reserved for internal errors.
+* It must be unique within the module.
 
 <HighlightBox type="info">
 
@@ -243,7 +263,7 @@ The Cosmos SDK provides a core set of common errors. These errors are defined in
 
 ### Wrapping
 
-The custom module errors can be returned as their concrete type as they already fulfill the error interface. However, module errors can be wrapped to provide further context and meaning to failed execution.
+The custom module errors can be returned as their concrete type, as they already fulfill the error interface. However, module errors can be wrapped to provide further context and meaning to failed execution.
 
 Regardless if an error is wrapped or not, the Cosmos SDK's errors package provides an API to determine if an error is of a particular kind via `Is`.
 
@@ -270,7 +290,9 @@ Earlier the goal was to let players play with _money_. Here, with the introducti
 The initial ideas are:
 
 * When creating a game, the wager amount is declared.
+
 * When doing their first move, which is interpreted as "challenge accepted", each player is billed the amount. The amount should not be deducted on the game creation, as it is good business to first ask for acceptance from the player. If the opponent rejects the game, or the game times out, at this point, then the first player gets refunded.
+
 * Subsequent moves by a player do not cost anything.
 * If a game ends in a win or times out on a forfeit, the winning player gets the total wager amount.
 * If a game ends in a draw, then both players get back their amount.
