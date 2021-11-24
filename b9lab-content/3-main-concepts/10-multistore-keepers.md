@@ -33,7 +33,7 @@ type Keeper struct {
 }
 ```
 
-### Parameters:
+### Parameters
 
 The following parameters are of importance regarding the type definitions of keepers in modules:
 
@@ -109,7 +109,7 @@ Each tree version is immutable and can be retrieved even after a commit, dependi
 
 ## Additional KVStore wrappers
 
-<!-- Add an introductory sentence before the next headline level -->
+Beside the above store types, there are a few others with more specific usage.
 
 ### GasKv Store
 
