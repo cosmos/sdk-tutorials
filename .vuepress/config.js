@@ -127,7 +127,7 @@ module.exports = {
             {
               title: "Welcome",
               path: "/b9lab-content/1-welcome/",
-              directory: true,
+              directory: false,
             },
             {
               title: "What is Cosmos?",
@@ -148,6 +148,11 @@ module.exports = {
               title: "My Own Cosmos Chain",
               path: "/b9lab-content/5-my-own-chain",
               directory: true,
+            },
+            {
+              title: "External link",
+              path: "https://cosmos.network/",
+              external: true,
             },
           ],
         },
@@ -325,8 +330,17 @@ module.exports = {
       "@vuepress/google-analytics",
       {
         ga: "UA-62891515-10",
-      },
+      }
     ],
+    [
+      "@vuepress/medium-zoom", 
+      {
+        selector: ".layout__main__content :not(a) > img",
+        options: {
+          background: "#000000"
+        }
+      }
+    ]
   ],
   patterns: [
     "hello-world/tutorial/*.md",

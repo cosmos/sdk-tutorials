@@ -30,5 +30,8 @@
     "vuepress-theme-cosmos": "^1.0.182",
     "email-validator": "^2.0.4",
     "querystring": "^0.2.0"
+  },
+  "devDependencies": {
+    "@vuepress/plugin-medium-zoom": "^1.8.2"
   }
 }
