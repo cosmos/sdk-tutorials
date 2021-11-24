@@ -85,7 +85,7 @@ If you want to dive deeper when it comes to messages, the `Msg` service and modu
 
 Have a look at the code example below to get a better sense of how the above translates in development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can head straight to the [next section](./08-modules) to learn more about modules.
 
-<ExpansionPanel title="Show me code for my checkers' blockchain - Including messages">
+<ExpansionPanel title="Show me code for my checkers blockchain - Including messages">
 
 Previously, the ABCI application knows a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you need to conform to the SDK's way of handling `Tx` **creating messages that are then included in a transaction**.
 
