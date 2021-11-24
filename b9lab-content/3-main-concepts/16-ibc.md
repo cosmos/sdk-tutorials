@@ -7,16 +7,15 @@ tag: deep-dive
 
 # Inter-Blockchain Communication
 
-In Cosmos, most applications execute on their own purpose-built blockchain running their own validator set. Applications on one chain may need to communicate with applications on another blockchain. For example, an application could accept tokens from another blockchain as a form of payment. Interoperability at this level calls for a method of exchanging data about the state or the transactions on another blockchain.
+The Inter-Blockchain Communicatio protocol (IBC) allows to send data from one blockchain to another. In Cosmos, most applications execute on their own purpose-built blockchain running their own validator set. These are the application-specific blockchains built with Cosmos SDK.
 
-![IBC protocol: Relayers](./images/IBC-relay.png)
+Applications on one chain may have a need to communicate with applications on another blockchain. For example, an application could accept tokens from another blockchain as a form of payment. Interoperability at this level calls for a method of exchanging data about the state or the transactions on another blockchain.
 
-While such bridges between blockchains can be built and do exist, they are generally constructed in an ad hoc manner. In contrast, Cosmos SDK applications use a common protocol and framework for implementing standardized inter-blockchain communication: the Inter-Blockchain Communication (IBC) protocol is a blockchain-agnostic protocol used to send data from one blockchain to another. It requires certain properties of the underlying blockchain, but its use is not limited to Cosmos SDK-based chains. For example, there is an implementation of IBC for the Substrate framework.
+While such bridges between blockchains can be built and do exist, they are generally constructed in an ad hoc manner. In contracts, IBC provides all Cosmos SDK applications with a common protocol and framework for implementing standardized inter-blockchain communication.
 
 ## Modular design and application requirements
 
 IBC allows building a wide range of cross-chain applications, including token transfers, atomic swaps, multi-chain smart contracts (with or without mutually comprehensible VMs), and data and code sharding of various kinds. It is an end-to-end, connection-oriented, stateful protocol for reliable, ordered, and authenticated communication between heterogeneous blockchains arranged in an unknown and dynamic topology. It is possible by specifying a set of data structures, abstractions, and semantics that can be implemented by any distributed ledger provided they satisfy a small set of requirements. Using IBC does not require in-depth knowledge of the low-level details of clients, connections, and proof verification.
-
 
 Let's take a closer look at the requirements for using IBC. Applications that use the IBC protocol for cross-chain communication must meet the following requirements:
 
@@ -25,7 +24,13 @@ Let's take a closer look at the requirements for using IBC. Applications that us
 * Define optional acknowledgment structures and methods to encode and decode them.
 * Implement the `IBCModule` interface.
 
-<HighlightBox type=”info”>
+This is accomplished by specifying a set of data structures, abstractions, and semantics that can be implemented by any distributed ledger provided they satisfy a small set of requirements.
+
+IBC can be used to build a wide range of cross-chain applications, which include token transfers, atomic swaps, multi-chain smart contracts (with or without mutually comprehensible virtual machines), and data and code sharding of various kinds.
+
+Modules do not require in-depth knowledge of the low-level details of clients, connections, and proof verification.
+=======
+<HighlightBox type="info">
 
 If you want to begin using IBC, your first step should be to take a closer look at the [Cosmos SDK documentation on IBC components](https://github.com/cosmos/ibc-go/blob/main/docs/ibc/overview.md#components-overview).
 
@@ -107,9 +112,9 @@ Just as ports came with dynamic capabilities, channel initialization returns a d
 
 IBC works over a distributed network. Thus, it might be that IBC needs to rely on potentially faulty relayers to relay messages between ledgers. Additionally, cross-chain communication requires handling instances where a packet does not get sent to its destination on time or at all.
 
-For this reason, packets must specify a `TimeoutHeight` and/or `TimeoutTimestamp` (as mentioned before), after which a packet is no longer successfully received on the destination chain. Once the timeout is reached, a proof-of-packet timeout can be submitted to the packet-sending chain to then timeout the packet. To timeout a packet, for example, the packet send changes could be rolled back.
+When a timeout is reached, a proof-of-packet timeout can be submitted to the original chain, which can then perform the application-specific logic to timeout the packet (by rolling back the packet send changes - refunding senders any locked funds, and so on).
 
-IBC writes a packet receipt for each sequence it has received in the unordered channel. In **ordered** channels, a timeout of a single packet in the channel closes the channel. With **unordered** channels, packets can be received in any order.
+In ORDERED channels, a timeout of a single packet in the channel closes the channel. In the UNORDERED case, packets can be received in any order. IBC writes a packet receipt for each sequence it has received in the UNORDERED channel.
 
 ### Acknowledgement
 
@@ -126,46 +131,66 @@ When the acknowledgment is received successfully on the original sender chain, t
 
 ## Non-Tendermint chains and IBC
 
-Chains using the Tendermint consensus algorithm can easily bridge using IBC, but also non-Tendermint chains can use IBC. Two types of non-Tendermint chains are supported:
+IBC can bridge Tendermint chains, but also non-Tendermint chains. Two types of non-Tendermint chains are supported:
 
-* **Fast-Finality chains:** any fast-finality consensus algorithms can connect with Cosmos chains by adapting the IBC protocol.
-* **Probabilistic chains:** Things get a bit more complicated for blockchains that do not have fast finality, like Proof-of-Work (PoW) chains. In this case, IBC uses a special kind of proxy chain called a peg-zone.
-
-A peg-zone is a blockchain that tracks the state of another blockchain. The peg-zone itself has fast-finality and is therefore compatible with IBC. Its role is to establish finality for the blockchain it bridges.
-
+* **Fast-finality chains:** any fast-finality consensus algorithms can connect with Cosmos by adapting IBC.
+* **Probabilistic-finality chains:** for blockchains that do not have fast-finality, like Proof-of-Work (PoW) chains, things get a bit trickier. In this case, IBC uses a special kind of proxy-chain called a peg-zone.
 
 ### Ethereum peg zone:
 
-<HighlightBox type=”info”> 
+<HighlightBox type="info">
 
-If you want to know more about the Ethereum peg-zone, take a closer look at:
-
-* [Chjango Unchained (2018): The Technicals of Interoperability—Introducing the Ethereum Peg Zone](https://blog.cosmos.network/the-internet-of-blockchains-how-cosmos-does-interoperability-starting-with-the-ethereum-peg-zone-8744d4d2bc3f)
-
-Furthermore, the Tendermint team is working on a peg-zone implementation for the Ethereum chain called the Gravity bridge. For more information check out the next section on [bridges](./17-bridges.html).
+A great example of one of these peg-zones is the [Gravity Bridge](https://github.com/cosmos/gravity-bridge). For more information on it, take a look at the [section on bridges](./17-bridges.md).
 
 </HighlightBox>
 
-<!-- TODO 
-Paradigms and implications
-Interchain accounts
-https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11
+A Peg-Zone is a blockchain that tracks the state of another blockchain. The peg-zone itself has fast-finality and is therefore compatible with IBC. Its role is to establish finality for the blockchain it bridges.
 
+<HighlightBox info="info">
 
-Relayers - What is a relayer? How are relayers used in Cosmos? How can one manage and deploy relayers? Hermes as an example
-https://github.com/cosmos/cosmos-sdk/blob/master/docs/ibc/relayer.md 
+For more on IBC, its paradigms, and Interchain accounts, a looks into Josh Lee's post from 2020 [Why Interchain Accounts Change Everything for Cosmos Interoperability](https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11) is recommendable. 
 
+Relayers are an essential part of the IBC infrastructure and there are several implementations. To learn more about relaying, please visit [the IBC website](https://ibcprotocol.org/relayers/).
 
-Token transfers with IBC
+</HighlightBox>
 
+<ExpansionPanel title="Show me some code for my checkers' blockchain">
 
-## Long-running exercise
+With the introduction of IBC, you now want to allow players to play with tokens from a different chain. To do that:
 
-Now we want to let players choose to play with foreign tokens. So:
+* The game information must state the token in which the wager will be denominated upon creation.
+* The different payments have to be updated so that they do not use the default token.
 
-* The `CreateGameTx` transaction needs to be able to specify the token to use, on top of the amount.
-* The _billing_ needs to be updated.
-* The leaderboard does not need to be adjusted because it is already per token type. We don't want to do another migration example, that's why we had to be clever about the leaderboard structure.
+Denominating the wager into another token is just a matter of allowing another string that uniquely identifies the token:
 
-TODO decide how it looks like. 
--->
+```go
+type StoredGame struct {
+    ...
+    Token string
+}
+
+type MsgCreateGame struct {
+    ...
+    Token string
+}
+```
+
+You can add a helper function to `StoredGame` such that:
+
+```go
+func (storedGame *StoredGame) GetWagerCoin() (wager sdk.Coin) {
+    return sdk.NewCoin(storedGame.Token, sdk.NewInt(int64(storedGame.Wager)))
+}
+```
+
+With that, the payments are updated with:
+
+```go
+err = k.bank.SendCoinsFromAccountToModule(ctx, black, "checkers", sdk.NewCoins(storedGame.GetWagerCoin()))
+// or
+err = k.bank.SendCoinsFromModuleToAccount(ctx, "checkers", winnerAddress, sdk.NewCoins(winnings))
+```
+
+There is nothing more to it in this simple use of _foreign_ tokens.
+
+</ExpansionPanel>
