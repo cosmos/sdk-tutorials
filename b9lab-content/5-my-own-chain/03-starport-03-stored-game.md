@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="prereq">
 
-In the [Starport introduction section](./03-starport.md) you learned how to jump-start a brand new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
+In the [Starport introduction section](./03-starport.md) you learned how to jump-start a brand new blockchain. Now it is time to dive deeper and explore how to create a blockchain to play a decentralized game of checkers.
 
 You can of course dive into the following code exercise without reading the [Starport introduction](.03-starport.md), but it is highly recommended for the following exercise.
 
