@@ -1,20 +1,20 @@
 ---
 title: "Events"
-order: 10
+order: 11
 description: Using events in app development
 tag: deep-dive
 ---
 
 # Events
 
-An event is an object that contains information about the execution of the application. Events are used by service providers (block explorers, wallets, and IBC relayers) to track execution of various messages and index transactions.
+An event is an object that contains information about the execution of applications. Events are used by service providers (block explorers, wallets, etc.) to track the execution of various messages and index transactions.
 
-In the Cosmos SDK, events are implemented as an alias of the ABCI `event` type in the forms `{eventType}.{attributeKey}={attributeValue}`.
+In the Cosmo SDK, events are implemented as an alias of the ABCI `event` type in the form `{eventType}.{attributeKey}={attributeValue}`.
 
-Events allow app developers to attach additional information. This means that transactions might be queried using the events:
+Events allow application developers to attach additional information. This means that transactions might be queried using events:
 
-```
-// Events allows application developers to attach additional information to
+```protobuf
+// Events allow application developers to attach additional information to
 // ResponseBeginBlock, ResponseEndBlock, ResponseCheckTx and ResponseDeliverTx.
 // Later, transactions may be queried using these events.
 message Event {
@@ -28,16 +28,19 @@ message Event {
 
 ## Structure
 
-* A `type` to categorize the Event at a high-level; for example, the Cosmos SDK uses the `message` _type_ to filter events by Msgs.
-* A list of `attributes` are key-value pairs that give more information about the categorized event. For example, for the "message" type, we can filter events by key-value pairs using `message.action={some_action}, message.module={some_module}` or `message.sender={a_sender}`.
+In the above, two elements stand out:
 
-<HighlightBox type=”info”>
+* A `type` to categorize the event at a high level. For example, the Cosmos SDK uses the `message` _type_ to filter events by `Msg`.
+* A list of `attributes`, which are key-value pairs giving more information about the categorized event. For example, for the `message` type, we can filter events by key-value pairs using `message.action={some_action}, message.module={some_module}` or `message.sender={a_sender}`.
+
+<HighlightBox type="info">
 
 To parse the attribute values as strings, make sure to add `'` (single quotes) around each attribute value.
 
 </HighlightBox>
 
-Events, their type and attributes are defined on a per-module basis in the module's `/types/events.go` file, and are triggered from the module's Protobuf Msg service by using the `EventManager`. Additionally, each module documents its events under `spec/xx_events.md`.
+Events, their type, and attributes are defined on a per-module basis in the module's `/types/events.go` file.  Additionally, each module documents its events under `spec/xx_events.md`.
+
 Events are returned to the underlying consensus engine in response to the following ABCI messages:
 
 * `BeginBlock`
@@ -45,17 +48,15 @@ Events are returned to the underlying consensus engine in response to the follow
 * `CheckTx`
 * `DeliverTx`
 
-Events are managed by an abstraction called the `EventManager`.
+Events are managed by an abstraction called the `EventManager`. Events are triggered from the module's Protobuf `Msg` service with `EventManager`. Let's explore this abstraction further.
 
-## EventManager
+## `EventManager`
 
-`EventManager` tracks a list of events for the entire execution flow of a transaction or `BeginBlock`/`EndBlock`. `EventManager` implements a simple wrapper around a slice of `Event` objects that can be emitted from and provides useful methods. The most used method for Cosmos SDK module and application developers is `EmitEvent`.
+`Eventmanager` tracks a list of events for the entire execution flow of a transaction or `BeginBlock`/`EndBlock`. `EventManager` implements a simple wrapper around a slice of event objects, that can be emitted from and provides useful methods. The most used method for Cosmos SDK module and application developers is `EmitEvent`.
 
-<HighlightBox type=”info”>
+Module developers should handle event emission via `EventManager#EmitEvent` in each message handler and in each `BeginBlock` or `EndBlock` handler, accessed via the `Context`. Event emission generally follows this pattern:
 
-Module developers should handle event emission via the `EventManager#EmitEvent` in each message handler and in each `BeginBlock`/`EndBlock` handler, accessed via the `Context`, where event emission generally follows this pattern:
-
-```
+```go
 func (em *EventManager) EmitEvent(event Event) {
     em.events = em.events.AppendEvent(event)
 }
@@ -63,37 +64,45 @@ func (em *EventManager) EmitEvent(event Event) {
 
 Each module's handler function should also set a new `EventManager` to the context to isolate emitted events per message:
 
-```
+```go
 func NewHandler(keeper Keeper) sdk.Handler {
     return func(ctx sdk.Context, msg sdk.Msg) (*sdk.Result, error) {
         ctx = ctx.WithEventManager(sdk.NewEventManager())
         switch msg := msg.(type) {
-    // event types
+            // event types
+        }
+    ...
+    }
+}
 ```
 
-</HighlightBox>
+## Subscribing to events
 
-## Subscribing to Events
-
-You can use Tendermint's Websocket (opens new window) to subscribe to events by calling the subscribe RPC method.
+You can use Tendermint's [WebSocket](https://docs.tendermint.com/master/tendermint-core/subscription.html#subscribing-to-events-via-websocket) to subscribe to events by calling the `subscribe` RPC method.
 
 The main `eventCategories` you can subscribe to are:
 
-* **NewBlock**: Contains Events triggered during `BeginBlock` and `EndBlock`.
-* **Tx**: Contains events triggered during `DeliverTx` (i.e. transaction processing).
-* **ValidatorSetUpdates**: Contains validator set updates for the block.
+* **`NewBlock`:** contains Events triggered during `BeginBlock` and `EndBlock`.
+* **`Tx`:** contains events triggered during `DeliverTx` (transaction processing).
+* **`ValidatorSetUpdates`:** contains updates about the set of validators for the block.
 
 <HighlightBox type=”info”>
 
-→ You can find a full list of event categories [here](https://godoc.org/github.com/tendermint/tendermint/types#pkg-constants)
+You can find a full list of event categories in the [Tendermint Go documentation](https://godoc.org/github.com/tendermint/tendermint/types#pkg-constants).
 
 </HighlightBox>
 
-You can filter for event types and attribute values. For example, a transfer transaction triggers an event of type `Transfer` and has `Recipient` and `Sender` as attributes (as defined in the `events.go` file of the bank module.
+You can filter for event types and attribute values. For example, a transfer transaction triggers an event of type `Transfer` and has `Recipient` and `Sender` as attributes, as defined in the `events.go` file of the bank module.
 
-<ExpansionPanel title="Show me some code for my checkers blockchain">
+## Next up
 
-In your checkers blockchain, it would be good to document a game's lifecycle via events. For instance, when creating the game, you can emit a specific event such that:
+You just learned about events, where they are expected, and how to emit or receive them. Have a look at the code samples below or head to the [next section](./14-context) to learn about the `Context` object.
+
+<ExpansionPanel title="Show me some code for my checkers' blockchain">
+
+In your checkers' blockchain, it would be good to document a game's lifecycle via events.
+
+For instance, when creating the game, you can emit a specific event such that:
 
 ```go
 var ctx sdk.Context
@@ -110,7 +119,8 @@ ctx.EventManager().EmitEvent(
     ),
 )
 ```
-From this model, it is easy to add events to the other transaction types, where you keep in mind that the events are meant to inform and notify relevant parties.
+
+From this model, it is easy to add events to the other transaction types. Keep in mind that events are meant to inform and notify relevant parties.
 
 You should also emit an event for games that have timed out. After all, this is part of their lifecycle. You would do that in the end blocker:
 

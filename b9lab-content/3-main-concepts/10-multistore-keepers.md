@@ -1,29 +1,27 @@
 ---
 title: "Multistore and Keepers"
-order: 7
+order: 8
 description: Store types, the AnteHandler, and keepers
 tag: deep-dive
 ---
 
 # Multistore and Keepers
 
-A Cosmos SDK application on a purpose-built blockchain usually consists of several modules attending to separate concerns. Each module has a state that is a subset of the entire application state.
+A Cosmos SDK application on a purpose-built/application-specific blockchain usually consists of several modules attending to separate concerns. Each module has a state that is a subset of the entire application state.
 
-Cosmos SDK adopts an object-capabilities-based approach (only reveal what is necessary to get the work done) to help developers better protect their application from unwanted inter-module interactions, and keepers are at the core of this approach.
+The Cosmos SDK adopts an object-capabilities-based approach - only reveal what is necessary to get the work done - to help developers better protect their application from unwanted inter-module interactions. Keepers are at the core of this approach.
 
 A keeper is a Cosmos SDK abstraction that manages access to the subset of the state defined by a module. All access to the module’s data must go through the module’s keeper.
 
-A keeper can be thought of quite literally as the gatekeeper of a module's store(s). Each store (typically an IAVL Store) defined within a module comes with a storeKey, which grants unlimited access to it. The module's keeper holds this storeKey (which should otherwise remain unexposed), and defines methods for reading and writing to the store(s).
+A keeper can be thought of quite literally as the gatekeeper of a module's store(s). Each store (typically an IAVL store) defined within a module comes with a `storeKey`, which grants unlimited access to it. The module's keeper holds this `storeKey`, which should otherwise remain unexposed, and defines methods for reading and writing to the store(s).
 
-When a module needs to interact with the state defined in another module, it does so by interacting with methods of the other module’s keeper. Developers control the interactions their module can have with other modules by defining methods and controlling access.
+When a module needs to interact with the state defined in another module, it does so by interacting with the methods of the other module’s keeper. Developers control the interactions their module can have with other modules by defining methods and controlling access.
 
-[](./images/keeper.png)
+[Keepers in the Cosmos SDK](./images/keeper.png)
 
 ## Format
 
-Keepers are generally defined in a `/keeper/Keeper.go` file locating in the module’s folder.
-
-By convention, the type keeper of a module is named simply `Keeper.go` and usually follows the following structure:
+Keepers are generally defined in a `/keeper/keeper.go` file located in the module’s folder. By convention, the type keeper of a module is named simply `keeper.go`. It usually follows the following structure:
 
 ```go
 type Keeper struct {
@@ -35,99 +33,131 @@ type Keeper struct {
 }
 ```
 
-### Parameters:
+### Parameters
 
-* An `expected` keeper is a keeper external to a module that is required by the internal keeper of said module. External keepers are listed in the internal keeper's type definition as interfaces. These interfaces are themselves defined in an `expected_keepers.go` file in the root of the module's folder. In this context, interfaces are used to reduce the number of dependencies, as well as to facilitate the maintenance of the module itself.
+The following parameters are of importance regarding the type definitions of keepers in modules:
+
+* An expected `keeper` is a keeper external to a module that is required by the internal keeper of said module. External keepers are listed in the internal keeper's type definition as interfaces. These interfaces are themselves defined in an `expected_keepers.go` file in the root of the module's folder. In this context, interfaces are used to reduce the number of dependencies and to facilitate the maintenance of the module itself.
 * `storeKeys` grant access to the store(s) of the multistore managed by the module. They should always remain unexposed to external modules.
-* `cdc` is the codec used to marshall and unmarshall structs to/from `[]byte`. The cdc can be any of `codec.BinaryCodec`, `codec.JSONCodec` or `codec.Codec` based on your requirements. It can be either a proto or amino codec as long as they implement these interfaces.
+* `cdc` is the codec used to marshall and unmarshall structs to/from []byte. The `cdc` can be any of `codec.BinaryCodec`, `codec.JSONCodec`, or `codec.Codec` based on your requirements. Note that `code.Codec` includes the other interfaces. It can be either a proto or amino codec as long as they implement these interfaces.
 
-Each keeper has its own constructor function, which is called from the application's constructor function. This is where keepers are instantiated and where developers make sure to pass correct instances of modules' keepers to other modules that require them.
+Each keeper has its own constructor function which is called from the application's constructor function. This is where keepers are instantiated and where developers make sure to pass correct instances of the module's keepers to other modules that require them.
 
-### Scope and Best Practices
+### Scope and best practices
 
-Keepers primarily expose getter and setter methods for the store(s) managed by their module.  Methods should remain simple and strictly limited to getting or setting the requested value. Validity checks should already have been done with the `ValidateBasic()` method of the message and the Msg server before the keeper's methods are called.
+Keepers primarily expose getter and setter methods for the store(s) managed by their module. Methods should remain simple and strictly limited to getting or setting the requested value. Validity checks should already have been done with the `ValidateBasic()` method of the message and the `Msg` server before the keeper's methods are called.
 
-The getter method will have the following signature:
-` func (k Keeper) Get(ctx sdk.Context, key string) returnType`
+Getter and setter method usually have the following signatures:
 
-The setter method will have the following signature:
-`func (k Keeper) Set(ctx sdk.Context, key string, value valueType)`
+* The getter method has the signature ` func (k Keeper) Get(ctx sdk.Context, key string) returnType`.
+* The setter method has the signature `func (k Keeper) Set(ctx sdk.Context, key string, value valueType)`.
 
-Keepers also implement an iterator method:
+Keepers primarily expose getter and setter methods for the store(s) managed by their module. Methods should remain simple and strictly limited to getting or setting the requested value. Validity checks should already have been done with the `ValidateBasic()` method of the message and the `Msg` server before the keeper's methods are called.
 
-<!-- TODO: Iterator  method -->
+The getter method will typically have the following signature:
 
-## Store Types
+```go
+func (k Keeper) Get(ctx sdk.Context, key string) (value returnType, found bool)
+```
 
-### KVStore and Multi-Store in Cosmos
+The setter method will typically have the following signature:
 
-Each Cosmos SDK application contains a state at its root, the multistore, that is subdivided into separate compartments that are managed by each module in the application.  The multistore is a store of key/value stores (KVStore) that follows the [`Multistore` interface](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/types/store.go#L104-L133).
+```go
+func (k Keeper) Set(ctx sdk.Context, key string, value valueType)
+```
 
-The base `KVStore` and `Multistore` implementations are wrapped in extensions that offer specialized behavior. A [`CommitMultistore`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/types/store.go#L141-L184) is a `Multistore` with a committer. This is the main type of multistore used in Cosmos SDK. The underlying KVStore is used primarily to restrict access to the committer.
+When appropriate, keepers also ought to implement an iterator method with the following signature:
 
-The [`rootMulti.Store`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/rootmulti/store.go#L43-L61) is the go-to implementation of the `CommitMultiStore` interface. It is a base-layer multistore built around a database on top of which multiple KVStores can be mounted, and is the default multistore store used in baseapp.
+```go
+func (k Keeper) GetAll(ctx sdk.Context) (list []returnType)
+```
 
-### CacheMultistore
+<!-- Keepers also implement an iterator method:
+TODO: Iterator  method -->
 
-Whenever the rootMulti.Store needs to be branched, a `cachemulti.Store` is used:  [https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/cachemulti/store.go#L17-L28] (https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/cachemulti/store.go#L17-L28). `cachemulti.Store` branches all substores (creates a virtual store for each substore) in its constructor and hold them in Store.stores.
+## Store types
 
-This is used primarily to create an isolated store, typically when it is necessary to mutate the state but it might be reverted later.
+The Cosmos SDK offers different store types with which to work with. It is important to gain a good overview of different store types available for development.
 
-CasheMultistore caches all read queries. Store.GetKVStore() returns the store from Store.stores, and Store.Write() recursively calls CacheWrap.Write() on all substores.
+### `KVStore` and `Multi-Store` in Cosmos
 
-### Transient Store
+Each Cosmos SDK application contains a state at its root, the `Multistore`, that is subdivided into separate compartments managed by each module in the application. The `Multistore` is a store of `KVStore`s that follows the [`Multistore interface`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/types/store.go#L104-L133).
 
-As the name suggests, `Transient.Store` is a KVStore that is discarded automatically at the end of each block. Transient.Store is a `dbadapter.Store` with a `dbm.NewMemDB()`. All KVStore methods are reused. When Store.Commit() is called, a new dbadapter.Store is assigned, discarding the previous reference. Garbage collection is attended to automatically.
+The base `KVStore` and `Multistore` implementations are wrapped in extensions that offer specialized behavior. A [`CommitMultistore`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/types/store.go#L141-L184) is a `Multistore` with a committer. This is the main type of multistore used in the Cosmos SDK. The underlying KVStore is used primarily to restrict access to the committer.
 
-### IAVL Store
+The [`rootMulti.Store`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/rootmulti/store.go#L43-L61) is the go-to implementation of the `CommitMultiStore` interface. It is a base-layer multistore built around a database on top of which multiple `KVStore`s can be mounted, and is the default multistore store used in BaseApp.
 
-The default implementation of KVStore and CommitKVStore is the `iavl.Store`. The IAVL.Store is a self-balancing binary search tree that ensures get and set operations are O(log n) when n is the number of elements in the tree.
+### `CacheMultistore`
 
-Each tree version is immutable nd can be retrieved even after a commit, depending on the pruning settings: [https://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md](https://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md)
+Whenever the `rootMulti.Store` needs to be branched, [a `cachemulti.Store` is used](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/cachemulti/store.go#L17-L28). `cachemulti.Store` branches all substores (creates a virtual store for each substore) in its constructor and hold them in `Store.stores`. This is used primarily to create an isolated store, typically when it is necessary to mutate the state but it might be reverted later.
 
-## Additional KVStore Wrappers
+`CasheMultistore` caches all read queries. `Store.GetKVStore()` returns the store from `Store.stores`, and `Store.Write()` recursively calls `CacheWrap.Write()` on all substores.
 
-### GasKv Store:
+### Transient store
 
-Cosmos SDK applications use gas to track resources usage and prevent spam. GasKv.Store is a KVStore wrapper that enables automatic gas consumption each time a read or write to the store is made. It is the solution of choice to track storage usage in Cosmos SDK applications.
-When methods of the parent KVStore are called, GasKv.Store automatically consumes appropriate amount of gas depending on the Store.gasConfig
-By default, all KVStores are wrapped in GasKv.Stores when retrieved. This is done in the KVStore() method of the context
-In this case, the default gas configuration is used
+As the name suggests, `Transient.Store` is a `KVStore` that is discarded automatically at the end of each block. `Transient.Store` is a `dbadapter.Store` with a `dbm.NewMemDB()`. All `KVStore` methods are reused. When `Store.Commit()` is called, a new `dbadapter.Store` is assigned, discarding the previous reference. Garbage collection is attended to automatically.
 
-### TraceKv Store
+<HighlightBox type="tip">
 
-tracekv.Store is a wrapper KVStore which provides operation tracing functionalities over the underlying KVStore. It is applied automatically by the Cosmos SDK on all KVStore if tracing is enabled on the parent MultiStore.
-When each KVStore methods are called, tracekv.Store automatically logs traceOperation to the Store.writer. traceOperation.Metadata is filled with Store.context when it is not nil. TraceContext is a map[string]interface{}.
+When working with the IAVL store, why not take a closer look at the [IAVL spec](https://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md).
 
-### Prefix Store
+The default implementation of `KVStore` and `CommitKVStore` is the `iavl.Store`. The `IAVL.Store` is a self-balancing binary search tree that ensures get and set operations are `O(log n)`, where `n` is the number of elements in the tree.
 
-prefix.Store is a wrapper KVStore which provides automatic key-prefixing functionalities over the underlying KVStore.
-When Store.{Get, Set}() is called, the store forwards the call to its parent, with the key prefixed with the Store.prefix.
-When Store.Iterator() is called, it does not simply prefix the Store.prefix, since it does not work as intended. In that case, some of the elements are traversed even they are not starting with the prefix.
+Each tree version is immutable and can be retrieved even after a commit, depending on the [pruning settings](https://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md).
+
+</HighlightBox>
+
+## Additional KVStore wrappers
+
+Beside the above store types, there are a few others with more specific usage.
+
+### GasKv Store
+
+Cosmos SDK applications use gas to track resources usage and prevent spam. The `GasKv.Store` is a `KVStore` wrapper that enables automatic gas consumption each time a read or write to the store is made. It is the solution of choice to track storage usage in Cosmos SDK applications.
+
+When methods of the parent `KVStore` are called, `GasKv.Store` automatically consumes the appropriate amount of gas depending on the `Store.gasConfig`. By default, all `KVStores` are wrapped in `GasKv.Stores` when retrieved. This is done in the `KVStore()` method of the context. In this case, the default gas configuration is used.
+
+### TraceKv store
+
+`tracekv.Store` is a wrapper `KVStore` which provides operation tracing functionalities over the underlying `KVStore`. It is applied automatically by the Cosmos SDK on all `KVStore`s if tracing is enabled on the parent `MultiStore`.
+When each of the `KVStore` methods are called, `tracekv.Store` automatically logs `traceOperation` to the `Store.writer`. `traceOperation.Metadata` is filled with `Store.context` when it is not nil. `TraceContext` is a `map[string]interface{}`.
+
+### Prefix store
+
+`prefix.Store` is a wrapper `KVStore` which provides automatic key-prefixing functionalities over the underlying `KVStore`.
+When `Store.{Get, Set}()` is called, the store forwards the call to its parent, with the key prefixed with the `Store.prefix`.
+When `Store.Iterator()` is called, it does not simply prefix the `Store.prefix`, since it does not work as intended. In that case, some of the elements are traversed even when they are not starting with the prefix.
 
 ## AnteHandler
 
-The AnteHandler is a special handler that implements the AnteHandler interface and is used to authenticate the transaction before the transaction's internal messages are processed.
+The AnteHandler is a special handler that implements the AnteHandler interface. It is used to authenticate the transaction before the transaction's internal messages are processed.
 
-The AnteHandler is theoretically optional, but still a very important component of public blockchain networks. It serves 3 primary purposes:
+The AnteHandler is theoretically optional, but still a very important component of public blockchain networks. It serves three primary purposes:
 
-* Be a primary line of defense against spam and second line of defense (the first one being the mempool) against transaction replay with fees deduction and sequence checking.
-* Perform preliminary stateful validity checks like ensuring signatures are valid or that the sender has enough funds to pay for fees.
-* Play a role in the incentivisation of stakeholders via the collection of transaction fees.
+* It is a primary line of defense against spam and the second line of defense, the first one being the mempool, against transaction replay with fees deduction and sequence checking.
+* Perform preliminary stateful validity checks, like ensuring signatures are valid or that a sender has enough funds to pay for fees.
+* Play a role in the incentivization of stakeholders via the collection of transaction fees.
 
-BaseApp holds an anteHandler as a parameter that is initialized in the application's constructor. The most widely used anteHandler is the auth module.
+BaseApp holds an AnteHandler as a parameter that is initialized in the application's constructor. The most widely used anteHandler is the auth module.
 
-More info: [https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/gas-fees.md#antehandler](https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/gas-fees.md#antehandler) + [https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/gas-fees.md](https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/gas-fees.md)
+<HighlightBox type="info">
 
-<ExpansionPanel title="Show me some code for my checkers blockchain">
+For more information on the subject, a closer look at the following resources could prove worth it:
 
-In the [Accounts](./04-accounts) section, you were introduced to the elements of the stored game, but were left in the dark about where this game is stored. In light of what you learned above, let's fix that.
+* [Cosmos SDK documentation: Gas and Fees](https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/gas-fees.md)
+* [Cosmos SDK documentation: AnteHandler](https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/gas-fees.md#antehandler)
 
-## Game Object in Storage
+</HighlightBox>
 
-You need to decide under what structure to store a game in storage. The Cosmos SDK partitions the global storage per module, with `checkers` being its own module. Therefore, you need to take care of how to store games in the checkers module's own corner of the key / value pair storage.
+<ExpansionPanel title="Show me some code for my checkers' blockchain">
 
-The first idea would be to attribute a unique id to a game and to store the game value at that id. However, for the sake of clarity and so as to be able to differentiate with other stored elements in the future, you ought to add a prefix to that id. In pseudo Go code, the storage structure would therefore look like this:
+In the [Accounts section](./04-accounts), you were introduced to the elements of the stored game but were left in the dark about where this game is stored. In light of what you learned above, let's fix that.
+
+## Game object in storage
+
+You need to decide under what structure you want to store a game in the storage. The Cosmos SDK partitions the global storage per module, with `checkers` being its own module. Therefore, you need to take care of how to store games in the checkers module's corner of the key/value pair storage.
+
+The first idea would be to attribute a unique ID to a game and to store the game value at that ID. However, for the sake of clarity and to be able to differentiate with other stored elements in the future, you ought to add a prefix to that ID. In pseudo-Go code, the storage structure would therefore look like this:
 
 ```go
 // Pseudo-code
@@ -138,12 +168,13 @@ storedGame := gamesStore.getAtPrefix(gameId)
 // Or again in a different way
 storedGame := globalStore.getAtPrefix("checkers-games-" + gameId)
 ```
+
 It is pseudo-code because:
 
 * Prefixes have to be `byte[]` instead of `string`. This is easily handled with a cast such as `[]byte("games-")`.
-* The Cosmos SDK prevents you from directly accessing any random module's store, such that `globalStore.getAtPrefix("checkers-")` is not allowed, and instead has to be accessed via a secret key.
+* The Cosmos SDK prevents you from directly accessing any random module's store, such that `globalStore.getAtPrefix("checkers-")` is not allowed and instead has to be accessed via a secret key.
 
-Let's define the id of the `StoredGame`. In order to be able to return a single object, we include it in the object's value:
+Let's define the ID of the `StoredGame`. To return a single object, we include `StoredGame` in the object's value:
 
 ```go
 type StoredGame struct {
@@ -151,7 +182,8 @@ type StoredGame struct {
     Index string
 }
 ```
-So, with most of the action handled by the Cosmos SDK, you are left with defining the required prefixes in your corner of storage:
+
+So, with most of the action handled by the Cosmos SDK, you are left with defining the required prefixes in your corner of the storage:
 
 ```go
 package types
@@ -160,6 +192,7 @@ const (
     StoredGameKey = "StoredGame-value-"
 )
 ```
+
 Which assists you with how to access a game:
 
 ```go
@@ -182,6 +215,7 @@ func (k Keeper) GetStoredGame(ctx sdk.Context, gameId string) (storedGame types.
     return storedGame, true
 }
 ```
+
 Similarly, if you want to save a game:
 
 ```go
@@ -192,9 +226,10 @@ func (k Keeper) SetStoredGame(ctx sdk.Context, storedGame types.StoredGame) {
     gamesStore.Set(byte[](storedGame.Index), gameBytes)
 }
 ```
-Now if you wanted to delete a stored game, you would call `gamesStore.Delete(byte[](storedGame.Index))`.
 
-Interestingly, the `KVStore` allows you to obtain an iterator on a given prefix. In effect, because all stored games share the same prefix, this means you can list all stored games, which you would do like so:
+If you want to delete a stored game, you would call `gamesStore.Delete(byte[](storedGame.Index))`.
+
+Interestingly, the `KVStore` allows you to obtain an iterator on a given prefix. In effect, because all stored games share the same prefix, you can list all stored games, which you would do with:
 
 ```go
 func (k Keeper) GetAllStoredGame(ctx sdk.Context) (list []types.StoredGame) {
@@ -213,26 +248,34 @@ func (k Keeper) GetAllStoredGame(ctx sdk.Context) (list []types.StoredGame) {
     return
 }
 ```
-Notice the `MustMarshalBinaryBare` and `MustUnmarshalBinaryBare` functions in the `codec` above. They need to be instructed as to how to proceed with the marshaling. Fortunately, Protobuf took care of this for us. See the [previous section](./09-protobuf) for that.
 
-## Boilerplate, Boilerplate Everywhere!
+Notice the `MustMarshalBinaryBare` and `MustUnmarshalBinaryBare` functions in the `codec` above. They need to be instructed as to how to proceed with the marshaling. Fortunately, Protobuf took care of this for us.
+
+<HighlightBox type="tip">
+
+See the [previous section on Protobuff](./09-protobuf) to explore how Protobuf deals with the marshaling.
+
+</HighlightBox>
+
+## Boilerplate, boilerplate everywhere!
 
 Also notice how the `Set`, `Get`, `Remove`, and `GetAll` functions above look like boilerplate too. Do you have to redo these functions for every type? **No**. In fact, it was all created with this Starport command:
 
 ```sh
 $ starport scaffold map storedGame game turn red black wager:uint --module checkers --no-message
 ```
+
 Where `map` is the command that tells Starport to add an `Index` and store all elements under a map-like structure.
 
 <HighlightBox type="tip">
 
-To create the above boilerplate in your own module, you can use Starport. For Starport, and if you want to go beyond these out-of-context code samples and instead see more in detail how to define all this, head to [how to build your own chain](../5-my-own-chain/01-index).
+To create the above boilerplate in your module, you can use Starport. For Starport, and if you want to go beyond these out-of-context code samples and instead see more in detail how to define all this, head to [My Own Chain](../5-my-own-chain/01-index).
 
 </HighlightBox>
 
-## Other Storage Elements
+## Other storage elements
 
-How do we create this `storedGame.Index`? A viable idea is to keep a counter, in storage, for the next game. Unlike `StoredGame`s, which are saved as a map, this `NextGame` object has to be at a unique location in the whole storage.
+How do we create this `storedGame.Index`? A viable idea is to keep a counter, in storage, for the next game. Unlike `StoredGame`, which is saved as a map, this `NextGame` object has to be at a unique location in the storage.
 
 Therefore, we define the object:
 
@@ -243,14 +286,16 @@ type NextGame struct {
     IdValue uint64
 }
 ```
-Plus the key where it resides:
+
+Plus, the key where it resides:
 
 ```go
 const (
     NextGameKey = "NextGame-value-"
 )
 ```
-Then the functions to get and set.
+
+Then the functions to get and set:
 
 ```go
 func (k Keeper) SetNextGame(ctx sdk.Context, nextGame types.NextGame) {
@@ -259,6 +304,7 @@ func (k Keeper) SetNextGame(ctx sdk.Context, nextGame types.NextGame) {
     nextGameStore.Set([]byte{0}, nextBytes)
 }
 ```
+
 Not to forget that it needs an initial value. That's the role of the genesis block definition:
 
 ```go
@@ -267,6 +313,7 @@ type GenesisState struct {
     NextGame *NextGame
 }
 ```
+
 And its initialization:
 
 ```go
@@ -280,9 +327,9 @@ func DefaultGenesis() *GenesisState {
 }
 ```
 
-## What About Message Handling
+## What about message handling
 
-In an earlier section on [messages](./07-messages), you defined the `MsgCreateGame` among others. Left unsaid is how you go from the message to the game in storage. That's also the role of the keeper. Effectively, you should define a handling function such as:
+In an earlier [section on messages](./07-messages), you defined, among others, the `MsgCreateGame`. Left unsaid is how you go from the message to the game in storage. That is also the role of the keeper. Effectively, you should define a handling function such as:
 
 ```go
 func (k Keeper) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
@@ -293,19 +340,23 @@ func (k Keeper) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*ty
     return &types.MsgCreateGameResponse{}, nil
 }
 ```
+
 It looks like you now have all the pieces to replace the `TODO`, which turns out to be straightforward:
 
-* Get the next game id:
-    ```go
+Get the next game ID:
+
+```go
     nextGame, found := k.GetNextGame(ctx)
     if !found {
         // Panic because this should never happen.
         panic("NextGame not found")
     }
     newIndex := strconv.FormatUint(nextGame.IdValue, 10)
-    ```
-* Extract and sanitize the message elements:
-    ```go
+```
+
+Extract and sanitize the message elements:
+
+```go
     creator, err := sdk.AccAddressFromBech32(msg.Creator)
     if err != nil {
         return nil, errors.New("Creator address invalid")
@@ -319,9 +370,11 @@ It looks like you now have all the pieces to replace the `TODO`, which turns out
     if err != nil {
         return nil, errors.New("Black address invalid")
     }
-    ```
-* Create the stored game object:
-    ```go
+```
+
+Create the stored game object:
+
+```go
     storedGame := types.StoredGame{
         Creator: msg.Creator,
         Index:   newIndex,
@@ -330,30 +383,37 @@ It looks like you now have all the pieces to replace the `TODO`, which turns out
         Black:   msg.Black,
         Wager:   msg.Wager,
     }
-    ```
-* Save it in storage:
-    ```go
+```
+
+Save it in storage:
+
+```go
     k.SetStoredGame(ctx, storedGame)
-    ```
-* Prepare for the next created game:
-    ```go
+```
+
+Prepare for the next created game:
+
+```go
     nextGame.IdValue++
     k.SetNextGame(ctx, nextGame)
-    ```
-* Return the game id for reference:
-    ```go
+```
+
+Return the game ID for reference:
+
+
+```go
     return &types.MsgCreateGameResponse{
         IdValue: newIndex,
     }, nil
-    ```
+```
 
-As for `MsgPlayMoveResponse` and `MsgRejectGame`, you would do the same and is left as an exercise.
+As for `MsgPlayMoveResponse` and `MsgRejectGame`, you would do the same. Why not try it out as an exercise?
 
-## More on Game Theory
+## More on game theory
 
-When you introduced the [messages](./07-messages), there remained the question of what to do when a player does not play ball.
+When you introduced [messages](./07-messages), there remained the question of what to do when a player does not play ball.
 
-Time to introduce the game deadline:
+Time to introduce a game deadline:
 
 ```go
 const (
@@ -365,6 +425,7 @@ type StoredGame struct {
     Deadline string
 }
 ```
+
 Set its initial value on creation:
 
 ```go
@@ -373,11 +434,13 @@ storedGame := types.StoredGame{
     Deadline: ctx.BlockTime().Add(types.MaxTurnDurationInSeconds).UTC().Format(types.DeadlineLayout),
 }
 ```
+
 Update its value after a move:
 
 ```go
 storedGame.Deadline = ctx.BlockTime().Add(types.MaxTurnDurationInSeconds).UTC().Format(types.DeadlineLayout)
 ```
+
 Extract and verify its value when necessary:
 
 ```go
@@ -390,11 +453,11 @@ if deadline.Before(ctx.BlockTime()) {
 }
 ```
 
-## How To Expire Games
+## How to expire games
 
-Ok, but when do you verify that the game has expired? An interesting feature of an ABCI application is that you can have it perform some actions at the end of each block. Should you load all games and filter for those that have expired? No. That would be extremely expensive. Better keep a FIFO where fresh games are pushed back to the tail so that the head contains the next games to expire.
+When do you verify that the game has expired? An interesting feature of an ABCI application is that you can have it perform some actions at the end of each block. Should you load all games and filter for those that have expired? No. That would be extremely expensive. Better keep a FIFO where fresh games are pushed back to the tail so that the head contains the next games to expire.
 
-In the context of the Cosmos SDK, you need to keep track of where the FIFO starts and stops by saving the corresponding game ids:
+In the context of the Cosmos SDK, you need to keep track of where the FIFO starts and stops by saving the corresponding game IDs:
 
 ```go
 const (
@@ -406,7 +469,8 @@ type NextGame struct {
     FifoTail string
 }
 ```
-And to have each game know its relative position, and also the number of moves done, to assist the refunding logic on games with 0, 1 or 2+ moves:
+
+And to have each game know its relative position and the number of moves done to assist the refunding logic on games with zero, one or more than two moves:
 
 ```go
 type StoredGame struct {
@@ -416,12 +480,13 @@ type StoredGame struct {
     AfterId   string
 }
 ```
-Next, and this is left as an exercise, you need to code a regular FIFO whereby:
+
+Next, and this is left as an exercise, you need to code a regular FIFO, whereby:
 
 * Games are sent to the back when created or played on.
 * Games are removed from the FIFO when they are finished or time out.
 
-## When To Expire Games
+## When to expire games
 
 Since you want to expire the games that have timed out at the end of a block, you need to hook your keeper to the right call. When building the whole application, the Cosmos SDK will call at various points into each module. The function it calls at each block's end looks like this:
 
@@ -431,24 +496,26 @@ func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.Val
     return []abci.ValidatorUpdate{}
 }
 ```
-This is where you write the necessary code, preferably in the keeper. For instance with:
+
+This is where you write the necessary code, preferably in the keeper. For instance, with:
 
 ```go
 am.keeper.ForfeitExpiredGames(sdk.WrapSDKContext(ctx))
 ```
+
 Those among you with a well-placed paranoia must be asking whether you can ensure that the execution of this `EndBlock` does not become prohibitively expensive. After all, the number of games to potentially expire is unbounded, which is a recipe for disaster in the blockchain world. Is there a situation or an attack vector that would make this a possibility? And what can we do to prevent it?
 
-Fortunately, the timeout duration is fixed and the same for all games. This means that those `n` games that all expire in a given block have all been created or updated at roughly the same time. Or in effect, at roughly the same block height `h` give or take a margin of error `h-1` and `h+1`. These created and updated games are in limited number, as per the validators rules. So if by any chance, all games in blocks `h-1`, `h` and `h+1` expire now, then the `EndBlock` function would have to expire 3 times as many games as a block can handle. This is the worst case scenario, and still sounds manageable.
+Fortunately, the timeout duration is fixed and the same for all games. This means that the `n` games, that expire in a given block have all been created or updated at roughly the same time. Or in effect, at roughly the same block height `h`, give or take a margin of error `h-1` and `h+1`. These created and updated games are limited in number because, as per one of the chain consensus parameters, every block has a maximum size and a limited number of transactions it can include. If by any chance, all games in blocks `h-1`, `h`, and `h+1` expire now, then the `EndBlock` function would have to expire three times as many games as a block can handle. This is the worst-case scenario, but it still sounds manageable.
 
-Because of this, you should be careful about letting the game creator pick a timeout duration. That would open an avenue for a malicious actor to, for instance, stagger game creations over a large number of blocks, with decreasing timeouts, so that they all expire at the same time.
+You should be careful about letting the game creator pick a timeout duration. It could open an avenue for a malicious actor to, for instance, stagger game creations over a large number of blocks with decreasing timeouts so that they all expire at the same time.
 
 ## Gas costs
 
-The keeper also makes it easy for you to charge gas to the players as you see fit. Let's propose some ratios, which would have to be adjusted so it makes sense compared to the base transaction costs:
+The keeper also makes it easy for you to charge the gas to the players as you see fit. This gas fee comes on top of the configured standard fee for transactions on your chain. Let's propose some ratios, which would have to be adjusted so it makes sense compared to the base transaction costs:
 
-* Create game: costs 10. Conceptually, it should include the costs of closing a game. If that was not the case, the losing player would be incentivized to let the game hit its timeout.
-* Play move: costs 1. You could make it cost 0 when the player loses the game, in order to incentivize the player to conclude the game instead of letting it hit the time out.
-* Reject: costs 0 because you want to incentivize cleaning up the state. This transaction would still cost what your chain is configured to charge for basic transactions.
+* Create a game: costs 10. Conceptually, it should include the costs of closing a game. If that was not the case, the losing player would be incentivized to let the game hit its timeout.
+* Play move: costs one. You could make it cost zero when the player loses the game to incentivize the player to conclude the game instead of letting it hit the timeout.
+* Reject: costs zero, because you want to incentivize cleaning up the state. This transaction would still cost what your chain is configured to charge for basic transactions.
 
 So you define the cost:
 
@@ -459,6 +526,7 @@ const (
     RejectGameGas = 0
 )
 ```
+
 Then, in your `MsgCreateGame` handler, you add the line:
 
 ```go
@@ -468,6 +536,8 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
     ...
 }
 ```
-Where and how much to charge for gas is an economical, as well as a game theoretical concern. So you should think about what you want to incentivize or disincentivize, at which junctures, and charge accordingly.
+
+Where and how much to charge for gas is an economical, as well as a game-theoretical concern. So, you should think 
+about what you want to incentivize or disincentivize at which junctures and charge accordingly.
 
 </ExpansionPanel>

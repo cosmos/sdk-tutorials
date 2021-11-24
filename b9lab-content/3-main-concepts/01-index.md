@@ -4,7 +4,6 @@ parent:
   description: A universe made up of particles
   number: 2
 tag: 
-layout: ModuleLandingPage
 order: 0
 intro:
   overline: A universe made up of particles
@@ -15,4 +14,8 @@ intro:
     From Tendermint to the IBC Protocol, there is a whole universe waiting to be discovered.
 ---
 
+<ModuleLandingPage>
+
 # Chapter Overview - Main Concepts in the Cosmos SDK
+
+</ModuleLandingPage>
