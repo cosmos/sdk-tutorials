@@ -1,26 +1,28 @@
 ---
 title: Adding Events
 order: 9
-description: Inform your players.
+description: Inform your players
 ---
 
 # Adding Events
 
-Now that you have added the possible actions, including their return values, it would be welcome to use the events system in order to alert players. You can imagine that a potential or current player is there, waiting for their turn. It is not practical to look at all transactions and find the relevant ones that signify "that's my turn". Better instead to listen to known events that tell the same.
+Now that you have [added the possible actions](./03-starport-06-play-game.md), including their return values, use events to alert/notify players.
 
-That's where events come in. Adding events to your application is as simple as:
+Imagine a potential or current player waiting for their turn. It is not practical to look at all the transactions and search for the ones signifying the player's turn. It is better to instead listen to known events that let determine whose player's turn it is.
+
+This is where events come in. Adding events to your application is as simple as:
 
 1. Defining the events you want to use.
 2. Emitting them at the right locations.
 
-## Game Created Event
+## Game created event
 
-Let's start with the event that informs that a new game has been created. The goal is to:
+Let's start with the event that announces the creation of a new game. The goal is to:
 
-* Inform / alert the concerned players.
-* Make it easy for them to find the relevant game.
+* Inform/alert the concerned players (the players of the game).
+* Make it easy for the players to find the relevant game.
 
-So, you define some new keys in `x/checkers/types/keys.go`:
+So, define some new keys in `x/checkers/types/keys.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/types/keys.go#L34-L39]
 const (
@@ -31,7 +33,8 @@ const (
     StoredGameEventBlack   = "Black" // Is it relevant to me?
 )
 ```
-And emit the event in your file `x/checkers/keeper/msg_server_create_game.go`:
+
+Emit the event in your file `x/checkers/keeper/msg_server_create_game.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/keeper/msg_server_create_game.go#L37-L46]
 ctx.EventManager().EmitEvent(
@@ -45,20 +48,22 @@ ctx.EventManager().EmitEvent(
     ),
 )
 ```
-There is not much more to it. What would need to be done is the counterpart of this in the GUI, or a server that listens for such events.
 
-## Player Moved Event
+The only thing left to do is to implement this correspondingly in the GUI or include a server listening for such events.
+
+## Player moved event
 
 Since you also created a transaction to play a move, it is expected to inform the opponent about:
 
 * Which player is relevant.
-* Which game this is about.
-* When such a move has happened, and what its outcome was.
-* Whether the game has been won.
+* Which game does the move relate to.
+* When the move happened.
+* What the move's outcome was.
+* Whether the game was won.
 
-Contrary to the create-game event, the players are already informed as to which game ids to watch out for. So there is no need to repeat the player addresses. Instead, the game id is information enough.
+Contrary to the "create game" event, the players know which game IDs to keep an eye out for. So, there is no need to repeat the players' addresses. The game ID is information enough.
 
-So, similarly, you define new keys in `x/checkers/types/keys.go`:
+Similarly, you define new keys in `x/checkers/types/keys.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/types/keys.go#L41-L48]
 const (
@@ -70,7 +75,8 @@ const (
     PlayMoveEventWinner    = "Winner"
 )
 ```
-And emit the event in your file `x/checkers/keeper/msg_server_play_move.go`:
+
+Emit the event in your file `x/checkers/keeper/msg_server_play_move.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/keeper/msg_server_play_move.go#L62-L72]
 ctx.EventManager().EmitEvent(
@@ -85,4 +91,5 @@ ctx.EventManager().EmitEvent(
     ),
 )
 ```
-And that's it. You have emitted two events that inform external systems of step changes in the lifecycle of a game. Time to make it possible for a player to reject a game.
+
+That is it: you have emitted two events that inform external systems of step changes in the lifecycle of a game. Time to make it possible for a player to reject a game.

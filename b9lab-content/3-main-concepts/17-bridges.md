@@ -7,52 +7,45 @@ tag: deep-dive
 
 # Bridges
 
-## Cosmos Ethereum Bridge, the Gravity Bridge
+## Cosmos Ethereum bridge: The Gravity Bridge
 
-Cosmos' Gravity Bridge facilitates transfer of ERC20 tokens to Cosmos-based blockchains, and back. This facilitates novel applications that combine the power of Cosmos with assets from Ethereum. For example, one might wish to use Cosmos for computations that are expensive or impossible to perform with Ethereum smart contracts. These could automated portfolio management solutions. Or, a developer might want to accept Ethereum ERC20 tokens as payment or build an entire Cosmos application around Ethereum tokens. 
+Cosmos' Gravity Bridge facilitates the transfer of ERC-20 tokens to Cosmos-based blockchains, and back. This encourages and allows for novel applications that combine the power of Cosmos with the value of assets from Ethereum. One might wish to use Cosmos for computations that are expensive or impossible to perform with Ethereum smart contracts. For example, the application could deal with automated portfolio management solutions, or a developer might want to accept Ethereum ERC-20 tokens as payment or build an entire Cosmos application around Ethereum tokens.
 
-## How It Works
+## How it works
 
-The Gravity Bridge consists of several components. 
+The Gravity Bridge consists of several components:
 
-* **Gravity.sol**: An Ethereum contract on the Ethereum blockchain.
-* **Cosmos Gravity module**: A Cosmos module designed to run on the Cosmos Hub.
-* **Orchestator**: A program which is run on Cosmos Validators, monitoring the Ethereum chain and submitting events that occur on Ethereum to Cosmos as messages.
-* **Relayers**: A network of nodes that compete for the opportunity to earn fees for sending transactions on behalf of the Cosmos Validators.
+* **`Gravity.sol`:** an Ethereum smart contract on the Ethereum blockchain.
+* **Cosmos Gravity module:** a Cosmos module designed to run on the Cosmos Hub.
+* **Orchestrator:** a program that runs on Cosmos validators monitoring the Ethereum chain and submitting events that occur on Ethereum to Cosmos as messages.
+* **Relayers:** a network of nodes that compete for the opportunity to earn fees for sending transactions on behalf of the Cosmos validators.
 
-In summary, tokens are locked on the Ethereum side by sending them to the `Gravity.sol` contract. This emits an event that is observable to Validators running the Orchastrator. When a quorum of Validators agrees that tokens have been locked on Ethereum, including the requisite confirmation blocks, a Relayer is selected to send an intruction to Cosmos Gravity module which issues new tokens. This is non-dilutive meaning it doesn't increase the circulating support because an equal number of tokens is locked on the Ethereum side. 
+In summary, tokens are locked on the Ethereum side by sending them to the `Gravity.sol` smart contract. This emits an event that is observable to validators running the orchestrator. When a quorum of validators agrees that tokens have been locked on Ethereum, including the requisite confirmation blocks, a relayer is selected to send an instruction to the Cosmos Gravity module, which issues new tokens. This is non-dilutive, meaning it does not increase the circulating support because an equal number of tokens is locked on the Ethereum side.
 
-In the reverse, to return tokens from the Cosmos Hub to the Ethereum blockchain, tokens on the Cosmos network are destroyed and an equal number are released (they were previously deposited) from the `Gravity.sol` contract.
+In the reverse case, to transfer tokens from the Cosmos Hub to the Ethereum blockchain, tokens on the Cosmos network are destroyed and an equal number is released (they were previously deposited) from the `Gravity.sol` smart contract.
 
-The Cosmos Ethereum bridge is designed to run on the Cosmos Hub focused on maximum design simplicity and efficiency. The bridge
-can transfer ERC20 assets originating on Ethereum to a Cosmos based chain and back to Ethereum.
+The Cosmos Gravity Bridge is designed to run on the Cosmos Hub. It focuses on maximum design simplicity and efficiency. The bridge can transfer ERC-20 assets originating on Ethereum to a Cosmos-based chain and back to Ethereum. Transactions are batched with transfers netted out. This creates efficiency at scale and lowers the transaction cost for each transfer.
 
-Transactions are batched with transfers netted out. This creates efficiency at scale and lowers the transaction cost for each transfer.
+### Key design components: Trust in integrity
 
-### Design
+The signing of fraudulent validator set updates and transaction batches meant for the Ethereum smart contract is punished on the Cosmos chain by slashing. If the Cosmos chain is trustworthy, you can trust the **Gravity Bridge** operated by it, as long as it is operated within certain parameters. Generally speaking, bridges to Cosmos chains derive their trustworthiness from the degree of trust associated with the Cosmos chain to which they bridge. Peg-zone validators must maintain a trusted Ethereum node; it is mandatory. This removes all trust and game theory issues that usually arise when involving independent relayers, once again dramatically simplifying the design.
 
-**Trust in Integrity**
+Verifying the votes of the validator set is the most expensive on-chain operation Gravity has to perform. Existing bridges incur more than double the gas costs for signature sets as small as eight signers.
 
-Signing of fraudulent validator set updates and transaction batches meant for the Ethereum contract is punished by slashing on the Cosmos chain. If you trust the Cosmos chain, you can trust the **Gravity bridge** perated by it, as long as it is operated within certain parameters.
+### Operational parameters ensuring security
 
-It is mandatory for peg zone validators to maintain a trusted Ethereum node. This removes all trust and game theory implications that usually arise from independent relayers, once again dramatically simplifying the design.
+The bridge requires a validator set update on the Ethereum smart contract, by calling the `updateValset` method at least once every Cosmos unbonding period (usually every two weeks). _Why is this necessary?_ Without an update every unbonding period, the validator set stored by the Ethereum smart contract could contain fraudulent/malicious validators who then cannot be slashed for misbehavior.
 
-### Key Design Components
+Cosmos full nodes do not verify events coming from Ethereum, as events are validated into the Cosmos chain's state based purely on the signatures of the current validator set. If validators represent more than 2/3 of the stake, an event could be added to the state, even without a corresponding event on Ethereum. In this case, observers of both the Cosmos and Ethereum chains will need to "raise the alarm" on the issue. This functionality is built into the relayer.
 
-Verifying the votes of the validator set is the most expensive on chain operation Gravity has to perform. Existing bridges incur more than double the gas costs for signature sets as small as 8 signers. 
+<HighlightBox type="tip">
 
-### Operational Parameters Ensuring Security:
+Do you want to dive deeper when it comes to bridges? Here are some helpful resources:
 
-The bridge requires a validator set update on the Ethereum contract by calling the updateValset method at least once every Cosmos unbonding period (usually 2 weeks) → reason: if there has not been an update for longer than the unbonding period, the validator set stored by the Ethereum contract could contain validators who cannot be slashed for misbehavior.
+* [Jehan Tremback, Deborah Simpier, and Justin Kilpatrick (2021): Announcing the Cosmos Gravity Bridge](https://blog.althea.net/gravity-bridge/)
+* [Cosmos Gravity Bridge documentation](https://github.com/cosmos/gravity-bridge/)
+* Projects based on the Gravity Bridge:
+	* [Peggy JV Inc.: Gravity Bridge](https://github.com/PeggyJV/gravity-bridge/)
+	* [Althea Testnet repository: Gravity Bridge](https://github.com/althea-net/cosmos-gravity-bridge/)
 
-Cosmos full nodes do not verify events coming from Ethereum →  events are accepted into the Cosmos state based purely on the signatures of the current validator set. It is possible for the validators with >2/3 of the stake to put events into the Cosmos state which never happened on Ethereum. In this case observers of both chains will need to "raise the alarm". We have built this functionality into the relayer.
-
-## Links
-
-Explainer: [https://blog.althea.net/gravity-bridge/](https://blog.althea.net/gravity-bridge/)
-Cosmos implementation: [https://github.com/cosmos/gravity-bridge/](https://github.com/cosmos/gravity-bridge/)
-
-Projects based on Gravity Bridge:
-
-Sommerlier: [https://github.com/PeggyJV/gravity-bridge/](https://github.com/PeggyJV/gravity-bridge/)
-Althea: [https://github.com/althea-net/cosmos-gravity-bridge/](https://github.com/althea-net/cosmos-gravity-bridge/)
+</HighlightBox>
