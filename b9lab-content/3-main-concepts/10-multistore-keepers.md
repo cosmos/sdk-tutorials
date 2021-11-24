@@ -400,6 +400,7 @@ Prepare for the next created game:
 
 Return the game ID for reference:
 
+
 ```go
     return &types.MsgCreateGameResponse{
         IdValue: newIndex,
