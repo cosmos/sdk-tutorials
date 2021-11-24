@@ -31,13 +31,13 @@ Remember from the [last section on transactions](./05-transactions.md) that tran
 
 The Cosmos SDK currently allows signing transactions with either `SIGN_MODE_DIRECT` or `SIGN_MODE_LEGACY_AMINO_JSON`.
 
-When an account signs a message, it, in effect, signs an array of bytes. This array of bytes is the results when serializing the message. For the signature to be verifiable at a later date, this conversion needs to be deterministic. For this reason, you define a canonical bytes representation of the message, typically with the parameters ordered alphabetically.
+When an account signs a message it signs an array of bytes. This array of bytes is what results when serializing the message. For the signature to be verifiable at a later date, this conversion needs to be deterministic. For this reason you define a canonical bytes representation of the message, typically with the parameters ordered alphabetically.
 
 </ExpansionPanel>
 
 ## Messages and the transaction lifecycle
 
-Transactions, containing one or more valid messages, are serialized and confirmed by the Tendermint consensus engine. Recall, that Tendermint is agnostic to the transaction interpretation and has absolute finality. When a transaction is included in a block, it is confirmed, and finalized (no possibility of chain re-organization or cancellation).
+Transactions, containing one or more valid messages, are serialized and confirmed by the Tendermint consensus engine. Recall that Tendermint is agnostic to the transaction interpretation and has absolute finality. When a transaction is included in a block, it is confirmed, and finalized (no possibility of chain re-organization or cancellation).
 
 The confirmed transaction is relayed to the Cosmos SDK application for interpretation. The `BaseApp`, you use to develop custom modules, attends to the first stages of interpretation. `BaseApp` decodes each message contained in the transaction.
 
