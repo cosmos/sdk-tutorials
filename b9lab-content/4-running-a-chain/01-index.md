@@ -2,7 +2,7 @@
 parent:
   title: Running a Chain
   description: Run a chain for the first time
-  number: 3
+  number: 1
 tag: deep-dive
 layout: ModuleLandingPage
 order: 0
@@ -32,7 +32,7 @@ resources:
     links:
       - name: Documentation
         url: https://hub.cosmos.network/
-    image: /cosmos-sdk-icon.svg
+    image: /generic-star-icon.svg
   - title: IBC
     description: Industry standard protocol for inter-blockchain communication
     links:
