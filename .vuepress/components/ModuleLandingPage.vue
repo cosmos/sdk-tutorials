@@ -1,30 +1,22 @@
 <template lang="pug">
-	custom-layout(:hideMobileMenu="true")
-		.home__content
-			.home__content__intro(v-if="$frontmatter.intro")
-				.home__content__intro__content(:class="$frontmatter.intro.image ? 'home__content__intro__content__small' : ''")
-					.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$frontmatter.intro.overline") {{$frontmatter.intro.overline}}
-					h2.home__content__intro__content__title {{$frontmatter.intro.title}}
-					.home__content__intro__content__desc(v-html="$frontmatter.intro.description" :class="$frontmatter.intro.image ? 'tm-measure-narrower' : ''")
-					a.tm-button.mt-7(v-if="$frontmatter.intro.action" :href="$frontmatter.intro.action.url")
-						span {{$frontmatter.intro.action.label}} &rarr;
-				.home__content__intro__image(v-if="$frontmatter.intro.image")
-					img(:src="$frontmatter.intro.image")
-			.home__content__get-started(v-if="$frontmatter.main")
-				.home__content__get-started__image
-					img(width="100%" src="/graphics-sdk-course-1.png")
-				.home__content__get-started__content
-					.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted get started
-					h2.home__content__get-started__content__title Ready to start?
-					.home__content__get-started__content__desc
-						div If you just want to get started right away, why not begin with the introductory chapter?
-						div If you are unsure which sections to tackle, keep an eye out for the Deep dive and Fast track tags for orientation.
-			.modules
-				card-module(v-for="module in this.modules" :module="module" :startExpanded="!$frontmatter.main").modules__item
-			.resources__wrapper(v-if="$frontmatter.resources")
-				h3.resources__title Developer resources
-				.resources
-					.resources__item(v-for="resource in $frontmatter.resources")
+	.home__content(:class="$frontmatter.main ? 'mt-10' : ''")
+		.home__content__intro(v-if="$frontmatter.intro")
+			.home__content__intro__content(:class="$frontmatter.intro.image ? 'home__content__intro__content__small' : ''")
+				.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$frontmatter.intro.overline") {{$frontmatter.intro.overline}}
+				h2.home__content__intro__content__title {{$frontmatter.intro.title}}
+				.home__content__intro__content__desc(v-html="$frontmatter.intro.description" :class="$frontmatter.intro.image ? 'tm-measure-narrower' : ''")
+				a.tm-button.mt-7(v-if="$frontmatter.intro.action" :href="$frontmatter.intro.action.url")
+					span {{$frontmatter.intro.action.label}} &rarr;
+			.home__content__intro__image(v-if="$frontmatter.intro.image")
+				img(:src="$frontmatter.intro.image")
+		.modules
+			h2 Course Modules
+			card-module(v-for="module in this.modules" :module="module" :startExpanded="!$frontmatter.main").modules__item
+		.resources__wrapper(v-if="$themeConfig.resources")
+			h3.resources__title Developer resources
+			.resources
+				.resources__item(v-for="resource in $themeConfig.resources")
+					.resources__item__container
 						.resources__item__icon
 							img(:src="resource.image" :alt="resource.title")
 						h5.resources__item__title {{resource.title}}
@@ -37,24 +29,27 @@
 
 <style lang="stylus" scoped>
 	.modules
+		margin-top 96px
 		display flex
 		flex-direction column
 
 		&__item
-			margin-top 32px
+			margin-top 64px
 
 	.resources
 		display flex
 		margin-top 32px
-		overflow hidden
-		overflow-x auto
-		-ms-overflow-style none
-		scrollbar-width none
+		flex-wrap wrap
 
-		@media screen and (max-width: 1024px)
+		@media screen and (max-width: 480px)
 			width 100vw
 			margin-left calc(50% - 50vw)
 			padding-inline calc(50vw - 50%)
+			overflow hidden
+			overflow-x auto
+			-ms-overflow-style none
+			scrollbar-width none
+			flex-wrap nowrap
 
 		&::-webkit-scrollbar
 			display none
@@ -64,25 +59,39 @@
 
 		&__item
 			padding 10px
-			margin-block 10px
-			display flex
-			flex-direction column
-			justify-content space-between
-
-			@media screen and (min-width: 481px)
-				flex 1 1 0px
-
-			@media screen and (min-width: 481px) and (max-width: 1024px)
-				width 40vw
-
-			@media screen and (max-width: 480px)
-				width 60vw
-				flex-shrink 0
 
 			&:last-child
 				padding-right 0px
 			&:first-child
 				padding-left 0px
+
+			@media screen and (min-width: 1313px)
+				flex 1 0 0px
+
+			@media screen and (min-width: 481px) and (max-width: 1312px)
+				max-width 50%
+				flex-grow 1
+
+				&:nth-child(even)
+					padding-right 0px
+					padding-left 10px
+				&:nth-child(odd)
+					padding-left 0px
+					padding-right 10px
+
+
+			@media screen and (max-width: 480px)
+				width 60vw
+				flex-shrink 0
+
+			&__container
+				padding 32px
+				display flex
+				flex-direction column
+				justify-content space-between
+				border-radius 16px
+				background var(--background-color-secondary)
+				height 100%
 
 			&__icon
 				margin-right 20px
@@ -118,7 +127,6 @@
 
 	.home
 		&__content
-			margin-top 64px
 			max-width var(--content-max-width)
 			margin-inline auto
 
@@ -235,6 +243,9 @@ export default {
 				return item;
 			});
 		},
+		layout() {
+			return this.$frontmatter.main ? 'CustomLayout' : 'div';
+		}
 	},
 	methods: {
 		formatModules(submodules) {

@@ -1,69 +1,68 @@
 <template lang="pug">
-    custom-layout(:hideMobileMenu="true")
-        .content
-            h1.tm-title.tm-lh-title.tm-rf6.tm-bold Developer Portal
-            a(href="/b9lab-content/1-welcome")
-                card.mt-9(imageUrl="/graphics-sdk-course.png")
-                    .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted beginner
-                    h2.mt-1 Cosmos Academy
-                    //- .info-label.tm-lh-title.tm-rf-1.tm-muted ~126 Hours
+    .content
+        h1.tm-title.tm-lh-title.tm-rf6.tm-bold Developer Portal
+        a(href="/b9lab-content/1-welcome")
+            card.mt-9(imageUrl="/graphics-sdk-course.png")
+                .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted beginner
+                h2.mt-1 Cosmos Academy
+                //- .info-label.tm-lh-title.tm-rf-1.tm-muted ~126 Hours
 
-                    .content__intro__desc.tm-measure-narrow.tm-lh-copy.tm-muted Want to discover how to use the Cosmos SDK to build application-specific blockchains? Take your first steps in the Cosmos universe with a look into this complete and comprehensive course.
-                    a(href="/b9lab-content/1-welcome").tm-link.mt-7.mb-5.tm-rf1.tm-medium
-                        span Start learning
-                        icon-arrow(type="right").icon-external.content__intro__link__icon
-            .tutorials__wrapper.mt-10
-                h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tutorials
-                .tutorials
-                    a.tutorials__item__small(href="/understanding-ibc-denoms/")
-                        card
-                            .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted intermediate
-                            h4.mt-7 Understand IBC denoms
-                            .mt-7.tm-lh-copy.tm-muted In this tutorial, you learn what IBC denoms are, how to use the relayer, connect blockchains, and find the path to an unknown blockchain.
-                            .mt-7.info-label.tm-rf-1.tm-muted 10 minute read
-                    a.tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}" href="https://docs.starport.com/" target="_blank")
-                        .tm-measure
-                            .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted starport
-                            h2.mt-5 Build a chain in hours
+                .content__intro__desc.tm-measure-narrow.tm-lh-copy.tm-muted Want to discover how to use the Cosmos SDK to build application-specific blockchains? Take your first steps in the Cosmos universe with a look into this complete and comprehensive course.
+                a(href="/b9lab-content/1-welcome").tm-link.mt-7.mb-5.tm-rf1.tm-medium
+                    span Start learning
+                    icon-arrow(type="right").icon-external.content__intro__link__icon
+        .tutorials__wrapper.mt-10
+            h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tutorials
+            .tutorials
+                a.tutorials__item__small(href="/understanding-ibc-denoms/")
+                    card
+                        .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted intermediate
+                        h4.mt-7 Understand IBC denoms
+                        .mt-7.tm-lh-copy.tm-muted In this tutorial, you learn what IBC denoms are, how to use the relayer, connect blockchains, and find the path to an unknown blockchain.
+                        .mt-7.info-label.tm-rf-1.tm-muted 10 minute read
+                a.tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}" href="https://docs.starport.com/" target="_blank")
+                    .tm-measure
+                        .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted starport
+                        h2.mt-5 Build a chain in hours
 
 
-            .articles__wrapper.mt-10(v-if="$frontmatter.articles")
-                .articles__wrapper__title
-                    h3.tm-title.tm-lh-title.tm-rf3.tm-bold Articles
-                    //- div
-                    //-     a(href="/").tm-link.tm-lh-solid.tm-rf1.tm-medium.tm-link-external
-                    //-         span More articles
-                .articles.mt-8
-                    .articles__item(v-for="article in $frontmatter.articles")
-                        a.articles__item__container(:href="article.url" target="_blank")
-                            .articles__item__image(v-bind:style="{'background-image': `url(${article.image})`}")
-                            .articles__item__content
-                                .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.articles__item__content__date {{article.date}}
-                                h4.articles__item__content__title.mx-5 {{article.title}}
-                                .info-label.articles__item__content__time.tm-rf-1.tm-muted.tm-lh-title {{article.time}} minute read
+        .articles__wrapper.mt-10(v-if="$frontmatter.articles")
+            .articles__wrapper__title
+                h3.tm-title.tm-lh-title.tm-rf3.tm-bold Articles
+                //- div
+                //-     a(href="/").tm-link.tm-lh-solid.tm-rf1.tm-medium.tm-link-external
+                //-         span More articles
+            .articles.mt-8
+                .articles__item(v-for="article in $frontmatter.articles")
+                    a.articles__item__container(:href="article.url" target="_blank")
+                        .articles__item__image(v-bind:style="{'background-image': `url(${article.image})`}")
+                        .articles__item__content
+                            .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.articles__item__content__date {{article.date}}
+                            h4.articles__item__content__title.mx-5 {{article.title}}
+                            .info-label.articles__item__content__time.tm-rf-1.tm-muted.tm-lh-title {{article.time}} minute read
 
-            .tools__wrapper.mt-10
-                h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tools
-                .tools.mt-8
-                    .tools__item(v-for="tool in $frontmatter.tools")
-                        .tools__item__container
-                            .tools__item__icon
-                                img(:src="tool.image" :alt="tool.title")
-                            .tools__item__content
-                                h5 {{tool.title}}
-                                .mt-3 {{tool.description}}
-                                .mt-6.tools__item__content__links
-                                    a(v-for="link in tool.links" :href="link.url" target="_blank").tm-link.tm-lh-solid.tm-medium.tm-link-external
-                                        span {{link.name}}
+        .tools__wrapper.mt-10
+            h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tools
+            .tools.mt-8
+                .tools__item(v-for="tool in $frontmatter.tools")
+                    .tools__item__container
+                        .tools__item__icon
+                            img(:src="tool.image" :alt="tool.title")
+                        .tools__item__content
+                            h5 {{tool.title}}
+                            .mt-3 {{tool.description}}
+                            .mt-6.tools__item__content__links
+                                a(v-for="link in tool.links" :href="link.url" target="_blank").tm-link.tm-lh-solid.tm-medium.tm-link-external
+                                    span {{link.name}}
 
-            //- .support__wrapper.mt-10
-            //-     card(imageUrl="/support-image.png" :bigCard="true").support__card
-            //-         .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted custom support
-            //-         h2.content__support__title.mt-6 Need help bringing your project to life?
-            //-         .mt-5.tm-lh-copy.tm-muted.tm-measure-narrow Apply for support and get help with funding applications, grants, technology, architecture, and getting in touch with the ecosystem.
-            //-         .mt-8
-            //-             a.tm-button.tm-button-external 
-            //-                 span Talk to us
+        //- .support__wrapper.mt-10
+        //-     card(imageUrl="/support-image.png" :bigCard="true").support__card
+        //-         .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted custom support
+        //-         h2.content__support__title.mt-6 Need help bringing your project to life?
+        //-         .mt-5.tm-lh-copy.tm-muted.tm-measure-narrow Apply for support and get help with funding applications, grants, technology, architecture, and getting in touch with the ecosystem.
+        //-         .mt-8
+        //-             a.tm-button.tm-button-external 
+        //-                 span Talk to us
 </template>
 
 <style lang="stylus" scoped>
