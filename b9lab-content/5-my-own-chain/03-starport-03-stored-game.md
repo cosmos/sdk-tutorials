@@ -1,11 +1,11 @@
 ---
-title: Make a Checkers Blockchain
+title: Build a Checkers Blockchain
 order: 4
 description: Create the object that stores a game
 tag: deep-dive
 ---
 
-# Make a Checkers Blockchain
+# Build a Checkers Blockchain
 
 <HighlightBox type="prereq">
 
@@ -240,7 +240,7 @@ service Query {
 }
 ```
 
-In the compilation of a service Starport separates concerns into different files. You need to customize:
+In the compilation of a service Starport separates concerns into different files. You need to customize the following:
 
 * The query parameters to serialize them and make them conform to the right Protobuf `Message` interface.
 * The primary implementation of the gRPC service.
