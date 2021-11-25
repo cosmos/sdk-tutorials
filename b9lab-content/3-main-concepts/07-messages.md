@@ -86,7 +86,7 @@ Have a look at the code example below to get a better sense of how the above tra
 
 <ExpansionPanel title="Show me some code for my checkers blockchain - Including messages">
 
-In our previous code examples, the ABCI application was aware of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you will need to conform to the SDK's way of handling `Tx`, which means **creating messages that are then included in a transaction**.
+In our [previous](../3-main-concepts/02-architecture.md) code examples, the ABCI application was aware of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you will need to conform to the SDK's way of handling `Tx`, which means **creating messages that are then included in a transaction**.
 
 ## What you need
 
@@ -305,7 +305,7 @@ What would happen if one of the two players has accepted the game by playing, bu
 
 What would happen if the player never shows up or never sends a valid transaction? To ensure functionality for your checkers application consider:
 
-* Having a timeout after which the game is forfeited. You could also automatically charge the forgetful player, if and when you would implement a wager system.
+* Having a timeout after which the game is forfeited. You could also automatically charge the forgetful player, if and when you implement a wager system.
 * Keeping an index of games that could be forfeited. If both timeouts are the same, you can keep a single FIFO list of games, so you can clear them from the top of the list as necessary.
 
 In general terms, you could add `timeout: Timestamp` to your `StoredGame` and update it every time something changes in the game. You can decide on a maximum delay: what about one day?
