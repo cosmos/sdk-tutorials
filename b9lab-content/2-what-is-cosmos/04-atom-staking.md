@@ -18,7 +18,7 @@ So let's get your feet wet. You are going to:
 
 <HighlightBox type="info">
 
-We cover all the main concepts in the next chapter. For now, you will get through with a surface-level understanding.
+We cover all the [Main concepts](../3-main-concepts/01-index.md) in the next chapter. For now, you will get through with a surface-level understanding.
 
 </HighlightBox>
 
@@ -31,7 +31,7 @@ Let's get started.
 
 ## Setting up Keplr
 
-First, the easiest part, open Google Chrome on your computer and go to the [Keplr extension page](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap). Alternatively, you can search by yourself for Keplr in the [Chrome extensions store](https://chrome.google.com/webstore/search/Keplr). Indeed, it is always good practice to be a bit suspicious of links to wallets as sometimes fraudulent ones are published to steal from you. Good thing, Keplr is mentioned, and linked, [here](https://cosmos.network/ecosystem/wallets), lending it some credibility.
+First, the easiest part, open Google Chrome on your computer and go to the [Keplr extension page](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap). Alternatively, you can search by yourself for Keplr in the [Chrome extensions store](https://chrome.google.com/webstore/search/Keplr). Indeed, it is always good practice to be a bit suspicious of links to wallets as sometimes fraudulent ones are published to steal from you. Good thing, Keplr is mentioned and linked in the [Cosmos ecosystem overview page](https://cosmos.network/ecosystem/wallets), lending it some credibility.
 
 When it is installed, it should be available in your list of extensions when you click on the icon in the top-right corner of Chrome:
 
@@ -154,11 +154,15 @@ _What about participating in the security of the Cosmos Hub blockchain?_
 
 You can do this by delegating a stake, some of your ATOM, to a network validator. A validator consists of one or more cooperating computers that participate in the consensus by, among other things, creating blocks. In exchange for this service, they receive block rewards and share the rewards with their delegators too, minus their commission. Your modest delegated stake could award you a modest share of a validator's rewards.
 
+<HighlightBox type="tip">
+
 When considering staking, keep in mind:
 
 * The benefit of it is that, unlike a bank, which holds your assets in a custodial wallet, when you delegate your ATOM, **you remain in charge of your ATOM**, so the validator does not have access to your assets. Think of your stake as a weighted vote of confidence.
 * A non-zero risk is that the validator you chose behaves incorrectly, or even maliciously, which exposes you proportionally to the same **protocol penalties** as the faulty validator.
 * Also keep in mind that the amount you delegate **is locked** away, and you would need 3 weeks to have access to it again, should you decide to do so.
+
+</HighlightBox>
 
 Let's find a validator and delegate your ATOM to it. Past performance is no indicator of future performance, but in our case, we are going to believe it is. So, click the _Stake_ button in Keplr. You are presented with a list of validators:
 
@@ -170,6 +174,7 @@ Pay attention to the uptime, as a missed block would cost you penalties. A valid
 
 * If your chosen validator has large voting power, your rewards come in frequently (for example, every minute) but in small numbers.
 * If your chosen validator has small voting power, your rewards come in not frequently (for example, every hour) but in large numbers.
+<!--Accordion M1-gettingatom-votingpower.h5p goes here -->
 
 However, over the long run, you should get the same amount. What matters is the size of your stake. If you like what you see, it is time to click _Delegate_ and add the sum here you want to delegate.
 
