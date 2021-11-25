@@ -150,9 +150,9 @@ module.exports = {
               directory: true,
             },
             {
-              title: "External link",
-              path: "https://cosmos.network/",
-              external: true,
+              title: "What's Next?",
+              path: "/b9lab-content/6-whats-next",
+              directory: false,
             },
           ],
         },

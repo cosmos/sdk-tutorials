@@ -9,9 +9,11 @@
 					span {{$frontmatter.intro.action.label}} &rarr;
 			.home__content__intro__image(v-if="$frontmatter.intro.image")
 				img(:src="$frontmatter.intro.image")
-		.modules
+		.modules(v-if="this.modules && this.modules[0].submodules && this.modules[0].submodules.length > 1")
 			h2 Course Modules
 			card-module(v-for="module in this.modules" :module="module" :startExpanded="!$frontmatter.main").modules__item
+		.content
+			slot
 		.resources__wrapper(v-if="$themeConfig.resources")
 			h3.resources__title Developer resources
 			.resources
@@ -28,6 +30,8 @@
 
 
 <style lang="stylus" scoped>
+	h2
+		margin-block 10px
 	.modules
 		margin-top 96px
 		display flex
@@ -167,9 +171,6 @@
 
 					&__small
 						width 50%
-
-					&__title
-						margin-block 10px
 
 					&__desc
 						margin-top 20px
