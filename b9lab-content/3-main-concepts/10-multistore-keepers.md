@@ -89,7 +89,7 @@ The [`rootMulti.Store`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/st
 
 ### `CacheMultistore`
 
-Whenever the `rootMulti.Store` needs to be branched, [a `cachemulti.Store` is used](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/cachemulti/store.go#L17-L28). `cachemulti.Store` branches all substores (creates a virtual store for each substore) in its constructor and hold them in `Store.stores`. This is used primarily to create an isolated store, typically when it is necessary to mutate the state but it might be reverted later.
+Whenever the `rootMulti.Store` needs to be branched, [a `cachemulti.Store`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/cachemulti/store.go#L17-L28) is used. `cachemulti.Store` branches all substores (creates a virtual store for each substore) in its constructor and hold them in `Store.stores`. This is used primarily to create an isolated store, typically when it is necessary to mutate the state but it might be reverted later.
 
 `CasheMultistore` caches all read queries. `Store.GetKVStore()` returns the store from `Store.stores`, and `Store.Write()` recursively calls `CacheWrap.Write()` on all substores.
 
@@ -151,7 +151,7 @@ For more information on the subject, a closer look at the following resources co
 
 <ExpansionPanel title="Show me some code for my checkers' blockchain">
 
-In the [Accounts section](./04-accounts), you were introduced to the elements of the stored game but were left in the dark about where this game is stored. In light of what you learned above, let's fix that.
+In the [Accounts section](./04-accounts.md), you were introduced to the elements of the stored game but were left in the dark about where this game is stored. In light of what you learned above, let's fix that.
 
 ## Game object in storage
 
@@ -253,7 +253,7 @@ Notice the `MustMarshalBinaryBare` and `MustUnmarshalBinaryBare` functions in th
 
 <HighlightBox type="tip">
 
-See the [previous section on Protobuff](./09-protobuf) to explore how Protobuf deals with the marshaling.
+See the [previous section on Protobuff](./09-protobuf.md) to explore how Protobuf deals with the marshaling.
 
 </HighlightBox>
 
@@ -269,7 +269,7 @@ Where `map` is the command that tells Starport to add an `Index` and store all e
 
 <HighlightBox type="tip">
 
-To create the above boilerplate in your module, you can use Starport. For Starport, and if you want to go beyond these out-of-context code samples and instead see more in detail how to define all this, head to [My Own Chain](../5-my-own-chain/01-index).
+To create the above boilerplate in your module, you can use Starport. For Starport, and if you want to go beyond these out-of-context code samples and instead see more in detail how to define all this, head to [My Own Chain](../5-my-own-chain/01-index.md).
 
 </HighlightBox>
 
@@ -329,7 +329,7 @@ func DefaultGenesis() *GenesisState {
 
 ## What about message handling
 
-In an earlier [section on messages](./07-messages), you defined, among others, the `MsgCreateGame`. Left unsaid is how you go from the message to the game in storage. That is also the role of the keeper. Effectively, you should define a handling function such as:
+In an earlier [section on messages](./07-messages.md), you defined, among others, the `MsgCreateGame`. Left unsaid is how you go from the message to the game in storage. That is also the role of the keeper. Effectively, you should define a handling function such as:
 
 ```go
 func (k Keeper) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
@@ -411,7 +411,7 @@ As for `MsgPlayMoveResponse` and `MsgRejectGame`, you would do the same. Why not
 
 ## More on game theory
 
-When you introduced [messages](./07-messages), there remained the question of what to do when a player does not play ball.
+When you introduced [messages](./07-messages.md), there remained the question of what to do when a player does not play ball.
 
 Time to introduce a game deadline:
 
