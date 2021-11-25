@@ -54,7 +54,7 @@ Validators are the ones who vote. This means that delegators ought to be discern
 
 Tendermint BFT engine is connected to the application by a socket protocol, the ABCI. ABCI presents a socket for use by applications written in other languages. When the application is written in the same language as the Tendermint implementation, the socket is not used.
 
-![The application, ABCI, and Tendermint](./images/ABCI_2.png)
+![The application, ABCI, and Tendermint](./images/ABCI_3.png)
 
 The Tendermint BFT provides security guarantees, including:
 
