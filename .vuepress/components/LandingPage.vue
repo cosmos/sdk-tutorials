@@ -8,9 +8,8 @@
                 //- .info-label.tm-lh-title.tm-rf-1.tm-muted ~126 Hours
 
                 .content__intro__desc.tm-measure-narrow.tm-lh-copy.tm-muted Want to discover how to use the Cosmos SDK to build application-specific blockchains? Take your first steps in the Cosmos universe with a look into this complete and comprehensive course.
-                a(href="/b9lab-content/1-welcome").tm-link.mt-7.mb-5.tm-rf1.tm-medium
+                a(href="/b9lab-content/1-welcome").tm-button.mt-7.mb-5.tm-button-disclosure
                     span Start learning
-                    icon-arrow(type="right").icon-external.content__intro__link__icon
         .tutorials__wrapper.mt-10
             h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tutorials
             .tutorials

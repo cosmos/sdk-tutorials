@@ -5,6 +5,14 @@ description: Test our features
 
 # Feature test
 
+This file demonstrates the usage of various components within the Platform.
+
+## Images
+
+Images are embedded with a medium-zoom plugin:
+
+![menu sample image](./images/constellation.png)
+
 ## Video
 
 <YoutubePlayer videoId="6bq-JaViGRM"/>
@@ -28,7 +36,7 @@ for line in fileinput.input(inplace=1):
 <CodeGroup>
 <CodeGroupItem title="JavaScript" active>
 
-```js [https://github.com/cosmos/cosmos-sdk/blob/master/scripts/linkify_changelog.py]
+```js 
 import { SpH3, SpButton } from "@tendermint/vue";
 
 export default {
@@ -187,3 +195,43 @@ Reading box description escription Tip box description Tip box description Tip b
 ### Multiple components
 
 <H5PComponent :contents="['/h5p/test-memory-game', '/h5p/test-arithmetic-quiz']"></H5PComponent>
+
+## Menu
+
+![menu sample image](./images/menu.png)
+
+The left sidebar menu supports:
+* Categories (Cosmos Adacemy (beta))
+* Modules (What is Cosmos?)
+* Sections/Pages (Chapter Overview)
+* Single Sections/Pages without Module (Welcome)
+* External links without Module (External link)
+
+<HighlightBox type="warn">
+
+When linking to a single section on the root level, the linked section **must** be placed in a subfolder in the filesystem, otherwise the linking will not work.
+
+</HighlightBox>
+
+Code for the example above:
+
+```
+{
+title: "Cosmos Academy (beta)",
+children: [
+  {
+    title: "Welcome",
+    path: "/b9lab-content/1-welcome/",
+    directory: false,
+  },
+  {
+    title: "What is Cosmos?",
+    path: "/b9lab-content/2-what-is-cosmos",
+    directory: true,
+  },
+  {
+    title: "External link",
+    path: "https://cosmos.network/",
+    external: true,
+  },
+```

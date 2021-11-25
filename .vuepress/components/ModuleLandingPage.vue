@@ -5,8 +5,8 @@
 				.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$frontmatter.intro.overline") {{$frontmatter.intro.overline}}
 				h2.home__content__intro__content__title {{$frontmatter.intro.title}}
 				.home__content__intro__content__desc(v-html="$frontmatter.intro.description" :class="$frontmatter.intro.image ? 'tm-measure-narrower' : ''")
-				a.tm-button.mt-7(v-if="$frontmatter.intro.action" :href="$frontmatter.intro.action.url")
-					span {{$frontmatter.intro.action.label}} &rarr;
+				a.tm-button.tm-button-disclosure.mt-7(v-if="$frontmatter.intro.action" :href="$frontmatter.intro.action.url")
+					span {{$frontmatter.intro.action.label}}
 			.home__content__intro__image(v-if="$frontmatter.intro.image")
 				img(:src="$frontmatter.intro.image")
 		.modules
