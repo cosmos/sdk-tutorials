@@ -11,7 +11,7 @@ Transactions are objects created by end-users to trigger state changes in applic
 
 ## Transaction process from an end-user perspective
 
-While there is much to explore as you journey through the stack, let's first describe the transaction process from a user perspective:
+While there is much to explore as you journey through the stack, begin by understanding the transaction process from a user perspective:
 
 <<<<<<< b9lab-content/3-main-concepts/05-transactions.md
 <H5PComponent :contents="['/h5p/M2-transactions-transactionprocess-ac']"></H5PComponent>
@@ -134,7 +134,7 @@ In the [next section](../3-main-concepts/07-messages.md), you can learn how tran
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-Previously, the ABCI application knew of a single transaction type, that of a checkers move, with four `int`. With multiple games, this is no longer sufficient, nor viable. Additionally, because you are now on your way to using the Cosmos SDK, you need to conform to its `Tx` ways, which means that you have to create messages that are then placed into a transaction.
+[Previously](../3-main-concepts/02-architecture.md), the ABCI application knew of a single transaction type, that of a checkers move, with four `int`. With multiple games, this is no longer sufficient, nor viable. Additionally, because you are now on your way to using the Cosmos SDK, you need to conform to its `Tx` ways, which means that you have to create messages that are then placed into a transaction.
 
 Head to the [Messages](./07-messages) section to learn how to do just that.
 
