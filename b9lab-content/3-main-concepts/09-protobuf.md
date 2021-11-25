@@ -15,7 +15,7 @@ Originally designed and developed by Google, Protobuf has been an open-source pr
 
 <HighlightBox type=”info”>
 
-Google provides the [gRPC project](https://blog.conan.io/2019/03/06/Serializing-your-data-with-Protobuf.html), a universal RPC framework, that supports Protobuf directly. For more information on the process, take a look at the section entitled Compiler Invocation.
+Google provides the [gRPC project](https://grpc.io/), a universal RPC framework, that supports Protobuf directly. For more information on the process, take a look at the section entitled Compiler Invocation.
 
 </HighlightBox>
 
@@ -65,7 +65,7 @@ The core of a Cosmos SDK application mainly consists of type definitions and con
 * List of **Store Keys**: Each module in the Cosmos SDK uses a multistore to persist their part of the state. Access to such stores requires a list of keys that are declared in the type definition of the app.
 * List of each module's **Keepers**: A Keeper is an abstract piece in each module to handle the module's interaction with stores, specify references to other modules' keepers, and implement other core functionalities of the module. For cross-module interactions to work, all modules in the Cosmos SDK need to have their keepers declared in the app's type definition and exported as interfaces to other modules so that the keeper's methods of one module can be called and accessed in other modules, when authorized.
 * Reference to **codec**: Defaulted to go-amino, the codec in your Cosmos SDK application can be substituted with other suitable encoding frameworks as long as they persist data stores in byte slices and are deterministic.
-* Reference to Module Manager: A reference to an object containing a list of the applications modules, known as the Module Manager.
+* Reference to **Module Manager**: A reference to an object containing a list of the applications modules, known as the Module Manager.
 
 <ExpansionPanel title="Show me some code for my checkers' blockchain">
 
@@ -134,7 +134,7 @@ $ starport scaffold message createGame red black wager:uint --module checkers --
 ```
 <HighlightBox type="tip">
 
-If you want to dive straight into coding your chain, head to [My Own Chain](../5-my-own-chain/01-index) for more details on using Starport.
+If you want to dive straight into coding your chain, head to [My Own Chain](../5-my-own-chain/01-index.md) for more details on using Starport.
 
 </HighlightBox>
 
