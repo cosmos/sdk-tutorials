@@ -7,22 +7,20 @@ tag: fast-track
 
 # Getting ATOM and Staking
 
-<!-- This content could be linked to from https://cosmos.network/learn/get-atom as a step-by-step. -->
-
-The [Cosmos Hub](https://hub.cosmos.network) is the first among equals of Cosmos blockchains. ATOM is the native token of the Cosmos Hub, also called the staking token. You need some ATOM to be able to transact on the Cosmos Hub or to participate in the proof-of-stake (PoS) consensus. Because of its usefulness, some markets determine the ATOM price in common currencies.
+The [Cosmos Hub](https://hub.cosmos.network) is the first among equals of Cosmos blockchains. ATOM is the native token of the Cosmos Hub, also called the staking token. You need some ATOM to be able to transact on the Cosmos Hub or to participate in the proof-of-stake (PoS) consensus. Because of its usefulness, markets determine the ATOM price in common currencies.
 
 So let's get your feet wet. You are going to:
 
 1. Get some ATOM.
-2. Participate in the consensus, thereby earning yield on our ATOMs while sleeping, or studying further.
+2. Participate in the consensus, thereby earning yield on your ATOMs while sleeping, or studying further.
 
 <HighlightBox type="info">
 
-We cover all the [Main concepts](../3-main-concepts/01-index.md) in the next chapter. For now, you will get through with a surface-level understanding.
+We cover the [Main concepts](../3-main-concepts/01-index.md) in more detail in the next chapter. For now, you will get through with a surface-level understanding.
 
 </HighlightBox>
 
-The simple step of _get some ATOM_ hides multiple steps:
+There are two steps in this process:
 
 1. Install a wallet application, and configure it safely. You will use [Keplr](https://keplr.app/).
 2. Buy some ATOM on an exchange, and transfer them to your wallet.
@@ -31,13 +29,13 @@ Let's get started.
 
 ## Setting up Keplr
 
-First, the easiest part, open Google Chrome on your computer and go to the [Keplr extension page](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap). Alternatively, you can search by yourself for Keplr in the [Chrome extensions store](https://chrome.google.com/webstore/search/Keplr). Indeed, it is always good practice to be a bit suspicious of links to wallets as sometimes fraudulent ones are published to steal from you. Good thing, Keplr is mentioned and linked in the [Cosmos ecosystem overview page](https://cosmos.network/ecosystem/wallets), lending it some credibility.
+First, the easiest part. Open Google Chrome on your computer and go to the [Keplr extension page](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap). Alternatively, you can search for Keplr in the [Chrome extensions store](https://chrome.google.com/webstore/search/Keplr). Indeed, it is always good practice to be a bit suspicious of links to wallet software because of the possibility of fraudulent software designed to steal from you. Keplr is mentioned and linked in the [Cosmos ecosystem overview page](https://cosmos.network/ecosystem/wallets), lending it some credibility.
 
-When it is installed, it should be available in your list of extensions when you click on the icon in the top-right corner of Chrome:
+When it is installed, it should be available in your list of extensions when you click on the icon (puzzle piece) in the top-right corner of Chrome:
 
 ![Keplr seen as an extension in Google Chrome](./images/keplr-as-extension.png)
 
-You can go ahead and pin it if you want.
+Go ahead and pin it if you want.
 
 <HighlightBox type="warn">
 
@@ -68,7 +66,7 @@ Click _Create new account_. The page that opens offers you a mnemonic, a secret 
 
 Forewarned is forearmed. When you are ready, click on _Next_.
 
-If you saved your seed, you should be able to complete the next step, where you need to click on each word in the right order.
+If you saved your seed, you should be able to complete the next step, where you need to click on each word in the correct order.
 
 ![Keplr mnemonic recall prompt: Selecting the correct words of your mnemonic](./images/keplr-mnemonic-recall-prompt.png)
 
@@ -86,7 +84,7 @@ You can click on the extension icon again and see that you hold zero ATOMs in Co
 
 <HighlightBox type="info">
 
-A note on your **address**. Like with a street address, it is ok for others to know it, as it allows others to send you ATOM or other tokens of the Cosmos Hub.
+A note on your **address**. As with a street address, it is ok for others to know it, as it allows others to send you ATOM or other assets.
 
 </HighlightBox>
 
@@ -100,7 +98,7 @@ Now would be a good time for you to save your mnemonic and password safely befor
 
 ## Purchase one ATOM
 
-How you do it is highly dependent on what your preferences are. But roughly, you need to get on an exchange and, for instance, purchase one ATOM. You can get any amount you wish, although it is recommendable to not get less than 0.3 ATOM so that it does not get all consumed in transaction fees before the end of this exercise.
+How you do it is highly dependent on your preferences But roughly, you need to get on an exchange and, for instance, purchase one ATOM. You can get any amount you wish, although it is recommendable to not get less than 0.3 ATOM so that it does not get all consumed in transaction fees before the end of this exercise.
 
 <HighlightBox type="info">
 
@@ -130,7 +128,7 @@ When it is set, you ask the exchange to withdraw properly. Take note of the tran
 
 ![Kraken exchange parameters](./images/kraken-exchange-params.png)
 
-If all went well, you should see your new asset in Keplr after a couple of minutes:
+If all went well, you should see your new asset in Keplr in a few minutes:
 
 ![Keplr received ATOM](./images/keplr-with-atom.png)
 
@@ -209,3 +207,8 @@ Now you can see how your rewards went straight to your available part of the wal
 If you want to re-stake this amount and benefit from the compound effect, go ahead, but make sure you are not losing too much in transaction costs.
 
 This completes this exercise. You got yourself set up to participate in the Cosmos Hub network, and even participate in its security. Your stake is working for you as you continue your Cosmos training journey.
+
+## links
+
+* https://cosmos.network/learn/get-atom 
+
