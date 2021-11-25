@@ -129,6 +129,6 @@ In the [next section](../3-main-concepts/07-messages.md), you can learn how tran
 
 Previously, the ABCI application knew of a single transaction type, that of a checkers move, with four `int`. With multiple games, this is no longer sufficient, nor viable. Additionally, because you are now on your way to using the Cosmos SDK, you need to conform to its `Tx` ways, which means that you have to create messages that are then placed into a transaction.
 
-Let's have a look at the [Messages]((../3-main-concepts/07-messages) section to learn how to do just that.
+Let's have a look at the [Messages]((../3-main-concepts/07-messages.md) section to learn how to do just that.
 
 </ExpansionPanel>
