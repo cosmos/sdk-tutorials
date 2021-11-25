@@ -130,9 +130,7 @@ Why not explore the [list of core modules and the application concerns they addr
 
 ## Design principles when building modules
 
-* **Composability**: SDK applications are almost always composed of multiple modules. This means developers need to carefully consider the integration of their module not only with the core of the Cosmos SDK, but also with other modules. The former is achieved by following [standard design patterns](https://github.com/cosmos/cosmos-sdk/blob/master/docs/building-modules/intro.md#main-components-of-sdk-modules), while the latter is achieved by properly exposing the store(s) of the module via the keeper.
-* **Specialization**: A direct consequence of the composability feature is that modules should be specialized. Developers should carefully establish the scope of their module and not batch multiple functionalities into the same module. This separation of concerns enables modules to be re-used in other projects and improves the upgradability of the application. Specialization also plays an important role in the object-capability model of the Cosmos SDK.
-* **Capabilities**: Most modules need to read and/or write to the store(s) of other modules. However, in an open-source environment, it is possible for some modules to be malicious. That is why module developers need to carefully think not only about how their module interacts with other modules, but also about how to give access to the module's store(s). The Cosmos SDK takes a capabilities-oriented approach to inter-module security. This means that each store defined by a module is accessed by a runtime key, which is held by the module's keeper. This keeper defines how to access the store(s) and under what conditions. Access to the module's store(s) is done by passing a reference to the module's keeper.
+<H5PComponent :contents="['/h5p/h5p-M2/M2-modules-components-ac']"></H5PComponent>
 
 ## Recommended folder structure
 
