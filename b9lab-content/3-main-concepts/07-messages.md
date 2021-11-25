@@ -59,7 +59,7 @@ The Cosmos SDK uses Protobuf definitions to generate client and server code:
 
 ## Next up
 
-Have a look at the code example below or head straight to the [next section](./08-modules) to learn more about modules.
+Have a look at the code example below or head straight to the [next section]((../3-main-concepts/08-modules.md) to learn more about modules.
 
 <ExpansionPanel title="Show me code for my checkers' blockchain">
 
@@ -106,7 +106,7 @@ Fortunately, **Starport** can assist you with creating what is, in essence, boil
 
 <HighlightBox type="tip">
 
-For more details about Starport, if you want to go beyond these out-of-context code samples and instead see more in detail how to define all this, head to the section on [how to build your own chain](../5-my-own-chain/01-index).
+For more details about Starport, if you want to go beyond these out-of-context code samples and instead see more in detail how to define all this, head to the section on [how to build your own chain](../5-my-own-chain/01-index.md).
 
 </HighlightBox>
 
@@ -116,7 +116,7 @@ In fact, Starport can help you create all that plus the `MsgCreateGame` and `Msg
 $ starport scaffold message createGame red black --module checkers --response idValue
 ```
 
-Starport would create a whole lot of other files, see [My Own Chain](../5-my-own-chain/01-index) for details and make additions to existing files.
+Starport would create a whole lot of other files, see [My Own Chain](../5-my-own-chain/01-index.md) for details and make additions to existing files.
 
 ### A sample of things Starport did for you
 
@@ -177,7 +177,7 @@ The meat of the subject, that is. To create the game in place of `// TODO: Handl
 
 <HighlightBox type="tip">
 
-For more details and to avoid diving too deep in this section, see [My Own Chain](../5-my-own-chain/01-index).
+For more details and to avoid diving too deep in this section, see [My Own Chain](../5-my-own-chain/01-index.md).
 
 </HighlightBox>
 
@@ -202,7 +202,7 @@ For more details and to avoid diving too deep in this section, see [My Own Chain
     }
     ```
 
-4. Send it to storage - see the [modules](./08-modules) section for the declaration of this function:
+4. Send it to storage - see the [modules]((../3-main-concepts/08-modules.md) section for the declaration of this function:
 
     ```go
     k.Keeper.SetStoredGame(ctx, storedGame)
