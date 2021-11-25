@@ -213,7 +213,7 @@ $ cat ~/.simapp/config/genesis.json
 
 <HighlightBox type="tip">
 
-It helps to have the concepts very clear in mind when working hands-on with the Cosmos SDK. Nees a refresher? Dive right into the [section on Accounts in the Main Concepts chapter](../04-accounts.md).
+It helps to have the concepts very clear in mind when working hands-on with the Cosmos SDK. Need a refresher? Dive right into the [section on Accounts in the Main Concepts chapter](../04-accounts.md).
 
 </HighlightBox>
 
