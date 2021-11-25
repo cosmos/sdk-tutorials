@@ -11,7 +11,7 @@ tag: deep-dive
 
 Protocol Buffers, also called Protobuf in short form, are an open-source, extensible, cross-platform, and language-agnostic method of serializing object data, primarily for network communication and storage. Libraries for multiple languages parse a common interface description language to generate source code for encoding and decoding streams of bytes representing structured data.
 
-Originally designed and developed by Google, Protobuf has been an open-source project since 2008. It serves as the basis for Remote Procedure Call (RPC) systems. 
+Originally designed and developed by Google, Protobuf has been an open-source project since 2008. It serves as a basis for Remote Procedure Call (RPC) systems. 
 
 <HighlightBox type=”info”>
 
@@ -67,7 +67,7 @@ The core of a Cosmos SDK application mainly consists of type definitions and con
 * Reference to **codec**: Defaulted to go-amino, the codec in your Cosmos SDK application can be substituted with other suitable encoding frameworks as long as they persist data stores in byte slices and are deterministic.
 * Reference to Module Manager: A reference to an object containing a list of the applications modules, known as the Module Manager.
 
-<ExpansionPanel title="Show me some code for my checker's blockchain">
+<ExpansionPanel title="Show me some code for my checkers' blockchain">
 
 In the previous code samples, you saw something like:
 
@@ -107,7 +107,7 @@ message StoredGame {
   uint64 wager = 7;
 }
 ```
-The `= 1` parts indicate how each field is identified in the serialized output and additionally, provides backward compatibility. As your application upgrades to newer versions, make sure to not reuse numbers for new fields but to keep increasing the `= x` value to preserve backward compatibility.
+The `= 1` parts indicate how each field is identified in the serialized output and, additionally, provides backward compatibility. As your application upgrades to newer versions, make sure to not reuse numbers for new fields but to keep increasing the `= x` value to preserve backward compatibility.
 
 When _compiling_, Protobuf will add the `protobuf:"bytes..."` elements. Similarly, the messages to create a game can be declared in Protobuf as:
 

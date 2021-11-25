@@ -2,22 +2,18 @@
     div.container
         div.inner-container
             button.styled-button(v-on:click="toggleContent")
-                img(:src="expandIcon" :class="this.expanded ? 'expanded' : 'collapsed'")
+                icon-arrow.icon(type="bottom")(:class="this.expanded ? 'expanded' : 'collapsed'")
                 p {{this.title}}
             div.content(v-show="expanded")
                 slot
 </template>
 
 <script>
-
-import expandIcon from '../public/expand-more.svg'
-
 export default {
     props: ['title'],
     data() {
         return {
-            expanded: false,
-            expandIcon
+            expanded: false
         };
     },
     methods: {
@@ -30,17 +26,25 @@ export default {
 
 <style lang="stylus" scoped>
     .container {
-        background-color: rgba(176,180,207,0.09);
-        border-radius: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background: var(--background-color-secondary);
+        border-radius: 16px;
         margin-top: 3rem;
         margin-bottom: 3rem;
-        color: rgba(22,25,49,0.9);
-        font-size: 1rem;
-        line-height: 1.625rem;
+
+        &:hover:not(:active) {
+            transform translateY(-2px);
+            transition-duration 0.1s;
+        }
+    }
+    .inner-container {
+        width: 100%;
     }
     .styled-button {
-        padding: 1rem;
-        border-radius: 0.5rem;
+        padding: 20px;
+        border-radius: 16px;
         display: flex;
         align-items: center;
         width: 100%;
@@ -51,11 +55,8 @@ export default {
         background: none;
         outline: none;
         cursor: pointer;
-        font-weight: 600;
-
-        &:hover {
-            background-color #F1F2F7;
-        }
+        color: var(--color-text-strong);
+        font-weight: bold;
 
         .expanded {
             transform: rotate(180deg);
@@ -71,10 +72,12 @@ export default {
             transition: transform 0.2s linear;
         }
 
-        img {
-            width: auto;
+        .icon {
+            display: block;
             margin-block: auto;
-            margin-right: 0.5rem;
+            margin-right: 15px;
+            width: 15px;
+            height: 15px;
         }
 
         p {
@@ -82,9 +85,9 @@ export default {
         }
     }
     .content {
-        padding-inline: 1.5rem;
+        padding-inline: 32px;
         padding-bottom: 1rem;
-        color: black;
+        color: var(--color-text);
 
         p {
             margin-top: 0.5rem;
