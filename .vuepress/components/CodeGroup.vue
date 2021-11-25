@@ -90,10 +90,10 @@ export default {
   }
   .theme-code-group__nav {
     inset 0;
-    background: var(--background-color-primary);
+    background: var(--background-color-secondary);
     margin-bottom: -50px;
     border-radius: 20px 20px 0px 0px;
-    border: 1px solid var(--color-light-gray);
+    border-bottom: 1px solid var(--color-light-gray);
   }
   .theme-code-group__ul {
     margin: auto 0;

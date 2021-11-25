@@ -28,7 +28,7 @@ for line in fileinput.input(inplace=1):
 <CodeGroup>
 <CodeGroupItem title="JavaScript" active>
 
-```js [https://github.com/cosmos/cosmos-sdk/blob/master/scripts/linkify_changelog.py]
+```js 
 import { SpH3, SpButton } from "@tendermint/vue";
 
 export default {
