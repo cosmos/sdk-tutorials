@@ -1,19 +1,17 @@
 <template lang="pug">
 	.home__content(:class="$frontmatter.main ? 'mt-10' : ''")
-		.home__content__intro(v-if="$frontmatter.intro")
-			.home__content__intro__content(:class="$frontmatter.intro.image ? 'home__content__intro__content__small' : ''")
-				.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$frontmatter.intro.overline") {{$frontmatter.intro.overline}}
-				h2.home__content__intro__content__title {{$frontmatter.intro.title}}
-				.home__content__intro__content__desc(v-html="$frontmatter.intro.description" :class="$frontmatter.intro.image ? 'tm-measure-narrower' : ''")
-				a.tm-button.mt-7(v-if="$frontmatter.intro.action" :href="$frontmatter.intro.action.url")
-					span {{$frontmatter.intro.action.label}} &rarr;
-			.home__content__intro__image(v-if="$frontmatter.intro.image")
-				img(:src="$frontmatter.intro.image")
+		.home__content__intro(v-if="$frontmatter.intro" v-for="intro in $frontmatter.intro").mb-10
+			.home__content__intro__content(:class="intro.image ? 'home__content__intro__content__small' : ''")
+				.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="intro.overline") {{intro.overline}}
+				h2.home__content__intro__content__title {{intro.title}}
+				.home__content__intro__content__desc(v-html="intro.description" :class="intro.image ? 'tm-measure-narrower' : ''")
+				a.tm-button.mt-7(v-if="intro.action" :href="intro.action.url")
+					span {{intro.action.label}} &rarr;
+			.home__content__intro__image(v-if="intro.image")
+				img(:src="intro.image")
 		.modules(v-if="this.modules && this.modules[0].submodules && this.modules[0].submodules.length > 1")
 			h2 Course Modules
 			card-module(v-for="module in this.modules" :module="module" :startExpanded="!$frontmatter.main").modules__item
-		.content
-			slot
 		.resources__wrapper(v-if="$themeConfig.resources")
 			h3.resources__title Developer resources
 			.resources
@@ -156,7 +154,6 @@
 			&__intro
 				display flex
 				align-items center
-				margin-bottom 32px
 
 				&__image
 					margin-left 16px
@@ -243,9 +240,6 @@ export default {
 				item.submodules.sort((a, b) => a.order - b.order);
 				return item;
 			});
-		},
-		layout() {
-			return this.$frontmatter.main ? 'CustomLayout' : 'div';
 		}
 	},
 	methods: {
