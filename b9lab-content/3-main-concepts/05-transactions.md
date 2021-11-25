@@ -13,10 +13,7 @@ Transactions are objects created by end-users to trigger state changes in applic
 
 While there is much to explore as you journey through the stack, let's first describe the transaction process from a user perspective:
 
-* **Decide** on the messages to put into the transaction. This is normally done with the assistance of a wallet or application and a user interface.
-* **Generate** the transaction using the Cosmos SDK's `TxBuilder`. `TxBuilder` is the preferred way to generate a transaction.
-* **Sign** the transaction. Transactions must be signed before a validators includes them in a block.
-* **Broadcast** the signed transaction using one of the available interfaces.
+<H5PComponent :contents="['/h5p/M2-transactions-transactionprocess-ac']"></H5PComponent>
 
 From a user perspective, **decide** and **sign** are the main interactions, while **generate** and **broadcast** are attended by the user interface and other automations.
 
@@ -126,12 +123,12 @@ Want more information on broadcasting with Tendermint RPC? Why not take a closer
 
 ## Next up
 
-In the [next section](./07-messages), you can learn how transaction messages are generated and handled in the Cosmos SDK.
+In the [next section](../3-main-concepts/07-messages.md), you can learn how transaction messages are generated and handled in the Cosmos SDK.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 Previously, the ABCI application knew of a single transaction type, that of a checkers move, with four `int`. With multiple games, this is no longer sufficient, nor viable. Additionally, because you are now on your way to using the Cosmos SDK, you need to conform to its `Tx` ways, which means that you have to create messages that are then placed into a transaction.
 
-Let's have a look at the [Messages](./07-messages) section to learn how to do just that.
+Let's have a look at the [Messages]((../3-main-concepts/07-messages) section to learn how to do just that.
 
 </ExpansionPanel>
