@@ -51,12 +51,9 @@ Do you want to find out more about the wide variety of wallets in the Cosmos eco
 </HighlightBox>
 
 ## Main components
-<!-- Hotspot image M1-ecosystem-constellation-HS.h5p goes here -->
-The main aim of the Cosmos network is to provide an **ecosystem for easy blockchain development** based on the Tendermint BFT and the Inter-Blockchain Communication protocol (IBC) with the so-called [Cosmos SDK](https://v1.cosmos.network/sdk).
+The Cosmos network focuses on an ecosystem for easy blockchain developement. *Click on the hotspots in the image to learn more about the main goals of the Cosmos network.*
 
-Each chain in the Cosmos ecosystem relies on the Tendermint **fast-finality BFT consensus algorithm**. This ensures a common consensus mechanism at work in all chains of the network. Next to its use in Cosmos, the Tendermint consensus mechanism is also utilized in the [IRIS Hub](https://www.irishub.rw/), [Binance Chain](https://www.binance.org/en), [Terra](https://www.terra.money/), [Kava](https://www.kava.io/) and more.
-
-Before Cosmos came along, developing a whole new chain was much more difficult and expensive than building a smart contract. With the Cosmos SDK, entirely flexible, secure, high performance, and sovereign **application-specific blockchains** can be developed. To allow this, building modular, adaptable, and interchangeable open-source development tools is at the center of Cosmos' mission.
+<H5PComponent :contents="['/h5p/M1-ecosystem-constellation-HS']"></H5PComponent>
 
 <HighlightBox type="tip">
 
@@ -66,18 +63,16 @@ If you want to explore more on application-specific blockchains, take a look at 
 
 Focusing on customizability and interoperability leads to establishing a stable universe determined by the same rules that apply to the whole ecosystem equally.
 
-![The ecosystem](./images/constellation.png)
-
-<!--- Include hotspot image of ecosystem zoom in: (./images/constellation-zoom.png -->
+<H5PComponent :contents="['/h5p/M1-ecosystem-constellation-HS']"></H5PComponent>
 
 ## The Cosmos SDK: Modularity and customizing
 
 The Cosmos SDK can be understood as a generalized framework to build secure blockchain applications on the Tendermint BFT in Golang. It is a modular framework for application-specific blockchains. The design bases itself on **two major principles**: modularity and capability-based security.
 
-The SDK was envisioned to be an npm-like framework for secure applications on top of Tendermint. Over time, it has become an advanced framework for custom application-specific blockchains.
+The SDK was envisioned to be an npm-like framework for secure applications on top of Tendermint. Over time, it has become an advanced framework for custom application-specific blockchains:
 
-The SDK aims to create an ecosystem of components that not only help spin up an application-specific blockchain but also are customizable. With the SDK, developers no longer have to code every part of the blockchain. The Cosmos SDK includes tools to build command-line interfaces (CLIs), REST servers, and utility libraries.
-<!--Accordion M1-Ecosystem-SDK-AC.h5p goes here -->
+<H5PComponent :contents="['/h5p/M1-Ecosystem-SDK-AC']"></H5PComponent>
+
 The ready-built modules of the Cosmos SDK can be easily used - It is as simple as importing modules into the application. Additionally, developers can create their own modules to introduce specific functionalities. One can expect that, with the growth of the ecosystem, the number of modules will grow, thereby facilitating the development of more complex applications.
 
 <HighlightBox type="tip">
@@ -115,12 +110,7 @@ First, by keeping the capability of chain-to-chain connections made possible by 
 
 Cosmos implements a **modular architecture with two blockchain classes**: **hubs** and **zones**.
 
-![A hub with multiple zones, all connected through the hub](./images/hub-zones.png)
-<!-- Hotspot image M1_zones_hubs.h5p goes here -->
-
-**Zones** are heterogeneous blockchains carrying out the authentication of accounts and transactions, the creation and distribution of tokens, and the execution of changes to the chain.
-
-**Hubs** connect these so-called zones; hubs are blockchains designed to connect heterogeneous blockchains (zones). Once a zone connects to a hub through an IBC connection, it gets automatic access to the other zones connected to the hub. At this point, data and value can be sent and received between the zones without risk, for instance of double-spending tokens. This helps reduce the number of chain-to-chain connections that need to be established for interoperability.
+<H5PComponent :contents="['/h5p/M1_zones_hubs']"></H5PComponent>
 
 There is no enforcement of an actual topology and a "hub" can be understood as a "zone" with many connections to other zones. Application zones can be expected to join the hubs in the ecosystem, but they are free to coalesce in any topology the developers find appropriate.
 
