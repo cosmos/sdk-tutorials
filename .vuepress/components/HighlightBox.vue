@@ -2,7 +2,6 @@
     div.wrapper(v-bind:class="classType")
         div.icon(v-bind:class="classType")
             img.icon-image(v-bind:src="image")
-        p.title {{title}}
         div.content(v-bind:class="classType") 
             slot
 </template>
@@ -13,10 +12,10 @@
 
         switch(type) {
             case "tip":
+            case "reading":
                 icon = "/hi-tip-icon.svg";
                 break;
             case "info":
-            case "reading":
                 icon = "/hi-info-icon.svg";
                 break;
             case "warn":
@@ -29,36 +28,12 @@
 
         return icon;
     }
-    const getTitle = (type) => {
-        let title;
-
-        switch(type) {
-            case "tip":
-                title = "Tip";
-                break;
-            case "info":
-                title = "Info";
-                break;
-            case "reading":
-                title = "Further reading";
-                break;
-            case "warn":
-            case "warning":
-                title = "Alert";
-                break;
-            default:
-                title = "Info";
-        }
-
-        return title;
-    }
     export default {
         props: ['type'],
         data() {
             return {
                 classType: this.type,
-                image: getImageUrl(this.type),
-                title: getTitle(this.type)
+                image: getImageUrl(this.type)
             };
         },
     }
@@ -78,11 +53,13 @@
         flex-wrap: wrap;
 
         &.info {
-            background: var(--background-color-secondary);
+            background: var(--background-color-primary);
+            border: 1px solid #40B3FF;
         }
 
         &.tip {
-            background: var(--background-color-secondary);
+            background: var(--background-color-primary);
+            border: 1px solid var(--color-light-gray);
         }
 
         &.warn, &.warning {
@@ -96,7 +73,8 @@
         }
 
         &.reading {
-            background: var(--background-color-secondary);
+            background: var(--background-color-primary);
+            border: 1px solid var(--color-light-gray);
         }
 
         .title {
