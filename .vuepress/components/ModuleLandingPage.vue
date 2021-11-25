@@ -160,9 +160,6 @@
 					margin-right calc(50% - 50vw)
 					width 50%
 
-					img
-						width 100%
-
 				&__content
 					width 100%
 

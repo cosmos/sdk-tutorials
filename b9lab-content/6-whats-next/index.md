@@ -7,7 +7,7 @@ tag: fast-track
 intro:
   - overline: Continue your Cosmos journey
     title: What's Next?
-    image: /whats_next.png
+    image: /cosmos_dev_portal_whats_next.png
     description: |
       Are you ready to continue your journey with Cosmos? What’s next? <br/><br/>
       There is a vast number of opportunities waiting: Do you want to develop your own application-specific blockchain? Or, maybe contribute to the SDK development? <br/><br/>
