@@ -37,17 +37,15 @@ When an account signs a message it signs an array of bytes. This array of bytes 
 
 ## Messages and the transaction lifecycle
 
-Transactions containing one or more valid messages are serialized and confirmed by the Tendermint consensus engine. Recall that Tendermint is agnostic to the transaction interpretation and has absolute finality. When a transaction is included in a block, it is confirmed and finalized with no possibility of chain re-organization or cancellation.
+Transactions containing one or more valid messages are serialized and confirmed by the Tendermint consensus engine. As you might recall, Tendermint is agnostic to the transaction interpretation, and has absolute finality. So, when a transaction is included in a block, it is confirmed and finalized with no possibility of chain re-organization or cancellation.
 
-The confirmed transaction is relayed to the Cosmos SDK application for interpretation. The `BaseApp` used to develop custom modules covers the first stages of interpretation. `BaseApp` decodes each message contained in the transaction.
-
-Each message is routed to the appropriate module via `BaseApp`’s `MsgServiceRouter`. Each module has its own `MsgService` that processes each received message.
+The confirmed transaction is relayed to the Cosmos SDK application for interpretation. Each message is routed to the appropriate module via `BaseApp`’s `MsgServiceRouter`. `BaseApp` decodes each message contained in the transaction. Each module has its own `MsgService` that processes each received message.
 
 ## `MsgService`
 
 Although it is technically feasible to create a novel `MsgService`, the recommended approach is to define a Protobuf `Msg` service. Each module will have exactly one Protobuf `Msg` service defined in `tx.proto` and there is an RPC service method for each message type in the module. The Protobuf message service implicitly defines the interface layer of the state mutating processes contained within the module.
 
-How does all of this translate into code? This is an example `MsgService`:
+How does all of this translate into code? Here's an example `MsgService` from the [bank module](https://docs.cosmos.network/master/modules/bank/):
 
 ```protobuf
 // Msg defines the bank Msg service.
@@ -62,7 +60,7 @@ service Msg {
 
 In the above example, we can see that:
 
-* Each `Msg` service method has exactly **one argument** such as `MsgSend`, which must implement the `sdk.Msg` interface and a Protobuf response.
+* Each `Msg` service method has exactly **one argument**, such as `MsgSend`, which must implement the `sdk.Msg` interface and a Protobuf response.
 * The **standard naming convention** is to call the RPC argument `Msg<service-rpc-name>` and the RPC response `Msg<service-rpc-name>Response`.
 
 ## Client and server code generation
@@ -85,23 +83,23 @@ If you want to dive deeper when it comes to messages, the `Msg` service and modu
 
 Have a look at the code example below to get a better sense of how the above translates in development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can head straight to the [next section](./08-modules) to learn more about modules.
 
-<ExpansionPanel title="Show me code for my checkers blockchain - Including messages">
+<ExpansionPanel title="Show me some code for my checkers blockchain - Including messages">
 
-Previously, the ABCI application knows a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you need to conform to the SDK's way of handling `Tx` **creating messages that are then included in a transaction**.
+In our previous code examples, the ABCI application was aware of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you will need to conform to the SDK's way of handling `Tx`, which means **creating messages that are then included in a transaction**.
 
 ## What you need
 
 Let's begin by describing the messages you need for your checkers application to have a solid starting point before diving into the code:
 
-1. In the former _Play_ transaction, your four `int`s need to move from the transaction to an `sdk.Msg` wrapped in said transaction. Four flat `int`s are no longer sufficient as you need to follow the `sdk.Msg` interface, identify the game for which a move is meant, and distinguish a move message from other message types.
-2. You need to add a message type for creating a new game. When this is done, a player will create a new game and this new game will mention the other players. A generated ID identifies this newly created game and is returned to the message creator.
-3. You will also allow the other player to reject the new game, which helps to clear the state of stale, un-started games.
+1. In the former _Play_ transaction, your four integers need to move from the transaction to an `sdk.Msg`, wrapped in said transaction. Four flat `int` values are no longer sufficient as you need to follow the `sdk.Msg` interface, identify the game for which a move is meant, and distinguish a move message from other message types.
+2. You will need to add a message type for creating a new game. When this is done, a player can create a new game and this new game will mention the other players. A generated ID identifies this newly created game and is returned to the message creator.
+3. You will also have to allow the other player to reject the new game, which helps to clear the state of stale, un-started games.
 
 ## How to proceed
 
-Now, have a closer look at the messages around the **game creation**:
+Now, let's have a closer look at the messages around the **game creation**.
 
-1. The message itself is coded:
+1. The message itself is structured like this:
 
     ```go
     type MsgCreateGame struct {
@@ -121,10 +119,10 @@ Where `Creator` contains the address of the message signer.
     }
     ```
 
-With the messages defined, you need to declare how the message should be handled. This involves:
+With the messages defined, you will need to declare how the message should be handled. This involves:
 
 1. Describing how the messages are serialized.
-2. Writing the code that handles the message and creates the new game in the storage.
+2. Writing the code that handles the message and places the new game in the storage.
 3. Putting hooks and callbacks at the right places in the general message handling.
 
 Fortunately **Starport** can assist you by creating a boilerplate for message serialization and correct hook and callback implementation (points 1 and 3).
@@ -163,7 +161,7 @@ Starport significantly reduces the amount of work a developer has to do to build
     }
     ```
 
-Where `GetSigners` is [a requirement of `sdk.Msg`](https://github.com/cosmos/cosmos-sdk/blob/1dba673/types/tx_msg.go#L21).
+Where `GetSigners` is a requirement of [`sdk.Msg`](https://github.com/cosmos/cosmos-sdk/blob/1dba673/types/tx_msg.go#L21).
 
 2. Making sure the message's bytes to sign are deterministic:
 
@@ -187,7 +185,7 @@ Where `GetSigners` is [a requirement of `sdk.Msg`](https://github.com/cosmos/cos
     }
     ```
 
-4. Creating an empty shell of a file (`x/checkers/keeper/msg_server_create_game.go`) for you to include your code and the response message:
+4. Creating an empty shell of a file (`x/checkers/keeper/msg_server_create_game.go`) for you to include your code, and the response message:
 
     ```go
     func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
@@ -202,7 +200,7 @@ Where `GetSigners` is [a requirement of `sdk.Msg`](https://github.com/cosmos/cos
 
 ## What is left to do?
 
-Your work is mostly done. Still, you want to create the game to replace `// TODO: Handling the message`. For this:
+Your work is mostly done. Still, you will want to create the specific game creation code to replace `// TODO: Handling the message`. For this, you will need to:
 
 1. Decide on how to create a new and unique game ID: `newIndex`.
 2. Extract and verify addresses such as:
@@ -232,7 +230,7 @@ Your work is mostly done. Still, you want to create the game to replace `// TODO
     k.Keeper.SetStoredGame(ctx, storedGame)
     ```
 
-5. Return the expected message:
+5. And finally, return the expected message:
 
     ```go
     return &types.MsgCreateGameResponse{
@@ -240,22 +238,22 @@ Your work is mostly done. Still, you want to create the game to replace `// TODO
     }, nil
     ```
 
-Not to forget:
+Keep in mind:
 
 * If you encounter an internal error, you should `panic("This situation should not happen")`.
-* If you encounter a user or _regular_ error, like insufficient funds, you should return a regular `error`.
+* If you encounter a user or _regular_ error (like not having enough funds), you should return a regular `error`.
 
 ## Other messages
 
-You can also implement other messages. Without repeating all of the above you can include:
+You can also implement other messages. Without repeating all of the above, you can include:
 
-1. The **play message** to implicitly accept the challenge when playing for the first time. If you create it with Starport use:
+1. The **play message** to implicitly accept the challenge when playing for the first time. If you create it with Starport, use:
 
     ```sh
     $ starport scaffold message playMove idValue fromX:uint fromY:uint toX:uint toY:uint --module checkers --response idValue
     ```
 
-    Which yields among others the object files, callbacks, and a new file for you to include your code in:
+    Which generates (among others) the object files, callbacks, and a new file for you to include your code in:
 
     ```go
     func (k msgServer) PlayMove(goCtx context.Context, msg *types.MsgPlayMove) (*types.MsgPlayMoveResponse, error) {
@@ -268,13 +266,13 @@ You can also implement other messages. Without repeating all of the above you ca
     }
     ```
 
-2. The **reject message**, only valid if the player never played any moves in this game. Using Starport:
+2. The **reject message**, which is only valid if the player never played any moves in this game. Again, if you create it with Starport:
 
     ```sh
     $ starport scaffold message rejectGame idValue --module checkers
     ```
 
-    It yields, among others:
+    It generates, among others:
 
     ```go
     func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (*types.MsgRejectGameResponse, error) {
@@ -298,11 +296,11 @@ What would happen if one of the two players has accepted the game by playing, bu
 
 What would happen if the player never shows up or never sends a valid transaction? To ensure functionality for your checkers application consider:
 
-* Having a timeout after which the game is forfeited. You could also automatically charge the forgetful player, if and when you implement a wager system.
-* Keeping an index of games that could be forfeited. If both timeouts are the same, you can keep a single FIFO list of games to clear from the head as necessary.
+* Having a timeout after which the game is forfeited. You could also automatically charge the forgetful player, if and when you would implement a wager system.
+* Keeping an index of games that could be forfeited. If both timeouts are the same, you can keep a single FIFO list of games, so you can clear them from the top of the list as necessary.
 
-In pseudo-code add `timeout: Timestamp` to your `StoredGame` and update it every time something changes in the game. You can decide on a maximum delay: what about one day?
+In general terms, you could add `timeout: Timestamp` to your `StoredGame` and update it every time something changes in the game. You can decide on a maximum delay: what about one day?
 
-Note that there are no _open_ challenges, meaning a player creates a game where the second player is unknown until someone steps in. Player matching is left outside of the blockchain. To incorporate it in-chain you would have to change all models.
+If you'd like to get started on building your own checkers game, you can head straight to the main excercise in [My Own Chain](../5-my-own-chain/01-index.md).
 
 </ExpansionPanel>
