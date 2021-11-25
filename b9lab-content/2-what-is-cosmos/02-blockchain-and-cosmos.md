@@ -75,12 +75,10 @@ Talking about speed in blockchains means addressing the **transaction speed**, t
 
 **Throughput** describes how many transactions the network can handle per unit of time. It can be limited for reasons of physical network bandwidth, computer resources, or even by decisions embedded in the protocol. Not all dApps have the same throughput requirements, though, but if they are implemented on a general-purpose blockchain, they all have to make do with the _average_ resulting throughput. This impacts the **scalability** of a given dApp.
 
-**State finality** is an additional concern. Finality describes whether and when committed blocks with transactions can no longer be reverted/revoked. It is important to differentiate between *probabilistic* and *absolute finality*.
+**State finality** is an additional concern. Finality describes whether and when committed blocks with transactions can no longer be reverted/revoked. It is important to differentiate between *probabilistic* and *absolute finality*:
 
-**Probabilistic finality** describes the finality of a transaction depending on how probable reverting a block is, so to say the probability of removing a transaction. The more blocks come after the block containing a specific transaction, the less probable a transaction may be reverted, as the _longest_ or _heaviest chain rules_ apply in the case of forks.
+<H5PComponent :contents="['/h5p/M1-Blockchain_Technology_and_Cosmos-StateFinality']"></H5PComponent>
 
-On the other hand, **absolute finality** is a trait of protocols based on among others Proof-of-Stake (PoS). Finality comes as soon as a transaction and block are verified. There are no scenarios in which a transaction could be revoked after it has been finalized.
-<!--- h5p Accordion M1-Blockchain Technology and Cosmos-StateFinality goes here  -->
 
 <ExpansionPanel title="What kind of sorcery is this?">
 
@@ -118,9 +116,8 @@ Tendermint is a consensus algorithm with Byzantine Fault-Tolerance (BFT) and a c
 
 It does this in:
 
-* A **secure** manner. Tendermint continues working even if up to 1/3 of machines fail or misbehave.
-* A **consistent** way. Every machine computes the same state and accesses the same transaction log.
-<!--- h5p Accordion M1-BlockchainandCosmos-skinnytendermint-AC.h5p goes here -->
+<H5PComponent :contents="['/h5p/M1-BlockchainandCosmos-skinnytendermint-AC']"></H5PComponent>
+
 Tendermint is widely used across the industry and is the most mature BFT consensus engine for PoS blockchains.
 
 For more on Tendermint, have a look at this helpful [introduction](https://docs.tendermint.com/master/introduction/what-is-tendermint.html).
@@ -145,9 +142,7 @@ As mentioned previously, scalability is a big issue area when it comes to blockc
 
 This degree of scalability is possible as Cosmos addresses **two types of scalability**:
 
-* **Horizontal scalability.** Scaling by adding similar machines to the network. When scaling out, horizontally, the network can accept more nodes to participate in the state replication, consensus observation, and any activity that queries the state.
-* **Vertical scalability.** Scaling by improving the network's components to increase its computational power. When scaling up, vertically, the network can accept more transactions and any activity that modifies the state.
-<!--- h5p Accordion M1-BlochcianandCosmos-Scaling.h5p goes here  -->
+<H5PComponent :contents="['/h5p/M1-BlochcianandCosmos-Scaling']"></H5PComponent>
 
 In a blockchain context, vertical scalability is typically achieved through the optimization of the consensus mechanism and applications running on the chain. On the consensus side, Cosmos achieves vertical scalability with the help of the Tendermint BFT. For instance, the Cosmos Hub currently conducts transactions in seven seconds. In a single blockchain context, the only remaining bottleneck is then the application.
 
