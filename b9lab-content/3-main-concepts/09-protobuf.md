@@ -30,7 +30,7 @@ Then, compile your Protobuf Schema. `.protoc` generates data access classes with
 
 The [gobs](https://golang.org/pkg/encoding/gob/) package for Go is a comprehensive package for the Go environment, but it doesn’t work well if you need to share information with applications written in other languages. Another challenge is how to contend with fields that may themselves contain information needing to be parsed or encoded.
 
-For example, a JSON or XML object may contain discrete fields that are stored in a string field. In another example, a time may be stored as two integers representing hours and minutes. A Protobuf encapsulated the necessary conversions in both directions. The generated classes provide getters and setters for the fields and take care of the details for reading and writing the message as a unit.
+For example, a JSON or XML object may contain discrete fields that are stored in a string field. In another example, a time may be stored as two integers representing hours and minutes. A Protobuf encapsulates the necessary conversions in both directions. The generated classes provide getters and setters for the fields and take care of the details for reading and writing the message as a unit.
 
 Importantly, the Protobuf format supports extending the format over time in a way that code can still read data encoded in the old format. 
 
