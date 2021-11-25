@@ -172,9 +172,7 @@ Right away you can discard the validators that keep 100% of the rewards for them
 
 Pay attention to the uptime, as a missed block would cost you penalties. A validator can have a small or large voting power. The larger the voting power, the more often the validator is tasked with issuing a block. The effect that voting power has on you is that:
 
-* If your chosen validator has large voting power, your rewards come in frequently (for example, every minute) but in small numbers.
-* If your chosen validator has small voting power, your rewards come in not frequently (for example, every hour) but in large numbers.
-<!--Accordion M1-gettingatom-votingpower.h5p goes here -->
+<H5PComponent :contents="['/h5p/M1-gettingatom-votingpower']"></H5PComponent>
 
 However, over the long run, you should get the same amount. What matters is the size of your stake. If you like what you see, it is time to click _Delegate_ and add the sum here you want to delegate.
 
