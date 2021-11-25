@@ -1,0 +1,36 @@
+{
+  "semantics":[
+    {
+      "label":"Titre de section",
+      "entity":"panel",
+      "field":{
+        "label":"Contenu",
+        "entity":"content",
+        "fields":[
+          {
+            "label":"Titre"
+          },
+          {
+            "label":"Type de contenu",
+            "entity":"content"
+          }
+        ]
+      }
+    },
+    {
+      "label":"Titre de section en tag H (ne modifie pas la taille du bloc de l'en-tête)",
+      "description":"Le tag H définit le titre de chaque section qui est en H2 par défaut. Utiliser H3 si ce titre est imbriqué sous une section en H2. Ne modifie pas la taille du bloc de la section - c'est une question de sémantique.",
+      "options":[
+        {
+          "label":"H2"
+        },
+        {
+          "label":"H3"
+        },
+        {
+          "label":"H4"
+        }
+      ]
+    }
+  ]
+}

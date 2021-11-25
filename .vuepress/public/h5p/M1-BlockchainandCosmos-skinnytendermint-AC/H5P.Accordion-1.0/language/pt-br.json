@@ -1,0 +1,36 @@
+{
+  "semantics": [
+    {
+      "label": "Painéis",
+      "entity": "panel",
+      "field": {
+        "label": "Conteúdo",
+        "entity": "content",
+        "fields": [
+          {
+            "label": "Título"
+          },
+          {
+            "label": "Tipo de conteúdo",
+            "entity": "content"
+          }
+        ]
+      }
+    },
+    {
+      "label": "Tags H para rótulos (não afeta o tamanho do rótulo)",
+      "description": "A tag H usada nos rótulos. Normalmente H2, mas se isto estiver abaixo de um cabeçalho H2 use H3. Não afeta o tamanho dos rótulos, usado apenas para propósitos semânticos.",
+      "options": [
+        {
+          "label": "H2"
+        },
+        {
+          "label": "H3"
+        },
+        {
+          "label": "H4"
+        }
+      ]
+    }
+  ]
+}

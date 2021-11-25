@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "Immagine di sfondo",
+      "description": "Immagine impostata come sfondo"
+    },
+    {
+      "label": "Testo alternativo per l'immagine di sfondo",
+      "description": "Se il browser non riesce a caricarla, al posto dell'immagine sarà mostrato questo testo (usato anche per tecnologie assistive)"
+    },
+    {
+      "label": "Icona dell'hotspot",
+      "options": [
+        {
+          "label": "Icona predefinita"
+        },
+        {
+          "label": "Immagine caricata"
+        }
+      ]
+    },
+    {
+      "label": "Icona predefinita",
+      "description": "Usare un'icona predefinita per l'hotspot",
+      "options": [
+        {
+          "label": "Più"
+        },
+        {
+          "label": "Meno"
+        },
+        {
+          "label": "Volte"
+        },
+        {
+          "label": "Verifica"
+        },
+        {
+          "label": "Domanda"
+        },
+        {
+          "label": "Info"
+        },
+        {
+          "label": "Esclamativo"
+        }
+      ]
+    },
+    {
+      "label": "Immagine caricata",
+      "description": "Usa una tua immagine come icona dell'hotspot.<br />La dimensione raccomandata è 75px per 75px"
+    },
+    {
+      "label": "Colore dell'hotspot",
+      "description": "Colore degli hotspot"
+    },
+    {
+      "entity": "hotspot",
+      "label": "Hotspot",
+      "field": {
+        "label": "Hotspot",
+        "fields": [
+          {
+            "label": "Posizione dell'hotspot",
+            "description": "Clicca sulla miniatura dell'immagine per posizionare l'hotspot"
+          },
+          {
+            "label": "Copri l'intera immagine di sfondo",
+            "description": "Quando l'apprendente clicca sull'hotspot il popup ricoprirà l'intera immagine di sfondo"
+          },
+          {
+            "label": "Intestazione",
+            "description": "Intestazione facoltativa per il popup"
+          },
+          {
+            "label": "Contenuto del popup",
+            "field": {
+              "label": "Item del contenuto"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Etichetta dell'hotspot per tecnologie assistive",
+      "default": "Hotspot #num",
+      "description": "Aiuterà a evidenziare quale elemento dell'hotspot è stato navigato se non ne è stata specificata alcuna intestazione. #num può essere utilizzato per sostituire il numero di hotspot"
+    },
+    {
+      "label": "Etichetta del pulsante di chiusura per tecnologie assistive",
+      "default": "Chiudi"
+    }
+  ]
+}
