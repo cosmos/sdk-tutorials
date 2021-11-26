@@ -9,9 +9,9 @@ tag: deep-dive
 
 The Cosmos SDK provides the building blocks for a complete Tendermint blockchain, which implements the Inter-Blockchain Communication (IBC) protocol. The _BaseApp_ of the Cosmos SDK assembles these building blocks and provides a fully-running blockchain. All there is left to do for a specific blockchain application is to create specific modules and integrate them with the BaseApp to make the application _your own_.
 
-Fortunately, Starport assists with scaffolding modules and integrating them with the BaseApp, which is a command-line tool that writes code files and updates them when instructed to do so. If you come from an _on Rails_ world, the concept will look familiar to you.
+Fortunately, Starport assists with scaffolding modules and integrating them with the BaseApp. Starport is a command-line tool that writes code files and updates them when instructed to do so. If you come from an _on Rails_ world, the concept will look familiar to you.
 
-On top of that, Starport will handle some compilation, run a local blockchain node, and take care of other helpful aspects.
+On top of that, Starport will handle some compilation, run a local blockchain node, and help the developer in other respects.
 
 ## Install
 
@@ -170,7 +170,7 @@ Now, you should see the balance of Alice's account and be able to act as her.
 
 In the sidebar, select **Custom Type** to view the custom type. There are no custom types yet. Therefore, this page is empty for now.
 
-Before you create a new `message`, it is **good practice** to make a Git commit at this point. It is recommended to make a Git commit before running any `starport scaffold` command. With the Git commit, you can see what was added and it becomes easy to revert changes, if you are not satisfied or if your command was incomplete in hindsight.
+Before you create a new `message`, it is **good practice** to make a Git commit at this point. It is recommended to make a Git commit before running any `starport scaffold` command. With the Git commit, you can see what was added and it becomes easy to revert changes if you are not satisfied or if your command was incomplete in hindsight.
 
 With your Git commit tucked away, create a simple `message` with:
 
