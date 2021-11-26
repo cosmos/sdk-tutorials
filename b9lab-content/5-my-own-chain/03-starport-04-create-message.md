@@ -114,7 +114,7 @@ This code is created only once. Therefore, you can modify it as you see fit.
 
 Starport also adds a new function to your gRPC interface that receives all transaction messages for the module, because the message is meant to be sent and received. The interface is called `service Msg` and is declared inside `proto/checkers/tx.proto`.
 
-Starport creates this [`tx.proto`](https://github.com/cosmos/b9-checkers-academy-draft/blob/41ac3c6ef4b2deb996e54f18f597b24fafbf02e1/proto/checkers/tx.proto) file at the beginning when you scaffold your project's module. This is Starport's modus operandi: Starport separates different concerns into different files so that it knows where to add elements according to instructions received. Here, with your instruction, Starport adds a function to the empty `service Msg`.
+Starport creates this [`tx.proto`](https://github.com/cosmos/b9-checkers-academy-draft/blob/41ac3c6ef4b2deb996e54f18f597b24fafbf02e1/proto/checkers/tx.proto) file at the beginning when you scaffold your project's module. This is Starport's modus operandi: Starport separates different concerns into different files so that it knows where to add elements according to instructions received. Starport adds a function to the empty `service Msg` with your instruction.
 
 The new function receives this `MsgCreateGame`, namely:
 
