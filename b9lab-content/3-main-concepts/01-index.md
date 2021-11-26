@@ -11,7 +11,7 @@ intro:
     image: /cosmos_dev_portal_module-03-lp.png
     description: |
       Enjoy an introduction on the main components of the Cosmos SDK. <br/><br/>
-      From Tendermint to the IBC Protocol, there is a whole universe waiting to be discovered.
+      From Tendermint to the IBC Protocol, a whole universe is waiting to be discovered.
 ---
 
 <ModuleLandingPage>
