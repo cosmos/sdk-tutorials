@@ -5,106 +5,126 @@ description: ABCI, Tendermint, and state machines
 tag: fast-track
 ---
 
-# Blockchain App Architecture
+# A Blockchain App Architecture
+
+In this section, let's take a closer look at the application architecture underlying blockchains build with the Cosmos SDK. You will look into Tendermint, consensus in Cosmos, the Application Blockchain Interface, the Cosmos SDK, and state machines. This section will give you a better feeling for the application architecture in Cosmos.
 
 ## What is Tendermint?
 
-Created in 2014, [Tendermint](https://tendermint.com/) accelerates the development of distinct blockchains by providing a ready-made networking and consensus solution so that these do not have to be recreated by developers for each case. You may already be using Tendermint without being aware of it since other blockchains, including [Hyperledger Burrow](https://hyperledger.github.io/burrow/#/) and the [Binance Chain](https://www.binance.org/en/smartChain), use Tendermint.
+Created in 2014, [Tendermint](https://tendermint.com/) accelerates the development of distinct blockchains by providing a ready-made networking and consensus solution. Networking and consensus do not have to be recreated by developers for each case. You may already be using Tendermint without being aware of it, as other blockchains like [Hyperledger Burrow](https://hyperledger.github.io/burrow/#/) and the [Binance Chain](https://www.binance.org/en/smartChain) use Tendermint.
 
-More specifically, Tendermint modules **attend to consensus and networking**, two important components of any blockchain. This frees developers to consider what the blockchain should do at an application level without descending into lower-level blockchain concerns such as peer discovery, block propagation, consensus, and transaction finalization. Without Tendermint, developers would be forced to build software to address those concerns, which would add additional time, complexity, and cost to the development of the blockchain applications they have in mind.
+Tendermint modules **attend to consensus and networking**. These are two important components of any blockchain. This frees developers to focus on the application level without descending into lower-level blockchain concerns such as peer discovery, block propagation, consensus, and transaction finalization. Without Tendermint, developers would be forced to build software to address these concerns, which would add additional time, complexity, and cost to the development of their applications.
 
 ![Blockchain application architecture overview](./images/architecture_overview.png)
 
-A blockchain node for an application-focused Cosmos blockchain consists of a state-machine, built with the Cosmos SDK, and consensus and networking, which are handled by the Tendermint Core
+A blockchain node for an application-focused Cosmos blockchain consists of a state-machine, built with the Cosmos SDK, and the consensus and networking layer, which are handled by the [Tendermint Core](https://tendermint.com/core/).
 
-As you might expect, Tendermint itself is modular and flexible. In the following, you will concentrate on the Tendermint Core used in Cosmos.
+<ExpansionPanel title="What is the Tendermint Core?">
+
+The Tendermint Core is a blockchain application platform. Tendermint Core supports state machines in any language. The language-agnostic Tendermint Core helps developers securley and consistently replicate deterministic, finite state machines.
+
+Tendermint BFT is maintained even when 1/3 of all machines fail by providing two components:
+
+* A blockchain consensus engine
+* A generic application interface
+
+Want to continue exploring this useful component of the Cosmos SDK? You can find further information beneath under _Consensus in Tendermint Core and Cosmos_ or in the [Tendermint Core documentation](https://docs.tendermint.com/master/#).
+
+</ExpansionPanel>
 
 ## Consensus in Tendermint Core and Cosmos
 
-In summary, the Tendermint Core is a high-performance, consistent, and secure **consensus** module with strict fork accountability. It relies on Proof-of-Stake (PoS) with delegation and [Practical Byzantine Fault Tolerance](https://github.com/tendermint/tendermint). Participants signal support for well-behaved, reliable nodes that create and confirm blocks. Users signal support by staking ATOM (or whatever your token is named), with the possibility of acquiring a share of the network transaction fees, but also sharing the risk of reduced returns or even losses should the node become unreliable.
+The Tendermint Core is a high-performance, consistent, flexible, and secure **consensus** module with strict fork accountability. It relies on Proof-of-Stake (PoS) with delegation and [Practical Byzantine Fault Tolerance](https://github.com/tendermint/tendermint). Participants signal support for well-behaved, reliable nodes that create and confirm blocks. Users signal support by staking ATOM or the native token of the respective chain. Staking bears the possibility of acquiring a share of the network transaction fees, but also the risk of reduced returns or even losses should the node become unreliable.
 
-Network participants are incentivized to stake ATOM in the fittest nodes that they deem most likely to provide a dependable service, and to withdraw their support should conditions change. In this way, a Cosmos blockchain is expected to adjust the validator configuration and continue even in adverse conditions.
+Network participants are incentivized to stake their ATOM with nodes, which are the most likely to provide a dependable service, and to withdraw their support should conditions change. A Cosmos blockchain is expected to adjust the validator configuration and continue even in adverse conditions.
 
-In more detail, only the top 150 nodes by staked ATOM, the **validators**, participate in the transaction finalization process. The privilege of creating a block is awarded in proportion to the voting power a validator has. **Voting power** is calculated as all ATOM tokens staked by a validator and its delegates. For example, if a given validator's voting power is 15% of the total voting power of all validators, then the validator can expect to receive the block creation privilege 15% of the time.
+Only the top 150 nodes by staked ATOM participate in the transaction finalization process as **validators**. The privilege of creating a block is awarded in proportion to the voting power a validator has. **Voting power** is calculated as all ATOM tokens staked by a validator and its delegates. For example, if a given validator's voting power is 15% of the total voting power of all validators, then the validator can expect to receive the block creation privilege 15% of the time.
 
-The block is broadcast to the other validators, who are expected to respond promptly and correctly: 
-* Validators confirm candidate blocks. 
-* They will absorb penalties for failing to do so. 
-* They can and must, of course, reject invalid blocks. 
-* They accept the block by returning their signature. 
-When sufficient signatures have been collected by the block creator then the block is finalized and broadcast to the wider network.
+The block is broadcast to the other validators, who are expected to respond promptly and correctly:
 
-Interestingly, there is no ambiguity in this process. Either a block has the necessary signatures or it does not. If it does, insufficient signatories exist to overturn the block and the block can be understood as **finalized** because there is no process in which the blockchain would be reorganized. This provides a level of certainty when it comes to transaction finality that a probabilistic system like Proof-of-Work (PoW) cannot match.
+* Validators confirm candidate blocks.
+* Validators absorb penalties for failing to do so.
+* Validators can and must reject invalid blocks.
+* Validators accept the block by returning their signature.
 
-Aggressive block times are feasible because the process is aimed at high performance, dedicated validators with good network connectivity. This is quite different from PoW, which favors inclusion and must accommodate slower nodes with greater latency and less reliability. A Cosmos blockchain can handle thousands of transactions per second with confirmations taking seven seconds.
+When sufficient signatures have been collected by the block creator the block is finalized and broadcast to the wider network. There is no ambiguity in this process: either a block has the necessary signatures or it does not. If it does, insufficient signatories exist to overturn the block and the block can be understood as **finalized** - there is no process in which the blockchain would be reorganized. This provides a level of certainty when it comes to transaction finality that a probabilistic system like Proof-of-Work (PoW) cannot match.
 
-Even though validation is delegated to a subset of all network nodes, the validators, the process avoids concentration of power. The community of users elects the validators, in a manner of speaking, by staking ATOM and thus, participating in both the rewards and the risks of committing to provide a reliable, responsible block validation service.
+Aggressive block times are feasible because the process is aimed at high performance and based on dedicated validators with good network connectivity. This is quite different from PoW, which favors inclusion and must accommodate slower nodes with greater latency and less reliability. A Cosmos blockchain can handle thousands of transactions per second with confirmations taking seven seconds.
 
-## Upgradeability
+Even though validation is delegated to a subset of all network nodes, the process avoids concentration of power. The community of users elects the validators by staking ATOM and participating in both the rewards and the risks of committing to provide a reliable, responsible block validation service.
 
-In any known blockchain, a change in the implementation requires an upgrade to the node software running on each node. In a disorderly process with voluntary participation, this can result in a hard fork - a situation in which one constituency forges ahead with the old rules and another adopts new rules. While this arrangement has positive aspects and proponents, it also has clear disadvantages in settings where **certainty** is a strict requirement. For example, uncertainty about transaction finality, regardless of how minuscule the uncertainty might be, may be unacceptable in settings that are concerned with authoratative registries and large assets.
+## Upgradeability of chains
 
-In a Tendermint blockchain, transactions are irreversibly finalized upon block creation and upgrades are themselves governed by the block creation and validation process, which leaves no room for uncertainty. Either the nodes agree to simultaneously upgrade their protocol, or the upgrade proposal fails.
+In any known blockchain, a change in the implementation requires an upgrade to the node software running on each node. In a disorderly process with voluntary participation, this can result in a hard fork - a situation in which one constituency forges ahead with the old rules and another adopts new rules. While this arrangement has positive aspects and proponents, it also has clear disadvantages in settings where **certainty** is a strict requirement. For example, uncertainty about transaction finality regardless of the degree of uncertainty may be unacceptable in settings that are concerned with authoratative registries and large assets.
 
-Validators are the ones who vote. This means that delegators ought to be discerning when delegating, as this also lends their vote.
+In a Tendermint blockchain, transactions are irreversibly finalized upon block creation and upgrades are themselves governed by the block creation and validation process. This leaves no room for uncertainty. Either the nodes agree to simultaneously upgrade their protocol, or the upgrade proposal fails.
+
+Validators are the ones who vote. This means that delegators should be demanding when delegating as they also lend their vote to the validator.
 
 ## Application Blockchain Interface (ABCI)
 
-[Tendermint BFT](https://tendermint.com/core/) packages the **networking and consensus layers** of a blockchain and presents an interface to the application layer, the **Application Blockchain Interface (ABCI)**. Developers focus on higher-order concerns while delegating peer-discovery, validator selection, staking, upgrades, and consensus to the Tendermint BFT. The consensus engine running in one process controls the state machine, the application runs in another process. The architecture is equally appropriate for **private or public blockchains**.
+[Tendermint BFT](https://tendermint.com/core/) packages the networking and consensus layers of a blockchain and presents an interface to the application layer, the **Application Blockchain Interface (ABCI)**. Developers can focus on higher-order concerns while delegating peer-discovery, validator selection, staking, upgrades, and consensus to the Tendermint BFT. The consensus engine running in one process controls the state machine, the application runs in another process. The architecture is equally appropriate for **private or public blockchains**.
 
-Tendermint BFT engine is connected to the application by a socket protocol, the ABCI. ABCI presents a socket for use by applications written in other languages. When the application is written in the same language as the Tendermint implementation, the socket is not used.
+The Tendermint BFT engine is connected to the application by a socket protocol. ABCI provides a socket for applications written in other languages. When the application is written in the same language as the Tendermint implementation, the socket is not used.
 
 ![The application, ABCI, and Tendermint](./images/ABCI_3.png)
 
 The Tendermint BFT provides security guarantees, including:
 
-* **Forks** are never created provided that half or more validators are honest.
-* There is **strict accountability** for fork creation. Liability can be determined.
-* Transactions are finalized as soon as a block is created.
+* **Forks** are never created, provided that half or more validators are honest.
+* **Strict accountability** for fork creation allows to determine liability.
+* Transactions are **finalized** as soon as a block is created.
 
-The Tendermint BFT is not concerned with the interpretation of transactions. That would be the application layer. Tendermint presents confirmed, well-formed transactions and blocks of transactions agnostically and facilitates the reverse - sending a transaction. Tendermint is un-opinionated about the meaning transactions have.
+The Tendermint BFT is not concerned with the interpretation of transactions. That would be the application layer. Tendermint presents confirmed, well-formed transactions and blocks of transactions agnostically. Tendermint is un-opinionated about the meaning transactions have.
 
-The *block time* is approximately seven seconds and blocks may contain thousands of transactions. Transactions are finalized and cannot be overturned as soon as they appear in a block.
+The _block time_ is approximately seven seconds and blocks may contain thousands of transactions. Transactions are finalized and cannot be overturned as soon as they appear in a block.
 
 <HighlightBox type="info">
 
-For a deeper dive on consensus and Tendermint, visit:
+For a deeper dive on consensus and Tendermint visit:
 
-* [Podcast on consensus systems with Ethan Buchman](https://softwareengineeringdaily.com/2018/03/26/consensus-systems-with-ethan-buchman/)
-* [Tendermint: Ecosystem](https://tendermint.com/core/#ecosystem)
+* the [podcast on consensus systems](https://softwareengineeringdaily.com/2018/03/26/consensus-systems-with-ethan-buchman/) with Ethan Buchman
+* the [Tendermint Core documentation on consensus](https://docs.tendermint.com/master/introduction/what-is-tendermint.html#consensus-overview)
 
 </HighlightBox>
 
-There are at least two broad **approaches to application-level concerns** using blockchains: 
-* One way is to create a purpose-built blockchain where everything that can be done is defined in the protocol. 
-* The other method is to create a programmable state machine and push application concerns to a higher level, such as bytecode created by compilers interpreting higher-level languages. 
+There are at least two broad **approaches to application-level concerns** using blockchains:
+
+1. Create an application-specific blockchain where everything that can be done is defined in the protocol.
+2. Create a programmable state machine and push application concerns to a higher level, such as bytecode created by compilers interpreting higher-level languages.
+
 Ethereum-like blockchains are part of the second category. Only the state machine is defined in the on-chain protocol, which defines the rules of contract creation, interaction, execution, and little else.
 
 This method is not without its limitations:
-* Very little is universally defined. Standards for basic concerns such as tokens emerge organically through voluntary participation. 
+
+* Very little is universally defined: standards for basic concerns such as tokens emerge organically through voluntary participation.
 * Contracts can and do contain repetitive code that may or may not correctly implement the developer's intentions. 
-* The inherent flexibility of it makes it challenging to reason about what is correct or even what is friendly. 
-* There are practical limits to the complexity of operations that are very low as compared to what is possible in other settings. 
-These limits make it especially difficult to perform analysis or reorganize data, and developers are forced to adapt to the constraints.
+* The inherent flexibility makes it challenging to reason about what is correct or even what is friendly.
+* There are practical limits to the complexity of operations, which are very low compared to what is possible in other settings.
 
-A **purpose-built or application-specific blockchain** is different. There are no hard limits the application developers themselves do not believe are reasonable and necessary. There is no need to present a "Turing-complete" language or a general-purpose, programmable state machine because application concerns are addressed by the protocol the developers create.
+These limitations make it especially difficult to perform analysis or reorganize data, and developers are forced to adapt to the constraints.
 
-Developers who have worked with blockchains based on the Ethereum Virtual Machine (EVM) will recognize a shift in the way concerns are addressed. Authorization and access control, the layout of storage (also known as the state), and application governance - application logic, generally - are not implemented as contracts on a state machine. They become properties of a unique blockchain that is built for a singular purpose.
+A **purpose-built or application-specific blockchain** is different. There is no need to present a "Turing-complete" language or a general-purpose, programmable state machine because application concerns are addressed by the protocol the developers create.
 
-## Cosmos SDK
+Developers who have worked with blockchains based on the Ethereum Virtual Machine (EVM) will recognize a shift in the way concerns are addressed. Authorization and access control, the layout of storage/ the state, and application governance are not implemented as contracts on a state machine. They instead become properties of a unique blockchain that is built for a singular purpose.
 
-Developers create the application layer using the **Cosmos SDK**. The Cosmos SDK provides both: 
+## The Cosmos SDK
+
+Developers create the application layer using the **Cosmos SDK**. The Cosmos SDK provides:
+
 <H5PComponent :contents="['/h5p/M2-architecture-abci-sdk-AC']"></H5PComponent>
 
-The creation of a purpose-built blockchain with the Cosmos SDK is largely a process of selecting, configuring, and integrating well-solved modules, also known as composing modules. This greatly reduces the scope of original development required since development is mostly focused on the truly novel aspects of the application.
+The creation of an application-specific blockchain with the Cosmos SDK is largely a process of selecting, configuring, and integrating well-solved modules also known as composing modules. This greatly reduces the scope of original development required as development is mostly focused on the truly novel aspects of the application.
 
 <HighlightBox type="info">
 
-Later, we will dive further into the Inter-Blockchain Communication (IBC) protocol. **IBC** is a common framework for exchanging information between blockchains. For now, it is enough to know that it exists and it enables seamless interaction between blockchains that want to transfer value (token transfers) and exchange information. In summary, it enables the communication between applications that run on separate purpose-built/application-specific blockchains.
+The Inter-Blockchain Communication Protocol (IBC) is a common framework for exchanging information between blockchains. For now, it is enough to know that it exists and it enables seamless interaction between blockchains that want to transfer value (token transfers) and exchange information. It enables the communication between applications that run on separate application-specific blockchains.
+
+We will dive further into the Inter-Blockchain Communication Protocol (IBC) in a [later section of this chapter](./16-ibc.md).
 
 </HighlightBox>
 
-Importantly, the application, consensus, and network layers are contained within the custom blockchain node that forms the foundation of the custom blockchain.
+The application, consensus, and network layers are contained within the custom blockchain node that forms the foundation of the custom blockchain.
 
 Tendermint passes confirmed transactions to the application layer through the **Application Blockchain Interface (ABCI)**. The application layer must implement the ABCI, which is a socket protocol. In this way, Tendermint is unconcerned with the interpretation of transactions and the application layer can be unconcerned with propagation, broadcast, confirmation, network formation, and other lower-level concerns that Tendermint attends to unless it wants to inspect such properties.
 
@@ -347,3 +367,6 @@ You have waved your hands as to how you would create a state machine for the che
 * You want to open up so that players can decide to play for money with different tokens. Good thing Cosmos SDK already integrates [IBC](./16-ibc) for tokens coming from other blockchains.
 
 In short, the Cosmos SDK will assist you in attending to all these concerns without you having to reinvent the wheel.
+
+## Next up
+
