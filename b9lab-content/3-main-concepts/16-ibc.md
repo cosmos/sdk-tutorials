@@ -150,7 +150,7 @@ A Peg-Zone is a blockchain that tracks the state of another blockchain. The peg-
 
 For more on IBC, its paradigms, and Interchain accounts, a looks into Josh Lee's post from 2020 [Why Interchain Accounts Change Everything for Cosmos Interoperability](https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11) is recommendable. 
 
-Relayers are an essential part of the IBC infrastructure and there are several implementations. To learn more about relaying, please visit [the IBC website](https://ibcprotocol.org/relayers/).
+Relayers are an essential part of the IBC infrastructure and there are several implementations. To learn more about relaying, please visit the [IBC website](https://ibcprotocol.org/relayers/).
 
 </HighlightBox>
 
