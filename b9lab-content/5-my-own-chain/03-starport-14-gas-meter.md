@@ -46,7 +46,7 @@ This update is going to be quick. In each relevant handler, add a line that cons
 
 Of course, you are free to be more elaborate and chisel the conditions that consume.
 
-</HighlightBox type="tip">
+<HighlightBox type="tip">
 
 Avoid calling `ConsumeGas` from within a loop. Instead, if you know the number of times your code loops, consume all the gas ahead of the loop. With this trick, if the signer has not sent enough gas, the transaction runs out of gas as if you had run the steps. This strategy saves computations on your node.
 
