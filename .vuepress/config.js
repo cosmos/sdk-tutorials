@@ -122,7 +122,7 @@ module.exports = {
           ],
         },
         {
-          title: "Cosmos Academy (beta)",
+          title: "Cosmos Academy",
           children: [
             {
               title: "Welcome",
@@ -151,7 +151,7 @@ module.exports = {
             },
             {
               title: "What's Next?",
-              path: "/b9lab-content/6-whats-next",
+              path: "/b9lab-content/6-whats-next/",
               directory: false,
             },
           ],

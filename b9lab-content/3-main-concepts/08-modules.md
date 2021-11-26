@@ -40,7 +40,7 @@ It is a best practice to define a module in the `x/moduleName` folder. For examp
 
 Modules implement several elements:
 
-<H5PComponent :contents="['/h5p/h5p/h5p-M2/M2-modules-components-ac']"></H5PComponent>
+<H5PComponent :contents="['/h5p/M2-modules-components-ac']"></H5PComponent>
 
 ### Interfaces
 
@@ -131,7 +131,7 @@ Why not explore the [list of core modules and the application concerns they addr
 
 ## Design principles when building modules
 
-<H5PComponent :contents="['/h5p/h5p-M2/M2-modules-components-ac']"></H5PComponent>
+<H5PComponent :contents="['/h5p/M2-modules-components-ac']"></H5PComponent>
 
 ## Recommended folder structure
 
