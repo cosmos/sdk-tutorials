@@ -2,6 +2,7 @@
 title: Create a Game Message
 order: 6
 description: You create the message to create a game
+tag: deep-dive
 ---
 
 # Create a Game Message
@@ -10,7 +11,7 @@ description: You create the message to create a game
 
 Before proceeding, make sure you have all you need:
 
-* You understand the concepts of [transactions](../3-main-concepts/05-transactions) and [messages](../3-main-concepts/07-messages).
+* You understand the concepts of [transactions](../3-main-concepts/05-transactions) and [messages](../3-main-concepts/07-messages) and [Protobuf](../3-main-concepts/09-protobuf).
 * Have Go installed.
 * The checkers blockchain scaffold with the `StoredGame` and its helpers:
     * Either because you followed the [previous steps](./03-starport-03-stored-game).
@@ -125,6 +126,8 @@ service Msg {
 ```
 
 As an interface, it does not describe what should happen when called, though. What Starport does, with the help of Protobuf, is compile the interface and create a default Go implementation.
+
+## Next up
 
 Since you are responsible to define "creating a game", Starport separates concerns into different files. At this point, the most relevant for you is `x/checkers/keeper/msg_server_create_game.go`, which is created once. In this file, you need to code in the creation of the game proper:
 
