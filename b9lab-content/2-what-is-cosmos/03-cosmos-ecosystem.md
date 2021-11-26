@@ -63,8 +63,6 @@ If you want to explore more on application-specific blockchains, take a look at 
 
 Focusing on customizability and interoperability leads to establishing a stable universe determined by the same rules that apply to the whole ecosystem equally.
 
-<H5PComponent :contents="['/h5p/M1-ecosystem-constellation-HS']"></H5PComponent>
-
 ## The Cosmos SDK: Modularity and customizing
 
 The Cosmos SDK can be understood as a generalized framework to build secure blockchain applications on the Tendermint BFT in Golang. It is a modular framework for application-specific blockchains. The design bases itself on **two major principles**: modularity and capability-based security.
