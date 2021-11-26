@@ -96,7 +96,7 @@ You can filter for event types and attribute values. For example, a transfer tra
 
 ## Next up
 
-You just learned about events, where they are expected, and how to emit or receive them. Have a look at the code samples below or head to the [next section](./14-context) to learn about the `Context` object.
+You just learned about events, where they are expected, and how to emit or receive them. Have a look at the code samples below or head to the [next section](./14-context.md) to learn about the `Context` object.
 
 <ExpansionPanel title="Show me some code for my checkers' blockchain">
 

@@ -94,4 +94,10 @@ export default {
             margin-bottom: 0;
         }
     }
+    >>> .codeblock > .container {
+        background: var(--background-color-primary)
+    }
+    >>> .theme-code-group__nav {
+        background: var(--background-color-primary) !important
+    }
 </style>

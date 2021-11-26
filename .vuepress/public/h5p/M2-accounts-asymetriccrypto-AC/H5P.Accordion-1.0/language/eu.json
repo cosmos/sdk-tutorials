@@ -1,0 +1,36 @@
+{
+  "semantics": [
+    {
+      "label": "Panelak",
+      "entity": "panela",
+      "field": {
+        "label": "Edukia",
+        "entity": "edukia",
+        "fields": [
+          {
+            "label": "Izenburua"
+          },
+          {
+            "label": "Eduki-mota",
+            "entity": "edukia"
+          }
+        ]
+      }
+    },
+    {
+      "label": "H etiketentzako markak (ez dio eragiten etiketen tamainari)",
+      "description": "Etiketetan erabiltzen den h marka. Normalean H2 baina H2 izenburupean badago erabili H3. Honek ez dio eragiten etiketaren tamainari, bakarrik erabiltzen da helburu semantikoekin.",
+      "options": [
+        {
+          "label": "H2"
+        },
+        {
+          "label": "H3"
+        },
+        {
+          "label": "H4"
+        }
+      ]
+    }
+  ]
+}

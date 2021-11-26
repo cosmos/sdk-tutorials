@@ -1,0 +1,36 @@
+{
+  "semantics": [
+    {
+      "label": "Pannelli",
+      "entity": "pannello",
+      "field": {
+        "label": "Contenuto",
+        "entity": "contenuto",
+        "fields": [
+          {
+            "label": "Titolo"
+          },
+          {
+            "label": "Tipo di contenuto",
+            "entity": "contenuto"
+          }
+        ]
+      }
+    },
+    {
+      "label": "Tag Titolo per etichette (non influisce sulla dimensione dell'etichetta)",
+      "description": "Tag Titolo utilizzato sulle etichette. Di solito è Titolo 2, ma se viene dopo un Titolo 2 gli è assegnato Titolo 3. In ogni caso non influisce sulla dimensione delle etichette poiché è usato solo per scopi semantici.",
+      "options": [
+        {
+          "label": "Titolo 2"
+        },
+        {
+          "label": "Titolo 3"
+        },
+        {
+          "label": "Titolo 4"
+        }
+      ]
+    }
+  ]
+}

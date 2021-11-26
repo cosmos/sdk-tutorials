@@ -1,0 +1,36 @@
+{
+  "semantics":[
+    {
+      "label":"Paneller",
+      "entity":"panel",
+      "field":{
+        "label":"İçerik",
+        "entity":"içerik",
+        "fields":[
+          {
+            "label":"Başlık"
+          },
+          {
+            "label":"İçerik türü",
+            "entity":"içeirk"
+          }
+        ]
+      }
+    },
+    {
+      "label":"Etiketler için H etiket değeri (etiketin boyutunu etkilemez)",
+      "description":"Etiketler üzerinde h etiketi kullanıldı. Normalde H2 kullanılır fakat H2 altındaysa bunu H3 olarak kullanın. Etiketlerin boyutunu etkilemeyecektir, sadece anlamsal amaçlar için kullanıldı.",
+      "options":[
+        {
+          "label":"H2"
+        },
+        {
+          "label":"H3"
+        },
+        {
+          "label":"H4"
+        }
+      ]
+    }
+  ]
+}

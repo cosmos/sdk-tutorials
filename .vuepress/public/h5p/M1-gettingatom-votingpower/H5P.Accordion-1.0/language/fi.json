@@ -1,0 +1,36 @@
+{
+  "semantics":[
+    {
+      "label":"Paneelit",
+      "entity":"paneeli",
+      "field":{
+        "label":"Sisältö",
+        "entity":"sisältö",
+        "fields":[
+          {
+            "label":"Otsikko"
+          },
+          {
+            "label":"Sisältötyyppi",
+            "entity":"sisältö"
+          }
+        ]
+      }
+    },
+    {
+      "label":"Otsikon H tagi (Ei vaikuta otsikon kokoon)",
+      "description":"H tagiä käytetään otsikoille. Tyypillisesti H2, mutta jos pitää olla alempitasoinen niin käytä H3. Ei vaikuta otsikon kokoon, käytetty vain kuvaavassa tarkoituksessa.",
+      "options":[
+        {
+          "label":"H2"
+        },
+        {
+          "label":"H3"
+        },
+        {
+          "label":"H4"
+        }
+      ]
+    }
+  ]
+}

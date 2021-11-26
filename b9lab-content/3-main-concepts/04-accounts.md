@@ -9,7 +9,7 @@ tag: deep-dive
 
 ## What is an account?
 
-An account is a pair of keys called PubKey (a public key) and PrivKey (a private key). A public key is a unique identifier for a user or entity that is safe to disclose. Private keys are sensitive information that users are required to manage confidentially. Private keys are used to sign information in a way that **proves** to others that the message was signed by someone using the private key that corresponds to a given public key. This is done without revealing the private key itself.
+An account is a pair of keys called **PubKey** (a public key) and **PrivKey** (a private key). A public key is a unique identifier for a user or entity that is safe to disclose. Private keys are sensitive information that users are required to manage confidentially. Private keys are used to sign information in a way that **proves** to others that the message was signed by someone using the private key that corresponds to a given public key. This is done without revealing the private key itself.
 
 ## Public key cryptography
 
@@ -17,8 +17,7 @@ Modern cryptographic systems leverage computer capabilities to make the power of
 
 Asymmetric cryptography has two primary applications:
 
-* **Authentication.** The public key serves as a verification instrument for the private key pair.
-* **Encryption.** Only the private key can decrypt the information encrypted with the public key.
+<H5PComponent :contents="['/h5p/M2-accounts-asymetriccrypto-AC']"></H5PComponent>
 
 We will focus on the authentication aspect of asymmetric cryptography.
 
@@ -98,11 +97,7 @@ Passing `Payload` into the signature verification function will return a sender.
 
 As you might guess, there is more than one implementation of the public key signature process previously described. The Cosmos SDK supports the following digital key schemes for creating digital signatures:
 
-* [secp256k1](https://www.secg.org/sec2-v2.pdf), as implemented in the SDK's [`crypto/keys/secp256k1`](https://github.com/cosmos/cosmos-sdk/tree/master/crypto/keys/secp256k1) package. This is the most common and the same as the one used for Bitcoin;
-* [secp256r1](https://www.secg.org/sec2-v2.pdf), as implemented in the SDK's [`crypto/keys/secp256r1`](https://github.com/cosmos/cosmos-sdk/tree/master/crypto/keys/secp256r1) package;
-* [tm-ed25519](https://ed25519.cr.yp.to/ed25519-20110926.pdf), as implemented in the SDK [`crypto/keys/ed25519`](https://github.com/cosmos/cosmos-sdk/tree/master/crypto/keys/ed25519) package. This scheme is supported only for consensus validation.
-
-![Cosmos' signature schemes](./images/signature_schemes.png)
+<H5PComponent :contents="['/h5p/M2-accounts-secp-HS']"></H5PComponent>
 
 ## Accounts
 
@@ -126,13 +121,13 @@ The keyring object stores and manages multiple accounts. In the SDK, the keyring
 
 ## Next up
 
-In the [next section](./05-transactions), you will learn how transactions are generated and handled in the Cosmos SDK.
+In the [next section](../3-main-concepts/05-transactions.md), you will learn how transactions are generated and handled in the Cosmos SDK.
 
 <ExpansionPanel title="Show me some code for my checkers' blockchain">
 
-Previously, your ABCI application accepted anonymous checkers moves. This was a problem. With accounts, you can restrict moves to the right player.
+[Previously](../3-main-concepts/02-architecture.md), your ABCI application accepted anonymous checkers moves. This was a problem. With accounts, you can restrict moves to the right player.
 
-As a first step to port the checkers' blockchain to the Cosmos SDK, you are going to differentiate between players and other actors. This will help to make sure there is no identity spoofing, that players do not play out of turn, and reward the correct winner when the time comes. You are also going to store the creator of a game, which may, or may not, be a player.
+Now, you are going to differentiate between players and other actors. This will help to make sure there is no identity spoofing, that players do not play out of turn, and rewards are paid to the correct winner when the time comes. You are also going to store the creator of a game, which may, or may not, be a player.
 
 ## Game object
 
@@ -182,6 +177,6 @@ type StoredGame struct {
 }
 ```
 
-If you want to go beyond these out-of-context code samples and instead see more in detail how to define all this, head to the [section on how to build your chain](../5-my-own-chain/01-index).
+If you want to go beyond these out-of-context code samples and instead see more detail about you define all of this, head to the [section on how to build your chain](../5-my-own-chain/01-index.md).
 
 </ExpansionPanel>

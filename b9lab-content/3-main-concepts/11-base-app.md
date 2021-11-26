@@ -53,7 +53,7 @@ Important parameters, that are initialized during the bootstrapping of the appli
 * **`TxDecoder`:** is used to decode raw transaction bytes relayed by the underlying Tendermint engine.
 * **`ParamStore`:** is the parameter store used to get and set application consensus parameters.
 * **AnteHandler:** this handler is used to handle signature verification, fee payment, and other pre-message execution checks when a transaction is received. It's executed during `CheckTx/RecheckTx` and `DeliverTx`.
-* **I`nitChainer`, `BeginBlocker` and `EndBlocker`:** these are the functions executed when the application receives the `InitChain`, `BeginBlock`, and `EndBlock` ABCI messages from the underlying Tendermint engine.
+* **`InitChainer`, `BeginBlocker` and `EndBlocker`:** these are the functions executed when the application receives the `InitChain`, `BeginBlock`, and `EndBlock` ABCI messages from the underlying Tendermint engine.
 
 #### Volatile state
 

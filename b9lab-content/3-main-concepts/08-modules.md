@@ -40,9 +40,7 @@ It is a best practice to define a module in the `x/moduleName` folder. For examp
 
 Modules implement several elements:
 
-* **Interfaces:** facilitate communication between modules and the composition of multiple modules into coherent applications.
-* **Protobuf:** one `Msg` service to handle messages and one gRPC `Query` service to handle queries.
-* **Keeper:** a controller that defines the state and presents methods for updating and inspecting the state.
+<H5PComponent :contents="['/h5p/h5p/h5p-M2/M2-modules-components-ac']"></H5PComponent>
 
 ### Interfaces
 
@@ -103,6 +101,7 @@ Each module defines commands for a command-line interface (CLI). Commands relate
 
 ### Keeper
 
+![keeper](./images/keeper.png)
 
 Keepers are the gatekeepers to the module’s store(s). It is mandatory to go through a module’s keeper in order to access the store(s). A keeper encapsulates the knowledge about the layout of storage within the store and contains methods to update and inspect it. If you come from a module-view-controller (MVC) world, then it helps to think of the keeper as the controller.
 
@@ -132,9 +131,7 @@ Why not explore the [list of core modules and the application concerns they addr
 
 ## Design principles when building modules
 
-* **Composability**: SDK applications are almost always composed of multiple modules. This means developers need to carefully consider the integration of their module not only with the core of the Cosmos SDK, but also with other modules. The former is achieved by following standard design patterns outlined [here](https://github.com/cosmos/cosmos-sdk/blob/master/docs/building-modules/intro.md#main-components-of-sdk-modules), while the latter is achieved by properly exposing the store(s) of the module via the keeper.
-* **Specialization**: A direct consequence of the composability feature is that modules should be specialized. Developers should carefully establish the scope of their module and not batch multiple functionalities into the same module. This separation of concerns enables modules to be re-used in other projects and improves the upgradability of the application. Specialization also plays an important role in the object-capability model of the Cosmos SDK.
-* **Capabilities**: Most modules need to read and/or write to the store(s) of other modules. However, in an open-source environment, it is possible for some modules to be malicious. That is why module developers need to carefully think not only about how their module interacts with other modules, but also about how to give access to the module's store(s). The Cosmos SDK takes a capabilities-oriented approach to inter-module security. This means that each store defined by a module is accessed by a runtime key, which is held by the module's keeper. This keeper defines how to access the store(s) and under what conditions. Access to the module's store(s) is done by passing a reference to the module's keeper.
+<H5PComponent :contents="['/h5p/h5p-M2/M2-modules-components-ac']"></H5PComponent>
 
 ## Recommended folder structure
 
@@ -156,7 +153,6 @@ proto
             ├── query.proto
             └── tx.proto
 ```
-Whereas:
 
 * `{module_name}.proto`: the module's common message type definitions.
 * `event.proto`: the module's message type definitions related to events.
@@ -273,7 +269,7 @@ If a module error is registered, the Cosmos SDK errors package allows ABCI infor
 
 ## Next up
 
-Have a look at the code example below or head straight to the [next section](./09-protobuf) to learn more about Protobuf.
+Have a look at the code example below or head straight to the [next section](../3-main-concepts/09-protobuf.md) to learn more about Protobuf.
 
 <ExpansionPanel title="Show me some code for my checkers' blockchain">
 
@@ -357,6 +353,6 @@ As a matter of best practice, notice how:
 * When the player cannot pay, it is a _standard_ error, which is _easily_ fixed by the player.
 * When the escrow account cannot pay, it is a panic (an internal error) because if the escrow cannot pay it means there is a logic problem somewhere.
 
-Here again, if you want to go beyond these out-of-context code samples and instead see more in detail how to define all this, head to [My Own Chain](../5-my-own-chain/01-index).
+Here again, if you want to go beyond these out-of-context code samples and instead see more in detail how to define all this, head to [My Own Chain](../5-my-own-chain/01-index.md).
 
 </ExpansionPanel>
