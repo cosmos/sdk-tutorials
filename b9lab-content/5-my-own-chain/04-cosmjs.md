@@ -13,7 +13,7 @@ In this section, you will have a look at generated code by Starport to understan
 
 ## Your chain
 
-In the [previous section on Starport](./03*starport.md), you created a chain using Starport. Starport generated several components, including a UI. The UI uses Vue.js and CosmJS to interact with the chain.
+In the [previous section on Starport](./02-starport.md), you created a chain using Starport. Starport generated several components, including a UI. The UI uses Vue.js and CosmJS to interact with the chain.
 
 Recall how you used Starport to create the definitions for `MsgCreatePost` by running the command:
 
