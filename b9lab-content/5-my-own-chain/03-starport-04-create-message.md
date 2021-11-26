@@ -96,7 +96,7 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 
 Which is code that you, probably, do not need to change.
 
-Starport also created boilerplate code to have the message conform to the [`sdk.Msg`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L11-L33) type, like:
+Starport also creates boilerplate code to have the message conform to the [`sdk.Msg`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L11-L33) type, like:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/types/message_create_game.go#L26-L32]
 func (msg *MsgCreateGame) GetSigners() []sdk.AccAddress {
