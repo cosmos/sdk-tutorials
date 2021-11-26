@@ -40,7 +40,7 @@ Financial incentives are in play: The node that announces a solution first recei
 
 </ExpansionPanel>
 
-Development of diverse blockchain applications built on similar decentralized network (dApps) began shortly after Bitcoin's debut. In the early days, developing dApps could be done only by forking or building on the Bitcoin codebase. However, Bitcoin's monolithic codebase and limited, not-user-friendly scripting language made dApp development a tedious and complex process for developers.
+The development of diverse blockchain applications built on similar decentralized networks (dApps) began shortly after Bitcoin's debut. In the early days, developing dApps could be done only by forking or building on the Bitcoin codebase. However, Bitcoin's monolithic codebase and limited, not-user-friendly scripting language made dApp development a tedious and complex process for developers.
 
 <ExpansionPanel title="What is a Blockchain, really?">
 
