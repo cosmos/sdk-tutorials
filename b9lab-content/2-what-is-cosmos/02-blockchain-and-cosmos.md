@@ -1,7 +1,7 @@
 ---
 title: "Blockchain Technology and Cosmos"
 order: 2
-description: Cosmos is blockchain technology
+description: Cosmos as part of blockchain technology
 tag: fast-track
 ---
 
