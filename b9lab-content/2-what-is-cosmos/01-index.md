@@ -1,13 +1,13 @@
 ---
 parent:
   title: What is Cosmos?
-  description: From vision to ecosystem
+  description: From the vision to the ecosystem
   number: 1
 description: How does the Cosmos network of interoperable blockchains fit into the overall development of blockchain technology?
 tag: fast-track
 order: 0
 intro:
-  - overline: From vision to ecosystem
+  - overline: From the vision to the ecosystem
     title: What is Cosmos?
     image: /cosmos_dev_portal_module-02-lp.png
     description: |
