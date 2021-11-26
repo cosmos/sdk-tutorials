@@ -17,12 +17,7 @@ While there is much to explore as you journey through the stack, begin by unders
 
 <!--
 
-TODO remove when H5P ok.
-
-* **Decide** on the messages to put into the transaction. This is normally done with the assistance of a wallet or application and a user interface.
-* **Generate** the transaction using the Cosmos SDK's [`TxBuilder`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/client/tx_config.go#L36-L46). `TxBuilder` is the preferred way to generate a transaction.
-* **Sign** the transaction. Transactions must be signed before a validator eventually includes them in a block.
-* **Broadcast** the signed transaction using one of the available interfaces.
+TODO add link to TxBuilder: https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/client/tx_config.go#L36-L46
 
 -->
 
@@ -37,13 +32,6 @@ Transaction objects are Cosmos SDK types that implement the [`Tx`](https://githu
 
 As a developer, you should rarely manipulate a `Tx` object directly. It is an intermediate type used for transaction generation. Instead, developers should prefer the [`TxBuilder`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/client/tx_config.go#L36-L46) interface.
 
-## Signing Transactions
-
-Every message in a transaction must be signed by the addresses specified by its [`GetSigners`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L32). The SDK currently allows signing transactions in two different ways:
-
-* [`SIGN_MODE_DIRECT`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx/signing/signing.pb.go#L36) (preferred): The most used implementation of the `Tx` interface is the [Protobuf `Tx`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx/tx.pb.go#L32-L42) message, which is used in `SIGN_MODE_DIRECT`. Once signed by all signers, the `BodyBytes`, `AuthInfoBytes`, and [`Signatures`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx/tx.pb.go#L113) are gathered into [`TxRaw`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx/tx.pb.go#L103-L114), whose [serialized bytes](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx/tx.pb.go#L125-L136) are broadcast over the network.
-* [`SIGN_MODE_LEGACY_AMINO_JSON`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx/signing/signing.pb.go#L43): The legacy implementation of the `Tx` interface is the [`StdTx`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdtx.go#L77-L83) struct from `x/auth`. The document signed by all signers is [`StdSignDoc`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdsign.go#L24-L32), which is encoded into [bytes](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdsign.go#L35-L58) using Amino JSON. Once all signatures are gathered into `StdTx`, `StdTx` is serialized using Amino JSON, and these bytes are broadcast over the network. This method is being deprecated.
-
 ## Messages
 
 <HighlightBox type=”info”>
@@ -55,6 +43,13 @@ Transaction messages are not to be confused with ABCI messages, which define int
 In this context, messages, or [`sdk.Msg`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L11-L33), are module-specific objects that trigger state transitions within the scope of the module they belong to. Module developers define module messages by adding methods to the Protobuf `Msg` service and defining a `MsgServer`. Each `sdk.Msg` is related to exactly one Protobuf `Msg` service RPC, defined inside each module's `tx.proto` file. A Cosmos SDK app router automatically maps every `sdk.Msg` to a corresponding RPC service which routes it to the appropriate method. Protobuf generates a `MsgServer` interface for each module's `Msg` service, and the module developer implements this interface.
 
 This design puts more responsibility on module developers, allowing application developers to reuse common functionalities without having to implement state transition logic repetitively. While messages contain the information for the state transition logic, a transaction's other metadata and relevant information are stored in the `TxBuilder` and `Context`.
+
+## Signing Transactions
+
+Every message in a transaction must be signed by the addresses specified by its [`GetSigners`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L32). The SDK currently allows signing transactions in two different ways:
+
+* [`SIGN_MODE_DIRECT`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx/signing/signing.pb.go#L36) (preferred): The most used implementation of the `Tx` interface is the [Protobuf `Tx`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx/tx.pb.go#L32-L42) message, which is used in `SIGN_MODE_DIRECT`. Once signed by all signers, the `BodyBytes`, `AuthInfoBytes`, and [`Signatures`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx/tx.pb.go#L113) are gathered into [`TxRaw`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx/tx.pb.go#L103-L114), whose [serialized bytes](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx/tx.pb.go#L125-L136) are broadcast over the network.
+* [`SIGN_MODE_LEGACY_AMINO_JSON`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx/signing/signing.pb.go#L43): The legacy implementation of the `Tx` interface is the [`StdTx`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdtx.go#L77-L83) struct from `x/auth`. The document signed by all signers is [`StdSignDoc`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdsign.go#L24-L32), which is encoded into [bytes](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdsign.go#L35-L58) using Amino JSON. Once all signatures are gathered into `StdTx`, `StdTx` is serialized using Amino JSON, and these bytes are broadcast over the network. This method is being deprecated.
 
 ## Generating transactions
 
@@ -96,9 +91,7 @@ CLI commands bundle all the steps of transaction processing into one simple comm
 
 ### gRPC
 
-The principal usage of gRPC is in the context of module query services. The SDK also exposes a few other module-agnostic gRPC services, one of them being the `Tx` service. The `Tx` service exposes a handful of utility functions, such as simulating a transaction or querying a transaction, and also one method to broadcast transactions.
-
-<!-- Which method? --> 
+The principal usage of gRPC is in the context of module Query services. The SDK also exposes a few other module-agnostic gRPC services, one of them being the `Tx` service. The `Tx` service exposes a handful of utility functions, such as simulating a transaction or querying a transaction, and also one method to [broadcast transactions](https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#broadcasting-a-transaction-1).
 
 <HighlightBox type="tip">
 
@@ -108,7 +101,7 @@ Sometimes looking at an example can be helpful. Take a closer look at this [code
 
 ### REST
 
-Each gRPC method has its corresponding REST endpoint, generated using the gRPC-gateway. Rather than using gRPC, you can also use HTTP to broadcast the same transaction, on the POST /cosmos/tx/v1beta1/txs endpoint.
+Each gRPC method has its corresponding REST endpoint, generated using gRPC-gateway. Rather than using gRPC, you can also use HTTP to broadcast the same transaction, on the `POST` `/cosmos/tx/v1beta1/txs` endpoint.
 
 <HighlightBox type="tip">
 
@@ -118,7 +111,7 @@ Need an example? Check out this [code example](https://github.com/cosmos/cosmos-
 
 ### Tendermint RPC
 
-The three methods presented above are higher abstractions over the Tendermint RPC `/broadcast_tx_{async,sync,commit}` endpoints. You can use the Tendermint RPC endpoints to directly broadcast the transaction through Tendermint if you wish to.
+The three methods presented above are higher abstractions over the Tendermint RPC `/broadcast_tx_{async,sync,commit}` endpoints. You can use the [Tendermint RPC end points](https://docs.tendermint.com/master/rpc/#/Tx) to directly broadcast the transaction through Tendermint if you wish to.
 
 <HighlightBox type="tip">
 
@@ -134,11 +127,11 @@ Want more information on broadcasting with Tendermint RPC? Why not take a closer
 
 ## Next up
 
-In the [next section](../3-main-concepts/07-messages.md), you can learn how transaction messages are generated and handled in the Cosmos SDK.
+In the [next section](./07-messages), you can learn how transaction messages are generated and handled in the Cosmos SDK.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-[Previously](../3-main-concepts/02-architecture.md), the ABCI application knew of a single transaction type, that of a checkers move, with four `int`. With multiple games, this is no longer sufficient, nor viable. Additionally, because you are now on your way to using the Cosmos SDK, you need to conform to its `Tx` ways, which means that you have to create messages that are then placed into a transaction.
+[Previously](./02-architecture), the ABCI application knew of a single transaction type, that of a checkers move, with four `int`. With multiple games, this is no longer sufficient, nor viable. Additionally, because you are now on your way to using the Cosmos SDK, you need to conform to its `Tx` ways, which means that you have to create messages that are then placed into a transaction.
 
 Head to the [Messages](./07-messages) section to learn how to do just that.
 
