@@ -31,7 +31,7 @@ So now you need a message to instruct the checkers' blockchain to create a game.
 * Specify who is playing reds. Let's call the field `red`.
 * Specify who is playing blacks. Let's call the field: `black`.
 
-With this in mind, you instruct Starport to do the necessary:
+Instruct Starport to take care of all this:
 
 ```sh
 $ starport scaffold message createGame red black --module checkers --response idValue
