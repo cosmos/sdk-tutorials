@@ -10,7 +10,7 @@ If anyone can create a game for any two other players, it is important to allow 
 
 <HighlightBox type="tip">
 
-As a prerequisite to dive right into implementing game rejection, make sure you know how to [Create a Message](./03-startport-04-create-message) and [Create Handling](./03-startport-05-create-handling) with Starport.
+As a prerequisite to dive right into implementing game rejection, make sure you know how to [Create a Message](./03-startport-04-create-message.md) and [Create Handling](./03-startport-05-create-handling.md) with Starport.
 
 </HighlightBox>
 

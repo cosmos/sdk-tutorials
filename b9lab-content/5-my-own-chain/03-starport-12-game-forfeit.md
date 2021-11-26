@@ -6,7 +6,7 @@ description: You enforce the expiration of games
 
 # The Expired Game Elements
 
-In the [previous sections](./03-starport-11-game-winner.md), you prepared the ground to enforce the expiration of games, namely:
+In the [previous section](./03-starport-11-game-winner.md), you prepared the ground to enforce the expiration of games, namely:
 
 * A FIFO that always has old games at its head and freshly updated games at its tail.
 * A deadline field to guide the expiration.
@@ -172,6 +172,6 @@ With the callbacks in place, it is time to code the expiration properly. In `x/c
 
 <HighlightBox type="tip">
 
-For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games, see the [section on the game's FIFO](./03-starport-09-game-fifo).
+For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games, see the [section on the game's FIFO](./03-starport-09-game-fifo.md).
 
 </HighlightBox>

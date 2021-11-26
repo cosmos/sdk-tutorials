@@ -101,6 +101,7 @@ Each module defines commands for a command-line interface (CLI). Commands relate
 
 ### Keeper
 
+![keeper](./images/keeper.png)
 
 Keepers are the gatekeepers to the module’s store(s). It is mandatory to go through a module’s keeper in order to access the store(s). A keeper encapsulates the knowledge about the layout of storage within the store and contains methods to update and inspect it. If you come from a module-view-controller (MVC) world, then it helps to think of the keeper as the controller.
 
@@ -152,7 +153,6 @@ proto
             ├── query.proto
             └── tx.proto
 ```
-Whereas:
 
 * `{module_name}.proto`: the module's common message type definitions.
 * `event.proto`: the module's message type definitions related to events.

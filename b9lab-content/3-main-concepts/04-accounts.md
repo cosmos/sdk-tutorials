@@ -125,9 +125,9 @@ In the [next section](../3-main-concepts/05-transactions.md), you will learn how
 
 <ExpansionPanel title="Show me some code for my checkers' blockchain">
 
-Previously, your ABCI application accepted anonymous checkers moves. This was a problem. With accounts, you can restrict moves to the right player.
+[Previously](../3-main-concepts/02-architecture.md), your ABCI application accepted anonymous checkers moves. This was a problem. With accounts, you can restrict moves to the right player.
 
-As a first step to port the checkers' blockchain to the Cosmos SDK, you are going to differentiate between players and other actors. This will help to make sure there is no identity spoofing, that players do not play out of turn, and reward the correct winner when the time comes. You are also going to store the creator of a game, which may, or may not, be a player.
+Now, you are going to differentiate between players and other actors. This will help to make sure there is no identity spoofing, that players do not play out of turn, and rewards are paid to the correct winner when the time comes. You are also going to store the creator of a game, which may, or may not, be a player.
 
 ## Game object
 
@@ -177,6 +177,6 @@ type StoredGame struct {
 }
 ```
 
-If you want to go beyond these out-of-context code samples and instead see more in detail how to define all this, head to the [section on how to build your chain](../5-my-own-chain/01-index.md).
+If you want to go beyond these out-of-context code samples and instead see more detail about you define all of this, head to the [section on how to build your chain](../5-my-own-chain/01-index.md).
 
 </ExpansionPanel>

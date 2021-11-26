@@ -8,7 +8,7 @@ description: You play a game.
 
 <HighlightBox type="tip">
 
-To see in detail what Starport creates, refer back to [Creating the Game Message](./03-starport-04-create-message). Here, it is sufficient to specify some aspects.
+To see in detail what Starport creates, refer back to [Creating the Game Message](./03-starport-04-create-message.md). Here, it is sufficient to specify some aspects.
 
 </HighlightBox>
 

@@ -10,7 +10,7 @@ intro:
     image: /cosmos_dev_portal_whats_next.png
     description: |
       Are you ready to continue your journey with Cosmos? What’s next? <br/><br/>
-      There is a vast number of opportunities waiting: Do you want to develop your own application-specific blockchain? Or, maybe contribute to the SDK development? <br/><br/>
+      Vast opportunities await: Do you want to develop your own application-specific blockchain? Or, maybe contribute to the SDK development? <br/><br/>
       Here you can find useful information to launch your journey into the Cosmos universe.
   - overline: Reach out to the Cosmos community
     title: Community

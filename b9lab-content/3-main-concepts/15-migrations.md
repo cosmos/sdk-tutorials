@@ -222,7 +222,7 @@ func PopulateLeaderboardWith(leaderboard *types.Leaderboard, additionalPlayers *
     return nil
 }
 ```
-If you want to see more details about the number of helper functions like `AddCandidatesAndSortAtNow`, head to [Run my own chain](./5-my-own-chain/01-index).
+If you want to see more details about the number of helper functions like `AddCandidatesAndSortAtNow`, head to [Run my own chain](./5-my-own-chain/01-index.md).
 
 ## Genesis Migration Proper
 

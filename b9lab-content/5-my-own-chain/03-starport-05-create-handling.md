@@ -6,7 +6,7 @@ description: You create a proper game
 
 # Create the Game Handling
 
-In the [previous section](./03-starport-04-create-message), you added the message to create a game, along with its serialization and dedicated gRPC function.
+In the [previous section](./03-starport-04-create-message.md), you added the message to create a game, along with its serialization and dedicated gRPC function.
 
 There remains to add code that actually:
 

@@ -32,7 +32,7 @@ For an overview of the tokens Cosmos secures across apps and services, take a cl
 
 In addition to the vast number of tokens, a variety of applications and services, wallets, and explorers are Cosmos-based.
 
-**Hundreds of applications and services** build on Cosmos. At the time of writing, most applications and projects deal with finance, closely followed by infrastructure. Applications and projects in areas such as privacy, marketplace, and social impact are less common.
+**Hundreds of applications and services** build on Cosmos. At the time of writing, most applications and projects deal with finance, closely followed by infrastructure. Applications and projects in areas such as privacy, marketplace, and social impact are also emerging.
 
 <HighlightBox type="tip">
 
@@ -62,8 +62,6 @@ If you want to explore more on application-specific blockchains, take a look at 
 </HighlightBox>
 
 Focusing on customizability and interoperability leads to establishing a stable universe determined by the same rules that apply to the whole ecosystem equally.
-
-<H5PComponent :contents="['/h5p/M1-ecosystem-constellation-HS']"></H5PComponent>
 
 ## The Cosmos SDK: Modularity and customizing
 
@@ -96,7 +94,7 @@ The default consensus mechanism available when developing with the SDK is the [T
 
 The [Inter-Blockchain Communication (IBC) protocol](https://ibcprotocol.org/) is the basis for **interoperability** in Cosmos. It leverages Tendermint's instant finality to allow for the transfer of value, for example tokens, and communication between heterogeneous chains. Blockchains with different applications and architecture specifications become interoperable whether or not they share a validator set.
 
-Without IBC, the interoperability of heterogeneous chains is difficult to achieve because they may implement the consensus, networking, and application layers in different ways. As soon as a blockchain is compatible with IBC, it becomes interoperable with others.
+Without IBC, the interoperability of heterogeneous chains is difficult to achieve because they may implement the consensus, networking, and application layers in different ways. As soon as a blockchain is compatible with IBC, it becomes interoperable with other blockchains.
 
 *With these chain-to-chain connections now possible, how can we create a network of blockchains?*
 
