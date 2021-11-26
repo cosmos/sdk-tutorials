@@ -13,14 +13,7 @@ Transactions are objects created by end-users to trigger state changes in applic
 
 While there is much to explore as you journey through the stack, let's first describe the transaction process from a user perspective:
 
-<<<<<<< b9lab-content/3-main-concepts/05-transactions.md
 <H5PComponent :contents="['/h5p/M2-transactions-transactionprocess-ac']"></H5PComponent>
-=======
-* **Decide** on the messages to put into the transaction. This is normally done with the assistance of a wallet or application and a user interface.
-* **Generate** the transaction using the Cosmos SDK's [`TxBuilder`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/client/tx_config.go#L36-L46). `TxBuilder` is the preferred way to generate a transaction.
-* **Sign** the transaction. Transactions must be signed before a validator eventually includes them in a block.
-* **Broadcast** the signed transaction using one of the available interfaces.
->>>>>>> b9lab-content/3-main-concepts/05-transactions.md
 
 From a user perspective, **decide** and **sign** are the main interactions, while **generate** and **broadcast** are attended by the user interface and other automations.
 
