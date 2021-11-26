@@ -1,10 +1,10 @@
 <template lang="pug">
-    div.container
+    div.expansion__container
         div.inner-container
             button.styled-button(v-on:click="toggleContent")
                 icon-arrow.icon(type="bottom")(:class="this.expanded ? 'expanded' : 'collapsed'")
                 p {{this.title}}
-            div.content(v-show="expanded")
+            div.expansion__content(ref="content")
                 slot
 </template>
 
@@ -18,14 +18,15 @@ export default {
     },
     methods: {
         toggleContent(event) {
-            this.expanded = !this.expanded;
+            this.$refs.content.classList.toggle('visible');
+            this.expanded = this.$refs.content.classList.contains('visible')
         }
     }
 }
 </script>
 
 <style lang="stylus" scoped>
-    .container {
+    .expansion__container {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -84,15 +85,19 @@ export default {
             margin: 0;
         }
     }
-    .content {
+    .expansion__content {
         padding-inline: 32px;
         padding-bottom: 1rem;
         color: var(--color-text);
+        display: none;
 
         p {
             margin-top: 0.5rem;
             margin-bottom: 0;
         }
+    }
+    .visible {
+        display: block;
     }
     >>> .codeblock > .container {
         background: var(--background-color-primary)
