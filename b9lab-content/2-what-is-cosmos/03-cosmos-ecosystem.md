@@ -67,7 +67,7 @@ Focusing on customizability and interoperability leads to establishing a stable 
 
 ## The Cosmos SDK: Modularity and customizing
 
-The Cosmos SDK can be understood as a generalized framework to build secure blockchain applications on the Tendermint BFT, in Golang. It is a modular framework for application-specific blockchains. The design bases itself on **two major principles**: modularity and capability-based security.
+The Cosmos SDK can be understood as a generalized framework to build secure blockchain applications on the Tendermint BFT in Golang. It is a modular framework for application-specific blockchains. The design bases itself on **two major principles**: modularity and capability-based security.
 
 The SDK was envisioned to be an npm-like framework for secure applications on top of Tendermint. Over time, it has become an advanced framework for custom application-specific blockchains:
 
