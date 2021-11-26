@@ -98,7 +98,7 @@ Now would be a good time for you to save your mnemonic and password safely befor
 
 ## Purchase one ATOM
 
-How you do it is highly dependent on your preferences But roughly, you need to get on an exchange and, for instance, purchase one ATOM. You can get any amount you wish, although it is recommendable to not get less than 0.3 ATOM so that it does not get all consumed in transaction fees before the end of this exercise.
+How you do it is highly dependent on your preferences. But roughly, you need to get on an exchange and, for instance, purchase one ATOM. You can get any amount you wish, although it is recommendable to not get less than 0.3 ATOM so that it does not get all consumed in transaction fees before the end of this exercise.
 
 <HighlightBox type="info">
 
