@@ -224,4 +224,4 @@ This completes this exercise. You got yourself set up to participate in the Cosm
 
 ## Next up
 
-Head on to the [next chapter](../01-index.md) to keep exploring the Cosmos SDK. Next, it is all about the SDKs main components.
+Head on to the [next chapter](./3-main-concepts/01-index.md) to keep exploring the Cosmos SDK. Next, it is all about the SDKs main components.
