@@ -123,6 +123,6 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
     return &types.MsgCreateGameResponse{}, nil
 }
 ```
-This is the object of the [next section](./.md).
+This is the object of the [next section](./03-starport-05-create-handling.md).
 
 <!-- Add GUI Elements -->
