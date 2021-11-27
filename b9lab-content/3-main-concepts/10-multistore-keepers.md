@@ -79,7 +79,7 @@ TODO: Iterator  method -->
 
 The Cosmos SDK offers different store types with which to work with. It is important to gain a good overview of different store types available for development.
 
-### `KVStore` and `Multi-Store` in Cosmos
+### `KVStore` and `Multistore` in Cosmos
 
 Each Cosmos SDK application contains a state at its root, the `Multistore`, that is subdivided into separate compartments managed by each module in the application. The `Multistore` is a store of `KVStore`s that follows the [`Multistore interface`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/types/store.go#L104-L133).
 

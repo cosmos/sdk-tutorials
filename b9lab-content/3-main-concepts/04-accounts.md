@@ -9,8 +9,8 @@ tag: deep-dive
 
 An account is a pair of keys:
 
-* **`PubKey`:** a public key
-* **`PrivKey:`** a private key
+* **`PubKey`.** A public key
+* **`PrivKey`.** A private key
 
 A public key is a unique identifier for a **user or entity** that is safe to disclose. Private keys are sensitive information that users are required to manage confidentially. Private keys are used to sign information in a way that **proves** to others that a message was signed by someone using the private key corresponding to a given public key. This is done without revealing the private key itself.
 
@@ -132,9 +132,9 @@ Public keys are generally not used to reference accounts (see Address below). Pu
 
 An address is public information normally used to reference an account. Addresses are derived from public keys using [ADR-28](https://github.com/cosmos/cosmos-sdk/blob/master/docs/architecture/adr-028-public-key-addresses.md). Three types of addresses specify a context when an account is used:
 
-* [`AccAddress`](https://github.com/cosmos/cosmos-sdk/blob/1dba6735739e9b4556267339f0b67eaec9c609ef/types/address.go#L129): identifies users, which are the sender of a message.
-* [`ValAddress`](https://github.com/cosmos/cosmos-sdk/blob/23e864bc987e61af84763d9a3e531707f9dfbc84/types/address.go#L298): identifies validator operators.
-* [`ConsAddress`](https://github.com/cosmos/cosmos-sdk/blob/23e864bc987e61af84763d9a3e531707f9dfbc84/types/address.go#L448): identifies validator nodes that are participating in consensus. Validator nodes are derived using the [ed25519](https://www.cryptopp.com/wiki/Ed25519) curve.
+* [`AccAddress`](https://github.com/cosmos/cosmos-sdk/blob/1dba6735739e9b4556267339f0b67eaec9c609ef/types/address.go#L129). Identifies users, which are the sender of a message.
+* [`ValAddress`](https://github.com/cosmos/cosmos-sdk/blob/23e864bc987e61af84763d9a3e531707f9dfbc84/types/address.go#L298). Identifies validator operators.
+* [`ConsAddress`](https://github.com/cosmos/cosmos-sdk/blob/23e864bc987e61af84763d9a3e531707f9dfbc84/types/address.go#L448). Identifies validator nodes that are participating in consensus. Validator nodes are derived using the [ed25519](https://www.cryptopp.com/wiki/Ed25519) curve.
 
 ## Keyring
 

@@ -13,7 +13,7 @@ Context is represented as data structures that carry information about the curre
 
 The Cosmos SDK context is a custom data structure that contains Go's stdlib context as its base. It has many additional types within its definition that are specific to the Cosmos SDK.
 
-Context is integral to transaction processing in that it allows modules to easily access their respective store in the multi-store and retrieve transactional context such as the block header and gas meter.
+Context is integral to transaction processing in that it allows modules to easily access their respective store in the multistore and retrieve transactional context such as the block header and gas meter.
 
 ## Properties of context
 
@@ -48,14 +48,14 @@ Each `KVStore` is branched in a safe and isolated ephemeral storage. Processes a
 The usage pattern for context is as follows:
 
 1. Process receives a context `ctx` from its parent process, which provides information needed to perform the process.
-2. The `ctx.ms` is a branched store, meaning that a branch of the multi-store is made so that the process can make changes to the state as it executes, without changing the original `ctx.ms`. This is useful to protect the underlying multi-store in case the changes need to be reverted at some point in the execution.
+2. The `ctx.ms` is a branched store, meaning that a branch of the multistore is made so that the process can make changes to the state as it executes, without changing the original `ctx.ms`. This is useful to protect the underlying multistore in case the changes need to be reverted at some point in the execution.
 3. The process may read and write from `ctx` as it is executing. It may call a subprocess and pass `ctx` to them as needed.
 4. When a subprocess returns, it checks the result for success or failure. In case of a failure, nothing needs to be done - the branch `ctx` is simply discarded. If successful, the changes made to the `CacheMultiStore` can be committed to the original ctx.ms via `Write()`.
 
 ## Process
 
-Prior to calling `runMsgs` on the message(s) in the transaction, it uses `app.cacheTxContext()` to branch and cache the context and multi-store:
+Prior to calling `runMsgs` on the message(s) in the transaction, it uses `app.cacheTxContext()` to branch and cache the context and multistore:
 
 * `runMsgCtx` - the context with branched store is used in `runMsgs` to return a result.
 * If the process is running in `checkTxMode`, there is no need to write the changes - the result is returned immediately.
-* If the process is running in `deliverTxMode` and the result indicates a successful run over all the messages, the branched multi-store is written back to the original.
+* If the process is running in `deliverTxMode` and the result indicates a successful run over all the messages, the branched multistore is written back to the original.

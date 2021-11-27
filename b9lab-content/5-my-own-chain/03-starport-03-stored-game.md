@@ -11,7 +11,7 @@ tag: deep-dive
 
 Before proceeding, make sure you have all you need:
 
-* You understand the concepts of [accounts](../3-main-concepts/04-accounts), [Protobuf](../3-main-concepts/09-protobuf) and [multi-store](../3-main-concepts/10-multistore-keepers).
+* You understand the concepts of [accounts](../3-main-concepts/04-accounts), [Protobuf](../3-main-concepts/09-protobuf) and [multistore](../3-main-concepts/10-multistore-keepers).
 * Have Go installed.
 * The bare blockchain scaffold with a single module named `checkers`:
     * Either because you followed the [previous steps](./02-starport).

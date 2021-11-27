@@ -7,7 +7,8 @@ tag: fast-track
 
 # The Cosmos Ecosystem
 
-**Cosmos** is a network of independent blockchains which are: 
+**Cosmos** is a network of independent blockchains which are:
+
 * All powered by consensus algorithms with Byzantine Fault-Tolerance (BFT). 
 * All connected through the Inter-Blockchain Communication protocol (IBC) enabling value transfers, such as token transfers, and other communication.
 * All without the need to involve exchanges nor compromise the chains' sovereignty.
@@ -16,7 +17,7 @@ More than this, Cosmos is also **a blockchain ecosystem**, complete with protoco
 
 Let's review them.
 
-## A whole universe to discover: Tokens, wallets, apps, and services
+## A whole universe to discover: tokens, wallets, apps, and services
 
 Fittingly, Cosmos is an ever-expanding ecosystem of tokens, wallets, tools, as well as interconnected apps and services, all built for the decentralized future.
 
@@ -51,6 +52,7 @@ Do you want to find out more about the wide variety of wallets in the Cosmos eco
 </HighlightBox>
 
 ## Main components
+
 The Cosmos network focuses on an ecosystem for easy blockchain developement. *Click on the hotspots in the image to learn more about the main goals of the Cosmos network.*
 
 <H5PComponent :contents="['/h5p/M1-ecosystem-constellation-HS']"></H5PComponent>
@@ -63,7 +65,7 @@ If you want to explore more on application-specific blockchains, take a look at 
 
 Focusing on customizability and interoperability leads to establishing a stable universe determined by the same rules that apply to the whole ecosystem equally.
 
-## The Cosmos SDK: Modularity and customizing
+## The Cosmos SDK: modularity and customizing
 
 The Cosmos SDK can be understood as a generalized framework to build secure blockchain applications on the Tendermint BFT in Golang. It is a modular framework for application-specific blockchains. The design bases itself on **two major principles**: modularity and capability-based security.
 
@@ -146,7 +148,7 @@ If you want to dive deeper into the node explorer, take a look at its [documenta
 
 </HighlightBox>
 
-## Starport: Building application-specific blockchains with one command
+## Starport: building application-specific blockchains with one command
 
 [Starport](https://cosmos.network/starport/) is a developer-friendly command-line interface (CLI) tool for application-specific blockchains building on Tendermint and the Cosmos SDK. The CLI tool offers everything developers need to build, test, and launch a chain. It accelerates blockchain development by scaffolding and assembling all components needed for a production-ready blockchain. Starport makes the process from initial idea to production 95% faster; it lets you build a blockchain in minutes. This lets developers focus more strongly on the business logic of their application.
 
@@ -165,7 +167,7 @@ Already want to dive deep into Starport? Take a closer look at the official [Sta
 
 When you scaffold with Starport, things like key management, creating validators, and transferring tokens can be done through the CLI.
 
-## CosmWasm: Multi-Chain smart contracts
+## CosmWasm: multi-chain smart contracts
 
 [CosmWasm](https://cosmwasm.com/) is a multi-chain platform for building robust dApps for Cosmos using smart contracts. It builds on Tendermint and the Cosmos SDK.
 
