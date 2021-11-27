@@ -103,8 +103,6 @@ When working with the IAVL store, why not take a closer look at the [IAVL spec](
 
 The default implementation of `KVStore` and `CommitKVStore` is the `iavl.Store`. The `IAVL.Store` is a self-balancing binary search tree that ensures get and set operations are `O(log n)`, where `n` is the number of elements in the tree.
 
-Each tree version is immutable and can be retrieved even after a commit, depending on the [pruning settings](https://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md).
-
 </HighlightBox>
 
 ## Additional KVStore wrappers
