@@ -1,10 +1,14 @@
+@import url(https://rsms.me/inter/inter.css);
+.h5p-container {
+  font-family: Inter var;
+  color: white;
+}
 .h5p-no-frame > .h5p-accordion {
   border: 1px solid #eee;
 }
 .h5p-accordion .h5p-panel-title {
   margin: 0;
   padding: 0.8em 0.8em 0.8em 2.25em;
-  color: #111111;
   position: relative;
   font-size: 1.25em;
   text-decoration: none;
@@ -13,11 +17,6 @@
   transition: color 200ms ease 0s;
   border-top: 1px solid #eeeeee;
   cursor: pointer;
-}
-.h5p-accordion .h5p-panel-title:hover,
-.h5p-accordion .h5p-panel-title:focus,
-.h5p-accordion .h5p-panel-title:active {
-  color: #222266;
 }
 .h5p-accordion .h5p-panel-title:first-of-type {
   border-top: 0;
@@ -30,9 +29,6 @@
   -webkit-transition: all 200ms ease 0s;
   -moz-transition: all 200ms ease 0s;
   transition: all 200ms ease 0s;
-}
-.h5p-accordion .h5p-panel-expanded {
-  color: #000000;
 }
 .h5p-accordion .h5p-panel-expanded:before {
   -webkit-transform: rotate(90deg);
