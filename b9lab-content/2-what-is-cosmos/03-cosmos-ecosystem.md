@@ -179,7 +179,7 @@ Ethermint is a software developed to port the EVM into a Cosmos module. It makes
 
 Ethermint is Web3 compatible and achieves high throughput with Tendermint and horizontal scaling with IBC. It provides a Web3, JSON-RPC layer to interact with Ethereum clients and tooling.
 
-For more on Ethermint, consult the [Etheremint documentation](https://github.com/cosmos/ethermint).
+For more on Ethermint consult the [Etheremint documentation](https://github.com/cosmos/ethermint).
 
 </HighlightBox>
 
