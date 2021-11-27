@@ -17,7 +17,7 @@ While there is much to explore as you journey through the stack, begin by unders
 
 <!-- TODO add link to TxBuilder: https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/client/tx_config.go#L36-L46 -->
 
-**Decide** and **sign** are the main interactions of a user. **Generate** and **broadcast** are attended to by the user interface and other automations.
+**Decide** and **sign** are the main interactions of a user. **Generate** and **broadcast** are attended to by the user interface and other automation.
 
 ## Transaction objects
 
@@ -132,7 +132,7 @@ In the [next section](./07-messages), you can learn how transaction messages are
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-[Previously](./02-architecture), the ABCI application knew of a single transaction type: a checkers move with four `int`. This is no longer sufficient with multiple games. You need to conform to its `Tx` ways, which means that you have to create messages then placed into a transaction.
+[Previously](./02-architecture), the ABCI application knew of a single transaction type: a checkers move with four `int`. This is no longer sufficient with multiple games. You need to conform to its `Tx` ways, which means that you have to create messages then placed in to a transaction.
 
 Head to the [section on messages](./07-messages) to learn how to do just that.
 
