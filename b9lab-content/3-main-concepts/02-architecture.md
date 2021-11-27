@@ -126,15 +126,15 @@ We will dive further into the Inter-Blockchain Communication Protocol (IBC) in a
 
 The application, consensus, and network layers are contained within the custom blockchain node that forms the foundation of the custom blockchain.
 
-Tendermint passes confirmed transactions to the application layer through the **Application Blockchain Interface (ABCI)**. The application layer must implement the ABCI, which is a socket protocol. In this way, Tendermint is unconcerned with the interpretation of transactions and the application layer can be unconcerned with propagation, broadcast, confirmation, network formation, and other lower-level concerns that Tendermint attends to unless it wants to inspect such properties.
+Tendermint passes confirmed transactions to the application layer through the **Application Blockchain Interface (ABCI)**. The application layer must implement ABCI, which is a socket protocol. Tendermint is unconcerned with the interpretation of transactions and the application layer can be unconcerned with propagation, broadcast, confirmation, network formation, and other lower-level concerns that Tendermint attends to unless it wants to inspect such properties.
 
-Since the ABCI is a sockets protocol, developers are free to create blockchains in any language that supports sockets, provided their application implements the ABCI. The ABCI defines the boundary between replication concerns and the application, which is a state machine.
+Developers are free to create blockchains in any language that supports sockets since the ABCO is a socket protocol, provided their application implements ABCI. ABCI defines the boundary between replication concerns and the application, which is a state machine.
 
 This is itself a considerable step forward that simplifies the creation of unique blockchains.
 
 <HighlightBox type="info">
 
-More detailed information on the ABCI can be found here:
+If you want to continue exploring ABCO, you can find more detailed information here:
 
 * [ABCI GitHub repository: ABCI prose specification](https://github.com/tendermint/abci/blob/master/specification.md)
 * [Tendermint GitHub repository: A Protobuf file on types](https://github.com/tendermint/abci/blob/master/types/types.proto)
@@ -145,7 +145,7 @@ More detailed information on the ABCI can be found here:
 
 ## State machines
 
-At its core, a blockchain is a replicated state machine. A **state machine** is a computer science concept, in which a machine can have multiple states but only one state at a time. And there is a state transition process or a set of defined processes, which are the only way the state changes from the old state (`S`) to a new state (`S'`).
+A blockchain is a replicated state machine its core. A **state machine** is a computer science concept, in which a machine can have multiple states but only one state at a time. And there is a state transition process or a set of defined processes, which are the only way the state changes from the old state (`S`) to a new state (`S'`).
 
 <H5PComponent :contents="['/h5p/M2-architecture-statemachines-HS']"></H5PComponent>
 
