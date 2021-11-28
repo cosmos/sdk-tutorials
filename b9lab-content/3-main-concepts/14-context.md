@@ -20,7 +20,7 @@ Context is integral to transaction processing in that it allows modules to easil
 The context has the following properties:
 
 * **Context:** the base type is a Go Context.
-* **Multistore:** every application's BaseApp contains a `CommitMultiStore`, which is provided when a context is created. Calling the `KVStore()` and `TransientStore()` methods allows modules to fetch their respective `KVStore` using their unique `StoreKey`.
+* **Multistore:** every application's `BaseApp` contains a `CommitMultiStore`, which is provided when a context is created. Calling the `KVStore()` and `TransientStore()` methods allows modules to fetch their respective `KVStore` using their unique `StoreKey`.
 * **ABCI Header:** the header is an ABCI type. It carries important information about the state of the blockchain, such as block height and proposer of the current block.
 * **Chain ID:** the unique identification number of the blockchain a block pertains to.
 * **Transaction bytes:** The []byte representation of a transaction is processed using the context. Every transaction is processed by various parts of the Cosmos SDK and consensus engine (for example, Tendermint) throughout its lifecycle, some of which do not have any understanding of transaction types. Thus, transactions are marshaled into a generic `[]byte` type using some kind of encoding format such as Amino.

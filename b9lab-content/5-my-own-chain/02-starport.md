@@ -7,9 +7,9 @@ tag: deep-dive
 
 # Starport
 
-The Cosmos SDK provides the building blocks for a complete Tendermint blockchain, which implements the Inter-Blockchain Communication (IBC) protocol. The _BaseApp_ of the Cosmos SDK assembles these building blocks and provides a fully-running blockchain. All there is left to do for a specific blockchain application is to create specific modules and integrate them with the BaseApp to make the application _your own_.
+The Cosmos SDK provides the building blocks for a complete Tendermint blockchain, which implements the Inter-Blockchain Communication (IBC) protocol. The `BaseApp` of the Cosmos SDK assembles these building blocks and provides a fully-running blockchain. All there is left to do for a specific blockchain application is to create specific modules and integrate them with the `BaseApp` to make the application _your own_.
 
-Fortunately, Starport assists with scaffolding modules and integrating them with the BaseApp. Starport is a command-line tool that writes code files and updates them when instructed to do so. If you come from an _on Rails_ world, the concept will look familiar to you.
+Fortunately, Starport assists with scaffolding modules and integrating them with the `BaseApp`. Starport is a command-line tool that writes code files and updates them when instructed to do so. If you come from an _on Rails_ world, the concept will look familiar to you.
 
 On top of that, Starport will handle some compilation, run a local blockchain node, and help the developer in other respects.
 

@@ -97,7 +97,7 @@ Each Cosmos SDK application contains a state at its root, the `Multistore`. It i
 
 The base `KVStore` and `Multistore` implementations are wrapped in extensions that offer specialized behavior. A [`CommitMultistore`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/types/store.go#L141-L184) is a `Multistore` with a committer. This is the main type of multistore used in the Cosmos SDK. The underlying `KVStore` is used primarily to restrict access to the committer.
 
-The [`rootMulti.Store`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/rootmulti/store.go#L43-L61) is the go-to implementation of the `CommitMultiStore` interface. It is a base-layer multistore built around a database on top of which multiple `KVStore`s can be mounted. It is the default multistore store used in BaseApp.
+The [`rootMulti.Store`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/rootmulti/store.go#L43-L61) is the go-to implementation of the `CommitMultiStore` interface. It is a base-layer multistore built around a database on top of which multiple `KVStore`s can be mounted. It is the default multistore store used in `BaseApp`.
 
 ### `CacheMultistore`
 
@@ -149,7 +149,7 @@ The `AnteHandler` is theoretically optional but still a very important component
 * Perform preliminary stateful validity checks like ensuring signatures are valid or that a sender has enough funds to pay for fees.
 * Play a role in the incentivization of stakeholders via the collection of transaction fees.
 
-BaseApp holds an `AnteHandler` as a parameter that is initialized in the application's constructor. The most widely used `AnteHandler` is the auth module.
+`BaseApp` holds an `AnteHandler` as a parameter that is initialized in the application's constructor. The most widely used `AnteHandler` is the auth module.
 
 <HighlightBox type="info">
 
@@ -162,7 +162,7 @@ For more information on the subject, a closer look at the following resources co
 
 ## Next up
 
-In the [next section](11-base-app), you will find more information on BaseApp and its role in the Cosmos SDK.
+In the [next section](11-base-app), you will find more information on `BaseApp` and its role in the Cosmos SDK.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 

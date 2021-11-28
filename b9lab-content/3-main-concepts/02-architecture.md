@@ -156,7 +156,7 @@ When blocks are received, Tendermint calls the `DeliverTx` method to pass the in
 ### `BeginBlock` and `EndBlock`
 Additionally, `BeginBlock` and `EndBlock` messages are sent through the ABCI even if blocks contain no transactions. This provides positive confirmation of basic connectivity and of time periods with no operations. More to the point, these methods facilitate the execution of scheduled processes that should run in any case because they call methods at the application level, where developers can define processes. It is wise to be cautious about adding too much computational weight at the start or completion of each block since the blocks arrive at approximately seven-second intervals and too much work could slow down your blockchain.
 
-Any application that uses Tendermint for consensus must implement the ABCI. Fortunately, you do not have to do this manually because the Cosmos SDK provides a boilerplate known as BaseApp to get you started.
+Any application that uses Tendermint for consensus must implement the ABCI. Fortunately, you do not have to do this manually because the Cosmos SDK provides a boilerplate known as `BaseApp` to get you started.
 
 In the following suggested exercise, you will create a minimal distributed state machine with the Cosmos SDK, and see code samples implementing concepts progressively. Your state machine will rely on Tendermint for consensus.
 
@@ -230,7 +230,7 @@ To store this state, your application needs its own database. It needs to store 
 * Saves it in its database. Along with [black](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L124) having to play next.
 * Returns, in `app_hash: bytes`, the Merkle root hash corresponding to this genesis state.
 
-Notice how your application also has to handle the list of validators sent by Tendermint. Let's gloss over this _detail_. Cosmos SDK's BaseApp will take care of that.
+Notice how your application also has to handle the list of validators sent by Tendermint. Let's gloss over this _detail_. Cosmos SDK's `BaseApp` will take care of that.
 
 #### A serialized transaction
 
@@ -340,7 +340,7 @@ You have waved your hands as to how you would create a state machine for the che
 * It would be good if you had an elegant way to serialize your data objects of interest and your transactions. See [Protobuf](./09-protobuf).
 * You want to penalize spam and bad transactions, and also to be able to play for money. Enter tokens defined in another [existing Cosmos SDK module](./08-modules).
 * You want to tailor gas costs according to the transaction type. After all, there is a new transaction type of _create a game_. You can account for that in Cosmos SDK's [context object](./14-context).
-* You need to handle the validators lists in the communication. Cosmos can do this for you out of the box with the [BaseApp](./11-base-app).
+* You need to handle the validators lists in the communication. Cosmos can do this for you out of the box with the [`BaseApp`](./11-base-app).
 * You want the player's GUI to easily reload their pending game(s) and let them know whether a move is valid or not. That's a good use of Cosmos SDK's [queries](./12-queries).
 * You want to have an elegant facility to use Tendermint's events and to notify players when it’s their turn. Cosmos SDK provides that with [events](./13-events).
 * You want to be able to easily add changes to your system in the future, after it has been in production. You can handle that with Cosmos SDK [migrations](./15-migrations).
