@@ -5,7 +5,9 @@ description: ABCI, Tendermint, and state machines
 tag: fast-track
 ---
 
-# Blockchain App Architecture
+# A Blockchain App Architecture
+
+The Cosmos SDK is built based on several components that determine the architecture of a Cosmos SDK application. Let's take a closer look at them.
 
 ## What is Tendermint?
 
@@ -52,7 +54,7 @@ Validators are the ones who vote. This means that delegators ought to be discern
 
 [Tendermint BFT](https://tendermint.com/core/) packages the **networking and consensus layers** of a blockchain and presents an interface to the application layer, the **Application Blockchain Interface (ABCI)**. Developers focus on higher-order concerns while delegating peer-discovery, validator selection, staking, upgrades, and consensus to the Tendermint BFT. The consensus engine running in one process controls the state machine, the application runs in another process. The architecture is equally appropriate for **private or public blockchains**.
 
-Tendermint BFT engine is connected to the application by a socket protocol, the ABCI. ABCI presents a socket for use by applications written in other languages. When the application is written in the same language as the Tendermint implementation, the socket is not used.
+Tendermint BFT engine is connected to the application by a socket protocol, the ABCI, for use by applications written in other languages. When the application is written in the same language as the Tendermint implementation, the socket is not used.
 
 ![The application, ABCI, and Tendermint](./images/ABCI_3.png)
 
@@ -329,8 +331,6 @@ Namely, you have 64 cells, out of which only 32 are being used. Each cell has ei
 
 So here you go, you have a deterministic blockchain state, collision-resistant since the same value indicates an identical state, no external database to handle, and the full state is always stored in the block header.
 
-</ExpansionPanel>
-
 ### Closing remarks
 
 You have waved your hands as to how you would create a state machine for the checkers game. You surely have already spotted a good number of shortcomings in your game blockchain, as it is presently conceived: 
@@ -347,3 +347,5 @@ You have waved your hands as to how you would create a state machine for the che
 * You want to open up so that players can decide to play for money with different tokens. Good thing Cosmos SDK already integrates [IBC](./16-ibc) for tokens coming from other blockchains.
 
 In short, the Cosmos SDK will assist you in attending to all these concerns without you having to reinvent the wheel.
+
+</ExpansionPanel>
