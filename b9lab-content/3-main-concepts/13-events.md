@@ -16,6 +16,8 @@ Let's dedicate some time to events in the Cosmos SDK. The following sections wil
 * [Modules](08-modules)
 * [Protobuf](09-protobuf)
 
+You can find some a code examples at the end of this section, in which events are implemented in the checkers blockchain.
+
 </HighlightBox>
 
 An event is an object that contains information about the execution of applications. Events are used by service providers like block explorers and wallets to track the execution of various messages and index transactions.
