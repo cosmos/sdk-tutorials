@@ -98,3 +98,8 @@ const wallet = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic);
 ```
 
 There are many other useful methods like `assertIsBroadcastTxSuccess` that verifies whether the transaction was successful or not, as used in [this sample snippet](https://gist.github.com/webmaster128/8444d42a7eceeda2544c8a59fbd7e1d9).
+
+
+## Next up
+
+Ready for the [final section](./05-cosmwasm) of this course? Discover CosmWasm and multi-chain smart contracting.
