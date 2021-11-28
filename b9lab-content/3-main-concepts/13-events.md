@@ -7,9 +7,20 @@ tag: deep-dive
 
 # Events
 
-An event is an object that contains information about the execution of applications. Events are used by service providers (block explorers, wallets, etc.) to track the execution of various messages and index transactions.
+<HighlightBox type="info">
 
-In the Cosmo SDK, events are implemented as an alias of the ABCI `event` type in the form `{eventType}.{attributeKey}={attributeValue}`.
+Let's dedicate some time to events in the Cosmos SDK. The following sections will help you better understand events:
+
+* [Transactions](./05-transactions)
+* [Messages](07-messages)
+* [Modules](08-modules)
+* [Protobuf](09-protobuf)
+
+</HighlightBox>
+
+An event is an object that contains information about the execution of applications. Events are used by service providers like block explorers and wallets to track the execution of various messages and index transactions.
+
+Events are implemented as an alias of the ABCI `event` type in the form `{eventType}.{attributeKey}={attributeValue}` in the Cosmo SDK.
 
 Events allow application developers to attach additional information. This means that transactions might be queried using events:
 
@@ -28,18 +39,18 @@ message Event {
 
 ## Structure
 
-In the above, two elements stand out:
+Two elements stand out in the above:
 
 * A `type` to categorize the event at a high level. For example, the Cosmos SDK uses the `message` _type_ to filter events by `Msg`.
-* A list of `attributes`, which are key-value pairs giving more information about the categorized event. For example, for the `message` type, we can filter events by key-value pairs using `message.action={some_action}, message.module={some_module}` or `message.sender={a_sender}`.
+* A list of `attributes`, which are key-value pairs giving more information on the categorized event. For example, we can filter events by key-value pairs using `message.action={some_action}, message.module={some_module}` or `message.sender={a_sender}` for the `message` type.
 
 <HighlightBox type="info">
 
-To parse the attribute values as strings, make sure to add `'` (single quotes) around each attribute value.
+Make sure to add `'` (single quotes) around each attribute value to parse the attribute values as strings.
 
 </HighlightBox>
 
-Events, their type, and attributes are defined on a per-module basis in the module's `/types/events.go` file.  Additionally, each module documents its events under `spec/xx_events.md`.
+Events, their type, and attributes are defined on a per-module basis in the module's `/types/events.go` file. Each module additionally documents its events under `spec/xx_events.md`.
 
 Events are returned to the underlying consensus engine in response to the following ABCI messages:
 
@@ -52,9 +63,9 @@ Events are managed by an abstraction called the `EventManager`. Events are trigg
 
 ## `EventManager`
 
-`Eventmanager` tracks a list of events for the entire execution flow of a transaction or `BeginBlock`/`EndBlock`. `EventManager` implements a simple wrapper around a slice of event objects, that can be emitted from and provides useful methods. The most used method for Cosmos SDK module and application developers is `EmitEvent`.
+`Eventmanager` tracks a list of events for the entire execution flow of a transaction or `BeginBlock`/`EndBlock`. `EventManager` implements a simple wrapper around a slice of event objects, which can be emitted from and provides useful methods. The most used method for Cosmos SDK module and application developers is `EmitEvent`.
 
-Module developers should handle event emission via `EventManager#EmitEvent` in each message handler and in each `BeginBlock` or `EndBlock` handler, accessed via the `Context`. Event emission generally follows this pattern:
+Module developers should handle event emission via `EventManager#EmitEvent` in each message handler and in each `BeginBlock` or `EndBlock` handler accessed via the `Context`. Event emission generally follows this pattern:
 
 ```go
 func (em *EventManager) EmitEvent(event Event) {
@@ -82,27 +93,27 @@ You can use Tendermint's [WebSocket](https://docs.tendermint.com/master/tendermi
 
 The main `eventCategories` you can subscribe to are:
 
-* **`NewBlock`:** contains Events triggered during `BeginBlock` and `EndBlock`.
-* **`Tx`:** contains events triggered during `DeliverTx` (transaction processing).
-* **`ValidatorSetUpdates`:** contains updates about the set of validators for the block.
+* **`NewBlock`.** Contains events triggered during `BeginBlock` and `EndBlock`.
+* **`Tx`.** Contains events triggered during `DeliverTx`, the transaction processing.
+* **`ValidatorSetUpdates`.** Contains updates about the set of validators for the block.
 
-<HighlightBox type=”info”>
+<HighlightBox type="info">
 
 You can find a full list of event categories in the [Tendermint Go documentation](https://godoc.org/github.com/tendermint/tendermint/types#pkg-constants).
 
 </HighlightBox>
 
-You can filter for event types and attribute values. For example, a transfer transaction triggers an event of type `Transfer` and has `Recipient` and `Sender` as attributes, as defined in the `events.go` file of the bank module.
+You can filter for event types and attribute values. For example, a transfer transaction triggers an event of type `Transfer` and has `Recipient` and `Sender` as attributes as defined in the `events.go` file of the bank module.
 
 ## Next up
 
 You just learned about events, where they are expected, and how to emit or receive them. Have a look at the code samples below or head to the [next section](./14-context.md) to learn about the `Context` object.
 
-<ExpansionPanel title="Show me some code for my checkers' blockchain">
+<ExpansionPanel title="Show me some code for my checkers blockchain">
 
-In your checkers' blockchain, it would be good to document a game's lifecycle via events.
+It would be good to document a game's lifecycle via events in your checkers blockchain.
 
-For instance, when creating the game, you can emit a specific event such that:
+For instance, you can emit a specific event such that when creating the game:
 
 ```go
 var ctx sdk.Context
@@ -120,9 +131,9 @@ ctx.EventManager().EmitEvent(
 )
 ```
 
-From this model, it is easy to add events to the other transaction types. Keep in mind that events are meant to inform and notify relevant parties.
+It is easy to add events to the other transaction types. Keep in mind that events are meant to inform and notify relevant parties.
 
-You should also emit an event for games that have timed out. After all, this is part of their lifecycle. You would do that in the end blocker:
+You should also emit an event for games that have timed out. This is part of their lifecycle after all. You would do that in the end blocker:
 
 ```go
 ctx.EventManager().EmitEvent(
