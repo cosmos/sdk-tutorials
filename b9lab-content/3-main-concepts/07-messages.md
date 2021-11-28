@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Messages
 
-<HighlightBox type="prereq">
+<HighlightBox type="info">
 
 In this section, you will take a closer look at messages, `Msg`. It is recommended to take a look at the following previous sections to better understand messages:
 
@@ -15,7 +15,7 @@ In this section, you will take a closer look at messages, `Msg`. It is recommend
 * [Accounts](./04-accounts)
 * [Transactions](./05-transactions)
 
-At the end of the section you can find a code example illustrating message creation and the inclusion of messages in transactions for your checkers blockchain.
+At the end of the section, you can find a code example illustrating message creation and the inclusion of messages in transactions for your checkers blockchain.
 
 Understanding `Msg` will help you prepare for the [next section on modules in the Cosmos SDK](./08-modules) as messages are a primary object handled by modules.
 
@@ -23,7 +23,7 @@ Understanding `Msg` will help you prepare for the [next section on modules in th
 
 Messages are one of two primary objects handled by a module in the Cosmos SDK. The other primary object handled by modules is queries. While messages inform the state and have the potential to alter it, queries inspect the module state and are always read-only.
 
-In the Cosmos SDK, a **transaction** contains **one or more messages**. After the transaction is included in a block by the consensus layer, the module processes the messages.
+In the Cosmos SDK, a **transaction** contains **one or more messages**. The module processes the messages after the transaction is included in a block by the consensus layer.
 
 <ExpansionPanel title="Signing a message">
 
@@ -37,13 +37,13 @@ When an account signs a message it signs an array of bytes. This array of bytes 
 
 ## Messages and the transaction lifecycle
 
-Transactions containing one or more valid messages are serialized and confirmed by the Tendermint consensus engine. As you might recall, Tendermint is agnostic to the transaction interpretation, and has absolute finality. So, when a transaction is included in a block, it is confirmed and finalized with no possibility of chain re-organization or cancellation.
+Transactions containing one or more valid messages are serialized and confirmed by the Tendermint consensus engine. As you might recall, Tendermint is agnostic to the transaction interpretation and has absolute finality. So, when a transaction is included in a block, it is confirmed and finalized with no possibility of chain re-organization or cancellation.
 
 The confirmed transaction is relayed to the Cosmos SDK application for interpretation. Each message is routed to the appropriate module via `BaseApp`’s `MsgServiceRouter`. `BaseApp` decodes each message contained in the transaction. Each module has its own `MsgService` that processes each received message.
 
 ## `MsgService`
 
-Although it is technically feasible to proceed to create a novel `MsgService`, the recommended approach is to define a Protobuf `Msg` service. Each module has exactly one Protobuf `Msg` service defined in `tx.proto` and there is a RPC service method for each message type in the module. The Protobuf message service implicitly defines the interface layer of the state mutating processes contained within the module.
+Although it is technically feasible to proceed to create a novel `MsgService`, the recommended approach is to define a Protobuf `Msg` service. Each module has exactly one Protobuf `Msg` service defined in `tx.proto` and there is an RPC service method for each message type in the module. The Protobuf message service implicitly defines the interface layer of the state mutating processes contained within the module.
 
 How does all of this translate into code? Here's an example `MsgService` from the [bank module](https://docs.cosmos.network/master/modules/bank/):
 
@@ -127,7 +127,7 @@ With the messages defined, you need to declare how the message should be handled
 2. Writing the code that handles the message and places the new game in the storage.
 3. Putting hooks and callbacks at the right places in the general message handling.
 
-Fortunately **Starport** can assist you with creating what is, in essence, boilerplate (points 1 and 3 above).
+Fortunately, **Starport** can assist you with creating what is, in essence, boilerplate (points 1 and 3 above).
 
 <HighlightBox type="tip">
 
@@ -135,7 +135,7 @@ For more details about Starport, if you want to go beyond these out-of-context c
 
 </HighlightBox>
 
-In fact, Starport can help you create all that plus the `MsgCreateGame` and `MsgCreateGameResponse` objects with this command:
+Starport can help you create all that plus the `MsgCreateGame` and `MsgCreateGameResponse` objects with this command:
 
 ```sh
 $ starport scaffold message createGame red black --module checkers --response idValue
@@ -247,7 +247,7 @@ Your work is mostly done. Still, you will want to create the specific game creat
     }, nil
     ```
 
-Not to forget, and it is worth mentioning here:
+Not to forget and worth mentioning here:
 
 * If you encounter an internal error, you should `panic("This situation should not happen")`.
 * If you encounter a user or _regular_ error, like not having enough funds, you should return a regular `error`.
@@ -299,7 +299,7 @@ You can already begin contemplating game-theoretical situations for your checker
 
 What would happen if one of the two players has accepted the game by playing, but the other player has neither accepted nor rejected the game? You can address this scenario by:
 
-* Having a timeout after which the game is canceled. And this cancelation could be handled automatically in ABCI's `EndBlock`, or rather its equivalent in the Cosmos SDK, without any of the players having to trigger the cancelation.
+* Having a timeout after which the game is canceled. This cancelation could be handled automatically in ABCI's `EndBlock`, or rather its equivalent in the Cosmos SDK, without any of the players having to trigger the cancelation.
 * Keeping an index as a First-In-First-Out (FIFO) list or a list of un-started games ordered by their cancelation time, so that this automatic trigger does not consume too many resources.
 
 What would happen if the player, whose turn it is, never shows up or never sends a valid transaction? To ensure functionality for your checkers application you can consider:
@@ -311,6 +311,6 @@ In general terms, you could add `timeout: Timestamp` to your `StoredGame` and up
 
 Of note is that there are no _open_ challenges, meaning a player cannot create a game where the second player is unknown until someone steps in. So player matching is left outside of the blockchain. It is left to the enterprising student to incorporate it inside the blockchain by changing the necessary models.
 
-If you'd like to get started on building your own checkers game, you can head straight to the main exercise in [My Own Chain](../5-my-own-chain/01-index).
+If you would like to get started on building your own checkers game, you can head straight to the main exercise in [My Own Chain](../5-my-own-chain/01-index).
 
 </ExpansionPanel>
