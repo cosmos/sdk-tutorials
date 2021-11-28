@@ -9,46 +9,40 @@ tag: deep-dive
 
 <HighlightBox type="info">
 
-Before proceeding, make sure you have all you need:
+Make sure you have all you need before proceeding:
 
 * You understand the concepts of [transactions](../3-main-concepts/05-transactions), [messages](../3-main-concepts/07-messages), and [Protobuf](../3-main-concepts/09-protobuf).
 * Have Go installed.
-* The checkers blockchain with the `MsgCreateGame` and its handling:
-    * Either because you followed the [previous steps](./03-starport-05-create-handling).
-    * Or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
+* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./03-starport-05-create-handling) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
 ).
 
-</HighlightBox>
-
-<HighlightBox type="tip">
-
-To see in detail what Starport creates, refer back to [Creating the Game Message](./03-starport-04-create-message.md). Here, it is sufficient to specify some aspects that different from this previous section.
+To see in detail what Starport creates refer back to [Creating the Game Message](./03-starport-04-create-message.md). To play a game it is sufficient to specify some aspects, which are different from this previous section.
 
 </HighlightBox>
 
-To play a game, a player only needs to specify:
+To play a game a player only needs to specify:
 
-* The ID of the game the player wants to join. Let's call the field `idValue`.
-* The initial positions of the pawn. Let's call the fields `fromX` and `fromY` and make them `uint`.
-* The final position of the pawn after a player's move. Let's call the fields `toX` and `toY`, to be `uint` too.
+* The ID of the game the player wants to join. Call the field `idValue`.
+* The initial positions of the pawn. Call the fields `fromX` and `fromY` and make them `uint`.
+* The final position of the pawn after a player's move. Call the fields `toX` and `toY` to be `uint` too.
 
-The player does not need to be explicitly added as a field in the message because, implicitly, the player **is** the signer of the message. Let's name the object `PlayMove`.
+The player does not need to be explicitly added as a field in the message because the player **is** implicitly the signer of the message. Name the object `PlayMove`.
 
 Unlike when creating the game, you may want to return more than just a game ID. You might want to return:
 
-* The game ID again. Let's also call this field `idValue`.
-* The captured piece, if any. Let's call the fields `capturedX` and `capturedY`.
-* The winner, if any, in the field `winner`.
+* The game ID again. Call this field `idValue`.
+* The captured piece, if any. Call the fields `capturedX` and `capturedY`.
+* The winner in the field `winner`.
 
 ## With Starport
 
-Now, Starport only creates a response object with a single field. You can update the object after Starport has run:
+Now Starport only creates a response object with a single field. You can update the object after Starport has run:
 
 ```sh
 $ starport scaffold message playMove idValue fromX:uint fromY:uint toX:uint toY:uint --module checkers --response idValue
 ```
 
-Once more, Starport creates all the necessary Protobuf files and the boilerplate for you. All you have left to do is:
+Starport once more creates all the necessary Protobuf files and the boilerplate for you. All you have left to do is:
 
 * Add the missing fields to the response in `proto/checkers/tx.proto`:
 
@@ -80,7 +74,7 @@ Once more, Starport creates all the necessary Protobuf files and the boilerplate
 
 ## The move handling
 
-`rules` represent the ready-made file with the rules of the game you imported earlier. Given that your code has to handle new error situations, declare them in `x/checkers/types/errors.go`:
+`rules` represent the ready-made file containing the rules of the game you imported earlier. Declare them in `x/checkers/types/errors.go` given your code has to handle new error situations:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/types/errors.go#L14-L18]
 ErrGameNotFound     = sdkerrors.Register(ModuleName, 1104, "game by id not found: %s")
@@ -89,7 +83,7 @@ ErrNotPlayerTurn    = sdkerrors.Register(ModuleName, 1106, "player tried to play
 ErrWrongMove        = sdkerrors.Register(ModuleName, 1107, "wrong move")
 ```
 
-The steps replacing the `TODO` are:
+Take the following steps to replace the `TODO`:
 
 1. Fetch the stored game information:
 
@@ -102,7 +96,7 @@ The steps replacing the `TODO` are:
 
     Using the [`Keeper.GetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/keeper/stored_game.go#L17) function created by Starport.
 
-2. Is the player legitimate?
+2. Is the player legitimate? Check with:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc/x/checkers/keeper/msg_server_play_move.go#L22-L29]
     var player rules.Player
@@ -115,7 +109,7 @@ The steps replacing the `TODO` are:
     }
     ```
 
-    Using the certainty that the `MsgPlayMove.Creator` has been verified [by way of its signature](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/types/message_play_move.go#L29-L35).
+    Using the certainty that the `MsgPlayMove.Creator` has been verified [by its signature](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/types/message_play_move.go#L29-L35).
 
 3. Instantiate the board to implement the rules:
 
@@ -128,7 +122,7 @@ The steps replacing the `TODO` are:
 
     Good thing you previously created [this helper](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/types/full_game.go#L24-L33).
 
-4. Is it the player's turn?
+4. Is it the player's turn? Check with:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc/x/checkers/keeper/msg_server_play_move.go#L36-L38]
     if !game.TurnIs(player) {
@@ -158,7 +152,7 @@ The steps replacing the `TODO` are:
 
     Again using the rules proper [`Move`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/rules/checkers.go#L274-L301) function.
 
-6. Prepare the updated board to be stored, and store the information:
+6. Prepare the updated board to be stored and store the information:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc/x/checkers/keeper/msg_server_play_move.go#L56-L58]
     storedGame.Game = game.String()
@@ -166,7 +160,7 @@ The steps replacing the `TODO` are:
     k.Keeper.SetStoredGame(ctx, storedGame)
     ```
 
-    Updating the fields that were modified. Using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/keeper/stored_game.go#L10) function just as when you originally created and saved the game.
+    Updating the fields that were modified using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/keeper/stored_game.go#L10) function just as when you created and saved the game.
 
 7. Return relevant information regarding the move's result:
 
@@ -179,12 +173,12 @@ The steps replacing the `TODO` are:
     }, nil
     ```
 
-    If you don't, the `Captured` and `Winner` information would be lost. Or, more accurately, one would have to replay the transaction to find out the values. Better be a good citizen and make this information easily accessible.
+    The `Captured` and `Winner` information would be lost if you do not. More accurately, one would have to replay the transaction to find out the values. Better be a good citizen and make this information easily accessible.
 
-That is all there is to it: good preparation and the use of Starport yield rewards.
+That is all there is to it: good preparation and the use of Starport.
 
 ## Next up
 
-You are on a roll, two `sdk.Msg` down. Before you add a third one, to let a player [reject a game](./3-starport-08-reject-game), it would be a good idea to add events to the existing message handlers, for relevant information to surface even more elegantly. That's the object of the [next section](./03-starport-07-events).
+You are on a roll and two `sdk.Msg` are down. Before you add a third one to let a player [reject a game](./3-starport-08-reject-game), it would be a good idea to add events to the existing message handlers for relevant information to surface even more elegantly. That is the object of the [next section](./03-starport-07-events).
 
-If you want to skip far ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](./03-starport-15-can-play).
+If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](./03-starport-15-can-play).

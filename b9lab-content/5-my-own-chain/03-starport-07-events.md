@@ -6,23 +6,34 @@ description: Inform your players
 
 # Adding Events
 
-Now that you have [added the possible actions](./03-starport-06-play-game.md), including their return values, use events to alert/notify players.
+<HighlightBox type="info">
 
-Imagine a potential or current player waiting for their turn. It is not practical to look at all the transactions and search for the ones signifying the player's turn. It is better to instead listen to known events that let determine whose player's turn it is.
+Make sure you have all you need before proceeding:
+
+* You understand the concepts of [transactions](../3-main-concepts/05-transactions), [messages](../3-main-concepts/07-messages), and [Protobuf](../3-main-concepts/09-protobuf).
+* Have Go installed.
+* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./03-starport-05-create-handling) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
+).
+
+</HighlightBox>
+
+Use events to alert/notify players now that you have [added the possible actions](./03-starport-06-play-game.md) including their return values.
+
+Imagine a potential or current player waiting for their turn. It is not practical to look at all the transactions and search for the ones signifying the player's turn. It is better to listen to known events that let determine whose player's turn it is.
 
 This is where events come in. Adding events to your application is as simple as:
 
 1. Defining the events you want to use.
-2. Emitting them at the right locations.
+2. Emitting the events at the right locations.
 
 ## Game created event
 
-Let's start with the event that announces the creation of a new game. The goal is to:
+Start with the event that announces the creation of a new game. The goal is to:
 
-* Inform/alert the concerned players (the players of the game).
+* Inform/alert the players of the game.
 * Make it easy for the players to find the relevant game.
 
-So, define some new keys in `x/checkers/types/keys.go`:
+So define some new keys in `x/checkers/types/keys.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/types/keys.go#L34-L39]
 const (
@@ -49,11 +60,11 @@ ctx.EventManager().EmitEvent(
 )
 ```
 
-The only thing left to do is to implement this correspondingly in the GUI or include a server listening for such events.
+The only thing left to do is to implement this correspondingly in the GUI or include a server to listen for such events.
 
 ## Player moved event
 
-Since you also created a transaction to play a move, it is expected to inform the opponent about:
+The created transaction to play a move is expected to inform the opponent about:
 
 * Which player is relevant.
 * Which game does the move relate to.
@@ -61,9 +72,9 @@ Since you also created a transaction to play a move, it is expected to inform th
 * What the move's outcome was.
 * Whether the game was won.
 
-Contrary to the "create game" event, the players know which game IDs to keep an eye out for. So, there is no need to repeat the players' addresses. The game ID is information enough.
+Contrary to the "create game" event, the players know which game IDs to keep an eye out for. So there is no need to repeat the players' addresses. The game ID is information enough.
 
-Similarly, you define new keys in `x/checkers/types/keys.go`:
+You define new keys in `x/checkers/types/keys.go` similarly:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/types/keys.go#L41-L48]
 const (
@@ -91,5 +102,6 @@ ctx.EventManager().EmitEvent(
     ),
 )
 ```
+## Next up
 
-That is it: you have emitted two events that inform external systems of step changes in the lifecycle of a game. Time to make it possible for a player to reject a game.
+That is it: you have emitted two events that inform external systems of step changes in the lifecycle of a game. Time to make it possible for a player to reject a game. Find out how to reject a game in the [next section](./03-starport-08-reject-game).
