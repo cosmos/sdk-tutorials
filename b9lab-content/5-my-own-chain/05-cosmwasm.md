@@ -101,7 +101,7 @@ Install [jq](https://stedolan.github.io/jq/), which is a lightweight and flexibl
 $ JSON=$(jq -n --arg addr $(wasmd keys show -a wallet) '{"denom":"upebble","address":$addr}') && curl -X POST --header "Content-Type: application/json" --data "$JSON" https://faucet.pebblenet.cosmwasm.com/credit
 ```
 
-Do the same for `wallet2`. Check the balances of both wallets afterwards:
+Do the same for `wallet2`. Check the balances of both wallets afterward:
 
 ```bash
 $ wasmd query bank balances $(wasmd keys show wallet --address) --node $RPC
@@ -183,7 +183,7 @@ Check the contract with:
 $ wasmd query wasm list-contract-by-code $CODE_ID --node $RPC --output json
 ```
 
-In the response you can find the contract address. Use it to fetch more information and replace `$CONTRACT` in the following command with the address you got:
+You can find the contract address in the response. Use it to fetch more information and replace `$CONTRACT` in the following command with the address you got:
 
 ```bash
 $ wasmd query wasm contract $CONTRACT --node $RPC
@@ -262,7 +262,7 @@ At this point, you have:
 * [Understood how Cosmos and the Cosmos SDK fit in the overall development of blockchain technology.](../2-what-is-cosmos/02-blockchain-and-cosmos)
 * [A better sense of what comprises the Cosmos ecosystem.](../2-what-is-cosmos/03-cosmos-ecosystem)
 * [Set up a wallet, got some ATOM tokens, and staked them.](../2-what-is-cosmos/04-atom-staking)
-* [Learned more about the elements of an application architecture.](../3-main-concepts/02-architecture)
+* [Learned more about the elements of application architecture.](../3-main-concepts/02-architecture)
 * [Understood and applied main concepts of the Cosmos SDK.](../3-main-concepts/01-index)
 * [Ran a node, API, and CLI for a Cosmos chain.](../4-running-a-chain/04-node-api-and-cli)
 * [Used Starport to develop your chain.](./02-starport)
