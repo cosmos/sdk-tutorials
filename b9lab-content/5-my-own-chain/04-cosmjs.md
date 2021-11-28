@@ -7,6 +7,18 @@ tag: deep-dive
 
 # CosmJS
 
+<HighlightBox type="info">
+
+Let's look at CosmJS. This tool provides a TypeScript library for the Cosmos SDK. Reading the following sections as a preparation is recommended:
+
+* [Messages](../3-main-concepts/07-messages)
+* [Modules](../3-main-concepts/08-modules)
+* [Queries](../4-main-concepts/12-queries)
+* [Protobuf](../3-main-concepts/09-protobuf)
+* [Starport](./02-starport)
+
+</HighlightBox>
+
 [CosmJS](https://github.com/cosmos/cosmjs) is a TypeScript library for the Cosmos SDK. It is a [powerful tool](https://github.com/cosmos/cosmjs/wiki/What-can-CosmJS-do-for-me%3F), which can be used to create wallets, explorers, IBC relayers, and other decentralized applications (dApps). It is written in TypeScript and therefore, can be used on the client- or server-side.
 
 In this section, you will have a look at generated code by Starport to understand the basics of the CosmJS library.

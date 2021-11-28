@@ -7,6 +7,16 @@ tag: deep-dive
 
 # CosmWasm
 
+<HighlightBox type="info">
+
+The last section of this course looks at CosmWasm. Discover how multi-chain smart contracts become possible. The following sections are recommended as a preparation:
+
+* [Transactions](../3-main-concepts/05-transactions)
+* [Messages](../3-main-concepts/07-messages)
+* [Queries](../4-main-concepts/12-queries)
+
+</HighlightBox>
+
 [CosmWasm](https://cosmwasm.com/) offers multi-chain solutions for smart contracts through an actor-model design focused on providing a library.
 
 <ExpansionPanel title="More on the actor model">

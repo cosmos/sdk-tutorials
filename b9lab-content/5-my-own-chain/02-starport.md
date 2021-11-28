@@ -7,6 +7,22 @@ tag: deep-dive
 
 # Starport
 
+<HighlightBox type="info">
+
+It is time to take a closer look at Starport. Before diving into the details of how Starport helps you scaffold the basics for your application blockchain make sure to understand the main concepts presented in the following sections:
+
+* [A Blockchain App Architecture](../3-main-concepts/02-architecture)
+* [Accounts](../3-main-concepts/04-accounts)
+* [Transactions](../3-main-concepts/05-transactions)
+* [Messages](../3-main-concepts/07-messages)
+* [Modules](../3-main-concepts/08-modules)
+* [Protobuf](../3-main-concepts/09-protobuf)
+* [BaseApp](../3-main-concepts/11-base-app)
+
+You can follow a hands-on exercise for Starport in the sections that follow this introduction.
+
+</HighlightBox>
+
 The Cosmos SDK provides the building blocks for a complete Tendermint blockchain, which implements the Inter-Blockchain Communication Protocol (IBC). The _BaseApp_ of the Cosmos SDK assembles these building blocks and provides a fully-running blockchain. All there is left to do for the specific blockchain application is to create specific modules and integrate them with BaseApp to make the application _your own_.
 
 Starport assists with scaffolding modules and integrating them with BaseApp. Starport is a command-line tool that writes code files and updates them when instructed to do so. If you come from an _on Rails_ world, the concept will look familiar to you.
@@ -89,7 +105,7 @@ The `checkers` folder contains several generated files and directories that make
 
 * `app`. A folder for the application.
 * `cmd`. A folder for the commands.
-* `proto`. A folder for the Protobuff definitions.
+* `proto`. A folder for the Protobuf definitions.
 * `vue`. A folder for the UI.
 
 <HighlightBox type="tip">
