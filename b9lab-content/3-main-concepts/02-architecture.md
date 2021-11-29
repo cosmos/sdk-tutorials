@@ -7,13 +7,13 @@ tag: fast-track
 
 # A Blockchain App Architecture
 
-In this section, let's take a closer look at the application architecture underlying blockchains build with the Cosmos SDK. You will look into Tendermint, consensus in Cosmos, the Application Blockchain Interface, the Cosmos SDK, and state machines. This section will give you a better feeling for the application architecture in Cosmos.
+In this section, let's take a closer look at the application architecture underlying blockchains built with the Cosmos SDK. You will look into Tendermint, consensus in Cosmos, the Application Blockchain Interface, the Cosmos SDK, and state machines. This section will give you a better feeling for the application architecture in Cosmos.
 
 ## What is Tendermint?
 
-Created in 2014, [Tendermint](https://tendermint.com/) accelerates the development of distinct blockchains by providing a ready-made networking and consensus solution. Networking and consensus do not have to be recreated by developers for each case. You may already be using Tendermint without being aware of it, as other blockchains like [Hyperledger Burrow](https://hyperledger.github.io/burrow/#/) and the [Binance Chain](https://www.binance.org/en/smartChain) use Tendermint.
+Created in 2014, [Tendermint](https://tendermint.com/) accelerates the development of distinct blockchains by providing a ready-made networking and consensus solution. Networking and consensus do not have to be recreated by developers for each case. You may already be using Tendermint without being aware of it as other blockchains like [Hyperledger Burrow](https://hyperledger.github.io/burrow/#/) and the [Binance Chain](https://www.binance.org/en/smartChain) use Tendermint.
 
-Tendermint modules **attend to consensus and networking**. These are two important components of any blockchain. This frees developers to focus on the application level without descending into lower-level blockchain concerns such as peer discovery, block propagation, consensus, and transaction finalization. Without Tendermint, developers would be forced to build software to address these concerns, which would add additional time, complexity, and cost to the development of their applications.
+Tendermint modules **attend to consensus and networking**. These are two important components of any blockchain. This frees developers to focus on the application level without descending into lower-level blockchain concerns such as peer discovery, block propagation, consensus, and transaction finalization. Without Tendermint, developers would be forced to build software to address these concerns which would add additional time, complexity, and cost to the development of their applications.
 
 ![Blockchain application architecture overview](./images/architecture_overview.png)
 
@@ -57,7 +57,7 @@ Even though validation is delegated to a subset of all network nodes, the proces
 
 In any known blockchain, a change in the implementation requires an upgrade to the node software running on each node. In a disorderly process with voluntary participation, this can result in a hard fork - a situation in which one constituency forges ahead with the old rules and another adopts new rules. While this arrangement has positive aspects and proponents, it also has clear disadvantages in settings where **certainty** is a strict requirement. For example, uncertainty about transaction finality regardless of the degree of uncertainty may be unacceptable in settings that are concerned with authoritative registries and large assets.
 
-In a Tendermint blockchain, transactions are irreversibly finalized upon block creation and upgrades are themselves governed by the block creation and validation process. This leaves no room for uncertainty. Either the nodes agree to simultaneously upgrade their protocol, or the upgrade proposal fails.
+In a Tendermint blockchain transactions are irreversibly finalized upon block creation and upgrades are themselves governed by the block creation and validation process. This leaves no room for uncertainty. Either the nodes agree to simultaneously upgrade their protocol, or the upgrade proposal fails.
 
 Validators are the ones who vote. This means that delegators should be demanding when delegating as they also lend their vote to the validator.
 
@@ -173,7 +173,7 @@ It is time to look at some details when it comes to transactions and blocks.
 
 ### `CheckTx`
 
-Many transactions that could be broadcast should not be broadcast. Examples include malformed transactions and spam-like artifacts. Tendermint cannot determine the transaction interpretation on its own because it is agnostic to it. Therefore, the Application Blockchain Interface includes a `CheckTx` method. Tendermint uses the method to ask the application layer if a transaction is valid. Applications implement this function.
+Many transactions that could be broadcast should not be broadcast. Examples include malformed transactions and spam-like artifacts. Tendermint cannot determine the transaction interpretation on its own because it is agnostic to it. To address this the Application Blockchain Interface includes a `CheckTx` method. Tendermint uses the method to ask the application layer if a transaction is valid. Applications implement this function.
 
 ### `DeliverTx`
 
@@ -207,7 +207,7 @@ This **design project** will evolve in stages as you learn more about the Cosmos
 
 <HighlightBox type="tip">
 
-This is meant as a mental exercise. If you want to go from the design phase to the **implementation** phase, head to the [My Own Cosmos Chain](../5-my-own-chain/01-index.md) section.
+This is meant as a design exercise. If you want to go from the design phase to the **implementation** phase, head to the [My Own Cosmos Chain](../5-my-own-chain/01-index.md) section.
 
 </HighlightBox>
 
@@ -223,7 +223,7 @@ When you revisit this design exercise in the next chapters, the goal is to impro
 
 </HighlightBox>
 
-There is a lot you need to take care of beyond the rules of the game. As a start, you ought to simplify as much as possible. Have a look at these [ABCI specs](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md) to see what the application needs to comply with ABCI. Try to figure out which barebones you would use to make your first, imperfect checkers game blockchain.
+There is a lot you need to take care of beyond the rules of the game. Simplify as much as possible. Have a look at these [ABCI specs](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md) to see what the application needs to comply with ABCI. Try to figure out which barebones you would use to make your first, imperfect checkers game blockchain.
 
 ### "Make" the state machine
 
@@ -255,14 +255,15 @@ Store the board at `/store/board` and return it in the response's `Value` when r
 func Parse(s string) (*Game, error)
 ```
 
-The `String()` function does not save the `.Turn` field. You need to store whose turn it is to play on your own. You choose to have a `string` at `/store/turn` for the color of the player.
+The `String()` function does not save the `.Turn` field. You need to store whose turn it is to play on your own. Choose a `string` at `/store/turn` for the color of the player.
 
 Your application needs its own database to store the state. The application needs to store a state at a certain Merkle root value to be able to recall past states at a later date. This is another implementation _detail_ that you need to address when creating your application.
 
 #### `InitChain`: The initial chain state
 
-[That's](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#initchain) where your only game is initialized. Tendermint sends `app_state_bytes: bytes` to your application with the initial (genesis) state of the blockchain. You already know what it would look like to represent a single game. Your application is a good sport so it:
+[That's](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#initchain) where your only game is initialized. Tendermint sends `app_state_bytes: bytes` to your application with the initial (genesis) state of the blockchain. You already know what it would look like to represent a single game. 
 
+Your application:
 * Takes the initial state in.
 * Saves it in its database along with [black](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L124) having to play next.
 * Returns in `app_hash: bytes` the Merkle root hash corresponding to the genesis state.
@@ -295,7 +296,7 @@ It is better **not** to check if the move is valid according to the rules of the
 func (game *Game) ValidMove(src, dst Pos) bool
 ```
 
-Checking whether a move is valid with regards to the board requires knowledge of the board state when the transaction is included in a block. The board is updated only up to the point where the transactions have been delivered. You may have a situation where two transactions are sent one after the other and both are valid. If you tested the move in the second transaction against the board state before the first unconfirmed move, it would appear that the second move is invalid. Therefore, testing a move on the board at `CheckTx` time should be avoided.
+Checking whether a move is valid with regards to the board requires knowledge of the board state when the transaction is included in a block. The board is updated only up to the point where the transactions have been delivered. You may have a situation where two transactions are sent one after the other and both are valid. If you tested the move in the second transaction against the board state before the first unconfirmed move, it would appear that the second move is invalid. Testing a move on the board at `CheckTx` time should be avoided.
 
 Check the _possibility_ of validity of the transaction in `CheckTx` and reject the transaction if it is malformed, contains invalid inputs, etc., and cannot _possibly_ be acceptable, but refrain from confirming that it will be successful according to concerns that depend on context. 
 
@@ -362,9 +363,9 @@ Assume that you want to tally what happened in the block. You return this aggreg
 
 #### `Commit`: Your work here is done
 
-The block, which has previously ended, is now [confirmed](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#commit). The application needs to save its state to storage, its database, and return as `data: []byte` the Merkle root hash of the blockchain's state, which includes `/store/board`. This hash needs to be deterministic after the sequence of the same `BeginBlock`, the same `DeliverTx`'s in the same order and the same `EndBlock` as mentioned in [the documentation](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#determinism).
+The block is now [confirmed](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#commit). The application needs to save its state to storage, its database, and return as `data: []byte` the Merkle root hash of the blockchain's state, which includes `/store/board`. This hash needs to be deterministic after the sequence of the same `BeginBlock`, the same `DeliverTx`'s in the same order and the same `EndBlock` as mentioned in [the documentation](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#determinism).
 
-The application may also keep a pointer in its database as to which state is the latest so it can purge the board from its memory after having returned and saved. The next `BeginBlock` will inform the application about which state to load. The application ought to keep the state in memory to quickly build on it if the next `BeginBlock` fails to mention `AppHash` or mentions the same.
+The application may also keep a pointer in its database as to which state is the latest so it can purge the board from its memory after having returned and saved. The next `BeginBlock` will inform the application about which state to load. The application should keep the state in memory to quickly build on it if the next `BeginBlock` fails to mention `AppHash` or mentions the same.
 
 ### What if I like extreme serialization?
 
@@ -388,10 +389,10 @@ You have:
 
 ## Next up
 
-You have waved your hands as to how you would create a state machine for the checkers game. You surely have already spotted a good number of shortcomings in your game blockchain as it is presently conceived: 
+You probably have already spotted a good number of shortcomings in your game blockchain as it is presently designed: 
 
 * Anyone, including the opponent, can post an anonymous transaction and play instead of the intended player. This makes it impossible to know who did what. You need to find a way to identify the right player. The Cosmos SDK comes to the rescue with [accounts and signatures](./04-accounts).
-* You currently have a single game. Multiple games running in parallel all in a performant store with an elaborate data model is preferable. You need a well-defined store. Why not take a look at the Cosmos SDK's [key store](./10-multistore-keepers)?
+* You currently have a single game. Multiple games running in parallel would be better. You need a well-defined store. Why not take a look at the Cosmos SDK's [key store](./10-multistore-keepers)?
 * It would be good if you had an elegant way to serialize your data objects of interest and your transactions? [Protobuf](./09-protobuf) can help with this.
 * You want to penalize spam and bad transactions and also to be able to play for money? Enter tokens defined in another [existing Cosmos SDK module](./08-modules).
 * There is a new transaction type to _create a game_. You can count on Cosmos SDK's [context object](./14-context) to tailor gas costs according to the transaction type.
@@ -400,5 +401,3 @@ You have waved your hands as to how you would create a state machine for the che
 * You want to use Tendermint's events and notify players when it’s their turn? Cosmos SDK provides that with [events](./13-events).
 * You want to easily add changes to your system in the future after production? You can handle it with Cosmos SDK [migrations](./15-migrations).
 * You want to allow players to play for money with different tokens? Good thing the Cosmos SDK already integrates [IBC](./16-ibc) for tokens coming from other blockchains.
-
-The Cosmos SDK assists in attending to all these concerns without you having to reinvent the wheel.
