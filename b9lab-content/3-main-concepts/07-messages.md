@@ -37,7 +37,7 @@ When an account signs a message it signs an array of bytes. This array of bytes 
 
 ## Messages and the transaction lifecycle
 
-Transactions containing one or more valid messages are serialized and confirmed by the Tendermint consensus engine. As you might recall, Tendermint is agnostic to the transaction interpretation and has absolute finality. So, when a transaction is included in a block, it is confirmed and finalized with no possibility of chain re-organization or cancellation.
+Transactions containing one or more valid messages are serialized and confirmed by the Tendermint consensus engine. As you might recall, Tendermint is agnostic to the transaction interpretation and has absolute finality. When a transaction is included in a block, it is confirmed and finalized with no possibility of chain re-organization or cancellation.
 
 The confirmed transaction is relayed to the Cosmos SDK application for interpretation. Each message is routed to the appropriate module via `BaseApp`’s `MsgServiceRouter`. `BaseApp` decodes each message contained in the transaction. Each module has its own `MsgService` that processes each received message.
 
@@ -91,7 +91,7 @@ In the [previous](./02-architecture) code examples, the ABCI application was awa
 
 ## What you need
 
-Let's begin by describing the messages you need for your checkers application to have a solid starting point before diving into the code:
+Begin by describing the messages you need for your checkers application to have a solid starting point before diving into the code:
 
 1. In the former _Play_ transaction, your four integers need to move from the transaction to an `sdk.Msg`, wrapped in said transaction. Four flat `int` values are no longer sufficient as you need to follow the `sdk.Msg` interface, identify the game for which a move is meant, and distinguish a move message from other message types.
 2. You need to add a message type for creating a new game. When this is done, a player can create a new game and this new game will mention the other players. A generated ID identifies this newly created game and is returned to the message creator.
@@ -126,14 +126,6 @@ With the messages defined, you need to declare how the message should be handled
 1. Describing how the messages are serialized.
 2. Writing the code that handles the message and places the new game in the storage.
 3. Putting hooks and callbacks at the right places in the general message handling.
-
-Fortunately, **Starport** can assist you with creating what is, in essence, boilerplate (points 1 and 3 above).
-
-<HighlightBox type="tip">
-
-For more details about Starport, if you want to go beyond these out-of-context code samples and instead see more in detail how to define all this, head to the section on [how to build your own chain](../5-my-own-chain/01-index).
-
-</HighlightBox>
 
 Starport can help you create all that plus the `MsgCreateGame` and `MsgCreateGameResponse` objects with this command:
 
@@ -202,7 +194,7 @@ Starport significantly reduces the amount of work a developer has to do to build
 
 ## What is left to do?
 
-Your work is mostly done. Still, you will want to create the specific game creation code to replace `// TODO: Handling the message`. For this, you will need to:
+Your work is mostly done. You will want to create the specific game creation code to replace `// TODO: Handling the message`. For this, you will need to:
 
 1. Decide on how to create a new and unique game ID: `newIndex`.
 
@@ -254,7 +246,7 @@ Not to forget and worth mentioning here:
 
 ## The other messages
 
-You can also implement other messages. Without repeating all of the above, you can include:
+You can also implement other messages.
 
 1. The **play message**, which means implicitly accepting the challenge when playing for the first time. If you create it with Starport, use:
     ```sh
@@ -274,7 +266,7 @@ You can also implement other messages. Without repeating all of the above, you c
     }
     ```
 
-2. The **reject message**, which should be valid only if the player never played any moves in this game. Again, if you create it with Starport:
+2. The **reject message**, which should be valid only if the player never played any moves in this game.
 
     ```sh
     $ starport scaffold message rejectGame idValue --module checkers
@@ -295,14 +287,12 @@ You can also implement other messages. Without repeating all of the above, you c
 
 ## Other considerations
 
-You can already begin contemplating game-theoretical situations for your checkers application. After all, a game involves two parties/players and they may not always play nice.
-
 What would happen if one of the two players has accepted the game by playing, but the other player has neither accepted nor rejected the game? You can address this scenario by:
 
 * Having a timeout after which the game is canceled. This cancelation could be handled automatically in ABCI's `EndBlock`, or rather its equivalent in the Cosmos SDK, without any of the players having to trigger the cancelation.
 * Keeping an index as a First-In-First-Out (FIFO) list or a list of un-started games ordered by their cancelation time, so that this automatic trigger does not consume too many resources.
 
-What would happen if the player, whose turn it is, never shows up or never sends a valid transaction? To ensure functionality for your checkers application you can consider:
+What would happen if a player stops taking turns? To ensure functionality for your checkers application you can consider:
 
 * Having a timeout after which the game is forfeited. You could also automatically charge the forgetful player, if and when you implement a wager system.
 * Keeping an index of games that could be forfeited. If both timeouts are the same, you can keep a single FIFO list of games, so you can clear them from the top of the list as necessary.
