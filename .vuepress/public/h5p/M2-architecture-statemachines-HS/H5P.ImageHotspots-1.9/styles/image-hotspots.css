@@ -1,10 +1,5 @@
 @charset "UTF-8";
-@import url(https://rsms.me/inter/inter.css);
 
-.h5p-container {
-  font-family: Inter var;
-  color: white;
-}
 .h5p-image-hotspots {
   background-color: #FFF;
   color: #333;
@@ -109,9 +104,10 @@
   padding: 0.3em;
   height: 100%;
   max-height: 100%;
-  background: #171717;
+  background: white;
+  background: rgba(255,255,255);
   border-radius: 3px;
-  color: white;
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
   box-sizing: border-box;
   transition: left 0.3s ease-in-out;
   cursor: auto;
