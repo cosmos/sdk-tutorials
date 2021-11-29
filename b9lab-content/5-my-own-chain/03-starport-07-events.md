@@ -9,33 +9,31 @@ tag: deep-dive
 
 <HighlightBox type="info">
 
-Before proceeding, make sure you have all you need:
+Make sure you have all you need before proceeding:
 
 * You understand the concepts of [events](../3-main-concepts/13-events).
 * Have Go installed.
-* The checkers blockchain with the `MsgPlayMove` and its handling:
-    * Either because you followed the [previous steps](./03-starport-06-play-game).
-    * Or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/play-move-handler).
+* The checkers blockchain with the `MsgPlayMove` and its handling. Either because you followed the [previous steps](./03-starport-06-play-game) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/play-move-handler).
 
 </HighlightBox>
 
 Now that you have [added the possible actions](./03-starport-06-play-game.md), including their return values, use events to alert/notify players.
 
-Imagine a potential or current player waiting for their turn. It is not practical to look at all the transactions and search for the ones signifying the player's turn. It is better to instead listen to known events that let determine whose player's turn it is.
+Imagine a potential or current player waiting for their turn. It is not practical to look at all the transactions and search for the ones signifying the player's turn. It is better to listen to known events that let determine whose player's turn it is.
 
 This is where events come in. Adding events to your application is as simple as:
 
 1. Defining the events you want to use.
-2. Emitting them at the right locations.
+2. Emitting the events at the right locations.
 
 ## Game created event
 
-Let's start with the event that announces the creation of a new game. The goal is to:
+Start with the event that announces the creation of a new game. The goal is to:
 
-* Inform/alert the concerned players (the players of the game).
+* Inform/alert the players of the game.
 * Make it easy for the players to find the relevant game.
 
-So, define some new keys in `x/checkers/types/keys.go`:
+So define some new keys in `x/checkers/types/keys.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/types/keys.go#L34-L39]
 const (
@@ -62,11 +60,11 @@ ctx.EventManager().EmitEvent(
 )
 ```
 
-The only thing left to do is to implement this correspondingly in the GUI or include a server listening for such events.
+The only thing left to do is to implement this correspondingly in the GUI or include a server to listen for such events.
 
 ## Player moved event
 
-Since you also created a transaction to play a move, it is expected to inform the opponent about:
+The created transaction to play a move is expected to inform the opponent about:
 
 * Which player is relevant.
 * Which game does the move relate to.
@@ -76,7 +74,7 @@ Since you also created a transaction to play a move, it is expected to inform th
 
 Contrary to the _create game_ event, which alerted the players about a new game, the players now know which game IDs to keep an eye out for. So, there is no need to repeat the players' addresses. The game ID is information enough.
 
-Similarly, you define new keys in `x/checkers/types/keys.go`:
+You define new keys in `x/checkers/types/keys.go` similarly:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/types/keys.go#L41-L48]
 const (
@@ -104,6 +102,7 @@ ctx.EventManager().EmitEvent(
     ),
 )
 ```
+## Next up
 
 That is it: you have emitted two events that inform external systems of step changes in the lifecycle of a game. The Cosmos SDK made it easy for you to add events.
 

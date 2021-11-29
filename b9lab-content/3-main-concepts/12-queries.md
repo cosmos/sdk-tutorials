@@ -7,25 +7,42 @@ tag: deep-dive
 
 # Queries
 
-A query is a request for information made by end-users of an application through an interface and processed by a full node. Available information includes:
+<HighlightBox type="info">
 
-* Information about the network.
-* Information about the application itself.
-* Information about the application state.
+In this section, you will discover queries. They are one of two primary objects handled by modules. Make sure to be all set up by reading the previous sections:
 
-Queries do not require consensus to be processed as they do not trigger state transitions and can, therefore, be fully handled independently by a full node.
-
-<HighlightBox info=”info”>
-
-To get a clear overview of the query lifecycle, visit the [detailed Cosmos SDK documentation](https://docs.cosmos.network/master/basics/query-lifecycle.html) and learn how a query is created, handled, and responded to through various means.
+* [A Blockchain App Architecture](./02-architecture)
+* [Accounts](./04-accounts)
+* [Transactions](./05-transactions)
+* [Modules](08-modules)
 
 </HighlightBox>
 
-<ExpansionPanel title="Show me some code for my checkers' blockchain">
+A query is a request for information made by end-users of an application through an interface and processed by a full node. Available information includes:
 
-If you have used Starport so far, it has already created queries for you, such as queries to get one stored game or a list of them. However, you still do not have a way to check whether a move works/is valid. It would be wasteful to send a transaction with an invalid move. It is better to catch such a mistake before submitting a transaction. So, you are going to create a query to know whether a move is valid.
+* Information about the network
+* Information about the application itself
+* Information about the application state
 
-Again, Starport can help you here with a simple command:
+Queries do not require consensus to be processed as they do not trigger state transitions. Therefore, queries can be fully handled independently by a full node.
+
+<HighlightBox info=”info”>
+
+Visit the [detailed Cosmos SDK documentation](https://docs.cosmos.network/master/basics/query-lifecycle.html) to get a clear overview of the query lifecycle and learn how a query is created, handled, and responded to.
+
+</HighlightBox>
+
+## Next up
+
+You can now continue with the [next section](13-events) if you want to skip ahead to read up on events.
+
+If you prefer to see some code in action and continue with the checkers blockchain, take a look at the expandable box beneath.
+
+<ExpansionPanel title="Show me some code for my checkers blockchain">
+
+If you have used Starport so far, it has already created queries for you to get one stored game or a list of them. You still do not have a way to check whether a move works/is valid. It would be wasteful to send a transaction with an invalid move. It is better to catch such a mistake before submitting a transaction. So you are going to create a query to know whether a move is valid.
+
+Starport can again help you with a simple command:
 
 ```sh
 $ starport scaffold query canPlayMove idValue player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool
@@ -49,7 +66,7 @@ type QueryCanPlayMoveResponse struct {
 }
 ```
 
-It also created a function that looks familiar to you:
+It also creates a function that should looks familiar:
 
 ```go
 func (k Keeper) CanPlayMove(goCtx context.Context, req *types.QueryCanPlayMoveRequest) (*types.QueryCanPlayMoveResponse, error) {
@@ -62,7 +79,7 @@ func (k Keeper) CanPlayMove(goCtx context.Context, req *types.QueryCanPlayMoveRe
 
 So now you are left with filling in the gaps under `TODO`. Simply put:
 
-1. Is the game finished? For this one, you ought to add a `Winner` to your `StoredGame` first.
+1. Is the game finished? You should add a `Winner` to your `StoredGame` first.
 2. Is it an expected player?
 
     ```go
@@ -91,7 +108,7 @@ So now you are left with filling in the gaps under `TODO`. Simply put:
         }
     ```
 
-4. Attempt the move in memory, without committing any new state:
+4. Attempt the move in memory without committing any new state:
 
     ```go
     _, moveErr := fullGame.Game.Move(
@@ -123,8 +140,8 @@ So now you are left with filling in the gaps under `TODO`. Simply put:
 
 Note that the player's move will be tested against the latest validated state of the blockchain. It does not test against the intermediate state being calculated as transactions are delivered, nor does it test against the potential state that would result from delivering the transactions still in the transaction pool.
 
-In practice, a player can test their move only once the opponent's move is included in a previous block. Fortunately, these types of edge case scenarios are not common in our checkers game, and we can expect little to no effect on the user experience.
+A player can test their move only once the opponent's move is included in a previous block. These types of edge-case scenarios are not common in your checkers game and you can expect little to no effect on the user experience.
 
-Of course, this is not an exhaustive list of potential queries. Some examples of other possible queries would be to get a player's open games or to get a list of games that are timing out soon. It depends on the needs of your application and how much functionality you willingly provide.
+This is not an exhaustive list of potential queries. Some examples of other possible queries would be to get a player's open games or to get a list of games that are timing out soon. It depends on the needs of your application and how much functionality you willingly provide.
 
 </ExpansionPanel>

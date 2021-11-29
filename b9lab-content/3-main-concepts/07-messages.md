@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Messages
 
-<HighlightBox type="prereq">
+<HighlightBox type="info">
 
 In this section, you will take a closer look at messages, `Msg`. It is recommended to take a look at the following previous sections to better understand messages:
 
@@ -15,7 +15,7 @@ In this section, you will take a closer look at messages, `Msg`. It is recommend
 * [Accounts](./04-accounts)
 * [Transactions](./05-transactions)
 
-At the end of the section you can find a code example illustrating message creation and the inclusion of messages in transactions for your checkers blockchain.
+At the end of the section, you can find a code example illustrating message creation and the inclusion of messages in transactions for your checkers blockchain.
 
 Understanding `Msg` will help you prepare for the [next section on modules in the Cosmos SDK](./08-modules) as messages are a primary object handled by modules.
 
@@ -23,7 +23,7 @@ Understanding `Msg` will help you prepare for the [next section on modules in th
 
 Messages are one of two primary objects handled by a module in the Cosmos SDK. The other primary object handled by modules is queries. While messages inform the state and have the potential to alter it, queries inspect the module state and are always read-only.
 
-In the Cosmos SDK, a **transaction** contains **one or more messages**. After the transaction is included in a block by the consensus layer, the module processes the messages.
+In the Cosmos SDK, a **transaction** contains **one or more messages**. The module processes the messages after the transaction is included in a block by the consensus layer.
 
 <ExpansionPanel title="Signing a message">
 
@@ -37,15 +37,15 @@ When an account signs a message it signs an array of bytes. This array of bytes 
 
 ## Messages and the transaction lifecycle
 
-Transactions containing one or more valid messages are serialized and confirmed by the Tendermint consensus engine. As you might recall, Tendermint is agnostic to the transaction interpretation, and has absolute finality. So, when a transaction is included in a block, it is confirmed and finalized with no possibility of chain re-organization or cancellation.
+Transactions containing one or more valid messages are serialized and confirmed by the Tendermint consensus engine. As you might recall, Tendermint is agnostic to the transaction interpretation and has absolute finality. When a transaction is included in a block, it is confirmed and finalized with no possibility of chain re-organization or cancellation.
 
 The confirmed transaction is relayed to the Cosmos SDK application for interpretation. Each message is routed to the appropriate module via `BaseApp`’s `MsgServiceRouter`. `BaseApp` decodes each message contained in the transaction. Each module has its own `MsgService` that processes each received message.
 
 ## `MsgService`
 
-Although it is technically feasible to proceed to create a novel `MsgService`, the recommended approach is to define a Protobuf `Msg` service. Each module has exactly one Protobuf `Msg` service defined in `tx.proto` and there is a RPC service method for each message type in the module. The Protobuf message service implicitly defines the interface layer of the state mutating processes contained within the module.
+Although it is technically feasible to proceed to create a novel `MsgService`, the recommended approach is to define a Protobuf `Msg` service. Each module has exactly one Protobuf `Msg` service defined in `tx.proto` and there is an RPC service method for each message type in the module. The Protobuf message service implicitly defines the interface layer of the state mutating processes contained within the module.
 
-How does all of this translate into code? Here's an example `MsgService` from the [bank module](https://docs.cosmos.network/master/modules/bank/):
+How does all of this translate into code? Here's an example `MsgService` from the [`bank` module](https://docs.cosmos.network/master/modules/bank/):
 
 Example MsgService:
 
@@ -91,7 +91,7 @@ In the [previous](./02-architecture) code examples, the ABCI application was awa
 
 ## What you need
 
-Let's begin by describing the messages you need for your checkers application to have a solid starting point before diving into the code:
+Begin by describing the messages you need for your checkers application to have a solid starting point before diving into the code:
 
 1. In the former _Play_ transaction, your four integers need to move from the transaction to an `sdk.Msg`, wrapped in said transaction. Four flat `int` values are no longer sufficient as you need to follow the `sdk.Msg` interface, identify the game for which a move is meant, and distinguish a move message from other message types.
 2. You need to add a message type for creating a new game. When this is done, a player can create a new game and this new game will mention the other players. A generated ID identifies this newly created game and is returned to the message creator.
@@ -127,15 +127,7 @@ With the messages defined, you need to declare how the message should be handled
 2. Writing the code that handles the message and places the new game in the storage.
 3. Putting hooks and callbacks at the right places in the general message handling.
 
-Fortunately **Starport** can assist you with creating what is, in essence, boilerplate (points 1 and 3 above).
-
-<HighlightBox type="tip">
-
-For more details about Starport, if you want to go beyond these out-of-context code samples and instead see more in detail how to define all this, head to the section on [how to build your own chain](../5-my-own-chain/01-index).
-
-</HighlightBox>
-
-In fact, Starport can help you create all that plus the `MsgCreateGame` and `MsgCreateGameResponse` objects with this command:
+Starport can help you create all that plus the `MsgCreateGame` and `MsgCreateGameResponse` objects with this command:
 
 ```sh
 $ starport scaffold message createGame red black --module checkers --response idValue
@@ -202,7 +194,7 @@ Starport significantly reduces the amount of work a developer has to do to build
 
 ## What is left to do?
 
-Your work is mostly done. Still, you will want to create the specific game creation code to replace `// TODO: Handling the message`. For this, you will need to:
+Your work is mostly done. You will want to create the specific game creation code to replace `// TODO: Handling the message`. For this, you will need to:
 
 1. Decide on how to create a new and unique game ID: `newIndex`.
 
@@ -247,14 +239,14 @@ Your work is mostly done. Still, you will want to create the specific game creat
     }, nil
     ```
 
-Not to forget, and it is worth mentioning here:
+Not to forget:
 
 * If you encounter an internal error, you should `panic("This situation should not happen")`.
 * If you encounter a user or _regular_ error, like not having enough funds, you should return a regular `error`.
 
 ## The other messages
 
-You can also implement other messages. Without repeating all of the above, you can include:
+You can also implement other messages.
 
 1. The **play message**, which means implicitly accepting the challenge when playing for the first time. If you create it with Starport, use:
     ```sh
@@ -274,7 +266,7 @@ You can also implement other messages. Without repeating all of the above, you c
     }
     ```
 
-2. The **reject message**, which should be valid only if the player never played any moves in this game. Again, if you create it with Starport:
+2. The **reject message**, which should be valid only if the player never played any moves in this game.
 
     ```sh
     $ starport scaffold message rejectGame idValue --module checkers
@@ -295,14 +287,12 @@ You can also implement other messages. Without repeating all of the above, you c
 
 ## Other considerations
 
-You can already begin contemplating game-theoretical situations for your checkers application. After all, a game involves two parties/players and they may not always play nice.
-
 What would happen if one of the two players has accepted the game by playing, but the other player has neither accepted nor rejected the game? You can address this scenario by:
 
-* Having a timeout after which the game is canceled. And this cancelation could be handled automatically in ABCI's `EndBlock`, or rather its equivalent in the Cosmos SDK, without any of the players having to trigger the cancelation.
+* Having a timeout after which the game is canceled. This cancelation could be handled automatically in ABCI's `EndBlock`, or rather its equivalent in the Cosmos SDK, without any of the players having to trigger the cancelation.
 * Keeping an index as a First-In-First-Out (FIFO) list or a list of un-started games ordered by their cancelation time, so that this automatic trigger does not consume too many resources.
 
-What would happen if the player, whose turn it is, never shows up or never sends a valid transaction? To ensure functionality for your checkers application you can consider:
+What would happen if a player stops taking turns? To ensure functionality for your checkers application you can consider:
 
 * Having a timeout after which the game is forfeited. You could also automatically charge the forgetful player, if and when you implement a wager system.
 * Keeping an index of games that could be forfeited. If both timeouts are the same, you can keep a single FIFO list of games, so you can clear them from the top of the list as necessary.
@@ -311,6 +301,6 @@ In general terms, you could add `timeout: Timestamp` to your `StoredGame` and up
 
 Of note is that there are no _open_ challenges, meaning a player cannot create a game where the second player is unknown until someone steps in. So player matching is left outside of the blockchain. It is left to the enterprising student to incorporate it inside the blockchain by changing the necessary models.
 
-If you'd like to get started on building your own checkers game, you can head straight to the main exercise in [My Own Chain](../5-my-own-chain/01-index).
+If you would like to get started on building your own checkers game, you can head straight to the main exercise in [My Own Chain](../5-my-own-chain/01-index).
 
 </ExpansionPanel>

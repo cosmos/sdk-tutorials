@@ -15,7 +15,7 @@ tag: fast-track
 
 Cosmos is also **a blockchain ecosystem** complete with protocols, SDK, tokens, wallets, applications, repositories, services and tools.
 
-## A whole universe to discover: Tokens, wallets, dApps and services
+## A whole universe to discover: tokens, wallets, apps, and services
 
 Cosmos is an ever-expanding ecosystem of tokens, wallets, tools, as well as interconnected applications and services all built for the decentralized future.
 
@@ -132,7 +132,7 @@ Take a look at the [node explorer documentation](https://github.com/cosmos/atlas
 
 </HighlightBox>
 
-## Starport: Building application-specific blockchains with one command
+## Starport: building application-specific blockchains with one command
 
 [Starport](https://cosmos.network/starport/) is a developer-friendly command-line interface (CLI) tool for application-specific blockchains building on Tendermint and the Cosmos SDK. The CLI tool offers everything developers need to build, test and launch a chain. It accelerates blockchain development by scaffolding and assembling all components needed for a production-ready blockchain. Starport makes the process from initial idea to production 95% faster. It lets you build a blockchain in minutes. This lets developers focus more strongly on the business logic of their application.
 

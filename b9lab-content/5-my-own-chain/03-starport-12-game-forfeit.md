@@ -6,9 +6,20 @@ description: You enforce the expiration of games
 
 # The Expired Game Elements
 
-In the [previous section](./03-starport-11-game-winner.md), you prepared the ground to enforce the expiration of games, namely:
+<HighlightBox type="info">
 
-* A FIFO that always has old games at its head and freshly updated games at its tail.
+Make sure you have all you need to enforce the expiration of games:
+
+* You understand the concepts of [transactions](../3-main-concepts/05-transactions), [messages](../3-main-concepts/07-messages), and [Protobuf](../3-main-concepts/09-protobuf).
+* Have Go installed.
+* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./03-starport-05-create-handling) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
+).
+
+</HighlightBox>
+
+You prepared the ground to enforce the expiration of games in the [previous section](./03-starport-11-game-winner.md), namely:
+
+* A First-In-First-Out (FIFO) that always has old games at its head and freshly updated games at its tail.
 * A deadline field to guide the expiration.
 * A winner field to further assist with forfeiting.
 
@@ -16,10 +27,10 @@ In the [previous section](./03-starport-11-game-winner.md), you prepared the gro
 
 An expired game will expire in two different cases:
 
-* It was never really played on, so it is removed quietly.
-* It was played on, making it a proper game, and expiry results due to a player forfeiting (failed to play).
+* It was never really played on so it is removed quietly.
+* It was played on making it a proper game and expiry results due to a player forfeiting/failing to play.
 
-In the latter case, you want to emit a new event, which differentiates forfeiting a game from a win involving a move. Let's define the new keys in `x/checkers/types/keys.go`:
+You want to emit for forfeited games a new event, which differentiates forfeiting a game from a win involving a move. Define the new keys in `x/checkers/types/keys.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/types/keys.go#L66-L70]
 const (
@@ -31,7 +42,7 @@ const (
 
 ## Putting callbacks in place
 
-When you use Starport to scaffold your module, it creates the `x/checkers/module.go` file with a lot of functions to accommodate your application. In particular, the function that **may** be called on your module on `EndBlock` is named `EndBlock`:
+Starport creates the `x/checkers/module.go` file with a lot of functions to accommodate your application when you use Starport to scaffold your module. the function that **may** be called on your module on `EndBlock` is named `EndBlock`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/module.go#L163]
 func (am AppModule) EndBlock(_ sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
@@ -39,7 +50,7 @@ func (am AppModule) EndBlock(_ sdk.Context, _ abci.RequestEndBlock) []abci.Valid
 }
 ```
 
-Starport left it empty. Here you add what you need. To keep the spirit of Starport (separate different concerns into different files), create a new file named `x/checkers/keeper/end_block_server_game.go` with a function in:
+Starport left it empty. Here you add what you need. To keep the spirit of Starport of separating different concerns into different files, create a new file named `x/checkers/keeper/end_block_server_game.go` with a function in:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L13]
 func (k Keeper) ForfeitExpiredGames(goCtx context.Context) {
@@ -47,7 +58,7 @@ func (k Keeper) ForfeitExpiredGames(goCtx context.Context) {
 }
 ```
 
-So that, in `x/checkers/module.go`, you can update `EndBlock` with:
+So that in `x/checkers/module.go` you can update `EndBlock` with:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/module.go#L163-L166]
 func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
@@ -56,7 +67,7 @@ func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.Val
 }
 ```
 
-With this, you ensure that **if** your module's `EndBlock` function is called, the expired games will be handled. For the **whole application to call your module**, you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. Add yours at the end:
+You ensure with this that **if** your module's `EndBlock` function is called, the expired games will be handled. For the **whole application to call your module**, you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. Add yours at the end:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/app/app.go#L398]
 app.mm.SetOrderEndBlockers(crisistypes.ModuleName, govtypes.ModuleName, stakingtypes.ModuleName, checkersmoduletypes.ModuleName)
@@ -64,7 +75,7 @@ app.mm.SetOrderEndBlockers(crisistypes.ModuleName, govtypes.ModuleName, stakingt
 
 ## Expire games handler
 
-With the callbacks in place, it is time to code the expiration properly. In `x/checkers/keeper/end_block_server_game.go`, it is just a matter of going through the FIFO head and handling games that are expired. You can stop at the first running game, as all those that come after are also running.
+With the callbacks in place, it is time to code the expiration properly. It is just a matter of going through the FIFO head and handling games that are expired in `x/checkers/keeper/end_block_server_game.go`. You can stop at the first running game as all those that come after are also running.
 
 1. Prepare useful information:
 
@@ -96,7 +107,7 @@ With the callbacks in place, it is time to code the expiration properly. In `x/c
     }
     ```
 
-    * In the loop, start with the loop breaking condition:
+    * Start with the loop breaking condition:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L31-L33]
     if strings.Compare(storedGameId, types.NoFifoIdKey) == 0 {
@@ -117,7 +128,7 @@ With the callbacks in place, it is time to code the expiration properly. In `x/c
     }
     ```
 
-    * Test for expiry:
+    * Test for expirations:
     
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L42]
     if deadline.Before(ctx.BlockTime()) {
@@ -127,12 +138,12 @@ With the callbacks in place, it is time to code the expiration properly. In `x/c
         break
     }
     ```
-        * If it has expired, remove it from the FIFO:
+        * If a game has expired, remove it from the FIFO:
             ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L44]
             k.RemoveFromFifo(ctx, &storedGame, &nextGame)
             ```
 
-        * Then check whether the game is worth keeping. If yes, then set the winner as the opponent of the player whose turn it is and save:
+        * Then check whether the game is worth keeping. If it is, set the winner as the opponent of the player whose turn it is and save:
             ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L45-L55]
             if storedGame.MoveCount == 0 {
                 storedGame.Winner = rules.NO_PLAYER.Color
@@ -172,6 +183,10 @@ With the callbacks in place, it is time to code the expiration properly. In `x/c
 
 <HighlightBox type="tip">
 
-For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games, see the [section on the game's FIFO](./03-starport-09-game-fifo.md).
+For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games see the [section on the game's FIFO](./03-starport-09-game-fifo.md).
 
 </HighlightBox>
+
+## Next up
+
+It is time to let the players play with money. Discover how to add game wager elements in [the next section](03-starport-13-game-wager).
