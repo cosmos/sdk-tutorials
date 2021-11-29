@@ -264,6 +264,7 @@ Your application needs its own database to store the state. The application need
 [That's](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#initchain) where your only game is initialized. Tendermint sends `app_state_bytes: bytes` to your application with the initial (genesis) state of the blockchain. You already know what it would look like to represent a single game. 
 
 Your application:
+
 * Takes the initial state in.
 * Saves it in its database along with [black](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L124) having to play next.
 * Returns in `app_hash: bytes` the Merkle root hash corresponding to the genesis state.
