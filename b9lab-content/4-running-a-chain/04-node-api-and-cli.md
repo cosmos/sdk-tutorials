@@ -38,7 +38,7 @@ $ ls build
 
 ## Initialize simapp
 
-Now, reset the database. Run this step not only when the database has already been initialized but even if this is the first time you are testing simapp:
+Now reset the database. Run this step not only when the database has already been initialized but even if this is the first time you are testing simapp:
 
 ```bash
 $ cd build
@@ -201,7 +201,7 @@ Just in case you need a "prettier" version:
 
 </ExpansionPanel>
 
-In the output, you can find your `chain_id`, which in our build happens to be called `test-chain-rT4wZY`. Make a note of the one you have, as you will need it later to determine the chain ID by passing it to simapp via the flag `--chain-id`.
+In the output, you can find your `chain_id`, which in our build happens to be called `test-chain-rT4wZY`. Make a note of the one you have as you will need it later to determine the chain ID by passing it to simapp via the flag `--chain-id`.
 
 You can inspect the initial configuration with:
 
@@ -217,7 +217,7 @@ It helps to have the concepts very clear in mind when working hands-on with the 
 
 </HighlightBox>
 
-You can also inspect your keys. These are held in the backend keyring, which, by default, is that of the operating system:
+You can also inspect your keys. These are held in the backend keyring, which by default is that of the operating system:
 
 ```bash
 $ ./simd keys list
@@ -226,7 +226,7 @@ $ ./simd keys list
 
 As you might have expected, you do not have any keys yet.
 
-Let's fix that and add a new key:
+Fix that and add a new key:
 
 ```bash
 $ ./simd keys add b9lab
@@ -260,7 +260,7 @@ $ ./simd keys show b9lab
 
 ## Make yourself a proper validator
 
-As you know by now, a Cosmos SDK blockchain relies on identified validators to produce blocks. Initially, there is no validator to generate blocks. You are in a catch-22 situation: your initialized and unstarted chain needs a genesis account and validator for bootstrapping purposes.
+As you know by now, a Cosmos SDK blockchain relies on identified validators to produce blocks. Initially there is no validator to generate blocks. You are in a catch-22 situation: your initialized and unstarted chain needs a genesis account and validator for bootstrapping purposes.
 
 Make your key (also known as an account) have an initial balance in the genesis file:
 
@@ -300,7 +300,7 @@ If you are curious, you can find the updated `gen_txs` field in your genesis.
 
 ## Create blocks
 
-Now, you can start your single-node blockchain:
+Now you can start your single-node blockchain:
 
 ```bash
 $ ./simd start
@@ -383,7 +383,7 @@ You are prompted to confirm the transaction before signing and broadcasting. Thi
 
 The command output includes useful information such as `gas_used`.
 
-Now, check the balance of the student account again:
+Now check the balance of the student account again:
 
 ```bash
 $ ./simd query bank balances $(./simd keys show student -a)
@@ -395,11 +395,9 @@ pagination:
   total: "0"
 ```
 
-Yep, that's 10 stake.
-
 ## CLI routing
 
-Now, a bit of Go code: how does this `simd` interact via the command-line interface? If you inspect the [`cosmos-sdk/simapp/simd/main.go`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/simd/main.go) file:
+A bit of Go code: how does this `simd` interact via the command-line interface? If you inspect the [`cosmos-sdk/simapp/simd/main.go`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/simd/main.go) file:
 
 ```go
 package main
