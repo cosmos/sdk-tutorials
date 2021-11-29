@@ -10,12 +10,12 @@ intro:
     image: /cosmos_dev_portal_whats_next.png
     description: |
       Are you ready to continue your journey with Cosmos? What’s next? <br/><br/>
-      Vast opportunities await: Do you want to develop your own application-specific blockchain? Or, maybe contribute to the SDK development? <br/><br/>
+      Do you want to develop your own application-specific blockchain? Or contribute to development of the SDK? <br/><br/>
       Here you can find useful information to launch your journey into the Cosmos universe.
   - overline: Reach out to the Cosmos community
     title: Community
     description: |
-      Check out the Cosmos developer community - hang out and chat with ~14 thousand other members. Have a burning question, want to stay up to date on community events, and be in touch with the ecosystem? <br/><br/>
+      Check out the Cosmos developer community! Hang out and chat with ~14 thousand other members. Have a burning question, want to stay up to date on community events, and be in touch with the ecosystem? <br/><br/>
       <a class="tm-button tm-button-disclosure" href="https://discord.gg/cosmosnetwork" target="_blank">Join Discord!</a> <br/><br/>
       Have something to discuss regarding Cosmos governance, ecosystem, wallets, security, and validating? Why not join the official forum for Cosmos?
     action: 
@@ -35,7 +35,7 @@ intro:
       <li> Help solve existing issues and continue the development of the robust Tendermint BFT consensus!  <br/><br/>
       <a class="tm-button tm-button-disclosure mb-4" style="color: var(--background-color-primary); text-decoration: none;"  href="https://github.com/tendermint/tendermint/blob/master/CONTRIBUTING.md" target="_blank">Contribute on Github!</a></li>
       </ul>
-  - overline: Does your company need support? Reach out to Cosmos for enterprise solutions
+  - overline: Does your company need support? Reach out to Cosmos for enterprise support
     title: Enterprise
     description: |
       Are you a developer or enterprise wanting to build your own app? Do you need support? <br/><br/>
