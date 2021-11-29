@@ -36,8 +36,8 @@ To connect to the Cosmos Hub testnet, use the following endpoints:
 
 Seed nodes provides a list of nodes to connect to. Before you can start your node, you must provide at least one type of node to connect to the network. We have provided these seed nodes to help you connect your node to the testnet:
 
-- `e6fab0296c0cc31228756822b15e98cfa84ff97b@p2p.testnet.cosmos.network:31729`
-- `64fefc98915aa430417ba893bf13bd8cc101aedf@p2p.testnet.cosmos.network:32073`
+- `9553c82dcf38cf5178c4160c2013176b24b806a4@p2p.testnet.cosmos.network:32714`
+- `64fefc98915aa430417ba893bf13bd8cc101aedf@p2p.testnet.cosmos.network:32138`
 
 ## Requesting Tokens from a Faucet
 

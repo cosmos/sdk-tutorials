@@ -53,13 +53,13 @@ where `YOUR_MONIKER` is a placeholder for a string that identifies your node. Be
     - For operating systems other than macOS:
 
     ```bash
-    sed -i 's/seeds =.*/seeds = "e6fab0296c0cc31228756822b15e98cfa84ff97b@p2p.testnet.cosmos.network:31729,64fefc98915aa430417ba893bf13bd8cc101aedf@p2p.testnet.cosmos.network:32073"/g' ~/.gaia/config/config.toml
+    sed -i 's/seeds =.*/seeds = "9553c82dcf38cf5178c4160c2013176b24b806a4@p2p.testnet.cosmos.network:32714,64fefc98915aa430417ba893bf13bd8cc101aedf@p2p.testnet.cosmos.network:32138"/g' ~/.gaia/config/config.toml
     ```
 
     - For macOS operating systems:
 
     ```bash
-    sed -i '' 's/seeds =.*/seeds = "e6fab0296c0cc31228756822b15e98cfa84ff97b@p2p.testnet.cosmos.network:31729,64fefc98915aa430417ba893bf13bd8cc101aedf@p2p.testnet.cosmos.network:32073"/g' ~/.gaia/config/config.toml
+    sed -i '' 's/seeds =.*/seeds = "9553c82dcf38cf5178c4160c2013176b24b806a4@p2p.testnet.cosmos.network:32714,64fefc98915aa430417ba893bf13bd8cc101aedf@p2p.testnet.cosmos.network:32138"/g' ~/.gaia/config/config.toml
     ```
 
 1. Start the node:
