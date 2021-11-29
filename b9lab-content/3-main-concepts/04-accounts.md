@@ -34,7 +34,7 @@ The **length of keys** is vital. Asymmetric cryptographic keys are usually very 
 
 <HighlightBox type="info">
 
-Asymmetric keys always come in pairs and offer their owner various capabilities. These capabilities are based on cryptographic mathematics. The public key is meant to be distributed to whoever is relevant, while the private key is to remain a secret. This is similar to sharing your house address, but keeping the key to your house private. Don't be Dilbert's CEO, [a story](https://dilbert.com/strip/2018-10-26) in [two parts](https://dilbert.com/strip/2018-10-27).
+Asymmetric keys always come in pairs and offer their owner various capabilities. These capabilities are based on cryptographic mathematics. The public key is meant to be distributed to whoever is relevant, while the private key is to remain a secret. This is similar to sharing your house address, but keeping the key to your house private.
 
 </HighlightBox>
 
@@ -51,7 +51,7 @@ We have Alice and Bob. Alice wants to make sure that Bob's public announcement i
 
 Alice can verify the source of the announcement by checking if the signature was done with the private key that corresponds to Bob’s public key, which is already known to represent Bob.
 
-Private keys are used to **prove** that messages originate from the owners of accounts known by their public keys: the signatures **prove** that messages were signed by someone that knows the private key that corresponds to a given public key. This is the basis of user authentication in a blockchain and why private keys are jealously guarded secrets.
+Private keys are used to **prove** that messages originate from the owners of accounts known by their public keys: the signatures **prove** that messages were signed by someone that knows the private key that corresponds to a given public key. This is the basis of user authentication in a blockchain and why private keys are strictly guarded secrets.
 
 <ExpansionPanel title="How to manage multiple key pairs over multiple blockchains with hierarchical-deterministic wallets">
 
