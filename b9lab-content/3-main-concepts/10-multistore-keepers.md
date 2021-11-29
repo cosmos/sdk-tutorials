@@ -268,7 +268,7 @@ Notice the `MustMarshalBinaryBare` and `MustUnmarshalBinaryBare` functions in th
 
 <HighlightBox type="tip">
 
-See the [previous section on Protobuff](./09-protobuf.md) to explore how Protobuf deals with the marshaling.
+See the [previous section on Protobuf](./09-protobuf.md) to explore how Protobuf deals with the marshaling.
 
 </HighlightBox>
 

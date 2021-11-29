@@ -45,7 +45,7 @@ The confirmed transaction is relayed to the Cosmos SDK application for interpret
 
 Although it is technically feasible to proceed to create a novel `MsgService`, the recommended approach is to define a Protobuf `Msg` service. Each module has exactly one Protobuf `Msg` service defined in `tx.proto` and there is an RPC service method for each message type in the module. The Protobuf message service implicitly defines the interface layer of the state mutating processes contained within the module.
 
-How does all of this translate into code? Here's an example `MsgService` from the [bank module](https://docs.cosmos.network/master/modules/bank/):
+How does all of this translate into code? Here's an example `MsgService` from the [`bank` module](https://docs.cosmos.network/master/modules/bank/):
 
 Example MsgService:
 

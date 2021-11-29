@@ -6,13 +6,24 @@ description: You expire games
 
 # A Game Deadline
 
-In the [previous section](./03-starport-09-game-fifo.md), you introduced a FIFO that keeps the _oldest_ games at its head and the most recently updated games at its tail.
+<HighlightBox type="info">
 
-Just because a game is old it does not necessarily mean it expired. To ascertain this you need to add a new field, `deadline`, to a game and test against it.
+Make sure you have all you need to expire games:
+
+* You understand the concepts of [transactions](../3-main-concepts/05-transactions), [messages](../3-main-concepts/07-messages), and [Protobuf](../3-main-concepts/09-protobuf).
+* Have Go installed.
+* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./03-starport-05-create-handling) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
+).
+
+</HighlightBox>
+
+You introduced a FIFO that keeps the _oldest_ games at its head and the most recently updated games at its tail in the [previous section](./03-starport-09-game-fifo.md).
+
+Just because a game is old that does not necessarily mean it expired. You need to add a new field called `deadline` to a game and test against it to ascertain that it has not expired. Prepare the field.
 
 ## New information
 
-To prepare the field, add in `proto/checkers/stored_game.proto`:
+To prepare the field add in `proto/checkers/stored_game.proto`:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/0d0e36a8ac86cddc457610856ddaab1b356cee84/proto/checkers/stored_game.proto#L18]
 message StoredGame {
@@ -21,13 +32,13 @@ message StoredGame {
 }
 ```
 
-To have Starport and Protobuf recompile this file you can use:
+To have Starport and Protobuf recompile this file. You can use:
 
 ```sh
 $ starport generate proto-go
 ```
 
-On each update, the deadline will always be _now_, defined as the block's time plus a fixed duration. Declare this duration in `x/checkers/types/keys.go` along with how the date is represented in the saved game, as a string:
+The deadline will always be _now_ for each update. Now is defined as the block's time plus a fixed duration. Declare this duration in `x/checkers/types/keys.go` along with how the date is represented in the saved game as a string:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0d0e36a8ac86cddc457610856ddaab1b356cee84/x/checkers/types/keys.go#L38-L39]
 const (
@@ -38,7 +49,7 @@ const (
 
 ## Date manipulation
 
-You can make your life easier by using helper functions that encode and decode the deadline in the storage. First, a new error in `x/checkers/types/errors.go`:
+You can make your life easier by using helper functions that encode and decode the deadline in the storage. First, there is a new error in `x/checkers/types/errors.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0d0e36a8ac86cddc457610856ddaab1b356cee84/x/checkers/types/errors.go#L21]
 ErrInvalidDeadline = sdkerrors.Register(ModuleName, 1110, "deadline cannot be parsed: %s")
@@ -67,7 +78,7 @@ func GetNextDeadline(ctx sdk.Context) time.Time {
 
 ## Updated deadline
 
-Next you need to update this new field with its appropriate value at the right junctures: at creation, in `x/checkers/keeper/msg_server_create_game.go`:
+Next, you need to update this new field with its appropriate value at the right junctures: at creation in `x/checkers/keeper/msg_server_create_game.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0d0e36a8ac86cddc457610856ddaab1b356cee84/x/checkers/keeper/msg_server_create_game.go#L26]
 ...
@@ -86,12 +97,16 @@ storedGame.Deadline = types.FormatDeadline(types.GetNextDeadline(ctx))
 ...
 ```
 
-Finally, confirm that your project still compiles:
+Now confirm that your project still compiles:
 
 ```sh
 $ starport chain build
 ```
 
+When it comes to adding and updating a deadline, this is all you need. 
+
+## Next up
+
 We have not used the deadline yet. That is the object of the [next section](./03-starport-11-game-winner.md), in which you can find a description on how to use the deadline and the FIFO to expire games that reached their deadline.
 
-Before you can do that there is one other field to add in the [next section](03-starport-11-game-winner.md).
+There is one other field to add before you can use the deadline. Discover this field in the [next section](03-starport-11-game-winner.md).

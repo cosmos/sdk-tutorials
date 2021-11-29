@@ -6,15 +6,15 @@ description: You reject a game
 
 # The Reject Game Elements
 
-If anyone can create a game for any two other players, it is important to allow a player to reject a game. However, a player should not be allowed to reject a game once they have made their first move.
+<HighlightBox type="info">
 
-<HighlightBox type="tip">
-
-As a prerequisite to dive right into implementing game rejection, make sure you know how to [Create a Message](./03-startport-04-create-message.md) and [Create Handling](./03-startport-05-create-handling.md) with Starport.
+As a prerequisite to dive right into implementing game rejection, make sure you know how to [create a message](./03-startport-04-create-message.md) and [create handling](./03-startport-05-create-handling.md) with Starport.
 
 </HighlightBox>
 
-To reject a game, a player needs to provide the ID of the game that the player wants to reject. Call the field `idValue`. As the signer of the message is implicitly the player, this should be sufficient.
+If anyone can create a game for any two other players, it is important to allow a player to reject a game. However, a player should not be allowed to reject a game once they have made their first move.
+
+To reject a game, A player needs to provide the ID of the game that the player wants to reject. Call the field `idValue`. This should be sufficient as the signer of the message is implicitly the player.
 
 ## Working with Starport
 
@@ -39,7 +39,7 @@ func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (
 
 ## Additional information
 
-A player cannot reject a game once they begin to play. However, as of now, you do not know whether a player played or not. To remediate this, you need to add a new field to the `StoredGame`, let's call it `MoveCount`. So, in `proto/checkers/stored_game.proto`:
+A player cannot reject a game once they begin to play. You do not know whether a player played or not as of now. You need to add a new field to the `StoredGame` to remediate this. Call it `MoveCount`. So in `proto/checkers/stored_game.proto`:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/proto/checkers/stored_game.proto#L15]
 storedGame := types.StoredGame{
@@ -48,7 +48,7 @@ storedGame := types.StoredGame{
 }
 ```
 
-At this point, to have Protobuf recompile the relevant Go files, you may want to run:
+At this point, you may want to run to have Protobuf recompile the relevant Go files:
 
 ```sh
 $ starport generate proto-go
@@ -63,7 +63,7 @@ storedGame := types.StoredGame{
 }
 ```
 
-Just before saving to the storage, in `x/checkers/keeper/msg_server_play_move.go`:
+Just before saving to the storage in `x/checkers/keeper/msg_server_play_move.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_play_move.go#L55]
 ...
@@ -76,7 +76,7 @@ Now you are ready to handle a rejection request.
 
 ## The reject handling
 
-Declare the following new errors in `x/checkers/types/errors.go`:
+As a convenience and to follow the Cosmos SDK conventions, you declare the following new errors in `x/checkers/types/errors.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/types/errors.go#L19-L20]
 ErrRedAlreadyPlayed   = sdkerrors.Register(ModuleName, 1108, "red player has already played")
@@ -93,7 +93,7 @@ const (
 )
 ```
 
-The reject steps are:
+Now the reject steps are:
 
 1. Fetch the relevant information:
 
@@ -104,7 +104,7 @@ The reject steps are:
     }
     ```
 
-2. Is the player expected? Did the player already play?
+2. Is the player expected? And, did the player already play? Check with:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_reject_game.go#L21-L31]
     if strings.Compare(storedGame.Red, msg.Creator) == 0 {
@@ -146,3 +146,9 @@ You can confirm that your project at least compiles [with](https://docs.starport
 ```sh
 $ starport chain build
 ```
+
+That is all there is to it. Once again, a lot of the boilerplate is taken care of with Protobuf and Starport.
+
+## Next up
+
+Take a look at creating a First-In-First-Out (FIFO) for the game to prepare for game expiration in the [next section](./03-starport-09-game-fifo).

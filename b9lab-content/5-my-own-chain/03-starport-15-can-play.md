@@ -6,21 +6,34 @@ description: Help players make good transactions
 
 # Can Play Query
 
-When a player makes a move, they send a transaction. This transaction can succeed or fail for several reasons. For example, a transaction could represent an invalid move. It is helpful if the player can make sure that a move is valid. For this you need to create a way for the player to hit the rules' `Move` function without changing the blockchain's state. Here queries come in handy. Queries are evaluated in memory.
+<HighlightBox type="info">
+
+Make sure you have all you need to reward validators for their work:
+
+* You understand the concepts of [transactions](../3-main-concepts/05-transactions), [messages](../3-main-concepts/07-messages), and [Protobuf](../3-main-concepts/09-protobuf).
+* Have Go installed.
+* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./03-starport-05-create-handling) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
+).
+
+</HighlightBox>
+
+A player sends a transaction when making a move. This transaction can succeed or fail for several reasons. For example, a transaction could represent an invalid move.
+
+It is helpful if the player can make sure that a move is valid. You need to create a way for the player to hit the rules' `Move` function without changing the blockchain's state for this. Here queries come in handy. Queries are evaluated in the memory.
 
 ## New information
 
 For a proper check, the player has to pass along:
 
-* The game ID, let's call the field `IdValue`.
-* Which player the query relates to, `player`. You need to specify it as in queries, there is no signer and thus, no `Creator`. Expect `"black"` or `"red"` in this field.
-* The position to start from, `fromX` and `fromY`.
-* The position to land on, `toX` and `toY`.
+* The game ID, call the field `IdValue`.
+* Which player the query relates to, `player`. You need to specify it as in queries - there is no signer and thus no `Creator`. Expect `"black"` or `"red"` in this field.
+* The position to start from: `fromX` and `fromY`.
+* The position to land on: `toX` and `toY`.
 
 The information to be returned is:
 
-* A boolean whether the move is valid, `Possible`.
-* A text reason as to why the move is not valid, `Reason`.
+* A boolean whether the move is valid, called `Possible`.
+* A text reason as to why the move is not valid, called `Reason`.
 
 You can create the query message object with Starport. Keep in mind that you can give only one return value in the Starport `scaffold` command:
 
@@ -28,7 +41,7 @@ You can create the query message object with Starport. Keep in mind that you can
 $ starport scaffold query canPlayMove idValue player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool
 ```
 
-Add the reason:
+Add the reason after this:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/proto/checkers/query.proto#L39-L51]
 message QueryCanPlayMoveRequest {
@@ -48,7 +61,7 @@ message QueryCanPlayMoveRequest {
 
 As with a transaction message, Starport has created the following boilerplate for you:
 
-* The [Protobuf gRPC interface function](https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/proto/checkers/query.proto#L17-L19) to submit your new `QueryCanPlayMoveRequest`, plus its default implementation.
+* The [Protobuf gRPC interface function](https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/proto/checkers/query.proto#L17-L19) to submit your new `QueryCanPlayMoveRequest` and its default implementation.
 * The [routing of this new query](https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/types/query.pb.gw.go#L319-L337) in the query facilities.
 * An empty function ready to implement the action, `x/checkers/keeper/grpc_query_can_play_move.go`.
 
@@ -68,7 +81,7 @@ storedGame, found := k.GetStoredGame(ctx, req.IdValue)
     }
 ```
 
-Has the game already been won:
+Has the game already been won?
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L29-L34]
 if storedGame.Winner != rules.NO_PLAYER.Color {
@@ -79,7 +92,7 @@ if storedGame.Winner != rules.NO_PLAYER.Color {
 }
 ```
 
-Is the `player` given a valid player:
+Is the `player` given a valid player?
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L37-L47]
 var player rules.Player
@@ -95,7 +108,7 @@ if strings.Compare(rules.RED_PLAYER.Color, req.Player) == 0 {
 }
 ```
 
-Is it the player's turn:
+Is it the player's turn?
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L50-L59]
 game, err := storedGame.ParseGame()
@@ -110,7 +123,7 @@ if !game.TurnIs(player) {
 }
 ```
 
-Attempt the move **in-memory** because that is what happens when handling a query, and report back:
+Attempt the move **in-memory** because that is what happens when handling a query and report back:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L62-L77]
 _, moveErr := game.Move(
@@ -140,3 +153,8 @@ return &types.QueryCanPlayMoveResponse{
 }, nil
 ```
 
+That is all there is to it when using Starport to handle the boilerplate.
+
+## Next up
+
+Do you want to give players more flexibility on which tokens they can use for the checkers blockchain's games? Let players wager any fungible token in the [next section](03-starport-16-wager-denom).

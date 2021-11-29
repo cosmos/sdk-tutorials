@@ -6,15 +6,26 @@ description: You store the winner of a game
 
 # A Game Winner
 
-To be able to forcibly terminate games and avoid terminating one game twice you need to identify games that have been terminated. A good field to add is one for the **winner**. It needs to contain:
+<HighlightBox type="info">
+
+Make sure you have all you need to store the winners of games:
+
+* You understand the concepts of [transactions](../3-main-concepts/05-transactions), [messages](../3-main-concepts/07-messages), and [Protobuf](../3-main-concepts/09-protobuf).
+* Have Go installed.
+* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./03-starport-05-create-handling) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
+).
+
+</HighlightBox>
+
+You need to identify games that have been terminated to be able to forcibly terminate games and avoid terminating one game twice. A good field to add is one for the **winner**. It needs to contain:
 
 * The rightful winner of a game that reaches completion.
-* Or, the winner by forfeit, when a game is expired.
-* Or, a neutral value, when the game was a draw or forfeited before any relevant moves took place.
+* Or the winner by forfeit when a game is expired.
+* Or a neutral value when the game was a draw or forfeited before any relevant moves took place.
 
 ## New information
 
-In `proto/checkers/stored_game.proto`:
+In `proto/checkers/stored_game.proto` add a winner:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/e50ceaedb52cbbb2e802a1c887657cdc8f52f25b/proto/checkers/stored_game.proto#L19]
 message StoredGame {
@@ -23,13 +34,13 @@ message StoredGame {
 }
 ```
 
-To have Starport and Protobuf recompile this file, you can use:
+To have Starport and Protobuf recompile this file use:
 
 ```sh
 $ starport generate proto-go
 ```
 
-Add a helper function to get the winner's address, if existent, in `x/checkers/types/full_game.go`:
+Go and add a helper function to get the winner's address, if existent, in `x/checkers/types/full_game.go` while you are at it:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e50ceaedb52cbbb2e802a1c887657cdc8f52f25b/x/checkers/types/full_game.go#L50-L69]
 func (storedGame *StoredGame) GetPlayerAddress(color string) (address sdk.AccAddress, found bool, err error) {
@@ -56,14 +67,14 @@ func (storedGame *StoredGame) GetPlayerAddress(color string) (address sdk.AccAdd
 
 ## Update and check for the winner
 
-This is a two-part update. You set the winner where relevant but you also introduce new checks so that a game with a winner cannot be acted upon.
+This is a two-part update. You set the winner where relevant but you also introduce new checks, so that a game with a winner cannot be acted upon.
 
 It starts with a new error in `x/checkers/types/errors.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e50ceaedb52cbbb2e802a1c887657cdc8f52f25b/x/checkers/types/errors.go#L22]
 ErrGameFinished = sdkerrors.Register(ModuleName, 1111, "game is already finished")
 ```
-Then at creation, in `x/checkers/keeper/msg_server_create_game.go`:
+Then at creation in `x/checkers/keeper/msg_server_create_game.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e50ceaedb52cbbb2e802a1c887657cdc8f52f25b/x/checkers/keeper/msg_server_create_game.go#L28]
 ...
@@ -73,7 +84,7 @@ storedGame := types.StoredGame{
 }
 ```
 
-And an error when playing, in `x/checkers/keeper/msg_server_play_move.go`:
+And an error when playing in `x/checkers/keeper/msg_server_play_move.go`:
 
 * Check that the game has not finished yet:
 
@@ -99,7 +110,7 @@ And an error when playing, in `x/checkers/keeper/msg_server_play_move.go`:
     }
     ```
 
-When rejecting a game, in `x/checkers/keeper/msg_server_reject_game.go`:
+Just in case, when rejecting a game in `x/checkers/keeper/msg_server_reject_game.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e50ceaedb52cbbb2e802a1c887657cdc8f52f25b/x/checkers/keeper/msg_server_reject_game.go#L21-L23]
 if storedGame.Winner != rules.NO_PLAYER.Color {
@@ -108,3 +119,7 @@ if storedGame.Winner != rules.NO_PLAYER.Color {
 ```
 
 Confirm it compiles and you are ready to handle the expiration of games.
+
+## Next up
+
+Now that you stored the winner of a game turn your attention to enforcing the game expiration in the [next section](./03-starport-12-game-forfeit).
