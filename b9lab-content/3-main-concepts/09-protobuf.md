@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="info">
 
-Let's take a closer look at Protobuf. Before diving into the section a look at the following sections is recommendable:
+Let's take a closer look at Protobuf. Before diving into the section a look at the following sections is recommended:
 
 * [Messages](./07-messages)
 * [Modules](./08-modules)
@@ -100,7 +100,6 @@ type StoredGame struct {
     ...
 }
 ```
-How are you to add such cryptic commands without any error?
 
 ## Move upstream
 
