@@ -6,7 +6,7 @@ description: Help players make good transactions
 
 # Can Play Query
 
-When a player makes a move, they send a transaction. This transaction can succeed or fail for several reasons. For example, a transaction could represent an invalid move. It is helpful if the player can make sure that a move is valid. For this, you need to create a way for the player to hit the rules' `Move` function without changing the blockchain's state. Here queries come in handy. Queries are evaluated in memory.
+When a player makes a move, they send a transaction. This transaction can succeed or fail for several reasons. For example, a transaction could represent an invalid move. It is helpful if the player can make sure that a move is valid. For this you need to create a way for the player to hit the rules' `Move` function without changing the blockchain's state. Here queries come in handy. Queries are evaluated in memory.
 
 ## New information
 
@@ -28,7 +28,7 @@ You can create the query message object with Starport. Keep in mind that you can
 $ starport scaffold query canPlayMove idValue player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool
 ```
 
-After this, add the reason:
+Add the reason:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/proto/checkers/query.proto#L39-L51]
 message QueryCanPlayMoveRequest {
@@ -140,4 +140,3 @@ return &types.QueryCanPlayMoveResponse{
 }, nil
 ```
 
-That is all there is to it when using Starport, which handles the boilerplate.
