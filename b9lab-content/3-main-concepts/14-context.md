@@ -59,7 +59,7 @@ Contexts are intended to be immutable: they should never be edited. The conventi
 
 ## Store branching
 
-The context contains a `MultiStore`, which allows for branching and caching functionality using `CacheMultiStore` - queries in `CacheMultiStore` are cached to avoid future round trips.
+The context contains a `MultiStore`, which allows for branching and caching functionality using `CacheMultiStore`. Queries in `CacheMultiStore` are cached to avoid future round trips.
 
 Each `KVStore` is branched in a safe and isolated ephemeral storage. Processes are free to write changes to the `CacheMultiStore`. If a state-transition sequence is performed without issue, the store branch can be committed to the underlying store at the end of the sequence or it can be disregarded if something goes wrong.
 
