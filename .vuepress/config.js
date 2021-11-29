@@ -55,6 +55,7 @@ module.exports = {
     },
     sidebar: {
       auto: false,
+      hideProducts: true,
       nav: [
         {
           title: "Tutorials",
