@@ -18,9 +18,9 @@ Ever wondered how an upgrade is done in the Cosmos SDK? Time to find out how mig
 
 A Cosmos SDK application running on a Cosmos blockchain can be upgraded in an orderly, on-chain fashion.
 
-Upgrading blockchains and blockchain applications is notoriously difficult and risky. The Cosmos SDK solves the common risks and challenges. _What are those challenges and risks that Cosmos SDK solves?_
+Upgrading blockchains and blockchain applications is notoriously difficult and risky. The Cosmos SDK solves the common risks and challenges.
 
-Generally, when a blockchain is upgraded it is vital that all nodes upgrade simultaneously and at the same block height. This is difficult to achieve in a disorderly setting. If the nodes do not do so then the blockchain will "fork" into two blockchains with common history - one chain that observes the new rules and one chain that observes the old rules. It is generally not possible for the two chains to reach a common consensus or merge in the future.
+Generally, when a blockchain is upgraded it is vital that all nodes upgrade simultaneously and at the same block height. This is difficult to achieve in a disorderly setting. If the nodes do not do so then the blockchain will "fork" into two blockchains with common history: one chain that observes the new rules and one chain that observes the old rules. It is generally not possible for the two chains to reach a common consensus or merge in the future.
 
 <HighlightBox type="info">
 
@@ -98,7 +98,7 @@ You are all caught up on migrations. Have a look at the code samples below or he
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-The code samples you have seen until now were meant to build your checkers blockchain from the ground up. Now, imagine you have built it from scratch. It has been running in production for some time with games created, played on, won, and lost. Given its success and following player feedback, you decide to introduce leaderboards. In particular:
+The code samples you have seen until now were meant to build your checkers blockchain from the ground up. Imagine you have built it from scratch. It has been running in production for some time with games created, played on, won, and lost. Given its success and following player feedback, you decide to introduce leaderboards. In particular:
 
 * Any player who has **ever** played should have a tally of games won, lost, drawn, and forfeited.
 * There should be a leaderboard that lists the players with the most wins, but in limited numbers. For instance only with the top 100 scores.
@@ -274,7 +274,7 @@ func (genesisV1 GenesisStateV1) Convert(now time.Time) (genesis *types.GenesisSt
 }
 ```
 
-Notice how `StoredGameList` and `NextGame` are copied wholesale from v1 to v2. Also note that all past players are saved as at `now` since the time was not saved in the game when winning. If you decide to use the `Deadline`, make sure that there are no times in the future.
+Note how `StoredGameList` and `NextGame` are copied from v1 to v2. Also note that all past players are saved as at `now` since the time was not saved in the game when winning. If you decide to use the `Deadline`, make sure that there are no times in the future.
 
 The migration mechanism helps identify how you can upgrade your blockchain to introduce new features.
 
