@@ -10,7 +10,7 @@ In the [previous step](./03-starport-08-reject-game.md), you added a way for pla
 
 ## The why
 
-There is a situation we have not taken into account: what if a player never shows up again? Should a game remain in limbo forever?
+What if a player never shows up again? Should a game remain in limbo forever?
 
 You eventually want to let players wager on the outcome of games, especially if _value_ is tied up in games. You need to add a way for games to be forcibly resolved if a player stops responding.
 
