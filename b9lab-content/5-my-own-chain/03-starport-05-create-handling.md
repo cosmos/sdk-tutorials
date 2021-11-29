@@ -116,8 +116,6 @@ Given that you have already done a lot of preparatory work, what does it involve
     }, nil
     ```
 
-As you can see, proper preparation in the previous sections made handling this a breeze.
-
 ## Next up
 
 In the next sections, you will modify this handling:
@@ -128,4 +126,4 @@ In the next sections, you will modify this handling:
 * To facilitate the eventual [deadline enforcement](03-starport-12-game-forfeit).
 * To add [_money_](03-starport-13-game-wager) handling, including [foreign tokens](./03-starport-16-wager-denom).
 
-Now, that a game is created, it is time to play it. That's the subject of the [next section](./03-starport-06-play-game).
+Now that a game is created, it is time to play it. That's the subject of the [next section](./03-starport-06-play-game).
