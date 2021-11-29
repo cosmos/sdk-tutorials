@@ -20,7 +20,7 @@ Begin your journey with this brief review of blockchain technology, how Cosmos c
 
 The building blocks of blockchain technology are found in the 1980s and 1990s when breakthroughs in computer science and cryptography laid the necessary groundwork. Blockchain technology per se was invented in 2008.
 
-The necessary breakthroughs included append-only, provably correct transaction logs using built-in error checking, strong authentication and encryption using public keys, mature theories of fault-tolerant systems, a widespread understanding of peer-to-peer systems, and, of course, the advent of the internet and ubiquitous connectivity and powerful client-side computers.
+The necessary breakthroughs included append-only, provably correct transaction logs using built-in error checking, strong authentication and encryption using public keys, mature theories of fault-tolerant systems, a widespread understanding of peer-to-peer systems, and the advent of the internet and ubiquitous connectivity and powerful client-side computers.
 
 On October 31, 2008, an individual, or group, calling itself Satoshi Nakamoto proposed a **Peer-to-Peer (P2P) network for a digital currency**, calling it **Bitcoin**. Bitcoin introduced a novel consensus mechanism, now referred to as Nakamoto Consensus, that uses Proof-of-Work (PoW) to enable nodes to reach agreement in a decentralized network. Suddenly, it became possible to send online payments directly between parties **independent of financial institutions and trusted third parties**. Bitcoin became the first public, decentralized payment application.
 
@@ -46,7 +46,7 @@ The development of diverse blockchain applications built on similar decentralize
 
 Blockchain protocols define programs that hold a state and describe how to modify the state according to the received inputs. Those inputs are called transactions.
 
-The consensus mechanism ensures that a blockchain has a canonical transaction history. And, blockchain transactions must be deterministic, meaning there is only one correct interpretation. So, it follows that the blockchain state is deterministic; if you begin with the same genesis state and replicate all conducted changes, you always achieve the same state.
+The consensus mechanism ensures that a blockchain has a canonical transaction history. Blockchain transactions must be deterministic, meaning there is only one correct interpretation. So, it follows that the blockchain state is deterministic; if you begin with the same genesis state and replicate all conducted changes, you always achieve the same state.
 
 Although Bitcoin's codebase is monolithic, its blockchain architecture can be **split into three layers**:
 
