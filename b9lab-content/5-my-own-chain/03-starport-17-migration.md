@@ -302,7 +302,7 @@ type winningPlayerParsed struct {
 
 <ExpansionPanel title="How is dateAdded serialized?">
 
-You can reuse the [date format used for the deadline]('../5-my-own-chain/03-starport-10-game-deadline.md'):
+You can reuse the [date format used for the deadline](../5-my-own-chain/03-starport-10-game-deadline.md):
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/keys.go#L50]
 const (
