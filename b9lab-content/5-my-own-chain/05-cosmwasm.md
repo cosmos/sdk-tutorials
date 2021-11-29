@@ -13,7 +13,7 @@ tag: deep-dive
 
 The actor model is a design pattern for reliable, distributed systems. It is the pattern underlying CosmWasm smart contracts.
 
-In the model, the actor has access to the internal state and actors can only message each other through a so-called dispatcher, that maintains the state and maps addresses to code and storage.
+In the model the actor has access to the internal state and actors can only message each other through a so-called dispatcher that maintains the state and maps addresses to code and storage.
 
 Want to read more on the actor model? Check out [the CosmWasm documentation on the Actor Model for Contract Calls](https://docs.cosmwasm.com/docs/0.16/architecture/actor).
 
@@ -28,9 +28,9 @@ CosmWasm is adaptable to different development environments by design and makes 
 
 ## Install
 
-To use the Cosmos SDK, you need to have installed Go. In addition, you have to install Rust to write smart contracts.
+To use the Cosmos SDK you need to have installed Go. In addition, you have to install Rust to write smart contracts.
 
-To install Rust, go to [https://rustup.rs/](https://rustup.rs/). Set the wasm32 target:
+To install Rust go to [https://rustup.rs/](https://rustup.rs/). Set the wasm32 target:
 
 ```bash
 $ rustup target list --installed
@@ -58,7 +58,7 @@ Verify your installation:
 $ wasmd version
 ```
 
-In case you cannot call `wasmd`, make sure your `$GOPATH` and `$PATH` are set correctly.
+In case you cannot call `wasmd` make sure your `$GOPATH` and `$PATH` are set correctly.
 
 ## Testnet
 
@@ -148,7 +148,7 @@ $ CODE_ID=$(echo $RES | jq -r '.logs[0].events[-1].attributes[0].value')
 
 The response returns a `code_id` value. Keep it at hand to use in the next steps.
 
-In `contracts/nameservice/src/contract.rs`, you see:
+In `contracts/nameservice/src/contract.rs` you see:
 
 ```rust
 #[cfg_attr(not(feature = "library"), entry_point)]
@@ -183,7 +183,7 @@ Check the contract with:
 $ wasmd query wasm list-contract-by-code $CODE_ID --node $RPC --output json
 ```
 
-In the response, you can find the contract address. Use it to fetch more information and replace `$CONTRACT` in the following command with the address you got:
+In the response you can find the contract address. Use it to fetch more information and replace `$CONTRACT` in the following command with the address you got:
 
 ```bash
 $ wasmd query wasm contract $CONTRACT --node $RPC
@@ -206,13 +206,13 @@ pub fn execute(
 }
 ```
 
-So, we can register or transfer a name. First, register a name with your contract address `$CONTRACT`:
+We can register or transfer a name. First register a name with your contract address `$CONTRACT`:
 
 ```bash
 $ wasmd tx wasm execute $CONTRACT '{"register":{"name":"fred"}}' --amount 100upebble --from wallet --node $RPC --chain-id pebblenet-1 --gas-prices 0.001upebble --gas auto --gas-adjustment 1.3
 ```
 
-In the contract, you can find:
+In the contract you can find:
 
 ```rust
 pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
@@ -243,13 +243,13 @@ Replace the address `wasm17a6xrje3vnhmevp0tflwt6t0dv2faz5sa3l2lq` with the addre
 $ wasmd keys show wallet2 --address
 ```
 
-You used `transfer_price`, which we set at the instantiation.
+You used `transfer_price` which we set at the instantiation.
 
 Check again with a `resolve_record` query if the transfer was successful. Try to do another transfer from `wallet2` to `wallet`, and check which wallet can perform such a transaction.
 
 <HighlightBox type="tip">
 
-CosmWasm offers a good [documentation](https://docs.cosmwasm.com/docs/). This section is a summary of the [Getting Started section](https://docs.cosmwasm.com/docs/getting-started/intro/). In case you wish to test on your local node, store the script at [https://docs.cosmwasm.com/docs/getting-started/setting-env#run-local-node-optional](https://docs.cosmwasm.com/docs/getting-started/setting-env#run-local-node-optional). Also have a look at the [contract semantics](https://docs.cosmwasm.com/docs/SEMANTICS/). You can find more information in the [CosmWasm Developer Academy](https://docs.cosmwasm.com/dev-academy/intro) and modular tutorials in the [Wasm tutorials](https://docs.cosmwasm.com/tutorials/hijack-escrow/intro).
-In addition, you can find various hands-on videos on the [workshops](https://docs.cosmwasm.com/tutorials/videos-workshops) page.
+CosmWasm is well [documented](https://docs.cosmwasm.com/docs/). This section is a summary of the [Getting Started section](https://docs.cosmwasm.com/docs/getting-started/intro/). In case you wish to test on your local node, store the script at [https://docs.cosmwasm.com/docs/getting-started/setting-env#run-local-node-optional](https://docs.cosmwasm.com/docs/getting-started/setting-env#run-local-node-optional). Also have a look at the [contract semantics](https://docs.cosmwasm.com/docs/SEMANTICS/). You can find more information in the [CosmWasm Developer Academy](https://docs.cosmwasm.com/dev-academy/intro) and modular tutorials in the [Wasm tutorials](https://docs.cosmwasm.com/tutorials/hijack-escrow/intro).
+You can also find hands-on videos on the [workshops](https://docs.cosmwasm.com/tutorials/videos-workshops) page.
 
 </HighlightBox>
