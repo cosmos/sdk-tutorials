@@ -2,9 +2,22 @@
 title: Adding Events
 order: 9
 description: Inform your players
+tag: deep-dive
 ---
 
 # Adding Events
+
+<HighlightBox type="info">
+
+Before proceeding, make sure you have all you need:
+
+* You understand the concepts of [events](../3-main-concepts/13-events).
+* Have Go installed.
+* The checkers blockchain with the `MsgPlayMove` and its handling:
+    * Either because you followed the [previous steps](./03-starport-06-play-game).
+    * Or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/play-move-handler).
+
+</HighlightBox>
 
 Now that you have [added the possible actions](./03-starport-06-play-game.md), including their return values, use events to alert/notify players.
 
@@ -34,7 +47,7 @@ const (
 )
 ```
 
-Emit the event in your file `x/checkers/keeper/msg_server_create_game.go`:
+Emit the event in your handler file `x/checkers/keeper/msg_server_create_game.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/keeper/msg_server_create_game.go#L37-L46]
 ctx.EventManager().EmitEvent(
@@ -61,7 +74,7 @@ Since you also created a transaction to play a move, it is expected to inform th
 * What the move's outcome was.
 * Whether the game was won.
 
-Contrary to the "create game" event, the players know which game IDs to keep an eye out for. So, there is no need to repeat the players' addresses. The game ID is information enough.
+Contrary to the _create game_ event, which alerted the players about a new game, the players now know which game IDs to keep an eye out for. So, there is no need to repeat the players' addresses. The game ID is information enough.
 
 Similarly, you define new keys in `x/checkers/types/keys.go`:
 
@@ -92,4 +105,10 @@ ctx.EventManager().EmitEvent(
 )
 ```
 
-That is it: you have emitted two events that inform external systems of step changes in the lifecycle of a game. Time to make it possible for a player to reject a game.
+That is it: you have emitted two events that inform external systems of step changes in the lifecycle of a game. The Cosmos SDK made it easy for you to add events.
+
+## Next up
+
+Time to add a third message to make it possible for a player to [reject a game](./03-starport-08-reject-game). Now that you know how to do it, next time, add the event in one go as part of the message handling.
+
+That's one the goals of the [next section](./03-starport-08-reject-game). Another goal of the next section is to make your checkers blockchain more resistant to spam.

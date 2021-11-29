@@ -15,8 +15,7 @@ Before proceeding, make sure you have all you need:
 * Have Go installed.
 * The checkers blockchain with the `MsgCreateGame` and its handling:
     * Either because you followed the [previous steps](./03-starport-05-create-handling).
-    * Or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
-).
+    * Or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler).
 
 </HighlightBox>
 
