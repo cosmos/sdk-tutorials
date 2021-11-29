@@ -29,6 +29,12 @@ Starport assists with scaffolding modules and integrating them with BaseApp. Sta
 
 On top of that Starport will handle some compilation, run a local blockchain node, and help the developer in other respects.
 
+
+Let’s look at a simple run of Starport.
+
+<YoutubePlayer videoId="pFAM6mkKoTA"/>
+
+
 ## Install
 
 <HighlightBox type="tip">

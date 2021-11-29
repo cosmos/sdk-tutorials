@@ -11,6 +11,10 @@ Run a blockchain and discover how to interact with it.
 
 There are different ways to run a node of a Cosmos blockchain. You will explore how to do so using [`simapp`](https://github.com/cosmos/cosmos-sdk/tree/master/simapp).
 
+## See what you are going to do
+
+<YoutubePlayer videoId="qzUgh8mvyJE"/>
+
 ## Compile `simapp`
 
 The Cosmos SDK repository contains a folder called [`simapp`](https://github.com/cosmos/cosmos-sdk/blob/master/simapp/). In this folder you can find the code to run a simulated version of the Cosmos SDK, so you can test commands without actually interacting with your chain. The binary is called `simd` and you will be using it to interact with your node.
