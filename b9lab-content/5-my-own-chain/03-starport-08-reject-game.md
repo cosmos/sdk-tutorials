@@ -2,13 +2,21 @@
 title: The Reject Game Elements
 order: 10
 description: You reject a game
+tag: deep-dive
 ---
 
 # The Reject Game Elements
 
 <HighlightBox type="info">
 
-As a prerequisite to dive right into implementing game rejection, make sure you know how to [create a message](./03-startport-04-create-message.md) and [create handling](./03-startport-05-create-handling.md) with Starport.
+Before proceeding, make sure you have all you need:
+
+* You understand the concepts of [transactions](../3-main-concepts/05-transactions), [messages](../3-main-concepts/07-messages), and [Protobuf](../3-main-concepts/09-protobuf).
+* You know how to [create a message](./03-startport-04-create-message.md) with Starport, and code [its handling](./03-startport-05-create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
+* Have Go installed.
+* The checkers blockchain with the previous too messages and their events:
+    * Either because you followed the [previous steps](./03-starport-07-events).
+    * Or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/two-events).
 
 </HighlightBox>
 
@@ -24,7 +32,7 @@ Name the message object `RejectGame`. Invoke Starport with:
 $ starport scaffold message rejectGame idValue --module checkers
 ```
 
-It creates all the boilerplate for you and leaves a single place for the code you want to include in `x/checkers/keeper/msg_server_reject_game.go`:
+It creates all the boilerplate for you and leaves a single place for the code you want to include:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/93d048c2b7fbdc26825b41bd043d6203ec9c861c/x/checkers/keeper/msg_server_reject_game.go#L10-L17]
 func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (*types.MsgRejectGameResponse, error) {
@@ -39,7 +47,7 @@ func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (
 
 ## Additional information
 
-A player cannot reject a game once they begin to play. You do not know whether a player played or not as of now. You need to add a new field to the `StoredGame` to remediate this. Call it `MoveCount`. So in `proto/checkers/stored_game.proto`:
+A new rule of the game should be that a player cannot reject a game once they begin to play. However, as of now, when loading a `StoredGame` from storage, you have no way of knowing whether a player already played or not. There are many ways to remediate this. Let's pick an effortless one, where you add a new field to the `StoredGame`. Let's call it `MoveCount`. So, in `proto/checkers/stored_game.proto`:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/proto/checkers/stored_game.proto#L15]
 storedGame := types.StoredGame{
@@ -54,7 +62,7 @@ At this point, you may want to run to have Protobuf recompile the relevant Go fi
 $ starport generate proto-go
 ```
 
-`MoveCount` should start at `0` and increment by `1` on each move. So adjust it first in `x/checkers/keeper/msg_server_create_game.go`:
+`MoveCount` should start at `0` and increment by `1` on each move. So adjust it first in the handler when creating the game:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_create_game.go#L26]
 storedGame := types.StoredGame{
@@ -63,7 +71,7 @@ storedGame := types.StoredGame{
 }
 ```
 
-Just before saving to the storage in `x/checkers/keeper/msg_server_play_move.go`:
+Plus just before saving to the storage, in the handler when playing a move:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_play_move.go#L55]
 ...
@@ -72,18 +80,18 @@ storedGame.Game = game.String()
 ...
 ```
 
-Now you are ready to handle a rejection request.
+With `MoveCount` counting properly, you are now ready to handle a rejection request.
 
 ## The reject handling
 
-As a convenience and to follow the Cosmos SDK conventions, you declare the following new errors in `x/checkers/types/errors.go`:
+As a convenience, and to follow the Cosmos SDK conventions, you declare the following new errors:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/types/errors.go#L19-L20]
 ErrRedAlreadyPlayed   = sdkerrors.Register(ModuleName, 1108, "red player has already played")
 ErrBlackAlreadyPlayed = sdkerrors.Register(ModuleName, 1109, "black player has already played")
 ```
 
-You add an event for rejection. Begin by preparing the keys in `x/checkers/types/keys.go`:
+You will add an event for rejection. Begin by preparing the new keys:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/types/keys.go#L41-L45]
 const (
@@ -93,7 +101,7 @@ const (
 )
 ```
 
-Now the reject steps are:
+Now, in the message handler, the reject steps are:
 
 1. Fetch the relevant information:
 
@@ -120,11 +128,15 @@ Now the reject steps are:
     }
     ```
 
-3. Get rid of the game as it is not interesting enough to keep:
+    Remember that the black player plays first.
+
+3. Get rid of the game, as it is not interesting enough to keep:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_reject_game.go#L34]
     k.Keeper.RemoveStoredGame(ctx, msg.IdValue)
     ```
+
+    Finally using the [`Keeper.RemoveStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-msg/x/checkers/keeper/stored_game.go#L30) function created long ago by the `starport scaffold map storedGame...` command.
 
 4. Emit the relevant event:
 
@@ -139,7 +151,7 @@ Now the reject steps are:
     )
     ```
 
-5. Leave the returned object as it is.
+5. Leave the returned object as it is as you have nothing new to tell the caller.
 
 You can confirm that your project at least compiles [with](https://docs.starport.network/cli/#starport-chain-build):
 
@@ -151,4 +163,8 @@ That is all there is to it. Once again, a lot of the boilerplate is taken care o
 
 ## Next up
 
-Take a look at creating a First-In-First-Out (FIFO) for the game to prepare for game expiration in the [next section](./03-starport-09-game-fifo).
+You are done with creating messages for your checkers blockchain, at least from the point of view of this exercise. It does not mean that you have covered all the game theoretic situations. In particular, a player may stop playing and never come back. How would you handle it? Have the other player, or anyone really, send a message to flag the game as dead? Why not. But what if nobody ever bothers? You would end up with a lot of ongoing-but-dead games.
+
+That's where you can enforce a forfeit mechanism, independent from any player input. That's the object of the next four sections. Where you create a [doubly-linked FIFO](./03-starport-09-game-fifo), add a [deadline](./03-starport-10-game-deadline) and a [game winner](./03-starport-11-game-winner) fields, before being able to finally [enforce the forfeit](./03-starport-12-game-forfeit).
+
+To engage in this journey, head to the [next section](./03-starport-09-game-fifo). If instead you want to enable token wagers in your games, skip ahead to [wagers](./03-starport-13-game-wager).
