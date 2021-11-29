@@ -22,7 +22,7 @@ You can find a code example for your checkers blockchain at the end of the secti
 
 A Cosmos SDK application on an application-specific blockchain usually consists of several modules attending to separate concerns. Each module has a state that is a subset of the entire application state.
 
-The Cosmos SDK adopts an object-capabilities-based approach - only reveal what is necessary to get the work done - to help developers better protect their application from unwanted inter-module interactions. Keepers are at the core of this approach.
+The Cosmos SDK adopts an object-capabilities-based approach to help developers better protect their application from unwanted inter-module interactions. Keepers are at the core of this approach.
 
 A keeper is a Cosmos SDK abstraction that manages access to the subset of the state defined by a module. All access to the module's data must go through the module's keeper.
 
@@ -172,7 +172,7 @@ In the [Accounts section](./04-accounts.md), you were introduced to the elements
 
 You need to decide under what structure you want to store a game in the storage. The Cosmos SDK partitions the global storage per module with `checkers` being its own module. You need to take care of how to store games in the checkers module's corner of the key/value pair storage.
 
-The first idea would be to attribute a unique ID to a game and to store the game value at that ID. For the sake of clarity and to be able to differentiate with other stored elements in the future, you ought to add a prefix to that ID. The storage structure would therefore look like this:
+The first idea would be to attribute a unique ID to a game and to store the game value at that ID. For the sake of clarity and to be able to differentiate with other stored elements in the future, you ought to add a prefix to that ID. The storage structure would look like this:
 
 ```go
 // Pseudo-code
@@ -231,7 +231,7 @@ func (k Keeper) GetStoredGame(ctx sdk.Context, gameId string) (storedGame types.
 }
 ```
 
-Similarly, if you want to save a game:
+If you want to save a game:
 
 ```go
 func (k Keeper) SetStoredGame(ctx sdk.Context, storedGame types.StoredGame) {
@@ -426,8 +426,6 @@ You would do the same for `MsgPlayMoveResponse` and `MsgRejectGame`. Why not try
 
 ## More on game theory
 
-The question of what to do when a player does not play ball remained when you introduced [messages](./07-messages.md).
-
 Time to introduce a game deadline:
 
 ```go
@@ -551,7 +549,5 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
     ...
 }
 ```
-
-Where and how much to charge for gas is an economical as well as a game-theoretical concern. So, you should think about what you want to incentivize or disincentivize at which junctures and charge accordingly.
 
 </ExpansionPanel>
