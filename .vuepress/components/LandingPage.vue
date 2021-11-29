@@ -1,14 +1,14 @@
 <template lang="pug">
     .content
         h1.tm-title.tm-lh-title.tm-rf6.tm-bold Developer Portal
-        a(href="/b9lab-content/1-welcome")
+        a(href="/academy/1-welcome")
             card.mt-9(imageUrl="/graphics-sdk-course.png")
                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted beginner
                 h2.mt-1 Cosmos Academy
                 //- .info-label.tm-lh-title.tm-rf-1.tm-muted ~126 Hours
 
                 .content__intro__desc.tm-measure-narrow.tm-lh-copy.tm-muted Want to discover how to use the Cosmos SDK to build application-specific blockchains? Take your first steps in the Cosmos universe with a look into this complete and comprehensive course.
-                a(href="/b9lab-content/1-welcome").tm-button.mt-7.mb-5.tm-button-disclosure
+                a(href="/academy/1-welcome").tm-button.mt-7.mb-5.tm-button-disclosure
                     span Start learning
         .tutorials__wrapper.mt-10
             h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tutorials

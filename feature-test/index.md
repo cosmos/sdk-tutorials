@@ -241,12 +241,12 @@ title: "Cosmos Academy (beta)",
 children: [
   {
     title: "Welcome",
-    path: "/b9lab-content/1-welcome/",
+    path: "/academy/1-welcome/",
     directory: false,
   },
   {
     title: "What is Cosmos?",
-    path: "/b9lab-content/2-what-is-cosmos",
+    path: "/academy/2-what-is-cosmos",
     directory: true,
   },
   {

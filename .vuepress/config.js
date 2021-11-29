@@ -127,32 +127,32 @@ module.exports = {
           children: [
             {
               title: "Welcome",
-              path: "/b9lab-content/1-welcome/",
+              path: "/academy/1-welcome/",
               directory: false,
             },
             {
               title: "What is Cosmos?",
-              path: "/b9lab-content/2-what-is-cosmos",
+              path: "/academy/2-what-is-cosmos",
               directory: true,
             },
             {
               title: "Main Concepts",
-              path: "/b9lab-content/3-main-concepts",
+              path: "/academy/3-main-concepts",
               directory: true,
             },
             {
               title: "Running a Chain",
-              path: "/b9lab-content/4-running-a-chain",
+              path: "/academy/4-running-a-chain",
               directory: true,
             },
             {
               title: "My Own Cosmos Chain",
-              path: "/b9lab-content/5-my-own-chain",
+              path: "/academy/5-my-own-chain",
               directory: true,
             },
             {
               title: "What's Next?",
-              path: "/b9lab-content/6-whats-next/",
+              path: "/academy/6-whats-next/",
               directory: false,
             },
           ],
@@ -363,6 +363,6 @@ module.exports = {
     "starport/*.md",
     "understanding-ibc-denoms/*.md",
     "feature-test/*.md",
-    "b9lab-content/*/*.md"
+    "academy/*/*.md"
   ],
 };
