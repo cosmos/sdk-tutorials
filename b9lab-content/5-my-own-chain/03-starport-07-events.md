@@ -109,6 +109,6 @@ That is it: you have emitted two events that inform external systems of step cha
 
 ## Next up
 
-Time to add a third message to make it possible for a player to [reject a game](./03-starport-08-reject-game). Now that you know how to do it, next time, add the event in one go as part of the message handling.
+Time to add a third message to make it possible for a player to [reject a game](./03-starport-08-reject-game). Now that you know how to do it, add the event next time in one go as part of the message handling.
 
-That's one the goals of the [next section](./03-starport-08-reject-game). Another goal of the next section is to make your checkers blockchain more resistant to spam.
+That is one the goals of the [next section](./03-starport-08-reject-game). Another goal of the next section is to make your checkers blockchain more resistant to spam.
