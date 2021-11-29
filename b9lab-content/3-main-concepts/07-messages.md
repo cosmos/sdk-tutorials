@@ -239,7 +239,7 @@ Your work is mostly done. You will want to create the specific game creation cod
     }, nil
     ```
 
-Not to forget and worth mentioning here:
+Not to forget:
 
 * If you encounter an internal error, you should `panic("This situation should not happen")`.
 * If you encounter a user or _regular_ error, like not having enough funds, you should return a regular `error`.
