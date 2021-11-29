@@ -40,7 +40,7 @@ If you prefer to see some code in action and continue with the checkers blockcha
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-If you have used Starport so far, it has already created queries for you to get one stored game or a list of them. However, you still do not have a way to check whether a move works/is valid. It would be wasteful to send a transaction with an invalid move. It is better to catch such a mistake before submitting a transaction. So you are going to create a query to know whether a move is valid.
+If you have used Starport so far, it has already created queries for you to get one stored game or a list of them. You still do not have a way to check whether a move works/is valid. It would be wasteful to send a transaction with an invalid move. It is better to catch such a mistake before submitting a transaction. So you are going to create a query to know whether a move is valid.
 
 Starport can again help you with a simple command:
 
