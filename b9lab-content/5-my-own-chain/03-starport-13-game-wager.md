@@ -12,7 +12,7 @@ Players choose to wager _money_ and the winner gets both wagers. The forfeiter l
 
 ## New information
 
-First, add this wager value to the stored game in `proto/checkers/stored_game.proto`:
+Add this wager value to the stored game in `proto/checkers/stored_game.proto`:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/proto/checkers/stored_game.proto#L20]
 message StoredGame {
@@ -21,7 +21,7 @@ message StoredGame {
 }
 ```
 
-To let different player leagues emerge, you can let players choose the wager they want with the following changes in `proto/checkers/tx.proto`:
+To let different player leagues emerge you can let players choose the wager they want with the following changes in `proto/checkers/tx.proto`:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/proto/checkers/tx.proto#L45]
 message MsgCreateGame {
@@ -30,7 +30,7 @@ message MsgCreateGame {
 }
 ```
 
-Remember that players can still reject games; there is no risk of players being coerced into expensive games. To have Starport and Protobuf recompile these two files, you can use:
+Remember that players can still reject games; there is no risk of players being coerced into expensive games. To have Starport and Protobuf recompile these two files you can use:
 
 ```sh
 $ starport generate proto-go
@@ -58,7 +58,7 @@ const (
 )
 ```
 
-Next, add the field in the stored object as it is instantiated in `x/checkers/keeper/msg_server_create_game.go`:
+Add the field in the stored object as it is instantiated in `x/checkers/keeper/msg_server_create_game.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/msg_server_create_game.go#L29]
 storedGame := types.StoredGame{
@@ -78,7 +78,7 @@ ctx.EventManager().EmitEvent(
 )
 ```
 
-To avoid surprises, modify the creator function among the interface definition of `MsgCreateGame` in `x/checkers/types/message_create_game.go`:
+To avoid surprises modify the creator function among the interface definition of `MsgCreateGame` in `x/checkers/types/message_create_game.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/types/message_create_game.go#L15]
 func NewMsgCreateGame(creator string, red string, black string, wager uint64) *MsgCreateGame {
@@ -95,7 +95,7 @@ The `Wager` field does not make players pay the wager or receive rewards. You ne
 
 <HighlightBox type="info">
 
-Remember, with the object-capability model of the Cosmos SDK, the only way to have access to a capability is to be given the reference to an instance that already has this capability.
+With the object-capability model of the Cosmos SDK the only way to have access to a capability is to be given the reference to an instance that already has this capability.
 
 </HighlightBox>
 
@@ -116,7 +116,7 @@ type BankKeeper interface {
 }
 ```
 
-These two functions must exactly match the functions declared in the bank [keeper.go file](https://github.com/cosmos/cosmos-sdk/blob/8b78406/x/bank/keeper/keeper.go#L37-L39) - copy and paste to the rescue. The magic of Go is that any object with these two functions is a `BankKeeper`.
+These two functions must exactly match the functions declared in the bank [keeper.go file](https://github.com/cosmos/cosmos-sdk/blob/8b78406/x/bank/keeper/keeper.go#L37-L39). The magic of Go is that any object with these two functions is a `BankKeeper`.
 
 With the requirements declared, it is time to make sure your keeper receives a reference. First, add a `BankKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
 
@@ -143,7 +143,7 @@ func NewKeeper(
 }
 ```
 
-Now, you need to update where the constructor is called, namely in `app/app.go`:
+Now you need to update where the constructor is called, namely in `app/app.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/app/app.go#L341-L342]
 app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
@@ -156,7 +156,7 @@ This `app.BankKeeper` is a full bank keeper that also conforms to your `BankKeep
 
 ## Preparing expected errors
 
-There are several new error situations, which you can enumerate in `x/checkers/types/errors.go`:
+There are several new error situations which you can enumerate in `x/checkers/types/errors.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/types/errors.go#L23-L29]
 ErrRedCannotPay      = sdkerrors.Register(ModuleName, 1112, "red cannot pay the wager")
@@ -169,7 +169,7 @@ ErrNotInRefundState  = sdkerrors.Register(ModuleName, 1118, "game is not in a st
 
 ## Money handling steps
 
-With the `bank` now in your keeper, it is time to have your keeper handle the money. Keep this concern in its own file as the keeper is reused on play, reject, and forfeit.
+With the `bank` now in your keeper it is time to have your keeper handle the money. Keep this concern in its own file as the keeper is reused on play, reject, and forfeit.
 
 Create the new file `x/checkers/keeper/wager_handler.go` and add these three functions to collect a wager, refund a wager, and pay winnings:
 
@@ -179,9 +179,9 @@ func (k *Keeper) MustPayWinnings(ctx sdk.Context, storedGame *types.StoredGame)
 func (k *Keeper) MustRefundWager(ctx sdk.Context, storedGame *types.StoredGame)
 ```
 
-The `Must` prefix in the function means that the transaction either takes place or a panic is issued. After all, if a player cannot pay the wager, it is a user-side error and the user must be informed of a failed transaction. If the module cannot pay, it means the escrow account has failed. This error is much more serious, an invariant has been violated and the whole application must be terminated.
+The `Must` prefix in the function means that the transaction either takes place or a panic is issued. If a player cannot pay the wager, it is a user-side error and the user must be informed of a failed transaction. If the module cannot pay, it means the escrow account has failed. This error is much more serious, an invariant has been violated and the whole application must be terminated.
 
-Now, it is time to set up collecting a wager, paying winnings, and refunding a wager:
+Set up collecting a wager, paying winnings, and refunding a wager:
 
 1. **Collecting wagers** happens on a player's first move. Therefore, differentiate between players:
 
@@ -214,7 +214,7 @@ Now, it is time to set up collecting a wager, paying winnings, and refunding a w
 
     Then do the same for the red player.
 
-2. **Paying winnings** takes place when the game has a declared winner. So first, get the winner. In this `MustPayWinnings`, "no winner" is not an acceptable situation, the caller of the function must know:
+2. **Paying winnings** takes place when the game has a declared winner. First get the winner. In this `MustPayWinnings`, "no winner" is not an acceptable situation, the caller of the function must know:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/wager_handler.go#L42-L48]
     winnerAddress, found, err := storedGame.GetWinnerAddress()
@@ -246,7 +246,7 @@ Now, it is time to set up collecting a wager, paying winnings, and refunding a w
     }
     ```
 
-3. Finally, **refunding wagers** takes place when the game has partially started (partially paid), or when the game ends in a draw. A draw is still a TODO in this application because it is not deterministic but instead requires both players to agree there was a draw. In this narrow case of `MustRefundWager`:
+3. **Refunding wagers** takes place when the game has partially started (partially paid), or when the game ends in a draw. A draw is still a TODO in this application because it is not deterministic but instead requires both players to agree there was a draw. In this narrow case of `MustRefundWager`:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/wager_handler.go#L64-L78]
     if storedGame.MoveCount == 1 {
@@ -322,4 +322,3 @@ With the desired steps defined in their functions, it is time to insert the func
     }
     ```
 
-Congratulations, you have successfully handled wagers. Players can now start getting serious with the game.

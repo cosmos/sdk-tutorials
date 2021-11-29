@@ -10,9 +10,9 @@ In the [previous step](./03-starport-08-reject-game.md), you added a way for pla
 
 ## The why
 
-There is a situation we have not taken into account: what if a player never shows up again? Should a game remain in limbo forever?
+What if a player never shows up again? Should a game remain in limbo forever?
 
-You eventually want to let players wager on the outcome of games, especially if _value_ is tied up in games. Therefore, you need to add a way for games to be forcibly resolved if a player stops responding.
+You eventually want to let players wager on the outcome of games, especially if _value_ is tied up in games. You need to add a way for games to be forcibly resolved if a player stops responding.
 
 The simplest mechanism to expire a game is to use a **deadline**. If the deadline is reached, then the game is forcibly terminated (expires). Every time a game is played, the deadline is pushed further back.
 
@@ -24,7 +24,7 @@ How do you find all the games with reached deadlines? Maybe with a pseudo-code l
 findAll(game => game.deadline < now)
 ```
 
-In terms of computation, this approach is **expensive**. The `EndBlock` code should not have to pull up all games, potentially millions, out of the storage just to find the dozen that are relevant. In computer science jargon: doing a `findAll` costs `O(n)`, where `n` is the total number of games.
+In terms of computation this approach is **expensive**. The `EndBlock` code should not have to pull up all games, potentially millions, out of the storage just to find the dozen that are relevant. In computer science jargon: doing a `findAll` costs `O(n)`, where `n` is the total number of games.
 
 ## The how
 
@@ -40,11 +40,11 @@ When terminating expired games in `EndBlock`, you keep dealing with the expired 
 
 Is `k` still an unbounded number of operations? Yes, but if you use the same expiration duration on each game, for `k` games to expire together in a block, these `k` games would all have had a move in the same previous block. Give or take the block before or after. In the worst case, the largest `EndBlock` computation will be proportional to the largest regular block in the past. This is a reasonable risk to take.
 
-Remember this back-of-the-envelope assessment works only if the expiration duration is the same for all games, instead of being a parameter left to a potentially malicious game creator.
+Remember this only works if the expiration duration is the same for all games instead of being a parameter left to a potentially malicious game creator.
 
 ## New information
 
-How do you implement a FIFO? Let's choose a doubly-linked list for that:
+How do you implement a FIFO? Choose a doubly-linked list for that:
 
 1. You need to keep the ID of the head and the tail. `NextGame` is a good place for this, as it is already an object and expandable. In terms of code, just add a bit in `proto/checkers/next_game.proto`:
 
@@ -164,7 +164,7 @@ func (k Keeper) SendToFifoTail(ctx sdk.Context, game *types.StoredGame, info *ty
 
 ## Use it
 
-With these functions ready, it is time to use them in the message handlers.
+With these functions ready it is time to use them in the message handlers.
 
 In `x/checkers/keeper/msg_server_create_game.go`, send the new game to the tail because it is freshly created:
 
@@ -207,4 +207,4 @@ k.Keeper.SetNextGame(ctx, nextGame)
 
 You probably recognize the classical doubly-linked list implementation.
 
-We do not have any expiry date on the games yet. You implemented purely a FIFO that is updated but the FIFO's head is never queried. Let's fix this in the [next section](./03-starport-10-game-deadline.md).
+We do not have any expiry date on the games yet. You implemented purely a FIFO that is updated but the FIFO's head is never queried. You will fix this in the [next section](./03-starport-10-game-deadline.md).

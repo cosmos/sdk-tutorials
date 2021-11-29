@@ -14,11 +14,11 @@ As a prerequisite to dive right into implementing game rejection, make sure you 
 
 </HighlightBox>
 
-To reject a game, a player needs to provide the ID of the game that the player wants to reject. Let's call the field `idValue`. As the signer of the message is implicitly the player, this should be sufficient.
+To reject a game, a player needs to provide the ID of the game that the player wants to reject. Call the field `idValue`. As the signer of the message is implicitly the player, this should be sufficient.
 
 ## Working with Starport
 
-Let's name the message object `RejectGame`. Invoke Starport with:
+Name the message object `RejectGame`. Invoke Starport with:
 
 ```sh
 $ starport scaffold message rejectGame idValue --module checkers
@@ -76,7 +76,7 @@ Now you are ready to handle a rejection request.
 
 ## The reject handling
 
-As a convenience, and to follow Cosmos SDK conventions, you declare the following new errors in `x/checkers/types/errors.go`:
+Declare the following new errors in `x/checkers/types/errors.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/types/errors.go#L19-L20]
 ErrRedAlreadyPlayed   = sdkerrors.Register(ModuleName, 1108, "red player has already played")
@@ -93,7 +93,7 @@ const (
 )
 ```
 
-Now, the reject steps are:
+The reject steps are:
 
 1. Fetch the relevant information:
 
@@ -104,7 +104,7 @@ Now, the reject steps are:
     }
     ```
 
-2. Is the player expected? And, did the player already play?
+2. Is the player expected? Did the player already play?
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_reject_game.go#L21-L31]
     if strings.Compare(storedGame.Red, msg.Creator) == 0 {
@@ -120,7 +120,7 @@ Now, the reject steps are:
     }
     ```
 
-3. Get rid of the game, as it is not interesting enough to keep:
+3. Get rid of the game as it is not interesting enough to keep:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_reject_game.go#L34]
     k.Keeper.RemoveStoredGame(ctx, msg.IdValue)
@@ -146,5 +146,3 @@ You can confirm that your project at least compiles [with](https://docs.starport
 ```sh
 $ starport chain build
 ```
-
-That is all there is to it. Once again, with Protobuf and Starport, a lot of the boilerplate is taken care of.

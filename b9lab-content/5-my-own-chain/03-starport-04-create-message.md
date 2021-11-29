@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="info">
 
-Before proceeding, make sure you have all you need:
+Before proceeding make sure you have all you need:
 
 * You understand the concepts of [transactions](../3-main-concepts/05-transactions) and [messages](../3-main-concepts/07-messages) and [Protobuf](../3-main-concepts/09-protobuf).
 * Have Go installed.
@@ -42,7 +42,7 @@ This creates a [certain number of files](https://github.com/cosmos/b9-checkers-a
 
 ## Protobuf objects
 
-Again, simple Protobuf objects are created:
+Simple Protobuf objects are created:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/b3cf9ea4c554158e950bcfe58803e53eefc31090/proto/checkers/tx.proto#L15-L23]
 message MsgCreateGame {
@@ -56,7 +56,7 @@ message MsgCreateGameResponse {
 }
 ```
 
-Which, when compiled, for instance with `starport generate proto-go`, yield:
+When compiled `starport generate proto-go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b3cf9ea4c554158e950bcfe58803e53eefc31090/x/checkers/types/tx.pb.go#L31-L35]
 type MsgCreateGame struct {
@@ -95,7 +95,7 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 }
 ```
 
-Which is code that you, probably, do not need to change.
+Which is code that you do not need to change in this case.
 
 Starport also creates boilerplate code to have the message conform to the [`sdk.Msg`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L11-L33) type, like:
 
@@ -109,7 +109,7 @@ func (msg *MsgCreateGame) GetSigners() []sdk.AccAddress {
 }
 ```
 
-This code is created only once. Therefore, you can modify it as you see fit.
+This code is created only once. You can modify it as you see fit.
 
 ## Protobuf service interface
 
@@ -125,11 +125,11 @@ service Msg {
 }
 ```
 
-As an interface, it does not describe what should happen when called, though. What Starport does, with the help of Protobuf, is compile the interface and create a default Go implementation.
+As an interface it does not describe what should happen when called. What Starport does with the help of Protobuf is compile the interface and create a default Go implementation.
 
 ## Next up
 
-Since you are responsible to define "creating a game", Starport separates concerns into different files. At this point, the most relevant for you is `x/checkers/keeper/msg_server_create_game.go`, which is created once. In this file, you need to code in the creation of the game proper:
+Since you are responsible to define "creating a game", Starport separates concerns into different files. At this point the most relevant for you is `x/checkers/keeper/msg_server_create_game.go`, which is created once. In this file you need to code in the creation of the game proper:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/keeper/msg_server_create_game.go#L10-L17]
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {

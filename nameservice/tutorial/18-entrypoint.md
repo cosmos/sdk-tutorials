@@ -2,7 +2,7 @@
 order: 20
 ---
 
-# Entry points
+# Entrypoints
 
 In Golang the convention is to place files that compile to a binary in the `./cmd` folder of a project. For your application there are 2 binaries that you want to create:
 

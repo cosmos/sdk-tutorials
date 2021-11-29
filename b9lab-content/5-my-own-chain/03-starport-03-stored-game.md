@@ -9,9 +9,9 @@ tag: deep-dive
 
 <HighlightBox type="info">
 
-Before proceeding, make sure you have all you need:
+Before proceeding make sure you have all you need:
 
-* You understand the concepts of [accounts](../3-main-concepts/04-accounts), [Protobuf](../3-main-concepts/09-protobuf) and [multi-store](../3-main-concepts/10-multistore-keepers).
+* You understand the concepts of [accounts](../3-main-concepts/04-accounts), [Protobuf](../3-main-concepts/09-protobuf) and [multistore](../3-main-concepts/10-multistore-keepers).
 * Have Go installed.
 * The bare blockchain scaffold with a single module named `checkers`:
     * Either because you followed the [previous steps](./02-starport).
@@ -21,9 +21,9 @@ Before proceeding, make sure you have all you need:
 
 In the [Starport introduction section](./03-starport) you learned how to jump-start a brand new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
 
-A good start to developing a checkers blockchain is to define the ruleset of the game. There are many versions of the rules. Let's choose [a very simple set of basic rules](https://www.ducksters.com/games/checkers_rules.php) to not get lost in the rules of checkers or the proper implementation of the board state.
+A good start to developing a checkers blockchain is to define the ruleset of the game. There are many versions of the rules. Choose [a very simple set of basic rules](https://www.ducksters.com/games/checkers_rules.php) to not get lost in the rules of checkers or the proper implementation of the board state.
 
-Use [a ready-made implementation](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go), with the additional rule that the board is 8x8 and played on black cells. This code will not need adjustments. Copy this rules file into a `rules` folder inside your module. Change its package from `checkers` to `rules`. You can do this by command-line:
+Use [a ready-made implementation](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go) with the additional rule that the board is 8x8 and played on black cells. This code will not need adjustments. Copy this rules file into a `rules` folder inside your module. Change its package from `checkers` to `rules`. You can do this by command-line:
 
 ```sh
 $ cd checkers
@@ -152,7 +152,7 @@ type GenesisState struct {
 }
 ```
 
-As part of the boilerplate objects created by Starport, you can find query objects. `NextGame` might look out of place, but keep in mind Starport creates the objects according to a model. This does not prevent you from making changes later if you decide these queries are not needed:
+As part of the boilerplate objects created by Starport you can find query objects. `NextGame` might look out of place but keep in mind Starport creates the objects according to a model. This does not prevent you from making changes later if you decide these queries are not needed:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L51-L55]
 message QueryGetNextGameRequest {}
@@ -243,7 +243,7 @@ service Query {
 }
 ```
 
-In the compilation of a service Starport separates concerns into different files. Some of which you should edit, and some should be left untouched. For your checkers game, the following was already taken care of by Starport:
+In the compilation of a service Starport separates concerns into different files. Some of which you should edit and some should be left untouched. For your checkers game, the following was already taken care of by Starport:
 
 * The [query parameters](https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/query.pb.go#L33-L35), [how to serialize](https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/query.pb.go#L501) them, and make them conform to the right Protobuf [`RequestQuery`](https://github.com/tendermint/tendermint/blob/1c34d17/abci/types/types.pb.go#L636-L641) interface.
 * The primary implementation of the gRPC service.
@@ -291,7 +291,7 @@ Your stored game stores only strings. But you know that they represent `sdk.AccA
     )
     ```
 
-Not much to add, but this will assist you in keeping your code DRY.
+Not much to add but this will assist you in keeping your code DRY.
 
 ## Next up
 

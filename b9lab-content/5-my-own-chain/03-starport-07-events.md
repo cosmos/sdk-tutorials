@@ -17,12 +17,12 @@ This is where events come in. Adding events to your application is as simple as:
 
 ## Game created event
 
-Let's start with the event that announces the creation of a new game. The goal is to:
+Start with the event that announces the creation of a new game. The goal is to:
 
 * Inform/alert the concerned players (the players of the game).
 * Make it easy for the players to find the relevant game.
 
-So, define some new keys in `x/checkers/types/keys.go`:
+Define some new keys in `x/checkers/types/keys.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/types/keys.go#L34-L39]
 const (
@@ -63,7 +63,7 @@ Since you also created a transaction to play a move, it is expected to inform th
 
 Contrary to the "create game" event, the players know which game IDs to keep an eye out for. So, there is no need to repeat the players' addresses. The game ID is information enough.
 
-Similarly, you define new keys in `x/checkers/types/keys.go`:
+You define new keys in `x/checkers/types/keys.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/types/keys.go#L41-L48]
 const (

@@ -7,7 +7,7 @@ tag: deep-dive
 
 # CosmJS
 
-[CosmJS](https://github.com/cosmos/cosmjs) is a TypeScript library for the Cosmos SDK. It is a [powerful tool](https://github.com/cosmos/cosmjs/wiki/What-can-CosmJS-do-for-me%3F), which can be used to create wallets, explorers, IBC relayers, and other decentralized applications (dApps). It is written in TypeScript and therefore, can be used on the client- or server-side.
+[CosmJS](https://github.com/cosmos/cosmjs) is a TypeScript library for the Cosmos SDK. It is a [powerful tool](https://github.com/cosmos/cosmjs/wiki/What-can-CosmJS-do-for-me%3F) which can be used to create wallets, explorers, IBC relayers, and other decentralized applications (dApps). It is written in TypeScript and can be used on the client- or server-side.
 
 In this section, you will have a look at generated code by Starport to understand the basics of the CosmJS library.
 
@@ -23,7 +23,7 @@ $ starport scaffold message createPost title body
 
 ## Your module in the UI
 
-Starport also created UI-side elements to facilitate integration. To have a look at one, open `./vue/src/store/generated/alice/chain/alice.chain.chain/module/index.js`, where you find:
+Starport also created UI-side elements to facilitate integration. To have a look at one open `./vue/src/store/generated/alice/chain/alice.chain.chain/module/index.js`:
 
 ```javascript
 // THIS FILE IS GENERATED AUTOMATICALLY. DO NOT MODIFY.
@@ -60,7 +60,7 @@ In this file, your module's client-side services are defined.
 
 Let's review the actions taking place here:
 
-1. It starts by importing `@cosmjs/stargate`, which is the client library for Cosmos SDK 0.40, and the following versions (named Stargate).
+1. The code begins by importing `@cosmjs/stargate`, which is the client library for Cosmos SDK 0.40, and the following versions (named Stargate).
 2. Then it imports `@cosmjs/proto-signing`, which encapsulates knowledge on how to sign `Msg` objects created with Protobuf. In this case, it added your `MsgCreatePost` type to the registry.
 3. Mirroring your Go code, your message type `MsgCreatePost` is defined in `./vue/src/store/generated/alice/chain/alice.chain.chain/module/types/chain/tx.js` using [Protobuf.js](https://protobufjs.github.io/protobuf.js/). This is the TypeScript/JavaScript counterpart of Protobuf in Go - that you saw earlier. With this, both ends _speak the same serialization language_.
 4. `http://localhost:26657` is the default Tendermint RPC node endpoint used to send transactions.
@@ -81,7 +81,7 @@ return {
 }
 ```
 
-Here, the following is taking place:
+Here the following is taking place:
 
 1. `SigningStargateClient.connectWithSigner`, as its name suggests, is a way to connect with a wallet and obtain a signing client. The `addr` is passed so that it can be used as part of the information prompted to the user when confirming if an external wallet is used.
 2. An object with two functions is returned: `msgCreatePost` and `signAndBroadcast`.

@@ -8,7 +8,7 @@ description: Let players wager any fungible token
 
 When you introduce a wager, players can play a game and wager the base staking token of your blockchain application. What if they want to play with other _currencies_? Fortunately, by using IBC your blockchain can represent a token from any other blockchain connected to your chain.
 
-Here, you will be agnostic to the tokens that are represented and to who is taking care of relayers. Instead, your only concern is to enable the use of _foreign_ tokens.
+You will be agnostic to the tokens that are represented and to who is taking care of relayers. Your only concern is to enable the use of _foreign_ tokens.
 
 ## New information
 
@@ -90,7 +90,7 @@ This new denomination needs to be inserted in the relevant locations:
 
 The code updates to make these changes are not complex. The advanced usage is for the IBC protocol and relayers.
 
-Congratulations! Your checkers' blockchain is complete with the required features. Now, players can play checkers comfortably.
+Congratulations! Your checkers' blockchain is complete!
 
 <!-- 
 Are you done? What if you wanted to introduce a new feature after it has been deployed and been running? That's the point of migrations in the next section. -> Are we really doing this in the next section? Please check before publishing. -->
