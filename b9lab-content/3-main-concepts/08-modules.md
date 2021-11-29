@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="info">
 
-This section tackles modules. Taking a look at the following sections is recommendable to better understand modules in the Cosmos SDK:
+This section tackles modules. Taking a look at the following sections is recommended to better understand modules in the Cosmos SDK:
 
 * [Transactions](./05-transactions)
 * [Messages](./07-messages)
@@ -21,7 +21,7 @@ You can find a code example illustrating module creation and introduction for yo
 
 Each Cosmos chain is a purpose-built blockchain. Cosmos SDK modules define the unique properties of each chain. Modules can be considered state machines within the larger state machine. They contain the storage layout or state and the state transition functions, which are the message methods.
 
-In summary, modules define most of the logic of Cosmos SDK applications.
+Modules define most of the logic of Cosmos SDK applications.
 
 ![Transaction message flow to modules](./images/message_processing.png)
 
@@ -100,7 +100,7 @@ Protobuf generates a `QueryServer` interface containing all the service methods 
 
 <HighlightBox type="info">
 
-[gRPC](https://grpc.io/) is a modern, open-source, high-performance framework that supports multiple languages. It is the recommended technique for external clients such as wallets, browsers, and backend services to interact with a node.
+[gRPC](https://grpc.io/) is a modern, open-source, high-performance framework that supports multiple languages. It is the recommended standard for external clients such as wallets, browsers, and backend services to interact with a node.
 
 </HighlightBox>
 
@@ -146,7 +146,7 @@ Why not explore the [list of core modules and the application concerns they addr
 
 ## Design principles when building modules
 
-The following design princiles are of importance when building modules:
+The following design principles are of importance when building modules:
 
 <H5PComponent :contents="['/h5p/M2-modules-components-ac']"></H5PComponent>
 
@@ -256,7 +256,7 @@ Modules are encouraged to define and register their own errors to provide better
 
 <HighlightBox type="tip">
 
-For more details, take a look at the [Cosmos SDK documentation on errors when building modules](https://docs.cosmos.network/master/building-modules/errors.html).
+For more details take a look at the [Cosmos SDK documentation on errors when building modules](https://docs.cosmos.network/master/building-modules/errors.html).
 
 </HighlightBox>
 
@@ -264,7 +264,7 @@ For more details, take a look at the [Cosmos SDK documentation on errors when bu
 
 Modules should define and register their custom errors in `x/{module}/errors.go`. Registration of errors is handled via the `types/errors` package.
 
-Each custom module error must provide the codespace, which is typically the module name (for example, "distribution") and is unique per module, and a `uint32` code. The codespace and code together provide a globally unique Cosmos SDK error. The error code tipically is monotonically increasing but does not necessarily have to be.
+Each custom module error must provide the codespace, which is typically the module name (for example, "distribution") and is unique per module, and a `uint32` code. The codespace and code together provide a globally unique Cosmos SDK error.
 
 The only restrictions on error codes are the following:
 
@@ -279,7 +279,7 @@ The Cosmos SDK provides a core set of common errors. These errors are defined in
 
 ### Wrapping
 
-The custom module errors can be returned as their concrete type, as they already fulfill the error interface. However, module errors can be wrapped to provide further context and meaning to failed execution.
+The custom module errors can be returned as their concrete type, as they already fulfill the error interface. Module errors can be wrapped to provide further context and meaning to failed execution.
 
 Regardless of whether an error is wrapped or not, the Cosmos SDK's errors package provides an API to determine if an error is of a particular kind via `Is`.
 
@@ -293,7 +293,7 @@ Have a look at the code example below or head straight to the [next section](../
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-Now your application is starting to take shape. Let's take a closer look at some further expansions for your project.
+Now your application is starting to take shape.
 
 ## The `checkers` module
 
@@ -306,7 +306,7 @@ Earlier the goal was to let players play with _money_. With the introduction of 
 The initial ideas are:
 
 * The wager amount is declared when creating a game.
-* Each player is billed the amount when doing their first move, which is interpreted as "challenge accepted". The amount should not be deducted on the game creation as it is good business to first ask for acceptance from the player. If the opponent rejects the game or the game times out, the first player gets refunded.
+* Each player is billed the amount when doing their first move, which is interpreted as "challenge accepted". The amount should not be deducted on the game creation. If the opponent rejects the game or the game times out, the first player gets refunded.
 * Subsequent moves by a player do not cost anything.
 * If a game ends in a win or times out on a forfeit, the winning player gets the total wager amount.
 * If a game ends in a draw, then both players get back their amount.
@@ -366,11 +366,12 @@ if err != nil {
     panic("Cannot pay the winnings to winner")
 }
 ```
-As a matter of best practice, notice how:
+
+Notice how:
 
 * It is a _standard_ error when the player cannot pay, which is _easily_ fixed by the player.
 * It is a panic (an internal error) when the escrow account cannot pay, because if the escrow cannot pay it means there is a logic problem somewhere.
 
-If you want to go beyond these out-of-context code samples and instead see more in detail how to define all this, head to [My Own Chain](../5-my-own-chain/01-index.md).
+If you want to go beyond these code samples and instead see more in detail how to define all this, head to [My Own Chain](../5-my-own-chain/01-index.md).
 
 </ExpansionPanel>
