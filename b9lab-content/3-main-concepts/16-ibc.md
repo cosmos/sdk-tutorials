@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="info">
 
-Cross-chain communication becomes possible with the Cosmos SDK and the Inter-Blockchain Communication Protocol (IBC). Discover the potentials that come with IBC, but before take a look at:
+Cross-chain communication becomes possible with the Cosmos SDK and the Inter-Blockchain Communication Protocol (IBC). Discover the potentials that come with IBC, but make sure you understand:
 
 * [Accounts](04-accounts)
 * [Transactions](05-transactions)
@@ -22,7 +22,7 @@ The Inter-Blockchain Communication Protocol (IBC) allows sending data from one b
 
 Applications on one chain may need to communicate with applications on another blockchain. For example, an application could accept tokens from another blockchain as a form of payment. Interoperability at this level calls for a method of exchanging data about the state or the transactions on another blockchain.
 
-While such bridges between blockchains can be built and do exist, they are generally constructed in an ad hoc manner. IBC provides all Cosmos SDK applications with a common protocol and framework for implementing standardized inter-blockchain communication.
+While such bridges between blockchains can be built and do exist, they are generally constructed ad-hoc. IBC provides all Cosmos SDK applications with a common protocol and framework for implementing standardized inter-blockchain communication.
 
 ## Modular design and application requirements
 
@@ -89,7 +89,7 @@ IBC modules do not need to interact at all with these lower-level abstractions. 
 
 As self-contained modules a module on one blockchain can communicate with other modules on other blockchains by sending, receiving, and acknowledging packets through channels that are uniquely identified by the `(channelID, portID)` tuple. IBC modules can bind to any number of ports. Each port is identified by a unique `portID`. IBC is designed to be secure with mutually-distrusted modules that operate on the same ledger. Binding a port returns the dynamic object capability.
 
-A module must provide the dynamic object capability to the IBC handler to take action on a particular port, for example, to open a channel with its `portID`. This prevents a malicious module from opening channels with ports it does not own. IBC modules are responsible for claiming the capability that is returned on `BindPort`.
+A module must provide the dynamic object capability to the IBC handler to take action on a particular port, for example to open a channel with its `portID`. This prevents a malicious module from opening channels with ports it does not own. IBC modules are responsible for claiming the capability that is returned on `BindPort`.
 
 An analogy to consider: IBC modules as internet apps on a computer. A channel can then be conceptualized as an IP connection with the IBC `portID` as an IP port and the IBC `channelID` as an IP address.
 
@@ -121,7 +121,7 @@ Just as ports came with dynamic capabilities, channel initialization returns a d
 
 ### Receipts and timeouts
 
-IBC works over a distributed network. Thus, it might be that IBC needs to rely on potentially faulty relayers to relay messages between ledgers. Additionally, cross-chain communication requires handling instances where a packet does not get sent to its destination on time or at all.
+IBC works over a distributed network. It might be that IBC needs to rely on potentially faulty relayers to relay messages between ledgers. Cross-chain communication also requires handling instances where a packet does not get sent to its destination on time or at all.
 
 A proof-of-packet timeout can be submitted to the original chain when a timeout is reached, which can then perform the application-specific logic to timeout the packet by rolling back the packet send changes refunding senders any locked funds.
 
