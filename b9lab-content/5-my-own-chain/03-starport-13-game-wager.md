@@ -2,28 +2,36 @@
 title: The Game Wager Elements
 order: 15
 description: You let players play with money
+tag: deep-dive
 ---
 
 # The Game Wager Elements
 
 <HighlightBox type="info">
 
-Make sure you have all you need to let players play with money:
+Make sure you have all you need before proceeding:
 
-* You understand the concepts of [transactions](../3-main-concepts/05-transactions), [messages](../3-main-concepts/07-messages), and [Protobuf](../3-main-concepts/09-protobuf).
+* You understand the concepts of [modules](../3-main-concepts/08-modules), [keepers](../3-main-concepts/10-multistore-keepers), and [Protobuf](../3-main-concepts/09-protobuf).
 * Have Go installed.
-* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./03-starport-05-create-handling) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
-).
+* The checkers blockchain up to the game expiry handling. Either because you followed the [previous steps](./03-starport-12-game-forfeit) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/forfeit-game).
 
 </HighlightBox>
 
-You have now addressed the case when two players play a game with the game expiration. This tutorial lets you add an extra layer with wagers or stakes. Your application already includes all the necessary modules. This tutorial relies on the `bank` module.
+With the introduction of a game expiry in the [previous section](./03-starport-12-game-forfeit) and others, you have now addressed the cases when two players start a game and finish it or let it expire.
 
-Players choose to wager _money_ and the winner gets both wagers. The forfeiter loses their wager. Start by letting players wager in the staking token of your application.
+<HighlightBox type="warn">
+
+Note that a draw mechanism remains to be done in this application. In a game of checkers, a draw is not deterministic but instead requires both players to agree that there was indeed a draw. This is left as an exercise for the enterprising learner.
+
+</HighlightBox>
+
+This section lets you add an extra layer to a game with wagers or stakes. A rationale for it is that it would facilitate the organic emergence of leagues. Fortunately, your application already includes all the necessary modules. In particular, this section relies on the `bank` module.
+
+As for the game mechanics, players choose to wager _money_ or not, and the winner gets both wagers. The forfeiter loses their wager. To reduce complexity, start by letting players wager in the staking token of your application.
 
 ## New information
 
-Add this wager value to the stored game in `proto/checkers/stored_game.proto`:
+Add this wager value to the `StoredGame`'s Protobuf definition:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/proto/checkers/stored_game.proto#L20]
 message StoredGame {
@@ -32,7 +40,7 @@ message StoredGame {
 }
 ```
 
-You can let players choose the wager they want with the following changes in `proto/checkers/tx.proto` to let different player leagues emerge:
+You can let players choose the wager they want by adding a dedicated field in the message to create a game, in `proto/checkers/tx.proto`:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/proto/checkers/tx.proto#L45]
 message MsgCreateGame {
@@ -41,13 +49,13 @@ message MsgCreateGame {
 }
 ```
 
-Remember that players can still reject games. There is no risk of players being coerced into expensive games. To have Starport and Protobuf recompile these two files, you can use:
+Remember that players can still reject games. Therefore, there is no risk of players being coerced into expensive games. To have Starport and Protobuf recompile these two files, you can use:
 
 ```sh
 $ starport generate proto-go
 ```
 
-How about adding a helper function to `StoredGame` using the Cosmos SDK `Coin` in `x/checkers/types/full_game.go`? It encapsulates the knowledge of what this wager is about:
+How about adding a helper function to `StoredGame` using the Cosmos SDK `Coin` in `full_game.go`? It encapsulates the knowledge of what this wager is about:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/types/full_game.go#L71-L73]
 func (storedGame *StoredGame) GetWagerCoin() (wager sdk.Coin) {
@@ -61,64 +69,66 @@ Where `sdk.DefaultBondDenom` is most likely `"stake"`.
 
 Time to make sure that the new field is saved in the storage and it is part of the creation event.
 
-First, define a new event key in `x/checkers/types/keys.go`:
+1. First, define a new event key as a constant:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/types/keys.go#L49]
-const (
-    StoredGameEventWager = "Wager"
-)
-```
-
-Next add the field in the stored object as it is instantiated in `x/checkers/keeper/msg_server_create_game.go`:
-
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/msg_server_create_game.go#L29]
-storedGame := types.StoredGame{
-    ...
-    Wager: msg.Wager,
-}
-```
-
-And in the event:
-
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/msg_server_create_game.go#L50]
-ctx.EventManager().EmitEvent(
-    sdk.NewEvent(sdk.EventTypeMessage,
-        ...
-        sdk.NewAttribute(types.StoredGameEventWager, strconv.FormatUint(msg.Wager, 10)),
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/types/keys.go#L49]
+    const (
+        StoredGameEventWager = "Wager"
     )
-)
-```
+    ```
 
-Modify the creator function among the interface definition of `MsgCreateGame` in `x/checkers/types/message_create_game.go`: to avoid surprises
+2. Next, set the actual value in the new `StoredGame` as it is instantiated in the create game handler:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/types/message_create_game.go#L15]
-func NewMsgCreateGame(creator string, red string, black string, wager uint64) *MsgCreateGame {
-    return &MsgCreateGame{
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/msg_server_create_game.go#L29]
+    storedGame := types.StoredGame{
         ...
-        Wager: wager,
+        Wager: msg.Wager,
     }
-}
-```
+    ```
 
-## Preparing your keeper
+3. And in the event:
 
-The `Wager` field does not make players pay the wager or receive rewards. You need to add the handling actions. This handling action must ask the `bank` module to perform the required transactions. Your keeper needs to ask for a `bank` instance during setup.
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/msg_server_create_game.go#L50]
+    ctx.EventManager().EmitEvent(
+        sdk.NewEvent(sdk.EventTypeMessage,
+            ...
+            sdk.NewAttribute(types.StoredGameEventWager, strconv.FormatUint(msg.Wager, 10)),
+        )
+    )
+    ```
+
+4. Also modify the constructor among the interface definition of `MsgCreateGame` in `x/checkers/types/message_create_game.go` to avoid surprises:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/types/message_create_game.go#L15]
+    func NewMsgCreateGame(creator string, red string, black string, wager uint64) *MsgCreateGame {
+        return &MsgCreateGame{
+            ...
+            Wager: wager,
+        }
+    }
+    ```
+
+With this, you have ensured that the wager field is set properly.
+
+## Declaring your expectations
+
+Alone, the `Wager` field does not make players pay the wager or receive rewards. You need to add the handling actions. These handling actions must ask the `bank` module to perform the required token transfers. For that, your keeper needs to ask for a `bank` instance during setup.
 
 <HighlightBox type="info">
 
-Remember the only way to have access to a capability with the object-capability model of the Cosmos SDK is to be given the reference to an instance, which already has this capability.
+Remember the only way to have access to a capability with the object-capability model of the Cosmos SDK, is to be given the reference to an instance, which already has this capability.
 
 </HighlightBox>
 
-The keeper needs to keep the wager in escrow while the game is being played and payback when the game is resolved. The `bank` module has functions to transfer tokens from any account to your module and vice-versa.
+You should not rely on players' willingness to pay all due wagers at the time a game is resolved. Instead, you need to find a way to enforce payment without repudiation. The best way to achieve this is with your keeper holding wagers in escrow while the game is being played, and to pay back when the game is resolved. Fortunately, the `bank` module has functions to transfer tokens from any account to your module and vice-versa.
 
-<HighlightBox type="info">
+<HighlightBox type="tip">
 
-A best practice is to declare an interface that narrowly defines the functions you need for your application.
+A best practice is to declare an interface that narrowly declares the functions from other modules that you expect for your module. The conventional file for these declarations is `x/checkers/types/expected_keepers.go`.
 
 </HighlightBox>
 
-The `bank` module is capable of a lot but all you need here are two of the `bank`'s' functions. You must _redeclare_ the functions in the `x/checkers/types/expected_keepers.go` file made for this purpose:
+The `bank` module is capable of a lot but all you need here are two of the `bank`'s functions. So you _redeclare_ the functions like so:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/types/expected_keepers.go#L7-L10]
 type BankKeeper interface {
@@ -127,9 +137,11 @@ type BankKeeper interface {
 }
 ```
 
-These two functions must exactly match the functions declared in the `bank`'s' [keeper.go file](https://github.com/cosmos/cosmos-sdk/blob/8b78406/x/bank/keeper/keeper.go#L37-L39). Copy and paste. The magic of Go is that any object with these two functions is a `BankKeeper`.
+These two functions must exactly match the functions declared in the [`bank`'s keeper.go file](https://github.com/cosmos/cosmos-sdk/blob/8b78406/x/bank/keeper/keeper.go#L37-L39). Copy and paste. The magic of Go is that any object with these two functions is a `BankKeeper`.
 
-With the requirements declared, it is time to make sure your keeper receives a reference. First, add a `BankKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
+## Obtaining the capability
+
+With your requirements declared, it is time to make sure your keeper receives a reference to a bank keeper. First, add a `BankKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/keeper.go#L16]
 type (
@@ -140,7 +152,7 @@ type (
 )
 ```
 
-This `BankKeeper` is your newly declared narrow interface. Do not forget the constructor:
+Remember, this `BankKeeper` is your newly declared narrow interface. Do not forget to adjust the constructor accordingly:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/keeper.go#L25-L41]
 func NewKeeper(
@@ -154,7 +166,7 @@ func NewKeeper(
 }
 ```
 
-Now you need to update where the constructor is called. This happens namely in `app/app.go`:
+Finally, you need to update where the constructor is called and pass a proper instance of bank keeper. This happens namely in `app/app.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/app/app.go#L341-L342]
 app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
@@ -163,11 +175,11 @@ app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
 )
 ```
 
-This `app.BankKeeper` is a full `bank` keeper that also conforms to your `BankKeeper` interface.
+This `app.BankKeeper` is a full `bank` keeper that also conforms to your `BankKeeper` interface because you mastered that copy and paste move.
 
 ## Preparing expected errors
 
-There are several new error situations which you can enumerate in `x/checkers/types/errors.go`:
+There are several new error situations which you can enumerate with new variables:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/types/errors.go#L23-L29]
 ErrRedCannotPay      = sdkerrors.Register(ModuleName, 1112, "red cannot pay the wager")
@@ -190,7 +202,7 @@ func (k *Keeper) MustPayWinnings(ctx sdk.Context, storedGame *types.StoredGame)
 func (k *Keeper) MustRefundWager(ctx sdk.Context, storedGame *types.StoredGame)
 ```
 
-The `Must` prefix in the function means that the transaction either takes place or a panic is issued. If a player cannot pay the wager, it is a user-side error and the user must be informed of a failed transaction. If the module cannot pay, it means the escrow account has failed. This error is much more serious. An invariant has been violated and the whole application must be terminated.
+The `Must` prefix in the function means that the transaction either takes place or a panic is issued. In particular, if a player cannot pay the wager, it is a user-side error and the user must be informed of a failed transaction. If the module cannot pay, it means the escrow account has failed. This error is much more serious. An invariant has been violated and the whole application must be terminated.
 
 Now it is time to set up collecting a wager, paying winnings, and refunding a wager:
 
@@ -248,7 +260,7 @@ Now it is time to set up collecting a wager, paying winnings, and refunding a wa
     }
     ```
 
-    You double the wager only if the red player has also played and both players paid. Then pay the winner:
+    You double the wager only if the red player has also played and therefore both players have paid their wagers. Then pay the winner:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/wager_handler.go#L55-L58]
     err = k.bank.SendCoinsFromModuleToAccount(ctx, types.ModuleName, winnerAddress, sdk.NewCoins(winnings))
@@ -257,7 +269,7 @@ Now it is time to set up collecting a wager, paying winnings, and refunding a wa
     }
     ```
 
-3. Finally, **refunding wagers** takes place when the game has partially started/paid or when the game ends in a draw. A draw is still a TODO in this application because it is not deterministic but instead requires both players to agree there was a draw. In this narrow case of `MustRefundWager`:
+3. Finally, **refunding wagers** takes place when the game has partially started, i.e. only one party has paid, or when the game ends in a draw. In this narrow case of `MustRefundWager`:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/wager_handler.go#L64-L78]
     if storedGame.MoveCount == 1 {
@@ -287,9 +299,9 @@ Now it is time to set up collecting a wager, paying winnings, and refunding a wa
 
 ## Insert wager handling
 
-With the desired steps defined in their functions, it is time to insert the functions at the right places in the message handlers.
+With the desired steps defined in the wager handling functions, it is time to invoke them at the right places in the message handlers.
 
-1. When a player plays for the first time, in `x/checkers/keeper/msg_server_play_move.go`:
+1. When a player plays for the first time:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/msg_server_play_move.go#L47-L50]
     err = k.Keeper.CollectWager(ctx, &storedGame)
@@ -298,7 +310,7 @@ With the desired steps defined in their functions, it is time to insert the func
     }
     ```
 
-2. When a player wins as a result of a move in `x/checkers/keeper/msg_server_play_move.go`:
+2. When a player wins as a result of a move:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/msg_server_play_move.go#L75-L82]
     if storedGame.Winner == rules.NO_PLAYER.Color {
@@ -309,13 +321,13 @@ With the desired steps defined in their functions, it is time to insert the func
     }
     ```
 
-3. When a player rejects a game in `x/checkers/keeper/msg_server_reject_game.go`:
+3. When a player rejects a game:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/msg_server_reject_game.go#L39]
     k.Keeper.MustRefundWager(ctx, &storedGame)
     ```
 
-4. When a game expires and there is a forfeit in `x/checkers/keeper/end_block_server_game.go`. Make sure to only refund or pay full winnings when applicable. The logic needs to be adjusted:
+4. When a game expires and there is a forfeit. Make sure to only refund or pay full winnings when applicable. The logic needs to be adjusted:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/end_block_server_game.go#L54-L58]
     if deadline.Before(ctx.BlockTime()) {
@@ -337,4 +349,4 @@ Congratulations, you have successfully handled wagers. Players can now start get
 
 ## Next up
 
-Take a look at the [next section](./03-starport-14-gas-meter) to reward validators proportional to their effort in your checkers blockchain.
+You can skip ahead and see how you can integrate [foreign tokens](./03-starport-16-wager-denom) via the use of IBC. Or take a look at the [next section](./03-starport-14-gas-meter) to prevent spam and reward validators proportional to their effort in your checkers blockchain.
