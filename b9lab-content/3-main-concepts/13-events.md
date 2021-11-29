@@ -9,20 +9,20 @@ tag: deep-dive
 
 <HighlightBox type="info">
 
-Let's dedicate some time to events in the Cosmos SDK. The following sections will help you better understand events:
+Let's dedicate some time to events in the Cosmos SDK. You should understand the concepts covered in the following sections before diving into events:
 
 * [Transactions](./05-transactions)
 * [Messages](07-messages)
 * [Modules](08-modules)
 * [Protobuf](09-protobuf)
 
-You can find some a code examples at the end of this section, in which events are implemented in the checkers blockchain.
+You can find some a code examples at the end of this section in which events are implemented in the checkers blockchain.
 
 </HighlightBox>
 
 An event is an object that contains information about the execution of applications. Events are used by service providers like block explorers and wallets to track the execution of various messages and index transactions.
 
-Events are implemented as an alias of the ABCI `event` type in the form `{eventType}.{attributeKey}={attributeValue}` in the Cosmo SDK.
+Events are implemented as an alias of the ABCI `event` type in the form `{eventType}.{attributeKey}={attributeValue}` in the Cosmos SDK.
 
 Events allow application developers to attach additional information. This means that transactions might be queried using events:
 
