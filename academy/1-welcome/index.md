@@ -12,7 +12,7 @@ intro:
       Ready to begin your journey?
     action: 
       label: Start course
-      url: /b9lab-content/2-what-is-cosmos/01-index.html
+      url: /academy/2-what-is-cosmos/01-index.html
     secondtext: |
       This is a beta version of the Developer Portal that will help you take your first steps with the Cosmos SDK.
       <br>We would be grateful for your feedback. At the end of each are three icons to rate the page and a small box where you can give us feedback about things to improve. Enjoy your journey through the portal and good luck with the HackAtom!
