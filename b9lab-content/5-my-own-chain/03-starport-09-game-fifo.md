@@ -13,10 +13,9 @@ Before proceeding, make sure you have all you need:
 
 * You understand the concepts of [ABCI](../3-main-concepts/02-architecture), [Protobuf](../3-main-concepts/09-protobuf), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
 * Have Go installed.
-* The checkers blockchain with the `MsgCreateGame` and its handling:
-    * Either because you followed the [previous steps](./03-starport-05-create-handling).
-    * Or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
-).
+* The checkers blockchain with the `MsgRejectGame` and its handling:
+    * Either because you followed the [previous steps](./03-starport-08-reject-game).
+    * Or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
 
 </HighlightBox>
 
