@@ -22,33 +22,33 @@ Before proceeding, make sure you have all you need:
 
 <HighlightBox type="tip">
 
-To see in detail what Starport creates, refer back to [Creating the Game Message](./03-starport-04-create-message.md). Here, it is sufficient to specify some aspects that different from this previous section.
+To see in detail what Starport creates refer back to [Creating the Game Message](./03-starport-04-create-message.md).
 
 </HighlightBox>
 
-To play a game, a player only needs to specify:
+To play a game a player only needs to specify:
 
-* The ID of the game the player wants to join. Let's call the field `idValue`.
-* The initial positions of the pawn. Let's call the fields `fromX` and `fromY` and make them `uint`.
-* The final position of the pawn after a player's move. Let's call the fields `toX` and `toY`, to be `uint` too.
+* The ID of the game the player wants to join. Call the field `idValue`.
+* The initial positions of the pawn. Call the fields `fromX` and `fromY` and make them `uint`.
+* The final position of the pawn after a player's move. Call the fields `toX` and `toY`, to be `uint` too.
 
-The player does not need to be explicitly added as a field in the message because, implicitly, the player **is** the signer of the message. Let's name the object `PlayMove`.
+The player does not need to be explicitly added as a field in the message because, implicitly, the player **is** the signer of the message. Name the object `PlayMove`.
 
 Unlike when creating the game, you may want to return more than just a game ID. You might want to return:
 
-* The game ID again. Let's also call this field `idValue`.
-* The captured piece, if any. Let's call the fields `capturedX` and `capturedY`.
-* The winner, if any, in the field `winner`.
+* The game ID again. Also call this field `idValue`.
+* The captured piece, if any. Call the fields `capturedX` and `capturedY`.
+* The winner in the field `winner`.
 
 ## With Starport
 
-Now, Starport only creates a response object with a single field. You can update the object after Starport has run:
+Starport only creates a response object with a single field. You can update the object after Starport has run:
 
 ```sh
 $ starport scaffold message playMove idValue fromX:uint fromY:uint toX:uint toY:uint --module checkers --response idValue
 ```
 
-Once more, Starport creates all the necessary Protobuf files and the boilerplate for you. All you have left to do is:
+Starport creates all the necessary Protobuf files and the boilerplate for you. All you have left to do is:
 
 * Add the missing fields to the response in `proto/checkers/tx.proto`:
 
@@ -185,6 +185,6 @@ That is all there is to it: good preparation and the use of Starport yield rewar
 
 ## Next up
 
-You are on a roll, two `sdk.Msg` down. Before you add a third one, to let a player [reject a game](./3-starport-08-reject-game), it would be a good idea to add events to the existing message handlers, for relevant information to surface even more elegantly. That's the object of the [next section](./03-starport-07-events).
+Two `sdk.Msg` down. Before you add a third one, to let a player [reject a game](./3-starport-08-reject-game), it would be a good idea to add events to the existing message handlers, for relevant information to surface even more elegantly. That's the object of the [next section](./03-starport-07-events).
 
 If you want to skip far ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](./03-starport-15-can-play).
