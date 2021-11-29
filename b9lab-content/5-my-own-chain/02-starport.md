@@ -7,11 +7,11 @@ tag: deep-dive
 
 # Starport
 
-The Cosmos SDK provides the building blocks for a complete Tendermint blockchain, which implements the Inter-Blockchain Communication (IBC) protocol. The `BaseApp` of the Cosmos SDK assembles these building blocks and provides a fully-running blockchain. All there is left to do for a specific blockchain application is to create specific modules and integrate them with the `BaseApp` to make the application _your own_.
+The Cosmos SDK provides the building blocks for a complete Tendermint blockchain which implements the Inter-Blockchain Communication (IBC) protocol. The `BaseApp` of the Cosmos SDK assembles these building blocks and provides a fully-running blockchain. All there is left to do for a specific blockchain application is to create specific modules and integrate them with the `BaseApp` to make the application _your own_.
 
-Fortunately, Starport assists with scaffolding modules and integrating them with the `BaseApp`. Starport is a command-line tool that writes code files and updates them when instructed to do so. If you come from an _on Rails_ world, the concept will look familiar to you.
+Fortunately Starport assists with scaffolding modules and integrating them with the `BaseApp`. Starport is a command-line tool that writes code files and updates them when instructed to do so. If you come from an _on Rails_ world, the concept will look familiar to you.
 
-On top of that, Starport will handle some compilation, run a local blockchain node, and help the developer in other respects.
+On top of that Starport will handle some compilation, run a local blockchain node, and help the developer in other respects.
 
 ## Install
 
@@ -36,7 +36,7 @@ Starport version:	v0.18.3
 ...
 ```
 
-Helpfully, you can also just type `starport` to see the offered commands:
+You can also just type `starport` to see the offered commands:
 
 ```sh
 Starport is a tool for creating sovereign blockchains built with Cosmos SDK, the world’s
@@ -77,7 +77,7 @@ When you have followed the Hello-World tutorial, you can see the Hello-World res
 
 ## Your chain
 
-You can create a brand new chain project, named checkers for example, for Alice with:
+You can create a brand new chain project **checkers** for Alice with:
 
 ```sh
 $ starport scaffold chain github.com/alice/checkers
@@ -166,9 +166,9 @@ $ npm run serve
 
 Navigate to [localhost:8080](http://localhost:8080/). You can see that no wallet has been created or imported yet. To already have some tokens, you can choose to load Alice's wallet in the GUI. For that, use the mnemonic for Alice, which you can find in the output of the `starport chain serve` command, and copy/paste it to _import a wallet_.
 
-Now, you should see the balance of Alice's account and be able to act as her.
+Now you should see the balance of Alice's account and be able to act as her.
 
-In the sidebar, select **Custom Type** to view the custom type. There are no custom types yet. Therefore, this page is empty for now.
+In the sidebar, select **Custom Type** to view the custom type. There are no custom types yet so this page is empty for now.
 
 Before you create a new `message`, it is **good practice** to make a Git commit at this point. It is recommended to make a Git commit before running any `starport scaffold` command. With the Git commit, you can see what was added and it becomes easy to revert changes if you are not satisfied or if your command was incomplete in hindsight.
 
