@@ -11,10 +11,10 @@ tag: deep-dive
 
 Let's dedicate some time to events in the Cosmos SDK. You should understand the concepts covered in the following sections before diving into events:
 
-* [Transactions](./05-transactions)
-* [Messages](07-messages)
-* [Modules](08-modules)
-* [Protobuf](09-protobuf)
+* [Transactions](./05-transactions.md)
+* [Messages](./07-messages.md))
+* [Modules](./08-modules.md))
+* [Protobuf](./09-protobuf.md)
 
 You can find some a code examples at the end of this section in which events are implemented in the checkers blockchain.
 

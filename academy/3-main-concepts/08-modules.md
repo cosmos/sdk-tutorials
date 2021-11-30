@@ -11,9 +11,9 @@ tag: deep-dive
 
 This section tackles modules. Taking a look at the following sections is recommended to better understand modules in the Cosmos SDK:
 
-* [Transactions](./05-transactions)
-* [Messages](./07-messages)
-* [Queries](./12-queries)
+* [Transactions](./05-transactions.md)
+* [Messages](./07-messages.md))
+* [Queries](./12-queries.md)
 
 You can find a code example illustrating module creation and introduction for your checkers blockchain at the end of this section.
 

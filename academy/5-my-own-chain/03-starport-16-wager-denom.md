@@ -10,9 +10,9 @@ description: Let players wager any fungible token
 
 Make sure you have all you need to reward validators for their work:
 
-* You understand the concepts of [transactions](../3-main-concepts/05-transactions), [messages](../3-main-concepts/07-messages), [Protobuf](../3-main-concepts/09-protobuf), and [IBC](../3-main-concepts/16-ibc).
+* You understand the concepts of [transactions](../3-main-concepts/05-transactions.md), [messages](../3-main-concepts/07-messages.md)), [Protobuf](../3-main-concepts/09-protobuf.md), and [IBC](../3-main-concepts/16-ibc.md).
 * Have Go installed.
-* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./03-starport-05-create-handling) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
+* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./03-starport-05-create-handling.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
 ).
 
 </HighlightBox>
@@ -107,4 +107,4 @@ Congratulations! Your checkers blockchain is complete with the required features
 
 What if you want to introduce a new feature after the checkers blockchain has been deployed and has been running?
 
-Take a look at the [next section](./03-starport-17-migration) to discover how to introduce a leaderboard and conduct migrations for it.
+Take a look at the [next section](./03-starport-17-migration.md) to discover how to introduce a leaderboard and conduct migrations for it.

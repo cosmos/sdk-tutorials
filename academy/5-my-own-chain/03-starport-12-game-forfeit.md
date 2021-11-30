@@ -11,9 +11,9 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [ABCI](../3-main-concepts/02-architecture).
+* You understand the concepts of [ABCI](../3-main-concepts/02-architecture.md).
 * Have Go installed.
-* The checkers blockchain with the elements necessary for forfeit. Either because you followed the [previous steps](./03-starport-11-game-winner) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
+* The checkers blockchain with the elements necessary for forfeit. Either because you followed the [previous steps](./03-starport-11-game-winner.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
 
 </HighlightBox>
 
@@ -194,4 +194,4 @@ For an explanation as to why this setup is resistant to an attack from an unboun
 
 ## Next up
 
-With stale games taken care of, you are now safe in the knowledge that if and when games involve money, then money won't stay stuck by negligence. Money? Yes, that's what the [next section](./03-starport-13-game-wager) introduces, via token wagers.
+With stale games taken care of, you are now safe in the knowledge that if and when games involve money, then money won't stay stuck by negligence. Money? Yes, that's what the [next section](./03-starport-13-game-wager.md) introduces, via token wagers.

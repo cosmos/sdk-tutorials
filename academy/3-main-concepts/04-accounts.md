@@ -142,11 +142,11 @@ The keyring object stores and manages multiple accounts. The keyring object impl
 
 ## Next up
 
-In the [next section](./05-transactions), you will learn how transactions are generated and handled in the Cosmos SDK.
+In the [next section](./05-transactions.md), you will learn how transactions are generated and handled in the Cosmos SDK.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-In the [previous section](../3-main-concepts/02-architecture) your ABCI application accepted anonymous checkers moves. This was a problem. You can restrict moves to the right player with accounts.
+In the [previous section](../3-main-concepts/02-architecture.md) your ABCI application accepted anonymous checkers moves. This was a problem. You can restrict moves to the right player with accounts.
 
 Now you are going to differentiate between players and other actors. This will help assure there is no identity spoofing, that players do not play out of turn, and rewards are paid to the correct winner. You are also going to store the creator of a game, which may or may not be a player.
 
@@ -199,6 +199,6 @@ type StoredGame struct {
 }
 ```
 
-If you want to go beyond these out-of-context code samples and instead see more details on defining all of this, head to the [section on how to build your chain](../5-my-own-chain/01-index).
+If you want to go beyond these out-of-context code samples and instead see more details on defining all of this, head to the [section on how to build your chain](../5-my-own-chain/01-index.md).
 
 </ExpansionPanel>

@@ -11,10 +11,10 @@ tag: deep-dive
 
 It is time to address multistore and keeper. Before you begin, take a look at the following sections:
 
-* [Transactions](./05-transactions)
-* [Messages](./07-messages)
-* [Modules](08-modules)
-* [Protobuf](09-protobuf)
+* [Transactions](./05-transactions.md)
+* [Messages](./07-messages.md))
+* [Modules](./08-modules.md))
+* [Protobuf](./09-protobuf.md)
 
 You can find a code example for your checkers blockchain at the end of the section to explore dealing with storage elements, message handling, and gas costs.
 
@@ -162,7 +162,7 @@ For more information on the subject, a closer look at the following resources co
 
 ## Next up
 
-In the [next section](11-base-app), you will find more information on `BaseApp` and its role in the Cosmos SDK.
+In the [next section](./11-base-app.md), you will find more information on `BaseApp` and its role in the Cosmos SDK.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
@@ -344,7 +344,7 @@ func DefaultGenesis() *GenesisState {
 
 ## What about message handling
 
-You defined the `MsgCreateGame` in an earlier [section on messages](./07-messages.md). 
+You defined the `MsgCreateGame` in an earlier [section on messages](./07-messages.md).
 You go from the message to the game in storage with the `MsgCreateGame`. That is also the role of the keeper. You should define a handling function such as:
 
 ```go

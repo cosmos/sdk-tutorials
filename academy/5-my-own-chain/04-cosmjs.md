@@ -11,11 +11,11 @@ tag: deep-dive
 
 Let's look at CosmJS. This tool provides a TypeScript library for the Cosmos SDK. Reading the following sections as a preparation is recommended:
 
-* [Messages](../3-main-concepts/07-messages)
-* [Modules](../3-main-concepts/08-modules)
-* [Queries](../4-main-concepts/12-queries)
-* [Protobuf](../3-main-concepts/09-protobuf)
-* [Starport](./02-starport)
+* [Messages](../3-main-concepts/07-messages.md))
+* [Modules](../3-main-concepts/08-modules.md))
+* [Queries](../4-main-concepts/12-queries.md)
+* [Protobuf](../3-main-concepts/09-protobuf.md)
+* [Starport](./02-starport.md)
 
 </HighlightBox>
 
@@ -114,4 +114,4 @@ There are many other useful methods like `assertIsBroadcastTxSuccess` that verif
 
 ## Next up
 
-Ready for the [final section](./05-cosmwasm) of this course? Discover CosmWasm and multi-chain smart contracting.
+Ready for the [final section](./05-cosmwasm.md) of this course? Discover CosmWasm and multi-chain smart contracting.

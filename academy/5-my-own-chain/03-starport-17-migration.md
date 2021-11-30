@@ -10,9 +10,9 @@ description: Introducing a leaderboard to your in-production blockchain
 
 Make sure you have all you need to reward validators for their work:
 
-* You understand the concepts of [transactions](../3-main-concepts/05-transactions), [messages](../3-main-concepts/07-messages), [Protobuf](../3-main-concepts/09-protobuf), and [migrations](../3-main-concepts/15-migrations).
+* You understand the concepts of [transactions](../3-main-concepts/05-transactions.md), [messages](../3-main-concepts/07-messages.md)), [Protobuf](../3-main-concepts/09-protobuf.md), and [migrations](../3-main-concepts/15-migrations.md).
 * Have Go installed.
-* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./03-starport-05-create-handling) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
+* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./03-starport-05-create-handling.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
 ).
 
 </HighlightBox>
@@ -659,4 +659,4 @@ This is how you upgrade your blockchain in the Cosmos SDK v0.42.
 
 Your checkers blockchain is done. It has a leaderboard, which can be migrated.
 
-Now it is time to explore two other helpful tools for working with the Cosmos SDK: [CosmJS](./04-cosmjs) and [CosmWasm](./05-cosmwasm). Begin with [CosmJS](./04-cosmjs).
+Now it is time to explore two other helpful tools for working with the Cosmos SDK: [CosmJS](./04-cosmjs.md) and [CosmWasm](./05-cosmwasm.md). Begin with [CosmJS](./04-cosmjs.md).

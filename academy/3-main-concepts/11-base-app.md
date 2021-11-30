@@ -11,15 +11,15 @@ tag: deep-dive
 
 Before looking at `BaseApp`, make sure to read the previous sections:
 
-* [A Blockchain App Architecture](02-architecture)
-* [Transactions](./05-transactions)
-* [Messages](./07-messages)
-* [Modules](08-modules)
-* [Multistora and Keepers](10-multistore-keepers)
+* [A Blockchain App Architecture](./02-architecture.md)
+* [Transactions](./05-transactions.md)
+* [Messages](./07-messages.md))
+* [Modules](./08-modules.md))
+* [Multistora and Keepers](./10-multistore-keepers.md)
 
 </HighlightBox>
 
-`BaseApp` is a boilerplate implementation of a Cosmos SDK application. This abstraction implements functionalities that every Cosmos application needs starting with an implementation of the Tendermint Application Blockchain Interface (ABCI). 
+`BaseApp` is a boilerplate implementation of a Cosmos SDK application. This abstraction implements functionalities that every Cosmos application needs starting with an implementation of the Tendermint Application Blockchain Interface (ABCI).
 
 Remember that the Tendermint consensus is application agnostic. It establishes the canonical transaction list and sends confirmed transactions to Cosmos SDK applications for interpretation and in turn receives transactions from Cosmos SDK applications and submits them to the validators for confirmation.
 
@@ -142,7 +142,7 @@ During `InitChain`, the `RequestInitChain` provides `ConsensusParams`, which con
 
 When messages and queries are received by the application, they must be routed to the appropriate to be processed. Routing is done via `BaseApp`, which holds a `msgServiceRouter` for messages and a `grpcQueryRouter` for queries.
 
-### `Msg` service router 
+### `Msg` service router
 
 <HighlightBox type=”info”>
 
@@ -163,4 +163,4 @@ Other ABCI message handlers being implemented are:
 
 ## Next up
 
-In the [following section](12-queries), you can find information on queries, one of two primary objects handled by a module in the Cosmos SDK.
+In the [following section](./12-queries.md), you can find information on queries, one of two primary objects handled by a module in the Cosmos SDK.

@@ -10,9 +10,9 @@ description: Help players make good transactions
 
 Make sure you have all you need to reward validators for their work:
 
-* You understand the concepts of [transactions](../3-main-concepts/05-transactions), [messages](../3-main-concepts/07-messages), and [Protobuf](../3-main-concepts/09-protobuf).
+* You understand the concepts of [transactions](../3-main-concepts/05-transactions.md), [messages](../3-main-concepts/07-messages.md)), and [Protobuf](../3-main-concepts/09-protobuf.md).
 * Have Go installed.
-* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./03-starport-05-create-handling) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
+* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./03-starport-05-create-handling.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler
 ).
 
 </HighlightBox>
@@ -157,4 +157,4 @@ That is all there is to it when using Starport to handle the boilerplate.
 
 ## Next up
 
-Do you want to give players more flexibility on which tokens they can use for the checkers blockchain's games? Let players wager any fungible token in the [next section](03-starport-16-wager-denom).
+Do you want to give players more flexibility on which tokens they can use for the checkers blockchain's games? Let players wager any fungible token in the [next section](./03-starport-16-wager-denom.md).
