@@ -2,6 +2,7 @@
 title: Migration for Leaderboard
 order: 19
 description: Introducing a leaderboard to your in-production blockchain
+tag: deep-dive
 ---
 
 # Migration for Leaderboard

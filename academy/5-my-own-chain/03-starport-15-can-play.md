@@ -2,6 +2,7 @@
 title: Can Play Query
 order: 17
 description: Help players make good transactions
+tag: deep-dive
 ---
 
 # Can Play Query
