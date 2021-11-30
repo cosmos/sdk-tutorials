@@ -1,7 +1,7 @@
 ---
 title: "Bridges"
 order: 14
-description: Bridging to other blockchains on different protocols 
+description: Bridging to other blockchains on different protocols
 tag: deep-dive
 ---
 
@@ -11,11 +11,11 @@ tag: deep-dive
 
 In this section, you will learn more about bridges in the Cosmos SDK. Make sure to read the following sections as a preparation:
 
-* [The Cosmos Ecosystem](../2-what-is-cosmos/03-cosmos-ecosystem)
-* [Transactions](05-transactions)
-* [Messages](07-messages)
-* [Events](13-events)
-* [IBC](16-ibc)
+* [The Cosmos Ecosystem](../2-what-is-cosmos/03-cosmos-ecosystem.md)
+* [Transactions](./05-transactions.md)
+* [Messages](./07-messages.md))
+* [Events](./13-events.md)
+* [IBC](./16-ibc.md)
 
 </HighlightBox>
 
@@ -64,4 +64,4 @@ Do you want to dive deeper when it comes to bridges? Here are some helpful resou
 
 ## Next up
 
-You will discover more on running a node in the [next chapter](../4-running-a-chain/01-index) before working on [your own chain](../5-my-own-chain/.01-index).
+You will discover more on running a node in the [next chapter](../4-running-a-chain/01-index.md) before working on [your own chain](../5-my-own-chain/01-index.md).

@@ -128,12 +128,12 @@ Want more information on broadcasting with Tendermint RPC? Why not take a closer
 
 ## Next up
 
-In the [next section](./07-messages), you can learn how transaction messages are generated and handled in the Cosmos SDK.
+In the [next section](./07-messages.md)), you can learn how transaction messages are generated and handled in the Cosmos SDK.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-[Previously](./02-architecture), the ABCI application knew of a single transaction type: a checkers move with four `int`. This is no longer sufficient with multiple games. You need to conform to its `Tx` ways, which means that you have to create messages then placed in to a transaction.
+[Previously](./02-architecture.md), the ABCI application knew of a single transaction type: a checkers move with four `int`. This is no longer sufficient with multiple games. You need to conform to its `Tx` ways, which means that you have to create messages then placed in to a transaction.
 
-Head to the [section on messages](./07-messages) to learn how to do just that.
+Head to the [section on messages](./07-messages.md)) to learn how to do just that.
 
 </ExpansionPanel>

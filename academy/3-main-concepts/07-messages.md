@@ -11,13 +11,13 @@ tag: deep-dive
 
 In this section, you will take a closer look at messages, `Msg`. It is recommended to take a look at the following previous sections to better understand messages:
 
-* [A Blockchain App Architecture](./02-architecture)
-* [Accounts](./04-accounts)
-* [Transactions](./05-transactions)
+* [A Blockchain App Architecture](./02-architecture.md)
+* [Accounts](./04-accounts.md)
+* [Transactions](./05-transactions.md)
 
 At the end of the section, you can find a code example illustrating message creation and the inclusion of messages in transactions for your checkers blockchain.
 
-Understanding `Msg` will help you prepare for the [next section on modules in the Cosmos SDK](./08-modules) as messages are a primary object handled by modules.
+Understanding `Msg` will help you prepare for the [next section on modules in the Cosmos SDK](./08-modules.md)) as messages are a primary object handled by modules.
 
 </HighlightBox>
 
@@ -27,7 +27,7 @@ In the Cosmos SDK, a **transaction** contains **one or more messages**. The modu
 
 <ExpansionPanel title="Signing a message">
 
-Remember from the [last section on transactions](./05-transactions) that transactions must be signed before a validator includes them in a block. Every message in a transaction must be signed by the addresses as specified by `GetSigners`.
+Remember from the [last section on transactions](./05-transactions.md) that transactions must be signed before a validator includes them in a block. Every message in a transaction must be signed by the addresses as specified by `GetSigners`.
 
 The Cosmos SDK currently allows signing transactions with either `SIGN_MODE_DIRECT` or `SIGN_MODE_LEGACY_AMINO_JSON` methods.
 
@@ -83,11 +83,11 @@ If you want to dive deeper when it comes to messages, the `Msg` service and modu
 
 ## Next up
 
-Have a look at the code example below to get a better sense of how the above translates in development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can head straight to the [next section](./08-modules) to learn more about modules.
+Have a look at the code example below to get a better sense of how the above translates in development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can head straight to the [next section](./08-modules.md)) to learn more about modules.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain - Including messages">
 
-In the [previous](./02-architecture) code examples, the ABCI application was aware of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you will need to conform to the SDK's way of handling `Tx`, which means **creating messages that are then included in a transaction**.
+In the [previous](./02-architecture.md) code examples, the ABCI application was aware of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you will need to conform to the SDK's way of handling `Tx`, which means **creating messages that are then included in a transaction**.
 
 ## What you need
 
@@ -135,7 +135,7 @@ $ starport scaffold message createGame red black --module checkers --response id
 
 <HighlightBox type="info">
 
-Starport creates a whole lot of other files, see [My Own Chain](../5-my-own-chain/01-index) for details and make additions to existing files.
+Starport creates a whole lot of other files, see [My Own Chain](../5-my-own-chain/01-index.md) for details and make additions to existing files.
 
 </HighlightBox>
 
@@ -200,7 +200,7 @@ Your work is mostly done. You will want to create the specific game creation cod
 
     <HighlightBox type="tip">
 
-    For more details and to avoid diving too deep in this section, see [My Own Chain](../5-my-own-chain/01-index).
+    For more details and to avoid diving too deep in this section, see [My Own Chain](../5-my-own-chain/01-index.md).
 
     </HighlightBox>
 
@@ -213,7 +213,7 @@ Your work is mostly done. You will want to create the specific game creation cod
     }
     ```
 
-3. Create a game object with all required parameters - see the [modules section](./08-modules) for the declaration of this object:
+3. Create a game object with all required parameters - see the [modules section](./08-modules.md)) for the declaration of this object:
 
     ```go
     storedGame := {
@@ -225,7 +225,7 @@ Your work is mostly done. You will want to create the specific game creation cod
     }
     ```
 
-4. Send it to storage - see the [modules section](./08-modules) for the declaration of this function:
+4. Send it to storage - see the [modules section](./08-modules.md)) for the declaration of this function:
 
     ```go
     k.Keeper.SetStoredGame(ctx, storedGame)
@@ -301,6 +301,6 @@ In general terms, you could add `timeout: Timestamp` to your `StoredGame` and up
 
 Of note is that there are no _open_ challenges, meaning a player cannot create a game where the second player is unknown until someone steps in. So player matching is left outside of the blockchain. It is left to the enterprising student to incorporate it inside the blockchain by changing the necessary models.
 
-If you would like to get started on building your own checkers game, you can head straight to the main exercise in [My Own Chain](../5-my-own-chain/01-index).
+If you would like to get started on building your own checkers game, you can head straight to the main exercise in [My Own Chain](../5-my-own-chain/01-index.md).
 
 </ExpansionPanel>

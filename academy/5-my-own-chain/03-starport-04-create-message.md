@@ -11,9 +11,9 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [transactions](../3-main-concepts/05-transactions) and [messages](../3-main-concepts/07-messages) and [Protobuf](../3-main-concepts/09-protobuf).
+* You understand the concepts of [transactions](../3-main-concepts/05-transactions.md) and [messages](../3-main-concepts/07-messages.md)) and [Protobuf](../3-main-concepts/09-protobuf.md).
 * Have Go installed.
-* The checkers blockchain scaffold with the `StoredGame` and its helpers. Either because you followed the [previous steps](./03-starport-03-stored-game) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/full-game-object).
+* The checkers blockchain scaffold with the `StoredGame` and its helpers. Either because you followed the [previous steps](./03-starport-03-stored-game.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/full-game-object).
 
 </HighlightBox>
 

@@ -11,9 +11,9 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding with the exercise:
 
-* You understand the concepts of [accounts](../3-main-concepts/04-accounts), [Protobuf](../3-main-concepts/09-protobuf), and [multistore](../3-main-concepts/10-multistore-keepers).
+* You understand the concepts of [accounts](../3-main-concepts/04-accounts.md), [Protobuf](../3-main-concepts/09-protobuf.md), and [multistore](../3-main-concepts/10-multistore-keepers.md).
 * Have Go installed.
-* Understand the bare blockchain scaffold with a single module named `checkers`. Either because you followed the [previous steps](./02-starport) or because you checked out [the outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/starport-start).
+* Understand the bare blockchain scaffold with a single module named `checkers`. Either because you followed the [previous steps](./02-starport.md) or because you checked out [the outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/starport-start).
 
 </HighlightBox>
 
@@ -66,7 +66,7 @@ You can rely on Starport's assistance:
     $ starport scaffold map storedGame game turn red black --module checkers --no-message
     ```
 
-    The `--no-message` again? You do not want the game objects to be created or overwritten with a simple `sdk.Msg`. The application instead creates and updates the objects when receiving properly crafted messages like [_create game_](./03-starport-04-create-message) or [_play a move_](./03-starport-06-play-game).
+    The `--no-message` again? You do not want the game objects to be created or overwritten with a simple `sdk.Msg`. The application instead creates and updates the objects when receiving properly crafted messages like [_create game_](./03-starport-04-create-message.md) or [_play a move_](./03-starport-06-play-game.md).
 
 The Starport `scaffold` command creates several files as you can see [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/821f4592d78e5d689dcc349613c8efb11386f785) and [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/463968fa94a7b6117428bb342c721176086a8d22).
 
@@ -186,7 +186,7 @@ message QueryAllStoredGameResponse {
 Starport puts the different Protobuf messages into different files depending on their use:
 
 * **`query.proto`.** For the objects related to reading the state. Starport modifies this file as you add queries. This includes the objects to [query your stored elements](https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L35-L55).
-* **`tx.proto`.** For the objects that relate to updating the state. As you have only defined storage elements with `--no-message`, it is empty for now. The file will be modified as you add transaction-related elements like the message to [create a game](./03-starport-04-create-message).
+* **`tx.proto`.** For the objects that relate to updating the state. As you have only defined storage elements with `--no-message`, it is empty for now. The file will be modified as you add transaction-related elements like the message to [create a game](./03-starport-04-create-message.md).
 * **`genesis.proto`.** For the genesis. Starport modifies this file according to how your new storage elements evolve.
 * **`next_game.proto` and `stored_game.proto`.** Separate files created once that remain untouched by Starport after their creation. You are free to modify them but be careful with the [numbering](https://developers.google.com/protocol-buffers/docs/overview#assigning_field_numbers).
 
@@ -293,4 +293,4 @@ There is not much to add but this will assist you in keeping your code DRY.
 
 ## Next up
 
-You will be implementing further customizations as you move along in this chapter. Starport covered most of the boilerplate and custom work that was needed for now. Want to continue developing your checkers blockchain? Go ahead to the [next section](./03-starport-04-create-message) to learn all about introducing an `sdk.Msg` to create a game.
+You will be implementing further customizations as you move along in this chapter. Starport covered most of the boilerplate and custom work that was needed for now. Want to continue developing your checkers blockchain? Go ahead to the [next section](./03-starport-04-create-message.md) to learn all about introducing an `sdk.Msg` to create a game.

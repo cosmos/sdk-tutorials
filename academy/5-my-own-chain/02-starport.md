@@ -11,13 +11,13 @@ tag: deep-dive
 
 It is time to take a closer look at Starport. Before diving into the details of how Starport helps you scaffold the basics for your application blockchain make sure to understand the main concepts presented in the following sections:
 
-* [A Blockchain App Architecture](../3-main-concepts/02-architecture)
-* [Accounts](../3-main-concepts/04-accounts)
-* [Transactions](../3-main-concepts/05-transactions)
-* [Messages](../3-main-concepts/07-messages)
-* [Modules](../3-main-concepts/08-modules)
-* [Protobuf](../3-main-concepts/09-protobuf)
-* [BaseApp](../3-main-concepts/11-base-app)
+* [A Blockchain App Architecture](../3-main-concepts/02-architecture.md)
+* [Accounts](../3-main-concepts/04-accounts.md)
+* [Transactions](../3-main-concepts/05-transactions.md)
+* [Messages](../3-main-concepts/07-messages.md))
+* [Modules](../3-main-concepts/08-modules.md))
+* [Protobuf](../3-main-concepts/09-protobuf.md)
+* [BaseApp](../3-main-concepts/11-base-app.md)
 
 You can follow a hands-on exercise for Starport in the sections that follow this introduction.
 

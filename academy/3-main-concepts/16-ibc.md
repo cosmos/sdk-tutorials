@@ -11,10 +11,10 @@ tag: deep-dive
 
 Cross-chain communication becomes possible with the Cosmos SDK and the Inter-Blockchain Communication Protocol (IBC). Discover the potentials that come with IBC, but make sure you understand:
 
-* [Accounts](04-accounts)
-* [Transactions](05-transactions)
-* [Messages](07-messages)
-* [Modules](08-modules)
+* [Accounts](./04-accounts.md)
+* [Transactions](./05-transactions.md)
+* [Messages](./07-messages.md))
+* [Modules](./08-modules.md))
 
 </HighlightBox>
 
@@ -159,7 +159,7 @@ A peg-zone is a blockchain that tracks the state of another blockchain. The peg-
 
 <HighlightBox info="info">
 
-For more on IBC, its paradigms, and Interchain accounts, a looks into Josh Lee's post from 2020 [Why Interchain Accounts Change Everything for Cosmos Interoperability](https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11) is recommended. 
+For more on IBC, its paradigms, and Interchain accounts, a looks into Josh Lee's post from 2020 [Why Interchain Accounts Change Everything for Cosmos Interoperability](https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11) is recommended.
 
 Relayers are an essential part of the IBC infrastructure and there are several implementations. To learn more about relaying please visit the [IBC website](https://ibcprotocol.org/relayers/).
 
@@ -167,7 +167,7 @@ Relayers are an essential part of the IBC infrastructure and there are several i
 
 ## Next up
 
-You can now skip ahead to the [next section](./17-bridges) to discover bridges in the Cosmos SDK, or you can dive into the code samples below.
+You can now skip ahead to the [next section](./17-bridges.md) to discover bridges in the Cosmos SDK, or you can dive into the code samples below.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
