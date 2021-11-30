@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Modules
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 This section tackles modules. Taking a look at the following sections is recommended to better understand modules in the Cosmos SDK:
 

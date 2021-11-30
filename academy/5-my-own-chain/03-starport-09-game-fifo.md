@@ -7,7 +7,7 @@ tag: deep-dive
 
 # A Game FIFO
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 Make sure you have all you need before proceeding:
 

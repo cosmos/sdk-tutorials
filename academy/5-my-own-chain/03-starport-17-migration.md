@@ -6,7 +6,7 @@ description: Introducing a leaderboard to your in-production blockchain
 
 # Migration for Leaderboard
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 Make sure you have all you need to reward validators for their work:
 

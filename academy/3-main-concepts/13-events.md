@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Events
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 Let's dedicate some time to events in the Cosmos SDK. You should understand the concepts covered in the following sections before diving into events:
 

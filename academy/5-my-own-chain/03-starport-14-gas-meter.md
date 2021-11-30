@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Gas Metering
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 Make sure you have all you need before proceeding:
 

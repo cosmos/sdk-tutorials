@@ -7,7 +7,7 @@ tag: deep-dive
 
 # The Reject Game Elements
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 Before proceeding, make sure you have all you need:
 

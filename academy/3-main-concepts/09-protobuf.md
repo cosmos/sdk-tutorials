@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Protobuf
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 Let's take a closer look at Protobuf. Before diving into the section a look at the following sections is recommended:
 
