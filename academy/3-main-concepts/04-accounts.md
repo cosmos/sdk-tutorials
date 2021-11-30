@@ -20,7 +20,18 @@ Modern cryptographic systems leverage computer capabilities to make the power of
 
 Asymmetric cryptography has two primary applications:
 
-<H5PComponent :contents="['/h5p/M2-accounts-asymetriccrypto-AC']"></H5PComponent>
+<Accordion :items="
+    [
+        {
+            title: 'Authentication',
+            description: 'The public key serves as a verification instrument for the private key pair.'
+        },
+        {
+            title: 'Encryption',
+            description: 'Only the private key can decrypt the information encrypted with the public key.'
+        }
+    ]
+"/>
 
 We will focus on the _authentication_ aspect of asymmetric cryptography.
 

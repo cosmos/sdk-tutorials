@@ -54,7 +54,22 @@ It is a best practice to define a module in the `x/moduleName` folder. For examp
 
 Modules implement several elements:
 
-<H5PComponent :contents="['/h5p/M2-modules-components-ac']"></H5PComponent>
+<Accordion :items="
+    [
+        {
+            title: 'Interfaces',
+            description: 'Interfaces facilitate communication between modules and the composition of multiple modules into coherent applications.'
+        },
+        {
+            title: 'Protobuf',
+            description: 'Protobuf is one `Msg` service to handle messages and one gRPC `Query` service to handle queries'
+        },
+        {
+            title: 'Keeper',
+            description: 'A Keeper is a controller that defines the state and presents methods for updating and inspecting the state.'
+        }
+    ]
+"/>
 
 ### Interfaces
 
@@ -148,7 +163,22 @@ Why not explore the [list of core modules and the application concerns they addr
 
 The following design principles are of importance when building modules:
 
-<H5PComponent :contents="['/h5p/M2-modules-components-ac']"></H5PComponent>
+<Accordion :items="
+    [
+        {
+            title: 'Interfaces',
+            description: 'Interfaces facilitate communication between modules and the composition of multiple modules into coherent applications.'
+        },
+        {
+            title: 'Protobuf',
+            description: 'Protobuf is one `Msg` service to handle messages and one gRPC `Query` service to handle queries'
+        },
+        {
+            title: 'Keeper',
+            description: 'A Keeper is a controller that defines the state and presents methods for updating and inspecting the state.'
+        }
+    ]
+"/>
 
 ## Recommended folder structure
 

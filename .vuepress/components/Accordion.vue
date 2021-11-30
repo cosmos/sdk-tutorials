@@ -4,7 +4,7 @@
             button.accordion__header(v-on:click="onAccordionClick(index)")
                 icon-arrow.accordion__header__icon(type="bottom")(:class="selectedAccordion == index ? 'expanded' : 'collapsed'")
                 p {{item.title}}
-            div.accordion__content(ref="content") {{item.description}}
+            div.accordion__content(ref="content" v-html="md(item.description)")
 </template>
 
 <script>
@@ -46,7 +46,7 @@ export default {
             margin-bottom 3rem
 
         &__header
-            padding 20px
+            padding 24px
             border-radius 16px
             display flex
             align-items center
@@ -84,7 +84,7 @@ export default {
                 margin 0
 
         &__content
-            padding-inline 32px
+            padding-inline 24px
             padding-bottom 1rem
             color var(--color-text)
             display none
