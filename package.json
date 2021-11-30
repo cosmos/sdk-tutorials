@@ -9,7 +9,9 @@
   },
   "scripts": {
     "serve": "vuepress dev --no-cache",
-    "build": "vuepress build --no-cache"
+    "build": "vuepress build --no-cache",
+    "link:check": "npx check-md",
+    "link:fix": "npx check-md --fix"
   },
   "keywords": [
     "Cosmos",
@@ -24,6 +26,7 @@
   "homepage": "https://github.com/cosmos/sdk-tutorials#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "check-md": "^1.0.2",
     "crypto-js": "^4.0.0",
     "date-fns": "^2.19.0",
     "vue-h5p": "^0.2.0",
