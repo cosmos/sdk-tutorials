@@ -112,7 +112,18 @@ Developers who have worked with blockchains based on the Ethereum Virtual Machin
 
 Developers create the application layer using the **Cosmos SDK**. The Cosmos SDK provides:
 
-<H5PComponent :contents="['/h5p/M2-architecture-abci-sdk-AC']"></H5PComponent>
+<Accordion :items="
+    [
+        {
+            title: 'A scaffold to get started',
+            description: 'The Cosmos SDK provides a head start and a framework for getting started'
+        },
+        {
+            title: 'A rich set of modules',
+            description: 'The Cosmos SDK provides a rich set of modules that address common concerns such as governance, tokens, other standards, and interactions with other blockchains through the Inter-Blockchain Communication Protocol (IBC).'
+        }
+    ]
+"/>
 
 The creation of an application-specific blockchain with the Cosmos SDK is largely a process of selecting, configuring, and integrating well-solved modules also known as composing modules. This greatly reduces the scope of original development required as development is mostly focused on the truly novel aspects of the application.
 

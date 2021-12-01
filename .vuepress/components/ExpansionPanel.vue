@@ -44,7 +44,7 @@ export default {
         width: 100%;
     }
     .styled-button {
-        padding: 20px;
+        padding: 24px;
         border-radius: 16px;
         display: flex;
         align-items: center;
@@ -86,7 +86,7 @@ export default {
         }
     }
     .expansion__content {
-        padding-inline: 32px;
+        padding-inline: 24px;
         padding-bottom: 1rem;
         color: var(--color-text);
         display: none;

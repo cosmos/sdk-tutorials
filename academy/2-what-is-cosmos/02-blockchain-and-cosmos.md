@@ -74,7 +74,19 @@ In the world of blockchains "speed" means **transaction speed**. You can underst
 
 **State finality** is an additional concern. Finality describes whether and when committed blocks with transactions can no longer be reverted/revoked. It is important to differentiate between *probabilistic* and *absolute finality*.
 
-<H5PComponent :contents="['/h5p/M1-Blockchain_Technology_and_Cosmos-StateFinality']"></H5PComponent>
+
+<Accordion :items="
+    [
+        {
+            title: 'Probabilistic finality',
+            description: '**Probabilistic finality** describes the finality of a transaction dependent on how probable reverting a block is, i.e. the probability of removing a transaction. The more blocks come after the block containing a specific transaction, the less probable a transaction may be reverted, as *longest* or *heaviest chain rules* apply in the case of forks.'
+        },
+        {
+            title: 'Absolute finality',
+            description: '**Absolute finality** is a trait of protocols based on Proof-of-Stake (PoS). Finality comes as soon as a transaction and block are verified. There are no scenarios in which a transaction could be revoked after it has been finalized.'
+        }
+    ]
+"/>
 
 
 <ExpansionPanel title="Finality in PoW and PoS networks">

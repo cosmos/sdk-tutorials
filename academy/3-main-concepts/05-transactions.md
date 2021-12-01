@@ -13,7 +13,26 @@ Transactions are objects created by end-users to trigger state changes in applic
 
 While there is much to explore as you journey through the stack, begin by understanding the transaction process from a user perspective:
 
-<H5PComponent :contents="['/h5p/M2-transactions-transactionprocess-ac']"></H5PComponent>
+<Accordion :items="
+    [
+        {
+            title: 'Decide',
+            description: '**Decide** on the messages to put into the transaction. This is normally done with the assistance of a wallet or application and a user interface.'
+        },
+        {
+            title: 'Generate',
+            description: '**Generate** the transaction using the Cosmos SDK\'s `TxBuilder`. `TxBuilder` is the preferred way to generate a transaction.'
+        },
+        {
+            title: 'Sign',
+            description: '**Sign** the transaction. Transactions must be signed before a validators includes them in a block.'
+        },
+        {
+            title: 'Broadcast',
+            description: '**Broadcast** the signed transaction using one of the available interfaces.'
+        }
+    ]
+"/>
 
 <!-- TODO add link to TxBuilder: https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/client/tx_config.go#L36-L46 -->
 

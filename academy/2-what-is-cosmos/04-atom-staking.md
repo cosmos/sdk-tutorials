@@ -179,7 +179,18 @@ Right away you can discard the validators that keep 100% of the rewards for them
 
 A validator can have small or large voting power. The larger the voting power the more often the validator is tasked with issuing a block. Voting power is closely linked to the reward amount you can expect:
 
-<H5PComponent :contents="['/h5p/M1-gettingatom-votingpower']"></H5PComponent>
+<Accordion :items="
+    [
+        {
+            title: 'Validator has large voting power',
+            description: 'If your chosen validator has large voting power, your rewards come in frequently (for example, every minute) but in small numbers.'
+        },
+        {
+            title: 'Validator has small voting power',
+            description: 'If your chosen validator has small voting power, your rewards come in not frequently (for example, every hour) but in large numbers.'
+        }
+    ]
+"/>
 
 Over the long run, you should get the same amount. What matters is the size of your stake.
 
