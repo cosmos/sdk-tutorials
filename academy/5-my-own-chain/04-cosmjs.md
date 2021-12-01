@@ -13,7 +13,7 @@ Let's look at CosmJS. This tool provides a TypeScript library for the Cosmos SDK
 
 * [Messages](../3-main-concepts/07-messages.md))
 * [Modules](../3-main-concepts/08-modules.md))
-* [Queries](../4-main-concepts/12-queries.md)
+* [Queries](../3-main-concepts/12-queries.md)
 * [Protobuf](../3-main-concepts/09-protobuf.md)
 * [Starport](./02-starport.md)
 
@@ -77,7 +77,7 @@ Let's review the actions taking place here:
 3. Mirroring your Go code, your message type `MsgCreatePost` is defined in `./vue/src/store/generated/alice/chain/alice.chain.chain/module/types/chain/tx.js` using [Protobuf.js](https://protobufjs.github.io/protobuf.js/). This is the TypeScript/JavaScript counterpart of Protobuf in Go - that you saw earlier. With this, both ends _speak the same serialization language_.
 4. `http://localhost:26657` is the default Tendermint RPC node endpoint used to send transactions.
 5. `http://localhost:1317` is the default high-level blockchain API endpoint. In the above code, it is used for queries.
-6. The created elements `txClient` and `queryClient` are returned to namely be used in `./vue/src/store/generated/alice/chain/alice.chain.chain/index.js` - as you can see in the [previous Starport section](./03-starport.md).
+6. The created elements `txClient` and `queryClient` are returned to namely be used in `./vue/src/store/generated/alice/chain/alice.chain.chain/index.js` - as you can see in the [previous Starport section](./02-starport.md).
 
 ## Details on the client
 

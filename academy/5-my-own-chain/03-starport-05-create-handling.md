@@ -120,7 +120,7 @@ You will modify this handling in the next sections:
 
 * To add [new fields](./03-starport-09-game-fifo.md) to the stored information.
 * To add [an event](./03-starport-07-events.md).
-* To consume [some gas](./03-starport-gas-meter).
+* To consume [some gas](./03-starport-14-gas-meter.md).
 * To facilitate the eventual [deadline enforcement](./03-starport-12-game-forfeit.md).
 * To add [_money_](./03-starport-13-game-wager.md) handling including [foreign tokens](./03-starport-16-wager-denom.md).
 

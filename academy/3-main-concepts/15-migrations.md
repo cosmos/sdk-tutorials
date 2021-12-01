@@ -158,7 +158,7 @@ You also need to add code to your v2 to update the leaderboard after a game has 
 
 <HighlightBox type="info">
 
-If you want more details on how to update the leaderboard, take a look at [Run my own chain](./5-my-own-chain/01-index.md).
+If you want more details on how to update the leaderboard, take a look at [Run my own chain](../5-my-own-chain/01-index.md).
 
 </HighlightBox>
 
@@ -243,7 +243,7 @@ func PopulateLeaderboardWith(leaderboard *types.Leaderboard, additionalPlayers *
 
 <HighlightBox type="info">
 
-If you want to see more details about the number of helper functions like `AddCandidatesAndSortAtNow`, head to [Run my own chain](./5-my-own-chain/01-index.md).
+If you want to see more details about the number of helper functions like `AddCandidatesAndSortAtNow`, head to [Run my own chain](../5-my-own-chain/01-index.md).
 
 </HighlightBox>
 
