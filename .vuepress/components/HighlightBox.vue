@@ -1,8 +1,9 @@
 <template lang="pug">
     div.wrapper(v-bind:class="classType")
-        div.icon(v-bind:class="classType")
-            img.icon-image(v-bind:src="image")
         div.content(v-bind:class="classType") 
+            div.icon(v-bind:class="classType" v-if="image")
+                img.icon-image(v-bind:src="image")
+            .label.tm-overline.tm-rf-1.tm-lh-title.tm-medium(v-else) {{type}}
             slot
 </template>
 
@@ -21,6 +22,9 @@
             case "warn":
             case "warning":
                 icon = "/hi-warn-icon.svg";
+                break;
+            case "synopsis":
+                icon = null;
                 break;
             default:
                 icon = "/hi-info-icon.svg";
@@ -45,8 +49,7 @@
         width: 100%;
         align-items: center;
         justify-content: start;
-        padding: 20px;
-        padding-top: 10px;
+        padding: 24px;
         margin-bottom: 20px;
         border-radius: 16px;
         font-size: 21px;
@@ -77,21 +80,23 @@
             border: 1px solid var(--color-light-gray);
         }
 
-        .title {
-            color: var(--color-text-strong);
-            font-weight: bold;
-            
-            margin-top: 10px;
-            margin-bottom: 0px;
-            margin-right: 20px;
+        &.synopsis {
+            background: var(--background-color-secondary);
+            color: var(--semi-transparent-color-3);
         }
     }
 
+    .label {
+        width: 100%;
+        margin-bottom: 12px
+        color: var(--color-text-strong);
+        font-size: 13px;
+    }
+
     .icon {
-        margin-top: 10px;
-        margin-right: 20px;
-        align-items: center;
-        display: flex;
+        margin-right: 10px;
+        margin-top: 4px;
+        float: left;
 
         img {
             width: 20px;
@@ -101,8 +106,7 @@
     }
 
     .content {
-        margin-top: 10px;
-        width: max-content;
+        width: 100%;
 
         p {
             margin: 0px;
