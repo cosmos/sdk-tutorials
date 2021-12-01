@@ -122,7 +122,7 @@ If Vue.js is something new to you, check out the [Vue.js website](https://vuejs.
 
 If you look at the code that Starport generates, you will often see comments like the following:
 
-```golang
+```go
 // this line is used by starport scaffolding # 1
 ```
 
