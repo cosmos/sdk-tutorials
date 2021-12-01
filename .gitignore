@@ -22,3 +22,5 @@ dist/
 
 # vscode 
 *.code-workspace 
+
+.vuepress/public/resized-images
