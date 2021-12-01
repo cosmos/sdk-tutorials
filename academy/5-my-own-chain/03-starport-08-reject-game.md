@@ -12,7 +12,7 @@ tag: deep-dive
 Before proceeding, make sure you have all you need:
 
 * You understand the concepts of [transactions](../3-main-concepts/05-transactions.md), [messages](../3-main-concepts/07-messages.md)), and [Protobuf](../3-main-concepts/09-protobuf.md).
-* You know how to [create a message](./03-startport-04-create-message.md) with Starport, and code [its handling](./03-startport-05-create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
+* You know how to [create a message](./03-starport-04-create-message.md) with Starport, and code [its handling](./03-starport-05-create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
 * Have Go installed.
 * The checkers blockchain with the previous too messages and their events:
     * Either because you followed the [previous steps](./03-starport-07-events.md).
