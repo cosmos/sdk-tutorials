@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Multistore and Keepers
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 It is time to address multistore and keeper. Before you begin, take a look at the following sections:
 

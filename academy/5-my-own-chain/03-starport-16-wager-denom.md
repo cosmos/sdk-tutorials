@@ -6,7 +6,7 @@ description: Let players wager any fungible token
 
 # IBC Foreign Token Wager
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 Make sure you have all you need to reward validators for their work:
 

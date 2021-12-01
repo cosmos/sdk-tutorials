@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Migrations: on-chain upgrades
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 Ever wondered how an upgrade is done in the Cosmos SDK? Time to find out how migrations are conducted with the Cosmos SDK. Look at the following sections to better understand this section:
 

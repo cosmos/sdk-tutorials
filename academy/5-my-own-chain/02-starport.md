@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Starport
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 It is time to take a closer look at Starport. Before diving into the details of how Starport helps you scaffold the basics for your application blockchain make sure to understand the main concepts presented in the following sections:
 

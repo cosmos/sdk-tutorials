@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Inter-Blockchain Communication
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 Cross-chain communication becomes possible with the Cosmos SDK and the Inter-Blockchain Communication Protocol (IBC). Discover the potentials that come with IBC, but make sure you understand:
 

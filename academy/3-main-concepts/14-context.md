@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Context
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 It is time to look at context in the Cosmos SDK. It is recommended to look at the following sections to better understand context:
 

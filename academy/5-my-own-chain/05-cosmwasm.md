@@ -7,7 +7,7 @@ tag: deep-dive
 
 # CosmWasm
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 The last section of this course looks at CosmWasm. Discover how multi-chain smart contracts become possible. The following sections are recommended as a preparation:
 

@@ -7,7 +7,7 @@ tag: deep-dive
 
 # BaseApp
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 Before looking at `BaseApp`, make sure to read the previous sections:
 

@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Create a Game Message
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 Make sure you have all you need before proceeding:
 

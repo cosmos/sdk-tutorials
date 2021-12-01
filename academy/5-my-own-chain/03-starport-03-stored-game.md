@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Make a Checkers Blockchain
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 Make sure you have all you need before proceeding with the exercise:
 

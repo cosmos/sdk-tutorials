@@ -6,7 +6,7 @@ description: Help players make good transactions
 
 # Can Play Query
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 Make sure you have all you need to reward validators for their work:
 
