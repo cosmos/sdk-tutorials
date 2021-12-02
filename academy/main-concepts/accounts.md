@@ -153,7 +153,7 @@ The keyring object stores and manages multiple accounts. The keyring object impl
 
 ## Next up
 
-In the [next section](./05-transactions.md), you will learn how transactions are generated and handled in the Cosmos SDK.
+In the [next section](./transactions.md), you will learn how transactions are generated and handled in the Cosmos SDK.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 

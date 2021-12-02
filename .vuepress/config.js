@@ -139,7 +139,7 @@ module.exports = {
             },
             {
               title: "Main Concepts",
-              path: "/academy/3-main-concepts",
+              path: "/academy/main-concepts",
               directory: true,
             },
             {

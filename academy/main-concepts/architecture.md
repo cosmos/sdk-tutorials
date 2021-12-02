@@ -131,7 +131,7 @@ The creation of an application-specific blockchain with the Cosmos SDK is largel
 
 The Inter-Blockchain Communication Protocol (IBC) is a common framework for exchanging information between blockchains. For now, it is enough to know that it exists and it enables seamless interaction between blockchains that want to transfer value (token transfers) and exchange information. It enables communication between applications that run on separate application-specific blockchains.
 
-We will dive further into the Inter-Blockchain Communication Protocol (IBC) in a [later section of this chapter](./16-ibc.md).
+We will dive further into the Inter-Blockchain Communication Protocol (IBC) in a [later section of this chapter](./ibc.md).
 
 </HighlightBox>
 
@@ -208,7 +208,7 @@ You will create a minimal distributed state machine with the Cosmos SDK and see 
 
 With all you learned about Tendermint: can you **design** a minimal distributed state machine? A blockchain that allows people to play the game of checkers? In the collapsed box below, you are invited to start this reflection and reinforce your understanding of Tendermint.
 
-You will continue to apply the learnings of the later sections to your checkers game and design a blockchain by using elements of the Cosmos SDK. Feel free to skip it if you prefer to continue with [accounts in the Cosmos SDK](./04-accounts.md).
+You will continue to apply the learnings of the later sections to your checkers game and design a blockchain by using elements of the Cosmos SDK. Feel free to skip it if you prefer to continue with [accounts in the Cosmos SDK](./accounts.md).
 
 <ExpansionPanel title="Let's make a checkers blockchain">
 
@@ -403,13 +403,13 @@ You have:
 
 You probably have already spotted a good number of shortcomings in your game blockchain as it is presently designed:
 
-* Anyone, including the opponent, can post an anonymous transaction and play instead of the intended player. This makes it impossible to know who did what. You need to find a way to identify the right player. The Cosmos SDK comes to the rescue with [accounts and signatures](./04-accounts.md).
-* You currently have a single game. Multiple games running in parallel would be better. You need a well-defined store. Why not take a look at the Cosmos SDK's [key store](./10-multistore-keepers.md)?
-* It would be good if you had an elegant way to serialize your data objects of interest and your transactions? [Protobuf](./09-protobuf.md) can help with this.
-* You want to penalize spam and bad transactions and also to be able to play for money? Enter tokens defined in another [existing Cosmos SDK module](./08-modules.md)).
-* There is a new transaction type to _create a game_. You can count on Cosmos SDK's [context object](./14-context.md) to tailor gas costs according to the transaction type.
-* You need to handle the validators lists in the communication? Cosmos can do this for you out of the box with [BaseApp](./11-base-app.md).
-* You want the player's GUI to easily reload their pending game(s) and let them know whether a move is valid or not? That's a good use of Cosmos SDK [queries](./12-queries.md).
-* You want to use Tendermint's events and notify players when it’s their turn? Cosmos SDK provides that with [events](./13-events.md).
-* You want to easily add changes to your system in the future after production? You can handle it with Cosmos SDK [migrations](./15-migrations.md).
-* You want to allow players to play for money with different tokens? Good thing the Cosmos SDK already integrates [IBC](./16-ibc.md) for tokens coming from other blockchains.
+* Anyone, including the opponent, can post an anonymous transaction and play instead of the intended player. This makes it impossible to know who did what. You need to find a way to identify the right player. The Cosmos SDK comes to the rescue with [accounts and signatures](./accounts.md).
+* You currently have a single game. Multiple games running in parallel would be better. You need a well-defined store. Why not take a look at the Cosmos SDK's [key store](./multistore-keepers.md)?
+* It would be good if you had an elegant way to serialize your data objects of interest and your transactions? [Protobuf](./protobuf.md) can help with this.
+* You want to penalize spam and bad transactions and also to be able to play for money? Enter tokens defined in another [existing Cosmos SDK module](./modules.md)).
+* There is a new transaction type to _create a game_. You can count on Cosmos SDK's [context object](./context.md) to tailor gas costs according to the transaction type.
+* You need to handle the validators lists in the communication? Cosmos can do this for you out of the box with [BaseApp](./base-app.md).
+* You want the player's GUI to easily reload their pending game(s) and let them know whether a move is valid or not? That's a good use of Cosmos SDK [queries](./queries.md).
+* You want to use Tendermint's events and notify players when it’s their turn? Cosmos SDK provides that with [events](./events.md).
+* You want to easily add changes to your system in the future after production? You can handle it with Cosmos SDK [migrations](./migrations.md).
+* You want to allow players to play for money with different tokens? Good thing the Cosmos SDK already integrates [IBC](./ibc.md) for tokens coming from other blockchains.

@@ -11,12 +11,12 @@ tag: deep-dive
 
 It is time to look at context in the Cosmos SDK. It is recommended to look at the following sections to better understand context:
 
-* [Transactions](./05-transactions.md)
-* [Messages](./07-messages.md))
-* [Modules](./08-modules.md))
-* [BaseApp](./11-base-app.md)
-* [Queries](./12-queries.md)
-* [Events](./13-events.md)
+* [Transactions](./transactions.md)
+* [Messages](./messages.md))
+* [Modules](./modules.md))
+* [BaseApp](./base-app.md)
+* [Queries](./queries.md)
+* [Events](./events.md)
 
 </HighlightBox>
 
@@ -82,4 +82,4 @@ Prior to calling `runMsgs` on the message(s) in the transaction, `app.cacheTxCon
 
 ## Next up
 
-Head straight to the [next section](./15-migrations.md) for an introduction to migrations in the Cosmos SDK.
+Head straight to the [next section](./migrations.md) for an introduction to migrations in the Cosmos SDK.

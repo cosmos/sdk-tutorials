@@ -11,8 +11,8 @@ tag: deep-dive
 
 Ever wondered how an upgrade is done in the Cosmos SDK? Time to find out how migrations are conducted with the Cosmos SDK. Look at the following sections to better understand this section:
 
-* [Messages](./07-messages.md))
-* [Protobuf](./09-protobuf.md)
+* [Messages](./messages.md))
+* [Protobuf](./protobuf.md)
 
 </HighlightBox>
 
@@ -92,7 +92,7 @@ For a more detailed explanation of the upgrade process, refer to the [Cosmos SDK
 
 ## Next up
 
-You are all caught up on migrations. Have a look at the code samples below or head to the [next section](./16-ibc.md) to learn about the Inter-Blockchain Communication Protocol.
+You are all caught up on migrations. Have a look at the code samples below or head to the [next section](./ibc.md) to learn about the Inter-Blockchain Communication Protocol.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 

@@ -11,10 +11,10 @@ tag: deep-dive
 
 Cross-chain communication becomes possible with the Cosmos SDK and the Inter-Blockchain Communication Protocol (IBC). Discover the potentials that come with IBC, but make sure you understand:
 
-* [Accounts](./04-accounts.md)
-* [Transactions](./05-transactions.md)
-* [Messages](./07-messages.md))
-* [Modules](./08-modules.md))
+* [Accounts](./accounts.md)
+* [Transactions](./transactions.md)
+* [Messages](./messages.md))
+* [Modules](./modules.md))
 
 </HighlightBox>
 
@@ -151,7 +151,7 @@ IBC can bridge Tendermint chains but also non-Tendermint chains. Two types of no
 
 <HighlightBox type="info">
 
-A great example of one of these peg-zones is the [Gravity Bridge](https://github.com/cosmos/gravity-bridge). Take a look at the [section on bridges](./17-bridges.md) for more information on it.
+A great example of one of these peg-zones is the [Gravity Bridge](https://github.com/cosmos/gravity-bridge). Take a look at the [section on bridges](./bridges.md) for more information on it.
 
 </HighlightBox>
 
@@ -167,7 +167,7 @@ Relayers are an essential part of the IBC infrastructure and there are several i
 
 ## Next up
 
-You can now skip ahead to the [next section](./17-bridges.md) to discover bridges in the Cosmos SDK, or you can dive into the code samples below.
+You can now skip ahead to the [next section](./bridges.md) to discover bridges in the Cosmos SDK, or you can dive into the code samples below.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 

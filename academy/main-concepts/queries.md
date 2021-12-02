@@ -11,10 +11,10 @@ tag: deep-dive
 
 In this section, you will discover queries. They are one of two primary objects handled by modules. Make sure to be all set up by reading the previous sections:
 
-* [A Blockchain App Architecture](./02-architecture.md)
-* [Accounts](./04-accounts.md)
-* [Transactions](./05-transactions.md)
-* [Modules](./08-modules.md))
+* [A Blockchain App Architecture](./architecture.md)
+* [Accounts](./accounts.md)
+* [Transactions](./transactions.md)
+* [Modules](./modules.md))
 
 </HighlightBox>
 
@@ -34,7 +34,7 @@ Visit the [detailed Cosmos SDK documentation](https://docs.cosmos.network/master
 
 ## Next up
 
-You can now continue with the [next section](./13-events.md) if you want to skip ahead to read up on events.
+You can now continue with the [next section](./events.md) if you want to skip ahead to read up on events.
 
 If you prefer to see some code in action and continue with the checkers blockchain, take a look at the expandable box beneath.
 

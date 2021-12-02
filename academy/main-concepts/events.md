@@ -11,10 +11,10 @@ tag: deep-dive
 
 Let's dedicate some time to events in the Cosmos SDK. You should understand the concepts covered in the following sections before diving into events:
 
-* [Transactions](./05-transactions.md)
-* [Messages](./07-messages.md))
-* [Modules](./08-modules.md))
-* [Protobuf](./09-protobuf.md)
+* [Transactions](./transactions.md)
+* [Messages](./messages.md))
+* [Modules](./modules.md))
+* [Protobuf](./protobuf.md)
 
 You can find some a code examples at the end of this section in which events are implemented in the checkers blockchain.
 
@@ -109,7 +109,7 @@ You can filter for event types and attribute values. For example, a transfer tra
 
 ## Next up
 
-You just learned about events, where they are expected, and how to emit or receive them. Have a look at the code samples below or head to the [next section](./14-context.md) to learn about the `Context` object.
+You just learned about events, where they are expected, and how to emit or receive them. Have a look at the code samples below or head to the [next section](./context.md) to learn about the `Context` object.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 

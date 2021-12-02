@@ -11,11 +11,11 @@ tag: deep-dive
 
 Before looking at `BaseApp`, make sure to read the previous sections:
 
-* [A Blockchain App Architecture](./02-architecture.md)
-* [Transactions](./05-transactions.md)
-* [Messages](./07-messages.md))
-* [Modules](./08-modules.md))
-* [Multistora and Keepers](./10-multistore-keepers.md)
+* [A Blockchain App Architecture](./architecture.md)
+* [Transactions](./transactions.md)
+* [Messages](./messages.md))
+* [Modules](./modules.md))
+* [Multistora and Keepers](./multistore-keepers.md)
 
 </HighlightBox>
 
@@ -163,4 +163,4 @@ Other ABCI message handlers being implemented are:
 
 ## Next up
 
-In the [following section](./12-queries.md), you can find information on queries, one of two primary objects handled by a module in the Cosmos SDK.
+In the [following section](./queries.md), you can find information on queries, one of two primary objects handled by a module in the Cosmos SDK.

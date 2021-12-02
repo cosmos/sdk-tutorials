@@ -12,10 +12,10 @@ tag: deep-dive
 In this section, you will learn more about bridges in the Cosmos SDK. Make sure to read the following sections as a preparation:
 
 * [The Cosmos Ecosystem](../what-is-cosmos/cosmos-ecosystem.md)
-* [Transactions](./05-transactions.md)
-* [Messages](./07-messages.md))
-* [Events](./13-events.md)
-* [IBC](./16-ibc.md)
+* [Transactions](./transactions.md)
+* [Messages](./messages.md))
+* [Events](./events.md)
+* [IBC](./ibc.md)
 
 </HighlightBox>
 
