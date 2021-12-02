@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 echo "Assets optimization started"
+echo "Setup: Ensure output folder is present"
+mkdir -p .vuepress/public/resized-images
+echo "Setup: Completed"
 echo "Resize: Started to resize images using sharp"
 sharp resize 800 -i {*,*/*,*/*/*,.*/*}/*.{png,jpg} -o .vuepress/public/resized-images --optimise true --withMetadata false
 echo "Resize: Completed"
