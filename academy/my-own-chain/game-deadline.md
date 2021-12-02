@@ -113,4 +113,4 @@ When it comes to adding and updating a deadline, this is all you need.
 
 You have created and updated the deadline. You have not used it fully yet. That is the object of the [section two steps ahead](./game-forfeit.md), where you can find a description on how to use the deadline and [the FIFO](./game-fifo.md) to expire games that reached their deadline.
 
-However, before you can do that, there is one other field you need to add. Discover which in the [next section](03-starport-11-game-winner.md).
+However, before you can do that, there is one other field you need to add. Discover which in the [next section](./game-winner.md).

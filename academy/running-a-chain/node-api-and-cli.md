@@ -493,4 +493,4 @@ Do you need a conceptual refresher about modules and their role in the Cosmos SD
 
 ## Next up
 
-It is time to begin developing your own chain. You will begin working with Starport and look into CosmJS and CosmWasm in the [next chapter](../my-own-chain/index2.md).
+It is time to begin developing your own chain. You will begin working with Starport and look into CosmJS and CosmWasm in the [next chapter](../my-own-chain/index.md).
