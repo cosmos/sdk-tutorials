@@ -129,7 +129,7 @@ module.exports = {
           children: [
             {
               title: "Welcome",
-              path: "/academy/1-welcome/",
+              path: "/academy/welcome/",
               directory: false,
             },
             {
