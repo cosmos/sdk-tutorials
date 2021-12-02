@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   theme: "cosmos",
   title: "Cosmos Developer Portal",
@@ -330,7 +332,7 @@ module.exports = {
     [
       "@vuepress/google-analytics",
       {
-        ga: "UA-62891515-10",
+        ga: "UA-51029217-2",
       }
     ],
     [
@@ -365,4 +367,11 @@ module.exports = {
     "feature-test/*.md",
     "academy/*/*.md"
   ],
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@images': path.resolve(__dirname, 'public/resized-images')
+      }
+    }
+  }
 };

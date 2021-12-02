@@ -13,7 +13,7 @@ The last section of this course looks at CosmWasm. Discover how multi-chain smar
 
 * [Transactions](../3-main-concepts/05-transactions.md)
 * [Messages](../3-main-concepts/07-messages.md))
-* [Queries](../4-main-concepts/12-queries.md)
+* [Queries](../3-main-concepts/12-queries.md)
 
 </HighlightBox>
 
@@ -285,4 +285,4 @@ You might wonder: what's next? There are vast opportunities to continue your jou
 * Contribute to the Cosmos SDK, IBC, and Tendermint BFT consensus development.
 * Get support for enterprise solutions, which you are developing.
 
-Head right to the [What's Next section](../6-whats-next/1-index.md) to find useful information to launch your journey into the Cosmos universe.
+Head right to the [What's Next section](../6-whats-next/index.md) to find useful information to launch your journey into the Cosmos universe.

@@ -2,7 +2,7 @@
     div.expansion__container
         div.inner-container
             button.styled-button(v-on:click="toggleContent")
-                icon-arrow.icon(type="bottom")(:class="this.expanded ? 'expanded' : 'collapsed'")
+                icon-arrow.icon(type="bottom" :class="this.expanded ? 'expanded' : 'collapsed'")
                 p {{this.title}}
             div.expansion__content(ref="content")
                 slot

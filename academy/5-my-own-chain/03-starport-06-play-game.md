@@ -178,6 +178,6 @@ That is all there is to it: good preparation and the use of Starport.
 
 ## Next up
 
-You are on a roll and two `sdk.Msg` are down. Before you add a third one to let a player [reject a game](./3-starport-08-reject-game), it would be a good idea to add events to the existing message handlers for relevant information to surface even more elegantly. That is the object of the [next section](./03-starport-07-events.md).
+You are on a roll and two `sdk.Msg` are down. Before you add a third one to let a player [reject a game](./03-starport-08-reject-game.md), it would be a good idea to add events to the existing message handlers for relevant information to surface even more elegantly. That is the object of the [next section](./03-starport-07-events.md).
 
 If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](./03-starport-15-can-play.md).

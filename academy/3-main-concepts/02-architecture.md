@@ -15,7 +15,7 @@ Created in 2014, [Tendermint](https://tendermint.com/) accelerates the developme
 
 Tendermint modules **attend to consensus and networking**. These are two important components of any blockchain. This frees developers to focus on the application level without descending into lower-level blockchain concerns such as peer discovery, block propagation, consensus, and transaction finalization. Without Tendermint, developers would be forced to build software to address these concerns which would add additional time, complexity, and cost to the development of their applications.
 
-![Blockchain application architecture overview](./images/architecture_overview.png)
+![Blockchain application architecture overview](~@images/architecture_overview.png)
 
 A blockchain node for an application-focused Cosmos blockchain consists of a state-machine, built with the Cosmos SDK, and the consensus and networking layer, which are handled by the [Tendermint Core](https://tendermint.com/core/).
 
@@ -67,7 +67,7 @@ Validators are the ones who vote. This means that delegators should be demanding
 
 The Tendermint BFT engine is connected to the application by a socket protocol. ABCI provides a socket for applications written in other languages. When the application is written in the same language as the Tendermint implementation, the socket is not used.
 
-![The application, ABCI, and Tendermint](./images/ABCI_3.png)
+![The application, ABCI, and Tendermint](~@images/ABCI_3.png)
 
 The Tendermint BFT provides security guarantees, including:
 
@@ -98,7 +98,7 @@ Ethereum-like blockchains are part of the second category. Only the state machin
 This method is not without its limitations:
 
 * Very little is universally defined: standards for basic concerns such as tokens emerge organically through voluntary participation.
-* Contracts can and do contain repetitive code that may or may not correctly implement the developer's intentions. 
+* Contracts can and do contain repetitive code that may or may not correctly implement the developer's intentions.
 * The inherent flexibility makes it challenging to reason about what is correct or even what is friendly.
 * There are practical limits to the complexity of operations, which are very low compared to what is possible in other settings.
 
@@ -164,7 +164,7 @@ The **state transition function** in a blockchain is synonymous with a transacti
 
 Blockchains are deterministic. The only correct interpretation of the transaction is the new state, shown as S-prime in the illustration above (`S'`).
 
-Blockchains are distributed and transactions arrive in batches called blocks. The machine state 
+Blockchains are distributed and transactions arrive in batches called blocks. The machine state
 subsists after the correct interpretation of each transaction in a block. Each transaction executes in the context of the state machine that resulted from every preceding transaction. The machine state after all transactions are executed is a useful checkpoint especially for historic states.
 
 <H5PComponent :contents="['/h5p/M2-architecture-statemachines2-HS']"></H5PComponent>
@@ -208,7 +208,7 @@ You will create a minimal distributed state machine with the Cosmos SDK and see 
 
 With all you learned about Tendermint: can you **design** a minimal distributed state machine? A blockchain that allows people to play the game of checkers? In the collapsed box below, you are invited to start this reflection and reinforce your understanding of Tendermint.
 
-You will continue to apply the learnings of the later sections to your checkers game and design a blockchain by using elements of the Cosmos SDK. Feel free to skip it if you prefer to continue with [accounts in the Cosmos SDK](./03-accounts.md).
+You will continue to apply the learnings of the later sections to your checkers game and design a blockchain by using elements of the Cosmos SDK. Feel free to skip it if you prefer to continue with [accounts in the Cosmos SDK](./04-accounts.md).
 
 <ExpansionPanel title="Let's make a checkers blockchain">
 
@@ -272,7 +272,7 @@ Your application needs its own database to store the state. The application need
 
 #### `InitChain`: The initial chain state
 
-[That's](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#initchain) where your only game is initialized. Tendermint sends `app_state_bytes: bytes` to your application with the initial (genesis) state of the blockchain. You already know what it would look like to represent a single game. 
+[That's](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#initchain) where your only game is initialized. Tendermint sends `app_state_bytes: bytes` to your application with the initial (genesis) state of the blockchain. You already know what it would look like to represent a single game.
 
 Your application:
 
@@ -302,7 +302,7 @@ The application is ready to respond to the upcoming `CheckTx` and `DeliverTx` wi
 
 Tendermint [asks](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#checktx) your application whether the transaction is worth keeping at all. You only concern yourself with whether there is a valid move in the transaction because you want to simplify to the maximum. You check whether there are four `int` in the serialized information for this. You can also check that the `int` themselves are within the boundaries of the board, for example between `0` and `7`.
 
-It is better **not** to check if the move is valid according to the rules of the application. 
+It is better **not** to check if the move is valid according to the rules of the application.
 
 ```go [https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L168]
 func (game *Game) ValidMove(src, dst Pos) bool
@@ -310,7 +310,7 @@ func (game *Game) ValidMove(src, dst Pos) bool
 
 Checking whether a move is valid with regards to the board requires knowledge of the board state when the transaction is included in a block. The board is updated only up to the point where the transactions have been delivered. You may have a situation where two transactions are sent one after the other and both are valid. If you tested the move in the second transaction against the board state before the first unconfirmed move, it would appear that the second move is invalid. Testing a move on the board at `CheckTx` time should be avoided.
 
-Check the _possibility_ of validity of the transaction in `CheckTx` and reject the transaction if it is malformed, contains invalid inputs, etc., and cannot _possibly_ be acceptable, but refrain from confirming that it will be successful according to concerns that depend on context. 
+Check the _possibility_ of validity of the transaction in `CheckTx` and reject the transaction if it is malformed, contains invalid inputs, etc., and cannot _possibly_ be acceptable, but refrain from confirming that it will be successful according to concerns that depend on context.
 
 #### `DeliverTx`: A transaction is added and needs to be processed
 
@@ -401,7 +401,7 @@ You have:
 
 ## Next up
 
-You probably have already spotted a good number of shortcomings in your game blockchain as it is presently designed: 
+You probably have already spotted a good number of shortcomings in your game blockchain as it is presently designed:
 
 * Anyone, including the opponent, can post an anonymous transaction and play instead of the intended player. This makes it impossible to know who did what. You need to find a way to identify the right player. The Cosmos SDK comes to the rescue with [accounts and signatures](./04-accounts.md).
 * You currently have a single game. Multiple games running in parallel would be better. You need a well-defined store. Why not take a look at the Cosmos SDK's [key store](./10-multistore-keepers.md)?
