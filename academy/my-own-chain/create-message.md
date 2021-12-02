@@ -13,7 +13,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [transactions](../main-concepts/transactions.md) and [messages](../main-concepts/messages.md)) and [Protobuf](../main-concepts/protobuf.md).
 * Have Go installed.
-* The checkers blockchain scaffold with the `StoredGame` and its helpers. Either because you followed the [previous steps](./03-starport-03-stored-game.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/full-game-object).
+* The checkers blockchain scaffold with the `StoredGame` and its helpers. Either because you followed the [previous steps](./stored-game.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/full-game-object).
 
 </HighlightBox>
 
@@ -139,6 +139,6 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
     return &types.MsgCreateGameResponse{}, nil
 }
 ```
-This is the object of the [next section](./03-starport-05-create-handling.md).
+This is the object of the [next section](./create-handling.md).
 
 <!-- Add GUI Elements -->

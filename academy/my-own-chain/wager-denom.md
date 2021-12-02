@@ -13,11 +13,11 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [messages](../main-concepts/messages.md), [Protobuf](../main-concepts/protobuf.md), and [IBC](../main-concepts/ibc.md).
 * Have Go installed.
-* The checkers blockchain up to the _can play_ query. Either because you followed the [previous steps](./03-starport-15-can-play.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
+* The checkers blockchain up to the _can play_ query. Either because you followed the [previous steps](./can-play.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
 
 </HighlightBox>
 
-When you [introduced a wager](./03-starport-13-game-wager.md), you made it possible for players to play a game and wager the base staking token of your blockchain application. What if your players want to play with other _currencies_? Fortunately, your blockchain can represent a token from any other blockchain connected to your chain by using the Inter-Blockchain Communication Protocol (IBC).
+When you [introduced a wager](./game-wager.md), you made it possible for players to play a game and wager the base staking token of your blockchain application. What if your players want to play with other _currencies_? Fortunately, your blockchain can represent a token from any other blockchain connected to your chain by using the Inter-Blockchain Communication Protocol (IBC).
 
 In effect, you will be agnostic about the tokens that are represented and about who is taking care of the relayers. Your only concern is to enable the use of _foreign_ tokens.
 
@@ -109,4 +109,4 @@ With such a well-rounded checkers blockchain, you deploy and launch into product
 
 What if, later, you want to introduce a leaderboard, i.e. a brand new feature, after the blockchain has been running successfully?
 
-Take a look at the [next section](./03-starport-17-migration.md) to discover how to conduct chain upgrades, a.k.a. migrations.
+Take a look at the [next section](./migration.md) to discover how to conduct chain upgrades, a.k.a. migrations.

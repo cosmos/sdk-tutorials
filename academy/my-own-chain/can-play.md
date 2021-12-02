@@ -13,11 +13,11 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [queries](../main-concepts/queries.md), and [Protobuf](../main-concepts/protobuf.md).
 * Have Go installed.
-* The checkers blockchain up to the gas metering. Either because you followed the [previous steps](./03-starport-14-gas-meter.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
+* The checkers blockchain up to the gas metering. Either because you followed the [previous steps](./gas-meter.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
 
 </HighlightBox>
 
-As per the game mechanics you implemented earlier, a player sends a `MsgPlayMove` when [making a move](./03-starport-06-play-game.md). As is bound to happen for any message being executed/&ZeroWidthSpace;handled, this message can succeed or fail for several reasons. One error situation is when the message represents an invalid move.
+As per the game mechanics you implemented earlier, a player sends a `MsgPlayMove` when [making a move](./play-game.md). As is bound to happen for any message being executed/&ZeroWidthSpace;handled, this message can succeed or fail for several reasons. One error situation is when the message represents an invalid move.
 
 It would be helpful if the player could at least make sure that a move is valid before potentially burning gas for nothing. To add this facility, you need to create a way for the player to dry-run a call to the rules' [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function, i.e. without changing the game's state for this. Here queries come in handy because they are evaluated in memory and do not commit anything permanently to storage.
 
@@ -161,4 +161,4 @@ That is all there is to adding your bespoke query when you let Starport handle t
 
 ## Next up
 
-Do you want to give players more flexibility on which tokens they can use for the checkers blockchain's games? Let players wager any fungible token in the [next section](./03-starport-16-wager-denom.md).
+Do you want to give players more flexibility on which tokens they can use for the checkers blockchain's games? Let players wager any fungible token in the [next section](./wager-denom.md).

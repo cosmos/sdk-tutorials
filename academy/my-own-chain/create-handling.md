@@ -12,11 +12,11 @@ tag: deep-dive
 Make sure you have all you need before proceeding:
 
 * Have Go installed.
-* The checkers blockchain with its `MsgCreateGame` created by Starport. Either because you followed the [previous steps](./03-starport-04-create-message.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
+* The checkers blockchain with its `MsgCreateGame` created by Starport. Either because you followed the [previous steps](./create-message.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
 
 </HighlightBox>
 
-You added the message to create a game along with its serialization and dedicated gRPC function with the help of Starport in the [previous section](./03-starport-04-create-message.md).
+You added the message to create a game along with its serialization and dedicated gRPC function with the help of Starport in the [previous section](./create-message.md).
 
 Now all that remains is to add code that actually:
 
@@ -118,10 +118,10 @@ Given that you have already done a lot of preparatory work: what does it involve
 
 You will modify this handling in the next sections:
 
-* To add [new fields](./03-starport-09-game-fifo.md) to the stored information.
-* To add [an event](./03-starport-07-events.md).
-* To consume [some gas](./03-starport-14-gas-meter.md).
-* To facilitate the eventual [deadline enforcement](./03-starport-12-game-forfeit.md).
-* To add [_money_](./03-starport-13-game-wager.md) handling including [foreign tokens](./03-starport-16-wager-denom.md).
+* To add [new fields](./game-fifo.md) to the stored information.
+* To add [an event](./events.md).
+* To consume [some gas](./gas-meter.md).
+* To facilitate the eventual [deadline enforcement](./game-forfeit.md).
+* To add [_money_](./game-wager.md) handling including [foreign tokens](./wager-denom.md).
 
-Now that a game is created, it is time to play it. That is the subject of the [next section](./03-starport-06-play-game.md).
+Now that a game is created, it is time to play it. That is the subject of the [next section](./play-game.md).

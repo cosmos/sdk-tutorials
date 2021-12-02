@@ -284,7 +284,7 @@ Where `map` is the command that tells Starport to add an `Index` and store all e
 
 <HighlightBox type="tip">
 
-To create the above boilerplate in your module, you can use Starport. For Starport and if you want to go beyond these out-of-context code samples to see more in detail how to define all this, head to [My Own Chain](../5-my-own-chain/01-index.md).
+To create the above boilerplate in your module, you can use Starport. For Starport and if you want to go beyond these out-of-context code samples to see more in detail how to define all this, head to [My Own Chain](../my-own-chain/index.md).
 
 </HighlightBox>
 

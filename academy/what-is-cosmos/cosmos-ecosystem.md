@@ -145,7 +145,7 @@ With Starport developers can:
 
 <HighlightBox type="tip">
 
-Have a look at the official [Starport documentation](https://docs.starport.com/) and the section on [Starport in the My Own Cosmos Chain chapter](../5-my-own-chain/02-starport.md).
+Have a look at the official [Starport documentation](https://docs.starport.com/) and the section on [Starport in the My Own Cosmos Chain chapter](../my-own-chain/starport.md).
 
 </HighlightBox>
 

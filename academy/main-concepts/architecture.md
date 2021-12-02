@@ -218,7 +218,7 @@ This **design project** will evolve in stages as you learn more about the Cosmos
 
 <HighlightBox type="tip">
 
-This is meant as a design exercise. If you want to go from the design phase to the **implementation** phase, head to the [My Own Cosmos Chain](../5-my-own-chain/01-index.md) section.
+This is meant as a design exercise. If you want to go from the design phase to the **implementation** phase, head to the [My Own Cosmos Chain](../my-own-chain/index.md) section.
 
 </HighlightBox>
 

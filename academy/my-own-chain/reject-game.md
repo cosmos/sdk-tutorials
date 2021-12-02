@@ -12,10 +12,10 @@ tag: deep-dive
 Before proceeding, make sure you have all you need:
 
 * You understand the concepts of [transactions](../main-concepts/transactions.md), [messages](../main-concepts/messages.md)), and [Protobuf](../main-concepts/protobuf.md).
-* You know how to [create a message](./03-starport-04-create-message.md) with Starport, and code [its handling](./03-starport-05-create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
+* You know how to [create a message](./create-message.md) with Starport, and code [its handling](./create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
 * Have Go installed.
 * The checkers blockchain with the previous too messages and their events:
-    * Either because you followed the [previous steps](./03-starport-07-events.md).
+    * Either because you followed the [previous steps](./events.md).
     * Or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/two-events).
 
 </HighlightBox>
@@ -165,6 +165,6 @@ That is all there is to it. Once again, a lot of the boilerplate is taken care o
 
 You are done with creating messages for your checkers blockchain, at least from the point of view of this exercise. It does not mean that you have covered all the game theoretic situations. In particular, a player may stop playing and never come back. How would you handle it? Have the other player, or anyone really, send a message to flag the game as dead? Why not. But what if nobody ever bothers? You would end up with a lot of ongoing-but-dead games.
 
-That's where you can enforce a forfeit mechanism, independent from any player input. That's the object of the next four sections. Where you create a [doubly-linked FIFO](./03-starport-09-game-fifo.md), add a [deadline](./03-starport-10-game-deadline.md) and a [game winner](./03-starport-11-game-winner.md) fields, before being able to finally [enforce the forfeit](./03-starport-12-game-forfeit.md).
+That's where you can enforce a forfeit mechanism, independent from any player input. That's the object of the next four sections. Where you create a [doubly-linked FIFO](./game-fifo.md), add a [deadline](./game-deadline.md) and a [game winner](./game-winner.md) fields, before being able to finally [enforce the forfeit](./game-forfeit.md).
 
-To engage in this journey, head to the [next section](./03-starport-09-game-fifo.md). If instead you want to enable token wagers in your games, skip ahead to [wagers](./03-starport-13-game-wager.md).
+To engage in this journey, head to the [next section](./game-fifo.md). If instead you want to enable token wagers in your games, skip ahead to [wagers](./game-wager.md).

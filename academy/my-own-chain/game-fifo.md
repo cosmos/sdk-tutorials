@@ -13,11 +13,11 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [ABCI](../main-concepts/architecture.md), [Protobuf](../main-concepts/protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
 * Have Go installed.
-* The checkers blockchain with the `MsgRejectGame` and its handling. Either because you followed the [previous steps](./03-starport-08-reject-game.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
+* The checkers blockchain with the `MsgRejectGame` and its handling. Either because you followed the [previous steps](./reject-game.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
 
 </HighlightBox>
 
-In the [previous step](./03-starport-08-reject-game.md), you added a way for players to reject a game. There are two ways for a game to advance through its lifecycle until its resolution, win or draw: _play_ and _reject_.
+In the [previous step](./reject-game.md), you added a way for players to reject a game. There are two ways for a game to advance through its lifecycle until its resolution, win or draw: _play_ and _reject_.
 
 ## The why
 
@@ -227,4 +227,4 @@ You purely implemented a FIFO that is updated but never really used. If you stop
 
 ## Next up
 
-However you cannot enforce it just yet. For that, you need to add an expiry date on the games. That's the goal of the [next section](./03-starport-10-game-deadline.md).
+However you cannot enforce it just yet. For that, you need to add an expiry date on the games. That's the goal of the [next section](./game-deadline.md).

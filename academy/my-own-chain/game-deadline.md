@@ -13,11 +13,11 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [Protobuf](../main-concepts/protobuf.md).
 * Have Go installed.
-* The checkers blockchain with the game FIFO. Either because you followed the [previous steps](./03-starport-09-game-fifo.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-fifo).
+* The checkers blockchain with the game FIFO. Either because you followed the [previous steps](./game-fifo.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-fifo).
 
 </HighlightBox>
 
-In the [previous section](./03-starport-09-game-fifo.md), you introduced a FIFO that keeps the _oldest_ games at its head and the most recently updated games at its tail.
+In the [previous section](./game-fifo.md), you introduced a FIFO that keeps the _oldest_ games at its head and the most recently updated games at its tail.
 
 However, just because a game has not been updated in a while, it does not necessarily follow that it has expired. To ascertain this, you need to add a new field, `deadline`, to a game and test against it. Time to prepare the field.
 
@@ -111,6 +111,6 @@ $ starport chain build
 
 When it comes to adding and updating a deadline, this is all you need.
 
-You have created and updated the deadline. You have not used it fully yet. That is the object of the [section two steps ahead](./03-starport-12-game-forfeit.md), where you can find a description on how to use the deadline and [the FIFO](./03-starport-09-game-fifo.md) to expire games that reached their deadline.
+You have created and updated the deadline. You have not used it fully yet. That is the object of the [section two steps ahead](./game-forfeit.md), where you can find a description on how to use the deadline and [the FIFO](./game-fifo.md) to expire games that reached their deadline.
 
 However, before you can do that, there is one other field you need to add. Discover which in the [next section](03-starport-11-game-winner.md).

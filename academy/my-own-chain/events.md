@@ -13,11 +13,11 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [events](../main-concepts/events.md).
 * Have Go installed.
-* The checkers blockchain with the `MsgPlayMove` and its handling. Either because you followed the [previous steps](./03-starport-06-play-game.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/play-move-handler).
+* The checkers blockchain with the `MsgPlayMove` and its handling. Either because you followed the [previous steps](./play-game.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/play-move-handler).
 
 </HighlightBox>
 
-Now that you have [added the possible actions](./03-starport-06-play-game.md), including their return values, use events to alert/notify players.
+Now that you have [added the possible actions](./play-game.md), including their return values, use events to alert/notify players.
 
 Imagine a potential or current player waiting for their turn. It is not practical to look at all the transactions and search for the ones signifying the player's turn. It is better to listen to known events that let determine whose player's turn it is.
 
@@ -108,6 +108,6 @@ That is it: you have emitted two events that inform external systems of step cha
 
 ## Next up
 
-Time to add a third message to make it possible for a player to [reject a game](./03-starport-08-reject-game.md). Now that you know how to do it, add the event next time in one go as part of the message handling.
+Time to add a third message to make it possible for a player to [reject a game](./reject-game.md). Now that you know how to do it, add the event next time in one go as part of the message handling.
 
-That is one the goals of the [next section](./03-starport-08-reject-game.md). Another goal of the next section is to make your checkers blockchain more resistant to spam.
+That is one the goals of the [next section](./reject-game.md). Another goal of the next section is to make your checkers blockchain more resistant to spam.

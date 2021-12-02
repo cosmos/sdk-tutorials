@@ -210,6 +210,6 @@ type StoredGame struct {
 }
 ```
 
-If you want to go beyond these out-of-context code samples and instead see more details on defining all of this, head to the [section on how to build your chain](../5-my-own-chain/01-index.md).
+If you want to go beyond these out-of-context code samples and instead see more details on defining all of this, head to the [section on how to build your chain](../my-own-chain/index.md).
 
 </ExpansionPanel>

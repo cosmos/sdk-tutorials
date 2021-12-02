@@ -13,7 +13,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [Protobuf](../main-concepts/protobuf.md), and [migrations](../main-concepts/migrations.md).
 * Have Go installed.
-* The checkers blockchain up to the wager denomination. Either because you followed the [previous steps](./03-starport-16-wager-denom.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
+* The checkers blockchain up to the wager denomination. Either because you followed the [previous steps](./wager-denom.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
 
 </HighlightBox>
 
@@ -70,7 +70,7 @@ It is time to take a closer look at the new data structures being introduced wit
 
 <HighlightBox type="tip">
 
-If you are feeling unsure about creating new data structures with Starport, take another look at the [previous sections](./03-starport-04-create-message.md) of the exercise.
+If you are feeling unsure about creating new data structures with Starport, take another look at the [previous sections](./create-message.md) of the exercise.
 
 </HighlightBox>
 
@@ -325,7 +325,7 @@ type winningPlayerParsed struct {
 
 <ExpansionPanel title="How is dateAdded serialized?">
 
-You can reuse the [date format used for the deadline](./03-starport-10-game-deadline.md):
+You can reuse the [date format used for the deadline](./game-deadline.md):
 
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/keys.go#L50]
@@ -677,4 +677,4 @@ This is how you upgrade your blockchain in the Cosmos SDK v0.42.
 
 Your checkers blockchain is done. It has a leaderboard, which was introduced later in production thanks to migrations.
 
-Now it is time to explore two other helpful tools for working with the Cosmos SDK: [CosmJS](./04-cosmjs.md) and [CosmWasm](./05-cosmwasm.md). Begin with [CosmJS](./04-cosmjs.md).
+Now it is time to explore two other helpful tools for working with the Cosmos SDK: [CosmJS](./cosmjs.md) and [CosmWasm](./cosmwasm.md). Begin with [CosmJS](./cosmjs.md).

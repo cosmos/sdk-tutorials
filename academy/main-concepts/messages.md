@@ -135,7 +135,7 @@ $ starport scaffold message createGame red black --module checkers --response id
 
 <HighlightBox type="info">
 
-Starport creates a whole lot of other files, see [My Own Chain](../5-my-own-chain/01-index.md) for details and make additions to existing files.
+Starport creates a whole lot of other files, see [My Own Chain](../my-own-chain/index.md) for details and make additions to existing files.
 
 </HighlightBox>
 
@@ -200,7 +200,7 @@ Your work is mostly done. You will want to create the specific game creation cod
 
     <HighlightBox type="tip">
 
-    For more details and to avoid diving too deep in this section, see [My Own Chain](../5-my-own-chain/01-index.md).
+    For more details and to avoid diving too deep in this section, see [My Own Chain](../my-own-chain/index.md).
 
     </HighlightBox>
 
@@ -301,6 +301,6 @@ In general terms, you could add `timeout: Timestamp` to your `StoredGame` and up
 
 Of note is that there are no _open_ challenges, meaning a player cannot create a game where the second player is unknown until someone steps in. So player matching is left outside of the blockchain. It is left to the enterprising student to incorporate it inside the blockchain by changing the necessary models.
 
-If you would like to get started on building your own checkers game, you can head straight to the main exercise in [My Own Chain](../5-my-own-chain/01-index.md).
+If you would like to get started on building your own checkers game, you can head straight to the main exercise in [My Own Chain](../my-own-chain/index.md).
 
 </ExpansionPanel>

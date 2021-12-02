@@ -13,9 +13,9 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [transactions](../main-concepts/transactions.md), [messages](../main-concepts/messages.md)), and [Protobuf](../main-concepts/protobuf.md).
 * Have Go installed.
-* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./03-starport-05-create-handling.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler).
+* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./create-handling.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler).
 
-To see in detail what Starport creates refer back to [Creating the Game Message](./03-starport-04-create-message.md). To play a game it is sufficient to specify some aspects, which are different from this previous section.
+To see in detail what Starport creates refer back to [Creating the Game Message](./create-message.md). To play a game it is sufficient to specify some aspects, which are different from this previous section.
 
 </HighlightBox>
 
@@ -178,6 +178,6 @@ That is all there is to it: good preparation and the use of Starport.
 
 ## Next up
 
-You are on a roll and two `sdk.Msg` are down. Before you add a third one to let a player [reject a game](./03-starport-08-reject-game.md), it would be a good idea to add events to the existing message handlers for relevant information to surface even more elegantly. That is the object of the [next section](./03-starport-07-events.md).
+You are on a roll and two `sdk.Msg` are down. Before you add a third one to let a player [reject a game](./reject-game.md), it would be a good idea to add events to the existing message handlers for relevant information to surface even more elegantly. That is the object of the [next section](./events.md).
 
-If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](./03-starport-15-can-play.md).
+If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](./can-play.md).

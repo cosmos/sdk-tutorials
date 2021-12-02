@@ -13,11 +13,11 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [modules](../main-concepts/modules.md)), [keepers](../main-concepts/multistore-keepers.md), and [Protobuf](../main-concepts/protobuf.md).
 * Have Go installed.
-* The checkers blockchain up to the game expiry handling. Either because you followed the [previous steps](./03-starport-12-game-forfeit.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/forfeit-game).
+* The checkers blockchain up to the game expiry handling. Either because you followed the [previous steps](./game-forfeit.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/forfeit-game).
 
 </HighlightBox>
 
-With the introduction of a game expiry in the [previous section](./03-starport-12-game-forfeit.md) and others, you have now addressed the cases when two players start a game and finish it or let it expire.
+With the introduction of a game expiry in the [previous section](./game-forfeit.md) and others, you have now addressed the cases when two players start a game and finish it or let it expire.
 
 <HighlightBox type="warn">
 
@@ -349,4 +349,4 @@ Congratulations, you have successfully handled wagers. Players can now start get
 
 ## Next up
 
-You can skip ahead and see how you can integrate [foreign tokens](./03-starport-16-wager-denom.md) via the use of IBC. Or take a look at the [next section](./03-starport-14-gas-meter.md) to prevent spam and reward validators proportional to their effort in your checkers blockchain.
+You can skip ahead and see how you can integrate [foreign tokens](./wager-denom.md) via the use of IBC. Or take a look at the [next section](./gas-meter.md) to prevent spam and reward validators proportional to their effort in your checkers blockchain.

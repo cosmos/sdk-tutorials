@@ -13,11 +13,11 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [ABCI](../main-concepts/architecture.md).
 * Have Go installed.
-* The checkers blockchain with the elements necessary for forfeit. Either because you followed the [previous steps](./03-starport-11-game-winner.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
+* The checkers blockchain with the elements necessary for forfeit. Either because you followed the [previous steps](./game-winner.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
 
 </HighlightBox>
 
-In the [previous section](./03-starport-11-game-winner.md), you prepared the ground to enforce the expiration of games, namely:
+In the [previous section](./game-winner.md), you prepared the ground to enforce the expiration of games, namely:
 
 * A First-In-First-Out (FIFO) that always has old games at its head and freshly updated games at its tail.
 * A deadline field to guide the expiration.
@@ -188,10 +188,10 @@ And that's about it. It takes a few steps but again nothing out of the ordinary.
 
 <HighlightBox type="tip">
 
-For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games see the [section on the game's FIFO](./03-starport-09-game-fifo.md).
+For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games see the [section on the game's FIFO](./game-fifo.md).
 
 </HighlightBox>
 
 ## Next up
 
-With stale games taken care of, you are now safe in the knowledge that if and when games involve money, then money won't stay stuck by negligence. Money? Yes, that's what the [next section](./03-starport-13-game-wager.md) introduces, via token wagers.
+With stale games taken care of, you are now safe in the knowledge that if and when games involve money, then money won't stay stuck by negligence. Money? Yes, that's what the [next section](./game-wager.md) introduces, via token wagers.

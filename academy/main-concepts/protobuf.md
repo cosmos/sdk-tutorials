@@ -144,7 +144,7 @@ $ starport scaffold message createGame red black wager:uint --module checkers --
 ```
 <HighlightBox type="tip">
 
-If you want to dive straight into coding your chain, head to [My Own Chain](../5-my-own-chain/01-index.md) for more details on using Starport.
+If you want to dive straight into coding your chain, head to [My Own Chain](../my-own-chain/index.md) for more details on using Starport.
 
 </HighlightBox>
 

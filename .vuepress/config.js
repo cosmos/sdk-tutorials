@@ -149,7 +149,7 @@ module.exports = {
             },
             {
               title: "My Own Cosmos Chain",
-              path: "/academy/5-my-own-chain",
+              path: "/academy/my-own-chain",
               directory: true,
             },
             {

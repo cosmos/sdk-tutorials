@@ -114,4 +114,4 @@ There are many other useful methods like `assertIsBroadcastTxSuccess` that verif
 
 ## Next up
 
-Ready for the [final section](./05-cosmwasm.md) of this course? Discover CosmWasm and multi-chain smart contracting.
+Ready for the [final section](./cosmwasm.md) of this course? Discover CosmWasm and multi-chain smart contracting.

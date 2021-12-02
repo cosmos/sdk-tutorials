@@ -402,6 +402,6 @@ Notice how:
 * It is a _standard_ error when the player cannot pay, which is _easily_ fixed by the player.
 * It is a panic (an internal error) when the escrow account cannot pay, because if the escrow cannot pay it means there is a logic problem somewhere.
 
-If you want to go beyond these code samples and instead see more in detail how to define all this, head to [My Own Chain](../5-my-own-chain/01-index.md).
+If you want to go beyond these code samples and instead see more in detail how to define all this, head to [My Own Chain](../my-own-chain/index.md).
 
 </ExpansionPanel>

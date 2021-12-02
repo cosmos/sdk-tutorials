@@ -13,7 +13,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of gas.
 * Have Go installed.
-* The checkers blockchain with the game wager and its handling. Either because you followed the [previous steps](./03-starport-13-game-wager.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-wager).
+* The checkers blockchain with the game wager and its handling. Either because you followed the [previous steps](./game-wager.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-wager).
 
 </HighlightBox>
 
@@ -67,4 +67,4 @@ Time to move on.
 
 ## Next up
 
-Make your checkers blockchain more user-friendly by helping players avoid bad transactions via a query that tests a move. Just follow the exercise in the [next section](./03-starport-15-can-play.md).
+Make your checkers blockchain more user-friendly by helping players avoid bad transactions via a query that tests a move. Just follow the exercise in the [next section](./can-play.md).

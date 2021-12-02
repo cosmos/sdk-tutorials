@@ -13,7 +13,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [Protobuf](../main-concepts/protobuf.md).
 * Have Go installed.
-* The checkers blockchain with the deadline field and its handling. Either because you followed the [previous steps](./03-starport-10-game-deadline.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-deadline).
+* The checkers blockchain with the deadline field and its handling. Either because you followed the [previous steps](./game-deadline.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-deadline).
 
 </HighlightBox>
 
@@ -124,4 +124,4 @@ Confirm it compiles and you are ready to handle the expiration of games.
 
 ## Next up
 
-You have introduced a [game FIFO](./03-starport-09-game-fifo.md), a [game deadline](./03-starport-10-game-deadline.md), and a game winner. This effort is about to pay off. You finally have all elements to enforce game expiration. Time to turn your attention to the [next section](./03-starport-12-game-forfeit.md).
+You have introduced a [game FIFO](./game-fifo.md), a [game deadline](./game-deadline.md), and a game winner. This effort is about to pay off. You finally have all elements to enforce game expiration. Time to turn your attention to the [next section](./game-forfeit.md).

@@ -266,7 +266,7 @@ async MsgCreatePost({ rootGetters }, { value }) {
 
 ## Next up
 
-You just created a fully working Cosmos SDK chain, one that forms the basis of the [following guided exercise](./03-starport-03-stored-game.md). 
+You just created a fully working Cosmos SDK chain, one that forms the basis of the [following guided exercise](./stored-game.md). 
 
 <HighlightBox type="info">
 
