@@ -11,7 +11,7 @@ tag: deep-dive
 
 In this section, you will learn more about bridges in the Cosmos SDK. Make sure to read the following sections as a preparation:
 
-* [The Cosmos Ecosystem](../2-what-is-cosmos/03-cosmos-ecosystem.md)
+* [The Cosmos Ecosystem](../what-is-cosmos/cosmos-ecosystem.md)
 * [Transactions](./05-transactions.md)
 * [Messages](./07-messages.md))
 * [Events](./13-events.md)

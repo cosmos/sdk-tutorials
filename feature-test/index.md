@@ -253,7 +253,7 @@ children: [
   },
   {
     title: "What is Cosmos?",
-    path: "/academy/2-what-is-cosmos",
+    path: "/academy/what-is-cosmos",
     directory: true,
   },
   {

@@ -269,9 +269,9 @@ You can find more information in the [CosmWasm Developer Academy](https://docs.c
 
 At this point, you have:
 
-* [Understood how Cosmos and the Cosmos SDK fit in the overall development of blockchain technology.](../2-what-is-cosmos/02-blockchain-and-cosmos.md)
-* [A better sense of what comprises the Cosmos ecosystem.](../2-what-is-cosmos/03-cosmos-ecosystem.md)
-* [Set up a wallet, got some ATOM tokens, and staked them.](../2-what-is-cosmos/04-atom-staking.md)
+* [Understood how Cosmos and the Cosmos SDK fit in the overall development of blockchain technology.](../what-is-cosmos/blockchain-and-cosmos.md)
+* [A better sense of what comprises the Cosmos ecosystem.](../what-is-cosmos/cosmos-ecosystem.md)
+* [Set up a wallet, got some ATOM tokens, and staked them.](../what-is-cosmos/atom-staking.md)
 * [Learned more about the elements of application architecture.](../3-main-concepts/02-architecture.md)
 * [Understood and applied main concepts of the Cosmos SDK.](../3-main-concepts/01-index.md)
 * [Ran a node, API, and CLI for a Cosmos chain.](../4-running-a-chain/04-node-api-and-cli.md)
