@@ -11,7 +11,7 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [Protobuf](../3-main-concepts/09-protobuf.md).
+* You understand the concepts of [Protobuf](../main-concepts/protobuf.md).
 * Have Go installed.
 * The checkers blockchain with the deadline field and its handling. Either because you followed the [previous steps](./03-starport-10-game-deadline.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-deadline).
 

@@ -11,7 +11,7 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [events](../3-main-concepts/13-events.md).
+* You understand the concepts of [events](../main-concepts/events.md).
 * Have Go installed.
 * The checkers blockchain with the `MsgPlayMove` and its handling. Either because you followed the [previous steps](./03-starport-06-play-game.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/play-move-handler).
 

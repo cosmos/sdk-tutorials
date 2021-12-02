@@ -11,7 +11,7 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [Protobuf](../3-main-concepts/09-protobuf.md), and [migrations](../3-main-concepts/15-migrations.md).
+* You understand the concepts of [Protobuf](../main-concepts/protobuf.md), and [migrations](../main-concepts/migrations.md).
 * Have Go installed.
 * The checkers blockchain up to the wager denomination. Either because you followed the [previous steps](./03-starport-16-wager-denom.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
 

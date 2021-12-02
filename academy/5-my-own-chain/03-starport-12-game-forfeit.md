@@ -11,7 +11,7 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [ABCI](../3-main-concepts/02-architecture.md).
+* You understand the concepts of [ABCI](../main-concepts/architecture.md).
 * Have Go installed.
 * The checkers blockchain with the elements necessary for forfeit. Either because you followed the [previous steps](./03-starport-11-game-winner.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
 

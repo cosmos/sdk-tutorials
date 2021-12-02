@@ -217,7 +217,7 @@ $ cat ~/.simapp/config/genesis.json
 
 <HighlightBox type="tip">
 
-It helps to have the concepts very clear in mind when working hands-on with the Cosmos SDK. Need a refresher? Dive right into the [section on _Accounts_ in the _Main Concepts_ chapter](../3-main-concepts/04-accounts.md).
+It helps to have the concepts very clear in mind when working hands-on with the Cosmos SDK. Need a refresher? Dive right into the [section on _Accounts_ in the _Main Concepts_ chapter](../main-concepts/accounts.md).
 
 </HighlightBox>
 
@@ -487,7 +487,7 @@ The modules in the `/cosmos-sdk/x/` folder are maintained by several organisatio
 
 <HighlightBox type="tip">
 
-Do you need a conceptual refresher about modules and their role in the Cosmos SDK? Take a look at the [Modules section in the previous chapter](../3-main-concepts/08-modules.md).
+Do you need a conceptual refresher about modules and their role in the Cosmos SDK? Take a look at the [Modules section in the previous chapter](../main-concepts/modules.md).
 
 </HighlightBox>
 

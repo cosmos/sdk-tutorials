@@ -11,7 +11,7 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [modules](../3-main-concepts/08-modules.md)), [keepers](../3-main-concepts/10-multistore-keepers.md), and [Protobuf](../3-main-concepts/09-protobuf.md).
+* You understand the concepts of [modules](../main-concepts/modules.md)), [keepers](../main-concepts/multistore-keepers.md), and [Protobuf](../main-concepts/protobuf.md).
 * Have Go installed.
 * The checkers blockchain up to the game expiry handling. Either because you followed the [previous steps](./03-starport-12-game-forfeit.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/forfeit-game).
 

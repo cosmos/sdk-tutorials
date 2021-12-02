@@ -16,7 +16,7 @@ In this section you are going to:
 
 <HighlightBox type="info">
 
-We cover the main concepts in more detail in the [next chapter](../3-main-concepts/01-index.md).
+We cover the main concepts in more detail in the [next chapter](../main-concepts/index.md).
 
 </HighlightBox>
 
@@ -230,4 +230,4 @@ This completes this exercise. You got yourself set up to participate in the Cosm
 
 ## Next up
 
-Head on to the [next chapter](../3-main-concepts/01-index.md) to keep exploring the Cosmos SDK. Next it is all about the SDKs main components.
+Head on to the [next chapter](../main-concepts/index.md) to keep exploring the Cosmos SDK. Next it is all about the SDKs main components.

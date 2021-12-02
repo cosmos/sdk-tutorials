@@ -11,10 +11,10 @@ tag: deep-dive
 
 Let's look at CosmJS. This tool provides a TypeScript library for the Cosmos SDK. Reading the following sections as a preparation is recommended:
 
-* [Messages](../3-main-concepts/07-messages.md))
-* [Modules](../3-main-concepts/08-modules.md))
-* [Queries](../3-main-concepts/12-queries.md)
-* [Protobuf](../3-main-concepts/09-protobuf.md)
+* [Messages](../main-concepts/messages.md))
+* [Modules](../main-concepts/modules.md))
+* [Queries](../main-concepts/queries.md)
+* [Protobuf](../main-concepts/protobuf.md)
 * [Starport](./02-starport.md)
 
 </HighlightBox>

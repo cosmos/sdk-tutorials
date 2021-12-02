@@ -11,7 +11,7 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [queries](../3-main-concepts/12-queries.md), and [Protobuf](../3-main-concepts/09-protobuf.md).
+* You understand the concepts of [queries](../main-concepts/queries.md), and [Protobuf](../main-concepts/protobuf.md).
 * Have Go installed.
 * The checkers blockchain up to the gas metering. Either because you followed the [previous steps](./03-starport-14-gas-meter.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
 

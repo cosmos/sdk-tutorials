@@ -11,7 +11,7 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [messages](../3-main-concepts/07-messages.md), [Protobuf](../3-main-concepts/09-protobuf.md), and [IBC](../3-main-concepts/16-ibc.md).
+* You understand the concepts of [messages](../main-concepts/messages.md), [Protobuf](../main-concepts/protobuf.md), and [IBC](../main-concepts/ibc.md).
 * Have Go installed.
 * The checkers blockchain up to the _can play_ query. Either because you followed the [previous steps](./03-starport-15-can-play.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
 

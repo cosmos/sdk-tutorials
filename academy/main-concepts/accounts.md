@@ -157,7 +157,7 @@ In the [next section](./transactions.md), you will learn how transactions are ge
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-In the [previous section](../3-main-concepts/02-architecture.md) your ABCI application accepted anonymous checkers moves. This was a problem. You can restrict moves to the right player with accounts.
+In the [previous section](../main-concepts/architecture.md) your ABCI application accepted anonymous checkers moves. This was a problem. You can restrict moves to the right player with accounts.
 
 Now you are going to differentiate between players and other actors. This will help assure there is no identity spoofing, that players do not play out of turn, and rewards are paid to the correct winner. You are also going to store the creator of a game, which may or may not be a player.
 

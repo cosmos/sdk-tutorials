@@ -144,7 +144,7 @@ module.exports = {
             },
             {
               title: "Running a Chain",
-              path: "/academy/4-running-a-chain",
+              path: "/academy/running-a-chain",
               directory: true,
             },
             {

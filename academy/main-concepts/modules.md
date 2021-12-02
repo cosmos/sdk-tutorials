@@ -319,7 +319,7 @@ If a module error is registered, the Cosmos SDK errors package allows ABCI infor
 
 ## Next up
 
-Have a look at the code example below or head straight to the [next section](../3-main-concepts/09-protobuf.md) for an introduction to Protobuf.
+Have a look at the code example below or head straight to the [next section](../main-concepts/protobuf.md) for an introduction to Protobuf.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 

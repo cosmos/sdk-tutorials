@@ -57,7 +57,7 @@ The Cosmos network focuses on an ecosystem for easy blockchain development that 
 
 <HighlightBox type="tip">
 
-If you want to dive deeper into application-specific blockchains take a look at the section [A Blockchain App Architecture](../3-main-concepts/02-architecture.md).
+If you want to dive deeper into application-specific blockchains take a look at the section [A Blockchain App Architecture](../main-concepts/architecture.md).
 
 </HighlightBox>
 
@@ -110,7 +110,7 @@ If the other chain is a **probabilistic-finality chain** a simple adaptation of 
 
 <HighlightBox type="info">
 
-A peg-zone implementation exists for Ethereum and is named the **[Gravity Bridge](https://github.com/cosmos/gravity-bridge)**. For more information on bridges and the Gravity bridge have a look at the section [Bridges](../3-main-concepts/17-bridges.md).
+A peg-zone implementation exists for Ethereum and is named the **[Gravity Bridge](https://github.com/cosmos/gravity-bridge)**. For more information on bridges and the Gravity bridge have a look at the section [Bridges](../main-concepts/bridges.md).
 
 </HighlightBox>
 
@@ -118,7 +118,7 @@ A peg-zone implementation exists for Ethereum and is named the **[Gravity Bridge
 
 <HighlightBox type="info">
 
-Want to learn more about modules in the Cosmos SDK? Check out the [Modules section in the Main Concepts chapter](../3-main-concepts/08-modules.md).
+Want to learn more about modules in the Cosmos SDK? Check out the [Modules section in the Main Concepts chapter](../main-concepts/modules.md).
 
 </HighlightBox>
 

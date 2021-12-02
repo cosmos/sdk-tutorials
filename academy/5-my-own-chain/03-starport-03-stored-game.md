@@ -11,7 +11,7 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding with the exercise:
 
-* You understand the concepts of [accounts](../3-main-concepts/04-accounts.md), [Protobuf](../3-main-concepts/09-protobuf.md), and [multistore](../3-main-concepts/10-multistore-keepers.md).
+* You understand the concepts of [accounts](../main-concepts/accounts.md), [Protobuf](../main-concepts/protobuf.md), and [multistore](../main-concepts/multistore-keepers.md).
 * Have Go installed.
 * Understand the bare blockchain scaffold with a single module named `checkers`. Either because you followed the [previous steps](./02-starport.md) or because you checked out [the outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/starport-start).
 

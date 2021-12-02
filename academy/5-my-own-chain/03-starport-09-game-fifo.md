@@ -11,7 +11,7 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [ABCI](../3-main-concepts/02-architecture.md), [Protobuf](../3-main-concepts/09-protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
+* You understand the concepts of [ABCI](../main-concepts/architecture.md), [Protobuf](../main-concepts/protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
 * Have Go installed.
 * The checkers blockchain with the `MsgRejectGame` and its handling. Either because you followed the [previous steps](./03-starport-08-reject-game.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
 
