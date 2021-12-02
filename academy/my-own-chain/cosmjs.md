@@ -15,7 +15,7 @@ Let's look at CosmJS. This tool provides a TypeScript library for the Cosmos SDK
 * [Modules](../main-concepts/modules.md))
 * [Queries](../main-concepts/queries.md)
 * [Protobuf](../main-concepts/protobuf.md)
-* [Starport](./02-starport.md)
+* [Starport](./starport.md)
 
 </HighlightBox>
 
@@ -25,7 +25,7 @@ In this section, you will have a look at generated code by Starport to understan
 
 ## Your chain
 
-In the [previous section on Starport](./02-starport.md), you created a chain using Starport. Starport generated several components including a UI. The UI uses Vue.js and CosmJS to interact with the chain.
+In the [previous section on Starport](./starport.md), you created a chain using Starport. Starport generated several components including a UI. The UI uses Vue.js and CosmJS to interact with the chain.
 
 Recall how you used Starport to create the definitions for `MsgCreatePost` by running the command:
 
@@ -77,7 +77,7 @@ Let's review the actions taking place here:
 3. Mirroring your Go code, your message type `MsgCreatePost` is defined in `./vue/src/store/generated/alice/chain/alice.chain.chain/module/types/chain/tx.js` using [Protobuf.js](https://protobufjs.github.io/protobuf.js/). This is the TypeScript/JavaScript counterpart of Protobuf in Go - that you saw earlier. With this, both ends _speak the same serialization language_.
 4. `http://localhost:26657` is the default Tendermint RPC node endpoint used to send transactions.
 5. `http://localhost:1317` is the default high-level blockchain API endpoint. In the above code, it is used for queries.
-6. The created elements `txClient` and `queryClient` are returned to namely be used in `./vue/src/store/generated/alice/chain/alice.chain.chain/index.js` - as you can see in the [previous Starport section](./02-starport.md).
+6. The created elements `txClient` and `queryClient` are returned to namely be used in `./vue/src/store/generated/alice/chain/alice.chain.chain/index.js` - as you can see in the [previous Starport section](./starport.md).
 
 ## Details on the client
 

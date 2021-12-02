@@ -13,11 +13,11 @@ Make sure you have all you need before proceeding with the exercise:
 
 * You understand the concepts of [accounts](../main-concepts/accounts.md), [Protobuf](../main-concepts/protobuf.md), and [multistore](../main-concepts/multistore-keepers.md).
 * Have Go installed.
-* Understand the bare blockchain scaffold with a single module named `checkers`. Either because you followed the [previous steps](./02-starport.md) or because you checked out [the outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/starport-start).
+* Understand the bare blockchain scaffold with a single module named `checkers`. Either because you followed the [previous steps](./starport.md) or because you checked out [the outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/starport-start).
 
 </HighlightBox>
 
-In the [Starport introduction section](./02-starport) you learned how to jump-start a brand new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
+In the [Starport introduction section](./starport) you learned how to jump-start a brand new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
 
 A good start to developing a checkers blockchain is to define the ruleset of the game. There are many versions of the rules. Choose [a very simple set of basic rules](https://www.ducksters.com/games/checkers_rules.php) to not get lost in the rules of checkers or the proper implementation of the board state.
 

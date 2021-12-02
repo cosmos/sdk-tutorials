@@ -175,4 +175,4 @@ It becomes easier for users to navigate between different blockchains and applic
 
 ## Next up
 
-In the [next section](./03-cosmos-ecosystem.md) you can find an introduction to all that the Cosmos ecosystem has to offer.
+In the [next section](./cosmos-ecosystem.md) you can find an introduction to all that the Cosmos ecosystem has to offer.
