@@ -236,7 +236,7 @@ export default {
 			return Object.values(modules).map(item => {
 				item.submodules.sort((a, b) => a.order - b.order);
 				return item;
-			});
+			}).sort((a, b) => a.number - b.number);
 		}
 	},
 	methods: {
