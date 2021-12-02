@@ -2,7 +2,7 @@
     .accordion__wrapper
         .accordion(v-for="(item, index) in items")
             button.accordion__header(v-on:click="onAccordionClick(index)")
-                icon-arrow.accordion__header__icon(type="bottom")(:class="selectedAccordion == index ? 'expanded' : 'collapsed'")
+                icon-arrow.accordion__header__icon(type="bottom" :class="selectedAccordion == index ? 'expanded' : 'collapsed'")
                 p {{item.title}}
             div.accordion__content(ref="content" v-html="md(item.description)")
 </template>
