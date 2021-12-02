@@ -248,12 +248,12 @@ title: "Cosmos Academy (beta)",
 children: [
   {
     title: "Welcome",
-    path: "/academy/1-welcome/",
+    path: "/academy/welcome/",
     directory: false,
   },
   {
     title: "What is Cosmos?",
-    path: "/academy/2-what-is-cosmos",
+    path: "/academy/what-is-cosmos",
     directory: true,
   },
   {
