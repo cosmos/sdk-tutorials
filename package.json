@@ -9,6 +9,7 @@
   },
   "scripts": {
     "serve": "vuepress dev --no-cache",
+    "prebuild": "npm run optimize-assets",
     "build": "vuepress build --no-cache",
     "optimize-assets": "sh assets-optimizer.sh",
     "link:check": "npx check-md",
