@@ -1,6 +1,6 @@
 ---
 title: "CosmJS"
-order: 21
+order: 20
 description: Understanding the TypeScript library for the Cosmos SDK
 tag: deep-dive
 ---
@@ -11,8 +11,8 @@ tag: deep-dive
 
 Let's look at CosmJS. This tool provides a TypeScript library for the Cosmos SDK. Reading the following sections as a preparation is recommended:
 
-* [Messages](../3-main-concepts/07-messages.md))
-* [Modules](../3-main-concepts/08-modules.md))
+* [Messages](../3-main-concepts/07-messages.md)
+* [Modules](../3-main-concepts/08-modules.md)
 * [Queries](../4-main-concepts/12-queries.md)
 * [Protobuf](../3-main-concepts/09-protobuf.md)
 * [Starport](./02-starport.md)
