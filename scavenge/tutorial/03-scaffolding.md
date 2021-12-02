@@ -4,7 +4,7 @@ order: 3
 
 # Scaffolding
 
-We'll be using a CLI tool called [Starport](https://github.com/tendermint/starport) to create a new Cosmos SDK blockchain. To use `starport` [install it](https://docs.starport.network/intro/install.html) on your local machine:
+We'll be using a CLI tool called [Starport](https://github.com/tendermint/starport) to create a new Cosmos SDK blockchain. To use `starport` [install it](https://docs.starport.network/guide/install.html) on your local machine:
 
 ```bash
 curl https://get.starport.network/starport@v0.17.0! | bash

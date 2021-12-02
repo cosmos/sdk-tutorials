@@ -1,19 +1,34 @@
 <template lang="pug">
-    div.wrapper
-        div.icon(v-bind:class="classType")
-            img.icon-image(v-bind:src="image")
+    div.wrapper(v-bind:class="classType")
         div.content(v-bind:class="classType") 
+            div.icon(v-bind:class="classType" v-if="image")
+                img.icon-image(v-bind:src="image")
+            .label.tm-overline.tm-rf-1.tm-lh-title.tm-medium(v-else) {{type}}
             slot
 </template>
 
 <script>
-    const imageUrl = (type) => {
-        let icon = "/hi-info.svg"; // default
+    const getImageUrl = (type) => {
+        let icon;
 
-        if (type==="info") icon = "/hi-info.svg";
-        if (type==="tip") icon = "/hi-tip.svg";
-        if (type==="warn"|| type==="warning") icon = "/hi-warn.svg";
-        if (type==="reading") icon = "/hi-reading.svg";
+        switch(type) {
+            case "tip":
+            case "reading":
+                icon = "/hi-tip-icon.svg";
+                break;
+            case "info":
+                icon = "/hi-info-icon.svg";
+                break;
+            case "warn":
+            case "warning":
+                icon = "/hi-warn-icon.svg";
+                break;
+            case "synopsis":
+                icon = null;
+                break;
+            default:
+                icon = "/hi-info-icon.svg";
+        }
 
         return icon;
     }
@@ -22,7 +37,7 @@
         data() {
             return {
                 classType: this.type,
-                image: imageUrl(this.type)
+                image: getImageUrl(this.type)
             };
         },
     }
@@ -30,95 +45,79 @@
 
 <style lang="stylus" scoped>
     .wrapper {
-        background: #EDEDED;
-        display: grid;
-        width: 100%;
-        grid-template-columns: 120px auto;
-        align-items: center;
-        margin: 1.5em 0px;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    }
-    
-    @media screen and (max-width: 600px) {
-        .wrapper {
-            display: block;
-        }
-    }
-
-    .icon {
-        padding: 20px;
-        min-width: 120px;
-        min-height: 120px;
-        height: 100%;
-        align-items: center;
         display: flex;
-
-        img {
-            width: 80px;
-            margin: 0;
-        }
+        width: 100%;
+        align-items: center;
+        justify-content: start;
+        padding: 24px;
+        margin-bottom: 20px;
+        border-radius: 16px;
+        font-size: 21px;
+        flex-wrap: wrap;
 
         &.info {
-            background: #2C7DF7;
+            background: var(--background-color-primary);
+            border: 1px solid #40B3FF;
         }
 
         &.tip {
-            background: #DE7150;
+            background: var(--background-color-primary);
+            border: 1px solid var(--color-light-gray);
         }
 
         &.warn, &.warning {
-            background: #DD4F52;
+            background: var(--color-warning);
+            color: black
+            fill: black
+
+            .title {
+                color: black
+            }
         }
 
         &.reading {
-            background: #389C66;
+            background: var(--background-color-primary);
+            border: 1px solid var(--color-light-gray);
+        }
+
+        &.synopsis {
+            background: var(--background-color-secondary);
+            color: var(--semi-transparent-color-3);
+        }
+    }
+
+    .label {
+        width: 100%;
+        margin-bottom: 12px
+        color: var(--color-text-strong);
+        font-size: 13px;
+    }
+
+    .icon {
+        margin-right: 10px;
+        margin-top: 4px;
+        float: left;
+
+        img {
+            width: 20px;
+            height: 20px;
+            margin: 0;
         }
     }
 
     .content {
-        padding: 20px;
-        overflow: auto;
-        
-        &::before {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
-        }
-
+        width: 100%;
 
         p {
-            margin-bottom: 1.0rem;
+            margin: 0px;
         }
 
-        &.info {
-            &::before {
-                content: "Info";
-                color: #2C7DF7;
-            }
-        }
+    }
 
-        &.tip {
-            &::before {
-                content: "Tip";
-                color: #DE7150;
-            }
+    @media screen and (max-width: 600px) {
+        .content {
+            width: 100%;
         }
-
-        &.warn, &.warning {
-            &::before {
-                content: "Warning";
-                color: #DD4F52;
-            }
-        }
-
-        &.reading {
-            &::before {
-                content: "Further Reading";
-                color: #389C66;
-            }
-        }
-
     }
 
 </style>

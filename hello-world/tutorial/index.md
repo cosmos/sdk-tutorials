@@ -7,7 +7,7 @@ description: Build an understanding of how to create and send packets across blo
 
 The Hello World example is a time-honored tradition in computer programming.
 
-The Inter-Blockchain Communication protocol (IBC) is an important part of the Cosmos SDK ecosystem.
+The Inter-Blockchain Communication Protocol (IBC) is an important part of the Cosmos SDK ecosystem.
 
 This tutorial builds an understanding of how to create and send packets across blockchain. This foundational knowledge helps you navigate between blockchains with the Cosmos SDK.
 
@@ -51,7 +51,7 @@ When the installation succeeds, you see this message:
 Installed at /usr/local/bin/starport
 ```
 
-You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.16.2), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://docs.starport.network/intro/install.html).
+You can use Starport in a [browser-based IDE](http://gitpod.io/#https://github.com/tendermint/starport/tree/v0.16.2), but this tutorial assumes you are using a local Starport installation. See [Install Starport](https://docs.starport.network/guide/install.html).
 
 ## Create a Blockchain App
 
@@ -566,7 +566,7 @@ pagination:
 
 ## 🎉 Congratulations 🎉
 
-By completing this tutorial, you've learned to build an IBC module for the Cosmos SDK, build your own blockchain app, modify the source code, and use the Inter-Blockchain Communication protocol (IBC).
+By completing this tutorial, you've learned to build an IBC module for the Cosmos SDK, build your own blockchain app, modify the source code, and use the Inter-Blockchain Communication Protocol (IBC).
 
 Here's what you accomplished in this tutorial:
 

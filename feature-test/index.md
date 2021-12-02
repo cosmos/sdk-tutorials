@@ -5,21 +5,128 @@ description: Test our features
 
 # Feature test
 
+This file demonstrates the usage of various components within the Platform.
+
+## Images
+
+Images are embedded with a medium-zoom plugin:
+
+![menu sample image](~@images/constellation.png)
+
+## Video
+
+<YoutubePlayer videoId="6bq-JaViGRM"/>
+
 ## Expansion Panel
+
 <ExpansionPanel title="Title test">
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet ligula sed dolor tincidunt, vel pulvinar risus faucibus. Donec in sodales turpis, faucibus aliquet quam. Sed faucibus ac arcu et sollicitudin. Nam mauris nisl, pulvinar at tempus vel, molestie quis est. Maecenas efficitur, neque sed varius cursus, magna ligula facilisis ex, non gravida eros lacus sed odio. Suspendisse lacus risus, feugiat vitae commodo sit amet, vestibulum in nulla. Morbi accumsan massa nisi, non feugiat ex tristique non. Praesent pharetra nisl tincidunt nunc tincidunt venenatis. Proin finibus luctus porttitor. Aenean mauris nibh, ultrices ac tellus ac, congue vehicula velit. Duis posuere vestibulum ante, nec dignissim leo scelerisque at. Phasellus id mi at nisi rutrum tristique. Sed malesuada finibus gravida. Nullam eu est consequat, egestas velit in, blandit sem.
 
 </ExpansionPanel>
 
+## Accordion
+
+<Accordion :items="
+  [
+    {
+      title: 'Title test 1',
+      description: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet ligula sed dolor   tincidunt, vel pulvinar risus faucibus. Donec in sodales turpis, faucibus aliquet quam. Sed faucibus ac arcu et sollicitudin. Nam mauris nisl, pulvinar at tempus vel, molestie quis est. Maecenas efficitur, neque sed varius cursus, magna ligula facilisis ex, non gravida eros lacus sed odio.'
+    },
+    {
+      title: 'Title test 2',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet ligula sed dolor   tincidunt, vel pulvinar risus faucibus. Donec in sodales turpis, faucibus aliquet quam. Sed faucibus ac arcu et sollicitudin. Nam mauris nisl, pulvinar at tempus vel, molestie quis est. Maecenas efficitur, neque sed varius cursus, magna ligula facilisis ex, non gravida eros lacus sed odio.'
+    },
+    {
+      title: 'Title test 3',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet ligula sed dolor   tincidunt, vel pulvinar risus faucibus. Donec in sodales turpis, faucibus aliquet quam. Sed faucibus ac arcu et sollicitudin. Nam mauris nisl, pulvinar at tempus vel, molestie quis est. Maecenas efficitur, neque sed varius cursus, magna ligula facilisis ex, non gravida eros lacus sed odio.'
+    }
+  ]
+"/>
+
 ## Code group
+
+
+```py [https://github.com/cosmos/cosmos-sdk/blob/master/scripts/linkify_changelog.py]
+for line in fileinput.input(inplace=1):
+    line = re.sub(r"\s\\#([0-9]+)", r" [\\#\1](https://github.com/cosmos/cosmos-sdk/issues/\1)", line.rstrip())
+    print(line)
+```
 
 <CodeGroup>
 <CodeGroupItem title="JavaScript" active>
 
-```js
+```js 
 import { SpH3, SpButton } from "@tendermint/vue";
 
+export default {
+  components: {
+    SpH3,
+    SpButton,
+  },
+  data() {
+    return {
+      placeholderText: "Drag and drop a file here",
+      hashed: "",
+      flight: false,
+    };
+  },
+  methods: {
+    hash(e) {},
+    async submit() {},
+  }
+}
+export default {
+  components: {
+    SpH3,
+    SpButton,
+  },
+  data() {
+    return {
+      placeholderText: "Drag and drop a file here",
+      hashed: "",
+      flight: false,
+    };
+  },
+  methods: {
+    hash(e) {},
+    async submit() {},
+  }
+}
+export default {
+  components: {
+    SpH3,
+    SpButton,
+  },
+  data() {
+    return {
+      placeholderText: "Drag and drop a file here",
+      hashed: "",
+      flight: false,
+    };
+  },
+  methods: {
+    hash(e) {},
+    async submit() {},
+  }
+}
+export default {
+  components: {
+    SpH3,
+    SpButton,
+  },
+  data() {
+    return {
+      placeholderText: "Drag and drop a file here",
+      hashed: "",
+      flight: false,
+    };
+  },
+  methods: {
+    hash(e) {},
+    async submit() {},
+  }
+}
 export default {
   components: {
     SpH3,
@@ -83,21 +190,28 @@ Info box description
 
 <HighlightBox type="tip">
 
-Tip box description
+ Tip box description Tip box description  Tip box description Tip box description Tip box description Tip box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description
 
 </HighlightBox>
 
 <HighlightBox type="warn">
 
-Warning box description
+Warning box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description
 
 </HighlightBox>
 
 <HighlightBox type="reading">
 
-Reading box description
+Reading box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description
 
 </HighlightBox>
+
+<HighlightBox type="synopsis">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
 
 ## H5P
 
@@ -108,3 +222,43 @@ Reading box description
 ### Multiple components
 
 <H5PComponent :contents="['/h5p/test-memory-game', '/h5p/test-arithmetic-quiz']"></H5PComponent>
+
+## Menu
+
+![menu sample image](~@images/menu.png)
+
+The left sidebar menu supports:
+* Categories (Cosmos Adacemy (beta))
+* Modules (What is Cosmos?)
+* Sections/Pages (Chapter Overview)
+* Single Sections/Pages without Module (Welcome)
+* External links without Module (External link)
+
+<HighlightBox type="warn">
+
+When linking to a single section on the root level, the linked section **must** be placed in a subfolder in the filesystem, otherwise the linking will not work.
+
+</HighlightBox>
+
+Code for the example above:
+
+```
+{
+title: "Cosmos Academy (beta)",
+children: [
+  {
+    title: "Welcome",
+    path: "/academy/1-welcome/",
+    directory: false,
+  },
+  {
+    title: "What is Cosmos?",
+    path: "/academy/2-what-is-cosmos",
+    directory: true,
+  },
+  {
+    title: "External link",
+    path: "https://cosmos.network/",
+    external: true,
+  },
+```

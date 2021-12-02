@@ -1,0 +1,36 @@
+{
+  "semantics":[
+    {
+      "label":"Paneelid",
+      "entity":"paneel",
+      "field":{
+        "label":"Sisu",
+        "entity":"sisu",
+        "fields":[
+          {
+            "label":"Pealkiri"
+          },
+          {
+            "label":"Sisu tüüp",
+            "entity":"sisu"
+          }
+        ]
+      }
+    },
+    {
+      "label":"Pealkirja H tunnus (ei mõjuta pealkirja suurust)",
+      "description":"Pealkirjade h tunnus. Tavaliselt H2, kuid alapealkirjade puhul kasuta H3. Ei mõjuta pealkirjade suurust, kasutatakse üksnes eristaval eesmärgil.",
+      "options":[
+        {
+          "label":"H2"
+        },
+        {
+          "label":"H3"
+        },
+        {
+          "label":"H4"
+        }
+      ]
+    }
+  ]
+}

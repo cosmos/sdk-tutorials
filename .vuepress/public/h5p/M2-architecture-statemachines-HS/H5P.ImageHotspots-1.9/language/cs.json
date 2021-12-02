@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "Obrázek na pozadí",
+      "description": "Obrázek zobrazovaný na pozadí."
+    },
+    {
+      "label": "Alternativní text pro obrázek na pozadí",
+      "description": "Pokud prohlížeč nemůže načíst obrázek, zobrazí se místo toho tento text. Používá se také asistenčními technologiemi."
+    },
+    {
+      "label": "Ikona aktivního bodu",
+      "options": [
+        {
+          "label": "Předdefinovaná ikona"
+        },
+        {
+          "label": "Nahraný obrázek"
+        }
+      ]
+    },
+    {
+      "label": "Předdefinovaná ikona",
+      "description": "Použití předdefinované ikony pro aktivní bod.",
+      "options": [
+        {
+          "label": "Plus"
+        },
+        {
+          "label": "Mínus"
+        },
+        {
+          "label": "Křížek"
+        },
+        {
+          "label": "Zaškrtnutí"
+        },
+        {
+          "label": "Otazník"
+        },
+        {
+          "label": "Informace"
+        },
+        {
+          "label": "Vykřičník"
+        }
+      ]
+    },
+    {
+      "label": "Nahraný obrázek",
+      "description": "Použijte svůj vlastní obrázek pro ikonu hotspotu. <br />Pro obrázek se doporučuje 75 x 75 pixelů."
+    },
+    {
+      "label": "Barva aktivního bodu",
+      "description": "Barva aktivních bodů"
+    },
+    {
+      "entity": "aktivní bod",
+      "label": "Aktivní body",
+      "field": {
+        "label": "Aktivní bod",
+        "fields": [
+          {
+            "label": "Poloha aktivního bodu",
+            "description": "Kliknutím na obrázek miniatury umístíte aktivní bod"
+          },
+          {
+            "label": "Překrýt celý obrázek na pozadí",
+            "description": "Když uživatel klepne na aktivní bod, vyskakovací okno překryje celý obrázek na pozadí"
+          },
+          {
+            "label": "Záhlaví",
+            "description": "Volitelná hlavička pro vyskakovací okno"
+          },
+          {
+            "label": "Obsah vyskakovacího okna",
+            "field": {
+              "label": "Obsah položky"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Popisek aktivního bodu pro podpůrné technologie",
+      "default": "Aktivní bod #num",
+      "description": "Pomůže oznámit, ke kterému prvku aktivního bodu byl navigován, pokud pro hotspot není zadána žádná záhlaví. #num lze použít k nahrazení čísla aktivního bodu."
+    },
+    {
+      "label": "Popisek tlačítka zavřít pro podpůrné technologie",
+      "default": "Zavřít"
+    }
+  ]
+}
