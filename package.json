@@ -27,17 +27,44 @@
   },
   "homepage": "https://github.com/cosmos/sdk-tutorials#readme",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.0",
     "check-md": "^1.0.2",
     "crypto-js": "^4.0.0",
     "date-fns": "^2.19.0",
     "vue-h5p": "^0.2.0",
-    "vuepress-theme-cosmos": "^1.0.182",
     "email-validator": "^2.0.4",
     "querystring": "^0.2.0",
-    "sharp-cli": "^1.15.0"
+    "sharp-cli": "^1.15.0",
+    "@cosmos-ui/vue": "^0.35.0",
+    "@vuepress/plugin-google-analytics": "1.7.1",
+    "algoliasearch": "^4.2.0",
+    "cheerio": "^1.0.0-rc.3",
+    "clipboard-copy": "^3.1.0",
+    "entities": "2.1.0",
+    "esm": "^3.2.25",
+    "gray-matter": "^4.0.2",
+    "hotkeys-js": "3.8.1",
+    "jsonp": "^0.2.1",
+    "markdown-it": "^12.0.0",
+    "markdown-it-attrs": "^3.0.3",
+    "prismjs": "^1.22.0",
+    "pug": "^3.0.1",
+    "pug-plain-loader": "^1.0.0",
+    "stylus": "^0.54.8",
+    "stylus-loader": "^3.0.2",
+    "tiny-cookie": "^2.3.2",
+    "v-runtime-template": "^1.10.0",
+    "vuepress": "^1.5.4",
+    "vuepress-plugin-google-tag-manager": "0.0.5",
+    "vuepress-plugin-sitemap": "^2.3.1"
   },
   "devDependencies": {
-    "@vuepress/plugin-medium-zoom": "^1.8.2"
+    "@vuepress/plugin-medium-zoom": "^1.8.2",
+    "core-js": "^3.6.5",
+    "is-svg": "^4.2.2",
+    "node-forge": "^0.10.0",
+    "set-value": "^3.0.2",
+    "ssri": "^8.0.1",
+    "watchpack": "^2.0.0"
   }
 }
