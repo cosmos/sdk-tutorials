@@ -154,7 +154,7 @@ module.exports = {
             },
             {
               title: "What's Next?",
-              path: "/academy/6-whats-next/",
+              path: "/academy/whats-next/",
               directory: false,
             },
           ],

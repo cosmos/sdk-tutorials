@@ -285,4 +285,4 @@ You might wonder: what's next? There are vast opportunities to continue your jou
 * Contribute to the Cosmos SDK, IBC, and Tendermint BFT consensus development.
 * Get support for enterprise solutions, which you are developing.
 
-Head right to the [What's Next section](../6-whats-next/index.md) to find useful information to launch your journey into the Cosmos universe.
+Head right to the [What's Next section](../whats-next/index.md) to find useful information to launch your journey into the Cosmos universe.
