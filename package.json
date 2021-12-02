@@ -10,7 +10,7 @@
   "scripts": {
     "serve": "vuepress dev --no-cache",
     "build": "vuepress build --no-cache",
-    "optimize-assets": "sharp resize 800 -i **/**/*.png, **/**/**/*.png -o .vuepress/public/resized-images --optimise true --withMetadata false",
+    "optimize-assets": "sh assets-optimizer.sh",
     "link:check": "npx check-md",
     "link:fix": "npx check-md --fix"
   },
