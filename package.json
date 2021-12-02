@@ -9,7 +9,9 @@
   },
   "scripts": {
     "serve": "vuepress dev --no-cache",
+    "prebuild": "npm run optimize-assets",
     "build": "vuepress build --no-cache",
+    "optimize-assets": "sh assets-optimizer.sh",
     "link:check": "npx check-md",
     "link:fix": "npx check-md --fix"
   },
@@ -32,7 +34,8 @@
     "vue-h5p": "^0.2.0",
     "vuepress-theme-cosmos": "^1.0.182",
     "email-validator": "^2.0.4",
-    "querystring": "^0.2.0"
+    "querystring": "^0.2.0",
+    "sharp-cli": "^1.15.0"
   },
   "devDependencies": {
     "@vuepress/plugin-medium-zoom": "^1.8.2"
