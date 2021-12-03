@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-The last section of this course looks at CosmWasm. Discover how multi-chain smart contracts become possible. The following sections are recommended as a preparation:
+Discover how multi-chain smart contracts become possible with CosmWasm. The following sections are recommended as a preparation:
 
 * [Transactions](../main-concepts/transactions.md)
 * [Messages](../main-concepts/messages.md))
@@ -38,7 +38,7 @@ CosmWasm is adaptable to different development environments by design and makes 
 
 ## Install
 
-You need to have installed Go to use the Cosmos SDK. In addition, you have to install Rust to write smart contracts.
+You need to have installed Go to use the Cosmos SDK. You also need Rust to write smart contracts.
 
 Go to [https://rustup.rs/](https://rustup.rs/) to install Rust. Set the wasm32 target:
 
@@ -179,7 +179,7 @@ pub fn instantiate(
 }
 ```
 
-`msg.purchase_price` and `msg.transfer_price` have the type [cosmwasm_std::Coin](https://docs.rs/cosmwasm-std/0.9.2/cosmwasm_std/struct.Coin.html). Thus, instantiate the smart contract with a `purchase_price` and `transfer_price`:
+`msg.purchase_price` and `msg.transfer_price` have the type [cosmwasm_std::Coin](https://docs.rs/cosmwasm-std/0.9.2/cosmwasm_std/struct.Coin.html). Instantiate the smart contract with a `purchase_price` and `transfer_price`:
 
 ```bash
 $ wasmd tx wasm instantiate $CODE_ID '{"purchase_price":{"amount":"100","denom":"upebble"},"transfer_price":{"amount":"999","denom":"upebble"}}' --from wallet --node $RPC --chain-id pebblenet-1 --gas-prices 0.001upebble --gas auto --gas-adjustment 1.3  --label "CosmWasm tutorial name service"
@@ -216,7 +216,7 @@ pub fn execute(
 }
 ```
 
-So we can register or transfer a name. First, register a name with your contract address `$CONTRACT`:
+We can register or transfer a name. First, register a name with your contract address `$CONTRACT`:
 
 ```bash
 $ wasmd tx wasm execute $CONTRACT '{"register":{"name":"fred"}}' --amount 100upebble --from wallet --node $RPC --chain-id pebblenet-1 --gas-prices 0.001upebble --gas auto --gas-adjustment 1.3
@@ -261,7 +261,7 @@ Check again with a `resolve_record` query if the transfer was successful. Try to
 
 CosmWasm offers good [documentation](https://docs.cosmwasm.com/docs/). This section is a summary of the [Getting Started section](https://docs.cosmwasm.com/docs/getting-started/intro/). Store the script at [https://docs.cosmwasm.com/docs/getting-started/setting-env#run-local-node-optional](https://docs.cosmwasm.com/docs/getting-started/setting-env#run-local-node-optional) in case you wish to test on your local node. Also have a look at the [contract semantics](https://docs.cosmwasm.com/docs/SEMANTICS/).
 
-You can find more information in the [CosmWasm Developer Academy](https://docs.cosmwasm.com/dev-academy/intro) and modular tutorials in the [Wasm tutorials](https://docs.cosmwasm.com/tutorials/hijack-escrow/intro). In addition, you can find various hands-on videos on the [workshops](https://docs.cosmwasm.com/tutorials/videos-workshops) page.
+You can find more information in the [CosmWasm Developer Academy](https://docs.cosmwasm.com/dev-academy/intro) and modular tutorials in the [Wasm tutorials](https://docs.cosmwasm.com/tutorials/hijack-escrow/intro). You can also find various hands-on videos on the [workshops](https://docs.cosmwasm.com/tutorials/videos-workshops) page.
 
 </HighlightBox>
 

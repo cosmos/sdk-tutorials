@@ -13,17 +13,17 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of gas.
 * Have Go installed.
-* The checkers blockchain with the game wager and its handling. Either because you followed the [previous steps](./game-wager.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-wager).
+* The checkers blockchain codebase with the game wager and its handling. You can get there by following the [previous steps](./game-wager.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-wager).
 
 </HighlightBox>
 
-So far players can start playing checkers with your Cosmos blockchain. As everything Cosmos, players must pay transaction fees. As of now, players pay at least the fee related to transporting the serialized bytes and the other gas-metered parts like `bank`.
+Players can start playing checkers with your Cosmos blockchain. Transaction fees are paid by players themselves, at least the fee related to transporting the serialized bytes and the other gas-metered parts like `bank`.
 
-Now you can add your own gas metering to reflect the costs that different transactions impose or you can add costs to discourage spam.
+Next add your own gas metering to reflect the costs that different transactions impose or you can add costs to discourage spam.
 
 ## New information
 
-Now that you have landed on reasonable values, save them as new constants:
+These values are an inspiration but you can set your own. Save them as new constants:
 
 ```go
 const (
@@ -35,7 +35,7 @@ const (
 
 ## Add handling
 
-This update is going to be quick. Add a line that consumes the designated amount of gas in each relevant handler:
+Add a line that consumes the designated amount of gas in each relevant handler:
 
 1. When handling a game creation:
 
@@ -55,15 +55,14 @@ This update is going to be quick. Add a line that consumes the designated amount
     ctx.GasMeter().ConsumeGas(types.RejectGameGas, "Reject game")
     ```
 
-Of course, you are free to be more elaborate and chisel the conditions that consume. Also, you don't meter gas in your `EndBlock` handler because it is called by a player sending a transaction. It is instead a service rendered by the network. If you want to account for the gas cost of an expiration, then you have to devise a way to pre-collect it as part of the other messages.
+You don't meter gas in your `EndBlock` handler because it is called by a player sending a transaction. It is instead a service rendered by the network. If you want to account for the gas cost of an expiration, you have to devise a way to pre-collect it as part of the other messages.
 
 <HighlightBox type="tip">
 
-Avoid calling `ConsumeGas` from within a loop. If you know the number of times your code loops, consume all the gas ahead of the loop. With this trick, the transaction may run out of gas as if you had run the steps if the signer had not sent enough gas. This strategy saves computations on your node.
+Avoid calling `ConsumeGas` from within a loop. If you know the number of times your code loops, consume all the gas ahead of the loop. With this trick the transaction may run out of gas as if you had run the steps if the signer had not sent enough gas. This strategy saves computations on your node.
 
 </HighlightBox>
 
-Time to move on.
 
 ## Next up
 

@@ -12,19 +12,19 @@ tag: deep-dive
 Make sure you have all you need before proceeding:
 
 * Have Go installed.
-* The checkers blockchain with its `MsgCreateGame` created by Starport. Either because you followed the [previous steps](./create-message.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
+* The checkers blockchain codebase with `MsgCreateGame` created by Starport. You can get there by following the [previous steps](./create-message.md) checking out  [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
 
 </HighlightBox>
 
 You added the message to create a game along with its serialization and dedicated gRPC function with the help of Starport in the [previous section](./create-message.md).
 
-Now all that remains is to add code that actually:
+Now all that remains is to add code that:
 
 * Creates a brand new game.
 * Saves it in storage.
 * Returns the ID of the new game.
 
-Given Starport's seperation of concerns, Starport isolated this concern into a separate file, `x/checkers/keeper/msg_server_create_game.go`, for you to edit:
+Starport isolated this concern into a separate file, `x/checkers/keeper/msg_server_create_game.go`, for you to edit:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/keeper/msg_server_create_game.go#L10-L17]
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
@@ -87,7 +87,7 @@ Given that you have already done a lot of preparatory work: what does it involve
     }
     ```
 
-    The `.Creator`, `.Red`, and `.Black` need to be checked because they were copied as **strings**. Note that the check on `.Creator` is redundant here because at this stage, the message's signatures have been verified and in particular the creator is the signer.
+    The `.Creator`, `.Red`, and `.Black` need to be checked because they were copied as **strings**. The check on `.Creator` is redundant here because at this stage the message's signatures have been verified and in particular the creator is the signer.
 
 4. Save the `StoredGame` object:
 

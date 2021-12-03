@@ -12,23 +12,23 @@ tag: deep-dive
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [queries](../main-concepts/queries.md), and [Protobuf](../main-concepts/protobuf.md).
-* Have Go installed.
-* The checkers blockchain up to the gas metering. Either because you followed the [previous steps](./gas-meter.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
+* You have Go installed.
+* The checkers blockchain codebase up to gas metering. You can get there by following the [previous steps](./gas-meter.md) or checking out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
 
 </HighlightBox>
 
-As per the game mechanics you implemented earlier, a player sends a `MsgPlayMove` when [making a move](./play-game.md). As is bound to happen for any message being executed/&ZeroWidthSpace;handled, this message can succeed or fail for several reasons. One error situation is when the message represents an invalid move.
+A player sends a `MsgPlayMove` when [making a move](./play-game.md). This message can succeed or fail for several reasons. One error situation is when the message represents an invalid move.
 
-It would be helpful if the player could at least make sure that a move is valid before potentially burning gas for nothing. To add this facility, you need to create a way for the player to dry-run a call to the rules' [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function, i.e. without changing the game's state for this. Here queries come in handy because they are evaluated in memory and do not commit anything permanently to storage.
+Players should be able to make sure that a move is valid before burning gas. To add this functionality, you need to create a way for the player to call the [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function without changing the game's state. Use a query because they are evaluated in memory and do not commit anything permanently to storage.
 
 ## New information
 
-To conduct a proper dry-run, the player has to pass along:
+To run a query to check the validity of a move you need to pass:
 
 * The game ID, call the field `IdValue`.
-* Which player the query relates to, `player`. You need to specify it as in queries - there is no signer and thus no message `Creator`. Expect `"black"` or `"red"` in this field.
-* The position to start from: `fromX` and `fromY`.
-* The position to land on: `toX` and `toY`.
+* `player` as queries do not have a signer.
+* The board position to start from: `fromX` and `fromY`.
+* The board position to land on: `toX` and `toY`.
 
 The information to be returned is:
 
@@ -41,7 +41,7 @@ As with other data structures, you can create the query message object with Star
 $ starport scaffold query canPlayMove idValue player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool,reason
 ```
 
-Among a lot of other files, you should obtain this:
+Among other files, you should now have this:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/proto/checkers/query.proto#L39-L51]
 message QueryCanPlayMoveRequest {
@@ -59,7 +59,7 @@ message QueryCanPlayMoveRequest {
 }
 ```
 
-As with a transaction message, Starport has created the following boilerplate for you:
+Starport has created the following boilerplate for you:
 
 * The [Protobuf gRPC interface function](https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/proto/checkers/query.proto#L17-L19) to submit your new `QueryCanPlayMoveRequest` and its default implementation.
 * The [routing of this new query](https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/types/query.pb.gw.go#L319-L337) in the query facilities.
@@ -67,12 +67,12 @@ As with a transaction message, Starport has created the following boilerplate fo
 
 ## Query handling
 
-Let's see what needs to be done to answer the player's query in `grpc_query_can_play_move.go`. Differentiate between two types of errors:
+Now you need to implement the answer to the player's query in `grpc_query_can_play_move.go`. Differentiate between two types of errors:
 
-* Errors relating to the move, in which case you give a reason.
-* Errors relating to the impossibility of testing the move, in which case you return an error.
+* Errors relating to the move, returning a reason.
+* Errors if a move test is impossible, returning an error.
 
-1. The game needs to be fetched. If it does not exist at all, you can return an error message because you did not even test the move:
+1. The game needs to be fetched. If it does not exist at all, you can return an error message because you did not test the move:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L23-L26]
     storedGame, found := k.GetStoredGame(ctx, req.IdValue)
@@ -108,8 +108,6 @@ Let's see what needs to be done to answer the player's query in `grpc_query_can_
     }
     ```
 
-    You could create a dedicated error, instead of awkwardly reusing an existing one.
-
 4. Is it the player's turn?
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L50-L59]
@@ -125,7 +123,7 @@ Let's see what needs to be done to answer the player's query in `grpc_query_can_
     }
     ```
 
-5. Attempt the move. Remember, it all takes place **in-memory** because that is what happens when handling a query. And report back:
+5. Attempt the move and report back:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L62-L77]
     _, moveErr := game.Move(
@@ -146,7 +144,7 @@ Let's see what needs to be done to answer the player's query in `grpc_query_can_
     }
     ```
 
-6. If all went fine, then report back too:
+6. If all went fine:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L79-L82]
     return &types.QueryCanPlayMoveResponse{
@@ -155,9 +153,6 @@ Let's see what needs to be done to answer the player's query in `grpc_query_can_
     }, nil
     ```
 
-    The enterprising learner can add more elements to the response, for instance whether a piece was captured.
-
-That is all there is to adding your bespoke query when you let Starport handle the boilerplate.
 
 ## Next up
 

@@ -13,13 +13,13 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [Protobuf](../main-concepts/protobuf.md).
 * Have Go installed.
-* The checkers blockchain with the game FIFO. Either because you followed the [previous steps](./game-fifo.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-fifo).
+* The checkers blockchain codebase with the game FIFO. You can get there by following the [previous steps](./game-fifo.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-fifo).
 
 </HighlightBox>
 
-In the [previous section](./game-fifo.md), you introduced a FIFO that keeps the _oldest_ games at its head and the most recently updated games at its tail.
+In the [previous section](./game-fifo.md) you introduced a FIFO that keeps the _oldest_ games at its head and the most recently updated games at its tail.
 
-However, just because a game has not been updated in a while, it does not necessarily follow that it has expired. To ascertain this, you need to add a new field, `deadline`, to a game and test against it. Time to prepare the field.
+Just because a game has not been updated in a while does not mean that it has expired. To ascertain this you need to add a new field, `deadline`, to a game and test against it. Time to prepare the field.
 
 ## New information
 
@@ -38,7 +38,7 @@ To have Starport and Protobuf recompile this file. You can use:
 $ starport generate proto-go
 ```
 
-How do you manage this field? Well, on each update, the deadline will always be _now_ plus a fixed duration. Remember that the concept of time in blockchain is peculiar. A transaction must be able to be executed in a deterministic fashion on multiple computers, at any time, present or future. So here, _now_ in fact refers to the block's time. Declare this duration as a new constant, along with how the date is to be represented, i.e. encoded, in the saved game, as a string:
+On each update the deadline will always be _now_ plus a fixed duration. In this context, _now_ refers to the block's time. Declare this duration as a new constant, along with how the date is to be represented, i.e. encoded in the saved game as a string:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0d0e36a8ac86cddc457610856ddaab1b356cee84/x/checkers/types/keys.go#L38-L39]
 const (
@@ -51,13 +51,13 @@ const (
 
 You can make your life easier by using helper functions that encode and decode the deadline in the storage.
 
-1. First, define a new error:
+1. First define a new error:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0d0e36a8ac86cddc457610856ddaab1b356cee84/x/checkers/types/errors.go#L21]
     ErrInvalidDeadline = sdkerrors.Register(ModuleName, 1110, "deadline cannot be parsed: %s")
     ```
 
-2. So now you can add your date helpers. A reasonable location to pick is `full_game.go`:
+2. Now you can add your date helpers. A reasonable location to pick is `full_game.go`:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0d0e36a8ac86cddc457610856ddaab1b356cee84/x/checkers/types/full_game.go#L37-L48]
     func (storedGame *StoredGame) GetDeadlineAsTime() (deadline time.Time, err error) {
@@ -72,7 +72,7 @@ You can make your life easier by using helper functions that encode and decode t
 
     Of note in the above is that `sdkerrors.Wrapf(err, ...)` returns `nil` if `err` is `nil`. This is very convenient.
 
-3. While you are at it, add a function that encapsulates the knowledge of how the next deadline is calculated in the same file:
+3. Add a function that encapsulates the knowledge of how the next deadline is calculated in the same file:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0d0e36a8ac86cddc457610856ddaab1b356cee84/x/checkers/types/full_game.go#L42-L44]
     func GetNextDeadline(ctx sdk.Context) time.Time {
@@ -82,9 +82,9 @@ You can make your life easier by using helper functions that encode and decode t
 
 ## Updated deadline
 
-Next you need to update this new field with its appropriate value at the right junctures:
+Next you need to update this new field with its appropriate value:
 
-1. At creation, in the message handler for game creation:
+1. At creation in the message handler for game creation:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0d0e36a8ac86cddc457610856ddaab1b356cee84/x/checkers/keeper/msg_server_create_game.go#L26]
     ...
@@ -94,7 +94,7 @@ Next you need to update this new field with its appropriate value at the right j
     }
     ```
 
-2. And after a move, in the message handler:
+2. And after a move in the message handler:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0d0e36a8ac86cddc457610856ddaab1b356cee84/x/checkers/keeper/msg_server_play_move.go#L56]
     ...
@@ -109,8 +109,7 @@ Now confirm that your project still compiles:
 $ starport chain build
 ```
 
-When it comes to adding and updating a deadline, this is all you need.
 
-You have created and updated the deadline. You have not used it fully yet. That is the object of the [section two steps ahead](./game-forfeit.md), where you can find a description on how to use the deadline and [the FIFO](./game-fifo.md) to expire games that reached their deadline.
+You have created and updated the deadline. The [section two steps ahead](./game-forfeit.md) describes how to use the deadline and [the FIFO](./game-fifo.md) to expire games that reached their deadline.
 
-However, before you can do that, there is one other field you need to add. Discover which in the [next section](./game-winner.md).
+Before you can do that there is one other field you need to add. Discover which in the [next section](./game-winner.md).
