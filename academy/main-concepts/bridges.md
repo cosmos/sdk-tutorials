@@ -21,7 +21,7 @@ In this section, you will learn more about bridges in the Cosmos ecosystem. Make
 
 ## The Gravity Bridge
 
-The Gravity Bridge is an on-going project whose goal is to facilitate the transfer of ERC-20 tokens to Cosmos-based blockchains and back. When it is launched, the Gravity Bridge is expected to encourage and allow for novel applications that combine the power of Cosmos with the value of assets from Ethereum. One might wish to use Cosmos for computations that are expensive or impossible to perform with Ethereum smart contracts. For example, the application could deal with automated portfolio management solutions or a developer might want to accept Ethereum ERC-20 tokens as payment or build an entire Cosmos application around Ethereum tokens.
+The Gravity Bridge is an on-going project with the goal to facilitate the transfer of ERC-20 tokens to Cosmos-based blockchains and back. The Gravity Bridge allows for novel applications that combine the power of Cosmos with the value of assets from Ethereum. Developers can use a Cosmos chain for computation that is expensive or impossible to perform with a Ethereum smart contracts. Developers could accept Ethereum ERC-20 tokens as payment or build an entire Cosmos application around Ethereum tokens.
 
 ## How it works
 
