@@ -121,7 +121,7 @@ The `checkers` folder contains several generated files and directories that make
 * `cmd`: a folder for the command-line interface commands.
 * `proto`: a folder for the Protobuf objects definitions.
 * `vue`: a folder for the UI.
-* `x`: a folder for all you own modules, in particular `checkers`.
+* `x`: a folder for all your own modules, in particular `checkers`.
 
 <HighlightBox type="tip">
 

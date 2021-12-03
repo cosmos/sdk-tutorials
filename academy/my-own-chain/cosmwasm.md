@@ -88,7 +88,7 @@ $ echo $CHAIN_ID
 pebblenet-1
 ```
 
-And if you happen to open another terminal window, don't forget to repeat this `source` command as this local to the session.
+And if you happen to open another terminal window, don't forget to repeat this `source` command as this is local to the session.
 
 ## Your accounts
 
