@@ -268,7 +268,7 @@ title: "Cosmos Academy (beta)",
 children: [
   {
     title: "Welcome",
-    path: "/academy/welcome/",
+    path: "/academy/0-welcome/",
     directory: false,
   },
   {
