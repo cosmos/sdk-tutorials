@@ -45,7 +45,7 @@ Given that you have already done a lot of preparatory work: what does it involve
 
     ```go
     import (
-        rules "github.com/xavierlepretre/checkers/x/checkers/rules"
+        rules "github.com/alice/checkers/x/checkers/rules"
     )
     ```
 

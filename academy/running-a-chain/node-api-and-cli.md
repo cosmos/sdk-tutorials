@@ -21,7 +21,7 @@ The Cosmos SDK repository contains a folder called [`simapp`](https://github.com
 
 First, create and change the directory into a `cosmos` folder and then clone the `cosmos-sdk` repo into that folder:
 
-```bash
+```sh
 $ mkdir cosmos
 $ cd cosmos
 $ git clone https://github.com/cosmos/cosmos-sdk
@@ -29,14 +29,14 @@ $ git clone https://github.com/cosmos/cosmos-sdk
 
 Then build `cosmos-sdk`:
 
-```bash
+```sh
 $ cd cosmos-sdk
 $ make build
 ```
 
 The build takes a few minutes and creates a `build` folder and a `simapp` binary named `simd`:
 
-```bash
+```sh
 $ ls build
 ```
 
@@ -44,7 +44,7 @@ $ ls build
 
 Now reset the database. Run this step not only when the database has already been initialized but even if this is the first time you are testing `simapp`:
 
-```bash
+```sh
 $ cd build
 $ ./simd unsafe-reset-all
 
@@ -56,7 +56,7 @@ The command output lists all of the files set to their initial state with their 
 
 Time to initialize the application. The initialization creates the genesis block and an initial chain state:
 
-```bash
+```sh
 $ ./simd init demo
 {"app_message":{"auth":{"accounts":[],"params":{"max_memo_characters":"256","sig_verify_cost_ed25519":"590","sig_verify_cost_secp256k1":"1000","tx_sig_limit":"7","tx_size_cost_per_byte":"10"}},"authz":{"authorization":[]},"bank":{"balances":[],"denom_metadata":[],"params":{"default_send_enabled":true,"send_enabled":[]},"supply":[]},"capability":{"index":"1","owners":[]},"crisis":{"constant_fee":{"amount":"1000","denom":"stake"}},"distribution":{"delegator_starting_infos":[],"delegator_withdraw_infos":[],"fee_pool":{"community_pool":[]},"outstanding_rewards":[],"params":{"base_proposer_reward":"0.010000000000000000","bonus_proposer_reward":"0.040000000000000000","community_tax":"0.020000000000000000","withdraw_addr_enabled":true},"previous_proposer":"","validator_accumulated_commissions":[],"validator_current_rewards":[],"validator_historical_rewards":[],"validator_slash_events":[]},"evidence":{"evidence":[]},"feegrant":{"allowances":[]},"genutil":{"gen_txs":[]},"gov":{"deposit_params":{"max_deposit_period":"172800s","min_deposit":[{"amount":"10000000","denom":"stake"}]},"deposits":[],"proposals":[],"starting_proposal_id":"1","tally_params":{"quorum":"0.334000000000000000","threshold":"0.500000000000000000","veto_threshold":"0.334000000000000000"},"votes":[],"voting_params":{"voting_period":"172800s"}},"mint":{"minter":{"annual_provisions":"0.000000000000000000","inflation":"0.130000000000000000"},"params":{"blocks_per_year":"6311520","goal_bonded":"0.670000000000000000","inflation_max":"0.200000000000000000","inflation_min":"0.070000000000000000","inflation_rate_change":"0.130000000000000000","mint_denom":"stake"}},"params":null,"slashing":{"missed_blocks":[],"params":{"downtime_jail_duration":"600s","min_signed_per_window":"0.500000000000000000","signed_blocks_window":"100","slash_fraction_double_sign":"0.050000000000000000","slash_fraction_downtime":"0.010000000000000000"},"signing_infos":[]},"staking":{"delegations":[],"exported":false,"last_total_power":"0","last_validator_powers":[],"params":{"bond_denom":"stake","historical_entries":10000,"max_entries":7,"max_validators":100,"unbonding_time":"1814400s"},"redelegations":[],"unbonding_delegations":[],"validators":[]},"upgrade":{},"vesting":{}},"chain_id":"test-chain-rT4wZY","gentxs_dir":"","moniker":"demo","node_id":"cf6bff39bb84da39d214138ebba8bcba4ccb848d"}
 ```
@@ -209,7 +209,7 @@ You can find your `chain_id` in your output, which in our build happens to be ca
 
 You can inspect the initial configuration with:
 
-```bash
+```sh
 $ cat ~/.simapp/config/genesis.json
 ```
 
@@ -223,7 +223,7 @@ It helps to have the concepts very clear in mind when working hands-on with the 
 
 You can also inspect your keys. These are held in the backend keyring, which by default is that of the operating system:
 
-```bash
+```sh
 $ ./simd keys list
 []
 ```
@@ -232,7 +232,7 @@ As you might have expected, you do not have any keys yet.
 
 Fix that and add a new key:
 
-```bash
+```sh
 $ ./simd keys add b9lab
 
 - name: b9lab
@@ -252,13 +252,13 @@ You can see the mnemonic at the end of the above output. This sequence of words 
 
 Confirm that the key has been added with:
 
-```bash
+```sh
 $ ./simd keys list
 ```
 
 or with:
 
-```bash
+```sh
 $ ./simd keys show b9lab
 ```
 
@@ -268,19 +268,19 @@ As you know by now, a Cosmos SDK blockchain relies on identified validators to p
 
 Make your key, also known as an account, have an initial balance in the genesis file:
 
-```bash
+```sh
 $ ./simd add-genesis-account b9lab 100000000stake
 ```
 
 Appended here to the amount is the `stake` suffix. This `stake` represents the unit for the tokens in this chain as per the genesis file. Therefore, this command adds `100000000` `stake` to your account. If in doubt, you can confirm the proper suffix in the `genesis.json` file with:
 
-```bash
+```sh
 $ grep -A 2 -B 2 denom ~/.simapp/config/genesis.json
 ```
 
 You can also confirm in the genesis file itself that you have an initial balance:
 
-```bash
+```sh
 grep -A 10 balances ~/.simapp/config/genesis.json
 ```
 
@@ -288,14 +288,14 @@ With this initial balance and before you run your blockchain, you still need to 
 
 **Note:** In this scenario you must meet the 2/3 threshold for validation, so you must stake at least `70000000stake` of your `100000000stake` in the `b9lab` account you just created. Make sure to not use all your stake, so you still have tokens to pay for gas. Do not forget to use your own `--chain-id`.
 
-```bash
+```sh
 $ ./simd gentx b9lab 70000000stake --chain-id test-chain-rT4wZY
 Genesis transaction written to "/Users/muratoener/.simapp/config/gentx/gentx-cf6bff39bb84da39d214138ebba8bcba4ccb848d.json"
 ```
 
 After having created this genesis transaction in its own file, collect all the genesis transactions with `collect-gentxs` to include it into your genesis file:
 
-```bash
+```sh
 $ ./simd collect-gentxs
 {"app_message":{"auth":{"accounts":[{"@type":"/cosmos.auth.v1beta1.BaseAccount","account_number":"0","address":"cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq","pub_key":null,"sequence":"0"}],"params":{"max_memo_characters":"256","sig_verify_cost_ed25519":"590","sig_verify_cost_secp256k1":"1000","tx_sig_limit":"7","tx_size_cost_per_byte":"10"}},"authz":{"authorization":[]},"bank":{"balances":[{"address":"cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq","coins":[{"amount":"100000000","denom":"stake"}]}],"denom_metadata":[],"params":{"default_send_enabled":true,"send_enabled":[]},"supply":[{"amount":"100000000","denom":"stake"}]},"capability":{"index":"1","owners":[]},"crisis":{"constant_fee":{"amount":"1000","denom":"stake"}},"distribution":{"delegator_starting_infos":[],"delegator_withdraw_infos":[],"fee_pool":{"community_pool":[]},"outstanding_rewards":[],"params":{"base_proposer_reward":"0.010000000000000000","bonus_proposer_reward":"0.040000000000000000","community_tax":"0.020000000000000000","withdraw_addr_enabled":true},"previous_proposer":"","validator_accumulated_commissions":[],"validator_current_rewards":[],"validator_historical_rewards":[],"validator_slash_events":[]},"evidence":{"evidence":[]},"feegrant":{"allowances":[]},"genutil":{"gen_txs":[{"auth_info":{"fee":{"amount":[],"gas_limit":"200000","granter":"","payer":""},"signer_infos":[{"mode_info":{"single":{"mode":"SIGN_MODE_DIRECT"}},"public_key":{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A6TrsRO/OH91fAEFLohw7RwFB832NRsRWhQvE2t8cfLK"},"sequence":"0"}],"tip":null},"body":{"extension_options":[],"memo":"cf6bff39bb84da39d214138ebba8bcba4ccb848d@192.168.1.7:26656","messages":[{"@type":"/cosmos.staking.v1beta1.MsgCreateValidator","commission":{"max_change_rate":"0.010000000000000000","max_rate":"0.200000000000000000","rate":"0.100000000000000000"},"delegator_address":"cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq","description":{"details":"","identity":"","moniker":"demo","security_contact":"","website":""},"min_self_delegation":"1","pubkey":{"@type":"/cosmos.crypto.ed25519.PubKey","key":"0wnjKoRtWjv9NOLEPS6UrlwFurQAmsJIXFsmhtbigF8="},"validator_address":"cosmosvaloper1nw793j9xvdzl2uc9ly8fas5tcfwfetera4euvn","value":{"amount":"70000000","denom":"stake"}}],"non_critical_extension_options":[],"timeout_height":"0"},"signatures":["NA23q62Vhfm1z3E1XafPeSDEVDkcPuTWXZmQr9QAZuN5wY2V6UFSRBO0w8Z255OxxZV4j47SJo1HOYWvcH4qvw=="]}]},"gov":{"deposit_params":{"max_deposit_period":"172800s","min_deposit":[{"amount":"10000000","denom":"stake"}]},"deposits":[],"proposals":[],"starting_proposal_id":"1","tally_params":{"quorum":"0.334000000000000000","threshold":"0.500000000000000000","veto_threshold":"0.334000000000000000"},"votes":[],"voting_params":{"voting_period":"172800s"}},"mint":{"minter":{"annual_provisions":"0.000000000000000000","inflation":"0.130000000000000000"},"params":{"blocks_per_year":"6311520","goal_bonded":"0.670000000000000000","inflation_max":"0.200000000000000000","inflation_min":"0.070000000000000000","inflation_rate_change":"0.130000000000000000","mint_denom":"stake"}},"params":null,"slashing":{"missed_blocks":[],"params":{"downtime_jail_duration":"600s","min_signed_per_window":"0.500000000000000000","signed_blocks_window":"100","slash_fraction_double_sign":"0.050000000000000000","slash_fraction_downtime":"0.010000000000000000"},"signing_infos":[]},"staking":{"delegations":[],"exported":false,"last_total_power":"0","last_validator_powers":[],"params":{"bond_denom":"stake","historical_entries":10000,"max_entries":7,"max_validators":100,"unbonding_time":"1814400s"},"redelegations":[],"unbonding_delegations":[],"validators":[]},"upgrade":{},"vesting":{}},"chain_id":"test-chain-rT4wZY","gentxs_dir":"/Users/muratoener/.simapp/config/gentx","moniker":"demo","node_id":"cf6bff39bb84da39d214138ebba8bcba4ccb848d"}
 ```
@@ -306,7 +306,7 @@ If you are curious, you can find the updated `gen_txs` field in your genesis.
 
 Now you can start your single-node blockchain:
 
-```bash
+```sh
 $ ./simd start
 
 6:23PM INF starting ABCI with Tendermint
@@ -321,7 +321,7 @@ In the terminal window where you ran the command, you can see blocks being produ
 
 Open a new terminal in the same folder and check the balances:
 
-```bash
+```sh
 $ ./simd query bank balances $(./simd keys show b9lab -a)
 balances:
 - amount: "30000000"
@@ -335,7 +335,7 @@ pagination:
 
 Practice sending a transaction. For that you are going to create another account named "student" and transfer some tokens to the account:
 
-```bash
+```sh
 $ ./simd keys add student
 
 - name: student
@@ -353,7 +353,7 @@ gown all scissors page panel table hill acoustic junior run winter cement mass c
 
 Before sending any tokens confirm that the balance of the new account is absent:
 
-```bash
+```sh
 $ ./simd query bank balances $(./simd keys show student -a)
 balances: []
 pagination:
@@ -363,7 +363,7 @@ pagination:
 
 This account does not have a balance. The new account does not yet exist in your blockchain. Only the key pair has been generated and stored in your keyring. You need to send a transaction to change this new account's balance:
 
-```bash
+```sh
 $ ./simd tx bank send $(./simd keys show b9lab -a) $(./simd keys show student -a) 10stake --chain-id test-chain-rT4wZY
 
 {"body":{"messages":[{"@type":"/cosmos.bank.v1beta1.MsgSend","from_address":"cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq","to_address":"cosmos1m95dh3uc2s7fkn4w6v3ueux3sya96dhdudwa24","amount":[{"denom":"stake","amount":"10"}]}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[],"gas_limit":"200000","payer":"","granter":""},"tip":null},"signatures":[]}
@@ -389,7 +389,7 @@ The command output includes useful information such as `gas_used`.
 
 Now check the balance of the student account again:
 
-```bash
+```sh
 $ ./simd query bank balances $(./simd keys show student -a)
 balances:
 - amount: "10"

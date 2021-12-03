@@ -114,6 +114,8 @@ A peg-zone implementation exists for Ethereum and is named the **[Gravity Bridge
 
 </HighlightBox>
 
+<!-- Put back in later.
+
 ## Atlas: Cosmos SDK module registry and node explorer
 
 <HighlightBox type="info">
@@ -131,6 +133,8 @@ Atlas also offers a [node explorer](https://atlas.cosmos.network/nodes) that let
 Take a look at the [node explorer documentation](https://github.com/cosmos/atlas/blob/main/docs/node-explorer.md) to dive deeper.
 
 </HighlightBox>
+
+-->
 
 ## Starport: building application-specific blockchains with one command
 
