@@ -14,8 +14,8 @@ It is time to take a closer look at Starport. Before diving into the details of 
 * [A Blockchain App Architecture](../main-concepts/architecture.md)
 * [Accounts](../main-concepts/accounts.md)
 * [Transactions](../main-concepts/transactions.md)
-* [Messages](../main-concepts/messages.md))
-* [Modules](../main-concepts/modules.md))
+* [Messages](../main-concepts/messages.md)
+* [Modules](../main-concepts/modules.md)
 * [Protobuf](../main-concepts/protobuf.md)
 * [BaseApp](../main-concepts/base-app.md)
 
@@ -54,9 +54,17 @@ You can verify the version of Starport you have once it is installed:
 ```sh
 $ starport version
 
-Starport version:	v0.18.3
+Starport version:	v0.17.3
 ...
 ```
+
+<HighlightBox type="info">
+
+If you have another version, you need not worry, the exercise and its learnings are still valid. On the other hand, you may run into compatibility issues if you clone code made with _this_ version of Starport, and try to continue the project with _your_ version of Starport.
+
+If you have to pick up a project that was created with a different version of Starport, look for an [upgrade process](https://docs.starport.com/migration/).
+
+</HighlightBox>
 
 You can also just type `starport` to see the offered commands:
 
@@ -99,20 +107,21 @@ You can see the Hello-World response at [http://localhost:1317/cosmonaut/hello/h
 
 ## Your chain
 
-Let's get started by scaffolding a basic chain called `checkers` that you will place under the GitHub path Alice with:
+Let's get started by scaffolding a basic chain called `checkers` that you will place under the GitHub path `alice` with:
 
 ```sh
 $ starport scaffold chain github.com/alice/checkers
 ```
 
-The scaffolding takes some time as it generates the source code for a fully functional ready-to-use blockchain. A folder `checkers` is created after the chain is scaffolded.
+The scaffolding takes some time as it generates the source code for a fully functional ready-to-use blockchain. Starport creates a folder named `checkers` and scaffolds the chain inside it.
 
 The `checkers` folder contains several generated files and directories that make up the structure of a Cosmos SDK blockchain. It contains the following folders:
 
-* `app`. A folder for the application.
-* `cmd`. A folder for the commands.
-* `proto`. A folder for the Protobuf definitions.
-* `vue`. A folder for the UI.
+* `app`: a folder for the application.
+* `cmd`: a folder for the command-line interface commands.
+* `proto`: a folder for the Protobuf objects definitions.
+* `vue`: a folder for the UI.
+* `x`: a folder for all you own modules, in particular `checkers`.
 
 <HighlightBox type="tip">
 
@@ -120,13 +129,13 @@ If Vue.js is something new to you, check out the [Vue.js website](https://vuejs.
 
 </HighlightBox>
 
-If you look at the code that Starport generates, you will often see comments like the following:
+If you look at the code that Starport generates, for instance in `./x/checkers/module.go`, you will often see comments like the following:
 
 ```go
 // this line is used by starport scaffolding # 1
 ```
 
-**Caution:** Do not remove or replace any such lines in your code as they provide markers for Starport on where to add further code when instructed to do so. Do not rename or move any file that contains such a line for the same reason.
+**Caution:** Do not remove or replace any such lines in your code as they provide markers for Starport on where to add further code when instructed to do so. For the same reason, do not rename or move any file that contains such a line.
 
 Is this project already functional? Go to the `checkers` folder and run:
 
@@ -143,9 +152,11 @@ The `starport chain serve` command downloads dependencies and compiles the sourc
 * Initializes the node with a single validator.
 * Adds accounts.
 
-You will have a local testnet with a running node after this command completes.
+After this command completes, you have a local testnet with a running node. What about the added accounts? Take a look at:
 
-Take a look at the `config.yml` file in the `checkers` folder:
+<CodeGroup>
+
+<CodeGroupItem title="config.yml" active>
 
 ```yaml
 accounts:
@@ -166,7 +177,11 @@ faucet:
   coins: ["5token", "100000stake"]
 ```
 
-You can set the accounts, the accounts' starting balances, and the validator in this file. You can also let Starport generate a client and a faucet. The faucet gives away five `token` and 100,000 `stake` tokens belonging to Bob each time it is called.
+</CodeGroupItem>
+
+</CodeGroup>
+
+In this file, you can set the accounts, the accounts' starting balances, and the validator. You can also let Starport generate a client and a faucet. The faucet gives away five `token` and 100,000 `stake` tokens belonging to Bob each time it is called.
 
 You can observe the endpoints of the blockchain in the output of the `starport chain serve` command:
 
@@ -176,9 +191,11 @@ You can observe the endpoints of the blockchain in the output of the `starport c
 🌍 Token faucet: http://0.0.0.0:4500
 ```
 
-Starport can detect any change to the source code. It immediately rebuilds the binaries before restarting the blockchain and keeping the state.
+Starport can detect any change to the source code. When it does, it immediately rebuilds the binaries before restarting the blockchain and keeping the state.
 
-Now boot up the frontend using the commands provided in the `readme.md` file of the `checkers` folder:
+## Your GUI
+
+Now you are going to boot up the frontend created by Starport by using the commands provided in the `readme.md` file of the `checkers` folder. For this, you let the chain run in its own process, and open a new terminal window, also in your `checkers` folder, where you type:
 
 ```sh
 $ cd vue
@@ -186,13 +203,19 @@ $ npm install
 $ npm run serve
 ```
 
-Navigate to [localhost:8080](http://localhost:8080/). You can see no wallet has been created or imported yet. Load Alice's wallet in the GUI to have some tokens. Use the mnemonic for Alice, which you can find in the output of the `starport chain serve` command, and copy and paste it to _import a wallet_.
+Navigate to [localhost:8080](http://localhost:8080/). You can see that, on the client side, no wallets have been created or imported yet. Keep it simple and load Alice's wallet in the GUI to have some tokens. To achieve that, you need to use the mnemonic for Alice, which you can find in the output of the `starport chain serve` command, and copy and paste it to _import a wallet_.
 
 Now you should see the balance of Alice's account and can act on her behalf.
 
-Select **Custom Type** in the sidebar to see custom types. There are no custom types yet - this page is empty for now.
+Select **Custom Type** in the sidebar to see custom types. There are no custom types yet - this page is empty for now. Let's remedy that in a second.
 
-It is **good practice** to make a Git commit before you create a new `message`. It is generally recommended to make a Git commit before running any `starport scaffold` command. The Git commit makes seeing what was added and revert changes easier.
+<HighlightBox type="tip">
+
+It is **good practice** to make a Git commit before you create a new `message`. In fact, it is generally recommended to make a Git commit before running **any** `starport scaffold` command. A Git commit protects the work you have done so far and makes it easier to see what the `scaffold` command added. It also makes it easy to just revert all changes if you are unsatisfied and want to run a different `scaffold` command.
+
+</HighlightBox>
+
+## Your first message
 
 With your Git commit tucked away, now create a simple `message` with:
 
@@ -200,9 +223,9 @@ With your Git commit tucked away, now create a simple `message` with:
 $ starport scaffold message createPost title body
 ```
 
-The `starport scaffold message` command accepts a message named `createPost` as the first argument and a list of fields for the message, here `title` and `body`, which are `string`s.
+The `starport scaffold message` command accepts a message name, here `createPost`, as the first argument, and a list of fields for the message, here `title` and `body`, which are `string`s unless mentioned otherwise.
 
-A message is scaffolded in a module with a name that matches the name of the project by default. It is named `checkers` in this case. Learn more about your options with:
+A message is scaffolded in a module with a name that matches the name of the project by default. It is named `checkers` in this case. Or you could have used `--module checkers`. Learn more about your options with:
 
 ```sh
 $ starport scaffold message --help
@@ -211,16 +234,20 @@ $ starport scaffold message --help
 You can see a list of files that were created or modified by the `scaffold message` command in the Terminal output:
 
 ```sh
-modify proto/chain/tx.proto
-modify x/chain/client/cli/tx.go
-create x/chain/client/cli/tx_create_post.go
-modify x/chain/handler.go
-create x/chain/keeper/msg_server_create_post.go
-modify x/chain/types/codec.go
-create x/chain/types/message_create_post.go
+modify proto/checkers/tx.proto
+modify x/checkers/client/cli/tx.go
+create x/checkers/client/cli/tx_create_post.go
+modify x/checkers/handler.go
+create x/checkers/keeper/msg_server_create_post.go
+modify x/checkers/types/codec.go
+create x/checkers/types/message_create_post.go
 ```
 
-You can find the definition of the message in the `proto/chain/tx.proto` file. Open it:
+The `modify` was made possible thanks to the lines like `// this line is used by starport scaffolding # 1` that you did not remove. So where is everything? You can find the root definition of your new message in:
+
+<CodeGroup>
+
+<CodeGroupItem title="proto/checkers/tx.proto" active>
 
 ```protobuf
 // this line is used by starport scaffolding # proto/tx/message
@@ -231,7 +258,15 @@ message MsgCreatePost {
 }
 ```
 
-Starport also wired a new command into your chain's CLI:
+</CodeGroupItem>
+
+</CodeGroup>
+
+Starport also wired a new command into your chain's CLI in:
+
+<CodeGroup>
+
+<CodeGroupItem title="x/checkers/client/cli/tx_create_post.go" active>
 
 ```go
 func CmdCreatePost() *cobra.Command {
@@ -244,7 +279,36 @@ func CmdCreatePost() *cobra.Command {
 }
 ```
 
-Starport scaffolds a GUI with a Vue.js frontend framework. You can find a function in your `vue/src/store/generated/alice/checkers/alice.checkers.checkers/index.js` file:
+</CodeGroupItem>
+
+</CodeGroup>
+
+Starport scaffolded GUI elements relating to your message with a Vue.js frontend framework. You can, for instance, start with this function in:
+
+<CodeGroup>
+
+<CodeGroupItem title="vue/src/store/generated/alice/checkers/alice.checkers.checkers/index.ts" active>
+
+```typescript
+async MsgCreatePost({ rootGetters }, { value }) {
+    try {
+        const txClient=await initTxClient(rootGetters)
+        const msg = await txClient.msgCreatePost(value)
+        return msg
+    } catch (e) {
+        if (e == MissingWalletError) {
+            throw new SpVuexError('TxClient:MsgCreatePost:Init', 'Could not initialize signing client. Wallet is required.')
+        }else{
+            throw new SpVuexError('TxClient:MsgCreatePost:Create', 'Could not create message: ' + e.message)
+
+        }
+    }
+},
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="index.js">
 
 ```javascript
 async MsgCreatePost({ rootGetters }, { value }) {
@@ -264,12 +328,20 @@ async MsgCreatePost({ rootGetters }, { value }) {
 }
 ```
 
+</CodeGroupItem>
+
+</CodeGroup>
+
 ## Next up
 
-You just created a fully working Cosmos SDK chain, one that forms the basis of the [following guided exercise](./stored-game.md). 
+You just created a fully working Cosmos SDK chain, one that forms the basis of the [following guided exercise](./stored-game.md).
 
 <HighlightBox type="info">
 
-You may remove the `CreatePost` message as it is not part of the guided exercise in the next sections.
+You may remove the `MsgCreatePost` message as it is not part of the guided exercise in the next sections. Good thing you did that commit before because you can clean it all with a simple:
+
+```sh
+$ git checkout -f && git clean -fd
+```
 
 </HighlightBox>
