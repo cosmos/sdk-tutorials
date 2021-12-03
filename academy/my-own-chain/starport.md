@@ -58,9 +58,9 @@ Starport version:	v0.17.3
 
 <HighlightBox type="info">
 
-If you have another version, you need not worry, the exercise and its learnings are still valid. On the other hand, you may run into compatibility issues if you clone code made with _this_ version of Starport, and try to continue the project with _your_ version of Starport.
+If you have another version the exercise and its learnings are still valid. But you might run into compatibility issues if you clone code made with _this_ version of Starport, and try to continue the project with _your_ version of Starport.
 
-If you have to pick up a project that was created with a different version of Starport, look for an [upgrade process](https://docs.starport.com/migration/).
+If you have to pick up a project that was created with a different version of Starport, learn more about [upgrading Starport here](https://docs.starport.com/migration/).
 
 </HighlightBox>
 
@@ -186,7 +186,7 @@ Starport can detect any change to the source code. When it does, it immediately 
 
 ## Your GUI
 
-Now you are going to boot up the frontend created by Starport by using the commands provided in the `readme.md` file of the `checkers` folder. For this, you let the chain run in its own process, and open a new terminal window, also in your `checkers` folder, where you type:
+Now boot up the frontend created by Starport by using the commands provided in the `readme.md` file of the `checkers` folder. For this you let the chain run in its own process and open a new terminal window in your `checkers` folder. In this terminal execute:
 
 ```sh
 $ cd vue
@@ -194,11 +194,11 @@ $ npm install
 $ npm run serve
 ```
 
-Navigate to [localhost:8080](http://localhost:8080/). You can see that, on the client side, no wallets have been created or imported yet. Keep it simple and load Alice's wallet in the GUI to have some tokens. To achieve that, you need to use the mnemonic for Alice, which you can find in the output of the `starport chain serve` command, and copy and paste it to _import a wallet_.
+Navigate to [localhost:8080](http://localhost:8080/). On the client side no wallets have been created or imported yet. Load Alice's wallet in the GUI to have some tokens. You will need to use the mnemonic for Alice which you can find in the output of the `starport chain serve` command. Copy and paste it to _import a wallet_.
 
 Now you should see the balance of Alice's account and can act on her behalf.
 
-Select **Custom Type** in the sidebar to see custom types. There are no custom types yet - this page is empty for now. Let's remedy that in a second.
+Select **Custom Type** in the sidebar to see custom types. There are no custom types yet, this page is empty for now.
 
 <HighlightBox type="tip">
 
@@ -329,7 +329,7 @@ You just created a fully working Cosmos SDK chain, one that forms the basis of t
 
 <HighlightBox type="info">
 
-You may remove the `MsgCreatePost` message as it is not part of the guided exercise in the next sections. Good thing you did that commit before because you can clean it all with a simple:
+You can remove the `MsgCreatePost` message as it is not part of the guided exercise in the next sections. You can clean it all by running:
 
 ```sh
 $ git checkout -f && git clean -fd
