@@ -338,7 +338,7 @@ module.exports = {
     [
       "@vuepress/medium-zoom", 
       {
-        selector: ".layout__main__content :not(a) > img",
+        selector: ".layout__main__content :not(a) > img:not(.no-zoom)",
         options: {
           background: "#000000"
         }

@@ -171,6 +171,7 @@
                 width 6.5rem
                 margin-bottom 10px
                 text-align center
+                filter var(--img-filter)
 
                 @media screen and (max-width: 1024px)
                     text-align start
