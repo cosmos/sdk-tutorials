@@ -9,11 +9,11 @@ tag: deep-dive
 
 <HighlightBox type="info">
 
-In this section, you will learn more about bridges in the Cosmos SDK. Make sure to read the following sections as a preparation:
+In this section, you will learn more about bridges in the Cosmos ecosystem. Make sure to read the following sections as a preparation:
 
 * [The Cosmos Ecosystem](../what-is-cosmos/cosmos-ecosystem.md)
 * [Transactions](./transactions.md)
-* [Messages](./messages.md))
+* [Messages](./messages.md)
 * [Events](./events.md)
 * [IBC](./ibc.md)
 
@@ -21,7 +21,7 @@ In this section, you will learn more about bridges in the Cosmos SDK. Make sure 
 
 ## The Gravity Bridge
 
-Cosmos' Gravity Bridge facilitates the transfer of ERC-20 tokens to Cosmos-based blockchains and back. This encourages and allows for novel applications that combine the power of Cosmos with the value of assets from Ethereum. One might wish to use Cosmos for computations that are expensive or impossible to perform with Ethereum smart contracts. For example, the application could deal with automated portfolio management solutions or a developer might want to accept Ethereum ERC-20 tokens as payment or build an entire Cosmos application around Ethereum tokens.
+The Gravity Bridge is an on-going project whose goal is to facilitate the transfer of ERC-20 tokens to Cosmos-based blockchains and back. When it is launched, the Gravity Bridge is expected to encourage and allow for novel applications that combine the power of Cosmos with the value of assets from Ethereum. One might wish to use Cosmos for computations that are expensive or impossible to perform with Ethereum smart contracts. For example, the application could deal with automated portfolio management solutions or a developer might want to accept Ethereum ERC-20 tokens as payment or build an entire Cosmos application around Ethereum tokens.
 
 ## How it works
 

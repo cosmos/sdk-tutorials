@@ -333,5 +333,6 @@ You may remove the `MsgCreatePost` message as it is not part of the guided exerc
 
 ```sh
 $ git checkout -f && git clean -fd
+```
 
 </HighlightBox>
