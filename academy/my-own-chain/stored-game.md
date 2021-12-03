@@ -13,11 +13,11 @@ Make sure you have all you need before proceeding with the exercise:
 
 * You understand the concepts of [accounts](../main-concepts/accounts.md), [Protobuf](../main-concepts/protobuf.md), and [multistore](../main-concepts/multistore-keepers.md).
 * Have Go installed.
-* Understand the bare blockchain scaffold with a single module named `checkers`. Either because you followed the [previous steps](./starport.md) or because you checked out [the outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/starport-start).
+* The bare blockchain scaffold codebase with a single module named `checkers`. You can get there by following the [previous steps](./starport.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/starport-start).
 
 </HighlightBox>
 
-In the [Starport introduction section](./starport) you learned how to jump-start a brand new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
+In the [Starport introduction section](./starport) you learned how to start a brand-new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
 
 A good start to developing a checkers blockchain is to define the ruleset of the game. There are many versions of the rules. Choose [a very simple set of basic rules](https://www.ducksters.com/games/checkers_rules.php) to not get lost in the rules of checkers or the proper implementation of the board state.
 
@@ -289,8 +289,7 @@ Your stored game stores are only strings. But you know that they represent `sdk.
     )
     ```
 
-There is not much to add but this will assist you in keeping your code DRY.
 
 ## Next up
 
-You will be implementing further customizations as you move along in this chapter. Starport covered most of the boilerplate and custom work that was needed for now. Want to continue developing your checkers blockchain? Go ahead to the [next section](./create-message.md) to learn all about introducing an `sdk.Msg` to create a game.
+Want to continue developing your checkers blockchain? In the [next section](./create-message.md) you will learn all about introducing an `sdk.Msg` to create a game.
