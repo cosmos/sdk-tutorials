@@ -216,7 +216,7 @@ package keeper
 import (
     "github.com/cosmos/cosmos-sdk/store/prefix"
     sdk "github.com/cosmos/cosmos-sdk/store/types"
-    "github.com/xavierlepretre/checkers/x/checkers/types"
+    "github.com/alice/checkers/x/checkers/types"
 )
 
 func (k Keeper) GetStoredGame(ctx sdk.Context, gameId string) (storedGame types.StoredGame, found bool) {

@@ -228,15 +228,15 @@ In your case, Starport added to `service Query` how to query for your objects:
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L16-L30]
 service Query {
     rpc StoredGame(QueryGetStoredGameRequest) returns (QueryGetStoredGameResponse) {
-        option (google.api.http).get = "/xavierlepretre/checkers/checkers/storedGame/{index}";
+        option (google.api.http).get = "/alice/checkers/checkers/storedGame/{index}";
     }
 
     rpc StoredGameAll(QueryAllStoredGameRequest) returns (QueryAllStoredGameResponse) {
-        option (google.api.http).get = "/xavierlepretre/checkers/checkers/storedGame";
+        option (google.api.http).get = "/alice/checkers/checkers/storedGame";
     }
 
     rpc NextGame(QueryGetNextGameRequest) returns (QueryGetNextGameResponse) {
-        option (google.api.http).get = "/xavierlepretre/checkers/checkers/nextGame";
+        option (google.api.http).get = "/alice/checkers/checkers/nextGame";
     }
 }
 ```
