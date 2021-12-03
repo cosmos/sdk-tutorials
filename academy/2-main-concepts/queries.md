@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Queries
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 In this section, you will discover queries. They are one of two primary objects handled by modules. Make sure to be all set up by reading the previous sections:
 
