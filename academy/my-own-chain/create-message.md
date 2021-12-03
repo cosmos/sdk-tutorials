@@ -13,7 +13,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [transactions](../main-concepts/transactions.md) and [messages](../main-concepts/messages.md)) and [Protobuf](../main-concepts/protobuf.md).
 * Have Go installed.
-* The checkers blockchain scaffold with the `StoredGame` and its helpers. Either because you followed the [previous steps](./stored-game.md) or because you checked out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/full-game-object).
+* The checkers blockchain scaffold with the `StoredGame` and its helpers. You can get there by following the [previous steps](./stored-game.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/full-game-object).
 
 </HighlightBox>
 
