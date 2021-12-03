@@ -64,32 +64,32 @@ module.exports = {
           children: [
             {
               title: "Welcome",
-              path: "/academy/welcome/",
+              path: "/academy/0-welcome/",
               directory: false,
             },
             {
               title: "What is Cosmos?",
-              path: "/academy/what-is-cosmos",
+              path: "/academy/1-what-is-cosmos",
               directory: true,
             },
             {
               title: "Main Concepts",
-              path: "/academy/main-concepts",
+              path: "/academy/2-main-concepts",
               directory: true,
             },
             {
               title: "Running a Chain",
-              path: "/academy/running-a-chain",
+              path: "/academy/3-running-a-chain",
               directory: true,
             },
             {
               title: "My Own Cosmos Chain",
-              path: "/academy/my-own-chain",
+              path: "/academy/4-my-own-chain",
               directory: true,
             },
             {
               title: "What's Next?",
-              path: "/academy/whats-next/",
+              path: "/academy/5-whats-next/",
               directory: false,
             },
           ],
