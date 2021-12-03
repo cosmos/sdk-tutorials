@@ -74,6 +74,7 @@ export default {
         }
 
         .icon {
+            flex-shrink: 0;
             display: block;
             margin-block: auto;
             margin-right: 15px;
