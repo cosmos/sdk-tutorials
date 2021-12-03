@@ -13,8 +13,8 @@ Cross-chain communication becomes possible with the Cosmos SDK and the Inter-Blo
 
 * [Accounts](./accounts.md)
 * [Transactions](./transactions.md)
-* [Messages](./messages.md))
-* [Modules](./modules.md))
+* [Messages](./messages.md)
+* [Modules](./modules.md)
 
 </HighlightBox>
 
