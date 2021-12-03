@@ -23,7 +23,7 @@ The last section of this course looks at CosmWasm. Discover how multi-chain smar
 
 The actor model is a design pattern for reliable, distributed systems. It is the pattern underlying CosmWasm smart contracts.
 
-The actor has access to the internal state and actors can only message each other through a so-called dispatcher, which maintains the state and maps addresses to code and storage.
+Each actor has access to its own internal state, and can only message other actors through a so-called dispatcher, which maintains the state and maps addresses to code and storage.
 
 Want to read more on the actor model? Check out [the CosmWasm documentation on the Actor Model for Contract Calls](https://docs.cosmwasm.com/docs/0.16/architecture/actor).
 
@@ -40,10 +40,11 @@ CosmWasm is adaptable to different development environments by design and makes 
 
 You need to have installed Go to use the Cosmos SDK. In addition, you have to install Rust to write smart contracts.
 
-Go to [https://rustup.rs/](https://rustup.rs/) to install Rust. Set the wasm32 target:
+Go to [rustup.rs](https://rustup.rs) to install Rust, or update your version with `rustup update`. Then, have it download and install the `wasm32` compilation target:
 
-```bash
+```sh
 $ rustup target list --installed
+# if wasm32 is not listed above, run this
 $ rustup target add wasm32-unknown-unknown
 ```
 
@@ -55,7 +56,7 @@ $ rustup target add wasm32-unknown-unknown
 
 Create a folder and clone the [`wasmd`](https://github.com/CosmWasm/wasmd) repository into it:
 
-```bash
+```sh
 $ git clone https://github.com/CosmWasm/wasmd.git
 $ cd wasmd
 $ git checkout v0.18.0
@@ -64,103 +65,147 @@ $ make install
 
 Verify your installation:
 
-```bash
+```sh
 $ wasmd version
+0.18.0
 ```
 
-Make sure your `$GOPATH` and `$PATH` are set correctly in case you cannot call `wasmd`.
+If you cannot call `wasmd`, make sure your `$GOPATH` and `$PATH` are set correctly.
 
-## Testnet
+## Connect to a testnet
 
-First test the `wasmd` client with the [Pebblenet](https://github.com/CosmWasm/testnets/tree/master/pebblenet-1) testnet. `wasmd` is configured via environment variables. Export the most [recent](https://raw.githubusercontent.com/CosmWasm/testnets/master/pebblenet-1/defaults.env) environment:
+First test the `wasmd` client with the [Pebblenet](https://github.com/CosmWasm/testnets/tree/master/pebblenet-1) testnet. `wasmd` is configured via environment variables. Export the most recent environment from [here](https://github.com/CosmWasm/testnets/blob/master/pebblenet-1/defaults.env):
 
-```bash
-$ export CHAIN_ID="pebblenet-1"
-$ export TESTNET_NAME="pebblenet-1"
-$ export FEE_DENOM="upebble"
-$ export STAKE_DENOM="urock"
-$ export BECH32_HRP="wasm"
-$ export WASMD_VERSION="v0.18.0"
-$ export CONFIG_DIR=".wasmd"
-$ export BINARY="wasmd"
-
-$ export COSMJS_VERSION="v0.26.0"
-$ export GENESIS_URL="https://raw.githubusercontent.com/CosmWasm/testnets/master/pebblenet-1/config/genesis.json"
-$ export APP_CONFIG_URL="https://raw.githubusercontent.com/CosmWasm/testnets/master/pebblenet-1/config/app.toml"
-$ export CONFIG_URL="https://raw.githubusercontent.com/CosmWasm/testnets/master/pebblenet-1/config/config.toml"
-
-$ export RPC="https://rpc.pebblenet.cosmwasm.com:443"
-$ export LCD="https://lcd.pebblenet.cosmwasm.com"
-$ export FAUCET="https://faucet.pebblenet.cosmwasm.com"
-
-$ export COSMOVISOR_VERSION="v0.42.9"
-$ export COSMOVISOR_HOME=$HOME/.wasmd
-$ export COSMOVISOR_NAME=wasmd
+```sh
+$ curl https://raw.githubusercontent.com/CosmWasm/testnets/master/pebblenet-1/defaults.env -o pebblenet-1-defaults.env
+$ source pebblenet-1-defaults.env
 ```
+
+Confirm you got it right:
+
+```sh
+$ echo $CHAIN_ID
+pebblenet-1
+```
+
+And if you happen to open another terminal window, don't forget to repeat this `source` command as this local to the session.
+
+## Your accounts
 
 Now add some keys:
 
-```bash
+```sh
 $ wasmd keys add wallet
 $ wasmd keys add wallet2
 ```
 
-Install [jq](https://stedolan.github.io/jq/), which is a lightweight and flexible command-line JSON processor. Then request some tokens from the [faucet](https://faucet.pebblenet.cosmwasm.com) for the `wallet`:
+Let's see what was created:
 
-```bash
-$ JSON=$(jq -n --arg addr $(wasmd keys show -a wallet) '{"denom":"upebble","address":$addr}') && curl -X POST --header "Content-Type: application/json" --data "$JSON" https://faucet.pebblenet.cosmwasm.com/credit
+```sh
+$ wasmd keys show wallet --address
+wasm1jj7gzazxvgy56rj8kersuc44ehvep0uey85jdn
 ```
 
-Do the same for `wallet2`. Check the balances of both wallets afterward:
+That's your address. How many tokens do you have?
 
-```bash
+```sh
+wasmd query bank balances $(wasmd keys show wallet --address) --node $RPC
+pagination: {}
+```
+
+None. Time to ask the [faucet](https://faucet.pebblenet.cosmwasm.com) to remedy that sorry state. To facilitate command-line actions, install [jq](https://stedolan.github.io/jq/), which is a lightweight and flexible command-line JSON processor. Then prepare the request for your `wallet`:
+
+```sh
+$ JSON=$(jq --null-input --arg addr $(wasmd keys show wallet --address) '{"denom":"upebble","address":$addr}')
+$ echo "$JSON"
+{
+  "denom": "upebble",
+  "address": "wasm1jj7gzazxvgy56rj8kersuc44ehvep0uey85jdn"
+}
+```
+
+`upebble` is the denomination of the test net token. With the content of the request ready, you can call the faucet:
+
+```sh
+$ curl -X POST --header "Content-Type: application/json" --data "$JSON" https://faucet.pebblenet.cosmwasm.com/credit
+ok
+```
+
+So what's your balance afterward?
+
+```sh
 $ wasmd query bank balances $(wasmd keys show wallet --address) --node $RPC
-$ wasmd query bank balances $(wasmd keys show wallet2 --address) --node $RPC
+balances:
+- amount: "100000"
+  denom: upebble
+pagination: {}
 ```
 
-Clone the contract samples in another location:
+Nice. Do the same for `wallet2`.
 
-```bash
+## Compile a smart contract
+
+Now that you have enough tokens to deploy a smart contract on Pebblenet, clone the contract samples away from your `wasmd` folder:
+
+```sh
 $ git clone https://github.com/InterWasm/cw-contracts
-$ cd cw-contracts/contracts/
+$ cd cw-contracts/contracts/nameservice
 $ cargo wasm
+...
+Compiling cw-nameservice v0.11.0 (/Users/me/cw-contracts/contracts/nameservice)
+ Finished release [optimized] target(s) in 1m 20s
 ```
 
-`wasm` is an alias for `wasm build --release --target wasm32-unknown-unknown` in this last command.
+In this last command, `wasm` is [an alias](https://github.com/InterWasm/cw-contracts/blob/ac4c2b9/contracts/nameservice/.cargo/config#L2) for `wasm build --release --target wasm32-unknown-unknown`.
 
-As is generally the case for developing on blockchains you want to maintain your smart contract as small as possible. Check the size of your build with:
+You now have a compiled smart contract on file. Remember that, as is generally the case for developing on blockchain, you want to maintain your smart contract binary as small as possible. Rust compiled it in a standard way. Check the size of your build with:
 
-```bash
+```sh
 $ ls -lh target/wasm32-unknown-unknown/release/cw_nameservice.wasm
+-rwxr-xr-x 2 me staff 1.7M target/wasm32-unknown-unknown/release/cw_nameservice.wasm
 ```
 
-Optimize the code with [Docker](https://www.docker.com/) container based on an [image provided by CosmWasm](https://hub.docker.com/r/cosmwasm/rust-optimizer/tags) for production purposes:
+Ouch. Fortunately, if you so choose, you can optimize the code with a [Docker](https://www.docker.com/) container based on an [image provided by CosmWasm](https://hub.docker.com/r/cosmwasm/rust-optimizer/tags) for production purposes. Give it a try:
 
-```bash
+```sh
 $ docker run --rm -v "$(pwd)":/code \
   --mount type=volume,source="$(basename "$(pwd)")_cache",target=/code/target \
   --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
   cosmwasm/rust-optimizer:0.12.3
 ```
 
-Compare the result:
+It takes some time and effort. In the end, compare the result:
 
-```bash
-$ ls -allh artifacts/cw_nameservice.wasm
+```sh
+$ ls -alh artifacts/cw_nameservice.wasm
+-rw-r--r--  1 me staff 139K artifacts/cw_nameservice.wasm
 ```
 
-Now upload the smart contract to the blockchain:
+Impressive, a 12x compression.
 
-```bash
+## Upload a smart contract binary
+
+Time to store the smart contract binaries on the blockchain:
+
+```sh
 $ RES=$(wasmd tx wasm store artifacts/cw_nameservice.wasm --from wallet --node $RPC --chain-id pebblenet-1 --gas-prices 0.001upebble --gas auto --gas-adjustment 1.3)
 $ CODE_ID=$(echo $RES | jq -r '.logs[0].events[-1].attributes[0].value')
 ```
 
-The response returns a `code_id` value. Keep it at hand to use in the next steps.
+<!--
 
-You see in `contracts/nameservice/src/contract.rs`:
+Got this error on: wasmd tx wasm store:
+{"height":"1631444","txhash":"4C4E829D840AED2DCB0020126810C94303D57C59FE6417E371041194CCD63C3D","codespace":"wasm","code":2,"raw_log":"failed to execute message; message index: 0: Error calling the VM: Error during static Wasm validation: Wasm contract has unknown interface_version_* marker export (see https://github.com/CosmWasm/cosmwasm/blob/main/packages/vm/README.md): create wasm contract failed","gas_wanted":"10000000","gas_used":"848933"}
 
-```rust
+-->
+
+The response returns a `code_id` value, which uniquely identifies your newly uploaded binary in the blockchain. Keep it at hand in order to instantiate a name service with this binary in the next steps.
+
+## Instantiate your smart contract
+
+You only uploaded some code. You do not yet have any smart contract instance proper. Of course, you can instantiate a new smart contract that uses this code. Look at the aptly-named `instantiate` function in the name server contract:
+
+```rust [https://github.com/InterWasm/cw-contracts/blob/2f545b7b8b8511bc0f92f2f3f838c236ba0d850c/contracts/nameservice/src/contract.rs#L14-L28]
 #[cfg_attr(not(feature = "library"), entry_point)]
 pub fn instantiate(
     deps: DepsMut,
@@ -179,29 +224,39 @@ pub fn instantiate(
 }
 ```
 
-`msg.purchase_price` and `msg.transfer_price` have the type [cosmwasm_std::Coin](https://docs.rs/cosmwasm-std/0.9.2/cosmwasm_std/struct.Coin.html). Thus, instantiate the smart contract with a `purchase_price` and `transfer_price`:
+Among the parameters the function expects are [`msg.purchase_price` and `msg.transfer_price`](https://github.com/InterWasm/cw-contracts/blob/2f545b7/contracts/nameservice/src/msg.rs#L6-L9). Both have the type [`cosmwasm_std::Coin`](https://docs.rs/cosmwasm-std/0.9.2/cosmwasm_std/struct.Coin.html), which, you will note, looks very similar to Cosmos SDK's [`Coin`](https://github.com/cosmos/cosmos-sdk/blob/c41ac20c6cd6cc2b65afa6af587bf39048b2f251/types/coin.pb.go#L31-L34). Of course this is no coincidence. With this knowledge, instantiate a new name service with a `purchase_price` and a `transfer_price`:
 
-```bash
+```sh
 $ wasmd tx wasm instantiate $CODE_ID '{"purchase_price":{"amount":"100","denom":"upebble"},"transfer_price":{"amount":"999","denom":"upebble"}}' --from wallet --node $RPC --chain-id pebblenet-1 --gas-prices 0.001upebble --gas auto --gas-adjustment 1.3  --label "CosmWasm tutorial name service"
 ```
 
-Replace `$CODE_ID` with the `code_id` you got from the previous response.
+You see again the `CODE_ID` that refers to which binary to use for the instantiation. Check that the name service instance was successfully created with:
 
-Check the contract with:
-
-```bash
+```sh
 $ wasmd query wasm list-contract-by-code $CODE_ID --node $RPC --output json
 ```
 
-You can find the contract address in the response. Use it to fetch more information and replace `$CONTRACT` in the following command with the address you got:
+You can find the contract address in the response. Make it a variable too:
 
-```bash
+```sh
+$ CONTRACT = the_address_in_the_response
+```
+
+ Use it to fetch more information with the following command:
+
+```sh
 $ wasmd query wasm contract $CONTRACT --node $RPC
 ```
 
-You can call the contract after the initialization. You can find in `contract.rs`:
+## Call your smart contract
 
-```rust
+With your instance now running, you can call other functions on it.
+
+### Register a name
+
+Looking back into the contract code, you can find the `execute` function:
+
+```rust [https://github.com/InterWasm/cw-contracts/blob/2f545b7b8b8511bc0f92f2f3f838c236ba0d850c/contracts/nameservice/src/contract.rs#L30-L41]
 #[cfg_attr(not(feature = "library"), entry_point)]
 pub fn execute(
     deps: DepsMut,
@@ -216,15 +271,18 @@ pub fn execute(
 }
 ```
 
-So we can register or transfer a name. First, register a name with your contract address `$CONTRACT`:
+There are two _execute_ message types. It is used to register or transfer a name within the name service. Start by [registering](https://github.com/InterWasm/cw-contracts/blob/2f545b7b8b8511bc0f92f2f3f838c236ba0d850c/contracts/nameservice/src/msg.rs#L11-L16) a new name with your instance:
 
-```bash
+```sh
 $ wasmd tx wasm execute $CONTRACT '{"register":{"name":"fred"}}' --amount 100upebble --from wallet --node $RPC --chain-id pebblenet-1 --gas-prices 0.001upebble --gas auto --gas-adjustment 1.3
 ```
 
-In the contract you can find:
+### Verify the name registration
 
-```rust
+With the transaction posted, it is time to verify that the name was registered. In the contract you can find the `query` function:
+
+```rust [https://github.com/InterWasm/cw-contracts/blob/2f545b7b8b8511bc0f92f2f3f838c236ba0d850c/contracts/nameservice/src/contract.rs#L95-L101]
+#[cfg_attr(not(feature = "library"), entry_point)]
 pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
     match msg {
         QueryMsg::ResolveRecord { name } => query_resolver(deps, env, name),
@@ -233,33 +291,37 @@ pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
 }
 ```
 
-There are two queries. Note that we now have `deps: Deps` instead of `deps: DepsMut`.
+There are two _query_ message types. Note that you now have `deps: Deps` instead of `deps: DepsMut`. This indicates that the execution of the function does not mutate the state. This is indeed what you want to use with your functions that implement a _query_ type of service.
 
-Verify the registration with `ResolveRecord`:
+Verify the registration with [`ResolveRecord`](https://github.com/InterWasm/cw-contracts/blob/2f545b7b8b8511bc0f92f2f3f838c236ba0d850c/contracts/nameservice/src/msg.rs#L18-L24):
 
-```bash
+```sh
 $ wasmd query wasm contract-state smart $CONTRACT '{"resolve_record": {"name": "fred"}}' --node $RPC --output json
 ```
 
-The response gives you the wallet address if the name is registered. Transfer the name to the second wallet `wallet2`:
+The response gives you the wallet address owning the registered name, which should be `wallet`.
 
-```bash
-$ wasmd tx wasm execute $CONTRACT '{"transfer":{"name":"fred","to":"wasm17a6xrje3vnhmevp0tflwt6t0dv2faz5sa3l2lq"}}' --amount 999upebble --from wallet --node $RPC --chain-id pebblenet-1 --gas-prices 0.001upebble --gas auto --gas-adjustment 1.3
+### Transfer a name
+
+Now, create another transaction to transfer the name to the second wallet `wallet2`. First prepare the query with the address of your other wallet:
+
+```sh
+$ JSON=$(jq --null-input --arg addr $(wasmd keys show wallet2 --address) '{"transfer":{"name":"fred","to":$addr}}')
 ```
 
-Replace the address `wasm17a6xrje3vnhmevp0tflwt6t0dv2faz5sa3l2lq` with the address of your second wallet:
+Then send the transaction:
 
+```sh
+$ wasmd tx wasm execute $CONTRACT "$JSON" --amount 999upebble --from wallet --node $RPC --chain-id pebblenet-1 --gas-prices 0.001upebble --gas auto --gas-adjustment 1.3
 ```
-$ wasmd keys show wallet2 --address
-```
 
-You used `transfer_price` which we set at the instantiation.
+Under the hood, the execution used `transfer_price`, which you set at the instantiation.
 
-Check again with a `resolve_record` query if the transfer was successful. Try to do another transfer from `wallet2` to `wallet`, and check which wallet can perform such a transaction.
+Check again with a `resolve_record` query to confirm that the transfer was successful. Experiment with another transfer from `wallet2` to `wallet`, and pay attention at which wallet can perform which transaction.
 
 <HighlightBox type="tip">
 
-CosmWasm offers good [documentation](https://docs.cosmwasm.com/docs/). This section is a summary of the [Getting Started section](https://docs.cosmwasm.com/docs/getting-started/intro/). Store the script at [https://docs.cosmwasm.com/docs/getting-started/setting-env#run-local-node-optional](https://docs.cosmwasm.com/docs/getting-started/setting-env#run-local-node-optional) in case you wish to test on your local node. Also have a look at the [contract semantics](https://docs.cosmwasm.com/docs/SEMANTICS/).
+CosmWasm offers good [documentation](https://docs.cosmwasm.com/docs/). This section is a summary of the [Getting Started section](https://docs.cosmwasm.com/docs/getting-started/intro/). Store the `env` script from [here]https://docs.cosmwasm.com/docs/1.0/getting-started/setting-env#setup-go-cli) in case you wish to test on your local node. Also have a look at the [contract semantics](https://docs.cosmwasm.com/docs/SEMANTICS/).
 
 You can find more information in the [CosmWasm Developer Academy](https://docs.cosmwasm.com/dev-academy/intro) and modular tutorials in the [Wasm tutorials](https://docs.cosmwasm.com/tutorials/hijack-escrow/intro). In addition, you can find various hands-on videos on the [workshops](https://docs.cosmwasm.com/tutorials/videos-workshops) page.
 
