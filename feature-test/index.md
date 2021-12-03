@@ -190,7 +190,7 @@ Info box description
 
 <HighlightBox type="tip">
 
- Tip box description Tip box description  Tip box description Tip box description Tip box description Tip box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description
+Tip box description Tip box description  Tip box description Tip box description Tip box description Tip box description escription Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description Tip box description
 
 </HighlightBox>
 
@@ -217,11 +217,31 @@ This document explains what application-specific blockchains are, and why develo
 
 ### Single component
 
-<H5PComponent :contents="['/h5p/test-arithmetic-quiz']"></H5PComponent>
+<H5PComponent :contents="['/h5p/M1_zones_hubs']"></H5PComponent>
 
 ### Multiple components
 
+```
 <H5PComponent :contents="['/h5p/test-memory-game', '/h5p/test-arithmetic-quiz']"></H5PComponent>
+```
+
+<HighlightBox type="tip">
+
+**Usage:** To add new H5P content, you must extract the `.h5p` file into `.vuepress/public/h5p/` and update the style (`H5P.ImageHotspots-1.9/styles/image-hotspots.css`) with:
+```
+.h5p-container {
+  font-family: Inter var;
+  color: white;
+}
+.h5p-image-hotspots {
+  color: #333;
+}
+.h5p-text a, .h5p-text a:link, .h5p-text a:visited {
+  color: #fff;
+}
+```
+
+</HighlightBox>
 
 ## Menu
 
