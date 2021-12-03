@@ -230,13 +230,10 @@ export default {
 			const folderPath = this.$frontmatter.main ? path[0] : path[1];
 			const submodules = this.$site.pages
 				.filter(page => page.path.includes(folderPath) && (this.$frontmatter.main ? page.path != this.$page.path : true))
-				.sort((a, b) => a.path.localeCompare(b.path));
+				.sort((a, b) => a.frontmatter.order - b.frontmatter.order);
 			const modules = this.formatModules(submodules);
 			
-			return Object.values(modules).map(item => {
-				item.submodules.sort((a, b) => a.order - b.order);
-				return item;
-			}).sort((a, b) => a.number - b.number);
+			return Object.values(modules).sort((a, b) => a.number - b.number);
 		}
 	},
 	methods: {

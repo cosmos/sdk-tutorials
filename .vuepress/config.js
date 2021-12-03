@@ -60,71 +60,6 @@ module.exports = {
       hideProducts: true,
       nav: [
         {
-          title: "Tutorials",
-          children: [
-            {
-              title: "Install Starport",
-              path: "/starport/",
-              directory: true,
-            },
-            {
-              title: "Create a Blog Module",
-              path: "/blog/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Create a Voting Module",
-              path: "/voter/",
-              directory: true,
-            },
-            {
-              title: "Create a IBC Hello World module",
-              path: "/hello-world/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Scavenger Hunt",
-              path: "/scavenge/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Create an IBC Interchain Exchange module",
-              path: "/interchain-exchange/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Connect to the cosmoshub-testnet",
-              path: "/connecting-to-testnet/",
-              directory: true,
-            },
-            {
-              title: "Understand IBC Denoms",
-              path: "understanding-ibc-denoms/",
-              directory: true,
-            },
-            {
-              title: "Understand the Liquidity Module",
-              path: "liquidity-module/",
-              directory: true,
-            },
-            {
-              title: "Deploy Your Blockchain on Digital Ocean",
-              path: "/publish-app-do/",
-              directory: true,
-            },
-          ],
-        },
-        {
-          title: "Migrate to Stargate",
-          children: [
-            {
-              title: "Proof of File Existence example",
-              path: "/launchpad-to-stargate/tutorial/",
-              directory: true,
-            },
-          ],
-        },
-        {
           title: "Cosmos Academy",
           children: [
             {
@@ -338,7 +273,7 @@ module.exports = {
     [
       "@vuepress/medium-zoom", 
       {
-        selector: ".layout__main__content :not(a) > img",
+        selector: ".layout__main__content :not(a) > img:not(.no-zoom)",
         options: {
           background: "#000000"
         }

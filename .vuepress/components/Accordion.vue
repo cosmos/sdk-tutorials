@@ -74,6 +74,7 @@ export default {
                 transition transform 0.2s linear
 
             &__icon
+                flex-shrink 0
                 display block
                 margin-block auto
                 margin-right 15px

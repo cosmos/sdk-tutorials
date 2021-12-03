@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-The last section of this course looks at CosmWasm. Discover how multi-chain smart contracts become possible. The following sections are recommended as a preparation:
+Discover how multi-chain smart contracts become possible with CosmWasm. The following sections are recommended as a preparation:
 
 * [Transactions](../main-concepts/transactions.md)
 * [Messages](../main-concepts/messages.md))
@@ -38,7 +38,7 @@ CosmWasm is adaptable to different development environments by design and makes 
 
 ## Install
 
-You need to have installed Go to use the Cosmos SDK. In addition, you have to install Rust to write smart contracts.
+You need to have installed Go to use the Cosmos SDK. You also need Rust to write smart contracts.
 
 Go to [rustup.rs](https://rustup.rs) to install Rust, or update your version with `rustup update`. Then, have it download and install the `wasm32` compilation target:
 
@@ -224,7 +224,7 @@ pub fn instantiate(
 }
 ```
 
-Among the parameters the function expects are [`msg.purchase_price` and `msg.transfer_price`](https://github.com/InterWasm/cw-contracts/blob/2f545b7/contracts/nameservice/src/msg.rs#L6-L9). Both have the type [`cosmwasm_std::Coin`](https://docs.rs/cosmwasm-std/0.9.2/cosmwasm_std/struct.Coin.html), which, you will note, looks very similar to Cosmos SDK's [`Coin`](https://github.com/cosmos/cosmos-sdk/blob/c41ac20c6cd6cc2b65afa6af587bf39048b2f251/types/coin.pb.go#L31-L34). Of course this is no coincidence. With this knowledge, instantiate a new name service with a `purchase_price` and a `transfer_price`:
+Among the parameters the function expects are [`msg.purchase_price` and `msg.transfer_price`](https://github.com/InterWasm/cw-contracts/blob/2f545b7/contracts/nameservice/src/msg.rs#L6-L9). Both have the type [cosmwasm_std::Coin](https://docs.rs/cosmwasm-std/0.9.2/cosmwasm_std/struct.Coin.html), which, you will note, looks very similar to Cosmos SDK's [`Coin`](https://github.com/cosmos/cosmos-sdk/blob/c41ac20c6cd6cc2b65afa6af587bf39048b2f251/types/coin.pb.go#L31-L34). Of course this is no coincidence. With this knowledge, instantiate a new name service with a `purchase_price` and `transfer_price`:
 
 ```sh
 $ wasmd tx wasm instantiate $CODE_ID '{"purchase_price":{"amount":"100","denom":"upebble"},"transfer_price":{"amount":"999","denom":"upebble"}}' --from wallet --node $RPC --chain-id pebblenet-1 --gas-prices 0.001upebble --gas auto --gas-adjustment 1.3  --label "CosmWasm tutorial name service"
@@ -323,7 +323,7 @@ Check again with a `resolve_record` query to confirm that the transfer was succe
 
 CosmWasm offers good [documentation](https://docs.cosmwasm.com/docs/). This section is a summary of the [Getting Started section](https://docs.cosmwasm.com/docs/getting-started/intro/). Store the `env` script from [here]https://docs.cosmwasm.com/docs/1.0/getting-started/setting-env#setup-go-cli) in case you wish to test on your local node. Also have a look at the [contract semantics](https://docs.cosmwasm.com/docs/SEMANTICS/).
 
-You can find more information in the [CosmWasm Developer Academy](https://docs.cosmwasm.com/dev-academy/intro) and modular tutorials in the [Wasm tutorials](https://docs.cosmwasm.com/tutorials/hijack-escrow/intro). In addition, you can find various hands-on videos on the [workshops](https://docs.cosmwasm.com/tutorials/videos-workshops) page.
+You can find more information in the [CosmWasm Developer Academy](https://docs.cosmwasm.com/dev-academy/intro) and modular tutorials in the [Wasm tutorials](https://docs.cosmwasm.com/tutorials/hijack-escrow/intro). You can also find various hands-on videos on the [workshops](https://docs.cosmwasm.com/tutorials/videos-workshops) page.
 
 </HighlightBox>
 

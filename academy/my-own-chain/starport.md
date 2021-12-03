@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-It is time to take a closer look at Starport. Before diving into the details of how Starport helps you scaffold the basics for your application blockchain make sure to understand the main concepts presented in the following sections:
+Before diving into the details of how Starport helps you scaffold the basics for your application blockchain make sure to understand the main concepts presented in the following sections:
 
 * [A Blockchain App Architecture](../main-concepts/architecture.md)
 * [Accounts](../main-concepts/accounts.md)
@@ -27,10 +27,8 @@ The Cosmos SDK provides the building blocks for a complete Tendermint blockchain
 
 Starport assists with scaffolding modules and integrating them with BaseApp. Starport is a command-line tool that writes code files and updates them when instructed to do so. If you come from an _on Rails_ world, the concept will look familiar to you.
 
-On top of that Starport will handle some compilation, run a local blockchain node, and help the developer in other respects.
+On top of that Starport will handle some compilation, run a local blockchain node, and help you with other tasks.
 
-
-Let’s look at a simple run of Starport.
 
 <YoutubePlayer videoId="pFAM6mkKoTA"/>
 
@@ -73,7 +71,7 @@ Starport is a tool for creating sovereign blockchains built with Cosmos SDK, the
 most popular modular blockchain framework. Starport offers everything you need to scaffold,
 test, build, and launch your blockchain.
 
-To get started, create a blockchain:
+To get started create a blockchain:
 
 starport scaffold chain github.com/cosmonaut/mars
 
@@ -97,17 +95,10 @@ Flags:
 Use "starport [command] --help" for more information about a command.
 ```
 
-<HighlightBox type="tip">
-
-An introductory tutorial is a great place to start your journey into the Cosmos ecosystem. Head on over to the _[Hello World](https://docs.starport.network/guide/hello.html)_ tutorial in the [Starport Developer Guide](https://docs.starport.com/).
-
-You can see the Hello-World response at [http://localhost:1317/cosmonaut/hello/hello/posts](http://localhost:1317/cosmonaut/hello/hello/posts) after following the _Hello World_ tutorial.
-
-</HighlightBox>
 
 ## Your chain
 
-Let's get started by scaffolding a basic chain called `checkers` that you will place under the GitHub path `alice` with:
+Start by scaffolding a basic chain called `checkers` that you will place under the GitHub path `alice` with:
 
 ```sh
 $ starport scaffold chain github.com/alice/checkers
@@ -137,7 +128,7 @@ If you look at the code that Starport generates, for instance in `./x/checkers/m
 
 **Caution:** Do not remove or replace any such lines in your code as they provide markers for Starport on where to add further code when instructed to do so. For the same reason, do not rename or move any file that contains such a line.
 
-Is this project already functional? Go to the `checkers` folder and run:
+Go to the `checkers` folder and run:
 
 ```sh
 $ cd checkers
@@ -334,7 +325,7 @@ async MsgCreatePost({ rootGetters }, { value }) {
 
 ## Next up
 
-You just created a fully working Cosmos SDK chain, one that forms the basis of the [following guided exercise](./stored-game.md).
+You just created a fully working Cosmos SDK chain, one that forms the basis of the [following exercise](./stored-game.md).
 
 <HighlightBox type="info">
 
@@ -342,6 +333,5 @@ You may remove the `MsgCreatePost` message as it is not part of the guided exerc
 
 ```sh
 $ git checkout -f && git clean -fd
-```
 
 </HighlightBox>

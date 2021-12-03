@@ -14,15 +14,13 @@ Before proceeding, make sure you have all you need:
 * You understand the concepts of [transactions](../main-concepts/transactions.md), [messages](../main-concepts/messages.md)), and [Protobuf](../main-concepts/protobuf.md).
 * You know how to [create a message](./create-message.md) with Starport, and code [its handling](./create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
 * Have Go installed.
-* The checkers blockchain with the previous too messages and their events:
-    * Either because you followed the [previous steps](./events.md).
-    * Or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/two-events).
+* The checkers blockchain codebase with the previous messages and their events. You can get there by following the [previous steps](./events.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/two-events).
 
 </HighlightBox>
 
-If anyone can create a game for any two other players, it is important to allow a player to reject a game. However, a player should not be allowed to reject a game once they have made their first move.
+If anyone can create a game for any two other players, it is important to allow a player to reject a game. A player should not be allowed to reject a game once they have made their first move.
 
-To reject a game, A player needs to provide the ID of the game that the player wants to reject. Call the field `idValue`. This should be sufficient as the signer of the message is implicitly the player.
+To reject a game, a player needs to provide the ID of the game that the player wants to reject. Call the field `idValue`. This should be sufficient as the signer of the message is implicitly the player.
 
 ## Working with Starport
 
@@ -47,7 +45,7 @@ func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (
 
 ## Additional information
 
-A new rule of the game should be that a player cannot reject a game once they begin to play. However, as of now, when loading a `StoredGame` from storage, you have no way of knowing whether a player already played or not. There are many ways to remediate this. Let's pick an effortless one, where you add a new field to the `StoredGame`. Let's call it `MoveCount`. So, in `proto/checkers/stored_game.proto`:
+A new rule of the game should be that a player cannot reject a game once they begin to play. As of now, when loading a `StoredGame` from storage, you have no way of knowing whether a player already played or not. Add a new field to the `StoredGame` called `MoveCount`. In `proto/checkers/stored_game.proto`:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/proto/checkers/stored_game.proto#L15]
 storedGame := types.StoredGame{
@@ -56,7 +54,7 @@ storedGame := types.StoredGame{
 }
 ```
 
-At this point, you may want to run to have Protobuf recompile the relevant Go files:
+Run Protobuf to recompile the relevant Go files:
 
 ```sh
 $ starport generate proto-go
@@ -71,7 +69,7 @@ storedGame := types.StoredGame{
 }
 ```
 
-Plus just before saving to the storage, in the handler when playing a move:
+Just before saving to the storage, in the handler when playing a move:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_play_move.go#L55]
 ...
@@ -84,7 +82,7 @@ With `MoveCount` counting properly, you are now ready to handle a rejection requ
 
 ## The reject handling
 
-As a convenience, and to follow the Cosmos SDK conventions, you declare the following new errors:
+To follow the Cosmos SDK conventions declare the following new errors:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/types/errors.go#L19-L20]
 ErrRedAlreadyPlayed   = sdkerrors.Register(ModuleName, 1108, "red player has already played")
@@ -101,7 +99,7 @@ const (
 )
 ```
 
-Now, in the message handler, the reject steps are:
+In the message handler the reject steps are:
 
 1. Fetch the relevant information:
 
@@ -112,7 +110,7 @@ Now, in the message handler, the reject steps are:
     }
     ```
 
-2. Is the player expected? And, did the player already play? Check with:
+2. Is the player expected? Did the player already play? Check with:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_reject_game.go#L21-L31]
     if strings.Compare(storedGame.Red, msg.Creator) == 0 {
@@ -159,12 +157,12 @@ You can confirm that your project at least compiles [with](https://docs.starport
 $ starport chain build
 ```
 
-That is all there is to it. Once again, a lot of the boilerplate is taken care of with Protobuf and Starport.
+
 
 ## Next up
 
-You are done with creating messages for your checkers blockchain, at least from the point of view of this exercise. It does not mean that you have covered all the game theoretic situations. In particular, a player may stop playing and never come back. How would you handle it? Have the other player, or anyone really, send a message to flag the game as dead? Why not. But what if nobody ever bothers? You would end up with a lot of ongoing-but-dead games.
+The next four sections cover forfeits and how games end. In the next section you create a [doubly-linked FIFO](./game-fifo.md). 
 
-That's where you can enforce a forfeit mechanism, independent from any player input. That's the object of the next four sections. Where you create a [doubly-linked FIFO](./game-fifo.md), add a [deadline](./game-deadline.md) and a [game winner](./game-winner.md) fields, before being able to finally [enforce the forfeit](./game-forfeit.md).
+Later you add a [deadline](./game-deadline.md) and a [game winner](./game-winner.md) fields, before being able to finally [enforce the forfeit](./game-forfeit.md).
 
-To engage in this journey, head to the [next section](./game-fifo.md). If instead you want to enable token wagers in your games, skip ahead to [wagers](./game-wager.md).
+If you want to enable token wagers in your games instead, skip ahead to [wagers](./game-wager.md).

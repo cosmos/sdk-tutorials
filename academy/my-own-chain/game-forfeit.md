@@ -13,11 +13,11 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [ABCI](../main-concepts/architecture.md).
 * Have Go installed.
-* The checkers blockchain with the elements necessary for forfeit. Either because you followed the [previous steps](./game-winner.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
+* The checkers blockchain codebase with the elements necessary for forfeit. You can get there by following the [previous steps](./game-winner.md) or checking out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
 
 </HighlightBox>
 
-In the [previous section](./game-winner.md), you prepared the ground to enforce the expiration of games, namely:
+In the [previous section](./game-winner.md) you prepared expiration of games:
 
 * A First-In-First-Out (FIFO) that always has old games at its head and freshly updated games at its tail.
 * A deadline field to guide the expiration.
@@ -27,7 +27,7 @@ In the [previous section](./game-winner.md), you prepared the ground to enforce 
 
 An expired game will expire in two different cases:
 
-1. It was never really played on, so it is removed quietly.
+1. It was never really played on so it is removed quietly.
 2. It was played on, making it a proper game, and forfeit is the outcome because a player failed to play in time.
 
 In the latter case, you want to emit a new event, which differentiates forfeiting a game from a win involving a move. Therefore you define new error constants:
@@ -50,7 +50,7 @@ func (am AppModule) EndBlock(_ sdk.Context, _ abci.RequestEndBlock) []abci.Valid
 }
 ```
 
-Starport left it empty. It is here that you add what you need to see done, right before the block gets sealed. To stay in the spirit of Starport, of one concern per file, create a brand new file named `x/checkers/keeper/end_block_server_game.go` to encapsulate the knowledge about game expiry. Leave your function, empty for now:
+Starport left it empty. It is here that you add what you need to see done, right before the block gets sealed. Create a brand new file named `x/checkers/keeper/end_block_server_game.go` to encapsulate the knowledge about game expiry. Leave your function empty for now:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L13]
 func (k Keeper) ForfeitExpiredGames(goCtx context.Context) {
@@ -58,7 +58,7 @@ func (k Keeper) ForfeitExpiredGames(goCtx context.Context) {
 }
 ```
 
-So that, back in `x/checkers/module.go`, you can update `EndBlock` with:
+In `x/checkers/module.go` you can update `EndBlock` with:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/module.go#L163-L166]
 func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
@@ -67,17 +67,17 @@ func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.Val
 }
 ```
 
-With this, you ensure that **if** your module's `EndBlock` function is called, the expired games will be handled. But, for the **whole application to call your module**, you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. Add yours at the end:
+With this you ensure that **if** your module's `EndBlock` function is called, the expired games will be handled. For the **whole application call your module** you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. Add yours at the end:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/app/app.go#L398]
 app.mm.SetOrderEndBlockers(crisistypes.ModuleName, govtypes.ModuleName, stakingtypes.ModuleName, checkersmoduletypes.ModuleName)
 ```
 
-With this wiring in place, your `ForfeitExpiredGames` function will be called at the end of each block. Time to have it do something useful.
+Your `ForfeitExpiredGames` function will now be called at the end of each block.
 
 ## Expire games handler
 
-With the callbacks in place, it is time to code the expiration properly. In `ForfeitExpiredGames`, it is _simply_ a matter of looping through the FIFO, starting from the head, and handling games that are expired. You can stop at the first on-going game, as all those that come after are also on-going, thanks to the careful updating of the FIFO.
+With the callbacks in place it is time to code the expiration properly. In `ForfeitExpiredGames`, it is _simply_ a matter of looping through the FIFO, starting from the head, and handling games that are expired. You can stop at the first active game as all those that come after are also active, thanks to the careful updating of the FIFO.
 
 1. Prepare useful information:
 
@@ -183,8 +183,7 @@ With the callbacks in place, it is time to code the expiration properly. In `For
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L72]
     k.SetNextGame(ctx, nextGame)
     ```
-
-And that's about it. It takes a few steps but again nothing out of the ordinary. Review once more the part above where you have to put callbacks in place, so that you remember it better. Starport created the `EndBlock` function, but it was not called from `app.go` by default.
+    
 
 <HighlightBox type="tip">
 
@@ -194,4 +193,4 @@ For an explanation as to why this setup is resistant to an attack from an unboun
 
 ## Next up
 
-With stale games taken care of, you are now safe in the knowledge that if and when games involve money, then money won't stay stuck by negligence. Money? Yes, that's what the [next section](./game-wager.md) introduces, via token wagers.
+The [next section](./game-wager.md) introduces token wagers.

@@ -13,13 +13,13 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [messages](../main-concepts/messages.md), [Protobuf](../main-concepts/protobuf.md), and [IBC](../main-concepts/ibc.md).
 * Have Go installed.
-* The checkers blockchain up to the _can play_ query. Either because you followed the [previous steps](./can-play.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
+* The checkers blockchain codebase up to the _can play_ query. You can get there by following the [previous steps](./can-play.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
 
 </HighlightBox>
 
-When you [introduced a wager](./game-wager.md), you made it possible for players to play a game and wager the base staking token of your blockchain application. What if your players want to play with other _currencies_? Fortunately, your blockchain can represent a token from any other blockchain connected to your chain by using the Inter-Blockchain Communication Protocol (IBC).
+When you [introduced a wager](./game-wager.md) you made it possible for players to play a game and wager the base staking token of your blockchain application. What if your players want to play with other _currencies_? Your blockchain can represent a token from any other blockchain connected to your chain by using the Inter-Blockchain Communication Protocol (IBC).
 
-In effect, you will be agnostic about the tokens that are represented and about who is taking care of the relayers. Your only concern is to enable the use of _foreign_ tokens.
+You will be agnostic about the tokens that are represented and about who is taking care of the relayers. Your only concern is to enable the use of _foreign_ tokens.
 
 ## New information
 
@@ -99,14 +99,7 @@ You have prepared the ground by placing this token denomination into the relevan
     )
     ```
 
-As you can see, the code updates to introduce these changes into your chain are not complex. The complexity is hidden in the IBC Protocol itself and the relayers.
-
-Congratulations! Your checkers blockchain is complete with the required features. Now, players can play checkers comfortably. All you have left to do is implement a draw mechanism, which requires both players to reach consensus that a draw has happened. This is left as an exercise.
 
 ## Next up
 
-With such a well-rounded checkers blockchain, you deploy and launch into production.
-
-What if, later, you want to introduce a leaderboard, i.e. a brand new feature, after the blockchain has been running successfully?
-
-Take a look at the [next section](./migration.md) to discover how to conduct chain upgrades, a.k.a. migrations.
+In the [next section](./migration.md) you will learn how to conduct chain upgrades through migrations.

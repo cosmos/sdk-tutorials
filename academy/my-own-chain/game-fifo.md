@@ -13,21 +13,21 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [ABCI](../main-concepts/architecture.md), [Protobuf](../main-concepts/protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
 * Have Go installed.
-* The checkers blockchain with the `MsgRejectGame` and its handling. Either because you followed the [previous steps](./reject-game.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
+* The checkers blockchain codebase with `MsgRejectGame` and its handling. You can get there by following the [previous steps](./reject-game.md) or checking out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
 
 </HighlightBox>
 
-In the [previous step](./reject-game.md), you added a way for players to reject a game. There are two ways for a game to advance through its lifecycle until its resolution, win or draw: _play_ and _reject_.
+In the [previous step](./reject-game.md) you added a way for players to reject a game. There are two ways for a game to advance through its lifecycle until its resolution, win or draw: _play_ and _reject_.
 
 ## The why
 
-There is a situation you have not taken into account yet: what if a player never shows up again? Should a game remain in limbo forever?
+What if a player never shows up again? Should a game remain in limbo forever?
 
 You eventually want to let players wager on the outcome of games especially if _value_ is tied up in games. You need to add a way for games to be forcibly resolved if a player stops responding.
 
 The simplest mechanism to expire a game is to use a **deadline**. If the deadline is reached, then the game is forcibly terminated and expires. The deadline is pushed further back every time a game is played.
 
-To enforce the termination, it is a good idea to use the **`EndBlock`** part of the ABCI protocol. The call `EndBlock` is triggered when all transactions of the block are delivered and gives you a chance to do some tidying up before the block is sealed. In your case, all games that have reached their deadline will be terminated.
+To enforce the termination it is a good idea to use the **`EndBlock`** part of the ABCI protocol. The call `EndBlock` is triggered when all transactions of the block are delivered and gives you a chance to do some tidying up before the block is sealed. In your case, all games that have reached their deadline will be terminated.
 
 How do you find all the games that reached their deadline? Maybe with a pseudo-code like:
 
@@ -35,7 +35,7 @@ How do you find all the games that reached their deadline? Maybe with a pseudo-c
 findAll(game => game.deadline < now)
 ```
 
-This approach is **expensive** in terms of computation. The `EndBlock` code should not have to pull up all games, potentially millions, out of the storage just to find the dozen that are relevant. In computer science jargon: doing a `findAll` costs [`O(n)`](https://en.wikipedia.org/wiki/Big_O_notation), where `n` is the total number of games.
+This approach is **expensive** in terms of computation. The `EndBlock` code should not have to pull up all games out of the storage just to find the dozen that are relevant. Doing a `findAll` costs [`O(n)`](https://en.wikipedia.org/wiki/Big_O_notation), where `n` is the total number of games.
 
 ## The how
 
@@ -58,7 +58,7 @@ Remember this only works if the expiration duration is the same for all games in
 
 How do you implement a FIFO from which you extract elements at random positions? Choose a doubly-linked list for that:
 
-1. You need to remember the game ID at the head, to pick expired games, and at the tail, to send back fresh games. The existing `NextGame` object is a good place for this as it is already an object and expandable. In terms of code, just add a bit to its Protobuf declaration:
+1. You need to remember the game ID at the head, to pick expired games, and at the tail, to send back fresh games. The existing `NextGame` object is a good place for this as it is already an object and expandable. Just add a bit to its Protobuf declaration:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/proto/checkers/next_game.proto#L11-L12]
     message NextGame {
@@ -68,7 +68,7 @@ How do you implement a FIFO from which you extract elements at random positions?
     }
     ```
 
-2. To make extraction possible, each game needs to know which other game takes place before it in the FIFO, and which after. The right place to store this double link information is `StoredGame`. Thus, you add them in the game's Protobuf declaration:
+2. To make extraction possible each game needs to know which other game takes place before it in the FIFO, and which after. The right place to store this double link information is `StoredGame`. Thus, you add them in the game's Protobuf declaration:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/proto/checkers/stored_game.proto#L16-L17]
     message StoredGame {
@@ -86,7 +86,7 @@ How do you implement a FIFO from which you extract elements at random positions?
     )
     ```
 
-4. Finally, do not forget to adjust the default genesis values, so that it has proper head and tail:
+4. Adjust the default genesis values, so that it has proper head and tail:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/types/genesis.go#L20-L21]
     func DefaultGenesis() *GenesisState {
@@ -101,7 +101,7 @@ How do you implement a FIFO from which you extract elements at random positions?
     }
     ```
 
-To have Starport and Protobuf recompile the files, you can use:
+To have Starport and Protobuf recompile the files:
 
 ```sh
 $ starport chain build
@@ -144,7 +144,7 @@ Now that the new fields are created, you need to update them accordingly to keep
     }
     ```
 
-    Note how the game passed as an argument is **not** saved in storage here, even if it was updated. Only its fields in memory are adjusted. On the other hand, the _before_ and _after_ games are saved in storage. It is advised to do a `SetStoredGame` after calling this function to avoid having a mix of saves and memory states. The same applies to `SetNextGame`.
+    The game passed as an argument is **not** saved in storage here, even if it was updated. Only its fields in memory are adjusted. The _before_ and _after_ games are saved in storage. It is advised to do a `SetStoredGame` after calling this function to avoid having a mix of saves and memory states. The same applies to `SetNextGame`.
 
 2. A function to send to the tail:
 
@@ -176,7 +176,6 @@ Now that the new fields are created, you need to update them accordingly to keep
     }
     ```
 
-Smells like a computer science class assignment, good thing you encapsulated it into its own file. Let's get back to doing some Cosmos SDK actions now.
 
 ## Use it
 
@@ -221,10 +220,8 @@ With these functions ready, it is time to use them in the message handlers.
     ...
     ```
 
-That's all there is to it when it comes to implementing this FIFO as doubly-linked list.
-
-You purely implemented a FIFO that is updated but never really used. If you stopped right there, that would be a waste of computing resources. You know that it is just a stepping stone to a full enforcement of game expiry.
+You implemented a FIFO that is updated but never really used.
 
 ## Next up
 
-However you cannot enforce it just yet. For that, you need to add an expiry date on the games. That's the goal of the [next section](./game-deadline.md).
+Now you need to add an expiry date on the games. That's the goal of the [next section](./game-deadline.md).
