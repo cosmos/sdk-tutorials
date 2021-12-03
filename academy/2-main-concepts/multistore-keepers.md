@@ -12,8 +12,8 @@ tag: deep-dive
 It is time to address multistore and keeper. Before you begin, take a look at the following sections:
 
 * [Transactions](./transactions.md)
-* [Messages](./messages.md))
-* [Modules](./modules.md))
+* [Messages](./messages.md)
+* [Modules](./modules.md)
 * [Protobuf](./protobuf.md)
 
 You can find a code example for your checkers blockchain at the end of the section to explore dealing with storage elements, message handling, and gas costs.

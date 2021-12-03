@@ -11,7 +11,7 @@ tag: deep-dive
 
 Ever wondered how an upgrade is done in the Cosmos SDK? Time to find out how migrations are conducted with the Cosmos SDK. Look at the following sections to better understand this section:
 
-* [Messages](./messages.md))
+* [Messages](./messages.md)
 * [Protobuf](./protobuf.md)
 
 </HighlightBox>

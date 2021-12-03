@@ -14,7 +14,7 @@ In this section, you will discover queries. They are one of two primary objects 
 * [A Blockchain App Architecture](./architecture.md)
 * [Accounts](./accounts.md)
 * [Transactions](./transactions.md)
-* [Modules](./modules.md))
+* [Modules](./modules.md)
 
 </HighlightBox>
 

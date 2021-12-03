@@ -11,8 +11,8 @@ tag: deep-dive
 
 Let's take a closer look at Protobuf. Before diving into the section a look at the following sections is recommended:
 
-* [Messages](./messages.md))
-* [Modules](./modules.md))
+* [Messages](./messages.md)
+* [Modules](./modules.md)
 
 You can find a code example for your checkers blockchain at the end of the section to dive further into Protobuf and message creation.
 

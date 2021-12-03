@@ -12,7 +12,7 @@ tag: deep-dive
 Discover how multi-chain smart contracts become possible with CosmWasm. The following sections are recommended as a preparation:
 
 * [Transactions](../2-main-concepts/transactions.md)
-* [Messages](../2-main-concepts/messages.md))
+* [Messages](../2-main-concepts/messages.md)
 * [Queries](../2-main-concepts/queries.md)
 
 </HighlightBox>

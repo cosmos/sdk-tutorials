@@ -13,8 +13,8 @@ Before looking at `BaseApp`, make sure to read the previous sections:
 
 * [A Blockchain App Architecture](./architecture.md)
 * [Transactions](./transactions.md)
-* [Messages](./messages.md))
-* [Modules](./modules.md))
+* [Messages](./messages.md)
+* [Modules](./modules.md)
 * [Multistora and Keepers](./multistore-keepers.md)
 
 </HighlightBox>

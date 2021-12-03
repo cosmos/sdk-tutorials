@@ -12,8 +12,8 @@ tag: deep-dive
 It is time to look at context in the Cosmos SDK. It is recommended to look at the following sections to better understand context:
 
 * [Transactions](./transactions.md)
-* [Messages](./messages.md))
-* [Modules](./modules.md))
+* [Messages](./messages.md)
+* [Modules](./modules.md)
 * [BaseApp](./base-app.md)
 * [Queries](./queries.md)
 * [Events](./events.md)

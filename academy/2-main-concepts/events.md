@@ -12,8 +12,8 @@ tag: deep-dive
 Let's dedicate some time to events in the Cosmos SDK. You should understand the concepts covered in the following sections before diving into events:
 
 * [Transactions](./transactions.md)
-* [Messages](./messages.md))
-* [Modules](./modules.md))
+* [Messages](./messages.md)
+* [Modules](./modules.md)
 * [Protobuf](./protobuf.md)
 
 You can find some a code examples at the end of this section in which events are implemented in the checkers blockchain.
