@@ -13,7 +13,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [transactions](../main-concepts/transactions.md) and [messages](../main-concepts/messages.md)) and [Protobuf](../main-concepts/protobuf.md).
 * Have Go installed.
-* The checkers blockchain scaffold with the `StoredGame` and its helpers. Either because you followed the [previous steps](./stored-game.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/full-game-object).
+* The checkers blockchain scaffold with the `StoredGame` and its helpers. Either because you followed the [previous steps](./stored-game.md) or because you checked out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/full-game-object).
 
 </HighlightBox>
 
@@ -22,7 +22,7 @@ Right now:
 * Your game objects have been defined in storage.
 * You prevented a simple CRUD to set the objects straight from transactions.
 
-So now you need a message to instruct the checkers blockchain to create a game. This message needs to:
+Now you need a message to instruct the checkers blockchain to create a game. This message needs to:
 
 * Not specify the creator: this is implicit because it shall be the signer of the message.
 * Not specify the ID of the game because the system uses an incrementing counter. On the other hand, the server needs to return the newly created ID value since the eventual value cannot be known before the transaction is included in a block and the state computed. Call this `idValue`.
@@ -72,7 +72,7 @@ type MsgCreateGameResponse struct {
 }
 ```
 
-Plus the boilerplate to serialize the pair, which are files named `*.pb.go`. **Caution:** you should not edit these files.
+Files were generated to serialize the pair which are named `*.pb.go`. **Caution:** you should not edit these files.
 
 Starport also registered `MsgCreateGame` as a concrete message type with the two (de-)serialization engines:
 
@@ -113,7 +113,7 @@ This code is created only once. You can modify it as you see fit.
 
 Starport also adds a new function to your gRPC interface that receives all transaction messages for the module because the message is meant to be sent and received. The interface is called `service Msg` and is declared inside `proto/checkers/tx.proto`.
 
-Starport creates this [`tx.proto`](https://github.com/cosmos/b9-checkers-academy-draft/blob/41ac3c6ef4b2deb996e54f18f597b24fafbf02e1/proto/checkers/tx.proto) file at the beginning when you scaffold your project's module. This is Starport's modus operandi: Starport separates different concerns into different files so that it knows where to add elements according to instructions received. Starport adds a function to the empty `service Msg` with your instruction.
+Starport creates this [`tx.proto`](https://github.com/cosmos/b9-checkers-academy-draft/blob/41ac3c6ef4b2deb996e54f18f597b24fafbf02e1/proto/checkers/tx.proto) file at the beginning when you scaffold your project's module. Starport separates different concerns into different files so that it knows where to add elements according to instructions received. Starport adds a function to the empty `service Msg` with your instruction.
 
 The new function receives this `MsgCreateGame`, namely:
 
@@ -123,11 +123,11 @@ service Msg {
 }
 ```
 
-As an interface, it does not describe what should happen when called though. What Starport does with the help of Protobuf is compile the interface and create a default Go implementation.
+As an interface it does not describe what should happen when called. What Starport does with the help of Protobuf is compile the interface and create a default Go implementation.
 
 ## Next up
 
-Starport separates concerns into different files. The most relevant file for you at this point is `x/checkers/keeper/msg_server_create_game.go`, which is created once. You need to code in the creation of the game proper in this file:
+Starport separates concerns into different files. The most relevant file for you at this point is `x/checkers/keeper/msg_server_create_game.go` which is created once. You need to code in the creation of the game proper in this file:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/keeper/msg_server_create_game.go#L10-L17]
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
