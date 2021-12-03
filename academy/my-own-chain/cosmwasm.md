@@ -23,7 +23,7 @@ Discover how multi-chain smart contracts become possible with CosmWasm. The foll
 
 The actor model is a design pattern for reliable, distributed systems. It is the pattern underlying CosmWasm smart contracts.
 
-Each actor has access to its own internal state, and can only message other actors through a so-called dispatcher, which maintains the state and maps addresses to code and storage.
+Each actor has access to its own internal state and can only message other actors through a so-called dispatcher, which maintains the state and maps addresses to code and storage.
 
 Want to read more on the actor model? Check out [the CosmWasm documentation on the Actor Model for Contract Calls](https://docs.cosmwasm.com/docs/0.16/architecture/actor).
 
