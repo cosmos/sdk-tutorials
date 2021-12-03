@@ -106,7 +106,7 @@ $ wasmd keys show wallet --address
 wasm1jj7gzazxvgy56rj8kersuc44ehvep0uey85jdn
 ```
 
-That's your address. How many tokens do you have?
+That's your address, query your token balance:
 
 ```sh
 wasmd query bank balances $(wasmd keys show wallet --address) --node $RPC
@@ -131,7 +131,7 @@ $ curl -X POST --header "Content-Type: application/json" --data "$JSON" https://
 ok
 ```
 
-So what's your balance afterward?
+Query your balance again:
 
 ```sh
 $ wasmd query bank balances $(wasmd keys show wallet --address) --node $RPC
@@ -141,7 +141,7 @@ balances:
 pagination: {}
 ```
 
-Nice. Do the same for `wallet2`.
+Repeat the same for `wallet2`.
 
 ## Compile a smart contract
 
@@ -158,14 +158,14 @@ Compiling cw-nameservice v0.11.0 (/Users/me/cw-contracts/contracts/nameservice)
 
 In this last command, `wasm` is [an alias](https://github.com/InterWasm/cw-contracts/blob/ac4c2b9/contracts/nameservice/.cargo/config#L2) for `wasm build --release --target wasm32-unknown-unknown`.
 
-You now have a compiled smart contract on file. Remember that, as is generally the case for developing on blockchain, you want to maintain your smart contract binary as small as possible. Rust compiled it in a standard way. Check the size of your build with:
+You now have a compiled smart contract on file. You want to maintain your smart contract binary as small as possible and Rust compiled with default settings. Check the size of your build with:
 
 ```sh
 $ ls -lh target/wasm32-unknown-unknown/release/cw_nameservice.wasm
 -rwxr-xr-x 2 me staff 1.7M target/wasm32-unknown-unknown/release/cw_nameservice.wasm
 ```
 
-Ouch. Fortunately, if you so choose, you can optimize the code with a [Docker](https://www.docker.com/) container based on an [image provided by CosmWasm](https://hub.docker.com/r/cosmwasm/rust-optimizer/tags) for production purposes. Give it a try:
+You can optimize the code with a [Docker](https://www.docker.com/) container based on an [image provided by CosmWasm](https://hub.docker.com/r/cosmwasm/rust-optimizer/tags) for production purposes:
 
 ```sh
 $ docker run --rm -v "$(pwd)":/code \
@@ -174,14 +174,13 @@ $ docker run --rm -v "$(pwd)":/code \
   cosmwasm/rust-optimizer:0.12.3
 ```
 
-It takes some time and effort. In the end, compare the result:
+Compare the result:
 
 ```sh
 $ ls -alh artifacts/cw_nameservice.wasm
 -rw-r--r--  1 me staff 139K artifacts/cw_nameservice.wasm
 ```
 
-Impressive, a 12x compression.
 
 ## Upload a smart contract binary
 
@@ -203,7 +202,7 @@ The response returns a `code_id` value, which uniquely identifies your newly upl
 
 ## Instantiate your smart contract
 
-You only uploaded some code. You do not yet have any smart contract instance proper. Of course, you can instantiate a new smart contract that uses this code. Look at the aptly-named `instantiate` function in the name server contract:
+You only uploaded some code but do not yet have any smart contract instance. You can now instantiate a new smart contract that uses this code. Look at the aptly-named `instantiate` function in the name server contract:
 
 ```rust [https://github.com/InterWasm/cw-contracts/blob/2f545b7b8b8511bc0f92f2f3f838c236ba0d850c/contracts/nameservice/src/contract.rs#L14-L28]
 #[cfg_attr(not(feature = "library"), entry_point)]
@@ -303,7 +302,7 @@ The response gives you the wallet address owning the registered name, which shou
 
 ### Transfer a name
 
-Now, create another transaction to transfer the name to the second wallet `wallet2`. First prepare the query with the address of your other wallet:
+Now create another transaction to transfer the name to the second wallet `wallet2`. First prepare the query with the address of your other wallet:
 
 ```sh
 $ JSON=$(jq --null-input --arg addr $(wasmd keys show wallet2 --address) '{"transfer":{"name":"fred","to":$addr}}')
@@ -347,4 +346,4 @@ You might wonder: what's next? There are vast opportunities to continue your jou
 * Contribute to the Cosmos SDK, IBC, and Tendermint BFT consensus development.
 * Get support for enterprise solutions, which you are developing.
 
-Head right to the [What's Next section](../whats-next/index.md) to find useful information to launch your journey into the Cosmos universe.
+Head to the [What's Next section](../whats-next/index.md) to find useful information to launch your journey into the Cosmos universe.
