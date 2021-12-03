@@ -8,7 +8,7 @@
 .h5p-image-hotspots {
   color: #333;
 }
-.h5p-container > a {
+.h5p-text a, .h5p-text a:link, .h5p-text a:visited {
   color: #fff;
 }
 .h5p-image-hotspots .h5p-content-controls {
