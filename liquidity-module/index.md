@@ -11,7 +11,7 @@ The liquidity module, known on the Cosmos Hub as Gravity DEX, enables users to c
 
 ## Use Liquidity Pools to Trade Tokens
 
-When using your Cosmos SDK-based blockchains, you want to enable users to trade tokens. You can have multiple tokens on your blockchain or have tokens from external blockchains sent to your blocking using inter-blockchain communication protocol (IBC). 
+When using your Cosmos SDK-based blockchains, you want to enable users to trade tokens. You can have multiple tokens on your blockchain or have tokens from external blockchains sent to your blocking using inter-blockchain communication Protocol (IBC). 
 
 The liquidity module allows users to use pools to trade those tokens on your blockchain. Each pool represents a token pair and allows the user to swap from one token to the other token.
 

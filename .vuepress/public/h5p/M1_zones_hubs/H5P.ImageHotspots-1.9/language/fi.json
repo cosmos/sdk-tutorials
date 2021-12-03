@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "Taustakuva",
+      "description": "Taustakuva hotspoteille."
+    },
+    {
+      "label": "Vaihtoehtoinen teksti taustakuvalle.",
+      "description": "Jos selain ei pysty lataamaan tätä kuvaa tämä teksti näytetään sen sijasta. Myös ruudunlukijat lukevat tämän tiedon."
+    },
+    {
+      "label": "Hotspotin ikoni",
+      "options": [
+        {
+          "label": "Valmisikoni"
+        },
+        {
+          "label": "Lataa oma kuva"
+        }
+      ]
+    },
+    {
+      "label": "Valmisikoni",
+      "description": "Käyttää sovelluksen omia kuvakkeita.",
+      "options": [
+        {
+          "label": "Plus"
+        },
+        {
+          "label": "Miinus"
+        },
+        {
+          "label": "Kertolaskumerkki"
+        },
+        {
+          "label": "Oikein-merkki"
+        },
+        {
+          "label": "Kysymysmerkki"
+        },
+        {
+          "label": "Info-merkki"
+        },
+        {
+          "label": "Huutomerkki"
+        }
+      ]
+    },
+    {
+      "label": "Itseladattu kuva",
+      "description": "Käytä valitsemaasi kuvaa hotspot-ikonina.<br />75px kertaa 75px pikseliä on suositeltu koko"
+    },
+    {
+      "label": "Hotspot-ikonin väri",
+      "description": "Hotspot-kuvakkeiden väri"
+    },
+    {
+      "entity": "hotspot",
+      "label": "Hotspotit",
+      "field": {
+        "label": "Hotspot",
+        "fields": [
+          {
+            "label": "Hotspotin sijainti",
+            "description": "Klikkaa pienoiskuvaa määrittääksesi hotspot-kuvakkeen sijainti"
+          },
+          {
+            "label": "Peitä koko taustakuva",
+            "description": "Kun käyttäjä klikkaa hotspot-kuvaketta, avautuva pop up-ikkuna peittää koko taustakuvan."
+          },
+          {
+            "label": "Otsikko",
+            "description": "Ponnahdusikkunan otsikko (ei pakollinen)"
+          },
+          {
+            "label": "Ponnahdusikkunan sisältö",
+            "field": {
+              "label": "Sisältövaihtoehto"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Hotspot selite avustaville teknologioille",
+      "default": "Hotspot #num",
+      "description": "Auttaa esimerkiksi ruudunlukijasovellusta kertomaan mihin hotspot-ikoniin on navigoitu, jos sille ei ole erikseen määritetty otsikkoa joka luettaisiin ääneen. #num muuttujaa/tekstiä voidaan käyttää korvaamaan hotspot-kuvakkeen numero."
+    },
+    {
+      "label": "Sulje-painikkeen selite avustaville teknologioille",
+      "default": "Sulje"
+    }
+  ]
+}

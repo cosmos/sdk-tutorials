@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "Taustapilt",
+      "description": "Taustal näidatav pilt."
+    },
+    {
+      "label": "Taustapildi alternatiivtekst",
+      "description": "Seda teksti näidatakse siis, kui brauser ei saa pilti laadida. Samuti kasutatakse teksti assisteeriva tehnoloogia puhul."
+    },
+    {
+      "label": "Kuumkoha ikoon",
+      "options": [
+        {
+          "label": "Ettemääratletud ikoon"
+        },
+        {
+          "label": "Üles laetud pilt"
+        }
+      ]
+    },
+    {
+      "label": "Ettemääratletud pilt",
+      "description": "Kuumkoha jaoks kasutatakse ettemääratletud pilti.",
+      "options": [
+        {
+          "label": "Pluss"
+        },
+        {
+          "label": "Miinus"
+        },
+        {
+          "label": "Ajad"
+        },
+        {
+          "label": "Kontrolli"
+        },
+        {
+          "label": "Küsimus"
+        },
+        {
+          "label": "Info"
+        },
+        {
+          "label": "Hüüumärk"
+        }
+      ]
+    },
+    {
+      "label": "Üles laetud pilt",
+      "description": "Kasuta kuumkoha ikooniks oma pilti.<br />Pildi suuruseks on soovitatud 75px korda 75px."
+    },
+    {
+      "label": "Tulipunkti värv",
+      "description": "Tulipunktide värv"
+    },
+    {
+      "entity": "tulipunkt",
+      "label": "Tulipunktid",
+      "field": {
+        "label": "Tulipunkt",
+        "fields": [
+          {
+            "label": "Tulipunkti asukoht",
+            "description": "Tulipunkti asetamiseks kliki pisipildil"
+          },
+          {
+            "label": "Kata kogu taustapilt",
+            "description": "Kui kasutaja klikib tulipunktil, siis katab hüpikaken kogu taustapildi"
+          },
+          {
+            "label": "Päis",
+            "description": "Valikuline hüpikakna pealkiri"
+          },
+          {
+            "label": "Hüpikakna sisu",
+            "field": {
+              "label": "Sisuelement"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Tulipunkti silt assisteeriva tehnoloogia jaoks",
+      "default": "Tulipunkt #num",
+      "description": "Aitab teavitada, missugusele tulipunkti elemendile on navigeeritud, kui tulipunktile ei ole määratud pealkirja. #num saab kasutada tulipunkti arvu asendamiseks."
+    },
+    {
+      "label": "Sulge nupu silt assisteeriva tehnoloogia jaoks",
+      "default": "Sulge"
+    }
+  ]
+}

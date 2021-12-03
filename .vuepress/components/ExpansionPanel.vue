@@ -1,46 +1,51 @@
 <template lang="pug">
-    div.container
+    div.expansion__container
         div.inner-container
             button.styled-button(v-on:click="toggleContent")
-                img(:src="expandIcon" :class="this.expanded ? 'expanded' : 'collapsed'")
+                icon-arrow.icon(type="bottom" :class="this.expanded ? 'expanded' : 'collapsed'")
                 p {{this.title}}
-            div.content(v-show="expanded")
+            div.expansion__content(ref="content")
                 slot
 </template>
 
 <script>
-
-import expandIcon from '../public/expand-more.svg'
-
 export default {
     props: ['title'],
     data() {
         return {
-            expanded: false,
-            expandIcon
+            expanded: false
         };
     },
     methods: {
         toggleContent(event) {
-            this.expanded = !this.expanded;
+            this.$refs.content.classList.toggle('visible');
+            this.expanded = this.$refs.content.classList.contains('visible')
         }
     }
 }
 </script>
 
 <style lang="stylus" scoped>
-    .container {
-        background-color: rgba(176,180,207,0.09);
-        border-radius: 0.5rem;
+    .expansion__container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background: var(--background-color-secondary);
+        border-radius: 16px;
         margin-top: 3rem;
         margin-bottom: 3rem;
-        color: rgba(22,25,49,0.9);
-        font-size: 1rem;
-        line-height: 1.625rem;
+
+        &:hover:not(:active) {
+            transform translateY(-2px);
+            transition-duration 0.1s;
+        }
+    }
+    .inner-container {
+        width: 100%;
     }
     .styled-button {
-        padding: 1rem;
-        border-radius: 0.5rem;
+        padding: 24px;
+        border-radius: 16px;
         display: flex;
         align-items: center;
         width: 100%;
@@ -51,11 +56,8 @@ export default {
         background: none;
         outline: none;
         cursor: pointer;
-        font-weight: 600;
-
-        &:hover {
-            background-color #F1F2F7;
-        }
+        color: var(--color-text-strong);
+        font-weight: bold;
 
         .expanded {
             transform: rotate(180deg);
@@ -71,24 +73,37 @@ export default {
             transition: transform 0.2s linear;
         }
 
-        img {
-            width: auto;
+        .icon {
+            flex-shrink: 0;
+            display: block;
             margin-block: auto;
-            margin-right: 0.5rem;
+            margin-right: 15px;
+            width: 15px;
+            height: 15px;
         }
 
         p {
             margin: 0;
         }
     }
-    .content {
-        padding-inline: 1.5rem;
+    .expansion__content {
+        padding-inline: 24px;
         padding-bottom: 1rem;
-        color: black;
+        color: var(--color-text);
+        display: none;
 
         p {
             margin-top: 0.5rem;
             margin-bottom: 0;
         }
+    }
+    .visible {
+        display: block;
+    }
+    >>> .codeblock > .container {
+        background: var(--background-color-primary)
+    }
+    >>> .theme-code-group__nav {
+        background: var(--background-color-primary) !important
     }
 </style>

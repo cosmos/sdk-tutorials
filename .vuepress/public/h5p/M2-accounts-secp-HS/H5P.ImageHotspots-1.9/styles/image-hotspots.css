@@ -1,0 +1,310 @@
+@charset "UTF-8";
+@import url(https://rsms.me/inter/inter.css);
+
+.h5p-container {
+  font-family: Inter var;
+  color: white;
+}
+.h5p-image-hotspots {
+  color: #333;
+}
+.h5p-text a, .h5p-text a:link, .h5p-text a:visited {
+  color: #fff;
+}
+.h5p-image-hotspots .h5p-content-controls {
+  transition: opacity 0.6s;
+  opacity: 1;
+}
+.h5p-image-hotspots.showing-popup .h5p-content-controls {
+  /* Hide the fullscreen button when there's an popup open */
+  opacity: 0;
+  pointer-events: none; /* Make sure it isn't clickable */
+}
+.h5p-image-hotspots-container {
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  width: auto;
+  max-width: 100%;
+}
+.h5p-image-hotspots-background {
+  width: 100%;
+}
+.h5p-image-hotspot {
+  position: absolute;
+  font-size: 1.2em;
+  height: 1.1666667em;
+  width: 1.1666667em;
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+  line-height: 1;
+  border-radius: 0.7em;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+  background: #fff;
+  padding: 0;
+  border: 1px solid transparent;
+  margin: 0;
+  cursor: pointer;
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.3);
+}
+
+.h5p-image-hotspot.disabled {
+  display: none;
+}
+
+.h5p-image-hotspot:not(.legacy-positioning) {
+  transform: translate(-50%, -50%);
+}
+
+.h5p-image-hotspot.active {
+  z-index: 1;
+}
+
+.h5p-content:not(.using-mouse) .h5p-image-hotspot:focus {
+  outline: none;
+  border-color: #555;
+}
+
+.h5p-image-hotspot.active,
+.h5p-image-hotspot:focus,
+.not-an-ios-device .h5p-image-hotspot:hover {
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+.h5p-image-hotspot.active.legacy-positioning,
+.h5p-image-hotspot.legacy-positioning:focus,
+.not-an-ios-device .h5p-image-hotspot.legacy-positioning:hover {
+  transform: scale(1.5);
+}
+
+.h5p-image-hotspot:before {
+  font-family: H5PFontAwesome4;
+}
+.h5p-image-hotspot-plus:before {
+  content: '\f055';
+}
+.h5p-image-hotspot-minus:before {
+  content: '\f056';
+}
+.h5p-image-hotspot-times:before {
+  content: '\f057';
+}
+.h5p-image-hotspot-check:before {
+  content: '\f058';
+}
+.h5p-image-hotspot-question:before {
+  content: '\f059';
+}
+.h5p-image-hotspot-info:before {
+  content: '\f05a';
+}
+.h5p-image-hotspot-exclamation:before {
+  content: '\f06a';
+}
+.h5p-image-hotspot-popup {
+  position: absolute;
+  z-index: 3; /* On top of hotspots */
+  top: 0;
+  margin: 0;
+  padding: 0.3em;
+  height: 100%;
+  max-height: 100%;
+  background: #171717;
+  border-radius: 3px;
+  color: white;
+  box-sizing: border-box;
+  transition: left 0.3s ease-in-out;
+  cursor: auto;
+}
+.h5p-image-hotspot-popup.popup-overflowing,
+.h5p-image-hotspot-popup.fullscreen-popup {
+  border-radius: 0;
+}
+
+.h5p-image-hotspot-has-header .h5p-image-hotspot-popup-body {
+  padding-top: 0;
+}
+
+.h5p-image-hotspot-popup-pointer {
+  opacity: 0;
+  position: absolute;
+  -webkit-transition: left .3s ease-in-out;
+  transition: left .3s ease-in-out;
+  width: 0;
+  height: 0;
+  border-top: 0.6em solid transparent;
+  border-left: 0.6em solid rgba(255,255,255);
+  border-bottom: 0.6em solid transparent;
+  transform: translate(0, -50%);
+  transition: transform 0.3s, opacity 0.2s;
+  transition-delay: 0.1s;
+  cursor: auto;
+}
+.h5p-image-hotspot-popup-pointer.legacy-positioning  {
+  transform: none;
+}
+.h5p-image-hotspot-popup-pointer.visible {
+  opacity: 1;
+  z-index: 3;
+}
+.h5p-image-hotspot-popup-pointer.to-the-left {
+  transform: translate(-100%, -50%);
+}
+.h5p-image-hotspot-popup-pointer.to-the-left.legacy-positioning  {
+  transform: translate(-100%, 0);
+}
+.h5p-image-hotspot-popup-pointer.visible.to-the-left {
+  transform: translate(-1px, -50%);
+}
+.h5p-image-hotspot-popup-pointer.visible.to-the-left.legacy-positioning {
+  transform: translate(-1px, 0);
+}
+.h5p-image-hotspot-popup-pointer.visible.to-the-right {
+  border-right: 0.6em solid rgba(255,255,255);
+  border-left: none;
+  transform: translate(calc(-100% + 1px), -50%);
+}
+.h5p-image-hotspot-popup-pointer.visible.to-the-right.legacy-positioning {
+  transform: translate(calc(-100% + 1px), 0);
+}
+.h5p-image-hotspot-popup-header {
+  font-weight: bold;
+  margin: 0;
+  padding: 1em 1.75em 0 1em;
+  margin-bottom: 0.5em;
+  line-height: 1.1em;
+}
+.h5p-image-hotspot-popup-body {
+  padding: 1.333333em;
+  font-size: 0.75em;
+}
+
+.h5p-text.h5p-image-hotspot-popup-body {
+  bottom: 0;
+  overflow: auto;
+  word-wrap: break-word;
+  line-height: 1.1;
+}
+.fullscreen-popup .h5p-image-hotspot-popup-content {
+  height: 100%;
+  overflow: auto; 
+}
+.h5p-image-hotspot-popup-content {
+  overflow: auto;
+}
+/* Make the content fade out a bit if there's a scrollbar */
+.h5p-image-hotspot-popup-content.overflowing:after {
+  content: '';
+  width: calc(100% - 1em);
+  height: 10em;    
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: linear-gradient(transparent 2em, white);
+  opacity: 1;
+  transition: opacity 1s;
+  pointer-events: none; /* Make things behind it clickable */
+}
+/* When scroll has been detected, remove the content fade-out */
+.h5p-image-hotspot-popup-content.overflowing.has-scrolled:after {
+  opacity: 0;
+}
+
+.h5p-image-hotspot-popup-content::-webkit-scrollbar {
+  background-color: #ebebeb;
+  width: 0.25em;
+  border-radius: 5px;
+}
+.h5p-image-hotspot-popup-content::-webkit-scrollbar-thumb {
+  background-color: #737170;
+  border-radius: 5px;
+}
+.h5p-image-hotspot-popup-body > * {
+  line-height: 1.7;
+}
+
+.h5p-image-hotspot-popup:not(.fullscreen-popup) .h5p-image-hotspot-popup-body.h5p-video > div {
+  max-height: 18em;
+  min-height: 16em;
+}
+
+.h5p-image-hotspot-popup-body p {
+  margin: 0;
+}
+.h5p-image-hotspot-close-popup-button {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 2em;
+  height: 2em;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  font-size: 0.7em;
+  padding: 0.8em;
+  cursor: pointer;
+  background: #fff;
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIG92ZXJmbG93PSJ2aXNpYmxlIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMyI+PGc+PHBhdGggeG1sbnM6ZGVmYXVsdD0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Ik0xOSA2LjQxTDE3LjU5IDUgMTIgMTAuNTkgNi40MSA1IDUgNi40MSAxMC41OSAxMiA1IDE3LjU5IDYuNDEgMTkgMTIgMTMuNDEgMTcuNTkgMTkgMTkgMTcuNTkgMTMuNDEgMTJ6IiBzdHlsZT0iZmlsbDogcmdiKDAsIDAsIDApOyIgdmVjdG9yLWVmZmVjdD0ibm9uLXNjYWxpbmctc3Ryb2tlIi8+PC9nPjwvc3ZnPg==');
+  background-repeat: no-repeat;
+  background-size: 80% 80%;
+  background-position: center;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+.h5p-image-hotspot-close-popup-button:hover,
+.h5p-image-hotspot-close-popup-button:focus {
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.4);
+}
+.h5p-content:not(.using-mouse) .h5p-image-hotspot-close-popup-button:focus {
+  border-color: rgba(0,0,0,0.4);
+  outline: none;
+}
+
+.h5p-image-hotspots-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: background .5s ease-in-out;
+  transition: background .5s ease-in-out;
+  background: transparent;
+  z-index: 1;
+  cursor: pointer;
+}
+.h5p-image-hotspots-overlay.visible {
+  background: rgba(0,0,0,0.5);
+}
+.background-image-missing {
+  font-size: 1.5em;
+  text-align: center;
+  padding: 2em;
+}
+/* Fullscreen */
+.h5p-image-hotspots.h5p-fullscreen,
+.h5p-image-hotspots.h5p-semi-fullscreen {
+  background-color: #000;
+}
+/* Center vertically on fullscreen */
+.h5p-image-hotspots.h5p-fullscreen .h5p-image-hotspots-container,
+.h5p-image-hotspots.h5p-semi-fullscreen .h5p-image-hotspots-container {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+/* H5P.Image */
+.h5p-image.h5p-image-hotspot-popup-body-fraction {
+  display: inline-block;
+}
+
+/* H5P.Text */
+.h5p-text.h5p-image-hotspot-popup-body-fraction h2 {
+  font-size: 1.3em;
+}
+.h5p-text.h5p-image-hotspot-popup-body-fraction h3 {
+  font-size: 1.15em;
+}

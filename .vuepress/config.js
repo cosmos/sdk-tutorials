@@ -1,6 +1,8 @@
+const path = require('path');
+
 module.exports = {
   theme: "cosmos",
-  title: "Cosmos SDK Tutorials",
+  title: "Cosmos Developer Portal",
   head: [
     [
       "link",
@@ -55,104 +57,40 @@ module.exports = {
     },
     sidebar: {
       auto: false,
+      hideProducts: true,
       nav: [
         {
-          title: "Tutorials",
+          title: "Cosmos Academy",
           children: [
             {
-              title: "Install Starport",
-              path: "/starport/",
-              directory: true,
-            },
-            {
-              title: "Create a Blog Module",
-              path: "/blog/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Create a Voting Module",
-              path: "/voter/",
-              directory: true,
-            },
-            {
-              title: "Create a IBC Hello World module",
-              path: "/hello-world/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Scavenger Hunt",
-              path: "/scavenge/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Create an IBC Interchain Exchange module",
-              path: "/interchain-exchange/tutorial/",
-              directory: true,
-            },
-            {
-              title: "Connect to the cosmoshub-testnet",
-              path: "/connecting-to-testnet/",
-              directory: true,
-            },
-            {
-              title: "Understand IBC Denoms",
-              path: "understanding-ibc-denoms/",
-              directory: true,
-            },
-            {
-              title: "Understand the Liquidity Module",
-              path: "liquidity-module/",
-              directory: true,
-            },
-            {
-              title: "Deploy Your Blockchain on Digital Ocean",
-              path: "/publish-app-do/",
-              directory: true,
-            },
-          ],
-        },
-        {
-          title: "Migrate to Stargate",
-          children: [
-            {
-              title: "Proof of File Existence example",
-              path: "/launchpad-to-stargate/tutorial/",
-              directory: true,
-            },
-          ],
-        },
-        {
-          title: "B9lab content",
-          children: [
-            {
-              title: "Welcome (WIP)",
-              path: "/b9lab-content/1-welcome",
-              directory: true,
+              title: "Welcome",
+              path: "/academy/0-welcome/",
+              directory: false,
             },
             {
               title: "What is Cosmos?",
-              path: "/b9lab-content/2-what-is-cosmos",
+              path: "/academy/1-what-is-cosmos",
               directory: true,
             },
             {
               title: "Main Concepts",
-              path: "/b9lab-content/3-main-concepts",
+              path: "/academy/2-main-concepts",
               directory: true,
             },
             {
               title: "Running a Chain",
-              path: "/b9lab-content/4-running-a-chain",
+              path: "/academy/3-running-a-chain",
               directory: true,
             },
             {
               title: "My Own Cosmos Chain",
-              path: "/b9lab-content/5-my-own-chain",
+              path: "/academy/4-my-own-chain",
               directory: true,
             },
             {
               title: "What's Next?",
-              path: "/b9lab-content/6-whats-next",
-              directory: true,
+              path: "/academy/5-whats-next/",
+              directory: false,
             },
           ],
         },
@@ -180,11 +118,12 @@ module.exports = {
       },
     },
     footer: {
+      privacy: "https://v1.cosmos.network/privacy",
       question: {
         text:
           "Chat with Cosmos developers in <a href='https://discord.gg/cosmosnetwork' target='_blank'>Discord</a> or reach out on the <a href='https://forum.cosmos.network/c/cosmos-sdk' target='_blank'>SDK Developer Forum</a> to learn more.",
       },
-      logo: "/logo-bw.svg",
+      logo: "/brand.png",
       textLink: {
         text: "cosmos.network",
         url: "https://cosmos.network",
@@ -199,8 +138,12 @@ module.exports = {
           url: "https://twitter.com/cosmos",
         },
         {
+          service: "discord",
+          url: "https://discord.gg/cosmosnetwork"
+        },
+        {
           service: "linkedin",
-          url: "https://www.linkedin.com/company/tendermint/",
+          url: "https://www.linkedin.com/company/interchain-foundation/about/",
         },
         {
           service: "reddit",
@@ -213,10 +156,10 @@ module.exports = {
         {
           service: "youtube",
           url: "https://www.youtube.com/c/CosmosProject",
-        },
+        }
       ],
       smallprint:
-        "This website is maintained by Tendermint Inc. The contents and opinions of this website are those of Tendermint Inc.",
+        "† This website is maintained by the Interchain Foundation (ICF). The contents and opinions of this website are those of the ICF. The ICF provides links to cryptocurrency exchanges as a service to the public. The ICF does not warrant that the information provided by these websites is correct, complete, and up-to-date. The ICF is not responsible for their content and expressly rejects any liability for damages of any kind resulting from the use, reference to, or reliance on any information contained within these websites.",
       links: [
         {
           title: "Documentation",
@@ -235,7 +178,7 @@ module.exports = {
             },
             {
               title: "IBC Protocol",
-              url: "https://github.com/cosmos/ics/tree/master/ibc",
+              url: "https://ibc.cosmos.network/",
             },
           ],
         },
@@ -251,7 +194,7 @@ module.exports = {
               url: "https://forum.cosmos.network",
             },
             {
-              title: "Chat",
+              title: "Discord",
               url: "https://discord.gg/cosmosnetwork",
             },
           ],
@@ -267,19 +210,81 @@ module.exports = {
         },
       ],
     },
+    tags: {
+      'deep-dive': {
+        color: 'var(--color-secondary)',
+        label: 'Deep dive'
+      },
+      'fast-track': {
+        color: 'var(--color-primary)',
+        label: 'Fast track'
+      }
+    },
+    feedback: {
+      formId: "xyylrkbl",
+      captchaSiteKey: "6Ldu_iwdAAAAAF_kmEKihLNwB4qQNsGr9ox5t3Xd",
+    },
+    resources: [
+      {
+        title: "Cosmos SDK",
+        description: "A framework to build application-specific blockchains",
+        links: [{
+          name: "Documentation",
+          url: "https://docs.cosmos.network/"
+        }],
+        image: "/cosmos-sdk-icon.svg"
+      },
+      {
+        title: "Tendermint Core",
+        description: "Blockchain consensus engine and application interface",
+        links: [{
+          name: "Documentation",
+          url: "https://docs.tendermint.com/"
+        }],
+        image: "/tendermint-icon.svg"
+      },
+      {
+        title: "Cosmos Hub",
+        description: "First interconnected public blockchain on the Cosmos network",
+        links: [{
+          name: "Documentation",
+          url: "https://hub.cosmos.network/"
+        }],
+        image: "/generic-star-icon.svg"
+      },
+      {
+        title: "IBC",
+        description: "Industry standard protocol for inter-blockchain communication",
+        links: [{
+          name: "Documentation",
+          url: "https://ibc.cosmos.network/"
+        }],
+        image: "/ibc-icon.svg"
+      }
+    ]
   },
   plugins: [
     [
       "@vuepress/google-analytics",
       {
         ga: "UA-51029217-2",
-      },
+      }
     ],
+    [
+      "@vuepress/medium-zoom", 
+      {
+        selector: ".layout__main__content :not(a) > img:not(.no-zoom)",
+        options: {
+          background: "#000000"
+        }
+      }
+    ]
   ],
   patterns: [
     "hello-world/tutorial/*.md",
     "burner-chain/*.md",
     "README.md",
+    "home/*.md",
     "nameservice/tutorial/*.md",
     "scavenge/tutorial/*.md",
     "proof-of-file-existence/tutorial/*.md",
@@ -295,6 +300,13 @@ module.exports = {
     "starport/*.md",
     "understanding-ibc-denoms/*.md",
     "feature-test/*.md",
-    "b9lab-content/*/*.md"
+    "academy/*/*.md"
   ],
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@images': path.resolve(__dirname, 'public/resized-images')
+      }
+    }
+  }
 };

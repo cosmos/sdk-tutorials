@@ -1,7 +1,7 @@
 <template lang="pug">
     div
         div.h5p__wrapper(v-for="content in this.contents")
-            h5p(class="h5p-iframe" :src="content")
+            h5p(class="h5p-iframe" :src="content" ref="h5p")
 </template>
 
 <script>
@@ -17,25 +17,17 @@
         components: {
             h5p
         },
-        mounted() {
-            this.$nextTick(function () {
-                setTimeout(this.resizeH5P, 500);
-                setTimeout(this.resizeH5P, 1000);
-            })
-            window.addEventListener("resize", this.resizeH5P);
-        },
-        updated() {
-            this.resizeH5P();
-        },
-        destroyed() {
-            window.removeEventListener("resize", this.resizeH5P);
+        beforeMount() {
+            this.addResizerScript();
         },
         methods: {
-            resizeH5P() {
-                var elements = document.getElementsByClassName('h5p-iframe');
-                for (var element of elements) {
-                    if (element.contentWindow) element.style.height = element.contentWindow.document.documentElement.scrollHeight + 'px';
-                }
+            addResizerScript() {
+                if (document.getElementById('h5p-resizer') != null) return;
+                
+                let resizer = document.createElement('script');
+                resizer.setAttribute('id',"h5p-resizer");
+                resizer.setAttribute('src',"https://h5p.org/sites/all/modules/h5p/library/js/h5p-resizer.js");
+                document.head.appendChild(resizer);
             }
         }
     }
@@ -43,8 +35,8 @@
 
 <style lang="stylus" scoped>
     .h5p__wrapper {
-        background: #ffffff;
         width: 100%;
+        margin-inline: -8px;
     }
     .h5p-iframe {
         min-height: 200px;

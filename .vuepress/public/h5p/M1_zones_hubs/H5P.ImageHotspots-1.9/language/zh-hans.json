@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "背景图片",
+      "description": "背景要显示的图片。"
+    },
+    {
+      "label": "替代文字",
+      "description": "当浏览器无法载入图片时会显示的文字，也用来作为视障者的辅助工具。"
+    },
+    {
+      "label": "Hotspot Icon",
+      "options": [
+        {
+          "label": "Predefined icon"
+        },
+        {
+          "label": "Uploaded image"
+        }
+      ]
+    },
+    {
+      "label": "Predefined icon",
+      "description": "Using a predefined icon for the hotspot.",
+      "options": [
+        {
+          "label": "Plus"
+        },
+        {
+          "label": "Minus"
+        },
+        {
+          "label": "Times"
+        },
+        {
+          "label": "Check"
+        },
+        {
+          "label": "Question"
+        },
+        {
+          "label": "Info"
+        },
+        {
+          "label": "Exclamation"
+        }
+      ]
+    },
+    {
+      "label": "Uploaded image",
+      "description": "Use your own image for the hotspot icon.<br />75px by 75px is recommended for your image."
+    },
+    {
+      "label": "热点颜色",
+      "description": "热点要显示的颜色。"
+    },
+    {
+      "entity": "热点",
+      "label": "所有热点",
+      "field": {
+        "label": "热点",
+        "fields": [
+          {
+            "label": "热点位置",
+            "description": "在缩图上点击以放置热贴。"
+          },
+          {
+            "label": "弹出视窗布满整个背景图片",
+            "description": "当用户点击热点时，弹出的视窗会与背景图片的尺寸一致。"
+          },
+          {
+            "label": "弹出视窗标题文字",
+            "description": "弹出视窗上显示的标题。"
+          },
+          {
+            "label": "弹出视窗内文文字",
+            "field": {
+              "label": "项目"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "热点辅助说明",
+      "default": "热点 #num",
+      "description": "如果热点没有设定标题，这可以用来帮助说明热点。#num 参数为热点的自动编号。"
+    },
+    {
+      "label": "视窗关闭辅助文字",
+      "default": "关闭"
+    }
+  ]
+}
