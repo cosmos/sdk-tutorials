@@ -19,7 +19,7 @@ CosmJS provides a TypeScript library for the Cosmos SDK. Reading the following s
 
 </HighlightBox>
 
-[CosmJS](https://github.com/cosmos/cosmjs) is a library created to _talk_ to the Cosmos SDK. It is a [powerful tool](https://github.com/cosmos/cosmjs/wiki/What-can-CosmJS-do-for-me%3F), which can be used to create wallets, explorers, IBC relayers, and other decentralized applications (dApps). It is written in TypeScript and therefore can be client or server side.
+[CosmJS](https://github.com/cosmos/cosmjs) is a library created to talk to the Cosmos SDK. It is a [powerful tool](https://github.com/cosmos/cosmjs/wiki/What-can-CosmJS-do-for-me%3F), which can be used to create wallets, explorers, IBC relayers, and other decentralized applications (dApps). It is written in TypeScript and can therefore be client or server side.
 
 ## Your chain
 
@@ -33,7 +33,7 @@ $ starport scaffold message createPost title body
 
 ## Your module in the UI
 
-Starport also created UI-side elements to facilitate integration. For instance, have a look at one:
+Starport also created UI-side elements to facilitate integration, for example:
 
 <CodeGroup>
 
@@ -136,7 +136,7 @@ export { txClient, queryClient, };
 
 In this file your module's client-side services are defined.
 
-Let's review the actions taking place here:
+What does that code do?
 
 1. It starts by importing `@cosmjs/stargate`, which is the client library for Cosmos SDK 0.40, and the following versions named Stargate.
 2. Then it imports `@cosmjs/proto-signing` which encapsulates knowledge on how to sign `Msg` objects created with Protobuf. Lower down, it adds your `MsgCreatePost` type to the registry in this case.
@@ -147,7 +147,7 @@ Let's review the actions taking place here:
 
 ## Details on the client
 
-In the nested function above you can see that `@cosmjs/stargate` is used for signing and broadcasting. Have a closer look at its "inner part":
+In the nested function above you can see that `@cosmjs/stargate` is used for signing and broadcasting:
 
 <CodeGroup>
 
