@@ -13,9 +13,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [transactions](../main-concepts/transactions.md), [messages](../main-concepts/messages.md)), and [Protobuf](../main-concepts/protobuf.md).
 * Have Go installed.
-* The checkers blockchain with the `MsgCreateGame` and its handling. Either because you followed the [previous steps](./create-handling.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler).
-
-To see in detail what Starport creates refer back to [Creating the Game Message](./create-message.md). To play a game it is sufficient to specify some aspects, which are different from this previous section.
+* The checkers blockchain codebase with `MsgCreateGame` and its handling. You can get there by following the [previous steps](./create-handling.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler).
 
 </HighlightBox>
 
@@ -27,7 +25,7 @@ To play a game a player only needs to specify:
 
 The player does not need to be explicitly added as a field in the message because the player **is** implicitly the signer of the message. Name the object `PlayMove`.
 
-Unlike when creating the game, you may want to return more than just a game ID. You might want to return:
+Unlike when creating the game, you want to return: 
 
 * The game ID again. Call this field `idValue`.
 * The captured piece, if any. Call the fields `capturedX` and `capturedY`.
@@ -178,6 +176,6 @@ That is all there is to it: good preparation and the use of Starport.
 
 ## Next up
 
-You are on a roll and two `sdk.Msg` are down. Before you add a third one to let a player [reject a game](./reject-game.md), it would be a good idea to add events to the existing message handlers for relevant information to surface even more elegantly. That is the object of the [next section](./events.md).
+Before you add a third Message to let a player [reject a game](./reject-game.md), add events to the existing message handlers for relevant information. That is the object of the [next section](./events.md).
 
 If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](./can-play.md).
