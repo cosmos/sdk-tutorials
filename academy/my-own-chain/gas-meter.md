@@ -13,7 +13,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of gas.
 * Have Go installed.
-* The checkers blockchain codebase with the game wager and its handling. You can get there by following the [previous steps](./game-wager.md) or checkin out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-wager).
+* The checkers blockchain codebase with the game wager and its handling. You can get there by following the [previous steps](./game-wager.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-wager).
 
 </HighlightBox>
 
