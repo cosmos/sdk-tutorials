@@ -60,7 +60,7 @@ Starport version:	v0.17.3
 
 If you have another version the exercise and its learnings are still valid. But you might run into compatibility issues if you clone code made with _this_ version of Starport, and try to continue the project with _your_ version of Starport.
 
-If you have to pick up a project that was created with a different version of Starport, learn more about [upgrading Starport here](https://docs.starport.com/migration/).
+If you have to pick up a project that was created with a different version of Starport, learn more about how to upgrade a project created with an older Starport version [here](https://docs.starport.com/migration/).
 
 </HighlightBox>
 
