@@ -8,6 +8,7 @@
     "url": "git+https://github.com/cosmos/sdk-tutorials.git"
   },
   "scripts": {
+    "preserve": "npm run optimize-assets",
     "serve": "vuepress dev --no-cache",
     "prebuild": "npm run optimize-assets",
     "build": "vuepress build --no-cache",
