@@ -12,7 +12,7 @@ tag: deep-dive
 Make sure you have all you need before proceeding:
 
 * Have Go installed.
-* The checkers blockchain with its `MsgCreateGame` created by Starport. Either because you followed the [previous steps](./create-message.md) or because you checked out [its outcome](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
+* The checkers blockchain codebase with `MsgCreateGame` created by Starport. You can get there by following the [previous steps](./create-message.md) checking out  [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
 
 </HighlightBox>
 
