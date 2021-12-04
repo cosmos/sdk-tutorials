@@ -10,7 +10,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     container:
-      image: node:14-alpine #etlify/build:xenial
+      image: node:14-alpine #netlify/build:xenial
     steps:
       - name: Prepare build container ⚙️
         run: |
