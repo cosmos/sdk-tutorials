@@ -17,6 +17,7 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
+          submodules: true
 
       - name: Install and Build 🔧
         run: |
