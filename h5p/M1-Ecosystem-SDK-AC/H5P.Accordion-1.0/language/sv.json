@@ -1,0 +1,36 @@
+{
+  "semantics": [
+    {
+      "label": "Paneler",
+      "entity": "panel",
+      "field": {
+        "label": "Innehåll",
+        "entity": "innehåll",
+        "fields": [
+          {
+            "label": "Titel"
+          },
+          {
+            "label": "Innehållstyp",
+            "entity": "innehåll"
+          }
+        ]
+      }
+    },
+    {
+      "label": "H-taggar för etiketter (påverkar inte storleken på etiketten)",
+      "description": "H-taggen som används för etiketter. Vanligtvis H2 men om denna hör hemma under en H2-rubrik så bör du använda H3. Påverkar inte storleken på etiketterna, används endast av semantiska skäl.",
+      "options": [
+        {
+          "label": "H2"
+        },
+        {
+          "label": "H3"
+        },
+        {
+          "label": "H4"
+        }
+      ]
+    }
+  ]
+}

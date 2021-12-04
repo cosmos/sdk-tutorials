@@ -1,0 +1,43 @@
+@import url(https://rsms.me/inter/inter.css);
+.h5p-container {
+  font-family: Inter var;
+  color: white;
+}
+.h5p-no-frame > .h5p-accordion {
+  border: 1px solid #eee;
+}
+.h5p-accordion .h5p-panel-title {
+  margin: 0;
+  padding: 0.8em 0.8em 0.8em 2.25em;
+  position: relative;
+  font-size: 1.25em;
+  text-decoration: none;
+  -webkit-transition: color 200ms ease 0s;
+  -moz-transition: color 200ms ease 0s;
+  transition: color 200ms ease 0s;
+  border-top: 1px solid #eeeeee;
+  cursor: pointer;
+}
+.h5p-accordion .h5p-panel-title:first-of-type {
+  border-top: 0;
+}
+.h5p-accordion .h5p-panel-title:before {
+  font-family: 'H5PFontAwesome4';
+  content: "\f105";
+  position: absolute;
+  left: 0.95em;
+  -webkit-transition: all 200ms ease 0s;
+  -moz-transition: all 200ms ease 0s;
+  transition: all 200ms ease 0s;
+}
+.h5p-accordion .h5p-panel-expanded:before {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.h5p-accordion .h5p-panel-content {
+  display: none;
+  padding: 0 1em;
+}
+.h5p-accordion .h5p-panel-content p {
+  margin-top: 0;
+}

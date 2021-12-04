@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "Imaxe de fondo",
+      "description": "Imaxe amosada como fondo."
+    },
+    {
+      "label": "Texto alternativo para a imaxe de fondo",
+      "description": "Amosarase este texto se o navegador non pode amosar a imaxe. Usado tamén polas tecnoloxías de asistencia."
+    },
+    {
+      "label": "Icona de punto chave",
+      "options": [
+        {
+          "label": "Icona predefinida"
+        },
+        {
+          "label": "Imaxe subida"
+        }
+      ]
+    },
+    {
+      "label": "Icona predefinida",
+      "description": "Usando unha icona predefinida para o punto chave.",
+      "options": [
+        {
+          "label": "Máis"
+        },
+        {
+          "label": "Menos"
+        },
+        {
+          "label": "Veces"
+        },
+        {
+          "label": "Comprobar"
+        },
+        {
+          "label": "Pregunta"
+        },
+        {
+          "label": "Información"
+        },
+        {
+          "label": "Exclamación"
+        }
+      ]
+    },
+    {
+      "label": "Imaxe subida",
+      "description": "Usa a túa propia imaxe como icona de punto chave.<br />Recoméndase un tamaño de 75px por 75px para a imaxe."
+    },
+    {
+      "label": "Cor do punto chave",
+      "description": "A cor dos puntos chave"
+    },
+    {
+      "entity": "punto chave",
+      "label": "Puntos chave",
+      "field": {
+        "label": "Punto chave",
+        "fields": [
+          {
+            "label": "Posición do punto chave",
+            "description": "Preme na imaxe en miniatura para colocar o punto chave"
+          },
+          {
+            "label": "Cubrir toda a imaxe de fondo",
+            "description": "Cando o usuario preme no punto chave, a pantalla emerxente cubrirá toda a imaxe de fondo"
+          },
+          {
+            "label": "Cabeceira",
+            "description": "Cabeceira opcional para a pantalla emerxente"
+          },
+          {
+            "label": "Contido da pantalla emerxente",
+            "field": {
+              "label": "Elemento de contido"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Etiqueta de punto chave para tecnoloxías de asistencia",
+      "default": "Punto chave #num",
+      "description": "Axudará a anunciar a que elemento se navegou se non se especificou unha cabeceira para ese punto chave. Pódese usar #num para substituir o número do punto chave."
+    },
+    {
+      "label": "Etiqueta do botón pechar para tecnoloxías de asistencia",
+      "default": "Pechar"
+    }
+  ]
+}

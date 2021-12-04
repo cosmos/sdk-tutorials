@@ -1,0 +1,24 @@
+.h5p-advanced-text ul,
+.h5p-advanced-text ol {
+  padding: 0;
+  margin: 1em 0;
+}
+.h5p-advanced-text ul > li,
+.h5p-advanced-text ol > li {
+  margin: 0 0 1em 1.5em;
+  padding: 0;
+}
+
+.h5p-advanced-text ul > li:last-child,
+.h5p-advanced-text ol > li:last-child {
+  margin-bottom: 0;
+}
+.h5p-advanced-text ul > li {
+  list-style-type: circle;
+}
+.h5p-advanced-text ol > li {
+  list-style-type: decimal;
+}
+.h5p-advanced-text.h5p-frame {
+  margin: 1em;
+}

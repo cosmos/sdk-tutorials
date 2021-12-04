@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "Imagen de fondo",
+      "description": "Imagen mostrada en el fondo."
+    },
+    {
+      "label": "Texto alternativo para imagen de fondo",
+      "description": "Si el navegador no puede cargar la imagen, este texto se mostrará en su lugar. También utilizado por las tecnologías de asistencia."
+    },
+    {
+      "label": "Ícono de hotspot",
+      "options": [
+        {
+          "label": "Ícono predefinido"
+        },
+        {
+          "label": "Imagen subida"
+        }
+      ]
+    },
+    {
+      "label": "Ícono predefinido",
+      "description": "Usando un ícono predefinido para el hotspot.",
+      "options": [
+        {
+          "label": "Más"
+        },
+        {
+          "label": "Menos"
+        },
+        {
+          "label": "Por"
+        },
+        {
+          "label": "Comprobar"
+        },
+        {
+          "label": "Pregunta"
+        },
+        {
+          "label": "Información"
+        },
+        {
+          "label": "Exclamación"
+        }
+      ]
+    },
+    {
+      "label": "Imagen subida",
+      "description": "Use su propia imagen para el ícono de hotspot.<br />75px por 75px es lo recomendado para su imagen."
+    },
+    {
+      "label": "Color del hotspot",
+      "description": "El color de los hotspots"
+    },
+    {
+      "entity": "punto caliente (hotspot)",
+      "label": "Puntos calientes (Hotspots)",
+      "field": {
+        "label": "Punto caliente (Hotspot)",
+        "fields": [
+          {
+            "label": "Posición del Hotspot",
+            "description": "Haga clic en la imagen en miniatura para colocar el hotspot"
+          },
+          {
+            "label": "Cubrir toda la imagen de fondo",
+            "description": "Cuando el usuario hace clic en el hotspot, la ventana emergente cubrirá toda la imagen de fondo"
+          },
+          {
+            "label": "Encabezado",
+            "description": "Encabezado opcional para la ventana emergente"
+          },
+          {
+            "label": "Contenido emergente",
+            "field": {
+              "label": "Elemento del Contenido"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Etiqueta de hotspot para tecnologías de asistencia",
+      "default": "Punto caliente (Hotspot) #num",
+      "description": "Ayudará a anunciar a qué elemento hotspot se ha navegado si no hay un encabezado especificado para un hotspot. #num se puede usar para reemplazar el número del hotspot."
+    },
+    {
+      "label": "Etiqueta de cierre de botón para tecnologías de asistencia",
+      "default": "Cerrar"
+    }
+  ]
+}
