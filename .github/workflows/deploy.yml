@@ -10,8 +10,12 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     container:
-      image: node:14 #etlify/build:xenial
+      image: node:14-alpine #etlify/build:xenial
     steps:
+      - name: Prepare build container ⚙️
+        run: |
+          apk add rsync git make
+
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
         with:
@@ -20,9 +24,7 @@ jobs:
           submodules: true
 
       - name: Install and Build 🔧
-        run: |
-          sudo apt install rsync
-          make build-website
+        run: make build-website
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.0
