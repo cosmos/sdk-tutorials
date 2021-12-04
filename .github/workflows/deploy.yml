@@ -14,8 +14,13 @@ jobs:
     steps:
       - name: Prepare build container ⚙️
         run: |
+          apt-key adv --recv-keys --keyserver keyserver.ubuntu.com A1715D88E1DF1F24
           apt update
-          apt install -y rsync
+          apt install -y rsync libpcre2-8-0
+          wget http://ppa.launchpad.net/git-core/ppa/ubuntu/pool/main/g/git/git-man_2.18.0-0ppa1~ubuntu17.10.1_all.deb -O /tmp/git-man
+          wget http://ppa.launchpad.net/git-core/ppa/ubuntu/pool/main/g/git/git_2.18.0-0ppa1~ubuntu17.10.1_amd64.deb -O /tmp/git
+          dpkg -i /tmp/git-man
+          dpkg -i /tmp/git
 
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
