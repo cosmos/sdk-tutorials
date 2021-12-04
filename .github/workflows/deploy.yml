@@ -10,7 +10,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     container:
-      image: tendermintdev/docker-website-deployment
+      image: node:14.5.0-alpine
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
