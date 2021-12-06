@@ -9,6 +9,11 @@
 					span {{intro.action.label}}
 			.home__content__intro__image(v-if="intro.image")
 				img(:src="intro.image")
+		.home__content__overview(v-if="$frontmatter.overview")
+			h2.home__content__overview__title {{$frontmatter.overview.title}}
+			.home__content__overview__content(v-if="$frontmatter.overview.items")
+				tm-faq.home__content__overview__content__item(v-for="item in $frontmatter.overview.items" :title="item.title" :description="item.description")
+
 		.modules(v-if="this.modules && this.modules[0].submodules && this.modules[0].submodules.length > 1")
 			h2 Course Modules
 			card-module(v-for="module in this.modules" :module="module" :startExpanded="!$frontmatter.main").modules__item
@@ -185,6 +190,22 @@
 							margin-left 5px
 							width 10px
 							height 10px
+
+			&__overview
+				margin-top 96px
+				display flex
+
+				&__title
+					width 50%
+
+				&__content
+					width 50%
+
+					&__item
+						&:first-child
+							padding-top 0px
+
+					
 	
 	@media screen and (max-width: 480px)
 		.home
@@ -204,6 +225,19 @@
 						width 100%
 						margin-inline calc(50% - 50vw)
 						margin-bottom 32px
+
+				&__overview
+					flex-direction column
+
+					&__title
+						width 100%
+
+					&__content
+						width 100%
+
+						&__item
+							&:first-child
+								padding-top 32px
 
 				&__get-started
 					flex-direction column
