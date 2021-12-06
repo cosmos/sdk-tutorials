@@ -69,7 +69,7 @@ There are different ways you can contribute to the Cosmos SDK and related reposi
   :large="true"
 />
 
-## Enterprise
+<!-- ## Enterprise
 
 Are you a developer or enterprise wanting to build your own app? Do you need support? 
 
@@ -81,4 +81,4 @@ No worries! Just get in touch with Cosmos enterprise support!
   <div class="mt-8">
     <a class="tm-button tm-button-external"><span>Talk to us</span></a>
   </div>
-</Card>
+</Card> -->
