@@ -21,14 +21,7 @@
 			h3.resources__title Developer resources
 			.resources
 				.resources__item(v-for="resource in $themeConfig.resources")
-					.resources__item__container
-						.resources__item__icon
-							img(:src="resource.image" :alt="resource.title")
-						h5.resources__item__title {{resource.title}}
-						.resources__item__description {{resource.description}}
-						.resources__item__links
-							a(v-for="link in resource.links" :href="link.url" target="_blank").tm-link.tm-link-external.tm-medium
-								span {{link.name}}
+					resource(:title="resource.title" :description="resource.description" :links="resource.links" :image="resource.image")
 </template>
 
 
@@ -90,47 +83,6 @@
 			@media screen and (max-width: 480px)
 				width 60vw
 				flex-shrink 0
-
-			&__container
-				padding 32px
-				display flex
-				flex-direction column
-				justify-content space-between
-				border-radius 16px
-				background var(--background-color-secondary)
-				height 100%
-
-			&__icon
-				margin-right 20px
-				margin-bottom 10px
-
-				img
-					width 50px
-					height 50px
-					margin 0
-					filter var(--img-filter)
-
-			&__title
-				margin-bottom 10px
-
-			&__description
-				margin-bottom 20px
-
-			&__links
-				display flex
-
-				&__item
-					margin-block auto
-					margin-right 20px
-					cursor pointer
-					font-weight 500
-					color var(--color-text-strong)
-					display flex
-
-					&__icon
-						margin-left 5px
-						width 10px
-						height 10px
 
 	.home
 		&__content
