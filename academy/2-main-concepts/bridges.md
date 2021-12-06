@@ -21,7 +21,7 @@ In this section, you will learn more about bridges in the Cosmos ecosystem. Make
 
 ## The Gravity Bridge
 
-The Gravity Bridge is an on-going project with the goal to facilitate the transfer of ERC-20 tokens to Cosmos-based blockchains and back. The Gravity Bridge allows for novel applications that combine the power of Cosmos with the value of assets from Ethereum. Developers can use a Cosmos chain for computation that is expensive or impossible to perform with a Ethereum smart contracts. Developers could accept Ethereum ERC-20 tokens as payment or build an entire Cosmos application around Ethereum tokens.
+The [Gravity Bridge](https://gravitybridge.althea.net) is an on-going project currently being built by Althea with the goal to facilitate the transfer of ERC-20 tokens to Cosmos-based blockchains and back. The Gravity Bridge allows for novel applications that combine the power of Cosmos with the value of assets from Ethereum. Developers can use a Cosmos chain for computation that is expensive or impossible to perform with a Ethereum smart contracts. Developers could accept Ethereum ERC-20 tokens as payment or build an entire Cosmos application around Ethereum tokens.
 
 ## How it works
 

@@ -58,9 +58,17 @@ Starport version:	v0.17.3
 
 <HighlightBox type="info">
 
-If you have another version the exercise and its learnings are still valid. But you might run into compatibility issues if you clone code made with _this_ version of Starport, and try to continue the project with _your_ version of Starport.
+This entire exercise was built using the Starport version noted above. Using a newer version could work, but you might run into compatibility issues if you clone any code made with _this_ version of Starport and then try to continue the project with _your_ version of Starport.
 
-If you have to pick up a project that was created with a different version of Starport, learn more about how to upgrade a project created with an older Starport version [here](https://docs.starport.com/migration/).
+To install this specific version of Starport, use:
+
+```sh
+curl https://get.starport.network/starport@v0.17.0! | bash
+```
+
+If you'd like to upgrade an existing project to the latest version of Starport, you can follow the [starport migration documentation]
+(https://docs.starport.com/migration/).
+
 
 </HighlightBox>
 
