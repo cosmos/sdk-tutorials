@@ -37,7 +37,7 @@
     "querystring": "^0.2.0",
     "sharp-cli": "^1.15.0",
     "@cosmos-ui/vue": "^0.35.0",
-    "@vuepress/plugin-google-analytics": "1.7.1",
+    "@vuepress/plugin-google-analytics": "1.8.2",
     "algoliasearch": "^4.2.0",
     "cheerio": "^1.0.0-rc.3",
     "clipboard-copy": "^3.1.0",
