@@ -115,7 +115,7 @@ func (k Keeper) CreateClaim(ctx sdk.Context, claim types.Claim) {
 
 In order to import types.Claim from the kepper, we have to edit our `handlerMsgCreateClaim.go` file in
 
-### `x/pofe/handerMsgCreateClaim.go`
+### `x/pofe/handlerMsgCreateClaim.go`
 
 ```go
 package pofe
