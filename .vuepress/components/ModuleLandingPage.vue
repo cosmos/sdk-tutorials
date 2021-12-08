@@ -9,6 +9,11 @@
 					span {{intro.action.label}}
 			.home__content__intro__image(v-if="intro.image")
 				img(:src="intro.image")
+		.home__content__overview(v-if="$frontmatter.overview")
+			h2.home__content__overview__title {{$frontmatter.overview.title}}
+			.home__content__overview__content(v-if="$frontmatter.overview.items")
+				tm-faq.home__content__overview__content__item(v-for="item in $frontmatter.overview.items" :title="item.title" :description="item.description")
+
 		.modules(v-if="this.modules && this.modules[0].submodules && this.modules[0].submodules.length > 1")
 			h2 Course Modules
 			card-module(v-for="module in this.modules" :module="module" :startExpanded="!$frontmatter.main").modules__item
@@ -16,14 +21,7 @@
 			h3.resources__title Developer resources
 			.resources
 				.resources__item(v-for="resource in $themeConfig.resources")
-					.resources__item__container
-						.resources__item__icon
-							img(:src="resource.image" :alt="resource.title")
-						h5.resources__item__title {{resource.title}}
-						.resources__item__description {{resource.description}}
-						.resources__item__links
-							a(v-for="link in resource.links" :href="link.url" target="_blank").tm-link.tm-link-external.tm-medium
-								span {{link.name}}
+					resource(:title="resource.title" :description="resource.description" :links="resource.links" :image="resource.image")
 </template>
 
 
@@ -86,47 +84,6 @@
 				width 60vw
 				flex-shrink 0
 
-			&__container
-				padding 32px
-				display flex
-				flex-direction column
-				justify-content space-between
-				border-radius 16px
-				background var(--background-color-secondary)
-				height 100%
-
-			&__icon
-				margin-right 20px
-				margin-bottom 10px
-
-				img
-					width 50px
-					height 50px
-					margin 0
-					filter var(--img-filter)
-
-			&__title
-				margin-bottom 10px
-
-			&__description
-				margin-bottom 20px
-
-			&__links
-				display flex
-
-				&__item
-					margin-block auto
-					margin-right 20px
-					cursor pointer
-					font-weight 500
-					color var(--color-text-strong)
-					display flex
-
-					&__icon
-						margin-left 5px
-						width 10px
-						height 10px
-
 	.home
 		&__content
 			max-width var(--content-max-width)
@@ -185,6 +142,22 @@
 							margin-left 5px
 							width 10px
 							height 10px
+
+			&__overview
+				margin-top 96px
+				display flex
+
+				&__title
+					width 50%
+
+				&__content
+					width 50%
+
+					&__item
+						&:first-child
+							padding-top 0px
+
+					
 	
 	@media screen and (max-width: 480px)
 		.home
@@ -204,6 +177,19 @@
 						width 100%
 						margin-inline calc(50% - 50vw)
 						margin-bottom 32px
+
+				&__overview
+					flex-direction column
+
+					&__title
+						width 100%
+
+					&__content
+						width 100%
+
+						&__item
+							&:first-child
+								padding-top 32px
 
 				&__get-started
 					flex-direction column
