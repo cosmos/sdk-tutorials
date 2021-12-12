@@ -177,7 +177,7 @@ func (k msgServer) RevealSolution(goCtx context.Context, msg *types.MsgRevealSol
   // check that the scavenger property contains a valid address
 	_, err := sdk.AccAddressFromBech32(scavenge.Scavenger)
   // return an error if a scavenge has already been solved
-	if err == nil {
+	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Scavenge has already been solved")
 	}
   // save the scavebger address to the scavenge
