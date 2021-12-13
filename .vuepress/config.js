@@ -261,7 +261,8 @@ module.exports = {
         }],
         image: "/ibc-icon.svg"
       }
-    ]
+    ],
+    imageBreakpoints: [200, 300, 500, 1000]
   },
   plugins: [
     [
