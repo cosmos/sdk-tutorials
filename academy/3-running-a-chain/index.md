@@ -8,7 +8,7 @@ order: 0
 intro:
   - overline: Run a chain for the first time
     title: Running a Chain
-    image: /resized-images/cosmos_dev_portal_module-04-lp.png
+    image: /cosmos_dev_portal_module-04-lp.png
     description: |
       Do you want to find out how to interact with Cosmos chains? Let’s take it step-by-step with simppp. <br/><br/>
       In the end, you will know how to run a node. <br/><br/>

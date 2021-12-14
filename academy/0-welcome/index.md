@@ -5,7 +5,7 @@ order: 0
 intro:
   - overline: Welcome!
     title: Cosmos Academy
-    image: /resized-images/graphics-sdk-course.png
+    image: /graphics-sdk-course.png
     description: |
       Cosmos is a network of interoperable blockchains built on BFT consensus.<br/><br/>
       The ever-expanding ecosystem provides an SDK, tokens, wallets, applications, and services. Discover the Cosmos SDK to develop application-specific blockchains.<br/><br/>

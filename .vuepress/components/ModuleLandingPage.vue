@@ -8,7 +8,7 @@
 				a.tm-button.tm-button-disclosure.mt-7(v-if="intro.action" :href="intro.action.url")
 					span {{intro.action.label}}
 			.home__content__intro__image(v-if="intro.image")
-				img(:src="intro.image")
+				tm-image(:src="intro.image")
 		.modules(v-if="this.modules && this.modules[0].submodules && this.modules[0].submodules.length > 1")
 			h2 Course Modules
 			card-module(v-for="module in this.modules" :module="module" :startExpanded="!$frontmatter.main").modules__item

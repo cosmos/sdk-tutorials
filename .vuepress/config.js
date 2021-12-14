@@ -302,12 +302,5 @@ module.exports = {
     "understanding-ibc-denoms/*.md",
     "feature-test/*.md",
     "academy/*/*.md"
-  ],
-  configureWebpack: {
-    resolve: {
-      alias: {
-        '@images': path.resolve(__dirname, 'public/resized-images')
-      }
-    }
-  }
+  ]
 };
