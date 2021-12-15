@@ -7,9 +7,9 @@ tag: deep-dive
 
 # Running a Node, API, and CLI
 
-Run a blockchain and discover how to interact with it.
+Run a blockchain and learn how to interact with it.
 
-There are different ways to run a node of a Cosmos blockchain. You will explore how to do so using [`simapp`](https://github.com/cosmos/cosmos-sdk/tree/master/simapp).
+There are different ways to run a node of a Cosmos blockchain. In this section you will learn how to do so using [`simapp`](https://github.com/cosmos/cosmos-sdk/tree/master/simapp).
 
 ## See what you are going to do
 
@@ -48,13 +48,13 @@ Now reset the database. Run this step not only when the database has already bee
 $ cd build
 $ ./simd unsafe-reset-all
 
-3:58PM INF Removed all blockchain history dir=/Users/b9lab/.simapp/data
-3:58PM INF Generated private validator file keyFile=/Users/b9lab/.simapp/config/priv_validator_key.json stateFile=/Users/b9lab/.simapp/data/priv_validator_state.json
+3:58PM INF Removed all blockchain history dir=/Users/academy/.simapp/data
+3:58PM INF Generated private validator file keyFile=/Users/academy/.simapp/config/priv_validator_key.json stateFile=/Users/academy/.simapp/data/priv_validator_state.json
 ```
 
 The command output lists all of the files set to their initial state with their locations.
 
-Time to initialize the application. The initialization creates the genesis block and an initial chain state:
+Next initialize the application. The initialization creates the genesis block and an initial chain state:
 
 ```sh
 $ ./simd init demo
@@ -62,8 +62,6 @@ $ ./simd init demo
 ```
 
 <ExpansionPanel title="A more readable version">
-
-Just in case you need a "prettier" version:
 
 ```json
 {
@@ -205,7 +203,7 @@ Just in case you need a "prettier" version:
 
 </ExpansionPanel>
 
-You can find your `chain_id` in your output, which in our build happens to be called `test-chain-rT4wZY`. Make a note of the one you have as you will need it later to determine the chain ID by passing it to `simapp` via the flag `--chain-id`.
+You can find your `chain_id` in your output which in our build happens to be called `test-chain-rT4wZY`. Make a note of the one you have as you will need it later to determine the chain ID by passing it to `simapp` via the flag `--chain-id`.
 
 You can inspect the initial configuration with:
 
@@ -217,25 +215,23 @@ $ cat ~/.simapp/config/genesis.json
 
 <HighlightBox type="tip">
 
-It helps to have the concepts very clear in mind when working hands-on with the Cosmos SDK. Need a refresher? Dive right into the [section on _Accounts_ in the _Main Concepts_ chapter](../2-main-concepts/accounts.md).
+To take a step back and revisit how accounts work, go to the [section on _Accounts_ in the _Main Concepts_ chapter](../2-main-concepts/accounts.md).
 
 </HighlightBox>
 
-You can also inspect your keys. These are held in the backend keyring, which by default is that of the operating system:
+You can also inspect your keys. These are held in the backend keyring which by default is that of the operating system:
 
 ```sh
 $ ./simd keys list
 []
 ```
 
-As you might have expected, you do not have any keys yet.
-
-Fix that and add a new key:
+First add a new key:
 
 ```sh
-$ ./simd keys add b9lab
+$ ./simd keys add academy
 
-- name: b9lab
+- name: academy
   type: local
   address: cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq
   pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A6TrsRO/OH91fAEFLohw7RwFB832NRsRWhQvE2t8cfLK"}'
@@ -248,7 +244,7 @@ It is the only way to recover your account if you ever forget your password.
 ivory uniform actual spot floor vessel monster rose yellow noise smile odor veteran human reason miss stadium phrase assault puzzle sentence approve coral apology
 ```
 
-You can see the mnemonic at the end of the above output. This sequence of words is a mnemonic that you can use to recover your public and private keys. In a production setting, the mnemonic must be stored in a reliable and confidential fashion as part of the key-management infrastructure.
+You can see the mnemonic at the end of the above output, used to recover public and private keys. In a production setting, the mnemonic must be stored securely as part of the key-management infrastructure.
 
 Confirm that the key has been added with:
 
@@ -259,20 +255,20 @@ $ ./simd keys list
 or with:
 
 ```sh
-$ ./simd keys show b9lab
+$ ./simd keys show academy
 ```
 
 ## Make yourself a proper validator
 
-As you know by now, a Cosmos SDK blockchain relies on identified validators to produce blocks. Initially there is no validator to generate blocks. You are in a catch-22 situation: your initialized and unstarted chain needs a genesis account and validator for bootstrapping purposes.
+As you know by now, a Cosmos SDK blockchain relies on identified validators to produce blocks. Initially there is no validator to generate blocks.
 
-Make your key, also known as an account, have an initial balance in the genesis file:
+Allocate the account identified by your key an initial balance in the genesis file:
 
 ```sh
-$ ./simd add-genesis-account b9lab 100000000stake
+$ ./simd add-genesis-account academy 100000000stake
 ```
 
-Appended here to the amount is the `stake` suffix. This `stake` represents the unit for the tokens in this chain as per the genesis file. Therefore, this command adds `100000000` `stake` to your account. If in doubt, you can confirm the proper suffix in the `genesis.json` file with:
+Appended here to the amount is the `stake` suffix. This `stake` represents the unit for the tokens in this chain as per the genesis file. This command adds `100000000` `stake` to your account. You can confirm the proper suffix in the `genesis.json` file with:
 
 ```sh
 $ grep -A 2 -B 2 denom ~/.simapp/config/genesis.json
@@ -284,12 +280,12 @@ You can also confirm in the genesis file itself that you have an initial balance
 grep -A 10 balances ~/.simapp/config/genesis.json
 ```
 
-With this initial balance and before you run your blockchain, you still need to escape the catch-22 and include your bootstrap transactions in the genesis file.
+With this initial balance and before you run your blockchain, you still need to include your bootstrap transactions in the genesis file.
 
-**Note:** In this scenario you must meet the 2/3 threshold for validation, so you must stake at least `70000000stake` of your `100000000stake` in the `b9lab` account you just created. Make sure to not use all your stake, so you still have tokens to pay for gas. Do not forget to use your own `--chain-id`.
+**Note:** In this scenario you must meet the 2/3 threshold for validation, so you must stake at least `70000000stake` of your `100000000stake` in the `academy` account you just created. Do not stake all your tokens, you still need tokens for gas. Do not forget to use your own `--chain-id`.
 
 ```sh
-$ ./simd gentx b9lab 70000000stake --chain-id test-chain-rT4wZY
+$ ./simd gentx academy 70000000stake --chain-id test-chain-rT4wZY
 Genesis transaction written to "/Users/muratoener/.simapp/config/gentx/gentx-cf6bff39bb84da39d214138ebba8bcba4ccb848d.json"
 ```
 
@@ -322,7 +318,7 @@ In the terminal window where you ran the command, you can see blocks being produ
 Open a new terminal in the same folder and check the balances:
 
 ```sh
-$ ./simd query bank balances $(./simd keys show b9lab -a)
+$ ./simd query bank balances $(./simd keys show academy -a)
 balances:
 - amount: "30000000"
   denom: stake
@@ -351,7 +347,7 @@ It is the only way to recover your account if you ever forget your password.
 gown all scissors page panel table hill acoustic junior run winter cement mass clump moon adjust glare never satoshi easily illness hip rib multiply
 ```
 
-Before sending any tokens confirm that the balance of the new account is absent:
+Before sending any tokens confirm that the balance of the new account is zero:
 
 ```sh
 $ ./simd query bank balances $(./simd keys show student -a)
@@ -361,10 +357,10 @@ pagination:
   total: "0"
 ```
 
-This account does not have a balance. The new account does not yet exist in your blockchain. Only the key pair has been generated and stored in your keyring. You need to send a transaction to change this new account's balance:
+This account does not have a balance and does not yet exist in your blockchain. Only the key pair has been generated and stored in your keyring. You need to send a transaction to change this new account's balance:
 
 ```sh
-$ ./simd tx bank send $(./simd keys show b9lab -a) $(./simd keys show student -a) 10stake --chain-id test-chain-rT4wZY
+$ ./simd tx bank send $(./simd keys show academy -a) $(./simd keys show student -a) 10stake --chain-id test-chain-rT4wZY
 
 {"body":{"messages":[{"@type":"/cosmos.bank.v1beta1.MsgSend","from_address":"cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq","to_address":"cosmos1m95dh3uc2s7fkn4w6v3ueux3sya96dhdudwa24","amount":[{"denom":"stake","amount":"10"}]}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[],"gas_limit":"200000","payer":"","granter":""},"tip":null},"signatures":[]}
 
@@ -383,7 +379,7 @@ tx: null
 txhash: D2CCFD91452F8C144BB1E7B54B9723EE3ED85925EE2C8AD843392721D072B895
 ```
 
-You are prompted to confirm the transaction before signing and broadcasting. This is a good sign.
+Confirm the transaction when prompted.
 
 The command output includes useful information such as `gas_used`.
 
@@ -446,7 +442,7 @@ rootCmd := &cobra.Command{
     Short: "simulation app",
 ```
 
-In addition, observe that Cobra is imported and [used for the CLI](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/simd/cmd/root.go#L144-L155) to redirect:
+In addition Cobra is imported and [used for the CLI](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/simd/cmd/root.go#L144-L155) to redirect:
 
 ```go
 rootCmd.AddCommand(
@@ -463,7 +459,7 @@ rootCmd.AddCommand(
 )
 ```
 
-Also, have a look at [`simapp/app.go`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/app.go), in which each module and key keeper will be imported. The first thing you will see is a considerable [list of modules](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/app.go#L33-L44) that are used by most Cosmos-sdk applications:
+Also have a look at [`simapp/app.go`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/app.go) in which each module and key keeper will be imported. The first thing you will see is a considerable [list of modules](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/app.go#L33-L44) that are used by most Cosmos-sdk applications:
 
 ```go
 ...
@@ -483,14 +479,14 @@ Also, have a look at [`simapp/app.go`](https://github.com/cosmos/cosmos-sdk/blob
 ...
 ```
 
-The modules in the `/cosmos-sdk/x/` folder are maintained by several organisations working on the Cosmos stack. To understand a module, the best way is to have a look at the respective `spec` folder. For example, have a look at the [`cosmos-sdk/x/bank/spec/01_state.md`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/x/bank/spec/01_state.md) to understand the state of the `bank` module which you used in this section.
+The modules in the `/cosmos-sdk/x/` folder are maintained by several organisations working on the Cosmos stack. The best way to understand a module is to have a look at the respective `spec` folder. See [`cosmos-sdk/x/bank/spec/01_state.md`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/x/bank/spec/01_state.md) as an example to understand the state of the `bank` module which you used in this section.
 
 <HighlightBox type="tip">
 
-Do you need a conceptual refresher about modules and their role in the Cosmos SDK? Take a look at the [Modules section in the previous chapter](../2-main-concepts/modules.md).
+Do you need a refresher about modules and their role in the Cosmos SDK? Take a look at the [Modules section in the previous chapter](../2-main-concepts/modules.md).
 
 </HighlightBox>
 
 ## Next up
 
-It is time to begin developing your own chain. You will begin working with Starport and look into CosmJS and CosmWasm in the [next chapter](../4-my-own-chain/index.md).
+Next you will start developing your own chain working with Starport, CosmJS and CosmWasm in the [next chapter](../4-my-own-chain/index.md).
