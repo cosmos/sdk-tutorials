@@ -9,7 +9,9 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Let's take a closer look at Protobuf. Before diving into the section a look at the following sections is recommended:
+Protobuf is a data serialization method. Developers use it to describe message formats. There is a lot of internal communication within a Cosmos app and Protobuf is central to how it's done. 
+
+Before diving into the section a look at the following sections is recommended:
 
 * [Messages](./messages.md)
 * [Modules](./modules.md)

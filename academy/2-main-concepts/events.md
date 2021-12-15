@@ -9,7 +9,9 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Let's dedicate some time to events in the Cosmos SDK. You should understand the concepts covered in the following sections before diving into events:
+Let's dedicate some time to events in the Cosmos SDK - what they are, how they are  useful and how applications should implement them. 
+
+You should understand the concepts covered in the following sections before diving into events:
 
 * [Transactions](./transactions.md)
 * [Messages](./messages.md)

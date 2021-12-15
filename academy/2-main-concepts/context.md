@@ -18,6 +18,8 @@ It is time to look at context in the Cosmos SDK. It is recommended to look at th
 * [Queries](./queries.md)
 * [Events](./events.md)
 
+Context is the setting in which transactions execute. It is the sum of all pertinent information at runtime. Find out what that means in detail and the important elements that, together, form the execution context. 
+
 </HighlightBox>
 
 Transactions execute in a context. The context includes information about the current state of the application, the block, and the transaction.
