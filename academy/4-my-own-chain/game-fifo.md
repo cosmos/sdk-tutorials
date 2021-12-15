@@ -17,7 +17,7 @@ Make sure you have all you need before proceeding:
 
 </HighlightBox>
 
-In the [previous step](./reject-game.md) you added a way for players to reject a game. There are two ways for a game to advance through its lifecycle until its resolution, win or draw: _play_ and _reject_.
+In the [previous step](./reject-game.md) you added a way for players to reject a game. There are two ways for a game to advance through its lifecycle until resolution, win or draw: _play_ and _reject_.
 
 ## The why
 
