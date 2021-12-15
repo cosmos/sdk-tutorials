@@ -23,7 +23,7 @@ If you have been running _v1_ of your checkers blockchain for a while, games hav
 * The leaderboard should list the players with the most wins up to a pre-determined number. For example, the leaderboard could only include the top 100 scores.
 * To avoid squatting and increase engagement, when equal in value, the most recent score takes precedence over an _older_ one so the player with the recent score is listed.
 
-When you introduce the leaderboard, you also have to decide what to do with your loyal players and their scores from your v1 checkers blockchain.
+When you introduce the leaderboard, you also have to decide what to do with your existing players and their scores from your v1 checkers blockchain.
 
 Start your v2's leaderboard as if all played past games had been counted for the leaderboard. You _only_ need to go through all played games, update the players with their tallies, and add a leaderboard including the information. This is possible because all past games and their outcomes are kept in the chain's state. A migration is a good method to tackle the initial leaderboard.
 
@@ -74,7 +74,7 @@ If you are feeling unsure about creating new data structures with Starport, take
 
 To give the new v2 information a data structure you need:
 
-1. A set of **stats per player**: it makes sense to save one `struct` for each player and map it by address. Recall that a game is stored at `StoredGame-value-123`, where `StoredGame-value-` is a constant prefix. In a similar fashion, Starport is going to create a new constant to use as the prefix for players:
+1. A set of **stats per player**: it makes sense to save one `struct` for each player and map it by address. Remember that a game is stored at `StoredGame-value-123`, where `StoredGame-value-` is a constant prefix. In a similar fashion, Starport is going to create a new constant to use as the prefix for players:
 
     ```sh
     $ starport scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint --module checkers --no-message
@@ -82,7 +82,7 @@ To give the new v2 information a data structure you need:
 
     <HighlightBox type="info">
 
-    The new `PlayerInfo-value-` prefix for players helps differentiate between the value for players and the one for games prefixed with `StoredGame-value-`. This way, you can safely have both `StoredGame-value-123` and `PlayerInfo-value-123` side by side in storage.
+    The new `PlayerInfo-value-` prefix for players helps differentiate between the value for players and the one for games prefixed with `StoredGame-value-`. This way you can safely have both `StoredGame-value-123` and `PlayerInfo-value-123` side by side in storage.
 
     </HighlightBox>
 
