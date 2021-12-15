@@ -129,7 +129,7 @@
 
 	.home
 		&__content
-			max-width var(--content-max-width)
+			max-width var(--content-max-width-big)
 			margin-inline auto
 
 			&__get-started

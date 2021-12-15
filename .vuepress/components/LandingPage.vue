@@ -67,7 +67,7 @@
 <style lang="stylus" scoped>
     .content
         margin-top var(--spacing-9)
-        max-width var(--content-max-width)
+        max-width var(--content-max-width-big)
         margin-inline auto
 
         &__intro
