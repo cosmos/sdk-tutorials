@@ -7,6 +7,12 @@ tag: deep-dive
 
 # Accounts
 
+<HighlightBox type="synopsis">
+
+Cryptographic signatures are indispensible components of blockchain technology. What are they, exactly, and how are they used in Cosmos applications? Public Key Cryptography has been used for decades. The math works. But what exactly does it do and how does it do it? What is meant by an "account" and how are the implemented in Cosmos?
+
+</HighlightBox>
+
 An account is a pair of keys:
 
 * **`PubKey`.** A public key

@@ -7,6 +7,12 @@ tag: deep-dive
 
 # Transactions
 
+<HighlightBox type="synopsis">
+
+Transactions are a core concept in blockchain technology. After all, nothing  happens except through a successful transaction. Discover the components and life-cycle of transactions in Cosmos blockchains - how they are created by Cosmos applications, broadcast, confirmed and processed. 
+
+</HighlightBox>
+
 Transactions are objects created by end-users to trigger state changes in applications. They are comprised of metadata that defines a context and one or more [`sdk.Msg`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L11-L33) that trigger state changes within a module through the module’s Protobuf message service.
 
 ## Transaction process from an end-user perspective

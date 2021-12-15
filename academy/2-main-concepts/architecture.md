@@ -5,9 +5,15 @@ description: ABCI, Tendermint, and state machines
 tag: fast-track
 ---
 
-# A Blockchain App Architecture
+# Architecture
 
-In this section, let's take a closer look at the application architecture underlying blockchains built with the Cosmos SDK. You will look into Tendermint, consensus in Cosmos, the Application Blockchain Interface, the Cosmos SDK, and state machines. This section will give you a better feeling for the application architecture in Cosmos.
+<HighlightBox type="synopsis">
+
+Cosmos is next-generation technology for decentralized applications. Discover how the Cosmos architecture decisively solves the most challenging and familiar challenges and limitations of blockchain platforms. 
+
+This module unfolds the architecture of a blockchain solution starting with the low-level concerns such as consensus and upgradeability. You will discover application concerns are layered over a highly-efficient, general-purpose foundation that is equally applicable to public, private and consortium blockchains. You will discover how to start creating a customized blockchain using the Cosmos SDK and how this is superior to previous attempts to create general-purpose application blockchains. 
+
+</HighlightBox>
 
 ## What is Tendermint?
 
