@@ -47,7 +47,7 @@
     "hotkeys-js": "3.8.1",
     "jsonp": "^0.2.1",
     "markdown-it": "^12.0.0",
-    "markdown-it-attrs": "^3.0.3",
+    "markdown-it-attrs": "^4.1.1",
     "prismjs": "^1.22.0",
     "pug": "^3.0.1",
     "pug-plain-loader": "^1.0.0",
