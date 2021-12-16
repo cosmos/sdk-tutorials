@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Bridges
 
-<HighlightBox type="info">
+<HighlightBox type="synopsis">
 
 In this section, you will learn more about bridges in the Cosmos ecosystem. Make sure to read the following sections as a preparation:
 
