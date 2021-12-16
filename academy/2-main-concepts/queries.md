@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Queries
 
-<HighlightBox type="synopsis">
+<HighlightBox type="info">
 
 In this section, you will discover queries. They are one of two primary objects handled by modules. Make sure to be all set up by reading the previous sections:
 
@@ -26,7 +26,7 @@ A query is a request for information made by end-users of an application through
 
 Queries do not require consensus to be processed as they do not trigger state transitions. Therefore, queries can be fully handled independently by a full node.
 
-<HighlightBox info=”info”>
+<HighlightBox type="info">
 
 Visit the [detailed Cosmos SDK documentation](https://docs.cosmos.network/master/basics/query-lifecycle.html) to get a clear overview of the query lifecycle and learn how a query is created, handled, and responded to.
 
