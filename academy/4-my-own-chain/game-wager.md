@@ -1,11 +1,11 @@
 ---
-title: The Game Wager Elements
+title: Playing with Money
 order: 15
 description: You let players play with money
 tag: deep-dive
 ---
 
-# The Game Wager Elements
+# Playing with Money
 
 <HighlightBox type="synopsis">
 
@@ -336,7 +336,6 @@ With the desired steps defined in the wager handling functions, it is time to in
         }
     }
     ```
-    
 
 ## Next up
 

@@ -1,11 +1,11 @@
 ---
-title: Can Play Query
+title: Helping Find a Correct Move
 order: 17
 description: Help players make good transactions
 tag: deep-dive
 ---
 
-# Can Play Query
+# Helping Find a Correct Move
 
 <HighlightBox type="synopsis">
 

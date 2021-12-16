@@ -1,11 +1,11 @@
 ---
-title: A Game Winner
+title: Recording the Game Winner
 order: 13
 description: You store the winner of a game
 tag: deep-dive
 ---
 
-# A Game Winner
+# Recording the Game Winner
 
 <HighlightBox type="synopsis">
 

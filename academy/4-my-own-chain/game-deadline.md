@@ -1,11 +1,11 @@
 ---
-title: A Game Deadline
+title: Keeping an Up-to-date Game Deadline
 order: 12
 description: You expire games
 tag: deep-dive
 ---
 
-# A Game Deadline
+# Keeping an Up-to-date Game Deadline
 
 <HighlightBox type="synopsis">
 

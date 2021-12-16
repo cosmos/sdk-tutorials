@@ -1,11 +1,11 @@
 ---
-title: IBC Foreign Token Wager
+title: Playing with IBC Cross-chain Money
 order: 18
 description: Let players wager any fungible token
 tag: deep-dive
 ---
 
-# IBC Foreign Token Wager
+# Playing with IBC Cross-chain Money
 
 <HighlightBox type="synopsis">
 

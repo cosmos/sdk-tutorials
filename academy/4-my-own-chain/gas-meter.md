@@ -1,11 +1,11 @@
 ---
-title: Gas Metering
+title: Metering Gas
 order: 16
 description: Reward validators proportional to their effort
 tag: deep-dive
 ---
 
-# Gas Metering
+# Metering Gas
 
 <HighlightBox type="synopsis">
 

@@ -1,11 +1,11 @@
 ---
-title: The Reject Game Elements
+title: Making Sure a Player Can Reject a Game
 order: 10
 description: You reject a game
 tag: deep-dive
 ---
 
-# The Reject Game Elements
+# Making Sure a Player Can Reject a Game
 
 <HighlightBox type="synopsis">
 
@@ -161,7 +161,7 @@ $ starport chain build
 
 ## Next up
 
-The next four sections cover forfeits and how games end. In the next section you create a [doubly-linked FIFO](./game-fifo.md). 
+The next four sections cover forfeits and how games end. In the next section you create a [doubly-linked FIFO](./game-fifo.md).
 
 Later you add a [deadline](./game-deadline.md) and a [game winner](./game-winner.md) fields, before being able to finally [enforce the forfeit](./game-forfeit.md).
 

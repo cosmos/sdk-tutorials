@@ -1,11 +1,11 @@
 ---
-title: The Play Game Elements
+title: Adding a Way to Make a Move
 order: 8
 description: You play a game
 tag: deep-dive
 ---
 
-# The Play Game Elements
+# Adding a Way to Make a Move
 
 <HighlightBox type="synopsis">
 
@@ -25,7 +25,7 @@ To play a game a player only needs to specify:
 
 The player does not need to be explicitly added as a field in the message because the player **is** implicitly the signer of the message. Name the object `PlayMove`.
 
-Unlike when creating the game, you want to return: 
+Unlike when creating the game, you want to return:
 
 * The game ID again. Call this field `idValue`.
 * The captured piece, if any. Call the fields `capturedX` and `capturedY`.
