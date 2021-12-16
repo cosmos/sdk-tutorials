@@ -49,7 +49,7 @@ You should rarely manipulate a `Tx` object directly. It is an intermediate type 
 
 ## Messages
 
-<HighlightBox type=”info”>
+<HighlightBox type="info">
 
 Transaction messages are not to be confused with ABCI messages, which define interactions between Tendermint and application layers.
 
