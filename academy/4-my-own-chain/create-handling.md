@@ -1,11 +1,11 @@
 ---
-title: Creating and Saving a Game Proper
+title: Creating and Saving a Game Properly
 order: 7
 description: You create a proper game
 tag: deep-dive
 ---
 
-# Creating and Saving a Game Proper
+# Creating and Saving a Game Properly
 
 <HighlightBox type="synopsis">
 
