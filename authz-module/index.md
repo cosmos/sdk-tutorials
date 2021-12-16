@@ -161,7 +161,7 @@ simd q gov proposal 1
 
 Next, the granter must `grant` an authorization to the grantee.
 
-The authorization is a "generic" authorization, which means there are no limits on the authorization. Other [authorization types](https://docs.cosmos.network/v0.44/modules/authz/01_concepts.html#built-in-authorizations) include "send", "delegate", "unbond", and "redelegate" in which case a limit on the amount of tokens can be set by the granter. In this case, the grantee is able to vote as many times as they want until the granter revokes the authorization.
+The authorization is a "generic" authorization, which is one that takes a message type (such as `MsgVote`) as a parameter and allows the grantee unlimited authorization to execute that message on behalf of the granter. Other [authorization types](https://docs.cosmos.network/v0.44/modules/authz/01_concepts.html#built-in-authorizations) include "send", "delegate", "unbond", and "redelegate" in which case a limit on the amount of tokens can be set by the granter. In this case, the grantee is able to vote as many times as they want until the granter revokes the authorization.
 
 Create authorization:
 
