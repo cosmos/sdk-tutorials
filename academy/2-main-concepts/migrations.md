@@ -90,6 +90,17 @@ For a more detailed explanation of the upgrade process, refer to the [Cosmos SDK
 
 </HighlightBox>
 
+## Cosmovisor
+
+Cosmovisor is a tool that node operators can use to automate the on-chain processes described above. It:
+
+* Runs as a small wrapper around your Cosmos SDK application binaries.
+* Watches out for any approved upgrade proposals.
+* Can download and run the new binary if you want to.
+* When the chain reaches the upgrade block, it will handle the storage upgrade as well.
+
+Learn more [here](https://docs.cosmos.network/master/run-node/cosmovisor.html).
+
 ## Next up
 
 You are all caught up on migrations. Have a look at the code samples below or head to the [next section](./ibc.md) to learn about the Inter-Blockchain Communication Protocol.
