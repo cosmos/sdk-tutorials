@@ -21,14 +21,7 @@
 			h3.resources__title Developer resources
 			.resources
 				.resources__item(v-for="resource in $themeConfig.resources" :class="$frontmatter.main && 'resources__item__main'")
-					.resources__item__container
-						.resources__item__icon
-							img(:src="resource.image" :alt="resource.title")
-						h5.resources__item__title {{resource.title}}
-						.resources__item__description {{resource.description}}
-						.resources__item__links
-							a(v-for="link in resource.links" :href="link.url" target="_blank").tm-link.tm-link-external.tm-medium
-								span {{link.name}}
+					resource(:title="resource.title" :description="resource.description" :links="resource.links" :image="resource.image")
 </template>
 
 
