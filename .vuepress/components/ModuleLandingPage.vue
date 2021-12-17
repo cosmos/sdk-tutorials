@@ -20,8 +20,15 @@
 		.resources__wrapper(v-if="$themeConfig.resources")
 			h3.resources__title Developer resources
 			.resources
-				.resources__item(v-for="resource in $themeConfig.resources")
-					resource(:title="resource.title" :description="resource.description" :links="resource.links" :image="resource.image")
+				.resources__item(v-for="resource in $themeConfig.resources" :class="$frontmatter.main && 'resources__item__main'")
+					.resources__item__container
+						.resources__item__icon
+							img(:src="resource.image" :alt="resource.title")
+						h5.resources__item__title {{resource.title}}
+						.resources__item__description {{resource.description}}
+						.resources__item__links
+							a(v-for="link in resource.links" :href="link.url" target="_blank").tm-link.tm-link-external.tm-medium
+								span {{link.name}}
 </template>
 
 
@@ -59,34 +66,53 @@
 
 		&__item
 			padding 10px
+			max-width 50%
+			flex-grow 1
 
-			&:last-child
+			&:nth-child(even)
 				padding-right 0px
-			&:first-child
+				padding-left 10px
+			&:nth-child(odd)
 				padding-left 0px
+				padding-right 10px
 
-			@media screen and (min-width: 1313px)
-				flex 1 0 0px
-
-			@media screen and (min-width: 481px) and (max-width: 1312px)
-				max-width 50%
-				flex-grow 1
+			&__main
+				padding 10px
 
 				&:nth-child(even)
-					padding-right 0px
+					padding-right 10px
 					padding-left 10px
 				&:nth-child(odd)
-					padding-left 0px
+					padding-left 10px
 					padding-right 10px
+				&:last-child
+					padding-right 0px
+				&:first-child
+					padding-left 0px
+
+				@media screen and (min-width: 1313px)
+					flex 1 0 0px
+
+				@media screen and (min-width: 481px) and (max-width: 1312px)
+					max-width 50%
+					flex-grow 1
+
+					&:nth-child(even)
+						padding-right 0px
+						padding-left 10px
+					&:nth-child(odd)
+						padding-left 0px
+						padding-right 10px
 
 
 			@media screen and (max-width: 480px)
+				max-width unset
 				width 60vw
 				flex-shrink 0
 
 	.home
 		&__content
-			max-width var(--content-max-width)
+			max-width var(--content-max-width-big)
 			margin-inline auto
 
 			&__get-started
