@@ -66,8 +66,7 @@ To install this specific version of Starport, use:
 curl https://get.starport.network/starport@v0.17.0! | bash
 ```
 
-If you'd like to upgrade an existing project to the latest version of Starport, you can follow the [starport migration documentation]
-(https://docs.starport.com/migration/).
+If you'd like to upgrade an existing project to the latest version of Starport, you can follow the [Starport migration documentation](https://docs.starport.com/migration/).
 
 
 </HighlightBox>
