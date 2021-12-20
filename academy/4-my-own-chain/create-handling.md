@@ -43,7 +43,7 @@ Given that you have already done a lot of preparatory work: what does it involve
 
 * First, `rules` represent the ready-made file with the imported rules of the game:
 
-    ```go
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/msg_server_create_game.go#L8]
     import (
         rules "github.com/alice/checkers/x/checkers/rules"
     )
@@ -51,7 +51,7 @@ Given that you have already done a lot of preparatory work: what does it involve
 
 1. Get the new game's ID:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/msg_server_create_game.go#L15-L19]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/msg_server_create_game.go#L15-L19]
     nextGame, found := k.Keeper.GetNextGame(ctx)
     if !found {
         panic("NextGame not found")
@@ -59,15 +59,17 @@ Given that you have already done a lot of preparatory work: what does it involve
     newIndex := strconv.FormatUint(nextGame.IdValue, 10)
     ```
 
-    Using the [`Keeper.GetNextGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/next_game.go#L17) function created by the `starport scaffold single nextGame...` command.
+    Using the [`Keeper.GetNextGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/next_game.go#L17) function created by the `starport scaffold single nextGame...` command.
 
 2. Create the object to be stored:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/msg_server_create_game.go#L20-L26]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/msg_server_create_game.go#L20-L28]
+    newGame := rules.New()
     storedGame := types.StoredGame{
         Creator: msg.Creator,
         Index:   newIndex,
-        Game:    rules.New().String(),
+        Game:    newGame.String(),
+        Turn:    newGame.Turn.Color,
         Red:     msg.Red,
         Black:   msg.Black,
     }
@@ -75,12 +77,12 @@ Given that you have already done a lot of preparatory work: what does it involve
 
     Notice the use of:
 
-    * The [`rules.New()`](https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/rules/checkers.go#L122) command, which is part of the Checkers rules file you imported earlier.
+    * The [`rules.New()`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/rules/checkers.go#L122) command, which is part of the Checkers rules file you imported earlier.
     * The string content of the `msg *types.MsgCreateGame` namely `.Creator`, `.Red`, and `.Black`.
 
 3. Confirm that the values in it are correct by checking the validity of the players' addresses:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/msg_server_create_game.go#L27-L30]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/msg_server_create_game.go#L29-L32]
     err := storedGame.Validate()
     if err != nil {
         return nil, err
@@ -91,11 +93,11 @@ Given that you have already done a lot of preparatory work: what does it involve
 
 4. Save the `StoredGame` object:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/msg_server_create_game.go#L31]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/msg_server_create_game.go#L33]
     k.Keeper.SetStoredGame(ctx, storedGame)
     ```
 
-    Using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/stored_game.go#L10) function created by the `starport scaffold map storedGame...` command
+    Using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/stored_game.go#L10) function created by the `starport scaffold map storedGame...` command
 
 5. Prepare the ground for the next game with:
 
@@ -108,11 +110,86 @@ Given that you have already done a lot of preparatory work: what does it involve
 
 6. Return the newly created ID for reference:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/msg_server_create_game.go#L36-L38]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/msg_server_create_game.go#L38-L40]
     return &types.MsgCreateGameResponse{
         IdValue: newIndex,
     }, nil
     ```
+
+## Interact via the CLI
+
+Time to confirm that the transaction creates a game for real this time. Start it:
+
+```sh
+$ starport chain serve
+```
+
+And send your transaction, the same as in the [previous section](./create-message.md).
+
+```sh
+$ checkersd tx checkers create-game cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66 cosmos14n4qkxcpr6ycct75zzp2r7v6rm96xhkegu5205 --from cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66 --gas auto
+```
+
+First hint of a good sign, in the output, `gas_used` is a bit higher than earlier: `gas_used: "50671"`. Confirm the current state:
+
+```sh
+$ checkersd query checkers show-next-game
+NextGame:
+  creator: ""
+  idValue: "1"
+
+$ checkersd query checkers list-stored-game
+StoredGame:
+- black: cosmos14n4qkxcpr6ycct75zzp2r7v6rm96xhkegu5205
+  creator: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
+  game: '*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*'
+  index: "0"
+  red: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
+  turn: black
+pagination:
+  next_key: null
+  total: "0"
+
+$ checkersd query checkers show-stored-game 0
+StoredGame:
+  black: cosmos14n4qkxcpr6ycct75zzp2r7v6rm96xhkegu5205
+  creator: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
+  game: '*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*'
+  index: "0"
+  red: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
+  turn: black
+```
+
+Yep! Looks good, that's your game in the blockchain's storage. Notice how `bob` was given the black pieces and it is already his turn to play. As a note for the next sections, this is how to understand this board:
+
+```
+*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*
+                   ^X:1,Y:2                              ^X:3,Y:6
+```
+
+Or if placed in a square:
+
+```
+X 01234567
+  *b*b*b*b 0
+  b*b*b*b* 1
+  *b*b*b*b 2
+  ******** 3
+  ******** 4
+  r*r*r*r* 5
+  *r*r*r*r 6
+  r*r*r*r* 7
+           Y
+```
+
+Digging in this direction, you can obtain that in a one-liner:
+
+```sh
+# On Linux
+$ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\n/g'
+# On Mac
+$ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\'$'\n/g'
+```
 
 ## Next up
 

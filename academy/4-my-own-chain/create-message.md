@@ -125,6 +125,87 @@ service Msg {
 
 As an interface it does not describe what should happen when called. What Starport does with the help of Protobuf is compile the interface and create a default Go implementation.
 
+## Interact via the CLI
+
+Time to see which new CLI command was created by Starport:
+
+```sh
+$ checkersd tx checkers --help
+...
+Available Commands:
+  create-game Broadcast message createGame
+```
+
+And also:
+
+```sh
+$ checkersd tx checkers create-game --help
+...
+Usage:
+  checkersd tx checkers create-game [red] [black] [flags]
+
+Flags:
+   -a, --account-number uint      The account number of the signing account (offline mode only)
+   -b, --broadcast-mode string    Transaction broadcasting mode (sync|async|block) (default "sync")
+       --dry-run                  ignore the --gas flag and perform a simulation of a transaction, but don\`t broadcast it
+       --fees string              Fees to pay along with transaction; eg: 10uatom
+       --from string              Name or address of private key with which to sign
+       --gas string               gas limit to set per-transaction; set to "auto" to calculate sufficient gas automatically (default 200000)
+...
+```
+
+You kept the two accounts that were created by Starport, right? Good. Let's have `alice` start a game with `bob`. How much gas? Estimate that with:
+
+```sh
+$ checkersd tx checkers create-game cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp cosmos199krg6nz4qgv53nvrx9gj7nrlg48clwurn82jy --from cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp --dry-run
+gas estimate: 40452
+```
+
+Ok, not much, `auto` will be enough:
+
+```sh
+$ checkersd tx checkers create-game cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp cosmos199krg6nz4qgv53nvrx9gj7nrlg48clwurn82jy --from cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp --gas auto
+{"body":{"messages":[{"@type":"/alice.checkers.checkers.MsgCreateGame","creator":"cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp","red":"cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp","black":"cosmos199krg6nz4qgv53nvrx9gj7nrlg48clwurn82jy"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[],"gas_limit":"40412","payer":"","granter":""}},"signatures":[]}
+
+confirm transaction before signing and broadcasting [y/N]: y
+code: 0
+codespace: ""
+data: 0A0C0A0A43726561746547616D65
+gas_used: "38891"
+gas_wanted: "40412"
+height: "3905"
+info: ""
+logs:
+- events:
+  - attributes:
+    - key: action
+      value: CreateGame
+    type: message
+  log: ""
+  msg_index: 0
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"CreateGame"}]}]}]'
+timestamp: ""
+tx: null
+txhash: 59BC309EF79C354DD46ECE8D882BE133699CC10B165FEFAFF6AF3717507EBB4F
+```
+
+That's it. Confirm that the new state conforms to your expectations:
+
+```sh
+$ checkersd query checkers show-next-game
+NextGame:
+  creator: ""
+  idValue: "0"
+
+$ checkersd query checkers list-stored-game
+StoredGame: []
+pagination:
+  next_key: null
+  total: "0"
+```
+
+Wait! What, nothing changed? Oh right, Starport only created a message, but you did not implement what actions the chain should undertake when it receives this message. That's the object of the next section.
+
 ## Next up
 
 Starport separates concerns into different files. The most relevant file for you at this point is `x/checkers/keeper/msg_server_create_game.go` which is created once. You need to code in the creation of the game proper in this file:

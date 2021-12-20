@@ -191,6 +191,31 @@ You can observe the endpoints of the blockchain in the output of the `starport c
 
 Starport can detect any change to the source code. When it does, it immediately rebuilds the binaries before restarting the blockchain and keeping the state.
 
+## Interact via the CLI
+
+In fact, you can already interact with your running chain. With the chain running in its own shell, try in another:
+
+```sh
+$ checkersd status
+{"NodeInfo":{"protocol_version":{"p2p":"8","block":"11","app":"0"},"id":"63dc1053229905d7adba6a5161f0c212e6f5acab","listen_addr":"tcp://0.0.0.0:26656","network":"checkers","version":"0.34.11","channels":"40202122233038606100","moniker":"mynode","other":{"tx_index":"on","rpc_address":"tcp://0.0.0.0:26657"}},"SyncInfo":{"latest_block_hash":"77C7804FF75AE79BAE557F5AA1F00ABC399D7624F0F3A2B94AB168E3E8BD4006","latest_app_hash":"73C4B8BF40C133CF216E7EB25069A316C41262D092306EEE660FB952FF56EB2D","latest_block_height":"142","latest_block_time":"2021-12-20T15:09:04.028913Z","earliest_block_hash":"34AA6A6587F45F44FFDA4F77B0D3DFE1ADE53CE507728AC7AB5D040E1721F298","earliest_app_hash":"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855","earliest_block_height":"1","earliest_block_time":"2021-12-20T15:06:27.26818Z","catching_up":false},"ValidatorInfo":{"Address":"D8B48F2AE4C6A9F85821461D3CF0E1AB5311E008","PubKey":{"type":"tendermint/PubKeyEd25519","value":"nqOmhvFz6p1iMU6CSZNx60jDrAoYS3sJ6Bxkvc6JDRQ="},"VotingPower":"100"}}
+```
+
+In there you can see this liveness hint: `"latest_block_height":"142"`. To display better you can use this one-liner:
+
+```sh
+$ checkersd status 2>&1 | jq
+```
+
+In fact, you can learn a lot by going through yourself through the possibilities with:
+
+```sh
+$ checkersd --help
+$ checkersd status --help
+$ checkersd query --help
+```
+
+And so on.
+
 ## Your GUI
 
 Now boot up the frontend created by Starport by using the commands provided in the `readme.md` file of the `checkers` folder. For this you let the chain run in its own process and open a new terminal window in your `checkers` folder. In this terminal execute:
