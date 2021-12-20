@@ -41,6 +41,12 @@ module.exports = {
         href: "/apple-touch-icon-precomposed.png",
       },
     ],
+    [
+      "script", 
+      {}, 
+      `const userThemeMode = localStorage?.getItem("vuepress-theme-cosmos-user-theme") || 'dark-mode'
+      document.documentElement.className = userThemeMode`
+    ]
   ],
   themeConfig: {
     repo: "cosmos/sdk-tutorials",
