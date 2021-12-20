@@ -1,11 +1,11 @@
 ---
-title: Adding a Way to Make a Move
+title: Message and Handler - Adding a Way to Make a Move
 order: 8
 description: You play a game
 tag: deep-dive
 ---
 
-# Adding a Way to Make a Move
+# Message and Handler - Adding a Way to Make a Move
 
 <HighlightBox type="synopsis">
 

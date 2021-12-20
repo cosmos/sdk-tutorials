@@ -1,11 +1,11 @@
 ---
-title: Playing with IBC Cross-chain Money
+title: IBC Token - Playing with Cross-chain Money
 order: 18
 description: Let players wager any fungible token
 tag: deep-dive
 ---
 
-# Playing with IBC Cross-chain Money
+# IBC Token - Playing with Cross-chain Money
 
 <HighlightBox type="synopsis">
 

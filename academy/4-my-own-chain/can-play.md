@@ -1,11 +1,11 @@
 ---
-title: Helping Find a Correct Move
+title: Query - Helping Find a Correct Move
 order: 17
 description: Help players make good transactions
 tag: deep-dive
 ---
 
-# Helping Find a Correct Move
+# Query - Helping Find a Correct Move
 
 <HighlightBox type="synopsis">
 
