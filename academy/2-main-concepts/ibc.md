@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Cross-chain communication in Cosmos enables parallelism and scaleability with transaction finality. This solves well-known problems that plaque other platforms - transaction cost, network capacity and certainty about transaction confirmation. Learn about the Inter-Blockchain Communication Protocol (IBC) that makes it possible. 
+Cross-chain communication in Cosmos enables parallelism and scaleability with transaction finality. This solves well-known problems that plague other platforms - transaction costs, network capacity, and transaction confirmation finality. Learn about the Inter-Blockchain Communication Protocol (IBC) that makes cross-chain communication possible.
 
 Before you begin, make sure you understand:
 
@@ -111,7 +111,7 @@ The port channels allow IBC to correctly route the packets to the destination mo
 
 Modules may choose which channels they wish to communicate over. IBC expects modules to implement callbacks called during the channel handshake.
 
-_What does a four-step handshake look like?_ A four-step handshake takes place in the following way:
+_How does a four-step handshake look like?_ A four-step handshake takes place in the following way:
 
 1. Chain A sends a `ChanOpenInit` message to signal a channel initialization attempt with chain B.
 2. Chain B sends a `ChanOpenTry` message to try opening the channel on chain A.
