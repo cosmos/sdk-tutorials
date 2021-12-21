@@ -662,14 +662,15 @@ func (genesisV1 GenesisStateV1) Convert(now time.Time) (genesis *types.GenesisSt
 }
 ```
 
-
 ## Next up
 
-Your checkers blockchain is done. It has a leaderboard, which was introduced later in production thanks to migrations. You are certainly bristling with ideas on how to improve it. In particular, you could implement the missing draw mechanism, which in effect has to be accepted by both players.
+Your checkers blockchain is done. It has a leaderboard, which was introduced later in production thanks to migrations.
 
-Time to move away from the checkers blockchain learning exercise, though, and explore two other helpful tools for working with the Cosmos SDK:
+You are certainly bristling with ideas on how to improve it. In particular, you could implement the missing draw mechanism, which in effect has to be accepted by both players.
 
-* [CosmJS](./cosmjs.md), which you actually used under the hood when using Starport.
-* and [CosmWasm](./cosmwasm.md), a cross-chain smart-contract solution.
+Time to move away from the checkers blockchain learning exercise, and explore two other helpful tools for working with the Cosmos SDK:
 
-Begin with [CosmJS](./cosmjs.md).
+* [CosmJS](./cosmjs.md), which you used under the hood when using Starport.
+* [CosmWasm](./cosmwasm.md), a cross-chain smart-contract solution.
+
+Begin with CosmJS in the [next section](./cosmjs.md).
