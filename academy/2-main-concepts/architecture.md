@@ -9,9 +9,9 @@ tag: fast-track
 
 <HighlightBox type="synopsis">
 
-Cosmos is next-generation technology for decentralized applications. Discover how the Cosmos architecture decisively solves the most challenging and familiar challenges and limitations of blockchain platforms. 
+The Cosmos SDK offers developers next-generation technology for decentralized applications. Discover how the Cosmos architecture decisively solves the most familiar challenges and limitations of blockchain platforms.
 
-This module unfolds the architecture of a blockchain solution starting with the low-level concerns such as consensus and upgradeability. You will discover application concerns are layered over a highly-efficient, general-purpose foundation that is equally applicable to public, private and consortium blockchains. You will discover how to start creating a customized blockchain using the Cosmos SDK and how this is superior to previous attempts to create general-purpose application blockchains. 
+This section unfolds the architecture of a blockchain application starting with low-level concerns such as consensus and upgradeability. Discover how application concerns are layered over a highly-efficient, general-purpose foundation that is equally applicable to public, private, and consortium blockchains. Then take a closer look at how to start creating a customized blockchain using the Cosmos SDK, superior to previous attempts creating general-purpose blockchains to run decentralized applications (dApps).
 
 </HighlightBox>
 
