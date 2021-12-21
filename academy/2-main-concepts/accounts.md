@@ -9,20 +9,22 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Cryptographic signatures are foundational components of blockchain technology. What are they, exactly, and how are they used in Cosmos applications? Public Key Cryptography has been used for decades. The math works. But what exactly does it do and how does it do it? What is meant by an "account" and how are they implemented in Cosmos?
+Cryptographic signatures based on public-key cryptography are foundational components of blockchain technology. What are cryptographic signatures exactly and how are they used in Cosmos applications?
+
+Public-key cryptography has been used for decades. The math behind it works, but what exactly does it do, and how does it do it? What is understood as an _account_ and how are accounts implemented in Cosmos?
 
 </HighlightBox>
 
 An account is a pair of keys:
 
-* **`PubKey`.** A public key
-* **`PrivKey`.** A private key
+* **`PubKey`.** A public key.
+* **`PrivKey`.** A private key.
 
 A public key is a unique identifier for a **user or entity** that is safe to disclose. Private keys are sensitive information that users are required to manage confidentially. Private keys are used to sign information in a way that **proves** to others that a message was signed by someone using the private key corresponding to a given public key. This is done without revealing the private key itself.
 
-## Public key cryptography
+## Public-key cryptography
 
-Modern cryptographic systems leverage computer capabilities to make the power of certain mathematical functions accessible. Public key cryptography is also known as **asymmetric cryptography** and is a cryptographic system that employs pairs of keys. Every pair consists of a public and a private key. The security of the system is not endangered as long as the private key is not disclosed. Compared to symmetric key algorithms, asymmetric ones do not require parties to use a secure channel to exchange the keys for encryption and decryption.
+Modern cryptographic systems leverage computer capabilities to make the power of certain mathematical functions accessible. Public-key cryptography is also known as **asymmetric cryptography** and is a cryptographic system that employs pairs of keys. Every pair consists of a public and a private key. The security of the system is not endangered as long as the private key is not disclosed. Compared to symmetric key algorithms, asymmetric ones do not require parties to use a secure channel to exchange the keys for encryption and decryption.
 
 Asymmetric cryptography has two primary applications:
 
@@ -41,7 +43,7 @@ Asymmetric cryptography has two primary applications:
 
 We will focus on the _authentication_ aspect of asymmetric cryptography.
 
-Public key cryptography assures confidentiality, authenticity, and non-repudiation. Examples of applications include [S/MIME](https://en.wikipedia.org/wiki/S/MIME) and [GPG](https://en.wikipedia.org/wiki/GNU_Privacy_Guard) and it is the basis of several internet standards like [SSL](https://www.ssl.com/faqs/faq-what-is-ssl/) and [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security).
+Public-key cryptography assures confidentiality, authenticity, and non-repudiation. Examples of applications include [S/MIME](https://en.wikipedia.org/wiki/S/MIME) and [GPG](https://en.wikipedia.org/wiki/GNU_Privacy_Guard) and it is the basis of several internet standards like [SSL](https://www.ssl.com/faqs/faq-what-is-ssl/) and [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security).
 
 Asymmetric cryptography is normally applied to small data blocks due to its computational complexity. Symmetric and asymmetric cryptography are combined in a hybrid system. Asymmetric encryption could be for example employed to transfer a symmetric encryption then used as an encryption key for the message. An example of hybrid systems is [PGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy).
 
@@ -74,7 +76,7 @@ Private keys are used to **prove** that messages originate from the owners of ac
 
 ## Hierarchical-deterministic wallets
 
-Blockchains generally maintain ledgers of user accounts and rely on public key cryptography for user authentication. Knowledge of one's public and private keys is a requirement to execute transactions. Client software applications known as wallets provide methods to generate new key pairs and store them, as well as basic services such as creating transactions, signing messages, interacting with applications, and communicating with the blockchain.
+Blockchains generally maintain ledgers of user accounts and rely on public-key cryptography for user authentication. Knowledge of one's public and private keys is a requirement to execute transactions. Client software applications known as wallets provide methods to generate new key pairs and store them, as well as basic services such as creating transactions, signing messages, interacting with applications, and communicating with the blockchain.
 
 Although it is technically feasible to generate and store multiple key pairs in a wallet, key management quickly becomes tedious and error-prone for users. Given that all keys would exist only in one place, users would need to devise ways to recover their keys in adverse situations such as the loss or destruction of the computer. The more accounts, the more keys to back up.
 
