@@ -1,11 +1,11 @@
 ---
-title: Token - Playing with Money
+title: Token - Play With Money
 order: 15
 description: You let players play with money
 tag: deep-dive
 ---
 
-# Token - Playing with Money
+# Token - Play With Money
 
 <HighlightBox type="synopsis">
 

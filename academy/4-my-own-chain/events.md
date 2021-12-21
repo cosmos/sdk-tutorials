@@ -1,11 +1,11 @@
 ---
-title: Events - Making an Informative Game
+title: Events - Make an Informative Game
 order: 9
 description: Inform your players
 tag: deep-dive
 ---
 
-# Events - Making an Informative Game
+# Events - Make an Informative Game
 
 <HighlightBox type="synopsis">
 

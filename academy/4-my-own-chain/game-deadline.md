@@ -1,11 +1,11 @@
 ---
-title: Store Field - Keeping an Up-to-date Game Deadline
+title: Store Field - Keep an Up-To-Date Game Deadline
 order: 12
 description: You expire games
 tag: deep-dive
 ---
 
-# Store Field - Keeping an Up-to-date Game Deadline
+# Store Field - Keep an Up-To-Date Game Deadline
 
 <HighlightBox type="synopsis">
 

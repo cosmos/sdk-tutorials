@@ -1,11 +1,11 @@
 ---
-title: Message Handler - Creating and Saving a Game Properly
+title: Message Handler - Create and Save a Game Properly
 order: 7
 description: You create a proper game
 tag: deep-dive
 ---
 
-# Message Handler - Creating and Saving a Game Properly
+# Message Handler - Create and Save a Game Properly
 
 <HighlightBox type="synopsis">
 
