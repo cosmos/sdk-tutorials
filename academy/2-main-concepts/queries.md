@@ -17,7 +17,7 @@ A query is a request for information made by end users of applications through a
 
 <HighlightBox type="tip">
 
-Do you need a refresher of transaction lifecycles in the Cosmos SDK or want to directly compare the query lifecycle with the lifecycle of transactions? Take a look at the [section on transactions](/transactions.md).
+Do you need a refresher of transaction lifecycles in the Cosmos SDK or want to directly compare the query lifecycle with the lifecycle of transactions? Take a look at the [section on transactions](./transactions.md).
 
 </HighlightBox>
 
