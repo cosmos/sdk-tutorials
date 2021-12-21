@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Let's dedicate some time to events in the Cosmos SDK - what they are, how they are  useful and how applications should implement them. 
+Dedicate some time to events in the Cosmos SDK - what they are, how they are useful, and how applications should implement them.
 
 You should understand the concepts covered in the following sections before diving into events:
 
@@ -18,7 +18,7 @@ You should understand the concepts covered in the following sections before divi
 * [Modules](./modules.md)
 * [Protobuf](./protobuf.md)
 
-You can find some a code examples at the end of this section in which events are implemented in the checkers blockchain.
+You can find some code examples at the end of this section, in which events are implemented in the checkers blockchain.
 
 </HighlightBox>
 
