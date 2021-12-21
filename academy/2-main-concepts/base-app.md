@@ -17,7 +17,7 @@ Before looking at `BaseApp`, make sure to read the previous sections:
 * [Modules](./modules.md)
 * [Multistora and Keepers](./multistore-keepers.md)
 
-Discover how to define an application state machine and service router, how to create custom transaction processing and how to create periodic processes that execute at the beginning or end of each block. 
+Discover how to define an application state machine and service router, how to create custom transaction processing, and how to create periodic processes that execute at the beginning or end of each block.
 
 </HighlightBox>
 
