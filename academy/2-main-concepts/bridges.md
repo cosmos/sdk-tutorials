@@ -17,8 +17,6 @@ In this section, you will learn more about bridges in the Cosmos ecosystem inclu
 * [Events](./events.md)
 * [IBC](./ibc.md)
 
-
-
 </HighlightBox>
 
 ## The Gravity Bridge
