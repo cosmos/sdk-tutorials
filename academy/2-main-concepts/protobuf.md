@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Protobuf is a data serialization method. Developers use it to describe message formats. There is a lot of internal communication within a Cosmos app and Protobuf is central to how it's done. 
+Protobuf is a data serialization method. Developers use it to describe message formats. There is a lot of internal communication within a Cosmos application and Protobuf is central to how communication is done. 
 
 Before diving into the section a look at the following sections is recommended:
 
