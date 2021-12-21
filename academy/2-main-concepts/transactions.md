@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Transactions are a core concept in blockchain technology. After all, nothing  happens except through a successful transaction. Discover the components and life-cycle of transactions in Cosmos blockchains - how they are created by Cosmos applications, broadcast, confirmed, and processed. 
+Transactions are a core concept in blockchain technology. After all, nothing happens on a blockchain without a successful transaction. Discover the components and life cycle of transactions in Cosmos SDK blockchains - how transactions are created by Cosmos applications, broadcast, confirmed, and processed.
 
 </HighlightBox>
 
