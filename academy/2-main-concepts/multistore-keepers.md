@@ -9,9 +9,9 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Keepers are responsible for persisting module states. All access to the state is through a Keeper, so Keepers are an ideal place to ensure that invariants are enforced and security principles are always applied. 
+Keepers are responsible for managing access to states defined by modules. Accessing the state is done through a keeper. Therefore, keepers are an ideal place to ensure that invariants are enforced and security principles are always applied.
 
-Before you begin, take a look at the following sections:
+Take a look at the following sections before you begin:
 
 * [Transactions](./transactions.md)
 * [Messages](./messages.md)
