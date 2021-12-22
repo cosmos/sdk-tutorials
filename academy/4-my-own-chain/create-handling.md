@@ -12,7 +12,7 @@ tag: deep-dive
 Make sure you have all you need before proceeding:
 
 * Have Go installed.
-* The checkers blockchain codebase with `MsgCreateGame` created by Starport. You can get there by following the [previous steps](./create-message.md) checking out  [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
+* The checkers blockchain codebase with `MsgCreateGame` created by Starport. You can get there by following the [previous steps](./create-message.md) checking out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
 
 </HighlightBox>
 
@@ -97,7 +97,7 @@ Given that you have already done a lot of preparatory work: what does it involve
     k.Keeper.SetStoredGame(ctx, storedGame)
     ```
 
-    Using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/stored_game.go#L10) function created by the `starport scaffold map storedGame...` command
+    Using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/stored_game.go#L10) function created by the `starport scaffold map storedGame...` command.
 
 5. Prepare the ground for the next game with:
 
@@ -118,19 +118,19 @@ Given that you have already done a lot of preparatory work: what does it involve
 
 ## Interact via the CLI
 
-Time to confirm that the transaction creates a game for real this time. Start it:
+Time to confirm that the transaction creates a game this time. Start with:
 
 ```sh
 $ starport chain serve
 ```
 
-And send your transaction, the same as in the [previous section](./create-message.md).
+And send your transaction, the same as in the [previous section](./create-message.md):
 
 ```sh
 $ checkersd tx checkers create-game cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66 cosmos14n4qkxcpr6ycct75zzp2r7v6rm96xhkegu5205 --from cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66 --gas auto
 ```
 
-First hint of a good sign, in the output, `gas_used` is a bit higher than earlier: `gas_used: "50671"`. Confirm the current state:
+There is a first hint of a good sign in the output; `gas_used` is a bit higher than earlier: `gas_used: "50671"`. Confirm the current state:
 
 ```sh
 $ checkersd query checkers show-next-game
@@ -160,7 +160,7 @@ StoredGame:
   turn: black
 ```
 
-Yep! Looks good, that's your game in the blockchain's storage. Notice how `bob` was given the black pieces and it is already his turn to play. As a note for the next sections, this is how to understand this board:
+Now your game is in the blockchain's storage. Notice how `Bob` was given the black pieces and it is already his turn to play. As a note for the next sections, this is how to understand the board:
 
 ```
 *b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*
@@ -182,7 +182,7 @@ X 01234567
            Y
 ```
 
-Digging in this direction, you can obtain that in a one-liner:
+You can also get it in a one-liner:
 
 ```sh
 # On Linux

@@ -177,7 +177,7 @@ That is all there is to it: good preparation and the use of Starport.
 
 ## Interact via the CLI
 
-With one game in storage, and with the game waiting for `bob`'s move, can `alice` make a move? Check in what order are the parameters:
+With one game in storage and the game waiting for `Bob`'s move, can `Alice` make a move? Check the order of the parameters:
 
 ```sh
 $ checkersd query checkers play-move --help
@@ -188,7 +188,7 @@ Usage:
 ...
 ```
 
-So `alice` tries with:
+So `Alice` tries with:
 
 ```sh
 $ checkersd query checkers play-move 0 0 5 1 4 --from cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
@@ -203,7 +203,7 @@ raw_log: 'failed to execute message; message index: 0: player tried to play out 
                                        turn'
 ```
 
-That's good, as expected. Can `bob`, who plays _black_ make a move? Can he make a wrong move, for instance from `0-1` to `1-0`, that is occupied by one of his pieces?
+Can `Bob`, who plays _black_, make a move? Can he make a wrong move, for instance from `0-1` to `1-0` which in turn is occupied by one of his pieces?
 
 ```sh
 $ checkersd query checkers play-move 0 1 0 0 1 --from cosmos14n4qkxcpr6ycct75zzp2r7v6rm96xhkegu5205
@@ -212,7 +212,7 @@ raw_log: 'failed to execute message; message index: 0: Already piece at destinat
   position: {1 0}: wrong move'
 ```
 
-Good again. Time for `bob` to make a correct move:
+All seems to be working just fine. Time for `Bob` to make a correct move:
 
 ```sh
 $ checkersd query checkers play-move 0 1 2 2 3 --from cosmos14n4qkxcpr6ycct75zzp2r7v6rm96xhkegu5205
@@ -234,7 +234,7 @@ r*r*r*r*
 r*r*r*r*
 ```
 
-Yes, `bob`'s piece moved down and right.
+`Bob`'s piece moved down and right.
 
 ## Next up
 

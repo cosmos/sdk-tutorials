@@ -291,9 +291,9 @@ Your stored game stores are only strings. But you know that they represent `sdk.
 
 ## Interact via the CLI
 
-Starport created a set of files for you, time to see that you can already interact with your new checkers blockchain.
+Starport creates a set of files for you. It is time to see whether you can already interact with your new checkers blockchain.
 
-1. Start the chain in its own shell:
+1. Start the chain in its shell:
 
     ```sh
     $ starport chain serve --reset-once
@@ -303,13 +303,13 @@ Starport created a set of files for you, time to see that you can already intera
     🌍 Token faucet: http://0.0.0.0:4500
     ```
 
-2. Check the values saved in `NextGame`. To find what command is relevant, look at the relevant `client/cli` file Starport created. Here it is [`query_next_game.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/client/cli/query_next_game.go#L14), or ask the CLI:
+2. Check the values saved in `NextGame`. Look at the relevant `client/cli` file Starport created to find out what command is relevant. Here it is [`query_next_game.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/client/cli/query_next_game.go#L14). You can instead also ask the CLI:
 
     ```sh
     $ checkersd query checkers --help
     ```
 
-    Ok, that's [`show-next-game`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e2251f253288163021c75999709d8c25b402/x/checkers/client/cli/query_next_game.go#L14):
+    Ok, that is [`show-next-game`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e2251f253288163021c75999709d8c25b402/x/checkers/client/cli/query_next_game.go#L14):
 
     ```sh
     $ checkersd query checkers show-next-game
@@ -320,7 +320,7 @@ Starport created a set of files for you, time to see that you can already intera
 
     As expected.
 
-3. If you find the output ok for reading on the spot, but plan to use some scripts, get some information about your options:
+3. If you find the output suitable for reading on the spot but plan to use some scripts, get some information about your options:
 
     ```sh
     $ checkersd query checkers show-next-game --help
@@ -328,7 +328,7 @@ Starport created a set of files for you, time to see that you can already intera
     -o, --output string   Output format (text|json) (default "text")
     ```
 
-    Nice, now again:
+    Now again:
 
     ```sh
     $ checkersd query checkers show-next-game --output json
@@ -337,7 +337,7 @@ Starport created a set of files for you, time to see that you can already intera
 
     Looks good.
 
-3. Similarly, you can confirm there are no [stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/client/cli/query_stored_game.go#L14):
+3. You can similarly confirm there are no [stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/client/cli/query_stored_game.go#L14):
 
     ```sh
     $ checkersd query checkers list-stored-game
@@ -347,7 +347,7 @@ Starport created a set of files for you, time to see that you can already intera
       total: "0"
     ```
 
-Remember how you wrote `--no-message`? That was so as not to create messages or transactions that would directly update your checkers storage. Let's soft-confirm there are no commands available:
+Remember how you wrote `--no-message`? That was to not create messages or transactions, which would directly update your checkers storage. Soft-confirm there are no commands available:
 
 ```sh
 $ checkersd tx checkers --help

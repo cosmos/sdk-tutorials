@@ -154,14 +154,14 @@ Flags:
 ...
 ```
 
-You kept the two accounts that were created by Starport, right? Good. Let's have `alice` start a game with `bob`. How much gas? Estimate that with:
+You keep the two accounts that are created by Starport. Have `Alice` start a game with `Bob`. How much gas is needed? Estimate that with:
 
 ```sh
 $ checkersd tx checkers create-game cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp cosmos199krg6nz4qgv53nvrx9gj7nrlg48clwurn82jy --from cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp --dry-run
 gas estimate: 40452
 ```
 
-Ok, not much, `auto` will be enough:
+That is not much. Thus, `auto` is enough:
 
 ```sh
 $ checkersd tx checkers create-game cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp cosmos199krg6nz4qgv53nvrx9gj7nrlg48clwurn82jy --from cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp --gas auto
@@ -189,7 +189,7 @@ tx: null
 txhash: 59BC309EF79C354DD46ECE8D882BE133699CC10B165FEFAFF6AF3717507EBB4F
 ```
 
-That's it. Confirm that the new state conforms to your expectations:
+Confirm that the new state conforms to your expectations:
 
 ```sh
 $ checkersd query checkers show-next-game
@@ -204,7 +204,7 @@ pagination:
   total: "0"
 ```
 
-Wait! What, nothing changed? Oh right, Starport only created a message, but you did not implement what actions the chain should undertake when it receives this message. That's the object of the next section.
+It seems nothing has changed. Starport only created a message, but you did not implement what actions the chain should undertake when it receives this message. That is the object of the next section.
 
 ## Next up
 
