@@ -193,7 +193,7 @@ Starport can detect any change to the source code. When it does, it immediately 
 
 ## Interact via the CLI
 
-You can already interact with your running chain. With the chain running in its shell, try in another:
+You can already interact with your running chain. With the chain running in its shell, open another shell and try:
 
 ```sh
 $ checkersd status
