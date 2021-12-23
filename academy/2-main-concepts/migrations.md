@@ -92,7 +92,7 @@ For a more detailed explanation of the upgrade process, refer to the [Cosmos SDK
 
 ## Cosmovisor
 
-Cosmovisor is a tool that node operators can use to automate the on-chain processes described above. Cosmovisor:
+Cosmovisor is a tool that node operators can use to automate the on-chain processes described above.
 
 * Cosmovisor runs as a small wrapper around the Cosmos SDK application binaries.
 * Cosmovisor watches out for any approved upgrade proposals.
@@ -101,7 +101,7 @@ Cosmovisor is a tool that node operators can use to automate the on-chain proces
 
 <HighlightBox type="tip">
 
-Take a look at the [Cosmos SDK documentation on Cosmovisor](https://docs.cosmos.network/master/run-node/cosmovisor.html) to learn more aboyt this process manager for Cosmos SDK applications.
+Take a look at the [Cosmos SDK documentation on Cosmovisor](https://docs.cosmos.network/master/run-node/cosmovisor.html) to learn more about this process manager for Cosmos SDK applications.
 
 </HighlightBox>
 
