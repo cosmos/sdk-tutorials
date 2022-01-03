@@ -13,6 +13,7 @@ intro:
       Do you want to find out how to interact with Cosmos chains? Let’s take it step-by-step with simapp. <br/><br/>
       In the end, you will know how to run a node. <br/><br/>
       A cosmos of chains is awaiting!
+landingPage: true
 ---
 
 <ModuleLandingPage>

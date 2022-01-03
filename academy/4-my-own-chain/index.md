@@ -12,6 +12,7 @@ intro:
     description: |
       Your first steps to building an application-specific blockchain from scratch. <br/><br/>
       Continue your journey with Starport, CosmJS, and CosmWasm.
+landingPage: true
 ---
 
 <ModuleLandingPage>

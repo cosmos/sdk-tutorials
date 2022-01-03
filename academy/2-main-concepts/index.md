@@ -12,6 +12,7 @@ intro:
     description: |
       Enjoy an introduction on the main components of the Cosmos SDK. <br/><br/>
       From Tendermint to the IBC Protocol, a whole universe is waiting to be discovered.
+landingPage: true
 ---
 
 <ModuleLandingPage>
