@@ -11,7 +11,7 @@ The [feegrant](https://docs.cosmos.network/v0.44/modules/feegrant/) enables a us
 
 ## Use Feegrant to Grant an Allowance
 
-An often discussed use case for the feegrant module is that blockchains or smartcontracts can allow new users to start interacting with the chain or contract without having to acquire tokens first, greatly improving the onboarding experience.
+An often discussed use case for the feegrant module is that blockchains or smart contracts can allow new users to start interacting with the chain or contract without having to acquire tokens first, greatly improving the onboarding experience.
 
 There are two [fee allowance types](https://docs.cosmos.network/v0.44/modules/feegrant/01_concepts.html#fee-allowance-types) that the freegrant module implements: `BasicAllowance` and `PeriodicAllowance`, the latter allows you to setup a periodic allowance to another user. In this tutorial, you will set up two tokens in your blockchain: one default token called `stake`, which will be used for fees, and another called `kudos`, for sending to your friends.
 
