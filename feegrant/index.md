@@ -73,7 +73,7 @@ simd config keyring-backend test
 
 You'll have to create a few test keys for your users.
 
-Add a key for Alice:
+Add a key for Alice, the validator:
 
 ```bash
 simd keys add alice
