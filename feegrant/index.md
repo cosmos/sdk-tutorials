@@ -85,7 +85,7 @@ Add a key for Bob, the grantee:
 simd keys add bob
 ```
 
-And lastly, add a key for Charlie:
+And lastly, add a key for Charlie, the granter:
 
 ```bash
 simd keys add charlie
