@@ -175,7 +175,7 @@ simd q feegrant grants $BOB_KEY
 
 ## Send Tokens
 
-First, let's check the balances of Alice, Bob and Charlie, so that you can confirm if your transaction was successful later:
+First, let's check the balances of Alice, Bob and Charlie, so that you can later confirm if your transaction was successful:
 
 ```bash
 simd q bank balances $ALICE_KEY
