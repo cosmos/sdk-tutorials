@@ -187,7 +187,7 @@ Note that Alice has `4999000000stake` because she bonded `1000000stake` to becom
 
 Any transaction that is sent using the `tx` command can be ammended with a flag `--fee-account` that takes an account as input which will pay for the fees.
 
-Send `kudos` tokens from Bob to Charlie, while Charlie pays fees:
+Send `kudos` tokens from Bob to Charlie, while Charlie pays the fees:
 
 ```bash
 simd tx bank send $BOB_KEY $CHARLIE_KEY 100kudos --from bob --fee-account $CHARLIE_KEY --fees 500stake
