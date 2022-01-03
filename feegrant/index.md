@@ -15,7 +15,7 @@ An often discussed use case for the feegrant module is that blockchains or smart
 
 There are two [fee allowance types](https://docs.cosmos.network/v0.44/modules/feegrant/01_concepts.html#fee-allowance-types) that the feegrant module implements: `BasicAllowance` and `PeriodicAllowance`, the latter allows you to setup a periodic allowance to another user. In this tutorial, you will set up two tokens in your blockchain: one default token called `stake`, which will be used for fees, and another called `kudos`, for sending to your friends.
 
-You will learn how to spin up a single node network using the simulation application in Cosmos SDK (`simapp`), let Charlie grant a `BasicAllowance` to Bob, and then have Bob send `kudos` tokens to Charlie, while having zero `stake` to pay for fees.
+You will learn how to spin up a single node network using the simulation application in Cosmos SDK (`simapp`) and set up Alice to be a validator. Then you'll have Bob send `kudos` tokens to Carol, while having zero `stake` to pay for fees. The latter will be possible because you'll let Carol grant a `BasicAllowance` to Bob.
 
 ## Requirements
 
@@ -85,10 +85,10 @@ Add a key for Bob, the grantee:
 simd keys add bob
 ```
 
-And lastly, add a key for Charlie, the granter:
+And lastly, add a key for Carol, the granter:
 
 ```bash
-simd keys add charlie
+simd keys add carol
 ```
 
 If you'd like to see an overview of your keys, use:
@@ -102,7 +102,7 @@ In order to avoid having to copy-paste their address all the time, you should ex
 ```bash
 export ALICE_KEY=$(simd keys show alice -a)
 export BOB_KEY=$(simd keys show bob -a)
-export CHARLIE_KEY=$(simd keys show charlie -a)
+export CAROL_KEY=$(simd keys show carol -a)
 ```
 
 ## Chain Setup
@@ -129,10 +129,10 @@ simd add-genesis-account bob 2000kudos --keyring-backend test
 
 Note that Bob only has `kudos` tokens and won't be able to pay for any fees that might be needed.
 
-Add Charlie and an initial balance to the genesis file:
+Add Carol and an initial balance to the genesis file:
 
 ```bash
-simd add-genesis-account charlie 1000000stake --keyring-backend test
+simd add-genesis-account carol 1000000stake --keyring-backend test
 ```
 
 Generate a transaction to add Alice to the initial validator set:
@@ -159,12 +159,12 @@ simd start
 
 ## Grant Allowance
 
-Before Bob can send `kudos` to Charlie, you'll need to setup an allowance for Bob, so that Charlie will pay for any gas fees the transaction might incur. You're not letting Alice pay the fees for Bob because Alice is the validator and would receive all those fees, which means you wouldn't be able to see the difference in her balance.
+Before Bob can send `kudos` to Carol, you'll need to set up an allowance for Bob, so that Carol will pay for any gas fees the transaction might incur. Note that Alice is the validator, so it would not make sense to make her the granter as well because a validator would receive all the fees that the granter paid for. In that case, you wouldn't have been able to see the difference in her balance after a transaction was completed.
 
 The `BasicAllowance` is a permission for a grantee to use up fees until the `spend_limit` or `expiration` is reached. Create an allowance with a spend limit of `100000stake` and no expiration date:
 
 ```bash
-simd tx feegrant grant $CHARLIE_KEY $BOB_KEY --from charlie --spend-limit 100000stake
+simd tx feegrant grant $CAROL_KEY $BOB_KEY --from carol --spend-limit 100000stake
 ```
 
 View the allowance:
@@ -175,22 +175,22 @@ simd q feegrant grants $BOB_KEY
 
 ## Send Tokens
 
-First, let's check the balances of Alice, Bob and Charlie, so that you can later confirm if your transaction was successful:
+First, let's check the balances of Alice, Bob and Carol, so that you can later confirm if your transaction was successful:
 
 ```bash
 simd q bank balances $ALICE_KEY
 simd q bank balances $BOB_KEY
-simd q bank balances $CHARLIE_KEY
+simd q bank balances $CAROL_KEY
 ```
 
 Note that Alice has `4999000000stake` because she bonded `1000000stake` to become a validator during the chain setup.
 
 Any transaction that is sent using the `tx` command can be ammended with a flag `--fee-account` that takes an account as input which will pay for the fees.
 
-Send `kudos` tokens from Bob to Charlie, while Charlie pays the fees:
+Send `kudos` tokens from Bob to Carol, while Carol pays the fees:
 
 ```bash
-simd tx bank send $BOB_KEY $CHARLIE_KEY 100kudos --from bob --fee-account $CHARLIE_KEY --fees 500stake
+simd tx bank send $BOB_KEY $CAROL_KEY 100kudos --from bob --fee-account $CAROL_KEY --fees 500stake
 ```
 
 Look at the balances again:
@@ -198,10 +198,10 @@ Look at the balances again:
 ```bash
 simd q bank balances $ALICE_KEY
 simd q bank balances $BOB_KEY
-simd q bank balances $CHARLIE_KEY
+simd q bank balances $CAROL_KEY
 ```
 
-Notice how Charlie lost the `500stake` that we added to the transaction, while Bob was the one who signed.
+Notice how Carol lost the `500stake` that we added to the transaction, while Bob was the one who signed.
 
 View the allowance again:
 
@@ -218,7 +218,7 @@ The granter can revoke the allowance from the grantee using the `revoke` command
 Revoke allowance:
 
 ```bash
-simd tx feegrant revoke $CHARLIE_KEY $BOB_KEY --from charlie
+simd tx feegrant revoke $CAROL_KEY $BOB_KEY --from carol
 ```
 
 View the allowance:
