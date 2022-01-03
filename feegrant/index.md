@@ -79,7 +79,7 @@ Add a key for Alice, the validator:
 simd keys add alice
 ```
 
-Add a key for Bob:
+Add a key for Bob, the grantee:
 
 ```bash
 simd keys add bob
