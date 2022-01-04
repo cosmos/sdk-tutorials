@@ -213,7 +213,7 @@ simd q bank balances $BOB_KEY
 simd q bank balances $CAROL_KEY
 ```
 
-Notice how Carol lost the `500stake` that we added to the transaction, while Bob was the one who signed.
+Notice how Carol no longer has the `500stake` that was added to the transaction that Bob signed.
 
 View the allowance again:
 
