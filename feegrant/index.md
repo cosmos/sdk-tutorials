@@ -107,7 +107,9 @@ If you'd like to see an overview of your keys, use:
 simd keys list
 ```
 
-In order to avoid having to copy-paste their address all the time, you should export them to variables that you can keep using during this tutorial:
+::: tip
+To avoid having to copy and paste the user addresses now is a good time to export the user keys to variables that you can access and use for this tutorial. 
+:::
 
 ```bash
 export ALICE_KEY=$(simd keys show alice -a)
