@@ -108,7 +108,7 @@ The first thing created in the execution of a CLI command is a `client.Context`.
 
 * **Codec:** The [encoder/decoder](https://docs.cosmos.network/master/core/encoding.html) used by the application to marshal the parameters and query before making the Tendermint RPC request and unmarshal the returned response into a JSON object. The default codec used by the CLI is Protobuf.
 * **Account decoder:** The account decoder from the [auth](https://docs.cosmos.network/master/x/auth/spec/) module, which translates `[]bytes` into accounts.
-* **RPC client:** The Tendermint RPC client or node to which the request is relayed to.
+* **RPC client:** The Tendermint RPC client or node to which the request is relayed.
 * **Keyring:** A [key manager](https://docs.cosmos.network/master/basics/accounts.html#keyring) used to sign transactions and handle other operations with keys.
 * **Output writer:** A [writer](https://golang.org/pkg/io/#Writer) used to output the response.
 * **Configurations:** The flags configured by the user for this command, including `--height` specifying the height of the blockchain to query and `--indent` indicating adding an indent to the JSON response.
