@@ -5,9 +5,9 @@ order: 0
 description: Use the Cosmos SDK fee grant module to grant the use of tokens to pay for fees from one account (the granter) to another account (the grantee).
 ---
 
-# Feegrant Module
+# Fee Grant Module
 
-The [feegrant](https://docs.cosmos.network/v0.44/modules/feegrant/) enables a user / contract / module (the granter) to pay the fees for someone else (the grantee) when they want to broadcast a transaction on the blockchain. A key feature of feegrant is that the granter retains full access to their tokens, and is able to revoke the allowance at any time.
+The [fee grant](https://docs.cosmos.network/v0.44/modules/feegrant/) module enables the grantee (a user, contract, or module) to pay the fees for someone else (the grantee) when the grantee wants to broadcast a transaction on the blockchain. The granter retains full access to their tokens and is able to revoke the allowance at any time.
 
 ## Use Feegrant to Grant an Allowance
 
