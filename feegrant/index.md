@@ -197,7 +197,7 @@ simd q bank balances $CAROL_KEY
 
 Note that Alice has `4999000000stake` because she bonded `1000000stake` to become a validator during the chain setup.
 
-Any transaction that is sent using the `tx` command can be ammended with a flag `--fee-account` that takes an account as input which will pay for the fees.
+Any transaction that is sent using the `tx` command can use the `--fee-account` flag to specify an account as input to pay for the fees.
 
 Send `kudos` tokens from Bob to Carol, while Carol pays the fees:
 
