@@ -291,7 +291,7 @@ Your stored game stores are only strings. But you know that they represent `sdk.
 
 ## Interact via the CLI
 
-Starport creates a set of files for you. It is time to see whether you can already interact with your new checkers blockchain.
+Starport created a set of files for you. It is time to see whether you can already interact with your new checkers blockchain.
 
 1. Start the chain in its shell:
 
