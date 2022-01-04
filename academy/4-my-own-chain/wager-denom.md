@@ -103,27 +103,27 @@ You have prepared the ground by placing this token denomination into the relevan
 
 With the checkers application ready to accommodate IBC-foreign tokens, you should run some tests locally with another blockchain's tokens without running a large-scale operation. Starport luckily has built in the [Typescript relayer](https://docs.starport.com/kb/relayer.html). If you look at the GUI Starport created in your checkers blockchain, you will see a _Relayers_ section on the left.
 
-A relayer is a process that transfers IBC packets between two blockchains. It just so happens that here this process is **running in your browser** using the account you configured in your browser. The account is the same one you would use to play a game of checkers. Name it `alice123@checkers`.
+A relayer is a process that transfers IBC packets between two blockchains. It just so happens that here this process is **running in your browser** using the account you configured in your browser. The account is the same one you would use to play a game of checkers. Dub it `alice123@checkers`.
 
-1. On the checkers end, the relayer is already configured to connect to your running checkers blockchain and to use the tokens of whichever account you have configured in your browser, here `alice123@checkers`. It gets the same privileges to access your tokens that you have granted to the checkers' browser application.
+1. On the checkers end, the relayer is already configured to connect to your running checkers blockchain and to use the tokens of whichever account you have configured in your browser, here `alice123@checkers`. Therefore, it gets the same privileges to access your tokens that you have granted to the checkers' browser application.
 2. You need to configure it to connect to the other blockchain hosting the foreign tokens you want to transfer. It can be the Cosmos Hub or a [testnet](https://tutorials.cosmos.network/connecting-to-testnet/testnet-tutorial.html) that you or someone else runs.
 3. You also need to fund the relayer's account on the remote chain so that it can operate. The account is generated from the same private key as `alice123@checkers`, so call it `alice465@remote`. The relayer shows you in the browser which account this is.
 
 Your test comes in a few steps:
 
-1. Configure the relayer. This is a matter of entering the necessary parameters, clicking a button, and waiting for the setup to be done. The relayer opened a transfer channel on the checkers chain likely numbered `0`, opened another transfer channel on the remote chain, and linked both chains.
+1. Configure the relayer. This is a matter of entering the necessary parameters, clicking a button, and waiting for the setup to be done. In effect, the relayer opened a transfer channel, likely numbered `0`, on the checkers chain, opened another transfer channel on the remote chain, and linked the two.
 2. Send the desired foreign tokens to your `alice465@remote` using any regular method of sending tokens, independent of whether the tokens come from a faucet or another account.
 3. Use the relayer to send these foreign tokens to `alice123@checkers`.
-4. Check `alice123@checkers`'s balance in the checkers blockchain. You should see a new entry whose `denom` field looks like a long hex value `ibc/1873CA...`. Save this string to use with your test.
-5. Repeat the transfer process through the relayer for the benefit of another player, say `bob224@checkers`. Alice can send some tokens to Bob so they can start a game for your test.
+4. Check `alice123@checkers`'s balance in the checkers blockchain when it is done. You should see a new entry whose `denom` field looks like a long hex value `ibc/1873CA...`. Save this string to use with your test.
+5. Repeat the transfer process through the relayer, this time for the benefit of another player say `bob224@checkers`. For your test, Alice can send some tokens to Bob so they can start a game.
 6. Have Alice and Bob start a game with `token: ibc/1873CA...`.
-7. The players can retransfer these foreign tokens via the same relayer to the remote chain.
+7. After the outcome of a game, the players can retransfer these foreign tokens via the same relayer to the remote chain.
 
-This is how the Typescript relayer built-in by Starport lets you experiment with foreign tokens.
+This is how the Typescript relayer built in by Starport lets you experiment with foreign tokens.
 
 <HighlightBox type="tip">
 
-The channels on both ends are no longer monitored as soon as you close the browser window and therefore no token transfers will take place. Depending on the state of development of Starport, this relayer may not be able to reuse a channel it created earlier after you close it. Do not use this for production.
+As soon as you close the browser window, the channels on both ends are no longer monitored and no token transfers will therefore take place. Also depending on the development state of Starport, after you close it, the relayer may not be able to reuse a channel it created earlier. So do not use this for production.
 
 </HighlightBox>
 
