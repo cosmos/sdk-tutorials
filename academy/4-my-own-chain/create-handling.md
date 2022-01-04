@@ -160,7 +160,7 @@ StoredGame:
   turn: black
 ```
 
-Now your game is in the blockchain's storage. Notice how `Bob` was given the black pieces and it is already his turn to play. As a note for the next sections, this is how to understand the board:
+Now your game is in the blockchain's storage. Notice how `bob` was given the black pieces and it is already his turn to play. As a note for the next sections, this is how to understand the board:
 
 ```
 *b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*
