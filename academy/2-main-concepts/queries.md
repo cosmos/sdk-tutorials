@@ -206,31 +206,31 @@ The `client.Context` has a `Query()` function used to retrieve the pre-configure
 
 ```go
 func (ctx Context) queryABCI(req abci.RequestQuery) (abci.ResponseQuery, error) {
-	node, err := ctx.GetNode()
-	if err != nil {
-		return abci.ResponseQuery{}, err
-	}
+    node, err := ctx.GetNode()
+    if err != nil {
+        return abci.ResponseQuery{}, err
+    }
 
-	opts := rpcclient.ABCIQueryOptions{
-		Height: ctx.Height,
-		Prove:  req.Prove,
-	}
+    opts := rpcclient.ABCIQueryOptions{
+        Height: ctx.Height,
+        Prove:  req.Prove,
+    }
 
-	result, err := node.ABCIQueryWithOptions(context.Background(), req.Path, req.Data, opts)
-	if err != nil {
-		return abci.ResponseQuery{}, err
-	}
+    result, err := node.ABCIQueryWithOptions(context.Background(), req.Path, req.Data, opts)
+    if err != nil {
+        return abci.ResponseQuery{}, err
+    }
 
-	if !result.Response.IsOK() {
-		return abci.ResponseQuery{}, errors.New(result.Response.Log)
-	}
+    if !result.Response.IsOK() {
+        return abci.ResponseQuery{}, errors.New(result.Response.Log)
+    }
 
-	// data from trusted node or subspace query doesn't need verification
-	if !opts.Prove || !isQueryStoreWithProof(req.Path) {
-		return result.Response, nil
-	}
+    // data from trusted node or subspace query doesn't need verification
+    if !opts.Prove || !isQueryStoreWithProof(req.Path) {
+        return result.Response, nil
+    }
 
-	return result.Response, nil
+    return result.Response, nil
 }
 ```
 
