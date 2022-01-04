@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-In this section, you will learn more about bridges in the Cosmos ecosystem include the Gravity Bridge that connects Cosmos with Ethereum. Make sure to read the following sections as a preparation:
+In this section, you will learn more about bridges in the Cosmos ecosystem including the Gravity Bridge that connects Cosmos with Ethereum. Make sure to read the following sections as a preparation:
 
 * [The Cosmos Ecosystem](../1-what-is-cosmos/cosmos-ecosystem.md)
 * [Transactions](./transactions.md)
