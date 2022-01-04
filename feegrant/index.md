@@ -248,4 +248,4 @@ By completing this tutorial, you have learned how to use the feegrant module:
 - Made a transaction with fees paid by a granter
 - Revoked an allowance
 
-There is a lot more that you can do with the feegrants module. You can add a list of allowed messages, set an expiration date and set a time duration after which the spend limit is refilled again. To learn more about the feegrant module and different types of allowances, check out the [feegrant module documentation](https://docs.cosmos.network/v0.44/modules/feegrant/).
+There is a lot more that you can do with the fee grants module. You can add a list of allowed messages, set an expiration date, and set a time duration after which the spend limit is refilled. To learn more about the fee grant module and different types of allowances, check out the Cosmos SDK [Fee grant module](https://docs.cosmos.network/v0.44/modules/feegrant/) documentation.
