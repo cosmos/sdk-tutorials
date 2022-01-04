@@ -13,7 +13,7 @@ Have you ever wondered how an upgrade is done in the Cosmos SDK? Take time to fi
 
 The process is "orderly"; blockchains can be upgraded through a predictable process that reliably avoids forks. Discover Cosmos' comprehensive process, which includes governance, data migrations, node upgrades, and more to ensure upgrades proceed smoothly and without service disruption.
 
-Look at the following sections to better understand this section:
+To better understand this section, look at the following sections :
 
 * [Messages](./messages.md)
 * [Protobuf](./protobuf.md)
