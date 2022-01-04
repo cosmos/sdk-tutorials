@@ -1,11 +1,11 @@
 ---
-title: Token - Play With Money
+title: Token - Let Players Set a Wager
 order: 15
-description: You let players play with money
+description: You let players set a wager
 tag: deep-dive
 ---
 
-# Token - Play With Money
+# Token - Let Players Set a Wager
 
 <HighlightBox type="synopsis">
 
