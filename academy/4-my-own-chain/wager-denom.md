@@ -19,7 +19,7 @@ Make sure you have all you need before proceeding:
 
 When you [introduced a wager](./game-wager.md) you enabled players to play a game and bet in the outcome using the base staking token of your blockchain. What if your players want to play with other _currencies_? Your blockchain can represent a token from any other blockchain connected to your chain by using the Inter-Blockchain Communication Protocol (IBC).
 
-Your checkers application be agnostic to tokens and relayers. Your only task is to enable the use of _foreign_ tokens.
+Your checkers application will be agnostic to tokens and relayers. Your only task is to enable the use of _foreign_ tokens.
 
 ## New information
 
