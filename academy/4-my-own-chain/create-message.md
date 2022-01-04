@@ -154,7 +154,7 @@ Flags:
 ...
 ```
 
-You keep the two accounts that are created by Starport. Have `Alice` start a game with `Bob`. How much gas is needed? Estimate that with:
+You kept the two accounts that were created by Starport. Have `alice` start a game with `bob`. How much gas is needed? Estimate that with:
 
 ```sh
 $ checkersd tx checkers create-game cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp cosmos199krg6nz4qgv53nvrx9gj7nrlg48clwurn82jy --from cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp --dry-run
