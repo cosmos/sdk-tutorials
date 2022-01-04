@@ -291,40 +291,40 @@ The application's [codec](https://docs.cosmos.network/master/core/encoding.html)
 
 ```go
 func (ctx Context) printOutput(out []byte) error {
-	if ctx.OutputFormat == "text" {
-		// handle text format by decoding and re-encoding JSON as YAML
-		var j interface{}
+    if ctx.OutputFormat == "text" {
+        // handle text format by decoding and re-encoding JSON as YAML
+        var j interface{}
 
-		err := json.Unmarshal(out, &j)
-		if err != nil {
-			return err
-		}
+        err := json.Unmarshal(out, &j)
+        if err != nil {
+            return err
+        }
 
-		out, err = yaml.Marshal(j)
-		if err != nil {
-			return err
-		}
-	}
+        out, err = yaml.Marshal(j)
+        if err != nil {
+            return err
+        }
+    }
 
-	writer := ctx.Output
-	if writer == nil {
-		writer = os.Stdout
-	}
+    writer := ctx.Output
+    if writer == nil {
+        writer = os.Stdout
+    }
 
-	_, err := writer.Write(out)
-	if err != nil {
-		return err
-	}
+    _, err := writer.Write(out)
+    if err != nil {
+        return err
+    }
 
-	if ctx.OutputFormat != "text" {
-		// append new-line for formats besides YAML
-		_, err = writer.Write([]byte("\n"))
-		if err != nil {
-			return err
-		}
-	}
+    if ctx.OutputFormat != "text" {
+        // append new-line for formats besides YAML
+        _, err = writer.Write([]byte("\n"))
+        if err != nil {
+            return err
+        }
+    }
 
-	return nil
+    return nil
 }
 ```
 
