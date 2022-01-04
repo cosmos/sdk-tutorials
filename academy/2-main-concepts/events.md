@@ -18,7 +18,7 @@ Before diving into events, start with understanding the concepts covered in the 
 * [Modules](./modules.md)
 * [Protobuf](./protobuf.md)
 
-You can find some code examples at the end of this section, in which events are implemented in the checkers blockchain.
+Code examples are provided at the end of this section. Examples show events implemented in the checkers blockchain.
 
 </HighlightBox>
 
