@@ -2,7 +2,7 @@
 parent:
   title: Understanding the Fee Grant Module
 order: 0
-description: Use the Cosmos SDK feegrant module to grant the use of tokens to pay for fees from one account (the granter) to another account (the grantee).
+description: Use the Cosmos SDK fee grant module to grant the use of tokens to pay for fees from one account (the granter) to another account (the grantee).
 ---
 
 # Feegrant Module
