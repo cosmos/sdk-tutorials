@@ -159,7 +159,7 @@ At this point in the lifecycle, the user has created a CLI command with all of t
 
 ## Encoding
 
-`MyQuery` contains an address `delegatorAddress` as its only argument when querying an address' delegations. However, the request can only contain []bytes as it is relayed to a consensus engine (e.g. Tendermint Core) of a full-node, which has no inherent knowledge of the application types. The codec of `client.Context` is used to marshal the address.
+`MyQuery` contains an address `delegatorAddress` as its only argument when querying an address' delegations. However, the request can only contain `[]bytes` as it is relayed to a consensus engine (e.g. Tendermint Core) of a full-node, which has no inherent knowledge of the application types. The codec of `client.Context` is used to marshal the address.
 
 Below see how the code looks like for the CLI command:
 
