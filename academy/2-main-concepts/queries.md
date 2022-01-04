@@ -107,7 +107,7 @@ From a users' perspective, the interactions are a bit different, but the underly
 The first thing created in the execution of a CLI command is a `client.Context`. A `client.Context` is an object that stores all the data needed to process a request on the user side. It stores the following:
 
 * **Codec:** The [encoder/decoder](https://docs.cosmos.network/master/core/encoding.html) used by the application to marshal the parameters and query before making the Tendermint RPC request and unmarshal the returned response into a JSON object. The default codec used by the CLI is Protobuf.
-* **Account decoder:** The account decoder from the [auth](https://docs.cosmos.network/master/x/auth/spec/) module, which translates []bytes into accounts.
+* **Account decoder:** The account decoder from the [auth](https://docs.cosmos.network/master/x/auth/spec/) module, which translates `[]bytes` into accounts.
 * **RPC client:** The Tendermint RPC client or node to which the request is relayed to.
 * **Keyring:** A [key manager](https://docs.cosmos.network/master/basics/accounts.html#keyring) used to sign transactions and handle other operations with keys.
 * **Output writer:** A [writer](https://golang.org/pkg/io/#Writer) used to output the response.
