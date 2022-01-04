@@ -171,7 +171,7 @@ simd start
 
 ## Grant Allowance
 
-Before Bob can send `kudos` to Carol, you'll need to set up an allowance for Bob, so that Carol will pay for any gas fees the transaction might incur. Note that Alice is the validator, so it would not make sense to make her the granter as well because a validator would receive all the fees that the granter paid for. In that case, you wouldn't have been able to see the difference in her balance after a transaction was completed.
+Before Bob can send `kudos` to Carol, you must set up an allowance for Bob so that Carol pays for any gas fees the transaction might incur. Because Alice is the validator, it does not make sense to make her the granter because a validator receives all the fees that the granter paid for. If Alice were the granter, there would not be a difference in her balance after a transaction was completed.
 
 The `BasicAllowance` is a permission for a grantee to use up fees until the `spend_limit` or `expiration` is reached. Create an allowance with a spend limit of `100000stake` and no expiration date:
 
