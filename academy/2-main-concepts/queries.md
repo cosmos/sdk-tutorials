@@ -25,7 +25,7 @@ Assume `MyQuery` is requesting a list of delegations made by a certain delegator
 
 ## CLI
 
-The main interface for an application is the command-line interface (CLI). Users connect to a full-node and run the CLI directly from their machines - the CLI interacts directly with the full-node. Users type the following command to create `MyQuery` in terminal:
+The main interface for an application is the command-line interface (CLI). Users connect to a full-node and run the CLI directly from their machines - the CLI interacts directly with the full-node. Users type the following command to create `MyQuery` in the terminal:
 
 ```sh
 simd query staking delegations <delegatorAddress>
