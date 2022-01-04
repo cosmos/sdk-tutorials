@@ -127,7 +127,7 @@ Initialize the node:
 simd init test --chain-id demo
 ```
 
-Alice will be your validator. Add Alice and an initial balance to the genesis file:
+Alice is your validator. Add Alice and an initial balance to the genesis file:
 
 ```bash
 simd add-genesis-account alice 5000000000stake --keyring-backend test
