@@ -141,7 +141,7 @@ simd add-genesis-account bob 2000kudos --keyring-backend test
 
 Note that Bob has only `kudos` tokens and won't be able to pay for any fees that might be needed.
 
-Add Carol and an initial balance to the genesis file:
+Add Carol and an initial `stake` balance to the genesis file:
 
 ```bash
 simd add-genesis-account carol 1000000stake --keyring-backend test
