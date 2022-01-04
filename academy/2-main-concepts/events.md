@@ -9,9 +9,9 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Dedicate some time to events in the Cosmos SDK - what they are, how they are useful, and how applications should implement them.
+Dedicate some time to events in the Cosmos SDK: learn what events are, how events are useful, and how events are implemented in applications.
 
-You should understand the concepts covered in the following sections before diving into events:
+Before diving into events, start with understanding the concepts covered in the following sections:
 
 * [Transactions](./transactions.md)
 * [Messages](./messages.md)
