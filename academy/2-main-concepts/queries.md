@@ -164,12 +164,10 @@ At this point in the lifecycle, the user has created a CLI command with all of t
 Below see how the code looks like for the CLI command:
 
 ```sh
-
- 			delAddr, err := sdk.AccAddressFromBech32(args[0])
-			if err != nil {
-				return err
-			}
-
+delAddr, err := sdk.AccAddressFromBech32(args[0])
+if err != nil {
+    return err
+}
 ```
 
 ## gRPC query client creation
