@@ -58,7 +58,7 @@ Check to make sure the installation was successful:
 simd version
 ```
 
-You should see `0.44.0` printed to the console.
+The version number `0.44.0` is output to the console.
 
 ## Configuration
 
