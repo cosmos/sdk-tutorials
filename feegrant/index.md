@@ -25,7 +25,10 @@ Two [fee allowance types](https://docs.cosmos.network/v0.44/modules/feegrant/01_
 
 In this tutorial, you will set up two tokens in your blockchain: a default token called `stake` to use for fees and another token called `kudos` to send to your friends.
 
-You will learn how to spin up a single node network using the simulation application in Cosmos SDK (`simapp`) and set up Alice to be a validator. Then you'll have Bob send `kudos` tokens to Carol, while having zero `stake` to pay for fees. The latter will be possible because you'll let Carol grant a `BasicAllowance` to Bob.
+- You will learn how to spin up a single node network using the simulation application in Cosmos SDK (`simapp`).
+- Set Alice up to be a validator.
+- Bob is the grantee who receives a `BasicAllowance` that allows Bob to send `kudos` tokens to Carol, even though Bob has zero `stake` to pay for fees. 
+- Carol is the granter and grants a `BasicAllowance` to Bob.
 
 ## Requirements
 
