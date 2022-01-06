@@ -5,18 +5,32 @@ parent:
   number: 4
 tag: deep-dive
 order: 0
-intro:
-  - overline: It all comes together
-    title: My Own Cosmos Chain
-    image: /cosmos_dev_portal_module-05-lp.png
-    description: |
-      Your first steps to building an application-specific blockchain from scratch. <br/><br/>
-      Continue your journey with Starport, CosmJS, and CosmWasm.
-landingPage: true
+title: Chapter Overview - First Steps to Run Your Own Chain
 ---
 
-<ModuleLandingPage>
+<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">It all comes together</div>
+<h1 class="mt-4 mb-6">My Own Cosmos Chain</h1>
 
-# Chapter Overview - First Steps to Run Your Own Chain
+Your first steps to building an application-specific blockchain from scratch.
 
-</ModuleLandingPage>
+Continue your journey with Starport, CosmJS, and CosmWasm.
+
+![](/cosmos_dev_portal_module-05-lp.png)
+
+## In this module
+
+<card-module/>
+
+## Developer resources
+
+<div v-for="resource in $themeConfig.resources">
+  <Resource 
+    :title="resource.title" 
+    :description="resource.description" 
+    :links="resource.links" 
+    :image="resource.image"
+    :large="true"
+  />
+  <br/>
+</div>
+
