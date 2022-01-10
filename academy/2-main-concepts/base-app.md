@@ -144,7 +144,7 @@ When messages and queries are received by the application, they must be routed t
 
 ### `Msg` service router
 
-<HighlightBox type=”info”>
+<HighlightBox type="info">
 
 Are you looking for more information on `BaseApp`? Check out the [Cosmos SDK documentation](https://github.com/cosmos/cosmos-sdk/blob/master/docs/core/baseapp.md).
 
