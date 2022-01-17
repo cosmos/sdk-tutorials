@@ -224,7 +224,7 @@ View the allowance again:
 simd q feegrant grants $BOB_KEY
 ```
 
-Note how `spend_limit` has been reduced and Bob now has 99500stake left to spend on fees.
+Note how `spend_limit` has been reduced and Bob now has `99500stake` left to spend on fees.
 
 ## Revoke Allowance
 
