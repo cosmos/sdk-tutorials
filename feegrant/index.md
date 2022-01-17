@@ -17,11 +17,11 @@ Two [fee allowance types](https://docs.cosmos.network/v0.44/modules/feegrant/01_
 
 - `BasicAllowance`
 
-    Grantee uses fees from a granter's account.
+    Grantee uses fees from a granter's account. The allowance can have a one-time limit, an expiration, or no limit.
 
 - `PeriodicAllowance`
 
-    A periodic allowance to another user. 
+    Grantee uses fees from a granter's account. The allowance has a limit that is periodically reset. 
 
 In this tutorial, you will set up two tokens in your blockchain: a default token called `stake` to use for fees and another token called `kudos` to send to your friends.
 
