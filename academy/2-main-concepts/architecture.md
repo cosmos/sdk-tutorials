@@ -139,7 +139,7 @@ The application, consensus, and network layers are contained within the custom b
 
 Tendermint passes confirmed transactions to the application layer through the **Application Blockchain Interface (ABCI)**. The application layer must implement ABCI, which is a socket protocol. Tendermint is unconcerned with the interpretation of transactions and the application layer can be unconcerned with propagation, broadcast, confirmation, network formation, and other lower-level concerns that Tendermint attends to unless it wants to inspect such properties.
 
-Developers are free to create blockchains in any language that supports sockets since the ABCO is a socket protocol, provided their application implements ABCI. ABCI defines the boundary between replication concerns and the application, which is a state machine.
+Developers are free to create blockchains in any language that supports sockets since the ABCI is a socket protocol, provided their application implements ABCI. ABCI defines the boundary between replication concerns and the application, which is a state machine.
 
 This is itself a considerable step forward that simplifies the creation of unique blockchains.
 
