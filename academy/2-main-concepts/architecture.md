@@ -145,7 +145,7 @@ This is itself a considerable step forward that simplifies the creation of uniqu
 
 <HighlightBox type="info">
 
-If you want to continue exploring ABCO, you can find more detailed information here:
+If you want to continue exploring ABCI, you can find more detailed information here:
 
 * [ABCI GitHub repository: ABCI prose specification](https://github.com/tendermint/abci/blob/master/specification.md)
 * [Tendermint GitHub repository: A Protobuf file on types](https://github.com/tendermint/abci/blob/master/types/types.proto)
