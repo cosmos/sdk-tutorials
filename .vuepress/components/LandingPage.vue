@@ -22,7 +22,7 @@
                 a.tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}" href="https://docs.starport.com/" target="_blank")
                     .tm-measure
                         .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted starport
-                        h2.mt-5 Build a chain in hours
+                        h2.mt-5 Build a chain in minutes
 
 
         .articles__wrapper.mt-10(v-if="$frontmatter.articles")
