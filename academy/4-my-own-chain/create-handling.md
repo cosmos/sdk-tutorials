@@ -127,7 +127,7 @@ $ starport chain serve
 And send your transaction, the same as in the [previous section](./create-message.md):
 
 ```sh
-$ checkersd tx checkers create-game cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66 cosmos14n4qkxcpr6ycct75zzp2r7v6rm96xhkegu5205 --from cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66 --gas auto
+$ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $alice` --gas auto
 ```
 
 There is a first hint of a good sign in the output; `gas_used` is a bit higher than earlier: `gas_used: "50671"`. Confirm the current state:

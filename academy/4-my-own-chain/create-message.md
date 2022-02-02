@@ -154,17 +154,24 @@ Flags:
 ...
 ```
 
-You kept the two accounts that were created by Starport. Have `alice` start a game with `bob`. How much gas is needed? Estimate that with:
+You kept the two accounts that were created by Starport. Have `alice` start a game with `bob`. Simplify your life and make them aliases:
 
 ```sh
-$ checkersd tx checkers create-game cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp cosmos199krg6nz4qgv53nvrx9gj7nrlg48clwurn82jy --from cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp --dry-run
+$ export alice=cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp
+$ export bob=cosmos199krg6nz4qgv53nvrx9gj7nrlg48clwurn82jy
+```
+
+ How much gas is needed? Estimate that with:
+
+```sh
+$ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $alice` --dry-run
 gas estimate: 40452
 ```
 
 That is not much. Thus, `auto` is enough:
 
 ```sh
-$ checkersd tx checkers create-game cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp cosmos199krg6nz4qgv53nvrx9gj7nrlg48clwurn82jy --from cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp --gas auto
+$ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $alice` --gas auto
 {"body":{"messages":[{"@type":"/alice.checkers.checkers.MsgCreateGame","creator":"cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp","red":"cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp","black":"cosmos199krg6nz4qgv53nvrx9gj7nrlg48clwurn82jy"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[],"gas_limit":"40412","payer":"","granter":""}},"signatures":[]}
 
 confirm transaction before signing and broadcasting [y/N]: y

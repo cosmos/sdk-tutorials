@@ -63,7 +63,7 @@ This entire exercise was built using the Starport version noted above. Using a n
 To install this specific version of Starport, use:
 
 ```sh
-curl https://get.starport.network/starport@v0.17.0! | bash
+$ curl https://get.starport.network/starport@v0.17.0! | bash
 ```
 
 If you'd like to upgrade an existing project to the latest version of Starport, you can follow the [Starport migration documentation](https://docs.starport.com/migration/).
