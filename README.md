@@ -59,10 +59,10 @@ articles:
     time: 4
     url: https://medium.com/tendermint/tendermint-v0-35-introduces-prioritized-mempool-a-makeover-to-the-peer-to-peer-network-more-61eea6ec572d
     image: /resized-images/article-02.jpg
-  - title: Multichain Landscape
-    date: Monday, October 4
+  - title: What is IBC?
+    date: Tuesday, December 7
     time: 9
-    url: https://blog.celestia.org/clusters/
+    url: https://bisontrails.co/ibc-protocol
     image: /resized-images/article-03.jpg
 -->
 
