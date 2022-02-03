@@ -157,11 +157,105 @@ You can confirm that your project at least compiles [with](https://docs.starport
 $ starport chain build
 ```
 
+## Interact with the CLI
 
+Time to see if it is possible to reject a game. First, is it possible to reject the current game from the command-line?
+
+```sh
+$ checkersd tx checkers --help
+...
+Available Commands:
+...
+  reject-game Broadcast message rejectGame
+```
+
+`reject-game` is the command. What is its syntax?
+
+```sh
+$ checkersd tx checkers reject-game --help
+...
+Usage:
+  checkersd tx checkers reject-game [idValue] [flags]
+```
+
+Simple. Let's have Alice, who played poorly in this game `0` try to reject it:
+
+```sh
+$ checkersd tx checkers reject-game 0 --from `echo $alice`
+...
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"0"}]}]}]'
+```
+
+Oh.
+
+<HighlightBox type="warn">
+
+How is it possible that Alice could reject a game in which she had already played, despite the code preventing that? Because the game `0` was created in an earlier version of your code. This earlier version created **a game without any `.MoveCount`**. When you later added the code for rejection, Starport kept the current state of your blockchain. In effect, your blockchain was in a broken state, where **the code and the state were out of sync**. To see how to properly handle code changes that would result in a broken state, see the section on [migrations](./migration.md).
+
+</HighlightBox>
+
+Now you have to create another game and test the rejection on it. Notice the incrementing game id.
+
+1. Bob creates a game and rejects it immediately:
+
+    ```sh
+    $ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $bob`
+    $ checkersd tx checkers reject-game 1 --from `echo $bob`
+    ...
+    raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1w0uumlj04eyvevhfawasm2dtjc24nexxygr8qx"},{"key":"IdValue","value":"1"}]}]}]'
+    ```
+
+    Correct, because nobody played on it.
+2. Bob creates a game and Alice rejects it immediately:
+
+    ```sh
+    $ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $bob`
+    $ checkersd tx checkers reject-game 2 --from `echo $alice`
+    ...
+    raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"2"}]}]}]'
+    ```
+
+    Correct, because nobody played on it.
+3. Bob creates a game, makes a move and rejects the game:
+
+    ```sh
+    $ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $bob`
+    $ checkersd tx checkers play-move 3 1 2 2 3 --from `echo $bob`
+    $ checkersd tx checkers reject-game 3 --from `echo $bob`
+    ...
+    raw_log: 'failed to execute message; message index: 0: black player has already played'
+    ```
+
+    Correct, because Bob has already played.
+4. Bob creates a game, makes a move, and Alice rejects the game:
+
+    ```sh
+    $ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $bob`
+    $ checkersd tx checkers play-move 4 1 2 2 3 --from `echo $bob`
+    $ checkersd tx checkers reject-game 4 --from `echo $alice`
+    ...
+    raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"4"}]}]}]'
+    ```
+
+    Correct, because Alice has not played yet.
+5. Bob creates a game, makes a move, Alice makes a poor move and rejects the game:
+
+    ```sh
+    $ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $bob`
+    $ checkersd tx checkers play-move 5 1 2 2 3 --from `echo $bob`
+    $ checkersd tx checkers play-move 5 0 5 1 4 --from `echo $alice`
+    $ checkersd tx checkers reject-game 5 --from `echo $alice`
+    ...
+    raw_log: 'failed to execute message; message index: 0: red player has already played'
+    ```
+
+    Correct too. This time, Alice could not reject a game on which she had played, because the state had recorded her move in `.MoveCount`.
+
+To belabor the point made in the earlier warning box, if you change your code, think about what it means for the current state of the chain.
 
 ## Next up
 
-The next four sections cover forfeits and how games end. In the next section you create a [doubly-linked FIFO](./game-fifo.md). 
+The next four sections cover forfeits and how games end. In the next section you create a [doubly-linked FIFO](./game-fifo.md).
 
 Later you add a [deadline](./game-deadline.md) and a [game winner](./game-winner.md) fields, before being able to finally [enforce the forfeit](./game-forfeit.md).
 
