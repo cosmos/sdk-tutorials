@@ -100,6 +100,16 @@ module.exports = {
             },
           ],
         },
+        {
+          title: "Tutorials",
+          children: [
+            {
+              title: "Understanding IBC denoms",
+              path: "/tutorials/understanding-ibc-denoms/",
+              directory: false,
+            }
+          ],
+        },
       ],
     },
     gutter: {
@@ -291,25 +301,9 @@ module.exports = {
     ]
   ],
   patterns: [
-    "hello-world/tutorial/*.md",
-    "burner-chain/*.md",
     "README.md",
-    "home/*.md",
-    "nameservice/tutorial/*.md",
-    "scavenge/tutorial/*.md",
-    "proof-of-file-existence/tutorial/*.md",
-    "launchpad-to-stargate/tutorial/*.md",
-    "voter/*.md",
-    "connecting-to-testnet/*.md",
-    "voter-legacy/*.md",
-    "blog-legacy/tutorial/*.md",
-    "blog/tutorial/*.md",
-    "interchain-exchange/tutorial/*.md",
-    "liquidity-module/*.md",
-    "publish-app-do/*.md",
-    "starport/*.md",
-    "understanding-ibc-denoms/*.md",
     "feature-test/*.md",
-    "academy/*/*.md"
+    "academy/*/*.md",
+    "tutorials/*/*.md"
   ]
 };
