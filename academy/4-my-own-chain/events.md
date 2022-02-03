@@ -103,6 +103,155 @@ ctx.EventManager().EmitEvent(
 )
 ```
 
+## Interact with the CLI
+
+Bob made a move, will Alice's move emit an event?
+
+```sh
+$ checkersd tx checkers play-move 0 0 5 1 4 --from `echo $alice`
+...
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"PlayMove"},{"key":"module","value":"checkers"},{"key":"action","value":"MovePlayed"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"0"},{"key":"CapturedX","value":"-1"},{"key":"CapturedY","value":"-1"},{"key":"Winner","value":"NO_PLAYER"}]}]}]'
+```
+
+The expected elements are present. To parse the events, and display them in a more user-friendly way, you can take the `txhash` again and do:
+
+```sh
+$ checkersd query tx 531E5708A1EFBE08D14ABF947FBC888BFC69CD6F04A589D478204BF3BA891AB7 --output json | jq ".raw_log | fromjson"
+```
+
+This returns something like:
+
+```json
+[
+  {
+    "events": [
+      {
+        "type": "message",
+        "attributes": [
+          {
+            "key": "action",
+            "value": "PlayMove"
+          },
+          {
+            "key": "module",
+            "value": "checkers"
+          },
+          {
+            "key": "action",
+            "value": "MovePlayed"
+          },
+          {
+            "key": "Creator",
+            "value": "cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66"
+          },
+          {
+            "key": "IdValue",
+            "value": "0"
+          },
+          {
+            "key": "CapturedX",
+            "value": "-1"
+          },
+          {
+            "key": "CapturedY",
+            "value": "-1"
+          },
+          {
+            "key": "Winner",
+            "value": "NO_PLAYER"
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+As you can see, no pieces were captured. However, it turns out that Alice placed her piece ready to be captured by Bob:
+
+```sh
+$ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\'$'\n/g'
+*b*b*b*b
+b*b*b*b*
+***b*b*b
+**b*****
+*r******
+**r*r*r*
+*r*r*r*r
+r*r*r*r*
+```
+
+Naturally Bob goes ahead and captures the piece:
+
+```sh
+$ checkersd tx checkers play-move 0 2 3 0 5 --from `echo $bob`
+...
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"PlayMove"},{"key":"module","value":"checkers"},{"key":"action","value":"MovePlayed"},{"key":"Creator","value":"cosmos1w0uumlj04eyvevhfawasm2dtjc24nexxygr8qx"},{"key":"IdValue","value":"0"},{"key":"CapturedX","value":"1"},{"key":"CapturedY","value":"4"},{"key":"Winner","value":"NO_PLAYER"}]}]}]'
+```
+
+Which, formatted, is:
+
+```json
+[
+  {
+    "events": [
+      {
+        "type": "message",
+        "attributes": [
+          {
+            "key": "action",
+            "value": "PlayMove"
+          },
+          {
+            "key": "module",
+            "value": "checkers"
+          },
+          {
+            "key": "action",
+            "value": "MovePlayed"
+          },
+          {
+            "key": "Creator",
+            "value": "cosmos1w0uumlj04eyvevhfawasm2dtjc24nexxygr8qx"
+          },
+          {
+            "key": "IdValue",
+            "value": "0"
+          },
+          {
+            "key": "CapturedX",
+            "value": "1"
+          },
+          {
+            "key": "CapturedY",
+            "value": "4"
+          },
+          {
+            "key": "Winner",
+            "value": "NO_PLAYER"
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+Correct, Bob captured a piece. And the board looks like:
+
+```
+*b*b*b*b
+b*b*b*b*
+***b*b*b
+********
+********
+b*r*r*r*
+*r*r*r*r
+r*r*r*r*
+```
+
+This confirms that the _play_ event is emitted as expected. You can do the same for the _game created_ event.
+
 ## Next up
 
 Time to add a third message to make it possible for a player to [reject a game](./reject-game.md) and make your checkers blockchain more resistant to spam.
