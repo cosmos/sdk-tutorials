@@ -257,7 +257,7 @@ NextGame:
 That's good. If you create a game, is it as expected?
 
 ```sh
-$ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $bob`
+$ checkersd tx checkers create-game $alice $bob --from $bob
 $ checkersd query checkers show-next-game
 NextGame:
   creator: ""
@@ -281,7 +281,7 @@ Correct since it is the only game.
 And if you create another game?
 
 ```sh
-$ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $bob`
+$ checkersd tx checkers create-game $alice $bob --from $bob
 $ checkersd query checkers show-next-game
 NextGame:
   creator: ""
@@ -308,7 +308,7 @@ Which is correct. Your FIFO in effect has the game ids `[0, 1]`. You can add a t
 What happens when Bob plays on the game 1, the one _in the middle_?
 
 ```sh
-$ checkersd tx checkers play-move 1 1 2 2 3 --from `echo $bob`
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
 $ checkersd query checkers show-next-game    
 NextGame:
   creator: ""
@@ -332,7 +332,7 @@ That's correct. Your FIFO now has the game ids `[0, 2, 1]`. You see that the gam
 What happens when Alice rejects game 2?
 
 ```sh
-$ checkersd tx checkers reject-game 2 --from `echo $alice`
+$ checkersd tx checkers reject-game 2 --from $alice
 $ checkersd query checkers show-next-game
 NextGame:
   creator: ""

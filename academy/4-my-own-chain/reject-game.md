@@ -181,7 +181,7 @@ Usage:
 Simple. Let's have Alice, who played poorly in this game `0` try to reject it:
 
 ```sh
-$ checkersd tx checkers reject-game 0 --from `echo $alice`
+$ checkersd tx checkers reject-game 0 --from $alice
 ...
 raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"0"}]}]}]'
 ```
@@ -199,8 +199,8 @@ Now you have to create another game and test the rejection on it. Notice the inc
 1. Bob creates a game and rejects it immediately:
 
     ```sh
-    $ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $bob`
-    $ checkersd tx checkers reject-game 1 --from `echo $bob`
+    $ checkersd tx checkers create-game $alice $bob --from $bob
+    $ checkersd tx checkers reject-game 1 --from $bob
     ...
     raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1w0uumlj04eyvevhfawasm2dtjc24nexxygr8qx"},{"key":"IdValue","value":"1"}]}]}]'
     ```
@@ -209,8 +209,8 @@ Now you have to create another game and test the rejection on it. Notice the inc
 2. Bob creates a game and Alice rejects it immediately:
 
     ```sh
-    $ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $bob`
-    $ checkersd tx checkers reject-game 2 --from `echo $alice`
+    $ checkersd tx checkers create-game $alice $bob --from $bob
+    $ checkersd tx checkers reject-game 2 --from $alice
     ...
     raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"2"}]}]}]'
     ```
@@ -219,9 +219,9 @@ Now you have to create another game and test the rejection on it. Notice the inc
 3. Bob creates a game, makes a move and rejects the game:
 
     ```sh
-    $ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $bob`
-    $ checkersd tx checkers play-move 3 1 2 2 3 --from `echo $bob`
-    $ checkersd tx checkers reject-game 3 --from `echo $bob`
+    $ checkersd tx checkers create-game $alice $bob --from $bob
+    $ checkersd tx checkers play-move 3 1 2 2 3 --from $bob
+    $ checkersd tx checkers reject-game 3 --from $bob
     ...
     raw_log: 'failed to execute message; message index: 0: black player has already played'
     ```
@@ -230,9 +230,9 @@ Now you have to create another game and test the rejection on it. Notice the inc
 4. Bob creates a game, makes a move, and Alice rejects the game:
 
     ```sh
-    $ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $bob`
-    $ checkersd tx checkers play-move 4 1 2 2 3 --from `echo $bob`
-    $ checkersd tx checkers reject-game 4 --from `echo $alice`
+    $ checkersd tx checkers create-game $alice $bob --from $bob
+    $ checkersd tx checkers play-move 4 1 2 2 3 --from $bob
+    $ checkersd tx checkers reject-game 4 --from $alice
     ...
     raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"4"}]}]}]'
     ```
@@ -241,10 +241,10 @@ Now you have to create another game and test the rejection on it. Notice the inc
 5. Bob creates a game, makes a move, Alice makes a poor move and rejects the game:
 
     ```sh
-    $ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $bob`
-    $ checkersd tx checkers play-move 5 1 2 2 3 --from `echo $bob`
-    $ checkersd tx checkers play-move 5 0 5 1 4 --from `echo $alice`
-    $ checkersd tx checkers reject-game 5 --from `echo $alice`
+    $ checkersd tx checkers create-game $alice $bob --from $bob
+    $ checkersd tx checkers play-move 5 1 2 2 3 --from $bob
+    $ checkersd tx checkers play-move 5 0 5 1 4 --from $alice
+    $ checkersd tx checkers reject-game 5 --from $alice
     ...
     raw_log: 'failed to execute message; message index: 0: red player has already played'
     ```

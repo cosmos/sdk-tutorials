@@ -191,7 +191,7 @@ Usage:
 So `Alice` tries with:
 
 ```sh
-$ checkersd tx checkers play-move 0 0 5 1 4 --from `echo $alice`
+$ checkersd tx checkers play-move 0 0 5 1 4 --from $alice
                                      ^ ^ ^ ^ ^
                                      | | | | To Y
                                      | | | To X
@@ -217,7 +217,7 @@ raw_log: 'failed to execute message; message index: 0: player tried to play out 
 Can `Bob`, who plays _black_, make a move? Can he make a wrong move, for instance from `0-1` to `1-0` which in turn is occupied by one of his pieces?
 
 ```sh
-$ checkersd tx checkers play-move 0 1 0 0 1 --from `echo $bob`
+$ checkersd tx checkers play-move 0 1 0 0 1 --from $bob
 ...
 raw_log: 'failed to execute message; message index: 0: Already piece at destination
   position: {1 0}: wrong move'
@@ -226,7 +226,7 @@ raw_log: 'failed to execute message; message index: 0: Already piece at destinat
 All seems to be working just fine. Time for `Bob` to make a correct move:
 
 ```sh
-$ checkersd tx checkers play-move 0 1 2 2 3 --from `echo $bob`
+$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
 ...
 raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"PlayMove"}]}]}]'
 ```
