@@ -23,7 +23,7 @@ In the [previous step](./reject-game.md) you added a way for players to reject a
 
 What if a player never shows up again? Should a game remain in limbo forever?
 
-You eventually want to let players wager on the outcome of games especially if _value_ is tied up in games. You need to add a way for games to be forcibly resolved if a player stops responding.
+Furthermore, you eventually want to let players wager on the outcome of games and you especially don't want games remaining in limbo if _value_ is tied up in games. For this reason, you need to add a way for games to be forcibly resolved if a player stops responding.
 
 The simplest mechanism to expire a game is to use a **deadline**. If the deadline is reached, then the game is forcibly terminated and expires. The deadline is pushed further back every time a game is played.
 
@@ -44,15 +44,15 @@ You need another data structure. The simplest one is a First-In-First-Out (FIFO)
 * The just played games are taken out of where they are and sent to the tail.
 * The games that have not been played for the longest time eventually end up at the head.
 
-You keep dealing with the expired games that are at the head of the FIFO when terminating expired games in `EndBlock`. Do not stop until the head includes an ongoing game. The cost is:
+When terminating expired games in `EndBlock`, you keep dealing with the expired games that are at the head of the FIFO. Do not stop until the head includes an ongoing game. The cost is:
 
 * `O(1)` on each game creation and gameplay.
 * `O(k)` where `k` is the number of expired games on each block.
 * `k <= n`
 
-`k` still is an unbounded number of operations. But if you use the same expiration duration on each game, for `k` games to expire together in a block, these `k` games would all have to have had a move in the same previous block. Give or take the block before or after. The largest `EndBlock` computation will be proportional to the largest regular block in the past in the worst case. This is a reasonable risk to take.
+`k` still is an unbounded number of operations. But if you use the same expiration duration on each game, for `k` games to expire together in a block, these `k` games would all have to have had a move in the same previous block. Give or take the block before or after. In the worst case, the largest `EndBlock` computation will be proportional to the largest regular block in the past. This is a reasonable risk to take.
 
-Remember this only works if the expiration duration is the same for all games instead of being a parameter left to a potentially malicious game creator.
+Remember, this only works if the expiration duration is the same for all games instead of being a parameter left to a potentially malicious game creator.
 
 ## New information
 
@@ -60,7 +60,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 1. You need to remember the game ID at the head, to pick expired games, and at the tail, to send back fresh games. The existing `NextGame` object is a good place for this as it is already an object and expandable. Just add a bit to its Protobuf declaration:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/proto/checkers/next_game.proto#L11-L12]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/proto/checkers/next_game.proto#L11-L12]
     message NextGame {
         ...
         string fifoHead = 3; // Will contain the index of the game at the head.
@@ -70,7 +70,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 2. To make extraction possible each game needs to know which other game takes place before it in the FIFO, and which after. The right place to store this double link information is `StoredGame`. Thus, you add them in the game's Protobuf declaration:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/proto/checkers/stored_game.proto#L16-L17]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/proto/checkers/stored_game.proto#L16-L17]
     message StoredGame {
         ...
         string beforeId = 8; // Pertains to the FIFO. Towards head.
@@ -80,7 +80,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 3. There needs to be an "ID" that indicates _no game_. Let's use `"-1"`, which you save as a constant:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/types/keys.go#L32-L34]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/types/keys.go#L32-L34]
     const (
         NoFifoIdKey = "-1"
     )
@@ -88,7 +88,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 4. Adjust the default genesis values, so that it has proper head and tail:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/types/genesis.go#L20-L21]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/types/genesis.go#L20-L21]
     func DefaultGenesis() *GenesisState {
         return &GenesisState{
             ...
@@ -113,7 +113,7 @@ Now that the new fields are created, you need to update them accordingly to keep
 
 1. A function to remove from the FIFO:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/keeper/stored_game_in_fifo.go#L9-L36]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/keeper/stored_game_in_fifo.go#L9-L36]
     func (k Keeper) RemoveFromFifo(ctx sdk.Context, game *types.StoredGame, info *types.NextGame) {
         // Does it have a predecessor?
         if game.BeforeId != types.NoFifoIdKey {
@@ -148,7 +148,7 @@ Now that the new fields are created, you need to update them accordingly to keep
 
 2. A function to send to the tail:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/keeper/stored_game_in_fifo.go#L39-L63]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/keeper/stored_game_in_fifo.go#L39-L63]
     func (k Keeper) SendToFifoTail(ctx sdk.Context, game *types.StoredGame, info *types.NextGame) {
         if info.FifoHead == types.NoFifoIdKey && info.FifoTail == types.NoFifoIdKey {
             game.BeforeId = types.NoFifoIdKey
@@ -169,21 +169,34 @@ Now that the new fields are created, you need to update them accordingly to keep
                 panic("Current Fifo tail was not found")
             }
             currentTail.AfterId = game.Index
-            game.BeforeId = currentTail.Index
+            k.SetStoredGame(ctx, currentTail)
 
+            game.BeforeId = currentTail.Index
             info.FifoTail = game.Index
         }
     }
     ```
 
+    Same remark here about using `SetStoredGame` and `SetNextGame` after calling this function.
 
 ## Use it
 
 With these functions ready, it is time to use them in the message handlers.
 
-1. In the handler when creating a new game, send the new game to the tail because it is freshly created:
+1. In the handler when creating a new game, set default values for `BeforeId` and `AfterId`:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/keeper/msg_server_create_game.go#L32]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/keeper/msg_server_create_game.go#L29-L30]
+    ...
+    storedGame := types.StoredGame{
+        ...
+        BeforeId:  types.NoFifoIdKey,
+        AfterId:   types.NoFifoIdKey,        
+    }
+    ```
+
+    And send the new game to the tail because it is freshly created:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/keeper/msg_server_create_game.go#L36]
     ...
     k.Keeper.SendToFifoTail(ctx, &storedGame, &nextGame)
     k.Keeper.SetStoredGame(ctx, storedGame)
@@ -192,7 +205,7 @@ With these functions ready, it is time to use them in the message handlers.
 
 2. In the handler when playing a move, send the game back to the tail because it was freshly updated:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/keeper/msg_server_play_move.go#L58-L68]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/keeper/msg_server_play_move.go#L58-L68]
     ...
     nextGame, found := k.Keeper.GetNextGame(ctx)
     if !found {
@@ -207,7 +220,7 @@ With these functions ready, it is time to use them in the message handlers.
 
 3. In the handler when rejecting a game, remove the game from the FIFO:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/keeper/msg_server_reject_game.go#L34-L42]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/keeper/msg_server_reject_game.go#L34-L42]
     ...
     nextGame, found := k.Keeper.GetNextGame(ctx)
     if !found {
@@ -221,6 +234,129 @@ With these functions ready, it is time to use them in the message handlers.
     ```
 
 You implemented a FIFO that is updated but never really used.
+
+## Interact via the CLI
+
+Time to see what you get now with the commands. Because you made numerous additions to the blockchain state, you need to start afresh:
+
+```sh
+$ starport chain serve --reset-once
+```
+
+Is the genesis FIFO information correctly saved?
+
+```sh
+$ checkersd query checkers show-next-game
+NextGame:
+  creator: ""
+  fifoHead: "-1" # There is nothing
+  fifoTail: "-1" # There is nothing
+  idValue: "0"
+```
+
+That's good. If you create a game, is it as expected?
+
+```sh
+$ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $bob`
+$ checkersd query checkers show-next-game
+NextGame:
+  creator: ""
+  fifoHead: "0" # The first game you created
+  fifoTail: "0" # The first game you created
+  idValue: "1"
+```
+
+Good. What about the information saved in the game?
+
+```sh
+$ checkersd query checkers show-stored-game 0   
+StoredGame:
+  afterId: "-1" # Nothing because it is alone
+  beforeId: "-1" # Nothing because it is alone
+...
+```
+
+Correct since it is the only game.
+
+And if you create another game?
+
+```sh
+$ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $bob`
+$ checkersd query checkers show-next-game
+NextGame:
+  creator: ""
+  fifoHead: "0" # The first game you created
+  fifoTail: "1" # The second game you created
+  idValue: "2"
+```
+
+Did the games also store the correct values?
+
+```sh
+$ checkersd query checkers show-stored-game 0 # The first game you created
+afterId: "1" # The second game you created
+beforeId: "-1" # No game
+...
+$ checkersd query checkers show-stored-game 1 # The second game you created
+afterId: "-1" # No game
+beforeId: "0" # The first game you created
+...
+```
+
+Which is correct. Your FIFO in effect has the game ids `[0, 1]`. You can add a third game, which makes your FIFO be `[0, 1, 2]`.
+
+What happens when Bob plays on the game 1, the one _in the middle_?
+
+```sh
+$ checkersd tx checkers play-move 1 1 2 2 3 --from `echo $bob`
+$ checkersd query checkers show-next-game    
+NextGame:
+  creator: ""
+  fifoHead: "0" # The first game you created
+  fifoTail: "1" # The second game you created and on which Bob just played
+  idValue: "3"
+```
+
+That looks good. And is the game 2 in the middle now?
+
+```sh
+$ checkersd query checkers show-stored-game 2
+StoredGame:
+  afterId: "1"
+  beforeId: "0"
+...
+```
+
+That's correct. Your FIFO now has the game ids `[0, 2, 1]`. You see that the game 1, which was played on, has been sent to the tail of the FIFO.
+
+What happens when Alice rejects game 2?
+
+```sh
+$ checkersd tx checkers reject-game 2 --from `echo $alice`
+$ checkersd query checkers show-next-game
+NextGame:
+  creator: ""
+  fifoHead: "0"
+  fifoTail: "1"
+  idValue: "3"
+```
+
+No changes there because game 2 was _in the middle_, so it did not affect the head or the tail.
+
+```sh
+$ checkersd query checkers show-stored-game 0
+StoredGame:
+  afterId: "1"
+  beforeId: "-1"
+...
+$ checkersd query checkers show-stored-game 1
+StoredGame:
+  afterId: "-1"
+  beforeId: "0"
+...
+```
+
+So your FIFO now has the game ids `[0, 1]`. The game 2 was correctly removed from the FIFO.
 
 ## Next up
 
