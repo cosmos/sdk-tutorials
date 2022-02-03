@@ -177,7 +177,7 @@ That is all there is to it: good preparation and the use of Starport.
 
 ## Interact via the CLI
 
-With one game in storage and the game waiting for `Bob`'s move, can `Alice` make a move? Check the order of the parameters:
+With one game in storage and the game waiting for `Bob`'s move, can `Alice` make a move? Take a look at the `play-move` message and which parameters it accepts:
 
 ```sh
 $ checkersd tx checkers play-move --help
@@ -205,7 +205,7 @@ raw_log: 'failed to execute message; message index: 0: player tried to play out 
 txhash: D10BB8A706870F65F19E4DF48FB870E4B7D55AF4232AE0F6897C23466FF7871B
 ```
 
-If you did not get this `raw_log`, perhaps because the transaction was sent asynchronously, use the `txhash` in the following command:
+If you did not get this `raw_log`, it might be because your transaction was sent asynchronously. You can always query a transaction by using the `txhash` by using the following command:
 
 ```sh
 $ checkersd query tx D10BB8A706870F65F19E4DF48FB870E4B7D55AF4232AE0F6897C23466FF7871B

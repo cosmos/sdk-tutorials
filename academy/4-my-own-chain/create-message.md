@@ -154,24 +154,24 @@ Flags:
 ...
 ```
 
-You kept the two accounts that were created by Starport. Have `alice` start a game with `bob`. Simplify your life and make them aliases:
+You kept the two accounts that were created by Starport. Have `alice` start a game with `bob`. Instead of having to copy and paste the addresses each time you need them, you can store these as variables:
 
 ```sh
-$ export alice=cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp
-$ export bob=cosmos199krg6nz4qgv53nvrx9gj7nrlg48clwurn82jy
+$ export alice=$(checkersd keys show alice -a)
+$ export bob=$(checkersd keys show bob -a)
 ```
 
- How much gas is needed? Estimate that with:
+ How much gas is needed? You can get an estimate by dry running the transaction using the `--dry-run` flag:
 
 ```sh
-$ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $alice` --dry-run
+$ checkersd tx checkers create-game $alice $bob --from $alice --dry-run
 gas estimate: 40452
 ```
 
 That is not much. Thus, `auto` is enough:
 
 ```sh
-$ checkersd tx checkers create-game `echo $alice` `echo $bob` --from `echo $alice` --gas auto
+$ checkersd tx checkers create-game $alice $bob --from $alice --gas auto
 {"body":{"messages":[{"@type":"/alice.checkers.checkers.MsgCreateGame","creator":"cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp","red":"cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp","black":"cosmos199krg6nz4qgv53nvrx9gj7nrlg48clwurn82jy"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[],"gas_limit":"40412","payer":"","granter":""}},"signatures":[]}
 
 confirm transaction before signing and broadcasting [y/N]: y
@@ -196,7 +196,7 @@ tx: null
 txhash: 59BC309EF79C354DD46ECE8D882BE133699CC10B165FEFAFF6AF3717507EBB4F
 ```
 
-Confirm that the new state conforms to your expectations:
+You can query your chain to see if the new game has been saved to state:
 
 ```sh
 $ checkersd query checkers show-next-game
@@ -211,7 +211,7 @@ pagination:
   total: "0"
 ```
 
-It seems nothing has changed. Starport only created a message, but you did not implement what actions the chain should undertake when it receives this message. That is the object of the next section.
+It looks like nothing has changed. Starport only created a message, but you did not yet implement what actions the chain should undertake when it receives this message. That's what you'll take care of in the [next section](./create-handling.md).
 
 ## Next up
 
