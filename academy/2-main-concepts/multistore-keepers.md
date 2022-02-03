@@ -60,13 +60,6 @@ Each keeper has its own constructor function, which is called from the applicati
 
 Keepers primarily expose getter and setter methods for the store(s) managed by their module. Methods should remain simple and strictly limited to getting or setting the requested value. Validity checks should already have been done with the `ValidateBasic()` method of the message and the `Msg` server before the keeper's methods are called.
 
-Getter and setter method usually have the following signatures:
-
-* The getter method has the signature ` func (k Keeper) Get(ctx sdk.Context, key string) returnType`.
-* The setter method has the signature `func (k Keeper) Set(ctx sdk.Context, key string, value valueType)`.
-
-Keepers primarily expose getter and setter methods for the store(s) managed by their module. Methods should remain simple and strictly limited to getting or setting the requested value. Validity checks should already have been done with the `ValidateBasic()` method of the message and the `Msg` server before the keeper's methods are called.
-
 The getter method will typically have the following signature:
 
 ```go
