@@ -29,7 +29,7 @@ In this exercise a draw is not handled and it would require yet another value to
 
 In the `StoredGame` Protobuf definition file:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/e50ceaedb52cbbb2e802a1c887657cdc8f52f25b/proto/checkers/stored_game.proto#L19]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/ac9be52/proto/checkers/stored_game.proto#L19]
 message StoredGame {
     ...
     string winner = 11;
@@ -44,7 +44,7 @@ $ starport generate proto-go
 
 Add a helper function to get the winner's address, if it exists. A good place for it is in `full_game.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e50ceaedb52cbbb2e802a1c887657cdc8f52f25b/x/checkers/types/full_game.go#L50-L69]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ac9be52/x/checkers/types/full_game.go#L50-L69]
 func (storedGame *StoredGame) GetPlayerAddress(color string) (address sdk.AccAddress, found bool, err error) {
     red, err := storedGame.GetRedAddress()
     if err != nil {
@@ -73,12 +73,12 @@ This is a two-part update. You set the winner where relevant but you also introd
 
 Start with a new error that you define as a constant:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e50ceaedb52cbbb2e802a1c887657cdc8f52f25b/x/checkers/types/errors.go#L22]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ac9be52/x/checkers/types/errors.go#L22]
 ErrGameFinished = sdkerrors.Register(ModuleName, 1111, "game is already finished")
 ```
 Then at creation, in the _create game_ message handler, you start with a neutral value:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e50ceaedb52cbbb2e802a1c887657cdc8f52f25b/x/checkers/keeper/msg_server_create_game.go#L28]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ac9be52/x/checkers/keeper/msg_server_create_game.go#L32]
 ...
 storedGame := types.StoredGame{
     ...
@@ -90,7 +90,7 @@ With further checks when handling a play in the handler:
 
 1. Check that the game has not finished yet:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e50ceaedb52cbbb2e802a1c887657cdc8f52f25b/x/checkers/keeper/msg_server_play_move.go#L23-L25]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ac9be52/x/checkers/keeper/msg_server_play_move.go#L23-L25]
     if storedGame.Winner != rules.NO_PLAYER.Color {
         return nil, types.ErrGameFinished
     }
@@ -98,13 +98,13 @@ With further checks when handling a play in the handler:
 
 2. Update the winner field, which [remains neutral](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L165) if there is no winner yet:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e50ceaedb52cbbb2e802a1c887657cdc8f52f25b/x/checkers/keeper/msg_server_play_move.go#L62]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ac9be52/x/checkers/keeper/msg_server_play_move.go#L62]
     storedGame.Winner = game.Winner().Color
     ```
 
 3. Handle the FIFO differently depending on whether the game is finished or not:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e50ceaedb52cbbb2e802a1c887657cdc8f52f25b/x/checkers/keeper/msg_server_play_move.go#L69-L73]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ac9be52/x/checkers/keeper/msg_server_play_move.go#L69-L73]
     if storedGame.Winner == rules.NO_PLAYER.Color {
         k.Keeper.SendToFifoTail(ctx, &storedGame, &nextGame)
     } else {
@@ -114,13 +114,40 @@ With further checks when handling a play in the handler:
 
 Just in case, when rejecting a game, in its handler:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e50ceaedb52cbbb2e802a1c887657cdc8f52f25b/x/checkers/keeper/msg_server_reject_game.go#L21-L23]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ac9be52/x/checkers/keeper/msg_server_reject_game.go#L21-L23]
 if storedGame.Winner != rules.NO_PLAYER.Color {
     return nil, types.ErrGameFinished
 }
 ```
 
 Confirm it compiles and you are ready to handle the expiration of games.
+
+## Interact via the CLI
+
+Here again, if you have created games in an earlier version of the code, you are in a broken state. In fact, now you cannot even play on the old games because the old games in effect have `.Winner == ""`, and this will be caught by the `if storedGame.Winner != rules.NO_PLAYER.Color` test. Better start anew with:
+
+```sh
+$ starport chain serve --reset-once
+```
+
+Don't forget to export `alice` and `bob` again as explained in an [earlier section](./create-message.md).
+
+You can confirm that there is no winner on a game when it is created and when a player plays.
+
+```sh
+$ checkersd tx checkers create-game $alice $bob --from $alice
+$ checkersd query checkers show-stored-game 0
+...
+  winner: NO_PLAYER
+...
+$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
+$ checkersd query checkers show-stored-game 0
+...
+  winner: NO_PLAYER
+...
+```
+
+Testing with the CLI when the game is resolved with a rightful winner is much more involved and better covered by unit tests or with a nice GUI. You will be able to partially test this part in the [next section](./game-forfeit.md), about forfeit.
 
 ## Next up
 
