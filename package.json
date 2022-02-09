@@ -35,7 +35,7 @@
     "crypto-js": "^4.0.0",
     "date-fns": "^2.19.0",
     "email-validator": "^2.0.4",
-    "entities": "2.1.0",
+    "entities": "3.0.1",
     "esm": "^3.2.25",
     "gray-matter": "^4.0.2",
     "hotkeys-js": "3.8.1",
