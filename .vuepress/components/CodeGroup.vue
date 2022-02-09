@@ -94,6 +94,7 @@ export default {
     margin-bottom: -50px;
     border-radius: 20px 20px 0px 0px;
     border-bottom: 1px solid var(--color-light-gray);
+    overflow-wrap: anywhere;
   }
   .theme-code-group__ul {
     margin: auto 0;
@@ -115,6 +116,7 @@ export default {
     line-height: 1.4;
     color: var(--color-text);
     font-weight: 600;
+    height: 100%;
   }
   .theme-code-group__nav-tab-active {
     border-bottom: var(--color-text) 1px solid;
