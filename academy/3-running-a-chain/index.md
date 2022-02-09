@@ -5,21 +5,33 @@ parent:
   number: 3
 tag: deep-dive
 order: 0
-intro:
-  - overline: Run a chain for the first time
-    title: Running a Chain
-    image: /cosmos_dev_portal_module-04-lp.png
-    description: |
-      Do you want to find out how to interact with Cosmos chains? Let’s take it step-by-step with simapp. <br/><br/>
-      In the end, you will know how to run a node. <br/><br/>
-      A cosmos of chains is awaiting!
-landingPage: true
+title: Chapter Overview - Running a Node
 ---
 
-<ModuleLandingPage>
+<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Run a chain for the first time</div>
+<h1 class="mt-4 mb-6">Running a Chain</h1>
 
-# Chapter Overview - Running a Node
+Do you want to find out how to interact with Cosmos chains? Let’s take it step-by-step with simapp.
 
-In this module, you clone the `cosmos-sdk` repo first. Then you start and test an educational sample. By following these steps, you have access to the `cosmos-sdk` codebase and the Cosmos SDK components so you do not have to generate new code. 
+In the end, you will know how to run a node.
 
-</ModuleLandingPage>
+A cosmos of chains is awaiting!
+
+![](/cosmos_dev_portal_module-04-lp.png)
+
+## In this module
+
+<card-module/>
+
+## Developer resources
+
+<div v-for="resource in $themeConfig.resources">
+  <Resource 
+    :title="resource.title" 
+    :description="resource.description" 
+    :links="resource.links" 
+    :image="resource.image"
+    :large="true"
+  />
+  <br/>
+</div>

@@ -16,7 +16,7 @@
 
 		.modules(v-if="this.modules && this.modules[0].submodules && this.modules[0].submodules.length > 1")
 			h2 Course Modules
-			card-module(v-for="module in this.modules" :module="module" :startExpanded="!$frontmatter.main").modules__item
+			card-module(v-for="module in this.modules" :module="module" :main="$frontmatter.main").modules__item
 		.resources__wrapper(v-if="$themeConfig.resources")
 			h3.resources__title Developer resources
 			.resources
