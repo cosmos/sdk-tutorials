@@ -40,7 +40,7 @@ tools:
       - name: Learn more
         url: https://cosmwasm.com/
       - name: Documentation
-        url: https://docs.cosmwasm.com/docs/0.16/
+        url: https://docs.cosmwasm.com/docs/1.0/
     image: /cosmwasm-icon.svg
   - title: Cosmos Hub
     description: Software powering Cosmos Hub, the heart of the Cosmos network, and home of the ATOM token.
