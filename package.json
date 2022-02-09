@@ -47,7 +47,7 @@
     "pug-plain-loader": "^1.0.0",
     "querystring": "^0.2.0",
     "sharp": "^0.29.3",
-    "stylus": "^0.54.8",
+    "stylus": "^0.56.0",
     "stylus-loader": "^3.0.2",
     "tiny-cookie": "^2.3.2",
     "v-runtime-template": "^1.10.0",
