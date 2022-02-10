@@ -107,6 +107,11 @@ module.exports = {
               title: "Understanding IBC denoms",
               path: "/tutorials/understanding-ibc-denoms/",
               directory: false,
+            },
+            {
+              title: "Understanding the Feegrant Module",
+              path: "/tutorials/understanding-feegrant/",
+              directory: false,
             }
           ],
         },
