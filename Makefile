@@ -2,7 +2,7 @@
 
 build-website:
 	npm install
-	./node_modules/.bin/vuepress build
+	npm run build
 
 deploy-website: build-website
 	cd .vuepress/dist && \

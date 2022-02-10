@@ -1,0 +1,1 @@
+{"title":"Text","contentType":"Static content","description":"Simple library that displays text.","majorVersion":1,"minorVersion":1,"patchVersion":15,"runnable":0,"machineName":"H5P.Text","author":"Joubel","preloadedJs":[{"path":"scripts/text.js"}],"preloadedCss":[{"path":"styles/text.css"}],"metadataSettings":{"disable":0,"disableExtraTitleField":1}}
