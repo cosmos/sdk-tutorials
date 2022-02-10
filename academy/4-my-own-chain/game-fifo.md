@@ -60,7 +60,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 1. You need to remember the game ID at the head, to pick expired games, and at the tail, to send back fresh games. The existing `NextGame` object is a good place for this as it is already an object and expandable. Just add a bit to its Protobuf declaration:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/proto/checkers/next_game.proto#L11-L12]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/proto/checkers/next_game.proto#L11-L12]
     message NextGame {
         ...
         string fifoHead = 3; // Will contain the index of the game at the head.
@@ -70,7 +70,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 2. To make extraction possible each game needs to know which other game takes place before it in the FIFO, and which after. The right place to store this double link information is `StoredGame`. Thus, you add them in the game's Protobuf declaration:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/proto/checkers/stored_game.proto#L16-L17]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/proto/checkers/stored_game.proto#L16-L17]
     message StoredGame {
         ...
         string beforeId = 8; // Pertains to the FIFO. Towards head.
@@ -80,7 +80,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 3. There needs to be an "ID" that indicates _no game_. Let's use `"-1"`, which you save as a constant:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/types/keys.go#L32-L34]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/x/checkers/types/keys.go#L32-L34]
     const (
         NoFifoIdKey = "-1"
     )
@@ -88,7 +88,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 4. Adjust the default genesis values, so that it has proper head and tail:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/types/genesis.go#L20-L21]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/x/checkers/types/genesis.go#L20-L21]
     func DefaultGenesis() *GenesisState {
         return &GenesisState{
             ...
@@ -113,7 +113,7 @@ Now that the new fields are created, you need to update them accordingly to keep
 
 1. A function to remove from the FIFO:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/keeper/stored_game_in_fifo.go#L9-L36]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/x/checkers/keeper/stored_game_in_fifo.go#L9-L42]
     func (k Keeper) RemoveFromFifo(ctx sdk.Context, game *types.StoredGame, info *types.NextGame) {
         // Does it have a predecessor?
         if game.BeforeId != types.NoFifoIdKey {
@@ -126,6 +126,9 @@ Now that the new fields are created, you need to update them accordingly to keep
             if game.AfterId == types.NoFifoIdKey {
                 info.FifoTail = beforeElement.Index
             }
+            // Is it at the FIFO head?
+        } else if info.FifoHead == game.Index {
+            info.FifoHead = game.AfterId
         }
         // Does it have a successor?
         if game.AfterId != types.NoFifoIdKey {
@@ -138,6 +141,9 @@ Now that the new fields are created, you need to update them accordingly to keep
             if game.BeforeId == types.NoFifoIdKey {
                 info.FifoHead = afterElement.Index
             }
+            // Is it at the FIFO tail?
+        } else if info.FifoTail == game.Index {
+            info.FifoTail = game.BeforeId
         }
         game.BeforeId = types.NoFifoIdKey
         game.AfterId = types.NoFifoIdKey
@@ -148,7 +154,7 @@ Now that the new fields are created, you need to update them accordingly to keep
 
 2. A function to send to the tail:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/keeper/stored_game_in_fifo.go#L39-L63]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/x/checkers/keeper/stored_game_in_fifo.go#L45-L70]
     func (k Keeper) SendToFifoTail(ctx sdk.Context, game *types.StoredGame, info *types.NextGame) {
         if info.FifoHead == types.NoFifoIdKey && info.FifoTail == types.NoFifoIdKey {
             game.BeforeId = types.NoFifoIdKey
@@ -185,7 +191,7 @@ With these functions ready, it is time to use them in the message handlers.
 
 1. In the handler when creating a new game, set default values for `BeforeId` and `AfterId`:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/keeper/msg_server_create_game.go#L29-L30]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/x/checkers/keeper/msg_server_create_game.go#L29-L30]
     ...
     storedGame := types.StoredGame{
         ...
@@ -196,7 +202,7 @@ With these functions ready, it is time to use them in the message handlers.
 
     And send the new game to the tail because it is freshly created:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/keeper/msg_server_create_game.go#L36]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/x/checkers/keeper/msg_server_create_game.go#L36]
     ...
     k.Keeper.SendToFifoTail(ctx, &storedGame, &nextGame)
     k.Keeper.SetStoredGame(ctx, storedGame)
@@ -205,7 +211,7 @@ With these functions ready, it is time to use them in the message handlers.
 
 2. In the handler when playing a move, send the game back to the tail because it was freshly updated:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/keeper/msg_server_play_move.go#L58-L68]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/x/checkers/keeper/msg_server_play_move.go#L58-L68]
     ...
     nextGame, found := k.Keeper.GetNextGame(ctx)
     if !found {
@@ -220,7 +226,7 @@ With these functions ready, it is time to use them in the message handlers.
 
 3. In the handler when rejecting a game, remove the game from the FIFO:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/57381df/x/checkers/keeper/msg_server_reject_game.go#L34-L42]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/x/checkers/keeper/msg_server_reject_game.go#L34-L42]
     ...
     nextGame, found := k.Keeper.GetNextGame(ctx)
     if !found {

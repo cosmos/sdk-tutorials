@@ -25,7 +25,7 @@ Just because a game has not been updated in a while does not mean that it has ex
 
 To prepare the field, add in the `StoredGame`'s Protobuf definition:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9ddf21b/proto/checkers/stored_game.proto#L18]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/afff427/proto/checkers/stored_game.proto#L18]
 message StoredGame {
     ...
     string deadline = 10;
@@ -40,7 +40,7 @@ $ starport generate proto-go
 
 On each update the deadline will always be _now_ plus a fixed duration. In this context, _now_ refers to the block's time. Declare this duration as a new constant, along with how the date is to be represented, i.e. encoded in the saved game as a string:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9ddf21b/x/checkers/types/keys.go#L38-L39]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/afff427/x/checkers/types/keys.go#L38-L39]
 const (
     MaxTurnDurationInSeconds = time.Duration(24 * 3_600 * 1000_000_000) // 1 day
     DeadlineLayout           = "2006-01-02 15:04:05.999999999 +0000 UTC"
@@ -53,13 +53,13 @@ You can make your life easier by using helper functions that encode and decode t
 
 1. First define a new error:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9ddf21b/x/checkers/types/errors.go#L21]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/afff427/x/checkers/types/errors.go#L21]
     ErrInvalidDeadline = sdkerrors.Register(ModuleName, 1110, "deadline cannot be parsed: %s")
     ```
 
 2. Now you can add your date helpers. A reasonable location to pick is `full_game.go`:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9ddf21b/x/checkers/types/full_game.go#L37-L48]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/afff427/x/checkers/types/full_game.go#L37-L48]
     func (storedGame *StoredGame) GetDeadlineAsTime() (deadline time.Time, err error) {
         deadline, errDeadline := time.Parse(DeadlineLayout, storedGame.Deadline)
         return deadline, sdkerrors.Wrapf(errDeadline, ErrInvalidDeadline.Error(), storedGame.Deadline)
@@ -74,7 +74,7 @@ You can make your life easier by using helper functions that encode and decode t
 
 3. Add a function that encapsulates the knowledge of how the next deadline is calculated in the same file:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9ddf21b/x/checkers/types/full_game.go#L42-L44]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/afff427/x/checkers/types/full_game.go#L42-L44]
     func GetNextDeadline(ctx sdk.Context) time.Time {
         return ctx.BlockTime().Add(MaxTurnDurationInSeconds)
     }
@@ -86,7 +86,7 @@ Next you need to update this new field with its appropriate value:
 
 1. At creation in the message handler for game creation:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9ddf21b/x/checkers/keeper/msg_server_create_game.go#L30]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/afff427/x/checkers/keeper/msg_server_create_game.go#L30]
     ...
     storedGame := types.StoredGame{
         ...
@@ -96,7 +96,7 @@ Next you need to update this new field with its appropriate value:
 
 2. And after a move in the message handler:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9ddf21b/x/checkers/keeper/msg_server_play_move.go#L56]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/afff427/x/checkers/keeper/msg_server_play_move.go#L56]
     ...
     storedGame.MoveCount++
     storedGame.Deadline = types.FormatDeadline(types.GetNextDeadline(ctx))
