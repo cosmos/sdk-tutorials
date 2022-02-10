@@ -92,12 +92,7 @@ module.exports = {
               title: "My Own Cosmos Chain",
               path: "/academy/4-my-own-chain",
               directory: true,
-            },
-            {
-              title: "What's Next?",
-              path: "/academy/5-whats-next/",
-              directory: false,
-            },
+            }
           ],
         },
         {
@@ -106,6 +101,11 @@ module.exports = {
             {
               title: "Understanding IBC denoms",
               path: "/tutorials/understanding-ibc-denoms/",
+              directory: false,
+            },
+            {
+              title: "Understanding the Authz Module",
+              path: "/authz-module/",
               directory: false,
             },
             {
@@ -309,6 +309,7 @@ module.exports = {
     "README.md",
     "feature-test/*.md",
     "academy/*/*.md",
-    "tutorials/*/*.md"
+    "tutorials/*/*.md",
+    "authz-module/*.md"
   ]
 };
