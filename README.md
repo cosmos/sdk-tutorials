@@ -40,7 +40,7 @@ tools:
       - name: Learn more
         url: https://cosmwasm.com/
       - name: Documentation
-        url: https://docs.cosmwasm.com/docs/0.16/
+        url: https://docs.cosmwasm.com/docs/1.0/
     image: /cosmwasm-icon.svg
   - title: Cosmos Hub
     description: Software powering Cosmos Hub, the heart of the Cosmos network, and home of the ATOM token.
@@ -53,17 +53,17 @@ articles:
     date: Monday, November 8
     time: 2
     url: https://interchain-io.medium.com/cosmos-hub-vega-upgrade-testnet-details-e9c5d69a59c
-    image: /resized-images/article-01.jpg
+    image: /article-01.jpg
   - title: Tendermint v0.35
     date: Friday, November 5
     time: 4
     url: https://medium.com/tendermint/tendermint-v0-35-introduces-prioritized-mempool-a-makeover-to-the-peer-to-peer-network-more-61eea6ec572d
-    image: /resized-images/article-02.jpg
+    image: /article-02.jpg
   - title: Multichain Landscape
     date: Monday, October 4
     time: 9
     url: https://blog.celestia.org/clusters/
-    image: /resized-images/article-03.jpg
+    image: /article-03.jpg
 -->
 
 This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).

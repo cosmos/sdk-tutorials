@@ -15,7 +15,7 @@ Created in 2014, [Tendermint](https://tendermint.com/) accelerates the developme
 
 Tendermint modules **attend to consensus and networking**. These are two important components of any blockchain. This frees developers to focus on the application level without descending into lower-level blockchain concerns such as peer discovery, block propagation, consensus, and transaction finalization. Without Tendermint, developers would be forced to build software to address these concerns which would add additional time, complexity, and cost to the development of their applications.
 
-![Blockchain application architecture overview](~@images/architecture_overview.png)
+![Blockchain application architecture overview](/architecture_overview.png)
 
 A blockchain node for an application-focused Cosmos blockchain consists of a state-machine, built with the Cosmos SDK, and the consensus and networking layer, which are handled by the [Tendermint Core](https://tendermint.com/core/).
 
@@ -67,7 +67,7 @@ Validators are the ones who vote. This means that delegators should be demanding
 
 The Tendermint BFT engine is connected to the application by a socket protocol. ABCI provides a socket for applications written in other languages. When the application is written in the same language as the Tendermint implementation, the socket is not used.
 
-![The application, ABCI, and Tendermint](~@images/ABCI_3.png)
+![The application, ABCI, and Tendermint](/ABCI_3.png)
 
 The Tendermint BFT provides security guarantees, including:
 
@@ -139,13 +139,13 @@ The application, consensus, and network layers are contained within the custom b
 
 Tendermint passes confirmed transactions to the application layer through the **Application Blockchain Interface (ABCI)**. The application layer must implement ABCI, which is a socket protocol. Tendermint is unconcerned with the interpretation of transactions and the application layer can be unconcerned with propagation, broadcast, confirmation, network formation, and other lower-level concerns that Tendermint attends to unless it wants to inspect such properties.
 
-Developers are free to create blockchains in any language that supports sockets since the ABCO is a socket protocol, provided their application implements ABCI. ABCI defines the boundary between replication concerns and the application, which is a state machine.
+Developers are free to create blockchains in any language that supports sockets since the ABCI is a socket protocol, provided their application implements ABCI. ABCI defines the boundary between replication concerns and the application, which is a state machine.
 
 This is itself a considerable step forward that simplifies the creation of unique blockchains.
 
 <HighlightBox type="info">
 
-If you want to continue exploring ABCO, you can find more detailed information here:
+If you want to continue exploring ABCI, you can find more detailed information here:
 
 * [ABCI GitHub repository: ABCI prose specification](https://github.com/tendermint/abci/blob/master/specification.md)
 * [Tendermint GitHub repository: A Protobuf file on types](https://github.com/tendermint/abci/blob/master/types/types.proto)
