@@ -105,7 +105,7 @@ module.exports = {
             },
             {
               title: "Understand the Authz Module",
-              path: "authz-module/",
+              path: "/authz-module/",
               directory: false,
             }
           ],
