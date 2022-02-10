@@ -205,20 +205,29 @@ Additionally, to avoid having games in the FIFO that expire in a day, because of
 $ starport chain serve --reset-once
 ```
 
+Don't forget to export your aliases again:
+
+```sh
+$ export alice=$(checkersd keys show alice -a)
+$ export bob=$(checkersd keys show bob -a)
+```
+
 Create 3 games 1 minute apart and have Bob play on the middle one, and both Alice and Bob play on the last one:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $alice
 # Wait a minute
 $ checkersd tx checkers create-game $alice $bob --from $bob
+# Wait 5 seconds
 $ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
 # Wait a minute
 $ checkersd tx checkers create-game $alice $bob --from $alice
 $ checkersd tx checkers play-move 2 1 2 2 3 --from $bob
+# Wait 5 seconds
 $ checkersd tx checkers play-move 2 0 5 1 4 --from $alice
 ```
 
-Be sure to space each `tx` command by a couple seconds so that they each go into a different block. That's because `checkersd` uses the transaction's sequence number by fetching it from the current state. With 3 games in, confirm that you see them all with:
+Be sure to space each `tx` command from a given account by a couple seconds so that they each go into a different block. That's because `checkersd` uses the account's transaction sequence number by fetching it from the current state. With 3 games in, confirm that you see them all with:
 
 ```sh
 $ checkersd query checkers list-stored-game
@@ -231,7 +240,7 @@ $ checkersd query checkers show-stored-game 2 --output json | jq ".StoredGame.wi
 "red"
 ```
 
-Confirm also the FIFO no longer references the removed games nor the forfeited game with:
+Confirm also that the FIFO no longer references the removed games nor the forfeited game with:
 
 ```sh
 $ checkersd query checkers show-next-game
@@ -244,4 +253,4 @@ NextGame:
 
 ## Next up
 
-The [next section](./game-wager.md) introduces token wagers.
+With no games staying in limbo forever, the project is now ready to use token wagers. They are introduced in the [next section](./game-wager.md).
