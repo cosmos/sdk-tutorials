@@ -92,7 +92,12 @@ module.exports = {
               title: "My Own Cosmos Chain",
               path: "/academy/4-my-own-chain",
               directory: true,
-            }
+            },
+            {
+              title: "What's Next?",
+              path: "/academy/5-whats-next/",
+              directory: false,
+            },
           ],
         },
         {
