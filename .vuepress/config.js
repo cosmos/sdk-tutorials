@@ -104,8 +104,13 @@ module.exports = {
               directory: false,
             },
             {
-              title: "Understand the Authz Module",
+              title: "Understanding the Authz Module",
               path: "/authz-module/",
+              directory: false,
+            },
+            {
+              title: "Understanding the Feegrant Module",
+              path: "/tutorials/understanding-feegrant/",
               directory: false,
             }
           ],
