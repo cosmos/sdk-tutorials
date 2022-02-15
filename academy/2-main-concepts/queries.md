@@ -248,7 +248,7 @@ Read more on ABCI clients and Tendermint RPC in the Tendermint documentation on 
 
 ## Application query handling
 
-When a query is received by the full-node after being relayed from the underlying consensus engine, it is handled within an environment that understands application-specific types and has a copy of the state. [`BaseApp`](https://docs.cosmos.network/master/core/baseapp.html) implements the ABCI [query](https://docs.cosmos.network/master/core/baseapp.html#query) function and handles gRPC queries. The query route is parsed and matches the fully-qualified service method name of an existing service method (most likely in one of the modules). `BaseApp` then relays the request to the relevant module.
+When a query is received by the full-node after being relayed from the underlying consensus engine, it is handled within an environment that understands application-specific types and has a copy of the state. [`BaseApp`](./base-app.md) implements the ABCI [query](https://docs.cosmos.network/master/core/baseapp.html#query) function and handles gRPC queries. The query route is parsed and matches the fully-qualified service method name of an existing service method (most likely in one of the modules). `BaseApp` then relays the request to the relevant module.
 
 Apart from gRPC routes, `BaseApp` also handles four different types of queries:
 
@@ -334,7 +334,7 @@ The result of the query is outputted to the console by the CLI.
 
 You can now continue with the [next section](./events.md) if you want to skip ahead and read up on events.
 
-If you prefer to see some code in action and continue with the checkers blockchain, take a look at the expandable box beneath.
+If you prefer to see some code in action and continue looking at some contextual examples for the checkers blockchain, take a look at the expandable box beneath.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
