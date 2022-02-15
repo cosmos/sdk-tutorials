@@ -47,12 +47,13 @@ Now reset the database. Run this step not only when the database has already bee
 ```sh
 $ cd build
 $ ./simd unsafe-reset-all
-
-3:58PM INF Removed all blockchain history dir=/Users/academy/.simapp/data
-3:58PM INF Generated private validator file keyFile=/Users/academy/.simapp/config/priv_validator_key.json stateFile=/Users/academy/.simapp/data/priv_validator_state.json
 ```
 
-The command output lists all of the files set to their initial state with their locations.
+The command output lists all of the files set to their initial state with their locations:
+
+```sh
+3:58PM INF Removed all blockchain history dir=/Users/academy/.simapp/data
+3:58PM INF Generated private validator file keyFile=/Users/academy/.simapp/config/priv_validator_key.json stateFile=/Users/academy/.simapp/data/priv_validator_state.json
 
 Next initialize the application. The initialization creates the genesis block and an initial chain state:
 
@@ -61,7 +62,9 @@ $ ./simd init demo
 {"app_message":{"auth":{"accounts":[],"params":{"max_memo_characters":"256","sig_verify_cost_ed25519":"590","sig_verify_cost_secp256k1":"1000","tx_sig_limit":"7","tx_size_cost_per_byte":"10"}},"authz":{"authorization":[]},"bank":{"balances":[],"denom_metadata":[],"params":{"default_send_enabled":true,"send_enabled":[]},"supply":[]},"capability":{"index":"1","owners":[]},"crisis":{"constant_fee":{"amount":"1000","denom":"stake"}},"distribution":{"delegator_starting_infos":[],"delegator_withdraw_infos":[],"fee_pool":{"community_pool":[]},"outstanding_rewards":[],"params":{"base_proposer_reward":"0.010000000000000000","bonus_proposer_reward":"0.040000000000000000","community_tax":"0.020000000000000000","withdraw_addr_enabled":true},"previous_proposer":"","validator_accumulated_commissions":[],"validator_current_rewards":[],"validator_historical_rewards":[],"validator_slash_events":[]},"evidence":{"evidence":[]},"feegrant":{"allowances":[]},"genutil":{"gen_txs":[]},"gov":{"deposit_params":{"max_deposit_period":"172800s","min_deposit":[{"amount":"10000000","denom":"stake"}]},"deposits":[],"proposals":[],"starting_proposal_id":"1","tally_params":{"quorum":"0.334000000000000000","threshold":"0.500000000000000000","veto_threshold":"0.334000000000000000"},"votes":[],"voting_params":{"voting_period":"172800s"}},"mint":{"minter":{"annual_provisions":"0.000000000000000000","inflation":"0.130000000000000000"},"params":{"blocks_per_year":"6311520","goal_bonded":"0.670000000000000000","inflation_max":"0.200000000000000000","inflation_min":"0.070000000000000000","inflation_rate_change":"0.130000000000000000","mint_denom":"stake"}},"params":null,"slashing":{"missed_blocks":[],"params":{"downtime_jail_duration":"600s","min_signed_per_window":"0.500000000000000000","signed_blocks_window":"100","slash_fraction_double_sign":"0.050000000000000000","slash_fraction_downtime":"0.010000000000000000"},"signing_infos":[]},"staking":{"delegations":[],"exported":false,"last_total_power":"0","last_validator_powers":[],"params":{"bond_denom":"stake","historical_entries":10000,"max_entries":7,"max_validators":100,"unbonding_time":"1814400s"},"redelegations":[],"unbonding_delegations":[],"validators":[]},"upgrade":{},"vesting":{}},"chain_id":"test-chain-rT4wZY","gentxs_dir":"","moniker":"demo","node_id":"cf6bff39bb84da39d214138ebba8bcba4ccb848d"}
 ```
 
-<ExpansionPanel title="A more readable version">
+<ExpansionPanel title="The command output">
+
+The `simd init demo` command outputs a raw genesis.json. Here's a more readable version:
 
 ```json
 {
@@ -260,7 +263,7 @@ $ ./simd keys show academy
 
 ## Make yourself a proper validator
 
-As you know by now, a Cosmos SDK blockchain relies on identified validators to produce blocks. Initially there is no validator to generate blocks.
+As you know by now, a Cosmos SDK blockchain relies on validators to produce blocks. Initially there is no validator to generate blocks. In order to get your chain up and running, you'll **need to** set up at least one validator in your genesis file, and allocate some tokens so that these can be staked and the chain can be started. This is where your tokens are initially minted, because you define how many tokens are going to be part of the genesis file.
 
 Allocate the account identified by your key an initial balance in the genesis file:
 
@@ -277,7 +280,7 @@ $ grep -A 2 -B 2 denom ~/.simapp/config/genesis.json
 You can also confirm in the genesis file itself that you have an initial balance:
 
 ```sh
-grep -A 10 balances ~/.simapp/config/genesis.json
+$ grep -A 10 balances ~/.simapp/config/genesis.json
 ```
 
 With this initial balance and before you run your blockchain, you still need to include your bootstrap transactions in the genesis file.
