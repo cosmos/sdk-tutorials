@@ -28,7 +28,7 @@ Assume `MyQuery` is requesting a list of delegations made by a certain delegator
 The main interface for an application is the command-line interface (CLI). Users connect to a full-node and run the CLI directly from their machines - the CLI interacts directly with the full-node. Users type the following command to create `MyQuery` in the terminal:
 
 ```sh
-simd query staking delegations <delegatorAddress>
+$ simd query staking delegations <delegatorAddress>
 ```
 
 This query command is defined by the staking module developer and is added to the list of subcommands by the application developer when creating the CLI.
@@ -36,7 +36,7 @@ This query command is defined by the staking module developer and is added to th
 Note that the general format is as follows:
 
 ```sh
-simd query [moduleName] [command] <arguments> --flag <flagArg>
+$ simd query [moduleName] [command] <arguments> --flag <flagArg>
 ```
 
 To provide values such as `--node` (the full-node the CLI connects to) the user can use the `app.toml` config file to set them or provide them as flags.
@@ -44,7 +44,7 @@ To provide values such as `--node` (the full-node the CLI connects to) the user 
 The CLI understands a specific set of commands. The commands are defined in a hierarchical structure by the application developer:
 
 * The root command: `simd`
-* The type of command: `Myquery`
+* The type of command: `query`
 * The module that contains the command: `staking`
 * The command itself: `delegations`
 
@@ -62,7 +62,7 @@ Please see [issue #8392](https://github.com/cosmos/cosmos-sdk/issues/8392) for m
 
 It is highly recommended to add the following line in your application's `go.mod` to make sure that gRPC is working properly:
 
-```sh
+```
 replace google.golang.org/grpc => google.golang.org/grpc v1.33.2
 ```
 
@@ -71,7 +71,7 @@ Another interface through which users can make queries was introduced in Cosmos 
 One such tool is `grpcurl`. A gRPC request for `MyQuery` using this client looks like this:
 
 ```sh
-Copy grpcurl \
+grpcurl \
     -plaintext                                           # We want results in plain test
     -import-path ./proto \                               # Import these .proto files
     -proto ./proto/cosmos/staking/v1beta1/query.proto \  # Look into this .proto file for the Query protobuf service
@@ -86,7 +86,7 @@ Users can also make queries through HTTP requests to a [REST server](https://doc
 
 An example HTTP request for `MyQuery` would look like this:
 
-```sh
+```
 GET http://localhost:1317/cosmos/staking/v1beta1/delegators/{delegatorAddr}/delegations
 ```
 
@@ -94,13 +94,9 @@ GET http://localhost:1317/cosmos/staking/v1beta1/delegators/{delegatorAddr}/dele
 
 The examples above show how an external user can interact with a node by querying its state.
 
-<HighlightBox type="tip">
+To get a better understanding of the full lifecycle of a query, it helps to look at how the CLI prepares the query and how the node handles it in detail.
 
-Dig into how the CLI prepares the query and how the node handles it to understand more in detail the exact lifecycle of a query.
-
-</HighlightBox>
-
-From a users' perspective, the interactions are a bit different, but the underlying functions are almost identical because they are implementations of the same command defined by the module developer. This processing step takes place within the CLI, gRPC, or REST server and heavily involves a `client.Context`.
+From a user's perspective, the interactions are a bit different, but the underlying functions are almost identical because they are implementations of the same command defined by the module developer. This processing step takes place within the CLI, gRPC, or REST server and heavily involves a `client.Context`.
 
 ## Context
 
@@ -115,7 +111,7 @@ The first thing created in the execution of a CLI command is a `client.Context`.
 
 The `client.Context` also contains various functions such as `Query()`, which retrieves the RPC Client and makes an ABCI call to relay a query to a full-node.
 
-```sh
+```go
 // Context implements a typical context created in SDK modules for transaction
 // handling and queries.
 type Context struct {
@@ -151,7 +147,7 @@ type Context struct {
 
 The `client.Context`'s primary role is to store data used during interactions with the end user and provide methods to interact with this data - it is used before and after the query is processed by the full-node.
 
-When handling `MyQuery` the `client.Context` is utilized to encode the query parameters, retrieve the full-node, and write the output. The query needs to be encoded into a `[]byte` form before being relayed to a full-node, as full-nodes are application-agnostic and do not understand specific types. The full-node (RPC client) itself is retrieved using the `client.Context`, which knows which node the user CLI is connected to. The query is relayed to this full-node to be processed. The `client.Context` contains a writer to write output when the response is returned.
+When handling `MyQuery`, the `client.Context` is utilized to encode the query parameters, retrieve the full-node, and write the output. The query needs to be encoded into a `[]byte` form before being relayed to a full-node, as full-nodes are application-agnostic and do not understand specific types. The full-node (RPC client) itself is retrieved using the `client.Context`, which knows which node the user CLI is connected to. The query is relayed to this full-node to be processed. The `client.Context` contains a writer to write output when the response is returned.
 
 ## Arguments and route creation
 
@@ -163,7 +159,7 @@ At this point in the lifecycle, the user has created a CLI command with all of t
 
 Below see how the code looks like for the CLI command:
 
-```sh
+```go
 delAddr, err := sdk.AccAddressFromBech32(args[0])
 if err != nil {
     return err
@@ -172,9 +168,9 @@ if err != nil {
 
 ## gRPC query client creation
 
-The Cosmos SDK leverages code generated by Protobuf services to make queries. The staking module's `MyQuery` service generates a `queryClient` used by the CLI to make queries:
+The Cosmos SDK leverages code generated by Protobuf services to make queries. The staking module's query service generates a `queryClient` used by the CLI to make queries:
 
-```sh
+```go
 clientCtx, err := client.GetClientQueryContext(cmd)
 if err != nil {
     return err
@@ -202,7 +198,7 @@ if err != nil {
 }
 ```
 
-The `client.Context` has a `Query()` function used to retrieve the pre-configured node and relay a query to it. The function takes the query fully-qualified service method name as path (here `/cosmos.staking.v1beta1.Query/Delegations`) and arguments as parameters. It first retrieves the RPC client (the node) configured by the user to relay the query to and creates the `ABCIQueryOptions`, the parameters formatted for the ABCI call. The node is then used to make the ABCI call `ABCIQueryWithOptions()`:
+The `client.Context` has a `Query()` function used to retrieve the pre-configured node and to relay a query to it. The function takes the query's fully-qualified service method name as path (here `/cosmos.staking.v1beta1.Query/Delegations`) and arguments as parameters. It first retrieves the RPC client (the node) configured by the user to relay the query to, then creates the `ABCIQueryOptions`, the parameters formatted for the ABCI call. The node is then used to make the ABCI call `ABCIQueryWithOptions()`:
 
 ```go
 func (ctx Context) queryABCI(req abci.RequestQuery) (abci.ResponseQuery, error) {
@@ -248,7 +244,7 @@ Read more on ABCI clients and Tendermint RPC in the Tendermint documentation on 
 
 ## Application query handling
 
-When a query is received by the full-node after being relayed from the underlying consensus engine, it is handled within an environment that understands application-specific types and has a copy of the state. [`BaseApp`](./base-app.md) implements the ABCI [query](https://docs.cosmos.network/master/core/baseapp.html#query) function and handles gRPC queries. The query route is parsed and matches the fully-qualified service method name of an existing service method (most likely in one of the modules). `BaseApp` then relays the request to the relevant module.
+When a query is received by the full-node after being relayed from the underlying consensus engine, it is handled within an environment that understands application-specific types and has a copy of the state. [`BaseApp`](./base-app.md) implements the ABCI [query](https://docs.cosmos.network/master/core/baseapp.html#query) function and handles gRPC queries. The query route is parsed and matched to the fully-qualified service method name of an existing service method (most likely in one of the modules). `BaseApp` then relays the request to the relevant module.
 
 Apart from gRPC routes, `BaseApp` also handles four different types of queries:
 
@@ -364,7 +360,7 @@ type QueryCanPlayMoveResponse struct {
 }
 ```
 
-It also creates a function that should looks familiar:
+It also creates a function that should look familiar:
 
 ```go
 func (k Keeper) CanPlayMove(goCtx context.Context, req *types.QueryCanPlayMoveRequest) (*types.QueryCanPlayMoveResponse, error) {
