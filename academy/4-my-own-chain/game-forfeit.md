@@ -178,7 +178,7 @@ With the callbacks in place it is time to code the expiration properly. In `Forf
             storedGameId = nextGame.FifoHead
             ```
 
-4. After the loop has ended, do not forget to save the latest FIFO state:
+4. After the loop has ended do not forget to save the latest FIFO state:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L72]
     k.SetNextGame(ctx, nextGame)
