@@ -1,11 +1,11 @@
 ---
-title: Gas Metering
+title: Gas - Incentivize Players
 order: 16
 description: Reward validators proportional to their effort
 tag: deep-dive
 ---
 
-# Gas Metering
+# Gas - Incentivize Players
 
 <HighlightBox type="synopsis">
 

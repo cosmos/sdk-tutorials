@@ -1,11 +1,11 @@
 ---
-title: A Game FIFO
+title: Store FIFO - Put Your Games in Order
 order: 11
 description: You prepare to expire games
 tag: deep-dive
 ---
 
-# A Game FIFO
+# Store FIFO - Put Your Games in Order
 
 <HighlightBox type="synopsis">
 

@@ -1,11 +1,11 @@
 ---
-title: Create a Game Message
+title: Message - Create a Message to Create a Game
 order: 6
 description: You introduce the message to create a game
 tag: deep-dive
 ---
 
-# Create a Game Message
+# Message - Create a Message to Create a Game
 
 <HighlightBox type="synopsis">
 

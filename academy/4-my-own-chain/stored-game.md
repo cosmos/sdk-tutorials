@@ -1,11 +1,11 @@
 ---
-title: Make a Checkers Blockchain
+title: Store Object - Make a Checkers Blockchain
 order: 4
 description: Create the object that stores a game
 tag: deep-dive
 ---
 
-# Make a Checkers Blockchain
+# Store Object - Make a Checkers Blockchain
 
 <HighlightBox type="synopsis">
 
