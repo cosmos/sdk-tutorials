@@ -9,7 +9,9 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-It is time to address multistore and keeper. Before you begin, take a look at the following sections:
+Keepers are responsible for managing access to states defined by modules. Accessing the state is done through a keeper. Therefore, keepers are an ideal place to ensure that invariants are enforced and security principles are always applied.
+
+Take a look at the following sections before you begin:
 
 * [Transactions](./transactions.md)
 * [Messages](./messages.md)

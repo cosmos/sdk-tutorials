@@ -9,7 +9,9 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Cross-chain communication becomes possible with the Cosmos SDK and the Inter-Blockchain Communication Protocol (IBC). Discover the potentials that come with IBC, but make sure you understand:
+Cross-chain communication in Cosmos enables parallelism and scaleability with transaction finality. This transaction finality solves well-known problems that plague other platforms: transaction costs, network capacity, and transaction confirmation finality. Learn about the Inter-Blockchain Communication protocol (IBC) that makes cross-chain communication possible.
+
+Before you begin, make sure you understand:
 
 * [Accounts](./accounts.md)
 * [Transactions](./transactions.md)

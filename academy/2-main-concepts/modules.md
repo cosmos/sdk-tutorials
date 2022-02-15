@@ -9,7 +9,9 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-This section tackles modules. Taking a look at the following sections is recommended to better understand modules in the Cosmos SDK:
+Modules are functional components that address application-level concerns such as token management or governance. The Cosmos SDK includes several ready-made modules so that application developers can focus on the truly unique aspects of their application.
+
+Review the following sections to better understand modules in the Cosmos SDK:
 
 * [Transactions](./transactions.md)
 * [Messages](./messages.md)

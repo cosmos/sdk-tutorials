@@ -9,7 +9,11 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Ever wondered how an upgrade is done in the Cosmos SDK? Time to find out how migrations are conducted with the Cosmos SDK. Look at the following sections to better understand this section:
+Have you ever wondered how an upgrade is done in the Cosmos SDK? Take time to find out how Cosmos SDK migrations are conducted.
+
+The process is orderly; blockchains can be upgraded through a predictable process that reliably avoids forks. Discover the Cosmos comprehensive process that includes governance, data migrations, node upgrades, and more to ensure upgrades proceed smoothly and without service disruption.
+
+To better understand this section, look at the following sections :
 
 * [Messages](./messages.md)
 * [Protobuf](./protobuf.md)
