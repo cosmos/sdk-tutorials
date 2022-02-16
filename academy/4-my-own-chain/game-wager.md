@@ -446,6 +446,8 @@ balances:
 
 That's correct, Alice was the winner by forfeit.
 
+Similarly, you can test that Bob gets his wager back when Alice creates a game, Bob plays, and then Alice rejects it.
+
 It would be difficult to test by CLI when there is a winner after a full game, and that would be better tested with a GUI.
 
 ## Next up
