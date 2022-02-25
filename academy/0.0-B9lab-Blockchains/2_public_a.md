@@ -12,11 +12,11 @@ In order to understand whether blockchain technology is a good fit for your proj
 
 Important groundwork was laid in the 1980's and 1990's for what will later be known as blockchain technology. Although the technology itself was not created until 2008, researchers from different fields in computer science and cryptography proposed solutions to many problems regarding security, transparency, and trust. All of them contributed in the development of the first large scale, successful public blockchain network, Bitcoin.
 
+<!-- TODO: Revise Timeline with Tendermint, 2014 --->
+
 ![](images/timeline.png)
 
-<!-- TODO: Cosmos White Paper -->
-
-The [Cosmos White Paper](#) was released on <!-- TODO DATE -->
+The Tendermint Consensus solution was announced in 2014.
 
 ## 1990s
 
