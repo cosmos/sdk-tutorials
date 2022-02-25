@@ -1,0 +1,40 @@
+>> 1. How do you define blockchain? Which of the following statements are correct?<<
+[x] As the ordered list of all transactions since inception
+[x] As a well-ordered set of blocks
+[ ] As a block of transactions
+[x] As a well-ordered set of data, on which all peers eventually agree
+[ ] As a shared real-time transaction network
+
+>> 2. In the context of blockchain, what is the most fundamental definition of a transaction?<<
+( ) A transmission of a message between nodes
+(x) An atomic event that is allowed by the underlying protocol
+( ) Exchange of a hash table between two peers
+
+>> 3. Choose all applicable properties of a Hash.<<
+[x] A hash is deterministic, in that, calculating it twice yields the same result
+[ ] A small change in the original value yields a smaller change in the hash than a big change in the original value
+[x] The probability of finding 2 different values that compute to the same hash is extremely low
+
+>> 4. Which of the following statements, about the basic problem blockchain is attempting to solve, is true?<<
+( ) Blockchain technology merges internet and network
+(x) Blockchain technology merges database and network
+( ) Blockchain technology merges smart contracts and network
+( ) Blockchain technology merges future and network
+
+>> 5. Alice wants to send a message to Bob, which is for Bob's eyes only. What is the right way to encrypt and decrypt?<<
+(x)Bob gives Alice his public key  - Alice uses Bob's public key to encrypt the message - Alice sends Bob the encrypted message - Bob decrypts the message with his private key.
+( )Bob gives Alice his private key - Alice uses Bob’s private key to encrypt the message - Alice sends Bob the encrypted message - Bob decrypts the message with his public key.
+
+>> 6. What is the double-spend problem within Bitcoin?<<
+( ) The attacker sends 2 different transactions at the same time to the network, in order to send the same coin to 2 different recipients before the nodes can spot the fraud.
+(x) The attacker sends the coin to a recipient in exchange for a consideration, then waits to receive the consideration to then build a fork that does not contain the previous transaction and that is acceptable to the network.
+( ) The attacker sends the coin to a recipient in exchange for a consideration, then waits to receive the consideration to then send another transaction to cancel the first transaction.
+
+[explanation]
+Here we assumed the recipient waits for the transaction to be mined. If the recipient did not wait for the mining to take place, and instead took an un-mined transaction as confirmation, this recipient would expose itself to a <a href="https://en.bitcoin.it/wiki/Double-spending#Race_attack">race attack</a>.
+[explanation]
+
+>> 7. How does Blockchain, as a non hierarchical approach, overcome the potential failures of a “classical” network?<<
+(x) By making sure that every participant always has access to enough data to verify the integrity of ALL the data in the network.
+( ) By encrypting ALL data in the network.
+( ) By using certificates for all participants in the network, thus excluding malicious participants from the network.
