@@ -318,9 +318,9 @@ Starport created a set of files for you. It is time to see whether you can alrea
       idValue: "0"
     ```
 
-    As expected.
+    This is as expected, because no games have been created yet, so the game counter is still at 0.
 
-3. If you find the output suitable for reading on the spot but plan to use some scripts, get some information about your options:
+3. The `--output` flag allows you to get your results in a JSON format, which might be useful in case you would like to use a script to parse the information for example. When you use the `--help` flag, you see which flags are available for a specific command:
 
     ```sh
     $ checkersd query checkers show-next-game --help
