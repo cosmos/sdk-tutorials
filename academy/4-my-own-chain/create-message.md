@@ -131,6 +131,11 @@ Time to see which new CLI command was created by Starport:
 
 ```sh
 $ checkersd tx checkers --help
+```
+
+Which informs you with, among others:
+
+```
 ...
 Available Commands:
   create-game Broadcast message createGame
@@ -140,6 +145,11 @@ And also:
 
 ```sh
 $ checkersd tx checkers create-game --help
+```
+
+Which returns:
+
+```
 ...
 Usage:
   checkersd tx checkers create-game [red] [black] [flags]
@@ -165,13 +175,23 @@ $ export bob=$(checkersd keys show bob -a)
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $alice --dry-run
+```
+
+Which prints:
+
+```
 gas estimate: 40452
 ```
 
-That is not much. Thus, `auto` is enough:
+Hard to judge how much gas that really means. Anyway, keep gas on `auto`:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $alice --gas auto
+```
+
+<ExpansionPanel title="It prints a lot and prompts you for confirmation">
+
+```
 {"body":{"messages":[{"@type":"/alice.checkers.checkers.MsgCreateGame","creator":"cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp","red":"cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp","black":"cosmos199krg6nz4qgv53nvrx9gj7nrlg48clwurn82jy"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[],"gas_limit":"40412","payer":"","granter":""}},"signatures":[]}
 
 confirm transaction before signing and broadcasting [y/N]: y
@@ -196,20 +216,45 @@ tx: null
 txhash: 59BC309EF79C354DD46ECE8D882BE133699CC10B165FEFAFF6AF3717507EBB4F
 ```
 
+</ExpansionPanel>
+
 You can query your chain to see if the new game has been saved to state:
+
+<CodeGroup>
+<CodeGroupItem title="show-next-game" active>
 
 ```sh
 $ checkersd query checkers show-next-game
+```
+
+Which returns:
+
+```
 NextGame:
   creator: ""
   idValue: "0"
+```
 
+</CodeGroupItem>
+<CodeGroupItem title="list-stored-game">
+
+```sh
 $ checkersd query checkers list-stored-game
+```
+
+Which returns:
+
+```
 StoredGame: []
 pagination:
   next_key: null
   total: "0"
 ```
+
+</CodeGroupItem>
+</CodeGroup>
+
+---
 
 It looks like nothing has changed. Starport only created a message, but you did not yet implement what actions the chain should undertake when it receives this message. That's what you'll take care of in the [next section](./create-handling.md).
 

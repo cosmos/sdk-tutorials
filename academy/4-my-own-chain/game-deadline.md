@@ -115,16 +115,26 @@ There is not much to test here. Remember that you added a new field but if your 
 
 ```sh
 $ checkersd query checkers show-stored-game 0
+```
+
+Has some missing information:
+
+```
 ...
   deadline: ""
  ...
 ```
 
-This does not look good, in effect your blockchain state is broken. Do see how you would update your blockchain state to avoid such a breaking change, see [migrations](./migration.md). This broken state still lets us test the update of the deadline on play:
+This does not look good, in effect your blockchain state is broken. To see how you would update your blockchain state to avoid such a breaking change, see [migrations](./migration.md). This broken state still lets us test the update of the deadline on play:
 
 ```sh
 $ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
 $ checkersd query checkers show-stored-game 0
+```
+
+Which contains:
+
+```
 ...
   deadline: 2022-02-05 15:26:26.832533 +0000 UTC
 ...

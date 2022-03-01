@@ -157,89 +157,184 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 Friendly reminder that the CLI can always inform you about the available commands:
 
+<CodeGroup>
+<CodeGroupItem title="checkers" active>
+
 ```sh
 $ checkersd query checkers --help
+```
+
+Which prints:
+
+```
 ...
 Available Commands:
   can-play-move    Query canPlayMove
 ...
+```
 
+</CodeGroupItem>
+<CodeGroupItem title="can-play-move">
+
+```sh
 $ checkersd query checkers can-play-move --help
+```
+
+Which prints:
+
+```
 ...
 Usage:
   checkersd query checkers can-play-move [idValue] [player] [fromX] [fromY] [toX] [toY] [flags]
 ...
 ```
 
+</CodeGroupItem>
+</CodeGroup>
+
+---
+
 You can test this query at any point in a game's life.
 
-1. On a game that does not exist:
+<CodeGroup>
+<CodeGroupItem title="no game" active>
 
-    ```sh
-    $ checkersd query checkers can-play-move 2048 red 1 2 2 3
-    Error: rpc error: code = InvalidArgument desc = game by id not found: 2048: game by id not found: %s: invalid request
-    ...
-    $ echo $?
-    1
-    ```
+```sh
+$ checkersd query checkers can-play-move 2048 red 1 2 2 3
+```
 
-    There is room to improve the error message. But at least you got an error, as expected.
-2. A bad color for the player on a game that exists
+Trying on a game that does not exist returns:
 
-    ```sh
-    $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
-    $ checkersd query checkers can-play-move 0 white 1 2 2 3
-    possible: false
-    reason: 'message creator is not a player: white'
-    ```
+```
+Error: rpc error: code = InvalidArgument desc = game by id not found: 2048: game by id not found: %s: invalid request
+...
+```
 
-    Good, a proper message response and the reason.
-3. The opponent trying to play out of turn:
+Confirm this was an error from the point of view of the executable:
 
-    ```sh
-    $ checkersd query checkers can-play-move 0 red 0 5 1 4
-    possible: false
-    reason: 'player tried to play out of turn: red'
-    ```
-3. Black trying to play a red piece:
+```sh
+$ echo $?
+```
 
-    ```sh
-    $ checkersd query checkers can-play-move 0 black 0 5 1 4
-    possible: false
-    reason: wrong move%!(EXTRA string=Not {red}s turn)
-    ```
-4. Black testing a correct move:
+Which prints:
 
-    ```sh
-    $ checkersd query checkers can-play-move 0 black 1 2 2 3
-    possible: true
-    reason: ok
-    ```
-5. Black not capturing the mandatory red piece:
+```
+1
+```
 
-    ```sh
-    $ checkersd tx checkers play-move 0 1 2 2 3 --from $bob -y
-    $ checkersd tx checkers play-move 0 0 5 1 4 --from $alice -y
-    $ checkersd query checkers can-play-move 0 black 2 3 3 4
-    possible: false
-    reason: 'wrong move%!(EXTRA string=Invalid move: {2 3} to {3 4})'
-    ```
+There is room to improve the error message. But at least you got an error, as expected.
 
-    There is room to improve the reason given.
-6. Black trying to capture a red piece on a game they forfeited:
+</CodeGroupItem>
+<CodeGroupItem title="bad color">
 
-    ```sh
-    $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
-    $ checkersd tx checkers play-move 1 1 2 2 3 --from $bob -y
-    $ checkersd tx checkers play-move 1 0 5 1 4 --from $alice -y
-    $ checkersd query checkers can-play-move 1 black 2 3 0 5
-    possible: true
-    reason: ok
-    # Wait 5 minutes for the forfeit
-    $ checkersd query checkers can-play-move 1 black 2 3 0 5
-    possible: false
-    reason: game is already finished
-    ```
+```sh
+$ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
+$ checkersd query checkers can-play-move 0 white 1 2 2 3
+```
+
+Trying a bad color for the player on a game that exists returns:
+
+```
+possible: false
+reason: 'message creator is not a player: white'
+```
+
+Good, a proper message response and the reason.
+
+</CodeGroupItem>
+<CodeGroupItem title="wrong turn">
+
+```sh
+$ checkersd query checkers can-play-move 0 red 0 5 1 4
+```
+
+The opponent trying to play out of turn returns:
+
+```
+possible: false
+reason: 'player tried to play out of turn: red'
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="not your piece">
+
+```sh
+$ checkersd query checkers can-play-move 0 black 0 5 1 4
+```
+
+Black trying to play a red piece returns:
+
+```
+possible: false
+reason: wrong move%!(EXTRA string=Not {red}s turn)
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="correct">
+
+```sh
+$ checkersd query checkers can-play-move 0 black 1 2 2 3
+```
+
+Black testing a correct move returns:
+
+```
+possible: true
+reason: ok
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="must capture">
+
+```sh
+$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob -y
+$ checkersd tx checkers play-move 0 0 5 1 4 --from $alice -y
+$ checkersd query checkers can-play-move 0 black 2 3 3 4
+```
+
+Black not capturing the mandatory red piece returns:
+
+```
+possible: false
+reason: 'wrong move%!(EXTRA string=Invalid move: {2 3} to {3 4})'
+```
+
+There is room to improve the reason given.
+
+</CodeGroupItem>
+<CodeGroupItem title="after forfeit">
+
+```sh
+$ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob -y
+$ checkersd tx checkers play-move 1 0 5 1 4 --from $alice -y
+$ checkersd query checkers can-play-move 1 black 2 3 0 5
+```
+
+Black trying to capture a red piece on a running game returns:
+
+```
+possible: true
+reason: ok
+```
+
+Wait 5 minutes for the forfeit:
+
+```sh
+$ checkersd query checkers can-play-move 1 black 2 3 0 5
+```
+
+Now it returns:
+
+```
+possible: false
+reason: game is already finished
+```
+
+</CodeGroupItem>
+</CodeGroup>
+
+---
 
 That is good enough.
 

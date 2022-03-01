@@ -214,12 +214,27 @@ $ export bob=$(checkersd keys show bob -a)
 
 Create 3 games 1 minute apart and have Bob play on the middle one, and both Alice and Bob play on the last one:
 
+<CodeGroup>
+<CodeGroupItem title="Game 0" active>
+
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $alice
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Game 1">
+
+```sh
 # Wait a minute
 $ checkersd tx checkers create-game $alice $bob --from $bob
 # Wait 5 seconds
 $ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Game 2">
+
+```sh
 # Wait a minute
 $ checkersd tx checkers create-game $alice $bob --from $alice
 $ checkersd tx checkers play-move 2 1 2 2 3 --from $bob
@@ -227,7 +242,12 @@ $ checkersd tx checkers play-move 2 1 2 2 3 --from $bob
 $ checkersd tx checkers play-move 2 0 5 1 4 --from $alice
 ```
 
-Be sure to space each `tx` command from a given account by a couple seconds so that they each go into a different block. That's because `checkersd` uses the account's transaction sequence number by fetching it from the current state. With 3 games in, confirm that you see them all with:
+</CodeGroupItem>
+</CodeGroup>
+
+---
+
+Be sure to space each `tx` command from a given account by a couple seconds so that they each go into a different block. That's because `checkersd` is limited by the fact it uses the account's transaction sequence number by fetching it from the current state. With 3 games in, confirm that you see them all with:
 
 ```sh
 $ checkersd query checkers list-stored-game
@@ -237,6 +257,11 @@ List them again after 2, 3, 4 and 5 minutes. You should see games `0` and `1` di
 
 ```sh
 $ checkersd query checkers show-stored-game 2 --output json | jq ".StoredGame.winner"
+```
+
+Which prints:
+
+```json
 "red"
 ```
 
@@ -244,6 +269,11 @@ Confirm also that the FIFO no longer references the removed games nor the forfei
 
 ```sh
 $ checkersd query checkers show-next-game
+```
+
+Correctly showing:
+
+```
 NextGame:
   creator: ""
   fifoHead: "-1"

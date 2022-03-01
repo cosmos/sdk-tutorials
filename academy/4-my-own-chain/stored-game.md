@@ -297,6 +297,11 @@ Starport created a set of files for you. It is time to see whether you can alrea
 
     ```sh
     $ starport chain serve --reset-once
+    ```
+
+    Which ends with:
+
+    ```
     ...
     🌍 Tendermint node: http://0.0.0.0:26657
     🌍 Blockchain API: http://0.0.0.0:1317
@@ -313,6 +318,11 @@ Starport created a set of files for you. It is time to see whether you can alrea
 
     ```sh
     $ checkersd query checkers show-next-game
+    ```
+
+    Which returns:
+
+    ```
     NextGame:
       creator: ""
       idValue: "0"
@@ -324,14 +334,24 @@ Starport created a set of files for you. It is time to see whether you can alrea
 
     ```sh
     $ checkersd query checkers show-next-game --help
+    ```
+
+    Among the output, you see:
+
+    ```
     ...
     -o, --output string   Output format (text|json) (default "text")
     ```
 
-    Now again:
+    Now try again a bit differently:
 
     ```sh
     $ checkersd query checkers show-next-game --output json
+    ```
+
+    Which prints:
+
+    ```json
     {"NextGame":{"creator":"","idValue":"0"}}
     ```
 
@@ -341,6 +361,11 @@ Starport created a set of files for you. It is time to see whether you can alrea
 
     ```sh
     $ checkersd query checkers list-stored-game
+    ```
+
+    As expected:
+
+    ```
     StoredGame: []
     pagination:
       next_key: null

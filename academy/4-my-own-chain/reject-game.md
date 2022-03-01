@@ -163,6 +163,11 @@ Time to see if it is possible to reject a game. First, is it possible to reject 
 
 ```sh
 $ checkersd tx checkers --help
+```
+
+Which prints:
+
+```
 ...
 Available Commands:
 ...
@@ -173,15 +178,25 @@ Available Commands:
 
 ```sh
 $ checkersd tx checkers reject-game --help
+```
+
+Which prints:
+
+```
 ...
 Usage:
   checkersd tx checkers reject-game [idValue] [flags]
 ```
 
-Simple. Let's have Alice, who played poorly in this game `0` try to reject it:
+Simple. Let's have Alice, who played poorly in this game `0`, try to reject it:
 
 ```sh
 $ checkersd tx checkers reject-game 0 --from $alice
+```
+
+Which returns:
+
+```
 ...
 raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"0"}]}]}]'
 ```
@@ -190,68 +205,119 @@ Oh.
 
 <HighlightBox type="warn">
 
-How is it possible that Alice could reject a game in which she had already played, despite the code preventing that? Because the game `0` was created in an earlier version of your code. This earlier version created **a game without any `.MoveCount`**. When you later added the code for rejection, Starport kept the current state of your blockchain. In effect, your blockchain was in a broken state, where **the code and the state were out of sync**. To see how to properly handle code changes that would result in a broken state, see the section on [migrations](./migration.md).
+How is it possible that Alice could reject a game in which she had already played, despite the code preventing that? Because the game `0` was created in an earlier version of your code. This earlier version created **a game without any `.MoveCount`**. When you later added the code for rejection, Starport kept the current state of your blockchain. In effect, your blockchain was in a **broken** state, where **the code and the state were out of sync**.
+
+To see how to properly handle code changes that would otherwise result in a broken state, see the section on [migrations](./migration.md).
 
 </HighlightBox>
 
-Now you have to create another game and test the rejection on it. Notice the incrementing game id.
+Now you have to create other games and test the rejection on them. Notice the incrementing game id.
 
-1. Bob creates a game and rejects it immediately:
+<CodeGroup>
+<CodeGroupItem title="Bob rejects" active>
 
-    ```sh
-    $ checkersd tx checkers create-game $alice $bob --from $bob
-    $ checkersd tx checkers reject-game 1 --from $bob
-    ...
-    raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1w0uumlj04eyvevhfawasm2dtjc24nexxygr8qx"},{"key":"IdValue","value":"1"}]}]}]'
-    ```
+Bob creates a game and rejects it immediately:
 
-    Correct, because nobody played on it.
-2. Bob creates a game and Alice rejects it immediately:
+```sh
+$ checkersd tx checkers create-game $alice $bob --from $bob
+$ checkersd tx checkers reject-game 1 --from $bob
+```
 
-    ```sh
-    $ checkersd tx checkers create-game $alice $bob --from $bob
-    $ checkersd tx checkers reject-game 2 --from $alice
-    ...
-    raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"2"}]}]}]'
-    ```
+Which returns:
 
-    Correct, because nobody played on it.
-3. Bob creates a game, makes a move and rejects the game:
+```
+...
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1w0uumlj04eyvevhfawasm2dtjc24nexxygr8qx"},{"key":"IdValue","value":"1"}]}]}]'
+```
 
-    ```sh
-    $ checkersd tx checkers create-game $alice $bob --from $bob
-    $ checkersd tx checkers play-move 3 1 2 2 3 --from $bob
-    $ checkersd tx checkers reject-game 3 --from $bob
-    ...
-    raw_log: 'failed to execute message; message index: 0: black player has already played'
-    ```
+Correct, because nobody played on it.
 
-    Correct, because Bob has already played.
-4. Bob creates a game, makes a move, and Alice rejects the game:
+</CodeGroupItem>
+<CodeGroupItem title="Alice rejects">
 
-    ```sh
-    $ checkersd tx checkers create-game $alice $bob --from $bob
-    $ checkersd tx checkers play-move 4 1 2 2 3 --from $bob
-    $ checkersd tx checkers reject-game 4 --from $alice
-    ...
-    raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"4"}]}]}]'
-    ```
+Bob creates a game and Alice rejects it immediately:
 
-    Correct, because Alice has not played yet.
-5. Bob creates a game, makes a move, Alice makes a poor move and rejects the game:
+```sh
+$ checkersd tx checkers create-game $alice $bob --from $bob
+$ checkersd tx checkers reject-game 2 --from $alice
+```
 
-    ```sh
-    $ checkersd tx checkers create-game $alice $bob --from $bob
-    $ checkersd tx checkers play-move 5 1 2 2 3 --from $bob
-    $ checkersd tx checkers play-move 5 0 5 1 4 --from $alice
-    $ checkersd tx checkers reject-game 5 --from $alice
-    ...
-    raw_log: 'failed to execute message; message index: 0: red player has already played'
-    ```
+Which returns:
 
-    Correct too. This time, Alice could not reject a game on which she had played, because the state had recorded her move in `.MoveCount`.
+```
+...
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"2"}]}]}]'
+```
 
-To belabor the point made in the earlier warning box, if you change your code, think about what it means for the current state of the chain.
+Correct again, because nobody played on it.
+
+</CodeGroupItem>
+<CodeGroupItem title="Bob plays, rejects">
+
+Bob creates a game, makes a move and rejects the game:
+
+```sh
+$ checkersd tx checkers create-game $alice $bob --from $bob
+$ checkersd tx checkers play-move 3 1 2 2 3 --from $bob
+$ checkersd tx checkers reject-game 3 --from $bob
+```
+
+Which returns:
+
+```
+...
+raw_log: 'failed to execute message; message index: 0: black player has already played'
+```
+
+Correct, because Bob has already played.
+
+</CodeGroupItem>
+<CodeGroupItem title="Bob plays, Alice rejects">
+
+Bob creates a game, makes a move, and Alice rejects the game:
+
+```sh
+$ checkersd tx checkers create-game $alice $bob --from $bob
+$ checkersd tx checkers play-move 4 1 2 2 3 --from $bob
+$ checkersd tx checkers reject-game 4 --from $alice
+```
+
+Which returns:
+
+```
+...
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"4"}]}]}]'
+```
+
+Correct, because Alice has not played yet.
+
+</CodeGroupItem>
+<CodeGroupItem title="Bob & Alice play, Alice rejects">
+
+Bob creates a game, makes a move, Alice makes a poor move and rejects the game:
+
+```sh
+$ checkersd tx checkers create-game $alice $bob --from $bob
+$ checkersd tx checkers play-move 5 1 2 2 3 --from $bob
+$ checkersd tx checkers play-move 5 0 5 1 4 --from $alice
+$ checkersd tx checkers reject-game 5 --from $alice
+```
+
+Which returns:
+
+```
+...
+raw_log: 'failed to execute message; message index: 0: red player has already played'
+```
+
+Correct too. This time, Alice could not reject a game on which she had played, because the state had recorded her move in `.MoveCount`.
+
+</CodeGroupItem>
+</CodeGroup>
+
+---
+
+To belabor the point made in the earlier warning box, if you change your code, think about what it means for the current state of the chain, and whether you end up in a broken state.
 
 ## Next up
 

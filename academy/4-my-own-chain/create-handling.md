@@ -132,13 +132,31 @@ $ checkersd tx checkers create-game $alice $bob --from $alice --gas auto
 
 There is a first hint of a good sign in the output; `gas_used` is a bit higher than earlier: `gas_used: "50671"`. Confirm the current state:
 
+<CodeGroup>
+<CodeGroupItem title="show-next-game" active>
+
 ```sh
 $ checkersd query checkers show-next-game
+```
+
+Which returns:
+
+```
 NextGame:
   creator: ""
   idValue: "1"
+```
 
+</CodeGroupItem>
+<CodeGroupItem title="list-stored-game">
+
+```sh
 $ checkersd query checkers list-stored-game
+```
+
+Which returns:
+
+```
 StoredGame:
 - black: cosmos14n4qkxcpr6ycct75zzp2r7v6rm96xhkegu5205
   creator: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
@@ -149,8 +167,18 @@ StoredGame:
 pagination:
   next_key: null
   total: "0"
+```
 
+</CodeGroupItem>
+<CodeGroupItem title="show-stored-game">
+
+```sh
 $ checkersd query checkers show-stored-game 0
+```
+
+Which returns:
+
+```
 StoredGame:
   black: cosmos14n4qkxcpr6ycct75zzp2r7v6rm96xhkegu5205
   creator: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
@@ -159,6 +187,11 @@ StoredGame:
   red: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
   turn: black
 ```
+
+</CodeGroupItem>
+</CodeGroup>
+
+---
 
 Now your game is in the blockchain's storage. Notice how `bob` was given the black pieces and it is already his turn to play. As a note for the next sections, this is how to understand the board:
 
@@ -184,12 +217,22 @@ X 01234567
 
 You can also get it in a one-liner:
 
+<CodeGroup>
+<CodeGroupItem title="On Linux" active>
+
 ```sh
-# On Linux
 $ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\n/g'
-# On Mac
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="On Mac">
+
+```sh
 $ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\'$'\n/g'
 ```
+
+</CodeGroupItem>
+</CodeGroup>
 
 ## Next up
 

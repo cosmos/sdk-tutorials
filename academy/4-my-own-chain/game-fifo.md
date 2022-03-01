@@ -249,120 +249,193 @@ Time to see what you get now with the commands. Because you made numerous additi
 $ starport chain serve --reset-once
 ```
 
-Is the genesis FIFO information correctly saved?
+Don't forget to export `alice` and `bob` again as explained in an [earlier section](./create-message.md).
 
-```sh
-$ checkersd query checkers show-next-game
-NextGame:
-  creator: ""
-  fifoHead: "-1" # There is nothing
-  fifoTail: "-1" # There is nothing
-  idValue: "0"
-```
+1. Is the genesis FIFO information correctly saved?
 
-That's good. If you create a game, is it as expected?
+    ```sh
+    $ checkersd query checkers show-next-game
+    ```
 
-```sh
-$ checkersd tx checkers create-game $alice $bob --from $bob
-$ checkersd query checkers show-next-game
-NextGame:
-  creator: ""
-  fifoHead: "0" # The first game you created
-  fifoTail: "0" # The first game you created
-  idValue: "1"
-```
+    Which prints:
 
-Good. What about the information saved in the game?
+    ```
+    NextGame:
+      creator: ""
+      fifoHead: "-1" # There is nothing
+      fifoTail: "-1" # There is nothing
+      idValue: "0"
+    ```
 
-```sh
-$ checkersd query checkers show-stored-game 0   
-StoredGame:
-  afterId: "-1" # Nothing because it is alone
-  beforeId: "-1" # Nothing because it is alone
-...
-```
+    That's good.
 
-Correct since it is the only game.
+2. If you create a game, is it as expected?
 
-And if you create another game?
+    ```sh
+    $ checkersd tx checkers create-game $alice $bob --from $bob
+    $ checkersd query checkers show-next-game
+    ```
 
-```sh
-$ checkersd tx checkers create-game $alice $bob --from $bob
-$ checkersd query checkers show-next-game
-NextGame:
-  creator: ""
-  fifoHead: "0" # The first game you created
-  fifoTail: "1" # The second game you created
-  idValue: "2"
-```
+    Which prints:
 
-Did the games also store the correct values?
+    ```
+    NextGame:
+      creator: ""
+      fifoHead: "0" # The first game you created
+      fifoTail: "0" # The first game you created
+      idValue: "1"
+    ```
 
-```sh
-$ checkersd query checkers show-stored-game 0 # The first game you created
-afterId: "1" # The second game you created
-beforeId: "-1" # No game
-...
-$ checkersd query checkers show-stored-game 1 # The second game you created
-afterId: "-1" # No game
-beforeId: "0" # The first game you created
-...
-```
+    Good.
 
-Which is correct. Your FIFO in effect has the game ids `[0, 1]`. You can add a third game, which makes your FIFO be `[0, 1, 2]`.
+3. What about the information saved in the game?
 
-What happens when Bob plays on the game 1, the one _in the middle_?
+    ```sh
+    $ checkersd query checkers show-stored-game 0   
+    ```
 
-```sh
-$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
-$ checkersd query checkers show-next-game    
-NextGame:
-  creator: ""
-  fifoHead: "0" # The first game you created
-  fifoTail: "1" # The second game you created and on which Bob just played
-  idValue: "3"
-```
+    Which prints:
 
-That looks good. And is the game 2 in the middle now?
+    ```
+    StoredGame:
+      afterId: "-1" # Nothing because it is alone
+      beforeId: "-1" # Nothing because it is alone
+    ...
+    ```
 
-```sh
-$ checkersd query checkers show-stored-game 2
-StoredGame:
-  afterId: "1"
-  beforeId: "0"
-...
-```
+    Correct since it is the only game.
 
-That's correct. Your FIFO now has the game ids `[0, 2, 1]`. You see that the game 1, which was played on, has been sent to the tail of the FIFO.
+4. And if you create another game?
 
-What happens when Alice rejects game 2?
+    ```sh
+    $ checkersd tx checkers create-game $alice $bob --from $bob
+    $ checkersd query checkers show-next-game
+    ```
 
-```sh
-$ checkersd tx checkers reject-game 2 --from $alice
-$ checkersd query checkers show-next-game
-NextGame:
-  creator: ""
-  fifoHead: "0"
-  fifoTail: "1"
-  idValue: "3"
-```
+    Which prints:
 
-No changes there because game 2 was _in the middle_, so it did not affect the head or the tail.
+    ```
+    NextGame:
+      creator: ""
+      fifoHead: "0" # The first game you created
+      fifoTail: "1" # The second game you created
+      idValue: "2"
+    ```
 
-```sh
-$ checkersd query checkers show-stored-game 0
-StoredGame:
-  afterId: "1"
-  beforeId: "-1"
-...
-$ checkersd query checkers show-stored-game 1
-StoredGame:
-  afterId: "-1"
-  beforeId: "0"
-...
-```
+5. Did the games also store the correct values?
 
-So your FIFO now has the game ids `[0, 1]`. The game 2 was correctly removed from the FIFO.
+    ```sh
+    $ checkersd query checkers show-stored-game 0 # The first game you created
+    ```
+
+    Which prints:
+
+    ```
+    afterId: "1" # The second game you created
+    beforeId: "-1" # No game
+    ...
+    ```
+
+    And:
+
+    ```sh
+    $ checkersd query checkers show-stored-game 1 # The second game you created
+    ```
+
+    Which prints:
+
+    ```
+    afterId: "-1" # No game
+    beforeId: "0" # The first game you created
+    ...
+    ```
+
+    Which is correct. Your FIFO in effect has the game ids `[0, 1]`. You can add a third game, which makes your FIFO be `[0, 1, 2]`.
+
+6. What happens when Bob plays on the game 1, the one _in the middle_?
+
+    ```sh
+    $ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
+    $ checkersd query checkers show-next-game
+    ```
+
+    Which prints:
+
+    ```
+    NextGame:
+      creator: ""
+      fifoHead: "0" # The first game you created
+      fifoTail: "1" # The second game you created and on which Bob just played
+      idValue: "3"
+    ```
+
+    That looks good.
+
+7. And is the game 2 in the middle now?
+
+    ```sh
+    $ checkersd query checkers show-stored-game 2
+    ```
+
+    Which prints:
+
+    ```
+    StoredGame:
+      afterId: "1"
+      beforeId: "0"
+    ...
+    ```
+
+    That's correct. Your FIFO now has the game ids `[0, 2, 1]`. You see that the game 1, which was played on, has been sent to the tail of the FIFO.
+
+8. What happens when Alice rejects game 2?
+
+    ```sh
+    $ checkersd tx checkers reject-game 2 --from $alice
+    $ checkersd query checkers show-next-game
+    ```
+
+    Which prints:
+
+    ```
+    NextGame:
+      creator: ""
+      fifoHead: "0"
+      fifoTail: "1"
+      idValue: "3"
+    ```
+
+    No changes there because game 2 was _in the middle_, so it did not affect the head or the tail.
+
+    ```sh
+    $ checkersd query checkers show-stored-game 0
+    ```
+
+    Which prints:
+
+    ```
+    StoredGame:
+      afterId: "1"
+      beforeId: "-1"
+    ...
+    ```
+
+    And:
+
+    ```sh
+    $ checkersd query checkers show-stored-game 1
+    ```
+
+    Which prints:
+
+    ```
+    StoredGame:
+      afterId: "-1"
+      beforeId: "0"
+    ...
+    ```
+
+    So your FIFO now has the game ids `[0, 1]`. The game 2 was correctly removed from the FIFO.
 
 ## Next up
 

@@ -177,10 +177,15 @@ That is all there is to it: good preparation and the use of Starport.
 
 ## Interact via the CLI
 
-With one game in storage and the game waiting for `Bob`'s move, can `Alice` make a move? Take a look at the `play-move` message and which parameters it accepts:
+With one game in storage and the game waiting for Bob's move, can Alice make a move? Take a look at the `play-move` message and which parameters it accepts:
 
 ```sh
 $ checkersd tx checkers play-move --help
+```
+
+Which returns:
+
+```
 Broadcast message playMove
 
 Usage:
@@ -192,12 +197,17 @@ So `Alice` tries with:
 
 ```sh
 $ checkersd tx checkers play-move 0 0 5 1 4 --from $alice
-                                     ^ ^ ^ ^ ^
-                                     | | | | To Y
-                                     | | | To X
-                                     | | From Y
-                                     | From X
-                                     Game id
+                                  ^ ^ ^ ^ ^
+                                  | | | | To Y
+                                  | | | To X
+                                  | | From Y
+                                  | From X
+                                  Game id
+```
+
+Which includes:
+
+```
 ...
 raw_log: 'failed to execute message; message index: 0: player tried to play out of
                                        turn'
@@ -205,28 +215,47 @@ raw_log: 'failed to execute message; message index: 0: player tried to play out 
 txhash: D10BB8A706870F65F19E4DF48FB870E4B7D55AF4232AE0F6897C23466FF7871B
 ```
 
+<HighlightBox type="tip">
+
 If you did not get this `raw_log`, it might be because your transaction was sent asynchronously. You can always query a transaction by using the `txhash` by using the following command:
 
 ```sh
 $ checkersd query tx D10BB8A706870F65F19E4DF48FB870E4B7D55AF4232AE0F6897C23466FF7871B
+```
+
+And you are back on track:
+
+```
 ...
 raw_log: 'failed to execute message; message index: 0: player tried to play out of
   turn'
 ```
 
-Can `Bob`, who plays _black_, make a move? Can he make a wrong move, for instance from `0-1` to `1-0` which in turn is occupied by one of his pieces?
+</HighlightBox>
+
+Can Bob, who plays _black_, make a move? Can he make a wrong move, for instance from `0-1` to `1-0`, which in turn is occupied by one of his pieces?
 
 ```sh
 $ checkersd tx checkers play-move 0 1 0 0 1 --from $bob
+```
+
+Computer says no:
+
+```
 ...
 raw_log: 'failed to execute message; message index: 0: Already piece at destination
   position: {1 0}: wrong move'
 ```
 
-All seems to be working just fine. Time for `Bob` to make a correct move:
+So far, all seems to be working just fine. Time for Bob to make a correct move:
 
 ```sh
 $ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
+```
+
+Which returns:
+
+```
 ...
 raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"PlayMove"}]}]}]'
 ```
@@ -235,6 +264,11 @@ Looks like it went through. Confirm with your one-line formatter from the [previ
 
 ```sh
 $ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\n/g'
+```
+
+Which shows:
+
+```
 *b*b*b*b
 b*b*b*b*
 ***b*b*b
@@ -245,7 +279,7 @@ r*r*r*r*
 r*r*r*r*
 ```
 
-`Bob`'s piece moved down and right.
+Bob's piece moved down and right.
 
 ## Next up
 

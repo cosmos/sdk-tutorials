@@ -81,10 +81,15 @@ This time, you get, say `54312`. This is good, the `10` gas are no longer part o
 
 Notice how a difference of **`10` is insignificant** compared to the `54312` of the other gas costs. This is where you have to decide how to adjust your gas costs so that they are meaningful with regards to the costs they impose on the network.
 
-Estimating is a good start. Now better, have Alice create a game and check the gas actually used in the transaction. You could impose a `--gas-prices` and then check balances but it would obfuscate the gas consumption, which is what you want to confirm.
+Estimating with `--dry-run` is a good start. Now better, have Alice create a game and check the gas actually used in the transaction. You could impose a `--gas-prices` and then check balances but it would obfuscate the gas consumption, which is what you want to confirm.
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
+```
+
+Which mentions:
+
+```
 ...
 gas_used: "52755"
 ...
@@ -94,6 +99,11 @@ As before, comment the `.ConsumeGas` line `msg_server_create_game.go`, and wait 
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
+```
+
+Which mentions:
+
+```
 ...
 gas_used: "52751"
 ...
@@ -103,6 +113,11 @@ Only a difference of `4`? The rest of the system likely had some under-the-hood 
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used
+```
+
+Which mentions:
+
+```
 gas_used: "65057"
 ```
 
@@ -110,6 +125,11 @@ Now put back the `.ConsumeGas` line and rebuild. They try the same:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used
+```
+
+Which mentions a difference of `10`:
+
+```
 gas_used: "65067"
 ```
 

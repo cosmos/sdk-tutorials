@@ -101,10 +101,15 @@ You have prepared the ground by placing this token denomination into the relevan
 
 ## Interact via the CLI
 
-If you recall, Alice's and Bob's balances are:
+If you recall, Alice's and Bob's balances:
 
 ```sh
 $ checkersd query bank balances $bob
+```
+
+Have two token denominations:
+
+```
 balances:
 - amount: "100000000"
   denom: stake
@@ -119,6 +124,11 @@ You can make use of this other `token` to create a new game that costs `1 token`
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1 token --from $alice
+```
+
+Which mentions:
+
+```
 ...
 - key: Wager
   value: "1"
@@ -137,6 +147,11 @@ Has Bob been charged the wager?
 
 ```sh
 $ checkersd query bank balances $bob
+```
+
+Which returns:
+
+```
 balances:
 - amount: "100000000"
   denom: stake

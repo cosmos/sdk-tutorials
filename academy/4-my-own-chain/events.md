@@ -109,6 +109,11 @@ Bob made a move, will Alice's move emit an event?
 
 ```sh
 $ checkersd tx checkers play-move 0 0 5 1 4 --from $alice
+```
+
+The log is longer, if a bit not readable:
+
+```
 ...
 raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"PlayMove"},{"key":"module","value":"checkers"},{"key":"action","value":"MovePlayed"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"0"},{"key":"CapturedX","value":"-1"},{"key":"CapturedY","value":"-1"},{"key":"Winner","value":"NO_PLAYER"}]}]}]'
 ```
@@ -181,10 +186,15 @@ b*b*b*b*
 r*r*r*r*
 ```
 
-Naturally Bob goes ahead and captures the piece:
+The rules of the game included in this project mandate that the player captures a piece when they can capture one. So Bob goes ahead and captures the piece:
 
 ```sh
 $ checkersd tx checkers play-move 0 2 3 0 5 --from $bob
+```
+
+It duly informs us that:
+
+```
 ...
 raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"PlayMove"},{"key":"module","value":"checkers"},{"key":"action","value":"MovePlayed"},{"key":"Creator","value":"cosmos1w0uumlj04eyvevhfawasm2dtjc24nexxygr8qx"},{"key":"IdValue","value":"0"},{"key":"CapturedX","value":"1"},{"key":"CapturedY","value":"4"},{"key":"Winner","value":"NO_PLAYER"}]}]}]'
 ```

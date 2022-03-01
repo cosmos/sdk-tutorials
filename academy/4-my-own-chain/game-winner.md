@@ -132,22 +132,37 @@ $ starport chain serve --reset-once
 
 Don't forget to export `alice` and `bob` again as explained in an [earlier section](./create-message.md).
 
-You can confirm that there is no winner on a game when it is created and when a player plays.
+You can confirm that there is no winner on a game when it is created:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $alice
 $ checkersd query checkers show-stored-game 0
-...
-  winner: NO_PLAYER
-...
-$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
-$ checkersd query checkers show-stored-game 0
+```
+
+Showing:
+
+```
 ...
   winner: NO_PLAYER
 ...
 ```
 
-Testing with the CLI when the game is resolved with a rightful winner is much more involved and better covered by unit tests or with a nice GUI. You will be able to partially test this part in the [next section](./game-forfeit.md), about forfeit.
+And when a player plays:
+
+```sh
+$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
+$ checkersd query checkers show-stored-game 0
+```
+
+Here too:
+
+```
+...
+  winner: NO_PLAYER
+...
+```
+
+Testing with the CLI up to the point where the game is resolved with a rightful winner is much more involved and better covered by unit tests or with a nice GUI. You will be able to partially test this part in the [next section](./game-forfeit.md), via a forfeit.
 
 ## Next up
 

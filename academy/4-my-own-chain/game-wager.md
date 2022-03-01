@@ -356,36 +356,65 @@ In order to be able to test a forfeit, keep the game expiry at 5 minutes, as don
 
 How much do Alice and Bob have to start with?
 
+<CodeGroup>
+<CodeGroupItem title="Alice" active>
+
 ```sh
 $ checkersd query bank balances $alice
+```
+
+Which prints:
+
+```
 balances:
 - amount: "100000000"
   denom: stake
 - amount: "20000"
   denom: token
-pagination:
+  pagination:
   next_key: null
   total: "0"
-$ checkersd query bank balances $bob
-balances:
-- amount: "100000000"
-denom: stake
-- amount: "10000"
-denom: token
-pagination:
-next_key: null
-total: "0"
 ```
 
-Create a game on which the wager will be refunded because the player playing red did not join:
+</CodeGroupItem>
+<CodeGroupItem title="Bob">
+
+```sh
+$ checkersd query bank balances $bob
+```
+
+Which prints:
+
+```
+balances:
+- amount: "100000000"
+  denom: stake
+- amount: "10000"
+  denom: token
+  pagination:
+  next_key: null
+  total: "0"
+```
+
+</CodeGroupItem>
+</CodeGroup>
+
+---
+
+Create a game on which the wager will be refunded because the player playing `red` did not join:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
+```
+
+Which mentions the wager:
+
+```
 ...
 raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"CreateGame"},{"key":"module","value":"checkers"},{"key":"action","value":"NewGameCreated"},{"key":"Creator","value":"cosmos1z63q2mn2f6ljm8vfxjzpuz0xthmyx9qd0yy5xr"},{"key":"Index","value":"0"},{"key":"Red","value":"cosmos1z63q2mn2f6ljm8vfxjzpuz0xthmyx9qd0yy5xr"},{"key":"Black","value":"cosmos195e0h5qw44sazd450yt5qvllukcfp7lyc3f9kr"},{"key":"Wager","value":"1000000"}]}]}]'
 ```
 
-Confirm that, since they have not played yet, both Alice and Bob balances are unchanged. As a side-note, notice that Alice paid no gas fees to create a game. This is fixed in the [next section](./gas-meter.md).
+Confirm that, since they have not played yet, both Alice and Bob balances are unchanged. As a side-note, notice that Alice paid no gas fees, other than the transaction costs, to create a game. This is fixed in the [next section](./gas-meter.md).
 
 Have Bob play:
 
@@ -397,6 +426,11 @@ Confirm that Bob has paid his wager:
 
 ```sh
 $ checkersd query bank balances $bob
+```
+
+Which prints:
+
+```
 balances:
 - amount: "99000000" # <- 1,000,000 fewer
   denom: stake
@@ -411,6 +445,11 @@ Wait 5 minutes for the game to expire, and check again:
 
 ```sh
 $ checkersd query bank balances $bob
+```
+
+Which prints:
+
+```
 balances:
 - amount: "100000000" # <- 1,000,000 are back
   denom: stake
@@ -421,7 +460,7 @@ pagination:
   total: "0"
 ```
 
-Now create a game on which both players only play once each, i.e. where the player playing black forfeits:
+Now create a game on which both players only play once each, i.e. where the player playing `black` forfeits:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
@@ -431,18 +470,42 @@ $ checkersd tx checkers play-move 1 0 5 1 4 --from $alice
 
 Confirm that both Alice and Bob paid their wagers. Wait 5 minutes for the game to expire, and check again:
 
+<CodeGroup>
+<CodeGroupItem title="Alice" active>
+
 ```sh
-$ checkersd query bank balances $bob
-balances:
-- amount: "99000000"
-  denom: stake
-...
 $ checkersd query bank balances $alice
+```
+
+Which shows:
+
+```
 balances:
 - amount: "101000000" # <- 1,000,000 more than at the beginning
   denom: stake
 ...
 ```
+
+</CodeGroupItem>
+<CodeGroupItem title="Bob">
+
+```sh
+$ checkersd query bank balances $bob
+```
+
+Which shows:
+
+```
+balances:
+- amount: "99000000" # <- his 1,000,000 are gone for good
+  denom: stake
+...
+```
+
+</CodeGroupItem>
+</CodeGroup>
+
+---
 
 That's correct, Alice was the winner by forfeit.
 
