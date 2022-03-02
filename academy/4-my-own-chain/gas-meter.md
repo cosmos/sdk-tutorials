@@ -1,17 +1,17 @@
 ---
-title: Gas Metering
+title: Gas - Incentivize Players
 order: 16
 description: Reward validators proportional to their effort
 tag: deep-dive
 ---
 
-# Gas Metering
+# Gas - Incentivize Players
 
 <HighlightBox type="synopsis">
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of gas.
+* You understand the concept of gas.
 * Have Go installed.
 * The checkers blockchain codebase with the game wager and its handling. You can get there by following the [previous steps](./game-wager.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-wager).
 
@@ -21,7 +21,7 @@ Players can start playing checkers with your Cosmos blockchain. Transaction fees
 
 Next add your own gas metering to reflect the costs that different transactions impose or you can add costs to discourage spam.
 
-## New information
+## New data
 
 These values are an inspiration but you can, should, set your own. Save them as new constants:
 

@@ -1,11 +1,11 @@
 ---
-title: Create the Game Handling
+title: Message Handler - Create and Save a Game Properly
 order: 7
 description: You create a proper game
 tag: deep-dive
 ---
 
-# Create the Game Handling
+# Message Handler - Create and Save a Game Properly
 
 <HighlightBox type="synopsis">
 

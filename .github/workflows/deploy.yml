@@ -1,6 +1,7 @@
-name: Documentation
+name: Build & Deploy Docs
 # This job builds and deploys documentation to github pages.
 # It runs on every push to master.
+# Note: A git update is required by the checkout action to enable submodule checkout via http(s)
 on:
   push:
     branches:

@@ -1,11 +1,11 @@
 ---
-title: The Play Game Elements
+title: Message and Handler - Add a Way to Make a Move
 order: 8
 description: You play a game
 tag: deep-dive
 ---
 
-# The Play Game Elements
+# Message and Handler - Add a Way to Make a Move
 
 <HighlightBox type="synopsis">
 
@@ -148,7 +148,7 @@ Take the following steps to replace the `TODO`:
     }
     ```
 
-    Again using the rules proper [`Move`](https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/rules/checkers.go#L274-L301) function.
+    Again using the rules' [`Move`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/rules/checkers.go#L274-L301) function.
 
 6. Prepare the updated board to be stored and store the information:
 

@@ -37,7 +37,7 @@ On top of that Starport will handle some compilation, run a local blockchain nod
 
 <HighlightBox type="tip">
 
-Want to dedicate some time to dive deeper into installing Starport? Have a look at [how to install Starport in the Starport Developer Guide](https://docs.starport.com/guide/install.html).
+Want to dedicate some time to dive deeper into installing Starport? Learn [how to install Starport in the Starport Developer Guide](https://docs.starport.com/guide/install.html).
 
 </HighlightBox>
 
@@ -137,7 +137,7 @@ If you look at the code that Starport generates, for instance in `./x/checkers/m
 // this line is used by starport scaffolding # 1
 ```
 
-**Caution:** Do not remove or replace any such lines in your code as they provide markers for Starport on where to add further code when instructed to do so. For the same reason, do not rename or move any file that contains such a line.
+**Caution:** Do not remove or replace any lines like these in your code as they provide markers for Starport on where to add further code when instructed to do so. For the same reason, do not rename or move any file that contains such a line.
 
 Go to the `checkers` folder and run:
 

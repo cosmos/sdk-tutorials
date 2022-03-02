@@ -8,7 +8,7 @@
 				a.tm-button.tm-button-disclosure.mt-7(v-if="intro.action" :href="intro.action.url")
 					span {{intro.action.label}}
 			.home__content__intro__image(v-if="intro.image")
-				img(:src="intro.image")
+				tm-image(:src="intro.image")
 		.home__content__overview(v-if="$frontmatter.overview")
 			h2.home__content__overview__title {{$frontmatter.overview.title}}
 			.home__content__overview__content(v-if="$frontmatter.overview.items")
@@ -16,11 +16,11 @@
 
 		.modules(v-if="this.modules && this.modules[0].submodules && this.modules[0].submodules.length > 1")
 			h2 Course Modules
-			card-module(v-for="module in this.modules" :module="module" :startExpanded="!$frontmatter.main").modules__item
+			card-module(v-for="module in this.modules" :module="module" :main="$frontmatter.main").modules__item
 		.resources__wrapper(v-if="$themeConfig.resources")
 			h3.resources__title Developer resources
 			.resources
-				.resources__item(v-for="resource in $themeConfig.resources")
+				.resources__item(v-for="resource in $themeConfig.resources" :class="$frontmatter.main && 'resources__item__main'")
 					resource(:title="resource.title" :description="resource.description" :links="resource.links" :image="resource.image")
 </template>
 
@@ -59,34 +59,53 @@
 
 		&__item
 			padding 10px
+			max-width 50%
+			flex-grow 1
 
-			&:last-child
+			&:nth-child(even)
 				padding-right 0px
-			&:first-child
+				padding-left 10px
+			&:nth-child(odd)
 				padding-left 0px
+				padding-right 10px
 
-			@media screen and (min-width: 1313px)
-				flex 1 0 0px
-
-			@media screen and (min-width: 481px) and (max-width: 1312px)
-				max-width 50%
-				flex-grow 1
+			&__main
+				padding 10px
 
 				&:nth-child(even)
-					padding-right 0px
+					padding-right 10px
 					padding-left 10px
 				&:nth-child(odd)
-					padding-left 0px
+					padding-left 10px
 					padding-right 10px
+				&:last-child
+					padding-right 0px
+				&:first-child
+					padding-left 0px
+
+				@media screen and (min-width: 1313px)
+					flex 1 0 0px
+
+				@media screen and (min-width: 481px) and (max-width: 1312px)
+					max-width 50%
+					flex-grow 1
+
+					&:nth-child(even)
+						padding-right 0px
+						padding-left 10px
+					&:nth-child(odd)
+						padding-left 0px
+						padding-right 10px
 
 
 			@media screen and (max-width: 480px)
+				max-width unset
 				width 60vw
 				flex-shrink 0
 
 	.home
 		&__content
-			max-width var(--content-max-width)
+			max-width var(--content-max-width-big)
 			margin-inline auto
 
 			&__get-started

@@ -1,11 +1,11 @@
 ---
-title: A Game Winner
+title: Store Field - Record the Game Winner
 order: 13
 description: You store the winner of a game
 tag: deep-dive
 ---
 
-# A Game Winner
+# Store Field - Record the Game Winner
 
 <HighlightBox type="synopsis">
 
@@ -17,7 +17,7 @@ Make sure you have all you need before proceeding:
 
 </HighlightBox>
 
-To be able to forcibly terminate games and avoid terminating one game twice, you need to identify games that have been terminated. A good field to add is one for the **winner**. It needs to contain:
+To be able to terminate games you need to identify games that have already been terminated. A good field to add is one for the **winner**. It needs to contain:
 
 * The rightful winner of a game that reaches completion.
 * Or, the winner by forfeit, when a game is expired.
@@ -120,7 +120,7 @@ if storedGame.Winner != rules.NO_PLAYER.Color {
 }
 ```
 
-Confirm it compiles and you are ready to handle the expiration of games.
+Confirm the code compiles and you are ready to handle the expiration of games.
 
 ## Interact via the CLI
 

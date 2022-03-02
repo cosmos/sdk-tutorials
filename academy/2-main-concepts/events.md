@@ -9,14 +9,16 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Let's dedicate some time to events in the Cosmos SDK. You should understand the concepts covered in the following sections before diving into events:
+Dedicate some time to events in the Cosmos SDK: learn what events are, how events are useful, and how events are implemented in applications.
+
+Before diving into events, start with understanding the concepts covered in the following sections:
 
 * [Transactions](./transactions.md)
 * [Messages](./messages.md)
 * [Modules](./modules.md)
 * [Protobuf](./protobuf.md)
 
-You can find some a code examples at the end of this section in which events are implemented in the checkers blockchain.
+Code examples are provided at the end of this section. Examples show events implemented in the checkers blockchain.
 
 </HighlightBox>
 

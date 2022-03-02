@@ -1,11 +1,11 @@
 ---
-title: IBC Foreign Token Wager
+title: IBC Token - Play With Cross-Chain Tokens
 order: 18
 description: Let players wager any fungible token
 tag: deep-dive
 ---
 
-# IBC Foreign Token Wager
+# IBC Token - Play With Cross-Chain Tokens
 
 <HighlightBox type="synopsis">
 
@@ -17,13 +17,13 @@ Make sure you have all you need before proceeding:
 
 </HighlightBox>
 
-When you [introduced a wager](./game-wager.md) you made it possible for players to play a game and wager the base staking token of your blockchain application. What if your players want to play with other _currencies_? Your blockchain can represent a token from any other blockchain connected to your chain by using the Inter-Blockchain Communication Protocol (IBC).
+When you [introduced a wager](./game-wager.md) you enabled players to play a game and bet in the outcome using the base staking token of your blockchain. What if your players want to play with other _currencies_? Your blockchain can represent a token from any other blockchain connected to your chain by using the Inter-Blockchain Communication Protocol (IBC).
 
-You will be agnostic about the tokens that are represented and about who is taking care of the relayers. Your only concern, for now, is to enable the use of _foreign_ tokens.
+Your checkers application will be agnostic to tokens and relayers. Your only task is to enable the use of _foreign_ tokens.
 
 ## New information
 
-Instead of defaulting to `"stake"`, let players decide what string represents their token. So you update:
+Instead of defaulting to `"stake"`, let players decide what string represents their token. So update:
 
 1. The stored game:
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9045c60/proto/checkers/stored_game.proto#L21]
@@ -42,7 +42,7 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
     }
     ```
 
-To have Starport and Protobuf recompile both files, you can use:
+For Starport and Protobuf to recompile both files you can use:
 
 ```sh
 $ starport generate proto-go
@@ -59,7 +59,7 @@ func NewMsgCreateGame(creator string, red string, black string, wager uint64, to
 }
 ```
 
-You already know that you are going to emit this new information during the game creation. So, add a new event key as a constant:
+This data will be emitted during game creation, so add a new event key as a constant:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9045c60/x/checkers/types/keys.go#L56]
 const (
@@ -69,7 +69,7 @@ const (
 
 ## Additional handling
 
-You have prepared the ground by placing this token denomination into the relevant data structures. Now the proper values need to be inserted in the relevant locations:
+The token denomination has been integrated into the relevant data structures. Now the proper values need to be inserted in the right locations:
 
 1. In the helper function to create the `Coin` in `full_game.go`:
 

@@ -1,11 +1,11 @@
 ---
-title: Adding Events
+title: Events - Emitting Game Information
 order: 9
-description: Inform your players
+description: You emit game information using events
 tag: deep-dive
 ---
 
-# Adding Events
+# Events - Emitting Game Information
 
 <HighlightBox type="synopsis">
 
