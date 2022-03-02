@@ -193,7 +193,7 @@ For an explanation as to why this setup is resistant to an attack from an unboun
 
 ## Interact via the CLI
 
-As of now the game expiry is 1 day in the future. It is too long to test with the CLI. Temporarily set it to 5 minutes:
+As of now, the game expiry is 1 day in the future. It is too long to test with the CLI. Temporarily set it to 5 minutes:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a74b20c/x/checkers/types/keys.go#L38]
 MaxTurnDurationInSeconds = time.Duration(5 * 60 * 1000_000_000) // 5 minutes

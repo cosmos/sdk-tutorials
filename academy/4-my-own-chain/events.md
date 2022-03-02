@@ -19,7 +19,7 @@ Make sure you have all you need before proceeding:
 
 Now that you have [added the possible actions](./play-game.md) including their return values, use events to alert/notify players.
 
-Imagine a potential or current player waiting for their turn. It is not practical to look at all the transactions and search for the ones signifying the player's turn. It is better to listen to known events that let determine whose player's turn it is.
+Imagine a potential or current player waiting for their turn. It is not practical to look at all the transactions and search for the ones signifying the player's turn. It is better to listen to known events that let clients determine whose player's turn it is.
 
 Adding events to your application is as simple as:
 
@@ -72,7 +72,7 @@ The created transaction to play a move informs the opponent about:
 * What the move's outcome was.
 * Whether the game was won.
 
-Contrary to the _create game_ event, which alerted the players about a new game, the players now know which game IDs to keep an eye out for. There is no need to repeat the players' addresses, the game ID is information enough.
+Contrary to the _create game_ event, which alerted the players about a new game, the players now know which game IDs to keep an eye out for. There is no need to repeat the players' addresses, the game ID is enough information.
 
 You define new keys in `x/checkers/types/keys.go` similarly:
 
@@ -105,13 +105,13 @@ ctx.EventManager().EmitEvent(
 
 ## Interact with the CLI
 
-Bob made a move, will Alice's move emit an event?
+Bob made a move. Will Alice's move emit an event?
 
 ```sh
 $ checkersd tx checkers play-move 0 0 5 1 4 --from $alice
 ```
 
-The log is longer, if a bit not readable:
+The log is longer, and admittedly a little less readable:
 
 ```
 ...

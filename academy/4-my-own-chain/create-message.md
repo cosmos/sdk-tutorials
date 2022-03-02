@@ -123,7 +123,7 @@ service Msg {
 }
 ```
 
-As an interface it does not describe what should happen when called. What Starport does with the help of Protobuf is compile the interface and create a default Go implementation.
+As an interface, it does not describe what should happen when called. What Starport does with the help of Protobuf is compile the interface and create a default Go implementation.
 
 ## Interact via the CLI
 
@@ -133,7 +133,7 @@ Time to see which new CLI command was created by Starport:
 $ checkersd tx checkers --help
 ```
 
-Which informs you with, among others:
+Which informs you with this, among other things:
 
 ```
 ...
@@ -183,7 +183,7 @@ Which prints:
 gas estimate: 40452
 ```
 
-Hard to judge how much gas that really means. Anyway, keep gas on `auto`:
+Hard to judge how much gas that really means. In any case, keep gas on `auto`:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $alice --gas auto

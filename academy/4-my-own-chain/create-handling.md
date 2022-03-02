@@ -37,9 +37,9 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 }
 ```
 
-All the message processing code were created for you and all you are left to do is code the meat of the action. Opting for Starport is a wise decision as you can see.
+All the message processing code was created for you and all you are left to do is code the meat of the action. Opting for Starport is a wise decision as you can see.
 
-Given that you have already done a lot of preparatory work: what does it involve to code the action? With what do you replace `// TODO: Handling the message`?
+Given that you have already done a lot of preparatory work: what is involved in coding the action? With what do you replace `// TODO: Handling the message`?
 
 * First, `rules` represent the ready-made file with the imported rules of the game:
 

@@ -343,7 +343,7 @@ Starport created a set of files for you. It is time to see whether you can alrea
     -o, --output string   Output format (text|json) (default "text")
     ```
 
-    Now try again a bit differently:
+    Now, try again a bit differently:
 
     ```sh
     $ checkersd query checkers show-next-game --output json

@@ -21,7 +21,7 @@ With the introduction of a game expiry in the [previous section](./game-forfeit.
 
 In this section you will add an extra layer to a game with wagers or stakes. Your application already includes all the necessary modules. This section relies on the `bank` module in particular.
 
-Players choose to wager _money_ or not, and the winner gets both wagers. The forfeiter loses their wager. To reduce complexity start by letting players wager in the staking token of your application.
+Players choose to wager _money_ or not, and the winner gets both wagers. The forfeiter loses their wager. To reduce complexity, start by letting players wager in the staking token of your application.
 
 ## New information
 
@@ -114,7 +114,7 @@ Remember the only way to have access to a capability with the object-capability 
 
 You are going to implement payment handling by having your keeper hold wagers **in escrow** while the game is being played. The `bank` module has functions to transfer tokens from any account to your module and vice-versa.
 
-In an alternative setup you could have your keeper burn tokens when playing, and mint them again when paying out. This is less than ideal as it makes your blockchain's total supply _falsely_ fluctuate. Additionally, when you later introduce IBC tokens, this burning and minting would raise eyebrows.
+In an alternative setup, you could have your keeper burn tokens when playing, and mint them again when paying out. This is less than ideal as it makes your blockchain's total supply _falsely_ fluctuate. Additionally, when you later introduce IBC tokens, this burning and minting would raise eyebrows.
 
 <HighlightBox type="tip">
 
@@ -160,7 +160,7 @@ func NewKeeper(
 }
 ```
 
-Next you need to update where the constructor is called and pass a proper instance of bank keeper. This happens in `app/app.go`:
+Next, you need to update where the constructor is called and pass a proper instance of bank keeper. This happens in `app/app.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6213d10/app/app.go#L342-L343]
 app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
@@ -180,7 +180,7 @@ maccPerms = map[string][]string{
 }
 ```
 
-It is only keeping in escrow, and not minting or burning, hence the `nil`.
+It is only keeping funds in escrow, and not minting or burning, hence the `nil`.
 
 ## Preparing expected errors
 

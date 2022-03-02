@@ -59,7 +59,7 @@ func NewMsgCreateGame(creator string, red string, black string, wager uint64, to
 }
 ```
 
-You already know that you are going to emit this new information during the game creation. So add a new event key as a constant:
+You already know that you are going to emit this new information during the game creation. So, add a new event key as a constant:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9045c60/x/checkers/types/keys.go#L56]
 const (

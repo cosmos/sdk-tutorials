@@ -144,7 +144,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
     }
     ```
 
-6. If all went fine:
+6. If all went well:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0f56961/x/checkers/keeper/grpc_query_can_play_move.go#L79-L82]
     return &types.QueryCanPlayMoveResponse{
@@ -336,7 +336,7 @@ reason: game is already finished
 
 ---
 
-That is good enough.
+That will do nicely.
 
 ## Next up
 

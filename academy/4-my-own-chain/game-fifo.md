@@ -68,7 +68,7 @@ How do you implement a FIFO from which you extract elements at random positions?
     }
     ```
 
-2. To make extraction possible each game needs to know which other game takes place before it in the FIFO, and which after. The right place to store this double link information is `StoredGame`. Thus, you add them in the game's Protobuf declaration:
+2. To make extraction possible, each game needs to know which other game takes place before it in the FIFO, and which after. The right place to store this double link information is `StoredGame`. Thus, you add them in the game's Protobuf declaration:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/proto/checkers/stored_game.proto#L16-L17]
     message StoredGame {
@@ -303,7 +303,7 @@ Don't forget to export `alice` and `bob` again as explained in an [earlier secti
     ...
     ```
 
-    Correct since it is the only game.
+    Correct, since it is the only game.
 
 4. And if you create another game?
 

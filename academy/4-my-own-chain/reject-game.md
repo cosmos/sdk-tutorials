@@ -82,7 +82,7 @@ With `MoveCount` counting properly, you are now ready to handle a rejection requ
 
 ## The reject handling
 
-To follow the Cosmos SDK conventions declare the following new errors:
+To follow the Cosmos SDK conventions, declare the following new errors:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/types/errors.go#L19-L20]
 ErrRedAlreadyPlayed   = sdkerrors.Register(ModuleName, 1108, "red player has already played")
@@ -99,7 +99,7 @@ const (
 )
 ```
 
-In the message handler the reject steps are:
+In the message handler, the reject steps are:
 
 1. Fetch the relevant information:
 
@@ -134,7 +134,7 @@ In the message handler the reject steps are:
     k.Keeper.RemoveStoredGame(ctx, msg.IdValue)
     ```
 
-    Finally using the [`Keeper.RemoveStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-msg/x/checkers/keeper/stored_game.go#L30) function created long ago by the `starport scaffold map storedGame...` command.
+    Finally, using the [`Keeper.RemoveStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-msg/x/checkers/keeper/stored_game.go#L30) function created long ago by the `starport scaffold map storedGame...` command.
 
 4. Emit the relevant event:
 
@@ -230,7 +230,7 @@ Which returns:
 raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1w0uumlj04eyvevhfawasm2dtjc24nexxygr8qx"},{"key":"IdValue","value":"1"}]}]}]'
 ```
 
-Correct, because nobody played on it.
+Correct, because nobody played.
 
 </CodeGroupItem>
 <CodeGroupItem title="Alice rejects">
@@ -249,7 +249,7 @@ Which returns:
 raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"2"}]}]}]'
 ```
 
-Correct again, because nobody played on it.
+Correct again, because nobody played.
 
 </CodeGroupItem>
 <CodeGroupItem title="Bob plays, rejects">
