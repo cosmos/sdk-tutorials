@@ -65,8 +65,3 @@ Finally, once all external reviews are completed, a final QA review is required 
 
 1. Check the checkboxes on the Pull Request description accordingly to the review you want to request, in the final qa review section
 2.
-
-add labels
-b9lab-internal, open-for-review, final-qa-review
-
-move out of draft when ready to be merged
