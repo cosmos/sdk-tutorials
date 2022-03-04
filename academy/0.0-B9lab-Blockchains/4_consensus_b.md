@@ -134,7 +134,6 @@ The underlying idea in PoET is the same as Bitcoin in that the first node to ann
 
 <div class="b9-reading">
 	<ul>
-		<li><a href="https://tezos.gitlab.io/mainnet/whitedoc/proof_of_stake.html">Proof-of-stake in Tezos</a></li>
 	<li><a href="https://medium.com/oracles-network/proof-of-authority-consensus-model-with-identity-at-stake-d5bd15463256">Proof of Authority: <i>consensus model with Identity at Stake</i></a></li>
 	<li><a href="http://tendermint.com/docs/tendermint.pdf">Tendermint</a> is a decentralised consensus engine that runs its own public blockchain and also supports decentralised computing. It differs from Ethereum on its consensus protocol, which uses the concept of validators who need to bind funds to validate and who validate blocks over the course of a certain number of rounds.</li>
 	<li><a href="http://counterparty.io/platform/">Counterparty</a> aims to extend the Bitcoin blockchain and allows for a limited degree of smart contract execution. They also created their initial coins in an innovative way, by <a href="http://counterparty.io/news/why-proof-of-burn/"><i>proof-of-burn</i></a> of Bitcoins.</li>
