@@ -31,8 +31,6 @@ Tezos was the first large-scale, pure PoS system to launch when it did so in Jun
 
 ## Delegated-Proof-of-Stake (DPoS)
 
-<!-- TODO: Please check the content Ed -->
-
 An extension of proof-of-stake algorithms is called delegated-proof-of-stake (DPoS). It is used for example in BitShares, EOS, Steem, Lisk and Tron.
 
 <div class="b9-info">
