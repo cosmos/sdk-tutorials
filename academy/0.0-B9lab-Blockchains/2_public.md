@@ -55,7 +55,9 @@ As soon as it became clear that the technology presents a very attractive base i
 In 2014 Vitalik Buterin started what is now known as the second wave of blockchain technology by publishing the paper underlying the Ethereum blockchain protocol, [A Next Generation Smart Contract & Decentralised Application Platform (Vitalik Buterin, Ethereum’s creator)](https://github.com/ethereum/wiki/wiki/White-Paper). Beyond a distributed ledger, the Ethereum white paper proposed the development of a distributed computing platform.
 
 <HighlightBox type="tip">
+
 Have a closer look at the [Ethereum white paper](https://github.com/ethereum/wiki/wiki/White-Paper).
+
 </HighlightBox>
 
 The Ethereum project raised roughly $20 million in one of the most successful crowdfunding campaigns up to that point. The first public network was up and running in 2015. Simultaneously, it spawned the first managed blockchain network approach when the company Eris forked a version of Ethereum and expanded it to implement a layer of permissions, as well as making it easier to deploy custom, access controlled networks.
@@ -88,11 +90,12 @@ The two most popular examples of functioning public networks are Bitcoin and Eth
 ### Introduction to Bitcoin
 
 Since 2009 the most successful and popular decentralised public blockchain network has been Bitcoin. 
+
 Nowadays, Bitcoin is the cryptocurrency with the highest market capitalisation.
 
 <HighlightBox type="tip">
-* For an estimate of the Bitcoin network size take a look at [Bitnodes](https://bitnodes.earn.com/).
-* Also if you are more of a visual and statistics person, we could recommend these [Bitcoin charts](https://www.blockchain.com/en/charts)
+  * For an estimate of the Bitcoin network size take a look at [Bitnodes](https://bitnodes.earn.com/).
+  * Also if you are more of a visual and statistics person, we could recommend these [Bitcoin charts](https://www.blockchain.com/en/charts)
 </HighlightBox>
 
 Bitcoin was first introduced with the publication of the original paper [*Bitcoin: A peer-to-peer electronic cash system*](https://bitcoin.org/bitcoin.pdf) (2008) by Satoshi Nakamoto. In this paper, Nakamoto describes Bitcoin as a **peer-to-peer (P2P)** version of electronic cash.
@@ -145,29 +148,23 @@ The precise mechanism employed by Ethereum is called GHOST. GHOST includes so-ca
 
 <YoutubePlayer videoId="Za5lPKNV_Mk"/>
 
-<!-- TODO: Highlight box markdown style for reading lists???? -->
+<HighlightBox type="reading">
 
-<div class="b9-reading">
-  <p>Books:</p>
-  <ul>
-    <li><a href="https://www.amazon.co.uk/Blockchain-Blueprint-Economy-Melanie-Swan/dp/1491920491">Blockchain: Blueprint for a New Economy by Melanie Swan</a></li>
-    <li><a href="https://www.bitcoinbook.info/">Mastering Bitcoin by Andreas Antonopolous</a></li>
-  </ul>
-  <p>Further Readings</p>
-  <ul>
-        <li><a href="https://tezos.com/static/position_paper-841a0a56b573afb28da16f6650152fb4.pdf">L.M Goodman (2014): <i>Tezos: A Self-Amending Crypto-Ledger
-Position Paper</i></a></li>
-        <li><a href="https://tezos.com/static/white_paper-2dc8c02267a8fb86bd67a108199441bf.pdf">L.M Goodman (2014): <i>Tezos: A Self-Amending Crypto-Ledger
-White Paper
-</i></a></li>
+  ## Books:</p>
+
+    * Blockchain: Blueprint for a New Economy by Melanie Swan [https://www.amazon.co.uk/Blockchain-Blueprint-Economy-Melanie-Swan/dp/1491920491](https://www.amazon.co.uk/Blockchain-Blueprint-Economy-Melanie-Swan/dp/1491920491)
+    * Mastering Bitcoin by Andreas Antonopolous [https://www.bitcoinbook.info/](https://www.bitcoinbook.info/)
+
+  ## Further Reading
+
+    * Anderson, Ross J. (1996): <i>The Eternity Service</i> [https://www.cl.cam.ac.uk/~rja14/Papers/eternity.pdf](https://www.cl.cam.ac.uk/~rja14/Papers/eternity.pdf)
+    * Schneier, Bruce: <i>Schneier on Security</i> [https://www.schneier.com/crypto-gram/](https://www.schneier.com/crypto-gram/)
+    * NIST: <i>John M. Kelsey</i> -a short background description and list of publications [https://www.nist.gov/people/john-m-kelsey](https://www.nist.gov/people/john-m-kelsey)
+    * Schneier, B. & Kelsey, J. (1998): <i>Secure Audit Logs to Support Computer Forensics</i> [https://www.schneier.com/academic/paperfiles/paper-auditlogs.pdf](https://www.schneier.com/academic/paperfiles/paper-auditlogs.pdf)
+    * Szabo, N. (1994): <i>Smart Contracts</i> [http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html)
+    * Moskov, P. (2018): <i>What Is Bit Gold? The Brainchild of Blockchain Pioneer Nick Szabo</i> [https://coincentral.com/what-is-bit-gold-the-brainchild-of-blockchain-pioneer-nick-szabo/](https://coincentral.com/what-is-bit-gold-the-brainchild-of-blockchain-pioneer-nick-szabo/)
+    * Nakamoto, S. (2008): <i>Bitcoin: A Peer-to-Peer Electronic Cash System</i> [https://bitcoin.org/bitcoin.pdf](https://bitcoin.org/bitcoin.pdf)
+    * A Next-Generation Smart Contract and Decentralized Application Platform</i> - The Ethereum White Paper [https://github.com/ethereum/wiki/wiki/White-Paper](https://github.com/ethereum/wiki/wiki/White-Paper)
     
-    <li><a href="https://www.cl.cam.ac.uk/~rja14/Papers/eternity.pdf">Anderson, Ross J. (1996): <i>The Eternity Service</i></a></li>
-    <li><a href="https://www.schneier.com/crypto-gram/">Schneier, Bruce: <i>Schneier on Security</i></a></li>
-    <li><a href="https://www.nist.gov/people/john-m-kelsey">NIST: <i>John M. Kelsey</i></a> -a short background description and list of publications</li>
-    <li><a href="https://www.schneier.com/academic/paperfiles/paper-auditlogs.pdf"> Schneier, B. & Kelsey, J. (1998): <i>Secure Audit Logs to Support Computer Forensics</i></a></li>
-    <li><a href="http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html">Szabo, N. (1994): <i>Smart Contracts</i></a></li>
-    <li><a href="https://coincentral.com/what-is-bit-gold-the-brainchild-of-blockchain-pioneer-nick-szabo/">Moskov, P. (2018): <i>What Is Bit Gold? The Brainchild of Blockchain Pioneer Nick Szabo</i></a></li>
-    <li><a href="https://bitcoin.org/bitcoin.pdf">Nakamoto, S. (2008): <i>Bitcoin: A Peer-to-Peer Electronic Cash System</i></a></li>
-    <li><a href="https://github.com/ethereum/wiki/wiki/White-Paper"><i>A Next-Generation Smart Contract and Decentralized Application Platform</i></a> -The Ethereum White Paper</li>
-  </ul>
-</div>
+</HighlightBox>
+

@@ -33,11 +33,9 @@ In summary, managed networks enable high performance blockchain networks that ca
 
 Cosmos is applicable to both public and private settings and, importantly, supports communication between networks following different consensus rules, a seemingly intractable challenge for Cosmos' predecessors. 
 
-<!-- TODO: Highlight box markdown style for reading lists???? -->
+<HighlightBox type="reading">
+    
+    * Vitalik Buterin on private chains [https://blog.ethereum.org/2016/05/09/on-settlement-finality/](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
+    * Permissioned blockchains in production [https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
 
-<div class="b9-reading">
-    <ul>
-    <li><a href="https://blog.ethereum.org/2016/05/09/on-settlement-finality/">Vitalik Buterin on private chains</a></li>
-    <li><a href="https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/">Permissioned blockchains in production</a></li>
-    </ul>
-</div>
+</HighlightBox>

@@ -11,7 +11,7 @@ The modules include learning materials for your studies, as well as examples and
 
 To understand Cosmos, we must first understand blockchain technology.
 
-So, let's start.
+Let's start.
 
 ## What is a blockchain? And, what does it solve?
 
@@ -27,9 +27,11 @@ The double-spending problem refers to the challenge of designing a digital cash 
 
 Satoshi Nakamoto (whose identity remains shrouded in mystery) published his seminal white paper in October 2008. His paper presented a solution to the "double-spending" problem for digital currencies. In doing so, he revealed the underlying technology known as blockchain and an example of blockchain's possible application in the form of a simple blockchain implementation called "Bitcoin".
 
-<div class="b9-tip">
-  <p><a href="https://bitcoin.org/bitcoin.pdf">Satoshi Nakamoto: Bitcoin: A Peer-to-Peer Electronic Cash System</a> - It is a fairly straightforward paper, having a look at it is recommended.</p>
-</div>
+<HighlightBox type="reading">
+
+  [Satoshi Nakamoto: Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf) - It is a fairly straightforward paper. Having a look at it is recommended.
+
+</HighlightBox>
 
 Bitcoin has gained widespread attention since then. The underlying technology, blockchain, has also gained recognition and has found applications in diverse contexts. Indeed, the world has discovered blockchain's usefulness in many environments and a great variety of possible implementations and applications. Cosmos is one such implementation.
 
@@ -63,9 +65,11 @@ The ideal cryptographic hash function has **five main properties**:
 * **Uncorrelated**: a small change to a message changes the hash value so extensively that the new hash value appears uncorrelated with the old value;
 * **Collision-Resistant**: it is infeasible to find two different messages with the same hash value.
 
-<div class="b9-tip">
-  <p>You can see hashing in action to get the feel for it here: <a href="http://onlinemd5.com/">http://onlinemd5.com/</a>. As you type into the text box, the hash updates automatically. Even a minuscule change to the input creates a completely different hash. Try it out!</p>
-</div>
+<HighlightBox type="tip">
+
+  You can see hashing in action to get the feel for it here: [http://onlinemd5.com/"](http://onlinemd5.com/). As you type into the text box, the hash updates automatically. Even a minuscule change to the input creates a completely different hash. Try it out!
+
+</HighlightBox>
 
 Notice that there are many different hashing algorithms that aim for similar results and fulfill the properties described above. Each algorithm consistently produces hashes of the same size regardless of the input's size. 
 
@@ -121,15 +125,15 @@ In case the foregoing isn't clear:
 * a valid block is a well-ordered **set of transactions**, 
 * the block contains the **hash** of the previous block, and
 * the block includes a "winning lottery ticket", the **nonce**.
-* The hash of the previous block, the transaction set proposed and the nonce is special. It has properties that are especially difficult to generate, such as "must start with certain number of zeroes". 
+* The hash of the block is special. It has properties that are especially difficult to generate. In Bitcoin, block hash must start with certain number of zeroes. The only way to achieve that is to find a number, the nonce, that can be inserted into the hash function's input so the hash created meets the criteria. There is no more efficient method of finding a suitable nonce than a brute force search of random numbers. 
 
-Other participants recognise this unlikely combination - unlikely because of the winning lottery ticket. This unlikely combination is evidence of considerable computational work because brute force is the only known method a satisfactory nonce. 
+Other participants recognise this unlikely combination - unlikely because of the winning lottery ticket, the nonce. This unlikely combination is evidence of considerable computational work because brute force is the only known method of finding it.
 
 The network accepts the block as a de facto correct opinion about the order of transactions. There are, of course, further details such as the method of dispute resolution. This overview will suffice for now.
 
 The process disambiguates the order of the transactions even though well-meaning nodes independently arrive at slightly different opinions about the matter. The process does so **without reliance on an authoritative time source**.
 
-Therefore, **a well-ordered set of blocks that each contain well-ordered transactions is a well-ordered set of all transactions that have ever occurred.**
+**A well-ordered set of blocks that each contain well-ordered transactions is a well-ordered set of all transactions that have ever occurred.**
 
 Cryptographic hash functions are instrumental in that they empower all participants to ensure that they possess an undistorted history of everything. Since all nodes can verify the chain independently, they can proceed on the assumption that all other nodes will eventually come into agreement about the history of everything. This is known as **eventual consensus**.
 
@@ -140,6 +144,19 @@ A blockchain starts with a known state. This is a simple matter of an initialize
 It proceeds by constructing a verifiable and widely agreed history of everything that has ever happened on an append-only basis. Nodes independently construct a present state of the universe by reviewing the ordered history of every change (i.e. the transactions) that has ever occurred. The history of everything that has ever occurred moves forward in time as "lottery winners" announce new transaction blocks and these are accepted as valid by a consensus of network participants.
 
 Thus, transactions being included in blocks and those becoming part of the chain leads to the state changing and being amended.
+
+## Deterministic, Atomic Operations - All or Nothing
+
+In computer science, an event is said to be "Atomic" if it can't be split into smaller parts. For example, the statement ```x = y``` is atomic if the language guarantees that ```y``` cannot be partially copied to ```x```. 
+
+In the world of databases atomicity is often specified by the developer by grouping multiple operations in a wrapper such as a COMMIT and ROLLBACK block to ensure that all of the steps complete or none of the steps execute at all. This method is often used to ensure database integrity. 
+
+In the context of a blockchain, a "transaction" is a single instruction that is allowed by the protocol, signed as required by the protocol and sent to the blockchain through a local node that is connected to the network. Transactions are either completely successful or they fail completely. Generally, the actual result cannot be known with certainty until the transaction is included in a block to establish execution order compared to other transactions. For example, a transaction to send funds from Alice to Bob depends on Alice's balance at execution time. 
+
+All nodes must arrive at the same conclusion. Given a transaction in a certain sequence, all nodes must agree on the result which means the protocols must be deterministic. Either the transaction was successful, or failed, and the effect must be indisputable. 
+
+Therefore, blockchain transactions are both deterministic and atomic. 
+
 
 ## Blockchain as a new computing paradigm
 
@@ -166,17 +183,15 @@ Major computing paradigms in the past have been:
 
 It is argued that the development of blockchain technology is initiating a new computational paradigm.
 
-In some opinions, mobile and social networking and the internet have been evaluated in regard to their commercial use. The idea of an interconnected community, in which information and knowledge is available and shared, as well as values like equality, transparency, and freedom are encouraged, has led to disappointment over what could have been but never was.
+In some opinions, mobile and social networking and the internet have been exploited in regard to their commercial use. For some, the ideal of an interconnected community, in which information and knowledge is available and shared and where egalitarian values like equality, transparency, and freedom are encouraged, has led to disappointment over what could have been but never was.
 
 Blockchain technology is often seen as presenting the possibility of more private, fair, transparent, and equal forms of interaction and community.
 
 <YoutubePlayer videoId="Za5lPKNV_Mk"/>
 
-<!-- TODO: Highlight box markdown style for reading lists???? -->
+<HighlightBox type="reading">
 
-<div class="b9-reading">
-  <ul>
-    <li><a href="https://en.wikipedia.org/wiki/Double-spending">Double-spending: https://en.wikipedia.org/wiki/Double-spending</a></li>
-    <li><a href="https://bitcoin.org/bitcoin.pdf">Satoshi Nakamoto: Bitcoin: A Peer-to-Peer Electronic Cash System</a></li>
-  </ul>
-</div>
+    * Double-spending: [https://en.wikipedia.org/wiki/Double-spending](https://en.wikipedia.org/wiki/Double-spending)
+    * Satoshi Nakamoto: Bitcoin: A Peer-to-Peer Electronic Cash System: [https://bitcoin.org/bitcoin.pdf](https://bitcoin.org/bitcoin.pdf)
+
+</HighlightBox>

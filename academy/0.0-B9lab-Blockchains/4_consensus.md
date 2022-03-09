@@ -84,27 +84,29 @@ When a threshold of agreement is reached by the replicas, which is akin to suffi
 
 This of course is a very simplified presentation.
 
-<HighlightBox type="info">
-    You can access the paper by Miguel Castro and Barabara Liskov [here](http://pmg.csail.mit.edu/papers/osdi99.pdf). There is also a very understandble [presentation](http://www.comp.nus.edu.sg/~rahul/allfiles/cs6234-16-pbft.pdf).
+<HighlightBox type="reading">
+
+    You can access the paper by Miguel Castro and Barabara Liskov [here](http://pmg.csail.mit.edu/papers/osdi99.pdf). There is also an intuitive [presentation](http://www.comp.nus.edu.sg/~rahul/allfiles/cs6234-16-pbft.pdf).
+
 </HighlightBox>
 
 ## Tendermint ##
 
-While most blockchain implementations are tightly coupled with a particular blockchain project, Tendermint is a toolkit that focuses on simplifying the process of creating blockchains with different properties. As the reader might guess, Cosmos relies on Tendermint consensus which offers the most mature Byzantine Fault Tolerance as well as a great deal of flexibility - flexibility that is passed through to the creators of custom blockchains built with the Cosmos SDK. 
+While most consensus implementations are tightly coupled with a particular blockchain project, Tendermint is a toolkit that focuses on simplifying the process of creating blockchains with different properties and it includes Tendermint consensus. As the reader might guess, Cosmos relies on Tendermint consensus which offers the most mature Byzantine Fault Tolerance, transaction finality as well as a great deal of flexibility - flexibility that is passed through to the creators of custom blockchains built with the Cosmos SDK. 
 
 [Tendermint](./1-what-is-cosmos/blockchain-and-cosmos.md) will be explored in detail later on. 
 
 ## Many others ##
 
-Many teams have experimented with distributed consensus using many algorithms deployed to various chains. The above are the most popular by usage as well as the most important to keep in mind when diving into consensus in Cosmos. 
+Many teams have experimented with distributed consensus using many algorithms deployed to various chains. In the context of blockchain technology, "consensus" refers to a method of ordering transactions. The many algorithms that exist can be compared in terms of the distribution of authority, expected performance and transaction finality. Transaction finality can be categorized as "probablistic" and "deterministic", i.e. is it exponentially more improbable that a seen transaction will be reversed, or does the protocol prevent alterations to history in a definite way. 
 
-<!-- TODO: Highlight box markdown style for reading lists???? -->
+The above are the most popular by usage as well as the most important to keep in mind when diving into consensus in Cosmos. 
 
-<div class="b9-reading">
-	<ul>
-	<li><a href="https://medium.com/oracles-network/proof-of-authority-consensus-model-with-identity-at-stake-d5bd15463256">Proof of Authority: <i>consensus model with Identity at Stake</i></a></li>
-	<li><a href="http://tendermint.com/docs/tendermint.pdf">Tendermint</a> is a decentralised consensus engine that runs its own public blockchain and also supports decentralised computing. It differs from Ethereum on its consensus protocol, which uses the concept of validators who need to bind funds to validate and who validate blocks over the course of a certain number of rounds.</li>
-	<li><a href="http://counterparty.io/platform/">Counterparty</a> aims to extend the Bitcoin blockchain and allows for a limited degree of smart contract execution. They also created their initial coins in an innovative way, by <a href="http://counterparty.io/news/why-proof-of-burn/"><i>proof-of-burn</i></a> of Bitcoins.</li>
-	<li><a href="https://www.stellar.org/developers/learn/get-started">Stellar</a> was originally forked from Ripple, has now completely diverged from it, and introduced what they called a "Federated Byzantine Agreement", whereby consensus is reached by quorum slices.</li>
-	</ul>
-</div>
+<HighlightBox type="reading">
+
+	* Proof of Authority: <i>consensus model with Identity at Stake</i> [https://medium.com/oracles-network/proof-of-authority-consensus-model-with-identity-at-stake-d5bd15463256](https://medium.com/oracles-network/proof-of-authority-consensus-model-with-identity-at-stake-d5bd15463256)
+	* Tendermint is a decentralised consensus engine that runs its own public blockchain and also supports decentralised computing. It differs from Ethereum on its consensus protocol, which uses the concept of validators who need to bind funds to validate and who validate blocks over the course of a certain number of rounds. [http://tendermint.com/docs/tendermint.pdf](http://tendermint.com/docs/tendermint.pdf)
+	* [Counterparty](http://counterparty.io/platform/) aims to extend the Bitcoin blockchain and allows for a limited degree of smart contract execution. They also created their initial coins in an innovative way, by [proof-of-burn](http://counterparty.io/news/why-proof-of-burn/) of Bitcoins.
+	* [Stellar](https://www.stellar.org/developers/learn/get-started) was originally forked from Ripple, has now completely diverged from it, and introduced what they called a "Federated Byzantine Agreement", whereby consensus is reached by quorum slices.
+
+</HighlightBox>

@@ -170,17 +170,11 @@ A X.509 certificate contains information such as version number, serial number, 
 
 The concept of digital signatures is simple. If a given message is first hashed and then encrypted by a private key, one can verify the signature by decryption with corresponding public key. We need to hash the message to avoid the creation of signatures by mixing the messages and corresponding signatures. (See RSA chapter) This way, we know, that the sender has the private key to the given public key. 
 
-### Learn More
+<HighlightBox type="reading">
 
-<!-- TODO: Highlight box markdown style for reading lists???? -->
+		* Zero-knowledge proof [https://en.wikipedia.org/wiki/Zero-knowledge_proof](https://en.wikipedia.org/wiki/Zero-knowledge_proof)
+		* The Mathematics of the RSA Public-Key Cryptosystem [http://www.mathaware.org/mam/06/Kaliski.pdf](http://www.mathaware.org/mam/06/Kaliski.pdf)
+		* Encrypt and Decrypt [http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/](http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/)
+		* Sign and verify [https://gist.github.com/ezimuel/3cb601853db6ebc4ee49](https://gist.github.com/ezimuel/3cb601853db6ebc4ee49)
 
-<div class="b9-reading">
-	<ul>
-		<li><a href="https://en.wikipedia.org/wiki/Zero-knowledge_proof">Zero-knowledge proof</a></li>
-		<li><a href="http://www.mathaware.org/mam/06/Kaliski.pdf">The Mathematics of the RSA Public-Key Cryptosystem</a></li>
-        <li><a href="https://andrea.corbellini.name/2015/05/17/elliptic-curve-cryptography-a-gentle-introduction/">Elliptic Curve Cryptography: a gentle introduction</a></li>
-		<li><a href="https://wiki.openssl.org/index.php/Command_Line_Elliptic_Curve_Operations">EC Operations</a></li>
-		<li><a href="http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/">Encrypt and Decrypt</a></li>
-		<li><a href="https://gist.github.com/ezimuel/3cb601853db6ebc4ee49">Sign and verify</a></li>
-	</ul>
-</div>
+</HighlightBox>
