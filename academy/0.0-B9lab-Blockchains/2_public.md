@@ -8,9 +8,9 @@ tag: fast-track
 
 # A Brief History of Blockchain
 
-In order to understand whether blockchain technology is a good fit for your project it is important to understand where it comes from and who is driving it.
+To fully appreciate Cosmos, it is helpful to understand where blockchain comes from, advances that have unfolded and intractable challenges of other platforms that Cosmos decisively solves. 
 
-Important groundwork was laid in the 1980's and 1990's for what will later be known as blockchain technology. Although the technology itself was not created until 2008, researchers from different fields in computer science and cryptography proposed solutions to many problems regarding security, transparency, and trust. All of them contributed in the development of the first large scale, successful public blockchain network, Bitcoin.
+Important groundwork was laid in the 1980's and 1990's for what would later be known as blockchain technology. Although the technology itself was not created until 2008, researchers from different fields in computer science and cryptography proposed solutions to many problems of security, transparency, and trust. All of them contributed to the development of the first large scale, successful public blockchain network, Bitcoin.
 
 <!-- TODO: Revise Timeline with Tendermint, 2014 --->
 
@@ -34,31 +34,31 @@ As we can see, these intellectual predecessors identified elements that are esse
 
 On October 31, 2008, Satoshi Nakamoto called for a peer-to-peer system for a digital currency in the Bitcoin white paper that would allow online payments to be sent directly from one party to another without going through a financial institution or requiring any other third party involvement. This sounds familiar for a reason: Nick Szabo had already mentioned a currency that would depend minimally on third parties, BitGold. However, Satoshi’s paper differed significantly - not only because of the name difference between BitGold and Bitcoin. The Bitcoin white paper also proposed a data structure for the Bitcoin blockchain and laid out the decentralised consensus mechanism. It became the first large scale, successful public blockchain network.
 
-<!-- check if you prefer expandable box format for this information -->
+<ExpansionPanel title="Who is Satoshi Nakamoto?">
 
-<div class="b9-expandable-box">
-  <div class="b9-expandable-title">
-    The disruptive origins of blockchain
-  </div>
-  <div class="b9-expandable-text">
-  <p>To this day, we do not know who is behind the white paper or the first implementation of the client. Satoshi Nakamoto is the pseudonym used by the person or group that published the white paper. As you might have seen in the news, the identity of Nakomoto has sparked plenty of conspiracy theories as several individuals have claimed to be the creator of Bitcoin. But to this date, none of the claims have been verified.</p>
-  <p>What is certain is that the community initially working on the network and the client can be characterised as generally pro-capitalist, anti-regulation and monopoly, as well as pro-free-trade. Many of those developing and driving the technology have also heralded its potential to reduce corruption and perceived human failures by pushing processes out of human reach.</p>
-  <p>All this may not seem important but it is. Blockchain technology was built with disruption in mind. It was envisaged as the antithesis of the central control of banks, governments, and incumbent holders of monopolies. This has an influence on the direction of the technology and remains a strong influence on its development.</p>
-  <p>Given its anti-establishment roots, blockchain technology has been seized upon by other groups interested in circumventing government, law enforcement, or regulatory control, both on the radical right and left fringes, as well as among activists persecuted by their governments.</p>
-  </div>
-</div>
+### The disruptive origins of blockchain
+
+To this day, we do not know who is behind the white paper or the first implementation of the client. Satoshi Nakamoto is the pseudonym used by the person or group that published the white paper. As you might have seen in the news, the identity of Nakomoto has sparked plenty of conspiracy theories as several individuals have claimed to be the creator of Bitcoin. But to this date, none of the claims have been verified.
+
+What is certain is that the community initially working on the network and the client can be characterised as generally pro-capitalist, anti-regulation and monopoly, as well as pro-free-trade. Many of those developing and driving the technology have also heralded its potential to reduce corruption and perceived human failures by pushing processes out of human reach.
+
+All this may not seem important but it is. Blockchain technology was built with disruption in mind. It was envisaged as the antithesis of the central control of banks, governments, and incumbent holders of monopolies. This has an influence on the direction of the technology and remains a strong influence on its development.
+
+Given its anti-establishment roots, blockchain technology has been seized upon by other groups interested in circumventing government, law enforcement, or regulatory control, both on the radical right and left fringes, as well as among activists persecuted by their governments.
+
+</ExpansionPanel>
 
 ## 2010s
 
 As soon as it became clear that the technology presents a very attractive base infrastructure for payments, other groups and organisations adapted the technology for their purposes or developed new approaches using the same basic principles but adapting them to more traditional use cases.
 
-In 2014 Vitalik Buterin started what is now known as the second wave of blockchain technology by publishing the paper underlying the Ethereum blockchain protocol, [A Next Generation Smart Contract & Decentralised Application Platform (Vitalik Buterin, Ethereum’s creator)](https://github.com/ethereum/wiki/wiki/White-Paper). Beyond a distributed ledger, the Ethereum white paper proposed the development of a distributed computation platform.
+In 2014 Vitalik Buterin started what is now known as the second wave of blockchain technology by publishing the paper underlying the Ethereum blockchain protocol, [A Next Generation Smart Contract & Decentralised Application Platform (Vitalik Buterin, Ethereum’s creator)](https://github.com/ethereum/wiki/wiki/White-Paper). Beyond a distributed ledger, the Ethereum white paper proposed the development of a distributed computing platform.
 
-<div class="b9-tip">
-  <p>Have a closer look at the <a href="https://github.com/ethereum/wiki/wiki/White-Paper">Ethereum white paper</a>.</p>
-</div>
+<HighlightBox type="tip">
+Have a closer look at the [Ethereum white paper](https://github.com/ethereum/wiki/wiki/White-Paper).
+</HighlightBox>
 
-The Ethereum project raised roughly $20 million in one of the most successful crowdfunding campaigns up to that point. The first public network was up and running in 2015. In the same time, it spawned the first managed blockchain network approach when the company Eris forked a version of Ethereum and expanded it to implement a layer of permissions, as well as making it easier to deploy custom, access controlled networks.
+The Ethereum project raised roughly $20 million in one of the most successful crowdfunding campaigns up to that point. The first public network was up and running in 2015. Simultaneously, it spawned the first managed blockchain network approach when the company Eris forked a version of Ethereum and expanded it to implement a layer of permissions, as well as making it easier to deploy custom, access controlled networks.
 
 Late 2015 saw the establishment of the [Hyperledger Foundation](https://www.hyperledger.org/), an industry consortium with a focus on enterprise blockchain technology for managed networks and business applications.
 
@@ -66,7 +66,7 @@ In 2017 the [Ethereum Enterprise Alliance](https://entethalliance.org/) was form
 
 This brief background introduces the vibrant community and fast-paced evolution of the space from which Cosmos would emerge. 
 
-Today we can see two broader trends in the development and adoption of blockchain technology: public blockchains and managed/private blockchains. Understanding this distinction will be important to your understanding of Cosmos.
+Today we can see two broad trends in the development and adoption of blockchain technology: public blockchains and managed/private blockchains. Understanding this distinction will be important to your understanding of Cosmos. Cosmos is applicable to both use-cases and, importantly, enables seamless interoperability that has challenged predecessors. 
 
 Let us start by diving into public blockchains and their most known examples, Bitcoin and Ethereum.
 
@@ -79,9 +79,9 @@ The most obvious way of operating blockchain protocols comes in the form of a pu
 A proof-of-work based public blockchain network, such as Bitcoin or Ethereum, has a few specific attributes:
 
 * **Accessibility**: All you need to connect to Bitcoin or Ethereum is the client software and an internet connection. No AML, KYC, identity checks, or subscription payment is required;
-* **No hierarchy**: All nodes are equal, meaning no individual node has more authority over another. All miners are also equal;
+* **No hierarchy**: All nodes are equal, meaning no individual node has more authority over another. All validators (miners) are also equal;
 * **Crypto-economic incentives**: The lack of a central authority means there is no absolute defence against malicious behaviour. Instead, the network usually incentivises benevolent behaviour and dis-incentivises behaviour that endangers the network functioning to de facto implement prohibitive expenses to attack the network and others, and thus ensure security and proper functioning;
-* **Full decentralisation**: Most public networks are completely decentralised because they are non-hierarchical and fully accessible. The playing field for market participants is therefore relatively level, so traditional business models may not work as well.
+* **Full decentralisation**: Many public networks are completely decentralised because they are non-hierarchical and fully accessible. The playing field for market participants is therefore relatively level, so traditional business models may not work as well. It should be noted that alternatives to proof-of-work re-introduce hierchies, usually without centralized control, in order to boost efficiency and performance. More on this topic follows. 
 
 The two most popular examples of functioning public networks are Bitcoin and Ethereum.
 
@@ -90,14 +90,14 @@ The two most popular examples of functioning public networks are Bitcoin and Eth
 Since 2009 the most successful and popular decentralised public blockchain network has been Bitcoin. 
 Nowadays, Bitcoin is the cryptocurrency with the highest market capitalisation.
 
-<div class="b9-tip">
-  <p>For an estimate of the Bitcoin network size take a look at <a href="https://bitnodes.earn.com/"><i>Bitnodes</i></a>.</p>
-  <p>Also if you are more of a visual and statistics person, we could recommend these <a href="https://www.blockchain.com/en/charts">Bitcoin charts</a>.</p>
-</div>
+<HighlightBox type="tip">
+* For an estimate of the Bitcoin network size take a look at [Bitnodes](https://bitnodes.earn.com/).
+* Also if you are more of a visual and statistics person, we could recommend these [Bitcoin charts](https://www.blockchain.com/en/charts)
+</HighlightBox>
 
 Bitcoin was first introduced with the publication of the original paper [*Bitcoin: A peer-to-peer electronic cash system*](https://bitcoin.org/bitcoin.pdf) (2008) by Satoshi Nakamoto. In this paper, Nakamoto describes Bitcoin as a **peer-to-peer (P2P)** version of electronic cash.
 
-He suggested that **proof-of-work (PoW)** can be used to find the truth in a partially synchronous system without involving trusted parties. Using this method, the set of participants controlling the majority of the computing power determine the truth.
+He suggested that **proof-of-work (PoW)** can be used to find the truth in a partially synchronous system without involving trusted parties. Using this method, the set of participants controlling the majority of the computing power determines the truth.
 
 Let us look at this in more detail. Nakamoto does not use the term blockchain in his paper, but he describes the concept by explaining transactions in Bitcoin. The transaction process requires the signing of the transaction with the hash of the previous transaction and the public key of the receiver. This is called the chain of ownership. Transactions can contain several inputs and outputs.
 
@@ -109,7 +109,7 @@ To prevent double-spending, Bitcoin uses a timestamp server. The miner is lookin
 
 In order to promote an alternative version of history, an attacker must find a nonce for the block to change, and for every subsequent block thereafter because the network recognises that the longest valid chain contains the proof of the most work. The longest chain is deemed the truth. In summary, to rewrite history and attacker must alter a block and every block thereafter in order to generate the longest chain. This pits the attacker against the combined brute force of the rest of the network. 
 
-There is a residual possibility that a slower attacker can catch up, since discovering a nonce works by brute force. This probability decreases exponentially with the number of blocks, a.k.a. confirmations.
+There is a residual possibility that a slower attacker can catch up, since discovering a nonce works by evaluating random numbers with brute force. This probability decreases exponentially with the number of blocks, a.k.a. confirmations.
 
 This process of creating a valid block is called mining in PoW networks. The protocol includes a reward for mining, which is the first special transaction in the block. It can be expected that the majority of the nodes will use their CPU power honestly because it is the most financially feasible course of action. Signed transactions are announced publicly, so the public keys of the parties are not private.
 
@@ -118,10 +118,6 @@ This process of creating a valid block is called mining in PoW networks. The pro
 ### Introduction to Ethereum
 
 Ethereum is a public, blockchain-based distributed computing platform and operating system with smart contract features. Ethereum emerged from a range of proposals rejected by the Bitcoin community.
-
-Ethereum has a much faster block time, i.e. the time it takes to generate a new block, than Bitcoin (currently around 15s, made practical thanks to its implementation of the GHOST protocol [[1]](http://www.cs.huji.ac.il/~yoni_sompo/pubs/15/inclusive_full.pdf). Ethereum implements a variation of Bitcoin's proof-of-work consensus algorithm called Ethash, which is intended to be ASIC-resistant and GPU friendly[[2]](https://github.com/ethereum/wiki/wiki/Ethash-Design-Rationale). Core developers of the Ethereum project are planning to switch to the proof-of-stake consensus algorithm in the future.
-
-Let us now have a look at the Ethereum protocol to understand how Ethereum is different from Bitcoin.
 
 Our reference to analyse the Ethereum protocol is the [*Yellow Paper*](http://gavwood.com/paper.pdf) by Gavin Wood.
 
@@ -133,10 +129,45 @@ Ethereum’s solution is to introduce **Gas** as a fee for each computational st
 
 In Ethereum, **smart contracts** are stored on every single node; smart contracts are public. A smart contract in the EVM is practically an autonomous agent with an internal account. The most popular language for writing such a contract is **Solidity**.
 
+<ExpansionPanel title="Faster Block Time">
+
+Ethereum has a much faster block time, (currently around 15s), made practical thanks to its implementation of the GHOST protocol [[1]](http://www.cs.huji.ac.il/~yoni_sompo/pubs/15/inclusive_full.pdf. Ethereum implements a variation of Bitcoin's proof-of-work consensus algorithm called Ethash, which is intended to be ASIC-resistant and GPU friendly[[2]](https://github.com/ethereum/wiki/wiki/Ethash-Design-Rationale). Core developers of the Ethereum project are planning to switch to the proof-of-stake consensus algorithm in the future.
+
+Let us now have a look at the Ethereum protocol to understand how Ethereum is different from Bitcoin.
+
 ![Blockchain and uncle diagram](images/ethereum-ghost.png)
 
-**Figure 2**: A well-understood challenge related to reduced block time stems from network latency. Since nodes do not know about discovered blocks at the same time, at any given time a portion of the miners will be working on already solved, i.e. old, blocks. If these miners find a solution, they might not be rewarded. The rate at which such transient "forks" occur increases predictably with shorter block times. While Bitcoin addresses this efficiency issue with a relatively long block time (ten minutes), Ethereum addresses this concern with a partial reward strategy. Valid blocks that aren't ultimately included in the canonical chain (another chain is longer) are still included on the side and known as "uncles". Miners of uncles receive a smaller reward than regular block miners. 
+**Figure 2**: A well-understood challenge related to reduced block time stems from network latency. Since nodes do not know about discovered blocks at the same time, at any given time a portion of the miners will be working on already solved, i.e. old, blocks. If these miners find a solution, they might not be rewarded. The rate at which such transient "forks" occur increases predictably with shorter block times. While Bitcoin addresses this efficiency issue with a relatively long block time (ten minutes), Ethereum addresses this concern with a partial reward strategy. Valid blocks that aren't ultimately included in the canonical chain (because another chain is longer) are still included on the side and known as "uncles". Miners of uncles receive a smaller reward than regular block miners. 
 
-The precise mechanism employed by Ethereum is called GHOST. GHOST includes so-called uncles that are propagated into the network, too late to rise to the level of network consensus (see Figure 2). This increases the total difficulty of the chain, makes smaller block times (about 14-18 seconds) possible and rewards miners of uncles for contributing to the overall strength of the network. 
+The precise mechanism employed by Ethereum is called GHOST. GHOST includes so-called uncles that are propagated into the network too late to rise to the level of network consensus (see Figure 2). This increases the total difficulty of the chain, makes smaller block times possible and rewards miners of uncles for contributing to the overall strength of the network. 
 
-<!-- Video "The Blockchain Computer" https://www.youtube.com/watch?v=Za5lPKNV_Mk -->
+</ExpansionPanel>
+
+<YoutubePlayer videoId="Za5lPKNV_Mk"/>
+
+<!-- TODO: Highlight box markdown style for reading lists???? -->
+
+<div class="b9-reading">
+  <p>Books:</p>
+  <ul>
+    <li><a href="https://www.amazon.co.uk/Blockchain-Blueprint-Economy-Melanie-Swan/dp/1491920491">Blockchain: Blueprint for a New Economy by Melanie Swan</a></li>
+    <li><a href="https://www.bitcoinbook.info/">Mastering Bitcoin by Andreas Antonopolous</a></li>
+  </ul>
+  <p>Further Readings</p>
+  <ul>
+        <li><a href="https://tezos.com/static/position_paper-841a0a56b573afb28da16f6650152fb4.pdf">L.M Goodman (2014): <i>Tezos: A Self-Amending Crypto-Ledger
+Position Paper</i></a></li>
+        <li><a href="https://tezos.com/static/white_paper-2dc8c02267a8fb86bd67a108199441bf.pdf">L.M Goodman (2014): <i>Tezos: A Self-Amending Crypto-Ledger
+White Paper
+</i></a></li>
+    
+    <li><a href="https://www.cl.cam.ac.uk/~rja14/Papers/eternity.pdf">Anderson, Ross J. (1996): <i>The Eternity Service</i></a></li>
+    <li><a href="https://www.schneier.com/crypto-gram/">Schneier, Bruce: <i>Schneier on Security</i></a></li>
+    <li><a href="https://www.nist.gov/people/john-m-kelsey">NIST: <i>John M. Kelsey</i></a> -a short background description and list of publications</li>
+    <li><a href="https://www.schneier.com/academic/paperfiles/paper-auditlogs.pdf"> Schneier, B. & Kelsey, J. (1998): <i>Secure Audit Logs to Support Computer Forensics</i></a></li>
+    <li><a href="http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html">Szabo, N. (1994): <i>Smart Contracts</i></a></li>
+    <li><a href="https://coincentral.com/what-is-bit-gold-the-brainchild-of-blockchain-pioneer-nick-szabo/">Moskov, P. (2018): <i>What Is Bit Gold? The Brainchild of Blockchain Pioneer Nick Szabo</i></a></li>
+    <li><a href="https://bitcoin.org/bitcoin.pdf">Nakamoto, S. (2008): <i>Bitcoin: A Peer-to-Peer Electronic Cash System</i></a></li>
+    <li><a href="https://github.com/ethereum/wiki/wiki/White-Paper"><i>A Next-Generation Smart Contract and Decentralized Application Platform</i></a> -The Ethereum White Paper</li>
+  </ul>
+</div>

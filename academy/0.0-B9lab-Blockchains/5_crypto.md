@@ -9,7 +9,9 @@ tag: fast-track
 
 ## Public key cryptosystems
 
-Modern cryptographic systems leverage computer capabilities to make accessible the power of certain mathematical functions.
+Modern cryptographic systems leverage computer capabilities to make the power of certain mathematical functions available for practical use. 
+
+Anyone new to blockchains will discover frequent references to message signatures and other concepts related to crytography. While this is not an extensive exploration of the topic and we will not be diving deeply into the mathematics, this section will demystify important concepts if they are new to you. 
 
 ### Public / private key
 
@@ -98,7 +100,7 @@ Verified OK
 
 #### Mix and match
 
-It is possible to mix both ideas, whereby Alice encrypts her message with Bob's public key, then signs the encrypt file with her private key. Upon reception, Bob verifies the signature with Alice's public key, then decrypts the file with his private key.
+It is possible to mix both ideas, whereby Alice encrypts her message with Bob's public key, then signs the encrypted file with her private key. Upon reception, Bob verifies the signature with Alice's public key, to be sure it came from Alice, then decrypts the file with his private key.
 
 #### What is this sorcery?
 
@@ -106,13 +108,16 @@ If these examples seem counter-intuitive it means you sense the mathematical wiz
 
 Given four keys: A,B,C and D, we can encrypt a message with A, B and C such that D is required to decrypt it and D is very hard to guess or discover. So, if Alice knows her private key and her public key and she also knows Bob's public key, she can encrypt a message that can only be understood by someone with knowledge of Bob's private key. 
 
-We can proceed with the understanding that signed messages from Alice could only come from someone with knowledge of Alice's private key.
+Similarly, given knowledge of one's public and private keys, one can generate a signature (a character string) such that someone with a copy of the message and the signature can independely determine the public key of the entity that signed the message and know that the signer has knowledge of the corresponding private key. 
+
+We can proceed with the understanding that signed messages from Alice could only come from someone with knowledge of Alice's private key and messages that are encrypted for Bob can only be deciphered by Bob. 
 
 ![](images/keys-003.png)
 
 ### Key management, PKI
 
 If you look again at the Alice and Bob examples, you will notice that there is a vulnerability in "Bob gives Alice his public key". A malicious Charlie could intercept Bob's public key and pass on his own public key to Alice.
+
 Key management and public key infrastructure (PKI) is an important aspect of cryptography that helps mitigate this risk.
 
 #### Cryptographic hash functions
@@ -147,7 +152,7 @@ $ echo "The quick brown fox jump over the lazy dog" | md5
 4ba496f4eec6ca17253cf8b7129e43be
 ```
 
-Notice how the 2 hashes have nothing in common.
+Notice how the 2 hashes have nothing in common, other than the length, but the length is identical for all MD5 hashes so it reveals nothing about the input. 
 
 `MD5` is no longer considered a hard-to-crack hash function. Bitcoin uses `SHA-256`. Ethereum uses `Keccak-256`and `Keccak-512`.
 
@@ -164,3 +169,18 @@ A X.509 certificate contains information such as version number, serial number, 
 #### Signature
 
 The concept of digital signatures is simple. If a given message is first hashed and then encrypted by a private key, one can verify the signature by decryption with corresponding public key. We need to hash the message to avoid the creation of signatures by mixing the messages and corresponding signatures. (See RSA chapter) This way, we know, that the sender has the private key to the given public key. 
+
+### Learn More
+
+<!-- TODO: Highlight box markdown style for reading lists???? -->
+
+<div class="b9-reading">
+	<ul>
+		<li><a href="https://en.wikipedia.org/wiki/Zero-knowledge_proof">Zero-knowledge proof</a></li>
+		<li><a href="http://www.mathaware.org/mam/06/Kaliski.pdf">The Mathematics of the RSA Public-Key Cryptosystem</a></li>
+        <li><a href="https://andrea.corbellini.name/2015/05/17/elliptic-curve-cryptography-a-gentle-introduction/">Elliptic Curve Cryptography: a gentle introduction</a></li>
+		<li><a href="https://wiki.openssl.org/index.php/Command_Line_Elliptic_Curve_Operations">EC Operations</a></li>
+		<li><a href="http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/">Encrypt and Decrypt</a></li>
+		<li><a href="https://gist.github.com/ezimuel/3cb601853db6ebc4ee49">Sign and verify</a></li>
+	</ul>
+</div>
