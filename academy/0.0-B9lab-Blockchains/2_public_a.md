@@ -74,7 +74,7 @@ Let us start by diving into public blockchains and their most known examples, Bi
 
 The most obvious way of operating blockchain protocols comes in the form of a public network. This is what blockchain technology was originally invented for and remains arguably its most powerful use.
 
-![](images/public-network.png)
+![](images/00_02_p2p_network_dark.png)
 
 A proof-of-work based public blockchain network, such as Bitcoin or Ethereum, has a few specific attributes:
 

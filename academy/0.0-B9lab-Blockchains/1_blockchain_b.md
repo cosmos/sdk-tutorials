@@ -19,7 +19,7 @@ Blockchain technology is rapidly evolving and may be difficult to understand for
 
 Blockchain is a solution to a particular problem ... the **double-spending problem**.
 
-![](images/doublespendingproblem2.png)
+![](images/00_04_double_spending_dark.png)
 
 We're all familiar with digital artifacts (a file) and the ease with which they can be copied. This presents obvious problems if we want digital artifacts to represent assets with value. But a more pressing issue is the possibility of spending a digital token more than once, also known as double-spending. What prevents someone from making copies and spending the same money twice?
 
@@ -89,7 +89,7 @@ This process repeats for all subsequent versions. Any version of the file conten
 
 Any departure from the system, e.g. a hash does not compute as expected, proves a break in the history and is therefore invalid. 
 
-![](images/blockchainintro.png)
+![](images/00_05_genesis_block_dark.png)
 
 Interestingly, since knowledge of the current hash of the latest valid version is an input to the next version's hash function, it is not possible to generate a new valid version without knowledge of the valid version that precedes it. This process forces changes to be **appended** to a previous valid version.
 
