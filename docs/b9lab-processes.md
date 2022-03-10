@@ -15,7 +15,7 @@ When creating a new Pull Request, you **must** follow these steps:
 1. Select the `b9lab_pr_template` as Pull request template
 2. Set a [descriptive name](https://cbea.ms/git-commit/), including a category prefix if applicable
    * `docs:` for changes on the content
-   * `fix:` for updates fixing issues on the platform. These do not include fixes on the text content itself, which falls in the `docs:` category
+   * `fix:` for updates fixing issues on the platform. These do not include fixes on the text content itself, which fall in the `docs:` category
    * `feature:` for updates on the platform features/functionality
 3. Set the Pull Request description, filling all required fields
 4. Apply the **label** `b9lab-internal`
