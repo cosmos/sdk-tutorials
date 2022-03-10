@@ -19,7 +19,7 @@ This is often unacceptable, for example, for traditional financial institutions.
 
 Unlike public networks where the interaction between participants is governed by the protocol and crypto-economic incentives, in managed networks the blockchain protocol is a technical enforcement of pre-existing relationships and legally enforceable agreements.
 
-![Public vs Private](images/Publicvsprivate.png)
+![Public vs Private](images/00_10_public_vs_private_comparison_table.png)
 
 **Private blockchains**:
 
