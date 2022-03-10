@@ -179,7 +179,7 @@ Major computing paradigms in the past have been:
 * the **internet** in the 1990s, and
 * **mobile and social networking**, often referred to as "social media", in the 2000s.
 
-![computing paradigms](images/computingpara.png)
+![computing paradigms](images/00_09_computing_paradigms.png)
 
 It is argued that the development of blockchain technology is initiating a new computational paradigm.
 
