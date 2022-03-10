@@ -59,7 +59,7 @@ Alice wants to send a message to Bob, and for Bob's eyes only:
 * Alice sends Bob the encrypted message
 * Bob decrypts the message with his private key
 
-![](images/keys-001.png)
+![](images/00_11_rsa_keys_v1.png)
 
 Example:
 
@@ -81,7 +81,7 @@ Alice wants to make sure that Bob's public announcement is indeed from Bob:
 * Bob sends Alice his announcement and its signature
 * Alice verifies the signature with Bob's public key
 
-![](images/keys-002.png)
+![](images/00_12_digital_signature_keys_v2.png)
 
 Example:
 
@@ -112,7 +112,7 @@ Similarly, given knowledge of one's public and private keys, one can generate a 
 
 We can proceed with the understanding that signed messages from Alice could only come from someone with knowledge of Alice's private key and messages that are encrypted for Bob can only be deciphered by Bob. 
 
-![](images/keys-003.png)
+![](images/00_13_mix_n_match_keys_v3.png)
 
 ### Key management, PKI
 
