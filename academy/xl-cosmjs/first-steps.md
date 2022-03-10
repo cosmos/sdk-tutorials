@@ -382,10 +382,10 @@ This is the port to which you connect CosmJs.
 You can reuse your `experiment.ts` script given some adjustments. First off, although you have Alice's address, you may not have her mnemonic or private key. The private key is stored in your operating system's keyring backend, and you can extract it. This is an unsafe operation that you shall tolerate for this exercise:
 
 ```sh
-$ ./build/simd keys export alice --unsafe --unarmored-hex > simd.alice.private.key
+$ ./build/simd keys export alice --unsafe --unarmored-hex
 ```
 
-If you look into the new `simd.alice.private.key` file, you should see a 64-digit-long hex value. Move this file from your Cosmos SDK folder to your `cosmjs-template` folder. The `.gitignore` is already configured to ignore it, that mitigates your risk.
+You get a 64-digit-long hex value. Copy-paste it into a new `simd.alice.private.key` file into your `cosmjs-template` folder. The `.gitignore` was already configured earlier to ignore it, that mitigates your risk.
 
 <HighlightBox type="tip">
 
