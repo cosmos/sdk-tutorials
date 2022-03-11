@@ -19,6 +19,8 @@ Blockchain technology is rapidly evolving and may be difficult for newcomers to 
 
 Blockchain is a solution to a particular problem ... the **double-spending problem**.
 
+<--TODO: Version of this image with "Alice does not have enough funds. Executing both transactions would lead to double-spending of the same funds. -->
+
 ![double spending](images/00_04_double_spending_dark.png)
 
 We're all familiar with digital artifacts (a file) and the ease with which they can be copied. This presents obvious problems if we want digital artifacts to represent assets with value. But a more pressing issue is the possibility of spending a digital token more than once, also known as double-spending. What prevents someone from making copies and spending the same money twice?
@@ -34,6 +36,25 @@ Satoshi Nakamoto (whose identity remains shrouded in mystery) published his semi
 </HighlightBox>
 
 Bitcoin has gained widespread attention since then. The underlying technology, blockchain, has also gained recognition and has found applications in diverse contexts. Indeed, the world has discovered blockchain's usefulness in many environments and a great variety of possible implementations and applications. Cosmos is one such implementation.
+
+### Securing Peer-to-Peer networks ###
+
+Security is challenging in P2P networking for two reasons:
+
+* P2P software has to be downloaded in order to join a network, making it especially vulnerable to remote exploits;
+* Because of interconnectivity, malicious participants can send incorrect requests or responses, as well as malware and corrupted data, that may propagate throughout the network. Other security risks include denial of service (DDoS) attacks, routing attacks, and routing network partitions. 
+
+A "secure" P2P needs to repell malicious and erroneous input. 
+
+### P2P networking & distributed networks
+
+Networks can be decentralized, distributed, centralized, or decentalized *and* distributed. 
+
+![](00_03_network_structures_dark.png)
+
+A blockchain is a distributed ledger that records all transactions on the network. Nodes in such a distributed ledger need a copy of said ledger. The network and ledger needs to run continuously while nodes join and leave unpredictably. Nodes that join the network must be able sync up with the latest ledger state. The ledger state must be secure, with strong defenses to prevent malicious nodes from inserting invalid information. 
+
+Therefore, a blockchain is a highly-available network that ensures that a stateful protocol always operates as designed and never permits a departure from well-defined rules. 
 
 ### How does blockchain prevent double-spending?
 
@@ -125,7 +146,7 @@ In case the foregoing isn't clear:
 * a valid block is a well-ordered **set of transactions**, 
 * the block contains the **hash** of the previous block, and
 * the block includes a "winning lottery ticket", the **nonce**.
-* The hash of the block is special. It has properties that are especially difficult to generate. In Bitcoin, block hash must start with certain number of zeroes. The only way to achieve that is to find a number, the nonce, that can be inserted into the hash function's input so the hash created meets the criteria. There is no more efficient method of finding a suitable nonce than a brute force search of random numbers. 
+* The hash of the block is special. It has properties that are especially difficult to generate. In Bitcoin, the block hash must start with certain number of zeroes. The only way to achieve that is to find a number, the nonce, that can be inserted into the hash function's input so the hash created meets the criteria. There is no more efficient method of finding a suitable nonce than a brute force search of random numbers. 
 
 Other participants recognise this unlikely combination - unlikely because of the winning lottery ticket, the nonce. This unlikely combination is evidence of considerable computational work because brute force is the only known method of finding it.
 
