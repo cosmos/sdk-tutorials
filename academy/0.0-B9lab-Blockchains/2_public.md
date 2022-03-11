@@ -144,7 +144,15 @@ Let us now have a look at the Ethereum protocol to understand how Ethereum is di
 
 The precise mechanism employed by Ethereum is called GHOST. GHOST includes so-called uncles that are propagated into the network too late to rise to the level of network consensus (see Figure 2). This increases the total difficulty of the chain, makes smaller block times possible and rewards miners of uncles for contributing to the overall strength of the network. 
 
+Ethereum's solution to faster block times draws attention to the universal challenge of blockchain technology, namely performance and throughput. Cosmos solves for performance in two ways - with a faster consensus process and by introducing parallelism. 
+
 </ExpansionPanel>
+
+Ethereum's virtual machine running arbitrary programs hints at the potential of blockchain technology to disintermediate and decentralize processes that include network participants that would benefit from a shared set of facts and reliable interactions. The field of possibilities is expansive. It includes virtually all cases where trading partners have a need to reconcile their respective records, trade assets and consideration in an atomic way or execute remedial actions (such as penalties) if a counter-party fails to deliver as agreed. 
+
+As promising as this sounds, the technology is not without limitations. Chief among these limitations is capacity, not only in terms of transactions per second but also in terms of the complexity of transactions that can be handled by the network. Ethereum's virtual machine paradigm places limits on transaction complexity to ensure that a single contract or a single transaction doesn't overload (peg) the shared, distributed computer. This constraint is inherent to the design choice of using a virtual machine model. 
+
+Cosmos SDK enables the creation of purpose-built blockchains. That is to say that Cosmos blockchains have no need for smart contracts because application-level concerns are defined at the protocol level. This offers developers the possibility of enabling transactions with complexity far above what is possible on general-purpose blockchains. Because Cosmos networks can interact with other public networks like Ethereum, through the Inter-blockchain Protocol, Cosmos blockchains can even be used to offload processes that are either too complex or too expensive to run on other networks. 
 
 <YoutubePlayer videoId="Za5lPKNV_Mk"/>
 
