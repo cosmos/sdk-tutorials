@@ -253,6 +253,8 @@ A note on the `"/cosmos.bank.v1beta1.MsgSend"` string. It comes from Protobuf. I
 
 The same object has been named `MsgSend` in `cosmjs-types` too, but this is to make it easy for you, the developer, to understand what this represents. Under the hood, Protobuf knows how to serialize it only because this `"/cosmos.bank.v1beta1.MsgSend"` string is passed along.
 
+<!-- Not supported at the moment.
+
 ## Multiple signatures
 
 So you have sent one transaction with two messages, and it was signed only by Alice. But as the `signAndBroadcast` function made it clear, it can sign with only one signature.
@@ -490,3 +492,5 @@ Bob balance before: [
   { denom: 'token', amount: '10000' }
 ]
 ```
+
+-->
