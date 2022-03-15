@@ -46,7 +46,9 @@ In summary, tokens that traverse the bridge are locked on the origin chain and t
 <!-- TODO: insert flow diagram --->
 
 1. On-chain logic: Can be a Cosmos SDK Module or a smart contract (depending on which chain the component runs on). Each chain needs a component that can lock tokens in an escrow-like container and send a message to the bridge. In the reverse, it needs to receive instructions and release collateral. 
-2. The Oracle: An Oracle is a highly-awailable logical singleton. High-availability implies that the *implementation* usually consists of many redundant components. An Oracle must follow a strict protocol that strongly discourages misbehaviour. After all, an Oracle malfunction could dilute the supply of a token with serious, deleterious effects on projects exposed to this risk. 
+2. The Oracle: An Oracle is a highly-available logical singleton. High-availability implies that the *implementation* usually consists of many redundant components. An Oracle must follow a strict protocol that strongly discourages misbehaviour. After all, an Oracle malfunction could dilute the supply of a token with serious, deleterious effects on projects exposed to this risk. 
+
+Together, the two sides of the on-chain logic and the Oracle form a bridge. Prior to the Inter-blockchain Protocol (IBC) it was not possible to generalize a bridge solution that would connect any chain to any other chain or allow assets to flow freely between them. While non-Cosmos chains do indeed require customized implementation in order to become compatible, Cosmos' bridge solution presents the architecture to make this possible. The Gravity bridge is one such implementation that connects Ethereum ERC20 tokens with the Cosmos blockchains. 
 
 ## Cosmos' Oracle solution
 
