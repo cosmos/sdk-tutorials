@@ -20,7 +20,7 @@ When creating a new Pull Request, you **must** follow these steps:
    * `fix:` for updates fixing issues on the platform. These do not include fixes on the text content itself, which fall in the `docs:` category,
    * `feature:` for updates on the platform features/functionality.
 3. Set the Pull Request description, filling all required fields.
-4. Apply the **label** `b9lab-internal`.
+4. Apply the **label** `b9lab-internal` and `b9lab-cosmos-academy`.
 5. Set up Assignee if required: Assignees should be people who need to work on something. Also make sure all assignees know what they need to do, using the description and/or comments.
 6. Set up the Pull Request in Draft initially (click on the arrow next to the _Create Pull Request_ button and select _Create Draft Pull Request_).
 
