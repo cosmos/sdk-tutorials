@@ -1,11 +1,13 @@
-Documentation content update for Module X, Section Y
+**Instructions: (For B9lab use only!)** Please fill out the following items in brackets `[ ]`, following the [b9lab-processes guideline](/docs/b9lab-processes.md).
 
-This PR ... (elaborate here)
+Documentation content update for [Module X, Section Y]
 
-(Optional: Further notes for reviewers)
+This PR [... (elaborate here)]
+
+[(Optional: Further notes for reviewers)]
 
 
-### Internal review
+### R1: Internal review (B9lab)
 
 - Technical content review
   - [ ] requested
@@ -17,7 +19,7 @@ This PR ... (elaborate here)
   - [ ] requested
   - [ ] completed
 
-### External review
+### R2: External review
 
 - Technical content review
   - [ ] requested
@@ -26,11 +28,26 @@ This PR ... (elaborate here)
   - [ ] requested
   - [ ] completed
 
-### Final QA review
+### R3: Internal QA review (B9lab)
 
+- Technical content review
+  - [ ] requested
+  - [ ] completed
 - Language review
   - [ ] requested
   - [ ] completed
 
-### (Optional: Other steps)
+### R4: Final external QA review
+
+- Technical content review
+  - [ ] requested
+  - [ ] completed
+- Language review
+  - [ ] requested
+  - [ ] completed
+
+### RC: Release Candidate
+
+- [ ] Ready to be merged
+
 
