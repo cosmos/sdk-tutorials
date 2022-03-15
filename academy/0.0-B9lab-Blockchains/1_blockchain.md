@@ -19,9 +19,7 @@ Blockchain technology is rapidly evolving and may be difficult for newcomers to 
 
 Blockchain is a solution to a particular problem ... the **double-spending problem**.
 
-<--TODO: Version of this image with "Alice does not have enough funds. Executing both transactions would lead to double-spending of the same funds. -->
-
-![double spending](images/00_04_double_spending_dark.png)
+![TODO: double spending](images/doublespendingproblem2.png
 
 We're all familiar with digital artifacts (a file) and the ease with which they can be copied. This presents obvious problems if we want digital artifacts to represent assets with value. But a more pressing issue is the possibility of spending a digital token more than once, also known as double-spending. What prevents someone from making copies and spending the same money twice?
 
