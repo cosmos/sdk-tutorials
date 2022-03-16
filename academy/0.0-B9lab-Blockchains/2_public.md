@@ -104,7 +104,7 @@ He suggested that **proof-of-work (PoW)** can be used to find the truth in a par
 
 Let us look at this in more detail. Nakamoto does not use the term blockchain in his paper, but he describes the concept by explaining transactions in Bitcoin. The transaction process requires the signing of the transaction with the hash of the previous transaction and the public key of the receiver. This is called the chain of ownership. Transactions can contain several inputs and outputs.
 
-![Chain of block with previous hash](images/00_16_bitcoin-block_headers_literal.png)
+![Chain of block with previous hash](images/00_16_bitcoin_block_headers_literal.png)
 
 **Figure 1**: Each block includes the previous hash and a nonce (a random set of `1`s and `0`s). The protocol calls for a hash beginning with a specific number of binary `0`s, when hashing the block. An attacker trying to change a transaction in a block must then mine this and the following blocks. Reproduced from Bitcoin paper.
 
@@ -116,7 +116,7 @@ There is a residual possibility that a slower attacker can catch up, since disco
 
 This process of creating a valid block is called mining in PoW networks. The protocol includes a reward for mining, which is the first special transaction in the block. It can be expected that the majority of the nodes will use their CPU power honestly because it is the most financially feasible course of action. Signed transactions are announced publicly, so the public keys of the parties are not private.
 
-![Mining](images/mining.png)
+![Mining](images/00_17_mining-01.png)
 
 ### Introduction to Ethereum
 
@@ -138,7 +138,7 @@ Ethereum has a much faster block time, (currently around 15s), made practical th
 
 Let us now have a look at the Ethereum protocol to understand how Ethereum is different from Bitcoin.
 
-![Blockchain and uncle diagram](images/ethereum-ghost.png)
+![Blockchain and uncle diagram](images/00_18_block_uncles-01.png)
 
 **Figure 2**: A well-understood challenge related to reduced block time stems from network latency. Since nodes do not know about discovered blocks at the same time, at any given time a portion of the miners will be working on already solved, i.e. old, blocks. If these miners find a solution, they might not be rewarded. The rate at which such transient "forks" occur increases predictably with shorter block times. While Bitcoin addresses this efficiency issue with a relatively long block time (ten minutes), Ethereum addresses this concern with a partial reward strategy. Valid blocks that aren't ultimately included in the canonical chain (because another chain is longer) are still included on the side and known as "uncles". Miners of uncles receive a smaller reward than regular block miners. 
 
