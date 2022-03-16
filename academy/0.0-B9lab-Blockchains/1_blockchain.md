@@ -64,7 +64,7 @@ Consequently, it is generally not possible for two parties to exchange value onl
 
 At a high level, Bitcoin solves the double-spending problem by replacing the trusted central ledger-keepers with a decentralized and distributed network of ledger-keepers. Each member of the network has an exact replica of the ledger. In addition, no one can update the ledger without a establishing consensus with the other ledger-keepers. 
 
-![](images/00_14_double_spending_v1-01.png)
+![](images/00_04_double_spending-01.png)
 
 It is as though each transaction is observed by a *large crowd of witnesses* who reach consensus about proposed changes. The crowd prohibits events that should not occur, such as spending the same funds twice (i.e. double-spending).
 

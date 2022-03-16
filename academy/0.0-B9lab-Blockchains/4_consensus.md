@@ -60,7 +60,7 @@ The algorithm is called DPoS because as in PoS the value of a vote is determined
 
 In this type of consensus mechanism, so-called **"witnesses"** are elected by the stakeholders of the network. Witnesses secure the network. Afterwards, several witnesses are chosen for the block creation so that they represent at least 50% of the stakeholders' votes.
 
-![DPoS](images/00_07_delegated_pos_dark_notitle-01.png)
+![DPoS](images/00_07_delegated_pos-01.png)
 
 Witnesses are paid for their services: They are paid fees for creating and validating blocks. This economic incentive to become a witness also leads to competition potentially increasing with each new member because the number of witnesses is limited.
 
