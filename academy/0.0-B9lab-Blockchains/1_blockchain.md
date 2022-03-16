@@ -21,9 +21,7 @@ Blockchain technology is rapidly evolving and may be difficult to understand in 
 
 Blockchain is a solution to a particular problem...the **double-spending problem**.
 
-<!--TODO: Version of this image with "Alice does not have enough funds. Executing both transactions would lead to double-spending of the same funds. -->
-
-![Double-spending](images/00_04_double_spending_dark.png)
+![TODO: double spending](images/doublespendingproblem2.png)
 
 We are all familiar with digital artifacts (a file) and the ease with which they can be copied. This presents obvious problems if we want digital artifacts to represent assets with value. But a more pressing issue is the possibility of spending a digital token more than once, also known as double-spending. What prevents someone from making copies and spending the same money twice?
 
@@ -192,7 +190,7 @@ Ethereum was the first blockchain to implement [Turing-complete](https://csrc.ni
 
 With this introduction, a smart contract is a program on the world computer, as Ethereum has been called. A distributed application (or DApp) is one too. As is a coordinated collection of smart contracts.
 
-![Blockchain as a Computing Paradigm](images/Blockchain_As_A_Computing_Paradigm.png)
+![Blockchain as a Computing Paradigm](images/00_15_ethereum_virtual_machine.png)
 
 Major computing paradigms in the past were:
 
