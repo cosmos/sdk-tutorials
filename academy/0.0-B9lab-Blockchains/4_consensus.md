@@ -15,7 +15,7 @@ An overview of the well-known blockchain solutions provides perspective and insi
 
 In the traditional description of the problem, generals, whose armies are spread around a target city, need to reach consensus on a time to attack. To achieve this, they can only rely on **unsecured communication channels**, whereby, for instance, a lack of acknowledgement can either be caused by a failure to deliver a message, by a dead general or by a failure to deliver the acknowledgment. While there are variations of the problem description in order to adopt to varying real-world fault-tolerance situations, most descriptions include a element of catastrophe if the generals fail to coordinate their actions. 
 
-![Byzantine General's Problem](images/00_06_byzantine_generals_dark.png)
+![Byzantine General's Problem](images/00_06_byzantine_generals_dark_notitle-01.png)
 
 Similar to the generals who must decide when to attack, in a distributed ledger the agreed transaction list has to be identified and consensus on the correct order of transactions has to be reached.
 
