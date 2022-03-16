@@ -5,7 +5,6 @@ description: A Brief History of Blockchain Technology
 tag: fast-track
 ---
 
-
 # A Brief History of Blockchain
 
 To fully appreciate Cosmos, it is helpful to understand where blockchain comes from, advances that have unfolded and intractable challenges of other platforms that Cosmos decisively solves. 
@@ -94,8 +93,10 @@ Since 2009 the most successful and popular decentralised public blockchain netwo
 Nowadays, Bitcoin is the cryptocurrency with the highest market capitalisation.
 
 <HighlightBox type="tip">
-  * For an estimate of the Bitcoin network size take a look at [Bitnodes](https://bitnodes.earn.com/).
-  * Also if you are more of a visual and statistics person, we could recommend these [Bitcoin charts](https://www.blockchain.com/en/charts)
+
+* For an estimate of the Bitcoin network size take a look at [Bitnodes](https://bitnodes.earn.com/).
+* Also if you are more of a visual and statistics person, we could recommend these [Bitcoin charts](https://www.blockchain.com/en/charts)
+
 </HighlightBox>
 
 Bitcoin was first introduced with the publication of the original paper [*Bitcoin: A peer-to-peer electronic cash system*](https://bitcoin.org/bitcoin.pdf) (2008) by Satoshi Nakamoto. In this paper, Nakamoto describes Bitcoin as a **peer-to-peer (P2P)** version of electronic cash.
@@ -158,21 +159,20 @@ Cosmos SDK enables the creation of purpose-built blockchains. That is to say tha
 
 <HighlightBox type="reading">
 
-  ## Books:</p>
+## Books
 
-    * Blockchain: Blueprint for a New Economy by Melanie Swan [https://www.amazon.co.uk/Blockchain-Blueprint-Economy-Melanie-Swan/dp/1491920491](https://www.amazon.co.uk/Blockchain-Blueprint-Economy-Melanie-Swan/dp/1491920491)
-    * Mastering Bitcoin by Andreas Antonopolous [https://www.bitcoinbook.info/](https://www.bitcoinbook.info/)
+* Blockchain: Blueprint for a New Economy by Melanie Swan [https://www.amazon.co.uk/Blockchain-Blueprint-Economy-Melanie-Swan/dp/1491920491](https://www.amazon.co.uk/Blockchain-Blueprint-Economy-Melanie-Swan/dp/1491920491)
+* Mastering Bitcoin by Andreas Antonopolous [https://www.bitcoinbook.info/](https://www.bitcoinbook.info/)
 
-  ## Further Reading
+## Further Reading
 
-    * Anderson, Ross J. (1996): <i>The Eternity Service</i> [https://www.cl.cam.ac.uk/~rja14/Papers/eternity.pdf](https://www.cl.cam.ac.uk/~rja14/Papers/eternity.pdf)
-    * Schneier, Bruce: <i>Schneier on Security</i> [https://www.schneier.com/crypto-gram/](https://www.schneier.com/crypto-gram/)
-    * NIST: <i>John M. Kelsey</i> -a short background description and list of publications [https://www.nist.gov/people/john-m-kelsey](https://www.nist.gov/people/john-m-kelsey)
-    * Schneier, B. & Kelsey, J. (1998): <i>Secure Audit Logs to Support Computer Forensics</i> [https://www.schneier.com/academic/paperfiles/paper-auditlogs.pdf](https://www.schneier.com/academic/paperfiles/paper-auditlogs.pdf)
-    * Szabo, N. (1994): <i>Smart Contracts</i> [http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html)
-    * Moskov, P. (2018): <i>What Is Bit Gold? The Brainchild of Blockchain Pioneer Nick Szabo</i> [https://coincentral.com/what-is-bit-gold-the-brainchild-of-blockchain-pioneer-nick-szabo/](https://coincentral.com/what-is-bit-gold-the-brainchild-of-blockchain-pioneer-nick-szabo/)
-    * Nakamoto, S. (2008): <i>Bitcoin: A Peer-to-Peer Electronic Cash System</i> [https://bitcoin.org/bitcoin.pdf](https://bitcoin.org/bitcoin.pdf)
-    * A Next-Generation Smart Contract and Decentralized Application Platform</i> - The Ethereum White Paper [https://github.com/ethereum/wiki/wiki/White-Paper](https://github.com/ethereum/wiki/wiki/White-Paper)
+* Anderson, Ross J. (1996): <i>The Eternity Service</i> [https://www.cl.cam.ac.uk/~rja14/Papers/eternity.pdf](https://www.cl.cam.ac.uk/~rja14/Papers/eternity.pdf)
+* Schneier, Bruce: <i>Schneier on Security</i> [https://www.schneier.com/crypto-gram/](https://www.schneier.com/crypto-gram/)
+* NIST: <i>John M. Kelsey</i> -a short background description and list of publications [https://www.nist.gov/people/john-m-kelsey](https://www.nist.gov/people/john-m-kelsey)
+* Schneier, B. & Kelsey, J. (1998): <i>Secure Audit Logs to Support Computer Forensics</i> [https://www.schneier.com/academic/paperfiles/paper-auditlogs.pdf](https://www.schneier.com/academic/paperfiles/paper-auditlogs.pdf)
+* Szabo, N. (1994): <i>Smart Contracts</i> [http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html)
+* Moskov, P. (2018): <i>What Is Bit Gold? The Brainchild of Blockchain Pioneer Nick Szabo</i> [https://coincentral.com/what-is-bit-gold-the-brainchild-of-blockchain-pioneer-nick-szabo/](https://coincentral.com/what-is-bit-gold-the-brainchild-of-blockchain-pioneer-nick-szabo/)
+* Nakamoto, S. (2008): <i>Bitcoin: A Peer-to-Peer Electronic Cash System</i> [https://bitcoin.org/bitcoin.pdf](https://bitcoin.org/bitcoin.pdf)
+* A Next-Generation Smart Contract and Decentralized Application Platform</i> - The Ethereum White Paper [https://github.com/ethereum/wiki/wiki/White-Paper](https://github.com/ethereum/wiki/wiki/White-Paper)
     
 </HighlightBox>
-

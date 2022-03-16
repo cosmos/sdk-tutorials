@@ -1,10 +1,11 @@
 ---
 title: "Cryptography"
-order: 3
+order: 6
 description: Cryptographic Foundations
 tag: fast-track
 ---
 
+<!-- Only inlcude a headline level if there is at least one sentence between headlines. See below. -->
 # Fundamentals
 
 ## Public key cryptosystems
@@ -172,9 +173,9 @@ The concept of digital signatures is simple. If a given message is first hashed 
 
 <HighlightBox type="reading">
 
-		* Zero-knowledge proof [https://en.wikipedia.org/wiki/Zero-knowledge_proof](https://en.wikipedia.org/wiki/Zero-knowledge_proof)
-		* The Mathematics of the RSA Public-Key Cryptosystem [http://www.mathaware.org/mam/06/Kaliski.pdf](http://www.mathaware.org/mam/06/Kaliski.pdf)
-		* Encrypt and Decrypt [http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/](http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/)
-		* Sign and verify [https://gist.github.com/ezimuel/3cb601853db6ebc4ee49](https://gist.github.com/ezimuel/3cb601853db6ebc4ee49)
+* Zero-knowledge proof [https://en.wikipedia.org/wiki/Zero-knowledge_proof](https://en.wikipedia.org/wiki/Zero-knowledge_proof)
+* The Mathematics of the RSA Public-Key Cryptosystem [http://www.mathaware.org/mam/06/Kaliski.pdf](http://www.mathaware.org/mam/06/Kaliski.pdf)
+* Encrypt and Decrypt [http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/](http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/)
+* Sign and verify [https://gist.github.com/ezimuel/3cb601853db6ebc4ee49](https://gist.github.com/ezimuel/3cb601853db6ebc4ee49)
 
 </HighlightBox>
