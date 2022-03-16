@@ -189,7 +189,7 @@ Ethereum was the first blockchain to implement [Turing-complete](https://csrc.ni
 
 With this introduction, a smart contract is a program on the world computer, as Ethereum has been called. A distributed application (or DApp) is one too. As is a coordinated collection of smart contracts.
 
-![Blockchain as a Computing Paradigm](images/Blockchain_As_A_Computing_Paradigm.png)
+![Blockchain as a Computing Paradigm](images/00_15_ethereum_virtual_machine.png)
 
 Major computing paradigms in the past have been:
 
