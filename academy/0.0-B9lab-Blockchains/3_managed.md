@@ -11,7 +11,7 @@ tag: fast-track
 
 Managed networks, just like public networks, rely on blockchain data structures. But unlike public blockchain networks they do not *necessarily* need to mitigate the Byzantine General's Problem because they operate in a predictable environment with elements of authority, hierarchy and accountability.
 
-![Public and Managed Network Comparison](images/00_08_public_vs_private_comparison_dark.png)
+![Public and Managed Network Comparison](images/00_08_public_vs_private_comparison_dark_notitle-01.png)
 
 # Managed Blockchain Networks
 
