@@ -117,7 +117,7 @@ This process repeats for all subsequent versions. Any version of the file conten
 
 Any departure from the system, e.g. a hash does not compute as expected, proves a break in the history and is therefore invalid. 
 
-![](images/00_05_genesis_block_dark.png)
+![](images/00_05_genesis_block_dark_notitle-01.png)
 
 Interestingly, since knowledge of the current hash of the latest valid version is an input to the next version's hash function, it is not possible to generate a new valid version without knowledge of the valid version that precedes it. This process forces changes to be **appended** to a previous valid version.
 
