@@ -1,9 +1,11 @@
 ---
 title: "Managed Blockchains"
-order: 3
+order: 4
 description: Introduction to Managed Networks
 tag: fast-track
 ---
+
+<!-- Why make this an independent section? Why not combine it all into one section with private networks -->
 
 # Introduction to Managed Networks
 
@@ -23,11 +25,9 @@ Unlike public networks where the interaction between participants is governed by
 
 **Private blockchains**:
 
-- **can be designed for a limited number of vetted and approved participants.** Accommodation of performance-challenged and poorly connected nodes is of lesser importance. 
-
-- **can be designed for optimised performance.** Most participants in an Enterprise network will be well-capable of standing up well-connected high-performance and high-availability nodes. A group of participants can agree to raise the bar defining minimum system requirements significantly. For example, participation might be limited to sizable Enterprise-class servers with redundant low-latency, high-bandwidth network connections.
-
-- **can be governed by a well-defined agreement between the participants.** Such an agreement may codify the decision-making processes that will be used to decide such matters as protocol upgrades, admission requirements, and remedial action. In a private or consortium setting, “who decides?” can (likely must) be determined well in advance of an incident.
+* **can be designed for a limited number of vetted and approved participants.** Accommodation of performance-challenged and poorly connected nodes is of lesser importance. 
+* **can be designed for optimised performance.** Most participants in an Enterprise network will be well-capable of standing up well-connected high-performance and high-availability nodes. A group of participants can agree to raise the bar defining minimum system requirements significantly. For example, participation might be limited to sizable Enterprise-class servers with redundant low-latency, high-bandwidth network connections.
+* **can be governed by a well-defined agreement between the participants.** Such an agreement may codify the decision-making processes that will be used to decide such matters as protocol upgrades, admission requirements, and remedial action. In a private or consortium setting, “who decides?” can (likely must) be determined well in advance of an incident.
 
 In summary, managed networks enable high performance blockchain networks that can use consensus processes that don't solve for anonymous users. A group of trading partners can create a small network for their own purposes, agree on equitable participation in the block-generation process (e.g. each participant runs one validator), agree on minimum performance metrics for acceptable validators and agree on governance, all of which enable fast confirmation and even deterministic transaction finality within their small group. The principle tradeoff for this performance improvement is the shunning of permissionless public access. 
 
@@ -35,7 +35,7 @@ Cosmos is applicable to both public and private settings and, importantly, suppo
 
 <HighlightBox type="reading">
     
-    * Vitalik Buterin on private chains [https://blog.ethereum.org/2016/05/09/on-settlement-finality/](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
-    * Permissioned blockchains in production [https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
+* Vitalik Buterin on private chains [https://blog.ethereum.org/2016/05/09/on-settlement-finality/](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
+* Permissioned blockchains in production [https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
 
 </HighlightBox>

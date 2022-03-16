@@ -1,6 +1,6 @@
 ---
 title: "Consensus"
-order: 3
+order: 5
 description: An Introduction to Distributed Consensus
 tag: fast-track
 ---
@@ -104,9 +104,9 @@ The above are the most popular by usage as well as the most important to keep in
 
 <HighlightBox type="reading">
 
-	* Proof of Authority: <i>consensus model with Identity at Stake</i> [https://medium.com/oracles-network/proof-of-authority-consensus-model-with-identity-at-stake-d5bd15463256](https://medium.com/oracles-network/proof-of-authority-consensus-model-with-identity-at-stake-d5bd15463256)
-	* Tendermint is a decentralised consensus engine that runs its own public blockchain and also supports decentralised computing. It differs from Ethereum on its consensus protocol, which uses the concept of validators who need to bind funds to validate and who validate blocks over the course of a certain number of rounds. [http://tendermint.com/docs/tendermint.pdf](http://tendermint.com/docs/tendermint.pdf)
-	* [Counterparty](http://counterparty.io/platform/) aims to extend the Bitcoin blockchain and allows for a limited degree of smart contract execution. They also created their initial coins in an innovative way, by [proof-of-burn](http://counterparty.io/news/why-proof-of-burn/) of Bitcoins.
-	* [Stellar](https://www.stellar.org/developers/learn/get-started) was originally forked from Ripple, has now completely diverged from it, and introduced what they called a "Federated Byzantine Agreement", whereby consensus is reached by quorum slices.
+* Proof of Authority: <i>consensus model with Identity at Stake</i> [https://medium.com/oracles-network/proof-of-authority-consensus-model-with-identity-at-stake-d5bd15463256](https://medium.com/oracles-network/proof-of-authority-consensus-model-with-identity-at-stake-d5bd15463256)
+* Tendermint is a decentralised consensus engine that runs its own public blockchain and also supports decentralised computing. It differs from Ethereum on its consensus protocol, which uses the concept of validators who need to bind funds to validate and who validate blocks over the course of a certain number of rounds. [http://tendermint.com/docs/tendermint.pdf](http://tendermint.com/docs/tendermint.pdf)
+* [Counterparty](http://counterparty.io/platform/) aims to extend the Bitcoin blockchain and allows for a limited degree of smart contract execution. They also created their initial coins in an innovative way, by [proof-of-burn](http://counterparty.io/news/why-proof-of-burn/) of Bitcoins.
+* [Stellar](https://www.stellar.org/developers/learn/get-started) was originally forked from Ripple, has now completely diverged from it, and introduced what they called a "Federated Byzantine Agreement", whereby consensus is reached by quorum slices.
 
 </HighlightBox>
