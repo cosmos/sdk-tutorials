@@ -50,7 +50,7 @@ A "secure" P2P needs to repell malicious and erroneous input.
 
 Networks can be decentralized, distributed, centralized, or decentalized *and* distributed. 
 
-![](images/00_03_network_structures_dark.png)
+![](images/00_03_network_structures_dark_notitle-01.png)
 
 A blockchain is a distributed ledger that records all transactions on the network. Nodes in such a distributed ledger need a copy of said ledger. The network and ledger needs to run continuously while nodes join and leave unpredictably. Nodes that join the network must be able sync up with the latest ledger state. The ledger state must be secure, with strong defenses to prevent malicious nodes from inserting invalid information. 
 
