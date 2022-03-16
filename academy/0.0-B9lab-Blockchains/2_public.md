@@ -104,7 +104,7 @@ He suggested that **proof-of-work (PoW)** can be used to find the truth in a par
 
 Let us look at this in more detail. Nakamoto does not use the term blockchain in his paper, but he describes the concept by explaining transactions in Bitcoin. The transaction process requires the signing of the transaction with the hash of the previous transaction and the public key of the receiver. This is called the chain of ownership. Transactions can contain several inputs and outputs.
 
-![Chain of block with previous hash](images/00_16_bitcoin-block-headers.png)
+![Chain of block with previous hash](images/00_16_bitcoin-block_headers_literal.png)
 
 **Figure 1**: Each block includes the previous hash and a nonce (a random set of `1`s and `0`s). The protocol calls for a hash beginning with a specific number of binary `0`s, when hashing the block. An attacker trying to change a transaction in a block must then mine this and the following blocks. Reproduced from Bitcoin paper.
 
