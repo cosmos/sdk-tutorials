@@ -27,8 +27,6 @@ Let us look at some of the most popular consensus algorithms.
 
 ## Proof-of-Work (PoW)
 
-<!-- TODO ![PoW](images/pow.png) -->
-
 A user completes a task of **arbitrary difficulty**. This is generally implemented as a search for a random number which when combined with ordered transactions in a block yields a hash function result that matches a criteria such as minimum number of leading zeroes. Finding such a solution is taken as evidence of considerable effort (or proof that considerable work *must* have been invested in the search).
 
 <!-- TODO: Check this markdown format -->
@@ -43,8 +41,6 @@ If a node wishes to distort the ledger in a PoW system, it must first acquire an
 The control mechanism for the amount of work is called **difficulty** and it guarantees a given average block creation time. PoW networks set a target average time for a solution to be found by *any* node on the network. Difficulty adjusts to compensate for increasing/decreasing total network problem-solving capacity. Thus, PoW networks do not get faster as more compute capacity is added. They become more resilient by increasing difficulty, which raises the threshold a 51% attacker will need to overcome.
 
 ## Proof-of-Stake (PoS)
-
-<!-- TODO ![PoS](images/pos.png) -->
 
 **Proof-of-stake (PoS)** is another method of selecting the authoritative node for a given block. PoS is based on the assumption that those with the most to lose are the most incentivised to safeguard network integrity.
 
@@ -64,7 +60,7 @@ The algorithm is called DPoS because as in PoS the value of a vote is determined
 
 In this type of consensus mechanism, so-called **"witnesses"** are elected by the stakeholders of the network. Witnesses secure the network. Afterwards, several witnesses are chosen for the block creation so that they represent at least 50% of the stakeholders' votes.
 
-![DPoS](images/00_07_delegated_pos_dark.png)
+![DPoS](images/00_07_delegated_pos_dark_notitle-01.png)
 
 Witnesses are paid for their services: They are paid fees for creating and validating blocks. This economic incentive to become a witness also leads to competition potentially increasing with each new member because the number of witnesses is limited.
 
