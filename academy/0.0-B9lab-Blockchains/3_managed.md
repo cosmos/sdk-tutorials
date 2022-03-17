@@ -92,8 +92,6 @@ The Cosmos SDK enables the creation of application-specific blockchains. That is
 
 ## Managed Blockchain Networks
 
-<!-- Completely missing: an introduction of what managed networks are. -->
-
 Managed networks, just like public networks, rely on blockchain data structures. Unlike public blockchain networks, they do not necessarily need to mitigate the Byzantine Generals' Problem because they operate in a predictable environment with elements of authority, hierarchy, and accountability.
 
 <HighlightBox type="info">
@@ -116,7 +114,6 @@ In summary, **private blockchains**:
 
 * **Can be designed for a limited number of vetted and approved participants:** performance challenges and poorly connected nodes are of lesser importance;
 * **Can be designed for optimized performance:** most participants in an enterprise network are well-capable of running well-connected high-performance and high-availability nodes. A group of participants can agree to raise the bar defining minimum system requirements significantly. For example, participation might be limited to sizable enterprise-class servers with redundant low-latency, high-bandwidth network connections;
-<!-- Don't really see the point of elaborating on it that much -->
 * **Can be governed by a well-defined agreement between the participants:** such an agreement may codify the decision-making processes that will be used to decide matters such as protocol upgrades, admission requirements, and remedial action. In a private or consortium setting, "who decides?" can (likely must) be determined well in advance of an incident.
 
 In summary, managed networks enable high-performance blockchain networks that can use consensus processes that are not fitted for an environment with anonymous users. A group of trading partners can create a small network for their purposes and agree on equitable participation in the block-generation process (e.g. each participant runs one validator), minimum performance metrics for acceptable validators, and governance, all of which enable fast confirmation and even deterministic transaction finality within their small group. The principal trade-off for this performance improvement is the shunning of permissionless, public access. 
