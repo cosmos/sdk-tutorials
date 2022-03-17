@@ -98,7 +98,7 @@ It takes a couple of seconds. When done, it should also tell you the address of 
 Mnemonic with 1st account: cosmos1fyv2j2zuxesrjaqev0vtckys528wnx459e3c0d
 ```
 
-Keep this address for convenience, although it is not necessary as you can always have CosmJs recalculate it from the mnemonic. Away from prying eyes, look into the file to confirm it contains your 24 words.
+Keep this address for convenience. You can always have CosmJs recalculate it from the mnemonic. Away from prying eyes, examine the file to confirm it contains your 24 words.
 
 <HighlightBox type="warn">
 
@@ -108,13 +108,13 @@ Keep this address for convenience, although it is not necessary as you can alway
     node_modules
     *.key
     ```
-2. Also be careful not to add any empty lines or any other character in this file, as may happen with VSCode under certain conditions. If you add any character, ComsJs may not be able to parse it.
+2. Also be careful not to add any empty lines or any other character in this file, as may happen with VSCode under certain conditions. If you add any characters, ComsJs may not be able to parse it.
 
 </HighlightBox>
 
 ## Add your imports
 
-What you are creating now is a very small interface to a blockchain. An interface that could eventually have users. A good practice is to not ask their address until the point where it is necessary, e.g. if they clicked a relevant button. You mimic this behavior in `experiment.ts` by first using the read-only client. Import it:
+What you are creating now is a very small interface to a blockchain; an interface that could eventually have users. A good practice is to refrain from requesting a user address until the point where it is necessary, e.g. if they clicked a relevant button. You observe this practice in `experiment.ts` by first using the read-only client. Import it:
 
 ```typescript
 import { StargateClient } from "@cosmjs/stargate"
@@ -163,7 +163,7 @@ When you run it again, you get:
 Alice balance: { denom: 'stake', amount: '0' }
 ```
 
-If you just created this account, it makes sense. Alice needs tokens to be able to do any transaction. Head to the faucet and get some tokens for Alice. TODO
+If you just created this account, Alice's balance is, of course, zero. Alice will need tokens to be able to send transactions. Head to the faucet and get some tokens for Alice. TODO
 
 Check that Alice got them with `npx yarn experiment`, which should return:
 
@@ -177,13 +177,13 @@ With this confirmation, you can comment out the balance query. For the exercise,
 const faucet = "TODO"
 ```
 
-Out of curiosity, add a line to peek at the faucet's balance. When running, you should get:
+In case you are curious, add a line to peek at the faucet's balance. When running, you should get:
 
 ```
 Faucet balance: { denom: 'stake', amount: '0' } TODO
 ```
 
-These actions are examples of use of the read-only `StargateClient`.
+These actions are example uses of the read-only `StargateClient`.
 
 Alright, time for Alice to send some tokens back to the faucet.
 
@@ -195,7 +195,7 @@ Alice cannot send tokens with the read-only `StargateClient`. She needs to use a
 import { StargateClient, SigningStargateClient } from "@cosmjs/stargate"
 ```
 
-You can use VSCode's auto-complete to assist you this time again. When you instantiate this new client, you need to pass it a **signer**, implementing the `OfflineDirectSigner` interface. And this signer needs access to Alice's **private key** in one way or another. In the current situation you are going to use Alice's saved mnemonic.
+You can again use VSCode's auto-complete to assist you. When you instantiate this new client, you need to pass it a **signer**, implementing the `OfflineDirectSigner` interface. And this signer needs access to Alice's **private key** in one way or another. There are several ways to accomplish this. In this example, you are going to use Alice's saved mnemonic.
 
 You need to load the mnemonic as text in your code so add this import:
 
@@ -203,7 +203,7 @@ You need to load the mnemonic as text in your code so add this import:
 import { readFile } from "fs/promises"
 ```
 
-What implementation of `OfflineDirectSigner` to use? If you right-click on `OfflineDirectSigner` in VSCode and select <kbd>Find All Implementations</kbd>, you see that `DirectSecp256k1HdWallet` seems the more appropriate in the current situation. Add the import:
+What implementation of `OfflineDirectSigner` to use? If you right-click on `OfflineDirectSigner` in VSCode and select <kbd>Find All Implementations</kbd>, you see that `DirectSecp256k1HdWallet` seems the most appropriate for this situation. Add the import:
 
 ```typescript
 import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing"
@@ -222,7 +222,7 @@ const getAliceSignerFromMnemonic = async(): Promise<OfflineDirectSigner> => {
 }
 ```
 
-Vega uses the `cosmos` address prefix too, so you may mention it, although that is the default anyway. Now you can add in `runAll`:
+Vega uses the `cosmos` address prefix. It is the default, and you can also mention it as shown. Now you can add in `runAll`:
 
 ```typescript
 const aliceSigner: OfflineDirectSigner = await getAliceSignerFromMnemonic()
@@ -235,7 +235,7 @@ const signingClient = await SigningStargateClient.connectWithSigner(
 )
 ```
 
-Small trick, you set the gas price in the client so that you can later put `"auto"` for gas.
+Here is a little trick for convenience. Set the gas price in the client so that you can later put `"auto"` for gas.
 
 Check that it works just like the read-only client, from which [it inherits](https://github.com/cosmos/cosmjs/blob/0f0c9d8a754cbf01e17acf51d3f2dbdeaae60757/packages/stargate/src/signingstargateclient.ts#L147), by adding:
 
@@ -291,7 +291,7 @@ Bob's balance after: { denom: 'stake', amount: '10000000' }
 ✨  Done in 11.46s.
 ```
 
-That's correct, the faucet got its 10M stake and Alice also paid some gas.
+That's correct. The faucet got its 10M stake and Alice also paid some gas.
 
 <ExpansionPanel title="The experiment.ts file">
 
@@ -362,9 +362,9 @@ What if you wanted to try with your own blockchain?
 
 ## With a locally started chain
 
-The easiest way is to reuse the `simd` chain that you started in a [previous module](../3-running-a-chain/node-api-and-cli.md). Make sure that you have created two accounts, Alice and Bob. And credit enough to Alice.
+The easiest way is to reuse the `simd` chain that you started in a [previous module](../3-running-a-chain/node-api-and-cli.md). Make sure that you have created two accounts, Alice and Bob. Be sure to credit enough tokens to Alice.
 
-As you recall, in th earlier section, you also sent tokens, using `simd` itself.
+As you recall, in the earlier section, you also sent tokens, using `simd` itself.
 
 When you finally launch `simd`, you see the line:
 
@@ -379,7 +379,7 @@ This is the port to which you connect CosmJs.
 
 ## Prepare for `simd`
 
-You can reuse your `experiment.ts` script given some adjustments. First off, although you have Alice's address, you may not have her mnemonic or private key. The private key is stored in your operating system's keyring backend, and you can extract it. This is an unsafe operation that you shall tolerate for this exercise:
+You can reuse your `experiment.ts` script, given some adjustments. First off, although you have Alice's address, you may not have her mnemonic or private key. The private key is stored in your operating system's keyring backend, and you can extract it. This is an unsafe operation, but you will tolerate it for this exercise:
 
 ```sh
 $ ./build/simd keys export alice --unsafe --unarmored-hex
@@ -414,7 +414,9 @@ const rpc = "http://127.0.0.1:26657"
 const faucet = "cosmos1umpxwaezmad426nt7dx3xzv5u0u7wjc0kj7ple"
 ```
 
-Next, add a function to create Alice's signer. If you right-click again on `OfflineDirectSigner` in VSCode and select <kbd>Find All Implementations</kbd>, you see that `DirectSecp256k1Wallet` seems the more appropriate choice this time. Add the import:
+Next, add a function to create Alice's signer. If you right-click again on `OfflineDirectSigner` in VSCode and select <kbd>Find All Implementations</kbd>, you see that `DirectSecp256k1Wallet` seems the more appropriate choice this time. 
+
+Add the import:
 
 ```typescript
 import { DirectSecp256k1HdWallet, DirectSecp256k1Wallet, OfflineDirectSigner } from "@cosmjs/proto-signing"
@@ -437,7 +439,7 @@ const getAliceSignerFromPriKey = async(): Promise<OfflineDirectSigner> => {
 }
 ```
 
-The address prefix is `"cosmos"` as can be seen in Alice's address. And insert it in place of the previously used `getAliceSignerFromMnemonic`. Run it and confirm the output is as expected.
+The address prefix is `"cosmos"` as can be seen in Alice's address. Insert it in place of the previously used `getAliceSignerFromMnemonic`. Run it and confirm the output is as expected.
 
 <ExpansionPanel title="The updated experiment.ts file">
 
