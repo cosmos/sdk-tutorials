@@ -15,7 +15,7 @@ To keep the focus on CosmJs and Keplr, you are going to use ready-made pages cre
 
 ## Create your simple Next.js project
 
-In your project folder you create the ready-made Next.js app. It automatically does it in a subfolder for you. This follows [the docs](https://nextjs.org/docs).
+In your project folder you create the ready-made Next.js app. It automatically places it in a subfolder for you. This follows [the docs](https://nextjs.org/docs).
 
 ```sh
 $ npx create-next-app@latest --typescript
@@ -23,7 +23,7 @@ $ npx create-next-app@latest --typescript
 ? What is your project named? › cosmjs-keplr
 ```
 
-This created a new `cosmjs-keplr` folder. Go in it. There you can find a `/pages` folder, which contains an `index.tsx`. That's your first page.
+This created a new `cosmjs-keplr` folder. Go there. There you can find a `/pages` folder, which contains an `index.tsx`. That's your first page.
 
 Run it, in the `cosmjs-keplr` folder:
 
@@ -126,7 +126,7 @@ const Home: NextPage = () => {
 
 When `npm run dev` picks up the changes, you should see that your page has changed to what you created.
 
-It is not very useful just yet, though.
+It is not very useful just yet, but you can make it more so.
 
 ## Install CosmJs
 
@@ -151,7 +151,7 @@ updateFaucetBalance = async(client: StargateClient) => {
 }
 ```
 
-Notice how it only cares about the first coin type. Add that in the constructor too, so that it does it on load. Via another specific function:
+Notice how it only cares about the first coin type. Add that in the constructor as well so that it does it on load. Via another specific function:
 
 ```typescript
 constructor(props:FaucetSenderProps) {
@@ -164,7 +164,7 @@ init = async() => this.updateFaucetBalance(await StargateClient.connect(this.pro
 
 After `run dev` picks the changes, you should see your page that starts showing relevant information.
 
-Now, you add elements that will handle your user's information.
+Now, add elements that will handle your user's information.
 
 ## Detect Keplr
 
@@ -174,7 +174,7 @@ Following [Keplr's documentation](https://docs.keplr.app/api/#how-to-detect-kepl
 $ npm install @keplr-wallet/types --save-dev
 ```
 
-And inform Typescript that `window` may have a `.keplr` field along [this helper](https://github.com/chainapsis/keplr-wallet/tree/master/docs/api#keplr-specific-features), by adding to `FaucetSender.tsx`:
+And inform Typescript that `window` may have a `.keplr` field along with [this helper](https://github.com/chainapsis/keplr-wallet/tree/master/docs/api#keplr-specific-features), by adding it to `FaucetSender.tsx`:
 
 ```typescript
 import { Window as KeplrWindow } from "@keplr-wallet/types";
@@ -184,7 +184,7 @@ declare global {
 }
 ```
 
-Detecting Keplr can be done at any time, but because you want to keep the number of functions low for this exercise, you do it in `onSendClicked`. If you checked in `init`, you could risk annoying your users who check your page incognito.
+Detecting Keplr can be done at any time, but because you want to keep the number of functions low for this exercise, you do it in `onSendClicked`. If you checked in `init`, you would risk annoying users who want to check your page incognito.
 
 ```typescript
 onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
@@ -200,7 +200,7 @@ Hopefully, now when you click on the button, it does not show any alert. It does
 
 ## Prepare Keplr
 
-Keplr is now detected. Keplr by default lets its user connect only to the blockchains it knows about. Unfortunately, at the time of writing, Vega is not one of them. Fortunately, there is a not-so-experimental feature where you can instruct it to handle any Cosmos blockchain, provided you give the parameters for it. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Vega these parameters have already been created. Add a new function for them, see the expandable box:
+Keplr is now detected. Keplr, by default, lets its user connect only to the blockchains it knows about. Unfortunately, at the time of writing, Vega is not one of them. Fortunately, there is a not-so-experimental feature where you can instruct it to handle any Cosmos blockchain, provided you give the parameters for it. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Vega, these parameters have already been created. Add a new function for them as shown in the expandable box:
 
 <ExpansionPanel title="getVegaChainInfo">
 
@@ -255,7 +255,7 @@ getVegaChainInfo = (): ChainInfo => ({
 
 </ExpansionPanel>
 
-Notice how it mentions the `chainId: "vega-testnet"`. In effect this adds Vega to its registry of blockchains, under the label `vega-testnet`. So whenever you need to tell Keplr about Vega, you would add the line:
+Notice how it mentions the `chainId: "vega-testnet"`. In effect, this adds Vega to its registry of blockchains, under the label `vega-testnet`. So whenever you need to tell Keplr about Vega, you would add the line:
 
 ```typescript
 await window.keplr!.experimentalSuggestChain(this.getVegaChainInfo())
@@ -263,7 +263,7 @@ await window.keplr!.experimentalSuggestChain(this.getVegaChainInfo())
 
 This needs to be done only once per reload.
 
-Keplr is detected and prepared. Have it do something interesting.
+Keplr is detected and prepared. Now have it do something interesting.
 
 ## Your address and balance
 
@@ -316,7 +316,7 @@ onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
 }
 ```
 
-Notice how Keplr is tasked with signing only. Here the transactions are broadcast with the RPC end point of your choice.
+Notice how Keplr is tasked with signing only. The transactions are broadcast with the RPC end point of your choice.
 
 Of course, the functions could be better delineated, but this big function does the job in a readable manner.
 
