@@ -21,7 +21,7 @@ public async sendTokens(
 ): Promise<DeliverTxResponse>;
 ```
 
-`Coin[]` is convenient in that Alice can send to the faucet not just `stake`, but also any number of other coins as long as she owns them. So she can:
+`Coin[]` is convenient in that Alice can send not just `stake`, but also any number of other coins as long as she owns them. So she can:
 
 <CodeGroup>
 <CodeGroupItem title="Send one token type" active>
@@ -64,9 +64,9 @@ const result = await signingClient.sendTokens(
 </CodeGroupItem>
 </CodeGroup>
 
-However, there is **one limitation** here. Alice can only target a single recipient per transaction. If she wants to send tokens to multiple recipients, then she needs to create as many transactions as there are recipients.
+However, there are **limitations** here. Alice can only target a single recipient per transaction. If she wants to send tokens to multiple recipients, then she needs to create as many transactions as there are recipients.
 
-Doing so costs gas because each transaction costs a bit extra in overhead. The **second limitation** is that doing separate transfers is not atomic. I.e. it could be that Alice wants to send tokens to two recipients but they have to both receive them or none of them receive anything.
+Multiple transactions cost a little bit more than packing transfers into the array because of tranaction overhead. The **second limitation** is that separate transfers are not atomic. It's possible that Alice wants to send tokens to two recipients and it's important that that either they both receive them or none of them receive anything.
 
 Fortunately, there is a way to atomically send tokens to multiple recipients.
 
@@ -83,7 +83,7 @@ public async signAndBroadcast(
 ): Promise<DeliverTxResponse>;
 ```
 
-[Cosmos transactions](../2-main-concepts/transactions.md) are indeed composed of multiple [messages](../2-main-concepts/messages.md). This function does not invent anything, it merely surfaces this detail.
+[Cosmos transactions](../2-main-concepts/transactions.md) are indeed composed of multiple [messages](../2-main-concepts/messages.md). This function does not invent anything new. It merely surfaces this detail.
 
 ## Token transfer messages
 
