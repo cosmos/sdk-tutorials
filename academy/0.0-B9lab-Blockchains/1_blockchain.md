@@ -64,7 +64,7 @@ In the current financial system, double-spending is avoided by involving legacy 
 
 Consequently, it is generally not possible for two parties to exchange value online without involving a trusted third party to handle the settlement process and update their ledgers, as well as account balances.
 
-At a high level, Bitcoin solves the double-spending problem by replacing the trusted, central ledger-keepers with a decentralized and distributed network of ledger-keepers. Each member of the network has an exact replica of the ledger. In addition, no one can update the ledger without establishing consensus with the other ledger-keepers.
+At a high level, Bitcoin solves the double-spending problem by replacing the trusted, central ledger-keepers with a decentralized and distributed ledger that is maintained by a large network of ledger-keepers. Each member of the network has an exact replica of the ledger. In addition, no one can update the ledger without establishing consensus with the other ledger-keepers.
 
 ![Double-spending problem due to insufficient funds](images/00_04_double_spending-01.png)
 
@@ -174,7 +174,7 @@ Thus, transactions being included in blocks and those becoming part of the chain
 
 In computer science, an event is said to be "atomic" if it cannot be split into smaller parts. For example, the statement ```x = y``` is atomic if the language guarantees that ```y``` cannot be partially copied to ```x```.
 
-In the world of databases, atomicity is often specified by the developer by grouping multiple operations in a wrapper such as a COMMIT and ROLLBACK block to ensure that all of the steps are complete or none of the steps execute at all. This method is often used to ensure database integrity.
+In the world of databases, atomicity is often specified by the developer by grouping multiple operations in a wrapper such as a _commit_ and _rollback_ block to ensure that all of the steps are complete or none of the steps execute at all. This method is often used to ensure database integrity.
 
 In the context of a blockchain, a transaction is a single instruction allowed by the protocol, signed as required by the protocol, and sent to the blockchain through a local node connected to the network. Transactions are either completely successful or fail. Generally, the actual result cannot be known with certainty until the transaction is included in a block to establish an execution order. For example, a transaction to send funds from Alice to Bob depends on Alice's balance at execution time.
 

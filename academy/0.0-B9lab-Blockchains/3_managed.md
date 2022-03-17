@@ -94,6 +94,10 @@ The Cosmos SDK enables the creation of application-specific blockchains. That is
 
 Managed networks, just like public networks, rely on blockchain data structures. Unlike public blockchain networks, they do not necessarily need to mitigate the Byzantine Generals' Problem because they operate in a predictable environment with elements of authority, hierarchy, and accountability.
 
+Managed networks can be used in cases where elements of trust already exist between the participants. For example, consider a network of financial institutions. They could use blockchain technology to settle inter-bank transactions. In that case, there would be no need for public access and, indeed, public access would be undesirable. Instead, they might consider a private network with each institution operating exactly one validator. All participants would understand that no operator in a single institution would be able to corrupt the network. In fact, it would be much easier for them, as a group, to alter a history if they found it detrimental since it would only require the coordinated action of a small number of known validators. 
+
+Managed networks are typically governed through traditional governance processes that are appropriate for the shared goals of the participants. 
+
 <HighlightBox type="info">
 
 Dive into the specifics of the Byzantine Generals' Problem in the next section on [consensus in blockchain](./4_consensus).
@@ -113,7 +117,7 @@ Unlike public networks where the interaction between participants is governed by
 In summary, **private blockchains**:
 
 * **Can be designed for a limited number of vetted and approved participants:** performance challenges and poorly connected nodes are of lesser importance;
-* **Can be designed for optimized performance:** most participants in an enterprise network are well-capable of running well-connected high-performance and high-availability nodes. A group of participants can agree to raise the bar defining minimum system requirements significantly. For example, participation might be limited to sizable enterprise-class servers with redundant low-latency, high-bandwidth network connections;
+* **Can be designed for optimized performance:** most participants in an enterprise network are well-capable of running well-connected high-performance and high-availability nodes. A group of participants can agree to raise the bar defining minimum system requirements significantly;
 * **Can be governed by a well-defined agreement between the participants:** such an agreement may codify the decision-making processes that will be used to decide matters such as protocol upgrades, admission requirements, and remedial action. In a private or consortium setting, "who decides?" can (likely must) be determined well in advance of an incident.
 
 In summary, managed networks enable high-performance blockchain networks that can use consensus processes that are not fitted for an environment with anonymous users. A group of trading partners can create a small network for their purposes and agree on equitable participation in the block-generation process (e.g. each participant runs one validator), minimum performance metrics for acceptable validators, and governance, all of which enable fast confirmation and even deterministic transaction finality within their small group. The principal trade-off for this performance improvement is the shunning of permissionless, public access. 
