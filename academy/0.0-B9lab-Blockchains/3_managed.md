@@ -1,19 +1,103 @@
 ---
-title: "Managed Blockchains"
+title: "Public and Managed Blockchains"
 order: 4
 description: Introduction to Managed Networks
 tag: fast-track
 ---
 
-<!-- Why make this an independent section? Why not combine it all into one section with private networks -->
+# Public and Managed Blockchains
 
-# Introduction to Managed Networks
+The most obvious way of operating blockchain protocols comes in form of a public network. This is what blockchain technology was originally invented for and remains arguably its most powerful use.
+
+![P2P network](images/00_02_p2p_network_dark.png)
+
+A public blockchain network has a few specific attributes:
+
+* **Accessibility:** All you need to connect to Bitcoin or Ethereum is the client software and an internet connection. No AML, KYC, identity checks, or subscription payment is required.
+* **No hierarchy:** All nodes are equal, meaning no individual node has more authority over another. All validators are also equal.
+* **Crypto-economic incentives:** The lack of a central authority means there is no absolute defence against malicious behaviour. Instead, the network usually incentivises benevolent behaviour and dis-incentivises behaviour that endangers the network functioning to de facto implement prohibitive expenses to attack the network and others, and thus ensure security and proper functioning.
+* **Full decentralization:** Many public networks are completely decentralized because they are non-hierarchical and fully accessible. The playing field for market participants is therefore relatively level, so traditional business models may not work as well.
+
+The two most popular examples of functioning public networks are Bitcoin and Ethereum.
+
+## Introduction to Bitcoin
+
+Since 2009 the most successful and popular decentralized public blockchain network has been Bitcoin. Nowadays, Bitcoin is the cryptocurrency with the highest market capitalization.
+
+<HighlightBox type="tip">
+
+For an estimate of the Bitcoin network size take a look at [Bitnodes](https://bitnodes.earn.com/). Also if you are more of a visual and statistics person, these [Bitcoin charts](https://www.blockchain.com/en/charts) are interesting.
+
+</HighlightBox>
+
+Bitcoin was first introduced with the publication of the original paper [*Bitcoin: A peer-to-peer electronic cash system*](https://bitcoin.org/bitcoin.pdf) by Satoshi Nakamoto in 2008. In this paper, Nakamoto describes Bitcoin as a **peer-to-peer (P2P)** version of electronic cash. **proof-of-work (PoW)** is suggested to be used to find the truth in a partially synchronous system without involving trusted parties. Using this method, the set of participants controlling the majority of the computing power determines the truth.
+
+Let us look at this in more detail.
+
+Nakamoto does not use the term blockchain in his paper, but describes the concept by explaining transactions in Bitcoin. The transaction process requires the signing of the transaction with the hash of the previous transaction and the public key of the receiver. This is called the chain of ownership. Transactions can contain several inputs and outputs.
+
+![Chain of block with previous hash](images/00_16_bitcoin_block_headers_literal.png)
+
+Each block includes the previous hash and a nonce, a random set of `1`s and `0`s. The protocol calls for a hash beginning with a specific number of binary `0`s when hashing the block. Bitcoin uses a timestamp server to prevent double-spending. The block creator, called a **miner**, is looking for a nonce, which results in a block hash beginning with the right number of binary `0`s. It is difficult to find a nonce that fulfils this condition and it is easy to verify that it does. It becomes exponentially more difficult to alter history as more blocks are appended.
+
+In order to promote an alternative version of history, an attacker must find a nonce for the block to change and for every subsequent block thereafter because the network recognizes that the longest valid chain contains the proof of the most work. The longest chain is deemed the truth. In summary, to rewrite history and attacker must alter a block and every block thereafter in order to generate the longest chain. This pits the attacker against the combined brute force, i.e. computing power, of the rest of the network.
+
+There is a residual possibility that a slower attacker can catch up, since discovering a nonce works by evaluating random numbers with brute force. This probability decreases exponentially with the number of blocks, a.k.a. confirmations.
+
+The process of creating a valid block is called **mining** in PoW networks. The protocol includes a reward for mining, which is the first special transaction in the block. It can be expected that the majority of nodes use their CPU power honestly because it is the most financially feasible course of action. Signed transactions are announced publicly, so the public keys of the parties are not private.
+
+![Mining](images/00_17_mining-01.png)
+
+## Introduction to Ethereum
+
+Ethereum is a public, blockchain-based, distributed computing platform and operating system with smart contract features. Ethereum emerged from a range of proposals rejected by the Bitcoin community.
+
+The most important difference, compared to Bitcoin, is the implementation of distributed code execution through the **Ethereum Virtual Machine (EVM)**. The Ethereum network is a virtual state machine. The EVM enables the deployment of so-called **smart contracts** as part of the data of a transaction. The implementation of such a state machine with blockchain is revolutionary in itself.
+
+The code execution platform is [Turing-complete](https://en.wikipedia.org/wiki/Turing_completeness). As part of Turing-completeness, frameworks must overcome the [halting problem](https://www.scientificamerican.com/article/why-is-turings-halting-pr/), which is especially difficult in distributed, hierarchy-free computing platforms. In simple terms, the halting problem describes a scenario in which a program loops forever.
+
+Ethereum's solution is to introduce **Gas** as a fee for each computational step. Every block has a maximum Gas limit that limits the number of computational steps that can be executed per block. The user is free to specify any **Gas price**. Ethereum requires this value to convert **Ether to Gas**, which is only existent during the execution of a transaction.
+
+<HighlightBox type="info">
+
+**Ether** is the **native cryptocurrency** of the Ethereum platform, as Bitcoin is the native cryptocurrency of the Bitcoin blockchain.
+
+</HighlightBox>
+
+The protocol defines the **Gas cost** for each operation in the EVM. The halting problem is resolved by attaching financial costs to every step in a program and by limiting the funds available. Transactions that don't compute successfully and on budget are rejected.
+
+In Ethereum, **smart contracts** are stored on every single node; smart contracts are public. A smart contract in the EVM is practically an autonomous agent with an internal account. The most popular language for writing such a contract is **Solidity**.
+
+<ExpansionPanel title="Faster block time">
+
+Ethereum has a much faster block time than Bitcoin - currently it is around 15s. This is made possible thanks to Ethereum's implementation of the [GHOST protocol](http://www.cs.huji.ac.il/~yoni_sompo/pubs/15/inclusive_full.pdf). Ethereum implements a variation of Bitcoin's PoW consensus algorithm called Ethash, which is intended to be [ASIC-resistant and GPU friendly](https://github.com/ethereum/wiki/wiki/Ethash-Design-Rationale). Core developers of the Ethereum project are planning to switch to the proof-of-stake (PoS) consensus algorithm in the future.
+
+A well-understood challenge related to reduced block time stems from network latency. Since nodes do not know about discovered blocks at the same time, at any given time a portion of the miners will be working on already solved, i.e. old, blocks. If these miners find a solution, they might not be rewarded and a fork of the chain results. The rate at which such transient "forks" occur increases predictably with shorter block times. While Bitcoin addresses this efficiency issue with a relatively long block time (ten minutes), Ethereum addresses this concern with a partial reward strategy. Valid blocks that aren't ultimately included in the canonical chain (because another chain is longer) are still included on the side and known as "uncles". Miners of uncles receive a smaller reward than regular block miners. 
+
+![Uncles in Ethereum](images/00_18_block_uncles-01.png)
+
+The precise mechanism employed by Ethereum is called GHOST. GHOST includes so-called uncles that are propagated into the network too late to rise to the level of network consensus (see Figure 2). This increases the total difficulty of the chain, makes smaller block times possible and rewards miners of uncles for contributing to the overall strength of the network. 
+
+Ethereum's solution to faster block times draws attention to the universal challenge of blockchain technology, namely performance and throughput. Cosmos solves for performance in two ways - with a faster consensus process and by introducing parallelism. 
+
+</ExpansionPanel>
+
+Ethereum's virtual machine running arbitrary programs hints at the potential of blockchain technology to disintermediate and decentralize processes that include network participants that would benefit from a shared set of facts and reliable interactions. The field of possibilities is expansive. It includes virtually all cases where trading partners have a need to reconcile their respective records, trade assets and consideration in an atomic way or execute remedial actions (such as penalties) if a counter-party fails to deliver as agreed. 
+
+As promising as this sounds, the technology is not without limitations. Chief among these limitations is capacity, not only in terms of transactions per second but also in terms of the complexity of transactions that can be handled by the network. Ethereum's virtual machine paradigm places limits on transaction complexity to ensure that a single contract or a single transaction doesn't overload (peg) the shared, distributed computer. This constraint is inherent to the design choice of using a virtual machine model. 
+
+Cosmos SDK enables the creation of purpose-built blockchains. That is to say that Cosmos blockchains have no need for smart contracts because application-level concerns are defined at the protocol level. This offers developers the possibility of enabling transactions with complexity far above what is possible on general-purpose blockchains. Because Cosmos networks can interact with other public networks like Ethereum, through the Inter-blockchain Protocol, Cosmos blockchains can even be used to offload processes that are either too complex or too expensive to run on other networks. 
+
+<YoutubePlayer videoId="Za5lPKNV_Mk"/>
+
+
+
 
 Managed networks, just like public networks, rely on blockchain data structures. But unlike public blockchain networks they do not *necessarily* need to mitigate the Byzantine General's Problem because they operate in a predictable environment with elements of authority, hierarchy and accountability.
 
 ![Public and Managed Network Comparison](images/00_08_public_vs_private_comparison-01.png)
 
-# Managed Blockchain Networks
+## Managed Blockchain Networks
 
 Public networks are based on game theory and economic incentives, which means that every action is probabilistic. We have no guarantee that our transactions will be picked up and even the integrity of the network is merely very likely, not 100% guaranteed.
 
@@ -35,7 +119,9 @@ Cosmos is applicable to both public and private settings and, importantly, suppo
 
 <HighlightBox type="reading">
     
-* Vitalik Buterin on private chains [https://blog.ethereum.org/2016/05/09/on-settlement-finality/](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
-* Permissioned blockchains in production [https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
+* [Buterin, Vitalik (2014): A Next-Generation Smart Contract and Decentralized Application Platform - The Ethereum White Paper](https://github.com/ethereum/wiki/wiki/White-Paper)
+* [Nakamoto, S. (2008): Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
+* [Vitalik Buterin on private chains](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
+* [Permissioned blockchains in production](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
 
 </HighlightBox>

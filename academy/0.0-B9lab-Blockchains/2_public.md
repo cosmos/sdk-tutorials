@@ -77,8 +77,6 @@ Today we can see two broad trends in the development and adoption of blockchain 
 
 Let us start by diving into public blockchains and their most known examples, Bitcoin and Ethereum, and later taking a closer look at private/managed blockchains in the next section.
 
-
-
 <HighlightBox type="reading">
 
 ## Books
