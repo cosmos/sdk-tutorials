@@ -29,7 +29,7 @@ The double-spending problem refers to the challenge of designing a digital cash 
 
 Satoshi Nakamoto, whose identity remains shrouded in mystery, published his seminal whitepaper in October 2008. The paper presented **a solution to the double-spending problem for digital currencies**. In doing so, he revealed the underlying technology known as blockchain and an example of blockchain's possible application in the form of a simple implementation called **Bitcoin**.
 
-<HighlightBox type="reading">
+<HighlightBox type="tip">
 
 Want to take a closer look at the first blockchain implementation whitepaper? [Satoshi Nakamoto: Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf) - it is a fairly straightforward paper.
 
@@ -44,7 +44,7 @@ Security is challenging in peer-to-peer (P2P) networking for two reasons:
 * P2P software has to be downloaded to join a network, making it especially vulnerable to remote exploits;
 * Malicious participants can send incorrect requests or responses, as well as malware, and corrupted data because of interconnectivity, that may propagate throughout the network.
 
-Other security risks include denial of service (DDoS) attacks, routing attacks, and routing network partitions.
+Other security risks include denial-of-service (DoS) attacks, routing attacks, and routing network partitions.
 
 A "secure" P2P network needs to repel malicious and erroneous input.
 
@@ -139,7 +139,7 @@ So, how is the correct **order of transactions** determined?
 
 Although there is no obvious way to settle it, **transaction order must be resolved** because processing transactions out of order would produce non-trivial differences in outcomes. Such a non-trivial difference would be for example an instance of double-spending. Without agreement about the transaction order, there can be no agreement about the balance of accounts.
 
-Bitcoin uses a process, i.e. **consensus algorithm**, called **proof-of-work (PoW)**, which can be (simplistically) thought of as a lottery. In this process, the lucky winner gets the privilege of being the authority for one block of transactions. The winning lottery ticket called the **nonce** is used as an input for a hash function, the result of which needs to have the properties of a **winning** lottery ticket. This is arbitrarily difficult to achieve - more on this later. "Winning" can be easily verified by other participants. The verified lottery winner's opinion about the order of transactions within the block becomes the network's de facto official result, provided that all proposed transactions are valid and include the necessary signatures from the transaction originators.
+Bitcoin uses a process, i.e. **consensus algorithm**, called **Proof-of-Work (PoW)**, which can be (simplistically) thought of as a lottery. In this process, the lucky winner gets the privilege of being the authority for one block of transactions. The winning lottery ticket called the **nonce** is used as an input for a hash function, the result of which needs to have the properties of a **winning** lottery ticket. This is arbitrarily difficult to achieve - more on this later. "Winning" can be easily verified by other participants. The verified lottery winner's opinion about the order of transactions within the block becomes the network's de facto official result, provided that all proposed transactions are valid and include the necessary signatures from the transaction originators.
 
 In case the foregoing is not clear:
 
