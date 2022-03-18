@@ -174,7 +174,7 @@ Following [Keplr's documentation](https://docs.keplr.app/api/#how-to-detect-kepl
 $ npm install @keplr-wallet/types --save-dev
 ```
 
-And inform Typescript that `window` may have a `.keplr` field along with [this helper](https://github.com/chainapsis/keplr-wallet/tree/master/docs/api#keplr-specific-features), by adding it to `FaucetSender.tsx`:
+And inform Typescript that `window` may have a `.keplr` field with the help of [this helper](https://github.com/chainapsis/keplr-wallet/tree/master/docs/api#keplr-specific-features), by adding it to `FaucetSender.tsx`:
 
 ```typescript
 import { Window as KeplrWindow } from "@keplr-wallet/types";
