@@ -9,13 +9,13 @@ tag: fast-track
 
 A known challenge in distributed computing, which is provably unsolvable but can nonetheless be mitigated, is how to reach **consensus** in a hierarchy-free, permissionless and failure-prone network. In a distributed network without authorities, we need a process to reach consensus about what is to be considered the **truth**. This is referred to as distributed consensus.
 
-This problem is commonly known as the **Byzantine Generals' Problem** and mitigation strategies for it are subsumed under the term **Byzantine Fault Tolerance** (BFT).
+This problem is commonly known as the **Byzantine Generals Problem** and mitigation strategies for it are subsumed under the term **Byzantine Fault Tolerance** (BFT).
 
 An overview of the well-known blockchain solutions provides perspective and insight into the options Cosmos offers, because Cosmos allows a network designer to choose the consensus algorithm that is best suited to the developer's purpose. 
 
 In the traditional description of the problem, generals, whose armies are spread around a target city, need to reach consensus on a time to attack. To achieve this, they can only rely on **unsecured communication channels**, whereby, for instance, a lack of acknowledgement can either be caused by a failure to deliver a message, by a dead general or by a failure to deliver the acknowledgment. While there are variations of the problem description in order to adopt to varying real-world fault-tolerance situations, most descriptions include a element of catastrophe if the generals fail to coordinate their actions. 
 
-![Byzantine General's Problem](images/00_06_byzantine_generals_dark_notitle-01.png)
+![Byzantine Generals Problem](images/00_06_byzantine_generals_dark_notitle-01.png)
 
 Similar to the generals who must decide when to attack, in a distributed ledger the agreed transaction list has to be identified and consensus on the correct order of transactions has to be reached.
 

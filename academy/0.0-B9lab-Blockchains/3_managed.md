@@ -92,7 +92,7 @@ The Cosmos SDK enables the creation of application-specific blockchains. That is
 
 ## Managed Blockchain Networks
 
-Managed networks, just like public networks, rely on blockchain data structures. Unlike public blockchain networks, they do not necessarily need to mitigate the Byzantine Generals' Problem because they operate in a predictable environment with elements of authority, hierarchy, and accountability.
+Managed networks, just like public networks, rely on blockchain data structures. Unlike public blockchain networks, they do not necessarily need to mitigate the Byzantine Generals Problem because they operate in a predictable environment with elements of authority, hierarchy, and accountability.
 
 Managed networks can be used in cases where elements of trust already exist between the participants. For example, consider a network of financial institutions. They could use blockchain technology to settle inter-bank transactions. In that case, there would be no need for public access and, indeed, public access would be undesirable. Instead, they might consider a private network with each institution operating exactly one validator. All participants would understand that no operator in a single institution would be able to corrupt the network. In fact, it would be much easier for them, as a group, to alter a history if they found it detrimental since it would only require the coordinated action of a small number of known validators. 
 
@@ -100,7 +100,7 @@ Managed networks are typically governed through traditional governance processes
 
 <HighlightBox type="info">
 
-Dive into the specifics of the Byzantine Generals' Problem in the next section on [consensus in blockchain](./4_consensus).
+Dive into the specifics of the Byzantine Generals Problem in the next section on [consensus in blockchain](./4_consensus).
 
 </HighlightBox>
 
