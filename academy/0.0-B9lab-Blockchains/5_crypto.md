@@ -117,7 +117,7 @@ It is possible to mix both conceptual ideas. For example:
 
 ### What is this sorcery?
 
-If these examples seem counter-intuitive it means you sense the mathematical wizardry of public-key encryption. You do not have to understand the mathematics behind it at a deep level, but but you must understand the properties and implications of using public-key cryptography.
+If these examples seem counter-intuitive it means you sense the mathematical wizardry of public-key encryption. You do not have to understand the mathematics behind it at a deep level, but you must understand the properties and implications of using public-key cryptography.
 
 Given four keys (A, B, C, and D), we can encrypt a message with three keys (A, B, and C) such that the fourth key (in this case, D) is required to decrypt it and is very hard to guess or discover. So, if Alice knows her private key and her public key and she also knows Bob's public key, she can encrypt a message that can only be understood by someone who knows Bob's private key.
 
@@ -177,15 +177,9 @@ Notice how the two hashes have nothing in common other than the length, but the 
 
 </HighlightBox>
 
-It is possible to index content by its hash, in essence creating a hashtable. If you have used IPFS or BitTorrent's magnet links, then you have used a hashtable.
-
-### Hash functions and signatures
-
-The concept of digital signatures is simple. If a given message is first hashed and then encrypted by a private key, one can verify the signature by decrypting using the corresponding public key. We need to hash the message to avoid the creation of signatures by mixing the messages and corresponding signatures. This way, we know, that the sender has the private key to the given public key. 
-
 <HighlightBox type="reading">
 
-* [The Mathematics of the RSA Public-Key Cryptosystem](http://www.mathaware.org/mam/06/Kaliski.pdf)
+* [The Mathematics of the RSA Public-Key Cryptosystem](https://www.nku.edu/~christensen/the%20mathematics%20of%20the%20RSA%20cryptosystem.pdf)
 * [OSCDaily (2012): Encrypt & Decrypt Files from the Command Line with OpenSSL](http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/)
 * [Zimuel, Enrico (2016): Sign and verify a file using an OpenSSL comand line tool](https://gist.github.com/ezimuel/3cb601853db6ebc4ee49)
 

@@ -104,7 +104,7 @@ You can access the 1999 paper by Miguel Castro and Barabara Liskov on pBFT [here
 
 </HighlightBox>
 
-pBFT is a three-phase protocol, in which the client sends a request to a so-called primary. In the first phase, the primary broadcasts the request with a sequence number to the replicas. Then the replicas agree on the sequence number and create a message.
+In pBFT, a replica is a network node that maintains a full copy of the ledger state. pBFT is a three-phase protocol, in which the client sends a request to a so-called primary. In the first phase, the primary broadcasts the request with a sequence number to the replicas. Then the replicas agree on the sequence number and create a message.
 
 When a threshold of agreement is reached by the replicas, which is akin to sufficient co-signers, the message is verified. The replicas agree on the overall order of transactions within a view. The broader network is informed about transaction blocks when they are finalized. That is to say, signed by sufficient replicas.
 
