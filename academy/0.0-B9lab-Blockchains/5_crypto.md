@@ -5,25 +5,20 @@ description: Cryptographic Foundations
 tag: fast-track
 ---
 
-<!-- Only inlcude a headline level if there is at least one sentence between headlines. See below. -->
-# Fundamentals
+# Cryptographic fundamentals of blockchain: Public-key cryptography
 
-## Public key cryptosystems
+Modern cryptography leverages computer capabilities to make the power of certain mathematical functions available for practical use. Without modern cryptography, there would be no blockchain technology.
 
-Modern cryptographic systems leverage computer capabilities to make the power of certain mathematical functions available for practical use. 
+Therefore, anyone new to blockchains discovers frequent references to message signatures and other concepts related to cryptography. While this is not an extensive exploration of the topic and you will not deep dive into the mathematics, this section will demystify important concepts if they are new to you.
 
-Anyone new to blockchains will discover frequent references to message signatures and other concepts related to crytography. While this is not an extensive exploration of the topic and we will not be diving deeply into the mathematics, this section will demystify important concepts if they are new to you. 
+## Public and private keys
 
-### Public / private key
+In public-key cryptographic systems, keys always **come in pairs** and offer various capabilities. The capabilities are based on cryptographic mathematics. As the name suggests, the **public key** is meant to be distributed while the **private key** is to be jealously guarded. Compare the key pairs to having your house address public but keeping the key to your house private.
 
-Such keys always come in pairs and offer various capabilities. Those capabilities are based on cryptographic mathematics. As their name suggest, the public key is meant to be distributed to whoever is relevant, while the private key is to be jealously guarded, akin to having your house address public, but keeping the key to your house private.
-
-Let's have a look at examples, which you may know under the names:
+Let us have a look at an example to better understand public/private keys, which you may know under the names:
 
 * RSA
-* PGP, GnuPG
-
-Example (Linux):
+* PGP or GnuPG
 
 ```
 // Create SECP256K1 private key with explicit parameters for backward compatibility
@@ -47,22 +42,28 @@ Enter pass phrase for rsa-key.pem:
 writing RSA key
 ```
 
-This is like a password that is used to encrypt your private key on disk. If the private key was not encrypted, it would be at greater risk of theft. Since you are just testing here, you can put nothing or a simple word. But remember that whenever you create keys in the future, you need to protect them with a proper password.
+This is like a password that is used to encrypt your private key on disk. If the private key was not encrypted, it would be at greater risk of theft. Since you are just testing here, you can put in nothing or just a simple word. Still remember that whenever you create keys in the future, you need to protect them with a proper password.
 
-Note that you may need openssl version 1.0 or newer.
+<HighlightBox type="tip">
 
-#### Encrypt and decrypt
+Note that you may need openssl version 1.0 or a newer one.
 
-Alice wants to send a message to Bob, and for Bob's eyes only:
+</HighlightBox>
 
-* Bob gives Alice his public key
-* Alice uses Bob's public key to encrypt the message
-* Alice sends Bob the encrypted message
-* Bob decrypts the message with his private key
+Let us now take a look at scenarios in which public/private key pairs come in handy.
 
-![](images/00_11_rsa_keys_v1.png)
+### Encrypt and decrypt
 
-Example:
+Alice wants to send a message to Bob that is meant for Bob's eyes only:
+
+1. Bob gives Alice his public key.
+2. Alice uses Bob's public key to encrypt the message.
+3. Alice sends Bob the encrypted message.
+4. Bob decrypts the message with his private key.
+
+![Encrypt and decrypt a message](images/00_11_rsa_keys_v1.png)
+
+Now look at the senario code-wise. For example, try the following:
 
 ```bash
 // Encrypt file
@@ -71,20 +72,24 @@ $ openssl pkeyutl -encrypt -pubin -inkey rsa-key-pub.pem -in helloworld.txt -out
 $ openssl pkeyutl -decrypt -inkey rsa-key.pem -in helloworld.enc -out helloworld2.txt
 ```
 
+<HighlightBox type="tip">
+
 If you receive an error, try with `openssl rsautl` instead.
 
-#### Sign and verify
+</HighlightBox>
+
+### Sign and verify
 
 Alice wants to make sure that Bob's public announcement is indeed from Bob:
 
-* Bob gives Alice his public key
-* Bob signs his announcement with his private key
-* Bob sends Alice his announcement and its signature
-* Alice verifies the signature with Bob's public key
+1. Bob gives Alice his public key.
+2. Bob signs his announcement with his private key.
+3. Bob sends Alice his announcement and its signature.
+4. Alice verifies the signature with Bob's public key.
 
-![](images/00_12_digital_signature_keys_v2.png)
+![Digital signature with public/private keys](images/00_12_digital_signature_keys_v2.png)
 
-Example:
+Back to the code example:
 
 ```bash
 // Sign file hash
@@ -99,83 +104,89 @@ $ openssl dgst -sha256 -verify secp256k1-key-pub.pem -signature helloworld-bin-d
 Verified OK
 ```
 
-#### Mix and match
+### Mix and match
 
-It is possible to mix both ideas, whereby Alice encrypts her message with Bob's public key, then signs the encrypted file with her private key. Upon reception, Bob verifies the signature with Alice's public key, to be sure it came from Alice, then decrypts the file with his private key.
+It is possible to mix both conceptual ideas. For example:
 
-#### What is this sorcery?
+1. Alice encrypts her message with Bob's public key.
+2. Alice signs the encrypted file with her private key.
+3. Upon reception, Bob verifies the signature with Alice's public key to make sure the file came from Alice.
+4. Bob decrypts the file with his private key.
 
-If these examples seem counter-intuitive it means you sense the mathematical wizardry of public key encryption. It's not especially important that you understand the math at a deep level, but it is important that you understand the properties of it. 
+![Encryption, decryption, and signatures with public/private keys](images/00_13_mix_n_match_keys_v3.png)
 
-Given four keys: A,B,C and D, we can encrypt a message with A, B and C such that D is required to decrypt it and D is very hard to guess or discover. So, if Alice knows her private key and her public key and she also knows Bob's public key, she can encrypt a message that can only be understood by someone with knowledge of Bob's private key. 
+### What is this sorcery?
 
-Similarly, given knowledge of one's public and private keys, one can generate a signature (a character string) such that someone with a copy of the message and the signature can independely determine the public key of the entity that signed the message and know that the signer has knowledge of the corresponding private key. 
+If these examples seem counter-intuitive it means you sense the mathematical wizardry of public-key encryption. You do not have to understand the mathematics behind it at a deep level, but but you must understand the properties and implications of using public-key cryptography.
 
-We can proceed with the understanding that signed messages from Alice could only come from someone with knowledge of Alice's private key and messages that are encrypted for Bob can only be deciphered by Bob. 
+Given four keys (A, B, C, and D), we can encrypt a message with three keys (A, B, and C) such that the fourth key (in this case, D) is required to decrypt it and is very hard to guess or discover. So, if Alice knows her private key and her public key and she also knows Bob's public key, she can encrypt a message that can only be understood by someone who knows Bob's private key.
 
-![](images/00_13_mix_n_match_keys_v3.png)
+Similarly, given knowledge of the public and private keys, one can generate a signature (i.e. a character string) so that someone with a copy of the message and the signature can independently determine the public key of the entity that signed the message and know that the signer knows the corresponding private key.
 
-### Key management, PKI
+It is then possible to proceed with the understanding that signed messages from Alice could only come from someone with knowledge of Alice's private key and messages that are encrypted for Bob can only be deciphered by Bob.
 
-If you look again at the Alice and Bob examples, you will notice that there is a vulnerability in "Bob gives Alice his public key". A malicious Charlie could intercept Bob's public key and pass on his own public key to Alice.
+### Key management and public key infrastructure
+
+If you look again at the Alice and Bob examples, you will notice that there is a vulnerability in "Bob gives Alice his public key". A malicious Charlie could intercept Bob's public key and pass on his public key to Alice.
 
 Key management and public key infrastructure (PKI) is an important aspect of cryptography that helps mitigate this risk.
 
-#### Cryptographic hash functions
+## Cryptographic hash functions
 
-Such a hash function:
+Blockchain technology relies heavily on hash functions, as they help establish the so-called "chain of blocks".
 
-* converts an input, a.k.a. the message, into an output, a.k.a the hash
-* does the conversion in a reasonable amount of time
-* is such that it is practically impossible to re-generate the message out of the hash
-* is such that the tiniest change in the message, changes the hash beyond recognition
-* is such that it is practically impossible to find 2 different messages with the same hash
+All cryptographic hash functions fulfill several properties:
+
+* Converts an input, a.k.a. the message, into an output, a.k.a the hash.
+* Does the conversion in a reasonable amount of time.
+* It is practically impossible to re-generate the message out of the hash.
+* The tiniest change in the message, changes the hash beyond recognition.
+* It is practically impossible to find two different messages with the same hash.
 
 With such a function, you can:
 
-*  prove that you have a message without disclosing the content of the message, for instance:
-    * to prove you know your password
-    * to prove you previously wrote a message
-* rest assured the message was not altered
-* index your messages
+* Prove that you have a message without disclosing the content of the message, for instance:
+    * To prove you know your password.
+    * To prove you previously wrote a message.
+* Rest assured the message was not altered.
+* Index your messages.
 
-MD5 is such a function:
+### Closer look at a hash function
+
+MD5 is such a hash function:
 
 ```bash
 $ echo "The quick brown fox jumps over the lazy dog" | md5
 37c4b87edffc5d198ff5a185cee7ee09
 ```
 
-On Linux, it is `md5sum`. Now let's introduce a typo:
+On Linux, it is `md5sum`.
+
+Now introduce a typo to see what happens:
 
 ```bash
 $ echo "The quick brown fox jump over the lazy dog" | md5
 4ba496f4eec6ca17253cf8b7129e43be
 ```
 
-Notice how the 2 hashes have nothing in common, other than the length, but the length is identical for all MD5 hashes so it reveals nothing about the input. 
+Notice how the two hashes have nothing in common other than the length, but the length is identical for all MD5 hashes so it reveals nothing about the input.
+
+<HighlightBox type="info">
 
 `MD5` is no longer considered a hard-to-crack hash function. Bitcoin uses `SHA-256`. Ethereum uses `Keccak-256`and `Keccak-512`.
 
-It is possible to index content by its hash, in essence creating a hashtable. If you have used IPFS or BitTorrent's magnet links, among others, then you have used a hashtable.
+</HighlightBox>
 
-### Digital Certificates
+It is possible to index content by its hash, in essence creating a hashtable. If you have used IPFS or BitTorrent's magnet links, then you have used a hashtable.
 
-Digital certificates are used (among other things) to prove an identity. They are given by a recognised Certification Authority(CA).  A widespread procedure is the public key certificate. It proves the ownership of a public key. We will describe below the standard X.509.
+### Hash functions and signatures
 
-The standard X.509 is defined by the Telecommunication Standardization Sector(ITU-T) of the International Telecommunication Union(ITU).[[1]](https://en.wikipedia.org/wiki/X.509) It offers format and semantics for public key certificates. [X.509](https://www.ietf.org/rfc/rfc5280.txt) is profiled in the formal language ASN.1. Common use cases are validation of documents and securing of communication. For an example, X.509 is used in TLS/SSL. Its origin is in the X.500 standard from year 1988. Since version 3, X.509 enables flexible topologies, like bridges and meshes. Invalid certificates are listed in certificate revocation lists. (CRLs) CRL is vulnerable against DOS attacks.
-
-A X.509 certificate contains information such as version number, serial number, signature algorithm, validity period, subject name, public key algorithm, subject public key, certificate signature algorithm, certificate signature and extensions. An extension has a type, a corresponding value and a critical flag. Non-critical extensions are only informational.
-
-#### Signature
-
-The concept of digital signatures is simple. If a given message is first hashed and then encrypted by a private key, one can verify the signature by decryption with corresponding public key. We need to hash the message to avoid the creation of signatures by mixing the messages and corresponding signatures. (See RSA chapter) This way, we know, that the sender has the private key to the given public key. 
+The concept of digital signatures is simple. If a given message is first hashed and then encrypted by a private key, one can verify the signature by decrypting using the corresponding public key. We need to hash the message to avoid the creation of signatures by mixing the messages and corresponding signatures. This way, we know, that the sender has the private key to the given public key. 
 
 <HighlightBox type="reading">
 
-* Zero-knowledge proof [https://en.wikipedia.org/wiki/Zero-knowledge_proof](https://en.wikipedia.org/wiki/Zero-knowledge_proof)
-* The Mathematics of the RSA Public-Key Cryptosystem [http://www.mathaware.org/mam/06/Kaliski.pdf](http://www.mathaware.org/mam/06/Kaliski.pdf)
-* Encrypt and Decrypt [http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/](http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/)
-* Sign and verify [https://gist.github.com/ezimuel/3cb601853db6ebc4ee49](https://gist.github.com/ezimuel/3cb601853db6ebc4ee49)
+* [The Mathematics of the RSA Public-Key Cryptosystem](http://www.mathaware.org/mam/06/Kaliski.pdf)
+* [OSCDaily (2012): Encrypt & Decrypt Files from the Command Line with OpenSSL](http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/)
+* [Zimuel, Enrico (2016): Sign and verify a file using an OpenSSL comand line tool](https://gist.github.com/ezimuel/3cb601853db6ebc4ee49)
 
 </HighlightBox>
