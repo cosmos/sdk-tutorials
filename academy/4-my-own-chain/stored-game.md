@@ -52,7 +52,7 @@ You need to keep such a counter in storage between transactions. You can keep a 
 
 You can rely on Starport's assistance:
 
-* For the counter or rather the object that contains it, call `NextGame` and instruct Starport with `scaffold single`:
+* For the counter or rather the object that contains it, call it `NextGame` and instruct Starport with `scaffold single`:
 
     ```sh
     $ starport scaffold single nextGame idValue:uint --module checkers --no-message
@@ -72,7 +72,7 @@ The Starport `scaffold` command creates several files as you can see [here](http
 
 The command added new constants:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/keys.go#L28-L34]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/keys.go#L28-L34]
 const (
     NextGameKey = "NextGame-value-"
 )
@@ -88,7 +88,7 @@ These constants will be used as prefixes for the keys that can access objects' s
 
 Starport creates the Protobuf objects in the `proto` directory before compiling them. The `NextGame` object looks like this:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/next_game.proto#L8-L11]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/next_game.proto#L6-L9]
 message NextGame {
     string creator = 1;
     uint64 idValue = 2;
@@ -97,7 +97,7 @@ message NextGame {
 
 And the `StoredGame` object looks like this:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/stored_game.proto#L8-L15]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/stored_game.proto#L6-L13]
 message StoredGame {
     string creator = 1;
     string index = 2;
@@ -110,7 +110,7 @@ message StoredGame {
 
 Both objects compile to:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/next_game.pb.go#L26-L29]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/next_game.pb.go#L25-L28]
 type NextGame struct {
     Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
     IdValue uint64 `protobuf:"varint,2,opt,name=idValue,proto3" json:"idValue,omitempty"`
@@ -118,7 +118,7 @@ type NextGame struct {
 ```
 And:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/stored_game.pb.go#L26-L33]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/stored_game.pb.go#L25-L32]
 type StoredGame struct {
     Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
     Index   string `protobuf:"bytes,2,opt,name=index,proto3" json:"index,omitempty"`
@@ -131,7 +131,7 @@ type StoredGame struct {
 
 These are not the only created Protobuf objects. The genesis state is also defined in Protobuf:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/genesis.proto#L11-L16]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/genesis.proto#L11-L16]
 import "checkers/stored_game.proto";
 import "checkers/next_game.proto";
 
@@ -143,7 +143,7 @@ message GenesisState {
 
 Which is compiled to:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/genesis.pb.go#L26-L30]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/genesis.pb.go#L26-L30]
 type GenesisState struct {
     StoredGameList []*StoredGame `protobuf:"bytes,2,rep,name=storedGameList,proto3" json:"storedGameList,omitempty"`
     NextGame       *NextGame     `protobuf:"bytes,1,opt,name=nextGame,proto3" json:"nextGame,omitempty"`
@@ -152,7 +152,7 @@ type GenesisState struct {
 
 You can find query objects as part of the boilerplate objects created by Starport. `NextGame` might look out of place, but Starport creates the objects according to a model. This does not prevent you from making changes later if you decide these queries are not needed:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L51-L55]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/query.proto#L51-L55]
 message QueryGetNextGameRequest {}
 
 message QueryGetNextGameResponse {
@@ -162,7 +162,7 @@ message QueryGetNextGameResponse {
 
 The query objects for `StoredGame` have more use to your checkers game and look like this:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L35-L50]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/query.proto#L35-L50]
 message QueryGetStoredGameRequest {
     string index = 1;
 }
@@ -185,14 +185,14 @@ message QueryAllStoredGameResponse {
 
 Starport puts the different Protobuf messages into different files depending on their use:
 
-* **`query.proto`.** For the objects related to reading the state. Starport modifies this file as you add queries. This includes the objects to [query your stored elements](https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L35-L55).
+* **`query.proto`.** For the objects related to reading the state. Starport modifies this file as you add queries. This includes the objects to [query your stored elements](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/query.proto#L35-L55).
 * **`tx.proto`.** For the objects that relate to updating the state. As you have only defined storage elements with `--no-message`, it is empty for now. The file will be modified as you add transaction-related elements like the message to [create a game](./create-message.md).
 * **`genesis.proto`.** For the genesis. Starport modifies this file according to how your new storage elements evolve.
 * **`next_game.proto` and `stored_game.proto`.** Separate files created once that remain untouched by Starport after their creation. You are free to modify them but be careful with the [numbering](https://developers.google.com/protocol-buffers/docs/overview#assigning_field_numbers).
 
 Files updated by Starport include comments like:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L14]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/query.proto#L14]
 // this line is used by starport scaffolding # 2
 ```
 
@@ -202,13 +202,13 @@ Starport adds code right below the comments, which explains the odd numbering wi
 
 </HighlightBox>
 
-Some files created by Starport can be updated, but you should not modify the Protobuf-compiled files [`*.pb.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/next_game.pb.go) and [`*.pb.gw.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/query.pb.gw.go) as they are recreated on every re-run of `starport generate proto-go` or equivalent.
+Some files created by Starport can be updated, but you should not modify the Protobuf-compiled files [`*.pb.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/next_game.pb.go) and [`*.pb.gw.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/query.pb.gw.go) as they are recreated on every re-run of `starport generate proto-go` or equivalent.
 
 ### Files to adjust
 
 Starport creates files that you can and should update. For example, when it comes to the default genesis values:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/genesis.go#L16-L17]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/genesis.go#L16-L17]
 func DefaultGenesis() *GenesisState {
     return &GenesisState{
         StoredGameList: []*StoredGame{},
@@ -225,7 +225,7 @@ Beyond the created objects Starport also creates services that declare and defin
 
 In your case, Starport added to `service Query` how to query for your objects:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L16-L30]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/query.proto#L16-L30]
 service Query {
     rpc StoredGame(QueryGetStoredGameRequest) returns (QueryGetStoredGameResponse) {
         option (google.api.http).get = "/alice/checkers/checkers/storedGame/{index}";
@@ -243,10 +243,10 @@ service Query {
 
 Starport separates concerns into different files in the compilation of a service. Some of which you should edit and some should be left untouched. The following was already taken care of by Starport for your checkers game:
 
-* The [query parameters](https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/query.pb.go#L33-L35), as well as [how to serialize](https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/query.pb.go#L501) and make them conform to the right Protobuf [`RequestQuery`](https://github.com/tendermint/tendermint/blob/1c34d17/abci/types/types.pb.go#L636-L641) interface.
+* The [query parameters](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/query.pb.go#L33-L35), as well as [how to serialize](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/query.pb.go#L501) and make them conform to the right Protobuf [`RequestQuery`](https://github.com/tendermint/tendermint/blob/1c34d17/abci/types/types.pb.go#L636-L641) interface.
 * The primary implementation of the gRPC service.
-* The implementation of all the storage [setters and getters](https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/keeper/grpc_query_stored_game.go) as extra functions in the keeper.
-* The implementation of the storage getters in the keeper [as they come from the gRPC server](https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/keeper/grpc_query_stored_game.go).
+* The implementation of all the storage [setters and getters](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/keeper/grpc_query_stored_game.go) as extra functions in the keeper.
+* The implementation of the storage getters in the keeper [as they come from the gRPC server](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/keeper/grpc_query_stored_game.go).
 
 ## Helper functions
 
@@ -254,18 +254,18 @@ Your stored game stores are only strings. But you know that they represent `sdk.
 
 1. Get the game `Creator`:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/types/full_game.go#L9-L12]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d7272dd/x/checkers/types/full_game.go#L9-L12]
     func (storedGame *StoredGame) GetCreatorAddress() (creator sdk.AccAddress, err error) {
         creator, errCreator := sdk.AccAddressFromBech32(storedGame.Creator)
         return creator, sdkerrors.Wrapf(errCreator, ErrInvalidCreator.Error(), storedGame.Creator)
     }
     ```
 
-    Plus the same for the [red](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/types/full_game.go#L14-L17) and [black](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/types/full_game.go#L19-L22) players.
+    Plus the same for the [red](https://github.com/cosmos/b9-checkers-academy-draft/blob/d7272dd/x/checkers/types/full_game.go#L14-L17) and [black](https://github.com/cosmos/b9-checkers-academy-draft/blob/d7272dd/x/checkers/types/full_game.go#L19-L22) players.
 
 2. Parse the game so that it can be played with. The `Turn` has to be set by hand:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/types/full_game.go#L24-L33]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d7272dd/x/checkers/types/full_game.go#L24-L33]
     func (storedGame *StoredGame) ParseGame() (game *rules.Game, err error) {
         game, errGame := rules.Parse(storedGame.Game)
         if err != nil {
@@ -280,7 +280,7 @@ Your stored game stores are only strings. But you know that they represent `sdk.
 
 3. This is a good place to introduce your own errors:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e2251f253288163021c75999709d8c25b402/x/checkers/types/errors.go#L11-L14]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d7272dd/x/checkers/types/errors.go#L11-L14]
     var (
         ErrInvalidCreator   = sdkerrors.Register(ModuleName, 1100, "creator address is invalid: %s")
         ErrInvalidRed       = sdkerrors.Register(ModuleName, 1101, "red address is invalid: %s")
@@ -289,6 +289,200 @@ Your stored game stores are only strings. But you know that they represent `sdk.
     )
     ```
 
+## Client elements
+
+With the blockchain elements in place, it would be good to start creating the client elements that will eventually allow you to create a GUI and/or server-side scripts. Here, you are going to apply [what you learned](TODO) about creating your own custom CosmJs interfaces.
+
+### Compile Protobuf
+
+Create a `client` folder that will contain all these new elements. As you start with Protobuf, in `client`, install modules for the Protobuf-to-Typescript compiler:
+
+```sh
+$ cd client
+$ npm install ts-proto protoc --save-dev
+```
+
+And create the folder structure to receive the compiled files:
+
+```sh
+$ mkdir -p src/types/generated
+```
+
+What Cosmos version are you using?
+
+```sh
+$ grep cosmos-sdk ../go.mod
+```
+
+May return:
+
+```
+github.com/cosmos/cosmos-sdk v0.42.6
+```
+
+So look into your `.proto` files and download the required files:
+
+```sh
+$ mkdir -p ../proto/cosmos/base/query/v1beta1
+$ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.42.6/proto/cosmos/base/query/v1beta1/pagination.proto -o ../proto/cosmos/base/query/v1beta1/pagination.proto
+$ mkdir -p ../proto/google/api
+$ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.42.6/third_party/proto/google/api/annotations.proto -o ../proto/google/api/annotations.proto
+$ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.42.6/third_party/proto/google/api/http.proto -o ../proto/google/api/http.proto
+```
+
+And compile:
+
+```sh
+$ ls ../proto/checkers | xargs -I {} ./node_modules/protoc/protoc/bin/protoc \
+    --plugin="./node_modules/.bin/protoc-gen-ts_proto" \
+    --ts_proto_out="./src/types/generated" \
+    --proto_path="../proto" \
+    --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=messages" \
+    checkers/{}
+```
+
+You should now have your Typescript files. Save these scripts into a `proto-ts-gen.sh` [script file](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/scripts/proto-ts-gen.sh), and add an `npm run` [target for it](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/client/package.json#L8). Next time, you can simply run within the `client` folder:
+
+```sh
+$ npm run proto-ts-gen
+```
+
+### Prepare integration
+
+At a later stage, you will add Checkers as an extension to Stargate. You can start now and define your Checkers extension right away.
+
+```typescript [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/client/src/types/modules/checkers/queries.ts#L8-L19]
+export interface AllStoredGameResponse {
+    storedGames: StoredGame[]
+    pagination?: PageResponse
+}
+
+export interface CheckersExtension {
+    readonly checkers: {
+        readonly getNextGame: () => Promise<NextGame>
+        readonly getStoredGame: (index: string) => Promise<StoredGame | undefined>
+        readonly getAllStoredGames: (key: Uint8Array, offset: Long, limit: Long, countTotal: boolean) => Promise<AllStoredGameResponse>
+    }
+}
+```
+
+Don't forget a _setup_ function as it is expected by Stargate:
+
+```typescript [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/client/src/types/modules/checkers/queries.ts#L21-L56]
+export function setupCheckersExtension(base: QueryClient): CheckersExtension {
+    const rpc = createProtobufRpcClient(base)
+    const queryService = new QueryClientImpl(rpc)
+
+    return {
+        checkers: {
+            getNextGame: async (): Promise<NextGame> => {
+                const { NextGame } = await queryService.NextGame({})
+                assert(NextGame)
+                return NextGame
+            },
+            getStoredGame: async (index: string): Promise<StoredGame | undefined> => {
+                const response: QueryGetStoredGameResponse = await queryService.StoredGame({
+                    index: index,
+                })
+                return response.StoredGame
+            },
+            getAllStoredGames: async (key: Uint8Array, offset: Long, limit: Long, countTotal: boolean): Promise<AllStoredGameResponse> => {
+                const response: QueryAllStoredGameResponse = await queryService.StoredGameAll({
+                    pagination: {
+                        key: key,
+                        offset: offset,
+                        limit: limit,
+                        countTotal: countTotal,
+                    },
+                })
+                return {
+                    storedGames: response.StoredGame,
+                    pagination: response.pagination,
+                }
+            },
+        },
+    }
+}
+```
+
+Then create your `CheckersStargateClient`:
+
+```typescript [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/client/src/checkers_stargateclient.ts#L5-L19]
+export class CheckersStargateClient extends StargateClient {
+    public readonly checkersQueryClient: CheckersExtension | undefined
+
+    public static async connect(endpoint: string): Promise<CheckersStargateClient> {
+        const tmClient = await Tendermint34Client.connect(endpoint)
+        return new CheckersStargateClient(tmClient)
+    }
+
+    protected constructor(tmClient: Tendermint34Client | undefined) {
+        super(tmClient)
+        if (tmClient) {
+            this.checkersQueryClient = QueryClient.withExtensions(tmClient, setupCheckersExtension)
+        }
+    }
+}
+```
+
+### Test your client
+
+It is already possible to see if communication happens. In your `client` folder, create a `test/live` folder and, in it, an `experiment.ts` file that will be a living document as your progress:
+
+```typescript [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/client/test/live/experiment.ts#L4-L26]
+const starportEndpoint = "http://localhost:26657"
+
+async function runAll() {
+    const client: CheckersStargateClient = await CheckersStargateClient.connect(starportEndpoint)
+    const checkers = client.checkersQueryClient!.checkers
+
+    // Initial NextGame
+    const nextGame0 = await checkers.getNextGame()
+    console.log("NextGame:", nextGame0, ", idValue:", nextGame0.idValue.toString(10))
+
+    // All Games
+    const allGames0 = await checkers.getAllStoredGames(Uint8Array.of(), Long.fromInt(0), Long.fromInt(0), true)
+    console.log("All games", allGames0, ", total: ", allGames0.pagination!.total.toString(10))
+
+    // Non-existent game
+    try {
+        await checkers.getStoredGame("1024")
+    } catch (error1024) {
+        console.log(error1024)
+    }
+}
+
+runAll()
+```
+
+Start your chain:
+
+```sh
+$ starport chain serve --reset-once
+```
+
+Then run it:
+
+```sh
+$ npx ts-node ./test/live/experiment.ts
+```
+
+Because your chain is empty, you should see:
+
+```
+NextGame: { creator: '', idValue: Long { low: 0, high: 0, unsigned: true } } , idValue: 0
+All games {
+  storedGames: [],
+  pagination: {
+    nextKey: Uint8Array(0) [],
+    total: Long { low: 0, high: 0, unsigned: true }
+  }
+} , total:  0
+Error: Query failed with (18): rpc error: code = InvalidArgument desc = not found: invalid request
+...
+```
+
+That's all you can do at this stage.
 
 ## Next up
 
