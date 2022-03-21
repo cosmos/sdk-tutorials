@@ -23,7 +23,7 @@ You can choose which library you use to compile your Protobuf objects into Types
 
 Let's assume that:
 
-1. Your Protobuf definition files are in `./proto/checkers`.
+1. Your Protobuf definition files are in `./proto/myChain`.
 2. And that you want to compile them into Typescript in `./client/src/types/generated`.
 
 You need to install `protoc` and its Typescript plugin:
@@ -94,12 +94,12 @@ $ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.42.6/third_party/p
 With that, you can now compile the Protobuf files. If you want to avoid adding all the `.proto` files manually to the command, you can use `xargs`, although this is a bit less CPU efficient:
 
 ```sh
-$ ls ./proto/checkers | xargs -I {} ./node_modules/protoc/protoc/bin/protoc \
+$ ls ./proto/myChain | xargs -I {} ./node_modules/protoc/protoc/bin/protoc \
   --plugin="./node_modules/.bin/protoc-gen-ts_proto" \
   --ts_proto_out="./client/src/types/generated" \
   --proto_path="./proto" \
   --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=messages" \
-  checkers/{}
+  myChain/{}
 ```
 
 Notice how `--proto_path` is only `./proto` so that your imports like `import "cosmos/base...` can be found.
