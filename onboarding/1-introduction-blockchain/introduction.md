@@ -5,8 +5,6 @@ description: What is blockchain?
 tag: fast-track
 ---
 
---> Curtail content and rewrite last part completely
-
 # Introduction - Blockchain Technology
 
 There are many different ways to understand blockchain technology and grasp all the Cosmos ecosystem provides. In order to give you a thorough understanding and a complete view, we will not restrict ourselves to one single definition and understanding. Instead, we will present you with a vast spectrum of conceptualisations throughout the first chapter.
