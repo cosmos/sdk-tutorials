@@ -15,5 +15,5 @@ The following new components have been added:
 * Accordeon
 * H5P Container
 * Highlight Box for info, tip, warning, and further reading
-* Menu extension to support categories, modules, sections and single pages/links more flexible
+* Menu extension to support categories, modules, sections, and single pages/links more flexible
 
