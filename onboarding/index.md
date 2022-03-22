@@ -18,7 +18,22 @@ Dive into the history of blockchain technology and discover the tech behind it, 
 
 ![](/)
 
-<!-- Create image? -->
+<!-- Create image -->
+
+This online course aims at giving a comprehensive understanding of blockchain technology and technology-related concepts to provide the fundamentals needed to **understand blockchain technology, on what technologies it builds, and how it came into being**. After a general introduction to blockchain, a more detailed view at Cosmos is presented.
+
+During this course we are aiming to answer the following questions:
+
+* What does the term *blockchain* cover? What does it mean?
+* What are the technical fundamentals that allowed for the development of blockchain technology?
+* How do different approaches and protocols work? What are the characteristics of each?
+* How does the blockchain protocol landscape look like?
+* How did Cosmos came into being?
+* What is the value added Cosmos brings to the blockchain landscape?
+* What is the Cosmos SDK?
+* How does Tendermint Core provide consensus for Cosmos?
+* In which way are chains connected through IBC?
+* For what do you use CosmJS, CosmWasm, and Starport?
 
 <h2 class="mt-4 mb-6">Going through the onboarding course?</h2>
 
