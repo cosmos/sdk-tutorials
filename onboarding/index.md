@@ -18,8 +18,15 @@ Dive into the history of blockchain technology and discover the tech behind it, 
 
 ![](/)
 
-
 <!-- Create image? -->
+
+<h2 class="mt-4 mb-6">Going through the onboarding course?</h2>
+
+This course is **self-paced**. We do recommend working on it continuously. You can expect content of about three to five hours a week. In addition to the course material, you will have a chance to discuss the content and ask questions in your **dedicated Slack channel** and **weekly study group calls**.
+
+The **order of the chapters and sections** represents the recommended curriculum, but you are of course completely free to go through the content in whatever order you prefer and works best for you.
+
+You can also find a **glossary** in this course containing the most common terms used in blockchain and the Cosmos space and a short explanation for each.
 
 ## In this chapter
 
