@@ -19,6 +19,7 @@ When creating a new Pull Request, you **must** follow these steps:
    * `docs:` for changes on the content,
    * `fix:` for updates fixing issues on the platform. These do not include fixes on the text content itself, which fall in the `docs:` category,
    * `feature:` for updates on the platform features/functionality.
+   For example, `docs: add feegrant module tutorial` is a PR name.
 3. Set the Pull Request description, filling all required fields.
 4. Apply the **label** `b9lab-internal` and `b9lab-cosmos-academy`.
 5. Set up Assignee if required: Assignees should be people who need to work on something. Also make sure all assignees know what they need to do, using the description and/or comments.
@@ -34,7 +35,7 @@ Once your Pull Request is ready for internal review (content and/or language), y
 
 1. Check the checkboxes on the Pull Request description accordingly to the review you want to request, in the internal review section:
 
-- Technical content review
+- Technical review
   - [x] requested
   - [ ] completed
 - Language review
@@ -42,7 +43,7 @@ Once your Pull Request is ready for internal review (content and/or language), y
   - [ ] completed
 
 2. Make sure the internal reviewers are set up correctly. You should select at least one reviewer for each review type:
-   * Technical content review,
+   * Technical review,
    * Language review,
    * Technical platform review (optional, only required if the PR changes any platform code, including the main menu config).
 

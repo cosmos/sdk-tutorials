@@ -9,7 +9,7 @@ This PR [... (elaborate here)]
 
 ### R1: Internal review (B9lab)
 
-- Technical content review
+- Technical review
   - [ ] requested
   - [ ] completed
 - Language review
@@ -21,7 +21,7 @@ This PR [... (elaborate here)]
 
 ### R2: External review
 
-- Technical content review
+- Technical review
   - [ ] requested
   - [ ] completed
 - Language review
@@ -30,7 +30,7 @@ This PR [... (elaborate here)]
 
 ### R3: Internal QA review (B9lab)
 
-- Technical content review
+- Technical review
   - [ ] requested
   - [ ] completed
 - Language review
@@ -39,7 +39,7 @@ This PR [... (elaborate here)]
 
 ### R4: Final external QA review
 
-- Technical content review
+- Technical review
   - [ ] requested
   - [ ] completed
 - Language review
