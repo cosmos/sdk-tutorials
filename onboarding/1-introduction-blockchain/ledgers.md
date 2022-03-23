@@ -33,52 +33,37 @@ In the OSI network model fashion, one can break down blockchain technology in th
 
 ![Blockchain layers](images/blockchain-layers.png)
 
-A **ledger** is a book or file that records and totals economic transactions.
+As you can see transactions are recorded on the _transaction ledger_. A **ledger** is _a book or file that records and totals economic transactions_.
 
-To better understand ledgers and their relevance for blockchain technology, let us first take a look at transactions and then at ledgers.
+To better understand ledgers and their relevance for blockchain technology, first take a look at transactions and then at ledgers.
 
-## Transaction you say?
+## Transactions
 
-A transaction is an **atomic event** which means its components make no sense in isolation. 
-If the word transaction conjures up a financial transaction in your mind, this is indeed appropriate.
+A **transaction** is _an **atomic event** which means its components make no sense in isolation_. If the word transaction conjures up a financial transaction in your mind, this is indeed appropriate.
 
 A single transaction might look like this:
 
-* reduce account A by $10;
-* increase account B by $9;
-* increase account C by $1.
+* Reduce account A by $10;
+* Increase account B by $9;
+* Increase account C by $1.
 
 It is easy to understand that this transaction is a payment.
 
-If you were told only "Reduce account A by $10", you would rightfully ask: "Where did those $10 go?".
+If you were told only "Reduce account A by $10", you would rightfully ask: "Where did those $10 go?". Here, you can see what is meant by transactions being atomic - comes from the Greek word for undividable. You need every component of the transaction to exist for it to make sense and therefore to take place. Otherwise you are left with the question: "Where did those $10 go?".
 
-That’s what we mean when we say transactions are atomic - It comes from the Greek word for undividable. 
-You need every component of the transaction to exist for it to make sense and therefore to take place. 
-Otherwise you’re left with the question: "Where did those $10 go?".
+If the word transaction reminds you of database management systems, this too is appropriate. Transactions happen in databases too. For instance, technology permitting, a single transaction might look like:
 
-Remember when we talked about databases, like SQL? 
-If the word *transaction* conjures up an SQL transaction in your mind, this too is appropriate. 
-Transactions happen there too.
+* Charge customer for $10;
+* Ship one widget;
+* Add one en-route shipment for customer;
+* Reduce widget stock by one.
 
-For instance, technology permitting, a single transaction might look like:
-
-* charge customer for $10;
-* ship 1 widget;
-* add 1 en-route shipment for customer;
-* reduce widget stock by 1.
-
-In the context of blockchain, a transaction is any atomic event that is allowed by the underlying **protocol**.
-
-## How are transactions recorded? 
-
-In blockchain, transactions are recorded as they are proposed by the lottery winner. 
-
-The order of transactions is extremely important here and is one of the reasons why blockchain protocols are designed the way they are.
+In the context of blockchain, a transaction is any atomic event that is allowed by the underlying **protocol**. They are recorded as they are proposed by the lottery winner. The order of transactions is extremely important here and is one of the reasons why blockchain protocols are designed the way they are.
 
 To better understand the significance of the ledger order, imagine:
 
-* you have an account balance of 3,
-* you transfer 3 to member A and 3 to member B in quick succession.
+* You have an account balance of "3";
+* You transfer "3" to member A and "3" to member B in quick succession.
 
 If the ledger is not **well-ordered**, both transactions could be issued even though your account balance would be insufficient. Well-order of execution prevents double-spending.
 
