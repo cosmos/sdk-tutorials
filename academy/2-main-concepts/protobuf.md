@@ -9,7 +9,9 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Let's take a closer look at Protobuf. Before diving into the section a look at the following sections is recommended:
+Protobuf is a data serialization method. Developers use it to describe message formats. There is a lot of internal communication within a Cosmos application and Protobuf is central to how communication is done. 
+
+Before diving into the section a look at the following sections is recommended:
 
 * [Messages](./messages.md)
 * [Modules](./modules.md)
@@ -22,7 +24,7 @@ Protocol Buffers (Protobuf) is an open-source, extensible, cross-platform, and l
 
 Originally designed and developed by Google, Protobuf has been an open-source project since 2008. It serves as a basis for Remote Procedure Call (RPC) systems. 
 
-<HighlightBox type=”info”>
+<HighlightBox type="info">
 
 Google provides the [gRPC project](https://grpc.io/). This universal RPC framework supports Protobuf directly. For more information on the process, take a look at the section entitled `Compiler Invocation`.
 
@@ -46,7 +48,7 @@ The Protobuf format supports extending the format over time in a way that code c
 
 Go developers access the setters and getters in the generated source code through the Go Protobuf API.
 
-<HighlightBox type=”info”>
+<HighlightBox type="info">
 
 For more on encoding in Cosmos, take a peek at [the Cosmos SDK documentation on encoding](https://docs.cosmos.network/master/core/encoding.html).
 

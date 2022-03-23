@@ -1,11 +1,11 @@
 ---
-title: Make a Checkers Blockchain
+title: Store Object - Make a Checkers Blockchain
 order: 4
 description: Create the object that stores a game
 tag: deep-dive
 ---
 
-# Make a Checkers Blockchain
+# Store Object - Make a Checkers Blockchain
 
 <HighlightBox type="synopsis">
 
@@ -150,7 +150,7 @@ type GenesisState struct {
 }
 ```
 
-You can find query objects as part of the boilerplate objects created by Starport. `NextGame` might look out of place, but keep in mind Starport creates the objects according to a model. This does not prevent you from making changes later if you decide these queries are not needed:
+You can find query objects as part of the boilerplate objects created by Starport. `NextGame` might look out of place, but Starport creates the objects according to a model. This does not prevent you from making changes later if you decide these queries are not needed:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L51-L55]
 message QueryGetNextGameRequest {}
@@ -181,7 +181,7 @@ message QueryAllStoredGameResponse {
 }
 ```
 
-### Starport's modus operandi
+### How Starport works
 
 Starport puts the different Protobuf messages into different files depending on their use:
 
@@ -198,7 +198,7 @@ Files updated by Starport include comments like:
 
 <HighlightBox type="tip">
 
-Starport adds code right below the comments, which explains the odd numbering with the oldest members appearing lower than recent ones. But make sure to keep these comments where they are so that Starport knows where to inject code in the future. You could add your code above or below the comments. You will be fine if you keep these comments where they are.
+Starport adds code right below the comments, which explains the odd numbering with the oldest lines appearing lower than recent ones. But make sure to keep these comments where they are so that Starport knows where to inject code in the future. You could add your code above or below the comments. You will be fine if you keep these comments where they are.
 
 </HighlightBox>
 
@@ -263,7 +263,7 @@ Your stored game stores are only strings. But you know that they represent `sdk.
 
     Plus the same for the [red](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/types/full_game.go#L14-L17) and [black](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/types/full_game.go#L19-L22) players.
 
-2. Parse the game so that it can be played with. Notice how the `Turn` has to be set by hand:
+2. Parse the game so that it can be played with. The `Turn` has to be set by hand:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/types/full_game.go#L24-L33]
     func (storedGame *StoredGame) ParseGame() (game *rules.Game, err error) {

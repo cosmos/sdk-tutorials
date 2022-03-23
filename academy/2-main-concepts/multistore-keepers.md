@@ -9,7 +9,9 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-It is time to address multistore and keeper. Before you begin, take a look at the following sections:
+Keepers are responsible for managing access to states defined by modules. Accessing the state is done through a keeper. Therefore, keepers are an ideal place to ensure that invariants are enforced and security principles are always applied.
+
+Take a look at the following sections before you begin:
 
 * [Transactions](./transactions.md)
 * [Messages](./messages.md)
@@ -30,7 +32,7 @@ A keeper can be thought of quite literally as the gatekeeper of a module's store
 
 When a module needs to interact with the state defined in another module, it does so by interacting with the methods of the other module’s keeper. Developers control the interactions their module can have with other modules by defining methods and controlling access.
 
-[Keepers in the Cosmos SDK](~@images/keeper.png)
+[Keepers in the Cosmos SDK](/keeper.png)
 
 ## Format
 
@@ -57,13 +59,6 @@ The following parameters are of importance concerning the type definitions of ke
 Each keeper has its own constructor function, which is called from the application's constructor function. This is where keepers are instantiated and where developers make sure to pass correct instances of the module's keepers to other modules that require them.
 
 ### Scope and best practices
-
-Keepers primarily expose getter and setter methods for the store(s) managed by their module. Methods should remain simple and strictly limited to getting or setting the requested value. Validity checks should already have been done with the `ValidateBasic()` method of the message and the `Msg` server before the keeper's methods are called.
-
-Getter and setter method usually have the following signatures:
-
-* The getter method has the signature ` func (k Keeper) Get(ctx sdk.Context, key string) returnType`.
-* The setter method has the signature `func (k Keeper) Set(ctx sdk.Context, key string, value valueType)`.
 
 Keepers primarily expose getter and setter methods for the store(s) managed by their module. Methods should remain simple and strictly limited to getting or setting the requested value. Validity checks should already have been done with the `ValidateBasic()` method of the message and the `Msg` server before the keeper's methods are called.
 

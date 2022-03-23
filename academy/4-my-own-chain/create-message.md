@@ -1,11 +1,11 @@
 ---
-title: Create a Game Message
+title: Message - Create a Message to Create a Game
 order: 6
 description: You introduce the message to create a game
 tag: deep-dive
 ---
 
-# Create a Game Message
+# Message - Create a Message to Create a Game
 
 <HighlightBox type="synopsis">
 
@@ -27,8 +27,8 @@ Now you need a message to instruct the checkers blockchain to create a game. Thi
 * Not specify the creator: this is implicit because it shall be the signer of the message.
 * Not specify the ID of the game because the system uses an incrementing counter. On the other hand, the server needs to return the newly created ID value since the eventual value cannot be known before the transaction is included in a block and the state computed. Call this `idValue`.
 * Not specify the game board as it is under the full control of the checkers rules.
-* Specify who is playing reds. Call the field `red`.
-* Specify who is playing blacks. Call the field `black`.
+* Specify who is playing with the red pieces. Call the field `red`.
+* Specify who is playing with the black pieces. Call the field `black`.
 
 Instruct Starport to take care of all this:
 

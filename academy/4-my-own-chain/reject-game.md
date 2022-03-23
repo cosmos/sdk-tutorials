@@ -1,11 +1,11 @@
 ---
-title: The Reject Game Elements
+title: Message and Handler - Make Sure a Player Can Reject a Game
 order: 10
 description: You reject a game
 tag: deep-dive
 ---
 
-# The Reject Game Elements
+# Message and Handler - Make Sure a Player Can Reject a Game
 
 <HighlightBox type="synopsis">
 
@@ -18,7 +18,7 @@ Before proceeding, make sure you have all you need:
 
 </HighlightBox>
 
-If anyone can create a game for any two other players, it is important to allow a player to reject a game. A player should not be allowed to reject a game once they have made their first move.
+If anyone can create a game for any two other players, it is important to allow a player to reject a game. But a player should not be allowed to reject a game once they have made their first move.
 
 To reject a game, a player needs to provide the ID of the game that the player wants to reject. Call the field `idValue`. This should be sufficient as the signer of the message is implicitly the player.
 
@@ -45,7 +45,7 @@ func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (
 
 ## Additional information
 
-A new rule of the game should be that a player cannot reject a game once they begin to play. As of now, when loading a `StoredGame` from storage, you have no way of knowing whether a player already played or not. Add a new field to the `StoredGame` called `MoveCount`. In `proto/checkers/stored_game.proto`:
+A new rule of the game should be that a player cannot reject a game once they begin to play. When loading a `StoredGame` from storage you have no way of knowing whether a player already played or not. To access this information add a new field to the `StoredGame` called `MoveCount`. In `proto/checkers/stored_game.proto`:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/proto/checkers/stored_game.proto#L15]
 storedGame := types.StoredGame{
@@ -126,9 +126,9 @@ In the message handler the reject steps are:
     }
     ```
 
-    Remember that the black player plays first.
+    Remember that the player with the color black plays first.
 
-3. Get rid of the game, as it is not interesting enough to keep:
+3. Remove the game:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_reject_game.go#L34]
     k.Keeper.RemoveStoredGame(ctx, msg.IdValue)
@@ -161,7 +161,7 @@ $ starport chain build
 
 ## Next up
 
-The next four sections cover forfeits and how games end. In the next section you create a [doubly-linked FIFO](./game-fifo.md). 
+The next four sections cover forfeits and how games end. In the next section you create a [doubly-linked FIFO](./game-fifo.md).
 
 Later you add a [deadline](./game-deadline.md) and a [game winner](./game-winner.md) fields, before being able to finally [enforce the forfeit](./game-forfeit.md).
 

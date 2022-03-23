@@ -64,7 +64,7 @@ There are different ways you can contribute to the Cosmos SDK and related reposi
 <Resource 
   title="Tendermint core" 
   description="Help solve existing issues and continue the development of the robust Tendermint BFT consensus!" 
-  :links="[{name: 'Github Repository', url: 'https://github.com/cosmos/ibc-go/blob/main/CONTRIBUTING.md'}]" 
+  :links="[{name: 'Github Repository', url: 'https://github.com/tendermint/tendermint/blob/master/CONTRIBUTING.md'}]" 
   image="/tendermint-icon.svg"
   :large="true"
 />

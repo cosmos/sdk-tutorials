@@ -1,11 +1,11 @@
 ---
-title: A Game Deadline
+title: Store Field - Keep an Up-To-Date Game Deadline
 order: 12
 description: You expire games
 tag: deep-dive
 ---
 
-# A Game Deadline
+# Store Field - Keep an Up-To-Date Game Deadline
 
 <HighlightBox type="synopsis">
 
@@ -109,6 +109,7 @@ Now confirm that your project still compiles:
 $ starport chain build
 ```
 
+## Next up
 
 You have created and updated the deadline. The [section two steps ahead](./game-forfeit.md) describes how to use the deadline and [the FIFO](./game-fifo.md) to expire games that reached their deadline.
 
