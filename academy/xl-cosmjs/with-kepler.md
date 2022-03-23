@@ -37,7 +37,7 @@ You should see the result, a welcome page with links, in your browser. Next.js u
 
 ## HTML elements
 
-The goal of the exercise is to find balances, yours and the faucet's, and then have you send back some tokens to the faucet. so before introducing any CosmJs, you can create a React component that is almost ready for this purpose. By convention, you put your component in a `/components` folder. Below, in the expandable box is an example, named `FaucetSender.tsx`:
+The goal of the exercise is to find balances, yours and the faucet's, and then have you send back some tokens to the faucet. So before introducing any CosmJs, you can create a React component that is almost ready for this purpose. By convention, you put your component in a `/components` folder. Below, in the expandable box is an example, named `FaucetSender.tsx`:
 
 <ExpansionPanel title="FaucetSender.tsx">
 
