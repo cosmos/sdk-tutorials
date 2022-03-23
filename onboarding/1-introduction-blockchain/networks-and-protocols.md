@@ -7,7 +7,7 @@ tag: fast-track
 
 # Networks and Protocols
 
-It is time to learn about networks. You will not go into too much depth, but a few concepts are relevant to understand blockchain technology.
+It is time to learn about networks. You will not go into too much depth, but a few concepts are relevant to understanding blockchain technology.
 
 Let's begin with a few important terms in networking.
 
@@ -39,15 +39,15 @@ Start with some definitions to make this easier:
 
 The most basic attribute of a network is the ability to transfer data between computers. Let us briefly recall how that process works.
 
-Imagine two computers that are connected to each other and have access to two different databases:
+Imagine two computers that are connected and have access to two different databases:
 
 1. Computer A sends a request for a set of information that is located on another computer.
 2. Computer B accesses its database, querying for the data Computer A asked for.
 3. Computer B retrieves the data and compiles a document.
 4. Computer B sends the document to Computer A.
-5. Computer A receives the document and interprets the data, perhaps storing it in its own database or executing a series of actions.
+5. Computer A receives the document and interprets the data, perhaps storing it in its database or executing a series of actions.
 
-In general, an encode-decode sequence happens on the two computers to **synchronize data between machines**. First, a sequence of characters is *encoded* in a specialised format, send, and then *decoded* by reversing the process. 
+In general, an encode-decode sequence happens on the two computers to **synchronize data between machines**. First, a sequence of characters is *encoded* in a specialized format, send, and then *decoded* by reversing the process. 
 
 <HighlightBox type="info">
 
@@ -65,10 +65,10 @@ The term **application programming interface (API)** describes _a connection bet
 
 What is an API request?
 
-With APIs developers can make calls or requests to send and receive information. Such type of communication is often done using JSON, a programming language, and called an API request. Each API request has:
+With APIs, developers can make calls or requests to send and receive information. Such type of communication is often done using JSON, a programming language, and called an API request. Each API request has:
 
 * An API endpoint - you can often find a URL for the endpoint to allow software to communicate with each other;
-* A header providing information for clients and servers, for example authentication credentials;
+* A header providing information for clients and servers, for example, authentication credentials;
 * A method, which specifies the action necessary for the request - four basic and often used API methods are `GET`, `PUT`, `POST`, and `DELETE`;
 * Data, or information, send by a server specifying the request.
 
@@ -80,7 +80,7 @@ With APIs developers can make calls or requests to send and receive information.
 2. The server receives the request and queries its inventory database for the requested data - `SELECT * FROM inventory.products WHERE id=2311;`.
 3. The server forms a JSON response from the data, the document  - `{"products": [2311: {"name": "Raw Linseed Oil"}]}`.
 4. The server sends the document to the client, which is waiting for the response.
-5. The client reads the document, attempts to parse it as JSON, and stores the information in a local database - `INSERT INTO favourites (ext_id, name)
+5. The client reads the document, attempts to parse it as JSON, and stores the information in a local database - `INSERT INTO favorites (ext_id, name)
 VALUES (2311, "Raw Linseed Oil");`.
 
 <ExpansionPanel title="JavaScript Object Notation (JSON)">
@@ -100,7 +100,7 @@ What are potential failures of an API request?
 * The server could send a malformed document;
 * Either party could send a malicious request, for example, SQL injection `GET https://example.com/inventory?id=2311%3BDROP%20TABLE%3B`.
 
-In modern network systems and in fact the web itself, a great deal of effort goes into mitigating these **translation and synchronization issues between clients and servers**. Traditionally, network synchronization issues were often mitigated by implementing some kind of hierarchy. Blockchain uses a **non-hierarchical approach** to mitigate synchronization issues by making sure that every participant always has access to enough data to verify the integrity of ALL the data in the network.
+In modern network systems and in fact, the web itself, a great deal of effort goes into mitigating these **translation and synchronization issues between clients and servers**. Traditionally, network synchronization issues were often mitigated by implementing some kind of hierarchy. Blockchain uses a **non-hierarchical approach** to mitigate synchronization issues by making sure that every participant always has access to enough data to verify the integrity of ALL the data in the network.
 
 ## Networking and protocols
 
@@ -116,7 +116,7 @@ As an example, think about what happens in **the case of missing data**.
 
 ![TCP request](images/tcp-request.png)
 
-To facilitate data transfer, protocols like TCP split data into small packets and transmit each one individually. These bits of data are converted into an analogue signal on the hardware level. On the receiving end, the signals are reconstructed and the software protocol re-assembles the original piece of data. If a packet is missing, the receiving computer can ask for the **re-transmission** of the missing bundle of data.
+To facilitate data transfer, protocols like TCP split data into small packets and transmit each one individually. These bits of data are converted into an analog signal on the hardware level. On the receiving end, the signals are reconstructed and the software protocol re-assembles the original piece of data. If a packet is missing, the receiving computer can ask for the **re-transmission** of the missing bundle of data.
 
 <ExpansionPanel title="Fault tolerance">
 
@@ -128,7 +128,7 @@ A **fault-tolerant design** requires:
 * **Fault isolation and containment** as failures should not affect the entire system by being isolated and contained;
 * **Reversion modes** should be available.
 
-When learning about blockchain, it is worth understanding these fundamentals because the technology operates in a similarly uncertain environment. Blockchain is designed to be fault-tolerant, thereby minimising potential disruption and damage in adverse conditions.
+When learning about blockchain, it is worth understanding these fundamentals because the technology operates in a similarly uncertain environment. Blockchain is designed to be fault-tolerant, thereby minimizing potential disruption and damage in adverse conditions.
 
 </ExpansionPanel>
 
@@ -142,9 +142,9 @@ You will see the term _decentralized_ come up a lot in blockchain literature. Wh
 
 <ExpansionPanel title="Paul Baran's On Distributed Communications">
 
-In 1964, before major discoveries and developments such as public key cryptographic systems and P2P networking Paul Baran published a paper [On Distributed Communications](https://www.rand.org/content/dam/rand/pubs/research_memoranda/2006/RM3420.pdf). In it, Baran attempted to differentiate between diverse degrees of decentralization.
+In 1964, before major discoveries and developments such as public-key cryptographic systems and P2P networking Paul Baran published a paper [On Distributed Communications](https://www.rand.org/content/dam/rand/pubs/research_memoranda/2006/RM3420.pdf). In it, Baran attempted to differentiate between diverse degrees of decentralization.
 
-Centralization and decentralization were attributes introduced long before to describe political systems and power structures. In Baran’s conceptualization, a spectrum of network typologies exist. The main point of differentiation between the different typologies is the number of so-called **points of failure**. After Baran introduced his typology accompanied by developments in networks, databases, computing, and cryptography, a more detailed continuum of typologies was proposed. Among other aspects, the importance of resource and power control was emphasised.
+Centralization and decentralization were attributes introduced long before to describe political systems and power structures. In Baran’s conceptualization, a spectrum of network typologies exists. The main point of differentiation between the different typologies is the number of so-called **points of failure**. After Baran introduced his typology accompanied by developments in networks, databases, computing, and cryptography, a more detailed continuum of typologies was proposed. Among other aspects, the importance of resource and power control was emphasized.
 
 </ExpansionPanel>
 
@@ -160,13 +160,13 @@ Watch [Greg Slepak explain the concept of decentralization](https://www.youtube.
 
 </HighlightBox>
 
-Although the advantages and disadvantages of each type continue to be debated, to conclude: the network design has implications on functionality and more general issues, for example, privacy and transparency. It is important to keep in mind, a network does not have to be centralized, decentralized, or distributed - it can be a mix of different components of each type. Network design should always match the envisioned functionality of the network.
+Although the advantages and disadvantages of each type continue to be debated, to conclude: the network design has implications on functionality and more general issues, for example, privacy and transparency. It is important to keep in mind, a network does not have to be centralized, decentralized, or distributed - it can be a mix of different components of each type. The network design should always match the envisioned functionality of the network.
 
 ### Peer-to-peer (P2P) networking
 
-A **peer-to-peer (P2P) network** has a **distributed architecture**, meaning that work is distributed among members of the network. P2P networks are usually composed of computer systems as peers and connect via the internet. Each participant, called node, connects to a limited number of other nodes, which are commonly referred to as its **peers**. Peers make resources like computing power and network bandwidth available to all peers in the network.
+A **peer-to-peer (P2P) network** has a **distributed architecture**, meaning that work is distributed among members of the network. P2P networks are usually composed of computer systems as peers and connect via the internet. Each participant, called a node, connects to a limited number of other nodes, which are commonly referred to as its **peers**. Peers make resources like computing power and network bandwidth available to all peers in the network.
 
-All participants are equal in that they can all request information and answer requests. Understood as equality is that all participants are **equally privileged and equipotent**. For this reason, P2P networking has been seen as a mean for an egalitarian social network.
+All participants are equal in that they can all request information and answer requests. Understood as equality is that all participants are **equally privileged and equipotent**. For this reason, P2P networking has been seen as a means for an egalitarian social network.
 
 P2P networks are highly different from client-server networks, in which the data supplier and consumer roles are ascribed to different entities and all communication happens through a central server. In a traditional client-server architecture, participants are either a client, which requests information, or a server, which answers those requests - remember the API request, that is a classic client-server example. Centralized security databases that restrict control to server assets help improve security. Client-server networks are suitable for large networks but can become expensive when handling large amounts of data, transfers, and clients.
 
@@ -185,15 +185,15 @@ Security is challenging in P2P networking for two reasons:
 
 Hashing, chunk verification, and a higher degree of encryption are means to mitigate security risks in P2P networks.
 
-Are P2P networks decentralizaed, distributed, or centralized networks?
+Are P2P networks decentralized, distributed, or centralized networks?
 
-P2P networks can be decentralized, distributed, centralized, or a mix. When a system has different components, which combine P2P elements with other networking concepts, it can at the same time have parts typically known as distributed and include centralised aspects.
+P2P networks can be decentralized, distributed, centralized, or a mix. When a system has different components, which combine P2P elements with other networking concepts, it can at the same time have parts typically known as distributed and include centralized aspects.
 
 Remember the two P2P services we mentioned earlier, Napster and BitTorrent? They include aspects typically ascribed to distributed and centralized networks.
 
-**Napster** is a music-focused file sharing service. Its earliest version used **distributed data storage**, since music files were distributed through peers and not stored on a central database. However, a **central server** was used to manage the peers. Napster combined a distributed P2P data storage with a central managing authority, the Napster server. After the Recording Industry Association of America (RIAA) sued Napster for facilitating the sharing and transfer of copyrighted material, Napster shut down its original P2P network in July 2001.
+**Napster** is a music-focused file-sharing service. Its earliest version used **distributed data storage**, since music files were distributed through peers and not stored on a central database. However, a **central server** was used to manage the peers. Napster combined a distributed P2P data storage with a central managing authority, the Napster server. After the Recording Industry Association of America (RIAA) sued Napster for facilitating the sharing and transfer of copyrighted material, Napster shut down its original P2P network in July 2001.
 
-**BitTorrent** is another P2P file-sharing service that is also used to share music. Like Napster, BitTorrent uses a **data storage among peers**. However, it has a **decentralised network structure** since there is no central server. BitTorrent also faced legal complaints due to allegedly facilitating copyright infringement through illegal downloading. But this time, the case was not so clear as with Napster. Why?
+**BitTorrent** is another P2P file-sharing service that is also used to share music. Like Napster, BitTorrent uses a **data storage among peers**. However, it has a **decentralized network structure** since there is no central server. BitTorrent also faced legal complaints due to allegedly facilitating copyright infringement through illegal downloading. But this time, the case was not so clear as with Napster. Why?
 
 Because of BitTorrent’s decentralized coordination of peers: there was no central server that could be turned off to shut down the network.
 
@@ -201,7 +201,7 @@ These two examples show how **network design and structure** choices can have fa
 
 ## Blockchain as a merge of data storage and network
 
-Historically, data storage and networks have been **treated separately**, mainly because the former was adopted long before the latter. Networks were built first, and data storage was connected afterwards.
+Historically, data storage and networks have been **treated separately**, mainly because the former was adopted long before the latter. Networks were built first, and data storage was connected afterward.
 
 Blockchain merges these two concepts by combining elements of a database with a P2P network. Blockchains store data in the same way as a **decentralized database**, and also use P2P networking.
 
@@ -211,7 +211,7 @@ As the name suggests, a blockchain can be thought of as a chain of blocks. The b
 
 If we imagine blockchain as a computer, it would have three layers: **database**, **network**, and **state**. The entire computer is a collection of blocks where every new block represents an update to the state layer. 
 
-<!-- Inclue video: Title: How does Blockchain Actually Work?, URL:https://www.youtube.com/watch?v=Za5lPKNV_Mk&feature=youtu.be -->
+<!-- Include video: Title: How does Blockchain Actually Work?, URL:https://www.youtube.com/watch?v=Za5lPKNV_Mk&feature=youtu.be -->
 
 All **data**, such as currency transfers or smart contract code or calls of function, is encoded in **transactions**, which are bundled into blocks and must be validated. Remember, data cannot be deleted or altered after being stored on a blockchain.
 
