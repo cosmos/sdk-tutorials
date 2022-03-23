@@ -67,67 +67,59 @@ To better understand the significance of the ledger order, imagine:
 
 If the ledger is not **well-ordered**, both transactions could be issued even though your account balance would be insufficient. Well-order of execution prevents double-spending.
 
-In order to get a picture of the state of accounts at any point, we have to add up all the transactions until that point. One by one, each transaction record alters the state of the ledger and contains an arbitrary set of data depending on their purpose.
+In order to get a picture of the state of accounts at any point, all transactions until that point in time have to be added up. One by one, each transaction record alters the state of the ledger.
 
-The data recorded by a ledger depends on its structure and purpose. 
-For instance, financial ledgers might contain the following data:
+Transactions contain an arbitrary set of data depending on the purpose and structure. For instance, financial ledgers usually contain the following data:
 
-* **sender**,
-* **recipient**,
-* **amount**,
-* **credit/debit**,
-* **reference**.
+* Sender
+* Recipient
+* Amount
+* Credit/debit
+* Reference
 
-This will be important later, so remember that transactions are ultimately well-ordered chunks of data.
+Processing each transaction in the ledger enables us to derive all kinds of meta information such as the number of transactions, activity per account, and individual account balances. An account balance like the balance of your bank account is an abstract representation of a list of transactions.
 
-Processing each transaction in the ledger enables us to derive all kinds of meta information, such as the number of transactions, activity per account, and individual account balances. 
-An account balance, like the balance of your bank account, is an abstract representation of a list of transactions.
+Traditionally ledgers are maintained by a trusted authority called a **ledger keeper**. Ledger keepers include insurance companies, banks, tax collectors, and many other entities.
 
-![Trusted Authority controls entry to the ledger](images/authority.png)
+![Trusted authority controls entries to the ledger](images/authority.png)
 
-Traditionally ledgers are maintained by a trusted authority called a **ledger keeper**. 
-Ledger keepers include insurance companies, banks, tax collectors, and many other entities. 
+Carrying out a transaction in a system with trusted authorities entails the following steps:
 
-Carrying out a transaction entails the following steps:
+1. Identify yourself to the ledger keeper.
+2. Request data, like your account balance, from the ledger keeper.
+3. Request the recording of a new transaction.
+4. The ledger keeper checks the validity of the transaction - Do you have sufficient balance? Is your account active or inactive/frozen?
+5. The ledger keeper enters the transaction into the ledger and informs other ledger keepers of the transaction if necessary, for example, in the case the transaction's recipient has an account with another bank.
+6. The recipient can now identify themselves with their ledger keeper and ascertain their updated balance.
 
-1. identify yourself to the ledger keeper;
-2. request data from the ledger keeper (e.g. about your account balance);
-3. request the recording of a new transaction;
-4. the ledger keeper will check the validity of the transaction - Is your balance sufficient? Is your account frozen? etc.;
-5. the ledger keeper enters the transaction into the ledger and informs other ledger keepers of the transaction if necessary, for example in the case the recipient of your transaction is with another bank;
-6. the recipient can now identify themselves with their ledger keeper and ascertain their updated balance.
+This system works well as long as ledger keepers can be trusted or mechanisms are in place to ensure the ledger keeper's compliance.
 
-This system works well as long as ledger keepers can be trusted or mechanisms are in place to ensure the ledger keeper's compliance. 
+The advantages and disadvantages of traditional ledgers compared to decentralised ledgers like blockchains are highly dependent on the degree of centralization of authority.
 
-![Ledger Types -advantages and disadvantages between traditional/centralised ledgers and decentralised ledgers](images/TableLedgerType.png)
+![Ledger types - advantages and disadvantages between traditional/centralized ledgers and decentralized ledgers](images/table-ledger-type.png)
 
-The advantages and disadvantages of traditional ledgers compared to decentralised ledgers, for example blockchain, are highly dependent on the degree of centralisation of authority.
+In a highly centralized traditional ledger, data reliability, information control, execution of transactions, and consensus on transactions depend on the trustworthiness of the central authority. Participation and transaction execution are restricted by oversight and/or intermediation in centralized ledgers, usually requiring third party involvement.
 
-In a highly centralised traditional ledger, data reliability, information control, execution of transactions, and consensus about them depend on the trustworthiness of the central authority. 
-Participation and transaction execution are restricted by oversight and/or intermediation in centralised ledgers, usually requiring third party involvement.
-
-Further, power asymmetries favouring the central authority can lead to deviant behaviour and/or unintended consequences. 
-For example, an authority in charge of updating the ledger could alter it maliciously. 
-Centralised "traditional ledgers" are also more prone to be affected by malicious attacks due to their centralised point of failure and data storage compared to distributed ledgers.
+Further, power asymmetries favouring the central authority can lead to deviant behaviour and/or unintended consequences. For example, an authority in charge of updating the ledger could alter it maliciously. Centralized, "traditional ledgers" are also more prone to be affected by malicious attacks due to their centralized point of failure and data storage compared to distributed ledgers.
 
 On the other hand, distributed ledgers have a higher degree of transparency, security, lower transaction time, and lower transaction costs for participants.
 
-<!-- Additional content about the disadvantages of traditional ledger compared to blockchain -->
+<HighlightBox type="info">
 
-<div class="b9-info">
-	<p>There is reason to believe that the development of the Bitcoin protocol, the first successful implementation of blockchain technology, was in part motivated by the financial crisis in 2008.</p>
-	<p>The financial crisis shook overall trust in traditional financial institutions and mechanisms, including central authorities' functioning and thus raison d'être.</p>
-	<p>Blockchain's decentralisation can be seen as a mean to avoid unintended results due to moral hazards and asymmetric information.</p>
-</div>
+There is reason to believe that the development of the Bitcoin protocol, the first successful implementation of blockchain technology, was in part motivated by the financial crisis in 2008.
+The financial crisis shook overall trust in traditional financial institutions and mechanisms, including central authorities' functioning and thus raison d'être.
+Blockchain's decentralisation can be seen as a mean to avoid unintended results due to moral hazards and asymmetric information.
+
+</HighlightBox>
 
 ## Blockchain as a distributed ledger
 
 To understand blockchain as a distributed ledger, remember:
 
-* a **transaction** is an atomic event;
-* the **blockchain** is the ordered list of all transactions since inception.
+* A **transaction** is an atomic event;
+* The **blockchain** is the ordered list of all transactions since inception.
 
-Banks, especially, are prone to identify blockchain as a distributed ledger, as it indeed dovetails with their world models. They have quickly seen the utility of distributed ledgers in their universe, both as a threat to their centralised authority and as an opportunity to lower costs and increase transaction time among many other things.
+Banks, especially, are prone to identify blockchain as a distributed ledger, as it indeed dovetails with their world models. Traditional financial institutions have realized the utility of distributed ledgers both as a threat to their centralized authority and as an opportunity to lower costs, decrease transaction times, facilitate settlement processes, and cryptocurrencies as a new investment opportunity.
 
 In this view, instead of each bank relying exclusively on their own table of accounts in their own siloed (SQL) databases, blockchain enables them to consolidate their tables of accounts to facilitate transactions between accounts. Without the shared nature of the blockchain, inter-bank transactions are done through netting and settlement via central bank or corresponding accounts. 
 The non-blockchain process is more expensive and time-consuming, especially if the banks are located in different countries. 
