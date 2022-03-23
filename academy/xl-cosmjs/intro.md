@@ -1,21 +1,21 @@
 ---
 title: "CosmJs Intro"
 order: 2
-description: What is CosmJs and what can it do for me? 
+description: What is CosmJs and what can it do for me?
 tag: intro
 ---
 
 # The DApp stack
 
-Distributed applications, or DApps, are software applications that run on distributed networks. Blockchains provide persistent data, or state, as well as persistent processes and logic. Cosmos SDK helps developers create such applications. A user interface will be important in most cases. Server interactions are important in many cases. This is where [CosmJs](https://github.com/cosmos/cosmjs) can help. 
+Distributed applications, or DApps, are software applications that run on distributed networks. Blockchains provide persistent data, or state, as well as persistent processes and logic. Cosmos SDK helps developers create such applications. A user interface will be important in most cases. Server interactions are important in many cases. This is where [CosmJs](https://github.com/cosmos/cosmjs) can help.
 
-As the name suggests, CosmJs is a Javascript library. It helps developers integrate front-end user interfaces and back-end servers with Cosmos blockchains that implement distributed applications. To many users, the "DApp" _is_ the user interface, even though it's often delivered to the browser in a centralised, traditional way - relying on the DNS infrastructure and centralised web servers. 
+As the name suggests, CosmJs is a Typescript/Javascript library. It helps developers integrate front-end user interfaces and back-end servers with Cosmos blockchains that implement distributed applications. To many users, the "DApp" _is_ the user interface, even though it's often delivered to the browser in a centralized, traditional way - relying on the DNS infrastructure and centralized web servers.
 
-This re-introduction of a degree of centralization is usually considered acceptable by most teams, provided that the important business logic of the system is enforced by a blockchain and provided it is not strictly necessary to actually use the provided user interface in order to use the DApp. As a general heuristic, offer a user interface as a convenience rather that a necessity. 
+This re-introduction of a degree of centralization is usually considered acceptable by most teams, provided that the important business logic of the system is enforced by a blockchain and provided it is not strictly necessary to actually use the provided user interface in order to use the DApp. As a general heuristic, offer a user interface as a convenience rather that a necessity.
 
-# What can CosmJs do? 
+# What can CosmJs do?
 
-In general, user interfaces help users interpret the blockchain state, compose and sign transactions and send them - all things that can potentially be accomplished by other less convenient methods. And, a user interface can be supported by servers or micro-services that also interact with the blockchain. 
+In general, user interfaces help users interpret the blockchain state, compose and sign transactions, and send them - all things that can potentially be accomplished by other less convenient methods. And, a user interface can be supported by servers or micro-services that also interact with the blockchain.
 
 ## Some examples
 
@@ -45,13 +45,15 @@ In order to accomplish such things, developers need a tool-kit that addresses fo
 * Querying the blockchain state
 * Listening for events emitted by Cosmos SDK modules
 
-CosmJs assists with these tasks and more. 
+CosmJs assists with these tasks and more.
 
 CosmJs's modular structure lets developers import only the parts that are actually needed which helps reduce download payloads. And, since the library is unopinionated, it is compatible with popular Javascript frameworks such as Vue, React and Express.
 
-Continue reading for a hands-on developer exercise. The tutorial starts with downloading dependencies and proceeds through the steps of creating a simple user-interface. 
+Continue reading for a hands-on developer exercise. The tutorial starts with downloading dependencies and proceeds through the steps of creating a simple user-interface.
 
 <HighlightBox type="reading">
+
 * Developer demonstration of CosmJS: [HackAtom HCMC Workshop](https://www.youtube.com/watch?v=VTjiC4wcd7k)
 * Github repo: [CosmJS](https://github.com/cosmos/cosmjs)
+
 </HighlightBox>
