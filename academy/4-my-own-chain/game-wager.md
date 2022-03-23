@@ -1,11 +1,11 @@
 ---
-title: The Game Wager Elements
+title: Token - Let Players Set a Wager
 order: 15
-description: You let players play with money
+description: You let players set a wager
 tag: deep-dive
 ---
 
-# The Game Wager Elements
+# Token - Let Players Set a Wager
 
 <HighlightBox type="synopsis">
 
@@ -104,7 +104,7 @@ Time to make sure that the new field is saved in the storage and it is part of t
 
 ## Declaring expectations
 
-Alone, the `Wager` field does not make players pay the wager or receive rewards. You need to add the handling actions. These handling actions must ask the `bank` module to perform the required token transfers. For that your keeper needs to ask for a `bank` instance during setup.
+On its own the `Wager` field does not make players pay the wager or receive rewards. You need to add the handling actions. These handling actions must ask the `bank` module to perform the required token transfers. For that your keeper needs to ask for a `bank` instance during setup.
 
 <HighlightBox type="info">
 
@@ -336,7 +336,6 @@ With the desired steps defined in the wager handling functions, it is time to in
         }
     }
     ```
-    
 
 ## Next up
 

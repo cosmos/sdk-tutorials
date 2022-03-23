@@ -1,9 +1,0 @@
-syntax = "proto3";
-package lukitsbrian.pofe.pofe;
-
-option go_package = "github.com/user/pofe/x/pofe/types";
-
-// GenesisState defines the capability module's genesis state.
-message GenesisState {
-}
-

@@ -41,6 +41,12 @@ module.exports = {
         href: "/apple-touch-icon-precomposed.png",
       },
     ],
+    [
+      "script", 
+      {}, 
+      `const userThemeMode = localStorage?.getItem("vuepress-theme-cosmos-user-theme") || 'dark-mode'
+      document.documentElement.className = userThemeMode`
+    ]
   ],
   themeConfig: {
     repo: "cosmos/sdk-tutorials",
@@ -92,6 +98,26 @@ module.exports = {
               path: "/academy/5-whats-next/",
               directory: false,
             },
+          ],
+        },
+        {
+          title: "Tutorials",
+          children: [
+            {
+              title: "Understanding IBC denoms",
+              path: "/tutorials/understanding-ibc-denoms/",
+              directory: false,
+            },
+            {
+              title: "Understanding the Authz Module",
+              path: "/authz-module/",
+              directory: false,
+            },
+            {
+              title: "Understanding the Feegrant Module",
+              path: "/tutorials/understanding-feegrant/",
+              directory: false,
+            }
           ],
         },
       ],
@@ -261,7 +287,11 @@ module.exports = {
         }],
         image: "/ibc-icon.svg"
       }
-    ]
+    ],
+    assetsOptimization: {
+      breakpoints: [200, 600, 988, 1200],
+      blacklist: ['node_modules', '.vuepress/dist', '.vuepress/theme', '.vuepress/public/resized-images', '.vuepress/public/h5p']
+    }
   },
   plugins: [
     [
@@ -281,32 +311,10 @@ module.exports = {
     ]
   ],
   patterns: [
-    "hello-world/tutorial/*.md",
-    "burner-chain/*.md",
     "README.md",
-    "home/*.md",
-    "nameservice/tutorial/*.md",
-    "scavenge/tutorial/*.md",
-    "proof-of-file-existence/tutorial/*.md",
-    "launchpad-to-stargate/tutorial/*.md",
-    "voter/*.md",
-    "connecting-to-testnet/*.md",
-    "voter-legacy/*.md",
-    "blog-legacy/tutorial/*.md",
-    "blog/tutorial/*.md",
-    "interchain-exchange/tutorial/*.md",
-    "liquidity-module/*.md",
-    "publish-app-do/*.md",
-    "starport/*.md",
-    "understanding-ibc-denoms/*.md",
     "feature-test/*.md",
-    "academy/*/*.md"
-  ],
-  configureWebpack: {
-    resolve: {
-      alias: {
-        '@images': path.resolve(__dirname, 'public/resized-images')
-      }
-    }
-  }
+    "academy/*/*.md",
+    "tutorials/*/*.md",
+    "authz-module/*.md"
+  ]
 };

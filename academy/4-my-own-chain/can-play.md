@@ -1,11 +1,11 @@
 ---
-title: Can Play Query
+title: Query - Help Find a Correct Move
 order: 17
 description: Help players make good transactions
 tag: deep-dive
 ---
 
-# Can Play Query
+# Query - Help Find a Correct Move
 
 <HighlightBox type="synopsis">
 
@@ -156,4 +156,4 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 ## Next up
 
-Do you want to give players more flexibility on which tokens they can use for the checkers blockchain's games? Let players wager any fungible token in the [next section](./wager-denom.md).
+Do you want to give players more flexibility on which tokens they can use for games? Let players wager any fungible token in the [next section](./wager-denom.md).

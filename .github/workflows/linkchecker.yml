@@ -1,3 +1,4 @@
+# Todo: replace with a call to npm run link:check
 name: Check Markdown links
 on: 
   schedule: 

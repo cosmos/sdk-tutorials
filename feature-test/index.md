@@ -11,7 +11,7 @@ This file demonstrates the usage of various components within the Platform.
 
 Images are embedded with a medium-zoom plugin:
 
-![menu sample image](~@images/constellation.png)
+![menu sample image](/constellation.png)
 
 ## Video
 
@@ -245,7 +245,7 @@ This document explains what application-specific blockchains are, and why develo
 
 ## Menu
 
-![menu sample image](~@images/menu.png)
+![menu sample image](/menu.png)
 
 The left sidebar menu supports:
 * Categories (Cosmos Adacemy (beta))

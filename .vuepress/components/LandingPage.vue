@@ -13,7 +13,7 @@
         .tutorials__wrapper.mt-10
             h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tutorials
             .tutorials
-                a.tutorials__item__small(href="/understanding-ibc-denoms/")
+                a.tutorials__item__small(href="/tutorials/understanding-ibc-denoms/")
                     card
                         .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted intermediate
                         h4.mt-7 Understand IBC denoms
@@ -22,7 +22,7 @@
                 a.tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}" href="https://docs.starport.com/" target="_blank")
                     .tm-measure
                         .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted starport
-                        h2.mt-5 Build a chain in hours
+                        h2.mt-5 Build a chain in minutes
 
 
         .articles__wrapper.mt-10(v-if="$frontmatter.articles")
@@ -67,7 +67,7 @@
 <style lang="stylus" scoped>
     .content
         margin-top var(--spacing-9)
-        max-width var(--content-max-width)
+        max-width var(--content-max-width-big)
         margin-inline auto
 
         &__intro
