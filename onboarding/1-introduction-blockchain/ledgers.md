@@ -1,17 +1,33 @@
 ---
 title: "Ledgers"
 order: 4
-description: 
+description: Blockchain - a distributed ledger
 tag: fast-track
 ---
 
---> Curtail content
-
 # Ledgers
 
-There are many different ways to look at blockchain technology. 
-In order to give you a thorough understanding and a complete view, we do not restrict ourselves to one definition of blockchain but give you multiple throughout this module.
+There are many different ways to look at blockchain technology. In order to give you a thorough understanding and a complete view, do not restrict yourselve to one definition of blockchain but keep in mind the different conceptualizations of the technology.
 
+Let's dive into how blockchain and the concept of a distributed ledger are linked.
+
+<ExpansionPanel title="Open Systems Interconnection model">
+
+The Open Systems Interconnection (OSI) model, developed by the International Organization for Standardization, is a generalized seven-layer architecture concept for communication in a telecommunication or computing system. Each layer represents a certain functionality:
+
+* Layer 1: the physical layer, responsible for the physical connection between devices;
+* Layer 2: dthe ata link layer, responsible for the message delivery between nodes;
+* Layer 3: the network layer, responsible for data transmission between devices in different networksby dealing with packet routing to determine data routing paths and addressing to identify sender and receiver;
+* Layer 4: the transport layer, repsonsible for end-to-end delivery of messages, acknowledgements if successful data transmissions, and re-transmissions of data in case of errors by relying on services from the network layer and providing services to the application layer;
+* Layer 5: the session layer, responsible to establish a connection, maintain a session, and terminate it as well as to ensure synchronization with checkpoints;
+* Layer 6: the presentation layer, responsible for translation, encryption and decryption, and compression of data;
+* Layer 7: the application layer, implemented by the network's application and responsible for interacting directly with the application.
+
+Whereas, layer 1 to 3 are hardware layers, the transport layer (layer 5) is the heart of the OSI, and layer 5 to 7 are software layers.
+
+Want to take a look at the OSI model in more detail? Take a look at this [overview from GeeksforGeeks](https://www.geeksforgeeks.org/layers-of-osi-model/).
+
+</ExpansionPanel>
 
 In the OSI network model fashion, one can break down blockchain technology in the following manner:
 
