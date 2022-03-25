@@ -41,7 +41,7 @@ tag: fast-track
 <p>The correct answer is “The truth is the set of data that all participants eventually agree on”. This is correct because the truth in a blockchain environment, i.e. state of the ledger, is a result of a consensus reached by all participants regarding the creation of blocks.</p>
 [explanation]
 
->>What is the Byzantine General's Problem?<<
+>>What is the Byzantine Generals Problem?<<
 ( ) How to distribute data in a hierarchy-free, permission-less and failure-prone network
 ( ) How to transmit data in a hierarchy-free, permission-less and failure-prone network
 (x) How to reach consensus in a hierarchy-free, permission-less and failure-prone network
@@ -255,7 +255,7 @@ tag: fast-track
 <p>In permissioned blockchains an individual or group of participants holds the authority to validate blocks of transaction or to participate in the consensus mechanism, as well as to create smart contracts and/or transactions. The actor’s involvement is therefore restricted. Permission-less blockchains are contrary to this: Block verification, smart contract creation, and transactions on permission-less blockchain networks are open to all members.</p>
 [explanation]
 
->>Why do managed blockchains not have to mitigate the Byzantine General's Problem?<<
+>>Why do managed blockchains not have to mitigate the Byzantine Generals Problem?<<
 ( ) Because managed blockchains do not use any consensus algorithm 
 (x) Because managed blockchains operate in a predictable environment with elements of authority and hierarchy
 ( ) Because managed blockchains do not use proof-of-work as a consensus algorithm

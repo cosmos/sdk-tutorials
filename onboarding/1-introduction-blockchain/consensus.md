@@ -1,84 +1,274 @@
 ---
 title: "Consensus"
 order: 6
-description: Consensus and decentralized networks
+description: Consensus in decentralized networks
 tag: fast-track
 ---
 
---> Curtail content
-
 # Consensus
 
-A blockchain is a well-ordered set of data on which all peers *eventually* agree, i.e. achieve **consensus**. What they agree on is considered as the single truth. 
-Reached by consensus, the **single truth** is the <b><i>single true state of the distributed ledger</i></b>. To guarantee data consistency consensus has to be reached. 
+A blockchain is a well-ordered set of data on which all peers *eventually* agree. What they agree on is considered as the single truth. Reached by consensus, the **single truth** is the **_single true state of the distributed ledger_**. **Consensus has to be reached to guarantee data consistency.**
 
-In this section, we will take a closer look at consensus in blockchain technology by starting with the Byzantine General's problem and how it can be resolved. We will also address immutability, incentives to avoid denial-of-service (DoS) attacks, and the meaning of block time.
+This section presents a closer look at consensus in blockchain technology by starting with the Byzantine Generals problem and how it can be resolved, then providing an overview of consensus mechanisms in blockchain, addressing immutability and also eventual consensus.
 
-## The problem
+## The Byzantine Generals Problem
 
-The **Byzantine General's Problem** is a consensus-reaching problem which can be applied to hierarchy-free, permission-less, and failure-prone networks, i.e. distributed computing. Mitigation strategies for it are known as **Byzantine Fault Tolerance (BFT)**. 
+The **Byzantine Generals Problem** is a consensus-reaching problem scenario, which can be applied to hierarchy-free, permission-less, and failure-prone networks, therefore also to distributed computing. Mitigation strategies for it are known as **Byzantine Fault Tolerance (BFT)**.
 
-What is the Byzantine General's Problem?
+What is the Byzantine Generals Problem?
 
-![Visualisation Byzantine General's Problem](images/generals.png)
+![Visualization Byzantine Generals Problem](images/generals.png)
 
-Imagine a trio of generals whose armies surround a target city. The generals are physically far away from each other and can only communicate via messengers who could fail to deliver messages and/or acknowledgements, or even forge false ones, i.e. the generals can only use **unsecured communication channels**. Even the generals themselves have questionable loyalty and do not necessarily trust one another. The siege can only be won if the generals work together. But how can the generals reach consensus on whether they want to attack or retreat, and if they want to attack on when to exactly do it?
+Imagine a trio of generals whose armies surround a target city. The generals are physically far away from each other and can only communicate via messengers, who could fail to deliver messages and/or acknowledgements, or even forge false ones; the generals can only use **unsecured communication channels**. Even the generals themselves have questionable loyalty and do not necessarily trust one another. The siege can only be won if the generals work together. But how can the generals reach consensus on whether they want to attack or retreat, and if they want to attack on when to exactly do it?
 
-## How does the Byzantine General's Problem relate to blockchain?
+### How does the Byzantine Generals Problem relate to blockchain?
 
 Similar to the generals who must decide when to attack, in a distributed ledger the agreed transaction list has to be identified and consensus on the correct order of transactions has to be reached.
 
-Remember, individual transactions are sent to the network from individual nodes (distributed technology). Each node must pass (or fail to pass) transactions to other nodes. Because of the time delay required for data to physically travel across the network (i.e. physical latencies), not all nodes will see the same transactions at the same time. Each node must therefore build its own order of transactions.
+As individual transactions are sent to the network from individual nodes, each node must pass, or fail to pass transactions to other nodes. Not all nodes will see the same transactions at the same time because of the time delay required for data to physically travel across the network (physical latencies). Each node must therefore build its own order of transactions.
 
-Since all nodes participate equally, there is no authoritative order of transactions. Still, the network must decide which node's version, or any version, of the truth will be the authoritative truth.
+Since all nodes participate equally, there is **no authoritative order of transactions**. Still, the network must decide which node's version, or any version, of the truth will be the authoritative truth.
 
-## A solution: Proof-of-Work (PoW)
+## A solution - consensus mechanisms
 
-Remember our three generals? Byzantine Fault Tolerance can be achieved if the loyal (non-faulty) generals reach a majority agreement, i.e. consensus, on their attack strategy.
+**Consensus** can be understood as _a process in which the network, constituted by nodes, reaches an agreement regarding the order of transactions and validates the proposed blocks_. Consensus mechanisms generate:
 
-**Proof-of-Work (PoW)** is one way to achieve Byzantine Fault Tolerance. PoW is a cryptographic puzzle first introduced with Hashcash. It was reused in Bitcoin and has been widely adopted since then. 
+* Consensus on the global **state of the blockchain**
+* Consensus on a **set of transactions** in a block
 
-Here is how it works: 
+The main functions of such mechanisms are to:
+
+* **Order transactions**;
+* **Validate transactions**.
+
+<HighlightBox type="info">
+
+Consensus algorithms establish **safety** and **liveness** by generating consensus, ordering transactions, and validating them. Whereas, safety requires the algorithm to behave like a single node system executing each transaction atomically one at a time would; the same set of transactions should lead to the same changes in the state on each individual node. Liveness refers to the upholding of network synchronization: all non-faulty nodes will eventually receive every submitted transaction.
+
+</HighlightBox>
+
+<ExpansionPanel title="General types of consensus algorithms">
+
+Consensus algorithms can be differentiated into **lottery-based** such as PoW and **voting-based algorithms**, like for example in the case of Delgated-Proof-of-Stake.
+
+In lottery-based algorithms, nodes creating blocks are randomly selected in a mechanism strongly resembling a lottery. These algorithms are said to have **high scalability** but at the same time a tendency of producing **forks** and with it a **high-latency finality**. With increased block creation time the probability of another peer creating a new block before receiving the just created one can result in numerous forks. This leads to an instance that has to be solved to achieve finality.
+
+<HighlightBox type="info">
+
+Have you heard the term fork or forking before? If not, please do not worry. A closer look at forks will follow in this section.
+
+</HighlightBox>
+
+Voting-based algorithms bring the advantage of **low-latency finality**; finality is faster than in lottery-based algorithms. This type of algorithms also brings a **scalability/speed trade-off**: as all nodes have to be kept in the loop, the larger the network so the more nodes in a network, the longer it takes for consensus.
+
+To summarize, lottery-based algorithms have good speed and scalability but are slower in achieving finality. Voting-based algorithms are fast and achieve finality faster but are not as well-suited when it comes to scalability. The suitability of algorithms depends strongly on the network requirements and different fault tolerance models.
+
+</ExpansionPanel>
+
+Using PoW to obtain consensus was one of the innovations introduced by Bitcoin in addition to the chain of blocks. Since then, many other consensus algorithms have emerged. The academic community had introduced consensus algorithms even before Bitcoin.
+
+Let us have a look at some of the most popular consensus algorithms.
+
+### Practical Byzantine Fault Tolerance (pBFT)
+
+pBFT was first introduced in 1999. This consensus algorithm is envisioned for asynchronous systems like the internet and was optimized to allow for high-performance.
+
+<HighlightBox type="info">
+
+If you are curious, take a look at the [paper by Miguel Castro and Barbara Liskov](http://pmg.csail.mit.edu/papers/osdi99.pdf) here</a>, in which the Practical Byzantine Fault Tolerance algorithm was presented.
+
+</HighlightBox>
+
+pBFT focuses on providing a **practical Byzantine state machine replication**, which is able to tolerate malicious nodes by assuming independent node failures and manipulated messages. The main aim of the algorithm is to promote consensus of **all honest nodes**.
+
+This assumption translate into a **practical requirement** for the network: The amount of malicious nodes cannot simultaneously equal or exceed 1/3 of all nodes. This can be ensured the more nodes there are in the system: the more nodes, the more unlikely it is that malicious nodes can reach 1/3.
+
+pBFT is a three-phase protocol where the client sends a request to a so-called primary. In the first phase, the primary broadcasts the request with a sequence number to the replicas. Then the replicas agree on the sequence number and create a message. If a certain number of the same message is reached, the message is verified and replicas agree on the total order for requests within a view. At the end, the replicas send the reply to the client.
+
+How does a pBFT system look like?
+
+All nodes in the network are **ordered in sequence**. The leader is the **primary node** and the followers, or remaining nodes, are called **backup nodes**. The primary/leader node is usually selected in a type of [round-robin tournament](https://en.wikipedia.org/wiki/Round-robin_tournament) - a competition in which a contestant meets all other contestants in turns. In addition, there are **validating and non-validating peers**. The communication between the nodes is very intensive as they have to communicate on which peer node sends the message and also verify the message to be intact (i.e. that it has not been changed in transmission).
+
+How does the algorithm proceed?
+
+1. The client sends the request to the primary/leader node to invoke a service operation.
+2. The leader/primary multicasts the request to the backup nodes/replicas with a sequence number.
+3. The replicas agree on the sequence number, execute the request, and send a reply to the client.
+4. The client has to wait until the replies reach the maximum amount of the sum of faulty/malicious nodes plus 1. The message is verified when a certain amount of repetitive messages is send and then the replicas agree on the total order of requests. The result of the operation is verified by waiting to see a specific amount of the same message.
+5. The backup nodes/replicas agree on a total order of requests; consensus on the order of record is achieved.
+6. The nodes accept/reject the consensus order of record.
+
+What happens in case of a bad request?
+
+Imagine, a client sends a bad request to the primary. Now assume that the primary does not identify it as a bad request and recasts it to the replicas. The system should detect it as a "bad" message as soon as nodes start sending different messages as a response. Thus, te message would not pass the condition mentioned above.
+
+<HighlightBox type="tip">
+
+For a more detailed look at pBFT, take a look at the article from Brian Curran [What is Pracictcal Byzantine Fault Tolerance? Complete Beginner's Guide](https://blockonomi.com/practical-byzantine-fault-tolerance/) (2018).
+
+</HighlightBox>
+
+### Proof-of-Work (PoW)
+
+Remember our generals? Byzantine Fault Tolerance can be achieved if the loyal (non-faulty) generals reach a majority agreement on their attack strategy (consensus). **Proof-of-Work (PoW)** is one way to achieve BFT.
+
+PoW is a cryptographic puzzle first introduced with [Hashcash](http://www.hashcash.org/). This consensus algorithm was reused in Bitcoin and has been widely adopted since then.
 
 <!-- Title: Proof-of-Work, URL: https://www.youtube.com/watch?v=iCYj6BfxxJE -->
 
-A node, also known as a **miner**, completes a task of pre-defined, arbitrary difficulty. The task is usually a search for an unknown, random number (a **nonce**). When the miner combines this number with ordered transactions in a block, it results in a hash value that matches pre-defined criteria. A common criterion is a minimum number of zeros at the beginning of the hash.
+A node, also known as a **miner**, completes a task of pre-defined, arbitrary **difficulty**. The task is usually a search for an unknown, random number, which is called a **nonce**. The version of the block accepted as the truth is the one that comes with a nonce - remember the winning lottery ticket? The nonce is a one-time-use unknown number/word and is arbitrary. It can only be used once.
 
-Only when the hash value is produced does the unknown number become the known number -because of the nature of hash values. That means the miner has to try many different numbers to find the right number. Finding the number is considered as evidence of considerable effort, or proof that a lot of work must have been invested in the search.
+When the miner combines this number with ordered transactions in a block, it results in a hash value that matches pre-defined criteria. A common criterion is a small enough value; a hash that starts with the right number of leading `0`s. In binary, for every nonce, you have:
 
-Nodes conduct their searches independently. Each node or miner uses its computing power in order to be the first to solve the puzzle, thereby winning the right to be the latest block's authority.
+* A `1/2` chance of getting a hash that starts with a `0`;
+* A `1/4` chance of getting a hash that starts with `00`;
+* A `1/1024` chance of getting a hash that starts with `0000000000`.
 
-The node that announces a solution first also receives a reward, so there is an incentive to participate in the problem-solving process. Since computing power is not free but consumes electrical power, an economic reward structure is baked into the PoW process. The winning miner is rewarded with freshly minted Bitcoins for example. The idea of substantiating a claim through an arbitrary amount of work was previously suggested as a way to combat spam in other contexts.
+The only way to find a nonce that returns the desired value is to repeatedly try random values. The miner node that finds an answer has most probably tried a large number of times. Finding the number is considered as evidence of considerable effort, or proof that a lot of work must have been invested in the search. This is why the process is called *Proof-of-Work*.
 
-<div class="b9-info">
-	<p>According to the <a href="https://digiconomist.net/bitcoin-energy-consumption">Digiconomist's Bitcoin Energy Consumption Index</a>, Bitcoin currently consumes 65 TWh of electricity every year -about the same as Switzerland. In early <a href="http://motherboard.vice.com/read/bitcoin-could-consume-as-much-electricity-as-denmark-by-2020">estimates in 2016</a>, it was assumed the Bitcoin network would consume as much electricity as Denmark by 2020. Some assessments go even as far as 1 GW.</p>
-</div>
+<HighlightBox type="info">
 
-In a PoW network, a node must acquire an authoritative position if it wants to distort the ledger or it will be unable to influence the ledger. Acquiring an authoritative position means overcoming the **combined problem-solving capacity of the entire network** and maintaining that lead over time. This known attack vector is called the 51%-attack.
+The idea of substantiating a claim through an arbitrary amount of work was previously suggested as a way to combat spam in other contexts.
 
-As the name suggests, if a single party acquires more than 51% of the total problem-solving capacity of the network, i.e. mining power, that party is theoretically able to alter the consensus.
+</HighlightBox>
+
+Nodes conduct their searches independently. Each node or miner uses its computing power in order to be the first to solve the puzzle, thereby winning the right to be the latest block's authority. The node that announces a solution first also receives a reward, so there is an incentive to participate in the problem-solving process. This incentive structure baked into the consensus algorithm is essential, since computing power is not free but consumes electrical power. The reward is determined in the protocol. In Bitcoin, the winning miner is rewarded with freshly minted Bitcoins.
+
+<HighlightBox type="info">
+
+According to the [Digiconomist's Bitcoin Energy Consumption Index](https://digiconomist.net/bitcoin-energy-consumption), Bitcoin currently consumes 204.50 TWh of electricity every year - about the same as Thailand.
+
+</HighlightBox>
+
+In a PoW network, a node must acquire an authoritative position if it wants to distort the ledger. Acquiring an authoritative position means overcoming the **combined problem-solving capacity of the entire network** and maintaining that lead over time. This known attack vector is called a **51%-attack**. As the name suggests, if a single party acquires more than 51% of the total problem-solving capacity of the network (mining power), the party is theoretically able to alter the consensus.
 
 Why is that?
 
 If a party holds more than 51% of the total mining power, that party in the long-run always holds a probabilistic advantage over other miners and with it can dictate the true state of the blockchain by in the end mining the longest chain.
 
-There must be **difficulty**, the control mechanism for the amount of work, involved in minning. It guarantees a given average block creation time. PoW networks set a target average time for a solution to be found by **any** miner/node on the network. The difficulty of the task adjusts **according to the total problem-solving capacity of the network** to compensate for increasing/decreasing network capacity. That means PoW networks do not get faster even if more computing power is added. PoW networks become more resilient by **increasing difficulty**, which raises the threshold a 51% attacker will need to overcome.
+Here **difficulty** comes into play. Difficulty is the term used for the mechanism controlling the amount of work involved in minning. The probabilistic number of times a miner has to try is a measure of difficulty.
 
-The version of the block accepted as the truth is the one that comes with a nonce - remember the winning lottery ticket? The nonce is a one-time-use unknown number/word and is arbitrary. It can only be used once. When added to the block and hashed, the nonce returns a small enough value, i.e. a hash that starts with the right number of leading `0`s.
+Difficulty guarantees a given average block creation time. PoW networks set a target average time for a solution to be found by **any** miner/node on the network. The difficulty of the task adjusts **according to the total problem-solving capacity of the network** to compensate for increasing/decreasing network capacity. That means PoW networks do not get faster even if more computing power is added. Rather they become more resilient by **increasing difficulty**, which raises the threshold a 51% attacker needs to overcome.
 
-In binary, for every nonce, you have:
+### Proof-of-Stake (PoS)
 
-* a `1/2` chance of getting a hash that starts with a `0`,
-* a `1/4` chance of getting a hash that starts with `00`,
-* a `1/1024` chance of getting a hash that starts with `0000000000`.
+**Proof-of-Stake (PoS)** is another method of selecting the authoritative node for a given block. PoS is based on the assumption that those with the most to lose are the most incentivized to safeguard network integrity. PoS solves the energy problem in PoW as "work", use of energy through computational power, is not the proof requested to creat a block.
 
-The only way to find a nonce that returns the desired value is to repeatedly try random values. The miner node that finds an answer has most probably tried a large number of times, which is why the process is called *proof-of-work*. In effect, miners harness their computing power in order to be the first to solve the puzzle and thereby winning the right to be the latest block's authority. Since computing power is not free but consumes electrical power, a reward structure is baked in. In Bitcoin, the winning miner is rewarded with freshly mined bitcoins.
+Validators place funds at risk as **the stake**. For any given block, a validator is selected in pseudo-random fashion with preference to validators with the largest stakes. While PoS systems generally do not reward validators with new coins, validators receive **transaction fees** in return for generating blocks the rest of the network accepts.
+
+Validators face **economic penalties** when they generate blocks that are rejected by sizable numbers of other nodes. A validator is thus incentivised to generate blocks that are likely to be accepted by the network and faces economic punishment when it fails to do so.
+
+A successful Proof-of-Stake system must address the **problem of "nothing at stake"**. That is, randomly-selected validators must face:
+
+* A disincentive for bad behaviour with, for example, extracting a penalty from validators for emitting opinions that are ultimately rejected by the network;
+* A high probability that bad behaviour is detected - the burden of detection usually falls on the rest of the network that can either accept or reject the validator's opinion.
+
+### Delegated-Proof-of-Stake (DPoS)
+
+An extension of proof-of-stake algorithms is called **Delegated-Proof-of-Stake (DPoS)**. The algorithm is called DPoS because like in PoS the **value of a vote** is determined by the stake, the tokens held by a user.
+
+<HighlightBox type="info">
+
+Delegated-Proof-of-Stake (DPoS) is a consensus mechanism developed by Daniel Larimer as a reaction to Bitcoin's high energy consumption and potential centralization in mining. DPOS is much faster compared to other consensus algorithms like PoW.
+
+</HighlightBox>
+
+In this type of consensus mechanism, so-called **"witnesses"** are elected by the stakeholders of the network to secure the network. Afterward, several witnesses are chosen for the block creation to represent at least 50% of the stakeholders' votes.
+
+![Delegated-Proof-of-Stake (DPoS)](images/delegated-proof-of-stake.png)
+
+Witnesses are paid with fees for creating and validating blocks. This economic incentive and a limited number of witnesses leads to competition potentially increasing with each new member.
+
+In case a witness misbehaves, the network's community is able to withdraw their votes for a single witness - kind of like firing the witness. Witnesses that do no longer hold enough votes lose their income basis.
+
+Alongside ascribing the role of witnesses to some participants, DPoS networks also elect **"delegates"**. Delegates are a group of participants that supervise network governance and performance, and propose changes that are then voted on by the entire network.
+
+Many consider DPoS algorithms superior to PoW and PoS because of their fast block creation, a high degree of security, energy efficiency, level of integrity, and democratic structure.
+
+<ExpansionPanel title="Want more consensus algorithms?">
+
+**Proof-of-Burn (PoB)**
+
+Burn in this context is very specific: miners must send coins to a **"burn" address**, a verifiably un-spendable address. The coins on the "burn" address cannot then be spent due to the absence of a private key. To be considered for new block creation nodes can participate in a **lottery** and get rewarded when chosen.
+
+Similar to how solving the guessing game with computing power in PoW establishes a necessary work input and with it the degree of difficulty, burning is how "difficulty" in the mining process is established in PoB. PoB is **expensive** from the miner's point of view because of the coins' worth. PoB uses the same underlying philosophy as in the case of PoW and PoS, but the energy consumption problem and the "nothing at stake problem" are solved. PoB networks often have depended on PoW coins, as the "burning" is often performed with them.
+
+**Proof-of-Importance (PoI)**
+
+The starting idea with **proof-of-importance (PoI)** is to solve the "rich man gets richer" problem that arises in PoS algorithms. Therefore, the protocol rewards network activity based on the so-called **"importance score"**, which is calculated by graph theory. 
+
+Similar to PoS nodes invest a stake in the network to be eligible for selection. In the case of PoI, the stake invested is calculated from a set of variables (amount of transactions to and from an address, whether a node is part of a cluster, etc.) that are included in the score. The probability to be chosen to build new blocks increases with the value of the importance score.
+
+PoI networks have a similar rationale like PoS but prevent hording as a mean to increase prosperity and "nothing-at-stake" problems with the use of the importance score.
+
+Proof-of-importance (PoI) is implemented in <a href="https://nem.io/">NEM</a>, a peer-to-peer cryptocurrency and blockchain platform. 
 
 <div class="b9-info">
-	<p>According to the <a href="https://digiconomist.net/bitcoin-energy-consumption">Digiconomist's Bitcoin Energy Consumption Index</a>, Bitcoin currently consumes 65 TWh of electricity every year -about the same as Switzerland. In early estimates in 2016, it was assumed the Bitcoin network would consume as much electricity as Denmark by 2020. Some assessments go even as far as 1 GW.</p>
+	<p>NEM is a blockchain platform that was launched in March 2015 and the name of the corresponding cryptocurrency.</p> 
+	<p>NEM has stood out as multiple ledgers can simultaneausly coexist on one single blockchain, and faster transaction speed and scalability are promised.</p>
+	<p>NEM offers a wide range of features and a commercial blockchain option called <b>Mijin</b>.</p>
 </div>
 
-The probabilistic number of times a miner has to try is a measure of difficulty. At the time of writing, the difficulty is such that miners have to find a nonce with **69 leading `0`s**.
+**Proof-of-Activity (PoA)**
+
+**Proof-of-activity (PoA)** is a combination of PoW and PoS. The miner creates a template with the nonce and deploys it to the network. Then the signers are chosen by the block hash of this template. If the template is signed by the signers, it becomes a block. In the end, the reward is shared between the miner and signers.
+
+The algorithm is called proof-of-activity because only participants with a **full online node** can get a reward.
+
+Let us split this process into its PoW and PoS components:
+
+1. Miners compete in a computer-power-driven guessing game to find the next block, just as in PoW.
+2. After a block is mined, it contains a header and the reward address of the miner -like in PoS.
+3. Nodes are selected as validators depending on the stake of coins they hold (second PoS component). The higher the stake, the more probable it is to be selected as a validator.
+4. The validated block becomes part of the blockchain, and the fees and rewards are transferred to the miners and validators.
+
+As a combination of PoW and PoS, PoA networks can also suffer from a high energy consumption, like PoW ones, and coin hording. But it also inherits the algorithms' benefits, like its strong decentralisation and its security against 51% attacks.
+
+<div class="b9-tip">
+	<p>For a more in-depth look at PoW, PoS, and PoA, we recommend <a href="https://eprint.iacr.org/2014/452.pdf"><i>Proof of Activity: Extending Bitcoin's Proof of Work via Proof of Stake</i> by Iddo Bentov et al.</a>.</p>
+</div>
+
+**Proof-of-Capacity (PoC)**
+
+**Proof-of-capacity (PoC)** uses the memory or hard disk drive (HDD) of a user to reach consensus. It is often also referred to as proof-of-space (PoSpace). In PoC, the user signals its interest and stake by dedicating an amount of their HDDs to the mining process.
+
+First, it creates and stores hashes. Then it selects parts of the data considering the last block header in the blockchain. The selected data is hashed and must fulfil a given difficulty.
+
+PoC is designed to be fairer, because memory access times do not vary as much as the central processing units (CPU) power. PoC decentralises mining even more than PoW algorithms. In addition, it has a lower energy consumption than PoW.
+
+PoC has been applied in the case of [Burstcoin](https://www.burst-coin.org/), a cryptocurrency founded in 2014, and was proposed for [SpaceMint](https://dci.mit.edu/research/spacemint-cryptocurrency-mining), on which academic researchers have been working.
+
+**Proof-of-Elapsed-Time (PoET)**
+
+**Proof-of-elapsed-time (PoET)** elects a leader via a lottery algorithm. The key point is the lottery, which must be performed in a **trusted execution environment (TEE)**. For this purpose, Intel offers **Software Guard Extensions (SGX)** for applications developers.
+
+<div class="b9-info">
+	<p>A <b>trusted execution environment (TEE)</b> is a secure area of the processor that offers an isolated processing environment.</p>
+	<p>It offers the possibility to load, execute, process, and store data and code in a way that maintains confidentiality and integrity by running applications in a safe space.</p>
+</div>
+
+The lottery provides every validator with a randomised wait time (See: the **createWaitTimer** in the figure below). The fastest validator becomes the leader. The leader is eligible to create a block after the allotted time. The new block must be accepted by the rest of the network (i.e. BFT). Notice that there is a [Z-test](https://en.wikipedia.org/wiki/Z-test) to check if a node is generating blocks too fast. The leader is eligible to create a block after the allotted time. The new block must be accepted (Byzantine Fault Tolerance) by the rest of the network.
+
+![PoET image](images/poet.png)
+
+The underlying idea in PoET is the same as Bitcoin in that the first node to announce a valid block wins. Rather than compute-intensive proof-of-work, SGX assumes the task of declaring a lottery winner. PoET is used in Intel's Hyperledger Project Sawtooth Lake.
+
+<div class="b9-info">
+	<p>For some general point on advantages and dis-advantages of different consensus algorithms, we can recommend the following overviews:</p>
+		<ul>
+			<li><a href="https://hackernoon.com/a-hitchhikers-guide-to-consensus-algorithms-d81aae3eb0e3">Witherspoon, Z. (2013): <i>A Hitchhiker’s Guide to Consensus Algorithms. A quick classification of cryptocurrency consensus types</i></a>,</li>
+			<li><a href="https://hackernoon.com/consensuspedia-an-encyclopedia-of-29-consensus-algorithms-e9c4b4b7d08f">Vasa (2018): <i>ConsensusPedia: An Encyclopedia of 30 Consensus Algorithms. A complete list of all consensus algorithms</i></a>.</li>
+		</ul>
+
+
+
+</ExpansionPanel>
+
+
+
+
+
+
 
 ## *Eventual* consensus
 
@@ -366,186 +556,15 @@ Uncles can also create issues for a blockchain. Including uncles can bloat the n
 
 ## Other consensus algorithms
 
-Consensus can be understood as a process in which the network, constituted by nodes, reaches an agreement regarding the order of transactions and validates the proposed blocks, which include the transactions, by doing so consensus mechanisms generate:
 
-* consensus on the global **state of the blockchain**,
-* consensus on a **set of transactions** included in one block.
 
-Their main functions are to:
 
-* **order transactions**, and
-* **validate transactions**.
 
-Consensus algorithms establish **safety** and **liveness** by generating consensus, ordering transactions, and validating them. Whereas, safety requires that the "algorithm must behave identical to a single node system that executes each transaction atomically one at a time" (Hyperledger (2017): *Hyperledger Architecture, Volume 1*](https://www.hyperledger.org/wp-content/uploads/2017/08/Hyperledger_Arch_WG_Paper_1_Consensus.pdf)). Meaning that the same set of transactions should lead to the same changes in the state on each individual node. Liveness refers to the upholding of network synchronisation: All non-faulty nodes will "eventually receive every submitted transaction, assuming that communication does not fail" (Hyperledger (2017): *Hyperledger Architecture, Volume 1*](https://www.hyperledger.org/wp-content/uploads/2017/08/Hyperledger_Arch_WG_Paper_1_Consensus.pdf)).
 
-Consensus algorithms can be differentiated into **lottery-based**, such as PoW, and **voting-based algorithms**, like for example in the case of delgated-proof-of-stake (See: [Hyperledger (2017): *Hyperledger Architecture, Volume 1*](https://www.hyperledger.org/wp-content/uploads/2017/08/Hyperledger_Arch_WG_Paper_1_Consensus.pdf)).
 
-Lottery-based algorithms, i.e. where nodes creating blocks are randomly selected in a mechanism strongly resembling a lottery, are said to have **high scalability** but at the same time a tendency of producing **forks** and with it a **high-latency finality**. With increased block creation time, which is an attractive feature of a network, the probability of another peer creating a new block before receiving the just created one can result in numerous forks. This leads to an instance that has to be solved to achieve finality.
 
-Voting-based algorithms, i.e. algorithms including elections, bring the advantage of **low-latency finality**, i.e. finality is faster than in lottery-based algorithms. This type of algorithms also brings a **scalability/speed trade-off**: As all nodes have to be kept in the loop, the larger the network (i.e. higher number of nodes), the longer it takes for consensus.
 
-To summarize, lottery-based algorithms have a good speed and scalability but are slower in achieving finality. Voting-based algorithms are fast and achieve finality faster but are not as well-suited in regard to scalability. The suitability of algorithms depends strongly on the network requirements and different fault tolerance models.
 
-Using proof-of-work to obtain consensus was one of the innovations introduced by Bitcoin in addition to the chain of blocks. Since then, many other consensus algorithms for new blocks have emerged. The academic community had introduced consensus algorithms even before Bitcoin.
-
-Let us have a look at some of the most popular consensus algorithms.
-
-### Practical Byzantine Fault Tolerance (pBFT)
-
-pBFT was first introduced in 1999. It is a three-phase protocol where the client sends a request to a so-called primary. 
-
-<div class="b9-info">
-	<p>You can access the paper by Miguel Castro and Barbara Liskov <a href="http://pmg.csail.mit.edu/papers/osdi99.pdf">here</a>, in which the Practical Byzantine Fault Tolerance algorithm was presented.</p>
-	<p>There is also a very understandble <a href="http://www.comp.nus.edu.sg/~rahul/allfiles/cs6234-16-pbft.pdf">presentation</a>.</p>
-</div>
-
-pBFT focuses on providing a **practical Byzantine state machine replication**, which is able to tolerate malicious nodes by assuming independent node failures and manipulated messages. Thus, the main aim of the algorithm is to promote consensus of **all honest nodes**.
-
-This assumption translate into a **practical requirement** for the network: The amount of malicious nodes cannot simultaneously equal or exceed 1/3 of all nodes. This can be ensured especially the more nodes there are in the system; the more nodes, the more unlikely it is that malicious nodes can reach 1/3. This consensus algorithm is envisioned for asynchronous systems like the internet and was optimised to allow for high-performance.
-
-In the first phase, the primary broadcasts the request with a sequence number to the replicas. Then the replicas agree on the sequence number and create a message. If a certain number of the same message is reached, the message is verified and replicas agree on the total order for requests within a view. At the end, the replicas send the reply to the client.
-
-How does a pBFT system look like?
-
-All nodes in the network are **ordered in sequence**. The leader is the **primary node**. The followers, i.e. the remaining nodes, are called **backup nodes**. The primary/leader node is usually selected in a type of <a href="https://en.wikipedia.org/wiki/Round-robin_tournament"><i>round-robin tournament</i></a> - which is a competition in which a contestant meets all other contestants in turns. In addition, we have **validating and non-validating peers**. The communication between the nodes is very intensive as they have to communicate regarding which peer node sends the message and also to verify the message to be intact, i.e. that it has not been changed in transmission.
-
-How does the algorithm proceed?
-
-1. The client sends the request to the primary/leader node to invoke a service operation;
-2. The leader/primary multicasts the request to the backup nodes/replicas with a sequence number;
-3. These agree on the sequence number, execute the request and send a reply to the client. The client has to wait until the replies reach the maximum amount of the sum of faulty/malicious nodes plus 1;
-. The message is verified when a certain amount of repetitive messages is send and then the replicas agree on the total order of requests. By waiting to see a specific amount of the same message, the result of the operation is verified;
-5. The backup nodes/replicas agree on a total order of requests, i.e. consensus on the order of record is achieved;
-6. The nodes accept/reject the consensus order of record.
-
-What happens in case of a **bad request**?
-
-The client sends the bad request to the primary. Let us assume the primary does not identify it as a bad request and recasts it to the replicas. The system should detect it as a "bad" message as soon as nodes start sending different messages as a response. The message would not pass the condition mentioned above.
-
-<div class="b9-tip">
-	<p>We can definitely suggest the following article on pBFT: <a href="https://blockonomi.com/practical-byzantine-fault-tolerance/">Curran, B. (2018): <i>What is Pracictcal Byzantine Fault Tolerance? Complete Beginner's Guide</i></a>.</p>
-</div>
-
-This of course is a very simplified description. 
-
-### Proof-of-Stake (PoS)
-
-**Proof-of-stake (PoS)** is another method of selecting the authoritative node for a given block. PoS is based on the assumption that those with the most to lose are the most incentivised to safeguard network integrity.
-
-A successful proof-of-stake system must address the **problem of "nothing at stake"**. That is, randomly-selected validators must face a disincentive for bad behaviour as well as a high probability that bad behaviour will be detected. The burden of detection usually falls on the rest of the network that can either accept or reject the validator's opinion. A solution to the disincentive aspect is to extract a penalty for emitting opinions that are ultimately rejected by the network.
-
-
-Validators place funds at risk (i.e. **the stake**). For any given block, a validator is selected in pseudo-random fashion with preference to validators with the largest stake. While PoS systems generally do not reward validators with new coins, validators receive **transaction fees** in return for generating blocks the rest of the network accepts. 
-
-Validators face **economic penalties** when they generate blocks that are rejected by sizable numbers of other nodes. A validator is thus incentivised to generate blocks that are likely to be accepted by the network and faces economic punishment when it fails to do so.
-
-The planned **PoS protocol for Ethereum** is called **CASPER**. PoS is already used in **Nxt** (cryptocurrency and payment network launched in 2013). PoS solves the energy problem in PoW as "work" (i.e. use of energy through computational power) is not the proof requested. 
-
-### Delegated-Proof-of-Stake (DPoS)
-
-An extension of proof-of-stake algorithms is called **delegated-proof-of-stake (DPoS)**. It is used for example in BitShares. Other blockchains that use DPoS as their consensus mechanism are EOS, Steem, and Lisk.
-
-<div class="b9-info">
-	<p><a href="https://bitshares.org/">BitShares</a> is an open-source, blockchain-based financial platform launched in 2014 and the name of the corresponding cryptocurrency. It provides a decentralized asset exchange – comparable to a stock exchange like the New York Stock Exchange (NYSE) but focused on cryptocurrencies.</p>
-</div>
-
-The algorithm is called DPoS because like in PoS the **value of a vote** is determined by the stake, i.e. tokens held by a user.
-
-<div class="b9-info">
-	<p>Delegated-proof-of-stake (DPoS) is a consensus mechanism developed by Daniel Larimer as a reaction to Bitcoin's high energy consumption and potential centralisation in mining.</p>
-	<p>DPOS is much faster compared to other consensus algorithms like PoW.</p>
-</div>
-
-In this type of consensus mechanism, so-called **"witnesses"** are elected by the stakeholders of the network. Witnesses secure the network. Afterwards, several witnesses are chosen for the block creation so that they represent at least 50% of the stakeholders' votes.
-
-![DPoS](images/delegated-proof-of-stake.png)
-
-Witnesses are paid for their services: They are paid fees for creating and validating blocks. This economic incentive to become a witness also leads to competition potentially increasing with each new member because the number of witnesses is limited.
-
-In case a witness misbehaves, the network's community is able to withdraw their votes for a single witness, i.e. fire the witness. Witnesses that do no longer hold enough votes lose their income basis.
-
-Alongside ascribing the role of witnesses to some participants, DPoS networks also elect **"delegates"**. Delegates are a group of participants that supervise network governance and performance, and propose changes that are then voted on by the entire network.
-
-Many consider DPoS algorithms superior to PoW and PoS because of their fast block creation, a high degree of security, energy efficiency, level of integrity, and democratic structure.
-
-### Proof-of-Burn (PoB)
-
-Burn in this context is very specific: Miners must send coins to a **"burn" address**, of which it is believed nobody owns the private key (i.e. a verifiably un-spendable address). The coins on the “burn” address cannot then be spent due to the absence of a private key. This is how "difficulty" in the mining process is established, similar to how solving the guessing game with computing power in PoW establishes a necessary work input and with it the degree of difficulty.
-
-To be considered for new block creation nodes can participate in a **lottery** and will get rewarded when chosen. 
-
-This is **expensive** from the miner's point of view because of the coins' worth. PoB uses the same underlying philosophy as in the case of PoW, but furthermore the energy consumption problem and the "nothing at stake problem" are solved. 
-
-PoB networks often have depended on PoW coins, as the "burning" is performed with them.
-
-
-
-### Proof-of-Importance (PoI)
-
-The starting idea with **proof-of-importance (PoI)** is to solve the "rich man gets richer" problem that arises in PoS algorithms. Therefore, the protocol rewards network activity based on the so-called **"importance score"**, which is calculated by graph theory. 
-
-Similar to PoS nodes invest a stake in the network to be eligible for selection. In the case of PoI, the stake invested is calculated from a set of variables (amount of transactions to and from an address, whether a node is part of a cluster, etc.) that are included in the score. The probability to be chosen to build new blocks increases with the value of the importance score.
-
-PoI networks have a similar rationale like PoS but prevent hording as a mean to increase prosperity and "nothing-at-stake" problems with the use of the importance score.
-
-Proof-of-importance (PoI) is implemented in <a href="https://nem.io/">NEM</a>, a peer-to-peer cryptocurrency and blockchain platform. 
-
-<div class="b9-info">
-	<p>NEM is a blockchain platform that was launched in March 2015 and the name of the corresponding cryptocurrency.</p> 
-	<p>NEM has stood out as multiple ledgers can simultaneausly coexist on one single blockchain, and faster transaction speed and scalability are promised.</p>
-	<p>NEM offers a wide range of features and a commercial blockchain option called <b>Mijin</b>.</p>
-</div>
-
-### Proof-of-Activity (PoA)
-
-**Proof-of-activity (PoA)** is a combination of PoW and PoS. The miner creates a template with the nonce and deploys it to the network. Then the signers are chosen by the block hash of this template. If the template is signed by the signers, it becomes a block. In the end, the reward is shared between the miner and signers.
-
-The algorithm is called proof-of-activity because only participants with a **full online node** can get a reward.
-
-Let us split this process into its PoW and PoS components:
-
-1. Miners compete in a computer-power-driven guessing game to find the next block, just as in PoW.
-2. After a block is mined, it contains a header and the reward address of the miner -like in PoS.
-3. Nodes are selected as validators depending on the stake of coins they hold (second PoS component). The higher the stake, the more probable it is to be selected as a validator.
-4. The validated block becomes part of the blockchain, and the fees and rewards are transferred to the miners and validators.
-
-As a combination of PoW and PoS, PoA networks can also suffer from a high energy consumption, like PoW ones, and coin hording. But it also inherits the algorithms' benefits, like its strong decentralisation and its security against 51% attacks.
-
-<div class="b9-tip">
-	<p>For a more in-depth look at PoW, PoS, and PoA, we recommend <a href="https://eprint.iacr.org/2014/452.pdf"><i>Proof of Activity: Extending Bitcoin's Proof of Work via Proof of Stake</i> by Iddo Bentov et al.</a>.</p>
-</div>
-
-### Proof-of-Capacity (PoC)
-
-**Proof-of-capacity (PoC)** uses the memory or hard disk drive (HDD) of a user to reach consensus. It is often also referred to as proof-of-space (PoSpace). In PoC, the user signals its interest and stake by dedicating an amount of their HDDs to the mining process.
-
-First, it creates and stores hashes. Then it selects parts of the data considering the last block header in the blockchain. The selected data is hashed and must fulfil a given difficulty.
-
-PoC is designed to be fairer, because memory access times do not vary as much as the central processing units (CPU) power. PoC decentralises mining even more than PoW algorithms. In addition, it has a lower energy consumption than PoW.
-
-PoC has been applied in the case of [Burstcoin](https://www.burst-coin.org/), a cryptocurrency founded in 2014, and was proposed for [SpaceMint](https://dci.mit.edu/research/spacemint-cryptocurrency-mining), on which academic researchers have been working.
-
-### Proof-of-Elapsed-Time (PoET)
-
-**Proof-of-elapsed-time (PoET)** elects a leader via a lottery algorithm. The key point is the lottery, which must be performed in a **trusted execution environment (TEE)**. For this purpose, Intel offers **Software Guard Extensions (SGX)** for applications developers.
-
-<div class="b9-info">
-	<p>A <b>trusted execution environment (TEE)</b> is a secure area of the processor that offers an isolated processing environment.</p>
-	<p>It offers the possibility to load, execute, process, and store data and code in a way that maintains confidentiality and integrity by running applications in a safe space.</p>
-</div>
-
-The lottery provides every validator with a randomised wait time (See: the **createWaitTimer** in the figure below). The fastest validator becomes the leader. The leader is eligible to create a block after the allotted time. The new block must be accepted by the rest of the network (i.e. BFT). Notice that there is a [Z-test](https://en.wikipedia.org/wiki/Z-test) to check if a node is generating blocks too fast. The leader is eligible to create a block after the allotted time. The new block must be accepted (Byzantine Fault Tolerance) by the rest of the network.
-
-![PoET image](images/poet.png)
-
-The underlying idea in PoET is the same as Bitcoin in that the first node to announce a valid block wins. Rather than compute-intensive proof-of-work, SGX assumes the task of declaring a lottery winner. PoET is used in Intel's Hyperledger Project Sawtooth Lake.
-
-<div class="b9-info">
-	<p>For some general point on advantages and dis-advantages of different consensus algorithms, we can recommend the following overviews:</p>
-		<ul>
-			<li><a href="https://hackernoon.com/a-hitchhikers-guide-to-consensus-algorithms-d81aae3eb0e3">Witherspoon, Z. (2013): <i>A Hitchhiker’s Guide to Consensus Algorithms. A quick classification of cryptocurrency consensus types</i></a>,</li>
-			<li><a href="https://hackernoon.com/consensuspedia-an-encyclopedia-of-29-consensus-algorithms-e9c4b4b7d08f">Vasa (2018): <i>ConsensusPedia: An Encyclopedia of 30 Consensus Algorithms. A complete list of all consensus algorithms</i></a>.</li>
-		</ul>
 </div>
 
 ## Blockchain as a decentralised consensus network
