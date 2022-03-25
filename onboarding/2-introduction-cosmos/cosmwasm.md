@@ -4,7 +4,7 @@ order: 9
 description: CosmWasm
 tag: fast-track
 ---
-
+https://docs.cosmwasm.com/docs/1.0/
 ## CosmWasm: Multi-chain smart contracts
 
 [CosmWasm](https://cosmwasm.com/) is a multi-chain platform to build robust dApps for Cosmos using smart contracts. It builds on Tendermint and the Cosmos SDK. Its key features are:

@@ -47,6 +47,44 @@ If the concept of consensus in blockchain is something completely new to you, pl
 
 Bitcoin and its underlying technology convincingly demonstrate that a network of participants that do not necessarily trust each other, can form a consensus about the validity of a transaction, its history, and the resulting state of the ledger. This is interesting because simple ledgers of account balances and simple protocols for moving funds are far from the only use cases for shared data consensus.
 
+
+
+## Digital currency and the double-spending problem
+
+Traditional currency systems rely on central authorities such as central banks or physical safeguards on banknotes to prevent double-spending and counterfeiting.
+
+![Double-spending: Regular Transaction](images/doublespendingproblem1.png)
+
+Things are different in the digital world. 
+Consider the following:
+
+* a malicious Alice sends digital coins to Bob in exchange for goods or services;
+* Alice sends the same coins to Charlie in exchange for other goods or services;
+* both Bob and Charlie deliver the goods or services, but only one of them will be able to spend the received coins.
+
+![Double-spending Problem: Conflicting Transaction](images/doublespendingproblem2.png)
+
+In earlier digital cash systems, Alice could double-spend if Bob and Charlie were sufficiently unaware of Alice's overall transactions.
+
+In Bitcoin, Alice could double-spend if Bob first delivered the goods, and the Bitcoin network then switches to a fork that does not contain the Alice-to-Bob transaction.
+
+Traditional currency systems have relied in the past on central authorities, such as central banks or physical aspects of coins and banknotes to prevent double-spending problems and counterfeiting.
+
+Double-spending is important for digital tokens because they could theoretically be spent more than once. 
+Double-spending refers in the blockchain context to a situation in which **one** token is spent **twice or more** times.
+
+![Double-spending Problem: Transaction via Blockchain](images/doublespendingproblem3.png)
+
+The double-spending problem in blockchain technology should be clearly distinguished from double-spending problems related to duplication and/or falsification. 
+These can lead to inflation, currency devaluation, and distrust among currency holders. 
+These are more related to digital cash systems and solved with a trusted central authority.
+
+
+
+
+
+
+
 ## How does blockchain work?
 
 Imagine you want to **retain and monitor changes to a file**, for example a log file. Now, imagine you also want a verifiable, unbroken history of all changes ever made to the file. How can you proceed?
