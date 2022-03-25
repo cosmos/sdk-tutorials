@@ -77,12 +77,6 @@ The ideal cryptographic hash function has **five main properties**:
 * **Avalanche effect:** a small change to a message should change the hash value so extensively that the new hash value appears uncorrelated with the old hash value;
 * **Unique:** it is infeasible to find two different messages with the same hash value.
 
-<HighlightBox type="tip">
-
-You can see hashing in action to get the feel for it on the [OnlineMD5 website](http://onlinemd5.com/). As you type in the text box the hash updates automatically. Even a minuscule change to the input creates a completely different hash.
-
-</HighlightBox>
-
 There are many different hashing algorithms. Each algorithm consistently produces hashes of the same size regardless of the size of the input.
 
 <HighlightBox type="tip">
