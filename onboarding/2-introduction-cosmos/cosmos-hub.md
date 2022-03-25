@@ -231,6 +231,8 @@ If you want to re-stake this amount and benefit from the compound effect, go ahe
 
 This completes this exercise. You got yourself set up to participate in the Cosmos Hub network and even its security. Your stake is working for you as you continue your Cosmos training journey.
 
+## Quick recap
+
 ## Next up
 
 Head on to the [next chapter](../2-main-concepts/index.md) to keep exploring the Cosmos SDK. Next it is all about the SDKs main components.

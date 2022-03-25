@@ -321,6 +321,7 @@ Do you want to dive deeper when it comes to bridges? Here are some helpful resou
 
 </HighlightBox>
 
-## Next up
+## Quick recap
 
+## Next up
 

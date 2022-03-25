@@ -560,4 +560,7 @@ Concluding, there are a number of barriers, but also great possible potentials a
 
 
 
+## Quick recap
+
+## Next up
 

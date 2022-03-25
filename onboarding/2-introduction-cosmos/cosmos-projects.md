@@ -38,3 +38,7 @@ Moreover, [**35 wallets**](https://cosmos.network/ecosystem/wallets) and block e
 Do you want to find out more about the wide variety of wallets in the Cosmos ecosystem? We recommend checking out the [wallets and block explorers for Cosmos](https://cosmos.network/ecosystem/wallets).
 
 </HighlightBox>
+
+## Quick recap
+
+## Next up

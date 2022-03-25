@@ -480,6 +480,8 @@ Here is a Hyperledger Fabric example certificate:
 
 ![Hyperledger Certificate](images/cert.png)
 
+## Quick recap
+
 <div class="b9-reading">
 <ul>
 	<li><a href="http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/"><i>Encrypt and Decrypt</i></a></li>
@@ -489,3 +491,5 @@ Here is a Hyperledger Fabric example certificate:
 	<li><a href="https://www.ietf.org/rfc/rfc5280.txt">Network Working Group (2008): <i>Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile</i></a></li>
 </ul>
 </div>
+
+## Next up

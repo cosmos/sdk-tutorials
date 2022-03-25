@@ -184,6 +184,9 @@ This field of activity will likely continue to rely on legal scholars even when 
 
 In regard to documentation and recording, which are mainly undertaken by lawyers, digitising contracts will probably lead to a decrease of this aspect of the legal profession.
 
+## Quick recap
+
+
 <div class="b9-reading">
 	<ul>
 	<li><a href="http://biglawkm.com/2016/10/20/smart-contracts-and-the-role-of-lawyers-part-1-about-smart-contracts/">Miller, B. (2016): <i>Smart Contracts and the Role of Lawyers (Part 1) – About Smart Contracts</i>. In: BigLaw KM.</a></li>
@@ -196,3 +199,6 @@ In regard to documentation and recording, which are mainly undertaken by lawyers
 
 
 --> add more on limitations and difficulties and sub-section on Gas
+
+
+## Next up
