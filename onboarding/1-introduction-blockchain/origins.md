@@ -1,35 +1,33 @@
 ---
 title: "The Origins"
 order: 7
-description: 
+description: Historic overview
 tag: fast-track
 ---
 
---> Curtail content, add more in direction to historic overview in Academy content
-
 # A Brief History of Blockchain
-
-In order to understand whether blockchain technology is a good fit for your project it is important to understand where it comes from and who is driving it.
 
 Important groundwork was laid in the 1980's and 1990's for what will later be known as blockchain technology. Although the technology itself was not created until 2008, researchers from different fields in computer science and cryptography proposed solutions to many problems regarding security, transparency, and trust. All of them contributed in the development of the first large scale, successful public blockchain network, Bitcoin.
 
-![Blockchain Timeline](images/timeline.png)
+<ExpansionPanel title="The groundwork of the 1990s">
 
-### 1990s
+Sometimes a look in the past tells us a lot about the present.
 
-In 1991, two research scientists, Stuart Haber and W. Scott Stornetta, identified a problem: How can it be ensured that digital documents are authentic and changes to them are tracked in an immutable time-stamped manner? In *How to time-stamp a digital document*, they worked on the concept of append-only, cryptographically secured logs. With their work, the foundations of what much later becomes blockchain technology were laid.
+In 1991, two research scientists, Stuart Haber and W. Scott Stornetta, identified a problem: how can it be ensured that digital documents are authentic and changes to them are tracked in an immutable time-stamped manner? In *How to time-stamp a digital document*, they worked on the concept of append-only, cryptographically secured logs. With their work, the foundations of what much later becomes blockchain technology were laid.
 
-Haber and Stornetta’s work was later followed and elaborated on by Ross J. Anderson in 1996 when he described the creation of [*The Eternity Service*](https://www.cl.cam.ac.uk/~rja14/Papers/eternity.pdf) -a storage medium resistant to DoS attacks by using redundancy and scattering techniques, as well as anonymity mechanisms. 
+Haber and Stornetta's work was later followed and elaborated on by Ross J. Anderson in 1996 when he described the creation of [*The Eternity Service*](https://www.cl.cam.ac.uk/~rja14/Papers/eternity.pdf) - a storage medium resistant to DoS attacks by using redundancy and scattering techniques, as well as anonymity mechanisms.
 
-In 1998 [Bruce Schneier](https://www.schneier.com/crypto-gram/) and [John Kelsey](https://www.nist.gov/people/john-m-kelsey) proposed a computationally cheap way to safeguard sensitive information and allow for computer forensics with secure audit logs by using hashing, authentication keys, and encryption keys (See: [Schneier, B. & Kelsey, J. (1998): *Secure Audit Logs to Support Computer Forensics*](https://www.schneier.com/academic/paperfiles/paper-auditlogs.pdf)).
+In 1998, [Bruce Schneier](https://www.schneier.com/crypto-gram/) and [John Kelsey](https://www.nist.gov/people/john-m-kelsey) proposed a computationally cheap way to safeguard sensitive information and allow for computer forensics with secure audit logs by using hashing, authentication keys, and encryption keys (see: [Schneier, B. & Kelsey, J. (1998): *Secure Audit Logs to Support Computer Forensics*](https://www.schneier.com/academic/paperfiles/paper-auditlogs.pdf)).
 
-Another significant work arose in 1994, when computer scientist Nick Szabo first described the concept of [smart contracts](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html). Although we will discuss smart contracts in depth later in the course, it is important to recognize Szabo’s intent was to minimize the need for trusted intermediaries. In 1998 he proposed BitGold, a conceptual predecessor to Bitcoin as he argued for a decentralised digital currency. In both PoW is used as a consensus algorithm to solve cryptographic puzzles in a P2P network with BFT. The solutions are also linked together by a "hash chain" (See: [Moskoy, Phillip (2018): *What Is Bit Gold? The Brainchild of Blockchain Pioneer Nick Szabo*](https://coincentral.com/what-is-bit-gold-the-brainchild-of-blockchain-pioneer-nick-szabo/)). Although BitGold was never implemented, many perceive it as being the direct ancestor to BitCoin.
+Another significant work arose in 1994, when computer scientist Nick Szabo first described the concept of [smart contracts](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html). Although we will discuss smart contracts in depth later in the course, it is important to recognize Szabo's intent was to minimize the need for trusted intermediaries. In 1998 he proposed BitGold, a conceptual predecessor to Bitcoin as he argued for a decentralised digital currency. In both PoW is used as a consensus algorithm to solve cryptographic puzzles in a P2P network with BFT. The solutions are also linked together by a "hash chain" (See: [Moskoy, Phillip (2018): *What Is Bit Gold? The Brainchild of Blockchain Pioneer Nick Szabo*](https://coincentral.com/what-is-bit-gold-the-brainchild-of-blockchain-pioneer-nick-szabo/)). Although BitGold was never implemented, many perceive it as being the direct ancestor to BitCoin.
 
-As we can see, these intellectual predecessors identified elements that are essential to blockchain technology. 
+As we can see, these intellectual predecessors identified elements that are essential to blockchain technology.
 
-### 2000s
+</ExpansionPanel>
 
-On October 31, 2008, Satoshi Nakamoto called for a peer-to-peer version of digital currency that would allow online payments to be sent directly from one party to another without going through a financial institution in the Bitcoin White Paper. This sounds familiar for a reason as Nick Szabo mentioned a currency that would depend minimally on third parties, BitGold. However, Satoshi’s paper differed significantly -not in just changing the name from BitGold to Bitcoin. The Bitcoin White Paper also proposed a data structure for the Bitcoin blockchain and laid out the decentralised consensus mechanism. It became the first large scale, successful public blockchain network.
+**2000s**
+
+On October 31, 2008, Satoshi Nakamoto called for a peer-to-peer version of digital currency that would allow online payments to be sent directly from one party to another without going through a financial institution in the Bitcoin White Paper. This sounds familiar for a reason as Nick Szabo mentioned a currency that would depend minimally on third parties, BitGold. However, Satoshi's paper differed significantly -not in just changing the name from BitGold to Bitcoin. The Bitcoin White Paper also proposed a data structure for the Bitcoin blockchain and laid out the decentralised consensus mechanism. It became the first large scale, successful public blockchain network.
 
 To this day, we do not know who is behind the White Paper or the first implementation of the client. Satoshi Nakamoto is the pseudonym used by the person or group that published the White Paper. As you might have seen in the news, the identity of Nakomoto has sparked plenty of conspiracy theories as several individuals have claimed to be the creator of Bitcoin. But to this date, none of the claims have been verified.
 
@@ -39,11 +37,14 @@ All this may not seem important but it is. Blockchain technology was built with 
 
 Given its anti-establishment roots, blockchain technology has been seized by other groups interested in circumventing government, law enforcement, or regulatory control, both on the radical right and left fringes, as well as among activists persecuted by their governments.
 
+
+![Blockchain Timeline](images/timeline.png)
+
 ### 2010s
 
 As soon as it became clear that the technology presents a very attractive base infrastructure for payments, other groups and organisations adapted the technology for their purposes or developed new approaches using the same basic principles but adapting them to more traditional use cases.
 
-In 2014 Vitalik Buterin started what is now known as the second wave of blockchain technology by publishing the paper underlying the Ethereum blockchain protocol, [A Next Generation Smart Contract & Decentralised Application Platform (Vitalik Buterin, Ethereum’s creator)](https://github.com/ethereum/wiki/wiki/White-Paper). Beyond being a distributed ledger, the Ethereum White Paper proposed the development of a distributed computation platform.
+In 2014 Vitalik Buterin started what is now known as the second wave of blockchain technology by publishing the paper underlying the Ethereum blockchain protocol, [A Next Generation Smart Contract & Decentralised Application Platform (Vitalik Buterin, Ethereum's creator)](https://github.com/ethereum/wiki/wiki/White-Paper). Beyond being a distributed ledger, the Ethereum White Paper proposed the development of a distributed computation platform.
 
 <div class="b9-tip">
 Have a closer look at the <a href="https://ethereum.org/whitepaper/">Ethereum White Paper.</a>
