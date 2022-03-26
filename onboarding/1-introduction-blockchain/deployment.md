@@ -83,8 +83,6 @@ Subsystems can differ from the ones mentioned above and can be chosen freely as 
 
 
 
-
-
 ## Public networks
 
 The most obvious way to operate a blockchain protocol is in the form of a public network. This is what blockchain technology was originally invented for and arguably remains its most powerful form of implementation.
@@ -98,23 +96,12 @@ Because network participants are not vetted and can add to the ledger without ne
 Thus, guarding against malicious participants is not required, i.e. there is no barrier to entry, and no access control system needs to be in place. 
 The beauty of the public network lies among others in its **self-defence** attribute. In addition, public blockchains benefit from demand-side economies of scale, also called **network effects**.
 
-<div class="b9-expandable-box">
-   <div class="b9-expandable-title">
-   	Network Effect
-   </div>
-   <div class="b9-expandable-text">
-   	<p>Network effect is a term used in economic theory to describe a situation, in which every additional user of a good or service adds a positive value to the product or service for other users. A classic example of a good benefiting from network effects and therefore a network good is the telephone. To acquire a telephone, when they first started appearing as a consumer good, is only partially of value when no-one you know or want to chat with has a telephone. Each additional user increased the value of the product. Other goods and services which display this positive network effect are social networks such as Facebook and Twitter.</p>
-   </div>
-</div>
-
 A proof-of-work based public blockchain network, such as Bitcoin or Ethereum, has a few specific attributes:
 
 * **accessibility**: All you need to connect to Bitcoin or Ethereum is the client software and an internet connection. No AML, KYC, identity checks or subscription payment is required.
 * **no hierarchy**: All nodes are equal, meaning no individual node has more authority than another. All miners are also equal;
 * **crypto-economic incentives**: The lack of a central authority means there is no absolute defence against malicious behaviour. Instead, the network usually incentivises benevolent behaviour and dis-incentivises behaviour that endangers the network functioning to de facto implement prohibitive expenses to attack the network and others;
 * **full decentralization**: Most public networks are completely decentralized because they are non-hierarchical and fully accessible. The playing field for market participants is therefore relatively level, so traditional business models may not work as well.
-
-The two most popular examples of functioning public networks are Bitcoin and Ethereum.
 
 ## Managed networks
 
@@ -162,27 +149,6 @@ Here are a few frameworks for managed networks, most of which are based on Ether
 * [BlockApps](http://blockapps.net/)
 * [MultiChain](http://www.multichain.com/)
 
-## Tagged internal networks
-
-A fully private blockchain network does not make sense in the overwhelming majority of use cases. Still, there is an interesting variation of private blockchain networks that is worth investigating called **tagged private blockchains**.
-
-![tagged network](images/tagged-network.png)
-
-In a tagged private blockchain network, all nodes are operated within an organisation, i.e. with no external access at all. 
-Without tagging, this would make for an expensive and slow database. 
-
-**Tagging** is a method whereby every few blocks, the block hash (i.e. the signature that uniquely identifies a certain block) is pushed to a public network or other legally immutable place, say a notary.
-
-One of the reasons why blockchain technology is used is for its ability to prove to users and regulators the chain of custody for events that led to a certain state. A private network could still be easily manipulated by the operator. Tagging prevents this.
-
-If the organisation in question wanted to prove the integrity of their blockchain database to say a regulator, they could provide the block hashes on the public network along with access to their private network. 
-By comparing the block hashes in the managed blockchain with the hashes pushed to the public network, validity and integrity could easily be proven.
-
-Most examples of tagged networks are proprietary and not many companies have adopted this method. 
-The ones that have implemented this type of network do not tend to publish a lot of technical information on their solution.
-
-One company that has implemented a solution using this technology is [Everledger](http://www.wired.co.uk/article/blockchain-conflict-diamonds-everledger). 
-Everledger is facilitating a ledger of diamonds and fine wine using a mix of a private and public networks.
 
 ## Public vs. private/managed networks
 
