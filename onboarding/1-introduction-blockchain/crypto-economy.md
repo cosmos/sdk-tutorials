@@ -544,23 +544,13 @@ High volatility is therefore dysfunctional to cryptocurrencies establishing as r
 
 Concluding, there are a number of barriers, but also great possible potentials ahead of us. The adoption of cryptocurrencies depends largely on consumers feeling comfortable using cryptocurrencies and trusting in them. In addition, adoption will also depend on how the cryptocurrency environment develops: Will a handful of currencies become dominant? Will volatility fall with decreasing speculation ones the dust settles?...
 
-<div class="b9-reading">
-	<ul>
-		<li><a href="https://www.esma.europa.eu/sites/default/files/library/esma50-157-1391_crypto_advice.pdf">European Securities and Markets Authority (2019): <i>Initial Coin Offerings and Crypto-Assets</i></a></li>
-    	<li>Dr. Hosp, J. (2017): <i>Cryptocurrencies: Bitcoin, Ethereum, Blockchain, ICOs &amp; Co. simply explained</i></li>
-		<li><a href="https://www.investopedia.com/terms/v/volatility.asp"><i>Volatility</i></a></li>
-		<li><a href="https://www.shufflup.org/volatility_vol.php"><i>Volatility Tracker</i></a></li>
-	</ul>
-</div>
+<HighlightBox type="reading">
 
-<div class="b9-warning">
-	<p><b><i> Disclosure: B9lab is no way affiliated with any of the companies and or services described or linked to in this course. All links in this course are for educational purposes only!</i></b></p>
-	<p><i><b>Disclaimer</b>: We do not recommend investing in ICOs, nor are we affiliated with any of the organisations linked to on this page. All links are merely educational. If you invest in an ICO, you may lose all your money.</i></p>
-</div>
+* [European Securities and Markets Authority (2019): Initial Coin Offerings and Crypto-Assets](https://www.esma.europa.eu/sites/default/files/library/esma50-157-1391_crypto_advice.pdf)
+* [Investopedia: Volatility](https://www.investopedia.com/terms/v/volatility.asp)
+* [Volatility Tracker](https://www.shufflup.org/volatility_vol.php)
 
-
-
-## Quick recap
+</HighlightBox>
 
 ## Next up
 

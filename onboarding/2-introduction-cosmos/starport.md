@@ -55,7 +55,4 @@ On top of that Starport will handle some compilation, run a local blockchain nod
 <YoutubePlayer videoId="pFAM6mkKoTA"/>
 
 
-## Quick recap
-
 ## Next up
-

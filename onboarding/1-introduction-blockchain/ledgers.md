@@ -125,6 +125,4 @@ Instead of each bank relying exclusively on their table of accounts in their sil
 
 In the elegant blockchain solution, a single transaction updates separate tables of accounts for the entire network (of all participating banks). For this reason, banks see blockchain as an opportunity to reduce operational costs by distributing a common ledger between their peers.
 
-## Quick recap
-
 ## Next up

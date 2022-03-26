@@ -546,8 +546,4 @@ The attacker, while paying a small Gas fee, managed to hold up a large portion o
 
 The protocol was amended in a way that required [a hard fork](https://blog.ethereum.org/2016/10/13/announcement-imminent-hard-fork-eip150-gas-cost-changes/) and the vulnerable operations were repriced, rendering the attack too expensive to carry on.
 
-
-
-## Quick recap
-
 ## Next up

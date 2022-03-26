@@ -115,6 +115,4 @@ A **purpose-built or application-specific blockchain** is different. There is no
 
 Developers who have worked with blockchains based on the Ethereum Virtual Machine (EVM) will recognize a shift in the way concerns are addressed. Authorization and access control, the layout of storage/ the state, and application governance are not implemented as contracts on a state machine. They instead become properties of a unique blockchain that is built for a singular purpose.
 
-## Quick recap
-
 ## Next up

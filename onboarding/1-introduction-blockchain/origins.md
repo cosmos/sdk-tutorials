@@ -62,11 +62,9 @@ Early in 2016, R3CEV, later renamed R3, announced it was working on a distribute
 
 Today we can see two broader trends in the development and adoption of blockchain technology - public blockchains and managed/private blockchains. We will have a closer look at both types in Module 2, dealing with [Deployment patterns](https://git.b9lab.com/course-content/bfp-fundamentals/blob/master/2-deployment-patterns/1-introduction.md)
 
-## Quick recap
+<HighlightBox type="reading">
 
-<div class="b9-reading">
-<ul>
-	<li><a href="https://www.cl.cam.ac.uk/~rja14/Papers/eternity.pdf">Anderson, R. J. (1996): <i>The Eternity Service</i></a></li>
+https://www.cl.cam.ac.uk/~rja14/Papers/eternity.pdf">Anderson, R. J. (1996): <i>The Eternity Service</i></a></li>
 	<li><a href="https://www.schneier.com/crypto-gram/">Schneier, B.: <i>Schneier on Security</i></a></li>
 	<li><a href="https://www.nist.gov/people/john-m-kelsey">NIST: <i>John M. Kelsey</i></a> -a short background description and list of publications</li>
 	<li><a href="https://mikemabey.com/cse469s19/papers/04_Secure_Audit_Logs.pdf"> Schneier, B. &amp; Kelsey, J. (1998): <i>Secure Audit Logs to Support Computer Forensics</i></a></li>
@@ -78,6 +76,5 @@ Today we can see two broader trends in the development and adoption of blockchai
 	<li><a href="https://www.hyperledger.org/">The Hyperledger Foundation</a></li>
 </ul>
 </div>
-
 
 ## Next up

@@ -308,6 +308,4 @@ It is time for a **certificate authority (CA)**. The CA signs a certificate to p
 
 **Digital certificates** are used among other things to prove identity. They are given by a recognized Certification Authority. A widespread procedure is a public-key certificate proving ownership of a public key.
 
-## Quick recap
-
 ## Next up

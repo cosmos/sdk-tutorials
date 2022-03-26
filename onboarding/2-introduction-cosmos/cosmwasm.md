@@ -54,6 +54,4 @@ CosmWasm is adaptable to different development environments by design and makes 
 * If you want to change chains, you can easily transfer smart contracts and decentralized applications (dApps).
 * If your application grows, you can launch your chain for the next version of your smart contract. You do not need to compile and deploy the binaries again.
 
-## Quick recap
-
 ## Next up

@@ -107,9 +107,4 @@ If you want to continue exploring ABCI, you can find more detailed information h
 
 </HighlightBox>
 
-
-## Quick recap
-
 ## Next up
-
-

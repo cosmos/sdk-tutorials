@@ -39,6 +39,4 @@ Do you want to find out more about the wide variety of wallets in the Cosmos eco
 
 </HighlightBox>
 
-## Quick recap
-
 ## Next up

@@ -221,8 +221,6 @@ The blockchain network layer is comprised of **nodes**. Each node has a copy of 
 
 Currency transfers and smart contract implementation is done by adding transactions to the blockchain, which will again be bundled into a block and verified. To interact with the state layer of the blockchain computer, a user can send transactions or view information by coupling an application with a node. Smart contracts can then be used to interact with transactions.
 
-## Quick recap
-
 <HighlightBox type="reading">
 
 * [Baran, Paul (1964): On Distributed Communications](https://www.rand.org/content/dam/rand/pubs/research_memoranda/2006/RM3420.pdf)

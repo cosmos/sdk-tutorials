@@ -780,7 +780,6 @@ Want more information on broadcasting with Tendermint RPC? Why not take a closer
 
 </HighlightBox>
 
-## Quick recap
 ## About the introduction to Cosmos chapter
 
 ## Next up

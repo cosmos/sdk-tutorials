@@ -184,18 +184,15 @@ This field of activity will likely continue to rely on legal scholars even when 
 
 In regard to documentation and recording, which are mainly undertaken by lawyers, digitising contracts will probably lead to a decrease of this aspect of the legal profession.
 
-## Quick recap
+<HighlightBox type="reading">
 
+[Miller, B. (2016): Smart Contracts and the Role of Lawyers (Part 1) – About Smart Contracts. In: BigLaw KM](http://biglawkm.com/2016/10/20/smart-contracts-and-the-role-of-lawyers-part-1-about-smart-contracts/)
+[Miller, B. (2016): Smart Contracts and the Role of Lawyers (Part 2) – About “Code is Law”. In: BigLaw KM](http://biglawkm.com/2016/10/22/smart-contracts-and-the-role-of-lawyers-part-2-about-code-is-law)
+[Miller, B. (2016): Smart Contracts and the Role of Lawyers (Part 3) – About Lawyering Transactions on Blockchains. In: BigLaw KM](https://biglawkm.com/2016/10/25/smart-contracts-and-the-role-of-lawyers-part-3-about-lawyering-transactions-on-blockchains/)
+[Miller, M. S.; Stiegler, Marc (2003): The digital path. Smart contracts and the Third World. In: Birner, J. & Garrouste, P.: Markets, Information and Communication. Austrian Perspectives on the Internet Economy. London: Routledge. Page 63-88](https://web.archive.org/web/20160306082533/https://www.cypherpunks.to/erights/talks/pisa/paper/digital-path.pdf)
+[Shadab, H. (2014): What are Smart Contracts, and What Can We do with Them?. In: Coincenter.](https://coincenter.org/entry/what-are-smart-contracts-and-what-can-we-do-with-them)
 
-<div class="b9-reading">
-	<ul>
-	<li><a href="http://biglawkm.com/2016/10/20/smart-contracts-and-the-role-of-lawyers-part-1-about-smart-contracts/">Miller, B. (2016): <i>Smart Contracts and the Role of Lawyers (Part 1) – About Smart Contracts</i>. In: BigLaw KM.</a></li>
-	<li><a href="http://biglawkm.com/2016/10/22/smart-contracts-and-the-role-of-lawyers-part-2-about-code-is-law/">Miller, B. (2016): <i>Smart Contracts and the Role of Lawyers (Part 2) – About “Code is Law”</i>. In: BigLaw KM.</a></li>
-	<li><a href="https://biglawkm.com/2016/10/25/smart-contracts-and-the-role-of-lawyers-part-3-about-lawyering-transactions-on-blockchains/">Miller, B. (2016): <i>Smart Contracts and the Role of Lawyers (Part 3) – About Lawyering Transactions on Blockchains</i>. In: BigLaw KM.</a></li>
-	<li><a href="https://web.archive.org/web/20160306082533/https://www.cypherpunks.to/erights/talks/pisa/paper/digital-path.pdf">Miller, M. S.; Stiegler, Marc (2003): The digital path. Smart contracts and the Third World. In: Birner, J. &amp; Garrouste, P.: <i>Markets, Information and Communication. Austrian Perspectives on the Internet Economy</i>. London: Routledge. Page 63-88.</a></li>
-	<li><a href="https://coincenter.org/entry/what-are-smart-contracts-and-what-can-we-do-with-them">Shadab, H. (2014): <i>What are Smart Contracts, and What Can We do with Them?</i>. In: Coincenter.</a></li>
-	</ul>
-</div>
+</HighlightBox>
 
 
 --> add more on limitations and difficulties and sub-section on Gas
