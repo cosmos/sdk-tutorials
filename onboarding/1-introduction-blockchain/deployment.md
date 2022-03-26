@@ -7,105 +7,83 @@ tag: fast-track
 
 # Blockchain technology evolution - from general-purpose to application-specific chains
 
-Blockchain was developed as a **decentralised technology** that allows the operation of an infrastructure without hierarchy or authority.
+Blockchain was developed as a **decentralized technology** that allows the operation of an infrastructure without hierarchy or authority.
 
-<div class="b9-tip">
-	<p>It is important to keep the technical foundations discussed in the previous Module in mind to understand the different deployment patterns and protocols presented in this Module.</p>
-</div> 
+<HighlightBox type="tip">
 
-As discussed in the previous module, there are several mechanisms essential to ensure the working of a blockchain, one of these are consensus algorithms used to determine a well-ordered state of transactions and ensure network security.
+It is important to keep the technical foundations discussed in the previous Module in mind to understand the different deployment patterns and protocols presented in this Module.
 
-Furthermore, attacks on the network are often prevented by using difficulty as a control mechanism. The degree of difficulty, which relates to the average block creation time, is utilised as a mean to adjust for increasing or decreasing total network problem-solving capacity and implement economic incentives for benevolent behaviour (See: the Module on **Technical Fundamentals**, *Consensus*). As computing power is directly linked to costs for electrical power and maintenance, a reward structure for winning miners was included in several blockchains. With it for example DoS attackers are deterred.
+</HighlightBox> 
 
-For example, it is entirely possible to attack the transaction integrity of the Ethereum network, but such an attack is estimated to cost the attacker between $300 million to $400 million in the cryptocurrency Ether. In addition, economic incentives such as transaction fees, which change depending on the amount of traffic and are collected by the winning miner, as well as measures such as Gas were introduced in Ethereum.
+There are several mechanisms essential to ensure the working of a blockchain, one of these are consensus algorithms used to determine a well-ordered state of transactions and ensure network security. Blockchains cannot be only differentiated by the consensus mechanism included in their protocols but also the deployment pattern they follow.
 
-Blockchains cannot be only differentiated by the consensus mechanism included in their protocols but also the deployment pattern they follow.
+Whereas, in this context **deployment patterns** are understood as _the general set-up of a blockchain network_. There are **two basic different deployment patterns** for blockchains: 
 
-![Public and Managed Network Comparison](images/comparison-public-vs-rivate.png)
+* Public
+* Managed/private
 
-Whereas, in this context **deployment patterns** are understood as *the general set-up of a blockchain network*. There are **three different deployment patterns** for blockchains are: 
+![Public and managed network comparison](images/comparison-public-vs-rivate.png)
 
-* public,
-* managed/private, and
-* internal tagged.
+**Public blockchains** represent the classic understanding of how a blockchain network is constituted: they are decentralized and allow for public access. **Managed blockchain networks**, as opposed to public networks, rely on the blockchain data structure but unlike public blockchain networks, do not have to mitigate the Byzantine Generals Problem because they operate in a predictable environment with elements of authority and hierarchy. As their name suggests, they are private in a sense because most allow for authentication, authorization, and permission of actions. Therefore, they are often more suitable for traditional businesses that want to make use of the technology for internal or collaborative purposes without operating on public networks.
 
-![Different Deployment Patterns](images/deploymentpatterns.png)
+The **deployment pattern has major implications on the functioning of the network**: What a network is supposed to do and how it is going to fulfill the envisioned tasks depends on its deployment pattern. 
 
-**Public blockchains** represent the classic understanding of how a blockchain network is constituted: They are decentralised and allow for public access. **Managed blockchain networks**, as opposed to public networks, rely on the blockchain data structure. But unlike public blockchain networks, they do not have to mitigate the Byzantine Generals Problem, because they operate in a predictable environment with elements of authority and hierarchy. As their name suggests, they are private in a sense because most allow for authentication, authorisation, and permission of actions. Therefore, they are often more suitable for traditional businesses that want to make use of the technology for internal or collaborative purposes without operating on public networks. **Internal tagged blockchains** represent a combination of both.
+<ExpansionPanel title="What are permissioned/permissionless blockchains?">
 
-Understanding the differences between all three types of deployment patterns will help clarify the characteristics of public networks and be of importance when taking a closer look at private/managed networks.
+In blockchain literature, one often stumbles across the terms **permissioned** and **permissionless**. The more one reads about it, the more confusing it becomes, and the more difficult it is to grasp what the term actually refers to. 
+
+In **permissioned blockchains**, *an individual or group of participants holds the authority to validate blocks of transactions or to participate in the consensus mechanism*. Permissioned blockchains restrict the actor's involvement regarding the consensus state. In addition, it is important to keep in mind that permissioned networks restrict participants' access to smart contract creation and/or transactions. Permissionless blockchains are the opposite. Block verification, smart contract creation, and transactions on permissionless blockchain networks are open to all members.
+
+The terms permissioned and private, and permissionless (also referred to as non-permissioned) and public are often used synonymously, but it is essential to understand the difference between the terms and what they entail.
+
+</ExpansionPanel>
+
+The main way to differentiate between blockchains is to consider their **form of access**. The form of access refers to:
+
+* Whether there is a distinction between users or not;
+* Whether the access to the blockchain is open/public or controlled/private.
+
+<ExpansionPanel title="Decentralized subsystems & systems">
+
+Before further looking at blockchain deployment patterns, briefly peek into a few more concepts: decentralized subsystems, multi-dimensional decentralization, and the minimum Nakamoto coefficient. 
+A closer look at decentralization helps understand why it is a main criterion to distinguish deployment patterns.
+
+Networks can be decentralized, distributed, centralized, or a mix of both.
+
+![Network types](images/PaulBaran.png)
+
+Broken down, a blockchain is a distributed ledger that records all transactions on the chain. Nodes in such a distributed ledger need to have a copy of said ledger, as well as constantly remain in communication with the network that continuously runs without ever being offline. A blockchain requires a high degree of resilience and scalability due to it being a distributed P2P network with an expected growing number of nodes and processing necessities.
+
+<HighlightBox type="info">
+
+**Measuring decentralization**
+
+There are serval propositions and methods to measure decentralization. The use of the _**Gini coefficient**_ and _**Lorenz curve**_ are often proposed as means to quantitatively measure decentralization. Another useful tool is the _**minimum Nakamoto coefficient**_, as proposed by Balaji S. Srinivasan and Leland Lee (see: [Quantifying Decentralization](https://news.earn.com/quantifying-decentralization-e39db233c28e)). The authors argue that quantifying decentralization and utilising a coefficient to measure decentralization are of importance to not only make measurement possible, but also improvement and optimization.
+
+The _**minimum Nakamoto coefficient**_ quantifies the number of entities that are required to be compromised to compromise the system as a whole, in other words it is: _the minimum number of entities in a given subsystem required to get the total capacity, aggregated by taking the minimum of the minimum across the subsystems_. The higher the coefficient, the higher the number of entities required to compromise the system is.
+
+</HighlightBox>
+
+Balaji S. Srinivasan and Leland Lee argue that **decentralized systems are constituted by decentralized subsystems** and one must take a closer look at the **subsystem decentralization** to understand the degree of decentralization. The underlying assumption is that subsystems of a decentralized system are essential to the decentralization of the overall system. For this reason, decentralization can also be seen as multi-dimensional instead of dichotomous. Multi-dimensionality also encourages us to broaden our view when analysing decentralization and thinking of possible network vulnerabilities.
+
+To better illustrate the concept of systems and subsystems, **Bitcoin** is a fitting example. Srinivasan and Lee identify six Bitcoin subsystems:
+
+* Mining (by reward)
+* Client (by codebase)
+* Developers (by commits)
+* Exchanges (by volume)
+* Nodes (by country)
+* Qwnership (by addresses)
+
+Subsystems can differ from the ones mentioned above and can be chosen freely as long as they fulfill the criterion of being **essential to the decentralization of the whole system**.
+
+</ExpansionPanel>
 
 
 
 
-# Deployment Patterns
 
-When thinking of using blockchain technology for your project or in your organisation it is important to differentiate between the ways a blockchain network can be set up. This is vital because the **deployment pattern has major implications on the functioning of the network**; What a network is supposed to do and how it is going to fulfil the envisioned tasks depends on its deployment pattern. 
 
-To be able to systematically comprehend and analyse the different deployment patterns, it is important to clearly understand the difference between public and private, as well as permissioned and permission-less blockchains. 
-
-What is a **permissioned/permissionless blockchain**?
-
-In blockchain literature, one often stumbles across the term **permissioned**. The more one reads about it, the more confusing it becomes and the more difficult it is to grasp what the term actually refers to. 
-
-For this reason, we will take a quick look at permissioned blockchains.
-
-In **permissioned blockchains** *an individual or group of participants holds the authority to validate blocks of transactions or to participate in the consensus mechanism*. Permissioned blockchains restrict the actor's involvement regarding the consensus state. In addition, it is important to keep in mind that permissioned networks restrict participants' access to smart contract creation and/or transactions. Permissionless blockchains are the opposite. 
-Block verification, smart contract creation, and transactions on permissionless blockchain networks are open to all members.
-
-The terms permissioned and private, and permissionless (also referred to as non-permissioned) and public are often used synonymously, but it is essential to understand the difference between the terms and what they entail. 
-
-![Comparison Public and Private Blockchains](images/comparison-public-vs-rivate.png)
-
-The main way to differentiate between blockchains is to consider their **form of access**.
-The form of access refers to:
-
-* whether there is a distinction between users or not, and 
-* whether the access to the blockchain is open/public or controlled/private. 
-
-![Public-private](images/PP.png)
-
-In this section, we will discuss different deployment patterns and the impact of each on network functionality and behaviour. 
-
-Before we start looking at blockchain deployment patterns, let us briefly peek into a few more concepts: decentralised subsystems, multi-dimensional decentralisation, and the minimum Nakamoto coefficient. 
-A closer look at decentralisation will help you understand why it is a main criterion to distinguish deployment patterns. 
-
-## Decentralised subsystems & systems
-
-The degree of decentralisation is one of the most important differentiating qualities of public and private blockchain networks. 
-
-<div class="b9-expandable-box">
-   <div class="b9-expandable-title">
-   	Measuring Decentralisation
-   </div>
-   <div class="b9-expandable-text">
-   	<p>There are serval propositions and methods to measure decentralisation. The use of the <b><i>Gini coefficient</i></b> and <b><i>Lorenz curve</i></b> are often proposed as means to quantitatively measure decentralisation.</p>
-   	<p>Another useful tool is the <b><i>minimum Nakamoto coefficient</i></b>, as proposed by Balaji S. Srinivasan and Leland Lee (See: <a href="https://news.earn.com/quantifying-decentralization-e39db233c28e"><i>Quantifying Decentralisation</i></a>). The authors argue that quantifying decentralisation and utilising a coefficient to measure decentralisation are of importance to not only make measurement possible, but also improvement and optimisation.</p>
-   	<p>The <b><i>minimum Nakamoto coefficient</i></b> quantifies the number of entities that are required to be compromised to compromise the system as a whole, in other words it is:</p> 
-   	<p><i>the minimum number of entities in a given subsystem required to get the total capacity, aggregated by taking the minimum of the minimum across the subsystems</i> (<a href="https://news.earn.com/quantifying-decentralization-e39db233c28e">Srinivasan, B. S. (2017): <i>Quantifying Decentralization</i></a></li>).</p>
-      <p>The higher the coefficient, the higher the number of entities required to compromise the system is.</p>
-   </div>
-</div>
-
-Srinivasan and Lee posit that **decentralised systems are constituted by decentralised subsystems**. 
-To understand the degree of decentralisation, they argue, one must take a closer look at the **subsystem decentralisation**.
-
-To better illustrate their concept of systems and subsystems, they use the example of **Bitcoin**. 
-Srinivasan and Lee identify six Bitcoin subsystems:
-
-* mining (by reward),
-* client (by codebase),
-* developers (by commits),
-* exchanges (by volume),
-* nodes (by country), and
-* ownership (by addresses).
-
-Subsystems can differ from the ones mentioned above and can be chosen freely as long as they fulfil the criterion of being **essential to the decentralisation of the whole system**. 
-
-The underlying assumption is that subsystems of a decentralised system are essential to the decentralisation of the overall system. For this reason, decentralisation can also be seen as multi-dimensional instead of dichotomous. Multi-dimensionality also encourages us to broaden our view when analysing decentralisation and thinking of possible network vulnerabilities.
-
-Let us start with the "traditional" deployment pattern of blockchain technology: public networks. 
-After that, we will continue with private or managed networks and end with internal tagged blockchain networks to contrast them with public blockchains. 
 
 ## Public networks
 
@@ -134,7 +112,7 @@ A proof-of-work based public blockchain network, such as Bitcoin or Ethereum, ha
 * **accessibility**: All you need to connect to Bitcoin or Ethereum is the client software and an internet connection. No AML, KYC, identity checks or subscription payment is required.
 * **no hierarchy**: All nodes are equal, meaning no individual node has more authority than another. All miners are also equal;
 * **crypto-economic incentives**: The lack of a central authority means there is no absolute defence against malicious behaviour. Instead, the network usually incentivises benevolent behaviour and dis-incentivises behaviour that endangers the network functioning to de facto implement prohibitive expenses to attack the network and others;
-* **full decentralisation**: Most public networks are completely decentralised because they are non-hierarchical and fully accessible. The playing field for market participants is therefore relatively level, so traditional business models may not work as well.
+* **full decentralization**: Most public networks are completely decentralized because they are non-hierarchical and fully accessible. The playing field for market participants is therefore relatively level, so traditional business models may not work as well.
 
 The two most popular examples of functioning public networks are Bitcoin and Ethereum.
 
@@ -229,7 +207,7 @@ Different deployment patterns have their own benefits and drawbacks. They are al
 
 There are good reasons to use a managed network within an organisation, even if it does not provide the same level of data integrity and transparency as a public blockchain network.
 
-Both types are decentralised P2P networks, which share the distributed ledger with all network participants and synchronise it through the use of a protocol, often referred to as a **consensus mechanism**. Also, private and public blockchains guarantee **immutability** to a certain degree. 
+Both types are decentralized P2P networks, which share the distributed ledger with all network participants and synchronise it through the use of a protocol, often referred to as a **consensus mechanism**. Also, private and public blockchains guarantee **immutability** to a certain degree. 
 
 It is often argued that managed blockchains are not that different from traditional database networks. 
 Still, we can ascribe them a certain merit by pointing out the technical differences between traditional database networks and blockchain-based networks. 
@@ -359,7 +337,7 @@ Collaborations also offer the opportunity to include all relevant stakeholders i
 
 # Introduction to Bitcoin
 
-Since 2009 the most successful and popular decentralised public blockchain network has been Bitcoin. 
+Since 2009 the most successful and popular decentralized public blockchain network has been Bitcoin. 
 Nowadays, Bitcoin is the cryptocurrency with the highest market capitalisation, approximately $150 billion dollars (at the time of writing).
 
 <div class="b9-tip">
@@ -465,7 +443,7 @@ Software security firms also assessed the EVM, networking and PoW to ensure all 
 
 This measures increased security, reliability, and confidence regarding Ethereum.
 
-After the Ethereum Frontier launched in July 2015, smart contract and decentralised app development started to be deployed. 
+After the Ethereum Frontier launched in July 2015, smart contract and decentralized app development started to be deployed. 
 At this point of time, mining began to secure the network and Ether from block mining was earned by the miners.
 
 ## Ethereum's consensus mechanism
