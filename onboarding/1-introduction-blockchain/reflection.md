@@ -23,60 +23,7 @@ Different networks implement different voting mechanisms that miners use to sign
 Unlike in traditional software distribution, the effects of an unmanaged client update can be severe in blockchain networks. 
 If a client software update that implements a protocol change is only downloaded and used by half the miners, the network can break into two different versions.
 
-## The story of the DAO
 
-In the segment above we touched on **forking** in public networks. 
-This occurs when clients end up with different protocol implementations. 
-When only part of the miners adopt an update to the client or when one of the protocol compliant clients introduces a change that makes the client incompatible with other types of clients a fork results.
-
-To illustrate this concept, we'll discuss one of the most infamous examples of forking: the DAO and the split of Ethereum Classic.
-
-The DAO was described as the first instance of a **Decentralised Autonomous Organisation** (DAO). 
-It was developed by the team around slock.it, an Ethereum hardware IoT startup. 
-The DAO was designed to be a decentralised investment fund where investors voted on project proposals. 
-It was a complex system of interlocking smart contracts deployed on the public Ethereum network.
-
-Here's how the Ethereum wiki describes it:
-
-> [The DAO] is represented by smart contracts on the Ethereum blockchain. 
-It contains functions which, as a whole, have analogies to a crowdfunding vehicle governed by participants’ votes, to seek out and fund proposals. 
-Because [the DAO] consists of computer code, it interacts with the physical world through contractors. 
-The creators of these proposals act similar to a contractor, with [the DAO] as its client. 
-[The DAO] therefore does not “invest” in these proposals, because it does not acquire equity in the contractors. 
-Instead, in return for receiving funding by [The DAO], contractors deliver services, infrastructures or products yielding a return to [the DAO].
-
-On the website of the DAO, the terms and conditions page merely referred the visitor to the code deployed to the Ethereum network as the only valid contract.
-
-The DAO started accepting deposits in exchange for so-called "DAO tokens" in April 2016 and raised $160 million worth of Ether in a very short time.
-
-Unbeknown to the investors, the code contained a **vulnerability**: 
-Under certain circumstances it was possible to re-enter a function in a smart contract when the function in question sends Ether to another address. 
-This means that if a payout is made before the internal variable, keeping track of the currency, is updated, the smart contract can be drained.
-
-The DAO was vulnerable to this sort of attacks and in June 2016 an attacker exploited the vulnerability. 
-Ether worth more than $60 million was drained from the faulty smart contract.
-
-It is important to note that this was not a vulnerability of the infrastructure but an exploit of an application operating on the EVM.
-
-The developer community, many of whom were investors in the DAO, responded to the attack by proposing an update to clients that would blacklist the addresses of the attacker. 
-With it the attacker would be unable to retrieve their bounty.
-
-It later turned out that this **soft-fork proposal** introduced vulnerabilities into the clients that allowed attackers to DDOS the clients.
-
-A second fork was proposed, a so-called **hard fork**. 
-This fork introduced protocol changes and in practice re-wrote history. 
-It established a state in which the attack never happened and thus allowed the investors to retrieve their funds. 
-
-This update introduced a change that made the clients that adopted it incompatible with those that didn't. 
-
-When the change was activated it turned out that a small group of miners had refused to install the update on purpose and the Ethereum network split into **Ethereum** and **Ethereum Classic**. 
-The Ethereum Classic community called the changes a bailout and a compromise of the immutability of the network, and refused to participate.
-
-The story of the DAO evokes some questions to consider when assessing public networks:
-
-* How will the community react to failures on the application layer? 
-* Who is influential in the community and what are their interests? 
-* What are the professed values of the community?
 
 ## The Bitcoin block size debate
 
@@ -148,7 +95,6 @@ This might also be because it was deployed as an optional protocol upgrade to pr
 
 
 --> Reflection gen
-# Reflection
 
 Let us now reflect on the most crucial topics in this module! The following questions invite you to repeat the most important concepts of this module.
 
@@ -158,8 +104,6 @@ Let us now reflect on the most crucial topics in this module! The following ques
 * Why was asymmetric cryptography revolutionary? And how can public-private key pairs be used?
 * What is the role of cryptographic hash functions in blockchains?
 * What is the function of consensus mechanisms and how can they be differentiated?
-* In which way can blockchain technology be understood as a digital common and/or new computing paradigm?
-
 
 
 

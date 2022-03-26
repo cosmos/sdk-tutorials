@@ -23,14 +23,6 @@ tag: fast-track
 <p>A blockchain can be understood as a well-ordered list of transactions as all transactions are recorded beginning with the genesis block, the first block of the blockchain. Furthermore, a blockchain can be also seen as a well-ordered set of blocks because in a blockchain blocks are well-ordered and more than one block exists. It is also a well-ordered set of data, on which all peers eventually agree. In a blockchain network data is included by block creation and this is recorded in the order it was introduced. In addition, all peers agree on the order of the data because consensus is achieved in the end by all peers agreeing to the blocks containing the data. This is the case unless a fork occurs and even then there are mechanisms to in the end “agree” on one chain -most of the times the longest chain is the one that becomes the single true state. A blockchain is not a block of transaction as it is a chain of blocks which include transactions. It also is not a shared real-time transaction network. The impression can arise to understand it in this manner, but a blockchain is only near-real time (in Bitcoin for example the block creation time is about 10min.). There are many initatives currently focused on lowering the block creation time to make blockchains real-time.</p>
 [explanation]
 
->>Thinking about traditional network and database architecture, what does a transaction do in a blockchain environment?<<
-( ) Update one table on one machine
-(x) Update separate tables of accounts for the whole network
-
-[explanation]
-<p>The correct answer is “Update separate tables of accounts for the whole network” as in a blockchain environment the tables of accounts are updated in the whole network. As transactions are validated the state of the blockchain changes, this has to be updated on all peers of the network.</p>
-[explanation]
-
 >>In Blockchain, what is the truth?<<
 ( ) The truth is what Satoshi Nakamoto says
 ( ) The truth is what the developer community agrees on
@@ -97,23 +89,12 @@ tag: fast-track
 <p>Blockchain technology provides better ledger integrity in comparison to traditional ledger systems as it has a very high degree of immutability, i.e. the unchangeability of objects over time and with it the inability to perform changes. This is one of the most attractive attributes of blockchain networks. Immutability is given as all changes in the state of a blockchain have to be introduced in a block, which would require solving the cryptographic puzzle for that block and all following blocks, i.e. recalculating all hashes. When a malicious attacker would like to modify data in an already existing block, the nonce and hash of all subsequent blocks would become invalid. Thus, all following blocks would have to be recalculated. The more a block lies in the past, the more blocks would have to be recalculated meaning the more hashes would have to be calculated again. Data can thus be changed but only with the consensus of all participants and/or immense computational performance making it nearly impossible.</p>
 [explanation]
 
->>For a malicious node to remove or insert transactions, it would need to update the root hash of the containing block's Merkle tree, update the nonce of the containing block, update the hash of the containing block and do the same for all subsequent blocks. Under what circumstances is that possible?<<
+>>In a PoW network, for a malicious node to remove or insert transactions, it would need to update the root hash of the containing block's Merkle tree, update the nonce of the containing block, update the hash of the containing block and do the same for all subsequent blocks. Under what circumstances is that possible?<<
 ( ) If the attacker issues a high number of transactions
 (x) If the attacker controls more than 50% of the mining power in a blockchain network
 
 [explanation]
 <p>For a malicious node to remove or insert transactions a number of steps is necessary and it can only occur if the node controls over 50% of the mining power, i.e. holds a simple majority of the network's mining power. This is known as a “51% attack” (i.e. more than 50%). The malicious node can only update the root hash, the nonce, the hash and all subsequent blocks by controlling the mining power as this would be the only possibility to recalculate all blocks starting from the one the node would like to change. In addition, the malicious node would need the mining power to produce an even longer chain so that it would become the "true" state in case of a fork.</p>
-[explanation]
-
->>What does a generic block header contain?<<
-[ ] List of Transactions
-[ ] State changes resulting from transactions
-[x] Merkle root of transactions
-[x] Hash of previous block
-[ ] Signatures of all senders of transactions
-
-[explanation]
-<p>A generic block contains the Merkle root of transactions and the hash of the previous blocks as it is used to identify blocks in blockchains. The Merkle root is essential to maintain the integrity of data (i.e. one can use the Merkle root to check whether a change in any order of transactions has been changed) and the hash of the previous block is used to link the blocks into a chain.</p>
 [explanation]
 
 >>Select all answers that are true for proof-of-work<<
