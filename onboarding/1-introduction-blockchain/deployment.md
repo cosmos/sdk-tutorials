@@ -1,13 +1,11 @@
 ---
 title: "Deployment Patters"
 order: 8
-description: Historic overview and different deployment patters
+description: The evolution of deployment patterns
 tag: fast-track
 ---
 
---> Curtail content, add more in direction to blockchain 1.0 and 2.0
-
-# Introduction: Deployment Patterns - Public & Managed/Private Networks
+# Blockchain technology evolution - from general-purpose to application-specific chains
 
 Blockchain was developed as a **decentralised technology** that allows the operation of an infrastructure without hierarchy or authority.
 
