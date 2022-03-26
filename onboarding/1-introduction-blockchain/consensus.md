@@ -443,8 +443,8 @@ The amount of time it takes a blockchain network to confirm a transaction (laten
 
 There are different **types of finality** in blockchains, depending on the underlying consensus mechanism a protocol relies on:
 
-* **Probabilistic finality:** the type of finality in which the probability that a transaction is not reverted increases as the number of following blocks increases. The more blocks are added to the blockchain after the transaction, the more likely in case of a fork the transaction will be part of the longest chain and thus, final.
-* **Absolute finality:** or deterministic finality, the type of finality provided by PBFT-based protocols like Tendermint. A transaction is immediately considered finalized once it is included in a block and added to the blockchain.
+* **Probabilistic finality:** describes the finality of a transaction dependent on how probable reverting a block is - the probability of removing a transaction. The more blocks come after the block containing a specific transaction, the less probable a transaction may be reverted, as _longest_ or _heaviest chain rules_ apply in the case of forks.
+* **Absolute finality:** or deterministic finality, is a trait of protocols based on PoS. Finality comes as soon as a transaction and block are verified. There are no scenarios in which a transaction could be revoked after it has been finalized.
 
 <ExpansionPanel title="The CAP Theorem and finality">
 
@@ -475,10 +475,10 @@ Tendermint aims at high performance and is based on dedicated validators with go
 * [Digiconomist: Bitcoin Energy Consumption Index](https://digiconomist.net/bitcoin-energy-consumption)
 * [Ether supply and uncle rewards](http://etherscan.io/stat/supply)
 * [Kernfeld, P. (2016): How Bitcoin Loses to the CAP Theorem](https://paulkernfeld.com/2016/01/15/bitcoin-cap-theorem.html)
+* [Kwon, J. (2014): Tendermint: Consensus without Mining](http://tendermint.com/docs/tendermint.pdf)
 * [Leussink, K. (2018): CAP Theorem](https://cryptographics.info/cryptographics/blockchain/cap-theorem/)
 * [Practical Byzantine Fault Tolerance](https://www.comp.nus.edu.sg/~rahul/allfiles/cs6234-16-pbft.pdf)
 * [Proof of Authority: consensus model with Identity at Stake](https://medium.com/oracles-network/proof-of-authority-consensus-model-with-identity-at-stake-d5bd15463256)
-* [Kwon, J. (2014): Tendermint: Consensus without Mining](http://tendermint.com/docs/tendermint.pdf)
 * [Uncle rate analysis](https://blog.ethereum.org/2016/10/31/uncle-rate-transaction-fee-analysis/)
 * [Vasa (2018): ConsensusPedia: An Encyclopedia of 30 Consensus Algorithms. A complete list of all consensus algorithms](https://hackernoon.com/consensuspedia-an-encyclopedia-of-29-consensus-algorithms-e9c4b4b7d08f)
 [Witherspoon, Z. (2013): A Hitchhiker’s Guide to Consensus Algorithms. A quick classification of cryptocurrency consensus types](https://hackernoon.com/a-hitchhikers-guide-to-consensus-algorithms-d81aae3eb0e3)
