@@ -211,8 +211,6 @@ In some opinions, mobile and social networking and the internet have been exploi
 
 Blockchain technology is often seen as presenting the possibility of more private, fair, transparent, and equal forms of interaction and community.
 
-<YoutubePlayer videoId="Za5lPKNV_Mk"/>
-
 <HighlightBox type="reading">
 
 * [Wikipedia: Double-spending](https://en.wikipedia.org/wiki/Double-spending)
