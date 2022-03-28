@@ -42,7 +42,7 @@ It creates a [certain number of files](https://github.com/cosmos/b9-checkers-aca
 
 Simple Protobuf objects are created:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/b3cf9ea4c554158e950bcfe58803e53eefc31090/proto/checkers/tx.proto#L15-L23]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/proto/checkers/tx.proto#L15-L23]
 message MsgCreateGame {
     string creator = 1;
     string red = 2;
@@ -56,7 +56,7 @@ message MsgCreateGameResponse {
 
 Which, when compiled for instance with `starport generate proto-go` yield:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b3cf9ea4c554158e950bcfe58803e53eefc31090/x/checkers/types/tx.pb.go#L31-L35]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/types/tx.pb.go#L31-L35]
 type MsgCreateGame struct {
     Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
     Red     string `protobuf:"bytes,2,opt,name=red,proto3" json:"red,omitempty"`
@@ -66,7 +66,7 @@ type MsgCreateGame struct {
 
 And:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b3cf9ea4c554158e950bcfe58803e53eefc31090/x/checkers/types/tx.pb.go#L91-L93]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/types/tx.pb.go#L91-L93]
 type MsgCreateGameResponse struct {
     IdValue string `protobuf:"bytes,1,opt,name=idValue,proto3" json:"idValue,omitempty"`
 }
@@ -76,7 +76,7 @@ Files were generated to serialize the pair which are named `*.pb.go`. **Caution:
 
 Starport also registered `MsgCreateGame` as a concrete message type with the two (de-)serialization engines:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/types/codec.go#L14]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/types/codec.go#L14]
 func RegisterCodec(cdc *codec.LegacyAmino) {
     cdc.RegisterConcrete(&MsgCreateGame{}, "checkers/CreateGame", nil)
 }
@@ -84,7 +84,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 
 And:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/types/codec.go#L20-L22]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/types/codec.go#L20-L22]
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
     registry.RegisterImplementations((*sdk.Msg)(nil),
         &MsgCreateGame{},
@@ -97,7 +97,7 @@ Which is code that you probably do not need to change.
 
 Starport also creates boilerplate code to have the message conform to the [`sdk.Msg`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L11-L33) type:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/types/message_create_game.go#L26-L32]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/types/message_create_game.go#L26-L32]
 func (msg *MsgCreateGame) GetSigners() []sdk.AccAddress {
     creator, err := sdk.AccAddressFromBech32(msg.Creator)
     if err != nil {
@@ -113,23 +113,19 @@ This code is created only once. You can modify it as you see fit.
 
 Starport also adds a new function to your gRPC interface that receives all transaction messages for the module because the message is meant to be sent and received. The interface is called `service Msg` and is declared inside `proto/checkers/tx.proto`.
 
-Starport creates this [`tx.proto`](https://github.com/cosmos/b9-checkers-academy-draft/blob/41ac3c6ef4b2deb996e54f18f597b24fafbf02e1/proto/checkers/tx.proto) file at the beginning when you scaffold your project's module. Starport separates different concerns into different files so that it knows where to add elements according to instructions received. Starport adds a function to the empty `service Msg` with your instruction.
+Starport creates this [`tx.proto`](https://github.com/cosmos/b9-checkers-academy-draft/blob/41ac3c6/proto/checkers/tx.proto) file at the beginning when you scaffold your project's module. Starport separates different concerns into different files so that it knows where to add elements according to instructions received. Starport adds a function to the empty `service Msg` with your instruction.
 
 The new function receives this `MsgCreateGame`, namely:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/b3cf9ea4c554158e950bcfe58803e53eefc31090/proto/checkers/tx.proto#L11]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/proto/checkers/tx.proto#L11]
 service Msg {
     rpc CreateGame(MsgCreateGame) returns (MsgCreateGameResponse);
 }
 ```
 
-As an interface it does not describe what should happen when called. What Starport does with the help of Protobuf is compile the interface and create a default Go implementation.
+As an interface it does not describe what should happen when called. What Starport does with the help of Protobuf is compile the interface and create a default Go implementation. It does this once, this is its implementation, in `x/checkers/keeper/msg_server_create_game.go`:
 
-## Next up
-
-Starport separates concerns into different files. The most relevant file for you at this point is `x/checkers/keeper/msg_server_create_game.go` which is created once. You need to code in the creation of the game proper in this file:
-
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/keeper/msg_server_create_game.go#L10-L17]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/msg_server_create_game.go#L10-L17]
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
     ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -139,6 +135,48 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
     return &types.MsgCreateGameResponse{}, nil
 }
 ```
-This is the object of the [next section](./create-handling.md).
+
+## Unit tests
+
+The code of this section was created by Starport, so there is no point in testing it. However, since you are going to adjust the keeper to do what you want, why not add a test file. Add `keeper/msg_server_create_game_test.go` with:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/msg_server_create_game_test.go]
+const (
+    alice = "cosmos1jmjfq0tplp9tmx4v9uemw72y4d2wa5nr3xn9d3"
+    bob   = "cosmos1xyxs3skf3f4jfqeuv89yyaqvjc6lffavxqhc8g"
+    carol = "cosmos1e0w5t53nrq7p66fye6c8p0ynyhf6y24l4yuxd7"
+)
+
+func TestCreateGame(t *testing.T) {
+    msgServer, context := setupMsgServer(t)
+    createResponse, err := msgServer.CreateGame(context, &types.MsgCreateGame{
+        Creator: alice,
+        Red:     bob,
+        Black:   carol,
+    })
+    require.Nil(t, err)
+    require.EqualValues(t, types.MsgCreateGameResponse{
+        IdValue: "", // TODO: update with a proper value when updated
+    }, *createResponse)
+}
+```
+
+Which you can test with:
+
+```sh
+$ go test github.com/alice/checkers/x/checkers/keeper
+```
+
+Yes, this convenient [`setupMsgServer`](https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/msg_server_test.go#L11-L14) function was created by Starport. This _unit_ test is a bit of a misnomer because the `msgServer` created uses a real context and keeper, although with a [memory database](https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/keeper_test.go#L22), not mocks.
+
+## Next up
+
+Starport separates concerns into different files. The most relevant file for you at this point is `x/checkers/keeper/msg_server_create_game.go`. As is obvious from its content:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/msg_server_create_game.go#L13]
+// TODO: Handling the message
+```
+
+You need to code in it the creation of the game proper. This is the object of the [next section](./create-handling.md).
 
 <!-- Add GUI Elements -->
