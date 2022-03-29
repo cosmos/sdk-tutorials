@@ -47,7 +47,7 @@ In summary, tokens that traverse a bridge are locked on the origin chain, and th
 <!-- TODO: insert flow diagram --->
 
 <HighlightBox type="info">
-An oracle is a regular account that can send transactions to commit information to a blockchain. Oracles are usually granted special permission in blockchain systems. For example, they may be the only entity that can inject a price quote from an external source. Oracles are usually rely on automated processes. They are a solution to the challenge of working with external information in blockchain applications. 
+In blockchain terminology, an oracle is a regular account that can send transactions to commit information to a blockchain. Oracles are usually granted special permission in blockchain systems. For example, they may be the only entity that can inject a price quote from an external source. Oracles are usually rely on automated processes. They are a solution to the challenge of working with external information in blockchain applications. 
 
 Token bridges and IBC relays are oracle-like in nature. They inform blockchains about important development on other chains. 
 </HighlightBox>
