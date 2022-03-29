@@ -73,12 +73,12 @@ If both chains are based on Cosmos SDK, then tokens flow freely between the chai
 
 <HighlightBox type="info">
 * **Deterministic:** Transactions proceed through a finalization process, afterwhich they are irreversible. Deterministic consensus mechanisms provide strong transaction finality because there is no way to reverse or revise a previously finalized transaction. All Cosmos SDK chains are deterministic. 
-* **Probalistic:** Confidence in observed transactions increases over time. Absolute finality is never achieved but the probability of a reversal decreases exponentially to near zero. Public Proof-of-Work chains are probalistic. 
+* **Probabalistic:** Confidence in observed transactions increases over time. Absolute finality is never achieved but the probability of a reversal decreases exponentially to near zero. Public Proof-of-Work chains are probalistic. 
 </HighlightBox>
 
-Cosmos SDK applications can also work with tokens that originate on other chains such as Ethereum. Onchain components are deployed on the other chain. If the other chain is probalistic (e.g. relies on Proof-of-Work consensus), IBC compatibility is facilitated by the creation of a so-called peg-zone. 
+Cosmos SDK applications can also work with tokens that originate on other chains such as Ethereum. Onchain components are deployed on the other chain. If the other chain is probabalistic (e.g. relies on Proof-of-Work consensus), IBC compatibility is facilitated by the creation of a so-called peg-zone. 
 
-Peg-zones reduce the uncertainty that arises from probabilistic blockchains that rely on Proof-of-Work. In summary, a peg-zone *deems* a transaction to be *final* after a certain number of confirmations.
+Peg-zones reduce the uncertainty that arises from probabilistic blockchains. In summary, a peg-zone *deems* a transaction to be *final* after a certain number of confirmations.
 
 IBC defines a standard communication interface. All Cosmos SDK chains support it. Support for IBC can be established on other chains by implementing the interface. For example, by deploying a contract. The Gravity bridge for Ethereum, for example, implements IBC compatibility with the help of a smart contract.
 
