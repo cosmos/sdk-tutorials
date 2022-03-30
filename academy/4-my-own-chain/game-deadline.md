@@ -82,7 +82,7 @@ You can make your life easier by using helper functions that encode and decode t
 
 ## Updated deadline
 
-Next you need to update this new field with its appropriate value:
+Next, you need to update this new field with its appropriate value:
 
 1. At creation in the message handler for game creation:
 
@@ -111,7 +111,7 @@ $ starport chain build
 
 ## Interact via the CLI
 
-There is not much to test here. Remember that you added a new field but if your blockchain state already contains games, then they are missing it:
+There is not much to test here. Remember that you added a new field but if your blockchain state already contains games, then they are missing the new field:
 
 ```sh
 $ checkersd query checkers show-stored-game 0
@@ -125,7 +125,7 @@ Has some missing information:
  ...
 ```
 
-This does not look good, in effect your blockchain state is broken. To see how you would update your blockchain state to avoid such a breaking change, see [migrations](./migration.md). This broken state still lets us test the update of the deadline on play:
+This does not look good. In effect, your blockchain state is broken. Take a look at the [section on migrations](./migration.md) to see how you would update your blockchain state to avoid such a breaking change. This broken state still lets us test the update of the deadline on play:
 
 ```sh
 $ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
@@ -140,10 +140,10 @@ Which contains:
 ...
 ```
 
-That's good. In the same vein, you can create a new game and confirm it contains the deadline.
+That is good. In the same vein, you can create a new game and confirm it contains the deadline.
 
 ## Next up
 
 You have created and updated the deadline. The [section two steps ahead](./game-forfeit.md) describes how to use the deadline and [the FIFO](./game-fifo.md) to expire games that reached their deadline.
 
-Before you can do that there is one other field you need to add. Discover which in the [next section](./game-winner.md).
+Before you can do that, there is one other field you need to add. Discover which in the [next section](./game-winner.md).

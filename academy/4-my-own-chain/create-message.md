@@ -133,7 +133,7 @@ Time to see which new CLI command was created by Starport:
 $ checkersd tx checkers --help
 ```
 
-Which informs you with this, among other things:
+Which among other things informs you with:
 
 ```
 ...
@@ -164,14 +164,16 @@ Flags:
 ...
 ```
 
-You kept the two accounts that were created by Starport. Have `alice` start a game with `bob`. Instead of having to copy and paste the addresses each time you need them, you can store these as variables:
+You kept the two accounts created by Starport.
+
+Have `alice` start a game with `bob`. Instead of having to copy and paste the addresses each time you need them, you can store these as variables:
 
 ```sh
 $ export alice=$(checkersd keys show alice -a)
 $ export bob=$(checkersd keys show bob -a)
 ```
 
- How much gas is needed? You can get an estimate by dry running the transaction using the `--dry-run` flag:
+How much gas is needed? You can get an estimate by dry running the transaction using the `--dry-run` flag:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $alice --dry-run
@@ -218,10 +220,10 @@ txhash: 59BC309EF79C354DD46ECE8D882BE133699CC10B165FEFAFF6AF3717507EBB4F
 
 </ExpansionPanel>
 
-You can query your chain to see if the new game has been saved to state:
+You can query your chain to check if the new game was saved to state:
 
 <CodeGroup>
-<CodeGroupItem title="show-next-game" active>
+<CodeGroupItem title="Show-next-game" active>
 
 ```sh
 $ checkersd query checkers show-next-game
@@ -236,13 +238,13 @@ NextGame:
 ```
 
 </CodeGroupItem>
-<CodeGroupItem title="list-stored-game">
+<CodeGroupItem title="List-stored-game">
 
 ```sh
 $ checkersd query checkers list-stored-game
 ```
 
-Which returns:
+Returns:
 
 ```
 StoredGame: []
@@ -256,11 +258,11 @@ pagination:
 
 ---
 
-It looks like nothing has changed. Starport only created a message, but you did not yet implement what actions the chain should undertake when it receives this message. That's what you'll take care of in the [next section](./create-handling.md).
+It looks like nothing changed. Starport only created a message, but you have not yet implemented what actions the chain should undertake when it receives this message. That is what you will take care of in the [next section](./create-handling.md).
 
 ## Next up
 
-Starport separates concerns into different files. The most relevant file for you at this point is `x/checkers/keeper/msg_server_create_game.go` which is created once. You need to code in the creation of the game proper in this file:
+Starport separates concerns into different files. The most relevant file for you at this point is `x/checkers/keeper/msg_server_create_game.go`, which is created once. You need to code in the creation of the game proper in this file:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/keeper/msg_server_create_game.go#L10-L17]
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {

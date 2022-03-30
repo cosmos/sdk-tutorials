@@ -162,8 +162,8 @@ pagination:
   total: "0"
 ```
 
-Correct. You made it possible to wager any token. That includes IBC ones.
+Correct. You made it possible to wager any token. That includes IBC tokens.
 
 ## Next up
 
-In the [next section](./migration.md) you will learn how to conduct chain upgrades through migrations.
+In the [next section](./migration.md), you will learn how to conduct chain upgrades through migrations.

@@ -159,13 +159,15 @@ $ starport chain build
 
 ## Interact with the CLI
 
-Time to see if it is possible to reject a game. First, is it possible to reject the current game from the command-line?
+Time to see if it is possible to reject a game.
+
+First, is it possible to reject the current game from the command line?
 
 ```sh
 $ checkersd tx checkers --help
 ```
 
-Which prints:
+Prints:
 
 ```
 ...
@@ -188,7 +190,7 @@ Usage:
   checkersd tx checkers reject-game [idValue] [flags]
 ```
 
-Simple. Let's have Alice, who played poorly in this game `0`, try to reject it:
+Simple. Let's have Alice, who played poorly in game `0`, try to reject it:
 
 ```sh
 $ checkersd tx checkers reject-game 0 --from $alice
@@ -205,13 +207,13 @@ Oh.
 
 <HighlightBox type="warn">
 
-How is it possible that Alice could reject a game in which she had already played, despite the code preventing that? Because the game `0` was created in an earlier version of your code. This earlier version created **a game without any `.MoveCount`**. When you later added the code for rejection, Starport kept the current state of your blockchain. In effect, your blockchain was in a **broken** state, where **the code and the state were out of sync**.
+How is it possible that Alice could reject a game she had already played, despite the code preventing that? Because game `0` was created in an earlier version of your code. This earlier version created **a game without any `.MoveCount`**. When you later added the code for rejection, Starport kept the current state of your blockchain. In effect, your blockchain was in a **broken** state, where **the code and the state were out of sync**.
 
 To see how to properly handle code changes that would otherwise result in a broken state, see the section on [migrations](./migration.md).
 
 </HighlightBox>
 
-Now you have to create other games and test the rejection on them. Notice the incrementing game id.
+Now you have to create other games and test the rejection on them. Notice the incrementing game ID.
 
 <CodeGroup>
 <CodeGroupItem title="Bob rejects" active>
@@ -252,9 +254,9 @@ raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"R
 Correct again, because nobody played.
 
 </CodeGroupItem>
-<CodeGroupItem title="Bob plays, rejects">
+<CodeGroupItem title="Bob plays and rejects">
 
-Bob creates a game, makes a move and rejects the game:
+Bob creates a game, makes a move, and rejects the game:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
@@ -272,7 +274,7 @@ raw_log: 'failed to execute message; message index: 0: black player has already 
 Correct, because Bob has already played.
 
 </CodeGroupItem>
-<CodeGroupItem title="Bob plays, Alice rejects">
+<CodeGroupItem title="Bob plays and Alice rejects">
 
 Bob creates a game, makes a move, and Alice rejects the game:
 
@@ -294,7 +296,7 @@ Correct, because Alice has not played yet.
 </CodeGroupItem>
 <CodeGroupItem title="Bob & Alice play, Alice rejects">
 
-Bob creates a game, makes a move, Alice makes a poor move and rejects the game:
+Bob creates a game and makes a move, then Alice makes a poor move and rejects the game:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
@@ -310,19 +312,17 @@ Which returns:
 raw_log: 'failed to execute message; message index: 0: red player has already played'
 ```
 
-Correct too. This time, Alice could not reject a game on which she had played, because the state had recorded her move in `.MoveCount`.
+Correct too. This time Alice could not reject a game she had played because the state recorded her move in `.MoveCount`.
 
 </CodeGroupItem>
 </CodeGroup>
 
 ---
 
-To belabor the point made in the earlier warning box, if you change your code, think about what it means for the current state of the chain, and whether you end up in a broken state.
+To belabor the point made in the earlier warning box, if you change your code, think about what it means for the current state of the chain and whether you end up in a broken state.
 
 ## Next up
 
-The next four sections cover forfeits and how games end. In the next section you create a [doubly-linked FIFO](./game-fifo.md).
-
-Later you add a [deadline](./game-deadline.md) and a [game winner](./game-winner.md) fields, before being able to finally [enforce the forfeit](./game-forfeit.md).
+The next four sections cover forfeits and how games end. In the next section, you create a [doubly-linked FIFO](./game-fifo.md). Later you add a [deadline](./game-deadline.md) and a [game winner](./game-winner.md) field, before being able to finally [enforce the forfeit](./game-forfeit.md).
 
 If you want to enable token wagers in your games instead, skip ahead to [wagers](./game-wager.md).

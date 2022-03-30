@@ -62,7 +62,7 @@ ctx.EventManager().EmitEvent(
 
 The only thing left to do is to implement this correspondingly in the GUI or include a server to listen for such events.
 
-## Player moved event
+## Player moved the event
 
 The created transaction to play a move informs the opponent about:
 
@@ -72,7 +72,7 @@ The created transaction to play a move informs the opponent about:
 * What the move's outcome was.
 * Whether the game was won.
 
-Contrary to the _create game_ event, which alerted the players about a new game, the players now know which game IDs to keep an eye out for. There is no need to repeat the players' addresses, the game ID is enough information.
+Contrary to the _create game_ event, which alerted the players about a new game, the players now know which game IDs to keep an eye out for. There is no need to repeat the players' addresses, the game ID is sufficient.
 
 You define new keys in `x/checkers/types/keys.go` similarly:
 
@@ -111,14 +111,14 @@ Bob made a move. Will Alice's move emit an event?
 $ checkersd tx checkers play-move 0 0 5 1 4 --from $alice
 ```
 
-The log is longer, and admittedly a little less readable:
+The log is longer and admittedly, a little less readable:
 
 ```
 ...
 raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"PlayMove"},{"key":"module","value":"checkers"},{"key":"action","value":"MovePlayed"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"0"},{"key":"CapturedX","value":"-1"},{"key":"CapturedY","value":"-1"},{"key":"Winner","value":"NO_PLAYER"}]}]}]'
 ```
 
-The expected elements are present. To parse the events, and display them in a more user-friendly way, you can take the `txhash` again and do:
+The expected elements are present. To parse the events and display them in a more user-friendly way, you can take the `txhash` again and do:
 
 ```sh
 $ checkersd query tx 531E5708A1EFBE08D14ABF947FBC888BFC69CD6F04A589D478204BF3BA891AB7 --output json | jq ".raw_log | fromjson"
@@ -186,7 +186,7 @@ b*b*b*b*
 r*r*r*r*
 ```
 
-The rules of the game included in this project mandate that the player captures a piece when they can capture one. So Bob goes ahead and captures the piece:
+The rules of the game included in this project mandate that the player captures a piece when possible. So Bob goes ahead and captures the piece:
 
 ```sh
 $ checkersd tx checkers play-move 0 2 3 0 5 --from $bob
@@ -199,7 +199,7 @@ It duly informs us that:
 raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"PlayMove"},{"key":"module","value":"checkers"},{"key":"action","value":"MovePlayed"},{"key":"Creator","value":"cosmos1w0uumlj04eyvevhfawasm2dtjc24nexxygr8qx"},{"key":"IdValue","value":"0"},{"key":"CapturedX","value":"1"},{"key":"CapturedY","value":"4"},{"key":"Winner","value":"NO_PLAYER"}]}]}]'
 ```
 
-Which, formatted, is:
+Which formatted is:
 
 ```json
 [
@@ -247,7 +247,7 @@ Which, formatted, is:
 ]
 ```
 
-Correct, Bob captured a piece. And the board looks like:
+Correct, Bob captured a piece and the board looks like this:
 
 ```
 *b*b*b*b
@@ -260,7 +260,7 @@ b*r*r*r*
 r*r*r*r*
 ```
 
-This confirms that the _play_ event is emitted as expected. You can do the same for the _game created_ event.
+Confirming that the _play_ event is emitted as expected. You can do the same for the _game created_ event.
 
 ## Next up
 

@@ -193,7 +193,7 @@ Usage:
 ...
 ```
 
-So `Alice` tries with:
+So `Alice` tries:
 
 ```sh
 $ checkersd tx checkers play-move 0 0 5 1 4 --from $alice
@@ -217,7 +217,7 @@ txhash: D10BB8A706870F65F19E4DF48FB870E4B7D55AF4232AE0F6897C23466FF7871B
 
 <HighlightBox type="tip">
 
-If you did not get this `raw_log`, it might be because your transaction was sent asynchronously. You can always query a transaction by using the `txhash` by using the following command:
+If you did not get this `raw_log`, it might be because your transaction was sent asynchronously. You can always query a transaction by using the `txhash` with the following command:
 
 ```sh
 $ checkersd query tx D10BB8A706870F65F19E4DF48FB870E4B7D55AF4232AE0F6897C23466FF7871B
@@ -233,13 +233,13 @@ raw_log: 'failed to execute message; message index: 0: player tried to play out 
 
 </HighlightBox>
 
-Can Bob, who plays _black_, make a move? Can he make a wrong move, for instance from `0-1` to `1-0`, which in turn is occupied by one of his pieces?
+Can Bob, who plays _black_, make a move? Can he make a wrong move? For instance a move from `0-1` to `1-0`, which in turn is occupied by one of his pieces?
 
 ```sh
 $ checkersd tx checkers play-move 0 1 0 0 1 --from $bob
 ```
 
-Computer says no:
+The computer says no:
 
 ```
 ...
@@ -247,7 +247,9 @@ raw_log: 'failed to execute message; message index: 0: Already piece at destinat
   position: {1 0}: wrong move'
 ```
 
-So far, all seems to be working just fine. Time for Bob to make a correct move:
+So far all seems to be working just fine.
+
+Time for Bob to make a correct move:
 
 ```sh
 $ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
@@ -283,6 +285,6 @@ Bob's piece moved down and right.
 
 ## Next up
 
-Before you add a third Message to let a player [reject a game](./reject-game.md), add events to the existing message handlers for relevant information. That is the object of the [next section](./events.md).
+Before you add a third message to let a player [reject a game](./reject-game.md), add events to the existing message handlers for relevant information. This is the object of the [next section](./events.md).
 
 If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](./can-play.md).

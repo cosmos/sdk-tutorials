@@ -314,7 +314,7 @@ Starport created a set of files for you. It is time to see whether you can alrea
     $ checkersd query checkers --help
     ```
 
-    Ok, that is [`show-next-game`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e2251f253288163021c75999709d8c25b402/x/checkers/client/cli/query_next_game.go#L14):
+    OK, that is [`show-next-game`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e2251f253288163021c75999709d8c25b402/x/checkers/client/cli/query_next_game.go#L14):
 
     ```sh
     $ checkersd query checkers show-next-game
@@ -328,9 +328,9 @@ Starport created a set of files for you. It is time to see whether you can alrea
       idValue: "0"
     ```
 
-    This is as expected, because no games have been created yet, so the game counter is still at 0.
+    This is as expected, because no games have been created yet so the game counter is still at `0`.
 
-3. The `--output` flag allows you to get your results in a JSON format, which might be useful in case you would like to use a script to parse the information for example. When you use the `--help` flag, you see which flags are available for a specific command:
+3. The `--output` flag allows you to get your results in a JSON format, which might be useful in case you would like to use a script to parse the information. When you use the `--help` flag, you see which flags are available for a specific command:
 
     ```sh
     $ checkersd query checkers show-next-game --help
@@ -343,7 +343,7 @@ Starport created a set of files for you. It is time to see whether you can alrea
     -o, --output string   Output format (text|json) (default "text")
     ```
 
-    Now, try again a bit differently:
+    Now try again a bit differently:
 
     ```sh
     $ checkersd query checkers show-next-game --output json
@@ -380,4 +380,4 @@ $ checkersd tx checkers --help
 
 ## Next up
 
-Want to continue developing your checkers blockchain? In the [next section](./create-message.md) you will learn all about introducing an `sdk.Msg` to create a game.
+Want to continue developing your checkers blockchain? In the [next section](./create-message.md), you will learn all about introducing an `sdk.Msg` to create a game.

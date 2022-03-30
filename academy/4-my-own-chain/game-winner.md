@@ -23,7 +23,7 @@ To be able to terminate games you need to identify games that have already been 
 * Or, the winner by forfeit, when a game is expired.
 * Or a neutral value when the game is active.
 
-In this exercise a draw is not handled and it would require yet another value to save in _winner_.
+In this exercise, a draw is not handled and it would require yet another value to save in _winner_.
 
 ## New information
 
@@ -124,15 +124,15 @@ Confirm the code compiles and you are ready to handle the expiration of games.
 
 ## Interact via the CLI
 
-Here again, if you have created games in an earlier version of the code, you are in a broken state. In fact, now you cannot even play on the old games because the old games in effect have `.Winner == ""`, and this will be caught by the `if storedGame.Winner != rules.NO_PLAYER.Color` test. Better start anew with:
+Here again, if you have created games in an earlier version of the code, you are in a broken state. Now you cannot even play the old games because the old games in effect have `.Winner == ""` and this will be caught by the `if storedGame.Winner != rules.NO_PLAYER.Color` test. Better start anew with:
 
 ```sh
 $ starport chain serve --reset-once
 ```
 
-Don't forget to export `alice` and `bob` again as explained in an [earlier section](./create-message.md).
+Do not forget to export `alice` and `bob` again, as explained in an [earlier section](./create-message.md).
 
-You can confirm that there is no winner on a game when it is created:
+You can confirm that there is no winner for a game when it is created:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $alice
@@ -166,4 +166,4 @@ Testing with the CLI up to the point where the game is resolved with a rightful 
 
 ## Next up
 
-You have introduced a [game FIFO](./game-fifo.md), a [game deadline](./game-deadline.md), and a game winner. Time to turn your attention to the [next section](./game-forfeit.md).
+You have introduced a [game FIFO](./game-fifo.md), a [game deadline](./game-deadline.md), and a game winner. Time to turn your attention to the [next section](./game-forfeit.md) to look into game forfeits.

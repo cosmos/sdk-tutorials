@@ -23,7 +23,7 @@ In the [previous step](./reject-game.md) you added a way for players to reject a
 
 What if a player never shows up again? Should a game remain in limbo forever?
 
-Furthermore, you eventually want to let players wager on the outcome of games and you especially don't want games remaining in limbo if _value_ is tied up in games. For this reason, you need to add a way for games to be forcibly resolved if a player stops responding.
+Furthermore, you eventually want to let players wager on the outcome of games and you especially do not want games remaining in limbo if _value_ is tied up in games. For this reason, you need to add a way for games to be forcibly resolved in the case a player stops responding.
 
 The simplest mechanism to expire a game is to use a **deadline**. If the deadline is reached, then the game is forcibly terminated and expires. The deadline is pushed further back every time a game is played.
 
@@ -52,7 +52,7 @@ When terminating expired games in `EndBlock`, you keep dealing with the expired 
 
 `k` still is an unbounded number of operations. But if you use the same expiration duration on each game, for `k` games to expire together in a block, these `k` games would all have to have had a move in the same previous block. Give or take the block before or after. In the worst case, the largest `EndBlock` computation will be proportional to the largest regular block in the past. This is a reasonable risk to take.
 
-Remember, this only works if the expiration duration is the same for all games instead of being a parameter left to a potentially malicious game creator.
+**Remember:** this only works if the expiration duration is the same for all games instead of being a parameter left to a potentially malicious game creator.
 
 ## New information
 
@@ -68,7 +68,7 @@ How do you implement a FIFO from which you extract elements at random positions?
     }
     ```
 
-2. To make extraction possible, each game needs to know which other game takes place before it in the FIFO, and which after. The right place to store this double link information is `StoredGame`. Thus, you add them in the game's Protobuf declaration:
+2. To make extraction possible, each game needs to know which other game takes place before it in the FIFO, and which after. The right place to store this double link information is `StoredGame`. Thus, you add them to the game's Protobuf declaration:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/proto/checkers/stored_game.proto#L16-L17]
     message StoredGame {
@@ -243,13 +243,17 @@ You implemented a FIFO that is updated but never really used.
 
 ## Interact via the CLI
 
-Time to see what you get now with the commands. Because you made numerous additions to the blockchain state, you need to start afresh:
+Time to see what you get with the commands. You need to start afresh because you made numerous additions to the blockchain state:
 
 ```sh
 $ starport chain serve --reset-once
 ```
 
-Don't forget to export `alice` and `bob` again as explained in an [earlier section](./create-message.md).
+<HighlightBox type="tip">
+
+Do not forget to export `alice` and `bob` again as explained in an [earlier section](./create-message.md).
+
+</HighlightBox>
 
 1. Is the genesis FIFO information correctly saved?
 
@@ -267,9 +271,9 @@ Don't forget to export `alice` and `bob` again as explained in an [earlier secti
       idValue: "0"
     ```
 
-    That's good.
+    That looks good.
 
-2. If you create a game, is it as expected?
+2. If you create a game, is the game as expected?
 
     ```sh
     $ checkersd tx checkers create-game $alice $bob --from $bob
@@ -350,9 +354,9 @@ Don't forget to export `alice` and `bob` again as explained in an [earlier secti
     ...
     ```
 
-    Which is correct. Your FIFO in effect has the game ids `[0, 1]`. You can add a third game, which makes your FIFO be `[0, 1, 2]`.
+    This is correct. Your FIFO in effect has the game IDs `[0, 1]`. You can add a third game, which makes your FIFO be `[0, 1, 2]`.
 
-6. What happens when Bob plays on the game 1, the one _in the middle_?
+6. What happens when Bob plays game `1`, the one _in the middle_?
 
     ```sh
     $ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
@@ -371,7 +375,7 @@ Don't forget to export `alice` and `bob` again as explained in an [earlier secti
 
     That looks good.
 
-7. And is the game 2 in the middle now?
+7. Is game `2` in the middle now?
 
     ```sh
     $ checkersd query checkers show-stored-game 2
@@ -386,9 +390,9 @@ Don't forget to export `alice` and `bob` again as explained in an [earlier secti
     ...
     ```
 
-    That's correct. Your FIFO now has the game ids `[0, 2, 1]`. You see that the game 1, which was played on, has been sent to the tail of the FIFO.
+    That is correct. Your FIFO now has the game IDs `[0, 2, 1]`. You see that game `1`, which was played on, has been sent to the tail of the FIFO.
 
-8. What happens when Alice rejects game 2?
+8. What happens when Alice rejects game `2`?
 
     ```sh
     $ checkersd tx checkers reject-game 2 --from $alice
@@ -405,7 +409,7 @@ Don't forget to export `alice` and `bob` again as explained in an [earlier secti
       idValue: "3"
     ```
 
-    No changes there because game 2 was _in the middle_, so it did not affect the head or the tail.
+    No changes there because game `2` was _in the middle_, so it did not affect the head or the tail.
 
     ```sh
     $ checkersd query checkers show-stored-game 0
@@ -435,8 +439,8 @@ Don't forget to export `alice` and `bob` again as explained in an [earlier secti
     ...
     ```
 
-    So your FIFO now has the game ids `[0, 1]`. The game 2 was correctly removed from the FIFO.
+    So your FIFO now has the game IDs `[0, 1]`. Game `2` was correctly removed from the FIFO.
 
 ## Next up
 
-Now you need to add an expiry date on the games. That's the goal of the [next section](./game-deadline.md).
+Now you need to add an expiry date on the games. That is the goal of the [next section](./game-deadline.md).

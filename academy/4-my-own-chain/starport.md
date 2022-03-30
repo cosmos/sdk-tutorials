@@ -123,7 +123,7 @@ The `checkers` folder contains several generated files and directories that make
 * `cmd`: a folder for the command-line interface commands.
 * `proto`: a folder for the Protobuf objects definitions.
 * `vue`: a folder for the UI.
-* `x`: a folder for all your own modules, in particular `checkers`.
+* `x`: a folder for all your modules, in particular `checkers`.
 
 <HighlightBox type="tip">
 
@@ -227,7 +227,7 @@ And so on.
 
 ## Your GUI
 
-Now boot up the frontend created by Starport by using the commands provided in the `readme.md` file of the `checkers` folder. For this you let the chain run in its own process and open a new terminal window in your `checkers` folder. In this terminal execute:
+Now boot up the frontend created by Starport by using the commands provided in the `readme.md` file of the `checkers` folder. For this, you let the chain run in its own process and open a new terminal window in your `checkers` folder. In this terminal execute:
 
 ```sh
 $ cd vue
@@ -235,7 +235,7 @@ $ npm install
 $ npm run serve
 ```
 
-Navigate to [localhost:8080](http://localhost:8080/). On the client side no wallets have been created or imported yet. Load Alice's wallet in the GUI to have some tokens. You will need to use the mnemonic for Alice which you can find in the output of the `starport chain serve` command. Copy and paste it to _import a wallet_.
+Navigate to [localhost:8080](http://localhost:8080/). On the client-side, no wallets have been created or imported yet. Load Alice's wallet in the GUI to have some tokens. You will need to use the mnemonic for Alice which you can find in the output of the `starport chain serve` command. Copy and paste it to _import a wallet_.
 
 Now you should see the balance of Alice's account and can act on her behalf.
 
@@ -243,7 +243,7 @@ Select **Custom Type** in the sidebar to see custom types. There are no custom t
 
 <HighlightBox type="tip">
 
-It is **good practice** to make a Git commit before you create a new `message`. In fact, it is generally recommended to make a Git commit before running **any** `starport scaffold` command. A Git commit protects the work you have done so far and makes it easier to see what the `scaffold` command added. It also makes it easy to just revert all changes if you are unsatisfied and want to run a different `scaffold` command.
+It is **good practice** to make a Git commit before you create a new `message`. It is generally recommended to make a Git commit before running **any** `starport scaffold` command. A Git commit protects the work you have done so far and makes it easier to see what the `scaffold` command added. It also makes it easy to just revert all changes if you are unsatisfied and want to run a different `scaffold` command.
 
 </HighlightBox>
 

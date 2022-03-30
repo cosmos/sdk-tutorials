@@ -17,9 +17,9 @@ Make sure you have all you need before proceeding:
 
 </HighlightBox>
 
-With the introduction of a game expiry in the [previous section](./game-forfeit.md) and others you have now addressed the cases when two players start a game and finish it or let it expire.
+With the introduction of a game expiry in the [previous section](./game-forfeit.md) and other features you have now addressed the cases when two players start a game and finish it or let it expire.
 
-In this section you will add an extra layer to a game with wagers or stakes. Your application already includes all the necessary modules. This section relies on the `bank` module in particular.
+In this section, you will add an extra layer to a game with wagers or stakes. Your application already includes all the necessary modules. This section relies on the `bank` module in particular.
 
 Players choose to wager _money_ or not, and the winner gets both wagers. The forfeiter loses their wager. To reduce complexity, start by letting players wager in the staking token of your application.
 
@@ -104,7 +104,7 @@ Time to make sure that the new field is saved in the storage and it is part of t
 
 ## Declaring expectations
 
-On its own the `Wager` field does not make players pay the wager or receive rewards. You need to add the handling actions. These handling actions must ask the `bank` module to perform the required token transfers. For that your keeper needs to ask for a `bank` instance during setup.
+On its own, the `Wager` field does not make players pay the wager or receive rewards. You need to add the handling actions. These handling actions must ask the `bank` module to perform the required token transfers. For that, your keeper needs to ask for a `bank` instance during setup.
 
 <HighlightBox type="info">
 
@@ -114,7 +114,7 @@ Remember the only way to have access to a capability with the object-capability 
 
 You are going to implement payment handling by having your keeper hold wagers **in escrow** while the game is being played. The `bank` module has functions to transfer tokens from any account to your module and vice-versa.
 
-In an alternative setup, you could have your keeper burn tokens when playing, and mint them again when paying out. This is less than ideal as it makes your blockchain's total supply _falsely_ fluctuate. Additionally, when you later introduce IBC tokens, this burning and minting would raise eyebrows.
+In an alternative setup, you could have your keeper burn tokens when playing, and mint them again when paying out. This is less than ideal as it makes your blockchain's total supply _falsely_ fluctuate. Additionally, this burning and minting would raise eyebrows when you later introduce IBC tokens.
 
 <HighlightBox type="tip">
 
@@ -135,7 +135,7 @@ These two functions must exactly match the functions declared in the [`bank`'s k
 
 ## Obtaining the capability
 
-With your requirements declared it is time to make sure your keeper receives a reference to a bank keeper. First add a `BankKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
+With your requirements declared it is time to make sure your keeper receives a reference to a bank keeper. First, add a `BankKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6213d10/x/checkers/keeper/keeper.go#L16]
 type (
@@ -171,7 +171,7 @@ app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
 
 This `app.BankKeeper` is a full `bank` keeper that also conforms to your `BankKeeper` interface because you mastered that copy and paste move.
 
-Finally, you need to inform the app that your Checkers module is going to hold balances in escrow. So add your module to the list of permitted modules:
+Finally, you need to inform the app that your checkers module is going to hold balances in escrow. So add your module to the list of permitted modules:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6213d10/app/app.go#L153]
 maccPerms = map[string][]string{
@@ -180,11 +180,11 @@ maccPerms = map[string][]string{
 }
 ```
 
-It is only keeping funds in escrow, and not minting or burning, hence the `nil`.
+It is only keeping funds in escrow and not minting or burning, hence the `nil`.
 
 ## Preparing expected errors
 
-There are several new error situations which you can enumerate with new variables:
+There are several new error situations that you can enumerate with new variables:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6213d10/x/checkers/types/errors.go#L23-L29]
 ErrRedCannotPay      = sdkerrors.Register(ModuleName, 1112, "red cannot pay the wager")
@@ -197,7 +197,7 @@ ErrNotInRefundState  = sdkerrors.Register(ModuleName, 1118, "game is not in a st
 
 ## Money handling steps
 
-With the `bank` now in your keeper it is time to have your keeper handle the money. Keep this concern in its own file as the keeper is reused on play, reject, and forfeit.
+With the `bank` now in your keeper, it is time to have your keeper handle the money. Keep this concern in its file as the keeper is reused on a play, reject, and forfeit.
 
 Create the new file `x/checkers/keeper/wager_handler.go` and add three functions to collect a wager, refund a wager, and pay winnings:
 
@@ -352,7 +352,7 @@ With the desired steps defined in the wager handling functions, it is time to in
 
 ## Interact via the CLI
 
-In order to be able to test a forfeit, keep the game expiry at 5 minutes, as done in the [previous section](./game-forfeit.md). Now, to test that wagers are being withheld and paid, you need to check balances after relevant steps.
+Keep the game expiry at 5 minutes to be able to test a forfeit, as done in the [previous section](./game-forfeit.md). Now, you need to check balances after relevant steps to test that wagers are being withheld and paid.
 
 How much do Alice and Bob have to start with?
 
@@ -414,7 +414,13 @@ Which mentions the wager:
 raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"CreateGame"},{"key":"module","value":"checkers"},{"key":"action","value":"NewGameCreated"},{"key":"Creator","value":"cosmos1z63q2mn2f6ljm8vfxjzpuz0xthmyx9qd0yy5xr"},{"key":"Index","value":"0"},{"key":"Red","value":"cosmos1z63q2mn2f6ljm8vfxjzpuz0xthmyx9qd0yy5xr"},{"key":"Black","value":"cosmos195e0h5qw44sazd450yt5qvllukcfp7lyc3f9kr"},{"key":"Wager","value":"1000000"}]}]}]'
 ```
 
-Confirm that, since they have not played yet, both Alice and Bob balances are unchanged. As a side-note, notice that Alice paid no gas fees, other than the transaction costs, to create a game. This is fixed in the [next section](./gas-meter.md).
+Confirm that both Alice and Bob balances are unchanged - as they have not played yet.
+
+<HighlightBox type="info">
+
+**A side-note:** notice that Alice paid no gas fees, other than the transaction costs, to create a game. This is fixed in the [next section](./gas-meter.md).
+
+</HighlightBox>
 
 Have Bob play:
 
@@ -441,7 +447,7 @@ pagination:
   total: "0"
 ```
 
-Wait 5 minutes for the game to expire, and check again:
+Wait 5 minutes for the game to expire and check again:
 
 ```sh
 $ checkersd query bank balances $bob
@@ -468,7 +474,7 @@ $ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
 $ checkersd tx checkers play-move 1 0 5 1 4 --from $alice
 ```
 
-Confirm that both Alice and Bob paid their wagers. Wait 5 minutes for the game to expire, and check again:
+Confirm that both Alice and Bob paid their wagers. Wait 5 minutes for the game to expire and check again:
 
 <CodeGroup>
 <CodeGroupItem title="Alice" active>
@@ -507,12 +513,12 @@ balances:
 
 ---
 
-That's correct, Alice was the winner by forfeit.
+That is correct: Alice was the winner by forfeit.
 
 Similarly, you can test that Bob gets his wager back when Alice creates a game, Bob plays, and then Alice rejects it.
 
-It would be difficult to test by CLI when there is a winner after a full game, and that would be better tested with a GUI.
+It would be difficult to test by CLI when there is a winner after a full game. That would be better tested with a GUI.
 
 ## Next up
 
-You can skip ahead and see how you can integrate [foreign tokens](./wager-denom.md) via the use of IBC. Or take a look at the [next section](./gas-meter.md) to prevent spam and reward validators proportional to their effort in your checkers blockchain.
+You can skip ahead and see how you can integrate [foreign tokens](./wager-denom.md) via the use of IBC, or take a look at the [next section](./gas-meter.md) to prevent spam and reward validators proportional to their effort in your checkers blockchain.

@@ -37,7 +37,7 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 }
 ```
 
-All the message processing code was created for you and all you are left to do is code the meat of the action. Opting for Starport is a wise decision as you can see.
+All the message processing code was created for you and all left for you to do is to code the meat of the action. Opting for Starport is a wise decision as you can see.
 
 Given that you have already done a lot of preparatory work: what is involved in coding the action? With what do you replace `// TODO: Handling the message`?
 
@@ -118,22 +118,22 @@ Given that you have already done a lot of preparatory work: what is involved in 
 
 ## Interact via the CLI
 
-Time to confirm that the transaction creates a game this time. Start with:
+Time to confirm that the transaction creates a game. Start with:
 
 ```sh
 $ starport chain serve
 ```
 
-And send your transaction, the same as in the [previous section](./create-message.md):
+And send your transaction as you did in the [previous section](./create-message.md):
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $alice --gas auto
 ```
 
-There is a first hint of a good sign in the output; `gas_used` is a bit higher than earlier: `gas_used: "50671"`. Confirm the current state:
+There is a first hint of a good sign in the output: `gas_used` is a bit higher than it was before, `gas_used: "50671"`. Confirm the current state:
 
 <CodeGroup>
-<CodeGroupItem title="show-next-game" active>
+<CodeGroupItem title="Show-next-game" active>
 
 ```sh
 $ checkersd query checkers show-next-game
@@ -148,7 +148,7 @@ NextGame:
 ```
 
 </CodeGroupItem>
-<CodeGroupItem title="list-stored-game">
+<CodeGroupItem title="List-stored-game">
 
 ```sh
 $ checkersd query checkers list-stored-game
@@ -170,13 +170,13 @@ pagination:
 ```
 
 </CodeGroupItem>
-<CodeGroupItem title="show-stored-game">
+<CodeGroupItem title="Show-stored-game">
 
 ```sh
 $ checkersd query checkers show-stored-game 0
 ```
 
-Which returns:
+Returns:
 
 ```
 StoredGame:
@@ -236,12 +236,12 @@ $ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.ga
 
 ## Next up
 
-You will modify this handling in the next sections:
+You will modify this handling in the next sections by:
 
-* To add [new fields](./game-fifo.md) to the stored information.
-* To add [an event](./events.md).
-* To consume [some gas](./gas-meter.md).
-* To facilitate the eventual [deadline enforcement](./game-forfeit.md).
-* To add [_money_](./game-wager.md) handling including [foreign tokens](./wager-denom.md).
+* Adding [new fields](./game-fifo.md) to the stored information.
+* Adding [an event](./events.md).
+* Consuming [some gas](./gas-meter.md).
+* Facilitating the eventual [deadline enforcement](./game-forfeit.md).
+* Adding [_money_](./game-wager.md) handling including [foreign tokens](./wager-denom.md).
 
 Now that a game is created, it is time to play it. That is the subject of the [next section](./play-game.md).

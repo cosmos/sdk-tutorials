@@ -19,11 +19,11 @@ Make sure you have all you need before proceeding:
 
 Players can start playing checkers with your Cosmos blockchain. Transaction fees are paid by players themselves, at least the fee related to transporting the serialized bytes and the other gas-metered parts like `bank`.
 
-Next add your own gas metering to reflect the costs that different transactions impose or you can add costs to discourage spam.
+Next, add your own gas metering to reflect the costs that different transactions impose or you can add costs to discourage spam.
 
 ## New data
 
-These values are an inspiration but you can, should, set your own. Save them as new constants:
+These values are an inspiration but you can, and should, set your own. Save them as new constants:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/4e8a82e/x/checkers/types/keys.go#L42-L46]
 const (
@@ -55,33 +55,33 @@ Add a line that consumes the designated amount of gas in each relevant handler:
     ctx.GasMeter().ConsumeGas(types.RejectGameGas, "Reject game")
     ```
 
-You don't meter gas in your `EndBlock` handler because it is **not** called by a player sending a transaction. It is instead a service rendered by the network. If you want to account for the gas cost of an expiration, you have to devise a way to pre-collect it from players as part of the other messages.
+You do not meter gas in your `EndBlock` handler because it is **not** called by a player sending a transaction. Instead, it is a service rendered by the network. If you want to account for the gas cost of a game expiration, you have to devise a way to pre-collect it from players as part of the other messages.
 
 <HighlightBox type="tip">
 
-Avoid calling `ConsumeGas` from within a loop. If you know the number of times your code loops, consume all the gas ahead of the loop. With this trick the transaction may run out of gas as if you had run the steps if the signer had not sent enough gas. This strategy saves computations on your node.
+Avoid calling `ConsumeGas` from within a loop. If you know the number of times your code loops, consume all the gas ahead of the loop. With this trick, the transaction may run out of gas as if you had run the steps if the signer had not sent enough gas. This strategy saves computations on your node.
 
 </HighlightBox>
 
 ## Interact via the CLI
 
-Here, you want to confirm that gas is consumed on different actions. The _difficulty_ is that Alice's and Bob's balances in `stake` tokens change not only because of the gas used, but by how much depends on the gas price. An easy measurement is to use `--dry-run`:
+Here, you want to confirm that gas is consumed by different actions. The _difficulty_ is that Alice's and Bob's balances in `stake` tokens change not only because of the gas used but also depending on the gas price. An easy measurement is to use `--dry-run`:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
 ```
 
-This returns, say, `54322`, which is the estimated gas used. Now comment out the `.ConsumeGas` line in `msg_server_create_game.go`, save it, wait the couple minutes it takes for Starport to rebuild and try again:
+Let's say this returns `54322`, which is the estimated gas used. Now comment out the `.ConsumeGas` line in `msg_server_create_game.go`, save it, wait the couple minutes it takes for Starport to rebuild, and try again:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
 ```
 
-This time, you get, say `54312`. This is good, the `10` gas are no longer part of the estimation, as expected. Uncomment the `.ConsumeGas` line. You can try `--dry-run` on play and reject too.
+Say, this time you get `54312`. This is good - the `10` gas is no longer part of the estimation, as expected. Uncomment the `.ConsumeGas` line. You can try `--dry-run` on play and reject too.
 
-Notice how a difference of **`10` is insignificant** compared to the `54312` of the other gas costs. This is where you have to decide how to adjust your gas costs so that they are meaningful with regards to the costs they impose on the network.
+Notice how a difference of `10` **is insignificant** compared to the `54312` of the other gas costs. This is where you have to decide how to adjust your gas costs so that they are meaningful concerning the costs they impose on the network.
 
-Estimating with `--dry-run` is a good start. Now better, have Alice create a game and check the gas actually used in the transaction. You could impose a `--gas-prices` and then check balances but it would obfuscate the gas consumption, which is what you want to confirm.
+Estimating with `--dry-run` is a good start. Now better, have Alice create a game and check the gas used in the transaction:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
@@ -95,7 +95,9 @@ gas_used: "52755"
 ...
 ```
 
-As before, comment the `.ConsumeGas` line `msg_server_create_game.go`, and wait for Starport to rebuild. Then, try again:
+You could impose a `--gas-prices` and then check balances but it would obfuscate the gas consumption, which is what you want to confirm.
+
+As before, comment the `.ConsumeGas` line `msg_server_create_game.go` and wait for Starport to rebuild. Then try again:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
@@ -109,7 +111,7 @@ gas_used: "52751"
 ...
 ```
 
-Only a difference of `4`? The rest of the system likely had some under-the-hood initializations, such as Merkle tree creations, which may _falsify_ the early results. Create 10 more games without `.Consume`ing gas, and only look at the `gas_used`. It should stabilize at a certain value:
+Only a difference of `4`? The rest of the system likely had some under-the-hood initializations such as Merkle tree creations, which may _falsify_ the early results. Create 10 more games without `.Consume`ing gas and only look at the `gas_used`. It should stabilize at a certain value:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used
@@ -121,7 +123,7 @@ Which mentions:
 gas_used: "65057"
 ```
 
-Now put back the `.ConsumeGas` line and rebuild. They try the same:
+Now put back the `.ConsumeGas` line and rebuild. Then try the same:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used
@@ -133,7 +135,7 @@ Which mentions a difference of `10`:
 gas_used: "65067"
 ```
 
-That's sufficient confirmation for now.
+That is sufficient confirmation for now.
 
 ## Next up
 

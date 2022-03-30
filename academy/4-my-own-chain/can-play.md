@@ -19,7 +19,7 @@ Make sure you have all you need before proceeding:
 
 A player sends a `MsgPlayMove` when [making a move](./play-game.md). This message can succeed or fail for several reasons. One error situation is when the message represents an invalid move.
 
-Players should be able to make sure that a move is valid before burning gas. To add this functionality, you need to create a way for the player to call the [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function without changing the game's state. To achieve this, you use a query because they are evaluated in memory and do not commit anything permanently to storage.
+Players should be able to make sure that a move is valid before burning gas. To add this functionality, you need to create a way for the player to call the [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function without changing the game's state. You use a query because they are evaluated in memory and do not commit anything permanently to storage to achieve this.
 
 ## New information
 
@@ -155,10 +155,10 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 ## Interact via the CLI
 
-Friendly reminder that the CLI can always inform you about the available commands:
+A friendly reminder that the CLI can always inform you about the available commands:
 
 <CodeGroup>
-<CodeGroupItem title="checkers" active>
+<CodeGroupItem title="Checkers" active>
 
 ```sh
 $ checkersd query checkers --help
@@ -174,7 +174,7 @@ Available Commands:
 ```
 
 </CodeGroupItem>
-<CodeGroupItem title="can-play-move">
+<CodeGroupItem title="Can-play-move">
 
 ```sh
 $ checkersd query checkers can-play-move --help
@@ -197,7 +197,7 @@ Usage:
 You can test this query at any point in a game's life.
 
 <CodeGroup>
-<CodeGroupItem title="no game" active>
+<CodeGroupItem title="No game" active>
 
 ```sh
 $ checkersd query checkers can-play-move 2048 red 1 2 2 3
@@ -222,10 +222,10 @@ Which prints:
 1
 ```
 
-There is room to improve the error message. But at least you got an error, as expected.
+There is room to improve the error message but at least you got an error, as expected.
 
 </CodeGroupItem>
-<CodeGroupItem title="bad color">
+<CodeGroupItem title="Bad color">
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
@@ -239,10 +239,10 @@ possible: false
 reason: 'message creator is not a player: white'
 ```
 
-Good, a proper message response and the reason.
+Good, a proper message response and a reason elaborating on the message.
 
 </CodeGroupItem>
-<CodeGroupItem title="wrong turn">
+<CodeGroupItem title="Wrong turn">
 
 ```sh
 $ checkersd query checkers can-play-move 0 red 0 5 1 4
@@ -256,7 +256,7 @@ reason: 'player tried to play out of turn: red'
 ```
 
 </CodeGroupItem>
-<CodeGroupItem title="not your piece">
+<CodeGroupItem title="Not your piece">
 
 ```sh
 $ checkersd query checkers can-play-move 0 black 0 5 1 4
@@ -270,7 +270,7 @@ reason: wrong move%!(EXTRA string=Not {red}s turn)
 ```
 
 </CodeGroupItem>
-<CodeGroupItem title="correct">
+<CodeGroupItem title="Correct">
 
 ```sh
 $ checkersd query checkers can-play-move 0 black 1 2 2 3
@@ -284,7 +284,7 @@ reason: ok
 ```
 
 </CodeGroupItem>
-<CodeGroupItem title="must capture">
+<CodeGroupItem title="Must capture">
 
 ```sh
 $ checkersd tx checkers play-move 0 1 2 2 3 --from $bob -y
@@ -302,7 +302,7 @@ reason: 'wrong move%!(EXTRA string=Invalid move: {2 3} to {3 4})'
 There is room to improve the reason given.
 
 </CodeGroupItem>
-<CodeGroupItem title="after forfeit">
+<CodeGroupItem title="After forfeit">
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
@@ -318,7 +318,7 @@ possible: true
 reason: ok
 ```
 
-Wait 5 minutes for the forfeit:
+Wait five minutes for the forfeit:
 
 ```sh
 $ checkersd query checkers can-play-move 1 black 2 3 0 5

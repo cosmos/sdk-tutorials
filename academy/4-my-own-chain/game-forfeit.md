@@ -67,7 +67,7 @@ func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.Val
 }
 ```
 
-With this you ensure that **if** your module's `EndBlock` function is called, the expired games will be handled. For the **whole application to call your module** you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. Add yours at the end:
+With this, you ensure that **if** your module's `EndBlock` function is called, the expired games will be handled. For the **whole application to call your module** you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. Add yours at the end:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a74b20c/app/app.go#L398]
 app.mm.SetOrderEndBlockers(crisistypes.ModuleName, govtypes.ModuleName, stakingtypes.ModuleName, checkersmoduletypes.ModuleName)
@@ -77,7 +77,7 @@ Your `ForfeitExpiredGames` function will now be called at the end of each block.
 
 ## Expire games handler
 
-With the callbacks in place it is time to code the expiration properly. In `ForfeitExpiredGames`, it is _simply_ a matter of looping through the FIFO, starting from the head, and handling games that are expired. You can stop at the first active game as all those that come after are also active, thanks to the careful updating of the FIFO.
+With the callbacks in place, it is time to code the expiration properly. In `ForfeitExpiredGames`, it is _simply_ a matter of looping through the FIFO, starting from the head, and handling games that are expired. You can stop at the first active game as all those that come after are also active, thanks to the careful updating of the FIFO.
 
 1. Prepare useful information:
 
@@ -184,7 +184,6 @@ With the callbacks in place it is time to code the expiration properly. In `Forf
     k.SetNextGame(ctx, nextGame)
     ```
 
-
 <HighlightBox type="tip">
 
 For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games see the [section on the game's FIFO](./game-fifo.md).
@@ -193,26 +192,26 @@ For an explanation as to why this setup is resistant to an attack from an unboun
 
 ## Interact via the CLI
 
-As of now, the game expiry is 1 day in the future. It is too long to test with the CLI. Temporarily set it to 5 minutes:
+As of now, the game expiry is one day in the future. It is too long to test with the CLI. Temporarily set it to 5 minutes:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a74b20c/x/checkers/types/keys.go#L38]
 MaxTurnDurationInSeconds = time.Duration(5 * 60 * 1000_000_000) // 5 minutes
 ```
 
-Additionally, to avoid having games in the FIFO that expire in a day, because of your earlier tests, you ought to:
+Additionally, to avoid having games in the FIFO that expire in a day because of your earlier tests, you ought to:
 
 ```sh
 $ starport chain serve --reset-once
 ```
 
-Don't forget to export your aliases again:
+Do not forget to export your aliases again:
 
 ```sh
 $ export alice=$(checkersd keys show alice -a)
 $ export bob=$(checkersd keys show bob -a)
 ```
 
-Create 3 games 1 minute apart and have Bob play on the middle one, and both Alice and Bob play on the last one:
+Create three games 1 minute apart and have Bob play the middle one and both Alice and Bob play the last one:
 
 <CodeGroup>
 <CodeGroupItem title="Game 0" active>
@@ -247,13 +246,13 @@ $ checkersd tx checkers play-move 2 0 5 1 4 --from $alice
 
 ---
 
-Be sure to space each `tx` command from a given account by a couple seconds so that they each go into a different block. That's because `checkersd` is limited by the fact it uses the account's transaction sequence number by fetching it from the current state. With 3 games in, confirm that you see them all with:
+Be sure to space each `tx` command from a given account by a couple of seconds so that they each go into a different block - `checkersd` is limited by the fact that it uses the account's transaction sequence number by fetching it from the current state. With three games in, confirm that you see them all:
 
 ```sh
 $ checkersd query checkers list-stored-game
 ```
 
-List them again after 2, 3, 4 and 5 minutes. You should see games `0` and `1` disappear, and game `2` being forfeited by Bob, i.e. `red` Alice wins:
+List them again after 2, 3, 4, and 5 minutes. You should see games `0` and `1` disappear, and game `2` being forfeited by Bob, i.e. `red` Alice wins:
 
 ```sh
 $ checkersd query checkers show-stored-game 2 --output json | jq ".StoredGame.winner"
