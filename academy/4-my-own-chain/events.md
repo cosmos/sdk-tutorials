@@ -35,7 +35,7 @@ Start with the event that announces the creation of a new game. The goal is to:
 
 So define some new keys in `x/checkers/types/keys.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/types/keys.go#L34-L39]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/792d879/x/checkers/types/keys.go#L34-L38]
 const (
     StoredGameEventKey     = "NewGameCreated" // Indicates what key to listen to
     StoredGameEventCreator = "Creator"
@@ -47,7 +47,7 @@ const (
 
 Emit the event in your handler file `x/checkers/keeper/msg_server_create_game.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/keeper/msg_server_create_game.go#L37-L46]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/792d879/x/checkers/keeper/msg_server_create_game.go#L39-L48]
 ctx.EventManager().EmitEvent(
     sdk.NewEvent(sdk.EventTypeMessage,
         sdk.NewAttribute(sdk.AttributeKeyModule, "checkers"),
@@ -76,7 +76,7 @@ Contrary to the _create game_ event, which alerted the players about a new game,
 
 You define new keys in `x/checkers/types/keys.go` similarly:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/types/keys.go#L41-L48]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/792d879/x/checkers/types/keys.go#L41-L48]
 const (
     PlayMoveEventKey       = "MovePlayed"
     PlayMoveEventCreator   = "Creator"
@@ -89,7 +89,7 @@ const (
 
 Emit the event in your file `x/checkers/keeper/msg_server_play_move.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/keeper/msg_server_play_move.go#L62-L72]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/792d879/x/checkers/keeper/msg_server_play_move.go#L62-L72]
 ctx.EventManager().EmitEvent(
      sdk.NewEvent(sdk.EventTypeMessage,
         sdk.NewAttribute(sdk.AttributeKeyModule, "checkers"),
@@ -101,6 +101,81 @@ ctx.EventManager().EmitEvent(
         sdk.NewAttribute(types.PlayMoveEventWinner, game.Winner().Color),
     ),
 )
+```
+
+## Unit tests
+
+The unit tests you have created so far still pass. However you also want to confirm that the events have been emitted in both situations. The events are recorded in the context, so the test is a little bit different. In `msg_server_create_game_test.go`, you can add this test:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/792d879/x/checkers/keeper/msg_server_create_game_test.go#L83-L106]
+func TestCreate1GameEmitted(t *testing.T) {
+    msgSrvr, _, context := setupMsgServerCreateGame(t)
+    msgSrvr.CreateGame(context, &types.MsgCreateGame{
+        Creator: alice,
+        Red:     bob,
+        Black:   carol,
+    })
+    ctx := sdk.UnwrapSDKContext(context)
+    require.NotNil(t, ctx)
+    events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
+    require.Len(t, events, 1)
+    event := events[0]
+    require.EqualValues(t, sdk.StringEvent{
+        Type: "message",
+        Attributes: []sdk.Attribute{
+            {Key: "module", Value: "checkers"},
+            {Key: "action", Value: "NewGameCreated"},
+            {Key: "Creator", Value: alice},
+            {Key: "Index", Value: "1"},
+            {Key: "Red", Value: bob},
+            {Key: "Black", Value: carol},
+        },
+    }, event)
+}
+```
+
+How can you _guess_ the order of elements? Easy, you created them in this order. Alternatively, you can _peek_ by using Visual Studio Code and:
+
+1. Putting a breakpoint after `event := events[0]`.
+2. Running this test in **debug mode**, by right-clicking the green arrow next to the test name.
+3. Observing the live values on the left.
+
+![Live values of event in debug mode](/go_test_debug_event_attributes.PNG)
+
+Now, about the event emitted during a move, it is a bit unexpected. In a _move_ unit test two actions happen, a _create_ and a _move_. However, in the setup of this test, you do not create blocks, but instead _only_ hit your keeper. So the context collects events but does not flush them. This is why you need to test only for the latter attributes, and verify an array slice that discards the events that originate from the _create_ action: `event.Attributes[6:]`. This gives the test:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/792d879/x/checkers/keeper/msg_server_play_move_test.go#L103-L128]
+func TestPlayMoveEmitted(t *testing.T) {
+    msgServer, _, context := setupMsgServerWithOneGameForPlayMove(t)
+    msgServer.PlayMove(context, &types.MsgPlayMove{
+        Creator: carol,
+        IdValue: "1",
+        FromX:   1,
+        FromY:   2,
+        ToX:     2,
+        ToY:     3,
+    })
+    ctx := sdk.UnwrapSDKContext(context)
+    require.NotNil(t, ctx)
+    events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
+    require.Len(t, events, 1)
+    event := events[0]
+    require.Equal(t, event.Type, "message")
+    require.EqualValues(t, []sdk.Attribute{
+        {Key: "module", Value: "checkers"},
+        {Key: "action", Value: "MovePlayed"},
+        {Key: "Creator", Value: carol},
+        {Key: "IdValue", Value: "1"},
+        {Key: "CapturedX", Value: "-1"},
+        {Key: "CapturedY", Value: "-1"},
+        {Key: "Winner", Value: "NO_PLAYER"},
+    }, event.Attributes[6:])
+}
+```
+
+```sh
+$ go get github.com/cosmos/ibc-go/
+$// go get github.com/go-kit/log
 ```
 
 ## Next up
