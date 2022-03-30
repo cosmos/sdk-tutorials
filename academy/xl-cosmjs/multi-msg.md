@@ -168,7 +168,7 @@ const result = await signingClient.signAndBroadcast(
 
 <HighlightBox type="tip">
 
-Notice how the structure of the message hints at the fact that Alice can transfer other people's tokens, by putting `fromAddress: notAlice`. Of course, the transaction will be accepted if and only if this `notAlice` address has authorized Alice to spend its tokens. See the section on the Cosmos SDK `authz` module.
+Notice how the structure of the message hints at the fact that Alice can transfer other people's tokens, by putting `fromAddress: notAlice`. Of course, the transaction will be accepted if and only if this `notAlice` address has _authorized_ Alice to spend its tokens. See the section on the Cosmos SDK `authz` module.
 
 </HighlightBox>
 

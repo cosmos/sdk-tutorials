@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Bank - Send Tokens - With Kepler
 
-CosmJs allows you to connect with Keplr, the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJs to issue commands to the Vega test net. Here, you will do the same but with a GUI and a Keplr flavor.
+CosmJs allows you to connect with Keplr, the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJs to issue commands to the Theta dev net. Here, you will do the same but with a GUI and a Keplr flavor.
 
 If you want, afterwards you can connect your locally started Cosmos blockchain like `simd`, and do the same.
 
@@ -119,10 +119,12 @@ The component is still unused. Put it inside `index.tsx` like so:
 ```typescript
 const Home: NextPage = () => {
   return <FaucetSender
-    faucetAddress="cosmos1umpxwaezmad426nt7dx3xzv5u0u7wjc0kj7ple"
-    rpcUrl="http://198.50.215.1:46657" />
+    faucetAddress="cosmos15aptdqmm7ddgtcrjvc5hs988rlrkze40l4q0he"
+    rpcUrl="https://rpc.one.theta-devnet.polypore.xyz" />
 }
 ```
+
+The faucet address was found in the [previous section](./first-steps.md).
 
 When `npm run dev` picks up the changes, you should see that your page has changed to what you created.
 

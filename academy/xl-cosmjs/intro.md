@@ -1,6 +1,6 @@
 ---
 title: "Introduction to CosmJS"
-order: 2
+order: 1
 description: What is CosmJS and what can it do for me?
 tag: intro
 ---
