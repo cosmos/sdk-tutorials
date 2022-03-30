@@ -5,6 +5,8 @@ description: The evolution of deployment patterns
 tag: fast-track
 ---
 
+WIP --> Will combine this section with the origins section and place it as the last section to then arch into the Cosmos introduction
+
 # Blockchain technology evolution - from general-purpose to application-specific chains
 
 Blockchain was developed as a **decentralized technology** that allows the operation of an infrastructure without hierarchy or authority.

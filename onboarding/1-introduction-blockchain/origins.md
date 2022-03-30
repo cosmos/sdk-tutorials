@@ -5,6 +5,8 @@ description: Historic overview
 tag: fast-track
 ---
 
+WIP --> Edited but needs to be combined with the deployment section
+
 # A Brief History of Blockchain
 
 Important groundwork was laid in the 1980s and 1990s for what will later be known as blockchain technology. Although the technology itself was not created until 2008, researchers from different fields in computer science and cryptography proposed solutions to many problems regarding security, transparency, and trust. All of them contributed to the development of the first large-scale, successful public blockchain network, Bitcoin.
