@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Bank - Send Tokens - With Kepler
 
-CosmJs allows you to connect with Keplr, the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJs to issue commands to the Theta dev net. Here, you will do the same but with a GUI and a Keplr flavor.
+CosmJs allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJs to issue commands to the Theta dev net. Here, you will do the same but with a GUI and a Keplr flavor.
 
 If you want, afterwards you can connect your locally started Cosmos blockchain like `simd`, and do the same.
 
@@ -117,16 +117,18 @@ Of note is that:
 The component is still unused. Put it inside `index.tsx` like so:
 
 ```typescript
+import { FaucetSender } from '../components/FaucetSender'
+
 const Home: NextPage = () => {
   return <FaucetSender
     faucetAddress="cosmos15aptdqmm7ddgtcrjvc5hs988rlrkze40l4q0he"
-    rpcUrl="https://rpc.one.theta-devnet.polypore.xyz" />
+    rpcUrl="https://rpc.sentry-01.theta-testnet.polypore.xyz" />
 }
 ```
 
 The faucet address was found in the [previous section](./first-steps.md).
 
-When `npm run dev` picks up the changes, you should see that your page has changed to what you created.
+When `npm run dev` picks up the changes, you should see that your page has changed to what you created. In particular, it alerts you with "TODO" when you click on the button.
 
 It is not very useful just yet, but you can make it more so.
 
@@ -153,7 +155,7 @@ updateFaucetBalance = async(client: StargateClient) => {
 }
 ```
 
-Notice how it only cares about the first coin type. Add that in the constructor as well so that it does it on load. Via another specific function:
+Notice how it only cares about the first coin type, this is just to keep the exercise simpler. It also extracts the `denom`, which is then displayed to the user as the unit to transfer. Add that in the constructor as well so that it runs on load via another specific function:
 
 ```typescript
 constructor(props:FaucetSenderProps) {
@@ -164,9 +166,13 @@ constructor(props:FaucetSenderProps) {
 init = async() => this.updateFaucetBalance(await StargateClient.connect(this.props.rpcUrl))
 ```
 
-After `run dev` picks the changes, you should see your page that starts showing relevant information.
+After `run dev` picks the changes, you should see that your page starts showing relevant information.
 
 Now, add elements that will handle your user's information.
+
+## Get test tokens
+
+Refer to the previous section on how to [get Theta tokens](./first-steps.md). This time, you use your Keplr address. It is the same one that Keplr shows you for Cosmos Hub.
 
 ## Detect Keplr
 
@@ -198,20 +204,20 @@ onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
 }
 ```
 
-Hopefully, now when you click on the button, it does not show any alert. It does not do anything either.
+Hopefully, now when you click on the button, it does not show any alert. It does not do anything either. Conversely, you can disable Keplr from Chrome's extension manager and can confirm that, when you click, the page tells you to install it.
 
 ## Prepare Keplr
 
-Keplr is now detected. Keplr, by default, lets its user connect only to the blockchains it knows about. Unfortunately, at the time of writing, Vega is not one of them. Fortunately, there is a not-so-experimental feature where you can instruct it to handle any Cosmos blockchain, provided you give the parameters for it. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Vega, these parameters have already been created. Add a new function for them as shown in the expandable box:
+Keplr is now detected. Keplr, by default, lets its user connect only to the blockchains it knows about. Unfortunately, at the time of writing, Theta is not one of them. Fortunately, there is a not-so-experimental feature where you can instruct it to handle any Cosmos blockchain, provided you give the parameters for it. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Theta, these parameters have already been created, as mentioned on the [test net page](https://github.com/cosmos/testnets/tree/master/v7-theta#add-to-keplr-1). Add a new function for them as shown in the expandable box:
 
-<ExpansionPanel title="getVegaChainInfo">
+<ExpansionPanel title="getThetaChainInfo">
 
 ```typescript
-getVegaChainInfo = (): ChainInfo => ({
-    chainId: "vega-testnet",
-    chainName: "vega-testnet",
-    rpc: "https://vega-rpc.interchain.io",
-    rest: "https://vega-rest.interchain.io",
+getThetaChainInfo = (): ChainInfo => ({
+    chainId: "theta-testnet-001",
+    chainName: "theta-testnet-001",
+    rpc: "https://rpc.sentry-01.theta-testnet.polypore.xyz/",
+    rest: "https://rest.sentry-01.theta-testnet.polypore.xyz/",
     bip44: {
         coinType: 118,
     },
@@ -229,6 +235,26 @@ getVegaChainInfo = (): ChainInfo => ({
             coinMinimalDenom: "uatom",
             coinDecimals: 6,
             coinGeckoId: "cosmos",
+        },
+        {
+            coinDenom: "THETA",
+            coinMinimalDenom: "theta",
+            coinDecimals: 0,
+        },
+        {
+            coinDenom: "LAMBDA",
+            coinMinimalDenom: "lambda",
+            coinDecimals: 0,
+        },
+        {
+            coinDenom: "RHO",
+            coinMinimalDenom: "rho",
+            coinDecimals: 0,
+        },
+        {
+            coinDenom: "EPSILON",
+            coinMinimalDenom: "epsilon",
+            coinDecimals: 0,
         },
     ],
     feeCurrencies: [
@@ -257,22 +283,22 @@ getVegaChainInfo = (): ChainInfo => ({
 
 </ExpansionPanel>
 
-Notice how it mentions the `chainId: "vega-testnet"`. In effect, this adds Vega to its registry of blockchains, under the label `vega-testnet`. So whenever you need to tell Keplr about Vega, you would add the line:
+Notice how it mentions the `chainId: "theta-testnet-001"`. In effect, this adds Theta to Keplr's registry of blockchains, under the label `theta-testnet-001`. So whenever you need to tell Keplr about Theta, you would add the line:
 
 ```typescript
-await window.keplr!.experimentalSuggestChain(this.getVegaChainInfo())
+await window.keplr!.experimentalSuggestChain(this.getThetaChainInfo())
 ```
 
-This needs to be done only once per reload.
+This needs to be done only once but it does not hurt to do it again.
 
 Keplr is detected and prepared. Now have it do something interesting.
 
 ## Your address and balance
 
-Now in `onSendClicked`, similarly to what you did in the previous section, you can:
+In `onSendClicked`, similarly to what you did in the previous section, you can:
 
-1. Actually prepare Keplr.
-2. Get the signer for your user's accounts.
+1. Actually prepare Keplr, with `keplr.experimentalSuggestChain`.
+2. Get the signer for your user's accounts, with `KeplrWindow`'s `window.getOfflineSigner`.
 3. Create your signing client.
 4. Get the address and balance of your user's first account.
 5. Send the requested coins to the faucet.
@@ -285,21 +311,20 @@ onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
     ...
     const { denom, toSend } = this.state
     const { faucetAddress, rpcUrl } = this.props
-    await keplr.experimentalSuggestChain(this.getVegaChainInfo())
-    const offlineSigner: OfflineSigner = window.getOfflineSigner!("vega-testnet")
+    await keplr.experimentalSuggestChain(this.getThetaChainInfo())
+    const offlineSigner: OfflineSigner =
+        window.getOfflineSigner!("theta-testnet-001")
     const signingClient = await SigningStargateClient.connectWithSigner(
         rpcUrl,
         offlineSigner,
-        {
-            gasPrice: GasPrice.fromString("1stake"),
-        },
-        )
-    const account: AccountData = (await offlineSigner.getAccounts())[0];
+    )
+    const account: AccountData = (await offlineSigner.getAccounts())[0]
     this.setState({
         myAddress: account.address,
-        myBalance: (await signingClient.getBalance(account.address, denom)).amount,
+        myBalance: (await signingClient.getBalance(account.address, denom))
+            .amount,
     })
-    const result = await signingClient.sendTokens(
+    const sendResult = await signingClient.sendTokens(
         account.address,
         faucetAddress,
         [
@@ -308,32 +333,51 @@ onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
                 amount: toSend,
             },
         ],
-        "auto",
+        {
+            amount: [{ denom: "uatom", amount: "500" }],
+            gas: "200000",
+        },
     )
-    console.log(result)
+    console.log(sendResult)
     this.setState({
-        myBalance:  (await signingClient.getBalance(account.address, denom)).amount,
-        faucetBalance: (await signingClient.getBalance(faucetAddress, denom)).amount,
+        myBalance: (await signingClient.getBalance(account.address, denom))
+            .amount,
+        faucetBalance: (
+            await signingClient.getBalance(faucetAddress, denom)
+        ).amount,
     })
 }
 ```
 
-Notice how Keplr is tasked with signing only. The transactions are broadcast with the RPC end point of your choice.
+Notice how:
 
-Of course, the functions could be better delineated, but this big function does the job in a readable manner.
+* Keplr is tasked with signing only.
+* The transactions are broadcast with the RPC end point of your choice.
 
-To do the same but with a locally running chain, you only need to change the `ChainInfo` and the `rpcUrl`.
+Of course, the functions could be better delineated, but this big function does the job in a readable enough manner.
+
+Now, you can run it. In the refreshed page, enter an amount of `uatom`, say `1000000` and click <kbd>Send to faucet</kbd>. The chain of events is launched:
+
+1. Keplr asks for your confirmation whether you agree to add the Theta network. It will not install any network without your approval, as that would be a security risk. It asks this only the first time you add a given network, not if you do it again. That's why doing it in `onSendClicked` is harmless.
+    ![Keplr asking for permission to add Theta network](/keplr_theta_addition.png)
+2. Then it asks whether you agree to share your account information. Again, because sharing it involves a potential security risk. Again, it asks this only once per web page + network combination.
+    ![Keplr asking for permission to share your account information](/keplr_share_account.png)
+3. At this point, your address and balance fields are updated and visible.
+3. Then it asks whether you agree to sign the transaction. And of course, signing a transaction is a very important action that requires approval. **Every time**.
+    ![Keplr asking for confirmation on the transaction](/keplr_send_to_faucet.png)
+
+After it is done, your balance should have updated again, and in the browser console, you should see the transaction result.
 
 For the avoidance of doubt, you can find the full file in the expandable box below:
 
-<ExpansionPanel title="Result FaucetSender file">
+<ExpansionPanel title="Final FaucetSender.tsx file">
 
 ```typescript
-import { Coin, GasPrice, SigningStargateClient, StargateClient } from "@cosmjs/stargate"
+import { Coin, SigningStargateClient, StargateClient } from "@cosmjs/stargate"
+import { AccountData, OfflineSigner } from "@cosmjs/proto-signing"
+import { ChainInfo, Window as KeplrWindow } from "@keplr-wallet/types"
 import { ChangeEvent, Component, MouseEvent } from "react"
-import styles from '../styles/Home.module.css'
-import { ChainInfo, Window as KeplrWindow } from "@keplr-wallet/types";
-import { AccountData, OfflineSigner } from "@cosmjs/stargate/node_modules/@cosmjs/proto-signing";
+import styles from "../styles/Home.module.css"
 
 declare global {
     interface Window extends KeplrWindow {}
@@ -352,9 +396,11 @@ export interface FaucetSenderProps {
     rpcUrl: string
 }
 
-export class FaucetSender extends Component<FaucetSenderProps, FaucetSenderState> {
-
-    constructor(props:FaucetSenderProps) {
+export class FaucetSender extends Component<
+    FaucetSenderProps,
+    FaucetSenderState
+> {
+    constructor(props: FaucetSenderProps) {
         super(props)
         this.state = {
             denom: "Loading...",
@@ -366,11 +412,28 @@ export class FaucetSender extends Component<FaucetSenderProps, FaucetSenderState
         setTimeout(this.init, 500)
     }
 
-    onToSendChanged = (e: ChangeEvent<HTMLInputElement>) => this.setState({
-        toSend: e.currentTarget.value
-    })
+    init = async () =>
+        this.updateFaucetBalance(
+            await StargateClient.connect(this.props.rpcUrl),
+        )
 
-    onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
+    updateFaucetBalance = async (client: StargateClient) => {
+        const balances: readonly Coin[] = await client.getAllBalances(
+            this.props.faucetAddress,
+        )
+        const first: Coin = balances[0]
+        this.setState({
+            denom: first.denom,
+            faucetBalance: first.amount,
+        })
+    }
+
+    onToSendChanged = (e: ChangeEvent<HTMLInputElement>) =>
+        this.setState({
+            toSend: e.currentTarget.value,
+        })
+
+    onSendClicked = async (e: MouseEvent<HTMLButtonElement>) => {
         const { keplr } = window
         if (!keplr) {
             alert("You need to install Keplr")
@@ -378,21 +441,20 @@ export class FaucetSender extends Component<FaucetSenderProps, FaucetSenderState
         }
         const { denom, toSend } = this.state
         const { faucetAddress, rpcUrl } = this.props
-        await keplr.experimentalSuggestChain(this.getVegaChainInfo())
-        const offlineSigner: OfflineSigner = window.getOfflineSigner!("vega-testnet")
+        await keplr.experimentalSuggestChain(this.getThetaChainInfo())
+        const offlineSigner: OfflineSigner =
+            window.getOfflineSigner!("theta-testnet-001")
         const signingClient = await SigningStargateClient.connectWithSigner(
             rpcUrl,
             offlineSigner,
-            {
-                gasPrice: GasPrice.fromString("1stake"),
-            },
-            )
-        const account: AccountData = (await offlineSigner.getAccounts())[0];
+        )
+        const account: AccountData = (await offlineSigner.getAccounts())[0]
         this.setState({
             myAddress: account.address,
-            myBalance: (await signingClient.getBalance(account.address, denom)).amount,
+            myBalance: (await signingClient.getBalance(account.address, denom))
+                .amount,
         })
-        const result = await signingClient.sendTokens(
+        const sendResult = await signingClient.sendTokens(
             account.address,
             faucetAddress,
             [
@@ -401,20 +463,26 @@ export class FaucetSender extends Component<FaucetSenderProps, FaucetSenderState
                     amount: toSend,
                 },
             ],
-            "auto",
+            {
+                amount: [{ denom: "uatom", amount: "500" }],
+                gas: "200000",
+            },
         )
-        console.log(result)
+        console.log(sendResult)
         this.setState({
-            myBalance:  (await signingClient.getBalance(account.address, denom)).amount,
-            faucetBalance: (await signingClient.getBalance(faucetAddress, denom)).amount,
+            myBalance: (await signingClient.getBalance(account.address, denom))
+                .amount,
+            faucetBalance: (
+                await signingClient.getBalance(faucetAddress, denom)
+            ).amount,
         })
     }
 
-    getVegaChainInfo = (): ChainInfo => ({
-        chainId: "vega-testnet",
-        chainName: "vega-testnet",
-        rpc: "https://vega-rpc.interchain.io",
-        rest: "https://vega-rest.interchain.io",
+    getThetaChainInfo = (): ChainInfo => ({
+        chainId: "theta-testnet-001",
+        chainName: "theta-testnet-001",
+        rpc: "https://rpc.sentry-01.theta-testnet.polypore.xyz/",
+        rest: "https://rest.sentry-01.theta-testnet.polypore.xyz/",
         bip44: {
             coinType: 118,
         },
@@ -432,6 +500,26 @@ export class FaucetSender extends Component<FaucetSenderProps, FaucetSenderState
                 coinMinimalDenom: "uatom",
                 coinDecimals: 6,
                 coinGeckoId: "cosmos",
+            },
+            {
+                coinDenom: "THETA",
+                coinMinimalDenom: "theta",
+                coinDecimals: 0,
+            },
+            {
+                coinDenom: "LAMBDA",
+                coinMinimalDenom: "lambda",
+                coinDecimals: 0,
+            },
+            {
+                coinDenom: "RHO",
+                coinMinimalDenom: "rho",
+                coinDecimals: 0,
+            },
+            {
+                coinDenom: "EPSILON",
+                coinMinimalDenom: "epsilon",
+                coinDecimals: 0,
             },
         ],
         feeCurrencies: [
@@ -457,42 +545,50 @@ export class FaucetSender extends Component<FaucetSenderProps, FaucetSenderState
         features: ["stargate", "ibc-transfer", "no-legacy-stdTx"],
     })
 
-    init = async() => this.updateFaucetBalance(await StargateClient.connect(this.props.rpcUrl))
-
-    updateFaucetBalance = async(client: StargateClient) => {
-        const balances: readonly Coin[] = await client.getAllBalances(this.props.faucetAddress)
-        const first: Coin = balances[0]
-        this.setState({
-            denom: first.denom,
-            faucetBalance: first.amount,
-        })
-    }
-
     render() {
-        const { denom, faucetBalance, myAddress, myBalance, toSend } = this.state
+        const { denom, faucetBalance, myAddress, myBalance, toSend } =
+            this.state
         const { faucetAddress } = this.props
-        console.log(toSend)
-        return <div>
-        <div className={styles.description}>Send back to the faucet</div>
-        <fieldset className={styles.card}>
-            <legend>Faucet</legend>
-            <p>Address: {faucetAddress}</p>
-            <p>Balance: {faucetBalance}</p>
-        </fieldset>
-        <fieldset className={styles.card}>
-            <legend>You</legend>
-            <p>Address: {myAddress}</p>
-            <p>Balance: {myBalance}</p>
-        </fieldset>
-        <fieldset className={styles.card}>
-            <legend>Send</legend>
-            <p>To faucet:</p>
-            <input value={toSend} type="number" onChange={this.onToSendChanged}/> {denom}
-            <button onClick={this.onSendClicked}>Send to faucet</button>
-        </fieldset>
-      </div>
+        return (
+            <div>
+                <div className={styles.description}>
+                    Send back to the faucet
+                </div>
+                <fieldset className={styles.card}>
+                    <legend>Faucet</legend>
+                    <p>Address: {faucetAddress}</p>
+                    <p>Balance: {faucetBalance}</p>
+                </fieldset>
+                <fieldset className={styles.card}>
+                    <legend>You</legend>
+                    <p>Address: {myAddress}</p>
+                    <p>Balance: {myBalance}</p>
+                </fieldset>
+                <fieldset className={styles.card}>
+                    <legend>Send</legend>
+                    <p>To faucet:</p>
+                    <input
+                        value={toSend}
+                        type="number"
+                        onChange={this.onToSendChanged}
+                    />{" "}
+                    {denom}
+                    <button onClick={this.onSendClicked}>Send to faucet</button>
+                </fieldset>
+            </div>
+        )
     }
 }
 ```
 
 </ExpansionPanel>
+
+## With a locally running chain
+
+What if you wanted to experiment with your own  chain while in development?
+
+Keplr does not know about your locally running chain by default. So, as you did with Theta, you need to inform Keplr about your chain. Therefore you _only_ need to change the `ChainInfo` to match the information about your chain, and to change the `rpcUrl` so that it points to your local port.
+
+## Conclusion
+
+With this, you learned how to update your CosmJs GUI so that it integrates with Keplr.
