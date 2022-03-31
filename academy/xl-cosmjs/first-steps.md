@@ -67,10 +67,10 @@ Below you make this script more meaningful. With the barebones script ready, you
 
 ## Test net preparation
 
-The Cosmos ecosystem has a [number of test nets](https://github.com/cosmos/testnets). Cosmos Hub's Theta test net is as good as any other. Observe how there actually are two Theta test nets. One [targeted at validators](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-public-testnet), the other [at developers](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-developer-testnet). Here, you pick the latter. Its parameters for this exercise are:
+The Cosmos ecosystem has a [number of test nets](https://github.com/cosmos/testnets). Cosmos Hub's Theta test net is as good as any other. Observe how there actually are two Theta test nets. One [targeted at validators and application developers like you](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-public-testnet), the other [at Cosmos SDK developers](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-developer-testnet). Here, you pick the former. Its parameters for this exercise are, for instance:
 
-```[https://github.com/cosmos/testnets/tree/master/v7-theta#endpoints]
-RPC: https://rpc.one.theta-devnet.polypore.xyz
+```[https://github.com/cosmos/testnets/tree/master/v7-theta#endpoints-1]
+RPC: https://rpc.sentry-01.theta-testnet.polypore.xyz
 ```
 
 If you don't have a Theta account yet, you need to create your 24-word mnemonic. If you already have a preferred method for creating your mnemonic, use it, otherwise, you can use CosmJs to generate a new one. In the latter case, create a new file `generate_mnemonic.ts` with:
@@ -131,7 +131,7 @@ Notice how VSCode assists you to auto-complete [`StargateClient`](https://github
 Next, you need to tell the client how to connect to the RPC port of your blockchain:
 
 ```typescript
-const rpc = "https://rpc.one.theta-devnet.polypore.xyz"
+const rpc = "https://rpc.sentry-01.theta-testnet.polypore.xyz"
 ```
 
 Now inside your `runAll` function, you can initialize the connection and immediately check you connected to the right place:
@@ -146,7 +146,7 @@ const runAll = async(): Promise<void> => {
 Run again to check with `npx yarn experiment`, and you get:
 
 ```
-chain id: theta-devnet , height: 343830
+chain id: theta-testnet-001 , height: 9507032
 ```
 
 ## Get a balance
@@ -173,22 +173,24 @@ In the case of Cosmos' Theta, you can head to the dedicated [Discord channel](ht
 Head to the faucet channel and get some tokens for Alice.
 
 ```
-$request cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf devnet
+$request cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf theta
 ```
 
-The faucet bot replied with a transaction hash:
+The faucet bot replies with a transaction hash, alone or embedded in a block explorer URL:
 
 ```
-✅ Hash ID: EF7FBBC157CC5B6D5307BE230905B19F9EBDA02FC3D3EE9BD860CF3EFC0A19C5
+✅ Hash ID: 540484BDD342702F196F84C2FD42D63FA77F74B26A8D7383FAA5AB46E4114A9B
+//Or
+✅  https://testnet.cosmos.bigdipper.live/transactions/540484BDD342702F196F84C2FD42D63FA77F74B26A8D7383FAA5AB46E4114A9B
 ```
 
 It takes a couple of seconds. Check that Alice got them with `npx yarn experiment`, which should return:
 
 ```
-Alice balances: [ { denom: 'uatom', amount: '1000000' } ]
+Alice balances: [ { denom: 'uatom', amount: '10000000' } ]
 ```
 
-That's 1 ATOM. With this confirmation, you can comment out the balance query.
+That's 10 ATOM. With this confirmation, you can comment out the balance query.
 
 ## Get the faucet address
 
@@ -198,7 +200,7 @@ First you need to get the transaction:
 
 ```typescript
 const faucetTx: IndexedTx = (await client.getTx(
-    "EF7FBBC157CC5B6D5307BE230905B19F9EBDA02FC3D3EE9BD860CF3EFC0A19C5",
+    "540484BDD342702F196F84C2FD42D63FA77F74B26A8D7383FAA5AB46E4114A9B",
 ))!
 ```
 
@@ -228,7 +230,7 @@ In case you are curious, add a line to peek at the faucet's balances. When runni
 
 ```
 Faucet: cosmos15aptdqmm7ddgtcrjvc5hs988rlrkze40l4q0he
-Faucet balances: [ { denom: 'uatom', amount: '94902400' } ]
+Faucet balances: [ { denom: 'uatom', amount: '867777337235' } ]
 ```
 
 <ExpansionPanel title="Get the faucet address another way">
@@ -335,7 +337,7 @@ const alice = (await aliceSigner.getAccounts())[0].address
 
 ## Send tokens
 
-Alice can now send some tokens back to the faucet. Say she sends back 1% of her holdings: `10000uatom`. She will need to also pay the network gas fee. How much gas should she put and at what price? She can copy what the faucet did. What did the faucet do?
+Alice can now send some tokens back to the faucet. Say she sends back 1% of her holdings: `100000uatom`. She will need to also pay the network gas fee. How much gas should she put and at what price? She can copy what the faucet did. What did the faucet do?
 
 ```typescript
 console.log("Gas fee:", decodedTx.authInfo!.fee!.amount)
@@ -360,7 +362,7 @@ const result = await signingClient.sendTokens(
     [
         {
             denom: "uatom",
-            amount: "10000",
+            amount: "100000",
         }
     ],
     {
@@ -384,18 +386,18 @@ Now, run it with `npx yarn experiment` and you should get:
 ...
 Transfer result: {
   code: 0,
-  height: 345641,
-  rawLog: '[{"events":[{"type":"coin_received","attributes":[{"key":"receiver","value":"cosmos15aptdqmm7ddgtcrjvc5hs988rlrkze40l4q0he"},{"key":"amount","value":"10000uatom"}]},{"type":"coin_spent","attributes":[{"key":"spender","value":"cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf"},{"key":"amount","value":"10000uatom"}]},{"type":"message","attributes":[{"key":"action","value":"/cosmos.bank.v1beta1.MsgSend"},{"key":"sender","value":"cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf"},{"key":"module","value":"bank"}]},{"type":"transfer","attributes":[{"key":"recipient","value":"cosmos15aptdqmm7ddgtcrjvc5hs988rlrkze40l4q0he"},{"key":"sender","value":"cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf"},{"key":"amount","value":"10000uatom"}]}]}]',
-  transactionHash: 'A82CED33C4F1591C664A248012CA236DCD43B8FDAD7110EB435BA8EAA5002355',
-  gasUsed: 66953,
+  height: 9507151,
+  rawLog: '[{"events":[{"type":"coin_received","attributes":[{"key":"receiver","value":"cosmos15aptdqmm7ddgtcrjvc5hs988rlrkze40l4q0he"},{"key":"amount","value":"100000uatom"}]},{"type":"coin_spent","attributes":[{"key":"spender","value":"cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf"},{"key":"amount","value":"100000uatom"}]},{"type":"message","attributes":[{"key":"action","value":"/cosmos.bank.v1beta1.MsgSend"},{"key":"sender","value":"cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf"},{"key":"module","value":"bank"}]},{"type":"transfer","attributes":[{"key":"recipient","value":"cosmos15aptdqmm7ddgtcrjvc5hs988rlrkze40l4q0he"},{"key":"sender","value":"cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf"},{"key":"amount","value":"100000uatom"}]}]}]',
+  transactionHash: '7F770F24CB3C805FE45A8D26DD5EC5AA3F7B906AA7D6CB1F3FE8B554CBA93E12',
+  gasUsed: 74190,
   gasWanted: 200000
 }
-Alice balance after: [ { denom: 'uatom', amount: '989500' } ]
-Faucet balance after: [ { denom: 'uatom', amount: '94912400' } ]
-✨  Done in 16.46s.
+Alice balance after: [ { denom: 'uatom', amount: '9899500' } ]
+Faucet balance after: [ { denom: 'uatom', amount: '867777437235' } ]
+✨  Done in 26.71s.
 ```
 
-That's correct. The faucet got its `10000uatom` and Alice also paid `500uatom` gas.
+That's correct. The faucet got its `100000uatom` and Alice also paid `500uatom` gas.
 
 <ExpansionPanel title="The experiment.ts file">
 
@@ -408,7 +410,7 @@ import { MsgSend } from "cosmjs-types/cosmos/bank/v1beta1/tx"
 import { Tx } from "cosmjs-types/cosmos/tx/v1beta1/tx"
 import { readFile } from "fs/promises"
 
-const rpc = "https://rpc.one.theta-devnet.polypore.xyz"
+const rpc = "https://rpc.sentry-01.theta-testnet.polypore.xyz"
 
 const getAliceSignerFromMnemonic = async (): Promise<OfflineDirectSigner> => {
     return DirectSecp256k1HdWallet.fromMnemonic(
@@ -427,17 +429,19 @@ const runAll = async (): Promise<void> => {
     //     await client.getAllBalances("cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf"),
     // )
     const faucetTx: IndexedTx = (await client.getTx(
-        "EF7FBBC157CC5B6D5307BE230905B19F9EBDA02FC3D3EE9BD860CF3EFC0A19C5",
+        "540484BDD342702F196F84C2FD42D63FA77F74B26A8D7383FAA5AB46E4114A9B",
     ))!
     const decodedTx: Tx = Tx.decode(faucetTx.tx)
     const sendMessage: MsgSend = MsgSend.decode(decodedTx.body!.messages[0].value)
     const faucet = sendMessage.fromAddress
-    console.log("Faucet:", faucet)
-    console.log("Faucet balances:", await client.getAllBalances(faucet))
 
     // By looking at the log
     const rawLog = JSON.parse(faucetTx.rawLog)
+    // console.log(JSON.stringify(rawLog, null, 4))
     // const faucet = rawLog[0].events[1].attributes[0].value
+
+    console.log("Faucet:", faucet)
+    console.log("Faucet balances:", await client.getAllBalances(faucet))
 
     const aliceSigner: OfflineDirectSigner = await getAliceSignerFromMnemonic()
     const signingClient = await SigningStargateClient.connectWithSigner(rpc, aliceSigner)
@@ -461,7 +465,7 @@ const runAll = async (): Promise<void> => {
         [
             {
                 denom: "uatom",
-                amount: "10000",
+                amount: "100000",
             },
         ],
         {
