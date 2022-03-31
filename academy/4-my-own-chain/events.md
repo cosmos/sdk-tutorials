@@ -173,11 +173,6 @@ func TestPlayMoveEmitted(t *testing.T) {
 }
 ```
 
-```sh
-$ go get github.com/cosmos/ibc-go/
-$// go get github.com/go-kit/log
-```
-
 ## Next up
 
 Time to add a third message to make it possible for a player to [reject a game](./reject-game.md) and make your checkers blockchain more resistant to spam.
