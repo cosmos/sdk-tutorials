@@ -13,10 +13,10 @@ An example of this is how do you list a given player's games. All of their games
 
 ## Server idea
 
-Instead, you can choose to have a Web 2.0 server do that indexing for you. In broad strokes, this is what this server would do:
+Instead, you can choose to have a Web 2.0 server do that indexing for you. In broad terms, this is what this server would do:
 
 1. Listen to updates from the Checkers chain:
-    1. On a game creation event, it would add the game id under their players.
+    1. On a game creation event, it would add the game id under each player.
     2. On a game deletion event, it would remove it. This happens either because of a rejection, or in an end-block.
 2. When asked about its status, it would return the latest block height up to which it has indexed players.
 3. When asked about a given player, it would return the list of game ids of this player.
@@ -24,7 +24,7 @@ Instead, you can choose to have a Web 2.0 server do that indexing for you. In br
 
 ## Barebones server
 
-Prepare your setup in a sub-directory of your Checkers folder, say `server2`. For convenience, create it side by side with the `vue` folder created by Starport. To make it quick, easy and not get overburdened with Web 2.0 server concepts, you:
+Prepare your setup in a sub-directory of your Checkers folder, say `server2`. For convenience, create it side by side with the `vue` folder created by Starport. To make it quick and easy and to avoid getting overburdened with Web 2.0 server concepts, you:
 
 1. Use the `express` Node.js module to create an HTTP REST API.
 2. Use a local `db.json` as a _database_. In a production setting, you would use a proper database.
@@ -71,7 +71,11 @@ export interface DbType {
 }
 ```
 
-Notice that not only do you keep information about players, but you also keep a copy of games. This is to palliate a current limitation of CosmJs, whereby you cannot get information about a game that has just been erased from the state. In practice, you would need to query about this game at a sufficiently earlier block height, but this is not available yet.
+Notice that not only do you keep information about players, but you also keep a copy of games. This is to palliate a current limitation of CosmJs, whereby you cannot get information about a game that has just been erased from the state. In practice, you would need to query about this game at a sufficiently earlier block height, but this is not available yet. 
+
+<HightlightBox type="info">
+As a design hueristic to keep in mind, when "deleted" records are materially important, consider using a soft delete that removes them from the set of active records but doesn't terminate their existence. This principle helps ensure that historically important information is readily available at all times, at the latest block height.
+</HighlightBox>
 
 Such a barebones server without any Cosmos elements would be defined in an `indexer.ts`.
 
@@ -206,7 +210,7 @@ Make sure it works:
 $ npm run dev
 ```
 
-Should print:
+It should print:
 
 ```
 > checkers-server@1.0.0 dev
@@ -215,7 +219,7 @@ Should print:
 server started at http://localhost:3001
 ```
 
-Now you can test its endpoints. Remove the `| jq` beautifier if you don't have it:
+Now you can test the endpoints. Omit the `| jq` beautifier if it is not installed on your system:
 
 <CodeGroup>
 <CodeGroupItem title="status" active>
@@ -224,7 +228,7 @@ Now you can test its endpoints. Remove the `| jq` beautifier if you don't have i
 $ curl localhost:3001/status | jq
 ```
 
-Should return:
+It should return:
 
 ```json
 {
@@ -241,7 +245,7 @@ Should return:
 $ curl localhost:3001/players/cosmos123 | jq
 ```
 
-Should return:
+It should return:
 
 ```json
 {
@@ -257,7 +261,7 @@ Should return:
 $ curl localhost:3001/players/cosmos123/gameIds | jq
 ```
 
-Should return:
+It should return:
 
 ```json
 []
@@ -270,7 +274,7 @@ Should return:
 $ curl -X PATCH localhost:3001/games/445 | jq
 ```
 
-Should return:
+It should return:
 
 ```json
 {
@@ -285,13 +289,13 @@ Should return:
 
 ## Add CosmJs `StargateClient`
 
-To be able to connect to your Checkers blockchain, you need to create a client. It only needs to be read-only because this server does not intend to submit transactions. Also add the CosmJs types, which will assist you with blocks, transactions and events:
+In order to connect to your Checkers blockchain, you need to create a client. Yhe client only needs read-only functionality because this server does not intend to submit transactions. Also, add the CosmJs types, which will assist you with blocks, transactions and events:
 
 ```sh
 $ npm install @cosmjs/stargate cosmjs-types
 ```
 
-To keep it simple, you are going to connect to your RPC endpoint opened when you do `starport chain serve` on your local machine: `http://localhost:26657`.
+To keep it simple, you are going to connect to the RPC endpoint opened when you run `starport chain serve` on your local machine: `http://localhost:26657`.
 
 Add to `indexer.ts`:
 
@@ -322,17 +326,17 @@ Add to `indexer.ts`:
     }
     ```
 
-If you relaunch `npm run dev`, you should see the current height going up.
+Relaunch `npm run dev`. You should see the current height going up.
 
 ## Handle blocks
 
-Starting on your journey of indexing games, you are going to take each block and listen to the relevant events in it. Here, relevant events are found in 3 locations:
+To begin your journey of indexing games, you are going to take each block and listen to the relevant events. Here, relevant events are found in 3 locations:
 
 1. A transaction with a `NewGameCreated` event.
 2. A transaction with a `GameRejected` event.
 3. An `EndBlock` with a `GameForfeited` event.
 
-First start by getting each block from your last saved state. Update `poll`:
+First, start by getting each block from your last saved state. Update `poll`:
 
 ```typescript
 const poll = async () => {
@@ -358,7 +362,7 @@ const poll = async () => {
 }
 ```
 
-This needs the new import:
+This needs a new import:
 
 ```typescript
 import { Block } from "@cosmjs/stargate"
@@ -370,7 +374,7 @@ As you can see:
 * It saves the `db` after a poll, mainly so that _you_ can watch it in real time.
 * It uses `process.stdout.write` and `process.stdout.cursorTo(0)` so that the repetitive logging all happens on a single line.
 
-Now, put the right content in `handleBlock`. It has to:
+Now, observe the relevant content in `handleBlock`. It has to:
 
 1. Extract the events from transactions. Start with this bit.
 2. Extract the events from `EndBlock`. Put this bit off till a bit later.
@@ -400,7 +404,7 @@ const handleBlock = async (block: Block) => {
 }
 ```
 
-This needs the new imports:
+This needs new imports:
 
 ```typescript
 import { Block, IndexedTx } from "@cosmjs/stargate"
@@ -413,7 +417,7 @@ Notice that:
 * `while() {}` is there to simplify the syntax of `await`ing multiple times.
 * The hash is calculated this way as per [here](https://github.com/cosmos/cosmjs/blob/902f21b/packages%2Fstargate%2Fsrc%2Fstargateclient.ts#L74).
 * `console.log("")` is there to put a new line as `poll` does a `process.stdout.write` which adds no line.
-* It does not yet handle the `EndBlock` part. See lower for that.
+* It does not yet handle the `EndBlock` part. More on that later.
 * It uses a new function `handleTx`. You can create it and put `console.log(indexed)` in it to get an idea of what this object is.
 
 ## Handle a transaction
@@ -443,7 +447,7 @@ Notice how:
 
 ## Handle events
 
-Going down the rabbit hole of what matters, you can define `handleEvents`:
+Drilling down into details, now it's time to define `handleEvents`:
 
 ```typescript
 const handleEvents = async (events: StringEvent[]): Promise<void> => {
@@ -508,8 +512,8 @@ Notice how:
 
 * You recognize `NewGameCreated` and `GameRejected` as constant values defined in your Go code. They were associated with t a `key` of `"action"`.
 * It looks you will add `GameForfeited` at some point.
-* Because events are arrays of key/value pairs, you need to go through them to find what you want. Unless you decide to preemptively index your events as part of some optimization later.
-* It uses two new functions `handleEventCreate` and `handleEventReject`. You can create them and put `console.log(event)` in them to get an idea of what these objects are.
+* Because events are arrays of key/value pairs, you need to go through them to find what you want. Unless you decide to proactively index your events as part of a later optimization.
+* It uses two new functions `handleEventCreate` and `handleEventReject`. You can create them and put `console.log(event)` in them to explore what these objects are.
 
 ## Handle one create event
 
@@ -521,7 +525,7 @@ const getAttributeValueByKey = (attributes: Attribute[], key: string): string | 
 }
 ```
 
-So now define `handleEventCreate` as:
+Now define `handleEventCreate` as:
 
 ```typescript
 const handleEventCreate = async (event: StringEvent): Promise<void> => {
@@ -554,7 +558,7 @@ Notice how:
 * You recognize the `Index`, `Black` and `Red` constants.
 * There is heavy error handling.
 * It is careful not to double-add a given game id.
-* It does not save `db` as this is udner the purview of `poll()`.
+* It does not save `db` as this is under the purview of `poll()`.
 
 ## Handle one reject event
 
@@ -597,7 +601,7 @@ And in a terminal 3:
 $ checkersd tx checkers create-game $alice $bob 1 token --from $alice
 ```
 
-Should update `db.json` to:
+It should update `db.json` to:
 
 ```json
 {
@@ -635,7 +639,7 @@ Should update `db.json` to:
 $ checkersd tx checkers reject-game 0 --from $bob -y
 ```
 
-Should update `db.json` to:
+It should update `db.json` to:
 
 ```json
 {
@@ -670,15 +674,15 @@ What remains is handling the games that get removed or forfeited in `EndBlock`.
 
 ## Prepare for `EndBlock`
 
-Getting nicely formatted `EndBlock` events is still missing from CosmJs, so you need to do a bit of extra work:
+Nicely formatted `EndBlock` events are still missing from CosmJs, so you need to do a little extra work:
 
-1. To get a block's `EndBlock` events, you need to ask the block information to a Tendermint client. This client is a [`private` field](https://github.com/cosmos/cosmjs/blob/902f21b/packages%2Fstargate%2Fsrc%2Fstargateclient.ts#L140) of `StargateClient`.
+1. To get a block's `EndBlock` events, you need to ask for the block information from a Tendermint client. This client is a [`private` field](https://github.com/cosmos/cosmjs/blob/902f21b/packages%2Fstargate%2Fsrc%2Fstargateclient.ts#L140) of `StargateClient`.
 2. The function to call is [`blockResults`](https://github.com/cosmos/cosmjs/blob/5ee3f82/packages/tendermint-rpc/src/tendermint34/tendermint34client.ts#L88).
 3. It returns a [`BlockResultsResponse`](https://github.com/cosmos/cosmjs/blob/ca969f2/packages/tendermint-rpc/src/tendermint34/responses.ts#L55), of which `endBlockEvents: Event` is of interest.
 4. This [`Event`](https://github.com/cosmos/cosmjs/blob/ca969f2/packages/tendermint-rpc/src/tendermint34/responses.ts#L182) type has `attributes: Attribute[]` of interest.
 5. The [`Attribute`](https://github.com/cosmos/cosmjs/blob/ca969f2/packages/tendermint-rpc/src/tendermint34/responses.ts#L177-L180) type is coded as `Uint8Array`.
 
-So you can encapsulate what needs to be done in a new `MyStargateClient`. Create `mystargateclient.ts` with:
+So, you can encapsulate what needs to be done in a new `MyStargateClient`. Create `mystargateclient.ts` with:
 
 ```typescript
 import { fromUtf8 } from "@cosmjs/encoding"
@@ -753,7 +757,7 @@ const handleBlock = async (block: Block) => {
 }
 ```
 
-Quite conveniently, the events that you have converted are compatible with those emanating from transactions so you can just pass them on. Of course, you need to update `handleEvent` so that it acts on the new event type, as foreshadowed:
+Quite conveniently, the events that you have converted are compatible with those emanating from transactions so you can just pass them on. Of course, you need to update `handleEvent` so that it acts on the new event type, as foreshadowed here:
 
 ```typescript
 const handleEvent = async (event: StringEvent): Promise<void> => {
@@ -793,6 +797,6 @@ Notice how:
 
 ## Test time
 
-Run your scripts, as described in the previous test time. Create a game, wait and see how the deletion event is picked up.
+Run the tests again as described earlier. Create a game, wait and see how the deletion event is picked up.
 
 For the avoidance of doubt, You can find the code [here](https://github.com/cosmos/b9-checkers-academy-draft/tree/server-indexing).
