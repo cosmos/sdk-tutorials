@@ -232,7 +232,7 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
 $ checkersd query checkers can-play-move 0 white 1 2 2 3
 ```
 
-Trying a bad color for the player on a game that exists returns:
+The player tried to play the wrong color on a game that exists. It returns:
 
 ```
 possible: false
@@ -299,7 +299,7 @@ possible: false
 reason: 'wrong move%!(EXTRA string=Invalid move: {2 3} to {3 4})'
 ```
 
-There is room to improve the reason given.
+The reason given is understandable if not pleasant to read. For instance it lacks the reason why the move is invalid. There is room to improve the message.
 
 </CodeGroupItem>
 <CodeGroupItem title="After forfeit">

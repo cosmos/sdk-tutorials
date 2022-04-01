@@ -191,7 +191,7 @@ Hard to judge how much gas that really means. In any case, keep gas on `auto`:
 $ checkersd tx checkers create-game $alice $bob --from $alice --gas auto
 ```
 
-<ExpansionPanel title="It prints a lot and prompts you for confirmation">
+<ExpansionPanel title="The command prints a lot and prompts you for confirmation">
 
 ```
 {"body":{"messages":[{"@type":"/alice.checkers.checkers.MsgCreateGame","creator":"cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp","red":"cosmos1wh7scjfhgzeqxfxhqq6jh59sj2y8d7u97qu7qp","black":"cosmos199krg6nz4qgv53nvrx9gj7nrlg48clwurn82jy"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[],"gas_limit":"40412","payer":"","granter":""}},"signatures":[]}
