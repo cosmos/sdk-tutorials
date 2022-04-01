@@ -147,7 +147,7 @@ export class MsgClientImpl implements Msg {
 
 The important points to remember from this are:
 
-1. `rpc: RPC` is an instance of a Protobuf RPC client that will be given to you by CosmJs. Although the interface appears to be [declared locally](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/tx.ts#L270-L272), rthis is the same interface found [througout CosmJs](https://github.com/cosmos/cosmjs/blob/bb92692/packages/stargate/src/queryclient/utils.ts#L35-L37)/ It will be given to you [on construction](https://github.com/cosmos/cosmjs/blob/bb92692/packages/stargate/src/queryclient/queryclient.ts). So, you need not worry about creating an implementation for it.
+1. `rpc: RPC` is an instance of a Protobuf RPC client that will be given to you by CosmJs. Although the interface appears to be [declared locally](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/tx.ts#L270-L272), this is the same interface found [throughout CosmJs](https://github.com/cosmos/cosmjs/blob/bb92692/packages/stargate/src/queryclient/utils.ts#L35-L37). It will be given to you [on construction](https://github.com/cosmos/cosmjs/blob/bb92692/packages/stargate/src/queryclient/queryclient.ts). So, you need not worry about creating an implementation for it.
 2. You can see `encode` and `decode` in action. Notice the `.finish()` that flushes the Protobuf writer buffer.
 3. The `rpc.request` makes the calls that will be correctly understood by Protobuf compiled server on the other side.
 
