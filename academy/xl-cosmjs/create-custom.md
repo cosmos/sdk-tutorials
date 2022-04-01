@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Create custom CosmJs interfaces
 
-CosmJs comes out of the box with interfaces that connect with the standard Cosmos modules such as `bank` and `gov`. But because your blockchain's own modules are specific, they need to have their own CosmJs interfaces. The process consists of several steps:
+CosmJs comes out of the box with interfaces that connect with the standard Cosmos modules such as `bank` and `gov`. Your own blockchain's modules are unique, so they need their own CosmJs interfaces. The process consists of several steps:
 
 1. Creating the Protobuf objects and clients in Typescript.
 2. Creating extensions that facilitate the use of the above clients.
@@ -32,7 +32,7 @@ You need to install `protoc` and its Typescript plugin:
 $ npm install ts-proto protoc --save-dev
 ```
 
-You can confirm the version you get. The executable is actually a bit hidden in `./node_modules/protoc/protoc/bin/protoc`:
+You can confirm the version you received. The executable is actually slightly hidden in `./node_modules/protoc/protoc/bin/protoc`:
 
 ```sh
 $ ./node_modules/protoc/protoc/bin/protoc --version
@@ -60,7 +60,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 ```
 
-Unfortunately, you need these files locally. How you get them does not matter as long as you get the right versions in the right locations. Pay particular attention to the Cosmos SDK's version of your project. You can obtain it with:
+You need these files locally. How you get them does not matter as long as you get the right versions in the right locations. Pay particular attention to the Cosmos SDK's version of your project. You can obtain it with:
 
 ```sh
 $ grep cosmos-sdk go.mod
@@ -102,9 +102,9 @@ $ ls ./proto/myChain | xargs -I {} ./node_modules/protoc/protoc/bin/protoc \
   myChain/{}
 ```
 
-Notice how `--proto_path` is only `./proto` so that your imports like `import "cosmos/base...` can be found.
+Notice how `--proto_path` is only `./proto` so that your imports, such as `import "cosmos/base...` can be found.
 
-When it's done, you should see your files compiled into Typescript. They have been correctly filed under their respective folders and contain both types and services definitions. It also created the compiled versions of your third party imports.
+When it finishes, you should see your files compiled into Typescript. They have been correctly filed under their respective folders and contain both types and services definitions. It also created the compiled versions of your third party imports.
 
 ### A note about the result
 
@@ -145,17 +145,17 @@ export class MsgClientImpl implements Msg {
 }
 ```
 
-What you need to remember from this is:
+The important points to remember from this are:
 
-1. `rpc: RPC` is an instance of a Protobuf RPC client that will be given to you by CosmJs. Although the interface appears to be [declared locally](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/tx.ts#L270-L272), really this is the same interface as found [peppered in CosmJs](https://github.com/cosmos/cosmjs/blob/bb92692/packages/stargate/src/queryclient/utils.ts#L35-L37), and it will be given to you [on construction](https://github.com/cosmos/cosmjs/blob/bb92692/packages/stargate/src/queryclient/queryclient.ts). So you need not worry about creating an implementation for it.
+1. `rpc: RPC` is an instance of a Protobuf RPC client that will be given to you by CosmJs. Although the interface appears to be [declared locally](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/tx.ts#L270-L272), rthis is the same interface found [througout CosmJs](https://github.com/cosmos/cosmjs/blob/bb92692/packages/stargate/src/queryclient/utils.ts#L35-L37)/ It will be given to you [on construction](https://github.com/cosmos/cosmjs/blob/bb92692/packages/stargate/src/queryclient/queryclient.ts). So, you need not worry about creating an implementation for it.
 2. You can see `encode` and `decode` in action. Notice the `.finish()` that flushes the Protobuf writer buffer.
-3. The `rpc.request` makes the call that will be rightfully understood by Protobuf compiled server on the other side.
+3. The `rpc.request` makes the calls that will be correctly understood by Protobuf compiled server on the other side.
 
 You can find the same structure in [`query.ts`](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/query.ts).
 
 ### Proper saving
 
-You ought to commit the extra `.proto` files as well as the compiled ones to your repository so you don't need to redo it.
+You ought to commit the extra `.proto` files as well as the compiled ones to your repository so you don't need to recreate them.
 
 In fact, take inspiration from `cosmjs-types` [`codegen.sh`](https://github.com/confio/cosmjs-types/tree/main/scripts):
 
@@ -195,7 +195,7 @@ A good path to add those would be side by side with `generated`, in `./client/sr
 
 ### For messages
 
-Messages, sub-types of `Msg`, will be assembled into transactions that are then sent to Tendermint. CosmJs types already include types for [transactions](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/tx/v1beta1/tx.ts#L12-L26). These are assembled, signed and sent by CosmJs' [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/fe34588/packages/stargate/src/signingstargateclient.ts#L276-L294). Thanks to this, you have minimal work left to do.
+Messages, sub-types of `Msg`, will be assembled into transactions that are then sent to Tendermint. CosmJs types already include types for [transactions](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/tx/v1beta1/tx.ts#L12-L26). These are assembled, signed and sent by CosmJs' [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/fe34588/packages/stargate/src/signingstargateclient.ts#L276-L294). Thanks to this, there is minimal work left to do.
 
 The `Msg` kind will also need to be added to a registry. To facilitate that, you should prepare them in a nested array like so:
 
@@ -215,7 +215,7 @@ export interface MsgSendEncodeObject extends EncodeObject {
 }
 ```
 
-Unfortunately, in the code above, you cannot reuse your `msgSendTypeUrl` is it a value, not a type. You can add a type helper, which can come in handy in an `if else` situation:
+Unfortunately, in the code above, you cannot reuse your `msgSendTypeUrl` because it is a value, not a type. You can add a type helper, which can come in handy in an `if else` situation:
 
 ```typescript [https://github.com/cosmos/cosmjs/blob/bb926925e1ad2e03414449ff31d0c914f91b8ac2/packages/stargate/src/modules/bank/messages.ts#L14-L16]
 export function isMsgSendEncodeObject(encodeObject: EncodeObject): encodeObject is MsgSendEncodeObject {
@@ -225,7 +225,7 @@ export function isMsgSendEncodeObject(encodeObject: EncodeObject): encodeObject 
 
 ### For queries
 
-Unlike transactions, which are sent to Tendermint, queries are sent to the application. For queries, there are different types of calls altogether. So it makes sense to collect those calls under a single roof, called an extension. For instance:
+Unlike transactions which are sent to Tendermint, queries are sent to the application. For queries, there are altogether different types of calls. So, it makes sense to organize them in one place, called an extension. For example:
 
 ```typescript [https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/modules/bank/queries.ts#L9-L18]
 export interface BankExtension {
@@ -240,16 +240,16 @@ export interface BankExtension {
 Notice how there is a **key** `bank:` inside it. This will become important later on when you _add_ it to Stargate.
 
 1. Create an extension interface for your module using function names and parameters that make sense in your case.
-2. Make sure that the key is unique and does not overlap with any other modules of your application. Unless you know what you are doing.
-3. Then create a factory for its implementation copying the [model here](https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/modules/bank/queries.ts#L20-L59). For the implementation, of course, the [`QueryClientImpl`](https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/modules/bank/queries.ts#L4) implementation has to come from your own compiled Protobuf query service.
+2. Make sure that the key is unique and does not overlap with any other modules of your application, unless you are certain that you really know what you are doing.
+3. Then, create a factory for its implementation copying the [model here](https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/modules/bank/queries.ts#L20-L59). For the implementation, of course, the [`QueryClientImpl`](https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/modules/bank/queries.ts#L4) implementation has to come from your own compiled Protobuf query service.
 
 ## Integration with Stargate
 
-`StargateClient` and `SigningStargateClient` are typically the ultimate abstractions that facilitate the querying and sending of transactions. You are now ready to add your own elements to them. The easiest way is for you to inherit from them and expose the extra functions you want.
+`StargateClient` and `SigningStargateClient` are typically the ultimate abstractions that facilitate the querying and sending of transactions. You are now ready to add your own elements to them. The easiest way is for you to inherit from them and expose the extra functions you require.
 
-If your extra functions map one for one with those of your own extension, then you might as well publicly expose the extension itself so that you do not do too much duplicate work between `StargateClient` and `SigningStargateClient`.
+If your extra functions map one for one with those of your own extension, then you might as well publicly expose the extension itself to minimize duplication in `StargateClient` and `SigningStargateClient`.
 
-For instance, if you had your `interface MyExtension` with a `myKey` key and you are creating `MyStargateClient`, it is as short as:
+For example, if you have your `interface MyExtension` with a `myKey` key and you are creating `MyStargateClient`, it is as succinct as this:
 
 ```typescript
 export class MyStargateClient extends StargateClient {
@@ -269,7 +269,7 @@ export class MyStargateClient extends StargateClient {
 }
 ```
 
-Then for `MySigningStargateClient`, it is:
+Then, for `MySigningStargateClient`:
 
 ```typescript
 export class MySigningStargateClient extends SigningStargateClient {
