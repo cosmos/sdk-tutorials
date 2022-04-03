@@ -74,7 +74,9 @@ export interface DbType {
 Notice that not only do you keep information about players, but you also keep a copy of games. This is to palliate a current limitation of CosmJs, whereby you cannot get information about a game that has just been erased from the state. In practice, you would need to query about this game at a sufficiently earlier block height, but this is not available yet. 
 
 <HightlightBox type="info">
-As a design hueristic to keep in mind, when "deleted" records are materially important, consider using a soft delete that removes them from the set of active records but doesn't terminate their existence. This principle helps ensure that historically important information is readily available at all times, at the latest block height.
+
+As a design heuristic to keep in mind, when "deleted" records are materially important, consider using a soft delete that removes them from the set of active records but doesn't terminate their existence. This principle helps ensure that historically important information is readily available at all times, at the latest block height.
+
 </HighlightBox>
 
 Such a barebones server without any Cosmos elements would be defined in an `indexer.ts`.
@@ -289,7 +291,7 @@ It should return:
 
 ## Add CosmJs `StargateClient`
 
-In order to connect to your Checkers blockchain, you need to create a client. Yhe client only needs read-only functionality because this server does not intend to submit transactions. Also, add the CosmJs types, which will assist you with blocks, transactions and events:
+In order to connect to your Checkers blockchain, you need to create a client. The client only needs read-only functionality because this server does not intend to submit transactions. Also, add the CosmJs types, which will assist you with blocks, transactions and events:
 
 ```sh
 $ npm install @cosmjs/stargate cosmjs-types
