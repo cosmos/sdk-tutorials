@@ -12,7 +12,7 @@ tag: deep-dive
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md), and [CosmJs](TODO).
-* Have Go installed.
+* Have Go and npm installed.
 * The checkers blockchain codebase up to the wager denomination. You can get there by following the [previous steps](./wager-denom.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
 
 </HighlightBox>
@@ -105,7 +105,7 @@ export interface CheckersExtension {
 
 Don't forget a _setup_ function as it is expected by Stargate:
 
-```typescript [https://github.com/cosmos/b9-checkers-academy-draft/blob/2f2c3f3/client/src/modules/checkers/queries.ts#L39-L94]
+```typescript [https://github.com/cosmos/b9-checkers-academy-draft/blob/225936e/client/src/modules/checkers/queries.ts#L39-L94]
 export function setupCheckersExtension(base: QueryClient): CheckersExtension {
     const rpc = createProtobufRpcClient(base)
     // Use this service to get easy typed access to query methods
@@ -153,10 +153,10 @@ export function setupCheckersExtension(base: QueryClient): CheckersExtension {
                 return queryService.CanPlayMove({
                     idValue: index,
                     player: player,
-                    fromX: Long.fromInt(from.x),
-                    fromY: Long.fromInt(from.y),
-                    toX: Long.fromInt(to.x),
-                    toY: Long.fromInt(to.y),
+                    fromX: Long.fromNumber(from.x),
+                    fromY: Long.fromNumber(from.y),
+                    toX: Long.fromNumber(to.x),
+                    toY: Long.fromNumber(to.y),
                 })
             },
         },
@@ -166,7 +166,7 @@ export function setupCheckersExtension(base: QueryClient): CheckersExtension {
 
 Then create your `CheckersStargateClient`:
 
-```typescript [https://github.com/cosmos/b9-checkers-academy-draft/blob/2f2c3f3/client/src/checkers_stargateclient.ts#L5-L19]
+```typescript [https://github.com/cosmos/b9-checkers-academy-draft/blob/225936e/client/src/checkers_stargateclient.ts#L5-L19]
 export class CheckersStargateClient extends StargateClient {
     public readonly checkersQueryClient: CheckersExtension | undefined
 
@@ -188,7 +188,7 @@ export class CheckersStargateClient extends StargateClient {
 
 It is already possible to see if communication happens. In your `client` folder, create a `test/live` folder and, in it, an `experiment.ts` file that will be a living document as your progress:
 
-```typescript [https://github.com/cosmos/b9-checkers-academy-draft/blob/2f2c3f3/client/test/live/experiment.ts#L4-L26]
+```typescript [https://github.com/cosmos/b9-checkers-academy-draft/blob/225936e/client/test/live/experiment.ts#L4-L31]
 const starportEndpoint = "http://localhost:26657"
 
 async function runAll() {
@@ -200,7 +200,12 @@ async function runAll() {
     console.log("NextGame:", nextGame0, ", idValue:", nextGame0.idValue.toString(10))
 
     // All Games
-    const allGames0 = await checkers.getAllStoredGames(Uint8Array.of(), Long.fromInt(0), Long.fromInt(0), true)
+    const allGames0 = await checkers.getAllStoredGames(
+        Uint8Array.of(),
+        Long.fromInt(0),
+        Long.fromInt(0),
+        true,
+    )
     console.log("All games", allGames0, ", total: ", allGames0.pagination!.total.toString(10))
 
     // Non-existent game
