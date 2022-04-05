@@ -157,7 +157,37 @@ You can confirm that your project at least compiles [with](https://docs.starport
 $ starport chain build
 ```
 
+## Unit tests
 
+You are getting good at this. The tests here are similar to those you created for _create_ and _play_. Except that you test a game rejection [by the game creator](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L27-L35), the [black player](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L199-L215), or the [red player](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L83-L91), [before anyone has played](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L37-L45), and after [one](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L129-L145) or [two moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L217-L241) have been made. Check also that the [game is removed](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L47-L61), and that [events are emitted](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L63-L81).
+
+For instance:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L147-L169]
+func TestRejectGameByRedOneMoveRemovedGame(t *testing.T) {
+    msgServer, keeper, context := setupMsgServerWithOneGameForRejectGame(t)
+    msgServer.PlayMove(context, &types.MsgPlayMove{
+        Creator: carol,
+        IdValue: "1",
+        FromX:   1,
+        FromY:   2,
+        ToX:     2,
+        ToY:     3,
+    })
+    msgServer.RejectGame(context, &types.MsgRejectGame{
+        Creator: bob,
+        IdValue: "1",
+    })
+    nextGame, found := keeper.GetNextGame(sdk.UnwrapSDKContext(context))
+    require.True(t, found)
+    require.EqualValues(t, types.NextGame{
+        Creator: "",
+        IdValue: 2,
+    }, nextGame)
+    _, found = keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "1")
+    require.False(t, found)
+}
+```
 
 ## Next up
 
