@@ -269,7 +269,28 @@ export class MyStargateClient extends StargateClient {
 }
 ```
 
-Then, for `MySigningStargateClient`:
+Then, for `MySigningStargateClient`, you need one extra step. You need to inform it about the extra encodable types it should be able to handle. The list is defined in a registry that you can [pass as options](https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/signingstargateclient.ts#L139).
+
+Take inspiration from the [`SigningStargateClient` source code](https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/signingstargateclient.ts#L76-L80) itself. Collect your new types into an array:
+
+```typescript
+import { defaultRegistryTypes } from "@cosmjs/stargate"
+
+export const myDefaultRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
+    ...defaultRegistryTypes,
+    ...myTypes, // As you defined bankTypes earlier
+]
+```
+
+Taking inspiration from [the same place](https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/signingstargateclient.ts#L118-L120), add the registry creator:
+
+```typescript
+function createDefaultRegistry(): Registry {
+    return new Registry(myDefaultRegistryTypes)
+}
+```
+
+Now you are ready to combine that into your own `MySigningStargateClient`. It still takes an optional registry, but if it is missing, it will add your newly defined default one:
 
 ```typescript
 export class MySigningStargateClient extends SigningStargateClient {
@@ -281,7 +302,10 @@ export class MySigningStargateClient extends SigningStargateClient {
         options: SigningStargateClientOptions = {}
     ): Promise<MySigningStargateClient> {
         const tmClient = await Tendermint34Client.connect(endpoint)
-        return new MySigningStargateClient(tmClient, signer, options)
+        return new MySigningStargateClient(tmClient, signer, {
+            registry: createDefaultRegistry(),
+            ...options,
+        })
     }
 
     protected constructor(tmClient: Tendermint34Client | undefined, signer: OfflineSigner, options: SigningStargateClientOptions) {
@@ -293,7 +317,7 @@ export class MySigningStargateClient extends SigningStargateClient {
 }
 ```
 
-To which you _can_ add dedicated functions modeled on:
+To which you _can_ add dedicated functions that use your own types, modeled on:
 
 ```typescript [https://github.com/cosmos/cosmjs/blob/fe34588/packages/stargate/src/signingstargateclient.ts#L176-L192]
 public async sendTokens(
