@@ -29,7 +29,7 @@ In this exercise a draw is not handled and it would require yet another value to
 
 In the `StoredGame` Protobuf definition file:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/be55f80/proto/checkers/stored_game.proto#L17]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/36fde2c/proto/checkers/stored_game.proto#L17]
 message StoredGame {
     ...
     string winner = 11;
@@ -44,7 +44,7 @@ $ starport generate proto-go
 
 Add a helper function to get the winner's address, if it exists. A good place for it is in `full_game.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/be55f80/x/checkers/types/full_game.go#L53-L72]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36fde2c/x/checkers/types/full_game.go#L53-L72]
 func (storedGame *StoredGame) GetPlayerAddress(color string) (address sdk.AccAddress, found bool, err error) {
     red, err := storedGame.GetRedAddress()
     if err != nil {
@@ -73,12 +73,12 @@ This is a two-part update. You set the winner where relevant but you also introd
 
 Start with a new error that you define as a constant:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/be55f80/x/checkers/types/errors.go#L22]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36fde2c/x/checkers/types/errors.go#L22]
 ErrGameFinished = sdkerrors.Register(ModuleName, 1111, "game is already finished")
 ```
 Then at creation, in the _create game_ message handler, you start with the neutral value:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/be55f80/x/checkers/keeper/msg_server_create_game.go#L32]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36fde2c/x/checkers/keeper/msg_server_create_game.go#L32]
 ...
 storedGame := types.StoredGame{
     ...
@@ -90,7 +90,7 @@ With further checks when handling a play in the handler:
 
 1. Check that the game has not finished yet:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/be55f80/x/checkers/keeper/msg_server_play_move.go#L23-L25]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36fde2c/x/checkers/keeper/msg_server_play_move.go#L23-L25]
     if storedGame.Winner != rules.PieceStrings[rules.NO_PLAYER] {
         return nil, types.ErrGameFinished
     }
@@ -98,13 +98,13 @@ With further checks when handling a play in the handler:
 
 2. Update the winner field, which [remains neutral](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L165) if there is no winner yet:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/be55f80/x/checkers/keeper/msg_server_play_move.go#L62]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36fde2c/x/checkers/keeper/msg_server_play_move.go#L62]
     storedGame.Winner = rules.PieceStrings[game.Winner()]
     ```
 
 3. Handle the FIFO differently depending on whether the game is finished or not:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/be55f80/x/checkers/keeper/msg_server_play_move.go#L69-L73]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36fde2c/x/checkers/keeper/msg_server_play_move.go#L69-L73]
     if storedGame.Winner == rules.PieceStrings[rules.NO_PLAYER] {
         k.Keeper.SendToFifoTail(ctx, &storedGame, &nextGame)
     } else {
@@ -114,7 +114,7 @@ With further checks when handling a play in the handler:
 
 Just in case, when rejecting a game, in its handler:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/be55f80/x/checkers/keeper/msg_server_reject_game.go#L21-L23]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36fde2c/x/checkers/keeper/msg_server_reject_game.go#L21-L23]
 if storedGame.Winner != rules.PieceStrings[rules.NO_PLAYER] {
     return nil, types.ErrGameFinished
 }
@@ -126,7 +126,7 @@ Confirm the code compiles, add unit tests, and you are ready to handle the expir
 
 First you need to update your existing tests so that they pass with a new `Winner` value. As it happens, most of your tests need to add this line:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/be55f80/x/checkers/keeper/msg_server_play_move_fifo_test.go#L49]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36fde2c/x/checkers/keeper/msg_server_play_move_fifo_test.go#L49]
 require.EqualValues(t, types.StoredGame{
     ...
     Winner:    "*",
@@ -135,7 +135,7 @@ require.EqualValues(t, types.StoredGame{
 
 Second, this means that in your tests no games have reached a conclusion with a winner. Time to fix that. In a dedicated `msg_server_play_move_winner_test.go` file, you can prepare all the moves that will be played in the test. For convenience, a move will be written as:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/be55f80/x/checkers/keeper/msg_server_play_move_winner_test.go#L11-L17]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36fde2c/x/checkers/keeper/msg_server_play_move_winner_test.go#L11-L17]
 type GameMoveTest struct {
     player string
     fromX  uint64
@@ -147,7 +147,7 @@ type GameMoveTest struct {
 
 If you do not want to create a complete game yourself, you can choose this one:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/be55f80/x/checkers/keeper/msg_server_play_move_winner_test.go#L19-L63]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36fde2c/x/checkers/keeper/msg_server_play_move_winner_test.go#L19-L63]
 var (
     game1moves = []GameMoveTest{
         {"b", 1, 2, 2, 3}, // "*b*b*b*b|b*b*b*b*|***b*b*b|**b*****|********|r*r*r*r*|*r*r*r*r|r*r*r*r*"
@@ -162,7 +162,7 @@ var (
 
 You may want to add a small function that converts `"b"` and `"r"` into their respective player addresses:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/be55f80/x/checkers/keeper/msg_server_play_move_winner_test.go#L65-L70]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36fde2c/x/checkers/keeper/msg_server_play_move_winner_test.go#L65-L70]
 func getPlayer(color string) string {
     if color == "b" {
         return carol
@@ -173,7 +173,7 @@ func getPlayer(color string) string {
 
 Now you can create the test that plays all the moves and checks at the end that the game has been saved with the right winner and that the FIFO is empty again:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/be55f80/x/checkers/keeper/msg_server_play_move_winner_test.go#L72-L112]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36fde2c/x/checkers/keeper/msg_server_play_move_winner_test.go#L72-L125]
 func TestPlayMoveUpToWinner(t *testing.T) {
     msgServer, keeper, context := setupMsgServerWithOneGameForPlayMove(t)
     ctx := sdk.UnwrapSDKContext(context)
@@ -214,6 +214,19 @@ func TestPlayMoveUpToWinner(t *testing.T) {
         Deadline:  types.FormatDeadline(ctx.BlockTime().Add(types.MaxTurnDuration)),
         Winner:    "b",
     }, game1)
+    events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
+    require.Len(t, events, 1)
+    event := events[0]
+    require.Equal(t, event.Type, "message")
+    require.EqualValues(t, []sdk.Attribute{
+        {Key: "module", Value: "checkers"},
+        {Key: "action", Value: "MovePlayed"},
+        {Key: "Creator", Value: carol},
+        {Key: "IdValue", Value: "1"},
+        {Key: "CapturedX", Value: "2"},
+        {Key: "CapturedY", Value: "5"},
+        {Key: "Winner", Value: "b"},
+    }, event.Attributes[6+39*7:])
 }
 ```
 

@@ -17,7 +17,7 @@ Make sure you have all you need before proceeding:
 
 </HighlightBox>
 
-In the [previous section](./game-winner.md) you prepared expiration of games:
+In the [previous section](./game-winner.md) you prepared the expiration of games:
 
 * A First-In-First-Out (FIFO) that always has old games at its head and freshly updated games at its tail.
 * A deadline field to guide the expiration.
@@ -27,12 +27,12 @@ In the [previous section](./game-winner.md) you prepared expiration of games:
 
 An expired game will expire in two different cases:
 
-1. It was never really played on so it is removed quietly.
-2. It was played on, making it a proper game, and forfeit is the outcome because a player failed to play in time.
+1. It was never really played on so it is removed quietly. That includes a single move by a single player.
+2. It was played on by both players, making it a proper game, and forfeit is the outcome because a player failed to play in time.
 
 In the latter case, you want to emit a new event, which differentiates forfeiting a game from a win involving a move. Therefore you define new error constants:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/types/keys.go#L66-L70]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/types/keys.go#L66-L70]
 const (
     ForfeitGameEventKey     = "GameForfeited"
     ForfeitGameEventIdValue = "IdValue"
@@ -42,9 +42,9 @@ const (
 
 ## Putting callbacks in place
 
-When you use Starport to scaffold your module, it creates the [`x/checkers/module.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/41ac3c6ef4b2deb996e54f18f597b24fafbf02e1/x/checkers/module.go) file with a lot of functions to accommodate your application. In particular, the function that **may** be called on your module on `EndBlock` is named `EndBlock`:
+When you use Starport to scaffold your module, it creates the [`x/checkers/module.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/41ac3c6/x/checkers/module.go) file with a lot of functions to accommodate your application. In particular, the function that **may** be called on your module on `EndBlock` is named `EndBlock`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/41ac3c6ef4b2deb996e54f18f597b24fafbf02e1/x/checkers/module.go#L163-L165]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/41ac3c6/x/checkers/module.go#L163-L165]
 func (am AppModule) EndBlock(_ sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
     return []abci.ValidatorUpdate{}
 }
@@ -52,7 +52,7 @@ func (am AppModule) EndBlock(_ sdk.Context, _ abci.RequestEndBlock) []abci.Valid
 
 Starport left it empty. It is here that you add what you need to see done, right before the block gets sealed. Create a brand new file named `x/checkers/keeper/end_block_server_game.go` to encapsulate the knowledge about game expiry. Leave your function empty for now:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L13]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game.go#L13]
 func (k Keeper) ForfeitExpiredGames(goCtx context.Context) {
     // TODO
 }
@@ -60,16 +60,16 @@ func (k Keeper) ForfeitExpiredGames(goCtx context.Context) {
 
 In `x/checkers/module.go` you can update `EndBlock` with:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/module.go#L163-L166]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/module.go#L163-L166]
 func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
     am.keeper.ForfeitExpiredGames(sdk.WrapSDKContext(ctx))
     return []abci.ValidatorUpdate{}
 }
 ```
 
-With this you ensure that **if** your module's `EndBlock` function is called, the expired games will be handled. For the **whole application call your module** you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. Add yours at the end:
+With this you ensure that **if** your module's `EndBlock` function is called, the expired games will be handled. For the **whole application to call your module** you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. Add yours at the end:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/app/app.go#L398]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/app/app.go#L398]
 app.mm.SetOrderEndBlockers(crisistypes.ModuleName, govtypes.ModuleName, stakingtypes.ModuleName, checkersmoduletypes.ModuleName)
 ```
 
@@ -81,18 +81,18 @@ With the callbacks in place it is time to code the expiration properly. In `Forf
 
 1. Prepare useful information:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L14-L19]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game.go#L14-L19]
     ctx := sdk.UnwrapSDKContext(goCtx)
 
     opponents := map[string]string{
-        rules.BLACK_PLAYER.Color: rules.RED_PLAYER.Color,
-        rules.RED_PLAYER.Color:   rules.BLACK_PLAYER.Color,
+        rules.PieceStrings[rules.BLACK_PLAYER]: rules.PieceStrings[rules.RED_PLAYER],
+        rules.PieceStrings[rules.RED_PLAYER]:   rules.PieceStrings[rules.BLACK_PLAYER],
     }
     ```
 
 2. Initialize the parameters before entering the loop:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L22-L28]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game.go#L22-L28]
     nextGame, found := k.GetNextGame(ctx)
     if !found {
         panic("NextGame not found")
@@ -103,15 +103,15 @@ With the callbacks in place it is time to code the expiration properly. In `Forf
 
 3. Enter the loop:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L29]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game.go#L29]
     for {
         // TODO
     }
     ```
 
-    1. Start with the loop breaking condition:
+    1. Start with a loop breaking condition, if your cursor has reached the end of the FIFO:
 
-        ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L31-L33]
+        ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game.go#L31-L33]
         if strings.Compare(storedGameId, types.NoFifoIdKey) == 0 {
             break
         }
@@ -119,7 +119,7 @@ With the callbacks in place it is time to code the expiration properly. In `Forf
 
     2. Fetch the expired game candidate and its deadline:
 
-        ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L34-L41]
+        ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game.go#L34-L41]
         storedGame, found = k.GetStoredGame(ctx, storedGameId)
         if !found {
              panic("Fifo head game not found " + nextGame.FifoHead)
@@ -132,7 +132,7 @@ With the callbacks in place it is time to code the expiration properly. In `Forf
 
     3. Test for expiration:
 
-        ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L42]
+        ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game.go#L42]
         if deadline.Before(ctx.BlockTime()) {
             // TODO
         } else {
@@ -142,15 +142,14 @@ With the callbacks in place it is time to code the expiration properly. In `Forf
         ```
 
         * If the game has expired, remove it from the FIFO:
-            ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L44]
+            ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game.go#L44]
             k.RemoveFromFifo(ctx, &storedGame, &nextGame)
             ```
 
         * Then check whether the game is worth keeping. If it is, set the winner as the opponent of the player whose turn it is and save:
-            ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L45-L55]
-            if storedGame.MoveCount == 0 {
-                storedGame.Winner = rules.NO_PLAYER.Color
-                // No point in keeping a game that was never played
+            ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game.go#L45-L54]
+            if storedGame.MoveCount <= 1 {
+                // No point in keeping a game that was never really played
                 k.RemoveStoredGame(ctx, storedGameId)
             } else {
                 storedGame.Winner, found = opponents[storedGame.Turn]
@@ -162,7 +161,7 @@ With the callbacks in place it is time to code the expiration properly. In `Forf
             ```
 
         * Emit the relevant event:
-            ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L56-L63]
+            ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game.go#L55-L62]
             ctx.EventManager().EmitEvent(
                 sdk.NewEvent(sdk.EventTypeMessage,
                     sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
@@ -174,20 +173,175 @@ With the callbacks in place it is time to code the expiration properly. In `Forf
             ```
 
         * Move along the FIFO for the next run of the loop:
-            ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L65]
+            ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game.go#L64]
             storedGameId = nextGame.FifoHead
             ```
 
 4. After the loop has ended do not forget to save the latest FIFO state:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/7739537804f350241f59ee55b443a66b68883fc8/x/checkers/keeper/end_block_server_game.go#L72]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game.go#L71]
     k.SetNextGame(ctx, nextGame)
     ```
-
 
 <HighlightBox type="tip">
 
 For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games see the [section on the game's FIFO](./game-fifo.md).
+
+</HighlightBox>
+
+## Unit tests
+
+How do you test something that is supposed to happen during the `EndBlock` event? Simple, you call the function that will be called within `EndBlock`, i.e. `Keeper.ForfeitExpiredGames`. Create a new test file `end_block_server_game_test.go` for your tests. The situations that you can test are:
+
+1. A game was never played, while alone in the state [or not](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game_test.go#L44-L79). Or [two games](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game_test.go#L81-L133) were never played. In this case, you need to confirm that it was fully deleted, and that an event was emitted with no winners:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game_test.go#L12-L42]
+    func TestForfeitUnplayed(t *testing.T) {
+        _, keeper, context := setupMsgServerWithOneGameForPlayMove(t)
+        ctx := sdk.UnwrapSDKContext(context)
+        game1, found := keeper.GetStoredGame(ctx, "1")
+        require.True(t, found)
+        game1.Deadline = types.FormatDeadline(ctx.BlockTime().Add(time.Duration(-1)))
+        keeper.SetStoredGame(ctx, game1)
+        keeper.ForfeitExpiredGames(context)
+
+        _, found = keeper.GetStoredGame(ctx, "1")
+        require.False(t, found)
+
+        nextGame, found := keeper.GetNextGame(ctx)
+        require.True(t, found)
+        require.EqualValues(t, types.NextGame{
+            Creator:  "",
+            IdValue:  2,
+            FifoHead: "-1",
+            FifoTail: "-1",
+        }, nextGame)
+        events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
+        require.Len(t, events, 1)
+        event := events[0]
+        require.Equal(t, event.Type, "message")
+        require.EqualValues(t, []sdk.Attribute{
+            {Key: "module", Value: "checkers"},
+            {Key: "action", Value: "GameForfeited"},
+            {Key: "IdValue", Value: "1"},
+            {Key: "Winner", Value: "*"},
+        }, event.Attributes[6:])
+    }
+    ```
+
+2. A game was played only once, while alone in the state [or not](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game_test.go#L175-L218). Or [two games](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game_test.go#L220-L288) were never played. In this case, you need to confirm that it too was fully deleted, and that an event was emitted with no winners:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game_test.go#L135-L173]
+    func TestForfeitPlayedOnce(t *testing.T) {
+        msgServer, keeper, context := setupMsgServerWithOneGameForPlayMove(t)
+        msgServer.PlayMove(context, &types.MsgPlayMove{
+            Creator: carol,
+            IdValue: "1",
+            FromX:   1,
+            FromY:   2,
+            ToX:     2,
+            ToY:     3,
+        })
+        ctx := sdk.UnwrapSDKContext(context)
+        game1, found := keeper.GetStoredGame(ctx, "1")
+        require.True(t, found)
+        game1.Deadline = types.FormatDeadline(ctx.BlockTime().Add(time.Duration(-1)))
+        keeper.SetStoredGame(ctx, game1)
+        keeper.ForfeitExpiredGames(context)
+
+        _, found = keeper.GetStoredGame(ctx, "1")
+        require.False(t, found)
+
+        nextGame, found := keeper.GetNextGame(ctx)
+        require.True(t, found)
+        require.EqualValues(t, types.NextGame{
+            Creator:  "",
+            IdValue:  2,
+            FifoHead: "-1",
+            FifoTail: "-1",
+        }, nextGame)
+        events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
+        require.Len(t, events, 1)
+        event := events[0]
+        require.Equal(t, event.Type, "message")
+        require.EqualValues(t, []sdk.Attribute{
+            {Key: "module", Value: "checkers"},
+            {Key: "action", Value: "GameForfeited"},
+            {Key: "IdValue", Value: "1"},
+            {Key: "Winner", Value: "*"},
+        }, event.Attributes[13:])
+    }
+    ```
+
+3. A game was played on twice, while alone in the state [or not](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game_test.go#L352-L417). Or [two games](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game_test.go#L419-L532) were never played. In this case, you need to confirm that it too was note deleted, and instead that a winner was announced, including in events:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game_test.go#L290-L350]
+    func TestForfeitPlayedTwice(t *testing.T) {
+        msgServer, keeper, context := setupMsgServerWithOneGameForPlayMove(t)
+        msgServer.PlayMove(context, &types.MsgPlayMove{
+            Creator: carol,
+            IdValue: "1",
+            FromX:   1,
+            FromY:   2,
+            ToX:     2,
+            ToY:     3,
+        })
+        msgServer.PlayMove(context, &types.MsgPlayMove{
+            Creator: bob,
+            IdValue: "1",
+            FromX:   0,
+            FromY:   5,
+            ToX:     1,
+            ToY:     4,
+        })
+        ctx := sdk.UnwrapSDKContext(context)
+        game1, found := keeper.GetStoredGame(ctx, "1")
+        require.True(t, found)
+        oldDeadline := types.FormatDeadline(ctx.BlockTime().Add(time.Duration(-1)))
+        game1.Deadline = oldDeadline
+        keeper.SetStoredGame(ctx, game1)
+        keeper.ForfeitExpiredGames(context)
+
+        game1, found = keeper.GetStoredGame(ctx, "1")
+        require.True(t, found)
+        require.EqualValues(t, types.StoredGame{
+            Creator:   alice,
+            Index:     "1",
+            Game:      "*b*b*b*b|b*b*b*b*|***b*b*b|**b*****|*r******|**r*r*r*|*r*r*r*r|r*r*r*r*",
+            Turn:      "b",
+            Red:       bob,
+            Black:     carol,
+            MoveCount: uint64(2),
+            BeforeId:  "-1",
+            AfterId:   "-1",
+            Deadline:  oldDeadline,
+            Winner:    "r",
+        }, game1)
+
+        nextGame, found := keeper.GetNextGame(ctx)
+        require.True(t, found)
+        require.EqualValues(t, types.NextGame{
+            Creator:  "",
+            IdValue:  2,
+            FifoHead: "-1",
+            FifoTail: "-1",
+        }, nextGame)
+        events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
+        require.Len(t, events, 1)
+        event := events[0]
+        require.Equal(t, event.Type, "message")
+        require.EqualValues(t, []sdk.Attribute{
+            {Key: "module", Value: "checkers"},
+            {Key: "action", Value: "GameForfeited"},
+            {Key: "IdValue", Value: "1"},
+            {Key: "Winner", Value: "r"},
+        }, event.Attributes[20:])
+    }
+    ```
+
+<HighlightBox type="info">
+
+Notice how all the events aggregate in a single context. the context is not reset on a new transaction, so you have to take slices to compare what matters. One _create_ adds 6 attributes, one _play_ adds 7.
 
 </HighlightBox>
 
