@@ -60,7 +60,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 1. You need to remember the game ID at the head, to pick expired games, and at the tail, to send back fresh games. The existing `NextGame` object is a good place for this as it is already an object and expandable. Just add a bit to its Protobuf declaration:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/proto/checkers/next_game.proto#L11-L12]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/proto/checkers/next_game.proto#L9-L10]
     message NextGame {
         ...
         string fifoHead = 3; // Will contain the index of the game at the head.
@@ -70,7 +70,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 2. To make extraction possible each game needs to know which other game takes place before it in the FIFO, and which after. The right place to store this double link information is `StoredGame`. Thus, you add them in the game's Protobuf declaration:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/proto/checkers/stored_game.proto#L16-L17]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/proto/checkers/stored_game.proto#L14-L15]
     message StoredGame {
         ...
         string beforeId = 8; // Pertains to the FIFO. Towards head.
@@ -80,7 +80,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 3. There needs to be an "ID" that indicates _no game_. Let's use `"-1"`, which you save as a constant:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/types/keys.go#L32-L34]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/types/keys.go#L32-L34]
     const (
         NoFifoIdKey = "-1"
     )
@@ -88,7 +88,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 4. Adjust the default genesis values, so that it has proper head and tail:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/types/genesis.go#L20-L21]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/types/genesis.go#L20-L21]
     func DefaultGenesis() *GenesisState {
         return &GenesisState{
             ...
@@ -113,7 +113,7 @@ Now that the new fields are created, you need to update them accordingly to keep
 
 1. A function to remove from the FIFO:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/keeper/stored_game_in_fifo.go#L9-L36]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/stored_game_in_fifo.go#L9-L42]
     func (k Keeper) RemoveFromFifo(ctx sdk.Context, game *types.StoredGame, info *types.NextGame) {
         // Does it have a predecessor?
         if game.BeforeId != types.NoFifoIdKey {
@@ -126,6 +126,9 @@ Now that the new fields are created, you need to update them accordingly to keep
             if game.AfterId == types.NoFifoIdKey {
                 info.FifoTail = beforeElement.Index
             }
+            // Is it at the FIFO head?
+        } else if info.FifoHead == game.Index {
+            info.FifoHead = game.AfterId
         }
         // Does it have a successor?
         if game.AfterId != types.NoFifoIdKey {
@@ -138,6 +141,9 @@ Now that the new fields are created, you need to update them accordingly to keep
             if game.BeforeId == types.NoFifoIdKey {
                 info.FifoHead = afterElement.Index
             }
+            // Is it at the FIFO tail?
+        } else if info.FifoTail == game.Index {
+            info.FifoTail = game.BeforeId
         }
         game.BeforeId = types.NoFifoIdKey
         game.AfterId = types.NoFifoIdKey
@@ -148,7 +154,7 @@ Now that the new fields are created, you need to update them accordingly to keep
 
 2. A function to send to the tail:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/keeper/stored_game_in_fifo.go#L39-L63]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/stored_game_in_fifo.go#L45-L70]
     func (k Keeper) SendToFifoTail(ctx sdk.Context, game *types.StoredGame, info *types.NextGame) {
         if info.FifoHead == types.NoFifoIdKey && info.FifoTail == types.NoFifoIdKey {
             game.BeforeId = types.NoFifoIdKey
@@ -169,8 +175,9 @@ Now that the new fields are created, you need to update them accordingly to keep
                 panic("Current Fifo tail was not found")
             }
             currentTail.AfterId = game.Index
-            game.BeforeId = currentTail.Index
+            k.SetStoredGame(ctx, currentTail)
 
+            game.BeforeId = currentTail.Index
             info.FifoTail = game.Index
         }
     }
@@ -183,7 +190,7 @@ With these functions ready, it is time to use them in the message handlers.
 
 1. In the handler when creating a new game, send the new game to the tail because it is freshly created:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/keeper/msg_server_create_game.go#L32]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_create_game.go#L36]
     ...
     k.Keeper.SendToFifoTail(ctx, &storedGame, &nextGame)
     k.Keeper.SetStoredGame(ctx, storedGame)
@@ -192,7 +199,7 @@ With these functions ready, it is time to use them in the message handlers.
 
 2. In the handler when playing a move, send the game back to the tail because it was freshly updated:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/keeper/msg_server_play_move.go#L58-L68]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_play_move.go#L62]
     ...
     nextGame, found := k.Keeper.GetNextGame(ctx)
     if !found {
@@ -207,7 +214,7 @@ With these functions ready, it is time to use them in the message handlers.
 
 3. In the handler when rejecting a game, remove the game from the FIFO:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/2343af69cd1f2c22acfac13f46393aa8ce686685/x/checkers/keeper/msg_server_reject_game.go#L34-L42]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_reject_game.go#L38]
     ...
     nextGame, found := k.Keeper.GetNextGame(ctx)
     if !found {
@@ -220,7 +227,237 @@ With these functions ready, it is time to use them in the message handlers.
     ...
     ```
 
-You implemented a FIFO that is updated but never really used.
+You implemented a FIFO that is updated but never really used, for now.
+
+## Unit tests
+
+At this point, your previous unit tests are failing. So the first order of business is to fix them. Add `FifoHead` and `FifoTail` in your value requirements on `NextGame` as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_create_game_test.go#L51-L52), [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_play_move_test.go#L62-L63) and [reject games](https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_reject_game_test.go#L58-L59). Also add `BeforeId` and `AfterId` in your value requirements on `StoredGame`, as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_create_game_test.go#L64-L65), and [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_play_move_test.go#L75-L76).
+
+In the second order of business, you ought to add more specific FIFO tests. For instance, what happens to `NextGame` and `StoredGame` as you create up to three new games:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_create_game_fifo_test.go#L11-L111]
+func TestCreate3GamesHasSavedFifo(t *testing.T) {
+    msgSrvr, keeper, context := setupMsgServerCreateGame(t)
+    msgSrvr.CreateGame(context, &types.MsgCreateGame{
+        Creator: alice,
+        Red:     bob,
+        Black:   carol,
+    })
+
+    msgSrvr.CreateGame(context, &types.MsgCreateGame{
+        Creator: bob,
+        Red:     carol,
+        Black:   alice,
+    })
+    nextGame2, found2 := keeper.GetNextGame(sdk.UnwrapSDKContext(context))
+    require.True(t, found2)
+    require.EqualValues(t, types.NextGame{
+        Creator:  "",
+        IdValue:  3,
+        FifoHead: "1",
+        FifoTail: "2",
+    }, nextGame2)
+    game1, found1 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "1")
+    require.True(t, found1)
+    require.EqualValues(t, types.StoredGame{
+        Creator:   alice,
+        Index:     "1",
+        Game:      "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:      "b",
+        Red:       bob,
+        Black:     carol,
+        MoveCount: uint64(0),
+        BeforeId:  "-1",
+        AfterId:   "2",
+    }, game1)
+    game2, found2 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "2")
+    require.True(t, found2)
+    require.EqualValues(t, types.StoredGame{
+        Creator:   bob,
+        Index:     "2",
+        Game:      "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:      "b",
+        Red:       carol,
+        Black:     alice,
+        MoveCount: uint64(0),
+        BeforeId:  "1",
+        AfterId:   "-1",
+    }, game2)
+
+    msgSrvr.CreateGame(context, &types.MsgCreateGame{
+        Creator: carol,
+        Red:     alice,
+        Black:   bob,
+    })
+    nextGame3, found3 := keeper.GetNextGame(sdk.UnwrapSDKContext(context))
+    require.True(t, found3)
+    require.EqualValues(t, types.NextGame{
+        Creator:  "",
+        IdValue:  4,
+        FifoHead: "1",
+        FifoTail: "3",
+    }, nextGame3)
+    game1, found1 = keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "1")
+    require.True(t, found1)
+    require.EqualValues(t, types.StoredGame{
+        Creator:   alice,
+        Index:     "1",
+        Game:      "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:      "b",
+        Red:       bob,
+        Black:     carol,
+        MoveCount: uint64(0),
+        BeforeId:  "-1",
+        AfterId:   "2",
+    }, game1)
+    game2, found2 = keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "2")
+    require.True(t, found2)
+    require.EqualValues(t, types.StoredGame{
+        Creator:   bob,
+        Index:     "2",
+        Game:      "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:      "b",
+        Red:       carol,
+        Black:     alice,
+        MoveCount: uint64(0),
+        BeforeId:  "1",
+        AfterId:   "3",
+    }, game2)
+    game3, found3 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "3")
+    require.True(t, found3)
+    require.EqualValues(t, types.StoredGame{
+        Creator:   carol,
+        Index:     "3",
+        Game:      "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:      "b",
+        Red:       alice,
+        Black:     bob,
+        MoveCount: uint64(0),
+        BeforeId:  "2",
+        AfterId:   "-1",
+    }, game3)
+}
+```
+
+And what happens when you [have two games and play once on the _older_ one](https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_play_move_fifo_test.go#L11-L61)? Or have two games and play them twice in turn:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_play_move_fifo_test.go#L63-L121]
+func TestPlayMove2Games2MovesHasSavedFifo(t *testing.T) {
+    msgServer, keeper, context := setupMsgServerWithOneGameForPlayMove(t)
+    msgServer.CreateGame(context, &types.MsgCreateGame{
+        Creator: bob,
+        Red:     carol,
+        Black:   alice,
+    })
+    msgServer.PlayMove(context, &types.MsgPlayMove{
+        Creator: carol,
+        IdValue: "1",
+        FromX:   1,
+        FromY:   2,
+        ToX:     2,
+        ToY:     3,
+    })
+
+    msgServer.PlayMove(context, &types.MsgPlayMove{
+        Creator: alice,
+        IdValue: "2",
+        FromX:   1,
+        FromY:   2,
+        ToX:     2,
+        ToY:     3,
+    })
+    nextGame1, found1 := keeper.GetNextGame(sdk.UnwrapSDKContext(context))
+    require.True(t, found1)
+    require.EqualValues(t, types.NextGame{
+        Creator:  "",
+        IdValue:  3,
+        FifoHead: "1",
+        FifoTail: "2",
+    }, nextGame1)
+    game1, found1 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "1")
+    require.True(t, found1)
+    require.EqualValues(t, types.StoredGame{
+        Creator:   alice,
+        Index:     "1",
+        Game:      "*b*b*b*b|b*b*b*b*|***b*b*b|**b*****|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:      "r",
+        Red:       bob,
+        Black:     carol,
+        MoveCount: uint64(1),
+        BeforeId:  "-1",
+        AfterId:   "2",
+    }, game1)
+    game2, found2 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "2")
+    require.True(t, found2)
+    require.EqualValues(t, types.StoredGame{
+        Creator:   bob,
+        Index:     "2",
+        Game:      "*b*b*b*b|b*b*b*b*|***b*b*b|**b*****|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:      "r",
+        Red:       carol,
+        Black:     alice,
+        MoveCount: uint64(1),
+        BeforeId:  "1",
+        AfterId:   "-1",
+    }, game2)
+}
+```
+
+And what happens when you [have two games and reject the _older_ one](https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L11-L43)? Or have three games and reject the _middle_ one:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L45-L95]
+func TestRejectMiddleGameHasSavedFifo(t *testing.T) {
+    msgServer, keeper, context := setupMsgServerWithOneGameForRejectGame(t)
+    msgServer.CreateGame(context, &types.MsgCreateGame{
+        Creator: bob,
+        Red:     carol,
+        Black:   alice,
+    })
+    msgServer.CreateGame(context, &types.MsgCreateGame{
+        Creator: carol,
+        Red:     alice,
+        Black:   bob,
+    })
+    msgServer.RejectGame(context, &types.MsgRejectGame{
+        Creator: carol,
+        IdValue: "2",
+    })
+    nextGame, found := keeper.GetNextGame(sdk.UnwrapSDKContext(context))
+    require.True(t, found)
+    require.EqualValues(t, types.NextGame{
+        Creator:  "",
+        IdValue:  4,
+        FifoHead: "1",
+        FifoTail: "3",
+    }, nextGame)
+    game1, found1 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "1")
+    require.True(t, found1)
+    require.EqualValues(t, types.StoredGame{
+        Creator:   alice,
+        Index:     "1",
+        Game:      "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:      "b",
+        Red:       bob,
+        Black:     carol,
+        MoveCount: uint64(0),
+        BeforeId:  "-1",
+        AfterId:   "3",
+    }, game1)
+    game3, found3 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "3")
+    require.True(t, found3)
+    require.EqualValues(t, types.StoredGame{
+        Creator:   carol,
+        Index:     "3",
+        Game:      "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:      "b",
+        Red:       alice,
+        Black:     bob,
+        MoveCount: uint64(0),
+        BeforeId:  "1",
+        AfterId:   "-1",
+    }, game3)
+}
+```
 
 ## Next up
 
