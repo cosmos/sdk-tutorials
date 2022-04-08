@@ -129,7 +129,7 @@ type BankKeeper interface {
 }
 ```
 
-These two functions must exactly match the functions declared in the [`bank`'s keeper.go file](https://github.com/cosmos/cosmos-sdk/blob/8b78406/x/bank/keeper/keeper.go#L37-L39). Copy the file. Any object with these two functions is a `BankKeeper`.
+These two functions must exactly match the functions declared in the [`bank`'s keeper.go file](https://github.com/cosmos/cosmos-sdk/blob/8b78406/x/bank/keeper/keeper.go#L37-L39). Copy paste the lines. Any object with these two functions is a `BankKeeper`.
 
 ## Obtaining the capability
 
@@ -169,6 +169,24 @@ app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
 
 This `app.BankKeeper` is a full `bank` keeper that also conforms to your `BankKeeper` interface because you mastered that copy and paste move.
 
+One last step. Before your module can keep money in escrow, it needs to be **whitelisted** by the bank module. You do this in the `maccperms`:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/app/app.go#L154]
+maccPerms = map[string][]string{
+    ...
+    checkersmoduletypes.ModuleName: nil,
+}
+```
+
+If you compare it to the other `maccperms` lines, the new line does not mention any `authtypes.Minter` or `authtypes.Burner`. Indeed `nil` is what you need to keep in escrow. For your information, the bank creates an _address_ for your module's escrow account. When you have the full `app`, you can access it with:
+
+```go
+import(
+    "github.com/alice/checkers/x/checkers/types"
+)
+checkersModuleAddress := app.AccountKeeper.GetModuleAddress(types.ModuleName)
+```
+
 ## Preparing expected errors
 
 There are several new error situations which you can enumerate with new variables:
@@ -184,7 +202,7 @@ ErrNotInRefundState  = sdkerrors.Register(ModuleName, 1118, "game is not in a st
 
 ## Money handling steps
 
-With the `bank` now in your keeper it is time to have your keeper handle the money. Keep this concern in its own file as the keeper is reused on a play, reject, and forfeit.
+With the `bank` now in your keeper it is time to have your keeper handle the money. Keep this concern in its own file as the functions are reused on a play, reject, and forfeit.
 
 Create the new file `x/checkers/keeper/wager_handler.go` and add three functions to collect a wager, refund a wager, and pay winnings:
 
@@ -194,7 +212,7 @@ func (k *Keeper) MustPayWinnings(ctx sdk.Context, storedGame *types.StoredGame)
 func (k *Keeper) MustRefundWager(ctx sdk.Context, storedGame *types.StoredGame)
 ```
 
-The `Must` prefix in the function means that the transaction either takes place or a panic is issued. If a player cannot pay the wager, it is a user-side error and the user must be informed of a failed transaction. If the module cannot pay, it means the escrow account has failed. This error is much more serious. An invariant has been violated and the whole application must be terminated.
+The `Must` prefix in the function means that the transaction either takes place or a panic is issued. On the other hand, if a player cannot pay the wager, it is a user-side error and the user must be informed of a failed transaction. If the module cannot pay, it means the escrow account has failed. This error is much more serious. An invariant has been violated and the whole application must be terminated.
 
 Now it is time to set up collecting a wager, paying winnings, and refunding a wager:
 
@@ -289,6 +307,8 @@ Now it is time to set up collecting a wager, paying winnings, and refunding a wa
 
     If the module cannot pay, then it is a panic as the escrow has failed.
 
+You will notice that no special case is made when the wager is zero. This is a design choice here, and which way you choose to go is up to you. Not contacting the bank unnecessarily is cheaper in gas. On the other hand, why not outsource the zero check to the bank?
+
 ## Insert wager handling
 
 With the desired steps defined in the wager handling functions, it is time to invoke them at the right places in the message handlers.
@@ -336,6 +356,325 @@ With the desired steps defined in the wager handling functions, it is time to in
         }
     }
     ```
+
+## ~~Unit~~ Integration tests
+
+If you now try running your existing tests you will see a lot of **null pointer exceptions**. That's because, as they are, the tests set up your checkers keeper [without a bank keeper](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/keeper_test.go#L30-L34). Unfortunately, Cosmos SDK does not have [mocks](https://en.wikipedia.org/wiki/Mock_object) right now. So instead of passing a mocked bank when setting up your test keeper, you need to build a proper bank keeper too. Fortunately, you do not have to do it from scratch. Taking inspiration from [tests on the bank module](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b/x/bank/keeper/keeper_test.go#L66-L110), you prepare your code and tests in order to accommodate and create a full app, which will contain a bank keeper.
+
+Your existing tests, although never pure **unit** tests in the first place are now going to be true **integration** tests.
+
+In your previous tests, each test function took a [`t *testing.T`](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game_test.go#L12) object. Now, each test function will be a method on a test suite that inherits from [testify's suite](https://pkg.go.dev/github.com/stretchr/testify/suite). This has the advantage that your test suite can have as many fields as necessary or useful. So far, the objects that you have used and would welcome in the suite are:
+
+```go
+keeper    keeper.Keeper
+msgServer types.MsgServer
+ctx       sdk.Context
+```
+
+And yes, you can spread the suite's methods to different files, so as to keep consistent naming for your test files.
+
+Come test time, `go test` will find the suite because you add a [_regular_ test](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b/x/bank/keeper/keeper_test.go#L1241-L1243) that initializes the suite and runs it. The test suite is then automatically initialized with its [`SetupTest`](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b/x/bank/keeper/keeper_test.go#L96) function, via its parent `suite` class. After that, all the methods of the test suite are run.
+
+### Accommodate your code
+
+1. To get the compilation error out of the way, for the basic tests that do not require integration, you can add an empty bank keeper on `func setupKeeper(t testing.TB)`:
+
+    ```go [TODO]
+    keeper := keeper.NewKeeper(
+        *new(bankkeeper.Keeper),
+        ...
+    }
+    ```
+
+    And keep this `setupKeeper` function because tests created by Starport, some of which you never touch again, expect it.
+
+2. Starport created a default constructor for your App with a [`cosmoscmd.App`](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/app/app.go#L219-L230) return type. This is not convenient for you. So, instead of risking breaking other dependencies, you add a new constructor with [your `App`](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/app/app.go#L231-L255) as the return type.
+3. Add other elements taken from Cosmos SDK tests, like [`encoding.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/app/encoding.go), [`proto.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/app/params/proto.go) and [`test_helpers.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/app/test_helpers.go), in which you must also initialize your checkers genesis:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/app/test_helpers.go#L127-L128]
+    checkersGenesis := types.DefaultGenesis()
+    genesisState[types.ModuleName] = app.AppCodec().MustMarshalJSON(checkersGenesis)
+    ```
+
+4. Define your test suite in a new `keeper_integration_test.go` file:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/keeper_integration_test.go#L38-L45]
+    type IntegrationTestSuite struct {
+        suite.Suite
+
+        app         *checkersapp.App
+        msgServer   types.MsgServer
+        ctx         sdk.Context
+        queryClient types.QueryClient
+    }
+    ```
+
+5. Direct `go test` to it:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/keeper_integration_test.go#L47-L49]
+    func TestCheckersKeeperTestSuite(t *testing.T) {
+        suite.Run(t, new(IntegrationTestSuite))
+    }
+    ```
+
+6. Create the `suite.SetupTest` function, taking inspiration from the [bank tests](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b/x/bank/keeper/keeper_test.go#L96-L110):
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/keeper_integration_test.go#L51-L67]
+    func (suite *IntegrationTestSuite) SetupTest() {
+        app := checkersapp.Setup(false)
+        ctx := app.BaseApp.NewContext(false, tmproto.Header{})
+
+        app.AccountKeeper.SetParams(ctx, authtypes.DefaultParams())
+        app.BankKeeper.SetParams(ctx, banktypes.DefaultParams())
+        checkersModuleAddress = app.AccountKeeper.GetModuleAddress(types.ModuleName).String()
+
+        queryHelper := baseapp.NewQueryServerTestHelper(ctx, app.InterfaceRegistry())
+        types.RegisterQueryServer(queryHelper, app.CheckersKeeper)
+        queryClient := types.NewQueryClient(queryHelper)
+
+        suite.app = app
+        suite.msgServer = keeper.NewMsgServerImpl(app.CheckersKeeper)
+        suite.ctx = ctx
+        suite.queryClient = queryClient
+    }
+    ```
+
+    This [`SetupTest` function](https://github.com/stretchr/testify/blob/v1.7.0/suite/interfaces.go#L18-L22) is like a `beforeEach` as it is named in other test libraries. With it, you always get a new `app` with each tests, without interference between them. Do not [omit it](https://github.com/stretchr/testify/blob/v1.7.0/suite/suite.go#L147) unless you know what you are doing.
+
+    Also notice that it collects your `checkersModuleAddress` for later use in tests that check events and balances:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/keeper_integration_test.go#L34-L36]
+    var (
+        checkersModuleAddress string
+    )
+    ```
+
+### Helpers for money checking
+
+Your new tests will include checks on wagers being paid, lost and won. So your tests need to initialize some bank balances for your players. You can make your life easier with a couple helpers. And also with a helper to confirm a bank balance.
+
+1. Make a bank genesis [`Balance`](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b6/x/bank/types/genesis.pb.go#L105-L110) type from primitives:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/keeper_integration_test.go#L69-L79]
+    func makeBalance(address string, balance int64) banktypes.Balance {
+        return banktypes.Balance{
+            Address: address,
+            Coins: sdk.Coins{
+                sdk.Coin{
+                    Denom:  sdk.DefaultBondDenom,
+                    Amount: sdk.NewInt(balance),
+                },
+            },
+        }
+    }
+    ```
+
+2. Declare default balances that will be useful for you:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/keeper_integration_test.go#L26-L31]
+    const (
+        alice    = "cosmos1jmjfq0tplp9tmx4v9uemw72y4d2wa5nr3xn9d3"
+        bob      = "cosmos1xyxs3skf3f4jfqeuv89yyaqvjc6lffavxqhc8g"
+        carol    = "cosmos1e0w5t53nrq7p66fye6c8p0ynyhf6y24l4yuxd7"
+        balAlice = 50000000
+        balBob   = 20000000
+        balCarol = 10000000
+    )
+    ```
+
+3. Make your preferred bank genesis state:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/keeper_integration_test.go#L81-L96]
+    func getBankGenesis() *banktypes.GenesisState {
+        coins := []banktypes.Balance{
+            makeBalance(alice, balAlice),
+            makeBalance(bob, balBob),
+            makeBalance(carol, balCarol),
+        }
+        supply := banktypes.NewSupply(coins[0].Coins.Add(coins[1].Coins...).Add(coins[2].Coins...))
+
+        state := banktypes.NewGenesisState(
+            banktypes.DefaultParams(),
+            coins,
+            supply.GetTotal(),
+            []banktypes.Metadata{})
+
+        return state
+    }
+    ```
+
+4. Add a simple function to prepare your suite with your desired balances:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/keeper_integration_test.go#L98-L100]
+    func (suite *IntegrationTestSuite) setupSuiteWithBalances() {
+        suite.app.BankKeeper.InitGenesis(suite.ctx, getBankGenesis())
+    }
+    ```
+
+5. Add a function to check balances from primitives:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/keeper_integration_test.go#L102-L108]
+    func (suite *IntegrationTestSuite) RequireBankBalance(expected int, atAddress string) {
+        sdkAdd, err := sdk.AccAddressFromBech32(atAddress)
+        suite.Require().Nil(err, "Address %s failed to parse")
+        suite.Require().Equal(
+            int64(expected),
+            suite.app.BankKeeper.GetBalance(suite.ctx, sdkAdd, sdk.DefaultBondDenom).Amount.Int64())
+    }
+    ```
+
+6. While you are at it, you can update the function(s) you used to set up your keeper with one game, for instance:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_play_move_test.go#L8-L17]
+    func (suite *IntegrationTestSuite) setupSuiteWithOneGameForPlayMove() {
+        suite.setupSuiteWithBalances()
+        goCtx := sdk.WrapSDKContext(suite.ctx)
+        suite.msgServer.CreateGame(goCtx, &types.MsgCreateGame{
+            Creator: alice,
+            Red:     bob,
+            Black:   carol,
+            Wager:   11,
+        })
+    }
+    ```
+
+With the preparation done, what does a test method look like?
+
+### Anatomy of an integration suite test
+
+Now you are at the step where you refactor the existing tests that test your keeper. How does a refactored test look like?
+
+1. The method declaration:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_create_game_test.go#L8]
+    func (suite *IntegrationTestSuite) TestCreateGame()
+    ```
+
+    It is declared as a member of your test suite, and is prefixed with [`Test`](https://github.com/stretchr/testify/blob/v1.7.0/suite/suite.go#L181-L182).
+
+2. The **setup** can be done as you like, but since you created a helper, you can use it:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_create_game_test.go#L9-L10]
+    suite.setupSuiteWithBalances()
+    goCtx := sdk.WrapSDKContext(suite.ctx)
+    ```
+
+3. The **action**, does not change from before, other than that you get the `keeper` or `msgServer` from the suite's fields:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_create_game_test.go#L11-L16]
+    createResponse, err := suite.msgServer.CreateGame(goCtx, &types.MsgCreateGame{
+        Creator: alice,
+        Red:     bob,
+        Black:   carol,
+        Wager:   12,
+    })
+    ```
+
+4. The **verification** is done with `suite.Require().X` but otherwise looks similar to the shorter `require.X`:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_create_game_test.go#L17-L20]
+    suite.Require().Nil(err)
+    suite.Require().EqualValues(types.MsgCreateGameResponse{
+        IdValue: "1",
+    }, *createResponse)
+    ```
+
+    In fact, it is exactly the [same `require`](https://github.com/stretchr/testify/blob/v1.7.0/suite/suite.go#L24) object. So a brutal search and replace should work.
+
+5. If you need access to the checkers keeper, it can be found in the suite too:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_create_game_test.go#L51-L52]
+    keeper := suite.app.CheckersKeeper
+    nextGame, found := keeper.GetNextGame(suite.ctx)
+    ```
+
+### What happened to the events?
+
+As you refactor your existing tests, you may notice that the events are all a little bit messed up. That is because the bank emits events too, and in particular it does emit:
+
+1. An event with the `message` type, like yours, with only the sender:
+
+    ```go [https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b6/x/bank/keeper/send.go#L166-L169]
+    sdk.NewEvent(
+        sdk.EventTypeMessage,
+        sdk.NewAttribute(types.AttributeKeySender, fromAddr.String()),
+    ),
+    ```
+
+2. And another with the `transfer` type:
+
+    ```go [https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b6/x/bank/keeper/send.go#L160-L165]
+    sdk.NewEvent(
+        types.EventTypeTransfer,
+        sdk.NewAttribute(types.AttributeKeyRecipient, toAddr.String()),
+        sdk.NewAttribute(types.AttributeKeySender, fromAddr.String()),
+        sdk.NewAttribute(sdk.AttributeKeyAmount, amt.String()),
+    )
+    ```
+
+This means that in your `suite.ctx.EventManager().ABCIEvents()`, there are [extra events](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_play_move_test.go#L216) to account for, and in each event, there are extra attributes to discard. It is perhaps a good time to:
+
+1. Make explicit the count of expected attributes for each event type:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/keeper_integration_test.go#L18-L25]
+    const (
+        transferEventCount            = 3 // As emitted by the bank
+        createEventCount              = 7
+        playEventCountFirst           = 8 // Extra "sender" attribute emitted by the bank
+        playEventCountNext            = 7
+        rejectEventCount              = 4
+        rejectEventCountWithTransfer  = 5  // Extra "sender" attribute emitted by the bank
+        forfeitEventCount             = 4
+        forfeitEventCountWithTransfer = 5  // Extra "sender" attribute emitted by the bank
+    )
+    ```
+
+2. And make calculations on the expected count of attributes to discard depending on the actions previously taken:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_reject_game_test.go#L248-L255]
+    rejectAttributesDiscardCount := createEventCount + playEventCountFirst
+    suite.Require().EqualValues([]sdk.Attribute{
+        ...
+        {Key: "IdValue", Value: "1"},
+    }, rejectEvent.Attributes[rejectAttributesDiscardCount:])
+    ```
+
+So with this, you can go and refactor your tests. Admittedly, no small task.
+
+### Extra tests
+
+After refactoring, and no failing tests, it is time to add extra checks on money handling. For instance, before an action that you expect to transfer money (or not), you can verify the start position:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_play_move_test.go#L42-L45]
+suite.RequireBankBalance(balAlice, alice)
+suite.RequireBankBalance(balBob, bob)
+suite.RequireBankBalance(balCarol, carol)
+suite.RequireBankBalance(0, checkersModuleAddress)
+```
+
+After the action you can test the new balances, for instance:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_play_move_test.go#L54-L57]
+suite.RequireBankBalance(balAlice, alice)
+suite.RequireBankBalance(balBob, bob)
+suite.RequireBankBalance(balCarol-11, carol)
+suite.RequireBankBalance(11, checkersModuleAddress)
+```
+
+How you subdivide your tests and where you insert these balance checks is up to. You can find examples here for:
+
+* [Creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_create_game_test.go#L23-L40).
+* [Playing a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_play_move_test.go#L39-L58), including [up to a resolution](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_play_move_winner_test.go#L142-L145). Failing to play a game because of a [failure to pay the wager](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_play_move_test.go#L297-L328).
+* [Rejecting a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_reject_game_test.go#L41-L52), including when [there have been moves played](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_reject_game_test.go#L175-L198).
+* [Forfeiting a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/end_block_server_game_test.go#L44-L47), including when [there have been moves played](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/end_block_server_game_test.go#L776-L779).
+
+### Debug your suite
+
+You learned in a [previous section](./stored-game.md) how to launch your test in debug mode. It is still possible to do it when using a suite. The difference is that you launch it by right-clicking on the arrow left of the suite's runner `func TestCheckersKeeperTestSuite`:
+
+![Suite runner with green button](/go_test_debug_suite.png)
+
+The new inconvenience is that you can only launch debug for all the suite's test methods, and not just a single one as it is possible with a simple test. For this reason, the case could be made that you could create more granular suites, for instance at least one test suite per file.
 
 ## Next up
 

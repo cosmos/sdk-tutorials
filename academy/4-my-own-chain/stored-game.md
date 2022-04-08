@@ -445,6 +445,8 @@ And you can do the same for [`Black`](https://github.com/cosmos/b9-checkers-acad
 
 You get the idea. Test that [you can parse a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L86-L90), even [if it has been tampered with](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L92-L98), except [if the tamper is wrong](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L100-L107), or [if the turn is wrongly saved](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L109-L116).
 
+Interested in integration tests? Skip ahead to the [section](./game-wager.md) where you learn about them.
+
 ## Next up
 
 Want to continue developing your checkers blockchain? In the [next section](./create-message.md) you will learn all about introducing an `sdk.Msg` to create a game.
