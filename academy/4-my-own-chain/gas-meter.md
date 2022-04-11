@@ -63,6 +63,27 @@ Avoid calling `ConsumeGas` from within a loop. If you know the number of times y
 
 </HighlightBox>
 
+## Integration tests
+
+You know the drill, add a couple of tests that confirm the gas consumption. There is a problem, though. It is not possible to separate the gas cost that BaseApp is incurring on your messages as opposed to gas cost your module imposes on top of it. And you cannot distinguish via the descriptor [unless it panics](https://github.com/cosmos/cosmos-sdk/blob/v0.42.6/store/types/gas.go#L90-L101). Still, you can add a lame test:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f05f995/x/checkers/keeper/msg_server_create_game_test.go#L132-L144]
+func (suite *IntegrationTestSuite) TestCreate1GameConsumedGas() {
+    suite.setupSuiteWithBalances()
+    goCtx := sdk.WrapSDKContext(suite.ctx)
+    gasBefore := suite.ctx.GasMeter().GasConsumed()
+    suite.msgServer.CreateGame(goCtx, &types.MsgCreateGame{
+        Creator: alice,
+        Red:     bob,
+        Black:   carol,
+        Wager:   15,
+    })
+    gasAfter := suite.ctx.GasMeter().GasConsumed()
+    suite.Require().Equal(uint64(13_190+10), gasAfter-gasBefore)
+}
+```
+
+And another one for a [play](https://github.com/cosmos/b9-checkers-academy-draft/blob/f05f995/x/checkers/keeper/msg_server_play_move_test.go#L60-L74) and a [reject](https://github.com/cosmos/b9-checkers-academy-draft/blob/f05f995/x/checkers/keeper/msg_server_reject_game_test.go#L93-L103).
 
 ## Next up
 
