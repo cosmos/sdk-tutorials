@@ -13,9 +13,11 @@ Now that you covered the introduction and have a better understanding of how dif
 
 If you want to connect two blockchains with IBC, you will need to etablish an IBC **connection**. Connections, once established, are responsible for facilitating all cross-chain verification of IBC state.
 
-<HighlightBox type="">
+<HighlightBox type="info">
 
 The connection semantics are described in the [Interchain Standard (ICS) 3](https://github.com/cosmos/ibc/tree/master/spec/core/ics-003-connection-semantics).
+
+</HighlightBox>
 
 The opening handshake protocol allows each chain to verify the identifier used to reference the connection on the other chain, enabling modules on each chain to reason about the reference of the other chain.
 
@@ -195,12 +197,14 @@ both will do the same checks:
 
 so both will verify the `ConnectionState`, the `clientState` and the `ConsensusState` of the other chain.
 
-<HighlightBox type="">
+<HighlightBox type="info">
+
 In IBC, blockchains do not directly pass messages to each other over the network.
 
 To communicate, a blockchain commits some state to a precisely defined path reserved for a specific message type and a specific counterparty. For example, a blockchain that stores a specific `connectionEnd` as part of a handshake or a packet intended to be relayed to a module on the counterparty chain.
 
 A relayer process monitors for updates to these paths and relays messages by submitting the data stored under the path along with a proof of that data to the counterparty chain.
+
 </HighlightBox>
 
 ## Channels
@@ -268,7 +272,7 @@ func (k Keeper) ChannelOpenInit(goCtx context.Context, msg *channeltypes.MsgChan
 
 After the verification of the module capability, first step of the channel handshake will take step and `ChanOpenInit` will be called like desribed before about the channel handshake. Notice that an application has capabilities for channels and ports and an application can only use a channel and port if the application owns the capability for that channel and port.
 
-<HighlightBox type="">
+<HighlightBox type="info">
 IBC is intended to work in execution environments where modules do not necessarily trust each other. IBC must authenticate module actions on ports and channels so that only modules with the appropriate permissions can use the channels. This security is accomplished using dynamic capabilities. Upon binding to a port or creating a channel for a module, IBC returns a dynamic capability that the module must claim to use that port or channel. This binding strategy prevents other modules from using that port or channel since those modules do not own the appropriate capability.
 </HighlightBox>
 
@@ -509,7 +513,7 @@ func NewConsensusState(
 
 This is the code from the Tendermint client. The Tendermint client tracks the timestamp (block time), validator set, and commitment root for all previously verified consensus states.
 
-<HighlightBox type="">
+<HighlightBox type="info">
 
 If you want to see where `ConsensusState` is stored, take a look at the [Interchain Standard (ICS) 24](https://github.com/cosmos/ibc/tree/master/spec/core/ics-024-host-requirements), which describes the paths also for other keys to be stored and used by IBC.
 
