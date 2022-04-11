@@ -977,4 +977,4 @@ func NewPacket(
 }
 ```
 
-Take also a look at the `SendPacket` and `RecvPacket` in the [packet keeper](https://github.com/cosmos/ibc-go/blob/main/modules/core/04-channel/keeper/packet.go) to see how the IBC core ensures the capabilities and detects time outs.
+Take also a look at the `SendPacket` and `RecvPacket` in the [packet keeper](https://github.com/cosmos/ibc-go/blob/main/modules/core/04-channel/keeper/packet.go) to see how the IBC core ensures the capabilities and detects timeouts.
