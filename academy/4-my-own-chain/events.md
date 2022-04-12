@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [events](../2-main-concepts/events.md).
 * Have Go installed.
@@ -19,12 +19,12 @@ Make sure you have all you need before proceeding:
 
 Now that you have [added the possible actions](./play-game.md) including their return values, use events to alert/notify players.
 
-Imagine a potential or current player waiting for their turn. It is not practical to look at all the transactions and search for the ones signifying the player's turn. It is better to listen to known events that let determine whose player's turn it is.
+Imagine a potential or current player waiting for their turn. It is not practical to look at all the transactions and search for the ones signifying the player's turn. It is better to listen to known events that indicate which player's turn it is.
 
 Adding events to your application is as simple as:
 
 1. Defining the events you want to use.
-2. Emitting the events at the right locations.
+2. Emitting corresponding events as actions unfold.
 
 ## Game created event
 
@@ -33,7 +33,7 @@ Start with the event that announces the creation of a new game. The goal is to:
 * Inform/alert the players of the game.
 * Make it easy for the players to find the relevant game.
 
-So define some new keys in `x/checkers/types/keys.go`:
+So, define some new keys in `x/checkers/types/keys.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/792d879/x/checkers/types/keys.go#L34-L38]
 const (
@@ -60,19 +60,19 @@ ctx.EventManager().EmitEvent(
 )
 ```
 
-The only thing left to do is to implement this correspondingly in the GUI or include a server to listen for such events.
+The only thing left to do is to implement a listener in the GUI or include a server to listen for such events on behalf of the users.
 
 ## Player moved event
 
 The created transaction to play a move informs the opponent about:
 
 * Which player is relevant.
-* Which game does the move relate to.
+* Which game the move relates to.
 * When the move happened.
-* What the move's outcome was.
+* The move's outcome.
 * Whether the game was won.
 
-Contrary to the _create game_ event, which alerted the players about a new game, the players now know which game IDs to keep an eye out for. There is no need to repeat the players' addresses, the game ID is information enough.
+Contrary to the _create game_ event, which alerted the players about a new game, the players now know which game IDs to keep an eye out for. There is no need to repeat the players' addresses because the game ID is sufficient.
 
 You define new keys in `x/checkers/types/keys.go` similarly:
 
@@ -142,7 +142,7 @@ How can you _guess_ the order of elements? Easy, you created them in this order.
 
 ![Live values of event in debug mode](/go_test_debug_event_attributes.PNG)
 
-Now, about the event emitted during a move, it is a bit unexpected. In a _move_ unit test two actions happen, a _create_ and a _move_. However, in the setup of this test, you do not create blocks, but instead _only_ hit your keeper. So the context collects events but does not flush them. This is why you need to test only for the latter attributes, and verify an array slice that discards the events that originate from the _create_ action: `event.Attributes[6:]`. This gives the test:
+Now, about the event emitted during a move. It may seem a bit unexpected. In a _move_ unit test, two actions happen, a _create_ and a _move_. However, in the setup of this test, you do not create blocks, but instead _only_ hit your keeper. So the context collects events but does not flush them. This is why you need to test only for the latter attributes, and verify an array slice that discards the events that originate from the _create_ action: `event.Attributes[6:]`. This gives the test:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/792d879/x/checkers/keeper/msg_server_play_move_test.go#L103-L128]
 func TestPlayMoveEmitted(t *testing.T) {
