@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Create custom CosmJs interfaces
 
-CosmJs comes out of the box with interfaces that connect with the standard Cosmos modules such as `bank` and `gov`. Your own blockchain's modules are unique, so they need their own CosmJs interfaces. The process consists of several steps:
+CosmJs comes out of the box with interfaces that connect with the standard Cosmos modules such as `bank` and `gov`. Since your own blockchain's modules are unique, they need custom CosmJs interfaces. That process consists of several steps:
 
 1. Creating the Protobuf objects and clients in Typescript.
 2. Creating extensions that facilitate the use of the above clients.
@@ -38,7 +38,7 @@ You can confirm the version you received. The executable is actually slightly hi
 $ ./node_modules/protoc/protoc/bin/protoc --version
 ```
 
-Which, at the time of writing returned:
+Which returns something like this:
 
 ```
 libprotoc 3.11.2
@@ -52,7 +52,7 @@ $ mkdir -p client/src/types/generated
 
 ### Getting third party files
 
-With this done, you need to also get the imports that appear in your `.proto` files. For instance, typically in [`query.proto`](https://github.com/cosmos/cosmos-sdk/blob/d98503b/proto/cosmos/bank/v1beta1/query.proto#L4-L6) you can find:
+You need to also get the imports that appear in your `.proto` files. Usually you can find the following in [`query.proto`](https://github.com/cosmos/cosmos-sdk/blob/d98503b/proto/cosmos/bank/v1beta1/query.proto#L4-L6):
 
 ```proto
 import "cosmos/base/query/v1beta1/pagination.proto";
@@ -60,13 +60,13 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 ```
 
-You need these files locally. How you get them does not matter as long as you get the right versions in the right locations. Pay particular attention to the Cosmos SDK's version of your project. You can obtain it with:
+You need these files locally. How you get them does not matter as long as you get the right versions in the right locations. Pay particular attention to the Cosmos SDK's version of your project. You can check by running:
 
 ```sh
 $ grep cosmos-sdk go.mod
 ```
 
-Which can for instance return:
+Which returns something along these lines:
 
 ```
 github.com/cosmos/cosmos-sdk v0.42.6
@@ -91,7 +91,7 @@ $ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.42.6/third_party/p
 
 ### Compilation
 
-With that, you can now compile the Protobuf files. If you want to avoid adding all the `.proto` files manually to the command, you can use `xargs`, although this is a bit less CPU efficient:
+You can now compile the Protobuf files. If you want to avoid adding all the `.proto` files manually to the command, you can use `xargs`:
 
 ```sh
 $ ls ./proto/myChain | xargs -I {} ./node_modules/protoc/protoc/bin/protoc \
@@ -102,9 +102,9 @@ $ ls ./proto/myChain | xargs -I {} ./node_modules/protoc/protoc/bin/protoc \
   myChain/{}
 ```
 
-Notice how `--proto_path` is only `./proto` so that your imports, such as `import "cosmos/base...` can be found.
+`--proto_path` is only `./proto` so that your imports, such as `import "cosmos/base...`, can be found.
 
-When it finishes, you should see your files compiled into Typescript. They have been correctly filed under their respective folders and contain both types and services definitions. It also created the compiled versions of your third party imports.
+You should now see your files compiled into Typescript. They have been correctly filed under their respective folders and contain both types and services definitions. It also created the compiled versions of your third party imports.
 
 ### A note about the result
 
@@ -117,7 +117,7 @@ service Msg {
 }
 ```
 
-Then, in the compiled `tx.ts` file, you will find its service declaration:
+In the compiled `tx.ts` file you will find its service declaration:
 
 ```typescript [https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/tx.ts#L243-L248]
 export interface Msg {
@@ -147,7 +147,7 @@ export class MsgClientImpl implements Msg {
 
 The important points to remember from this are:
 
-1. `rpc: RPC` is an instance of a Protobuf RPC client that will be given to you by CosmJs. Although the interface appears to be [declared locally](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/tx.ts#L270-L272), this is the same interface found [throughout CosmJs](https://github.com/cosmos/cosmjs/blob/bb92692/packages/stargate/src/queryclient/utils.ts#L35-L37). It will be given to you [on construction](https://github.com/cosmos/cosmjs/blob/bb92692/packages/stargate/src/queryclient/queryclient.ts). So, you need not worry about creating an implementation for it.
+1. `rpc: RPC` is an instance of a Protobuf RPC client that will be given to you by CosmJs. Although the interface appears to be [declared locally](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/tx.ts#L270-L272), this is the same interface found [throughout CosmJs](https://github.com/cosmos/cosmjs/blob/bb92692/packages/stargate/src/queryclient/utils.ts#L35-L37). It will be given to you [on construction](https://github.com/cosmos/cosmjs/blob/bb92692/packages/stargate/src/queryclient/queryclient.ts). At this point you do not need an implementation for it.
 2. You can see `encode` and `decode` in action. Notice the `.finish()` that flushes the Protobuf writer buffer.
 3. The `rpc.request` makes the calls that will be correctly understood by Protobuf compiled server on the other side.
 
@@ -155,16 +155,16 @@ You can find the same structure in [`query.ts`](https://github.com/confio/cosmjs
 
 ### Proper saving
 
-You ought to commit the extra `.proto` files as well as the compiled ones to your repository so you don't need to recreate them.
+Commit the extra `.proto` files as well as the compiled ones to your repository so you don't need to recreate them.
 
-In fact, take inspiration from `cosmjs-types` [`codegen.sh`](https://github.com/confio/cosmjs-types/tree/main/scripts):
+Take inspiration from `cosmjs-types` [`codegen.sh`](https://github.com/confio/cosmjs-types/tree/main/scripts):
 
 1. Create a script file named `ts-proto.sh` with the command above.
 2. Add an [npm run target](https://github.com/confio/cosmjs-types/blob/c64759a/package.json#L31) with it to keep a trace of how this was done and easily reproduce in the future when you update a Protobuf file.
 
 ## Add convenience with types
 
-For convenience, ComsJs has created an interface to which all the created types happen to conform, [`TsProtoGeneratedType`](https://github.com/cosmos/cosmjs/blob/cda0819/packages/proto-signing/src/registry.ts#L12-L18), itself a sub-type of [`GeneratedType`](https://github.com/cosmos/cosmjs/blob/cda0819/packages/proto-signing/src/registry.ts#L32). In the same file, notice the definition:
+ComsJs provides an interface to which all the created types conform, [`TsProtoGeneratedType`](https://github.com/cosmos/cosmjs/blob/cda0819/packages/proto-signing/src/registry.ts#L12-L18), itself a sub-type of [`GeneratedType`](https://github.com/cosmos/cosmjs/blob/cda0819/packages/proto-signing/src/registry.ts#L32). In the same file, note the definition:
 
 ```typescript [https://github.com/cosmos/cosmjs/blob/cda0819/packages/proto-signing/src/registry.ts#L54-L57]
 export interface EncodeObject {
@@ -185,17 +185,17 @@ message MsgSend {
 
 The `MsgSend`'s type URL is [`"/cosmos.bank.v1beta1.MsgSend"`](https://github.com/cosmos/cosmjs/blob/bb926925e1ad2e03414449ff31d0c914f91b8ac2/packages/stargate/src/modules/bank/messages.ts#L6).
 
-Each of your types will be associated like this. If you prefer, you can declare each string as a constant value such as:
+Each of your types will be associated like this. You can also declare each string as a constant value such as:
 
 ```typescript
 export const msgSendTypeUrl = "/cosmos.bank.v1beta1.MsgSend";
 ```
 
-A good path to add those would be side by side with `generated`, in `./client/src/types/modules`.
+Save those along with `generated` in `./client/src/types/modules`.
 
 ### For messages
 
-Messages, sub-types of `Msg`, will be assembled into transactions that are then sent to Tendermint. CosmJs types already include types for [transactions](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/tx/v1beta1/tx.ts#L12-L26). These are assembled, signed and sent by CosmJs' [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/fe34588/packages/stargate/src/signingstargateclient.ts#L276-L294). Thanks to this, there is minimal work left to do.
+Messages, sub-types of `Msg`, will be assembled into transactions that are then sent to Tendermint. CosmJs types already include types for [transactions](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/tx/v1beta1/tx.ts#L12-L26). These are assembled, signed and sent by CosmJs' [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/fe34588/packages/stargate/src/signingstargateclient.ts#L276-L294).
 
 The `Msg` kind will also need to be added to a registry. To facilitate that, you should prepare them in a nested array like so:
 
@@ -206,7 +206,7 @@ export const bankTypes: ReadonlyArray<[string, GeneratedType]> = [
 ];
 ```
 
-While you are adding convenience to your types, add child types to `EncodeObject` like so:
+Add child types to `EncodeObject` like so:
 
 ```typescript [https://github.com/cosmos/cosmjs/blob/bb926925e1ad2e03414449ff31d0c914f91b8ac2/packages/stargate/src/modules/bank/messages.ts#L9-L12]
 export interface MsgSendEncodeObject extends EncodeObject {
@@ -215,7 +215,7 @@ export interface MsgSendEncodeObject extends EncodeObject {
 }
 ```
 
-Unfortunately, in the code above, you cannot reuse your `msgSendTypeUrl` because it is a value, not a type. You can add a type helper, which can come in handy in an `if else` situation:
+In the code above you cannot reuse your `msgSendTypeUrl` because it is a value, not a type. You can add a type helper, which can come in handy in an `if else` situation:
 
 ```typescript [https://github.com/cosmos/cosmjs/blob/bb926925e1ad2e03414449ff31d0c914f91b8ac2/packages/stargate/src/modules/bank/messages.ts#L14-L16]
 export function isMsgSendEncodeObject(encodeObject: EncodeObject): encodeObject is MsgSendEncodeObject {
@@ -225,7 +225,7 @@ export function isMsgSendEncodeObject(encodeObject: EncodeObject): encodeObject 
 
 ### For queries
 
-Unlike transactions which are sent to Tendermint, queries are sent to the application. For queries, there are altogether different types of calls. So, it makes sense to organize them in one place, called an extension. For example:
+Unlike transactions which are sent to Tendermint, queries are sent to the application. For queries there are altogether different types of calls. It makes sense to organize them in one place, called an extension. For example:
 
 ```typescript [https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/modules/bank/queries.ts#L9-L18]
 export interface BankExtension {
@@ -249,7 +249,7 @@ Notice how there is a **key** `bank:` inside it. This will become important late
 
 If your extra functions map one for one with those of your own extension, then you might as well publicly expose the extension itself to minimize duplication in `StargateClient` and `SigningStargateClient`.
 
-For example, if you have your `interface MyExtension` with a `myKey` key and you are creating `MyStargateClient`, it is as succinct as this:
+For example, if you have your `interface MyExtension` with a `myKey` key and you are creating `MyStargateClient`:
 
 ```typescript
 export class MyStargateClient extends StargateClient {
@@ -269,7 +269,7 @@ export class MyStargateClient extends StargateClient {
 }
 ```
 
-Then, for `MySigningStargateClient`, you need one extra step. You need to inform it about the extra encodable types it should be able to handle. The list is defined in a registry that you can [pass as options](https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/signingstargateclient.ts#L139).
+For `MySigningStargateClient` you need one extra step. You need to inform it about the extra encodable types it should be able to handle. The list is defined in a registry that you can [pass as options](https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/signingstargateclient.ts#L139).
 
 Take inspiration from the [`SigningStargateClient` source code](https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/signingstargateclient.ts#L76-L80) itself. Collect your new types into an array:
 
