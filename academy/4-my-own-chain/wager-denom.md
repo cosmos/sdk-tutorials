@@ -101,7 +101,7 @@ The token denomination has been integrated into the relevant data structures. No
 
 ## Live testing with a relayer
 
-With the checkers application ready to accommodate IBC-foreign tokens, you should run some tests locally with another blockchain's tokens without running a large-scale operation. Starport luckily has built in the [Typescript relayer](https://docs.starport.com/kb/relayer.html). If you look at the GUI Starport created in your checkers blockchain, you will see a _Relayers_ section on the left.
+With the checkers application ready to accommodate IBC-foreign tokens, you should run some tests locally with another blockchain's tokens without running a large-scale operation. Ignite CLI luckily has built in the [Typescript relayer](https://docs.ignite.com/kb/relayer.html). If you look at the GUI Ignite CLI created in your checkers blockchain, you will see a _Relayers_ section on the left.
 
 A relayer is a process that transfers IBC packets between two blockchains. It just so happens that here this process is **running in your browser** using the account you configured in your browser. The account is the same one you would use to play a game of checkers. Dub it `alice123@checkers`.
 
@@ -119,11 +119,11 @@ Your test comes in a few steps:
 6. Have Alice and Bob start a game with `token: ibc/1873CA...`.
 7. After the outcome of a game, the players can retransfer these foreign tokens via the same relayer to the remote chain.
 
-This is how the Typescript relayer built in by Starport lets you experiment with foreign tokens.
+This is how the Typescript relayer built in by Ignite CLI lets you experiment with foreign tokens.
 
 <HighlightBox type="tip">
 
-As soon as you close the browser window, the channels on both ends are no longer monitored and no token transfers will therefore take place. Also depending on the development state of Starport, after you close it, the relayer may not be able to reuse a channel it created earlier. So do not use this for production.
+As soon as you close the browser window, the channels on both ends are no longer monitored and no token transfers will therefore take place. Also depending on the development state of Ignite CLI, after you close it, the relayer may not be able to reuse a channel it created earlier. So do not use this for production.
 
 </HighlightBox>
 
