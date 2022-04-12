@@ -15,7 +15,7 @@ CosmJS provides a TypeScript library for the Cosmos SDK. Reading the following s
 * [Modules](../2-main-concepts/modules.md)
 * [Queries](../2-main-concepts/queries.md)
 * [Protobuf](../2-main-concepts/protobuf.md)
-* [Ignite CLI](./ignite.md)
+* [Ignite CLI](./ignitecli.md)
 
 </HighlightBox>
 
@@ -23,7 +23,7 @@ CosmJS provides a TypeScript library for the Cosmos SDK. Reading the following s
 
 ## Your chain
 
-In the [checkers blockchain exercise](./ignite.md) you created a chain using Ignite CLI. Ignite CLI generated several components including a UI. Under the hood, this UI uses Vue.js and CosmJS to interact with the services exposed by the chain.
+In the [checkers blockchain exercise](./ignitecli.md) you created a chain using Ignite CLI. Ignite CLI generated several components including a UI. Under the hood, this UI uses Vue.js and CosmJS to interact with the services exposed by the chain.
 
 You used Ignite CLI to create the definitions for `MsgCreatePost` by running the command:
 
@@ -143,7 +143,7 @@ What does that code do?
 3. Mirroring your Go code, your message type `MsgCreatePost` is defined in `[...]]alice.checkers.checkers/module/types/checkers/tx.js` using [Protobuf.js](https://protobufjs.github.io/protobuf.js/). This is the TypeScript/&ZeroWidthSpace;JavaScript counterpart of Protobuf in Go - that you saw earlier. With this both ends _speak the same serialization language_.
 4. `http://localhost:26657` is the default Tendermint RPC node endpoint used to send transactions. And is indeed passed here only as a default value if it is missing.
 5. `http://localhost:1317` is the default high-level blockchain API endpoint. In the above code it is used for queries.
-6. The created elements `txClient` and `queryClient` are returned to be used in `./vue/src/store/generated/alice/checkers/alice.checkers.checkers/index.js` as you can see in the [previous Ignite CLI section](./ignite.md).
+6. The created elements `txClient` and `queryClient` are returned to be used in `./vue/src/store/generated/alice/checkers/alice.checkers.checkers/index.js` as you can see in the [previous Ignite CLI section](./ignitecli.md).
 
 ## Details on the client
 
