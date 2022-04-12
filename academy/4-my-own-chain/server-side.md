@@ -7,13 +7,13 @@ tag: deep-dive
 
 # Web 2.0 Server - Convenient information
 
-Your blockchain is complete and yet, there are extra data and services that would be welcome. These services can be about convenience, and ideally, they should not add more cost to the blockchain if the information can be verified in the blockchain.
+Now that your blockchain is complete, you can think about additional data and services that would add value without increasing cost or complexity on chain.
 
-An example of this is how do you list a given player's games. All of their games. As the chain has been developed, this information is not readily available. You can find the players of a given game, but not the games of a given player. You could choose to do this indexing on-chain, but it adds storage and computation costs.
+For example, how do you list all of a player's games? As the chain has been developed this information is not easily available. You can find the players of a given game, but not the games of a given player. You could do this indexing on-chain, but it adds storage and computation costs.
 
 ## Server idea
 
-Instead, you can choose to have a Web 2.0 server do that indexing for you. In broad terms, this is what this server would do:
+To implement this functionality, build a Web 2.0 server that does the indexing for you. This is what this server will do:
 
 1. Listen to updates from the Checkers chain:
     1. On a game creation event, it would add the game id under each player.
@@ -24,7 +24,7 @@ Instead, you can choose to have a Web 2.0 server do that indexing for you. In br
 
 ## Barebones server
 
-Prepare your setup in a sub-directory of your Checkers folder, say `server2`. For convenience, create it side by side with the `vue` folder created by Starport. To make it quick and easy and to avoid getting overburdened with Web 2.0 server concepts, you:
+Prepare your setup in a sub-directory of your Checkers folder, say `server2`, next to the `vue` folder created by Starport. To make it quick and easy and to avoid getting overburdened with Web 2.0 server concepts, you:
 
 1. Use the `express` Node.js module to create an HTTP REST API.
 2. Use a local `db.json` as a _database_. In a production setting, you would use a proper database.
@@ -71,15 +71,15 @@ export interface DbType {
 }
 ```
 
-Notice that not only do you keep information about players, but you also keep a copy of games. This is to palliate a current limitation of CosmJs, whereby you cannot get information about a game that has just been erased from the state. In practice, you would need to query about this game at a sufficiently earlier block height, but this is not available yet. 
+Note that not only do you keep information about players, but you also keep a copy of games. This is to get around a current limitation of CosmJs, where you can not get information about a game that has just been erased from the state. In practice you would need to query about this game at an earlier block height, but this is not available yet. 
 
 <HightlightBox type="info">
 
-As a design heuristic to keep in mind, when "deleted" records are materially important, consider using a soft delete that removes them from the set of active records but doesn't terminate their existence. This principle helps ensure that historically important information is readily available at all times, at the latest block height.
+When "deleted" records are materially important, use a soft delete that removes them from the set of active records but doesn't terminate their existence. This principle helps ensure that historically important information is available at the latest block height.
 
 </HighlightBox>
 
-Such a barebones server without any Cosmos elements would be defined in an `indexer.ts`.
+A barebones server without any Cosmos elements is defined in an `indexer.ts`.
 
 <ExpansionPanel title="indexer.ts initial content">
 
@@ -170,8 +170,6 @@ export const createIndexer = async () => {
 ```
 
 </ExpansionPanel>
-
-Notice how:
 
 1. The timer is set at the end of the previous poll, just in case the indexing takes longer than the interval.
 2. The _database_ is purely in memory as it runs and is saved on exit by catching the interruption signal.
@@ -291,13 +289,13 @@ It should return:
 
 ## Add CosmJs `StargateClient`
 
-In order to connect to your Checkers blockchain, you need to create a client. The client only needs read-only functionality because this server does not intend to submit transactions. Also, add the CosmJs types, which will assist you with blocks, transactions and events:
+In order to connect to your Checkers blockchain, you need to create a client. The client only needs read-only functionality because this server does not intend to submit transactions. Add the CosmJs types to enable dealing with blocks, transactions and events:
 
 ```sh
 $ npm install @cosmjs/stargate cosmjs-types
 ```
 
-To keep it simple, you are going to connect to the RPC endpoint opened when you run `starport chain serve` on your local machine: `http://localhost:26657`.
+Connect to the RPC endpoint opened when you run `starport chain serve` on your local machine: `http://localhost:26657`.
 
 Add to `indexer.ts`:
 
@@ -332,13 +330,13 @@ Relaunch `npm run dev`. You should see the current height going up.
 
 ## Handle blocks
 
-To begin your journey of indexing games, you are going to take each block and listen to the relevant events. Here, relevant events are found in 3 locations:
+To index games take each block and listen to the relevant events. Relevant events are found in 3 locations:
 
 1. A transaction with a `NewGameCreated` event.
 2. A transaction with a `GameRejected` event.
 3. An `EndBlock` with a `GameForfeited` event.
 
-First, start by getting each block from your last saved state. Update `poll`:
+Start by getting each block from your last saved state. Update `poll`:
 
 ```typescript
 const poll = async () => {
@@ -376,7 +374,7 @@ As you can see:
 * It saves the `db` after a poll, mainly so that _you_ can watch it in real time.
 * It uses `process.stdout.write` and `process.stdout.cursorTo(0)` so that the repetitive logging all happens on a single line.
 
-Now, observe the relevant content in `handleBlock`. It has to:
+Observe the relevant content in `handleBlock`. It has to:
 
 1. Extract the events from transactions. Start with this bit.
 2. Extract the events from `EndBlock`. Put this bit off till a bit later.
@@ -490,7 +488,7 @@ Notice how:
 
 ## Handle one event
 
-This rabbit hole goes deeper. You can define `handleEvent`:
+You can define `handleEvent`:
 
 ```typescript
 const handleEvent = async (event: StringEvent): Promise<void> => {
@@ -510,16 +508,15 @@ const handleEvent = async (event: StringEvent): Promise<void> => {
 }
 ```
 
-Notice how:
+Note how:
 
 * You recognize `NewGameCreated` and `GameRejected` as constant values defined in your Go code. They were associated with t a `key` of `"action"`.
-* It looks you will add `GameForfeited` at some point.
 * Because events are arrays of key/value pairs, you need to go through them to find what you want. Unless you decide to proactively index your events as part of a later optimization.
 * It uses two new functions `handleEventCreate` and `handleEventReject`. You can create them and put `console.log(event)` in them to explore what these objects are.
 
 ## Handle one create event
 
-This is where you finally update your `db` with the information provided. But first, define a convenience function in `createIndexer`:
+This is where you finally update your `db` with the information provided. Define a convenience function in `createIndexer`:
 
 ```typescript
 const getAttributeValueByKey = (attributes: Attribute[], key: string): string | undefined => {
@@ -555,10 +552,8 @@ const handleEventCreate = async (event: StringEvent): Promise<void> => {
 }
 ```
 
-Notice how:
-
 * You recognize the `Index`, `Black` and `Red` constants.
-* There is heavy error handling.
+* You implement error handling.
 * It is careful not to double-add a given game id.
 * It does not save `db` as this is under the purview of `poll()`.
 
@@ -581,8 +576,6 @@ const handleEventReject = async (event: StringEvent): Promise<void> => {
     if (0 <= indexInRed) redGames.splice(indexInRed, 1)
 }
 ```
-
-Notice how:
 
 * Here too there is some error handling.
 * It keeps the game information in the `db`. This is a debatable choice.
@@ -759,7 +752,7 @@ const handleBlock = async (block: Block) => {
 }
 ```
 
-Quite conveniently, the events that you have converted are compatible with those emanating from transactions so you can just pass them on. Of course, you need to update `handleEvent` so that it acts on the new event type, as foreshadowed here:
+Quite conveniently, the events that you have converted are compatible with those emanating from transactions so you can just pass them on. You still need to update `handleEvent` so that it acts on the new event type:
 
 ```typescript
 const handleEvent = async (event: StringEvent): Promise<void> => {
@@ -770,7 +763,7 @@ const handleEvent = async (event: StringEvent): Promise<void> => {
 }
 ```
 
-So, quite naturally, you add a new function:
+To achieve this, add a new function:
 
 ```typescript
 const handleEventForfeit = async (event: StringEvent): Promise<void> => {
@@ -792,8 +785,6 @@ const handleEventForfeit = async (event: StringEvent): Promise<void> => {
 }
 ```
 
-Notice how:
-
 * Again there is a lot of error handling.
 * It deletes the game only if there are no winners, which means that it was a deletion, not a forfeit.
 
@@ -801,4 +792,4 @@ Notice how:
 
 Run the tests again as described earlier. Create a game, wait and see how the deletion event is picked up.
 
-For the avoidance of doubt, You can find the code [here](https://github.com/cosmos/b9-checkers-academy-draft/tree/server-indexing).
+You can find the code [here](https://github.com/cosmos/b9-checkers-academy-draft/tree/server-indexing).
