@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [modules](../2-main-concepts/modules.md)), [keepers](../2-main-concepts/multistore-keepers.md), and [Protobuf](../2-main-concepts/protobuf.md).
 * Have Go installed.
@@ -104,7 +104,7 @@ Time to make sure that the new field is saved in the storage and it is part of t
 
 ## Declaring expectations
 
-On its own the `Wager` field does not make players pay the wager or receive rewards. You need to add the handling actions. These handling actions must ask the `bank` module to perform the required token transfers. For that your keeper needs to ask for a `bank` instance during setup.
+On its own the `Wager` field does not make players pay the wager or receive rewards. You need to add the handling actions. These handling actions must ask the `bank` module to perform the required token transfers. For that, your keeper needs to ask for a `bank` instance during setup.
 
 <HighlightBox type="info">
 
@@ -116,7 +116,7 @@ Implement payment handling by having your keeper hold wagers in escrow while the
 
 <HighlightBox type="tip">
 
-It is best practice to to declare an interface that narrowly declares the functions from other modules that you expect for your module. The conventional file for these declarations is `x/checkers/types/expected_keepers.go`.
+It is best practice to declare an interface that narrowly declares the functions from other modules that your module will use. The conventional file for these declarations is `x/checkers/types/expected_keepers.go`.
 
 </HighlightBox>
 
@@ -133,7 +133,7 @@ These two functions must exactly match the functions declared in the [`bank`'s k
 
 ## Obtaining the capability
 
-With your requirements declared it is time to make sure your keeper receives a reference to a bank keeper. First add a `BankKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
+With your requirements declared, it is time to make sure your keeper receives a reference to a bank keeper. First add a `BankKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a8e8cdfe3f02697495f15d2348ed960635f32dc3/x/checkers/keeper/keeper.go#L16]
 type (
@@ -359,7 +359,7 @@ With the desired steps defined in the wager handling functions, it is time to in
 
 ## ~~Unit~~ Integration tests
 
-If you now try running your existing tests you will see a lot of **null pointer exceptions**. That's because, as they are, the tests set up your checkers keeper [without a bank keeper](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/keeper_test.go#L30-L34). Unfortunately, Cosmos SDK does not have [mocks](https://en.wikipedia.org/wiki/Mock_object) right now. So instead of passing a mocked bank when setting up your test keeper, you need to build a proper bank keeper too. Fortunately, you do not have to do it from scratch. Taking inspiration from [tests on the bank module](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b/x/bank/keeper/keeper_test.go#L66-L110), you prepare your code and tests in order to accommodate and create a full app, which will contain a bank keeper.
+If you now try running your existing tests you will see a lot of **null pointer exceptions**. That's because, as they are, the tests set up your checkers keeper [without a bank keeper](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/keeper_test.go#L30-L34). Cosmos SDK does not have [mocks](https://en.wikipedia.org/wiki/Mock_object) right now. So, instead of passing a mocked bank when setting up your test keeper, you need to build a proper bank keeper too. Fortunately, you do not have to do it from scratch. Taking inspiration from [tests on the bank module](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b/x/bank/keeper/keeper_test.go#L66-L110), you prepare your code and tests in order to accommodate and create a full app, which will contain a bank keeper.
 
 Your existing tests, although never pure **unit** tests in the first place are now going to be true **integration** tests.
 
@@ -451,7 +451,7 @@ Come test time, `go test` will find the suite because you add a [_regular_ test]
 
 ### Helpers for money checking
 
-Your new tests will include checks on wagers being paid, lost and won. So your tests need to initialize some bank balances for your players. You can make your life easier with a couple helpers. And also with a helper to confirm a bank balance.
+Your new tests will include checks on wagers being paid, lost and won. So your tests need to initialize some bank balances for your players. You can make your life easier with a few helpers and also with a helper to confirm a bank balance.
 
 1. Make a bank genesis [`Balance`](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b6/x/bank/types/genesis.pb.go#L105-L110) type from primitives:
 
@@ -542,7 +542,7 @@ With the preparation done, what does a test method look like?
 
 ### Anatomy of an integration suite test
 
-Now you are at the step where you refactor the existing tests that test your keeper. How does a refactored test look like?
+Now you are at the step where you refactor the existing tests that test your keeper. What does a refactored test look like?
 
 1. The method declaration:
 
@@ -643,7 +643,7 @@ So with this, you can go and refactor your tests. Admittedly, no small task.
 
 ### Extra tests
 
-After refactoring, and no failing tests, it is time to add extra checks on money handling. For instance, before an action that you expect to transfer money (or not), you can verify the start position:
+After refactoring, and no failing tests, it is time to add extra checks of money handling. For instance, before an action that you expect to transfer money (or not), you can verify the initial position:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/x/checkers/keeper/msg_server_play_move_test.go#L42-L45]
 suite.RequireBankBalance(balAlice, alice)
@@ -670,12 +670,12 @@ How you subdivide your tests and where you insert these balance checks is up to.
 
 ### Debug your suite
 
-You learned in a [previous section](./stored-game.md) how to launch your test in debug mode. It is still possible to do it when using a suite. The difference is that you launch it by right-clicking on the arrow left of the suite's runner `func TestCheckersKeeperTestSuite`:
+You learned in a [previous section](./stored-game.md) how to launch your test in debug mode. It is still possible to do so when using a suite. The difference is that you launch it by right-clicking on the arrow left of the suite's runner `func TestCheckersKeeperTestSuite`:
 
 ![Suite runner with green button](/go_test_debug_suite.png)
 
-The new inconvenience is that you can only launch debug for all the suite's test methods, and not just a single one as it is possible with a simple test. For this reason, the case could be made that you could create more granular suites, for instance at least one test suite per file.
+Note that you can only launch debug for all of the suite's test methods, and not just a single one as is possible with a simple test. For this reason, the case could be made that you could create more granular suites. For example, one or more test suites per file.
 
 ## Next up
 
-You can skip ahead and see how you can integrate [foreign tokens](./wager-denom.md) via the use of IBC. Or take a look at the [next section](./gas-meter.md) to prevent spam and reward validators proportional to their effort in your checkers blockchain.
+You can skip ahead and see how you can integrate [foreign tokens](./wager-denom.md) via the use of IBC. Or, take a look at the [next section](./gas-meter.md) to prevent spam and reward validators in proportion to their effort in your checkers blockchain.
