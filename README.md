@@ -25,7 +25,7 @@ tools:
         url: https://ignite.com/cli
       - name: Documentation
         url: https://docs.ignite.com
-    image: /starport-icon.svg
+    image: /ignitecli-icon.svg
   - title: IBC
     description: Industry standard protocol for inter-blockchain communication.
     links:
