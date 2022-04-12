@@ -32,10 +32,10 @@ message StoredGame {
 }
 ```
 
-To have Starport and Protobuf recompile this file. You can use:
+To have Ignite CLI and Protobuf recompile this file. You can use:
 
 ```sh
-$ starport generate proto-go
+$ ignite generate proto-go
 ```
 
 On each update the deadline will always be _now_ plus a fixed duration. In this context, _now_ refers to the block's time. Declare this duration as a new constant, along with how the date is to be represented, i.e. encoded in the saved game as a string:
@@ -106,7 +106,7 @@ Next, you need to update this new field with its appropriate value:
 Now confirm that your project still compiles:
 
 ```sh
-$ starport chain build
+$ ignite chain build
 ```
 
 ## Interact via the CLI

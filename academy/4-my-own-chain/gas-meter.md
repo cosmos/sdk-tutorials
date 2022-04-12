@@ -71,7 +71,7 @@ Here, you want to confirm that gas is consumed by different actions. The _diffic
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
 ```
 
-Let's say this returns `54322`, which is the estimated gas used. Now comment out the `.ConsumeGas` line in `msg_server_create_game.go`, save it, wait the couple minutes it takes for Starport to rebuild, and try again:
+Let's say this returns `54322`, which is the estimated gas used. Now comment out the `.ConsumeGas` line in `msg_server_create_game.go`, save it, wait the couple minutes it takes for Ignite CLI to rebuild, and try again:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
@@ -97,7 +97,7 @@ gas_used: "52755"
 
 You could impose a `--gas-prices` and then check balances but it would obfuscate the gas consumption, which is what you want to confirm.
 
-As before, comment the `.ConsumeGas` line `msg_server_create_game.go` and wait for Starport to rebuild. Then try again:
+As before, comment the `.ConsumeGas` line `msg_server_create_game.go` and wait for Ignite CLI to rebuild. Then try again:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice

@@ -36,10 +36,10 @@ message StoredGame {
 }
 ```
 
-To have Starport and Protobuf recompile this file use:
+To have Ignite CLI and Protobuf recompile this file use:
 
 ```sh
-$ starport generate proto-go
+$ ignite generate proto-go
 ```
 
 Add a helper function to get the winner's address, if it exists. A good place for it is in `full_game.go`:
@@ -127,7 +127,7 @@ Confirm the code compiles and you are ready to handle the expiration of games.
 Here again, if you have created games in an earlier version of the code, you are in a broken state. Now you cannot even play the old games because the old games in effect have `.Winner == ""` and this will be caught by the `if storedGame.Winner != rules.NO_PLAYER.Color` test. Better start anew with:
 
 ```sh
-$ starport chain serve --reset-once
+$ ignite chain serve --reset-once
 ```
 
 Do not forget to export `alice` and `bob` again, as explained in an [earlier section](./create-message.md).

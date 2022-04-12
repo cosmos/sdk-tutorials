@@ -30,10 +30,10 @@ Now you need a message to instruct the checkers blockchain to create a game. Thi
 * Specify who is playing with the red pieces. Call the field `red`.
 * Specify who is playing with the black pieces. Call the field `black`.
 
-Instruct Starport to take care of all this:
+Instruct Ignite CLI to take care of all this:
 
 ```sh
-$ starport scaffold message createGame red black --module checkers --response idValue
+$ ignite scaffold message createGame red black --module checkers --response idValue
 ```
 
 It creates a [certain number of files](https://github.com/cosmos/b9-checkers-academy-draft/commit/e78cba34926ba0adee23febb1ce44774e2c466b3) plus [some GUI elements](https://github.com/cosmos/b9-checkers-academy-draft/commit/dcf9f4724570146c8e0ad339aafb469d27dca0b9).
@@ -54,7 +54,7 @@ message MsgCreateGameResponse {
 }
 ```
 
-Which, when compiled for instance with `starport generate proto-go` yield:
+Which, when compiled for instance with `ignite generate proto-go` yield:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b3cf9ea4c554158e950bcfe58803e53eefc31090/x/checkers/types/tx.pb.go#L31-L35]
 type MsgCreateGame struct {
@@ -74,7 +74,7 @@ type MsgCreateGameResponse struct {
 
 Files were generated to serialize the pair which are named `*.pb.go`. **Caution:** you should not edit these files.
 
-Starport also registered `MsgCreateGame` as a concrete message type with the two (de-)serialization engines:
+Ignite CLI also registered `MsgCreateGame` as a concrete message type with the two (de-)serialization engines:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/types/codec.go#L14]
 func RegisterCodec(cdc *codec.LegacyAmino) {
@@ -95,7 +95,7 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 
 Which is code that you probably do not need to change.
 
-Starport also creates boilerplate code to have the message conform to the [`sdk.Msg`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L11-L33) type:
+Ignite CLI also creates boilerplate code to have the message conform to the [`sdk.Msg`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L11-L33) type:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/types/message_create_game.go#L26-L32]
 func (msg *MsgCreateGame) GetSigners() []sdk.AccAddress {
@@ -111,9 +111,9 @@ This code is created only once. You can modify it as you see fit.
 
 ## Protobuf service interface
 
-Starport also adds a new function to your gRPC interface that receives all transaction messages for the module because the message is meant to be sent and received. The interface is called `service Msg` and is declared inside `proto/checkers/tx.proto`.
+Ignite CLI also adds a new function to your gRPC interface that receives all transaction messages for the module because the message is meant to be sent and received. The interface is called `service Msg` and is declared inside `proto/checkers/tx.proto`.
 
-Starport creates this [`tx.proto`](https://github.com/cosmos/b9-checkers-academy-draft/blob/41ac3c6ef4b2deb996e54f18f597b24fafbf02e1/proto/checkers/tx.proto) file at the beginning when you scaffold your project's module. Starport separates different concerns into different files so that it knows where to add elements according to instructions received. Starport adds a function to the empty `service Msg` with your instruction.
+Ignite CLI creates this [`tx.proto`](https://github.com/cosmos/b9-checkers-academy-draft/blob/41ac3c6ef4b2deb996e54f18f597b24fafbf02e1/proto/checkers/tx.proto) file at the beginning when you scaffold your project's module. Ignite CLI separates different concerns into different files so that it knows where to add elements according to instructions received. Ignite CLI adds a function to the empty `service Msg` with your instruction.
 
 The new function receives this `MsgCreateGame`, namely:
 
@@ -123,11 +123,11 @@ service Msg {
 }
 ```
 
-As an interface, it does not describe what should happen when called. What Starport does with the help of Protobuf is compile the interface and create a default Go implementation.
+As an interface, it does not describe what should happen when called. What Ignite CLI does with the help of Protobuf is compile the interface and create a default Go implementation.
 
 ## Interact via the CLI
 
-Time to see which new CLI command was created by Starport:
+Time to see which new CLI command was created by Ignite CLI:
 
 ```sh
 $ checkersd tx checkers --help
@@ -164,7 +164,7 @@ Flags:
 ...
 ```
 
-You kept the two accounts created by Starport.
+You kept the two accounts created by Ignite CLI.
 
 Have `alice` start a game with `bob`. Instead of having to copy and paste the addresses each time you need them, you can store these as variables:
 
@@ -258,11 +258,11 @@ pagination:
 
 ---
 
-It looks like nothing changed. Starport only created a message, but you have not yet implemented what actions the chain should undertake when it receives this message. That is what you will take care of in the [next section](./create-handling.md).
+It looks like nothing changed. Ignite CLI only created a message, but you have not yet implemented what actions the chain should undertake when it receives this message. That is what you will take care of in the [next section](./create-handling.md).
 
 ## Next up
 
-Starport separates concerns into different files. The most relevant file for you at this point is `x/checkers/keeper/msg_server_create_game.go`, which is created once. You need to code in the creation of the game proper in this file:
+Ignite CLI separates concerns into different files. The most relevant file for you at this point is `x/checkers/keeper/msg_server_create_game.go`, which is created once. You need to code in the creation of the game proper in this file:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/keeper/msg_server_create_game.go#L10-L17]
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {

@@ -101,10 +101,10 @@ How do you implement a FIFO from which you extract elements at random positions?
     }
     ```
 
-To have Starport and Protobuf recompile the files:
+To have Ignite CLI and Protobuf recompile the files:
 
 ```sh
-$ starport chain build
+$ ignite chain build
 ```
 
 ## FIFO management
@@ -246,7 +246,7 @@ You implemented a FIFO that is updated but never really used.
 Time to see what you get with the commands. You need to start afresh because you made numerous additions to the blockchain state:
 
 ```sh
-$ starport chain serve --reset-once
+$ ignite chain serve --reset-once
 ```
 
 <HighlightBox type="tip">
