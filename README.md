@@ -18,13 +18,13 @@ tools:
       - name: Documentation
         url: https://docs.tendermint.com/
     image: /tendermint-icon.svg
-  - title: Starport
+  - title: Ignite CLI
     description: All-in-one platform to build, launch, and maintain apps on a sovereign and secured blockchain.
     links:
       - name: Learn more
-        url: https://starport.com/
+        url: https://ignite.com/cli
       - name: Documentation
-        url: https://docs.starport.com/
+        url: https://docs.ignite.com
     image: /starport-icon.svg
   - title: IBC
     description: Industry standard protocol for inter-blockchain communication.

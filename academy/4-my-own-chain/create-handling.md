@@ -12,11 +12,11 @@ tag: deep-dive
 Make sure you have all you need before proceeding:
 
 * Have Go installed.
-* The checkers blockchain codebase with `MsgCreateGame` created by Starport. You can get there by following the [previous steps](./create-message.md) checking out  [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
+* The checkers blockchain codebase with `MsgCreateGame` created by Ignite CLI. You can get there by following the [previous steps](./create-message.md) checking out  [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
 
 </HighlightBox>
 
-You added the message to create a game along with its serialization and dedicated gRPC function with the help of Starport in the [previous section](./create-message.md).
+You added the message to create a game along with its serialization and dedicated gRPC function with the help of Ignite CLI in the [previous section](./create-message.md).
 
 Now all that remains is to add code that:
 
@@ -24,7 +24,7 @@ Now all that remains is to add code that:
 * Saves it in storage.
 * Returns the ID of the new game.
 
-Starport isolated this concern into a separate file, `x/checkers/keeper/msg_server_create_game.go`, for you to edit:
+Ignite CLI isolated this concern into a separate file, `x/checkers/keeper/msg_server_create_game.go`, for you to edit:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/keeper/msg_server_create_game.go#L10-L17]
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
@@ -37,7 +37,7 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 }
 ```
 
-All the message processing code were created for you and all you are left to do is code the meat of the action. Opting for Starport is a wise decision as you can see.
+All the message processing code were created for you and all you are left to do is code the meat of the action. Opting for Ignite CLI is a wise decision as you can see.
 
 Given that you have already done a lot of preparatory work: what does it involve to code the action? With what do you replace `// TODO: Handling the message`?
 
@@ -59,7 +59,7 @@ Given that you have already done a lot of preparatory work: what does it involve
     newIndex := strconv.FormatUint(nextGame.IdValue, 10)
     ```
 
-    Using the [`Keeper.GetNextGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/next_game.go#L17) function created by the `starport scaffold single nextGame...` command.
+    Using the [`Keeper.GetNextGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/next_game.go#L17) function created by the `ignite scaffold single nextGame...` command.
 
 2. Create the object to be stored:
 
@@ -95,7 +95,7 @@ Given that you have already done a lot of preparatory work: what does it involve
     k.Keeper.SetStoredGame(ctx, storedGame)
     ```
 
-    Using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/stored_game.go#L10) function created by the `starport scaffold map storedGame...` command
+    Using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/stored_game.go#L10) function created by the `ignite scaffold map storedGame...` command
 
 5. Prepare the ground for the next game with:
 
@@ -104,7 +104,7 @@ Given that you have already done a lot of preparatory work: what does it involve
     k.Keeper.SetNextGame(ctx, nextGame)
     ```
 
-    Using the [`Keeper.SetNextGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/next_game.go#L10) function created by Starport.
+    Using the [`Keeper.SetNextGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/next_game.go#L10) function created by Ignite CLI.
 
 6. Return the newly created ID for reference:
 
