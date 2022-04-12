@@ -44,7 +44,7 @@ Want to dedicate some time to dive deeper into installing Ignite CLI? Learn [how
 To install Ignite CLI at the command line:
 
 ```sh
-$ curl https://get.ignite.com/starport! | bash
+$ curl https://get.ignite.com/cli! | bash
 ```
 
 You can verify the version of Ignite CLI you have once it is installed:
@@ -63,7 +63,7 @@ This entire exercise was built using the Ignite CLI version noted above. Using a
 To install this specific version of Ignite CLI, use:
 
 ```sh
-curl https://get.ignite.com/starport@v0.17.0! | bash
+curl https://get.ignite.com/cli@v0.17.0! | bash
 ```
 
 If you'd like to upgrade an existing project to the latest version of Ignite CLI, you can follow the [Ignite CLI migration documentation](https://docs.ignite.com/migration/).
