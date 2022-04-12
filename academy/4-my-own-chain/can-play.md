@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have e everything you need before proceeding:
+Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [queries](../2-main-concepts/queries.md), and [Protobuf](../2-main-concepts/protobuf.md).
 * You have Go installed.
