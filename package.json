@@ -31,7 +31,7 @@
     "axios": "^0.21.0",
     "check-md": "^1.0.2",
     "cheerio": "^1.0.0-rc.3",
-    "clipboard-copy": "^3.1.0",
+    "clipboard-copy": "^4.0.1",
     "crypto-js": "^4.0.0",
     "date-fns": "^2.19.0",
     "email-validator": "^2.0.4",
