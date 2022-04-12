@@ -136,17 +136,17 @@ message MsgCreateGameResponse {
 }
 ```
 
-## Enter Starport
+## Enter Ignite CLI
 
-When Starport creates a message for you, it also creates the gRPC definitions and Go handling code. Using commands like the ones below makes it relatively easy to introduce Protobuf elements into your chain:
+When Ignite CLI creates a message for you, it also creates the gRPC definitions and Go handling code. Using commands like the ones below makes it relatively easy to introduce Protobuf elements into your chain:
 
 ```sh
-$ starport scaffold map storedGame game turn red black wager:uint --module checkers --no-message
-$ starport scaffold message createGame red black wager:uint --module checkers --response idValue
+$ ignite scaffold map storedGame game turn red black wager:uint --module checkers --no-message
+$ ignite scaffold message createGame red black wager:uint --module checkers --response idValue
 ```
 <HighlightBox type="tip">
 
-If you want to dive straight into coding your chain, head to [My Own Chain](../4-my-own-chain/index.md) for more details on using Starport.
+If you want to dive straight into coding your chain, head to [My Own Chain](../4-my-own-chain/index.md) for more details on using Ignite CLI.
 
 </HighlightBox>
 
