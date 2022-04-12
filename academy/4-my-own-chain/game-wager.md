@@ -43,10 +43,10 @@ message MsgCreateGame {
 }
 ```
 
-To have Starport and Protobuf recompile these two files, you can use:
+To have Ignite CLI and Protobuf recompile these two files, you can use:
 
 ```sh
-$ starport generate proto-go
+$ ignite generate proto-go
 ```
 
 Now add a helper function to `StoredGame` using the Cosmos SDK `Coin` in `full_game.go`. It encapsulates information about the wager:
@@ -386,9 +386,9 @@ Come test time, `go test` will find the suite because you add a [_regular_ test]
     }
     ```
 
-    And keep this `setupKeeper` function because tests created by Starport, some of which you never touch again, expect it.
+    And keep this `setupKeeper` function because tests created by Ignite CLI, some of which you never touch again, expect it.
 
-2. Starport created a default constructor for your App with a [`cosmoscmd.App`](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/app/app.go#L219-L230) return type. This is not convenient for you. So, instead of risking breaking other dependencies, you add a new constructor with [your `App`](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/app/app.go#L231-L255) as the return type.
+2. Ignite CLI created a default constructor for your App with a [`cosmoscmd.App`](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/app/app.go#L219-L230) return type. This is not convenient for you. So, instead of risking breaking other dependencies, you add a new constructor with [your `App`](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/app/app.go#L231-L255) as the return type.
 3. Add other elements taken from Cosmos SDK tests, like [`encoding.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/app/encoding.go), [`proto.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/app/params/proto.go) and [`test_helpers.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/app/test_helpers.go), in which you must also initialize your checkers genesis:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63fac3ba/app/test_helpers.go#L127-L128]

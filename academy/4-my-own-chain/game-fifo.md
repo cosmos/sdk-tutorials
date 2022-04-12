@@ -101,10 +101,10 @@ How do you implement a FIFO from which you extract elements at random positions?
     }
     ```
 
-To have Starport and Protobuf recompile the files:
+To have Ignite CLI and Protobuf recompile the files:
 
 ```sh
-$ starport chain build
+$ ignite chain build
 ```
 
 ## FIFO management

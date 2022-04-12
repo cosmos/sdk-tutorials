@@ -36,10 +36,10 @@ message StoredGame {
 }
 ```
 
-To have Starport and Protobuf recompile this file use:
+To have Ignite CLI and Protobuf recompile this file use:
 
 ```sh
-$ starport generate proto-go
+$ ignite generate proto-go
 ```
 
 Add a helper function to get the winner's address, if it exists. A good place for it is in `full_game.go`:
