@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md).
 * Have Go installed.
@@ -32,13 +32,13 @@ message StoredGame {
 }
 ```
 
-To have Ignite CLI and Protobuf recompile this file. You can use:
+To have Ignite CLI and Protobuf recompile this file, you can use:
 
 ```sh
 $ ignite generate proto-go
 ```
 
-On each update the deadline will always be _now_ plus a fixed duration. In this context, _now_ refers to the block's time. Declare this duration as a new constant, along with how the date is to be represented, i.e. encoded in the saved game as a string:
+On each update, the deadline will always be _now_ plus a fixed duration. In this context, _now_ refers to the block's time. Declare this duration as a new constant, along with how the date is to be represented, i.e. encoded in the saved game as a string:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8f0f9ec/x/checkers/types/keys.go#L38-L39]
 const (
@@ -111,7 +111,7 @@ $ ignite chain build
 
 ## Unit tests
 
-After these changes, your previous unit tests are failing. Fix them by adding `Deadline` wherever it should be. Do not forget that the time is taken from the block's timestamp. In the case of tests, it is stored in the context's `ctx.BlockTime()`. In effect, you need to add this single line:
+After these changes, your previous unit tests fail. Fix them by adding `Deadline` wherever it should be. Do not forget that the time is taken from the block's timestamp. In the case of tests, it is stored in the context's `ctx.BlockTime()`. In effect, you need to add this single line:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8f0f9ec/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L43]
 ctx := sdk.UnwrapSDKContext(context)
