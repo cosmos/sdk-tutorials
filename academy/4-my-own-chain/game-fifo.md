@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [ABCI](../2-main-concepts/architecture.md), [Protobuf](../2-main-concepts/protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
 * Have Go installed.
@@ -35,7 +35,7 @@ How do you find all the games that reached their deadline? Maybe with a pseudo-c
 findAll(game => game.deadline < now)
 ```
 
-This approach is **expensive** in terms of computation. The `EndBlock` code should not have to pull up all games out of the storage just to find the dozen that are relevant. Doing a `findAll` costs [`O(n)`](https://en.wikipedia.org/wiki/Big_O_notation), where `n` is the total number of games.
+This approach is **expensive** in terms of computation. The `EndBlock` code should not have to pull up all games out of the storage just to find a handful that are relevant. Doing a `findAll` costs [`O(n)`](https://en.wikipedia.org/wiki/Big_O_notation), where `n` is the total number of games.
 
 ## The how
 
@@ -48,7 +48,7 @@ You keep dealing with the expired games that are at the head of the FIFO when te
 
 * `O(1)` on each game creation and gameplay.
 * `O(k)` where `k` is the number of expired games on each block.
-* `k <= n`
+* `k <= n` where `n` is the number of games that exist.
 
 `k` still is an unbounded number of operations. But if you use the same expiration duration on each game, for `k` games to expire together in a block, these `k` games would all have to have had a move in the same previous block. Give or take the block before or after. The largest `EndBlock` computation will be proportional to the largest regular block in the past in the worst case. This is a reasonable risk to take.
 
@@ -73,8 +73,8 @@ How do you implement a FIFO from which you extract elements at random positions?
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/proto/checkers/stored_game.proto#L14-L15]
     message StoredGame {
         ...
-        string beforeId = 8; // Pertains to the FIFO. Towards head.
-        string afterId = 9; // Pertains to the FIFO. Towards tail.
+        string beforeId = 8; // Pertains to the FIFO. Toward head.
+        string afterId = 9; // Pertains to the FIFO. Toward tail.
     }
     ```
 
@@ -109,7 +109,7 @@ $ ignite chain build
 
 ## FIFO management
 
-Now that the new fields are created, you need to update them accordingly to keep your FIFO always up-to-date. It's better to create a separate file that encapsulates this knowledge. Create `x/checkers/keeper/stored_game_in_fifo.go` with:
+Now that the new fields are created, you need to update them accordingly to keep your FIFO up-to-date at all times. It's better to create a separate file that encapsulates this knowledge. Create `x/checkers/keeper/stored_game_in_fifo.go` with:
 
 1. A function to remove from the FIFO:
 
@@ -197,7 +197,7 @@ With these functions ready, it is time to use them in the message handlers.
     ...
     ```
 
-2. In the handler when playing a move, send the game back to the tail because it was freshly updated:
+2. In the handler, when playing a move, send the game back to the tail because it was freshly updated:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_play_move.go#L62]
     ...
@@ -233,7 +233,7 @@ You implemented a FIFO that is updated but never really used, for now.
 
 At this point, your previous unit tests are failing. So the first order of business is to fix them. Add `FifoHead` and `FifoTail` in your value requirements on `NextGame` as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_create_game_test.go#L51-L52), [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_play_move_test.go#L62-L63) and [reject games](https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_reject_game_test.go#L58-L59). Also add `BeforeId` and `AfterId` in your value requirements on `StoredGame`, as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_create_game_test.go#L64-L65), and [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_play_move_test.go#L75-L76).
 
-In the second order of business, you ought to add more specific FIFO tests. For instance, what happens to `NextGame` and `StoredGame` as you create up to three new games:
+As the second order of business, you ought to add more specific FIFO tests. For instance, what happens to `NextGame` and `StoredGame` as you create up to three new games:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/85954f3/x/checkers/keeper/msg_server_create_game_fifo_test.go#L11-L111]
 func TestCreate3GamesHasSavedFifo(t *testing.T) {
@@ -461,4 +461,4 @@ func TestRejectMiddleGameHasSavedFifo(t *testing.T) {
 
 ## Next up
 
-Now you need to add an expiry date on the games. That's the goal of the [next section](./game-deadline.md).
+Now you need to add an expiry dates for the games. That's the goal of the [next section](./game-deadline.md).
