@@ -670,7 +670,7 @@ You are certainly bristling with ideas on how to improve it. In particular, you 
 
 Time to move away from the checkers blockchain learning exercise, and explore two other helpful tools for working with the Cosmos SDK:
 
-* [CosmJS](./cosmjs.md), which you used under the hood when using Starport.
+* [CosmJS](./cosmjs.md), which you used under the hood when using Ignite CLI.
 * [CosmWasm](./cosmwasm.md), a cross-chain smart-contract solution.
 
 Begin with CosmJS in the [next section](./cosmjs.md).
