@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have everything you need before proceeding:
 
 * Have Go installed.
 * The checkers blockchain codebase with `MsgCreateGame` created by Starport. You can get there by following the [previous steps](./create-message.md) checking out  [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
@@ -37,7 +37,7 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 }
 ```
 
-All the message processing code were created for you and all you are left to do is code the meat of the action. Opting for Starport is a wise decision as you can see.
+The message processing code was created for you and all you are left to do is code the meat of the action. Opting for Starport is a wise decision as you can see.
 
 Given that you have already done a lot of preparatory work: what does it involve to code the action? With what do you replace `// TODO: Handling the message`?
 
@@ -118,7 +118,7 @@ Given that you have already done a lot of preparatory work: what does it involve
 
 ## Unit tests
 
-Try again the unit test you prepared in the previous section:
+Try the unit test you prepared in the previous section again:
 
 ```sh
 $ go test github.com/alice/checkers/x/checkers/keeper
@@ -134,7 +134,7 @@ panic: NextGame not found [recovered]
 
 Your keeper was indeed initialized with an empty genesis. You have to fix that one way or another.
 
-You can choose to fix that by initializing the keeper with the default genesis. Initializing the `MsgServer` with the default genesis is opinionated, so it is better to keep this opinion closest to the tests. So copy the `setupMsgServer` from [`msg_server_test.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_test.go#L12-L15) into your `msg_server_create_game_test.go`. While you are at it, modify it to also return the keeper:
+You can choose to fix that by initializing the keeper with the default genesis. Initializing the `MsgServer` with the default genesis is opinionated, so it is better to keep this opinion closest to the tests. So, copy the `setupMsgServer` from [`msg_server_test.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_test.go#L12-L15) into your `msg_server_create_game_test.go`. While you are at it, modify it to also return the keeper:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L20-L24]
 func setupMsgServerCreateGame(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
