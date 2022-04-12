@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have everything you need before proceeding:
 
 * You understand the concept of gas.
 * Have Go installed.
@@ -19,7 +19,7 @@ Make sure you have all you need before proceeding:
 
 Players can start playing checkers with your Cosmos blockchain. Transaction fees are paid by players themselves, at least the fee related to transporting the serialized bytes and the other gas-metered parts like `bank`.
 
-Next add your own gas metering to reflect the costs that different transactions impose or you can add costs to discourage spam.
+Next add your own gas metering to reflect the costs that different transactions impose. You may consider adding costs to discourage spam.
 
 ## New data
 
@@ -55,7 +55,7 @@ Add a line that consumes the designated amount of gas in each relevant handler:
     ctx.GasMeter().ConsumeGas(types.RejectGameGas, "Reject game")
     ```
 
-You don't meter gas in your `EndBlock` handler because it is called by a player sending a transaction. It is instead a service rendered by the network. If you want to account for the gas cost of an expiration, you have to devise a way to pre-collect it as part of the other messages.
+You don't meter gas in your `EndBlock` handler because it is never called by a player sending a transaction. It is instead a service rendered by the network. If you want to account for the gas cost of an expiration, you have to devise a way to collect it in advance, as part of the other messages.
 
 <HighlightBox type="tip">
 
@@ -65,7 +65,7 @@ Avoid calling `ConsumeGas` from within a loop. If you know the number of times y
 
 ## Integration tests
 
-You know the drill, add a couple of tests that confirm the gas consumption. There is a problem, though. It is not possible to separate the gas cost that BaseApp is incurring on your messages as opposed to gas cost your module imposes on top of it. And you cannot distinguish via the descriptor [unless it panics](https://github.com/cosmos/cosmos-sdk/blob/v0.42.6/store/types/gas.go#L90-L101). Still, you can add a lame test:
+You know the drill. Add a couple of tests that confirm the gas consumption. There is a problem, though. It is not possible to differentiate the gas cost that BaseApp is incurring on your messages from the gas cost your module imposes on top of it. And you cannot distinguish via the descriptor [unless it panics](https://github.com/cosmos/cosmos-sdk/blob/v0.42.6/store/types/gas.go#L90-L101). Still, you can add a lame test:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f05f995/x/checkers/keeper/msg_server_create_game_test.go#L132-L144]
 func (suite *IntegrationTestSuite) TestCreate1GameConsumedGas() {
