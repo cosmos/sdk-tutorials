@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [ABCI](../2-main-concepts/architecture.md).
 * Have Go installed.
@@ -28,7 +28,7 @@ In the [previous section](./game-winner.md) you prepared the expiration of games
 An expired game will expire in two different cases:
 
 1. It was never really played on so it is removed quietly. That includes a single move by a single player.
-2. It was played on by both players, making it a proper game, and forfeit is the outcome because a player failed to play in time.
+2. It was played by both players, making it a proper game, and forfeit is the outcome because a player failed to play in time.
 
 In the latter case, you want to emit a new event, which differentiates forfeiting a game from a win involving a move. Therefore you define new error constants:
 
@@ -341,7 +341,7 @@ How do you test something that is supposed to happen during the `EndBlock` event
 
 <HighlightBox type="info">
 
-Notice how all the events aggregate in a single context. the context is not reset on a new transaction, so you have to take slices to compare what matters. One _create_ adds 6 attributes, one _play_ adds 7.
+Notice how all the events aggregate in a single context. The context is not reset on a new transaction, so you have to take slices to compare what matters. One _create_ adds 6 attributes, one _play_ adds 7.
 
 </HighlightBox>
 
