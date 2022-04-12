@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have e everything you need before proceeding:
 
 * You understand the concepts of [queries](../2-main-concepts/queries.md), and [Protobuf](../2-main-concepts/protobuf.md).
 * You have Go installed.
@@ -19,7 +19,7 @@ Make sure you have all you need before proceeding:
 
 A player sends a `MsgPlayMove` when [making a move](./play-game.md). This message can succeed or fail for several reasons. One error situation is when the message represents an invalid move.
 
-Players should be able to make sure that a move is valid before burning gas. To add this functionality, you need to create a way for the player to call the [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function without changing the game's state. Use a query because they are evaluated in memory and do not commit anything permanently to storage.
+Players should be able to confirm that a move is valid before burning gas. To add this functionality, you need to create a way for the player to call the [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function without changing the game's state. Use a query because they are evaluated in memory and do not commit anything permanently to storage.
 
 ## New information
 
@@ -32,8 +32,8 @@ To run a query to check the validity of a move you need to pass:
 
 The information to be returned is:
 
-* A boolean whether the move is valid, called `Possible`.
-* A text reason as to why the move is not valid, called `Reason`.
+* A boolean indicating whether the move is valid, called `Possible`.
+* A text reason explaining why the move is not valid, called `Reason`.
 
 As with other data structures, you can create the query message object with Starport:
 
@@ -70,7 +70,7 @@ Starport has created the following boilerplate for you:
 Now you need to implement the answer to the player's query in `grpc_query_can_play_move.go`. Differentiate between two types of errors:
 
 * Errors relating to the move, returning a reason.
-* Errors if a move test is impossible, returning an error.
+* Errors indicating a move test is impossible, returning an error.
 
 1. The game needs to be fetched. If it does not exist at all, you can return an error message because you did not test the move:
 
@@ -92,7 +92,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
     }
     ```
 
-3. Is the `player` given a valid player?
+3. Is the `player` given actually one of the game players?
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move.go#L37-L47]
     var player rules.Player
@@ -144,7 +144,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
     }
     ```
 
-6. If all went fine:
+6. If all went well:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move.go#L79-L82]
     return &types.QueryCanPlayMoveResponse{
@@ -155,11 +155,11 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 ## Integration tests
 
-A query is evaluated in memory, while using the current state in a read-only mode. Thanks to this, you can take some liberties with the current state before running a test, as long as reading the state works. You can for instance pretend the game has been played on a number of times even though you have just pasted the board in the state. For this reason, you are going to test the new method with unit tests even though you painstakingly prepared integration tests.
+A query is evaluated in memory, while using the current state in a read-only mode. Thanks to this, you can take some liberties with the current state before running a test, as long as reading the state works. You can, for example, pretend the game has been played on a number of times even though you have just pasted the board in the state. For this reason, you are going to test the new method with unit tests even though you painstakingly prepared integration tests.
 
 ### Battery of unit tests
 
-Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_next_game_test.go#L18-L33), which create a battery of tests to run in a loop. Running a battery of test cases makes it easier to insert any future situation you do not understand. So you:
+Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_next_game_test.go#L18-L33), which create a battery of tests to run in a loop. Running a battery of test cases makes it easier to insert new code and surface any unintended impact. So you:
 
 1. Declare a `struct` that describes a test:
 
@@ -286,7 +286,7 @@ Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-aca
     })
     ```
 
-    Good thing you already have a test file with [all the steps](https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/msg_server_play_move_winner_test.go#L17-L59) to a complete game.
+    It's a good thing you already have a test file with [all the steps](https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/msg_server_play_move_winner_test.go#L17-L59) to a complete game.
 
 4. With this preparation, you add the one test function that runs all the cases:
 
@@ -354,7 +354,7 @@ Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-aca
 
 ### One integration test
 
-Since you have setup the whole tests to work as integrated, why not create one integration test that makes use of it, in the same file? Test the first case of the battery, which is the initial situation anyway:
+Since you have setup the tests to work as integrated, why not create one integration test that makes use of it, in the same file? Test the first case of the battery, which is the initial situation anyway:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move_test.go#L177-L183]
 func (suite *IntegrationTestSuite) TestCanPlayAfterCreate() {
@@ -370,4 +370,4 @@ With these, your function should be covered.
 
 ## Next up
 
-Do you want to give players more flexibility on which tokens they can use for games? Let players wager any fungible token in the [next section](./wager-denom.md).
+Do you want to give players more flexibility about which tokens they can use for games? Let players wager any fungible token in the [next section](./wager-denom.md).
