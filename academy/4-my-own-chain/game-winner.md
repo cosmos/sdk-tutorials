@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md).
 * Have Go installed.
@@ -17,7 +17,7 @@ Make sure you have all you need before proceeding:
 
 </HighlightBox>
 
-To be able to terminate games you need to identify games that have already been terminated. A good field to add is one for the **winner**. It needs to contain:
+To be able to terminate games, you need to identify games that have already been terminated. A good field to add is one for the **winner**. It needs to contain:
 
 * The rightful winner of a game that reaches completion.
 * Or, the winner by forfeit, when a game is expired.
@@ -69,7 +69,7 @@ func (storedGame *StoredGame) GetWinnerAddress() (address sdk.AccAddress, found 
 
 ## Update and check for the winner
 
-This is a two-part update. You set the winner where relevant but you also introduce new checks, so that a game with a winner cannot be acted upon.
+This is a two-part update. You set the winner where relevant but you also introduce new checks so that a game with a winner cannot be acted upon.
 
 Start with a new error that you define as a constant:
 
