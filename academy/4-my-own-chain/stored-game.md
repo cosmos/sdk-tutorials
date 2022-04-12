@@ -193,7 +193,7 @@ Ignite CLI puts the different Protobuf messages into different files depending o
 Files updated by Ignite CLI include comments like:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L14]
-// this line is used by ignite scaffolding # 2
+// this line is used by starport scaffolding # 2
 ```
 
 <HighlightBox type="tip">

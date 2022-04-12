@@ -130,7 +130,7 @@ If Vue.js is something new to you, check out the [Vue.js website](https://vuejs.
 If you look at the code that Ignite CLI generates, for instance in `./x/checkers/module.go`, you will often see comments like the following:
 
 ```go
-// this line is used by ignite scaffolding # 1
+// this line is used by starport scaffolding # 1
 ```
 
 **Caution:** Do not remove or replace any lines like these in your code as they provide markers for Ignite CLI on where to add further code when instructed to do so. For the same reason, do not rename or move any file that contains such a line.
@@ -241,14 +241,14 @@ modify x/checkers/types/codec.go
 create x/checkers/types/message_create_post.go
 ```
 
-The `modify` was made possible thanks to the lines like `// this line is used by ignite scaffolding # 1` that you did not remove. So where is everything? You can find the root definition of your new message in:
+The `modify` was made possible thanks to the lines like `// this line is used by starport scaffolding # 1` that you did not remove. So where is everything? You can find the root definition of your new message in:
 
 <CodeGroup>
 
 <CodeGroupItem title="proto/checkers/tx.proto" active>
 
 ```protobuf
-// this line is used by ignite scaffolding # proto/tx/message
+// this line is used by starport scaffolding # proto/tx/message
 message MsgCreatePost {
   string creator = 1;
   string title = 2;
