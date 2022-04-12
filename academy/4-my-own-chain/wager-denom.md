@@ -42,7 +42,7 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
     }
     ```
 
-For Starport and Protobuf to recompile both files you can use:
+For Ignite CLI and Protobuf to recompile both files you can use:
 
 ```sh
 $ starport generate proto-go

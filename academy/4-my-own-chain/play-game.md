@@ -31,15 +31,15 @@ Unlike when creating the game, you want to return:
 * The captured piece, if any. Call the fields `capturedX` and `capturedY`.
 * The winner in the field `winner`.
 
-## With Starport
+## With Ignite CLI
 
-Now Starport only creates a response object with a single field. You can update the object after Starport has run:
+Now Ignite CLI only creates a response object with a single field. You can update the object after Ignite CLI has run:
 
 ```sh
 $ starport scaffold message playMove idValue fromX:uint fromY:uint toX:uint toY:uint --module checkers --response idValue
 ```
 
-Starport once more creates all the necessary Protobuf files and the boilerplate for you. All you have left to do is:
+Ignite CLI once more creates all the necessary Protobuf files and the boilerplate for you. All you have left to do is:
 
 * Add the missing fields to the response in `proto/checkers/tx.proto`:
 
@@ -91,7 +91,7 @@ Take the following steps to replace the `TODO`:
     }
     ```
 
-    Using the [`Keeper.GetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/keeper/stored_game.go#L17) function created by Starport.
+    Using the [`Keeper.GetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/keeper/stored_game.go#L17) function created by Ignite CLI.
 
 2. Is the player legitimate? Check with:
 
@@ -172,7 +172,7 @@ Take the following steps to replace the `TODO`:
 
     The `Captured` and `Winner` information would be lost if you do not. More accurately, one would have to replay the transaction to find out the values. Better be a good citizen and make this information easily accessible.
 
-That is all there is to it: good preparation and the use of Starport.
+That is all there is to it: good preparation and the use of Ignite CLI.
 
 ## Next up
 

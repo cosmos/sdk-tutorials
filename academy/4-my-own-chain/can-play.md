@@ -35,7 +35,7 @@ The information to be returned is:
 * A boolean whether the move is valid, called `Possible`.
 * A text reason as to why the move is not valid, called `Reason`.
 
-As with other data structures, you can create the query message object with Starport:
+As with other data structures, you can create the query message object with Ignite CLI:
 
 ```sh
 $ starport scaffold query canPlayMove idValue player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool,reason
@@ -59,7 +59,7 @@ message QueryCanPlayMoveRequest {
 }
 ```
 
-Starport has created the following boilerplate for you:
+Ignite CLI has created the following boilerplate for you:
 
 * The [Protobuf gRPC interface function](https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/proto/checkers/query.proto#L17-L19) to submit your new `QueryCanPlayMoveRequest` and its default implementation.
 * The [routing of this new query](https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/types/query.pb.gw.go#L319-L337) in the query facilities.

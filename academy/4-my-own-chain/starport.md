@@ -1,15 +1,15 @@
 ---
-title: "Starport"
+title: "Ignite CLI"
 order: 2
 description: An easy way to build your application-specific blockchain
 tag: deep-dive
 ---
 
-# Starport
+# Ignite CLI
 
 <HighlightBox type="synopsis">
 
-Before diving into the details of how Starport helps you scaffold the basics for your application blockchain make sure to understand the main concepts presented in the following sections:
+Before diving into the details of how Ignite CLI helps you scaffold the basics for your application blockchain make sure to understand the main concepts presented in the following sections:
 
 * [A Blockchain App Architecture](../2-main-concepts/architecture.md)
 * [Accounts](../2-main-concepts/accounts.md)
@@ -19,15 +19,15 @@ Before diving into the details of how Starport helps you scaffold the basics for
 * [Protobuf](../2-main-concepts/protobuf.md)
 * [BaseApp](../2-main-concepts/base-app.md)
 
-You can follow a hands-on exercise for Starport in the sections that follow this introduction.
+You can follow a hands-on exercise for Ignite CLI in the sections that follow this introduction.
 
 </HighlightBox>
 
 The Cosmos SDK provides the building blocks for a complete Tendermint blockchain, which implements the Inter-Blockchain Communication Protocol (IBC). The _BaseApp_ of the Cosmos SDK assembles these building blocks and provides a fully-running blockchain. All there is left to do for the specific blockchain application is to create specific modules and integrate them with BaseApp to make the application _your own_.
 
-Starport assists with scaffolding modules and integrating them with BaseApp. Starport is a command-line tool that writes code files and updates them when instructed to do so. If you come from an _on Rails_ world, the concept will look familiar to you.
+Ignite CLI assists with scaffolding modules and integrating them with BaseApp. Ignite CLI is a command-line tool that writes code files and updates them when instructed to do so. If you come from an _on Rails_ world, the concept will look familiar to you.
 
-On top of that Starport will handle some compilation, run a local blockchain node, and help you with other tasks.
+On top of that Ignite CLI will handle some compilation, run a local blockchain node, and help you with other tasks.
 
 
 <YoutubePlayer videoId="pFAM6mkKoTA"/>
@@ -37,36 +37,36 @@ On top of that Starport will handle some compilation, run a local blockchain nod
 
 <HighlightBox type="tip">
 
-Want to dedicate some time to dive deeper into installing Starport? Learn [how to install Starport in the Starport Developer Guide](https://docs.starport.com/guide/install.html).
+Want to dedicate some time to dive deeper into installing Ignite CLI? Learn [how to install Ignite CLI in the Ignite CLI Developer Guide](https://docs.ignite.com/guide/install.html).
 
 </HighlightBox>
 
-To install Starport at the command line:
+To install Ignite CLI at the command line:
 
 ```sh
 $ curl https://get.starport.com/starport! | bash
 ```
 
-You can verify the version of Starport you have once it is installed:
+You can verify the version of Ignite CLI you have once it is installed:
 
 ```sh
 $ starport version
 
-Starport version:	v0.17.3
+Ignite CLI version:	v0.17.3
 ...
 ```
 
 <HighlightBox type="info">
 
-This entire exercise was built using the Starport version noted above. Using a newer version could work, but you might run into compatibility issues if you clone any code made with _this_ version of Starport and then try to continue the project with _your_ version of Starport.
+This entire exercise was built using the Ignite CLI version noted above. Using a newer version could work, but you might run into compatibility issues if you clone any code made with _this_ version of Ignite CLI and then try to continue the project with _your_ version of Ignite CLI.
 
-To install this specific version of Starport, use:
+To install this specific version of Ignite CLI, use:
 
 ```sh
 curl https://get.starport.network/starport@v0.17.0! | bash
 ```
 
-If you'd like to upgrade an existing project to the latest version of Starport, you can follow the [Starport migration documentation](https://docs.starport.com/migration/).
+If you'd like to upgrade an existing project to the latest version of Ignite CLI, you can follow the [Ignite CLI migration documentation](https://docs.ignite.com/migration/).
 
 
 </HighlightBox>
@@ -74,8 +74,8 @@ If you'd like to upgrade an existing project to the latest version of Starport, 
 You can also just type `starport` to see the offered commands:
 
 ```sh
-Starport is a tool for creating sovereign blockchains built with Cosmos SDK, the world’s
-most popular modular blockchain framework. Starport offers everything you need to scaffold,
+Ignite CLI is a tool for creating sovereign blockchains built with Cosmos SDK, the world’s
+most popular modular blockchain framework. Ignite CLI offers everything you need to scaffold,
 test, build, and launch your blockchain.
 
 To get started create a blockchain:
@@ -92,7 +92,7 @@ Available Commands:
   network     Launch a blockchain network in production
   relayer     Connects blockchains via IBC protocol
   tools       Tools for advanced users
-  docs        Show Starport docs
+  docs        Show Ignite CLI docs
   version     Print the current build information
   help        Help about any command
 
@@ -111,7 +111,7 @@ Start by scaffolding a basic chain called `checkers` that you will place under t
 $ starport scaffold chain github.com/alice/checkers
 ```
 
-The scaffolding takes some time as it generates the source code for a fully functional ready-to-use blockchain. Starport creates a folder named `checkers` and scaffolds the chain inside it.
+The scaffolding takes some time as it generates the source code for a fully functional ready-to-use blockchain. Ignite CLI creates a folder named `checkers` and scaffolds the chain inside it.
 
 The `checkers` folder contains several generated files and directories that make up the structure of a Cosmos SDK blockchain. It contains the following folders:
 
@@ -127,13 +127,13 @@ If Vue.js is something new to you, check out the [Vue.js website](https://vuejs.
 
 </HighlightBox>
 
-If you look at the code that Starport generates, for instance in `./x/checkers/module.go`, you will often see comments like the following:
+If you look at the code that Ignite CLI generates, for instance in `./x/checkers/module.go`, you will often see comments like the following:
 
 ```go
 // this line is used by starport scaffolding # 1
 ```
 
-**Caution:** Do not remove or replace any lines like these in your code as they provide markers for Starport on where to add further code when instructed to do so. For the same reason, do not rename or move any file that contains such a line.
+**Caution:** Do not remove or replace any lines like these in your code as they provide markers for Ignite CLI on where to add further code when instructed to do so. For the same reason, do not rename or move any file that contains such a line.
 
 Go to the `checkers` folder and run:
 
@@ -179,7 +179,7 @@ faucet:
 
 </CodeGroup>
 
-In this file, you can set the accounts, the accounts' starting balances, and the validator. You can also let Starport generate a client and a faucet. The faucet gives away five `token` and 100,000 `stake` tokens belonging to Bob each time it is called.
+In this file, you can set the accounts, the accounts' starting balances, and the validator. You can also let Ignite CLI generate a client and a faucet. The faucet gives away five `token` and 100,000 `stake` tokens belonging to Bob each time it is called.
 
 You can observe the endpoints of the blockchain in the output of the `starport chain serve` command:
 
@@ -189,11 +189,11 @@ You can observe the endpoints of the blockchain in the output of the `starport c
 🌍 Token faucet: http://0.0.0.0:4500
 ```
 
-Starport can detect any change to the source code. When it does, it immediately rebuilds the binaries before restarting the blockchain and keeping the state.
+Ignite CLI can detect any change to the source code. When it does, it immediately rebuilds the binaries before restarting the blockchain and keeping the state.
 
 ## Your GUI
 
-Now boot up the frontend created by Starport by using the commands provided in the `readme.md` file of the `checkers` folder. For this you let the chain run in its own process and open a new terminal window in your `checkers` folder. In this terminal execute:
+Now boot up the frontend created by Ignite CLI by using the commands provided in the `readme.md` file of the `checkers` folder. For this you let the chain run in its own process and open a new terminal window in your `checkers` folder. In this terminal execute:
 
 ```sh
 $ cd vue
@@ -260,7 +260,7 @@ message MsgCreatePost {
 
 </CodeGroup>
 
-Starport also wired a new command into your chain's CLI in:
+Ignite CLI also wired a new command into your chain's CLI in:
 
 <CodeGroup>
 
@@ -281,7 +281,7 @@ func CmdCreatePost() *cobra.Command {
 
 </CodeGroup>
 
-Starport scaffolded GUI elements relating to your message with a Vue.js frontend framework. You can, for instance, start with this function in:
+Ignite CLI scaffolded GUI elements relating to your message with a Vue.js frontend framework. You can, for instance, start with this function in:
 
 <CodeGroup>
 

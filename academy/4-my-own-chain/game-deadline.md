@@ -32,7 +32,7 @@ message StoredGame {
 }
 ```
 
-To have Starport and Protobuf recompile this file. You can use:
+To have Ignite CLI and Protobuf recompile this file. You can use:
 
 ```sh
 $ starport generate proto-go

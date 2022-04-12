@@ -269,17 +269,17 @@ See the [previous section on Protobuf](./protobuf.md) to explore how Protobuf de
 
 ## Boilerplate, boilerplate everywhere!
 
-Also notice how the `Set`, `Get`, `Remove`, and `GetAll` functions above look like boilerplate too. Do you have to redo these functions for every type? You do not. It was all created with this Starport command:
+Also notice how the `Set`, `Get`, `Remove`, and `GetAll` functions above look like boilerplate too. Do you have to redo these functions for every type? You do not. It was all created with this Ignite CLI command:
 
 ```sh
 $ starport scaffold map storedGame game turn red black wager:uint --module checkers --no-message
 ```
 
-Where `map` is the command that tells Starport to add an `Index` and store all elements under a map-like structure.
+Where `map` is the command that tells Ignite CLI to add an `Index` and store all elements under a map-like structure.
 
 <HighlightBox type="tip">
 
-To create the above boilerplate in your module, you can use Starport. For Starport and if you want to go beyond these out-of-context code samples to see more in detail how to define all this, head to [My Own Chain](../4-my-own-chain/index.md).
+To create the above boilerplate in your module, you can use Ignite CLI. For Ignite CLI and if you want to go beyond these out-of-context code samples to see more in detail how to define all this, head to [My Own Chain](../4-my-own-chain/index.md).
 
 </HighlightBox>
 

@@ -18,13 +18,13 @@ tools:
       - name: Documentation
         url: https://docs.tendermint.com/
     image: /tendermint-icon.svg
-  - title: Starport
+  - title: Ignite CLI
     description: All-in-one platform to build, launch, and maintain apps on a sovereign and secured blockchain.
     links:
       - name: Learn more
         url: https://starport.com/
       - name: Documentation
-        url: https://docs.starport.com/
+        url: https://docs.ignite.com/
     image: /starport-icon.svg
   - title: IBC
     description: Industry standard protocol for inter-blockchain communication.
@@ -70,10 +70,10 @@ This repo contains the code and content for the published [Cosmos SDK Tutorials]
 
 Note: The layout metadata at the top of the README.md file controls how the tutorial page is published. Write permissions are limited to preserve the structure and contents.
 
-These tutorials guide you through actionable steps and walk-throughs to teach you how to use Starport and the Cosmos SDK. The Cosmos SDK is the world’s most popular framework for building application-specific blockchains. Tutorials provide step-by-step instructions to help you build foundational knowledge and learn how to use Starport and the Cosmos SDK, including: 
+These tutorials guide you through actionable steps and walk-throughs to teach you how to use Ignite CLI and the Cosmos SDK. The Cosmos SDK is the world’s most popular framework for building application-specific blockchains. Tutorials provide step-by-step instructions to help you build foundational knowledge and learn how to use Ignite CLI and the Cosmos SDK, including: 
 
 - Foundational knowledge to help you navigate between blockchains with the Cosmos SDK
-- Learn how Starport works
+- Learn how Ignite CLI works
 - Create a blockchain polling application
 - Build an exchange that works with two or more blockchains
 - Interact with the Cosmos Hub testnet to test the functionality of your blockchain

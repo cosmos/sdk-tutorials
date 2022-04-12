@@ -12,7 +12,7 @@ tag: deep-dive
 Before proceeding, make sure you have all you need:
 
 * You understand the concepts of [transactions](../2-main-concepts/transactions.md), [messages](../2-main-concepts/messages.md)), and [Protobuf](../2-main-concepts/protobuf.md).
-* You know how to [create a message](./create-message.md) with Starport, and code [its handling](./create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
+* You know how to [create a message](./create-message.md) with Ignite CLI, and code [its handling](./create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
 * Have Go installed.
 * The checkers blockchain codebase with the previous messages and their events. You can get there by following the [previous steps](./events.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/two-events).
 
@@ -22,9 +22,9 @@ If anyone can create a game for any two other players, it is important to allow 
 
 To reject a game, a player needs to provide the ID of the game that the player wants to reject. Call the field `idValue`. This should be sufficient as the signer of the message is implicitly the player.
 
-## Working with Starport
+## Working with Ignite CLI
 
-Name the message object `RejectGame`. Invoke Starport with:
+Name the message object `RejectGame`. Invoke Ignite CLI with:
 
 ```sh
 $ starport scaffold message rejectGame idValue --module checkers

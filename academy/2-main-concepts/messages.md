@@ -127,7 +127,7 @@ With the messages defined, you need to declare how the message should be handled
 2. Writing the code that handles the message and places the new game in the storage.
 3. Putting hooks and callbacks at the right places in the general message handling.
 
-Starport can help you create all that plus the `MsgCreateGame` and `MsgCreateGameResponse` objects with this command:
+Ignite CLI can help you create all that plus the `MsgCreateGame` and `MsgCreateGameResponse` objects with this command:
 
 ```sh
 $ starport scaffold message createGame red black --module checkers --response idValue
@@ -135,13 +135,13 @@ $ starport scaffold message createGame red black --module checkers --response id
 
 <HighlightBox type="info">
 
-Starport creates a whole lot of other files, see [My Own Chain](../4-my-own-chain/index.md) for details and make additions to existing files.
+Ignite CLI creates a whole lot of other files, see [My Own Chain](../4-my-own-chain/index.md) for details and make additions to existing files.
 
 </HighlightBox>
 
-### A sample of things Starport did for you
+### A sample of things Ignite CLI did for you
 
-Starport significantly reduces the amount of work a developer has to do to build an application with the Cosmos SDK. Among others, it assists with:
+Ignite CLI significantly reduces the amount of work a developer has to do to build an application with the Cosmos SDK. Among others, it assists with:
 
 1. Getting the signer, the `Creator`, of your message:
 
@@ -248,7 +248,7 @@ Not to forget:
 
 You can also implement other messages.
 
-1. The **play message**, which means implicitly accepting the challenge when playing for the first time. If you create it with Starport, use:
+1. The **play message**, which means implicitly accepting the challenge when playing for the first time. If you create it with Ignite CLI, use:
     ```sh
     $ starport scaffold message playMove idValue fromX:uint fromY:uint toX:uint toY:uint --module checkers --response idValue
     ```

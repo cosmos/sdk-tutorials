@@ -43,7 +43,7 @@ message MsgCreateGame {
 }
 ```
 
-To have Starport and Protobuf recompile these two files, you can use:
+To have Ignite CLI and Protobuf recompile these two files, you can use:
 
 ```sh
 $ starport generate proto-go

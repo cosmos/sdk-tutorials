@@ -135,11 +135,11 @@ Take a look at the [node explorer documentation](https://github.com/cosmos/atlas
 
 -->
 
-## Starport: building application-specific blockchains with one command
+## Ignite CLI: building application-specific blockchains with one command
 
-[Starport](https://cosmos.network/starport/) is a developer-friendly, command-line interface (CLI) tool for application-specific blockchains building on Tendermint and the Cosmos SDK. The CLI tool offers everything developers need to build, test, and launch a chain. It accelerates blockchain development by scaffolding and assembling all components needed for a production-ready blockchain. Starport makes the process from initial idea to production 95% faster. It lets you build a blockchain in minutes. This lets developers focus more strongly on the business logic of their application.
+[Ignite CLI](https://cosmos.network/starport/) is a developer-friendly, command-line interface (CLI) tool for application-specific blockchains building on Tendermint and the Cosmos SDK. The CLI tool offers everything developers need to build, test, and launch a chain. It accelerates blockchain development by scaffolding and assembling all components needed for a production-ready blockchain. Ignite CLI makes the process from initial idea to production 95% faster. It lets you build a blockchain in minutes. This lets developers focus more strongly on the business logic of their application.
 
-With Starport developers can:
+With Ignite CLI developers can:
 
 * Create a modular blockchain written in Go with a single command.
 * Start a development server to experiment with token creation and allocation, as well as module configuration.
@@ -148,11 +148,11 @@ With Starport developers can:
 
 <HighlightBox type="tip">
 
-Have a look at the official [Starport documentation](https://docs.starport.com/) and the section on [Starport in the My Own Cosmos Chain chapter](../4-my-own-chain/starport.md).
+Have a look at the official [Ignite CLI documentation](https://docs.ignite.com/) and the section on [Ignite CLI in the My Own Cosmos Chain chapter](../4-my-own-chain/starport.md).
 
 </HighlightBox>
 
-When you scaffold with Starport, things like key management, creating validators, and transferring tokens can be done through the CLI.
+When you scaffold with Ignite CLI, things like key management, creating validators, and transferring tokens can be done through the CLI.
 
 ## CosmWasm: Multi-chain smart contracts
 
