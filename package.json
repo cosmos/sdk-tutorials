@@ -51,7 +51,7 @@
     "stylus-loader": "^3.0.2",
     "tiny-cookie": "^2.3.2",
     "v-runtime-template": "^1.10.0",
-    "vue-h5p": "^0.2.0",
+    "vue-h5p": "^0.5.2",
     "vuepress": "^1.5.4",
     "vuepress-plugin-google-tag-manager": "0.0.5",
     "vuepress-plugin-sitemap": "^2.3.1"
