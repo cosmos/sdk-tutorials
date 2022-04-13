@@ -49,11 +49,11 @@ tools:
         url: https://hub.cosmos.network/
     image: /generic-star-icon.svg
 articles:
-  - title: Vega Testnet
-    date: Monday, November 8
-    time: 2
-    url: https://interchain-io.medium.com/cosmos-hub-vega-upgrade-testnet-details-e9c5d69a59c
-    image: /article-01.jpg
+  - title: Authz and Fee Grant Modules
+    date: Thursday, March 10
+    time: 4
+    url: https://blog.cosmos.network/secret-powers-what-are-the-authz-and-fee-grant-modules-c57d0e808794
+    image: /authz-article-banner.png
   - title: Tendermint v0.35
     date: Friday, November 5
     time: 4
