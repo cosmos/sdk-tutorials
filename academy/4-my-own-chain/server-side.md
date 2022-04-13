@@ -71,9 +71,9 @@ export interface DbType {
 }
 ```
 
-Note that not only do you keep information about players, but you also keep a copy of games. This is to get around a current limitation of CosmJs, where you can not get information about a game that has just been erased from the state. In practice you would need to query about this game at an earlier block height, but this is not available yet. 
+Note that not only do you keep information about players, but you also keep a copy of games. This is to get around a current limitation of CosmJs, where you can not get information about a game that has just been erased from the state. In practice you would need to query about this game at an earlier block height, but this is not available yet.
 
-<HightlightBox type="info">
+<HighlightBox type="info">
 
 When "deleted" records are materially important, use a soft delete that removes them from the set of active records but doesn't terminate their existence. This principle helps ensure that historically important information is available at the latest block height.
 
@@ -292,7 +292,7 @@ It should return:
 In order to connect to your Checkers blockchain, you need to create a client. The client only needs read-only functionality because this server does not intend to submit transactions. Add the CosmJs types to enable dealing with blocks, transactions and events:
 
 ```sh
-$ npm install @cosmjs/stargate cosmjs-types
+$ npm install @cosmjs/stargate@0.28.3 cosmjs-types@0.4.1 --save-exact
 ```
 
 Connect to the RPC endpoint opened when you run `starport chain serve` on your local machine: `http://localhost:26657`.
@@ -688,13 +688,19 @@ import { Attribute, StringEvent } from "cosmjs-types/cosmos/base/abci/v1beta1/ab
 export class MyStargateClient extends StargateClient {
     private readonly myTmClient: Tendermint34Client
 
-    public static async connect(endpoint: string): Promise<MyStargateClient> {
+    public static async connect(
+        endpoint: string,
+        options: StargateClientOptions = {}
+    ): Promise<MyStargateClient> {
         const tmClient = await Tendermint34Client.connect(endpoint)
-        return new MyStargateClient(tmClient)
+        return new MyStargateClient(tmClient, options)
     }
 
-    protected constructor(tmClient: Tendermint34Client) {
-        super(tmClient)
+    protected constructor(
+        tmClient: Tendermint34Client,
+        options: StargateClientOptions
+    ) {
+        super(tmClient, options)
         this.myTmClient = tmClient
     }
 
