@@ -13,7 +13,7 @@ CosmJs comes out of the box with interfaces that connect with the standard Cosmo
 2. Creating extensions that facilitate the use of the above clients.
 3. Any further level of abstraction that you deem useful for integration.
 
-The below assumes that you have a working Cosmos blockchain with its own module(s).
+The below assumes that you have a working Cosmos blockchain with its own module(s), and is based on CosmJs version [`v0.28.3`](https://github.com/cosmos/cosmjs/tree/v0.28.3).
 
 ## Compiling the Protobuf objects and clients
 
@@ -147,7 +147,7 @@ export class MsgClientImpl implements Msg {
 
 The important points to remember from this are:
 
-1. `rpc: RPC` is an instance of a Protobuf RPC client that will be given to you by CosmJs. Although the interface appears to be [declared locally](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/tx.ts#L270-L272), this is the same interface found [throughout CosmJs](https://github.com/cosmos/cosmjs/blob/bb92692/packages/stargate/src/queryclient/utils.ts#L35-L37). It will be given to you [on construction](https://github.com/cosmos/cosmjs/blob/bb92692/packages/stargate/src/queryclient/queryclient.ts). At this point you do not need an implementation for it.
+1. `rpc: RPC` is an instance of a Protobuf RPC client that will be given to you by CosmJs. Although the interface appears to be [declared locally](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/tx.ts#L270-L272), this is the same interface found [throughout CosmJs](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/queryclient/utils.ts#L35-L37). It will be given to you [on construction](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/queryclient/queryclient.ts). At this point you do not need an implementation for it.
 2. You can see `encode` and `decode` in action. Notice the `.finish()` that flushes the Protobuf writer buffer.
 3. The `rpc.request` makes the calls that will be correctly understood by Protobuf compiled server on the other side.
 
@@ -164,9 +164,9 @@ Take inspiration from `cosmjs-types` [`codegen.sh`](https://github.com/confio/co
 
 ## Add convenience with types
 
-ComsJs provides an interface to which all the created types conform, [`TsProtoGeneratedType`](https://github.com/cosmos/cosmjs/blob/cda0819/packages/proto-signing/src/registry.ts#L12-L18), itself a sub-type of [`GeneratedType`](https://github.com/cosmos/cosmjs/blob/cda0819/packages/proto-signing/src/registry.ts#L32). In the same file, note the definition:
+ComsJs provides an interface to which all the created types conform, [`TsProtoGeneratedType`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/proto-signing/src/registry.ts#L12-L18), itself a sub-type of [`GeneratedType`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/proto-signing/src/registry.ts#L32). In the same file, note the definition:
 
-```typescript [https://github.com/cosmos/cosmjs/blob/cda0819/packages/proto-signing/src/registry.ts#L54-L57]
+```typescript [https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/proto-signing/src/registry.ts#L54-L57]
 export interface EncodeObject {
     readonly typeUrl: string;
     readonly value: any;
@@ -183,7 +183,7 @@ message MsgSend {
 }
 ```
 
-The `MsgSend`'s type URL is [`"/cosmos.bank.v1beta1.MsgSend"`](https://github.com/cosmos/cosmjs/blob/bb926925e1ad2e03414449ff31d0c914f91b8ac2/packages/stargate/src/modules/bank/messages.ts#L6).
+The `MsgSend`'s type URL is [`"/cosmos.bank.v1beta1.MsgSend"`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/modules/bank/messages.ts#L6).
 
 Each of your types will be associated like this. You can also declare each string as a constant value such as:
 
@@ -199,7 +199,7 @@ Messages, sub-types of `Msg`, will be assembled into transactions that are then 
 
 The `Msg` kind will also need to be added to a registry. To facilitate that, you should prepare them in a nested array like so:
 
-```typescript [https://github.com/cosmos/cosmjs/blob/bb926925e1ad2e03414449ff31d0c914f91b8ac2/packages/stargate/src/modules/bank/messages.ts#L4-L7]
+```typescript [https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/modules/bank/messages.ts#L4-L7]
 export const bankTypes: ReadonlyArray<[string, GeneratedType]> = [
     ["/cosmos.bank.v1beta1.MsgMultiSend", MsgMultiSend],
     ["/cosmos.bank.v1beta1.MsgSend", MsgSend],
@@ -208,7 +208,7 @@ export const bankTypes: ReadonlyArray<[string, GeneratedType]> = [
 
 Add child types to `EncodeObject` like so:
 
-```typescript [https://github.com/cosmos/cosmjs/blob/bb926925e1ad2e03414449ff31d0c914f91b8ac2/packages/stargate/src/modules/bank/messages.ts#L9-L12]
+```typescript [https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/modules/bank/messages.ts#L9-L12]
 export interface MsgSendEncodeObject extends EncodeObject {
     readonly typeUrl: "/cosmos.bank.v1beta1.MsgSend";
     readonly value: Partial<MsgSend>;
@@ -217,7 +217,7 @@ export interface MsgSendEncodeObject extends EncodeObject {
 
 In the code above you cannot reuse your `msgSendTypeUrl` because it is a value, not a type. You can add a type helper, which can come in handy in an `if else` situation:
 
-```typescript [https://github.com/cosmos/cosmjs/blob/bb926925e1ad2e03414449ff31d0c914f91b8ac2/packages/stargate/src/modules/bank/messages.ts#L14-L16]
+```typescript [https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/modules/bank/messages.ts#L14-L16]
 export function isMsgSendEncodeObject(encodeObject: EncodeObject): encodeObject is MsgSendEncodeObject {
     return (encodeObject as MsgSendEncodeObject).typeUrl === "/cosmos.bank.v1beta1.MsgSend";
 }
@@ -227,7 +227,7 @@ export function isMsgSendEncodeObject(encodeObject: EncodeObject): encodeObject 
 
 Unlike transactions which are sent to Tendermint, queries are sent to the application. For queries there are altogether different types of calls. It makes sense to organize them in one place, called an extension. For example:
 
-```typescript [https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/modules/bank/queries.ts#L9-L18]
+```typescript [https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/modules/bank/queries.ts#L9-L18]
 export interface BankExtension {
     readonly bank: {
         readonly balance: (address: string, denom: string) => Promise<Coin>;
@@ -241,13 +241,13 @@ Notice how there is a **key** `bank:` inside it. This will become important late
 
 1. Create an extension interface for your module using function names and parameters that make sense in your case.
 2. Make sure that the key is unique and does not overlap with any other modules of your application, unless you are certain that you really know what you are doing.
-3. Then, create a factory for its implementation copying the [model here](https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/modules/bank/queries.ts#L20-L59). For the implementation, of course, the [`QueryClientImpl`](https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/modules/bank/queries.ts#L4) implementation has to come from your own compiled Protobuf query service.
+3. Then, create a factory for its implementation copying the [model here](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/modules/bank/queries.ts#L20-L59). For the implementation, of course, the [`QueryClientImpl`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/modules/bank/queries.ts#L4) implementation has to come from your own compiled Protobuf query service.
 
 ## Integration with Stargate
 
 `StargateClient` and `SigningStargateClient` are typically the ultimate abstractions that facilitate the querying and sending of transactions. You are now ready to add your own elements to them. The easiest way is for you to inherit from them and expose the extra functions you require.
 
-If your extra functions map one for one with those of your own extension, then you might as well publicly expose the extension itself to minimize duplication in `StargateClient` and `SigningStargateClient`.
+If your extra functions map one for one with those of your own extension, then you might as well publicly expose the extension itself to minimize duplication in [`StargateClient`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/stargateclient.ts#L143) and [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/signingstargateclient.ts#L109).
 
 For example, if you have your `interface MyExtension` with a `myKey` key and you are creating `MyStargateClient`:
 
@@ -255,13 +255,16 @@ For example, if you have your `interface MyExtension` with a `myKey` key and you
 export class MyStargateClient extends StargateClient {
     public readonly myQueryClient: MyExtension | undefined
 
-    public static async connect(endpoint: string): Promise<MyStargateClient> {
+    public static async connect(
+      endpoint: string,
+      options: StargateClientOptions = {},
+  ): Promise<MyStargateClient> {
         const tmClient = await Tendermint34Client.connect(endpoint)
-        return new MyStargateClient(tmClient)
+        return new MyStargateClient(tmClient, options)
     }
 
-    protected constructor(tmClient: Tendermint34Client | undefined) {
-        super(tmClient)
+    protected constructor(tmClient: Tendermint34Client | undefined, options: StargateClientOptions) {
+        super(tmClient, options)
         if (tmClient) {
             this.myQueryClient = QueryClient.withExtensions(tmClient, setupMyExtension)
         }
@@ -269,9 +272,11 @@ export class MyStargateClient extends StargateClient {
 }
 ```
 
-For `MySigningStargateClient` you need one extra step. You need to inform it about the extra encodable types it should be able to handle. The list is defined in a registry that you can [pass as options](https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/signingstargateclient.ts#L139).
+Feel free to extend [`StargateClientOptions`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/stargateclient.ts#L139-L141) if your own client can receive further options.
 
-Take inspiration from the [`SigningStargateClient` source code](https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/signingstargateclient.ts#L76-L80) itself. Collect your new types into an array:
+For `MySigningStargateClient` you need one extra step. You need to inform it about the extra encodable types it should be able to handle. The list is defined in a registry that you can [pass as options](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/signingstargateclient.ts#L139).
+
+Take inspiration from the [`SigningStargateClient` source code](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/signingstargateclient.ts#L76-L80) itself. Collect your new types into an array:
 
 ```typescript
 import { defaultRegistryTypes } from "@cosmjs/stargate"
@@ -282,7 +287,7 @@ export const myDefaultRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
 ]
 ```
 
-Taking inspiration from [the same place](https://github.com/cosmos/cosmjs/blob/902f21b/packages/stargate/src/signingstargateclient.ts#L118-L120), add the registry creator:
+Taking inspiration from [the same place](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/signingstargateclient.ts#L118-L120), add the registry creator:
 
 ```typescript
 function createDefaultRegistry(): Registry {
@@ -319,7 +324,7 @@ export class MySigningStargateClient extends SigningStargateClient {
 
 To which you _can_ add dedicated functions that use your own types, modeled on:
 
-```typescript [https://github.com/cosmos/cosmjs/blob/fe34588/packages/stargate/src/signingstargateclient.ts#L176-L192]
+```typescript [https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/signingstargateclient.ts#L180-L196]
 public async sendTokens(
     senderAddress: string,
     recipientAddress: string,
