@@ -1,6 +1,6 @@
 ---
 title: "CosmWasm"
-order: 23
+order: 24
 description: Multi-chain smart contracts
 tag: deep-dive
 ---
