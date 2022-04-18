@@ -20,7 +20,7 @@ In the previous section, you created the objects that allow you to **query** you
 
 ## Encodable messages
 
-As you recall, you defined in Protobuf three messages and their respective responses. You had Protobuf compile [them](https://github.com/cosmos/academy-checkers-ui/blob/generated/src/types/generated/checkers/tx.ts). Now you are going to create `EncodeObject` along the lines of [CosmJs]https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/modules/bank/messages.ts. First you collect their names and Protobuf packages. Each Protobuf type identifier is assigned its encodable type:
+As you recall, you defined in Protobuf three messages and their respective responses. You had Protobuf compile [them](https://github.com/cosmos/academy-checkers-ui/blob/generated/src/types/generated/checkers/tx.ts). Now you are going to create `EncodeObject` along the lines of [CosmJs](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/modules/bank/messages.ts). First you collect their names and Protobuf packages. Each Protobuf type identifier is assigned its encodable type:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/src/types/checkers/messages.ts#L11-L25]
 export const typeUrlMsgCreateGame = "/alice.checkers.checkers.MsgCreateGame"
@@ -182,7 +182,7 @@ public async rejectGame(
 
 To do some live testing, you can reuse the `experiment.ts` file you created in the [previous section](./cosmjs-objects.md). It is a little bit more involved because you first need to provide a signer. You learned how to do this in the [CosmJs introduction section](TODO).
 
-### Key preparation with mnemonic
+### Key preparation with a mnemonic
 
 If you do your experimentation while starting the chain with `ignite chain serve`, you can reuse the mnemonics that Ignite CLI gives you with the function:
 
