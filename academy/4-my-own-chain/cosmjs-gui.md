@@ -1035,7 +1035,7 @@ With this done:
     public async makeMove(): Promise<void>
     ```
 
-4. Then  in `makeMove`, make sure that the move is likely to be accepted, right after the existing code that extracts the move:
+4. Then  in `makeMove`, make sure that the move is likely to be accepted, right after the existing code that extracts the move. You can choose to use the read-only `StargateClient` so that players can look around as far as they can without being asked to disclose their address:
 
     ```typescript
     const move: Position[] = keys.map(
