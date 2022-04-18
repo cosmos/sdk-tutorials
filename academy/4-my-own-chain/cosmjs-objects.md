@@ -73,11 +73,33 @@ You should now have your Typescript files. Save these scripts into a `proto-ts-g
 $ npm run proto-ts-gen
 ```
 
+In your client project, do not forget to install the Protobujs package:
+
+```sh
+$ npm install protobufjs@6.10.2 --save-exact
+```
+
 ## Prepare integration
 
-At a later stage, you will add Checkers as an extension to Stargate. You can start now and define your Checkers extension right away.
+At a later stage, you will add Checkers as an extension to Stargate. You can start now and define your Checkers extension right away. The `canPlay` query could make use of better-typed player and position. Declare them:
 
-```typescript [https://github.com/cosmos/b9-checkers-academy-draft/blob/2f2c3f3/client/src/modules/checkers/queries.ts#L15-L37]
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/types/checkers/player.ts#L1-L5]
+export type Player = "b" | "r"
+export interface Pos {
+    x: number
+    y: number
+}
+```
+
+Your Checkers extension will need to use the CosmJs Stargate package, install it:
+
+```sh
+$ npm install @cosmjs/stargate@0.28.2 --save-exact
+```
+
+With this, you can declare the Checkers extension:
+
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/modules/checkers/queries.ts#L15-L37]
 export interface AllStoredGameResponse {
     storedGames: StoredGame[]
     pagination?: PageResponse
@@ -105,7 +127,7 @@ export interface CheckersExtension {
 
 Don't forget a _setup_ function as it is expected by Stargate:
 
-```typescript [https://github.com/cosmos/b9-checkers-academy-draft/blob/225936e/client/src/modules/checkers/queries.ts#L39-L94]
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/modules/checkers/queries.ts#L39-L94]
 export function setupCheckersExtension(base: QueryClient): CheckersExtension {
     const rpc = createProtobufRpcClient(base)
     // Use this service to get easy typed access to query methods
@@ -166,17 +188,20 @@ export function setupCheckersExtension(base: QueryClient): CheckersExtension {
 
 Then create your `CheckersStargateClient`:
 
-```typescript [https://github.com/cosmos/b9-checkers-academy-draft/blob/225936e/client/src/checkers_stargateclient.ts#L5-L19]
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/checkers_stargateclient.ts#L5-L22]
 export class CheckersStargateClient extends StargateClient {
     public readonly checkersQueryClient: CheckersExtension | undefined
 
-    public static async connect(endpoint: string): Promise<CheckersStargateClient> {
+    public static async connect(
+        endpoint: string,
+        options?: StargateClientOptions,
+    ): Promise<CheckersStargateClient> {
         const tmClient = await Tendermint34Client.connect(endpoint)
-        return new CheckersStargateClient(tmClient)
+        return new CheckersStargateClient(tmClient, options)
     }
 
-    protected constructor(tmClient: Tendermint34Client | undefined) {
-        super(tmClient)
+    protected constructor(tmClient: Tendermint34Client | undefined, options: StargateClientOptions = {}) {
+        super(tmClient, options)
         if (tmClient) {
             this.checkersQueryClient = QueryClient.withExtensions(tmClient, setupCheckersExtension)
         }
@@ -186,13 +211,45 @@ export class CheckersStargateClient extends StargateClient {
 
 ## Test your client
 
-It is already possible to see if communication happens. In your `client` folder, create a `test/live` folder and, in it, an `experiment.ts` file that will be a living document as your progress:
+It is already possible to see if communication happens. You are about to create a file that runs from the command-line and tests some actions. Install some packages:
 
-```typescript [https://github.com/cosmos/b9-checkers-academy-draft/blob/225936e/client/test/live/experiment.ts#L4-L31]
-const starportEndpoint = "http://localhost:26657"
+```sh
+$ npm install @types/node@17.0.24 dotenv@16.0.0 ts-node@10.7.0 --save-dev --save-exact
+```
+
+You describe how to connect to the running blockchain in a `.env` file in your project root:
+
+``` [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/.env#L1]
+RPC_URL="http://localhost:26657"
+```
+
+Or whichever address you have to connect to the RPC port of the Checkers blockchain.
+
+And let Typescript know about this in a `environment.d.ts` file:
+
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/environment.d.ts]
+declare global {
+    namespace NodeJS {
+        interface ProcessEnv {
+            RPC_URL: string
+        }
+    }
+}
+
+export {}
+```
+
+Now, in your `client` folder, create a `test/live` folder and, in it, an `experiment.ts` file that will be a living document of your progress:
+
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/test/live/experiment.ts#L1-L32]
+import { config } from "dotenv"
+import Long from "long"
+import { CheckersStargateClient } from "../../src/checkers_stargateclient"
+
+config()
 
 async function runAll() {
-    const client: CheckersStargateClient = await CheckersStargateClient.connect(starportEndpoint)
+    const client: CheckersStargateClient = await CheckersStargateClient.connect(process.env.RPC_URL)
     const checkers = client.checkersQueryClient!.checkers
 
     // Initial NextGame
@@ -221,11 +278,15 @@ runAll()
 
 Start your chain:
 
-```sh
-$ starport chain serve --reset-once
-```
+* If you have Ignite CLI:
 
-Then run it:
+    ```sh
+    $ ignite chain serve --reset-once
+    ```
+
+* Otherwise look for instructions on how to run the chain.
+
+Now run the script file:
 
 ```sh
 $ npx ts-node ./test/live/experiment.ts
@@ -251,4 +312,4 @@ Error: Query failed with (18): rpc error: code = InvalidArgument desc = not foun
 ...
 ```
 
-That's all you can test at this stage.
+As expected. That's all you can test at this stage.
