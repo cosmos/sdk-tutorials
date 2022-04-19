@@ -185,7 +185,7 @@ message MsgSend {
 
 The `MsgSend`'s type URL is [`"/cosmos.bank.v1beta1.MsgSend"`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/modules/bank/messages.ts#L6).
 
-Each of your types will be associated like this. You can also declare each string as a constant value such as:
+Each of your types will be associated like this. You can declare each string as a constant value such as:
 
 ```typescript
 export const msgSendTypeUrl = "/cosmos.bank.v1beta1.MsgSend";
