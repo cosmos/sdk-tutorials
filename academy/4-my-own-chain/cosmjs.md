@@ -1,6 +1,6 @@
 ---
 title: "CosmJS"
-order: 23
+order: 20
 description: Understanding the TypeScript library for the Cosmos SDK
 tag: deep-dive
 ---

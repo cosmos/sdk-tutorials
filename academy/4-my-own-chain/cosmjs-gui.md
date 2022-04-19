@@ -1,6 +1,6 @@
 ---
 title: CosmJs - Plug in your GUI
-order: 21
+order: 25
 description: Take a Checkers GUI and use your elements
 tag: deep-dive
 ---

@@ -1,6 +1,6 @@
 ---
 title: CosmJs - Create the messages for your GUI
-order: 20
+order: 23
 description: Create the messages that your GUI will use
 tag: deep-dive
 ---

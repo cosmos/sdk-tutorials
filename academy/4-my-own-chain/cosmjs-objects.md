@@ -1,6 +1,6 @@
 ---
 title: CosmJs - Create the objects for your GUI
-order: 19
+order: 22
 description: Create the objects that your GUI will use
 tag: deep-dive
 ---
