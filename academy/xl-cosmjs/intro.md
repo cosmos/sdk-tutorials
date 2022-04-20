@@ -65,7 +65,7 @@ Here are some of them to get an idea:
 
 We're pretty proud of the modularity and a clean dependency tree in this monorepo. This ensures software quality on our side and lets users pick exactly what they need and only what they need. Here you see how everything fits together (every item is a npm package; right depends on left):
 
-![CosmJS dependency tree](docs/cosmjs-tree.png)
+![CosmJS dependency tree](images/cosmjs-tree.png)
 
 Continue reading for a hands-on developer exercise. The tutorial starts with downloading dependencies and proceeds through the steps of creating a simple user interface.
 
