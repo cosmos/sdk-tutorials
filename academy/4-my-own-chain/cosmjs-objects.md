@@ -21,17 +21,28 @@ With your Checkers application ready for use, it is a good time to prepare its c
 
 ## Compile Protobuf
 
-Create a `client` folder that will contain all these new elements. As you start with Protobuf, in `client`, install modules for the Protobuf-to-Typescript compiler:
+Create a `client` folder that will contain all these new elements.
+
+In fact, if you want to keep separately the Go parts of your Checkers project and the Typescript parts of it, you might want to use another repository for the Typescript parts, the _client_ parts if you want. In order to keep a link between the two repositories, you can add the _client_ parts as a submodule to your Go parts:
 
 ```sh
-$ cd client
-$ npm install ts-proto protoc --save-dev
+$ git submodule add git@github.com:cosmos/academy-checkers-ui.git client
+```
+
+When you replace the path with your own repository. In effect, this creates a new `client` folder. This `client` folder makes it possible for you to easily update another repository with the content of your Go code.
+
+Create another folder named `script` in your project root. It is from here that you will launch the Protobuf compilation. In it, install modules for the Protobuf-to-Typescript compiler:
+
+```sh
+$ mkdir scripts
+$ cd scripts
+$ npm install ts-proto@1.110.4 protoc@1.0.4 --save-dev --save-exact
 ```
 
 And create the folder structure to receive the compiled files:
 
 ```sh
-$ mkdir -p src/types/generated
+$ mkdir -p ../client/src/types/generated
 ```
 
 What Cosmos version are you using?
@@ -61,13 +72,13 @@ And compile:
 ```sh
 $ ls ../proto/checkers | xargs -I {} ./node_modules/protoc/protoc/bin/protoc \
     --plugin="./node_modules/.bin/protoc-gen-ts_proto" \
-    --ts_proto_out="./src/types/generated" \
+    --ts_proto_out="../client/src/types/generated" \
     --proto_path="../proto" \
     --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=messages" \
     checkers/{}
 ```
 
-You should now have your Typescript files. Save these scripts into a `proto-ts-gen.sh` [script file](https://github.com/cosmos/b9-checkers-academy-draft/blob/2f2c3f3/scripts/proto-ts-gen.sh), make it executable with `chmod a+x`, and add an `npm run` [target for it](https://github.com/cosmos/b9-checkers-academy-draft/blob/2f2c3f3/client/package.json#L8). Next time, you can simply run within the `client` folder:
+You should now have your Typescript files. Save these scripts into a `proto-ts-gen.sh` [script file](https://github.com/cosmos/b9-checkers-academy-draft/blob/4cf13b5a/scripts/proto-ts-gen.sh), make it executable with `chmod a+x`, and add an `npm run` [target for it](https://github.com/cosmos/b9-checkers-academy-draft/blob/4cf13b5a/scripts/package.json#L7). Next time, to update your compiled Protobuf objects directly into your `client` repository, you can simply run within the `scripts` folder:
 
 ```sh
 $ npm run proto-ts-gen

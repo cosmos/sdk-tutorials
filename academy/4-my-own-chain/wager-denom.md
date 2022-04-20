@@ -103,3 +103,5 @@ The token denomination has been integrated into the relevant data structures. No
 ## Next up
 
 In the [next section](./migration.md) you will learn how to conduct chain upgrades through migrations.
+
+You can also choose to change tack and look at how you would create the [Typescript client elements](./cosmjs-objects.md) for your blockchain.
