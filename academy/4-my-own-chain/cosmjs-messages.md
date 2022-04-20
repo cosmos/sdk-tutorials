@@ -20,7 +20,7 @@ In the previous section, you created the objects that allow you to **query** you
 
 ## Encodable messages
 
-As you recall, you defined in Protobuf three messages and their respective responses. You had Protobuf compile [them](https://github.com/cosmos/academy-checkers-ui/blob/generated/src/types/generated/checkers/tx.ts). Now you are going to create `EncodeObject` along the lines of [CosmJs](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/modules/bank/messages.ts). First you collect their names and Protobuf packages. Each Protobuf type identifier is assigned its encodable type:
+As you recall, you defined in Protobuf three messages and their respective responses. You had Protobuf compile [them](https://github.com/cosmos/academy-checkers-ui/blob/generated/src/types/generated/checkers/tx.ts). Now you are going to create `EncodeObject` along the lines of [CosmJs](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/modules/bank/messages.ts). First, you collect their names and Protobuf packages. Each Protobuf type identifier is assigned its encodable type:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/src/types/checkers/messages.ts#L11-L25]
 export const typeUrlMsgCreateGame = "/alice.checkers.checkers.MsgCreateGame"
@@ -64,7 +64,7 @@ export interface MsgPlayMoveEncodeObject... {}
 
 ## A signing Stargate for Checkers
 
-Once more taking [inspiration from `SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/signingstargateclient.ts#L53-L66). you prepare the ground by registering your new types, on top of others, so that the client knows them all:
+Once more taking [inspiration from `SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/signingstargateclient.ts#L53-L66). you prepare the ground by registering your new types in addition to the others so that your client knows them all:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/src/checkers_signingstargateclient.ts#L24-L31]
 import { defaultRegistryTypes } from "@cosmjs/stargate"
@@ -180,7 +180,7 @@ public async rejectGame(
 
 ## Test your signing client
 
-To do some live testing, you can reuse the `experiment.ts` file you created in the [previous section](./cosmjs-objects.md). It is a little bit more involved because you first need to provide a signer. You learned how to do this in the [CosmJs introduction section](TODO).
+To do some live testing, you can reuse the `experiment.ts` file you created in the [previous section](./cosmjs-objects.md). This time, it is a little bit more involved because you first need to provide a signer. You learned how to do this in the [CosmJs introduction section](TODO).
 
 ### Key preparation with a mnemonic
 
@@ -230,7 +230,7 @@ const aliceSigningClient: CheckersSigningStargateClient =
     })
 ```
 
-Note the use of a default gas price so that you can use `"auto"` later on. You do not need to put a high price because you are on your local machine or a test net anyway for this `experiment.ts`.
+Note the use of a default gas price so that you can use `"auto"` later on. You do not need to put a high price because you are on your local machine or a test net for this `experiment.ts`.
 
 ### Create a game
 
@@ -349,7 +349,7 @@ In particular, we learn that the checkers module's escrow address is `cosmos16xx
 
 ### Reject the game
 
-And to test that too, why not have Alice reject the game?
+And to test that as well, why not have Alice reject the game?
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/test/live/experiment.ts#L86-L91]
 const rejectResponse: DeliverTxResponse = await aliceSigningClient.rejectGame(
