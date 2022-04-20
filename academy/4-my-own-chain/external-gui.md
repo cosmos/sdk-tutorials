@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have everything you need before proceeding:
 
 * The checkers blockchain codebase up to the CosmJs messages. You can get there by following the [previous steps](./cosmjs-messages.md) or checking out the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/signing-stargate).
 
@@ -53,7 +53,7 @@ $ cd checkers-gui-tmp
 $ npm start
 ```
 
-It should automatically open the browser for you and you should see a simple page. If not, open it to [`http://localhost:3000`](http://localhost:3000).
+It should automatically open the browser for you and you should see a simple page. If not, open [`http://localhost:3000`](http://localhost:3000).
 
 ### Copy the React app files
 
@@ -91,7 +91,7 @@ Which prints something like:
 └── web-vitals@2.1.4
 ```
 
-From here, it is just a matter of repeating this information into a new install line:
+From here, it is just a matter of repeating this information in a new install command:
 
 ```sh
 $ npm install react-dom@18.0.0 react-scripts@5.0.1 react@18.0.0 web-vitals@2.1.4 --save-exact
@@ -112,7 +112,7 @@ package.json
 
 There may be a Typescript compilation error on a CosmJs generated file, so add [`"downlevelIteration": true,`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/tsconfig.json#L13) to `tsconfig.json`'s `.compilerOptions`.
 
-Confirm that you get the React simple page by running `npm start` in your own project too.
+Confirm that you get the React simple page by running `npm start` in your own project.
 
 After all this effort, remember that you created this new React app in order to work around the fact that the existing Checkers GUI is old. You can delete your `checkers-gui-tmp` folder.
 
@@ -131,11 +131,11 @@ Make sure it works:
 $ npm start
 ```
 
-If it does not do automatically it for you, open your browser at [`http://localhost:3000`](http://localhost:3000). Poke around, play a couple of games, and understand how the GUI works.
+If it does not do it automatically, open your browser at [`http://localhost:3000`](http://localhost:3000). Poke around, play a few games, and get acquainted with how the GUI works.
 
 ### Copy the GUI files
 
-Now, copy over the files you need, from the cloned `react-checkers` repository into your own project:
+Now, copy the files you need from the cloned `react-checkers` repository into your own project:
 
 * Overwrite if necessary in the `public` folder. And remove the now-obsolete React logo files.
 * The [`src/components`](https://github.com/cosmos/academy-checkers-ui/tree/4ea0bdb/src/components), [`src/images`](https://github.com/cosmos/academy-checkers-ui/tree/4ea0bdb/src/images) and [`src/util`](https://github.com/cosmos/academy-checkers-ui/tree/4ea0bdb/src/util) folders have no conflicts, you can copy their content wholesale.
@@ -167,7 +167,7 @@ With `npm list --depth=0` in `react-checkers`, you see the following packages an
 └── reactstrap@6.0.1
 ```
 
-However, because the React app already uses **version 18**, there needs to be [version adjustments](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/package.json#L22-L56):
+However, because the React app already uses **version 18**, [version adjustments](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/package.json#L22-L56) are needed:
 
 ```npm
 @types/query-string@6.3.0
@@ -193,7 +193,7 @@ $ npm install @types/lockr@0.8.6 @types/query-string@6.3.0 @types/react-fontawes
 
 </ExpansionPanel>
 
-With the packages installed, now comes some tedium, where you **fix the GUI code** to fit with the installed versions:
+With the packages installed, you **fix the GUI code** to fit with the installed versions:
 
 <ExpansionPanel title="Adjust FontAwesome in a few files">
 
