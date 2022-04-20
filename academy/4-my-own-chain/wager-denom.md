@@ -26,7 +26,7 @@ Your checkers application will be agnostic to tokens and relayers. Your only tas
 Instead of defaulting to `"stake"`, let players decide what string represents their token. So update:
 
 1. The stored game:
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/proto/checkers/stored_game.proto#L21]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/proto/checkers/stored_game.proto#L19]
     message StoredGame {
         ...
         string token = 13; // Denomination of the wager.
@@ -35,7 +35,7 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
 
 2. The message to create a game:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/proto/checkers/tx.proto#L46]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/proto/checkers/tx.proto#L46]
     message MsgCreateGame {
         ...
         string token = 5; // Denomination of the wager.
@@ -50,7 +50,7 @@ $ ignite generate proto-go
 
 To avoid surprises down the road, also update the `MsgCreateGame` constructor:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/types/message_create_game.go#L16]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/types/message_create_game.go#L16]
 func NewMsgCreateGame(creator string, red string, black string, wager uint64, token string) *MsgCreateGame {
     return &MsgCreateGame{
         ...
@@ -61,7 +61,7 @@ func NewMsgCreateGame(creator string, red string, black string, wager uint64, to
 
 This data will be emitted during game creation, so add a new event key as a constant:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/types/keys.go#L56]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/types/keys.go#L56]
 const (
     StoredGameEventToken = "Token"
 )
@@ -73,7 +73,7 @@ The token denomination has been integrated into the relevant data structures. No
 
 1. In the helper function to create the `Coin` in `full_game.go`:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/types/full_game.go#L74-L76]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/types/full_game.go#L74-L76]
     func (storedGame *StoredGame) GetWagerCoin() (wager sdk.Coin) {
         return sdk.NewCoin(storedGame.Token, sdk.NewInt(int64(storedGame.Wager)))
     }
@@ -81,7 +81,7 @@ The token denomination has been integrated into the relevant data structures. No
 
 2. In the handler that instantiates a game:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/keeper/msg_server_create_game.go#L34]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game.go#L34]
     storedGame := types.StoredGame{
         ...
         Token:     msg.Token,
@@ -90,7 +90,7 @@ The token denomination has been integrated into the relevant data structures. No
 
     Not to forget where it emits an event:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/keeper/msg_server_create_game.go#L58]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game.go#L58]
     ctx.EventManager().EmitEvent(
         sdk.NewEvent(sdk.EventTypeMessage,
             ...
@@ -105,11 +105,11 @@ The token denomination has been integrated into the relevant data structures. No
 
 You have introduced a new field and a new event. So you first have to fix your existing tests:
 
-1. [Add `Token: sdk.DefaultBondDenom,`](https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/keeper/msg_server_create_game_test.go#L16) when creating a game.
-2. [Add `Token: "stake",`](https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/keeper/msg_server_create_game_test.go#L78) when verifying a stored game.
-3. [Add `{Key: "Token", Value: "stake"},`](https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/keeper/msg_server_create_game_test.go#L135) when verifying the attributes of the creation event.
-4. [Change `createEventCount = 8`](https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/keeper/keeper_integration_test.go#L19) to account for the new attribute of the creation event.
-5. [Change the expected gas](https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/keeper/msg_server_create_game_test.go#L152) used where you measured it. Having to do this change by looking at the error message is perhaps an indication that these gas tests are unwelcome.
+1. [Add `Token: sdk.DefaultBondDenom,`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game_test.go#L16) when creating a game.
+2. [Add `Token: "stake",`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game_test.go#L78) when verifying a stored game.
+3. [Add `{Key: "Token", Value: "stake"},`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game_test.go#L135) when verifying the attributes of the creation event.
+4. [Change `createEventCount = 8`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/keeper_integration_test.go#L19) to account for the new attribute of the creation event.
+5. [Change the expected gas](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game_test.go#L152) used where you measured it. Having to do this change by looking at the error message is perhaps an indication that these gas tests are unwelcome.
 
 ### Preparation
 
@@ -117,7 +117,7 @@ With this out of the way, it is time to add a test whereby players wager and pla
 
 1. Although not a must, you can define a reusable foreign denomination, and Alice, Bob and Carol's initial balances in them. Make them **sufficiently different** in value from those of `"stake"` so that one cannot be confused with the other:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/keeper/keeper_integration_test.go#L32-L35]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/keeper_integration_test.go#L32-L35]
     const(
         foreignToken  = "foreignToken"
         balTokenAlice = 5
@@ -128,7 +128,7 @@ With this out of the way, it is time to add a test whereby players wager and pla
 
 2. Update your bank genesis helper `makeBalance` to take an extra initial balance:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/keeper/keeper_integration_test.go#L81-L84]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/keeper_integration_test.go#L81-L84]
     func makeBalance(address string, balance int64, balanceToken int64) banktypes.Balance {
         ...
         Coins: sdk.Coins{
@@ -143,7 +143,7 @@ With this out of the way, it is time to add a test whereby players wager and pla
 
 3. Use it from the bank test genesis:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/keeper/keeper_integration_test.go#L91-L93]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/keeper_integration_test.go#L91-L93]
     func getBankGenesis() *banktypes.GenesisState {
         coins := []banktypes.Balance{
             makeBalance(alice, balAlice, balTokenAlice),
@@ -156,7 +156,7 @@ With this out of the way, it is time to add a test whereby players wager and pla
 
 4. Also add a verification helper function to make it easier later on:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/keeper/keeper_integration_test.go#L110-L120]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/keeper_integration_test.go#L110-L120]
     func (suite *IntegrationTestSuite) RequireBankBalance(expected int, atAddress string) {
         suite.RequireBankBalanceIn(expected, atAddress, sdk.DefaultBondDenom)
     }
@@ -174,7 +174,7 @@ With this out of the way, it is time to add a test whereby players wager and pla
 
 With the preparation done, you can add a test when the player makes their first move. For the test to be meaningful, remember to check all token denominations:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/keeper/msg_server_play_move_test.go#L61-L95]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_play_move_test.go#L88-L122]
 func (suite *IntegrationTestSuite) TestPlayMovePlayerPaidForeignToken() {
     suite.setupSuiteWithOneGameForPlayMove()
     goCtx := sdk.WrapSDKContext(suite.ctx)
@@ -214,7 +214,7 @@ func (suite *IntegrationTestSuite) TestPlayMovePlayerPaidForeignToken() {
 
 You get the idea. No need to further test the event emitted by the bank, which is not your code, other than for curiosity.
 
-Don't forget to add similar tests for when the money goes the other way, i.e. when [rejecting](https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/keeper/msg_server_reject_game_test.go#L213-L251), [winning](https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/keeper/msg_server_play_move_winner_test.go#L149-L189) and [forfeiting](https://github.com/cosmos/b9-checkers-academy-draft/blob/11b02eb/x/checkers/keeper/end_block_server_game_test.go#L496-L546).
+Don't forget to add similar tests for when the money goes the other way, i.e. when [rejecting](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_reject_game_test.go#L213-L251), [winning](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_play_move_winner_test.go#L149-L189) and [forfeiting](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/end_block_server_game_test.go#L496-L546).
 
 ## Next up
 

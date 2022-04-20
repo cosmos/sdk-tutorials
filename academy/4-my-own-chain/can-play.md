@@ -43,7 +43,7 @@ $ ignite scaffold query canPlayMove idValue player fromX:uint fromY:uint toX:uin
 
 Among other files, you should now have this:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/proto/checkers/query.proto#L39-L51]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/proto/checkers/query.proto#L39-L51]
 message QueryCanPlayMoveRequest {
     string idValue = 1;
     string player = 2;
@@ -61,9 +61,9 @@ message QueryCanPlayMoveRequest {
 
 Ignite CLI has created the following boilerplate for you:
 
-* The [Protobuf gRPC interface function](https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/proto/checkers/query.proto#L17-L19) to submit your new `QueryCanPlayMoveRequest` and its default implementation.
-* The [routing of this new query](https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/types/query.pb.gw.go#L319-L337) in the query facilities.
-* An [empty function](https://github.com/cosmos/b9-checkers-academy-draft/commit/f8a6e14d753554c9122a110800455d06dbe08192#diff-0fc3b6508740faee3d86a440c1dc83e71245dc49b3f8fc688b9668dc060abb8R12-R23) ready to implement the action.
+* The [Protobuf gRPC interface function](https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/proto/checkers/query.proto#L17-L19) to submit your new `QueryCanPlayMoveRequest` and its default implementation.
+* The [routing of this new query](https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/types/query.pb.gw.go#L319-L337) in the query facilities.
+* An [empty function](https://github.com/cosmos/b9-checkers-academy-draft/blob/f8a6e14/x/checkers/keeper/grpc_query_can_play_move.go#L19) ready to implement the action.
 
 ## Query handling
 
@@ -74,7 +74,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 1. The game needs to be fetched. If it does not exist at all, you can return an error message because you did not test the move:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move.go#L23-L26]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move.go#L23-L26]
     storedGame, found := k.GetStoredGame(ctx, req.IdValue)
     if !found {
         return nil, sdkerrors.Wrapf(types.ErrGameNotFound, types.ErrGameNotFound.Error(), req.IdValue)
@@ -83,7 +83,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 2. Has the game already been won?
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move.go#L29-L34]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move.go#L29-L34]
     if storedGame.Winner != rules.PieceStrings[rules.NO_PLAYER] {
         return &types.QueryCanPlayMoveResponse{
             Possible: false,
@@ -94,7 +94,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 3. Is the `player` given actually one of the game players?
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move.go#L37-L47]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move.go#L37-L47]
     var player rules.Player
     if strings.Compare(rules.PieceStrings[rules.RED_PLAYER], req.Player) == 0 {
         player = rules.RED_PLAYER
@@ -110,7 +110,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 4. Is it the player's turn?
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move.go#L50-L59]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move.go#L50-L59]
     game, err := storedGame.ParseGame()
     if err != nil {
         return nil, err
@@ -125,7 +125,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 5. Attempt the move and report back:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move.go#L62-L77]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move.go#L62-L77]
     _, moveErr := game.Move(
         rules.Pos{
             X: int(req.FromX),
@@ -146,7 +146,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 6. If all went well:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move.go#L79-L82]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move.go#L79-L82]
     return &types.QueryCanPlayMoveResponse{
         Possible: true,
         Reason:   "ok",
@@ -159,11 +159,11 @@ A query is evaluated in memory, while using the current state in a read-only mod
 
 ### Battery of unit tests
 
-Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_next_game_test.go#L18-L33), which create a battery of tests to run in a loop. Running a battery of test cases makes it easier to insert new code and surface any unintended impact. So you:
+Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_next_game_test.go#L18-L33), which create a battery of tests to run in a loop. Running a battery of test cases makes it easier to insert new code and surface any unintended impact. So you:
 
 1. Declare a `struct` that describes a test:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move_test.go#L14-L21]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move_test.go#L14-L21]
     type canPlayBoard struct {
         desc     string
         board    string
@@ -176,7 +176,7 @@ Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-aca
 
 2. Create the common OK response, so as to reuse it later:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move_test.go#L24-L27]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move_test.go#L24-L27]
     var (canPlayOkResponse = &types.QueryCanPlayMoveResponse{
         Possible: true,
         Reason:   "ok",
@@ -185,7 +185,7 @@ Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-aca
 
 3. Create the first test case, which you actually reuse:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move_test.go#L28-L41]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move_test.go#L28-L41]
     var(firstTestCase = canPlayBoard{
         desc:  "First move by black",
         board: "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
@@ -204,7 +204,7 @@ Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-aca
 
 3. Create the list of test cases you want to run, including the just-defined `firstTestCase`:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move_test.go#L42-L120]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move_test.go#L42-L120]
     var (canPlayTestRange = []canPlayBoard{
         firstTestCase,
         {
@@ -286,11 +286,11 @@ Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-aca
     })
     ```
 
-    It's a good thing you already have a test file with [all the steps](https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/msg_server_play_move_winner_test.go#L17-L59) to a complete game.
+    It's a good thing you already have a test file with [all the steps](https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/msg_server_play_move_winner_test.go#L17-L59) to a complete game.
 
 4. With this preparation, you add the one test function that runs all the cases:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move_test.go#L123-L147]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move_test.go#L123-L147]
     func TestCanPlayAsExpected(t *testing.T) {
         keeper, ctx := setupKeeper(t)
         goCtx := sdk.WrapSDKContext(ctx)
@@ -320,7 +320,7 @@ Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-aca
 
 5. Finally, add the error tests that cannot be covered with the previous test cases:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move_test.go#L149-L175]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move_test.go#L149-L175]
     func TestCanPlayWrongNoRequest(t *testing.T) {
         keeper, ctx := setupKeeper(t)
         goCtx := sdk.WrapSDKContext(ctx)
@@ -356,7 +356,7 @@ Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-aca
 
 Since you have setup the tests to work as integrated, why not create one integration test that makes use of it, in the same file? Test the first case of the battery, which is the initial situation anyway:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/315e855/x/checkers/keeper/grpc_query_can_play_move_test.go#L177-L183]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move_test.go#L177-L183]
 func (suite *IntegrationTestSuite) TestCanPlayAfterCreate() {
     suite.setupSuiteWithOneGameForPlayMove()
     goCtx := sdk.WrapSDKContext(suite.ctx)

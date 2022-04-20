@@ -32,7 +32,7 @@ $ ignite scaffold message rejectGame idValue --module checkers
 
 It creates all the boilerplate for you and leaves a single place for the code you want to include:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/93d048c2b7fbdc26825b41bd043d6203ec9c861c/x/checkers/keeper/msg_server_reject_game.go#L10-L17]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/93d048c/x/checkers/keeper/msg_server_reject_game.go#L10-L17]
 func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (*types.MsgRejectGameResponse, error) {
     ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -47,7 +47,7 @@ func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (
 
 A new rule of the game should be that a player cannot reject a game once they begin to play. When loading a `StoredGame` from storage you have no way of knowing whether a player already played or not. To access this information add a new field to the `StoredGame` called `MoveCount`. In `proto/checkers/stored_game.proto`:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/proto/checkers/stored_game.proto#L15]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/proto/checkers/stored_game.proto#L13]
 storedGame := types.StoredGame{
     ...
     uint64 moveCount = 7;
@@ -62,7 +62,7 @@ $ ignite generate proto-go
 
 `MoveCount` should start at `0` and increment by `1` on each move. So adjust it first in the handler when creating the game:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_create_game.go#L26]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/keeper/msg_server_create_game.go#L28]
 storedGame := types.StoredGame{
     ...
     MoveCount: 0,
@@ -71,7 +71,7 @@ storedGame := types.StoredGame{
 
 Just before saving to the storage, in the handler when playing a move:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_play_move.go#L55]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/keeper/msg_server_play_move.go#L59]
 ...
 storedGame.MoveCount++
 storedGame.Game = game.String()
@@ -84,14 +84,14 @@ With `MoveCount` counting properly, you are now ready to handle a rejection requ
 
 To follow the Cosmos SDK conventions declare the following new errors:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/types/errors.go#L19-L20]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/types/errors.go#L19-L20]
 ErrRedAlreadyPlayed   = sdkerrors.Register(ModuleName, 1108, "red player has already played")
 ErrBlackAlreadyPlayed = sdkerrors.Register(ModuleName, 1109, "black player has already played")
 ```
 
 You will add an event for rejection. Begin by preparing the new keys:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/types/keys.go#L41-L45]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/types/keys.go#L41-L45]
 const (
     RejectGameEventKey     = "GameRejected"
     RejectGameEventCreator = "Creator"
@@ -103,7 +103,7 @@ In the message handler the reject steps are:
 
 1. Fetch the relevant information:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_reject_game.go#L15-L18]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/keeper/msg_server_reject_game.go#L15-L18]
     storedGame, found := k.Keeper.GetStoredGame(ctx, msg.IdValue)
     if !found {
         return nil, sdkerrors.Wrapf(types.ErrGameNotFound, "game not found %s", msg.IdValue)
@@ -112,7 +112,7 @@ In the message handler the reject steps are:
 
 2. Is the player expected? Did the player already play? Check with:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_reject_game.go#L21-L31]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/keeper/msg_server_reject_game.go#L21-L31]
     if strings.Compare(storedGame.Red, msg.Creator) == 0 {
         if 1 < storedGame.MoveCount { // Notice the use of the new field
             return nil, types.ErrRedAlreadyPlayed
@@ -130,7 +130,7 @@ In the message handler the reject steps are:
 
 3. Remove the game:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_reject_game.go#L34]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/keeper/msg_server_reject_game.go#L34]
     k.Keeper.RemoveStoredGame(ctx, msg.IdValue)
     ```
 
@@ -138,7 +138,7 @@ In the message handler the reject steps are:
 
 4. Emit the relevant event:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/329c6d0ae8c1dffa85cd437d0cebb246a827dfb2/x/checkers/keeper/msg_server_reject_game.go#L37-L44]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/keeper/msg_server_reject_game.go#L37-L44]
     ctx.EventManager().EmitEvent(
         sdk.NewEvent(sdk.EventTypeMessage,
             sdk.NewAttribute(sdk.AttributeKeyModule, "checkers"),
@@ -159,11 +159,11 @@ $ ignite chain build
 
 ## Unit tests
 
-You are getting good at this. The tests here are similar to those you created for _create_ and _play_. Except that you test a game rejection [by the game creator](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L27-L35), the [black player](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L199-L215), or the [red player](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L83-L91), [before anyone has played](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L37-L45), and after [one](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L129-L145) or [two moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L217-L241) have been made. Check also that the [game is removed](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L47-L61), and that [events are emitted](https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L63-L81).
+You are getting good at this. The tests here are similar to those you created for _create_ and _play_. Except that you test a game rejection [by the game creator](https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/keeper/msg_server_reject_game_test.go#L27-L35), the [black player](https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/keeper/msg_server_reject_game_test.go#L199-L215), or the [red player](https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/keeper/msg_server_reject_game_test.go#L83-L91), [before anyone has played](https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/keeper/msg_server_reject_game_test.go#L37-L45), and after [one](https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/keeper/msg_server_reject_game_test.go#L129-L145) or [two moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/keeper/msg_server_reject_game_test.go#L217-L241) have been made. Check also that the [game is removed](https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/keeper/msg_server_reject_game_test.go#L47-L61), and that [events are emitted](https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/keeper/msg_server_reject_game_test.go#L63-L81).
 
 For instance:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/04297b7/x/checkers/keeper/msg_server_reject_game_test.go#L147-L169]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/x/checkers/keeper/msg_server_reject_game_test.go#L147-L169]
 func TestRejectGameByRedOneMoveRemovedGame(t *testing.T) {
     msgServer, keeper, context := setupMsgServerWithOneGameForRejectGame(t)
     msgServer.PlayMove(context, &types.MsgPlayMove{

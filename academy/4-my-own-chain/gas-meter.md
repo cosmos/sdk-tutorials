@@ -25,7 +25,7 @@ Next add your own gas metering to reflect the costs that different transactions 
 
 These values are an inspiration but you can set your own. Save them as new constants:
 
-```go
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63370efe/x/checkers/types/keys.go#L43-L45]
 const (
     CreateGameGas = 10
     PlayMoveGas   = 10
@@ -39,19 +39,19 @@ Add a line that consumes the designated amount of gas in each relevant handler:
 
 1. When handling a game creation:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/76abedcf3ad3f4e5186435e153e6ed0d18630a73/x/checkers/keeper/msg_server_create_game.go#L41]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63370efe/x/checkers/keeper/msg_server_create_game.go#L45]
     ctx.GasMeter().ConsumeGas(types.CreateGameGas, "Create game")
     ```
 
 2. When handling a move:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/76abedcf3ad3f4e5186435e153e6ed0d18630a73/x/checkers/keeper/msg_server_play_move.go#L90]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63370efe/x/checkers/keeper/msg_server_play_move.go#L94]
     ctx.GasMeter().ConsumeGas(types.PlayMoveGas, "Play a move")
     ```
 
 3. When handling a game rejection:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/76abedcf3ad3f4e5186435e153e6ed0d18630a73/x/checkers/keeper/msg_server_reject_game.go#L52]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63370efe/x/checkers/keeper/msg_server_reject_game.go#L52]
     ctx.GasMeter().ConsumeGas(types.RejectGameGas, "Reject game")
     ```
 
@@ -67,7 +67,7 @@ Avoid calling `ConsumeGas` from within a loop. If you know the number of times y
 
 You know the drill. Add a couple of tests that confirm the gas consumption. There is a problem, though. It is not possible to differentiate the gas cost that BaseApp is incurring on your messages from the gas cost your module imposes on top of it. And you cannot distinguish via the descriptor [unless it panics](https://github.com/cosmos/cosmos-sdk/blob/v0.42.6/store/types/gas.go#L90-L101). Still, you can add a lame test:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f05f995/x/checkers/keeper/msg_server_create_game_test.go#L132-L144]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63370efe/x/checkers/keeper/msg_server_create_game_test.go#L132-L144]
 func (suite *IntegrationTestSuite) TestCreate1GameConsumedGas() {
     suite.setupSuiteWithBalances()
     goCtx := sdk.WrapSDKContext(suite.ctx)
@@ -83,7 +83,7 @@ func (suite *IntegrationTestSuite) TestCreate1GameConsumedGas() {
 }
 ```
 
-And another one for a [play](https://github.com/cosmos/b9-checkers-academy-draft/blob/f05f995/x/checkers/keeper/msg_server_play_move_test.go#L60-L74) and a [reject](https://github.com/cosmos/b9-checkers-academy-draft/blob/f05f995/x/checkers/keeper/msg_server_reject_game_test.go#L93-L103).
+And another one for a [play](https://github.com/cosmos/b9-checkers-academy-draft/blob/63370efe/x/checkers/keeper/msg_server_play_move_test.go#L86-L100) and a [reject](https://github.com/cosmos/b9-checkers-academy-draft/blob/63370efe/x/checkers/keeper/msg_server_reject_game_test.go#L93-L103).
 
 ## Next up
 

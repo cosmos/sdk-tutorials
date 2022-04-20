@@ -43,7 +43,7 @@ Ignite CLI once more creates all the necessary Protobuf files and the boilerplat
 
 * Add the missing fields to the response in `proto/checkers/tx.proto`:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/proto/checkers/tx.proto#L25-L30]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/proto/checkers/tx.proto#L25-L30]
     message MsgPlayMoveResponse {
         string idValue = 1;
         int64 capturedX = 2;
@@ -73,7 +73,7 @@ Ignite CLI once more creates all the necessary Protobuf files and the boilerplat
 
 `rules` represent the ready-made file containing the rules of the game you imported earlier. Declare them in `x/checkers/types/errors.go` given your code has to handle new error situations:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/types/errors.go#L14-L18]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/types/errors.go#L14-L18]
 ErrGameNotFound     = sdkerrors.Register(ModuleName, 1104, "game by id not found: %s")
 ErrCreatorNotPlayer = sdkerrors.Register(ModuleName, 1105, "message creator is not a player: %s")
 ErrNotPlayerTurn    = sdkerrors.Register(ModuleName, 1106, "player tried to play out of turn: %s")
@@ -84,54 +84,58 @@ Take the following steps to replace the `TODO`:
 
 1. Fetch the stored game information:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/msg_server_play_move.go#L16-L19]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move.go#L16-L19]
     storedGame, found := k.Keeper.GetStoredGame(ctx, msg.IdValue)
     if !found {
         return nil, sdkerrors.Wrapf(types.ErrGameNotFound, "game not found %s", msg.IdValue)
     }
     ```
 
-    Using the [`Keeper.GetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/stored_game.go#L17) function created by Ignite CLI.
+    Using the [`Keeper.GetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/stored_game.go#L17) function created by Ignite CLI.
 
 2. Is the player legitimate? Check with:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/msg_server_play_move.go#L22-L29]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move.go#L22-L33]
+    isRed := strings.Compare(storedGame.Red, msg.Creator) == 0
+    isBlack := strings.Compare(storedGame.Black, msg.Creator) == 0
     var player rules.Player
-    if strings.Compare(storedGame.Red, msg.Creator) == 0 {
-        player = rules.RED_PLAYER
-    } else if strings.Compare(storedGame.Black, msg.Creator) == 0 {
-        player = rules.BLACK_PLAYER
-    } else {
+    if !isRed && !isBlack {
         return nil, types.ErrCreatorNotPlayer
+    } else if isRed && isBlack {
+        player = rules.StringPieces[storedGame.Turn].Player
+    } else if isRed {
+        player = rules.RED_PLAYER
+    } else {
+        player = rules.BLACK_PLAYER
     }
     ```
 
-    Using the certainty that the `MsgPlayMove.Creator` has been verified [by its signature](https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/types/message_play_move.go#L29-L35).
+    Using the certainty that the `MsgPlayMove.Creator` has been verified [by its signature](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/types/message_play_move.go#L29-L35).
 
 3. Instantiate the board in order to implement the rules:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/msg_server_play_move.go#L32-L35]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move.go#L36-L39]
     game, err := storedGame.ParseGame()
     if err != nil {
         panic(err.Error())
     }
     ```
 
-    Good thing you previously created [this helper](https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/types/full_game.go#L27-L37).
+    Good thing you previously created [this helper](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/types/full_game.go#L27-L37).
 
 4. Is it the player's turn? Check with:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/msg_server_play_move.go#L36-L38]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move.go#L40-L42]
     if !game.TurnIs(player) {
         return nil, types.ErrNotPlayerTurn
     }
     ```
 
-    Using the rules file's own [`TurnIs`](https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/rules/checkers.go#L145-L147) function.
+    Using the rules file's own [`TurnIs`](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/rules/checkers.go#L145-L147) function.
 
 5. Properly conduct the move:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/msg_server_play_move.go#L41-L53]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move.go#L45-L57]
     captured, moveErr := game.Move(
         rules.Pos{
             X: int(msg.FromX),
@@ -147,21 +151,21 @@ Take the following steps to replace the `TODO`:
     }
     ```
 
-    Using the rules' [`Move`](https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/rules/checkers.go#L274-L301) function.
+    Using the rules' [`Move`](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/rules/checkers.go#L274-L301) function.
 
 6. Prepare the updated board to be stored and store the information:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/msg_server_play_move.go#L56-L58]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move.go#L60-L62]
     storedGame.Game = game.String()
     storedGame.Turn = rules.PieceStrings[game.Turn]
     k.Keeper.SetStoredGame(ctx, storedGame)
     ```
 
-    Updating the fields that were modified using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/stored_game.go#L10) function just as when you created and saved the game.
+    Updating the fields that were modified using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/stored_game.go#L10) function just as when you created and saved the game.
 
 7. Return relevant information regarding the move's result:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/msg_server_play_move.go#L61-L66]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move.go#L65-L70]
     return &types.MsgPlayMoveResponse{
         IdValue:   msg.IdValue,
         CapturedX: int64(captured.X),
@@ -178,7 +182,7 @@ That is all there is to it: good preparation and the use of Ignite CLI.
 
 Adding unit tests for this play message is very similar to what you did for the previous message. Just create a new `msg_server_play_move_test.go` file and add to it. You can start by a function that sets up the keeper to your liking. In this case, already having a game saved can save you a few lines of code in each test:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/msg_server_play_move_test.go#L15-L26]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L15-L26]
 func setupMsgServerWithOneGameForPlayMove(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
     k, ctx := setupKeeper(t)
     checkers.InitGenesis(ctx, *k, *types.DefaultGenesis())
@@ -195,7 +199,7 @@ func setupMsgServerWithOneGameForPlayMove(t testing.TB) (types.MsgServer, keeper
 
 Then again, it is a case of testing the result of a move:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/msg_server_play_move_test.go#L28-L45]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L28-L45]
 func TestPlayMove(t *testing.T) {
     msgServer, _, context := setupMsgServerWithOneGameForPlayMove(t)
     playMoveResponse, err := msgServer.PlayMove(context, &types.MsgPlayMove{
@@ -216,7 +220,7 @@ func TestPlayMove(t *testing.T) {
 }
 ```
 
-And whether the game was [saved correctly](https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/msg_server_play_move_test.go#L47-L73). Also check what happens when players try to [play out of turn](https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/msg_server_play_move_test.go#L75-L87), or [make a wrong move](https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/msg_server_play_move_test.go#L89-L101). Check after [two](https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/msg_server_play_move_test.go#L103-L164) or [three turns with a capture](https://github.com/cosmos/b9-checkers-academy-draft/blob/5657d5c/x/checkers/keeper/msg_server_play_move_test.go#L166-L243).
+And whether the game was [saved correctly](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L71-L97). Also check what happens when players try to [play out of turn](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L99-L111), or [make a wrong move](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L113-L125). Check after [two](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L127-L188) or [three turns with a capture](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L190-L267).
 
 ## Next up
 

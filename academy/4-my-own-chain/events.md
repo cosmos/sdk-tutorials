@@ -35,7 +35,7 @@ Start with the event that announces the creation of a new game. The goal is to:
 
 So, define some new keys in `x/checkers/types/keys.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/792d879/x/checkers/types/keys.go#L34-L38]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/types/keys.go#L34-L38]
 const (
     StoredGameEventKey     = "NewGameCreated" // Indicates what key to listen to
     StoredGameEventCreator = "Creator"
@@ -47,7 +47,7 @@ const (
 
 Emit the event in your handler file `x/checkers/keeper/msg_server_create_game.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/792d879/x/checkers/keeper/msg_server_create_game.go#L39-L48]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/keeper/msg_server_create_game.go#L39-L48]
 ctx.EventManager().EmitEvent(
     sdk.NewEvent(sdk.EventTypeMessage,
         sdk.NewAttribute(sdk.AttributeKeyModule, "checkers"),
@@ -76,7 +76,7 @@ Contrary to the _create game_ event, which alerted the players about a new game,
 
 You define new keys in `x/checkers/types/keys.go` similarly:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/792d879/x/checkers/types/keys.go#L41-L48]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/types/keys.go#L41-L48]
 const (
     PlayMoveEventKey       = "MovePlayed"
     PlayMoveEventCreator   = "Creator"
@@ -89,7 +89,7 @@ const (
 
 Emit the event in your file `x/checkers/keeper/msg_server_play_move.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/792d879/x/checkers/keeper/msg_server_play_move.go#L62-L72]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/keeper/msg_server_play_move.go#L66-L76]
 ctx.EventManager().EmitEvent(
      sdk.NewEvent(sdk.EventTypeMessage,
         sdk.NewAttribute(sdk.AttributeKeyModule, "checkers"),
@@ -107,7 +107,7 @@ ctx.EventManager().EmitEvent(
 
 The unit tests you have created so far still pass. However you also want to confirm that the events have been emitted in both situations. The events are recorded in the context, so the test is a little bit different. In `msg_server_create_game_test.go`, you can add this test:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/792d879/x/checkers/keeper/msg_server_create_game_test.go#L83-L106]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/keeper/msg_server_create_game_test.go#L83-L106]
 func TestCreate1GameEmitted(t *testing.T) {
     msgSrvr, _, context := setupMsgServerCreateGame(t)
     msgSrvr.CreateGame(context, &types.MsgCreateGame{
@@ -144,7 +144,7 @@ How can you _guess_ the order of elements? Easy, you created them in this order.
 
 Now, about the event emitted during a move. It may seem a bit unexpected. In a _move_ unit test, two actions happen, a _create_ and a _move_. However, in the setup of this test, you do not create blocks, but instead _only_ hit your keeper. So the context collects events but does not flush them. This is why you need to test only for the latter attributes, and verify an array slice that discards the events that originate from the _create_ action: `event.Attributes[6:]`. This gives the test:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/792d879/x/checkers/keeper/msg_server_play_move_test.go#L103-L128]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/keeper/msg_server_play_move_test.go#L127-L152]
 func TestPlayMoveEmitted(t *testing.T) {
     msgServer, _, context := setupMsgServerWithOneGameForPlayMove(t)
     msgServer.PlayMove(context, &types.MsgPlayMove{
