@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md), and [CosmJs](TODO).
 * Have Go and npm installed.
@@ -23,13 +23,13 @@ With your Checkers application ready for use, it is a good time to prepare its c
 
 Create a `client` folder that will contain all these new elements.
 
-In fact, if you want to keep separately the Go parts of your Checkers project and the Typescript parts of it, you might want to use another repository for the Typescript parts, the _client_ parts if you want. In order to keep a link between the two repositories, you can add the _client_ parts as a submodule to your Go parts:
+In fact, if you want to keep the Go parts of your Checkers project separate from the Typescript parts, you might want to use another repository for the  _client_. In order to keep a link between the two repositories, you can add the _client_ parts as a submodule to your Go parts:
 
 ```sh
 $ git submodule add git@github.com:cosmos/academy-checkers-ui.git client
 ```
 
-When you replace the path with your own repository. In effect, this creates a new `client` folder. This `client` folder makes it possible for you to easily update another repository with the content of your Go code.
+Replace the path with your own repository. In effect, this creates a new `client` folder. This `client` folder makes it possible for you to easily update another repository with the content of your Go code.
 
 Create another folder named `script` in your project root. It is from here that you will launch the Protobuf compilation. In it, install modules for the Protobuf-to-Typescript compiler:
 
@@ -222,7 +222,7 @@ export class CheckersStargateClient extends StargateClient {
 
 ## Test your client
 
-It is already possible to see if communication happens. You are about to create a file that runs from the command-line and tests some actions. Install some packages:
+It should already be possible to see communication happen. You are about to create a file that runs from the command-line and tests some actions. Install some packages:
 
 ```sh
 $ npm install @types/node@17.0.24 dotenv@16.0.0 ts-node@10.7.0 --save-dev --save-exact
