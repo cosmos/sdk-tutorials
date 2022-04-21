@@ -23,7 +23,7 @@ With your Checkers application ready for use, it is a good time to prepare its c
 
 Create a `client` folder that will contain all these new elements.
 
-In fact, if you want to keep the Go parts of your Checkers project separate from the Typescript parts, you might want to use another repository for the  _client_. In order to keep a link between the two repositories, you can add the _client_ parts as a submodule to your Go parts:
+In fact, if you want to keep the Go parts of your Checkers project separate from the Typescript parts, you might want to use another repository for the _client_. In order to keep a link between the two repositories, you can add the _client_ parts as a submodule to your Go parts:
 
 ```sh
 $ git submodule add git@github.com:cosmos/academy-checkers-ui.git client

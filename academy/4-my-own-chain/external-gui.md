@@ -112,7 +112,7 @@ package.json
 
 There may be a Typescript compilation error on a CosmJs generated file, so add [`"downlevelIteration": true,`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/tsconfig.json#L13) to `tsconfig.json`'s `.compilerOptions`.
 
-Confirm that you get the React simple page by running `npm start` in your own project.
+Confirm that you get the React simple page by running `npm start` in your own project root folder.
 
 After all this effort, remember that you created this new React app in order to work around the fact that the existing Checkers GUI is old. You can delete your `checkers-gui-tmp` folder.
 
