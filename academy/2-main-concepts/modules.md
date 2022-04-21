@@ -25,7 +25,7 @@ Each Cosmos chain is a purpose-built blockchain. Cosmos SDK modules define the u
 
 Modules define most of the logic of Cosmos SDK applications.
 
-![Transaction message flow to modules](/message_processing.png)
+![Transaction message flow to modules](/academy/2-main-concepts/images/message_processing.png)
 
 When a transaction is relayed from the underlying Tendermint consensus engine, `BaseApp` decomposes the `Messages` contained within the transaction. `BaseApp` routes messages to the appropriate module for processing. Interpretation and execution occur when the appropriate module message handler receives the message.
 
@@ -137,7 +137,7 @@ Each module defines commands for a command-line interface (CLI). Commands relate
 
 Keepers are the gatekeepers to the module’s store(s). It is mandatory to go through a module’s keeper to access the store(s). A keeper encapsulates the knowledge about the layout of the storage within the store and contains methods to update and inspect it. If you come from a module-view-controller (MVC) world, then it helps to think of the keeper as the controller.
 
-![Keeper in a node](/keeper.png)
+![Keeper in a node](/academy/2-main-concepts/images/keeper.png)
 
 Other modules may need access to a store, but other modules are also potentially malicious or poorly written. For this reason, developers need to consider who/what should have access to their module store(s). To prevent a module from randomly accessing another module at runtime, a module that needs access to another module needs to declare its intent to use another module at construction. At this point, such a module is granted a runtime key that lets it access the other module. Only modules that hold this key to a store can access the store. This is part of what is called an object-capability model.
 

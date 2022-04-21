@@ -60,7 +60,7 @@ The development of decentralized applications built on blockchain networks began
 
 After the introduction of Bitcoin, several so-called public chains came into being, the first being Ethereum in 2013. These general-purpose blockchains are aimed at providing a decentralized network that allows the implementation of a variety of use cases.
 
-![Timeline of blockchain technology](/timeline.png)
+![Timeline of blockchain technology](/academy/1-what-is-cosmos/images/timeline.png)
 
 Ethereum is a public blockchain with smart contract functionality enabling applications based on self-executing, self-enforcing, and self-verifying account holding objects. It can be seen as a response to the difficulties of developing applications on Bitcoin.
 
