@@ -1,6 +1,6 @@
 ---
 title: Web 2.0 Server - Convenient information
-order: 20
+order: 22
 description: Introducing a Web2.0 server to track games per player
 tag: deep-dive
 ---
