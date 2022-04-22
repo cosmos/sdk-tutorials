@@ -191,7 +191,7 @@ Note:
 
 <HighlightBox type="info">
 
-Could an AI player and the blockchain mix together? As long as _the AI_ has access to a private key that lets it send transactions, it would be a bona fide player. The way this could be implemented is with backend scripts running on a server. See [Checkers backend scripts](./server-side.md) for an example of backend scripts with a different purpose.
+Could an AI player and the blockchain mix together? If _the AI_ has access to a private key that lets it send transactions, it would be a bona fide player. This could be implemented with backend scripts running on a server. See [Checkers backend scripts](./server-side.md) for an example of backend scripts with a different purpose.
 
 </HighlightBox>
 
@@ -201,16 +201,16 @@ For your React components to communicate with the blockchain they need to have a
 
 ### Pass RPC parameters
 
-The RPC URL is already saved into `process.env.RPC_URL` thanks to `react-app-rewired`. However, as a general design consideration, it is better to reduce your components' reliance on `process.env`. The next simplest way to give the RPC URL to the components is for them to:
+The RPC URL is already saved into `process.env.RPC_URL` thanks to `react-app-rewired`. However, it is better to reduce your components' reliance on `process.env`. A simple way to give the RPC URL to the components is for them to:
 
 * Receive an `rpcUrl: string` in the properties.
 * Keep a `StargateClient` in the component's state that would be instantiated lazily.
 
 With this setup, only `index.tsx` would use `process.env.RPC_URL`.
 
-For instance, prepare access to `rpcUrl` for `MenuContainer.tsx` by:
+For instance, prepare access to `rpcUrl` for `MenuContainer.tsx` by adding it to the following:
 
-1. Adding `rpcUrl` to the properties of `src/components/Menu/MenuContainer.tsx`:
+1. The properties of `src/components/Menu/MenuContainer.tsx`:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/MenuContainer.tsx#L14]
     export interface IMenuContainerProps {
@@ -219,7 +219,7 @@ For instance, prepare access to `rpcUrl` for `MenuContainer.tsx` by:
     }
     ```
 
-2. Adding it to the properties of the component call stack, first in `src/components/App.tsx`:
+2. The properties of the component call stack, first in `src/components/App.tsx`:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/App.tsx#L38-L49]
     export interface AppProps {
@@ -238,9 +238,9 @@ For instance, prepare access to `rpcUrl` for `MenuContainer.tsx` by:
     }
     ```
 
-    Note how you have to create the _missing_ `AppProps` entirely.
+    Note you have to create the _missing_ `AppProps` entirely.
 
-3. Finally in `src/index.tsx`:
+3. Finally, to `src/index.tsx`:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/index.tsx#L21]
     root.render(
@@ -252,15 +252,15 @@ For instance, prepare access to `rpcUrl` for `MenuContainer.tsx` by:
     )
     ```
 
-    Note the `!` so as to force the type of `.RPC_URL` from `string | undefined` to `string`.
+    Note the `!`, which forces the type of `.RPC_URL` from `string | undefined` to `string`.
 
-Whenever another component needs the `rpcUrl`, you can adapt and reproduce these steps as necessary.
+Whenever another component needs the `rpcUrl`, adapt and reproduce these steps as necessary.
 
 ### Create the `StargateClient`
 
-Whenever you need a `StargateClient` in a component, you can repeat the following chain of actions for the component in question. For instance, prepare the client in the state of `src/components/Menu/MenuContainer.tsx` by:
+Whenever you need a `StargateClient` in a component, you can repeat the following chain of actions for the component in question. For instance, to prepare the client in the state of `src/components/Menu/MenuContainer.tsx`:
 
-1. Adding the field in the state:
+1. Add the field in the state:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/MenuContainer.tsx#L20]
     interface IMenuContainerState {
@@ -269,7 +269,7 @@ Whenever you need a `StargateClient` in a component, you can repeat the followin
     }
     ```
 
-2. Initializing it to `undefined` in the constructor:
+2. Initialize it to `undefined` in the constructor:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/MenuContainer.tsx#L30]
 constructor(props: IMenuContainerProps) {
@@ -282,7 +282,7 @@ constructor(props: IMenuContainerProps) {
 }
 ```
 
-3. Adding a method that implements the conditional instantiation:
+3. Add a method that implements the conditional instantiation:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/MenuContainer.tsx#L46-L51]
     protected async getStargateClient(): Promise<CheckersStargateClient> {
@@ -293,34 +293,34 @@ constructor(props: IMenuContainerProps) {
    }
     ```
 
-    Note that it creates it only once by saving the client in the state.
+    Note that this creates it only once by saving the client in the state.
 
-Instantiating a `CheckersSigningStargateClient` is a bit more involved as you will see later on.
+Instantiating a `CheckersSigningStargateClient` is more involved, as you will see later on.
 
 First, make use of what you already prepared. Why choose to start with `MenuContainer`? Because that is where all the games are listed.
 
 ## Show all games
 
-To show all games, you only need the read-only `StargateClient`. That is convenient as there is no need to worry about private keys, for now. Where do you query for the games?
+To show all games, you only need the read-only `StargateClient`. There is no need to worry about private keys for now. Where do you query for the games?
 
 ### All games container
 
-Look into `src/components/Menu/MenuContainer.tsx`'s `componentDidMount` method. It is accessing the browser storage for saved games. You can replace the storage logic with:
+Look into `src/components/Menu/MenuContainer.tsx` for the `componentDidMount` method, which accesses the browser storage for saved games. You can replace the storage logic with the following steps:
 
 * Obtain a `StargateClient` with the `getStargateClient` method.
-* Obtain the blockchain games. Without pagination to keep it simple.
+* Obtain the blockchain games (without pagination).
 * Convert the blockchain games to the format the component expects.
 * Save them in `saved: IGameInfo[]` of the component's state.
 
-Your first thought may be to add a new function to `CheckersStargateClient` to handle the call and the conversion, or to add a helper function that takes a client as a parameter.
+A good next step is to add a new function to `CheckersStargateClient` to handle the call and the conversion, or to add a helper function that takes a client as a parameter.
 
 ### A specific GUI method
 
-However, in the future you may want to reuse the `CheckersStargateClient` code in another GUI or for backend scripts. So, to avoid polluting the code, and to avoid a helper where you need to pass a Stargate client as parameter, you can add [an extension method](https://www.c-sharpcorner.com/article/learn-about-extension-methods-in-typescript/#:~:text=Extension%2Dmethod%20gives%20you%20the,any%20data%2Dtype%20you%20want) to `CheckersStargateClient`.
+In the future you may want to reuse the `CheckersStargateClient` code in another GUI or for backend scripts. To avoid polluting the code, and to avoid a helper where you need to pass a Stargate client as parameter, add [an extension method](https://www.c-sharpcorner.com/article/learn-about-extension-methods-in-typescript/#:~:text=Extension%2Dmethod%20gives%20you%20the,any%20data%2Dtype%20you%20want) to `CheckersStargateClient`.
 
 In a new `src/types/checkers/extensions-gui.ts`:
 
-1. You declare the new extension method to your `CheckersStargateClient` _module_:
+1. Declare the new extension method to your `CheckersStargateClient` _module_:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/types/checkers/extensions-gui.ts#L10-L12]
     declare module "../../checkers_stargateclient" {
@@ -330,7 +330,7 @@ In a new `src/types/checkers/extensions-gui.ts`:
     }
     ```
 
-2. You add its implementation:
+2. Add its implementation:
 
     ```typecript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/types/checkers/extensions-gui.ts#L29-L38]
     CheckersStargateClient.prototype.getGuiGames = async function (): Promise<IGameInfo[]> {
@@ -345,11 +345,11 @@ In a new `src/types/checkers/extensions-gui.ts`:
     }
     ```
 
-    Note how it does not care about pagination or games beyond the first 20 ones. This purely-GUI detail is left as an exercise.
+    Note this does not care about pagination or games beyond the first 20. This purely-GUI detail is left as an exercise.
 
 ### All games call
 
-Now, back in `MenuContainer.tsx`, you:
+Next, in `MenuContainer.tsx`:
 
 1. Add an empty `import` for the extension method file, otherwise the method is not compiled in:
 
@@ -371,15 +371,15 @@ Now, back in `MenuContainer.tsx`, you:
     }
     ```
 
-Restart `npm start` and you should see... an empty list of games, unless you have previously created any. To test this new functionality, and if you have access to any way of creating a game, for instance with the `checkersd` command line, go ahead and create one:
+Restart `npm start` and you should see an empty games list (unless you have previously created any). If you have access to any way of creating a game, for instance with the `checkersd` command line, test this new functionality by creating one:
 
 ![List of one game](/list-games-1.png)
 
-If you do not have a way to create a game, wait for the paragraphs about creating a game.
+If you do not have a way to create a game, wait for the procedures about creating a game.
 
 ### Individual game menu container
 
-Each game is now listed as a [`src/components/Menu/MenuItem.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/MenuItem.tsx). However, notice how, in `src/components/Menu/Menu.tsx`, the `index` of the game is taken from its _index_ in the games array. This is not what you want here. It needs to use the proper `index` of the game. In `Menu.tsx` make the change:
+Each game is now listed as a [`src/components/Menu/MenuItem.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/MenuItem.tsx). However, in `src/components/Menu/Menu.tsx` the `index` of the game is taken from its _index_ in the games array, which is not what you want here. The list needs to use the proper `index` of each game. In `Menu.tsx` make this change:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/Menu.tsx#L21-L23]
 const Menu = (props: IMenuProps) => {
@@ -390,18 +390,18 @@ const Menu = (props: IMenuProps) => {
 }
 ```
 
-Or temporarily add `!`, as in `game.index!`, if you previously added the `IGameInfo.index` as `index?: number`.
+Alternatively, temporarily add `!` (as in `game.index!`) if you previously added the `IGameInfo.index` as `index?: number`.
 
 ## Show one game
 
-What happens when you click on a game's <kbd>Resume Game</kbd>? It opens a page of the form `http://localhost:3000/play/1`. The component is `src/components/Game/GameContainer.tsx`. It is in this component that you have to pick the game information from the blockchain. To get started with it, as with the `MenuContainer`:
+What happens when you click on a game's <kbd>Resume Game</kbd>? It opens a page of the form `http://localhost:3000/play/1`. The component is `src/components/Game/GameContainer.tsx`, from which you have to pick the game information from the blockchain. This process begins as with `MenuContainer`:
 
-* You pass a [`rpcUrl`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L24) along the chain to [`GameContainerWrapper`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/App.tsx#L50) then the [`GameContainer`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/App.tsx#L21-L27).
-* You add a [`client: CheckersStargateClient | undefined`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L38) state field, [initialize it](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L61), and add a [lazy instantiation method](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L115-L120).
+* Pass a [`rpcUrl`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L24) along the chain to [`GameContainerWrapper`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/App.tsx#L50) then the [`GameContainer`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/App.tsx#L21-L27).
+* Add a [`client: CheckersStargateClient | undefined`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L38) state field, [initialize it](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L61), and add a [lazy instantiation method](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L115-L120).
 
 Looking into `GameContainer`, you see that `componentDidMount` gets all the games from storage then sets the state with the information. Instead, as you did for all games, you have to take the game from the blockchain.
 
-1. In `extensions-gui.tsx`, declare another extension method to `CheckersStargateClient` dedicated to getting the game as expected by the GUI:
+1. In `extensions-gui.tsx` declare another extension method to `CheckersStargateClient` dedicated to getting the game as expected by the GUI:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/types/checkers/extensions-gui.ts#L13]
     declare module "../../checkers_stargateclient" {
@@ -412,7 +412,7 @@ Looking into `GameContainer`, you see that `componentDidMount` gets all the game
     }
     ```
 
-    And define it:
+    Now define `getGuiGame`:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/types/checkers/extensions-gui.ts#L40-L44]
     CheckersStargateClient.prototype.getGuiGame = async function (index: string): Promise<IGameInfo | undefined> {
@@ -422,7 +422,7 @@ Looking into `GameContainer`, you see that `componentDidMount` gets all the game
     }
     ```
 
-2. Back in `GameContainer.tsx`, add an empty import to the extension methods:
+2. In `GameContainer.tsx` add an empty import to the extension methods:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L6]
     import {} from "../../types/checkers/extensions-gui"
@@ -434,7 +434,7 @@ Looking into `GameContainer`, you see that `componentDidMount` gets all the game
     public async componentDidMount(): Promise<void>
     ```
 
-4. Split the `componentDidMount` method and take the game loading lines out into its own `loadGame` function:
+4. Split the `componentDidMount` method, and move the game loading lines to their own `loadGame` function:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L76-L79]
     public async componentDidMount(): Promise<void> {
@@ -449,7 +449,7 @@ Looking into `GameContainer`, you see that `componentDidMount` gets all the game
     }
     ```
 
-5. In `loadGame`, replace the storage actions with a fetch from the blockchain:
+5. In `loadGame` replace the storage actions with a fetch from the blockchain:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L80-L86]
     public async loadGame(): Promise<void> {
@@ -467,7 +467,7 @@ Looking into `GameContainer`, you see that `componentDidMount` gets all the game
     }
     ```
 
-4. Adjust the `setState` call so that `isSaved` is always `true`:
+6. Adjust the `setState` call so that `isSaved` is always `true`:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L90]
     public async loadGame(): Promise<void> {
@@ -481,19 +481,19 @@ Looking into `GameContainer`, you see that `componentDidMount` gets all the game
     }
     ```
 
-    Note how:
+    Note:
 
-    * You force `isSaved` to `true` since it is indeed always saved in the blockchain.
-    * You do not care about saving `game.index` to state because it is actually passed in `IGameContainerProps.index`.
+    * You force `isSaved` to `true` since it is always saved in the blockchain.
+    * Saving `game.index` to state is unimportant because it is actually passed in `IGameContainerProps.index`.
     * By having a separate `loadGame`, you can call it again if you know the game has changed.
 
-Restart `npm start` and you should now see your game. If you have access to `checkersd`, or any other way to send a transaction, you can make a move from the command line and refresh to confirm the change. If not, wait for the part about playing.
+Restart `npm start` and you should now see your game. If you have access to `checkersd`, or any other way to send a transaction, you can make a move from the command line and refresh to confirm the change. If not, wait for the procedure about playing.
 
 ![Game with one move played](/show-game-1-move.png)
 
 ## Integrate with Keplr
 
-So you have _only_ made it possible to show the state of games and of the blockchain. That is good. You should let your users poke around without unnecessarily asking them to connect. However, to create a game, or play in one, you need to make transactions. This is where you need first to make the integration with Keplr possible.
+So far you have _only_ made it possible to show the state of games and of the blockchain. This allows your users poke around without unnecessarily asking them to connect. However, to create a game or play in one, you need to make transactions. This is where you need to make integration with Keplr possible.
 
 Install the necessary packages:
 
@@ -503,7 +503,7 @@ $ npm install @keplr-wallet/types@0.10.2 --save-exact --save-dev
 
 ### Identify the Checkers blockchain
 
-Keplr will need information to identify your Checkers blockchain from the other chains. Prepare your Checkers blockchain info. In a new `src/types/checkers/chain.ts` file, you add:
+Keplr will need information to differentiate your Checkers blockchain from the other chains. Prepare your Checkers blockchain info in a new `src/types/checkers/chain.ts` file:
 
 ```typescript [TODO]
 import { ChainInfo } from "@keplr-wallet/types"
@@ -563,15 +563,15 @@ export const getCheckersChainInfo = (): ChainInfo => ({
 })
 ```
 
-Take note that the `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. If you wonder where such a strange `ChainInfo` object comes from, it is copied from the one you used for Theta in the [first steps with Keplr](./with-keplr.md) section.
+Note that the `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](./with-keplr.md) section.
 
 ### Prepare a signing client
 
-In the same way that your components that need a `CheckersStargateClient` keep one in their state, your components that need a `SigningCheckersStargateClient` will keep one in their state. Some components may have both, it does not matter. The steps to take are the same in each such component.
+Just as components that need a `CheckersStargateClient` keep one in their state, components that need a `SigningCheckersStargateClient` keep one in their state. Some components may have both. The steps to take are the same for each such component.
 
-For instance in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
+For instance, in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
 
-1. Add an [`rpcUrl: string`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/NewGameModal/NewGameModal.tsx#L25) to the props, passed along [`Menu.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/Menu.tsx#L47), which also needs it [as a new prop](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/Menu.tsx#L17), in turn passed from [`MenuContainer.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/MenuContainer.tsx#L81).
+1. Add an [`rpcUrl: string`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/NewGameModal/NewGameModal.tsx#L25) to the props, passed along [`Menu.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/Menu.tsx#L47) which also needs it [as a new prop](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/Menu.tsx#L17), in turn passed from [`MenuContainer.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/MenuContainer.tsx#L81).
 
 2. Add a signing client to the component's state, as well as the potential address of the Keplr user:
 
@@ -593,7 +593,7 @@ For instance in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
     };
     ```
 
-    The reason why you also save the address of Keplr is because it is accessible from the `OfflineSigner` but not from the `SigningStargateClient`.
+    The address of Keplr is saved because it is accessible from the `OfflineSigner` but not from the `SigningStargateClient`.
 
 3. Add a tuple type to return both of them:
 
@@ -604,7 +604,7 @@ For instance in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
     }
     ```
 
-    The reason you do this is that the `setState` function does not ensure the state is updated right after it has been called, so the lazy instantiation method has to return both.
+    This is done because the `setState` function does not ensure the state is updated immediately after it has been called, so the lazy instantiation method has to return both.
 
 4. Inform Typescript of the _Keplr `window`_ object:
 
@@ -616,7 +616,7 @@ For instance in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
     }
     ```
 
-5. Add a function that obtains the signing client and signer's address, a.k.a. future transaction `creator`, by setting up Keplr and connecting to it:
+5. Add a function that obtains the signing client and signer's address (a.k.a. future transaction `creator`) by setting up Keplr and connecting to it:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/NewGameModal/NewGameModal.tsx#L60-L83]
     protected async getSigningStargateClient(): Promise<CreatorInfo> {
@@ -645,11 +645,11 @@ For instance in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
     }
     ```
 
-    Remember that setting up Keplr is idempotent so doing all these operations more than once is harmless. You may want to separate these actions into more chiseled methods at a later optimization stage.
+    Setting up Keplr is idempotent, so repeating these operations more than once is harmless. You may want to separate these actions into more defined methods at a later optimization stage.
 
-    Note too how a default gas price is passed in, so that you can use `"auto"` when sending a transaction.
+    Note too that a default gas price is passed in, so that you can use `"auto"` when sending a transaction.
 
-With all these steps, your component is ready to send transactions to the blockchain. Why choose `NewGameModal.tsx` as the example? Because this is where a new game is created.
+Your component is now ready to send transactions to the blockchain. Why choose `NewGameModal.tsx` as the example? Because this is where a new game is created. 
 
 ## Create a new game
 
@@ -659,9 +659,9 @@ This modal window pops up when you click on <kbd>New Game</kbd>:
 
 The player names look ready-made to take the player's Cosmos addresses.
 
-Look around the code and you see that the action takes place in `src/components/Menu/NewGameModal/NewGameModal.tsx`. So it is here that you are going to work. Thanks to the previous preparation with `CheckersSigningStargateClient`, it is ready to send transactions.
+Look around the code and you see that the action takes place in `src/components/Menu/NewGameModal/NewGameModal.tsx`.Thanks to the previous preparation with `CheckersSigningStargateClient` it is ready to send transactions>
 
-1. In `extensions-gui.ts`, declare an extension method to your `CheckersSigningStargateClient` that encapsulates knowledge about how to get the newly created game index out of the events:
+1. In `extensions-gui.ts` declare an extension method to your `CheckersSigningStargateClient` that encapsulates knowledge about how to get the newly created game index out of the events:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/types/checkers/extensions-gui.ts#L22-L24]
     declare module "../../checkers_signingstargateclient" {
@@ -671,7 +671,7 @@ Look around the code and you see that the action takes place in `src/components/
     }
     ```
 
-    And define it:
+    Now define it:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/types/checkers/extensions-gui.ts#L60-L66]
     CheckersSigningStargateClient.prototype.createGuiGame = async function (
@@ -683,12 +683,12 @@ Look around the code and you see that the action takes place in `src/components/
     }
     ```
 
-    Note how:
+    Note:
 
     * For the sake of simplicity, a possible wager is completely omitted.
     * The `getCreatedGameId` is defined in a [previous section](./cosmjs-messages.md).
 
-2. In `NewGameModal.tsx`, add an empty import of the extension method so that it is compiled in:
+2. In `NewGameModal.tsx` add an empty import of the extension method so that it is compiled in:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/NewGameModal/NewGameModal.tsx#L6]
     import {} from "../../../types/checkers/extensions-gui"
@@ -701,27 +701,27 @@ Look around the code and you see that the action takes place in `src/components/
     maxLength={45}
     ```
 
-4. Back in `NewGameModal.tsx`, change the declaration of `handleSubmit`, and make it `async`:
+4. Back in `NewGameModal.tsx`, change the declaration of `handleSubmit` and make it `async`:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/NewGameModal/NewGameModal.tsx#L127]
     private async handleSubmit(event: any): Promise<void>
     ```
 
-5. In `handleSubmit`, do the necessary instead of saving to local storage:
+5. In `handleSubmit`, avert the need to save to local storage:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/NewGameModal/NewGameModal.tsx#L155-L156]
     const { creator, signingClient } = await this.getSigningStargateClient()
     const index: string = await signingClient.createGuiGame(creator, p1Name, p2Name)
     ```
 
-6. And finish off by sending the player directly to the newly created game:
+6. Next send the player directly to the newly created game:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/NewGameModal/NewGameModal.tsx#L157-L158]
     this.props.close()
     window.location.replace(`/play/${index}`)
     ```
 
-7. In `render()`, don't forget to change the React link around the `Button` into a regular `div` so that your window redirection appears smooth:
+7. In `render()` change the React link around the `Button` to a regular `div` so that window redirection appears smooth:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/NewGameModal/NewGameModal.tsx#L114-L118]
     public render() {
@@ -737,11 +737,11 @@ Look around the code and you see that the action takes place in `src/components/
     }
     ```
 
-And there you have it. You just added game creation to your GUI.
+You have now added game creation to your GUI.
 
 If you do not yet know your Keplr address on the Checkers network, you will have to test in two passes. To test properly, you need to:
 
-1. Run the initialization code by pretending to create a game. This makes Keplr prompt you to accept adding the `checkers` network and accessing your account. Accept both but reject, or not, the prompt to accept a transaction if your balance is zero.
+1. Run the initialization code by pretending to create a game. This makes Keplr prompt you to accept adding the `checkers` network and accessing your account. Accept both, but optionally reject the prompt to accept a transaction if your balance is zero.
 
     ![Checkers prompting to add support for Checkers](/checkers-add-support.png)![Checkers prompting to access account](/checkers-access-address.png)    
 
@@ -749,9 +749,9 @@ If you do not yet know your Keplr address on the Checkers network, you will have
 
     ![Checkers network in beta support list](/list-keplr-beta-support.png)
 
-3. Put enough tokens in your Keplr _Checkers_ account. `"1000000stake"` will do the trick by a 10x margin.
+3. Put enough tokens in your Keplr _Checkers_ account. `"1000000stake"` will satisfy by a 10x margin.
 
-    * If you have access to `checkersd` built by Ignite CLI, you can do that with this command:
+    * If you have access to `checkersd` built by Ignite CLI, use this command:
 
         ```sh
         $ export alice=$(checkersd keys show alice -a)
@@ -760,32 +760,30 @@ If you do not yet know your Keplr address on the Checkers network, you will have
 
     * If you do not have access to `checkersd`, look for instructions on how to start your locally-running Checkers or tap the faucet of a public Checkers test net.
 
-4. Start again to create a game, for real this time. Accept the transaction, and a few seconds later, you are redirected to the game page. This time the content of the game was indeed from the blockchain.
-
-Time to play this game.
+4. Now start again to actually create a game. Accept the transaction, and you are redirected to the game page. This time the content of the game is from the blockchain.
 
 ## Play a game
 
-Back to the `GameContainer.tsx`, you see that there are a `makeMove` and a `saveGame` functions. In a blockchain context, the `saveGame` does not make much sense. Indeed, on each move done with a transaction, the game will be automatically _saved_ in the blockchain.
+In the `GameContainer.tsx` there are `makeMove` and `saveGame` functions. In a blockchain context, `saveGame` is irrelevant, as on each move done with a transaction the game will be automatically _saved_ in the blockchain.
 
-Observing `makeMove`, add a `console.log` to see in what format it deals:
+Add a `console.log` to  `makeMove` to demonstrate the format it uses:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L210]
 const move: Position[] = keys.map((k: string): Position => k.split(",").map(Number) as Position)
 console.log(move)
 ```
 
-Then play a move with the current interface. Say you move your first black piece like so:
+Now play a move with the current interface. Move your first black piece:
 
 ![Black moves first piece](/black-moves-first-piece.png)
 
-In the blockchain code, this is a `fromX: 1, fromY: 2, toX: 2, toY: 3`. However, the GUI prints:
+In the blockchain code, this is `fromX: 1, fromY: 2, toX: 2, toY: 3`. However, the GUI prints:
 
 ```
 [ [ 2, 1 ], [ 3, 2 ] ]
 ```
 
-It is safe to assume that, for each position, X and Y are flipped. No problem, you can encapsulate this knowledge in a helper function:
+Evidently for each position X and Y are flipped. You can encapsulate this knowledge in a helper function:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/types/checkers/board.ts#L45-L47]
 export function guiMoveToPos(move: number[]): Pos {
@@ -793,9 +791,9 @@ export function guiMoveToPos(move: number[]): Pos {
 }
 ```
 
-You should start to know the drill. Do some more preparation:
+This is likely a familiar situation. Do some more preparation:
 
-1. In `extensions-gui.ts`, declare an extension method to `CheckersStargateClient` to check whether the move is valid with parameters as they are given in the GUI components:
+1. In `extensions-gui.ts` declare an extension method to `CheckersStargateClient` to check whether the move is valid, with parameters as they are given in the GUI components:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/types/checkers/board.ts#L45-L47]
     declare module "../../checkers_stargateclient" {
@@ -810,7 +808,7 @@ You should start to know the drill. Do some more preparation:
     }
     ```
 
-    And define it:
+    Now define it:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/types/checkers/extensions-gui.ts#L46-L58]
     CheckersStargateClient.prototype.canPlayGuiMove = async function (
@@ -828,7 +826,7 @@ You should start to know the drill. Do some more preparation:
     }
     ```
 
-2. Declare another extension method, this time for `CheckersSigningStargateClient` to actually make the move with parameters as they are given in the GUI components:
+2. Declare another extension method, this time for `CheckersSigningStargateClient`, to actually make the move with parameters as they are given in the GUI components:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/types/checkers/extensions-gui.ts#L25]
     declare module "../../checkers_signingstargateclient" {
@@ -839,7 +837,7 @@ You should start to know the drill. Do some more preparation:
     }
     ```
 
-    And define it:
+    Now define it:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/types/checkers/extensions-gui.ts#L68-L74]
     CheckersSigningStargateClient.prototype.playGuiMove = async function (
@@ -853,7 +851,11 @@ You should start to know the drill. Do some more preparation:
 
 With this done:
 
-1. Repeat in `GameContainer` what you did in `NewGameModal` by keeping a [signing client and `creator`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L39-L40) in the component's state, [initializing](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L62-L63) it in the constructor, adding [a tuple](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L16-L19), and adding a method to [lazily instantiate it](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L121-L144):
+1. Repeat in `GameContainer` what you did in `NewGameModal`:
+    1.  Keep a [signing client and `creator`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L39-L40) in the component's state.
+    2.  [Initialize](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L62-L63) it in the constructor.
+    3.  Add [a tuple](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L16-L19).
+    4.  Add a method to [lazily instantiate it](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L121-L144).
 
 2. Change the declaration of `makeMove` to make it `async`:
 
@@ -861,7 +863,7 @@ With this done:
     public async makeMove(): Promise<void>
     ```
 
-3. Then  in `makeMove`, make sure that the move is likely to be accepted, right after the existing code that extracts the move. It uses the read-only `StargateClient`, which is good, because like this players can look around as long as they can without being asked to disclose their address:
+3. In `makeMove` make sure that the move is likely to be accepted immediately after the existing code that extracts the move. It uses the read-only `StargateClient`, which allows players to look around without being asked to disclose their address:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L210-L222]
     const move: Position[] = keys.map((k: string): Position => k.split(",").map(Number) as Position)
@@ -879,7 +881,7 @@ With this done:
     }
     ```
 
-4. With this partial assurance, you can make the move for real:
+4. With this partial assurance, you can make an actual move:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L224-L230]
     const { creator, signingClient } = await this.getSigningStargateClient()
@@ -891,11 +893,11 @@ With this done:
     }
     ```
 
-    The assurance is **partial** because what was tested with `canPlayGuiMove` is whether a player of a certain color can make a move or not. Then at the time of making the move, it takes the Keplr address, without cross-checking whether this is indeed the address of the colored player that tested a move. This **could be improved** either at the cost of another call to get the game, or better, by adding the black and red addresses in the component's status.
+    The assurance is **partial** because what was tested with `canPlayGuiMove` is whether a player of a certain color can make a move or not. When making the move, it takes the Keplr address without cross-checking whether this is indeed the address of the colored player that tested a move. This **could be improved** either at the cost of another call to get the game, or better by adding the black and red addresses in the component's status.
 
-    You can delete the remaining code of the `makeMove` method.
+    The remaining code of the `makeMove` method can be deleted.
 
-5. And finish with a reload of the game, in order to show its new state:
+5. Finish with a reload of the game to show its new state:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Game/GameContainer.tsx#L231-L233]
     const selected = Object.create(null)
@@ -905,22 +907,22 @@ With this done:
 
     <HighlightBox type="tip">
 
-    There is a potentially hard-to-reproduce-in-production **race condition** bug here. The `loadGame` is done right after the transaction has completed. However, depending on the implementation of the RPC end point, your `playGuiMove` and your `loadGame` calls may be hitting two different servers on the backend. In some instances, the server that answers your `loadGame` may not have fully updated its store and may in fact serve you the **old** version of your game.
+    There is a potentially hard-to-reproduce-in-production **race condition** bug here. The `loadGame` is done immediately after the transaction has completed. However, depending on the implementation of the RPC end point, the `playGuiMove` and `loadGame` calls may hit two different servers on the backend. In some instances, the server that answers your `loadGame` may not have fully updated its store and may in fact serve you the **old** version of your game.
 
-    So, as your GUI matures, you may want to show the _expected_ state of the game, before you eventually show its _finalized_ state. Sometimes you may want to show the expected state of the game even before the transaction has completed, and add visual cues hinting at the fact it is a **provisional** state.
+    Aas your GUI matures, you may want to show the _expected_ state of the game before you eventually show its _finalized_ state. Sometimes you may want to show the expected state of the game even before the transaction has completed, and add visual cues hinting at the fact it is a **provisional** state.
 
-    The same can happen when creating the game, where the second server may return `null` if it has not been updated yet.
+    The same can happen when creating a game, where the second server may return `null` if it has not been updated yet.
 
     </HighlightBox>
 
-Now you can try yourself in the GUI. Of course, make sure you put your Keplr address as the black player, so that you start with this one. Then either you have a second account on Keplr with which to play red, or you play red from the command line.
+Now you can play test in the GUI. Make sure to put your Keplr address as the black player, so that you start with this one. You will need a second account on Keplr with which to play red, otherwise you must play red from the command line.
 
-Either way, you have now made it possible to play the game from the GUI. Congratulations.
+Either way, it is now possible to play the game from the GUI. Congratulations!
 
 ## Further exercise ideas
 
-* You can use the <kbd>Quit Game</kbd> button to handle a reject for instance.
+* Use the <kbd>Quit Game</kbd> button to handle a reject.
 * Add pagination to the game list.
-* All the usual GUI bells and whistles where, for instance, buttons are disabled when you ought not to be able to do the action, or a countdown to the forfeit deadline.
-* Implement a Web socket to listen to changes. That would be useful, instead of polling, when there are two players who cannot communicate otherwise.
-* You will notice that, when a double (or more) capture is possible, the GUI allows you to make the multiple move in one fell swoop, i.e. with `move.length >= 2`. However as it is coded, the code handles only a single hop, i.e. `move[0]` and `move[1]`. It is however technically possible to pack more than one `PlayMove` message in a single transaction, thereby saving the player the hassle of sending multiple transactions.
+* Implement typical GUI features, like disabling buttons when their action should be unavailable, or adding a countdown to the forfeit deadline.
+* Implement a Web socket to listen to changes. That would be useful when there are two players who cannot communicate otherwise (instead of polling).
+* When a double capture (or more) is possible, the GUI allows you to make multiple moves at once (with `move.length >= 2`). However, the code handles only a single hop (`move[0]` and `move[1]`). It is technically possible to pack more than one `PlayMove` message in a single transaction, saving the player from sending multiple transactions.
