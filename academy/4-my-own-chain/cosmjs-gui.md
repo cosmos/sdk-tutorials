@@ -12,16 +12,16 @@ tag: deep-dive
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [CosmJs](TODO).
-* The checkers blockchain codebase up to the external GUI. You can get there by following the [previous steps](./external-gui.md) or checking out the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui).
+* You have the checkers blockchain codebase up to the external GUI. If not, follow the [previous steps](./external-gui.md) or check out the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui).
 
 </HighlightBox>
 
 In the previous sections:
 
-1. You created the objects, messages and clients that **allow** you to **interface** any GUI with your Checkers blockchain.
+1. You created the objects, messages, and clients that allow you to **interface** any GUI with your Checkers blockchain.
 2. You imported an external Checkers **GUI** to use.
 
-Now, you **integrate the two** together. The actions that you need to take:
+Now, you must **integrate the two** together:
 
 * Adjust the React app to be able to package CosmJs.
 * Work on the CosmJs integration.
@@ -29,7 +29,7 @@ Now, you **integrate the two** together. The actions that you need to take:
 For the CosmJs integration, you will:
 
 * Work with the GUI's data structures.
-* Fetch all games from the blockchain and display them, without pagination to keep it simple.
+* Fetch all games from the blockchain and display them (without pagination).
 * Integrate with Keplr for browser-based players.
 * Create a new game.
 * Fetch a single game to be played.
@@ -40,7 +40,7 @@ Rejecting a game will be left to you as an exercise.
 
 ### Prepare Webpack
 
-Your GUI uses React v18, which uses Weback v5. Therefore, as the CosmJs documentation explains, you need to [adjust Webpack's configuration](https://github.com/cosmos/cosmjs/blob/5fc0960/README.md#webpack-configs) to handle some elements. To modify the Webpack configuration in a non-ejected React app, you can use [`react-app-rewired`](https://www.npmjs.com/package/react-app-rewired) as [explained here](https://stackoverflow.com/questions/63280109/how-to-update-webpack-config-for-a-react-project-created-using-create-react-app):
+Your GUI uses React v18, which uses Weback v5. Therefore you need to [adjust Webpack's configuration](https://github.com/cosmos/cosmjs/blob/5fc0960/README.md#webpack-configs) to handle some elements (see also the CosmJs documentation). To modify the Webpack configuration in a non-ejected React app, use [`react-app-rewired`](https://www.npmjs.com/package/react-app-rewired) as [explained here](https://stackoverflow.com/questions/63280109/how-to-update-webpack-config-for-a-react-project-created-using-create-react-app):
 
 1. Install the new package:
 
@@ -48,7 +48,7 @@ Your GUI uses React v18, which uses Weback v5. Therefore, as the CosmJs document
     $ npm install react-app-rewired@2.2.1 --save-dev --save-exact
     ```
 
-2. Add a new `config-overrides.js` with:
+2. Add a new `config-overrides.js`:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/config-overrides.js#L1-L20]
     require("dotenv").config()
@@ -73,7 +73,7 @@ Your GUI uses React v18, which uses Weback v5. Therefore, as the CosmJs document
     }
     ```
 
-    Note how you can take this opportunity to also pass along the `RPC_URL` as an environment variable.
+    Note you can also pass along the `RPC_URL` as an environment variable.
 
 3. Change the run targets to use `react-app-rewired` in `package.json`:
 
@@ -92,16 +92,16 @@ Your GUI uses React v18, which uses Weback v5. Therefore, as the CosmJs document
 
     Be careful to leave the `"eject"` unchanged.
 
-See a [previous section](./cosmjs-objects.md) for how set `RPC_URL` in `process.env.RPC_URL`. It also assumes that, at this point, you have an RPC end point that runs the Checkers blockchain, as explained in the previous section.
+See a [previous section](./cosmjs-objects.md) for how set `RPC_URL` in `process.env.RPC_URL`. It also assumes that you have an RPC end point that runs the Checkers blockchain, as explained in the previous section.
 
 ### GUI data structures
 
-The Checkers GUI uses different data structures, you need to understand them so as to convert them correctly.
+The Checkers GUI uses different data structures, which you must understand to convert them correctly.
 
-1. The `IPlayerInfo` has a [`name: string`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/sharedTypes.ts#L27) field. At first glance, it appears you can readily use it as the player's address.
-2. The `IGameInfo` has a [`board: number[][] | null`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/sharedTypes.ts#L11) field. So you have to do a conversion from `b*b*...` into this type. The catch is to make sure that the alignments are correct.
-3. The `IGameInfo` has a [`turn: number`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/sharedTypes.ts#L17), which will readily map to `"b"` or `"r"`.
-4. The `IGameInfo` lacks an `index` or `id` field. Instead the GUI developer identified games by their index in an array. This is not good enough for your case. You need to add an `index` field to `IGameInfo`. The field is saved as a `string` in the blockchain, but you know that it is a number anyway, and the GUI code happens to expect a number as game index. So add:
+1. The `IPlayerInfo` has a [`name: string`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/sharedTypes.ts#L27) field which can be used as the player's address.
+2. The `IGameInfo` has a [`board: number[][] | null`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/sharedTypes.ts#L11) field. You must do a conversion from `b*b*...` to this type. Ensure that the alignments are correct.
+3. The `IGameInfo` has a [`turn: number`](https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/sharedTypes.ts#L17), which maps to `"b"` or `"r"`.
+4. The `IGameInfo` lacks an `index` or `id` field. Instead the GUI developer identified games by their index in an array, which is not adequate for this case. You must add an `index` field to `IGameInfo`. This is saved as a `string` in the blockchain but in practice is a **number**, which the GUI code expects as game index. Add:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/sharedTypes.ts#L18]
     export interface IGameInfo {
@@ -110,7 +110,7 @@ The Checkers GUI uses different data structures, you need to understand them so 
     }
     ```
 
-    If you do not want to get compilation errors on `index:` elsewhere, just add `index?: number` for now, but remember to come back to it and remove the `?`.
+    To avoid compilation errors on `index:` elsewhere, temporarily add `index?: number`. Remember to come back and remove the `?`.
 
 ### Board converter
 
@@ -132,7 +132,7 @@ Where `1` represents player 1, i.e. black pieces. Compare that to how a game is 
 "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*"
 ```
 
-The conversion looks straightforward. Create a new file `src/types/checkers/board.ts`, and in it you can code:
+To convert the board, create a new file `src/types/checkers/board.ts` and code as follows:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/types/checkers/board.ts#L5-L18]
 const rowSeparator = "|"
@@ -153,7 +153,7 @@ export function serializedToBoard(serialized: string): number[][] {
 
 ### Game converter
 
-Then you can convert a `StoredGame` into the `IGameInfo` of the GUI:
+Next you convert a `StoredGame` into the `IGameInfo` of the GUI:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/types/checkers/board.ts#L20-L43]
 export function storedToGameInfo(game: StoredGame): IGameInfo {
@@ -182,12 +182,12 @@ export function storedsToGameInfos(games: StoredGame[]): IGameInfo[] {
 }
 ```
 
-Note in the above:
+Note:
 
 * You use Cosmos addresses instead of names.
 * You put today in the creation date because it is not stored in `StoredGame`.
-* You set the `last` played date to deadline minus expiry duration. Not ideal but it does the job.
-* You do not care about the possibility of "AI".
+* You set the `last` played date to deadline minus expiry duration (an adequate solution).
+* The possibility of "AI" is not important.
 
 <HighlightBox type="info">
 
