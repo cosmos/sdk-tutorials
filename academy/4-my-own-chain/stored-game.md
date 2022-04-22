@@ -263,7 +263,7 @@ Your stored game stores are only strings, but they represent `sdk.AccAddress` or
 
     Do the same for the [red](https://github.com/cosmos/b9-checkers-academy-draft/blob/d7272dd/x/checkers/types/full_game.go#L14-L17) and [black](https://github.com/cosmos/b9-checkers-academy-draft/blob/d7272dd/x/checkers/types/full_game.go#L19-L22) players.
 
-2. Parse the game so that it can be played with. The `Turn` has to be set by hand:
+2. Parse the game so that it can be played. The `Turn` has to be set by hand:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d7272dd/x/checkers/types/full_game.go#L24-L33]
     func (storedGame *StoredGame) ParseGame() (game *rules.Game, err error) {
