@@ -1006,8 +1006,7 @@ To simulate a case where the game is in the blockchain state but not the indexer
         "block": {
             "height": 1001
         }
-    },
-    ...
+    }
     ```
 
 4. Restart the indexer.
@@ -1023,6 +1022,7 @@ It should return:
 {
   "result": "Thank you"
 }
+```
 
 And the indexer should log something like:
 
