@@ -11,19 +11,19 @@ tag: deep-dive
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md), and [CosmJs](TODO).
-* Have Go and npm installed.
-* The checkers blockchain codebase up to the wager denomination. You can get there by following the [previous steps](./wager-denom.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
+* You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md) and [CosmJs](TODO).
+* Go and npm are installed.
+* You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](./wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
 
 </HighlightBox>
 
-With your Checkers application ready for use, it is a good time to prepare its client elements that will eventually allow you to create a GUI and/or server-side scripts. Here, you are going to apply [what you learned](TODO) about creating your own custom CosmJs interfaces.
+With your Checkers application ready for use, it is a good time to prepare client elements that will eventually allow you to create a GUI and/or server-side scripts. Here, you will apply [what you learned](TODO) about creating your own custom CosmJs interfaces.
 
 ## Compile Protobuf
 
 Create a `client` folder that will contain all these new elements.
 
-In fact, if you want to keep the Go parts of your Checkers project separate from the Typescript parts, you might want to use another repository for the _client_. In order to keep a link between the two repositories, you can add the _client_ parts as a submodule to your Go parts:
+If you want to keep the Go parts of your Checkers project separate from the Typescript parts, you can use another repository for the _client_. To keep a link between the two repositories, add the _client_ parts as a submodule to your Go parts:
 
 ```sh
 $ git submodule add git@github.com:cosmos/academy-checkers-ui.git client
@@ -31,7 +31,7 @@ $ git submodule add git@github.com:cosmos/academy-checkers-ui.git client
 
 Replace the path with your own repository. In effect, this creates a new `client` folder. This `client` folder makes it possible for you to easily update another repository with the content of your Go code.
 
-Create another folder named `script` in your project root. It is from here that you will launch the Protobuf compilation. In it, install modules for the Protobuf-to-Typescript compiler:
+Create a folder named `script` in your project root. This is where you will launch the Protobuf compilation. In the `script` folder install modules for the Protobuf-to-Typescript compiler:
 
 ```sh
 $ mkdir scripts
@@ -39,25 +39,25 @@ $ cd scripts
 $ npm install ts-proto@1.110.4 protoc@1.0.4 --save-dev --save-exact
 ```
 
-And create the folder structure to receive the compiled files:
+Create the folder structure to receive the compiled files:
 
 ```sh
 $ mkdir -p ../client/src/types/generated
 ```
 
-What Cosmos version are you using?
+Check what Cosmos version are you using:
 
 ```sh
 $ grep cosmos-sdk ../go.mod
 ```
 
-May return:
+This may return:
 
 ```
 github.com/cosmos/cosmos-sdk v0.42.6
 ```
 
-So look into your `.proto` files and download the required files:
+Download the required files from your `.proto` files:
 
 ```sh
 $ mkdir -p ../proto/cosmos/base/query/v1beta1
@@ -67,7 +67,7 @@ $ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.42.6/third_party/p
 $ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.42.6/third_party/proto/google/api/http.proto -o ../proto/google/api/http.proto
 ```
 
-And compile:
+Now compile:
 
 ```sh
 $ ls ../proto/checkers | xargs -I {} ./node_modules/protoc/protoc/bin/protoc \
@@ -78,13 +78,13 @@ $ ls ../proto/checkers | xargs -I {} ./node_modules/protoc/protoc/bin/protoc \
     checkers/{}
 ```
 
-You should now have your Typescript files. Save these scripts into a `proto-ts-gen.sh` [script file](https://github.com/cosmos/b9-checkers-academy-draft/blob/4cf13b5a/scripts/proto-ts-gen.sh), make it executable with `chmod a+x`, and add an `npm run` [target for it](https://github.com/cosmos/b9-checkers-academy-draft/blob/4cf13b5a/scripts/package.json#L7). Next time, to update your compiled Protobuf objects directly into your `client` repository, you can simply run within the `scripts` folder:
+You should now have your Typescript files. Save these scripts into a `proto-ts-gen.sh` [script file](https://github.com/cosmos/b9-checkers-academy-draft/blob/4cf13b5a/scripts/proto-ts-gen.sh), make it executable with `chmod a+x`, and add an `npm run` [target for it](https://github.com/cosmos/b9-checkers-academy-draft/blob/4cf13b5a/scripts/package.json#L7). Next time, to update your compiled Protobuf objects directly into your `client` repository, run the following within the `scripts` folder:
 
 ```sh
 $ npm run proto-ts-gen
 ```
 
-In your client project, do not forget to install the Protobujs package:
+Do not forget to install the Protobujs package in your client project:
 
 ```sh
 $ npm install protobufjs@6.10.2 --save-exact
@@ -92,7 +92,7 @@ $ npm install protobufjs@6.10.2 --save-exact
 
 ## Prepare integration
 
-At a later stage, you will add Checkers as an extension to Stargate. You can start now and define your Checkers extension right away. The `canPlay` query could make use of better-typed player and position. Declare them:
+At a later stage you will add Checkers as an extension to Stargate, but you can define your Checkers extension immediately. The `canPlay` query could make use of better-typed player and position. Declare them:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/types/checkers/player.ts#L1-L5]
 export type Player = "b" | "r"
@@ -102,13 +102,13 @@ export interface Pos {
 }
 ```
 
-Your Checkers extension will need to use the CosmJs Stargate package, install it:
+Your Checkers extension will need to use the CosmJs Stargate package. Install it:
 
 ```sh
 $ npm install @cosmjs/stargate@0.28.2 --save-exact
 ```
 
-With this, you can declare the Checkers extension:
+Now you can declare the Checkers extension:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/modules/checkers/queries.ts#L15-L37]
 export interface AllStoredGameResponse {
@@ -136,7 +136,7 @@ export interface CheckersExtension {
 }
 ```
 
-Don't forget a _setup_ function as it is expected by Stargate:
+Don't forget a _setup_ function, as this is expected by Stargate:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/modules/checkers/queries.ts#L39-L94]
 export function setupCheckersExtension(base: QueryClient): CheckersExtension {
@@ -197,7 +197,7 @@ export function setupCheckersExtension(base: QueryClient): CheckersExtension {
 }
 ```
 
-Then create your `CheckersStargateClient`:
+Now create your `CheckersStargateClient`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/checkers_stargateclient.ts#L5-L22]
 export class CheckersStargateClient extends StargateClient {
@@ -228,15 +228,15 @@ It should already be possible to see communication happen. You are about to crea
 $ npm install @types/node@17.0.24 dotenv@16.0.0 ts-node@10.7.0 --save-dev --save-exact
 ```
 
-You describe how to connect to the running blockchain in a `.env` file in your project root:
+Describe how to connect to the running blockchain in a `.env` file in your project root:
 
 ``` [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/.env#L1]
 RPC_URL="http://localhost:26657"
 ```
 
-Or whichever address you have to connect to the RPC port of the Checkers blockchain.
+Alternatively, use whichever address connects to the RPC port of the Checkers blockchain.
 
-And let Typescript know about this in a `environment.d.ts` file:
+Now let Typescript know about this in a `environment.d.ts` file:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/environment.d.ts]
 declare global {
@@ -250,7 +250,7 @@ declare global {
 export {}
 ```
 
-Now, in your `client` folder, create a `test/live` folder and, in it, an `experiment.ts` file that will be a living document of your progress:
+In your `client` folder create a `test/live` folder. In `test/live`, create an `experiment.ts` file to be a living document of your progress:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/test/live/experiment.ts#L1-L32]
 import { config } from "dotenv"
@@ -323,4 +323,4 @@ Error: Query failed with (18): rpc error: code = InvalidArgument desc = not foun
 ...
 ```
 
-As expected. That's all you can test at this stage.
+This is as expected, as nothing more can be tested at this stage.
