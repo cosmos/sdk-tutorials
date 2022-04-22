@@ -773,9 +773,9 @@ Nicely formatted `EndBlock` events are still missing from CosmJs, so these requi
 4. This [`Event`](https://github.com/cosmos/cosmjs/blob/ca969f2/packages/tendermint-rpc/src/tendermint34/responses.ts#L182) type has `attributes: Attribute[]` of interest.
 5. The [`Attribute`](https://github.com/cosmos/cosmjs/blob/ca969f2/packages/tendermint-rpc/src/tendermint34/responses.ts#L177-L180) type is coded as `Uint8Array`.
 
-With this information, you can do the necessary:
+With this information, you can do the necessary actions:
 
-1. To handle the conversion of Tendermint `Event`s into `StringEvent`s, you can create a helper in your existing `src/types/checkers/events.ts` file, alongside the `getCreatedGameId` helper:
+1. To handle the conversion of Tendermint `Event`s into `StringEvent`s, create a helper in your existing `src/types/checkers/events.ts` file alongside the `getCreatedGameId` helper:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/d623ae0/src/types/checkers/events.ts#L12-L24]
     import { fromUtf8 } from "@cosmjs/encoding"
@@ -797,7 +797,7 @@ With this information, you can do the necessary:
     }
     ```
 
-2. To handle the call to `blockResults`, you need a way to have access to a Tendermint client. One way to have it is to make a copy of the private Tendermint client. You can do this only on construction. So you might as well create a child class of `CheckersStargateClient` that does that. Since it is an oddly specific need, it is better to keep it close by `indexer.ts`. In a new `indexer_stargateclient.ts`:
+2. To handle the call to `blockResults`, you need access to a Tendermint client. One option is to make a copy of the private Tendermint client. You can do this only on construction, so create a child class of `CheckersStargateClient` to do that. It is recommended to keep it close by `indexer.ts`. In a new `indexer_stargateclient.ts`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/d623ae0/src/server/indexer_stargateclient.ts]
 import { StargateClientOptions } from "@cosmjs/stargate"
@@ -829,7 +829,7 @@ export class IndexerStargateClient extends CheckersStargateClient {
 }
 ```
 
-And swap out `CheckersStargateClient` with `IndexerStargateClient`:
+Now swap out `CheckersStargateClient` with `IndexerStargateClient`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/d623ae0/src/server/indexer.ts#L20]
 import { IndexerStargateClient } from "./IndexerStargateClient"
@@ -846,7 +846,7 @@ export const createIndexer = async () => {
 }
 ```
 
-With this in place, you can go back to `handleBlock` and work on the remaining TODO.
+With this in place, go back to `handleBlock` and work on the remaining TODO.
 
 ## Handle one block's `EndBlock`
 
@@ -861,7 +861,7 @@ const handleBlock = async (block: Block) => {
 }
 ```
 
-Quite conveniently, the events that you have converted are compatible with those emanating from transactions so you can just pass them on. You still need to update `handleEvent` so that it acts on the new event type:
+The events that you have converted are compatible with those emanating from transactions, so you can just pass them on. You still need to update `handleEvent` so that it acts on the new event type:
 
 ```typescript [TODO]
 const handleEvent = async (event: StringEvent): Promise<void> => {
@@ -898,11 +898,11 @@ const handleEventForfeit = async (event: StringEvent): Promise<void> => {
 ```
 
 * Again there is a lot of error handling.
-* It deletes the game only if there are no winners, which means that it was a deletion, not a forfeit.
+* `handleEvent` deletes the game only if there are no winners, which means that it was a deletion, not a forfeit.
 
 ## Test time of forfeit
 
-Run the tests again as described earlier. Create a game, wait and see how the deletion event is picked up:
+Run the previous tests again. Create a game and see how the deletion event is picked up:
 
 ```
 Forfeit game: 1, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s, winner: NO_PLAYER
@@ -910,15 +910,15 @@ Forfeit game: 1, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosm
 
 ## Patch a game
 
-In the actions that the Express server exposes, `app.patch` is left to implement. The idea is to open a way for a user to inform the server that its database is no longer synchronized, and it should look at a specific game. It is a matter of data re-synchronization:
+In the actions that the Express server exposes, `app.patch` must still be implemented. This allows a user to inform the server that its database is no longer synchronized, and that it should look at a specific game. It is a matter of data re-synchronization:
 
 1. If the game can be found in the blockchain state, update the indexer's database accordingly:
-    1. If there is a winner, then the game should be removed from its players's lists of games.
+    1. If there is a winner, then the game should be removed from its players' lists of games.
     2. If there is no winner, then the game should be added to its players' lists of games.
-2. If the game cannot be found in the blockchain state, but is present in the indexer's database, then the game should be removed from its players' lists of games. Hence the usefulness of keeping _old_ games.
-3. If the game cannot be found either in the blockchain state nor in the indexer's database, then it is better not to do anything. The potential idea to remove it from all players' list of games is potentially expensive. This could expose the server to a DoS attack.
+2. If the game cannot be found in the blockchain state, but is present in the indexer's database, then the game should be removed from the lists of games of its players. This shows the usefulness of keeping _old_ games.
+3. If the game cannot be found either in the blockchain state nor in the indexer's database, then it is better not to do anything. To remove it from all players' lists of games is potentially expensive. This could expose the server to a DoS attack.
 
-So you code:
+Code the following:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/2e400d1/src/server/indexer.ts#L225-L275]
 const patchGame = async (gameId: string): Promise<boolean> => {
@@ -974,12 +974,12 @@ const patchGame = async (gameId: string): Promise<boolean> => {
 }
 ```
 
-Keep in mind that it is imperfect because:
+There are some issues to be aware of:
 
-1. Javascript is not thread-safe, so you could be doing two opposite actions, one coming from the polling, the other from a patch submission. Or even from two concurrent patch submissions. It is for this reason, in the hope to lower the risks, that the choice was made to not save the _database_ to disk in this function but instead to rely on the polling to save it at the next run.
-2. Assuming that _there is no such game when you cannot find it_ can be a recipe for deleting data that is taking time to appear on your blockchain node. So use this code with caution.
+1. Javascript is not thread-safe, so you could cause two opposite actions: one coming from the polling the other from a patch submission, or even from two concurrent patch submissions. To reduce this risk the _database_ is not saved to disk in this function, but instead relies on the polling to save it at the next run.
+2. Assuming that _there is no such game when you cannot find it_ can result in deleting data that is simply taking time to appear on your blockchain node.
 
-Next, you need to call it from the `app.patch` callback:
+Next, you need to call `patchGame` from the `app.patch` callback:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/2e400d1/src/server/indexer.ts#L49-L57]
 app.patch("/games/:gameId", async (req: Request, res: Response) => {
@@ -995,10 +995,10 @@ app.patch("/games/:gameId", async (req: Request, res: Response) => {
 
 ## Test time of patch
 
-To simulate the case where the game is in the blockchain state but not the indexer's, you should:
+To simulate a case where the game is in the blockchain state but not the indexer's:
 
 1. Stop your indexer.
-2. Create a game, say at index `3`, check at what block it is included, say `1001`.
+2. Create a game and check at what block it is included (for example, at index `3` and block `1001`).
 3. Update your indexer's `db.json` and pretend that it already indexed the game's block by setting:
 
     ```json
@@ -1011,7 +1011,7 @@ To simulate the case where the game is in the blockchain state but not the index
     ```
 
 4. Restart the indexer.
-5. From another terminal, make a call to it with:
+5. From another terminal, make a call to it:
 
     ```sh
     $ curl -X PATCH localhost:3001/games/3 | jq
@@ -1030,17 +1030,17 @@ And the indexer should log something like:
 Patch game: new, 3, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
 ```
 
-You can come up with ways to test the other scenarios.
+Develop your own ways to test the other scenarios.
 
 ## Conclusion
 
 You have created a small server that:
 
-* Polls the blockchain to get events about created, rejected, won and forfeited games.
+* Polls the blockchain to get events about created, rejected, won, and forfeited games.
 * Maintains a database with information indexed in real time.
 * Offers this information as a Web service.
 * Accepts requests for patches.
 
-This is an example of server-side scripts, one that can improve your users experience.
+This is an example of server-side scripts, one that can improve user experience.
 
 You can find the complete code [here](https://github.com/cosmos/academy-checkers-ui/tree/server-indexing).
