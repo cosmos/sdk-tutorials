@@ -11,7 +11,7 @@ tag: deep-dive
 
 Make sure you have everything you need before proceeding:
 
-* The checkers blockchain codebase up to the CosmJs messages. You can get there by following the [previous steps](./cosmjs-messages.md) or checking out the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/signing-stargate).
+* You have the checkers blockchain codebase up to the CosmJs messages. If not, follow the [previous steps](./cosmjs-messages.md) or check out the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/signing-stargate).
 
 The purpose of this section is to obtain a working and fairly recent Checkers GUI. If you already have one, you can skip to the [next section](./cosmjs-gui.md) on how to integrate it with CosmJs.
 
@@ -19,28 +19,28 @@ This section does not introduce anything related to CosmJs.
 
 </HighlightBox>
 
-In the previous sections, you created the objects, messages and clients that allow you to interface with your Checkers blockchain. Before you use them in an existing Checkers GUI, you need to have this GUI.
+In the previous sections, you created the objects, messages, and clients that allow you to interface with your Checkers blockchain. Before you use them in an existing Checkers GUI, you need one.
 
-The point of this exercise is not to create a GUI from the ground up for the game of checkers. Instead it is to show how to prepare a GUI for use with the checkers blockchain. So pick a checkers GUI you like.
+The point of this exercise is not to create a GUI from the ground up for the game of checkers. Instead, it is to show how to prepare a GUI for use with the checkers blockchain. So pick a checkers GUI you like.
 
-[This one](https://github.com/nablsi14/react-checkers) is a good choice. It has not been updated in quite some time, so to avoid any version incompatibilities, you are going to:
+[This one](https://github.com/nablsi14/react-checkers) is a good choice. However, it has not been updated recently, so to avoid any version incompatibilities you are going to:
 
 * Reuse `react-checkers` components instead of the whole repository.
-* Reuse them in a brand new React app.
+* Reuse them in a new React app.
 
 The actions that you need to take:
 
-* Create a brand new React app separately.
-* Copy and install, with newer and exact versions, the app elements into your repo.
+* Create a separate new React app.
+* Copy and install newer and exact versions of the app elements into your repo.
 * Take the existing GUI into your repo.
-* Fix errors related to changes in the packages' versions.
-* Tighten up the code slightly.
+* Fix errors related to changes in the package versions.
+* Tighten the code slightly.
 
 ## Prepare the files and folders
 
 ### Create a new React app
 
-This is straightforward. In a separate folder, run:
+In a separate folder, run:
 
 ```sh
 $ npx create-react-app checkers-gui-tmp --template typescript
@@ -53,23 +53,23 @@ $ cd checkers-gui-tmp
 $ npm start
 ```
 
-It should automatically open the browser for you and you should see a simple page. If not, open [`http://localhost:3000`](http://localhost:3000).
+It should automatically open the browser and you should see a simple page. If not, open [`http://localhost:3000`](http://localhost:3000).
 
 ### Copy the React app files
 
-Now copy into your own project all the files created for the React app. If you followed from the previous section, then:
+Copy into your own project all the files created for the React app. If you followed from the previous section, then:
 
-* The `tsconfig.json` file, and the `public` and `src` folders have no conflicts, that is easy.
-* `.gitignore`: [just add the content](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/.gitignore#L3-L21) to your own `.gitignore`.
-* As for `package.json`:
-    * [Copy-paste the difference](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/package.json#L57-L74) for everything except the dependencies.
+* The `tsconfig.json` file and the `public` and `src` folders will have no conflicts.
+* For `.gitignore` [just add the content](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/.gitignore#L3-L21) to your own `.gitignore`.
+* For `package.json`:
+    * [Copy-paste the difference](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/package.json#L57-L74) for everything **except the dependencies**.
     * Remove the [`"homepage"`](https://github.com/cosmos/academy-checkers-ui/blob/f9e1375/package.json#L18) field or it will confuse React.
 
 For the package dependencies, it is better to use an exact method. Click on the expandable box below:
 
 <ExpansionPanel title="Get the exact dependencies">
 
-Get the exact dependencies versions installed by the initialization script by running in the React app folder:
+Run the following in the React app folder to get exact versions of the dependencies installed by the initialization script:
 
 ```sh
 $ npm list @testing-library/jest-dom @testing-library/react @testing-library/user-event @types/jest @types/react @types/react-dom react react-dom react-scripts typescript web-vitals --depth=0
@@ -91,7 +91,7 @@ Which prints something like:
 └── web-vitals@2.1.4
 ```
 
-From here, it is just a matter of repeating this information in a new install command:
+Next, repeat this information in a new install command:
 
 ```sh
 $ npm install react-dom@18.0.0 react-scripts@5.0.1 react@18.0.0 web-vitals@2.1.4 --save-exact
@@ -102,7 +102,7 @@ This should update your [`package.json`](https://github.com/cosmos/academy-check
 
 </ExpansionPanel>
 
-To make sure that your editing of `package.json` does not reformat it with Prettier, add the ignore file `.prettierignore` with the following in it:
+To make sure that editing `package.json` does not reformat it with Prettier, add the ignore file `.prettierignore` with the following in it:
 
 ``` [https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/.prettierignore#L1]
 package.json
@@ -110,11 +110,11 @@ package.json
 
 ### Fix a compilation error
 
-There may be a Typescript compilation error on a CosmJs generated file, so add [`"downlevelIteration": true,`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/tsconfig.json#L13) to `tsconfig.json`'s `.compilerOptions`.
+There may be a Typescript compilation error on a CosmJs-generated file, so add [`"downlevelIteration": true,`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/tsconfig.json#L13) to `.compilerOptions` in `tsconfig.json`.
 
 Confirm that you get the React simple page by running `npm start` in your own project root folder.
 
-After all this effort, remember that you created this new React app in order to work around the fact that the existing Checkers GUI is old. You can delete your `checkers-gui-tmp` folder.
+You created this new React app in order to work around the fact that the existing Checkers GUI is old. You can now delete your `checkers-gui-tmp` folder.
 
 ### Get the external Checkers GUI files
 
