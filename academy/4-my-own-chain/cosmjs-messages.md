@@ -225,7 +225,7 @@ Back in `experiment.ts`, create Alice and Bob's clients. Here is for Alice:
 const aliceSigner: OfflineDirectSigner = await getSignerFromMnemonic(`${__dirname}/alice.key`)
 const alice: string = (await aliceSigner.getAccounts())[0].address
 const aliceSigningClient: CheckersSigningStargateClient =
-    await CheckersSigningStargateClient.connectWithSigner(starportEndpoint, aliceSigner, {
+    await CheckersSigningStargateClient.connectWithSigner(process.env.RPC_URL, aliceSigner, {
         gasPrice: GasPrice.fromString("1stake"),
     })
 ```

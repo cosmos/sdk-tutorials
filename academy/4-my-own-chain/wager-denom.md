@@ -42,10 +42,10 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
     }
     ```
 
-Instruct Starport and Protobuf to recompile both files:
+Instruct Ignite CLI and Protobuf to recompile both files:
 
 ```sh
-$ starport generate proto-go
+$ ignite generate proto-go
 ```
 
 Also update the `MsgCreateGame` constructor:

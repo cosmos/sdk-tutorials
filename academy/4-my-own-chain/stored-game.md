@@ -13,11 +13,11 @@ Make sure you have all you need before proceeding with the exercise:
 
 * You understand the concepts of [accounts](../2-main-concepts/accounts.md), [Protobuf](../2-main-concepts/protobuf.md), and [multistore](../2-main-concepts/multistore-keepers.md).
 * Go is installed.
-* You have the bare blockchain scaffold codebase with a single module named `checkers`. If not, follow the [previous steps](./starport.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/starport-start).
+* You have the bare blockchain scaffold codebase with a single module named `checkers`. If not, follow the [previous steps](./ignitecli.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/starport-start).
 
 </HighlightBox>
 
-In the [Starport introduction section](./starport) you learned how to start a brand-new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
+In the [Ignite CLI introduction section](./ignitecli) you learned how to start a brand-new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
 
 A good start to developing a checkers blockchain is to define the ruleset of the game. There are many versions of the rules. Choose [a very simple set of basic rules](https://www.ducksters.com/games/checkers_rules.php) to avoid getting lost in the rules of checkers or the proper implementation of the board state.
 
@@ -44,31 +44,31 @@ Begin with the minimum game information needed to be stored:
 
 ### How to store
 
-Each game musst be identified by a unique ID. This is important if you want your blockchain application to accommodate multiple simultaneous games. 
+Each game musst be identified by a unique ID. This is important if you want your blockchain application to accommodate multiple simultaneous games.
 
-How should you generate the ID? Players cannot choose it themselves, as this could lead to transactions failing because of an ID clash. You cannot rely on a large random number like a universally unique identifier (UUID), because transactions have to be verifiable in the future. It is better to have a counter incrementing on each new game. This is possible because the code execution happens in a single thread. 
+How should you generate the ID? Players cannot choose it themselves, as this could lead to transactions failing because of an ID clash. You cannot rely on a large random number like a universally unique identifier (UUID), because transactions have to be verifiable in the future. It is better to have a counter incrementing on each new game. This is possible because the code execution happens in a single thread.
 
 The counter must be kept in storage between transactions. Instead of a single counter, you can keep a unique object at a singular location, and easily add relevant elements to the object as needed in the future. Designate `idValue` to the counter.
 
-You can rely on Starport's assistance:
+You can rely on Ignite CLI's assistance:
 
-* Call the object that contains the counter `NextGame` and instruct Starport with `scaffold single`:
+* Call the object that contains the counter `NextGame` and instruct Ignite CLI with `scaffold single`:
 
     ```sh
-    $ starport scaffold single nextGame idValue:uint --module checkers --no-message
+    $ ignite scaffold single nextGame idValue:uint --module checkers --no-message
     ```
 
-    You must add `--no-message`. If you omit it, Starport creates an `sdk.Msg` and an associated service, whose purpose is to overwrite your `NextGame` object. Your `NextGame.IdValue` must be controlled/incremented by the application and not by a player sending a value of their own choosing. Starport still creates convenient getters.
+    You must add `--no-message`. If you omit it, Ignite CLI creates an `sdk.Msg` and an associated service, whose purpose is to overwrite your `NextGame` object. Your `NextGame.IdValue` must be controlled/incremented by the application and not by a player sending a value of their own choosing. Ignite CLI still creates convenient getters.
 
-* You need a map because you're storing games by ID. Instruct Starport with `scaffold map` using the `StoredGame` name:
+* You need a map because you're storing games by ID. Instruct Ignite CLI with `scaffold map` using the `StoredGame` name:
 
     ```sh
-    $ starport scaffold map storedGame game turn red black --module checkers --no-message
+    $ ignite scaffold map storedGame game turn red black --module checkers --no-message
     ```
 
     Here `--no-message` prevents game objects from being created or overwritten with a simple `sdk.Msg`. The application instead creates and updates the objects when receiving properly crafted messages like [_create game_](./create-message.md) or [_play a move_](./play-game.md).
 
-The Starport `scaffold` command creates several files, as you can see [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/821f4592d78e5d689dcc349613c8efb11386f785) and [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/463968fa94a7b6117428bb342c721176086a8d22).
+The Ignite CLI `scaffold` command creates several files, as you can see [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/821f4592d78e5d689dcc349613c8efb11386f785) and [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/463968fa94a7b6117428bb342c721176086a8d22).
 
 The command added new constants:
 
@@ -86,7 +86,7 @@ These constants are used as prefixes for the keys that can access the storage lo
 
 ### Protobuf objects
 
-Starport creates the Protobuf objects in the `proto` directory before compiling them. The `NextGame` object looks like this:
+Ignite CLI creates the Protobuf objects in the `proto` directory before compiling them. The `NextGame` object looks like this:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/next_game.proto#L6-L9]
 message NextGame {
@@ -150,7 +150,7 @@ type GenesisState struct {
 }
 ```
 
-You can find query objects as part of the boilerplate objects created by Starport. Starport creates the objects according to a model, but this does not prevent you from making changes later if you decide these queries are not needed:
+You can find query objects as part of the boilerplate objects created by Ignite CLI. Ignite CLI creates the objects according to a model, but this does not prevent you from making changes later if you decide these queries are not needed:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/query.proto#L51-L55]
 message QueryGetNextGameRequest {}
@@ -181,16 +181,16 @@ message QueryAllStoredGameResponse {
 }
 ```
 
-### How Starport works
+### How Ignite CLI works
 
-Starport puts the different Protobuf messages into different files depending on their use:
+Ignite CLI puts the different Protobuf messages into different files depending on their use:
 
-* **`query.proto`** - for objects related to reading the state. Starport modifies this file as you add queries. This includes objects to [query your stored elements](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/query.proto#L35-L55).
+* **`query.proto`** - for objects related to reading the state. Ignite CLI modifies this file as you add queries. This includes objects to [query your stored elements](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/query.proto#L35-L55).
 * **`tx.proto`** - for objects that relate to updating the state. As you have only defined storage elements with `--no-message`, it is empty for now. The file will be modified as you add transaction-related elements like the message to [create a game](./create-message.md).
-* **`genesis.proto`** - for the genesis. Starport modifies this file according to how your new storage elements evolve.
-* **`next_game.proto` and `stored_game.proto`** - separate files created once, that remain untouched by Starport. You are free to modify them but be careful with [numbering](https://developers.google.com/protocol-buffers/docs/overview#assigning_field_numbers).
+* **`genesis.proto`** - for the genesis. Ignite CLI modifies this file according to how your new storage elements evolve.
+* **`next_game.proto` and `stored_game.proto`** - separate files created once, that remain untouched by Ignite CLI. You are free to modify them but be careful with [numbering](https://developers.google.com/protocol-buffers/docs/overview#assigning_field_numbers).
 
-Files updated by Starport include comments like:
+Files updated by Ignite CLI include comments like:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/query.proto#L14]
 // this line is used by starport scaffolding # 2
@@ -198,15 +198,15 @@ Files updated by Starport include comments like:
 
 <HighlightBox type="tip">
 
-Starport adds code right below the comments, which explains why the oldest lines appear lower than recent ones. Make sure to keep these comments where they are so that Starport knows where to inject code in the future. You could add your code above or below the comments.
+Ignite CLI adds code right below the comments, which explains why the oldest lines appear lower than recent ones. Make sure to keep these comments where they are so that Ignite CLI knows where to inject code in the future. You could add your code above or below the comments.
 
 </HighlightBox>
 
-Some files created by Starport can be updated, but you should not modify the Protobuf-compiled files [`*.pb.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/next_game.pb.go) and [`*.pb.gw.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/query.pb.gw.go) as they are recreated on every re-run of `starport generate proto-go` or equivalent.
+Some files created by Ignite CLI can be updated, but you should not modify the Protobuf-compiled files [`*.pb.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/next_game.pb.go) and [`*.pb.gw.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/query.pb.gw.go) as they are recreated on every re-run of `ignite generate proto-go` or equivalent.
 
 ### Files to adjust
 
-Starport creates files that you can and should update. For example, the default genesis values:
+Ignite CLI creates files that you can and should update. For example, the default genesis values:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/genesis.go#L16-L17]
 func DefaultGenesis() *GenesisState {
@@ -221,9 +221,9 @@ You can choose to start with no games or insert a number of games to start with.
 
 ### Protobuf service interfaces
 
-In addition to created objects, Starport also creates services that declare and define how to access the newly-created storage objects. Starport introduces empty service interfaces that can be filled as you add objects and messages when scaffolding a brand new module.
+In addition to created objects, Ignite CLI also creates services that declare and define how to access the newly-created storage objects. Ignite CLI introduces empty service interfaces that can be filled as you add objects and messages when scaffolding a brand new module.
 
-In this case, Starport added to `service Query` how to query for your objects:
+In this case, Ignite CLI added to `service Query` how to query for your objects:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/query.proto#L16-L30]
 service Query {
@@ -241,7 +241,7 @@ service Query {
 }
 ```
 
-Starport separates concerns into different files in the compilation of a service. Some should be edited and some should not. The following were prepared by Starport for your checkers game:
+Ignite CLI separates concerns into different files in the compilation of a service. Some should be edited and some should not. The following were prepared by Ignite CLI for your checkers game:
 
 * The [query parameters](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/query.pb.go#L33-L35), as well as [how to serialize](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/query.pb.go#L501) and make them conform to the right Protobuf [`RequestQuery`](https://github.com/tendermint/tendermint/blob/1c34d17/abci/types/types.pb.go#L636-L641) interface.
 * The primary implementation of the gRPC service.

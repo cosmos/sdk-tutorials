@@ -127,7 +127,7 @@ Call your existing version v1 and your new one, v2, with the leaderboard to disa
 
 ## New information
 
-Of course, you need new data structures for your v2. With Starport you have:
+Of course, you need new data structures for your v2. With Ignite CLI you have:
 
 1. A way to store each player's information:
     ```protobuf
