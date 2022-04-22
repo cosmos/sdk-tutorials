@@ -12,20 +12,20 @@ tag: deep-dive
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [messages](../2-main-concepts/messages.md), [Protobuf](../2-main-concepts/protobuf.md), and [IBC](../2-main-concepts/ibc.md).
-* Have Go installed.
-* The checkers blockchain codebase up to the _can play_ query. You can get there by following the [previous steps](./can-play.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
+* Go is installed.
+* You have the checkers blockchain codebase up to the _can play_ query. If not, follow the [previous steps](./can-play.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
 
 </HighlightBox>
 
-When you [introduced a wager](./game-wager.md) you enabled players to play a game and bet in the outcome using the base staking token of your blockchain. What if your players want to play with other _currencies_? Your blockchain can represent a token from any other blockchain connected to your chain by using the Inter-Blockchain Communication Protocol (IBC).
+When you [introduced a wager](./game-wager.md) you enabled players to play a game and bet on the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other connected blockchain by using the Inter-Blockchain Communication Protocol (IBC).
 
-Your checkers application will be agnostic to tokens and relayers. Your only task is to enable the use of _foreign_ tokens.
+Your checkers application will be agnostic regarding tokens and relayers. Your only task is to enable the use of _foreign_ tokens.
 
 ## New information
 
-Instead of defaulting to `"stake"`, let players decide what string represents their token. So update:
+Instead of defaulting to `"stake"`, let players decide what string represents their token:
 
-1. The stored game:
+1. Update the stored game:
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9799e2cee1a0541932ec19d5cfdcdd955be0390f/proto/checkers/stored_game.proto#L21]
     message StoredGame {
         ...
@@ -33,7 +33,7 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
     }
     ```
 
-2. The message to create a game:
+2. Update the message to create a game:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9799e2cee1a0541932ec19d5cfdcdd955be0390f/proto/checkers/tx.proto#L46]
     message MsgCreateGame {
@@ -42,13 +42,13 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
     }
     ```
 
-For Starport and Protobuf to recompile both files you can use:
+Instruct Starport and Protobuf to recompile both files:
 
 ```sh
 $ starport generate proto-go
 ```
 
-To avoid surprises down the road, also update the `MsgCreateGame` constructor:
+Also update the `MsgCreateGame` constructor:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9799e2cee1a0541932ec19d5cfdcdd955be0390f/x/checkers/types/message_create_game.go#L16]
 func NewMsgCreateGame(creator string, red string, black string, wager uint64, token string) *MsgCreateGame {
@@ -88,7 +88,7 @@ The token denomination has been integrated into the relevant data structures. No
     }
     ```
 
-    Not to forget where it emits an event:
+    Also where it emits an event:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9799e2cee1a0541932ec19d5cfdcdd955be0390f/x/checkers/keeper/msg_server_create_game.go#L54]
     ctx.EventManager().EmitEvent(
@@ -104,4 +104,4 @@ The token denomination has been integrated into the relevant data structures. No
 
 In the [next section](./migration.md) you will learn how to conduct chain upgrades through migrations.
 
-You can also choose to change tack and look at how you would create the [Typescript client elements](./cosmjs-objects.md) for your blockchain.
+Alternatively, you can learn how to create the [Typescript client elements](./cosmjs-objects.md) for your blockchain.
