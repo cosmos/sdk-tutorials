@@ -468,7 +468,7 @@ import { Block, IndexedTx } from "@cosmjs/stargate"
 * The hash is calculated this way as per [here](https://github.com/cosmos/cosmjs/blob/902f21b/packages%2Fstargate%2Fsrc%2Fstargateclient.ts#L74).
 * `console.log("")` puts a new line (`poll` does a `process.stdout.write` which adds no line).
 * The `handleBlock` function uses a new function, `handleTx`. Create one and put `console.log(indexed)` inside to explore what this object is and consider what actions you can take with it.
-* The `EndBlock` part has not yet been incorporated.
+* The `EndBlock` part has not yet been incorporated. This is explained in **Prepare for EndBlock**.
 
 ## Handle a transaction
 
