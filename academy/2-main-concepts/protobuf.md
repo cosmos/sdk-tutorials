@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Protobuf is a data serialization method. Developers use it to describe message formats. There is a lot of internal communication within a Cosmos application and Protobuf is central to how communication is done. 
+Protobuf is a data serialization method. Developers use it to describe message formats. There is a lot of internal communication within a Cosmos application and Protobuf is central to how communication is done.
 
 Before diving into the section a look at the following sections is recommended:
 
@@ -22,7 +22,7 @@ You can find a code example for your checkers blockchain at the end of the secti
 
 Protocol Buffers (Protobuf) is an open-source, extensible, cross-platform, and language-agnostic method of serializing object data primarily for network communication and storage. Libraries for multiple languages parse a common interface description language to generate source code for encoding and decoding streams of bytes representing structured data.
 
-Originally designed and developed by Google, Protobuf has been an open-source project since 2008. It serves as a basis for Remote Procedure Call (RPC) systems. 
+Originally designed and developed by Google, Protobuf has been an open-source project since 2008. It serves as a basis for Remote Procedure Call (RPC) systems.
 
 <HighlightBox type="info">
 
@@ -36,7 +36,7 @@ Google provides the [gRPC project](https://grpc.io/). This universal RPC framewo
 
 Define a data structure in a `.proto` file. This is a normal text file with descriptive syntax. Data is represented as a message containing name-value pairs called fields.
 
-Then, compile your Protobuf schema. `.protoc` generates data access classes with accessors for each field in your preferred language according to the command-line options. Accessors include serializing, deserializing, and parsing. 
+Then, compile your Protobuf schema. `.protoc` generates data access classes with accessors for each field in your preferred language according to the command-line options. Accessors include serializing, deserializing, and parsing.
 
 ## Protobuf basics for Go
 
@@ -44,15 +44,15 @@ The [gobs](https://golang.org/pkg/encoding/gob/) package for Go is a comprehensi
 
 For example, a JSON or XML object may contain discrete fields that are stored in a string field. In another example, a time may be stored as two integers representing hours and minutes. Protobuf encapsulates the necessary conversions in both directions. The generated classes provide getters and setters for the fields and take care of the details for reading and writing the message as a unit.
 
-The Protobuf format supports extending the format over time in a way that code can still read data encoded in the old format. 
+The Protobuf format supports extending the format over time in a way that code can still read data encoded in the old format.
 
 Go developers access the setters and getters in the generated source code through the Go Protobuf API.
 
 <HighlightBox type="info">
 
-For more on encoding in Cosmos, take a peek at [the Cosmos SDK documentation on encoding](https://docs.cosmos.network/master/core/encoding.html).
+For more on encoding in Cosmos, take a peek at [the Cosmos SDK documentation on encoding](https://docs.cosmos.network/main/core/encoding.html).
 
-Here you can find the [Protobuf documentation overview](https://docs.cosmos.network/master/core/proto-docs.html).
+Here you can find the [Protobuf documentation overview](https://docs.cosmos.network/main/core/proto-docs.html).
 
 </HighlightBox>
 
@@ -94,6 +94,7 @@ type StoredGame struct {
     Wager uint64
 }
 ```
+
 With a _helpful_ note telling you that you still need to add serialization information like:
 
 ```go
@@ -141,9 +142,10 @@ message MsgCreateGameResponse {
 When Ignite CLI creates a message for you, it also creates the gRPC definitions and Go handling code. Using commands like the ones below makes it relatively easy to introduce Protobuf elements into your chain:
 
 ```sh
-$ ignite scaffold map storedGame game turn red black wager:uint --module checkers --no-message
-$ ignite scaffold message createGame red black wager:uint --module checkers --response idValue
+ignite scaffold map storedGame game turn red black wager:uint --module checkers --no-message
+ignite scaffold message createGame red black wager:uint --module checkers --response idValue
 ```
+
 <HighlightBox type="tip">
 
 If you want to dive straight into coding your chain, head to [My Own Chain](../4-my-own-chain/index.md) for more details on using Ignite CLI.
