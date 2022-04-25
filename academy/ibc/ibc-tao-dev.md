@@ -46,7 +46,7 @@ message ConnectionEnd {
 
 In addition you can see that the `ConnectionEnd` has different `state`s which will change during the handshake:
 
-![Connection state](images/connectionstate.png)
+![Connection state](/academy/ibc/images/connectionstate.png)
 
 In the [connection Protobuf](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/core/connection/v1/connection.proto) file you can also find the `Counterparty` definition:
 
@@ -218,7 +218,7 @@ Channels are payload-agnostic: the modules sending and receiving IBC packets dec
 An **ordered channel** is _a channel where packets are delivered exactly in the order in which they were sent_. 
 An **unordered channel** is _a channel where packets can be delivered in any order_, which may differ from the order in which they were sent.
 
-![Channel Handshake](images/channelhandshake.png)
+![Channel Handshake](/academy/ibc/images/channelhandshake.png)
 
 You can see that a IBC channel handshake is smiliar to a connection handshake:
 
@@ -390,7 +390,7 @@ func NewPacket(
 
 `Sequence` will determine if packet delivery is ordered. `TimeoutTimestamp` and `TimeoutHeight` determine the deadline before which the receiving module must process a packet. If the timeout passes without the packet being successfully received, the sending module can timeout the packet and take appropriate actions.
 
-![Packet flow](images/packetflow.png)
+![Packet flow](/academy/ibc/images/packetflow.png)
 
 In the diagram above we have two flows(successful and not successful) to explain:
 
@@ -401,7 +401,7 @@ In the diagram above we have two flows(successful and not successful) to explain
 
 In the IBC Protocol, an actor - an end user, an off-chain process, or a machine - needs to be able to verify updates to another machine's state that the other machine's consensus algorithm has agreed to and reject any possible updates that the other machine's consensus algorithm has not agreed upon.
 
-![Light clients](images/lightclient.png)
+![Light clients](/academy/ibc/images/lightclient.png)
 
 Different abstraction layers are described in the ICS.
 
