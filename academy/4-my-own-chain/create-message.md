@@ -223,7 +223,7 @@ txhash: 59BC309EF79C354DD46ECE8D882BE133699CC10B165FEFAFF6AF3717507EBB4F
 You can query your chain to check if the new game was saved to state:
 
 <CodeGroup>
-<CodeGroupItem title="Show-next-game" active>
+<CodeGroupItem title="Show next game" active>
 
 ```sh
 $ checkersd query checkers show-next-game
@@ -238,7 +238,7 @@ NextGame:
 ```
 
 </CodeGroupItem>
-<CodeGroupItem title="List-stored-game">
+<CodeGroupItem title="List stored game">
 
 ```sh
 $ checkersd query checkers list-stored-game
