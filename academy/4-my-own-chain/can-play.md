@@ -19,7 +19,7 @@ Make sure you have all you need before proceeding:
 
 A player sends a `MsgPlayMove` when [making a move](./play-game.md). This message can succeed or fail for several reasons. One error situation is when the message represents an invalid move.
 
-Players should be able to make sure that a move is valid before burning gas. To add this functionality, you need to create a way for the player to call the [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function without changing the game's state. You use a query because they are evaluated in memory and do not commit anything permanently to storage to achieve this.
+Players should be able to make sure that a move is valid before burning gas. To add this functionality, you need to create a way for the player to call the [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function without changing the game's state. You use a query to achieve this, because they are evaluated in memory and do not commit anything permanently to storage.
 
 ## New information
 
