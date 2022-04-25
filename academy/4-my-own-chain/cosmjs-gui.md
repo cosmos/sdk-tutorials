@@ -659,7 +659,7 @@ This modal window pops up when you click on <kbd>New Game</kbd>:
 
 The player names look ready-made to take the player's Cosmos addresses.
 
-Look around the code and you see that the action takes place in `src/components/Menu/NewGameModal/NewGameModal.tsx`.Thanks to the previous preparation with `CheckersSigningStargateClient` it is ready to send transactions>
+Look around the code and you see that the action takes place in `src/components/Menu/NewGameModal/NewGameModal.tsx`. Thanks to the previous preparation with `CheckersSigningStargateClient` it is ready to send transactions>
 
 1. In `extensions-gui.ts` declare an extension method to your `CheckersSigningStargateClient` that encapsulates knowledge about how to get the newly created game index out of the events:
 
