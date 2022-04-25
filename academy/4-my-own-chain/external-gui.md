@@ -218,7 +218,7 @@ Adjust the copied files to be compatible with the new version of `react-fontawes
 
 <ExpansionPanel title="In GameContainer.tsx">
 
-The use of `match` in `BrowserRouter` is not recommended:
+The use of `match` in `BrowserRouter` no longer works:
 
 1. The props will directly mention the `index` of the game. Replace:
 
