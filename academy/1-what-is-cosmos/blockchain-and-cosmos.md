@@ -52,7 +52,7 @@ Bitcoin uses PoW to achieve Byzantine Fault-Tolerance (BFT) which enables decent
 
 In most PoW systems the task consists of a search for an unknown, random number - a nonce. For it to be a winning nonce, the result combined with ordered transactions in a block ought to be a hash value matching pre-defined criteria. Finding the nonce is evidence of considerable effort or work invested in the search. Each node uses its computing power in a race to solve the puzzle first and win the right to author the latest block.
 
-Financial incentives are in play: The node that first announces a solution receives a reward. Through the rewards, the network's native currency is issued and nodes are encouraged to investment computing power into solving the task. Network security scales with computing power; more investment leads to a more secure PoW network.
+Financial incentives are in play: The node that first announces a solution receives a reward. Through the rewards, the network's native currency is issued, and nodes are encouraged to invest computing power into solving the task. Network security scales with computing power; more investment leads to a more secure PoW network.
 
 </ExpansionPanel>
 
@@ -60,17 +60,17 @@ The development of decentralized applications built on blockchain networks began
 
 After the introduction of Bitcoin, several so-called public chains came into being, the first being Ethereum in 2013. These general-purpose blockchains are aimed at providing a decentralized network that allows the implementation of a variety of use cases.
 
-![Timeline of blockchain technology](/timeline.png)
+![Timeline of blockchain technology](/academy/1-what-is-cosmos/images/timeline.png)
 
 Ethereum is a public blockchain with smart contract functionality enabling applications based on self-executing, self-enforcing, and self-verifying account holding objects. It can be seen as a response to the difficulties of developing applications on Bitcoin.
 
-With Ethereum the application layer of the chain took the form of a virtual machine called the **Ethereum Virtual Machine (EVM)**. The EVM runs smart contracts, thereby providing a single chain on which to deploy all sorts of programs. Despite its many benefits, the EVM is a sandbox that delineates the range of implementable use cases. Simplistic and some complex use cases can be implemented with it but are nonetheless **limited regarding design and efficiency by the limitations of the sandbox**. Additionally, developers are limited to programming languages that are tailored to the EVM.
+With Ethereum the application layer of the chain took the form of a virtual machine called the **Ethereum Virtual Machine (EVM)**. The EVM runs smart contracts, thereby providing a single chain on which to deploy all sorts of programs. Despite its many benefits, the EVM is a sandbox that delineates the range of implementable use cases. Simplistic (and sometimes complex) use cases can be implemented with it but are nonetheless **limited regarding design and efficiency by the limitations of the sandbox**. Additionally, developers are limited to programming languages that are tailored to the EVM.
 
-Even though the launch of Ethereum with its EVM was a big step forward, **some issues of public general-purpose blockchains remained**: low flexibility for developers and difficulties with speed, throughput, scalability, state finality, and sovereignty.
+Even though the launch of Ethereum with its EVM was a big step forward, **some issues of public, general-purpose blockchains remained**: low flexibility for developers and difficulties with speed, throughput, scalability, state finality, and sovereignty.
 
 In the world of blockchains "speed" means **transaction speed**. You can understand transaction speed as the time it takes to confirm a transaction. Speed is naturally impacted by the target delay between blocks, which is 10 minutes in Bitcoin and 15 seconds in Ethereum. Speed is also impacted by the backlog of equally worthy pending transactions all competing to be included in new blocks.
 
-**Throughput** describes how many transactions the network can handle per unit of time. Throughput can be limited for reasons of physical network bandwidth, computer resources or even by decisions embedded in the protocol. Not all dApps have the same throughput requirements but they all have to make do with the _average_ resulting throughput of the platform itself if they are implemented on a general-purpose blockchain. This impacts the **scalability** of dApps.
+**Throughput** describes how many transactions the network can handle per unit of time. Throughput can be limited for reasons of physical network bandwidth, computer resources, or even by decisions embedded in the protocol. Not all dApps have the same throughput requirements, but they all have to make do with the _average_ resulting throughput of the platform itself if they are implemented on a general-purpose blockchain. This impacts the **scalability** of dApps.
 
 **State finality** is an additional concern. Finality describes whether and when committed blocks with transactions can no longer be reverted/revoked. It is important to differentiate between *probabilistic* and *absolute finality*.
 
@@ -97,13 +97,13 @@ This is different from PoW networks, where the total hashing capacity is unknown
 
 </ExpansionPanel>
 
-When developing on Ethereum, the developer needs to contend with **two layers of governance**: The chain's governance and the application's governance. Independently of the dApp's governance needs developers must come to terms with the underlying chain's governance.
+When developing on Ethereum, the developer needs to contend with **two layers of governance**: The chain's governance and the application's governance. Independently of the dApp's governance needs, developers must come to terms with the underlying chain's governance.
 
-Given the features of existing public blockchain projects and the requirements for privacy in certain industries a push towards **private, or managed, chains** followed. Private distributed ledgers are blockchains with access barriers and sophisticated permission management. Platforms for permissioned networks such as R3's Corda and the Hyperledger Project's Hyperledger Fabric from the Linux Foundation are examples.
+Given the features of existing public blockchain projects and the requirements for privacy in certain industries, a push towards **private, or managed, chains** followed. Private distributed ledgers are blockchains with access barriers and sophisticated permission management. Platforms for permissioned networks such as R3's Corda and the Hyperledger Project's Hyperledger Fabric from the Linux Foundation are examples.
 
 The eventual development of further and more complex applications required a more flexible environment. This led to the launch of multiple **purpose-built/application-specific blockchains**, each providing a platform tailored to the necessities of use cases and applications. Each of these blockchains acted as self-contained environments limited by the use cases they were envisioned for.
 
-**General-purpose chains are limited to simplistic use case applications, while application-specific chains only fit certain use cases.**_Is it possible to build a platform for all use cases that does away with the limitations of general-purpose chains?_
+**General-purpose chains are limited to simplistic use case applications, while application-specific chains only fit certain use cases.** _Is it possible to build a platform for all use cases that does away with the limitations of general-purpose chains?_
 
 ## How does Cosmos fit into the general development of blockchain technology?
 
@@ -136,9 +136,9 @@ Initially Cosmos was an open-source community project built by the Tendermint te
 
 Cosmos' founding **vision** is that of an easy development environment for blockchain technology. Cosmos wants to address the main issues of previous blockchain projects and provide interoperability between chains to foster an **internet of blockchains**.
 
-*How is Cosmos an internet of blockchains?* Cosmos is a **network of interoperable blockchains**, each implemented with different properties suitable for their individual use cases. Cosmos lets developers create blockchains that maintain sovereignty free from any "main chain" governance, have fast transaction processing, and are interoperable. With Cosmos a multitude of use cases become feasible.
+*How is Cosmos an internet of blockchains?* Cosmos is a **network of interoperable blockchains**, each implemented with different properties suitable for their individual use cases. Cosmos lets developers create blockchains that maintain sovereignty free from any "main chain" governance, have fast transaction processing, and are interoperable. With Cosmos a multitude of use cases becomes feasible.
 
-To achieve this vision and type of network the ecosystem relies on an **open-source toolkit**, including the [Inter-Blockchain Communication (IBC)](https://ibcprotocol.org/) protocol, its implementation in the [Cosmos SDK](https://v1.cosmos.network/sdk), and [Tendermint](https://tendermint.com/) as the base layer providing distributed state finality. A set of modular, adaptable, and interchangeable tools helps not only to quickly spin up a blockchain but also facilitates the customization of secure and scalable chains.
+To achieve this vision and type of network, the ecosystem relies on an **open-source toolkit**, including the [Inter-Blockchain Communication (IBC)](https://ibcprotocol.org/) protocol, its implementation in the [Cosmos SDK](https://v1.cosmos.network/sdk), and [Tendermint](https://tendermint.com/) as the base layer providing distributed state finality. A set of modular, adaptable, and interchangeable tools helps not only to quickly spin up a blockchain but also facilitates the customization of secure and scalable chains.
 
 Cosmos is a network of interoperable application blockchains. Cosmos' application blockchains are built with the Cosmos SDK. The Cosmos SDK includes the prerequisites that make it possible for created blockchains to participate in inter-chain communications using the Inter-Blockchain Communication Protocol (IBC). Chains built with the Cosmos SDK use the Tendermint consensus. Each of these topics is unfolded in more detail in the sections that follow.
 
@@ -146,16 +146,16 @@ Cosmos is a network of interoperable application blockchains. Cosmos' applicatio
 
 Scalability is a challenge of blockchain technology. Cosmos allows applications to scale to millions of users. This degree of scalability is possible as Cosmos addresses **two types of scalability**:
 
-* **Horizontal scalability:** scaling by adding similar machines to the network. When scaling out the network can accept more nodes to participate in the state replication, consensus observation and any activity that queries the state.
-* **Vertical scalability:** scaling by improving the network's components to increase its computational power. Scaling up the network can accept more transactions and any activity that modifies the state.
+* **Horizontal scalability:** scaling by adding similar machines to the network. When scaling out, the network can accept more nodes to participate in the state replication, consensus observation, and any activity that queries the state.
+* **Vertical scalability:** scaling by improving the network's components to increase its computational power. Scaling up, the network can accept more transactions and any activity that modifies the state.
 
-In a blockchain context vertical scalability is typically achieved through the optimization of the consensus mechanism and applications running on the chain. On the consensus side Cosmos achieves vertical scalability with the help of the Tendermint BFT. The Cosmos Hub currently conducts transactions in seven seconds. The only remaining bottleneck is then the application.
+In a blockchain context, vertical scalability is typically achieved through the optimization of the consensus mechanism and applications running on the chain. On the consensus side, Cosmos achieves vertical scalability with the help of the Tendermint BFT. The Cosmos Hub currently conducts transactions in seven seconds. The only remaining bottleneck is then the application.
 
-The consensus mechanism and application optimization of your blockchain can only take you so far. To overcome the limits of vertical scalability Cosmos' multi-chain architecture allows for **one application to run in parallel** on different but IBC-coordinated chains whether operated by the same validator set or not. This inter-chain horizontal scalability theoretically allows for infinite vertical-like scalability minus the coordination overhead.
+The consensus mechanism and application optimization of your blockchain can only take you so far. To overcome the limits of vertical scalability, Cosmos' multi-chain architecture allows for **one application to run in parallel** on different but IBC-coordinated chains, whether operated by the same validator set or not. This inter-chain, horizontal scalability theoretically allows for infinite vertical-like scalability minus the coordination overhead.
 
 <HighlightBox type="info">
 
-In blockchain a **validator** is one or more cooperating computers that participate in the consensus by among other things creating blocks.
+In blockchain, a **validator** is one or more cooperating computers that participate in the consensus by, among other things, creating blocks.
 
 </HighlightBox>
 
@@ -163,13 +163,13 @@ In blockchain a **validator** is one or more cooperating computers that particip
 
 Applications deployed on general-purpose blockchains all share the same underlying environment. When a change in the application needs to be made, it not only depends on the governance structures of the application but also on that of the environment. The feasibility of implementing changes depends on the governance mechanisms set by the protocol on which the application builds. The chain's governance limits the application's sovereignty. For this reason it is often called a **two-layer governance**.
 
-For example, an application on a typical blockchain can have its governance structure but it exists atop blockchain governance and chain upgrades can potentially break applications. Application sovereignty is therefore diminished in two-layer governance settings.
+For example, an application on a typical blockchain can have its governance structure, but it exists atop blockchain governance, and chain upgrades can potentially break applications. Application sovereignty is therefore diminished in two-layer governance settings.
 
 Cosmos resolves this issue as developers can build a blockchain tailored to the application. There are no limits to the application's governance when every chain is maintained by its own set of validators. Cosmos follows a **one-layer governance design**.
 
 ### How does Cosmos improve user experience?
 
-In the world of traditional general-purpose blockchains application design and efficiency are limited for blockchain developers. In the Cosmos universe the standardization of architecture components combined with the provided customization opportunities frees up the possibility for an unconstrained, seamless, and intuitive user experience.
+In the world of traditional general-purpose blockchains, application design and efficiency are limited for blockchain developers. In the Cosmos universe the standardization of architecture components combined with the provided customization opportunities frees up the possibility for an unconstrained, seamless, and intuitive user experience.
 
 It becomes easier for users to navigate between different blockchains and applications as the same ground rules apply because of the standardization of components. Cosmos makes the world easier for developers while making dApps more user-friendly. Cosmos enables sovereignty with interoperability!
 
