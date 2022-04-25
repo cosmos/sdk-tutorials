@@ -174,7 +174,7 @@ Available Commands:
 ```
 
 </CodeGroupItem>
-<CodeGroupItem title="Can-play-move">
+<CodeGroupItem title="Can play move">
 
 ```sh
 $ checkersd query checkers can-play-move --help

@@ -62,7 +62,7 @@ ctx.EventManager().EmitEvent(
 
 The only thing left to do is to implement this correspondingly in the GUI or include a server to listen for such events.
 
-## Player moved the event
+## Player-moved event
 
 The created transaction to play a move informs the opponent about:
 
