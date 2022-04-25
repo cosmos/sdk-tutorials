@@ -20,7 +20,7 @@ In the previous section, you created the objects that allow you to **query** you
 
 ## Encodable messages
 
-Previously you defined in Protobuf three messages and their respective responses. You had Protobuf [compile them](https://github.com/cosmos/academy-checkers-ui/blob/generated/src/types/generated/checkers/tx.ts). Now you will create an `EncodeObject` along the lines of [CosmJs](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/modules/bank/messages.ts). First, collect their names and Protobuf packages. Each Protobuf type identifier is assigned its encodable type:
+Previously you defined in Protobuf three messages and their respective responses. You had Protobuf [compile them](https://github.com/cosmos/academy-checkers-ui/blob/generated/src/types/generated/checkers/tx.ts). Now you will create multiple `EncodeObject`s along the lines of [CosmJs](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/modules/bank/messages.ts). First, collect their names and Protobuf packages. Each Protobuf type identifier is assigned its encodable type:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/src/types/checkers/messages.ts#L11-L25]
 export const typeUrlMsgCreateGame = "/alice.checkers.checkers.MsgCreateGame"

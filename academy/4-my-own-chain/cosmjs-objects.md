@@ -29,9 +29,9 @@ If you want to keep the Go parts of your Checkers project separate from the Type
 $ git submodule add git@github.com:cosmos/academy-checkers-ui.git client
 ```
 
-Replace the path with your own repository. In effect, this creates a new `client` folder. This `client` folder makes it possible for you to easily update another repository with the content of your Go code.
+Replace the path with your own repository. In effect, this creates a new `client` folder. This `client` folder makes it possible for you to easily update another repository with content generated out of your Go code.
 
-Create a folder named `script` in your project root. This is where you will launch the Protobuf compilation. In the `script` folder install modules for the Protobuf-to-Typescript compiler:
+Create a folder named `scripts` in your project root. This is where you will launch the Protobuf compilation. In the `scripts` folder install modules for the Protobuf-to-Typescript compiler:
 
 ```sh
 $ mkdir scripts
@@ -45,7 +45,7 @@ Create the folder structure to receive the compiled files:
 $ mkdir -p ../client/src/types/generated
 ```
 
-Check what Cosmos version are you using:
+Check what Cosmos version you are using:
 
 ```sh
 $ grep cosmos-sdk ../go.mod

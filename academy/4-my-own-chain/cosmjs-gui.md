@@ -191,7 +191,7 @@ Note:
 
 <HighlightBox type="info">
 
-Could an AI player and the blockchain mix together? If _the AI_ has access to a private key that lets it send transactions, it would be a bona fide player. This could be implemented with backend scripts running on a server. See [Checkers backend scripts](./server-side.md) for an example of backend scripts with a different purpose.
+Could an AI player and the blockchain mix together? If _the AI_ has access to a private key that lets it send transactions, it would be a bona fide player. This could be implemented with backend scripts running on a server. See [Checkers backend scripts](./server-side.md) for an example of backend scripts for a different use-case.
 
 </HighlightBox>
 
@@ -316,11 +316,11 @@ A good next step is to add a new function to `CheckersStargateClient` to handle 
 
 ### A specific GUI method
 
-In the future you may want to reuse the `CheckersStargateClient` code in another GUI or for backend scripts. To avoid polluting the code, and to avoid a helper where you need to pass a Stargate client as parameter, add [an extension method](https://www.c-sharpcorner.com/article/learn-about-extension-methods-in-typescript/#:~:text=Extension%2Dmethod%20gives%20you%20the,any%20data%2Dtype%20you%20want) to `CheckersStargateClient`.
+In the future you may want to reuse the `CheckersStargateClient` code in another GUI or for backend scripts. To avoid polluting the code, and to avoid a less-elegant helper where you need to pass a Stargate client as parameter, add [an extension method](https://www.c-sharpcorner.com/article/learn-about-extension-methods-in-typescript/#:~:text=Extension%2Dmethod%20gives%20you%20the,any%20data%2Dtype%20you%20want) to `CheckersStargateClient`.
 
 In a new `src/types/checkers/extensions-gui.ts`:
 
-1. Declare the new extension method to your `CheckersStargateClient` _module_:
+1. Declare the new extension method that extends your `CheckersStargateClient` _module_:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/types/checkers/extensions-gui.ts#L10-L12]
     declare module "../../checkers_stargateclient" {
@@ -493,7 +493,7 @@ Restart `npm start` and you should now see your game. If you have access to `che
 
 ## Integrate with Keplr
 
-So far you have _only_ made it possible to show the state of games and of the blockchain. This allows your users poke around without unnecessarily asking them to connect. However, to create a game or play in one, you need to make transactions. This is where you need to make integration with Keplr possible.
+So far you have _only_ made it possible to show the state of games and of the blockchain. This allows your users to poke around without unnecessarily asking them to connect. However, to create a game or play in one, you need to make transactions. This is where you need to make integration with Keplr possible.
 
 Install the necessary packages:
 
@@ -707,7 +707,7 @@ Look around the code and you see that the action takes place in `src/components/
     private async handleSubmit(event: any): Promise<void>
     ```
 
-5. In `handleSubmit`, avert the need to save to local storage:
+5. In `handleSubmit`, avert the need to save to local storage and call your create game extension method:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/NewGameModal/NewGameModal.tsx#L155-L156]
     const { creator, signingClient } = await this.getSigningStargateClient()
@@ -909,13 +909,13 @@ With this done:
 
     There is a potentially hard-to-reproduce-in-production **race condition** bug here. The `loadGame` is done immediately after the transaction has completed. However, depending on the implementation of the RPC end point, the `playGuiMove` and `loadGame` calls may hit two different servers on the backend. In some instances, the server that answers your `loadGame` may not have fully updated its store and may in fact serve you the **old** version of your game.
 
-    Aas your GUI matures, you may want to show the _expected_ state of the game before you eventually show its _finalized_ state. Sometimes you may want to show the expected state of the game even before the transaction has completed, and add visual cues hinting at the fact it is a **provisional** state.
+    As your GUI matures, you may want to show the _expected_ state of the game before you eventually show its _finalized_ state. Sometimes you may want to show the expected state of the game even before the transaction has completed, and add visual cues hinting at the fact it is a **provisional** state.
 
     The same can happen when creating a game, where the second server may return `null` if it has not been updated yet.
 
     </HighlightBox>
 
-Now you can play test in the GUI. Make sure to put your Keplr address as the black player, so that you start with this one. You will need a second account on Keplr with which to play red, otherwise you must play red from the command line.
+Now you can play test in the GUI. Make sure to put your Keplr address as the black player, so that you start with this one. You will need a second account on Keplr with which to play red, otherwise you must play red from the command line. Alternatively, put the same Keplr address for both black and red.
 
 Either way, it is now possible to play the game from the GUI. Congratulations!
 
