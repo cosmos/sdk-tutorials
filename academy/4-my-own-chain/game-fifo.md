@@ -12,53 +12,53 @@ tag: deep-dive
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [ABCI](../2-main-concepts/architecture.md), [Protobuf](../2-main-concepts/protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
-* Have Go installed.
-* The checkers blockchain codebase with `MsgRejectGame` and its handling. You can get there by following the [previous steps](./reject-game.md) or checking out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
+* Go is installed.
+* You have the checkers blockchain codebase with `MsgRejectGame` and its handling. If not, follow the [previous steps](./reject-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
 
 </HighlightBox>
 
 In the [previous step](./reject-game.md) you added a way for players to reject a game. There are two ways for a game to advance through its lifecycle until resolution, win or draw: _play_ and _reject_.
 
-## The why
+## Why would you reject?
 
-What if a player never shows up again? Should a game remain in limbo forever?
+Game inactivity could become a factor. What if a player never shows up again? Should a game remain in limbo forever?
 
-Furthermore, you eventually want to let players wager on the outcome of games and you especially do not want games remaining in limbo if _value_ is tied up in games. For this reason, you need to add a way for games to be forcibly resolved in the case a player stops responding.
+Eventually you want to let players wager on the outcome of games, so you do not want games remaining in limbo if they have _value_ assigned. For this reason, you need a way for games to be forcibly resolved if one player stops responding.
 
-The simplest mechanism to expire a game is to use a **deadline**. If the deadline is reached, then the game is forcibly terminated and expires. The deadline is pushed further back every time a game is played.
+The simplest mechanism to expire a game is to use a **deadline**. If the deadline is reached, then the game is forcibly terminated and expires. The deadline is pushed back every time a move is played.
 
-To enforce the termination it is a good idea to use the **`EndBlock`** part of the ABCI protocol. The call `EndBlock` is triggered when all transactions of the block are delivered and gives you a chance to do some tidying up before the block is sealed. In your case, all games that have reached their deadline will be terminated.
+To enforce the termination it is a good idea to use the **`EndBlock`** part of the ABCI protocol. The call `EndBlock` is triggered when all transactions of the block are delivered, and allows you to tidy up before the block is sealed. In this case, all games that have reached their deadline will be terminated.
 
-How do you find all the games that reached their deadline? Maybe with a pseudo-code like:
+How do you find all the games that have reached their deadline? You could use a pseudo-code like:
 
 ```javascript
 findAll(game => game.deadline < now)
 ```
 
-This approach is **expensive** in terms of computation. The `EndBlock` code should not have to pull up all games out of the storage just to find the dozen that are relevant. Doing a `findAll` costs [`O(n)`](https://en.wikipedia.org/wiki/Big_O_notation), where `n` is the total number of games.
+However, this approach is **expensive** in terms of computation. The `EndBlock` code should not have to pull up all games out of the storage just to find the dozen that are relevant. Doing a `findAll` costs [`O(n)`](https://en.wikipedia.org/wiki/Big_O_notation), where `n` is the total number of games.
 
-## The how
+## How can you reject?
 
-You need another data structure. The simplest one is a First-In-First-Out (FIFO) that is constantly updated so that:
+You need another data structure. The simplest option is a First-In-First-Out (FIFO) that is constantly updated, so that:
 
-* The just played games are taken out of where they are and sent to the tail.
-* The games that have not been played for the longest time eventually end up at the head.
+* When games are played, they are taken out of where they are and sent to the tail.
+* Games that have not been played for the longest time eventually rise to the head.
 
-When terminating expired games in `EndBlock`, you keep dealing with the expired games that are at the head of the FIFO. Do not stop until the head includes an ongoing game. The cost is:
+When terminating expired games in `EndBlock`, you deal with the expired games that are at the head of the FIFO. Do not stop until the head includes an ongoing game. The cost is:
 
 * `O(1)` on each game creation and gameplay.
 * `O(k)` where `k` is the number of expired games on each block.
 * `k <= n`
 
-`k` still is an unbounded number of operations. But if you use the same expiration duration on each game, for `k` games to expire together in a block, these `k` games would all have to have had a move in the same previous block. Give or take the block before or after. In the worst case, the largest `EndBlock` computation will be proportional to the largest regular block in the past. This is a reasonable risk to take.
+`k` is still an unbounded number of operations. However, if you use the same expiration duration on each game, for `k` games to expire together in a block they would all have to have had a move in the same previous block (give or take the block before or after). In the worst case, the largest `EndBlock` computation will be proportional to the largest regular block in the past. This is a reasonable risk to take.
 
-**Remember:** this only works if the expiration duration is the same for all games instead of being a parameter left to a potentially malicious game creator.
+**Remember:** this only works if the expiration duration is the same for all games, instead of being a parameter left to a potentially malicious game creator.
 
 ## New information
 
-How do you implement a FIFO from which you extract elements at random positions? Choose a doubly-linked list for that:
+How do you implement a FIFO from which you extract elements at random positions? Choose a doubly-linked list:
 
-1. You need to remember the game ID at the head, to pick expired games, and at the tail, to send back fresh games. The existing `NextGame` object is a good place for this as it is already an object and expandable. Just add a bit to its Protobuf declaration:
+1. You must remember the game ID at the head to pick expired games, and at the tail to send back fresh games. The existing `NextGame` object is a useful, as it is already expandable. Add to its Protobuf declaration:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/proto/checkers/next_game.proto#L11-L12]
     message NextGame {
@@ -68,7 +68,7 @@ How do you implement a FIFO from which you extract elements at random positions?
     }
     ```
 
-2. To make extraction possible, each game needs to know which other game takes place before it in the FIFO, and which after. The right place to store this double link information is `StoredGame`. Thus, you add them to the game's Protobuf declaration:
+2. To make extraction possible, each game must know which other game takes place before it in the FIFO, and which after. Store this double link information in `StoredGame`. Add them to the game's Protobuf declaration:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/proto/checkers/stored_game.proto#L16-L17]
     message StoredGame {
@@ -78,7 +78,7 @@ How do you implement a FIFO from which you extract elements at random positions?
     }
     ```
 
-3. There needs to be an "ID" that indicates _no game_. Let's use `"-1"`, which you save as a constant:
+3. There must be an "ID" that indicates _no game_. Use `"-1"`, which you save as a constant:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/x/checkers/types/keys.go#L32-L34]
     const (
@@ -101,7 +101,7 @@ How do you implement a FIFO from which you extract elements at random positions?
     }
     ```
 
-To have Ignite CLI and Protobuf recompile the files:
+Instruct Ignite CLI and Protobuf recompile the files:
 
 ```sh
 $ ignite chain build
