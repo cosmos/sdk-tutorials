@@ -11,9 +11,9 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [queries](../2-main-concepts/queries.md), and [Protobuf](../2-main-concepts/protobuf.md).
+* You understand the concepts of [queries](../2-main-concepts/queries.md) and [Protobuf](../2-main-concepts/protobuf.md).
 * You have Go installed.
-* The checkers blockchain codebase up to gas metering. You can get there by following the [previous steps](./gas-meter.md) or checking out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
+* You have the checkers blockchain codebase up to gas metering. If not, follow the [previous steps](./gas-meter.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
 
 </HighlightBox>
 
@@ -25,15 +25,15 @@ Players should be able to make sure that a move is valid before burning gas. To 
 
 To run a query to check the validity of a move you need to pass:
 
-* The game ID, call the field `IdValue`.
-* `player` as queries do not have a signer.
-* The board position to start from: `fromX` and `fromY`.
-* The board position to land on: `toX` and `toY`.
+* The game ID: call the field `IdValue`.
+* The `player`, as queries do not have a signer.
+* The origin board position: `fromX` and `fromY`.
+* The target board position: `toX` and `toY`.
 
 The information to be returned is:
 
-* A boolean whether the move is valid, called `Possible`.
-* A text reason as to why the move is not valid, called `Reason`.
+* A boolean for whether the move is valid, called `Possible`.
+* A text which explains why the move is not valid, called `Reason`.
 
 As with other data structures, you can create the query message object with Ignite CLI:
 
@@ -155,7 +155,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 ## Interact via the CLI
 
-A friendly reminder that the CLI can always inform you about the available commands:
+A friendly reminder that the CLI can always inform you about available commands:
 
 <CodeGroup>
 <CodeGroupItem title="Checkers" active>
@@ -203,7 +203,7 @@ You can test this query at any point in a game's life.
 $ checkersd query checkers can-play-move 2048 red 1 2 2 3
 ```
 
-Trying on a game that does not exist returns:
+Trying this on a game that does not exist returns:
 
 ```
 Error: rpc error: code = InvalidArgument desc = game by id not found: 2048: game by id not found: %s: invalid request
@@ -216,13 +216,13 @@ Confirm this was an error from the point of view of the executable:
 $ echo $?
 ```
 
-Which prints:
+This prints:
 
 ```
 1
 ```
 
-There is room to improve the error message but at least you got an error, as expected.
+There is room to improve the error message, but it is important that you got an error, as expected.
 
 </CodeGroupItem>
 <CodeGroupItem title="Bad color">
@@ -232,14 +232,14 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
 $ checkersd query checkers can-play-move 0 white 1 2 2 3
 ```
 
-The player tried to play the wrong color on a game that exists. It returns:
+If the player tries to play the wrong color on a game that exists, it returns:
 
 ```
 possible: false
 reason: 'message creator is not a player: white'
 ```
 
-Good, a proper message response and a reason elaborating on the message.
+This is a proper message response, and a reason elaborating on the message.
 
 </CodeGroupItem>
 <CodeGroupItem title="Wrong turn">
@@ -248,7 +248,7 @@ Good, a proper message response and a reason elaborating on the message.
 $ checkersd query checkers can-play-move 0 red 0 5 1 4
 ```
 
-The opponent trying to play out of turn returns:
+If the opponent tries to play out of turn, it returns:
 
 ```
 possible: false
@@ -262,7 +262,7 @@ reason: 'player tried to play out of turn: red'
 $ checkersd query checkers can-play-move 0 black 0 5 1 4
 ```
 
-Black trying to play a red piece returns:
+If black tries to play a red piece, it returns:
 
 ```
 possible: false
@@ -276,7 +276,7 @@ reason: wrong move%!(EXTRA string=Not {red}s turn)
 $ checkersd query checkers can-play-move 0 black 1 2 2 3
 ```
 
-Black testing a correct move returns:
+If black tests a correct move, it returns:
 
 ```
 possible: true
@@ -292,14 +292,14 @@ $ checkersd tx checkers play-move 0 0 5 1 4 --from $alice -y
 $ checkersd query checkers can-play-move 0 black 2 3 3 4
 ```
 
-Black not capturing the mandatory red piece returns:
+If black fails to capture a mandatory red piece, it returns:
 
 ```
 possible: false
 reason: 'wrong move%!(EXTRA string=Invalid move: {2 3} to {3 4})'
 ```
 
-The reason given is understandable if not pleasant to read. For instance it lacks the reason why the move is invalid. There is room to improve the message.
+The reason given is understandable, but it does not clarify why the move is invalid. There is room to improve this message.
 
 </CodeGroupItem>
 <CodeGroupItem title="After forfeit">
@@ -311,7 +311,7 @@ $ checkersd tx checkers play-move 1 0 5 1 4 --from $alice -y
 $ checkersd query checkers can-play-move 1 black 2 3 0 5
 ```
 
-Black trying to capture a red piece on a running game returns:
+If black tries to capture a red piece on a running game, it returns:
 
 ```
 possible: true
@@ -336,7 +336,7 @@ reason: game is already finished
 
 ---
 
-That will do nicely.
+These queries are all satisfactory.
 
 ## Next up
 
