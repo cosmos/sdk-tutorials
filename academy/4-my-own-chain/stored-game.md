@@ -12,12 +12,12 @@ tag: deep-dive
 Make sure you have all you need before proceeding with the exercise:
 
 * You understand the concepts of [accounts](../2-main-concepts/accounts.md), [Protobuf](../2-main-concepts/protobuf.md), and [multistore](../2-main-concepts/multistore-keepers.md).
-* Have Go installed.
-* The bare blockchain scaffold codebase with a single module named `checkers`. You can get there by following the [previous steps](./ignitecli.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/starport-start).
+* Go is installed.
+* You have the bare blockchain scaffold codebase with a single module named `checkers`. If not, follow the [previous steps](./ignitecli.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/starport-start).
 
 </HighlightBox>
 
-In the [Ignite CLI introduction section](./ignitecli) you learned how to start a brand-new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
+In the [Ignite CLI introduction section](./ignitecli) you learned how to start a completely new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
 
 A good start to developing a checkers blockchain is to define the ruleset of the game. There are many versions of the rules. Choose [a very simple set of basic rules](https://www.ducksters.com/games/checkers_rules.php) to not get lost in the rules of checkers or the proper implementation of the board state.
 
@@ -52,13 +52,13 @@ You need to keep such a counter in storage between transactions. You can keep a 
 
 You can rely on Ignite CLI's assistance:
 
-* For the counter or rather the object that contains it, call `NextGame` and instruct Ignite CLI with `scaffold single`:
+* For the counter (or rather the object that contains it), call `NextGame` and instruct Ignite CLI with `scaffold single`:
 
     ```sh
     $ ignite scaffold single nextGame idValue:uint --module checkers --no-message
     ```
 
-    You need to add `--no-message`. If you omit it, Ignite CLI creates an `sdk.Msg` and an associated service, whose purpose is to overwrite your `NextGame` object. Your `NextGame.IdValue` has to be controlled/incremented by the application and not by a player sending a value of their own choosing. Ignite CLI still creates convenient getters.
+    You must add `--no-message`. If you omit it, Ignite CLI creates an `sdk.Msg` and an associated service, whose purpose is to overwrite your `NextGame` object. Your `NextGame.IdValue` has to be controlled/incremented by the application and not by a player sending a value of their own choosing. Ignite CLI still creates convenient getters.
 
 * You need a map because you're storing games by ID. Instruct Ignite CLI with `scaffold map` using the `StoredGame` name:
 
@@ -66,7 +66,7 @@ You can rely on Ignite CLI's assistance:
     $ ignite scaffold map storedGame game turn red black --module checkers --no-message
     ```
 
-    The `--no-message` again? You do not want the game objects to be created or overwritten with a simple `sdk.Msg`. The application instead creates and updates the objects when receiving properly crafted messages like [_create game_](./create-message.md) or [_play a move_](./play-game.md).
+    Add `--no-message` again. You do not want game objects to be created or overwritten with a simple `sdk.Msg`. The application instead creates and updates the objects when receiving properly crafted messages like [_create game_](./create-message.md) or [_play a move_](./play-game.md).
 
 The Ignite CLI `scaffold` command creates several files as you can see [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/821f4592d78e5d689dcc349613c8efb11386f785) and [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/463968fa94a7b6117428bb342c721176086a8d22).
 
@@ -186,9 +186,9 @@ message QueryAllStoredGameResponse {
 Ignite CLI puts the different Protobuf messages into different files depending on their use:
 
 * **`query.proto`.** For the objects related to reading the state. Ignite CLI modifies this file as you add queries. This includes the objects to [query your stored elements](https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/proto/checkers/query.proto#L35-L55).
-* **`tx.proto`.** For the objects that relate to updating the state. As you have only defined storage elements with `--no-message`, it is empty for now. The file will be modified as you add transaction-related elements like the message to [create a game](./create-message.md).
+* **`tx.proto`.** For the objects that relate to updating the state. As you have only defined storage elements with `--no-message`, it is empty for now. The file will be modified as you add transaction-related elements, like the message to [create a game](./create-message.md).
 * **`genesis.proto`.** For the genesis. Ignite CLI modifies this file according to how your new storage elements evolve.
-* **`next_game.proto` and `stored_game.proto`.** Separate files created once that remain untouched by Ignite CLI after their creation. You are free to modify them but be careful with the [numbering](https://developers.google.com/protocol-buffers/docs/overview#assigning_field_numbers).
+* **`next_game.proto` and `stored_game.proto`.** Separate files created once that remain untouched by Ignite CLI after their creation. You are free to modify them, but be careful with the [numbering](https://developers.google.com/protocol-buffers/docs/overview#assigning_field_numbers).
 
 Files updated by Ignite CLI include comments like:
 
@@ -198,7 +198,7 @@ Files updated by Ignite CLI include comments like:
 
 <HighlightBox type="tip">
 
-Ignite CLI adds code right below the comments, which explains the odd numbering with the oldest lines appearing lower than recent ones. But make sure to keep these comments where they are so that Ignite CLI knows where to inject code in the future. You could add your code above or below the comments. You will be fine if you keep these comments where they are.
+Ignite CLI adds code right below the comments, which explains the odd numbering, with the oldest lines appearing lower than recent ones. Make sure to keep these comments where they are so that Ignite CLI knows where to inject code in the future. You could add your code above or below the comments. You will be fine if you keep these comments where they are.
 
 </HighlightBox>
 
@@ -241,7 +241,7 @@ service Query {
 }
 ```
 
-Ignite CLI separates concerns into different files in the compilation of a service. Some of which you should edit and some should be left untouched. The following was already taken care of by Ignite CLI for your checkers game:
+Ignite CLI separates concerns into different files in the compilation of a service. Some of these you should edit and some should be left untouched. The following was already resolved by Ignite CLI for your checkers game:
 
 * The [query parameters](https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/query.pb.go#L33-L35), as well as [how to serialize](https://github.com/cosmos/b9-checkers-academy-draft/blob/d2a72b4ca9064a7e3e5014ba204ed01a4fe81468/x/checkers/types/query.pb.go#L501) and make them conform to the right Protobuf [`RequestQuery`](https://github.com/tendermint/tendermint/blob/1c34d17/abci/types/types.pb.go#L636-L641) interface.
 * The primary implementation of the gRPC service.
@@ -250,7 +250,7 @@ Ignite CLI separates concerns into different files in the compilation of a servi
 
 ## Helper functions
 
-Your stored game stores are only strings. But you know that they represent `sdk.AccAddress` or even a game from the `rules` file. You are going to do operations on them. So how about adding helper functions to `StoredGame`?
+Your stored game stores are only strings, but they represent `sdk.AccAddress` or even a game from the `rules` file. You are going to do operations on them. So how about adding helper functions to `StoredGame`?
 
 1. Get the game `Creator`:
 
@@ -261,9 +261,9 @@ Your stored game stores are only strings. But you know that they represent `sdk.
     }
     ```
 
-    Plus the same for the [red](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/types/full_game.go#L14-L17) and [black](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/types/full_game.go#L19-L22) players.
+    Do the same for the [red](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/types/full_game.go#L14-L17) and [black](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/types/full_game.go#L19-L22) players.
 
-2. Parse the game so that it can be played with. The `Turn` has to be set by hand:
+2. Parse the game so that it can be played. The `Turn` has to be set by hand:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/types/full_game.go#L24-L33]
     func (storedGame *StoredGame) ParseGame() (game *rules.Game, err error) {
@@ -299,7 +299,7 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     $ ignite chain serve --reset-once
     ```
 
-    Which ends with:
+    This ends with:
 
     ```
     ...
@@ -308,19 +308,19 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     🌍 Token faucet: http://0.0.0.0:4500
     ```
 
-2. Check the values saved in `NextGame`. Look at the relevant `client/cli` file Ignite CLI created to find out what command is relevant. Here it is [`query_next_game.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/client/cli/query_next_game.go#L14). You can instead also ask the CLI:
+2. Check the values saved in `NextGame`. Look at the relevant `client/cli` file, which Ignite CLI created to find out what command is relevant. Here it is [`query_next_game.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/client/cli/query_next_game.go#L14). You can also ask the CLI:
 
     ```sh
     $ checkersd query checkers --help
     ```
 
-    OK, that is [`show-next-game`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e2251f253288163021c75999709d8c25b402/x/checkers/client/cli/query_next_game.go#L14):
+    And that is [`show-next-game`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e2251f253288163021c75999709d8c25b402/x/checkers/client/cli/query_next_game.go#L14):
 
     ```sh
     $ checkersd query checkers show-next-game
     ```
 
-    Which returns:
+    This returns:
 
     ```
     NextGame:
@@ -328,9 +328,9 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
       idValue: "0"
     ```
 
-    This is as expected, because no games have been created yet so the game counter is still at `0`.
+    This is as expected. No games have been created yet, so the game counter is still at `0`.
 
-3. The `--output` flag allows you to get your results in a JSON format, which might be useful in case you would like to use a script to parse the information. When you use the `--help` flag, you see which flags are available for a specific command:
+3. The `--output` flag allows you to get your results in a JSON format, which might be useful if would like to use a script to parse the information. When you use the `--help` flag, you see which flags are available for a specific command:
 
     ```sh
     $ checkersd query checkers show-next-game --help
@@ -349,13 +349,11 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     $ checkersd query checkers show-next-game --output json
     ```
 
-    Which prints:
+    This should print:
 
     ```json
     {"NextGame":{"creator":"","idValue":"0"}}
     ```
-
-    Looks good.
 
 3. You can similarly confirm there are no [stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/client/cli/query_stored_game.go#L14):
 
@@ -363,7 +361,7 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     $ checkersd query checkers list-stored-game
     ```
 
-    As expected:
+    This should print:
 
     ```
     StoredGame: []
