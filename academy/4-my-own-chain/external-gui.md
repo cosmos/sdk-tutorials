@@ -131,18 +131,18 @@ Make sure it works:
 $ npm start
 ```
 
-If it does not do it automatically, open your browser at [`http://localhost:3000`](http://localhost:3000). Poke around, play a few games, and get acquainted with how the GUI works.
+If it does not open automatically, open your browser at [`http://localhost:3000`](http://localhost:3000). Explore, play a few games, and get acquainted with how the GUI works.
 
 ### Copy the GUI files
 
-Now, copy the files you need from the cloned `react-checkers` repository into your own project:
+Copy the files you need from the cloned `react-checkers` repository into your own project:
 
-* Overwrite if necessary in the `public` folder. And remove the now-obsolete React logo files.
-* The [`src/components`](https://github.com/cosmos/academy-checkers-ui/tree/4ea0bdb/src/components), [`src/images`](https://github.com/cosmos/academy-checkers-ui/tree/4ea0bdb/src/images) and [`src/util`](https://github.com/cosmos/academy-checkers-ui/tree/4ea0bdb/src/util) folders have no conflicts, you can copy their content wholesale.
-* The [`src/registerServiceWorker.ts`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/registerServiceWorker.ts), [`src/sharedTypes.ts`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/sharedTypes.ts), [`images.d.ts`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/images.d.ts), [`json.d.ts`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/json.d.ts), [`tslint.json`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/tslint.json) and the [two extra](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/tsconfig.prod.json) [`tsconfig`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/tsconfig.test.json) files have no conflicts either.
-* In `src/index.tsx`, you [add the missing](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/index.tsx#L10-L13) [lines](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/index.tsx#L29) and update the [location of `App.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/index.tsx#L6). You can delete the old `src/App.tsx` `src/App.test.tsx` and `src/App.css`.
+* Overwrite in the `public` folder if necessary. Remove the now-obsolete React logo files.
+* The [`src/components`](https://github.com/cosmos/academy-checkers-ui/tree/4ea0bdb/src/components), [`src/images`](https://github.com/cosmos/academy-checkers-ui/tree/4ea0bdb/src/images), and [`src/util`](https://github.com/cosmos/academy-checkers-ui/tree/4ea0bdb/src/util) folders have no conflicts, you can copy their content completely.
+* The [`src/registerServiceWorker.ts`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/registerServiceWorker.ts), [`src/sharedTypes.ts`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/sharedTypes.ts), [`images.d.ts`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/images.d.ts), [`json.d.ts`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/json.d.ts), [`tslint.json`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/tslint.json), and the [two extra](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/tsconfig.prod.json) [`tsconfig`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/tsconfig.test.json) files also have no conflicts.
+* In `src/index.tsx`, [add the missing](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/index.tsx#L10-L13) [lines](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/index.tsx#L29) and update the [location of `App.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/index.tsx#L6). You can delete the old `src/App.tsx`, `src/App.test.tsx`, and `src/App.css`.
 
-For the new Node packages, you can do a study in `react-checkers` similar to the one your did for the React app:
+For the new Node packages, do a study in `react-checkers` similar to the one your did for the React app:
 
 <ExpansionPanel title="Get the exact dependencies">
 
@@ -184,7 +184,7 @@ react-router-dom@6.3.0
 reactstrap@9.0.2
 ```
 
-You run:
+Run the following:
 
 ```sh
 $ npm install bootstrap@5.1.3 jquery@3.3.1 lockr@0.8.4 query-string@7.1.1 react-icons@4.3.1 react-loadable@5.5.0 react-router-dom@6.3.0 reactstrap@9.0.2 --save-exact
@@ -193,13 +193,13 @@ $ npm install @types/lockr@0.8.6 @types/query-string@6.3.0 @types/react-fontawes
 
 </ExpansionPanel>
 
-With the packages installed, you **fix the GUI code** to fit with the installed versions:
+With the packages installed, **fix the GUI code** to work with the installed versions:
 
 <ExpansionPanel title="Adjust FontAwesome in a few files">
 
 Adjust the copied files to be compatible with the new version of `react-fontawesome`:
 
-1. In [`Menu.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/Menu/Menu.tsx#L2), [`MenuItemButtons.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/Menu/MenuItemButtons.tsx#L2), [`HowToPlay.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/HowToPlay/HowToPlay.tsx#L2), [`BoardMenu.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/Game/BoardMenu/BoardMenu.tsx#L2) replace:
+1. In [`Menu.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/Menu/Menu.tsx#L2), [`MenuItemButtons.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/Menu/MenuItemButtons.tsx#L2), [`HowToPlay.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/HowToPlay/HowToPlay.tsx#L2), and [`BoardMenu.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/Game/BoardMenu/BoardMenu.tsx#L2) replace:
 
     ```typescript
     import * as FontAwesome from "react-icons/lib/fa"
@@ -218,7 +218,7 @@ Adjust the copied files to be compatible with the new version of `react-fontawes
 
 <ExpansionPanel title="In GameContainer.tsx">
 
-`match` in `BrowserRouter` is deprecated:
+The use of `match` in `BrowserRouter` is not recommended:
 
 1. The props will directly mention the `index` of the game. Replace:
 
@@ -238,7 +238,7 @@ Adjust the copied files to be compatible with the new version of `react-fontawes
     }
     ```
 
-2. And convert it to a number when needed, so replace:
+2. To convert `index` to a number when needed, replace:
 
     ```typescript
     let index: number = this.props.match.params.index;
@@ -254,21 +254,21 @@ Adjust the copied files to be compatible with the new version of `react-fontawes
 
 <ExpansionPanel title="In HowToPlay.tsx">
 
-In `HowToPlay.tsx`, fix:
+In `HowToPlay.tsx`, fix the following:
 
-1. A JSON import error, replace:
+1. A JSON import error:
 
     ```typescript
     import * as data from "./htp.json"
     ```
 
-    With:
+    Replace it with:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/HowToPlay/HowToPlay.tsx#L4]
     import data from "./htp.json"
     ```
 
-2. Change the component props from:
+2. Change the component props:
 
     ```typescript
     interface IHTPProps {
@@ -276,7 +276,7 @@ In `HowToPlay.tsx`, fix:
     }
     ```
 
-    To:
+    Replace it with:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/HowToPlay/HowToPlay.tsx#L13-L15]
     interface IHTPProps {
@@ -284,13 +284,13 @@ In `HowToPlay.tsx`, fix:
     }
     ```
 
-3. And where it is used, from:
+3. Identify instances of the following:
 
     ```typescript
     <Button color="primary" onClick={this.props.history.goBack}>
     ```
 
-    To:
+    Replace them with:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/HowToPlay/HowToPlay.tsx#L59]
     <Button color="primary" onClick={this.props.goBack}>
@@ -300,7 +300,7 @@ In `HowToPlay.tsx`, fix:
 
 <ExpansionPanel title="In Section.tsx">
 
-Fix a Typescript compilation error in `Section.tsx`, replace:
+Fix a Typescript compilation error in `Section.tsx`:
 
 ```typescript
 const TitleTag = `h${
@@ -308,7 +308,7 @@ const TitleTag = `h${
 }`
 ```
 
-With:
+Replace it with:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/HowToPlay/Section.tsx#L11-L13]
 const tags: ("h1" | "h2" | "h3" | "h4" | "h5" | "h6")[] = ["h1", "h2", "h3", "h4", "h5", "h6"]
@@ -320,7 +320,7 @@ const TitleTag: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" = tags[level]
 
 <ExpansionPanel title="In App.tsx">
 
-You need to change how the React router operates. Change from this:
+You need to change how the React router operates:
 
 ```typescript
 const App = () => (
@@ -336,7 +336,7 @@ const App = () => (
 );
 ```
 
-To this:
+Replace it with:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/App.tsx#L21-L48]
 const GameContainerWrapper = () => <GameContainer index={useParams().index!} location={useLocation()} />
@@ -369,9 +369,9 @@ const App = () => {
 }
 ```
 
-If you are wondering:
+Several implications to consider:
 
-* Yes, delete the `Routes.tsx` file as the list of `Route`s is now in `App`.
+* You should delete the `Routes.tsx` file, as the list of `Route`s is now in `App`.
 * The `Routes` component here is now coming from `react-router`.
 * The `BrowserRouter` component is sent up to [`index.tsx`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/index.tsx#L20-L22) so that `App` can use the `useNavigator` hook.
 * `GameContainerWrapper` exists only to make use of `useParams` and `useLocation`, which is not available on a class component like `GameContainer`.
@@ -380,13 +380,13 @@ If you are wondering:
 
 <ExpansionPanel title="In index.tsx">
 
-Change this:
+Locate the following:
 
 ```typescript
 ReactDOM.render(<App />, document.getElementById("root") as HTMLElement);
 ```
 
-To this:
+Replace it with:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/index.tsx#L17-L24]
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
@@ -399,13 +399,13 @@ root.render(
 )
 ```
 
-It inserts the `BrowserRouter` here that used to be in `App` so that `App` can have access to the [`useNavigate`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/App.tsx#L33) hook.
+This inserts the `BrowserRouter` that used to be in `App`, so that `App` can have access to the [`useNavigate`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/App.tsx#L33) hook.
 
 </ExpansionPanel>
 
 ### Tighten up the GUI code
 
-The existing GUI code takes some shortcuts. To facilitate writing further code, you close these shortcuts.
+The existing GUI code takes some shortcuts. To facilitate writing further code, close these shortcuts.
 
 Make an explicit `IBoardMenuState`:
 
@@ -416,7 +416,7 @@ interface IBoardMenuState {
 export default class BoardMenu extends Component<IBoardMenuProps, IBoardMenuState> {}
 ```
 
-An explicit `INewGameModalState`:
+Make an explicit `INewGameModalState`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/Menu/NewGameModal/NewGameModal.tsx#L15-L19]
 interface INewGameModalState {
@@ -426,7 +426,7 @@ interface INewGameModalState {
 export default class NewGameModal extends Component<INewGameModalProps, INewGameModalState> {}
 ```
 
-An explicit `IMenuContainerProps`:
+Make an explicit `IMenuContainerProps`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/src/components/Menu/MenuContainer.tsx#L10-L20]
 export interface IMenuContainerProps {
@@ -439,6 +439,6 @@ export default class MenuContainer extends Component<IMenuContainerProps, IMenuC
 
 ## Next up
 
-At this point, you have a working Checkers GUI. This rather long preparatory effort was made in order to use recent packages. You are now ready to integrate it with the Checkers blockchain.
+You now have a working Checkers GUI. This rather long preparatory effort was made in order to use recent packages. You are now ready to integrate it with the Checkers blockchain.
 
-This is the object of the [next section](./cosmjs-gui.md).
+This is the objective of the [next section](./cosmjs-gui.md).
