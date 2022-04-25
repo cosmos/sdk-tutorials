@@ -12,18 +12,18 @@ tag: deep-dive
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md).
-* Have Go installed.
-* The checkers blockchain codebase with the deadline field and its handling. You can get there by following the [previous steps](./game-deadline.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-deadline).
+* Go is installed.
+* You have the checkers blockchain codebase with the deadline field and its handling. If not, follow the [previous steps](./game-deadline.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-deadline).
 
 </HighlightBox>
 
-To be able to terminate games you need to identify games that have already been terminated. A good field to add is one for the **winner**. It needs to contain:
+To be able to terminate games you need to identify games that have already been terminated. A good field to add is for the **winner**. It needs to contain:
 
-* The rightful winner of a game that reaches completion.
-* Or, the winner by forfeit, when a game is expired.
+* The winner of a game that reaches completion.
+* Or the winner _by forfeit_ when a game is expired.
 * Or a neutral value when the game is active.
 
-In this exercise, a draw is not handled and it would require yet another value to save in _winner_.
+In this exercise, a draw is not handled as it would require yet another value to save in _winner_.
 
 ## New information
 
@@ -36,13 +36,13 @@ message StoredGame {
 }
 ```
 
-To have Ignite CLI and Protobuf recompile this file use:
+Have Ignite CLI and Protobuf recompile this file:
 
 ```sh
 $ ignite generate proto-go
 ```
 
-Add a helper function to get the winner's address, if it exists. A good place for it is in `full_game.go`:
+Add a helper function to get the winner's address, if it exists. A location is in `full_game.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/af810f7/x/checkers/types/full_game.go#L50-L69]
 func (storedGame *StoredGame) GetPlayerAddress(color string) (address sdk.AccAddress, found bool, err error) {
@@ -69,14 +69,14 @@ func (storedGame *StoredGame) GetPlayerAddress(color string) (address sdk.AccAdd
 
 ## Update and check for the winner
 
-This is a two-part update. You set the winner where relevant but you also introduce new checks, so that a game with a winner cannot be acted upon.
+This is a two-part update. You set the winner where relevant, but you also introduce new checks so that a game with a winner cannot be acted upon.
 
 Start with a new error that you define as a constant:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/af810f7/x/checkers/types/errors.go#L22]
 ErrGameFinished = sdkerrors.Register(ModuleName, 1111, "game is already finished")
 ```
-Then at creation, in the _create game_ message handler, you start with a neutral value:
+At creation, in the _create game_ message handler, start with a neutral value:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/af810f7/x/checkers/keeper/msg_server_create_game.go#L32]
 ...
@@ -112,7 +112,7 @@ With further checks when handling a play in the handler:
     }
     ```
 
-Just in case, when rejecting a game, in its handler:
+And when rejecting a game, in its handler:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/af810f7/x/checkers/keeper/msg_server_reject_game.go#L21-L23]
 if storedGame.Winner != rules.NO_PLAYER.Color {
@@ -124,7 +124,7 @@ Confirm the code compiles and you are ready to handle the expiration of games.
 
 ## Interact via the CLI
 
-Here again, if you have created games in an earlier version of the code, you are in a broken state. Now you cannot even play the old games because the old games in effect have `.Winner == ""` and this will be caught by the `if storedGame.Winner != rules.NO_PLAYER.Color` test. Better start anew with:
+If you have created games in an earlier version of the code, you are now in a broken state. You cannot even play the old games because they have `.Winner == ""` and this will be caught by the `if storedGame.Winner != rules.NO_PLAYER.Color` test. Start again:
 
 ```sh
 $ ignite chain serve --reset-once
@@ -132,14 +132,14 @@ $ ignite chain serve --reset-once
 
 Do not forget to export `alice` and `bob` again, as explained in an [earlier section](./create-message.md).
 
-You can confirm that there is no winner for a game when it is created:
+Confirm that there is no winner for a game when it is created:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $alice
 $ checkersd query checkers show-stored-game 0
 ```
 
-Showing:
+This should show:
 
 ```
 ...
@@ -154,7 +154,7 @@ $ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
 $ checkersd query checkers show-stored-game 0
 ```
 
-Here too:
+This should show:
 
 ```
 ...
@@ -162,7 +162,7 @@ Here too:
 ...
 ```
 
-Testing with the CLI up to the point where the game is resolved with a rightful winner is much more involved and better covered by unit tests or with a nice GUI. You will be able to partially test this part in the [next section](./game-forfeit.md), via a forfeit.
+Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests or with a nice GUI. You will be able to partially test this in the [next section](./game-forfeit.md), via a forfeit.
 
 ## Next up
 
