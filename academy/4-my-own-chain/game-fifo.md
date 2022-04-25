@@ -109,7 +109,7 @@ $ ignite chain build
 
 ## FIFO management
 
-Now that the new fields are created, you need to update them accordingly to keep your FIFO always up-to-date. It's better to create a separate file that encapsulates this knowledge. Create `x/checkers/keeper/stored_game_in_fifo.go` with:
+Now that the new fields are created, you need to update them to keep your FIFO up-to-date. It's better to create a separate file that encapsulates this knowledge. Create `x/checkers/keeper/stored_game_in_fifo.go` with the following:
 
 1. A function to remove from the FIFO:
 
@@ -150,7 +150,7 @@ Now that the new fields are created, you need to update them accordingly to keep
     }
     ```
 
-    The game passed as an argument is **not** saved in storage here, even if it was updated. Only its fields in memory are adjusted. The _before_ and _after_ games are saved in storage. It is advised to do a `SetStoredGame` after calling this function to avoid having a mix of saves and memory states. The same applies to `SetNextGame`.
+    The game passed as an argument is **not** saved in storage here, even if it was updated. Only its fields in memory are adjusted. The _before_ and _after_ games are saved in storage. Do a `SetStoredGame` after calling this function to avoid having a mix of saves and memory states. The same applies to `SetNextGame`.
 
 2. A function to send to the tail:
 
@@ -183,9 +183,9 @@ Now that the new fields are created, you need to update them accordingly to keep
     }
     ```
 
-    Same remark here about using `SetStoredGame` and `SetNextGame` after calling this function.
+    Again, it is advisable to do `SetStoredGame` and `SetNextGame` after calling this function.
 
-## Use it
+## Implementation
 
 With these functions ready, it is time to use them in the message handlers.
 
@@ -200,7 +200,7 @@ With these functions ready, it is time to use them in the message handlers.
     }
     ```
 
-    And send the new game to the tail because it is freshly created:
+    Send the new game to the tail because it is freshly created:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/00e81bf/x/checkers/keeper/msg_server_create_game.go#L36]
     ...
@@ -239,11 +239,11 @@ With these functions ready, it is time to use them in the message handlers.
     ...
     ```
 
-You implemented a FIFO that is updated but never really used.
+You have implemented a FIFO that is updated but never really used.
 
 ## Interact via the CLI
 
-Time to see what you get with the commands. You need to start afresh because you made numerous additions to the blockchain state:
+Time to explore the commands. You need to start afresh because you made numerous additions to the blockchain state:
 
 ```sh
 $ ignite chain serve --reset-once
@@ -251,7 +251,7 @@ $ ignite chain serve --reset-once
 
 <HighlightBox type="tip">
 
-Do not forget to export `alice` and `bob` again as explained in an [earlier section](./create-message.md).
+Do not forget to export `alice` and `bob` again, as explained in an [earlier section](./create-message.md).
 
 </HighlightBox>
 
@@ -261,7 +261,7 @@ Do not forget to export `alice` and `bob` again as explained in an [earlier sect
     $ checkersd query checkers show-next-game
     ```
 
-    Which prints:
+    This should print:
 
     ```
     NextGame:
@@ -271,8 +271,6 @@ Do not forget to export `alice` and `bob` again as explained in an [earlier sect
       idValue: "0"
     ```
 
-    That looks good.
-
 2. If you create a game, is the game as expected?
 
     ```sh
@@ -280,7 +278,7 @@ Do not forget to export `alice` and `bob` again as explained in an [earlier sect
     $ checkersd query checkers show-next-game
     ```
 
-    Which prints:
+    This should print:
 
     ```
     NextGame:
@@ -290,15 +288,13 @@ Do not forget to export `alice` and `bob` again as explained in an [earlier sect
       idValue: "1"
     ```
 
-    Good.
-
 3. What about the information saved in the game?
 
     ```sh
     $ checkersd query checkers show-stored-game 0   
     ```
 
-    Which prints:
+    Because it is the only game, this should print:
 
     ```
     StoredGame:
@@ -307,8 +303,6 @@ Do not forget to export `alice` and `bob` again as explained in an [earlier sect
     ...
     ```
 
-    Correct, since it is the only game.
-
 4. And if you create another game?
 
     ```sh
@@ -316,7 +310,7 @@ Do not forget to export `alice` and `bob` again as explained in an [earlier sect
     $ checkersd query checkers show-next-game
     ```
 
-    Which prints:
+    This should print:
 
     ```
     NextGame:
@@ -332,7 +326,7 @@ Do not forget to export `alice` and `bob` again as explained in an [earlier sect
     $ checkersd query checkers show-stored-game 0 # The first game you created
     ```
 
-    Which prints:
+    This should print:
 
     ```
     afterId: "1" # The second game you created
@@ -340,13 +334,13 @@ Do not forget to export `alice` and `bob` again as explained in an [earlier sect
     ...
     ```
 
-    And:
+    Run:
 
     ```sh
     $ checkersd query checkers show-stored-game 1 # The second game you created
     ```
 
-    Which prints:
+    This should print:
 
     ```
     afterId: "-1" # No game
@@ -354,16 +348,16 @@ Do not forget to export `alice` and `bob` again as explained in an [earlier sect
     ...
     ```
 
-    This is correct. Your FIFO in effect has the game IDs `[0, 1]`. You can add a third game, which makes your FIFO be `[0, 1, 2]`.
+    Your FIFO in effect has the game IDs `[0, 1]`. If you add a third game, your FIFO will be `[0, 1, 2]`.
 
-6. What happens when Bob plays game `1`, the one _in the middle_?
+6. What happens if Bob plays a move in game `1`, the game _in the middle_?
 
     ```sh
     $ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
     $ checkersd query checkers show-next-game
     ```
 
-    Which prints:
+    This should print:
 
     ```
     NextGame:
@@ -373,15 +367,13 @@ Do not forget to export `alice` and `bob` again as explained in an [earlier sect
       idValue: "3"
     ```
 
-    That looks good.
-
 7. Is game `2` in the middle now?
 
     ```sh
     $ checkersd query checkers show-stored-game 2
     ```
 
-    Which prints:
+    This should print:
 
     ```
     StoredGame:
@@ -390,16 +382,16 @@ Do not forget to export `alice` and `bob` again as explained in an [earlier sect
     ...
     ```
 
-    That is correct. Your FIFO now has the game IDs `[0, 2, 1]`. You see that game `1`, which was played on, has been sent to the tail of the FIFO.
+    Your FIFO now has the game IDs `[0, 2, 1]`. You see that game `1`, which was played on, has been sent to the tail of the FIFO.
 
-8. What happens when Alice rejects game `2`?
+8. What happens if Alice rejects game `2`?
 
     ```sh
     $ checkersd tx checkers reject-game 2 --from $alice
     $ checkersd query checkers show-next-game
     ```
 
-    Which prints:
+    This prints:
 
     ```
     NextGame:
@@ -409,13 +401,15 @@ Do not forget to export `alice` and `bob` again as explained in an [earlier sect
       idValue: "3"
     ```
 
-    No changes there because game `2` was _in the middle_, so it did not affect the head or the tail.
+    There is no change because game `2` was _in the middle_, so it did not affect the head or the tail.
+    
+    Run the following two queries:
 
     ```sh
     $ checkersd query checkers show-stored-game 0
     ```
 
-    Which prints:
+    This prints:
 
     ```
     StoredGame:
@@ -430,7 +424,7 @@ Do not forget to export `alice` and `bob` again as explained in an [earlier sect
     $ checkersd query checkers show-stored-game 1
     ```
 
-    Which prints:
+    This prints:
 
     ```
     StoredGame:
@@ -439,8 +433,8 @@ Do not forget to export `alice` and `bob` again as explained in an [earlier sect
     ...
     ```
 
-    So your FIFO now has the game IDs `[0, 1]`. Game `2` was correctly removed from the FIFO.
+    Your FIFO now has the game IDs `[0, 1]`. Game `2` was correctly removed from the FIFO.
 
 ## Next up
 
-Having a list of games ordered by age is not enough to ascertain their staleness. You need to also add an expiry date on each game to reach that decision. That is the goal of the [next section](./game-deadline.md).
+Having a list of games ordered by age is not enough to ascertain their staleness. You must also add an expiry date on each game to reach that decision. That is the goal of the [next section](./game-deadline.md).
