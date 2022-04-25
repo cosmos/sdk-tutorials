@@ -133,7 +133,7 @@ $ checkersd tx checkers create-game $alice $bob --from $alice --gas auto
 There is a first hint of a good sign in the output: `gas_used` is a bit higher than it was before, `gas_used: "50671"`. Confirm the current state:
 
 <CodeGroup>
-<CodeGroupItem title="Show-next-game" active>
+<CodeGroupItem title="Show next game" active>
 
 ```sh
 $ checkersd query checkers show-next-game
@@ -148,7 +148,7 @@ NextGame:
 ```
 
 </CodeGroupItem>
-<CodeGroupItem title="List-stored-game">
+<CodeGroupItem title="List stored game">
 
 ```sh
 $ checkersd query checkers list-stored-game
@@ -170,7 +170,7 @@ pagination:
 ```
 
 </CodeGroupItem>
-<CodeGroupItem title="Show-stored-game">
+<CodeGroupItem title="Show stored game">
 
 ```sh
 $ checkersd query checkers show-stored-game 0
