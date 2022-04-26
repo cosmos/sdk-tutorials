@@ -108,9 +108,9 @@ Unlike many trusted bridge solutions, IBC does not depend on an intermediary  to
 
 In IBC, blockchains do not directly pass messages to each other over the network. To communicate, blockchains commit the state to a precisely defined path reserved for a specific message type and a specific counterparty. Relayers monitor for updates on these paths and relay messages by submitting the data stored under the path along with proof of that data to the counterparty chain.
 
-- The paths that all IBC implementations must support for committing IBC messages are defined in the [ICS-24 host state machine requirements](www.google.com).
+- The paths that all IBC implementations must support for committing IBC messages are defined in the [ICS-24 host state machine requirements](https://github.com/cosmos/ibc/tree/master/spec/core/ics-024-host-requirements).
 
-- The proof format that all implementations must produce and verify is defined in the [ICS-23 implementation documentation from Confio](www.google.com)
+- The proof format that all implementations must produce and verify is defined in the [ICS-23 implementation documentation from Confio](https://github.com/cosmos/ibc/blob/master/spec/core/ics-023-vector-commitments/README.md).
 
 </HighlightBox>
 
@@ -153,7 +153,7 @@ The following decision tree helps visualize the roadmap towards an IBC-enabled c
 
 Do you have access to an existing chain?
 - No. You will have to build a chain:
-  - Cosmos SDK chain: link to Cosmos Academy SDK
+  - Cosmos SDK chain: see [previous section](https://tutorials.cosmos.network/academy/4-my-own-chain/)
   - Other chain. 
     - Is there a Tendermint light client implementation available for your chain?
       - Yes. Continue
