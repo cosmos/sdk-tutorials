@@ -246,7 +246,31 @@ $ checkersd tx checkers play-move 2 0 5 1 4 --from $alice
 
 ---
 
-Space each `tx` command from a given account by a couple of seconds so that they each go into a different block - `checkersd` is limited because it uses the account's transaction sequence number by fetching it from the current state. With three games in, confirm that you see them all:
+Space each `tx` command from a given account by a couple of seconds so that they each go into a different block - by default `checkersd` is limited because it uses the account's transaction sequence number by fetching it from the current state.
+
+<HighlightBox type="tip">
+
+ If you want to overcome this limitation, look at `checkersd`'s `--sequence` flag:
+ 
+ ```sh
+ $ checkersd tx checkers create-game --help
+ ```sh
+
+And at your account's current sequence. For instance:
+
+```sh
+$ checkersd query account $alice --output json | jq ".sequence"
+```sh
+
+Which returns something like:
+
+```json
+"9"
+```json
+
+</HighlightBox>
+
+With three games in, confirm that you see them all:
 
 ```sh
 $ checkersd query checkers list-stored-game
