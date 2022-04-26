@@ -25,10 +25,10 @@ In the [previous section](./game-winner.md) you prepared expiration of games:
 
 ## New information
 
-An expired game occurs in two different cases:
+A game expires in two different situations:
 
-1. No moves were ever played, so it is removed quietly.
-2. One or more moves were played, making it a proper game, and the outcome is a forfeit because one player failed to play in time.
+1. Not more than a single move was ever played, so at least one player failed to express their interest in the game. The game is removed quietly.
+2. Two or more moves were played, making it a proper game, and the outcome is a forfeit because one player failed to play in time.
 
 In the latter case, you want to emit a new event which differentiates forfeiting a game from a win involving a move. Therefore you define new error constants:
 

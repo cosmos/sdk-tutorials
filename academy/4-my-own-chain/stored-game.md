@@ -330,7 +330,7 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
 
     This is as expected. No games have been created yet, so the game counter is still at `0`.
 
-3. The `--output` flag allows you to get your results in a JSON format, which might be useful if would like to use a script to parse the information. When you use the `--help` flag, you see which flags are available for a specific command:
+3. The `--output` flag allows you to get your results in a JSON format, which might be useful if you would like to use a script to parse the information. When you use the `--help` flag, you see which flags are available for a specific command:
 
     ```sh
     $ checkersd query checkers show-next-game --help

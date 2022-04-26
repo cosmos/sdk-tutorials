@@ -201,7 +201,7 @@ This returns:
 raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"0"}]}]}]'
 ```
 
-Against expectations, the remove request went through.
+Against expectations, the system carried out Alice's request to reject the game.
 
 <HighlightBox type="warn">
 
