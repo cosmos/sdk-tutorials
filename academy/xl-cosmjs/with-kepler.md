@@ -1,21 +1,21 @@
 ---
-title: "Bank - Send Tokens - With Kepler"
+title: "Bank - Send Tokens - with Kepler"
 order: 4
 description: Interacting with a Cosmos SDK chain through CosmJs and Kepler
 tag: deep-dive
 ---
 
-# Bank - Send Tokens - With Kepler
+# Bank - Send Tokens - with Keplr
 
 CosmJs allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJs to issue commands to the Theta dev net. Here, you will do the same but with a GUI and a Keplr flavor.
 
-If you want, afterwards you can connect your locally started Cosmos blockchain like `simd`, and do the same.
+Optionally you can connect your locally-started Cosmos blockchain like `simd` and do the same.
 
-To keep the focus on CosmJs and Keplr, you are going to use ready-made pages created by the Next.js framework. If you routinely use another framework, fear not, the CosmJs code is sufficiently identifiable.
+To keep the focus on CosmJs and Keplr, you are going to use ready-made pages created by the Next.js framework. Do not worry if you routinely use another framework, the CosmJs code is sufficiently identifiable.
 
 ## Create your simple Next.js project
 
-In your project folder you create the ready-made Next.js app. It automatically places it in a subfolder for you. This follows [the docs](https://nextjs.org/docs).
+In your project folder create the ready-made Next.js app, which automatically places it in a subfolder for you. This follows [the docs](https://nextjs.org/docs):
 
 ```sh
 $ npx create-next-app@latest --typescript
@@ -23,7 +23,7 @@ $ npx create-next-app@latest --typescript
 ? What is your project named? › cosmjs-keplr
 ```
 
-This created a new `cosmjs-keplr` folder. Go there. There you can find a `/pages` folder, which contains an `index.tsx`. That's your first page.
+This created a new `cosmjs-keplr` folder. There you can find a `/pages` folder, which contains an `index.tsx`. That's your first page.
 
 Run it, in the `cosmjs-keplr` folder:
 
@@ -37,7 +37,7 @@ You should see the result, a welcome page with links, in your browser. Next.js u
 
 ## HTML elements
 
-The goal of the exercise is to find balances, yours and the faucet's, and then have you send back some tokens to the faucet. So before introducing any CosmJs, you can create a React component that is almost ready for this purpose. By convention, you put your component in a `/components` folder. Below, in the expandable box is an example, named `FaucetSender.tsx`:
+The goal of the exercise is to find balances, yours and the faucet's, and then have you send back some tokens to the faucet. Before introducing any CosmJs, you can create a React component that is almost ready for this purpose. By convention, put your component in a `/components` folder, as in the following example using `FaucetSender.tsx`:
 
 <ExpansionPanel title="FaucetSender.tsx">
 
@@ -108,13 +108,13 @@ export class FaucetSender extends Component<FaucetSenderProps, FaucetSenderState
 
 </ExpansionPanel>
 
-Of note is that:
+Note:
 
-* Its **properties** happen to only contain the things it knows at build time.
+* The **properties** of `FaucetSender.tsx` only contain the things it knows at build time.
 * It keeps a **state**, and this state is either updated by the user or will be updated after a fetch.
-* It reuses some default style you can find in `/styles`.
+* It reuses a default style you can find in `/styles`.
 
-The component is still unused. Put it inside `index.tsx` like so:
+The component is still unused. Put it inside `index.tsx`:
 
 ```typescript
 import { FaucetSender } from '../components/FaucetSender'
@@ -130,7 +130,7 @@ The faucet address was found in the [previous section](./first-steps.md).
 
 When `npm run dev` picks up the changes, you should see that your page has changed to what you created. In particular, it alerts you with "TODO" when you click on the button.
 
-It is not very useful just yet, but you can make it more so.
+Your page is not very useful yet, but you can make it more so.
 
 ## Install CosmJs
 
@@ -142,7 +142,7 @@ $ npm install @cosmjs/stargate cosmjs-types --save
 
 ## Show what can be shown
 
-When building a GUI, it is good practice to not ask your user's address until the point where you have presumably gained their trust and / or it is necessary, e.g. if they clicked a relevant button. So you ought to start by showing information that is knowable without user input. Here, it is `denom` and the faucet balance. Add a function for that:
+When building a GUI, it is good practice to not ask your user's address until you have presumably gained their trust, or when it becomes necessary (e.g. if they click a relevant button). You should start by showing information that is knowable without user input. Here, this is `denom` and the faucet balance. Add a function for that:
 
 ```typescript
 updateFaucetBalance = async(client: StargateClient) => {
@@ -155,7 +155,7 @@ updateFaucetBalance = async(client: StargateClient) => {
 }
 ```
 
-Notice how it only cares about the first coin type, this is just to keep the exercise simpler. It also extracts the `denom`, which is then displayed to the user as the unit to transfer. Add that in the constructor as well so that it runs on load via another specific function:
+Note that it only cares about the first coin type: this is to keep the exercise simple. It extracts the `denom`, which is then displayed to the user as the unit to transfer. Add that in the constructor as well so that it runs on load via another specific function:
 
 ```typescript
 constructor(props:FaucetSenderProps) {
