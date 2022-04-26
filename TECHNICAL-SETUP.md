@@ -5,7 +5,7 @@
 1. Install these extensions:
     * [Go for VS Code](https://marketplace.visualstudio.com/items?itemName=golang.Go)
     * [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint) 
-2. When prompted:
+1. When prompted:
     * `go get -v golang.org/x/tools/gopls`
     * Select `Install all` for all packages
 
