@@ -7,7 +7,7 @@ tag: intro
 
 # Introduction to CosmJS
 
-**Distributed applications (dApps)** are _software applications that run on distributed networks_. Blockchains provide persistent data, or the state, as well as persistent processes and logic. The Cosmos SDK helps developers create such applications. A user interface will be important in most cases. Server interactions are important in many cases. This is where [CosmJS](https://github.com/cosmos/CosmJS) comes in handy.
+**Distributed applications (dApps)** are _software applications that run on distributed networks_. Blockchains provide persistent data, or the state, as well as persistent processes and logic. The Cosmos SDK helps developers create such applications. A user interface is important in most cases, and server interactions are important in many cases. This is where [CosmJS](https://github.com/cosmos/CosmJS) comes in handy.
 
 As the name suggests, CosmJS is a Typescript/JavaScript library. It helps developers integrate frontend user interfaces and backend servers with Cosmos blockchains that implement distributed applications. To many users, the "dApp" **is** the user interface, even though it is often delivered to the browser in a centralized, traditional way - relying on the DNS infrastructure and centralized web servers.
 
@@ -33,7 +33,7 @@ Backend systems are often useful components of the overall design:
 * Monitor the blockchain for changes and inform clients.
 * Present API endpoints and WebSockets.
 
-Developers need a tool-kit to accomplish such things that addresses the following foundational concerns:
+Developers need a tool-kit to accomplish things that address these foundational concerns:
 
 * Signing a transaction when a mnemonic phrase is known.
 * Signing a transaction when a private key is known.
@@ -50,7 +50,7 @@ CosmJS's modular structure lets developers import only the parts that are needed
 
 CosmJS is a library that consists of many smaller npm packages within the
 [@cosmjs namespace](https://www.npmjs.com/org/cosmjs), a so called monorepo.
-Here are some of them to get an idea:
+Example packages include:
 
 | Package                                                 | Description                                                                                                                                                                                                                              | Latest                                                                                                                                |
 | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -63,7 +63,7 @@ Here are some of them to get an idea:
 
 ## Modularity
 
-We're pretty proud of the modularity and a clean dependency tree in this monorepo. This ensures software quality on our side and lets users pick exactly what they need and only what they need. Here you see how everything fits together (every item is a npm package; right depends on left):
+We're proud of the modularity and clean dependency tree in this monorepo. This ensures software quality on our side, and lets users pick exactly what they need and only what they need. The following diagram shows how everything fits together (every item is a npm package; right depends on left):
 
 ![CosmJS dependency tree](images/cosmjs-tree.png)
 
