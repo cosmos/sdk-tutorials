@@ -4,11 +4,12 @@
             img.panel-list-item__number__icon.no-zoom(v-if="this.number == 'check'" src="/check-icon.svg")
         .panel-list-item__content(ref="content")
             slot
+        .panel-list-item__last(v-if="this.last === true")
 </template>
 
 <script>
 export default {
-    props: ['number']
+    props: ['number', 'last']
 }
 </script>
 
@@ -48,5 +49,17 @@ export default {
 
         &__content
             margin-left 50px
+
+        &__last
+            &:after
+                content ''
+                width 24px
+                height 1px
+                visibility var(--vline)
+                position absolute
+                bottom 0
+                left 0
+                background var(--color-text-strong)
+                transition background-color .15s ease-out
             
 </style>

@@ -293,7 +293,7 @@ children: [
   ```
 </PanelListItem>
 
-<PanelListItem number="2">
+<PanelListItem number="2" :last="true">
   Second step
   ```
   npm run dev
@@ -311,7 +311,7 @@ children: [
   ```
 </PanelListItem>
 
-<PanelListItem number="check">
+<PanelListItem number="check" :last="true">
   Completed
   ```
   npm run dev
