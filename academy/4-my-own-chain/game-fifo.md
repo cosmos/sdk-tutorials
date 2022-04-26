@@ -185,7 +185,7 @@ Now that the new fields are created, you need to update them to keep your FIFO u
 
     Again, it is advisable to do `SetStoredGame` and `SetNextGame` after calling this function.
 
-## Implementation
+## FIFO Integration
 
 With these functions ready, it is time to use them in the message handlers.
 
