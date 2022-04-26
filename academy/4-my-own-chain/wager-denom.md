@@ -12,20 +12,20 @@ tag: deep-dive
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [messages](../2-main-concepts/messages.md), [Protobuf](../2-main-concepts/protobuf.md), and [IBC](../2-main-concepts/ibc.md).
-* Have Go installed.
-* The checkers blockchain codebase up to the _can play_ query. You can get there by following the [previous steps](./can-play.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
+* Go is installed.
+* You have the checkers blockchain codebase up to the _can play_ query. If not, follow the [previous steps](./can-play.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
 
 </HighlightBox>
 
-When you [introduced a wager](./game-wager.md) you enabled players to play a game and bet in the outcome using the base staking token of your blockchain. What if your players want to play with other _currencies_? Your blockchain can represent a token from any other blockchain connected to your chain by using the Inter-Blockchain Communication Protocol (IBC).
+When you [introduced a wager](./game-wager.md) you enabled players to play a game and bet in the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other blockchain connected to your chain by using the Inter-Blockchain Communication Protocol (IBC).
 
 Your checkers application will be agnostic to tokens and relayers. Your only task is to enable the use of _foreign_ tokens.
 
 ## New information
 
-Instead of defaulting to `"stake"`, let players decide what string represents their token. So update:
+Instead of defaulting to `"stake"`, let players decide what string represents their token:
 
-1. The stored game:
+1. Update the stored game:
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9045c60/proto/checkers/stored_game.proto#L21]
     message StoredGame {
         ...
@@ -33,7 +33,7 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
     }
     ```
 
-2. The message to create a game:
+2. Update the message to create a game:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9045c60/proto/checkers/tx.proto#L46]
     message MsgCreateGame {
@@ -42,13 +42,13 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
     }
     ```
 
-For Ignite CLI and Protobuf to recompile both files you can use:
+Have Ignite CLI and Protobuf recompile both files:
 
 ```sh
 $ ignite generate proto-go
 ```
 
-To avoid surprises down the road, also update the `MsgCreateGame` constructor:
+It is recommended to also update the `MsgCreateGame` constructor:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9045c60/x/checkers/types/message_create_game.go#L16]
 func NewMsgCreateGame(creator string, red string, black string, wager uint64, token string) *MsgCreateGame {
@@ -88,7 +88,7 @@ The token denomination has been integrated into the relevant data structures. No
     }
     ```
 
-    Not to forget where it emits an event:
+    Do not forget to also insert the values where it emits an event:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9045c60/x/checkers/keeper/msg_server_create_game.go#L58]
     ctx.EventManager().EmitEvent(
@@ -101,13 +101,13 @@ The token denomination has been integrated into the relevant data structures. No
 
 ## Interact via the CLI
 
-If you recall, Alice's and Bob's balances:
+If you recall, Alice's and Bob's balances have two token denominations. Query:
 
 ```sh
 $ checkersd query bank balances $bob
 ```
 
-Have two token denominations:
+This returns:
 
 ```
 balances:
@@ -149,7 +149,7 @@ Has Bob been charged the wager?
 $ checkersd query bank balances $bob
 ```
 
-Which returns:
+This returns:
 
 ```
 balances:
