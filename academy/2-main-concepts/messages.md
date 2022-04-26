@@ -130,7 +130,7 @@ With the messages defined, you need to declare how the message should be handled
 Ignite CLI can help you create all that plus the `MsgCreateGame` and `MsgCreateGameResponse` objects with this command:
 
 ```sh
-ignite scaffold message createGame red black --module checkers --response idValue
+$ ignite scaffold message createGame red black --module checkers --response idValue
 ```
 
 <HighlightBox type="info">
@@ -251,7 +251,7 @@ You can also implement other messages.
 1. The **play message**, which means implicitly accepting the challenge when playing for the first time. If you create it with Ignite CLI, use:
 
     ```sh
-    ignite scaffold message playMove idValue fromX:uint fromY:uint toX:uint toY:uint --module checkers --response idValue
+    $ ignite scaffold message playMove idValue fromX:uint fromY:uint toX:uint toY:uint --module checkers --response idValue
     ```
 
     Which generates, among others, the object files, callbacks, and a new file for you to write your code:
@@ -270,7 +270,7 @@ You can also implement other messages.
 2. The **reject message**, which should be valid only if the player never played any moves in this game.
 
     ```sh
-    ignite scaffold message rejectGame idValue --module checkers
+    $ ignite scaffold message rejectGame idValue --module checkers
     ```
 
     It generates, among others:

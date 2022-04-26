@@ -142,8 +142,8 @@ message MsgCreateGameResponse {
 When Ignite CLI creates a message for you, it also creates the gRPC definitions and Go handling code. Using commands like the ones below makes it relatively easy to introduce Protobuf elements into your chain:
 
 ```sh
-ignite scaffold map storedGame game turn red black wager:uint --module checkers --no-message
-ignite scaffold message createGame red black wager:uint --module checkers --response idValue
+$ ignite scaffold map storedGame game turn red black wager:uint --module checkers --no-message
+$ ignite scaffold message createGame red black wager:uint --module checkers --response idValue
 ```
 
 <HighlightBox type="tip">
