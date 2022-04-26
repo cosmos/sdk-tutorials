@@ -13,8 +13,6 @@ IBC solves a widespread problem: cross-chain communication. This problem exists 
 
 Cross-chain communication between application specific blockchains in Cosmos creates the potential for high horizontal scaleability with transaction finality. These design features combined provide convincing solutions to well-known problems that plague other platforms such as: transaction costs, network capacity, and transaction confirmation finality.
 
-
-
 ## Internet of blockchains
 
 IBC is essential for application-specific blockchains like the ones in the Cosmos network. It offers a standard communication channel for applications on two different chains that need to communicate with each other.
@@ -81,7 +79,7 @@ The ICS also offer definitions for IBC applications:
 * **Fungible token transfer** - [ICS 20](https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer)
   The first and most apparent application for IBC is the transfer of fungible tokens across chains. With the standards set out by ICS20, a user can send tokens across IBC-enabled chains. This is achieved by escrowing tokens on the source chain, the proof along with the token metadata is relayed to the destination chain, upon which the proof is verified by the light client of the source chain, stored on the destination chain. If the verification passes, vouchers for the tokens on the destination chains are minted and an acknowledgment is sent back to the source chain. We will go over packet flow in more detail in a later section, but we can already notice the steps when following the progress of the IBC token transfer on [Mintscan](https://www.mintscan.io/cosmos). Check out the example below where we can identify the transactions submitted for the original `Transfer` on the source, the `Receive` message on the destination and the `Acknowledgement` again on the source.
 
-  ![Fungible token transfer via IBC on Mintscan](images/mintscanIBC.png)
+![Fungible token transfer via IBC on Mintscan](images/mintscanIBC.png)
 
 * **Interchain Accounts** - [ICS 27](https://github.com/cosmos/ibc/tree/master/spec/app/ics-027-interchain-accounts)
   Interchain Accounts outlines a cross-chain account management protocol built on IBC. Chains having enabled ICS-27, can programmatically create accounts on other ICS-27-enabled chains and control these accounts via IBC transactions, instead of having to sign with a private key. Interchain Accounts contain all of the capabilities of a normal account (i.e. stake, send, vote) but instead are managed by a separate chain via IBC in a way such that the owner account on the controller chain retains full control over any interchain account(s) it registers on host chain(s).
@@ -127,8 +125,6 @@ You can find more detailed information in the tutorial on [IBC denoms](https://t
 
 </HighlightBox>
 
-
-
 #### Submit misbehavior
 One type of Byzantine behavior that can happen on an IBC-enabled chain is when validators double-sign a block, meaning signing two different blocks at the same height. In that scenario we speak of a fork. Unlike in Proof-of-Work blockchains like Bitcoin or Ethereum, where forks are to be expected every so often, in Tendermint chains fast finality is desired (remember it’s a prerequisite for IBC) so they should not occur. There is the principle of [fork accountability](https://github.com/cosmos/cosmos/blob/master/WHITEPAPER.md#fork-accountability) where the processes that caused the consensus to fail can be identified and punished according to the rules of the protocol. If this were to happen though on a foreign chain, it would start a race for the light client of this compromised chain on counterparty chains to become aware of the fork. 
 
@@ -139,7 +135,6 @@ IBC is intended to work in execution environments where modules do not necessari
 
 It is worth mentioning that on top of the particular security considerations IBC takes, the security considerations of the Cosmos SDK and the application-specific chain model of the Cosmos white paper still hold. We refer to previous sections, but remember that while iteration on the modules may be slower than iteration on contracts, application-specific chains are exposed to significantly fewer attack vectors than smart contract setups deployed on-chain.. The chains would have to purposely adopt a malicious module by governance.
 
-
 ## Development Roadmap
 
 As mentioned before, even though IBC originated from the Cosmos stack, it allows for chains not built with the Cosmos SDK or even with a different consensus than Tendermint altogether to adopt IBC. However, depending on which chain you want to implement IBC for or build IBC applications on top of, it may require prior development to ensure that all the different components to get IBC to work are available for the consensus type and blockchain framework of your choice.
@@ -149,6 +144,8 @@ Generally speaking, you'll need the following:
 2. A light client implementation on your chain, to track the counterparty chain you want to connect to
 3. A light client implementation for your consensus type, to be encorporated on the counterparty chain you want to connect to.
 
+<ExpansionPanel title="A roadmap towards an IBC-enabled chain">
+          
 The following decision tree helps visualize the roadmap towards an IBC-enabled chain. **For simplicity, we assume here that we will connect to a Cosmos SDK chain.**
 
 Do you have access to an existing chain?
@@ -177,9 +174,9 @@ Do you have access to an existing chain?
       - Yes. Move on to application development
       - No. Build IBC Core implementation (source code or smart contract)
 
+</ExpansionPanel>
 
 The most straightforward way to use IBC is to build a chain with the Cosmos SDK, which already includes the IBC module - as you can see when taking a look at the [IBC-Go repository](https://github.com/cosmos/ibc-go). The IBC module supports an out-of-the-box Tendermint light client. Other implementations are possible but may require further development of the necessary components, you can take a look at the [IBC website](https://ibcprotocol.org/implementations) to see which implementations are available in production or are being developed.
-
 
 ## Next up
 
