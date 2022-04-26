@@ -194,7 +194,7 @@ That's 10 ATOM. After this confirmation you can comment out the balance query.
 
 ## Get the faucet address
 
-As an exercise you want Alice to send some tokens back to the faucet, so you will need its address. You can request this from the faucet bot, but it also possible to get it using the transaction hash.
+As an exercise you want Alice to send some tokens back to the faucet, so you will need its address. You can request this from the faucet bot, but it is also possible to get it using the transaction hash.
 
 First you need to get the transaction:
 
@@ -337,7 +337,7 @@ const alice = (await aliceSigner.getAccounts())[0].address
 
 ## Send tokens
 
-Alice can now send some tokens back to the faucet, but to do so she will also need to pay the network gas fee. If she wants to semd back 1% of her holdings (`100000uatom`), how much gas should she put, and at what price? 
+Alice can now send some tokens back to the faucet, but to do so she will also need to pay the network gas fee. If she wants to send back 1% of her holdings (`100000uatom`), how much gas should she put, and at what price? 
 
 She can copy what the faucet did. To discover this, run:
 
