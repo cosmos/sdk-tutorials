@@ -123,7 +123,7 @@ service Msg {
 }
 ```
 
-As an interface it does not describe what should happen when called. What Ignite CLI does with the help of Protobuf is compile the interface and create a default Go implementation. It does this once, this is its implementation, in `x/checkers/keeper/msg_server_create_game.go`:
+As an interface it does not describe what should happen when called. What Ignite CLI does with the help of Protobuf is compile the interface and create a default Go implementation. It does this once, this is its implementation in `x/checkers/keeper/msg_server_create_game.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/msg_server_create_game.go#L10-L17]
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
@@ -138,7 +138,7 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 
 ## Unit tests
 
-The code of this section was created by Ignite CLI, so there is no point in testing it. However, since you are going to adjust the keeper to do what you want, why not add a test file. Add `keeper/msg_server_create_game_test.go` with:
+The code of this section was created by Ignite CLI, so there is no point in testing it. However, since you are going to adjust the keeper to do what you want, why not add a test file? Add `keeper/msg_server_create_game_test.go` with:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/msg_server_create_game_test.go]
 const (
@@ -161,17 +161,17 @@ func TestCreateGame(t *testing.T) {
 }
 ```
 
-Which you can test with:
+You can test this with:
 
 ```sh
 $ go test github.com/alice/checkers/x/checkers/keeper
 ```
 
-Yes, this convenient [`setupMsgServer`](https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/msg_server_test.go#L11-L14) function was created by Ignite CLI. This _unit_ test is a bit of a misnomer because the `msgServer` created uses a real context and keeper, although with a [memory database](https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/keeper_test.go#L22), not mocks.
+This convenient [`setupMsgServer`](https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/msg_server_test.go#L11-L14) function was created by Ignite CLI. To call this a _unit_ test is slight misnomer because the `msgServer` created uses a real context and keeper, although with a [memory database](https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/keeper_test.go#L22), not mocks.
 
 ## Next up
 
-Ignite CLI separates concerns into different files. The most relevant file for you at this point is `x/checkers/keeper/msg_server_create_game.go`. As is obvious from its content:
+Ignite CLI separates concerns into different files. The most relevant file at this point is `x/checkers/keeper/msg_server_create_game.go`, as is obvious from its content:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/msg_server_create_game.go#L13]
 // TODO: Handling the message
