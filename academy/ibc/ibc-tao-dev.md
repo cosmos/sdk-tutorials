@@ -25,7 +25,7 @@ In the IBC stack, connections are built on top of clients, so technically there 
 
 **Version Negotiation**
 
-Note versioning here refers to the IBC protocol spec and not the ibc-go module, which is currently not planned. 
+Note that versioning here refers to the IBC protocol spec and not the ibc-go module. A backwards incompatible update is currently not planned.
 
 ```go
 // Version defines the versioning scheme used to negotiate the IBC verison in
