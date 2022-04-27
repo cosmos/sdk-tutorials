@@ -155,11 +155,11 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 ## Integration tests
 
-A query is evaluated in memory, while using the current state in a read-only mode. Thanks to this, you can take some liberties with the current state before running a test, as long as reading the state works. You can, for example, pretend the game has been played on a number of times even though you have just pasted the board in the state. For this reason, you are going to test the new method with unit tests even though you painstakingly prepared integration tests.
+A query is evaluated in memory, while using the current state in a read-only mode. Thanks to this, you can take some liberties with the current state before running a test, as long as reading the state works. For example, you can pretend the game has been progressed through a number of moves even though you have only pasted the board in that state. For this reason, you are going to test the new method with unit tests, even though you painstakingly prepared integration tests.
 
 ### Battery of unit tests
 
-Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_next_game_test.go#L18-L33), which create a battery of tests to run in a loop. Running a battery of test cases makes it easier to insert new code and surface any unintended impact. So you:
+Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_next_game_test.go#L18-L33), which create a battery of tests to run in a loop. Running a battery of test cases makes it easier to insert new code and surface any unintended impact:
 
 1. Declare a `struct` that describes a test:
 
@@ -183,7 +183,7 @@ Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-aca
     })
     ```
 
-3. Create the first test case, which you actually reuse:
+3. Create the first test case, which you will reuse:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move_test.go#L28-L41]
     var(firstTestCase = canPlayBoard{
@@ -286,9 +286,9 @@ Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-aca
     })
     ```
 
-    It's a good thing you already have a test file with [all the steps](https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/msg_server_play_move_winner_test.go#L17-L59) to a complete game.
+    Fortunately you already have a test file with [all the steps](https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/msg_server_play_move_winner_test.go#L17-L59) to a complete game.
 
-4. With this preparation, you add the one test function that runs all the cases:
+4. With this preparation, add the single test function that runs all the cases:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move_test.go#L123-L147]
     func TestCanPlayAsExpected(t *testing.T) {
@@ -350,11 +350,11 @@ Take inspiration from [the other ones](https://github.com/cosmos/b9-checkers-aca
     }
     ```
 
-    Notice how it reuses `firstTestCase`.
+    Note that this reuses `firstTestCase`.
 
 ### One integration test
 
-Since you have setup the tests to work as integrated, why not create one integration test that makes use of it, in the same file? Test the first case of the battery, which is the initial situation anyway:
+Since you have set up the tests to work as integrated, why not create one integration test that makes use of them in the same file? Test the first case of the battery, which is the initial situation anyway:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/36602b64/x/checkers/keeper/grpc_query_can_play_move_test.go#L177-L183]
 func (suite *IntegrationTestSuite) TestCanPlayAfterCreate() {
