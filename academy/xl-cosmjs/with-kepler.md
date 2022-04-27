@@ -1,5 +1,5 @@
 ---
-title: "Bank - Send Tokens - with Kepler"
+title: "Bank - Send Tokens - with Keplr"
 order: 4
 description: Interacting with a Cosmos SDK chain through CosmJs and Kepler
 tag: deep-dive
