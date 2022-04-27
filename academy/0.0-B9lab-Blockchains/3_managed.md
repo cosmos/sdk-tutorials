@@ -78,7 +78,7 @@ A well-understood challenge related to reduced block time stems from network lat
 
 The precise mechanism employed by Ethereum is called GHOST. GHOST includes so-called uncles that are propagated into the network too late to rise to the level of network consensus. This increases the total difficulty of the chain, makes smaller block times possible, and rewards miners of uncles for contributing to the overall strength of the network.
 
-Ethereum's solution to achieve faster block times draws attention to the universal challenge of blockchain technology, performance, and throughput. Cosmos solves for performance in two ways: with a faster consensus process, and by introducing parallelism.
+Ethereum's solution to achieve faster block times draws attention to the universal challenges of blockchain technology: performance, and throughput. Cosmos solves for performance in two ways: with a faster consensus process, and by introducing parallelism.
 
 </ExpansionPanel>
 
