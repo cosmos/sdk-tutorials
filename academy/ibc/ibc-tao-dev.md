@@ -173,6 +173,14 @@ func (k Keeper) ConnectionOpenInit(goCtx context.Context, msg *connectiontypes.M
 }
 ```
 
+<HighlightBox type="info">
+
+In IBC, blockchains do not directly pass messages to each other over the network. To communicate, blockchains commit the state to a precisely defined path reserved for a specific message type and a specific counterparty. In the case of establishing a connection,  Relayers monitor for updates on these paths and relay messages by submitting the data stored under the path along with proof of that data to the counterparty chain.
+
+The paths that all IBC implementations must support for committing IBC messages are defined in the [ICS-24 host state machine requirements](https://github.com/cosmos/ics/tree/master/spec/core/ics-024-host-requirements). The proof format that all implementations must produce and verify is defined in the [ICS-23 implementation documentation from Confio](https://github.com/confio/ics23).
+
+</HighlightBox>
+
 **OpenTry**
 
 This `OpenInit` will be followed by an `OpenTry` response. in which chain B will verify the identity of chain A according to information that chain B has about chain A in its light client (the algorithm and the last snapshot of the consensus state containing the root hash of the latest height as well as the next validator set), as well as respond to some of the information about its own identity in the `OpenInit` announcement from chain A. 
@@ -293,14 +301,4 @@ If both chains submit `OpenInit` then `OpenTry` at same time, there should be no
 **An Imposter**
 
 An attempted `OpenInit` from an imposter will fail on `OpenTry` because it will not contain valid proofs of Client/Connection/ConsensusState.
-
-
-<HighlightBox type="info">
-
-In IBC, blockchains do not directly pass messages to each other over the network. To communicate, blockchains commit the state to a precisely defined path reserved for a specific message type and a specific counterparty. In the case of establishing a connection,  Relayers monitor for updates on these paths and relay messages by submitting the data stored under the path along with proof of that data to the counterparty chain.
-
-The paths that all IBC implementations must support for committing IBC messages are defined in the [ICS-24 host state machine requirements](https://github.com/cosmos/ics/tree/master/spec/core/ics-024-host-requirements). The proof format that all implementations must produce and verify is defined in the [ICS-23 implementation documentation from Confio](https://github.com/confio/ics23).
-
-</HighlightBox>
-
 
