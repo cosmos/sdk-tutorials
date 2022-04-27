@@ -38,46 +38,21 @@ type Version struct {
 }
 ```
 
-Protocol versioning is important to establish, as different protocol versions may not be compatible due to ie: proofs being stored on a different path. There are three types of protocol version negotiation:
+Protocol versioning is important to establish, as different protocol versions may not be compatible due to, for example, proofs being stored on a different path. There are three types of protocol version negotiation:
 
-*Default, no selection* only one protocol version is supported, this is the default one to propose.
+1. *Default, no selection* only one protocol version is supported, this is the default one to propose.
 
-*With selection* two protocol versions can be proposed, such that the chain initiating `OpenInit` or `OpenTry` has a choice of which version to go with.
+2. *With selection* two protocol versions can be proposed, such that the chain initiating `OpenInit` or `OpenTry` has a choice of which version to go with.
 
-*Impossible communication* backwards incompatible IBC protocol version -- ie: if IBC module changes where it stores its proofs (proof paths), errors out. So far, there are no plans to upgrade to a backwards incompatible IBC protocol version.
+3. *Impossible communication* backwards incompatible IBC protocol version -- ie: if IBC module changes where it stores its proofs (proof paths), errors out. So far, there are no plans to upgrade to a backwards incompatible IBC protocol version.
 
 </HighlightBox>
 
 As discussed above, the opening handshake protocol allows each chain to verify the identifier used to reference the connection on the other chain, enabling modules on each chain to reason about the reference of the other chain.
 
-Take a look at the [connection Protobuf](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/core/connection/v1/connection.proto) for the `ConnectionEnd`:
-
-```
-message ConnectionEnd {
-  option (gogoproto.goproto_getters) = false;
-  // client associated with this connection.
-  string client_id = 1 [(gogoproto.moretags) = "yaml:\"client_id\""];
-  // IBC version which can be utilised to determine encodings or protocols for
-  // channels or packets utilising this connection.
-  repeated Version versions = 2;
-  // current state of the connection end.
-  State state = 3;
-  // counterparty chain associated with this connection.
-  Counterparty counterparty = 4 [(gogoproto.nullable) = false];
-  // delay period that must pass before a consensus state can be used for
-  // packet-verification NOTE: delay period logic is only implemented by some
-  // clients.
-  uint64 delay_period = 5 [(gogoproto.moretags) = "yaml:\"delay_period\""];
-}
-```
-
-`ConnectionEnd` defines a stateful object on a chain connected to another separate one. Note that there must only be 2 defined `ConnectionEnd`s to establish a connection between two chains. So the connections are mapped and stored as `ConnectionEnd` on the chain.
-
-In addition, you can see that the `ConnectionEnd` has different `state`s which will change during the handshake:
-
 ![Connection state](/academy/ibc/images/connectionstate.png)
 
-In the [connection Protobuf](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/core/connection/v1/connection.proto) file you can also find the `Counterparty` definition:
+With regards to the connection on the other side, the [connection protobufs](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/core/connection/v1/connection.proto) contain the `Counterparty` definition:
 
 ```
 // Counterparty defines the counterparty chain associated with a connection end.
@@ -156,7 +131,30 @@ This function creates an unique `connectionID`. You can see that it adds the con
 Also you can see how it creates a new `ConnectionEnd`:
 
 ```go
-connection := types.NewConnectionEnd(types.INIT, clientID, counterparty, types.ExportedVersionsToProto(versions), delayPeriod)
+
+ connection := types.NewConnectionEnd(types.INIT, clientID, counterparty, types.ExportedVersionsToProto(versions), delayPeriod)
+  k.SetConnection(ctx, connectionID, connection)
+  
+// ConnectionEnd defines a stateful object on a chain connected to another
+// separate one.
+// NOTE: there must only be 2 defined ConnectionEnds to establish
+// a connection between two chains, so the connections are mapped and stored as `ConnectionEnd` on the respective chains..
+message ConnectionEnd {
+  option (gogoproto.goproto_getters) = false;
+  // client associated with this connection.
+  string client_id = 1 [(gogoproto.moretags) = "yaml:\"client_id\""];
+  // IBC version which can be utilised to determine encodings or protocols for
+  // channels or packets utilising this connection.
+  repeated Version versions = 2;
+  // current state of the connection end.
+  State state = 3;
+  // counterparty chain associated with this connection.
+  Counterparty counterparty = 4 [(gogoproto.nullable) = false];
+  // delay period that must pass before a consensus state can be used for
+  // packet-verification NOTE: delay period logic is only implemented by some
+  // clients.
+  uint64 delay_period = 5 [(gogoproto.moretags) = "yaml:\"delay_period\""];
+}
 ````
 
 `ConnOpenInit` is triggered by the **relayer**, which constructs the message and hands it over to the SDK that uses the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go) you saw before to call `ConnOpenInit`:
@@ -175,21 +173,13 @@ func (k Keeper) ConnectionOpenInit(goCtx context.Context, msg *connectiontypes.M
 }
 ```
 
-<HighlightBox type="info">
-
-In IBC, blockchains do not directly pass messages to each other over the network. To communicate, blockchains commit the state to a precisely defined path reserved for a specific message type and a specific counterparty. In the case of establishing a connection,  Relayers monitor for updates on these paths and relay messages by submitting the data stored under the path along with proof of that data to the counterparty chain.
-
-The paths that all IBC implementations must support for committing IBC messages are defined in the [ICS-24 host state machine requirements](https://github.com/cosmos/ics/tree/master/spec/core/ics-024-host-requirements). The proof format that all implementations must produce and verify is defined in the [ICS-23 implementation documentation from Confio](https://github.com/confio/ics23).
-
-</HighlightBox>
-
 **OpenTry**
 
 This `OpenInit` will be followed by an `OpenTry` response. in which chain B will verify the identity of chain A according to information that chain B has about chain A in its light client (the algorithm and the last snapshot of the consensus state containing the root hash of the latest height as well as the next validator set), as well as respond to some of the information about its own identity in the `OpenInit` announcement from chain A. 
 
 ![OpenTry](/academy/ibc/images/open_try.png)
 
-The purpose of this handshake is not only for chain B to verify that the counterparty chain A is indeed the expected counterparty identity, but also to verify that the counterparty has the accurate information about chain B's identity. The relayer will also submit two `UpdateClient`s with chain A and chain B as source chains before this handshake. These `UpdateClient` will update both chain A and chain B light clients, in order to make sure that the state verifications in this step are successful.
+The purpose of this step of the handshake is double verification: not only for chain B to verify that the counterparty chain A is indeed the expected counterparty identity, but also to verify that the counterparty has the accurate information about chain B's identity. The relayer will also submit two `UpdateClient`s with chain A and chain B as source chains before this handshake. These `UpdateClient` will update both chain A and chain B light clients, in order to make sure that the state verifications in this step are successful.
 
 The initiation of this handshake from chain B will lead a chain B connection state update to `TRY`.
 
@@ -279,7 +269,7 @@ Both functions will do the same checks, except that `OpenTry` will take `proofIn
   }
 ```
 
-so both will verify the `ConnectionState`, the `ClientState` and the `ConsensusState` of the other chain.
+so both will verify the `ConnectionState`, the `ClientState` and the `ConsensusState` of the other chain. Note again that after this step, the connection state on chain A will update from `INIT` to `OPEN`.
 
 **OpenConfirm**
 
@@ -306,7 +296,7 @@ The initiation of this handshake from chain B will lead a chain B connection sta
 
 "Crossing Hellos" refers to a situation when both chains attempt the same handshake step at the same time.
 
-If both chains submit `OpenInit` then `OpenTry` at same time, there should be no error. In this case, both sides will need to confirm with an `OpenAck`, and then no `OpenConfirm` is required.
+If both chains submit `OpenInit` then `OpenTry` at same time, there should be no error. In this case, both sides will need to confirm with an `OpenAck`, and then no `OpenConfirm` is required because both ConnectionEnds will be in state OPEN after the successful `OpenAck`.
 
 **An Imposter**
 
