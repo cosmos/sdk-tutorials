@@ -108,6 +108,8 @@ Establishing an IBC connection between example chain A and chain B requires four
 
 The first handshake is `OpenInit`, which takes care of initialising any connection which may occur, while still necessitating agreement from both sides. You can think about it as a sort of identifying announcement from the IBC module on chain A which is submitted by a relayer. The relayer should also submit an `UpdateClient` with chain A as the source chain before this handshake. `UpdateClient` will update the client on the initialising chain A with the latest consensus state of chain B. 
 
+![OpenInit](/academy/ibc/images/open_init.png)
+
 The initiation of this handshake from chain A will lead a connection state update to `INIT`.
 
 `OpenInit` proposes a protocol version to be used for the IBC connection. A relayer-submitted `OpenInit` which contains a protocol version that is not supported by chain A will be expected to fail.
@@ -185,6 +187,8 @@ The paths that all IBC implementations must support for committing IBC messages 
 
 This `OpenInit` will be followed by an `OpenTry` response. in which chain B will verify the identity of chain A according to information that chain B has about chain A in its light client (the algorithm and the last snapshot of the consensus state containing the root hash of the latest height as well as the next validator set), as well as respond to some of the information about its own identity in the `OpenInit` announcement from chain A. 
 
+![OpenTry](/academy/ibc/images/open_try.png)
+
 The purpose of this handshake is not only for chain B to verify that the counterparty chain A is indeed the expected counterparty identity, but also to verify that the counterparty has the accurate information about chain B's identity. The relayer will also submit two `UpdateClient`s with chain A and chain B as source chains before this handshake. These `UpdateClient` will update both chain A and chain B light clients, in order to make sure that the state verifications in this step are successful.
 
 The initiation of this handshake from chain B will lead a chain B connection state update to `TRY`.
@@ -221,6 +225,8 @@ func (k Keeper) ConnOpenTry(
 **OpenAck**
 
 `OpenAck` is the third handshake in establishing a connection, and is very similar to the functionality of `OpenInit` except that the information verification is occurring from chain A. As in `OpenTry`, the relayer will also submit two `UpdateClient`s with chain A and chain B as source chains before this handshake. These `UpdateClient` will update both chain A and chain B light clients, in order to make sure that the state verifications in this step are successful.
+
+[OpenAck](/academy/ibc/images/open_ack.png)
 
 The initiation of this handshake from chain A will lead a chain A connection state update to `OPEN`. It is important to note that for this connection state update, the counterparty chain *MUST* have a `TRY` connection state in order for the handshake and update to be successful. 
 
@@ -277,7 +283,11 @@ so both will verify the `ConnectionState`, the `ClientState` and the `ConsensusS
 
 **OpenConfirm**
 
-`OpenConfirm` is the fourth and final handshake, in which chain B confirms that both self-identification and counterparty identification were successful. The conclusion of this handshake results in the successful establishing of an IBC connection:
+`OpenConfirm` is the fourth and final handshake, in which chain B confirms that both self-identification and counterparty identification were successful. 
+
+![OpenConfirm](/academy/ibc/images/open_confirm.png)
+
+The conclusion of this handshake results in the successful establishing of an IBC connection:
 
 ```go
 func (k Keeper) ConnOpenConfirm(
