@@ -182,7 +182,7 @@ Following [Keplr's documentation](https://docs.keplr.app/api/#how-to-detect-kepl
 $ npm install @keplr-wallet/types --save-dev
 ```
 
-And inform Typescript that `window` may have a `.keplr` field with the help of [this helper](https://github.com/chainapsis/keplr-wallet/tree/master/docs/api#keplr-specific-features), by adding it to `FaucetSender.tsx`:
+And inform Typescript that `Window` may have a `.keplr` field with the help of [this helper](https://github.com/chainapsis/keplr-wallet/tree/master/docs/api#keplr-specific-features), by adding it to `FaucetSender.tsx`:
 
 ```typescript
 import { Window as KeplrWindow } from "@keplr-wallet/types";
@@ -192,7 +192,7 @@ declare global {
 }
 ```
 
-Detecting Keplr can be done at any time, but because you want to keep the number of functions low for this exercise, you do it in `onSendClicked`. If you checked in `init`, you would risk annoying users who want to check your page incognito.
+Detecting Keplr can be done at any time, but do it in `onSendClicked` to keep the number of functions low for this exercise. If you checked in `init`, you would risk annoying users who want to check your page incognito.
 
 ```typescript
 onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
@@ -204,11 +204,11 @@ onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
 }
 ```
 
-Hopefully, now when you click on the button, it does not show any alert. It does not do anything either. Conversely, you can disable Keplr from Chrome's extension manager and can confirm that, when you click, the page tells you to install it.
+Hopefully, when you click on the button it does not show an alert. It does not do anything else either. As an optional confirmation, if you disable Keplr from Chrome's extension manager, when you click the button the page will tell you to install it.
 
 ## Prepare Keplr
 
-Keplr is now detected. Keplr, by default, lets its user connect only to the blockchains it knows about. Unfortunately, at the time of writing, Theta is not one of them. Fortunately, there is a not-so-experimental feature where you can instruct it to handle any Cosmos blockchain, provided you give the parameters for it. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Theta, these parameters have already been created, as mentioned on the [test net page](https://github.com/cosmos/testnets/tree/master/v7-theta#add-to-keplr-1). Add a new function for them as shown in the expandable box:
+Keplr is now detected. By default, Keplr lets its user connect only to the blockchains it knows about. Unfortunately Theta is not one of them, but there is a feature where you can instruct it to handle any Cosmos blockchain provided you give its parameters. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Theta these parameters have already been created, as mentioned on the [test net page](https://github.com/cosmos/testnets/tree/master/v7-theta#add-to-keplr-1). Add a new function for them as shown in the expandable box:
 
 <ExpansionPanel title="getThetaChainInfo">
 
@@ -283,28 +283,28 @@ getThetaChainInfo = (): ChainInfo => ({
 
 </ExpansionPanel>
 
-Notice how it mentions the `chainId: "theta-testnet-001"`. In effect, this adds Theta to Keplr's registry of blockchains, under the label `theta-testnet-001`. So whenever you need to tell Keplr about Theta, you would add the line:
+Note that it mentions the `chainId: "theta-testnet-001"`. In effect, this adds Theta to Keplr's registry of blockchains, under the label `theta-testnet-001`. Whenever you need to tell Keplr about Theta, add the line:
 
 ```typescript
 await window.keplr!.experimentalSuggestChain(this.getThetaChainInfo())
 ```
 
-This needs to be done only once but it does not hurt to do it again.
+This needs to be done once, but repeating the line is not problematic.
 
-Keplr is detected and prepared. Now have it do something interesting.
+Keplr is now detected and prepared. Now have it do something interesting.
 
 ## Your address and balance
 
-In `onSendClicked`, similarly to what you did in the previous section, you can:
+In `onSendClicked`, similar to the previous section, you can:
 
-1. Actually prepare Keplr, with `keplr.experimentalSuggestChain`.
+1. Prepare Keplr, with `keplr.experimentalSuggestChain`.
 2. Get the signer for your user's accounts, with `KeplrWindow`'s `window.getOfflineSigner`.
 3. Create your signing client.
 4. Get the address and balance of your user's first account.
 5. Send the requested coins to the faucet.
 6. Inform and update.
 
-In effect:
+In practice:
 
 ```typescript
 onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
@@ -349,26 +349,26 @@ onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
 }
 ```
 
-Notice how:
+Note:
 
 * Keplr is tasked with signing only.
 * The transactions are broadcast with the RPC end point of your choice.
 
-Of course, the functions could be better delineated, but this big function does the job in a readable enough manner.
+These functions could be better delineated, but this big function does the job in a readable manner.
 
-Now, you can run it. In the refreshed page, enter an amount of `uatom`, say `1000000` and click <kbd>Send to faucet</kbd>. The chain of events is launched:
+Now run it. In the refreshed page, enter an amount of `uatom` (for example `1000000`) and click <kbd>Send to faucet</kbd>. The chain of events is launched:
 
-1. Keplr asks for your confirmation whether you agree to add the Theta network. It will not install any network without your approval, as that would be a security risk. It asks this only the first time you add a given network, not if you do it again. That's why doing it in `onSendClicked` is harmless.
+1. Keplr asks for confirmation that you agree to add the Theta network. It will not install any network without your approval, as that would be a security risk. It asks this only the first time you add a given network, which is why doing it in `onSendClicked` is harmless.
     ![Keplr asking for permission to add Theta network](/keplr_theta_addition.png)
-2. Then it asks whether you agree to share your account information. Again, because sharing it involves a potential security risk. Again, it asks this only once per web page + network combination.
+2. Keplr asks whether you agree to share your account information, because this involves a potential security risk. Again, it asks this only once per web page + network combination.
     ![Keplr asking for permission to share your account information](/keplr_share_account.png)
-3. At this point, your address and balance fields are updated and visible.
-3. Then it asks whether you agree to sign the transaction. And of course, signing a transaction is a very important action that requires approval. **Every time**.
+3. Your address and balance fields are updated and visible.
+4. Keplr asks whether you agree to sign the transaction, a very important action that requires approval **every time**.
     ![Keplr asking for confirmation on the transaction](/keplr_send_to_faucet.png)
 
-After it is done, your balance should have updated again, and in the browser console, you should see the transaction result.
+After this is done, your balance updates again, and in the browser console you see the transaction result.
 
-For the avoidance of doubt, you can find the full file in the expandable box below:
+For the avoidance of doubt, the full file appears in the expandable box below:
 
 <ExpansionPanel title="Final FaucetSender.tsx file">
 
@@ -585,10 +585,10 @@ export class FaucetSender extends Component<
 
 ## With a locally running chain
 
-What if you wanted to experiment with your own  chain while in development?
+What if you wanted to experiment with your own chain while in development?
 
-Keplr does not know about your locally running chain by default. So, as you did with Theta, you need to inform Keplr about your chain. Therefore you _only_ need to change the `ChainInfo` to match the information about your chain, and to change the `rpcUrl` so that it points to your local port.
+Keplr does not know about locally running chains by default. As you did with Theta, you must inform Keplr about your chain: change `ChainInfo` to match the information about your chain, and change `rpcUrl` so that it points to your local port.
 
 ## Conclusion
 
-With this, you learned how to update your CosmJs GUI so that it integrates with Keplr.
+You have how updated your CosmJs GUI so that it integrates with Keplr.
