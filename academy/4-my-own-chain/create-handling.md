@@ -124,7 +124,7 @@ Try the unit test you prepared in the previous section again:
 $ go test github.com/alice/checkers/x/checkers/keeper
 ```
 
-It should fail with:
+This should fail with:
 
 ```
 panic: NextGame not found [recovered]
@@ -132,9 +132,9 @@ panic: NextGame not found [recovered]
 ...
 ```
 
-Your keeper was indeed initialized with an empty genesis. You have to fix that one way or another.
+Your keeper was initialized with an empty genesis. You must fix that one way or another.
 
-You can choose to fix that by initializing the keeper with the default genesis. Initializing the `MsgServer` with the default genesis is opinionated, so it is better to keep this opinion closest to the tests. So, copy the `setupMsgServer` from [`msg_server_test.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_test.go#L12-L15) into your `msg_server_create_game_test.go`. While you are at it, modify it to also return the keeper:
+You can fix this by initializing the keeper with the default genesis. Initializing the `MsgServer` with the default genesis is opinionated, so it is better to keep this opinion closest to the tests. Copy the `setupMsgServer` from [`msg_server_test.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_test.go#L12-L15) into your `msg_server_create_game_test.go`. Modify it to also return the keeper:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L20-L24]
 func setupMsgServerCreateGame(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
@@ -144,7 +144,7 @@ func setupMsgServerCreateGame(t testing.TB) (types.MsgServer, keeper.Keeper, con
 }
 ```
 
-Notice the new import:
+Note the new import:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L9]
 import (
@@ -152,13 +152,13 @@ import (
 )
 ```
 
-Unfortunately, you just created an import cycle. To fix that, you can use the better practice of suffixing `_test` to the package of your test files:
+Unfortunately, this created an import cycle. To fix that, use the better practice of suffixing `_test` to the package of your test files:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L1]
 package keeper_test
 ```
 
-Actually, fix the package in all [the](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/grpc_query_next_game_test.go#L1) [other](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/grpc_query_stored_game_test.go#L1) [test](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/keeper_test.go#L1) [files](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_test.go#L1) in your keeper folder. After you run the tests again with the same command as before:
+You should fix the package in all [the](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/grpc_query_next_game_test.go#L1) [other](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/grpc_query_stored_game_test.go#L1) [test](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/keeper_test.go#L1) [files](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_test.go#L1) in your keeper folder. Afterward, run the tests again with the same command as before:
 
 ```sh
 $ go test github.com/alice/checkers/x/checkers/keeper
@@ -201,7 +201,7 @@ func TestCreate1GameHasSaved(t *testing.T) {
 }
 ```
 
-Or when you [create 3](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L109-L134). And whether the _get all_ functionality works as expected after you have created [1 game](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L64-L81), or [3](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L191-L234). Or even when you create a game in a hypothetical [far future](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L236-L267). Not to forget to add one with a [badly formatted](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L83-L94) or [missing input](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L96-L107).
+Or when you [create 3](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L109-L134) games. Other tests could include whether the _get all_ functionality works as expected after you have created [1 game](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L64-L81), or [3](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L191-L234), or if you create a game in a hypothetical [far future](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L236-L267). Also add games with [badly formatted](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L83-L94) or [missing input](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L96-L107).
 
 ## Next up
 
