@@ -50,7 +50,7 @@ Note that you may need openssl version 1.0 or a newer one.
 
 </HighlightBox>
 
-Let us now take a look at scenarios in which public/private key pairs come in handy.
+Let us now take a look at scenarios in which public/private key pairs are useful.
 
 ### Encrypt and decrypt
 
@@ -115,19 +115,19 @@ It is possible to mix both conceptual ideas. For example:
 
 ![Encryption, decryption, and signatures with public/private keys](images/00_13_mix_n_match_keys_v3.png)
 
-### What is this sorcery?
+### Is this science or magic?
 
-If these examples seem counter-intuitive it means you sense the mathematical wizardry of public-key encryption. You do not have to understand the mathematics behind it at a deep level, but you must understand the properties and implications of using public-key cryptography.
+If these examples seem counter-intuitive it means you sense the mathematical shadow of public-key encryption. You do not have to understand the mathematics behind it at a deep level, but you must understand the properties and implications of using public-key cryptography.
 
 Given four keys (A, B, C, and D), we can encrypt a message with three keys (A, B, and C) such that the fourth key (in this case, D) is required to decrypt it and is very hard to guess or discover. So, if Alice knows her private key and her public key and she also knows Bob's public key, she can encrypt a message that can only be understood by someone who knows Bob's private key.
 
-Similarly, given knowledge of the public and private keys, one can generate a signature (i.e. a character string) so that someone with a copy of the message and the signature can independently determine the public key of the entity that signed the message and know that the signer knows the corresponding private key.
+Similarly, given knowledge of public and private keys, one can generate a signature (i.e. a character string) so that someone with a copy of the message and the signature can independently determine the public key of the entity that signed the message, proving that the signer knows the corresponding private key.
 
-It is then possible to proceed with the understanding that signed messages from Alice could only come from someone with knowledge of Alice's private key and messages that are encrypted for Bob can only be deciphered by Bob.
+It is then possible to proceed with the understanding that signed messages from Alice could only come from someone with knowledge of Alice's private key, and messages that are encrypted for Bob can only be deciphered by Bob.
 
 ### Key management and public key infrastructure
 
-If you look again at the Alice and Bob examples, you will notice that there is a vulnerability in "Bob gives Alice his public key". A malicious Charlie could intercept Bob's public key and pass on his public key to Alice.
+If you look again at the Alice and Bob examples, you will notice that there is a vulnerability in "Bob gives Alice his public key". A malicious Charlie could intercept Bob's public key and pass on _his own_ public key to Alice.
 
 Key management and public key infrastructure (PKI) is an important aspect of cryptography that helps mitigate this risk.
 
@@ -137,10 +137,10 @@ Blockchain technology relies heavily on hash functions, as they help establish t
 
 All cryptographic hash functions fulfill several properties:
 
-* Converts an input, a.k.a. the message, into an output, a.k.a the hash.
+* Converts an input (a.k.a. the message) into an output (a.k.a the hash).
 * Does the conversion in a reasonable amount of time.
 * It is practically impossible to re-generate the message out of the hash.
-* The tiniest change in the message, changes the hash beyond recognition.
+* The tiniest change in the message changes the hash beyond recognition.
 * It is practically impossible to find two different messages with the same hash.
 
 With such a function, you can:
@@ -148,10 +148,10 @@ With such a function, you can:
 * Prove that you have a message without disclosing the content of the message, for instance:
     * To prove you know your password.
     * To prove you previously wrote a message.
-* Rest assured the message was not altered.
+* Be confident that the message was not altered.
 * Index your messages.
 
-### Closer look at a hash function
+### A closer look at a hash function
 
 MD5 is such a hash function:
 
@@ -160,20 +160,20 @@ $ echo "The quick brown fox jumps over the lazy dog" | md5
 37c4b87edffc5d198ff5a185cee7ee09
 ```
 
-On Linux, it is `md5sum`.
+On Linux, this is `md5sum`.
 
-Now introduce a typo to see what happens:
+Now introduce a typo to see what happens (e.g. changing "jumps" to "jump"):
 
 ```bash
 $ echo "The quick brown fox jump over the lazy dog" | md5
 4ba496f4eec6ca17253cf8b7129e43be
 ```
 
-Notice how the two hashes have nothing in common other than the length, but the length is identical for all MD5 hashes so it reveals nothing about the input.
+Notice how the two hashes have nothing in common other than their length, but length is identical for all MD5 hashes so it reveals nothing about the input.
 
 <HighlightBox type="info">
 
-`MD5` is no longer considered a hard-to-crack hash function. Bitcoin uses `SHA-256`. Ethereum uses `Keccak-256`and `Keccak-512`.
+This provides a convenient example, but `MD5` is no longer considered a hard-to-crack hash function. Bitcoin uses `SHA-256`. Ethereum uses `Keccak-256`and `Keccak-512`.
 
 </HighlightBox>
 
