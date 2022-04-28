@@ -229,7 +229,7 @@ How do you test something that is supposed to happen during the `EndBlock` event
     }
     ```
 
-2. A game was played with only one move, while alone in the state [or not](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L175-L218). Or [two games](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L220-L288) were never played. In this case, you need to confirm that the game was fully deleted, and that an event was emitted with no winners:
+2. A game was played with only one move, while alone in the state [or not](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L175-L218). Or [two games](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L220-L288) were played in this way. In this case, you need to confirm that the game was fully deleted, and that an event was emitted with no winners:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L135-L173]
     func TestForfeitPlayedOnce(t *testing.T) {
@@ -273,7 +273,7 @@ How do you test something that is supposed to happen during the `EndBlock` event
     }
     ```
 
-3. A game was played with at least two moves, while alone in the state [or not](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L352-L417). Or [two games](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L419-L532) were never played. In this case, you need to confirm the game was not deleted, and instead that a winner was announced, including in events:
+3. A game was played with at least two moves, while alone in the state [or not](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L352-L417). Or [two games](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L419-L532) were played in this way. In this case, you need to confirm the game was not deleted, and instead that a winner was announced, including in events:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L290-L350]
     func TestForfeitPlayedTwice(t *testing.T) {
