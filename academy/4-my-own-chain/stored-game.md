@@ -379,7 +379,7 @@ func EqualValues(t TestingT, expected interface{}, actual interface{}, msgAndArg
 
 ### Debug your unit test
 
-Your first unit test is a standard Go unit test.If you use an IDE like Visual Studio Code it is ready to assist run the test in debug mode. Next to the function name is a small green tick. If you hover below it, a faint red dot appears:
+Your first unit test is a standard Go unit test. If you use an IDE like Visual Studio Code it is ready to assist run the test in debug mode. Next to the function name is a small green tick. If you hover below it, a faint red dot appears:
 
 ![Go test debug button in VSCode](/go_test_debug_button.png)
 
