@@ -1,40 +1,40 @@
 # IBC Fungible Token Transfer
 
-Having looked at the IBC/TAO, you can now take a look at the [ICS-20](https://github.com/cosmos/ibc/blob/master/spec/app/ics-020-fungible-token-transfer/README.md). It describes fungible token transfers. The corresponding [implementation](https://github.com/cosmos/ibc-go/tree/main/modules/apps/transfer) is a module on the application level.
+Having looked at the IBC/TAO, you can now take a look at the [ICS-20](https://github.com/cosmos/ibc/blob/master/spec/app/ics-020-fungible-token-transfer/README.md). This describes fungible token transfers. The corresponding [implementation](https://github.com/cosmos/ibc-go/tree/main/modules/apps/transfer) is a module on the application level.
 
 ![Overview of a token transfer](images/transferoverview.png)
 
-Look at the picture above. You can see three chains A, B, and C. You also see several channels.
+The previous picture shows three chains: A, B, and C. It also shows several channels.
 
 How can tokens be transferred between chains and channels?
 
-**Notice:** you can have different channels between two chains, but you cannot transfer the same token across different channels back and forth.
+**Note:** you can have different channels between two chains, but you cannot transfer the same token across different channels back and forth.
 
-To understand the application logic for a token transfer, first, you have to determine the **source** chain:
+To understand the application logic for a token transfer, first you have to determine the **source** chain:
 
 ![Source chain](images/sourcechain.png)
 
-Then the application logic can be summarized:
+The application logic can be summarized as follows:
 
 ![Application logic]
 
-Shortly you will see the corresponding code. Now again have a look at a transfer from **source** to **sink**:
+Before you explore the corresponding code, look at a transfer from **source** to **sink**:
 
 ![Source to sink](images/sourcetosink.png)
 
-Above the **source** is chain A. The source channel is **channel-2** and the destination channel is **channel-40**. You see **transfer/channel-...** because the transfer module will bind to a port, which we name transfer. If chain A sends 100 ATOM tokens, chain B will receive 100 ATOM tokens and append the destination prefix **port/channel-id**. So chain B will mint those 100 ATOM tokens as **transfer/channel-40/atoms**. 
+Here, the **source** is chain A. The source channel is **channel-2** and the destination channel is **channel-40**. You see **transfer/channel-...** because the transfer module will bind to a port, which we name "transfer". If chain A sends 100 ATOM tokens, chain B will receive 100 ATOM tokens and append the destination prefix **port/channel-id**. So chain B will mint those 100 ATOM tokens as **transfer/channel-40/atoms**. 
 
-If the tokens are sent back from the **same channel** as they were received:
+What if the tokens are sent back through the **same channel** from which they were received?
 
 ![Sink to source](images/sinktosource.png)
 
-Chain A will "un-escrow" 100 **ATOM tokens**, thus, the prefix will be removed. Chain B will burn **transfer/channel-40/atoms**.
+In this case, chain A will "un-escrow" 100 **ATOM tokens**, thus the prefix will be removed. Chain B will burn **transfer/channel-40/atoms**.
 
-**Notice:** the prefix determines the **source** chain. If the module sends the token from another channel, chain B will be the source chain and chain A will mint new tokens with a prefix instead of un-escrowing ATOM tokens.
+**Note:** the prefix determines the **source** chain. If the module sends the token from another channel, chain B will be the source chain and chain A will mint new tokens with a prefix instead of un-escrowing ATOM tokens.
 
 ![Source sink logic](images/sourcesinklogic.png)
 
-You already know that an application needs to implement the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go), so have a look at the [implementation for the token transfer](https://github.com/cosmos/ibc-go/blob/main/modules/apps/transfer/ibc_module.go), e.g. for `OnChanOpenInit`:
+You already know that an application needs to implement the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go). Look at the [implementation for the token transfer](https://github.com/cosmos/ibc-go/blob/main/modules/apps/transfer/ibc_module.go), e.g. for `OnChanOpenInit`:
 
 ```go
 // OnChanOpenInit implements the IBCModule interface
@@ -67,7 +67,7 @@ func (im IBCModule) OnChanOpenInit(
 
 `OnChanOpenAck`, `OnChanOpenConfirm`, `OnChanCloseInit`, and `OnChanCloseConfirm` will do (almost) no checks.
 
-`OnRecvPacket` on the other hand will decode a packet and apply the transfer token application logic:
+By contrast, `OnRecvPacket` will decode a packet and apply the transfer token application logic:
 
 ```go
 // OnRecvPacket implements the IBCModule interface. A successful acknowledgement
@@ -110,7 +110,7 @@ func (im IBCModule) OnRecvPacket(
 }
 ```
 
-Take a look at the type [definition of a token packet](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/applications/transfer/v2/packet.proto) before diving further into the code:
+Look at the type [definition of a token packet](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/applications/transfer/v2/packet.proto) before diving further into the code:
 
 ```protobuff
 syntax = "proto3";
@@ -134,7 +134,7 @@ message FungibleTokenPacketData {
 }
 ```
 
-So where does the module send a token? Take a look at the [msg_serve.go](https://github.com/cosmos/ibc-go/blob/main/modules/apps/transfer/keeper/msg_server.go) of the token transfer module:
+Where does the module send a token? Look at the [msg_serve.go](https://github.com/cosmos/ibc-go/blob/main/modules/apps/transfer/keeper/msg_server.go) of the token transfer module:
 
 ```go
 // Transfer defines a rpc handler method for MsgTransfer.
