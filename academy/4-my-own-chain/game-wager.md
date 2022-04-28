@@ -675,7 +675,7 @@ You learned in a [previous section](./stored-game.md) how to launch your test in
 
 ![Suite runner with green button](/go_test_debug_suite.png)
 
-Note that you can only launch debug for all of the suite's test methods and not just a single one (as is possible with a simple test). A sollution to this is to create more granular suites, for example using one or more test suites per file.
+Note that you can only launch debug for all of the suite's test methods and not just a single one (as is possible with a simple test). A solution to this is to create more granular suites, for example using one or more test suites per file.
 
 ## Next up
 
