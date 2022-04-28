@@ -27,8 +27,8 @@ In the [previous section](./game-winner.md) you prepared the expiration of games
 
 An expired game will expire in two different cases:
 
-1. It was never really played on so it is removed quietly. That includes a single move by a single player.
-2. It was played by both players, making it a proper game, and forfeit is the outcome because a player failed to play in time.
+1. It was never really played, so it is removed quietly. That includes a single move by a single player.
+2. Moves were played by both players, making it a proper game, and forfeit is the outcome because a player then failed to play a move in time.
 
 In the latter case, you want to emit a new event, which differentiates forfeiting a game from a win involving a move. Therefore you define new error constants:
 
@@ -191,9 +191,9 @@ For an explanation as to why this setup is resistant to an attack from an unboun
 
 ## Unit tests
 
-How do you test something that is supposed to happen during the `EndBlock` event? Simple, you call the function that will be called within `EndBlock`, i.e. `Keeper.ForfeitExpiredGames`. Create a new test file `end_block_server_game_test.go` for your tests. The situations that you can test are:
+How do you test something that is supposed to happen during the `EndBlock` event? You call the function that will be called within `EndBlock` (i.e. `Keeper.ForfeitExpiredGames`). Create a new test file `end_block_server_game_test.go` for your tests. The situations that you can test are:
 
-1. A game was never played, while alone in the state [or not](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L44-L79). Or [two games](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L81-L133) were never played. In this case, you need to confirm that it was fully deleted, and that an event was emitted with no winners:
+1. A game was never played, while alone in the state [or not](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L44-L79). Or [two games](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L81-L133) were never played. In this case, you need to confirm that the game was fully deleted, and that an event was emitted with no winners:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L12-L42]
     func TestForfeitUnplayed(t *testing.T) {
@@ -229,7 +229,7 @@ How do you test something that is supposed to happen during the `EndBlock` event
     }
     ```
 
-2. A game was played only once, while alone in the state [or not](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L175-L218). Or [two games](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L220-L288) were never played. In this case, you need to confirm that it too was fully deleted, and that an event was emitted with no winners:
+2. A game was played with only one move, while alone in the state [or not](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L175-L218). Or [two games](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L220-L288) were never played. In this case, you need to confirm that the game was fully deleted, and that an event was emitted with no winners:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L135-L173]
     func TestForfeitPlayedOnce(t *testing.T) {
@@ -273,7 +273,7 @@ How do you test something that is supposed to happen during the `EndBlock` event
     }
     ```
 
-3. A game was played on twice, while alone in the state [or not](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L352-L417). Or [two games](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L419-L532) were never played. In this case, you need to confirm that it too was note deleted, and instead that a winner was announced, including in events:
+3. A game was played with at least two moves, while alone in the state [or not](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L352-L417). Or [two games](https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L419-L532) were never played. In this case, you need to confirm the game was not deleted, and instead that a winner was announced, including in events:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game_test.go#L290-L350]
     func TestForfeitPlayedTwice(t *testing.T) {
@@ -341,7 +341,7 @@ How do you test something that is supposed to happen during the `EndBlock` event
 
 <HighlightBox type="info">
 
-Notice how all the events aggregate in a single context. The context is not reset on a new transaction, so you have to take slices to compare what matters. One _create_ adds 6 attributes, one _play_ adds 7.
+Note how all the events aggregate in a single context. The context is not reset on a new transaction, so you have to take slices to compare what matters. One _create_ adds 6 attributes, one _play_ adds 7.
 
 </HighlightBox>
 
