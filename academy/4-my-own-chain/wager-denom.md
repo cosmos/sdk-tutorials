@@ -101,21 +101,21 @@ The token denomination has been integrated into the relevant data structures. No
 
 ## Integration tests
 
-### Fixing existing ones
+### Fixing existing tests
 
-You have introduced a new field and a new event. So you first have to fix your existing tests:
+You have introduced a new field and a new event. Therefore you have to fix your existing tests:
 
 1. [Add `Token: sdk.DefaultBondDenom,`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game_test.go#L16) when creating a game.
 2. [Add `Token: "stake",`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game_test.go#L78) when verifying a stored game.
 3. [Add `{Key: "Token", Value: "stake"},`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game_test.go#L135) when verifying the attributes of the creation event.
 4. [Change `createEventCount = 8`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/keeper_integration_test.go#L19) to account for the new attribute of the creation event.
-5. [Change the expected gas](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game_test.go#L152) used where you measured it. Having to do this change by looking at the error message is perhaps an indication that these gas tests are unwelcome.
+5. [Change the expected gas](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game_test.go#L152) used where you measured it. Having to do this change by looking at the error message may indicate that these gas tests are unwelcome.
 
 ### Preparation
 
-With this out of the way, it is time to add a test whereby players wager and play with two different tokens. Start with preparing your setup to accommodate different tokens:
+With this out of the way, you will add a test whereby players wager and play with two different tokens. Start by preparing your setup to accommodate different tokens:
 
-1. Although not a must, you can define a reusable foreign denomination, and Alice, Bob and Carol's initial balances in them. Make them **sufficiently different** in value from those of `"stake"` so that one cannot be confused with the other:
+1. Although not essential, you can define a reusable foreign denomination and Alice, Bob, and Carol's initial balances in them. Make them **sufficiently different** in value from those of `"stake"` so that one cannot be confused with the other:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/keeper_integration_test.go#L32-L35]
     const(
@@ -172,7 +172,7 @@ With this out of the way, it is time to add a test whereby players wager and pla
 
 ### Testing proper
 
-With the preparation done, you can add a test when the player makes their first move. For the test to be meaningful, remember to check all token denominations:
+With the preparation done, add a test when the player makes their first move. For the test to be meaningful, remember to check all token denominations:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_play_move_test.go#L88-L122]
 func (suite *IntegrationTestSuite) TestPlayMovePlayerPaidForeignToken() {
@@ -212,9 +212,9 @@ func (suite *IntegrationTestSuite) TestPlayMovePlayerPaidForeignToken() {
 }
 ```
 
-You get the idea. No need to further test the event emitted by the bank, which is not your code, other than for curiosity.
+There is no need to further test the event emitted by the bank, which is not your code, other than for curiosity.
 
-Don't forget to add similar tests for when the money goes the other way, i.e. when [rejecting](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_reject_game_test.go#L213-L251), [winning](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_play_move_winner_test.go#L149-L189) and [forfeiting](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/end_block_server_game_test.go#L496-L546).
+Don't forget to add similar tests for when the money goes the other way (i.e. when [rejecting](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_reject_game_test.go#L213-L251), [winning](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_play_move_winner_test.go#L149-L189), and [forfeiting](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/end_block_server_game_test.go#L496-L546)).
 
 ## Next up
 
