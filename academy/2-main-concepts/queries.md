@@ -28,7 +28,7 @@ Queries do not require consensus to be processed as they do not trigger state tr
 
 <HighlightBox type="info">
 
-Visit the [detailed Cosmos SDK documentation](https://docs.cosmos.network/master/basics/query-lifecycle.html) to get a clear overview of the query lifecycle and learn how a query is created, handled, and responded to.
+Visit the [detailed Cosmos SDK documentation](https://docs.cosmos.network/main/basics/query-lifecycle.html) to get a clear overview of the query lifecycle and learn how a query is created, handled, and responded to.
 
 </HighlightBox>
 

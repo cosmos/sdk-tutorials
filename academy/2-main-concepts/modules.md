@@ -288,7 +288,7 @@ Modules are encouraged to define and register their own errors to provide better
 
 <HighlightBox type="tip">
 
-For more details take a look at the [Cosmos SDK documentation on errors when building modules](https://docs.cosmos.network/master/building-modules/errors.html).
+For more details take a look at the [Cosmos SDK documentation on errors when building modules](https://docs.cosmos.network/main/building-modules/errors.html).
 
 </HighlightBox>
 
