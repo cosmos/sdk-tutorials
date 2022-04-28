@@ -359,11 +359,11 @@ With the desired steps defined in the wager handling functions, it is time to in
 
 ## ~~Unit~~ Integration tests
 
-If you now try running your existing tests you will see a lot of **null pointer exceptions**. That's because, as they are, the tests set up your checkers keeper [without a bank keeper](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/keeper_test.go#L30-L34). Cosmos SDK does not have [mocks](https://en.wikipedia.org/wiki/Mock_object) right now. So, instead of passing a mocked bank when setting up your test keeper, you need to build a proper bank keeper too. Fortunately, you do not have to do it from scratch. Taking inspiration from [tests on the bank module](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b/x/bank/keeper/keeper_test.go#L66-L110), you prepare your code and tests in order to accommodate and create a full app, which will contain a bank keeper.
+If you try running your existing tests you will see a lot of **null pointer exceptions**. That's because currently the tests set up your checkers keeper [without a bank keeper](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/keeper_test.go#L30-L34). Cosmos SDK does not have [mocks](https://en.wikipedia.org/wiki/Mock_object), so instead of passing a mocked bank when setting up your test keeper you need to build a proper bank keeper too. Fortunately, you do not have to do this from scratch: taking inspiration from [tests on the bank module](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b/x/bank/keeper/keeper_test.go#L66-L110), prepare your code and tests in order to accommodate and create a full app which will contain a bank keeper.
 
-Your existing tests, although never pure **unit** tests in the first place are now going to be true **integration** tests.
+Your existing tests, although never pure **unit** tests, will become true **integration** tests.
 
-In your previous tests, each test function took a [`t *testing.T`](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game_test.go#L12) object. Now, each test function will be a method on a test suite that inherits from [testify's suite](https://pkg.go.dev/github.com/stretchr/testify/suite). This has the advantage that your test suite can have as many fields as necessary or useful. So far, the objects that you have used and would welcome in the suite are:
+Previously, each test function took a [`t *testing.T`](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game_test.go#L12) object. Now, each test function will be a method on a test suite that inherits from [testify's suite](https://pkg.go.dev/github.com/stretchr/testify/suite). This has the advantage that your test suite can have as many fields as is necessary or useful. The objects that you have used and would welcome in the suite are:
 
 ```go
 keeper    keeper.Keeper
@@ -371,13 +371,13 @@ msgServer types.MsgServer
 ctx       sdk.Context
 ```
 
-And yes, you can spread the suite's methods to different files, so as to keep consistent naming for your test files.
+You can spread the suite's methods to different files, so as to keep consistent naming for your test files.
 
-Come test time, `go test` will find the suite because you add a [_regular_ test](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b/x/bank/keeper/keeper_test.go#L1241-L1243) that initializes the suite and runs it. The test suite is then automatically initialized with its [`SetupTest`](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b/x/bank/keeper/keeper_test.go#L96) function, via its parent `suite` class. After that, all the methods of the test suite are run.
+When testing, `go test` will find the suite because you add a [_regular_ test](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b/x/bank/keeper/keeper_test.go#L1241-L1243) that initializes the suite and runs it. The test suite is then automatically initialized with its [`SetupTest`](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b/x/bank/keeper/keeper_test.go#L96) function via its parent `suite` class. After that, all the methods of the test suite are run.
 
 ### Accommodate your code
 
-1. To get the compilation error out of the way, for the basic tests that do not require integration, you can add an empty bank keeper on `func setupKeeper(t testing.TB)`:
+1. To get the compilation error out of the way, for basic tests that do not require integration you can add an empty bank keeper on `func setupKeeper(t testing.TB)`:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/keeper_test.go#L35]
     keeper := keeper.NewKeeper(
@@ -386,10 +386,10 @@ Come test time, `go test` will find the suite because you add a [_regular_ test]
     }
     ```
 
-    And keep this `setupKeeper` function because tests created by Ignite CLI, some of which you never touch again, expect it.
+    Keep this `setupKeeper` function because tests created by Ignite CLI expect it.
 
-2. Ignite CLI created a default constructor for your App with a [`cosmoscmd.App`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/app.go#L219-L230) return type. This is not convenient for you. So, instead of risking breaking other dependencies, you add a new constructor with [your `App`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/app.go#L231-L255) as the return type.
-3. Add other elements taken from Cosmos SDK tests, like [`encoding.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/encoding.go), [`proto.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/params/proto.go) and [`test_helpers.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/test_helpers.go), in which you must also initialize your checkers genesis:
+2. Ignite CLI created a default constructor for your App with a [`cosmoscmd.App`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/app.go#L219-L230) return type, but this is not convenient. Instead of risking breaking other dependencies, add a new constructor with [your `App`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/app.go#L231-L255) as the return type.
+3. Add other elements taken from Cosmos SDK tests, like [`encoding.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/encoding.go), [`proto.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/params/proto.go), and [`test_helpers.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/test_helpers.go), in which you must also initialize your checkers genesis:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/test_helpers.go#L127-L128]
     checkersGenesis := types.DefaultGenesis()
@@ -439,9 +439,9 @@ Come test time, `go test` will find the suite because you add a [_regular_ test]
     }
     ```
 
-    This [`SetupTest` function](https://github.com/stretchr/testify/blob/v1.7.0/suite/interfaces.go#L18-L22) is like a `beforeEach` as it is named in other test libraries. With it, you always get a new `app` with each tests, without interference between them. Do not [omit it](https://github.com/stretchr/testify/blob/v1.7.0/suite/suite.go#L147) unless you know what you are doing.
+    This [`SetupTest` function](https://github.com/stretchr/testify/blob/v1.7.0/suite/interfaces.go#L18-L22) is like a `beforeEach` as it is named in other test libraries. With it, you always get a new `app` with each test, without interference between them. Do not [omit it](https://github.com/stretchr/testify/blob/v1.7.0/suite/suite.go#L147) unless you have specific reasons to do so.
 
-    Also notice that it collects your `checkersModuleAddress` for later use in tests that check events and balances:
+    Also note that it collects your `checkersModuleAddress` for later use in tests that check events and balances:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/keeper_integration_test.go#L34-L36]
     var (
@@ -451,7 +451,7 @@ Come test time, `go test` will find the suite because you add a [_regular_ test]
 
 ### Helpers for money checking
 
-Your new tests will include checks on wagers being paid, lost and won. So your tests need to initialize some bank balances for your players. You can make your life easier with a few helpers and also with a helper to confirm a bank balance.
+Your new tests will include checks on wagers being paid, lost, and won, so your tests need to initialize some bank balances for your players. This is made easier with a few helpers, including a helper to confirm a bank balance.
 
 1. Make a bank genesis [`Balance`](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b6/x/bank/types/genesis.pb.go#L105-L110) type from primitives:
 
@@ -523,7 +523,7 @@ Your new tests will include checks on wagers being paid, lost and won. So your t
     }
     ```
 
-6. While you are at it, you can update the function(s) you used to set up your keeper with one game, for instance:
+6. Update the function(s) you used to set up your keeper with one game, for instance:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_test.go#L8-L17]
     func (suite *IntegrationTestSuite) setupSuiteWithOneGameForPlayMove() {
@@ -542,7 +542,7 @@ With the preparation done, what does a test method look like?
 
 ### Anatomy of an integration suite test
 
-Now you are at the step where you refactor the existing tests that test your keeper. What does a refactored test look like?
+Now you must refactor the existing tests that test your keeper. What does a refactored test look like?
 
 1. The method declaration:
 
@@ -552,14 +552,14 @@ Now you are at the step where you refactor the existing tests that test your kee
 
     It is declared as a member of your test suite, and is prefixed with [`Test`](https://github.com/stretchr/testify/blob/v1.7.0/suite/suite.go#L181-L182).
 
-2. The **setup** can be done as you like, but since you created a helper, you can use it:
+2. The **setup** can be done as you like, but since you created a helper you can use it:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_create_game_test.go#L9-L10]
     suite.setupSuiteWithBalances()
     goCtx := sdk.WrapSDKContext(suite.ctx)
     ```
 
-3. The **action**, does not change from before, other than that you get the `keeper` or `msgServer` from the suite's fields:
+3. The **action** does not change from before, other than that you get the `keeper` or `msgServer` from the suite's fields:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_create_game_test.go#L11-L16]
     createResponse, err := suite.msgServer.CreateGame(goCtx, &types.MsgCreateGame{
@@ -570,7 +570,7 @@ Now you are at the step where you refactor the existing tests that test your kee
     })
     ```
 
-4. The **verification** is done with `suite.Require().X` but otherwise looks similar to the shorter `require.X`:
+4. The **verification** is done with `suite.Require().X`, but otherwise looks similar to the shorter `require.X`:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_create_game_test.go#L17-L20]
     suite.Require().Nil(err)
@@ -579,9 +579,9 @@ Now you are at the step where you refactor the existing tests that test your kee
     }, *createResponse)
     ```
 
-    In fact, it is exactly the [same `require`](https://github.com/stretchr/testify/blob/v1.7.0/suite/suite.go#L24) object. So a brutal search and replace should work.
+    In fact, it is exactly the [same `require`](https://github.com/stretchr/testify/blob/v1.7.0/suite/suite.go#L24) object. A basic search and replace should work.
 
-5. If you need access to the checkers keeper, it can be found in the suite too:
+5. If you need access to the checkers keeper, it can also be found in the suite:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_create_game_test.go#L51-L52]
     keeper := suite.app.CheckersKeeper
@@ -590,7 +590,7 @@ Now you are at the step where you refactor the existing tests that test your kee
 
 ### What happened to the events?
 
-As you refactor your existing tests, you may notice that the events are all a little bit messed up. That is because the bank emits events too, and in particular it does emit:
+As you refactor your existing tests, you may notice that the events become messed up. That is because the bank emits events too, and in particular it emits:
 
 1. An event with the `message` type, like yours, with only the sender:
 
@@ -601,7 +601,7 @@ As you refactor your existing tests, you may notice that the events are all a li
     ),
     ```
 
-2. And another with the `transfer` type:
+2. An event with the `transfer` type:
 
     ```go [https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b6/x/bank/keeper/send.go#L160-L165]
     sdk.NewEvent(
@@ -612,7 +612,7 @@ As you refactor your existing tests, you may notice that the events are all a li
     )
     ```
 
-This means that in your `suite.ctx.EventManager().ABCIEvents()`, there are [extra events](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_test.go#L242) to account for, and in each event, there are extra attributes to discard. It is perhaps a good time to:
+This means that in your `suite.ctx.EventManager().ABCIEvents()` there are [extra events](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_test.go#L242) to account for, and in each case there are extra attributes to discard. Recommended steps:
 
 1. Make explicit the count of expected attributes for each event type:
 
@@ -629,7 +629,7 @@ This means that in your `suite.ctx.EventManager().ABCIEvents()`, there are [extr
     )
     ```
 
-2. And make calculations on the expected count of attributes to discard depending on the actions previously taken:
+2. Make calculations on the expected count of attributes to discard, depending on the actions previously taken:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_reject_game_test.go#L248-L255]
     rejectAttributesDiscardCount := createEventCount + playEventCountFirst
@@ -639,11 +639,11 @@ This means that in your `suite.ctx.EventManager().ABCIEvents()`, there are [extr
     }, rejectEvent.Attributes[rejectAttributesDiscardCount:])
     ```
 
-So with this, you can go and refactor your tests. Admittedly, no small task.
+You can now refactor your tests, which is a substantial task.
 
 ### Extra tests
 
-After refactoring, and no failing tests, it is time to add extra checks of money handling. For instance, before an action that you expect to transfer money (or not), you can verify the initial position:
+After refactoring, and finding no failing tests, it is time to add extra checks of money handling. For instance, before an action that you expect to transfer money (or not), you can verify the initial position:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_test.go#L68-L71]
 suite.RequireBankBalance(balAlice, alice)
@@ -661,10 +661,11 @@ suite.RequireBankBalance(balCarol-11, carol)
 suite.RequireBankBalance(11, checkersModuleAddress)
 ```
 
-How you subdivide your tests and where you insert these balance checks is up to. You can find examples here for:
+How you subdivide your tests and where you insert these balance checks is up to you. You can find examples here for:
 
 * [Creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_create_game_test.go#L23-L40).
-* [Playing a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_test.go#L65-L84), including [up to a resolution](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_winner_test.go#L142-L145). Failing to play a game because of a [failure to pay the wager](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_test.go#L323-L354).
+* [Playing a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_test.go#L65-L84), including [up to a resolution](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_winner_test.go#L142-L145). 
+* Failing to play a game because of a [failure to pay the wager](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_test.go#L323-L354).
 * [Rejecting a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_reject_game_test.go#L41-L52), including when [there have been moves played](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_reject_game_test.go#L175-L198).
 * [Forfeiting a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/end_block_server_game_test.go#L44-L47), including when [there have been moves played](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/end_block_server_game_test.go#L776-L779).
 
@@ -674,8 +675,8 @@ You learned in a [previous section](./stored-game.md) how to launch your test in
 
 ![Suite runner with green button](/go_test_debug_suite.png)
 
-Note that you can only launch debug for all of the suite's test methods, and not just a single one as is possible with a simple test. For this reason, the case could be made that you could create more granular suites. For example, one or more test suites per file.
+Note that you can only launch debug for all of the suite's test methods and not just a single one (as is possible with a simple test). A sollution to this is to create more granular suites, for example using one or more test suites per file.
 
 ## Next up
 
-You can skip ahead and see how you can integrate [foreign tokens](./wager-denom.md) via the use of IBC. Or, take a look at the [next section](./gas-meter.md) to prevent spam and reward validators in proportion to their effort in your checkers blockchain.
+You can skip ahead and see how to integrate [foreign tokens](./wager-denom.md) via the use of IBC. Or, take a look at the [next section](./gas-meter.md) on how to prevent spam and reward validators in proportion to their effort in your checkers blockchain.
