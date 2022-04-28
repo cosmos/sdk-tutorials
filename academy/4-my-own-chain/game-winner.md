@@ -124,7 +124,7 @@ Confirm the code compiles, add unit tests, and you are ready to handle the expir
 
 ## Unit tests
 
-First you need to update your existing tests so that they pass with a new `Winner` value. As it happens, most of your tests need to add this line:
+You need to update your existing tests so that they pass with a new `Winner` value. Most of your tests need to add this line:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0254e19f/x/checkers/keeper/msg_server_play_move_fifo_test.go#L49]
 require.EqualValues(t, types.StoredGame{
@@ -133,7 +133,7 @@ require.EqualValues(t, types.StoredGame{
 }, game1)
 ```
 
-Second, this means that in your tests no games have reached a conclusion with a winner. Time to fix that. In a dedicated `msg_server_play_move_winner_test.go` file, you can prepare all the moves that will be played in the test. For convenience, a move will be written as:
+This means that in your tests no games have reached a conclusion with a winner. Time to fix that. In a dedicated `msg_server_play_move_winner_test.go` file, prepare all the moves that will be played in the test. For convenience, a move will be written as:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0254e19f/x/checkers/keeper/msg_server_play_move_winner_test.go#L11-L17]
 type GameMoveTest struct {
@@ -171,7 +171,7 @@ func getPlayer(color string) string {
 }
 ```
 
-Now you can create the test that plays all the moves and checks at the end that the game has been saved with the right winner and that the FIFO is empty again:
+Now create the test that plays all the moves, and checks at the end that the game has been saved with the right winner and that the FIFO is empty again:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0254e19f/x/checkers/keeper/msg_server_play_move_winner_test.go#L72-L125]
 func TestPlayMoveUpToWinner(t *testing.T) {
