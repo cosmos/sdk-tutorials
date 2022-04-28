@@ -315,7 +315,7 @@ func TestDefaultGenesisIsCorrect(t *testing.T) {
 }
 ```
 
-<to run it, use `go test` with the package name:
+To run it, use `go test` with the package name:
 
 ```sh
 $ go test github.com/alice/checkers/x/checkers/types
