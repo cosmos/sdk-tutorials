@@ -65,7 +65,7 @@ Avoid calling `ConsumeGas` from within a loop. If you know the number of times y
 
 ## Integration tests
 
-You know the drill. Add a couple of tests that confirm the gas consumption. There is a problem, though. It is not possible to differentiate the gas cost that BaseApp is incurring on your messages from the gas cost your module imposes on top of it. And you cannot distinguish via the descriptor [unless it panics](https://github.com/cosmos/cosmos-sdk/blob/v0.42.6/store/types/gas.go#L90-L101). Still, you can add a lame test:
+Now you must add tests that confirm the gas consumption. However, it is not possible to differentiate the gas cost that BaseApp is incurring on your messages from the gas cost your module imposes on top of it. Also, you cannot distinguish via the descriptor [unless it panics](https://github.com/cosmos/cosmos-sdk/blob/v0.42.6/store/types/gas.go#L90-L101). Nevertheless, you can add a lame test:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/63370efe/x/checkers/keeper/msg_server_create_game_test.go#L132-L144]
 func (suite *IntegrationTestSuite) TestCreate1GameConsumedGas() {
@@ -83,7 +83,7 @@ func (suite *IntegrationTestSuite) TestCreate1GameConsumedGas() {
 }
 ```
 
-And another one for a [play](https://github.com/cosmos/b9-checkers-academy-draft/blob/63370efe/x/checkers/keeper/msg_server_play_move_test.go#L86-L100) and a [reject](https://github.com/cosmos/b9-checkers-academy-draft/blob/63370efe/x/checkers/keeper/msg_server_reject_game_test.go#L93-L103).
+Now add tests for a [play](https://github.com/cosmos/b9-checkers-academy-draft/blob/63370efe/x/checkers/keeper/msg_server_play_move_test.go#L86-L100) and a [reject](https://github.com/cosmos/b9-checkers-academy-draft/blob/63370efe/x/checkers/keeper/msg_server_reject_game_test.go#L93-L103).
 
 ## Next up
 
