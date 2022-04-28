@@ -35,7 +35,7 @@ How do you find all the games that reached their deadline? Maybe with a pseudo-c
 findAll(game => game.deadline < now)
 ```
 
-This approach is **expensive** in terms of computation. The `EndBlock` code should not have to pull up all games out of the storage just to find a handful that are relevant. Doing a `findAll` costs [`O(n)`](https://en.wikipedia.org/wiki/Big_O_notation), where `n` is the total number of games.
+This approach is **expensive** in terms of computation. The `EndBlock` code should not have to pull up all games out of the storage just to find a few that are relevant. Doing a `findAll` costs [`O(n)`](https://en.wikipedia.org/wiki/Big_O_notation), where `n` is the total number of games.
 
 ## The how
 
@@ -188,7 +188,7 @@ Now that the new fields are created, you need to update them accordingly to keep
 
 With these functions ready, it is time to use them in the message handlers.
 
-1. In the handler when creating a new game, send the new game to the tail because it is freshly created:
+1. In the handler, when creating a new game send the new game to the tail because it is freshly created:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_create_game.go#L36]
     ...
@@ -197,7 +197,7 @@ With these functions ready, it is time to use them in the message handlers.
     ...
     ```
 
-2. In the handler, when playing a move, send the game back to the tail because it was freshly updated:
+2. In the handler, when playing a move send the game back to the tail because it was freshly updated:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_play_move.go#L66]
     ...
@@ -214,7 +214,7 @@ With these functions ready, it is time to use them in the message handlers.
 
     Note that you also need to call `SetNextGame`.
 
-3. In the handler when rejecting a game, remove the game from the FIFO:
+3. In the handler, when rejecting a game remove the game from the FIFO:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_reject_game.go#L38]
     ...
@@ -229,13 +229,13 @@ With these functions ready, it is time to use them in the message handlers.
     ...
     ```
 
-You implemented a FIFO that is updated but never really used, for now.
+You implemented a FIFO that is updated but never really used, at least for now.
 
 ## Unit tests
 
-At this point, your previous unit tests are failing. So the first order of business is to fix them. Add `FifoHead` and `FifoTail` in your value requirements on `NextGame` as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_create_game_test.go#L51-L52), [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_play_move_test.go#L86-L87) and [reject games](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_reject_game_test.go#L58-L59). Also add `BeforeId` and `AfterId` in your value requirements on `StoredGame`, as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_create_game_test.go#L64-L65), and [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_play_move_test.go#L99-L100).
+At this point, your previous unit tests are failing, so they must be fixed. Add `FifoHead` and `FifoTail` in your value requirements on `NextGame` as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_create_game_test.go#L51-L52), [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_play_move_test.go#L86-L87), and [reject games](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_reject_game_test.go#L58-L59). Also add `BeforeId` and `AfterId` in your value requirements on `StoredGame` as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_create_game_test.go#L64-L65) and [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_play_move_test.go#L99-L100).
 
-As the second order of business, you ought to add more specific FIFO tests. For instance, what happens to `NextGame` and `StoredGame` as you create up to three new games:
+Next, you should add more specific FIFO tests. For instance, testing what happens to `NextGame` and `StoredGame` as you create up to three new games:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_create_game_fifo_test.go#L11-L111]
 func TestCreate3GamesHasSavedFifo(t *testing.T) {
@@ -341,7 +341,7 @@ func TestCreate3GamesHasSavedFifo(t *testing.T) {
 }
 ```
 
-And what happens when you [have two games and play once on the _older_ one](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_play_move_fifo_test.go#L11-L61)? Or have two games and play them twice in turn:
+What happens when you [have two games and play once on the _older_ one](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_play_move_fifo_test.go#L11-L61)? Or have two games and play them twice in turn:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_play_move_fifo_test.go#L63-L121]
 func TestPlayMove2Games2MovesHasSavedFifo(t *testing.T) {
@@ -405,7 +405,7 @@ func TestPlayMove2Games2MovesHasSavedFifo(t *testing.T) {
 }
 ```
 
-And what happens when you [have two games and reject the _older_ one](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L11-L43)? Or have three games and reject the _middle_ one:
+What happens when you [have two games and reject the _older_ one](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L11-L43)? Or have three games and reject the _middle_ one?
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L45-L95]
 func TestRejectMiddleGameHasSavedFifo(t *testing.T) {
@@ -463,4 +463,4 @@ func TestRejectMiddleGameHasSavedFifo(t *testing.T) {
 
 ## Next up
 
-Now you need to add an expiry dates for the games. That's the goal of the [next section](./game-deadline.md).
+Now you need to add expiry dates for the games. That's the goal of the [next section](./game-deadline.md).
