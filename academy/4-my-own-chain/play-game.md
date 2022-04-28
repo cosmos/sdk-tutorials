@@ -180,7 +180,7 @@ That is all there is to it: good preparation and the use of Ignite CLI.
 
 ## Unit tests
 
-Adding unit tests for this play message is very similar to what you did for the previous message. Just create a new `msg_server_play_move_test.go` file and add to it. You can start by a function that sets up the keeper to your liking. In this case, already having a game saved can save you a few lines of code in each test:
+Adding unit tests for this play message is very similar to what you did for the previous message: create a new `msg_server_play_move_test.go` file and add to it. Start with a function that sets up the keeper as you prefer. In this case, already having a game saved can reduce several lines of code in each test:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L15-L26]
 func setupMsgServerWithOneGameForPlayMove(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
@@ -197,7 +197,7 @@ func setupMsgServerWithOneGameForPlayMove(t testing.TB) (types.MsgServer, keeper
 }
 ```
 
-Then again, it is a case of testing the result of a move:
+Now test the result of a move:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L28-L45]
 func TestPlayMove(t *testing.T) {
@@ -220,7 +220,7 @@ func TestPlayMove(t *testing.T) {
 }
 ```
 
-And whether the game was [saved correctly](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L71-L97). Also check what happens when players try to [play out of turn](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L99-L111), or [make a wrong move](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L113-L125). Check after [two](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L127-L188) or [three turns with a capture](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L190-L267).
+Also test whether the game was [saved correctly](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L71-L97). Check what happens when players try to [play out of turn](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L99-L111), or [make a wrong move](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L113-L125). Check after [two](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L127-L188) or [three turns with a capture](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L190-L267).
 
 ## Next up
 
