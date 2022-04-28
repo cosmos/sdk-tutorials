@@ -105,7 +105,7 @@ ctx.EventManager().EmitEvent(
 
 ## Unit tests
 
-The unit tests you have created so far still pass. However you also want to confirm that the events have been emitted in both situations. The events are recorded in the context, so the test is a little bit different. In `msg_server_create_game_test.go`, you can add this test:
+The unit tests you have created so far still pass. However you also want to confirm that the events have been emitted in both situations. The events are recorded in the context, so the test is a little bit different. In `msg_server_create_game_test.go`, add this test:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/keeper/msg_server_create_game_test.go#L83-L106]
 func TestCreate1GameEmitted(t *testing.T) {
@@ -134,15 +134,15 @@ func TestCreate1GameEmitted(t *testing.T) {
 }
 ```
 
-How can you _guess_ the order of elements? Easy, you created them in this order. Alternatively, you can _peek_ by using Visual Studio Code and:
+How can you _guess_ the order of elements? Easily, as you created them in this order. Alternatively, you can _peek_ by using Visual Studio Code:
 
-1. Putting a breakpoint after `event := events[0]`.
-2. Running this test in **debug mode**, by right-clicking the green arrow next to the test name.
-3. Observing the live values on the left.
+1. Put a breakpoint after `event := events[0]`.
+2. Run this test in **debug mode**: right-click the green arrow next to the test name.
+3. Observe the live values on the left.
 
 ![Live values of event in debug mode](/go_test_debug_event_attributes.PNG)
 
-Now, about the event emitted during a move. It may seem a bit unexpected. In a _move_ unit test, two actions happen, a _create_ and a _move_. However, in the setup of this test, you do not create blocks, but instead _only_ hit your keeper. So the context collects events but does not flush them. This is why you need to test only for the latter attributes, and verify an array slice that discards the events that originate from the _create_ action: `event.Attributes[6:]`. This gives the test:
+The event emitted during a move may seem unexpected. In a _move_ unit test, two actions occur: a _create_, and a _move_. However, in the setup of this test you do not create blocks but _only_ hit your keeper. Therefore the context collects events but does not flush them. This is why you need to test only for the latter attributes, and verify an array slice that discards events that originate from the _create_ action: `event.Attributes[6:]`. This gives the following test:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/keeper/msg_server_play_move_test.go#L127-L152]
 func TestPlayMoveEmitted(t *testing.T) {
