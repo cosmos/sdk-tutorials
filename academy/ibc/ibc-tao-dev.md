@@ -11,7 +11,7 @@ Now that you covered the introduction and have a better understanding of how dif
 
 ## Connections
 
-If you want to connect two blockchains with IBC, you will need to etablish an IBC **connection**. Connections, once established, are responsible for facilitating all cross-chain verification of IBC state.
+If you want to connect two blockchains with IBC, you will need to etablish an IBC **connection**. Once established, connections are responsible for facilitating all cross-chain verification of IBC state.
 
 <HighlightBox type="info">
 
@@ -21,7 +21,7 @@ The connection semantics are described in the [Interchain Standard (ICS) 3](http
 
 The opening handshake protocol allows each chain to verify the identifier used to reference the connection on the other chain, enabling modules on each chain to reason about the reference of the other chain.
 
-Take a look at the [connection Protobuf](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/core/connection/v1/connection.proto) for the `ConnectionEnd`:
+Look at the [connection Protobuf](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/core/connection/v1/connection.proto) for the `ConnectionEnd`:
 
 ```
 message ConnectionEnd {
@@ -42,9 +42,9 @@ message ConnectionEnd {
 }
 ```
 
-`ConnectionEnd` defines a stateful object on a chain connected to another separate one. Note that there must only be 2 defined `ConnectionEnd`s to establish a connection between two chains. So the connections are mapped and stored as `ConnectionEnd` on the chain.
+`ConnectionEnd` defines a stateful object on one chain connected to another separate chain. Note that there must only be 2 defined `ConnectionEnd`s to establish a connection between two chains. The connections are mapped and stored as `ConnectionEnd` on the chain.
 
-In addition you can see that the `ConnectionEnd` has different `state`s which will change during the handshake:
+In addition, you can see that the `ConnectionEnd` has different `state`s which will change during the handshake:
 
 ![Connection state](/academy/ibc/images/connectionstate.png)
 
@@ -66,9 +66,9 @@ message Counterparty {
 }
 ```
 
-This way it is ensured that both ends of a connection agree on each others clients.
+This way it is ensured that both ends of a connection agree on each other's clients.
 
-You can find the reference implementation for the connection handshake in the [IBC module repository](https://github.com/cosmos/ibc-go/blob/main/modules/core/03-connection/keeper/handshake.go). In it take a look at `ConnOpenInit`:
+You can find the reference implementation for the connection handshake in the [IBC module repository](https://github.com/cosmos/ibc-go/blob/main/modules/core/03-connection/keeper/handshake.go). In it, look at `ConnOpenInit`:
 
 ```go
 func (k Keeper) ConnOpenInit(
@@ -103,15 +103,15 @@ func (k Keeper) ConnOpenInit(
 
 ```
 
-This function creates an unique `connectionID`. You can see that it adds the connection to a list, which represents the connections associated with a specific client.
+This function creates a unique `connectionID`. It adds the connection to a list, which represents the connections associated with a specific client.
 
-Also you can see how it creates a new `ConnectionEnd`:
+It also creates a new `ConnectionEnd`:
 
 ```go
 connection := types.NewConnectionEnd(types.INIT, clientID, counterparty, types.ExportedVersionsToProto(versions), delayPeriod)
 ````
 
-**Note:** you will never see a connection related to two clients - the other way around is possible but not likely. In the end, you want to have one connection per blockchain you connect to. 
+**Note:** you will never see one connection related to two clients - the other way around is possible, but not likely. Ultimately, you want to have one connection per blockchain you connect to. 
 
 `ConnOpenInit` is triggered by the **relayer**, which constructs the message and hands it over to the SDK that uses the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go) you saw before to call `ConnOpenInit`:
 
@@ -128,7 +128,7 @@ func (k Keeper) ConnectionOpenInit(goCtx context.Context, msg *connectiontypes.M
 }
 ```
 
-Now take a look at the `ConnOpenTry`:
+Look at `ConnOpenTry`:
 
 ```go
 // ConnOpenTry relays notice of a connection attempt on chain A to chain B (this
@@ -143,38 +143,38 @@ func (k Keeper) ConnOpenTry(
   counterparty types.Counterparty, // counterpartyConnectionIdentifier, counterpartyPrefix and counterpartyClientIdentifier
   delayPeriod uint64,
   clientID string, // clientID of chainA
-  clientState exported.ClientState, // clientState that chainA has for chainB
+  clientState exported.ClientState, // clientState that chain A has for chain B
   counterpartyVersions []exported.Version, // supported versions of chain A
-  proofInit []byte, // proof that chainA stored connectionEnd in state (on ConnOpenInit)
-  proofClient []byte, // proof that chainA stored a light client of chainB
-  proofConsensus []byte, // proof that chainA stored chainB's consensus state at consensus height
+  proofInit []byte, // proof that chain A stored connectionEnd in state (on ConnOpenInit)
+  proofClient []byte, // proof that chain A stored a light client of chain B
+  proofConsensus []byte, // proof that chain A stored chain B's consensus state at consensus height
   proofHeight exported.Height, // height at which relayer constructs proof of A storing connectionEnd in state
   consensusHeight exported.Height, // latest height of chain B which chain A has stored in its chain B client
 ) ...
 ```
 
-and `ConnOpenAck`:
+Now look at `ConnOpenAck`:
 
 ```go
 func (k Keeper) ConnOpenAck(
   ctx sdk.Context,
   connectionID string,
-  clientState exported.ClientState, // client state for chainA on chainB
-  version *types.Version, // version that ChainB chose in ConnOpenTry
+  clientState exported.ClientState, // client state for chainA on chain B
+  version *types.Version, // version that Chain B chose in ConnOpenTry
   counterpartyConnectionID string,
-  proofTry []byte, // proof that connectionEnd was added to ChainB state in ConnOpenTry
-  proofClient []byte, // proof of client state on chainB for chainA
-  proofConsensus []byte, // proof that chainB has stored ConsensusState of chainA on its client
+  proofTry []byte, // proof that connectionEnd was added to Chain B state in ConnOpenTry
+  proofClient []byte, // proof of client state on chain B for chain A
+  proofConsensus []byte, // proof that chain B has stored ConsensusState of chain A on its client
   proofHeight exported.Height, // height that relayer constructed proofTry
-  consensusHeight exported.Height, // latest height of chainA that chainB has stored on its chainA client
+  consensusHeight exported.Height, // latest height of chain A that chain B has stored on its chain A client
 ) ...
 ```
 
-both will do the same checks:
+Both `ConnOpenTry` and `ConnOpenAck` will do the same checks:
 
 ```go
 
-  // Check that ChainA committed expectedConnectionEnd to its state
+  // Check that Chain A committed expectedConnectionEnd to its state
   if err := k.VerifyConnectionState(
     ctx, connection, proofHeight, proofInit, counterparty.ConnectionId,
     expectedConnection,
@@ -182,12 +182,12 @@ both will do the same checks:
     return "", err
   }
 
-  // Check that ChainA stored the clientState provided in the msg
+  // Check that Chain A stored the clientState provided in the msg
   if err := k.VerifyClientState(ctx, connection, proofHeight, proofClient, clientState); err != nil {
     return "", err
   }
 
-  // Check that ChainA stored the correct ConsensusState of chainB at the given consensusHeight
+  // Check that Chain A stored the correct ConsensusState of chain B at the given consensusHeight
   if err := k.VerifyClientConsensusState(
     ctx, connection, proofHeight, consensusHeight, proofConsensus, expectedConsensusState,
   ); err != nil {
@@ -195,23 +195,23 @@ both will do the same checks:
   }
 ```
 
-so both will verify the `ConnectionState`, the `clientState` and the `ConsensusState` of the other chain.
+Therefore, each will verify the `ConnectionState`, the `clientState`, and the `ConsensusState` of the other chain.
 
 <HighlightBox type="info">
 
 In IBC, blockchains do not directly pass messages to each other over the network.
 
-To communicate, a blockchain commits some state to a precisely defined path reserved for a specific message type and a specific counterparty. For example, a blockchain that stores a specific `connectionEnd` as part of a handshake or a packet intended to be relayed to a module on the counterparty chain.
+To communicate, a blockchain commits some state to a precisely defined path reserved for a specific message type and a specific counterparty. For example, a blockchain that stores a specific `connectionEnd` as part of a handshake, or a packet intended to be relayed to a module on the counterparty chain.
 
-A relayer process monitors for updates to these paths and relays messages by submitting the data stored under the path along with a proof of that data to the counterparty chain.
+A relayer process monitors for updates to these paths, and relays messages by submitting the data stored under the path along with a proof of that data to the counterparty chain.
 
 </HighlightBox>
 
 ## Channels
 
-After a connection is established, an application needs to bind to a port and a channel. Let us first understand what a channel is before diving further.
+After a connection is established, an application needs to bind to a port and a channel. It is important to understand what a channel is before diving further.
 
-A channel serves as a **conduit for packets** passing between a module on one chain and a module on another one to ensure that packets are executed only once, delivered in the order in which they were sent (if necessary), and delivered only to the corresponding module owning the other end of the channel on the destination chain. Each channel is associated with a particular connection. A connection may have any number of associated channels, allowing the use of common identifiers and amortizing the cost of header verification across all the channels utilizing a connection and a light client.
+A channel serves as a **conduit for packets** passing between a module on one chain and a module on another, to ensure that packets are executed only once, they are delivered in the order in which they were sent (if necessary), and they are delivered only to the corresponding module owning the other end of the channel on the destination chain. Each channel is associated with a particular connection. A connection may have any number of associated channels, allowing the use of common identifiers and amortizing the cost of header verification across all the channels utilizing a connection and a light client.
 
 Channels are payload-agnostic: the modules sending and receiving IBC packets decide how to construct packet data and how to act upon the incoming packet data, and must use their own application logic to determine which state transactions to apply according to what data the packet contains.
 
@@ -222,16 +222,16 @@ An **unordered channel** is _a channel where packets can be delivered in any ord
 
 You can see that a IBC channel handshake is smiliar to a connection handshake:
 
-1. `ChanOpenInit`: will set the chain A into `INIT` state. This will call `OnChanOpenInit` so application A can apply its `INIT`logic, e.g. check if the port is set correctly. 
-2. `ChanOpenTry`: will set chain B into `TRY` state. It will call `OnChanOpenConfirm` so application B can apply its `TRY` logic. 
-3. `ChanOpenAck`: will set the chain A into `OPEN` state. This will call `OnChanOpenAck` which will be implemented by the application.
-4. `ChanOpenConfirm`: will set chain B into `OPEN` state so application B can apply its `CONFIRM` logic. 
+1. `ChanOpenInit`: sets chain A into `INIT` state. This calls `OnChanOpenInit` so application A can apply its `INIT`logic (e.g. check if the port is set correctly).
+2. `ChanOpenTry`: sets chain B into `TRY` state. It calls `OnChanOpenConfirm` so application B can apply its `TRY` logic.
+3. `ChanOpenAck`: sets chain A into `OPEN` state. This calls `OnChanOpenAck` which will be implemented by the application.
+4. `ChanOpenConfirm`: sets chain B into `OPEN` state, so application B can apply its `CONFIRM` logic.
 
 If an application returns an error in this process, the handshake will fail.
 
-Notice that if you use a channel between two applications, you have to trust that the applications on both ends are not malicious.
+Note that if you use a channel between two applications you have to trust that the applications on both ends are not malicious.
 
-You can find the implementation of `ChannelOpenInit` in the the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go):
+You can find the implementation of `ChannelOpenInit` in the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go):
 
 ```go
 // ChannelOpenInit defines a rpc handler method for MsgChannelOpenInit.
@@ -270,13 +270,13 @@ func (k Keeper) ChannelOpenInit(goCtx context.Context, msg *channeltypes.MsgChan
 }
 ```
 
-After the verification of the module capability, first step of the channel handshake will take step and `ChanOpenInit` will be called like desribed before about the channel handshake. Notice that an application has capabilities for channels and ports and an application can only use a channel and port if the application owns the capability for that channel and port.
+After verification of the module capability, the first step of the channel handshake will take place and `ChanOpenInit` will be called, as described previously. Note that an application has capabilities for different channels and ports, and can only use a specific channel and port if it owns the capability for them.
 
 <HighlightBox type="info">
-IBC is intended to work in execution environments where modules do not necessarily trust each other. IBC must authenticate module actions on ports and channels so that only modules with the appropriate permissions can use the channels. This security is accomplished using dynamic capabilities. Upon binding to a port or creating a channel for a module, IBC returns a dynamic capability that the module must claim to use that port or channel. This binding strategy prevents other modules from using that port or channel since those modules do not own the appropriate capability.
+IBC is intended to work in execution environments where modules do not necessarily trust each other. IBC must authenticate module actions on ports and channels so that only modules with the appropriate permissions can use those channels. This security is accomplished using dynamic capabilities. Upon binding to a port or creating a channel for a module, IBC returns a dynamic capability that the module must claim to use that port or channel. This binding strategy prevents another module from using that port or channel since it does not own the appropriate capability.
 </HighlightBox>
 
-You can see that the application callbacks are coming from a [router](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/router.go):
+You can see that the application callbacks come from a [router](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/router.go):
 
 ```go
 // GetRoute returns a IBCModule for a given module.
@@ -288,7 +288,7 @@ func (rtr *Router) GetRoute(module string) (IBCModule, bool) {
 }
 ```
 
-which returns an implementation of the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go):
+This returns an implementation of the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go):
 
 ```go
 // IBCModule defines an interface that implements all the callbacks
@@ -311,7 +311,7 @@ type IBCModule interface {
 
 ```
 
-There you can find all the callbacks your application will need to implement. So in the `msg_serve.go` you can find in the `ChannelOpenInit`:
+Here you find all the callbacks your application needs to implement. For example, in the `msg_serve.go` you find the following in the `ChannelOpenInit`:
 
 ```go
   // Perform application logic callback
@@ -320,7 +320,7 @@ There you can find all the callbacks your application will need to implement. So
   }
 ```
 
-will call custom logic of the application. The situation is similar for `OnChanOpenTry`, `OnChanOpenAck`, `OnChanOpenConfirm` etc in the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go): 
+This calls the custom logic of the application. The situation is similar for `OnChanOpenTry`, `OnChanOpenAck`, `OnChanOpenConfirm`, and others in the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go): 
 
 ```go
   // OnChanOpenTry will verify the relayer-chosen parameters along with the
@@ -362,9 +362,9 @@ will call custom logic of the application. The situation is similar for `OnChanO
 ...
 ```
 
-We will talk about applications soon but the take away here is that an application developer will need to implement the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go).
+Applications will be discussed soon, but the important point here is that an application developer will need to implement the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go).
 
-Modules communicate with each other by sending packets over IBC channels, take a look at the [packet definition](https://github.com/cosmos/ibc-go/blob/main/modules/core/04-channel/types/packet.go) to see the packet structure:
+Modules communicate with each other by sending packets over IBC channels. Look at the [packet definition](https://github.com/cosmos/ibc-go/blob/main/modules/core/04-channel/types/packet.go) to see the packet structure:
 
 ```go
 // NewPacket creates a new Packet instance. It panics if the provided
@@ -392,14 +392,14 @@ func NewPacket(
 
 ![Packet flow](/academy/ibc/images/packetflow.png)
 
-In the diagram above we have two flows(successful and not successful) to explain:
+The previous diagram shows successful and unsuccessful packet flows:
 
-1. Application A will send a packet(call `sendPacket`) to the application B. This can be triggerd by a user but applications can also act without a user. Core IBC A will commit the packet to its own state and the relayer can query this packet and send a receive message to the Core IBC B. The verifications will be done by the Core IBC and the application B will get the packet if it is valid. Note that the applications on both ends will need to marshal and unmarshal the data. The application B then will send an acknowledgment message to the Core IBC B, which will again commit it to its own state so it can be send by a relayer to Core IBC A.
-2. In second scenario the packet is not received in time. In this case, Core IBC A will receive a `TimeoutPacket` message from the relayer and will call `OnTimeoutPacket` on applicatoin A.
+1. **Successful:** Application A sends a packet (call `sendPacket`) to application B. This can be triggerd by a user, but applications can also act without a user. Core IBC A commits the packet to its own state, and the relayer can query this packet and send a receive message to Core IBC B. Verifications are done by Core IBC B and application B gets the packet if it is valid. Note that the applications on both ends need to marshal and unmarshal the data. Application B then sends an acknowledgment message to Core IBC B, which again commits it to its own state so it can be sent by a relayer to Core IBC A.
+2. **Unsuccessful:** In second scenario, the packet is not received in time. In this case, Core IBC A receives a `TimeoutPacket` message from the relayer and calls `OnTimeoutPacket` on applicatoin A.
 
 ## Light Clients
 
-In the IBC Protocol, an actor - an end user, an off-chain process, or a machine - needs to be able to verify updates to another machine's state that the other machine's consensus algorithm has agreed to and reject any possible updates that the other machine's consensus algorithm has not agreed upon.
+In the IBC Protocol, an actor (end user, off-chain process, or machine) needs to be able to verify updates to another machine's state that the other machine's consensus algorithm has agreed upon, or reject any possible updates that the other machine's consensus algorithm has not agreed upon.
 
 ![Light clients](/academy/ibc/images/lightclient.png)
 
@@ -407,15 +407,15 @@ Different abstraction layers are described in the ICS.
 
 <HighlightBox type="info">
 
-In case you want to take a refresher of ICS and the different layers, take a look at the section [What is IBC?](./what-is-ibc.md).
+For a refresher on ICS and the different layers, see the section [What is IBC?](./what-is-ibc.md).
 
 </HighlightBox>
 
 **Light clients** confirm that received packets are verified. With this approach, an IBC chain is not required to maintain a **full node** for the verification of state changes of another chain. A **relayer** has access to both full nodes and passes headers from full nodes to the light clients.
 
-Before a **connection** can be established - a connection handshake starts - chain A will create a light client for chain B and chain B will create a light client for chain A.
+Before a **connection** can be established (before a connection handshake starts), chain A will create a light client for chain B and chain B will create a light client for chain A.
 
-Start with [`msg_serve.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go), this is where the messages come in. In it, we first see a `CreateClient` function:
+Messages arrive in [`msg_serve.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go). Here, we first see a `CreateClient` function:
 
 ```go
 // CreateClient defines a rpc handler method for MsgCreateClient.
@@ -436,7 +436,7 @@ func (k Keeper) CreateClient(goCtx context.Context, msg *clienttypes.MsgCreateCl
 }
 ```
 
-It creates a light client by calling [`ClientKeeper.CreateClient`](https://github.com/cosmos/ibc-go/blob/main/modules/core/02-client/keeper/client.go):
+`CreateClient` creates a light client by calling [`ClientKeeper.CreateClient`](https://github.com/cosmos/ibc-go/blob/main/modules/core/02-client/keeper/client.go):
 
 ```go
 // CreateClient creates a new client state and populates it with a given consensus
@@ -467,7 +467,7 @@ func (k Keeper) CreateClient(
 }
 ```
 
-Each client for a chain has a unique `clientID`. In addition, you can see that the function expects a [`clientState`](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/client_state.go):
+Each client for a chain has a unique `clientID`. In addition, the function expects a [`clientState`](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/client_state.go):
 
  ```go
 // NewClientState creates a new ClientState instance
@@ -494,7 +494,7 @@ func NewClientState(
 
 ```
 
-`TrustLevel` in the `NewClientState` lets you set the security conditions. It determines, for example, how often the relayer will pass a header to the light client. Also it determines the portion of the validator set you want to have signing for the block confirmation.
+`TrustLevel` in the `NewClientState` lets you set the security conditions. It determines, for example, how often the relayer will pass a header to the light client. Also it determines the portion of the validator set you want to sign for the block confirmation.
 
 `CreateClient` additionally expects a [`consensusState`](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/consensus_state.go):
 
@@ -515,7 +515,7 @@ This is the code from the Tendermint client. The Tendermint client tracks the ti
 
 <HighlightBox type="info">
 
-If you want to see where `ConsensusState` is stored, take a look at the [Interchain Standard (ICS) 24](https://github.com/cosmos/ibc/tree/master/spec/core/ics-024-host-requirements), which describes the paths also for other keys to be stored and used by IBC.
+To see where `ConsensusState` is stored, look at the [Interchain Standard (ICS) 24](https://github.com/cosmos/ibc/tree/master/spec/core/ics-024-host-requirements), which also describes the paths for other keys to be stored and used by IBC.
 
 </HighlightBox>
 
@@ -550,7 +550,7 @@ func (proof MerkleProof) VerifyMembership(specs []*ics23.ProofSpec, root exporte
 }
 ```
 
-As mentioned before, you have different security guarantees for an update depending on the trust level you set. Take a look at [`CheckHeaderAndUpdateState`](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/update.go) and read through the comments. Notice that `consensusState` is not updated, instead another `consensusState` with a different height is stored on the chain:
+As mentioned before, there are different security guarantees for an update depending on the trust level you set. Look at [`CheckHeaderAndUpdateState`](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/update.go) and read through the comments. Note that `consensusState` is not updated, and instead another `consensusState` with a different height is stored on the chain:
 
 ```go
 func (cs ClientState) CheckHeaderAndUpdateState(
@@ -622,12 +622,11 @@ type Header struct {
 }
 ```
 
-Header defines the Tendermint client consensus `Header`. It encapsulates all the information necessary to update from a trusted Tendermint `ConsensusState`. The inclusion of `TrustedHeight` and `TrustedValidators` allows this update to process correctly, so long as the `ConsensusState` for the `TrustedHeight` exists, this removes race conditions among relayers.
+Header defines the Tendermint client consensus `Header`. It encapsulates all the information necessary to update from a trusted Tendermint `ConsensusState`. The inclusion of `TrustedHeight` and `TrustedValidators` allows this update to process correctly, provided that the `ConsensusState` for the `TrustedHeight` exists. This removes race conditions among relayers.
 
-The `SignedHeader` and `ValidatorSet` are the new untrusted update fields for the client. The `TrustedHeight` is the height of a stored `ConsensusState` on the client that will be used to verify the new untrusted
-header. The Trusted `ConsensusState` must be within the unbonding period of current time in order to correctly verify, and the `TrustedValidators` must hash to `TrustedConsensusState.NextValidatorsHash` since that is the last trusted validator set at the `TrustedHeight`.
+The `SignedHeader` and `ValidatorSet` are the new untrusted update fields for the client. The `TrustedHeight` is the height of a stored `ConsensusState` on the client that will be used to verify the new untrusted header. The Trusted `ConsensusState` must be within the unbonding period of current time in order to correctly verify, and the `TrustedValidators` must hash to `TrustedConsensusState.NextValidatorsHash` since that is the last trusted validator set at the `TrustedHeight`.
 
-The header is passed by the relayer to the light client. You can see that the the header is confirmed with:
+The header is passed by the relayer to the light client. The the header is confirmed with:
 
 ```go
   if err := checkValidity(&cs, trustedConsState, tmHeader, ctx.BlockTime()); err != nil {
@@ -635,7 +634,7 @@ The header is passed by the relayer to the light client. You can see that the th
   }
 ```
 
-So take a closer look to see the different verifications made in this call:
+Examine the different verifications made in this call:
 
 ```go
 // checkValidity checks if the Tendermint header is valid.
@@ -741,7 +740,7 @@ func (cs ClientState) VerifyPacketCommitment(
 }
 ```
 
-Now you can see how the [client is updated](https://github.com/cosmos/ibc-go/blob/main/modules/core/02-client/keeper/client.go):
+Now look at how the [client is updated](https://github.com/cosmos/ibc-go/blob/main/modules/core/02-client/keeper/client.go):
 
 ```go
 // UpdateClient updates the consensus state and the state root from a provided header.
