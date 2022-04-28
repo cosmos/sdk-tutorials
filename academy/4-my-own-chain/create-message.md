@@ -167,7 +167,7 @@ You can test this with:
 $ go test github.com/alice/checkers/x/checkers/keeper
 ```
 
-This convenient [`setupMsgServer`](https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/msg_server_test.go#L11-L14) function was created by Ignite CLI. To call this a _unit_ test is slight misnomer because the `msgServer` created uses a real context and keeper, although with a [memory database](https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/keeper_test.go#L22), not mocks.
+This convenient [`setupMsgServer`](https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/msg_server_test.go#L11-L14) function was created by Ignite CLI. To call this a _unit_ test is a slight misnomer because the `msgServer` created uses a real context and keeper, although with a [memory database](https://github.com/cosmos/b9-checkers-academy-draft/blob/eea2618/x/checkers/keeper/keeper_test.go#L22), not mocks.
 
 ## Next up
 
