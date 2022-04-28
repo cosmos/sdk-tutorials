@@ -32,7 +32,7 @@ message StoredGame {
 }
 ```
 
-To have Ignite CLI and Protobuf recompile this file, you can use:
+To have Ignite CLI and Protobuf recompile this file, use:
 
 ```sh
 $ ignite generate proto-go
