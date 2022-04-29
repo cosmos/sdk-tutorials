@@ -181,8 +181,8 @@ Do you have access to an existing chain?
 
 </ExpansionPanel>
 
-The most straightforward way to use IBC is to build a chain with the Cosmos SDK, which already includes the IBC module - as you can see when taking a look at the [IBC-Go repository](https://github.com/cosmos/ibc-go). The IBC module supports an out-of-the-box Tendermint light client. Other implementations are possible but may require further development of the necessary components, you can take a look at the [IBC website](https://ibcprotocol.org/implementations) to see which implementations are available in production or are being developed.
+The most straightforward way to use IBC is to build a chain with the Cosmos SDK, which already includes the IBC module - as you can see when examining the [IBC-Go repository](https://github.com/cosmos/ibc-go). The IBC module supports an out-of-the-box Tendermint light client. Other implementations are possible but may require further development of the necessary components; go to the [IBC website](https://ibcprotocol.org/implementations) to see which implementations are available in production or are being developed.
 
 ## Next up
 
-On your way to becoming a Cosmos SDK developer expert in IBC? In the next section, you can dive even deeper into IBC and discover information on how to develop with IBC.
+On your way to becoming a Cosmos SDK developer expert in IBC? In the next section, you can dive even deeper and discover information on how to develop with IBC.
