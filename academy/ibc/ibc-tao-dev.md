@@ -11,7 +11,10 @@ Now that you covered the introduction and have a better understanding of how dif
 
 ## Connections
 
-If you want to connect two blockchains with IBC, you will need to establish an IBC **connection**. Connections, established by a four-way handshake, are responsible for: 1) establishing the identity of the counterparty chain, and 2) preventing a malicious entity from forging incorrect information by pretending to be the counter party chain. IBC connections are established by on-chain ledger code and therefore do not require interaction with off-chain (trusted) third-party processes. 
+If you want to connect two blockchains with IBC, you will need to establish an IBC **connection**. Connections, established by a four-way handshake, are responsible for: 
+1. Establishing the identity of the counterparty chain. 
+2. Preventing a malicious entity from forging incorrect information by pretending to be the counter party chain. 
+IBC connections are established by on-chain ledger code and therefore do not require interaction with off-chain (trusted) third-party processes. 
 
 <HighlightBox type="info">
 
@@ -38,21 +41,21 @@ type Version struct {
 }
 ```
 
-Protocol versioning is important to establish, as different protocol versions may not be compatible due to, for example, proofs being stored on a different path. There are three types of protocol version negotiation:
+Protocol versioning is important to establish, as different protocol versions may not be compatible, for example due to proofs being stored on a different path. There are three types of protocol version negotiation:
 
-1. *Default, no selection* only one protocol version is supported, this is the default one to propose.
+1. *Default, no selection*: only one protocol version is supported. This is a default one to propose.
 
-2. *With selection* two protocol versions can be proposed, such that the chain initiating `OpenInit` or `OpenTry` has a choice of which version to go with.
+2. *With selection*: two protocol versions can be proposed, such that the chain initiating `OpenInit` or `OpenTry` has a choice of which version to go with.
 
-3. *Impossible communication* backwards incompatible IBC protocol version -- ie: if IBC module changes where it stores its proofs (proof paths), errors out. So far, there are no plans to upgrade to a backwards incompatible IBC protocol version.
+3. *Impossible communication*: a backwards incompatible IBC protocol version. For example, if an IBC module changes where it stores its proofs (proof paths), errors result. There are no plans to upgrade to a backwards incompatible IBC protocol version.
 
 </HighlightBox>
 
-As discussed above, the opening handshake protocol allows each chain to verify the identifier used to reference the connection on the other chain, enabling modules on each chain to reason about the reference of the other chain.
+As discussed previously, the opening handshake protocol allows each chain to verify the identifier used to reference the connection on the other chain, enabling modules on each chain to reason about the reference of the other chain.
 
 ![Connection state](/academy/ibc/images/connectionstate.png)
 
-With regards to the connection on the other side, the [connection protobufs](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/core/connection/v1/connection.proto) contain the `Counterparty` definition:
+With regards to the connection on the other side, the [connection protobufs](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/core/connection/v1/connection.proto) contains the `Counterparty` definition:
 
 ```
 // Counterparty defines the counterparty chain associated with a connection end.
@@ -70,10 +73,9 @@ message Counterparty {
 }
 ```
 
-In this definition, `connection-id` is used to as a key to map and retrieve connections associated with a certain client from the store. 
+In this definition, `connection-id` is used as a key to map and retrieve connections associated with a certain client from the store. 
 
 `prefix` is being used by the clients to construct merkle prefix paths which are then used to verify proofs.
-
 
 **Connection Handshakes and States**
 
