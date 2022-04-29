@@ -94,14 +94,16 @@ This list can be and will be extended with time. New concepts such as Interchain
 
 ## Security
 
-The permissionless nature of IBC as a generalized interoperability standard is, along with protocol extensibility, reliability and security without the need for trusted third parties, one of the most valuable discerning features of the protocol in comparison to standard bridge protocols. However, as it is permissionless to create IBC clients, connections and channels or to relay packets between chains, you may have wondered *“What about the security implications?”*. 
+Along with protocol extensibility, reliability, and security without the need for trusted third parties, the permissionless nature of IBC as a generalized interoperability standard is one of the most valuable discerning features of IBC in comparison to standard bridge protocols. However, as it is permissionless to create IBC clients, connections, and channels, or to relay packets between chains, you may have wondered: *What about the security implications?* 
 
-The design of IBC security is centered around **two main principles**: trust in the (consensus of) the chains you connect with and implementation of fault isolation mechanisms in order to limit the damage done should these chains be subjected to malicious behavior. 
+The design of IBC security is centered around **two main principles**: 
+- Trust in (the consensus of) the chains you connect with.
+- The implementation of fault isolation mechanisms, in order to limit any damage done should these chains be subject to malicious behavior. 
 
-Let’s take a look at the security considerations IBC implements:
+The security considerations which IBC implements are worth exploring:
 
 #### IBC Light clients
-Unlike many trusted bridge solutions, IBC does not depend on an intermediary  to verify the validity of cross-chain transactions. As explained above, the verification of the packet commitment proofs are provided by the light client. The light client is able to track and efficiently verify the state of the counterparty blockchain to check commitment proofs for the sending and receiving of packets on respectively the source and destination chains.
+Unlike many trusted bridge solutions, IBC does not depend on an intermediary  to verify the validity of cross-chain transactions. As explained previously, the verification of packet commitment proofs are provided by the light client. The light client is able to track and efficiently verify the state of the counterparty blockchain, to check commitment proofs for the sending and receiving of packets on the source and destination chains respectively.
 
 <HighlightBox type="info">
 
@@ -113,7 +115,9 @@ In IBC, blockchains do not directly pass messages to each other over the network
 
 </HighlightBox>
 
-This is important because it ensures the IBC protocol remains secure even in Byzantine environments where relayers would act in a malicious or faulty manner. We do not need to trust the relayers, but we trust the proof verification provided by the light client. In the worst case situation where all relayers are acting in a Byzantine fashion, the packets sent would get rejected because they do not have the correct proof. This would affect only the liveness, and not security, of the particular part of the Interchain network where the relayers are malicious. Note that this effect would only affect the network if all relayers were Byzantine. As relaying is permissionless, a simple fix would be to spin up a non-malicious relayer to relay packets with the correct proof. This fits the *security over liveness* philosophy IBC and the wider Interchain ecosystem adopt.
+This is important because it ensures the IBC protocol remains secure even in Byzantine environments where relayers could act in a malicious or faulty manner. We do not need to trust the relayers; instead, we trust the proof verification provided by the light client. In the worst case situation where all relayers are acting in a Byzantine fashion, the packets sent would get rejected because they do not have the correct proof. This would affect only the liveness, not the security, of the particular part of the Interchain network where the relayers are malicious. 
+
+Note that this effect would only affect the network if all relayers were Byzantine. As relaying is permissionless, a simple fix would be to spin up a non-malicious relayer to relay packets with the correct proof. This fits the *security over liveness* philosophy that IBC and the wider Interchain ecosystem adopts.
 
 #### Trust the chains, not the bridge 
 IBC clients and transactions assume the trust model of the chains they are connected to. In order to represent this accurately in assets which have been passed through the Interchain, we store the information of the path that an asset has traveled (the security guarantee of the asset) in the denomination of the asset itself. In the case that  the end user or an application does not trust a specific origin chain, they would be able to verify that their asset has not come from the untrusted chain simply by looking at the denomination of the asset, rather than referring to the validator set of a bridge or some other trusted third party verifier.
@@ -127,53 +131,53 @@ You can find more detailed information in the tutorial on [IBC denoms](https://t
 </HighlightBox>
 
 #### Submit misbehavior
-One type of Byzantine behavior that can happen on an IBC-enabled chain is when validators double-sign a block, meaning signing two different blocks at the same height. In that scenario we speak of a fork. Unlike in Proof-of-Work blockchains like Bitcoin or Ethereum, where forks are to be expected every so often, in Tendermint chains fast finality is desired (remember it’s a prerequisite for IBC) so they should not occur. There is the principle of [fork accountability](https://github.com/cosmos/cosmos/blob/master/WHITEPAPER.md#fork-accountability) where the processes that caused the consensus to fail can be identified and punished according to the rules of the protocol. If this were to happen though on a foreign chain, it would start a race for the light client of this compromised chain on counterparty chains to become aware of the fork. 
+One type of Byzantine behavior that can happen on an IBC-enabled chain is when validators double-sign a block - meaning they sign two different blocks at the same height. This scenario is called a fork. Unlike in Proof-of-Work blockchains (like Bitcoin or Ethereum) where forks are to be occasionally expected, in Tendermint the fast finality of chains is desired (and is a prerequisite for IBC) so forks should not occur. Through the principle of [fork accountability](https://github.com/cosmos/cosmos/blob/master/WHITEPAPER.md#fork-accountability) the processes that caused the consensus to fail can be identified and punished according to the rules of the protocol. However, if this were to happen on a foreign chain, it would start a race for the light client of this compromised chain on counterparty chains to become aware of the fork. 
 
-The IBC protocol provides the functionality to submit a proof of misbehavior, which could be provided by the relayers, upon which the light client will be frozen to avoid consequences as a result of the fork. The funds could later be recovered by unfreezing the light client via a governance proposal when the attack has been neutralized.The submit misbehavior functionality thus enables relayers to enhance security of IBC, even though they are intrinsically untrusted.
+The IBC protocol provides the functionality to submit a proof of misbehavior, which could be provided by the relayers, upon which the light client is frozen to avoid consequences as a result of the fork. The funds could later be recovered by unfreezing the light client via a governance proposal when the attack has been neutralized. The _submit misbehavior_ functionality thus enables relayers to enhance the security of IBC, even though the relayers themselves are intrinsically untrusted.
 
 #### Dynamic Capabilities
-IBC is intended to work in execution environments where modules do not necessarily trust each other. Thus, IBC must authenticate module actions on ports and channels so that only modules with the appropriate permissions can use them.This module authentication is accomplished using a dynamic capability store . Upon binding to a port or creating a channel for a module, IBC returns a dynamic capability that the module must claim in order to use that port or channel. The dynamic capability module prevents other modules from using that port or channel since they do not own the appropriate capability.
+IBC is intended to work in execution environments where modules do not necessarily trust each other. Thus, IBC must authenticate module actions on ports and channels so that only modules with the appropriate permissions can use them. This module authentication is accomplished using a dynamic capability store. Upon binding to a port or creating a channel for a module, IBC returns a dynamic capability that the module must claim in order to use that port or channel. The dynamic capability module prevents other modules from using that port or channel since they do not own the appropriate capability.
 
-It is worth mentioning that on top of the particular security considerations IBC takes, the security considerations of the Cosmos SDK and the application-specific chain model of the Cosmos white paper still hold. We refer to previous sections, but remember that while iteration on the modules may be slower than iteration on contracts, application-specific chains are exposed to significantly fewer attack vectors than smart contract setups deployed on-chain.. The chains would have to purposely adopt a malicious module by governance.
+It is worth mentioning that on top of the particular security considerations IBC takes, the security considerations of the Cosmos SDK and the application-specific chain model of the Cosmos white paper still hold. With reference to previous sections, remember that while iteration on the modules may be slower than iteration on contracts, application-specific chains are exposed to significantly fewer attack vectors than smart contract setups deployed on-chain. The chains would have to purposely adopt a malicious module by governance.
 
 ## Development Roadmap
 
-As mentioned before, even though IBC originated from the Cosmos stack, it allows for chains not built with the Cosmos SDK or even with a different consensus than Tendermint altogether to adopt IBC. However, depending on which chain you want to implement IBC for or build IBC applications on top of, it may require prior development to ensure that all the different components to get IBC to work are available for the consensus type and blockchain framework of your choice.
+As previously mentioned, even though IBC originated from the Cosmos stack it allows for chains not built with the Cosmos SDK to adopt IBC, or even those with a different consensus than Tendermint altogether. However, depending on which chain you want to implement IBC for or build IBC applications on top of, it may require prior development to ensure that all the different components needed for IBC to work are available for the consensus type and blockchain framework of your choice.
 
 Generally speaking, you'll need the following:
-1. An implementation of the IBC transport layer
-2. A light client implementation on your chain, to track the counterparty chain you want to connect to
+1. An implementation of the IBC transport layer.
+2. A light client implementation on your chain, to track the counterparty chain you want to connect to.
 3. A light client implementation for your consensus type, to be encorporated on the counterparty chain you want to connect to.
 
 <ExpansionPanel title="A roadmap towards an IBC-enabled chain">
           
-The following decision tree helps visualize the roadmap towards an IBC-enabled chain. **For simplicity, we assume here that we will connect to a Cosmos SDK chain.**
+The following decision tree helps visualize the roadmap towards an IBC-enabled chain. **For simplicity, it assumes the intent to connect to a Cosmos SDK chain.**
 
 Do you have access to an existing chain?
-- No. You will have to build a chain:
-  - Cosmos SDK chain: see [previous section](https://tutorials.cosmos.network/academy/4-my-own-chain/)
-  - Other chain. 
+- **No.** You will have to build a chain:
+  - Cosmos SDK chain: see [previous section](https://tutorials.cosmos.network/academy/4-my-own-chain/).
+  - Another chain. 
     - Is there a Tendermint light client implementation available for your chain?
-      - Yes. Continue
-      - No. Build custom Tendermint light client implementation
+      - Yes. Continue.
+      - No. Build a custom Tendermint light client implementation.
     - Is there a light client implementation for your chain’s consensus available in the SDK's IBC module?
-      - Yes. Continue
-      - No. Build a custom light client for your consensus to be used on a Cosmos SDK chain (with IBC module)
-    - Implement IBC core
-      - source code
-      - smart contract based
-- Yes. Is it a Cosmos SDK chain?
-  - Yes. Move on to application development
+      - Yes. Continue.
+      - No. Build a custom light client for your consensus to be used on a Cosmos SDK chain (with IBC module).
+    - Implement IBC core:
+      - Source code.
+      - Smart contract based.
+- **Yes.** Is it a Cosmos SDK chain?
+  - Yes. Move on to application development.
   - No. 
     - Does your chain support a Tendermint light client?
-      - Yes. Continue
-      - No. Tendermint light client implementation for your chain
+      - Yes. Continue.
+      - No. Source a Tendermint light client implementation for your chain.
     - Is there a Cosmos SDK light client implementation for your chain’s consensus?
-      - Yes. Continue
-      - No. Build  a custom light client implementation of your chain's consensus + governance proposal to implement it on the IBC clients of  the Cosmos SDK chains you want to connect to
+      - Yes. Continue.
+      - No. Build  a custom light client implementation of your chain's consensus + governance proposal to implement it on the IBC clients of  the Cosmos SDK chains you want to connect to.
     - Does your chain have a core IBC module available (connection, channels, ports)? Source code or smart contract based?
-      - Yes. Move on to application development
-      - No. Build IBC Core implementation (source code or smart contract)
+      - Yes. Move on to application development.
+      - No. Build IBC Core implementation (source code or smart contract).
 
 </ExpansionPanel>
 
