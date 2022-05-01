@@ -307,7 +307,7 @@ If you are curious, you can find the updated `gen_txs` field in your genesis.
 Now you can start your single-node blockchain:
 
 ```sh
-$ ./simd start
+$ ./simd start --mode validator
 
 6:23PM INF starting ABCI with Tendermint
 6:23PM INF Starting multiAppConn service impl=multiAppConn module=proxy
