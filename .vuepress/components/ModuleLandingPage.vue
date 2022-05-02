@@ -16,7 +16,7 @@
 
 		.modules(v-if="this.modules && this.modules[0].submodules && this.modules[0].submodules.length > 1")
 			h2 Course Modules
-			card-module(v-for="module in this.modules" :module="module" :main="$frontmatter.main").modules__item
+			card-module(v-for="module in this.modules" :module="module" :main="$frontmatter.main" :weekly="$frontmatter.weekly || false").modules__item
 		.resources__wrapper(v-if="$themeConfig.resources")
 			h3.resources__title Developer resources
 			.resources
@@ -234,7 +234,6 @@ export default {
 			let modules = null;
 
 			if (this.$frontmatter.modules) {
-				console.log(this.$frontmatter.modules)
 				modules = this.$frontmatter.modules;
 			} else {
 				const path = this.$page.path.split("/").filter(item => item !== "");
@@ -244,6 +243,8 @@ export default {
 					.sort((a, b) => a.frontmatter.order - b.frontmatter.order);
 				modules = Object.values(this.formatModules(submodules));
 			}
+
+			console.log(modules)
 			
 			return modules.sort((a, b) => a.number - b.number);
 		}
