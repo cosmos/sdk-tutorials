@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Bank - Send Tokens - with Keplr
 
-CosmJs allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJs to issue commands to the Theta dev net. Here, you will do the same but with a GUI and a Keplr flavor.
+CosmJs allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJs to issue commands to the Theta testnet. Here, you will do the same but with a GUI and a Keplr flavor.
 
 Optionally you can connect your locally-started Cosmos blockchain like `simd` and do the same.
 
@@ -208,7 +208,7 @@ Hopefully, when you click on the button it does not show an alert. It does not d
 
 ## Prepare Keplr
 
-Keplr is now detected. By default, Keplr lets its user connect only to the blockchains it knows about. Unfortunately Theta is not one of them, but there is a feature where you can instruct it to handle any Cosmos blockchain provided you give its parameters. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Theta these parameters have already been created, as mentioned on the [test net page](https://github.com/cosmos/testnets/tree/master/v7-theta#add-to-keplr-1). Add a new function for them as shown in the expandable box:
+Keplr is now detected. By default, Keplr lets its user connect only to the blockchains it knows about. Unfortunately Theta is not one of them, but there is a feature where you can instruct it to handle any Cosmos blockchain provided you give its parameters. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Theta these parameters have already been created, as mentioned on the [testnet page](https://github.com/cosmos/testnets/tree/master/v7-theta#add-to-keplr-1). Add a new function for them as shown in the expandable box:
 
 <ExpansionPanel title="getThetaChainInfo">
 
