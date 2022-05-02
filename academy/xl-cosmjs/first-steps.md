@@ -9,7 +9,7 @@ tag: deep-dive
 
 Now that you know what CosmJs is, you should take your first steps in using it. A basic feature of a Cosmos chain is the ability to send tokens via the `bank` module. CosmJs naturally offers functions to cover this facility. You are going to:
 
-1. Use an existing test net with a key of your own.
+1. Use an existing test network (testnet) with a key of your own.
 2. Run basic CosmJs commands in a CLI script.
 
 Additionally, you can choose to:
@@ -65,9 +65,9 @@ TODO
 
 You will soon make this script more meaningful. With the basic script ready, you need to prepare some elements.
 
-## Test net preparation
+## Testnet preparation
 
-The Cosmos ecosystem has a [number of test nets](https://github.com/cosmos/testnets), for example Cosmos Hub's Theta test net. In fact there are two Theta test nets: one targeted at [validators and application developers like you](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-public-testnet), the other at [Cosmos SDK developers](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-developer-testnet). Pick the former. Its parameters for this exercise are, for instance:
+The Cosmos ecosystem has a [number of testnets](https://github.com/cosmos/testnets), for example Cosmos Hub's Theta testnet. In fact there are two Theta testnets: one targeted at [validators and application developers like you](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-public-testnet), the other at [Cosmos SDK developers](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-developer-testnet). Pick the former. Its parameters for this exercise are, for instance:
 
 ```[https://github.com/cosmos/testnets/tree/master/v7-theta#endpoints-1]
 RPC: https://rpc.sentry-01.theta-testnet.polypore.xyz
@@ -166,7 +166,7 @@ console.log(
 Alice balances: []
 ```
 
-If you just created this account, Alice's balance is zero. Alice will need tokens to be able to send transactions. A common practice with test nets is to expose faucets (services that send you test tokens for free, within limits).
+If you just created this account, Alice's balance is zero. Alice will need tokens to be able to send transactions. A common practice with testnets is to expose faucets (services that send you test tokens for free, within limits).
 
 Cosmos' Theta has a dedicated [Discord channel](https://discord.com/channels/669268347736686612/953697793476821092/958291295741313024) where you can ask for tokens once per day _per Discord user_.
 
@@ -487,7 +487,7 @@ runAll()
 
 This concludes your first use of CosmJs.
 
-Note that you connected to a running test net. Therefore, you depended on someone else to have a blockchain running, and to open a publicly available RPC port and faucet. What if you wanted to try with your own blockchain?
+Note that you connected to a running testnet. Therefore, you depended on someone else to have a blockchain running, and to open a publicly available RPC port and faucet. What if you wanted to try with your own blockchain?
 
 ## With a locally started chain
 
