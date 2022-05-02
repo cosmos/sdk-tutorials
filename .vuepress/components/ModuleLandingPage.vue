@@ -231,14 +231,21 @@
 export default {
 	computed: {
 		modules() {
-			const path = this.$page.path.split("/").filter(item => item !== "");
-			const folderPath = this.$frontmatter.main ? path[0] : path[1];
-			const submodules = this.$site.pages
-				.filter(page => page.path.includes(folderPath) && (this.$frontmatter.main ? page.path != this.$page.path : true))
-				.sort((a, b) => a.frontmatter.order - b.frontmatter.order);
-			const modules = this.formatModules(submodules);
+			let modules = null;
+
+			if (this.$frontmatter.modules) {
+				console.log(this.$frontmatter.modules)
+				modules = this.$frontmatter.modules;
+			} else {
+				const path = this.$page.path.split("/").filter(item => item !== "");
+				const folderPath = this.$frontmatter.main ? path[0] : path[1];
+				const submodules = this.$site.pages
+					.filter(page => page.path.includes(folderPath) && (this.$frontmatter.main ? page.path != this.$page.path : true))
+					.sort((a, b) => a.frontmatter.order - b.frontmatter.order);
+				modules = Object.values(this.formatModules(submodules));
+			}
 			
-			return Object.values(modules).sort((a, b) => a.number - b.number);
+			return modules.sort((a, b) => a.number - b.number);
 		}
 	},
 	methods: {

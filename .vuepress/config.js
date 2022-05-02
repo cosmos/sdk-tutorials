@@ -301,6 +301,12 @@ module.exports = {
       }
     ],
     [
+      "vuepress-plugin-google-tag-manager",
+      {
+        gtm: "UA-51029217-2",
+      }
+    ],
+    [
       "@vuepress/medium-zoom", 
       {
         selector: ".layout__main__content :not(a) > img:not(.no-zoom)",
