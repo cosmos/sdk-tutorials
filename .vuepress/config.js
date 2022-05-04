@@ -119,7 +119,7 @@ module.exports = {
               order: 1
             },
             {
-              title: "Week 1",
+              title: "Week 1 - What is Cosmos & Main Concepts",
               directory: true,
               order: 2,
               children: [
@@ -202,7 +202,7 @@ module.exports = {
               ]
             },
             {
-              title: "Week 2",
+              title: "Week 2 - My own Cosmos Chain",
               directory: true,
               order: 3,
               children: [
@@ -249,7 +249,7 @@ module.exports = {
               ]
             },
             {
-              title: "Week 3",
+              title: "Week 3 - My Own Cosmos Chain - Advanced, what makes a chain interesting",
               directory: true,
               order: 4,
               children: [
@@ -283,7 +283,7 @@ module.exports = {
                 },
                 {
                   title: "Query - Help Find a Correct Move",
-                  path: "/academy/2-main-concepts/bridges.html"
+                  path: "/academy/4-my-own-chain/can-play.html"
                 },
                 {
                   title: "IBC Token - Play With Cross-Chain Tokens",
@@ -300,7 +300,7 @@ module.exports = {
               ]
             },
             {
-              title: "Week 4",
+              title: "Week 4 - IBC",
               directory: true,
               order: 5,
               children: [
@@ -327,7 +327,7 @@ module.exports = {
               ]
             },
             {
-              title: "Week 5",
+              title: "Week 5 - CosmJS & My Own CosmJS Chain",
               directory: true,
               order: 6,
               children: [
@@ -366,7 +366,7 @@ module.exports = {
               ]
             },
             {
-              title: "Week 6",
+              title: "Week 6 - CosmJS for My Own Chain: GUI and backend script",
               directory: true,
               order: 7,
               children: [
