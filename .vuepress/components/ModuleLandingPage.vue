@@ -169,10 +169,11 @@
 							height 10px
 
 			&__overview
-				margin-top 96px
+				margin-top 96p
 				display flex
 
 				&__title
+					margin-right 16px
 					width 50%
 
 				&__content
@@ -208,6 +209,7 @@
 
 					&__title
 						width 100%
+						margin-right 0
 
 					&__content
 						width 100%
