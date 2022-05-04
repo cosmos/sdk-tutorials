@@ -9,33 +9,33 @@ tag: deep-dive
 
 [Hermes](https://hermes.informal.systems/) is a an open-source Rust implementation of a relayer for the Inter-Blockchain Communication Protocol (IBC). 
 
-Clone the [Hermes repository](https://github.com/informalsystems/ibc-rs) in a new folder. It contains a folder for [end-to-end (E2E) testing](https://github.com/informalsystems/ibc-rs/tree/master/ci). It helps you deploy two chains and test the relayer. It also contains a Docker Compose file, which spins up two blockchain nodes and a relayer. 
+Clone the [Hermes repository](https://github.com/informalsystems/ibc-rs) in a new folder. It contains a folder for [end-to-end (E2E) testing](https://github.com/informalsystems/ibc-rs/tree/master/ci). This helps you deploy two chains and test the relayer. It also contains a Docker Compose file, which spins up two blockchain nodes and a relayer. 
 
-Make sure that you installed [Docker Compose](https://docs.docker.com/compose/install/) and [Docker](https://docs.docker.com/get-docker/) before continuing.
+Make sure that you have installed [Docker Compose](https://docs.docker.com/compose/install/) and [Docker](https://docs.docker.com/get-docker/) before continuing.
 
 ## E2E Testing
 
-The test needs you to build the Docker images from the Docker files. The Docker images run a Linux on **x86_64**. You can build Hermes with [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) from the repository for the target `x86_64-unknown-linux-gnu` or you can [download](https://github.com/informalsystems/ibc-rs/releases) a release version into the repository folder.
+The test needs you to build the Docker images from the Docker files. The Docker images run a Linux on **x86_64**. You can build Hermes with [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) from the repository for the target `x86_64-unknown-linux-gnu`, or you can [download](https://github.com/informalsystems/ibc-rs/releases) a release version into the repository folder.
 
-After you cloned the repository and downloaded a release version of Hermes for x86_64, go into the folder and run:
+After you clone the repository and download a release version of Hermes for x86_64, go into the folder and run:
 
 ```bash
 $ docker-compose -f ci/docker-compose-gaia-current.yml build relayer
 ```
 
-to build the relayer docker image. Start the Docker Compose network with two chains and a relayer:
+This builds the relayer docker image. Start the Docker Compose network with two chains and a relayer:
 
 ```bash
 $ docker-compose -f ci/docker-compose-gaia-current.yml up -d ibc-0 ibc-1 relayer
 ```
 
-Check with:
+Check that everything went right with:
 
 ```bash
 $ docker exec relayer /bin/sh -c /relayer/e2e.sh
 ```
 
-if everything went right. The [`e2e.sh`](https://github.com/informalsystems/ibc-rs/blob/master/ci/e2e.sh) uses [`run.py`](https://github.com/informalsystems/ibc-rs/blob/master/e2e/run.py) to automatically run a couple of tests.
+The [`e2e.sh`](https://github.com/informalsystems/ibc-rs/blob/master/ci/e2e.sh) uses [`run.py`](https://github.com/informalsystems/ibc-rs/blob/master/e2e/run.py) to automatically run a couple of tests.
 
 ## Hermes CLI
 
@@ -99,7 +99,7 @@ Check the default configuration:
 In the `simple_config.toml`, you can find the configuration for two chains, **ibc-0** and **ibc-1**.
 
 <Highlight type="tip">
-Check the [Hermes documantion](https://hermes.informal.systems/config.html) and the [sample configuration](https://hermes.informal.systems/example-config.html) for more information on configuration.
+See the [Hermes documantion](https://hermes.informal.systems/config.html) and the [sample configuration](https://hermes.informal.systems/example-config.html) for more information on configuration.
 
 </Highlight>
 
@@ -109,7 +109,7 @@ Do a validation check on the configuration file:
 # hermes -c simple_config.toml config validate
 ```
 
-And do a health check:
+Next do a health check:
 
 ```bash
 # hermes -c simple_config.toml health-check 
@@ -123,7 +123,7 @@ To query the clients for the chain **ibc-0**, run:
 # hermes -c simple_config.toml query clients ibc-0
 ```
 
-You can see that there is one Tendermint client for the chain **ibc-1**.
+There should be one Tendermint client for the chain **ibc-1**.
 
 Query the connections for **ibc-0**:
 
@@ -131,7 +131,7 @@ Query the connections for **ibc-0**:
 # hermes -c simple_config.toml query connections ibc-0
 ```
 
-You can see two connections, both are established between **ibc-0** and **ibc-1**.
+There should be two connections, both established between **ibc-0** and **ibc-1**.
 
 Query the channels for **ibc-0**:
 
@@ -139,7 +139,7 @@ Query the channels for **ibc-0**:
 # hermes -c simple_config.toml query connections ibc-0
 ```
 
-You can see two channels and the port binding transfer. All this is part of the E2E testing and you can redo some steps in attempt to better understand the CLI.
+You should see two channels and the port binding transfer. All this is part of the E2E testing. You can redo some steps to better understand the CLI.
 
 Just create another connection for the both chains:
 
@@ -147,47 +147,44 @@ Just create another connection for the both chains:
 # hermes -c simple_config.toml create connection ibc-0 ibc-1
 ```
 
-In the output of this command, you receive the `connection_id`s for both chains. Use the `connection_id` for the **ibc-0** chain and create a channel:
+In the output of this command you receive the `connection_id`s for both chains. Use the `connection_id` for the **ibc-0** chain and create a channel:
 
 ```bash
 # hermes -c simple_config.toml create channel --port-a transfer --port-b transfer ibc-0 connection-2
 ```
 
-Above you go again with the port binding `transfer`. Check again with:
+This repeats the port binding `transfer`. Check that the channel is created again with:
 
 ```bash
 # hermes -c simple_config.toml query channels ibc-0
 ```
 
-that the channel is created. 
-
-The E2E testing will allready create some accounts for the tests. Get the user addresses for both chains with:
+The E2E testing will have already created some accounts for the tests. Get the user addresses for both chains with:
 
 ```bash
 # hermes -c simple_config.toml keys list ibc-0
 ```
 
-and
+And now:
 
 ```bash
 # hermes -c simple_config.toml keys list ibc-1
 ```
 
-You can see in the `simple_confing.toml`, that the default user key is set to `testkey`.
+In the `simple_confing.toml` the default user key is set to `testkey`.
 
-Now check the balance of those accounts on the chain **ibc-0** with:
+Now check the balance of those accounts on the chain **ibc-0**. Replace the `$testkey` with the addresses you get in your test:
 
 ```bash
 $ docker exec ibc-0 gaiad query bank balances $testkey
 ```
 
-where you will replace the `$testkey` with the addresses you get in your test. 
-Do the same check again for **ibc-1** with the corresponding address. 
+Repeat this check for **ibc-1** with the corresponding address. 
 
-You will see that those accounts keep some **samoleans**. Do a transfer and use the channel that was created:
+You will see that these accounts keep some **samoleans**. Do a transfer and use the channel that was created:
 
 ```bash
 # hermes -c simple_config.toml tx raw ft-transfer ibc-1 ibc-0 transfer channel-2 1 --timeout-height-offset 1000
 ```
 
-You can specify the sender with a `-k` flag and the receiver on the other chain with a `-r` flag, by default `testkey` is used. 
+Specify the sender with a `-k` flag, and the receiver on the other chain with a `-r` flag. By default `testkey` is used. 
