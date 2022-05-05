@@ -38,7 +38,7 @@ This specific `index.ts` example makes use of the CosmJs client for CosmWasm. Ho
 ...
 ```
 
-In the same `.ts` file add a `runAll` function as follows:
+In `experiment.ts` file add a `runAll` function as follows:
 
 ```typescript
 const runAll = async(): Promise<void> => {
@@ -86,7 +86,7 @@ DirectSecp256k1HdWallet.generate(24)
     .then(accounts => console.error("Mnemonic with 1st account:", accounts[0].address))
 ```
 
-Now create your key:
+Now create a key for our imaginary user "Alice":
 
 ```sh
 $ npx ts-node generate_mnemonic.ts > theta.alice.mnemonic.key
@@ -114,7 +114,7 @@ Keep this address for convenience, although CosmJs can always recalculate it fro
 
 ## Add your imports
 
-You need a small, simple interface to a blockchain, one which could eventually have users. Good practice is to refrain from requesting a user address until necessary (e.g. when a user clicks a relevant button). Therefore, in `experiment.ts` you will first use the read-only client. Import it:
+You need a small, simple interface to a blockchain, one which could eventually have users. Good practice is to refrain from requesting a user address until necessary (e.g. when a user clicks a relevant button). Therefore, in `experiment.ts` you will first use the read-only client. Import it at the top of the file:
 
 ```typescript
 import { StargateClient } from "@cosmjs/stargate"
@@ -168,19 +168,19 @@ Alice balances: []
 
 If you just created this account, Alice's balance is zero. Alice will need tokens to be able to send transactions. A common practice with testnets is to expose faucets (services that send you test tokens for free, within limits).
 
-Cosmos' Theta has a dedicated [Discord channel](https://discord.com/channels/669268347736686612/953697793476821092/958291295741313024) where you can ask for tokens once per day _per Discord user_.
+The Cosmos Hub testnet has a dedicated [Discord channel](https://discord.com/channels/669268347736686612/953697793476821092/958291295741313024) where you can ask for tokens once per day _per Discord user_.
 
-Go to the faucet channel and get tokens for Alice:
-
-```
-$request cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf theta
-```
-
-The faucet bot replies with a transaction hash, alone or embedded in a block explorer URL:
+Go to the faucet channel and request tokens for Alice by entering this command in the channel:
 
 ```
-✅ Hash ID: 540484BDD342702F196F84C2FD42D63FA77F74B26A8D7383FAA5AB46E4114A9B
-//Or
+$ request [Alice's address] theta
+# For instance:
+$ request cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf theta
+```
+
+The faucet bot replies with a link to the transaction from the block explorer:
+
+```
 ✅  https://testnet.cosmos.bigdipper.live/transactions/540484BDD342702F196F84C2FD42D63FA77F74B26A8D7383FAA5AB46E4114A9B
 ```
 
@@ -194,9 +194,9 @@ That's 10 ATOM. After this confirmation you can comment out the balance query.
 
 ## Get the faucet address
 
-As an exercise you want Alice to send some tokens back to the faucet, so you will need its address. You can request this from the faucet bot, but it is also possible to get it using the transaction hash.
+As an exercise you want Alice to send some tokens back to the faucet, so you will need its address. You can request this from the faucet bot, but it is also possible to get it using the transaction hash in `experiment.ts`.
 
-First you need to get the transaction:
+First you need to get the transaction. Make sure you replace the hash with the one you received from the faucet bot.
 
 ```typescript
 const faucetTx: IndexedTx = (await client.getTx(
@@ -204,7 +204,7 @@ const faucetTx: IndexedTx = (await client.getTx(
 ))!
 ```
 
-Here you see that there is a serialized `faucetTx.tx`. Use the methods offered by `cosmjs-types` [`Tx`](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/tx/v1beta1/tx.ts#L230) to deserialize it:
+Here you see that there is a serialized `faucetTx.tx`. The serialized transaction are the bytes that were sent over the testnet by the faucet. It is unintelligible to humans until you deserialize it properly. Since it is a serialized transaction, use the methods offered by `cosmjs-types` [`Tx`](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/tx/v1beta1/tx.ts#L230) to deserialize it:
 
 ```typescript
 // import { Tx } from "cosmjs-types/cosmos/tx/v1beta1/tx"
@@ -226,16 +226,17 @@ In this message, the `fromAddress` is the faucet:
 const faucet = sendMessage.fromAddress
 ```
 
-You can also add a line to view the faucet's balances. When running, you should get:
+Similar to how you got the balance for Alice, you can get the faucet's balance as well. Have a go at trying this yourself by copying the code to print Alice's balances. When running, you should get:
 
 ```
-Faucet: cosmos15aptdqmm7ddgtcrjvc5hs988rlrkze40l4q0he
 Faucet balances: [ { denom: 'uatom', amount: '867777337235' } ]
 ```
 
-<ExpansionPanel title="Get the faucet address another way">
+<ExpansionPanel title="Getting the faucet address another way">
 
-If you want to experiment more, you can parse the `rawLog` (an _output_ of the computation) as opposed to deserializing the transaction proper (the _input_ of the computation).
+Instead of using the `decode` functions that come with the `Tx` and `MsgSend` imports, you're able to process the data yourself via alternative means. If you'd like to experiment more, you can parse the `rawLog` as opposed to deserializing the transaction as suggested above.
+
+Note the conceptual difference between`Tx` and the `rawLog`. The `Tx`, or `MsgSend`, object is an input to the computation that takes place when the transaction is included in a block. The `rawLog` is a resultant output of said computation.
 
 From the `IndexedTx` you see that there is a [`rawLog`](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/stargateclient.ts#L64), which happens to be a stringified JSON.
 
@@ -268,7 +269,7 @@ The structure of the raw log is not always obvious, but in this example it conta
 ]
 ```
 
-Therefore your faucet address is:
+Because this is a JSON file, you're able to fetch the faucet's address as follows:
 
 ```typescript
 const faucet = rawLog[0].events[1].attributes[0].value
@@ -282,13 +283,19 @@ Now it is time for Alice to send some tokens back to the faucet.
 
 ## Prepare a signing client
 
-Alice cannot send tokens with the read-only `StargateClient`. She needs a _signing client_ that lets her sign transactions. Update your import line:
+If you go through `StargateClient`'s methods, you see that it has only query-type methods. None about sending transactions.
+
+Now, for Alice to send transactions, she needs to be able to sign them. And to be able to sign transactions, she needs access to _keys_ or _mnemonics_. Or rather she needs a client that has access to those. That is where `SigningStargateClient` comes in. Conveniently, `SigningStargateClient` inherits from `StargateClient`.
+
+Update your import line:
 
 ```typescript
 import { IndexedTx, SigningStargateClient, StargateClient } from "@cosmjs/stargate"
 ```
 
-VSCode's auto-complete can assist you again. When you instantiate this new client, you need to pass it a **signer**, implementing the `OfflineDirectSigner` interface. The signer needs access to Alice's **private key**, and there are several ways to accomplish this. In this example, you will use Alice's saved mnemonic.
+VSCode's auto-complete can assist you again with this `import` line, by clicking <kbd>CTRL-SPACE</kbd> between `{` and `}`. To see its declaration, you can then right-click on the name and choose <kbd>Go to Definition</kbd>. In particular the `connectWithSigner` method is informative.
+
+When you instantiate `SigningStargateClient`, you need to pass it a **signer**, implementing the `OfflineDirectSigner` interface. The signer needs access to Alice's **private key**, and there are several ways to accomplish this. In this example, you will use Alice's saved **mnemonic**.
 
 Load the mnemonic as text in your code with this import:
 
@@ -296,7 +303,7 @@ Load the mnemonic as text in your code with this import:
 import { readFile } from "fs/promises"
 ```
 
-There are several implementation of `OfflineDirectSigner` available. Right-click on `OfflineDirectSigner` in VSCode and select <kbd>Find All Implementations</kbd>: `DirectSecp256k1HdWallet` is the most appropriate for this situation. Add the import:
+There are several implementations of `OfflineDirectSigner` available. Right-click on `OfflineDirectSigner` in VSCode and select <kbd>Find All Implementations</kbd>: `DirectSecp256k1HdWallet`, with its `fromMnemonic` method, is the most appropriate for this situation. Add the import:
 
 ```typescript
 import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing"
@@ -315,14 +322,14 @@ const getAliceSignerFromMnemonic = async(): Promise<OfflineDirectSigner> => {
 }
 ```
 
-Theta uses the `cosmos` address prefix. This is the default used by `DirectSecp256k1HdWallet`, and you can also mention it as shown. Now you can add in `runAll`:
+Theta uses the `cosmos` address prefix. This is the default used by `DirectSecp256k1HdWallet`, but you are encouraged to explicitly define it as you might be working with different prefixes on different blockchains. Now you can add in `runAll`:
 
 ```typescript
 const aliceSigner: OfflineDirectSigner = await getAliceSignerFromMnemonic()
 const signingClient = await SigningStargateClient.connectWithSigner(rpc, aliceSigner)
 ```
 
-Check that it works like the read-only client, from which [it inherits](https://github.com/cosmos/cosmjs/blob/0f0c9d8a754cbf01e17acf51d3f2dbdeaae60757/packages/stargate/src/signingstargateclient.ts#L147), by adding:
+Check that it works like the read-only client that you used earlier, and from which [it inherits](https://github.com/cosmos/cosmjs/blob/0f0c9d8a754cbf01e17acf51d3f2dbdeaae60757/packages/stargate/src/signingstargateclient.ts#L147), by adding:
 
 ```typescript
 console.log("chain id:", await signingClient.getChainId(), ", height:", await signingClient.getHeight())
@@ -502,9 +509,9 @@ $ ./build/simd start
 ...
 ```
 
-This is the port to which you connect CosmJs.
+Port `26657` is the default port for RPC endpoints built with the SDK, unless otherwise configured in `~/.simapp/config/config.toml`. `127.0.0.1:26657` will be the URL you'll need to add to your script later.
 
-## Prepare for `simd`
+## Preparing your keys
 
 You can reuse your `experiment.ts` script, with some adjustments. Although you have Alice's address, you may not have her mnemonic or private key. The private key is stored in your operating system's keyring backend. For the purpose of this exercise you can extract it, but generally this is an unsafe operation:
 
@@ -541,7 +548,7 @@ const rpc = "http://127.0.0.1:26657"
 const faucet = "cosmos1umpxwaezmad426nt7dx3xzv5u0u7wjc0kj7ple"
 ```
 
-Next, add a function to create Alice's signer. In VSCode, right-click on `OfflineDirectSigner` again and select <kbd>Find All Implementations</kbd>: `DirectSecp256k1Wallet` is the more appropriate choice this time.
+Next, add a function to create Alice's signer. In VSCode, right-click on `OfflineDirectSigner` again and select <kbd>Find All Implementations</kbd>: `DirectSecp256k1Wallet`, with it `fromKey` method, is the more appropriate choice this time.
 
 Add the import:
 
@@ -566,7 +573,7 @@ const getAliceSignerFromPriKey = async(): Promise<OfflineDirectSigner> => {
 }
 ```
 
-The address prefix is `"cosmos"`, as can be seen in Alice's address. Insert it to replace `getAliceSignerFromMnemonic`. Also change the token unit from `uatom` to `stake`. Experiment with adjusting the values as desired. Run it and confirm the output is as expected.
+The address prefix is `"cosmos"`, as can be seen in Alice's address. Insert it to replace `getAliceSignerFromMnemonic`. Also change the token unit from `uatom` to `stake`, because this is the default token when using `simapp`. Experiment with adjusting the values as desired. Run it and confirm the output is as expected.
 
 <ExpansionPanel title="The updated experiment.ts file">
 

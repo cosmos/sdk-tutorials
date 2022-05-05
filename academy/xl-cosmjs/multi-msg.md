@@ -64,7 +64,7 @@ const result = await signingClient.sendTokens(
 </CodeGroupItem>
 </CodeGroup>
 
-However, there are limitations. First, Alice **can only target a single recipient per transaction**. If she wants to send tokens to multiple recipients, then she needs to create as many transactions as there are recipients. Multiple transactions cost slightly more than packing transfers into the array because of transaction overhead. 
+However, there are limitations. First, Alice **can only target a single recipient per transaction**. If she wants to send tokens to multiple recipients, then she needs to create as many transactions as there are recipients. Multiple transactions cost slightly more than packing transfers into the array because of transaction overhead. Additionally, in some cases it can be considered a bad user experience to make users sign multiple transactions.
 
 The second limitation is that **separate transfers are not atomic**. It's possible that Alice wants to send tokens to two recipients and it's important that either they both receive them or neither of them receive anything.
 
