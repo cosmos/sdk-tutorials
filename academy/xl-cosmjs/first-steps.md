@@ -67,13 +67,13 @@ You will soon make this script more meaningful. With the basic script ready, you
 
 ## Testnet preparation
 
-The Cosmos ecosystem has a [number of testnets](https://github.com/cosmos/testnets), for example Cosmos Hub's Theta testnet. In fact there are two Theta testnets: one targeted at [validators and application developers like you](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-public-testnet), the other at [Cosmos SDK developers](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-developer-testnet). Pick the former. Its parameters for this exercise are, for instance:
+The Cosmos ecosystem has a [number of testnets](https://github.com/cosmos/testnets), for example the Cosmos Hub's Testnet, named Theta at the time of writing. In fact there are two Cosmos Hub testnets: one targeted at [validators and application developers like you](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-public-testnet), the other at [Cosmos SDK developers](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-developer-testnet). Pick the former. Its parameters for this exercise are, for instance:
 
 ```[https://github.com/cosmos/testnets/tree/master/v7-theta#endpoints-1]
 RPC: https://rpc.sentry-01.theta-testnet.polypore.xyz
 ```
 
-If you don't have a Theta account yet, you must create your 24-word mnemonic. If you already have a preferred method for creating your mnemonic, use that; otherwise CosmJS can generate a new one. In the latter case, create a new file `generate_mnemonic.ts`:
+If you don't have a testnet account yet, you must create your 24-word mnemonic. If you already have a preferred method for creating your mnemonic, use that; otherwise CosmJS can generate a new one. In the latter case, create a new file `generate_mnemonic.ts`:
 
 ```typescript
 import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing"
@@ -89,7 +89,7 @@ DirectSecp256k1HdWallet.generate(24)
 Now create a key for our imaginary user "Alice":
 
 ```sh
-$ npx ts-node generate_mnemonic.ts > theta.alice.mnemonic.key
+$ npx ts-node generate_mnemonic.ts > testnet.alice.mnemonic.key
 ```
 
 When done, it should also tell you the address of the first account:
@@ -314,7 +314,7 @@ The `fromMnemonic` factory function needs a string. Create a new function that r
 ```typescript
 const getAliceSignerFromMnemonic = async(): Promise<OfflineDirectSigner> => {
     return DirectSecp256k1HdWallet.fromMnemonic(
-        (await readFile("./theta.alice.mnemonic.key")).toString(),
+        (await readFile("./testnet.alice.mnemonic.key")).toString(),
         {
             prefix: "cosmos",
         }
@@ -322,7 +322,7 @@ const getAliceSignerFromMnemonic = async(): Promise<OfflineDirectSigner> => {
 }
 ```
 
-Theta uses the `cosmos` address prefix. This is the default used by `DirectSecp256k1HdWallet`, but you are encouraged to explicitly define it as you might be working with different prefixes on different blockchains. Now you can add in `runAll`:
+The Cosmos Hub Testnet uses the `cosmos` address prefix. This is the default used by `DirectSecp256k1HdWallet`, but you are encouraged to explicitly define it as you might be working with different prefixes on different blockchains. Now you can add in `runAll`:
 
 ```typescript
 const aliceSigner: OfflineDirectSigner = await getAliceSignerFromMnemonic()
@@ -423,7 +423,7 @@ const rpc = "https://rpc.sentry-01.theta-testnet.polypore.xyz"
 
 const getAliceSignerFromMnemonic = async (): Promise<OfflineDirectSigner> => {
     return DirectSecp256k1HdWallet.fromMnemonic(
-        (await readFile("./theta.alice.mnemonic.key")).toString(),
+        (await readFile("./testnet.alice.mnemonic.key")).toString(),
         {
             prefix: "cosmos",
         },

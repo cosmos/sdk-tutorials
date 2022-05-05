@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Bank - Send Tokens - with Keplr
 
-CosmJS allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJS to issue commands to the Theta testnet. Here, you will do the same but with a GUI and a Keplr flavor.
+CosmJS allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJS to issue commands to the Cosmos Hub Testnet. Here, you will do the same but with a GUI and a Keplr flavor.
 
 Optionally you can connect your locally-started Cosmos blockchain like `simd` and do the same.
 
@@ -172,7 +172,7 @@ Now, add elements that will handle your user's information.
 
 ## Get test tokens
 
-Refer to the previous section on how to [get Theta tokens](./first-steps.md). This time, you use your Keplr address. It is the same one that Keplr shows you for Cosmos Hub.
+Refer to the previous section on how to [get Cosmos Hub Testnet tokens](./first-steps.md). This time, you use your Keplr address. It is the same one that Keplr shows you for Cosmos Hub.
 
 ## Detect Keplr
 
@@ -208,12 +208,12 @@ Hopefully, when you click on the button it does not show an alert. It does not d
 
 ## Prepare Keplr
 
-Keplr is now detected. By default, Keplr lets its user connect only to the blockchains it knows about. Unfortunately Theta is not one of them, but there is a feature where you can instruct it to handle any Cosmos blockchain provided you give its parameters. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Theta these parameters have already been created, as mentioned on the [testnet page](https://github.com/cosmos/testnets/tree/master/v7-theta#add-to-keplr-1). Add a new function for them as shown in the expandable box:
+Keplr is now detected. By default, Keplr lets its user connect only to the blockchains it knows about. Unfortunately Cosmos Hub Testnet is not one of them, but there is a feature where you can instruct it to handle any Cosmos blockchain provided you give its parameters. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Cosmos Hub Testnet these parameters have already been created, as mentioned on the [testnet page](https://github.com/cosmos/testnets/tree/master/v7-theta#add-to-keplr-1). Add a new function for them as shown in the expandable box:
 
-<ExpansionPanel title="getThetaChainInfo">
+<ExpansionPanel title="getTestnetChainInfo">
 
 ```typescript
-getThetaChainInfo = (): ChainInfo => ({
+getTestnetChainInfo = (): ChainInfo => ({
     chainId: "theta-testnet-001",
     chainName: "theta-testnet-001",
     rpc: "https://rpc.sentry-01.theta-testnet.polypore.xyz/",
@@ -283,10 +283,10 @@ getThetaChainInfo = (): ChainInfo => ({
 
 </ExpansionPanel>
 
-Note that it mentions the `chainId: "theta-testnet-001"`. In effect, this adds Theta to Keplr's registry of blockchains, under the label `theta-testnet-001`. Whenever you need to tell Keplr about Theta, add the line:
+Note that it mentions the `chainId: "theta-testnet-001"`. In effect, this adds Cosmos Hub Testnet to Keplr's registry of blockchains, under the label `theta-testnet-001`. Whenever you need to tell Keplr about Cosmos Hub Testnet, add the line:
 
 ```typescript
-await window.keplr!.experimentalSuggestChain(this.getThetaChainInfo())
+await window.keplr!.experimentalSuggestChain(this.getTestnetChainInfo())
 ```
 
 This needs to be done once, but repeating the line is not problematic.
@@ -311,7 +311,7 @@ onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
     ...
     const { denom, toSend } = this.state
     const { faucetAddress, rpcUrl } = this.props
-    await keplr.experimentalSuggestChain(this.getThetaChainInfo())
+    await keplr.experimentalSuggestChain(this.getTestnetChainInfo())
     const offlineSigner: OfflineSigner =
         window.getOfflineSigner!("theta-testnet-001")
     const signingClient = await SigningStargateClient.connectWithSigner(
@@ -358,8 +358,8 @@ These functions could be better delineated, but this big function does the job i
 
 Now run it. In the refreshed page, enter an amount of `uatom` (for example `1000000`) and click <kbd>Send to faucet</kbd>. The chain of events is launched:
 
-1. Keplr asks for confirmation that you agree to add the Theta network. It will not install any network without your approval, as that would be a security risk. It asks this only the first time you add a given network, which is why doing it in `onSendClicked` is harmless.
-    ![Keplr asking for permission to add Theta network](/keplr_theta_addition.png)
+1. Keplr asks for confirmation that you agree to add the Testnet network. It will not install any network without your approval, as that would be a security risk. It asks this only the first time you add a given network, which is why doing it in `onSendClicked` is harmless.
+    ![Keplr asking for permission to add Testnet network](/keplr_testnet_addition.png)
 2. Keplr asks whether you agree to share your account information, because this involves a potential security risk. Again, it asks this only once per web page + network combination.
     ![Keplr asking for permission to share your account information](/keplr_share_account.png)
 3. Your address and balance fields are updated and visible.
@@ -441,7 +441,7 @@ export class FaucetSender extends Component<
         }
         const { denom, toSend } = this.state
         const { faucetAddress, rpcUrl } = this.props
-        await keplr.experimentalSuggestChain(this.getThetaChainInfo())
+        await keplr.experimentalSuggestChain(this.getTestnetChainInfo())
         const offlineSigner: OfflineSigner =
             window.getOfflineSigner!("theta-testnet-001")
         const signingClient = await SigningStargateClient.connectWithSigner(
@@ -478,7 +478,7 @@ export class FaucetSender extends Component<
         })
     }
 
-    getThetaChainInfo = (): ChainInfo => ({
+    getTestnetChainInfo = (): ChainInfo => ({
         chainId: "theta-testnet-001",
         chainName: "theta-testnet-001",
         rpc: "https://rpc.sentry-01.theta-testnet.polypore.xyz/",
@@ -587,7 +587,7 @@ export class FaucetSender extends Component<
 
 What if you wanted to experiment with your own chain while in development?
 
-Keplr does not know about locally running chains by default. As you did with Theta, you must inform Keplr about your chain: change `ChainInfo` to match the information about your chain, and change `rpcUrl` so that it points to your local port.
+Keplr does not know about locally running chains by default. As you did with Cosmos Hub Testnet, you must inform Keplr about your chain: change `ChainInfo` to match the information about your chain, and change `rpcUrl` so that it points to your local port.
 
 ## Conclusion
 
