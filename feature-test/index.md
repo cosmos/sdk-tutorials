@@ -1,6 +1,7 @@
 ---
 order: 1
 description: Test our features
+divider: true
 ---
 
 # Feature test
@@ -282,3 +283,39 @@ children: [
     external: true,
   },
 ```
+
+## Panel list
+
+<PanelListItem number="1">
+  First step
+  ```
+  npm i
+  ```
+</PanelListItem>
+
+<PanelListItem number="2" :last="true">
+  Second step
+  ```
+  npm run dev
+  ```
+</PanelListItem>
+
+## Expansion Panel list
+
+<ExpansionPanel title="Click to expand">
+
+<PanelListItem number="1">
+  First step
+  ```
+  npm i
+  ```
+</PanelListItem>
+
+<PanelListItem number="check" :last="true">
+  Completed
+  ```
+  npm run dev
+  ```
+</PanelListItem>
+
+</ExpansionPanel>
