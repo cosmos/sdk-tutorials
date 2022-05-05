@@ -1,7 +1,7 @@
 ---
 title: "Send Multiple Messages"
 order: 3
-description: Send multiple tokens and messages through CosmJs
+description: Send multiple tokens and messages through CosmJS
 tag: deep-dive
 ---
 
@@ -174,7 +174,7 @@ The message structure demonstrates that Alice can transfer _other_ people's toke
 
 ## Mixing other message types
 
-The above example shows you two token-transfer messages in a single transaction. Neither Cosmos nor CosmJs limit you to messages of the same type. You can decide to have other message types along a token transfer. For instance, in one transaction Alice could:
+The above example shows you two token-transfer messages in a single transaction. Neither Cosmos nor CosmJS limit you to messages of the same type. You can decide to have other message types along a token transfer. For instance, in one transaction Alice could:
 
 1. Send tokens to the faucet.
 2. Delegate some of her tokens to Bob the validator.
@@ -232,7 +232,7 @@ const result = await signingClient.signAndBroadcast(
 
 It is also possible to put more than two messages in a single transaction, as long as your raw transaction has fewer bytes than the limit.
 
-When you create your own message types in CosmJs, they have to follow this format and be declared in the same fashion.
+When you create your own message types in CosmJS, they have to follow this format and be declared in the same fashion.
 
 ## What is this long string?
 
@@ -281,7 +281,7 @@ Points 4 and 5 imply that Alice and Bob should sign the transaction, and not sig
 1. The reason Alice accepts to "sign message 1" is because of the presence of message 2. She would not sign message 1 in isolation.
 2. The reason Bob accepts to "sign message 2" is because of the presence of message 1. He would not sign message 2 in isolation.
 
-Let's do that with CosmJs.
+Let's do that with CosmJS.
 
 ### Preparation
 

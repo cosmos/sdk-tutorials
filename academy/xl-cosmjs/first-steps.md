@@ -1,25 +1,25 @@
 ---
 title: "Bank - Send Tokens"
 order: 2
-description: Interacting with a Cosmos SDK chain through CosmJs
+description: Interacting with a Cosmos SDK chain through CosmJS
 tag: deep-dive
 ---
 
 # Bank - Send Tokens
 
-Now that you know what CosmJs is, you should take your first steps in using it. A basic feature of a Cosmos chain is the ability to send tokens via the `bank` module. CosmJs naturally offers functions to cover this facility. You are going to:
+Now that you know what CosmJS is, you should take your first steps in using it. A basic feature of a Cosmos chain is the ability to send tokens via the `bank` module. CosmJS naturally offers functions to cover this facility. You are going to:
 
 1. Use an existing test network (testnet) with a key of your own.
-2. Run basic CosmJs commands in a CLI script.
+2. Run basic CosmJS commands in a CLI script.
 
 Additionally, you can choose to:
 
 1. Start a local chain that exposes RPCs.
-2. Run the same basic CosmJs commands, but for this local chain.
+2. Run the same basic CosmJS commands, but for this local chain.
 
 ## Prepare your script
 
-A small, ready-made repository exists so you can experiment with CosmJs. Clone it from [here](https://github.com/deus-labs/cosmjs-template), and you will need [NodeJs](https://nodejs.org/en/download/). In the cloned folder you need to install the required modules:
+A small, ready-made repository exists so you can experiment with CosmJS. Clone it from [here](https://github.com/deus-labs/cosmjs-template), and you will need [NodeJs](https://nodejs.org/en/download/). In the cloned folder you need to install the required modules:
 
 ```sh
 $ npm install
@@ -27,7 +27,7 @@ $ npm install
 
 Your inspiration for this exercise is the [`index.ts`](https://github.com/deus-labs/cosmjs-template/blob/main/index.ts) file. It is written in Typescript, which is [compiled into Javascript](https://github.com/deus-labs/cosmjs-template/blob/main/tsconfig.json#L3) before [being interpreted](https://github.com/deus-labs/cosmjs-template/blob/main/package.json#L25) by NodeJs. If you open the folder in [Visual Studio Code](https://code.visualstudio.com/Download), the IDE should give you all the coding help you require.
 
-This specific `index.ts` example makes use of the CosmJs client for CosmWasm. However, for the exercise you need a _regular_ client. Create a new file `experiment.ts` and add it as a run target in `package.json`:
+This specific `index.ts` example makes use of the CosmJS client for CosmWasm. However, for the exercise you need a _regular_ client. Create a new file `experiment.ts` and add it as a run target in `package.json`:
 
 ```json
 ...
@@ -73,7 +73,7 @@ The Cosmos ecosystem has a [number of testnets](https://github.com/cosmos/testne
 RPC: https://rpc.sentry-01.theta-testnet.polypore.xyz
 ```
 
-If you don't have a Theta account yet, you must create your 24-word mnemonic. If you already have a preferred method for creating your mnemonic, use that; otherwise CosmJs can generate a new one. In the latter case, create a new file `generate_mnemonic.ts`:
+If you don't have a Theta account yet, you must create your 24-word mnemonic. If you already have a preferred method for creating your mnemonic, use that; otherwise CosmJS can generate a new one. In the latter case, create a new file `generate_mnemonic.ts`:
 
 ```typescript
 import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing"
@@ -98,7 +98,7 @@ When done, it should also tell you the address of the first account:
 Mnemonic with 1st account: cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf
 ```
 
-Keep this address for convenience, although CosmJs can always recalculate it from the mnemonic. Privately examine the file to confirm it contains your 24 words.
+Keep this address for convenience, although CosmJS can always recalculate it from the mnemonic. Privately examine the file to confirm it contains your 24 words.
 
 <HighlightBox type="warn">
 
@@ -151,7 +151,7 @@ chain id: theta-testnet-001 , height: 9507032
 
 ## Get a balance
 
-Normally you would not yet have access to your user's address. However, for this exercise you need to know how many tokens Alice has, so add a temporary new command inside `runAll`: 
+Normally you would not yet have access to your user's address. However, for this exercise you need to know how many tokens Alice has, so add a temporary new command inside `runAll`:
 
 ```typescript
 console.log(
@@ -344,7 +344,7 @@ const alice = (await aliceSigner.getAccounts())[0].address
 
 ## Send tokens
 
-Alice can now send some tokens back to the faucet, but to do so she will also need to pay the network gas fee. If she wants to send back 1% of her holdings (`100000uatom`), how much gas should she put, and at what price? 
+Alice can now send some tokens back to the faucet, but to do so she will also need to pay the network gas fee. If she wants to send back 1% of her holdings (`100000uatom`), how much gas should she put, and at what price?
 
 She can copy what the faucet did. To discover this, run:
 
@@ -492,7 +492,7 @@ runAll()
 
 </ExpansionPanel>
 
-This concludes your first use of CosmJs.
+This concludes your first use of CosmJS.
 
 Note that you connected to a running testnet. Therefore, you depended on someone else to have a blockchain running, and to open a publicly available RPC port and faucet. What if you wanted to try with your own blockchain?
 
@@ -556,7 +556,7 @@ Add the import:
 import { DirectSecp256k1Wallet, OfflineDirectSigner } from "@cosmjs/proto-signing"
 ```
 
-In `DirectSecp256k1Wallet` the `fromKey` factory function needs a `Uint8Array`. Fortunately, CosmJs includes a utility to convert a hexadecimal string into a `Uint8Array`. Import it:
+In `DirectSecp256k1Wallet` the `fromKey` factory function needs a `Uint8Array`. Fortunately, CosmJS includes a utility to convert a hexadecimal string into a `Uint8Array`. Import it:
 
 ```typescript
 import { fromHex } from "@cosmjs/encoding"
@@ -641,4 +641,4 @@ runAll()
 
 </ExpansionPanel>
 
-You have now used CosmJs's bank module on a locally running Cosmos blockchain.
+You have now used CosmJS's bank module on a locally running Cosmos blockchain.

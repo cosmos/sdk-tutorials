@@ -1,17 +1,17 @@
 ---
 title: "Bank - Send Tokens - with Keplr"
 order: 4
-description: Interacting with a Cosmos SDK chain through CosmJs and Kepler
+description: Interacting with a Cosmos SDK chain through CosmJS and Kepler
 tag: deep-dive
 ---
 
 # Bank - Send Tokens - with Keplr
 
-CosmJs allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJs to issue commands to the Theta testnet. Here, you will do the same but with a GUI and a Keplr flavor.
+CosmJS allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJS to issue commands to the Theta testnet. Here, you will do the same but with a GUI and a Keplr flavor.
 
 Optionally you can connect your locally-started Cosmos blockchain like `simd` and do the same.
 
-To keep the focus on CosmJs and Keplr, you are going to use ready-made pages created by the Next.js framework. Do not worry if you routinely use another framework, the CosmJs code is sufficiently identifiable.
+To keep the focus on CosmJS and Keplr, you are going to use ready-made pages created by the Next.js framework. Do not worry if you routinely use another framework, the CosmJS code is sufficiently identifiable.
 
 ## Create your simple Next.js project
 
@@ -37,7 +37,7 @@ You should see the result, a welcome page with links, in your browser. Next.js u
 
 ## HTML elements
 
-The goal of the exercise is to find balances, yours and the faucet's, and then have you send back some tokens to the faucet. Before introducing any CosmJs, you can create a React component that is almost ready for this purpose. By convention, put your component in a `/components` folder, as in the following example using `FaucetSender.tsx`:
+The goal of the exercise is to find balances, yours and the faucet's, and then have you send back some tokens to the faucet. Before introducing any CosmJS, you can create a React component that is almost ready for this purpose. By convention, put your component in a `/components` folder, as in the following example using `FaucetSender.tsx`:
 
 <ExpansionPanel title="FaucetSender.tsx">
 
@@ -132,9 +132,9 @@ When `npm run dev` picks up the changes, you should see that your page has chang
 
 Your page is not very useful yet, but you can make it more so.
 
-## Install CosmJs
+## Install CosmJS
 
-Now that you have a working Next.js project and ready page, it is time to add the necessary CosmJs elements to the project:
+Now that you have a working Next.js project and ready page, it is time to add the necessary CosmJS elements to the project:
 
 ```sh
 $ npm install @cosmjs/stargate cosmjs-types --save
@@ -591,4 +591,4 @@ Keplr does not know about locally running chains by default. As you did with The
 
 ## Conclusion
 
-You have how updated your CosmJs GUI so that it integrates with Keplr.
+You have how updated your CosmJS GUI so that it integrates with Keplr.
