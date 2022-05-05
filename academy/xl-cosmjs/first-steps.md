@@ -642,3 +642,7 @@ runAll()
 </ExpansionPanel>
 
 You have now used CosmJS's bank module on a locally running Cosmos blockchain.
+
+## Next up
+
+You have sent a transaction with a single message. How about you send a transaction with more than one message? That is the object of the [next section](./multi-msg.md). Or skip ahead and send a simple transaction, but this time from a Web browser with the help of [Keplr](./with-keplr.md).

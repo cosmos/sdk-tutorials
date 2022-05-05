@@ -494,3 +494,7 @@ Bob balance before: [
 ```
 
 -->
+
+## Next up
+
+You are now able to send complex transactions. How about you do the same but from a Web-browser, with the help of Keplr? That is the object of the [next section](./with-keplr.md).
