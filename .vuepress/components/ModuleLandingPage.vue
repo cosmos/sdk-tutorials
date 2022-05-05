@@ -169,7 +169,7 @@
 							height 10px
 
 			&__overview
-				margin-top 96p
+				margin-top 96px
 				display flex
 
 				&__title
@@ -258,8 +258,6 @@ export default {
 					.sort((a, b) => a.frontmatter.order - b.frontmatter.order);
 				modules = Object.values(this.formatModules(submodules));
 			}
-
-			console.log(modules)
 			
 			return modules.sort((a, b) => a.number - b.number);
 		}
