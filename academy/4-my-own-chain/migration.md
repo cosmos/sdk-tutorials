@@ -12,8 +12,8 @@ tag: deep-dive
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md), and [migrations](../2-main-concepts/migrations.md).
-* Have Go installed.
-* The checkers blockchain codebase up to the wager denomination. You can get there by following the [previous steps](./wager-denom.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
+* Go is installed.
+* You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](./wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
 
 </HighlightBox>
 
@@ -21,37 +21,37 @@ If you have been running _v1_ of your checkers blockchain for a while, games hav
 
 * Any player who has **ever** played should have a tally of games won, lost, and forfeited.
 * The leaderboard should list the players with the most wins up to a pre-determined number. For example, the leaderboard could only include the top 100 scores.
-* To avoid squatting and increase engagement, when equal in value, the most recent score takes precedence over an _older_ one so the player with the recent score is listed.
+* To avoid squatting and increase engagement, when equal in value the most recent score takes precedence over an _older_ one, so the player with the recent score is listed higher on the leaderboard.
 
 When you introduce the leaderboard, you also have to decide what to do with your existing players and their scores from your v1 checkers blockchain.
 
-Start your v2's leaderboard as if all played past games had been counted for the leaderboard. You _only_ need to go through all played games, update the players with their tallies, and add a leaderboard including the information. This is possible because all past games and their outcomes are kept in the chain's state. A migration is a good method to tackle the initial leaderboard.
+Start your v2's leaderboard as if all played past games had been counted for the leaderboard. You _only_ need to go through all played games, update the players with their tallies, and add a leaderboard including the information. This is possible because all past games and their outcomes are kept in the chain's state. Migration is a good method to tackle the initial leaderboard.
 
 ## Introducing a leaderboard
 
 Several things need to be addressed before you can focus all your attention on the migration:
 
-1. Save and mark as v1 the current data types about to be modified with the new version. All data types, which will remain unmodified, need not be identified as such.
-2. Prepare your v2 blockchain by:
-    1. Defining your new data types.
-    2. Adding helper functions to encapsulate clearly defined actions, like leaderboard sorting.
-    2. Adjust the existing code to make use of and update the new data types.
-3. Prepare your v1 to v2 migration by:
-    1. Adding helper functions to take large amounts of data from the latest chain state under the shape of a v1 genesis.
-    2. Adding a function to migrate from v1 to v2 genesis.
-    3. Making sure you can handle large amounts of data.
+1. Save and mark as v1 the current data types about to be modified with the new version. Data types which will remain unmodified need not be identified as such.
+2. Prepare your v2 blockchain:
+    1. Define your new data types.
+    2. Add helper functions to encapsulate clearly defined actions, like leaderboard sorting.
+    3. Adjust the existing code to make use of and update the new data types.
+3. Prepare for your v1-to-v2 migration:
+    1. Add helper functions to take large amounts of data from the latest chain state under the shape of a v1 genesis.
+    2. Add a function to migrate from v1 to v2 genesis.
+    3. Make sure you can handle large amounts of data.
 
 _Why do you need to make sure you can handle large amounts of data?_ The full state at the point of migration will be passed in the form of a gigantic v1 genesis when your migration function is called. You don't want your process to grind to a halt because of a lack of memory.
 
 ## Save your v1
 
-Your migration steps will be handled in a new folder, `x/checkers/migrations/v1tov2`, that needs to be created:
+Your migration steps will be handled in a new folder, `x/checkers/migrations/v1tov2`, which needs to be created:
 
 ```sh
 $ mkdir -p x/checkers/migrations/v1tov2
 ```
 
-As for the **data structure**, the only one you will eventually change is the genesis structure. The other data structures are brand new so you can treat them _as usual_. Copy and paste your v1 genesis from the current commit and save it under another name in `v1tov2/types.go`:
+The only **data structure** you will eventually change is the genesis structure. The other data structures are new, so you can treat them _as usual_. Copy and paste your v1 genesis from the current commit and save it under another name in `v1tov2/types.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/migrations/v1tov2/types.go#L7-L10]
 type GenesisStateV1 struct {
@@ -60,7 +60,7 @@ type GenesisStateV1 struct {
 }
 ```
 
-Your current genesis definition becomes your v2 genesis. This should be all when it comes to data structures requiring a change. Unless you happened to also change the structure of `StoredGame` for instance, then you would have to save its v1 version in the same `types.go` file.
+Your current genesis definition becomes your v2 genesis. This should be the only data structure requiring a change. However, if for example you also changed the structure of `StoredGame`, then you would have to save its v1 version in the same `types.go` file.
 
 ## New v2 information
 
@@ -68,13 +68,13 @@ It is time to take a closer look at the new data structures being introduced wit
 
 <HighlightBox type="tip">
 
-If you are feeling unsure about creating new data structures with Ignite CLI, take another look at the [previous sections](./create-message.md) of the exercise.
+If you feel unsure about creating new data structures with Ignite CLI, look at the [previous sections](./create-message.md) of the exercise again.
 
 </HighlightBox>
 
-To give the new v2 information a data structure you need:
+To give the new v2 information a data structure, you need the following:
 
-1. A set of **stats per player**: it makes sense to save one `struct` for each player and map it by address. Remember that a game is stored at `StoredGame-value-123`, where `StoredGame-value-` is a constant prefix. In a similar fashion, Ignite CLI is going to create a new constant to use as the prefix for players:
+1. Add a set of **stats per player**: it makes sense to save one `struct` for each player and map it by address. Remember that a game is stored at `StoredGame-value-123`, where `StoredGame-value-` is a constant prefix. In a similar fashion, Ignite CLI creates a new constant to use as the prefix for players:
 
     ```sh
     $ ignite scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint --module checkers --no-message
@@ -82,7 +82,7 @@ To give the new v2 information a data structure you need:
 
     <HighlightBox type="info">
 
-    The new `PlayerInfo-value-` prefix for players helps differentiate between the value for players and the one for games prefixed with `StoredGame-value-`. This way you can safely have both `StoredGame-value-123` and `PlayerInfo-value-123` side by side in storage.
+    The new `PlayerInfo-value-` prefix for players helps differentiate between the value for players and the value for games prefixed with `StoredGame-value-`. Now you can safely have both `StoredGame-value-123` and `PlayerInfo-value-123` side by side in storage.
 
     </HighlightBox>
 
@@ -97,7 +97,7 @@ To give the new v2 information a data structure you need:
     }
     ```
 
-    From which you remove `creator` because it serves no purposes. Do not forget to add the new object to the genesis, effectively your v2 genesis:
+    Remove `creator` from the Protobuf file because it serves no purpose. Remember to add the new object to the genesis, effectively your v2 genesis:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/proto/checkers/genesis.proto#L16]
     import "checkers/player_info.proto";
@@ -108,7 +108,7 @@ To give the new v2 information a data structure you need:
     }
     ```
 
-2. A **leaderboard rung structure** to be repeated inside the leaderboard: it stores the information of a player scoring high enough to be included in the leaderboard. It is not meant to be kept directly in storage as it is only a part of the leaderboard. So instead of involving Ignite CLI create the structure by hand into its own file:
+2. Add a **leaderboard rung structure** to be repeated inside the leaderboard: this stores the information of a player scoring high enough to be included in the leaderboard. It is not meant to be kept directly in storage as it is only a part of the leaderboard. Instead of involving Ignite CLI, create the structure by hand in its own file:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/proto/checkers/winning_player.proto#L8-L12]
     message WinningPlayer {
@@ -120,17 +120,18 @@ To give the new v2 information a data structure you need:
 
     Where:
 
-    * `playerAddress` indicates the player, so to say gives information regarding `PlayerInfo.index`.
-    * `wonCount` determines the ranking on the leaderboard - the higher the count, the closer to the `0` index in the array. Of course, it should exactly match the value found in the corresponding player stats. This duplication of data is a lesser evil because, if `wonCount` was missing, you would have to access the player stats to sort the leaderboard.
+    * `playerAddress` indicates the player, and gives information regarding `PlayerInfo.index`.
+    * `wonCount` determines the ranking on the leaderboard - the higher the count, the closer to the `0` index in the array.
+      This should exactly match the value found in the corresponding player stats. This duplication of data is a lesser evil, because if `wonCount` was missing you would have to access the player stats to sort the leaderboard.
     * `dateAdded` indicates when the player's `wonCount` was last updated and determines the ranking when there is a tie in `wonCount` - the more recent, the closer to the `0` slot in the array.
 
-3. A structure for **the leaderboard**: there is a single stored leaderboard for the whole application. Let Ignite CLI help you implement a structure:
+3. Add a structure for **the leaderboard**: there is a single stored leaderboard for the whole application. Let Ignite CLI help you implement a structure:
 
     ```sh
     $ ignite scaffold single leaderboard winners --module checkers --no-message
     ```
 
-    Which creates a Protobuf file that you update with your preferred type and its `import`. Also, remove the `creator`:
+    This creates a Protobuf file that you update with your preferred type and its `import`. Again, remove the `creator`:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/proto/checkers/leaderboard.proto#L9-L11]
     import "checkers/winning_player.proto";
@@ -140,7 +141,7 @@ To give the new v2 information a data structure you need:
     }
     ```
 
-    And update the v2 genesis file by adding the leaderboard:
+    Now update the v2 genesis file by adding the leaderboard:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/proto/checkers/genesis.proto#L15]
     import "checkers/leaderboard.proto";
@@ -151,7 +152,7 @@ To give the new v2 information a data structure you need:
     }
     ```
 
-    Don't forget to make sure the initial value stored for the leaderboard is not `nil` but instead an empty one. In `genesis.go` adjust:
+    Remember to make sure the initial value stored for the leaderboard is not `nil` but instead is empty. In `genesis.go` adjust:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/genesis.go#L16-L18]
     func DefaultGenesis() *GenesisState {
