@@ -11,9 +11,9 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [transactions](../2-main-concepts/transactions.md), [messages](../2-main-concepts/messages.md)), and [Protobuf](../2-main-concepts/protobuf.md).
-* Have Go installed.
-* The checkers blockchain codebase with `MsgCreateGame` and its handling. You can get there by following the [previous steps](./create-handling.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler).
+* You understand the concepts of [transactions](../2-main-concepts/transactions.md), [messages](../2-main-concepts/messages.md), and [Protobuf](../2-main-concepts/protobuf.md).
+* Go is installed.
+* You have the checkers blockchain codebase with `MsgCreateGame` and its handling. If not, follow the [previous steps](./create-handling.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler).
 
 </HighlightBox>
 
@@ -33,17 +33,17 @@ Unlike when creating the game, you want to return:
 
 ## With Ignite CLI
 
-Now Ignite CLI only creates a response object with a single field. You can update the object after Ignite CLI has run:
+Ignite CLI only creates a response object with a single field. You can update the object after Ignite CLI has run:
 
 ```sh
 $ ignite scaffold message playMove idValue fromX:uint fromY:uint toX:uint toY:uint --module checkers --response idValue
 ```
 
-Ignite CLI once more creates all the necessary Protobuf files and the boilerplate for you. All you have left to do is:
+Ignite CLI once more creates all the necessary Protobuf files and the boilerplate for you. All you have to do is:
 
 * Add the missing fields to the response in `proto/checkers/tx.proto`:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/proto/checkers/tx.proto#L25-L30]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/proto/checkers/tx.proto#L25-L30]
     message MsgPlayMoveResponse {
         string idValue = 1;
         int64 capturedX = 2;
@@ -67,13 +67,14 @@ Ignite CLI once more creates all the necessary Protobuf files and the boilerplat
     }
     ```
 
-    Where the `TODO` is replaced as per below.
+    Where the `TODO` is replaced as per the following.
 
 ## The move handling
 
-`rules` represent the ready-made file containing the rules of the game you imported earlier. Declare them in `x/checkers/types/errors.go` given your code has to handle new error situations:
+The `rules` represent the ready-made file containing the rules of the game you imported earlier. Declare them in `x/checkers/types/errors.go`, given your code has to handle new error situations:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/types/errors.go#L14-L18]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/types/errors.go#L14-L18]
+ErrGameNotParseable = sdkerrors.Register(ModuleName, 1103, "game cannot be parsed")
 ErrGameNotFound     = sdkerrors.Register(ModuleName, 1104, "game by id not found: %s")
 ErrCreatorNotPlayer = sdkerrors.Register(ModuleName, 1105, "message creator is not a player: %s")
 ErrNotPlayerTurn    = sdkerrors.Register(ModuleName, 1106, "player tried to play out of turn: %s")
@@ -82,20 +83,18 @@ ErrWrongMove        = sdkerrors.Register(ModuleName, 1107, "wrong move")
 
 Take the following steps to replace the `TODO`:
 
-1. Fetch the stored game information:
+1. Fetch the stored game information using the [`Keeper.GetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/keeper/stored_game.go#L17) function created by Ignite CLI:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc/x/checkers/keeper/msg_server_play_move.go#L16-L19]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/keeper/msg_server_play_move.go#L16-L19]
     storedGame, found := k.Keeper.GetStoredGame(ctx, msg.IdValue)
     if !found {
         return nil, sdkerrors.Wrapf(types.ErrGameNotFound, "game not found %s", msg.IdValue)
     }
     ```
 
-    Using the [`Keeper.GetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/keeper/stored_game.go#L17) function created by Ignite CLI.
-
 2. Is the player legitimate? Check with:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc/x/checkers/keeper/msg_server_play_move.go#L22-L29]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/keeper/msg_server_play_move.go#L22-L29]
     var player rules.Player
     if strings.Compare(storedGame.Red, msg.Creator) == 0 {
         player = rules.RED_PLAYER
@@ -106,32 +105,30 @@ Take the following steps to replace the `TODO`:
     }
     ```
 
-    Using the certainty that the `MsgPlayMove.Creator` has been verified [by its signature](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/types/message_play_move.go#L29-L35).
+    This uses the certainty that the `MsgPlayMove.Creator` has been verified [by its signature](https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/types/message_play_move.go#L29-L35).
 
 3. Instantiate the board to implement the rules:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc/x/checkers/keeper/msg_server_play_move.go#L32-L35]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/keeper/msg_server_play_move.go#L32-L35]
     game, err := storedGame.ParseGame()
     if err != nil {
         panic(err.Error())
     }
     ```
 
-    Good thing you previously created [this helper](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/types/full_game.go#L24-L33).
+    Fortunately you previously created [this helper](https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/types/full_game.go#L24-L33).
 
-4. Is it the player's turn? Check with:
+4. Is it the player's turn? Check using the rules file's own [`TurnIs`](https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/rules/checkers.go#L145-L147) function:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc/x/checkers/keeper/msg_server_play_move.go#L36-L38]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/keeper/msg_server_play_move.go#L36-L38]
     if !game.TurnIs(player) {
         return nil, types.ErrNotPlayerTurn
     }
     ```
 
-    Using the rules file's own [`TurnIs`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/rules/checkers.go#L145-L147) function.
+5. Properly conduct the move, using the rules' [`Move`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/rules/checkers.go#L274-L301) function:
 
-5. Properly conduct the move:
-
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc/x/checkers/keeper/msg_server_play_move.go#L41-L53]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/keeper/msg_server_play_move.go#L41-L53]
     captured, moveErr := game.Move(
         rules.Pos{
             X: int(msg.FromX),
@@ -143,25 +140,23 @@ Take the following steps to replace the `TODO`:
         },
     )
     if moveErr != nil {
-        return nil, sdkerrors.Wrapf(moveErr, types.ErrWrongMove.Error())
+        return nil, sdkerrors.Wrapf(types.ErrWrongMove, moveErr.Error())
     }
     ```
 
-    Using the rules' [`Move`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/rules/checkers.go#L274-L301) function.
-
 6. Prepare the updated board to be stored and store the information:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc/x/checkers/keeper/msg_server_play_move.go#L56-L58]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/keeper/msg_server_play_move.go#L56-L58]
     storedGame.Game = game.String()
     storedGame.Turn = game.Turn.Color
     k.Keeper.SetStoredGame(ctx, storedGame)
     ```
 
-    Updating the fields that were modified using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc4feaf38687092712849f35a5d74a11378/x/checkers/keeper/stored_game.go#L10) function just as when you created and saved the game.
+    This updates the fields that were modified using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/keeper/stored_game.go#L10) function, as when you created and saved the game.
 
 7. Return relevant information regarding the move's result:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8d686fc/x/checkers/keeper/msg_server_play_move.go#L61-L66]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/keeper/msg_server_play_move.go#L61-L66]
     return &types.MsgPlayMoveResponse{
         IdValue:   msg.IdValue,
         CapturedX: int64(captured.X),
@@ -170,12 +165,120 @@ Take the following steps to replace the `TODO`:
     }, nil
     ```
 
-    The `Captured` and `Winner` information would be lost if you do not. More accurately, one would have to replay the transaction to find out the values. Better be a good citizen and make this information easily accessible.
+    The `Captured` and `Winner` information would be lost if you do not do this. More accurately, one would have to replay the transaction to discover the values. Better to be a good citizen and make this information easily accessible.
 
-That is all there is to it: good preparation and the use of Ignite CLI.
+This completes the move process, facilitated by good preparation and the use of Ignite CLI.
+
+## Interact via the CLI
+
+With one game in storage and the game waiting for Bob's move, can Alice make a move? Look at the `play-move` message and which parameters it accepts:
+
+```sh
+$ checkersd tx checkers play-move --help
+```
+
+This returns:
+
+```
+Broadcast message playMove
+
+Usage:
+  checkersd tx checkers play-move [idValue] [fromX] [fromY] [toX] [toY] [flags]
+...
+```
+
+So `Alice` tries:
+
+```sh
+$ checkersd tx checkers play-move 0 0 5 1 4 --from $alice
+                                  ^ ^ ^ ^ ^
+                                  | | | | To Y
+                                  | | | To X
+                                  | | From Y
+                                  | From X
+                                  Game id
+```
+
+This includes:
+
+```
+...
+raw_log: 'failed to execute message; message index: 0: player tried to play out of
+                                       turn'
+...
+txhash: D10BB8A706870F65F19E4DF48FB870E4B7D55AF4232AE0F6897C23466FF7871B
+```
+
+<HighlightBox type="tip">
+
+If you did not get this `raw_log`, your transaction may have been sent asynchronously. You can always query a transaction by using the `txhash` with the following command:
+
+```sh
+$ checkersd query tx D10BB8A706870F65F19E4DF48FB870E4B7D55AF4232AE0F6897C23466FF7871B
+```
+
+And you are back on track:
+
+```
+...
+raw_log: 'failed to execute message; message index: 0: player tried to play out of
+  turn'
+```
+
+</HighlightBox>
+
+Can Bob, who plays _black_, make a move? Can he make a wrong move? For instance, a move from `0-1` to `1-0`, which is occupied by one of his pieces.
+
+```sh
+$ checkersd tx checkers play-move 0 1 0 0 1 --from $bob
+```
+
+The computer says no:
+
+```
+...
+raw_log: 'failed to execute message; message index: 0: Already piece at destination
+  position: {1 0}: wrong move'
+```
+
+So far all seems to be working.
+
+Time for Bob to make a correct move:
+
+```sh
+$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
+```
+
+This returns:
+
+```
+...
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"PlayMove"}]}]}]'
+```
+
+Confirm the move went through with your one-line formatter from the [previous section](./create-handling.md):
+
+```sh
+$ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\n/g'
+```
+
+This shows:
+
+```
+*b*b*b*b
+b*b*b*b*
+***b*b*b
+**b*****
+********
+r*r*r*r*
+*r*r*r*r
+r*r*r*r*
+```
+
+Bob's piece moved down and right.
 
 ## Next up
 
-Before you add a third Message to let a player [reject a game](./reject-game.md), add events to the existing message handlers for relevant information. That is the object of the [next section](./events.md).
+Before you add a third message to let a player [reject a game](./reject-game.md), add events to the existing message handlers for relevant information. This is the object of the [next section](./events.md).
 
 If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](./can-play.md).

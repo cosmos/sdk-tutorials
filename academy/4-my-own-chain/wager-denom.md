@@ -12,45 +12,45 @@ tag: deep-dive
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [messages](../2-main-concepts/messages.md), [Protobuf](../2-main-concepts/protobuf.md), and [IBC](../2-main-concepts/ibc.md).
-* Have Go installed.
-* The checkers blockchain codebase up to the _can play_ query. You can get there by following the [previous steps](./can-play.md) or checking out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
+* Go is installed.
+* You have the checkers blockchain codebase up to the _can play_ query. If not, follow the [previous steps](./can-play.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
 
 </HighlightBox>
 
-When you [introduced a wager](./game-wager.md) you enabled players to play a game and bet in the outcome using the base staking token of your blockchain. What if your players want to play with other _currencies_? Your blockchain can represent a token from any other blockchain connected to your chain by using the Inter-Blockchain Communication Protocol (IBC).
+When you [introduced a wager](./game-wager.md) you enabled players to play a game and bet in the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other blockchain connected to your chain by using the Inter-Blockchain Communication Protocol (IBC).
 
 Your checkers application will be agnostic to tokens and relayers. Your only task is to enable the use of _foreign_ tokens.
 
 ## New information
 
-Instead of defaulting to `"stake"`, let players decide what string represents their token. So update:
+Instead of defaulting to `"stake"`, let players decide what string represents their token:
 
-1. The stored game:
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9799e2cee1a0541932ec19d5cfdcdd955be0390f/proto/checkers/stored_game.proto#L21]
+1. Update the stored game:
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9045c60/proto/checkers/stored_game.proto#L21]
     message StoredGame {
         ...
         string token = 13; // Denomination of the wager.
     }
     ```
 
-2. The message to create a game:
+2. Update the message to create a game:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9799e2cee1a0541932ec19d5cfdcdd955be0390f/proto/checkers/tx.proto#L46]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9045c60/proto/checkers/tx.proto#L46]
     message MsgCreateGame {
         ...
         string token = 5; // Denomination of the wager.
     }
     ```
 
-For Ignite CLI and Protobuf to recompile both files you can use:
+Have Ignite CLI and Protobuf recompile both files:
 
 ```sh
 $ ignite generate proto-go
 ```
 
-To avoid surprises down the road, also update the `MsgCreateGame` constructor:
+It is recommended to also update the `MsgCreateGame` constructor:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9799e2cee1a0541932ec19d5cfdcdd955be0390f/x/checkers/types/message_create_game.go#L16]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9045c60/x/checkers/types/message_create_game.go#L16]
 func NewMsgCreateGame(creator string, red string, black string, wager uint64, token string) *MsgCreateGame {
     return &MsgCreateGame{
         ...
@@ -61,7 +61,7 @@ func NewMsgCreateGame(creator string, red string, black string, wager uint64, to
 
 This data will be emitted during game creation, so add a new event key as a constant:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9799e2cee1a0541932ec19d5cfdcdd955be0390f/x/checkers/types/keys.go#L56]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9045c60/x/checkers/types/keys.go#L56]
 const (
     StoredGameEventToken = "Token"
 )
@@ -73,7 +73,7 @@ The token denomination has been integrated into the relevant data structures. No
 
 1. In the helper function to create the `Coin` in `full_game.go`:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9799e2cee1a0541932ec19d5cfdcdd955be0390f/x/checkers/types/full_game.go#L71-L73]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9045c60/x/checkers/types/full_game.go#L71-L73]
     func (storedGame *StoredGame) GetWagerCoin() (wager sdk.Coin) {
         return sdk.NewCoin(storedGame.Token, sdk.NewInt(int64(storedGame.Wager)))
     }
@@ -81,16 +81,16 @@ The token denomination has been integrated into the relevant data structures. No
 
 2. In the handler that instantiates a game:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9799e2cee1a0541932ec19d5cfdcdd955be0390f/x/checkers/keeper/msg_server_create_game.go#L30]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9045c60/x/checkers/keeper/msg_server_create_game.go#L34]
     storedGame := types.StoredGame{
         ...
         Token:     msg.Token,
     }
     ```
 
-    Not to forget where it emits an event:
+    Do not forget to also insert the values where it emits an event:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9799e2cee1a0541932ec19d5cfdcdd955be0390f/x/checkers/keeper/msg_server_create_game.go#L54]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9045c60/x/checkers/keeper/msg_server_create_game.go#L58]
     ctx.EventManager().EmitEvent(
         sdk.NewEvent(sdk.EventTypeMessage,
             ...
@@ -99,34 +99,71 @@ The token denomination has been integrated into the relevant data structures. No
     )
     ```
 
-## Live testing with a relayer
+## Interact via the CLI
 
-With the checkers application ready to accommodate IBC-foreign tokens, you should run some tests locally with another blockchain's tokens without running a large-scale operation. Ignite CLI luckily has built in the [Typescript relayer](https://docs.ignite.com/kb/relayer.html). If you look at the GUI Ignite CLI created in your checkers blockchain, you will see a _Relayers_ section on the left.
+If you recall, Alice's and Bob's balances have two token denominations. Query:
 
-A relayer is a process that transfers IBC packets between two blockchains. It just so happens that here this process is **running in your browser** using the account you configured in your browser. The account is the same one you would use to play a game of checkers. Dub it `alice123@checkers`.
+```sh
+$ checkersd query bank balances $bob
+```
 
-1. On the checkers end, the relayer is already configured to connect to your running checkers blockchain and to use the tokens of whichever account you have configured in your browser, here `alice123@checkers`. Therefore, it gets the same privileges to access your tokens that you have granted to the checkers' browser application.
-2. You need to configure it to connect to the other blockchain hosting the foreign tokens you want to transfer. It can be the Cosmos Hub or a [testnet](https://tutorials.cosmos.network/connecting-to-testnet/testnet-tutorial.html) that you or someone else runs.
-3. You also need to fund the relayer's account on the remote chain so that it can operate. The account is generated from the same private key as `alice123@checkers`, so call it `alice465@remote`. The relayer shows you in the browser which account this is.
+This returns:
 
-Your test comes in a few steps:
+```
+balances:
+- amount: "100000000"
+  denom: stake
+- amount: "10000"
+  denom: token
+pagination:
+  next_key: null
+  total: "0"
+```
 
-1. Configure the relayer. This is a matter of entering the necessary parameters, clicking a button, and waiting for the setup to be done. In effect, the relayer opened a transfer channel, likely numbered `0`, on the checkers chain, opened another transfer channel on the remote chain, and linked the two.
-2. Send the desired foreign tokens to your `alice465@remote` using any regular method of sending tokens, independent of whether the tokens come from a faucet or another account.
-3. Use the relayer to send these foreign tokens to `alice123@checkers`.
-4. Check `alice123@checkers`'s balance in the checkers blockchain when it is done. You should see a new entry whose `denom` field looks like a long hex value `ibc/1873CA...`. Save this string to use with your test.
-5. Repeat the transfer process through the relayer, this time for the benefit of another player say `bob224@checkers`. For your test, Alice can send some tokens to Bob so they can start a game.
-6. Have Alice and Bob start a game with `token: ibc/1873CA...`.
-7. After the outcome of a game, the players can retransfer these foreign tokens via the same relayer to the remote chain.
+You can make use of this other `token` to create a new game that costs `1 token`:
 
-This is how the Typescript relayer built in by Ignite CLI lets you experiment with foreign tokens.
+```sh
+$ checkersd tx checkers create-game $alice $bob 1 token --from $alice
+```
 
-<HighlightBox type="tip">
+Which mentions:
 
-As soon as you close the browser window, the channels on both ends are no longer monitored and no token transfers will therefore take place. Also depending on the development state of Ignite CLI, after you close it, the relayer may not be able to reuse a channel it created earlier. So do not use this for production.
+```
+...
+- key: Wager
+  value: "1"
+- key: Token
+  value: token
+...
+```
 
-</HighlightBox>
+Have Bob play once:
+
+```sh
+$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
+```
+
+Has Bob been charged the wager?
+
+```sh
+$ checkersd query bank balances $bob
+```
+
+This returns:
+
+```
+balances:
+- amount: "100000000"
+  denom: stake
+- amount: "9999"
+  denom: token
+pagination:
+  next_key: null
+  total: "0"
+```
+
+Correct. You made it possible to wager any token. That includes IBC tokens.
 
 ## Next up
 
-In the [next section](./migration.md) you will learn how to conduct chain upgrades through migrations.
+In the [next section](./migration.md), you will learn how to conduct chain upgrades through migrations.

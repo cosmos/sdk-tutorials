@@ -11,29 +11,29 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [queries](../2-main-concepts/queries.md), and [Protobuf](../2-main-concepts/protobuf.md).
+* You understand the concepts of [queries](../2-main-concepts/queries.md) and [Protobuf](../2-main-concepts/protobuf.md).
 * You have Go installed.
-* The checkers blockchain codebase up to gas metering. You can get there by following the [previous steps](./gas-meter.md) or checking out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
+* You have the checkers blockchain codebase up to gas metering. If not, follow the [previous steps](./gas-meter.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
 
 </HighlightBox>
 
 A player sends a `MsgPlayMove` when [making a move](./play-game.md). This message can succeed or fail for several reasons. One error situation is when the message represents an invalid move.
 
-Players should be able to make sure that a move is valid before burning gas. To add this functionality, you need to create a way for the player to call the [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function without changing the game's state. Use a query because they are evaluated in memory and do not commit anything permanently to storage.
+Players should be able to make sure that a move is valid before burning gas. To add this functionality, you need to create a way for the player to call the [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function without changing the game's state. You use a query to achieve this, because they are evaluated in memory and do not commit anything permanently to storage.
 
 ## New information
 
 To run a query to check the validity of a move you need to pass:
 
-* The game ID, call the field `IdValue`.
-* `player` as queries do not have a signer.
-* The board position to start from: `fromX` and `fromY`.
-* The board position to land on: `toX` and `toY`.
+* The game ID: call the field `IdValue`.
+* The `player`, as queries do not have a signer.
+* The origin board position: `fromX` and `fromY`.
+* The target board position: `toX` and `toY`.
 
 The information to be returned is:
 
-* A boolean whether the move is valid, called `Possible`.
-* A text reason as to why the move is not valid, called `Reason`.
+* A boolean for whether the move is valid, called `Possible`.
+* A text which explains why the move is not valid, called `Reason`.
 
 As with other data structures, you can create the query message object with Ignite CLI:
 
@@ -43,7 +43,7 @@ $ ignite scaffold query canPlayMove idValue player fromX:uint fromY:uint toX:uin
 
 Among other files, you should now have this:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/proto/checkers/query.proto#L39-L51]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/0f56961/proto/checkers/query.proto#L39-L51]
 message QueryCanPlayMoveRequest {
     string idValue = 1;
     string player = 2;
@@ -61,9 +61,9 @@ message QueryCanPlayMoveRequest {
 
 Ignite CLI has created the following boilerplate for you:
 
-* The [Protobuf gRPC interface function](https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/proto/checkers/query.proto#L17-L19) to submit your new `QueryCanPlayMoveRequest` and its default implementation.
-* The [routing of this new query](https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/types/query.pb.gw.go#L319-L337) in the query facilities.
-* An [empty function](https://github.com/cosmos/b9-checkers-academy-draft/commit/f8a6e14d753554c9122a110800455d06dbe08192#diff-0fc3b6508740faee3d86a440c1dc83e71245dc49b3f8fc688b9668dc060abb8R12-R23) ready to implement the action.
+* The [Protobuf gRPC interface function](https://github.com/cosmos/b9-checkers-academy-draft/blob/0f56961/proto/checkers/query.proto#L17-L19) to submit your new `QueryCanPlayMoveRequest` and its default implementation.
+* The [routing of this new query](https://github.com/cosmos/b9-checkers-academy-draft/blob/0f56961/x/checkers/types/query.pb.gw.go#L319-L337) in the query facilities.
+* An [empty function](https://github.com/cosmos/b9-checkers-academy-draft/blob/92864a4/x/checkers/keeper/grpc_query_can_play_move.go#L19) ready to implement the action.
 
 ## Query handling
 
@@ -74,7 +74,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 1. The game needs to be fetched. If it does not exist at all, you can return an error message because you did not test the move:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L23-L26]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0f56961/x/checkers/keeper/grpc_query_can_play_move.go#L23-L26]
     storedGame, found := k.GetStoredGame(ctx, req.IdValue)
     if !found {
         return nil, sdkerrors.Wrapf(types.ErrGameNotFound, types.ErrGameNotFound.Error(), req.IdValue)
@@ -83,7 +83,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 2. Has the game already been won?
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L29-L34]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0f56961/x/checkers/keeper/grpc_query_can_play_move.go#L29-L34]
     if storedGame.Winner != rules.NO_PLAYER.Color {
         return &types.QueryCanPlayMoveResponse{
             Possible: false,
@@ -94,7 +94,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 3. Is the `player` given a valid player?
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L37-L47]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0f56961/x/checkers/keeper/grpc_query_can_play_move.go#L37-L47]
     var player rules.Player
     if strings.Compare(rules.RED_PLAYER.Color, req.Player) == 0 {
         player = rules.RED_PLAYER
@@ -103,14 +103,14 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
     } else {
         return &types.QueryCanPlayMoveResponse{
             Possible: false,
-            Reason:   types.ErrCreatorNotPlayer.Error(),
+            Reason:   fmt.Sprintf(types.ErrCreatorNotPlayer.Error(), req.Player),
         }, nil
     }
     ```
 
 4. Is it the player's turn?
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L50-L59]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0f56961/x/checkers/keeper/grpc_query_can_play_move.go#L50-L59]
     game, err := storedGame.ParseGame()
     if err != nil {
         return nil, err
@@ -118,14 +118,14 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
     if !game.TurnIs(player) {
         return &types.QueryCanPlayMoveResponse{
             Possible: false,
-            Reason:   types.ErrNotPlayerTurn.Error(),
+            Reason:   fmt.Sprintf(types.ErrNotPlayerTurn.Error(), player.Color),
         }, nil
     }
     ```
 
 5. Attempt the move and report back:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L62-L77]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0f56961/x/checkers/keeper/grpc_query_can_play_move.go#L62-L77]
     _, moveErr := game.Move(
         rules.Pos{
             X: int(req.FromX),
@@ -144,15 +144,199 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
     }
     ```
 
-6. If all went fine:
+6. If all went well:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b53297d8e87e31b1fc7fb839fce527e66a2a0116/x/checkers/keeper/grpc_query_can_play_move.go#L79-L82]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/0f56961/x/checkers/keeper/grpc_query_can_play_move.go#L79-L82]
     return &types.QueryCanPlayMoveResponse{
         Possible: true,
         Reason:   "ok",
     }, nil
     ```
 
+## Interact via the CLI
+
+A friendly reminder that the CLI can always inform you about available commands:
+
+<CodeGroup>
+<CodeGroupItem title="Checkers" active>
+
+```sh
+$ checkersd query checkers --help
+```
+
+Which prints:
+
+```
+...
+Available Commands:
+  can-play-move    Query canPlayMove
+...
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Can play move">
+
+```sh
+$ checkersd query checkers can-play-move --help
+```
+
+Which prints:
+
+```
+...
+Usage:
+  checkersd query checkers can-play-move [idValue] [player] [fromX] [fromY] [toX] [toY] [flags]
+...
+```
+
+</CodeGroupItem>
+</CodeGroup>
+
+---
+
+You can test this query at any point in a game's life.
+
+<CodeGroup>
+<CodeGroupItem title="No game" active>
+
+```sh
+$ checkersd query checkers can-play-move 2048 red 1 2 2 3
+```
+
+Trying this on a game that does not exist returns:
+
+```
+Error: rpc error: code = InvalidArgument desc = game by id not found: 2048: game by id not found: %s: invalid request
+...
+```
+
+Confirm this was an error from the point of view of the executable:
+
+```sh
+$ echo $?
+```
+
+This prints:
+
+```
+1
+```
+
+There is room to improve the error message, but it is important that you got an error, as expected.
+
+</CodeGroupItem>
+<CodeGroupItem title="Bad color">
+
+```sh
+$ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
+$ checkersd query checkers can-play-move 0 white 1 2 2 3
+```
+
+If the player tries to play the wrong color on a game that exists, it returns:
+
+```
+possible: false
+reason: 'message creator is not a player: white'
+```
+
+This is a proper message response, and a reason elaborating on the message.
+
+</CodeGroupItem>
+<CodeGroupItem title="Wrong turn">
+
+```sh
+$ checkersd query checkers can-play-move 0 red 0 5 1 4
+```
+
+If the opponent tries to play out of turn, it returns:
+
+```
+possible: false
+reason: 'player tried to play out of turn: red'
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Not your piece">
+
+```sh
+$ checkersd query checkers can-play-move 0 black 0 5 1 4
+```
+
+If black tries to play a red piece, it returns:
+
+```
+possible: false
+reason: wrong move%!(EXTRA string=Not {red}s turn)
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Correct">
+
+```sh
+$ checkersd query checkers can-play-move 0 black 1 2 2 3
+```
+
+If black tests a correct move, it returns:
+
+```
+possible: true
+reason: ok
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Must capture">
+
+```sh
+$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob -y
+$ checkersd tx checkers play-move 0 0 5 1 4 --from $alice -y
+$ checkersd query checkers can-play-move 0 black 2 3 3 4
+```
+
+If black fails to capture a mandatory red piece, it returns:
+
+```
+possible: false
+reason: 'wrong move%!(EXTRA string=Invalid move: {2 3} to {3 4})'
+```
+
+The reason given is understandable, but it does not clarify why the move is invalid. There is room to improve this message.
+
+</CodeGroupItem>
+<CodeGroupItem title="After forfeit">
+
+```sh
+$ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob -y
+$ checkersd tx checkers play-move 1 0 5 1 4 --from $alice -y
+$ checkersd query checkers can-play-move 1 black 2 3 0 5
+```
+
+If black tries to capture a red piece on a running game, it returns:
+
+```
+possible: true
+reason: ok
+```
+
+Wait five minutes for the forfeit:
+
+```sh
+$ checkersd query checkers can-play-move 1 black 2 3 0 5
+```
+
+Now it returns:
+
+```
+possible: false
+reason: game is already finished
+```
+
+</CodeGroupItem>
+</CodeGroup>
+
+---
+
+These queries are all satisfactory.
 
 ## Next up
 
