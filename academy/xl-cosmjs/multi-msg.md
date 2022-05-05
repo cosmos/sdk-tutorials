@@ -21,7 +21,7 @@ public async sendTokens(
 ): Promise<DeliverTxResponse>;
 ```
 
-`Coin[]` allows Alice to send not just `stake` but also any number of other coins as long as she owns them. So she can:
+[`Coin`](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/base/v1beta1/coin.ts#L13-L16) allows Alice to send not just `stake` but also any number of other coins as long as she owns them. So she can:
 
 <CodeGroup>
 <CodeGroupItem title="Send one token type" active>
@@ -31,12 +31,12 @@ const result = await signingClient.sendTokens(
     alice,
     faucet,
     [
-        {
-            denom: "stake",
-            amount: "10000000",
-        },
+        { denom: "uatom", amount: "100000" },
     ],
-    "auto",
+    {
+        amount: [{ denom: "uatom", amount: "500" }],
+        gas: "200000",
+    },
 )
 ```
 
@@ -48,25 +48,22 @@ const result = await signingClient.sendTokens(
     alice,
     faucet,
     [
-        {
-            denom: "stake",
-            amount: "10000000",
-        },
-        {
-            denom: "token",
-            amount: "12",
-        },
+        { denom: "uatom", amount: "100000" },
+        { denom: "token", amount: "12" },
     ],
-    "auto",
+    {
+        amount: [{ denom: "uatom", amount: "500" }],
+        gas: "200000",
+    },
 )
 ```
 
 </CodeGroupItem>
 </CodeGroup>
 
-However, there are limitations. First, Alice **can only target a single recipient per transaction**. If she wants to send tokens to multiple recipients, then she needs to create as many transactions as there are recipients. Multiple transactions cost slightly more than packing transfers into the array because of transaction overhead. Additionally, in some cases it can be considered a bad user experience to make users sign multiple transactions.
+However, there are limitations. First, Alice **can only target a single recipient per transaction**, `faucet` in the previous examples. If she wants to send tokens to multiple recipients, then she needs to create as many transactions as there are recipients. Multiple transactions cost slightly more than packing transfers into the array because of transaction overhead. Additionally, in some cases it can be considered a bad user experience to make users sign multiple transactions.
 
-The second limitation is that **separate transfers are not atomic**. It's possible that Alice wants to send tokens to two recipients and it's important that either they both receive them or neither of them receive anything.
+The second limitation is that **separate transfers are not atomic**. It is possible that Alice wants to send tokens to two recipients and it is important that either they both receive them or neither of them receive anything.
 
 Fortunately, there is a way to atomically send tokens to multiple recipients.
 
@@ -101,7 +98,21 @@ const sendMsg: MsgSendEncodeObject = {
 return this.signAndBroadcast(senderAddress, [sendMsg], fee, memo);
 ```
 
-When sending back to the faucet, Alice could have instead called:
+Therefore, when sending back to the faucet, instead of calling:
+
+```typescript
+const result = await signingClient.sendTokens(
+    alice,
+    faucet,
+    [{ denom: "uatom", amount: "100000" }],
+    {
+        amount: [{ denom: "uatom", amount: "500" }],
+        gas: "200000",
+    },
+)
+```
+
+Alice can instead call:
 
 ```typescript
 const result = await signingClient.signAndBroadcast(
@@ -113,19 +124,50 @@ const result = await signingClient.signAndBroadcast(
                 fromAddress: alice,
                 toAddress: faucet,
                 amount: [
-                    {
-                        denom: "stake",
-                        amount: "10000000",
-                    },
+                    { denom: "uatom", amount: "100000" },
                 ],
             },
           },
     ],
-    "auto",
+    {
+        amount: [{ denom: "uatom", amount: "500" }],
+        gas: "200000",
+    },
 )
 ```
 
-You can confirm this in your `experiment.ts` from the previous section.
+You can confirm this by making the change in your `experiment.ts` from the previous section, and running it again.
+
+<HighlightBox type="tip">
+
+In fact, building a transaction in this way is recommended. `SigningStargateClient` offers you convenience methods such as `sendTokens` for simple use cases only.
+
+</HighlightBox>
+
+## What is this long string?
+
+You may have noted the `"/cosmos.bank.v1beta1.MsgSend"` string. This comes from Protobuf and is a concatenation of:
+
+1. The `package` where `MsgSend` is initially declared:
+
+    ```protobuf [https://github.com/cosmos/cosmos-sdk/blob/3a1027c/proto/cosmos/bank/v1beta1/tx.proto#L2]
+    package cosmos.bank.v1beta1;
+    ```
+2. And the name of the message itself, `MsgSend`:
+
+    ```protobuf [https://github.com/cosmos/cosmos-sdk/blob/3a1027c/proto/cosmos/bank/v1beta1/tx.proto#L22]
+    message MsgSend {
+        ...
+    }
+    ```
+
+This is to make it easy for you, the developer, to understand what it represents. Protobuf knows how to serialize it only because this `"/cosmos.bank.v1beta1.MsgSend"` string is passed along. This object is also named `MsgSend` in `cosmjs-types`.
+
+<HighlightBox type="info">
+
+To learn how to make your own types for your own blockchain project, head to [Create my own CosmJS objects](TODO).
+
+</HighlightBox>
 
 ## Multiple token transfer messages
 
@@ -141,10 +183,7 @@ const result = await signingClient.signAndBroadcast(
                 fromAddress: alice,
                 toAddress: faucet,
                 amount: [
-                    {
-                        denom: "stake",
-                        amount: "10000000",
-                    },
+                    { denom: "uatom", amount: "100000" },
                 ],
             },
           },
@@ -154,10 +193,7 @@ const result = await signingClient.signAndBroadcast(
                 fromAddress: alice,
                 toAddress: bob,
                 amount: [
-                    {
-                        denom: "token",
-                        amount: "10",
-                    },
+                    { denom: "token", amount: "10" },
                 ],
             },
           },
@@ -166,20 +202,16 @@ const result = await signingClient.signAndBroadcast(
 )
 ```
 
-<HighlightBox type="tip">
-
-The message structure demonstrates that Alice can transfer _other_ people's tokens, by putting `fromAddress: notAlice`. Such a transaction will only be accepted if the `notAlice` address has _authorized_ Alice to spend its tokens. See the section on the Cosmos SDK `authz` module.
-
-</HighlightBox>
-
 ## Mixing other message types
 
-The above example shows you two token-transfer messages in a single transaction. Neither Cosmos nor CosmJS limit you to messages of the same type. You can decide to have other message types along a token transfer. For instance, in one transaction Alice could:
+The above example shows you two token-transfer messages in a single transaction. You can see this with their `typeUrl: "/cosmos.bank.v1beta1.MsgSend"`.
+
+Neither Cosmos nor CosmJS limit you to messages of the same type. You can decide to have other message types along a token transfer. For instance, in one transaction Alice could:
 
 1. Send tokens to the faucet.
 2. Delegate some of her tokens to Bob the validator.
 
-How would Alice create the second message? Find your message type in the types table:
+How would Alice create the second message? Find your message type in `SigningStargateClient`'s registry of types:
 
 ```typescript [https://github.com/cosmos/cosmjs/blob/7aad551/packages/stargate/src/signingstargateclient.ts#L94]
     ["/cosmos.staking.v1beta1.MsgDelegate", MsgDelegate],
@@ -207,10 +239,7 @@ const result = await signingClient.signAndBroadcast(
                 fromAddress: alice,
                 toAddress: faucet,
                 amount: [
-                    {
-                        denom: "stake",
-                        amount: "10000000",
-                    },
+                    { denom: "uatom", amount: "100000" },
                 ],
             },
         },
@@ -219,10 +248,7 @@ const result = await signingClient.signAndBroadcast(
             value: {
                 delegatorAddress: alice,
                 validatorAddress: bob,
-                amount: {
-                    denom: "stake",
-                    amount: "1000",
-                },
+                amount: { denom: "uatom", amount: "1000", },
             },
           },
     ],
@@ -232,26 +258,7 @@ const result = await signingClient.signAndBroadcast(
 
 It is also possible to put more than two messages in a single transaction, as long as your raw transaction has fewer bytes than the limit.
 
-When you create your own message types in CosmJS, they have to follow this format and be declared in the same fashion.
-
-## What is this long string?
-
-You may have noted the `"/cosmos.bank.v1beta1.MsgSend"` string. This comes from Protobuf and is a concatenation of:
-
-1. The `package` where `MsgSend` is initially declared:
-
-    ```protobuf [https://github.com/cosmos/cosmos-sdk/blob/3a1027c/proto/cosmos/bank/v1beta1/tx.proto#L2]
-    package cosmos.bank.v1beta1;
-    ```
-2. And the name of the message itself, `MsgSend`:
-
-    ```protobuf [https://github.com/cosmos/cosmos-sdk/blob/3a1027c/proto/cosmos/bank/v1beta1/tx.proto#L22]
-    message MsgSend {
-        ...
-    }
-    ```
-
-This is to make it easy for you, the developer, to understand what it represents. Protobuf knows how to serialize it only because this `"/cosmos.bank.v1beta1.MsgSend"` string is passed along. This object is also named `MsgSend` in `cosmjs-types`.
+When you create [your own message types in CosmJS](TODO), they have to follow this format and be declared in the same fashion.
 
 <!-- Not supported at the moment.
 

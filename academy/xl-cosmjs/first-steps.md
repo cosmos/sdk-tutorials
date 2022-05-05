@@ -139,7 +139,7 @@ Inside the `runAll` function you can initialize the connection and immediately c
 ```typescript
 const runAll = async(): Promise<void> => {
     const client = await StargateClient.connect(rpc)
-    console.log("chain id:", await client.getChainId(), ", height:", await client.getHeight())
+    console.log("With client, chain id:", await client.getChainId(), ", height:", await client.getHeight())
 }
 ```
 
@@ -196,7 +196,15 @@ That's 10 ATOM. After this confirmation you can comment out the balance query.
 
 As an exercise you want Alice to send some tokens back to the faucet, so you will need its address. You can request this from the faucet bot, but it is also possible to get it using the transaction hash in `experiment.ts`.
 
-First you need to get the transaction. Make sure you replace the hash with the one you received from the faucet bot.
+First you need to get the transaction.
+
+Add the necessary import at the top:
+
+```typescript
+import { IndexedTx, StargateClient } from "@cosmjs/stargate"
+```
+
+Then, make sure you replace the hash with the one you received from the faucet bot.
 
 ```typescript
 const faucetTx: IndexedTx = (await client.getTx(
@@ -204,23 +212,65 @@ const faucetTx: IndexedTx = (await client.getTx(
 ))!
 ```
 
-Here you see that there is a serialized `faucetTx.tx`. The serialized transaction are the bytes that were sent over the testnet by the faucet. It is unintelligible to humans until you deserialize it properly. Since it is a serialized transaction, use the methods offered by `cosmjs-types` [`Tx`](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/tx/v1beta1/tx.ts#L230) to deserialize it:
+A good IDE could help you to add necessary imports.
+
+### Deserialize the transaction
+
+Here, with:
 
 ```typescript
-// import { Tx } from "cosmjs-types/cosmos/tx/v1beta1/tx"
+console.log(faucetTx)
+```
 
+You see that there is a serialized `faucetTx.tx`. The serialized transaction are the bytes that were sent over the testnet by the faucet. It is unintelligible to humans until you deserialize it properly. Since it is a serialized transaction, use the methods offered by `cosmjs-types` [`Tx`](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/tx/v1beta1/tx.ts#L230) to deserialize it.
+
+Add the necessary import at the top:
+
+```typescript
+import { Tx } from "cosmjs-types/cosmos/tx/v1beta1/tx"
+```
+
+Then deserialize the transaction:
+
+```typescript
 const decodedTx: Tx = Tx.decode(faucetTx.tx)
 ```
 
-Next you need to deserialize the only message in it:
+Deserializing the transaction has not deserialized its component message(s). You can confirm this with:
 
 ```typescript
-// import { MsgSend } from "cosmjs-types/cosmos/bank/v1beta1/tx"
+console.log(decodedTx)
+```
 
+The transaction deserializer knows how to properly deserialize a transaction, but it does not know how to do the same for messages. Messages can in fact be of any type, and each type has its own deserializer. This is not something that the transaction deserializer knows.
+
+### Deserialize the message
+
+Next you need to deserialize the only message in the transaction. But which deserializer do you pick? For that, look at the message's `typeUrl`:
+
+```typescript
+console.log(decodedTx.body!.messages[0].typeUrl)
+```
+
+This prints:
+
+```
+/cosmos.bank.v1beta1.MsgSend
+```
+
+This is your cue that you need to use the `MsgSend` deserializer. First add the necessary import at the top:
+
+```typescript
+import { MsgSend } from "cosmjs-types/cosmos/bank/v1beta1/tx"
+```
+
+Then you can deserialize the message.
+
+```typescript
 const sendMessage: MsgSend = MsgSend.decode(decodedTx.body!.messages[0].value)
 ```
 
-In this message, the `fromAddress` is the faucet:
+In this message, the `fromAddress` is that of the faucet:
 
 ```typescript
 const faucet = sendMessage.fromAddress
@@ -293,23 +343,23 @@ Update your import line:
 import { IndexedTx, SigningStargateClient, StargateClient } from "@cosmjs/stargate"
 ```
 
-VSCode's auto-complete can assist you again with this `import` line, by clicking <kbd>CTRL-SPACE</kbd> between `{` and `}`. To see its declaration, you can then right-click on the name and choose <kbd>Go to Definition</kbd>. In particular the `connectWithSigner` method is informative.
+VSCode's auto-complete can assist you again with this `import` line, by clicking <kbd>CTRL-SPACE</kbd> between `{` and `}`. To see its declaration, you can then right-click on the name and choose <kbd>Go to Definition</kbd>. In particular the [`connectWithSigner`](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/signingstargateclient.ts#L156) method is informative.
 
-When you instantiate `SigningStargateClient`, you need to pass it a **signer**, implementing the `OfflineDirectSigner` interface. The signer needs access to Alice's **private key**, and there are several ways to accomplish this. In this example, you will use Alice's saved **mnemonic**.
+When you instantiate `SigningStargateClient`, you need to pass it a [**signer**](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/signingstargateclient.ts#L158), implementing the [`OfflineDirectSigner`](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/proto-signing/src/signer.ts#L21-L24) interface. The signer needs access to Alice's **private key**, and there are several ways to accomplish this. In this example, you will use Alice's saved **mnemonic**.
 
-Load the mnemonic as text in your code with this import:
+To load the mnemonic as text in your code you will need this import:
 
 ```typescript
 import { readFile } from "fs/promises"
 ```
 
-There are several implementations of `OfflineDirectSigner` available. Right-click on `OfflineDirectSigner` in VSCode and select <kbd>Find All Implementations</kbd>: `DirectSecp256k1HdWallet`, with its `fromMnemonic` method, is the most appropriate for this situation. Add the import:
+There are several implementations of `OfflineDirectSigner` available. Right-click on `OfflineDirectSigner` in VSCode and select <kbd>Find All Implementations</kbd>: [`DirectSecp256k1HdWallet`](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/proto-signing/src/directsecp256k1hdwallet.ts#L133), with its [`fromMnemonic`](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/proto-signing/src/directsecp256k1hdwallet.ts#L140-L141) method, is the most appropriate for this situation. Add the import:
 
 ```typescript
 import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing"
 ```
 
-The `fromMnemonic` factory function needs a string. Create a new function that returns an `OfflineDirectSigner`:
+The `fromMnemonic` factory function needs a string with the mnemonic. You read this string from the mnemonic file. Create a new function that returns an `OfflineDirectSigner`:
 
 ```typescript
 const getAliceSignerFromMnemonic = async(): Promise<OfflineDirectSigner> => {
@@ -326,25 +376,32 @@ The Cosmos Hub Testnet uses the `cosmos` address prefix. This is the default use
 
 ```typescript
 const aliceSigner: OfflineDirectSigner = await getAliceSignerFromMnemonic()
-const signingClient = await SigningStargateClient.connectWithSigner(rpc, aliceSigner)
 ```
 
-Check that it works like the read-only client that you used earlier, and from which [it inherits](https://github.com/cosmos/cosmjs/blob/0f0c9d8a754cbf01e17acf51d3f2dbdeaae60757/packages/stargate/src/signingstargateclient.ts#L147), by adding:
-
-```typescript
-console.log("chain id:", await signingClient.getChainId(), ", height:", await signingClient.getHeight())
-```
-
-Run it, and confirm that it recovers Alice's address as expected:
+As a first step, you can confirm that it recovers Alice's address as expected:
 
 ```typescript
 const alice = (await aliceSigner.getAccounts())[0].address
-
+console.log("Alice's address from signer", alice)
 ```
+
+Now add the line that finally creates the signing client:
+
+```typescript
+const signingClient = await SigningStargateClient.connectWithSigner(rpc, aliceSigner)
+```
+
+Check that it works like the read-only client that you used earlier, and from which [it inherits](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/signingstargateclient.ts#L147), by adding:
+
+```typescript
+console.log("With signing client, chain id:", await signingClient.getChainId(), ", height:", await signingClient.getHeight())
+```
+
+Run it.
 
 ## Send tokens
 
-Alice can now send some tokens back to the faucet, but to do so she will also need to pay the network gas fee. If she wants to send back 1% of her holdings (`100000uatom`), how much gas should she put, and at what price?
+Alice can now send some tokens back to the faucet, but to do so she will also need to pay the network gas fee. How much gas should she put, and at what price?
 
 She can copy what the faucet did. To discover this, run:
 
@@ -360,7 +417,22 @@ Gas fee: [ { denom: 'uatom', amount: '500' } ]
 Gas limit: 200000
 ```
 
-Alice can reuse this information. Add the command:
+With the gas information how does Alice structure her command so that she sends 1% of her holdings, i.e. `100000uatom`, back to the faucet? `SigningStargateClient`'s [`sendTokens`](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/signingstargateclient.ts#L217-L223) function takes a `Coin[]` information. `Coin` is rather simple:
+
+```typescript [https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/base/v1beta1/coin.ts#L13-L16]
+export interface Coin {
+    denom: string;
+    amount: string;
+}
+```
+
+Alice can pick any `denom` and any `amount` as long as she owns them. In this case it is:
+
+```typescript
+{ denom: "uatom", amount: "100000" }
+```
+
+With this information, add the command:
 
 ```typescript
 console.log("Alice balance before:", await client.getAllBalances(alice))
@@ -368,12 +440,7 @@ console.log("Faucet balance before:", await client.getAllBalances(faucet))
 const result = await signingClient.sendTokens(
     alice,
     faucet,
-    [
-        {
-            denom: "uatom",
-            amount: "100000",
-        }
-    ],
+    [{ denom: "uatom", amount: "100000" }],
     {
         amount: [{ denom: "uatom", amount: "500" }],
         gas: "200000",
