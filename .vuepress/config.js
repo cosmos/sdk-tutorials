@@ -63,8 +63,6 @@ module.exports = {
     },
     allowedIDAOrigins: [
       "preview-5bxuue6kafu5ocp5", 
-      "localhost:", 
-      "127.0.0.1", 
       "deploy-preview-995", 
       "deploy-preview-994", 
       "deploy-preview-991",
