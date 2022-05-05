@@ -64,6 +64,16 @@
         //-                 span Talk to us
 </template>
 
+<script>
+import { isIDAMode } from "../theme/utils/helpers";
+
+export default {
+    mounted() {
+        if (isIDAMode(this.$themeConfig.allowedIDAOrigins)) window.location.href = "/course-ida/welcome/"
+    }
+}
+</script>
+
 <style lang="stylus" scoped>
     .content
         margin-top var(--spacing-9)
