@@ -7,9 +7,11 @@ tag: deep-dive
 
 # IBC-Go Relayer
 
-[IBC-Go Relayer](https://github.com/cosmos/relayer) is a relayer implementation written in Golang.
+[IBC-Go Relayer](https://github.com/cosmos/relayer) is a relayer implementation written in Golang. It can create connections and channels, relay transactions and acknowledgements, and upgrade clients.
 
-## Testing
+In this section, the approach taken is the same as in the Hermes section. You will start with establishing a connection and channel between two chains. Then you will send a transfer transaction from the first chain to the second chain.
+
+## Install
 
 The repository offers a script to start two chains, which we need in order to test the relayer. 
 
@@ -48,6 +50,8 @@ $ make install
 
 Make sure that your `$GOPATH` is set correctly and `$GOPATH/bin` is included in your `$PATH`. 
 
+## Test
+
 Now use the offered script to spin up two chains, **ibc-0** and **ibc-1**:
 
 ```bash
@@ -62,7 +66,17 @@ It is helpful to examine the folder structure of the relayer:
 $ tree ~/.relayer
 ```
 
-See if the chains are ready to relay over:
+There you can see the addresses of the users created by the script.
+
+Check the relayer configuration with:
+
+```bash
+$ cat ~/.relayer/config/config.yaml
+```
+
+You will see the configuration for both chains and the paths. You can change the amount of fees you pay on each chain in the configuration via `gas-prices`. IBC-Go relayer offers the so-called [Chain Registry](https://github.com/cosmos/chain-registry) for a number of Cosmos SDK-based chains. You can easly fetch the configration and start relaying.
+
+Now see if the chains are ready to relay over:
 
 ```bash
 $ rly chains list
@@ -87,7 +101,7 @@ $ rly q balance ibc-0
 $ rly q bal ibc-1
 ```
 
-Now send some tokens between the chains:
+Send some tokens between the chains:
 
 ```bash
 $ rly tx transfer ibc-0 ibc-1 1000000samoleans $(rly chains address ibc-1) channel-0
@@ -124,5 +138,4 @@ $ rly q bal ibc-0
 $ rly q bal ibc-1
 ```
 
-NOTE: you will see the stake balances decreased on each chain. This is to pay for fees.
-You can change the amount of fees you pay on each chain in the configuration.
+You can see that the stake balances decreased on each chain because of the set fees in the configuration.
