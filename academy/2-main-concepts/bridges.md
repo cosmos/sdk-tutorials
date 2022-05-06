@@ -15,7 +15,7 @@ In this section you will learn more about bridges in the Cosmos ecosystem, inclu
 * [Transactions](./transactions.md)
 * [Messages](./messages.md)
 * [Events](./events.md)
-* [IBC](./ibc.md)
+<!-- * [IBC](./ibc.md) -->
 
 </HighlightBox>
 
