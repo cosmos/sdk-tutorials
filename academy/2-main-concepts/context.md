@@ -50,7 +50,7 @@ Every transaction is processed by various parts of the Cosmos SDK and consensus 
 
 </HighlightBox>
 
-* **Logger:** a logger from the Tendermint libraries. Learn more about logs here. Modules call this method to create their unique module-specific logger.
+* **Logger:** a logger from the Tendermint libraries. [Learn more about logs here](https://github.com/tendermint/tendermint/blob/master/libs/log/logger.go). Modules call this method to create their unique module-specific logger.
 * **`VoteInfo`:** a list of the ABCI type `VoteInfo`, which includes the name of a validator and a boolean indicating whether they have signed the block.
 * **Gas meters:** specifically, a `gasMeter` for the transaction currently being processed, using the context and a `blockGasMeter` for the entire block it belongs to. 
 
