@@ -15,8 +15,11 @@
 				tm-faq.home__content__overview__content__item(v-for="item in $frontmatter.overview.items" :title="item.title" :description="item.description")
 
 		.modules(v-if="this.modules && this.modules[0].submodules && this.modules[0].submodules.length > 1")
-			h2 Course Modules
-			card-module(v-for="module in this.modules" :module="module" :main="$frontmatter.main").modules__item
+			h2(:id="$frontmatter.weekly ? 'weekly-path' : 'course-modules'") {{$frontmatter.weekly ? "Weekly path" : "Course Modules"}}
+			card-module(v-for="module in this.modules" :module="module" :main="$frontmatter.main" :weekly="$frontmatter.weekly || false").modules__item
+		.image-section(v-if="$frontmatter.image")
+			h2(v-if="$frontmatter.image.title") {{$frontmatter.image.title}}
+			tm-image(:src="$frontmatter.image.src")
 		.resources__wrapper(v-if="$themeConfig.resources")
 			h3.resources__title Developer resources
 			.resources
@@ -35,6 +38,9 @@
 
 		&__item
 			margin-top 64px
+
+	.image-section
+		margin-top 96px
 
 	.resources
 		display flex
@@ -167,6 +173,7 @@
 				display flex
 
 				&__title
+					margin-right 16px
 					width 50%
 
 				&__content
@@ -202,6 +209,7 @@
 
 					&__title
 						width 100%
+						margin-right 0
 
 					&__content
 						width 100%
@@ -228,13 +236,19 @@
 </style>
 
 <script>
+import { scrollToHeader } from "../theme/utils/helpers";
+
 export default {
+	updated() {
+		this.$nextTick(function () {
+			scrollToHeader();
+		});
+	},
 	computed: {
 		modules() {
 			let modules = null;
 
 			if (this.$frontmatter.modules) {
-				console.log(this.$frontmatter.modules)
 				modules = this.$frontmatter.modules;
 			} else {
 				const path = this.$page.path.split("/").filter(item => item !== "");
