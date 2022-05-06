@@ -73,7 +73,7 @@ The Cosmos ecosystem has a [number of testnets](https://github.com/cosmos/testne
 RPC: https://rpc.sentry-01.theta-testnet.polypore.xyz
 ```
 
-If you don't have a testnet account yet, you must create your 24-word mnemonic. If you already have a preferred method for creating your mnemonic, use that; otherwise CosmJS can generate a new one. In the latter case, create a new file `generate_mnemonic.ts`:
+If you don't have a testnet account yet, you must create your 24-word mnemonic. CosmJS can generate a new one. Create a new file `generate_mnemonic.ts`:
 
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/generate_mnemonic.ts#L1-L10]
 import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing"
