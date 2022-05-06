@@ -29,7 +29,7 @@ There are two steps to successfully get ATOM:
 
 Open Google Chrome on your computer and go to the [Keplr extension page](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap). Alternatively, you can search for Keplr in the [Chrome extensions store](https://chrome.google.com/webstore/search/Keplr).
 
-<HighlightBox type="tip">
+<HighlightBox type="warn">
 
 It is always good practice to be careful with links to wallet software because of the possibility of fraudulent software designed to steal from you. A link to the official Keplr extension can also be found on the [Cosmos ecosystem overview page](https://cosmos.network/ecosystem/wallets).
 
@@ -88,7 +88,7 @@ Click the drop-down menu labeled _Cosmos_ at the top of the screen to see how ma
 
 <HighlightBox type="info">
 
-A note on your **address**: As with a street address, it is ok for others to know it, as it allows others to send you ATOM or other assets.
+A note on your **address**: As with a street address, it is OK for others to know it, as it allows others to send you ATOM or other assets.
 
 </HighlightBox>
 
@@ -140,7 +140,7 @@ If all went well, you should see your new asset in Keplr after a few minutes:
 
 Congratulations! You now own slightly less than one ATOM. Remember that **you** are really in charge, so check again that your mnemonic and password are saved properly.
 
-<HighlightBox type="info">
+<HighlightBox type="tip">
 
 You can also look at your address using a public explorer, like [mintscan.io](https://mintscan.io).
 

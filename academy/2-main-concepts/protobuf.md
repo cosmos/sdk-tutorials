@@ -22,7 +22,11 @@ You can find a code example for your checkers blockchain at the end of the secti
 
 Protocol Buffers (Protobuf) is an open-source, extensible, cross-platform, and language-agnostic method of serializing object data, primarily for network communication and storage. Libraries for multiple languages parse a common interface description language to generate source code for encoding and decoding streams of bytes representing structured data.
 
+<HighlightBox type="info">
+
 Originally designed and developed by Google, Protobuf has been an open-source project since 2008. It serves as a basis for Remote Procedure Call (RPC) systems.
+
+</HighlightBox>
 
 <HighlightBox type="info">
 
@@ -48,7 +52,7 @@ The Protobuf format supports extending the format over time in such a way that c
 
 Go developers access the setters and getters in the generated source code through the Go Protobuf API.
 
-<HighlightBox type="info">
+<HighlightBox type="reading">
 
 For more on encoding in Cosmos, see the [Cosmos SDK documentation on encoding](https://docs.cosmos.network/main/core/encoding.html).
 

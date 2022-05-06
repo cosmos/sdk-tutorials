@@ -48,7 +48,7 @@ Two elements stand out in the previous:
 * A `type` to categorize the event at a high level. For example, the Cosmos SDK uses the `message` _type_ to filter events by `Msg`.
 * A list of `attributes`, which are key-value pairs giving more information on the categorized event. For example, we can filter events by key-value pairs using `message.action={some_action}`, `message.module={some_module}` or `message.sender={a_sender}` for the `message` type.
 
-<HighlightBox type="info">
+<HighlightBox type="tip">
 
 Make sure to add `'` (single quotes) around each attribute value to parse the attribute values as strings.
 
@@ -101,7 +101,7 @@ The main `eventCategories` you can subscribe to are:
 * **`Tx`:** contains events triggered during `DeliverTx`, the transaction processing.
 * **`ValidatorSetUpdates`:** contains updates about the set of validators for the block.
 
-<HighlightBox type="info">
+<HighlightBox type="reading">
 
 You can find a full list of event categories in the [Tendermint Go documentation](https://godoc.org/github.com/tendermint/tendermint/types#pkg-constants).
 
@@ -135,7 +135,11 @@ ctx.EventManager().EmitEvent(
 )
 ```
 
-It is easy to add events to the other transaction types. Remember that events are meant to inform and notify relevant parties.
+<HighlightBox type="info">
+
+It is easy to add events to the other transaction types. Events are meant to inform and notify relevant parties.
+
+</HighlightBox>
 
 You should also emit an event for games that have timed out. This is part of their lifecycle after all. You would do that in the end blocker:
 

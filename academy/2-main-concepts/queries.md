@@ -26,7 +26,7 @@ A query is a request for information, made by end-users of an application throug
 
 Queries do not require consensus to be processed as they do not trigger state transitions. Therefore queries can be handled entirely independently by a full node.
 
-<HighlightBox type="info">
+<HighlightBox type="reading">
 
 Visit the [detailed Cosmos SDK documentation](https://docs.cosmos.network/main/basics/query-lifecycle.html) for a clear overview of the query lifecycle and learn how a query is created, handled, and responded to.
 
@@ -138,9 +138,17 @@ Now you must fill in the gaps under `TODO`. Simply put:
     }, nil
     ```
 
-Note that the player's move will be tested against the latest validated state of the blockchain. It does not test against the intermediate state being calculated as transactions are delivered, nor does it test against the potential state that would result from delivering the transactions still in the transaction pool.
+<HighlightBox type="info">
+
+The player's move will be tested against the latest validated state of the blockchain. It does not test against the intermediate state being calculated as transactions are delivered, nor does it test against the potential state that would result from delivering the transactions still in the transaction pool.
+
+</HighlightBox>
+
+<HighlightBox type="info">
 
 A player can test their move only after the opponent's move is included in a previous block. These types of edge-case scenarios are not common in your checkers game, and you can expect little to no effect on the user experience.
+
+</HighlightBox>
 
 This is not an exhaustive list of potential queries. Some examples of other possible queries would be to get a player's open games, or to get a list of games that are timing out soon. It depends on the needs of your application and how much functionality you willingly provide.
 

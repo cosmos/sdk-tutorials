@@ -28,7 +28,11 @@ Tendermint BFT is maintained even when 1/3rd of all machines fail, by providing 
 * A blockchain consensus engine.
 * A generic application interface.
 
+<HighlightBox type="reading">
+
 Want to continue exploring this useful component of the Cosmos SDK? Find further information beneath under _Consensus in Tendermint Core and Cosmos_, or in the [Tendermint Core documentation](https://docs.tendermint.com/master/#).
+
+</HighlightBox>
 
 </ExpansionPanel>
 
@@ -79,7 +83,7 @@ The Tendermint BFT is not concerned with the interpretation of transactions. Tha
 
 The _block time_ is approximately seven seconds, and blocks may contain thousands of transactions. Transactions are finalized and cannot be overturned as soon as they appear in a block.
 
-<HighlightBox type="info">
+<HighlightBox type="reading">
 
 For a deeper dive on consensus and Tendermint visit:
 
@@ -143,7 +147,7 @@ Developers are free to create blockchains in any language that supports sockets 
 
 This is itself a considerable step forward that simplifies the creation of unique blockchains.
 
-<HighlightBox type="info">
+<HighlightBox type="reading">
 
 If you want to continue exploring ABCI, you can find more detailed information here:
 
@@ -325,7 +329,7 @@ You need to see whether it makes sense to send the transaction back through ABCI
 
 You can also choose to define which information should be indexed via `events: repeated Event` in the response. The returned values are intendeds to return information that could be tedious to collect otherwise. This allows fast searches across blocks for values of relevance if indexed.
 
-<HighlightBox type="info">
+<HighlightBox type="reading">
 
 See [Tendermint's ABCI event spec documentation](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#events) for what goes into an `Event`.
 

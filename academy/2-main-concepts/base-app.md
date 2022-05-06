@@ -23,7 +23,11 @@ Discover how to define an application state machine and service router, how to c
 
 `BaseApp` is a boilerplate implementation of a Cosmos SDK application. This abstraction implements functionalities that every Cosmos application needs, starting with an implementation of the Tendermint Application Blockchain Interface (ABCI).
 
-Remember that the Tendermint consensus is application agnostic. It establishes the canonical transaction list and sends confirmed transactions to Cosmos SDK applications for interpretation, and in turn receives transactions from Cosmos SDK applications and submits them to the validators for confirmation.
+<HighlightBox type="info">
+
+The Tendermint consensus is application agnostic. It establishes the canonical transaction list and sends confirmed transactions to Cosmos SDK applications for interpretation, and in turn receives transactions from Cosmos SDK applications and submits them to the validators for confirmation.
+
+</HighlightBox>
 
 Applications that rely on the Tendermint consensus must implement concrete functions that support the ABCI interface. `BaseApp` includes an implementation of ABCI so developers are not required to construct one.
 
@@ -150,7 +154,7 @@ When messages and queries are received by the application, they must be routed a
 
 ### `Msg` service router
 
-<HighlightBox type="info">
+<HighlightBox type="reading">
 
 Are you looking for more information on `BaseApp`? See the [Cosmos SDK documentation](https://github.com/cosmos/cosmos-sdk/blob/master/docs/core/baseapp.md).
 

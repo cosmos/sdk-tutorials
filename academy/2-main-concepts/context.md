@@ -26,7 +26,11 @@ Transactions execute in a context. The context includes information about the cu
 
 Context is represented as data structures that carry information about the current state of the application and are intended to be passed from function to function. Context provides access to branched storage, that is a safe branch of the entire state, as well as useful objects and information, like `gasMeter`, block height, and consensus parameters.
 
+<HighlightBox type="info">
+
 The Cosmos SDK context is a custom data structure that contains Go's stdlib context as its base. It has many additional types within its definition that are specific to the Cosmos SDK.
+
+</HighlightBox>
 
 Context is integral to transaction processing as it allows modules to easily access their respective store in the multistore and retrieve transactional context such as the block header and gas meter.
 
@@ -40,12 +44,22 @@ The context has the following properties:
 * **Chain ID:** the unique identification number of the blockchain a block pertains to.
 * **Transaction bytes:** the []byte representation of a transaction is processed using the context. 
 
-  Every transaction is processed by various parts of the Cosmos SDK and consensus engine, for example, Tendermint, throughout its lifecycle, some of which do not have any understanding of transaction types. Thus, transactions are marshaled into a generic `[]byte` type using some kind of encoding format such as Amino.
+<HighlightBox type="info">
+
+Every transaction is processed by various parts of the Cosmos SDK and consensus engine, for example, Tendermint, throughout its lifecycle, some of which do not have any understanding of transaction types. Thus, transactions are marshaled into a generic `[]byte` type using some kind of encoding format such as Amino.
+
+</HighlightBox>
+
 * **Logger:** a logger from the Tendermint libraries. Learn more about logs here. Modules call this method to create their unique module-specific logger.
 * **`VoteInfo`:** a list of the ABCI type `VoteInfo`, which includes the name of a validator and a boolean indicating whether they have signed the block.
 * **Gas meters:** specifically, a `gasMeter` for the transaction currently being processed, using the context and a `blockGasMeter` for the entire block it belongs to. 
 
-  Users specify how much in fees they wish to pay for the execution of their transaction. These gas meters keep track of how much gas has been used in the transaction or block so far. If the gas meter runs out, execution halts.
+<HighlightBox type="info">
+
+Users specify how much in fees they wish to pay for the execution of their transaction. These gas meters keep track of how much gas has been used in the transaction or block so far. If the gas meter runs out, execution halts.
+
+</HighlightBox>
+
 * **`CheckTx` mode:** a boolean value indicating whether a transaction should be processed in `CheckTx` or `DeliverTx` mode.
 * **Min gas price:** the minimum gas price a node is willing to take to include a transaction in its block. This price is a local value configured by each node individually, and should therefore not be used in any functions in sequences leading to state transitions.
 * **Consensus params:** the ABCI type `Consensus Parameters`, which specifies certain limits for the blockchain, such as maximum gas for a block.
@@ -55,7 +69,7 @@ The context has the following properties:
 
 A context is an immutable data structure that carries request-scoped data across APIs and processes. Contexts are also designed to enable concurrency and to be used in Go routines.
 
-<HighlightBox type="info">
+<HighlightBox type="reading">
 
 A basic context is defined in the [Golang Context Package](https://pkg.go.dev/context).
 

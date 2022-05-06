@@ -45,7 +45,13 @@ Transaction objects are Cosmos SDK types that implement the [`Tx`](https://githu
 * [`GetMsgs`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L52): unwraps the transaction and returns a list of contained [`sdk.Msg`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L11-L33). One transaction may have one or multiple messages.
 * [`ValidateBasic`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L56): includes lightweight, stateless checks used by ABCI message’s `CheckTx` and `DeliverTx` to make sure transactions are not invalid. For example, the auth module's [`StdTx`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdtx.go#L77-L83) [`ValidateBasic`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdtx.go#L100-L126) function checks that its transactions are signed by the correct number of signers and that the fees do not exceed the user's maximum. 
 
-  Note that this function is different from the [`ValidateBasic`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L24) functions for `sdk.Msg`, which perform basic validity checks on messages only. For example, `runTX` first runs `ValidateBasic` on each message when it checks a transaction created from the auth module. Then it runs the auth module's [`AnteHandler`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/handler.go#L8), which calls `ValidateBasic` for the transaction itself.
+<HighlightBox type="tip">
+
+This function is different from the [`ValidateBasic`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L24) functions for `sdk.Msg`, which perform basic validity checks on messages only. For example, `runTX` first runs `ValidateBasic` on each message when it checks a transaction created from the auth module. Then it runs the auth module's [`AnteHandler`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/handler.go#L8), which calls `ValidateBasic` for the transaction itself.
+
+</HighlightBox>
+
+
 
 You should rarely manipulate a `Tx` object directly. It is an intermediate type used for transaction generation. Developers usually use the [`TxBuilder`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/client/tx_config.go#L36-L46) interface.
 
@@ -135,7 +141,7 @@ Need another example? See this [code example](https://github.com/cosmos/cosmos-s
 
 The three methods presented previously are higher abstractions on the Tendermint RPC `/broadcast_tx_{async,sync,commit}` endpoints. You can use the [Tendermint RPC endpoints](https://docs.tendermint.com/master/rpc/#/Tx) to directly broadcast the transaction through Tendermint if you wish to.
 
-<HighlightBox type="tip">
+<HighlightBox type="reading">
 
 Tendermint supports the following RPC protocols:
 

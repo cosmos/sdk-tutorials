@@ -22,7 +22,11 @@ To better understand this section, first read the following sections:
 
 A Cosmos SDK application running on a Cosmos blockchain can be upgraded in an orderly, on-chain fashion.
 
+<HighlightBox type="info">
+
 Upgrading blockchains and blockchain applications is notoriously difficult and risky. The Cosmos SDK solves the common risks and challenges.
+
+</HighlightBox>
 
 Generally, when a blockchain is upgraded it is vital that all nodes upgrade simultaneously and at the same block height. This is difficult to achieve in a disorderly setting. If the nodes do not coordinate, then the blockchain will "fork" into two blockchains with a common history: one chain that observes the new rules, and one chain that observes the old rules. It is generally not possible for these two chains to reach a common consensus or merge in the future.
 
@@ -32,7 +36,11 @@ Upgrading a live chain without software support for upgrades is risky, because a
 
 </HighlightBox>
 
+<HighlightBox type="info">
+
 Smart contracts on EVM chains such as Ethereum are immutable software. They are difficult or impossible to change by definition. Various strategies based on modularity can simulate the effects of upgrading smart contracts, but all known methods have inherent limitations, in particular the difficulties, impossibility, or prohibitive costs of re-organizing data at rest. This places a significant limitation on the types of upgrades that are feasible.
+
+</HighlightBox>
 
 **A Cosmos SDK blockchain built for a specific application can be upgraded without forks.** If a new version of the blockchain application uses a different data layout than exists on the chain, the existing data can be reorganized before the new version of the application comes online. The data migration is defined by the developer and runs in each node quickly and cost-effectively before the node returns to service.
 
@@ -40,7 +48,13 @@ Smart contracts on EVM chains such as Ethereum are immutable software. They are 
 
 ### Plan
 
-A "plan" is an upgrade process to take place at a specific block height in the future. It includes a `SideCar` process that executes when the upgrade commences, which names the plan and specifies a block height at which to execute. Acceptance or rejection of the plan is managed through the normal governance process. A "cancel proposal" can be submitted and adopted, preventing the plan from executing. Cancellation is contingent on knowing that a given plan is a poor idea before the upgrade happens.
+A "plan" is an upgrade process to take place at a specific block height in the future. It includes a `SideCar` process that executes when the upgrade commences, which names the plan and specifies a block height at which to execute. 
+
+<HighlightBox type="info">
+
+Acceptance or rejection of the plan is managed through the normal governance process. A "cancel proposal" can be submitted and adopted, preventing the plan from executing. Cancellation is contingent on knowing that a given plan is a poor idea before the upgrade happens.
+
+</HighlightBox>
 
 The `Info` in a plan kicks off the `SideCar` process:
 
@@ -90,7 +104,7 @@ The `SideCar`, handler, and store loader are application-specific. At each block
 
 Application developers build implementations of those components that are tailored to their application and use case.
 
-<HighlightBox type="info">
+<HighlightBox type="reading">
 
 For a more detailed explanation of the upgrade process, see the [Cosmos SDK documentation](https://docs.cosmos.network/main/modules/upgrade).
 
@@ -105,7 +119,7 @@ Cosmovisor is a tool that node operators can use to automate the on-chain proces
 * Cosmovisor can download and run the new binary if wanted.
 * When the chain reaches the upgrade block, Cosmovisor also handles the storage upgrade.
 
-<HighlightBox type="tip">
+<HighlightBox type="reading">
 
 See the [Cosmos SDK documentation on Cosmovisor](https://docs.cosmos.network/main/run-node/cosmovisor.html) to learn more about this process manager for Cosmos SDK applications.
 
@@ -187,7 +201,7 @@ You need new data structures for v2. With Ignite CLI you have:
 
 You will need to add code to v2 to update the leaderboard after a game has been determined. This means a lot of array sorting and information adjustment on the previous code.
 
-<HighlightBox type="info">
+<HighlightBox type="tip">
 
 If you want more details on how to update the leaderboard, look at [Run my own chain](../4-my-own-chain/index.md).
 
@@ -273,7 +287,7 @@ func PopulateLeaderboardWith(leaderboard *types.Leaderboard, additionalPlayers *
 }
 ```
 
-<HighlightBox type="info">
+<HighlightBox type="tip">
 
 If you want more details about the number of helper functions like `AddCandidatesAndSortAtNow`, go to [Run my own chain](../4-my-own-chain/index.md).
 

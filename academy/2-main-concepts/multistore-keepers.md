@@ -26,7 +26,11 @@ A Cosmos SDK application on an application-specific blockchain usually consists 
 
 The Cosmos SDK adopts an object-capabilities-based approach to help developers better protect their application from unwanted inter-module interactions. Keepers are at the core of this approach.
 
+<HighlightBox type="info">
+
 A keeper is a Cosmos SDK abstraction that manages access to the subset of the state defined by a module. All access to the module's data must go through the module's keeper.
+
+</HighlightBox>
 
 A keeper can be thought of as the literal gatekeeper of a module's stores. Each store defined within a module (typically an IAVL store) comes with a `storeKey` which grants unlimited access. The module's keeper holds this `storeKey`, which should otherwise remain unexposed, and defines methods for reading and writing to any store.
 
@@ -104,9 +108,13 @@ A [`cachemulti.Store`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/sto
 
 As the name suggests, `Transient.Store` is a `KVStore` that is discarded automatically at the end of each block. `Transient.Store` is a `dbadapter.Store` with a `dbm.NewMemDB()`. All `KVStore` methods are reused. A new `dbadapter.Store` is assigned when `Store.Commit()` is called, discarding the previous reference. Garbage collection is attended to automatically.
 
-<HighlightBox type="tip">
+<HighlightBox type="reading">
 
 Take a closer look at the [IAVL spec](https://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md) for when working with the IAVL store.
+
+</HighlightBox>
+
+<HighlightBox type="info">
 
 The default implementation of `KVStore` and `CommitKVStore` is the `IAVL.Store`. The `IAVL.Store` is a self-balancing binary search tree that ensures get and set operations are `O(log n)`, where `n` is the number of elements in the tree.
 
@@ -146,7 +154,7 @@ The `AnteHandler` is theoretically optional but still a very important component
 
 `BaseApp` holds an `AnteHandler` as a parameter that is initialized in the application's constructor. The most widely used `AnteHandler` is the auth module.
 
-<HighlightBox type="info">
+<HighlightBox type="readinng">
 
 For more information on the subject, see the following resources:
 
@@ -514,9 +522,15 @@ am.keeper.ForfeitExpiredGames(sdk.WrapSDKContext(ctx))
 
 How can you ensure that the execution of this `EndBlock` does not become prohibitively expensive? After all, the potential number of games to expire is unbounded, which can be disastrous in the blockchain world. Is there a situation or attack vector that makes this a possibility? And what can you do to prevent it?
 
-The timeout duration is fixed, and is the same for all games. This means that the `n` games that expire in a given block have all been created or updated at roughly the same time or block height `h`, with margins of error `h-1` and `h+1`. These created and updated games are limited in number, because (as established in the chain consensus parameters) every block has a maximum size and a limited number of transactions it can include. If by chance all games in blocks `h-1`, `h`, and `h+1` expire now, then the `EndBlock` function would have to expire three times as many games as a block can handle. This is a worst-case scenario, but most likely it is still manageable.
+The timeout duration is fixed, and is the same for all games. This means that the `n` games that expire in a given block have all been created or updated at roughly the same time or block height `h`, with margins of error `h-1` and `h+1`. 
 
-**Note:** Be careful about letting the game creator pick a timeout duration. This could allow a malicious actor to stagger game creations over a large number of blocks *with decreasing timeouts*, so that they all expire at the same time.
+These created and updated games are limited in number, because (as established in the chain consensus parameters) every block has a maximum size and a limited number of transactions it can include. If by chance all games in blocks `h-1`, `h`, and `h+1` expire now, then the `EndBlock` function would have to expire three times as many games as a block can handle. This is a worst-case scenario, but most likely it is still manageable.
+
+<HighlightBox type="warn">
+
+Be careful about letting the game creator pick a timeout duration. This could allow a malicious actor to stagger game creations over a large number of blocks *with decreasing timeouts*, so that they all expire at the same time.
+
+</HighlightBox>
 
 ## Gas costs
 

@@ -146,7 +146,7 @@ With Ignite CLI, developers can:
 * Allow for inter-chain token transfers by using a built-in IBC relayer to send value and data to different chains.
 * Benefit from a fast-developed frontend with automatically generated APIs and web pages in JavaScript, TypeScript, and Vue.
 
-<HighlightBox type="tip">
+<HighlightBox type="reading">
 
 See the official [Ignite CLI documentation](https://docs.ignite.com/), and the section on [Ignite CLI](../4-my-own-chain/ignitecli.md) in the **My Own Cosmos Chain** chapter.
 
@@ -164,7 +164,7 @@ When you scaffold with Ignite CLI, things like key management, creating validato
 
 With CosmWasm, smart contracts can run on multiple chains with the help of the IBC protocol. It adds further flexibility for developers and makes smart contract development faster. CosmWasm is written as a module to be plugged into the Cosmos SDK, and leverages the speed of Wasm and the power of Rust.
 
-<HighlightBox type="tip">
+<HighlightBox type="reading">
 
 For a deeper dive, read the [CosmWasm documentation](https://docs.cosmwasm.com/docs/1.0/).
 
@@ -181,6 +181,10 @@ For example, with [Ethermint](https://github.com/tharsis/ethermint) developers c
 Ethermint is a software developed to port the EVM into a Cosmos module. It makes scalable, high-throughput, PoS blockchains possible. These are fully compatible with Ethereum and the Cosmos SDK.
 
 Ethermint is Web3 compatible, and achieves high throughput with Tendermint and horizontal scaling with IBC. It provides a Web3, JSON-RPC layer to interact with Ethereum clients and tooling.
+
+</HighlightBox>
+
+<HighlightBox type="reading">
 
 For more on Ethermint, consult the [Ethermint documentation](https://github.com/cosmos/ethermint).
 

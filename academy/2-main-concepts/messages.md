@@ -70,12 +70,12 @@ The Cosmos SDK uses Protobuf definitions to generate client and server code:
 * The `MsgServer` interface defines the server API for the `Msg` service. Its implementation is described in the [`Msg` services documentation](https://docs.cosmos.network/main/building-modules/msg-services.html).
 * Structures are generated for all RPC requests and response types.
 
-<HighlightBox type="tip">
+<HighlightBox type="reading">
 
 If you want to dive deeper when it comes to messages, the `Msg` service, and modules, see:
 
 * The Cosmos SDK documentation on [`Msg` service](https://docs.cosmos.network/main/building-modules/msg-services.html).
-* The Cosmos SDK documentation on messages and querie,s addressing how to define messages using `Msg` services - [Amino `LegacyMsg`](https://docs.cosmos.network/main/building-modules/messages-and-queries.html#legacy-amino-legacymsgs).
+* The Cosmos SDK documentation on messages and queries, addressing how to define messages using `Msg` services - [Amino `LegacyMsg`](https://docs.cosmos.network/main/building-modules/messages-and-queries.html#legacy-amino-legacymsgs).
 
 </HighlightBox>
 
@@ -196,7 +196,7 @@ Your work is mostly done. You will want to create the specific game creation cod
 
 1. Decide how to create a new and unique game ID: `newIndex`.
 
-    <HighlightBox type="tip">
+    <HighlightBox type="info">
 
     For more details, and to avoid diving too deep in this section, see [My Own Chain](../4-my-own-chain/index.md).
 
@@ -237,10 +237,14 @@ Your work is mostly done. You will want to create the specific game creation cod
     }, nil
     ```
 
+<HighlightBox type="tip">
+
 Remember:
 
 * If you encounter an internal error, you should `panic("This situation should not happen")`.
 * If you encounter a user or _regular_ error, like not having enough funds, you should return a regular `error`.
+
+</HighlightBox>
 
 ## The other messages
 
@@ -298,8 +302,16 @@ What would happen if a player stops taking turns? To ensure functionality for yo
 
 In general terms, you could add `timeout: Timestamp` to your `StoredGame` and update it every time something changes in the game. You can decide on a maximum delay, for example *one day*.
 
-Note that there are no _open_ challenges, meaning a player cannot create a game where the second player is unknown until someone steps in, so player matching is left outside of the blockchain. The enterprising student can incorporate it inside the blockchain by changing the necessary models.
+<HighlightBox type="info">
+
+There are no _open_ challenges, meaning a player cannot create a game where the second player is unknown until someone steps in, so player matching is left outside of the blockchain. The enterprising student can incorporate it inside the blockchain by changing the necessary models.
+
+</HighlightBox>
+
+<HighlightBox type="tip">
 
 If you would like to get started on building your own checkers game, you can head straight to the main exercise in [My Own Chain](../4-my-own-chain/index.md).
+
+</HighlightBox>
 
 </ExpansionPanel>
