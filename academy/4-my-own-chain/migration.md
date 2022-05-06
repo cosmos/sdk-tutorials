@@ -171,11 +171,11 @@ With the structure set up it is time to add the code using these new elements in
 
 ## v2 player information helpers
 
-You need to do a `+1` on one of the `count`s when a game reaches its resolution.
+When a game reaches its resolution, one of the `count`s needs to add `+1`.
 
 <ExpansionPanel title="A detailed look into the code">
 
-Start by adding a helper private function that gets the stats from the storage, updates the numbers as instructed, and saves it back:
+To start, add a helper private function that gets the stats from the storage, updates the numbers as instructed, and saves it back:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/keeper/player_info_handler.go#L11-L33]
 func mustAddDeltaGameResultToPlayer(
@@ -203,7 +203,7 @@ func mustAddDeltaGameResultToPlayer(
 }
 ```
 
-Which you can easily call from these public one-liner functions added to the keeper:
+You can easily call this from these public one-liner functions added to the keeper:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/keeper/player_info_handler.go#L35-L45]
 func (k *Keeper) MustAddWonGameResultToPlayer(ctx sdk.Context, player sdk.AccAddress) types.PlayerInfo {
@@ -219,7 +219,7 @@ func (k *Keeper) MustAddForfeitedGameResultToPlayer(ctx sdk.Context, player sdk.
 }
 ```
 
-Which player should get `+1` on what count? You need to identify the loser and the winner of a game to determine this. Create this other private helper for this:
+Which player should get `+1`, and on what count? You need to identify the loser and the winner of a game to determine this. Create another private helper:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/keeper/player_info_handler.go#L47-L69]
 func getWinnerAndLoserAddresses(storedGame *types.StoredGame) (winnerAddress sdk.AccAddress, loserAddress sdk.AccAddress) {
@@ -247,7 +247,7 @@ func getWinnerAndLoserAddresses(storedGame *types.StoredGame) (winnerAddress sdk
 }
 ```
 
-Which you can call from these public helper functions added to the keeper:
+You can call this from these public helper functions added to the keeper:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/keeper/player_info_handler.go#L71-L81]
 func (k *Keeper) MustRegisterPlayerWin(ctx sdk.Context, storedGame *types.StoredGame) (winnerInfo types.PlayerInfo, loserInfo types.PlayerInfo) {
@@ -285,7 +285,7 @@ Now call your helper functions:
     ...
     ```
 
-2. And on a forfeit:
+2. On a forfeit:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b7001370e1cdfe9fc7c40e7144122cf1d18c6ee8/x/checkers/keeper/end_block_server_game.go#L58]
     ...
@@ -306,13 +306,13 @@ Continue completing your v2 before tackling the migration. Your leaderboard help
 2. Sort the array according to the rules.
 3. Clip the array to a length of 100 and save the result.
 
-The sorting entails comparing dates in cases of a score tie. This is potentially expensive if you are deserializing the date in the comparator itself. Instead, the comparator should be presented with data already deserialized. Prepare a data structure that has already deserialized the `dateAdded` for you to:
+Sorting entails comparing dates in cases of a score tie. This is potentially expensive if you are deserializing the date in the comparator itself. Instead, the comparator should be presented with data already deserialized. Prepare a data structure that has already deserialized the `dateAdded`, which allows you to:
 
 1. Deserialize all the elements of the whole leaderboard's array.
-2. Sort it.
-3. And only then reserialize its elements.
+2. Sort its elements.
+3. Only then reserialize its elements.
 
-You do not need to use this deserialized element type anywhere else. Therefore you should keep it private. Create a brand new file `full_leaderboard.go` to encapsulate all your leaderboard helpers:
+You do not need to use this deserialized element type anywhere else, therefore you should keep it private. Create a new file `full_leaderboard.go` to encapsulate all your leaderboard helpers:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/full_leaderboard.go#L11-L15]
 type winningPlayerParsed struct {
@@ -378,7 +378,7 @@ func (parsed *winningPlayerParsed) stringify() (stringified *WinningPlayer) {
 }
 ```
 
-The functions are called repeatedly when (de-)serializing arrays:
+The functions are called repeatedly when serializing or de-serializing arrays:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/full_leaderboard.go#L50-L69]
 func (leaderboard *Leaderboard) parseWinners() (winners []*winningPlayerParsed, err error) {
@@ -405,7 +405,7 @@ func stringifyWinners(winners []*winningPlayerParsed) (stringified []*WinningPla
 
 </ExpansionPanel>
 
-As you have a function to get an array of deserialized winning players, you can now add a function to sort the slice in place:
+As you have a function to get an array of de-serialized winning players, you can now add a function to sort the slice in place:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/full_leaderboard.go#L73-L83]
 func sortWinners(winners []*winningPlayerParsed) {
@@ -421,11 +421,11 @@ func sortWinners(winners []*winningPlayerParsed) {
 }
 ```
 
-You test in descending order for scores first and then for the added dates. As you can see, there is no deserialization in this `func(i, j int) bool` callback. It should be possible to write a one-liner inside this function but at the expense of readability.
+Test in descending order first for scores and then for the added dates. Note that there is no de-serialization in this `func(i, j int) bool` callback. It is possible to write a one-liner inside this function but at the expense of readability.
 
 <ExpansionPanel title="Add a function to add a candidate and sort">
 
-When migrating the genesis more than one candidate will be added. With this in mind, add a first helper on the deserialized elements:
+When migrating the genesis more than one candidate will be added. Therefore, add a first helper on the de-serialized elements:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/full_leaderboard.go#L85-L92]
 func AddParsedCandidatesAndSort(parsedWinners []*winningPlayerParsed, candidates []*winningPlayerParsed) (updated []*winningPlayerParsed) {
@@ -438,7 +438,7 @@ func AddParsedCandidatesAndSort(parsedWinners []*winningPlayerParsed, candidates
 }
 ```
 
-Notice the clipping at the leaderboard's length. Similarly, You need helpers on the leaderboard.
+Note the clipping at the leaderboard's length. Similarly, you need helpers on the leaderboard.
 
 You can get these other helpers with a de-serialization:
 
@@ -470,13 +470,13 @@ func (leaderboard *Leaderboard) AddCandidateAndSort(ctx sdk.Context, playerInfo 
 }
 ```
 
-Here we assume that a candidate is added at the current block time or migration time. A candidate is not an existing winning player but a new one.
+This assumes that a candidate is added at the current block time or migration time. A candidate is not an existing winning player but a new one.
 
 </ExpansionPanel>
 
 ## v2 leaderboard handling
 
-You have created the leaderboard helper functions. In a separate file, add one last function to the keeper to implement the leaderboard. You want this function to make it possible to add a candidate winner and save the updated leaderboard:
+You have created the leaderboard helper functions. In a separate file, add one last function to the keeper to implement the leaderboard. This function makes it possible to add a candidate winner and save the updated leaderboard:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/keeper/leaderboard_handler.go#L10-L21]
 func (k *Keeper) MustAddToLeaderboard(ctx sdk.Context, winnerInfo types.PlayerInfo) types.Leaderboard {
@@ -495,7 +495,7 @@ func (k *Keeper) MustAddToLeaderboard(ctx sdk.Context, winnerInfo types.PlayerIn
 
 Note the new error [`ErrCannotAddToLeaderboard`](https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/errors.go#L33).
 
-You are now through most of the leaderboard preparation and the only thing left is to call your new functions at the right junctures:
+This completes most of the leaderboard preparation. The only task left is to call your new functions at the right junctures:
 
 1. On a win:
 
@@ -509,7 +509,7 @@ You are now through most of the leaderboard preparation and the only thing left 
     }
     ```
 
-2. And on a forfeit:
+2. On a forfeit:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/keeper/end_block_server_game.go#L58-L59]
     if storedGame.MoveCount <= 1 {
@@ -521,17 +521,17 @@ You are now through most of the leaderboard preparation and the only thing left 
     }
     ```
 
-Your leaderboard is now updated and saved on an on-going basis as part of your v2 blockchain.
+Your leaderboard will now be updated and saved on an on-going basis as part of your v2 blockchain.
 
 ## v1 to v2 player information migration helper
 
-With your v2 blockchain now fully operational, it is time to work on the issue of the data migration.
+With your v2 blockchain now fully operational, it is time to work on the issue of data migration.
 
-First tackle the migration of the player information. You will be handed a giant _v1_ genesis when migrating, which contains all the games played so far. You have to go through them all and build the `PlayerInfoList` part of the _v2_ genesis.
+First tackle the migration of player information. You will receive a giant _v1_ genesis when migrating which contains all the games played so far. You must go through them all and build the `PlayerInfoList` part of the _v2_ genesis.
 
-You need to do `+1` on the relevant player stats as you go through games. For performance it makes sense to pick a `map[string]*types.PlayerInfo` data type so that you can call up a player's stats by its ID in `O(1)`.
+You need to apply `+1` to the relevant player stats as you go through games. For performance reasons pick a `map[string]*types.PlayerInfo` data type so that you can call up a player's stats by its ID in `O(1)`.
 
-Begin by creating a function that gets or creates a new `PlayerInfo` in a new file:
+Create a function that gets or creates a new `PlayerInfo` in a new file:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/migrations/v1tov2/winning_players_builder.go#L9-L20]
 func getOrNewPlayerInfo(infoSoFar *map[string]*types.PlayerInfo, playerIndex string) (playerInfo *types.PlayerInfo) {
@@ -548,7 +548,7 @@ func getOrNewPlayerInfo(infoSoFar *map[string]*types.PlayerInfo, playerIndex str
 }
 ```
 
-And then a function that does the incrementing in the `map` in place:
+Then create a function that does the incrementing in the `map` in place:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/migrations/v1tov2/winning_players_builder.go#L22-L53]
 func PopulatePlayerInfosWith(infoSoFar *map[string]*types.PlayerInfo, games *[]*types.StoredGame) (err error) {
@@ -585,7 +585,7 @@ func PopulatePlayerInfosWith(infoSoFar *map[string]*types.PlayerInfo, games *[]*
 }
 ```
 
-You are using a `map` of `PlayerIno` only for performance reasons. In the end, because the v2 genesis takes a list and not a map, you need to do a conversion. Add a helper:
+This uses a `map` of `PlayerIno` only for performance reasons. Because the v2 genesis takes a list and not a map, you need to do a conversion. Add a helper:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/migrations/v1tov2/winning_players_builder.go#L55-L61]
 func PlayerInfoMapToList(all *map[string]*types.PlayerInfo) []*types.PlayerInfo {
@@ -599,9 +599,9 @@ func PlayerInfoMapToList(all *map[string]*types.PlayerInfo) []*types.PlayerInfo 
 
 ## v1 to v2 leaderboard migration helper
 
-You could decide to build the leaderboard as the player stats list is being built, mimicking the regular operation of your v2 checkers blockchain. Unfortunately, that would entail a lot of array sorting for what are just intermediate player stats. Instead build the v2 genesis leaderboard only after all player stats have been gathered.
+You could decide to build the leaderboard as the player stats list is being built, mimicking the regular operation of your v2 checkers blockchain. Unfortunately, that would entail a lot of array sorting for what are just intermediate player stats. Instead, build the v2 genesis leaderboard only after all player stats have been gathered.
 
-In practice you add _k_ new `winningPlayerParsed` to the array, sort it, clip it to 100, and repeat. What constitutes a good _k_ value should be dictated by testing and performance measurements. For now you can use 200. So prepare a new file to encapsulate these v1-to-v2-only operations:
+In practice you add _k_ new `winningPlayerParsed` to the array, sort it, clip it to 100, and repeat. What constitutes a good _k_ value should be dictated by testing and performance measurements. For now use 200. Prepare a new file to encapsulate these v1-to-v2-only operations:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/migrations/v1tov2/leaderboard_builder.go#L9-L12]
 const (
@@ -640,7 +640,7 @@ func PopulateLeaderboardWith(leaderboard *types.Leaderboard, additionalPlayers *
 
 ## A proper v1 to v2 migration
 
-Now your full chain state migration comes down to a genesis conversion from `GenesisStateV1` to your v2 `GenesisState`. It in its own new file, you can write it:
+Now your full chain state migration comes down to a genesis conversion from `GenesisStateV1` to your v2 `GenesisState`. You can write it in its own new file:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/migrations/v1tov2/genesis_converter.go#L9-L26]
 func (genesisV1 GenesisStateV1) Convert(now time.Time) (genesis *types.GenesisState, err error) {
@@ -666,6 +666,6 @@ func (genesisV1 GenesisStateV1) Convert(now time.Time) (genesis *types.GenesisSt
 
 ## Next up
 
-Your checkers blockchain is done. It has a leaderboard, which was introduced later in production thanks to migrations.
+Your checkers blockchain is done! It has a leaderboard, which was introduced later in production thanks to migrations.
 
 Now it is time to explore two other helpful tools for working with the Cosmos SDK: [CosmJS](./cosmjs.md) and [CosmWasm](./cosmwasm.md). Begin with [CosmJS](./cosmjs.md).

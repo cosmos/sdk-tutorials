@@ -240,11 +240,10 @@ $ ./simd keys add b9lab
   address: cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq
   pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A6TrsRO/OH91fAEFLohw7RwFB832NRsRWhQvE2t8cfLK"}'
   mnemonic: ""
-```
+
 
 **Important:** write this mnemonic phrase in a safe place. It is the only way to recover your account if you ever forget your password.
 
-```
 ivory uniform actual spot floor vessel monster rose yellow noise smile odor veteran human reason miss stadium phrase assault puzzle sentence approve coral apology
 ```
 
@@ -347,8 +346,7 @@ $ ./simd keys add student
   mnemonic: ""
 
 
-**Important** record this mnemonic phrase in a safe place.
-It is the only way to recover your account if you ever forget your password.
+**Important** record this mnemonic phrase in a safe place. It is the only way to recover your account if you ever forget your password.
 
 gown all scissors page panel table hill acoustic junior run winter cement mass clump moon adjust glare never satoshi easily illness hip rib multiply
 ```
