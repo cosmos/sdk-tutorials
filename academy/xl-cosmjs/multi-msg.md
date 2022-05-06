@@ -146,13 +146,14 @@ In fact, building a transaction in this way is recommended. `SigningStargateClie
 
 ## What is this long string?
 
-You may have noted the `"/cosmos.bank.v1beta1.MsgSend"` string. This comes from Protobuf and is a concatenation of:
+Note the `typeUrl: "/cosmos.bank.v1beta1.MsgSend"` string. This comes from Protobuf and is a concatenation of:
 
 1. The `package` where `MsgSend` is initially declared:
 
     ```protobuf [https://github.com/cosmos/cosmos-sdk/blob/3a1027c/proto/cosmos/bank/v1beta1/tx.proto#L2]
     package cosmos.bank.v1beta1;
     ```
+
 2. And the name of the message itself, `MsgSend`:
 
     ```protobuf [https://github.com/cosmos/cosmos-sdk/blob/3a1027c/proto/cosmos/bank/v1beta1/tx.proto#L22]
@@ -161,7 +162,7 @@ You may have noted the `"/cosmos.bank.v1beta1.MsgSend"` string. This comes from 
     }
     ```
 
-This is to make it easy for you, the developer, to understand what it represents. Protobuf knows how to serialize it only because this `"/cosmos.bank.v1beta1.MsgSend"` string is passed along. This object is also named `MsgSend` in `cosmjs-types`.
+This is the canonical identifier of the type of the message serialized next to it. Additionally, it is made to be easy for you, the developer, to understand what it represents. The blockchain client knows how to serialize or deserialize it only because this `"/cosmos.bank.v1beta1.MsgSend"` string is passed along. With this `typeUrl`, the blockchain client and CosmJS are able to pick the right deserializer. This object is also named `MsgSend` in `cosmjs-types`.
 
 <HighlightBox type="info">
 
