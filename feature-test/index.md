@@ -213,6 +213,42 @@ This document explains what application-specific blockchains are, and why develo
 
 </HighlightBox>
 
+<HighlightBox type="prerequisite">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="best-practice">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="remember">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="note">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="docs">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
 
 ## H5P
 
