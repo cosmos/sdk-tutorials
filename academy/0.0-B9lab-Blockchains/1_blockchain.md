@@ -88,7 +88,7 @@ The ideal cryptographic hash function has **five main properties**:
 
 <HighlightBox type="tip">
 
-You can see hashing in action to get the feel for it here: [http://onlinemd5.com/"](http://onlinemd5.com/). As you type into the text box, the hash updates automatically. Even a minuscule change to the input creates a completely different hash. Try it out!
+You can see hashing in action to get the feel for it here: [https://www.browserling.com/tools/all-hashes](https://www.browserling.com/tools/all-hashes). As you type into the text box, the hash updates automatically. Even a minuscule change to the input creates completely different hashes. You can also see that different hashing algorithms produce different output. Hash algorithms have evolved over time, often for security reasons. Try it out!
 
 </HighlightBox>
 
