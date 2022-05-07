@@ -42,13 +42,6 @@ A user completes a task of **arbitrary difficulty**. This is generally implement
 
 The idea of substantiating a claim through an arbitrary amount of work was previously suggested as a way to combat denial-of-service (DoS) attacks and spam in other contexts. "Work" is understood as the amount of specific computational effort used.
 
-</HighlightBox>
-
-<!-- TODO: Check this markdown format -->
-<!-- TODO: THIS VIDEO IS CURRENTLY PRIVATE ON YOUTUBE -->
-
-<YoutubePlayer videoId="iCYj6BfxxJE"/>
-
 The network's **nodes**, also known as miners, conduct their searches independently. The successful node that announces a solution first receives an economic reward to encourage participation in the process.
 
 If a node wishes to distort the ledger in a PoW system, it must first acquire an **authoritative position** or it will be unable to influence the ledger. Acquiring an authoritative position implies overcoming the *combined* problem-solving capacity of the network and maintaining that lead over time. This known attack vector is called the 51%-attack. As the name suggests, if a single party acquires more than 50% of the total problem-solving capacity of the network, that party is theoretically able to alter the consensus.
