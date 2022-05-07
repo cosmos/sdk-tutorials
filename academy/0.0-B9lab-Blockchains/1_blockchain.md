@@ -207,7 +207,7 @@ It is argued that the development of blockchain technology is initiating a new c
 
 In some opinions, mobile and social networking and the internet have been exploited regarding their commercial use. For some, the ideal of an interconnected community - in which information and knowledge are available and shared and where egalitarian values like equality, transparency, and freedom are encouraged - has led to disappointment over what could have been but never was.
 
-Blockchain technology is often seen as presenting the possibility of more private, fair, transparent, and equal forms of interaction and community.
+Blockchain technology is often seen as presenting the possibility of more private, transparent, and equal forms of interaction and community with the possibility of preventing imbalances of power that often exist when one group is in charge of a widely used platform and can exercise privileges that are not enjoyed by the rest of the participants. 
 
 <HighlightBox type="reading">
 
