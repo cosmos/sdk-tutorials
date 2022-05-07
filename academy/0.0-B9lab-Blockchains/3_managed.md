@@ -70,13 +70,21 @@ In Ethereum, **smart contracts** are stored on every single node - they are publ
 
 <ExpansionPanel title="Faster block time">
 
-Ethereum has a much faster block time than Bitcoin - currently it is around 15 seconds. This is made possible thanks to Ethereum's implementation of the [GHOST protocol](http://www.cs.huji.ac.il/~yoni_sompo/pubs/15/inclusive_full.pdf). Ethereum implements a variation of Bitcoin's PoW consensus algorithm called Ethash, which is intended to be [ASIC-resistant and GPU friendly](https://github.com/ethereum/wiki/wiki/Ethash-Design-Rationale). Core developers of the Ethereum project plan to switch to the **proof-of-stake (PoS)** consensus algorithm in the future.
+Ethereum has a much faster block time than Bitcoin - currently it is around 15 seconds. 
 
-A well-understood challenge related to reduced block time stems from network latency. Since nodes do not learn about newly discovered blocks simultaneously, at any given time a portion of the miners will be working on already solved (i.e. old) blocks. If these miners find a solution, they might not be rewarded and a "fork" of the chain results, in which rival chains with a common true history spread through the network. The rate at which such transient forks occur increases predictably with shorter block times. While Bitcoin addresses this efficiency issue with a relatively long block time of 10 minutes, Ethereum addresses this concern with a partial reward strategy: valid blocks that aren't ultimately included in the canonical chain (because another chain becomes longer) are still included on the side and known as **uncles**. Miners of uncles receive a smaller reward than regular block miners. 
+Ethereum implements a variation of Bitcoin's PoW consensus algorithm called Ethash, which is intended to be [ASIC-resistant and GPU friendly](https://github.com/ethereum/wiki/wiki/Ethash-Design-Rationale). ASIC-resistance is meant to discourage unwanted concentrations of mining power; in other words, encourage decentralization. Core developers of the Ethereum project plan to switch to the **proof-of-stake (PoS)** consensus algorithm in the future.
+    
+These useful innovations are not the key innovation that allows Ethereum to operate with faster block times. 
+
+A well-understood challenge related to reduced block time stems from network latency. Since nodes do not learn about newly discovered blocks simultaneously, at any given time a portion of the miners will be working on already solved (i.e. old) blocks. If these miners find a solution, they might not be rewarded and a "fork" of the chain results, in which rival chains with a common true history spread through the network. The rate at which such transient forks occur increases predictably with shorter block times. 
+
+Another way of understanding this is to consider that at any point in time, a predictable percentage of the total mining hardware in the network will be working on the wrong chain, because of latency, and this percentage increases with shorter block times. It is not beneficial to the network or the miners to waste hardware resources that are intended to secure the network. 
+
+While Bitcoin addresses this efficiency issue with a relatively long block time of 10 minutes, Ethereum addresses this concern with a partial reward strategy: valid blocks that aren't ultimately included in the canonical chain (because another chain becomes longer) are still included on the side and known as **uncles**. Miners of uncles receive a smaller reward than regular block miners. 
 
 ![Uncles in Ethereum](images/00_18_block_uncles-01.png)
 
-The precise mechanism employed by Ethereum is called GHOST. GHOST includes so-called uncles that are propagated into the network too late to rise to the level of network consensus. This increases the total difficulty of the chain, makes smaller block times possible, and rewards miners of uncles for contributing to the overall strength of the network.
+This is made possible thanks to Ethereum's implementation of the [GHOST protocol](http://www.cs.huji.ac.il/~yoni_sompo/pubs/15/inclusive_full.pdf). GHOST includes so-called uncles that are propagated into the network too late to rise to the level of network consensus. This increases the total difficulty of the chain (by capturing the "work" that would otherwise be wasted), makes smaller block times possible, and rewards miners of uncles for contributing to the overall strength of the network.
 
 Ethereum's solution to achieve faster block times draws attention to the universal challenges of blockchain technology: performance, and throughput. Cosmos solves for performance in two ways: with a faster consensus process, and by introducing parallelism.
 
