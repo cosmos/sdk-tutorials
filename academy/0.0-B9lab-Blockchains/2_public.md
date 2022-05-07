@@ -59,6 +59,8 @@ As soon as it became clear that the technology presented a very attractive base 
 
 In 2014, Vitalik Buterin started what is now known as the second wave of blockchain technology by publishing the paper underlying the Ethereum blockchain protocol, [A Next Generation Smart Contract & Decentralised Application Platform](https://github.com/ethereum/wiki/wiki/White-Paper). Beyond a distributed ledger, the Ethereum whitepaper proposed the development of a distributed computing platform.
 
+Around the same time, Tendermint began research into alternative methods of achieving distributed consensus. See [Tendermint: Consensus without Mining](https://tendermint.com/static/docs/tendermint.pdf).
+
 <HighlightBox type="tip">
 
 Have a closer look at the [Ethereum whitepaper](https://github.com/ethereum/wiki/wiki/White-Paper) to discover more on the initial concept.
@@ -90,5 +92,6 @@ Let us start by diving into public blockchains and their most known examples, Bi
 * [Nakamoto, S. (2008): Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
 * [Schneier, B. & Kelsey, J. (1998): Secure Audit Logs to Support Computer Forensics](https://www.schneier.com/academic/paperfiles/paper-auditlogs.pdf)
 * [Szabo, N. (1994): Smart Contracts](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html)
+* [Tendermint: Consensus without Mining](https://tendermint.com/static/docs/tendermint.pdf).
     
 </HighlightBox>
