@@ -232,6 +232,10 @@ func TestPlayMoveUpToWinner(t *testing.T) {
 
 Feel free to create another game won by the red player.
 
+## Interact via the CLI
+
+
+
 ## Next up
 
 You have introduced a [game FIFO](./game-fifo.md), a [game deadline](./game-deadline.md), and a game winner. Time to turn your attention to the [next section](./game-forfeit.md).

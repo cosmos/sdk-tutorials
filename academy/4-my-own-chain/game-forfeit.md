@@ -345,6 +345,10 @@ Note how all the events aggregate in a single context. The context is not reset 
 
 </HighlightBox>
 
+## Interact via the CLI
+
+
+
 ## Next up
 
 The [next section](./game-wager.md) introduces token wagers.

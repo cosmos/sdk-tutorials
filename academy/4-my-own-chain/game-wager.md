@@ -664,7 +664,7 @@ suite.RequireBankBalance(11, checkersModuleAddress)
 How you subdivide your tests and where you insert these balance checks is up to you. You can find examples here for:
 
 * [Creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_create_game_test.go#L23-L40).
-* [Playing a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_test.go#L65-L84), including [up to a resolution](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_winner_test.go#L142-L145). 
+* [Playing a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_test.go#L65-L84), including [up to a resolution](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_winner_test.go#L142-L145).
 * Failing to play a game because of a [failure to pay the wager](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_test.go#L323-L354).
 * [Rejecting a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_reject_game_test.go#L41-L52), including when [there have been moves played](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_reject_game_test.go#L175-L198).
 * [Forfeiting a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/end_block_server_game_test.go#L44-L47), including when [there have been moves played](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/end_block_server_game_test.go#L776-L779).
@@ -676,6 +676,10 @@ You learned in a [previous section](./stored-game.md) how to launch your test in
 ![Suite runner with green button](/go_test_debug_suite.png)
 
 Note that you can only launch debug for all of the suite's test methods and not just a single one (as is possible with a simple test). A solution to this is to create more granular suites, for example using one or more test suites per file.
+
+## Interact via the CLI
+
+
 
 ## Next up
 

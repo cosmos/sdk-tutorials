@@ -1,6 +1,7 @@
 ---
 order: 1
 description: Test our features
+divider: true
 ---
 
 # Feature test
@@ -11,7 +12,7 @@ This file demonstrates the usage of various components within the Platform.
 
 Images are embedded with a medium-zoom plugin:
 
-![menu sample image](/constellation.png)
+![menu sample image](/feature-test/images/constellation.png)
 
 ## Video
 
@@ -212,6 +213,42 @@ This document explains what application-specific blockchains are, and why develo
 
 </HighlightBox>
 
+<HighlightBox type="prerequisite">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="best-practice">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="remember">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="note">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="docs">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
 
 ## H5P
 
@@ -245,7 +282,7 @@ This document explains what application-specific blockchains are, and why develo
 
 ## Menu
 
-![menu sample image](/menu.png)
+![menu sample image](/feature-test/images/menu.png)
 
 The left sidebar menu supports:
 * Categories (Cosmos Adacemy (beta))
@@ -282,3 +319,39 @@ children: [
     external: true,
   },
 ```
+
+## Panel list
+
+<PanelListItem number="1">
+  First step
+  ```
+  npm i
+  ```
+</PanelListItem>
+
+<PanelListItem number="2" :last="true">
+  Second step
+  ```
+  npm run dev
+  ```
+</PanelListItem>
+
+## Expansion Panel list
+
+<ExpansionPanel title="Click to expand">
+
+<PanelListItem number="1">
+  First step
+  ```
+  npm i
+  ```
+</PanelListItem>
+
+<PanelListItem number="check" :last="true">
+  Completed
+  ```
+  npm run dev
+  ```
+</PanelListItem>
+
+</ExpansionPanel>

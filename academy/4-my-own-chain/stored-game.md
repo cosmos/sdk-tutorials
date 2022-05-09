@@ -445,6 +445,10 @@ Test that [you can parse a game](https://github.com/cosmos/b9-checkers-academy-d
 
 Interested in integration tests? Skip ahead to the [section](./game-wager.md) where you learn about them.
 
+## Interact via the CLI
+
+
+
 ## Next up
 
 Want to continue developing your checkers blockchain? In the [next section](./create-message.md) you will learn all about introducing an `sdk.Msg` to create a game.

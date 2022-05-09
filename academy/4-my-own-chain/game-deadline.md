@@ -122,6 +122,10 @@ require.EqualValues(t, types.StoredGame{
 }, game)
 ```
 
+## Interact via the CLI
+
+
+
 ## Next up
 
 You have created and updated the deadline. The [section two steps ahead](./game-forfeit.md) describes how to use the deadline and [the FIFO](./game-fifo.md) to expire games that reached their deadline.

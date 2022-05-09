@@ -203,6 +203,10 @@ func TestCreate1GameHasSaved(t *testing.T) {
 
 Or when you [create 3](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L109-L134) games. Other tests could include whether the _get all_ functionality works as expected after you have created [1 game](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L64-L81), or [3](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L191-L234), or if you create a game in a hypothetical [far future](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L236-L267). Also add games with [badly formatted](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L83-L94) or [missing input](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L96-L107).
 
+## Interact via the CLI
+
+
+
 ## Next up
 
 You will modify this handling in the next sections:

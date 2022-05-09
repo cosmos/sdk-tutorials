@@ -70,7 +70,7 @@ Building on modular components, many of which you did not write yourself - does 
 
 </HighlightBox>
 
-The Cosmos SDK is built on the [object-capability model](https://docs.cosmos.network/master/core/ocap.html). It not only favors modularity but also encapsulates code implementation. An object-capability model ensures that:
+The Cosmos SDK is built on the [object-capability model](https://docs.cosmos.network/main/core/ocap.html). It not only favors modularity but also encapsulates code implementation. An object-capability model ensures that:
 
 * There is no way for objects in the memory to be discovered just by going through the composed objects of others.
 * The only way to have references to objects or to access services is to have been passed the relevant object references.

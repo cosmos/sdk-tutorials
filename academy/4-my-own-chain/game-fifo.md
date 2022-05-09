@@ -461,6 +461,10 @@ func TestRejectMiddleGameHasSavedFifo(t *testing.T) {
 }
 ```
 
+## Interact via the CLI
+
+
+
 ## Next up
 
 Now you need to add expiry dates for the games. That's the goal of the [next section](./game-deadline.md).

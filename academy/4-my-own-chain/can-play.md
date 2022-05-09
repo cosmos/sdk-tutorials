@@ -368,6 +368,10 @@ func (suite *IntegrationTestSuite) TestCanPlayAfterCreate() {
 
 With these, your function should be covered.
 
+## Interact via the CLI
+
+
+
 ## Next up
 
 Do you want to give players more flexibility about which tokens they can use for games? Let players wager any fungible token in the [next section](./wager-denom.md).

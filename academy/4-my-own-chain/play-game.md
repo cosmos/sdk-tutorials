@@ -222,6 +222,10 @@ func TestPlayMove(t *testing.T) {
 
 Also test whether the game was [saved correctly](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L71-L97). Check what happens when players try to [play out of turn](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L99-L111), or [make a wrong move](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L113-L125). Check after [two](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L127-L188) or [three turns with a capture](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L190-L267).
 
+## Interact via the CLI
+
+
+
 ## Next up
 
 Before you add a third Message to let a player [reject a game](./reject-game.md), add events to the existing message handlers for relevant information. That is the object of the [next section](./events.md).

@@ -189,6 +189,10 @@ func TestRejectGameByRedOneMoveRemovedGame(t *testing.T) {
 }
 ```
 
+## Interact with the CLI
+
+
+
 ## Next up
 
 The next four sections cover forfeits and how games end. In the next section you create a [doubly-linked FIFO](./game-fifo.md).

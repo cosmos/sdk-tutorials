@@ -85,6 +85,10 @@ func (suite *IntegrationTestSuite) TestCreate1GameConsumedGas() {
 
 Now add tests for a [play](https://github.com/cosmos/b9-checkers-academy-draft/blob/63370efe/x/checkers/keeper/msg_server_play_move_test.go#L86-L100) and a [reject](https://github.com/cosmos/b9-checkers-academy-draft/blob/63370efe/x/checkers/keeper/msg_server_reject_game_test.go#L93-L103).
 
+## Interact via the CLI
+
+
+
 ## Next up
 
 Make your checkers blockchain more user-friendly by helping players avoid bad transactions via a query that tests a move. Just follow the exercise in the [next section](./can-play.md).
