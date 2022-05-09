@@ -222,6 +222,14 @@ With these functions ready, it is time to use them in the message handlers.
 
 You implemented a FIFO that is updated but never really used.
 
+## Unit tests
+
+
+
+## Interact via the CLI
+
+
+
 ## Next up
 
 Now you need to add an expiry date on the games. That's the goal of the [next section](./game-deadline.md).

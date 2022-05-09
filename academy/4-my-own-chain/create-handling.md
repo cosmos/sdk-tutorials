@@ -114,6 +114,14 @@ Given that you have already done a lot of preparatory work: what does it involve
     }, nil
     ```
 
+## Unit tests
+
+
+
+## Interact via the CLI
+
+
+
 ## Next up
 
 You will modify this handling in the next sections:

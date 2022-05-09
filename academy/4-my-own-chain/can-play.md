@@ -153,6 +153,13 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
     }, nil
     ```
 
+## Integration tests
+
+
+
+## Interact via the CLI
+
+
 
 ## Next up
 
