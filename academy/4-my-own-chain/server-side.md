@@ -24,7 +24,7 @@ To implement this functionality, build a Web 2.0 server to do the indexing. The 
 
 ## Barebones server
 
-As a fast and simple Web 2.0 solution, navigate to the [CosmJs repository](https://github.com/cosmos/academy-checkers-ui) for the Checkers blockchain and perform the following steps:
+As a fast and simple Web 2.0 solution, navigate to the [CosmJS repository](https://github.com/cosmos/academy-checkers-ui) for the Checkers blockchain and perform the following steps:
 
 1. Create a sub-directory of the `src` folder (eg `server`).
 2. Use the `express` Node.js module to create an HTTP REST API.
@@ -74,7 +74,7 @@ export interface DbType {
 }
 ```
 
-Not only does this keep information about players, it also keeps a copy of games. This gets around a current limitation of CosmJs, where you cannot get information about a game that has just been erased from the latest state. In practice you would need to query the game at an earlier block height, but this functionality is not available. Note that nodes may prune the old state, especially if they migrate, which may unpredictably impact any query at an earlier block height.
+Not only does this keep information about players, it also keeps a copy of games. This gets around a current limitation of CosmJS, where you cannot get information about a game that has just been erased from the latest state. In practice you would need to query the game at an earlier block height, but this functionality is not available. Note that nodes may prune the old state, especially if they migrate, which may unpredictably impact any query at an earlier block height.
 
 <HighlightBox type="info">
 
@@ -84,7 +84,7 @@ In blockchain, when "deleted" records are materially important, use a soft delet
 
 ### Empty indexer module
 
-A barebones server without any Cosmos elements is defined in an `indexer.ts`. This is not CosmJs related so start from something else if you prefer.
+A barebones server without any Cosmos elements is defined in an `indexer.ts`. This is not CosmJS related so start from something else if you prefer.
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/20e6149/src/server/indexer.ts]
 import { writeFile } from "fs/promises"
@@ -313,7 +313,7 @@ It should return:
 
 ---
 
-## Add CosmJs `StargateClient`
+## Add CosmJS `StargateClient`
 
 You need to create a client to connect to your Checkers blockchain. The client only needs read-only functionality because this server does not submit transactions. Your repository already contains useful elements:
 
@@ -765,7 +765,7 @@ What remains is handling the games that get removed or forfeited in `EndBlock`.
 
 ## Prepare for `EndBlock`
 
-Nicely formatted `EndBlock` events are still missing from CosmJs, so these require a little extra work:
+Nicely formatted `EndBlock` events are still missing from CosmJS, so these require a little extra work:
 
 1. To get a block's `EndBlock` events, you need to ask for the block information from a Tendermint client. This client is a [`private` field](https://github.com/cosmos/cosmjs/blob/902f21b/packages%2Fstargate%2Fsrc%2Fstargateclient.ts#L140) of `StargateClient`.
 2. The function to call is [`blockResults`](https://github.com/cosmos/cosmjs/blob/5ee3f82/packages/tendermint-rpc/src/tendermint34/tendermint34client.ts#L88).
