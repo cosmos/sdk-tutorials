@@ -72,7 +72,11 @@ The created transaction to play a move informs the opponent about:
 * What the move's outcome was.
 * Whether the game was won.
 
+<HighlightBox type="info">
+
 Contrary to the _create game_ event, which alerted the players about a new game, the players now know which game IDs to keep an eye out for. There is no need to repeat the players' addresses, the game ID is information enough.
+
+</HighlightBox>
 
 You define new keys in `x/checkers/types/keys.go` similarly:
 
