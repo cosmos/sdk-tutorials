@@ -114,10 +114,41 @@ module.exports = {
               title: "Welcome",
               path: "/course-ida/welcome/",
               directory: false,
-              order: 1
+              order: 0
             },
             {
-              title: "Week 1 - What is Cosmos & Main Concepts",
+              title: "Getting started",
+              directory: true,
+              order: 1,
+              children: [
+                {
+                  title: "Blockchchain 101",
+                  path: "/academy/0.0-B9lab-Blockchains/1_blockchain.html"
+                },
+                {
+                  title: "Blockchain History",
+                  path: "/academy/0.0-B9lab-Blockchains/2_public.html"
+                },
+                {
+                  title: "Public and Managed Blockchains",
+                  path: "/academy/0.0-B9lab-Blockchains/3_managed.html"
+                },
+                {
+                  title: "Consensus in Distributed Networks",
+                  path: "/academy/0.0-B9lab-Blockchains/4_consensus.html"
+                },
+                {
+                  title: "Cryptography",
+                  path: "/academy/0.0-B9lab-Blockchains/5_crypto.html"
+                },
+                {
+                  title: "Self-assessment Quiz (todo)",
+                  path: "/feature-test"
+                },
+              ]
+            },
+            {
+              title: "Week 1 - Cosmos and Its Main Concepts",
               directory: true,
               order: 2,
               children: [
@@ -298,34 +329,50 @@ module.exports = {
               ]
             },
             {
-              title: "Week 4 - IBC",
+              title: "Week 4 - The Inter-Blockchain Communication Protocol",
               directory: true,
               order: 5,
               children: [
                 {
-                  title: "IBC (todo)",
+                  title: "Module lp (todo)",
                   path: "/feature-test/"
                 },
                 {
-                  title: "What is IBC (todo)",
+                  title: "What is IBC?",
+                  path: "/academy/ibc/what-is-ibc.html"
+                },
+                {
+                  title: "Transport, Authentication, and Ordering Layer - Connections (todo)",
                   path: "/feature-test/"
                 },
                 {
-                  title: "Token transfer (todo)",
+                  title: "Transport, Authentication, and Ordering Layer - Channels (todo)",
                   path: "/feature-test/"
                 },
                 {
-                  title: "ICA (todo)",
+                  title: "Transport, Authentication, and Ordering Layer - Clients (todo)",
                   path: "/feature-test/"
                 },
                 {
-                  title: "IBC TAO dev (todo)",
+                  title: "Application - An IBC Token Transfer",
+                  path: "/academy/ibc/token-transfer.html"
+                },
+                {
+                  title: "Interchain Accounts",
+                  path: "/academy/ibc/ica.html"
+                },
+                {
+                  title: "IBC and Relayers",
+                  path: "/academy/ibc/ibc-tao-dev.html"
+                },
+                {
+                  title: "Overview IBC Tooling (todo)",
                   path: "/feature-test/"
                 },
               ]
             },
             {
-              title: "Week 5 - CosmJS & My Own CosmJS Chain",
+              title: "Week 5 - CosmJS and Building Your CosmJS Chain",
               directory: true,
               order: 6,
               children: [
@@ -334,37 +381,37 @@ module.exports = {
                   path: "/feature-test/"
                 },
                 {
-                  title: "What is Cosmjs (todo)",
+                  title: "What is CosmJS",
+                  path: "/academy/xl-cosmjs/intro.html"
+                },
+                {
+                  title: "Your First CosmJS Actions",
+                  path: "/academy/xl-cosmjs/first-steps.html"
+                },
+                {
+                  title: "Compose Complex Transactions",
+                  path: "/academy/xl-cosmjs/create-custom.html"
+                },
+                {
+                  title: "Learn to Integrate Keplr",
+                  path: "/academy/xl-cosmjs/with-kepler.html"
+                },
+                {
+                  title: "Create Custom Objects (todo)",
                   path: "/feature-test/"
                 },
                 {
-                  title: "Your first CosmJs actions (todo)",
+                  title: "Create Custom Objects for Your Checkers Blockchain (todo)",
                   path: "/feature-test/"
                 },
                 {
-                  title: "Compose complex transactions (todo)",
-                  path: "/feature-test/"
-                },
-                {
-                  title: "Learn to integrate Keplr (todo)",
-                  path: "/feature-test/"
-                },
-                {
-                  title: "Create custom objects in general (todo)",
-                  path: "/feature-test/"
-                },
-                {
-                  title: "Create custom objects for Checkers (todo)",
-                  path: "/feature-test/"
-                },
-                {
-                  title: "Create custom messages for Checkers (todo)",
-                  path: "/feature-test/"
+                  title: "Create Custom Messages for Your Checkers Blockchain",
+                  path: "/academy/xl-cosmjs/multi-msg.html"
                 },
               ]
             },
             {
-              title: "Week 6 - CosmJS for My Own Chain: GUI and backend script",
+              title: "Week 6 - CosmJS for Your Chain - GUI and Backend Script",
               directory: true,
               order: 7,
               children: [
@@ -373,15 +420,19 @@ module.exports = {
                   path: "/feature-test/"
                 },
                 {
-                  title: "Pick and fix a Checkers GUI (todo)",
+                  title: "Pick and Fix a Checkers GUI (todo)",
                   path: "/feature-test/"
                 },
                 {
-                  title: "Integrate Cosmjs and Keplr into the GUI (todo)",
+                  title: "Integrate CosmJS and Keplr Into the GUI (todo)",
                   path: "/feature-test/"
                 },
                 {
-                  title: "Cosmjs on a backend script for game indexing (todo)",
+                  title: "CosmJS on a Backend Script for Game Indexing (todo)",
+                  path: "/feature-test/"
+                },
+                {
+                  title: "Final exam (todo)",
                   path: "/feature-test/"
                 },
                 {
