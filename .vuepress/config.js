@@ -394,7 +394,7 @@ module.exports = {
                 },
                 {
                   title: "Learn to Integrate Keplr",
-                  path: "/academy/xl-cosmjs/with-kepler.html"
+                  path: "/academy/xl-cosmjs/with-keplr.html"
                 },
                 {
                   title: "Create Custom Objects (todo)",
