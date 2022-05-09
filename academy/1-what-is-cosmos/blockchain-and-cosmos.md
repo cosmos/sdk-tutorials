@@ -60,11 +60,11 @@ The development of decentralized applications built on blockchain networks began
 
 After the introduction of Bitcoin, several so-called public chains came into being, the first being Ethereum in 2013. These general-purpose blockchains are aimed at providing a decentralized network that allows the implementation of a variety of use cases.
 
-![Timeline of blockchain technology](/timeline.png)
+![Timeline of blockchain technology](/academy/1-what-is-cosmos/images/timeline.png)
 
 Ethereum is a public blockchain with smart contract functionality enabling applications based on self-executing, self-enforcing, and self-verifying account holding objects. It can be seen as a response to the difficulties of developing applications on Bitcoin.
 
-With Ethereum the application layer of the chain took the form of a virtual machine called the **Ethereum Virtual Machine (EVM)**. The EVM runs smart contracts, thereby providing a single chain on which to deploy all sorts of programs. Despite its many benefits, the EVM is a sandbox that delineates the range of implementable use cases. Simplistic and some complex use cases can be implemented with it but are nonetheless **limited regarding design and efficiency by the limitations of the sandbox**. Additionally, developers are limited to programming languages that are tailored to the EVM.
+With Ethereum the application layer of the chain took the form of a virtual machine called the **Ethereum Virtual Machine (EVM)**. The EVM runs smart contracts, thereby providing a single chain on which to deploy all sorts of programs. Despite its many benefits, the EVM is a sandbox that delineates the range of implementable use cases. Simplistic (and sometimes complex) use cases can be implemented with it but are nonetheless **limited regarding design and efficiency by the limitations of the sandbox**. Additionally, developers are limited to programming languages that are tailored to the EVM.
 
 Even though the launch of Ethereum with its EVM was a big step forward, **some issues of public, general-purpose blockchains remained**: low flexibility for developers and difficulties with speed, throughput, scalability, state finality, and sovereignty.
 

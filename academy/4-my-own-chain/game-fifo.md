@@ -241,6 +241,10 @@ With these functions ready, it is time to use them in the message handlers.
 
 You have implemented a FIFO that is updated but never really used.
 
+## Unit tests
+
+
+
 ## Interact via the CLI
 
 Time to explore the commands. You need to start afresh because you made numerous additions to the blockchain state:
@@ -402,7 +406,7 @@ Do not forget to export `alice` and `bob` again, as explained in an [earlier sec
     ```
 
     There is no change because game `2` was _in the middle_, so it did not affect the head or the tail.
-    
+
     Run the following two queries:
 
     ```sh

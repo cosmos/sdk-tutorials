@@ -350,6 +350,10 @@ With the desired steps defined in the wager handling functions, it is time to in
     }
     ```
 
+## ~~Unit~~ Integration tests
+
+
+
 ## Interact via the CLI
 
 Keep the game expiry at 5 minutes to be able to test a forfeit, as done in the [previous section](./game-forfeit.md). Now, you need to check balances after relevant steps to test that wagers are being withheld and paid.

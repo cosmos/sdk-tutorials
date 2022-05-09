@@ -109,6 +109,10 @@ Confirm that your project still compiles:
 $ ignite chain build
 ```
 
+## Unit tests
+
+
+
 ## Interact via the CLI
 
 There is not much to test here. Remember that you added a new field, but if your blockchain state already contains games then they are missing the new field:

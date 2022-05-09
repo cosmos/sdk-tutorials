@@ -37,7 +37,7 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 }
 ```
 
-Ignite CLI has conveniently created all the message processing code for you. You are only required to code the key features. 
+Ignite CLI has conveniently created all the message processing code for you. You are only required to code the key features.
 
 Given that you have already done a lot of preparatory work, what coding is involved? How do you replace `// TODO: Handling the message`?
 
@@ -109,6 +109,10 @@ Given that you have already done a lot of preparatory work, what coding is invol
         IdValue: newIndex,
     }, nil
     ```
+
+## Unit tests
+
+
 
 ## Interact via the CLI
 

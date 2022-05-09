@@ -190,6 +190,10 @@ For an explanation as to why this setup is resistant to an attack from an unboun
 
 </HighlightBox>
 
+## Unit tests
+
+
+
 ## Interact via the CLI
 
 Currently, the game expiry is one day in the future. This is too long to test with the CLI. Temporarily set it to 5 minutes:
@@ -251,7 +255,7 @@ Space each `tx` command from a given account by a couple of seconds so that they
 <HighlightBox type="tip">
 
  If you want to overcome this limitation, look at `checkersd`'s `--sequence` flag:
- 
+
  ```sh
  $ checkersd tx checkers create-game --help
  ```sh

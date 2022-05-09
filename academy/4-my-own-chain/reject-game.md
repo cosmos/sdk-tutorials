@@ -155,7 +155,12 @@ Finally, confirm that your project at least compiles [with](https://docs.ignite.
 $ ignite chain build
 ```
 
+## Unit tests
+
+
+
 ## Interact with the CLI
+
 
 Time to see if it is possible to reject a game.
 

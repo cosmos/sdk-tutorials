@@ -122,6 +122,10 @@ if storedGame.Winner != rules.NO_PLAYER.Color {
 
 Confirm the code compiles and you are ready to handle the expiration of games.
 
+## Unit tests
+
+
+
 ## Interact via the CLI
 
 If you have created games in an earlier version of the code, you are now in a broken state. You cannot even play the old games because they have `.Winner == ""` and this will be caught by the `if storedGame.Winner != rules.NO_PLAYER.Color` test. Start again:

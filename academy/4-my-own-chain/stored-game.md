@@ -289,6 +289,10 @@ Your stored game stores are only strings, but they represent `sdk.AccAddress` or
     )
     ```
 
+## Unit tests
+
+
+
 ## Interact via the CLI
 
 Ignite CLI created a set of files for you. It is time to see whether you can already interact with your new checkers blockchain.

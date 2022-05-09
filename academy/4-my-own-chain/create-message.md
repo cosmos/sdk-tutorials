@@ -125,6 +125,10 @@ service Msg {
 
 As an interface, it does not describe what should happen when called. With the help of Protobuf, Ignite CLI compiles the interface and creates a default Go implementation.
 
+## Unit tests
+
+
+
 ## Interact via the CLI
 
 Time to see which new CLI command was created by Ignite CLI:

@@ -169,6 +169,10 @@ Take the following steps to replace the `TODO`:
 
 This completes the move process, facilitated by good preparation and the use of Ignite CLI.
 
+## Unit tests
+
+
+
 ## Interact via the CLI
 
 With one game in storage and the game waiting for Bob's move, can Alice make a move? Look at the `play-move` message and which parameters it accepts:

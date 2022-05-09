@@ -99,6 +99,10 @@ The token denomination has been integrated into the relevant data structures. No
     )
     ```
 
+## Integration tests
+
+
+
 ## Interact via the CLI
 
 If you recall, Alice's and Bob's balances have two token denominations. Query:

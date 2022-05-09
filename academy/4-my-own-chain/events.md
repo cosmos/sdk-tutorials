@@ -103,6 +103,10 @@ ctx.EventManager().EmitEvent(
 )
 ```
 
+## Unit tests
+
+
+
 ## Interact with the CLI
 
 Bob made a move. Will Alice's move emit an event?

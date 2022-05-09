@@ -2,11 +2,12 @@
 
 1. Install [Visual Studio Code](https://vscode-docs.readthedocs.io/en/latest/editor/setup/).
 1. Click **Extensions** in the sidebar. 
-1. Install this extension:
-    - Go for VS Code The official Go extension for Visual Studio Code
+1. Install these extensions:
+    * [Go for VS Code](https://marketplace.visualstudio.com/items?itemName=golang.Go)
+    * [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint) 
 1. When prompted:
-    - `go get -v golang.org/x/tools/gopls`
-    - Select `Install all` for all packages
+    * `go get -v golang.org/x/tools/gopls`
+    * Select `Install all` for all packages
 
 Be sure to set up [Visual Studio Code](https://code.visualstudio.com/docs/setup/setup-overview) for your environment. 
 
@@ -18,7 +19,7 @@ Click the GitHub icon in the sidebar for GitHub integration and follow the promp
 
 ## Clone the repos you work in
 
-- Fork or clone the <https://github.com/cosmos/sdk-tutorials/> repository. Internal Tendermint users have different permissions, if you're not sure, fork the repo.
+* Fork or clone the <https://github.com/cosmos/sdk-tutorials/> repository. Internal Tendermint users have different permissions, if you're not sure, fork the repo.
 
 
 ## Terminal Tips 
@@ -36,8 +37,8 @@ The Z shell, also known as zsh, is a UNIX shell that is built on top of the macO
 1. If you want to set your default shell to zsh, install and set up [zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH) as the default shell.
 
 1. Install these plugins:
-    - [zsh-auto-suggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
-    - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh)
+    * [zsh-auto-suggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
+    * [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh)
 
 1. Edit your `~/.zshrc` file to add the plugins to load on startup:
 

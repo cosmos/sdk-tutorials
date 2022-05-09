@@ -59,7 +59,7 @@ You do not meter gas in your `EndBlock` handler because it is **not** called by 
 
 <HighlightBox type="tip">
 
-As part of your code optimization, avoid calling `ConsumeGas` with a fixed gas cost (for instance `k`) from within a loop. Each pass of the loop uses computation resources (`c`) on each node. If you know the number of times your code loops (`n`), you know running the full loop will use `n*c` computation resources. 
+As part of your code optimization, avoid calling `ConsumeGas` with a fixed gas cost (for instance `k`) from within a loop. Each pass of the loop uses computation resources (`c`) on each node. If you know the number of times your code loops (`n`), you know running the full loop will use `n*c` computation resources.
 
 Now consider the case of a user who sent a transaction without enough gas. The transaction will fail anyway, but at what point will it fail?
 
@@ -67,10 +67,14 @@ Now consider the case of a user who sent a transaction without enough gas. The t
 2. If you call `ConsumeGas(n*k)` once _before_ the loop, the transaction will fail immediately, and the node will have used `0` computation resources.
 
 Choosing option 2 improves the effectiveness of your blockchain, and potentially protects it from spam and denial-of-service attacks.
- 
+
 Additionally, making only a single call to `ConsumeGas` slightly saves computation resources of the node.
 
 </HighlightBox>
+
+## Integration tests
+
+
 
 ## Interact via the CLI
 
