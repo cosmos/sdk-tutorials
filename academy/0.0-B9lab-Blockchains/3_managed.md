@@ -80,7 +80,7 @@ A well-understood challenge related to reduced block time stems from network lat
 
 Another way of understanding this is to consider that at any point in time, a predictable percentage of the total mining hardware in the network will be working on the wrong chain, because of latency, and this percentage increases with shorter block times. It is not beneficial to the network or the miners to waste hardware resources that are intended to secure the network. 
 
-While Bitcoin addresses this efficiency issue with a relatively long block time of 10 minutes, Ethereum addresses this concern with a partial reward strategy: valid blocks that aren't ultimately included in the canonical chain (because another chain becomes longer) are still included on the side and known as **uncles**. Miners of uncles receive a smaller reward than regular block miners. 
+While Bitcoin addresses this efficiency issue with a relatively long block time of 10 minutes, Ethereum addresses this concern with a partial reward strategy: valid blocks that aren't ultimately included in the canonical chain (because another chain becomes longer) can still be included on the side and known as **uncles**. Miners of uncles receive a smaller reward than regular block miners. 
 
 ![Uncles in Ethereum](images/00_18_block_uncles-01.png)
 
