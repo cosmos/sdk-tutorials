@@ -9,27 +9,25 @@ tag: deep-dive
 
 ![clients](/academy/ibc/images/lightclient.png)
 
-As we have seen before, IBC is architected as several layers of abstraction. At the top, applications such as [ICS20 token transfers](https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer) implement the [ICS26 IBC standard](ics-026-routing-module) which describe the routing and callback functionality used to connect the application layer to the transport layer underneath. Underneath the application are channels, which are unique for each application and allow ie: a transfer application on chain A to speak to a transfer application on chain B. [Connections](/academy/ibc/ibc-tao-dev.md), which may have many channels, are used to connect two clients, allowing ie: the entire chain A IBC stack to connect to chain B's IBC stack. These clients, which may have many connections, comprise the foundational layer of IBC.
+As we have seen before, IBC is structured as several layers of abstraction. At the top, applications such as [ICS20 token transfers](https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer) implement the [ICS26 IBC standard](ics-026-routing-module), which describe the routing and callback functionality used to connect the application layer to the transport layer. Underneath the application are channels, which are unique for each application (for example, a channel that allows a transfer application on chain A to speak to a transfer application on chain B). [Connections](/academy/ibc/ibc-tao-dev.md), which may have many channels, are used to connect two clients (for example, to allow the entire IBC stack of chain A to connect to the IBC stack of chain B). These clients, which may have many connections, comprise the foundational layer of IBC.
 
 <HighlightBox type="info">
 
-IBC application developers will primarily interact with [IBC channels](/academy/ibc/channels.md) -- this layer is comprised of the handshakes and packet callbacks.
+IBC application developers will primarily interact with [IBC channels](/academy/ibc/channels.md). This layer is comprised of the handshakes and packet callbacks.
 
 </HighlightBox>
 
-In the IBC setup, each chain will have a **client** of the other chain in its own IBC stack. IBC clients track the consensus states of other blockchains and the proof specs of those blockchains that are required to properly verify proofs against the client's consensus state. The packets, acknowledgements, and timeouts that off-chain relayers send back and forth can be verified by proving that the packet commitments exist inside of these clients on each chain. 
-
-</HighlightBox>
+In the IBC setup, each chain will have a **client** of the other chain in its own IBC stack. IBC clients track the consensus states of other blockchains, and the proof specs of those blockchains that are required to properly verify proofs against the client's consensus state. The packets, acknowledgements, and timeouts that off-chain relayers send back and forth can be verified by proving that the packet commitments exist inside of these clients on each chain. 
 
 <HighlightBox type="info">
 
-Although relayers do not perform any verification of the packets, and therefore do not need to be trusted, relayers have a particularly important role in IBC setup in addition to IBC network liveness through submission of packets. They are responsible for submitting the initial messages to create a new client, as well as keeping the client states updated on each chain prior so that proof verification on a submitted packet is successful. Relayers are also responsible for sending the connection and channel handshakes to establish connections and channels between chains. Furthermore, relayers can submit evidence of misbehaviour if a chain on the other end of a connection tries to fork or attempts other types of malicious behaviour. 
+Although relayers do not perform any verification of the packets, and therefore do not need to be trusted, relayers have a particularly important role in IBC setup in addition to IBC network liveness through submission of packets. They are responsible for submitting the initial messages to create a new client, as well as keeping the client states updated on each chain, so that proof verification on a submitted packet is successful. Relayers are also responsible for sending the connection and channel handshakes to establish connections and channels between chains. Furthermore, relayers can submit evidence of misbehaviour if a chain on the other end of a connection tries to fork or attempts other types of malicious behaviour. 
 
 </HighlightBox>
 
 **Creating a Client**
 
-Start with [`msg_serve.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go), this is where the messages come in. In it, we first see a `CreateClient` function, which will be submitted by a relayer through the relaying software to create an IBC client on the chain that the message is submitted to:
+Start with [`msg_serve.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go), which is where the messages come in. Here we first see a `CreateClient` function, which will be submitted by a relayer through the relaying software to create an IBC client on the chain that the message is submitted to:
 
 ```go
 // CreateClient defines a rpc handler method for MsgCreateClient.
@@ -81,18 +79,17 @@ func (k Keeper) CreateClient(
 }
 ```
 
-A local, unique identifier `clientID` is generated for each client on the chain. This is not related to the `chainID`, as IBC does not actually use the `chainID` as an identifier at all apart. 
+A local, unique identifier `clientID` is generated for each client on the chain. This is not related to the `chainID`, as IBC does not actually use the `chainID` as an identifier. 
 
 <HighlightBox type="info">
 
-The IBC security model is based on clients and not specific chains. What this means is that the IBC protocol does not need to know who the chains are on either side of a connection, so long as the IBC clients are kept in sync with valid updates, and these updates or other types of messages (ie: ICS20 token transfers) can be verified as a Merkle proof against an initial consensus state (root of trust). This is analogous to IP addresses and DNS, where IP addresses would be the corollary to IBC `clientIDs`, and DNS the `chainIDs`.
-
+The IBC security model is based on clients and not specific chains. This means that the IBC protocol does not need to know who the chains are on either side of a connection, provided that the IBC clients are kept in sync with valid updates, and these updates or other types of messages (ie: ICS20 token transfers) can be verified as a Merkle proof against an initial consensus state (root of trust). This is analogous to IP addresses and DNS, where IP addresses would be the corollary to IBC `clientIDs`, and DNS the `chainIDs`.
 
 Because of this separation of concerns, IBC clients can be created for any number of machine types, from fully-fledged blockchains to keypair-based solo machines, and upgrades to chains which increment the chainID do not break the underlying IBC client and connections.
 
 </HighlightBox>
 
-In addition, you can see that the function expects a `ClientState`. Note that this `ClientState` will look different depending on which type of client we want to create for IBC. In the case of Cosmos-SDK chains and the corresponding implementation of ibc-go, we offer the [Tendermint client](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/client_state.go) out of the box:
+In addition, you can see that the function expects a `ClientState`. This `ClientState` will look different depending on which type of client we want to create for IBC. In the case of Cosmos-SDK chains and the corresponding implementation of ibc-go, we offer the [Tendermint client](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/client_state.go) out of the box:
 
  ```go
 // NewClientState creates a new ClientState instance
@@ -119,13 +116,17 @@ func NewClientState(
 
 ```
 
-The Tendermint `ClientState` contains all the information we need to verify a header. This includes properties which are applicable for all Tendermint clients, such as the corresponding chainID, the unbonding period of the chain, the latest height of the client, etc.
+The Tendermint `ClientState` contains all the information needed to verify a header. This includes properties which are applicable for all Tendermint clients, such as the corresponding chainID, the unbonding period of the chain, the latest height of the client, etc.
 
-`TrustingPeriod` determines the duration of the period since the LastestTimestamp during which the submitted headers are valid for upgrade. If a client is not updated within the  `TrustingPeriod`, the client will expire. This does not mean the client is irrecoverable. However, recovery of an expired Tendermint client will require a [governance proposal](https://ibc.cosmos.network/main/ibc/proposals.html#preconditions) for each client which has expired. If both clients on either side of a connection have expired, then a governance proposal will be required on each chain in order to revive each client.
+`TrustingPeriod` determines the duration of the period since the Lastest Timestamp during which the submitted headers are valid for upgrade. If a client is not updated within the `TrustingPeriod`, the client will expire. This does not mean the client is irrecoverable. However, recovery of an expired Tendermint client will require a [governance proposal](https://ibc.cosmos.network/main/ibc/proposals.html#preconditions) for each client which has expired. If both clients on either side of a connection have expired, then a governance proposal will be required on each chain in order to revive each client.
 
 `TrustLevel` determines the portion of the validator set you want to have signing a header for it to be considered as valid. Tendermint defines this as 2/3, and the IBC Tendermint client inherits this property from Tendermint.
 
-Note that properties such as `TrustLevel` and `TrustingPeriod` can be customised, such that different clients on the same chain can have different security guarantees with different tradeoffs for efficiency of processing updates.
+<HighlightBox type="note">
+  
+Properties such as `TrustLevel` and `TrustingPeriod` can be customised, such that different clients on the same chain can have different security guarantees with different tradeoffs for efficiency of processing updates.
+  
+</HighlightBox>
 
 <HighlightBox type="info">
 
@@ -135,12 +136,11 @@ As stated before, `TrustLevel` is inherited from Tendermint and will be 2/3 for 
 
 We recommend that `TrustingPeriod` should be set as 2/3 of the UnbondingPeriod.
 
-We recommend that `MaxClockDrift` should be set to at least 5sec and up to 15sec, depending on expected block size differences between the chains in the connection. Note that the Hermes (Rust) relayer will compute this value for you, if you do not manually set it.
+We recommend that `MaxClockDrift` should be set to at least 5sec and up to 15sec, depending on expected block size differences between the chains in the connection. The Hermes (Rust) relayer will compute this value for you if you do not manually set it.
 
 </HighlightBox>
 
-
-`CreateClient` additionally expects a [`ConsensusState`](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/consensus_state.go). In the case of a Tendermint client, the initial root of trust / consensus state looks like this:
+`CreateClient` additionally expects a [`ConsensusState`](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/consensus_state.go). In the case of a Tendermint client, the initial root of trust (or consensus state) looks like this:
 
 ```go
 // NewConsensusState creates a new ConsensusState instance.
@@ -155,16 +155,20 @@ func NewConsensusState(
 }
 ```
 
-The Tendermint client ConsensusState tracks the timestamp of the block that we are creating, hash of the validator set for the next block of the counterparty blockchain, and the root of the counterparty blockchain. Note that the initial ConsensusState does not need to start with the genesis block of a counterparty chain.
+The Tendermint client `ConsensusState` tracks the timestamp of the block being created, the hash of the validator set for the next block of the counterparty blockchain, and the root of the counterparty blockchain. The initial `ConsensusState` does not need to start with the genesis block of a counterparty chain.
 
-The next validator set is used for verifying subsequent submitted headers/updates to the counterparty ConsensusState. See the **Updating Clients** section below for more information about what happens when a validator set changes between blocks.
+<HighlightBox type="tip">
+  
+The next validator set is used for verifying subsequent submitted headers or updates to the counterparty `ConsensusState`. See the following **Updating Clients** section for more information about what happens when a validator set changes between blocks.
 
-The root is the AppHash, or the hash of the application state of the counterparty blockchain that this client is representing. This root hash is particularly important because it is the root hash we use on a receiving chain when verifying [Merkle](https://en.wikipedia.org/wiki/Merkle_tree) proofs associated with a packet coming over IBC to determine whether or not the relevant transaction has been actually been executed on the sending chain. If the Merkle proof associated with a packet commitment delivered by a relayer successfully hashes up to this ConsensusState root hash, we can know for sure that the transaction was actually executed on the sending chain and included in the state of the sending blockchain.
+</HighlightBox>
 
-You can see an example of how the Tendermint client handles this Merkle [proof verification]((https://github.com/cosmos/ibc-go/blob/main/modules/core/23-commitment/types/merkle.go)) below. Note that other non-Tendermint client types may choose to handle proof verification differently:
+The root is the **AppHash**, or the hash of the application state of the counterparty blockchain that this client is representing. This root hash is particularly important because it is the root hash we use on a receiving chain when verifying [Merkle](https://en.wikipedia.org/wiki/Merkle_tree) proofs associated with a packet coming over IBC, to determine whether or not the relevant transaction has been actually been executed on the sending chain. If the Merkle proof associated with a packet commitment delivered by a relayer successfully hashes up to this `ConsensusState` root hash, we can know for sure that the transaction was actually executed on the sending chain and included in the state of the sending blockchain.
+
+The following is an example of how the Tendermint client handles this Merkle [proof verification]((https://github.com/cosmos/ibc-go/blob/main/modules/core/23-commitment/types/merkle.go)). Note that non-Tendermint client types may choose to handle proof verification differently:
 
 ```go
-// VerifyMembership verifies the membership pf a merkle proof against the given root, path, and value.
+// VerifyMembership verifies the membership of a merkle proof against the given root, path, and value.
 func (proof MerkleProof) VerifyMembership(specs []*ics23.ProofSpec, root exported.Root, path exported.Path, value []byte) error {
   if err := proof.validateVerificationArgs(specs, root); err != nil {
     return err
@@ -195,9 +199,9 @@ func (proof MerkleProof) VerifyMembership(specs []*ics23.ProofSpec, root exporte
 
 <HighlightBox type="info">
 
-You may otherwise have heard of IBC on-chain clients referred to as **light clients**. In contrast to the full nodes which track the entire state of blockchain and contain every single tx/block, these on-chain IBC "light clients" track only a few pieces of information about counterparty chains that we have mentioned above (timestamp, root hash, next validator set hash) to save on space and increase the efficiency of processing consensus state updates. 
+IBC on-chain clients can also be referred to as **light clients**. In contrast to the full nodes, which track the entire state of blockchain and contain every single tx/block, these on-chain IBC "light clients" track only the few pieces of information about counterparty chains that we have mentioned previously (timestamp, root hash, next validator set hash). This saves space and increases the efficiency of processing consensus state updates. 
 
-Effectively, we want to avoid a situation where it is necessary to have copy of chain B on chain A in order to create an trustless IBC connection. However, full nodes which track the entire state of a blockchain are useful for IBC relayer operators as an endpoint to query for the proofs needed to verify IBC packet commitments. It is important to note that this entire process maintains the trustless, permissionless, and highly secure design of IBC, as proof verification still happens in the IBC client itself, no trust in the relayer operator is needed, and anyone can permissionlessly spin up a relaying operation permitted they have access to a full node endpoint.
+The objective is to avoid a situation where it is necessary to have copy of chain B on chain A in order to create an trustless IBC connection. However, full nodes which track the entire state of a blockchain are useful for IBC relayer operators as an endpoint to query for the proofs needed to verify IBC packet commitments. This entire process maintains the trustless, permissionless, and highly secure design of IBC. As proof verification still happens in the IBC client itself, no trust in the relayer operator is needed and anyone can permissionlessly spin up a relaying operation, provided that they have access to a full node endpoint.
 
 </HighlightBox>
 
