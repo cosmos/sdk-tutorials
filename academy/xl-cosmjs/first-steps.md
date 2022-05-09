@@ -10,14 +10,14 @@ tag: deep-dive
 Now that you know what CosmJS is, you should take your first steps in using it. A basic feature of a Cosmos chain is the ability to send tokens via the `bank` module. CosmJS naturally offers functions to cover this facility. You are going to:
 
 1. Use an existing test network (testnet) with a key of your own.
-2. Run basic CosmJS commands in a CLI script.
+2. Run basic CosmJS commands in a script that you run using the CLI.
 
 Additionally, you can choose to:
 
-1. Start a local chain that exposes RPCs.
+1. Start a local chain that exposes RPCs instead of using a testnet.
 2. Run the same basic CosmJS commands, but for this local chain.
 
-Along the way, you will learn CosmJS concepts.
+Along the way, you will learn the basic CosmJS concepts needed to start interacting with the Cosmos ecosystem.
 
 ## Script preparation
 
