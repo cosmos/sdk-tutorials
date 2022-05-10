@@ -119,7 +119,7 @@ const result = await signingClient.signAndBroadcast(
     // the signerAddress
     alice,
     // the message(s)
-    [ 
+    [
         {
             typeUrl: "/cosmos.bank.v1beta1.MsgSend",
             value: {
@@ -132,7 +132,7 @@ const result = await signingClient.signAndBroadcast(
           },
     ],
     // the fee
-    { 
+    {
         amount: [{ denom: "uatom", amount: "500" }],
         gas: "200000",
     },
@@ -206,6 +206,19 @@ const result = await signingClient.signAndBroadcast(
     ],
     // the fee
     "auto",
+)
+```
+
+Note how the custom fee input was replaced with the `auto` input, which simulates the transaction to estimate the fee for you. In order to make that work well, you'll need to define the `gasPrice` you're willing to pay and its `prefix` when setting up your `signingClient`. You can replace your original line of code with:
+
+```typescript
+const signingClient = await SigningStargateClient.connectWithSigner(
+    rpc,
+    aliceSigner,
+    {
+        prefix: "cosmos",
+        gasPrice: GasPrice.fromString("0.0025uatom")
+    }
 )
 ```
 

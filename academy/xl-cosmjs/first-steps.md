@@ -434,6 +434,7 @@ const faucet: string = rawLog[0].events
 ```
 
 Although the above is a perfectly valid way to extract specific values from a transaction's message, it is not the recommended way to do so. The benefit of importing the message types is that you don't have to manually dig through the raw log of each `Tx` you're looking to use in your application.
+
 </ExpansionPanel>
 
 These actions are example uses of the read-only `StargateClient` and of the serialization tools that come with CosmJS.
@@ -454,15 +455,18 @@ Update your import line:
 import { IndexedTx, SigningStargateClient, StargateClient } from "@cosmjs/stargate"
 ```
 
-Let's have a look at its declaration by right-clicking on the `SigningStargateClient` in your imports and choosing <kbd>Go to Definition</kbd>. 
+Let's have a look at its declaration by right-clicking on the `SigningStargateClient` in your imports and choosing <kbd>Go to Definition</kbd>.
 
 As you can see, when you instantiate `SigningStargateClient` by using the [`connectWithSigner`](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/signingstargateclient.ts#L156) method, you need to pass it a [**signer**](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/signingstargateclient.ts#L158). In this case, we'll be using the [`OfflineDirectSigner`](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/proto-signing/src/signer.ts#L21-L24) interface.
 
 <HighlightBox type="info">
+
 The recommended way to encode messages is by using `OfflineDirectSigner`, which uses Protobuf. However, hardware wallets such as Ledger do not support this and still require the legacy Amino encoder. If your app requires Amino support, you'll have to use the `OfflineAminoSigner`.
 
 You can read more about encoding [here](https://docs.cosmos.network/master/core/encoding.html).
+
 </HighlightBox>
+
 The signer will need access to Alice's **private key**, and there are several ways to accomplish this. In this example, you will use Alice's saved **mnemonic**. To load the mnemonic as text in your code you will need this import:
 
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/4168b97/experiment.ts#L1]
