@@ -14,6 +14,13 @@ Make sure you have everthing you need before proceeding:
 * You understand the concepts of [transactions](../2-main-concepts/transactions.md), [messages](../2-main-concepts/messages.md), and [Protobuf](../2-main-concepts/protobuf.md).
 * Go is installed.
 * You have the checkers blockchain scaffold with the `StoredGame` and its helpers. If not, follow the [previous steps](./stored-game.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/full-game-object).
+    
+In this section:
+    
+* Create Game Protobuf object
+* Create Game Protobuf service interface
+* Extend your unit tests
+* Interact via the CLI
 
 </HighlightBox>
 
