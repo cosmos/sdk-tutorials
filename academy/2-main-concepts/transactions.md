@@ -7,6 +7,21 @@ tag: deep-dive
 
 # Transactions
 
+<HighlightBox type="synopsis">
+
+In this section:
+    
+* Transactions and Messages
+* Signing Transactions
+* Generating Transactions
+* Broadcasting Transactions
+* Introducing the CLI
+* Introducing the gRPC service
+* Intruducing the REST API
+* Introducing the Tendermint RPC service
+
+</HighlightBox>
+
 Transactions are objects created by end-users to trigger state changes in applications. They are comprised of metadata that defines a context and one or more [`sdk.Msg`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L11-L33) that trigger state changes within a module through the module’s Protobuf message service.
 
 ## Transaction process from an end-user perspective
