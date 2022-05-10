@@ -7,7 +7,15 @@ tag: deep-dive
 
 ## Channels
 
-Connections and clients comprise the main components of the transport layer in IBC. However, application to application communication in IBC is conducted over **channels**, which route between an application module such as the module which handles ICS20 token transfers on one chain, and the corresponding application module on another one. These applications are namespaced by **port identifiers** such as 'transfer' for ICS20 token transfers, or 'interchainaccounts' for the Interchain Accounts module. 
+Connections and clients comprise the main components of the transport layer in IBC. However, application to application communication in IBC is conducted over **channels**, which route between an application module such as the module which handles ICS20 token transfers on one chain, and the corresponding application module on another one. These applications are namespaced by **port identifiers** such as 'transfer' for ICS20 token transfers.
+
+<HighlightBox type="info">
+
+Note that, in the case of Interchain Accounts, there are two different port IDs for host and controller modules:
+
+`icahost` is the default port id that the interchain accounts host submodule binds to, whereas `icacontroller-` is the default port prefix that the interchain accounts controller submodule binds to
+
+</HighlightBox> 
 
 Contrary to the core IBC transport layer logic, which handles only verification, ordering, and all around basic packet correctness, the application layer over channels handles only the application specific logic which interprets the packets that have been sent over the transport layer. This split between transport and application layer in IBC is similar to the split between Tendermint's consensus layer (consensus, mempool, ordering of transactions) and ABCI layer (process of those transaction bytes).
 
@@ -101,7 +109,7 @@ capability store](https://github.com/cosmos/cosmos-sdk/blob/master/docs/architec
 
 ## Application Packet Flow
 
-As stated above, application modules communicate with each other by sending packets over IBC channels. However, IBC modules do not directly pass these messages to each other over the network. Rather, the module will commit some state reflecting the transaction execution to a precisely defined path reserved for a specific message type and a specific counterparty. For example, as part of an ICS20 token transfer, the bank module would escrow the portion of tokens to be transferred and store
+As stated above, application modules communicate with each other by sending packets over IBC channels. However, IBC modules do not directly pass these messages to each other over the network. Rather, the module will commit some state reflecting the transaction execution to a precisely defined path reserved for a specific message type and a specific counterparty. For example, as part of an ICS20 token transfer, the bank module would escrow the portion of tokens to be transferred and store the proof of this escrow.
 
 A relayer will monitor channels for events emitted when updates have been submitted to these paths, and (after first submitting an `UpdateClient` to update the sending chain light client on the destination chain) relay the message containing the packet data along with a proof that the state transition contained in the message has been commited to the state of the sending chain. The destination chain then verifies this packet and packet commitmentment proof against the state contained in the light client.
 
@@ -154,6 +162,8 @@ Acknowledgements can either take place synchronously or asynchronously. What thi
 In the case of a synchronous `Acknowledgement`, the callback will return an `Acknowledgement` at the end of the process and relayer can query this `Acknowledgement` packet and relay immediately after the process has finished. This is useful in cases in which application A is expecting an `AckPacket` in order to initiate some application logic `OnAcknowledgePacket`. For example, the sending chain of an ICS20 token transfer will do nothing in the case of a successful `AckPacket`, but in the case where an error is returned, the sending chain will unescrow the previously locked tokens.
 
 In the case of applications like Interchain Security, there is an asynchronous `Acknowledgement` flow. This means that the `Acknowledgement` is not sent as part of the return value of `OnRecvPacket`, but it is sent at some later point. IBC is designed to handle this case by allowing for `Acknowledgements` to be committed/queried asynchronously.
+
+In either case, even if there is no application specific logic to be initiated as a direct result of a received `Acknowledgement`, `OnAcknowledgePacket` will at the very least remove the commitment proof from the store to avoid cluttering the store with old data.
 
 </HighlightBox>
 
