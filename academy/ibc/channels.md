@@ -17,35 +17,35 @@ Note that, in the case of Interchain Accounts, there are two different port IDs 
 
 </HighlightBox> 
 
-Contrary to the core IBC transport layer logic, which handles only verification, ordering, and all around basic packet correctness, the application layer over channels handles only the application specific logic which interprets the packets that have been sent over the transport layer. This split between transport and application layer in IBC is similar to the split between Tendermint's consensus layer (consensus, mempool, ordering of transactions) and ABCI layer (process of those transaction bytes).
+Contrary to the core IBC transport layer logic, which handles only verification, ordering, and all around basic packet correctness, the application layer over channels handles only the application-specific logic which interprets the packets that have been sent over the transport layer. This split between transport and application layer in IBC is similar to the split between Tendermint's consensus layer (consensus, mempool, ordering of transactions) and ABCI layer (process of those transaction bytes).
 
-A connection may have any number of associated channels. However, each channel is associated with only one connection ID, which indicates which light client it is secured by, and one port ID which indicates the application that it is connected to.
+A connection may have any number of associated channels. However, each channel is associated with only one connection ID (which indicates which light client it is secured by) and one port ID (which indicates the application that it is connected to).
 
-As mentioned above, channels are payload-agnostic. The application modules sending and receiving IBC packets decide how to interpret and act upon the incoming packet data, and use their own application logic/handlers to determine which state transitions to apply according to the data contained in each received packet.
+As previously mentioned, channels are payload agnostic. The application modules sending and receiving IBC packets decide how to interpret and act upon the incoming packet data, and use their own application logic or handlers to determine which state transitions to apply according to the data contained in each received packet.
 
 <HighlightBox type="info">
 
 An **ordered channel** is _a channel where packets are delivered exactly in the order in which they were sent_. 
-An **unordered channel** is _a channel where packets can be delivered in any order_, which may differ from the order in which they were sent.
+An **unordered channel** is _a channel where packets can be delivered in_ any _order_, which may differ from the order in which they were sent.
 
 </HighlightBox>
 
 **Establishing a Channel**
 
-Similarly to how connections are established, channels are established through a four way handshake, in which each step is initiated by a relayer:
+Similarly to how connections are established, channels are established through a four-way handshake, in which each step is initiated by a relayer:
 
 ![Channel Handshake](/academy/ibc/images/channelhandshake.png)
 
-1. `ChanOpenInit`: will set the chain A into `INIT` state. This will call `OnChanOpenInit` so application A can apply the custom callback that it has set on `INIT`, e.g. check if the port has been set correctly, the channel is indeed unordered/ordered as expected, etc. An application version is also proposed in this step.
+1. `ChanOpenInit`: sets chain A into the `INIT` state. This calls `OnChanOpenInit` so application A can apply the custom callback that it has set on `INIT` (for example, to check if the port has been set correctly, the channel is indeed unordered orordered as expected, etc.). An application version is also proposed in this step.
 
 
-2. `ChanOpenTry`: will set chain B into `TRY` state. It will call `OnChanOpenConfirm` so application B can apply its custom `TRY` callback. Application version negotiation also happens during this step. 
+2. `ChanOpenTry`: sets chain B into the `TRY` state. This calls `OnChanOpenConfirm` so application B can apply its custom `TRY` callback. Application version negotiation also happens during this step. 
 
 
-3. `ChanOpenAck`: will set the chain A into `OPEN` state. This will call `OnChanOpenAck` which will be implemented by the application. Application version negotiation is finalised during this step.
+3. `ChanOpenAck`: sets chain A into the `OPEN` state. This calls `OnChanOpenAck`, which is implemented by the application. Application version negotiation is finalised during this step.
 
 
-4. `ChanOpenConfirm`: will set chain B into `OPEN` state so application B can apply its `CONFIRM` logic.
+4. `ChanOpenConfirm`: sets chain B into the `OPEN` state, so application B can apply its `CONFIRM` logic.
 
 <HighlightBox type="info">
 
@@ -57,9 +57,9 @@ If both chains submit `OpenInit` then `OpenTry` at same time, there should be no
 
 **Example code: ChannelOpenInit**
 
-You can find the implementation of `ChannelOpenInit` in the the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go)
+You can find the implementation of `ChannelOpenInit` in the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go)
 
-The important part to note in this code snippet is that an application module has capabilities for the requested port. Therefore, an application module can only use a channel and port if the application owns the capability for that port and the module which attempting to open a channel is the module we have granted capabilities to in `app.go`:
+It is important to note in the following code snippet that an application module has capabilities for the requested port. An application module can only use a channel and port if the application owns the capability for that port, and the module which attempts to open a channel is granted this capability in `app.go`:
 
 ```go
 // ChannelOpenInit defines a rpc handler method for MsgChannelOpenInit.
@@ -102,8 +102,7 @@ func (k Keeper) ChannelOpenInit(goCtx context.Context, msg *channeltypes.MsgChan
 
 **Capabilities**
 
-IBC is intended to work in execution environments where modules do not necessarily trust each other. This security is accomplished using a [dynamic
-capability store](https://github.com/cosmos/cosmos-sdk/blob/master/docs/architecture/adr-003-dynamic-capability-store.md. This binding strategy prevents other modules from using the particular port or channel since those modules do not own the appropriate capability. While this background information is useful, IBC application developers should not need to modify this lower level abstraction, other than setting the capabilities appropriately in `app.go`.
+IBC is intended to work in execution environments where modules do not necessarily trust each other. This security is accomplished using a [dynamic capability store](https://github.com/cosmos/cosmos-sdk/blob/master/docs/architecture/adr-003-dynamic-capability-store.md). This binding strategy prevents other modules from using a particular port or channel since those modules do not own the appropriate capability. While this background information is useful, IBC application developers should not need to modify this lower level abstraction, other than setting the capabilities appropriately in `app.go`.
 
 </HighlightBox>
 
@@ -111,9 +110,9 @@ capability store](https://github.com/cosmos/cosmos-sdk/blob/master/docs/architec
 
 As stated above, application modules communicate with each other by sending packets over IBC channels. However, IBC modules do not directly pass these messages to each other over the network. Rather, the module will commit some state reflecting the transaction execution to a precisely defined path reserved for a specific message type and a specific counterparty. For example, as part of an ICS20 token transfer, the bank module would escrow the portion of tokens to be transferred and store the proof of this escrow.
 
-A relayer will monitor channels for events emitted when updates have been submitted to these paths, and (after first submitting an `UpdateClient` to update the sending chain light client on the destination chain) relay the message containing the packet data along with a proof that the state transition contained in the message has been commited to the state of the sending chain. The destination chain then verifies this packet and packet commitmentment proof against the state contained in the light client.
+A relayer monitors channels for events emitted when updates have been submitted to these paths. After first submitting an `UpdateClient` to update the sending chain light client on the destination chain, it relays the message containing the packet data along with a proof that the state transition contained in the message has been commited to the state of the sending chain. The destination chain then verifies this packet and packet commitmentment proof against the state contained in the light client.
 
-Take a look at the [packet definition](https://github.com/cosmos/ibc-go/blob/main/modules/core/04-channel/types/packet.go) to see the packet structure:
+Look at the [packet definition](https://github.com/cosmos/ibc-go/blob/main/modules/core/04-channel/types/packet.go) to see the packet structure:
 
 ```go
 // NewPacket creates a new Packet instance. It panics if the provided
@@ -140,28 +139,31 @@ func NewPacket(
 
 `TimeoutTimestamp` and `TimeoutHeight` dictate the time before which the receiving module must process a packet. 
 
-
 ![Packet flow](/academy/ibc/images/packetflow.png)
 
 **Success Case**
 
-In the first step of a successful packet flow, application A will send a packet (call `sendPacket`) to the application B. `SendPacket` can be triggered by a user, but applications can also trigger this as the result of some other application logic. 
+In the first step of a successful packet flow, application A will send a packet (call `sendPacket`) to application B. `SendPacket` can be triggered by a user, but applications can also trigger this as the result of some other application logic. 
 
-Core IBC A will commit the packet to its own state and the relayer can query this packet and send a `RecvPacket` message to core IBC B. Core IBC handles a number of verifications, including verifying that the packet was indeed sent by chain A, that the packet came in the correct order if it was sent over an ordered channel, that the state commitment proof is valid etc. If this verification step is successful, core IBC will then route the packet to application B.
+Core IBC A commits the packet to its own state and the relayer can query this packet and send a `RecvPacket` message to core IBC B. Core IBC handles a number of verifications, including verifying that the packet was indeed sent by chain A, that the packet came in the correct order (if it was sent over an ordered channel), that the state commitment proof is valid, etc. If this verification step is successful, core IBC routes the packet to application B.
 
-Note that core IBC is unopinionated about the actual content of the packet data, as this data is at this point just bytes. It is the responsibility of the applications on either end to marshal and unmarshal the data from and to the expected data structures on either side. This is also why application version negotiation as discussed above in the channel handshakes is important, as different versions of an application may result in different expected data structures on either end of the channel and application.
+<HighlightBox type="note">
+  
+Core IBC is unopinionated about the actual content of the packet data, as this data is at this point just bytes. It is the responsibility of the applications on either end to marshal and unmarshal the data from and to the expected data structures on either side. This is also why application version negotiation (as previously discussed in the channel handshakes) is important, as different versions of an application may result in different expected data structures on either end of the channel and application.
 
-After receiving the packet data from core IBC, application B will then marshal the data blob into the expected structure and apply the relevant application logic. In the case of an ICS20 token transfer, for example, this would entail the minting of the received tokens on chain B to the specified receiver user account. Application B will then send an `Acknowledgment` message to core IBC B, which will again commit it to its own state so it can be queried and sent by a relayer to core IBC A.
+</HighlightBox>
+
+After receiving the packet data from core IBC, application B marshals the data blob into the expected structure and applies the relevant application logic. For example, in the case of an ICS20 token transfer this entails the minting of the received tokens on chain B to the specified receiver user account. Application B then sends an `Acknowledgment` message to core IBC B, which again commits it to its own state so it can be queried and sent by a relayer to core IBC A.
 
 <HighlightBox type="info">
 
 **Synchronous and Asynchronous Acknowledgements**
 
-Acknowledgements can either take place synchronously or asynchronously. What this means is that the `OnRecvPacket` callback has a return value `Acknowledgement` which is optional. 
+Acknowledgements can either take place synchronously or asynchronously. This means that the `OnRecvPacket` callback has a return value `Acknowledgement` which is optional. 
 
-In the case of a synchronous `Acknowledgement`, the callback will return an `Acknowledgement` at the end of the process and relayer can query this `Acknowledgement` packet and relay immediately after the process has finished. This is useful in cases in which application A is expecting an `AckPacket` in order to initiate some application logic `OnAcknowledgePacket`. For example, the sending chain of an ICS20 token transfer will do nothing in the case of a successful `AckPacket`, but in the case where an error is returned, the sending chain will unescrow the previously locked tokens.
+In the case of a synchronous `Acknowledgement`, the callback returns an `Acknowledgement` at the end of the process. A relayer can query this `Acknowledgement` packet and relay immediately after the process has finished. This is useful in cases in which application A is expecting an `AckPacket` in order to initiate some application logic `OnAcknowledgePacket`. For example, the sending chain of an ICS20 token transfer will do nothing in the case of a successful `AckPacket`, but if an error is returned the sending chain will unescrow the previously locked tokens.
 
-In the case of applications like Interchain Security, there is an asynchronous `Acknowledgement` flow. This means that the `Acknowledgement` is not sent as part of the return value of `OnRecvPacket`, but it is sent at some later point. IBC is designed to handle this case by allowing for `Acknowledgements` to be committed/queried asynchronously.
+In the case of applications like Interchain Security, there is an asynchronous `Acknowledgement` flow. This means that the `Acknowledgement` is not sent as part of the return value of `OnRecvPacket`, but it is sent at some later point. IBC is designed to handle this case by allowing for `Acknowledgements` to be committed or queried asynchronously.
 
 In either case, even if there is no application specific logic to be initiated as a direct result of a received `Acknowledgement`, `OnAcknowledgePacket` will at the very least remove the commitment proof from the store to avoid cluttering the store with old data.
 
@@ -169,10 +171,7 @@ In either case, even if there is no application specific logic to be initiated a
 
 **Timeout Case**
 
-In the case that a packet is time-sensitive and the timeout block height or timeout timestamp specified in the packet parameters **based on chain B's time** has elapsed, whatever state transitions have occured as a result of the sent packet should be reversed.
-
-In these cases, the initial flow is the same, with core IBC A first committing the packet to its own state. However, instead of querying for the packet, a relayer will submit a  `QueryNonReceipt` to receive a proof that the packet was not received by core IBC B. It can then send the `TimeoutPacket` to core IBC A, which will then trigger the relevant `OnTimeoutPacket` application logic. For example, the ICS20 token transfer application will unescrow the locked up tokens and send these back to the original sender `OnTimeoutPacket`.
-
+If a packet is time-sensitive and the timeout block height or timeout timestamp specified in the packet parameters **based on chain B's time** has elapsed, whatever state transitions have occured as a result of the sent packet should be reversed.
 
 1. **Successful:** Application A sends a packet (call `sendPacket`) to application B. This can be triggerd by a user, but applications can also act without a user. Core IBC A commits the packet to its own state, and the relayer can query this packet and send a receive message to Core IBC B. Verifications are done by Core IBC B and application B gets the packet if it is valid. Note that the applications on both ends need to marshal and unmarshal the data. Application B then sends an acknowledgment message to Core IBC B, which again commits it to its own state so it can be sent by a relayer to Core IBC A.
 2. **Unsuccessful:** In second scenario, the packet is not received in time. In this case, Core IBC A receives a `TimeoutPacket` message from the relayer and calls `OnTimeoutPacket` on application A.

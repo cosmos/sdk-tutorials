@@ -5,25 +5,29 @@ description:
 tag: deep-dive
 ---
 
-## Light Clients
+## Clients
 
-In the IBC Protocol, an actor - an end user, an off-chain process, or a machine - needs to be able to verify updates to another machine's state that the other machine's consensus algorithm has agreed to and reject any possible updates that the other machine's consensus algorithm has not agreed upon.
+![clients](/academy/ibc/images/lightclient.png)
 
-![Light clients](/academy/ibc/images/lightclient.png)
-
-Different abstraction layers are described in the ICS.
+As previously shown, IBC is structured as several layers of abstraction. At the top, applications such as [ICS20 token transfers](https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer) implement the [ICS26 IBC standard](ics-026-routing-module), which describe the routing and callback functionality used to connect the application layer to the transport layer. Underneath the application are channels, which are unique for each application (for example, a channel that allows a transfer application on chain A to speak to a transfer application on chain B). [Connections](/academy/ibc/ibc-tao-dev.md), which may have many channels, are used to connect two clients (for example, to allow the entire IBC stack of chain A to connect to the IBC stack of chain B). These clients, which may have many connections, comprise the foundational layer of IBC.
 
 <HighlightBox type="info">
 
-In case you want to take a refresher of ICS and the different layers, take a look at the section [What is IBC?](./what-is-ibc.md).
+IBC application developers will primarily interact with [IBC channels](/academy/ibc/channels.md). This layer is comprised of the handshakes and packet callbacks.
 
 </HighlightBox>
 
-**Light clients** confirm that received packets are verified. With this approach, an IBC chain is not required to maintain a **full node** for the verification of state changes of another chain. A **relayer** has access to both full nodes and passes headers from full nodes to the light clients.
+In the IBC setup, each chain will have a **client** of the other chain in its own IBC stack. IBC clients track the consensus states of other blockchains, and the proof specs of those blockchains that are required to properly verify proofs against the client's consensus state. The packets, acknowledgements, and timeouts that off-chain relayers send back and forth can be verified by proving that the packet commitments exist inside of these clients on each chain. 
 
-Before a **connection** can be established - a connection handshake starts - chain A will create a light client for chain B and chain B will create a light client for chain A.
+<HighlightBox type="info">
 
-Start with [`msg_serve.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go), this is where the messages come in. In it, we first see a `CreateClient` function:
+Although relayers do not perform any verification of the packets, and therefore do not need to be trusted, relayers have a particularly important role in IBC setup in addition to IBC network liveness through submission of packets. They are responsible for submitting the initial messages to create a new client, as well as keeping the client states updated on each chain, so that proof verification on a submitted packet is successful. Relayers are also responsible for sending the connection and channel handshakes to establish connections and channels between chains. Furthermore, relayers can submit evidence of misbehaviour if a chain on the other end of a connection tries to fork or attempts other types of malicious behaviour. 
+
+</HighlightBox>
+
+**Creating a Client**
+
+Start with [`msg_serve.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go), which is where the messages come in. This is the first appearance of the `CreateClient` function, which will be submitted by a relayer through the relaying software to create an IBC client on the chain that the message is submitted to:
 
 ```go
 // CreateClient defines a rpc handler method for MsgCreateClient.
@@ -44,7 +48,7 @@ func (k Keeper) CreateClient(goCtx context.Context, msg *clienttypes.MsgCreateCl
 }
 ```
 
-It creates a light client by calling [`ClientKeeper.CreateClient`](https://github.com/cosmos/ibc-go/blob/main/modules/core/02-client/keeper/client.go):
+It creates a client by calling [`ClientKeeper.CreateClient`](https://github.com/cosmos/ibc-go/blob/main/modules/core/02-client/keeper/client.go):
 
 ```go
 // CreateClient creates a new client state and populates it with a given consensus
@@ -75,7 +79,17 @@ func (k Keeper) CreateClient(
 }
 ```
 
-Each client for a chain has a unique `clientID`. In addition, you can see that the function expects a [`clientState`](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/client_state.go):
+A local, unique identifier `clientID` is generated for each client on the chain. This is not related to the `chainID`, as IBC does not actually use the `chainID` as an identifier. 
+
+<HighlightBox type="info">
+
+The IBC security model is based on clients and not specific chains. This means that the IBC protocol does not need to know who the chains are on either side of a connection, provided that the IBC clients are kept in sync with valid updates, and these updates or other types of messages (ie: ICS20 token transfers) can be verified as a Merkle proof against an initial consensus state (root of trust). This is analogous to IP addresses and DNS, where IP addresses would be the corollary to IBC `clientIDs`, and DNS the `chainIDs`.
+
+Because of this separation of concerns, IBC clients can be created for any number of machine types, from fully-fledged blockchains to keypair-based solo machines, and upgrades to chains which increment the chainID do not break the underlying IBC client and connections.
+
+</HighlightBox>
+
+In addition, you can see that the function expects a `ClientState`. This `ClientState` will look different depending on which type of client is to be created for IBC. In the case of Cosmos-SDK chains and the corresponding implementation of ibc-go, the [Tendermint client](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/client_state.go) is offered out of the box:
 
  ```go
 // NewClientState creates a new ClientState instance
@@ -102,9 +116,31 @@ func NewClientState(
 
 ```
 
-`TrustLevel` in the `NewClientState` lets you set the security conditions. It determines, for example, how often the relayer will pass a header to the light client. Also it determines the portion of the validator set you want to have signing for the block confirmation.
+The Tendermint `ClientState` contains all the information needed to verify a header. This includes properties which are applicable for all Tendermint clients, such as the corresponding chainID, the unbonding period of the chain, the latest height of the client, etc.
 
-`CreateClient` additionally expects a [`consensusState`](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/consensus_state.go):
+`TrustingPeriod` determines the duration of the period since the Lastest Timestamp during which the submitted headers are valid for upgrade. If a client is not updated within the `TrustingPeriod`, the client will expire. This does not mean the client is irrecoverable. However, recovery of an expired Tendermint client will require a [governance proposal](https://ibc.cosmos.network/main/ibc/proposals.html#preconditions) for each client which has expired. If both clients on either side of a connection have expired, then a governance proposal will be required on each chain in order to revive each client.
+
+`TrustLevel` determines the portion of the validator set you want to have signing a header for it to be considered as valid. Tendermint defines this as 2/3, and the IBC Tendermint client inherits this property from Tendermint.
+
+<HighlightBox type="note">
+  
+Properties such as `TrustLevel` and `TrustingPeriod` can be customised, such that different clients on the same chain can have different security guarantees with different tradeoffs for efficiency of processing updates.
+  
+</HighlightBox>
+
+<HighlightBox type="info">
+
+It is important to highlight that certain parameters of an IBC client cannot be updated after the client has been created, in order to preserve the security guarantees of each client and prevent a situation where a relayer unilaterally updates those security guarantees. These parameters are: `MaxClockDrift`, `TrustingPeriod`, and `TrustLevel`.
+
+As stated before, `TrustLevel` is inherited from Tendermint and will be 2/3 for all Tendermint clients. However, this could change for other client types.
+
+It is recommended that `TrustingPeriod` should be set as 2/3 of the UnbondingPeriod.
+
+It is also recommended that `MaxClockDrift` should be set to at least 5sec and up to 15sec, depending on expected block size differences between the chains in the connection. The Hermes (Rust) relayer will compute this value for you if you do not manually set it.
+
+</HighlightBox>
+
+`CreateClient` additionally expects a [`ConsensusState`](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/consensus_state.go). In the case of a Tendermint client, the initial root of trust (or consensus state) looks like this:
 
 ```go
 // NewConsensusState creates a new ConsensusState instance.
@@ -119,18 +155,20 @@ func NewConsensusState(
 }
 ```
 
-This is the code from the Tendermint client. The Tendermint client tracks the timestamp (block time), validator set, and commitment root for all previously verified consensus states.
+The Tendermint client `ConsensusState` tracks the timestamp of the block being created, the hash of the validator set for the next block of the counterparty blockchain, and the root of the counterparty blockchain. The initial `ConsensusState` does not need to start with the genesis block of a counterparty chain.
 
-<HighlightBox type="info">
-
-If you want to see where `ConsensusState` is stored, take a look at the [Interchain Standard (ICS) 24](https://github.com/cosmos/ibc/tree/master/spec/core/ics-024-host-requirements), which describes the paths also for other keys to be stored and used by IBC.
+<HighlightBox type="tip">
+  
+The next validator set is used for verifying subsequent submitted headers or updates to the counterparty `ConsensusState`. See the following **Updating Clients** section for more information about what happens when a validator set changes between blocks.
 
 </HighlightBox>
 
-The IBC module uses [Merkle trees](https://en.wikipedia.org/wiki/Merkle_tree) for the `root` [verifications](https://github.com/cosmos/ibc-go/blob/main/modules/core/23-commitment/types/merkle.go):
+The root is the **AppHash**, or the hash of the application state of the counterparty blockchain that this client is representing. This root hash is particularly important because it is the root hash used on a receiving chain when verifying [Merkle](https://en.wikipedia.org/wiki/Merkle_tree) proofs associated with a packet coming over IBC, to determine whether or not the relevant transaction has been actually been executed on the sending chain. If the Merkle proof associated with a packet commitment delivered by a relayer successfully hashes up to this `ConsensusState` root hash, it is certain that the transaction was actually executed on the sending chain and included in the state of the sending blockchain.
+
+The following is an example of how the Tendermint client handles this Merkle [proof verification]((https://github.com/cosmos/ibc-go/blob/main/modules/core/23-commitment/types/merkle.go)). Note that non-Tendermint client types may choose to handle proof verification differently:
 
 ```go
-// VerifyMembership verifies the membership pf a merkle proof against the given root, path, and value.
+// VerifyMembership verifies the membership of a merkle proof against the given root, path, and value.
 func (proof MerkleProof) VerifyMembership(specs []*ics23.ProofSpec, root exported.Root, path exported.Path, value []byte) error {
   if err := proof.validateVerificationArgs(specs, root); err != nil {
     return err
@@ -158,68 +196,22 @@ func (proof MerkleProof) VerifyMembership(specs []*ics23.ProofSpec, root exporte
 }
 ```
 
-As mentioned before, you have different security guarantees for an update depending on the trust level you set. Take a look at [`CheckHeaderAndUpdateState`](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/update.go) and read through the comments. Notice that `consensusState` is not updated, instead another `consensusState` with a different height is stored on the chain:
 
-```go
-func (cs ClientState) CheckHeaderAndUpdateState(
-  ctx sdk.Context, cdc codec.BinaryCodec, clientStore sdk.KVStore,
-  header exported.Header,
-) (exported.ClientState, exported.ConsensusState, error) {
-  tmHeader, ok := header.(*Header)
-  if !ok {
-    return nil, nil, sdkerrors.Wrapf(
-      clienttypes.ErrInvalidHeader, "expected type %T, got %T", &Header{}, header,
-    )
-  }
+<HighlightBox type="info">
 
- ...
+IBC on-chain clients can also be referred to as **light clients**. In contrast to the full nodes, which track the entire state of blockchain and contain every single tx/block, these on-chain IBC "light clients" track only the few pieces of information about counterparty chains previously mentioned (timestamp, root hash, next validator set hash). This saves space and increases the efficiency of processing consensus state updates. 
 
-  // get consensus state from clientStore
-  trustedConsState, err := GetConsensusState(clientStore, cdc, tmHeader.TrustedHeight)
-  if err != nil {
-    return nil, nil, sdkerrors.Wrapf(
-      err, "could not get consensus state from clientstore at TrustedHeight: %s", tmHeader.TrustedHeight,
-    )
-  }
+The objective is to avoid a situation where it is necessary to have copy of chain B on chain A in order to create an trustless IBC connection. However, full nodes which track the entire state of a blockchain are useful for IBC relayer operators as an endpoint to query for the proofs needed to verify IBC packet commitments. This entire process maintains the trustless, permissionless, and highly secure design of IBC. As proof verification still happens in the IBC client itself, no trust in the relayer operator is needed and anyone can permissionlessly spin up a relaying operation, provided that they have access to a full node endpoint.
 
-  if err := checkValidity(&cs, trustedConsState, tmHeader, ctx.BlockTime()); err != nil {
-    return nil, nil, err
-  }
+</HighlightBox>
 
-  consState := tmHeader.ConsensusState()
-  // Header is different from existing consensus state and also valid, so freeze the client and return
-  if conflictingHeader {
-    cs.FrozenHeight = FrozenHeight
-    return &cs, consState, nil
-  }
-  // Check that consensus state timestamps are monotonic
-  prevCons, prevOk := GetPreviousConsensusState(clientStore, cdc, header.GetHeight())
-  nextCons, nextOk := GetNextConsensusState(clientStore, cdc, header.GetHeight())
-  // if previous consensus state exists, check consensus state time is greater than previous consensus state time
-  // if previous consensus state is not before current consensus state, freeze the client and return.
-  if prevOk && !prevCons.Timestamp.Before(consState.Timestamp) {
-    cs.FrozenHeight = FrozenHeight
-    return &cs, consState, nil
-  }
-  // if next consensus state exists, check consensus state time is less than next consensus state time
-  // if next consensus state is not after current consensus state, freeze the client and return.
-  if nextOk && !nextCons.Timestamp.After(consState.Timestamp) {
-    cs.FrozenHeight = FrozenHeight
-    return &cs, consState, nil
-  }
+**Updating A Client**
 
-  // Check the earliest consensus state to see if it is expired, if so then set the prune height
-  // so that we can delete consensus state and all associated metadata.
-  
-  ...
+Assume that the initial ConsensusState was created at block 50, but you want to submit a proof of a transaction which happened in block 100. In this case, you need to first update the ConsensusState to reflect all the changes that have happened between block 50 and block 100.
 
-  newClientState, consensusState := update(ctx, clientStore, &cs, tmHeader)
-  return newClientState, consensusState, nil
-}
+To update the `ConsensusState` of the counterparty on the client, an `UpdateClient` message containing a `Header` of the chain to be updated must be submitted by a relayer. For all IBC client types, Tendermint or otherwise, this `Header` contains the information necessary to update the `ConsensusState`. However, IBC does not dictate what the `Header` must contain beyond the basic methods for returning `ClientType` and `GetClientID`. The specifics of what each client expects as important information to perform a `ConsensusState` update will be found in each client implementation.
 
-```
-
-`header` has not been mentioned yet, so take a look at the [header definition](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/tendermint.pb.go):
+For example, the Tendermint client `Header` looks like [this](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/tendermint.pb.go):
 
 ```go
 type Header struct {
@@ -230,89 +222,26 @@ type Header struct {
 }
 ```
 
-Header defines the Tendermint client consensus `Header`. It encapsulates all the information necessary to update from a trusted Tendermint `ConsensusState`. The inclusion of `TrustedHeight` and `TrustedValidators` allows this update to process correctly, so long as the `ConsensusState` for the `TrustedHeight` exists, this removes race conditions among relayers.
+The Tendermint `SignedHeader` is a header and commit that the counterparty chain has created. In the `UpdateClient` example, this would be the header of block 100 which will contain the timestamp of the block, the hash of the next validator set, and the root hash needed to update the `ConensusState` on record for the counterparty chain. The commit will be a signature of at least 2/3 of the validator set over that header, which is guaranteed as part of Tendermint's BFT consensus model.
 
-The `SignedHeader` and `ValidatorSet` are the new untrusted update fields for the client. The `TrustedHeight` is the height of a stored `ConsensusState` on the client that will be used to verify the new untrusted
-header. The Trusted `ConsensusState` must be within the unbonding period of current time in order to correctly verify, and the `TrustedValidators` must hash to `TrustedConsensusState.NextValidatorsHash` since that is the last trusted validator set at the `TrustedHeight`.
+`ValidatorSet` will be the actual validator set, as opposed to the hash of the next validator set stored on the `ConsensusState`. This is important for the Tendermint `UpdateClient` because, in order to preserve the Tendermint security model, it is necessary to be able to prove that at least 2/3 of the validators who signed the initial header at block 50 have signed the header to update the `ConsensusState` to block 100. This `ValidatorSet` will be submitted by the relayer as part of the `UpdateClient` message, as the relayer has access to full nodes from which this information can be extracted.
 
-The header is passed by the relayer to the light client. You can see that the the header is confirmed with:
+`TrustedValidators` are the validators associated with that height. Note that `TrustedValidators` must hash to the `ConsensusState` `NextValidatorsHash` since that is the last trusted validator set at the `TrustedHeight`.
 
-```go
-  if err := checkValidity(&cs, trustedConsState, tmHeader, ctx.BlockTime()); err != nil {
-    return nil, nil, err
-  }
-```
+The `TrustedHeight` is the height of a stored `ConsensusState` on the client that will be used to verify the new untrusted header. You can see the code that takes the `ConsensusState` at the `TrustedHeight` and uses it to verify the new header [here](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/update.go). This code proves that the submitted header is valid and creates a verified `ConsensusState` for the submitted header, as well as updating the client state to reflect the new latest height of the submitted header. This verified `ConsensusState` will be added to the client as part of the set of `ClientConsensusStates`, and can subsequently be used as a trusted state at its corresponding height.
 
-So take a closer look to see the different verifications made in this call:
+<HighlightBox type="info">
 
-```go
-// checkValidity checks if the Tendermint header is valid.
-// CONTRACT: consState.Height == header.TrustedHeight
-func checkValidity(
-  clientState *ClientState, consState *ConsensusState,
-  header *Header, currentTimestamp time.Time,
-) error {
-  if err := checkTrustedHeader(header, consState); err != nil {
-    return err
-  }
+If you want to see where `ConsensusState` is stored, see the [Interchain Standard (ICS) 24](https://github.com/cosmos/ibc/tree/master/spec/core/ics-024-host-requirements), which also describes the paths for other keys to be stored and used by IBC.
 
-  // UpdateClient only accepts updates with a header at the same revision
-  // as the trusted consensus state
-  ...
+</HighlightBox>
 
-  tmTrustedValidators, err := tmtypes.ValidatorSetFromProto(header.TrustedValidators)
-  ...
 
-  tmSignedHeader, err := tmtypes.SignedHeaderFromProto(header.SignedHeader)
-  ...
+**Verifying Packet Commitments**
 
-  tmValidatorSet, err := tmtypes.ValidatorSetFromProto(header.ValidatorSet)
-  ...
+As shown in the deep dive on [channels](/academy/ibc/channels.md), a relayer will first submit an `UpdateClient` to update the sending chain client on the destination chain, before relaying packets containing other message types, such as ICS20 token transfers. The destination chain can be sure that the packet will be contained in its ConsensusState root hash, and successfully verify this packet and packet commitmentment proof against the state contained in its (updated) IBC light client.
 
-  // assert header height is newer than consensus state
-  ...
-
-  chainID := clientState.GetChainID()
-  // If chainID is in revision format, then set revision number of chainID with the revision number
-  // of the header we are verifying
-  // This is useful if the update is at a previous revision rather than an update to the latest revision
-  // of the client.
-  // The chainID must be set correctly for the previous revision before attempting verification.
-  // Updates for previous revisions are not supported if the chainID is not in revision format.
-  if clienttypes.IsRevisionFormat(chainID) {
-    chainID, _ = clienttypes.SetRevisionNumber(chainID, header.GetHeight().GetRevisionNumber())
-  }
-
-  // Construct a trusted header using the fields in consensus state
-  // Only Height, Time, and NextValidatorsHash are necessary for verification
-  trustedHeader := tmtypes.Header{
-    ChainID:            chainID,
-    Height:             int64(header.TrustedHeight.RevisionHeight),
-    Time:               consState.Timestamp,
-    NextValidatorsHash: consState.NextValidatorsHash,
-  }
-  signedHeader := tmtypes.SignedHeader{
-    Header: &trustedHeader,
-  }
-
-  // Verify next header with the passed-in trustedVals
-  // - asserts trusting period not passed
-  // - assert header timestamp is not past the trusting period
-  // - assert header timestamp is past latest stored consensus state timestamp
-  // - assert that a TrustLevel proportion of TrustedValidators signed new Commit
-  err = light.Verify(
-    &signedHeader,
-    tmTrustedValidators, tmSignedHeader, tmValidatorSet,
-    clientState.TrustingPeriod, currentTimestamp, clientState.MaxClockDrift, clientState.TrustLevel.ToTendermint(),
-  )
-
-  ...
-
-  return nil
-}
-```
-
-The client is also used to [verify an incoming packet](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/client_state.go):
+The code snippet which illustrates how a client [verifies an incoming packet](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/client_state.go) is as follows:
 
 ```go
 // VerifyPacketCommitment verifies a proof of an outgoing packet commitment at
@@ -347,45 +276,4 @@ func (cs ClientState) VerifyPacketCommitment(
 
   return nil
 }
-```
-
-Now you can see how the [client is updated](https://github.com/cosmos/ibc-go/blob/main/modules/core/02-client/keeper/client.go):
-
-```go
-// UpdateClient updates the consensus state and the state root from a provided header.
-func (k Keeper) UpdateClient(ctx sdk.Context, clientID string, header exported.Header) error {
-  clientState, found := k.GetClientState(ctx, clientID)
-  ...
-
-  clientStore := k.ClientStore(ctx, clientID)
-
-  ... status := clientState.Status(ctx, clientStore, k.cdc); 
-  ...
-
-  // Any writes made in CheckHeaderAndUpdateState are persisted on both valid updates and misbehaviour updates.
-  // Light client implementations are responsible for writing the correct metadata (if any) in either case.
-  newClientState, newConsensusState, err := clientState.CheckHeaderAndUpdateState(ctx, k.cdc, clientStore, header)
-  ...
-
-  // emit the full header in events
-  ...
-    // set default consensus height with header height
-    consensusHeight = header.GetHeight()
-  ...
-
-  // set new client state regardless of if update is valid update or misbehaviour
-  k.SetClientState(ctx, clientID, newClientState)
-
-  // If client state is not frozen after clientState CheckHeaderAndUpdateState,
-  // then update was valid. Write the update state changes, and set new consensus state.
-  // Else the update was proof of misbehaviour and we must emit appropriate misbehaviour events.
-  ...
-
-    // emitting events in the keeper emits for both begin block and handler client updates
-    EmitUpdateClientEvent(ctx, clientID, newClientState, consensusHeight, headerStr)
-  ...
-
-  return nil
-}
-
 ```
