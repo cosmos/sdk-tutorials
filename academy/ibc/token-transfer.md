@@ -7,8 +7,15 @@ tag: deep-dive
 
 # IBC Fungible Token Transfer
 
-Having looked at the IBC/TAO, you can now take a look at the [ICS-20](https://github.com/cosmos/ibc/blob/master/spec/app/ics-020-fungible-token-transfer/README.md). It describes fungible token transfers. There are many use cases for tokens on blockchain like tokenizations or initial coin offerings.
-Fungibility refers to an instance in which a token is interchangeable with other instances of that token or not. 
+Having looked at IBC's transport, authentication, and ordering layer (IBC/TAO), you can now take a look at [ICS-20](https://github.com/cosmos/ibc/blob/master/spec/app/ics-020-fungible-token-transfer/README.md). ICS-20 describes **fungible token transfers**. 
+
+<HighlightBox type="info">
+
+Fungibility refers to an instance in which a token is interchangeable with other instances of that token or not. Fungible tokens can be exchanged and replaced.
+
+</HighlightBox>
+
+There are many use cases involving token transfers on blockchains, like the tokenization of assets holding value or initial coin offerings (ICOs) to finance blockchain projects. IBC makes it possible to transfer tokens/digital assets between (sovereign) chains, both fungible and non-fungible tokens. While fungible token transfers allow, for example, to build applications relying on cross-chain payments and token exchanges. Therefore, IBC frees up great potential for cross-chain Decentralized Finance (DeFi) applications by offering a technically reliable cross-chain interoperability protocol that is compatible with digital assets on multiple networks.
 
 The corresponding [implementation](https://github.com/cosmos/ibc-go/tree/main/modules/apps/transfer) is a module on the application level.
 
@@ -30,7 +37,7 @@ Shortly you will see the corresponding code. Now again have a look at a transfer
 
 ![Source to sink](images/sourcetosink.png)
 
-Above the **source** is chain A. The source channel is **channel-2** and the destination channel is **channel-40**. The token denominations are represented the form `{Port}/{Channel}/{denom}`. The prefixed port and channel pair indicate which channel the funds were previously sent through. You see **transfer/channel-...** because the transfer module will bind to a port, which we name transfer. If chain A sends 100 ATOM tokens, chain B will receive 100 ATOM tokens and append the destination prefix **port/channel-id**. So chain B will mint those 100 ATOM tokens as **transfer/channel-40/atoms**. The **channel-id** will be increased sequentially per channel on a given connection. 
+Above the **source** is chain A. The source channel is **channel-2** and the destination channel is **channel-40**. The token denominations are represented as `{Port}/{Channel}/{denom}`. The prefixed port and channel pair indicate which channel the funds were previously sent through. You see **transfer/channel-...** because the transfer module will bind to a port, which is named transfer. If chain A sends 100 ATOM tokens, chain B will receive 100 ATOM tokens and append the destination prefix **port/channel-id**. So chain B will mint those 100 ATOM tokens as **transfer/channel-40/atoms**. The **channel-id** will be increased sequentially per channel on a given connection.
 
 If the tokens are sent back from the **same channel** as they were received:
 
@@ -38,7 +45,7 @@ If the tokens are sent back from the **same channel** as they were received:
 
 Chain A will "un-escrow" 100 **ATOM tokens**, thus, the prefix will be removed. Chain B will burn **transfer/channel-40/atoms**.
 
-**Notice:** the prefix determines the **source** chain. If the module sends the token from another channel, chain B will be the source chain and chain A will mint new tokens with a prefix instead of un-escrowing ATOM tokens. You can have different channels between two chains, but you cannot transfer the same token across different channels back and forth. If `{denom}` contains `/`, then it must also be in the ICS-20 form which indicates that this token has a multi-hop record. Note that this requires that the `/` is prohibited in non-IBC token denomination names.
+**Notice:** the prefix determines the **source** chain. If the module sends the token from another channel, chain B is the source chain and chain A mints new tokens with a prefix instead of un-escrowing ATOM tokens. You can have different channels between two chains, but you cannot transfer the same token across different channels back and forth. If `{denom}` contains `/`, then it must also follow the ICS-20 form, which indicates that this token has a multi-hop record. Note this requires that `/` is prohibited in non-IBC token denomination names.
 
 ![Source sink logic](images/sourcesinklogic.png)
 
