@@ -106,7 +106,7 @@ With the checkers application ready to accommodate IBC-foreign tokens, you shoul
 A relayer is a process that transfers IBC packets between two blockchains. Here this process is **running in your browser** using the account you configured in your browser. The account is the same one you would use to play a game of checkers. Dub it `alice123@checkers`.
 
 1. On the checkers end, the relayer is already configured to connect to your running checkers blockchain and to use the tokens of whichever account you have configured in your browser (here `alice123@checkers`). Therefore, it gets the same privileges to access your tokens that you have granted to the checkers' browser application.
-2. You need to configure it to connect to the other blockchain which hosts the foreign tokens you want to transfer. This can be the Cosmos Hub, or a [testnet](https://tutorials.cosmos.network/connecting-to-testnet/testnet-tutorial.html) that you or someone else runs.
+2. You need to configure it to connect to the other blockchain which hosts the foreign tokens you want to transfer. This can be the Cosmos Hub, or a [testnet](https://github.com/cosmos/testnets) that you or someone else runs.
 3. You also need to fund the relayer's account on the remote chain so that it can operate. The account is generated from the same private key as `alice123@checkers`, so call it `alice465@remote`. The relayer shows you in the browser which account this is.
 
 Your test follows a few steps:
