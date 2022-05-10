@@ -72,9 +72,13 @@ The created transaction to play a move informs the opponent about:
 * The move's outcome.
 * Whether the game was won.
 
-Contrary to the _create game_ event, which alerted the players about a new game, the players now know which game IDs to watch for. There is no need to repeat player addresses, the game ID is sufficient.
+<HighlightBox type="info">
 
-As previously, define new keys in `x/checkers/types/keys.go`:
+Contrary to the _create game_ event, which alerted the players about a new game, the players now know which game IDs to keep an eye out for. There is no need to repeat the players' addresses, the game ID is information enough.
+
+</HighlightBox>
+
+You define new keys in `x/checkers/types/keys.go` similarly:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/types/keys.go#L41-L48]
 const (

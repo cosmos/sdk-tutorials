@@ -44,7 +44,7 @@ Begin with the minimum game information needed to be stored:
 
 ### How to store
 
-Each game musst be identified by a unique ID. This is important if you want your blockchain application to accommodate multiple simultaneous games.
+After you know **what** to store, you have to decide **how** to store a game. This is important if you want your blockchain application to accommodate multiple simultaneous games. The game is identified by a unique ID.
 
 How should you generate the ID? Players cannot choose it themselves, as this could lead to transactions failing because of an ID clash. You cannot rely on a large random number like a universally unique identifier (UUID), because transactions have to be verifiable in the future. It is better to have a counter incrementing on each new game. This is possible because the code execution happens in a single thread.
 

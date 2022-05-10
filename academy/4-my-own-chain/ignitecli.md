@@ -25,17 +25,20 @@ You can follow a hands-on exercise for Ignite CLI in the sections that follow th
 
 The Cosmos SDK provides the building blocks for a complete Tendermint blockchain, which implements the Inter-Blockchain Communication Protocol (IBC). The _BaseApp_ of the Cosmos SDK assembles these building blocks and provides a fully-running blockchain. All there is left to do for the specific blockchain application is to create specific modules and integrate them with BaseApp to make the application _your own_.
 
+<HighlightBox type="info">
+
 Ignite CLI assists with scaffolding modules and integrating them with BaseApp. Ignite CLI is a command-line tool that writes code files and updates them when instructed to do so. If you come from an _on Rails_ world, the concept will look familiar to you.
 
 Ignite CLI also handles some compilation, runs a local blockchain node, and helps you with other tasks.
 
+</HighlightBox>
 
 <YoutubePlayer videoId="pFAM6mkKoTA"/>
 
 
 ## Install
 
-<HighlightBox type="tip">
+<HighlightBox type="reading">
 
 Want to dedicate some time to dive deeper into installing Ignite CLI? Learn [how to install Ignite CLI in the Ignite CLI Developer Guide](https://docs.ignite.com/guide/install.html).
 
@@ -70,7 +73,11 @@ To install this specific version of Ignite CLI, use:
 $ curl https://get.ignite.com/cli@v0.17.0! | bash
 ```
 
-To upgrade an existing project to the latest version of Ignite CLI, follow the [Ignite CLI migration documentation](https://docs.ignite.com/migration/).
+</HighlightBox>
+
+<HighlightBox type="docs">
+
+If you'd like to upgrade an existing project to the latest version of Ignite CLI, you can follow the [Ignite CLI migration documentation](https://docs.ignite.com/migration/).
 
 
 </HighlightBox>
@@ -125,7 +132,7 @@ The `checkers` folder contains several generated files and directories that make
 * `vue`: a folder for the UI.
 * `x`: a folder for all your modules, in particular `checkers`.
 
-<HighlightBox type="tip">
+<HighlightBox type="docs">
 
 If Vue.js is something new to you, check out the [Vue.js website](https://vuejs.org/) for more on this JavaScript framework.
 
@@ -137,7 +144,11 @@ If you look at the code that Ignite CLI generates, for instance in `./x/checkers
 // this line is used by starport scaffolding # 1
 ```
 
-**Caution:** Do not remove or replace any lines like these in your code, as they provide markers for Ignite CLI on where to add further code when instructed to do so. For the same reason, do not rename or move any file that contains such a line.
+<HighlightBox type="warn">
+
+Do not remove or replace any lines like these in your code as they provide markers for Ignite CLI on where to add further code when instructed to do so. For the same reason, do not rename or move any file that contains such a line.
+
+</HighlightBox>
 
 Go to the `checkers` folder and run:
 
@@ -193,7 +204,11 @@ You can observe the endpoints of the blockchain in the output of the `ignite cha
 🌍 Token faucet: http://0.0.0.0:4500
 ```
 
+<HighlightBox type="info">
+
 Ignite CLI can detect any change to the source code. When it does, it immediately rebuilds the binaries before restarting the blockchain and keeping the state.
+
+</HighlightBox>
 
 ## Interact via the CLI
 
@@ -241,9 +256,9 @@ Now you should see the balance of Alice's account and can act on her behalf.
 
 Select **Custom Type** in the sidebar to see custom types. There are no custom types yet, this page is empty for now.
 
-<HighlightBox type="tip">
+<HighlightBox type="best-practice">
 
-It is **good practice** to make a Git commit before you create a new `message`. It is generally recommended to make a Git commit before running **any** `ignite scaffold` command. A Git commit protects the work you have done so far and makes it easier to see what the `scaffold` command added. It also makes it easy to revert all changes if you are unsatisfied and want to run a different `scaffold` command.
+Make a Git commit before you create a new `message`. In fact, it is generally recommended to make a Git commit before running **any** `ignite scaffold` command. A Git commit protects the work you have done so far and makes it easier to see what the `scaffold` command added. It also makes it easy to just revert all changes if you are unsatisfied and want to run a different `scaffold` command.
 
 </HighlightBox>
 

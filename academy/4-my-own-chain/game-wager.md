@@ -116,9 +116,9 @@ Payment handling is implemented by having your keeper hold wagers **in escrow** 
 
 Alternatively, your keeper could burn tokens when playing and mint them again when paying out. However, this makes your blockchain's total supply _falsely_ fluctuate. Additionally, this burning and minting may prove questionable when you later introduce IBC tokens.
 
-<HighlightBox type="tip">
+<HighlightBox type="best-practice">
 
-Best practice is to declare an interface that narrowly declares the functions from other modules that you expect for your module. The conventional file for these declarations is `x/checkers/types/expected_keepers.go`.
+Declare an interface that narrowly declares the functions from other modules that you expect for your module. The conventional file for these declarations is `x/checkers/types/expected_keepers.go`.
 
 </HighlightBox>
 
