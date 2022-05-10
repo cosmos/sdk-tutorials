@@ -7,12 +7,16 @@ tag: fast-track
 
 # Getting ATOM and Staking It
 
-The [Cosmos Hub](https://hub.cosmos.network) is the first among equals of Cosmos blockchains. ATOM is its native token, also called the staking token. You need some ATOM to be able to transact on the Cosmos Hub or to participate in the proof-of-stake (PoS) consensus.
+<HighlightBox type="synopsis">
 
 In this section you are going to:
 
 1. Get some ATOM.
 2. Participate in the consensus to passively earn a yield on your ATOMs while working on your own Cosmos application, sleeping, or studying further.
+   
+</HighlightBox>
+
+The [Cosmos Hub](https://hub.cosmos.network) is the first among equals of Cosmos blockchains. ATOM is its native token, also called the staking token. You need some ATOM to be able to transact on the Cosmos Hub or to participate in the proof-of-stake (PoS) consensus.
 
 <HighlightBox type="info">
 
