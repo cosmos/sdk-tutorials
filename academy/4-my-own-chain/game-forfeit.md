@@ -191,6 +191,14 @@ For an explanation as to why this setup is resistant to an attack from an unboun
 
 </HighlightBox>
 
+## Unit tests
+
+
+
+## Interact via the CLI
+
+
+
 ## Next up
 
 The [next section](./game-wager.md) introduces token wagers.

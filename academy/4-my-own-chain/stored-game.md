@@ -289,6 +289,13 @@ Your stored game stores are only strings. But you know that they represent `sdk.
     )
     ```
 
+## Unit tests
+
+
+
+## Interact via the CLI
+
+
 
 ## Next up
 

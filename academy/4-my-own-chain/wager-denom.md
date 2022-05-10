@@ -99,6 +99,14 @@ The token denomination has been integrated into the relevant data structures. No
     )
     ```
 
+## Integration tests
+
+
+
+## Interact via the CLI
+
+
+
 ## Live testing with a relayer
 
 With the checkers application ready to accommodate IBC-foreign tokens, you should run some tests locally with another blockchain's tokens without running a large-scale operation. Conveniently, Ignite CLI has the [Typescript relayer](https://docs.ignite.com/kb/relayer.html) built in. If you look at the GUI Ignite CLI created in your checkers blockchain, you will see a _Relayers_ section on the left.

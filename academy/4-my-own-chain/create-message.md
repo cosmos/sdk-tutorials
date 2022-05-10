@@ -125,6 +125,14 @@ service Msg {
 
 As an interface it does not describe what should happen when called. What Ignite CLI does with the help of Protobuf is compile the interface and create a default Go implementation.
 
+## Unit tests
+
+
+
+## Interact via the CLI
+
+
+
 ## Next up
 
 Ignite CLI separates concerns into different files. The most relevant file for you at this point is `x/checkers/keeper/msg_server_create_game.go` which is created once. You need to code in the creation of the game proper in this file:

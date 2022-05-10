@@ -337,6 +337,14 @@ With the desired steps defined in the wager handling functions, it is time to in
     }
     ```
 
+## ~~Unit~~ Integration tests
+
+
+
+## Interact via the CLI
+
+
+
 ## Next up
 
 You can skip ahead and see how you can integrate [foreign tokens](./wager-denom.md) via the use of IBC. Or take a look at the [next section](./gas-meter.md) to prevent spam and reward validators proportional to their effort in your checkers blockchain.

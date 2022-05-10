@@ -157,6 +157,12 @@ You can confirm that your project at least compiles [with](https://docs.ignite.c
 $ ignite chain build
 ```
 
+## Unit tests
+
+
+
+## Interact with the CLI
+
 
 
 ## Next up

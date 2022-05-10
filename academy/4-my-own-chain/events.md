@@ -103,6 +103,14 @@ ctx.EventManager().EmitEvent(
 )
 ```
 
+## Unit tests
+
+
+
+## Interact with the CLI
+
+
+
 ## Next up
 
 Time to add a third message to make it possible for a player to [reject a game](./reject-game.md) and make your checkers blockchain more resistant to spam.

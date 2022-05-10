@@ -174,6 +174,14 @@ Take the following steps to replace the `TODO`:
 
 That is all there is to it: good preparation and the use of Ignite CLI.
 
+## Unit tests
+
+
+
+## Interact via the CLI
+
+
+
 ## Next up
 
 Before you add a third Message to let a player [reject a game](./reject-game.md), add events to the existing message handlers for relevant information. That is the object of the [next section](./events.md).

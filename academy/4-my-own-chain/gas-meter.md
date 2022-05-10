@@ -63,6 +63,13 @@ Avoid calling `ConsumeGas` from within a loop. If you know the number of times y
 
 </HighlightBox>
 
+## Integration tests
+
+
+
+## Interact via the CLI
+
+
 
 ## Next up
 
