@@ -7,6 +7,9 @@ tag: fast-track
 
 # Blockchain Technology and Cosmos
 
+
+<HighlightBox type="synopsis">
+
 Begin your journey with this brief review of blockchain technology, how Cosmos came into being, and what it brings to the world of blockchain technology:
 
 * An internet of blockchains
@@ -16,6 +19,8 @@ Begin your journey with this brief review of blockchain technology, how Cosmos c
 * Increased sovereignty
 * Speed and fast finality
 
+</HighlightBox>
+    
 <ExpansionPanel title="What is a Blockchain?">
 
 Blockchain protocols define programs that hold a state and describe how to modify the state according to the received inputs. The inputs are called transactions.
@@ -79,7 +84,7 @@ In the world of blockchains "speed" means **transaction speed**. You can underst
     [
         {
             title: 'Probabilistic finality',
-            description: '**Probabilistic finality** describes the finality of a transaction dependent on how probable reverting a block is, i.e. the probability of removing a transaction. The more blocks come after the block containing a specific transaction, the less probable a transaction may be reverted, as *longest* or *heaviest chain rules* apply in the case of forks.'
+            description: '**Probabilistic finality** describes the finality of a transaction dependent on how probable reverting a block is, i.e. the probability of removing a transaction. The more blocks that come after the block containing a specific transaction, the less probable a transaction may be reverted, as *longest* or *heaviest chain rules* apply in the case of forks.'
         },
         {
             title: 'Absolute finality',
