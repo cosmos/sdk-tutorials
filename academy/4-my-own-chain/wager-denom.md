@@ -17,9 +17,9 @@ Make sure you have all you need before proceeding:
 
 </HighlightBox>
 
-When you [introduced a wager](./game-wager.md) you enabled players to play a game and bet on the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other blockchain connected to your chain by using the Inter-Blockchain Communication Protocol (IBC).
+When you [introduced a wager](./game-wager.md) you enabled players to play a game and bet on the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other connected blockchain by using the Inter-Blockchain Communication Protocol (IBC).
 
-Your checkers application will be agnostic to tokens and relayers. Your only task is to enable the use of _foreign_ tokens.
+Your checkers application will be agnostic regarding tokens and relayers. Your only task is to enable the use of _foreign_ tokens.
 
 ## New information
 
@@ -42,7 +42,7 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
     }
     ```
 
-Have Ignite CLI and Protobuf recompile both files:
+Instruct Ignite CLI and Protobuf to recompile both files:
 
 ```sh
 $ ignite generate proto-go
@@ -312,3 +312,5 @@ As soon as you close the browser window the channels on both ends are no longer 
 ## Next up
 
 In the [next section](./migration.md), you will learn how to conduct chain upgrades through migrations.
+
+Alternatively, you can learn how to create the [Typescript client elements](./cosmjs-objects.md) for your blockchain.
