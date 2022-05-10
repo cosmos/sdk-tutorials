@@ -19,7 +19,7 @@ There are many use cases involving token transfers on blockchains, like the toke
 
 The corresponding [implementation](https://github.com/cosmos/ibc-go/tree/main/modules/apps/transfer) is a module on the application level.
 
-![Overview of a token transfer](images/transferoverview.png)
+![Overview of a token transfer](/academy/ibc/images/transferoverview.png)
 
 Look at the picture above. You can see three chains A, B, and C. You also see several channels.
 
@@ -27,27 +27,27 @@ How can tokens be transferred between chains and channels?
 
 To understand the application logic for a token transfer, first, you have to determine the **source** chain:
 
-![Source chain](images/sourcechain.png)
+![Source chain](/academy/ibc/images/sourcechain.png)
 
 Then the application logic can be summarized:
 
-![Application logic](images/applicationlogic.png)
+![Application logic](/academy/ibc/images/applicationlogic.png)
 
 Shortly you will see the corresponding code. Now again have a look at a transfer from **source** to **sink**:
 
-![Source to sink](images/sourcetosink.png)
+![Source to sink](/academy/ibc/images/sourcetosink.png)
 
 Above the **source** is chain A. The source channel is **channel-2** and the destination channel is **channel-40**. The token denominations are represented as `{Port}/{Channel}/{denom}`. The prefixed port and channel pair indicate which channel the funds were previously sent through. You see **transfer/channel-...** because the transfer module will bind to a port, which is named transfer. If chain A sends 100 ATOM tokens, chain B will receive 100 ATOM tokens and append the destination prefix **port/channel-id**. So chain B will mint those 100 ATOM tokens as **transfer/channel-40/atoms**. The **channel-id** will be increased sequentially per channel on a given connection.
 
 If the tokens are sent back from the **same channel** as they were received:
 
-![Sink to source](images/sinktosource.png)
+![Sink to source](/academy/ibc/images/sinktosource.png)
 
 Chain A will "un-escrow" 100 **ATOM tokens**, thus, the prefix will be removed. Chain B will burn **transfer/channel-40/atoms**.
 
 **Notice:** the prefix determines the **source** chain. If the module sends the token from another channel, chain B is the source chain and chain A mints new tokens with a prefix instead of un-escrowing ATOM tokens. You can have different channels between two chains, but you cannot transfer the same token across different channels back and forth. If `{denom}` contains `/`, then it must also follow the ICS-20 form, which indicates that this token has a multi-hop record. Note this requires that `/` is prohibited in non-IBC token denomination names.
 
-![Source sink logic](images/sourcesinklogic.png)
+![Source sink logic](/academy/ibc/images/sourcesinklogic.png)
 
 You already know that an application needs to implement the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go), so have a look at the [implementation for the token transfer](https://github.com/cosmos/ibc-go/blob/main/modules/apps/transfer/ibc_module.go), e.g. for `OnChanOpenInit`:
 
