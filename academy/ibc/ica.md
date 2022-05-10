@@ -53,7 +53,11 @@ func (k Keeper) RegisterInterchainAccount(ctx sdk.Context, connectionID, owner s
 
 As shown in the code above, the `portID` will be the address of the **Interchain Account Owner** prefixed by the default port prefix of the interchain accounts controller submodule `icacontroller-`. The ICA module assumes that there is already an IBC connection established between the host and controller chains. As part of `RegisterInterchainAccount`, it will open an `ORDERED` channel. 
 
-The ICA module uses `ORDERED` channels to maintain the order of transactions when sending packets from a controller chain to a host chain. A limitation when using ORDERED channels is that when a packet times out the channel will be closed. In the case of a channel closing, a controller chain needs to be able to regain access to the interchain account registered on this channel. ICA offers **Active Channels** to create a new channel using the same controller chain `portID`.
+The ICA module uses `ORDERED` channels to maintain the order of transactions when sending packets from a controller chain to a host chain. A limitation when using ORDERED channels is that when a packet times out the channel will be closed. In the case of a channel closing, a controller chain needs to be able to regain access to the interchain account registered on this channel. 
+
+ICA offers **Active Channels** to create a new channel using the same controller prefixed chain `portID`. This means that when an Interchain Account is registered using the `RegisterInterchainAccount` API, a new channel is created on a particular port. During the `OnChanOpenAck` and `OnChanOpenConfirm` steps (controller & host chain), the `Active Channel` for this interchain account is stored in state.
+
+Using the `Active Channel` stored in state, it is then possible to create a new channel using the same controller chain portID even if the previously set `Active Channel` is in a `CLOSED` state.
 
 If the message gets to the host chain (with the `NewMsgChannelOpenInit` call shown previously), the ICA module on the host chain also calls [`RegisterInterchainAccount`](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/host/keeper/account.go):
 
