@@ -9,7 +9,7 @@ tag: deep-dive
 
 ## Send multiple tokens using `sendTokens`
 
-In the [previous exercise](./first-steps.md), you had Alice send tokens back to the faucet. To refresh your memory, here is the function's signature:
+In the [previous exercise](./first-steps.md), you had Alice send tokens back to the faucet. To refresh your memory, this is what the `sendTokens` function takes as input:
 
 ```typescript [https://github.com/cosmos/cosmjs/blob/7aad551/packages/stargate/src/signingstargateclient.ts#L217-L223]
 public async sendTokens(
@@ -80,7 +80,7 @@ public async signAndBroadcast(
 ): Promise<DeliverTxResponse>;
 ```
 
-[Cosmos transactions](../2-main-concepts/transactions.md) are indeed composed of multiple [messages](../2-main-concepts/messages.md). This function does not invent anything new. It merely surfaces this detail.
+The basic components of a transaction are the `signerAddress`, the `messages` that it contains, as well as the `fee` and an optional `memo`. As such, [Cosmos transactions](../2-main-concepts/transactions.md) can indeed be composed of multiple [messages](../2-main-concepts/messages.md).
 
 ## Token transfer messages
 
@@ -116,8 +116,10 @@ Alice can instead call:
 
 ```typescript
 const result = await signingClient.signAndBroadcast(
+    // the signerAddress
     alice,
-    [
+    // the message(s)
+    [ 
         {
             typeUrl: "/cosmos.bank.v1beta1.MsgSend",
             value: {
@@ -129,7 +131,8 @@ const result = await signingClient.signAndBroadcast(
             },
           },
     ],
-    {
+    // the fee
+    { 
         amount: [{ denom: "uatom", amount: "500" }],
         gas: "200000",
     },
@@ -146,7 +149,7 @@ In fact, building a transaction in this way is recommended. `SigningStargateClie
 
 ## What is this long string?
 
-Note the `typeUrl: "/cosmos.bank.v1beta1.MsgSend"` string. This comes from Protobuf and is a concatenation of:
+As a reminder from the previous tutorial, the `typeUrl: "/cosmos.bank.v1beta1.MsgSend"` string comes from the [Protobuf](../2-main-concepts/protobuf.md) definitions and is a mixture of:
 
 1. The `package` where `MsgSend` is initially declared:
 
@@ -162,7 +165,6 @@ Note the `typeUrl: "/cosmos.bank.v1beta1.MsgSend"` string. This comes from Proto
     }
     ```
 
-This is the canonical identifier of the type of the message serialized next to it. Additionally, it is made to be easy for you, the developer, to understand what it represents. The blockchain client knows how to serialize or deserialize it only because this `"/cosmos.bank.v1beta1.MsgSend"` string is passed along. With this `typeUrl`, the blockchain client and CosmJS are able to pick the right deserializer. This object is also named `MsgSend` in `cosmjs-types`.
 
 <HighlightBox type="info">
 
@@ -172,12 +174,14 @@ To learn how to make your own types for your own blockchain project, head to [Cr
 
 ## Multiple token transfer messages
 
-From here, you can add an extra message for a token transfer from Alice to Bob:
+From here, you can add an extra message for a token transfer from Alice to someone else:
 
 ```typescript
 const result = await signingClient.signAndBroadcast(
+    // signerAddress
     alice,
     [
+        // message 1
         {
             typeUrl: "/cosmos.bank.v1beta1.MsgSend",
             value: {
@@ -188,17 +192,19 @@ const result = await signingClient.signAndBroadcast(
                 ],
             },
           },
+        // message 2
         {
             typeUrl: "/cosmos.bank.v1beta1.MsgSend",
             value: {
                 fromAddress: alice,
-                toAddress: bob,
+                toAddress: some_other_address,
                 amount: [
                     { denom: "token", amount: "10" },
                 ],
             },
           },
     ],
+    // the fee
     "auto",
 )
 ```
@@ -207,12 +213,12 @@ const result = await signingClient.signAndBroadcast(
 
 The above example shows you two token-transfer messages in a single transaction. You can see this with their `typeUrl: "/cosmos.bank.v1beta1.MsgSend"`.
 
-Neither Cosmos nor CosmJS limit you to messages of the same type. You can decide to have other message types along a token transfer. For instance, in one transaction Alice could:
+Neither Cosmos nor CosmJS limits you to combine messages of the same type. You can decide to combine other message types together with a token transfer. For instance, in one transaction Alice could:
 
 1. Send tokens to the faucet.
-2. Delegate some of her tokens to Bob the validator.
+2. Delegate some of her tokens to a validator.
 
-How would Alice create the second message? Find your message type in `SigningStargateClient`'s registry of types:
+How would Alice create the second message? The `SigningStargateClient` contains a predefined list of `typeUrls` that are supported by default, because they're considered to be the most commonly used messages in the Cosmos SDK. One of them so happens to be `MsgDelegate`, and that's exactly what you'll need. You can click on the source link below to see the rest of the `typeUrls` that come with `SigningStargateClient`:
 
 ```typescript [https://github.com/cosmos/cosmjs/blob/7aad551/packages/stargate/src/signingstargateclient.ts#L94]
     ["/cosmos.staking.v1beta1.MsgDelegate", MsgDelegate],
@@ -228,7 +234,7 @@ export interface MsgDelegate {
 }
 ```
 
-With this information, Alice sends the following transaction:
+Now that you know the `typeUrl` for delegating some tokens is `/cosmos.staking.v1beta1.MsgDelegate`, you'll need to find a validator's address that Alice can delegate to. You can find a list of validators in the [testnet explorer](https://explorer.theta-testnet.polypore.xyz/validators). Select a validator and use their address in the below script which you can copy to replace your original token transfer:
 
 ```typescript
 const result = await signingClient.signAndBroadcast(
@@ -248,7 +254,7 @@ const result = await signingClient.signAndBroadcast(
             typeUrl: "/cosmos.staking.v1beta1.MsgDelegate",
             value: {
                 delegatorAddress: alice,
-                validatorAddress: bob,
+                validatorAddress: your_selected_validator_address,
                 amount: { denom: "uatom", amount: "1000", },
             },
           },
