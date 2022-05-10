@@ -1,6 +1,6 @@
 # Interchain Accounts
 
-Another application module [implemented in the IBC-go](https://github.com/cosmos/ibc-go/tree/main/modules/apps/27-interchain-accounts) repository is the [Interchain Accounts(ICS-27)](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md). 
+Another application module [implemented in the IBC-go](https://github.com/cosmos/ibc-go/tree/main/docs/apps/interchain-accounts) repository is the [Interchain Accounts(ICS-27)](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md). 
 
 **Interchain Accounts(ICA)** allows you to control an account on a **host chain** from a **controller chain**.
 
