@@ -276,8 +276,6 @@ const result = await signingClient.signAndBroadcast(
 )
 ```
 
-It is also possible to put more than two messages in a single transaction, as long as your raw transaction has fewer bytes than the limit.
-
 When you create [your own message types in CosmJS](TODO), they have to follow this format and be declared in the same fashion.
 
 <!-- Not supported at the moment.
