@@ -1,25 +1,25 @@
----
-title: "Interchain Accounts"
-order: 
-description:
-tag: deep-dive
----
-
 # Interchain Accounts
 
-Another application module implemented in the [IBC-go repository](https://github.com/cosmos/ibc-go/tree/main/modules/apps/27-interchain-accounts) is [Interchain Accounts (ICS-27)](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md)). **Interchain Accounts (ICA)** allow to control an account on a **host chain** from a **controller chain**.
+Another application module [implemented in the IBC-go](https://github.com/cosmos/ibc-go/tree/main/modules/apps/27-interchain-accounts) repository is the [Interchain Accounts(ICS-27)](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md).
+**Interchain Accounts(ICA)** allow to control an account on a **host chain** from a **controller chain**.
 
-![ICA overview](images/icaoverview.png)
+![ICA Overview](images/icaoverview.png)
 
-The ICA module itself provides an API to register an account and send inter-chain transactions. A developer can use this module by implementing the **ICA Auth Module** and can expose GRPC endpoints for an application or user.
+**Host Chain**: The chain where the interchain account is registered. The host chain listens for IBC packets from a controller chain which should contain instructions (e.g. cosmos SDK messages) for which the interchain account will execute.
 
-Have a look at the code and then the handshake and the port binding.
+**Controller Chain**: The chain registering and controlling an account on a host chain. The controller chain sends IBC packets to the host chain to control the account. A controller chain must have at least one interchain accounts authentication module in order to act as a controller chain.
 
-First, have a look at how an account is registered:
+**Authentication Module**: A custom IBC application module on the controller chain that uses the Interchain Accounts module API to build custom logic for the creation & management of interchain accounts. For a controller chain to utilize the interchain accounts module functionality, an authentication module is required.
+
+**Interchain Account**: An account on a host chain. An interchain account has all the capabilities of a normal account. However, rather than signing transactions with a private key, a controller chain's authentication module will send IBC packets to the host chain which signals what transactions the interchain account should execute.
+
+The ICA module itself provides an API for registering an account and for sending interchain transactions. A developer will use this module by implementing **ICA Auth Module**(_authentication module_) and can expose GRPC endpoints for an application or user. Regular accounts use a private key to sign transactions on-chain. Interchain Accounts are instead controlled programmatically by separate chains via IBC transactions. Interchain Accounts are implemented as sub-accounts of the interchain accounts module account.
+
+First have a look how an accounts is registered: 
 
 ![Register account](images/icaregister.png)
 
-To register an account on the host chain, the function [`RegisterInterchainAccount`](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/controller/keeper/account.go) is called on the controller chain:
+To register an account on the host chain, the function [`RegisterInterchainAccount`](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/controller/keeper/account.go) will be called on the controller chain:
 
 ```go
 // RegisterInterchainAccount is the entry point to registering an interchain account.
@@ -50,9 +50,11 @@ func (k Keeper) RegisterInterchainAccount(ctx sdk.Context, connectionID, owner s
 }
 ```
 
-As you can see in the code above, the `portID` is the **Interchain Account owner's** address. The ICA module assumes that there is an established IBC connection between the host and controller chain. As part of `RegisterInterchainAccount`, it opens an `ORDERED` channel.
+As you can see in the code above, the `portID` will be the **Interchain Account Owner**'s address. ICA module assumes that there is a IBC connection etablished between the host and controller chain. As part of `RegisterInterchainAccount`, it will open an `ORDERED` channel. 
 
-If the message gets to the host chain with the `NewMsgChannelOpenInit` call above, the ICA module on the host chain also calls [`RegisterInterchainAccount`](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/host/keeper/account.go):
+The ICA module uses `ORDERED` channels to maintain the order of transactions when sending packets from a controller to a host chain. A limitation when using ORDERED channels is that when a packet times out the channel will be closed. In the case of a channel closing, a controller chain needs to be able to regain access to the interchain account registered on this channel. ICA offers **Active Channels** to create a new channel using the same controller chain `portID`.
+
+If the message gets to the host chain(with the `NewMsgChannelOpenInit` call above), the ICA module on the host chain also will call [`RegisterInterchainAccount`](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/host/keeper/account.go):
 
 ```go
 // RegisterInterchainAccount attempts to create a new account using the provided address and
@@ -75,7 +77,7 @@ func (k Keeper) RegisterInterchainAccount(ctx sdk.Context, connectionID, control
 }
 ```
 
-Through the `OnChanOpenTry` implementation in the [`handshake.go`](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/host/keeper/handshake.go) on the host chain:
+through the `OnChanOpenTry` implementation in the [`handshake.go`](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/host/keeper/handshake.go) on the host chain:
 
 ```go
 // OnChanOpenTry performs basic validation of the ICA channel
@@ -95,14 +97,14 @@ func (k Keeper) OnChanOpenTry(
 }
 ```
 
-A fresh **Interchain Account** is created on the host chain. You can find the implementations of `OnChanOpenInit` and ` OnChanOpenAck` in the [`handshake.go`](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/controller/keeper/handshake.go):
+and a fresh **Interchain account** will be created on the host chain. You can find the implementations of `OnChanOpenInit` and ` OnChanOpenAck` in the [`handshake.go`](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/controller/keeper/handshake.go):
 
 ```go
 // OnChanOpenInit performs basic validation of channel initialization.
 // The channel order must be ORDERED, the counterparty port identifier
 // must be the host chain representation as defined in the types package,
 // the channel version must be equal to the version in the types package,
-// there must not be an active channel for the specified port identifier,
+// there must not be an active channel for the specfied port identifier,
 // and the interchain accounts module must be able to claim the channel
 // capability.
 func (k Keeper) OnChanOpenInit(
@@ -139,13 +141,13 @@ func (k Keeper) OnChanOpenInit(
 
 ```
 
-**Notice:** there is a one-to-one mapping between an interchain account and a channel.
+Notice that there is a one-to-one mapping between an interchain account a channel to fulfill the requirements for the Active Channels. 
 
-In the `OnChanOpenAck`, you can see that the channel ID and account address are set in the state:
+In the `OnChanOpenAck` you can see that the channel id and account address will be set in the state:
 
 ```go
 // OnChanOpenAck sets the active channel for the interchain account/owner pair
-// and stores the associated interchain account address in the state keyed by its corresponding port identifier
+// and stores the associated interchain account address in state keyed by it's corresponding port identifier
 func (k Keeper) OnChanOpenAck(
   ctx sdk.Context,
   portID,
@@ -164,7 +166,7 @@ func (k Keeper) OnChanOpenAck(
 
 After registration, the registered account can be used to sign transactions on the host chain:
 
-![Send transaction](images/icasendtx.png)
+![Send Transaction](images/icasendtx.png)
 
 You can find `SendTx` in the [`relay.go`](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/controller/keeper/relay.go):
 
@@ -192,9 +194,9 @@ func (k Keeper) SendTx(ctx sdk.Context, chanCap *capabilitytypes.Capability, con
 }
 ```
 
-As you can see, it validates the source and destination IDs and uses `createOutgoingPacket` to send a transaction, which calls `SendPacket` of the IBC core module.
+as you can see, it will validate the source and destination ids and use `createOutgoingPacket` to send a transaction, which will call `SendPacket` of the IBC core module.
 
-On the host chain, `OnRecvPacket` in the [`relay.go`](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/host/keeper/relay.go) is called if a packet arrives:
+On the host chain, if a packet arrives, `OnRecvPacket` in the [`relay.go`](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/host/keeper/relay.go) will be called:
 
 ```go
 // OnRecvPacket handles a given interchain accounts packet on a destination host chain.
@@ -226,7 +228,7 @@ func (k Keeper) OnRecvPacket(ctx sdk.Context, packet channeltypes.Packet) ([]byt
 }
 ```
 
-Which calls `executeTx` to apply the received transaction on the host chain:
+which will call `executeTx` to apply the received transaction on the host chain:
 
 ```go
 // executeTx attempts to execute the provided transaction. It begins by authenticating the transaction signer.
@@ -266,4 +268,338 @@ func (k Keeper) executeTx(ctx sdk.Context, sourcePort, destPort, destChannel str
 }
 ```
 
-`authenticateTx` ensures that the provided message contains the correct Interchain Account owner address. `executeMsg` calls the message handler and therefore, executes the message.
+`authenticateTx` ensures that the provided message contains the correct interchain account owner address. `executeMsg` will call the message handler and therefore execute the message. 
+
+## SDK Security Model
+
+SDK modules on a chain are assumed to be trustworthy. For example, there are no checks to prevent an untrustworthy module from accessing the bank keeper.
+
+The implementation of [ICS-27](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md) on [ibc-go](https://github.com/cosmos/ibc-go/tree/main/modules/apps/27-interchain-accounts) uses this assumption in its security considerations. The implementation assumes the authentication module will not try to open channels on owner addresses it does not control.
+
+The implementation assumes other IBC application modules will not bind to ports within the [ICS-27](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md) namespace.
+
+## Authentication Module
+
+The [controller submodule](https://github.com/cosmos/ibc-go/tree/main/modules/apps/27-interchain-accounts/controller) is used for account registration and packet sending. It executes only logic required of all controllers of interchain accounts. The type of authentication used to manage the interchain accounts remains unspecified. There may exist many different types of authentication which are desirable for different use cases. Thus the purpose of the authentication module is to wrap the controller module with custom authentication logic.
+
+In [ibc-go](https://github.com/cosmos/ibc-go), authentication modules are connected to the controller chain via a [middleware](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/controller/ibc_middleware.go) stack. The controller module is implemented as [middleware](https://github.com/cosmos/ibc/tree/master/spec/app/ics-030-middleware) and the authentication module is connected to the controller module as the base application of the middleware stack. To implement an authentication module, the `IBCModule` interface must be fulfilled. By implementing the controller module as middleware, any amount of authentication modules can be created and connected to the controller module without writing redundant code.
+
+The **authentication module** must:
+
+- Authenticate interchain account owners
+- Track the associated interchain account address for an owner
+- Claim the channel capability in `OnChanOpenInit`
+- Send packets on behalf of an owner (after authentication)
+
+The following [`IBCModule`](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go) callbacks must be implemented with appropriate custom logic:
+
+```golang
+// OnChanOpenInit implements the IBCModule interface
+func (im IBCModule) OnChanOpenInit(
+    ctx sdk.Context,
+    order channeltypes.Order,
+    connectionHops []string,
+    portID string,
+    channelID string,
+    chanCap *capabilitytypes.Capability,
+    counterparty channeltypes.Counterparty,
+    version string,
+) error {
+    // the authentication module *must* claim the channel capability on OnChanOpenInit
+    if err := im.keeper.ClaimCapability(ctx, chanCap, host.ChannelCapabilityPath(portID, channelID)); err != nil {
+        return err
+    }
+
+    // perform custom logic
+
+    return nil
+}
+
+// OnChanOpenAck implements the IBCModule interface
+func (im IBCModule) OnChanOpenAck(
+    ctx sdk.Context,
+    portID,
+    channelID string,
+    counterpartyVersion string,
+) error {
+    // perform custom logic
+
+    return nil
+}
+
+// OnChanCloseConfirm implements the IBCModule interface
+func (im IBCModule) OnChanCloseConfirm(
+    ctx sdk.Context,
+    portID,
+    channelID string,
+) error {
+    // perform custom logic
+
+    return nil
+}
+
+// OnAcknowledgementPacket implements the IBCModule interface
+func (im IBCModule) OnAcknowledgementPacket(
+    ctx sdk.Context,
+    packet channeltypes.Packet,
+    acknowledgement []byte,
+    relayer sdk.AccAddress,
+) error {
+    // perform custom logic
+
+    return nil
+}
+
+// OnTimeoutPacket implements the IBCModule interface.
+func (im IBCModule) OnTimeoutPacket(
+    ctx sdk.Context,
+    packet channeltypes.Packet,
+    relayer sdk.AccAddress,
+) error {
+    // perform custom logic
+
+    return nil
+}
+```
+
+The functions `OnChanOpenTry`, `OnChanOpenConfirm`, `OnChanCloseInit` and `OnRecvPacket` must be defined to fulfill the `IBCModule` interface, but they will never be called by the controller module so they may error or panic.
+
+The authentication module can begin registering interchain accounts by calling `RegisterInterchainAccount`:
+
+```golang
+if err := keeper.icaControllerKeeper.RegisterInterchainAccount(ctx, connectionID, owner.String()); err != nil {
+    return err
+}
+
+return nil
+```
+
+The authentication module can attempt to send a packet by calling `SendTx`:
+
+```golang
+
+// Authenticate owner
+// perform custom logic
+    
+// Construct controller portID based on interchain account owner address
+portID, err := icatypes.NewControllerPortID(owner.String())
+if err != nil {
+    return err
+}
+
+channelID, found := keeper.icaControllerKeeper.GetActiveChannelID(ctx, portID)
+if !found {
+    return sdkerrors.Wrapf(icatypes.ErrActiveChannelNotFound, "failed to retrieve active channel for port %s", portID)
+}
+    
+// Obtain the channel capability, claimed in OnChanOpenInit
+chanCap, found := keeper.scopedKeeper.GetCapability(ctx, host.ChannelCapabilityPath(portID, channelID))
+if !found {
+    return sdkerrors.Wrap(channeltypes.ErrChannelCapabilityNotFound, "module does not own channel capability")
+}
+    
+// Obtain data to be sent to the host chain. 
+// In this example, the owner of the interchain account would like to send a bank MsgSend to the host chain. 
+// The appropriate serialization function should be called. The host chain must be able to deserialize the transaction. 
+// If the host chain is using the ibc-go host module, `SerializeCosmosTx` should be used. 
+msg := &banktypes.MsgSend{FromAddress: fromAddr, ToAddress: toAddr, Amount: amt}
+data, err := icatypes.SerializeCosmosTx(keeper.cdc, []sdk.Msg{msg})
+if err != nil {
+    return err
+}
+
+// Construct packet data
+packetData := icatypes.InterchainAccountPacketData{
+    Type: icatypes.EXECUTE_TX,
+    Data: data,
+}
+
+// Obtain timeout timestamp
+// An appropriate timeout timestamp must be determined based on the usage of the interchain account.
+// If the packet times out, the channel will be closed requiring a new channel to be created 
+timeoutTimestamp := obtainTimeoutTimestamp()
+
+// Send the interchain accounts packet, returning the packet sequence
+seq, err = keeper.icaControllerKeeper.SendTx(ctx, chanCap, portID, packetData, timeoutTimestamp)
+
+```
+
+The data within an `InterchainAccountPacketData` must be serialized using a format supported by the host chain. If the host chain is using the [ibc-go host chain submodule](https://github.com/cosmos/ibc-go/tree/main/modules/apps/27-interchain-accounts/host), `SerializeCosmosTx` should be used. If the `InterchainAccountPacketData.Data` is serialized using a format not support by the host chain, the packet will not be successfully received.
+
+Controller chains will be able to access the acknowledgement written into the host chain state once a relayer relays the acknowledgement. The acknowledgement bytes will be passed to the Authentication Module via the `OnAcknowledgementPacket` callback. Authentication Modules are expected to know how to decode the acknowledgement.
+
+If the controller chain is connected to a host chain using the host module on ibc-go, it may interpret the acknowledgement bytes as follows:
+
+```golang
+var ack channeltypes.Acknowledgement
+if err := channeltypes.SubModuleCdc.UnmarshalJSON(acknowledgement, &ack); err != nil {
+    return err
+}
+
+txMsgData := &sdk.TxMsgData{}
+if err := proto.Unmarshal(ack.GetResult(), txMsgData); err != nil {
+    return err
+}
+
+```
+
+If the `txMsgData.Data` is empty, the host chain is using SDK version > v0.45. The auth module should interpret the `txMsgData.Responses` as follows:
+
+```golang
+...
+// switch statement from above
+case 0:
+    for _, any := range txMsgData.MsgResponses {
+        if err := handleAny(any); err != nil {
+            return err
+        }
+    }
+}
+```
+
+A handler will be needed to interpret what actions to perform based on the type url of the Any. A router could be used, or more simply a switch statement:
+
+```golang
+func handleAny(any *codectypes.Any) error {
+switch any.TypeURL {
+case banktypes.MsgSend:
+    msgResponse, err := unpackBankMsgSendResponse(any)
+    if err != nil {
+        return err
+    }
+
+    handleBankSendMsg(msgResponse)
+
+case stakingtypes.MsgDelegate:
+    msgResponse, err := unpackStakingDelegateResponse(any)
+    if err != nil {
+        return err
+    }
+
+    handleStakingDelegateMsg(msgResponse)
+
+    case transfertypes.MsgTransfer:
+    msgResponse, err := unpackIBCTransferMsgResponse(any)
+    if err != nil {
+        return err
+    }
+
+    handleIBCTransferMsg(msgResponse)
+ 
+default:
+    return
+}
+```
+
+## Example integration
+
+```golang
+// app.go
+
+// Register the AppModule for the Interchain Accounts module and the authentication module
+// Note: No `icaauth` exists, this must be substituted with an actual Interchain Accounts authentication module
+ModuleBasics = module.NewBasicManager(
+    ...
+    ica.AppModuleBasic{},
+    icaauth.AppModuleBasic{},
+    ...
+)
+
+... 
+
+// Add module account permissions for the Interchain Accounts module
+// Only necessary for host chain functionality
+// Each Interchain Account created on the host chain is derived from the module account created
+maccPerms = map[string][]string{
+    ...
+    icatypes.ModuleName:            nil,
+}
+
+...
+
+// Add Interchain Accounts Keepers for each submodule used and the authentication module
+// If a submodule is being statically disabled, the associated Keeper does not need to be added. 
+type App struct {
+    ...
+
+    ICAControllerKeeper icacontrollerkeeper.Keeper
+    ICAHostKeeper       icahostkeeper.Keeper
+    ICAAuthKeeper       icaauthkeeper.Keeper
+
+    ...
+}
+
+...
+
+// Create store keys for each submodule Keeper and the authentication module
+keys := sdk.NewKVStoreKeys(
+    ...
+    icacontrollertypes.StoreKey,
+    icahosttypes.StoreKey,
+    icaauthtypes.StoreKey,
+    ...
+)
+
+... 
+
+// Create the scoped keepers for each submodule keeper and authentication keeper
+scopedICAControllerKeeper := app.CapabilityKeeper.ScopeToModule(icacontrollertypes.SubModuleName)
+scopedICAHostKeeper := app.CapabilityKeeper.ScopeToModule(icahosttypes.SubModuleName)
+scopedICAAuthKeeper := app.CapabilityKeeper.ScopeToModule(icaauthtypes.ModuleName)
+
+...
+
+// Create the Keeper for each submodule
+app.ICAControllerKeeper = icacontrollerkeeper.NewKeeper(
+    appCodec, keys[icacontrollertypes.StoreKey], app.GetSubspace(icacontrollertypes.SubModuleName),
+    app.IBCKeeper.ChannelKeeper, // may be replaced with middleware such as ics29 fee
+    app.IBCKeeper.ChannelKeeper, &app.IBCKeeper.PortKeeper,
+    app.AccountKeeper, scopedICAControllerKeeper, app.MsgServiceRouter(),
+)
+app.ICAHostKeeper = icahostkeeper.NewKeeper(
+    appCodec, keys[icahosttypes.StoreKey], app.GetSubspace(icahosttypes.SubModuleName),
+    app.IBCKeeper.ChannelKeeper, &app.IBCKeeper.PortKeeper,
+    app.AccountKeeper, scopedICAHostKeeper, app.MsgServiceRouter(),
+)
+
+// Create Interchain Accounts AppModule
+icaModule := ica.NewAppModule(&app.ICAControllerKeeper, &app.ICAHostKeeper)
+
+// Create your Interchain Accounts authentication module
+app.ICAAuthKeeper = icaauthkeeper.NewKeeper(appCodec, keys[icaauthtypes.StoreKey], app.ICAControllerKeeper, scopedICAAuthKeeper)
+
+// ICA auth AppModule
+icaAuthModule := icaauth.NewAppModule(appCodec, app.ICAAuthKeeper)
+
+// ICA auth IBC Module
+icaAuthIBCModule := icaauth.NewIBCModule(app.ICAAuthKeeper)
+
+// Create host and controller IBC Modules as desired
+icaControllerIBCModule := icacontroller.NewIBCModule(app.ICAControllerKeeper, icaAuthIBCModule)
+icaHostIBCModule := icahost.NewIBCModule(app.ICAHostKeeper)
+
+// Register host and authentication routes
+ibcRouter.AddRoute(icacontrollertypes.SubModuleName, icaControllerIBCModule).
+    AddRoute(icahosttypes.SubModuleName, icaHostIBCModule).
+    AddRoute(icaauthtypes.ModuleName, icaControllerIBCModule) // Note, the authentication module is routed to the top level of the middleware stack
+
+...
+
+// Register Interchain Accounts and authentication module AppModule's
+app.moduleManager = module.NewManager(
+    ...
+    icaModule,
+    icaAuthModule,
+)
+
+...
+
+// Add Interchain Accounts module InitGenesis logic
+app.mm.SetOrderInitGenesis(
+    ...
+    icatypes.ModuleName,
+    ...
+)
+```
+
+The Interchain Accounts application module is structured to support the ability of exclusively enabling controller or host functionality. This can be achieved by simply omitting either controller or host `Keeper` from the Interchain Accounts `NewAppModule` constructor function, and mounting only the desired submodule via the `IBCRouter`. Alternatively, submodules can be enabled and disabled dynamically using on-chain parameters.
