@@ -23,6 +23,8 @@ To develop with CosmJS, you need NodeJs. Head [here](https://nodejs.org/en/downl
 
 This integrated development environment will assist you both with developing with the Cosmos SDK and CosmJS. Get it from [here](https://code.visualstudio.com/Download).
 
+The first time you open a Cosmos SDK project with it, it will offer to install a Go plug-in. Accept.
+
 ## Install Docker
 
 TODO
