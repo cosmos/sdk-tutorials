@@ -37,7 +37,7 @@ const runAll = async(): Promise<void> => {
 runAll()
 ```
 
-To execute, this Typescript file needs to be compiled into Javascript before being interpreted by NodeJs. As you can see, we've already added this for you as a run target in `package.json`:
+To execute, this Typescript file needs to be compiled into Javascript before being interpreted by NodeJs. Add this as a run target in `package.json`:
 
 ```json [https://github.com/b9lab/cosmjs-sandbox/blob/3fe8942/package.json#L7]
 ...
