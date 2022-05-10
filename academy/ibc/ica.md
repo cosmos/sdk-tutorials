@@ -611,4 +611,3 @@ app.mm.SetOrderInitGenesis(
 )
 ```
 
-The Interchain Accounts application module is structured to support the ability of exclusively enabling controller or host functionality. This can be achieved by simply omitting either controller or host `Keeper` from the Interchain Accounts `NewAppModule` constructor function, and mounting only the desired submodule via the `IBCRouter`. Alternatively, submodules can be enabled and disabled dynamically using on-chain parameters.
