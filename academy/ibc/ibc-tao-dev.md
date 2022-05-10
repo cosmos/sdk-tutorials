@@ -98,7 +98,7 @@ The initiation of this handshake from chain A updates its connection state to `I
 
 `OpenInit` proposes a protocol version to be used for the IBC connection. A relayer-submitted `OpenInit` which contains a protocol version that is not supported by chain A will be expected to fail.
 
-<insert image here>
+<!-- TODO insert image -->
 
 The reference implementation for the connection handshake is found in the [IBC module repository](https://github.com/cosmos/ibc-go/blob/main/modules/core/03-connection/keeper/handshake.go). Examine `ConnOpenInit`:
 
@@ -194,7 +194,7 @@ The initiation of this handshake from chain B updates its connection state to `T
 
 With regards to IBC protocol versioning, `OpenTry` either accepts the protocol version which has been proposed in `OpenInit` or proposes another protocol version from the versions available to chain A to be used for the IBC connection. A relayer-submitted `OpenTry` which contains an unsupported protocol version will be expected to fail.
 
-<insert image>
+<!-- TODO insert image -->
 
 The implementation of OpenTry is as follows:
 
@@ -231,7 +231,7 @@ The initiation of this handshake from chain A updates its connection state to `O
 
 With regards to version negotiation, `OpenAck` must confirm the protocol version which has been proposed in `OpenTry`. It ends the connection handshake process if the version is unwanted or unsupported.
 
-<insert image>
+<!-- TODO insert image -->
 
 The `OpenAck` code is very similar to `OpenTry`: 
 
@@ -299,7 +299,7 @@ func (k Keeper) ConnOpenConfirm(
 
 The initiation of this handshake from chain B updates its connection state from `TRY` to `OPEN`. The counterparty chain *must* have an `OPEN` connection state in order for the handshake and connection state update to be successful.
 
-<insert image>
+<!-- TODO insert image -->
 
 The successful four-way handshake described establishes an IBC connection between the two chains. Now consider two related circumstances: simultaneous attempts by the chains to perform the same handshake, and attempts by an imposter to interfere.
 

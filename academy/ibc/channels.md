@@ -71,7 +71,9 @@ func (k Keeper) ChannelOpenInit(goCtx context.Context, msg *channeltypes.MsgChan
 After verification of the module capability, the first step of the channel handshake will take place and `ChanOpenInit` will be called as described previously. Note that an application has capabilities for different channels and ports, and can only use a specific channel and port if it owns the capability for them.
 
 <HighlightBox type="info">
+
 IBC is intended to work in execution environments where modules do not necessarily trust each other. IBC must authenticate module actions on ports and channels so that only modules with the appropriate permissions can use those channels. This security is accomplished using dynamic capabilities. Upon binding to a port or creating a channel for a module, IBC returns a dynamic capability that the module must claim to use that port or channel. This binding strategy prevents another module from using that port or channel since it does not own the appropriate capability.
+
 </HighlightBox>
 
 You can see that the application callbacks come from a [router](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/router.go):
