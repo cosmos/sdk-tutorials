@@ -14,6 +14,13 @@ Make sure you have all you need before proceeding:
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md), and [migrations](../2-main-concepts/migrations.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](./wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
+    
+In this section:
+
+* Add a Leaderboard    
+* Upgrade your blockchain in production
+* Data migrations
+* Logic upgrades
 
 </HighlightBox>
 
