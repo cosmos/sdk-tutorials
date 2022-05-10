@@ -51,7 +51,7 @@ func (k Keeper) RegisterInterchainAccount(ctx sdk.Context, connectionID, owner s
 }
 ```
 
-As shown in the code above, the `portID` will be the address of the **Interchain Account Owner**. The ICA module assumes that there is an IBC connection established between the host and controller chains. As part of `RegisterInterchainAccount`, it will open an `ORDERED` channel. 
+As shown in the code above, the `portID` will be the address of the **Interchain Account Owner** prefixed by the default port prefix of the interchain accounts controller submodule `icacontroller-`. The ICA module assumes that there is already an IBC connection established between the host and controller chains. As part of `RegisterInterchainAccount`, it will open an `ORDERED` channel. 
 
 The ICA module uses `ORDERED` channels to maintain the order of transactions when sending packets from a controller chain to a host chain. A limitation when using ORDERED channels is that when a packet times out the channel will be closed. In the case of a channel closing, a controller chain needs to be able to regain access to the interchain account registered on this channel. ICA offers **Active Channels** to create a new channel using the same controller chain `portID`.
 
