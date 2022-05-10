@@ -7,7 +7,19 @@ tag: fast-track
 
 # A Blockchain App Architecture
 
-In this section, let's take a closer look at the application architecture underlying blockchains built with the Cosmos SDK. You will look into Tendermint, consensus in Cosmos, the Application Blockchain Interface, the Cosmos SDK, and state machines. This section will give you a better feeling for the application architecture in Cosmos.
+<HighlightBox type="synopsis">
+
+In this section, let's take a closer look at the application architecture underlying blockchains built with the Cosmos SDK. 
+    
+    * Discover Tendermint
+    * consensus in Cosmos 
+    * the Application Blockchain Interface
+    * the Cosmos SDK
+    * state machines
+    
+This section will deepen your understanding of application architecture in Cosmos.
+    
+</HighlightBox>
 
 ## What is Tendermint?
 
