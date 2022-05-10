@@ -90,7 +90,7 @@ Application developers build implementations of those components that are tailor
 
 <HighlightBox type="info">
 
-For a more detailed explanation of the upgrade process, refer to the [Cosmos SDK documentation](https://docs.cosmos.network/master/modules/upgrade).
+For a more detailed explanation of the upgrade process, refer to the [Cosmos SDK documentation](https://docs.cosmos.network/main/modules/upgrade).
 
 </HighlightBox>
 
@@ -105,7 +105,7 @@ Cosmovisor is a tool that node operators can use to automate the on-chain proces
 
 <HighlightBox type="tip">
 
-Take a look at the [Cosmos SDK documentation on Cosmovisor](https://docs.cosmos.network/master/run-node/cosmovisor.html) to learn more about this process manager for Cosmos SDK applications.
+Take a look at the [Cosmos SDK documentation on Cosmovisor](https://docs.cosmos.network/main/run-node/cosmovisor.html) to learn more about this process manager for Cosmos SDK applications.
 
 </HighlightBox>
 
@@ -127,9 +127,10 @@ Call your existing version v1 and your new one, v2, with the leaderboard to disa
 
 ## New information
 
-Of course, you need new data structures for your v2. With Starport you have:
+Of course, you need new data structures for your v2. With Ignite CLI you have:
 
 1. A way to store each player's information:
+
     ```protobuf
     message PlayerInfo {
         string index = 1; // The stringified address
@@ -138,7 +139,9 @@ Of course, you need new data structures for your v2. With Starport you have:
         uint64 forfeitedCount = 4;
     }
     ```
+
 2. A way to identify a winning player's information in the leaderboard:
+
     ```protobuf
     message WinningPlayer {
         string playerAddress = 1;
@@ -146,8 +149,10 @@ Of course, you need new data structures for your v2. With Starport you have:
         string dateAdded = 3;
     }
     ```
+
     Where `wonCount` decides the position on the leaderboard and `dateAdded` resolves ties for equal `wonCount` with the most recent ranking higher.
 3. Of course a leaderboard as an array of winner information:
+
     ```protobuf
     import "checkers/winning_player.proto";
 
@@ -155,7 +160,9 @@ Of course, you need new data structures for your v2. With Starport you have:
         repeated WinningPlayer winners = 1;
     }
     ```
+
 4. Not to forget that this player information and this leaderboard are stored somewhere in storage and as such you introduce them in the new genesis:
+
     ```protobuf
     message GenesisState {
         ...
@@ -163,8 +170,10 @@ Of course, you need new data structures for your v2. With Starport you have:
         Leaderboard leaderboard = 4;
     }
     ```
+
     Conceptually, it is the _new_ genesis because your actual genesis file did not contain any leaderboard.
 5. And a hard-coded leaderboard length:
+
     ```go
     const (
         LeaderboardWinnerLength = 100
@@ -243,6 +252,7 @@ const (
     IntermediaryPlayerLength = types.LeaderboardWinnerLength * 2
 )
 ```
+
 Then you run through the player information:
 
 ```go

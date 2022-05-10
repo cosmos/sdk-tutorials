@@ -147,7 +147,7 @@ Want more information on broadcasting with Tendermint RPC? Why not take a closer
 
 ## Next up
 
-In the [next section](./messages.md)), you can learn how transaction messages are generated and handled in the Cosmos SDK.
+In the [next section](./messages.md), you can learn how transaction messages are generated and handled in the Cosmos SDK.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 

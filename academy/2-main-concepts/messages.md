@@ -45,7 +45,7 @@ The confirmed transaction is relayed to the Cosmos SDK application for interpret
 
 Although it is technically feasible to proceed to create a novel `MsgService`, the recommended approach is to define a Protobuf `Msg` service. Each module has exactly one Protobuf `Msg` service defined in `tx.proto` and there is an RPC service method for each message type in the module. The Protobuf message service implicitly defines the interface layer of the state mutating processes contained within the module.
 
-How does all of this translate into code? Here's an example `MsgService` from the [`bank` module](https://docs.cosmos.network/master/modules/bank/):
+How does all of this translate into code? Here's an example `MsgService` from the [`bank` module](https://docs.cosmos.network/main/modules/bank/):
 
 Example MsgService:
 
@@ -69,15 +69,15 @@ In the above example, we can see that:
 
 The Cosmos SDK uses Protobuf definitions to generate client and server code:
 
-* The `MsgServer` interface defines the server API for the `Msg` service. Its implementation is described in the [`Msg` services documentation](https://docs.cosmos.network/master/building-modules/msg-services.html).
+* The `MsgServer` interface defines the server API for the `Msg` service. Its implementation is described in the [`Msg` services documentation](https://docs.cosmos.network/main/building-modules/msg-services.html).
 * Structures are generated for all RPC requests and response types.
 
 <HighlightBox type="tip">
 
 If you want to dive deeper when it comes to messages, the `Msg` service and modules take a look at:
 
-* The Cosmos SDK documentation on [`Msg` service](https://docs.cosmos.network/master/building-modules/msg-services.html).
-* The Cosmos SDK documentation on messages and queries addressing how to define messages using `Msg` services - [Amino `LegacyMsg`](https://docs.cosmos.network/master/building-modules/messages-and-queries.html#legacy-amino-legacymsgs).
+* The Cosmos SDK documentation on [`Msg` service](https://docs.cosmos.network/main/building-modules/msg-services.html).
+* The Cosmos SDK documentation on messages and queries addressing how to define messages using `Msg` services - [Amino `LegacyMsg`](https://docs.cosmos.network/main/building-modules/messages-and-queries.html#legacy-amino-legacymsgs).
 
 </HighlightBox>
 
@@ -127,21 +127,21 @@ With the messages defined, you need to declare how the message should be handled
 2. Writing the code that handles the message and places the new game in the storage.
 3. Putting hooks and callbacks at the right places in the general message handling.
 
-Starport can help you create all that plus the `MsgCreateGame` and `MsgCreateGameResponse` objects with this command:
+Ignite CLI can help you create all that plus the `MsgCreateGame` and `MsgCreateGameResponse` objects with this command:
 
 ```sh
-$ starport scaffold message createGame red black --module checkers --response idValue
+$ ignite scaffold message createGame red black --module checkers --response idValue
 ```
 
 <HighlightBox type="info">
 
-Starport creates a whole lot of other files, see [My Own Chain](../4-my-own-chain/index.md) for details and make additions to existing files.
+Ignite CLI creates a whole lot of other files, see [My Own Chain](../4-my-own-chain/index.md) for details and make additions to existing files.
 
 </HighlightBox>
 
-### A sample of things Starport did for you
+### A sample of things Ignite CLI did for you
 
-Starport significantly reduces the amount of work a developer has to do to build an application with the Cosmos SDK. Among others, it assists with:
+Ignite CLI significantly reduces the amount of work a developer has to do to build an application with the Cosmos SDK. Among others, it assists with:
 
 1. Getting the signer, the `Creator`, of your message:
 
@@ -248,9 +248,10 @@ Not to forget:
 
 You can also implement other messages.
 
-1. The **play message**, which means implicitly accepting the challenge when playing for the first time. If you create it with Starport, use:
+1. The **play message**, which means implicitly accepting the challenge when playing for the first time. If you create it with Ignite CLI, use:
+
     ```sh
-    $ starport scaffold message playMove idValue fromX:uint fromY:uint toX:uint toY:uint --module checkers --response idValue
+    $ ignite scaffold message playMove idValue fromX:uint fromY:uint toX:uint toY:uint --module checkers --response idValue
     ```
 
     Which generates, among others, the object files, callbacks, and a new file for you to write your code:
@@ -269,7 +270,7 @@ You can also implement other messages.
 2. The **reject message**, which should be valid only if the player never played any moves in this game.
 
     ```sh
-    $ starport scaffold message rejectGame idValue --module checkers
+    $ ignite scaffold message rejectGame idValue --module checkers
     ```
 
     It generates, among others:

@@ -68,7 +68,7 @@ It is time to take a closer look at the new data structures being introduced wit
 
 <HighlightBox type="tip">
 
-If you feel unsure about creating new data structures with Starport, take another look at the [previous sections](./create-message.md) of the exercise.
+If you are feeling unsure about creating new data structures with the Ignite CLI, take another look at the [previous sections](./create-message.md) of the exercise.
 
 </HighlightBox>
 
@@ -77,7 +77,7 @@ To give the new v2 information a data structure, you need to do the following:
 1. Create a set of **stats per player**: it makes sense to save one `struct` for each player and map it by address. Remember that a game is stored at `StoredGame-value-123`, where `StoredGame-value-` is a constant prefix. In a similar fashion, Starport is going to create a new constant to use as the prefix for players:
 
     ```sh
-    $ starport scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint --module checkers --no-message
+    $ ignite scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint --module checkers --no-message
     ```
 
     <HighlightBox type="info">
@@ -108,7 +108,7 @@ To give the new v2 information a data structure, you need to do the following:
     }
     ```
 
-2. Create a **leaderboard rung structure** to be repeated inside the leaderboard: this stores the information of a player scoring high enough to be included in the leaderboard. It is not meant to be kept directly in storage as it is only a part of the leaderboard. So instead of involving Starport, create the structure by hand in its own file:
+2. Create a **leaderboard rung structure** to be repeated inside the leaderboard: it stores the information of a player scoring high enough to be included in the leaderboard. It is not meant to be kept directly in storage as it is only a part of the leaderboard. So instead of involving Ignite CLI create the structure by hand into its own file:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/proto/checkers/winning_player.proto#L8-L12]
     message WinningPlayer {
@@ -126,10 +126,10 @@ To give the new v2 information a data structure, you need to do the following:
     
     </HighlightBox>
 
-3. Create a structure for **the leaderboard**: there is a single stored leaderboard for the whole application. Let Starport help you implement a structure:
+3. Create a structure for **the leaderboard**: there is a single stored leaderboard for the whole application. Let Ignite CLI help you implement a structure:
 
     ```sh
-    $ starport scaffold single leaderboard winners --module checkers --no-message
+    $ ignite scaffold single leaderboard winners --module checkers --no-message
     ```
 
     This creates a Protobuf file that you update with your preferred type and its `import`. Also, remove the `creator`:

@@ -43,10 +43,10 @@ message MsgCreateGame {
 }
 ```
 
-To have Starport and Protobuf recompile these two files, you can use:
+To have Ignite CLI and Protobuf recompile these two files, you can use:
 
 ```sh
-$ starport generate proto-go
+$ ignite generate proto-go
 ```
 
 Now add a helper function to `StoredGame` using the Cosmos SDK `Coin` in `full_game.go`. It encapsulates information about the wager:
