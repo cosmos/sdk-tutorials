@@ -144,10 +144,9 @@ It creates a new `ConnectionEnd`:
  connection := types.NewConnectionEnd(types.INIT, clientID, counterparty, types.ExportedVersionsToProto(versions), delayPeriod)
   k.SetConnection(ctx, connectionID, connection)
   
-// ConnectionEnd defines a stateful object on a chain connected to another
-// separate one.
+// ConnectionEnd defines a stateful object on a chain connected to another separate one.
 // NOTE: there must only be 2 defined ConnectionEnds to establish
-// a connection between two chains, so the connections are mapped and stored as `ConnectionEnd` on the respective chains..
+// a connection between two chains, so the connections are mapped and stored as `ConnectionEnd` on the respective chains.
 message ConnectionEnd {
   option (gogoproto.goproto_getters) = false;
   // client associated with this connection.
