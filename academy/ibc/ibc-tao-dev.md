@@ -89,7 +89,7 @@ The initiation of this handshake from chain A will lead a connection state updat
 
 `OpenInit` proposes a protocol version to be used for the IBC connection. A relayer-submitted `OpenInit` which contains a protocol version that is not supported by chain A will be expected to fail.
 
-<insert image here>
+<!-- TODO insert image -->
 
 In the code, you can find the reference implementation for the connection handshake in the [IBC module repository](https://github.com/cosmos/ibc-go/blob/main/modules/core/03-connection/keeper/handshake.go). In it take a look at `ConnOpenInit`:
 
@@ -184,7 +184,7 @@ The initiation of this handshake from chain B will lead a chain B connection sta
 
 With regards to IBC protocol versioning, `OpenTry` either accepts the protocol version which has been proposed in `OpenInit`, or proposes another protocol version from chain A's avaiable versions to be used for the IBC connection. A relayer-submitted `OpenTry` which contains an unsupported protocol version will be expected to fail.
 
-<insert image>
+<!-- TODO insert image -->
 
 The implementation of OpenTry looks like this:
 
@@ -221,7 +221,7 @@ The initiation of this handshake from chain A will lead a chain A connection sta
 
 With regards to version negotiation, `OpenAck` must confirm the protocol version which has been proposed in `OpenTry`, or end the connection handshake process if the version is unwanted or unsupported.
 
-<insert image>
+<!-- TODO insert image -->
 
 Note that the code for `OpenAck` looks very similar to `OpenTry`: 
 
@@ -289,7 +289,7 @@ func (k Keeper) ConnOpenConfirm(
 
 The initiation of this handshake from chain B will lead a chain B connection state update from `TRY` to `OPEN`. For this connection state update, the counterparty chain *MUST* have an `OPEN` connection state in order for the handshake and update to be successful.  
 
-<insert image>
+<!-- TODO insert image -->
 
 **Crossing Hellos**
 
