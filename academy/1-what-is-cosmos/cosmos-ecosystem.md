@@ -7,12 +7,16 @@ tag: fast-track
 
 # The Cosmos Ecosystem
 
+<HighlightBox type="synopsis">
+
 **Cosmos** is a network of independent blockchains, which are:
 
 * All powered by consensus algorithms with Byzantine Fault-Tolerance (BFT).
 * All connected through the Inter-Blockchain Communication Protocol (IBC), which enables value transfers/token transfers and other communication between chains, all without the need to involve exchanges or make compromises regarding the chains' sovereignties.
 
 Cosmos is also **a blockchain ecosystem** complete with protocols, SDK, tokens, wallets, applications, repositories, services and tools.
+  
+</HighlightBox>
 
 ## A whole universe to discover: tokens, wallets, apps, and services
 
@@ -166,7 +170,7 @@ With CosmWasm, smart contracts can run on multiple chains with the help of the I
 
 <HighlightBox type="tip">
 
-For a deeper dive, have a look at the [CosmWasm documentation](https://docs.cosmwasm.com/docs/1.0/).
+For a deeper dive, have a look at the [CosmWasm documentation](https://docs.cosmwasm.com/docs/1.0/)
 
 </HighlightBox>
 
