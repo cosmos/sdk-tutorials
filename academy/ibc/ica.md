@@ -506,6 +506,9 @@ default:
 
 ## Example integration
 
+[Here](https://github.com/cosmos/interchain-accounts-demo) is  an end-to-end working demo of Interchain Accounts. You will notice that it contains a similar `app.go` to the generic one below.
+
+
 ```golang
 // app.go
 
