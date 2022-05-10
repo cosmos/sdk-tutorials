@@ -23,9 +23,9 @@ Your checkers application will be agnostic to tokens and relayers. Your only tas
 
 ## New information
 
-Instead of defaulting to `"stake"`, let players decide what string represents their token. So update:
+Instead of defaulting to `"stake"`, let players decide what string represents their token:
 
-1. The stored game:
+1. Update the stored game:
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/proto/checkers/stored_game.proto#L19]
     message StoredGame {
         ...
@@ -33,7 +33,7 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
     }
     ```
 
-2. The message to create a game:
+2. Update the message to create a game:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/proto/checkers/tx.proto#L46]
     message MsgCreateGame {
@@ -42,13 +42,13 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
     }
     ```
 
-For Ignite CLI and Protobuf to recompile both files you can use:
+Have Ignite CLI and Protobuf recompile both files:
 
 ```sh
 $ ignite generate proto-go
 ```
 
-To avoid surprises later, also update the `MsgCreateGame` constructor:
+It is recommended to also update the `MsgCreateGame` constructor:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/types/message_create_game.go#L16]
 func NewMsgCreateGame(creator string, red string, black string, wager uint64, token string) *MsgCreateGame {
@@ -88,7 +88,7 @@ The token denomination has been integrated into the relevant data structures. No
     }
     ```
 
-    Also insert it where it emits an event:
+    Do not forget to also insert the values where it emits an event:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game.go#L58]
     ctx.EventManager().EmitEvent(
@@ -218,7 +218,68 @@ Don't forget to add similar tests for when the money goes the other way (i.e. wh
 
 ## Interact via the CLI
 
+If you recall, Alice's and Bob's balances have two token denominations. Query:
 
+```sh
+$ checkersd query bank balances $bob
+```
+
+This returns:
+
+```
+balances:
+- amount: "100000000"
+  denom: stake
+- amount: "10000"
+  denom: token
+pagination:
+  next_key: null
+  total: "0"
+```
+
+You can make use of this other `token` to create a new game that costs `1 token`:
+
+```sh
+$ checkersd tx checkers create-game $alice $bob 1 token --from $alice
+```
+
+Which mentions:
+
+```
+...
+- key: Wager
+  value: "1"
+- key: Token
+  value: token
+...
+```
+
+Have Bob play once:
+
+```sh
+$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
+```
+
+Has Bob been charged the wager?
+
+```sh
+$ checkersd query bank balances $bob
+```
+
+This returns:
+
+```
+balances:
+- amount: "100000000"
+  denom: stake
+- amount: "9999"
+  denom: token
+pagination:
+  next_key: null
+  total: "0"
+```
+
+Correct. You made it possible to wager any token. That includes IBC tokens.
 
 ## Live testing with a relayer
 
@@ -250,4 +311,4 @@ As soon as you close the browser window the channels on both ends are no longer 
 
 ## Next up
 
-In the [next section](./migration.md) you will learn how to conduct chain upgrades through migrations.
+In the [next section](./migration.md), you will learn how to conduct chain upgrades through migrations.

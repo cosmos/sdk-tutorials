@@ -12,24 +12,24 @@ tag: deep-dive
 Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [ABCI](../2-main-concepts/architecture.md), [Protobuf](../2-main-concepts/protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
-* Have Go installed.
-* The checkers blockchain codebase with `MsgRejectGame` and its handling. You can get there by following the [previous steps](./reject-game.md) or checking out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
+* Go is installed.
+* You have the checkers blockchain codebase with `MsgRejectGame` and its handling. If not, follow the [previous steps](./reject-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
 
 </HighlightBox>
 
 In the [previous step](./reject-game.md) you added a way for players to reject a game. There are two ways for a game to advance through its lifecycle until resolution, win or draw: _play_ and _reject_.
 
-## The why
+## Why would you reject?
 
-What if a player never shows up again? Should a game remain in limbo forever?
+Game inactivity could become a factor. What if a player never shows up again? Should a game remain in limbo forever?
 
-You eventually want to let players wager on the outcome of games especially if _value_ is tied up in games. You need to add a way for games to be forcibly resolved if a player stops responding.
+Eventually you want to let players wager on the outcome of games, so you do not want games remaining in limbo if they have _value_ assigned. For this reason, you need a way for games to be forcibly resolved if one player stops responding.
 
-The simplest mechanism to expire a game is to use a **deadline**. If the deadline is reached, then the game is forcibly terminated and expires. The deadline is pushed further back every time a game is played.
+The simplest mechanism to expire a game is to use a **deadline**. If the deadline is reached, then the game is forcibly terminated and expires. The deadline is pushed back every time a move is played.
 
-To enforce the termination it is a good idea to use the **`EndBlock`** part of the ABCI protocol. The call `EndBlock` is triggered when all transactions of the block are delivered and gives you a chance to do some tidying up before the block is sealed. In your case, all games that have reached their deadline will be terminated.
+To enforce the termination it is a good idea to use the **`EndBlock`** part of the ABCI protocol. The call `EndBlock` is triggered when all transactions of the block are delivered, and allows you to tidy up before the block is sealed. In this case, all games that have reached their deadline will be terminated.
 
-How do you find all the games that reached their deadline? Maybe with a pseudo-code like:
+How do you find all the games that have reached their deadline? You could use a pseudo-code like:
 
 ```javascript
 findAll(game => game.deadline < now)
@@ -37,28 +37,28 @@ findAll(game => game.deadline < now)
 
 This approach is **expensive** in terms of computation. The `EndBlock` code should not have to pull up all games out of the storage just to find a few that are relevant. Doing a `findAll` costs [`O(n)`](https://en.wikipedia.org/wiki/Big_O_notation), where `n` is the total number of games.
 
-## The how
+## How can you reject?
 
-You need another data structure. The simplest one is a First-In-First-Out (FIFO) that is constantly updated so that:
+You need another data structure. The simplest option is a First-In-First-Out (FIFO) that is constantly updated, so that:
 
-* The just played games are taken out of where they are and sent to the tail.
-* The games that have not been played for the longest time eventually end up at the head.
+* When games are played, they are taken out of where they are and sent to the tail.
+* Games that have not been played for the longest time eventually rise to the head.
 
-You keep dealing with the expired games that are at the head of the FIFO when terminating expired games in `EndBlock`. Do not stop until the head includes an ongoing game. The cost is:
+When terminating expired games in `EndBlock`, you deal with the expired games that are at the head of the FIFO. Do not stop until the head includes an ongoing game. The cost is:
 
 * `O(1)` on each game creation and gameplay.
 * `O(k)` where `k` is the number of expired games on each block.
 * `k <= n` where `n` is the number of games that exist.
 
-`k` still is an unbounded number of operations. But if you use the same expiration duration on each game, for `k` games to expire together in a block, these `k` games would all have to have had a move in the same previous block. Give or take the block before or after. The largest `EndBlock` computation will be proportional to the largest regular block in the past in the worst case. This is a reasonable risk to take.
+`k` is still an unbounded number of operations. However, if you use the same expiration duration on each game, for `k` games to expire together in a block they would all have to have had a move in the same previous block (give or take the block before or after). In the worst case, the largest `EndBlock` computation will be proportional to the largest regular block in the past. This is a reasonable risk to take.
 
-Remember this only works if the expiration duration is the same for all games instead of being a parameter left to a potentially malicious game creator.
+**Remember:** this only works if the expiration duration is the same for all games, instead of being a parameter left to a potentially malicious game creator.
 
 ## New information
 
-How do you implement a FIFO from which you extract elements at random positions? Choose a doubly-linked list for that:
+How do you implement a FIFO from which you extract elements at random positions? Choose a doubly-linked list:
 
-1. You need to remember the game ID at the head, to pick expired games, and at the tail, to send back fresh games. The existing `NextGame` object is a good place for this as it is already an object and expandable. Just add a bit to its Protobuf declaration:
+1. You must remember the game ID at the head to pick expired games, and at the tail to send back fresh games. The existing `NextGame` object is a useful, as it is already expandable. Add to its Protobuf declaration:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/proto/checkers/next_game.proto#L9-L10]
     message NextGame {
@@ -68,7 +68,7 @@ How do you implement a FIFO from which you extract elements at random positions?
     }
     ```
 
-2. To make extraction possible each game needs to know which other game takes place before it in the FIFO, and which after. The right place to store this double link information is `StoredGame`. Thus, you add them in the game's Protobuf declaration:
+2. To make extraction possible, each game must know which other game takes place before it in the FIFO, and which after. Store this double link information in `StoredGame`. Add them to the game's Protobuf declaration:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/proto/checkers/stored_game.proto#L14-L15]
     message StoredGame {
@@ -78,7 +78,7 @@ How do you implement a FIFO from which you extract elements at random positions?
     }
     ```
 
-3. There needs to be an "ID" that indicates _no game_. Let's use `"-1"`, which you save as a constant:
+3. There must be an "ID" that indicates _no game_. Use `"-1"`, which you save as a constant:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/types/keys.go#L32-L34]
     const (
@@ -101,7 +101,7 @@ How do you implement a FIFO from which you extract elements at random positions?
     }
     ```
 
-To have Ignite CLI and Protobuf recompile the files:
+Instruct Ignite CLI and Protobuf recompile the files:
 
 ```sh
 $ ignite chain build
@@ -109,7 +109,7 @@ $ ignite chain build
 
 ## FIFO management
 
-Now that the new fields are created, you need to update them accordingly to keep your FIFO up-to-date at all times. It's better to create a separate file that encapsulates this knowledge. Create `x/checkers/keeper/stored_game_in_fifo.go` with:
+Now that the new fields are created, you need to update them to keep your FIFO up-to-date. It's better to create a separate file that encapsulates this knowledge. Create `x/checkers/keeper/stored_game_in_fifo.go` with the following:
 
 1. A function to remove from the FIFO:
 
@@ -150,7 +150,7 @@ Now that the new fields are created, you need to update them accordingly to keep
     }
     ```
 
-    The game passed as an argument is **not** saved in storage here, even if it was updated. Only its fields in memory are adjusted. The _before_ and _after_ games are saved in storage. It is advised to do a `SetStoredGame` after calling this function to avoid having a mix of saves and memory states. The same applies to `SetNextGame`.
+    The game passed as an argument is **not** saved in storage here, even if it was updated. Only its fields in memory are adjusted. The _before_ and _after_ games are saved in storage. Do a `SetStoredGame` after calling this function to avoid having a mix of saves and memory states. The same applies to `SetNextGame`.
 
 2. A function to send to the tail:
 
@@ -183,12 +183,24 @@ Now that the new fields are created, you need to update them accordingly to keep
     }
     ```
 
+    Again, it is advisable to do `SetStoredGame` and `SetNextGame` after calling this function.
 
-## Use it
+## FIFO Integration
 
 With these functions ready, it is time to use them in the message handlers.
 
-1. In the handler, when creating a new game send the new game to the tail because it is freshly created:
+1. In the handler when creating a new game, set default values for `BeforeId` and `AfterId`:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_create_game.go#L36]
+    ...
+    storedGame := types.StoredGame{
+        ...
+        BeforeId:  types.NoFifoIdKey,
+        AfterId:   types.NoFifoIdKey,        
+    }
+    ```
+
+    Send the new game to the tail because it is freshly created:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_create_game.go#L36]
     ...
@@ -199,7 +211,7 @@ With these functions ready, it is time to use them in the message handlers.
 
 2. In the handler, when playing a move send the game back to the tail because it was freshly updated:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_play_move.go#L66]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_play_move.go#L62-L72]
     ...
     nextGame, found := k.Keeper.GetNextGame(ctx)
     if !found {
@@ -216,7 +228,7 @@ With these functions ready, it is time to use them in the message handlers.
 
 3. In the handler, when rejecting a game remove the game from the FIFO:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_reject_game.go#L38]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_reject_game.go#L34-L42]
     ...
     nextGame, found := k.Keeper.GetNextGame(ctx)
     if !found {
@@ -463,8 +475,198 @@ func TestRejectMiddleGameHasSavedFifo(t *testing.T) {
 
 ## Interact via the CLI
 
+Time to explore the commands. You need to start afresh because you made numerous additions to the blockchain state:
 
+```sh
+$ ignite chain serve --reset-once
+```
+
+<HighlightBox type="tip">
+
+Do not forget to export `alice` and `bob` again, as explained in an [earlier section](./create-message.md).
+
+</HighlightBox>
+
+1. Is the genesis FIFO information correctly saved?
+
+    ```sh
+    $ checkersd query checkers show-next-game
+    ```
+
+    This should print:
+
+    ```
+    NextGame:
+      creator: ""
+      fifoHead: "-1" # There is nothing
+      fifoTail: "-1" # There is nothing
+      idValue: "0"
+    ```
+
+2. If you create a game, is the game as expected?
+
+    ```sh
+    $ checkersd tx checkers create-game $alice $bob --from $bob
+    $ checkersd query checkers show-next-game
+    ```
+
+    This should print:
+
+    ```
+    NextGame:
+      creator: ""
+      fifoHead: "0" # The first game you created
+      fifoTail: "0" # The first game you created
+      idValue: "1"
+    ```
+
+3. What about the information saved in the game?
+
+    ```sh
+    $ checkersd query checkers show-stored-game 0   
+    ```
+
+    Because it is the only game, this should print:
+
+    ```
+    StoredGame:
+      afterId: "-1" # Nothing because it is alone
+      beforeId: "-1" # Nothing because it is alone
+    ...
+    ```
+
+4. And if you create another game?
+
+    ```sh
+    $ checkersd tx checkers create-game $alice $bob --from $bob
+    $ checkersd query checkers show-next-game
+    ```
+
+    This should print:
+
+    ```
+    NextGame:
+      creator: ""
+      fifoHead: "0" # The first game you created
+      fifoTail: "1" # The second game you created
+      idValue: "2"
+    ```
+
+5. Did the games also store the correct values?
+
+    ```sh
+    $ checkersd query checkers show-stored-game 0 # The first game you created
+    ```
+
+    This should print:
+
+    ```
+    afterId: "1" # The second game you created
+    beforeId: "-1" # No game
+    ...
+    ```
+
+    Run:
+
+    ```sh
+    $ checkersd query checkers show-stored-game 1 # The second game you created
+    ```
+
+    This should print:
+
+    ```
+    afterId: "-1" # No game
+    beforeId: "0" # The first game you created
+    ...
+    ```
+
+    Your FIFO in effect has the game IDs `[0, 1]`. If you add a third game, your FIFO will be `[0, 1, 2]`.
+
+6. What happens if Bob plays a move in game `1`, the game _in the middle_?
+
+    ```sh
+    $ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
+    $ checkersd query checkers show-next-game
+    ```
+
+    This should print:
+
+    ```
+    NextGame:
+      creator: ""
+      fifoHead: "0" # The first game you created
+      fifoTail: "1" # The second game you created and on which Bob just played
+      idValue: "3"
+    ```
+
+7. Is game `2` in the middle now?
+
+    ```sh
+    $ checkersd query checkers show-stored-game 2
+    ```
+
+    This should print:
+
+    ```
+    StoredGame:
+      afterId: "1"
+      beforeId: "0"
+    ...
+    ```
+
+    Your FIFO now has the game IDs `[0, 2, 1]`. You see that game `1`, which was played on, has been sent to the tail of the FIFO.
+
+8. What happens if Alice rejects game `2`?
+
+    ```sh
+    $ checkersd tx checkers reject-game 2 --from $alice
+    $ checkersd query checkers show-next-game
+    ```
+
+    This prints:
+
+    ```
+    NextGame:
+      creator: ""
+      fifoHead: "0"
+      fifoTail: "1"
+      idValue: "3"
+    ```
+
+    There is no change because game `2` was _in the middle_, so it did not affect the head or the tail.
+
+    Run the following two queries:
+
+    ```sh
+    $ checkersd query checkers show-stored-game 0
+    ```
+
+    This prints:
+
+    ```
+    StoredGame:
+      afterId: "1"
+      beforeId: "-1"
+    ...
+    ```
+
+    And:
+
+    ```sh
+    $ checkersd query checkers show-stored-game 1
+    ```
+
+    This prints:
+
+    ```
+    StoredGame:
+      afterId: "-1"
+      beforeId: "0"
+    ...
+    ```
+
+    Your FIFO now has the game IDs `[0, 1]`. Game `2` was correctly removed from the FIFO.
 
 ## Next up
 
-Now you need to add expiry dates for the games. That's the goal of the [next section](./game-deadline.md).
+Having a list of games ordered by age is not enough to ascertain their staleness. You must also add an expiry date on each game to reach that decision. That is the goal of the [next section](./game-deadline.md).
