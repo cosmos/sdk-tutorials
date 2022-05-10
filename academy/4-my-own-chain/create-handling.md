@@ -13,6 +13,11 @@ Make sure you have everything you need before proceeding:
 
 * You have Go installed.
 * You have the checkers blockchain codebase with `MsgCreateGame` created by Ignite CLI. If not, follow the [previous steps](./create-message.md) and check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
+    
+In this section:
+    
+* Add application rules- the rules of Checkers
+* Add a Message Handler to create game and return it's ID
 
 </HighlightBox>
 
