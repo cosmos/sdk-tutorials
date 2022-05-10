@@ -72,9 +72,9 @@ In Ethereum, **smart contracts** are stored on every single node - they are publ
 
 Ethereum has a much faster block time than Bitcoin - currently it is around 15 seconds. 
 
-Ethereum implements a variation of Bitcoin's PoW consensus algorithm called Ethash, which is intended to be [ASIC-resistant and GPU friendly](https://github.com/ethereum/wiki/wiki/Ethash-Design-Rationale). ASIC-resistance is meant to discourage unwanted concentrations of mining power; in other words, encourage decentralization. Core developers of the Ethereum project plan to switch to the **proof-of-stake (PoS)** consensus algorithm in the future.
+Ethereum implements a variation of Bitcoin's PoW consensus algorithm called Ethash, which is intended to be [ASIC-resistant and GPU friendly](https://github.com/ethereum/wiki/wiki/Ethash-Design-Rationale). ASIC-resistance is meant to discourage unwanted concentrations of mining power; in other words, to encourage decentralization. Core developers of the Ethereum project plan to switch to the **proof-of-stake (PoS)** consensus algorithm in the future.
     
-These useful innovations are not the key innovation that allows Ethereum to operate with faster block times. 
+However, these useful innovations are not the key innovation that allows Ethereum to operate with faster block times. 
 
 A well-understood challenge related to reduced block time stems from network latency. Since nodes do not learn about newly discovered blocks simultaneously, at any given time a portion of the miners will be working on already solved (i.e. old) blocks. If these miners find a solution, they might not be rewarded and a "fork" of the chain results, in which rival chains with a common true history spread through the network. The rate at which such transient forks occur increases predictably with shorter block times. 
 
