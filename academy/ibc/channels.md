@@ -28,7 +28,7 @@ Similarly to how connections are established, channels are established through a
 
 ![Channel Handshake](/academy/ibc/images/channelhandshake.png)
 
-1. `ChanOpenInit`: sets chain A into the `INIT` state. This calls `OnChanOpenInit` so application A can apply the custom callback that it has set on `INIT (for example, to check if the port has been set correctly, the channel is indeed unordered orordered as expected, etc.). An application version is also proposed in this step.
+1. `ChanOpenInit`: sets chain A into the `INIT` state. This calls `OnChanOpenInit` so application A can apply the custom callback that it has set on `INIT` (for example, to check if the port has been set correctly, the channel is indeed unordered orordered as expected, etc.). An application version is also proposed in this step.
 
 
 2. `ChanOpenTry`: sets chain B into the `TRY` state. This calls `OnChanOpenConfirm` so application B can apply its custom `TRY` callback. Application version negotiation also happens during this step. 
@@ -94,13 +94,13 @@ func (k Keeper) ChannelOpenInit(goCtx context.Context, msg *channeltypes.MsgChan
 
 **Capabilities**
 
-IBC is intended to work in execution environments where modules do not necessarily trust each other. This security is accomplished using a [dynamic capability store](https://github.com/cosmos/cosmos-sdk/blob/master/docs/architecture/adr-003-dynamic-capability-store.md. This binding strategy prevents other modules from using a particular port or channel since those modules do not own the appropriate capability. While this background information is useful, IBC application developers should not need to modify this lower level abstraction, other than setting the capabilities appropriately in `app.go`.
+IBC is intended to work in execution environments where modules do not necessarily trust each other. This security is accomplished using a [dynamic capability store](https://github.com/cosmos/cosmos-sdk/blob/master/docs/architecture/adr-003-dynamic-capability-store.md). This binding strategy prevents other modules from using a particular port or channel since those modules do not own the appropriate capability. While this background information is useful, IBC application developers should not need to modify this lower level abstraction, other than setting the capabilities appropriately in `app.go`.
 
 </HighlightBox>
 
 ## Application Packet Flow
 
-As stated above, application modules communicate with each other by sending packets over IBC channels. However, IBC modules do not directly pass these messages to each other over the network. Rather, the module will commit some state reflecting the transaction execution to a precisely defined path reserved for a specific message type and a specific counterparty. For example, as part of an ICS20 token transfer, the bank module would escrow the portion of tokens to be transferred and store
+As stated above, application modules communicate with each other by sending packets over IBC channels. However, IBC modules do not directly pass these messages to each other over the network. Rather, the module will commit some state reflecting the transaction execution to a precisely defined path reserved for a specific message type and a specific counterparty. For example, as part of an ICS20 token transfer, the bank module would escrow the portion of tokens to be transferred and stored.
 
 A relayer monitors channels for events emitted when updates have been submitted to these paths. After first submitting an `UpdateClient` to update the sending chain light client on the destination chain, it relays the message containing the packet data along with a proof that the state transition contained in the message has been commited to the state of the sending chain. The destination chain then verifies this packet and packet commitmentment proof against the state contained in the light client.
 
@@ -130,7 +130,6 @@ func NewPacket(
 `Sequence` denotes the sequence number of the packet in the channel.
 
 `TimeoutTimestamp` and `TimeoutHeight` dictate the time before which the receiving module must process a packet. 
-
 
 ![Packet flow](/academy/ibc/images/packetflow.png)
 
