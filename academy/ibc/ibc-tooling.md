@@ -70,6 +70,12 @@ In the overview, you can find a list of all the chains the selected chain is con
 
 Now you have an overview for each channel, including: how much IBC volume is transferred between the chains through the individual channels; the number of transfers successfully transferred to and received from a particular zone; the balancing figure between inbound and outbound IBC transfers; the number of IBC transfers failed attributed to a particular pair of channels between zones; and the ratio of successfully completed transfers to all transfers with final status.
 
+<HighlightBox type="note">
+
+There are canonical channels for ICS-20. All other channels will have been created accidentally by (unexperienced) relayers and hence, practically have no transactions.
+
+</HighlightBox>
+
 When you go back to the overview, below the visual overview of the entire network you can find a list of the most active zones by IBC volume in USD:
 
 ![Most active zones](images/mostactivezones.png)
