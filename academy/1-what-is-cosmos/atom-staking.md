@@ -14,7 +14,7 @@ In this section you are going to:
 1. Get some ATOM.
 2. Participate in the consensus, to passively earn a yield on your ATOM while working on your own Cosmos application, sleeping, or studying further.
 
-<HighlightBox type="info">
+<HighlightBox type="tip">
 
 The main concepts are covered in more detail in the [next chapter](../2-main-concepts/index.md).
 
@@ -106,7 +106,7 @@ How you purchase ATOM depends on your preference, but you need to use your trust
 
 For the purpose of this section we assume you buy one ATOM.
 
-<HighlightBox type="info">
+<HighlightBox type="tip">
 
 As you can see in the [Get ATOM and stake page](https://cosmos.network/learn/get-atom) from Cosmos, there is a [list of exchanges](https://messari.io/asset/cosmos/markets) that are known by Cosmos for offering ATOM token.
 
