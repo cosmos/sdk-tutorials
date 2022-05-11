@@ -11,7 +11,7 @@ tag: intro
 
 As the name suggests, CosmJS is a Typescript/JavaScript library. It helps developers integrate frontend user interfaces and backend servers with Cosmos blockchains that implement distributed applications. To many users, the "dApp" **is** the user interface, even though it is often delivered to the browser in a centralized, traditional way - relying on the DNS infrastructure and centralized web servers.
 
-This re-introduction of a degree of centralization is usually considered acceptable by most teams, provided that the important business logic of the system is enforced by a blockchain and provided it is not strictly necessary to use the provided user interface in order to use the dApp. As a general heuristic, offer a user interface as a convenience rather than a necessity.
+This re-introduction of a degree of centralization is usually considered acceptable by most teams, provided that the important business logic of the system is enforced by a blockchain and provided it is not strictly necessary to use the provided user interface in order to use the dApp.
 
 In general, user interfaces help users interpret the blockchain state, compose and sign transactions, and send them - all things that can potentially be accomplished by other less convenient methods. A user interface can be supported by servers or micro-services that also interact with the blockchain.
 
@@ -48,9 +48,9 @@ CosmJS's modular structure lets developers import only the parts that are needed
 
 ## Packages
 
-CosmJS is a library that consists of many smaller npm packages within the
-[@cosmjs namespace](https://www.npmjs.com/org/cosmjs), a so called monorepo.
-Example packages include:
+CosmJS is a library that consists of many smaller npm packages within the [@cosmjs namespace](https://www.npmjs.com/org/cosmjs), a so called monorepo.
+Generally people will only be needing the `stargate` and `encoding` packages as they contains the main functionality to interact with Cosmos SDK chains version 0.40 and higher.
+Among many more, here are some examples packages:
 
 | Package                                                 | Description                                                                                                                                                                                                                              | Latest                                                                                                                                |
 | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -67,9 +67,11 @@ We're proud of the modularity and clean dependency tree in this monorepo. This e
 
 ![CosmJS dependency tree](images/cosmjs-tree.png)
 
-Continue reading for a hands-on developer exercise. The tutorial starts with downloading dependencies and proceeds through the steps of creating a simple user interface.
+Continue reading for a [hands-on developer exercise](./first-steps.md). The tutorial starts with downloading dependencies and proceeds through the steps of creating a simple user interface.
 
 <HighlightBox type="reading">
+
+Some additional reading or video material is available as well:
 
 * [HackAtom HCMC Workshop - CosmWasm/CosmJS: from zero to hero](https://www.youtube.com/watch?v=VTjiC4wcd7k)
 * [CosmJS GitHub repository](https://github.com/cosmos/CosmJS)
