@@ -7,9 +7,13 @@ tag: deep-dive
 
 # Hermes Relayer
 
-[Hermes](https://hermes.informal.systems/) is a an open-source Rust implementation of a relayer for the Inter-Blockchain Communication Protocol (IBC). Hermes at the moment of writing, is most widely used in production by relayer operators. It offers great logging and debugging options, but compared to the Go relayer, may require some more detaild knowledge of IBC to use it properly.
+[Hermes](https://hermes.informal.systems/) is a an open-source Rust implementation of a relayer for the Inter-Blockchain Communication Protocol (IBC). Hermes is most widely used in production by relayer operators. It offers great logging and debugging options, but compared to the Go relayer may require some more detaild knowledge of IBC to use it properly.
 
-Installation instructions can be found [here](https://hermes.informal.systems/installation.html). Check the CLI commands with `hermes -h`, alternatively check out the [commands reference](https://hermes.informal.systems/commands/index.html) on the Hermes website:
+<HighlightBox type="docs">
+
+Installation instructions can be found [here](https://hermes.informal.systems/installation.html). Check the CLI commands with `hermes -h`. Alternatively, check out the [commands reference](https://hermes.informal.systems/commands/index.html) on the Hermes website.
+  
+</HighlightBox>
 
 ```bash
 # hermes help
@@ -42,10 +46,15 @@ SUBCOMMANDS:
     upgrade         Upgrade objects (clients) after chain upgrade
     completions     Generate auto-complete scripts for different shells
 ```
-When comparing the list of commands with the requirements from the introduction, we immediately recognize the ability to query and submit a transaction (tx), keys management and a config command. However, no immediate commands are available to add chains and path information. The Hermes relayer at the moment of writing, does not support fetching data from the [chain-registry](https://github.com/cosmos/chain-registry) automatically yet, but this is on the roadmap.
+When comparing the list of commands with the requirements from the introduction, recognize the ability to query and submit a transaction (tx), keys management, and a config command. However, no immediate commands are available to add chains and path information. The Hermes relayer does not support fetching data from the [chain-registry](https://github.com/cosmos/chain-registry) automatically yet, but this is on the roadmap.
 
-For now, we need to manually add the data to the config file `config.toml` which is by default stored at `$HOME/.hermes/config.toml`. 
-**Note**: the config is not added automatically, the first time you run Hermes, you will have to copy a template and paste it in the aforementioned folder.
+For now, you need to manually add the data to the config file `config.toml`, which is by default stored at `$HOME/.hermes/config.toml`. 
+
+<HighlightBox type="note">
+
+The config is not added automatically. The first time you run Hermes, you will have to copy a template and paste it in the aforementioned folder.
+
+</HighlightBox>
 
 See the [config info](https://hermes.informal.systems/config.html) and the [a sample configuration](https://hermes.informal.systems/example-config.html) for a detailed explanation on all aspects of the config. We will take a closer look at the `[[chains]]` section:
 
@@ -72,9 +81,11 @@ trust_threshold = { numerator = '1', denominator = '3' }
 address_type = { derivation = 'cosmos' }
 ```
 
-Pay particular attention to the `RPC`, `gRPC` and `websocket` endpoints and make sure those correspond with the node you are running (remember that it is recommended to run your own full node instead of using publicly available endpoints when relaying outside of testing purposes). Also make sure the `key_name` corresponds to the funded address you intend to pay relayer fees from. The other parameters can be found in the [chain-registry](https://github.com/cosmos/chain-registry) for deployed chains or set by yourself when creating a new chain (either in production or for testing).
+Pay particular attention to the `RPC`, `gRPC`, and `websocket` endpoints and make sure they correspond with the node you are running. Remember that it is recommended to run your own full node instead of using publicly available endpoints when relaying outside of testing purposes. Also make sure the `key_name` corresponds to the funded address from which you intend to pay relayer fees. The other parameters can be found in the [chain-registry](https://github.com/cosmos/chain-registry) for deployed chains, or set by yourself when creating a new chain (either in production or for testing).
 
-**Note**: Hermes does not require path information in the config. By default it will relay over all possible paths over all channels that are active on the configured chains. However, it is possible to change this by filtering. Add the following to the chain config:
+<HighlightBox type="note">
+  
+Hermes does not require path information in the config. By default it will relay over all possible paths over all channels that are active on the configured chains. However, it is possible to change this by filtering. Add the following to the chain config:
 ```toml
 [chains.packet_filter]
 policy = 'allow'
@@ -84,16 +95,23 @@ list = [
 ```
 This filters only the `transfer` channel for the Hub to Osmosis in this example.
 
+</HighlightBox>
+  
 ### Hermes Start
 
-When the chains have been configured, we could start the relayer with the start command:
+When the chains have been configured, you can start the relayer with the start command:
 ```shell
 $ hermes start
 ```
-This is a powerful command that bundles a whole lot of functionality where Hermes will be listening or events signaling IBC packet send requests, submit `ReceivePacket` and `AcknowledgePacket` messages and periodically check if the clients on serviced chains need updating. During the tutorials however, it makes sense to look at the commands in a more granular way to understand what is going on.
+This powerful command bundles a lot of functionality where Hermes will be listening or events signaling IBC packet send requests, submitting `ReceivePacket` and `AcknowledgePacket` messages, and periodically checking if the clients on serviced chains need updating. However, during the tutorials it makes sense to look at the commands in a more granular way to understand what is going on.
 
-**Note**: When starting the Hermes relayer, it will assume that the channels we wish to relay over are set up. This will be the case if we want to start relaying on an existing *canonical* channel (meaning the offical and agreed upon channel for e.g. fungible token transfers). This is perfectly possible and the right approach, given that creating a new channel would make assets relayed over it non-fungible with assets relayed over the canonical channel. Most tutorials will create new channels (and possibly clients and connections), as this provides more insight into the software. However, it is **important to note that you only need to create new channels if no canonical channel is present**, for example for a newly deployed chain.
+<HighlightBox type="note">
 
+When starting the Hermes relayer, it will assume that the channels you wish to relay over are set up. This will be the case if you want to start relaying on an existing *canonical* channel, meaning the offical and agreed-upon channel (for example, used for fungible token transfers). 
+
+This is perfectly possible and the right approach, given that creating a new channel would make assets relayed over it non-fungible with assets relayed over the canonical channel. Most tutorials will create new channels (and possibly clients and connections) as this provides more insight into the software. However, it is **important to note that you only need to create new channels if no canonical channel is present** (for example, for a newly deployed chain).
+
+</HighlightBox>
 
 
 ## E2E Testing
