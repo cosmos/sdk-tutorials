@@ -54,7 +54,7 @@ To work with Rust, you may need to install it first. You can find a well-documen
 To check that you are up-to-date run:
 
 ```
-rustc --version
+$ rustc --version
 ```
 
 If you already installed the Rust toolchain, you can update your installation by running:
