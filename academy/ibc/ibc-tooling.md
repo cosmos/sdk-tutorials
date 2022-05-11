@@ -29,35 +29,7 @@ You can also change the time being visualized by the MapOfZones in the lower rig
 
 The overview is dynamic and gives you a good feeling of the current activity in the overall network and between specific chains. You can also include testnet chains in the overview - you just have to enable it by activating `Show testnet` in the upper right-hand corner of the overview. The MapOfZones also lets you:
 
-* See the overview in full-screen modeHey There!
-
-We're really looking forward to meeting you! The Interchain Developer Academy starts tomorrow. 
-
-This email has important information so read it carefully.
-
-If you’ve not already joined the Cosmos Developer Discord, now is the time! You will then have to join the private Interchain Developer Academy channels within the Discord.
-
-You will get support and access to the program materials through the private channels in the Discord, so you must join!
-
-There is a four step process.
-
-Join the official Cosmos Developer Discord by clicking here 
-
-Verify your account. The instructions are in the #welcome channel inside the Discord. If you are having trouble follow this tutorial 
-
-Join the private Academy channels. After joining the discord, go here and enter your Discord ID.  In this instance, your Discord ID is this: SampleName#1234.  (It is not this: SamepleName, and it is not this: 0123456789.)
-
-Get access to study materials tomorrow. The link to the materials will be dropped tomorrow at 4pm UTC in the ‘Announcements’ channel in the Interchain Developer Academy area.
-
-In the meantime, introduce yourself in the channel ‘general-questions’.
-
-See you there!
-
-
-
-Noam and the Interchain Developer Academy Team
-
-More questions? Just hit reply and ask.
+* See the overview in full-screen mode
 * Zoom in and out
 * See the overview in 2D and 3D
 * Filter the zones you see by:
