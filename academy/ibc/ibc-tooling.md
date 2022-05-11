@@ -207,7 +207,7 @@ On the right side, next to the visualization, you can find a list of all network
 
 If you want a visualization of the network, just click on the network icon in the upper right-hand corner. This redirects you to the (IOBSCAN Network State Visualizer)[https://www.iobscan.io/#/]:
 
-![IOBScan Network State Visualizer](iamges/iobscan2.png)
+![IOBScan Network State Visualizer](images/iobscan2.png)
 
 The connections displayed in the visualizer are either a regular or dotted line depending on whether a connection is opened or unopened.
 
