@@ -5,13 +5,15 @@ description:
 tag: deep-dive
 ---
 
-# IBC-Go Relayer
+# Go Relayer
 
-[IBC-Go Relayer](https://github.com/cosmos/relayer) is a relayer implementation written in Golang. It can create connections and channels, relay transactions and acknowledgements, and upgrade clients.
+[The Go Relayer](https://github.com/cosmos/relayer) is a relayer implementation written in Golang. It can create clients, connections and channels, relay packets, and update and upgrade clients.
 
-In this section, the approach taken is the same as in the Hermes section. You will start with establishing a connection and channel between two chains. Then you will send a transfer transaction from the first chain to the second chain.
+The Go relayer aims to get your relayer up and running with minimal manual configuration and abstracts away a lot of the more complex IBC concepts. The vision here is that users could spin up their own relayer and relay packets. To provide this functionality it automates a lot of work to fetch configuration data from the chain-registry.
 
-## Install
+After the installation we will get started on relaying on mainnet chains as well as do some local testing.
+
+## Installation & Get Started
 
 The repository offers a script to start two chains, which we need in order to test the relayer. 
 
@@ -22,7 +24,7 @@ $ mkdir relay-go-test
 $ cd relay-go-test
 ```
 
-Clone the [IBC-Go Relayer](https://github.com/cosmos/relayer) repository:
+Clone the [Go Relayer](https://github.com/cosmos/relayer) repository:
 
 ```bash
 $ git clone https://github.com/cosmos/relayer.git
@@ -50,9 +52,195 @@ $ make install
 
 Make sure that your `$GOPATH` is set correctly and `$GOPATH/bin` is included in your `$PATH`. 
 
-## Test
+To check the available commands, we run the help command on the `rly`binary.
+```bash
+$ rly -h
 
-Now use the offered script to spin up two chains, **ibc-0** and **ibc-1**:
+rly has:
+   1. Configuration management for Chains and Paths
+   2. Key management for managing multiple keys for multiple chains
+   3. Query and transaction functionality for IBC
+
+   NOTE: Most of the commands have aliases that make typing them much quicker
+         (i.e. 'rly tx', 'rly q', etc...)
+
+Usage:
+  rly [command]
+
+Available Commands:
+  config      Manage configuration file
+  chains      Manage chain configurations
+  paths       Manage path configurations
+  keys        Manage keys held by the relayer for each chain
+
+  transact    IBC transaction commands
+  query       IBC query commands
+  start       Start the listening relayer on a given path
+
+  version     Print the relayer version info
+  help        Help about any command
+  completion  Generate the autocompletion script for the specified shell
+
+Flags:
+  -d, --debug               debug output
+  -h, --help                help for rly
+      --home string         set home directory (default "/Users/<username>/.relayer")
+      --log-format string   log output format (auto, logfmt, json, or console) (default "auto")
+
+Use "rly [command] --help" for more information about a command.
+
+```
+Notice how the categories reflect the requirements we saw in the last section: to manage chain and path information, manage keys, query and transact. The configuration data is added to the config file stored at `$HOME/.relayer/config/config.yaml` by default. If this is the first time running the relayer, first initialize the config with the following command:
+```bash
+$ rly config init
+
+#and check the config with
+$ rly config show
+```
+Now we're all set to add the chains and paths we want to relay on, add our keys and start relaying. We will investigate two different scenario's: setting up a relayer between two chains on mainnet (so this would enable us to start relaying in production) and setting up two local chains for testing purposes.
+
+## Relaying in production
+
+As stated earlier, the Go relayer strives to get your relayer up and running in a short amount of time. We will follow the tutorial from the [Github repo](https://github.com/cosmos/relayer) to start relaying between the Cosmos Hub and Osmosis, one of the most popular paths.
+
+1. **Configure the chains you want to relay between.**
+   
+   In our example, we will configure the relayer to operate on the canonical path between the Cosmos Hub and Osmosis. <br>
+   The `rly chains add` command fetches chain meta-data from the [chain-registry](https://github.com/cosmos/chain-registry) and adds it to your config file.
+   
+   ```shell
+   $ rly chains add cosmoshub osmosis
+   ```
+       
+   Adding chains from the chain-registry randomly selects a publicly available RPC address from the registry entry.  
+   If you are running your own node (which is recommended if you ar running relaying services professionally), manually go into the config and adjust the `rpc-addr` setting to the RPC endpoint you have exposed.  
+
+   > NOTE: `rly chains add` will check the liveliness of the available RPC endpoints for that chain in the chain-registry.   
+   > It is possible that the command will fail if none of these RPC endpoints are available. In this case, you will want to manually add the chain config.
+   To add the chain config files manually, example config files have been included [here](https://github.com/cosmos/relayer/tree/main/docs/example-configs/)
+   ```shell
+   $ rly chains add --url https://raw.githubusercontent.com/cosmos/relayer/main/docs/example-configs/cosmoshub-4.json
+   $ rly chains add --url https://raw.githubusercontent.com/cosmos/relayer/main/docs/example-configs/osmosis-1.json
+   ```
+   
+1. **Import OR create new keys for the relayer to use when signing and relaying transactions.**
+
+   >`key-name` is an identifier of your choosing.    
+   If you need to generate a new private key you can use the `add` subcommand.
+
+    ```shell
+    $ rly keys add cosmoshub-4 [key-name]  
+    $ rly keys add osmosis-1 [key-name]  
+    ```
+  
+   If you already have a private key and want to restore it from your mnemonic you can use the `restore` subcommand.
+
+   ```shell
+   $ rly keys restore cosmoshub-4 [key-name] "mnemonic words here"
+   $ rly keys restore osmosis-1 [key-name] "mnemonic words here"
+   ```
+
+1. **Edit the relayer's `key` values in the config file to match the `key-name`'s chosen above.**
+
+   >This step is necessary if you chose a `key-name` other than "default"
+   
+   Example:
+      ```yaml
+      - type: cosmos
+         value:
+         key: YOUR-KEY-NAME-HERE
+         chain-id: cosmoshub-4
+         rpc-addr: http://localhost:26657
+      ```
+
+1. **Ensure the keys associated with the configured chains are funded.**
+
+   >ATTENTION: Your configured addresses will need to contain some of the respective native tokens for paying relayer fees.  <br>
+
+   You can query the balance of each configured key by running:  
+
+   ```shell
+   $ rly q balance cosmoshub-4
+   $ rly q balance osmosis-1
+   ```
+
+1. **Configure path meta-data in config file.**
+   We have the chain meta-data configured, now we need path meta-data. This scenario assumes that there is already a canonical channel, so there is no need for light client creation, nor connection and channel handshakes to set these up.  <br>
+   There is one easy command to get this path information (initially from the [interchain](https://github.com/cosmos/relayer/tree/main/interchain) folder in the Go relayer repository, but soon this will be replaced by [IBC-data in the chain-registry](https://github.com/cosmos/chain-registry/tree/master/_IBC)).
+
+     ```shell
+     $ rly paths fetch
+     ```
+   > **NOTE:** Don't see the path metadata for paths you want to relay on?   
+   > Please open a PR to add this metadata to the GitHub repo!
+   At minimum, this command will add two paths, in our case it will add one path from cosmoshub to osmosis and another path from osmosis to cosmoshub.
+
+
+1. **Configure the channel filter.**
+   
+   By default, the relayer will relay packets over all channels on a given connection.  <br>
+   Each path has a `src-channel-filter` which you can utilize to specify which channels you would like to relay on.    <br>
+   The `rule` can be one of three values:  
+   - `allowlist` which tells the relayer to relay on _ONLY_ the channels in `channel-list`
+   - `denylist` which tells the relayer to relay on all channels _BESIDES_ the channels in `channel-list`
+   - empty value, which is the default setting, and tells the relayer to relay on all channels  
+    <br>
+   
+   Since we are only worried about the canonical channel between the Cosmos Hub and Osmosis our filter settings would look like the following.  <br>
+   Example:
+   ```yaml
+   hubosmo:
+      src:
+          chain-id: cosmoshub-4
+          client-id: 07-tendermint-259
+          connection-id: connection-257
+      dst:
+          chain-id: osmosis-1
+          client-id: 07-tendermint-1
+          connection-id: connection-1
+      src-channel-filter:
+              rule: allowlist
+              channel-list: [channel-141]  
+   ```
+   
+   >Because two channels between chains are tightly coupled, there is no need to specify the dst channels.
+1. **Status check**
+    Before starting to relay and after we made some changes to the config, we can check the status of the chains and paths in the config:
+
+    ```shell
+    $ rly chains list
+
+    # output when healthy
+    0: cosmoshub-4          -> type(cosmos) key(✔) bal(✔) path(✔)
+    1: osmosis-1            -> type(cosmos) key(✔) bal(✔) path(✔)
+
+    $ rly paths list
+
+    # output when healthy
+    0: hubosmo              -> chns(✔) clnts(✔) conn(✔) (cosmoshub-4<>osmosis-1)
+    1: osmohub              -> chns(✔) clnts(✔) conn(✔) (osmosis-1<>cosmoshub-4)
+    ```
+    In case one of the checks receives a `✘` instead of `✔`, you will need to check if you completed all the above steps correctly. 
+    <br>
+1. **Finally, we start the relayer on the desired path.**
+
+     The relayer will periodically update the clients and listen for IBC messages to relay.
+
+     ```shell
+     $ rly start [path]
+     ```
+   
+    You will need to start a separate shell instance for each path you wish to relay over.
+
+    >When running multiple instances of `rly start`, you will need to use the `--debug-addr` flag and provide an address:port. You can also pass an empty string `''`  to turn off this feature or pass `localhost:0` to randomly select a port.
+
+## Testing locally
+
+Besides running a relayer between mainnet chains, we can also run a relayer between public testnet chains or locally run chains to do some testing of particular scenarios. Here we will use two local `gaia` chains and run a relayer between them. This is based on the demo in the [Go relayer repo](https://github.com/cosmos/relayer/blob/main/docs/demo.md).
+
+Make sure you are in the `relayer` folder. Now use the offered script to spin up two chains, **ibc-0** and **ibc-1**, which will run in the background (to stop,  use `killall gaiad`):
+
+**Note**: this script will remove the `~/.relayer` folder with your current config. Copy it to another folder if you want to keep your current config.
 
 ```bash
 $ ./scripts/two-chainz
@@ -74,40 +262,34 @@ Check the relayer configuration with:
 $ cat ~/.relayer/config/config.yaml
 ```
 
-You will see the configuration for both chains and the paths. You can change the amount of fees you pay on each chain in the configuration via `gas-prices`. IBC-Go relayer offers the so-called [Chain Registry](https://github.com/cosmos/chain-registry) for a number of Cosmos SDK-based chains. You can easly fetch the configration and start relaying.
-
-Now see if the chains are ready to relay over:
+Now see if the chains and path(s) are ready to relay over:
 
 ```bash
 $ rly chains list
+$ rly paths list
 ```
 
-See the current status of the path you will relay over:
-
-```bash
-rly paths list
-```
-
-Now you can connect the two chains with one command:
+Now you can connect the two chains with the `link` command. Note that in case the clients, connections and/or channels were not all created yet (which would have shown up in the previous status check), the `link` command will attempt to create the objects. You can check `rly tx -h` to find out the separate commands for these actions too.
 
 ```bash
 $ rly tx link demo -d -t 3s
 ```
 
-Check the token balances on both chains:
+Next, check the token balances on both chains:
 
 ```bash
 $ rly q balance ibc-0
 $ rly q bal ibc-1
 ```
 
-Send some tokens between the chains:
+Finally, send some tokens between the chains:
 
 ```bash
 $ rly tx transfer ibc-0 ibc-1 1000000samoleans $(rly chains address ibc-1) channel-0
 ```
+Now we have created the commitment proof on ibc-0 to send the packet, but no relaying has taken place yet.
 
-## Relay packets/acknowledgments
+### Relay packets/acknowledgments
 
 Running `rly start demo` essentially loops these two commands:
 
