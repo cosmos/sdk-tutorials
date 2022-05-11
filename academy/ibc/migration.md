@@ -7,7 +7,7 @@ tag: deep-dive
 
 # IBC Migration
 
-When working with IBC, it is important to maintain upgraded IBC chains and clients. Keeping everything up-to-date implies upgrading chains when developing Cosmos SDK chains and also the counterparty clients. The latter is of importance for all developers working with Tendermint clients enabling upgrades.
+When working with IBC, it is important to be able to upgrade IBC chains and clients. IBC-connected chains must perform an IBC upgrade if their upgrade will break counterparty IBC clients. This is of importance for all developers working with Tendermint clients enabling upgrades.
 
 The **IBC module** serves several different user groups, such as:
 
@@ -25,15 +25,13 @@ When it comes to IBC Go there is an effort to ensure that all IBC Go releases do
 
 All **IBC module releases** allow chains to communicate successfully with any chain running any version of the code. It is ensured that all major releases are supported by relayers so that they can relay between the new major release and older releases. Currently, an IBC protocol specification v2.0 upgrade is not planned because it would be very disruptive to the ecosystem.
 
-In this section, you can find information on how to upgrade an IBC client and how to upgrade counterparty clients with relayers. Let's dive right into it!
-
 ## Upgrading IBC clients - client breaking upgrades
 
 When an upgrade will break IBC counterparty clients, IBC-connected chains **must** perform an IBC upgrade. The IBC protocol supports upgrading Tendermint chains for a specific subset of **IBC-client-breaking upgrades** but **does not support unplanned upgrades**.
 
 <HighlightBox type="info">
 
-To not be an **unplanned upgrade** and be supported, an upgrade needs to be planned and committed in advance to the upgrading chain. This way the counterparty clients can maintain a secure connection.
+To not be an **unplanned upgrade** and be supported, an upgrade needs to be committed in advance to the upgrading chain. This way the counterparty clients can maintain a secure connection.
 
 </HighlightBox>
 
