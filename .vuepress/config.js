@@ -66,7 +66,8 @@ module.exports = {
       "deploy-preview-995", 
       "deploy-preview-994", 
       "deploy-preview-991",
-      "deploy-preview-1047"
+      "deploy-preview-1047",
+      "127.0.0.1"
     ],
     sidebar: {
       auto: false,
@@ -122,6 +123,10 @@ module.exports = {
               order: 1,
               children: [
                 {
+                  title: "Introduction to Blockchain Technology",
+                  path: "/course-ida/landingpages/week0-lp.html"
+                },
+                {
                   title: "Blockchchain 101",
                   path: "/academy/0.0-B9lab-Blockchains/1_blockchain.html"
                 },
@@ -152,6 +157,10 @@ module.exports = {
               directory: true,
               order: 2,
               children: [
+                {
+                  title: "Cosmos and its Main Concepts",
+                  path: "/course-ida/landingpages/week1-lp.html"
+                },
                 {
                   title: "What is Cosmos",
                   path: "/academy/1-what-is-cosmos/"
@@ -236,6 +245,10 @@ module.exports = {
               order: 3,
               children: [
                 {
+                  title: "Running Your Own Cosmos Chain - Part 1",
+                  path: "/course-ida/landingpages/week2-lp.html"
+                },
+                {
                   title: "My Own Cosmos Chain",
                   path: "/academy/4-my-own-chain/"
                 },
@@ -283,8 +296,8 @@ module.exports = {
               order: 4,
               children: [
                 {
-                  title: "Module lp (todo)",
-                  path: "/feature-test/"
+                  title: "Running Your Own Cosmos Chain - Part 2",
+                  path: "/course-ida/landingpages/week3-lp.html"
                 },
                 {
                   title: "Store FIFO - Put Your Games in Order",
@@ -334,8 +347,8 @@ module.exports = {
               order: 5,
               children: [
                 {
-                  title: "Module lp (todo)",
-                  path: "/feature-test/"
+                  title: "The Inter-Blockchain Communication Protocol",
+                  path: "/course-ida/landingpages/week4-lp.html"
                 },
                 {
                   title: "What is IBC?",
@@ -377,6 +390,10 @@ module.exports = {
               order: 6,
               children: [
                 {
+                  title: "CosmJS and Building Your CosmJS Chain",
+                  path: "/course-ida/landingpages/week5-lp.html"
+                },
+                {
                   title: "CosmJs & My Own Cosmos Chain (todo)",
                   path: "/feature-test/"
                 },
@@ -415,6 +432,10 @@ module.exports = {
               directory: true,
               order: 7,
               children: [
+                {
+                  title: "CosmJS for Your Chain - GUI and Backend Script",
+                  path: "/course-ida/landingpages/week6-lp.html"
+                },
                 {
                   title: "Create a GUI for your CosmJS Chain (todo)",
                   path: "/feature-test/"
