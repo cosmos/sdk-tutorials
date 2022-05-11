@@ -7,7 +7,7 @@ tag: deep-dive
 
 # IBC Migration
 
-When working with IBC, it is important to maintain upgraded IBC chains and clients. Keeping everything up-to-date implies upgrading chains when developing Cosmos SDK chains and also the counterparty clients by upgrading relayers. The latter is of importance for all developers working with Tendermint clients enabling upgrades.
+When working with IBC, it is important to maintain upgraded IBC chains and clients. Keeping everything up-to-date implies upgrading chains when developing Cosmos SDK chains and also the counterparty clients. The latter is of importance for all developers working with Tendermint clients enabling upgrades.
 
 The **IBC module** serves several different user groups, such as:
 
