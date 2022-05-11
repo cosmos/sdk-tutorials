@@ -4,11 +4,11 @@ order: 1
 description: BLOCKCHAIN TECHNOLOGY IN GENERAL
 ---
 
-## Blockchain 101
+## Introduction to Blockchain Technology
 
 Do you want to refresh your blockchain knowledge? This module deals with the in and outs of blockchain technology.
 
-This module is meant as an introduction to blockchain technology in general. If you feel your blockchain knowledge doesn’t need an introduction, you can dive directly into the content for Week 1.
+This module is meant as an introduction to blockchain technology in general. **If you feel your blockchain knowledge does not need an introduction, you can dive directly into the content for [Week 1](/course-ida/landingpages/week1-lp.md).**
 
 <HighlightBox type="learning">
 

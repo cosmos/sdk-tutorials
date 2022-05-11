@@ -6,13 +6,11 @@ description: IT ALL COMES TOGETHER
 
 ## Running Your Own Cosmos Chain - Part 2
 
-Continue your journey with the Ignite CLI to continuously develop your checkers blockchain. Learn how to introduce a wager, manage gas, and query for player’s moves.
+Continue your journey with the Ignite CLI to continuously develop your checkers blockchain. Learn how to introduce a wager, manage gas, and query for player's moves.
 
-At the end of the chapter, an introduction to CosmWasm awaits. Discover how multi-chain smart contracting works with CosmWasm.
+At the end of the chapter, an introduction to CosmWasm awaits to discover how multi-chain smart contracting works.
 
 A cosmos of chains awaits!
-
-
 
 <HighlightBox type="learning">
 
@@ -28,8 +26,6 @@ In this chapter, you will:
 
 **This week, make sure to submit your exercise by June 3rd.**
 
-**The submission of this quiz is required to continue with the program.** The submission of this exercise is not mandatory, but is highly recommended. These exercises will help you to practice and prepare for the final exam.
+**The submission of this quiz is required to continue with the program.** The submission of this exercise is not mandatory, but is highly recommended. These exercises will help you practice and prepare for the final exam.
 
-
-
-![Star between planets image](/cosmos_dev_portal_module-04-lp.png)
+![Chain between 1s and 0s image](/cosmos_dev_portal_module-04-lp.png)
