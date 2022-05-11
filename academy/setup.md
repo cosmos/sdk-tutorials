@@ -1,34 +1,51 @@
 ---
-title: Setting Up Your Work Environment
+title: Set Up Your Work Environment
 order:
 description: All you need for the hands-on sections
 tag:
 ---
 
-Please include all information for the different setups here each under H2 headlines. I will add a general introduction.
+# Set Up Your Work Environment
 
-# Setting Up Your Work Environment
+On this page, you can find helpful links to set up your work environment for all hands-on sections of the Academy.
 
-Prepare a separate project folder where you will keep all your Cosmos exercises.
+<HighlightBox type="learning">
 
-## Install Go
+In this section, you can find all you need to install:
 
-To develop with the Cosmos SDK you need Go. Head [here](https://go.dev/doc/install) to install it for your system. Picking the latest version of Go will do.
+* [Docker](https://www.docker.com/)
+* [Go](https://go.dev/)
+* [Node.js](https://nodejs.org/en/)
+* [Rust](https://www.rust-lang.org/)
+* [Visual Studio Code](https://code.visualstudio.com/)
 
-## Install NodeJs
+</HighlightBox>
 
-To develop with CosmJS, you need NodeJs. Head [here](https://nodejs.org/en/download/) to install it. The latest version will do.
-
-## Install Visual Studio Code
-
-This integrated development environment will assist you both with developing with the Cosmos SDK and CosmJS. Get it from [here](https://code.visualstudio.com/Download).
-
-The first time you open a Cosmos SDK project with it, it will offer to install a Go plug-in. Accept.
+On a general note, it is advisable to **prepare a separate project folder to keep all your Cosmos exercises**.
 
 ## Install Docker
 
-TODO
-To do the exercises, you may need to install Docker. Get it from [here](https://docs.docker.com/engine/install/).
+Docker is very helpful to do the exercises. So you may need to install Docker. To isntall, head to the [Install Docker Engine page](https://docs.docker.com/engine/install/).
+
+## Install Go
+
+You need Go to develop with the Cosmos SDK. If you still need to install Go on your system, head to the [Go download and install page](https://go.dev/doc/install).
+
+<HighlightBox type="best-practice">
+
+Picking the latest version of Go should do.
+
+</HighlightBox>
+
+## Install Node.js
+
+To develop with CosmJS, you need Node.js. Just head to the [Node.js download page](https://nodejs.org/en/download/) to install it.
+
+<HighlightBox type="best-practice">
+
+You should install the latest version of Node.js.
+
+</HighlightBox>
 
 ## Install Rust
 
@@ -53,3 +70,13 @@ cargo version
 ```
 
 It displays the cargo version helps confirm proper installation.
+
+## Install Visual Studio Code
+
+This integrated development environment assists both with developing with the Cosmos SDK and CosmJS. To install it, please go to the [Visual Studio Code install page](https://code.visualstudio.com/Download). Then select depending on your operating system (OS).
+
+<HighlightBox type="best-practice">
+
+The first time you open a Cosmos SDK project with Visual Studio Code, it offers to install a Go plug-in. You can go ahead and accept it.
+
+</HighlightBox>
