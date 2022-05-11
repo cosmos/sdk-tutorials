@@ -64,7 +64,7 @@ If you click on the `Details`, you are directed to an overview with more in-dept
 
 ![Detailed list for the Cosmos Hub](images/detailscosmoszone.png)
 
-In the overview, you can find a list of all the chains the selected chain is connected to. When you click a specific chain, you can see the channels between the selected chain and another chain:
+In the overview, you can find a list of all the chains the selected chain is connected to. When you click on a specific chain, you can see the channels between the selected chain and another chain:
 
 ![Channels between the Cosmos Hub and Osmosis](images/cosmososmasischannels.png)
 
