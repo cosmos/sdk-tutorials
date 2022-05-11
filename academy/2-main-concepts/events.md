@@ -135,11 +135,9 @@ ctx.EventManager().EmitEvent(
 )
 ```
 
-<HighlightBox type="info">
 
 It is easy to add events to the other transaction types. Events are meant to inform and notify relevant parties.
 
-</HighlightBox>
 
 You should also emit an event for games that have timed out. This is part of their lifecycle after all. You would do that in the end blocker:
 
