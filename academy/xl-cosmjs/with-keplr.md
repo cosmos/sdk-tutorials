@@ -383,12 +383,12 @@ Note:
 Now let's run the full script. In the refreshed page, enter an amount of `uatom` (for example `1000000`) and click <kbd>Send to faucet</kbd>. A number of events happen:
 
 1. Keplr asks for confirmation that you agree to add the Testnet network. It will not install any network without your approval, as that would be a security risk. It asks this only the first time you add a given network, which is why doing it in `onSendClicked` is harmless.
-    ![Keplr asking for permission to add Testnet network](/keplr_testnet_addition.png)
+    ![Keplr asking for permission to add Testnet network](/academy/xl-cosmjs/images/keplr_testnet_addition.png)
 2. Keplr asks whether you agree to share your account information, because this involves a potential security risk. Again, it asks this only once per web page + network combination.
-    ![Keplr asking for permission to share your account information](/keplr_share_account.png)
+    ![Keplr asking for permission to share your account information](/academy/xl-cosmjs/images/keplr_share_account.png)
 3. Your address and balance fields are updated and visible.
 4. Keplr asks whether you agree to sign the transaction, a very important action that requires approval **every time**.
-    ![Keplr asking for confirmation on the transaction](/keplr_send_to_faucet.png)
+    ![Keplr asking for confirmation on the transaction](/academy/xl-cosmjs/images/keplr_send_to_faucet.png)
 
 After this is done, your balance updates again, and in the browser console you see the transaction result.
 
