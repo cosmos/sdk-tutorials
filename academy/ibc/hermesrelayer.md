@@ -118,15 +118,19 @@ This is perfectly possible and the right approach, given that creating a new cha
 
 The Hermes documentation provides a [guided tutorial](https://hermes.informal.systems/tutorials/local-chains/index.html) to start relaying between two local `gaia` chains. Furthermore, demos are available that spin up a Hermes relayer between two [Ignite CLI](https://docs.ignite.com/) chains, like [this one](https://github.com/informalsystems/hermes-hackatom-demo). Be sure to check those out.
 
-This is why we've chosen here to take a somewhat different approach and set up a flow for end-to-end testing (E2E) where we set up Docker containers for 2 chain instances and a relayer instance. We will refer to the automated testing file and also do some manual testing on the Docker images.
+Here you will take a somewhat different approach, and set up a flow for end-to-end (E2E) testing where you set up Docker containers for 2 chain instances and a relayer instance. You will refer to the automated testing file and also do some manual testing on the Docker images.
 
 ### Installation & Building Docker Images
 
 Clone the [Hermes repository](https://github.com/informalsystems/ibc-rs) in a new folder. It contains a folder for [end-to-end (E2E) testing](https://github.com/informalsystems/ibc-rs/tree/master/ci). This helps you deploy two chains and test the relayer. It also contains a Docker Compose file, which spins up two blockchain nodes and a relayer. 
 
-Make sure that you have installed [Docker Compose](https://docs.docker.com/compose/install/) and [Docker](https://docs.docker.com/get-docker/) before continuing.
+<HighlightBox type="info">
 
-The test needs you to build the Docker images from the Docker files. The Docker images run a Linux on **x86_64**. You can build Hermes with [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) from the repository for the target `x86_64-unknown-linux-gnu`, or you can [download](https://github.com/informalsystems/ibc-rs/releases) a release version into the repository folder. (Make sure the binary is present in the repository folder.)
+Make sure that you have installed [Docker Compose](https://docs.docker.com/compose/install/) and [Docker](https://docs.docker.com/get-docker/) before continuing.
+  
+</HighlightBox>
+
+The test needs you to build the Docker images from the Docker files. The Docker images run a Linux on **x86_64**. You can build Hermes with [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) from the repository for the target `x86_64-unknown-linux-gnu`, or you can [download](https://github.com/informalsystems/ibc-rs/releases) a release version into the repository folder (make sure the binary is present in the repository folder).
 
 After you clone the repository and download a release version of Hermes for **x86_64**, go into the folder and run:
 
@@ -140,7 +144,7 @@ This builds the relayer docker image. Start the Docker Compose network with two 
 $ docker-compose -f ci/docker-compose-gaia-current.yml up -d ibc-0 ibc-1 relayer
 ```
 
-Check that everything is working as expected with:
+Check that everything is working as expected:
 
 ```bash
 $ docker exec relayer /bin/sh -c /relayer/e2e.sh
@@ -163,9 +167,17 @@ First, check the Hermes version:
 hermes 0.14.0+460eb0c
 ```
 
-**Note:** in this section you'll have to run commands both inside the Docker container and on your local terminal. By default this will the Docker terminal, we'll leave a comment when you have to use the local terminal.
+<HighlightBox type="note">
 
-Remember you can check the CLI commands with `hermes -h`. As you can see, the Hermes CLI offers help for each CLI command you can use when trying `hermes <command> -h`. 
+In this section you have to run commands both inside the Docker container and on your local terminal. By default, coding examples will indicate the Docker terminal; a comment will inform you when you have to use the local terminal.
+  
+</HighlightBox>
+
+<HighlightBox type="remember">
+
+You can check the CLI commands with `hermes -h`. The Hermes CLI offers help for each CLI command you can use when trying `hermes <command> -h`. 
+  
+</HighlightBox>
 
 Check the default configuration:
 
@@ -213,7 +225,7 @@ $ hermes -c simple_config.toml query channels ibc-0
 
 You should see two channels and the port binding transfer. All this is part of the E2E testing. You can redo some steps to better understand the CLI.
 
-Just create another connection for the both chains:
+Create another connection for the both chains:
 
 ```bash
 $ hermes -c simple_config.toml create connection ibc-0 ibc-1
@@ -240,19 +252,19 @@ $ hermes keys add ibc-0 -f user2_seed_ibc-0.json
 $ hermes keys add ibc-1 -f user2_seed_ibc-1.json
 ```
 
-Get the user addresses for the **ibc-0** chain with:
+Get the user addresses for the **ibc-0** chain:
 
 ```bash
 $ hermes -c simple_config.toml keys list ibc-0
 ```
 
-And for the **ibc-1** chain with:
+Now get the user addresses for the **ibc-1** chain:
 
 ```bash
 $ hermes -c simple_config.toml keys list ibc-1
 ```
 
-In the `simple_confing.toml`, the default user key is set to `testkey`, so you do not need to specify a user if you want to sign a transaction with `testkey`.
+In the `simple_confing.toml` the default user key is set to `testkey`, so you do not need to specify a user if you want to sign a transaction with `testkey`.
 
 Now check the balance of those accounts on the chain **ibc-0**. Replace the `$testkey` with the addresses you get in your test:
 
@@ -263,7 +275,7 @@ $ docker exec ibc-0 gaiad query bank balances $testkey
 
 Repeat this check for **ibc-1** with the corresponding address. 
 
-You will see that these accounts keep some **samoleans** and you will also see another denom because of the E2E test.
+These accounts keep some **samoleans**. You will also see another denom because of the E2E test.
 
 <HighlightBox type="tip">
 
@@ -279,13 +291,17 @@ $ hermes -c simple_config.toml tx raw ft-transfer ibc-1 ibc-0 transfer channel-2
 
 In case you do not want to test with the default user, you can specify the sender with a `-k` flag and the receiver on the other chain with a `-r` flag.
 
+<HighlightBox type="note">
+  
 Usually the Hermes relayer automatically relays packets between the chains if it runs via:
 
 ```bash
 $ hermes -c simple_config.toml start
 ```
 
-But here we want to relay the transfer transaction by hand.
+In this case, we want to relay the transfer transaction by hand.
+
+</HighlightBox>
 
 First, query packet commitments on **ibc-0**:
 
@@ -295,26 +311,30 @@ $ hermes -c simple_config.toml query packet commitments ibc-0 transfer channel-2
 
 You can see that there is one packet.
 
-We can also query for unreceived packets:
+You can also query for unreceived packets:
 
 ```bash
 $ hermes -c simple_config.toml query packet unreceived-packets ibc-1 transfer channel-5
 ```
 
-**Note:** you can get the `connection_id` and `channel_id` for **ibc-1** in the output of the `hermes create connection` and `hermes create channel` commands. 
+<HighlightBox type="note">
+  
+You can get the `connection_id` and `channel_id` for **ibc-1** in the output of the `hermes create connection` and `hermes create channel` commands.
 
-So if you check the balances again, you should only see a change for **ibc-0**. You should see no change in the balance of `testkey` on **ibc-1** because the transfer is initiated but it is not relayed yet.
+</HighlightBox>
 
-Now you can submit the `RecvPacket` message to **ibc-1**:
+If you check the balances again, you should only see a change for **ibc-0**. You should see no change in the balance of `testkey` on **ibc-1** because the transfer is initiated but it is not relayed yet.
+
+Now submit the `RecvPacket` message to **ibc-1**:
 
 ```bash
 $ hermes -c simple_config.toml tx raw packet-recv ibc-1 ibc-0 transfer channel-2
 ```
 
-and send an acknowledgement to **ibc-0**:
+Send an acknowledgement to **ibc-0**:
 
 ```bash
 $ hermes -c simple_config.toml tx raw packet-ack ibc-0 ibc-1 transfer channel-5
 ```
 
-Check the balances again. There a new denom should appear because of our recent channel. As an exercise, transfer the tokens back to ibc-0.
+Check the balances again. A new denom should appear because of our recent channel. As an exercise, transfer the tokens back to ibc-0.
