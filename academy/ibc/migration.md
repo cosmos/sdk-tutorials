@@ -7,7 +7,7 @@ tag: deep-dive
 
 # IBC Migration
 
-When working with IBC, it is important to be able to upgrade IBC chains and clients. IBC-connected chains must perform an IBC upgrade if their upgrade will break counterparty IBC clients. This is of importance for all developers working with Tendermint clients enabling upgrades.
+When working with IBC, it is important to be able to upgrade IBC chains and clients. IBC-connected chains and counterparty clients must also be able to perform IBC upgrades to prevent failures of cross-chain communication, or even of all communication. This is of importance for all developers working with Tendermint clients enabling upgrades.
 
 The **IBC module** serves several different user groups, such as:
 
@@ -15,15 +15,15 @@ The **IBC module** serves several different user groups, such as:
 * Relayer developers and operators 
 * IBC application and light client developers
 
-Each of these stakeholders has different expectations when it comes to **backward compatibility**. For example, the (IBC protocol specifications)[https://github.com/cosmos/ibc] and (IBC Go)[ibc-go] both maintain different versions and changes can be backward or non-backward compatible for different users.
+Each of these stakeholders has different expectations when it comes to **backward compatibility**. For example, the (IBC protocol specifications)[https://github.com/cosmos/ibc] and (IBC Go)[ibc-go] both maintain different versions, and changes can be backward or non-backward compatible for different users.
 
 <HighlightBox type="info">
 
-When it comes to IBC Go there is an effort to ensure that all IBC Go releases do not hinder successful chain communication. All IBC Go releases are therefore using IBC protocol specification v1.0.
+There is an effort to ensure that all IBC Go releases do not hinder successful chain communication. Therefore, all IBC Go releases use IBC protocol specification v1.0.
 
 </HighlightBox>
 
-All **IBC module releases** allow chains to communicate successfully with any chain running any version of the code. It is ensured that all major releases are supported by relayers so that they can relay between the new major release and older releases. Currently, an IBC protocol specification v2.0 upgrade is not planned because it would be very disruptive to the ecosystem.
+All **IBC module releases** allow chains to communicate successfully with any chain running any version of the code. It is ensured that all major releases are supported by relayers so that they can relay between the new major release and older releases. Currently, an IBC protocol specification v2.0 upgrade is not planned because this would be very disruptive to the ecosystem.
 
 ## Upgrading IBC clients - client breaking upgrades
 
@@ -35,17 +35,17 @@ To not be an **unplanned upgrade** and be supported, an upgrade needs to be comm
 
 </HighlightBox>
 
-On Tendermint chains, an upgrade is implemented for Tendermint clients, which could break the counterparty IBC Tendermint clients. Here is an exhaustive list of **IBC client-breaking upgrades** and whether the IBC protocol currently supports the upgrades:
+On Tendermint chains, an upgrade is implemented for Tendermint clients, which could break the counterparty IBC Tendermint clients. Here is an exhaustive list of **IBC client-breaking upgrades** which notes whether the IBC protocol currently supports the upgrades:
 
-* **Changing the Chain-ID: supported**
-* **Changing the UnbondingPeriod: partially Supported** because chains may increase the unbonding period with no issues. Be mindful that decreasing the unbonding period may irreversibly break some counterparty clients, so it is not recommended that chains reduce the unbonding period.
-* **Changing the height (resetting to 0): supported** - as long as chains remember to increment the revision number in their `chain-id`.
-* **Changing the ProofSpecs: supported**. If the proof structure required to verify IBC proofs is changed across the upgrade, it should be changed. This is the case, for example, when you switch from an [IAVL](https://github.com/cosmos/iavl/blob/master/docs/overview.md) store to a `SimpleTree` store.
-* **Changing the UpgradePath: supported**. It might include a change of the key under which upgraded clients and consensus states are stored in the `x/upgrade`'s store or even a migration of the `x/upgrade`'s store itself.
-* **Migrating the IBC store: unsupported** because the IBC store location is negotiated by the connection.
-* **Upgrading to a backward compatible version of IBC: supported**
-* **Upgrading to a non-backward compatible version of IBC: unsupported** because the IBC version is negotiated on connection handshakes.
-* **Changing the Tendermint LightClient algorithm: partially Supported**. Changes to the light client algorithm that do not change the `ClientState` or `ConsensusState` structs are sometimes supported - provided the counterparty is also upgraded to support the new light client algorithm. Changes requiring an update of the `ClientState` and `'ConsensusState` structs are theoretically possible by providing a path to translate an older `ClientState` struct into the new `ClientState` struct. This is however not currently implemented.
+* **Changing the Chain-ID: supported**.
+* **Changing the `UnbondingPeriod`: partially supported**. Chains may *increase* the unbonding period with no issues. Be mindful that *decreasing* the unbonding period may irreversibly break some counterparty clients, so it is not recommended that chains reduce the unbonding period.
+* **Changing the height (resetting to 0): supported**, as long as chains remember to increment the revision number in their `chain-id`.
+* **Changing the `ProofSpecs`: supported**. If the proof structure required to verify IBC proofs is changed across the upgrade, ProofSpecs should be changed. For example, this is the case when you switch from an [IAVL](https://github.com/cosmos/iavl/blob/master/docs/overview.md) store to a `SimpleTree` store.
+* **Changing the `UpgradePath`: supported**. This might include a change of the key under which upgraded clients and consensus states are stored in the `x/upgrade`'s store, or even a migration of the `x/upgrade`'s store itself.
+* **Migrating the IBC store: unsupported**, because the IBC store location is negotiated by the connection.
+* **Upgrading to a backward compatible version of IBC: supported**.
+* **Upgrading to a non-backward compatible version of IBC: unsupported**, because the IBC version is negotiated on connection handshakes.
+* **Changing the Tendermint Light Client algorithm: partially Supported**. Changes to the light client algorithm that do not change the `ClientState` or `ConsensusState` structs are sometimes supported, provided the counterparty is also upgraded to support the new light client algorithm. Changes requiring an update of the `ClientState` and `'ConsensusState` structs are theoretically possible, by providing a path to translate an older `ClientState` struct into the new `ClientState` struct. This is however not currently implemented.
 
 <HighlightBox type="note">
 
@@ -55,7 +55,7 @@ Since upgrades are only implemented for Tendermint clients, this list only discu
 
 When you have an IBC-connected chain conducting an upgrade that includes changes breaking counterparty clients, you must:
 
-1. Ensure IBC support for the upgrade: you can use the list above for this.
+1. Ensure IBC support for the upgrade: you can use the previous list for this.
 2. Execute the following upgrade process to prevent counterparty clients from breaking:
 
 * Create an `UpgradeProposal` with an IBC `ClientState` in the `UpgradedClientState` field and an `UpgradePlan` in the `Plan` field.
@@ -79,12 +79,12 @@ For this reason, the upgrade process for relayers trying to upgrade the counterp
 1. Wait for the upgrading chain to reach the upgrade height and halt.
 2. Query a full node for proofs of `UpgradedClient` and `UpgradedConsensusState` at the last height of the old chain.
 3. Update the counterparty client to the last height of the old chain using the `UpdateClient` message.
-4. Submit a `UpgradeClient` message to the counterparty chain with `UpgradedClient`, `UpgradedConsensusState`, and their respective proofs.
-5. Submit a `UpdateClient` message to the counterparty chain with a header from the upgraded chain.
+4. Submit an `UpgradeClient` message to the counterparty chain with `UpgradedClient`, `UpgradedConsensusState`, and their respective proofs.
+5. Submit an `UpdateClient` message to the counterparty chain with a header from the upgraded chain.
 
 The Tendermint client on the counterparty chain verifies that the upgrading chain did indeed commit to the upgraded client and upgraded consensus state at the upgrade height - since the upgrade height is included in the key.
 
-If the proofs can be verified against the upgrade height, the client will upgrade to the new client while retaining all of the client-customized fields. Thus, it will retain the old `TrustingPeriod`, `TrustLevel`, `MaxClockDrift`, and so on, while adopting new chain-specified fields such as `UnbondingPeriod`, `ChainId`, `UpgradePath`, etc.
+If the proofs can be verified against the upgrade height, the client will upgrade to the new client while retaining all of the client-customized fields. Thus, it will retain the old `TrustingPeriod`, `TrustLevel`, `MaxClockDrift`, etc., while adopting new chain-specified fields such as `UnbondingPeriod`, `ChainId`, `UpgradePath`, etc.
 
 <HighlightBox type="note">
 
@@ -96,6 +96,6 @@ The upgraded consensus state serves purely as a basis of trust for future `Updat
 
 <HighlightBox type="tip">
 
-Take a look at the [Relayer section](./relayerintro.md) to find out how to get started with the Hermes relayer. Then you can go ahead and [test a client update with Hermes](https://hermes.informal.systems/commands/upgrade/test.html).
+Look at the [Relayer section](./relayerintro.md) to find out how to get started with the Hermes relayer. Then you can go ahead and [test a client update with Hermes](https://hermes.informal.systems/commands/upgrade/test.html).
 
 </HighlightBox>
