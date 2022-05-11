@@ -118,12 +118,14 @@ To give the new v2 information a data structure, you need the following:
     }
     ```
 
-    Where:
+    <HighlightBox type="note">
 
     * `playerAddress` indicates the player, and gives information regarding `PlayerInfo.index`.
     * `wonCount` determines the ranking on the leaderboard - the higher the count, the closer to the `0` index in the array.
       This should exactly match the value found in the corresponding player stats. This duplication of data is a lesser evil, because if `wonCount` was missing you would have to access the player stats to sort the leaderboard.
     * `dateAdded` indicates when the player's `wonCount` was last updated and determines the ranking when there is a tie in `wonCount` - the more recent, the closer to the `0` slot in the array.
+    
+    </HighlightBox>
 
 3. Add a structure for **the leaderboard**: there is a single stored leaderboard for the whole application. Let Ignite CLI help you implement a structure:
 
@@ -132,6 +134,7 @@ To give the new v2 information a data structure, you need the following:
     ```
 
     This creates a Protobuf file that you update with your preferred type and its `import`. Again, remove the `creator`:
+
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/proto/checkers/leaderboard.proto#L9-L11]
     import "checkers/winning_player.proto";
@@ -221,6 +224,7 @@ func (k *Keeper) MustAddForfeitedGameResultToPlayer(ctx sdk.Context, player sdk.
 
 Which player should get `+1`, and on what count? You need to identify the loser and the winner of a game to determine this. Create another private helper:
 
+
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/keeper/player_info_handler.go#L47-L69]
 func getWinnerAndLoserAddresses(storedGame *types.StoredGame) (winnerAddress sdk.AccAddress, loserAddress sdk.AccAddress) {
     if storedGame.Winner == rules.NO_PLAYER.Color {
@@ -263,7 +267,11 @@ func (k *Keeper) MustRegisterPlayerForfeit(ctx sdk.Context, storedGame *types.St
 }
 ```
 
-Note the two new error types [`ErrThereIsNoWinner`](https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/errors.go#L31) and [`ErrWinnerNotParseable`](https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/errors.go#L30).
+<HighlightBox type="note">
+    
+Be aware of the two new error types [`ErrThereIsNoWinner`](https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/errors.go#L31) and [`ErrWinnerNotParseable`](https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/errors.go#L30).
+    
+</HighlightBox>
 
 </ExpansionPanel>
 
@@ -427,6 +435,7 @@ Test in descending order first for scores and then for the added dates. Note tha
 
 When migrating the genesis more than one candidate will be added. Therefore, add a first helper on the de-serialized elements:
 
+
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/full_leaderboard.go#L85-L92]
 func AddParsedCandidatesAndSort(parsedWinners []*winningPlayerParsed, candidates []*winningPlayerParsed) (updated []*winningPlayerParsed) {
     updated = append(parsedWinners, candidates...)
@@ -493,7 +502,11 @@ func (k *Keeper) MustAddToLeaderboard(ctx sdk.Context, winnerInfo types.PlayerIn
 }
 ```
 
-Note the new error [`ErrCannotAddToLeaderboard`](https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/errors.go#L33).
+<HighlightBox type="note">
+
+Be aware of the new error [`ErrCannotAddToLeaderboard`](https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/errors.go#L33).
+
+</HighlightBox>
 
 This completes most of the leaderboard preparation. The only task left is to call your new functions at the right junctures:
 
@@ -620,7 +633,7 @@ func CreateLeaderboardForGenesis() *types.Leaderboard {
 }
 ```
 
-Time to write the function that adds _k_ candidates, sorts that intermediate result, and clips it, before adding further candidates:
+Now write the function that adds _k_ candidates, sorts that intermediate result, and clips it, before adding further candidates:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/migrations/v1tov2/leaderboard_builder.go#L22-L33]
 func PopulateLeaderboardWith(leaderboard *types.Leaderboard, additionalPlayers *map[string]*types.PlayerInfo, now time.Time) (err error) {
@@ -663,10 +676,10 @@ func (genesisV1 GenesisStateV1) Convert(now time.Time) (genesis *types.GenesisSt
 }
 ```
 
-
 ## Next up
 
 Your checkers blockchain is done! It has a leaderboard, which was introduced later in production thanks to migrations.
 
-Next is the final section of this course, and a chance to explore another helpful tool for working with the Cosmos SDK: [CosmWasm](./cosmwasm.md).
-<!-- Now it is time to explore two other helpful tools for working with the Cosmos SDK: [CosmJS](./cosmjs.md) and [CosmWasm](./cosmwasm.md). Begin with [CosmJS](./cosmjs.md). -->
+You no doubt have many ideas about how to improve it. In particular, you could implement the missing _draw_ mechanism, which in effect has to be accepted by both players.
+
+It is time to move away from the checkers blockchain learning exercise, and explore another helpful tool for working with the Cosmos SDK: [CosmWasm](./cosmwasm.md).
