@@ -60,13 +60,13 @@ $ rustc --version
 If you already installed the Rust toolchain, you can update your installation by running:
 
 ```
-rustup update
+$ rustup update
 ```
 
 To test the installation of Rust, you can use the following command:
 
 ```
-cargo version
+$ cargo version
 ```
 
 It displays the cargo version helps confirm proper installation.
