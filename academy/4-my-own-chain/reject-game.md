@@ -15,6 +15,13 @@ Before proceeding, make sure you have all you need:
 * You know how to [create a message](./create-message.md) with Ignite CLI, and code [its handling](./create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
 * Go is installed.
 * You have the checkers blockchain codebase with the previous messages and their events. If not, follow the [previous steps](./events.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/two-events).
+    
+In this section:
+    
+* Add a new protocol rule
+* Define custom errors
+* Add a message handler
+* Extend unit tests
 
 </HighlightBox>
 

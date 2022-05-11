@@ -14,6 +14,15 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [ABCI](../2-main-concepts/architecture.md), [Protobuf](../2-main-concepts/protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
 * Go is installed.
 * You have the checkers blockchain codebase with `MsgRejectGame` and its handling. If not, follow the [previous steps](./reject-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
+    
+In this section:
+    
+* The FIFO data structure
+* FIFO unit tests
+    
+You will learn:
+    
+* Modularity and data organization styles
 
 </HighlightBox>
 

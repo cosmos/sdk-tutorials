@@ -18,6 +18,14 @@ Before diving into the details of how Ignite CLI helps you scaffold the basics f
 * [Modules](../2-main-concepts/modules.md)
 * [Protobuf](../2-main-concepts/protobuf.md)
 * [BaseApp](../2-main-concepts/base-app.md)
+  
+In this section:
+  
+* Install Ignite CLI
+* Scaffold a blockchain
+* Use the CLI
+* Start the Ignite UI server
+* Send your first message
 
 You can follow a hands-on exercise for Ignite CLI in the sections that follow this introduction.
 

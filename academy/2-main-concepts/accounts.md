@@ -7,6 +7,17 @@ tag: deep-dive
 
 # Accounts
 
+<HighlightBox type="synopsis">
+    
+All about accounts in Cosmos. 
+    
+* What they are
+* How they are stored
+* Optional implementations
+* Cryptography foundations
+    
+</HighlightBox>
+
 An account is a pair of keys:
 
 * **`PubKey`:** a public key
