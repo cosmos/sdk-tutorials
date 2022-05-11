@@ -11,7 +11,7 @@ tag: deep-dive
 
 <HighlightBox type="docs">
 
-Installation instructions can be found [here](https://hermes.informal.systems/installation.html). Check the CLI commands with `hermes -h`. Alternatively, check out the [commands reference](https://hermes.informal.systems/commands/index.html) on the Hermes website.
+Installation instructions can be found [in the Hermes documentation from Informal Systems](https://hermes.informal.systems/installation.html). Check the CLI commands with `hermes -h`. Alternatively, check out the [commands reference](https://hermes.informal.systems/commands/index.html) on the Hermes website.
   
 </HighlightBox>
 
