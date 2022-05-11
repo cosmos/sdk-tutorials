@@ -29,3 +29,27 @@ The first time you open a Cosmos SDK project with it, it will offer to install a
 
 TODO
 To do the exercises, you may need to install Docker. Get it from [here](https://docs.docker.com/engine/install/).
+
+## Install Rust
+
+To work with Rust, you may need to install it first. You can find a well-documented install step-by-step in the [Install page from Rust](https://www.rust-lang.org/tools/install).
+
+To check that you are up-to-date run:
+
+```
+rustc --version
+```
+
+If you already installed the Rust toolchain, you can update your installation by running:
+
+```
+rustup update
+```
+
+To test the installation of Rust, you can use the following command:
+
+```
+cargo version
+```
+
+It displays the cargo version helps confirm proper installation.
