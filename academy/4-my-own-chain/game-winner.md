@@ -23,7 +23,11 @@ To be able to terminate games you need to identify games that have already been 
 * Or, the winner by forfeit, when a game is expired.
 * Or a neutral value when the game is active.
 
+<HighlightBox type="note">
+
 In this exercise a draw is not handled and it would require yet another value to save in _winner_.
+
+</HighlightBox>
 
 ## New information
 

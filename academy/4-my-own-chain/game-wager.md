@@ -114,9 +114,9 @@ Remember the only way to have access to a capability with the object-capability 
 
 Implement payment handling by having your keeper hold wagers in escrow while the game is being played. The `bank` module has functions to transfer tokens from any account to your module and vice-versa.
 
-<HighlightBox type="tip">
+<HighlightBox type="best-practice">
 
-It is best practice to to declare an interface that narrowly declares the functions from other modules that you expect for your module. The conventional file for these declarations is `x/checkers/types/expected_keepers.go`.
+Declare an interface that narrowly declares the functions from other modules that you expect for your module. The conventional file for these declarations is `x/checkers/types/expected_keepers.go`.
 
 </HighlightBox>
 
