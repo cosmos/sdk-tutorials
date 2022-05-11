@@ -48,9 +48,9 @@ CosmJS's modular structure lets developers import only the parts that are needed
 
 ## Packages
 
-CosmJS is a library that consists of many smaller npm packages within the
-[@cosmjs namespace](https://www.npmjs.com/org/cosmjs), a so called monorepo.
-Example packages include:
+CosmJS is a library that consists of many smaller npm packages within the [@cosmjs namespace](https://www.npmjs.com/org/cosmjs), a so called monorepo.
+Generally people will only be needing the `stargate` and `encoding` packages as they contains the main functionality to interact with Cosmos SDK chains version 0.40 and higher.
+Among many more, here are some examples packages:
 
 | Package                                                 | Description                                                                                                                                                                                                                              | Latest                                                                                                                                |
 | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -65,11 +65,13 @@ Example packages include:
 
 We're proud of the modularity and clean dependency tree in this monorepo. This ensures software quality on our side, and lets users pick exactly what they need and only what they need. The following diagram shows how everything fits together (every item is a npm package; right depends on left):
 
-![CosmJS dependency tree](images/cosmjs-tree.png)
+![CosmJS dependency tree](/academy/xl-cosmjs/images/cosmjs-tree.png)
 
-Continue reading for a hands-on developer exercise. The tutorial starts with downloading dependencies and proceeds through the steps of creating a simple user interface.
+Continue reading for a [hands-on developer exercise](./first-steps.md). The tutorial starts with downloading dependencies and proceeds through the steps of creating a simple user interface.
 
 <HighlightBox type="reading">
+
+Some additional reading or video material is available as well:
 
 * [HackAtom HCMC Workshop - CosmWasm/CosmJS: from zero to hero](https://www.youtube.com/watch?v=VTjiC4wcd7k)
 * [CosmJS GitHub repository](https://github.com/cosmos/CosmJS)

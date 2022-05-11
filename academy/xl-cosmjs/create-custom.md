@@ -1,19 +1,19 @@
 ---
-title: Create custom CosmJs interfaces
+title: Create custom CosmJS interfaces
 order: 4
 description: To work with your blockchain
 tag: deep-dive
 ---
 
-# Create custom CosmJs interfaces
+# Create custom CosmJS interfaces
 
-CosmJs comes out of the box with interfaces that connect with the standard Cosmos modules such as `bank` and `gov`. Since your own blockchain's modules are unique, they need custom CosmJs interfaces. That process consists of several steps:
+CosmJS comes out of the box with interfaces that connect with the standard Cosmos modules such as `bank` and `gov` and understand the way their state is serialized. Since your own blockchain's modules are unique, they need custom CosmJS interfaces. That process consists of several steps:
 
 1. Creating the Protobuf objects and clients in Typescript.
 2. Creating extensions that facilitate the use of the above clients.
 3. Any further level of abstraction that you deem useful for integration.
 
-This section assumes that you have a working Cosmos blockchain with its own modules, which is based on CosmJs version [`v0.28.3`](https://github.com/cosmos/cosmjs/tree/v0.28.3).
+This section assumes that you have a working Cosmos blockchain with its own modules. It is based on CosmJS version [`v0.28.3`](https://github.com/cosmos/cosmjs/tree/v0.28.3).
 
 ## Compiling the Protobuf objects and clients
 
@@ -147,7 +147,7 @@ export class MsgClientImpl implements Msg {
 
 The important points to remember from this are:
 
-1. `rpc: RPC` is an instance of a Protobuf RPC client that will be given to you by CosmJs. Although the interface appears to be [declared locally](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/tx.ts#L270-L272), this is the same interface found [throughout CosmJs](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/queryclient/utils.ts#L35-L37). It will be given to you [on construction](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/queryclient/queryclient.ts). At this point you do not need an implementation for it.
+1. `rpc: RPC` is an instance of a Protobuf RPC client that will be given to you by CosmJS. Although the interface appears to be [declared locally](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/tx.ts#L270-L272), this is the same interface found [throughout CosmJS](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/queryclient/utils.ts#L35-L37). It will be given to you [on construction](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/queryclient/queryclient.ts). At this point you do not need an implementation for it.
 2. You can see `encode` and `decode` in action. Notice the `.finish()` that flushes the Protobuf writer buffer.
 3. The `rpc.request` makes calls that will be correctly understood by the Protobuf compiled server on the other side.
 
@@ -164,7 +164,7 @@ Take inspiration from `cosmjs-types` [`codegen.sh`](https://github.com/confio/co
 
 ## Add convenience with types
 
-ComsJs provides an interface to which all the created types conform, [`TsProtoGeneratedType`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/proto-signing/src/registry.ts#L12-L18), which is itself a sub-type of [`GeneratedType`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/proto-signing/src/registry.ts#L32). In the same file, note the definition:
+CosmJS provides an interface to which all the created types conform, [`TsProtoGeneratedType`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/proto-signing/src/registry.ts#L12-L18), which is itself a sub-type of [`GeneratedType`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/proto-signing/src/registry.ts#L32). In the same file, note the definition:
 
 ```typescript [https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/proto-signing/src/registry.ts#L54-L57]
 export interface EncodeObject {
@@ -195,7 +195,7 @@ Save those along with `generated` in `./client/src/types/modules`.
 
 ### For messages
 
-Messages, sub-types of `Msg`, are assembled into transactions that are then sent to Tendermint. CosmJs types already include types for [transactions](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/tx/v1beta1/tx.ts#L12-L26). These are assembled, signed, and sent by the [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/fe34588/packages/stargate/src/signingstargateclient.ts#L276-L294) of CosmJs.
+Messages, sub-types of `Msg`, are assembled into transactions that are then sent to Tendermint. CosmJS types already include types for [transactions](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/tx/v1beta1/tx.ts#L12-L26). These are assembled, signed, and sent by the [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/fe34588/packages/stargate/src/signingstargateclient.ts#L276-L294) of CosmJS.
 
 The `Msg` kind will also need to be added to a registry. To facilitate that, you should prepare them in a nested array:
 

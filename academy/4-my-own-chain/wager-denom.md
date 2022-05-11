@@ -27,6 +27,8 @@ When you [introduced a wager](./game-wager.md) you enabled players to play a gam
 
 <HighlightBox type="info">
 
+<HighlightBox type="info">
+
 Your checkers application will be agnostic to tokens and relayers. Your only task is to enable the use of _foreign_ tokens.
 
 </HighlightBox>

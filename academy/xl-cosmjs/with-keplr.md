@@ -1,19 +1,19 @@
 ---
-title: "Bank - Send Tokens - with Keplr"
+title: "Sending Tokens with Keplr"
 order: 4
 description: Interacting with a Cosmos SDK chain through CosmJS and Keplr
 tag: deep-dive
 ---
 
-# Bank - Send Tokens - with Keplr
+# Sending Tokens with Keplr
 
-CosmJS allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJS to issue commands to the Cosmos Hub Testnet. Here, you will do the same but with a GUI and a Keplr flavor.
+CosmJS allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJS to issue commands to the Cosmos Hub Testnet. In this tutorial, you'll be working on a browser application that interacts with the Keplr extension.
 
-Optionally you can connect your locally-started Cosmos blockchain like `simd` and do the same.
+We will again be connecting to the Cosmos Hub testnet. You can optionally connect to your locally running Cosmos blockchain using `simapp` as explained [before](./first-steps.md).
 
-To keep the focus on CosmJS and Keplr, you are going to use ready-made pages created by the Next.js framework. Do not worry if you routinely use another framework, the CosmJS code is sufficiently identifiable.
+To keep the focus on CosmJS and Keplr, you are going to use ready-made pages created by the Next.js framework. Do not worry if you routinely use another framework, the CosmJS specific code in this tutorial can be applied similarly in Angular, Vue and other frameworks.
 
-## Create your simple Next.js project
+## Creating your simple Next.js project
 
 In your project folder create the ready-made Next.js app, which automatically places it in a subfolder for you. This follows [the docs](https://nextjs.org/docs):
 
@@ -33,11 +33,11 @@ ready - started server on 0.0.0.0:3000, url: http://localhost:3000
 ...
 ```
 
-You should see the result, a welcome page with links, in your browser. Next.js uses [React](https://reactjs.org/) under the hood.
+You should see the result, a welcome page with links, in your browser by visiting [http://localhost:3000](http://localhost:3000). Next.js uses [React](https://reactjs.org/) under the hood.
 
 ## HTML elements
 
-The goal of the exercise is to find balances, yours and the faucet's, and then have you send back some tokens to the faucet. Before introducing any CosmJS, you can create a React component that is almost ready for this purpose. By convention, put your component in a `/components` folder, as in the following example using `FaucetSender.tsx`:
+The goal of the exercise is to find token balances: yours and the faucet's, and then have you send back some tokens to the faucet. Before introducing any CosmJS, you can already create a React component that includes the basic user interface that you'll need. By convention, create a `/components` folder and then copy the code below inside a new file called `FaucetSender.tsx`:
 
 <ExpansionPanel title="FaucetSender.tsx">
 
@@ -60,6 +60,8 @@ export interface FaucetSenderProps {
 
 export class FaucetSender extends Component<FaucetSenderProps, FaucetSenderState> {
 
+    
+    // Set the initial state
     constructor(props:FaucetSenderProps) {
         super(props)
         this.state = {
@@ -71,37 +73,40 @@ export class FaucetSender extends Component<FaucetSenderProps, FaucetSenderState
         }
     }
 
+    // Store changed token amount to state
     onToSendChanged = (e: ChangeEvent<HTMLInputElement>) => this.setState({
         toSend: e.currentTarget.value
     })
 
+    // When the user clicks the "send to faucet button"
     onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
         alert("TODO")
     }
 
+    // The render function that draws the component at init and at state change
     render() {
         const { denom, faucetBalance, myAddress, myBalance, toSend } = this.state
         const { faucetAddress } = this.props
         console.log(toSend)
+        // The web page structure itself
         return <div>
-        <div className={styles.description}>Send back to the faucet</div>
-        <fieldset className={styles.card}>
-            <legend>Faucet</legend>
-            <p>Address: {faucetAddress}</p>
-            <p>Balance: {faucetBalance}</p>
-        </fieldset>
-        <fieldset className={styles.card}>
-            <legend>You</legend>
-            <p>Address: {myAddress}</p>
-            <p>Balance: {myBalance}</p>
-        </fieldset>
-        <fieldset className={styles.card}>
-            <legend>Send</legend>
-            <p>To faucet:</p>
-            <input value={toSend} type="number" onChange={this.onToSendChanged}/> {denom}
-            <button onClick={this.onSendClicked}>Send to faucet</button>
-        </fieldset>
-      </div>
+            <fieldset className={styles.card}>
+                <legend>Faucet</legend>
+                <p>Address: {faucetAddress}</p>
+                <p>Balance: {faucetBalance}</p>
+            </fieldset>
+            <fieldset className={styles.card}>
+                <legend>You</legend>
+                <p>Address: {myAddress}</p>
+                <p>Balance: {myBalance}</p>
+            </fieldset>
+            <fieldset className={styles.card}>
+                <legend>Send</legend>
+                <p>To faucet:</p>
+                <input value={toSend} type="number" onChange={this.onToSendChanged}/> {denom}
+                <button onClick={this.onSendClicked}>Send to faucet</button>
+            </fieldset>
+        </div>
     }
 }
 ```
@@ -114,9 +119,10 @@ Note:
 * It keeps a **state**, and this state is either updated by the user or will be updated after a fetch.
 * It reuses a default style you can find in `/styles`.
 
-The component is still unused. Put it inside `index.tsx`:
+The component is still unused. We don't need the default page that comes with create-next-app, so you can replace the contents of `index.tsx` with the following code that imports the new component:
 
 ```typescript
+import type { NextPage } from 'next'
 import { FaucetSender } from '../components/FaucetSender'
 
 const Home: NextPage = () => {
@@ -124,15 +130,17 @@ const Home: NextPage = () => {
     faucetAddress="cosmos15aptdqmm7ddgtcrjvc5hs988rlrkze40l4q0he"
     rpcUrl="https://rpc.sentry-01.theta-testnet.polypore.xyz" />
 }
+
+export default Home
 ```
 
-The faucet address was found in the [previous section](./first-steps.md).
+The faucet address was found in the [previous section](./first-steps.md), as well as the RPC endpoint that connects to the Cosmos Hub testnet.
 
 When `npm run dev` picks up the changes, you should see that your page has changed to what you created. In particular, it alerts you with "TODO" when you click on the button.
 
 Your page is not very useful yet, but you can make it more so.
 
-## Install CosmJS
+## Installing CosmJS
 
 Now that you have a working Next.js project and ready page, it is time to add the necessary CosmJS elements to the project:
 
@@ -140,11 +148,12 @@ Now that you have a working Next.js project and ready page, it is time to add th
 $ npm install @cosmjs/stargate cosmjs-types --save
 ```
 
-## Show what can be shown
+## Displaying information without user input
 
-When building a GUI, it is good practice to not ask your user's address until you have presumably gained their trust, or when it becomes necessary (e.g. if they click a relevant button). You should start by showing information that is knowable without user input. Here, this is `denom` and the faucet balance. Add a function for that:
+When building a user interface, it is good practice to not ask your user's address until it becomes necessary (e.g. if they click a relevant button). You should start by showing information that is knowable without user input. In our case, this is the token `denom` (denomination) and the faucet's balance. Add the following function that gets the balance from the faucet and place it above the `onToSendChanged` function inside `FaucetSender.tsx`:
 
 ```typescript
+// Get the faucet's balance
 updateFaucetBalance = async(client: StargateClient) => {
     const balances: readonly Coin[] = await client.getAllBalances(this.props.faucetAddress)
     const first: Coin = balances[0]
@@ -155,7 +164,7 @@ updateFaucetBalance = async(client: StargateClient) => {
 }
 ```
 
-Note that it only cares about the first coin type: this is to keep the exercise simple. It extracts the `denom`, which is then displayed to the user as the unit to transfer. Add that in the constructor as well so that it runs on load via another specific function:
+Note that it only cares about the first coin type stored in `balances[0]`: this is to keep the exercise simple, but there could be multiple coins in that array of balances. It extracts the `denom`, which is then displayed to the user as the unit to transfer. Add the denom that in the constructor as well so that it runs on load via another specific function:
 
 ```typescript
 constructor(props:FaucetSenderProps) {
@@ -166,23 +175,23 @@ constructor(props:FaucetSenderProps) {
 init = async() => this.updateFaucetBalance(await StargateClient.connect(this.props.rpcUrl))
 ```
 
-After `run dev` picks the changes, you should see that your page starts showing relevant information.
+After `run dev` picks the changes, you should see that your page starts showing the relevant information.
 
 Now, add elements that will handle your user's information.
 
-## Get test tokens
+## Getting testnet tokens
 
-Refer to the previous section on how to [get Cosmos Hub Testnet tokens](./first-steps.md). This time, you use your Keplr address. It is the same one that Keplr shows you for Cosmos Hub.
+Refer to the previous section on how to [get Cosmos Hub Testnet tokens](./first-steps.md). This time you should use your Keplr address. If you haven't set up one yet, you can do so now. Your Cosmos Hub testnet address is the same one that Keplr shows you for the Cosmos Hub mainnet.
 
-## Detect Keplr
+## Detecting Keplr
 
-Following [Keplr's documentation](https://docs.keplr.app/api/#how-to-detect-keplr), it is time to add a function to see if Keplr is installed on the browser. For convenience and type hinting, install the Typescript Keplr types:
+Following [Keplr's documentation](https://docs.keplr.app/api/#how-to-detect-keplr), it is time to add a function to see if Keplr is installed on the browser. For convenience and type hinting, install the Typescript Keplr types from within the folder of your project:
 
 ```sh
 $ npm install @keplr-wallet/types --save-dev
 ```
 
-And inform Typescript that `window` may have a `.keplr` field with the help of [this helper](https://github.com/chainapsis/keplr-wallet/tree/master/docs/api#keplr-specific-features), by adding it to `FaucetSender.tsx`:
+After this package is installed, inform Typescript that `window` may have a `.keplr` field with the help of [this helper](https://github.com/chainapsis/keplr-wallet/tree/master/docs/api#keplr-specific-features), by adding it below your imports to `FaucetSender.tsx`:
 
 ```typescript
 import { Window as KeplrWindow } from "@keplr-wallet/types";
@@ -192,7 +201,7 @@ declare global {
 }
 ```
 
-Detecting Keplr can be done at any time, but do it in `onSendClicked` to keep the number of functions low for this exercise. If you checked in `init`, you would risk annoying users who want to check your page incognito.
+Detecting Keplr can be done at any time, but in our case we do it in `onSendClicked` to keep the number of functions low for this exercise. You want to avoid detecting Keplr on page load if not absolutely necessary. This is generally considered bad user experience for users who might just want to browse your page and not interact with it. Replace the `onSendClicked` with the following:
 
 ```typescript
 onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
@@ -208,7 +217,7 @@ Hopefully, when you click on the button it does not show an alert. It does not d
 
 ## Prepare Keplr
 
-Keplr is now detected. By default, Keplr lets its user connect only to the blockchains it knows about. Unfortunately Cosmos Hub Testnet is not one of them, but there is a feature where you can instruct it to handle any Cosmos blockchain provided you give its parameters. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Cosmos Hub Testnet these parameters have already been created, as mentioned on the [testnet page](https://github.com/cosmos/testnets/tree/master/v7-theta#add-to-keplr-1). Add a new function for them as shown in the expandable box:
+Keplr is now detected. By default, Keplr lets its users only connect to the blockchains it knows about. Unfortunately, the Cosmos Hub testnet is not one of them, but there is a feature where you can instruct it to handle any Cosmos blockchain, provided you give its parameters. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Cosmos Hub Testnet, these parameters are available, as mentioned on the [testnet page](https://github.com/cosmos/testnets/tree/master/v7-theta#add-to-keplr-1). Add a new function for them as shown in the expandable box:
 
 <ExpansionPanel title="getTestnetChainInfo">
 
@@ -283,15 +292,21 @@ getTestnetChainInfo = (): ChainInfo => ({
 
 </ExpansionPanel>
 
-Note that it mentions the `chainId: "theta-testnet-001"`. In effect, this adds Cosmos Hub Testnet to Keplr's registry of blockchains, under the label `theta-testnet-001`. Whenever you need to tell Keplr about Cosmos Hub Testnet, add the line:
+You'll need to add another import from the `@keplr-wallet` package so that your script understands what `ChainInfo` is:
+
+```typescript
+import { ChainInfo, Window as KeplrWindow } from "@keplr-wallet/types"
+```
+
+Note that it mentions the `chainId: "theta-testnet-001"`. In effect, this adds the Cosmos Hub testnet to Keplr's registry of blockchains, under the label `theta-testnet-001`. Whenever you want to prompt the user to add the Cosmos Hub Testnet to Keplr, add the line:
 
 ```typescript
 await window.keplr!.experimentalSuggestChain(this.getTestnetChainInfo())
 ```
 
-This needs to be done once, but repeating the line is not problematic.
+This needs to be done once, which in our case is in the `onSendClicked` function after having detected Keplr, but repeating the line elsewhere is generally not a problem.
 
-Keplr is now detected and prepared. Now have it do something interesting.
+Keplr is now detected and prepared. Now let's try to do something useful with the user's information.
 
 ## Your address and balance
 
@@ -304,26 +319,36 @@ In `onSendClicked`, similar to the previous section, you can:
 5. Send the requested coins to the faucet.
 6. Inform and update.
 
-In practice:
+In practice, the code for `onSendClicked` looks like this:
 
 ```typescript
 onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
-    ...
+    // Detect Keplr
+    const { keplr } = window
+    if (!keplr) {
+        alert("You need to install Keplr")
+        return
+    }
+    // Get the current state and amount of tokens that we want to transfer
     const { denom, toSend } = this.state
     const { faucetAddress, rpcUrl } = this.props
+    // Suggest the testnet chain to Keplr
     await keplr.experimentalSuggestChain(this.getTestnetChainInfo())
+    // Create the signing client
     const offlineSigner: OfflineSigner =
         window.getOfflineSigner!("theta-testnet-001")
     const signingClient = await SigningStargateClient.connectWithSigner(
         rpcUrl,
         offlineSigner,
     )
+    // Get the address and balance of your user
     const account: AccountData = (await offlineSigner.getAccounts())[0]
     this.setState({
         myAddress: account.address,
         myBalance: (await signingClient.getBalance(account.address, denom))
             .amount,
     })
+    // Submit the transaction to send tokens to the faucet
     const sendResult = await signingClient.sendTokens(
         account.address,
         faucetAddress,
@@ -338,7 +363,9 @@ onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
             gas: "200000",
         },
     )
+    // Print the result to the console
     console.log(sendResult)
+    // Update the balance in the user interface
     this.setState({
         myBalance: (await signingClient.getBalance(account.address, denom))
             .amount,
@@ -351,24 +378,22 @@ onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
 
 Note:
 
-* Keplr is tasked with signing only.
-* The transactions are broadcast with the RPC end point of your choice.
+* Keplr is only tasked with signing transactions.
+* The transactions are broadcast with the RPC endpoint of your choice.
 
-These functions could be better delineated, but this big function does the job in a readable manner.
-
-Now run it. In the refreshed page, enter an amount of `uatom` (for example `1000000`) and click <kbd>Send to faucet</kbd>. The chain of events is launched:
+Now let's run the full script. In the refreshed page, enter an amount of `uatom` (for example `1000000`) and click <kbd>Send to faucet</kbd>. A number of events happen:
 
 1. Keplr asks for confirmation that you agree to add the Testnet network. It will not install any network without your approval, as that would be a security risk. It asks this only the first time you add a given network, which is why doing it in `onSendClicked` is harmless.
-    ![Keplr asking for permission to add Testnet network](/keplr_testnet_addition.png)
+    ![Keplr asking for permission to add Testnet network](/academy/xl-cosmjs/images/keplr_testnet_addition.png)
 2. Keplr asks whether you agree to share your account information, because this involves a potential security risk. Again, it asks this only once per web page + network combination.
-    ![Keplr asking for permission to share your account information](/keplr_share_account.png)
+    ![Keplr asking for permission to share your account information](/academy/xl-cosmjs/images/keplr_share_account.png)
 3. Your address and balance fields are updated and visible.
 4. Keplr asks whether you agree to sign the transaction, a very important action that requires approval **every time**.
-    ![Keplr asking for confirmation on the transaction](/keplr_send_to_faucet.png)
+    ![Keplr asking for confirmation on the transaction](/academy/xl-cosmjs/images/keplr_send_to_faucet.png)
 
 After this is done, your balance updates again, and in the browser console you see the transaction result.
 
-For the avoidance of doubt, the full file appears in the expandable box below:
+If you want to double check if you got everything right, you can find the full component's code in the expandable box below:
 
 <ExpansionPanel title="Final FaucetSender.tsx file">
 
@@ -400,6 +425,7 @@ export class FaucetSender extends Component<
     FaucetSenderProps,
     FaucetSenderState
 > {
+    // Set the initial state
     constructor(props: FaucetSenderProps) {
         super(props)
         this.state = {
@@ -412,11 +438,13 @@ export class FaucetSender extends Component<
         setTimeout(this.init, 500)
     }
 
+    // Connecting to the endpoint to fetch the faucet balance
     init = async () =>
         this.updateFaucetBalance(
             await StargateClient.connect(this.props.rpcUrl),
         )
 
+    // Get the faucet's balance
     updateFaucetBalance = async (client: StargateClient) => {
         const balances: readonly Coin[] = await client.getAllBalances(
             this.props.faucetAddress,
@@ -428,32 +456,40 @@ export class FaucetSender extends Component<
         })
     }
 
+    // Store changed token amount to state
     onToSendChanged = (e: ChangeEvent<HTMLInputElement>) =>
         this.setState({
             toSend: e.currentTarget.value,
         })
 
+    // When the user clicks the "send to faucet button"
     onSendClicked = async (e: MouseEvent<HTMLButtonElement>) => {
+        // Detect Keplr
         const { keplr } = window
         if (!keplr) {
             alert("You need to install Keplr")
             return
         }
+        // Get the current state and amount of tokens that we want to transfer
         const { denom, toSend } = this.state
         const { faucetAddress, rpcUrl } = this.props
+        // Suggest the testnet chain to Keplr
         await keplr.experimentalSuggestChain(this.getTestnetChainInfo())
+        // Create the signing client
         const offlineSigner: OfflineSigner =
             window.getOfflineSigner!("theta-testnet-001")
         const signingClient = await SigningStargateClient.connectWithSigner(
             rpcUrl,
             offlineSigner,
         )
+        // Get the address and balance of your user
         const account: AccountData = (await offlineSigner.getAccounts())[0]
         this.setState({
             myAddress: account.address,
             myBalance: (await signingClient.getBalance(account.address, denom))
                 .amount,
         })
+        // Submit the transaction to send tokens to the faucet
         const sendResult = await signingClient.sendTokens(
             account.address,
             faucetAddress,
@@ -468,7 +504,9 @@ export class FaucetSender extends Component<
                 gas: "200000",
             },
         )
+        // Print the result to the console
         console.log(sendResult)
+        // Update the balance in the user interface
         this.setState({
             myBalance: (await signingClient.getBalance(account.address, denom))
                 .amount,
@@ -478,6 +516,7 @@ export class FaucetSender extends Component<
         })
     }
 
+    // The Cosmos Hub testnet chain parameters
     getTestnetChainInfo = (): ChainInfo => ({
         chainId: "theta-testnet-001",
         chainName: "theta-testnet-001",
@@ -545,15 +584,14 @@ export class FaucetSender extends Component<
         features: ["stargate", "ibc-transfer", "no-legacy-stdTx"],
     })
 
+    // The render function that draws the component at init and at state change
     render() {
         const { denom, faucetBalance, myAddress, myBalance, toSend } =
             this.state
         const { faucetAddress } = this.props
+        // The web page structure itself
         return (
             <div>
-                <div className={styles.description}>
-                    Send back to the faucet
-                </div>
                 <fieldset className={styles.card}>
                     <legend>Faucet</legend>
                     <p>Address: {faucetAddress}</p>
@@ -591,4 +629,4 @@ Keplr does not know about locally running chains by default. As you did with Cos
 
 ## Conclusion
 
-You have how updated your CosmJS GUI so that it integrates with Keplr.
+You have how updated your CosmJS front-end so that it integrates with Keplr.

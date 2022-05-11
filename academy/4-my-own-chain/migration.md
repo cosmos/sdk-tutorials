@@ -686,9 +686,4 @@ Your checkers blockchain is done! It has a leaderboard, which was introduced lat
 
 You no doubt have many ideas about how to improve it. In particular, you could implement the missing _draw_ mechanism, which in effect has to be accepted by both players.
 
-It is time to move away from the checkers blockchain learning exercise, and explore two other helpful tools for working with the Cosmos SDK:
-
-* [CosmJS](./cosmjs.md), which you used under the hood when using Ignite CLI.
-* [CosmWasm](./cosmwasm.md), a cross-chain smart-contract solution.
-
-Begin with CosmJS in the [next section](./cosmjs.md).
+It is time to move away from the checkers blockchain learning exercise, and explore another helpful tool for working with the Cosmos SDK: [CosmWasm](./cosmwasm.md).

@@ -36,6 +36,8 @@ Eventually you want to let players wager on the outcome of games, so you do not 
 
 <HighlightBox type="info">
 
+<HighlightBox type="info">
+
 The simplest mechanism to expire a game is to use a **deadline**. If the deadline is reached, then the game is forcibly terminated and expires. The deadline is pushed further back every time a game is played.
 
 </HighlightBox>

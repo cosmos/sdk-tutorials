@@ -77,7 +77,11 @@ Alice and Bob are communicating. Alice wants to make sure that Bob's public anno
 
 Alice can verify the source of the announcement by checking if the signature was done with the private key that corresponds to Bob’s public key (which is already known to represent Bob).
 
+<HighlightBox type="info">
+    
 Private keys are used to **prove** that messages originate from the owners of accounts known by their public keys: the signatures **prove** that messages were signed by someone that knows the private key that corresponds to a given public key. This is the basis of user authentication in a blockchain, and why private keys are strictly guarded secrets.
+    
+</HighlightBox>
 
 <ExpansionPanel title="How to manage multiple key pairs over multiple blockchains with hierarchical-deterministic wallets">
 
