@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-In this section:
+In this section you will dive into the various functions and features of making transactions in Cosmos:
     
 * Transactions and Messages
 * Signing Transactions

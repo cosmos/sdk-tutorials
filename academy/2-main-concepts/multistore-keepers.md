@@ -18,7 +18,7 @@ Look at the following sections before you begin:
 * [Modules](./modules.md)
 * [Protobuf](./protobuf.md)
 
-You can find a code example for your checkers blockchain at the end of the section to explore dealing with storage elements, message handling, and gas costs.
+You can find a code example for your checkers blockchain at the end of the section that explores dealing with storage elements, message handling, and gas costs.
 
 </HighlightBox>
 
@@ -154,7 +154,7 @@ The `AnteHandler` is theoretically optional but still a very important component
 
 `BaseApp` holds an `AnteHandler` as a parameter that is initialized in the application's constructor. The most widely used `AnteHandler` is the auth module.
 
-<HighlightBox type="readinng">
+<HighlightBox type="reading">
 
 For more information on the subject, see the following resources:
 
@@ -165,7 +165,7 @@ For more information on the subject, see the following resources:
 
 ## Next up
 
-In the [next section](./base-app.md), you will find more information on `BaseApp` and its role in the Cosmos SDK.
+In the [next section](./base-app.md) you will find more information on `BaseApp` and its role in the Cosmos SDK.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 

@@ -9,7 +9,9 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-It is time to look at context in the Cosmos SDK. It is recommended to first read the following sections to better understand context:
+`Context` is the setting in which transactions execute, and is the sum of all pertinent information at runtime. Here you will find out what transaction context means in detail and learn more about the important elements that together form the execution context.
+
+It is recommended to first read the following sections to better understand context:
 
 * [Transactions](./transactions.md)
 * [Messages](./messages.md)
@@ -17,8 +19,6 @@ It is time to look at context in the Cosmos SDK. It is recommended to first read
 * [BaseApp](./base-app.md)
 * [Queries](./queries.md)
 * [Events](./events.md)
-
-Context is the setting in which transactions execute, and is the sum of all pertinent information at runtime. Find out what transaction context means in detail and learn more about the important elements that together form the execution context.
 
 </HighlightBox>
 
