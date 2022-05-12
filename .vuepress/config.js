@@ -641,13 +641,13 @@ module.exports = {
     [
       "@vuepress/google-analytics",
       {
-        ga: "UA-51029217-2",
+        ga: "UA-62891515-12",
       }
     ],
     [
       "vuepress-plugin-google-tag-manager",
       {
-        gtm: "UA-51029217-2",
+        gtm: "G-KZ2X8K22XG",
       }
     ],
     [
