@@ -142,7 +142,7 @@ These two functions must exactly match the functions declared in the [`bank`'s k
 
 ## Obtaining the capability
 
-With your requirements declared it is time to make sure your keeper receives a reference to a bank keeper. First, add a `BankKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
+With your requirements declared, it is time to make sure your keeper receives a reference to a bank keeper. First add a `BankKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/keeper.go#L16]
 type (
@@ -188,6 +188,24 @@ maccPerms = map[string][]string{
 ```
 
 It is only keeping funds in escrow and not minting or burning, hence the `nil`.
+
+One last step. Before your module can keep money in escrow, it needs to be **whitelisted** by the bank module. You do this in the `maccperms`:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/app.go#L154]
+maccPerms = map[string][]string{
+    ...
+    checkersmoduletypes.ModuleName: nil,
+}
+```
+
+If you compare it to the other `maccperms` lines, the new line does not mention any `authtypes.Minter` or `authtypes.Burner`. Indeed `nil` is what you need to keep in escrow. For your information, the bank creates an _address_ for your module's escrow account. When you have the full `app`, you can access it with:
+
+```go
+import(
+    "github.com/alice/checkers/x/checkers/types"
+)
+checkersModuleAddress := app.AccountKeeper.GetModuleAddress(types.ModuleName)
+```
 
 One last step. Before your module can keep money in escrow, it needs to be **whitelisted** by the bank module. You do this in the `maccperms`:
 
@@ -326,6 +344,8 @@ Now set up collecting a wager, paying winnings, and refunding a wager:
     ```
 
     If the module cannot pay, then there is a panic as the escrow has failed.
+
+You will notice that no special case is made when the wager is zero. This is a design choice here, and which way you choose to go is up to you. Not contacting the bank unnecessarily is cheaper in gas. On the other hand, why not outsource the zero check to the bank?
 
 You will notice that no special case is made when the wager is zero. This is a design choice here, and which way you choose to go is up to you. Not contacting the bank unnecessarily is cheaper in gas. On the other hand, why not outsource the zero check to the bank?
 
@@ -693,7 +713,7 @@ How you subdivide your tests and where you insert these balance checks is up to 
 
 You learned in a [previous section](./stored-game.md) how to launch your test in debug mode. It is still possible to do so when using a suite. The difference is that you launch it by right-clicking on the arrow left of the suite's runner `func TestCheckersKeeperTestSuite`:
 
-![Suite runner with green button](/go_test_debug_suite.png)
+![Suite runner with green button](/academy/4-my-own-chain/images/go_test_debug_suite.png)
 
 Note that you can only launch debug for all of the suite's test methods and not just a single one (as is possible with a simple test). A solution to this is to create more granular suites, for example using one or more test suites per file.
 
