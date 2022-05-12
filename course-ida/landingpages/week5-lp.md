@@ -26,4 +26,4 @@ This chapter is all about CosmJS. You will:
 
 **The submission of this quiz is required to continue with the program.** The submission of this exercise is not mandatory, but is highly recommended. These exercises will help you practice and prepare for the final exam.
 
-![Planet and building blocks image](/course-ida/landingpages/images/planet-pod.svg)
+![Planet and building blocks image](/planet-pod.svg)

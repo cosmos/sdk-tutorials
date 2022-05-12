@@ -25,4 +25,4 @@ In this first chapter, you will:
 
 </HighlightBox>
 
-![Planet image](/course-ida/landingpages/images/planets-large.svg)
+![Planet image](/planets-large.svg)
