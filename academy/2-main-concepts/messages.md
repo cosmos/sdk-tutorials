@@ -133,7 +133,7 @@ $ ignite scaffold message createGame red black --module checkers --response idVa
 
 <HighlightBox type="info">
 
-Ignite CLI creates a variety of other files. See [My Own Chain](../4-my-own-chain/index.md) for details, and to make additions to existing files.
+Ignite CLI creates a variety of other files. See [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md) for details, and to make additions to existing files.
 
 </HighlightBox>
 
@@ -198,8 +198,9 @@ Your work is mostly done. You will want to create the specific game creation cod
 
     <HighlightBox type="info">
 
-    For more details, and to avoid diving too deep in this section, see [My Own Chain](../4-my-own-chain/index.md).
-
+    For more details, and to avoid diving too deep in this section, see [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md)
+      
+      
     </HighlightBox>
 
 2. Extract and verify addresses, such as:
@@ -310,7 +311,7 @@ There are no _open_ challenges, meaning a player cannot create a game where the 
 
 <HighlightBox type="tip">
 
-If you would like to get started on building your own checkers game, you can go straight to the main exercise in [My Own Chain](../4-my-own-chain/index.md).
+If you would like to get started on building your own checkers game, you can go straight to the main exercise in [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
 
 </HighlightBox>
 

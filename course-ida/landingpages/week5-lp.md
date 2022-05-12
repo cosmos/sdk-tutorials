@@ -22,8 +22,5 @@ This chapter is all about CosmJS. You will:
 
 </HighlightBox>
 
-**This week, make sure to submit your exercise by June 17th.**
-
-**The submission of this quiz is required to continue with the program.** The submission of this exercise is not mandatory, but is highly recommended. These exercises will help you practice and prepare for the final exam.
 
 ![Planet and building blocks image](/planet-pod.svg)

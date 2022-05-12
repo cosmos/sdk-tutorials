@@ -88,4 +88,5 @@ Do you want to dive deeper when it comes to bridges? Here are some helpful resou
 
 ## Next up
 
-You will discover more on running a node in the [next chapter](../3-running-a-chain/index.md) before working on [your own chain](../4-my-own-chain/index.md).
+You will discover more on running a node in [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
+<!-- insert link to Week 2 -->

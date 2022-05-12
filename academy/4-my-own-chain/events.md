@@ -154,7 +154,7 @@ How can you _guess_ the order of elements? Easily, as you created them in this o
 2. Run this test in **debug mode**: right-click the green arrow next to the test name.
 3. Observe the live values on the left.
 
-![Live values of event in debug mode](/academy/4-my-own-chain/images/go_test_debug_event_attributes.PNG)
+![Live values of event in debug mode](/academy/4-my-own-chain/images/go_test_debug_event_attributes.png)
 
 The event emitted during a move may seem unexpected. In a _move_ unit test, two actions occur: a _create_, and a _move_. However, in the setup of this test you do not create blocks but _only_ hit your keeper. Therefore the context collects events but does not flush them. This is why you need to test only for the latter attributes, and verify an array slice that discards events that originate from the _create_ action: `event.Attributes[6:]`. This gives the following test:
 

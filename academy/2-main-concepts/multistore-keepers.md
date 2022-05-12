@@ -36,7 +36,7 @@ A keeper can be thought of as the literal gatekeeper of a module's stores. Each 
 
 When a module needs to interact with the state defined in another module, it does so by interacting with the methods of the other module’s keeper. Developers control the interactions their module can have with other modules by defining methods and controlling access.
 
-![Keepers in the Cosmos SDK](/academy/2-main-concepts/images//keeper.png)
+![Keepers in the Cosmos SDK](/academy/2-main-concepts/images/keeper.png)
 
 ## Format
 
@@ -287,8 +287,9 @@ $ ignite scaffold map storedGame game turn red black wager:uint --module checker
 
 <HighlightBox type="tip">
 
-To create the above boilerplate in your module, you can use Ignite CLI. Go to [My Own Chain](../4-my-own-chain/index.md) for more on Ignite CLI, and if you want to go beyond out-of-context code samples to see more in detail how to define these features.
+To create the above boilerplate in your module, you can use Ignite CLI. Go to [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md), for more on Ignite CLI, and if you want to go beyond out-of-context code samples to see more in detail how to define these features.
 
+    
 </HighlightBox>
 
 ## Other storage elements
