@@ -199,4 +199,4 @@ The most straightforward way to use IBC is to build a chain with the Cosmos SDK,
 
 ## Next up
 
-On your way to becoming a Cosmos SDK developer expert in IBC? In the next section, you can dive even deeper and discover information on how to develop with IBC.
+On your way to becoming a Cosmos SDK developer expert in IBC? Dive even deeper and discover how to develop with IBC.
