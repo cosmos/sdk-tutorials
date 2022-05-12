@@ -7,7 +7,7 @@ tag: deep-dive
 
 # CosmWasm
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Discover how multi-chain smart contracts become possible with CosmWasm. The following sections are recommended as a preparation:
 

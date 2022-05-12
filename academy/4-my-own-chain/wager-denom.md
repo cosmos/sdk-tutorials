@@ -7,7 +7,7 @@ tag: deep-dive
 
 # IBC Token - Play With Cross-Chain Tokens
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have all you need before proceeding:
 
@@ -15,11 +15,15 @@ Make sure you have all you need before proceeding:
 * Go is installed.
 * You have the checkers blockchain codebase up to the _can play_ query. If not, follow the [previous steps](./can-play.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
     
-In this section:
-    
-* Discover the Inter-Blockchain Protocol
-* Accept wagers with tokens from other chains
-* Refactor integration tests
+</HighlightBox>
+
+<HighlightBox type="synopsis">
+
+In this section, you will:
+
+* Discover the Inter-Blockchain Communication Protocol.
+* Accept wagers with tokens from other chains.
+* Refactor integration tests.
 
 </HighlightBox>
 

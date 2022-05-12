@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Store Field - Record the Game Winner
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have everything you need before proceeding:
 
@@ -15,10 +15,14 @@ Make sure you have everything you need before proceeding:
 * Go is installed.
 * You have the checkers blockchain codebase with the deadline field and its handling. If not, follow the [previous steps](./game-deadline.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-deadline).
     
-In this section:
+</HighlightBox>
+
+<HighlightBox type="synopsis">
+
+In this section, you will:
     
-* Check for a game winner
-* Extend unit tests
+* Check for a game winner.
+* Extend unit tests.
 
 </HighlightBox>
 

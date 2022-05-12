@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Query - Help Find a Correct Move
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have everything you need before proceeding:
 
@@ -15,10 +15,14 @@ Make sure you have everything you need before proceeding:
 * You have Go installed.
 * You have the checkers blockchain codebase up to gas metering. If not, follow the [previous steps](./gas-meter.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
     
-In this section:
-    
-* Improve usability with queries
-* Create a battery of integration tests
+</HighlightBox>
+
+<HighlightBox type="synopsis">
+
+In this section, you will:
+
+* Improve usability with queries.
+* Create a battery of integration tests.
 
 </HighlightBox>
 
