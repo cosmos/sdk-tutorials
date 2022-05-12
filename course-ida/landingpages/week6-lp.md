@@ -26,4 +26,4 @@ In this chapter, you will:
 
 <!-- You can find detailed information on the exam and its submission here. -->
 
-![Green planet with surface structure image](/course-ida/landingpages/images/green-planet.svg)
+![Green planet with surface structure image](/green-planet.svg)
