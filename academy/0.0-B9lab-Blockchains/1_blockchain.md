@@ -5,6 +5,8 @@ description: A universe to discover
 tag: fast-track
 ---
 
+# Blockchain 101
+
 This first chapter demystifies the foundations of blockchain technology. This background information will be important as you progress through the course. 
 
 <HighlightBox type="info">
