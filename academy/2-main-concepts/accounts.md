@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Accounts
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
     
 In this section you are going to learn all about accounts in Cosmos: 
     

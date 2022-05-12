@@ -9,15 +9,10 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Transferring tokens between chains is both a common requirement and a significant technical challenge when the two chains are incompatible. Cosmos includes an elegant solution for cross-chain communication of all kinds. And, as you might expect, a convenient solution for moving tokens between chains. 
+Transferring tokens between chains is both a common requirement and a significant technical challenge when two chains are incompatible, and as you might expect, a convenient solution for moving tokens between chains.
 
-In this section: 
-  
-* Inter-Blockchain Protocol components
-* Authentication and transport
-* Protocol technical references
-* Fungible token transfer code
-  
+In this section, you will explore how a fungible token transfer can be done with IBC.
+
 </HighlightBox>
 
 Having looked at IBC's transport, authentication, and ordering layer (IBC/TAO), you can now take a look at [ICS-20](https://github.com/cosmos/ibc/blob/master/spec/app/ics-020-fungible-token-transfer/README.md). ICS-20 describes **fungible token transfers**. 

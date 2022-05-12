@@ -7,16 +7,26 @@ tag: deep-dive
 
 # Go Relayer
 
+<HighlightBox type="prerequisite">
+
+Before you dive into Go relayers, make sure to:
+
+* Install Go.
+* Install Docker.
+* Install Rust.
+
+For all installations, please see the [setup page](../course-ida/setup.md).
+
+</HighlightBox>
+
 <HighlightBox type="synopsis">
 
 Have you considered running a relayer?
    
-In this section:
-   
-* Installation and getting started
-* Relayer commands
-* Relaying in production
-* Testing your relay
+In this section, you will learn:
+
+* How to get started with the Go relayer
+* Basic Go relayer commands
    
 </HighlightBox>
 

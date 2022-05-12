@@ -9,15 +9,13 @@ tag: fast-track
 
 <HighlightBox type="synopsis">
 
-Inter-Blockchain protocol solves for communication between blockchains, which is particularly important in the Cosmos universe. 
+Inter-Blockchain Communication Protocol solves for communication between blockchains, which is particularly important in the Cosmos universe. 
+
+In this section, you will learn:
   
-In this section:
-  
-* What IBC is, and what it solves
+* What IBC is
 * How IBC works
-* Channels and ports
-* Relays
-* Security
+* About the IBC security guarantees
   
 </HighlightBox>
 

@@ -7,6 +7,27 @@ tag: deep-dive
 
 # Hermes Relayer
 
+<HighlightBox type="prerequisite">
+
+Before you dive into Go relayers, make sure to:
+
+* Install Go.
+* Install Docker.
+* Install Rust.
+
+For all installations, please see the [setup page](../course-ida/setup.md).
+
+</HighlightBox>
+
+<HighlightBox type="synopsis">
+
+In this section, you will learn:
+
+* How to get started with the Hermes relayer
+* Basic Hermes relayer commands
+
+</HighlightBox>
+
 [Hermes](https://hermes.informal.systems/) is a an open-source Rust implementation of a relayer for the Inter-Blockchain Communication Protocol (IBC). Hermes is most widely used in production by relayer operators. It offers great logging and debugging options, but compared to the Go relayer may require some more detaild knowledge of IBC to use it properly.
 
 <HighlightBox type="docs">

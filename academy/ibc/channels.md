@@ -9,10 +9,10 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-In this section:
+In this section, you will:
   
-* Establishing a channel
-* Application packet flow
+* Establish a channel.
+* Learn about application packet flow.
 
 </HighlightBox>
 
