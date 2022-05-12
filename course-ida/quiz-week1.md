@@ -9,7 +9,9 @@ tag:
 
 You have reached the end of week 1. Time for a check up to see how much you have captured!
 
-Follow this link [INSERT LINK] to submit a short pop quiz covering general questions on Cosmos and its main concepts. 
+<!-- Follow this link [INSERT LINK] to submit a short pop quiz covering general questions on Cosmos and its main concepts. -->
+
+The link to this Quiz will be available later today
 
 <HighlightBox type="note">
 

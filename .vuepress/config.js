@@ -277,10 +277,12 @@ module.exports = {
                   title: "Message and Handler - Make Sure a Player Can Reject a Game",
                   path: "/academy/4-my-own-chain/reject-game.html"
                 },
+/*
                 {
                   title: "Mandatory Exercise (todo)",
                   path: "/feature-test"
                 },
+*/
               ]
             },
             {
@@ -445,10 +447,12 @@ module.exports = {
                   title: "CosmJS on a Backend Script for Game Indexing",
                   path: "/academy/4-my-own-chain/server-side.html"
                 },
+/*
                 {
                   title: "Final exam (todo)",
                   path: "/feature-test/"
                 },
+*/
               ]
             },
             {
