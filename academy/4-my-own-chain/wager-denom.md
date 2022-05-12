@@ -25,7 +25,6 @@ In this section:
 
 When you [introduced a wager](./game-wager.md) you enabled players to play a game and bet on the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other connected blockchain by using the Inter-Blockchain Communication Protocol (IBC).
 
-<HighlightBox type="info">
 
 <HighlightBox type="info">
 

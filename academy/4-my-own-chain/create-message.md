@@ -124,7 +124,6 @@ This code is created only once. You can modify it as you see fit.
 
 Ignite CLI also adds a new function to your gRPC interface that receives all transaction messages for the module, because the message is meant to be sent and received. The interface is called `service Msg` and is declared inside `proto/checkers/tx.proto`.
 
-<HighlightBox type="info">
 
 <HighlightBox type="info">
 
