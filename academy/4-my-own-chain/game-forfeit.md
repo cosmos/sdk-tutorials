@@ -415,11 +415,11 @@ Space each `tx` command from a given account by a couple of seconds so that they
 
 <HighlightBox type="tip">
 
- If you want to overcome this limitation, look at `checkersd`'s `--sequence` flag:
+If you want to overcome this limitation, look at `checkersd`'s `--sequence` flag:
 
- ```sh
- $ checkersd tx checkers create-game --help
- ```
+```sh
+$ checkersd tx checkers create-game --help
+```
 
 And at your account's current sequence. For instance:
 

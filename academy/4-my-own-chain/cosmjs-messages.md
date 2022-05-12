@@ -11,8 +11,9 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [CosmJs](TODO).
-* You have the checkers blockchain codebase up to the CosmJs objects. If not, follow the [previous steps](./cosmjs-objects.md) or check out the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/stargate).
+* You understand the concepts of [CosmJS](../xl-cosmjs/intro.md).
+* You have generated the necessary Typescript types in [the previous tutorial](./cosmjs-objects.md).
+* You have the finished the checkers blockchain exercise. If not, you can follow that tutorial [here](./index.md) or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
 
 </HighlightBox>
 
@@ -20,7 +21,7 @@ In the previous section, you created the objects that allow you to **query** you
 
 ## Encodable messages
 
-Previously you defined in Protobuf three messages and their respective responses. You had Protobuf [compile them](https://github.com/cosmos/academy-checkers-ui/blob/generated/src/types/generated/checkers/tx.ts). Now you will create multiple `EncodeObject`s along the lines of [CosmJs](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/modules/bank/messages.ts). First, collect their names and Protobuf packages. Each Protobuf type identifier is assigned its encodable type:
+Previously you defined in Protobuf three messages and their respective responses. You had Protobuf [compile them](https://github.com/cosmos/academy-checkers-ui/blob/generated/src/types/generated/checkers/tx.ts). Now you will create a few instances of `EncodeObject`, similar to how this is done in CosmJS's [bank module](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/modules/bank/messages.ts). First, collect their names and Protobuf packages. Each Protobuf type identifier is assigned its encodable type:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/src/types/checkers/messages.ts#L11-L25]
 export const typeUrlMsgCreateGame = "/alice.checkers.checkers.MsgCreateGame"
@@ -40,7 +41,7 @@ export const checkersTypes: ReadonlyArray<[string, GeneratedType]> = [
 ]
 ```
 
-Next proceed with the declarations. As with CosmJs, you can add an `isMsgXX` helper for each:
+Next proceed with the declarations. As with CosmJS, you can add an `isMsgXX` helper for each:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/src/types/checkers/messages.ts#L27-L47]
 export interface MsgCreateGameEncodeObject extends EncodeObject {
@@ -62,9 +63,18 @@ export interface MsgPlayMoveEncodeObject... {}
 ...
 ```
 
+This will need to be repeated for each of the messages that you'll need. To refresh your memory, that's:
+
+* `MsgCreateGame`
+* `MsgCreateGameResponse`
+* `MsgPlayMove`
+* `MsgPlayMoveResponse`
+* `MsgRejectGame`
+* `MsgRejectGameResponse`
+
 ## A signing Stargate for Checkers
 
-This process again takes [inspiration from `SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/signingstargateclient.ts#L53-L66). Prepare by registering your new types in addition to the others, so that your client knows them all:
+This process again takes inspiration from [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/signingstargateclient.ts#L53-L66). Prepare by registering your new types in addition to the others, so that your client knows them all:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/src/checkers_signingstargateclient.ts#L24-L31]
 import { defaultRegistryTypes } from "@cosmjs/stargate"
@@ -110,7 +120,7 @@ export class CheckersSigningStargateClient extends SigningStargateClient {
 }
 ```
 
-Note the use of `createDefaultRegistry` as the default registry, if none was passed via the options.
+Note the use of `createDefaultRegistry` as the default registry, if nothing was passed via the options.
 
 ## The action methods
 
@@ -180,7 +190,7 @@ public async rejectGame(
 
 ## Test your signing client
 
-For live testing, reuse the `experiment.ts` file created in the [previous section](./cosmjs-objects.md). This time you first need to provide a signer. You learned how to do this in the [CosmJs introduction section](TODO).
+For live testing, reuse the `experiment.ts` file created in the [previous section](./cosmjs-objects.md). This time you first need to provide a signer. You learned how to do this in the [CosmJS introduction section](TODO).
 
 ### Key preparation with a mnemonic
 
@@ -194,7 +204,7 @@ const getSignerFromMnemonic = async (filePath: string): Promise<OfflineDirectSig
 }
 ```
 
-Note that this works as long as you have a mnemonic. If this is how you experiment, start the chain with:
+Note that this works as long as you have a mnemonic. If you're running your chain locally over Ignite CLI, start the chain with:
 
 ```sh
 $ ignite chain serve --reset-once
@@ -230,7 +240,7 @@ const aliceSigningClient: CheckersSigningStargateClient =
     })
 ```
 
-Note the use of a default gas price so that you can use `"auto"` later on. You do not need to put a high price because you are on your local machine or a test net for this `experiment.ts`.
+Note the use of a default gas price so that you can use `"auto"` later on. You do not need to input a high price because you are on your local machine or a test net for this `experiment.ts`.
 
 ### Create a game
 
@@ -382,10 +392,10 @@ In its print, you can also find the escrow refund event of the form:
 }
 ```
 
-This is good news if expected.
-
-## Conclusion
+This is great news!
 
 With the [`getAllStoredGames` call](https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/test/live/experiment.ts#L33) you can modify this test file, in particular by choosing not to reject the game but instead to list it in the next test run.
 
-You have now included elements and messages that allow you to interact with the Checkers blockchain. You have confirmed this with a small NodeJs experimentation file. The only things that remain now are to add any [server-side scripts](./server-side.md) and to plug the elements you have created into [a GUI](./external-gui.md).
+## Conclusion
+
+You have now included elements and messages that allow you to interact with the Checkers blockchain. You have confirmed this with a small NodeJs experimentation file. The only things that remain now are to add any [server-side scripts](./server-side.md) and to plug the elements you have created into [a graphical user interface](./external-gui.md).
