@@ -16,7 +16,7 @@ If you have any problems, send us an [email] (mailto:academy@interchain.io).
 
 Within the Academy Discord, you'll find the following topic-specific channels:
 "announcements & Organization"
-“organisational-questions”
+"organisational-questions"
 "cosmos-sdk"
 "ignite-cli"
 "cosmJS"
