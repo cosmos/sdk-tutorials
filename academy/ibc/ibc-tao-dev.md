@@ -1,5 +1,5 @@
 ---
-title: "IBC/TAO"
+title: "Transport, Authentication, and Ordering Layer - Connections"
 order: 
 description: 
 tag: deep-dive
@@ -234,7 +234,7 @@ func (k Keeper) ConnOpenTry(
 
 `OpenAck` is very similar to the functionality of `OpenInit`, except that the information verification now occurs for chain A. As in `OpenTry`, the relayer also submits two `UpdateClient`s with chain A and chain B as source chains before this handshake. These update the light clients of both chain A and chain B, in order to make sure that the state verifications in this step are successful.
 
-[OpenAck](/academy/ibc/images/open_ack.png)
+![OpenAck](/academy/ibc/images/open_ack.png)
 
 The initiation of this handshake from chain A updates its connection state to `OPEN`. It is important to note that the counterparty chain *must* have a `TRY` connection state in order for the handshake and connection state update to be successful. 
 
