@@ -411,23 +411,23 @@ module.exports = {
                 },
                 {
                   title: "Compose Complex Transactions",
-                  path: "/academy/xl-cosmjs/create-custom.html"
+                  path: "/academy/xl-cosmjs/multi-msg.html"
                 },
                 {
                   title: "Learn to Integrate Keplr",
                   path: "/academy/xl-cosmjs/with-keplr.html"
                 },
                 {
-                  title: "Create Custom Objects (todo)",
-                  path: "/feature-test/"
+                  title: "Create Custom Objects",
+                  path: "/academy/xl-cosmjs/create-custom.html"
                 },
                 {
-                  title: "Create Custom Objects for Your Checkers Blockchain (todo)",
-                  path: "/feature-test/"
+                  title: "Create Custom Objects for Your Checkers Blockchain",
+                  path: "/academy/4-my-own-chain/cosmjs-objects.html"
                 },
                 {
                   title: "Create Custom Messages for Your Checkers Blockchain",
-                  path: "/academy/xl-cosmjs/multi-msg.html"
+                  path: "/academy/4-my-own-chain/cosmjs-messages.html"
                 },
               ]
             },
@@ -441,16 +441,16 @@ module.exports = {
                   path: "/course-ida/landingpages/week6-lp.html"
                 },
                 {
-                  title: "Pick and Fix a Checkers GUI (todo)",
-                  path: "/feature-test/"
+                  title: "Pick and Fix a Checkers GUI",
+                  path: "/academy/4-my-own-chain/external-gui.html"
                 },
                 {
-                  title: "Integrate CosmJS and Keplr Into the GUI (todo)",
-                  path: "/feature-test/"
+                  title: "Integrate CosmJS and Keplr Into the GUI",
+                  path: "/academy/4-my-own-chain/cosmjs-gui.html"
                 },
                 {
-                  title: "CosmJS on a Backend Script for Game Indexing (todo)",
-                  path: "/feature-test/"
+                  title: "CosmJS on a Backend Script for Game Indexing",
+                  path: "/academy/4-my-own-chain/server-side.html"
                 },
                 {
                   title: "Final exam (todo)",
