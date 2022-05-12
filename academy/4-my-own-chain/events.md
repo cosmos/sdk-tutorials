@@ -9,11 +9,17 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [events](../2-main-concepts/events.md).
 * Go is installed.
 * You have the checkers blockchain codebase with `MsgPlayMove` and its handling. If not, follow the [previous steps](./play-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/play-move-handler).
+
+In this section:
+
+* Define event types
+* Emit events
+* Extend unit tests
 
 </HighlightBox>
 
@@ -24,7 +30,7 @@ Imagine a potential or current player waiting for their turn. It is not practica
 Adding events to your application is as simple as:
 
 1. Defining the events you want to use.
-2. Emitting the events at the right locations.
+2. Emitting corresponding events as actions unfold.
 
 ## Game-created event
 
@@ -35,7 +41,7 @@ Start with the event that announces the creation of a new game. The goal is to:
 
 Define new keys in `x/checkers/types/keys.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/types/keys.go#L34-L39]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/types/keys.go#L34-L38]
 const (
     StoredGameEventKey     = "NewGameCreated" // Indicates what key to listen to
     StoredGameEventCreator = "Creator"
@@ -47,7 +53,7 @@ const (
 
 Emit the event in your handler file `x/checkers/keeper/msg_server_create_game.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/keeper/msg_server_create_game.go#L37-L46]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/keeper/msg_server_create_game.go#L39-L48]
 ctx.EventManager().EmitEvent(
     sdk.NewEvent(sdk.EventTypeMessage,
         sdk.NewAttribute(sdk.AttributeKeyModule, "checkers"),
@@ -69,14 +75,18 @@ The created transaction to play a move informs the opponent about:
 * Which player is relevant.
 * Which game the move relates to.
 * When the move happened.
-* What the move's outcome was.
+* The move's outcome.
 * Whether the game was won.
 
-Contrary to the _create game_ event, which alerted the players about a new game, the players now know which game IDs to watch for. There is no need to repeat player addresses, the game ID is sufficient.
+<HighlightBox type="info">
 
-As previously, define new keys in `x/checkers/types/keys.go`:
+Contrary to the _create game_ event, which alerted the players about a new game, the players now know which game IDs to keep an eye out for. There is no need to repeat the players' addresses, the game ID is information enough.
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/types/keys.go#L41-L48]
+</HighlightBox>
+
+You define new keys in `x/checkers/types/keys.go` similarly:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/types/keys.go#L41-L48]
 const (
     PlayMoveEventKey       = "MovePlayed"
     PlayMoveEventCreator   = "Creator"
@@ -89,7 +99,7 @@ const (
 
 Emit the event in your file `x/checkers/keeper/msg_server_play_move.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f5764b84452983bc85e59823302464723df02f9a/x/checkers/keeper/msg_server_play_move.go#L62-L72]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/keeper/msg_server_play_move.go#L66-L76]
 ctx.EventManager().EmitEvent(
      sdk.NewEvent(sdk.EventTypeMessage,
         sdk.NewAttribute(sdk.AttributeKeyModule, "checkers"),
@@ -105,7 +115,73 @@ ctx.EventManager().EmitEvent(
 
 ## Unit tests
 
+The unit tests you have created so far still pass. However you also want to confirm that the events have been emitted in both situations. The events are recorded in the context, so the test is a little bit different. In `msg_server_create_game_test.go`, add this test:
 
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/keeper/msg_server_create_game_test.go#L83-L106]
+func TestCreate1GameEmitted(t *testing.T) {
+    msgSrvr, _, context := setupMsgServerCreateGame(t)
+    msgSrvr.CreateGame(context, &types.MsgCreateGame{
+        Creator: alice,
+        Red:     bob,
+        Black:   carol,
+    })
+    ctx := sdk.UnwrapSDKContext(context)
+    require.NotNil(t, ctx)
+    events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
+    require.Len(t, events, 1)
+    event := events[0]
+    require.EqualValues(t, sdk.StringEvent{
+        Type: "message",
+        Attributes: []sdk.Attribute{
+            {Key: "module", Value: "checkers"},
+            {Key: "action", Value: "NewGameCreated"},
+            {Key: "Creator", Value: alice},
+            {Key: "Index", Value: "1"},
+            {Key: "Red", Value: bob},
+            {Key: "Black", Value: carol},
+        },
+    }, event)
+}
+```
+
+How can you _guess_ the order of elements? Easily, as you created them in this order. Alternatively, you can _peek_ by using Visual Studio Code:
+
+1. Put a breakpoint after `event := events[0]`.
+2. Run this test in **debug mode**: right-click the green arrow next to the test name.
+3. Observe the live values on the left.
+
+![Live values of event in debug mode](/go_test_debug_event_attributes.PNG)
+
+The event emitted during a move may seem unexpected. In a _move_ unit test, two actions occur: a _create_, and a _move_. However, in the setup of this test you do not create blocks but _only_ hit your keeper. Therefore the context collects events but does not flush them. This is why you need to test only for the latter attributes, and verify an array slice that discards events that originate from the _create_ action: `event.Attributes[6:]`. This gives the following test:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/keeper/msg_server_play_move_test.go#L127-L152]
+func TestPlayMoveEmitted(t *testing.T) {
+    msgServer, _, context := setupMsgServerWithOneGameForPlayMove(t)
+    msgServer.PlayMove(context, &types.MsgPlayMove{
+        Creator: carol,
+        IdValue: "1",
+        FromX:   1,
+        FromY:   2,
+        ToX:     2,
+        ToY:     3,
+    })
+    ctx := sdk.UnwrapSDKContext(context)
+    require.NotNil(t, ctx)
+    events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
+    require.Len(t, events, 1)
+    event := events[0]
+    require.Equal(t, event.Type, "message")
+    require.EqualValues(t, []sdk.Attribute{
+        {Key: "module", Value: "checkers"},
+        {Key: "action", Value: "MovePlayed"},
+        {Key: "Creator", Value: carol},
+        {Key: "IdValue", Value: "1"},
+        {Key: "CapturedX", Value: "-1"},
+        {Key: "CapturedY", Value: "-1"},
+        {Key: "Winner", Value: "NO_PLAYER"},
+    }, event.Attributes[6:])
+}
+```
 
 ## Interact with the CLI
 

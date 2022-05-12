@@ -9,11 +9,17 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md).
 * Go is installed.
 * You have the checkers blockchain codebase with the game FIFO. If not, follow the [previous steps](./game-fifo.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-fifo).
+
+In this section:
+
+* Implement a deadline
+* Work with dates
+* Extend your unit tests
 
 </HighlightBox>
 
@@ -25,14 +31,14 @@ Just because a game has not been updated in a while does not mean that it has ex
 
 To prepare the field, add in the `StoredGame`'s Protobuf definition:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/afff427/proto/checkers/stored_game.proto#L18]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/58199af8/proto/checkers/stored_game.proto#L16]
 message StoredGame {
     ...
     string deadline = 10;
 }
 ```
 
-Ignite CLI and Protobuf will recompile this file. You can use:
+To have Ignite CLI and Protobuf recompile this file, use:
 
 ```sh
 $ ignite generate proto-go
@@ -40,10 +46,10 @@ $ ignite generate proto-go
 
 On each update the deadline will always be _now_ plus a fixed duration. In this context, _now_ refers to the block's time. Declare this duration as a new constant, plus how the date is to be represented, i.e. encoded in the saved game as a string:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/afff427/x/checkers/types/keys.go#L38-L39]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/58199af8/x/checkers/types/keys.go#L38-L39]
 const (
-    MaxTurnDurationInSeconds = time.Duration(24 * 3_600 * 1000_000_000) // 1 day
-    DeadlineLayout           = "2006-01-02 15:04:05.999999999 +0000 UTC"
+    MaxTurnDuration = time.Duration(24 * 3_600 * 1000_000_000) // 1 day
+    DeadlineLayout  = "2006-01-02 15:04:05.999999999 +0000 UTC"
 )
 ```
 
@@ -53,13 +59,13 @@ Helper functions can encode and decode the deadline in the storage.
 
 1. Define a new error:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/afff427/x/checkers/types/errors.go#L21]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/58199af8/x/checkers/types/errors.go#L21]
     ErrInvalidDeadline = sdkerrors.Register(ModuleName, 1110, "deadline cannot be parsed: %s")
     ```
 
 2. Add your date helpers. A reasonable location to pick is `full_game.go`:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/afff427/x/checkers/types/full_game.go#L37-L48]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/58199af8/x/checkers/types/full_game.go#L40-L51]
     func (storedGame *StoredGame) GetDeadlineAsTime() (deadline time.Time, err error) {
         deadline, errDeadline := time.Parse(DeadlineLayout, storedGame.Deadline)
         return deadline, sdkerrors.Wrapf(errDeadline, ErrInvalidDeadline.Error(), storedGame.Deadline)
@@ -74,7 +80,7 @@ Helper functions can encode and decode the deadline in the storage.
 
 3. Add a function that encapsulates how the next deadline is calculated in the same file:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/afff427/x/checkers/types/full_game.go#L42-L44]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/58199af8/x/checkers/types/full_game.go#L45-L47]
     func GetNextDeadline(ctx sdk.Context) time.Time {
         return ctx.BlockTime().Add(MaxTurnDurationInSeconds)
     }
@@ -86,7 +92,7 @@ Next, you need to update this new field with its appropriate value:
 
 1. At creation, in the message handler for game creation:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/afff427/x/checkers/keeper/msg_server_create_game.go#L30]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/58199af8/x/checkers/keeper/msg_server_create_game.go#L30]
     ...
     storedGame := types.StoredGame{
         ...
@@ -96,7 +102,7 @@ Next, you need to update this new field with its appropriate value:
 
 2. After a move, in the message handler:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/afff427/x/checkers/keeper/msg_server_play_move.go#L56]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/58199af8/x/checkers/keeper/msg_server_play_move.go#L60]
     ...
     storedGame.MoveCount++
     storedGame.Deadline = types.FormatDeadline(types.GetNextDeadline(ctx))
@@ -111,7 +117,16 @@ $ ignite chain build
 
 ## Unit tests
 
+After these changes, your previous unit tests fail. Fix them by adding `Deadline` wherever it should be. Do not forget that the time is taken from the block's timestamp. In the case of tests, it is stored in the context's `ctx.BlockTime()`. In effect, you need to add this single line:
 
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/58199af8/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L43]
+ctx := sdk.UnwrapSDKContext(context)
+...
+require.EqualValues(t, types.StoredGame{
+    ...
+    Deadline:  types.FormatDeadline(ctx.BlockTime().Add(types.MaxTurnDuration)),
+}, game)
+```
 
 ## Interact via the CLI
 

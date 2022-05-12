@@ -74,8 +74,8 @@
         flex-wrap: wrap;
 
         &.info {
-            background: var(--background-color-primary);
-            border: 1px solid #40B3FF;
+            background: linear-gradient(78.06deg, #336667 1.14%, #00B067 98.88%);
+            color: #E3E3E3;
         }
 
         &.tip {
@@ -84,13 +84,8 @@
         }
 
         &.warn, &.warning {
-            background: var(--color-warning);
-            color: black
-            fill: black
-
-            .title {
-                color: black
-            }
+            background: linear-gradient(78.06deg, #00B067 0.2%, #FFD303 97.95%);
+            color: #4D4D4D;
         }
 
         &.reading {

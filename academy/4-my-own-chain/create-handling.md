@@ -9,10 +9,15 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have everything you need before proceeding:
 
 * You have Go installed.
 * You have the checkers blockchain codebase with `MsgCreateGame` created by Ignite CLI. If not, follow the [previous steps](./create-message.md) and check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
+
+In this section:
+
+* Add application rules- the rules of Checkers
+* Add a Message Handler to create game and return it's ID
 
 </HighlightBox>
 
@@ -43,15 +48,15 @@ Given that you have already done a lot of preparatory work, what coding is invol
 
 * First, `rules` represents the ready-made file with the imported rules of the game:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/msg_server_create_game.go#L8]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game.go#L8]
     import (
         rules "github.com/alice/checkers/x/checkers/rules"
     )
     ```
 
-1. Get the new game's ID with the [`Keeper.GetNextGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/next_game.go#L17) function created by the `ignite scaffold single nextGame...` command:
+1. Get the new game's ID with the [`Keeper.GetNextGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/next_game.go#L17) function created by the `ignite scaffold single nextGame...` command:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/msg_server_create_game.go#L15-L19]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game.go#L15-L19]
     nextGame, found := k.Keeper.GetNextGame(ctx)
     if !found {
         panic("NextGame not found")
@@ -61,13 +66,13 @@ Given that you have already done a lot of preparatory work, what coding is invol
 
 2. Create the object to be stored:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/msg_server_create_game.go#L20-L28]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game.go#L20-L28]
     newGame := rules.New()
     storedGame := types.StoredGame{
         Creator: msg.Creator,
         Index:   newIndex,
         Game:    newGame.String(),
-        Turn:    newGame.Turn.Color,
+        Turn:    rules.PieceStrings[newGame.Turn],
         Red:     msg.Red,
         Black:   msg.Black,
     }
@@ -75,12 +80,12 @@ Given that you have already done a lot of preparatory work, what coding is invol
 
     Note the use of:
 
-    * The [`rules.New()`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/rules/checkers.go#L122) command, which is part of the Checkers rules file you imported earlier.
-    * The string content of the `msg *types.MsgCreateGame`, namely `.Creator`, `.Red`, and `.Black`.
+    * The [`rules.New()`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/rules/checkers.go#L122) command, which is part of the Checkers rules file you imported earlier.
+    * The string content of the `msg *types.MsgCreateGame` namely `.Creator`, `.Red`, and `.Black`.
 
 3. Confirm that the values in the object are correct by checking the validity of the players' addresses:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/msg_server_create_game.go#L29-L32]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game.go#L29-L32]
     err := storedGame.Validate()
     if err != nil {
         return nil, err
@@ -89,22 +94,22 @@ Given that you have already done a lot of preparatory work, what coding is invol
 
     `.Creator`, `.Red`, and `.Black` need to be checked because they were copied as **strings**. The check on `.Creator` is redundant because at this stage the message's signatures have been verified, and the creator is the signer.
 
-4. Save the `StoredGame` object using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/stored_game.go#L10) function created by the `ignite scaffold map storedGame...` command:
+4. Save the `StoredGame` object using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/stored_game.go#L10) function created by the `ignite scaffold map storedGame...` command:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/msg_server_create_game.go#L33]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game.go#L33]
     k.Keeper.SetStoredGame(ctx, storedGame)
     ```
 
-5. Prepare the ground for the next game using the [`Keeper.SetNextGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/next_game.go#L10) function created by Ignite CLI:
+5. Prepare the ground for the next game using the [`Keeper.SetNextGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/next_game.go#L10) function created by Ignite CLI:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d59a74496a96018c57fdff72c443980c08416499/x/checkers/keeper/msg_server_create_game.go#L33-L34]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game.go#L35-L36]
     nextGame.IdValue++
     k.Keeper.SetNextGame(ctx, nextGame)
     ```
 
 6. Return the newly created ID for reference:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/8092e4b/x/checkers/keeper/msg_server_create_game.go#L38-L40]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game.go#L38-L40]
     return &types.MsgCreateGameResponse{
         IdValue: newIndex,
     }, nil
@@ -112,7 +117,90 @@ Given that you have already done a lot of preparatory work, what coding is invol
 
 ## Unit tests
 
+Try the unit test you prepared in the previous section again:
 
+```sh
+$ go test github.com/alice/checkers/x/checkers/keeper
+```
+
+This should fail with:
+
+```
+panic: NextGame not found [recovered]
+        panic: NextGame not found
+...
+```
+
+Your keeper was initialized with an empty genesis. You must fix that one way or another.
+
+You can fix this by initializing the keeper with the default genesis. Initializing the `MsgServer` with the default genesis is opinionated, so it is better to keep this opinion closest to the tests. Copy the `setupMsgServer` from [`msg_server_test.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_test.go#L12-L15) into your `msg_server_create_game_test.go`. Modify it to also return the keeper:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L20-L24]
+func setupMsgServerCreateGame(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
+    k, ctx := setupKeeper(t)
+    checkers.InitGenesis(ctx, *k, *types.DefaultGenesis())
+    return keeper.NewMsgServerImpl(*k), *k, sdk.WrapSDKContext(ctx)
+}
+```
+
+Note the new import:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L9]
+import (
+    "github.com/xavierlepretre/checkers/x/checkers"
+)
+```
+
+Unfortunately, this created an import cycle. To fix that, use the better practice of suffixing `_test` to the package of your test files:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L1]
+package keeper_test
+```
+
+You should fix the package in all [the](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/grpc_query_next_game_test.go#L1) [other](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/grpc_query_stored_game_test.go#L1) [test](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/keeper_test.go#L1) [files](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_test.go#L1) in your keeper folder. Afterward, run the tests again with the same command as before:
+
+```sh
+$ go test github.com/alice/checkers/x/checkers/keeper
+```
+
+The error has changed, and you need to adjust the expected value as per the default genesis:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L34-L36]
+require.EqualValues(t, types.MsgCreateGameResponse{
+    IdValue: "1",
+}, *createResponse)
+```
+
+One unit test is good, but you can add more, in particular testing whether the values in storage are as expected when you create a single game:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L39-L62]
+func TestCreate1GameHasSaved(t *testing.T) {
+    msgSrvr, keeper, context := setupMsgServerCreateGame(t)
+    msgSrvr.CreateGame(context, &types.MsgCreateGame{
+        Creator: alice,
+        Red:     bob,
+        Black:   carol,
+    })
+    nextGame, found := keeper.GetNextGame(sdk.UnwrapSDKContext(context))
+    require.True(t, found)
+    require.EqualValues(t, types.NextGame{
+        Creator: "",
+        IdValue: 2,
+    }, nextGame)
+    game1, found1 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "1")
+    require.True(t, found1)
+    require.EqualValues(t, types.StoredGame{
+        Creator: alice,
+        Index:   "1",
+        Game:    "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:    "b",
+        Red:     bob,
+        Black:   carol,
+    }, game1)
+}
+```
+
+Or when you [create 3](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L109-L134) games. Other tests could include whether the _get all_ functionality works as expected after you have created [1 game](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L64-L81), or [3](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L191-L234), or if you create a game in a hypothetical [far future](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L236-L267). Also add games with [badly formatted](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L83-L94) or [missing input](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L96-L107).
 
 ## Interact via the CLI
 
