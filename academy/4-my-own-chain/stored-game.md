@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding with the exercise:
+Make sure you have everything you need before proceeding with the exercise:
 
 * You understand the concepts of [accounts](../2-main-concepts/accounts.md), [Protobuf](../2-main-concepts/protobuf.md), and [multistore](../2-main-concepts/multistore-keepers.md).
 * Go is installed.
@@ -542,4 +542,4 @@ $ checkersd tx checkers --help
 
 ## Next up
 
-Want to continue developing your checkers blockchain? In the [next section](./create-message.md), you will learn all about introducing an `sdk.Msg` to create a game.
+Want to continue developing your checkers blockchain? In the [next section](./create-message.md) you will learn all about introducing an `sdk.Msg` to create a game.

@@ -9,6 +9,14 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
+In this section you will learn how to:
+  
+* Install Ignite CLI
+* Scaffold a blockchain
+* Use the CLI
+* Start the Ignite UI server
+* Send your first message
+
 Before diving into the details of how Ignite CLI helps you scaffold the basics for your application blockchain make sure to understand the main concepts presented in the following sections:
 
 * [A Blockchain App Architecture](../2-main-concepts/architecture.md)
@@ -19,14 +27,6 @@ Before diving into the details of how Ignite CLI helps you scaffold the basics f
 * [Protobuf](../2-main-concepts/protobuf.md)
 * [BaseApp](../2-main-concepts/base-app.md)
   
-In this section:
-  
-* Install Ignite CLI
-* Scaffold a blockchain
-* Use the CLI
-* Start the Ignite UI server
-* Send your first message
-
 You can follow a hands-on exercise for Ignite CLI in the sections that follow this introduction.
 
 </HighlightBox>
@@ -391,7 +391,7 @@ async MsgCreatePost({ rootGetters }, { value }) {
 
 ## Next up
 
-You just created a fully working Cosmos SDK chain, one that forms the basis of the [following exercise](./stored-game.md).
+Congratulations, you just created a fully working Cosmos SDK chain. This will form the basis of the [following exercise](./stored-game.md).
 
 <HighlightBox type="info">
 

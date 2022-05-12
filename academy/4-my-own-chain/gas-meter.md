@@ -176,4 +176,4 @@ That is sufficient confirmation.
 
 ## Next up
 
-Make your checkers blockchain more user-friendly by helping players avoid bad transactions via a query that tests a move. Just follow the exercise in the [next section](./can-play.md).
+Follow the exercise in the [next section](./can-play.md) to make your checkers blockchain more user-friendly, by helping players avoid bad transactions via a query that tests a move before they play it.

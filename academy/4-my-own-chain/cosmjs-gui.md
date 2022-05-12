@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [CosmJs](TODO).
 * You have the checkers blockchain codebase up to the external GUI. If not, follow the [previous steps](./external-gui.md) or check out the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui).
@@ -926,3 +926,7 @@ Either way, it is now possible to play the game from the GUI. Congratulations!
 * Implement typical GUI features, like disabling buttons when their action should be unavailable, or adding a countdown to the forfeit deadline.
 * Implement a Web socket to listen to changes. That would be useful when there are two players who cannot communicate otherwise (instead of polling).
 * When a double capture (or more) is possible, the GUI allows you to make multiple moves at once (with `move.length >= 2`). However, the code handles only a single hop (`move[0]` and `move[1]`). It is technically possible to pack more than one `PlayMove` message in a single transaction, saving the player from sending multiple transactions.
+
+## Next up
+
+You now have a working Checkers blockchain. The objective of the [next section](./server-side.md) is to consider what additional data and services would add value without increasing cost or complexity on chain.

@@ -9,7 +9,7 @@ tag: intro
 
 <HighlightBox type="synopsis">
 
-Build applications that interact with Cosmos blockchains with CosmJS. 
+CosmJS allows you to build applications that interact with Cosmos blockchains. 
   
 In this section:
   

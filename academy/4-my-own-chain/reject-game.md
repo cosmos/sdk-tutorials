@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Before proceeding, make sure you have all you need:
+Before proceeding, make sure you have everything you need:
 
 * You understand the concepts of [transactions](../2-main-concepts/transactions.md), [messages](../2-main-concepts/messages.md)), and [Protobuf](../2-main-concepts/protobuf.md).
 * You know how to [create a message](./create-message.md) with Ignite CLI, and code [its handling](./create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
@@ -361,6 +361,8 @@ To belabor the point made in the earlier warning box: if you change your code, t
 
 ## Next up
 
-The next four sections cover forfeits and how games end. In the next section, you create a [doubly-linked FIFO](./game-fifo.md). Later you add [deadline](./game-deadline.md) and [game winner](./game-winner.md) fields, before being able to finally [enforce the forfeit](./game-forfeit.md).
+This concludes Week 2 of the course. In the week to come, you will cover forfeits and how games end, how to enable token wagers in your games, incentivizing players through gas metering, and the use of queries and migration to improve user experience and continue developing your blockchain even after deployment. All to come in the [next chapter](/course-ida/landingpages/week3-lp.md).
 
-If you want to enable token wagers in your games instead, skip ahead to [wagers](./game-wager.md).
+<!--The next four sections cover forfeits and how games end. In the next section, you create a [doubly-linked FIFO](./game-fifo.md). Later you add [deadline](./game-deadline.md) and [game winner](./game-winner.md) fields, before being able to finally [enforce the forfeit](./game-forfeit.md).
+
+If you want to enable token wagers in your games instead, skip ahead to [wagers](./game-wager.md).-->

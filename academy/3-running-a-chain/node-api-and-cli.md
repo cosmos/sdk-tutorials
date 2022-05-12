@@ -7,13 +7,18 @@ tag: deep-dive
 
 # Running a Node, API, and CLI
 
-Run a blockchain and discover how to interact with it.
+<HighlightBox type="synopsis">
+
+Now you have familiarized yourself with the many elements of Cosmos, it's time to run a blockchain and discover how to interact with it.
 
 There are different ways to run a node of a Cosmos blockchain. You will explore how to do so using [`simapp`](https://github.com/cosmos/cosmos-sdk/tree/master/simapp).
+
+</HighlightBox>
 
 ## See what you are going to do
 
 <YoutubePlayer videoId="qzUgh8mvyJE"/>
+
 
 ## Compile `simapp`
 
@@ -499,5 +504,4 @@ Do you need a conceptual refresher about modules and their role in the Cosmos SD
 
 ## Next up
 
-It is time to begin developing your own chain. You will begin working with Ignite CLI and learn about CosmWasm in the [next chapter](../4-my-own-chain/index.md).
-<!--It is time to begin developing your own chain. You will begin working with Ignite CLI and learn about CosmJS and CosmWasm in the [next chapter](../4-my-own-chain/index.md).-->
+It is time to begin developing your own chain. You will begin working with Ignite CLI  in the [next chapter](../4-my-own-chain/ignitecli.md).

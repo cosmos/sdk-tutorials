@@ -16,7 +16,6 @@ In this section.
 * Detecting Keplr
 * Get chain info
 * The user interaction flow
-* 
 
 </HighlightBox>
 
@@ -643,3 +642,7 @@ Keplr does not know about locally running chains by default. As you did with Cos
 ## Conclusion
 
 You have how updated your CosmJS front-end so that it integrates with Keplr.
+
+## Next up
+
+In the [next section](./create-custom.md) you will explore how to create custom CosmJS interfaces.

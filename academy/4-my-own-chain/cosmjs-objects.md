@@ -324,3 +324,7 @@ Error: Query failed with (18): rpc error: code = InvalidArgument desc = not foun
 ```
 
 This is as expected, as nothing more can be tested at this stage.
+
+## Next up
+
+In the [next section](./cosmjs-messages.md) you will create messages for your GUI.

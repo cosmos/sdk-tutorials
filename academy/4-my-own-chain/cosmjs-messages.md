@@ -9,9 +9,9 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Make sure you have all you need before proceeding:
+Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [CosmJs](TODO).
+* You understand the concepts of [CosmJS](TODO).
 * You have the checkers blockchain codebase up to the CosmJs objects. If not, follow the [previous steps](./cosmjs-objects.md) or check out the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/stargate).
 
 </HighlightBox>
@@ -389,3 +389,7 @@ This is good news if expected.
 With the [`getAllStoredGames` call](https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/test/live/experiment.ts#L33) you can modify this test file, in particular by choosing not to reject the game but instead to list it in the next test run.
 
 You have now included elements and messages that allow you to interact with the Checkers blockchain. You have confirmed this with a small NodeJs experimentation file. The only things that remain now are to add any [server-side scripts](./server-side.md) and to plug the elements you have created into [a GUI](./external-gui.md).
+
+## Next up
+
+This completes Week 5. In the [next chapter](/course-ida/landingpages/week6-lp.md) you will look at how to use CosmJS to create a GUI,and on backend script.

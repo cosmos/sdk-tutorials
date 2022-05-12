@@ -285,4 +285,4 @@ Testing with the CLI up to the point where the game is resolved with a rightful 
 
 ## Next up
 
-You have introduced a [game FIFO](./game-fifo.md), a [game deadline](./game-deadline.md), and a game winner. Time to turn your attention to the [next section](./game-forfeit.md) to look into game forfeits.
+You have introduced a [game FIFO](./game-fifo.md), a [game deadline](./game-deadline.md), and a game winner. Time to turn your attention to the [next section](./game-forfeit.md) and explore game forfeits.

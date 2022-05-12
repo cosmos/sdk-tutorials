@@ -7,9 +7,13 @@ tag: deep-dive
 
 # Web 2.0 Server - Convenient information
 
+<HighlightBox type="synopsis">
+
 Now that your blockchain is complete, you can think about additional data and services that would add value without increasing cost or complexity on chain.
 
 For example, how do you list all of a player's games? Currently this information is not easily available. You can find the players of a given game, but not the games of a given player. Indexing this on-chain would add storage and computation costs.
+
+</HighlightBox>
 
 ## Server idea
 
@@ -1044,3 +1048,9 @@ You have created a small server that:
 This is an example of server-side scripts, one that can improve user experience.
 
 You can find the complete code [here](https://github.com/cosmos/academy-checkers-ui/tree/server-indexing).
+
+## Next up
+
+You now have a working Checkers GUI. This rather long preparatory effort was made in order to use recent packages. You are now ready to integrate it with the Checkers blockchain.
+
+This is the objective of the [next section](./cosmjs-gui.md).

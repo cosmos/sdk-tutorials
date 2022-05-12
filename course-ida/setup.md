@@ -80,3 +80,7 @@ This integrated development environment assists both with developing with the Co
 The first time you open a Cosmos SDK project with Visual Studio Code, it offers to install a Go plug-in. You can go ahead and accept it.
 
 </HighlightBox>
+
+## Up Next
+
+Time to dive into the [next section](../academy/3-running-a-chain/node-api-and-cli.md) and learn all about running a node, API, and CLI.

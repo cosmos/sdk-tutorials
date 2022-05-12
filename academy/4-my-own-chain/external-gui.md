@@ -13,9 +13,9 @@ Make sure you have everything you need before proceeding:
 
 * You have the checkers blockchain codebase up to the CosmJs messages. If not, follow the [previous steps](./cosmjs-messages.md) or check out the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/signing-stargate).
 
-The purpose of this section is to obtain a working and fairly recent Checkers GUI. If you already have one, you can skip to the [next section](./cosmjs-gui.md) on how to integrate it with CosmJs.
+The purpose of this section is to obtain a working and fairly recent Checkers GUI. If you already have one, you can skip to the [next section](./cosmjs-gui.md) on how to integrate it with CosmJS.
 
-This section does not introduce anything related to CosmJs.
+This section does not introduce anything related to CosmJS.
 
 </HighlightBox>
 

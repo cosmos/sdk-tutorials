@@ -12,7 +12,7 @@ tag: deep-dive
 Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [queries](../2-main-concepts/queries.md) and [Protobuf](../2-main-concepts/protobuf.md).
-* You have Go installed.
+* Go is installed.
 * You have the checkers blockchain codebase up to gas metering. If not, follow the [previous steps](./gas-meter.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
     
 In this section:
@@ -560,4 +560,4 @@ These queries are all satisfactory.
 
 ## Next up
 
-Do you want to give players more flexibility about which tokens they can use for games? Let players wager any fungible token in the [next section](./wager-denom.md).
+Do you want to give players more flexibility about which tokens they can use for games? Let players wager _any_ fungible token in the [next section](./wager-denom.md).
