@@ -1,11 +1,11 @@
 ---
-title: "Introduction to CosmJS"
+title: "What is CosmJS?"
 order: 1
 description: What is CosmJS and what can it do for me?
 tag: intro
 ---
 
-# Introduction to CosmJS
+# What is CosmJS?
 
 <HighlightBox type="synopsis">
 

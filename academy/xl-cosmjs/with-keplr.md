@@ -1,11 +1,11 @@
 ---
-title: "Sending Tokens with Keplr"
+title: "Learn to Integrate Keplr"
 order: 4
 description: Interacting with a Cosmos SDK chain through CosmJS and Keplr
 tag: deep-dive
 ---
 
-# Sending Tokens with Keplr
+# Learn to Integrate Keplr
 
 <HighlightBox type="synopsis">
 
