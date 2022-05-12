@@ -176,6 +176,6 @@ In the [next section](./messages.md), you can learn how transaction messages are
 
 [Previously](./architecture.md), the ABCI application knew of a single transaction type: a checkers move with four `int`. This is no longer sufficient with multiple games. You need to conform to its `Tx` expectations, which means that you must create messages which are then placed into a transaction.
 
-See the [section on messages](./messages.md)) to learn how to do that.
+See the [section on messages](./messages.md) to learn how to do that.
 
 </ExpansionPanel>
