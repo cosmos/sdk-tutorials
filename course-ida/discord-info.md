@@ -40,7 +40,7 @@ After your question has been answered, the ticket can be closed by you, the tuto
 
 When the ticket is closed, you will receive a direct message from _Tricia | Support Bot_, confirming the ticket was closed.
 
-![IMAGE DESCRIPTION](/course-ida/images/discord-close-notification)
+![IMAGE DESCRIPTION](/course-ida/images/discord-close-notification.png)
 
 If you still have a follow-up question after the ticket was closed, you can post a new message in the channel and open a new ticket.
 
