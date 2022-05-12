@@ -40,7 +40,7 @@ Rejecting a game will be left to you as an exercise.
 
 ### Prepare Webpack
 
-Your GUI uses React v18, which uses Weback v5. Therefore you need to [adjust Webpack's configuration](https://github.com/cosmos/cosmjs/blob/5fc0960/README.md#webpack-configs) to handle some elements (see also the CosmJS documentation). To modify the Webpack configuration in a non-ejected React app, use [`react-app-rewired`](https://www.npmjs.com/package/react-app-rewired) as [explained here](https://stackoverflow.com/questions/63280109/how-to-update-webpack-config-for-a-react-project-created-using-create-react-app):
+Your GUI uses React v18, which uses Webpack v5. Therefore you need to [adjust Webpack's configuration](https://github.com/cosmos/cosmjs/blob/5fc0960/README.md#webpack-configs) to handle some elements (see also the CosmJS documentation). To modify the Webpack configuration in a non-ejected React app, use [`react-app-rewired`](https://www.npmjs.com/package/react-app-rewired) as [explained here](https://stackoverflow.com/questions/63280109/how-to-update-webpack-config-for-a-react-project-created-using-create-react-app):
 
 1. Install the new package:
 

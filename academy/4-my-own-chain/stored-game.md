@@ -15,9 +15,17 @@ Make sure you have all you need before proceeding with the exercise:
 * Go is installed.
 * You have the bare blockchain scaffold codebase with a single module named `checkers`. If not, follow the [previous steps](./ignitecli.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/starport-start).
 
+In this section:
+
+* The Stored Game object
+* Protobuf objects
+* Query.proto
+* Protobuf Service interfaces
+* Your first unit test
+
 </HighlightBox>
 
-In the [Ignite CLI introduction section](./ignitecli) you learned how to start a brand-new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
+In the [Ignite CLI introduction section](./ignitecli) you learned how to start a completely new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
 
 A good start to developing a checkers blockchain is to define the ruleset of the game. There are many versions of the rules. Choose [a very simple set of basic rules](https://www.ducksters.com/games/checkers_rules.php) to avoid getting lost in the rules of checkers or the proper implementation of the board state.
 
@@ -44,7 +52,7 @@ Begin with the minimum game information needed to be stored:
 
 ### How to store
 
-Each game musst be identified by a unique ID. This is important if you want your blockchain application to accommodate multiple simultaneous games.
+After you know **what** to store, you have to decide **how** to store a game. This is important if you want your blockchain application to accommodate multiple simultaneous games. The game is identified by a unique ID.
 
 How should you generate the ID? Players cannot choose it themselves, as this could lead to transactions failing because of an ID clash. You cannot rely on a large random number like a universally unique identifier (UUID), because transactions have to be verifiable in the future. It is better to have a counter incrementing on each new game. This is possible because the code execution happens in a single thread.
 
@@ -209,15 +217,17 @@ Some files created by Ignite CLI can be updated, but you should not modify the P
 Ignite CLI creates files that you can and should update. For example, the default genesis values:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/genesis.go#L16-L17]
+const DefaultIndex uint64 = 1
+
 func DefaultGenesis() *GenesisState {
     return &GenesisState{
         StoredGameList: []*StoredGame{},
-        NextGame:       &NextGame{"", uint64(0)},
+        NextGame:       &NextGame{"", uint64(DefaultIndex)},
     }
 }
 ```
 
-You can choose to start with no games or insert a number of games to start with. In either case, you must choose the first ID of the first game, which here is set at `0`.
+You can choose to start with no games or insert a number of games to start with. In either case, you must choose the first ID of the first game, which here is set at `1` by reusing the `DefaultIndex` value.
 
 ### Protobuf service interfaces
 
@@ -254,25 +264,26 @@ Your stored game stores are only strings, but they represent `sdk.AccAddress` or
 
 1. Get the game `Creator`:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d7272dd/x/checkers/types/full_game.go#L9-L12]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game.go#L12-L15]
     func (storedGame *StoredGame) GetCreatorAddress() (creator sdk.AccAddress, err error) {
         creator, errCreator := sdk.AccAddressFromBech32(storedGame.Creator)
         return creator, sdkerrors.Wrapf(errCreator, ErrInvalidCreator.Error(), storedGame.Creator)
     }
     ```
 
-    Do the same for the [red](https://github.com/cosmos/b9-checkers-academy-draft/blob/d7272dd/x/checkers/types/full_game.go#L14-L17) and [black](https://github.com/cosmos/b9-checkers-academy-draft/blob/d7272dd/x/checkers/types/full_game.go#L19-L22) players.
+    Do the same for the [red](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game.go#L17-L20) and [black](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game.go#L22-L25) players.
 
 2. Parse the game so that it can be played. The `Turn` has to be set by hand:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d7272dd/x/checkers/types/full_game.go#L24-L33]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game.go#L27-L37]
     func (storedGame *StoredGame) ParseGame() (game *rules.Game, err error) {
         game, errGame := rules.Parse(storedGame.Game)
-        if err != nil {
-            return game, sdkerrors.Wrapf(errGame, ErrGameNotParseable.Error())
+        if errGame != nil {
+            return nil, sdkerrors.Wrapf(errGame, ErrGameNotParseable.Error())
         }
-        game.Turn = rules.Player{
-            Color: storedGame.Turn,
+        game.Turn = rules.StringPieces[storedGame.Turn].Player
+        if game.Turn.Color == "" {
+            return nil, sdkerrors.Wrapf(errors.New(fmt.Sprintf("Turn: %s", storedGame.Turn)), ErrGameNotParseable.Error())
         }
         return game, nil
     }
@@ -280,7 +291,7 @@ Your stored game stores are only strings, but they represent `sdk.AccAddress` or
 
 3. Introduce your own errors:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/d7272dd/x/checkers/types/errors.go#L11-L14]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/errors.go#L11-L14]
     var (
         ErrInvalidCreator   = sdkerrors.Register(ModuleName, 1100, "creator address is invalid: %s")
         ErrInvalidRed       = sdkerrors.Register(ModuleName, 1101, "red address is invalid: %s")
@@ -289,6 +300,246 @@ Your stored game stores are only strings, but they represent `sdk.AccAddress` or
     )
     ```
 
+## Unit tests
+
+Now that you have added some code on top of what Ignite CLI created for you, you should add unit tests. You will not add code to test the code generated by Ignite CLI, as your project is not yet ready to _test the framework_. However, Ignite CLI added some unit tests of its own. Run those for the keeper:
+
+```sh
+$ go test github.com/alice/checkers/x/checkers/keeper
+```
+
+### Your first unit test
+
+A good start is to test that the default genesis is created as expected. Beside `x/checkers/types/genesis.go`, create a new `genesis_test.go`:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/641440f/x/checkers/types/genesis_test.go#L9-L16]
+func TestDefaultGenesisIsCorrect(t *testing.T) {
+    require.EqualValues(t,
+        &GenesisState{
+            StoredGameList: []*StoredGame{},
+            NextGame:       &NextGame{"", uint64(1)},
+        },
+        DefaultGenesis())
+}
+```
+
+To run it, use `go test` with the package name:
+
+```sh
+$ go test github.com/alice/checkers/x/checkers/types
+```
+
+This should return something like:
+
+```
+ok      github.com/alice/checkers/x/checkers/types     0.814s
+```
+
+Alternatively, call it from the folder itself:
+
+```sh
+$ cd x/checkers/types/
+$ go test
+```
+
+<HighlightBox type="info">
+
+You want your tests to pass when everything is okay, but you also want them to fail when something is wrong. Make sure your new test fails by changing `uint64(1)` to `uint64(2)`. You should get the following:
+
+```
+--- FAIL: TestDefaultGenesisIsCorrect (0.00s)
+    genesis_test.go:10:
+                Error Trace:    genesis_test.go:10
+                Error:          Not equal:
+                                expected: &types.GenesisState{StoredGameList:[]*types.StoredGame{}, NextGame:(*types.NextGame)(0xc000506cf0)}
+                                actual  : &types.GenesisState{StoredGameList:[]*types.StoredGame{}, NextGame:(*types.NextGame)(0xc000506d08)}
+
+                                Diff:
+                                --- Expected
+                                +++ Actual
+                                @@ -5,3 +5,3 @@
+                                   Creator: (string) "",
+                                -  IdValue: (uint64) 2
+                                +  IdValue: (uint64) 1
+                                  })
+                Test:           TestDefaultGenesisIsCorrect
+FAIL
+exit status 1
+```
+
+This appears complex, but the significant aspect is this:
+
+```sh
+Diff:
+--- Expected
++++ Actual
+-  IdValue: (uint64) 2
++  IdValue: (uint64) 1
+```
+
+For _expected_ and _actual_ to make sense, you have to ensure that they are correctly placed in your call. When in doubt, go to the `require` function definition:
+
+```go [https://github.com/stretchr/testify/blob/v1.7.0/require/require.go#L202]
+func EqualValues(t TestingT, expected interface{}, actual interface{}, msgAndArgs ...interface{}) {...}
+```
+
+</HighlightBox>
+
+### Debug your unit test
+
+Your first unit test is a standard Go unit test. If you use an IDE like Visual Studio Code it is ready to assist run the test in debug mode. Next to the function name is a small green tick. If you hover below it, a faint red dot appears:
+
+![Go test debug button in VSCode](/go_test_debug_button.png)
+
+This red dot is a potential breakpoint. Add one on the `DefaultGenesis()` line. The dot is now bright and stays there:
+
+![Go test breakpoint placed](/go_test_debug_breakpoint.png)
+
+Right-click on the green tick, and choose <kbd>Debug Test</kbd>. If it asks you to install a package, accept. Eventually it stops at the breakpoint and displays the current variables and a panel for stepping actions:
+
+![Go test stopped at breakpoint](/go_test_debug_stopped_at_breakpoint.png)
+
+If you are struggling with a test, create separate variables in order to inspect them in debug. From there, follow your regular step-by-step debugging process. If you are not familiar with debugging, [this online tutorial](https://www.digitalocean.com/community/tutorials/debugging-go-code-with-visual-studio-code) will be helpful.
+
+### More unit tests
+
+With a simple yet successful unit test, you can add more consequential ones to test helper methods. Since you are going to repeat some actions, it is worth adding a reusable function:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L12-L27]
+const (
+    alice = "cosmos1jmjfq0tplp9tmx4v9uemw72y4d2wa5nr3xn9d3"
+    bob   = "cosmos1xyxs3skf3f4jfqeuv89yyaqvjc6lffavxqhc8g"
+    carol = "cosmos1e0w5t53nrq7p66fye6c8p0ynyhf6y24l4yuxd7"
+)
+
+func GetStoredGame1() *StoredGame {
+    return &StoredGame{
+        Creator: alice,
+        Black:   bob,
+        Red:     carol,
+        Index:   "1",
+        Game:    rules.New().String(),
+        Turn:    "b",
+    }
+}
+```
+
+Now you can test the function to get the creator's address. One test for the happy path, and another for the error:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L29-L46]
+func TestCanGetAddressCreator(t *testing.T) {
+    aliceAddress, err1 := sdk.AccAddressFromBech32(alice)
+    creator, err2 := GetStoredGame1().GetCreatorAddress()
+    require.Equal(t, aliceAddress, creator)
+    require.Nil(t, err1)
+    require.Nil(t, err2)
+}
+
+func TestGetAddressWrongCreator(t *testing.T) {
+    storedGame := GetStoredGame1()
+    storedGame.Creator = "cosmos1jmjfq0tplp9tmx4v9uemw72y4d2wa5nr3xn9d4"
+    creator, err := storedGame.GetCreatorAddress()
+    require.Nil(t, creator)
+    require.EqualError(t,
+        err,
+        "creator address is invalid: cosmos1jmjfq0tplp9tmx4v9uemw72y4d2wa5nr3xn9d4: decoding bech32 failed: checksum failed. Expected 3xn9d3, got 3xn9d4.")
+    require.EqualError(t, storedGame.Validate(), err.Error())
+}
+```
+
+You can do the same for [`Black`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L48-L65) and [`Red`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L67-L84).
+
+Test that [you can parse a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L86-L90), even [if it has been tampered with](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L92-L98), except [if the tamper is wrong](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L100-L107) or [if the turn is wrongly saved](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L109-L116).
+
+Interested in integration tests? Skip ahead to the [section](./game-wager.md) where you learn about them.
+
+## Interact via the CLI
+
+Ignite CLI created a set of files for you. It is time to see whether you can already interact with your new checkers blockchain.
+
+1. Start the chain in its shell:
+
+    ```sh
+    $ ignite chain serve --reset-once
+    ```
+
+    This ends with:
+
+    ```
+    ...
+    🌍 Tendermint node: http://0.0.0.0:26657
+    🌍 Blockchain API: http://0.0.0.0:1317
+    🌍 Token faucet: http://0.0.0.0:4500
+    ```
+
+2. Check the values saved in `NextGame`. Look at the relevant `client/cli` file, which Ignite CLI created to find out what command is relevant. Here it is [`query_next_game.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/client/cli/query_next_game.go#L14). You can also ask the CLI:
+
+    ```sh
+    $ checkersd query checkers --help
+    ```
+
+    And that is [`show-next-game`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e2251f253288163021c75999709d8c25b402/x/checkers/client/cli/query_next_game.go#L14):
+
+    ```sh
+    $ checkersd query checkers show-next-game
+    ```
+
+    This returns:
+
+    ```
+    NextGame:
+      creator: ""
+      idValue: "0"
+    ```
+
+    This is as expected. No games have been created yet, so the game counter is still at `0`.
+
+3. The `--output` flag allows you to get your results in a JSON format, which might be useful if you would like to use a script to parse the information. When you use the `--help` flag, you see which flags are available for a specific command:
+
+    ```sh
+    $ checkersd query checkers show-next-game --help
+    ```
+
+    Among the output, you see:
+
+    ```
+    ...
+    -o, --output string   Output format (text|json) (default "text")
+    ```
+
+    Now try again a bit differently:
+
+    ```sh
+    $ checkersd query checkers show-next-game --output json
+    ```
+
+    This should print:
+
+    ```json
+    {"NextGame":{"creator":"","idValue":"0"}}
+    ```
+
+3. You can similarly confirm there are no [stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/client/cli/query_stored_game.go#L14):
+
+    ```sh
+    $ checkersd query checkers list-stored-game
+    ```
+
+    This should print:
+
+    ```
+    StoredGame: []
+    pagination:
+      next_key: null
+      total: "0"
+    ```
+
+Remember how you wrote `--no-message`? That was to not create messages or transactions, which would directly update your checkers storage. Soft-confirm there are no commands available:
+
+```sh
+$ checkersd tx checkers --help
+```
+
 ## Next up
 
-Want to continue developing your checkers blockchain? In the [next section](./create-message.md) you will learn all about introducing an `sdk.Msg` to create a game.
+Want to continue developing your checkers blockchain? In the [next section](./create-message.md), you will learn all about introducing an `sdk.Msg` to create a game.
