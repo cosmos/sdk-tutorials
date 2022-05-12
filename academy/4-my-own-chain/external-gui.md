@@ -21,15 +21,15 @@ This section does not introduce anything related to CosmJS, but sets you up with
 
 In the previous sections, you created the objects, messages, and clients that allow you to interface with your Checkers blockchain. The point of this exercise is not to create a GUI from the ground up for the game of checkers. Instead, you'll integrate an existing front-end project with the previous CosmJS work you've done so far.
 
-Clone the following [repo](https://github.com/nooomski/react-checkers) that was originally made by [`nablsi14`](https://github.com/nablsi14) and now updated to a recent React version:
+Clone the following [repo](https://github.com/b9lab/react-checkers) that was originally made by [`nablsi14`](https://github.com/nablsi14) and now updated to a recent React version:
 
 ```sh
-$ git clone https://github.com/nooomski/react-checkers
+$ git clone https://github.com/b9lab/react-checkers
 ```
 
 ## Prepare the files and folders
 
-In order to integrate this project, you'll have to move the relevant files into you own repo. But let's first test if the app works on your machine.
+In order to integrate this project, you'll have to move the relevant files into your own repo. But first test if the app works on your machine.
 
 ### Testing the app
 
@@ -59,7 +59,7 @@ You'll have to move some files from the `react-checkers` folder into the repo th
     * Remove the [`"homepage"`](https://github.com/cosmos/academy-checkers-ui/blob/f9e1375/package.json#L18) field or it will confuse React.
     * Copy only the missing `dependencies` and `devDependencies`. If there is a conflict between versions, overwrite with the highest version.
 
-Everything should now be integrated
+Everything should now be integrated.
 
 ### Testing your own repo
 

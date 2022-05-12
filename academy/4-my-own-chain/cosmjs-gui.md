@@ -11,8 +11,8 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [CosmJS](TODO).
-* You have the checkers blockchain codebase up to the external GUI. If not, follow the [previous steps](./external-gui.md) or If not, you can go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui) to get the version needed for this tutorial.
+* You understand the concepts of [CosmJS](../xl-cosmjs/intro.md).
+* You have the checkers blockchain codebase up to the external GUI. If not, follow the [previous steps](./external-gui.md) or you can go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui) to get the version needed for this tutorial.
 
 </HighlightBox>
 

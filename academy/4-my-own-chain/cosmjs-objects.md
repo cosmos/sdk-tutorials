@@ -11,16 +11,16 @@ tag: deep-dive
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md) 
-* You have completed the introductory [CosmJS tutorial](TODO).
+* You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md)
+* You have completed the introductory [CosmJS tutorial](../xl-cosmjs/intro.md).
 * Go and npm are installed.
-* You have the finished the checkers blockchain exercise. If not, you can follow that tutorial [here](./index.md) or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
+* You have finished the checkers blockchain exercise. If not, you can follow that tutorial [here](./index.md) or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
 
 </HighlightBox>
 
 With your Checkers application ready for use, it is a good time to prepare client elements that will eventually allow you to create a GUI and/or server-side scripts. Here, you will apply [what you have learned](TODO) about creating your own custom CosmJS interfaces.
 
-Before we can get into working on our application directly, we need to make sure CosmJS understands our checkers module and knows how to interact with it. This generally means we need create the Protobuf objects and clients in Typescript and create extensions that facilitate the use of them.
+Before you can get into working on your application directly, you need to make sure CosmJS understands your checkers module and knows how to interact with it. This generally means you need create the Protobuf objects and clients in Typescript and create extensions that facilitate the use of them.
 
 ## Compile Protobuf
 
@@ -328,4 +328,4 @@ This is as expected, as nothing more can be tested at this stage.
 
 ## What's next?
 
-Now that your types have been generated, we can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./cosmjs-messages.md).
+Now that your types have been generated, you can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./cosmjs-messages.md).
