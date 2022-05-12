@@ -449,12 +449,14 @@ module.exports = {
                   title: "Final exam (todo)",
                   path: "/feature-test/"
                 },
-                {
-                  title: "What’s Next",
-                  path: "/academy/5-whats-next/"
-                },
               ]
-            }
+            },
+            {
+              title: "What's Next?",
+              path: "/academy/5-whats-next/",
+              directory: false,
+              order: 8,
+            },
           ],
         },
       ],
