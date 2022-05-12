@@ -1,13 +1,13 @@
 ---
-title: Get an external GUI
+title: Get an External GUI
 order: 24
 description: Find a Checkers GUI before you integrate with CosmJS
 tag: deep-dive
 ---
 
-# Get an external GUI
+# Get an External GUI
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have everything you need before proceeding:
 

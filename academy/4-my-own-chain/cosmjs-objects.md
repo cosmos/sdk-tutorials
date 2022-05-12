@@ -7,7 +7,7 @@ tag: deep-dive
 
 # CosmJS - Create the objects for your GUI
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have everything you need before proceeding:
 

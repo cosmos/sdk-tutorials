@@ -98,7 +98,7 @@ The Cosmos SDK enables the creation of application-specific blockchains. That is
 
 <YoutubePlayer videoId="Za5lPKNV_Mk"/>
 
-## Managed Blockchain Networks
+## Managed blockchain networks
 
 Managed networks, just like public networks, rely on blockchain data structures. Unlike public blockchain networks, they do not necessarily need to mitigate the Byzantine Generals Problem because they operate in a predictable environment with elements of authority, hierarchy, and accountability.
 

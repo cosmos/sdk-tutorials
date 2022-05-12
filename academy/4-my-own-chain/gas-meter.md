@@ -7,19 +7,23 @@ tag: deep-dive
 
 # Gas - Incentivize Players
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have everything you need before proceeding:
 
 * You understand the concept of gas.
 * Go is installed.
 * You have the checkers blockchain codebase with the game wager and its handling. If not, follow the [previous steps](./game-wager.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-wager).
+    
+</HighlightBox>
 
-In this section:
+<HighlightBox type="synopsis">
 
-* Add transaction fees
-* Set fees and add metering
-* Integration tests
+In this section, you will:
+
+* Add transaction fees.
+* Set fees and add metering.
+* Do integration tests.
 
 </HighlightBox>
 

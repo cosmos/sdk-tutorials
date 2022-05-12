@@ -223,7 +223,7 @@ On the right-hand side (next to the visualization) you can find a list of all ne
 
 <HighlightBox type="tip">
 
-If you want a visualization of the network, just click on the network icon in the upper-right-hand corner. This redirects you to the (IOBSCAN Network State Visualizer)[https://www.iobscan.io/#/]:
+If you want a visualization of the network, just click on the network icon in the upper-right-hand corner. This redirects you to the [IOBSCAN Network State Visualizer](https://www.iobscan.io/#/):
 
 ![IOBScan Network State Visualizer](/academy/ibc/images/iobscan2.png)
 

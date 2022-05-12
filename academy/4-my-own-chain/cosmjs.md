@@ -7,7 +7,7 @@ tag: deep-dive
 
 # CosmJS
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 CosmJS provides a TypeScript library for the Cosmos SDK. Reading the following sections as a preparation is recommended:
 

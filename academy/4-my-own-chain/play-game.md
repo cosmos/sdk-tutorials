@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Message and Handler - Add a Way to Make a Move
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have all you need before proceeding:
 
@@ -15,12 +15,16 @@ Make sure you have all you need before proceeding:
 * Go is installed.
 * You have the checkers blockchain codebase with `MsgCreateGame` and its handling. If not, follow the [previous steps](./create-handling.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler).
 
-In this section:
+</HighlightBox>
 
-* Extend message handling - play the game
-* Handle moves and update the game state
-* Validate input
-* Extend unit tests
+<HighlightBox type="synopsis">
+
+In this section, you will:
+
+* Extend message handling - play the game.
+* Handle moves and update the game state.
+* Validate input.
+* Extend unit tests.
 
 </HighlightBox>
 

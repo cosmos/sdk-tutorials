@@ -7,20 +7,24 @@ tag: deep-dive
 
 # Token - Let Players Set a Wager
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [modules](../2-main-concepts/modules.md)), [keepers](../2-main-concepts/multistore-keepers.md), and [Protobuf](../2-main-concepts/protobuf.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to game expiry handling. If not, follow the [previous steps](./game-forfeit.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/forfeit-game).
+    
+</HighlightBox>
 
-In this section:
+<HighlightBox type="synopsis">
 
-* Add wagers
-* The Bank module
-* Handling money
-* Integration tests
+In this section, you will:
+
+* Add wagers.
+* Work with the Bank module.
+* Handle money.
+* Do integration tests.
 
 </HighlightBox>
 

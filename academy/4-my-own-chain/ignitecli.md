@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Ignite CLI
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Before diving into the details of how Ignite CLI helps you scaffold the basics for your application blockchain make sure to understand the main concepts presented in the following sections:
 
@@ -19,13 +19,17 @@ Before diving into the details of how Ignite CLI helps you scaffold the basics f
 * [Protobuf](../2-main-concepts/protobuf.md)
 * [BaseApp](../2-main-concepts/base-app.md)
 
-In this section:
+</HighlightBox>
 
-* Install Ignite CLI
-* Scaffold a blockchain
-* Use the CLI
-* Start the Ignite UI server
-* Send your first message
+<HighlightBox type="synopsis">
+
+In this section, you will:
+  
+* Install the Ignite CLI.
+* Scaffold a blockchain.
+* Use the CLI.
+* Start the Ignite UI server.
+* Send your first message.
 
 You can follow a hands-on exercise for Ignite CLI in the sections that follow this introduction.
 

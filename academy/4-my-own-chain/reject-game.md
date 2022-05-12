@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Message and Handler - Make Sure a Player Can Reject a Game
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Before proceeding, make sure you have all you need:
 
@@ -16,12 +16,16 @@ Before proceeding, make sure you have all you need:
 * Go is installed.
 * You have the checkers blockchain codebase with the previous messages and their events. If not, follow the [previous steps](./events.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/two-events).
 
-In this section:
+</HighlightBox>
 
-* Add a new protocol rule
-* Define custom errors
-* Add a message handler
-* Extend unit tests
+<HighlightBox type="synopsis">
+
+In this section, you will:
+
+* Add a new protocol rule.
+* Define custom errors.
+* Add a message handler.
+* Extend unit tests.
 
 </HighlightBox>
 
