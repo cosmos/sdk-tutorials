@@ -5,7 +5,7 @@ order: 0
 weekly: true 
 image:
   title: Important Dates
-  src: /ida-timeline.png
+  src: /ida-timeline.svg
 intro:
   - title: Interchain Developer Academy
     image: /graphics-sdk-course.png
@@ -70,14 +70,14 @@ overview:
         <div class="tm-bold">When do I get the results?</div>
         You'll receive your exam results by <span class="tm-bold">August 3rd.</span> 
 modules:
-  - title: Cosmos and its Main Concepts
+  - title: Cosmos and Its Main Concepts
     description: In Week 1, you'll discover the Cosmos ecosystem and learn about the main concepts of the Cosmos SDK, from its Tendermint consensus to learning how keys, accounts, and transactions relate to each other.
     number: 1
-    url: /academy/1-what-is-cosmos/
+    url: /course-ida/landingpages/week1-lp.html
     submodules:
-      - title: What is Cosmos
-        description: How does the Cosmos network of interoperable blockchains fit into the overall development of blockchain technology?
-        url: /academy/1-what-is-cosmos/
+      - title: Cosmos and its Main Concepts
+        description: From the vision to the ecosystem - A universe made up of particles
+        url: /course-ida/landingpages/week1-lp.html
         order: 0
       - title: Blockchain Technology and Cosmos
         description: Cosmos as part of blockchain technology
@@ -151,17 +151,20 @@ modules:
         description: Bridging to other blockchains on different protocols
         url: /academy/2-main-concepts/bridges.html
         order: 18
-  - title: Running Your Cosmos Chain - Part 1
+      - title: Mandatory Quiz (todo)
+        url: /feature-test/
+        order: 19
+  - title: Running Your Own Cosmos Chain - Part 1
     description: In the second week, you'll discover how to run a node and learn how to build your own chain by following an example implementation of a checkers blockchain.
     number: 2
-    url: /academy/4-my-own-chain/
+    url: /course-ida/landingpages/week2-lp.html
     submodules:
-      - title: Chapter Overview - First Steps to Run Your Own Chain
-        description: It all comes together
-        url: /academy/4-my-own-chain/
+      - title: Running Your Own Cosmos Chain - Part 1
+        description: Run a chain for the first time
+        url: /course-ida/landingpages/week2-lp.html
         order: 0
-      - title: Setup (todo)
-        url: /feature-test/
+      - title: Setup Your Work Environment
+        url: /course-ida/setup.html
         order: 1
       - title: Running a Node, API, and CLI
         description: Interacting with a Cosmos SDK chain through simapp
@@ -195,13 +198,16 @@ modules:
         description: You reject a game
         url: /academy/4-my-own-chain/reject-game.html
         order: 9
-  - title: Running Your Cosmos Chain - Part 2
+      - title: Mandatory Exercise (todo)
+        url: /feature-test/
+        order: 10
+  - title: Running Your Own Cosmos Chain - Part 2
     description: In Week 3, you'll dive deeper into customizing the checkers blockchain and discovering how to make your own game more interesting and unique.
     number: 3
-    url: /feature-test/
+    url: /course-ida/landingpages/week3-lp.html
     submodules:
-      - title: Module lp (todo)
-        url: /feature-test/
+      - title: Running Your Own Cosmos Chain - Part 2
+        url: /course-ida/landingpages/week3-lp.html
         order: 0
       - title: Store FIFO - Put Your Games in Order
         description: You prepare to expire games
@@ -246,73 +252,108 @@ modules:
   - title: The Inter-Blockchain Communication Protocol
     description: In Week 4, you’ll dive into IBC to learn more about the components that allow for cross-chain communication and how relaying works with IBC.
     number: 4
-    url: /feature-test/
+    url: /course-ida/landingpages/week4-lp.html
     submodules:
-      - title: IBC (todo)
-        url: /feature-test/
+      - title: The Inter-Blockchain Communication Protocol
+        description: Connecting chains
+        url: /course-ida/landingpages/week4-lp.html
         order: 0
-      - title: What is IBC (todo)
-        url: /feature-test/
+      - title: What is IBC?
+        description: Introduction to the IBC Protocol
+        url: /academy/ibc/what-is-ibc.html
         order: 1
-      - title: Token transfer (todo)
-        url: /feature-test/
+      - title: Transport, Authentication, and Ordering Layer - Connections
+        url: /academy/ibc/ibc-tao-dev.html
         order: 2
-      - title: ICA (todo)
-        url: /feature-test/
+      - title: Transport, Authentication, and Ordering Layer - Channels
+        url: /academy/ibc/channels.html
         order: 3
-      - title: IBC TAO dev (todo)
-        url: /feature-test/
+      - title: Transport, Authentication, and Ordering Layer - Clients
+        url: /academy/ibc/clients.html
         order: 4
+      - title: IBC Token Transfer
+        description: Token trasnfers across chains
+        url: /academy/ibc/token-transfer.html
+        order: 5
+      - title: Interchain Accounts
+        url: /academy/ibc/ica.html
+        order: 6
+      - title: Relayers in General
+        url: /academy/ibc/relayerintro.html
+        order: 7
+      - title: Go Relayer
+        url: /academy/ibc/gorelayer.html
+        order: 8
+      - title: Hermes Relayer
+        url: /academy/ibc/hermesrelayer.html
+        order: 9
+      - title: Overview IBC Tooling
+        url: /academy/ibc/ibc-tooling.html
+        order: 10
   - title: CosmJS and Building Your CosmJS Chain
     description: In Week 5, you'll learn how to use CosmJS for your chain and apply it to the checkers blockchain.
     number: 5
-    url: /feature-test/
+    url: /course-ida/landingpages/week5-lp.html
     submodules:
-      - title: CosmJs & My Own Cosmos Chain (todo)
-        url: /feature-test/
+      - title: CosmJS and Building Your CosmJS Chain
+        url: /course-ida/landingpages/week5-lp.html
         order: 0
-      - title: What is Cosmjs (todo)
-        url: /feature-test/
+      - title: What is CosmJS
+        description: What is CosmJS and what can it do for me?
+        url: /academy/xl-cosmjs/intro.html
         order: 1
-      - title: Your first CosmJs actions (todo)
-        url: /feature-test/
+      - title: Your First CosmJS Actions
+        description: Interacting with a Cosmos SDK chain through CosmJS
+        url: /academy/xl-cosmjs/first-steps.html
         order: 2
-      - title: Compose complex transactions (todo)
-        url: /feature-test/
+      - title: Compose Complex Transactions
+        description: Send multiple tokens and messages through CosmJS
+        url: /academy/xl-cosmjs/multi-msg.html
         order: 3
-      - title: Learn to integrate Keplr (todo)
-        url: /feature-test/
+      - title: Learn to Integrate Keplr
+        description: Interacting with a Cosmos SDK chain through CosmJS and Keplr
+        url: /academy/xl-cosmjs/with-keplr.html
         order: 4
-      - title: Create custom objects in general (todo)
-        url: /feature-test/
+      - title: Create Custom Objects
+        description: To work with your blockchain
+        url: /academy/xl-cosmjs/create-custom.html
         order: 5
-      - title: Create custom objects for Checkers (todo)
-        url: /feature-test/
+      - title: Create Custom Objects for Your Checkers Blockchain
+        description: Create the objects that your GUI will use
+        url: /academy/4-my-own-chain/cosmjs-objects.html
         order: 6
-      - title: Create custom messages for Checkers (todo)
-        url: /feature-test/
+      - title: Create Custom Messages for Your Checkers Blockchain
+        description: Create the messages that your GUI will use
+        url: /academy/4-my-own-chain/cosmjs-messages.html
         order: 7
   - title: CosmJS for Your Chain - GUI and Backend Script
     description: In Week 6, you'll build on your previous work with CosmJS to implement a sound game GUI and a backend script that improves the user experience.
     number: 6
-    url: /feature-test/
+    url: /course-ida/landingpages/week6-lp.html
     submodules:
-      - title: Create a GUI for your CosmJS Chain (todo)
-        url: /feature-test/
+      - title: CosmJS for Your Chain - GUI and Backend Script
+        description: Diving deeper into CosmJS
+        url: /course-ida/landingpages/week6-lp.html
         order: 0
-      - title: Pick and fix a Checkers GUI (todo)
-        url: /feature-test/
+      - title: Pick and Fix a Checkers GUI
+        description: Find a Checkers GUI before you integrate with CosmJs
+        url: /academy/4-my-own-chain/external-gui.html
         order: 1
-      - title: Integrate Cosmjs and Keplr into the GUI (todo)
-        url: /feature-test/
+      - title: Integrate CosmJS and Keplr Into the GUI
+        description: Take a Checkers GUI and use your elements
+        url: /academy/4-my-own-chain/cosmjs-gui.html
         order: 2
-      - title: Cosmjs on a backend script for game indexing (todo)
-        url: /feature-test/
+      - title: CosmJS on a Backend Script for Game Indexing
+        description: Introducing a Web2.0 server to track games per player
+        url: /academy/4-my-own-chain/server-side.html
         order: 3
+      - title: Final exam (todo)
+        url: /feature-test/
+        order: 4
       - title: What’s Next
         description: Continue your Cosmos journey
         url: /academy/5-whats-next/
-        order: 4
+        order: 5
 ---
 
 # Welcome to the Cosmos SDK Developer Platform
