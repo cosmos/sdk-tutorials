@@ -1,7 +1,7 @@
 ---
 title: Get an external GUI
 order: 24
-description: Find a Checkers GUI before you integrate with CosmJs
+description: Find a Checkers GUI before you integrate with CosmJS
 tag: deep-dive
 ---
 
@@ -11,11 +11,11 @@ tag: deep-dive
 
 Make sure you have everything you need before proceeding:
 
-* You have the checkers blockchain codebase up to the CosmJs messages. If not, follow the [previous steps](./cosmjs-messages.md) or check out the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/signing-stargate).
+* You have the checkers blockchain codebase up to the CosmJS messages. If not, follow the [previous steps](./cosmjs-messages.md) or check out the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/signing-stargate).
 
-The purpose of this section is to obtain a working and fairly recent Checkers GUI. If you already have one, you can skip to the [next section](./cosmjs-gui.md) on how to integrate it with CosmJs.
+The purpose of this section is to obtain a working and fairly recent Checkers GUI. If you already have one, you can skip to the [next section](./cosmjs-gui.md) on how to integrate it with CosmJS.
 
-This section does not introduce anything related to CosmJs.
+This section does not introduce anything related to CosmJS.
 
 </HighlightBox>
 
@@ -110,7 +110,7 @@ package.json
 
 ### Fix a compilation error
 
-There may be a Typescript compilation error on a CosmJs-generated file, so add [`"downlevelIteration": true,`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/tsconfig.json#L13) to `.compilerOptions` in `tsconfig.json`.
+There may be a Typescript compilation error on a CosmJS-generated file, so add [`"downlevelIteration": true,`](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/tsconfig.json#L13) to `.compilerOptions` in `tsconfig.json`.
 
 Confirm that you get the React simple page by running `npm start` in your own project root folder.
 

@@ -1,23 +1,23 @@
 ---
-title: CosmJs - Create the objects for your GUI
+title: CosmJS - Create the objects for your GUI
 order: 22
 description: Create the objects that your GUI will use
 tag: deep-dive
 ---
 
-# CosmJs - Create the objects for your GUI
+# CosmJS - Create the objects for your GUI
 
 <HighlightBox type="synopsis">
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md) and [CosmJs](TODO).
+* You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md) and [CosmJS](TODO).
 * Go and npm are installed.
 * You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](./wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
 
 </HighlightBox>
 
-With your Checkers application ready for use, it is a good time to prepare client elements that will eventually allow you to create a GUI and/or server-side scripts. Here, you will apply [what you learned](TODO) about creating your own custom CosmJs interfaces.
+With your Checkers application ready for use, it is a good time to prepare client elements that will eventually allow you to create a GUI and/or server-side scripts. Here, you will apply [what you learned](TODO) about creating your own custom CosmJS interfaces.
 
 ## Compile Protobuf
 
@@ -102,7 +102,7 @@ export interface Pos {
 }
 ```
 
-Your Checkers extension will need to use the CosmJs Stargate package. Install it:
+Your Checkers extension will need to use the CosmJS Stargate package. Install it:
 
 ```sh
 $ npm install @cosmjs/stargate@0.28.2 --save-exact

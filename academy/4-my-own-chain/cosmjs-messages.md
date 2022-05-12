@@ -1,18 +1,18 @@
 ---
-title: CosmJs - Create the messages for your GUI
+title: CosmJS - Create the messages for your GUI
 order: 23
 description: Create the messages that your GUI will use
 tag: deep-dive
 ---
 
-# CosmJs - Create the messages for your GUI
+# CosmJS - Create the messages for your GUI
 
 <HighlightBox type="synopsis">
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [CosmJs](TODO).
-* You have the checkers blockchain codebase up to the CosmJs objects. If not, follow the [previous steps](./cosmjs-objects.md) or check out the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/stargate).
+* You understand the concepts of [CosmJS](TODO).
+* You have the checkers blockchain codebase up to the CosmJS objects. If not, follow the [previous steps](./cosmjs-objects.md) or check out the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/stargate).
 
 </HighlightBox>
 
@@ -20,7 +20,7 @@ In the previous section, you created the objects that allow you to **query** you
 
 ## Encodable messages
 
-Previously you defined in Protobuf three messages and their respective responses. You had Protobuf [compile them](https://github.com/cosmos/academy-checkers-ui/blob/generated/src/types/generated/checkers/tx.ts). Now you will create multiple `EncodeObject`s along the lines of [CosmJs](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/modules/bank/messages.ts). First, collect their names and Protobuf packages. Each Protobuf type identifier is assigned its encodable type:
+Previously you defined in Protobuf three messages and their respective responses. You had Protobuf [compile them](https://github.com/cosmos/academy-checkers-ui/blob/generated/src/types/generated/checkers/tx.ts). Now you will create multiple `EncodeObject`s along the lines of [CosmJS](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/modules/bank/messages.ts). First, collect their names and Protobuf packages. Each Protobuf type identifier is assigned its encodable type:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/src/types/checkers/messages.ts#L11-L25]
 export const typeUrlMsgCreateGame = "/alice.checkers.checkers.MsgCreateGame"
@@ -40,7 +40,7 @@ export const checkersTypes: ReadonlyArray<[string, GeneratedType]> = [
 ]
 ```
 
-Next proceed with the declarations. As with CosmJs, you can add an `isMsgXX` helper for each:
+Next proceed with the declarations. As with CosmJS, you can add an `isMsgXX` helper for each:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/src/types/checkers/messages.ts#L27-L47]
 export interface MsgCreateGameEncodeObject extends EncodeObject {
@@ -180,7 +180,7 @@ public async rejectGame(
 
 ## Test your signing client
 
-For live testing, reuse the `experiment.ts` file created in the [previous section](./cosmjs-objects.md). This time you first need to provide a signer. You learned how to do this in the [CosmJs introduction section](TODO).
+For live testing, reuse the `experiment.ts` file created in the [previous section](./cosmjs-objects.md). This time you first need to provide a signer. You learned how to do this in the [CosmJS introduction section](TODO).
 
 ### Key preparation with a mnemonic
 

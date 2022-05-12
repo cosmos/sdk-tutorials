@@ -268,13 +268,13 @@ modules:
     number: 5
     url: /feature-test/
     submodules:
-      - title: CosmJs & My Own Cosmos Chain (todo)
+      - title: CosmJS & My Own Cosmos Chain (todo)
         url: /feature-test/
         order: 0
       - title: What is Cosmjs (todo)
         url: /feature-test/
         order: 1
-      - title: Your first CosmJs actions (todo)
+      - title: Your first CosmJS actions (todo)
         url: /feature-test/
         order: 2
       - title: Compose complex transactions (todo)
