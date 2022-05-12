@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Get an External GUI
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have everything you need before proceeding:
 

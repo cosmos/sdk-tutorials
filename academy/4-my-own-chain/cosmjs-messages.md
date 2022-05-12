@@ -7,7 +7,7 @@ tag: deep-dive
 
 # CosmJS - Create the messages for your GUI
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have all you need before proceeding:
 
