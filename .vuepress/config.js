@@ -67,7 +67,8 @@ module.exports = {
       "deploy-preview-994", 
       "deploy-preview-991",
       "deploy-preview-1047",
-      "127.0.0.1"
+      "127.0.0.1",
+      "localhost:"
     ],
     sidebar: {
       auto: false,
@@ -125,10 +126,6 @@ module.exports = {
                 {
                   title: "Introduction to Blockchain Technology",
                   path: "/course-ida/landingpages/week0-lp.html"
-                },
-                {
-                  title: "Blockchchain 101",
-                  path: "/academy/0.0-B9lab-Blockchains/1_blockchain.html"
                 },
                 {
                   title: "Blockchain History",
@@ -236,7 +233,7 @@ module.exports = {
               ]
             },
             {
-              title: "Week 2 - My own Cosmos Chain",
+              title: "Week 2 - Running Your Own Cosmos Chain - Part 1",
               directory: true,
               order: 3,
               children: [
@@ -287,7 +284,7 @@ module.exports = {
               ]
             },
             {
-              title: "Week 3 - My Own Cosmos Chain - Advanced, what makes a chain interesting",
+              title: "Week 3 - Running Your Own Cosmos Chain - Part 2",
               directory: true,
               order: 4,
               children: [
@@ -363,7 +360,7 @@ module.exports = {
                   path: "/academy/ibc/clients.html"
                 },
                 {
-                  title: "Application - An IBC Token Transfer",
+                  title: "IBC Token Transfer",
                   path: "/academy/ibc/token-transfer.html"
                 },
                 {
