@@ -120,7 +120,7 @@ As the reader might guess, Cosmos relies on Tendermint Core. It offers the most 
 
 <HighlightBox type="info">
 
-[Tendermint](./1-what-is-cosmos/blockchain-and-cosmos.md) will be explored in detail later on.
+Tendermint will be explored in detail in [Cosmos and its Main Concepts](/course-ida/landingpages/week1-lp.md).
 
 </HighlightBox>
 
