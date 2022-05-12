@@ -35,9 +35,11 @@ With the current architecture, relayers use the Tendermint RPC endpoint to query
 </HighlightBox>
 
 ### Configuration file
+
 The information and parameters about the chains, paths, and the name of the relayer private key to sign the messages can generally be found in a configuration file, or *config*. You will look at template configs for the Hermes and Go relayer later, but generally config files are the place to initialize, add, or edit information required for relaying.
 
 ### Chain registry
+
 When you have the template for the config file of the relayer software you're using, where can you find the information that it needs? The [chain-registry Github repository](https://github.com/cosmos/chain-registry) provides detailed parmeters about chains and their assets, and recently a schema was added to submit IBC data. This new addition saves you from having to look up path information or canonical channels on [Mintscan](https://www.mintscan.io/cosmos/relayers) or [Map of Zones](https://mapofzones.com/?testnet=false&period=24&tableOrderBy=ibcVolume&tableOrderSort=desc).
 
 The following is an example of the IBC data between Juno and Osmosis:
@@ -77,7 +79,6 @@ The following is an example of the IBC data between Juno and Osmosis:
   }
   ```
 The Go relayer has built-in functionality to fetch chain information (and soon path information) from the chain-registry. Hermes has this functionality on their roadmap. You will look at both relayers in more detail in the next sections.
-
 
 # FAQ
 
