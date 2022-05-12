@@ -1,11 +1,11 @@
 ---
-title: Web 2.0 Server - Convenient information
+title: Web 2.0 Server - Convenient Information
 order: 22
 description: Introducing a Web2.0 server to track games per player
 tag: deep-dive
 ---
 
-# Web 2.0 Server - Convenient information
+# Web 2.0 Server - Convenient Information
 
 Now that your blockchain is complete, you can think about additional data and services that would add value without increasing cost or complexity on chain.
 

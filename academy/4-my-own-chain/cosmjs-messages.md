@@ -1,11 +1,11 @@
 ---
-title: CosmJs - Create the messages for your GUI
+title: CosmJS - Create the messages for your GUI
 order: 23
 description: Create the messages that your GUI will use
 tag: deep-dive
 ---
 
-# CosmJs - Create the messages for your GUI
+# CosmJS - Create the messages for your GUI
 
 <HighlightBox type="synopsis">
 

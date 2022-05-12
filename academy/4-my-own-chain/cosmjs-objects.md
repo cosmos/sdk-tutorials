@@ -1,11 +1,11 @@
 ---
-title: CosmJs - Create the objects for your GUI
+title: CosmJS - Create the objects for your GUI
 order: 22
 description: Create the objects that your GUI will use
 tag: deep-dive
 ---
 
-# CosmJs - Create the objects for your GUI
+# CosmJS - Create the objects for your GUI
 
 <HighlightBox type="synopsis">
 

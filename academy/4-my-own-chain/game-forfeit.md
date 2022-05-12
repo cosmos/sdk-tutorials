@@ -1,11 +1,11 @@
 ---
-title: EndBlock - Auto-expiring Games
+title: EndBlock - Auto-Expiring Games
 order: 14
 description: You enforce the expiration of games
 tag: deep-dive
 ---
 
-# EndBlock - Auto-expiring Games
+# EndBlock - Auto-Expiring Games
 
 <HighlightBox type="prerequisite">
 
