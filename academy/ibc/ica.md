@@ -1,19 +1,21 @@
+---
+title: "Interchain Accounts"
+order: 
+description: 
+tag: deep-dive
+---
+
 # Interchain Accounts
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
   
-**Interchain Accounts(ICA)** allows you to control an account on a **host chain** from a **controller chain**.
+**Interchain Accounts (ICA)** allow you to control an account on a **host chain** from a **controller chain**.
 
-In this section:
+In this section, you will learn more about:
 
-* ICS-27 technical reference
 * Host chains and controller chains
-* Inter-chain accounts
-* ICA auth mode
-* ICA and IBC
-* SDK security model
-* Authentication Module
-* Example Integration
+* See ICA module code
+* The authentication module
   
 </HighlightBox>
 

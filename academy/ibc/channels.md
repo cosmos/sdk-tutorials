@@ -7,12 +7,12 @@ tag: deep-dive
 
 ## Channels
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
-In this section:
+In this section, you will:
   
-* Establishing a channel
-* Application packet flow
+* Establish a channel.
+* Learn about application packet flow.
 
 </HighlightBox>
 
