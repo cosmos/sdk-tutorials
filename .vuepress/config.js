@@ -145,11 +145,7 @@ module.exports = {
                 {
                   title: "Cryptography",
                   path: "/academy/0.0-B9lab-Blockchains/5_crypto.html"
-                },
-                {
-                  title: "Self-assessment Quiz (todo)",
-                  path: "/feature-test"
-                },
+                }
               ]
             },
             {
@@ -249,8 +245,8 @@ module.exports = {
                   path: "/course-ida/landingpages/week2-lp.html"
                 },
                 {
-                  title: "Setup (todo)",
-                  path: "/feature-test/"
+                  title: "Setup Your Work Environment",
+                  path: "/course-ida/setup.html"
                 },
                 {
                   title: "Running a Node, API, and CLI",
