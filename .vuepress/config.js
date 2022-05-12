@@ -171,10 +171,6 @@ module.exports = {
                   path: "/academy/1-what-is-cosmos/atom-staking.html"
                 },
                 {
-                  title: "Main Concepts",
-                  path: "/academy/2-main-concepts/"
-                },
-                {
                   title: "A Blockchain App Architecture",
                   path: "/academy/2-main-concepts/architecture.html"
                 },
@@ -453,12 +449,14 @@ module.exports = {
                   title: "Final exam (todo)",
                   path: "/feature-test/"
                 },
-                {
-                  title: "What’s Next",
-                  path: "/academy/5-whats-next/"
-                },
               ]
-            }
+            },
+            {
+              title: "What's Next?",
+              path: "/academy/5-whats-next/",
+              directory: false,
+              order: 8,
+            },
           ],
         },
       ],
