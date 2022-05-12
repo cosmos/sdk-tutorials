@@ -68,6 +68,7 @@ module.exports = {
       "deploy-preview-991",
       "deploy-preview-1047",
       "127.0.0.1",
+      "deploy-preview"
     ],
     sidebar: {
       auto: false,
