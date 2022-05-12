@@ -139,16 +139,12 @@ modules:
         description: How to handle on-chain upgrades
         url: /academy/2-main-concepts/migrations.html
         order: 16
-      - title: Inter-Blockchain Communication
-        description: Connecting chains with the IBC Protocol
-        url: /academy/2-main-concepts/ibc.html
-        order: 17
       - title: Bridges
         description: Bridging to other blockchains on different protocols
         url: /academy/2-main-concepts/bridges.html
         order: 18
-      - title: Mandatory Quiz (todo)
-        url: /feature-test/
+      - title: Mandatory Quiz
+        url: /course-ida/quiz-week1.html
         order: 19
   - title: Running Your Own Cosmos Chain - Part 1
     description: In the second week, you'll discover how to run a node and learn how to build your own chain by following an example implementation of a checkers blockchain.
