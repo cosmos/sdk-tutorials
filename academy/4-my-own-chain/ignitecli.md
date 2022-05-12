@@ -18,9 +18,9 @@ Before diving into the details of how Ignite CLI helps you scaffold the basics f
 * [Modules](../2-main-concepts/modules.md)
 * [Protobuf](../2-main-concepts/protobuf.md)
 * [BaseApp](../2-main-concepts/base-app.md)
-  
+
 In this section:
-  
+
 * Install Ignite CLI
 * Scaffold a blockchain
 * Use the CLI
@@ -58,6 +58,12 @@ To install Ignite CLI at the command line:
 $ curl https://get.ignite.com/cli! | bash
 ```
 
+Or if you install it in a Linux VM:
+
+```sh
+$ curl https://get.ignite.com/cli! | sudo bash
+```
+
 You can verify the version of Ignite CLI you have once it is installed:
 
 ```sh
@@ -68,6 +74,8 @@ This prints:
 
 ```
 Ignite CLI version:	v0.17.3
+Or its old name
+starport version v0.17.3
 ...
 ```
 
@@ -78,7 +86,7 @@ This entire exercise was built using the Ignite CLI version noted above. Using a
 To install this specific version of Ignite CLI, use:
 
 ```sh
-$ curl https://get.ignite.com/cli@v0.17.0! | bash
+$ curl https://get.ignite.com/cli@v0.17.3! | bash
 ```
 
 </HighlightBox>
@@ -86,7 +94,6 @@ $ curl https://get.ignite.com/cli@v0.17.0! | bash
 <HighlightBox type="docs">
 
 If you'd like to upgrade an existing project to the latest version of Ignite CLI, you can follow the [Ignite CLI migration documentation](https://docs.ignite.com/migration/).
-
 
 </HighlightBox>
 

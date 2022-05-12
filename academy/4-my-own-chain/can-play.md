@@ -37,8 +37,8 @@ To run a query to check the validity of a move you need to pass:
 
 The information to be returned is:
 
-* A boolean indicating whether the move is valid, called `Possible`.
-* A text reason explaining why the move is not valid, called `Reason`.
+* A boolean for whether the move is valid, called `Possible`.
+* A text which explains why the move is not valid, called `Reason`.
 
 As with other data structures, you can create the query message object with Ignite CLI:
 
