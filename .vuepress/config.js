@@ -115,7 +115,7 @@ module.exports = {
           children: [
             {
               title: "Welcome",
-              path: "/course-ida/welcome/",
+              path: "/",
               directory: false,
               order: 0
             },
