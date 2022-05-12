@@ -25,10 +25,9 @@ In this section:
 
 When you [introduced a wager](./game-wager.md) you enabled players to play a game and bet on the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other connected blockchain by using the Inter-Blockchain Communication Protocol (IBC).
 
-
 <HighlightBox type="info">
 
-Your checkers application will be agnostic to tokens and relayers. Your only task is to enable the use of _foreign_ tokens.
+Your checkers application will be agnostic regarding tokens and relayers. Your only task is to enable the use of _foreign_ tokens.
 
 </HighlightBox>
 
@@ -99,7 +98,7 @@ The token denomination has been integrated into the relevant data structures. No
     }
     ```
 
-    Do not forget to also insert the values where it emits an event:
+    Also where it emits an event:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game.go#L58]
     ctx.EventManager().EmitEvent(

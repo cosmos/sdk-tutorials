@@ -91,10 +91,6 @@ modules:
         description: Staking your first ATOM
         url: /academy/1-what-is-cosmos/atom-staking.html
         order: 3
-      - title: Main Concepts
-        description: A universe made up of particles
-        url: /academy/2-main-concepts/
-        order: 4
       - title: A Blockchain App Architecture
         description: ABCI, Tendermint, and state machines
         url: /academy/2-main-concepts/architecture.html
