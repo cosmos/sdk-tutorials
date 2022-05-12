@@ -5,7 +5,7 @@ order: 0
 weekly: true 
 image:
   title: Important Dates
-  src: /ida-timeline.png
+  src: /ida-timeline.svg
 intro:
   - title: Interchain Developer Academy
     image: /graphics-sdk-course.png
