@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Relaying in General
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will learn how relayers fit in IBC.
 

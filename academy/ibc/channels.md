@@ -7,7 +7,7 @@ tag: deep-dive
 
 ## Channels
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
   

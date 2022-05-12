@@ -7,7 +7,7 @@ tag: fast-track
 
 # What is IBC?
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 Inter-Blockchain Communication Protocol solves for communication between blockchains, which is particularly important in the Cosmos universe. 
 

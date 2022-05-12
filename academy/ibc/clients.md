@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Clients
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will learn:
 

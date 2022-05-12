@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Tooling
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 	
 In this section, you will discover the following tools:
 

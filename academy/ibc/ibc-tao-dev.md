@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Transport, Authentication, and Ordering Layer
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 IBC in depth. Discover the IBC protocol in detail:
 

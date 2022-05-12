@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Interchain Accounts
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
   
 **Interchain Accounts (ICA)** allow you to control an account on a **host chain** from a **controller chain**.
 

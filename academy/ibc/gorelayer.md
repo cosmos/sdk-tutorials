@@ -19,7 +19,7 @@ For all installations, please see the [setup page](../course-ida/setup.md).
 
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 Have you considered running a relayer?
    

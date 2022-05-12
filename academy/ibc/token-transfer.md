@@ -7,7 +7,7 @@ tag: deep-dive
 
 # IBC Fungible Token Transfer
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 Transferring tokens between chains is both a common requirement and a significant technical challenge when two chains are incompatible, and as you might expect, a convenient solution for moving tokens between chains.
 
