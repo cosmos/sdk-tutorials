@@ -289,7 +289,6 @@ module.exports = {
                   path: "/feature-test"
                 },
               ]
-              ]
             },
             {
               title: "Week 3 - My Own Cosmos Chain - Advanced, what makes a chain interesting",
@@ -401,7 +400,7 @@ module.exports = {
                 {
                   title: "CosmJS and Building Your CosmJS Chain",
                   path: "/course-ida/landingpages/week5-lp.html"
-                }
+                },
                 {
                   title: "What is CosmJS",
                   path: "/academy/xl-cosmjs/intro.html"
