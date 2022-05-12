@@ -14,9 +14,9 @@ Make sure you have all you need before proceeding:
 * You understand the concepts of [messages](../2-main-concepts/messages.md), [Protobuf](../2-main-concepts/protobuf.md), and [IBC](../2-main-concepts/ibc.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to the _can play_ query. If not, follow the [previous steps](./can-play.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
-    
+
 In this section:
-    
+
 * Discover the Inter-Blockchain Protocol
 * Accept wagers with tokens from other chains
 * Refactor integration tests
@@ -25,10 +25,9 @@ In this section:
 
 When you [introduced a wager](./game-wager.md) you enabled players to play a game and bet on the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other connected blockchain by using the Inter-Blockchain Communication Protocol (IBC).
 
-
 <HighlightBox type="info">
 
-Your checkers application will be agnostic to tokens and relayers. Your only task is to enable the use of _foreign_ tokens.
+Your checkers application will be agnostic regarding tokens and relayers. Your only task is to enable the use of _foreign_ tokens.
 
 </HighlightBox>
 
@@ -99,7 +98,7 @@ The token denomination has been integrated into the relevant data structures. No
     }
     ```
 
-    Do not forget to also insert the values where it emits an event:
+    Also where it emits an event:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game.go#L58]
     ctx.EventManager().EmitEvent(

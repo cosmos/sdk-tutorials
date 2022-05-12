@@ -1,29 +1,30 @@
 ---
-title: CosmJs - Create the objects for your GUI
+title: CosmJS - Create the objects for your GUI
 order: 22
 description: Create the objects that your GUI will use
 tag: deep-dive
 ---
 
-# CosmJs - Create the objects for your GUI
+# CosmJS - Create the objects for your GUI
 
 <HighlightBox type="synopsis">
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md) and [CosmJs](TODO).
+* You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md)
+* You have completed the introductory [CosmJS tutorial](../xl-cosmjs/intro.md).
 * Go and npm are installed.
-* You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](./wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
+* You have finished the checkers blockchain exercise. If not, you can follow that tutorial [here](./index.md) or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
 
 </HighlightBox>
 
-With your Checkers application ready for use, it is a good time to prepare client elements that will eventually allow you to create a GUI and/or server-side scripts. Here, you will apply [what you learned](TODO) about creating your own custom CosmJs interfaces.
+With your Checkers application ready for use, it is a good time to prepare client elements that will eventually allow you to create a GUI and/or server-side scripts. Here, you will apply [what you have learned](TODO) about creating your own custom CosmJS interfaces.
+
+Before you can get into working on your application directly, you need to make sure CosmJS understands your checkers module and knows how to interact with it. This generally means you need create the Protobuf objects and clients in Typescript and create extensions that facilitate the use of them.
 
 ## Compile Protobuf
 
-Create a `client` folder that will contain all these new elements.
-
-If you want to keep the Go parts of your Checkers project separate from the Typescript parts, you can use another repository for the _client_. To keep a link between the two repositories, add the _client_ parts as a submodule to your Go parts:
+You'll have to create a `client` folder that will contain all these new elements. If you want to keep the Go parts of your Checkers project separate from the Typescript parts, you can use another repository for the _client_. To keep a link between the two repositories, add the _client_ parts as a submodule to your Go parts:
 
 ```sh
 $ git submodule add git@github.com:cosmos/academy-checkers-ui.git client
@@ -70,8 +71,8 @@ $ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.42.6/third_party/p
 Now compile:
 
 ```sh
-$ ls ../proto/checkers | xargs -I {} ./node_modules/protoc/protoc/bin/protoc \
-    --plugin="./node_modules/.bin/protoc-gen-ts_proto" \
+$ ls ../proto/checkers | xargs -I {} ../client/node_modules/protoc/protoc/bin/protoc \
+    --plugin="../client/node_modules/.bin/protoc-gen-ts_proto" \
     --ts_proto_out="../client/src/types/generated" \
     --proto_path="../proto" \
     --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=messages" \
@@ -92,7 +93,7 @@ $ npm install protobufjs@6.10.2 --save-exact
 
 ## Prepare integration
 
-At a later stage you will add Checkers as an extension to Stargate, but you can define your Checkers extension immediately. The `canPlay` query could make use of better-typed player and position. Declare them:
+At a later stage you will add Checkers as an extension to Stargate, but you can define your Checkers extension immediately. The `canPlay` query could make use of better-typed player and position. Declare them in `client/src/checkers/player.ts`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/types/checkers/player.ts#L1-L5]
 export type Player = "b" | "r"
@@ -102,13 +103,13 @@ export interface Pos {
 }
 ```
 
-Your Checkers extension will need to use the CosmJs Stargate package. Install it:
+Your Checkers extension will need to use the CosmJS Stargate package. Install it:
 
 ```sh
 $ npm install @cosmjs/stargate@0.28.2 --save-exact
 ```
 
-Now you can declare the Checkers extension:
+Now you can declare the Checkers extension in `client/src/modules/checkers/queries.ts`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/modules/checkers/queries.ts#L15-L37]
 export interface AllStoredGameResponse {
@@ -197,7 +198,7 @@ export function setupCheckersExtension(base: QueryClient): CheckersExtension {
 }
 ```
 
-Now create your `CheckersStargateClient`:
+Now create your `CheckersStargateClient` in `client/src/checkers_stargateclient.ts`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/checkers_stargateclient.ts#L5-L22]
 export class CheckersStargateClient extends StargateClient {
@@ -324,3 +325,7 @@ Error: Query failed with (18): rpc error: code = InvalidArgument desc = not foun
 ```
 
 This is as expected, as nothing more can be tested at this stage.
+
+## What's next?
+
+Now that your types have been generated, you can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./cosmjs-messages.md).
