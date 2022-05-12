@@ -1,18 +1,18 @@
 ---
-title: CosmJs - Plug in your GUI
+title: CosmJS - Plug in your GUI
 order: 25
 description: Take a Checkers GUI and use your elements
 tag: deep-dive
 ---
 
-# CosmJs - Plug in your GUI
+# CosmJS - Plug in your GUI
 
 <HighlightBox type="synopsis">
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [CosmJs](TODO).
-* You have the checkers blockchain codebase up to the external GUI. If not, follow the [previous steps](./external-gui.md) or check out the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui).
+* You understand the concepts of [CosmJS](TODO).
+* You have the checkers blockchain codebase up to the external GUI. If not, follow the [previous steps](./external-gui.md) or If not, you can go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui) to get the version needed for this tutorial.
 
 </HighlightBox>
 
@@ -23,10 +23,10 @@ In the previous sections:
 
 Now, you must **integrate the two** together:
 
-* Adjust the React app to be able to package CosmJs.
-* Work on the CosmJs integration.
+* Adjust the React app to be able to package CosmJS.
+* Work on the CosmJS integration.
 
-For the CosmJs integration, you will:
+For the CosmJS integration, you will:
 
 * Work with the GUI's data structures.
 * Fetch all games from the blockchain and display them (without pagination).
@@ -40,7 +40,7 @@ Rejecting a game will be left to you as an exercise.
 
 ### Prepare Webpack
 
-Your GUI uses React v18, which uses Weback v5. Therefore you need to [adjust Webpack's configuration](https://github.com/cosmos/cosmjs/blob/5fc0960/README.md#webpack-configs) to handle some elements (see also the CosmJs documentation). To modify the Webpack configuration in a non-ejected React app, use [`react-app-rewired`](https://www.npmjs.com/package/react-app-rewired) as [explained here](https://stackoverflow.com/questions/63280109/how-to-update-webpack-config-for-a-react-project-created-using-create-react-app):
+Your GUI uses React v18, which uses Weback v5. Therefore you need to [adjust Webpack's configuration](https://github.com/cosmos/cosmjs/blob/5fc0960/README.md#webpack-configs) to handle some elements (see also the CosmJS documentation). To modify the Webpack configuration in a non-ejected React app, use [`react-app-rewired`](https://www.npmjs.com/package/react-app-rewired) as [explained here](https://stackoverflow.com/questions/63280109/how-to-update-webpack-config-for-a-react-project-created-using-create-react-app):
 
 1. Install the new package:
 
