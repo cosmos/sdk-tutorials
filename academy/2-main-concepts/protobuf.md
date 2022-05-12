@@ -9,9 +9,9 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Protobuf is a data serialization method. Developers use it to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
+Protobuf is a data serialization method which developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
 
-Before diving into this section, reading the following sections is recommended:
+Before diving into this section, it is recommended to read the following sections:
 
 * [Messages](./messages.md)
 * [Modules](./modules.md)
@@ -82,6 +82,10 @@ The core of a Cosmos SDK application mainly consists of type definitions and con
 * List of each module's **keepers**: a keeper is an abstract piece in each module to handle the module's interaction with stores, specify references to other modules' keepers, and implement other core functionalities of the module. For cross-module interactions to work, all modules in the Cosmos SDK need to have their keepers declared in the application's type definition and exported as interfaces to other modules, so that the keeper's methods of one module can be called and accessed in other modules when authorized.
 * Reference to **codec**: defaulted to go-amino, the codec in your Cosmos SDK application can be substituted with other suitable encoding frameworks as long as they persist data stores in byte slices and are deterministic.
 * Reference to the **module manager**: a reference to an object containing a list of the application modules known as the module manager.
+
+## Next up
+
+Look at the following code example to see how Protobuf can facilitate your activities, or go straight to the [next section](../2-main-concepts/multistore-keepers.md) for an introduction to storage types and keepers.
 
 <ExpansionPanel title="Show me some code for my checkers' blockchain">
 

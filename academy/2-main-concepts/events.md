@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-Dedicate some time to events in the Cosmos SDK: learn what events are, how events are useful, and how events are implemented in applications.
+Dedicate some time to events in the Cosmos SDK: learn what events are, how they are useful, and how they are implemented in applications.
 
 Before diving into events, ensure you understand the concepts covered in the following sections:
 
@@ -111,7 +111,7 @@ You can filter for event types and attribute values. For example, a transfer tra
 
 ## Next up
 
-You just learned about events, where they are expected, and how to emit or receive them. Look at the code samples below, or go to the [next section](./context.md) to learn about the `Context` object.
+Now you know about events, where they are expected, and how to emit or receive them. Look at the code samples below, or go to the [next section](./context.md) to learn about the `Context` object.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 

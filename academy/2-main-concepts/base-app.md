@@ -9,6 +9,8 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
+In this section you will discover how to define an application state machine and service router, how to create custom transaction processing, and how to create periodic processes that execute at the beginning or end of each block.
+
 Before looking at `BaseApp`, make sure to read the previous sections:
 
 * [A Blockchain App Architecture](./architecture.md)
@@ -16,8 +18,6 @@ Before looking at `BaseApp`, make sure to read the previous sections:
 * [Messages](./messages.md)
 * [Modules](./modules.md)
 * [Multistore and Keepers](./multistore-keepers.md)
-
-Discover how to define an application state machine and service router, how to create custom transaction processing, and how to create periodic processes that execute at the beginning or end of each block.
 
 </HighlightBox>
 
@@ -173,4 +173,4 @@ Other ABCI message handlers being implemented are:
 
 ## Next up
 
-In the [following section](./queries.md), you can find information on queries, one of two primary objects handled by a module in the Cosmos SDK.
+In the [next section](./queries.md), you can find information on queries, one of two primary objects handled by a module in the Cosmos SDK.

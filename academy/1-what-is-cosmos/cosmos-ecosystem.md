@@ -198,4 +198,4 @@ All Ethereum tools (such as Truffle and Metamask) are compatible with Ethermint.
 
 ## Next up
 
-Are you ready to get some ATOM? Find out all about the Cosmos Hub's native token and how to stake ATOM in the [next section](./atom-staking.md).
+Are you ready to get some ATOM? Find out all about the native token of the Cosmos Hub and how to stake ATOM in the [next section](./atom-staking.md).

@@ -17,7 +17,7 @@ Review the following sections to better understand modules in the Cosmos SDK:
 * [Messages](./messages.md)
 * [Queries](./queries.md)
 
-You can find a code example illustrating module creation and an introduction to your checkers blockchain at the end of this section.
+A code example that illustrates module creation and an introduction to your checkers blockchain can be found at the end of this section.
 
 </HighlightBox>
 
@@ -312,7 +312,7 @@ If a module error is registered, the Cosmos SDK errors package allows ABCI infor
 
 ## Next up
 
-Look at the code example below, or go straight to the [next section](../2-main-concepts/protobuf.md) for an introduction to Protobuf.
+Look at the following code example to see modules in practice, or go straight to the [next section](../2-main-concepts/protobuf.md) for an introduction to Protobuf.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
