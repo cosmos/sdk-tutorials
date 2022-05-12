@@ -7,6 +7,19 @@ tag: deep-dive
 
 # Go Relayer
 
+<HighlightBox type="synopsis">
+
+Have you considered running a relayer?
+   
+In this section:
+   
+* Installation and getting started
+* Relayer commands
+* Relaying in production
+* Testing your relay
+   
+</HighlightBox>
+
 [The Go relayer](https://github.com/cosmos/relayer) is a relayer implementation written in Golang. It can create clients, connections, and channels, as well as relay packets, and update and upgrade clients.
 
 The Go relayer aims to get your relayer up and running with minimal manual configuration and abstracts away a lot of the more complex IBC concepts. The objective is that users can spin up their own relayer and relay packets. To provide this functionality, it automates a lot of work to fetch configuration data from the chain registry.

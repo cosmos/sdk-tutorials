@@ -7,6 +7,16 @@ tag: deep-dive
 
 # Transport, Authentication, and Ordering Layer
 
+<HighlightBox type="synopsis">
+
+IBC in depth. Discover IBC protocol in detail:
+
+* Connection negotiation
+* Connection states
+* How IBC repels hostile connection attempts
+	
+</HighlightBox>
+
 Now that you covered the introduction and have a better understanding of how different Inter-Blockchain Communication (IBC) Protocol components and Interchain Standards (ICS) relate to each other, take a deep dive into IBC/TAO (transport, authentication, and ordering) and the [IBC module](https://github.com/cosmos/ibc-go).
 
 ## Connections

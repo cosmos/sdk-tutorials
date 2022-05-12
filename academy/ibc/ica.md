@@ -1,19 +1,36 @@
 # Interchain Accounts
 
-Another application module [implemented in the IBC-go](https://github.com/cosmos/ibc-go/tree/main/docs/apps/interchain-accounts) repository is the [Interchain Accounts(ICS-27)](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md). 
-
+<HighlightBox type="synopsis">
+  
 **Interchain Accounts(ICA)** allows you to control an account on a **host chain** from a **controller chain**.
+
+In this section:
+
+* ICS-27 technical reference
+* Host chains and controller chains
+* Inter-chain accounts
+* ICA auth mode
+* ICA and IBC
+* SDK security model
+* Authentication Module
+* Example Integration
+  
+</HighlightBox>
+
+Another application module [implemented in the IBC-go](https://github.com/cosmos/ibc-go/tree/main/docs/apps/interchain-accounts) repository is the [Interchain Accounts(ICS-27)](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md). 
 
 ![ICA Overview](/academy/ibc/images/icaoverview.png)
 
 **Host Chain**: the chain where the interchain account is registered. The host chain listens for IBC packets from a controller chain which should contain instructions (e.g. cosmos SDK messages) which the interchain account will execute.
 
 **Controller Chain**: the chain that registers and controls an account on a host chain. The controller chain sends IBC packets to the host chain to control the account. A controller chain must have at least one interchain accounts authentication module in order to act as a controller chain.
+
 <HighlightBox type="info">
 
 The Interchain Accounts application module is structured to support the ability of exclusively enabling controller or host functionality. This can be achieved by simply omitting either controller or host `Keeper` from the Interchain Accounts `NewAppModule` constructor function, and mounting only the desired submodule via the `IBCRouter`. Alternatively, submodules can be enabled and disabled dynamically using on-chain parameters.
 
 </HighlightBox>
+
 **Authentication Module**: a custom IBC application module on the controller chain that uses the Interchain Accounts module API to build custom logic for the creation and management of interchain accounts. An authentication module is required for a controller chain to utilize the interchain accounts module functionality.
 
 **Interchain Account**: an account on a host chain. An interchain account has all the capabilities of a normal account. However, rather than signing transactions with a private key, a controller chain's authentication module will send IBC packets to the host chain which signal what transactions the interchain account should execute.

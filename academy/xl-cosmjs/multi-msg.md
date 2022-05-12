@@ -7,6 +7,18 @@ tag: deep-dive
 
 # Send Multiple Messages
 
+<HighlightBox type="synopsis">
+    
+In Cosmos, a transaction can encapsulate multiple messages.
+    
+In this section:
+    
+* Send multiple tokens in a single transaction
+* Sign and Broadcast
+* Assemble multiple messages
+    
+</HighlightBox>
+
 ## Send multiple tokens using `sendTokens`
 
 In the [previous exercise](./first-steps.md), you had Alice send tokens back to the faucet. To refresh your memory, this is what the `sendTokens` function takes as input:
