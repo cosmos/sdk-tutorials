@@ -25,7 +25,7 @@ On a general note, it is advisable to **prepare a separate project folder to kee
 
 ## Install Docker
 
-Docker is very helpful to do the exercises. So you may need to install Docker. To isntall, head to the [Install Docker Engine page](https://docs.docker.com/engine/install/).
+Docker is very helpful to do the exercises. So you may need to install Docker. To install, head to the [Install Docker Engine page](https://docs.docker.com/engine/install/).
 
 ## Install Go
 
@@ -69,7 +69,7 @@ To test the installation of Rust, you can use the following command:
 $ cargo version
 ```
 
-It displays the cargo version helps confirm proper installation.
+It displays the cargo version and helps confirm proper installation.
 
 ## Install Visual Studio Code
 
