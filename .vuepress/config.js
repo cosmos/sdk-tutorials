@@ -219,16 +219,12 @@ module.exports = {
                   path: "/academy/2-main-concepts/migrations.html"
                 },
                 {
-                  title: "Inter-Blockchain Communication",
-                  path: "/academy/2-main-concepts/ibc.html"
-                },
-                {
                   title: "Bridges",
                   path: "/academy/2-main-concepts/bridges.html"
                 },
                 {
-                  title: "Mandatory Quiz (todo)",
-                  path: "/feature-test"
+                  title: "Mandatory Quiz",
+                  path: "/course-ida/quiz-week1.html"
                 },
               ]
             },
