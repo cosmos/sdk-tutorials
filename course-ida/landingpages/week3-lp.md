@@ -24,8 +24,5 @@ In this chapter, you will:
 
 </HighlightBox>
 
-**This week, make sure to submit your exercise by June 3rd.**
-
-**The submission of this quiz is required to continue with the program.** The submission of this exercise is not mandatory, but is highly recommended. These exercises will help you practice and prepare for the final exam.
 
 ![Chain between 1s and 0s image](/cosmos_dev_portal_module-04-lp.png)
