@@ -7,7 +7,7 @@ tag: deep-dive
 
 # BaseApp
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section you will discover how to define an application state machine and service router, how to create custom transaction processing, and how to create periodic processes that execute at the beginning or end of each block.
 

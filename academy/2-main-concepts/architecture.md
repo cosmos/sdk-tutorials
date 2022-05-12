@@ -7,7 +7,7 @@ tag: fast-track
 
 # A Blockchain App Architecture
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will look closer at the application architecture underlying blockchains built with the Cosmos SDK. 
     
