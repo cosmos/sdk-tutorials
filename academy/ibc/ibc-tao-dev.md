@@ -320,4 +320,4 @@ If both chains submit `OpenInit` then `OpenTry` at same time, there should be no
 
 **An Imposter**
 
-In fact this is not an issue. Any attempted `OpenInit` from an imposter will fail on `OpenTry`, because it will not contain valid proofs of Client/Connection/ConsensusState.
+In fact this is not an issue. Any attempted `OpenInit` from an imposter will fail on `OpenTry`, because it will not contain valid proofs of `Client/Connection/ConsensusState`.
