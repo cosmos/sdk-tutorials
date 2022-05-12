@@ -205,7 +205,7 @@ You will need to add code to v2 to update the leaderboard after a game has been 
 
 <HighlightBox type="tip">
 
-If you want more details on how to update the leaderboard, look at Week 2 - Running Your Own Cosmos Chain.
+If you want more details on how to update the leaderboard, look at [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
 
 </HighlightBox>
 
@@ -291,7 +291,7 @@ func PopulateLeaderboardWith(leaderboard *types.Leaderboard, additionalPlayers *
 
 <HighlightBox type="tip">
 
-If you want more details about the number of helper functions like `AddCandidatesAndSortAtNow`, go to Week 2 - Running Your Own Cosmos Chain.
+If you want more details about the number of helper functions like `AddCandidatesAndSortAtNow`, go to [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
 
 </HighlightBox>
 
