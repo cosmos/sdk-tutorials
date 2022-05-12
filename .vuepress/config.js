@@ -68,7 +68,8 @@ module.exports = {
       "deploy-preview-991",
       "deploy-preview-1047",
       "127.0.0.1",
-      "deploy-preview"
+      "deploy-preview",
+      "interchainacademy.cosmos.network"
     ],
     sidebar: {
       auto: false,
