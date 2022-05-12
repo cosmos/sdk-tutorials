@@ -66,7 +66,8 @@ module.exports = {
       "deploy-preview-995", 
       "deploy-preview-994", 
       "deploy-preview-991",
-      "deploy-preview-1047"
+      "deploy-preview-1047",
+      "127.0.0.1",
     ],
     sidebar: {
       auto: false,
@@ -144,11 +145,7 @@ module.exports = {
                 {
                   title: "Cryptography",
                   path: "/academy/0.0-B9lab-Blockchains/5_crypto.html"
-                },
-                {
-                  title: "Self-assessment Quiz (todo)",
-                  path: "/feature-test"
-                },
+                }
               ]
             },
             {
@@ -159,10 +156,6 @@ module.exports = {
                 {
                   title: "Cosmos and its Main Concepts",
                   path: "/course-ida/landingpages/week1-lp.html"
-                },
-                {
-                  title: "What is Cosmos",
-                  path: "/academy/1-what-is-cosmos/"
                 },
                 {
                   title: "Blockchain Technology and Cosmos",
@@ -236,10 +229,14 @@ module.exports = {
                   title: "Bridges",
                   path: "/academy/2-main-concepts/bridges.html"
                 },
+                {
+                  title: "Mandatory Quiz (todo)",
+                  path: "/feature-test"
+                },
               ]
             },
             {
-              title: "Week 2 - My own Cosmos Chain",
+              title: "Week 2 - Running Your Own Cosmos Chain - Part 1",
               directory: true,
               order: 3,
               children: [
@@ -248,12 +245,8 @@ module.exports = {
                   path: "/course-ida/landingpages/week2-lp.html"
                 },
                 {
-                  title: "My Own Cosmos Chain",
-                  path: "/academy/4-my-own-chain/"
-                },
-                {
-                  title: "Setup (todo)",
-                  path: "/feature-test/"
+                  title: "Setup Your Work Environment",
+                  path: "/course-ida/setup.html"
                 },
                 {
                   title: "Running a Node, API, and CLI",
@@ -286,11 +279,15 @@ module.exports = {
                 {
                   title: "Message and Handler - Make Sure a Player Can Reject a Game",
                   path: "/academy/4-my-own-chain/reject-game.html"
-                }
+                },
+                {
+                  title: "Mandatory Exercise (todo)",
+                  path: "/feature-test"
+                },
               ]
             },
             {
-              title: "Week 3 - My Own Cosmos Chain - Advanced, what makes a chain interesting",
+              title: "Week 3 - Running Your Own Cosmos Chain - Part 2",
               directory: true,
               order: 4,
               children: [
@@ -354,19 +351,19 @@ module.exports = {
                   path: "/academy/ibc/what-is-ibc.html"
                 },
                 {
-                  title: "Transport, Authentication, and Ordering Layer - Connections (todo)",
-                  path: "/feature-test/"
+                  title: "Transport, Authentication, and Ordering Layer - Connections",
+                  path: "/academy/ibc/ibc-tao-dev.html"
                 },
                 {
-                  title: "Transport, Authentication, and Ordering Layer - Channels (todo)",
-                  path: "/feature-test/"
+                  title: "Transport, Authentication, and Ordering Layer - Channels",
+                  path: "/academy/ibc/channels.html"
                 },
                 {
-                  title: "Transport, Authentication, and Ordering Layer - Clients (todo)",
-                  path: "/feature-test/"
+                  title: "Transport, Authentication, and Ordering Layer - Clients",
+                  path: "/academy/ibc/clients.html"
                 },
                 {
-                  title: "Application - An IBC Token Transfer",
+                  title: "IBC Token Transfer",
                   path: "/academy/ibc/token-transfer.html"
                 },
                 {
@@ -374,12 +371,20 @@ module.exports = {
                   path: "/academy/ibc/ica.html"
                 },
                 {
-                  title: "IBC and Relayers",
-                  path: "/academy/ibc/ibc-tao-dev.html"
+                  title: "Relayers in General",
+                  path: "/academy/ibc/relayerintro.html"
                 },
                 {
-                  title: "Overview IBC Tooling (todo)",
-                  path: "/feature-test/"
+                  title: "Go Relayer",
+                  path: "/academy/ibc/gorelayer.html"
+                },
+                {
+                  title: "Hermes Relayer",
+                  path: "/academy/ibc/hermesrelayer.html"
+                },
+                {
+                  title: "Overview IBC Tooling",
+                  path: "/academy/ibc/ibc-tooling.html"
                 },
               ]
             },
@@ -393,10 +398,6 @@ module.exports = {
                   path: "/course-ida/landingpages/week5-lp.html"
                 },
                 {
-                  title: "CosmJs & My Own Cosmos Chain (todo)",
-                  path: "/feature-test/"
-                },
-                {
                   title: "What is CosmJS",
                   path: "/academy/xl-cosmjs/intro.html"
                 },
@@ -406,23 +407,23 @@ module.exports = {
                 },
                 {
                   title: "Compose Complex Transactions",
-                  path: "/academy/xl-cosmjs/create-custom.html"
+                  path: "/academy/xl-cosmjs/multi-msg.html"
                 },
                 {
                   title: "Learn to Integrate Keplr",
                   path: "/academy/xl-cosmjs/with-keplr.html"
                 },
                 {
-                  title: "Create Custom Objects (todo)",
-                  path: "/feature-test/"
+                  title: "Create Custom Objects",
+                  path: "/academy/xl-cosmjs/create-custom.html"
                 },
                 {
-                  title: "Create Custom Objects for Your Checkers Blockchain (todo)",
-                  path: "/feature-test/"
+                  title: "Create Custom Objects for Your Checkers Blockchain",
+                  path: "/academy/4-my-own-chain/cosmjs-objects.html"
                 },
                 {
                   title: "Create Custom Messages for Your Checkers Blockchain",
-                  path: "/academy/xl-cosmjs/multi-msg.html"
+                  path: "/academy/4-my-own-chain/cosmjs-messages.html"
                 },
               ]
             },
@@ -436,20 +437,16 @@ module.exports = {
                   path: "/course-ida/landingpages/week6-lp.html"
                 },
                 {
-                  title: "Create a GUI for your CosmJS Chain (todo)",
-                  path: "/feature-test/"
+                  title: "Pick and Fix a Checkers GUI",
+                  path: "/academy/4-my-own-chain/external-gui.html"
                 },
                 {
-                  title: "Pick and Fix a Checkers GUI (todo)",
-                  path: "/feature-test/"
+                  title: "Integrate CosmJS and Keplr Into the GUI",
+                  path: "/academy/4-my-own-chain/cosmjs-gui.html"
                 },
                 {
-                  title: "Integrate CosmJS and Keplr Into the GUI (todo)",
-                  path: "/feature-test/"
-                },
-                {
-                  title: "CosmJS on a Backend Script for Game Indexing (todo)",
-                  path: "/feature-test/"
+                  title: "CosmJS on a Backend Script for Game Indexing",
+                  path: "/academy/4-my-own-chain/server-side.html"
                 },
                 {
                   title: "Final exam (todo)",
@@ -460,26 +457,6 @@ module.exports = {
                   path: "/academy/5-whats-next/"
                 },
               ]
-            }
-          ],
-        },
-        {
-          title: "Tutorials",
-          children: [
-            {
-              title: "Understanding IBC denoms",
-              path: "/tutorials/understanding-ibc-denoms/",
-              directory: false,
-            },
-            {
-              title: "Understanding the Authz Module",
-              path: "/authz-module/",
-              directory: false,
-            },
-            {
-              title: "Understanding the Feegrant Module",
-              path: "/tutorials/understanding-feegrant/",
-              directory: false,
             }
           ],
         },
@@ -685,6 +662,7 @@ module.exports = {
     "academy/*/*.md",
     "tutorials/*/*.md",
     "authz-module/*.md",
-    "course-ida/*/*.md"
+    "course-ida/*/*.md",
+    "course-ida/*.md"
   ]
 };

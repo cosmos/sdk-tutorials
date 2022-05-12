@@ -15,9 +15,9 @@ In this section, you will take a closer look at messages, `Msg`. It is recommend
 * [Accounts](./accounts.md)
 * [Transactions](./transactions.md)
 
-At the end of the section, you can find a code example illustrating message creation and the inclusion of messages in transactions for your checkers blockchain.
+At the end of the section, you can find a code example that illustrates message creation and the inclusion of messages in transactions for your checkers blockchain.
 
-Understanding `Msg` will help you prepare for the next section, on [modules in the Cosmos SDK](./modules.md)), as messages are a primary object handled by modules.
+Understanding `Msg` will help you prepare for the next section, on [modules in the Cosmos SDK](./modules.md), as messages are a primary object handled by modules.
 
 </HighlightBox>
 
@@ -81,7 +81,7 @@ If you want to dive deeper when it comes to messages, the `Msg` service, and mod
 
 ## Next up
 
-Look at the following code example to get a better sense of how the previous translates in development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can go directly to the [next section](./modules.md)) to learn more about modules.
+Look at the following code example to get a better sense of how theory translates into development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can go directly to the [next section](./modules.md)) to learn more about modules.
 
 <ExpansionPanel title="Show me some code for my checkers blockchain - Including messages">
 
@@ -310,7 +310,7 @@ There are no _open_ challenges, meaning a player cannot create a game where the 
 
 <HighlightBox type="tip">
 
-If you would like to get started on building your own checkers game, you can head straight to the main exercise in [My Own Chain](../4-my-own-chain/index.md).
+If you would like to get started on building your own checkers game, you can go straight to the main exercise in [My Own Chain](../4-my-own-chain/index.md).
 
 </HighlightBox>
 

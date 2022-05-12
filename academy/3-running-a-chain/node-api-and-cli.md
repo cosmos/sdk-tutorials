@@ -27,6 +27,12 @@ $ cd cosmos
 $ git clone https://github.com/cosmos/cosmos-sdk
 ```
 
+Make sure you are using the same version used at the time of writing:
+
+```sh
+$ git checkout v0.42.6
+```
+
 Then build `cosmos-sdk`:
 
 ```sh

@@ -14,6 +14,13 @@ Make sure you have all you need before proceeding:
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md), and [migrations](../2-main-concepts/migrations.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](./wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
+    
+In this section:
+
+* Add a Leaderboard    
+* Upgrade your blockchain in production
+* Data migrations
+* Logic upgrades
 
 </HighlightBox>
 
@@ -135,7 +142,6 @@ To give the new v2 information a data structure, you need the following:
 
     This creates a Protobuf file that you update with your preferred type and its `import`. Again, remove the `creator`:
 
-
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/proto/checkers/leaderboard.proto#L9-L11]
     import "checkers/winning_player.proto";
 
@@ -223,7 +229,6 @@ func (k *Keeper) MustAddForfeitedGameResultToPlayer(ctx sdk.Context, player sdk.
 ```
 
 Which player should get `+1`, and on what count? You need to identify the loser and the winner of a game to determine this. Create another private helper:
-
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/keeper/player_info_handler.go#L47-L69]
 func getWinnerAndLoserAddresses(storedGame *types.StoredGame) (winnerAddress sdk.AccAddress, loserAddress sdk.AccAddress) {
@@ -434,7 +439,6 @@ Test in descending order first for scores and then for the added dates. Note tha
 <ExpansionPanel title="Add a function to add a candidate and sort">
 
 When migrating the genesis more than one candidate will be added. Therefore, add a first helper on the de-serialized elements:
-
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/full_leaderboard.go#L85-L92]
 func AddParsedCandidatesAndSort(parsedWinners []*winningPlayerParsed, candidates []*winningPlayerParsed) (updated []*winningPlayerParsed) {

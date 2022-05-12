@@ -9,12 +9,14 @@ tag: deep-dive
 
 <HighlightBox type="synopsis">
 
-In this section you will discover queries. They are one of two primary objects handled by modules. Make sure you are prepared by reading the previous sections:
+In this section you will discover queries, one of two primary objects handled by modules. Make sure you are prepared by reading the previous sections:
 
 * [A Blockchain App Architecture](./architecture.md)
 * [Accounts](./accounts.md)
 * [Transactions](./transactions.md)
 * [Modules](./modules.md)
+
+At the end of the section is a code example that puts queries into practice in your checkers blockchain.
 
 </HighlightBox>
 
@@ -34,7 +36,7 @@ Visit the [detailed Cosmos SDK documentation](https://docs.cosmos.network/main/b
 
 ## Next up
 
-You can now continue directly to the [next section](./events.md) if you want to learn about events.
+You can now continue directly to the [next section](./events.md) to learn about events.
 
 If you prefer to see some code in action and continue with the checkers blockchain, look at the following expandable box.
 

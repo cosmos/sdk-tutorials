@@ -7,6 +7,19 @@ tag: deep-dive
 
 # Accounts
 
+<HighlightBox type="synopsis">
+    
+In this section you are going to learn all about accounts in Cosmos: 
+    
+* What they are
+* How they are stored
+* Optional implementations
+* Cryptography foundations
+
+At the end of the section, you can see how the use of accounts can resolve a current problem for your checkers blockchain: _how to ensure moves are only played by the appropriate player_.
+
+</HighlightBox>
+
 An account is a pair of keys:
 
 * **`PubKey`:** a public key

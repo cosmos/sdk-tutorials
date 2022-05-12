@@ -7,6 +7,15 @@ tag: deep-dive
 
 # Create custom CosmJS interfaces
 
+<HighlightBox type="synopsis">
+
+* Create custom CosmJS interfaces to connect to custom Cosmos SDK modules
+* Define custom interfaces with Protobuf
+* Define custom types and messages
+* Integrate with Ignite (Previously known as Stargate)
+  
+</HighlightBox>
+
 CosmJS comes out of the box with interfaces that connect with the standard Cosmos modules such as `bank` and `gov` and understand the way their state is serialized. Since your own blockchain's modules are unique, they need custom CosmJS interfaces. That process consists of several steps:
 
 1. Creating the Protobuf objects and clients in Typescript.

@@ -7,7 +7,19 @@ tag: fast-track
 
 # A Blockchain App Architecture
 
-In this section, you will look closer at the application architecture underlying blockchains built with the Cosmos SDK. You will learn about Tendermint, consensus in Cosmos, the Application Blockchain Interface, the Cosmos SDK, and state machines. This section will give you a better understanding of the application architecture in Cosmos.
+<HighlightBox type="synopsis">
+
+In this section, you will look closer at the application architecture underlying blockchains built with the Cosmos SDK. 
+    
+* Discover Tendermint
+* Consensus in Cosmos 
+* The Application Blockchain Interface
+* The Cosmos SDK
+* State machines
+    
+This section will deepen your understanding of application architecture in Cosmos.
+    
+</HighlightBox>
 
 ## What is Tendermint?
 
@@ -409,7 +421,7 @@ The following sections will extend your comprehension of the Cosmos SDK and the 
 * Anyone, including the opponent, can post an anonymous transaction and play instead of the intended player. This makes it impossible to know who did what. You need to identify the right player. The Cosmos SDK comes to the rescue with [accounts and signatures](./accounts.md).
 * You currently have a single game. Multiple games running in parallel would be better, but this would require a well-defined store. Why not explore the Cosmos SDK's [key store](./multistore-keepers.md)?
 * It would be good to have an elegant way to serialize data objects of interest and your transactions. [Protobuf](./protobuf.md) can help with this.
-* How can you penalize spam and bad transactions and also to be able to play for money? Incorporate tokens defined in another [existing Cosmos SDK module](./modules.md)).
+* How can you penalize spam and bad transactions, and also to be able to play for money? Incorporate tokens defined in another [existing Cosmos SDK module](./modules.md).
 * There is a new transaction type: to _create a game_. The Cosmos SDK [context object](./context.md) allows you to tailor gas costs according to transaction type.
 * If you need to handle validator lists during communication, Cosmos does this out of the box with [BaseApp](./base-app.md).
 * Do you want the player's GUI to easily reload any pending games, or let them know whether a move is valid or not? These are good uses of Cosmos SDK [queries](./queries.md).

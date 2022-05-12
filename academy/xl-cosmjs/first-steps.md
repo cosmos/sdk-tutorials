@@ -7,6 +7,21 @@ tag: deep-dive
 
 # Bank - Send Tokens
 
+<HighlightBox type="synopsis">
+
+Take your first steps with CosmJS. Use it to send some simple transactions. 
+    
+In this section:
+    
+* Download and install CosmJS
+* Create a small experiment
+* Prepare a simple testnet
+* Establish your connection
+* Inspect a balance
+* Send a transactions
+    
+</HighlightBox>
+
 Now that you know what CosmJS is, you should take your first steps in using it. A basic feature of a Cosmos chain is the ability to send tokens via the `bank` module. CosmJS naturally offers functions to cover this facility. You are going to:
 
 1. Use an existing test network (testnet) with a key of your own.
