@@ -25,7 +25,7 @@ In this section:
 
 </HighlightBox>
 
-In the [Ignite CLI introduction section](./ignitecli) you learned how to start a completely new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
+In the [Ignite CLI introduction section](./ignitecli.md) you learned how to start a completely new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
 
 A good start to developing a checkers blockchain is to define the ruleset of the game. There are many versions of the rules. Choose [a very simple set of basic rules](https://www.ducksters.com/games/checkers_rules.php) to avoid getting lost in the rules of checkers or the proper implementation of the board state.
 
