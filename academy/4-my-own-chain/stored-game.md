@@ -389,15 +389,15 @@ func EqualValues(t TestingT, expected interface{}, actual interface{}, msgAndArg
 
 Your first unit test is a standard Go unit test. If you use an IDE like Visual Studio Code it is ready to assist run the test in debug mode. Next to the function name is a small green tick. If you hover below it, a faint red dot appears:
 
-![Go test debug button in VSCode](/go_test_debug_button.png)
+![Go test debug button in VSCode](/academy/4-my-own-chain/go_test_debug_button.png)
 
 This red dot is a potential breakpoint. Add one on the `DefaultGenesis()` line. The dot is now bright and stays there:
 
-![Go test breakpoint placed](/go_test_debug_breakpoint.png)
+![Go test breakpoint placed](/academy/4-my-own-chain/go_test_debug_breakpoint.png)
 
 Right-click on the green tick, and choose <kbd>Debug Test</kbd>. If it asks you to install a package, accept. Eventually it stops at the breakpoint and displays the current variables and a panel for stepping actions:
 
-![Go test stopped at breakpoint](/go_test_debug_stopped_at_breakpoint.png)
+![Go test stopped at breakpoint](/academy/4-my-own-chain/go_test_debug_stopped_at_breakpoint.png)
 
 If you are struggling with a test, create separate variables in order to inspect them in debug. From there, follow your regular step-by-step debugging process. If you are not familiar with debugging, [this online tutorial](https://www.digitalocean.com/community/tutorials/debugging-go-code-with-visual-studio-code) will be helpful.
 
