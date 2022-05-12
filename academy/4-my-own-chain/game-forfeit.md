@@ -12,8 +12,14 @@ tag: deep-dive
 Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [ABCI](../2-main-concepts/architecture.md).
-* Have Go installed.
-* The checkers blockchain codebase with the elements necessary for forfeit. You can get there by following the [previous steps](./game-winner.md) or checking out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
+* Go is installed.
+* You have the checkers blockchain codebase with the elements necessary for forfeit. If not, follow the [previous steps](./game-winner.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
+
+In this section:
+
+* Begin block and End block operations
+* Forfeiting games automatically
+* Garbage collection
 
 </HighlightBox>
 
@@ -25,12 +31,12 @@ In the [previous section](./game-winner.md) you prepared the expiration of games
 
 ## New information
 
-An expired game will expire in two different cases:
+A game expires in two different situations:
 
 1. It was never really played, so it is removed quietly. That includes a single move by a single player.
 2. Moves were played by both players, making it a proper game, and forfeit is the outcome because a player then failed to play a move in time.
 
-In the latter case, you want to emit a new event, which differentiates forfeiting a game from a win involving a move. Therefore you define new error constants:
+In the latter case, you want to emit a new event which differentiates forfeiting a game from a win involving a move. Therefore you define new error constants:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/types/keys.go#L66-L70]
 const (
@@ -50,7 +56,7 @@ func (am AppModule) EndBlock(_ sdk.Context, _ abci.RequestEndBlock) []abci.Valid
 }
 ```
 
-Ignite CLI left it empty. It is here that you add what you need to see done, right before the block gets sealed. Create a brand new file named `x/checkers/keeper/end_block_server_game.go` to encapsulate the knowledge about game expiry. Leave your function empty for now:
+Ignite CLI left this empty. It is here that you add what you need done right before the block gets sealed. Create a new file named `x/checkers/keeper/end_block_server_game.go` to encapsulate the knowledge about game expiry. Leave your function empty for now:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L13]
 func (k Keeper) ForfeitExpiredGames(goCtx context.Context) {
@@ -58,7 +64,7 @@ func (k Keeper) ForfeitExpiredGames(goCtx context.Context) {
 }
 ```
 
-In `x/checkers/module.go` you can update `EndBlock` with:
+In `x/checkers/module.go` update `EndBlock` with:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/module.go#L163-L166]
 func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
@@ -67,7 +73,7 @@ func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.Val
 }
 ```
 
-With this you ensure that **if** your module's `EndBlock` function is called, the expired games will be handled. For the **whole application to call your module** you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. Add yours at the end:
+This ensures that **if** your module's `EndBlock` function is called the expired games will be handled. For the **whole application to call your module** you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. Add yours at the end:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/app/app.go#L398]
 app.mm.SetOrderEndBlockers(crisistypes.ModuleName, govtypes.ModuleName, stakingtypes.ModuleName, checkersmoduletypes.ModuleName)
@@ -77,7 +83,7 @@ Your `ForfeitExpiredGames` function will now be called at the end of each block.
 
 ## Expire games handler
 
-With the callbacks in place it is time to code the expiration properly. In `ForfeitExpiredGames`, it is _simply_ a matter of looping through the FIFO, starting from the head, and handling games that are expired. You can stop at the first active game as all those that come after are also active, thanks to the careful updating of the FIFO.
+With the callbacks in place, it is time to code the expiration properly. In `ForfeitExpiredGames`, it is a matter of looping through the FIFO, starting from the head, and handling games that are expired. You can stop at the first active game, as all those that come after are also active thanks to the careful updating of the FIFO.
 
 1. Prepare useful information:
 
@@ -146,7 +152,7 @@ With the callbacks in place it is time to code the expiration properly. In `Forf
             k.RemoveFromFifo(ctx, &storedGame, &nextGame)
             ```
 
-        * Then check whether the game is worth keeping. If it is, set the winner as the opponent of the player whose turn it is and save:
+        * Check whether the game is worth keeping. If it is, set the winner as the opponent of the player whose turn it is and save:
             ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L45-L54]
             if storedGame.MoveCount <= 1 {
                 // No point in keeping a game that was never really played
@@ -185,7 +191,7 @@ With the callbacks in place it is time to code the expiration properly. In `Forf
 
 <HighlightBox type="tip">
 
-For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games see the [section on the game's FIFO](./game-fifo.md).
+For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games, see the [section on the game's FIFO](./game-fifo.md).
 
 </HighlightBox>
 
@@ -347,8 +353,118 @@ Note how all the events aggregate in a single context. The context is not reset 
 
 ## Interact via the CLI
 
+Currently, the game expiry is one day in the future. This is too long to test with the CLI. Temporarily set it to 5 minutes:
 
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a74b20c/x/checkers/types/keys.go#L38]
+MaxTurnDurationInSeconds = time.Duration(5 * 60 * 1000_000_000) // 5 minutes
+```
+
+Avoid having games in the FIFO that expire in a day because of your earlier tests:
+
+```sh
+$ ignite chain serve --reset-once
+```
+
+Export your aliases again:
+
+```sh
+$ export alice=$(checkersd keys show alice -a)
+$ export bob=$(checkersd keys show bob -a)
+```
+
+Create three games 1 minute apart. Have Bob play the middle one, and both Alice and Bob play the last one:
+
+<CodeGroup>
+<CodeGroupItem title="Game 0" active>
+
+```sh
+$ checkersd tx checkers create-game $alice $bob --from $alice
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Game 1">
+
+```sh
+# Wait a minute
+$ checkersd tx checkers create-game $alice $bob --from $bob
+# Wait 5 seconds
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Game 2">
+
+```sh
+# Wait a minute
+$ checkersd tx checkers create-game $alice $bob --from $alice
+$ checkersd tx checkers play-move 2 1 2 2 3 --from $bob
+# Wait 5 seconds
+$ checkersd tx checkers play-move 2 0 5 1 4 --from $alice
+```
+
+</CodeGroupItem>
+</CodeGroup>
+
+---
+
+Space each `tx` command from a given account by a couple of seconds so that they each go into a different block - by default `checkersd` is limited because it uses the account's transaction sequence number by fetching it from the current state.
+
+<HighlightBox type="tip">
+
+ If you want to overcome this limitation, look at `checkersd`'s `--sequence` flag:
+
+ ```sh
+ $ checkersd tx checkers create-game --help
+ ```
+
+And at your account's current sequence. For instance:
+
+```sh
+$ checkersd query account $alice --output json | jq ".sequence"
+```
+
+Which returns something like:
+
+```json
+"9"
+```
+
+</HighlightBox>
+
+With three games in, confirm that you see them all:
+
+```sh
+$ checkersd query checkers list-stored-game
+```
+
+List them again after 2, 3, 4, and 5 minutes. You should see games `0` and `1` disappear, and game `2` being forfeited by Bob, i.e. `red` Alice wins:
+
+```sh
+$ checkersd query checkers show-stored-game 2 --output json | jq ".StoredGame.winner"
+```
+
+This prints:
+
+```json
+"red"
+```
+
+Confirm that the FIFO no longer references the removed games nor the forfeited game:
+
+```sh
+$ checkersd query checkers show-next-game
+```
+
+This should show:
+
+```
+NextGame:
+  creator: ""
+  fifoHead: "-1"
+  fifoTail: "-1"
+  idValue: "3"
+```
 
 ## Next up
 
-The [next section](./game-wager.md) introduces token wagers.
+With no games staying in limbo forever, the project is now ready to use token wagers. These are introduced in the [next section](./game-wager.md).

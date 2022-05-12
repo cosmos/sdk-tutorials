@@ -11,14 +11,19 @@ tag: deep-dive
 
 Make sure you have everything you need before proceeding:
 
-* Have Go installed.
-* The checkers blockchain codebase with `MsgCreateGame` created by Ignite CLI. You can get there by following the [previous steps](./create-message.md) checking out  [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
+* You have Go installed.
+* You have the checkers blockchain codebase with `MsgCreateGame` created by Ignite CLI. If not, follow the [previous steps](./create-message.md) and check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
+
+In this section:
+
+* Add application rules- the rules of Checkers
+* Add a Message Handler to create game and return it's ID
 
 </HighlightBox>
 
-You added the message to create a game along with its serialization and dedicated gRPC function with the help of Ignite CLI in the [previous section](./create-message.md).
+In the [previous section](./create-message.md) you added the message to create a game along with its serialization and dedicated gRPC function with the help of Ignite CLI.
 
-Now all that remains is to add code that:
+Now you must add code that:
 
 * Creates a brand new game.
 * Saves it in storage.
@@ -37,11 +42,11 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 }
 ```
 
-The message processing code was created for you and all you are left to do is code the meat of the action. Opting for Ignite CLI is a wise decision as you can see.
+Ignite CLI has conveniently created all the message processing code for you. You are only required to code the key features.
 
-Given that you have already done a lot of preparatory work: what does it involve to code the action? With what do you replace `// TODO: Handling the message`?
+Given that you have already done a lot of preparatory work, what coding is involved? How do you replace `// TODO: Handling the message`?
 
-* First, `rules` represent the ready-made file with the imported rules of the game:
+* First, `rules` represents the ready-made file with the imported rules of the game:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game.go#L8]
     import (
@@ -49,7 +54,7 @@ Given that you have already done a lot of preparatory work: what does it involve
     )
     ```
 
-1. Get the new game's ID:
+1. Get the new game's ID with the [`Keeper.GetNextGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/next_game.go#L17) function created by the `ignite scaffold single nextGame...` command:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game.go#L15-L19]
     nextGame, found := k.Keeper.GetNextGame(ctx)
@@ -58,8 +63,6 @@ Given that you have already done a lot of preparatory work: what does it involve
     }
     newIndex := strconv.FormatUint(nextGame.IdValue, 10)
     ```
-
-    Using the [`Keeper.GetNextGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/next_game.go#L17) function created by the `ignite scaffold single nextGame...` command.
 
 2. Create the object to be stored:
 
@@ -75,12 +78,12 @@ Given that you have already done a lot of preparatory work: what does it involve
     }
     ```
 
-    Notice the use of:
+    Note the use of:
 
     * The [`rules.New()`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/rules/checkers.go#L122) command, which is part of the Checkers rules file you imported earlier.
     * The string content of the `msg *types.MsgCreateGame` namely `.Creator`, `.Red`, and `.Black`.
 
-3. Confirm that the values in it are correct by checking the validity of the players' addresses:
+3. Confirm that the values in the object are correct by checking the validity of the players' addresses:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game.go#L29-L32]
     err := storedGame.Validate()
@@ -89,24 +92,20 @@ Given that you have already done a lot of preparatory work: what does it involve
     }
     ```
 
-    The `.Creator`, `.Red`, and `.Black` need to be checked because they were copied as **strings**. The check on `.Creator` is redundant here because at this stage the message's signatures have been verified and in particular the creator is the signer.
+    `.Creator`, `.Red`, and `.Black` need to be checked because they were copied as **strings**. The check on `.Creator` is redundant because at this stage the message's signatures have been verified, and the creator is the signer.
 
-4. Save the `StoredGame` object:
+4. Save the `StoredGame` object using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/stored_game.go#L10) function created by the `ignite scaffold map storedGame...` command:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game.go#L33]
     k.Keeper.SetStoredGame(ctx, storedGame)
     ```
 
-    Using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/stored_game.go#L10) function created by the `ignite scaffold map storedGame...` command
-
-5. Prepare the ground for the next game with:
+5. Prepare the ground for the next game using the [`Keeper.SetNextGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/next_game.go#L10) function created by Ignite CLI:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game.go#L35-L36]
     nextGame.IdValue++
     k.Keeper.SetNextGame(ctx, nextGame)
     ```
-
-    Using the [`Keeper.SetNextGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/next_game.go#L10) function created by Ignite CLI.
 
 6. Return the newly created ID for reference:
 
@@ -205,16 +204,130 @@ Or when you [create 3](https://github.com/cosmos/b9-checkers-academy-draft/blob/
 
 ## Interact via the CLI
 
+Now you must confirm that the transaction creates a game. Start with:
 
+```sh
+$ ignite chain serve
+```
+
+Send your transaction as you did in the [previous section](./create-message.md):
+
+```sh
+$ checkersd tx checkers create-game $alice $bob --from $alice --gas auto
+```
+
+A good sign is that the output `gas_used` is slightly higher than it was before (`gas_used: "50671"`). Confirm the current state:
+
+<CodeGroup>
+<CodeGroupItem title="Show next game" active>
+
+```sh
+$ checkersd query checkers show-next-game
+```
+
+This returns:
+
+```
+NextGame:
+  creator: ""
+  idValue: "1"
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="List stored game">
+
+```sh
+$ checkersd query checkers list-stored-game
+```
+
+This returns:
+
+```
+StoredGame:
+- black: cosmos14n4qkxcpr6ycct75zzp2r7v6rm96xhkegu5205
+  creator: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
+  game: '*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*'
+  index: "0"
+  red: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
+  turn: black
+pagination:
+  next_key: null
+  total: "0"
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Show stored game">
+
+```sh
+$ checkersd query checkers show-stored-game 0
+```
+
+This returns:
+
+```
+StoredGame:
+  black: cosmos14n4qkxcpr6ycct75zzp2r7v6rm96xhkegu5205
+  creator: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
+  game: '*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*'
+  index: "0"
+  red: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
+  turn: black
+```
+
+</CodeGroupItem>
+</CodeGroup>
+
+---
+
+Now your game is in the blockchain's storage. Notice how `bob` was given the black pieces and it is already his turn to play. As a note for the next sections, this is how to understand the board:
+
+```
+*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*
+                   ^X:1,Y:2                              ^X:3,Y:6
+```
+
+Or if placed in a square:
+
+```
+X 01234567
+  *b*b*b*b 0
+  b*b*b*b* 1
+  *b*b*b*b 2
+  ******** 3
+  ******** 4
+  r*r*r*r* 5
+  *r*r*r*r 6
+  r*r*r*r* 7
+           Y
+```
+
+You can also get this in a one-liner:
+
+<CodeGroup>
+<CodeGroupItem title="On Linux" active>
+
+```sh
+$ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\n/g'
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="On Mac">
+
+```sh
+$ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\'$'\n/g'
+```
+
+</CodeGroupItem>
+</CodeGroup>
 
 ## Next up
 
-You will modify this handling in the next sections:
+You will modify this handling in the next sections by:
 
-* To add [new fields](./game-fifo.md) to the stored information.
-* To add [an event](./events.md).
-* To consume [some gas](./gas-meter.md).
-* To facilitate the eventual [deadline enforcement](./game-forfeit.md).
-* To add [_money_](./game-wager.md) handling including [foreign tokens](./wager-denom.md).
+* Adding [new fields](./game-fifo.md) to the stored information.
+* Adding [an event](./events.md).
+* Consuming [some gas](./gas-meter.md).
+* Facilitating the eventual [deadline enforcement](./game-forfeit.md).
+* Adding [_money_](./game-wager.md) handling, including [foreign tokens](./wager-denom.md).
 
 Now that a game is created, it is time to play it. That is the subject of the [next section](./play-game.md).

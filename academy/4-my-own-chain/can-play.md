@@ -11,9 +11,14 @@ tag: deep-dive
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [queries](../2-main-concepts/queries.md), and [Protobuf](../2-main-concepts/protobuf.md).
+* You understand the concepts of [queries](../2-main-concepts/queries.md) and [Protobuf](../2-main-concepts/protobuf.md).
 * You have Go installed.
-* The checkers blockchain codebase up to gas metering. You can get there by following the [previous steps](./gas-meter.md) or checking out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
+* You have the checkers blockchain codebase up to gas metering. If not, follow the [previous steps](./gas-meter.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
+
+In this section:
+
+* Improve usability with queries
+* Create a battery of integration tests
 
 </HighlightBox>
 
@@ -25,10 +30,10 @@ Players should be able to confirm that a move is valid before burning gas. To ad
 
 To run a query to check the validity of a move you need to pass:
 
-* The game ID, call the field `IdValue`.
-* `player` as queries do not have a signer.
-* The board position to start from: `fromX` and `fromY`.
-* The board position to land on: `toX` and `toY`.
+* The game ID: call the field `IdValue`.
+* The `player`, as queries do not have a signer.
+* The origin board position: `fromX` and `fromY`.
+* The target board position: `toX` and `toY`.
 
 The information to be returned is:
 
@@ -370,7 +375,188 @@ With these, your function should be covered.
 
 ## Interact via the CLI
 
+A friendly reminder that the CLI can always inform you about available commands:
 
+<CodeGroup>
+<CodeGroupItem title="Checkers" active>
+
+```sh
+$ checkersd query checkers --help
+```
+
+Which prints:
+
+```
+...
+Available Commands:
+  can-play-move    Query canPlayMove
+...
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Can play move">
+
+```sh
+$ checkersd query checkers can-play-move --help
+```
+
+Which prints:
+
+```
+...
+Usage:
+  checkersd query checkers can-play-move [idValue] [player] [fromX] [fromY] [toX] [toY] [flags]
+...
+```
+
+</CodeGroupItem>
+</CodeGroup>
+
+---
+
+You can test this query at any point in a game's life.
+
+<CodeGroup>
+<CodeGroupItem title="No game" active>
+
+```sh
+$ checkersd query checkers can-play-move 2048 red 1 2 2 3
+```
+
+Trying this on a game that does not exist returns:
+
+```
+Error: rpc error: code = InvalidArgument desc = game by id not found: 2048: game by id not found: %s: invalid request
+...
+```
+
+Confirm this was an error from the point of view of the executable:
+
+```sh
+$ echo $?
+```
+
+This prints:
+
+```
+1
+```
+
+There is room to improve the error message, but it is important that you got an error, as expected.
+
+</CodeGroupItem>
+<CodeGroupItem title="Bad color">
+
+```sh
+$ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
+$ checkersd query checkers can-play-move 0 white 1 2 2 3
+```
+
+If the player tries to play the wrong color on a game that exists, it returns:
+
+```
+possible: false
+reason: 'message creator is not a player: white'
+```
+
+This is a proper message response, and a reason elaborating on the message.
+
+</CodeGroupItem>
+<CodeGroupItem title="Wrong turn">
+
+```sh
+$ checkersd query checkers can-play-move 0 red 0 5 1 4
+```
+
+If the opponent tries to play out of turn, it returns:
+
+```
+possible: false
+reason: 'player tried to play out of turn: red'
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Not your piece">
+
+```sh
+$ checkersd query checkers can-play-move 0 black 0 5 1 4
+```
+
+If black tries to play a red piece, it returns:
+
+```
+possible: false
+reason: wrong move%!(EXTRA string=Not {red}s turn)
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Correct">
+
+```sh
+$ checkersd query checkers can-play-move 0 black 1 2 2 3
+```
+
+If black tests a correct move, it returns:
+
+```
+possible: true
+reason: ok
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Must capture">
+
+```sh
+$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob -y
+$ checkersd tx checkers play-move 0 0 5 1 4 --from $alice -y
+$ checkersd query checkers can-play-move 0 black 2 3 3 4
+```
+
+If black fails to capture a mandatory red piece, it returns:
+
+```
+possible: false
+reason: 'wrong move%!(EXTRA string=Invalid move: {2 3} to {3 4})'
+```
+
+The reason given is understandable, but it does not clarify why the move is invalid. There is room to improve this message.
+
+</CodeGroupItem>
+<CodeGroupItem title="After forfeit">
+
+```sh
+$ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob -y
+$ checkersd tx checkers play-move 1 0 5 1 4 --from $alice -y
+$ checkersd query checkers can-play-move 1 black 2 3 0 5
+```
+
+If black tries to capture a red piece on a running game, it returns:
+
+```
+possible: true
+reason: ok
+```
+
+Wait five minutes for the forfeit:
+
+```sh
+$ checkersd query checkers can-play-move 1 black 2 3 0 5
+```
+
+Now it returns:
+
+```
+possible: false
+reason: game is already finished
+```
+
+</CodeGroupItem>
+</CodeGroup>
+
+---
+
+These queries are all satisfactory.
 
 ## Next up
 
