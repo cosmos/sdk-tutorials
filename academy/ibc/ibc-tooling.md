@@ -7,16 +7,14 @@ tag: deep-dive
 
 # Tooling
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 	
-In this section:
-	
-* Cosmos network instrumentation
-* Zone map
-* Zone metrics
-* Mintscan Explorer
+In this section, you will discover the following tools:
+
+* MapOfZones
+* Mintscan
 * IOBScan
-	
+
 </HighlightBox>
 
 In this section, you will take a look at three very helpful visualization tools for the IBC network. They include information on the chains in the network (hub and zones), connections, channels, and transactions.
@@ -223,7 +221,7 @@ On the right-hand side (next to the visualization) you can find a list of all ne
 
 <HighlightBox type="tip">
 
-If you want a visualization of the network, just click on the network icon in the upper-right-hand corner. This redirects you to the (IOBSCAN Network State Visualizer)[https://www.iobscan.io/#/]:
+If you want a visualization of the network, just click on the network icon in the upper-right-hand corner. This redirects you to the [IOBSCAN Network State Visualizer](https://www.iobscan.io/#/):
 
 ![IOBScan Network State Visualizer](/academy/ibc/images/iobscan2.png)
 

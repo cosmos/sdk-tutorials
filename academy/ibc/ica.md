@@ -1,19 +1,21 @@
+---
+title: "Interchain Accounts"
+order: 
+description: 
+tag: deep-dive
+---
+
 # Interchain Accounts
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
   
-**Interchain Accounts(ICA)** allows you to control an account on a **host chain** from a **controller chain**.
+**Interchain Accounts (ICA)** allow you to control an account on a **host chain** from a **controller chain**.
 
-In this section:
+In this section, you will learn more about:
 
-* ICS-27 technical reference
 * Host chains and controller chains
-* Inter-chain accounts
-* ICA auth mode
-* ICA and IBC
-* SDK security model
-* Authentication Module
-* Example Integration
+* See ICA module code
+* The authentication module
   
 </HighlightBox>
 
@@ -323,7 +325,7 @@ The **authentication module** must:
 
 The following [`IBCModule`](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go) callbacks must be implemented with appropriate custom logic:
 
-```golang
+```go
 // OnChanOpenInit implements the IBCModule interface
 func (im IBCModule) OnChanOpenInit(
     ctx sdk.Context,
@@ -396,7 +398,7 @@ The functions `OnChanOpenTry`, `OnChanOpenConfirm`, `OnChanCloseInit`, and `OnRe
 
 The authentication module can begin registering interchain accounts by calling `RegisterInterchainAccount`:
 
-```golang
+```go
 if err := keeper.icaControllerKeeper.RegisterInterchainAccount(ctx, connectionID, owner.String()); err != nil {
     return err
 }
@@ -406,7 +408,7 @@ return nil
 
 The authentication module can attempt to send a packet by calling `SendTx`:
 
-```golang
+```go
 
 // Authenticate owner
 // perform custom logic
@@ -460,7 +462,7 @@ Controller chains will be able to access the acknowledgement written into the ho
 
 If the controller chain is connected to a host chain using the host module on ibc-go, it may interpret the acknowledgement bytes as follows:
 
-```golang
+```go
 var ack channeltypes.Acknowledgement
 if err := channeltypes.SubModuleCdc.UnmarshalJSON(acknowledgement, &ack); err != nil {
     return err
@@ -475,7 +477,7 @@ if err := proto.Unmarshal(ack.GetResult(), txMsgData); err != nil {
 
 If the `txMsgData.Data` is empty, the host chain is using SDK version > v0.45. The auth module should interpret the `txMsgData.Responses` as follows:
 
-```golang
+```go
 ...
 // switch statement from above
 case 0:
@@ -489,7 +491,7 @@ case 0:
 
 A handler is needed to interpret what actions to perform based on the type url of the Any. A router could be used, or more simply a switch statement:
 
-```golang
+```go
 func handleAny(any *codectypes.Any) error {
 switch any.TypeURL {
 case banktypes.MsgSend:
@@ -526,7 +528,7 @@ default:
 [Here](https://github.com/cosmos/interchain-accounts-demo) is  an end-to-end working demo of Interchain Accounts. You will notice that it contains a similar `app.go` to the generic one below.
 
 
-```golang
+```go
 // app.go
 
 // Register the AppModule for the Interchain Accounts module and the authentication module
@@ -634,4 +636,3 @@ app.mm.SetOrderInitGenesis(
     ...
 )
 ```
-

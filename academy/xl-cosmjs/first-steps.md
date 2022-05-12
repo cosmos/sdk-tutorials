@@ -1,11 +1,11 @@
 ---
-title: "Bank - Send Tokens"
+title: "Your First CosmJS Actions"
 order: 2
 description: Interacting with a Cosmos SDK chain through CosmJS
 tag: deep-dive
 ---
 
-# Bank - Send Tokens
+# Your First CosmJS Actions - Send Tokens
 
 <HighlightBox type="synopsis">
 

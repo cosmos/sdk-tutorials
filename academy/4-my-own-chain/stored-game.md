@@ -7,20 +7,24 @@ tag: deep-dive
 
 # Store Object - Make a Checkers Blockchain
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have all you need before proceeding with the exercise:
 
 * You understand the concepts of [accounts](../2-main-concepts/accounts.md), [Protobuf](../2-main-concepts/protobuf.md), and [multistore](../2-main-concepts/multistore-keepers.md).
 * Go is installed.
 * You have the bare blockchain scaffold codebase with a single module named `checkers`. If not, follow the [previous steps](./ignitecli.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/starport-start).
-    
-In this section:
+
+</HighlightBox>
+
+<HighlightBox type="synopsis">
+
+In this section, you will handle:
     
 * The Stored Game object
 * Protobuf objects
 * Query.proto
-* Protobuf Service interfaces
+* Protobuf service interfaces
 * Your first unit test
 
 </HighlightBox>
@@ -206,7 +210,7 @@ Files updated by Ignite CLI include comments like:
 
 <HighlightBox type="tip">
 
-Ignite CLI adds code right below the comments, which explains the odd numbering, with the oldest lines appearing lower than recent ones. Make sure to keep these comments where they are so that Ignite CLI knows where to inject code in the future. You could add your code above or below the comments. You will be fine if you keep these comments where they are.
+Ignite CLI adds code right below the comments, which explains why the oldest lines appear lower than recent ones. Make sure to keep these comments where they are so that Ignite CLI knows where to inject code in the future. You could add your code above or below the comments.
 
 </HighlightBox>
 
@@ -389,15 +393,15 @@ func EqualValues(t TestingT, expected interface{}, actual interface{}, msgAndArg
 
 Your first unit test is a standard Go unit test. If you use an IDE like Visual Studio Code it is ready to assist run the test in debug mode. Next to the function name is a small green tick. If you hover below it, a faint red dot appears:
 
-![Go test debug button in VSCode](/go_test_debug_button.png)
+![Go test debug button in VSCode](/academy/4-my-own-chain/images/go_test_debug_button.png)
 
 This red dot is a potential breakpoint. Add one on the `DefaultGenesis()` line. The dot is now bright and stays there:
 
-![Go test breakpoint placed](/go_test_debug_breakpoint.png)
+![Go test breakpoint placed](/academy/4-my-own-chain/images/go_test_debug_breakpoint.png)
 
 Right-click on the green tick, and choose <kbd>Debug Test</kbd>. If it asks you to install a package, accept. Eventually it stops at the breakpoint and displays the current variables and a panel for stepping actions:
 
-![Go test stopped at breakpoint](/go_test_debug_stopped_at_breakpoint.png)
+![Go test stopped at breakpoint](/academy/4-my-own-chain/images/go_test_debug_stopped_at_breakpoint.png)
 
 If you are struggling with a test, create separate variables in order to inspect them in debug. From there, follow your regular step-by-step debugging process. If you are not familiar with debugging, [this online tutorial](https://www.digitalocean.com/community/tutorials/debugging-go-code-with-visual-studio-code) will be helpful.
 

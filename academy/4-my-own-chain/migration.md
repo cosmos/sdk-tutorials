@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Migration - Introduce a Leaderboard After Production
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have all you need before proceeding:
 
@@ -15,12 +15,15 @@ Make sure you have all you need before proceeding:
 * Go is installed.
 * You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](./wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
     
-In this section:
+</HighlightBox>
 
-* Add a Leaderboard    
-* Upgrade your blockchain in production
-* Data migrations
-* Logic upgrades
+<HighlightBox type="synopsis">
+
+In this section, you will:
+
+* Add a leaderboard. 
+* Upgrade your blockchain in production.
+* Deal with data migrations and logic upgrades.
 
 </HighlightBox>
 

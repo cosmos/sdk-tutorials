@@ -1,11 +1,11 @@
 ---
-title: Create custom CosmJS interfaces
+title: Create Custom CosmJS Interfaces
 order: 4
 description: To work with your blockchain
 tag: deep-dive
 ---
 
-# Create custom CosmJS interfaces
+# Create Custom CosmJS Interfaces
 
 <HighlightBox type="synopsis">
 

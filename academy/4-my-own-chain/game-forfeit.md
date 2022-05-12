@@ -1,13 +1,13 @@
 ---
-title: EndBlock - Auto-expiring Games
+title: EndBlock - Auto-Expiring Games
 order: 14
 description: You enforce the expiration of games
 tag: deep-dive
 ---
 
-# EndBlock - Auto-expiring Games
+# EndBlock - Auto-Expiring Games
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have everything you need before proceeding:
 
@@ -15,11 +15,15 @@ Make sure you have everything you need before proceeding:
 * Go is installed.
 * You have the checkers blockchain codebase with the elements necessary for forfeit. If not, follow the [previous steps](./game-winner.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
     
-In this section:
-    
-* Begin block and End block operations
-* Forfeiting games automatically
-* Garbage collection
+</HighlightBox>
+
+<HighlightBox type="synopsis">
+
+In this section, you will:
+
+* Do begin block and end block operations.
+* Forfeit games automatically.
+* Do garbage collection.
 
 </HighlightBox>
 
@@ -411,11 +415,11 @@ Space each `tx` command from a given account by a couple of seconds so that they
 
 <HighlightBox type="tip">
 
- If you want to overcome this limitation, look at `checkersd`'s `--sequence` flag:
+If you want to overcome this limitation, look at `checkersd`'s `--sequence` flag:
 
- ```sh
- $ checkersd tx checkers create-game --help
- ```
+```sh
+$ checkersd tx checkers create-game --help
+```
 
 And at your account's current sequence. For instance:
 

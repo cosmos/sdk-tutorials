@@ -1,0 +1,261 @@
+{
+  "semantics": [
+    {
+      "label": "Plansza wprowadzająca",
+      "fields": [
+        {
+          "label": "Wyświetl planszę"
+        },
+        {
+          "label": "Tytuł",
+          "description": "Ten tytuł zostanie wyświetlony nad treścią planszy."
+        },
+        {
+          "label": "Treść planszy",
+          "description": "Ten tekst zostanie wyświetlony przed rozpoczęciem quizu."
+        },
+        {
+          "label": "Napis na przycisku Start",
+          "default": "Rozpocznij quiz"
+        },
+        {
+          "label": "Tło planszy",
+          "description": "Tło planszy wprowadzającej (opcjonalne)."
+        }
+      ]
+    },
+    {
+      "label": "Tło quizu",
+      "description": "Tło dla wszystkich pytań w quizie (opcjonalne)."
+    },
+    {
+      "label": "Wskaźnik postępu",
+      "description": "W jaki sposób ma być pokazywany postęp.",
+      "options": [
+        {
+          "label": "Tekstowo"
+        },
+        {
+          "label": "Kropkami"
+        }
+      ]
+    },
+    {
+      "label": "Procent zaliczający",
+      "description": "Procent poprawnych odpowiedzi wymagany do zaliczenia quizu."
+    },
+    {
+      "label": "Pytania",
+      "widgets": [
+        {
+          "label": "Tryb domyślny"
+        },
+        {
+          "label": "Tryb tekstowy"
+        }
+      ],
+      "entity": "pytanie",
+      "field": {
+        "label": "Typ pytania",
+        "description": "Wybierz bibliotekę z listy."
+      }
+    },
+    {
+      "label": "Opisy interfejsu w quizie",
+      "fields": [
+        {
+          "label": "Przycisk cofania",
+          "default": "Poprzednie pytanie"
+        },
+        {
+          "label": "Przycisk dalej",
+          "default": "Kolejne pytanie"
+        },
+        {
+          "label": "Przycisk zakończenia",
+          "default": "Zakończ"
+        },
+        {
+          "label": "Tekst postępu",
+          "description": "Ten tekst zostanie wyświetlony, jeśli wybrana zostanie opcja wyświetlania postępu tekstowo.",
+          "default": "Pytanie @current z @total"
+        },
+        {
+          "label": "Etykieta przeskoku do konkretnego pytania",
+          "description": "Wstaw '%d' w miejsce numeru pytania oraz %total w miejscu liczby wszystkich pytań.",
+          "default": "Pytanie %d z %total"
+        },
+        {
+          "label": "Etykieta informacji o prawach autorskich",
+          "default": "Pytanie"
+        },
+        {
+          "label": "Postęp dla czytnika ekranu",
+          "description": "Można użyć zmiennych @current (numer bieżącego pytania) i @total (liczba wszystkich pytań)",
+          "default": "Pytanie @current z @total"
+        },
+        {
+          "label": "Etykieta pytania bez odpowiedzi",
+          "default": "Brak odpowiedzi"
+        },
+        {
+          "label": "Etykieta pytania z odpowiedzią",
+          "default": "Z odpowiedzią"
+        },
+        {
+          "label": "Etykieta bieżącego pytania",
+          "default": "Bieżące pytanie"
+        }
+      ]
+    },
+    {
+      "label": "Wyłącz cofanie do poprzedniego pytania",
+      "description": "Po włączeniu tej opcji będzie możliwe tylko przechodzenie do kolejnego pytania quizu"
+    },
+    {
+      "label": "Losuj pytania",
+      "description": "Włącz tę opcję, aby pytania pojawiały się w losowej kolejności."
+    },
+    {
+      "label": "Ile pytań pokazać:",
+      "description": "Wylosuj i pokaż określoną liczbę pytań spośród wszystkich dostępnych."
+    },
+    {
+      "label": "Quiz zakończony",
+      "fields": [
+        {
+          "label": "Pokaż wyniki"
+        },
+        {
+          "label": "Przycisk wyświetlania wyników"
+        },
+        {
+          "label": "Wyświetl przycisk powtórzenia"
+        },
+        {
+          "label": "Informacja dla braku wyników",
+          "description": "Tekst wyświetlany na ekranie końcowym, gdy wyłączona jest opcja \"Pokaż wyniki\"",
+          "default": "Koniec"
+        },
+        {
+          "label": "Nagłówek sekcji informacji zwrotnej",
+          "default": "Twój wynik:",
+          "description": "Ten nagłówek zostanie wyświetlony na ekranie końcowym po udzieleniu odpowiedzi na wszystkie pytania."
+        },
+        {
+          "label": "Podsumowanie odpowiedzi",
+          "fields": [
+            {
+              "widgets": [
+                {
+                  "label": "Domyślne"
+                }
+              ],
+              "label": "Określ własne kryteria oceny dla wybranych zakresów poprawnych odpowiedzi",
+              "description": "Przykład: 0-20% Słaby wynik, 21-91% Przeciętny wynik, 91-100% Bardzo dobry wynik!",
+              "entity": "Zakres",
+              "field": {
+                "fields": [
+                  {
+                    "label": "Zakres"
+                  },
+                  {},
+                  {
+                    "label": "Komunikat dla danego zakresu",
+                    "placeholder": "Wprowadź komunikat"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Starsza wersja podsumowania",
+          "fields": [
+            {
+              "label": "Informacja o zaliczeniu quizu",
+              "description": "Ten tekst zostanie wyświetlony nad wynikiem użytkownika, który zaliczył quiz."
+            },
+            {
+              "label": "Komentarz do zaliczenia quizu",
+              "description": "Ten komentarz zostanie wyświetlony pod wynikiem użytkownika, który zaliczył quiz."
+            },
+            {
+              "label": "Informacja o niezaliczeniu quizu",
+              "description": "Ten tekst zostanie wyświetlony nad wynikiem użytkownika, który nie zaliczył quizu."
+            },
+            {
+              "label": "Komentarz do niezaliczenia quizu",
+              "description": "Ten komentarz zostanie wyświetlony pod wynikiem użytkownika, który nie zaliczył quizu."
+            }
+          ]
+        },
+        {
+          "label": "Etykieta przycisku pokazywania poprawnej odpowiedzi",
+          "default": "Pokaż odpowiedź",
+          "description": "Opis przycisku pokazywania poprawnej odpowiedzi."
+        },
+        {
+          "label": "Etykieta przycisku ponowienia próby odpowiedzi",
+          "default": "Powtórz",
+          "description": "Opis przycisku ponowienia."
+        },
+        {
+          "label": "Etykieta przycisku zakończenia",
+          "default": "Zakończ"
+        },
+        {
+          "label": "Odtwórz wideo przed ekranem wyników"
+        },
+        {
+          "label": "Pozwól na pominięcie wideo"
+        },
+        {
+          "label": "Opis przycisku pominięcia",
+          "default": "Pomiń wideo"
+        },
+        {
+          "label": "Wideo po zaliczeniu",
+          "description": "To wideo zostanie odtworzone użytkownikowi, który zaliczył quiz."
+        },
+        {
+          "label": "Wideo po niezaliczeniu",
+          "description": "To wideo zostanie odtworzone użytkownikowi, który nie zaliczył quizu."
+        }
+      ]
+    },
+    {
+      "label": "Ustawienia przycisków pokazywania odpowiedzi i ponownej próby",
+      "fields": [
+        {
+          "label": "Pokaż przycisk \"Sprawdź\"",
+          "description": "Włącz tę opcję, jeśli przycisk \"Sprawdź\" ma być wyświetlany pod każdym pytaniem."
+        },
+        {
+          "label": "Globalne ustawienie dla przycisku \"Pokaż odpowiedź\"",
+          "description": "Ta opcja określa, czy przycisk \"Pokaż odpowiedź\" ma być wyświetlany pod każdym pytaniem, niewyświetlany pod żadnym, czy jego wyświetlanie ma być ustalane indywidualnie.",
+          "options": [
+            {
+              "label": "Włączone"
+            },
+            {
+              "label": "Wyłączone"
+            }
+          ]
+        },
+        {
+          "label": "Globalne ustawienie dla przycisku \"Powtórz\"",
+          "description": "Ta opcja określa, czy przycisk \"Powtórz\" ma być wyświetlany pod każdym pytaniem, niewyświetlany pod żadnym, czy jego wyświetlanie ma być ustalane indywidualnie.",
+          "options": [
+            {
+              "label": "Włączone"
+            },
+            {
+              "label": "Wyłączone"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

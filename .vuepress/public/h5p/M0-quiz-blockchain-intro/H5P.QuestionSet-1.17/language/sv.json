@@ -1,0 +1,261 @@
+{
+  "semantics": [
+    {
+      "label": "Introduktion",
+      "fields": [
+        {
+          "label": "Visa introduktion"
+        },
+        {
+          "label": "Titel",
+          "description": "Denna titel kommer att visas ovanför introduktionstexten."
+        },
+        {
+          "label": "Introduktionstext",
+          "description": "Denna text kommer att visas före testet startar."
+        },
+        {
+          "label": "Text på startknapp",
+          "default": "Starta quiz"
+        },
+        {
+          "label": "Bakgrundsbild",
+          "description": "En valfri bakgrundsbild för introduktionen."
+        }
+      ]
+    },
+    {
+      "label": "Bakgrundsbild",
+      "description": "En valfri bakgrundsbild för uppsättningen av frågor."
+    },
+    {
+      "label": "Framstegsindikator",
+      "description": "Stil på framstegsindikator för fråge-uppsättningen.",
+      "options": [
+        {
+          "label": "Textuell"
+        },
+        {
+          "label": "Prickar"
+        }
+      ]
+    },
+    {
+      "label": "Procent för godkänt",
+      "description": "Procent av total poäng som krävs för att få godkänt på denna quiz."
+    },
+    {
+      "label": "Frågor",
+      "widgets": [
+        {
+          "label": "Standard"
+        },
+        {
+          "label": "Textuell"
+        }
+      ],
+      "entity": "fråga",
+      "field": {
+        "label": "Frågetyp",
+        "description": "Välj frågetyp för denna fråga."
+      }
+    },
+    {
+      "label": "Ledtexter i quiz",
+      "fields": [
+        {
+          "label": "Tillbaka-knapp",
+          "default": "Föregående fråga"
+        },
+        {
+          "label": "Nästa-knapp",
+          "default": "Nästa fråga"
+        },
+        {
+          "label": "Avsluta-knapp",
+          "default": "Avsluta"
+        },
+        {
+          "label": "Text för framsteg",
+          "description": "Text som används om textuella framsteg är valt.",
+          "default": "Fråga: @current av @total frågor"
+        },
+        {
+          "label": "Etikett för att hoppa till en viss fråga",
+          "description": "Du måste använda variabel '%d' istället för frågenummer, och %total istället för totalt antal frågor.",
+          "default": "Fråga %d av %total"
+        },
+        {
+          "label": "Upphovsrätt fråge-etikett",
+          "default": "Fråga"
+        },
+        {
+          "label": "Skärmläsarframsteg",
+          "description": "Kan använda @current och @total frågevariabler",
+          "default": "Fråga @current av @total"
+        },
+        {
+          "label": "Text för obesvarad fråga",
+          "default": "Obesvarad"
+        },
+        {
+          "label": "Text för besvarad fråga",
+          "default": "Besvarad"
+        },
+        {
+          "label": "Text för nuvarande fråga",
+          "default": "Nuvarande fråga"
+        }
+      ]
+    },
+    {
+      "label": "Inaktivera navigation bakåt",
+      "description": "Denna inställning tillåter endast navigation framåt i uppsättningen av frågor"
+    },
+    {
+      "label": "Slumpa frågor",
+      "description": "Aktivera för att slumpa ordningsföljden på frågorna som visas."
+    },
+    {
+      "label": "Antal frågor som ska visas:",
+      "description": "Skapa ett slumpmässig urval av frågor."
+    },
+    {
+      "label": "Quiz avslutat",
+      "fields": [
+        {
+          "label": "Visa resultat"
+        },
+        {
+          "label": "Visa rätt svar-knapp"
+        },
+        {
+          "label": "Visa försök igen-knapp"
+        },
+        {
+          "label": "Meddelande vid inget resultat",
+          "description": "Text som visas på slutsida när \"Visa resultat\" är inaktiverat",
+          "default": "Avslutat"
+        },
+        {
+          "label": "Rubrik för feedback",
+          "default": "Ditt resultat:",
+          "description": "Denna rubrik visas på slutet av denna quiz när användaren har svarat på alla frågor."
+        },
+        {
+          "label": "Samlad feedback",
+          "fields": [
+            {
+              "widgets": [
+                {
+                  "label": "Standard"
+                }
+              ],
+              "label": "Definiera anpassad feedback för valfria poängintervall",
+              "description": "Exempel: 0-20% Inte så bra, 21-91% Medel, 91-100% Jättebra!",
+              "entity": "intervall",
+              "field": {
+                "fields": [
+                  {
+                    "label": "Poängintervall"
+                  },
+                  {},
+                  {
+                    "label": "Feedback för detta poängintervall",
+                    "placeholder": "Fyll i feedback"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Gammal Feedback",
+          "fields": [
+            {
+              "label": "Titel vid godkänd quiz",
+              "description": "Denna text kommer att visas ovanför poängen om användaren har lyckats få godkänt."
+            },
+            {
+              "label": "Kommentar vid godkänt",
+              "description": "Denna kommentar kommer att visas efter poängen om användaren har lyckats få godkänt."
+            },
+            {
+              "label": "Titel vid ej godkänd quiz",
+              "description": "Denna text kommer att visas ovanför poängen om användaren har missyckats med att nå godkänt."
+            },
+            {
+              "label": "Kommentar vid ej godkänt",
+              "description": "Denna kommentar kommer att visas efter poängen om användaren har misslyckats med att nå godkänt."
+            }
+          ]
+        },
+        {
+          "label": "Etikett för Visa rätt svar",
+          "default": "Visa rätt svar",
+          "description": "Text för knappen Visa rätt svar."
+        },
+        {
+          "label": "Etikett för knappen Försök igen",
+          "default": "Försök igen",
+          "description": "Text för knappen Försök igen."
+        },
+        {
+          "label": "Text för knappen Avsluta",
+          "default": "Avsluta"
+        },
+        {
+          "label": "Visa video före resultat från denna quiz"
+        },
+        {
+          "label": "Aktivera knapp för Hoppa över video"
+        },
+        {
+          "label": "Etikett för knapp Hoppa över video",
+          "default": "Hoppa över video"
+        },
+        {
+          "label": "Godkänt-video",
+          "description": "Denna video kommer att visas om användaren har lyckats få godkänt på denna quiz."
+        },
+        {
+          "label": "Ej godkänt-video",
+          "description": "Denna video kommer att  spelas upp om användaren misslyckas med denna quiz."
+        }
+      ]
+    },
+    {
+      "label": "Inställningar för knapparna \"Visa rätt svar\" och \"Försök igen\"",
+      "fields": [
+        {
+          "label": "Visa \"Rätta\" knappar",
+          "description": "Denna inställning avgör om knappen \"Rätta\" ska visas på alla frågor."
+        },
+        {
+          "label": "Ignorera knapp \"Visa rätt svar\"",
+          "description": "Denna inställning avgör om knappen \"Visa rätt svar\" ska visas på alla frågor, vara inaktiverad för alla frågor, eller konfigureras individuellt per fråga.",
+          "options": [
+            {
+              "label": "Aktiverad"
+            },
+            {
+              "label": "Inaktiverad"
+            }
+          ]
+        },
+        {
+          "label": "Ignorera knapp \"Försök igen\"",
+          "description": "Denna inställning avgör om knappen \"Försök igen\" ska visas på alla frågor, vara inaktiverad för alla frågor, eller konfigureras individuellt per fråga",
+          "options": [
+            {
+              "label": "Aktiverad"
+            },
+            {
+              "label": "Inaktiverad"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

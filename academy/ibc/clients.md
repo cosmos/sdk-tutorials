@@ -5,7 +5,17 @@ description:
 tag: deep-dive
 ---
 
-## Clients
+# Clients
+
+<HighlightBox type="learning">
+
+In this section, you will learn:
+
+* How a client is created.
+* How client state and consensus can be verified.
+* How packets are verified.
+
+</HighlightBox>
 
 ![clients](/academy/ibc/images/lightclient.png)
 
@@ -25,7 +35,7 @@ Although relayers do not perform any verification of the packets, and therefore 
 
 </HighlightBox>
 
-**Creating a Client**
+## Creating a client
 
 Start with [`msg_serve.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go), which is where the messages come in. This is the first appearance of the `CreateClient` function, which will be submitted by a relayer through the relaying software to create an IBC client on the chain that the message is submitted to:
 
@@ -91,7 +101,7 @@ Because of this separation of concerns, IBC clients can be created for any numbe
 
 In addition, you can see that the function expects a `ClientState`. This `ClientState` will look different depending on which type of client is to be created for IBC. In the case of Cosmos-SDK chains and the corresponding implementation of ibc-go, the [Tendermint client](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/client_state.go) is offered out of the box:
 
- ```go
+```go
 // NewClientState creates a new ClientState instance
 func NewClientState(
   chainID string, trustLevel Fraction,
@@ -196,7 +206,6 @@ func (proof MerkleProof) VerifyMembership(specs []*ics23.ProofSpec, root exporte
 }
 ```
 
-
 <HighlightBox type="info">
 
 IBC on-chain clients can also be referred to as **light clients**. In contrast to the full nodes, which track the entire state of blockchain and contain every single tx/block, these on-chain IBC "light clients" track only the few pieces of information about counterparty chains previously mentioned (timestamp, root hash, next validator set hash). This saves space and increases the efficiency of processing consensus state updates. 
@@ -205,7 +214,7 @@ The objective is to avoid a situation where it is necessary to have copy of chai
 
 </HighlightBox>
 
-**Updating A Client**
+## Updating a client
 
 Assume that the initial ConsensusState was created at block 50, but you want to submit a proof of a transaction which happened in block 100. In this case, you need to first update the ConsensusState to reflect all the changes that have happened between block 50 and block 100.
 
@@ -236,8 +245,7 @@ If you want to see where `ConsensusState` is stored, see the [Interchain Standar
 
 </HighlightBox>
 
-
-**Verifying Packet Commitments**
+## Verifying packet commitments
 
 As shown in the deep dive on [channels](/academy/ibc/channels.md), a relayer will first submit an `UpdateClient` to update the sending chain client on the destination chain, before relaying packets containing other message types, such as ICS20 token transfers. The destination chain can be sure that the packet will be contained in its ConsensusState root hash, and successfully verify this packet and packet commitmentment proof against the state contained in its (updated) IBC light client.
 

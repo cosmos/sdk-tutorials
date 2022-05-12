@@ -7,21 +7,25 @@ tag: deep-dive
 
 # Store FIFO - Put Your Games in Order
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [ABCI](../2-main-concepts/architecture.md), [Protobuf](../2-main-concepts/protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
 * Go is installed.
 * You have the checkers blockchain codebase with `MsgRejectGame` and its handling. If not, follow the [previous steps](./reject-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
-    
-In this section:
+
+</HighlightBox>
+
+<HighlightBox type="synopsis">
+
+In this section, you will deal with:
     
 * The FIFO data structure
 * FIFO unit tests
-    
+
 You will learn:
-    
+
 * Modularity and data organization styles
 
 </HighlightBox>
@@ -34,14 +38,13 @@ Game inactivity could become a factor. What if a player never shows up again? Sh
 
 Eventually you want to let players wager on the outcome of games, so you do not want games remaining in limbo if they have _value_ assigned. For this reason, you need a way for games to be forcibly resolved if one player stops responding.
 
-
 <HighlightBox type="info">
 
-The simplest mechanism to expire a game is to use a **deadline**. If the deadline is reached, then the game is forcibly terminated and expires. The deadline is pushed further back every time a game is played.
+The simplest mechanism to expire a game is to use a **deadline**. If the deadline is reached, then the game is forcibly terminated and expires. The deadline is pushed back every time a move is played.
 
 </HighlightBox>
 
-To enforce the termination it is a good idea to use the **`EndBlock`** part of the ABCI protocol. The call `EndBlock` is triggered when all transactions of the block are delivered and gives you a chance to do some tidying up before the block is sealed. In your case, all games that have reached their deadline will be terminated.
+To enforce the termination it is a good idea to use the **`EndBlock`** part of the ABCI protocol. The call `EndBlock` is triggered when all transactions of the block are delivered, and allows you to tidy up before the block is sealed. In your case, all games that have reached their deadline will be terminated.
 
 How do you find all the games that have reached their deadline? You could use a pseudo-code like:
 
@@ -255,7 +258,7 @@ With these functions ready, it is time to use them in the message handlers.
     ...
     ```
 
-You implemented a FIFO that is updated but never really used, at least for now.
+You have implemented a FIFO that is updated but never really used.
 
 ## Unit tests
 

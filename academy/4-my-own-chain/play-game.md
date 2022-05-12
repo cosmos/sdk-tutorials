@@ -7,20 +7,24 @@ tag: deep-dive
 
 # Message and Handler - Add a Way to Make a Move
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [transactions](../2-main-concepts/transactions.md), [messages](../2-main-concepts/messages.md), and [Protobuf](../2-main-concepts/protobuf.md).
 * Go is installed.
 * You have the checkers blockchain codebase with `MsgCreateGame` and its handling. If not, follow the [previous steps](./create-handling.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler).
-    
-In this section:
-    
-* Extend message handling - play the game
-* Handle moves and update the game state
-* Validate input
-* Extend unit tests
+
+</HighlightBox>
+
+<HighlightBox type="synopsis">
+
+In this section, you will:
+
+* Extend message handling - play the game.
+* Handle moves and update the game state.
+* Validate input.
+* Extend unit tests.
 
 </HighlightBox>
 
@@ -331,6 +335,54 @@ r*r*r*r*
 ```
 
 Bob's piece moved down and right.
+
+## Unit tests
+
+Adding unit tests for this play message is very similar to what you did for the previous message: create a new `msg_server_play_move_test.go` file and add to it. Start with a function that sets up the keeper as you prefer. In this case, already having a game saved can reduce several lines of code in each test:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L15-L26]
+func setupMsgServerWithOneGameForPlayMove(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
+    k, ctx := setupKeeper(t)
+    checkers.InitGenesis(ctx, *k, *types.DefaultGenesis())
+    server := keeper.NewMsgServerImpl(*k)
+    context := sdk.WrapSDKContext(ctx)
+    server.CreateGame(context, &types.MsgCreateGame{
+        Creator: alice,
+        Red:     bob,
+        Black:   carol,
+    })
+    return server, *k, context
+}
+```
+
+Now test the result of a move:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L28-L45]
+func TestPlayMove(t *testing.T) {
+    msgServer, _, context := setupMsgServerWithOneGameForPlayMove(t)
+    playMoveResponse, err := msgServer.PlayMove(context, &types.MsgPlayMove{
+        Creator: carol,
+        IdValue: "1",
+        FromX:   1,
+        FromY:   2,
+        ToX:     2,
+        ToY:     3,
+    })
+    require.Nil(t, err)
+    require.EqualValues(t, types.MsgPlayMoveResponse{
+        IdValue:   "1",
+        CapturedX: -1,
+        CapturedY: -1,
+        Winner:    rules.NO_PLAYER.Color,
+    }, *playMoveResponse)
+}
+```
+
+Also test whether the game was [saved correctly](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L71-L97). Check what happens when players try to [play out of turn](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L99-L111), or [make a wrong move](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L113-L125). Check after [two](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L127-L188) or [three turns with a capture](https://github.com/cosmos/b9-checkers-academy-draft/blob/362ca660/x/checkers/keeper/msg_server_play_move_test.go#L190-L267).
+
+## Interact via the CLI
+
+
 
 ## Next up
 

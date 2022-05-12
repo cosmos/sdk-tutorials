@@ -1,0 +1,8 @@
+{
+  "libraryStrings": {
+    "helpText": "Utilitzeu una línia en blanc per separar cada pregunta. En l’opció de multiselecció, la primera línia és la pregunta i les línies següents són les respostes possibles. Les opcions correctes porten un asterisc (*) com a prefix; també es poden afegir pistes i suggeriments: *opció:pista:suggerimetn si es tria: suggeriment si no es tria. Exemple:",
+    "example": "What number is PI?\n*3.14\n9.82\n\nWhat is 4 * 0?\n1\n4\n*0",
+    "warning": "Advertiment: si canvieu les tasques de l’editor de text, se suprimirà el format de tot el text enriquit (inclosos els salts de línia).",
+    "unknownQuestionType": "Pregunta no editable"
+  }
+}

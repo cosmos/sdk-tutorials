@@ -1,18 +1,18 @@
 ---
-title: CosmJs - Plug in your GUI
+title: CosmJS - Plug in your GUI
 order: 25
 description: Take a Checkers GUI and use your elements
 tag: deep-dive
 ---
 
-# CosmJs - Plug in your GUI
+# CosmJS - Plug in your GUI
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [CosmJs](TODO).
-* You have the checkers blockchain codebase up to the external GUI. If not, follow the [previous steps](./external-gui.md) or check out the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui).
+* You understand the concepts of [CosmJS](../xl-cosmjs/intro.md).
+* You have the checkers blockchain codebase up to the external GUI. If not, follow the [previous steps](./external-gui.md) or you can go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui) to get the version needed for this tutorial.
 
 </HighlightBox>
 
@@ -23,10 +23,10 @@ In the previous sections:
 
 Now, you must **integrate the two** together:
 
-* Adjust the React app to be able to package CosmJs.
-* Work on the CosmJs integration.
+* Adjust the React app to be able to package CosmJS.
+* Work on the CosmJS integration.
 
-For the CosmJs integration, you will:
+For the CosmJS integration, you will:
 
 * Work with the GUI's data structures.
 * Fetch all games from the blockchain and display them (without pagination).
@@ -40,7 +40,7 @@ Rejecting a game will be left to you as an exercise.
 
 ### Prepare Webpack
 
-Your GUI uses React v18, which uses Weback v5. Therefore you need to [adjust Webpack's configuration](https://github.com/cosmos/cosmjs/blob/5fc0960/README.md#webpack-configs) to handle some elements (see also the CosmJs documentation). To modify the Webpack configuration in a non-ejected React app, use [`react-app-rewired`](https://www.npmjs.com/package/react-app-rewired) as [explained here](https://stackoverflow.com/questions/63280109/how-to-update-webpack-config-for-a-react-project-created-using-create-react-app):
+Your GUI uses React v18, which uses Webpack v5. Therefore you need to [adjust Webpack's configuration](https://github.com/cosmos/cosmjs/blob/5fc0960/README.md#webpack-configs) to handle some elements (see also the CosmJS documentation). To modify the Webpack configuration in a non-ejected React app, use [`react-app-rewired`](https://www.npmjs.com/package/react-app-rewired) as [explained here](https://stackoverflow.com/questions/63280109/how-to-update-webpack-config-for-a-react-project-created-using-create-react-app):
 
 1. Install the new package:
 
@@ -373,7 +373,7 @@ Next, in `MenuContainer.tsx`:
 
 Restart `npm start` and you should see an empty games list (unless you have previously created any). If you have access to any way of creating a game, for instance with the `checkersd` command line, test this new functionality by creating one:
 
-![List of one game](/list-games-1.png)
+![List of one game](/academy/4-my-own-chain/images/list-games-1.png)
 
 If you do not have a way to create a game, wait for the procedures about creating a game.
 
@@ -489,7 +489,7 @@ Looking into `GameContainer`, you see that `componentDidMount` gets all the game
 
 Restart `npm start` and you should now see your game. If you have access to `checkersd`, or any other way to send a transaction, you can make a move from the command line and refresh to confirm the change. If not, wait for the procedure about playing.
 
-![Game with one move played](/show-game-1-move.png)
+![Game with one move played](/academy/4-my-own-chain/images/show-game-1-move.png)
 
 ## Integrate with Keplr
 
@@ -649,13 +649,13 @@ For instance, in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
 
     Note too that a default gas price is passed in, so that you can use `"auto"` when sending a transaction.
 
-Your component is now ready to send transactions to the blockchain. Why choose `NewGameModal.tsx` as the example? Because this is where a new game is created. 
+Your component is now ready to send transactions to the blockchain. Why choose `NewGameModal.tsx` as the example? Because this is where a new game is created.
 
 ## Create a new game
 
 This modal window pops up when you click on <kbd>New Game</kbd>:
 
-![Modal window to create game](/window-create-game.png)
+![Modal window to create game](/academy/4-my-own-chain/images/window-create-game.png)
 
 The player names look ready-made to take the player's Cosmos addresses.
 
@@ -743,11 +743,11 @@ If you do not yet know your Keplr address on the Checkers network, you will have
 
 1. Run the initialization code by pretending to create a game. This makes Keplr prompt you to accept adding the `checkers` network and accessing your account. Accept both, but optionally reject the prompt to accept a transaction if your balance is zero.
 
-    ![Checkers prompting to add support for Checkers](/checkers-add-support.png)![Checkers prompting to access account](/checkers-access-address.png)    
+    ![Checkers prompting to add support for Checkers](/academy/4-my-own-chain/images/checkers-add-support.png)![Checkers prompting to access account](/academy/4-my-own-chain/images/checkers-access-address.png)    
 
 2. Select _Checkers_ in Keplr. Make a note of your address, for instance `cosmos17excjd99u45c4fkzljwlx8eqyn5dplcujkwag8`.
 
-    ![Checkers network in beta support list](/list-keplr-beta-support.png)
+    ![Checkers network in beta support list](/academy/4-my-own-chain/images/list-keplr-beta-support.png)
 
 3. Put enough tokens in your Keplr _Checkers_ account. `"1000000stake"` will satisfy by a 10x margin.
 
@@ -775,7 +775,7 @@ console.log(move)
 
 Now play a move with the current interface. Move your first black piece:
 
-![Black moves first piece](/black-moves-first-piece.png)
+![Black moves first piece](/academy/4-my-own-chain/images/black-moves-first-piece.png)
 
 In the blockchain code, this is `fromX: 1, fromY: 2, toX: 2, toY: 3`. However, the GUI prints:
 

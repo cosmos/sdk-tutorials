@@ -1,0 +1,136 @@
+{
+  "semantics": [
+    {
+      "label": "Bideo-iturriak",
+      "description": "Bideoa nabigatzaile guztietan ondo ikusiko dela ziurtatzeko WebM eta MP4 formatuetan igo beharko duzu."
+    },
+    {
+      "label": "Bisualak",
+      "fields": [
+        {
+          "label": "Poster-irudia"
+        },
+        {
+          "label": "Doitu bideo-erreproduzigailua erabil daitekeen espazio osoa har dezan",
+          "description": "Ezarri ezean bideo-erreproduzigailuak bideoaren ratio bera izango du."
+        },
+        {
+          "label": "Erakutsi bideo-irakurgailuaren kontrolak",
+          "description": "Gehitu kontrolak bideo-erreproduzigailuari. Horrek erabiltzaileen esku hainbat kontrol jarriko ditu, hala nola, hasi, gelditu, etab."
+        }
+      ]
+    },
+    {
+      "label": "Erreprodukzioa",
+      "fields": [
+        {
+          "label": "Erreproduzitu bideoa automatikoki",
+          "description": "Hasi bideoa automatikoki erreproduzitzen. Baliteke sakelako telefonoetan ez funtzionatzea."
+        },
+        {
+          "label": "Etenik gabeko erreprodukzioa",
+          "description": "Hasi bideoa berriro automatikoki amaitutakoan."
+        }
+      ]
+    },
+    {
+      "label": "Bideoaren lokalizazioa",
+      "fields": [
+        {
+          "label": "Izenburua",
+          "default": "Bideoa",
+          "description": "Era honetako edukia identifikatzen laguntzen du."
+        },
+        {
+          "label": "Kargatzen",
+          "default": "Bideo-erreproduzigailua kargatzen ari da..."
+        },
+        {
+          "label": "Ez da erreproduzigailurik aurkitu",
+          "default": "Emandako bideo-formatua onartzen duen erreproduzigailurik ez da aurkitu."
+        },
+        {
+          "label": "Iturririk ez",
+          "default": "Bideoak ez du iturririk."
+        },
+        {
+          "label": "Utzia",
+          "default": "Erreprodukzioa gelditu da."
+        },
+        {
+          "label": "Sare-errorea",
+          "default": "Sare-erroreea."
+        },
+        {
+          "label": "Ezin da bideoa deskodetu",
+          "default": "Bideoa deskodetzea ezinezkoa da."
+        },
+        {
+          "label": "Formatua ez da onartzen",
+          "default": "Bideo-formatua ez da onartzen."
+        },
+        {
+          "label": "Multimedia enkriptatua",
+          "default": "Multimedia enkriptatua."
+        },
+        {
+          "label": "Errore ezezaguna",
+          "default": "Errore ezezaguna."
+        },
+        {
+          "label": "YouTube ID baliogabea",
+          "default": "YouTube ID baliogabea."
+        },
+        {
+          "label": "YouTube ID ezezaguna",
+          "default": "Ez da aurkitu YouTube ID hori duen bideorik."
+        },
+        {
+          "label": "YouTube bideo mugatu",
+          "default": "Bideo honen jabeak ez du kapsulatzerik onartzen."
+        }
+      ]
+    },
+    {
+      "label": "Erabilerraztasuna",
+      "fields": [
+        {
+          "label": "Gehitu bideo-pista",
+          "entity": "Pista",
+          "field": {
+            "label": "Pista",
+            "fields": [
+              {
+                "label": "Pistaren etiketa"
+              },
+              {
+                "label": "Idatzi mota, jo ezazu <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">HTML estandarrera</a>",
+                "options": [
+                  {
+                    "label": "Azpitituluak"
+                  },
+                  {
+                    "label": "Azpitituluak"
+                  },
+                  {
+                    "label": "Deskribapena"
+                  },
+                  {
+                    "label": "Kapituluak"
+                  }
+                ]
+              },
+              {
+                "label": "Jatorrizko hizkuntza, azpitituluetarako definitu behar dena",
+                "description": "BCP 47 hizkuntza-etiketa baliogarria izan behar du. Atributuan azpitituluak ezarri badira, srclang definitu beharra dago."
+              },
+              {
+                "label": "Pista-fitxategia (WebVTT)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

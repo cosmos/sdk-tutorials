@@ -68,7 +68,8 @@ module.exports = {
       "deploy-preview-991",
       "deploy-preview-1047",
       "127.0.0.1",
-      "deploy-preview"
+      "deploy-preview",
+      "interchainacademy.cosmos.network"
     ],
     sidebar: {
       auto: false,
@@ -114,7 +115,7 @@ module.exports = {
           children: [
             {
               title: "Welcome",
-              path: "/course-ida/welcome/",
+              path: "/",
               directory: false,
               order: 0
             },
@@ -146,6 +147,10 @@ module.exports = {
                 {
                   title: "Cryptography",
                   path: "/academy/0.0-B9lab-Blockchains/5_crypto.html"
+                },
+                {
+                  title: "Self-assessment Quiz",
+                  path: "/academy/0.0-B9lab-Blockchains/6_quiz.html"
                 }
               ]
             },
@@ -169,10 +174,6 @@ module.exports = {
                 {
                   title: "Getting ATOM and Staking It",
                   path: "/academy/1-what-is-cosmos/atom-staking.html"
-                },
-                {
-                  title: "Main Concepts",
-                  path: "/academy/2-main-concepts/"
                 },
                 {
                   title: "A Blockchain App Architecture",
@@ -223,16 +224,12 @@ module.exports = {
                   path: "/academy/2-main-concepts/migrations.html"
                 },
                 {
-                  title: "Inter-Blockchain Communication",
-                  path: "/academy/2-main-concepts/ibc.html"
-                },
-                {
                   title: "Bridges",
                   path: "/academy/2-main-concepts/bridges.html"
                 },
                 {
-                  title: "Mandatory Quiz (todo)",
-                  path: "/feature-test"
+                  title: "Mandatory Quiz",
+                  path: "/course-ida/quiz-week1.html"
                 },
               ]
             },
@@ -281,10 +278,12 @@ module.exports = {
                   title: "Message and Handler - Make Sure a Player Can Reject a Game",
                   path: "/academy/4-my-own-chain/reject-game.html"
                 },
+/*
                 {
                   title: "Mandatory Exercise (todo)",
                   path: "/feature-test"
                 },
+*/
               ]
             },
             {
@@ -449,16 +448,20 @@ module.exports = {
                   title: "CosmJS on a Backend Script for Game Indexing",
                   path: "/academy/4-my-own-chain/server-side.html"
                 },
+/*
                 {
                   title: "Final exam (todo)",
                   path: "/feature-test/"
                 },
-                {
-                  title: "What’s Next",
-                  path: "/academy/5-whats-next/"
-                },
+*/
               ]
-            }
+            },
+            {
+              title: "What's Next?",
+              path: "/academy/5-whats-next/",
+              directory: false,
+              order: 8,
+            },
           ],
         },
       ],
@@ -638,13 +641,13 @@ module.exports = {
     [
       "@vuepress/google-analytics",
       {
-        ga: "UA-51029217-2",
+        ga: "UA-62891515-12",
       }
     ],
     [
       "vuepress-plugin-google-tag-manager",
       {
-        gtm: "UA-51029217-2",
+        gtm: "G-KZ2X8K22XG",
       }
     ],
     [
