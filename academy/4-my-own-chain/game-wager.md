@@ -14,9 +14,9 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [modules](../2-main-concepts/modules.md)), [keepers](../2-main-concepts/multistore-keepers.md), and [Protobuf](../2-main-concepts/protobuf.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to game expiry handling. If not, follow the [previous steps](./game-forfeit.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/forfeit-game).
-    
+
 In this section:
-    
+
 * Add wagers
 * The Bank module
 * Handling money
@@ -142,7 +142,7 @@ These two functions must exactly match the functions declared in the [`bank`'s k
 
 ## Obtaining the capability
 
-With your requirements declared it is time to make sure your keeper receives a reference to a bank keeper. First add a `BankKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
+With your requirements declared it is time to make sure your keeper receives a reference to a bank keeper. First, add a `BankKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/keeper.go#L16]
 type (
@@ -232,7 +232,7 @@ func (k *Keeper) MustPayWinnings(ctx sdk.Context, storedGame *types.StoredGame)
 func (k *Keeper) MustRefundWager(ctx sdk.Context, storedGame *types.StoredGame)
 ```
 
-The `Must` prefix in the function means that the transaction either takes place or a panic is issued. On the other hand, if a player cannot pay the wager, it is a user-side error and the user must be informed of a failed transaction. If the module cannot pay, it means the escrow account has failed. This error is much more serious. An invariant has been violated and the whole application must be terminated.
+The `Must` prefix in the function means that the transaction either takes place or a panic is issued. If a player cannot pay the wager, it is a user-side error and the user must be informed of a failed transaction. If the module cannot pay, it means the escrow account has failed. This error is much more serious: an invariant has been violated and the whole application must be terminated.
 
 Now set up collecting a wager, paying winnings, and refunding a wager:
 

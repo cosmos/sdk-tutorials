@@ -14,9 +14,9 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [ABCI](../2-main-concepts/architecture.md).
 * Go is installed.
 * You have the checkers blockchain codebase with the elements necessary for forfeit. If not, follow the [previous steps](./game-winner.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
-    
+
 In this section:
-    
+
 * Begin block and End block operations
 * Forfeiting games automatically
 * Garbage collection
@@ -411,11 +411,11 @@ Space each `tx` command from a given account by a couple of seconds so that they
 
 <HighlightBox type="tip">
 
- If you want to overcome this limitation, look at `checkersd`'s `--sequence` flag:
+If you want to overcome this limitation, look at `checkersd`'s `--sequence` flag:
 
- ```sh
- $ checkersd tx checkers create-game --help
- ```
+```sh
+$ checkersd tx checkers create-game --help
+```
 
 And at your account's current sequence. For instance:
 
