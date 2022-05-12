@@ -146,6 +146,10 @@ module.exports = {
                 {
                   title: "Cryptography",
                   path: "/academy/0.0-B9lab-Blockchains/5_crypto.html"
+                },
+                {
+                  title: "Self-assessment Quiz",
+                  path: "/academy/0.0-B9lab-Blockchains/6_quiz.html"
                 }
               ]
             },
