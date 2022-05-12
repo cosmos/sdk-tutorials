@@ -7,6 +7,20 @@ tag: fast-track
 
 # What is IBC?
 
+<HighlightBox type="synopsis">
+
+Inter-Blockchain protocol solves for communication between blockchains, which is particularly important in the Cosmos universe. 
+  
+In this section:
+  
+* What IBC is, and what it solves
+* How IBC works
+* Channels and ports
+* Relays
+* Security
+  
+</HighlightBox>
+
 The **[Inter-Blockchain Communication (IBC) Protocol](https://ibcprotocol.org/)** is _a protocol to handle authentication and transport of data between two blockchains_. IBC **requires a minimal set of functions**, specified in the [Interchain Standards (ICS)](https://github.com/cosmos/ibc/tree/master/spec/ics-001-ics-standard). Notice that those specifications do not limit the network topology or consensus algorithm, so IBC can be used with a wide range of blockchains or state machines. The IBC protocol provides a permissionless way for relaying data packets between blockchains, unlike most trusted bridging technologies. The security of IBC reduces to the security of the participating chains.
 
 IBC solves a widespread problem: cross-chain communication. This problem exists on public blockchains when exchanges wish to perform swaps. The problem arises early in the case of application-specific blockchains, where every asset is likely to emerge from its own purpose-built chain. Cross-chain communication is also a challenge in the world of private blockchains, in cases where communication with a public chain or other private chains is desirable. There are already IBC implementations for private blockchains [such as Hyperledger Fabric and Corda](https://www.hyperledger.org/blog/2021/06/09/meet-yui-one-the-new-hyperledger-labs-projects-taking-on-cross-chain-and-off-chain-operations).
@@ -185,4 +199,4 @@ The most straightforward way to use IBC is to build a chain with the Cosmos SDK,
 
 ## Next up
 
-On your way to becoming a Cosmos SDK developer expert in IBC? In the next section, you can dive even deeper and discover information on how to develop with IBC.
+On your way to becoming a Cosmos SDK developer expert in IBC? Dive even deeper and discover how to develop with IBC.

@@ -7,6 +7,19 @@ tag: deep-dive
 
 # Sending Tokens with Keplr
 
+<HighlightBox type="synopsis">
+
+Build applicatiosn that interact with the Keplr browser extension. 
+    
+In this section. 
+    
+* Detecting Keplr
+* Get chain info
+* The user interaction flow
+* 
+
+</HighlightBox>
+
 CosmJS allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJS to issue commands to the Cosmos Hub Testnet. In this tutorial, you'll be working on a browser application that interacts with the Keplr extension.
 
 We will again be connecting to the Cosmos Hub testnet. You can optionally connect to your locally running Cosmos blockchain using `simapp` as explained [before](./first-steps.md).

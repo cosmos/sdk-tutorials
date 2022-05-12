@@ -7,6 +7,18 @@ tag: intro
 
 # Introduction to CosmJS
 
+<HighlightBox type="synopsis">
+
+Build applications that interact with Cosmos blockchains with CosmJS. 
+  
+In this section:
+  
+* What is CosmJS?
+* What can you use it for?
+* Modular design of CosmJS
+  
+</HighlightBox>
+
 **Distributed applications (dApps)** are _software applications that run on distributed networks_. Blockchains provide persistent data, or the state, as well as persistent processes and logic. The Cosmos SDK helps developers create such applications. A user interface is important in most cases, and server interactions are important in many cases. This is where [CosmJS](https://github.com/cosmos/CosmJS) comes in handy.
 
 As the name suggests, CosmJS is a Typescript/JavaScript library. It helps developers integrate frontend user interfaces and backend servers with Cosmos blockchains that implement distributed applications. To many users, the "dApp" **is** the user interface, even though it is often delivered to the browser in a centralized, traditional way - relying on the DNS infrastructure and centralized web servers.
@@ -77,3 +89,7 @@ Some additional reading or video material is available as well:
 * [CosmJS GitHub repository](https://github.com/cosmos/CosmJS)
 
 </HighlightBox>
+
+## Next up
+
+Take your [first steps with CosmJS](./first-steps.md).

@@ -7,6 +7,15 @@ tag: deep-dive
 
 ## Channels
 
+<HighlightBox type="synopsis">
+
+In this section:
+  
+* Establishing a channel
+* Application packet flow
+
+</HighlightBox>
+
 Connections and clients comprise the main components of the transport layer in IBC. However, application to application communication in IBC is conducted over **channels**, which route between an application module such as the module which handles ICS20 token transfers on one chain, and the corresponding application module on another one. These applications are namespaced by **port identifiers** such as 'transfer' for ICS20 token transfers.
 
 <HighlightBox type="info">
