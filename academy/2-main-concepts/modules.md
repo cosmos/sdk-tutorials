@@ -401,8 +401,7 @@ Note that:
 
 <HighlightBox type="tip">
 
-If you want to go beyond these code samples and instead see in more detail how to define all this, go to Week 2 - Running Your Own Cosmos Chain.
-<!-- insert link to Week 2 -->
+If you want to go beyond these code samples and instead see in more detail how to define all this, go to [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
     
 </HighlightBox>
 
