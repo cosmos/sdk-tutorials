@@ -11,7 +11,7 @@ intro:
     image: /graphics-sdk-course.png
     description: |
       Welcome to the Interchain Developer Academy! <br/>
-      In the next 6 weeks, you'll dive deep into the Cosmos ecosystem. Let’s get started!
+      In the next 6 weeks, you'll dive deep into the Cosmos ecosystem. Let's get started!
     action: 
       label: Start learning
       url: /course-ida/welcome/#overview
@@ -27,17 +27,17 @@ overview:
         Dues of mandatory quizzes & exercises: May 20th and May 27th <br/>
         Exam period: June 23rd to July 7th <br/>
         Results available: August 3rd <br/>
-    - title: What you’ll learn
+    - title: What you'll learn
       description: |
-        Over the next six weeks, you'll dive deep into the Cosmos ecosystem, starting with a high-level introduction to familiarize yourself with the main concepts. Next you’ll put theory into practice by learning how to initiate and build an application-specific blockchain using the Cosmos SDK; how to use the Ignite CLI to scaffold modules for your blockchain; and how to connect a chain with other chains using the Inter-Blockchain Communication Protocol. You'll learn how to build frontend and backend applications using CosmJS; operate nodes and validate on a Cosmos blockchain; and run a relaying infrastructure between IBC-connected chains.
+        Over the next six weeks, you'll dive deep into the Cosmos ecosystem, starting with a high-level introduction to familiarize yourself with the main concepts. Next you'll put theory into practice by learning how to initiate and build an application-specific blockchain using the Cosmos SDK; how to use the Ignite CLI to scaffold modules for your blockchain; and how to connect a chain with other chains using the Inter-Blockchain Communication Protocol. You'll learn how to build frontend and backend applications using CosmJS; operate nodes and validate on a Cosmos blockchain; and run a relaying infrastructure between IBC-connected chains.
     - title: How to get the most out of the Academy
       description: |
         The Academy is self-paced and flexible, so you don't have to be online at particular times. You can follow the weekly plan or go through the learning material at your own pace. We recommend allocating about 10 hours a week to get through all the material. <br/><br/>
         The material is delivered in various formats, including text, images, videos, quizzes, and exercises. There's plenty of additional material embedded in the content to deepen your understanding of particular concepts. And if you want even more, ask your tutors and expert instructors, who'll point you in the right direction! <br/><br/>
         <div class="tm-bold">Mandatory exercises!</div>
-        In each module, you will find quizzes and/or code exercises. Two of these need to be completed by a certain date. It doesn’t matter if you pass a quiz or exercise - think of these as opportunities to practice and demonstrate your engagement with the program.<br/>
+        In each module, you will find quizzes and/or code exercises. Two of these need to be completed by a certain date. It doesn't matter if you pass a quiz or exercise - think of these as opportunities to practice and demonstrate your engagement with the program.<br/><br/>
         Week 1: Mandatory quiz - due date: Friday, May 20th <br/>
-        Week 2: Mandatory exercise - due date: Friday, May 27th <br/>
+        Week 2: Mandatory exercise - due date: Friday, May 27th <br/><br/>
         You will also find exercises every week which are not mandatory. These are still highly recommended, as they are a good preparation for the final exam. <br/><br/>
         <div class="tm-bold">Technical requirements</div>
         No special technical requirements of HW or SW are needed. You need a computer with at least 8 GB RAM and 4GB free hard disk space. 
@@ -49,22 +49,22 @@ overview:
       description: |
         We've set up a private Discord for the Academy for all teaching and ongoing communication. You can reach out to your tutors and expert instructors anytime for support. We encourage you to proactively collaborate with other participants in your cohort and with your instructors. Ask questions, request feedback, and seek help if you are stuck! That way, you'll get the most out of the Academy. <br/><br/>
         We aim to answer your questions within a few hours. Our maximum response time is 24 hours. Main support hours are on weekdays between 6AM UTC and 4PM UTC. We do not provide support during the weekends. <br/><br/>
-        Click here [link to Discord content page] to learn how to join and use Discord.
+        Click <a class="tm-link tm-link-underline-hover" href="/course-ida/discord-info.html" target="_blank">here</a> to learn how to join and use Discord.
     - title: How do I access Discord?
       description: |
         Follow these two steps to join the private Academy channels on Discord: 
         <ol>
-          <li>Join the official Cosmos Discord by clicking <a href="https://discord.gg/cosmosnetwork" target="_blank">here</a>.</li>
-          <li>Follow the verification process. It’s straightforward but if you need guidance, read this <a href="https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839" target="_blank">article</a></li>
-          <li>After joining the Discord server, go to [INSERT LINK] and enter your Discord ID. You’ll automatically be added to the Discord area for participants called “Interchain Developer Academy”.</li>
+          <li>Join the official Cosmos Discord by clicking <a class="tm-link tm-link-underline-hover" href="https://discord.gg/cosmosnetwork" target="_blank">here</a>.</li>
+          <li>Follow the verification process. It's straightforward but if you need guidance, read this <a class="tm-link tm-link-underline-hover" href="https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839" target="_blank">article</a></li>
+          <li>After joining the Discord, follow the link we sent you in your welcome email and enter your Discord ID. You will automatically be added to the private Discord area called "Interchain Developer Academy".</li>
         </ol>
         <br/>
-        If you have any problems, email us at <a href="mailto:academy@interchain.io">academy@interchain.io</a> <br/><br/>
-        We’ve put together a quick guide [insert LINK to Discord content page] explaining how to best communicate on Discord.
+        If you have any problems, email us at <a class="tm-link tm-link-underline-hover" href="mailto:academy@interchain.io">academy@interchain.io</a> <br/><br/>
+        We've put together a quick <a class="tm-link tm-link-underline-hover" href="/course-ida/discord-info.html" target="_blank">guide</a> explaining how to best communicate on Discord.
     - title: How do I get certified?
       description: |
         After the 6-week program, you will have two weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <span class="tm-bold">June 23rd</span> and you have to complete it by <span class="tm-bold">July 7th</span> <br/><br/>
-        You’ll receive an email and notification via Discord closer to the date. <br/><br/>
+        You'll receive an email and notification via Discord closer to the date. <br/><br/>
         If you complete the program earlier you can take the exam sooner. The earliest you can take the exam is from the program's second week. You will receive an email with further instructions on how to launch the exam request. <br/><br/>
         The exam is an individual exercise. <br/><br/>
         <div class="tm-bold">When do I get the results?</div>
@@ -250,7 +250,7 @@ modules:
         url: /academy/4-my-own-chain/cosmwasm.html
         order: 10
   - title: The Inter-Blockchain Communication Protocol
-    description: In Week 4, you’ll dive into IBC to learn more about the components that allow for cross-chain communication and how relaying works with IBC.
+    description: In Week 4, you'll dive into IBC to learn more about the components that allow for cross-chain communication and how relaying works with IBC.
     number: 4
     url: /course-ida/landingpages/week4-lp.html
     submodules:
@@ -350,7 +350,7 @@ modules:
       - title: Final exam (todo)
         url: /feature-test/
         order: 4
-      - title: What’s Next
+      - title: What's Next
         description: Continue your Cosmos journey
         url: /academy/5-whats-next/
         order: 5
