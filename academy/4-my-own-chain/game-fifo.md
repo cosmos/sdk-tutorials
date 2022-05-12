@@ -34,7 +34,6 @@ Game inactivity could become a factor. What if a player never shows up again? Sh
 
 Eventually you want to let players wager on the outcome of games, so you do not want games remaining in limbo if they have _value_ assigned. For this reason, you need a way for games to be forcibly resolved if one player stops responding.
 
-<HighlightBox type="info">
 
 <HighlightBox type="info">
 

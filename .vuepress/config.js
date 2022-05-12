@@ -662,6 +662,7 @@ module.exports = {
     "academy/*/*.md",
     "tutorials/*/*.md",
     "authz-module/*.md",
-    "course-ida/*/*.md"
+    "course-ida/*/*.md",
+    "course-ida/*.md"
   ]
 };
