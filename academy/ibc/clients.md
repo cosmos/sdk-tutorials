@@ -19,7 +19,7 @@ In this section, you will learn:
 
 ![clients](/academy/ibc/images/lightclient.png)
 
-As previously shown, IBC is structured as several layers of abstraction. At the top, applications such as [Interchain Standard (ICS) 20 token transfers](https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer) implement the [ICS 26 IBC standard](https://github.com/cosmos/ibc/blob/master/spec/core/ics-026-routing-module/README.md), which describe the routing and callback functionality used to connect the application layer to the transport layer. Underneath the application are channels, which are unique for each application (for example, a channel that allows a transfer application on chain A to speak to a transfer application on chain B). [Connections](/academy/ibc/ibc-tao-dev.md), which may have many channels, are used to connect two clients (for example, to allow the entire IBC stack of chain A to connect to the IBC stack of chain B). These clients, which may have many connections, comprise the foundational layer of IBC.
+As previously shown, IBC is structured as several layers of abstraction. At the top, applications such as [Interchain Standard (ICS) 20 token transfers](https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer) implement the [ICS-26 IBC standard](https://github.com/cosmos/ibc/blob/master/spec/core/ics-026-routing-module/README.md), which describe the routing and callback functionality used to connect the application layer to the transport layer. Underneath the application are channels, which are unique for each application (for example, a channel that allows a transfer application on chain A to speak to a transfer application on chain B). [Connections](/academy/ibc/ibc-tao-dev.md), which may have many channels, are used to connect two clients (for example, to allow the entire IBC stack of chain A to connect to the IBC stack of chain B). These clients, which may have many connections, comprise the foundational layer of IBC.
 
 <HighlightBox type="info">
 
@@ -93,7 +93,7 @@ A local, unique identifier `clientID` is generated for each client on the chain.
 
 <HighlightBox type="info">
 
-The IBC security model is based on clients and not specific chains. This means that the IBC protocol does not need to know who the chains are on either side of a connection, provided that the IBC clients are kept in sync with valid updates, and these updates or other types of messages (i.e. ICS 20 token transfers) can be verified as a Merkle proof against an initial consensus state (root of trust). This is analogous to IP addresses and DNS, where IP addresses would be the corollary to IBC `clientIDs`, and DNS the `chainIDs`.
+The IBC security model is based on clients and not specific chains. This means that the IBC protocol does not need to know who the chains are on either side of a connection, provided that the IBC clients are kept in sync with valid updates, and these updates or other types of messages (i.e. ICS-20 token transfers) can be verified as a Merkle proof against an initial consensus state (root of trust). This is analogous to IP addresses and DNS, where IP addresses would be the corollary to IBC `clientIDs`, and DNS the `chainIDs`.
 
 Because of this separation of concerns, IBC clients can be created for any number of machine types, from fully-fledged blockchains to keypair-based solo machines, and upgrades to chains which increment the chainID do not break the underlying IBC client and connections.
 
@@ -169,13 +169,13 @@ The Tendermint client `ConsensusState` tracks the timestamp of the block being c
 
 <HighlightBox type="tip">
   
-The next validator set is used for verifying subsequent submitted headers or updates to the counterparty `ConsensusState`. See the following **Updating Clients** section for more information about what happens when a validator set changes between blocks.
+The next validator set is used for verifying subsequent submitted headers or updates to the counterparty `ConsensusState`. See the following part on _Updating clients_ for more information about what happens when a validator set changes between blocks.
 
 </HighlightBox>
 
 The root is the **AppHash**, or the hash of the application state of the counterparty blockchain that this client is representing. This root hash is particularly important because it is the root hash used on a receiving chain when verifying [Merkle](https://en.wikipedia.org/wiki/Merkle_tree) proofs associated with a packet coming over IBC, to determine whether or not the relevant transaction has been actually been executed on the sending chain. If the Merkle proof associated with a packet commitment delivered by a relayer successfully hashes up to this `ConsensusState` root hash, it is certain that the transaction was actually executed on the sending chain and included in the state of the sending blockchain.
 
-The following is an example of how the Tendermint client handles this Merkle [proof verification](https://github.com/cosmos/ibc-go/blob/main/modules/core/23-commitment/types/merkle.go). The [ICS 23 spec](https://github.com/cosmos/ibc/tree/master/spec/core/ics-023-vector-commitments) addresses how to construct membership proofs, and the [ICS 23 implementation](https://github.com/confio/ics23) currently supports Tendermint IAVL and simple Merkle proofs out of the box. Note that non-Tendermint client types may choose to handle proof verification differently:
+The following is an example of how the Tendermint client handles this Merkle [proof verification](https://github.com/cosmos/ibc-go/blob/main/modules/core/23-commitment/types/merkle.go). The [ICS-23 spec](https://github.com/cosmos/ibc/tree/master/spec/core/ics-023-vector-commitments) addresses how to construct membership proofs, and the [ICS-23 implementation](https://github.com/confio/ics23) currently supports Tendermint IAVL and simple Merkle proofs out of the box. Note that non-Tendermint client types may choose to handle proof verification differently:
 
 ```go
 // VerifyMembership verifies the membership of a merkle proof against the given root, path, and value.
@@ -247,7 +247,7 @@ If you want to see where `ConsensusState` is stored, see the [Interchain Standar
 
 ## Verifying packet commitments
 
-As shown in the deep dive on [channels](/academy/ibc/channels.md), a relayer will first submit an `UpdateClient` to update the sending chain client on the destination chain, before relaying packets containing other message types, such as ICS 20 token transfers. The destination chain can be sure that the packet will be contained in its ConsensusState root hash, and successfully verify this packet and packet commitmentment proof against the state contained in its (updated) IBC light client.
+As shown in the deep dive on [channels](/academy/ibc/channels.md), a relayer will first submit an `UpdateClient` to update the sending chain client on the destination chain, before relaying packets containing other message types, such as ICS-20 token transfers. The destination chain can be sure that the packet will be contained in its ConsensusState root hash, and successfully verify this packet and packet commitmentment proof against the state contained in its (updated) IBC light client.
 
 The code snippet which illustrates how a client [verifies an incoming packet](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/client_state.go) is as follows:
 

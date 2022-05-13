@@ -326,16 +326,16 @@ modules:
         description: Overview of some helpful tools
         url: /academy/ibc/ibc-tooling.html
         order: 11
-  - title: CosmJS and Building Your CosmJS Chain
+  - title: CosmJS - Interfacing
     description: In Week 5, you'll learn how to use CosmJS for your chain and apply it to the checkers blockchain.
     number: 5
     url: /course-ida/landingpages/week5-lp.html
     submodules:
-      - title: CosmJS and Building Your CosmJS Chain
+      - title: CosmJS - Interfacing
         description: The TypeScript library for the Cosmos SDK
         url: /course-ida/landingpages/week5-lp.html
         order: 0
-      - title: What is CosmJS
+      - title: What is CosmJS?
         description: CosmJS and what it can do for me
         url: /academy/xl-cosmjs/intro.html
         order: 1

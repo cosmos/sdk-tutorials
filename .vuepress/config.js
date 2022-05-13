@@ -393,16 +393,16 @@ module.exports = {
               ]
             },
             {
-              title: "Week 5 - CosmJS and Building Your CosmJS Chain",
+              title: "Week 5 - CosmJS - Interfacing",
               directory: true,
               order: 6,
               children: [
                 {
-                  title: "CosmJS and Building Your CosmJS Chain",
+                  title: "CosmJS - Interfacing",
                   path: "/course-ida/landingpages/week5-lp.html"
                 },
                 {
-                  title: "What is CosmJS",
+                  title: "What is CosmJS?",
                   path: "/academy/xl-cosmjs/intro.html"
                 },
                 {

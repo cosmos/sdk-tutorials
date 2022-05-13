@@ -14,7 +14,7 @@ In this section, you will:
 * Create custom CosmJS interfaces to connect to custom Cosmos SDK modules.
 * Define custom interfaces with Protobuf.
 * Define custom types and messages.
-* Integrate with Ignite.
+* Integrate with Ignite - previously known as Starport
   
 </HighlightBox>
 

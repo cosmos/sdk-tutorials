@@ -1,10 +1,10 @@
 ---
-title: "CosmJS and Building Your CosmJS Chain"
+title: "CosmJS - Interfacing"
 order: 1
 description: THE TYPESCRIPT LIBRARY FOR THE COSMOS SDK
 ---
 
-## CosmJS and Building Your CosmJS Chain
+## CosmJS - Interfacing
 
 With step-by-step examples you will learn how to work with CosmJS when building your application-specific blockchain. Explore how to use CosmJS and apply it to your checkers blockchain to create custom objects and messages.
 

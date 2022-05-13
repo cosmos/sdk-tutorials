@@ -26,9 +26,9 @@ If you want to connect two blockchains with IBC, you will need to establish an I
 2. Preventing a malicious entity from forging incorrect information by pretending to be the counter party chain. 
 IBC connections are established by on-chain ledger code and therefore do not require interaction with off-chain (trusted) third-party processes. 
 
-<HighlightBox type="info">
+<HighlightBox type="docs">
 
-The connection semantics are described in the [ICS 3](https://github.com/cosmos/ibc/tree/master/spec/core/ics-003-connection-semantics).
+The connection semantics are described in [ICS-3](https://github.com/cosmos/ibc/tree/master/spec/core/ics-003-connection-semantics).
 
 </HighlightBox>
 
@@ -67,7 +67,7 @@ As discussed previously, the opening handshake protocol allows each chain to ver
 
 With regards to the connection on the other side, the [connection protobufs](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/core/connection/v1/connection.proto) contains the `Counterparty` definition:
 
-```
+```go
 // Counterparty defines the counterparty chain associated with a connection end.
 message Counterparty {
   option (gogoproto.goproto_getters) = false;

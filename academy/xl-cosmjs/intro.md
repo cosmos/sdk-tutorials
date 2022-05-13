@@ -61,6 +61,7 @@ CosmJS's modular structure lets developers import only the parts that are needed
 ## Packages
 
 CosmJS is a library that consists of many smaller npm packages within the [@cosmjs namespace](https://www.npmjs.com/org/cosmjs), a so called monorepo.
+
 Generally people will only be needing the `stargate` and `encoding` packages as they contains the main functionality to interact with Cosmos SDK chains version 0.40 and higher.
 Among many more, here are some examples packages:
 
