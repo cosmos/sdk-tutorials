@@ -36,7 +36,9 @@ For the CosmJS integration, you will:
 
 Rejecting a game will be left to you as an exercise.
 
-## Prepare the integration with the Checkers blockchain
+## Prepare the integration with the checkers blockchain
+
+<!-- Include a paragraph between the titles --> 
 
 ### Prepare Webpack
 

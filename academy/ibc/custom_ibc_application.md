@@ -1,14 +1,30 @@
 ---
-title: "IBC/TAO"
+title: "Implementing a Custom IBC Application"
 order: 
-description: 
+description: Taking a closer look at applications
 tag: deep-dive
 ---
 
-## Applications
+# Implementing a Custom IBC Application
 
+<HighlightBox type="prerequisite">
 
-**Implementing a custom IBC application**
+Before you dive into Go relayers, make sure to:
+
+* Install Go.
+
+For all installations, please see the [setup page](../course-ida/setup.md).
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+In this section, you will explore more regarding:
+
+* Application callbacks
+* The IBC Module Interface
+
+</HighlightBox>
 
 You can see that the application callbacks are coming from a [router](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/router.go):
 
@@ -97,5 +113,3 @@ This calls custom logic of the application. The situation is similar for `OnChan
 ```
 
 You will learn about applications soon, but the take away here is that an application developer will need to implement the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go).
-
-

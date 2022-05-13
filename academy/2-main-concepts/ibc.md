@@ -7,9 +7,7 @@ tag: deep-dive
 
 # Inter-Blockchain Communication
 
-<HighlightBox type="synopsis">
-
-Cross-chain communication in Cosmos enables parallelism and scaleability with transaction finality. This transaction finality solves well-known problems that plague other platforms: transaction costs, network capacity, and transaction confirmation finality. Learn about the Inter-Blockchain Communication protocol (IBC) that makes cross-chain communication possible.
+<HighlightBox type="prerequisite">
 
 Before you begin, make sure you understand:
 
@@ -17,6 +15,12 @@ Before you begin, make sure you understand:
 * [Transactions](./transactions.md)
 * [Messages](./messages.md)
 * [Modules](./modules.md)
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+Cross-chain communication in Cosmos enables parallelism and scaleability with transaction finality. This transaction finality solves well-known problems that plague other platforms: transaction costs, network capacity, and transaction confirmation finality. Learn about the Inter-Blockchain Communication protocol (IBC) that makes cross-chain communication possible.
 
 </HighlightBox>
 

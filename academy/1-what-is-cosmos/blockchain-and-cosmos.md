@@ -7,8 +7,7 @@ tag: fast-track
 
 # Blockchain Technology and Cosmos
 
-
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 Begin your journey with this brief review of blockchain technology, how Cosmos came into being, and what it brings to the world of blockchain technology:
 

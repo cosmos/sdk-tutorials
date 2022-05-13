@@ -13,8 +13,8 @@ tag: deep-dive
 
 In this section, you will learn more about:
 
-* Host chains and controller chains
-* See ICA module code
+* Hosting chains and controller chains
+* ICA module code
 * The authentication module
   
 </HighlightBox>

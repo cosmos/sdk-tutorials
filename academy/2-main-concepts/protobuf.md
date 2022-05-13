@@ -7,14 +7,18 @@ tag: deep-dive
 
 # Protobuf
 
-<HighlightBox type="synopsis">
-
-Protobuf is a data serialization method which developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
+<HighlightBox type="prerequisite">
 
 Before diving into this section, it is recommended to read the following sections:
 
 * [Messages](./messages.md)
 * [Modules](./modules.md)
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+Protobuf is a data serialization method which developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
 
 You can find a code example for your checkers blockchain at the end of the section to dive further into Protobuf and message creation.
 

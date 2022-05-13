@@ -7,7 +7,7 @@ tag: fast-track
 
 # What is CosmJS?
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 Build applications that interact with Cosmos blockchains with CosmJS. 
   
@@ -92,4 +92,4 @@ Some additional reading or video material is available as well:
 
 ## Next up
 
-Take your [first steps with CosmJS](./first-steps.md).
+Take your first steps with CosmJS in the [next section](./first-steps.md).

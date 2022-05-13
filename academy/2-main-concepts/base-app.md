@@ -7,9 +7,7 @@ tag: deep-dive
 
 # BaseApp
 
-<HighlightBox type="learning">
-
-In this section you will discover how to define an application state machine and service router, how to create custom transaction processing, and how to create periodic processes that execute at the beginning or end of each block.
+<HighlightBox type="prerequisite">
 
 Before looking at `BaseApp`, make sure to read the previous sections:
 
@@ -18,6 +16,12 @@ Before looking at `BaseApp`, make sure to read the previous sections:
 * [Messages](./messages.md)
 * [Modules](./modules.md)
 * [Multistore and Keepers](./multistore-keepers.md)
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+In this section you will discover how to define an application state machine and service router, how to create custom transaction processing, and how to create periodic processes that execute at the beginning or end of each block.
 
 </HighlightBox>
 

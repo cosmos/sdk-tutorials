@@ -7,9 +7,7 @@ tag: deep-dive
 
 # Context
 
-<HighlightBox type="synopsis">
-
-`Context` is the setting in which transactions execute, and is the sum of all pertinent information at runtime. Here you will find out what transaction context means in detail and learn more about the important elements that together form the execution context.
+<HighlightBox type="prerequisite">
 
 It is recommended to first read the following sections to better understand context:
 
@@ -19,6 +17,12 @@ It is recommended to first read the following sections to better understand cont
 * [BaseApp](./base-app.md)
 * [Queries](./queries.md)
 * [Events](./events.md)
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+`Context` is the setting in which transactions execute, and is the sum of all pertinent information at runtime. Here you will find out what transaction context means in detail and learn more about the important elements that together form the execution context.
 
 </HighlightBox>
 

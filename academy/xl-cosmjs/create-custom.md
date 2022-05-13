@@ -7,12 +7,14 @@ tag: deep-dive
 
 # Create Custom CosmJS Interfaces
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
-* Create custom CosmJS interfaces to connect to custom Cosmos SDK modules
-* Define custom interfaces with Protobuf
-* Define custom types and messages
-* Integrate with Ignite (Previously known as Stargate)
+In this section, you will:
+
+* Create custom CosmJS interfaces to connect to custom Cosmos SDK modules.
+* Define custom interfaces with Protobuf.
+* Define custom types and messages.
+* Integrate with Ignite.
   
 </HighlightBox>
 

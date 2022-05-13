@@ -18,7 +18,7 @@ Before proceeding, make sure you have all you need:
 
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
 

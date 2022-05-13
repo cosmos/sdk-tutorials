@@ -10,15 +10,17 @@ tag: fast-track
 <HighlightBox type="learning">
 
 In this section, you will look closer at the application architecture underlying blockchains built with the Cosmos SDK. 
-    
-* Discover Tendermint
+
+In this section, you will explore:
+
+* What Tendermint is
 * Consensus in Cosmos 
 * The Application Blockchain Interface
 * The Cosmos SDK
 * State machines
-    
-This section will deepen your understanding of application architecture in Cosmos.
-    
+  
+This section will deepen your understanding of the application architecture in Cosmos blockchains.
+
 </HighlightBox>
 
 ## What is Tendermint?

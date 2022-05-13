@@ -19,7 +19,7 @@ This section does not introduce anything related to CosmJS, but sets you up with
 
 </HighlightBox>
 
-In the previous sections, you created the objects, messages, and clients that allow you to interface with your Checkers blockchain. The point of this exercise is not to create a GUI from the ground up for the game of checkers. Instead, you'll integrate an existing front-end project with the previous CosmJS work you've done so far.
+In the previous sections, you created the objects, messages, and clients that allow you to interface with your Checkers blockchain. The point of this exercise is not to create a GUI from the ground up for the game of checkers. Instead, you will integrate an existing frontend project with the previous CosmJS work you've done so far.
 
 Clone the following [repo](https://github.com/b9lab/react-checkers) that was originally made by [`nablsi14`](https://github.com/nablsi14) and now updated to a recent React version:
 

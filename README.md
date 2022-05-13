@@ -81,27 +81,27 @@ modules:
         order: 0
       - title: Blockchain 101
         description: A universe to discover
-        url: /academy/0.0-B9lab-Blockchains/1_blockchain.md
+        url: /academy/0.0-B9lab-Blockchains/1_blockchain.html
         order: 1
       - title: Blockchain History
         description: A brief history of blockchain technology
-        url: /academy/0.0-B9lab-Blockchains/2_public.md
+        url: /academy/0.0-B9lab-Blockchains/2_public.html
         order: 2
       - title: Public and Managed Blockchains
         description: Introduction to different deployment patterns
-        url: /academy/0.0-B9lab-Blockchains/3_managed.md
+        url: /academy/0.0-B9lab-Blockchains/3_managed.html
         order: 3
       - title: Consensus in Distributed Networks
         description: An introduction to distributed consensus
-        url: /academy/0.0-B9lab-Blockchains/4_consensus.md
+        url: /academy/0.0-B9lab-Blockchains/4_consensus.html
         order: 4    
       - title: Cryptographic Fundamentals of Blockchain
         description: Public-key cryptography
-        url: /academy/0.0-B9lab-Blockchains/5_crypto.md
+        url: /academy/0.0-B9lab-Blockchains/5_crypto.html
         order: 5
       - title: Self-assessment Quiz
         description: Want to test your blockchain knowledge?
-        url: /academy/0.0-B9lab-Blockchains/6_quiz.md
+        url: /academy/0.0-B9lab-Blockchains/6_quiz.html
         order: 6
   - title: Cosmos and Its Main Concepts
     description: In Week 1, you'll discover the Cosmos ecosystem and learn about the main concepts of the Cosmos SDK, from its Tendermint consensus to learning how keys, accounts, and transactions relate to each other.
@@ -298,30 +298,34 @@ modules:
         description: Clients in IBC
         url: /academy/ibc/clients.html
         order: 4
+      - title: Implementing a Custom IBC Application
+        description: Taking a closer look at applications
+        url: /academy/ibc/custom-ibc-application.html
+        order: 5
       - title: IBC Token Transfer
         description: Token transfers across chains
         url: /academy/ibc/token-transfer.html
-        order: 5
+        order: 6
       - title: Interchain Accounts
         description: Working with ICA
         url: /academy/ibc/ica.html
-        order: 6
+        order: 7
       - title: Relaying in General
         description: Relayers in IBC
         url: /academy/ibc/relayerintro.html
-        order: 7
+        order: 8
       - title: Go Relayer
         description: Relayer implementation in Golang
         url: /academy/ibc/gorelayer.html
-        order: 8
+        order: 9
       - title: Hermes Relayer
         description: Relayer implementation in Rust
         url: /academy/ibc/hermesrelayer.html
-        order: 9
+        order: 10
       - title: IBC Tooling
         description: Overview of some helpful tools
         url: /academy/ibc/ibc-tooling.html
-        order: 10
+        order: 11
   - title: CosmJS and Building Your CosmJS Chain
     description: In Week 5, you'll learn how to use CosmJS for your chain and apply it to the checkers blockchain.
     number: 5

@@ -7,15 +7,20 @@ tag: deep-dive
 
 # Messages
 
-<HighlightBox type="synopsis">
 
-In this section, you will take a closer look at messages, `Msg`. It is recommended to take a look at the following previous sections to better understand messages:
+<HighlightBox type="prerequisite">
+
+ It is recommended to take a look at the following previous sections to better understand messages:
 
 * [A Blockchain App Architecture](./architecture.md)
 * [Accounts](./accounts.md)
 * [Transactions](./transactions.md)
 
-At the end of the section, you can find a code example that illustrates message creation and the inclusion of messages in transactions for your checkers blockchain.
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+In this section, you will take a closer look at messages, `Msg`. At the end of the section, you can find a code example that illustrates message creation and the inclusion of messages in transactions for your checkers blockchain.
 
 Understanding `Msg` will help you prepare for the next section, on [modules in the Cosmos SDK](./modules.md), as messages are a primary object handled by modules.
 

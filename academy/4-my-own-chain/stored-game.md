@@ -17,7 +17,7 @@ Make sure you have all you need before proceeding with the exercise:
 
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will handle:
 
