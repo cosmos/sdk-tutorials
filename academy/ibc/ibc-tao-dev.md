@@ -28,7 +28,7 @@ IBC connections are established by on-chain ledger code and therefore do not req
 
 <HighlightBox type="info">
 
-The connection semantics are described in the [Interchain Standard (ICS) 3](https://github.com/cosmos/ibc/tree/master/spec/core/ics-003-connection-semantics).
+The connection semantics are described in the [ICS 3](https://github.com/cosmos/ibc/tree/master/spec/core/ics-003-connection-semantics).
 
 </HighlightBox>
 
@@ -36,7 +36,7 @@ In the IBC stack, connections are built on top of clients, so technically there 
 
 <HighlightBox type="info">
 
-**Version Negotiation**
+## Version negotiation
 
 Note that versioning here refers to the IBC protocol spec and not the ibc-go module. A backwards incompatible update is currently not planned.
 
@@ -87,7 +87,7 @@ In this definition, `connection-id` is used as a key to map and retrieve connect
 
 `prefix` is used by the clients to construct merkle prefix paths which are then used to verify proofs.
 
-**Connection Handshakes and States**
+## Connection handshakes and states
 
 Establishing an IBC connection (for example, between chain A and chain B) requires four handshakes: 
 
@@ -98,7 +98,7 @@ Establishing an IBC connection (for example, between chain A and chain B) requir
 
 A high level overview of a successful four-way handshake is as follows:
 
-**Handshake 1: OpenInit**
+### Handshake 1: OpenInit
 
 `OpenInit` initializes any connection which may occur, while still necessitating agreement from both sides. It is like an identifying announcement from the IBC module on chain A which is submitted by a relayer. The relayer should also submit an `UpdateClient` with chain A as the source chain before this handshake. `UpdateClient` updates the client on the initializing chain A with the latest consensus state of chain B. 
 
@@ -191,7 +191,7 @@ func (k Keeper) ConnectionOpenInit(goCtx context.Context, msg *connectiontypes.M
 }
 ```
 
-**Handshake 2: OpenTry**
+### Handshake 2: OpenTry
 
 `OpenInit` is followed by an `OpenTry` response, in which chain B verifies the identity of chain A according to information that chain B has about chain A in its light client (the algorithm and the last snapshot of the consensus state containing the root hash of the latest height as well as the next validator set). It also responds to some of the information about its own identity in the `OpenInit` announcement from chain A. 
 
@@ -230,7 +230,7 @@ func (k Keeper) ConnOpenTry(
 ) ...
 ```
 
-**Handshake 3: OpenAck**
+## Handshake 3: OpenAck
 
 `OpenAck` is very similar to the functionality of `OpenInit`, except that the information verification now occurs for chain A. As in `OpenTry`, the relayer also submits two `UpdateClient`s with chain A and chain B as source chains before this handshake. These update the light clients of both chain A and chain B, in order to make sure that the state verifications in this step are successful.
 
@@ -289,7 +289,7 @@ Both functions do the same checks, except that `OpenTry` takes `proofInit` as a 
 
 Therefore, each chain verifies the `ConnectionState`, the `ClientState`, and the `ConsensusState` of the other chain. Note that after this step the connection state on chain A updates from `INIT` to `OPEN`.
 
-**Handshake 4: OpenConfirm**
+### Handshake 4: OpenConfirm
 
 `OpenConfirm` is the final handshake, in which chain B confirms that both self-identification and counterparty identification were successful. 
 
@@ -312,12 +312,12 @@ The initiation of this handshake from chain B updates its connection state from 
 
 The successful four-way handshake described establishes an IBC connection between the two chains. Now consider two related circumstances: simultaneous attempts by the chains to perform the same handshake, and attempts by an imposter to interfere.
 
-**Crossing Hellos**
+### Crossing hellos
 
 "Crossing Hellos" refers to when both chains attempt the same handshake step at the same time.
 
 If both chains submit `OpenInit` then `OpenTry` at same time, there should be no error. In this case, both sides still need to confirm with a successful `OpenAck`, but no `OpenConfirm` is required because both ConnectionEnds will update to an OPEN state.
 
-**An Imposter**
+### An imposter
 
 In fact this is not an issue. Any attempted `OpenInit` from an imposter will fail on `OpenTry`, because it will not contain valid proofs of `Client/Connection/ConsensusState`.
