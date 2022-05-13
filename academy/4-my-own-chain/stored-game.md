@@ -20,7 +20,7 @@ Make sure you have all you need before proceeding with the exercise:
 <HighlightBox type="synopsis">
 
 In this section, you will handle:
-    
+
 * The Stored Game object
 * Protobuf objects
 * Query.proto
@@ -152,6 +152,18 @@ message GenesisState {
     NextGame nextGame = 1;
 }
 ```
+
+<HighlightBox type="best-practice">
+
+At this point, notice that `NextGame` exists from the start. Therefore, it does not have a _creator_ per se. **This exercise keeps it** but if you want, you can choose to remove `creator` from its definition, and readjust the Protobuf numbering. Here, it is ok to reorder the Protobuf numbering because you just started and do not have any backward compatibility to handle.
+
+```protobuf
+message NextGame {
+    uint64 idValue = 1; // For example
+}
+```
+
+</HighlightBox>
 
 This is compiled to:
 
@@ -353,20 +365,20 @@ You want your tests to pass when everything is okay, but you also want them to f
 ```
 --- FAIL: TestDefaultGenesisIsCorrect (0.00s)
     genesis_test.go:10:
-                Error Trace:    genesis_test.go:10
-                Error:          Not equal:
-                                expected: &types.GenesisState{StoredGameList:[]*types.StoredGame{}, NextGame:(*types.NextGame)(0xc000506cf0)}
-                                actual  : &types.GenesisState{StoredGameList:[]*types.StoredGame{}, NextGame:(*types.NextGame)(0xc000506d08)}
+        Error Trace:    genesis_test.go:10
+        Error:          Not equal:
+            expected: &types.GenesisState{StoredGameList:[]*types.StoredGame{}, NextGame:(*types.NextGame)(0xc000506cf0)}
+            actual  : &types.GenesisState{StoredGameList:[]*types.StoredGame{}, NextGame:(*types.NextGame)(0xc000506d08)}
 
-                                Diff:
-                                --- Expected
-                                +++ Actual
-                                @@ -5,3 +5,3 @@
-                                   Creator: (string) "",
-                                -  IdValue: (uint64) 2
-                                +  IdValue: (uint64) 1
-                                  })
-                Test:           TestDefaultGenesisIsCorrect
+            Diff:
+            --- Expected
+            +++ Actual
+            @@ -5,3 +5,3 @@
+               Creator: (string) "",
+            -  IdValue: (uint64) 2
+            +  IdValue: (uint64) 1
+              })
+        Test: TestDefaultGenesisIsCorrect
 FAIL
 exit status 1
 ```
