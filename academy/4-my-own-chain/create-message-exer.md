@@ -1,7 +1,7 @@
 ---
 title: Exercise - Message - Create a Message to Create a Game
 order:
-description: You introduce the message to create a game
+description: Exercise - You introduce the message to create a game
 tag: deep-dive
 ---
 
