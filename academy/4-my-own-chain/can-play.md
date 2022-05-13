@@ -1,7 +1,7 @@
 ---
 title: Query - Help Find a Correct Move
 order: 17
-description: Help players make good transactions
+description: Helping players make good transactions
 tag: deep-dive
 ---
 

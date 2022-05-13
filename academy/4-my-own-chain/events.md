@@ -1,7 +1,7 @@
 ---
 title: Events - Emitting Game Information
 order: 9
-description: You emit game information using events
+description: Emitting game information using events
 tag: deep-dive
 ---
 

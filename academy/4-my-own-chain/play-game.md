@@ -1,7 +1,7 @@
 ---
 title: Message and Handler - Add a Way to Make a Move
 order: 8
-description: You play a game
+description: Playing a game
 tag: deep-dive
 ---
 

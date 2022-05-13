@@ -1,7 +1,7 @@
 ---
 title: "IBC/TAO"
 order:
-description:
+description: The role of channels in IBC
 tag: deep-dive
 ---
 

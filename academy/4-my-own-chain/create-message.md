@@ -1,11 +1,11 @@
 ---
-title: Message - Create a Message to Create a Game
+title: Create Custom Messages for Your Checkers Blockchain
 order: 6
-description: You introduce the message to create a game
+description: Introducing the message to create a game
 tag: deep-dive
 ---
 
-# Message - Create a Message to Create a Game
+# Create Custom Messages for Your Checkers Blockchain
 
 <HighlightBox type="prerequisite">
 

@@ -1,11 +1,11 @@
 ---
-title: CosmJS - Create the objects for your GUI
+title: The Custom Objects for Your Checkers Blockchain
 order: 22
-description: Create the objects that your GUI will use
+description: Creating the objects for your GUI
 tag: deep-dive
 ---
 
-# CosmJS - Create the objects for your GUI
+# The Custom Objects for Your Checkers Blockchain
 
 <HighlightBox type="prerequisite">
 

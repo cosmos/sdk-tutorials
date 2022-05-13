@@ -1,8 +1,8 @@
 ---
 title: "What is CosmJS?"
 order: 1
-description: What is CosmJS and what can it do for me?
-tag: intro
+description: CosmJS and what it can do for me
+tag: fast-track
 ---
 
 # What is CosmJS?

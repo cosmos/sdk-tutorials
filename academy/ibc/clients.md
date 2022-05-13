@@ -1,7 +1,7 @@
 ---
 title: "IBC/TAO"
 order: 
-description: 
+description: Clients in IBC
 tag: deep-dive
 ---
 

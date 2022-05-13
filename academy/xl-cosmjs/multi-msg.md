@@ -1,11 +1,11 @@
 ---
 title: "Compose Complex Transactions"
 order: 3
-description: Send multiple tokens and messages through CosmJS
+description: Sending multiple tokens and messages through CosmJS
 tag: deep-dive
 ---
 
-# Compose Complex Transactions - Send Multiple Messages
+# Compose Complex Transactions
 
 <HighlightBox type="synopsis">
     

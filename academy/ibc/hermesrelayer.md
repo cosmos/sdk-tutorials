@@ -1,7 +1,7 @@
 ---
 title: "Hermes Relayer"
 order: 
-description: 
+description: Relayer implementation in Rust
 tag: deep-dive
 ---
 

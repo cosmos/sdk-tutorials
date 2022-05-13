@@ -1,11 +1,11 @@
 ---
-title: CosmJS - Plug in your GUI
+title: Integrate CosmJS and Keplr Into the GUI
 order: 25
-description: Take a Checkers GUI and use your elements
+description: Taking a checkers GUI and using the elements
 tag: deep-dive
 ---
 
-# CosmJS - Plug in your GUI
+# Integrate CosmJS and Keplr Into the GUI
 
 <HighlightBox type="prerequisite">
 

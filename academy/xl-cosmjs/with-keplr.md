@@ -16,7 +16,6 @@ In this section.
 * Detecting Keplr
 * Get chain info
 * The user interaction flow
-* 
 
 </HighlightBox>
 

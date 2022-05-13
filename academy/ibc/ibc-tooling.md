@@ -1,11 +1,11 @@
 ---
 title: "IBC Tooling"
 order: 
-description: 
+description: Overview of some helpful tools
 tag: deep-dive
 ---
 
-# Tooling
+# IBC Tooling
 
 <HighlightBox type="learning">
 	

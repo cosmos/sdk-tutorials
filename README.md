@@ -24,7 +24,7 @@ overview:
     - title: Timeline and deadlines
       description: |
         Academy start: May 12th <br/>
-        Dues of mandatory quizzes & exercises: May 20th and May 27th <br/>
+        Due dates of mandatory quizzes & exercises: May 20th and May 27th <br/>
         Exam period: June 23rd to July 7th <br/>
         Results available: August 3rd <br/>
     - title: What you'll learn
@@ -55,15 +55,15 @@ overview:
         Follow these two steps to join the private Academy channels on Discord: 
         <ol>
           <li>Join the official Cosmos Discord by clicking <a class="tm-link tm-link-underline-hover" href="https://discord.gg/cosmosnetwork" target="_blank">here</a>.</li>
-          <li>Follow the verification process. It's straightforward but if you need guidance, read this <a class="tm-link tm-link-underline-hover" href="https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839" target="_blank">article</a></li>
+          <li>Follow the verification process. It's straightforward but if you need guidance, read this <a class="tm-link tm-link-underline-hover" href="https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839" target="_blank">article</a>.</li>
           <li>After joining the Discord, follow the link we sent you in your welcome email and enter your Discord ID. You will automatically be added to the private Discord area called "Interchain Developer Academy".</li>
         </ol>
         <br/>
-        If you have any problems, email us at <a class="tm-link tm-link-underline-hover" href="mailto:academy@interchain.io">academy@interchain.io</a> <br/><br/>
+        If you have any problems, email us at <a class="tm-link tm-link-underline-hover" href="mailto:academy@interchain.io">academy@interchain.io</a>.<br/><br/>
         We've put together a quick <a class="tm-link tm-link-underline-hover" href="/course-ida/discord-info.html" target="_blank">guide</a> explaining how to best communicate on Discord.
     - title: How do I get certified?
       description: |
-        After the 6-week program, you will have two weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <span class="tm-bold">June 23rd</span> and you have to complete it by <span class="tm-bold">July 7th</span> <br/><br/>
+        After the 6-week program, you will have two weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <span class="tm-bold">June 23rd</span> and you have to complete it by <span class="tm-bold">July 7th</span>.<br/><br/>
         You'll receive an email and notification via Discord closer to the date. <br/><br/>
         If you complete the program earlier you can take the exam sooner. The earliest you can take the exam is from the program's second week. You will receive an email with further instructions on how to launch the exam request. <br/><br/>
         The exam is an individual exercise. <br/><br/>
@@ -147,7 +147,7 @@ modules:
         url: /course-ida/quiz-week1.html
         order: 19
   - title: Running Your Own Cosmos Chain - Part 1
-    description: In the second week, you'll discover how to run a node and learn how to build your own chain by following an example implementation of a checkers blockchain.
+    description: In Week 2, you'll discover how to run a node and learn how to build your own chain by following an example implementation of a checkers blockchain.
     number: 2
     url: /course-ida/landingpages/week2-lp.html
     submodules:
@@ -156,6 +156,7 @@ modules:
         url: /course-ida/landingpages/week2-lp.html
         order: 0
       - title: Setup Your Work Environment
+        description: All you need for the hands-on sections
         url: /course-ida/setup.html
         order: 1
       - title: Running a Node, API, and CLI
@@ -171,63 +172,64 @@ modules:
         url: /academy/4-my-own-chain/stored-game.html
         order: 4
       - title: Message - Create a Message to Create a Game
-        description: You introduce the message to create a game
+        description: Introducing the message to create a game
         url: /academy/4-my-own-chain/create-message.html
         order: 5
       - title: Message Handler - Create and Save a Game Properly
-        description: You create a proper game
+        description: Creating a proper game
         url: /academy/4-my-own-chain/create-handling.html
         order: 6
       - title: Message and Handler - Add a Way to Make a Move
-        description: You play a game
+        description: Playing a game
         url: /academy/4-my-own-chain/play-game.html
         order: 7
       - title: Events - Emitting Game Information
-        description: You emit game information using events
+        description: Emitting game information using events
         url: /academy/4-my-own-chain/events.html
         order: 8
       - title: Message and Handler - Make Sure a Player Can Reject a Game
-        description: You reject a game
+        description: Rejecting a game
         url: /academy/4-my-own-chain/reject-game.html
         order: 9
   - title: Running Your Own Cosmos Chain - Part 2
-    description: In Week 3, you'll dive deeper into customizing the checkers blockchain and discovering how to make your own game more interesting and unique.
+    description: In Week 3, you'll dive deeper into customizing the checkers blockchain and discover how to make your own game more interesting and unique.
     number: 3
     url: /course-ida/landingpages/week3-lp.html
     submodules:
       - title: Running Your Own Cosmos Chain - Part 2
+        description: It all comes together
         url: /course-ida/landingpages/week3-lp.html
         order: 0
       - title: Store FIFO - Put Your Games in Order
-        description: You prepare to expire games
+        description: Preparing to expire games
         url: /academy/4-my-own-chain/game-fifo.html
         order: 1
       - title: Store Field - Keep an Up-To-Date Game Deadline
-        description: You expire games
+        description: Games can expire
         url: /academy/4-my-own-chain/game-deadline.html
         order: 2
       - title: Store Field - Record the Game Winner
-        description: You store the winner of a game
+        description: Storing the winner of a game
         url: /academy/4-my-own-chain/game-winner.html
         order: 3
       - title: EndBlock - Auto-expiring Games
-        description: You enforce the expiration of games
+        description: Enforcing the expiration of games
         url: /academy/4-my-own-chain/game-forfeit.html
         order: 4
       - title: Token - Let Players Set a Wager
-        description: You let players set a wager
+        description: Letting players set a wager
         url: /academy/4-my-own-chain/game-wager.html
         order: 5
       - title: Gas - Incentivize Players
-        description: Reward validators proportional to their effort
+        description: Rewarding validators proportional to their effort
         url: /academy/4-my-own-chain/gas-meter.html
         order: 6
       - title: Query - Help Find a Correct Move
-        description: Help players make good transactions
+        description: Helping players make good transactions
         url: /academy/4-my-own-chain/can-play.html
         order: 7
       - title: IBC Token - Play With Cross-Chain Tokens
-        description: Let players wager any fungible token
+        description: Letting players wager any fungible token
         url: /academy/4-my-own-chain/wager-denom.html
         order: 8
       - title: Migration - Introduce a Leaderboard After Production
@@ -252,31 +254,39 @@ modules:
         url: /academy/ibc/what-is-ibc.html
         order: 1
       - title: Transport, Authentication, and Ordering Layer - Connections
+        description: Establishing connections in IBC
         url: /academy/ibc/ibc-tao-dev.html
         order: 2
       - title: Transport, Authentication, and Ordering Layer - Channels
+        description: The role of channels in IBC
         url: /academy/ibc/channels.html
         order: 3
       - title: Transport, Authentication, and Ordering Layer - Clients
+        description: Clients in IBC
         url: /academy/ibc/clients.html
         order: 4
       - title: IBC Token Transfer
-        description: Token trasnfers across chains
+        description: Token transfers across chains
         url: /academy/ibc/token-transfer.html
         order: 5
       - title: Interchain Accounts
+        description: Working with ICA
         url: /academy/ibc/ica.html
         order: 6
-      - title: Relayers in General
+      - title: Relaying in General
+        description: Relayers in IBC
         url: /academy/ibc/relayerintro.html
         order: 7
       - title: Go Relayer
+        description: Relayer implementation in Golang
         url: /academy/ibc/gorelayer.html
         order: 8
       - title: Hermes Relayer
+        description: Relayer implementation in Rust
         url: /academy/ibc/hermesrelayer.html
         order: 9
-      - title: Overview IBC Tooling
+      - title: IBC Tooling
+        description: Overview of some helpful tools
         url: /academy/ibc/ibc-tooling.html
         order: 10
   - title: CosmJS and Building Your CosmJS Chain
@@ -285,34 +295,35 @@ modules:
     url: /course-ida/landingpages/week5-lp.html
     submodules:
       - title: CosmJS and Building Your CosmJS Chain
+        description: The TypeScript library for the Cosmos SDK
         url: /course-ida/landingpages/week5-lp.html
         order: 0
       - title: What is CosmJS
-        description: What is CosmJS and what can it do for me?
+        description: CosmJS and what it can do for me
         url: /academy/xl-cosmjs/intro.html
         order: 1
-      - title: Your First CosmJS Actions
+      - title: Your First CosmJS Actions - Send Tokens
         description: Interacting with a Cosmos SDK chain through CosmJS
         url: /academy/xl-cosmjs/first-steps.html
         order: 2
       - title: Compose Complex Transactions
-        description: Send multiple tokens and messages through CosmJS
+        description: Sending multiple tokens and messages through CosmJS
         url: /academy/xl-cosmjs/multi-msg.html
         order: 3
       - title: Learn to Integrate Keplr
         description: Interacting with a Cosmos SDK chain through CosmJS and Keplr
         url: /academy/xl-cosmjs/with-keplr.html
         order: 4
-      - title: Create Custom Objects
-        description: To work with your blockchain
+      - title: Create Custom CosmJS Interfaces
+        description: Working with your blockchain
         url: /academy/xl-cosmjs/create-custom.html
         order: 5
-      - title: Create Custom Objects for Your Checkers Blockchain
-        description: Create the objects that your GUI will use
+      - title: The Custom Objects for Your Checkers Blockchain
+        description: Creating the objects for your GUI
         url: /academy/4-my-own-chain/cosmjs-objects.html
         order: 6
       - title: Create Custom Messages for Your Checkers Blockchain
-        description: Create the messages that your GUI will use
+        description: Introducing the message to create a game
         url: /academy/4-my-own-chain/cosmjs-messages.html
         order: 7
   - title: CosmJS for Your Chain - GUI and Backend Script
@@ -325,11 +336,11 @@ modules:
         url: /course-ida/landingpages/week6-lp.html
         order: 0
       - title: Pick and Fix a Checkers GUI
-        description: Find a Checkers GUI before you integrate with CosmJs
+        description: Finding a checkers GUI before integrating with CosmJS
         url: /academy/4-my-own-chain/external-gui.html
         order: 1
       - title: Integrate CosmJS and Keplr Into the GUI
-        description: Take a Checkers GUI and use your elements
+        description: Taking a checkers GUI and using the elements
         url: /academy/4-my-own-chain/cosmjs-gui.html
         order: 2
       - title: CosmJS on a Backend Script for Game Indexing

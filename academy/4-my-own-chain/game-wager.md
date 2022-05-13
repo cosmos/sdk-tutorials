@@ -1,7 +1,7 @@
 ---
 title: Token - Let Players Set a Wager
 order: 15
-description: You let players set a wager
+description: Letting players set a wager
 tag: deep-dive
 ---
 
