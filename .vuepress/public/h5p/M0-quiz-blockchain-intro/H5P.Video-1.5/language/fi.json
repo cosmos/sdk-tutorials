@@ -1,0 +1,136 @@
+{
+  "semantics": [
+    {
+      "label": "Videolähteet",
+      "description": "Varmistaaksesi toimivuuden eri selaimissa lataa vähintään mp4- ja webm-versiot videosta."
+    },
+    {
+      "label": "Ulkoasu",
+      "fields": [
+        {
+          "label": "Esittelykuva"
+        },
+        {
+          "label": "Sovita videosoitin kehykseen",
+          "description": "Jos ei ole valittuna, niin videosoitin säilyttää videon kuvasuhteen."
+        },
+        {
+          "label": "Näytä videon ohjaimet",
+          "description": "Lisää ohjaimet soittimeen. Mahdollistaa käynnistyksen, keskeytyksen jne..."
+        }
+      ]
+    },
+    {
+      "label": "Toisto",
+      "fields": [
+        {
+          "label": "Käynnistä video automaattisesti",
+          "description": "Käynnistä video automaattisesti. Ei ehkä toimi mobiililaitteilla."
+        },
+        {
+          "label": "Toista videota",
+          "description": "Aloittaa videon lopttua sen alusta aina uudestaan."
+        }
+      ]
+    },
+    {
+      "label": "Omat tekstit",
+      "fields": [
+        {
+          "label": "Nimi",
+          "default": "Video",
+          "description": "Auttaa tunnistamaan tämän sisältötyypin."
+        },
+        {
+          "label": "Lataa",
+          "default": "Lataa soitinta..."
+        },
+        {
+          "label": "Soittimia ei löytynyt",
+          "default": "Ei löytänyt soveltuvaa soitinta videomuodolle."
+        },
+        {
+          "label": "Ei lähteitä",
+          "default": "Videolta puuttuu lähde."
+        },
+        {
+          "label": "Keskeytetty",
+          "default": "Median esitys keskeytetty."
+        },
+        {
+          "label": "Verkkovirhe",
+          "default": "Verkkovirhe."
+        },
+        {
+          "label": "Videolähdettä ei saatu purettua",
+          "default": "Mediaa ei saatu purettua."
+        },
+        {
+          "label": "Muotoa ei tueta",
+          "default": "Videomuotoa ei tueta."
+        },
+        {
+          "label": "Media on salattu",
+          "default": "Media on salattu."
+        },
+        {
+          "label": "Tuntematon virhe",
+          "default": "Tuntematon virhe."
+        },
+        {
+          "label": "Epäkelpo YouTube ID",
+          "default": "Epäkelpo YouTube ID."
+        },
+        {
+          "label": "Tuntematon YouTube ID",
+          "default": "YouTube ID ei vastaa yhtään videota."
+        },
+        {
+          "label": "Rajoitettu YouTube video",
+          "default": "Videon omistaja ei salli sen upottamista."
+        }
+      ]
+    },
+    {
+      "label": "Esteettömyys",
+      "fields": [
+        {
+          "label": "Lisää raita",
+          "entity": "Raita",
+          "field": {
+            "label": "Raita",
+            "fields": [
+              {
+                "label": "Raidan selite"
+              },
+              {
+                "label": "Tyyppi, lisätietoa <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">HTML living standard</a>",
+                "options": [
+                  {
+                    "label": "Tekstitykset"
+                  },
+                  {
+                    "label": "Otsikot"
+                  },
+                  {
+                    "label": "Selitteet"
+                  },
+                  {
+                    "label": "Kappaleet"
+                  }
+                ]
+              },
+              {
+                "label": "Lähdekieli, pakollinen tekstityksille",
+                "description": "Täytyy olla BCP 47 -muotoinen, esimerkiksi en,fi,es,sv... Jos Tekstitykset on valittu tekstiraidan tyypiksi, on lähdekieli määriteltävä."
+              },
+              {
+                "label": "Raidan lähde (WebVTT tiedosto)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

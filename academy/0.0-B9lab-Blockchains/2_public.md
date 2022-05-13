@@ -1,11 +1,11 @@
 ---
 title: "Blockchain History"
 order: 3
-description: A Brief History of Blockchain Technology
+description: A brief history of blockchain technology
 tag: fast-track
 ---
 
-# A Brief History of Blockchain
+# Blockchain History
 
 To fully appreciate Cosmos, it is helpful to understand the origins of blockchain technology, the advances that have unfolded, and the intractable challenges of other blockchain protocols which Cosmos decisively solves.
 
@@ -51,7 +51,7 @@ Given its anti-establishment roots, blockchain technology has been seized upon b
 
 </ExpansionPanel>
 
-![Historic timeline of blockchain technology](images/timeline.png)
+![Historic timeline of blockchain technology](/academy/0.0-B9lab-Blockchains/images/timeline.png)
 
 ## 2010s
 

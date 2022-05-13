@@ -1,11 +1,20 @@
 ---
 title: "IBC/TAO"
-order: 
-description: 
+order:
+description:
 tag: deep-dive
 ---
 
 ## Channels
+
+<HighlightBox type="learning">
+
+In this section, you will:
+  
+* Establish a channel.
+* Learn about application packet flow.
+
+</HighlightBox>
 
 Connections and clients comprise the main components of the transport layer in IBC. However, application to application communication in IBC is conducted over **channels**, which route between an application module such as the module which handles ICS20 token transfers on one chain, and the corresponding application module on another one. These applications are namespaced by **port identifiers** such as 'transfer' for ICS20 token transfers.
 
@@ -15,7 +24,7 @@ Note that, in the case of Interchain Accounts, there are two different port IDs 
 
 `icahost` is the default port id that the interchain accounts host submodule binds to, whereas `icacontroller-` is the default port prefix that the interchain accounts controller submodule binds to
 
-</HighlightBox> 
+</HighlightBox>
 
 Contrary to the core IBC transport layer logic, which handles only verification, ordering, and all around basic packet correctness, the application layer over channels handles only the application specific logic which interprets the packets that have been sent over the transport layer. This split between transport and application layer in IBC is similar to the split between Tendermint's consensus layer (consensus, mempool, ordering of transactions) and ABCI layer (process of those transaction bytes).
 
@@ -25,7 +34,7 @@ As mentioned above, channels are payload-agnostic. The application modules sendi
 
 <HighlightBox type="info">
 
-An **ordered channel** is _a channel where packets are delivered exactly in the order in which they were sent_. 
+An **ordered channel** is _a channel where packets are delivered exactly in the order in which they were sent_.
 An **unordered channel** is _a channel where packets can be delivered in any order_, which may differ from the order in which they were sent.
 
 </HighlightBox>
@@ -39,7 +48,7 @@ Similarly to how connections are established, channels are established through a
 1. `ChanOpenInit`: will set the chain A into `INIT` state. This will call `OnChanOpenInit` so application A can apply the custom callback that it has set on `INIT`, e.g. check if the port has been set correctly, the channel is indeed unordered/ordered as expected, etc. An application version is also proposed in this step.
 
 
-2. `ChanOpenTry`: will set chain B into `TRY` state. It will call `OnChanOpenConfirm` so application B can apply its custom `TRY` callback. Application version negotiation also happens during this step. 
+2. `ChanOpenTry`: will set chain B into `TRY` state. It will call `OnChanOpenConfirm` so application B can apply its custom `TRY` callback. Application version negotiation also happens during this step.
 
 
 3. `ChanOpenAck`: will set the chain A into `OPEN` state. This will call `OnChanOpenAck` which will be implemented by the application. Application version negotiation is finalised during this step.
@@ -138,14 +147,14 @@ func NewPacket(
 ```
 `Sequence` denotes the sequence number of the packet in the channel.
 
-`TimeoutTimestamp` and `TimeoutHeight` dictate the time before which the receiving module must process a packet. 
+`TimeoutTimestamp` and `TimeoutHeight` dictate the time before which the receiving module must process a packet.
 
 
 ![Packet flow](/academy/ibc/images/packetflow.png)
 
 **Success Case**
 
-In the first step of a successful packet flow, application A will send a packet (call `sendPacket`) to the application B. `SendPacket` can be triggered by a user, but applications can also trigger this as the result of some other application logic. 
+In the first step of a successful packet flow, application A will send a packet (call `sendPacket`) to the application B. `SendPacket` can be triggered by a user, but applications can also trigger this as the result of some other application logic.
 
 Core IBC A will commit the packet to its own state and the relayer can query this packet and send a `RecvPacket` message to core IBC B. Core IBC handles a number of verifications, including verifying that the packet was indeed sent by chain A, that the packet came in the correct order if it was sent over an ordered channel, that the state commitment proof is valid etc. If this verification step is successful, core IBC will then route the packet to application B.
 
@@ -157,7 +166,7 @@ After receiving the packet data from core IBC, application B will then marshal t
 
 **Synchronous and Asynchronous Acknowledgements**
 
-Acknowledgements can either take place synchronously or asynchronously. What this means is that the `OnRecvPacket` callback has a return value `Acknowledgement` which is optional. 
+Acknowledgements can either take place synchronously or asynchronously. What this means is that the `OnRecvPacket` callback has a return value `Acknowledgement` which is optional.
 
 In the case of a synchronous `Acknowledgement`, the callback will return an `Acknowledgement` at the end of the process and relayer can query this `Acknowledgement` packet and relay immediately after the process has finished. This is useful in cases in which application A is expecting an `AckPacket` in order to initiate some application logic `OnAcknowledgePacket`. For example, the sending chain of an ICS20 token transfer will do nothing in the case of a successful `AckPacket`, but in the case where an error is returned, the sending chain will unescrow the previously locked tokens.
 
@@ -172,5 +181,3 @@ In either case, even if there is no application specific logic to be initiated a
 In the case that a packet is time-sensitive and the timeout block height or timeout timestamp specified in the packet parameters **based on chain B's time** has elapsed, whatever state transitions have occured as a result of the sent packet should be reversed.
 
 In these cases, the initial flow is the same, with core IBC A first committing the packet to its own state. However, instead of querying for the packet, a relayer will submit a  `QueryNonReceipt` to receive a proof that the packet was not received by core IBC B. It can then send the `TimeoutPacket` to core IBC A, which will then trigger the relevant `OnTimeoutPacket` application logic. For example, the ICS20 token transfer application will unescrow the locked up tokens and send these back to the original sender `OnTimeoutPacket`.
-
-

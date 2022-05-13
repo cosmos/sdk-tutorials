@@ -9,17 +9,17 @@
 					span {{intro.action.label}}
 			.home__content__intro__image(v-if="intro.image")
 				tm-image(:src="intro.image")
-		.home__content__overview(v-if="$frontmatter.overview")
+		.home__content__overview(v-if="$frontmatter.overview" id="overview")
 			h2.home__content__overview__title {{$frontmatter.overview.title}}
 			.home__content__overview__content(v-if="$frontmatter.overview.items")
 				tm-faq.home__content__overview__content__item(v-for="item in $frontmatter.overview.items" :title="item.title" :description="item.description")
 
 		.modules(v-if="this.modules && this.modules[0].submodules && this.modules[0].submodules.length > 1")
-			h2(:id="$frontmatter.weekly ? 'weekly-path' : 'course-modules'") {{$frontmatter.weekly ? "Weekly path" : "Course Modules"}}
+			h2(:id="$frontmatter.weekly ? 'weekly-path' : 'course-modules'") {{$frontmatter.weekly ? "Weekly Plan" : "Course Modules"}}
 			card-module(v-for="module in this.modules" :module="module" :main="$frontmatter.main" :weekly="$frontmatter.weekly || false").modules__item
 		.image-section(v-if="$frontmatter.image")
 			h2(v-if="$frontmatter.image.title") {{$frontmatter.image.title}}
-			tm-image(:src="$frontmatter.image.src")
+			tm-image.image-section__image(:src="$frontmatter.image.src")
 		.resources__wrapper(v-if="$themeConfig.resources")
 			h3.resources__title Developer resources
 			.resources
@@ -41,6 +41,10 @@
 
 	.image-section
 		margin-top 96px
+		
+		&__image
+			margin-top 64px
+			width 100%
 
 	.resources
 		display flex
@@ -178,6 +182,7 @@
 
 				&__content
 					width 50%
+					margin-top 20px 
 
 					&__item
 						&:first-child

@@ -22,7 +22,7 @@ func (rtr *Router) GetRoute(module string) (IBCModule, bool) {
 }
 ```
 
-which returns an implementation of the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go):
+This returns an implementation of the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go):
 
 ```go
 // IBCModule defines an interface that implements all the callbacks
@@ -45,7 +45,7 @@ type IBCModule interface {
 
 ```
 
-There you can find all the callbacks your application will need to implement. So in the `msg_serve.go` you can find in the `ChannelOpenInit`:
+Here you can find all the callbacks your application needs to implement. So, in the `msg_serve.go` you can find the following in the `ChannelOpenInit`:
 
 ```go
   // Perform application logic callback
@@ -54,7 +54,7 @@ There you can find all the callbacks your application will need to implement. So
   }
 ```
 
-will call custom logic of the application. The situation is similar for `OnChanOpenTry`, `OnChanOpenAck`, `OnChanOpenConfirm` etc in the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go): 
+This calls custom logic of the application. The situation is similar for `OnChanOpenTry`, `OnChanOpenAck`, `OnChanOpenConfirm`, etc., in the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go): 
 
 ```go
   // OnChanOpenTry will verify the relayer-chosen parameters along with the
@@ -96,6 +96,6 @@ will call custom logic of the application. The situation is similar for `OnChanO
 ...
 ```
 
-We will talk about applications soon but the take away here is that an application developer will need to implement the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go).
+You will learn about applications soon, but the take away here is that an application developer will need to implement the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go).
 
 

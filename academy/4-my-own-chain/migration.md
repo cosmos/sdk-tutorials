@@ -7,13 +7,23 @@ tag: deep-dive
 
 # Migration - Introduce a Leaderboard After Production
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md), and [migrations](../2-main-concepts/migrations.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](./wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
+    
+</HighlightBox>
+
+<HighlightBox type="synopsis">
+
+In this section, you will:
+
+* Add a leaderboard. 
+* Upgrade your blockchain in production.
+* Deal with data migrations and logic upgrades.
 
 </HighlightBox>
 
@@ -21,22 +31,22 @@ If you have been running _v1_ of your checkers blockchain for a while, games hav
 
 * Any player who has **ever** played should have a tally of games won, lost, and forfeited.
 * The leaderboard should list the players with the most wins up to a pre-determined number. For example, the leaderboard could only include the top 100 scores.
-* To avoid squatting and increase engagement, when equal in value the most recent score takes precedence over an _older_ one, so the player with the recent score is listed higher.
+* To avoid squatting and increase engagement, when equal in value the most recent score takes precedence over an _older_ one, so the player with the recent score is listed higher on the leaderboard.
 
 When you introduce the leaderboard, you also have to decide what to do with your existing players and their scores from your v1 checkers blockchain.
 
-Start your v2's leaderboard as if all played past games had been counted for the leaderboard. You _only_ need to go through all played games, update the players with their tallies, and add a leaderboard including the information. This is possible because all past games and their outcomes are kept in the chain's state. A migration is a good method to tackle the initial leaderboard.
+Start your v2's leaderboard as if all played past games had been counted for the leaderboard. You _only_ need to go through all played games, update the players with their tallies, and add a leaderboard including the information. This is possible because all past games and their outcomes are kept in the chain's state. Migration is a good method to tackle the initial leaderboard.
 
 ## Introducing a leaderboard
 
 Several things need to be addressed before you can focus all your attention on the migration:
 
-1. Save and mark as v1 the current data types about to be modified with the new version. All data types which will remain unmodified need not be identified as such.
+1. Save and mark as v1 the current data types about to be modified with the new version. Data types which will remain unmodified need not be identified as such.
 2. Prepare your v2 blockchain:
     1. Define your new data types.
     2. Add helper functions to encapsulate clearly defined actions, like leaderboard sorting.
-    2. Adjust the existing code to make use of and update the new data types.
-3. Prepare your v1 to v2 migration:
+    3. Adjust the existing code to make use of and update the new data types.
+3. Prepare for your v1-to-v2 migration:
     1. Add helper functions to take large amounts of data from the latest chain state under the shape of a v1 genesis.
     2. Add a function to migrate from v1 to v2 genesis.
     3. Make sure you can handle large amounts of data.
@@ -51,7 +61,7 @@ Your migration steps will be handled in a new folder, `x/checkers/migrations/v1t
 $ mkdir -p x/checkers/migrations/v1tov2
 ```
 
-The only **data structure** you will eventually change is the genesis structure. The other data structures are new, so you can treat them as usual. Copy and paste your v1 genesis from the current commit and save it under another name in `v1tov2/types.go`:
+The only **data structure** you will eventually change is the genesis structure. The other data structures are new, so you can treat them _as usual_. Copy and paste your v1 genesis from the current commit and save it under another name in `v1tov2/types.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/migrations/v1tov2/types.go#L7-L10]
 type GenesisStateV1 struct {
@@ -60,7 +70,7 @@ type GenesisStateV1 struct {
 }
 ```
 
-Your current genesis definition becomes your v2 genesis. No other data structures should require a change - unless you happened to also change the structure of `StoredGame`, for instance, then you would have to save its v1 version in the same `types.go` file.
+Your current genesis definition becomes your v2 genesis. This should be the only data structure requiring a change. However, if for example you also changed the structure of `StoredGame`, then you would have to save its v1 version in the same `types.go` file.
 
 ## New v2 information
 
@@ -68,13 +78,13 @@ It is time to take a closer look at the new data structures being introduced wit
 
 <HighlightBox type="tip">
 
-If you are feeling unsure about creating new data structures with the Ignite CLI, take another look at the [previous sections](./create-message.md) of the exercise.
+If you feel unsure about creating new data structures with Ignite CLI, look at the [previous sections](./create-message.md) of the exercise again.
 
 </HighlightBox>
 
-To give the new v2 information a data structure, you need to do the following:
+To give the new v2 information a data structure, you need the following:
 
-1. Create a set of **stats per player**: it makes sense to save one `struct` for each player and map it by address. Remember that a game is stored at `StoredGame-value-123`, where `StoredGame-value-` is a constant prefix. In a similar fashion, Starport is going to create a new constant to use as the prefix for players:
+1. Add a set of **stats per player**: it makes sense to save one `struct` for each player and map it by address. Remember that a game is stored at `StoredGame-value-123`, where `StoredGame-value-` is a constant prefix. In a similar fashion, Ignite CLI creates a new constant to use as the prefix for players:
 
     ```sh
     $ ignite scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint --module checkers --no-message
@@ -82,7 +92,7 @@ To give the new v2 information a data structure, you need to do the following:
 
     <HighlightBox type="info">
 
-    The new `PlayerInfo-value-` prefix for players helps differentiate between the value for players and the one for games prefixed with `StoredGame-value-`. This way you can safely have both `StoredGame-value-123` and `PlayerInfo-value-123` side by side in storage.
+    The new `PlayerInfo-value-` prefix for players helps differentiate between the value for players and the value for games prefixed with `StoredGame-value-`. Now you can safely have both `StoredGame-value-123` and `PlayerInfo-value-123` side by side in storage.
 
     </HighlightBox>
 
@@ -97,7 +107,7 @@ To give the new v2 information a data structure, you need to do the following:
     }
     ```
 
-    You can remove `creator` because it serves no purpose. Do not forget to add the new object to the genesis, effectively your v2 genesis:
+    Remove `creator` from the Protobuf file because it serves no purpose. Remember to add the new object to the genesis, effectively your v2 genesis:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/proto/checkers/genesis.proto#L16]
     import "checkers/player_info.proto";
@@ -108,7 +118,7 @@ To give the new v2 information a data structure, you need to do the following:
     }
     ```
 
-2. Create a **leaderboard rung structure** to be repeated inside the leaderboard: it stores the information of a player scoring high enough to be included in the leaderboard. It is not meant to be kept directly in storage as it is only a part of the leaderboard. So instead of involving Ignite CLI create the structure by hand into its own file:
+2. Add a **leaderboard rung structure** to be repeated inside the leaderboard: this stores the information of a player scoring high enough to be included in the leaderboard. It is not meant to be kept directly in storage as it is only a part of the leaderboard. Instead of involving Ignite CLI, create the structure by hand in its own file:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/proto/checkers/winning_player.proto#L8-L12]
     message WinningPlayer {
@@ -120,19 +130,20 @@ To give the new v2 information a data structure, you need to do the following:
 
     <HighlightBox type="note">
 
-    * `playerAddress` indicates the player, so it gives information regarding `PlayerInfo.index`.
-    * `wonCount` determines the ranking on the leaderboard - the higher the count, the closer to the `0` index in the array. It should exactly match the value found in the corresponding player stats. This duplication of data is a lesser evil, because if `wonCount` was missing you would have to access the player stats to sort the leaderboard.
+    * `playerAddress` indicates the player, and gives information regarding `PlayerInfo.index`.
+    * `wonCount` determines the ranking on the leaderboard - the higher the count, the closer to the `0` index in the array.
+      This should exactly match the value found in the corresponding player stats. This duplication of data is a lesser evil, because if `wonCount` was missing you would have to access the player stats to sort the leaderboard.
     * `dateAdded` indicates when the player's `wonCount` was last updated and determines the ranking when there is a tie in `wonCount` - the more recent, the closer to the `0` slot in the array.
     
     </HighlightBox>
 
-3. Create a structure for **the leaderboard**: there is a single stored leaderboard for the whole application. Let Ignite CLI help you implement a structure:
+3. Add a structure for **the leaderboard**: there is a single stored leaderboard for the whole application. Let Ignite CLI help you implement a structure:
 
     ```sh
     $ ignite scaffold single leaderboard winners --module checkers --no-message
     ```
 
-    This creates a Protobuf file that you update with your preferred type and its `import`. Also, remove the `creator`:
+    This creates a Protobuf file that you update with your preferred type and its `import`. Again, remove the `creator`:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/proto/checkers/leaderboard.proto#L9-L11]
     import "checkers/winning_player.proto";
@@ -153,7 +164,7 @@ To give the new v2 information a data structure, you need to do the following:
     }
     ```
 
-    Remember to make sure the initial value stored for the leaderboard is not `nil`, but instead is an empty one. In `genesis.go` adjust:
+    Remember to make sure the initial value stored for the leaderboard is not `nil` but instead is empty. In `genesis.go` adjust:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/genesis.go#L16-L18]
     func DefaultGenesis() *GenesisState {
@@ -172,11 +183,11 @@ With the structure set up it is time to add the code using these new elements in
 
 ## v2 player information helpers
 
-You need to do a `+1` on one of the `count`s when a game reaches its resolution.
+When a game reaches its resolution, one of the `count`s needs to add `+1`.
 
 <ExpansionPanel title="A detailed look into the code">
 
-Start by adding a helper private function that gets the stats from the storage, updates the numbers as instructed, and saves it back:
+To start, add a helper private function that gets the stats from the storage, updates the numbers as instructed, and saves it back:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/keeper/player_info_handler.go#L11-L33]
 func mustAddDeltaGameResultToPlayer(
@@ -220,7 +231,7 @@ func (k *Keeper) MustAddForfeitedGameResultToPlayer(ctx sdk.Context, player sdk.
 }
 ```
 
-_Which player should get_ `+1` _on what count?_ You need to identify the loser and the winner of a game to determine this. Create another private helper for this:
+Which player should get `+1`, and on what count? You need to identify the loser and the winner of a game to determine this. Create another private helper:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/keeper/player_info_handler.go#L47-L69]
 func getWinnerAndLoserAddresses(storedGame *types.StoredGame) (winnerAddress sdk.AccAddress, loserAddress sdk.AccAddress) {
@@ -290,7 +301,7 @@ Now call your helper functions:
     ...
     ```
 
-2. And on a forfeit:
+2. On a forfeit:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b7001370e1cdfe9fc7c40e7144122cf1d18c6ee8/x/checkers/keeper/end_block_server_game.go#L58]
     ...
@@ -311,11 +322,11 @@ Continue completing your v2 before tackling the migration. Your leaderboard help
 2. Sort the array according to the rules.
 3. Clip the array to a length of 100 and save the result.
 
-Sorting entails comparing dates in cases of a score tie. This is potentially expensive if you are deserializing the date in the comparator itself. Instead, the comparator should be presented with data already deserialized. Prepare a data structure that has already deserialized the `dateAdded` for you to:
+Sorting entails comparing dates in cases of a score tie. This is potentially expensive if you are deserializing the date in the comparator itself. Instead, the comparator should be presented with data already deserialized. Prepare a data structure that has already deserialized the `dateAdded`, which allows you to:
 
 1. Deserialize all the elements of the whole leaderboard's array.
-2. Sort it.
-3. Then reserialize its elements.
+2. Sort its elements.
+3. Only then reserialize its elements.
 
 You do not need to use this deserialized element type anywhere else, therefore you should keep it private. Create a new file `full_leaderboard.go` to encapsulate all your leaderboard helpers:
 
@@ -383,7 +394,7 @@ func (parsed *winningPlayerParsed) stringify() (stringified *WinningPlayer) {
 }
 ```
 
-The functions are called repeatedly when (de-)serializing arrays:
+The functions are called repeatedly when serializing or de-serializing arrays:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/full_leaderboard.go#L50-L69]
 func (leaderboard *Leaderboard) parseWinners() (winners []*winningPlayerParsed, err error) {
@@ -410,7 +421,7 @@ func stringifyWinners(winners []*winningPlayerParsed) (stringified []*WinningPla
 
 </ExpansionPanel>
 
-As you have a function to get an array of deserialized winning players, you can now add a function to sort the slice in place:
+As you have a function to get an array of de-serialized winning players, you can now add a function to sort the slice in place:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/full_leaderboard.go#L73-L83]
 func sortWinners(winners []*winningPlayerParsed) {
@@ -426,11 +437,11 @@ func sortWinners(winners []*winningPlayerParsed) {
 }
 ```
 
-You test in descending order for scores first and then for the added dates. As you can see, there is no deserialization in this `func(i, j int) bool` callback. It should be possible to write a one-liner inside this function but at the expense of readability.
+Test in descending order first for scores and then for the added dates. Note that there is no de-serialization in this `func(i, j int) bool` callback. It is possible to write a one-liner inside this function but at the expense of readability.
 
 <ExpansionPanel title="Add a function to add a candidate and sort">
 
-When migrating the genesis, more than one candidate will be added. With this in mind, add a first helper on the deserialized elements:
+When migrating the genesis more than one candidate will be added. Therefore, add a first helper on the de-serialized elements:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/full_leaderboard.go#L85-L92]
 func AddParsedCandidatesAndSort(parsedWinners []*winningPlayerParsed, candidates []*winningPlayerParsed) (updated []*winningPlayerParsed) {
@@ -443,7 +454,7 @@ func AddParsedCandidatesAndSort(parsedWinners []*winningPlayerParsed, candidates
 }
 ```
 
-Notice the clipping at the leaderboard's length. Similarly, you need helpers on the leaderboard.
+Note the clipping at the leaderboard's length. Similarly, you need helpers on the leaderboard.
 
 You can get these other helpers with a de-serialization:
 
@@ -475,13 +486,13 @@ func (leaderboard *Leaderboard) AddCandidateAndSort(ctx sdk.Context, playerInfo 
 }
 ```
 
-Here we assume that a candidate is added at the current block time or migration time. A candidate is not an existing winning player, but a new one.
+This assumes that a candidate is added at the current block time or migration time. A candidate is not an existing winning player but a new one.
 
 </ExpansionPanel>
 
 ## v2 leaderboard handling
 
-You have created the leaderboard helper functions. In a separate file, add one last function to the keeper to implement the leaderboard. You want this function to make it possible to add a candidate winner and save the updated leaderboard:
+You have created the leaderboard helper functions. In a separate file, add one last function to the keeper to implement the leaderboard. This function makes it possible to add a candidate winner and save the updated leaderboard:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/keeper/leaderboard_handler.go#L10-L21]
 func (k *Keeper) MustAddToLeaderboard(ctx sdk.Context, winnerInfo types.PlayerInfo) types.Leaderboard {
@@ -504,7 +515,7 @@ Be aware of the new error [`ErrCannotAddToLeaderboard`](https://github.com/cosmo
 
 </HighlightBox>
 
-You are now through most of the leaderboard preparation. The only thing remaining is to call your new functions at the right junctures:
+This completes most of the leaderboard preparation. The only task left is to call your new functions at the right junctures:
 
 1. On a win:
 
@@ -518,7 +529,7 @@ You are now through most of the leaderboard preparation. The only thing remainin
     }
     ```
 
-2. And on a forfeit:
+2. On a forfeit:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/keeper/end_block_server_game.go#L58-L59]
     if storedGame.MoveCount <= 1 {
@@ -530,17 +541,17 @@ You are now through most of the leaderboard preparation. The only thing remainin
     }
     ```
 
-Your leaderboard is now updated and saved on an on-going basis as part of your v2 blockchain.
+Your leaderboard will now be updated and saved on an on-going basis as part of your v2 blockchain.
 
 ## v1 to v2 player information migration helper
 
 With your v2 blockchain now fully operational, it is time to work on the issue of data migration.
 
-First tackle the migration of the player information. You will receive a giant _v1_ genesis when migrating, which contains all the games played so far. You have to go through them all and build the `PlayerInfoList` part of the _v2_ genesis.
+First tackle the migration of player information. You will receive a giant _v1_ genesis when migrating which contains all the games played so far. You must go through them all and build the `PlayerInfoList` part of the _v2_ genesis.
 
-You need to do `+1` on the relevant player stats as you go through games. For performance, it makes sense to pick a `map[string]*types.PlayerInfo` data type so that you can call up a player's stats by its ID in `O(1)`.
+You need to apply `+1` to the relevant player stats as you go through games. For performance reasons pick a `map[string]*types.PlayerInfo` data type so that you can call up a player's stats by its ID in `O(1)`.
 
-Begin by creating a function that gets or creates a new `PlayerInfo` in a new file:
+Create a function that gets or creates a new `PlayerInfo` in a new file:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/migrations/v1tov2/winning_players_builder.go#L9-L20]
 func getOrNewPlayerInfo(infoSoFar *map[string]*types.PlayerInfo, playerIndex string) (playerInfo *types.PlayerInfo) {
@@ -594,7 +605,7 @@ func PopulatePlayerInfosWith(infoSoFar *map[string]*types.PlayerInfo, games *[]*
 }
 ```
 
-You use a `map` of `PlayerIno` only for performance reasons. In the end, because the v2 genesis takes a list and not a map, you need to do a conversion. Add a helper:
+This uses a `map` of `PlayerIno` only for performance reasons. Because the v2 genesis takes a list and not a map, you need to do a conversion. Add a helper:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/migrations/v1tov2/winning_players_builder.go#L55-L61]
 func PlayerInfoMapToList(all *map[string]*types.PlayerInfo) []*types.PlayerInfo {
@@ -610,7 +621,7 @@ func PlayerInfoMapToList(all *map[string]*types.PlayerInfo) []*types.PlayerInfo 
 
 You could decide to build the leaderboard as the player stats list is being built, mimicking the regular operation of your v2 checkers blockchain. Unfortunately, that would entail a lot of array sorting for what are just intermediate player stats. Instead, build the v2 genesis leaderboard only after all player stats have been gathered.
 
-In practice you add _k_ new `winningPlayerParsed` to the array, sort it, clip it to 100, and repeat. What constitutes a good _k_ value should be dictated by testing and performance measurements. For now you can use 200. So prepare a new file to encapsulate these v1-to-v2-only operations:
+In practice you add _k_ new `winningPlayerParsed` to the array, sort it, clip it to 100, and repeat. What constitutes a good _k_ value should be dictated by testing and performance measurements. For now use 200. Prepare a new file to encapsulate these v1-to-v2-only operations:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/migrations/v1tov2/leaderboard_builder.go#L9-L12]
 const (
@@ -649,7 +660,7 @@ func PopulateLeaderboardWith(leaderboard *types.Leaderboard, additionalPlayers *
 
 ## A proper v1 to v2 migration
 
-Now your full chain state migration comes down to a genesis conversion from `GenesisStateV1` to your v2 `GenesisState`. In its own new file, you can write the following:
+Now your full chain state migration comes down to a genesis conversion from `GenesisStateV1` to your v2 `GenesisState`. You can write it in its own new file:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/migrations/v1tov2/genesis_converter.go#L9-L26]
 func (genesisV1 GenesisStateV1) Convert(now time.Time) (genesis *types.GenesisState, err error) {
@@ -674,13 +685,8 @@ func (genesisV1 GenesisStateV1) Convert(now time.Time) (genesis *types.GenesisSt
 
 ## Next up
 
-Your checkers blockchain is done. It has a leaderboard, which was introduced later in production thanks to migrations.
+Your checkers blockchain is done! It has a leaderboard, which was introduced later in production thanks to migrations.
 
 You no doubt have many ideas about how to improve it. In particular, you could implement the missing _draw_ mechanism, which in effect has to be accepted by both players.
 
-It is time to move away from the checkers blockchain learning exercise, and explore two other helpful tools for working with the Cosmos SDK:
-
-* [CosmJS](./cosmjs.md), which you used under the hood when using Ignite CLI.
-* [CosmWasm](./cosmwasm.md), a cross-chain smart-contract solution.
-
-Begin with CosmJS in the [next section](./cosmjs.md).
+It is time to move away from the checkers blockchain learning exercise, and explore another helpful tool for working with the Cosmos SDK: [CosmWasm](./cosmwasm.md).

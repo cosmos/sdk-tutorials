@@ -1,0 +1,254 @@
+{
+  "semantics": [
+    {
+      "label": "Pilt või video",
+      "fields": [
+        {
+          "label": "Tüüp",
+          "description": "Pilt või video, mida kuvatakse küsimuse juures (mittekohustuslik element)."
+        },
+        {
+          "label": "Keela pildi suuruse muutmine"
+        }
+      ]
+    },
+    {
+      "label": "Küsimus"
+    },
+    {
+      "label": "Vastusevariandid",
+      "entity": "vastusevariant",
+      "field": {
+        "label": "Vastusevariant",
+        "fields": [
+          {
+            "label": "Tekst"
+          },
+          {
+            "label": "Õige"
+          },
+          {
+            "label": "Vihje ja tagasiside",
+            "fields": [
+              {
+                "label": "Vihje tekst",
+                "description": "Suunav vihje vastajale, ilmub enne vastuse sisestamist."
+              },
+              {
+                "label": "Tekst, mida kasutaja näeb pärast selle vastusevariandi sisestamist",
+                "description": "See tekst ilmub vastusevariandi alla kui kasutaja klõpsab \"Kontrolli\"."
+              },
+              {
+                "label": "Tekst, mida kasutaja näeb pärast selle vastusevariandi valimata jätmist",
+                "description": "See tekst ilmub vastusevariandi alla kui kasutaja klõpsab \"Kontrolli\"."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "Üldine tagasiside",
+      "fields": [
+        {
+          "widgets": [
+            {
+              "label": "Vaikimisi"
+            }
+          ],
+          "label": "Määratle kohandatud tagasiside igale punktisumma vahemikule",
+          "description": "Näiteks: 0-20% halb tulemus, 21-91% keskmine tulemus, 91-100% suurepärane tulemus!",
+          "entity": "vahemik",
+          "field": {
+            "fields": [
+              {
+                "label": "Punktisumma vahemik"
+              },
+              {},
+              {
+                "label": "Määratletud punktisummavahemiku tagasiside",
+                "placeholder": "Sisesta tagasiside"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "Kasutajaliides tõlge mitmikvalikutele",
+      "fields": [
+        {
+          "label": "Kontrolli vastust nupu silt",
+          "default": "Kontrolli"
+        },
+        {
+          "label": "Näita lahendust nupu silt",
+          "default": "Näita lahendust"
+        },
+        {
+          "label": "Proovi uuesti nupu silt",
+          "default": "Proovi uuesti"
+        },
+        {
+          "label": "Vihje silt",
+          "default": "Näita vihjet"
+        },
+        {
+          "label": "Punktisumma rea tekstiline esitus tekstilugeri kasutajaile",
+          "description": "Kasutatavad muutujad on :num ja :total",
+          "default": "Sa said :num punkti :total punktist"
+        },
+        {
+          "label": "Vihje on saadaval (ei näidata)",
+          "default": "Vihje on saadaval",
+          "description": "Tekstilugeriga kasutamiseks mõeldud tekst"
+        },
+        {
+          "label": "Tagasiside on saadaval (ei näidata)",
+          "default": "Tagasiside on saadaval",
+          "description": "Tekstilugeriga kasutamiseks mõeldud tekst"
+        },
+        {
+          "label": "Loe tagasiside (ei näidata)",
+          "default": "Loe tagasiside",
+          "description": "Tekstilugeriga kasutamiseks mõeldud tekst"
+        },
+        {
+          "label": "Vale vastus (ei näidata)",
+          "default": "Vale vastus",
+          "description": "Tekstilugeriga kasutamiseks mõeldud tekst"
+        },
+        {
+          "label": "Õige vastus (ei näidata)",
+          "default": "Õige vastus",
+          "description": "Tekstilugeriga kasutamiseks mõeldud tekst"
+        },
+        {
+          "label": "Valik oleks pidanud olema märgitud",
+          "default": "Oleks pidanud olema märgitud"
+        },
+        {
+          "label": "Valik ei oleks tohtinud olla märgitud",
+          "default": "Ei oleks pidanud olema märgitud"
+        },
+        {
+          "label": "\"Vastus nõutud\" teate tekst",
+          "default": "Palun vasta enne lahenduse vaatamist"
+        },
+        {
+          "label": "Assistive technology description for \"Check\" button",
+          "default": "Check the answers. The responses will be marked as correct, incorrect, or unanswered."
+        },
+        {
+          "label": "Assistive technology description for \"Show Solution\" button",
+          "default": "Show the solution. The task will be marked with its correct solution."
+        },
+        {
+          "label": "Assistive technology description for \"Retry\" button",
+          "default": "Retry the task. Reset all responses and start the task over again."
+        }
+      ]
+    },
+    {
+      "label": "Käitumisseaded",
+      "description": "Need valikud määravad, kuidas ülesanne käitub.",
+      "fields": [
+        {
+          "label": "Luba \"Proovi uuesti\" nupp"
+        },
+        {
+          "label": "Luba \"Näita lahendust\" nupp"
+        },
+        {
+          "label": "Luba \"Kontrolli\" nupp"
+        },
+        {
+          "label": "Küsimuse tüüp",
+          "description": "Vali küsimuste välimus ja käitumine.",
+          "options": [
+            {
+              "label": "Automaatne"
+            },
+            {
+              "label": "Mitmikvalik (märkeruudud)"
+            },
+            {
+              "label": "Üks valik (raadionupud)"
+            }
+          ]
+        },
+        {
+          "label": "Anna üks punkt kogu ülesande eest",
+          "description": "Luba, et anda mitme õige vastuse eest kokku üks punkt. Seda valikut ei saa teha \"Üks vastus\" moodis."
+        },
+        {
+          "label": "Järjesta vastused juhuslikult",
+          "description": "Luba, et järjestada kuvatavad vastused juhuslikult."
+        },
+        {
+          "label": "Nõua vastust enne, kui lahendust vaadata saab"
+        },
+        {
+          "label": "Näita kinnitusdialoogi \"Kontrolli\" nupule vajutamisel"
+        },
+        {
+          "label": "Näita kinnitusdialoogi \"Proovi uuesti\" nupule vajutamisel"
+        },
+        {
+          "label": "Vali vastused automaatselt",
+          "description": "Selle valiku lubamisel kannatab puuetega inimeste kasutajaelamus - veendu, et tead, mida teed."
+        },
+        {
+          "label": "Läbimisprotsent",
+          "description": "See seadistus ei tee sageli midagi. See on protsent kogu punktisummast, mis on vajalik ühe punkti saamiseks, kui lubatud on 'Üks punkt kogu ülesande eest' ja result.success saamiseks xAPI väljavõttes."
+        },
+        {
+          "label": "Näita punktisummasid",
+          "description": "Näita iga vastuse eest saadud punkte."
+        }
+      ]
+    },
+    {
+      "label": "Kontrolli kinnitusdialoog",
+      "fields": [
+        {
+          "label": "Pealkirja tekst",
+          "default": "Kas lõpetada?"
+        },
+        {
+          "label": "Sisu tekst",
+          "default": "Kas oled kindel, et soovid lõpetada?"
+        },
+        {
+          "label": "Katkesta nupu silt",
+          "default": "Ei"
+        },
+        {
+          "label": "Kinnita nupu silt",
+          "default": "Jah"
+        }
+      ]
+    },
+    {
+      "label": "Proovi uuesti kinnitusdialoog",
+      "fields": [
+        {
+          "label": "Pealkirja tekst",
+          "default": "Proovida uuesti?"
+        },
+        {
+          "label": "Sisu tekst",
+          "default": "Kas oled kindel, et soovid uuesti proovida?"
+        },
+        {
+          "label": "Katkesta nupu tekst",
+          "default": "Ei"
+        },
+        {
+          "label": "Kinnita nupu tekst",
+          "default": "Jah"
+        }
+      ]
+    }
+  ]
+}
