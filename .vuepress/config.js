@@ -120,7 +120,7 @@ module.exports = {
               order: 0
             },
             {
-              title: "Getting started",
+              title: "Getting Started",
               directory: true,
               order: 1,
               children: [
@@ -363,6 +363,10 @@ module.exports = {
                   path: "/academy/ibc/clients.html"
                 },
                 {
+                  title: "Implementing a Custom IBC Application",
+                  path: "/academy/ibc/custom-ibc-application.html"
+                },
+                {
                   title: "IBC Token Transfer",
                   path: "/academy/ibc/token-transfer.html"
                 },
@@ -389,16 +393,16 @@ module.exports = {
               ]
             },
             {
-              title: "Week 5 - CosmJS and Building Your CosmJS Chain",
+              title: "Week 5 - CosmJS - Interfacing",
               directory: true,
               order: 6,
               children: [
                 {
-                  title: "CosmJS and Building Your CosmJS Chain",
+                  title: "CosmJS - Interfacing",
                   path: "/course-ida/landingpages/week5-lp.html"
                 },
                 {
-                  title: "What is CosmJS",
+                  title: "What is CosmJS?",
                   path: "/academy/xl-cosmjs/intro.html"
                 },
                 {

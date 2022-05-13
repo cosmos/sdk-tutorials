@@ -1,7 +1,7 @@
 ---
 title: Store FIFO - Put Your Games in Order
 order: 11
-description: You prepare to expire games
+description: Preparing to expire games
 tag: deep-dive
 ---
 
@@ -17,7 +17,7 @@ Make sure you have everything you need before proceeding:
 
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will deal with:
     

@@ -1,7 +1,7 @@
 ---
 title: Message and Handler - Make Sure a Player Can Reject a Game
 order: 10
-description: You reject a game
+description: Rejecting a game
 tag: deep-dive
 ---
 
@@ -18,7 +18,7 @@ Before proceeding, make sure you have all you need:
 
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
 

@@ -1,7 +1,7 @@
 ---
 title: "Go Relayer"
 order: 
-description: 
+description: Relayer implementation in Golang
 tag: deep-dive
 ---
 

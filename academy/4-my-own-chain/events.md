@@ -1,7 +1,7 @@
 ---
 title: Events - Emitting Game Information
 order: 9
-description: You emit game information using events
+description: Emitting game information using events
 tag: deep-dive
 ---
 
@@ -17,7 +17,7 @@ Make sure you have everything you need before proceeding:
  
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
 

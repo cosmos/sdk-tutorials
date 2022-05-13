@@ -1,7 +1,7 @@
 ---
 title: "Relaying in General"
 order: 
-description: 
+description: Relayers in IBC
 tag: deep-dive
 ---
 

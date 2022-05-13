@@ -1,5 +1,5 @@
 ---
-title: "Your First CosmJS Actions"
+title: "Your First CosmJS Actions - Send Tokens"
 order: 2
 description: Interacting with a Cosmos SDK chain through CosmJS
 tag: deep-dive
@@ -7,18 +7,18 @@ tag: deep-dive
 
 # Your First CosmJS Actions - Send Tokens
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 Take your first steps with CosmJS. Use it to send some simple transactions. 
     
-In this section:
+In this section, you will:
     
-* Download and install CosmJS
-* Create a small experiment
-* Prepare a simple testnet
-* Establish your connection
-* Inspect a balance
-* Send a transactions
+* Download and install CosmJS.
+* Create a small experiment.
+* Prepare a simple testnet.
+* Establish your connection.
+* Inspect a balance.
+* Send transactions.
     
 </HighlightBox>
 

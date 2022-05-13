@@ -1,7 +1,7 @@
 ---
 title: Store Field - Record the Game Winner
 order: 13
-description: You store the winner of a game
+description: Storing the winner of a game
 tag: deep-dive
 ---
 
@@ -17,7 +17,7 @@ Make sure you have everything you need before proceeding:
     
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
     

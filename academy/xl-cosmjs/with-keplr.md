@@ -7,16 +7,15 @@ tag: deep-dive
 
 # Learn to Integrate Keplr
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
-Build applicatiosn that interact with the Keplr browser extension. 
+Build applicatiosn that interact with the Keplr browser extension.
     
-In this section. 
+In this section, you will learn more about: 
     
 * Detecting Keplr
-* Get chain info
+* Getting chain info
 * The user interaction flow
-* 
 
 </HighlightBox>
 
@@ -642,4 +641,4 @@ Keplr does not know about locally running chains by default. As you did with Cos
 
 ## Conclusion
 
-You have how updated your CosmJS front-end so that it integrates with Keplr.
+You have how updated your CosmJS frontend so that it integrates with Keplr.

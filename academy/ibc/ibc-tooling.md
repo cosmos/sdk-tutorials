@@ -1,11 +1,11 @@
 ---
 title: "IBC Tooling"
 order: 
-description: 
+description: Overview of some helpful tools
 tag: deep-dive
 ---
 
-# Tooling
+# IBC Tooling
 
 <HighlightBox type="learning">
 	
@@ -23,7 +23,7 @@ While going through the overview, it is recommended to try out all there is to d
 
 These types of tools help maintain an overview of the overall IBC network, but can also assist with things like relayer selection, as they provide an overview of essential metrics when it comes to relaying.
 
-## MapOfZones - Explore the Cosmos network
+## MapOfZones - explore the Cosmos network
 
 [MapOfZones](https://mapofzones.com/) is a Cosmos network explorer.
 

@@ -1,7 +1,7 @@
 ---
 title: IBC Token - Play With Cross-Chain Tokens
 order: 18
-description: Let players wager any fungible token
+description: Letting players wager any fungible token
 tag: deep-dive
 ---
 
@@ -17,7 +17,7 @@ Make sure you have all you need before proceeding:
     
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
 

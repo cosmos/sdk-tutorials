@@ -7,15 +7,19 @@ tag: deep-dive
 
 # Modules
 
-<HighlightBox type="synopsis">
-
-Modules are functional components that address application-level concerns such as token management or governance. The Cosmos SDK includes several ready-made modules so that application developers can focus on the truly unique aspects of their application.
+<HighlightBox type="prerequisite">
 
 Review the following sections to better understand modules in the Cosmos SDK:
 
 * [Transactions](./transactions.md)
 * [Messages](./messages.md)
 * [Queries](./queries.md)
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+Modules are functional components that address application-level concerns such as token management or governance. The Cosmos SDK includes several ready-made modules so that application developers can focus on the truly unique aspects of their application.
 
 A code example that illustrates module creation and an introduction to your checkers blockchain can be found at the end of this section.
 

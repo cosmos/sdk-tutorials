@@ -1,13 +1,13 @@
 ---
 title: "What is CosmJS?"
 order: 1
-description: What is CosmJS and what can it do for me?
-tag: intro
+description: CosmJS and what it can do for me
+tag: fast-track
 ---
 
 # What is CosmJS?
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 Build applications that interact with Cosmos blockchains with CosmJS. 
   
@@ -61,6 +61,7 @@ CosmJS's modular structure lets developers import only the parts that are needed
 ## Packages
 
 CosmJS is a library that consists of many smaller npm packages within the [@cosmjs namespace](https://www.npmjs.com/org/cosmjs), a so called monorepo.
+
 Generally people will only be needing the `stargate` and `encoding` packages as they contains the main functionality to interact with Cosmos SDK chains version 0.40 and higher.
 Among many more, here are some examples packages:
 
@@ -92,4 +93,4 @@ Some additional reading or video material is available as well:
 
 ## Next up
 
-Take your [first steps with CosmJS](./first-steps.md).
+Take your first steps with CosmJS in the [next section](./first-steps.md).

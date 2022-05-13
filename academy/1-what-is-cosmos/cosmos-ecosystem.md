@@ -12,13 +12,25 @@ tag: fast-track
 **Cosmos** is a network of independent blockchains, which are:
 
 * All powered by consensus algorithms with Byzantine Fault-Tolerance (BFT).
-* All connected through the Inter-Blockchain Communication Protocol (IBC), which enables value transfers, token transfers, and other communication between chains, all without the need to involve exchanges or make compromises regarding the chains' sovereignties.
+* All connected through the Inter-Blockchain Communication Protocol (IBC), which enables value transfers, token transfers, and other communication between chains, all without the need to involve exchanges or make compromises regarding the sovereignty of each chain.
 
 Cosmos is also **a blockchain ecosystem** complete with protocols, SDK, tokens, wallets, applications, repositories, services, and tools.
   
 </HighlightBox>
 
-## A whole universe to discover: tokens, wallets, apps, and services
+<HighlightBox type="learning">
+
+In this section, you will get an introduction:
+
+* Of the Cosmos ecosystem
+* Into the Cosmos SDK
+* To the Inter-Blockchain Communication Protocol
+* To the Ignite CLI
+* Into CosmWasm
+
+</HighlightBox>
+
+## A whole universe to discover - tokens, wallets, apps, and services
 
 Cosmos is an ever-expanding ecosystem of tokens, wallets, and tools, as well as interconnected applications and services, all built for a decentralized future.
 
@@ -52,7 +64,7 @@ Do you want to find out more about the wide variety of wallets in the Cosmos eco
 
 </HighlightBox>
 
-## The Cosmos SDK: Modular and Customizable
+## The Cosmos SDK - modular and customizable
 
 The Cosmos network focuses on an ecosystem for easy blockchain development that provides customizability and interoperability. It establishes a stable universe determined by rules that apply to the whole ecosystem equally. _Click on the hotspots in the image to learn more about the main goals of the Cosmos network._
 
@@ -139,7 +151,7 @@ Read the [node explorer documentation](https://github.com/cosmos/atlas/blob/main
 
 -->
 
-## Ignite CLI: building application-specific blockchains with one command
+## Ignite CLI - building application-specific blockchains with one command
 
 [Ignite CLI](https://ignite.com/cli) is a developer-friendly, command-line interface (CLI) tool for application-specific blockchains which builds on Tendermint and the Cosmos SDK. The CLI tool offers everything developers need to build, test, and launch a chain. It accelerates blockchain development by scaffolding and assembling all components needed for a production-ready blockchain. Ignite CLI makes the process from initial idea to production 95% faster. This lets developers build a blockchain in minutes, and frees them to focus more strongly on the business logic of their application.
 
@@ -152,13 +164,13 @@ With Ignite CLI, developers can:
 
 <HighlightBox type="reading">
 
-See the official [Ignite CLI documentation](https://docs.ignite.com/), and the section on [Ignite CLI](../4-my-own-chain/ignitecli.md) in the **My Own Cosmos Chain** chapter.
+See the official [Ignite CLI documentation](https://docs.ignite.com/), and the section on [Ignite CLI](../4-my-own-chain/ignitecli.md) in the **Running Your Own Cosmos Chain - Part 1** chapter.
 
 </HighlightBox>
 
 When you scaffold with Ignite CLI, things like key management, creating validators, and transferring tokens can all be done through the CLI.
 
-## CosmWasm: Multi-chain smart contracts
+## CosmWasm - multi-chain smart contracts
 
 [CosmWasm](https://cosmwasm.com/) is a multi-chain platform on which to create robust dApps for Cosmos using smart contracts. It builds on Tendermint and the Cosmos SDK. Its key features are:
 

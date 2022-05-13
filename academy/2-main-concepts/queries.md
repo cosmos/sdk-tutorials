@@ -7,16 +7,20 @@ tag: deep-dive
 
 # Queries
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
-In this section you will discover queries, one of two primary objects handled by modules. Make sure you are prepared by reading the previous sections:
+Make sure you are prepared for this section by reading the following previous sections:
 
 * [A Blockchain App Architecture](./architecture.md)
 * [Accounts](./accounts.md)
 * [Transactions](./transactions.md)
 * [Modules](./modules.md)
 
-At the end of the section is a code example that puts queries into practice in your checkers blockchain.
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+In this section you will discover queries, one of two primary objects handled by modules. At the end of the section is a code example that puts queries into practice in your checkers blockchain.
 
 </HighlightBox>
 

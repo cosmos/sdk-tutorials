@@ -1,7 +1,7 @@
 ---
 title: "Interchain Accounts"
 order: 
-description: 
+description: Working with ICA
 tag: deep-dive
 ---
 
@@ -13,19 +13,19 @@ tag: deep-dive
 
 In this section, you will learn more about:
 
-* Host chains and controller chains
-* See ICA module code
+* Hosting chains and controller chains
+* ICA module code
 * The authentication module
   
 </HighlightBox>
 
-Another application module [implemented in the IBC-go](https://github.com/cosmos/ibc-go/tree/main/docs/apps/interchain-accounts) repository is the [Interchain Accounts(ICS-27)](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md). 
+Another application module [implemented in the IBC-Go](https://github.com/cosmos/ibc-go/tree/main/docs/apps/interchain-accounts) repository are [Interchain Accounts (ICS-27)](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md). 
 
 ![ICA Overview](/academy/ibc/images/icaoverview.png)
 
-**Host Chain**: the chain where the interchain account is registered. The host chain listens for IBC packets from a controller chain which should contain instructions (e.g. cosmos SDK messages) which the interchain account will execute.
+**Host Chain:** the chain where the interchain account is registered. The host chain listens for IBC packets from a controller chain which should contain instructions (e.g. cosmos SDK messages) which the interchain account will execute.
 
-**Controller Chain**: the chain that registers and controls an account on a host chain. The controller chain sends IBC packets to the host chain to control the account. A controller chain must have at least one interchain accounts authentication module in order to act as a controller chain.
+**Controller Chain:** the chain that registers and controls an account on a host chain. The controller chain sends IBC packets to the host chain to control the account. A controller chain must have at least one interchain accounts authentication module in order to act as a controller chain.
 
 <HighlightBox type="info">
 
@@ -33,9 +33,9 @@ The Interchain Accounts application module is structured to support the ability 
 
 </HighlightBox>
 
-**Authentication Module**: a custom IBC application module on the controller chain that uses the Interchain Accounts module API to build custom logic for the creation and management of interchain accounts. An authentication module is required for a controller chain to utilize the interchain accounts module functionality.
+**Authentication Module:** a custom IBC application module on the controller chain that uses the Interchain Accounts module API to build custom logic for the creation and management of interchain accounts. An authentication module is required for a controller chain to utilize the interchain accounts module functionality.
 
-**Interchain Account**: an account on a host chain. An interchain account has all the capabilities of a normal account. However, rather than signing transactions with a private key, a controller chain's authentication module will send IBC packets to the host chain which signal what transactions the interchain account should execute.
+**Interchain Account:** an account on a host chain. An interchain account has all the capabilities of a normal account. However, rather than signing transactions with a private key, a controller chain's authentication module will send IBC packets to the host chain which signal what transactions the interchain account should execute.
 
 The ICA module provides an API for registering an account and for sending interchain transactions. A developer will use this module by implementing an **ICA Auth Module** (_authentication module_) and can expose GRPC endpoints for an application or user. Regular accounts use a private key to sign transactions on-chain. Interchain Accounts are instead controlled programmatically by separate chains via IBC transactions. Interchain Accounts are implemented as sub-accounts of the interchain accounts module account.
 
@@ -198,7 +198,7 @@ func (k Keeper) OnChanOpenAck(
 
 After registration, the registered account can be used to sign transactions on the host chain:
 
-![Send Transaction](/academy/ibc/images/icasendtx.png)
+![Send transaction](/academy/ibc/images/icasendtx.png)
 
 You can find `SendTx` in the [`relay.go`](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/controller/keeper/relay.go):
 
@@ -302,7 +302,7 @@ func (k Keeper) executeTx(ctx sdk.Context, sourcePort, destPort, destChannel str
 
 `authenticateTx` ensures that the provided message contains the correct interchain account owner address. `executeMsg` will call the message handler and therefore execute the message. 
 
-## SDK Security Model
+## SDK security model
 
 SDK modules on a chain are assumed to be trustworthy. For example, there are no checks to prevent an untrustworthy module from accessing the bank keeper.
 
@@ -310,7 +310,7 @@ The implementation of [ICS-27](https://github.com/cosmos/ibc/blob/master/spec/ap
 
 The implementation assumes other IBC application modules will not bind to ports within the [ICS-27](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md) namespace.
 
-## Authentication Module
+## Authentication module
 
 The [controller submodule](https://github.com/cosmos/ibc-go/tree/main/modules/apps/27-interchain-accounts/controller) is used for account registration and packet sending. It executes only logic required of all controllers of interchain accounts. The type of authentication used to manage the interchain accounts remains unspecified. There may exist many different types of authentication which are desirable for different use cases. Thus the purpose of the authentication module is to wrap the controller module with custom authentication logic.
 
@@ -318,10 +318,10 @@ In [ibc-go](https://github.com/cosmos/ibc-go), authentication modules are connec
 
 The **authentication module** must:
 
-- Authenticate interchain account owners
-- Track the associated interchain account address for an owner
-- Claim the channel capability in `OnChanOpenInit`
-- Send packets on behalf of an owner (after authentication)
+* Authenticate interchain account owners
+* Track the associated interchain account address for an owner
+* Claim the channel capability in `OnChanOpenInit`
+* Send packets on behalf of an owner (after authentication)
 
 The following [`IBCModule`](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go) callbacks must be implemented with appropriate custom logic:
 

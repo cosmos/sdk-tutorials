@@ -1,7 +1,7 @@
 ---
 title: Message and Handler - Add a Way to Make a Move
 order: 8
-description: You play a game
+description: Playing a game
 tag: deep-dive
 ---
 
@@ -17,7 +17,7 @@ Make sure you have all you need before proceeding:
 
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
 

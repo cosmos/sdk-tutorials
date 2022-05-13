@@ -1,7 +1,7 @@
 ---
 title: Message Handler - Create and Save a Game Properly
 order: 7
-description: You create a proper game
+description: Creating a proper game
 tag: deep-dive
 ---
 
@@ -16,7 +16,7 @@ Make sure you have everything you need before proceeding:
 
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
 

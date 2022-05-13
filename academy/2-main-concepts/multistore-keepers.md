@@ -7,9 +7,7 @@ tag: deep-dive
 
 # Multistore and Keepers
 
-<HighlightBox type="synopsis">
-
-Keepers are responsible for managing access to states defined by modules. Because states are accessed through keepers, they are an ideal place to ensure that invariants are enforced and security principles are always applied.
+<HighlightBox type="prerequisite">
 
 Look at the following sections before you begin:
 
@@ -17,6 +15,12 @@ Look at the following sections before you begin:
 * [Messages](./messages.md)
 * [Modules](./modules.md)
 * [Protobuf](./protobuf.md)
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+Keepers are responsible for managing access to states defined by modules. Because states are accessed through keepers, they are an ideal place to ensure that invariants are enforced and security principles are always applied.
 
 You can find a code example for your checkers blockchain at the end of the section that explores dealing with storage elements, message handling, and gas costs.
 

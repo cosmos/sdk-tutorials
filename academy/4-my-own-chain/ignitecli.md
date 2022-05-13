@@ -21,7 +21,7 @@ Before diving into the details of how Ignite CLI helps you scaffold the basics f
 
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
   

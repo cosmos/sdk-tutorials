@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Transactions
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section you will dive into the various functions and features of making transactions in Cosmos:
     
@@ -15,10 +15,7 @@ In this section you will dive into the various functions and features of making 
 * Signing Transactions
 * Generating Transactions
 * Broadcasting Transactions
-* Introducing the CLI
-* Introducing the gRPC service
-* Intruducing the REST API
-* Introducing the Tendermint RPC service
+* Introducing the CLI, the gRPC service, the REST API, and the Tendermint RPC service
 
 </HighlightBox>
 
