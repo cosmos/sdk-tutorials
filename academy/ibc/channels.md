@@ -39,7 +39,7 @@ An **unordered channel** is _a channel where packets can be delivered in any ord
 
 </HighlightBox>
 
-**Establishing a Channel**
+## Establishing a Channel
 
 Similarly to how connections are established, channels are established through a four way handshake, in which each step is initiated by a relayer:
 
@@ -64,7 +64,7 @@ If both chains submit `OpenInit` then `OpenTry` at same time, there should be no
 
 </HighlightBox>
 
-**Example code: ChannelOpenInit**
+## Example code: ChannelOpenInit
 
 You can find the implementation of `ChannelOpenInit` in the the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go)
 
@@ -109,14 +109,14 @@ func (k Keeper) ChannelOpenInit(goCtx context.Context, msg *channeltypes.MsgChan
 
 <HighlightBox type="info">
 
-**Capabilities**
+## Capabilities
 
 IBC is intended to work in execution environments where modules do not necessarily trust each other. This security is accomplished using a [dynamic
 capability store](https://github.com/cosmos/cosmos-sdk/blob/master/docs/architecture/adr-003-dynamic-capability-store.md. This binding strategy prevents other modules from using the particular port or channel since those modules do not own the appropriate capability. While this background information is useful, IBC application developers should not need to modify this lower level abstraction, other than setting the capabilities appropriately in `app.go`.
 
 </HighlightBox>
 
-## Application Packet Flow
+## Application packet flow
 
 As stated above, application modules communicate with each other by sending packets over IBC channels. However, IBC modules do not directly pass these messages to each other over the network. Rather, the module will commit some state reflecting the transaction execution to a precisely defined path reserved for a specific message type and a specific counterparty. For example, as part of an ICS 20 token transfer, the bank module would escrow the portion of tokens to be transferred and store the proof of this escrow.
 
@@ -152,7 +152,7 @@ func NewPacket(
 
 ![Packet flow](/academy/ibc/images/packetflow.png)
 
-**Success Case**
+## Success case
 
 In the first step of a successful packet flow, application A will send a packet (call `sendPacket`) to the application B. `SendPacket` can be triggered by a user, but applications can also trigger this as the result of some other application logic.
 
@@ -164,7 +164,7 @@ After receiving the packet data from core IBC, application B will then marshal t
 
 <HighlightBox type="info">
 
-**Synchronous and Asynchronous Acknowledgements**
+## Synchronous and asynchronous acknowledgements
 
 Acknowledgements can either take place synchronously or asynchronously. What this means is that the `OnRecvPacket` callback has a return value `Acknowledgement` which is optional.
 
@@ -176,7 +176,7 @@ In either case, even if there is no application specific logic to be initiated a
 
 </HighlightBox>
 
-**Timeout Case**
+## Timeout case
 
 In the case that a packet is time-sensitive and the timeout block height or timeout timestamp specified in the packet parameters **based on chain B's time** has elapsed, whatever state transitions have occured as a result of the sent packet should be reversed.
 
