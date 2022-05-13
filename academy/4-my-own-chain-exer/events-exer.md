@@ -26,4 +26,4 @@ Only focus on the narrow issue of event emission.
 
 ## Next up
 
-When you are satisfied, or not, with what you did, have a look at [a solution](./events.md).
+When you are satisfied, or not, with what you did, have a look at [a solution](../4-my-own-chain/events.md).

@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Exercise - Store objects - Make a Checkers Blockchain
 
-You have created your basic project with Ignite CLI in the [previous section](./ignitecli.md). Now you are face-to-face with the proverbial blank page: where do you start to make your blank project a game of Checkers?
+You have created your basic project with Ignite CLI in the [previous section](../4-my-own-chain/ignitecli.md). Now you are face-to-face with the proverbial blank page: where do you start to make your blank project a game of Checkers?
 
 ## Think
 
@@ -45,4 +45,4 @@ Run the commands, make the adjustments, run some tests. Don't go into messages a
 
 ## Next up
 
-When you are satisfied, or not, with what you did, have a look at [a solution](./stored-game.md).
+When you are satisfied, or not, with what you did, have a look at [a solution](../4-my-own-chain/stored-game.md).

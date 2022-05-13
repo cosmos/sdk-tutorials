@@ -255,8 +255,12 @@ module.exports = {
                   path: "/academy/4-my-own-chain/ignitecli.html"
                 },
                 {
+                  title: "Exercise - Make a Checkers Blockchain",
+                  path: "/academy/4-my-own-chain-exer/exercise-intro.html"
+                },
+                {
                   title: "Exercise - Store Object - Make a Checkers Blockchain",
-                  path: "/academy/4-my-own-chain/stored-game-exer.html"
+                  path: "/academy/4-my-own-chain-exer/stored-game-exer.html"
                 },
                 {
                   title: "Store Object - Make a Checkers Blockchain",
@@ -264,7 +268,7 @@ module.exports = {
                 },
                 {
                   title: "Exercise -Message - Create a Message to Create a Game",
-                  path: "/academy/4-my-own-chain/create-message-exer.html"
+                  path: "/academy/4-my-own-chain-exer/create-message-exer.html"
                 },
                 {
                   title: "Message - Create a Message to Create a Game",
@@ -272,7 +276,7 @@ module.exports = {
                 },
                 {
                   title: "Exercise - Message Handler - Create and Save a Game Properly",
-                  path: "/academy/4-my-own-chain/create-handling-exer.html"
+                  path: "/academy/4-my-own-chain-exer/create-handling-exer.html"
                 },
                 {
                   title: "Message Handler - Create and Save a Game Properly",
@@ -280,7 +284,7 @@ module.exports = {
                 },
                 {
                   title: "Exercise - Message and Handler - Add a Way to Make a Move",
-                  path: "/academy/4-my-own-chain/play-game-exer.html"
+                  path: "/academy/4-my-own-chain-exer/play-game-exer.html"
                 },
                 {
                   title: "Message and Handler - Add a Way to Make a Move",
@@ -288,7 +292,7 @@ module.exports = {
                 },
                 {
                   title: "Exercise - Events - Emitting Game Information",
-                  path: "/academy/4-my-own-chain/events-exer.html"
+                  path: "/academy/4-my-own-chain-exer/events-exer.html"
                 },
                 {
                   title: "Events - Emitting Game Information",
@@ -296,7 +300,7 @@ module.exports = {
                 },
                 {
                   title: "Exercise - Message and Handler - Make Sure a Player Can Reject a Game",
-                  path: "/academy/4-my-own-chain/reject-game-exer.html"
+                  path: "/academy/4-my-own-chain-exer/reject-game-exer.html"
                 },
                 {
                   title: "Message and Handler - Make Sure a Player Can Reject a Game",

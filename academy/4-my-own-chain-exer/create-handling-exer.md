@@ -26,4 +26,4 @@ For now, don't bother with niceties like gas metering or event emission.
 
 ## Next up
 
-When you are satisfied, or not, with what you did, have a look at [a solution](./create-handling.md).
+When you are satisfied, or not, with what you did, have a look at [a solution](../4-my-own-chain/create-handling.md).

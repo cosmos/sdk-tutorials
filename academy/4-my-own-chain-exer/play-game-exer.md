@@ -29,4 +29,4 @@ As before, don't bother yet with niceties like gas metering or event emission.
 
 ## Next up
 
-When you are satisfied, or not, with what you did, have a look at [a solution](./play-game.md).
+When you are satisfied, or not, with what you did, have a look at [a solution](../4-my-own-chain/play-game.md).
