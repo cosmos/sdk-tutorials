@@ -1,11 +1,11 @@
 ---
-title: "Cryptography"
+title: "Cryptographic Fundamentals of Blockchain"
 order: 6
-description: Cryptographic fundamentals of blockchain - Public-key cryptography
+description: Public-key cryptography
 tag: fast-track
 ---
 
-# Cryptographic fundamentals of blockchain - Public-key cryptography 
+# Cryptographic Fundamentals of Blockchain
 
 Modern cryptography leverages computer capabilities to make the power of certain mathematical functions available for practical use. Without modern cryptography, there would be no blockchain technology.
 

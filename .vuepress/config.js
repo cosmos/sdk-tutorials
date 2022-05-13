@@ -120,7 +120,7 @@ module.exports = {
               order: 0
             },
             {
-              title: "Getting started",
+              title: "Getting Started",
               directory: true,
               order: 1,
               children: [

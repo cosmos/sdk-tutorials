@@ -1,7 +1,7 @@
 ---
 title: "Public and Managed Blockchains"
 order: 4
-description: Introduction to Managed Networks
+description: Introduction to different deployment patterns
 tag: fast-track
 ---
 

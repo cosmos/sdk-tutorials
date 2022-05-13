@@ -70,6 +70,39 @@ overview:
         <div class="tm-bold">When do I get the results?</div>
         You'll receive your exam results by <span class="tm-bold">August 3rd.</span> 
 modules:
+  - title: Getting Started
+    description: This chapter is completely optional and a good introduction if you are new to blockchain technology or need a refresher.
+    number: 0
+    url: /course-ida/landingpages/week0-lp.html
+    submodules:
+      - title: Introduction to Blockchain Technology
+        description: Blockchain technology in general
+        url: /course-ida/landingpages/week0-lp.html
+        order: 0
+      - title: Blockchain 101
+        description: A universe to discover
+        url: /academy/0.0-B9lab-Blockchains/1_blockchain.md
+        order: 1
+      - title: Blockchain History
+        description: A brief history of blockchain technology
+        url: /academy/0.0-B9lab-Blockchains/2_public.md
+        order: 2
+      - title: Public and Managed Blockchains
+        description: Introduction to different deployment patterns
+        url: /academy/0.0-B9lab-Blockchains/3_managed.md
+        order: 3
+      - title: Consensus in Distributed Networks
+        description: An introduction to distributed consensus
+        url: /academy/0.0-B9lab-Blockchains/4_consensus.md
+        order: 4    
+      - title: Cryptographic Fundamentals of Blockchain
+        description: Public-key cryptography
+        url: /academy/0.0-B9lab-Blockchains/5_crypto.md
+        order: 5
+      - title: Self-assessment Quiz
+        description: Want to test your blockchain knowledge?
+        url: /academy/0.0-B9lab-Blockchains/6_quiz.md
+        order: 6
   - title: Cosmos and Its Main Concepts
     description: In Week 1, you'll discover the Cosmos ecosystem and learn about the main concepts of the Cosmos SDK, from its Tendermint consensus to learning how keys, accounts, and transactions relate to each other.
     number: 1
