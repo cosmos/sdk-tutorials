@@ -135,7 +135,7 @@ func (im IBCModule) OnRecvPacket(
 
 Take a look at the type [definition of a token packet](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/applications/transfer/v2/packet.proto) before diving further into the code:
 
-```protobuff
+```protobuf
 syntax = "proto3";
 
 package ibc.applications.transfer.v2;
@@ -175,7 +175,7 @@ func (k Keeper) Transfer(goCtx context.Context, msg *types.MsgTransfer) (*types.
 }
 ```
 
-There you see `SendTransfer`, which implements the application logic after [cheking if the sender is a source or sink chain](https://github.com/cosmos/ibc-go/blob/main/modules/apps/transfer/types/coin.go):
+There you see `SendTransfer`, which implements the application logic after [checking if the sender is a source or sink chain](https://github.com/cosmos/ibc-go/blob/main/modules/apps/transfer/types/coin.go):
 
 ```go
 func (k Keeper) SendTransfer(

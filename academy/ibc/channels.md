@@ -16,7 +16,7 @@ In this section, you will:
 
 </HighlightBox>
 
-Connections and clients comprise the main components of the transport layer in IBC. However, application to application communication in IBC is conducted over **channels**, which route between an application module such as the module which handles ICS20 token transfers on one chain, and the corresponding application module on another one. These applications are namespaced by **port identifiers** such as 'transfer' for ICS20 token transfers.
+Connections and clients comprise the main components of the transport layer in IBC. However, application to application communication in IBC is conducted over **channels**, which route between an application module such as the module which handles Interchain Standard (ICS) 20 token transfers on one chain, and the corresponding application module on another one. These applications are namespaced by **port identifiers** such as 'transfer' for ICS 20 token transfers.
 
 <HighlightBox type="info">
 
@@ -118,7 +118,7 @@ capability store](https://github.com/cosmos/cosmos-sdk/blob/master/docs/architec
 
 ## Application Packet Flow
 
-As stated above, application modules communicate with each other by sending packets over IBC channels. However, IBC modules do not directly pass these messages to each other over the network. Rather, the module will commit some state reflecting the transaction execution to a precisely defined path reserved for a specific message type and a specific counterparty. For example, as part of an ICS20 token transfer, the bank module would escrow the portion of tokens to be transferred and store the proof of this escrow.
+As stated above, application modules communicate with each other by sending packets over IBC channels. However, IBC modules do not directly pass these messages to each other over the network. Rather, the module will commit some state reflecting the transaction execution to a precisely defined path reserved for a specific message type and a specific counterparty. For example, as part of an ICS 20 token transfer, the bank module would escrow the portion of tokens to be transferred and store the proof of this escrow.
 
 A relayer will monitor channels for events emitted when updates have been submitted to these paths, and (after first submitting an `UpdateClient` to update the sending chain light client on the destination chain) relay the message containing the packet data along with a proof that the state transition contained in the message has been commited to the state of the sending chain. The destination chain then verifies this packet and packet commitmentment proof against the state contained in the light client.
 
@@ -160,7 +160,7 @@ Core IBC A will commit the packet to its own state and the relayer can query thi
 
 Note that core IBC is unopinionated about the actual content of the packet data, as this data is at this point just bytes. It is the responsibility of the applications on either end to marshal and unmarshal the data from and to the expected data structures on either side. This is also why application version negotiation as discussed above in the channel handshakes is important, as different versions of an application may result in different expected data structures on either end of the channel and application.
 
-After receiving the packet data from core IBC, application B will then marshal the data blob into the expected structure and apply the relevant application logic. In the case of an ICS20 token transfer, for example, this would entail the minting of the received tokens on chain B to the specified receiver user account. Application B will then send an `Acknowledgment` message to core IBC B, which will again commit it to its own state so it can be queried and sent by a relayer to core IBC A.
+After receiving the packet data from core IBC, application B will then marshal the data blob into the expected structure and apply the relevant application logic. In the case of an ICS 20 token transfer, for example, this would entail the minting of the received tokens on chain B to the specified receiver user account. Application B will then send an `Acknowledgment` message to core IBC B, which will again commit it to its own state so it can be queried and sent by a relayer to core IBC A.
 
 <HighlightBox type="info">
 
@@ -168,7 +168,7 @@ After receiving the packet data from core IBC, application B will then marshal t
 
 Acknowledgements can either take place synchronously or asynchronously. What this means is that the `OnRecvPacket` callback has a return value `Acknowledgement` which is optional.
 
-In the case of a synchronous `Acknowledgement`, the callback will return an `Acknowledgement` at the end of the process and relayer can query this `Acknowledgement` packet and relay immediately after the process has finished. This is useful in cases in which application A is expecting an `AckPacket` in order to initiate some application logic `OnAcknowledgePacket`. For example, the sending chain of an ICS20 token transfer will do nothing in the case of a successful `AckPacket`, but in the case where an error is returned, the sending chain will unescrow the previously locked tokens.
+In the case of a synchronous `Acknowledgement`, the callback will return an `Acknowledgement` at the end of the process and relayer can query this `Acknowledgement` packet and relay immediately after the process has finished. This is useful in cases in which application A is expecting an `AckPacket` in order to initiate some application logic `OnAcknowledgePacket`. For example, the sending chain of an ICS 20 token transfer will do nothing in the case of a successful `AckPacket`, but in the case where an error is returned, the sending chain will unescrow the previously locked tokens.
 
 In the case of applications like Interchain Security, there is an asynchronous `Acknowledgement` flow. This means that the `Acknowledgement` is not sent as part of the return value of `OnRecvPacket`, but it is sent at some later point. IBC is designed to handle this case by allowing for `Acknowledgements` to be committed/queried asynchronously.
 
@@ -180,4 +180,4 @@ In either case, even if there is no application specific logic to be initiated a
 
 In the case that a packet is time-sensitive and the timeout block height or timeout timestamp specified in the packet parameters **based on chain B's time** has elapsed, whatever state transitions have occured as a result of the sent packet should be reversed.
 
-In these cases, the initial flow is the same, with core IBC A first committing the packet to its own state. However, instead of querying for the packet, a relayer will submit a  `QueryNonReceipt` to receive a proof that the packet was not received by core IBC B. It can then send the `TimeoutPacket` to core IBC A, which will then trigger the relevant `OnTimeoutPacket` application logic. For example, the ICS20 token transfer application will unescrow the locked up tokens and send these back to the original sender `OnTimeoutPacket`.
+In these cases, the initial flow is the same, with core IBC A first committing the packet to its own state. However, instead of querying for the packet, a relayer will submit a  `QueryNonReceipt` to receive a proof that the packet was not received by core IBC B. It can then send the `TimeoutPacket` to core IBC A, which will then trigger the relevant `OnTimeoutPacket` application logic. For example, the ICS 20 token transfer application will unescrow the locked up tokens and send these back to the original sender `OnTimeoutPacket`.

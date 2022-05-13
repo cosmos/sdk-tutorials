@@ -28,7 +28,7 @@ IBC connections are established by on-chain ledger code and therefore do not req
 
 <HighlightBox type="info">
 
-The connection semantics are described in the [Interchain Standard (ICS) 3](https://github.com/cosmos/ibc/tree/master/spec/core/ics-003-connection-semantics).
+The connection semantics are described in the [ICS 3](https://github.com/cosmos/ibc/tree/master/spec/core/ics-003-connection-semantics).
 
 </HighlightBox>
 
