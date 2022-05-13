@@ -255,24 +255,48 @@ module.exports = {
                   path: "/academy/4-my-own-chain/ignitecli.html"
                 },
                 {
+                  title: "Exercise - Store Object - Make a Checkers Blockchain",
+                  path: "/academy/4-my-own-chain/stored-game-exer.html"
+                },
+                {
                   title: "Store Object - Make a Checkers Blockchain",
                   path: "/academy/4-my-own-chain/stored-game.html"
+                },
+                {
+                  title: "Exercise -Message - Create a Message to Create a Game",
+                  path: "/academy/4-my-own-chain/create-message-exer.html"
                 },
                 {
                   title: "Message - Create a Message to Create a Game",
                   path: "/academy/4-my-own-chain/create-message.html"
                 },
                 {
+                  title: "Exercise - Message Handler - Create and Save a Game Properly",
+                  path: "/academy/4-my-own-chain/create-handling-exer.html"
+                },
+                {
                   title: "Message Handler - Create and Save a Game Properly",
                   path: "/academy/4-my-own-chain/create-handling.html"
+                },
+                {
+                  title: "Exercise - Message and Handler - Add a Way to Make a Move",
+                  path: "/academy/4-my-own-chain/play-game-exer.html"
                 },
                 {
                   title: "Message and Handler - Add a Way to Make a Move",
                   path: "/academy/4-my-own-chain/play-game.html"
                 },
                 {
+                  title: "Exercise - Events - Emitting Game Information",
+                  path: "/academy/4-my-own-chain/events-exer.html"
+                },
+                {
                   title: "Events - Emitting Game Information",
                   path: "/academy/4-my-own-chain/events.html"
+                },
+                {
+                  title: "Exercise - Message and Handler - Make Sure a Player Can Reject a Game",
+                  path: "/academy/4-my-own-chain/reject-game-exer.html"
                 },
                 {
                   title: "Message and Handler - Make Sure a Player Can Reject a Game",
