@@ -298,34 +298,30 @@ modules:
         description: Clients in IBC
         url: /academy/ibc/clients.html
         order: 4
-      - title: Implementing a Custom IBC Application
-        description: Taking a closer look at applications
-        url: /academy/ibc/custom-ibc-application.html
-        order: 5
       - title: IBC Token Transfer
         description: Token transfers across chains
         url: /academy/ibc/token-transfer.html
-        order: 6
+        order: 5
       - title: Interchain Accounts
         description: Working with ICA
         url: /academy/ibc/ica.html
-        order: 7
+        order: 6
       - title: Relaying in General
         description: Relayers in IBC
         url: /academy/ibc/relayerintro.html
-        order: 8
+        order: 7
       - title: Go Relayer
         description: Relayer implementation in Golang
         url: /academy/ibc/gorelayer.html
-        order: 9
+        order: 8
       - title: Hermes Relayer
         description: Relayer implementation in Rust
         url: /academy/ibc/hermesrelayer.html
-        order: 10
+        order: 9
       - title: IBC Tooling
         description: Overview of some helpful tools
         url: /academy/ibc/ibc-tooling.html
-        order: 11
+        order: 10
   - title: CosmJS - Interfacing
     description: In Week 5, you'll learn how to use CosmJS for your chain and apply it to the checkers blockchain.
     number: 5

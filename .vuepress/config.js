@@ -363,10 +363,6 @@ module.exports = {
                   path: "/academy/ibc/clients.html"
                 },
                 {
-                  title: "Implementing a Custom IBC Application",
-                  path: "/academy/ibc/custom-ibc-application.html"
-                },
-                {
                   title: "IBC Token Transfer",
                   path: "/academy/ibc/token-transfer.html"
                 },
