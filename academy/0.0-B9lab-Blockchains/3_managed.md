@@ -122,11 +122,11 @@ Unlike public networks, where the interaction between participants is governed b
 
 ![Public vs Private](/academy/0.0-B9lab-Blockchains/images/00_10_public_vs_private_comparison_table.png)
 
-In summary, **private blockchains**:
+**Private blockchains** can be:
 
-* **Can be designed for a limited number of vetted and approved participants:** performance challenges and poorly connected nodes are of lesser importance.
-* **Can be designed for optimized performance:** most participants in an enterprise network are capable of running well-connected, high-performance, and high-availability nodes. A group of participants can agree to raise the bar defining minimum system requirements significantly.
-* **Can be governed by a well-defined agreement between the participants:** such an agreement may codify the decision-making processes used to decide matters such as protocol upgrades, admission requirements, and remedial action. In a private or consortium setting, "who decides?" can (or likely _must_) be determined well in advance of any incident.
+* **Designed for a limited number of vetted and approved participants:** performance challenges and poorly connected nodes are of lesser importance.
+* **Designed for optimized performance:** most participants in an enterprise network are capable of running well-connected, high-performance, and high-availability nodes. A group of participants can agree to raise the bar defining minimum system requirements significantly.
+* **Governed by a well-defined agreement between the participants:** such an agreement may codify the decision-making processes used to decide matters such as protocol upgrades, admission requirements, and remedial action. In a private or consortium setting, "who decides?" can (or likely _must_) be determined well in advance of any incident.
 
 In summary, managed networks enable high-performance blockchain networks that can use consensus processes which are not suited for an environment with anonymous users. A group of trading partners can create a small network for their purposes and agree on equitable participation in the block-generation process (e.g. that each participant runs one validator), minimum performance metrics for acceptable validators, and governance, all of which enable fast confirmation and even deterministic transaction finality within their small group. The principal trade-off for this performance improvement is the shunning of permissionless, public access. 
 

@@ -99,7 +99,7 @@ Practical Byzantine Fault Tolerance (pBFT) was first introduced in 1999 and aros
 
 <HighlightBox type="tip">
 
-You can access the 1999 paper by Miguel Castro and Barabara Liskov on pBFT [here](http://pmg.csail.mit.edu/papers/osdi99.pdf). There is also an intuitive [presentation](http://www.comp.nus.edu.sg/~rahul/allfiles/cs6234-16-pbft.pdf) you can look at.
+You can access the 1999 paper by Miguel Castro and Barbara Liskov on pBFT [here](http://pmg.csail.mit.edu/papers/osdi99.pdf). There is also an intuitive [presentation](http://www.comp.nus.edu.sg/~rahul/allfiles/cs6234-16-pbft.pdf) you can look at.
 
 </HighlightBox>
 

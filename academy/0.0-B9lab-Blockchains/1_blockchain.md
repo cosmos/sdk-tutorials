@@ -21,7 +21,7 @@ To understand Cosmos, one must first understand blockchain technology. So, let's
 
 Blockchain technology is rapidly evolving and is difficult to understand in its entirety. It took many bright minds many years of development, plus a combination of advances in cryptography, distributed computing, and economics to create this nascent technology. Grasping blockchain technology requires both time and effort.
 
-Blockchain is a solution to a particular problem...the **double-spending problem**.
+Blockchain is a solution to a particular problem: the **double-spending problem**.
 
 ![Double-spending problem due to insufficient funds](/academy/0.0-B9lab-Blockchains/images/00_14_double_spending_v2-01.png)
 
@@ -43,7 +43,7 @@ Bitcoin has gained widespread attention since then. The underlying technology, b
 
 Security is challenging in peer-to-peer (P2P) networking for two reasons:
 
-* P2P software has to be downloaded to join a network, making it especially vulnerable to remote exploits;
+* P2P software has to be downloaded to join a network, making it especially vulnerable to remote exploits.
 * Malicious participants can send incorrect requests or responses, as well as malware, and because of interconnectivity corrupted data may propagate throughout the network.
 
 Other security risks include denial-of-service (DoS) attacks, routing attacks, and routing network partitions.
@@ -214,6 +214,6 @@ Blockchain technology is often seen as presenting the possibility of more privat
 <HighlightBox type="reading">
 
 * [Wikipedia: Double-spending](https://en.wikipedia.org/wiki/Double-spending)
-* [Satoshi Nakamoto: Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
+* [Satoshi Nakamoto (2008): Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
 
 </HighlightBox>

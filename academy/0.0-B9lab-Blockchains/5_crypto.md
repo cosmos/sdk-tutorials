@@ -15,7 +15,7 @@ Therefore, anyone new to blockchains discovers frequent references to message si
 
 In public-key cryptographic systems, keys always **come in pairs** and offer various capabilities. The capabilities are based on cryptographic mathematics. As the name suggests, the **public key** is meant to be distributed while the **private key** is to be jealously guarded. Compare the key pairs to having your house address public but keeping the key to your house private.
 
-Let us have a look at an example to better understand public/private keys, which you may know under the names:
+The following example will help to better understand public/private keys, which you may know under the names:
 
 * RSA
 * PGP or GnuPG
@@ -50,7 +50,7 @@ Note that you may need openssl version 1.0 or a newer one.
 
 </HighlightBox>
 
-Let us now take a look at scenarios in which public/private key pairs are useful.
+Now take a look at scenarios in which public/private key pairs are useful.
 
 ### Encrypt and decrypt
 
