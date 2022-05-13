@@ -190,9 +190,6 @@ modules:
         description: You reject a game
         url: /academy/4-my-own-chain/reject-game.html
         order: 9
-      - title: Mandatory Exercise (todo)
-        url: /feature-test/
-        order: 10
   - title: Running Your Own Cosmos Chain - Part 2
     description: In Week 3, you'll dive deeper into customizing the checkers blockchain and discovering how to make your own game more interesting and unique.
     number: 3
@@ -339,13 +336,6 @@ modules:
         description: Introducing a Web2.0 server to track games per player
         url: /academy/4-my-own-chain/server-side.html
         order: 3
-      - title: Final exam (todo)
-        url: /feature-test/
-        order: 4
-      - title: What's Next
-        description: Continue your Cosmos journey
-        url: /academy/5-whats-next/
-        order: 5
 ---
 
 # Welcome to the Cosmos SDK Developer Platform
