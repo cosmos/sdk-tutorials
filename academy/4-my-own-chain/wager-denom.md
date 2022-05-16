@@ -327,4 +327,4 @@ As soon as you close the browser window the channels on both ends are no longer 
 
 In the [next section](./migration.md), you will learn how to conduct chain upgrades through migrations.
 
-Alternatively, you can learn how to create the [Typescript client elements](./cosmjs-objects.md) for your blockchain.
+<!-- Alternatively, you can learn how to create the [Typescript client elements](./cosmjs-objects.md) for your blockchain. -->
