@@ -77,7 +77,7 @@ In any known blockchain, a change in the implementation requires an upgrade to t
 
 In a Tendermint blockchain, transactions are irreversibly finalized upon block creation, and upgrades are themselves governed by the block creation and validation process. This leaves no room for uncertainty: either the nodes agree to simultaneously upgrade their protocol, or the upgrade proposal fails.
 
-Validators are the ones who vote. This means that delegators should be very demanding when they act, as they also lend their vote to the validator unless the delegator chooses to vote too. A delegator can vote separately in order to override its validator's vote by the amount delegated.
+Validators are the ones who vote. This means that delegators should be very demanding when they act, as they also lend their vote to the validator - _unless the delegator chooses to vote too_. A delegator can vote separately in order to override its validator's vote by the amount delegated.
 
 ## Application Blockchain Interface (ABCI)
 
