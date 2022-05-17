@@ -267,7 +267,7 @@ module.exports = {
                   path: "/academy/4-my-own-chain/stored-game.html"
                 },
                 {
-                  title: "Exercise -Message - Create a Message to Create a Game",
+                  title: "Exercise - Message - Create a Message to Create a Game",
                   path: "/academy/4-my-own-chain-exer/create-message-exer.html"
                 },
                 {
@@ -308,8 +308,8 @@ module.exports = {
                 },
 /*
                 {
-                  title: "Mandatory Exercise (todo)",
-                  path: "/feature-test"
+                  title: "Mandatory Exercise on Hackerrank (TODO)",
+                  path: "/academy/4-my-own-chain-exer/week2-exercise.html"
                 },
 */
               ]
@@ -322,6 +322,10 @@ module.exports = {
                 {
                   title: "Running Your Own Cosmos Chain - Part 2",
                   path: "/course-ida/landingpages/week3-lp.html"
+                },
+                {
+                  title: "Exercise - Auto-Expiring Games",
+                  path: "/academy/4-my-own-chain-exer/game-fifo-exer.html"
                 },
                 {
                   title: "Store FIFO - Put Your Games in Order",
@@ -340,16 +344,32 @@ module.exports = {
                   path: "/academy/4-my-own-chain/game-forfeit.html"
                 },
                 {
+                  title: "Exercise - Token - Let Players Set a Wager",
+                  path: "/academy/4-my-own-chain-exer/game-wager-exer.html"
+                },
+                {
                   title: "Token - Let Players Set a Wager",
                   path: "/academy/4-my-own-chain/game-wager.html"
+                },
+                {
+                  title: "Exercise - Gas - Incentivize Players",
+                  path: "/academy/4-my-own-chain-exer/gas-meter-exer.html"
                 },
                 {
                   title: "Gas - Incentivize Players",
                   path: "/academy/4-my-own-chain/gas-meter.html"
                 },
                 {
+                  title: "Exercise - Query - Help Find a Correct Move",
+                  path: "/academy/4-my-own-chain-exer/can-play-exer.html"
+                },
+                {
                   title: "Query - Help Find a Correct Move",
                   path: "/academy/4-my-own-chain/can-play.html"
+                },
+                {
+                  title: "Exercise - IBC Token - Play With Cross-Chain Tokens",
+                  path: "/academy/4-my-own-chain-exer/wager-denom-exer.html"
                 },
                 {
                   title: "IBC Token - Play With Cross-Chain Tokens",

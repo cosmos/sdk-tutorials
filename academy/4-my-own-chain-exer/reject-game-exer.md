@@ -31,4 +31,4 @@ As before, don't bother yet with niceties like gas metering.
 
 ## Next up
 
-When you are satisfied, or not, with what you did, have a look at [a solution](./reject-game.md).
+When you are satisfied, or not, with what you did, have a look at [a solution](../4-my-own-chain/reject-game.md).

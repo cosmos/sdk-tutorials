@@ -35,4 +35,4 @@ Run the commands, make the adjustments, run some tests. **Create the message onl
 
 ## Next up
 
-When you are satisfied, or not, with what you did, have a look at [a solution](./create-message.md).
+When you are satisfied, or not, with what you did, have a look at [a solution](../4-my-own-chain/create-message.md).
