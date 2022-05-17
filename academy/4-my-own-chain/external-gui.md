@@ -52,10 +52,10 @@ It should automatically open the browser and you should see a simple page. If no
 
 You'll have to move some files from the `react-checkers` folder into the repo that contains your CosmJS work so far. If you followed from the previous section or cloned the branch mentioned above, then:
 
-* The `tsconfig.json`, `.prettierignore` files and the `public` and `src` folders should have no conflicts.
+* The `tsconfig.json` file and the `public` and `src` folders should have no conflicts.
 * For `.gitignore` [just add the content](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/.gitignore#L3-L21) to your own `.gitignore`.
 * For `package.json` there are some more things to consider:
-    * Copy and paste the `"scripts"`, `"eslintConfig"` and `"browserlist"`.
+    * Copy and paste the `"scripts"` and `"browserlist"`.
     * Remove the [`"homepage"`](https://github.com/cosmos/academy-checkers-ui/blob/f9e1375/package.json#L18) field or it will confuse React.
     * Copy only the missing `dependencies` and `devDependencies`. If there is a conflict between versions, overwrite with the highest version.
 
