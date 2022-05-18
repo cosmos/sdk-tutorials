@@ -20,7 +20,7 @@ Make sure you have everything you need before proceeding:
 <HighlightBox type="learning">
 
 In this section, you will deal with:
-    
+
 * The FIFO data structure
 * FIFO unit tests
 

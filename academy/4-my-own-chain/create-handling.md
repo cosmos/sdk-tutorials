@@ -48,6 +48,8 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 
 Ignite CLI has conveniently created all the message processing code for you. You are only required to code the key features.
 
+## Coding steps
+
 Given that you have already done a lot of preparatory work, what coding is involved? How do you replace `// TODO: Handling the message`?
 
 * First, `rules` represents the ready-made file with the imported rules of the game:
@@ -238,7 +240,7 @@ NextGame:
 ```
 
 </CodeGroupItem>
-<CodeGroupItem title="List stored game">
+<CodeGroupItem title="List stored games">
 
 ```sh
 $ checkersd query checkers list-stored-game

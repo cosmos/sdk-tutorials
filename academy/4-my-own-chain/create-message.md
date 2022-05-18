@@ -20,7 +20,7 @@ Make sure you have everthing you need before proceeding:
 <HighlightBox type="learning">
 
 In this section, you will:
-    
+
 * Create a game Protobuf object.
 * Create a game Protobuf service interface.
 * Extend your unit tests.
