@@ -75,11 +75,12 @@ Important parameters that are initialized during the bootstrapping of the applic
 * **`Msg` service router:** the `msgServiceRouter` facilitates the routing of `sdk.Msg` requests to the appropriate module `Msg` service for processing. 
 
   An `sdk.Msg` here refers to the transaction component that needs to be processed by a service to update the application state, and not to the ABCI message, which implements the interface between the application and the underlying consensus engine.
+
 * **gRPC Query Router:** the `grpcQueryRouter` facilitates the routing of gRPC queries to the appropriate module that will process them. These queries are not ABCI messages themselves. They are relayed to the relevant module's gRPC query service.
 * **`TxDecoder`:** this is used to decode raw transaction bytes relayed by the underlying Tendermint engine.
 * **`ParamStore`:** this is the parameter store used to get and set application consensus parameters.
 * **`AnteHandler`:** this is used to handle signature verification, fee payment, and other pre-message execution checks when a transaction is received. It is executed during `CheckTx/RecheckTx` and `DeliverTx`.
-* **`InitChainer`, `BeginBlocker` and `EndBlocker`:** these are the functions executed when the application receives the `InitChain`, `BeginBlock`, and `EndBlock` ABCI messages from the underlying Tendermint engine.
+* **`InitChainer`, `BeginBlocker`, and `EndBlocker`:** these are the functions executed when the application receives the `InitChain`, `BeginBlock`, and `EndBlock` ABCI messages from the underlying Tendermint engine.
 
 #### Volatile state
 
