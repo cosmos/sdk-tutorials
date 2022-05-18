@@ -26,7 +26,7 @@ In this section, you will:
 
 </HighlightBox>
 
-To be able to terminate games you need to identify games that have already been terminated. A good field to add is for the **winner**. It needs to contain:
+To be able to terminate games you need to identify games that have already been played. A good field to add is for the **winner**. It needs to contain:
 
 * The winner of a game that reaches completion.
 * Or the winner _by forfeit_ when a game is expired.
@@ -287,9 +287,7 @@ This should show:
 
 Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests or with a nice GUI. You will be able to partially test this in the [next section](./game-forfeit.md), via a forfeit.
 
-## Unit tests
-
-
+<!-- This headline should be deleted if no text follows ## Unit tests -->
 
 ## Interact via the CLI
 

@@ -20,8 +20,8 @@ Make sure you have everything you need before proceeding:
 
 In this section, you will:
 
-* Add application rules- the rules of checkers.
-* Add a Message Handler to create game and return its ID.
+* Add application rules - the rules of checkers.
+* Add a Message Handler to create a game and return its ID.
 
 </HighlightBox>
 
@@ -85,7 +85,7 @@ Given that you have already done a lot of preparatory work, what coding is invol
     Note the use of:
 
     * The [`rules.New()`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/rules/checkers.go#L122) command, which is part of the Checkers rules file you imported earlier.
-    * The string content of the `msg *types.MsgCreateGame` namely `.Creator`, `.Red`, and `.Black`.
+    * The string content of the `msg *types.MsgCreateGame`, namely `.Creator`, `.Red`, and `.Black`.
 
 3. Confirm that the values in the object are correct by checking the validity of the players' addresses:
 
