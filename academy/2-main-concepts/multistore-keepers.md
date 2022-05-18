@@ -322,7 +322,7 @@ Then define the functions to get and set:
 
 ```go
 func (k Keeper) SetNextGame(ctx sdk.Context, nextGame types.NextGame) {
-    nextGameStore := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.NextGameKey))
+    nextGameStore := prefix.NewStore(ctx.KVStore(k.storeKey), []byte(types.NextGameKey))
     nextBytes := k.cdc.MustMarshalBinaryBare(&nextGame)
     nextGameStore.Set([]byte{0}, nextBytes)
 }
