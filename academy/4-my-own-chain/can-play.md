@@ -453,7 +453,7 @@ There is room to improve the error message, but it is important that you got an 
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
-$ checkersd query checkers can-play-move 0 white 1 2 2 3
+$ checkersd query checkers can-play-move 1 white 1 2 2 3
 ```
 
 If the player tries to play the wrong color on a game that exists, it returns:
@@ -469,7 +469,7 @@ This is a proper message response, and a reason elaborating on the message.
 <CodeGroupItem title="Wrong turn">
 
 ```sh
-$ checkersd query checkers can-play-move 0 red 0 5 1 4
+$ checkersd query checkers can-play-move 1 red 0 5 1 4
 ```
 
 If the opponent tries to play out of turn, it returns:
@@ -483,7 +483,7 @@ reason: 'player tried to play out of turn: red'
 <CodeGroupItem title="Not your piece">
 
 ```sh
-$ checkersd query checkers can-play-move 0 black 0 5 1 4
+$ checkersd query checkers can-play-move 1 black 0 5 1 4
 ```
 
 If black tries to play a red piece, it returns:
@@ -497,7 +497,7 @@ reason: wrong move%!(EXTRA string=Not {red}s turn)
 <CodeGroupItem title="Correct">
 
 ```sh
-$ checkersd query checkers can-play-move 0 black 1 2 2 3
+$ checkersd query checkers can-play-move 1 black 1 2 2 3
 ```
 
 If black tests a correct move, it returns:
@@ -511,9 +511,9 @@ reason: ok
 <CodeGroupItem title="Must capture">
 
 ```sh
-$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob -y
-$ checkersd tx checkers play-move 0 0 5 1 4 --from $alice -y
-$ checkersd query checkers can-play-move 0 black 2 3 3 4
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob -y
+$ checkersd tx checkers play-move 1 0 5 1 4 --from $alice -y
+$ checkersd query checkers can-play-move 1 black 2 3 3 4
 ```
 
 If black fails to capture a mandatory red piece, it returns:

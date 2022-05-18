@@ -271,7 +271,7 @@ Which mentions:
 Have Bob play once:
 
 ```sh
-$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
 ```
 
 Has Bob been charged the wager?

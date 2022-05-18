@@ -287,7 +287,7 @@ This returns:
 ```
 NextGame:
   creator: ""
-  idValue: "0"
+  idValue: "1"
 ```
 
 </CodeGroupItem>

@@ -249,7 +249,7 @@ Usage:
 So `Alice` tries:
 
 ```sh
-$ checkersd tx checkers play-move 0 0 5 1 4 --from $alice
+$ checkersd tx checkers play-move 1 0 5 1 4 --from $alice
                                   ^ ^ ^ ^ ^
                                   | | | | To Y
                                   | | | To X
@@ -289,7 +289,7 @@ raw_log: 'failed to execute message; message index: 0: player tried to play out 
 Can Bob, who plays _black_, make a move? Can he make a wrong move? For instance, a move from `0-1` to `1-0`, which is occupied by one of his pieces.
 
 ```sh
-$ checkersd tx checkers play-move 0 1 0 0 1 --from $bob
+$ checkersd tx checkers play-move 1 1 0 0 1 --from $bob
 ```
 
 The computer says no:
@@ -305,7 +305,7 @@ So far all seems to be working.
 Time for Bob to make a correct move:
 
 ```sh
-$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
 ```
 
 This returns:
@@ -318,7 +318,7 @@ raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"P
 Confirm the move went through with your one-line formatter from the [previous section](./create-handling.md):
 
 ```sh
-$ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\n/g'
+$ checkersd query checkers show-stored-game 1 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\n/g'
 ```
 
 This shows:

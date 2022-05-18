@@ -234,7 +234,7 @@ This returns:
 ```
 NextGame:
   creator: ""
-  idValue: "1"
+  idValue: "2"
 ```
 
 </CodeGroupItem>
@@ -251,7 +251,7 @@ StoredGame:
 - black: cosmos14n4qkxcpr6ycct75zzp2r7v6rm96xhkegu5205
   creator: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
   game: '*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*'
-  index: "0"
+  index: "1"
   red: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
   turn: black
 pagination:
@@ -263,7 +263,7 @@ pagination:
 <CodeGroupItem title="Show stored game">
 
 ```sh
-$ checkersd query checkers show-stored-game 0
+$ checkersd query checkers show-stored-game 1
 ```
 
 This returns:
@@ -273,7 +273,7 @@ StoredGame:
   black: cosmos14n4qkxcpr6ycct75zzp2r7v6rm96xhkegu5205
   creator: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
   game: '*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*'
-  index: "0"
+  index: "1"
   red: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
   turn: black
 ```
@@ -311,14 +311,14 @@ You can also get this in a one-liner:
 <CodeGroupItem title="On Linux" active>
 
 ```sh
-$ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\n/g'
+$ checkersd query checkers show-stored-game 1 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\n/g'
 ```
 
 </CodeGroupItem>
 <CodeGroupItem title="On Mac">
 
 ```sh
-$ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\'$'\n/g'
+$ checkersd query checkers show-stored-game 1 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\'$'\n/g'
 ```
 
 </CodeGroupItem>

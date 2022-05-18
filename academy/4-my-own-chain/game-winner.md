@@ -305,7 +305,7 @@ Confirm that there is no winner for a game when it is created:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $alice
-$ checkersd query checkers show-stored-game 0
+$ checkersd query checkers show-stored-game 1
 ```
 
 This should show:
@@ -319,8 +319,8 @@ This should show:
 And when a player plays:
 
 ```sh
-$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
-$ checkersd query checkers show-stored-game 0
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
+$ checkersd query checkers show-stored-game 1
 ```
 
 This should show:
