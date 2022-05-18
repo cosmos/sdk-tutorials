@@ -9,14 +9,14 @@ tag: fast-track
 
 <HighlightBox type="learning">
 
-Build applications that interact with Cosmos blockchains with CosmJS. 
-  
+Build applications that interact with Cosmos blockchains with CosmJS.
+
 In this section:
-  
+
 * What is CosmJS?
 * What can you use it for?
 * Modular design of CosmJS
-  
+
 </HighlightBox>
 
 **Distributed applications (dApps)** are _software applications that run on distributed networks_. Blockchains provide persistent data, or the state, as well as persistent processes and logic. The Cosmos SDK helps developers create such applications. A user interface is important in most cases, and server interactions are important in many cases. This is where [CosmJS](https://github.com/cosmos/CosmJS) comes in handy.

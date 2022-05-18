@@ -10,7 +10,7 @@ tag: deep-dive
 <HighlightBox type="learning">
 
 In this section, you will:
-  
+
 * Establish a channel.
 * Learn about application packet flow.
 

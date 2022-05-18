@@ -1,6 +1,6 @@
 ---
 title: "Go Relayer"
-order: 
+order:
 description: Relayer implementation in Golang
 tag: deep-dive
 ---
@@ -27,7 +27,7 @@ In this section, you will learn:
 
 * How to get started with the Go relayer
 * Basic Go relayer commands
-   
+
 </HighlightBox>
 
 [The Go relayer](https://github.com/cosmos/relayer) is a relayer implementation written in Golang. It can create clients, connections, and channels, as well as relay packets, and update and upgrade clients.
@@ -73,7 +73,7 @@ $ cd ../relayer
 $ make install
 ```
 
-Make sure that your `$GOPATH` is set correctly and `$GOPATH/bin` is included in your `$PATH`. 
+Make sure that your `$GOPATH` is set correctly and `$GOPATH/bin` is included in your `$PATH`.
 
 To check the available commands, run the help command on the `rly` binary.
 
@@ -131,15 +131,15 @@ Now you are all set to add the chains and paths you want to relay on, add your k
 As stated earlier, the Go relayer strives to get your relayer up and running in a short amount of time. You will follow the tutorial from the [Github repository](https://github.com/cosmos/relayer) to start relaying between the Cosmos Hub and Osmosis, one of the most popular paths.
 
 1. **Configure the chains you want to relay between.**
-   
+
    In this example, you will configure the relayer to operate on the canonical path between the Cosmos Hub and Osmosis.
 
    The `rly chains add` command fetches chain meta-data from the [chain registry](https://github.com/cosmos/chain-registry) and adds it to your config file:
-   
+
    ```shell
    $ rly chains add cosmoshub osmosis
    ```
-       
+
    Adding chains from the chain registry randomly selects a publicly available RPC address from the registry entry. If you are running your own node (which is recommended if you are running relaying services professionally), manually go into the config and adjust the `rpc-addr` setting to the RPC endpoint you have exposed.
 
    ><HighlightBox type="note">
@@ -154,7 +154,7 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
    $ rly chains add --url https://raw.githubusercontent.com/cosmos/relayer/main/docs/example-configs/cosmoshub-4.json
    $ rly chains add --url https://raw.githubusercontent.com/cosmos/relayer/main/docs/example-configs/osmosis-1.json
    ```
-   
+
 2. **Import OR create new keys for the relayer to use when signing and relaying transactions.**
 
    >`key-name` is an identifier of your choosing.
@@ -165,7 +165,7 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
     $ rly keys add cosmoshub-4 [key-name]  
     $ rly keys add osmosis-1 [key-name]  
     ```
-  
+
    * If you already have a private key and want to restore it from your mnemonic you can use the `restore` subcommand:
 
    ```shell
@@ -176,7 +176,7 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
 3. **Edit the relayer's `key` values in the config file to match the `key-name`s chosen above.**
 
    >This step is necessary if you chose a `key-name` other than "default".
-   
+
    Example:
 
       ```yaml
@@ -217,17 +217,17 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
    At minimum, this command will add two paths. In our case it will add one path from the Cosmos Hub to Osmosis, and another path from Osmosis to the Cosmos Hub.
 
 6. **Configure the channel filter.**
-   
+
    By default, the relayer will relay packets over all channels on a given connection.
 
    Each path has an `src-channel-filter`, which you can utilize to specify which channels you would like to relay on.
 
    The `rule` can be one of three values:  
-   
+
    * `allowlist`, which tells the relayer to relay on _ONLY_ the channels in `channel-list`.
    * `denylist`, which tells the relayer to relay on all channels _EXCEPT_ the channels in `channel-list`.
    * Empty value, which is the default setting and tells the relayer to relay on all channels.
-   
+
    Since you should be only worried about the canonical channel between the Cosmos Hub and Osmosis, our filter settings would look like the following:
 
    Example:
@@ -245,7 +245,7 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
               rule: allowlist
               channel-list: [channel-141]  
    ```
-   
+
    >Because two channels between chains are tightly coupled, there is no need to specify the dst channels.
 
 7. **Do a status check.**
@@ -275,7 +275,7 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
      ```shell
      $ rly start [path]
      ```
-   
+
     You will need to start a separate shell instance for each path you wish to relay over.
 
     >When running multiple instances of `rly start`, you will need to use the `--debug-addr` flag and provide an `address:port`. You can also pass an empty string `''`  to turn off this feature, or pass `localhost:0` to randomly select a port.
@@ -298,7 +298,7 @@ To stop, use `killall gaiad`:
 $ ./scripts/two-chainz
 ```
 
-The relayer `--home` directory is now ready for normal operations between **ibc-0** and **ibc-1**. 
+The relayer `--home` directory is now ready for normal operations between **ibc-0** and **ibc-1**.
 
 It is helpful to examine the folder structure of the relayer:
 

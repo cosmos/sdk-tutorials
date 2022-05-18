@@ -13,7 +13,7 @@ In this section you are going to:
 
 * Get some ATOM.
 * Participate in the consensus, to passively earn a yield on your ATOMs while working on your own Cosmos application, sleeping, or studying further.
-  
+
 </HighlightBox>
 
 The [Cosmos Hub](https://hub.cosmos.network) is the first among equals of Cosmos blockchains. ATOM is its native token, also called the staking token. You need some ATOM to be able to transact on the Cosmos Hub or to participate in the proof-of-stake (PoS) consensus.
@@ -199,7 +199,7 @@ A validator can have small or large voting power. The larger the voting power, t
 
 Over the long run, you should receive the same amount in rewards regardless of whether your chosen validator has large or small voting power. What matters more is the size of your stake.
 
-If you like the validator's information, click _Delegate_ and add the sum you want to delegate. Do not delegate all that you own, because you need a fraction of ATOM to send the transaction, plus further ATOM in the future to either un-delegate or claim your rewards. 
+If you like the validator's information, click _Delegate_ and add the sum you want to delegate. Do not delegate all that you own, because you need a fraction of ATOM to send the transaction, plus further ATOM in the future to either un-delegate or claim your rewards.
 
 Pick 0.8 ATOM and click _Delegate_ again:
 

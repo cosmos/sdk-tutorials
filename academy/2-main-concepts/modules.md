@@ -252,7 +252,7 @@ x/{module_name}
 ```
 
 * `client/`: the module's CLI client functionality implementation and the module's integration testing suite.
-* `exported/`: the module's exported types - typically interface types (see also the following note). 
+* `exported/`: the module's exported types - typically interface types (see also the following note).
 * `keeper/`: the module's `Keeper` and `MsgServer` implementations.
 * `module/`: the module's `AppModule` and `AppModuleBasic` implementations.
 * `simulation/`: the module's simulation package defines functions used by the blockchain simulator application (`simapp`).
@@ -271,7 +271,7 @@ x/{module_name}
 
 <HighlightBox type="info">
 
-If a module relies on keepers from another module, the `exported/` code element expects to receive the keepers as interface contracts to avoid a direct dependency on the module implementing the keepers. However, these interface contracts can define methods that operate on or return types that are specific to the module that is implementing the keepers. 
+If a module relies on keepers from another module, the `exported/` code element expects to receive the keepers as interface contracts to avoid a direct dependency on the module implementing the keepers. However, these interface contracts can define methods that operate on or return types that are specific to the module that is implementing the keepers.
 
 The interface types defined in `exported/` use canonical types that allow for the module to receive the interface contracts through the `expected_keepers.go` file. This pattern allows for code to remain [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) and also alleviates import cycle chaos.
 
@@ -406,7 +406,7 @@ Note that:
 <HighlightBox type="tip">
 
 If you want to go beyond these code samples and instead see in more detail how to define all this, go to [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
-    
+
 </HighlightBox>
 
 </ExpansionPanel>

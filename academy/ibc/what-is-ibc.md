@@ -9,14 +9,14 @@ tag: fast-track
 
 <HighlightBox type="learning">
 
-Inter-Blockchain Communication Protocol solves for communication between blockchains, which is particularly important in the Cosmos universe. 
+Inter-Blockchain Communication Protocol solves for communication between blockchains, which is particularly important in the Cosmos universe.
 
 In this section, you will learn:
-  
+
 * What IBC is
 * How IBC works
 * About the IBC security guarantees
-  
+
 </HighlightBox>
 
 The **[Inter-Blockchain Communication (IBC) Protocol](https://ibcprotocol.org/)** is _a protocol to handle authentication and transport of data between two blockchains_. IBC **requires a minimal set of functions**, specified in the [Interchain Standards (ICS)](https://github.com/cosmos/ibc/tree/master/spec/ics-001-ics-standard). Notice that those specifications do not limit the network topology or consensus algorithm, so IBC can be used with a wide range of blockchains or state machines. The IBC protocol provides a permissionless way for relaying data packets between blockchains, unlike most trusted bridging technologies. The security of IBC reduces to the security of the participating chains.
@@ -75,7 +75,7 @@ Simply put, the transport layer includes:
 * **Connections** - [ICS-3](https://github.com/cosmos/ibc/tree/master/spec/core/ics-003-connection-semantics)
    Connections, once established, are responsible for facilitating all cross-chain verifications of an IBC state. A connection can be associated with any number of channels. Connections encapsulate two `ConnectionEnd` objects on two separate blockchains. Each `ConnectionEnd` is associated with a light client of the other blockchain - for example, the counterparty blockchain. The connection handshake is responsible for verifying that the light clients on each chain are the correct ones for their respective counterparties.
 * **Channels** - [ICS-4](https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics)
-  A module on one blockchain can communicate with other modules on other blockchains by sending, receiving, and acknowledging packets through channels that are uniquely identified by the (`channelID`, `portID`) tuple. Channels encapsulate two `ChannelEnd`s that are associated with a connection. Channels provide a way to have different types of information relayed between chains, but do not increase the total capacity. Just like connections, channels are established with a handshake. 
+  A module on one blockchain can communicate with other modules on other blockchains by sending, receiving, and acknowledging packets through channels that are uniquely identified by the (`channelID`, `portID`) tuple. Channels encapsulate two `ChannelEnd`s that are associated with a connection. Channels provide a way to have different types of information relayed between chains, but do not increase the total capacity. Just like connections, channels are established with a handshake.
   A channel can be `ORDERED`, where packets from a sending module must be processed by the receiving module in the order they were sent, or `UNORDERED`, where packets from a sending module are processed in the order they arrive (which might be different from the order they were sent).
 * **Ports** - [ICS-5](https://github.com/cosmos/ibc/tree/master/spec/core/ics-005-port-allocation)
   An IBC module can bind to any number of ports. Each port must be identified by a unique `portID`. The `portID` denotes the type of application, for example in fungible token transfers the `portID` is `transfer`.  
@@ -87,7 +87,7 @@ While this background information is useful, IBC modules do not need to interact
 The ICS also offer definitions for IBC applications:
 
 * **Fungible token transfer** - [ICS-20](https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer)
-  The first and most apparent application for IBC is the transfer of fungible tokens across chains. With the standards set out by ICS-20, a user can send tokens across IBC-enabled chains. This is achieved by escrowing tokens on the source chain: the proof along with the token metadata is relayed to the destination chain, upon which the proof is verified by the light client of the source chain, stored on the destination chain. If the verification passes, vouchers for the tokens on the destination chains are minted and an acknowledgment is sent back to the source chain. 
+  The first and most apparent application for IBC is the transfer of fungible tokens across chains. With the standards set out by ICS-20, a user can send tokens across IBC-enabled chains. This is achieved by escrowing tokens on the source chain: the proof along with the token metadata is relayed to the destination chain, upon which the proof is verified by the light client of the source chain, stored on the destination chain. If the verification passes, vouchers for the tokens on the destination chains are minted and an acknowledgment is sent back to the source chain.
   Packet flow is explored in more detail in a later section, but you can the steps when following the progress of the IBC token transfer on [Mintscan](https://www.mintscan.io/cosmos). The following example shows the transactions submitted for the original `Transfer` on the source, the `Receive` message on the destination, and the `Acknowledgement` again on the source:
 
 ![Fungible token transfer via IBC on Mintscan](/academy/ibc/images/mintscanIBC.png)
@@ -104,11 +104,11 @@ This list can be and will be extended with time. New concepts such as Interchain
 
 ## Security
 
-Along with protocol extensibility, reliability, and security without the need for trusted third parties, the permissionless nature of IBC as a generalized interoperability standard is one of the most valuable discerning features of IBC in comparison to standard bridge protocols. However, as it is permissionless to create IBC clients, connections, and channels, or to relay packets between chains, you may have wondered: *What about the security implications?* 
+Along with protocol extensibility, reliability, and security without the need for trusted third parties, the permissionless nature of IBC as a generalized interoperability standard is one of the most valuable discerning features of IBC in comparison to standard bridge protocols. However, as it is permissionless to create IBC clients, connections, and channels, or to relay packets between chains, you may have wondered: *What about the security implications?*
 
-The design of IBC security is centered around **two main principles**: 
+The design of IBC security is centered around **two main principles**:
 - Trust in (the consensus of) the chains you connect with.
-- The implementation of fault isolation mechanisms, in order to limit any damage done should these chains be subject to malicious behavior. 
+- The implementation of fault isolation mechanisms, in order to limit any damage done should these chains be subject to malicious behavior.
 
 The security considerations which IBC implements are worth exploring:
 
@@ -129,7 +129,7 @@ In IBC, blockchains do not directly pass messages to each other over the network
 
 </HighlightBox>
 
-This is important because it ensures the IBC protocol remains secure even in Byzantine environments where relayers could act in a malicious or faulty manner. We do not need to trust the relayers; instead, we trust the proof verification provided by the light client. In the worst case situation where all relayers are acting in a Byzantine fashion, the packets sent would get rejected because they do not have the correct proof. This would affect only the liveness, not the security, of the particular part of the Interchain network where the relayers are malicious. 
+This is important because it ensures the IBC protocol remains secure even in Byzantine environments where relayers could act in a malicious or faulty manner. We do not need to trust the relayers; instead, we trust the proof verification provided by the light client. In the worst case situation where all relayers are acting in a Byzantine fashion, the packets sent would get rejected because they do not have the correct proof. This would affect only the liveness, not the security, of the particular part of the Interchain network where the relayers are malicious.
 
 Note that this effect would only affect the network if all relayers were Byzantine. As relaying is permissionless, a simple fix would be to spin up a non-malicious relayer to relay packets with the correct proof. This fits the *security over liveness* philosophy that IBC and the wider Interchain ecosystem adopts.
 
@@ -147,7 +147,7 @@ You can find more detailed information in the tutorial on [IBC denoms](https://t
 
 ### Submit misbehavior
 
-One type of Byzantine behavior that can happen on an IBC-enabled chain is when validators double-sign a block - meaning they sign two different blocks at the same height. This scenario is called a fork. Unlike in Proof-of-Work blockchains (like Bitcoin or Ethereum) where forks are to be occasionally expected, in Tendermint the fast finality of chains is desired (and is a prerequisite for IBC) so forks should not occur. Through the principle of [fork accountability](https://github.com/cosmos/cosmos/blob/master/WHITEPAPER.md#fork-accountability) the processes that caused the consensus to fail can be identified and punished according to the rules of the protocol. However, if this were to happen on a foreign chain, it would start a race for the light client of this compromised chain on counterparty chains to become aware of the fork. 
+One type of Byzantine behavior that can happen on an IBC-enabled chain is when validators double-sign a block - meaning they sign two different blocks at the same height. This scenario is called a fork. Unlike in Proof-of-Work blockchains (like Bitcoin or Ethereum) where forks are to be occasionally expected, in Tendermint the fast finality of chains is desired (and is a prerequisite for IBC) so forks should not occur. Through the principle of [fork accountability](https://github.com/cosmos/cosmos/blob/master/WHITEPAPER.md#fork-accountability) the processes that caused the consensus to fail can be identified and punished according to the rules of the protocol. However, if this were to happen on a foreign chain, it would start a race for the light client of this compromised chain on counterparty chains to become aware of the fork.
 
 The IBC protocol provides the functionality to submit a proof of misbehavior, which could be provided by the relayers, upon which the light client is frozen to avoid consequences as a result of the fork. The funds could later be recovered by unfreezing the light client via a governance proposal when the attack has been neutralized. The _submit misbehavior_ functionality thus enables relayers to enhance the security of IBC, even though the relayers themselves are intrinsically untrusted.
 
@@ -167,13 +167,13 @@ Generally speaking, you'll need the following:
 3. A light client implementation for your consensus type, to be encorporated on the counterparty chain you want to connect to.
 
 <ExpansionPanel title="A roadmap towards an IBC-enabled chain">
-          
+
 The following decision tree helps visualize the roadmap towards an IBC-enabled chain. **For simplicity, it assumes the intent to connect to a Cosmos SDK chain.**
 
 Do you have access to an existing chain?
 - **No.** You will have to build a chain:
   - Cosmos SDK chain: see the [previous chapters](https://interchainacademy.cosmos.network/course-ida/landingpages/week2-lp.html).
-  - Another chain. 
+  - Another chain.
     - Is there a Tendermint light client implementation available for your chain?
       - Yes. Continue.
       - No. Build a custom Tendermint light client implementation.
@@ -185,7 +185,7 @@ Do you have access to an existing chain?
       - Smart contract based.
 - **Yes.** Is it a Cosmos SDK chain?
   - Yes. Move on to application development.
-  - No. 
+  - No.
     - Does your chain support a Tendermint light client?
       - Yes. Continue.
       - No. Source a Tendermint light client implementation for your chain.

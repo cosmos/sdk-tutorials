@@ -15,7 +15,7 @@ In this section, you will explore how a fungible token transfer can be done with
 
 </HighlightBox>
 
-Having looked at IBC's transport, authentication, and ordering layer (IBC/TAO), you can now take a look at [ICS-20](https://github.com/cosmos/ibc/blob/master/spec/app/ics-020-fungible-token-transfer/README.md). ICS-20 describes **fungible token transfers**. 
+Having looked at IBC's transport, authentication, and ordering layer (IBC/TAO), you can now take a look at [ICS-20](https://github.com/cosmos/ibc/blob/master/spec/app/ics-020-fungible-token-transfer/README.md). ICS-20 describes **fungible token transfers**.
 
 <HighlightBox type="info">
 
@@ -187,7 +187,7 @@ func (k Keeper) SendTransfer(
   receiver string,
   timeoutHeight clienttypes.Height,
   timeoutTimestamp uint64,
-) 
+)
 
   ...
 
@@ -217,14 +217,14 @@ func (k Keeper) SendTransfer(
     if err := k.bankKeeper.SendCoins(...)
 
   } else {
-   
+
    ...
 
-    if err := k.bankKeeper.SendCoinsFromAccountToModule(...); 
+    if err := k.bankKeeper.SendCoinsFromAccountToModule(...);
 
     ...
 
-    if err := k.bankKeeper.BurnCoins(...); 
+    if err := k.bankKeeper.BurnCoins(...);
 
     ...
   }

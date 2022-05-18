@@ -10,7 +10,7 @@ tag: deep-dive
 <HighlightBox type="learning">
 
 In this section you will dive into the various functions and features of making transactions in Cosmos:
-    
+
 * Transactions and Messages
 * Signing Transactions
 * Generating Transactions
@@ -55,7 +55,7 @@ While there is much to explore as you journey through the stack, begin by unders
 Transaction objects are Cosmos SDK types that implement the [`Tx`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L50-L57) interface. They contain the following methods:
 
 * [`GetMsgs`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L52): unwraps the transaction and returns a list of contained [`sdk.Msg`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L11-L33). One transaction may have one or multiple messages.
-* [`ValidateBasic`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L56): includes lightweight, stateless checks used by ABCI message’s `CheckTx` and `DeliverTx` to make sure transactions are not invalid. For example, the auth module's [`StdTx`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdtx.go#L77-L83) [`ValidateBasic`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdtx.go#L100-L126) function checks that its transactions are signed by the correct number of signers and that the fees do not exceed the user's maximum. 
+* [`ValidateBasic`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L56): includes lightweight, stateless checks used by ABCI message’s `CheckTx` and `DeliverTx` to make sure transactions are not invalid. For example, the auth module's [`StdTx`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdtx.go#L77-L83) [`ValidateBasic`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdtx.go#L100-L126) function checks that its transactions are signed by the correct number of signers and that the fees do not exceed the user's maximum.
 
 <HighlightBox type="tip">
 
@@ -122,7 +122,7 @@ Application developers create entrypoints to the application by creating a comma
 
 For the command-line interface (CLI) module developers create subcommands to add as children to the application top-level transaction command [`TxCmd`](https://github.com/cosmos/cosmos-sdk/blob/56ab4e4c934365662162a91bcf35108a0bd78fef/x/bank/client/cli/tx.go#L29-L60).
 
-CLI commands bundle all the steps of transaction processing into one simple command: 
+CLI commands bundle all the steps of transaction processing into one simple command:
 
 * Creating messages.
 * Generating transactions.
