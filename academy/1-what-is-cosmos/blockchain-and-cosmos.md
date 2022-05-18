@@ -19,7 +19,7 @@ Begin your journey with this brief review of blockchain technology, how Cosmos c
 * Speed and fast finality
 
 </HighlightBox>
-    
+
 <ExpansionPanel title="What is a Blockchain?">
 
 Blockchain protocols define programs that hold a state and describe how to modify the state according to the received inputs. The inputs are called transactions.

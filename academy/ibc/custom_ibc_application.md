@@ -1,6 +1,6 @@
 ---
 title: "Implementing a Custom IBC Application"
-order: 
+order:
 description: Taking a closer look at applications
 tag: deep-dive
 ---
@@ -70,7 +70,7 @@ Here you can find all the callbacks your application needs to implement. So, in 
   }
 ```
 
-This calls custom logic of the application. The situation is similar for `OnChanOpenTry`, `OnChanOpenAck`, `OnChanOpenConfirm`, etc., in the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go): 
+This calls custom logic of the application. The situation is similar for `OnChanOpenTry`, `OnChanOpenAck`, `OnChanOpenConfirm`, etc., in the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go):
 
 ```go
   // OnChanOpenTry will verify the relayer-chosen parameters along with the

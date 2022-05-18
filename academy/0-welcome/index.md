@@ -10,7 +10,7 @@ intro:
       Cosmos is a network of interoperable blockchains built on BFT consensus.<br/><br/>
       The ever-expanding ecosystem provides an SDK, tokens, wallets, applications, and services. Discover the Cosmos SDK to develop application-specific blockchains.<br/><br/>
       Ready to begin your journey?
-    action: 
+    action:
       label: Start course
       url: /academy/1-what-is-cosmos/index.html
     secondtext: |

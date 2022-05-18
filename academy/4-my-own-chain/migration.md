@@ -14,14 +14,14 @@ Make sure you have all you need before proceeding:
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md), and [migrations](../2-main-concepts/migrations.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](./wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
-    
+
 </HighlightBox>
 
 <HighlightBox type="learning">
 
 In this section, you will:
 
-* Add a leaderboard. 
+* Add a leaderboard.
 * Upgrade your blockchain in production.
 * Deal with data migrations and logic upgrades.
 
@@ -134,7 +134,7 @@ To give the new v2 information a data structure, you need the following:
     * `wonCount` determines the ranking on the leaderboard - the higher the count, the closer to the `0` index in the array.
       This should exactly match the value found in the corresponding player stats. This duplication of data is a lesser evil, because if `wonCount` was missing you would have to access the player stats to sort the leaderboard.
     * `dateAdded` indicates when the player's `wonCount` was last updated and determines the ranking when there is a tie in `wonCount` - the more recent, the closer to the `0` slot in the array.
-    
+
     </HighlightBox>
 
 3. Add a structure for **the leaderboard**: there is a single stored leaderboard for the whole application. Let Ignite CLI help you implement a structure:
@@ -276,9 +276,9 @@ func (k *Keeper) MustRegisterPlayerForfeit(ctx sdk.Context, storedGame *types.St
 ```
 
 <HighlightBox type="note">
-    
+
 Be aware of the two new error types [`ErrThereIsNoWinner`](https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/errors.go#L31) and [`ErrWinnerNotParseable`](https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/errors.go#L30).
-    
+
 </HighlightBox>
 
 </ExpansionPanel>

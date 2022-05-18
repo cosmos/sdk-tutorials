@@ -38,7 +38,7 @@ Rejecting a game will be left to you as an exercise.
 
 ## Prepare the integration with the checkers blockchain
 
-<!-- Include a paragraph between the titles --> 
+<!-- Include a paragraph between the titles -->
 
 ### Prepare Webpack
 

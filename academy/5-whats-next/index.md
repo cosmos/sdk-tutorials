@@ -41,37 +41,37 @@ Cosmos is an open ecosystem: everyone can contribute! A great place to start if 
 There are different ways you can contribute to the Cosmos SDK and related repositories.
 <br/><br/>
 
-<Resource 
-  title="Cosmos SDK" 
-  description="Find out everything about contributing to the main Cosmos SDK repository!" 
-  :links="[{name: 'Github Repository', url: 'https://github.com/cosmos/cosmos-sdk/blob/master/CONTRIBUTING.md'}]" 
+<Resource
+  title="Cosmos SDK"
+  description="Find out everything about contributing to the main Cosmos SDK repository!"
+  :links="[{name: 'Github Repository', url: 'https://github.com/cosmos/cosmos-sdk/blob/master/CONTRIBUTING.md'}]"
   image="/cosmos-sdk-icon.svg"
   :large="true"
 />
 
 <br/>
 
-<Resource 
-  title="IBC" 
-  description="Want to support the development of the Inter-Blockchain Communication Protocol?" 
-  :links="[{name: 'Github Repository', url: 'https://github.com/cosmos/ibc-go/blob/main/CONTRIBUTING.md'}]" 
+<Resource
+  title="IBC"
+  description="Want to support the development of the Inter-Blockchain Communication Protocol?"
+  :links="[{name: 'Github Repository', url: 'https://github.com/cosmos/ibc-go/blob/main/CONTRIBUTING.md'}]"
   image="/ibc-icon.svg"
   :large="true"
 />
 
 <br/>
 
-<Resource 
-  title="Tendermint core" 
-  description="Help solve existing issues and continue the development of the robust Tendermint BFT consensus!" 
-  :links="[{name: 'Github Repository', url: 'https://github.com/tendermint/tendermint/blob/master/CONTRIBUTING.md'}]" 
+<Resource
+  title="Tendermint core"
+  description="Help solve existing issues and continue the development of the robust Tendermint BFT consensus!"
+  :links="[{name: 'Github Repository', url: 'https://github.com/tendermint/tendermint/blob/master/CONTRIBUTING.md'}]"
   image="/tendermint-icon.svg"
   :large="true"
 />
 
 <!-- ## Enterprise
 
-Are you a developer or enterprise wanting to build your own app? Do you need support? 
+Are you a developer or enterprise wanting to build your own app? Do you need support?
 
 No worries! Just get in touch with Cosmos enterprise support!
 

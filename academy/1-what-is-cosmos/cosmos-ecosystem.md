@@ -15,7 +15,7 @@ tag: fast-track
 * All connected through the Inter-Blockchain Communication Protocol (IBC), which enables value transfers, token transfers, and other communication between chains, all without the need to involve exchanges or make compromises regarding the sovereignty of each chain.
 
 Cosmos is also **a blockchain ecosystem** complete with protocols, SDK, tokens, wallets, applications, repositories, services, and tools.
-  
+
 </HighlightBox>
 
 <HighlightBox type="learning">
