@@ -76,11 +76,11 @@ Ethereum implements a variation of Bitcoin's PoW consensus algorithm called Etha
 
 However, these useful innovations are not the key innovation that allows Ethereum to operate with faster block times.
 
-A well-understood challenge related to reduced block time stems from network latency. Since nodes do not learn about newly discovered blocks simultaneously, at any given time a portion of the miners will be working on already solved (i.e. old) blocks. If these miners find a solution, they might not be rewarded and a "fork" of the chain results, in which rival chains with a common true history spread through the network. The rate at which such transient forks occur increases predictably with shorter block times.
+A well-understood challenge related to reduced block time stems from network latency. Since nodes do not learn about newly discovered blocks simultaneously, at any given time a portion of the miners will be working on already solved/old blocks. If these miners find a solution, they might not be rewarded and a "fork" of the chain results. This can lead to rival chains with a common true history spreading through the network. The rate at which such transient forks occur increases predictably with shorter block times.
 
-Another way of understanding this is to consider that at any point in time, a predictable percentage of the total mining hardware in the network will be working on the wrong chain, because of latency, and this percentage increases with shorter block times. It is not beneficial to the network or the miners to waste hardware resources that are intended to secure the network.
+Another way of understanding this is to consider that at any point in time, a predictable percentage of the total mining hardware in the network could be working on the wrong chain because of latency, and this percentage increases with shorter block times. It is not beneficial to the network or the miners to waste hardware resources that are intended to secure the network.
 
-While Bitcoin addresses this efficiency issue with a relatively long block time of 10 minutes, Ethereum addresses this concern with a partial reward strategy: valid blocks that aren't ultimately included in the canonical chain (because another chain becomes longer) can still be included on the side and known as **uncles**. Miners of uncles receive a smaller reward than regular block miners.
+While Bitcoin addresses this efficiency issue with a relatively long block time of 10 minutes, Ethereum addresses this concern with a partial reward strategy: valid blocks that are not ultimately included in the canonical chain, because another chain becomes longer, can still be included on the side. They are known as **uncles**. Miners of uncles receive a smaller reward than regular block miners.
 
 ![Uncles in Ethereum](/academy/0.0-B9lab-Blockchains/images/00_18_block_uncles-01.png)
 
