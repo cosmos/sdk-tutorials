@@ -102,6 +102,9 @@
             background: var(--color-text-strong);
             color: var(--background-color-secondary);
         }
+        &.prerequisite a {
+            color: var(--background-color-secondary);
+        }
 
         &.learning {
             background: linear-gradient(78.06deg, #6836D0 1.14%, #05BDFC 98.88%);
