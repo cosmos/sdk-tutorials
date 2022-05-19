@@ -96,7 +96,7 @@ In the [previous](./transactions.md) code examples, the ABCI application was awa
 Begin by describing the messages you need for your checkers application to have a solid starting point before diving into the code:
 
 1. In the former _Play_ transaction, your four integers need to move from the transaction to an `sdk.Msg`, wrapped in said transaction. Four flat `int` values are no longer sufficient, as you need to follow the `sdk.Msg` interface, identify the game for which a move is meant, and distinguish a move message from other message types.
-2. You need to add a message type for creating a new game. When this is done, a player can create a new game which mention other players. A generated ID identifies this newly created game and is returned to the message creator.
+2. You need to add a message type for creating a new game. When this is done, a player can create a new game which mentions other players. A generated ID identifies this newly created game and is returned to the message creator.
 3. It would be a good feature for the other person to be able to reject the challenge. This would have the added benefit of clearing the state of stale, unstarted games.
 
 ## How to proceed
