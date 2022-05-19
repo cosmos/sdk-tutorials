@@ -12,7 +12,7 @@ tag: deep-dive
 In this section, you will:
   
 * Establish a channel.
-* Learn about application packet flow.
+* Learn about the application packet flow.
 
 </HighlightBox>
 
