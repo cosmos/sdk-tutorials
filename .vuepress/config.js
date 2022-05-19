@@ -46,7 +46,21 @@ module.exports = {
       {}, 
       `const userThemeMode = localStorage?.getItem("vuepress-theme-cosmos-user-theme") || 'dark-mode'
       document.documentElement.className = userThemeMode`
-    ]
+    ],
+    [
+      'script',
+      {
+        async: true,
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-KZ2X8K22XG',
+      },
+    ],
+    [
+        'script',
+        {},
+        [
+          "window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-KZ2X8K22XG');",
+        ],
+    ],
   ],
   themeConfig: {
     repo: "cosmos/sdk-tutorials",
@@ -662,12 +676,6 @@ module.exports = {
       "@vuepress/google-analytics",
       {
         ga: "UA-62891515-12",
-      }
-    ],
-    [
-      "vuepress-plugin-google-tag-manager",
-      {
-        gtm: "G-KZ2X8K22XG",
       }
     ],
     [

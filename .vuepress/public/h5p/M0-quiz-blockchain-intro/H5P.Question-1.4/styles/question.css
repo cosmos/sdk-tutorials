@@ -1,5 +1,6 @@
+@import url(https://rsms.me/inter/inter.css);
 body {
-  font-family: sans-serif;
+  font-family: Inter var;
 }
 .h5p-question {
   background: rgba(255, 255, 255, 0.9);
