@@ -31,6 +31,11 @@ In your project folder create the ready-made Next.js app, which automatically pl
 
 ```sh
 $ npx create-next-app@latest --typescript
+```
+
+Which guides you with:
+
+```
 ...
 ? What is your project named? › cosmjs-keplr
 ```
@@ -41,6 +46,11 @@ Run it, in the `cosmjs-keplr` folder:
 
 ```sh
 $ npm run dev
+```
+
+Which returns:
+
+```
 ready - started server on 0.0.0.0:3000, url: http://localhost:3000
 ...
 ```

@@ -260,6 +260,11 @@ As you can see, no pieces were captured. However, it turns out that Alice placed
 
 ```sh
 $ checkersd query checkers show-stored-game 1 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\'$'\n/g'
+```
+
+Which prints:
+
+```
 *b*b*b*b
 b*b*b*b*
 ***b*b*b

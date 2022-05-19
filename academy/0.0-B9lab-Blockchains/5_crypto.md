@@ -65,7 +65,7 @@ Alice wants to send a message to Bob that is meant for Bob's eyes only:
 
 Now look at the senario code-wise. For example, try the following:
 
-```bash
+```sh
 // Encrypt file
 $ openssl pkeyutl -encrypt -pubin -inkey rsa-key-pub.pem -in helloworld.txt -out helloworld.enc
 // Decrypt file
@@ -91,16 +91,21 @@ Alice wants to make sure that Bob's public announcement is indeed from Bob:
 
 Back to the code example:
 
-```bash
-// Sign file hash
+```sh
+# Sign file hash
 $ openssl dgst -sha256 -sign secp256k1-key.pem -out helloworld-bin.sha256 helloworld.txt
-// Encode signature in Base64
+# Encode signature in Base64
 $ openssl base64 -in helloworld-bin.sha256 -out helloworld.sha256
 
-// Decode signature form Base64
+# Decode signature form Base64
 $ openssl base64 -d -in helloworld.sha256 -out helloworld-bin-decoded.sha256
-// Verify signature
+# Verify signature
 $ openssl dgst -sha256 -verify secp256k1-key-pub.pem -signature helloworld-bin-decoded.sha256 helloworld.txt
+```
+
+Which finally prints:
+
+```
 Verified OK
 ```
 
@@ -155,8 +160,13 @@ With such a function, you can:
 
 MD5 is such a hash function:
 
-```bash
+```sh
 $ echo "The quick brown fox jumps over the lazy dog" | md5
+```
+
+Which prints:
+
+```
 37c4b87edffc5d198ff5a185cee7ee09
 ```
 
@@ -164,8 +174,13 @@ On Linux, this is `md5sum`.
 
 Now introduce a typo to see what happens (e.g. changing "jumps" to "jump"):
 
-```bash
+```sh
 $ echo "The quick brown fox jump over the lazy dog" | md5
+```
+
+Which prints:
+
+```
 4ba496f4eec6ca17253cf8b7129e43be
 ```
 

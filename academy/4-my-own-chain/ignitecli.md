@@ -107,7 +107,7 @@ If you'd like to upgrade an existing project to the latest version of Ignite CLI
 
 You can also just type `ignite` to see the offered commands:
 
-```sh
+```
 Ignite CLI is a tool for creating sovereign blockchains built with Cosmos SDK, the world’s
 most popular modular blockchain framework. Ignite CLI offers everything you need to scaffold,
 test, build, and launch your blockchain.
@@ -221,7 +221,7 @@ In this file you can set the accounts, the accounts' starting balances, and the 
 
 You can observe the endpoints of the blockchain in the output of the `ignite chain serve` command:
 
-```sh
+```
 🌍 Tendermint node: http://0.0.0.0:26657
 🌍 Blockchain API: http://0.0.0.0:1317
 🌍 Token faucet: http://0.0.0.0:4500
@@ -303,7 +303,7 @@ $ ignite scaffold message --help
 
 You can see a list of files that were created or modified by the `scaffold message` command in the Terminal output:
 
-```sh
+```
 modify proto/checkers/tx.proto
 modify x/checkers/client/cli/tx.go
 create x/checkers/client/cli/tx_create_post.go
