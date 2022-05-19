@@ -62,7 +62,7 @@ The signing of fraudulent validator set updates and transaction batches meant fo
 
 <HighlightBox type="info">
 
-**Slashing** is done to penalize validators. When a validator loses a percentage of a its staked tokens, the tokens were slashed as a penalty. Thus, penalties for validators can include (but are not limited to):
+**Slashing** is done to penalize validators. When a validator loses a percentage of its staked tokens, the tokens were slashed as a penalty. Thus, penalties for validators can include (but are not limited to):
 
 * Burning some of the validator's stake.
 * Removing their permission to engage in voting for a determined time period.
