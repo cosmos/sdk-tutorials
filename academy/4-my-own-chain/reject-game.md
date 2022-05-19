@@ -259,14 +259,12 @@ You need to create other games and test the rejection on them. Notice the increm
 <CodeGroup>
 <CodeGroupItem title="Bob rejects" active>
 
-Bob creates a game and rejects it immediately:
-
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
 $ checkersd tx checkers reject-game 2 --from $bob
 ```
 
-This returns:
+Above, Bob creates a game and rejects it immediately. This returns:
 
 ```
 ...
@@ -278,14 +276,12 @@ Correct result, because nobody played a move.
 </CodeGroupItem>
 <CodeGroupItem title="Alice rejects">
 
-Bob creates a game and Alice rejects it immediately:
-
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
 $ checkersd tx checkers reject-game 3 --from $alice
 ```
 
-This returns:
+Above, Bob creates a game and Alice rejects it immediately. This returns:
 
 ```
 ...
@@ -297,15 +293,13 @@ Correct again, because nobody played a move.
 </CodeGroupItem>
 <CodeGroupItem title="Bob plays and rejects">
 
-Next, Bob creates a game, makes a move, and then rejects the game:
-
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
 $ checkersd tx checkers play-move 4 1 2 2 3 --from $bob
 $ checkersd tx checkers reject-game 4 --from $bob
 ```
 
-This returns:
+Above, Bob creates a game, makes a move, and then rejects the game. This returns:
 
 ```
 ...
@@ -317,15 +311,13 @@ Correct: the request fails, because Bob has already played a move.
 </CodeGroupItem>
 <CodeGroupItem title="Bob plays and Alice rejects">
 
-Bob creates a game, makes a move, and Alice rejects the game:
-
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
 $ checkersd tx checkers play-move 5 1 2 2 3 --from $bob
 $ checkersd tx checkers reject-game 5 --from $alice
 ```
 
-This returns:
+Above, Bob creates a game, makes a move, and Alice rejects the game. This returns:
 
 ```
 ...
@@ -337,8 +329,6 @@ Correct: Alice has not played a move yet, so she can still reject the game.
 </CodeGroupItem>
 <CodeGroupItem title="Bob & Alice play, Alice rejects">
 
-Finally, Bob creates a game and makes a move, then Alice makes a poor move and rejects the game:
-
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
 $ checkersd tx checkers play-move 6 1 2 2 3 --from $bob
@@ -346,7 +336,7 @@ $ checkersd tx checkers play-move 6 0 5 1 4 --from $alice
 $ checkersd tx checkers reject-game 6 --from $alice
 ```
 
-This returns:
+Above, Bob creates a game and makes a move, then Alice makes a poor move and rejects the game. This returns:
 
 ```
 ...

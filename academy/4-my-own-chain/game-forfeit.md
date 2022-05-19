@@ -151,12 +151,14 @@ With the callbacks in place, it is time to code the expiration properly. In `For
         }
         ```
 
-        * If the game has expired, remove it from the FIFO:
+        1. If the game has expired, remove it from the FIFO:
+
             ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L44]
             k.RemoveFromFifo(ctx, &storedGame, &nextGame)
             ```
 
-        * Check whether the game is worth keeping. If it is, set the winner as the opponent of the player whose turn it is and save:
+        2. Check whether the game is worth keeping. If it is, set the winner as the opponent of the player whose turn it is and save:
+
             ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L45-L54]
             if storedGame.MoveCount <= 1 {
                 // No point in keeping a game that was never really played
@@ -170,7 +172,8 @@ With the callbacks in place, it is time to code the expiration properly. In `For
             }
             ```
 
-        * Emit the relevant event:
+        3. Emit the relevant event:
+
             ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L55-L62]
             ctx.EventManager().EmitEvent(
                 sdk.NewEvent(sdk.EventTypeMessage,
@@ -182,7 +185,8 @@ With the callbacks in place, it is time to code the expiration properly. In `For
             )
             ```
 
-        * Move along the FIFO for the next run of the loop:
+        4. Move along the FIFO for the next run of the loop:
+
             ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L64]
             storedGameId = nextGame.FifoHead
             ```
