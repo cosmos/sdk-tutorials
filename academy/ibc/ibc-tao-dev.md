@@ -35,9 +35,9 @@ The connection semantics are described in [ICS-3](https://github.com/cosmos/ibc/
 
 In the IBC stack, connections are built on top of clients, so technically there could be multiple connections for each client if the client is interacting with multiple versions of the IBC protocol. For now, the setup should connote one connection for each client.
 
-<HighlightBox type="info">
+<HighlightBox type="note">
 
-## Version negotiation
+**Version negotiation**
 
 Note that versioning here refers to the IBC protocol spec and not the ibc-go module. A backwards incompatible update is currently not planned.
 

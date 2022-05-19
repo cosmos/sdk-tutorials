@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="learning">
 
-Transferring tokens between chains is both a common requirement and a significant technical challenge when two chains are incompatible, and as you might expect, a convenient solution for moving tokens between chains.
+Transferring tokens between chains is both a common requirement and a significant technical challenge when two chains are incompatible. A convenient solution for moving tokens between chains is essential.
 
 In this section, you will explore how a fungible token transfer can be done with IBC.
 
@@ -23,13 +23,13 @@ Fungibility refers to an instance in which a token is interchangeable with other
 
 </HighlightBox>
 
-There are many use cases involving token transfers on blockchains, like the tokenization of assets holding value or initial coin offerings (ICOs) to finance blockchain projects. IBC makes it possible to transfer tokens/digital assets between (sovereign) chains, both fungible and non-fungible tokens. While fungible token transfers allow, for example, to build applications relying on cross-chain payments and token exchanges. Therefore, IBC frees up great potential for cross-chain Decentralized Finance (DeFi) applications by offering a technically reliable cross-chain interoperability protocol that is compatible with digital assets on multiple networks.
+There are many use cases involving token transfers on blockchains, like the tokenization of assets holding value or initial coin offerings (ICOs) to finance blockchain projects. IBC makes it possible to transfer tokens and other digital assets between (sovereign) chains, both fungible and non-fungible tokens. For example, fungible token transfers allow you to build applications relying on cross-chain payments and token exchanges. Therefore, IBC frees up great potential for cross-chain Decentralized Finance (DeFi) applications by offering a technically reliable cross-chain interoperability protocol that is compatible with digital assets on multiple networks.
 
 The corresponding [implementation](https://github.com/cosmos/ibc-go/tree/main/modules/apps/transfer) is a module on the application level.
 
 ![Overview of a token transfer](/academy/ibc/images/transferoverview.png)
 
-Look at the picture above. You can see three chains A, B, and C. You also see several channels.
+Look at the picture above. You can see two chains, A and B. You also see there is a channel connecting both chains.
 
 How can tokens be transferred between chains and channels?
 
@@ -53,7 +53,11 @@ If the tokens are sent back from the **same channel** as they were received:
 
 Chain A will "un-escrow" 100 **ATOM tokens**, thus, the prefix will be removed. Chain B will burn **transfer/channel-40/atoms**.
 
-**Notice:** the prefix determines the **source** chain. If the module sends the token from another channel, chain B is the source chain and chain A mints new tokens with a prefix instead of un-escrowing ATOM tokens. You can have different channels between two chains, but you cannot transfer the same token across different channels back and forth. If `{denom}` contains `/`, then it must also follow the ICS-20 form, which indicates that this token has a multi-hop record. Note this requires that `/` is prohibited in non-IBC token denomination names.
+<HighlightBox type="note">
+
+The prefix determines the **source** chain. If the module sends the token from another channel, chain B is the source chain and chain A mints new tokens with a prefix instead of un-escrowing ATOM tokens. You can have different channels between two chains, but you cannot transfer the same token across different channels back and forth. If `{denom}` contains `/`, then it must also follow the ICS-20 form, which indicates that this token has a multi-hop record. This requires that the character `/` is prohibited in non-IBC token denomination names.
+
+</HighlightBox>
 
 ![Source sink logic](/academy/ibc/images/sourcesinklogic.png)
 

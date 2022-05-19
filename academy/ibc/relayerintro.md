@@ -15,7 +15,7 @@ In this section, you will learn how relayers fit in IBC.
 
 ![IBC overview](/academy/ibc/images/ibcoverview.png)
 
-It is useful to briefly recap what relaying is and why it is important. IBC aims to offer blockchains a protocol to enable reliable, secure and permissionless transfer of packets of data. The protocol is agnostic with respect to the data, paving the way for application developers to develop a range of possible interchain services (fungible and non-fungible token transfers are an obvious candidate, but also arbitrary cross-chain messaging via [Interchain accounts](https://interchain-io.medium.com/welcome-to-the-ibc-gang-lets-talk-f469883e0ffe)). 
+It is useful to briefly recap what relaying is and why it is important. IBC aims to offer blockchains a protocol to enable reliable, secure, and permissionless transfer of packets of data. The protocol is agnostic with respect to the data, paving the way for application developers to develop a range of possible interchain services (fungible and non-fungible token transfers are an obvious candidate, but also arbitrary cross-chain messaging via [interchain accounts](https://interchain-io.medium.com/welcome-to-the-ibc-gang-lets-talk-f469883e0ffe)). 
 
 On a high level, this works as follows. A module on a source chain wants to send a packet to a destination chain. It submits a message to the source chain that stores a commitment proof on-chain and logs an event with the packet information. With this information and the proof, you can submit a message to the IBC client on the destination chain, which will verify the proof and (if successful) store a receipt on-chain and have the receiving module execute the required actions according to the packet data. The acknowledgement and timeout functionality has been discussed [previously](../ibc/channels.md). 
 
@@ -27,12 +27,12 @@ The relayers are a crucial part of the IBC infrastructure. Remember that relayin
 
 ## What is needed to relay?
 
-Before moving on to look at specific implmentations of relayer software, understand at the general set of requirements or functionality that relayer software needs to have. 
+Before moving on to look at specific implmentations of relayer software, understand the general set of requirements or functionality that relayer software needs to have. 
 
-1. **Information about the chains**. A relayer will relay packets between a pair of chains, so it requires some information about these chains.
-2. **Information about the path**. Once you know the chains you are relaying on, the next requirement is to know which path to relay on. Remember, the IBC protocol has three main layers of abstraction: the (light) clients, connections, and channels (and ports).
-3. **A private key** to an relayer operator address on all chains that we want to relay on. Remember that a relayer needs to submit IBC messages to the chains they are relaying between (Receive, Acknowledge, and Timeout), which typically require a fee. Therefore the relayer operator address needs to have funds.
-4. **Ability to query and submit messages (or transactions)**. As mentioned already, chains do not communicate directly between one another. It is the relayer's job to listen for events related to a packet commitment. They can do this by subscribing to these events via the Tendermint websocket, and query the proofs via the Tendermint RPC endpoint. You also have the ability to query and create through transactions: clients, connections, and channels. There are transactions to update and upgrade light clients, submit notice of misbehaviour, and which allow you to relay packets and acknowledgements or timeouts. For more detail, next you will look at the command lists for the Go and Hermes relayers.
+1. **Information about the chains:** a relayer will relay packets between a pair of chains, so it requires some information about these chains.
+2. **Information about the path:** once you know the chains you are relaying on, the next requirement is to know which path to relay on. Remember, the IBC protocol has three main layers of abstraction: the (light) clients, connections, and channels (and ports).
+3. **A private key:** to a relayer operator address on all chains that we want to relay on. Remember that a relayer needs to submit IBC messages to the chains they are relaying between (Receive, Acknowledge, and Timeout), which typically require a fee. Therefore the relayer operator address needs to have funds.
+4. **Ability to query and submit messages (or transactions):** as mentioned already, chains do not communicate directly between one another. It is the relayer's job to listen for events related to a packet commitment. They can do this by subscribing to these events via the Tendermint websocket, and query the proofs via the Tendermint RPC endpoint. You also have the ability to query and create through transactions: clients, connections, and channels. There are transactions to update and upgrade light clients, submit notice of misbehaviour, and which allow you to relay packets and acknowledgements or timeouts. For more detail, next you will look at the command lists for the Go and Hermes relayers.
 
 <HighlightBox type="tip">
 
