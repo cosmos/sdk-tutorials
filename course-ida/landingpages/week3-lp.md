@@ -6,7 +6,7 @@ description: IT ALL COMES TOGETHER
 
 ## Running Your Own Cosmos Chain - Part 2
 
-Continue your journey with the Ignite CLI: learn how to introduce a wager, manage gas, and query for player's moves.
+Continue your journey with Ignite CLI: learn how to introduce a wager, manage gas, and query for player's moves.
 
 At the end of the chapter, you will find an introduction to CosmWasm and discover how multi-chain smart contracting works.
 
