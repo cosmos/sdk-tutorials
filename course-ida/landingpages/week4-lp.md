@@ -19,7 +19,7 @@ In this chapter, you will:
 * Discover what IBC is.
 * Get an introduction to the different layers of IBC and how connections, channels, and clients relate to each other in IBC.
 * Take a look at IBC token transfers.
-* Explore Interchain Accounts.
+* Explore interchain accounts.
 * Dive into relaying with IBC.
 * Get an overview of helpful tools for IBC.
 

@@ -60,6 +60,15 @@ The Cosmos Gravity Bridge is designed to run on the Cosmos Hub. It focuses on ma
 
 The signing of fraudulent validator set updates and transaction batches meant for the Ethereum smart contract is punished on the Cosmos chain by slashing. If the Cosmos chain is trustworthy, you can trust the Gravity Bridge operated by it as long as it operates within certain parameters.
 
+<HighlightBox type="info">
+
+**Slashing** is done to penalize validators. When a validator loses a percentage of its staked tokens, the tokens were slashed as a penalty. Thus, penalties for validators can include (but are not limited to):
+
+* Burning some of the validator's stake.
+* Removing their permission to engage in voting for a determined time period.
+
+</HighlightBox>
+
 Bridges to Cosmos chains derive their trustworthiness from the degree of trust associated with the Cosmos chain to which they bridge. Peg-zone validators must maintain a trusted Ethereum node. This is mandatory. This removes all trust and game theory issues that usually arise when involving independent relayers. This once again dramatically simplifies the design.
 
 <HighlightBox type="info">

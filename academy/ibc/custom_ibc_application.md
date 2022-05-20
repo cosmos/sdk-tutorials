@@ -9,9 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="prerequisite">
 
-Before you dive into Go relayers, make sure to:
-
-* Install Go.
+Before you dive into Go relayers, make sure to install Go.
 
 For all installations, please see the [setup page](../course-ida/setup.md).
 

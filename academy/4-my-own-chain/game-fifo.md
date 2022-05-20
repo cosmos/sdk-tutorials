@@ -69,13 +69,17 @@ When terminating expired games in `EndBlock`, you deal with the expired games th
 
 `k` is still an unbounded number of operations. However, if you use the same expiration duration on each game, for `k` games to expire together in a block they would all have to have had a move in the same previous block (give or take the block before or after). In the worst case, the largest `EndBlock` computation will be proportional to the largest regular block in the past. This is a reasonable risk to take.
 
-**Remember:** this only works if the expiration duration is the same for all games, instead of being a parameter left to a potentially malicious game creator.
+<HighlightBox type="remember">
+
+This only works if the expiration duration is the same for all games, instead of being a parameter left to a potentially malicious game creator.
+
+</HighlightBox>
 
 ## New information
 
 How do you implement a FIFO from which you extract elements at random positions? Choose a doubly-linked list:
 
-1. You must remember the game ID at the head to pick expired games, and at the tail to send back fresh games. The existing `NextGame` object is a useful, as it is already expandable. Add to its Protobuf declaration:
+1. You must remember the game ID at the head to pick expired games, and at the tail to send back fresh games. The existing `NextGame` object is useful, as it is already expandable. Add to its Protobuf declaration:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/proto/checkers/next_game.proto#L9-L10]
     message NextGame {
@@ -118,7 +122,7 @@ How do you implement a FIFO from which you extract elements at random positions?
     }
     ```
 
-Instruct Ignite CLI and Protobuf recompile the files:
+5. Instruct Ignite CLI and Protobuf to recompile the files:
 
 ```sh
 $ ignite chain build

@@ -62,7 +62,7 @@ The **length of keys** is vital. Asymmetric cryptographic keys are usually very 
 
 <HighlightBox type="info">
 
-Asymmetric keys always come in pairs and offer their owner various capabilities. These capabilities are based on cryptographic mathematics. The public key is meant to be distributed to whoever is relevant, while the private key is to remain a secret. This is similar to sharing the address  your house, but keeping the key to your front door private.
+Asymmetric keys always come in pairs and offer their owner various capabilities. These capabilities are based on cryptographic mathematics. The public key is meant to be distributed to whoever is relevant, while the private key is to remain a secret. This is similar to sharing the address of your house, but keeping the key to your front door private.
 
 </HighlightBox>
 
@@ -158,7 +158,7 @@ The [`BaseAccount`](https://github.com/cosmos/cosmos-sdk/blob/bf11b1bf1fa0c52fb2
 
 ## Public keys
 
-Public keys are generally not used to reference accounts (see the following section, *Address*). Public keys do exist and they are accessible through the [`cryptoTypes.PubKey`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/crypto/types/types.go#L9) interface. This facilitates operations which developers may find useful. such as signing off-chain messages or using a public key for other out-of-band operations.
+Public keys are generally not used to reference accounts (see the following section, *Address*). Public keys do exist and they are accessible through the [`cryptoTypes.PubKey`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/crypto/types/types.go#L9) interface. This facilitates operations which developers may find useful, such as signing off-chain messages or using a public key for other out-of-band operations.
 
 ## Address
 

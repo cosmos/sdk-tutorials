@@ -72,7 +72,7 @@ type QueryCanPlayMoveResponse struct {
 }
 ```
 
-It also creates a function that should looks familiar:
+It also creates a function that should look familiar:
 
 ```go
 func (k Keeper) CanPlayMove(goCtx context.Context, req *types.QueryCanPlayMoveRequest) (*types.QueryCanPlayMoveResponse, error) {

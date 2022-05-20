@@ -34,7 +34,9 @@ Originally designed and developed by Google, Protobuf has been an open-source pr
 
 <HighlightBox type="info">
 
-Google provides the [gRPC project](https://grpc.io/). This universal RPC framework supports Protobuf directly. For more information on the process, see the section entitled `Compiler Invocation`.
+Google provides the [gRPC project](https://grpc.io/). This universal RPC framework supports Protobuf directly.
+
+<!-- Please add again, after finding correct section to link to: "For more information on the process, see the section entitled `Compiler Invocation`." -->
 
 </HighlightBox>
 
@@ -91,7 +93,7 @@ The core of a Cosmos SDK application mainly consists of type definitions and con
 
 Look at the following code example to see how Protobuf can facilitate your activities, or go straight to the [next section](../2-main-concepts/multistore-keepers.md) for an introduction to storage types and keepers.
 
-<ExpansionPanel title="Show me some code for my checkers' blockchain">
+<ExpansionPanel title="Show me some code for my checkers blockchain">
 
 In the previous code samples, you saw something like:
 

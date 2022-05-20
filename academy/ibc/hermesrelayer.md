@@ -28,7 +28,7 @@ In this section, you will learn:
 
 </HighlightBox>
 
-[Hermes](https://hermes.informal.systems/) is a an open-source Rust implementation of a relayer for the Inter-Blockchain Communication Protocol (IBC). Hermes is most widely used in production by relayer operators. It offers great logging and debugging options, but compared to the Go relayer may require some more detaild knowledge of IBC to use it properly.
+[Hermes](https://hermes.informal.systems/) is a an open-source Rust implementation of a relayer for the Inter-Blockchain Communication Protocol (IBC). Hermes is most widely used in production by relayer operators. It offers great logging and debugging options, but compared to the Go relayer may require some more detailed knowledge of IBC to use it properly.
 
 <HighlightBox type="docs">
 

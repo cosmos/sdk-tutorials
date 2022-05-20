@@ -11,9 +11,9 @@ tag: deep-dive
 
 IBC in depth. Discover the IBC protocol in detail:
 
-* Connection negotiation
-* Connection states
-* How IBC repels hostile connection attempts
+* Learn more about connection negotiation.
+* Explore connection states.
+* How IBC repels hostile connection attempts.
 
 </HighlightBox>
 
@@ -22,9 +22,9 @@ Now that you covered the introduction and have a better understanding of how dif
 ## Connections
 
 If you want to connect two blockchains with IBC, you will need to establish an IBC **connection**. Connections, established by a four-way handshake, are responsible for:
+
 1. Establishing the identity of the counterparty chain.
-2. Preventing a malicious entity from forging incorrect information by pretending to be the counter party chain.
-IBC connections are established by on-chain ledger code and therefore do not require interaction with off-chain (trusted) third-party processes.
+2. Preventing a malicious entity from forging incorrect information by pretending to be the counter party chain. IBC connections are established by on-chain ledger code and therefore do not require interaction with off-chain (trusted) third-party processes.
 
 <HighlightBox type="docs">
 
@@ -34,9 +34,9 @@ The connection semantics are described in [ICS-3](https://github.com/cosmos/ibc/
 
 In the IBC stack, connections are built on top of clients, so technically there could be multiple connections for each client if the client is interacting with multiple versions of the IBC protocol. For now, the setup should connote one connection for each client.
 
-<HighlightBox type="info">
+<HighlightBox type="note">
 
-## Version negotiation
+**Version negotiation**
 
 Note that versioning here refers to the IBC protocol spec and not the ibc-go module. A backwards incompatible update is currently not planned.
 
@@ -54,9 +54,7 @@ type Version struct {
 Protocol versioning is important to establish, as different protocol versions may not be compatible, for example due to proofs being stored on a different path. There are three types of protocol version negotiation:
 
 1. *Default, no selection*: only one protocol version is supported. This is default to propose.
-
 2. *With selection*: two protocol versions can be proposed, such that the chain initiating `OpenInit` or `OpenTry` has a choice of which version to go with.
-
 3. *Impossible communication*: a backwards incompatible IBC protocol version. For example, if an IBC module changes where it stores its proofs (proof paths), errors result. There are no plans to upgrade to a backwards incompatible IBC protocol version.
 
 </HighlightBox>

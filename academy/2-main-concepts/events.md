@@ -125,7 +125,7 @@ Now you know about events, where they are expected, and how to emit or receive t
 
 It would be good to document a game's lifecycle via events in your checkers blockchain.
 
-For instance, you can emit a specific event such that when creating the game:
+For instance, you can emit a specific event such as when creating a game:
 
 ```go
 var ctx sdk.Context
