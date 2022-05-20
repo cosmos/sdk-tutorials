@@ -42,11 +42,25 @@ module.exports = {
       },
     ],
     [
-      "script", 
-      {}, 
+      "script",
+      {},
       `const userThemeMode = localStorage?.getItem("vuepress-theme-cosmos-user-theme") || 'dark-mode'
       document.documentElement.className = userThemeMode`
-    ]
+    ],
+    [
+      'script',
+      {
+        async: true,
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-KZ2X8K22XG',
+      },
+    ],
+    [
+        'script',
+        {},
+        [
+          "window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-KZ2X8K22XG');",
+        ],
+    ],
   ],
   themeConfig: {
     repo: "cosmos/sdk-tutorials",
@@ -62,12 +76,14 @@ module.exports = {
       banner: true,
     },
     allowedIDAOrigins: [
-      "preview-5bxuue6kafu5ocp5", 
-      "deploy-preview-995", 
-      "deploy-preview-994", 
+      "preview-5bxuue6kafu5ocp5",
+      "deploy-preview-995",
+      "deploy-preview-994",
       "deploy-preview-991",
       "deploy-preview-1047",
       "127.0.0.1",
+      "deploy-preview",
+      "interchainacademy.cosmos.network"
     ],
     sidebar: {
       auto: false,
@@ -113,12 +129,12 @@ module.exports = {
           children: [
             {
               title: "Welcome",
-              path: "/course-ida/welcome/",
+              path: "/",
               directory: false,
               order: 0
             },
             {
-              title: "Getting started",
+              title: "Getting Started",
               directory: true,
               order: 1,
               children: [
@@ -145,6 +161,10 @@ module.exports = {
                 {
                   title: "Cryptography",
                   path: "/academy/0.0-B9lab-Blockchains/5_crypto.html"
+                },
+                {
+                  title: "Self-assessment Quiz",
+                  path: "/academy/0.0-B9lab-Blockchains/6_quiz.html"
                 }
               ]
             },
@@ -168,10 +188,6 @@ module.exports = {
                 {
                   title: "Getting ATOM and Staking It",
                   path: "/academy/1-what-is-cosmos/atom-staking.html"
-                },
-                {
-                  title: "Main Concepts",
-                  path: "/academy/2-main-concepts/"
                 },
                 {
                   title: "A Blockchain App Architecture",
@@ -222,16 +238,12 @@ module.exports = {
                   path: "/academy/2-main-concepts/migrations.html"
                 },
                 {
-                  title: "Inter-Blockchain Communication",
-                  path: "/academy/2-main-concepts/ibc.html"
-                },
-                {
                   title: "Bridges",
                   path: "/academy/2-main-concepts/bridges.html"
                 },
                 {
-                  title: "Mandatory Quiz (todo)",
-                  path: "/feature-test"
+                  title: "Mandatory Quiz",
+                  path: "/course-ida/quiz-week1.html"
                 },
               ]
             },
@@ -257,32 +269,60 @@ module.exports = {
                   path: "/academy/4-my-own-chain/ignitecli.html"
                 },
                 {
+                  title: "Exercise - Make a Checkers Blockchain",
+                  path: "/academy/4-my-own-chain-exer/exercise-intro.html"
+                },
+                {
+                  title: "Exercise - Store Object - Make a Checkers Blockchain",
+                  path: "/academy/4-my-own-chain-exer/stored-game-exer.html"
+                },
+                {
                   title: "Store Object - Make a Checkers Blockchain",
                   path: "/academy/4-my-own-chain/stored-game.html"
+                },
+                {
+                  title: "Exercise - Message - Create a Message to Create a Game",
+                  path: "/academy/4-my-own-chain-exer/create-message-exer.html"
                 },
                 {
                   title: "Message - Create a Message to Create a Game",
                   path: "/academy/4-my-own-chain/create-message.html"
                 },
                 {
+                  title: "Exercise - Message Handler - Create and Save a Game Properly",
+                  path: "/academy/4-my-own-chain-exer/create-handling-exer.html"
+                },
+                {
                   title: "Message Handler - Create and Save a Game Properly",
                   path: "/academy/4-my-own-chain/create-handling.html"
+                },
+                {
+                  title: "Exercise - Message and Handler - Add a Way to Make a Move",
+                  path: "/academy/4-my-own-chain-exer/play-game-exer.html"
                 },
                 {
                   title: "Message and Handler - Add a Way to Make a Move",
                   path: "/academy/4-my-own-chain/play-game.html"
                 },
                 {
+                  title: "Exercise - Events - Emitting Game Information",
+                  path: "/academy/4-my-own-chain-exer/events-exer.html"
+                },
+                {
                   title: "Events - Emitting Game Information",
                   path: "/academy/4-my-own-chain/events.html"
+                },
+                {
+                  title: "Exercise - Message and Handler - Make Sure a Player Can Reject a Game",
+                  path: "/academy/4-my-own-chain-exer/reject-game-exer.html"
                 },
                 {
                   title: "Message and Handler - Make Sure a Player Can Reject a Game",
                   path: "/academy/4-my-own-chain/reject-game.html"
                 },
                 {
-                  title: "Mandatory Exercise (todo)",
-                  path: "/feature-test"
+                  title: "Mandatory Exercise",
+                  path: "/academy/4-my-own-chain-exer/week2-exercise.html"
                 },
               ]
             },
@@ -294,6 +334,10 @@ module.exports = {
                 {
                   title: "Running Your Own Cosmos Chain - Part 2",
                   path: "/course-ida/landingpages/week3-lp.html"
+                },
+                {
+                  title: "Exercise - Auto-Expiring Games",
+                  path: "/academy/4-my-own-chain-exer/game-fifo-exer.html"
                 },
                 {
                   title: "Store FIFO - Put Your Games in Order",
@@ -312,16 +356,32 @@ module.exports = {
                   path: "/academy/4-my-own-chain/game-forfeit.html"
                 },
                 {
+                  title: "Exercise - Token - Let Players Set a Wager",
+                  path: "/academy/4-my-own-chain-exer/game-wager-exer.html"
+                },
+                {
                   title: "Token - Let Players Set a Wager",
                   path: "/academy/4-my-own-chain/game-wager.html"
+                },
+                {
+                  title: "Exercise - Gas - Incentivize Players",
+                  path: "/academy/4-my-own-chain-exer/gas-meter-exer.html"
                 },
                 {
                   title: "Gas - Incentivize Players",
                   path: "/academy/4-my-own-chain/gas-meter.html"
                 },
                 {
+                  title: "Exercise - Query - Help Find a Correct Move",
+                  path: "/academy/4-my-own-chain-exer/can-play-exer.html"
+                },
+                {
                   title: "Query - Help Find a Correct Move",
                   path: "/academy/4-my-own-chain/can-play.html"
+                },
+                {
+                  title: "Exercise - IBC Token - Play With Cross-Chain Tokens",
+                  path: "/academy/4-my-own-chain-exer/wager-denom-exer.html"
                 },
                 {
                   title: "IBC Token - Play With Cross-Chain Tokens",
@@ -389,16 +449,16 @@ module.exports = {
               ]
             },
             {
-              title: "Week 5 - CosmJS and Building Your CosmJS Chain",
+              title: "Week 5 - CosmJS - Interfacing",
               directory: true,
               order: 6,
               children: [
                 {
-                  title: "CosmJS and Building Your CosmJS Chain",
+                  title: "CosmJS - Interfacing",
                   path: "/course-ida/landingpages/week5-lp.html"
                 },
                 {
-                  title: "What is CosmJS",
+                  title: "What is CosmJS?",
                   path: "/academy/xl-cosmjs/intro.html"
                 },
                 {
@@ -448,15 +508,39 @@ module.exports = {
                   title: "CosmJS on a Backend Script for Game Indexing",
                   path: "/academy/4-my-own-chain/server-side.html"
                 },
+/*
                 {
                   title: "Final exam (todo)",
                   path: "/feature-test/"
                 },
-                {
-                  title: "What’s Next",
-                  path: "/academy/5-whats-next/"
-                },
+*/
               ]
+            },
+            {
+              title: "What's Next?",
+              path: "/academy/5-whats-next/",
+              directory: false,
+              order: 8,
+            },
+          ],
+        },
+        {
+          title: "Tutorials",
+          children: [
+            {
+              title: "Understanding IBC denoms",
+              path: "/tutorials/understanding-ibc-denoms/",
+              directory: false,
+            },
+            {
+              title: "Understanding the Authz Module",
+              path: "/authz-module/",
+              directory: false,
+            },
+            {
+              title: "Understanding the Feegrant Module",
+              path: "/tutorials/understanding-feegrant/",
+              directory: false,
             }
           ],
         },
@@ -637,17 +721,11 @@ module.exports = {
     [
       "@vuepress/google-analytics",
       {
-        ga: "UA-51029217-2",
+        ga: "UA-62891515-12",
       }
     ],
     [
-      "vuepress-plugin-google-tag-manager",
-      {
-        gtm: "UA-51029217-2",
-      }
-    ],
-    [
-      "@vuepress/medium-zoom", 
+      "@vuepress/medium-zoom",
       {
         selector: ".layout__main__content :not(a) > img:not(.no-zoom)",
         options: {

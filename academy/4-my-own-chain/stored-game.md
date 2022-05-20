@@ -7,25 +7,29 @@ tag: deep-dive
 
 # Store Object - Make a Checkers Blockchain
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have everything you need before proceeding with the exercise:
 
 * You understand the concepts of [accounts](../2-main-concepts/accounts.md), [Protobuf](../2-main-concepts/protobuf.md), and [multistore](../2-main-concepts/multistore-keepers.md).
 * Go is installed.
 * You have the bare blockchain scaffold codebase with a single module named `checkers`. If not, follow the [previous steps](./ignitecli.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/starport-start).
-    
-In this section:
-    
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+In this section, you will handle:
+
 * The Stored Game object
 * Protobuf objects
 * Query.proto
-* Protobuf Service interfaces
+* Protobuf service interfaces
 * Your first unit test
 
 </HighlightBox>
 
-In the [Ignite CLI introduction section](./ignitecli) you learned how to start a completely new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
+In the [Ignite CLI introduction section](./ignitecli.md) you learned how to start a completely new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
 
 A good start to developing a checkers blockchain is to define the ruleset of the game. There are many versions of the rules. Choose [a very simple set of basic rules](https://www.ducksters.com/games/checkers_rules.php) to avoid getting lost in the rules of checkers or the proper implementation of the board state.
 
@@ -149,6 +153,18 @@ message GenesisState {
 }
 ```
 
+<HighlightBox type="best-practice">
+
+At this point, notice that `NextGame` exists from the start. Therefore, it does not have a _creator_ per se. **This exercise keeps it** but if you want, you can choose to remove `creator` from its definition, and readjust the Protobuf numbering. Here, it is okay to reorder the Protobuf numbering because you just started and do not have any backward compatibility to handle.
+
+```protobuf
+message NextGame {
+    uint64 idValue = 1; // For example
+}
+```
+
+</HighlightBox>
+
 This is compiled to:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/genesis.pb.go#L26-L30]
@@ -206,7 +222,7 @@ Files updated by Ignite CLI include comments like:
 
 <HighlightBox type="tip">
 
-Ignite CLI adds code right below the comments, which explains the odd numbering, with the oldest lines appearing lower than recent ones. Make sure to keep these comments where they are so that Ignite CLI knows where to inject code in the future. You could add your code above or below the comments. You will be fine if you keep these comments where they are.
+Ignite CLI adds code right below the comments, which explains why the oldest lines appear lower than recent ones. Make sure to keep these comments where they are so that Ignite CLI knows where to inject code in the future. You could add your code above or below the comments.
 
 </HighlightBox>
 
@@ -349,27 +365,27 @@ You want your tests to pass when everything is okay, but you also want them to f
 ```
 --- FAIL: TestDefaultGenesisIsCorrect (0.00s)
     genesis_test.go:10:
-                Error Trace:    genesis_test.go:10
-                Error:          Not equal:
-                                expected: &types.GenesisState{StoredGameList:[]*types.StoredGame{}, NextGame:(*types.NextGame)(0xc000506cf0)}
-                                actual  : &types.GenesisState{StoredGameList:[]*types.StoredGame{}, NextGame:(*types.NextGame)(0xc000506d08)}
+        Error Trace:    genesis_test.go:10
+        Error:          Not equal:
+            expected: &types.GenesisState{StoredGameList:[]*types.StoredGame{}, NextGame:(*types.NextGame)(0xc000506cf0)}
+            actual  : &types.GenesisState{StoredGameList:[]*types.StoredGame{}, NextGame:(*types.NextGame)(0xc000506d08)}
 
-                                Diff:
-                                --- Expected
-                                +++ Actual
-                                @@ -5,3 +5,3 @@
-                                   Creator: (string) "",
-                                -  IdValue: (uint64) 2
-                                +  IdValue: (uint64) 1
-                                  })
-                Test:           TestDefaultGenesisIsCorrect
+            Diff:
+            --- Expected
+            +++ Actual
+            @@ -5,3 +5,3 @@
+               Creator: (string) "",
+            -  IdValue: (uint64) 2
+            +  IdValue: (uint64) 1
+              })
+        Test: TestDefaultGenesisIsCorrect
 FAIL
 exit status 1
 ```
 
 This appears complex, but the significant aspect is this:
 
-```sh
+```
 Diff:
 --- Expected
 +++ Actual
@@ -387,17 +403,17 @@ func EqualValues(t TestingT, expected interface{}, actual interface{}, msgAndArg
 
 ### Debug your unit test
 
-Your first unit test is a standard Go unit test. If you use an IDE like Visual Studio Code it is ready to assist run the test in debug mode. Next to the function name is a small green tick. If you hover below it, a faint red dot appears:
+Your first unit test is a standard Go unit test. If you use an IDE like Visual Studio Code, it is ready to assist with running the test in debug mode. Next to the function name is a small green tick. If you hover below it, a faint red dot appears:
 
-![Go test debug button in VSCode](/go_test_debug_button.png)
+![Go test debug button in VSCode](/academy/4-my-own-chain/images/go_test_debug_button.png)
 
 This red dot is a potential breakpoint. Add one on the `DefaultGenesis()` line. The dot is now bright and stays there:
 
-![Go test breakpoint placed](/go_test_debug_breakpoint.png)
+![Go test breakpoint placed](/academy/4-my-own-chain/images/go_test_debug_breakpoint.png)
 
 Right-click on the green tick, and choose <kbd>Debug Test</kbd>. If it asks you to install a package, accept. Eventually it stops at the breakpoint and displays the current variables and a panel for stepping actions:
 
-![Go test stopped at breakpoint](/go_test_debug_stopped_at_breakpoint.png)
+![Go test stopped at breakpoint](/academy/4-my-own-chain/images/go_test_debug_stopped_at_breakpoint.png)
 
 If you are struggling with a test, create separate variables in order to inspect them in debug. From there, follow your regular step-by-step debugging process. If you are not familiar with debugging, [this online tutorial](https://www.digitalocean.com/community/tutorials/debugging-go-code-with-visual-studio-code) will be helpful.
 
@@ -489,7 +505,7 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     ```
     NextGame:
       creator: ""
-      idValue: "0"
+      idValue: "1"
     ```
 
     This is as expected. No games have been created yet, so the game counter is still at `0`.
@@ -516,7 +532,7 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     This should print:
 
     ```json
-    {"NextGame":{"creator":"","idValue":"0"}}
+    {"NextGame":{"creator":"","idValue":"1"}}
     ```
 
 3. You can similarly confirm there are no [stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/client/cli/query_stored_game.go#L14):

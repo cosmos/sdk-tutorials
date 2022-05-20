@@ -7,16 +7,20 @@ tag: deep-dive
 
 # Migrations: on-chain upgrades
 
-<HighlightBox type="synopsis">
-
-Have you ever wondered how an upgrade is done in the Cosmos SDK? In this section you will find out how Cosmos SDK migrations are conducted.
-
-Blockchains can be upgraded through a predictable process that reliably avoids forks. Discover the Cosmos comprehensive process that includes governance, data migrations, node upgrades, and more, to ensure upgrades proceed smoothly and without service disruption.
+<HighlightBox type="prerequisite">
 
 To better understand this section, first read the following sections:
 
 * [Messages](./messages.md)
 * [Protobuf](./protobuf.md)
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+Have you ever wondered how an upgrade is done in the Cosmos SDK? In this section you will find out how Cosmos SDK migrations are conducted.
+
+Blockchains can be upgraded through a predictable process that reliably avoids forks. Discover the Cosmos comprehensive process that includes governance, data migrations, node upgrades, and more, to ensure upgrades proceed smoothly and without service disruption.
 
 At the end of the section, the code example demonstrates how you would use migration to upgrade your checkers blockchain with new features even after it has been in operation for some time.
 
@@ -50,7 +54,7 @@ Smart contracts on EVM chains such as Ethereum are immutable software. They are 
 
 ### Plan
 
-A "plan" is an upgrade process to take place at a specific block height in the future. It includes a `SideCar` process that executes when the upgrade commences, which names the plan and specifies a block height at which to execute. 
+A "plan" is an upgrade process to take place at a specific block height in the future. It includes a `SideCar` process that executes when the upgrade commences, which names the plan and specifies a block height at which to execute.
 
 <HighlightBox type="info">
 
@@ -60,7 +64,7 @@ Acceptance or rejection of the plan is managed through the normal governance pro
 
 The `Info` in a plan kicks off the `SideCar` process:
 
-```shell
+```go
 type Plan struct {
   Name   string
   Height int64
@@ -205,7 +209,7 @@ You will need to add code to v2 to update the leaderboard after a game has been 
 
 <HighlightBox type="tip">
 
-If you want more details on how to update the leaderboard, look at [Run my own chain](../4-my-own-chain/index.md).
+If you want more details on how to update the leaderboard, look at [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
 
 </HighlightBox>
 
@@ -291,7 +295,7 @@ func PopulateLeaderboardWith(leaderboard *types.Leaderboard, additionalPlayers *
 
 <HighlightBox type="tip">
 
-If you want more details about the number of helper functions like `AddCandidatesAndSortAtNow`, go to [Run my own chain](../4-my-own-chain/index.md).
+If you want more details about the number of helper functions like `AddCandidatesAndSortAtNow`, go to [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
 
 </HighlightBox>
 

@@ -1,13 +1,13 @@
 ---
 title: Message and Handler - Make Sure a Player Can Reject a Game
 order: 10
-description: You reject a game
+description: Rejecting a game
 tag: deep-dive
 ---
 
 # Message and Handler - Make Sure a Player Can Reject a Game
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Before proceeding, make sure you have everything you need:
 
@@ -15,13 +15,17 @@ Before proceeding, make sure you have everything you need:
 * You know how to [create a message](./create-message.md) with Ignite CLI, and code [its handling](./create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
 * Go is installed.
 * You have the checkers blockchain codebase with the previous messages and their events. If not, follow the [previous steps](./events.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/two-events).
-    
-In this section:
-    
-* Add a new protocol rule
-* Define custom errors
-* Add a message handler
-* Extend unit tests
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+In this section, you will:
+
+* Add a new protocol rule.
+* Define custom errors.
+* Add a message handler.
+* Extend unit tests.
 
 </HighlightBox>
 
@@ -196,7 +200,6 @@ func TestRejectGameByRedOneMoveRemovedGame(t *testing.T) {
 
 ## Interact with the CLI
 
-
 Time to see if it is possible to reject a game.
 
 First, is it possible to reject the current game from the command line?
@@ -228,17 +231,17 @@ Usage:
   checkersd tx checkers reject-game [idValue] [flags]
 ```
 
-Have Alice, who played poorly in game `0`, try to reject it:
+Have Alice, who played poorly in game `1`, try to reject it:
 
 ```sh
-$ checkersd tx checkers reject-game 0 --from $alice
+$ checkersd tx checkers reject-game 1 --from $alice
 ```
 
 This returns:
 
 ```
 ...
-raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"0"}]}]}]'
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"1"}]}]}]'
 ```
 
 Against expectations, the system carried out Alice's request to reject the game.
@@ -253,56 +256,56 @@ To see how to properly handle code changes that would otherwise result in a brok
 
 You need to create other games and test the rejection on them. Notice the incrementing game ID.
 
-<CodeGroup>
-<CodeGroupItem title="Bob rejects" active>
+<PanelList>
+<PanelListItem number="1">
 
-Bob creates a game and rejects it immediately:
+Bob rejects:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
-$ checkersd tx checkers reject-game 1 --from $bob
+$ checkersd tx checkers reject-game 2 --from $bob
 ```
 
-This returns:
+Above, Bob creates a game and rejects it immediately. This returns:
 
 ```
 ...
-raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1w0uumlj04eyvevhfawasm2dtjc24nexxygr8qx"},{"key":"IdValue","value":"1"}]}]}]'
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1w0uumlj04eyvevhfawasm2dtjc24nexxygr8qx"},{"key":"IdValue","value":"2"}]}]}]'
 ```
 
 Correct result, because nobody played a move.
 
-</CodeGroupItem>
-<CodeGroupItem title="Alice rejects">
+</PanelListItem>
+<PanelListItem number="2">
 
-Bob creates a game and Alice rejects it immediately:
+Alice rejects:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
-$ checkersd tx checkers reject-game 2 --from $alice
+$ checkersd tx checkers reject-game 3 --from $alice
 ```
 
-This returns:
+Above, Bob creates a game and Alice rejects it immediately. This returns:
 
 ```
 ...
-raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"2"}]}]}]'
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"3"}]}]}]'
 ```
 
 Correct again, because nobody played a move.
 
-</CodeGroupItem>
-<CodeGroupItem title="Bob plays and rejects">
+</PanelListItem>
+<PanelListItem number="3">
 
-Next, Bob creates a game, makes a move, and then rejects the game:
+Bob plays and rejects:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
-$ checkersd tx checkers play-move 3 1 2 2 3 --from $bob
-$ checkersd tx checkers reject-game 3 --from $bob
+$ checkersd tx checkers play-move 4 1 2 2 3 --from $bob
+$ checkersd tx checkers reject-game 4 --from $bob
 ```
 
-This returns:
+Above, Bob creates a game, makes a move, and then rejects the game. This returns:
 
 ```
 ...
@@ -311,39 +314,39 @@ raw_log: 'failed to execute message; message index: 0: black player has already 
 
 Correct: the request fails, because Bob has already played a move.
 
-</CodeGroupItem>
-<CodeGroupItem title="Bob plays and Alice rejects">
+</PanelListItem>
+<PanelListItem number="4">
 
-Bob creates a game, makes a move, and Alice rejects the game:
-
-```sh
-$ checkersd tx checkers create-game $alice $bob --from $bob
-$ checkersd tx checkers play-move 4 1 2 2 3 --from $bob
-$ checkersd tx checkers reject-game 4 --from $alice
-```
-
-This returns:
-
-```
-...
-raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"4"}]}]}]'
-```
-
-Correct: Alice has not played a move yet, so she can still reject the game.
-
-</CodeGroupItem>
-<CodeGroupItem title="Bob & Alice play, Alice rejects">
-
-Finally, Bob creates a game and makes a move, then Alice makes a poor move and rejects the game:
+Bob plays and Alice rejects:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
 $ checkersd tx checkers play-move 5 1 2 2 3 --from $bob
-$ checkersd tx checkers play-move 5 0 5 1 4 --from $alice
 $ checkersd tx checkers reject-game 5 --from $alice
 ```
 
-This returns:
+Above, Bob creates a game, makes a move, and Alice rejects the game. This returns:
+
+```
+...
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"RejectGame"},{"key":"module","value":"checkers"},{"key":"action","value":"GameRejected"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"5"}]}]}]'
+```
+
+Correct: Alice has not played a move yet, so she can still reject the game.
+
+</PanelListItem>
+<PanelListItem number="5" :last="true">
+
+Bob & Alice play, Alice rejects:
+
+```sh
+$ checkersd tx checkers create-game $alice $bob --from $bob
+$ checkersd tx checkers play-move 6 1 2 2 3 --from $bob
+$ checkersd tx checkers play-move 6 0 5 1 4 --from $alice
+$ checkersd tx checkers reject-game 6 --from $alice
+```
+
+Above, Bob creates a game and makes a move, then Alice makes a poor move and rejects the game. This returns:
 
 ```
 ...
@@ -352,12 +355,16 @@ raw_log: 'failed to execute message; message index: 0: red player has already pl
 
 Correct: this time Alice could not reject the game because the state recorded her move in `.MoveCount`.
 
-</CodeGroupItem>
-</CodeGroup>
+</PanelListItem>
+</PanelList>
 
 ---
 
+<HighlightBox type="warning">
+
 To belabor the point made in the earlier warning box: if you change your code, think about what it means for the current state of the chain and whether you end up in a broken state.
+
+</HighlightBox>
 
 ## Next up
 

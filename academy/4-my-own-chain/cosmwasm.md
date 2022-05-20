@@ -7,7 +7,7 @@ tag: deep-dive
 
 # CosmWasm
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Discover how multi-chain smart contracts become possible with CosmWasm.
 
@@ -69,6 +69,11 @@ Verify your installation:
 
 ```sh
 $ wasmd version
+```
+
+This returns:
+
+```
 0.18.0
 ```
 
@@ -87,6 +92,11 @@ Confirm you got it correctly:
 
 ```sh
 $ echo $CHAIN_ID
+```
+
+This returns:
+
+```
 pebblenet-1
 ```
 
@@ -105,13 +115,23 @@ What was created?
 
 ```sh
 $ wasmd keys show wallet --address
+```
+
+This returns:
+
+```
 wasm1jj7gzazxvgy56rj8kersuc44ehvep0uey85jdn
 ```
 
 That is your address. Query your token balance:
 
 ```sh
-wasmd query bank balances $(wasmd keys show wallet --address) --node $RPC
+$ wasmd query bank balances $(wasmd keys show wallet --address) --node $RPC
+```
+
+This returns:
+
+```
 pagination: {}
 ```
 
@@ -120,6 +140,11 @@ You have none. Time to ask the [faucet](https://faucet.pebblenet.cosmwasm.com) t
 ```sh
 $ JSON=$(jq --null-input --arg addr $(wasmd keys show wallet --address) '{"denom":"upebble","address":$addr}')
 $ echo "$JSON"
+```
+
+This returns:
+
+```json
 {
   "denom": "upebble",
   "address": "wasm1jj7gzazxvgy56rj8kersuc44ehvep0uey85jdn"
@@ -130,6 +155,11 @@ $ echo "$JSON"
 
 ```sh
 $ curl -X POST --header "Content-Type: application/json" --data "$JSON" https://faucet.pebblenet.cosmwasm.com/credit
+```
+
+This returns:
+
+```
 ok
 ```
 
@@ -137,6 +167,11 @@ Query your balance again:
 
 ```sh
 $ wasmd query bank balances $(wasmd keys show wallet --address) --node $RPC
+```
+
+This returns:
+
+```
 balances:
 - amount: "100000"
   denom: upebble
@@ -153,6 +188,11 @@ Now that you have enough tokens to deploy a smart contract on Pebblenet, clone t
 $ git clone https://github.com/InterWasm/cw-contracts
 $ cd cw-contracts/contracts/nameservice
 $ cargo wasm
+```
+
+This returns:
+
+```
 ...
 Compiling cw-nameservice v0.11.0 (/Users/me/cw-contracts/contracts/nameservice)
  Finished release [optimized] target(s) in 1m 20s
@@ -164,6 +204,11 @@ You now have a compiled smart contract on file. You want to maintain your smart 
 
 ```sh
 $ ls -lh target/wasm32-unknown-unknown/release/cw_nameservice.wasm
+```
+
+This returns:
+
+```
 -rwxr-xr-x 2 me staff 1.7M target/wasm32-unknown-unknown/release/cw_nameservice.wasm
 ```
 
@@ -180,6 +225,11 @@ Compare the result:
 
 ```sh
 $ ls -alh artifacts/cw_nameservice.wasm
+```
+
+This returns:
+
+```
 -rw-r--r--  1 me staff 139K artifacts/cw_nameservice.wasm
 ```
 
@@ -321,7 +371,7 @@ Check again with a `resolve_record` query to confirm that the transfer was succe
 
 <HighlightBox type="docs">
 
-CosmWasm offers good [documentation](https://docs.cosmwasm.com/docs/). This section is a summary of the [Getting Started section](https://docs.cosmwasm.com/docs/getting-started/intro/). Store the `env` script from [here]https://docs.cosmwasm.com/docs/1.0/getting-started/setting-env#setup-go-cli) in case you wish to test it on your local node. Also look at the [contract semantics](https://docs.cosmwasm.com/docs/SEMANTICS/).
+CosmWasm offers good [documentation](https://docs.cosmwasm.com/docs/). This section is a summary of the [Getting Started section](https://docs.cosmwasm.com/docs/getting-started/intro/). Store the `env` script from [here](https://docs.cosmwasm.com/docs/1.0/getting-started/setting-env#setup-go-cli) in case you wish to test it on your local node. Also look at the [contract semantics](https://docs.cosmwasm.com/docs/SEMANTICS/).
 
 </HighlightBox>
 

@@ -7,9 +7,7 @@ tag: deep-dive
 
 # Inter-Blockchain Communication
 
-<HighlightBox type="synopsis">
-
-Cross-chain communication in Cosmos enables parallelism and scaleability with transaction finality. This transaction finality solves well-known problems that plague other platforms: transaction costs, network capacity, and transaction confirmation finality. Learn about the Inter-Blockchain Communication protocol (IBC) that makes cross-chain communication possible.
+<HighlightBox type="prerequisite">
 
 Before you begin, make sure you understand:
 
@@ -17,6 +15,12 @@ Before you begin, make sure you understand:
 * [Transactions](./transactions.md)
 * [Messages](./messages.md)
 * [Modules](./modules.md)
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+Cross-chain communication in Cosmos enables parallelism and scaleability with transaction finality. This transaction finality solves well-known problems that plague other platforms: transaction costs, network capacity, and transaction confirmation finality. Learn about the Inter-Blockchain Communication protocol (IBC) that makes cross-chain communication possible.
 
 </HighlightBox>
 
@@ -161,7 +165,7 @@ A peg-zone is a blockchain that tracks the state of another blockchain. The peg-
 
 <HighlightBox info="info">
 
-For more on IBC, its paradigms, and Interchain accounts, a looks into Josh Lee's post from 2020 [Why Interchain Accounts Change Everything for Cosmos Interoperability](https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11) is recommended.
+For more on IBC, its paradigms, and interchain accounts, a look into Josh Lee's post from 2020 _[Why Interchain Accounts Change Everything for Cosmos Interoperability](https://medium.com/chainapsis/why-interchain-accounts-change-everything-for-cosmos-interoperability-59c19032bf11)_ is recommended.
 
 Relayers are an essential part of the IBC infrastructure and there are several implementations. To learn more about relaying please visit the [IBC website](https://ibcprotocol.org/relayers/).
 

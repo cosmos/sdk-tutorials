@@ -1,27 +1,31 @@
 ---
 title: Store FIFO - Put Your Games in Order
 order: 11
-description: You prepare to expire games
+description: Preparing to expire games
 tag: deep-dive
 ---
 
 # Store FIFO - Put Your Games in Order
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [ABCI](../2-main-concepts/architecture.md), [Protobuf](../2-main-concepts/protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
 * Go is installed.
 * You have the checkers blockchain codebase with `MsgRejectGame` and its handling. If not, follow the [previous steps](./reject-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
-    
-In this section:
-    
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+In this section, you will deal with:
+
 * The FIFO data structure
 * FIFO unit tests
-    
+
 You will learn:
-    
+
 * Modularity and data organization styles
 
 </HighlightBox>
@@ -34,14 +38,13 @@ Game inactivity could become a factor. What if a player never shows up again? Sh
 
 Eventually you want to let players wager on the outcome of games, so you do not want games remaining in limbo if they have _value_ assigned. For this reason, you need a way for games to be forcibly resolved if one player stops responding.
 
-
 <HighlightBox type="info">
 
-The simplest mechanism to expire a game is to use a **deadline**. If the deadline is reached, then the game is forcibly terminated and expires. The deadline is pushed further back every time a game is played.
+The simplest mechanism to expire a game is to use a **deadline**. If the deadline is reached, then the game is forcibly terminated and expires. The deadline is pushed back every time a move is played.
 
 </HighlightBox>
 
-To enforce the termination it is a good idea to use the **`EndBlock`** part of the ABCI protocol. The call `EndBlock` is triggered when all transactions of the block are delivered and gives you a chance to do some tidying up before the block is sealed. In your case, all games that have reached their deadline will be terminated.
+To enforce the termination it is a good idea to use the **`EndBlock`** part of the ABCI protocol. The call `EndBlock` is triggered when all transactions of the block are delivered, and allows you to tidy up before the block is sealed. In your case, all games that have reached their deadline will be terminated.
 
 How do you find all the games that have reached their deadline? You could use a pseudo-code like:
 
@@ -66,13 +69,17 @@ When terminating expired games in `EndBlock`, you deal with the expired games th
 
 `k` is still an unbounded number of operations. However, if you use the same expiration duration on each game, for `k` games to expire together in a block they would all have to have had a move in the same previous block (give or take the block before or after). In the worst case, the largest `EndBlock` computation will be proportional to the largest regular block in the past. This is a reasonable risk to take.
 
-**Remember:** this only works if the expiration duration is the same for all games, instead of being a parameter left to a potentially malicious game creator.
+<HighlightBox type="remember">
+
+This only works if the expiration duration is the same for all games, instead of being a parameter left to a potentially malicious game creator.
+
+</HighlightBox>
 
 ## New information
 
 How do you implement a FIFO from which you extract elements at random positions? Choose a doubly-linked list:
 
-1. You must remember the game ID at the head to pick expired games, and at the tail to send back fresh games. The existing `NextGame` object is a useful, as it is already expandable. Add to its Protobuf declaration:
+1. You must remember the game ID at the head to pick expired games, and at the tail to send back fresh games. The existing `NextGame` object is useful, as it is already expandable. Add to its Protobuf declaration:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/proto/checkers/next_game.proto#L9-L10]
     message NextGame {
@@ -115,7 +122,7 @@ How do you implement a FIFO from which you extract elements at random positions?
     }
     ```
 
-Instruct Ignite CLI and Protobuf recompile the files:
+5. Instruct Ignite CLI and Protobuf to recompile the files:
 
 ```sh
 $ ignite chain build
@@ -255,7 +262,7 @@ With these functions ready, it is time to use them in the message handlers.
     ...
     ```
 
-You implemented a FIFO that is updated but never really used, at least for now.
+You have implemented a FIFO that is updated but never really used.
 
 ## Unit tests
 
@@ -514,7 +521,7 @@ Do not forget to export `alice` and `bob` again, as explained in an [earlier sec
       creator: ""
       fifoHead: "-1" # There is nothing
       fifoTail: "-1" # There is nothing
-      idValue: "0"
+      idValue: "1"
     ```
 
 2. If you create a game, is the game as expected?
@@ -529,15 +536,15 @@ Do not forget to export `alice` and `bob` again, as explained in an [earlier sec
     ```
     NextGame:
       creator: ""
-      fifoHead: "0" # The first game you created
-      fifoTail: "0" # The first game you created
-      idValue: "1"
+      fifoHead: "1" # The first game you created
+      fifoTail: "1" # The first game you created
+      idValue: "2"
     ```
 
 3. What about the information saved in the game?
 
     ```sh
-    $ checkersd query checkers show-stored-game 0   
+    $ checkersd query checkers show-stored-game 1
     ```
 
     Because it is the only game, this should print:
@@ -561,21 +568,21 @@ Do not forget to export `alice` and `bob` again, as explained in an [earlier sec
     ```
     NextGame:
       creator: ""
-      fifoHead: "0" # The first game you created
-      fifoTail: "1" # The second game you created
-      idValue: "2"
+      fifoHead: "1" # The first game you created
+      fifoTail: "2" # The second game you created
+      idValue: "3"
     ```
 
 5. Did the games also store the correct values?
 
     ```sh
-    $ checkersd query checkers show-stored-game 0 # The first game you created
+    $ checkersd query checkers show-stored-game 1 # The first game you created
     ```
 
     This should print:
 
     ```
-    afterId: "1" # The second game you created
+    afterId: "2" # The second game you created
     beforeId: "-1" # No game
     ...
     ```
@@ -583,23 +590,25 @@ Do not forget to export `alice` and `bob` again, as explained in an [earlier sec
     Run:
 
     ```sh
-    $ checkersd query checkers show-stored-game 1 # The second game you created
+    $ checkersd query checkers show-stored-game 2 # The second game you created
     ```
 
     This should print:
 
     ```
     afterId: "-1" # No game
-    beforeId: "0" # The first game you created
+    beforeId: "1" # The first game you created
     ...
     ```
 
-    Your FIFO in effect has the game IDs `[0, 1]`. If you add a third game, your FIFO will be `[0, 1, 2]`.
+    Your FIFO in effect has the game IDs `[1, 2]`.
 
-6. What happens if Bob plays a move in game `1`, the game _in the middle_?
+    Add a third game, your FIFO will be `[1, 2, 3]`.
+
+6. What happens if Bob plays a move in game `2`, the game _in the middle_?
 
     ```sh
-    $ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
+    $ checkersd tx checkers play-move 2 1 2 2 3 --from $bob
     $ checkersd query checkers show-next-game
     ```
 
@@ -608,32 +617,32 @@ Do not forget to export `alice` and `bob` again, as explained in an [earlier sec
     ```
     NextGame:
       creator: ""
-      fifoHead: "0" # The first game you created
-      fifoTail: "1" # The second game you created and on which Bob just played
-      idValue: "3"
+      fifoHead: "1" # The first game you created
+      fifoTail: "2" # The second game you created and on which Bob just played
+      idValue: "4"
     ```
 
-7. Is game `2` in the middle now?
+7. Is game `3` in the middle now?
 
     ```sh
-    $ checkersd query checkers show-stored-game 2
+    $ checkersd query checkers show-stored-game 3
     ```
 
     This should print:
 
     ```
     StoredGame:
-      afterId: "1"
-      beforeId: "0"
+      afterId: "2"
+      beforeId: "1"
     ...
     ```
 
-    Your FIFO now has the game IDs `[0, 2, 1]`. You see that game `1`, which was played on, has been sent to the tail of the FIFO.
+    Your FIFO now has the game IDs `[1, 3, 2]`. You see that game `2`, which was played on, has been sent to the tail of the FIFO.
 
-8. What happens if Alice rejects game `2`?
+8. What happens if Alice rejects game `3`?
 
     ```sh
-    $ checkersd tx checkers reject-game 2 --from $alice
+    $ checkersd tx checkers reject-game 3 --from $alice
     $ checkersd query checkers show-next-game
     ```
 
@@ -642,29 +651,14 @@ Do not forget to export `alice` and `bob` again, as explained in an [earlier sec
     ```
     NextGame:
       creator: ""
-      fifoHead: "0"
-      fifoTail: "1"
-      idValue: "3"
+      fifoHead: "1"
+      fifoTail: "2"
+      idValue: "4"
     ```
 
-    There is no change because game `2` was _in the middle_, so it did not affect the head or the tail.
+    There is no change because game `3` was _in the middle_, so it did not affect the head or the tail.
 
     Run the following two queries:
-
-    ```sh
-    $ checkersd query checkers show-stored-game 0
-    ```
-
-    This prints:
-
-    ```
-    StoredGame:
-      afterId: "1"
-      beforeId: "-1"
-    ...
-    ```
-
-    And:
 
     ```sh
     $ checkersd query checkers show-stored-game 1
@@ -674,12 +668,27 @@ Do not forget to export `alice` and `bob` again, as explained in an [earlier sec
 
     ```
     StoredGame:
-      afterId: "-1"
-      beforeId: "0"
+      afterId: "2"
+      beforeId: "-1"
     ...
     ```
 
-    Your FIFO now has the game IDs `[0, 1]`. Game `2` was correctly removed from the FIFO.
+    And:
+
+    ```sh
+    $ checkersd query checkers show-stored-game 2
+    ```
+
+    This prints:
+
+    ```
+    StoredGame:
+      afterId: "-1"
+      beforeId: "1"
+    ...
+    ```
+
+    Your FIFO now has the game IDs `[1, 2]`. Game `3` was correctly removed from the FIFO.
 
 ## Next up
 

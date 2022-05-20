@@ -7,19 +7,23 @@ tag: deep-dive
 
 # Store Field - Keep an Up-To-Date Game Deadline
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md).
 * Go is installed.
 * You have the checkers blockchain codebase with the game FIFO. If not, follow the [previous steps](./game-fifo.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-fifo).
-    
-In this section:
-    
-* Implement a deadline
-* Work with dates
-* Extend your unit tests
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+In this section, you will:
+
+* Implement a deadline.
+* Work with dates.
+* Extend your unit tests.
 
 </HighlightBox>
 
@@ -133,7 +137,7 @@ require.EqualValues(t, types.StoredGame{
 There is not much to test here. Remember that you added a new field, but if your blockchain state already contains games then they are missing the new field:
 
 ```sh
-$ checkersd query checkers show-stored-game 0
+$ checkersd query checkers show-stored-game 1
 ```
 
 This demonstrates some missing information:
@@ -147,8 +151,8 @@ This demonstrates some missing information:
 In effect, your blockchain state is broken. Examine the [section on migrations](./migration.md) to see how to update your blockchain state to avoid such a breaking change. This broken state still lets you test the update of the deadline on play:
 
 ```sh
-$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
-$ checkersd query checkers show-stored-game 0
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
+$ checkersd query checkers show-stored-game 1
 ```
 
 This contains:

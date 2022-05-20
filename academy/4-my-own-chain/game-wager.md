@@ -1,26 +1,30 @@
 ---
 title: Token - Let Players Set a Wager
 order: 15
-description: You let players set a wager
+description: Letting players set a wager
 tag: deep-dive
 ---
 
 # Token - Let Players Set a Wager
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [modules](../2-main-concepts/modules.md), [keepers](../2-main-concepts/multistore-keepers.md), and [Protobuf](../2-main-concepts/protobuf.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to game expiry handling. If not, follow the [previous steps](./game-forfeit.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/forfeit-game).
-    
-In this section:
-    
-* Add wagers
-* The Bank module
-* Handling money
-* Integration tests
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+In this section, you will:
+
+* Add wagers.
+* Work with the Bank module.
+* Handle money.
+* Do integration tests.
 
 </HighlightBox>
 
@@ -142,7 +146,7 @@ These two functions must exactly match the functions declared in the [`bank`'s k
 
 ## Obtaining the capability
 
-With your requirements declared it is time to make sure your keeper receives a reference to a bank keeper. First add a `BankKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
+With your requirements declared, it is time to make sure your keeper receives a reference to a bank keeper. First add a `BankKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/keeper.go#L16]
 type (
@@ -167,7 +171,7 @@ func NewKeeper(
 }
 ```
 
-Next, update where the constructor is called and pass a proper instance of bank keeper. This happens in `app/app.go`:
+Next, update where the constructor is called and pass a proper instance of `BankKeeper`. This happens in `app/app.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/app.go#L368-L369]
 app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
@@ -222,7 +226,7 @@ ErrNotInRefundState  = sdkerrors.Register(ModuleName, 1118, "game is not in a st
 
 ## Money handling steps
 
-With the `bank` now in your keeper, it is time to have your keeper handle the money. Keep this concern in its file, as the function are reused on a play, reject, and forfeit.
+With the `bank` now in your keeper, it is time to have your keeper handle the money. Keep this concern in its file, as the functions are reused on a play, reject, and forfeit.
 
 Create the new file `x/checkers/keeper/wager_handler.go` and add three functions to collect a wager, refund a wager, and pay winnings:
 
@@ -232,7 +236,7 @@ func (k *Keeper) MustPayWinnings(ctx sdk.Context, storedGame *types.StoredGame)
 func (k *Keeper) MustRefundWager(ctx sdk.Context, storedGame *types.StoredGame)
 ```
 
-The `Must` prefix in the function means that the transaction either takes place or a panic is issued. On the other hand, if a player cannot pay the wager, it is a user-side error and the user must be informed of a failed transaction. If the module cannot pay, it means the escrow account has failed. This error is much more serious. An invariant has been violated and the whole application must be terminated.
+The `Must` prefix in the function means that the transaction either takes place or a panic is issued. If a player cannot pay the wager, it is a user-side error and the user must be informed of a failed transaction. If the module cannot pay, it means the escrow account has failed. This error is much more serious: an invariant has been violated and the whole application must be terminated.
 
 Now set up collecting a wager, paying winnings, and refunding a wager:
 
@@ -377,7 +381,9 @@ With the desired steps defined in the wager handling functions, it is time to in
     }
     ```
 
-## ~~Unit~~ Integration tests
+<!-- Changed title from: "## ~~Unit~~ Integration tests" -->
+
+## Integration tests
 
 If you try running your existing tests you will see a lot of **null pointer exceptions**. That's because currently the tests set up your checkers keeper [without a bank keeper](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/keeper_test.go#L30-L34). Cosmos SDK does not have [mocks](https://en.wikipedia.org/wiki/Mock_object), so instead of passing a mocked bank when setting up your test keeper you need to build a proper bank keeper too. Fortunately, you do not have to do this from scratch: taking inspiration from [tests on the bank module](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b/x/bank/keeper/keeper_test.go#L66-L110), prepare your code and tests in order to accommodate and create a full app which will contain a bank keeper.
 
@@ -543,7 +549,7 @@ Your new tests will include checks on wagers being paid, lost, and won, so your 
     }
     ```
 
-6. Update the function(s) you used to set up your keeper with one game, for instance:
+6. Update any functions you used to set up your keeper with one game, for instance:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_test.go#L8-L17]
     func (suite *IntegrationTestSuite) setupSuiteWithOneGameForPlayMove() {
@@ -693,7 +699,7 @@ How you subdivide your tests and where you insert these balance checks is up to 
 
 You learned in a [previous section](./stored-game.md) how to launch your test in debug mode. It is still possible to do so when using a suite. The difference is that you launch it by right-clicking on the arrow left of the suite's runner `func TestCheckersKeeperTestSuite`:
 
-![Suite runner with green button](/go_test_debug_suite.png)
+![Suite runner with green button](/academy/4-my-own-chain/images/go_test_debug_suite.png)
 
 Note that you can only launch debug for all of the suite's test methods and not just a single one (as is possible with a simple test). A solution to this is to create more granular suites, for example using one or more test suites per file.
 
@@ -758,7 +764,7 @@ Which mentions the wager:
 
 ```
 ...
-raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"CreateGame"},{"key":"module","value":"checkers"},{"key":"action","value":"NewGameCreated"},{"key":"Creator","value":"cosmos1z63q2mn2f6ljm8vfxjzpuz0xthmyx9qd0yy5xr"},{"key":"Index","value":"0"},{"key":"Red","value":"cosmos1z63q2mn2f6ljm8vfxjzpuz0xthmyx9qd0yy5xr"},{"key":"Black","value":"cosmos195e0h5qw44sazd450yt5qvllukcfp7lyc3f9kr"},{"key":"Wager","value":"1000000"}]}]}]'
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"CreateGame"},{"key":"module","value":"checkers"},{"key":"action","value":"NewGameCreated"},{"key":"Creator","value":"cosmos1z63q2mn2f6ljm8vfxjzpuz0xthmyx9qd0yy5xr"},{"key":"Index","value":"1"},{"key":"Red","value":"cosmos1z63q2mn2f6ljm8vfxjzpuz0xthmyx9qd0yy5xr"},{"key":"Black","value":"cosmos195e0h5qw44sazd450yt5qvllukcfp7lyc3f9kr"},{"key":"Wager","value":"1000000"}]}]}]'
 ```
 
 Confirm that the balances of both Alice and Bob are unchanged - as they have not played yet.
@@ -772,7 +778,7 @@ Confirm that the balances of both Alice and Bob are unchanged - as they have not
 Have Bob play:
 
 ```sh
-$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
 ```
 
 Confirm that Bob has paid his wager:
@@ -817,8 +823,8 @@ Now create a game in which both players only play once each, i.e. where the play
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
-$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
-$ checkersd tx checkers play-move 1 0 5 1 4 --from $alice
+$ checkersd tx checkers play-move 2 1 2 2 3 --from $bob
+$ checkersd tx checkers play-move 2 0 5 1 4 --from $alice
 ```
 
 Confirm that both Alice and Bob paid their wagers. Wait 5 minutes for the game to expire and check again:

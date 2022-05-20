@@ -7,9 +7,9 @@ tag: deep-dive
 
 # Bridges
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
-In this section you will learn more about bridges in the Cosmos ecosystem, including the Gravity Bridge that connects Cosmos with Ethereum. Make sure to read the following sections as a preparation:
+Make sure to read the following sections as a preparation:
 
 * [The Cosmos Ecosystem](../1-what-is-cosmos/cosmos-ecosystem.md)
 * [Transactions](./transactions.md)
@@ -19,13 +19,19 @@ In this section you will learn more about bridges in the Cosmos ecosystem, inclu
 
 </HighlightBox>
 
+<HighlightBox type="learning">
+
+In this section you will learn more about bridges in the Cosmos ecosystem, including the Gravity Bridge that connects Cosmos with Ethereum.
+
+</HighlightBox>
+
 ## The Gravity Bridge
 
-The [Gravity Bridge](https://gravitybridge.althea.net) is an on-going project currently being built by Althea with the goal to facilitate the transfer of ERC-20 tokens to Cosmos-based blockchains and back. 
+The [Gravity Bridge](https://gravitybridge.althea.net) is an on-going project currently being built by Althea with the goal to facilitate the transfer of ERC-20 tokens to Cosmos-based blockchains and back.
 
 <HighlightBox type="info">
 
-The Gravity Bridge allows for novel applications that combine the power of Cosmos with the value of assets from Ethereum. 
+The Gravity Bridge allows for novel applications that combine the power of Cosmos with the value of assets from Ethereum.
 
 </HighlightBox>
 
@@ -52,7 +58,16 @@ The Cosmos Gravity Bridge is designed to run on the Cosmos Hub. It focuses on ma
 
 ### Key design components: trust in integrity
 
-The signing of fraudulent validator set updates and transaction batches meant for the Ethereum smart contract is punished on the Cosmos chain by slashing. If the Cosmos chain is trustworthy, you can trust the Gravity Bridge operated by it as long as it operates within certain parameters. 
+The signing of fraudulent validator set updates and transaction batches meant for the Ethereum smart contract is punished on the Cosmos chain by slashing. If the Cosmos chain is trustworthy, you can trust the Gravity Bridge operated by it as long as it operates within certain parameters.
+
+<HighlightBox type="info">
+
+**Slashing** is done to penalize validators. When a validator loses a percentage of its staked tokens, the tokens were slashed as a penalty. Thus, penalties for validators can include (but are not limited to):
+
+* Burning some of the validator's stake.
+* Removing their permission to engage in voting for a determined time period.
+
+</HighlightBox>
 
 Bridges to Cosmos chains derive their trustworthiness from the degree of trust associated with the Cosmos chain to which they bridge. Peg-zone validators must maintain a trusted Ethereum node. This is mandatory. This removes all trust and game theory issues that usually arise when involving independent relayers. This once again dramatically simplifies the design.
 
@@ -68,7 +83,7 @@ The bridge requires a validator set update on the Ethereum smart contract by cal
 
 <HighlightBox type="info">
 
-Cosmos full nodes do not verify events coming from Ethereum, as events are validated into the Cosmos chain's state based purely on the signatures of the current validator set. 
+Cosmos full nodes do not verify events coming from Ethereum, as events are validated into the Cosmos chain's state based purely on the signatures of the current validator set.
 
 </HighlightBox>
 
@@ -81,8 +96,8 @@ Do you want to dive deeper when it comes to bridges? Here are some helpful resou
 * [Jehan Tremback, Deborah Simpier, and Justin Kilpatrick (2021): Announcing the Cosmos Gravity Bridge](https://blog.althea.net/gravity-bridge/)
 * [Cosmos Gravity Bridge documentation](https://github.com/cosmos/gravity-bridge/)
 * Projects based on the Gravity Bridge:
-	* [Peggy JV Inc.: Gravity Bridge](https://github.com/PeggyJV/gravity-bridge/)
-	* [Althea Testnet repository: Gravity Bridge](https://github.com/althea-net/cosmos-gravity-bridge/)
+    * [Peggy JV Inc.: Gravity Bridge](https://github.com/PeggyJV/gravity-bridge/)
+    * [Althea Testnet repository: Gravity Bridge](https://github.com/althea-net/cosmos-gravity-bridge/)
 
 </HighlightBox>
 
