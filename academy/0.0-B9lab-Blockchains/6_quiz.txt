@@ -34,7 +34,7 @@
 Here we assumed the recipient waits for the transaction to be mined. If the recipient did not wait for the mining to take place, and instead took an un-mined transaction as confirmation, this recipient would expose itself to a <a href="https://en.bitcoin.it/wiki/Double-spending#Race_attack">race attack</a>.
 [explanation]
 
->> 7. As a non-hierarchical approach, how does Blockchain overcome the potential failures of a “classical” network?<<
+>> 7. As a non-hierarchical approach, how does Blockchain overcome the potential failures of a "classical" network?<<
 (x) By making sure that every participant always has access to enough data to verify the integrity of ALL data in the network.
 ( ) By encrypting ALL data in the network.
 ( ) By using certificates for all participants in the network, thus excluding malicious participants from the network.

@@ -144,7 +144,7 @@ Consider the following pseudo message in case the foregoing is unclear:
 }
 ```
 
-Passing `Payload` and `Signature` into the signature verification function returns a sender. The derived sender must match the `Sender` in the `Payload` itself. This confirms that the `Payload` could only originate from someone that knows the private key corresponding to `Sender: “0x1234”`.
+Passing `Payload` and `Signature` into the signature verification function returns a sender. The derived sender must match the `Sender` in the `Payload` itself. This confirms that the `Payload` could only originate from someone that knows the private key corresponding to `Sender: "0x1234"`.
 
 ## Signature schemes
 
