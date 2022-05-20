@@ -9,16 +9,16 @@ tag: fast-track
 
 <HighlightBox type="learning">
 
-In this section, you will look closer at the application architecture underlying blockchains built with the Cosmos SDK. 
+In this section, you will look closer at the application architecture underlying blockchains built with the Cosmos SDK.
 
 In this section, you will deepen your understanding of the application architecture underlying blockchains built with the Cosmos SDK. You will explore:
 
 * What Tendermint is
-* Consensus in Cosmos 
+* Consensus in Cosmos
 * The Application Blockchain Interface
 * The Cosmos SDK
 * State machines
-  
+
 </HighlightBox>
 
 ## What is Tendermint?
@@ -75,7 +75,7 @@ In any known blockchain, a change in the implementation requires an upgrade to t
 
 In a Tendermint blockchain, transactions are irreversibly finalized upon block creation, and upgrades are themselves governed by the block creation and validation process. This leaves no room for uncertainty: either the nodes agree to simultaneously upgrade their protocol, or the upgrade proposal fails.
 
-Validators are the ones who vote. This means that delegators should be very demanding when they act, as they also lend their vote to the validator - _unless the delegator chooses to vote too_. A delegator can vote separately in order to override its validator's vote by the amount delegated.
+Validators and delegators are the parties who vote on proposals, with weights proportional to their respective stakes. If a delegator does not vote on a proposal, the delegator's vote is taken as that of its delegated validator. This means that delegators should be very demanding when they act, as they also lend their default vote to the validator.
 
 ## Application Blockchain Interface (ABCI)
 
@@ -390,9 +390,9 @@ Assume that you want to tally what happened in the block. You return this aggreg
 
 #### `Commit` - your work here is done
 
-The block is now [confirmed](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#commit). The application needs to save its state to storage, its database, and return the Merkle root hash of the blockchain's state as `data: []byte`, which includes `/store/board`. This hash needs to be deterministic after the sequence of the same `BeginBlock`, the same `DeliverTx` methods in the same order, and the same `EndBlock`, as mentioned in [the documentation](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#determinism).
+The block is now [confirmed](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#commit). The application needs to save its state to storage, i.e. to its database. The state, which includes `/store/board`, is uniquely identified by its Merkle root hash. As per the ABCI, this hash has to be returned in a `[]byte` form. For a consensus to be able to emerge, the hash needs to be deterministic after the sequence of the same `BeginBlock`, the same `DeliverTx` methods in the same order and the same `EndBlock` as mentioned in [the documentation](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#determinism).
 
-The application may also keep a pointer in its database regarding which state is the latest, so it can purge the board from its memory after having returned and saved. The next `BeginBlock` will inform the application about which state to load. The application should keep the state in memory to quickly build on it if the next `BeginBlock` fails to mention `AppHash` or mentions the same.
+The application may also keep a pointer in its database regarding which state is the latest, so it can purge the board from its memory after having returned and saved. The next `BeginBlock` will inform the application about which state to load. The application should keep the state in memory to quickly build on it if the next `BeginBlock` fails to mention `AppHash` or mentions the same `AppHash` previously calculated.
 
 ### What if you like extreme serialization?
 

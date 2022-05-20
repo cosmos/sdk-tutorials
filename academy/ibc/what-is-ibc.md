@@ -12,7 +12,7 @@ tag: fast-track
 Inter-Blockchain Communication Protocol solves for communication between blockchains, which is particularly important in the Cosmos universe.
 
 In this section, you will learn:
-  
+
 * What IBC is.
 * How IBC works.
 * More about the IBC security guarantees.
@@ -76,7 +76,7 @@ Simply put, the transport layer includes:
 * **Connections** - [ICS-3](https://github.com/cosmos/ibc/tree/master/spec/core/ics-003-connection-semantics): connections, once established, are responsible for facilitating all cross-chain verifications of an IBC state. A connection can be associated with any number of channels. Connections encapsulate two `ConnectionEnd` objects on two separate blockchains. Each `ConnectionEnd` is associated with a light client of the other blockchain - for example, the counterparty blockchain. The connection handshake is responsible for verifying that the light clients on each chain are the correct ones for their respective counterparties.
 * **Channels** - [ICS-4](https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics): a module on one blockchain can communicate with other modules on other blockchains by sending, receiving, and acknowledging packets through channels that are uniquely identified by the (`channelID`, `portID`) tuple. Channels encapsulate two `ChannelEnd`s that are associated with a connection. Channels provide a way to have different types of information relayed between chains, but do not increase the total capacity. Just like connections, channels are established with a handshake.
 
-  A channel can be `ORDERED`, where packets from a sending module must be processed by the receiving module in the order they were sent, or `UNORDERED`, where packets from a sending module are processed in the order they arrive (which might be different from the order they were sent).
+    A channel can be `ORDERED`, where packets from a sending module must be processed by the receiving module in the order they were sent, or `UNORDERED`, where packets from a sending module are processed in the order they arrive (which might be different from the order they were sent).
 
 * **Ports** - [ICS-5](https://github.com/cosmos/ibc/tree/master/spec/core/ics-005-port-allocation): an IBC module can bind to any number of ports. Each port must be identified by a unique `portID`. The `portID` denotes the type of application, for example in fungible token transfers the `portID` is `transfer`.  
 
@@ -88,7 +88,7 @@ The ICS also offer definitions for IBC applications:
 
 * **Fungible token transfer** - [ICS-20](https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer): The first and most apparent application for IBC is the transfer of fungible tokens across chains. With the standards set out by ICS-20, a user can send tokens across IBC-enabled chains. This is achieved by escrowing tokens on the source chain: the proof along with the token metadata is relayed to the destination chain, upon which the proof is verified by the light client of the source chain, stored on the destination chain. If the verification passes, vouchers for the tokens on the destination chains are minted and an acknowledgment is sent back to the source chain.
 
-  Packet flow is explored in more detail in a later section, but you can the steps when following the progress of the IBC token transfer on [Mintscan](https://www.mintscan.io/cosmos). The following example shows the transactions submitted for the original `Transfer` on the source, the `Receive` message on the destination, and the `Acknowledgement` again on the source:
+    Packet flow is explored in more detail in a later section, but you can the steps when following the progress of the IBC token transfer on [Mintscan](https://www.mintscan.io/cosmos). The following example shows the transactions submitted for the original `Transfer` on the source, the `Receive` message on the destination, and the `Acknowledgement` again on the source:
 
 ![Fungible token transfer via IBC on Mintscan](/academy/ibc/images/mintscanIBC.png)
 
@@ -105,8 +105,8 @@ This list can be and will be extended with time. New concepts such as interchain
 Along with protocol extensibility, reliability, and security without the need for trusted third parties, the permissionless nature of IBC as a generalized interoperability standard is one of the most valuable discerning features of IBC in comparison to standard bridge protocols. However, as it is permissionless to create IBC clients, connections, and channels, or to relay packets between chains, you may have wondered: *What about the security implications?*
 
 The design of IBC security is centered around **two main principles**:
-- Trust in (the consensus of) the chains you connect with.
-- The implementation of fault isolation mechanisms, in order to limit any damage done should these chains be subject to malicious behavior.
+* Trust in (the consensus of) the chains you connect with.
+* The implementation of fault isolation mechanisms, in order to limit any damage done should these chains be subject to malicious behavior.
 
 The security considerations which IBC implements are worth exploring:
 
@@ -171,30 +171,30 @@ Generally speaking, you'll need the following:
 The following decision tree helps visualize the roadmap towards an IBC-enabled chain. **For simplicity, it assumes the intent to connect to a Cosmos SDK chain.**
 
 Do you have access to an existing chain?
-- **No.** You will have to build a chain:
-  - Cosmos SDK chain: see the [previous chapters](https://interchainacademy.cosmos.network/course-ida/landingpages/week2-lp.html).
-  - Another chain.
-    - Is there a Tendermint light client implementation available for your chain?
-      - Yes. Continue.
-      - No. Build a custom Tendermint light client implementation.
-    - Is there a light client implementation for your chain’s consensus available in the SDK's IBC module?
-      - Yes. Continue.
-      - No. Build a custom light client for your consensus to be used on a Cosmos SDK chain (with IBC module).
-    - Implement IBC core:
-      - Source code.
-      - Smart contract based.
-- **Yes.** Is it a Cosmos SDK chain?
-  - Yes. Move on to application development.
-  - No.
-    - Does your chain support a Tendermint light client?
-      - Yes. Continue.
-      - No. Source a Tendermint light client implementation for your chain.
-    - Is there a Cosmos SDK light client implementation for your chain’s consensus?
-      - Yes. Continue.
-      - No. Build  a custom light client implementation of your chain's consensus + governance proposal to implement it on the IBC clients of  the Cosmos SDK chains you want to connect to.
-    - Does your chain have a core IBC module available (connection, channels, ports)? Source code or smart contract based?
-      - Yes. Move on to application development.
-      - No. Build IBC Core implementation (source code or smart contract).
+* **No.** You will have to build a chain:
+    * Cosmos SDK chain: see the [previous chapters](https://interchainacademy.cosmos.network/course-ida/landingpages/week2-lp.html).
+    * Another chain.
+        * Is there a Tendermint light client implementation available for your chain?
+            * Yes. Continue.
+            * No. Build a custom Tendermint light client implementation.
+        * Is there a light client implementation for your chain’s consensus available in the SDK's IBC module?
+            * Yes. Continue.
+            * No. Build a custom light client for your consensus to be used on a Cosmos SDK chain (with IBC module).
+        * Implement IBC core:
+            * Source code.
+            * Smart contract based.
+* **Yes.** Is it a Cosmos SDK chain?
+    * Yes. Move on to application development.
+    * No.
+        * Does your chain support a Tendermint light client?
+            * Yes. Continue.
+            * No. Source a Tendermint light client implementation for your chain.
+        * Is there a Cosmos SDK light client implementation for your chain’s consensus?
+            * Yes. Continue.
+            * No. Build  a custom light client implementation of your chain's consensus + governance proposal to implement it on the IBC clients of  the Cosmos SDK chains you want to connect to.
+        * Does your chain have a core IBC module available (connection, channels, ports)? Source code or smart contract based?
+            * Yes. Move on to application development.
+            * No. Build IBC Core implementation (source code or smart contract).
 
 </ExpansionPanel>
 

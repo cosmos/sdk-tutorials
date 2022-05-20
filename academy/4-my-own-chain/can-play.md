@@ -420,8 +420,10 @@ Usage:
 
 You can test this query at any point in a game's life.
 
-<CodeGroup>
-<CodeGroupItem title="No game" active>
+<PanelList>
+<PanelListItem number="1">
+
+When there is no such game:
 
 ```sh
 $ checkersd query checkers can-play-move 2048 red 1 2 2 3
@@ -448,8 +450,10 @@ This prints:
 
 There is room to improve the error message, but it is important that you got an error, as expected.
 
-</CodeGroupItem>
-<CodeGroupItem title="Bad color">
+</PanelListItem>
+<PanelListItem number="2">
+
+When you ask for a bad color:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
@@ -465,8 +469,10 @@ reason: 'message creator is not a player: white'
 
 This is a proper message response, and a reason elaborating on the message.
 
-</CodeGroupItem>
-<CodeGroupItem title="Wrong turn">
+</PanelListItem>
+<PanelListItem number="3">
+
+When you ask for a player out of turn:
 
 ```sh
 $ checkersd query checkers can-play-move 1 red 0 5 1 4
@@ -479,8 +485,10 @@ possible: false
 reason: 'player tried to play out of turn: red'
 ```
 
-</CodeGroupItem>
-<CodeGroupItem title="Not your piece">
+</PanelListItem>
+<PanelListItem number="4">
+
+When you ask for a piece that is not that of the player:
 
 ```sh
 $ checkersd query checkers can-play-move 1 black 0 5 1 4
@@ -493,8 +501,10 @@ possible: false
 reason: wrong move%!(EXTRA string=Not {red}s turn)
 ```
 
-</CodeGroupItem>
-<CodeGroupItem title="Correct">
+</PanelListItem>
+<PanelListItem number="5">
+
+When it is correct:
 
 ```sh
 $ checkersd query checkers can-play-move 1 black 1 2 2 3
@@ -507,8 +517,10 @@ possible: true
 reason: ok
 ```
 
-</CodeGroupItem>
-<CodeGroupItem title="Must capture">
+</PanelListItem>
+<PanelListItem number="6">
+
+When the player must capture:
 
 ```sh
 $ checkersd tx checkers play-move 1 1 2 2 3 --from $bob -y
@@ -525,8 +537,10 @@ reason: 'wrong move%!(EXTRA string=Invalid move: {2 3} to {3 4})'
 
 The reason given is understandable, but it does not clarify why the move is invalid. There is room to improve this message.
 
-</CodeGroupItem>
-<CodeGroupItem title="After forfeit">
+</PanelListItem>
+<PanelListItem number="7" :last="true">
+
+After the game has been forfeited:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
@@ -555,8 +569,8 @@ possible: false
 reason: game is already finished
 ```
 
-</CodeGroupItem>
-</CodeGroup>
+</PanelListItem>
+</PanelList>
 
 ---
 

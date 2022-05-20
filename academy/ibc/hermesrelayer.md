@@ -36,8 +36,15 @@ Installation instructions can be found [in the Hermes documentation from Informa
 
 </HighlightBox>
 
-```bash
-# hermes help
+If you type:
+
+```sh
+$ hermes help
+```
+
+You get:
+
+```
 hermes 0.14.0+460eb0c
 Informal Systems <hello@informal.systems>
   Hermes is an IBC Relayer written in Rust
@@ -67,6 +74,7 @@ SUBCOMMANDS:
     upgrade         Upgrade objects (clients) after chain upgrade
     completions     Generate auto-complete scripts for different shells
 ```
+
 When comparing the list of commands with the requirements from the introduction, recognize the ability to query and submit a transaction (tx), keys management, and a config command. However, no immediate commands are available to add chains and path information. The Hermes relayer does not support fetching data from the [chain-registry](https://github.com/cosmos/chain-registry) automatically yet, but this is on the roadmap.
 
 For now, you need to manually add the data to the config file `config.toml`, which is by default stored at `$HOME/.hermes/config.toml`.
@@ -107,6 +115,7 @@ Pay particular attention to the `RPC`, `gRPC`, and `websocket` endpoints and mak
 <HighlightBox type="note">
 
 Hermes does not require path information in the config. By default it will relay over all possible paths over all channels that are active on the configured chains. However, it is possible to change this by filtering. Add the following to the chain config:
+
 ```toml
 [chains.packet_filter]
 policy = 'allow'
@@ -114,6 +123,7 @@ list = [
    ['transfer', 'channel-141'], # osmosis-1
 ]
 ```
+
 This filters only the `transfer` channel for the Hub to Osmosis in this example.
 
 </HighlightBox>
@@ -121,9 +131,11 @@ This filters only the `transfer` channel for the Hub to Osmosis in this example.
 ### Hermes Start
 
 When the chains have been configured, you can start the relayer with the start command:
-```shell
+
+```sh
 $ hermes start
 ```
+
 This powerful command bundles a lot of functionality where Hermes will be listening or events signaling IBC packet send requests, submitting `ReceivePacket` and `AcknowledgePacket` messages, and periodically checking if the clients on serviced chains need updating. However, during the tutorials it makes sense to look at the commands in a more granular way to understand what is going on.
 
 <HighlightBox type="note">
@@ -133,7 +145,6 @@ When starting the Hermes relayer, it will assume that the channels you wish to r
 This is perfectly possible and the right approach, given that creating a new channel would make assets relayed over it non-fungible with assets relayed over the canonical channel. Most tutorials will create new channels (and possibly clients and connections) as this provides more insight into the software. However, it is **important to note that you only need to create new channels if no canonical channel is present** (for example, for a newly deployed chain).
 
 </HighlightBox>
-
 
 ## E2E Testing
 
@@ -155,19 +166,19 @@ The test needs you to build the Docker images from the Docker files. The Docker 
 
 After you clone the repository and download a release version of Hermes for **x86_64**, go into the folder and run:
 
-```bash
+```sh
 $ docker-compose -f ci/docker-compose-gaia-current.yml build relayer
 ```
 
 This builds the relayer docker image. Start the Docker Compose network with two chains and a relayer:
 
-```bash
+```sh
 $ docker-compose -f ci/docker-compose-gaia-current.yml up -d ibc-0 ibc-1 relayer
 ```
 
 Check that everything is working as expected:
 
-```bash
+```sh
 $ docker exec relayer /bin/sh -c /relayer/e2e.sh
 ```
 
@@ -177,14 +188,19 @@ The [`e2e.sh`](https://github.com/informalsystems/ibc-rs/blob/master/ci/e2e.sh) 
 
 Go into the relayer container and run a bash:
 
-```bash
+```sh
 $ docker exec -it relayer bash
 ```
 
-First, check the Hermes version:
+First, check the Hermes version with:
 
-```bash
-# hermes version
+```sh
+$ hermes version
+```
+
+Which returns:
+
+```
 hermes 0.14.0+460eb0c
 ```
 
@@ -202,7 +218,7 @@ You can check the CLI commands with `hermes -h`. The Hermes CLI offers help for 
 
 Check the default configuration:
 
-```bash
+```sh
 $ cat simple_config.toml
 ```
 
@@ -210,13 +226,13 @@ In the `[[chains]]` section of the `simple_config.toml`, you can find the config
 
 Do a validation check on the configuration file:
 
-```bash
+```sh
 $ hermes -c simple_config.toml config validate
 ```
 
 Next do a health check:
 
-```bash
+```sh
 $ hermes -c simple_config.toml health-check
 ```
 
@@ -224,7 +240,7 @@ You should see that both chains are healthy. The E2E test will create clients, c
 
 To query the clients for the chain **ibc-0**, run:
 
-```bash
+```sh
 $ hermes -c simple_config.toml query clients ibc-0
 ```
 
@@ -232,7 +248,7 @@ There should be one Tendermint client for the chain **ibc-1**.
 
 Query the connections for **ibc-0**:
 
-```bash
+```sh
 $ hermes -c simple_config.toml query connections ibc-0
 ```
 
@@ -240,7 +256,7 @@ There should be two connections, both established between **ibc-0** and **ibc-1*
 
 Query the channels for **ibc-0**:
 
-```bash
+```sh
 $ hermes -c simple_config.toml query channels ibc-0
 ```
 
@@ -248,25 +264,25 @@ You should see two channels and the port binding transfer. All this is part of t
 
 Create another connection for the both chains:
 
-```bash
+```sh
 $ hermes -c simple_config.toml create connection ibc-0 ibc-1
 ```
 
 In the output of this command you receive the `connection_id`s for both chains. Use the `connection_id` for the **ibc-0** chain and create a channel:
 
-```bash
+```sh
 $ hermes -c simple_config.toml create channel --port-a transfer --port-b transfer ibc-0 connection-2
 ```
 
 This repeats the port binding `transfer`. Check that the channel is created again with:
 
-```bash
+```sh
 $ hermes -c simple_config.toml query channels ibc-0
 ```
 
 The E2E testing already created some accounts (via `keys add testkey --output json`) for the tests and added them to the Hermes relayer via:
 
-```bash
+```sh
 $ hermes keys add ibc-0 -f user_seed_ibc-0.json
 $ hermes keys add ibc-1 -f user_seed_ibc-1.json
 $ hermes keys add ibc-0 -f user2_seed_ibc-0.json
@@ -275,13 +291,13 @@ $ hermes keys add ibc-1 -f user2_seed_ibc-1.json
 
 Get the user addresses for the **ibc-0** chain:
 
-```bash
+```sh
 $ hermes -c simple_config.toml keys list ibc-0
 ```
 
 Now get the user addresses for the **ibc-1** chain:
 
-```bash
+```sh
 $ hermes -c simple_config.toml keys list ibc-1
 ```
 
@@ -289,7 +305,7 @@ In the `simple_confing.toml` the default user key is set to `testkey`, so you do
 
 Now check the balance of those accounts on the chain **ibc-0**. Replace the `$testkey` with the addresses you get in your test:
 
-```bash
+```sh
 # use your local terminal
 $ docker exec ibc-0 gaiad query bank balances $testkey
 ```
@@ -306,7 +322,7 @@ Please see the [fungible token transfers](add_url_after_merge) section for more 
 
 Do a transfer and use the channel that was created:
 
-```bash
+```sh
 $ hermes -c simple_config.toml tx raw ft-transfer ibc-1 ibc-0 transfer channel-2 100 --timeout-height-offset 1000
 ```
 
@@ -316,7 +332,7 @@ In case you do not want to test with the default user, you can specify the sende
 
 Usually the Hermes relayer automatically relays packets between the chains if it runs via:
 
-```bash
+```sh
 $ hermes -c simple_config.toml start
 ```
 
@@ -326,7 +342,7 @@ In this case, we want to relay the transfer transaction by hand.
 
 First, query packet commitments on **ibc-0**:
 
-```bash
+```sh
 $ hermes -c simple_config.toml query packet commitments ibc-0 transfer channel-2
 ```
 
@@ -334,7 +350,7 @@ You can see that there is one packet.
 
 You can also query for unreceived packets:
 
-```bash
+```sh
 $ hermes -c simple_config.toml query packet unreceived-packets ibc-1 transfer channel-5
 ```
 
@@ -348,13 +364,13 @@ If you check the balances again, you should only see a change for **ibc-0**. You
 
 Now submit the `RecvPacket` message to **ibc-1**:
 
-```bash
+```sh
 $ hermes -c simple_config.toml tx raw packet-recv ibc-1 ibc-0 transfer channel-2
 ```
 
 Send an acknowledgement to **ibc-0**:
 
-```bash
+```sh
 $ hermes -c simple_config.toml tx raw packet-ack ibc-0 ibc-1 transfer channel-5
 ```
 

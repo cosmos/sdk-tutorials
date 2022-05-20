@@ -52,25 +52,25 @@ To register an account on the host chain, the function [`RegisterInterchainAccou
 // identifier is already in use. Gaining access to interchain accounts whose channels
 // have closed cannot be done with this function. A regular MsgChanOpenInit must be used.
 func (k Keeper) RegisterInterchainAccount(ctx sdk.Context, connectionID, owner string) error {
-  portID, err := icatypes.NewControllerPortID(owner)
+    portID, err := icatypes.NewControllerPortID(owner)
 
-  ...
+    ...
 
-  // if there is an active channel for this portID / connectionID return an error
-  activeChannelID, found := k.GetOpenActiveChannel(ctx, connectionID, portID)
-  if found {
-    return sdkerrors.Wrapf(icatypes.ErrActiveChannelAlreadySet, "existing active channel %s for portID %s on connection %s for owner %s", activeChannelID, portID, connectionID, owner)
-  }
+    // if there is an active channel for this portID / connectionID return an error
+    activeChannelID, found := k.GetOpenActiveChannel(ctx, connectionID, portID)
+    if found {
+        return sdkerrors.Wrapf(icatypes.ErrActiveChannelAlreadySet, "existing active channel %s for portID %s on connection %s for owner %s", activeChannelID, portID, connectionID, owner)
+    }
 
-  ...
+    ...
 
-  connectionEnd, err := k.channelKeeper.GetConnection(ctx, connectionID)
+    connectionEnd, err := k.channelKeeper.GetConnection(ctx, connectionID)
 
-  ...
+    ...
 
-  msg := channeltypes.NewMsgChannelOpenInit(portID, string(versionBytes), channeltypes.ORDERED, []string{connectionID}, icatypes.PortID, icatypes.ModuleName)
+    msg := channeltypes.NewMsgChannelOpenInit(portID, string(versionBytes), channeltypes.ORDERED, []string{connectionID}, icatypes.PortID, icatypes.ModuleName)
 
-  ...
+    ...
 }
 ```
 
@@ -89,19 +89,19 @@ If the message gets to the host chain (with the `NewMsgChannelOpenInit` call sho
 // stores it in state keyed by the provided connection and port identifiers
 // If an account for the provided address already exists this function returns early (no-op)
 func (k Keeper) RegisterInterchainAccount(ctx sdk.Context, connectionID, controllerPortID string, accAddress sdk.AccAddress) {
-  if acc := k.accountKeeper.GetAccount(ctx, accAddress); acc != nil {
-    return
-  }
+    if acc := k.accountKeeper.GetAccount(ctx, accAddress); acc != nil {
+        return
+    }
 
-  interchainAccount := icatypes.NewInterchainAccount(
-    authtypes.NewBaseAccountWithAddress(accAddress),
-    controllerPortID,
-  )
+    interchainAccount := icatypes.NewInterchainAccount(
+        authtypes.NewBaseAccountWithAddress(accAddress),
+        controllerPortID,
+    )
 
-  k.accountKeeper.NewAccount(ctx, interchainAccount)
-  k.accountKeeper.SetAccount(ctx, interchainAccount)
+    k.accountKeeper.NewAccount(ctx, interchainAccount)
+    k.accountKeeper.SetAccount(ctx, interchainAccount)
 
-  k.SetInterchainAccountAddress(ctx, connectionID, controllerPortID, interchainAccount.Address)
+    k.SetInterchainAccountAddress(ctx, connectionID, controllerPortID, interchainAccount.Address)
 }
 ```
 
@@ -113,15 +113,14 @@ This call goes through the `OnChanOpenTry` implementation in the [`handshake.go`
 // The version returned will include the registered interchain
 // account address.
 func (k Keeper) OnChanOpenTry(
-  ...
+    ...
 ) (string, error) {
+    ...
 
-  ...
+    // Register interchain account if it does not already exist
+    k.RegisterInterchainAccount(ctx, metadata.HostConnectionId, counterparty.PortId, accAddress)
 
-  // Register interchain account if it does not already exist
-  k.RegisterInterchainAccount(ctx, metadata.HostConnectionId, counterparty.PortId, accAddress)
-
-  ...
+    ...
 }
 ```
 
@@ -136,37 +135,35 @@ As a result, a fresh **interchain account** is created on the host chain. You ca
 // and the interchain accounts module must be able to claim the channel
 // capability.
 func (k Keeper) OnChanOpenInit(
-  ctx sdk.Context,
-  order channeltypes.Order,
-  connectionHops []string,
-  portID string,
-  channelID string,
-  chanCap *capabilitytypes.Capability,
-  counterparty channeltypes.Counterparty,
-  version string,
+    ctx sdk.Context,
+    order channeltypes.Order,
+    connectionHops []string,
+    portID string,
+    channelID string,
+    chanCap *capabilitytypes.Capability,
+    counterparty channeltypes.Counterparty,
+    version string,
 ) error {
+    ...
 
-  ...
+    activeChannelID, found := k.GetActiveChannelID(ctx, connectionHops[0], portID)
+    if found {
+        channel, found := k.channelKeeper.GetChannel(ctx, portID, activeChannelID)
+        if !found {
+            panic(fmt.Sprintf("active channel mapping set for %s but channel does not exist in channel store", activeChannelID))
+        }
 
-  activeChannelID, found := k.GetActiveChannelID(ctx, connectionHops[0], portID)
-  if found {
-    channel, found := k.channelKeeper.GetChannel(ctx, portID, activeChannelID)
-    if !found {
-      panic(fmt.Sprintf("active channel mapping set for %s but channel does not exist in channel store", activeChannelID))
+        if channel.State == channeltypes.OPEN {
+            return sdkerrors.Wrapf(icatypes.ErrActiveChannelAlreadySet, "existing active channel %s for portID %s is already OPEN", activeChannelID, portID)
+        }
+
+        if !icatypes.IsPreviousMetadataEqual(channel.Version, metadata) {
+            return sdkerrors.Wrap(icatypes.ErrInvalidVersion, "previous active channel metadata does not match provided version")
+        }
     }
 
-    if channel.State == channeltypes.OPEN {
-      return sdkerrors.Wrapf(icatypes.ErrActiveChannelAlreadySet, "existing active channel %s for portID %s is already OPEN", activeChannelID, portID)
-    }
-
-    if !icatypes.IsPreviousMetadataEqual(channel.Version, metadata) {
-      return sdkerrors.Wrap(icatypes.ErrInvalidVersion, "previous active channel metadata does not match provided version")
-    }
-  }
-
-  return nil
+    return nil
 }
-
 ```
 
 <HighlightBox type="note">
@@ -181,18 +178,17 @@ In the `OnChanOpenAck` you can see that the channel ID and account address will 
 // OnChanOpenAck sets the active channel for the interchain account/owner pair
 // and stores the associated interchain account address in state keyed by it's corresponding port identifier
 func (k Keeper) OnChanOpenAck(
-  ctx sdk.Context,
-  portID,
-  channelID string,
-  counterpartyVersion string,
+    ctx sdk.Context,
+    portID,
+    channelID string,
+    counterpartyVersion string,
 ) error {
+    ...
 
-  ...
+    k.SetActiveChannelID(ctx, metadata.ControllerConnectionId, portID, channelID)
+    k.SetInterchainAccountAddress(ctx, metadata.ControllerConnectionId, portID, metadata.Address)
 
-  k.SetActiveChannelID(ctx, metadata.ControllerConnectionId, portID, channelID)
-  k.SetInterchainAccountAddress(ctx, metadata.ControllerConnectionId, portID, metadata.Address)
-
-  return nil
+    return nil
 }
 ```
 
@@ -209,20 +205,20 @@ You can find `SendTx` in the [`relay.go`](https://github.com/cosmos/ibc-go/blob/
 // absolute timeoutTimestamp must be provided. If the packet is timed out, the channel will be closed.
 // In the case of channel closure, a new channel may be reopened to reconnect to the host chain.
 func (k Keeper) SendTx(ctx sdk.Context, chanCap *capabilitytypes.Capability, connectionID, portID string, icaPacketData icatypes.InterchainAccountPacketData, timeoutTimestamp uint64) (uint64, error) {
-  activeChannelID, found := k.GetOpenActiveChannel(ctx, connectionID, portID)
+    activeChannelID, found := k.GetOpenActiveChannel(ctx, connectionID, portID)
 
-  ...
+    ...
 
-  sourceChannelEnd, found := k.channelKeeper.GetChannel(ctx, portID, activeChannelID)
+    sourceChannelEnd, found := k.channelKeeper.GetChannel(ctx, portID, activeChannelID)
 
-  ...
+    ...
 
-  destinationPort := sourceChannelEnd.GetCounterparty().GetPortID()
-  destinationChannel := sourceChannelEnd.GetCounterparty().GetChannelID()
+    destinationPort := sourceChannelEnd.GetCounterparty().GetPortID()
+    destinationChannel := sourceChannelEnd.GetCounterparty().GetChannelID()
 
-  ...
+    ...
 
-  return k.createOutgoingPacket(ctx, portID, activeChannelID, destinationPort, destinationChannel, chanCap, icaPacketData, timeoutTimestamp)
+    return k.createOutgoingPacket(ctx, portID, activeChannelID, destinationPort, destinationChannel, chanCap, icaPacketData, timeoutTimestamp)
 }
 ```
 
@@ -234,29 +230,29 @@ On the host chain, if a packet arrives, `OnRecvPacket` in the [`relay.go`](https
 // OnRecvPacket handles a given interchain accounts packet on a destination host chain.
 // If the transaction is successfully executed, the transaction response bytes will be returned.
 func (k Keeper) OnRecvPacket(ctx sdk.Context, packet channeltypes.Packet) ([]byte, error) {
-  var data icatypes.InterchainAccountPacketData
+    var data icatypes.InterchainAccountPacketData
 
-  if err := icatypes.ModuleCdc.UnmarshalJSON(packet.GetData(), &data); err != nil {
-    // UnmarshalJSON errors are indeterminate and therefore are not wrapped and included in failed acks
-    return nil, sdkerrors.Wrapf(icatypes.ErrUnknownDataType, "cannot unmarshal ICS-27 interchain account packet data")
-  }
-
-  switch data.Type {
-  case icatypes.EXECUTE_TX:
-    msgs, err := icatypes.DeserializeCosmosTx(k.cdc, data.Data)
-    if err != nil {
-      return nil, err
+    if err := icatypes.ModuleCdc.UnmarshalJSON(packet.GetData(), &data); err != nil {
+        // UnmarshalJSON errors are indeterminate and therefore are not wrapped and included in failed acks
+        return nil, sdkerrors.Wrapf(icatypes.ErrUnknownDataType, "cannot unmarshal ICS-27 interchain account packet data")
     }
 
-    txResponse, err := k.executeTx(ctx, packet.SourcePort, packet.DestinationPort, packet.DestinationChannel, msgs)
-    if err != nil {
-      return nil, err
-    }
+    switch data.Type {
+        case icatypes.EXECUTE_TX:
+            msgs, err := icatypes.DeserializeCosmosTx(k.cdc, data.Data)
+            if err != nil {
+                return nil, err
+            }
 
-    return txResponse, nil
-  default:
-    return nil, icatypes.ErrUnknownDataType
-  }
+            txResponse, err := k.executeTx(ctx, packet.SourcePort, packet.DestinationPort, packet.DestinationChannel, msgs)
+            if err != nil {
+                return nil, err
+            }
+
+            return txResponse, nil
+        default:
+            return nil, icatypes.ErrUnknownDataType
+    }
 }
 ```
 
@@ -268,35 +264,34 @@ This calls `executeTx` to apply the received transaction on the host chain:
 // into state. The state changes will only be committed if all messages in the transaction succeed. Thus the
 // execution of the transaction is atomic, all state changes are reverted if a single message fails.
 func (k Keeper) executeTx(ctx sdk.Context, sourcePort, destPort, destChannel string, msgs []sdk.Msg) ([]byte, error) {
-  channel, found := k.channelKeeper.GetChannel(ctx, destPort, destChannel)
+    channel, found := k.channelKeeper.GetChannel(ctx, destPort, destChannel)
 
-  ...
+    ...
 
-  if err := k.authenticateTx(ctx, msgs, channel.ConnectionHops[0], sourcePort);
+    if err := k.authenticateTx(ctx, msgs, channel.ConnectionHops[0], sourcePort);
 
-  ...
+    ...
 
-  // CacheContext returns a new context with the multi-store branched into a cached storage object
-  // writeCache is called only if all msgs succeed, performing state transitions atomically
-  cacheCtx, writeCache := ctx.CacheContext()
-  for i, msg := range msgs {
-    if err := msg.ValidateBasic(); err != nil {
-      return nil, err
+    // CacheContext returns a new context with the multi-store branched into a cached storage object
+    // writeCache is called only if all msgs succeed, performing state transitions atomically
+    cacheCtx, writeCache := ctx.CacheContext()
+    for i, msg := range msgs {
+        if err := msg.ValidateBasic(); err != nil {
+            return nil, err
+        }
+
+        msgResponse, err := k.executeMsg(cacheCtx, msg)
+        if err != nil {
+            return nil, err
+        }
+
+        txMsgData.Data[i] = &sdk.MsgData{
+            MsgType: sdk.MsgTypeURL(msg),
+            Data:    msgResponse,
+        }
     }
 
-    msgResponse, err := k.executeMsg(cacheCtx, msg)
-    if err != nil {
-      return nil, err
-    }
-
-    txMsgData.Data[i] = &sdk.MsgData{
-      MsgType: sdk.MsgTypeURL(msg),
-      Data:    msgResponse,
-    }
-
-  }
-
-  ...
+    ...
 }
 ```
 
@@ -453,7 +448,6 @@ timeoutTimestamp := obtainTimeoutTimestamp()
 
 // Send the interchain accounts packet, returning the packet sequence
 seq, err = keeper.icaControllerKeeper.SendTx(ctx, chanCap, portID, packetData, timeoutTimestamp)
-
 ```
 
 The data within an `InterchainAccountPacketData` must be serialized using a format supported by the host chain. If the host chain is using the [IBC-Go host chain submodule](https://github.com/cosmos/ibc-go/tree/main/modules/apps/27-interchain-accounts/host), `SerializeCosmosTx` should be used. If the `InterchainAccountPacketData.Data` is serialized using a format not support by the host chain, the packet will not be successfully received.
@@ -472,7 +466,6 @@ txMsgData := &sdk.TxMsgData{}
 if err := proto.Unmarshal(ack.GetResult(), txMsgData); err != nil {
     return err
 }
-
 ```
 
 If the `txMsgData.Data` is empty, the host chain is using SDK version > v0.45. The auth module should interpret the `txMsgData.Responses` as follows:
@@ -493,33 +486,34 @@ A handler is needed to interpret what actions to perform based on the type url o
 
 ```go
 func handleAny(any *codectypes.Any) error {
-switch any.TypeURL {
-case banktypes.MsgSend:
-    msgResponse, err := unpackBankMsgSendResponse(any)
-    if err != nil {
-        return err
+    switch any.TypeURL {
+        case banktypes.MsgSend:
+            msgResponse, err := unpackBankMsgSendResponse(any)
+            if err != nil {
+                return err
+            }
+
+            handleBankSendMsg(msgResponse)
+
+        case stakingtypes.MsgDelegate:
+            msgResponse, err := unpackStakingDelegateResponse(any)
+            if err != nil {
+                return err
+            }
+
+            handleStakingDelegateMsg(msgResponse)
+
+            case transfertypes.MsgTransfer:
+            msgResponse, err := unpackIBCTransferMsgResponse(any)
+            if err != nil {
+                return err
+            }
+
+            handleIBCTransferMsg(msgResponse)
+
+        default:
+            return
     }
-
-    handleBankSendMsg(msgResponse)
-
-case stakingtypes.MsgDelegate:
-    msgResponse, err := unpackStakingDelegateResponse(any)
-    if err != nil {
-        return err
-    }
-
-    handleStakingDelegateMsg(msgResponse)
-
-    case transfertypes.MsgTransfer:
-    msgResponse, err := unpackIBCTransferMsgResponse(any)
-    if err != nil {
-        return err
-    }
-
-    handleIBCTransferMsg(msgResponse)
-
-default:
-    return
 }
 ```
 

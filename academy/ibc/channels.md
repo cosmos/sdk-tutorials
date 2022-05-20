@@ -69,35 +69,35 @@ The important part to note in this code snippet is that an application module ha
 // ChannelOpenInit will perform 04-channel checks, route to the application
 // callback, and write an OpenInit channel into state upon successful execution.
 func (k Keeper) ChannelOpenInit(goCtx context.Context, msg *channeltypes.MsgChannelOpenInit) (*channeltypes.MsgChannelOpenInitResponse, error) {
-  ctx := sdk.UnwrapSDKContext(goCtx)
+    ctx := sdk.UnwrapSDKContext(goCtx)
 
-  // Lookup module by port capability
-  module, portCap, err := k.PortKeeper.LookupModuleByPort(ctx, msg.PortId)
-  if err != nil {
-    return nil, sdkerrors.Wrap(err, "could not retrieve module from port-id")
-  }
+    // Lookup module by port capability
+    module, portCap, err := k.PortKeeper.LookupModuleByPort(ctx, msg.PortId)
+    if err != nil {
+        return nil, sdkerrors.Wrap(err, "could not retrieve module from port-id")
+    }
 
-  ...
+    ...
 
-  // Perform 04-channel verification
-  channelID, cap, err := k.ChannelKeeper.ChanOpenInit(
-    ctx, msg.Channel.Ordering, msg.Channel.ConnectionHops, msg.PortId,
-    portCap, msg.Channel.Counterparty, msg.Channel.Version,
-  )
+    // Perform 04-channel verification
+    channelID, cap, err := k.ChannelKeeper.ChanOpenInit(
+        ctx, msg.Channel.Ordering, msg.Channel.ConnectionHops, msg.PortId,
+        portCap, msg.Channel.Counterparty, msg.Channel.Version,
+    )
 
-  ...
+    ...
 
-  // Perform application logic callback
-  if err = cbs.OnChanOpenInit(ctx, msg.Channel.Ordering, msg.Channel.ConnectionHops, msg.PortId, channelID, cap, msg.Channel.Counterparty, msg.Channel.Version); err != nil {
-    return nil, sdkerrors.Wrap(err, "channel open init callback failed")
-  }
+    // Perform application logic callback
+    if err = cbs.OnChanOpenInit(ctx, msg.Channel.Ordering, msg.Channel.ConnectionHops, msg.PortId, channelID, cap, msg.Channel.Counterparty, msg.Channel.Version); err != nil {
+        return nil, sdkerrors.Wrap(err, "channel open init callback failed")
+    }
 
-  // Write channel into state
-  k.ChannelKeeper.WriteOpenInitChannel(ctx, msg.PortId, channelID, msg.Channel.Ordering, msg.Channel.ConnectionHops, msg.Channel.Counterparty, msg.Channel.Version)
+    // Write channel into state
+    k.ChannelKeeper.WriteOpenInitChannel(ctx, msg.PortId, channelID, msg.Channel.Ordering, msg.Channel.ConnectionHops, msg.Channel.Counterparty, msg.Channel.Version)
 
-  return &channeltypes.MsgChannelOpenInitResponse{
-    ChannelId: channelID,
-  }, nil
+    return &channeltypes.MsgChannelOpenInitResponse{
+        ChannelId: channelID,
+    }, nil
 }
 ```
 
@@ -123,23 +123,24 @@ Take a look at the [packet definition](https://github.com/cosmos/ibc-go/blob/mai
 // NewPacket creates a new Packet instance. It panics if the provided
 // packet data interface is not registered.
 func NewPacket(
-  data []byte,
-  sequence uint64, sourcePort, sourceChannel,
-  destinationPort, destinationChannel string,
-  timeoutHeight clienttypes.Height, timeoutTimestamp uint64,
+    data []byte,
+    sequence uint64, sourcePort, sourceChannel,
+    destinationPort, destinationChannel string,
+    timeoutHeight clienttypes.Height, timeoutTimestamp uint64,
 ) Packet {
-  return Packet{
-    Data:               data,
-    Sequence:           sequence,
-    SourcePort:         sourcePort,
-    SourceChannel:      sourceChannel,
-    DestinationPort:    destinationPort,
-    DestinationChannel: destinationChannel,
-    TimeoutHeight:      timeoutHeight,
-    TimeoutTimestamp:   timeoutTimestamp,
-  }
+    return Packet{
+        Data:               data,
+        Sequence:           sequence,
+        SourcePort:         sourcePort,
+        SourceChannel:      sourceChannel,
+        DestinationPort:    destinationPort,
+        DestinationChannel: destinationChannel,
+        TimeoutHeight:      timeoutHeight,
+        TimeoutTimestamp:   timeoutTimestamp,
+    }
 }
 ```
+
 `Sequence` denotes the sequence number of the packet in the channel.
 
 `TimeoutTimestamp` and `TimeoutHeight` dictate the time before which the receiving module must process a packet.

@@ -54,36 +54,37 @@ The following is an example of the IBC data between Juno and Osmosis:
 {
     "$schema": "../ibc_data.schema.json",
     "chain-1": {
-      "chain-name": "juno",
-      "client-id": "07-tendermint-0",
-      "connection-id": "connection-0"
+        "chain-name": "juno",
+        "client-id": "07-tendermint-0",
+        "connection-id": "connection-0"
     },
     "chain-2": {
-      "chain-name": "osmosis",
-      "client-id": "07-tendermint-1457",
-      "connection-id": "connection-1142"
+        "chain-name": "osmosis",
+        "client-id": "07-tendermint-1457",
+        "connection-id": "connection-1142"
     },
     "channels": [
-      {
-        "chain-1": {
-          "channel-id": "channel-0",
-          "port-id": "transfer"
-        },
-        "chain-2": {
-          "channel-id": "channel-42",
-          "port-id": "transfer"
-        },
-        "ordering": "unordered",
-        "version": "ics20-1",
-        "tags": {
-          "status": "live",
-          "preferred": true,
-          "dex": "osmosis"
+        {
+            "chain-1": {
+                "channel-id": "channel-0",
+                "port-id": "transfer"
+            },
+            "chain-2": {
+                "channel-id": "channel-42",
+                "port-id": "transfer"
+            },
+            "ordering": "unordered",
+            "version": "ics20-1",
+            "tags": {
+                "status": "live",
+                "preferred": true,
+                "dex": "osmosis"
+            }
         }
-      }
     ]
-  }
-  ```
+}
+```
+
 The Go relayer has built-in functionality to fetch chain information (and soon path information) from the chain-registry. Hermes has this functionality on their roadmap. You will look at both relayers in more detail in the next sections.
 
 # FAQ

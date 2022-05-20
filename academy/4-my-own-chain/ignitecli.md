@@ -107,7 +107,7 @@ If you'd like to upgrade an existing project to the latest version of Ignite CLI
 
 You can also just type `ignite` to see the offered commands:
 
-```sh
+```
 Ignite CLI is a tool for creating sovereign blockchains built with Cosmos SDK, the world’s
 most popular modular blockchain framework. Ignite CLI offers everything you need to scaffold,
 test, build, and launch your blockchain.
@@ -221,7 +221,7 @@ In this file you can set the accounts, the accounts' starting balances, and the 
 
 You can observe the endpoints of the blockchain in the output of the `ignite chain serve` command:
 
-```sh
+```
 🌍 Tendermint node: http://0.0.0.0:26657
 🌍 Blockchain API: http://0.0.0.0:1317
 🌍 Token faucet: http://0.0.0.0:4500
@@ -273,6 +273,33 @@ $ npm install
 $ npm run serve
 ```
 
+<ExpansionPanel title="Troubleshooting">
+
+<PanelListItem number="1" :last="true">
+
+If Vue complains about linting, for instance with:
+
+```
+Syntax Error: Error: Failed to load config "prettier" to extend from.
+Referenced from: /home/alice/checkers/vue/node_modules/eslint-plugin-prettier/eslint-plugin-prettier.js
+```
+
+You can safely tell it to ignore linting. To do that, in `package.json`, change the `"serve"` script to:
+
+```json
+{
+    ...
+    "scripts": {
+        ...
+        "serve": "vue-cli-service serve --skip-plugins @vue/cli-plugin-eslint",
+    }
+}
+```
+
+</PanelListItem>
+
+</ExpansionPanel>
+
 Navigate to [localhost:8080](http://localhost:8080/). On the client-side, no wallets have been created or imported yet. Load Alice's wallet in the GUI to have some tokens. You will need to use the mnemonic for Alice, which you can find in the output of the `ignite chain serve` command. If you do not see the mnemonic, it is because the mnemonic was shown to you the first time you ran the command and you did not copy it. So reset with `ignite chain serve --reset-once`. Copy and paste it to _import a wallet_.
 
 Now you should see the balance of Alice's account and can act on her behalf.
@@ -303,7 +330,7 @@ $ ignite scaffold message --help
 
 You can see a list of files that were created or modified by the `scaffold message` command in the Terminal output:
 
-```sh
+```
 modify proto/checkers/tx.proto
 modify x/checkers/client/cli/tx.go
 create x/checkers/client/cli/tx_create_post.go

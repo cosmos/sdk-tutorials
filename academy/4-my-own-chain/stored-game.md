@@ -385,7 +385,7 @@ exit status 1
 
 This appears complex, but the significant aspect is this:
 
-```sh
+```
 Diff:
 --- Expected
 +++ Actual

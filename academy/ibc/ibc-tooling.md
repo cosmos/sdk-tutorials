@@ -43,8 +43,8 @@ The overview is dynamic and gives you a good feeling of the current activity in 
 * Zoom in and out
 * See the overview in 2D and 3D
 * Filter the zones you see by:
-	* Activity: you can select all, most active, or least active chains.
-	* Trendline: you can chose between uptrend and downtrend.
+    * Activity: you can select all, most active, or least active chains.
+    * Trendline: you can chose between uptrend and downtrend.
 
 All of which can be found on the right-hand side of the overview display.
 

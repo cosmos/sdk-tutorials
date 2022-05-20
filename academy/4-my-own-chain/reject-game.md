@@ -256,17 +256,17 @@ To see how to properly handle code changes that would otherwise result in a brok
 
 You need to create other games and test the rejection on them. Notice the incrementing game ID.
 
-<CodeGroup>
-<CodeGroupItem title="Bob rejects" active>
+<PanelList>
+<PanelListItem number="1">
 
-Bob creates a game and rejects it immediately:
+Bob rejects:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
 $ checkersd tx checkers reject-game 2 --from $bob
 ```
 
-This returns:
+Above, Bob creates a game and rejects it immediately. This returns:
 
 ```
 ...
@@ -275,17 +275,17 @@ raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"R
 
 Correct result, because nobody played a move.
 
-</CodeGroupItem>
-<CodeGroupItem title="Alice rejects">
+</PanelListItem>
+<PanelListItem number="2">
 
-Bob creates a game and Alice rejects it immediately:
+Alice rejects:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
 $ checkersd tx checkers reject-game 3 --from $alice
 ```
 
-This returns:
+Above, Bob creates a game and Alice rejects it immediately. This returns:
 
 ```
 ...
@@ -294,10 +294,10 @@ raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"R
 
 Correct again, because nobody played a move.
 
-</CodeGroupItem>
-<CodeGroupItem title="Bob plays and rejects">
+</PanelListItem>
+<PanelListItem number="3">
 
-Next, Bob creates a game, makes a move, and then rejects the game:
+Bob plays and rejects:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
@@ -305,7 +305,7 @@ $ checkersd tx checkers play-move 4 1 2 2 3 --from $bob
 $ checkersd tx checkers reject-game 4 --from $bob
 ```
 
-This returns:
+Above, Bob creates a game, makes a move, and then rejects the game. This returns:
 
 ```
 ...
@@ -314,10 +314,10 @@ raw_log: 'failed to execute message; message index: 0: black player has already 
 
 Correct: the request fails, because Bob has already played a move.
 
-</CodeGroupItem>
-<CodeGroupItem title="Bob plays and Alice rejects">
+</PanelListItem>
+<PanelListItem number="4">
 
-Bob creates a game, makes a move, and Alice rejects the game:
+Bob plays and Alice rejects:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
@@ -325,7 +325,7 @@ $ checkersd tx checkers play-move 5 1 2 2 3 --from $bob
 $ checkersd tx checkers reject-game 5 --from $alice
 ```
 
-This returns:
+Above, Bob creates a game, makes a move, and Alice rejects the game. This returns:
 
 ```
 ...
@@ -334,10 +334,10 @@ raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"R
 
 Correct: Alice has not played a move yet, so she can still reject the game.
 
-</CodeGroupItem>
-<CodeGroupItem title="Bob & Alice play, Alice rejects">
+</PanelListItem>
+<PanelListItem number="5" :last="true">
 
-Finally, Bob creates a game and makes a move, then Alice makes a poor move and rejects the game:
+Bob & Alice play, Alice rejects:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $bob
@@ -346,7 +346,7 @@ $ checkersd tx checkers play-move 6 0 5 1 4 --from $alice
 $ checkersd tx checkers reject-game 6 --from $alice
 ```
 
-This returns:
+Above, Bob creates a game and makes a move, then Alice makes a poor move and rejects the game. This returns:
 
 ```
 ...
@@ -355,8 +355,8 @@ raw_log: 'failed to execute message; message index: 0: red player has already pl
 
 Correct: this time Alice could not reject the game because the state recorded her move in `.MoveCount`.
 
-</CodeGroupItem>
-</CodeGroup>
+</PanelListItem>
+</PanelList>
 
 ---
 

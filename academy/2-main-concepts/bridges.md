@@ -96,8 +96,8 @@ Do you want to dive deeper when it comes to bridges? Here are some helpful resou
 * [Jehan Tremback, Deborah Simpier, and Justin Kilpatrick (2021): Announcing the Cosmos Gravity Bridge](https://blog.althea.net/gravity-bridge/)
 * [Cosmos Gravity Bridge documentation](https://github.com/cosmos/gravity-bridge/)
 * Projects based on the Gravity Bridge:
-	* [Peggy JV Inc.: Gravity Bridge](https://github.com/PeggyJV/gravity-bridge/)
-	* [Althea Testnet repository: Gravity Bridge](https://github.com/althea-net/cosmos-gravity-bridge/)
+    * [Peggy JV Inc.: Gravity Bridge](https://github.com/PeggyJV/gravity-bridge/)
+    * [Althea Testnet repository: Gravity Bridge](https://github.com/althea-net/cosmos-gravity-bridge/)
 
 </HighlightBox>
 

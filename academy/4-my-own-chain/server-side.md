@@ -863,7 +863,7 @@ const handleBlock = async (block: Block) => {
 
 The events that you have converted are compatible with those emanating from transactions, so you can just pass them on. You still need to update `handleEvent` so that it acts on the new event type:
 
-```typescript [TODO]
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/d623ae0/src/server/indexer.ts#L136-L138]
 const handleEvent = async (event: StringEvent): Promise<void> => {
     ...
     if (isActionOf("GameForfeited")) {
@@ -1026,7 +1026,7 @@ It should return:
 
 And the indexer should log something like:
 
-```sh
+```
 Patch game: new, 3, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
 ```
 

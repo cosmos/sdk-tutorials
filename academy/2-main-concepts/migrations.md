@@ -54,7 +54,7 @@ Smart contracts on EVM chains such as Ethereum are immutable software. They are 
 
 ### Plan
 
-A "plan" is an upgrade process to take place at a specific block height in the future. It includes a `SideCar` process that executes when the upgrade commences, which names the plan and specifies a block height at which to execute. 
+A "plan" is an upgrade process to take place at a specific block height in the future. It includes a `SideCar` process that executes when the upgrade commences, which names the plan and specifies a block height at which to execute.
 
 <HighlightBox type="info">
 
@@ -64,7 +64,7 @@ Acceptance or rejection of the plan is managed through the normal governance pro
 
 The `Info` in a plan kicks off the `SideCar` process:
 
-```shell
+```go
 type Plan struct {
   Name   string
   Height int64

@@ -66,29 +66,29 @@ You already know that an application needs to implement the [IBC Module Interfac
 ```go
 // OnChanOpenInit implements the IBCModule interface
 func (im IBCModule) OnChanOpenInit(
-  ctx sdk.Context,
-  order channeltypes.Order,
-  connectionHops []string,
-  portID string,
-  channelID string,
-  chanCap *capabilitytypes.Capability,
-  counterparty channeltypes.Counterparty,
-  version string,
+    ctx sdk.Context,
+    order channeltypes.Order,
+    connectionHops []string,
+    portID string,
+    channelID string,
+    chanCap *capabilitytypes.Capability,
+    counterparty channeltypes.Counterparty,
+    version string,
 ) error {
-  if err := ValidateTransferChannelParams(ctx, im.keeper, order, portID, channelID); err != nil {
-    return err
-  }
+    if err := ValidateTransferChannelParams(ctx, im.keeper, order, portID, channelID); err != nil {
+        return err
+    }
 
-  if version != types.Version {
-    return sdkerrors.Wrapf(types.ErrInvalidVersion, "got %s, expected %s", version, types.Version)
-  }
+    if version != types.Version {
+        return sdkerrors.Wrapf(types.ErrInvalidVersion, "got %s, expected %s", version, types.Version)
+    }
 
-  // Claim channel capability passed back by IBC module
-  if err := im.keeper.ClaimCapability(ctx, chanCap, host.ChannelCapabilityPath(portID, channelID)); err != nil {
-    return err
-  }
+    // Claim channel capability passed back by IBC module
+    if err := im.keeper.ClaimCapability(ctx, chanCap, host.ChannelCapabilityPath(portID, channelID)); err != nil {
+        return err
+    }
 
-  return nil
+    return nil
 }
 ```
 
@@ -101,39 +101,39 @@ After a channel is established, the module can start sending and receiving packe
 // is returned if the packet data is successfully decoded and the receive application
 // logic returns without error.
 func (im IBCModule) OnRecvPacket(
-  ctx sdk.Context,
-  packet channeltypes.Packet,
-  relayer sdk.AccAddress,
+    ctx sdk.Context,
+    packet channeltypes.Packet,
+    relayer sdk.AccAddress,
 ) ibcexported.Acknowledgement {
-  ack := channeltypes.NewResultAcknowledgement([]byte{byte(1)})
+    ack := channeltypes.NewResultAcknowledgement([]byte{byte(1)})
 
-  var data types.FungibleTokenPacketData
-  if err := types.ModuleCdc.UnmarshalJSON(packet.GetData(), &data); err != nil {
-    ack = channeltypes.NewErrorAcknowledgement("cannot unmarshal ICS-20 transfer packet data")
-  }
-
-  // only attempt the application logic if the packet data
-  // was successfully decoded
-  if ack.Success() {
-    err := im.keeper.OnRecvPacket(ctx, packet, data)
-    if err != nil {
-      ack = types.NewErrorAcknowledgement(err)
+    var data types.FungibleTokenPacketData
+    if err := types.ModuleCdc.UnmarshalJSON(packet.GetData(), &data); err != nil {
+        ack = channeltypes.NewErrorAcknowledgement("cannot unmarshal ICS-20 transfer packet data")
     }
-  }
 
-  ctx.EventManager().EmitEvent(
-    sdk.NewEvent(
-      types.EventTypePacket,
-      sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
-      sdk.NewAttribute(types.AttributeKeyReceiver, data.Receiver),
-      sdk.NewAttribute(types.AttributeKeyDenom, data.Denom),
-      sdk.NewAttribute(types.AttributeKeyAmount, data.Amount),
-      sdk.NewAttribute(types.AttributeKeyAckSuccess, fmt.Sprintf("%t", ack.Success())),
-    ),
-  )
+    // only attempt the application logic if the packet data
+    // was successfully decoded
+    if ack.Success() {
+        err := im.keeper.OnRecvPacket(ctx, packet, data)
+        if err != nil {
+            ack = types.NewErrorAcknowledgement(err)
+        }
+    }
 
-  // NOTE: acknowledgment will be written synchronously during IBC handler execution.
-  return ack
+    ctx.EventManager().EmitEvent(
+        sdk.NewEvent(
+            types.EventTypePacket,
+            sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
+            sdk.NewAttribute(types.AttributeKeyReceiver, data.Receiver),
+            sdk.NewAttribute(types.AttributeKeyDenom, data.Denom),
+            sdk.NewAttribute(types.AttributeKeyAmount, data.Amount),
+            sdk.NewAttribute(types.AttributeKeyAckSuccess, fmt.Sprintf("%t", ack.Success())),
+        ),
+    )
+
+    // NOTE: acknowledgment will be written synchronously during IBC handler execution.
+    return ack
 }
 ```
 
@@ -150,14 +150,14 @@ option go_package = "github.com/cosmos/ibc-go/v3/modules/apps/transfer/types";
 // See FungibleTokenPacketData spec:
 // https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures
 message FungibleTokenPacketData {
-  // the token denomination to be transferred
-  string denom = 1;
-  // the token amount to be transferred
-  string amount = 2;
-  // the sender address
-  string sender = 3;
-  // the recipient address on the destination chain
-  string receiver = 4;
+    // the token denomination to be transferred
+    string denom = 1;
+    // the token amount to be transferred
+    string amount = 2;
+    // the sender address
+    string sender = 3;
+    // the recipient address on the destination chain
+    string receiver = 4;
 }
 ```
 
@@ -166,16 +166,14 @@ So where does the module send a token? Take a look at the [msg_serve.go](https:/
 ```go
 // Transfer defines a rpc handler method for MsgTransfer.
 func (k Keeper) Transfer(goCtx context.Context, msg *types.MsgTransfer) (*types.MsgTransferResponse, error) {
+    ...
 
-  ...
-
-  if err := k.SendTransfer(
-    ctx, msg.SourcePort, msg.SourceChannel, msg.Token, sender, msg.Receiver, msg.TimeoutHeight, msg.TimeoutTimestamp,
-  ); err != nil {
-    return nil, err
-  }
-  ...
-
+    if err := k.SendTransfer(
+        ctx, msg.SourcePort, msg.SourceChannel, msg.Token, sender, msg.Receiver, msg.TimeoutHeight, msg.TimeoutTimestamp,
+        ); err != nil {
+        return nil, err
+    }
+    ...
 }
 ```
 
@@ -183,60 +181,56 @@ There you see `SendTransfer`, which implements the application logic after [chec
 
 ```go
 func (k Keeper) SendTransfer(
-  ctx sdk.Context,
-  sourcePort,
-  sourceChannel string,
-  token sdk.Coin,
-  sender sdk.AccAddress,
-  receiver string,
-  timeoutHeight clienttypes.Height,
-  timeoutTimestamp uint64,
-)
-
+    ctx sdk.Context,
+    sourcePort,
+    sourceChannel string,
+    token sdk.Coin,
+    sender sdk.AccAddress,
+    receiver string,
+    timeoutHeight clienttypes.Height,
+    timeoutTimestamp uint64,
+) {
   ...
 
-  // deconstruct the token denomination into the denomination trace info
-  // to determine if the sender is the source chain
-  if strings.HasPrefix(token.Denom, "ibc/") {
-    fullDenomPath, err = k.DenomPathFromHash(ctx, token.Denom)
-    if err != nil {
-      return err
+    // deconstruct the token denomination into the denomination trace info
+    // to determine if the sender is the source chain
+    if strings.HasPrefix(token.Denom, "ibc/") {
+        fullDenomPath, err = k.DenomPathFromHash(ctx, token.Denom)
+        if err != nil {
+            return err
+        }
     }
-  }
-
-  ...
-
-  // NOTE: SendTransfer simply sends the denomination as it exists on its own
-  // chain inside the packet data. The receiving chain will perform denom
-  // prefixing as necessary.
-
-  if types.SenderChainIsSource(sourcePort, sourceChannel, fullDenomPath) {
 
     ...
 
-    // create the escrow address for the tokens
-    escrowAddress := types.GetEscrowAddress(sourcePort, sourceChannel)
+    // NOTE: SendTransfer simply sends the denomination as it exists on its own
+    // chain inside the packet data. The receiving chain will perform denom
+    // prefixing as necessary.
 
-    // escrow source tokens. It fails if balance insufficient.
-    if err := k.bankKeeper.SendCoins(...)
+    if types.SenderChainIsSource(sourcePort, sourceChannel, fullDenomPath) {
+        ...
 
-  } else {
+        // create the escrow address for the tokens
+        escrowAddress := types.GetEscrowAddress(sourcePort, sourceChannel)
 
-   ...
+        // escrow source tokens. It fails if balance insufficient.
+        if err := k.bankKeeper.SendCoins(...) {
+        } else {
+            ...
 
-    if err := k.bankKeeper.SendCoinsFromAccountToModule(...);
+            if err := k.bankKeeper.SendCoinsFromAccountToModule(...);
 
-    ...
+            ...
 
-    if err := k.bankKeeper.BurnCoins(...);
+            if err := k.bankKeeper.BurnCoins(...);
 
-    ...
-  }
+            ...
+        }
 
-  packetData := types.NewFungibleTokenPacketData(
-    fullDenomPath, token.Amount.String(), sender.String(), receiver,
-  )
-...
-
+        packetData := types.NewFungibleTokenPacketData(
+            fullDenomPath, token.Amount.String(), sender.String(), receiver,
+        )
+        ...
+    }
 }
 ```

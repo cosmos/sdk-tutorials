@@ -1,6 +1,6 @@
 ---
 title: "Transport, Authentication, and Ordering Layer - Clients"
-order: 
+order:
 description: Clients in IBC
 tag: deep-dive
 ---
@@ -42,19 +42,18 @@ Start with [`msg_serve.go`](https://github.com/cosmos/ibc-go/blob/main/modules/c
 ```go
 // CreateClient defines a rpc handler method for MsgCreateClient.
 func (k Keeper) CreateClient(goCtx context.Context, msg *clienttypes.MsgCreateClient) (*clienttypes.MsgCreateClientResponse, error) {
-  ctx := sdk.UnwrapSDKContext(goCtx)
+    ctx := sdk.UnwrapSDKContext(goCtx)
 
-  clientState, err := clienttypes.UnpackClientState(msg.ClientState)
-  ...
+    clientState, err := clienttypes.UnpackClientState(msg.ClientState)
+    ...
 
-  consensusState, err := clienttypes.UnpackConsensusState(msg.ConsensusState)
+    consensusState, err := clienttypes.UnpackConsensusState(msg.ConsensusState)
 
-  ...
+    ...
 
-  ... = k.ClientKeeper.CreateClient(ctx, clientState, consensusState);
+    ... = k.ClientKeeper.CreateClient(ctx, clientState, consensusState);
 
-  ...
-
+    ...
 }
 ```
 
@@ -64,28 +63,27 @@ It creates a client by calling [`ClientKeeper.CreateClient`](https://github.com/
 // CreateClient creates a new client state and populates it with a given consensus
 // state as defined in https://github.com/cosmos/ibc/tree/master/spec/core/ics-002-client-semantics#create
 func (k Keeper) CreateClient(
-  ctx sdk.Context, clientState exported.ClientState, consensusState exported.ConsensusState,
+    ctx sdk.Context, clientState exported.ClientState, consensusState exported.ConsensusState,
 )
+    ...
 
-  ...
+    clientID := k.GenerateClientIdentifier(ctx, clientState.ClientType())
 
-  clientID := k.GenerateClientIdentifier(ctx, clientState.ClientType())
+    ...
 
-  ...
+    k.SetClientState(ctx, clientID, clientState)
 
-  k.SetClientState(ctx, clientID, clientState)
+    ...
 
-  ...
+    // verifies initial consensus state against client state and initializes client store with any client-specific metadata
+    // e.g. set ProcessedTime in Tendermint clients
+    ... := clientState.Initialize(ctx, k.cdc, k.ClientStore(ctx, clientID), consensusState);
 
-  // verifies initial consensus state against client state and initializes client store with any client-specific metadata
-  // e.g. set ProcessedTime in Tendermint clients
-  ... := clientState.Initialize(ctx, k.cdc, k.ClientStore(ctx, clientID), consensusState);
+    ...
 
-  ...
+    EmitCreateClientEvent(ctx, clientID, clientState)
 
-  EmitCreateClientEvent(ctx, clientID, clientState)
-
-  return clientID, nil
+    return clientID, nil
 }
 ```
 
@@ -104,26 +102,25 @@ In addition, you can see that the function expects a `ClientState`. This `Client
 ```go
 // NewClientState creates a new ClientState instance
 func NewClientState(
-  chainID string, trustLevel Fraction,
-  trustingPeriod, ubdPeriod, maxClockDrift time.Duration,
-  latestHeight clienttypes.Height, specs []*ics23.ProofSpec,
-  upgradePath []string, allowUpdateAfterExpiry, allowUpdateAfterMisbehaviour bool,
+    chainID string, trustLevel Fraction,
+    trustingPeriod, ubdPeriod, maxClockDrift time.Duration,
+    latestHeight clienttypes.Height, specs []*ics23.ProofSpec,
+    upgradePath []string, allowUpdateAfterExpiry, allowUpdateAfterMisbehaviour bool,
 ) *ClientState {
-  return &ClientState{
-    ChainId:                      chainID,
-    TrustLevel:                   trustLevel,
-    TrustingPeriod:               trustingPeriod,
-    UnbondingPeriod:              ubdPeriod,
-    MaxClockDrift:                maxClockDrift,
-    LatestHeight:                 latestHeight,
-    FrozenHeight:                 clienttypes.ZeroHeight(),
-    ProofSpecs:                   specs,
-    UpgradePath:                  upgradePath,
-    AllowUpdateAfterExpiry:       allowUpdateAfterExpiry,
-    AllowUpdateAfterMisbehaviour: allowUpdateAfterMisbehaviour,
-  }
+    return &ClientState{
+        ChainId:                      chainID,
+        TrustLevel:                   trustLevel,
+        TrustingPeriod:               trustingPeriod,
+        UnbondingPeriod:              ubdPeriod,
+        MaxClockDrift:                maxClockDrift,
+        LatestHeight:                 latestHeight,
+        FrozenHeight:                 clienttypes.ZeroHeight(),
+        ProofSpecs:                   specs,
+        UpgradePath:                  upgradePath,
+        AllowUpdateAfterExpiry:       allowUpdateAfterExpiry,
+        AllowUpdateAfterMisbehaviour: allowUpdateAfterMisbehaviour,
+    }
 }
-
 ```
 
 The Tendermint `ClientState` contains all the information needed to verify a header. This includes properties which are applicable for all Tendermint clients, such as the corresponding chainID, the unbonding period of the chain, the latest height of the client, etc.
@@ -155,13 +152,13 @@ It is also recommended that `MaxClockDrift` should be set to at least 5sec and u
 ```go
 // NewConsensusState creates a new ConsensusState instance.
 func NewConsensusState(
-  timestamp time.Time, root commitmenttypes.MerkleRoot, nextValsHash tmbytes.HexBytes,
+    timestamp time.Time, root commitmenttypes.MerkleRoot, nextValsHash tmbytes.HexBytes,
 ) *ConsensusState {
-  return &ConsensusState{
-    Timestamp:          timestamp,
-    Root:               root,
-    NextValidatorsHash: nextValsHash,
-  }
+    return &ConsensusState{
+        Timestamp:          timestamp,
+        Root:               root,
+        NextValidatorsHash: nextValsHash,
+    }
 }
 ```
 
@@ -180,29 +177,29 @@ The following is an example of how the Tendermint client handles this Merkle [pr
 ```go
 // VerifyMembership verifies the membership of a merkle proof against the given root, path, and value.
 func (proof MerkleProof) VerifyMembership(specs []*ics23.ProofSpec, root exported.Root, path exported.Path, value []byte) error {
-  if err := proof.validateVerificationArgs(specs, root); err != nil {
-    return err
-  }
+    if err := proof.validateVerificationArgs(specs, root); err != nil {
+        return err
+    }
 
-  // VerifyMembership specific argument validation
-  mpath, ok := path.(MerklePath)
-  if !ok {
-    return sdkerrors.Wrapf(ErrInvalidProof, "path %v is not of type MerklePath", path)
-  }
-  if len(mpath.KeyPath) != len(specs) {
-    return sdkerrors.Wrapf(ErrInvalidProof, "path length %d not same as proof %d",
-      len(mpath.KeyPath), len(specs))
-  }
-  if len(value) == 0 {
-    return sdkerrors.Wrap(ErrInvalidProof, "empty value in membership proof")
-  }
+    // VerifyMembership specific argument validation
+    mpath, ok := path.(MerklePath)
+    if !ok {
+        return sdkerrors.Wrapf(ErrInvalidProof, "path %v is not of type MerklePath", path)
+    }
+    if len(mpath.KeyPath) != len(specs) {
+        return sdkerrors.Wrapf(ErrInvalidProof, "path length %d not same as proof %d",
+            len(mpath.KeyPath), len(specs))
+    }
+    if len(value) == 0 {
+        return sdkerrors.Wrap(ErrInvalidProof, "empty value in membership proof")
+    }
 
-  // Since every proof in chain is a membership proof we can use verifyChainedMembershipProof from index 0
-  // to validate entire proof
-  if err := verifyChainedMembershipProof(root.GetHash(), specs, proof.Proofs, mpath, value, 0); err != nil {
-    return err
-  }
-  return nil
+    // Since every proof in chain is a membership proof we can use verifyChainedMembershipProof from index 0
+    // to validate entire proof
+    if err := verifyChainedMembershipProof(root.GetHash(), specs, proof.Proofs, mpath, value, 0); err != nil {
+        return err
+    }
+    return nil
 }
 ```
 
@@ -224,10 +221,10 @@ For example, the Tendermint client `Header` looks like [this](https://github.com
 
 ```go
 type Header struct {
-  *types2.SignedHeader `protobuf:"bytes,1,opt,name=signed_header,json=signedHeader,proto3,embedded=signed_header" json:"signed_header,omitempty" yaml:"signed_header"`
-  ValidatorSet         *types2.ValidatorSet `protobuf:"bytes,2,opt,name=validator_set,json=validatorSet,proto3" json:"validator_set,omitempty" yaml:"validator_set"`
-  TrustedHeight        types.Height         `protobuf:"bytes,3,opt,name=trusted_height,json=trustedHeight,proto3" json:"trusted_height" yaml:"trusted_height"`
-  TrustedValidators    *types2.ValidatorSet `protobuf:"bytes,4,opt,name=trusted_validators,json=trustedValidators,proto3" json:"trusted_validators,omitempty" yaml:"trusted_validators"`
+    *types2.SignedHeader `protobuf:"bytes,1,opt,name=signed_header,json=signedHeader,proto3,embedded=signed_header" json:"signed_header,omitempty" yaml:"signed_header"`
+    ValidatorSet         *types2.ValidatorSet `protobuf:"bytes,2,opt,name=validator_set,json=validatorSet,proto3" json:"validator_set,omitempty" yaml:"validator_set"`
+    TrustedHeight        types.Height         `protobuf:"bytes,3,opt,name=trusted_height,json=trustedHeight,proto3" json:"trusted_height" yaml:"trusted_height"`
+    TrustedValidators    *types2.ValidatorSet `protobuf:"bytes,4,opt,name=trusted_validators,json=trustedValidators,proto3" json:"trusted_validators,omitempty" yaml:"trusted_validators"`
 }
 ```
 
@@ -255,33 +252,33 @@ The code snippet which illustrates how a client [verifies an incoming packet](ht
 // VerifyPacketCommitment verifies a proof of an outgoing packet commitment at
 // the specified port, specified channel, and specified sequence.
 func (cs ClientState) VerifyPacketCommitment(
-  ctx sdk.Context,
-  store sdk.KVStore,
-  cdc codec.BinaryCodec,
-  height exported.Height,
-  delayTimePeriod uint64,
-  delayBlockPeriod uint64,
-  prefix exported.Prefix,
-  proof []byte,
-  portID,
-  channelID string,
-  sequence uint64,
-  commitmentBytes []byte,
+    ctx sdk.Context,
+    store sdk.KVStore,
+    cdc codec.BinaryCodec,
+    height exported.Height,
+    delayTimePeriod uint64,
+    delayBlockPeriod uint64,
+    prefix exported.Prefix,
+    proof []byte,
+    portID,
+    channelID string,
+    sequence uint64,
+    commitmentBytes []byte,
 ) error {
-  merkleProof, consensusState, err := produceVerificationArgs(store, cdc, cs, height, prefix, proof)
-  ...
+    merkleProof, consensusState, err := produceVerificationArgs(store, cdc, cs, height, prefix, proof)
+    ...
 
-  // check delay period has passed
-  if err := verifyDelayPeriodPassed(ctx, store, height, delayTimePeriod, delayBlockPeriod);
-  ...
+    // check delay period has passed
+    if err := verifyDelayPeriodPassed(ctx, store, height, delayTimePeriod, delayBlockPeriod);
+    ...
 
-  commitmentPath := commitmenttypes.NewMerklePath(host.PacketCommitmentPath(portID, channelID, sequence))
-  path, err := commitmenttypes.ApplyPrefix(prefix, commitmentPath)
-  ...
+    commitmentPath := commitmenttypes.NewMerklePath(host.PacketCommitmentPath(portID, channelID, sequence))
+    path, err := commitmenttypes.ApplyPrefix(prefix, commitmentPath)
+    ...
 
-  if err := merkleProof.VerifyMembership(cs.ProofSpecs, consensusState.GetRoot(), path, commitmentBytes);
-  ...
+    if err := merkleProof.VerifyMembership(cs.ProofSpecs, consensusState.GetRoot(), path, commitmentBytes);
+    ...
 
-  return nil
+    return nil
 }
 ```
