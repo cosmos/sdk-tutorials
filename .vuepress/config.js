@@ -42,8 +42,8 @@ module.exports = {
       },
     ],
     [
-      "script", 
-      {}, 
+      "script",
+      {},
       `const userThemeMode = localStorage?.getItem("vuepress-theme-cosmos-user-theme") || 'dark-mode'
       document.documentElement.className = userThemeMode`
     ],
@@ -76,9 +76,9 @@ module.exports = {
       banner: true,
     },
     allowedIDAOrigins: [
-      "preview-5bxuue6kafu5ocp5", 
-      "deploy-preview-995", 
-      "deploy-preview-994", 
+      "preview-5bxuue6kafu5ocp5",
+      "deploy-preview-995",
+      "deploy-preview-994",
       "deploy-preview-991",
       "deploy-preview-1047",
       "127.0.0.1",
@@ -269,24 +269,52 @@ module.exports = {
                   path: "/academy/4-my-own-chain/ignitecli.html"
                 },
                 {
+                  title: "Exercise - Make a Checkers Blockchain",
+                  path: "/academy/4-my-own-chain-exer/exercise-intro.html"
+                },
+                {
+                  title: "Exercise - Store Object - Make a Checkers Blockchain",
+                  path: "/academy/4-my-own-chain-exer/stored-game-exer.html"
+                },
+                {
                   title: "Store Object - Make a Checkers Blockchain",
                   path: "/academy/4-my-own-chain/stored-game.html"
+                },
+                {
+                  title: "Exercise - Message - Create a Message to Create a Game",
+                  path: "/academy/4-my-own-chain-exer/create-message-exer.html"
                 },
                 {
                   title: "Message - Create a Message to Create a Game",
                   path: "/academy/4-my-own-chain/create-message.html"
                 },
                 {
+                  title: "Exercise - Message Handler - Create and Save a Game Properly",
+                  path: "/academy/4-my-own-chain-exer/create-handling-exer.html"
+                },
+                {
                   title: "Message Handler - Create and Save a Game Properly",
                   path: "/academy/4-my-own-chain/create-handling.html"
+                },
+                {
+                  title: "Exercise - Message and Handler - Add a Way to Make a Move",
+                  path: "/academy/4-my-own-chain-exer/play-game-exer.html"
                 },
                 {
                   title: "Message and Handler - Add a Way to Make a Move",
                   path: "/academy/4-my-own-chain/play-game.html"
                 },
                 {
+                  title: "Exercise - Events - Emitting Game Information",
+                  path: "/academy/4-my-own-chain-exer/events-exer.html"
+                },
+                {
                   title: "Events - Emitting Game Information",
                   path: "/academy/4-my-own-chain/events.html"
+                },
+                {
+                  title: "Exercise - Message and Handler - Make Sure a Player Can Reject a Game",
+                  path: "/academy/4-my-own-chain-exer/reject-game-exer.html"
                 },
                 {
                   title: "Message and Handler - Make Sure a Player Can Reject a Game",
@@ -294,7 +322,7 @@ module.exports = {
                 },
                 {
                   title: "Mandatory Exercise",
-                  path: "/academy/2-main-concepts/exercise-week-2.html"
+                  path: "/academy/4-my-own-chain-exer/week2-exercise.html"
                 },
               ]
             },
@@ -306,6 +334,10 @@ module.exports = {
                 {
                   title: "Running Your Own Cosmos Chain - Part 2",
                   path: "/course-ida/landingpages/week3-lp.html"
+                },
+                {
+                  title: "Exercise - Auto-Expiring Games",
+                  path: "/academy/4-my-own-chain-exer/game-fifo-exer.html"
                 },
                 {
                   title: "Store FIFO - Put Your Games in Order",
@@ -324,16 +356,32 @@ module.exports = {
                   path: "/academy/4-my-own-chain/game-forfeit.html"
                 },
                 {
+                  title: "Exercise - Token - Let Players Set a Wager",
+                  path: "/academy/4-my-own-chain-exer/game-wager-exer.html"
+                },
+                {
                   title: "Token - Let Players Set a Wager",
                   path: "/academy/4-my-own-chain/game-wager.html"
+                },
+                {
+                  title: "Exercise - Gas - Incentivize Players",
+                  path: "/academy/4-my-own-chain-exer/gas-meter-exer.html"
                 },
                 {
                   title: "Gas - Incentivize Players",
                   path: "/academy/4-my-own-chain/gas-meter.html"
                 },
                 {
+                  title: "Exercise - Query - Help Find a Correct Move",
+                  path: "/academy/4-my-own-chain-exer/can-play-exer.html"
+                },
+                {
                   title: "Query - Help Find a Correct Move",
                   path: "/academy/4-my-own-chain/can-play.html"
+                },
+                {
+                  title: "Exercise - IBC Token - Play With Cross-Chain Tokens",
+                  path: "/academy/4-my-own-chain-exer/wager-denom-exer.html"
                 },
                 {
                   title: "IBC Token - Play With Cross-Chain Tokens",
@@ -677,7 +725,7 @@ module.exports = {
       }
     ],
     [
-      "@vuepress/medium-zoom", 
+      "@vuepress/medium-zoom",
       {
         selector: ".layout__main__content :not(a) > img:not(.no-zoom)",
         options: {
