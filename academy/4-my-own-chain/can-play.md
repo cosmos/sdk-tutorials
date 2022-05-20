@@ -488,7 +488,7 @@ reason: 'player tried to play out of turn: red'
 </PanelListItem>
 <PanelListItem number="4">
 
-When you ask for a piece that is not of the player:
+When you ask for a piece that is not that of the player:
 
 ```sh
 $ checkersd query checkers can-play-move 1 black 0 5 1 4
