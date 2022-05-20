@@ -77,7 +77,7 @@ This only works if the expiration duration is the same for all games, instead of
 
 ## New information
 
-How do you implement FIFO from which you extract elements at random positions? Choose a doubly-linked list:
+How do you implement a FIFO from which you extract elements at random positions? Choose a doubly-linked list:
 
 1. You must remember the game ID at the head to pick expired games, and at the tail to send back fresh games. The existing `NextGame` object is useful, as it is already expandable. Add to its Protobuf declaration:
 
