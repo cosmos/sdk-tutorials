@@ -33,7 +33,7 @@ For now, don't bother yet with future ideas like wager handling.
 
 When you are satisfied (or not) with what you have, look at some solutions which relate to:
 
-* [Game ordering](../4-my-own-chain/game-fifo.md)
+* [System performance](../4-my-own-chain/game-fifo.md)
 * [Game duration](../4-my-own-chain/game-deadline.md)
 * [Good player performance](../4-my-own-chain/game-winner.md)
 * [Poor player engagement](../4-my-own-chain/game-forfeit.md)
