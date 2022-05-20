@@ -11,7 +11,7 @@ tag: deep-dive
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [modules](../2-main-concepts/modules.md)), [keepers](../2-main-concepts/multistore-keepers.md), and [Protobuf](../2-main-concepts/protobuf.md).
+* You understand the concepts of [modules](../2-main-concepts/modules.md), [keepers](../2-main-concepts/multistore-keepers.md), and [Protobuf](../2-main-concepts/protobuf.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to game expiry handling. If not, follow the [previous steps](./game-forfeit.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/forfeit-game).
 
@@ -171,7 +171,7 @@ func NewKeeper(
 }
 ```
 
-Next, update where the constructor is called and pass a proper instance of bank keeper. This happens in `app/app.go`:
+Next, update where the constructor is called and pass a proper instance of `BankKeeper`. This happens in `app/app.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/app.go#L368-L369]
 app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
@@ -211,24 +211,6 @@ import(
 checkersModuleAddress := app.AccountKeeper.GetModuleAddress(types.ModuleName)
 ```
 
-One last step. Before your module can keep money in escrow, it needs to be **whitelisted** by the bank module. You do this in the `maccperms`:
-
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/app.go#L154]
-maccPerms = map[string][]string{
-    ...
-    checkersmoduletypes.ModuleName: nil,
-}
-```
-
-If you compare it to the other `maccperms` lines, the new line does not mention any `authtypes.Minter` or `authtypes.Burner`. Indeed `nil` is what you need to keep in escrow. For your information, the bank creates an _address_ for your module's escrow account. When you have the full `app`, you can access it with:
-
-```go
-import(
-    "github.com/alice/checkers/x/checkers/types"
-)
-checkersModuleAddress := app.AccountKeeper.GetModuleAddress(types.ModuleName)
-```
-
 ## Preparing expected errors
 
 There are several new error situations that you can enumerate with new variables:
@@ -244,7 +226,7 @@ ErrNotInRefundState  = sdkerrors.Register(ModuleName, 1118, "game is not in a st
 
 ## Money handling steps
 
-With the `bank` now in your keeper, it is time to have your keeper handle the money. Keep this concern in its file, as the function are reused on a play, reject, and forfeit.
+With the `bank` now in your keeper, it is time to have your keeper handle the money. Keep this concern in its file, as the functions are reused on a play, reject, and forfeit.
 
 Create the new file `x/checkers/keeper/wager_handler.go` and add three functions to collect a wager, refund a wager, and pay winnings:
 
@@ -351,8 +333,6 @@ Now set up collecting a wager, paying winnings, and refunding a wager:
 
 You will notice that no special case is made when the wager is zero. This is a design choice here, and which way you choose to go is up to you. Not contacting the bank unnecessarily is cheaper in gas. On the other hand, why not outsource the zero check to the bank?
 
-You will notice that no special case is made when the wager is zero. This is a design choice here, and which way you choose to go is up to you. Not contacting the bank unnecessarily is cheaper in gas. On the other hand, why not outsource the zero check to the bank?
-
 ## Insert wager handling
 
 With the desired steps defined in the wager handling functions, it is time to invoke them at the right places in the message handlers.
@@ -401,7 +381,9 @@ With the desired steps defined in the wager handling functions, it is time to in
     }
     ```
 
-## ~~Unit~~ Integration tests
+<!-- Changed title from: "## ~~Unit~~ Integration tests" -->
+
+## Integration tests
 
 If you try running your existing tests you will see a lot of **null pointer exceptions**. That's because currently the tests set up your checkers keeper [without a bank keeper](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/keeper_test.go#L30-L34). Cosmos SDK does not have [mocks](https://en.wikipedia.org/wiki/Mock_object), so instead of passing a mocked bank when setting up your test keeper you need to build a proper bank keeper too. Fortunately, you do not have to do this from scratch: taking inspiration from [tests on the bank module](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b/x/bank/keeper/keeper_test.go#L66-L110), prepare your code and tests in order to accommodate and create a full app which will contain a bank keeper.
 
@@ -567,7 +549,7 @@ Your new tests will include checks on wagers being paid, lost, and won, so your 
     }
     ```
 
-6. Update the function(s) you used to set up your keeper with one game, for instance:
+6. Update any functions you used to set up your keeper with one game, for instance:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move_test.go#L8-L17]
     func (suite *IntegrationTestSuite) setupSuiteWithOneGameForPlayMove() {

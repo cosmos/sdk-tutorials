@@ -350,7 +350,11 @@ Correct: this time Alice could not reject the game because the state recorded he
 
 ---
 
+<HighlightBox type="warning">
+
 To belabor the point made in the earlier warning box: if you change your code, think about what it means for the current state of the chain and whether you end up in a broken state.
+
+</HighlightBox>
 
 ## Next up
 

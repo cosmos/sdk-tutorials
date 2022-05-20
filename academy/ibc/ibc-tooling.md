@@ -43,8 +43,8 @@ The overview is dynamic and gives you a good feeling of the current activity in 
 * Zoom in and out
 * See the overview in 2D and 3D
 * Filter the zones you see by:
-	* Activity: you can select all, most active, or least active chains.
-	* Trendline: you can chose between uptrend and downtrend.
+    * Activity: you can select all, most active, or least active chains.
+    * Trendline: you can chose between uptrend and downtrend.
 
 All of which can be found on the right-hand side of the overview display.
 
@@ -82,7 +82,7 @@ Now you have an overview for each channel, including: how much IBC volume is tra
 
 <HighlightBox type="note">
 
-There are canonical channels for ICS-20. All other channels will have been created accidentally by (unexperienced) relayers and hence, practically have no transactions.
+There are canonical channels for ICS-20. All other channels will have been created accidentally by (inexperienced) relayers and hence have practically no transactions.
 
 </HighlightBox>
 
@@ -199,7 +199,7 @@ Further below, you can also look into information on the messages involved. Next
 
 ## IOBScan
 
-Now, let's turn our focus to another blockchain explorer, [IOBScan](https://ibc.iobscan.io/home).
+Now, turn your focus to another blockchain explorer, [IOBScan](https://ibc.iobscan.io/home).
 
 From the IOBScan homepage you can get a quick overview of networks, channels, IBC token transfers, and IBC tokens:
 

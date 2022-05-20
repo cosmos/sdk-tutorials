@@ -224,6 +224,10 @@ modules:
         description: Rejecting a game
         url: /academy/4-my-own-chain/reject-game.html
         order: 9
+      - title: Mandatory Exercise
+        description: Mandatory Exercise
+        url: /academy/2-main-concepts/exercise-week-2.html
+        order: 10
   - title: Running Your Own Cosmos Chain - Part 2
     description: In Week 3, you'll dive deeper into customizing the checkers blockchain and discover how to make your own game more interesting and unique.
     number: 3
@@ -392,7 +396,7 @@ These tutorials guide you through actionable steps and walk-throughs to teach yo
 * Learn how Ignite CLI works
 * Create a blockchain polling application
 * Build an exchange that works with two or more blockchains
-* Interact with the Cosmos Hub testnet to test the functionality of your blockchain
+* Interact with the Cosmos Hub Testnet to test the functionality of your blockchain
 * Use the liquidity module, known on the Cosmos Hub as Gravity DEX, to create liquidity pools so users can swap tokens
 * Publish your blockchain application to a Droplet on DigitalOcean
 * Connect to a testnet

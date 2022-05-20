@@ -7,11 +7,15 @@ tag: deep-dive
 
 # Running a Node, API, and CLI
 
-Run a blockchain and discover how to interact with it.
+<HighlightBox type=“synopsis”>
+
+In this first section, you will learn how to run a blockchain and discover how to interact with it.
 
 There are different ways to run a node of a Cosmos blockchain. You will explore how to do so using [`simapp`](https://github.com/cosmos/cosmos-sdk/tree/master/simapp).
 
-## See what you are going to do
+</HighlightBox>
+
+Before you start working with `simapp`, take a look at what you are going to do:
 
 <YoutubePlayer videoId="qzUgh8mvyJE"/>
 
@@ -305,9 +309,13 @@ $ grep -A 10 balances ~/.simapp/config/genesis.json
 
 Despite this initial balance, before you run your blockchain you still need to escape the catch-22 and include your bootstrap transactions in the genesis file.
 
-**Note:** In this scenario you must meet the 2/3 threshold for validation, so you must stake at least `70000000stake` of your `100000000stake` in the `b9lab` account you just created. Make sure to not use all your stake, so you still have tokens to pay for gas.
+<HighlightBox type="note">
 
-**Note:** Do not forget to use your own `--chain-id`.
+In this scenario you must meet the 2/3 threshold for validation, so you must stake at least `70000000stake` of your `100000000stake` in the `b9lab` account you just created. Make sure to not use all your stake, so you still have tokens to pay for gas.
+
+Do not forget to use your own `--chain-id`.
+
+</HighlightBox>
 
 ```sh
 $ ./simd gentx b9lab 70000000stake --chain-id test-chain-rT4wZY
