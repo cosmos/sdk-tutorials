@@ -14,13 +14,13 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md).
 * Go is installed.
 * You have the checkers blockchain codebase with the deadline field and its handling. If not, follow the [previous steps](./game-deadline.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-deadline).
-    
+
 </HighlightBox>
 
 <HighlightBox type="learning">
 
 In this section, you will:
-    
+
 * Check for a game winner.
 * Extend unit tests.
 
@@ -259,7 +259,7 @@ Confirm that there is no winner for a game when it is created:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $alice
-$ checkersd query checkers show-stored-game 0
+$ checkersd query checkers show-stored-game 1
 ```
 
 This should show:
@@ -273,54 +273,8 @@ This should show:
 And when a player plays:
 
 ```sh
-$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
-$ checkersd query checkers show-stored-game 0
-```
-
-This should show:
-
-```
-...
-  winner: NO_PLAYER
-...
-```
-
-Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests or with a nice GUI. You will be able to partially test this in the [next section](./game-forfeit.md), via a forfeit.
-
-## Unit tests
-
-
-
-## Interact via the CLI
-
-If you have created games in an earlier version of the code, you are now in a broken state. You cannot even play the old games because they have `.Winner == ""` and this will be caught by the `if storedGame.Winner != rules.NO_PLAYER.Color` test. Start again:
-
-```sh
-$ ignite chain serve --reset-once
-```
-
-Do not forget to export `alice` and `bob` again, as explained in an [earlier section](./create-message.md).
-
-Confirm that there is no winner for a game when it is created:
-
-```sh
-$ checkersd tx checkers create-game $alice $bob --from $alice
-$ checkersd query checkers show-stored-game 0
-```
-
-This should show:
-
-```
-...
-  winner: NO_PLAYER
-...
-```
-
-And when a player plays:
-
-```sh
-$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
-$ checkersd query checkers show-stored-game 0
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
+$ checkersd query checkers show-stored-game 1
 ```
 
 This should show:

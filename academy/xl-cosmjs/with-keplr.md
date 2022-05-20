@@ -10,9 +10,9 @@ tag: deep-dive
 <HighlightBox type="learning">
 
 Build applicatiosn that interact with the Keplr browser extension.
-    
-In this section, you will learn more about: 
-    
+
+In this section, you will learn more about:
+
 * Detecting Keplr
 * Getting chain info
 * The user interaction flow
@@ -72,7 +72,7 @@ export interface FaucetSenderProps {
 
 export class FaucetSender extends Component<FaucetSenderProps, FaucetSenderState> {
 
-    
+
     // Set the initial state
     constructor(props:FaucetSenderProps) {
         super(props)

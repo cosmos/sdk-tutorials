@@ -51,9 +51,9 @@ If a node wishes to distort the ledger in a PoW system, it must first acquire an
 The control mechanism for the amount of work is called **difficulty** and it guarantees a given average block creation time. PoW networks set a target average time for a solution to be found by *any* node on the network. The difficulty adjusts to compensate for increasing/decreasing total network problem-solving capacity. Thus, PoW networks do not get faster as more computing capacity is added. They become more resilient by increasing difficulty, which raises the threshold a 51%-attacker needs to overcome.
 
 ## Proof-of-Authority (PoA)
-  
-**Proof-of-Authority (PoA)** is a simple mechanism that solves for faster block times by relying on validators that are pre-selected based on the belief that they are trustworthy. In other words, validators are allowed to produce blocks based solely on their pre-existing authority. A frequently cited criticism of PoA networks is that everyone needs to trust the validators in order to trust the overall network and blockchain. 
-  
+
+**Proof-of-Authority (PoA)** is a simple mechanism that solves for faster block times by relying on validators that are pre-selected based on the belief that they are trustworthy. In other words, validators are allowed to produce blocks based solely on their pre-existing authority. A frequently cited criticism of PoA networks is that everyone needs to trust the validators in order to trust the overall network and blockchain.
+
 ## Proof-of-Stake (PoS)
 
 **Proof-of-stake (PoS)** is another method of selecting the authoritative node for a given block. PoS is based on the assumption that those with the most to lose are the most incentivized to safeguard network integrity. Thus, block validators are selected based on their stake (i.e. the amount of cryptocurrency held).

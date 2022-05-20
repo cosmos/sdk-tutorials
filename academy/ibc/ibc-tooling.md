@@ -1,6 +1,6 @@
 ---
 title: "IBC Tooling"
-order: 
+order:
 description: Overview of some helpful tools
 tag: deep-dive
 ---
@@ -8,7 +8,7 @@ tag: deep-dive
 # IBC Tooling
 
 <HighlightBox type="learning">
-	
+
 In this section, you will discover the following tools:
 
 * MapOfZones
@@ -103,7 +103,7 @@ For the first five categories, you can also sort the list in either ascending or
 
 ## Mintscan
 
-[Mintscan](https://hub.mintscan.io) is another Cosmos network explorer. 
+[Mintscan](https://hub.mintscan.io) is another Cosmos network explorer.
 
 It gives an overview of IBC networks, including a visualization (left side) and a list (right side). For the former, the default is set to give you a visualization based on IBC transactions within a 30-day period:
 

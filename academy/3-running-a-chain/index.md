@@ -27,9 +27,9 @@ A cosmos of chains awaits!
 
 <div v-for="resource in $themeConfig.resources">
   <Resource 
-    :title="resource.title" 
-    :description="resource.description" 
-    :links="resource.links" 
+    :title="resource.title"
+    :description="resource.description"
+    :links="resource.links"
     :image="resource.image"
     :large="true"
   />
