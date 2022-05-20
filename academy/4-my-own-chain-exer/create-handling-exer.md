@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Exercise - Message Handler - Create and Save a Game Properly
 
-You have created a message that is intended to create a game. However it does not create a game just yet because you have not yet implemented the message handling proper. It is time to do this part.
+You have created a message that is intended to create a game. However, it does not create a game yet because you have not implemented the message handling. How would you do this?
 
 ## Think
 
@@ -17,13 +17,13 @@ You have created a message that is intended to create a game. However it does no
 
 ## Code
 
-* No Ignite CLI involved here, it is Go Go Go.
+* No Ignite CLI is involved here, it is just Go Go Go.
 * Of course, you need to know where to put your code. Look for `TODO`.
-* How would you unit-test this handling?
-* How would you use Ignite CLI to run locally a one-node blockchain and interact with it via the CLI and see what you get?
+* How would you unit-test this message handling?
+* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
 For now, don't bother with niceties like gas metering or event emission.
 
 ## Next up
 
-When you are satisfied, or not, with what you did, have a look at [a solution](../4-my-own-chain/create-handling.md).
+When you are satisfied (or not) with what you have, look at [a solution](../4-my-own-chain/create-handling.md).

@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Exercise - Message and Handler - Add a Way to Make a Move
 
-Your blockchain can now create games, but can you play them? Not yet. What do you need to make it possible?
+Your blockchain can now create games, but can you play them? Not yet.. so what do you need to make this possible?
 
 ## Think
 
@@ -23,10 +23,10 @@ Your blockchain can now create games, but can you play them? Not yet. What do yo
 * What Ignite CLI commands will create your message?
 * How do you adjust what Ignite CLI created for you?
 * How would you unit-test these new elements?
-* How would you use Ignite CLI to run locally a one-node blockchain and interact with it via the CLI and see what you get?
+* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
 As before, don't bother yet with niceties like gas metering or event emission.
 
 ## Next up
 
-When you are satisfied, or not, with what you did, have a look at [a solution](../4-my-own-chain/play-game.md).
+When you are satisfied (or not) with what you have, look at [a solution](../4-my-own-chain/play-game.md).

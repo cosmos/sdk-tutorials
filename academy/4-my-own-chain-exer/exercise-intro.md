@@ -2,6 +2,6 @@
 
 ## How to proceed
 
-This module is about creating a decentralized game of Checkers using Ignite CLI and the Cosmos SDK. Each section progressively advances the project. To learn the most efficiently, you should treat each section as _a solution_ to the exercise described before the corresponding section.
+This module is about creating a decentralized game of Checkers using Ignite CLI and the Cosmos SDK. Each section progressively advances the project. To learn the most efficiently, you should treat each section as _a solution_ to the exercise which preceded it.
 
-You are not tested on this, it is just in your best interest to do so.
+These exercises help you prepare a conceptual framework for the information that follows. You are not tested on them, but it is in your best interest to complete each one before moving on to the associated section.

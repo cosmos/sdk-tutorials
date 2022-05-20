@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Exercise - Message and Handler - Make Sure a Player Can Reject a Game
 
-Your blockchain can now create and play games, and inform the outside world about the process. It would be good to add a way for players to back out of games they don't want to play. What do you need to make it possible?
+Your blockchain can now create and play games, and inform the outside world about the process. It would be good to add a way for players to back out of games they don't want to play. What do you need to make this possible?
 
 ## Think
 
@@ -25,10 +25,10 @@ Your blockchain can now create and play games, and inform the outside world abou
 * What Ignite CLI commands will create your message?
 * How do you adjust what Ignite CLI created for you?
 * How would you unit-test these new elements?
-* How would you use Ignite CLI to run locally a one-node blockchain and interact with it via the CLI and see what you get?
+* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
 As before, don't bother yet with niceties like gas metering.
 
 ## Next up
 
-When you are satisfied, or not, with what you did, have a look at [a solution](../4-my-own-chain/reject-game.md).
+When you are satisfied (or not) with what you have, look at [a solution](../4-my-own-chain/reject-game.md).

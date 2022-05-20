@@ -23,8 +23,8 @@ Since sending transactions includes costs, how do you assist participants in mak
 * How do you adjust what Ignite CLI created for you?
 * Where do you make your changes?
 * How would you unit-test these new elements?
-* How would you use Ignite CLI to run locally a one-node blockchain and interact with it via the CLI and see what you get?
+* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
 ## Next up
 
-When you are satisfied, or not, with what you did, have a look at [a solution](../4-my-own-chain/can-play.md).
+When you are satisfied (or not) with what you have, look at [a solution](../4-my-own-chain/can-play.md).

@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Exercise - Introduce a Leaderboard After Production
 
-If you have been running _v1_ of your checkers blockchain for a while, games have been created, played on, won, and lost. Say you want to increase engagement by adding a leaderboard.
+If you have been running _v1_ of your checkers blockchain for a while, games have been created, played on, won, and lost. Now you want to increase engagement by adding a leaderboard - how can you do this?
 
 ## Think
 
@@ -24,8 +24,8 @@ If you have been running _v1_ of your checkers blockchain for a while, games hav
 * How do you adjust what Ignite CLI created for you?
 * Where do you make your changes?
 * How would you unit-test these new elements?
-* How would you use Ignite CLI to run locally a one-node blockchain and interact with it via the CLI and see what you get?
+* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
 ## Next up
 
-When you are satisfied, or not, with what you did, have a look at [a solution](../4-my-own-chain/migration.md).
+When you are satisfied (or not) with what you have, look at [a solution](../4-my-own-chain/migration.md).
