@@ -224,6 +224,10 @@ modules:
         description: Rejecting a game
         url: /academy/4-my-own-chain/reject-game.html
         order: 9
+      - title: Mandatory Exercise
+        description: Mandatory Exercise
+        url: /academy/2-main-concepts/exercise-week-2.html
+        order: 10
   - title: Running Your Own Cosmos Chain - Part 2
     description: In Week 3, you'll dive deeper into customizing the checkers blockchain and discover how to make your own game more interesting and unique.
     number: 3

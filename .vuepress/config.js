@@ -292,12 +292,10 @@ module.exports = {
                   title: "Message and Handler - Make Sure a Player Can Reject a Game",
                   path: "/academy/4-my-own-chain/reject-game.html"
                 },
-/*
                 {
-                  title: "Mandatory Exercise (todo)",
-                  path: "/feature-test"
+                  title: "Mandatory Exercise",
+                  path: "/academy/2-main-concepts/exercise-week-2.html"
                 },
-*/
               ]
             },
             {
