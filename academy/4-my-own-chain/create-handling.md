@@ -139,7 +139,7 @@ panic: NextGame not found [recovered]
 
 Your keeper was initialized with an empty genesis. You must fix that one way or another.
 
-You can fix this by initializing the keeper with the default genesis. Initializing the `MsgServer` with the default genesis is opinionated, so it is better to keep this opinion closest to the tests. Copy the `setupMsgServer` from [`msg_server_test.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_test.go#L12-L15) into your `msg_server_create_game_test.go`. Modify it to also return the keeper:
+You can fix this by always initializing the keeper with the default genesis. However such a default initialization may not always be desirable. So it is better to keep this default initialization closest to the tests. Copy the `setupMsgServer` from [`msg_server_test.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_test.go#L12-L15) into your `msg_server_create_game_test.go`. Modify it to also return the keeper:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/keeper/msg_server_create_game_test.go#L20-L24]
 func setupMsgServerCreateGame(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
