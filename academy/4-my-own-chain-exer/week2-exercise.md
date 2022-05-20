@@ -31,7 +31,7 @@ There are hidden files that:
 Your goal is to run an Ignite command to create a new Protobuf type that follows this description:
 
 1. Its name is `WorldParams`.
-2. It has exactly 3 params, in exactly this order, with the Protobuf indices going from `1` to `3` respectively:
+2. It has exactly 3 parameters, in exactly this order, with the Protobuf indices going from `1` to `3` respectively:
    1. A `string` for the world's `name`.
    2. A `uint` for the world's `gravity`.
    3. A `uint` for the world's `landSupply`.
