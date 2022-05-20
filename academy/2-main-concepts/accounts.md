@@ -8,9 +8,9 @@ tag: deep-dive
 # Accounts
 
 <HighlightBox type="learning">
-    
-In this section you are going to learn all about accounts in Cosmos: 
-    
+
+In this section you are going to learn all about accounts in Cosmos:
+
 * What they are
 * How they are stored
 * Optional implementations
@@ -62,7 +62,7 @@ The **length of keys** is vital. Asymmetric cryptographic keys are usually very 
 
 <HighlightBox type="info">
 
-Asymmetric keys always come in pairs and offer their owner various capabilities. These capabilities are based on cryptographic mathematics. The public key is meant to be distributed to whoever is relevant, while the private key is to remain a secret. This is similar to sharing the address  your house, but keeping the key to your front door private.
+Asymmetric keys always come in pairs and offer their owner various capabilities. These capabilities are based on cryptographic mathematics. The public key is meant to be distributed to whoever is relevant, while the private key is to remain a secret. This is similar to sharing the address of your house, but keeping the key to your front door private.
 
 </HighlightBox>
 
@@ -80,9 +80,9 @@ Alice and Bob are communicating. Alice wants to make sure that Bob's public anno
 Alice can verify the source of the announcement by checking if the signature was done with the private key that corresponds to Bob’s public key (which is already known to represent Bob).
 
 <HighlightBox type="info">
-    
+
 Private keys are used to **prove** that messages originate from the owners of accounts known by their public keys: the signatures **prove** that messages were signed by someone that knows the private key that corresponds to a given public key. This is the basis of user authentication in a blockchain, and why private keys are strictly guarded secrets.
-    
+
 </HighlightBox>
 
 <ExpansionPanel title="How to manage multiple key pairs over multiple blockchains with hierarchical-deterministic wallets">
@@ -158,7 +158,7 @@ The [`BaseAccount`](https://github.com/cosmos/cosmos-sdk/blob/bf11b1bf1fa0c52fb2
 
 ## Public keys
 
-Public keys are generally not used to reference accounts (see the following section, *Address*). Public keys do exist and they are accessible through the [`cryptoTypes.PubKey`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/crypto/types/types.go#L9) interface. This facilitates operations which developers may find useful. such as signing off-chain messages or using a public key for other out-of-band operations.
+Public keys are generally not used to reference accounts (see the following section, *Address*). Public keys do exist and they are accessible through the [`cryptoTypes.PubKey`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/crypto/types/types.go#L9) interface. This facilitates operations which developers may find useful, such as signing off-chain messages or using a public key for other out-of-band operations.
 
 ## Address
 
@@ -232,6 +232,6 @@ type StoredGame struct {
 ```
 
 If you want to go beyond these out-of-context code samples and instead see more details on defining this, head to [Running Your Own Chain](/course-ida/landingpages/week2-lp.md)
-    
+
 
 </ExpansionPanel>

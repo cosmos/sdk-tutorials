@@ -7,9 +7,7 @@ tag: deep-dive
 
 # Multistore and Keepers
 
-<HighlightBox type="synopsis">
-
-Keepers are responsible for managing access to states defined by modules. Because states are accessed through keepers, they are an ideal place to ensure that invariants are enforced and security principles are always applied.
+<HighlightBox type="prerequisite">
 
 Look at the following sections before you begin:
 
@@ -17,6 +15,12 @@ Look at the following sections before you begin:
 * [Messages](./messages.md)
 * [Modules](./modules.md)
 * [Protobuf](./protobuf.md)
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+Keepers are responsible for managing access to states defined by modules. Because states are accessed through keepers, they are an ideal place to ensure that invariants are enforced and security principles are always applied.
 
 You can find a code example for your checkers blockchain at the end of the section that explores dealing with storage elements, message handling, and gas costs.
 
@@ -289,7 +293,7 @@ $ ignite scaffold map storedGame game turn red black wager:uint --module checker
 
 To create the above boilerplate in your module, you can use Ignite CLI. Go to [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md), for more on Ignite CLI, and if you want to go beyond out-of-context code samples to see more in detail how to define these features.
 
-    
+
 </HighlightBox>
 
 ## Other storage elements
@@ -318,7 +322,7 @@ Then define the functions to get and set:
 
 ```go
 func (k Keeper) SetNextGame(ctx sdk.Context, nextGame types.NextGame) {
-    nextGameStore := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.NextGameKey))
+    nextGameStore := prefix.NewStore(ctx.KVStore(k.storeKey), []byte(types.NextGameKey))
     nextBytes := k.cdc.MustMarshalBinaryBare(&nextGame)
     nextGameStore.Set([]byte{0}, nextBytes)
 }
@@ -348,7 +352,7 @@ func DefaultGenesis() *GenesisState {
 
 ## What about message handling
 
-You go from the message to the game in storage with `MsgCreateGame`, which was defined in an earlier [section on messages](./messages.md). That is also the role of the keeper. 
+You go from the message to the game in storage with `MsgCreateGame`, which was defined in an earlier [section on messages](./messages.md). That is also the role of the keeper.
 
 Define a handling function such as:
 
@@ -523,7 +527,7 @@ am.keeper.ForfeitExpiredGames(sdk.WrapSDKContext(ctx))
 
 How can you ensure that the execution of this `EndBlock` does not become prohibitively expensive? After all, the potential number of games to expire is unbounded, which can be disastrous in the blockchain world. Is there a situation or attack vector that makes this a possibility? And what can you do to prevent it?
 
-The timeout duration is fixed, and is the same for all games. This means that the `n` games that expire in a given block have all been created or updated at roughly the same time or block height `h`, with margins of error `h-1` and `h+1`. 
+The timeout duration is fixed, and is the same for all games. This means that the `n` games that expire in a given block have all been created or updated at roughly the same time or block height `h`, with margins of error `h-1` and `h+1`.
 
 These created and updated games are limited in number, because (as established in the chain consensus parameters) every block has a maximum size and a limited number of transactions it can include. If by chance all games in blocks `h-1`, `h`, and `h+1` expire now, then the `EndBlock` function would have to expire three times as many games as a block can handle. This is a worst-case scenario, but most likely it is still manageable.
 

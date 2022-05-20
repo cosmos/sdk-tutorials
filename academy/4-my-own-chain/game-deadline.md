@@ -17,7 +17,7 @@ Make sure you have everything you need before proceeding:
 
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
 
@@ -137,7 +137,7 @@ require.EqualValues(t, types.StoredGame{
 There is not much to test here. Remember that you added a new field, but if your blockchain state already contains games then they are missing the new field:
 
 ```sh
-$ checkersd query checkers show-stored-game 0
+$ checkersd query checkers show-stored-game 1
 ```
 
 This demonstrates some missing information:
@@ -151,8 +151,8 @@ This demonstrates some missing information:
 In effect, your blockchain state is broken. Examine the [section on migrations](./migration.md) to see how to update your blockchain state to avoid such a breaking change. This broken state still lets you test the update of the deadline on play:
 
 ```sh
-$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
-$ checkersd query checkers show-stored-game 0
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
+$ checkersd query checkers show-stored-game 1
 ```
 
 This contains:

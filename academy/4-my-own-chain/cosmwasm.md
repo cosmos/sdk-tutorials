@@ -319,7 +319,7 @@ Check again with a `resolve_record` query to confirm that the transfer was succe
 
 <HighlightBox type="docs">
 
-CosmWasm offers good [documentation](https://docs.cosmwasm.com/docs/). This section is a summary of the [Getting Started section](https://docs.cosmwasm.com/docs/getting-started/intro/). Store the `env` script from [here]https://docs.cosmwasm.com/docs/1.0/getting-started/setting-env#setup-go-cli) in case you wish to test it on your local node. Also look at the [contract semantics](https://docs.cosmwasm.com/docs/SEMANTICS/).
+CosmWasm offers good [documentation](https://docs.cosmwasm.com/docs/). This section is a summary of the [Getting Started section](https://docs.cosmwasm.com/docs/getting-started/intro/). Store the `env` script from [here](https://docs.cosmwasm.com/docs/1.0/getting-started/setting-env#setup-go-cli) in case you wish to test it on your local node. Also look at the [contract semantics](https://docs.cosmwasm.com/docs/SEMANTICS/).
 
 </HighlightBox>
 

@@ -7,15 +7,19 @@ tag: deep-dive
 
 # Modules
 
-<HighlightBox type="synopsis">
-
-Modules are functional components that address application-level concerns such as token management or governance. The Cosmos SDK includes several ready-made modules so that application developers can focus on the truly unique aspects of their application.
+<HighlightBox type="prerequisite">
 
 Review the following sections to better understand modules in the Cosmos SDK:
 
 * [Transactions](./transactions.md)
 * [Messages](./messages.md)
 * [Queries](./queries.md)
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+Modules are functional components that address application-level concerns such as token management or governance. The Cosmos SDK includes several ready-made modules so that application developers can focus on the truly unique aspects of their application.
 
 A code example that illustrates module creation and an introduction to your checkers blockchain can be found at the end of this section.
 
@@ -43,7 +47,7 @@ Modules implement the majority of the application logic while the **core** atten
 
 A module defines a subset of the overall state, using:
 
-* One or more keys or value stores known as `KVStore`
+* One or more keys or value stores, known as `KVStore`.
 * A subset of message types that are needed by the application and do not exist yet.
 
 Modules also define interactions with other modules that already exist.
@@ -139,7 +143,7 @@ Each module defines commands for a command-line interface (CLI). Commands relate
 
 ### Keeper
 
-Keepers are the gatekeepers to any stored in the module. It is mandatory to go through a module’s keeper to access a store. A keeper encapsulates the knowledge about the layout of the storage within the store and contains methods to update and inspect it. If you come from a module-view-controller (MVC) world, then it helps to think of the keeper as the controller.
+Keepers are the gatekeepers to any stores in the module. It is mandatory to go through a module’s keeper to access a store. A keeper encapsulates the knowledge about the layout of the storage within the store and contains methods to update and inspect it. If you come from a module-view-controller (MVC) world, then it helps to think of the keeper as the controller.
 
 ![Keeper in a node](/academy/2-main-concepts/images/keeper.png)
 
@@ -248,7 +252,7 @@ x/{module_name}
 ```
 
 * `client/`: the module's CLI client functionality implementation and the module's integration testing suite.
-* `exported/`: the module's exported types - typically interface types (see also the following note). 
+* `exported/`: the module's exported types - typically interface types (see also the following note).
 * `keeper/`: the module's `Keeper` and `MsgServer` implementations.
 * `module/`: the module's `AppModule` and `AppModuleBasic` implementations.
 * `simulation/`: the module's simulation package defines functions used by the blockchain simulator application (`simapp`).
@@ -267,7 +271,7 @@ x/{module_name}
 
 <HighlightBox type="info">
 
-If a module relies on keepers from another module, the `exported/` code element expects to receive the keepers as interface contracts to avoid a direct dependency on the module implementing the keepers. However, these interface contracts can define methods that operate on or return types that are specific to the module that is implementing the keepers. 
+If a module relies on keepers from another module, the `exported/` code element expects to receive the keepers as interface contracts to avoid a direct dependency on the module implementing the keepers. However, these interface contracts can define methods that operate on (or return types that are specific to) the module that is implementing the keepers.
 
 The interface types defined in `exported/` use canonical types that allow for the module to receive the interface contracts through the `expected_keepers.go` file. This pattern allows for code to remain [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) and also alleviates import cycle chaos.
 
@@ -402,7 +406,7 @@ Note that:
 <HighlightBox type="tip">
 
 If you want to go beyond these code samples and instead see in more detail how to define all this, go to [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
-    
+
 </HighlightBox>
 
 </ExpansionPanel>

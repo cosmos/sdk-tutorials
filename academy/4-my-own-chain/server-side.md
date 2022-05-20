@@ -1,11 +1,11 @@
 ---
-title: Web 2.0 Server - Convenient Information
+title: CosmJS on a Backend Script for Game Indexing
 order: 22
 description: Introducing a Web2.0 server to track games per player
 tag: deep-dive
 ---
 
-# Web 2.0 Server - Convenient Information
+# CosmJS on a Backend Script for Game Indexing
 
 Now that your blockchain is complete, you can think about additional data and services that would add value without increasing cost or complexity on chain.
 

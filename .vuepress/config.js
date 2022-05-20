@@ -42,11 +42,25 @@ module.exports = {
       },
     ],
     [
-      "script", 
-      {}, 
+      "script",
+      {},
       `const userThemeMode = localStorage?.getItem("vuepress-theme-cosmos-user-theme") || 'dark-mode'
       document.documentElement.className = userThemeMode`
-    ]
+    ],
+    [
+      'script',
+      {
+        async: true,
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-KZ2X8K22XG',
+      },
+    ],
+    [
+        'script',
+        {},
+        [
+          "window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-KZ2X8K22XG');",
+        ],
+    ],
   ],
   themeConfig: {
     repo: "cosmos/sdk-tutorials",
@@ -62,9 +76,9 @@ module.exports = {
       banner: true,
     },
     allowedIDAOrigins: [
-      "preview-5bxuue6kafu5ocp5", 
-      "deploy-preview-995", 
-      "deploy-preview-994", 
+      "preview-5bxuue6kafu5ocp5",
+      "deploy-preview-995",
+      "deploy-preview-994",
       "deploy-preview-991",
       "deploy-preview-1047",
       "127.0.0.1",
@@ -120,7 +134,7 @@ module.exports = {
               order: 0
             },
             {
-              title: "Getting started",
+              title: "Getting Started",
               directory: true,
               order: 1,
               children: [
@@ -306,12 +320,10 @@ module.exports = {
                   title: "Message and Handler - Make Sure a Player Can Reject a Game",
                   path: "/academy/4-my-own-chain/reject-game.html"
                 },
-/*
                 {
-                  title: "Mandatory Exercise on Hackerrank (TODO)",
+                  title: "Mandatory Exercise",
                   path: "/academy/4-my-own-chain-exer/week2-exercise.html"
                 },
-*/
               ]
             },
             {
@@ -437,16 +449,16 @@ module.exports = {
               ]
             },
             {
-              title: "Week 5 - CosmJS and Building Your CosmJS Chain",
+              title: "Week 5 - CosmJS - Interfacing",
               directory: true,
               order: 6,
               children: [
                 {
-                  title: "CosmJS and Building Your CosmJS Chain",
+                  title: "CosmJS - Interfacing",
                   path: "/course-ida/landingpages/week5-lp.html"
                 },
                 {
-                  title: "What is CosmJS",
+                  title: "What is CosmJS?",
                   path: "/academy/xl-cosmjs/intro.html"
                 },
                 {
@@ -510,6 +522,26 @@ module.exports = {
               directory: false,
               order: 8,
             },
+          ],
+        },
+        {
+          title: "Tutorials",
+          children: [
+            {
+              title: "Understanding IBC denoms",
+              path: "/tutorials/understanding-ibc-denoms/",
+              directory: false,
+            },
+            {
+              title: "Understanding the Authz Module",
+              path: "/authz-module/",
+              directory: false,
+            },
+            {
+              title: "Understanding the Feegrant Module",
+              path: "/tutorials/understanding-feegrant/",
+              directory: false,
+            }
           ],
         },
       ],
@@ -693,13 +725,7 @@ module.exports = {
       }
     ],
     [
-      "vuepress-plugin-google-tag-manager",
-      {
-        gtm: "G-KZ2X8K22XG",
-      }
-    ],
-    [
-      "@vuepress/medium-zoom", 
+      "@vuepress/medium-zoom",
       {
         selector: ".layout__main__content :not(a) > img:not(.no-zoom)",
         options: {

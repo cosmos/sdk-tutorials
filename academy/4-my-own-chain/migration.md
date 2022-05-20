@@ -11,17 +11,17 @@ tag: deep-dive
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md), and [migrations](../2-main-concepts/migrations.md).
+* You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md) and [migrations](../2-main-concepts/migrations.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](./wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
-    
+
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
 
-* Add a leaderboard. 
+* Add a leaderboard.
 * Upgrade your blockchain in production.
 * Deal with data migrations and logic upgrades.
 
@@ -131,10 +131,9 @@ To give the new v2 information a data structure, you need the following:
     <HighlightBox type="note">
 
     * `playerAddress` indicates the player, and gives information regarding `PlayerInfo.index`.
-    * `wonCount` determines the ranking on the leaderboard - the higher the count, the closer to the `0` index in the array.
-      This should exactly match the value found in the corresponding player stats. This duplication of data is a lesser evil, because if `wonCount` was missing you would have to access the player stats to sort the leaderboard.
+    * `wonCount` determines the ranking on the leaderboard - the higher the count, the closer to the `0` index in the array. This should exactly match the value found in the corresponding player stats. This duplication of data is a lesser evil, because if `wonCount` was missing you would have to access the player stats to sort the leaderboard.
     * `dateAdded` indicates when the player's `wonCount` was last updated and determines the ranking when there is a tie in `wonCount` - the more recent, the closer to the `0` slot in the array.
-    
+
     </HighlightBox>
 
 3. Add a structure for **the leaderboard**: there is a single stored leaderboard for the whole application. Let Ignite CLI help you implement a structure:
@@ -187,7 +186,7 @@ When a game reaches its resolution, one of the `count`s needs to add `+1`.
 
 <ExpansionPanel title="A detailed look into the code">
 
-To start, add a helper private function that gets the stats from the storage, updates the numbers as instructed, and saves it back:
+To start, add a private helper function that gets the stats from the storage, updates the numbers as instructed, and saves it back:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/keeper/player_info_handler.go#L11-L33]
 func mustAddDeltaGameResultToPlayer(
@@ -276,9 +275,9 @@ func (k *Keeper) MustRegisterPlayerForfeit(ctx sdk.Context, storedGame *types.St
 ```
 
 <HighlightBox type="note">
-    
+
 Be aware of the two new error types [`ErrThereIsNoWinner`](https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/errors.go#L31) and [`ErrWinnerNotParseable`](https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/errors.go#L30).
-    
+
 </HighlightBox>
 
 </ExpansionPanel>
@@ -368,7 +367,7 @@ func FormatDateAdded(dateAdded time.Time) string {
 
 </ExpansionPanel>
 
-<ExpansionPanel title="Add functions to (de-)serialize winningPlayerParsed">
+<ExpansionPanel title="Add functions to (de)serialize winningPlayerParsed">
 
 Create the methods:
 
@@ -394,7 +393,7 @@ func (parsed *winningPlayerParsed) stringify() (stringified *WinningPlayer) {
 }
 ```
 
-The functions are called repeatedly when serializing or de-serializing arrays:
+The functions are called repeatedly when serializing or deserializing arrays:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/full_leaderboard.go#L50-L69]
 func (leaderboard *Leaderboard) parseWinners() (winners []*winningPlayerParsed, err error) {
@@ -421,7 +420,7 @@ func stringifyWinners(winners []*winningPlayerParsed) (stringified []*WinningPla
 
 </ExpansionPanel>
 
-As you have a function to get an array of de-serialized winning players, you can now add a function to sort the slice in place:
+As you have a function to get an array of deserialized winning players, you can now add a function to sort the slice in place:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/full_leaderboard.go#L73-L83]
 func sortWinners(winners []*winningPlayerParsed) {
@@ -437,11 +436,11 @@ func sortWinners(winners []*winningPlayerParsed) {
 }
 ```
 
-Test in descending order first for scores and then for the added dates. Note that there is no de-serialization in this `func(i, j int) bool` callback. It is possible to write a one-liner inside this function but at the expense of readability.
+Test in descending order first for scores and then for the added dates. Note that there is no deserialization in this `func(i, j int) bool` callback. It is possible to write a one-liner inside this function but at the expense of readability.
 
 <ExpansionPanel title="Add a function to add a candidate and sort">
 
-When migrating the genesis more than one candidate will be added. Therefore, add a first helper on the de-serialized elements:
+When migrating the genesis more than one candidate will be added. Therefore, first add a helper on the deserialized elements:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/full_leaderboard.go#L85-L92]
 func AddParsedCandidatesAndSort(parsedWinners []*winningPlayerParsed, candidates []*winningPlayerParsed) (updated []*winningPlayerParsed) {
@@ -456,7 +455,7 @@ func AddParsedCandidatesAndSort(parsedWinners []*winningPlayerParsed, candidates
 
 Note the clipping at the leaderboard's length. Similarly, you need helpers on the leaderboard.
 
-You can get these other helpers with a de-serialization:
+You can get these other helpers with a deserialization:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/full_leaderboard.go#L94-L118]
 func (leaderboard *Leaderboard) AddCandidatesAndSortAtNow(now time.Time, playerInfos []*PlayerInfo) (err error) {

@@ -17,7 +17,7 @@ Make sure you have all you need before proceeding with the exercise:
 
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will handle:
 
@@ -155,7 +155,7 @@ message GenesisState {
 
 <HighlightBox type="best-practice">
 
-At this point, notice that `NextGame` exists from the start. Therefore, it does not have a _creator_ per se. **This exercise keeps it** but if you want, you can choose to remove `creator` from its definition, and readjust the Protobuf numbering. Here, it is ok to reorder the Protobuf numbering because you just started and do not have any backward compatibility to handle.
+At this point, notice that `NextGame` exists from the start. Therefore, it does not have a _creator_ per se. **This exercise keeps it** but if you want, you can choose to remove `creator` from its definition, and readjust the Protobuf numbering. Here, it is okay to reorder the Protobuf numbering because you just started and do not have any backward compatibility to handle.
 
 ```protobuf
 message NextGame {
@@ -403,7 +403,7 @@ func EqualValues(t TestingT, expected interface{}, actual interface{}, msgAndArg
 
 ### Debug your unit test
 
-Your first unit test is a standard Go unit test. If you use an IDE like Visual Studio Code it is ready to assist run the test in debug mode. Next to the function name is a small green tick. If you hover below it, a faint red dot appears:
+Your first unit test is a standard Go unit test. If you use an IDE like Visual Studio Code, it is ready to assist with running the test in debug mode. Next to the function name is a small green tick. If you hover below it, a faint red dot appears:
 
 ![Go test debug button in VSCode](/academy/4-my-own-chain/images/go_test_debug_button.png)
 
@@ -505,7 +505,7 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     ```
     NextGame:
       creator: ""
-      idValue: "0"
+      idValue: "1"
     ```
 
     This is as expected. No games have been created yet, so the game counter is still at `0`.
@@ -532,7 +532,7 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     This should print:
 
     ```json
-    {"NextGame":{"creator":"","idValue":"0"}}
+    {"NextGame":{"creator":"","idValue":"1"}}
     ```
 
 3. You can similarly confirm there are no [stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/client/cli/query_stored_game.go#L14):

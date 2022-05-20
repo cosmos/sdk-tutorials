@@ -1,7 +1,7 @@
 ---
 title: Message Handler - Create and Save a Game Properly
 order: 7
-description: You create a proper game
+description: Creating a proper game
 tag: deep-dive
 ---
 
@@ -16,12 +16,12 @@ Make sure you have everything you need before proceeding:
 
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
 
-* Add application rules- the rules of checkers.
-* Add a Message Handler to create game and return its ID.
+* Add application rules - the rules of checkers.
+* Add a Message Handler to create a game and return its ID.
 
 </HighlightBox>
 
@@ -47,6 +47,8 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 ```
 
 Ignite CLI has conveniently created all the message processing code for you. You are only required to code the key features.
+
+## Coding steps
 
 Given that you have already done a lot of preparatory work, what coding is involved? How do you replace `// TODO: Handling the message`?
 
@@ -85,7 +87,7 @@ Given that you have already done a lot of preparatory work, what coding is invol
     Note the use of:
 
     * The [`rules.New()`](https://github.com/cosmos/b9-checkers-academy-draft/blob/b79a43c/x/checkers/rules/checkers.go#L122) command, which is part of the Checkers rules file you imported earlier.
-    * The string content of the `msg *types.MsgCreateGame` namely `.Creator`, `.Red`, and `.Black`.
+    * The string content of the `msg *types.MsgCreateGame`, namely `.Creator`, `.Red`, and `.Black`.
 
 3. Confirm that the values in the object are correct by checking the validity of the players' addresses:
 
@@ -234,11 +236,11 @@ This returns:
 ```
 NextGame:
   creator: ""
-  idValue: "1"
+  idValue: "2"
 ```
 
 </CodeGroupItem>
-<CodeGroupItem title="List stored game">
+<CodeGroupItem title="List stored games">
 
 ```sh
 $ checkersd query checkers list-stored-game
@@ -251,7 +253,7 @@ StoredGame:
 - black: cosmos14n4qkxcpr6ycct75zzp2r7v6rm96xhkegu5205
   creator: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
   game: '*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*'
-  index: "0"
+  index: "1"
   red: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
   turn: black
 pagination:
@@ -263,7 +265,7 @@ pagination:
 <CodeGroupItem title="Show stored game">
 
 ```sh
-$ checkersd query checkers show-stored-game 0
+$ checkersd query checkers show-stored-game 1
 ```
 
 This returns:
@@ -273,7 +275,7 @@ StoredGame:
   black: cosmos14n4qkxcpr6ycct75zzp2r7v6rm96xhkegu5205
   creator: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
   game: '*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*'
-  index: "0"
+  index: "1"
   red: cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66
   turn: black
 ```
@@ -311,14 +313,14 @@ You can also get this in a one-liner:
 <CodeGroupItem title="On Linux" active>
 
 ```sh
-$ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\n/g'
+$ checkersd query checkers show-stored-game 1 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\n/g'
 ```
 
 </CodeGroupItem>
 <CodeGroupItem title="On Mac">
 
 ```sh
-$ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\'$'\n/g'
+$ checkersd query checkers show-stored-game 1 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\'$'\n/g'
 ```
 
 </CodeGroupItem>

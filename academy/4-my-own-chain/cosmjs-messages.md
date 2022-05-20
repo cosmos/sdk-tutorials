@@ -1,11 +1,11 @@
 ---
-title: CosmJS - Create the messages for your GUI
+title: Create Custom Messages for Your Checkers Blockchain
 order: 23
-description: Create the messages that your GUI will use
+description: Introducing the message to create a game
 tag: deep-dive
 ---
 
-# CosmJS - Create the messages for your GUI
+# Create Custom Messages for Your Checkers Blockchain
 
 <HighlightBox type="prerequisite">
 

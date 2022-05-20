@@ -1,7 +1,7 @@
 ---
 title: Store Field - Record the Game Winner
 order: 13
-description: You store the winner of a game
+description: Storing the winner of a game
 tag: deep-dive
 ---
 
@@ -14,19 +14,19 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md).
 * Go is installed.
 * You have the checkers blockchain codebase with the deadline field and its handling. If not, follow the [previous steps](./game-deadline.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-deadline).
-    
+
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
-    
+
 * Check for a game winner.
 * Extend unit tests.
 
 </HighlightBox>
 
-To be able to terminate games you need to identify games that have already been terminated. A good field to add is for the **winner**. It needs to contain:
+To be able to terminate games you need to identify games that have already been played. A good field to add is for the **winner**. It needs to contain:
 
 * The winner of a game that reaches completion.
 * Or the winner _by forfeit_ when a game is expired.
@@ -287,9 +287,7 @@ This should show:
 
 Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests or with a nice GUI. You will be able to partially test this in the [next section](./game-forfeit.md), via a forfeit.
 
-## Unit tests
-
-
+<!-- This headline should be deleted if no text follows ## Unit tests -->
 
 ## Interact via the CLI
 
@@ -319,8 +317,8 @@ This should show:
 And when a player plays:
 
 ```sh
-$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
-$ checkersd query checkers show-stored-game 0
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
+$ checkersd query checkers show-stored-game 1
 ```
 
 This should show:
