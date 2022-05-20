@@ -167,7 +167,7 @@ So what goes in the `for { TODO }`?
     }
     ```
 
-What now goes into this `if "expired" { TODO }`?
+Now, what goes into this `if "expired" { TODO }`?
 
 ### Handle an expired game
 
