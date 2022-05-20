@@ -32,9 +32,9 @@ In this tutorial, you learn the format of the voucher token on blockchain B. You
 
 **You will learn how to:**
 
-* Trace the IBC denom
-* Understand how denoms work
-* Find out which chain the token came from
+* Trace the IBC denom.
+* Understand how denoms work.
+* Find out which chain the token came from.
 
 ## Requirements
 
