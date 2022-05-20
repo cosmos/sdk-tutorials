@@ -540,7 +540,7 @@ The reason given is understandable, but it does not clarify why the move is inva
 </PanelListItem>
 <PanelListItem number="7" :last="true">
 
-After the game has been forfeited forfeit:
+After the game has been forfeited:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
