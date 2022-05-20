@@ -1,7 +1,7 @@
 ---
 title: Self-assessment Quiz
 order: 7
-description: Want to test your blockchain knowledge? 
+description: Want to test your blockchain knowledge?
 ---
 
 # Self-assessment Quiz

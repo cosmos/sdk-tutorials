@@ -27,11 +27,11 @@ IBC application developers will primarily interact with [IBC channels](/academy/
 
 </HighlightBox>
 
-In the IBC setup, each chain will have a **client** of the other chain in its own IBC stack. IBC clients track the consensus states of other blockchains, and the proof specs of those blockchains that are required to properly verify proofs against the client's consensus state. The packets, acknowledgements, and timeouts that off-chain relayers send back and forth can be verified by proving that the packet commitments exist inside of these clients on each chain. 
+In the IBC setup, each chain will have a **client** of the other chain in its own IBC stack. IBC clients track the consensus states of other blockchains, and the proof specs of those blockchains that are required to properly verify proofs against the client's consensus state. The packets, acknowledgements, and timeouts that off-chain relayers send back and forth can be verified by proving that the packet commitments exist inside of these clients on each chain.
 
 <HighlightBox type="info">
 
-Although relayers do not perform any verification of the packets, and therefore do not need to be trusted, relayers have a particularly important role in IBC setup in addition to IBC network liveness through submission of packets. They are responsible for submitting the initial messages to create a new client, as well as keeping the client states updated on each chain, so that proof verification on a submitted packet is successful. Relayers are also responsible for sending the connection and channel handshakes to establish connections and channels between chains. Furthermore, relayers can submit evidence of misbehaviour if a chain on the other end of a connection tries to fork or attempts other types of malicious behaviour. 
+Although relayers do not perform any verification of the packets, and therefore do not need to be trusted, relayers have a particularly important role in IBC setup in addition to IBC network liveness through submission of packets. They are responsible for submitting the initial messages to create a new client, as well as keeping the client states updated on each chain, so that proof verification on a submitted packet is successful. Relayers are also responsible for sending the connection and channel handshakes to establish connections and channels between chains. Furthermore, relayers can submit evidence of misbehaviour if a chain on the other end of a connection tries to fork or attempts other types of malicious behaviour.
 
 </HighlightBox>
 
@@ -48,11 +48,11 @@ func (k Keeper) CreateClient(goCtx context.Context, msg *clienttypes.MsgCreateCl
   ...
 
   consensusState, err := clienttypes.UnpackConsensusState(msg.ConsensusState)
-  
+
   ...
 
-  ... = k.ClientKeeper.CreateClient(ctx, clientState, consensusState); 
-  
+  ... = k.ClientKeeper.CreateClient(ctx, clientState, consensusState);
+
   ...
 
 }
@@ -65,8 +65,8 @@ It creates a client by calling [`ClientKeeper.CreateClient`](https://github.com/
 // state as defined in https://github.com/cosmos/ibc/tree/master/spec/core/ics-002-client-semantics#create
 func (k Keeper) CreateClient(
   ctx sdk.Context, clientState exported.ClientState, consensusState exported.ConsensusState,
-) 
-  
+)
+
   ...
 
   clientID := k.GenerateClientIdentifier(ctx, clientState.ClientType())
@@ -89,7 +89,7 @@ func (k Keeper) CreateClient(
 }
 ```
 
-A local, unique identifier `clientID` is generated for each client on the chain. This is not related to the `chainID`, as IBC does not actually use the `chainID` as an identifier. 
+A local, unique identifier `clientID` is generated for each client on the chain. This is not related to the `chainID`, as IBC does not actually use the `chainID` as an identifier.
 
 <HighlightBox type="info">
 
@@ -133,9 +133,9 @@ The Tendermint `ClientState` contains all the information needed to verify a hea
 `TrustLevel` determines the portion of the validator set you want to have signing a header for it to be considered as valid. Tendermint defines this as 2/3, and the IBC Tendermint client inherits this property from Tendermint.
 
 <HighlightBox type="note">
-  
+
 Properties such as `TrustLevel` and `TrustingPeriod` can be customised, such that different clients on the same chain can have different security guarantees with different tradeoffs for efficiency of processing updates.
-  
+
 </HighlightBox>
 
 <HighlightBox type="info">
@@ -168,7 +168,7 @@ func NewConsensusState(
 The Tendermint client `ConsensusState` tracks the timestamp of the block being created, the hash of the validator set for the next block of the counterparty blockchain, and the root of the counterparty blockchain. The initial `ConsensusState` does not need to start with the genesis block of a counterparty chain.
 
 <HighlightBox type="tip">
-  
+
 The next validator set is used for verifying subsequent submitted headers or updates to the counterparty `ConsensusState`. See the following part on _Updating clients_ for more information about what happens when a validator set changes between blocks.
 
 </HighlightBox>
@@ -208,7 +208,7 @@ func (proof MerkleProof) VerifyMembership(specs []*ics23.ProofSpec, root exporte
 
 <HighlightBox type="info">
 
-IBC on-chain clients can also be referred to as **light clients**. In contrast to the full nodes, which track the entire state of blockchain and contain every single tx/block, these on-chain IBC "light clients" track only the few pieces of information about counterparty chains previously mentioned (timestamp, root hash, next validator set hash). This saves space and increases the efficiency of processing consensus state updates. 
+IBC on-chain clients can also be referred to as **light clients**. In contrast to the full nodes, which track the entire state of blockchain and contain every single tx/block, these on-chain IBC "light clients" track only the few pieces of information about counterparty chains previously mentioned (timestamp, root hash, next validator set hash). This saves space and increases the efficiency of processing consensus state updates.
 
 The objective is to avoid a situation where it is necessary to have a copy of chain B on chain A in order to create a trustless IBC connection. However, full nodes which track the entire state of a blockchain are useful for IBC relayer operators as an endpoint to query for the proofs needed to verify IBC packet commitments. This entire process maintains the trustless, permissionless, and highly secure design of IBC. As proof verification still happens in the IBC client itself, no trust in the relayer operator is needed and anyone can permissionlessly spin up a relaying operation, provided that they have access to a full node endpoint.
 
@@ -272,7 +272,7 @@ func (cs ClientState) VerifyPacketCommitment(
   ...
 
   // check delay period has passed
-  if err := verifyDelayPeriodPassed(ctx, store, height, delayTimePeriod, delayBlockPeriod); 
+  if err := verifyDelayPeriodPassed(ctx, store, height, delayTimePeriod, delayBlockPeriod);
   ...
 
   commitmentPath := commitmenttypes.NewMerklePath(host.PacketCommitmentPath(portID, channelID, sequence))

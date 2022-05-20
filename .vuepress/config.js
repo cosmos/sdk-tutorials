@@ -46,7 +46,21 @@ module.exports = {
       {}, 
       `const userThemeMode = localStorage?.getItem("vuepress-theme-cosmos-user-theme") || 'dark-mode'
       document.documentElement.className = userThemeMode`
-    ]
+    ],
+    [
+      'script',
+      {
+        async: true,
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-KZ2X8K22XG',
+      },
+    ],
+    [
+        'script',
+        {},
+        [
+          "window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-KZ2X8K22XG');",
+        ],
+    ],
   ],
   themeConfig: {
     repo: "cosmos/sdk-tutorials",
@@ -278,12 +292,10 @@ module.exports = {
                   title: "Message and Handler - Make Sure a Player Can Reject a Game",
                   path: "/academy/4-my-own-chain/reject-game.html"
                 },
-/*
                 {
-                  title: "Mandatory Exercise (todo)",
-                  path: "/feature-test"
+                  title: "Mandatory Exercise",
+                  path: "/academy/2-main-concepts/exercise-week-2.html"
                 },
-*/
               ]
             },
             {
@@ -662,12 +674,6 @@ module.exports = {
       "@vuepress/google-analytics",
       {
         ga: "UA-62891515-12",
-      }
-    ],
-    [
-      "vuepress-plugin-google-tag-manager",
-      {
-        gtm: "G-KZ2X8K22XG",
       }
     ],
     [

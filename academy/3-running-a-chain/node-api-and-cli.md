@@ -29,6 +29,7 @@ First, create and change the directory into a `cosmos` folder, and then clone th
 $ mkdir cosmos
 $ cd cosmos
 $ git clone https://github.com/cosmos/cosmos-sdk
+$ cd cosmos-sdk
 ```
 
 Make sure you are using the same version used at the time of writing:
@@ -40,7 +41,6 @@ $ git checkout v0.42.6
 Then build `cosmos-sdk`:
 
 ```sh
-$ cd cosmos-sdk
 $ make build
 ```
 

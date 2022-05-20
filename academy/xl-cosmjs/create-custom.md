@@ -15,7 +15,7 @@ In this section, you will:
 * Define custom interfaces with Protobuf.
 * Define custom types and messages.
 * Integrate with Ignite - previously known as Starport.
-  
+
 </HighlightBox>
 
 CosmJS comes out of the box with interfaces that connect with the standard Cosmos modules such as `bank` and `gov` and understand the way their state is serialized. Since your own blockchain's modules are unique, they need custom CosmJS interfaces. That process consists of several steps:

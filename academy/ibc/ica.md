@@ -1,25 +1,25 @@
 ---
-title: "interchain accounts"
-order: 
+title: "Interchain Accounts"
+order:
 description: Working with ICA
 tag: deep-dive
 ---
 
-# interchain accounts
+# Interchain Accounts
 
 <HighlightBox type="learning">
-  
-**interchain accounts (ICAs)** allow you to control an account on a **host chain** from a **controller chain**.
+
+**Interchain accounts (ICA)** allow you to control an account on a **host chain** from a **controller chain**.
 
 In this section, you will learn more about:
 
 * Hosting chains and controller chains
 * ICA module code
 * The authentication module
-  
+
 </HighlightBox>
 
-Another application module [implemented in the IBC-Go](https://github.com/cosmos/ibc-go/tree/main/docs/apps/interchain-accounts) repository is [interchain accounts (ICS-27)](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md). 
+Another application module [implemented in the IBC-Go](https://github.com/cosmos/ibc-go/tree/main/docs/apps/interchain-accounts) repository is [interchain accounts (ICS-27)](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md).
 
 ![ICA Overview](/academy/ibc/images/icaoverview.png)
 
@@ -39,7 +39,7 @@ The interchain accounts application module is structured to support the ability 
 
 The ICA module provides an API for registering an account and for sending interchain transactions. A developer will use this module by implementing an **ICA Auth Module** (_authentication module_) and can expose gRPC endpoints for an application or user. Regular accounts use a private key to sign transactions on-chain. interchain accounts are instead controlled programmatically by separate chains via IBC transactions. interchain accounts are implemented as sub-accounts of the interchain accounts module account.
 
-First, look how an account is registered: 
+First, look how an account is registered:
 
 ![Register account](/academy/ibc/images/icaregister.png)
 
@@ -47,7 +47,7 @@ To register an account on the host chain, the function [`RegisterInterchainAccou
 
 ```go
 // RegisterInterchainAccount is the entry point to registering an interchain account.
-// It generates a new port identifier using the owner address. It will bind to the 
+// It generates a new port identifier using the owner address. It will bind to the
 // port identifier and call 04-channel 'ChanOpenInit'. An error is returned if the port
 // identifier is already in use. Gaining access to interchain accounts whose channels
 // have closed cannot be done with this function. A regular MsgChanOpenInit must be used.
@@ -74,9 +74,9 @@ func (k Keeper) RegisterInterchainAccount(ctx sdk.Context, connectionID, owner s
 }
 ```
 
-The `portID` will be the address of the **interchain account Owner** prefixed by the default port prefix of the interchain accounts controller submodule `icacontroller-`. The ICA module assumes that there is already an IBC connection established between the host and controller chains. As part of `RegisterInterchainAccount`, it will open an `ORDERED` channel. 
+The `portID` will be the address of the **interchain account Owner** prefixed by the default port prefix of the interchain accounts controller submodule `icacontroller-`. The ICA module assumes that there is already an IBC connection established between the host and controller chains. As part of `RegisterInterchainAccount`, it will open an `ORDERED` channel.
 
-The ICA module uses `ORDERED` channels to maintain the order of transactions when sending packets from a controller chain to a host chain. A limitation when using `ORDERED` channels is that when a packet times out the channel will be closed. In the case of a channel closing, a controller chain needs to be able to regain access to the interchain account registered on this channel. 
+The ICA module uses `ORDERED` channels to maintain the order of transactions when sending packets from a controller chain to a host chain. A limitation when using `ORDERED` channels is that when a packet times out the channel will be closed. In the case of a channel closing, a controller chain needs to be able to regain access to the interchain account registered on this channel.
 
 ICA offers **active channels** to create a new channel using the same controller prefixed chain `portID`. This means that when an interchain account is registered using the `RegisterInterchainAccount` API, a new channel is created on a particular port. During the `OnChanOpenAck` and `OnChanOpenConfirm` steps (controller & host chain), the `Active Channel` for this interchain account is stored in state.
 
@@ -115,12 +115,12 @@ This call goes through the `OnChanOpenTry` implementation in the [`handshake.go`
 func (k Keeper) OnChanOpenTry(
   ...
 ) (string, error) {
-  
+
   ...
 
   // Register interchain account if it does not already exist
   k.RegisterInterchainAccount(ctx, metadata.HostConnectionId, counterparty.PortId, accAddress)
-  
+
   ...
 }
 ```
@@ -269,10 +269,10 @@ This calls `executeTx` to apply the received transaction on the host chain:
 // execution of the transaction is atomic, all state changes are reverted if a single message fails.
 func (k Keeper) executeTx(ctx sdk.Context, sourcePort, destPort, destChannel string, msgs []sdk.Msg) ([]byte, error) {
   channel, found := k.channelKeeper.GetChannel(ctx, destPort, destChannel)
-  
+
   ...
 
-  if err := k.authenticateTx(ctx, msgs, channel.ConnectionHops[0], sourcePort); 
+  if err := k.authenticateTx(ctx, msgs, channel.ConnectionHops[0], sourcePort);
 
   ...
 
@@ -300,7 +300,7 @@ func (k Keeper) executeTx(ctx sdk.Context, sourcePort, destPort, destChannel str
 }
 ```
 
-`authenticateTx` ensures that the provided message contains the correct interchain account Owner address. `executeMsg` will call the message handler and therefore execute the message. 
+`authenticateTx` ensures that the provided message contains the correct interchain account owner address. `executeMsg` will call the message handler and therefore execute the message.
 
 ## SDK security model
 
@@ -412,7 +412,7 @@ The authentication module can attempt to send a packet by calling `SendTx`:
 
 // Authenticate owner
 // perform custom logic
-    
+
 // Construct controller portID based on interchain account owner address
 portID, err := icatypes.NewControllerPortID(owner.String())
 if err != nil {
@@ -423,17 +423,17 @@ channelID, found := keeper.icaControllerKeeper.GetActiveChannelID(ctx, portID)
 if !found {
     return sdkerrors.Wrapf(icatypes.ErrActiveChannelNotFound, "failed to retrieve active channel for port %s", portID)
 }
-    
+
 // Obtain the channel capability, claimed in OnChanOpenInit
 chanCap, found := keeper.scopedKeeper.GetCapability(ctx, host.ChannelCapabilityPath(portID, channelID))
 if !found {
     return sdkerrors.Wrap(channeltypes.ErrChannelCapabilityNotFound, "module does not own channel capability")
 }
-    
-// Obtain data to be sent to the host chain. 
-// In this example, the owner of the interchain account would like to send a bank MsgSend to the host chain. 
-// The appropriate serialization function should be called. The host chain must be able to deserialize the transaction. 
-// If the host chain is using the ibc-go host module, `SerializeCosmosTx` should be used. 
+
+// Obtain data to be sent to the host chain.
+// In this example, the owner of the interchain account would like to send a bank MsgSend to the host chain.
+// The appropriate serialization function should be called. The host chain must be able to deserialize the transaction.
+// If the host chain is using the ibc-go host module, `SerializeCosmosTx` should be used.
 msg := &banktypes.MsgSend{FromAddress: fromAddr, ToAddress: toAddr, Amount: amt}
 data, err := icatypes.SerializeCosmosTx(keeper.cdc, []sdk.Msg{msg})
 if err != nil {
@@ -448,7 +448,7 @@ packetData := icatypes.InterchainAccountPacketData{
 
 // Obtain timeout timestamp
 // An appropriate timeout timestamp must be determined based on the usage of the interchain account.
-// If the packet times out, the channel will be closed requiring a new channel to be created 
+// If the packet times out, the channel will be closed requiring a new channel to be created
 timeoutTimestamp := obtainTimeoutTimestamp()
 
 // Send the interchain accounts packet, returning the packet sequence
@@ -517,7 +517,7 @@ case stakingtypes.MsgDelegate:
     }
 
     handleIBCTransferMsg(msgResponse)
- 
+
 default:
     return
 }
@@ -540,7 +540,7 @@ ModuleBasics = module.NewBasicManager(
     ...
 )
 
-... 
+...
 
 // Add module account permissions for the interchain accounts module
 // Only necessary for host chain functionality
@@ -552,8 +552,9 @@ maccPerms = map[string][]string{
 
 ...
 
-// Add interchain accounts Keepers for each submodule used and the authentication module
-// If a submodule is being statically disabled, the associated Keeper does not need to be added. 
+// Add interchain account keepers for each submodule used and the authentication module
+// If a submodule is being statically disabled, the associated Keeper does not need to be added.
+
 type App struct {
     ...
 
@@ -575,7 +576,7 @@ keys := sdk.NewKVStoreKeys(
     ...
 )
 
-... 
+...
 
 // Create the scoped keepers for each submodule keeper and authentication keeper
 scopedICAControllerKeeper := app.CapabilityKeeper.ScopeToModule(icacontrollertypes.SubModuleName)

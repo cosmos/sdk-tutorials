@@ -505,7 +505,7 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     ```
     NextGame:
       creator: ""
-      idValue: "0"
+      idValue: "1"
     ```
 
     This is as expected. No games have been created yet, so the game counter is still at `0`.
@@ -532,7 +532,7 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     This should print:
 
     ```json
-    {"NextGame":{"creator":"","idValue":"0"}}
+    {"NextGame":{"creator":"","idValue":"1"}}
     ```
 
 3. You can similarly confirm there are no [stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/client/cli/query_stored_game.go#L14):

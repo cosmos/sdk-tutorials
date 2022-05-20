@@ -1,6 +1,6 @@
 ---
 title: "Hermes Relayer"
-order: 
+order:
 description: Relayer implementation in Rust
 tag: deep-dive
 ---
@@ -33,7 +33,7 @@ In this section, you will learn:
 <HighlightBox type="docs">
 
 Installation instructions can be found [in the Hermes documentation from Informal Systems](https://hermes.informal.systems/installation.html). Check the CLI commands with `hermes -h`. Alternatively, check out the [commands reference](https://hermes.informal.systems/commands/index.html) on the Hermes website.
-  
+
 </HighlightBox>
 
 ```bash
@@ -69,7 +69,7 @@ SUBCOMMANDS:
 ```
 When comparing the list of commands with the requirements from the introduction, recognize the ability to query and submit a transaction (tx), keys management, and a config command. However, no immediate commands are available to add chains and path information. The Hermes relayer does not support fetching data from the [chain-registry](https://github.com/cosmos/chain-registry) automatically yet, but this is on the roadmap.
 
-For now, you need to manually add the data to the config file `config.toml`, which is by default stored at `$HOME/.hermes/config.toml`. 
+For now, you need to manually add the data to the config file `config.toml`, which is by default stored at `$HOME/.hermes/config.toml`.
 
 <HighlightBox type="note">
 
@@ -105,7 +105,7 @@ address_type = { derivation = 'cosmos' }
 Pay particular attention to the `RPC`, `gRPC`, and `websocket` endpoints and make sure they correspond with the node you are running. Remember that it is recommended to run your own full node instead of using publicly available endpoints when relaying outside of testing purposes. Also make sure the `key_name` corresponds to the funded address from which you intend to pay relayer fees. The other parameters can be found in the [chain-registry](https://github.com/cosmos/chain-registry) for deployed chains, or set by yourself when creating a new chain (either in production or for testing).
 
 <HighlightBox type="note">
-  
+
 Hermes does not require path information in the config. By default it will relay over all possible paths over all channels that are active on the configured chains. However, it is possible to change this by filtering. Add the following to the chain config:
 ```toml
 [chains.packet_filter]
@@ -117,7 +117,7 @@ list = [
 This filters only the `transfer` channel for the Hub to Osmosis in this example.
 
 </HighlightBox>
-  
+
 ### Hermes Start
 
 When the chains have been configured, you can start the relayer with the start command:
@@ -128,7 +128,7 @@ This powerful command bundles a lot of functionality where Hermes will be listen
 
 <HighlightBox type="note">
 
-When starting the Hermes relayer, it will assume that the channels you wish to relay over are set up. This will be the case if you want to start relaying on an existing *canonical* channel, meaning the offical and agreed-upon channel (for example, used for fungible token transfers). 
+When starting the Hermes relayer, it will assume that the channels you wish to relay over are set up. This will be the case if you want to start relaying on an existing *canonical* channel, meaning the offical and agreed-upon channel (for example, used for fungible token transfers).
 
 This is perfectly possible and the right approach, given that creating a new channel would make assets relayed over it non-fungible with assets relayed over the canonical channel. Most tutorials will create new channels (and possibly clients and connections) as this provides more insight into the software. However, it is **important to note that you only need to create new channels if no canonical channel is present** (for example, for a newly deployed chain).
 
@@ -143,12 +143,12 @@ Here you will take a somewhat different approach, and set up a flow for end-to-e
 
 ### Installation & Building Docker Images
 
-Clone the [Hermes repository](https://github.com/informalsystems/ibc-rs) in a new folder. It contains a folder for [end-to-end (E2E) testing](https://github.com/informalsystems/ibc-rs/tree/master/ci). This helps you deploy two chains and test the relayer. It also contains a Docker Compose file, which spins up two blockchain nodes and a relayer. 
+Clone the [Hermes repository](https://github.com/informalsystems/ibc-rs) in a new folder. It contains a folder for [end-to-end (E2E) testing](https://github.com/informalsystems/ibc-rs/tree/master/ci). This helps you deploy two chains and test the relayer. It also contains a Docker Compose file, which spins up two blockchain nodes and a relayer.
 
 <HighlightBox type="info">
 
 Make sure that you have installed [Docker Compose](https://docs.docker.com/compose/install/) and [Docker](https://docs.docker.com/get-docker/) before continuing.
-  
+
 </HighlightBox>
 
 The test needs you to build the Docker images from the Docker files. The Docker images run a Linux on **x86_64**. You can build Hermes with [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) from the repository for the target `x86_64-unknown-linux-gnu`, or you can [download](https://github.com/informalsystems/ibc-rs/releases) a release version into the repository folder (make sure the binary is present in the repository folder).
@@ -191,19 +191,19 @@ hermes 0.14.0+460eb0c
 <HighlightBox type="note">
 
 In this section you have to run commands both inside the Docker container and on your local terminal. By default, coding examples will indicate the Docker terminal; a comment will inform you when you have to use the local terminal.
-  
+
 </HighlightBox>
 
 <HighlightBox type="remember">
 
-You can check the CLI commands with `hermes -h`. The Hermes CLI offers help for each CLI command you can use when trying `hermes <command> -h`. 
-  
+You can check the CLI commands with `hermes -h`. The Hermes CLI offers help for each CLI command you can use when trying `hermes <command> -h`.
+
 </HighlightBox>
 
 Check the default configuration:
 
 ```bash
-$ cat simple_config.toml 
+$ cat simple_config.toml
 ```
 
 In the `[[chains]]` section of the `simple_config.toml`, you can find the configuration for two chains, **ibc-0** and **ibc-1**. In it, the chain IDs need to be specified, as well as the RPC, GRPC, and WebSocket addresses.
@@ -217,7 +217,7 @@ $ hermes -c simple_config.toml config validate
 Next do a health check:
 
 ```bash
-$ hermes -c simple_config.toml health-check 
+$ hermes -c simple_config.toml health-check
 ```
 
 You should see that both chains are healthy. The E2E test will create clients, connections, and a channel.
@@ -294,7 +294,7 @@ Now check the balance of those accounts on the chain **ibc-0**. Replace the `$te
 $ docker exec ibc-0 gaiad query bank balances $testkey
 ```
 
-Repeat this check for **ibc-1** with the corresponding address. 
+Repeat this check for **ibc-1** with the corresponding address.
 
 These accounts keep some **samoleans**. You will also see another denom because of the E2E test.
 
@@ -313,7 +313,7 @@ $ hermes -c simple_config.toml tx raw ft-transfer ibc-1 ibc-0 transfer channel-2
 In case you do not want to test with the default user, you can specify the sender with a `-k` flag and the receiver on the other chain with a `-r` flag.
 
 <HighlightBox type="note">
-  
+
 Usually the Hermes relayer automatically relays packets between the chains if it runs via:
 
 ```bash
@@ -339,7 +339,7 @@ $ hermes -c simple_config.toml query packet unreceived-packets ibc-1 transfer ch
 ```
 
 <HighlightBox type="note">
-  
+
 You can get the `connection_id` and `channel_id` for **ibc-1** in the output of the `hermes create connection` and `hermes create channel` commands.
 
 </HighlightBox>

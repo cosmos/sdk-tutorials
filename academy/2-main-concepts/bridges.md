@@ -27,11 +27,11 @@ In this section you will learn more about bridges in the Cosmos ecosystem, inclu
 
 ## The Gravity Bridge
 
-The [Gravity Bridge](https://gravitybridge.althea.net) is an on-going project currently being built by Althea with the goal to facilitate the transfer of ERC-20 tokens to Cosmos-based blockchains and back. 
+The [Gravity Bridge](https://gravitybridge.althea.net) is an on-going project currently being built by Althea with the goal to facilitate the transfer of ERC-20 tokens to Cosmos-based blockchains and back.
 
 <HighlightBox type="info">
 
-The Gravity Bridge allows for novel applications that combine the power of Cosmos with the value of assets from Ethereum. 
+The Gravity Bridge allows for novel applications that combine the power of Cosmos with the value of assets from Ethereum.
 
 </HighlightBox>
 
@@ -58,7 +58,7 @@ The Cosmos Gravity Bridge is designed to run on the Cosmos Hub. It focuses on ma
 
 ### Key design components: trust in integrity
 
-The signing of fraudulent validator set updates and transaction batches meant for the Ethereum smart contract is punished on the Cosmos chain by slashing. If the Cosmos chain is trustworthy, you can trust the Gravity Bridge operated by it as long as it operates within certain parameters. 
+The signing of fraudulent validator set updates and transaction batches meant for the Ethereum smart contract is punished on the Cosmos chain by slashing. If the Cosmos chain is trustworthy, you can trust the Gravity Bridge operated by it as long as it operates within certain parameters.
 
 <HighlightBox type="info">
 
@@ -83,7 +83,7 @@ The bridge requires a validator set update on the Ethereum smart contract by cal
 
 <HighlightBox type="info">
 
-Cosmos full nodes do not verify events coming from Ethereum, as events are validated into the Cosmos chain's state based purely on the signatures of the current validator set. 
+Cosmos full nodes do not verify events coming from Ethereum, as events are validated into the Cosmos chain's state based purely on the signatures of the current validator set.
 
 </HighlightBox>
 

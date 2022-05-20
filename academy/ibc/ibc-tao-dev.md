@@ -1,6 +1,6 @@
 ---
 title: "Transport, Authentication, and Ordering Layer - Connections"
-order: 
+order:
 description: Establishing connections in IBC
 tag: deep-dive
 ---
@@ -23,9 +23,8 @@ Now that you covered the introduction and have a better understanding of how dif
 
 If you want to connect two blockchains with IBC, you will need to establish an IBC **connection**. Connections, established by a four-way handshake, are responsible for:
 
-1. Establishing the identity of the counterparty chain. 
-2. Preventing a malicious entity from forging incorrect information by pretending to be the counter party chain. 
-IBC connections are established by on-chain ledger code and therefore do not require interaction with off-chain (trusted) third-party processes. 
+1. Establishing the identity of the counterparty chain.
+2. Preventing a malicious entity from forging incorrect information by pretending to be the counter party chain. IBC connections are established by on-chain ledger code and therefore do not require interaction with off-chain (trusted) third-party processes.
 
 <HighlightBox type="docs">
 
@@ -82,13 +81,13 @@ message Counterparty {
 }
 ```
 
-In this definition, `connection-id` is used as a key to map and retrieve connections associated with a certain client from the store. 
+In this definition, `connection-id` is used as a key to map and retrieve connections associated with a certain client from the store.
 
 `prefix` is used by the clients to construct merkle prefix paths which are then used to verify proofs.
 
 ## Connection handshakes and states
 
-Establishing an IBC connection (for example, between chain A and chain B) requires four handshakes: 
+Establishing an IBC connection (for example, between chain A and chain B) requires four handshakes:
 
 1. OpenInit
 2. OpenTry
@@ -99,7 +98,7 @@ A high level overview of a successful four-way handshake is as follows:
 
 ### Handshake 1: OpenInit
 
-`OpenInit` initializes any connection which may occur, while still necessitating agreement from both sides. It is like an identifying announcement from the IBC module on chain A which is submitted by a relayer. The relayer should also submit an `UpdateClient` with chain A as the source chain before this handshake. `UpdateClient` updates the client on the initializing chain A with the latest consensus state of chain B. 
+`OpenInit` initializes any connection which may occur, while still necessitating agreement from both sides. It is like an identifying announcement from the IBC module on chain A which is submitted by a relayer. The relayer should also submit an `UpdateClient` with chain A as the source chain before this handshake. `UpdateClient` updates the client on the initializing chain A with the latest consensus state of chain B.
 
 ![OpenInit](/academy/ibc/images/open_init.png)
 
@@ -119,7 +118,7 @@ func (k Keeper) ConnOpenInit(
   version *types.Version,
   delayPeriod uint64,
 ) (string, error) {
-  
+
   ...
 
   // connection defines chain A's ConnectionEnd
@@ -152,7 +151,7 @@ It creates a new `ConnectionEnd`:
 
  connection := types.NewConnectionEnd(types.INIT, clientID, counterparty, types.ExportedVersionsToProto(versions), delayPeriod)
   k.SetConnection(ctx, connectionID, connection)
-  
+
 // ConnectionEnd defines a stateful object on a chain connected to another separate one.
 // NOTE: there must only be 2 defined ConnectionEnds to establish
 // a connection between two chains, so the connections are mapped and stored as `ConnectionEnd` on the respective chains.
@@ -192,7 +191,7 @@ func (k Keeper) ConnectionOpenInit(goCtx context.Context, msg *connectiontypes.M
 
 ### Handshake 2: OpenTry
 
-`OpenInit` is followed by an `OpenTry` response, in which chain B verifies the identity of chain A according to information that chain B has about chain A in its light client (the algorithm and the last snapshot of the consensus state containing the root hash of the latest height as well as the next validator set). It also responds to some of the information about its own identity in the `OpenInit` announcement from chain A. 
+`OpenInit` is followed by an `OpenTry` response, in which chain B verifies the identity of chain A according to information that chain B has about chain A in its light client (the algorithm and the last snapshot of the consensus state containing the root hash of the latest height as well as the next validator set). It also responds to some of the information about its own identity in the `OpenInit` announcement from chain A.
 
 ![OpenTry](/academy/ibc/images/open_try.png)
 
@@ -235,13 +234,13 @@ func (k Keeper) ConnOpenTry(
 
 ![OpenAck](/academy/ibc/images/open_ack.png)
 
-The initiation of this handshake from chain A updates its connection state to `OPEN`. It is important to note that the counterparty chain *must* have a `TRY` connection state in order for the handshake and connection state update to be successful. 
+The initiation of this handshake from chain A updates its connection state to `OPEN`. It is important to note that the counterparty chain *must* have a `TRY` connection state in order for the handshake and connection state update to be successful.
 
 With regards to version negotiation, `OpenAck` must confirm the protocol version which has been proposed in `OpenTry`. It ends the connection handshake process if the version is unwanted or unsupported.
 
 <!-- TODO insert image -->
 
-The `OpenAck` code is very similar to `OpenTry`: 
+The `OpenAck` code is very similar to `OpenTry`:
 
 ```go
 func (k Keeper) ConnOpenAck(
@@ -290,7 +289,7 @@ Therefore, each chain verifies the `ConnectionState`, the `ClientState`, and the
 
 ### Handshake 4: OpenConfirm
 
-`OpenConfirm` is the final handshake, in which chain B confirms that both self-identification and counterparty identification were successful. 
+`OpenConfirm` is the final handshake, in which chain B confirms that both self-identification and counterparty identification were successful.
 
 ![OpenConfirm](/academy/ibc/images/open_confirm.png)
 

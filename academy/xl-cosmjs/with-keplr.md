@@ -72,7 +72,7 @@ export interface FaucetSenderProps {
 
 export class FaucetSender extends Component<FaucetSenderProps, FaucetSenderState> {
 
-    
+
     // Set the initial state
     constructor(props:FaucetSenderProps) {
         super(props)

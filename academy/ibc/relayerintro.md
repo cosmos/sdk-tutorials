@@ -1,6 +1,6 @@
 ---
 title: "Relaying in General"
-order: 
+order:
 description: Relayers in IBC
 tag: deep-dive
 ---
@@ -15,11 +15,11 @@ In this section, you will learn how relayers fit in IBC.
 
 ![IBC overview](/academy/ibc/images/ibcoverview.png)
 
-It is useful to briefly recap what relaying is and why it is important. IBC aims to offer blockchains a protocol to enable reliable, secure, and permissionless transfer of packets of data. The protocol is agnostic with respect to the data, paving the way for application developers to develop a range of possible interchain services (fungible and non-fungible token transfers are an obvious candidate, but also arbitrary cross-chain messaging via [interchain accounts](https://interchain-io.medium.com/welcome-to-the-ibc-gang-lets-talk-f469883e0ffe)). 
+It is useful to briefly recap what relaying is and why it is important. IBC aims to offer blockchains a protocol to enable reliable, secure, and permissionless transfer of packets of data. The protocol is agnostic with respect to the data, paving the way for application developers to develop a range of possible interchain services (fungible and non-fungible token transfers are an obvious candidate, but also arbitrary cross-chain messaging via [interchain accounts](https://interchain-io.medium.com/welcome-to-the-ibc-gang-lets-talk-f469883e0ffe)).
 
-On a high level, this works as follows. A module on a source chain wants to send a packet to a destination chain. It submits a message to the source chain that stores a commitment proof on-chain and logs an event with the packet information. With this information and the proof, you can submit a message to the IBC client on the destination chain, which will verify the proof and (if successful) store a receipt on-chain and have the receiving module execute the required actions according to the packet data. The acknowledgement and timeout functionality has been discussed [previously](../ibc/channels.md). 
+On a high level, this works as follows. A module on a source chain wants to send a packet to a destination chain. It submits a message to the source chain that stores a commitment proof on-chain and logs an event with the packet information. With this information and the proof, you can submit a message to the IBC client on the destination chain, which will verify the proof and (if successful) store a receipt on-chain and have the receiving module execute the required actions according to the packet data. The acknowledgement and timeout functionality has been discussed [previously](../ibc/channels.md).
 
-There are two important considerations to make based on this flow. First, on the receiving chain, you need to verify the commitment proof on the source chain. This is why a light client is used to track the state of the counterparty chain (in an efficient way). Again, refer to a previous section to find out more. Second, blockchains cannot directly communicate with one another, so how do the proof and packet data arrive at the destination chain to continue the flow described above? 
+There are two important considerations to make based on this flow. First, on the receiving chain, you need to verify the commitment proof on the source chain. This is why a light client is used to track the state of the counterparty chain (in an efficient way). Again, refer to a previous section to find out more. Second, blockchains cannot directly communicate with one another, so how do the proof and packet data arrive at the destination chain to continue the flow described above?
 
 This is where the relayer operators come into the picture: they ensure the relaying of the packets over network infrastructure. **Relayers have access to full nodes of both source and destination chains, where they can query and submit messages.** They listen in on the chains they service for events that require an IBC packet to be sent. They run relayer software that enables them to rebuild the packet along with the proof and submit this to the destination chain. A similar process then happens upon storing the receipt on the destination chain, causing the acknowledgement message to be sent to the source.
 
@@ -27,7 +27,7 @@ The relayers are a crucial part of the IBC infrastructure. Remember that relayin
 
 ## What is needed to relay?
 
-Before moving on to look at specific implmentations of relayer software, understand the general set of requirements or functionality that relayer software needs to have. 
+Before moving on to look at specific implmentations of relayer software, understand the general set of requirements or functionality that relayer software needs to have.
 
 1. **Information about the chains:** a relayer will relay packets between a pair of chains, so it requires some information about these chains.
 2. **Information about the path:** once you know the chains you are relaying on, the next requirement is to know which path to relay on. Remember, the IBC protocol has three main layers of abstraction: the (light) clients, connections, and channels (and ports).

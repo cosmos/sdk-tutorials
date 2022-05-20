@@ -10,13 +10,13 @@ tag: deep-dive
 <HighlightBox type="learning">
     
 In Cosmos, a transaction is able to encapsulate multiple messages.
-    
+
 In this section, you will:
-    
+
 * Send multiple tokens in a single transaction.
 * Sign and broadcast.
 * Assemble multiple messages.
-    
+
 </HighlightBox>
 
 ## Send multiple tokens using `sendTokens`

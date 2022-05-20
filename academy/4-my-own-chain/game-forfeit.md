@@ -14,7 +14,7 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [ABCI](../2-main-concepts/architecture.md).
 * Go is installed.
 * You have the checkers blockchain codebase with the elements necessary for forfeit. If not, follow the [previous steps](./game-winner.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
-    
+
 </HighlightBox>
 
 <HighlightBox type="learning">
@@ -379,20 +379,10 @@ $ export bob=$(checkersd keys show bob -a)
 Create three games 1 minute apart. Have Bob play the middle one, and both Alice and Bob play the last one:
 
 <CodeGroup>
-<CodeGroupItem title="Game 0" active>
+<CodeGroupItem title="Game 1" active>
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $alice
-```
-
-</CodeGroupItem>
-<CodeGroupItem title="Game 1">
-
-```sh
-# Wait a minute
-$ checkersd tx checkers create-game $alice $bob --from $bob
-# Wait 5 seconds
-$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
 ```
 
 </CodeGroupItem>
@@ -400,10 +390,20 @@ $ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
 
 ```sh
 # Wait a minute
-$ checkersd tx checkers create-game $alice $bob --from $alice
-$ checkersd tx checkers play-move 2 1 2 2 3 --from $bob
+$ checkersd tx checkers create-game $alice $bob --from $bob
 # Wait 5 seconds
-$ checkersd tx checkers play-move 2 0 5 1 4 --from $alice
+$ checkersd tx checkers play-move 2 1 2 2 3 --from $bob
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Game 3">
+
+```sh
+# Wait a minute
+$ checkersd tx checkers create-game $alice $bob --from $alice
+$ checkersd tx checkers play-move 3 1 2 2 3 --from $bob
+# Wait 5 seconds
+$ checkersd tx checkers play-move 3 0 5 1 4 --from $alice
 ```
 
 </CodeGroupItem>
@@ -441,10 +441,10 @@ With three games in, confirm that you see them all:
 $ checkersd query checkers list-stored-game
 ```
 
-List them again after 2, 3, 4, and 5 minutes. You should see games `0` and `1` disappear, and game `2` being forfeited by Bob, i.e. `red` Alice wins:
+List them again after 2, 3, 4, and 5 minutes. You should see games `1` and `2` disappear, and game `3` being forfeited by Bob, i.e. `red` Alice wins:
 
 ```sh
-$ checkersd query checkers show-stored-game 2 --output json | jq ".StoredGame.winner"
+$ checkersd query checkers show-stored-game 3 --output json | jq ".StoredGame.winner"
 ```
 
 This prints:
@@ -466,7 +466,7 @@ NextGame:
   creator: ""
   fifoHead: "-1"
   fifoTail: "-1"
-  idValue: "3"
+  idValue: "4"
 ```
 
 ## Next up

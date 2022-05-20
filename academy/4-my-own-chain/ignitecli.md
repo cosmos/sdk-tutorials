@@ -24,7 +24,7 @@ Before diving into the details of how Ignite CLI helps you scaffold the basics f
 <HighlightBox type="learning">
 
 In this section, you will:
-  
+
 * Install the Ignite CLI.
 * Scaffold a blockchain.
 * Use the CLI.
@@ -56,16 +56,16 @@ Want to dedicate some time to dive deeper into installing Ignite CLI? Learn [how
 
 </HighlightBox>
 
-To install Ignite CLI at the command line:
+This entire exercise was built using the Ignite CLI version 0.17.3. To install it at the command line:
 
 ```sh
-$ curl https://get.ignite.com/cli! | bash
+$ curl https://get.ignite.com/cli@v0.17.3! | bash
 ```
 
 Or if you install it in a Linux VM:
 
 ```sh
-$ curl https://get.ignite.com/cli! | sudo bash
+$ curl https://get.ignite.com/cli@v0.17.3! | sudo bash
 ```
 
 You can verify the version of Ignite CLI you have once it is installed:
@@ -74,11 +74,9 @@ You can verify the version of Ignite CLI you have once it is installed:
 $ ignite version
 ```
 
-This prints:
+This prints its old name and its version:
 
 ```
-Ignite CLI version:	v0.17.3
-Or its old name
 starport version v0.17.3
 ...
 ```
@@ -87,10 +85,16 @@ starport version v0.17.3
 
 This entire exercise was built using the Ignite CLI version noted above. Using a newer version could work, but you might run into compatibility issues if you clone any code made with _this_ version of Ignite CLI and then try to continue the project with _your_ version of Ignite CLI.
 
-To install this specific version of Ignite CLI, use:
+If you need to install the latest version of Ignite CLI, use:
 
 ```sh
-$ curl https://get.ignite.com/cli@v0.17.3! | bash
+$ curl https://get.ignite.com/cli@! | bash
+```
+
+When you then run `ignite version`, it prints its new name and its version:
+
+```
+Ignite CLI version: v0.20.4
 ```
 
 </HighlightBox>
@@ -269,7 +273,7 @@ $ npm install
 $ npm run serve
 ```
 
-Navigate to [localhost:8080](http://localhost:8080/). On the client-side, no wallets have been created or imported yet. Load Alice's wallet in the GUI to have some tokens. You will need to use the mnemonic for Alice, which you can find in the output of the `ignite chain serve` command. Copy and paste it to _import a wallet_.
+Navigate to [localhost:8080](http://localhost:8080/). On the client-side, no wallets have been created or imported yet. Load Alice's wallet in the GUI to have some tokens. You will need to use the mnemonic for Alice, which you can find in the output of the `ignite chain serve` command. If you do not see the mnemonic, it is because the mnemonic was shown to you the first time you ran the command and you did not copy it. So reset with `ignite chain serve --reset-once`. Copy and paste it to _import a wallet_.
 
 Now you should see the balance of Alice's account and can act on her behalf.
 

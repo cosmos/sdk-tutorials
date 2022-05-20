@@ -14,7 +14,7 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [modules](../2-main-concepts/modules.md), [keepers](../2-main-concepts/multistore-keepers.md), and [Protobuf](../2-main-concepts/protobuf.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to game expiry handling. If not, follow the [previous steps](./game-forfeit.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/forfeit-game).
-    
+
 </HighlightBox>
 
 <HighlightBox type="learning">
@@ -764,7 +764,7 @@ Which mentions the wager:
 
 ```
 ...
-raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"CreateGame"},{"key":"module","value":"checkers"},{"key":"action","value":"NewGameCreated"},{"key":"Creator","value":"cosmos1z63q2mn2f6ljm8vfxjzpuz0xthmyx9qd0yy5xr"},{"key":"Index","value":"0"},{"key":"Red","value":"cosmos1z63q2mn2f6ljm8vfxjzpuz0xthmyx9qd0yy5xr"},{"key":"Black","value":"cosmos195e0h5qw44sazd450yt5qvllukcfp7lyc3f9kr"},{"key":"Wager","value":"1000000"}]}]}]'
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"CreateGame"},{"key":"module","value":"checkers"},{"key":"action","value":"NewGameCreated"},{"key":"Creator","value":"cosmos1z63q2mn2f6ljm8vfxjzpuz0xthmyx9qd0yy5xr"},{"key":"Index","value":"1"},{"key":"Red","value":"cosmos1z63q2mn2f6ljm8vfxjzpuz0xthmyx9qd0yy5xr"},{"key":"Black","value":"cosmos195e0h5qw44sazd450yt5qvllukcfp7lyc3f9kr"},{"key":"Wager","value":"1000000"}]}]}]'
 ```
 
 Confirm that the balances of both Alice and Bob are unchanged - as they have not played yet.
@@ -778,7 +778,7 @@ Confirm that the balances of both Alice and Bob are unchanged - as they have not
 Have Bob play:
 
 ```sh
-$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
 ```
 
 Confirm that Bob has paid his wager:
@@ -823,8 +823,8 @@ Now create a game in which both players only play once each, i.e. where the play
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
-$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
-$ checkersd tx checkers play-move 1 0 5 1 4 --from $alice
+$ checkersd tx checkers play-move 2 1 2 2 3 --from $bob
+$ checkersd tx checkers play-move 2 0 5 1 4 --from $alice
 ```
 
 Confirm that both Alice and Bob paid their wagers. Wait 5 minutes for the game to expire and check again:

@@ -14,7 +14,7 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [events](../2-main-concepts/events.md).
 * Go is installed.
 * You have the checkers blockchain codebase with `MsgPlayMove` and its handling. If not, follow the [previous steps](./play-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/play-move-handler).
- 
+
 </HighlightBox>
 
 <HighlightBox type="learning">
@@ -192,7 +192,7 @@ func TestPlayMoveEmitted(t *testing.T) {
 Bob made a move. Will Alice's move emit an event?
 
 ```sh
-$ checkersd tx checkers play-move 0 0 5 1 4 --from $alice
+$ checkersd tx checkers play-move 1 0 5 1 4 --from $alice
 ```
 
 The log is longer and not very readable, but the expected elements are present:
@@ -235,7 +235,7 @@ This returns something like:
           },
           {
             "key": "IdValue",
-            "value": "0"
+            "value": "1"
           },
           {
             "key": "CapturedX",
@@ -259,7 +259,7 @@ This returns something like:
 As you can see, no pieces were captured. However, it turns out that Alice placed her piece ready to be captured by Bob:
 
 ```sh
-$ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\'$'\n/g'
+$ checkersd query checkers show-stored-game 1 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\'$'\n/g'
 *b*b*b*b
 b*b*b*b*
 ***b*b*b
@@ -273,7 +273,7 @@ r*r*r*r*
 The rules of the game included in this project mandate that the player captures a piece when possible. So Bob captures the piece:
 
 ```sh
-$ checkersd tx checkers play-move 0 2 3 0 5 --from $bob
+$ checkersd tx checkers play-move 1 2 3 0 5 --from $bob
 ```
 
 This returns:
@@ -310,7 +310,7 @@ When formatted for clarity, you see the following::
           },
           {
             "key": "IdValue",
-            "value": "0"
+            "value": "1"
           },
           {
             "key": "CapturedX",

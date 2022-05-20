@@ -93,5 +93,5 @@ Let us start by diving into public blockchains and their most known examples, Bi
 * [Schneier, B. & Kelsey, J. (1998): Secure Audit Logs to Support Computer Forensics](https://www.schneier.com/academic/paperfiles/paper-auditlogs.pdf)
 * [Szabo, N. (1994): Smart Contracts](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html)
 * [Tendermint: Consensus without Mining](https://tendermint.com/static/docs/tendermint.pdf).
-    
+
 </HighlightBox>

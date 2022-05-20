@@ -68,11 +68,11 @@ The `BaseApp` type holds many [important parameters](https://github.com/cosmos/c
 
 Important parameters that are initialized during the bootstrapping of the application are:
 
-* **`CommitMultiStore`:** this is the main store of the application, which holds the canonical state that is committed at the end of each block. This store is not cached, meaning it is not used to update the application's volatile (un-committed) states. 
+* **`CommitMultiStore`:** this is the main store of the application, which holds the canonical state that is committed at the end of each block. This store is not cached, meaning it is not used to update the application's volatile (un-committed) states.
 
   The `CommitMultiStore` is a store of stores. Each module of the application uses one or multiple `KVStores` in the multistore to persist their subset of the state.
 * **Database:** the database is used by the `CommitMultiStore` to handle data persistence.
-* **`Msg` service router:** the `msgServiceRouter` facilitates the routing of `sdk.Msg` requests to the appropriate module `Msg` service for processing. 
+* **`Msg` service router:** the `msgServiceRouter` facilitates the routing of `sdk.Msg` requests to the appropriate module `Msg` service for processing.
 
   An `sdk.Msg` here refers to the transaction component that needs to be processed by a service to update the application state, and not to the ABCI message, which implements the interface between the application and the underlying consensus engine.
 

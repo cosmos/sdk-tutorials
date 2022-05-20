@@ -57,7 +57,7 @@ for line in fileinput.input(inplace=1):
 <CodeGroup>
 <CodeGroupItem title="JavaScript" active>
 
-```js 
+```js
 import { SpH3, SpButton } from "@tendermint/vue";
 
 export default {

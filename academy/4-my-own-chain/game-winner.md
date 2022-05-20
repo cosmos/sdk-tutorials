@@ -14,13 +14,13 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md).
 * Go is installed.
 * You have the checkers blockchain codebase with the deadline field and its handling. If not, follow the [previous steps](./game-deadline.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-deadline).
-    
+
 </HighlightBox>
 
 <HighlightBox type="learning">
 
 In this section, you will:
-    
+
 * Check for a game winner.
 * Extend unit tests.
 
@@ -317,8 +317,8 @@ This should show:
 And when a player plays:
 
 ```sh
-$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
-$ checkersd query checkers show-stored-game 0
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
+$ checkersd query checkers show-stored-game 1
 ```
 
 This should show:
