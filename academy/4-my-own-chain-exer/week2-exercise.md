@@ -44,3 +44,16 @@ A hidden test file will check that your output is properly named and prepared. B
 
 * If you have a compilation error, it means you have named elements wrongly.
 * If the test fails, you have numbered things wrongly in Protobuf, or you have messages for `WorldParams`.
+
+## How you can prepare
+
+To assist you getting a feel of what it looks like behind the Hackerrank wall, we have put this small [public repository](https://github.com/b9lab/ida-exercise-week-2-student-repo) that contains what you will see minus the hidden files.
+
+It will fail to compile because it is missing `WorldParams2`, a hidden file. Of course, this `WorldParams2` is strictly identical to the `WorldParams` we ask you to create. So you can practice:
+
+* Either by removing the files that do not compile.
+* Or by creating this `WorldParams2` as a copy of your `WorldParams`.
+
+## When you are ready
+
+When you are ready to take the test go [here](TODO).
