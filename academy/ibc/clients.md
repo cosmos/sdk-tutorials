@@ -128,7 +128,7 @@ func NewClientState(
 
 The Tendermint `ClientState` contains all the information needed to verify a header. This includes properties which are applicable for all Tendermint clients, such as the corresponding chainID, the unbonding period of the chain, the latest height of the client, etc.
 
-`TrustingPeriod` determines the duration of the period since the lastest timestamp during which the submitted headers are valid for upgrade. If a client is not updated within the `TrustingPeriod`, the client will expire. This does not mean the client is irrecoverable. However, recovery of an expired Tendermint client will require a [governance proposal](https://ibc.cosmos.network/main/ibc/proposals.html#preconditions) for each client which has expired. If both clients on either side of a connection have expired, then a governance proposal will be required on each chain in order to revive each client.
+`TrustingPeriod` determines the duration of the period since the latest timestamp during which the submitted headers are valid for upgrade. If a client is not updated within the `TrustingPeriod`, the client will expire. This does not mean the client is irrecoverable. However, recovery of an expired Tendermint client will require a [governance proposal](https://ibc.cosmos.network/main/ibc/proposals.html#preconditions) for each client which has expired. If both clients on either side of a connection have expired, then a governance proposal will be required on each chain in order to revive each client.
 
 `TrustLevel` determines the portion of the validator set you want to have signing a header for it to be considered as valid. Tendermint defines this as 2/3, and the IBC Tendermint client inherits this property from Tendermint.
 
