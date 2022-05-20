@@ -19,9 +19,9 @@ In this section, you will learn more about:
 
 </HighlightBox>
 
-CosmJS allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJS to issue commands to the Cosmos Hub testnet. In this tutorial, you are working on a browser application that interacts with the Keplr extension.
+CosmJS allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJS to issue commands to the Cosmos Hub Testnet. In this tutorial, you are working on a browser application that interacts with the Keplr extension.
 
-You will again connect to the Cosmos Hub testnet. Optionally, connect to your locally running Cosmos blockchain using `simapp` as explained [before](./first-steps.md).
+You will again connect to the Cosmos Hub Testnet. Optionally, connect to your locally running Cosmos blockchain using `simapp` as explained [before](./first-steps.md).
 
 To keep the focus on CosmJS and Keplr, you are going to use ready-made pages created by the Next.js framework. Do not worry if you routinely use another framework, the CosmJS-specific code in this tutorial can be applied similarly in Angular, Vue, and other frameworks.
 
@@ -146,7 +146,7 @@ const Home: NextPage = () => {
 export default Home
 ```
 
-The faucet address was found in the [previous section](./first-steps.md), as well as the RPC endpoint that connects to the Cosmos Hub testnet.
+The faucet address was found in the [previous section](./first-steps.md), as well as the RPC endpoint that connects to the Cosmos Hub Testnet.
 
 When `npm run dev` picks up the changes, you should see that your page has changed to what you created. In particular, it alerts you with "TODO" when you click on the button.
 
@@ -193,7 +193,7 @@ Now, add elements that handle your user's information.
 
 ## Getting testnet tokens
 
-Refer to the previous section on how to [get Cosmos Hub testnet tokens](./first-steps.md). This time you should use your Keplr address. If you have not set up one yet, do so now. Your Cosmos Hub testnet address is the same one that Keplr shows you for the Cosmos Hub mainnet.
+Refer to the previous section on how to [get Cosmos Hub Testnet tokens](./first-steps.md). This time you should use your Keplr address. If you have not set up one yet, do so now. Your Cosmos Hub Testnet address is the same one that Keplr shows you for the Cosmos Hub mainnet.
 
 ## Detecting Keplr
 
@@ -229,7 +229,7 @@ Hopefully, when you click on the button it does not show an alert. It does not d
 
 ## Prepare Keplr
 
-Keplr is now detected. By default, Keplr lets its users only connect to the blockchains it knows about. Unfortunately, the Cosmos Hub testnet is not one of them, but there is a feature where you can instruct it to handle any Cosmos blockchain, provided you give its parameters. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Cosmos Hub testnet, these parameters are available, as mentioned on the [testnet page](https://github.com/cosmos/testnets/tree/master/v7-theta#add-to-keplr-1). Add a new function for them as shown in the expandable box:
+Keplr is now detected. By default, Keplr lets its users only connect to the blockchains it knows about. Unfortunately, the Cosmos Hub Testnet is not one of them, but there is a feature where you can instruct it to handle any Cosmos blockchain, provided you give its parameters. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Cosmos Hub Testnet, these parameters are available, as mentioned on the [testnet page](https://github.com/cosmos/testnets/tree/master/v7-theta#add-to-keplr-1). Add a new function for them as shown in the expandable box:
 
 <ExpansionPanel title="getTestnetChainInfo">
 
@@ -310,7 +310,7 @@ You need to add another import from the `@keplr-wallet` package so that your scr
 import { ChainInfo, Window as KeplrWindow } from "@keplr-wallet/types"
 ```
 
-Note that it mentions the `chainId: "theta-testnet-001"`. In effect, this adds the Cosmos Hub testnet to Keplr's registry of blockchains, under the label `theta-testnet-001`. Whenever you want to prompt the user to add the Cosmos Hub testnet to Keplr, add the line:
+Note that it mentions the `chainId: "theta-testnet-001"`. In effect, this adds the Cosmos Hub Testnet to Keplr's registry of blockchains, under the label `theta-testnet-001`. Whenever you want to prompt the user to add the Cosmos Hub Testnet to Keplr, add the line:
 
 ```typescript
 await window.keplr!.experimentalSuggestChain(this.getTestnetChainInfo())
@@ -529,7 +529,7 @@ export class FaucetSender extends Component<
         })
     }
 
-    // The Cosmos Hub testnet chain parameters
+    // The Cosmos Hub Testnet chain parameters
     getTestnetChainInfo = (): ChainInfo => ({
         chainId: "theta-testnet-001",
         chainName: "theta-testnet-001",
@@ -638,7 +638,7 @@ export class FaucetSender extends Component<
 
 What if you wanted to experiment with your own chain while in development?
 
-Keplr does not know about locally running chains by default. As you did with Cosmos Hub testnet, you must inform Keplr about your chain: change `ChainInfo` to match the information about your chain, and change `rpcUrl` so that it points to your local port.
+Keplr does not know about locally running chains by default. As you did with Cosmos Hub Testnet, you must inform Keplr about your chain: change `ChainInfo` to match the information about your chain, and change `rpcUrl` so that it points to your local port.
 
 ## Conclusion
 
