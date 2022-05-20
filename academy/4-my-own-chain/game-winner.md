@@ -26,7 +26,7 @@ In this section, you will:
 
 </HighlightBox>
 
-To be able to terminate games you need to discern between games that are current and those that have reached an end. One of the reasons a game may have reached an end is when it was won. Therefore a good field to add is for the **winner**. It needs to contain:
+To be able to terminate games, you need to discern between games that are current and those that have reached an end - for example, when they have been won. Therefore a good field to add is for the **winner**. It needs to contain:
 
 * The winner of a game that reaches completion.
 * Or the winner _by forfeit_ when a game is expired.
