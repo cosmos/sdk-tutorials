@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Exercise - Create an object
 
-You are about to perform a small, simple exercise on Hackerrank, to confirm your attendance so far and check you're paying attention! Before you [try](TODO), here is a summary of what you will be asked to do.
+You are about to perform a small, simple exercise on Hackerrank, to confirm your attendance so far and check you're paying attention! <!-- Before you [try](TODO), here is a summary of what you will be asked to do. -->
 
 # The problem description
 
@@ -56,4 +56,5 @@ It will fail to compile because it is missing `WorldParams2`, a hidden file. Of 
 
 ## When you are ready
 
-When you are ready to take the test go [here](TODO).
+The link to submit your exercise via HackerRank will be available here next week.
+<!-- When you are ready to take the test go [here](TODO). -->
