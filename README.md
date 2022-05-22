@@ -200,34 +200,62 @@ modules:
         description: An easy way to build your application-specific blockchain
         url: /academy/4-my-own-chain/ignitecli.html
         order: 3
+      - title: Exercise - Make a Checkers Blockchain
+        description: Exercise Introductrion
+        url: /academy/4-my-own-chain-exer/exercise-intro.html
+        order: 4
+      - title: Exercise - Store Object - Make a Checkers Blockchain
+        description: 
+        url: /academy/4-my-own-chain-exer/stored-game-exer.html
+        order: 5
       - title: Store Object - Make a Checkers Blockchain
         description: Create the object that stores a game
         url: /academy/4-my-own-chain/stored-game.html
-        order: 4
+        order: 6
+      - title: Exercise - Message - Create a Message to Create a Game
+        description: Exercise - You introduce the message to create a game
+        url: /academy/4-my-own-chain-exer/create-message-exer.html
+        order: 7
       - title: Message - Create a Message to Create a Game
         description: Introducing the message to create a game
         url: /academy/4-my-own-chain/create-message.html
-        order: 5
+        order: 8
+      - title: Exercise - Message Handler - Create and Save a Game Properly
+        description: Exercise - You create a proper game
+        url: /academy/4-my-own-chain-exer/create-handling-exer.html
+        order: 9
       - title: Message Handler - Create and Save a Game Properly
         description: Creating a proper game
         url: /academy/4-my-own-chain/create-handling.html
-        order: 6
+        order: 10
+      - title: Exercise - Message and Handler - Add a Way to Make a Move
+        description: Creating a proper game
+        url: /academy/4-my-own-chain-exer/play-game-exer.html
+        order: 11
       - title: Message and Handler - Add a Way to Make a Move
         description: Playing a game
         url: /academy/4-my-own-chain/play-game.html
-        order: 7
+        order: 12
+      - title: Exercise - Events - Emitting Game Information
+        description: Playing a game
+        url: /academy/4-my-own-chain-exer/events-exer.html
+        order: 13
       - title: Events - Emitting Game Information
         description: Emitting game information using events
         url: /academy/4-my-own-chain/events.html
-        order: 8
+        order: 14
+      - title: Exercise - Message and Handler - Make Sure a Player Can Reject a Game
+        description: Emitting game information using events
+        url: /academy/4-my-own-chain-exer/reject-game-exer.html
+        order: 15
       - title: Message and Handler - Make Sure a Player Can Reject a Game
         description: Rejecting a game
         url: /academy/4-my-own-chain/reject-game.html
-        order: 9
+        order: 16
       - title: Mandatory Exercise
         description: Mandatory Exercise
         url: /academy/4-my-own-chain-exer/week2-exercise.html
-        order: 10
+        order: 17
   - title: Running Your Own Cosmos Chain - Part 2
     description: In Week 3, you'll dive deeper into customizing the checkers blockchain and discover how to make your own game more interesting and unique.
     number: 3

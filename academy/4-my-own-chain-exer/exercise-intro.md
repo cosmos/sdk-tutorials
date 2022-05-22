@@ -1,3 +1,9 @@
+---
+title: My own chain as an exercise
+order:
+description: Exercise Introduction
+---
+
 # My own chain as an exercise
 
 ## How to proceed

@@ -180,7 +180,7 @@ As a reminder from the previous tutorial, the `typeUrl: "/cosmos.bank.v1beta1.Ms
 
 <HighlightBox type="info">
 
-To learn how to make your own types for your own blockchain project, head to [Create my own CosmJS objects](TODO).
+To learn how to make your own types for your own blockchain project, head to [Create my own CosmJS objects](/academy/4-my-own-chain/cosmjs-objects.md).
 
 </HighlightBox>
 
