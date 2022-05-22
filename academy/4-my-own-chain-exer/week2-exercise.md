@@ -58,3 +58,5 @@ It will fail to compile because it is missing `WorldParams2`, a hidden file. Of 
 
 The link to submit your exercise via HackerRank will be available here next week.
 <!-- When you are ready to take the test go [here](TODO). -->
+
+**Please make sure to submit your exercise till Monday 30th 23:59 UTC.**
