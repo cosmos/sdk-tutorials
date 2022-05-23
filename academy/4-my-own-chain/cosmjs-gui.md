@@ -507,7 +507,7 @@ $ npm install @keplr-wallet/types@0.10.2 --save-exact --save-dev
 
 Keplr will need information to differentiate your Checkers blockchain from the other chains. Prepare your Checkers blockchain info in a new `src/types/checkers/chain.ts` file:
 
-```typescript [TODO]
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/types/checkers/chain.ts]
 import { ChainInfo } from "@keplr-wallet/types"
 
 export const checkersChainId = "checkers"

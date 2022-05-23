@@ -368,7 +368,7 @@ The blockchain client itself knows how to serialize or deserialize it only becau
 
 <HighlightBox type="info">
 
-To learn how to make your own types for your own blockchain project, head to [Create my own CosmJS objects](/academy/4-my-own-chain/cosmjs-objects.md).
+To learn how to make your own types for your own blockchain project, head to [Create my own CosmJS objects](./create-custom.md).
 
 </HighlightBox>
 

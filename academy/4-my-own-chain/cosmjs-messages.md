@@ -190,7 +190,7 @@ public async rejectGame(
 
 ## Test your signing client
 
-For live testing, reuse the `experiment.ts` file created in the [previous section](./cosmjs-objects.md). This time you first need to provide a signer. You learned how to do this in the [CosmJS introduction section](TODO).
+For live testing, reuse the `experiment.ts` file created in the [previous section](./cosmjs-objects.md). This time you first need to provide a signer. You learned how to do this in the [CosmJS introduction section](../xl-cosmjs/first-steps.md).
 
 ### Key preparation with a mnemonic
 

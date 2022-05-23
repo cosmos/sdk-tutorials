@@ -8,7 +8,7 @@ tag: deep-dive
 # Compose Complex Transactions
 
 <HighlightBox type="learning">
-    
+
 In Cosmos, a transaction is able to encapsulate multiple messages.
 
 In this section, you will:
@@ -180,7 +180,7 @@ As a reminder from the previous tutorial, the `typeUrl: "/cosmos.bank.v1beta1.Ms
 
 <HighlightBox type="info">
 
-To learn how to make your own types for your own blockchain project, head to [Create my own CosmJS objects](/academy/4-my-own-chain/cosmjs-objects.md).
+To learn how to make your own types for your own blockchain project, head to [Create my own CosmJS objects](./create-custom.md).
 
 </HighlightBox>
 
@@ -288,7 +288,7 @@ const result = await signingClient.signAndBroadcast(
 )
 ```
 
-When you create [your own message types in CosmJS](TODO), they have to follow this format and be declared in the same fashion.
+When you create [your own message types in CosmJS](./create-custom.md), they have to follow this format and be declared in the same fashion.
 
 <!-- Not supported at the moment.
 
