@@ -713,7 +713,7 @@ module.exports = {
       }
     ],
     assetsOptimization: {
-      breakpoints: [200, 600, 988, 1200],
+      breakpoints: [200, 988, 1200],
       blacklist: ['node_modules', '.vuepress/dist', '.vuepress/theme', '.vuepress/public/resized-images', '.vuepress/public/h5p']
     }
   },
