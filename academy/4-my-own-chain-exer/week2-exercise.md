@@ -58,7 +58,6 @@ It will fail to compile because it is missing `WorldParams2`, a hidden file. Of 
 
 ## When you are ready
 
-The link to submit your exercise via HackerRank will be available here next week.
-<!-- When you are ready to take the test go [here](TODO). -->
+Please submit your exercise via the following link: [HackerRank week 2 exercise submission](https://hr.gs/ida-p1-exercise-week-2).
 
 **Please make sure to submit your exercise till Monday 30th 23:59 UTC.**
