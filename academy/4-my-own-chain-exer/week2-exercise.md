@@ -11,11 +11,13 @@ You are about to perform a small, simple exercise on Hackerrank, to confirm your
 
 # The problem description
 
-The following repository was created with Ignite CLI v0.17.3 and the command:
+The following repository was created with Ignite CLI v0.21.2 and the command:
 
 ```sh
-$ ignite scaffold chain
+$ ignite scaffold chain github.com/b9lab/cosmos-academy-exercise-simple
 ```
+
+Because of the limitations we have with Hackerrank, we do not use Ignite v0.17.3 mentioned in the course content. Anyway, because of the simple nature of this exercise, you should notice minimal differences and not face any extra obstacle.
 
 **The idea is that this blockchain will back a future metaverse**. The blockchain will account for anything of value in it.
 
@@ -47,7 +49,7 @@ A hidden test file will check that your output is properly named and prepared. B
 
 ## How you can prepare
 
-To assist you getting a feel of what it looks like behind the Hackerrank wall, we have put this small [public repository](https://github.com/b9lab/ida-exercise-week-2-student-repo) that contains what you will see minus the hidden files.
+To assist you getting a feel of what it looks like behind the Hackerrank wall, we have put this small [public repository](https://github.com/b9lab/ida-exercise-week-2-student-repo) at the branch `public-student` that contains what you will see minus the hidden files.
 
 It will fail to compile because it is missing `WorldParams2`, a hidden file. Of course, this `WorldParams2` is strictly identical to the `WorldParams` we ask you to create. So you can practice:
 
