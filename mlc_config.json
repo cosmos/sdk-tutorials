@@ -1,6 +1,10 @@
 {
     "replacementPatterns": [
         {
+            "pattern": "^/.[^/]*(png|svg|jpg|jpeg)$",
+            "replacement": "{{BASEURL}}/.vuepress/public$&"
+        },
+        {
             "pattern": "^/",
             "replacement": "{{BASEURL}}/"
         }
