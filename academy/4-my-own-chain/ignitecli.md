@@ -275,7 +275,7 @@ $ npm run serve
 
 <ExpansionPanel title="Troubleshooting">
 
-<PanelListItem number="1" :last="true">
+<PanelListItem number="1">
 
 If Vue complains about linting, for instance with:
 
@@ -295,6 +295,27 @@ You can safely tell it to ignore linting. To do that, in `package.json`, change 
     }
 }
 ```
+
+</PanelListItem>
+
+<PanelListItem number="2" :last="true">
+
+If `npm run serve` (Node v16) complains about `node-sass`, these versions should work in `package.json`:
+
+```json
+"dependencies": {
+    "@starport/vue": "0.1.53",
+    "@starport/vuex": "0.1.53",    
+},
+"devDependencies": {
+    "node-sass": "^6.0.1",
+    "sass-loader": "^10.0.0"
+}
+```
+
+Do not forget to redo `npm install`.
+
+Otherwise, try downgrading Node to version 14.
 
 </PanelListItem>
 
