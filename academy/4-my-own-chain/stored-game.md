@@ -276,7 +276,7 @@ Ignite CLI separates concerns into different files in the compilation of a servi
 
 ## Helper functions
 
-Your stored game stores are only strings, but they represent `sdk.AccAddress` or even a game from the `rules` file. Therefore, you add helper functions to `StoredGame` to do operations on them.
+Your stored game stores are only strings, but they represent `sdk.AccAddress` or even a game from the `rules` file. Therefore, you add helper functions to `StoredGame` to do operations on them. Create a new file `x/checkers/types/full_game.go`.
 
 1. Get the game `Creator`:
 
