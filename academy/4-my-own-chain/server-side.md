@@ -673,7 +673,7 @@ $ checkersd tx checkers create-game $alice $bob 1 token --from $alice
 Alternatively, use a GUI if preferred. The indexer should log something like:
 
 ```
-New game: 0, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
+New game: 1, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
 ```
 
 It should update `db.json` to:
@@ -688,17 +688,17 @@ It should update `db.json` to:
     "players": {
         "cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw": {
             "gameIds": [
-                "0"
+                "1"
             ]
         },
         "cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s": {
             "gameIds": [
-                "0"
+                "1"
             ]
         }
     },
     "games": {
-        "0": {
+        "1": {
             "redAddress": "cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s",
             "blackAddress": "cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw"
         }
@@ -711,13 +711,13 @@ It should update `db.json` to:
 
 
 ```sh
-$ checkersd tx checkers reject-game 0 --from $bob -y
+$ checkersd tx checkers reject-game 1 --from $bob -y
 ```
 
 The indexer should log something like:
 
 ```
-Reject game: 0, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
+Reject game: 1, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
 ```
 
 It should update `db.json` to:
@@ -738,7 +738,7 @@ It should update `db.json` to:
         }
     },
     "games": {
-        "0": {
+        "1": {
             "redAddress": "cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s",
             "blackAddress": "cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw"
         }
@@ -905,7 +905,7 @@ const handleEventForfeit = async (event: StringEvent): Promise<void> => {
 Run the previous tests again. Create a game and see how the deletion event is picked up:
 
 ```
-Forfeit game: 1, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s, winner: NO_PLAYER
+Forfeit game: 1, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s, winner: *
 ```
 
 ## Patch a game
