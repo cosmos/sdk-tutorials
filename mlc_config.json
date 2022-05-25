@@ -27,9 +27,6 @@
         },
         {
             "pattern": "^http://127.0.0.1"
-        },
-        {
-            "pattern": "^https://opensource.org/licenses/mit-license.html"
         }
     ]
 }
