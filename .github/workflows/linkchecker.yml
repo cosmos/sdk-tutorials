@@ -3,6 +3,10 @@ name: Check Markdown links
 on: 
   schedule: 
     - cron: '* */24 * * *'
+  pull_request:
+    branches:
+      - master
+      - b9lab-ida-final-content
 jobs:
   markdown-link-check:
     runs-on: ubuntu-latest
