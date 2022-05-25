@@ -1,0 +1,32 @@
+{
+    "timeout": "20s",
+    "retryOn429": true,
+    "retryCount": 5,
+    "fallbackRetryDelay": "30s",
+    "httpHeaders": [
+        {
+          "urls": ["https://docs.github.com/"],
+          "headers": {
+            "Accept-Encoding": "zstd, br, gzip, deflate"
+          }
+        }
+    ],
+    "replacementPatterns": [
+        {
+            "pattern": "^/.[^/]*(png|svg|jpg|jpeg)$",
+            "replacement": "{{BASEURL}}/.vuepress/public$&"
+        },
+        {
+            "pattern": "^/",
+            "replacement": "{{BASEURL}}/"
+        }
+    ],
+    "ignorePatterns": [
+        {
+            "pattern": "^http://localhost"
+        },
+        {
+            "pattern": "^http://127.0.0.1"
+        }
+    ]
+}
