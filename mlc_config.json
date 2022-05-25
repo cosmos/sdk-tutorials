@@ -20,5 +20,10 @@
             "pattern": "^/",
             "replacement": "{{BASEURL}}/"
         }
+    ],
+    "ignorePatterns": [
+        {
+          "pattern": "^http://localhost"
+        }
     ]
 }
