@@ -219,12 +219,20 @@ Flags:
 
 You kept the two accounts created by Ignite CLI.
 
-Have `alice` start a game with `bob`. Instead of having to copy and paste the addresses each time you need them, you can store these as variables:
+Have `alice` start a game with `bob`.
+
+<HighlightBox type="remember">
+
+Instead of having to copy and paste the addresses each time you need them, you can store these as variables:
 
 ```sh
 $ export alice=$(checkersd keys show alice -a)
 $ export bob=$(checkersd keys show bob -a)
 ```
+
+You will have to redo this for every new shell, and for every use of the `--reset-once` flag.
+
+</HighlightBox>
 
 How much gas is needed? You can get an estimate by dry running the transaction using the `--dry-run` flag:
 
