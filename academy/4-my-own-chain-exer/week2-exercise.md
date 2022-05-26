@@ -40,6 +40,12 @@ Your goal is to run an Ignite command to create a new Protobuf type that follows
 3. It is unique in the blockchain store. At what key it is stored does not matter, but you should keep the naming conventions of keeper functions chosen by Ignite.
 4. It should not have any associated messages.
 
+<HighlightBox type="warn">
+
+Do **not** create any object named `WorldParams2` or try to _fix_ something that you believe is broken with `WorldParams2`.
+
+</HighlightBox>
+
 ## How your work is tested
 
 A hidden test file will check that your output is properly named and prepared. Based on that:
