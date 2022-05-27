@@ -59,7 +59,7 @@ func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (
 A new rule of the game should be that a player cannot reject a game once they begin to play. When loading a `StoredGame` from storage you have no way of knowing whether a player already played or not. To access this information add a new field to the `StoredGame` called `MoveCount`. In `proto/checkers/stored_game.proto`:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/59db7fb5/proto/checkers/stored_game.proto#L13]
-storedGame := types.StoredGame{
+message StoredGame {
     ...
     uint64 moveCount = 7;
 }

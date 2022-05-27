@@ -349,7 +349,7 @@ With the desired steps defined in the wager handling functions, it is time to in
 2. When a player wins as a result of a move:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/x/checkers/keeper/msg_server_play_move.go#L79-L86]
-    if storedGame.Winner == rules.NO_PLAYER.Color {
+    if storedGame.Winner == rules.PieceStrings[rules.NO_PLAYER] {
         ...
     } else {
         ...

@@ -377,8 +377,8 @@ Note how all the events aggregate in a single context. The context is not reset 
 
 Currently, the game expiry is one day in the future. This is too long to test with the CLI. Temporarily set it to 5 minutes:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a74b20c/x/checkers/types/keys.go#L38]
-MaxTurnDurationInSeconds = time.Duration(5 * 60 * 1000_000_000) // 5 minutes
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/types/keys.go#L38]
+MaxTurnDuration = time.Duration(5 * 60 * 1000_000_000) // 5 minutes
 ```
 
 Avoid having games in the FIFO that expire in a day because of your earlier tests:

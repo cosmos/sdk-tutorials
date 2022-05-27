@@ -247,7 +247,7 @@ Feel free to create another game won by the red player.
 
 ## Interact via the CLI
 
-If you have created games in an earlier version of the code, you are now in a broken state. You cannot even play the old games because they have `.Winner == ""` and this will be caught by the `if storedGame.Winner != rules.NO_PLAYER.Color` test. Start again:
+If you have created games in an earlier version of the code, you are now in a broken state. You cannot even play the old games because they have `.Winner == ""` and this will be caught by the `if storedGame.Winner != rules.PieceStrings[rules.NO_PLAYER]` test. Start again:
 
 ```sh
 $ ignite chain serve --reset-once
@@ -259,58 +259,14 @@ Confirm that there is no winner for a game when it is created:
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $alice
-$ checkersd query checkers show-stored-game 0
+$ checkersd query checkers show-stored-game 1
 ```
 
 This should show:
 
 ```
 ...
-  winner: NO_PLAYER
-...
-```
-
-And when a player plays:
-
-```sh
-$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
-$ checkersd query checkers show-stored-game 0
-```
-
-This should show:
-
-```
-...
-  winner: NO_PLAYER
-...
-```
-
-Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests or with a nice GUI. You will be able to partially test this in the [next section](./game-forfeit.md), via a forfeit.
-
-<!-- This headline should be deleted if no text follows ## Unit tests -->
-
-## Interact via the CLI
-
-If you have created games in an earlier version of the code, you are now in a broken state. You cannot even play the old games because they have `.Winner == ""` and this will be caught by the `if storedGame.Winner != rules.NO_PLAYER.Color` test. Start again:
-
-```sh
-$ ignite chain serve --reset-once
-```
-
-Do not forget to export `alice` and `bob` again, as explained in an [earlier section](./create-message.md).
-
-Confirm that there is no winner for a game when it is created:
-
-```sh
-$ checkersd tx checkers create-game $alice $bob --from $alice
-$ checkersd query checkers show-stored-game 0
-```
-
-This should show:
-
-```
-...
-  winner: NO_PLAYER
+  winner: "*"
 ...
 ```
 
@@ -325,7 +281,7 @@ This should show:
 
 ```
 ...
-  winner: NO_PLAYER
+  winner: "*"
 ...
 ```
 
