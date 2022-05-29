@@ -56,7 +56,7 @@ The most important difference compared to Bitcoin is the implementation of distr
 
 The code execution platform is [Turing-complete](https://en.wikipedia.org/wiki/Turing_completeness). As part of Turing-completeness, frameworks must overcome the [halting problem](https://www.scientificamerican.com/article/why-is-turings-halting-pr/), which is especially difficult in distributed, hierarchy-free computing platforms. 
 
-In simple terms, the halting problem describes a scenario in which a program loops forever. Ethereum's solution is to introduce **Gas** as a fee for each computational step. Every block has a maximum Gas limit which limits the number of computational steps that can be executed per block - just like a combustion engine, if the Gas runs out then the program stops. Gas only exists during the execution of a transaction and the user is free to specify any **Gas price** in terms of **Ether**, a value which Ethereum requires to convert **Ether to Gas**.
+In simple terms, the halting problem describes a scenario in which a program loops forever. Ethereum's solution is to introduce **Gas** as a fee for each computational step. Every block has a maximum Gas limit which limits the number of computational steps that can be executed per block - just like a combustion engine, if the Gas runs out then the program stops. Gas only exists during the execution of a transaction and the user is free to specify any **Gas price** in terms of **Gwei**, a value which Ethereum requires to convert **Ether to Gas**.
 
 <HighlightBox type="info">
 
