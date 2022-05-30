@@ -58,7 +58,7 @@ Begin with the minimum game information needed to be stored:
 
 After you know **what** to store, you have to decide **how** to store a game. This is important if you want your blockchain application to accommodate multiple simultaneous games. The game is identified by a unique ID.
 
-How should you generate the ID? Players cannot choose it themselves, as this could lead to transactions failing because of an ID clash. You cannot rely on a large random number like a universally unique identifier (UUID), because transactions have to be verifiable in the future. Verifiable means that nodes verifying the block need to arrive at the same conclusion. However the `new UUID()` command is not deterministic. It is better to have a counter incrementing on each new game. This is possible because the code execution happens in a single thread.
+How should you generate the ID? Players cannot choose it themselves, as this could lead to transactions failing because of an ID clash. You cannot rely on a large random number like a universally unique identifier (UUID), because transactions have to be verifiable in the future. Verifiable means that nodes verifying the block need to arrive at the same conclusion. However, the `new UUID()` command is not deterministic. It is better to have a counter incrementing on each new game. This is possible because the code execution happens in a single thread.
 
 The counter must be kept in storage between transactions. Instead of a single counter, you can keep a unique object at a singular location, and easily add relevant elements to the object as needed in the future. Designate `idValue` to the counter.
 
