@@ -266,10 +266,10 @@ Boot up the frontend created by Ignite CLI by using the commands provided in the
 ```sh
 $ cd vue
 $ npm install
-$ npm run serve
+$ npm run dev
 ```
 
-Navigate to [localhost:8080](http://localhost:8080/). On the client-side, no wallets have been created or imported yet. Load Alice's wallet in the GUI to have some tokens. You will need to use the mnemonic for Alice, which you can find in the output of the `ignite chain serve` command. Copy and paste it to _import a wallet_.
+Navigate to [localhost:3000](http://localhost:3000/). On the client-side, no wallets have been created or imported yet. Load Alice's wallet in the GUI to have some tokens. You will need to use the mnemonic for Alice, which you can find in the output of the `ignite chain serve` command. Copy and paste it to _import a wallet_.
 
 Now you should see the balance of Alice's account and can act on her behalf.
 
