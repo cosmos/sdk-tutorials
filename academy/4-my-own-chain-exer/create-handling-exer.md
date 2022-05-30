@@ -22,7 +22,7 @@ You have created a message that is intended to create a game. However, it does n
 * How would you unit-test this message handling?
 * How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
-For now, don't bother with niceties like gas metering or event emission.
+For now, do not bother with niceties like gas metering or event emission.
 
 ## Next up
 

@@ -27,7 +27,7 @@ Players can now reject games, so there is a way for stale games to be removed fr
 * How would you unit-test these new elements?
 * How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
-For now, don't bother yet with future ideas like wager handling.
+For now, do not bother yet with future ideas like wager handling.
 
 ## Next up
 

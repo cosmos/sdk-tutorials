@@ -1,11 +1,11 @@
 ---
-title: The Custom Objects for Your Checkers Blockchain
+title: Create Custom Objects for Your Checkers Blockchain
 order: 22
 description: Creating the objects for your GUI
 tag: deep-dive
 ---
 
-# The Custom Objects for Your Checkers Blockchain
+# Create Custom Objects for Your Checkers Blockchain
 
 <HighlightBox type="prerequisite">
 
@@ -85,7 +85,7 @@ You should now have your Typescript files. Save these scripts into a `proto-ts-g
 $ npm run proto-ts-gen
 ```
 
-Do not forget to install the Protobujs package in your client project:
+Do not forget to install the Protobuf.js package in your client project:
 
 ```sh
 $ npm install protobufjs@6.10.2 --save-exact
@@ -93,7 +93,7 @@ $ npm install protobufjs@6.10.2 --save-exact
 
 ## Prepare integration
 
-At a later stage you will add Checkers as an extension to Stargate, but you can define your Checkers extension immediately. The `canPlay` query could make use of better-typed player and position. Declare them in `client/src/checkers/player.ts`:
+At a later stage you will add Checkers as an extension to Stargate, but you can define your Checkers extension immediately. The `canPlay` query could make use of better types for player and position. Declare them in `client/src/checkers/player.ts`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/types/checkers/player.ts#L1-L5]
 export type Player = "b" | "r"
@@ -137,7 +137,7 @@ export interface CheckersExtension {
 }
 ```
 
-Don't forget a _setup_ function, as this is expected by Stargate:
+Do not forget a _setup_ function, as this is expected by Stargate:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/modules/checkers/queries.ts#L39-L94]
 export function setupCheckersExtension(base: QueryClient): CheckersExtension {

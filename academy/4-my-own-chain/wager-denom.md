@@ -229,7 +229,7 @@ func (suite *IntegrationTestSuite) TestPlayMovePlayerPaidForeignToken() {
 
 There is no need to further test the event emitted by the bank, which is not your code, other than for curiosity.
 
-Don't forget to add similar tests for when the money goes the other way (i.e. when [rejecting](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_reject_game_test.go#L213-L251), [winning](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_play_move_winner_test.go#L149-L189), and [forfeiting](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/end_block_server_game_test.go#L496-L546)).
+Do not forget to add similar tests for when the money goes the other way (i.e. when [rejecting](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_reject_game_test.go#L213-L251), [winning](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_play_move_winner_test.go#L149-L189), and [forfeiting](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/end_block_server_game_test.go#L496-L546)).
 
 ## Interact via the CLI
 

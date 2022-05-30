@@ -63,7 +63,7 @@ export interface MsgPlayMoveEncodeObject... {}
 ...
 ```
 
-This will need to be repeated for each of the messages that you'll need. To refresh your memory, that's:
+This needs to be repeated for each of the messages that you require. To refresh your memory, that is:
 
 * `MsgCreateGame`
 * `MsgCreateGameResponse`
@@ -89,7 +89,7 @@ function createDefaultRegistry(): Registry {
 }
 ```
 
-Similar to the readonly `StargateClient`, create a `CheckersSigningStargateClient` that inherits from `SigningStargateClient`:
+Similar to the read-only `StargateClient`, create a `CheckersSigningStargateClient` that inherits from `SigningStargateClient`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/src/checkers_signingstargateclient.ts#L33-L57]
 export class CheckersSigningStargateClient extends SigningStargateClient {
@@ -210,7 +210,7 @@ Note that this works as long as you have a mnemonic. If you're running your chai
 $ ignite chain serve --reset-once
 ```
 
-Save Alice's and Bob's mnemonics in their own `alice.key` and `bob.key` right next to `experiment.ts`:
+Save the mnemonics of Alice and Bob in their own `alice.key` and `bob.key` right next to `experiment.ts`:
 
 * Do not add any [extra character](https://github.com/cosmos/b9-checkers-academy-draft/blob/dab7dd4/client/test/live/alice.key.sample) in the files.
 * Add [`*.key` to `.gitignore`](https://github.com/cosmos/b9-checkers-academy-draft/blob/dab7dd4/.gitignore#L2) so as not to commit these test files by mistake.
@@ -229,7 +229,7 @@ Also use the `.gitignore` file to avoid committing key files.
 
 ### Client preparation
 
-In `experiment.ts` create Alice and Bob's clients. For example, for Alice:
+In `experiment.ts` create clients for Alice and Bob. For example, for Alice:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/test/live/experiment.ts#L42-L47]
 const aliceSigner: OfflineDirectSigner = await getSignerFromMnemonic(`${__dirname}/alice.key`)
@@ -355,7 +355,7 @@ Look carefully in the `rawLog` and you can find the wager payment event:
 }
 ```
 
-You can see that the checkers module's escrow address is `cosmos16xx0e...7srm3`.
+You can see that the escrow address of the checkers module is `cosmos16xx0e...7srm3`.
 
 ### Reject the game
 

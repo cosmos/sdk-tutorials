@@ -98,7 +98,7 @@ This returns:
 pebblenet-1
 ```
 
-If you open another terminal window, don't forget to repeat this `source` command, as this is local to the session.
+If you open another terminal window, do not forget to repeat this `source` command, as this is local to the session.
 
 ## Your accounts
 
