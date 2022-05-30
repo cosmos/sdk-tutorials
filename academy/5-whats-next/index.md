@@ -33,10 +33,9 @@ Have something to discuss regarding Cosmos governance, ecosystem, wallets, secur
   </a>
 </p>
 
-
 ## Contribute
 
-Cosmos is an open ecosystem: everyone can contribute! A great place to start if you're new would be to look at any issues marked good first issue.
+Cosmos is an open ecosystem: everyone can contribute! A great place to start if you're new would be to look at any issues marked "good first issue".
 
 There are different ways you can contribute to the Cosmos SDK and related repositories.
 <br/><br/>

@@ -7,7 +7,7 @@ tag: deep-dive
 
 # CosmJS on a Backend Script for Game Indexing
 
-Now that your blockchain is complete, you can think about additional data and services that would add value without increasing cost or complexity on chain.
+Now that your blockchain is complete, you can think about additional data and services that would add value without increasing cost or complexity on-chain.
 
 For example, how do you list all of a player's games? Currently this information is not easily available. You can find the players of a given game, but not the games of a given player. Indexing this on-chain would add storage and computation costs.
 
@@ -24,12 +24,12 @@ To implement this functionality, build a Web 2.0 server to do the indexing. The 
 
 ## Barebones server
 
-As a fast and simple Web 2.0 solution, navigate to the [CosmJS repository](https://github.com/cosmos/academy-checkers-ui) for the Checkers blockchain and perform the following steps:
+As a fast and simple Web 2.0 solution, navigate to the [CosmJS repository](https://github.com/cosmos/academy-checkers-ui) for the checkers blockchain and perform the following steps:
 
-1. Create a sub-directory of the `src` folder (eg `server`).
+1. Create a sub-directory of the `src` folder (e.g. `server`).
 2. Use the `express` Node.js module to create an HTTP REST API.
 3. Use a local `db.json` as a _database_. This is obviously primitive and not thread-safe. In a production setting use a proper database.
-4. Poll the blockchain at regular intervals. As part of an advanced topic, you can use Web sockets.
+4. Poll the blockchain at regular intervals. As part of an advanced topic, you can use WebSockets.
 
 ```sh
 $ cd src/server
@@ -84,7 +84,7 @@ In blockchain, when "deleted" records are materially important, use a soft delet
 
 ### Empty indexer module
 
-A barebones server without any Cosmos elements is defined in an `indexer.ts`. This is not CosmJS related so start from something else if you prefer.
+A barebones server without any Cosmos elements is defined in an `indexer.ts`. This is not CosmJS related, so start from something else if you prefer.
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/20e6149/src/server/indexer.ts]
 import { writeFile } from "fs/promises"
@@ -172,10 +172,14 @@ export const createIndexer = async () => {
 }
 ```
 
+<HighlightBox type="note">
+
 Note:
 
 1. The timer is set at the end of the previous poll, in case indexing takes longer than the interval.
 2. The _database_ is purely in memory as it runs and is saved on exit by catching the interruption signal.
+
+</HighlightBox>
 
 ### Files for execution
 
@@ -374,7 +378,7 @@ The `.env` file contains the `RPC_URL`, adjust it to your situation. If necessar
     $ ignite chain serve
     ```
 
-* If not, follow the relevant instructions to run it, or access a test net.
+* If not, follow the relevant instructions to run it, or access a testnet.
 
 Relaunch `npm run indexer-dev`. You should see the current height rising:
 
@@ -464,11 +468,15 @@ import { toHex } from "@cosmjs/encoding"
 import { Block, IndexedTx } from "@cosmjs/stargate"
 ```
 
+<HighlightBox type="note">
+
 * `while() {}` simplifies the syntax of `await`ing multiple times.
 * The hash is calculated this way as per [here](https://github.com/cosmos/cosmjs/blob/902f21b/packages%2Fstargate%2Fsrc%2Fstargateclient.ts#L74).
 * `console.log("")` puts a new line (`poll` does a `process.stdout.write` which adds no line).
 * The `handleBlock` function uses a new function, `handleTx`. Create one and put `console.log(indexed)` inside to explore what this object is and consider what actions you can take with it.
 * The `EndBlock` part has not yet been incorporated. This is explained in **Prepare for EndBlock**.
+
+</HighlightBox>
 
 ## Handle a transaction
 
@@ -489,8 +497,12 @@ This needs new imports:
 import { ABCIMessageLog, StringEvent } from "cosmjs-types/cosmos/base/abci/v1beta1/abci"
 ```
 
+<HighlightBox type="note">
+
 * [`.flatMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap) transforms an array of arrays into a flattened array.
 * The `handleTx` function uses a new function, `handleEvents`. Create one and put `console.log(events)` in it to explore what this object is and consider what actions you can take with it.
+
+</HighlightBox>
 
 ## Handle events
 
@@ -525,10 +537,14 @@ This needs a new import:
 import { ABCIMessageLog, Attribute, StringEvent } from "cosmjs-types/cosmos/base/abci/v1beta1/abci"
 ```
 
+<HighlightBox type="note">
+
 * `while() {}` simplifies the syntax of `await`ing multiple times.
 * The `handleEvents` function only keeps events that have a `message` type.
 * It only keeps events that emanate from the `checkers` module.
 * It uses a new function, `handleEvent`. Create one and put `console.log(event)` inside to explore what this object is and consider what actions you can take with it.
+
+</HighlightBox>
 
 ## Handle one event
 
@@ -555,13 +571,17 @@ const handleEvent = async (event: StringEvent): Promise<void> => {
 }
 ```
 
+<HighlightBox type="note">
+
 * [`NewGameCreated`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/types/keys.go#L50), [`GameRejected`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/types/keys.go#L60), and [`MovePlayed`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/types/keys.go#L66) are constant values defined in your Go code. They were associated with a `key` of [`"action"`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game.go#L52).
 * Because events are arrays of key/value pairs you must go through them to find what you want, unless you proactively index events as part of a later optimization.
 * `handleEvent` uses three new functions: `handleEventCreate`, `handleEventReject`, and `handleEventPlay`. Create them and put `console.log(event)` inside each to explore what these objects are and consider what actions you would take with them.
 
+</HighlightBox>
+
 ## Handle one create event
 
-Now you update your `db` with the information provided. First, define a convenience function in `createIndexer`:
+Now update your `db` with the information provided. First, define a convenience function in `createIndexer`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/b030b2f/src/server/indexer.ts#L191-L193]
 const getAttributeValueByKey = (attributes: Attribute[], key: string): string | undefined => {
@@ -597,10 +617,14 @@ const handleEventCreate = async (event: StringEvent): Promise<void> => {
 }
 ```
 
+<HighlightBox type="note">
+
 * [`Index`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game.go#L54), [`Black`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game.go#L56), and [`Red`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/keeper/msg_server_create_game.go#L55) are constants from the Go code.
 * You have implemented error handling.
 * `handleEventCreate` is careful not to double-add a given game ID.
 * It does not save `db` as this is under the purview of `poll()`.
+
+</HighlightBox>
 
 ## Handle one reject event
 
@@ -622,8 +646,12 @@ const handleEventReject = async (event: StringEvent): Promise<void> => {
 }
 ```
 
+<HighlightBox type="note">
+
 * `handleEventReject` keeps the game information in the `db`. This is a debatable choice, but helps the `patch` function identify old games that once existed as opposed to games that never existed.
 * There is additional error handling.
+
+</HighlightBox>
 
 ## Handle one play event
 
@@ -648,8 +676,12 @@ const handleEventPlay = async (event: StringEvent): Promise<void> => {
 }
 ```
 
+<HighlightBox type="note">
+
 * `handleEventPlay` returns quietly if there is no winner.
 * As when there is a rejected game, it keeps the game information in the `db`.
+
+</HighlightBox>
 
 ## Test time
 
@@ -897,8 +929,12 @@ const handleEventForfeit = async (event: StringEvent): Promise<void> => {
 }
 ```
 
+<HighlightBox type="note">
+
 * Again there is a lot of error handling.
 * `handleEvent` deletes the game only if there are no winners, which means that it was a deletion, not a forfeit.
+
+</HighlightBox>
 
 ## Test time of forfeit
 
@@ -976,7 +1012,7 @@ const patchGame = async (gameId: string): Promise<boolean> => {
 
 There are some issues to be aware of:
 
-1. Javascript is not thread-safe, so you could cause two opposite actions: one coming from the polling the other from a patch submission, or even from two concurrent patch submissions. To reduce this risk the _database_ is not saved to disk in this function, but instead relies on the polling to save it at the next run.
+1. Javascript is not thread-safe, so you could cause two opposite actions: one coming from the polling and the other from a patch submission, or even from two concurrent patch submissions. To reduce this risk the _database_ is not saved to disk in this function, but instead relies on the polling to save it at the next run.
 2. Assuming that _there is no such game when you cannot find it_ can result in deleting data that is simply taking time to appear on your blockchain node.
 
 Next, you need to call `patchGame` from the `app.patch` callback:
@@ -1041,6 +1077,6 @@ You have created a small server that:
 * Offers this information as a Web service.
 * Accepts requests for patches.
 
-This is an example of server-side scripts, one that can improve user experience.
+These are examples of server-side scripts, which can improve user experience.
 
 You can find the complete code [here](https://github.com/cosmos/academy-checkers-ui/tree/server-indexing).

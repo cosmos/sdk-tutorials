@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Exercise - Query - Help Find a Correct Move
 
-Since sending transactions includes costs, how do you assist participants in making sure they at least don't make a wrong move?
+Since sending transactions includes costs, how do you assist participants in making sure they at least do not make a wrong move?
 
 ## Think
 

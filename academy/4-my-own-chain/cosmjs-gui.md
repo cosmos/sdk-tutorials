@@ -75,7 +75,11 @@ Your GUI uses React v18, which uses Webpack v5. Therefore you need to [adjust We
     }
     ```
 
-    Note you can also pass along the `RPC_URL` as an environment variable.
+    <HighlightBox type="note">
+
+    You can also pass along the `RPC_URL` as an environment variable.
+
+    </HighlightBox>
 
 3. Change the run targets to use `react-app-rewired` in `package.json`:
 
@@ -184,12 +188,16 @@ export function storedsToGameInfos(games: StoredGame[]): IGameInfo[] {
 }
 ```
 
-Note:
+<HighlightBox type="note">
+
+Here:
 
 * You use Cosmos addresses instead of names.
 * You put today in the creation date because it is not stored in `StoredGame`.
 * You set the `last` played date to deadline minus expiry duration (an adequate solution).
 * The possibility of "AI" is not important.
+
+</HighlightBox>
 
 <HighlightBox type="info">
 
@@ -240,7 +248,11 @@ For instance, prepare access to `rpcUrl` for `MenuContainer.tsx` by adding it to
     }
     ```
 
-    Note you have to create the _missing_ `AppProps` entirely.
+    <HighlightBox type="note">
+
+    You have to create the _missing_ `AppProps` entirely.
+
+    </HighlightBox>
 
 3. Finally, to `src/index.tsx`:
 
@@ -254,7 +266,11 @@ For instance, prepare access to `rpcUrl` for `MenuContainer.tsx` by adding it to
     )
     ```
 
-    Note the `!`, which forces the type of `.RPC_URL` from `string | undefined` to `string`.
+    <HighlightBox type="note">
+
+    The `!` forces the type of `.RPC_URL` from `string | undefined` to `string`.
+
+    </HighlightBox>
 
 Whenever another component needs the `rpcUrl`, adapt and reproduce these steps as necessary.
 
@@ -295,7 +311,11 @@ constructor(props: IMenuContainerProps) {
    }
     ```
 
-    Note that this creates it only once by saving the client in the state.
+    <HighlightBox type="note">
+
+    This creates it only once by saving the client in the state.
+
+    </HighlightBox>
 
 Instantiating a `CheckersSigningStargateClient` is more involved, as you will see later on.
 
@@ -318,7 +338,7 @@ A good next step is to add a new function to `CheckersStargateClient` to handle 
 
 ### A specific GUI method
 
-In the future you may want to reuse the `CheckersStargateClient` code in another GUI or for backend scripts. To avoid polluting the code, and to avoid a less-elegant helper where you need to pass a Stargate client as parameter, add [an extension method](https://www.c-sharpcorner.com/article/learn-about-extension-methods-in-typescript/#:~:text=Extension%2Dmethod%20gives%20you%20the,any%20data%2Dtype%20you%20want) to `CheckersStargateClient`.
+In the future you may want to reuse the `CheckersStargateClient` code in another GUI or for backend scripts. To avoid polluting the code, and to avoid a less-elegant helper where you need to pass a Stargate client as a parameter, add [an extension method](https://www.c-sharpcorner.com/article/learn-about-extension-methods-in-typescript/#:~:text=Extension%2Dmethod%20gives%20you%20the,any%20data%2Dtype%20you%20want) to `CheckersStargateClient`.
 
 In a new `src/types/checkers/extensions-gui.ts`:
 
@@ -347,13 +367,17 @@ In a new `src/types/checkers/extensions-gui.ts`:
     }
     ```
 
+    <HighlightBox type="note">
+
     Note this does not care about pagination or games beyond the first 20. This purely-GUI detail is left as an exercise.
+
+    </HighlightBox>
 
 ### All games call
 
 Next, in `MenuContainer.tsx`:
 
-1. Add an empty `import` for the extension method file, otherwise the method is not compiled in:
+1. Add an empty `import` for the extension method file, otherwise the method is not compiled:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/MenuContainer.tsx#L4]
     import {} from "../../types/checkers/gui-extensions"
@@ -483,11 +507,15 @@ Looking into `GameContainer`, you see that `componentDidMount` gets all the game
     }
     ```
 
-    Note:
+    <HighlightBox type="note">
+
+    Here:
 
     * You force `isSaved` to `true` since it is always saved in the blockchain.
     * Saving `game.index` to state is unimportant because it is actually passed in `IGameContainerProps.index`.
     * By having a separate `loadGame`, you can call it again if you know the game has changed.
+
+    </HighlightBox>
 
 Restart `npm start` and you should now see your game. If you have access to `checkersd`, or any other way to send a transaction, you can make a move from the command line and refresh to confirm the change. If not, wait for the procedure about playing.
 
@@ -565,7 +593,11 @@ export const getCheckersChainInfo = (): ChainInfo => ({
 })
 ```
 
-Note that the `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](./with-keplr.md) section.
+<HighlightBox type="note">
+
+The `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](./with-keplr.md) section.
+
+</HighlightBox>
 
 ### Prepare a signing client
 
@@ -647,9 +679,13 @@ For instance, in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
     }
     ```
 
-    Setting up Keplr is idempotent, so repeating these operations more than once is harmless. You may want to separate these actions into more defined methods at a later optimization stage.
+    <HighlightBox type="note">
+
+    Setting up Keplr is [idempotent](https://www.merriam-webster.com/dictionary/idempotent#:~:text=Definition%20of%20idempotent,plural%20idempotents), so repeating these operations more than once is harmless. You may want to separate these actions into more defined methods at a later optimization stage.
 
     Note too that a default gas price is passed in, so that you can use `"auto"` when sending a transaction.
+
+    </HighlightBox>
 
 Your component is now ready to send transactions to the blockchain. Why choose `NewGameModal.tsx` as the example? Because this is where a new game is created.
 
@@ -661,7 +697,7 @@ This modal window pops up when you click on <kbd>New Game</kbd>:
 
 The player names look ready-made to take the player's Cosmos addresses.
 
-Look around the code and you see that the action takes place in `src/components/Menu/NewGameModal/NewGameModal.tsx`. Thanks to the previous preparation with `CheckersSigningStargateClient` it is ready to send transactions>
+Examine the code, and focus on `src/components/Menu/NewGameModal/NewGameModal.tsx`. Thanks to the previous preparation with `CheckersSigningStargateClient` it is ready to send transactions:
 
 1. In `extensions-gui.ts` declare an extension method to your `CheckersSigningStargateClient` that encapsulates knowledge about how to get the newly created game index out of the events:
 
@@ -685,10 +721,14 @@ Look around the code and you see that the action takes place in `src/components/
     }
     ```
 
-    Note:
+    <HighlightBox type="note">
+
+    Keep in mind:
 
     * For the sake of simplicity, a possible wager is completely omitted.
     * The `getCreatedGameId` is defined in a [previous section](./cosmjs-messages.md).
+
+    </HighlightBox>
 
 2. In `NewGameModal.tsx` add an empty import of the extension method so that it is compiled in:
 
@@ -764,7 +804,7 @@ If you do not yet know your Keplr address on the Checkers network, you will have
 
 4. Now start again to actually create a game. Accept the transaction, and you are redirected to the game page. This time the content of the game is from the blockchain.
 
-## Play a game
+## Play a move
 
 In the `GameContainer.tsx` there are `makeMove` and `saveGame` functions. In a blockchain context, `saveGame` is irrelevant, as on each move done with a transaction the game will be automatically _saved_ in the blockchain.
 
@@ -895,7 +935,11 @@ With this done:
     }
     ```
 
+    <HighlightBox type="note">
+
     The assurance is **partial** because what was tested with `canPlayGuiMove` is whether a player of a certain color can make a move or not. When making the move, it takes the Keplr address without cross-checking whether this is indeed the address of the colored player that tested a move. This **could be improved** either at the cost of another call to get the game, or better by adding the black and red addresses in the component's status.
+
+    </HighlightBox>
 
     The remaining code of the `makeMove` method can be deleted.
 

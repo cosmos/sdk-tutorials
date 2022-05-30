@@ -32,7 +32,7 @@ The goal here is not to finalize every conceivable game feature immediately. For
 
 ## Code
 
-**Don't** dive headlong into coding the rules of Checkers in Go - examples will already exist which you can put to use. Your job is to make a blockchain that just happens to enable the game of Checkers.
+**Do not** dive headlong into coding the rules of Checkers in Go - examples will already exist which you can put to use. Your job is to make a blockchain that just happens to enable the game of Checkers.
 
 With that in mind:
 
@@ -41,7 +41,7 @@ With that in mind:
 * How would you unit-test your modest additions?
 * How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
-Run the commands, make the adjustments, and run some tests regarding game storage. Don't go into deeper issues like messages and transactions yet.
+Run the commands, make the adjustments, and run some tests regarding game storage. Do not go into deeper issues like messages and transactions yet.
 
 ## Next up
 

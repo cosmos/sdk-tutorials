@@ -25,7 +25,7 @@ Your blockchain can now create games, but can you play them? Not yet.. so what d
 * How would you unit-test these new elements?
 * How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
-As before, don't bother yet with niceties like gas metering or event emission.
+As before, do not bother yet with niceties like gas metering or event emission.
 
 ## Next up
 
