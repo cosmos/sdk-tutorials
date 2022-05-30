@@ -166,7 +166,7 @@ The Tendermint client `ConsensusState` tracks the timestamp of the block being c
 
 <HighlightBox type="tip">
 
-The next validator set is used for verifying subsequent submitted headers or updates to the counterparty `ConsensusState`. See the following part on [Updating clients](https://interchainacademy.cosmos.network/academy/ibc/clients.html#updating-a-client) for more information about what happens when a validator set changes between blocks.
+The next validator set is used for verifying subsequent submitted headers or updates to the counterparty `ConsensusState`. See the following part on [Updating clients](./#updating-a-client) for more information about what happens when a validator set changes between blocks.
 
 </HighlightBox>
 
