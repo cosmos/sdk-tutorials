@@ -86,7 +86,7 @@ Helper functions can encode and decode the deadline in the storage.
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/58199af8/x/checkers/types/full_game.go#L45-L47]
     func GetNextDeadline(ctx sdk.Context) time.Time {
-        return ctx.BlockTime().Add(MaxTurnDurationInSeconds)
+        return ctx.BlockTime().Add(MaxTurnDuration)
     }
     ```
 
