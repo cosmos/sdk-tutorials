@@ -24,5 +24,4 @@ In this chapter, you will:
 
 </HighlightBox>
 
-
 ![Chain between 1s and 0s image](/cosmos_dev_portal_module-04-lp.png)

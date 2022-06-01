@@ -1,18 +1,25 @@
 ---
-title: "The Inter-Blockchain Communication Protocol"
-order: 1
-description: CONNECTING CHAINS
+parent:
+  title: The Inter-Blockchain Communication Protocol
+  description: Connecting chains
+  number: 5
+tag: deep-dive
+order: 0
+title: Chapter Overview - Connecting Chains with IBC
 ---
 
-## The Inter-Blockchain Communication Protocol
+<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Connecting chains</div>
+<h1 class="mt-4 mb-6">The Inter-Blockchain Communication Protocol</h1>
 
 Ever wondered how cross-chain communication is possible? Get a fast introduction to the world of the Inter-Blockchain Communication (IBC) Protocol.
 
 Learn more about the transportation, authentication, and ordering layer of IBC and take a deeper dive into how token transfers between chains become possible. Finally, have a more detailed look at relaying with IBC.
 
-<HighlightBox type="learning">
+![](/cosmos_dev_portal_module-05-lp.png)
 
-**About this chapter**
+## In this module
+
+<HighlightBox type="learning">
 
 In this chapter, you will:
 
@@ -25,4 +32,17 @@ In this chapter, you will:
 
 </HighlightBox>
 
-![Star between planets image](/planet-collection.svg)
+<card-module/>
+
+## Developer resources
+
+<div v-for="resource in $themeConfig.resources">
+  <Resource
+    :title="resource.title"
+    :description="resource.description"
+    :links="resource.links"
+    :image="resource.image"
+    :large="true"
+  />
+  <br/>
+</div>

@@ -22,5 +22,4 @@ This chapter is all about CosmJS. You will:
 
 </HighlightBox>
 
-
 ![Planet and building blocks image](/planet-pod.svg)

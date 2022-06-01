@@ -12,7 +12,6 @@ Are you ready to continue your journey with Cosmos? What’s next? <br/><br/>
 Do you want to develop your own application-specific blockchain? Or contribute to development of the SDK? <br/><br/>
 Here you can find useful information to launch your journey into the Cosmos universe.
 
-
 ## Community
 
 Check out the Cosmos developer community! Hang out and chat with ~14 thousand other members. Have a burning question, want to stay up to date on community events, and be in touch with the ecosystem?
@@ -68,7 +67,7 @@ There are different ways you can contribute to the Cosmos SDK and related reposi
   :large="true"
 />
 
-<!-- ## Enterprise
+## Enterprise
 
 Are you a developer or enterprise wanting to build your own app? Do you need support?
 
@@ -80,4 +79,4 @@ No worries! Just get in touch with Cosmos enterprise support!
   <div class="mt-8">
     <a class="tm-button tm-button-external"><span>Talk to us</span></a>
   </div>
-</Card> -->
+</Card>
