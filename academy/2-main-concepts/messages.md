@@ -202,7 +202,7 @@ Your work is mostly done. You want to create the specific game creation code to 
 
     <HighlightBox type="info">
 
-    For more details, and to avoid diving too deep in this section, see [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md)
+    For more details, and to avoid diving too deep in this section, see [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
       
       
     </HighlightBox>
