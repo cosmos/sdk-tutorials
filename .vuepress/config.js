@@ -91,18 +91,34 @@ module.exports = {
               directory: true,
             },
             {
-              title: "Running a Chain",
-              path: "/academy/3-running-a-chain",
+              title: "Running Your Own Cosmos Chain - 1",
+              path: "/academy/3-my-own-chain-1",
               directory: true,
             },
             {
-              title: "My Own Cosmos Chain",
-              path: "/academy/4-my-own-chain",
+              title: "Running Your Own Cosmos Chain - 2",
+              path: "/academy/4-my-own-chain-2",
+              directory: true,
+            },
+            {
+              title: "The Inter-Blockchain Communication Protocol",
+              path: "/academy/5-ibc",
+              directory: true,
+            },
+
+            {
+              title: "CosmJS - Interfacing",
+              path: "/academy/6-cosmjs-1",
+              directory: true,
+            },
+            {
+              title: "CosmJS for Your Chain - GUI and Backend Script",
+              path: "/academy/7-cosmjs-2",
               directory: true,
             },
             {
               title: "What's Next?",
-              path: "/academy/5-whats-next/",
+              path: "/academy/8-whats-next/",
               directory: false,
             },
           ],

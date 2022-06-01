@@ -1,6 +1,6 @@
 ---
 title: My own chain as an exercise
-order:
+order: 5
 description: Exercise Introduction
 ---
 
