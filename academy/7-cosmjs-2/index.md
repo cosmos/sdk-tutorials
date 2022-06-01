@@ -15,7 +15,7 @@ Does your blockchain need a GUI? Discover how to give your application-specific 
 
 The end of this module will deal with backend scripts and demonstrate how to use them for game indexing so that you are all set to continue developing using CosmJS.
 
-![](/cosmos_dev_portal_module-05-lp.png)
+![](/green-planet.svg)
 
 ## In this module
 

@@ -15,7 +15,7 @@ Ever wondered how cross-chain communication is possible? Get a fast introduction
 
 Learn more about the transportation, authentication, and ordering layer of IBC and take a deeper dive into how token transfers between chains become possible. Finally, have a more detailed look at relaying with IBC.
 
-![](/cosmos_dev_portal_module-05-lp.png)
+![](/planet-collection.svg)
 
 ## In this module
 
