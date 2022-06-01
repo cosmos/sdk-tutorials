@@ -172,7 +172,7 @@ The following decision tree helps visualize the roadmap towards an IBC-enabled c
 
 Do you have access to an existing chain?
 * **No.** You will have to build a chain:
-    * Cosmos SDK chain: see the [previous chapters](https://interchainacademy.cosmos.network/course-ida/landingpages/week2-lp.html).
+    * Cosmos SDK chain: see the [previous chapters](/3-my-own-chain/index.md).
     * Another chain.
         * Is there a Tendermint light client implementation available for your chain?
             * Yes. Continue.

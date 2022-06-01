@@ -231,7 +231,7 @@ type StoredGame struct {
 }
 ```
 
-If you want to go beyond these out-of-context code samples and instead see more details on defining this, head to [Running Your Own Chain](/course-ida/landingpages/week2-lp.md)
+If you want to go beyond these out-of-context code samples and instead see more details on defining this, head to [Running Your Own Chain](/3-my-own-chain/index.md)
 
 
 </ExpansionPanel>
