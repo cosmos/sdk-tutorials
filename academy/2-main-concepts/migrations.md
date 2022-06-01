@@ -5,7 +5,7 @@ description: How to handle on-chain upgrades
 tag: deep-dive
 ---
 
-# Migrations: on-chain upgrades
+# Migrations: On-chain Upgrades
 
 <HighlightBox type="prerequisite">
 
