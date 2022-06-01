@@ -1,22 +1,22 @@
 ---
 title: "What is CosmJS?"
 order: 1
-description: What is CosmJS and what can it do for me?
-tag: intro
+description: CosmJS and what it can do for me
+tag: fast-track
 ---
 
 # What is CosmJS?
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 Build applications that interact with Cosmos blockchains with CosmJS. 
   
-In this section:
+In this section, you will learn:
   
-* What is CosmJS?
-* What can you use it for?
-* Modular design of CosmJS
-  
+* What CosmJS is.
+* What you can use it for.
+* More details regarding the modular design of CosmJS.
+
 </HighlightBox>
 
 **Distributed applications (dApps)** are _software applications that run on distributed networks_. Blockchains provide persistent data, or the state, as well as persistent processes and logic. The Cosmos SDK helps developers create such applications. A user interface is important in most cases, and server interactions are important in many cases. This is where [CosmJS](https://github.com/cosmos/CosmJS) comes in handy.
@@ -25,7 +25,7 @@ As the name suggests, CosmJS is a Typescript/JavaScript library. It helps develo
 
 This re-introduction of a degree of centralization is usually considered acceptable by most teams, provided that the important business logic of the system is enforced by a blockchain and provided it is not strictly necessary to use the provided user interface in order to use the dApp. As a general heuristic, offer a user interface as a convenience rather than a necessity.
 
-In general, user interfaces help users interpret the blockchain state, compose and sign transactions, and send them - all things that can potentially be accomplished by other less convenient methods. A user interface can be supported by servers or micro-services that also interact with the blockchain.
+In general, user interfaces help users interpret the blockchain state, compose and sign transactions, and send them - all things that are potentially accomplished by other less convenient methods. A user interface is supported by servers or micro-services that also interact with the blockchain.
 
 ## Some examples
 
@@ -56,18 +56,20 @@ Developers need a tool-kit to accomplish things that address these foundational 
 
 CosmJS assists with these tasks and more.
 
-CosmJS's modular structure lets developers import only the parts that are needed, which helps reduce download payloads. Since the library is unopinionated, it is compatible with popular JavaScript frameworks such as Vue, React, and Express.
+The modular structure of CosmJS lets developers import only the parts that are needed, which helps reduce download payloads. Since the library is unopinionated, it is compatible with popular JavaScript frameworks such as Vue, React, and Express.
 
 ## Packages
 
-CosmJS is a library that consists of many smaller npm packages within the [@cosmjs namespace](https://www.npmjs.com/org/cosmjs), a so called monorepo.
-Generally people will only be needing the `stargate` and `encoding` packages as they contains the main functionality to interact with Cosmos SDK chains version 0.40 and higher.
-Among many more, here are some examples packages:
+CosmJS is a library that consists of many smaller npm packages within the [@cosmjs namespace](https://www.npmjs.com/org/cosmjs), a so-called "monorepo".
+
+Generally people only need the `stargate` and `encoding` packages as they contain the main functionality to interact with Cosmos SDK chains version 0.40 and higher.
+
+Among many more, here are some example packages:
 
 | Package                                                 | Description                                                                                                                                                                                                                              | Latest                                                                                                                                |
 | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | [@cosmjs/stargate](packages/stargate)                   | A client library for the Cosmos SDK 0.40+ (Stargate)                                                                                                                                                                                     | [![npm version](https://img.shields.io/npm/v/@cosmjs/stargate.svg)](https://www.npmjs.com/package/@cosmjs/stargate)                   |
-| [@cosmjs/faucet](packages/faucet)                       | A faucet application for node.js                                                                                                                                                                                                         | [![npm version](https://img.shields.io/npm/v/@cosmjs/faucet.svg)](https://www.npmjs.com/package/@cosmjs/faucet)                       |
+| [@cosmjs/faucet](packages/faucet)                       | A faucet application for Node.js                                                                                                                                                                                                         | [![npm version](https://img.shields.io/npm/v/@cosmjs/faucet.svg)](https://www.npmjs.com/package/@cosmjs/faucet)                       |
 | [@cosmjs/cosmwasm-stargate](packages/cosmwasm-stargate) | Client for Stargate chains with the CosmWasm module enabled                                                                                                                                                                              | [![npm version](https://img.shields.io/npm/v/@cosmjs/cosmwasm-stargate.svg)](https://www.npmjs.com/package/@cosmjs/cosmwasm-stargate) |
 | [@cosmjs/crypto](packages/crypto)                       | Cryptography for blockchain projects, e.g. hashing (SHA-2, Keccak256, Ripemd160), signing (secp256k1, ed25519), HD key derivation (BIP-39, SLIP-0010), KDFs and symmetric encryption for key storage (PBKDF2, Argon2, XChaCha20Poly1305) | [![npm version](https://img.shields.io/npm/v/@cosmjs/crypto.svg)](https://www.npmjs.com/package/@cosmjs/crypto)                       |
 | [@cosmjs/encoding](packages/encoding)                   | Encoding helpers for blockchain projects                                                                                                                                                                                                 | [![npm version](https://img.shields.io/npm/v/@cosmjs/encoding.svg)](https://www.npmjs.com/package/@cosmjs/encoding)                   |
@@ -92,4 +94,4 @@ Some additional reading or video material is available as well:
 
 ## Next up
 
-Take your [first steps with CosmJS](./first-steps.md).
+Take your first steps with CosmJS in the [next section](./first-steps.md).

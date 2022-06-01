@@ -1,7 +1,7 @@
 ---
 title: IBC Token - Play With Cross-Chain Tokens
 order: 18
-description: Let players wager any fungible token
+description: Letting players wager any fungible token
 tag: deep-dive
 ---
 
@@ -14,10 +14,10 @@ Make sure you have all you need before proceeding:
 * You understand the concepts of [messages](../2-main-concepts/messages.md), [Protobuf](../2-main-concepts/protobuf.md), and [IBC](../2-main-concepts/ibc.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to the _can play_ query. If not, follow the [previous steps](./can-play.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
-    
+
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
 
@@ -40,6 +40,7 @@ Your checkers application will be agnostic regarding tokens and relayers. Your o
 Instead of defaulting to `"stake"`, let players decide what string represents their token:
 
 1. Update the stored game:
+
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/proto/checkers/stored_game.proto#L19]
     message StoredGame {
         ...
@@ -56,30 +57,30 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
     }
     ```
 
-Instruct Ignite CLI and Protobuf to recompile both files:
+3. Instruct the Ignite CLI and Protobuf to recompile both files:
 
-```sh
-$ ignite generate proto-go
-```
+    ```sh
+    $ ignite generate proto-go
+    ```
 
-It is recommended to also update the `MsgCreateGame` constructor:
+4. It is recommended to also update the `MsgCreateGame` constructor:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/types/message_create_game.go#L16]
-func NewMsgCreateGame(creator string, red string, black string, wager uint64, token string) *MsgCreateGame {
-    return &MsgCreateGame{
-        ...
-        Token: token,
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/types/message_create_game.go#L16]
+    func NewMsgCreateGame(creator string, red string, black string, wager uint64, token string) *MsgCreateGame {
+        return &MsgCreateGame{
+            ...
+            Token: token,
+        }
     }
-}
-```
+    ```
 
-This data will be emitted during game creation, so add a new event key as a constant:
+3. This data will be emitted during game creation, so add a new event key as a constant:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/types/keys.go#L56]
-const (
-    StoredGameEventToken = "Token"
-)
-```
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9a22cd21/x/checkers/types/keys.go#L56]
+    const (
+        StoredGameEventToken = "Token"
+    )
+    ```
 
 ## Additional handling
 
@@ -271,7 +272,7 @@ Which mentions:
 Have Bob play once:
 
 ```sh
-$ checkersd tx checkers play-move 0 1 2 2 3 --from $bob
+$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
 ```
 
 Has Bob been charged the wager?
@@ -301,7 +302,7 @@ With the checkers application ready to accommodate IBC-foreign tokens, you shoul
 
 A relayer is a process that transfers IBC packets between two blockchains. Here this process is **running in your browser** using the account you configured in your browser. The account is the same one you would use to play a game of checkers. Dub it `alice123@checkers`.
 
-1. On the checkers end, the relayer is already configured to connect to your running checkers blockchain and to use the tokens of whichever account you have configured in your browser (here `alice123@checkers`). Therefore, it gets the same privileges to access your tokens that you have granted to the checkers' browser application.
+1. On the checkers end, the relayer is already configured to connect to your running checkers blockchain and to use the tokens of whichever account you have configured in your browser (here `alice123@checkers`). Therefore, it gets the same privileges to access your tokens that you have granted to the checkers browser application.
 2. You need to configure it to connect to the other blockchain which hosts the foreign tokens you want to transfer. This can be the Cosmos Hub, or a [testnet](https://github.com/cosmos/testnets) that you or someone else runs.
 3. You also need to fund the relayer's account on the remote chain so that it can operate. The account is generated from the same private key as `alice123@checkers`, so call it `alice465@remote`. The relayer shows you in the browser which account this is.
 

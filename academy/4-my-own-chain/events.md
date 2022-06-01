@@ -1,7 +1,7 @@
 ---
 title: Events - Emitting Game Information
 order: 9
-description: You emit game information using events
+description: Emitting game information using events
 tag: deep-dive
 ---
 
@@ -14,10 +14,10 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [events](../2-main-concepts/events.md).
 * Go is installed.
 * You have the checkers blockchain codebase with `MsgPlayMove` and its handling. If not, follow the [previous steps](./play-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/play-move-handler).
- 
+
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
 
@@ -27,7 +27,7 @@ In this section, you will:
 
 </HighlightBox>
 
-Now that you have [added the possible actions](./play-game.md), including their return values, use events to alert/notify players.
+Now that you have [added the possible actions](./play-game.md), including their return values, use events to notify players.
 
 Imagine a potential or current player waiting for their turn. It is not practical to look at all the transactions and search for the ones signifying the player's turn. It is better to listen to known events that let clients determine which player's turn it is.
 
@@ -40,7 +40,7 @@ Adding events to your application is as simple as:
 
 Start with the event that announces the creation of a new game. The goal is to:
 
-* Inform/alert the players of the game.
+* Inform the players about the game.
 * Make it easy for the players to find the relevant game.
 
 Define new keys in `x/checkers/types/keys.go`:
@@ -84,7 +84,7 @@ The created transaction to play a move informs the opponent about:
 
 <HighlightBox type="info">
 
-Contrary to the _create game_ event, which alerted the players about a new game, the players now know which game IDs to keep an eye out for. There is no need to repeat the players' addresses, the game ID is information enough.
+Contrary to the _create game_ event, which alerted the players about a new game, the players now know which game IDs to watch for. There is no need to repeat the players' addresses, the game ID is information enough.
 
 </HighlightBox>
 
@@ -154,7 +154,7 @@ How can you _guess_ the order of elements? Easily, as you created them in this o
 2. Run this test in **debug mode**: right-click the green arrow next to the test name.
 3. Observe the live values on the left.
 
-![Live values of event in debug mode](/academy/4-my-own-chain/images/go_test_debug_event_attributes.PNG)
+![Live values of event in debug mode](/academy/4-my-own-chain/images/go_test_debug_event_attributes.png)
 
 The event emitted during a move may seem unexpected. In a _move_ unit test, two actions occur: a _create_, and a _move_. However, in the setup of this test you do not create blocks but _only_ hit your keeper. Therefore the context collects events but does not flush them. This is why you need to test only for the latter attributes, and verify an array slice that discards events that originate from the _create_ action: `event.Attributes[6:]`. This gives the following test:
 
@@ -192,7 +192,7 @@ func TestPlayMoveEmitted(t *testing.T) {
 Bob made a move. Will Alice's move emit an event?
 
 ```sh
-$ checkersd tx checkers play-move 0 0 5 1 4 --from $alice
+$ checkersd tx checkers play-move 1 0 5 1 4 --from $alice
 ```
 
 The log is longer and not very readable, but the expected elements are present:
@@ -235,7 +235,7 @@ This returns something like:
           },
           {
             "key": "IdValue",
-            "value": "0"
+            "value": "1"
           },
           {
             "key": "CapturedX",
@@ -259,7 +259,12 @@ This returns something like:
 As you can see, no pieces were captured. However, it turns out that Alice placed her piece ready to be captured by Bob:
 
 ```sh
-$ checkersd query checkers show-stored-game 0 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\'$'\n/g'
+$ checkersd query checkers show-stored-game 1 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\'$'\n/g'
+```
+
+Which prints:
+
+```
 *b*b*b*b
 b*b*b*b*
 ***b*b*b
@@ -273,7 +278,7 @@ r*r*r*r*
 The rules of the game included in this project mandate that the player captures a piece when possible. So Bob captures the piece:
 
 ```sh
-$ checkersd tx checkers play-move 0 2 3 0 5 --from $bob
+$ checkersd tx checkers play-move 1 2 3 0 5 --from $bob
 ```
 
 This returns:
@@ -310,7 +315,7 @@ When formatted for clarity, you see the following::
           },
           {
             "key": "IdValue",
-            "value": "0"
+            "value": "1"
           },
           {
             "key": "CapturedX",

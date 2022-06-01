@@ -26,8 +26,8 @@ In this chapter, you will:
 
 </HighlightBox>
 
-**This week, make sure to submit your quiz by May 27th.**
+**This week, make sure to submit your exercise by May 30th, 23:59 UTC.**
 
-**The submission of this quiz is required to continue with the program.** Do not worry if you do not pass the quiz: it is meant to be an opportunity to practice and demonstrate your engagement with the program.
+**The submission of this exercise is required to continue with the program.** Do not worry if you do not pass the quiz: it is meant to be an opportunity to practice and demonstrate your engagement with the program.
 
 ![Creating a chain image](/cosmos_dev_portal_module-05-lp.png)

@@ -1,11 +1,11 @@
 ---
-title: Message - Create a Message to Create a Game
+title: Create Custom Messages for Your Checkers Blockchain
 order: 6
-description: You introduce the message to create a game
+description: Introducing the message to create a game
 tag: deep-dive
 ---
 
-# Message - Create a Message to Create a Game
+# Create Custom Messages for Your Checkers Blockchain
 
 <HighlightBox type="prerequisite">
 
@@ -17,10 +17,10 @@ Make sure you have everthing you need before proceeding:
 
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
-    
+
 * Create a game Protobuf object.
 * Create a game Protobuf service interface.
 * Extend your unit tests.
@@ -219,12 +219,20 @@ Flags:
 
 You kept the two accounts created by Ignite CLI.
 
-Have `alice` start a game with `bob`. Instead of having to copy and paste the addresses each time you need them, you can store these as variables:
+Have `alice` start a game with `bob`.
+
+<HighlightBox type="remember">
+
+Instead of having to copy and paste the addresses each time you need them, you can store these as variables:
 
 ```sh
 $ export alice=$(checkersd keys show alice -a)
 $ export bob=$(checkersd keys show bob -a)
 ```
+
+You will have to redo this for every new shell, and for every use of the `--reset-once` flag.
+
+</HighlightBox>
 
 How much gas is needed? You can get an estimate by dry running the transaction using the `--dry-run` flag:
 
@@ -287,7 +295,7 @@ This returns:
 ```
 NextGame:
   creator: ""
-  idValue: "0"
+  idValue: "1"
 ```
 
 </CodeGroupItem>

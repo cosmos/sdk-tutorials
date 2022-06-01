@@ -1,14 +1,14 @@
 ---
 title: "IBC Tooling"
-order: 
-description: 
+order:
+description: Overview of some helpful tools
 tag: deep-dive
 ---
 
-# Tooling
+# IBC Tooling
 
 <HighlightBox type="learning">
-	
+
 In this section, you will discover the following tools:
 
 * MapOfZones
@@ -23,7 +23,7 @@ While going through the overview, it is recommended to try out all there is to d
 
 These types of tools help maintain an overview of the overall IBC network, but can also assist with things like relayer selection, as they provide an overview of essential metrics when it comes to relaying.
 
-## MapOfZones - Explore the Cosmos network
+## MapOfZones - explore the Cosmos network
 
 [MapOfZones](https://mapofzones.com/) is a Cosmos network explorer.
 
@@ -43,8 +43,8 @@ The overview is dynamic and gives you a good feeling of the current activity in 
 * Zoom in and out
 * See the overview in 2D and 3D
 * Filter the zones you see by:
-	* Activity: you can select all, most active, or least active chains.
-	* Trendline: you can chose between uptrend and downtrend.
+    * Activity: you can select all, most active, or least active chains.
+    * Trendline: you can chose between uptrend and downtrend.
 
 All of which can be found on the right-hand side of the overview display.
 
@@ -82,7 +82,7 @@ Now you have an overview for each channel, including: how much IBC volume is tra
 
 <HighlightBox type="note">
 
-There are canonical channels for ICS-20. All other channels will have been created accidentally by (unexperienced) relayers and hence, practically have no transactions.
+There are canonical channels for ICS-20. All other channels will have been created accidentally by (inexperienced) relayers and hence have practically no transactions.
 
 </HighlightBox>
 
@@ -103,7 +103,7 @@ For the first five categories, you can also sort the list in either ascending or
 
 ## Mintscan
 
-[Mintscan](https://hub.mintscan.io) is another Cosmos network explorer. 
+[Mintscan](https://hub.mintscan.io) is another Cosmos network explorer.
 
 It gives an overview of IBC networks, including a visualization (left side) and a list (right side). For the former, the default is set to give you a visualization based on IBC transactions within a 30-day period:
 
@@ -199,7 +199,7 @@ Further below, you can also look into information on the messages involved. Next
 
 ## IOBScan
 
-Now, let's turn our focus to another blockchain explorer, [IOBScan](https://ibc.iobscan.io/home).
+Now, turn your focus to another blockchain explorer, [IOBScan](https://ibc.iobscan.io/home).
 
 From the IOBScan homepage you can get a quick overview of networks, channels, IBC token transfers, and IBC tokens:
 

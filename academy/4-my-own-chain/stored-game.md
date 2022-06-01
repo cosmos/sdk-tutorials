@@ -17,10 +17,10 @@ Make sure you have all you need before proceeding with the exercise:
 
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will handle:
-    
+
 * The Stored Game object
 * Protobuf objects
 * Query.proto
@@ -29,7 +29,7 @@ In this section, you will handle:
 
 </HighlightBox>
 
-In the [Ignite CLI introduction section](./ignitecli) you learned how to start a completely new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
+In the [Ignite CLI introduction section](./ignitecli.md) you learned how to start a completely new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
 
 A good start to developing a checkers blockchain is to define the ruleset of the game. There are many versions of the rules. Choose [a very simple set of basic rules](https://www.ducksters.com/games/checkers_rules.php) to avoid getting lost in the rules of checkers or the proper implementation of the board state.
 
@@ -58,7 +58,7 @@ Begin with the minimum game information needed to be stored:
 
 After you know **what** to store, you have to decide **how** to store a game. This is important if you want your blockchain application to accommodate multiple simultaneous games. The game is identified by a unique ID.
 
-How should you generate the ID? Players cannot choose it themselves, as this could lead to transactions failing because of an ID clash. You cannot rely on a large random number like a universally unique identifier (UUID), because transactions have to be verifiable in the future. It is better to have a counter incrementing on each new game. This is possible because the code execution happens in a single thread.
+How should you generate the ID? Players cannot choose it themselves, as this could lead to transactions failing because of an ID clash. You cannot rely on a large random number like a universally unique identifier (UUID), because transactions have to be verifiable in the future. Verifiable means that nodes verifying the block need to arrive at the same conclusion. However, the `new UUID()` command is not deterministic. It is better to have a counter incrementing on each new game. This is possible because the code execution happens in a single thread.
 
 The counter must be kept in storage between transactions. Instead of a single counter, you can keep a unique object at a singular location, and easily add relevant elements to the object as needed in the future. Designate `idValue` to the counter.
 
@@ -80,11 +80,11 @@ You can rely on Ignite CLI's assistance:
 
     Here `--no-message` prevents game objects from being created or overwritten with a simple `sdk.Msg`. The application instead creates and updates the objects when receiving properly crafted messages like [_create game_](./create-message.md) or [_play a move_](./play-game.md).
 
-The Ignite CLI `scaffold` command creates several files, as you can see [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/821f4592d78e5d689dcc349613c8efb11386f785) and [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/463968fa94a7b6117428bb342c721176086a8d22).
+The Ignite CLI `scaffold` command creates several files, as you can see [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/821f459) and [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/463968f).
 
 The command added new constants:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/keys.go#L28-L34]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/keys.go#L28-L34]
 const (
     NextGameKey = "NextGame-value-"
 )
@@ -100,7 +100,7 @@ These constants are used as prefixes for the keys that can access the storage lo
 
 Ignite CLI creates the Protobuf objects in the `proto` directory before compiling them. The `NextGame` object looks like this:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/next_game.proto#L6-L9]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/proto/checkers/next_game.proto#L6-L9]
 message NextGame {
     string creator = 1;
     uint64 idValue = 2;
@@ -109,7 +109,7 @@ message NextGame {
 
 The `StoredGame` object looks like this:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/stored_game.proto#L6-L13]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/proto/checkers/stored_game.proto#L6-L13]
 message StoredGame {
     string creator = 1;
     string index = 2;
@@ -122,7 +122,7 @@ message StoredGame {
 
 Both objects compile to:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/next_game.pb.go#L25-L28]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/next_game.pb.go#L25-L28]
 type NextGame struct {
     Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
     IdValue uint64 `protobuf:"varint,2,opt,name=idValue,proto3" json:"idValue,omitempty"`
@@ -130,7 +130,7 @@ type NextGame struct {
 ```
 They also compile to:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/stored_game.pb.go#L25-L32]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/stored_game.pb.go#L25-L32]
 type StoredGame struct {
     Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
     Index   string `protobuf:"bytes,2,opt,name=index,proto3" json:"index,omitempty"`
@@ -143,7 +143,7 @@ type StoredGame struct {
 
 These are not the only created Protobuf objects. The genesis state is also defined in Protobuf:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/genesis.proto#L11-L16]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/proto/checkers/genesis.proto#L11-L16]
 import "checkers/stored_game.proto";
 import "checkers/next_game.proto";
 
@@ -153,9 +153,21 @@ message GenesisState {
 }
 ```
 
+<HighlightBox type="best-practice">
+
+At this point, notice that `NextGame` exists from the start. Therefore, it does not have a _creator_ per se. **This exercise keeps it** but if you want, you can choose to remove `creator` from its definition, and readjust the Protobuf numbering. Here, it is okay to reorder the Protobuf numbering because you just started and do not have any backward compatibility to handle.
+
+```protobuf
+message NextGame {
+    uint64 idValue = 1; // For example
+}
+```
+
+</HighlightBox>
+
 This is compiled to:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/genesis.pb.go#L26-L30]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/genesis.pb.go#L26-L30]
 type GenesisState struct {
     StoredGameList []*StoredGame `protobuf:"bytes,2,rep,name=storedGameList,proto3" json:"storedGameList,omitempty"`
     NextGame       *NextGame     `protobuf:"bytes,1,opt,name=nextGame,proto3" json:"nextGame,omitempty"`
@@ -164,7 +176,7 @@ type GenesisState struct {
 
 You can find query objects as part of the boilerplate objects created by Ignite CLI. Ignite CLI creates the objects according to a model, but this does not prevent you from making changes later if you decide these queries are not needed:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/query.proto#L51-L55]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/proto/checkers/query.proto#L51-L55]
 message QueryGetNextGameRequest {}
 
 message QueryGetNextGameResponse {
@@ -174,7 +186,7 @@ message QueryGetNextGameResponse {
 
 The query objects for `StoredGame` are more useful for your checkers game, and look like this:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/query.proto#L35-L50]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/proto/checkers/query.proto#L35-L50]
 message QueryGetStoredGameRequest {
     string index = 1;
 }
@@ -197,14 +209,14 @@ message QueryAllStoredGameResponse {
 
 Ignite CLI puts the different Protobuf messages into different files depending on their use:
 
-* **`query.proto`** - for objects related to reading the state. Ignite CLI modifies this file as you add queries. This includes objects to [query your stored elements](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/query.proto#L35-L55).
+* **`query.proto`** - for objects related to reading the state. Ignite CLI modifies this file as you add queries. This includes objects to [query your stored elements](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/proto/checkers/query.proto#L35-L55).
 * **`tx.proto`** - for objects that relate to updating the state. As you have only defined storage elements with `--no-message`, it is empty for now. The file will be modified as you add transaction-related elements like the message to [create a game](./create-message.md).
 * **`genesis.proto`** - for the genesis. Ignite CLI modifies this file according to how your new storage elements evolve.
 * **`next_game.proto` and `stored_game.proto`** - separate files created once, that remain untouched by Ignite CLI. You are free to modify them but be careful with [numbering](https://developers.google.com/protocol-buffers/docs/overview#assigning_field_numbers).
 
 Files updated by Ignite CLI include comments like:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/query.proto#L14]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/proto/checkers/query.proto#L14]
 // this line is used by starport scaffolding # 2
 ```
 
@@ -214,19 +226,22 @@ Ignite CLI adds code right below the comments, which explains why the oldest lin
 
 </HighlightBox>
 
-Some files created by Ignite CLI can be updated, but you should not modify the Protobuf-compiled files [`*.pb.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/next_game.pb.go) and [`*.pb.gw.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/query.pb.gw.go) as they are recreated on every re-run of `ignite generate proto-go` or equivalent.
+Some files created by Ignite CLI can be updated, but you should not modify the Protobuf-compiled files [`*.pb.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/next_game.pb.go) and [`*.pb.gw.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/query.pb.gw.go) as they are recreated on every re-run of `ignite generate proto-go` or equivalent.
 
 ### Files to adjust
 
 Ignite CLI creates files that you can and should update. For example, the default genesis values:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/genesis.go#L16-L17]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/genesis.go#L16-L20]
 const DefaultIndex uint64 = 1
 
 func DefaultGenesis() *GenesisState {
     return &GenesisState{
         StoredGameList: []*StoredGame{},
-        NextGame:       &NextGame{"", uint64(DefaultIndex)},
+        NextGame: &NextGame{
+            Creator: "",
+            IdValue: uint64(DefaultIndex),
+        },
     }
 }
 ```
@@ -239,7 +254,7 @@ In addition to created objects, Ignite CLI also creates services that declare an
 
 In this case, Ignite CLI added to `service Query` how to query for your objects:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/proto/checkers/query.proto#L16-L30]
+```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/proto/checkers/query.proto#L16-L30]
 service Query {
     rpc StoredGame(QueryGetStoredGameRequest) returns (QueryGetStoredGameResponse) {
         option (google.api.http).get = "/alice/checkers/checkers/storedGame/{index}";
@@ -257,29 +272,29 @@ service Query {
 
 Ignite CLI separates concerns into different files in the compilation of a service. Some should be edited and some should not. The following were prepared by Ignite CLI for your checkers game:
 
-* The [query parameters](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/query.pb.go#L33-L35), as well as [how to serialize](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/types/query.pb.go#L501) and make them conform to the right Protobuf [`RequestQuery`](https://github.com/tendermint/tendermint/blob/1c34d17/abci/types/types.pb.go#L636-L641) interface.
+* The [query parameters](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/query.pb.go#L33-L35), as well as [how to serialize](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/query.pb.go#L501) and make them conform to the right Protobuf [`RequestQuery`](https://github.com/tendermint/tendermint/blob/1c34d17/abci/types/types.pb.go#L636-L641) interface.
 * The primary implementation of the gRPC service.
-* The implementation of all the storage [setters and getters](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/keeper/grpc_query_stored_game.go) as extra functions in the keeper.
-* The implementation of the storage getters in the keeper [as they come from the gRPC server](https://github.com/cosmos/b9-checkers-academy-draft/blob/9c9b90e/x/checkers/keeper/grpc_query_stored_game.go).
+* The implementation of all the storage [setters and getters](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/keeper/grpc_query_stored_game.go) as extra functions in the keeper.
+* The implementation of the storage getters in the keeper [as they come from the gRPC server](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/keeper/grpc_query_stored_game.go).
 
-## Helper functions
+## Additional helper functions
 
-Your stored game stores are only strings, but they represent `sdk.AccAddress` or even a game from the `rules` file. Therefore, you add helper functions to `StoredGame` to do operations on them.
+Your stored game stores are only strings, but they represent `sdk.AccAddress` or even a game from the `rules` file. Therefore, you add helper functions to `StoredGame` to do operations on them. Create a new file `x/checkers/types/full_game.go`.
 
 1. Get the game `Creator`:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game.go#L12-L15]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/full_game.go#L12-L15]
     func (storedGame *StoredGame) GetCreatorAddress() (creator sdk.AccAddress, err error) {
         creator, errCreator := sdk.AccAddressFromBech32(storedGame.Creator)
         return creator, sdkerrors.Wrapf(errCreator, ErrInvalidCreator.Error(), storedGame.Creator)
     }
     ```
 
-    Do the same for the [red](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game.go#L17-L20) and [black](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game.go#L22-L25) players.
+    Do the same for the [red](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/full_game.go#L17-L20) and [black](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/full_game.go#L22-L25) players.
 
 2. Parse the game so that it can be played. The `Turn` has to be set by hand:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game.go#L27-L37]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/full_game.go#L27-L37]
     func (storedGame *StoredGame) ParseGame() (game *rules.Game, err error) {
         game, errGame := rules.Parse(storedGame.Game)
         if errGame != nil {
@@ -295,7 +310,7 @@ Your stored game stores are only strings, but they represent `sdk.AccAddress` or
 
 3. Introduce your own errors:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/errors.go#L11-L14]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/errors.go#L11-L14]
     var (
         ErrInvalidCreator   = sdkerrors.Register(ModuleName, 1100, "creator address is invalid: %s")
         ErrInvalidRed       = sdkerrors.Register(ModuleName, 1101, "red address is invalid: %s")
@@ -353,27 +368,27 @@ You want your tests to pass when everything is okay, but you also want them to f
 ```
 --- FAIL: TestDefaultGenesisIsCorrect (0.00s)
     genesis_test.go:10:
-                Error Trace:    genesis_test.go:10
-                Error:          Not equal:
-                                expected: &types.GenesisState{StoredGameList:[]*types.StoredGame{}, NextGame:(*types.NextGame)(0xc000506cf0)}
-                                actual  : &types.GenesisState{StoredGameList:[]*types.StoredGame{}, NextGame:(*types.NextGame)(0xc000506d08)}
+        Error Trace:    genesis_test.go:10
+        Error:          Not equal:
+            expected: &types.GenesisState{StoredGameList:[]*types.StoredGame{}, NextGame:(*types.NextGame)(0xc000506cf0)}
+            actual  : &types.GenesisState{StoredGameList:[]*types.StoredGame{}, NextGame:(*types.NextGame)(0xc000506d08)}
 
-                                Diff:
-                                --- Expected
-                                +++ Actual
-                                @@ -5,3 +5,3 @@
-                                   Creator: (string) "",
-                                -  IdValue: (uint64) 2
-                                +  IdValue: (uint64) 1
-                                  })
-                Test:           TestDefaultGenesisIsCorrect
+            Diff:
+            --- Expected
+            +++ Actual
+            @@ -5,3 +5,3 @@
+               Creator: (string) "",
+            -  IdValue: (uint64) 2
+            +  IdValue: (uint64) 1
+              })
+        Test: TestDefaultGenesisIsCorrect
 FAIL
 exit status 1
 ```
 
 This appears complex, but the significant aspect is this:
 
-```sh
+```
 Diff:
 --- Expected
 +++ Actual
@@ -391,7 +406,7 @@ func EqualValues(t TestingT, expected interface{}, actual interface{}, msgAndArg
 
 ### Debug your unit test
 
-Your first unit test is a standard Go unit test. If you use an IDE like Visual Studio Code it is ready to assist run the test in debug mode. Next to the function name is a small green tick. If you hover below it, a faint red dot appears:
+Your first unit test is a standard Go unit test. If you use an IDE like Visual Studio Code, it is ready to assist with running the test in debug mode. Next to the function name is a small green tick. If you hover below it, a faint red dot appears:
 
 ![Go test debug button in VSCode](/academy/4-my-own-chain/images/go_test_debug_button.png)
 
@@ -409,7 +424,7 @@ If you are struggling with a test, create separate variables in order to inspect
 
 With a simple yet successful unit test, you can add more consequential ones to test helper methods. Since you are going to repeat some actions, it is worth adding a reusable function:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L12-L27]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/full_game_test.go#L12-L27]
 const (
     alice = "cosmos1jmjfq0tplp9tmx4v9uemw72y4d2wa5nr3xn9d3"
     bob   = "cosmos1xyxs3skf3f4jfqeuv89yyaqvjc6lffavxqhc8g"
@@ -430,7 +445,7 @@ func GetStoredGame1() *StoredGame {
 
 Now you can test the function to get the creator's address. One test for the happy path, and another for the error:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L29-L46]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/full_game_test.go#L29-L46]
 func TestCanGetAddressCreator(t *testing.T) {
     aliceAddress, err1 := sdk.AccAddressFromBech32(alice)
     creator, err2 := GetStoredGame1().GetCreatorAddress()
@@ -451,9 +466,9 @@ func TestGetAddressWrongCreator(t *testing.T) {
 }
 ```
 
-You can do the same for [`Black`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L48-L65) and [`Red`](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L67-L84).
+You can do the same for [`Black`](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/full_game_test.go#L48-L65) and [`Red`](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/full_game_test.go#L67-L84).
 
-Test that [you can parse a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L86-L90), even [if it has been tampered with](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L92-L98), except [if the tamper is wrong](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L100-L107) or [if the turn is wrongly saved](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c2dd1c/x/checkers/types/full_game_test.go#L109-L116).
+Test that [you can parse a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/full_game_test.go#L86-L90), even [if it has been tampered with](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/full_game_test.go#L92-L98), except [if the tamper is wrong](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/full_game_test.go#L100-L107) or [if the turn is wrongly saved](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/full_game_test.go#L109-L116).
 
 Interested in integration tests? Skip ahead to the [section](./game-wager.md) where you learn about them.
 
@@ -493,7 +508,7 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     ```
     NextGame:
       creator: ""
-      idValue: "0"
+      idValue: "1"
     ```
 
     This is as expected. No games have been created yet, so the game counter is still at `0`.
@@ -520,7 +535,7 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     This should print:
 
     ```json
-    {"NextGame":{"creator":"","idValue":"0"}}
+    {"NextGame":{"creator":"","idValue":"1"}}
     ```
 
 3. You can similarly confirm there are no [stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/3c69e22/x/checkers/client/cli/query_stored_game.go#L14):

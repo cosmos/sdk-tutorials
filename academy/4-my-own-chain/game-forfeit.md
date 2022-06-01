@@ -1,7 +1,7 @@
 ---
 title: EndBlock - Auto-Expiring Games
 order: 14
-description: You enforce the expiration of games
+description: Enforcing the expiration of games
 tag: deep-dive
 ---
 
@@ -14,10 +14,10 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [ABCI](../2-main-concepts/architecture.md).
 * Go is installed.
 * You have the checkers blockchain codebase with the elements necessary for forfeit. If not, follow the [previous steps](./game-winner.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
-    
+
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
 
@@ -87,7 +87,11 @@ Your `ForfeitExpiredGames` function will now be called at the end of each block.
 
 ## Expire games handler
 
-With the callbacks in place, it is time to code the expiration properly. In `ForfeitExpiredGames`, it is a matter of looping through the FIFO, starting from the head, and handling games that are expired. You can stop at the first active game, as all those that come after are also active thanks to the careful updating of the FIFO.
+With the callbacks in place, it is time to code the expiration properly.
+
+### Prepare the main loop
+
+In `ForfeitExpiredGames`, it is a matter of looping through the FIFO, starting from the head, and handling games that are expired. You can stop at the first active game, as all those that come after are also active thanks to the careful updating of the FIFO.
 
 1. Prepare useful information:
 
@@ -119,78 +123,92 @@ With the callbacks in place, it is time to code the expiration properly. In `For
     }
     ```
 
-    1. Start with a loop breaking condition, if your cursor has reached the end of the FIFO:
-
-        ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L31-L33]
-        if strings.Compare(storedGameId, types.NoFifoIdKey) == 0 {
-            break
-        }
-        ```
-
-    2. Fetch the expired game candidate and its deadline:
-
-        ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L34-L41]
-        storedGame, found = k.GetStoredGame(ctx, storedGameId)
-        if !found {
-             panic("Fifo head game not found " + nextGame.FifoHead)
-        }
-        deadline, err := storedGame.GetDeadlineAsTime()
-        if err != nil {
-            panic(err)
-        }
-        ```
-
-    3. Test for expiration:
-
-        ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L42]
-        if deadline.Before(ctx.BlockTime()) {
-            // TODO
-        } else {
-            // All other games come after anyway
-            break
-        }
-        ```
-
-        * If the game has expired, remove it from the FIFO:
-            ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L44]
-            k.RemoveFromFifo(ctx, &storedGame, &nextGame)
-            ```
-
-        * Check whether the game is worth keeping. If it is, set the winner as the opponent of the player whose turn it is and save:
-            ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L45-L54]
-            if storedGame.MoveCount <= 1 {
-                // No point in keeping a game that was never really played
-                k.RemoveStoredGame(ctx, storedGameId)
-            } else {
-                storedGame.Winner, found = opponents[storedGame.Turn]
-                if !found {
-                    panic(fmt.Sprintf(types.ErrCannotFindWinnerByColor.Error(), storedGame.Turn))
-                }
-                k.SetStoredGame(ctx, storedGame)
-            }
-            ```
-
-        * Emit the relevant event:
-            ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L55-L62]
-            ctx.EventManager().EmitEvent(
-                sdk.NewEvent(sdk.EventTypeMessage,
-                    sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
-                    sdk.NewAttribute(sdk.AttributeKeyAction, types.ForfeitGameEventKey),
-                    sdk.NewAttribute(types.ForfeitGameEventIdValue, storedGameId),
-                    sdk.NewAttribute(types.ForfeitGameEventWinner, storedGame.Winner),
-                ),
-            )
-            ```
-
-        * Move along the FIFO for the next run of the loop:
-            ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L64]
-            storedGameId = nextGame.FifoHead
-            ```
+    See below for what goes in `TODO`.
 
 4. After the loop has ended do not forget to save the latest FIFO state:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L71]
     k.SetNextGame(ctx, nextGame)
+    ```
+
+So what goes in the `for { TODO }`?
+
+### Identify an expired game
+
+1. Start with a loop breaking condition, if your cursor has reached the end of the FIFO:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L31-L33]
+    if strings.Compare(storedGameId, types.NoFifoIdKey) == 0 {
+        break
+    }
+    ```
+
+2. Fetch the expired game candidate and its deadline:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L34-L41]
+    storedGame, found = k.GetStoredGame(ctx, storedGameId)
+    if !found {
+         panic("Fifo head game not found " + nextGame.FifoHead)
+    }
+    deadline, err := storedGame.GetDeadlineAsTime()
+    if err != nil {
+        panic(err)
+    }
+    ```
+
+3. Test for expiration:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L42]
+    if deadline.Before(ctx.BlockTime()) {
+        // TODO
+    } else {
+        // All other games come after anyway
+        break
+    }
+    ```
+
+Now, what goes into this `if "expired" { TODO }`?
+
+### Handle an expired game
+
+1. If the game has expired, remove it from the FIFO:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L44]
+    k.RemoveFromFifo(ctx, &storedGame, &nextGame)
+    ```
+
+2. Check whether the game is worth keeping. If it is, set the winner as the opponent of the player whose turn it is and save:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L45-L54]
+    if storedGame.MoveCount <= 1 {
+        // No point in keeping a game that was never really played
+        k.RemoveStoredGame(ctx, storedGameId)
+    } else {
+        storedGame.Winner, found = opponents[storedGame.Turn]
+        if !found {
+            panic(fmt.Sprintf(types.ErrCannotFindWinnerByColor.Error(), storedGame.Turn))
+        }
+        k.SetStoredGame(ctx, storedGame)
+    }
+    ```
+
+3. Emit the relevant event:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L55-L62]
+    ctx.EventManager().EmitEvent(
+        sdk.NewEvent(sdk.EventTypeMessage,
+            sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
+            sdk.NewAttribute(sdk.AttributeKeyAction, types.ForfeitGameEventKey),
+            sdk.NewAttribute(types.ForfeitGameEventIdValue, storedGameId),
+            sdk.NewAttribute(types.ForfeitGameEventWinner, storedGame.Winner),
+        ),
+    )
+    ```
+
+4. Move along the FIFO for the next run of the loop:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/keeper/end_block_server_game.go#L64]
+    storedGameId = nextGame.FifoHead
     ```
 
 <HighlightBox type="tip">
@@ -359,8 +377,8 @@ Note how all the events aggregate in a single context. The context is not reset 
 
 Currently, the game expiry is one day in the future. This is too long to test with the CLI. Temporarily set it to 5 minutes:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/a74b20c/x/checkers/types/keys.go#L38]
-MaxTurnDurationInSeconds = time.Duration(5 * 60 * 1000_000_000) // 5 minutes
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/43ec310b/x/checkers/types/keys.go#L38]
+MaxTurnDuration = time.Duration(5 * 60 * 1000_000_000) // 5 minutes
 ```
 
 Avoid having games in the FIFO that expire in a day because of your earlier tests:
@@ -379,20 +397,10 @@ $ export bob=$(checkersd keys show bob -a)
 Create three games 1 minute apart. Have Bob play the middle one, and both Alice and Bob play the last one:
 
 <CodeGroup>
-<CodeGroupItem title="Game 0" active>
+<CodeGroupItem title="Game 1" active>
 
 ```sh
 $ checkersd tx checkers create-game $alice $bob --from $alice
-```
-
-</CodeGroupItem>
-<CodeGroupItem title="Game 1">
-
-```sh
-# Wait a minute
-$ checkersd tx checkers create-game $alice $bob --from $bob
-# Wait 5 seconds
-$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
 ```
 
 </CodeGroupItem>
@@ -400,10 +408,20 @@ $ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
 
 ```sh
 # Wait a minute
-$ checkersd tx checkers create-game $alice $bob --from $alice
-$ checkersd tx checkers play-move 2 1 2 2 3 --from $bob
+$ checkersd tx checkers create-game $alice $bob --from $bob
 # Wait 5 seconds
-$ checkersd tx checkers play-move 2 0 5 1 4 --from $alice
+$ checkersd tx checkers play-move 2 1 2 2 3 --from $bob
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Game 3">
+
+```sh
+# Wait a minute
+$ checkersd tx checkers create-game $alice $bob --from $alice
+$ checkersd tx checkers play-move 3 1 2 2 3 --from $bob
+# Wait 5 seconds
+$ checkersd tx checkers play-move 3 0 5 1 4 --from $alice
 ```
 
 </CodeGroupItem>
@@ -441,10 +459,10 @@ With three games in, confirm that you see them all:
 $ checkersd query checkers list-stored-game
 ```
 
-List them again after 2, 3, 4, and 5 minutes. You should see games `0` and `1` disappear, and game `2` being forfeited by Bob, i.e. `red` Alice wins:
+List them again after 2, 3, 4, and 5 minutes. You should see games `1` and `2` disappear, and game `3` being forfeited by Bob, i.e. `red` Alice wins:
 
 ```sh
-$ checkersd query checkers show-stored-game 2 --output json | jq ".StoredGame.winner"
+$ checkersd query checkers show-stored-game 3 --output json | jq ".StoredGame.winner"
 ```
 
 This prints:
@@ -466,7 +484,7 @@ NextGame:
   creator: ""
   fifoHead: "-1"
   fifoTail: "-1"
-  idValue: "3"
+  idValue: "4"
 ```
 
 ## Next up

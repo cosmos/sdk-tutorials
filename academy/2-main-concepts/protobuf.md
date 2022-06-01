@@ -7,14 +7,18 @@ tag: deep-dive
 
 # Protobuf
 
-<HighlightBox type="synopsis">
-
-Protobuf is a data serialization method which developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
+<HighlightBox type="prerequisite">
 
 Before diving into this section, it is recommended to read the following sections:
 
 * [Messages](./messages.md)
 * [Modules](./modules.md)
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+Protobuf is a data serialization method which developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
 
 You can find a code example for your checkers blockchain at the end of the section to dive further into Protobuf and message creation.
 
@@ -30,7 +34,9 @@ Originally designed and developed by Google, Protobuf has been an open-source pr
 
 <HighlightBox type="info">
 
-Google provides the [gRPC project](https://grpc.io/). This universal RPC framework supports Protobuf directly. For more information on the process, see the section entitled `Compiler Invocation`.
+Google provides the [gRPC project](https://grpc.io/). This universal RPC framework supports Protobuf directly.
+
+<!-- Please add again, after finding correct section to link to: "For more information on the process, see the section entitled `Compiler Invocation`." -->
 
 </HighlightBox>
 
@@ -87,7 +93,7 @@ The core of a Cosmos SDK application mainly consists of type definitions and con
 
 Look at the following code example to see how Protobuf can facilitate your activities, or go straight to the [next section](../2-main-concepts/multistore-keepers.md) for an introduction to storage types and keepers.
 
-<ExpansionPanel title="Show me some code for my checkers' blockchain">
+<ExpansionPanel title="Show me some code for my checkers blockchain">
 
 In the previous code samples, you saw something like:
 
@@ -156,7 +162,7 @@ $ ignite scaffold message createGame red black wager:uint --module checkers --re
 
 <HighlightBox type="tip">
 
-If you want to dive straight into coding your chain, go to [My Own Chain](../4-my-own-chain/index.md) for more details on using Ignite CLI.
+If you want to dive straight into coding your chain, go to [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md) for more details on using Ignite CLI.
 
 </HighlightBox>
 

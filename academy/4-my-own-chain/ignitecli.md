@@ -21,10 +21,10 @@ Before diving into the details of how Ignite CLI helps you scaffold the basics f
 
 </HighlightBox>
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section, you will:
-  
+
 * Install the Ignite CLI.
 * Scaffold a blockchain.
 * Use the CLI.
@@ -56,16 +56,16 @@ Want to dedicate some time to dive deeper into installing Ignite CLI? Learn [how
 
 </HighlightBox>
 
-To install Ignite CLI at the command line:
+This entire exercise was built using the Ignite CLI version 0.17.3. To install it at the command line:
 
 ```sh
-$ curl https://get.ignite.com/cli! | bash
+$ curl https://get.ignite.com/cli@v0.17.3! | bash
 ```
 
 Or if you install it in a Linux VM:
 
 ```sh
-$ curl https://get.ignite.com/cli! | sudo bash
+$ curl https://get.ignite.com/cli@v0.17.3! | sudo bash
 ```
 
 You can verify the version of Ignite CLI you have once it is installed:
@@ -74,11 +74,9 @@ You can verify the version of Ignite CLI you have once it is installed:
 $ ignite version
 ```
 
-This prints:
+This prints its old name and its version:
 
 ```
-Ignite CLI version:	v0.17.3
-Or its old name
 starport version v0.17.3
 ...
 ```
@@ -87,10 +85,16 @@ starport version v0.17.3
 
 This entire exercise was built using the Ignite CLI version noted above. Using a newer version could work, but you might run into compatibility issues if you clone any code made with _this_ version of Ignite CLI and then try to continue the project with _your_ version of Ignite CLI.
 
-To install this specific version of Ignite CLI, use:
+If you need to install the latest version of Ignite CLI, use:
 
 ```sh
-$ curl https://get.ignite.com/cli@v0.17.3! | bash
+$ curl https://get.ignite.com/cli@! | bash
+```
+
+When you then run `ignite version`, it prints its new name and its version:
+
+```
+Ignite CLI version: v0.20.4
 ```
 
 </HighlightBox>
@@ -103,7 +107,7 @@ If you'd like to upgrade an existing project to the latest version of Ignite CLI
 
 You can also just type `ignite` to see the offered commands:
 
-```sh
+```
 Ignite CLI is a tool for creating sovereign blockchains built with Cosmos SDK, the world’s
 most popular modular blockchain framework. Ignite CLI offers everything you need to scaffold,
 test, build, and launch your blockchain.
@@ -217,7 +221,7 @@ In this file you can set the accounts, the accounts' starting balances, and the 
 
 You can observe the endpoints of the blockchain in the output of the `ignite chain serve` command:
 
-```sh
+```
 🌍 Tendermint node: http://0.0.0.0:26657
 🌍 Blockchain API: http://0.0.0.0:1317
 🌍 Token faucet: http://0.0.0.0:4500
@@ -269,7 +273,55 @@ $ npm install
 $ npm run serve
 ```
 
-Navigate to [localhost:8080](http://localhost:8080/). On the client-side, no wallets have been created or imported yet. Load Alice's wallet in the GUI to have some tokens. You will need to use the mnemonic for Alice, which you can find in the output of the `ignite chain serve` command. Copy and paste it to _import a wallet_.
+<ExpansionPanel title="Troubleshooting">
+
+<PanelListItem number="1">
+
+If Vue complains about linting, for instance with:
+
+```
+Syntax Error: Error: Failed to load config "prettier" to extend from.
+Referenced from: /home/alice/checkers/vue/node_modules/eslint-plugin-prettier/eslint-plugin-prettier.js
+```
+
+You can safely tell it to ignore linting. To do that, in `package.json`, change the `"serve"` script to:
+
+```json
+{
+    ...
+    "scripts": {
+        ...
+        "serve": "vue-cli-service serve --skip-plugins @vue/cli-plugin-eslint",
+    }
+}
+```
+
+</PanelListItem>
+
+<PanelListItem number="2" :last="true">
+
+If `npm run serve` (Node v16) complains about `node-sass`, these versions should work in `package.json`:
+
+```json
+"dependencies": {
+    "@starport/vue": "0.1.53",
+    "@starport/vuex": "0.1.53",    
+},
+"devDependencies": {
+    "node-sass": "^6.0.1",
+    "sass-loader": "^10.0.0"
+}
+```
+
+Do not forget to redo `npm install`.
+
+Otherwise, try downgrading Node to version 14.
+
+</PanelListItem>
+
+</ExpansionPanel>
+
+Navigate to [localhost:8080](http://localhost:8080/). On the client-side, no wallets have been created or imported yet. Load Alice's wallet in the GUI to have some tokens. You will need to use the mnemonic for Alice, which you can find in the output of the `ignite chain serve` command. If you do not see the mnemonic, it is because the mnemonic was shown to you the first time you ran the command and you did not copy it. So reset with `ignite chain serve --reset-once`. Copy and paste it to _import a wallet_.
 
 Now you should see the balance of Alice's account and can act on her behalf.
 
@@ -299,7 +351,7 @@ $ ignite scaffold message --help
 
 You can see a list of files that were created or modified by the `scaffold message` command in the Terminal output:
 
-```sh
+```
 modify proto/checkers/tx.proto
 modify x/checkers/client/cli/tx.go
 create x/checkers/client/cli/tx_create_post.go
