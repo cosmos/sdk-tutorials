@@ -31,7 +31,7 @@ As before:
 * How would you unit-test your addition?
 * How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
-Run the commands, make the adjustments, run some tests. **Create the message only**, don't create any games in storage for now.
+Run the commands, make the adjustments, run some tests. **Create the message only**, do not create any games in storage for now.
 
 ## Next up
 

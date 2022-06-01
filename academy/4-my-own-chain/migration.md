@@ -51,7 +51,7 @@ Several things need to be addressed before you can focus all your attention on t
     2. Add a function to migrate from v1 to v2 genesis.
     3. Make sure you can handle large amounts of data.
 
-_Why do you need to make sure you can handle large amounts of data?_ The full state at the point of migration will be passed in the form of a gigantic v1 genesis when your migration function is called. You don't want your process to grind to a halt because of a lack of memory.
+_Why do you need to make sure you can handle large amounts of data?_ The full state at the point of migration will be passed in the form of a gigantic v1 genesis when your migration function is called. You do not want your process to grind to a halt because of a lack of memory.
 
 ## Save your v1
 
