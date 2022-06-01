@@ -87,6 +87,6 @@ The following is an example of the IBC data between Juno and Osmosis:
 
 The Go relayer has built-in functionality to fetch chain information (and soon path information) from the chain-registry. Hermes has this functionality on their roadmap. You will look at both relayers in more detail in the next sections.
 
-# FAQ
+## FAQ
 
 Cosmos is developing fast, and minor changes can cause big problems for inexperienced users. Luckily you have the option to make direct contact with developers through the [Cosmos Developer Discord](https://discord.com/invite/cosmosnetwork). There you can find the channel **#ibc-relayer** dedicated to relayers in which you can ask for help.
