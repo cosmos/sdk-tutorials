@@ -202,7 +202,7 @@ Your work is mostly done. You want to create the specific game creation code to 
 
     <HighlightBox type="info">
 
-    For more details, and to avoid diving too deep in this section, see [Running Your Own Cosmos Chain](/3-my-own-chain/index.md).
+    For more details, and to avoid diving too deep in this section, see [Running Your Own Cosmos Chain](../3-my-own-chain/index.md).
       
       
     </HighlightBox>
@@ -315,7 +315,7 @@ There are no _open_ challenges, meaning a player cannot create a game where the 
 
 <HighlightBox type="tip">
 
-If you would like to get started on building your own checkers game, you can go straight to the main exercise in [Running Your Own Cosmos Chain](/3-my-own-chain/index.md).
+If you would like to get started on building your own checkers game, you can go straight to the main exercise in [Running Your Own Cosmos Chain](../3-my-own-chain/index.md).
 
 </HighlightBox>
 

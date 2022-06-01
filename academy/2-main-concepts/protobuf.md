@@ -162,7 +162,7 @@ $ ignite scaffold message createGame red black wager:uint --module checkers --re
 
 <HighlightBox type="tip">
 
-If you want to dive straight into coding your chain, go to [Running Your Own Cosmos Chain](/3-my-own-chain/index.md) for more details on using Ignite CLI.
+If you want to dive straight into coding your chain, go to [Running Your Own Cosmos Chain](../3-my-own-chain/index.md) for more details on using Ignite CLI.
 
 </HighlightBox>
 
