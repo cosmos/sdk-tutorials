@@ -1,7 +1,7 @@
 ---
 title: "IBC Fungible Token Transfer"
 order:
-description: Token trasnfers across chains
+description: Token transfers across chains
 tag: deep-dive
 ---
 
