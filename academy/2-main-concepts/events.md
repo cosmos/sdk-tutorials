@@ -1,7 +1,7 @@
 ---
 title: "Events"
 order: 11
-description: Using events in app development
+description: Use events in app development
 tag: deep-dive
 ---
 

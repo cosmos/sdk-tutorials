@@ -1,7 +1,7 @@
 ---
 title: Exercise - Token - Let Players Set a Wager
 order:
-description: Exercise - You let players set a wager
+description: Exercise - Players set a wager
 tag: deep-dive
 ---
 

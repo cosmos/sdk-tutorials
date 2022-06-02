@@ -5,7 +5,7 @@ description: Establishing connections in IBC
 tag: deep-dive
 ---
 
-# Transport, Authentication, and Ordering Layer
+# Transport, Authentication, and Ordering Layer - Connections
 
 <HighlightBox type="learning">
 

@@ -1,7 +1,7 @@
 ---
 title: Store Field - Record the Game Winner
 order: 5
-description: Storing the winner of a game
+description: Store the winner of a game
 tag: deep-dive
 ---
 

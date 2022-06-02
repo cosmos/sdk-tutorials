@@ -1,7 +1,7 @@
 ---
 title: "Interchain Accounts"
 order: 7
-description: Working with ICA
+description: Work with ICA
 tag: deep-dive
 ---
 
@@ -9,7 +9,7 @@ tag: deep-dive
 
 <HighlightBox type="learning">
 
-**Interchain accounts (ICA)** allow you to control an account on a **host chain** from a **controller chain**.
+**Interchain accounts (ICAs)** allow you to control an account on a **host chain** from a **controller chain**.
 
 In this section, you will learn more about:
 
@@ -78,7 +78,7 @@ The `portID` will be the address of the **interchain account Owner** prefixed by
 
 The ICA module uses `ORDERED` channels to maintain the order of transactions when sending packets from a controller chain to a host chain. A limitation when using `ORDERED` channels is that when a packet times out the channel will be closed. In the case of a channel closing, a controller chain needs to be able to regain access to the interchain account registered on this channel.
 
-ICA offers **active channels** to create a new channel using the same controller prefixed chain `portID`. This means that when an interchain account is registered using the `RegisterInterchainAccount` API, a new channel is created on a particular port. During the `OnChanOpenAck` and `OnChanOpenConfirm` steps (controller & host chain), the `Active Channel` for this interchain account is stored in state.
+ICAs offer **active channels** to create a new channel using the same controller prefixed chain `portID`. This means that when an interchain account is registered using the `RegisterInterchainAccount` API, a new channel is created on a particular port. During the `OnChanOpenAck` and `OnChanOpenConfirm` steps (controller & host chain), the `Active Channel` for this interchain account is stored in state.
 
 Using the `Active Channel` stored in state, it is then possible to create a new channel using the same controller chain portID even if the previously set `Active Channel` is in a `CLOSED` state.
 

@@ -1,7 +1,7 @@
 ---
 title: "The Inter-Blockchain Communication Protocol"
 order: 1
-description: CONNECTING CHAINS
+description: CONNECT CHAINS
 ---
 
 ## The Inter-Blockchain Communication Protocol

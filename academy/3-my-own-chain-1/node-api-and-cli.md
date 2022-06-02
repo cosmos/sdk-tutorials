@@ -1,11 +1,11 @@
 ---
-title: "Running a Node, API, and CLI"
+title: "Run a Node, API, and CLI"
 order: 3
-description: Interacting with a Cosmos SDK chain through simapp
+description: Interact with a Cosmos SDK chain through simapp
 tag: deep-dive
 ---
 
-# Running a Node, API, and CLI
+# Run a Node, API, and CLI
 
 <HighlightBox type=“synopsis”>
 
@@ -555,4 +555,5 @@ Do you need a conceptual refresher about modules and their role in the Cosmos SD
 ## Next up
 
 It is time to begin developing your own chain. You will begin working with Ignite CLI and learn about CosmWasm in the [next chapter](../4-my-own-chain/ignitecli.md).
+
 <!--It is time to begin developing your own chain. You will begin working with Ignite CLI and learn about CosmJS and CosmWasm in the [next chapter](../4-my-own-chain/index.md).-->

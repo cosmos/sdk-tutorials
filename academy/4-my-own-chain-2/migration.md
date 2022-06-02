@@ -1,7 +1,7 @@
 ---
 title: Migration - Introduce a Leaderboard After Production
 order: 15
-description: Introducing a leaderboard to your in-production blockchain
+description: A leaderboard for your in-production blockchain
 tag: deep-dive
 ---
 

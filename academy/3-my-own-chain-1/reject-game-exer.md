@@ -1,7 +1,7 @@
 ---
 title: Exercise - Message and Handler - Make Sure a Player Can Reject a Game
 order: 16
-description: Exercise - You reject a game
+description: Exercise - Reject a game
 tag: deep-dive
 ---
 

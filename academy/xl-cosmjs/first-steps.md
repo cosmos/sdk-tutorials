@@ -1,7 +1,7 @@
 ---
 title: "Your First CosmJS Actions - Send Tokens"
 order: 2
-description: Interacting with a Cosmos SDK chain through CosmJS
+description: Interact with a Cosmos SDK chain through CosmJS
 tag: deep-dive
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "CosmJS for Your Chain - GUI and Backend Script"
 order: 1
-description: DIVING DEEPER INTO COSMJS
+description: DIVE DEEPER INTO COSMJS
 ---
 
 ## CosmJS for Your Chain - GUI and Backend Script

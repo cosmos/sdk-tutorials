@@ -1,7 +1,7 @@
 ---
 title: Exercise - Introduce a Leaderboard After Production
 order:
-description: Exercise - Introducing a leaderboard to your in-production blockchain
+description: Exercise - A leaderboard for your in-production blockchain
 tag: deep-dive
 ---
 

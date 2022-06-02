@@ -1,12 +1,11 @@
-<!--
 ---
-title: "Implementing a Custom IBC Application"
+title: "Implement a Custom IBC Application"
 order:
-description: Taking a closer look at applications
+description: Take a closer look at applications
 tag: deep-dive
 ---
 
-# Implementing a Custom IBC Application
+# Implement a Custom IBC Application
 
 <HighlightBox type="prerequisite">
 
@@ -112,6 +111,3 @@ OnChanOpenConfirm(
 ```
 
 You will learn about applications soon, but the take away here is that an application developer will need to implement the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go).
-
--->
-

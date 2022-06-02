@@ -1,6 +1,6 @@
 ---
 parent:
-  title: Running Your Own Cosmos Chain - Part 1
+  title: Run Your Own Cosmos Chain - Part 1
   description: Run a chain for the first time
   number: 3
 tag: deep-dive
@@ -9,7 +9,7 @@ title: Chapter Overview - First Steps to Run Your Own Chain
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Run a chain for the first time</div>
-<h1 class="mt-4 mb-6">Running Your Own Cosmos Chain - Part 1</h1>
+<h1 class="mt-4 mb-6">Run Your Own Cosmos Chain - Part 1</h1>
 
 Do you want to find out how to interact with Cosmos chains? Let's take it step-by-step.
 

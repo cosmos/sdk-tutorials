@@ -1,11 +1,11 @@
 ---
-title: Exercise - Events - Emitting Game Information
+title: Exercise - Events - Emit Game Information
 order: 14
-description: Exercise - You emit game information using events
+description: Exercise - Emit game information using events
 tag: deep-dive
 ---
 
-# Exercise - Events - Emitting Game Information
+# Exercise - Events - Emit Game Information
 
 Your blockchain can now create and play games. However, it does not inform the outside world about this in a convenient way. That's where events come in - but what do you need to emit them?
 

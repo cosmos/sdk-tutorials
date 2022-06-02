@@ -1,7 +1,7 @@
 ---
 title: Exercise - Message Handler - Create and Save a Game Properly
 order: 10
-description: Exercise - You create a proper game
+description: Exercise - Create a proper game
 tag: deep-dive
 ---
 

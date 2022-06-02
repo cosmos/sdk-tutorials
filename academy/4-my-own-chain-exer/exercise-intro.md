@@ -1,12 +1,10 @@
 ---
-title: My own chain as an exercise
+title: My Own Chain as an Exercise
 order:
-description: Exercise Introduction
+description: Exercise introduction
 ---
 
-# My own chain as an exercise
-
-## How to proceed
+# My Own Chain as an Exercise
 
 This chapter is about creating a decentralized game of checkers using Ignite CLI and the Cosmos SDK. Each section progressively advances the project. To learn the most efficiently, you should treat each section as _a solution_ to the exercise which preceded it.
 

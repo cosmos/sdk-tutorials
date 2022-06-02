@@ -1,14 +1,14 @@
 ---
 parent:
   title: CosmJS for Your Chain - GUI and Backend Script
-  description: Diving deeper into CosmJS
+  description: Dive deeper into CosmJS
   number: 7
 tag: deep-dive
 order: 0
 title: Chapter Overview - Implement a Game GUI and Backend Script
 ---
 
-<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Diving deeper into CosmJS</div>
+<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Dive deeper into CosmJS</div>
 <h1 class="mt-4 mb-6">CosmJS for Your Chain - GUI and Backend Script</h1>
 
 Does your blockchain need a GUI? Discover how to give your application-specific blockchain a proper GUI and integrate CosmJS and Keplr.

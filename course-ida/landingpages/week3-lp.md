@@ -1,10 +1,10 @@
 ---
-title: "Running Your Own Cosmos Chain - Part 2"
+title: "Run Your Own Cosmos Chain - Part 2"
 order: 1
 description: IT ALL COMES TOGETHER
 ---
 
-## Running Your Own Cosmos Chain - Part 2
+## Run Your Own Cosmos Chain - Part 2
 
 Continue your journey with Ignite CLI: learn how to introduce a wager, manage gas, and query for player's moves.
 

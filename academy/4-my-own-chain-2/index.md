@@ -1,6 +1,6 @@
 ---
 parent:
-  title: Running Your Own Cosmos Chain - Part 2
+  title: Run Your Own Cosmos Chain - Part 2
   description: It all comes together
   number: 4
 tag: deep-dive
@@ -9,7 +9,7 @@ title: Chapter Overview - Continue to Develop Your Own Chain
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">It all comes together</div>
-<h1 class="mt-4 mb-6">Running Your Own Cosmos Chain - Part 2</h1>
+<h1 class="mt-4 mb-6">Run Your Own Cosmos Chain - Part 2</h1>
 
 Continue your journey with Ignite CLI: learn how to introduce a wager, manage gas, and query for player's moves.
 

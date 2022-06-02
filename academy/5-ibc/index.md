@@ -1,14 +1,14 @@
 ---
 parent:
   title: The Inter-Blockchain Communication Protocol
-  description: Connecting chains
+  description: Connect chains
   number: 5
 tag: deep-dive
 order: 0
-title: Chapter Overview - Connecting Chains with IBC
+title: Chapter Overview - Connect Chains With IBC
 ---
 
-<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Connecting chains</div>
+<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Connect chains</div>
 <h1 class="mt-4 mb-6">The Inter-Blockchain Communication Protocol</h1>
 
 Ever wondered how cross-chain communication is possible? Get a fast introduction to the world of the Inter-Blockchain Communication (IBC) Protocol.

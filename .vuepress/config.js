@@ -91,12 +91,12 @@ module.exports = {
               directory: true,
             },
             {
-              title: "Running Your Own Cosmos Chain - 1",
+              title: "Run Your Own Cosmos Chain - 1",
               path: "/academy/3-my-own-chain-1",
               directory: true,
             },
             {
-              title: "Running Your Own Cosmos Chain - 2",
+              title: "Run Your Own Cosmos Chain - 2",
               path: "/academy/4-my-own-chain-2",
               directory: true,
             },
@@ -247,12 +247,12 @@ module.exports = {
               ]
             },
             {
-              title: "Week 2 - Running Your Own Cosmos Chain - Part 1",
+              title: "Week 2 - Run Your Own Cosmos Chain - Part 1",
               directory: true,
               order: 3,
               children: [
                 {
-                  title: "Running Your Own Cosmos Chain - Part 1",
+                  title: "Run Your Own Cosmos Chain - Part 1",
                   path: "/course-ida/landingpages/week2-lp.html"
                 },
                 {
@@ -260,7 +260,7 @@ module.exports = {
                   path: "/course-ida/setup.html"
                 },
                 {
-                  title: "Running a Node, API, and CLI",
+                  title: "Run a Node, API, and CLI",
                   path: "/academy/3-running-a-chain/node-api-and-cli.html"
                 },
                 {
@@ -284,7 +284,7 @@ module.exports = {
                   path: "/academy/4-my-own-chain/play-game.html"
                 },
                 {
-                  title: "Events - Emitting Game Information",
+                  title: "Events - Emit Game Information",
                   path: "/academy/4-my-own-chain/events.html"
                 },
                 {
@@ -298,12 +298,12 @@ module.exports = {
               ]
             },
             {
-              title: "Week 3 - Running Your Own Cosmos Chain - Part 2",
+              title: "Week 3 - Run Your Own Cosmos Chain - Part 2",
               directory: true,
               order: 4,
               children: [
                 {
-                  title: "Running Your Own Cosmos Chain - Part 2",
+                  title: "Run Your Own Cosmos Chain - Part 2",
                   path: "/course-ida/landingpages/week3-lp.html"
                 },
                 {
@@ -429,11 +429,11 @@ module.exports = {
                   path: "/academy/xl-cosmjs/create-custom.html"
                 },
                 {
-                  title: "Create Custom Objects for Your Checkers Blockchain",
+                  title: "Custom Objects for Your Checkers Blockchain",
                   path: "/academy/4-my-own-chain/cosmjs-objects.html"
                 },
                 {
-                  title: "Create Custom Messages for Your Checkers Blockchain",
+                  title: "Custom Messages for Your Checkers Blockchain",
                   path: "/academy/4-my-own-chain/cosmjs-messages.html"
                 },
               ]

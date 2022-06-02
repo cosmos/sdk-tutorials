@@ -1,7 +1,7 @@
 ---
 title: Integrate CosmJS and Keplr Into the GUI
 order: 3
-description: Taking a checkers GUI and using the elements
+description: Take a checkers GUI and use the elements
 tag: deep-dive
 ---
 
