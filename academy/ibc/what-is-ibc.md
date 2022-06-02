@@ -202,4 +202,4 @@ The most straightforward way to use IBC is to build a chain with the Cosmos SDK,
 
 ## Next up
 
-On your way to becoming a Cosmos SDK developer expert in IBC? Dive even deeper and discover how to develop with IBC.
+On your way to becoming a Cosmos SDK developer expert in IBC? Dive even deeper and discover how to develop with IBC. The next sections elaborate on the transport, authentication, and ordering (TAO) layer in IBC. Begin with [connections](https://interchainacademy.cosmos.network/academy/ibc/ibc-tao-dev.html) to then dive deeper into channels and clients in IBC.
