@@ -282,3 +282,8 @@ func (cs ClientState) VerifyPacketCommitment(
     return nil
 }
 ```
+
+## Next up
+
+Now that you explored connections, channels, and clients of the transport, authentication, and ordering layer, the [next section](https://interchainacademy.cosmos.network/academy/ibc/token-transfer.html) takes a closer look at cross-chain fungible token transfers.
+
