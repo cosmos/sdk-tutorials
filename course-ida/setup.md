@@ -83,4 +83,4 @@ The first time you open a Cosmos SDK project with Visual Studio Code, it offers 
 
 ## Next up
 
-Now that you are all set, dive right into running a node and explore working with `simapp` in the [next section](./node-api-and-cli.md).
+Now that you are all set, dive right into running a node and explore working with `simapp` in the [next section](https://interchainacademy.cosmos.network/academy/3-running-a-chain/node-api-and-cli.html).
