@@ -1,7 +1,7 @@
 ---
 title: My Own Chain as an Exercise
 order:
-description: Exercise Introduction
+description: Exercise introduction
 tag: deep-dive
 ---
 
