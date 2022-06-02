@@ -18,7 +18,7 @@ Make sure you have everything you need before proceeding:
 
 </HighlightBox>
 
-With your Checkers application ready for use, it is a good time to prepare client elements that will eventually allow you to create a GUI and/or server-side scripts. Here, you will apply [what you have learned](../xl-cosmjs/create-custom.md) about creating your own custom CosmJS interfaces.
+With your Checkers application ready for use, it is a good time to prepare client elements that eventually allow you to create a GUI and/or server-side scripts. Here, you will apply [what you have learned](../xl-cosmjs/create-custom.md) about creating your own custom CosmJS interfaces.
 
 Before you can get into working on your application directly, you need to make sure CosmJS understands your checkers module and knows how to interact with it. This generally means you need create the Protobuf objects and clients in Typescript and create extensions that facilitate the use of them.
 
