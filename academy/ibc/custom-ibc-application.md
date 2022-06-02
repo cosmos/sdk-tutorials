@@ -1,11 +1,11 @@
 ---
-title: "Implementing a Custom IBC Application"
+title: "Implement a Custom IBC Application"
 order:
 description: Taking a closer look at applications
 tag: deep-dive
 ---
 
-# Implementing a Custom IBC Application
+# Implement a Custom IBC Application
 
 <HighlightBox type="prerequisite">
 
