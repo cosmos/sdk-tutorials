@@ -330,7 +330,7 @@ modules:
         description: Clients in IBC
         url: /academy/ibc/clients.html
         order: 4
-      - title: IBC Token Transfer
+      - title: IBC Fungible Token Transfer
         description: Token transfers across chains
         url: /academy/ibc/token-transfer.html
         order: 5
