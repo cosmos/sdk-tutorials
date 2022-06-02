@@ -359,4 +359,4 @@ public async sendTokens(
 
 You are ready to import and use this in a server script or a GUI.
 
-Head right into the [next section]([./cosmjs-objects.md](https://interchainacademy.cosmos.network/academy/4-my-own-chain/cosmjs-objects.html) to begin creating custom objects for your checkers blockchain.
+Head right into the [next section](https://interchainacademy.cosmos.network/academy/4-my-own-chain/cosmjs-objects.html) to begin creating custom objects for your checkers blockchain.
