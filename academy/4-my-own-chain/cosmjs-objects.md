@@ -1,7 +1,7 @@
 ---
 title: Create Custom Objects for Your Checkers Blockchain
 order: 22
-description: Creating the objects for your GUI
+description: Create the objects for your GUI
 tag: deep-dive
 ---
 
