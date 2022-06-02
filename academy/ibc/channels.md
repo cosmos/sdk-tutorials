@@ -179,4 +179,4 @@ In these cases, the initial flow is the same, with core IBC A first committing t
 
 ## Next up
 
-You learned how to establish a channel and discovered the application packet flow. In the [next section](./clients.md), you get to explore clients in IBC/TAO.
+You learned how to establish a channel and discovered the application packet flow. In the [next section](https://interchainacademy.cosmos.network/academy/ibc/clients.html), you get to explore clients in IBC/TAO.
