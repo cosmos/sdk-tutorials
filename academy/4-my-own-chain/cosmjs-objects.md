@@ -1,11 +1,11 @@
 ---
-title: The Custom Objects for Your Checkers Blockchain
+title: Custom Objects for Your Checkers Blockchain
 order: 22
 description: Create the objects for your GUI
 tag: deep-dive
 ---
 
-# The Custom Objects for Your Checkers Blockchain
+# Custom Objects for Your Checkers Blockchain
 
 <HighlightBox type="prerequisite">
 
