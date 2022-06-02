@@ -90,3 +90,8 @@ The Go relayer has built-in functionality to fetch chain information (and soon p
 ## FAQ
 
 Cosmos is developing fast, and minor changes can cause big problems for inexperienced users. Luckily you have the option to make direct contact with developers through the [Cosmos Developer Discord](https://discord.com/invite/cosmosnetwork). There you can find the channel **#ibc-relayer** dedicated to relayers in which you can ask for help.
+
+## Next up
+
+You now have a solid understanding of relaying in general. It is time to look a closer look at specific relayers for IBC: the Go and Hermes relayer. Start with the Go relayer in the [next section](https://interchainacademy.cosmos.network/academy/ibc/gorelayer.html).
+
