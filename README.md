@@ -36,8 +36,8 @@ overview:
         The material is delivered in various formats, including text, images, videos, quizzes, and exercises. There's plenty of additional material embedded in the content to deepen your understanding of particular concepts. And if you want even more, ask your tutors and expert instructors, who'll point you in the right direction! <br/><br/>
         <div class="tm-bold">Mandatory exercises!</div>
         In each module, you will find quizzes and/or code exercises. Two of these need to be completed by a certain date. It doesn't matter if you pass a quiz or exercise - think of these as opportunities to practice and demonstrate your engagement with the program.<br/><br/>
-        Week 1: Mandatory quiz - due date: Friday, May 20th <br/>
-        Week 2: Mandatory exercise - due date: Friday, May 27th <br/><br/>
+        Week 1: Mandatory Quiz - due date: Friday, May 20th <br/>
+        Week 2: Mandatory Exercise - due date: Friday, May 27th <br/><br/>
         You will also find exercises every week which are not mandatory. These are still highly recommended, as they are a good preparation for the final exam. <br/><br/>
         <div class="tm-bold">Technical requirements</div>
         No special technical requirements of HW or SW are needed. You need a computer with at least 8 GB RAM and 4GB free hard disk space. 
@@ -99,7 +99,7 @@ modules:
         description: Public-key cryptography
         url: /academy/0.0-B9lab-Blockchains/5_crypto.html
         order: 5
-      - title: Self-assessment Quiz
+      - title: Self-Assessment Quiz
         description: Want to test your blockchain knowledge?
         url: /academy/0.0-B9lab-Blockchains/6_quiz.html
         order: 6
@@ -121,7 +121,7 @@ modules:
         url: /academy/1-what-is-cosmos/cosmos-ecosystem.html
         order: 2
       - title: Getting ATOM and Staking It
-        description: Staking your first ATOM
+        description: Stake your first ATOM
         url: /academy/1-what-is-cosmos/atom-staking.html
         order: 3
       - title: A Blockchain App Architecture
@@ -145,7 +145,7 @@ modules:
         url: /academy/2-main-concepts/modules.html
         order: 9
       - title: Protobuf
-        description: Working with Protocol Buffers
+        description: Work with Protocol Buffers
         url: /academy/2-main-concepts/protobuf.html
         order: 10
       - title: Multistore and Keepers
@@ -153,7 +153,7 @@ modules:
         url: /academy/2-main-concepts/multistore-keepers.html
         order: 11
       - title: BaseApp
-        description: Working with BaseApp to implement applications
+        description: Work with BaseApp to implement applications
         url: /academy/2-main-concepts/base-app.html
         order: 12
       - title: Queries
@@ -161,7 +161,7 @@ modules:
         url: /academy/2-main-concepts/queries.html
         order: 13
       - title: Events
-        description: Using events in app development
+        description: Use events in app development
         url: /academy/2-main-concepts/events.html
         order: 14
       - title: Context
@@ -179,12 +179,12 @@ modules:
       - title: Mandatory Quiz
         url: /course-ida/quiz-week1.html
         order: 19
-  - title: Running Your Own Cosmos Chain - Part 1
+  - title: Run Your Own Cosmos Chain - Part 1
     description: In Week 2, you'll discover how to run a node and learn how to build your own chain by following an example implementation of a checkers blockchain.
     number: 2
     url: /course-ida/landingpages/week2-lp.html
     submodules:
-      - title: Running Your Own Cosmos Chain - Part 1
+      - title: Run Your Own Cosmos Chain - Part 1
         description: Run a chain for the first time
         url: /course-ida/landingpages/week2-lp.html
         order: 0
@@ -192,8 +192,8 @@ modules:
         description: All you need for the hands-on sections
         url: /course-ida/setup.html
         order: 1
-      - title: Running a Node, API, and CLI
-        description: Interacting with a Cosmos SDK chain through simapp
+      - title: Run a Node, API, and CLI
+        description: Interact with a Cosmos SDK chain through simapp
         url: /academy/3-running-a-chain/node-api-and-cli.html
         order: 2
       - title: Ignite CLI
@@ -201,11 +201,11 @@ modules:
         url: /academy/4-my-own-chain/ignitecli.html
         order: 3
       - title: Exercise - Make a Checkers Blockchain
-        description: Exercise Introductrion
+        description: Exercise introductrion
         url: /academy/4-my-own-chain-exer/exercise-intro.html
         order: 4
       - title: Exercise - Store Object - Make a Checkers Blockchain
-        description: 
+        description: Exercise - Create the object that stores a game
         url: /academy/4-my-own-chain-exer/stored-game-exer.html
         order: 5
       - title: Store Object - Make a Checkers Blockchain
@@ -213,60 +213,60 @@ modules:
         url: /academy/4-my-own-chain/stored-game.html
         order: 6
       - title: Exercise - Message - Create a Message to Create a Game
-        description: Exercise - You introduce the message to create a game
+        description: Exercise - Introduce the message to create a game
         url: /academy/4-my-own-chain-exer/create-message-exer.html
         order: 7
       - title: Message - Create a Message to Create a Game
-        description: Introducing the message to create a game
+        description: Introduce the message to create a game
         url: /academy/4-my-own-chain/create-message.html
         order: 8
       - title: Exercise - Message Handler - Create and Save a Game Properly
-        description: Exercise - You create a proper game
+        description: Exercise - Create a proper game
         url: /academy/4-my-own-chain-exer/create-handling-exer.html
         order: 9
       - title: Message Handler - Create and Save a Game Properly
-        description: Creating a proper game
+        description: Exercise - Create a proper game
         url: /academy/4-my-own-chain/create-handling.html
         order: 10
       - title: Exercise - Message and Handler - Add a Way to Make a Move
-        description: Creating a proper game
+        description: Exercise - Play a game
         url: /academy/4-my-own-chain-exer/play-game-exer.html
         order: 11
       - title: Message and Handler - Add a Way to Make a Move
-        description: Playing a game
+        description: Play a game
         url: /academy/4-my-own-chain/play-game.html
         order: 12
-      - title: Exercise - Events - Emitting Game Information
-        description: Playing a game
+      - title: Exercise - Events - Emit Game Information
+        description: Exercise - Emit game information using events
         url: /academy/4-my-own-chain-exer/events-exer.html
         order: 13
-      - title: Events - Emitting Game Information
-        description: Emitting game information using events
+      - title: Events - Emit Game Information
+        description: Emit game information using events
         url: /academy/4-my-own-chain/events.html
         order: 14
       - title: Exercise - Message and Handler - Make Sure a Player Can Reject a Game
-        description: Emitting game information using events
+        description: Exercise - Reject a game
         url: /academy/4-my-own-chain-exer/reject-game-exer.html
         order: 15
       - title: Message and Handler - Make Sure a Player Can Reject a Game
-        description: Rejecting a game
+        description: Reject a game
         url: /academy/4-my-own-chain/reject-game.html
         order: 16
       - title: Mandatory Exercise
         description: Mandatory Exercise
         url: /academy/4-my-own-chain-exer/week2-exercise.html
         order: 17
-  - title: Running Your Own Cosmos Chain - Part 2
+  - title: Run Your Own Cosmos Chain - Part 2
     description: In Week 3, you'll dive deeper into customizing the checkers blockchain and discover how to make your own game more interesting and unique.
     number: 3
     url: /course-ida/landingpages/week3-lp.html
     submodules:
-      - title: Running Your Own Cosmos Chain - Part 2
+      - title: Run Your Own Cosmos Chain - Part 2
         description: It all comes together
         url: /course-ida/landingpages/week3-lp.html
         order: 0
       - title: Store FIFO - Put Your Games in Order
-        description: Preparing to expire games
+        description: Prepare to expire games
         url: /academy/4-my-own-chain/game-fifo.html
         order: 1
       - title: Store Field - Keep an Up-To-Date Game Deadline
@@ -274,31 +274,31 @@ modules:
         url: /academy/4-my-own-chain/game-deadline.html
         order: 2
       - title: Store Field - Record the Game Winner
-        description: Storing the winner of a game
+        description: Store the winner of a game
         url: /academy/4-my-own-chain/game-winner.html
         order: 3
       - title: EndBlock - Auto-expiring Games
-        description: Enforcing the expiration of games
+        description: Enforce the expiration of games
         url: /academy/4-my-own-chain/game-forfeit.html
         order: 4
       - title: Token - Let Players Set a Wager
-        description: Letting players set a wager
+        description: Players set a wager
         url: /academy/4-my-own-chain/game-wager.html
         order: 5
       - title: Gas - Incentivize Players
-        description: Rewarding validators proportional to their effort
+        description: Exercise - Reward validators proportional to their effort
         url: /academy/4-my-own-chain/gas-meter.html
         order: 6
       - title: Query - Help Find a Correct Move
-        description: Helping players make good transactions
+        description: Help players make good transactions
         url: /academy/4-my-own-chain/can-play.html
         order: 7
       - title: IBC Token - Play With Cross-Chain Tokens
-        description: Letting players wager any fungible token
+        description: Let players wager any fungible token
         url: /academy/4-my-own-chain/wager-denom.html
         order: 8
       - title: Migration - Introduce a Leaderboard After Production
-        description: Introducing a leaderboard to your in-production blockchain
+        description: A leaderboard for your in-production blockchain
         url: /academy/4-my-own-chain/migration.html
         order: 9
       - title: CosmWasm
@@ -311,7 +311,7 @@ modules:
     url: /course-ida/landingpages/week4-lp.html
     submodules:
       - title: The Inter-Blockchain Communication Protocol
-        description: Connecting chains
+        description: Connect chains
         url: /course-ida/landingpages/week4-lp.html
         order: 0
       - title: What is IBC?
@@ -335,7 +335,7 @@ modules:
         url: /academy/ibc/token-transfer.html
         order: 5
       - title: Interchain Accounts
-        description: Working with ICA
+        description: Work with ICA
         url: /academy/ibc/ica.html
         order: 6
       - title: Relaying in General
@@ -368,27 +368,27 @@ modules:
         url: /academy/xl-cosmjs/intro.html
         order: 1
       - title: Your First CosmJS Actions - Send Tokens
-        description: Interacting with a Cosmos SDK chain through CosmJS
+        description: Interact with a Cosmos SDK chain through CosmJS
         url: /academy/xl-cosmjs/first-steps.html
         order: 2
       - title: Compose Complex Transactions
-        description: Sending multiple tokens and messages through CosmJS
+        description: Send multiple tokens and messages through CosmJS
         url: /academy/xl-cosmjs/multi-msg.html
         order: 3
       - title: Learn to Integrate Keplr
-        description: Interacting with a Cosmos SDK chain through CosmJS and Keplr
+        description: Interact with a Cosmos SDK chain through CosmJS and Keplr
         url: /academy/xl-cosmjs/with-keplr.html
         order: 4
       - title: Create Custom CosmJS Interfaces
-        description: Working with your blockchain
+        description: Work with your blockchain
         url: /academy/xl-cosmjs/create-custom.html
         order: 5
-      - title: The Custom Objects for Your Checkers Blockchain
-        description: Creating the objects for your GUI
+      - title: Custom Objects for Your Checkers Blockchain
+        description: Create the objects for your GUI
         url: /academy/4-my-own-chain/cosmjs-objects.html
         order: 6
-      - title: Create Custom Messages for Your Checkers Blockchain
-        description: Introducing the message to create a game
+      - title: Custom Messages for Your Checkers Blockchain
+        description: Introduce the message to create a game
         url: /academy/4-my-own-chain/cosmjs-messages.html
         order: 7
   - title: CosmJS for Your Chain - GUI and Backend Script
@@ -397,19 +397,19 @@ modules:
     url: /course-ida/landingpages/week6-lp.html
     submodules:
       - title: CosmJS for Your Chain - GUI and Backend Script
-        description: Diving deeper into CosmJS
+        description: Dive deeper into CosmJS
         url: /course-ida/landingpages/week6-lp.html
         order: 0
-      - title: Pick and Fix a Checkers GUI
-        description: Finding a checkers GUI before integrating with CosmJS
+      - title: Get an External GUI
+        description: Find a checkers GUI before integrating with CosmJS
         url: /academy/4-my-own-chain/external-gui.html
         order: 1
       - title: Integrate CosmJS and Keplr Into the GUI
-        description: Taking a checkers GUI and using the elements
+        description: Take a checkers GUI and use the elements
         url: /academy/4-my-own-chain/cosmjs-gui.html
         order: 2
       - title: CosmJS on a Backend Script for Game Indexing
-        description: Introducing a Web2.0 server to track games per player
+        description: Introduce a Web2.0 server to track games per player
         url: /academy/4-my-own-chain/server-side.html
         order: 3
 -->
