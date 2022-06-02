@@ -650,6 +650,6 @@ What if you wanted to experiment with your own chain while in development?
 
 Keplr does not know about locally running chains by default. As you did with Cosmos Hub Testnet, you must inform Keplr about your chain: change `ChainInfo` to match the information about your chain, and change `rpcUrl` so that it points to your local port.
 
-## Conclusion
+## Next up
 
-You have how updated your CosmJS frontend so that it integrates with Keplr.
+You have how updated your CosmJS frontend so that it integrates with Keplr. In the [next section](https://interchainacademy.cosmos.network/academy/xl-cosmjs/create-custom.html), learn more about creating custom CosmJS interfaces.
