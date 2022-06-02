@@ -375,3 +375,7 @@ $ hermes -c simple_config.toml tx raw packet-ack ibc-0 ibc-1 transfer channel-5
 ```
 
 Check the balances again. A new denom should appear because of our recent channel. As an exercise, transfer the tokens back to ibc-0.
+
+## Next up
+
+With this introduction to the Hermes relayer, you are all set for relaying. In the [next section](./ibc-tooling.md), you can find an overview of helpful tools for IBC.

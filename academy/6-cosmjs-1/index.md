@@ -31,6 +31,10 @@ In this chapter, you will:
 
 <card-module/>
 
+## Next up
+
+As you learn about CosmJS in thsi chapter, start your journey with an introduction in the [next section](./cosmjs-intro.md).
+
 ## Developer resources
 
 <div v-for="resource in $themeConfig.resources">

@@ -33,6 +33,10 @@ In this chapter, you will:
 
 <card-module/>
 
+## Next up
+
+Continue developing your checkers blockchain in this chapter. Next: How can the checkers blockchain be optimized? Begin with some thoughts on [auto-expiring games](./game-fifo-exer.html).
+
 ## Developer resources
 
 <div v-for="resource in $themeConfig.resources">

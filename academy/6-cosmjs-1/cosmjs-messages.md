@@ -396,6 +396,8 @@ This is great news!
 
 With the [`getAllStoredGames` call](https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/test/live/experiment.ts#L33) you can modify this test file, in particular by choosing not to reject the game but instead to list it in the next test run.
 
-## Conclusion
+## Next up
 
-You have now included elements and messages that allow you to interact with the Checkers blockchain. You have confirmed this with a small NodeJs experimentation file. The only things that remain now are to add any [server-side scripts](./server-side.md) and to plug the elements you have created into [a graphical user interface](./external-gui.md).
+You now included elements and messages that allow you to interact with the checkers blockchain. You confirmed this with a small Node.js experimentation file. The only things that remain to do are adding any [server-side scripts](./server-side.md) and plugging the elements you have created into [a graphical user interface](./external-gui.md).
+
+Head to the [next chapter](../7-cosmjs-2/index.md) on CosmJS to work on the GUI and backend script for your checkers blockchain.

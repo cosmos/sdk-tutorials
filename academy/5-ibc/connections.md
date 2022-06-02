@@ -315,3 +315,7 @@ If both chains submit `OpenInit` then `OpenTry` at same time, there should be no
 ### An imposter
 
 In fact this is not an issue. Any attempted `OpenInit` from an imposter will fail on `OpenTry`, because it will not contain valid proofs of `Client/Connection/ConsensusState`.
+
+## Next up
+
+Now that you finished having a look at connections in IBC/TAO, it is now time to switch your focus to channels in the [next section](./channels.md).

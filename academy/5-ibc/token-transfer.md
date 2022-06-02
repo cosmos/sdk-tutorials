@@ -234,3 +234,8 @@ func (k Keeper) SendTransfer(
     }
 }
 ```
+
+## Next up
+
+In the [next section](ica.md), discover how you can control an account on a host chain from a controller chain using interchain accounts (ICAs).
+

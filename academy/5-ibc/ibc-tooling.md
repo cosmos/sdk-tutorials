@@ -228,3 +228,7 @@ If you want a visualization of the network, just click on the network icon in th
 The connections displayed in the visualizer have either a regular or a dotted line, depending on whether a connection is opened or unopened.
 
 </HighlightBox>
+
+## Next up
+
+The next chapters are all about CosmJS, a TypeScript library that helps developers integrate frontend user interfaces and backend servers with Cosmos blockchains. You can go ahead and start with the [next chapter](../6-cosmjs-1/index.md).

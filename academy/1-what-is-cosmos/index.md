@@ -32,6 +32,10 @@ In this chapter, you will:
 
 <card-module/>
 
+## Next up
+
+Dive right into Cosmos with the first section _[Blockchain Technology and Cosmos](./blockchain-and-cosmos.md)_.
+
 ## Developer resources
 
 <div v-for="resource in $themeConfig.resources">

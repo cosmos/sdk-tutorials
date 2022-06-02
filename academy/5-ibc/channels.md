@@ -176,3 +176,8 @@ In either case, even if there is no application specific logic to be initiated a
 In the case that a packet is time-sensitive and the timeout block height or timeout timestamp specified in the packet parameters **based on chain B's time** has elapsed, whatever state transitions have occured as a result of the sent packet should be reversed.
 
 In these cases, the initial flow is the same, with core IBC A first committing the packet to its own state. However, instead of querying for the packet, a relayer will submit a  `QueryNonReceipt` to receive a proof that the packet was not received by core IBC B. It can then send the `TimeoutPacket` to core IBC A, which will then trigger the relevant `OnTimeoutPacket` application logic. For example, the ICS-20 token transfer application will unescrow the locked up tokens and send these back to the original sender `OnTimeoutPacket`.
+
+## Next up
+
+You learned how to establish a channel and discovered the application packet flow. In the [next section](./clients.md), you get to explore clients in IBC/TAO.
+

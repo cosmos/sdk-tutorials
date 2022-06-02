@@ -326,6 +326,6 @@ Error: Query failed with (18): rpc error: code = InvalidArgument desc = not foun
 
 This is as expected, as nothing more can be tested at this stage.
 
-## What's next?
+## Next up
 
 Now that your types have been generated, you can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./cosmjs-messages.md).

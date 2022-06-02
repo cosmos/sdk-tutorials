@@ -330,10 +330,10 @@ $ checkersd query checkers show-stored-game 1 --output json | jq ".StoredGame.ga
 
 You will modify this handling in the next sections by:
 
-* Adding [new fields](./game-fifo.md) to the stored information.
+* Adding [new fields](../3-my-own-chain/game-fifo.md) to the stored information.
 * Adding [an event](./events.md).
-* Consuming [some gas](./gas-meter.md).
-* Facilitating the eventual [deadline enforcement](./game-forfeit.md).
-* Adding [_money_](./game-wager.md) handling, including [foreign tokens](./wager-denom.md).
+* Consuming [some gas](../3-my-own-chain/gas-meter.md).
+* Facilitating the eventual [deadline enforcement](../3-my-own-chain/game-forfeit.md).
+* Adding [_money_](../3-my-own-chain/game-wager.md) handling, including [foreign tokens](../3-my-own-chain/wager-denom.md).
 
 Now that a game is created, it is time to play it. That is the subject of the [next section](./play-game.md).

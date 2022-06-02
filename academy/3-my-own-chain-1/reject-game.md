@@ -368,6 +368,6 @@ To belabor the point made in the earlier warning box: if you change your code, t
 
 ## Next up
 
-The next four sections cover forfeits and how games end. In the next section, you create a [doubly-linked FIFO](./game-fifo.md). Later you add [deadline](./game-deadline.md) and [game winner](./game-winner.md) fields, before being able to finally [enforce the forfeit](./game-forfeit.md).
+The [next chapter](../3-my-own-chain/index.md) covers forfeits and how games end. In the next section, you create a [doubly-linked FIFO](../3-my-own-chain/game-fifo.md). Later you add [deadline](../3-my-own-chain/game-deadline.md) and [game winner](../3-my-own-chain/game-winner.md) fields, before being able to finally [enforce the forfeit](../3-my-own-chain/game-forfeit.md).
 
-If you want to enable token wagers in your games instead, skip ahead to [wagers](./game-wager.md).
+If you want to enable token wagers in your games instead, skip ahead to [wagers](../3-my-own-chain/game-wager.md).

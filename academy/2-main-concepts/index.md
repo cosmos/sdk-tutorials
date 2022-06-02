@@ -30,6 +30,10 @@ In this chapter, you will:
 
 <card-module/>
 
+## Next up
+
+Want to get started with the main concepts of the Cosmos SDK? Go ahead and start with a look at _[A Blockchain App Architecture](./architecture.md)_.
+
 ## Developer resources
 
 <div v-for="resource in $themeConfig.resources">
