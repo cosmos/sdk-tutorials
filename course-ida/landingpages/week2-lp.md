@@ -1,10 +1,10 @@
 ---
-title: "Running Your Own Cosmos Chain - Part 1"
+title: "Run Your Own Cosmos Chain - Part 1"
 order: 1
 description: RUN A CHAIN FOR THE FIRST TIME
 ---
 
-## Running Your Own Cosmos Chain - Part 1
+## Run Your Own Cosmos Chain - Part 1
 
 Do you want to find out how to interact with Cosmos chains? Let's take it step-by-step.
 
