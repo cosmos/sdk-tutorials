@@ -355,6 +355,8 @@ public async sendTokens(
 }
 ```
 
-## Conclusion
+## Next up
 
 You are ready to import and use this in a server script or a GUI.
+
+Head right into the [next section](./cosmjs-objects.md) to begin creating custom objects for your checkers blockchain.
