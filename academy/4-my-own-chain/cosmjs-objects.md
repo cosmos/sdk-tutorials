@@ -5,7 +5,7 @@ description: Create the objects for your GUI
 tag: deep-dive
 ---
 
-# Create Custom Objects for Your Checkers Blockchain
+# The Custom Objects for Your Checkers Blockchain
 
 <HighlightBox type="prerequisite">
 
