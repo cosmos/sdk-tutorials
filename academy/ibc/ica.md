@@ -631,3 +631,7 @@ app.mm.SetOrderInitGenesis(
     ...
 )
 ```
+
+## Next up
+
+After having a closer look at the Cosmos SDK security model, the authentication module, and an example integration, discover relaying with IBC in the [next section](https://interchainacademy.cosmos.network/academy/ibc/relayerintro.html).
