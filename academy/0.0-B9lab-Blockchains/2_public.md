@@ -79,12 +79,12 @@ Let us start by diving into public blockchains and their most known examples, Bi
 
 <HighlightBox type="reading">
 
-## Books
+**Books**
 
 * [Swan Melanie: Blockchain (2015): Blueprint for a New Economy](https://www.amazon.co.uk/Blockchain-Blueprint-Economy-Melanie-Swan/dp/1491920491)
 * [Antonopolous, Andreas (2017): Mastering Bitcoin](https://bitcoinbook.info/)
 
-## Further reading
+**Further readings**
 
 * [Anderson, Ross J. (1996): The Eternity Service](https://www.cl.cam.ac.uk/~rja14/Papers/eternity.pdf)
 * [Buterin, Vitalik (2014): A Next-Generation Smart Contract and Decentralized Application Platform - The Ethereum White Paper](https://github.com/ethereum/wiki/wiki/White-Paper)
