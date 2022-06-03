@@ -1,5 +1,5 @@
 ---
-title: Get Support on Discord
+title: "Get Support on Discord"
 order:
 description:
 tag:
