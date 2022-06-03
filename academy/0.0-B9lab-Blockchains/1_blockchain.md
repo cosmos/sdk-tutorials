@@ -213,6 +213,8 @@ Blockchain technology is often seen as presenting the possibility of more privat
 
 <HighlightBox type="reading">
 
+**Further readings**
+
 * [Wikipedia: Double-spending](https://en.wikipedia.org/wiki/Double-spending)
 * [Satoshi Nakamoto (2008): Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
 
