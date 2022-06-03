@@ -66,9 +66,15 @@ Do you want to find out more about the wide variety of wallets in the Cosmos eco
 
 ## The Cosmos SDK - modular and customizable
 
-The Cosmos network focuses on an ecosystem for easy blockchain development that provides customizability and interoperability. It establishes a stable universe determined by rules that apply to the whole ecosystem equally. _Click on the hotspots in the image to learn more about the main goals of the Cosmos network._
+The Cosmos network focuses on an ecosystem for easy blockchain development that provides customizability and interoperability. It establishes a stable universe determined by rules that apply to the whole ecosystem equally.
 
-<H5PComponent :contents="['/h5p/M1-ecosystem-constellation-HS']"></H5PComponent>
+![Cosmos SDK constellation](/academy/1-what-is-cosmos/images/constellation.png)
+
+Before Cosmos came along, developing a whole new chain was much more difficult and expensive than building a smart contract. Now, with the Cosmos SDK, entirely flexible, secure, high performance, and sovereign **application-specific blockchains** can be developed. To allow this, building modular, adaptable, and interchangeable open-source development tools is at the center of Cosmos' mission.
+
+The main aim of the Cosmos network is to provide an **ecosystem for easy blockchain development** based on the Tendermint BFT and the Inter-Blockchain Communication protocol (IBC) with the so-called [Cosmos SDK](https://v1.cosmos.network/sdk).
+
+Each chain in the Cosmos ecosystem relies on the Tendermint **fast-finality BFT consensus algorithm**. This ensures a common consensus mechanism at work in all chains of the network. Next to its use in Cosmos, the Tendermint consensus mechanism is also utilized in the [IRIS Hub](https://www.irishub.rw/), [Binance Chain](https://www.binance.org/en), [Terra](https://www.terra.money/), [Kava](https://www.kava.io/), and more.
 
 <HighlightBox type="tip">
 
