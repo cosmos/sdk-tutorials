@@ -48,7 +48,7 @@ To have Ignite CLI and Protobuf recompile this file, use:
 $ ignite generate proto-go
 ```
 
-On each update the deadline will always be _now_ plus a fixed duration. In this context, _now_ refers to the block's time. Declare this duration as a new constant, plus how the date is to be represented, i.e. encoded in the saved game as a string:
+On each update the deadline will always be _now_ plus a fixed duration. In this context, _now_ refers to the block's time. You cannot use a non-deterministic `Date.now()`, which would be different on each execution. Declare this duration as a new constant, plus how the date is to be represented, i.e. encoded in the saved game as a string:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/58199af8/x/checkers/types/keys.go#L38-L39]
 const (
