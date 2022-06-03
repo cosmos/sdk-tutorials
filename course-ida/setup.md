@@ -1,5 +1,5 @@
 ---
-title: Set Up Your Work Environment
+title: "Set Up Your Work Environment"
 order:
 description: All you need for the hands-on sections
 tag:
