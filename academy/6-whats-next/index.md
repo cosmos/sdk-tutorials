@@ -80,3 +80,5 @@ No worries! Just get in touch with Cosmos enterprise support!
     <a class="tm-button tm-button-external"><span>Talk to us</span></a>
   </div>
 </Card>
+
+![](./images/green-planet.svg)
