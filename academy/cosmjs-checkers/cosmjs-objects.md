@@ -1,6 +1,6 @@
 ---
 title: "Custom Objects for Your Checkers Blockchain"
-order: 7
+order: 2
 description: Create the objects for your GUI
 tag: deep-dive
 ---

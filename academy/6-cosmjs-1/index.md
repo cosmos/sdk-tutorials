@@ -1,6 +1,6 @@
 ---
 parent:
-  title: CosmJS - Interfacing
+  title: CosmJS
   description: The TypeScript library for the Cosmos SDK
   number: 6
 tag: deep-dive
@@ -9,7 +9,7 @@ title: Chapter Overview - Using CosmJS for Your Chain
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">The TypeScript library for the Cosmos SDK</div>
-<h1 class="mt-4 mb-6">CosmJS - Interfacing</h1>
+<h1 class="mt-4 mb-6">CosmJS</h1>
 
 With step-by-step examples you will learn how to work with CosmJS when building your application-specific blockchain. Explore how to use CosmJS and apply it to your checkers blockchain to create custom objects and messages.
 
@@ -25,7 +25,6 @@ In this chapter, you will:
 * Do your first CosmJS actions.
 * Learn how to Integrate Keplr.
 * Dive into creating custom objects with CosmJS.
-* Continue working on your checkers blockchain to have custom objects and messages.
 
 </HighlightBox>
 

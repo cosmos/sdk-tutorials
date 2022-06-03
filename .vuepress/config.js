@@ -107,13 +107,8 @@ module.exports = {
             },
 
             {
-              title: "CosmJS - Interfacing",
+              title: "CosmJS",
               path: "/academy/6-cosmjs-1",
-              directory: true,
-            },
-            {
-              title: "CosmJS for Your Chain - GUI and Backend Script",
-              path: "/academy/7-cosmjs-2",
               directory: true,
             },
             {
