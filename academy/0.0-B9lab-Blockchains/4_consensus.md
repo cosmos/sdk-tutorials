@@ -126,6 +126,8 @@ Tendermint will be explored in detail in [Cosmos and its Main Concepts](/course-
 
 <HighlightBox type="reading">
 
+**Further readings**
+
 * [Castro, M. & Liskov, B. (1999): Practical Byzantine Fault Tolerance](http://pmg.csail.mit.edu/papers/osdi99.pdf)
 * [Castro, M. & Liskov, B.: Practical Byzantine Fault Tolerance presentation](https://www.comp.nus.edu.sg/~rahul/allfiles/cs6234-16-pbft.pdf)
 * [Curran, B. (2018): What is Pracictcal Byzantine Fault Tolerance? Complete Beginner's Guide](https://blockonomi.com/practical-byzantine-fault-tolerance/)
