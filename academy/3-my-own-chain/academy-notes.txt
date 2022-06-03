@@ -1,5 +1,0 @@
-Student doing Checkers using Ignite v0.21.0 with Cosmos SDK v0.45.4 on Apple M1: https://github.com/msicilia/checkers
-
-A tour of Go: https://go.dev/tour/list
-
-Future of Protobuf -> Typescript compiler: https://github.com/osmosis-labs/telescope

@@ -91,29 +91,24 @@ module.exports = {
               directory: true,
             },
             {
-              title: "Run Your Own Cosmos Chain - 1",
-              path: "/academy/3-my-own-chain-1",
-              directory: true,
-            },
-            {
-              title: "Run Your Own Cosmos Chain - 2",
-              path: "/academy/4-my-own-chain-2",
+              title: "Run Your Own Cosmos Chain",
+              path: "/academy/3-my-own-chain",
               directory: true,
             },
             {
               title: "The Inter-Blockchain Communication Protocol",
-              path: "/academy/5-ibc",
+              path: "/academy/4-ibc",
               directory: true,
             },
 
             {
               title: "CosmJS",
-              path: "/academy/6-cosmjs",
+              path: "/academy/5-cosmjs",
               directory: true,
             },
             {
               title: "What's Next?",
-              path: "/academy/7-whats-next/",
+              path: "/academy/6-whats-next/",
               directory: false,
             },
           ],
@@ -287,7 +282,7 @@ module.exports = {
                   path: "/academy/4-my-own-chain/reject-game.html"
                 },
                 {
-                  title: "Mandatory Exercise (todo)",
+                  title: "Mandatory Exercise",
                   path: "/feature-test"
                 },
               ]
