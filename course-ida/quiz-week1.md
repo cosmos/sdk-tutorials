@@ -1,5 +1,5 @@
 ---
-title: Mandatory Quiz
+title: "Mandatory Quiz"
 order:
 description:
 tag:

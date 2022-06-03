@@ -1,5 +1,5 @@
 ---
-title: Events - Emit Game Information
+title: "Events - Emit Game Information"
 order: 15
 description: Emit game information using events
 tag: deep-dive
