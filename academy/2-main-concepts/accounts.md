@@ -182,17 +182,13 @@ An address is public information normally used to reference an account. Addresse
 
 The keyring object stores and manages multiple accounts. The keyring object implements the [`Keyring`](https://github.com/cosmos/cosmos-sdk/blob/bf11b1bf1fa0c52fb2cd51e4f4ab0c90a4dd38a0/crypto/keyring/keyring.go#L55) interface in the Cosmos SDK.
 
-## Next up
-
-In the [next section](./transactions.md), you will learn how transactions are generated and handled in the Cosmos SDK.
-
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 In the [previous section](../2-main-concepts/architecture.md), your ABCI application accepted anonymous checkers moves. This is a problem. You can restrict moves to the right player with accounts.
 
 It is necessary to differentiate between players and other actors. This helps assure there is no identity spoofing, that players do not play out of turn, and rewards are paid to the correct winner. You are also going to store the creator of a game, which may or may not be a player.
 
-## Game object
+**Game object**
 
 First define some elements of the eventual stored game:
 
@@ -226,7 +222,7 @@ storedGame.Creator = creator.String()
 
 You will only accept the right players when it comes to transactions.
 
-## Remaining game object
+**Remaining game object**
 
 Defining the players is good, but the stored game is not complete unless you add game details like the current board state and the game's unique identifier. Conveniently, you can [serialize](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L303) and [deserialize](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L331) the board state. You can already confirm the following struct:
 
@@ -245,3 +241,8 @@ If you want to go beyond these out-of-context code samples and instead see more 
 
 
 </ExpansionPanel>
+
+
+## Next up
+
+In the [next section](./transactions.md), you will learn how transactions are generated and handled in the Cosmos SDK.
