@@ -172,9 +172,9 @@ If you want to continue exploring ABCI, you can find more detailed information h
 
 ## State machines
 
-A blockchain is a replicated state machine at its core. A **state machine** is a computer science concept, in which a machine can have multiple states but only one state at a time. It follows a state transition process (or a set of defined processes) which is the only way the state changes from the old state (`S`) to a new state (`S'`).
+A blockchain is a replicated state machine at its core. A **state machine** is a computer science concept, in which a machine can have multiple states but only one state at a time. It follows a state transition process (or a set of defined processes), which is the only way the state changes from the old or **initial state (`S`) to a new state (`S'`)**.
 
-<H5PComponent :contents="['/h5p/M2-architecture-statemachines-HS']"></H5PComponent>
+![State change](/academy/2-main-concepts/images/state_machine_1.png)
 
 The **state transition function** in a blockchain is synonymous with a transaction. Given an initial state, a confirmed transaction, and a set of rules for interpreting that transaction, the machine transitions to a new state. The rules of interpretation are defined at the application layer.
 
@@ -182,7 +182,9 @@ Blockchains are deterministic. The only correct interpretation of the transactio
 
 Blockchains are distributed, and transactions arrive in batches called blocks. The machine state subsists after the correct interpretation of each transaction in a block. Each transaction executes in the context of the state machine that resulted from every preceding transaction. The machine state after all transactions are executed is a useful checkpoint, especially for historic states.
 
-<H5PComponent :contents="['/h5p/M2-architecture-statemachines2-HS']"></H5PComponent>
+The state of the initialized blockchain, in which "nothing has happened yet", is called **Genesis state** (`S`). The current state of the blockchain (`S'`) can always be achieved by appliying all the transactions performed to the Genesis state.
+
+![State change](/academy/2-main-concepts/images/state_machine_2.png)
 
 Developers can create the state machine using the Cosmos SDK. This includes:
 
