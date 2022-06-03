@@ -170,7 +170,7 @@ With Ignite CLI, developers can:
 
 <HighlightBox type="reading">
 
-See the official [Ignite CLI documentation](https://docs.ignite.com/), and the section on [Ignite CLI](../4-my-own-chain/ignitecli.md) in the **Running Your Own Cosmos Chain - Part 1** chapter.
+See the official [Ignite CLI documentation](https://docs.ignite.com/), and the section on [Ignite CLI](../3-my-own-chain/ignitecli.md) in the **Running Your Own Cosmos Chain - Part 1** chapter.
 
 </HighlightBox>
 

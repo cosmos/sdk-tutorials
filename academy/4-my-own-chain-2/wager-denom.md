@@ -1,6 +1,6 @@
 ---
 title: "IBC Token - Play With Cross-Chain Tokens"
-order: 14
+order: 19
 description: Let players wager any fungible token
 tag: deep-dive
 ---
@@ -29,11 +29,31 @@ In this section, you will:
 
 When you [introduced a wager](./game-wager.md) you enabled players to play a game and bet on the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other connected blockchain by using the Inter-Blockchain Communication Protocol (IBC).
 
+Thus, you could expand the pool of your potential players by extending the pool of possible wager denominations via the use of IBC. How can you do this?
+
 <HighlightBox type="info">
 
 Your checkers application will be agnostic regarding tokens and relayers. Your only task is to enable the use of _foreign_ tokens.
 
 </HighlightBox>
+
+## Some initial thoughts
+
+Before diving into the exercise, ask yourself:
+
+* What new information do you need?
+* How do you sanitize the inputs?
+* Are there new errors to report back?
+* What event should you emit?
+
+## Code needs
+
+When it comes to the code itself:
+
+* What Ignite CLI commands, if any, assist you?
+* How do you adjust what Ignite CLI created for you?
+* How would you unit-test these new elements?
+* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
 ## New information
 

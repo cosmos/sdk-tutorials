@@ -1,6 +1,6 @@
 ---
 title: "Token - Let Players Set a Wager"
-order: 8
+order: 16
 description: Players set a wager
 tag: deep-dive
 ---
@@ -30,9 +30,33 @@ In this section, you will:
 
 With the introduction of game expiry in the [previous section](./game-forfeit.md) and other features, you have now addressed the cases when two players start a game and finish it, or let it expire.
 
-In this section you will add an extra layer to a game, with wagers or stakes. Your application already includes all the necessary modules. This section relies on the `bank` module in particular.
+In this section, you will add an extra layer to a game, with wagers or stakes. Your application already includes all the necessary modules. This section relies on the `bank` module in particular.
 
 Players choose to wager _money_ or not, and the winner gets both wagers. The forfeiter loses their wager. To reduce complexity, start by letting players wager in the staking token of your application.
+
+Now that no games can be left stranded, it is possible for players to safely wager on their games. How could this be implemented?
+
+## Some initial thoughts
+
+When thinking about implementing a wager on games, ask:
+
+* What form will a wager take?
+* Who decides on the amount of wagers?
+* Where is a wager recorded?
+* Is there any desirable atomicity of actions?
+* At what junctures do you need to handle payments, refunds, and wins?
+* Are there errors to report back?
+* What event should you emit?
+
+## Code needs
+
+When it comes to your code:
+
+* What Ignite CLI commands, if any, will assist you?
+* How do you adjust what Ignite CLI created for you?
+* Where do you make your changes?
+* How would you unit-test these new elements?
+* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
 ## New information
 
@@ -699,7 +723,7 @@ How you subdivide your tests and where you insert these balance checks is up to 
 
 You learned in a [previous section](./stored-game.md) how to launch your test in debug mode. It is still possible to do so when using a suite. The difference is that you launch it by right-clicking on the arrow left of the suite's runner `func TestCheckersKeeperTestSuite`:
 
-![Suite runner with green button](/academy/4-my-own-chain/images/go_test_debug_suite.png)
+![Suite runner with green button](/academy/3-my-own-chain/images/go_test_debug_suite.png)
 
 Note that you can only launch debug for all of the suite's test methods and not just a single one (as is possible with a simple test). A solution to this is to create more granular suites, for example using one or more test suites per file.
 

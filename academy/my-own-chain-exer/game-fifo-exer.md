@@ -1,6 +1,6 @@
 ---
 title: Exercise - Auto-Expiring Games
-order: 
+order:
 description: Exercise - Enforce the expiration of games
 tag: deep-dive
 ---
