@@ -108,12 +108,12 @@ module.exports = {
 
             {
               title: "CosmJS",
-              path: "/academy/6-cosmjs-1",
+              path: "/academy/6-cosmjs",
               directory: true,
             },
             {
               title: "What's Next?",
-              path: "/academy/8-whats-next/",
+              path: "/academy/7-whats-next/",
               directory: false,
             },
           ],
