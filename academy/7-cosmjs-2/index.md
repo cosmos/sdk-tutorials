@@ -31,6 +31,10 @@ In this chapter, you will:
 
 <card-module/>
 
+## Next up
+
+Dive into developing a GUI in the [next section](./external-gui.md) before integrating CosmJS and Keplr into the GUI and working on a backend script for game indexing.
+
 ## Developer resources
 
 <div v-for="resource in $themeConfig.resources">

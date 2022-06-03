@@ -972,3 +972,7 @@ Either way, it is now possible to play the game from the GUI. Congratulations!
 * Implement typical GUI features, like disabling buttons when their action should be unavailable, or adding a countdown to the forfeit deadline.
 * Implement a Web socket to listen to changes. That would be useful when there are two players who cannot communicate otherwise (instead of polling).
 * When a double capture (or more) is possible, the GUI allows you to make multiple moves at once (with `move.length >= 2`). However, the code handles only a single hop (`move[0]` and `move[1]`). It is technically possible to pack more than one `PlayMove` message in a single transaction, saving the player from sending multiple transactions.
+
+## Next up
+
+In the [next section](./server-side.md), explore how server-side scripts can help you improve the user experience of your application.
