@@ -5,7 +5,7 @@ parent:
   number: 6
 tag: deep-dive
 order: 0
-title: Chapter Overview - Using CosmJS for Your Chain
+title: Chapter Overview - CosmJS
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">The TypeScript library for the Cosmos SDK</div>
