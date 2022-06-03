@@ -1,5 +1,5 @@
 ---
-title: Store Field - Keep an Up-To-Date Game Deadline
+title: "Store Field - Keep an Up-To-Date Game Deadline"
 order: 12
 description: Games can expire
 tag: deep-dive
