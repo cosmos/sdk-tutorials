@@ -5,7 +5,7 @@ parent:
   number: 5
 tag: deep-dive
 order: 0
-title: Chapter Overview - Connect Chains With IBC
+title: Chapter Overview - The Inter-Blockchain Communication Protocol
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Connect chains</div>
