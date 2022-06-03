@@ -28,7 +28,7 @@ In this section, you will:
 
 </HighlightBox>
 
-Your blockchain can now create games, but can you play them? Not yet..so what do you need to make this possible?
+Your blockchain can now create games, but can you play them? Not yet...so what do you need to make this possible?
 
 ## Some initial thoughts
 
