@@ -1,5 +1,5 @@
 ---
-title: Store FIFO - Put Your Games in Order
+title: "Store FIFO - Put Your Games in Order"
 order: 11
 description: Prepare to expire games
 tag: deep-dive
