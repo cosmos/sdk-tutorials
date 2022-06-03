@@ -253,7 +253,7 @@ modules:
         description: Store the winner of a game
         url: /academy/4-my-own-chain/game-winner.html
         order: 3
-      - title: EndBlock - Auto-expiring Games
+      - title: EndBlock - Auto-Expiring Games
         description: Enforce the expiration of games
         url: /academy/4-my-own-chain/game-forfeit.html
         order: 4
