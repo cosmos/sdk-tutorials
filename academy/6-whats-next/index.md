@@ -12,6 +12,8 @@ Are you ready to continue your journey with Cosmos? What’s next? <br/><br/>
 Do you want to develop your own application-specific blockchain? Or contribute to development of the SDK? <br/><br/>
 Here you can find useful information to launch your journey into the Cosmos universe.
 
+![](/green-planet.svg)
+
 ## Community
 
 Check out the Cosmos developer community! Hang out and chat with ~14 thousand other members. Have a burning question, want to stay up to date on community events, and be in touch with the ecosystem?
@@ -82,5 +84,3 @@ No worries! Just get in touch with Cosmos enterprise support!
   </div>
 </Card>
 -->
-
-![](./images/green-planet.svg)
