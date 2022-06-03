@@ -28,6 +28,30 @@ In this section, you will:
 
 </HighlightBox>
 
+Your blockchain can now create games, but can you play them? Not yet...so what do you need to make this possible?
+
+## Some initial thoughts
+
+Before diving into the exercise, take some time to think about the following questions:
+
+* What goes into the message?
+* How do you sanitize the inputs?
+* How do you unequivocally identify games?
+* How do you report back errors?
+* How do you use your files that implement the checkers rules?
+* How do you make sure that nothing is lost?
+
+## Code needs
+
+When it comes to the code you need, ask yourself:
+
+* What Ignite CLI commands will create your message?
+* How do you adjust what Ignite CLI created for you?
+* How would you unit-test these new elements?
+* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
+
+As before, do not bother yet with niceties like gas metering or event emission.
+
 To play a game a player only needs to specify:
 
 * The ID of the game the player wants to join. Call the field `idValue`.
@@ -340,4 +364,8 @@ Bob's piece moved down and right.
 
 Before you add a third message to let a player [reject a game](./reject-game.md), add events to the existing message handlers for relevant information. This is the object of the [next section](./events.md).
 
+<HighlightBox type="tip">
+
 If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](./can-play.md).
+
+</HighlightBox>

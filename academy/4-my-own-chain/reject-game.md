@@ -29,6 +29,32 @@ In this section, you will:
 
 </HighlightBox>
 
+Your blockchain can now create and play games, and inform the outside world about the process. It would be good to add a way for players to back out of games they do not want to play. What do you need to make this possible?
+
+## Some initial thoughts
+
+Ask yourself:
+
+* What goes into the message?
+* How do you sanitize the inputs?
+* How do you unequivocally identify games?
+* What conditions have to be satisfied to reject a game?
+* How do you report back errors?
+* What event should you emit?
+* How do you use your files that implement the Checkers rules?
+* What do you do with a rejected game?
+
+## Code needs
+
+When you think about the code you might need, try to first answer the following questions:
+
+* What Ignite CLI commands will create your message?
+* How do you adjust what Ignite CLI created for you?
+* How would you unit-test these new elements?
+* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
+
+As before, do not bother yet with niceties like gas metering.
+
 If anyone can create a game for any two other players, it is important to allow a player to reject a game. But a player should not be allowed to reject a game once they have made their first move.
 
 To reject a game, a player needs to provide the ID of the game that the player wants to reject. Call the field `idValue`. This should be sufficient, as the signer of the message is implicitly the player.
@@ -368,6 +394,10 @@ To belabor the point made in the earlier warning box: if you change your code, t
 
 ## Next up
 
-The next week's sections cover forfeits and how games end. In the next section, you create a [doubly-linked FIFO](./game-fifo.md). Later you add [deadline](./game-deadline.md) and [game winner](./game-winner.md) fields, before being able to finally [enforce the forfeit](./game-forfeit.md).
+Next week's sections cover forfeits and how games end. In the next section, you create a [doubly-linked FIFO](./game-fifo.md). Later you add [deadline](./game-deadline.md) and [game winner](./game-winner.md) fields, before being able to finally [enforce the forfeit](./game-forfeit.md).
+
+<HighlightBox type="tip">
 
 If you want to enable token wagers in your games instead, skip ahead to [wagers](./game-wager.md).
+
+</HighlightBox>

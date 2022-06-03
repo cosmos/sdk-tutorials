@@ -25,9 +25,28 @@ In this section, you will:
 
 </HighlightBox>
 
-In the [previous section](./create-message.md) you added the message to create a game along with its serialization and dedicated gRPC function with the help of Ignite CLI.
+In the [previous section](./create-message.md), you added the message to create a game along with its serialization and dedicated gRPC function with the help of Ignite CLI.
 
-Now you must add code that:
+However, it does not create a game yet because you have not implemented the message handling. How would you do this?
+
+## Some initial thoughts
+
+Dwell on the following questions to guide you in the exercise:
+
+* How do you sanitize your inputs?
+* How do you avoid conflicts with past and future games?
+* How do you use your files that implement the Checkers rules?
+
+## Code needs
+
+* No Ignite CLI is involved here, it is just Go.
+* Of course, you need to know where to put your code - look for `TODO`.
+* How would you unit-test this message handling?
+* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
+
+For now, do not bother with niceties like gas metering or event emission.
+
+You must add code that:
 
 * Creates a brand new game.
 * Saves it in storage.
@@ -38,10 +57,8 @@ Ignite CLI isolated this concern into a separate file, `x/checkers/keeper/msg_se
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/e78cba34926ba0adee23febb1ce44774e2c466b3/x/checkers/keeper/msg_server_create_game.go#L10-L17]
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
     ctx := sdk.UnwrapSDKContext(goCtx)
-
     // TODO: Handling the message
     _ = ctx
-
     return &types.MsgCreateGameResponse{}, nil
 }
 ```
@@ -336,4 +353,4 @@ You will modify this handling in the next sections by:
 * Facilitating the eventual [deadline enforcement](./game-forfeit.md).
 * Adding [_money_](./game-wager.md) handling, including [foreign tokens](./wager-denom.md).
 
-Now that a game is created, it is time to play it. That is the subject of the [next section](./play-game.md).
+Now that a game is created, it is time to play it by adding moves. That is the subject of the [next section](./play-game.md).

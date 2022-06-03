@@ -29,9 +29,47 @@ In this section, you will handle:
 
 </HighlightBox>
 
-In the [Ignite CLI introduction section](./ignitecli.md) you learned how to start a completely new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers.
+In the [Ignite CLI introduction section](./ignitecli.md) you learned how to start a completely new blockchain. Now it is time to dive deeper and explore how you can create a blockchain to play a decentralized game of checkers. 
 
-A good start to developing a checkers blockchain is to define the ruleset of the game. There are many versions of the rules. Choose [a very simple set of basic rules](https://www.ducksters.com/games/checkers_rules.php) to avoid getting lost in the rules of checkers or the proper implementation of the board state.
+## Some initial thoughts
+
+As you are face-to-face with the proverbial blank page: where do you start?
+
+A good place to start with is thinking about the objects you keep in storage. "A game", obviously...but what does any game have to keep in storage?
+
+Questions to ask that could influence your design include, but are not limited to:
+
+* What is the lifecycle of a game?
+* How are participants selected to be in a game?
+* What fields make it possible to play across a span of time and transactions?
+* What fields make it possible to differentiate between different games?
+* How do you ensure safety against malice, sabotage, or even simple errors?
+* What limitations does your design **intentionally** impose on participants?
+* What limitations does your design **unintentionally** impose on participants?
+
+After thinking about what goes into each individual game, you should consider the demands of the wider system. In general terms, before you think about the commands that achieve what you seek, ask:
+
+* How do you lay games in storage?
+* How do you save and retrieve games?
+
+The goal here is not to finalize every conceivable game feature immediately. For instance, handling wagers or leaderboards can be left for another time. But there should be a basic game design good enough to accommodate future improvements.
+
+## Code needs
+
+**Do not** dive headlong into coding the rules of checkers in Go - examples will already exist which you can put to use. Your job is to make a blockchain that just happens to enable the game of checkers.
+
+With that in mind:
+
+* What Ignite CLI commands will get you a long way when it comes to implementation?
+* How do you adjust what Ignite CLI created for you?
+* How would you unit-test your modest additions?
+* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
+
+Run the commands, make the adjustments, and run some tests regarding game storage. Do not go into deeper issues like messages and transactions yet.
+
+### Defining the rule set
+
+A good start to developing a checkers blockchain is to define the rule set of the game. There are many versions of the rules. Choose [a very simple set of basic rules](https://www.ducksters.com/games/checkers_rules.php) to avoid getting lost in the rules of checkers or the proper implementation of the board state.
 
 Use [a ready-made implementation](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go) with the additional rule that the board is 8x8 and played on black cells. This code will not need adjustments. Copy this rules file into a `rules` folder inside your module. Change its package from `checkers` to `rules`. You can do this by command-line:
 
