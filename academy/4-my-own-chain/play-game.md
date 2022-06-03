@@ -1,5 +1,5 @@
 ---
-title: Message and Handler - Add a Way to Make a Move
+title: "Message and Handler - Add a Way to Make a Move"
 order: 8
 description: Play a game
 tag: deep-dive
