@@ -150,7 +150,17 @@ Passing `Payload` and `Signature` into the signature verification function retur
 
 There is more than one implementation of the public key signature process previously described. The Cosmos SDK supports the following digital key schemes for creating digital signatures:
 
-<H5PComponent :contents="['/h5p/M2-accounts-secp-HS']"></H5PComponent>
+![State change](/academy/2-main-concepts/images/state_machine_2.png)
+
+<HighlightBox type="note">
+
+The different digital key schemes are implemented in different SDK packages:
+
+* **[secp256k1](https://www.secg.org/sec2-v2.pdf)**, as implemented in the SDK's `crypto/keys/secp256k1` package: is the most common and the same one used for Bitcoin.
+* **[secp256r1](https://www.secg.org/sec2-v2.pdf)**, as implemented in the SDK's `crypto/keys/secp256r1` package.
+* **[tm-ed25519](https://ed25519.cr.yp.to/ed25519-20110926.pdf)**, as implemented in the SDK's `crypto/keys/ed25519` package: is supported only for consensus validation.
+
+</HighlightBox>
 
 ## Accounts
 
