@@ -182,6 +182,8 @@ An address is public information normally used to reference an account. Addresse
 
 The keyring object stores and manages multiple accounts. The keyring object implements the [`Keyring`](https://github.com/cosmos/cosmos-sdk/blob/bf11b1bf1fa0c52fb2cd51e4f4ab0c90a4dd38a0/crypto/keyring/keyring.go#L55) interface in the Cosmos SDK.
 
+## Code example
+
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 In the [previous section](../2-main-concepts/architecture.md), your ABCI application accepted anonymous checkers moves. This is a problem. You can restrict moves to the right player with accounts.
@@ -239,9 +241,7 @@ type StoredGame struct {
 
 If you want to go beyond these out-of-context code samples and instead see more details on defining this, head to [Run Your Own Chain](/course-ida/landingpages/week2-lp.md)
 
-
 </ExpansionPanel>
-
 
 ## Next up
 
