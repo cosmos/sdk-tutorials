@@ -74,7 +74,7 @@ The Cosmos SDK uses Protobuf definitions to generate client and server code:
 * The `MsgServer` interface defines the server API for the `Msg` service. Its implementation is described in the [`Msg` services documentation](https://docs.cosmos.network/main/building-modules/msg-services.html).
 * Structures are generated for all RPC requests and response types.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 If you want to dive deeper when it comes to messages, the `Msg` service, and modules, see:
 
