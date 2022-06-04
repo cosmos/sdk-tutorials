@@ -13,7 +13,7 @@ In this section, you will learn how relayers fit in IBC.
 
 </HighlightBox>
 
-![IBC overview](/academy/ibc/images/ibcoverview.png)
+![IBC overview](/academy/4-ibc/images/ibcoverview.png)
 
 It is useful to briefly recap what relaying is and why it is important. IBC aims to offer blockchains a protocol to enable reliable, secure, and permissionless transfer of packets of data. The protocol is agnostic with respect to the data, paving the way for application developers to develop a range of possible interchain services (fungible and non-fungible token transfers are an obvious candidate, but also arbitrary cross-chain messaging via [interchain accounts](https://interchain-io.medium.com/welcome-to-the-ibc-gang-lets-talk-f469883e0ffe)).
 

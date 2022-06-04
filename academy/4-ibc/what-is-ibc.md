@@ -41,7 +41,7 @@ More details on the specifications will follow in the next section, but notice t
 
 Although application-specific blockchains offer superior (horizontal) scalability compared to general-purpose blockchain platforms, smart contract development for general-purpose chains and generic virtual machines (VMs) like in Ethereum offer their own benefits. IBC provides a method of incorporating the strengths of general-purpose and application-specific blockchains into unified overall designs. For example, it allows a Cosmos chain tailored towards performance and scalability to use funds that originate on Ethereum and possibly record events in a Corda distributed ledger; or, in the reverse, a Corda ledger initiating the transfer of underlying assets defined in Cosmos or Ethereum.
 
-![Internet of blockchains](/academy/ibc/images/internetofchains.png)
+![Internet of blockchains](/academy/4-ibc/images/internetofchains.png)
 
 With cross-chain communication via IBC, a decentralized network of independent and interoperable chains exchanging information and assets is possible. This "internet of blockchains" brings the promise of increased and seamless scalability. In Cosmos, the vision being implemented is to have a universe of independent chains that are all connected using peg-zones as bridges between the Cosmos network and chains outside of it, and connecting all chains via hubs. All of these make up the internet of blockchains.
 
@@ -58,7 +58,7 @@ This separation is reflected in the categories of the ICS in the [general ICS de
 
 The following diagram shows how IBC works at a high level:
 
-![IBC overview - two connected chains](/academy/ibc/images/ibcoverview.png)
+![IBC overview - two connected chains](/academy/4-ibc/images/ibcoverview.png)
 
 Note three crucial elements in the diagram:
 
@@ -90,7 +90,7 @@ The ICS also offer definitions for IBC applications:
 
     Packet flow is explored in more detail in a later section, but you can the steps when following the progress of the IBC token transfer on [Mintscan](https://www.mintscan.io/cosmos). The following example shows the transactions submitted for the original `Transfer` on the source, the `Receive` message on the destination, and the `Acknowledgement` again on the source:
 
-![Fungible token transfer via IBC on Mintscan](/academy/ibc/images/mintscanIBC.png)
+![Fungible token transfer via IBC on Mintscan](/academy/4-ibc/images/mintscanIBC.png)
 
 * **Interchain accounts** - [ICS-27](https://github.com/cosmos/ibc/tree/master/spec/app/ics-027-interchain-accounts): interchain accounts outlines a cross-chain account management protocol built on IBC. Chains having enabled ICS-27 can programmatically create accounts on other ICS-27-enabled chains and control these accounts via IBC transactions, instead of having to sign with a private key. Interchain accounts contain all of the capabilities of a normal account (i.e. stake, send, vote) but instead are managed by a separate chain via IBC in a way such that the owner account on the controller chain retains full control over any interchain accounts it registers on host chains.
 

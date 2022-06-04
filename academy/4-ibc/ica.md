@@ -21,7 +21,7 @@ In this section, you will learn more about:
 
 Another application module [implemented in the IBC-Go](https://github.com/cosmos/ibc-go/tree/main/docs/apps/interchain-accounts) repository is [interchain accounts (ICS-27)](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md).
 
-![ICA Overview](/academy/ibc/images/icaoverview.png)
+![ICA Overview](/academy/4-ibc/images/icaoverview.png)
 
 **Host Chain:** the chain where the interchain account is registered. The host chain listens for IBC packets from a controller chain which should contain instructions (e.g. cosmos SDK messages) which the interchain account will execute.
 
@@ -41,7 +41,7 @@ The ICA module provides an API for registering an account and for sending interc
 
 First, look how an account is registered:
 
-![Register account](/academy/ibc/images/icaregister.png)
+![Register account](/academy/4-ibc/images/icaregister.png)
 
 To register an account on the host chain, the function [`RegisterInterchainAccount`](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/controller/keeper/account.go) is called on the controller chain:
 
@@ -194,7 +194,7 @@ func (k Keeper) OnChanOpenAck(
 
 After registration, the registered account can be used to sign transactions on the host chain:
 
-![Send transaction](/academy/ibc/images/icasendtx.png)
+![Send transaction](/academy/4-ibc/images/icasendtx.png)
 
 You can find `SendTx` in the [`relay.go`](https://github.com/cosmos/ibc-go/blob/main/modules/apps/27-interchain-accounts/controller/keeper/relay.go):
 
