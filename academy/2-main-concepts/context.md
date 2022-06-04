@@ -73,7 +73,7 @@ Users specify how much in fees they wish to pay for the execution of their trans
 
 A context is an immutable data structure that carries request-scoped data across APIs and processes. Contexts are also designed to enable concurrency and to be used in Go routines.
 
-<HighlightBox type="reading">
+<HighlightBox type="info">
 
 A basic context is defined in the [Golang Context Package](https://pkg.go.dev/context).
 
