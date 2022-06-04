@@ -167,9 +167,7 @@ For more information on the subject, see the following resources:
 
 </HighlightBox>
 
-## Next up
-
-In the [next section](./base-app.md) you will find more information on `BaseApp` and its role in the Cosmos SDK.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
@@ -565,3 +563,7 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 ```
 
 </ExpansionPanel>
+
+## Next up
+
+In the [next section](./base-app.md) you can find more information on `BaseApp` and its role in the Cosmos SDK.
