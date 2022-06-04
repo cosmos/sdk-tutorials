@@ -112,7 +112,7 @@ A [`cachemulti.Store`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/sto
 
 As the name suggests, `Transient.Store` is a `KVStore` that is discarded automatically at the end of each block. `Transient.Store` is a `dbadapter.Store` with a `dbm.NewMemDB()`. All `KVStore` methods are reused. A new `dbadapter.Store` is assigned when `Store.Commit()` is called, discarding the previous reference. Garbage collection is attended to automatically.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 Take a closer look at the [IAVL spec](https://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md) for when working with the IAVL store.
 
@@ -158,7 +158,7 @@ The `AnteHandler` is theoretically optional but still a very important component
 
 `BaseApp` holds an `AnteHandler` as a parameter that is initialized in the application's constructor. The most widely used `AnteHandler` is the auth module.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 For more information on the subject, see the following resources:
 
