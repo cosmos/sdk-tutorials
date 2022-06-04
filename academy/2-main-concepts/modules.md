@@ -98,7 +98,7 @@ Each module defines two Protobuf services:
 * **`Msg`:** a set of RPC methods related one-to-one to Protobuf request types, to handle messages.
 * **`Query`:** gRPC query service, to handle queries.
 
-<HighlightBox type="reading">
+<HighlightBox type="tip">
 
 If this topic is new to you, read an introduction to [Protocol Buffers](https://www.ionos.com/digitalguide/websites/web-development/protocol-buffers-explained/).
 
@@ -131,7 +131,7 @@ Protobuf generates a `QueryServer` interface containing all the service methods 
 
 gRPC-Gateway REST endpoints support external clients that may not wish to use gRPC. The Cosmos SDK provides a gRPC-gateway REST endpoint for each gRPC service.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 See the [gRPC-Gateway documentation](https://grpc-ecosystem.github.io/grpc-gateway/) for more on the gRPC-Gateway plugin.
 
@@ -281,7 +281,7 @@ The interface types defined in `exported/` use canonical types that allow for th
 
 Modules are encouraged to define and register their own errors to provide better context for failed messages or handler executions. Errors should be common or general errors, which can be further wrapped to provide additional specific execution context.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 For more details see the [Cosmos SDK documentation on errors when building modules](https://docs.cosmos.network/main/building-modules/errors.html).
 
