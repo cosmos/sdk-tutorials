@@ -29,7 +29,7 @@ These types of tools help maintain an overview of the overall IBC network, but c
 
 By default, the explorer shows you a visual overview of the IBC network for the last seven days:
 
-![MapOfZones](/academy/ibc/images/mapofzones1.png)
+![MapOfZones](/academy/4-ibc/images/mapofzones1.png)
 
 You can also change the time being visualized by the MapOfZones in the lower right-hand corner of the display. You can chose between:
 
@@ -58,7 +58,7 @@ In the overview display of the Cosmos network, the lines are colored to signal t
 
 When you hover over a specific chain with your mouse cursor, a small overview of data for that chain is displayed.
 
-![MapOfZones - hovering over a zone](/academy/ibc/images/mapofzones2.png)
+![MapOfZones - hovering over a zone](/academy/4-ibc/images/mapofzones2.png)
 
 The information displayed includes:
 
@@ -72,11 +72,11 @@ The information displayed includes:
 
 If you click on the `Details`, you are directed to an overview with more in-depth information about the chain selected:
 
-![Detailed list for the Cosmos Hub](/academy/ibc/images/detailscosmoszone.png)
+![Detailed list for the Cosmos Hub](/academy/4-ibc/images/detailscosmoszone.png)
 
 In the overview, you can find a list of all the chains the selected chain is connected to. When you click on a specific chain, you can see the channels between the selected chain and another chain:
 
-![Channels between the Cosmos Hub and Osmosis](/academy/ibc/images/cosmososmasischannels.png)
+![Channels between the Cosmos Hub and Osmosis](/academy/4-ibc/images/cosmososmasischannels.png)
 
 Now you have an overview for each channel, including: how much IBC volume is transferred between the chains through the individual channels; the number of transfers successfully transferred to and received from a particular zone; the balancing figure between inbound and outbound IBC transfers; the number of IBC transfers failed attributed to a particular pair of channels between zones; and the ratio of successfully completed transfers to all transfers with final status.
 
@@ -88,7 +88,7 @@ There are canonical channels for ICS-20. All other channels will have been creat
 
 When you go back to the overview, below the visual overview of the entire network you can find a list of the most active zones by IBC volume in USD:
 
-![Most active zones](/academy/ibc/images/mostactivezones.png)
+![Most active zones](/academy/4-ibc/images/mostactivezones.png)
 
 The list includes very useful information, such as:
 
@@ -107,11 +107,11 @@ For the first five categories, you can also sort the list in either ascending or
 
 It gives an overview of IBC networks, including a visualization (left side) and a list (right side). For the former, the default is set to give you a visualization based on IBC transactions within a 30-day period:
 
-![Mintscan - IBC network overview](/academy/ibc/images/mintscanoverview.png)
+![Mintscan - IBC network overview](/academy/4-ibc/images/mintscanoverview.png)
 
 To select a specific chain, just click on it in the visualization. You will get a display of more detailed information for that chain:
 
-![Mintscan - Osmosis chain overview 1](/academy/ibc/images/mintscanosmosis1.png)
+![Mintscan - Osmosis chain overview 1](/academy/4-ibc/images/mintscanosmosis1.png)
 
 Here you can see:
 
@@ -124,7 +124,7 @@ You can also click on `Show all Sends` and `Show all Receives` to get a complete
 
 Scroll down:
 
-![Mintscan - Osmosis chain overview 2](/academy/ibc/images/mintscanosmosis2.png)
+![Mintscan - Osmosis chain overview 2](/academy/4-ibc/images/mintscanosmosis2.png)
 
 Here you can see graphs for:
 
@@ -133,19 +133,19 @@ Here you can see graphs for:
 
 You can also use the list on the right-hand side to select a specific blockchain and get a detailed information overview for that chain:
 
-![Cosmos connections](/academy/ibc/images/cosmosconnections.png)
+![Cosmos connections](/academy/4-ibc/images/cosmosconnections.png)
 
 In the detailed overview you can select a specific connection, and Mintscan will show you the corresponding channels:
 
-![Mintscan - Cosmos Hub to Osmosis channels](/academy/ibc/images/cosmoschannels.png)
+![Mintscan - Cosmos Hub to Osmosis channels](/academy/4-ibc/images/cosmoschannels.png)
 
 If you click one of the connections you can see the connections, send and receive transactions, the relayer transaction history, and the relayer volume history:
 
-![Mintscan - channel overview](/academy/ibc/images/mintscanchanneloevrview.png)
+![Mintscan - channel overview](/academy/4-ibc/images/mintscanchanneloevrview.png)
 
 If you select a channel, you will be forwarded to a page with more in-depth information regarding that IBC relayer:
 
-![In-depth channel information - overview](/academy/ibc/images/onchannel1.png)
+![In-depth channel information - overview](/academy/4-ibc/images/onchannel1.png)
 
 Among other things you can find out:
 
@@ -156,15 +156,15 @@ Among other things you can find out:
 
 Below that you will find an overview of the weekly transferred values of receive and send transactions:
 
-![In-depth channel information - TX volumes](/academy/ibc/images/onchannel2.png)
+![In-depth channel information - TX volumes](/academy/4-ibc/images/onchannel2.png)
 
 You can also look into the relayer operators - operator address, IBC received transactions, and the date and time of the last update are displayed:
 
-![In-depth channel information - relayer](/academy/ibc/images/onchannel3.png)
+![In-depth channel information - relayer](/academy/4-ibc/images/onchannel3.png)
 
 At the end of the page, you can find a list of all transactions:
 
-![In-depth channel information - transactions](/academy/ibc/images/onchannel4.png)
+![In-depth channel information - transactions](/academy/4-ibc/images/onchannel4.png)
 
 The list of transactions includes information on:
 
@@ -180,7 +180,7 @@ When you click on a specific transaction in the list, you are forwarded to a pag
 
 For example, click on a transaction marked as an **IBC transfer** (in the type column of the transaction list):
 
-![Transfer Tx details](/academy/ibc/images/ftstx1.png)
+![Transfer Tx details](/academy/4-ibc/images/ftstx1.png)
 
 This gives you an overview of the transaction, which includes:
 
@@ -195,7 +195,7 @@ This gives you an overview of the transaction, which includes:
 
 Further below, you can also look into information on the messages involved. Next to a lot of information on the message, you can also look into the IBC progress of IBC acknowledgements:
 
-![Transfer Tx messages](/academy/ibc/images/ftstx2.png)
+![Transfer Tx messages](/academy/4-ibc/images/ftstx2.png)
 
 ## IOBScan
 
@@ -203,7 +203,7 @@ Now, turn your focus to another blockchain explorer, [IOBScan](https://ibc.iobsc
 
 From the IOBScan homepage you can get a quick overview of networks, channels, IBC token transfers, and IBC tokens:
 
-![IOBScan - homepage](/academy/ibc/images/iobscan1.png)
+![IOBScan - homepage](/academy/4-ibc/images/iobscan1.png)
 
 You can use the tab navigation for a closer look at:
 
@@ -223,7 +223,7 @@ On the right-hand side (next to the visualization) you can find a list of all ne
 
 If you want a visualization of the network, just click on the network icon in the upper-right-hand corner. This redirects you to the [IOBSCAN Network State Visualizer](https://www.iobscan.io/#/):
 
-![IOBScan Network State Visualizer](/academy/ibc/images/iobscan2.png)
+![IOBScan Network State Visualizer](/academy/4-ibc/images/iobscan2.png)
 
 The connections displayed in the visualizer have either a regular or a dotted line, depending on whether a connection is opened or unopened.
 
