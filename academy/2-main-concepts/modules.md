@@ -314,6 +314,8 @@ Regardless of whether an error is wrapped or not, the Cosmos SDK's errors packag
 
 If a module error is registered, the Cosmos SDK errors package allows ABCI information to be extracted through the `ABCIInfo` API. The package also provides `ResponseCheckTx` and `ResponseDeliverTx` as auxiliary APIs to automatically get `CheckTx` and `DeliverTx` responses from an error.
 
+## Code example
+
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 Now your application is starting to take shape.
@@ -409,4 +411,4 @@ If you want to go beyond these code samples and instead see in more detail how t
 
 ## Next up
 
-Look at the following code example to see modules in practice, or go straight to the [next section](../2-main-concepts/protobuf.md) for an introduction to Protobuf.
+Look at the above code example to see modules in practice, or go straight to the [next section](../2-main-concepts/protobuf.md) for an introduction to Protobuf.
