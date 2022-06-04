@@ -91,6 +91,8 @@ If validators represent more than 2/3 of the stake, an event could be added to t
 
 <HighlightBox type="reading">
 
+**Further readings**
+
 Do you want to dive deeper when it comes to bridges? Here are some helpful resources:
 
 * [Jehan Tremback, Deborah Simpier, and Justin Kilpatrick (2021): Announcing the Cosmos Gravity Bridge](https://blog.althea.net/gravity-bridge/)
@@ -103,4 +105,4 @@ Do you want to dive deeper when it comes to bridges? Here are some helpful resou
 
 ## Next up
 
-You will discover more on running a node in [Running Your Own Cosmos Chain](../3-my-own-chain/index.md).
+You will discover more on running a node in [Run Your Own Cosmos Chain](../3-my-own-chain/index.md).

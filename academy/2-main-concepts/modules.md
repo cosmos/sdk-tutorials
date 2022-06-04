@@ -314,19 +314,17 @@ Regardless of whether an error is wrapped or not, the Cosmos SDK's errors packag
 
 If a module error is registered, the Cosmos SDK errors package allows ABCI information to be extracted through the `ABCIInfo` API. The package also provides `ResponseCheckTx` and `ResponseDeliverTx` as auxiliary APIs to automatically get `CheckTx` and `DeliverTx` responses from an error.
 
-## Next up
-
-Look at the following code example to see modules in practice, or go straight to the [next section](../2-main-concepts/protobuf.md) for an introduction to Protobuf.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 Now your application is starting to take shape.
 
-## The `checkers` module
+**The `checkers` module**
 
 When you create your checkers blockchain application, you ought to include a majority of the standard modules like `auth`, `bank`, and so on. With the Cosmos SDK boilerplate in place, the _checkers part_ of your checkers application will most likely reside in a single `checkers` module. This is the module that you author.
 
-## Game wager
+**Game wager**
 
 Earlier the goal was to let players play with _money_. With the introduction of modules like `bank` you can start handling that.
 
@@ -358,7 +356,7 @@ How would this look in terms of code? You need to add the wager to:
     }
     ```
 
-## Wager payment
+**Wager payment**
 
 Now you must decide how the tokens are moved. When a player accepts a challenge, the amount is deducted from that player's balance. But where does it go? You could burn the tokens and re-mint them at a later date, but this would make the total supply fluctuate wildly for no apparent benefit.
 
@@ -410,3 +408,7 @@ If you want to go beyond these code samples and instead see in more detail how t
 </HighlightBox>
 
 </ExpansionPanel>
+
+## Next up
+
+Look at the above code example to see modules in practice, or go straight to the [next section](../2-main-concepts/protobuf.md) for an introduction to Protobuf.

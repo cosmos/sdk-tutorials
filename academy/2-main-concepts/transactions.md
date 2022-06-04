@@ -165,9 +165,7 @@ For more information on broadcasting with Tendermint RPC, see the documentation 
 
 </HighlightBox>
 
-## Next up
-
-In the [next section](./messages.md), you can learn how transaction messages are generated and handled in the Cosmos SDK.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
@@ -176,3 +174,7 @@ In the [next section](./messages.md), you can learn how transaction messages are
 See the [section on messages](./messages.md) to learn how to do that.
 
 </ExpansionPanel>
+
+## Next up
+
+In the [next section](./messages.md), you can learn how transaction messages are generated and handled in the Cosmos SDK.
