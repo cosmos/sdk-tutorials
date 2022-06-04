@@ -319,4 +319,4 @@ If you would like to get started on building your own checkers game, you can go 
 
 ## Next up
 
-Look at the following code example to get a better sense of how theory translates into development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can go directly to the [next section](./modules.md) to learn more about modules.
+Look at the above code example to get a better sense of how theory translates into development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can go directly to the [next section](./modules.md) to learn more about modules.
