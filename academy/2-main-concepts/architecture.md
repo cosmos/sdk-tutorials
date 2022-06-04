@@ -40,7 +40,7 @@ Tendermint BFT is maintained even when 1/3rd of all machines fail, by providing 
 * A blockchain consensus engine.
 * A generic application interface.
 
-<HighlightBox type="reading">
+<HighlightBox type="tip">
 
 Want to continue exploring this useful component of the Cosmos SDK? Find further information beneath under _Consensus in Tendermint Core and Cosmos_, or in the [Tendermint Core documentation](https://docs.tendermint.com/master/#).
 
