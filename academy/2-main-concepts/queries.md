@@ -32,7 +32,7 @@ A query is a request for information, made by end-users of an application throug
 
 Queries do not require consensus to be processed as they do not trigger state transitions. Therefore queries can be handled entirely independently by a full node.
 
-<HighlightBox type="reading">
+<HighlightBox type="tip">
 
 Visit the [detailed Cosmos SDK documentation](https://docs.cosmos.network/main/basics/query-lifecycle.html) for a clear overview of the query lifecycle and learn how a query is created, handled, and responded to.
 

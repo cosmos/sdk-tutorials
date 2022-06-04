@@ -44,7 +44,7 @@ The necessary breakthroughs included append-only, provably correct transaction l
 
 On October 31, 2008, an individual or group calling itself Satoshi Nakamoto proposed a **P2P network for a digital currency**, calling it **Bitcoin**. Bitcoin introduced a novel consensus mechanism, now referred to as Nakamoto Consensus, that uses Proof-of-Work (PoW) to enable nodes to reach agreement in a decentralized network. It became possible to send online payments directly between parties **independent of financial institutions and trusted third parties**. Bitcoin became the first public, decentralized payment application.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 Want to look closer at the initial proposition of Bitcoin? See the original [Bitcoin Whitepaper](https://bitcoin.org/bitcoin.pdf)
 
@@ -113,7 +113,7 @@ The eventual development of more complex applications required a more flexible e
 
 In 2016 Jae Kwon and Ethan Buchman founded the Cosmos network with its consensus algorithm, [Tendermint](https://tendermint.com/).
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 See the 2016 [Cosmos Whitepaper](https://v1.cosmos.network/resources/whitepaper) to find out more about the origins of Cosmos.
 

@@ -58,7 +58,7 @@ The Protobuf format supports extending the format over time in such a way that c
 
 Go developers access the setters and getters in the generated source code through the Go Protobuf API.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 For more on encoding in Cosmos, see the [Cosmos SDK documentation on encoding](https://docs.cosmos.network/main/core/encoding.html).
 

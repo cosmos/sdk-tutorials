@@ -357,6 +357,6 @@ Ignite CLI separates concerns into different files. The most relevant file curre
 // TODO: Handling the message
 ```
 
-You need to code in it the creation of the game proper. This is the object of the [next section](./create-handling.md).
+You need to code in it the creation of the game properly. This is the object of the [next section](./create-handling.md).
 
 <!-- Add GUI Elements -->

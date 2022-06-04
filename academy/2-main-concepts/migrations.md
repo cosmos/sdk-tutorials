@@ -110,7 +110,7 @@ The `SideCar`, handler, and store loader are application-specific. At each block
 
 Application developers build implementations of those components that are tailored to their application and use case.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 For a more detailed explanation of the upgrade process, see the [Cosmos SDK documentation](https://docs.cosmos.network/main/modules/upgrade).
 
@@ -125,7 +125,7 @@ Cosmovisor is a tool that node operators can use to automate the on-chain proces
 * Cosmovisor can download and run the new binary if wanted.
 * When the chain reaches the upgrade block, Cosmovisor also handles the storage upgrade.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 See the [Cosmos SDK documentation on Cosmovisor](https://docs.cosmos.network/main/run-node/cosmovisor.html) to learn more about this process manager for Cosmos SDK applications.
 
