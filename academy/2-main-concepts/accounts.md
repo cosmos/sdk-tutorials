@@ -48,7 +48,7 @@ Asymmetric cryptography has two primary applications:
 
 This section focuses on the _authentication_ aspect of asymmetric cryptography.
 
-<HighlightBox type="reading">
+<HighlightBox type="info">
 
 Public key cryptography assures confidentiality, authenticity, and non-repudiation. Examples of applications include [S/MIME](https://en.wikipedia.org/wiki/S/MIME) and [GPG](https://en.wikipedia.org/wiki/GNU_Privacy_Guard), and it is the basis of several internet standards like [SSL](https://www.ssl.com/faqs/faq-what-is-ssl/) and [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security).
 
