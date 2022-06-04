@@ -5,18 +5,18 @@ description: Send multiple tokens and messages through CosmJS
 tag: deep-dive
 ---
 
-# Compose Complex Transactions - Send Multiple Messages
+# Compose Complex Transactions
 
-<HighlightBox type="synopsis">
-    
-In Cosmos, a transaction can encapsulate multiple messages.
-    
-In this section:
-    
-* Send multiple tokens in a single transaction
-* Sign and Broadcast
-* Assemble multiple messages
-    
+<HighlightBox type="learning">
+
+In Cosmos, a transaction is able to encapsulate multiple messages.
+
+In this section, you will:
+
+* Send multiple tokens in a single transaction.
+* Sign and broadcast.
+* Assemble multiple messages.
+
 </HighlightBox>
 
 ## Send multiple tokens using `sendTokens`
@@ -73,7 +73,7 @@ const result = await signingClient.sendTokens(
 </CodeGroupItem>
 </CodeGroup>
 
-However, there are limitations. First, Alice **can only target a single recipient per transaction**, `faucet` in the previous examples. If she wants to send tokens to multiple recipients, then she needs to create as many transactions as there are recipients. Multiple transactions cost slightly more than packing transfers into the array because of transaction overhead. Additionally, in some cases it can be considered a bad user experience to make users sign multiple transactions.
+However, there are limitations. First, Alice **can only target a single recipient per transaction**, `faucet` in the previous examples. If she wants to send tokens to multiple recipients, then she needs to create as many transactions as there are recipients. Multiple transactions cost slightly more than packing transfers into the array because of transaction overhead. Additionally, in some cases it is considered a bad user experience to make users sign multiple transactions.
 
 The second limitation is that **separate transfers are not atomic**. It is possible that Alice wants to send tokens to two recipients and it is important that either they both receive them or neither of them receive anything.
 
@@ -124,7 +124,7 @@ const result = await signingClient.sendTokens(
 )
 ```
 
-Alice can instead call:
+Alice calls:
 
 ```typescript
 const result = await signingClient.signAndBroadcast(
@@ -151,11 +151,11 @@ const result = await signingClient.signAndBroadcast(
 )
 ```
 
-You can confirm this by making the change in your `experiment.ts` from the previous section, and running it again.
+Confirm this by making the change in your `experiment.ts` from the previous section, and running it again.
 
 <HighlightBox type="tip">
 
-In fact, building a transaction in this way is recommended. `SigningStargateClient` offers you convenience methods such as `sendTokens` for simple use cases only.
+Building a transaction in this way is recommended. `SigningStargateClient` offers you convenience methods such as `sendTokens` for simple use cases only.
 
 </HighlightBox>
 
@@ -180,13 +180,13 @@ As a reminder from the previous tutorial, the `typeUrl: "/cosmos.bank.v1beta1.Ms
 
 <HighlightBox type="info">
 
-To learn how to make your own types for your own blockchain project, head to [Create my own CosmJS objects](TODO).
+To learn how to make your own types for your own blockchain project, head to [Create my own CosmJS objects](./create-custom.md).
 
 </HighlightBox>
 
 ## Multiple token transfer messages
 
-From here, you can add an extra message for a token transfer from Alice to someone else:
+From here, you add an extra message for a token transfer from Alice to someone else:
 
 ```typescript
 const result = await signingClient.signAndBroadcast(
@@ -221,7 +221,7 @@ const result = await signingClient.signAndBroadcast(
 )
 ```
 
-Note how the custom fee input was replaced with the `auto` input, which simulates the transaction to estimate the fee for you. In order to make that work well, you'll need to define the `gasPrice` you're willing to pay and its `prefix` when setting up your `signingClient`. You can replace your original line of code with:
+Note how the custom fee input was replaced with the `auto` input, which simulates the transaction to estimate the fee for you. In order to make that work well, you need to define the `gasPrice` you are willing to pay and its `prefix` when setting up your `signingClient`. You replace your original line of code with:
 
 ```typescript
 const signingClient = await SigningStargateClient.connectWithSigner(
@@ -238,12 +238,12 @@ const signingClient = await SigningStargateClient.connectWithSigner(
 
 The above example shows you two token-transfer messages in a single transaction. You can see this with their `typeUrl: "/cosmos.bank.v1beta1.MsgSend"`.
 
-Neither Cosmos nor CosmJS limits you to combine messages of the same type. You can decide to combine other message types together with a token transfer. For instance, in one transaction Alice could:
+Neither Cosmos nor CosmJS limits you to combining messages of the same type. You can decide to combine other message types together with a token transfer. For instance, in one transaction Alice could:
 
 1. Send tokens to the faucet.
 2. Delegate some of her tokens to a validator.
 
-How would Alice create the second message? The `SigningStargateClient` contains a predefined list of `typeUrls` that are supported by default, because they're considered to be the most commonly used messages in the Cosmos SDK. One of them so happens to be `MsgDelegate`, and that's exactly what you'll need. You can click on the source link below to see the rest of the `typeUrls` that come with `SigningStargateClient`:
+How would Alice create the second message? The `SigningStargateClient` contains a predefined list of `typeUrls` that are supported by default, because they're considered to be the most commonly used messages in the Cosmos SDK. One is `MsgDelegate`, and that is exactly what you need. Click the source link below to see the rest of the `typeUrls` that come with `SigningStargateClient`:
 
 ```typescript [https://github.com/cosmos/cosmjs/blob/7aad551/packages/stargate/src/signingstargateclient.ts#L94]
     ["/cosmos.staking.v1beta1.MsgDelegate", MsgDelegate],
@@ -259,7 +259,7 @@ export interface MsgDelegate {
 }
 ```
 
-Now that you know the `typeUrl` for delegating some tokens is `/cosmos.staking.v1beta1.MsgDelegate`, you'll need to find a validator's address that Alice can delegate to. You can find a list of validators in the [testnet explorer](https://explorer.theta-testnet.polypore.xyz/validators). Select a validator and use their address in the below script which you can copy to replace your original token transfer:
+Now that you know the `typeUrl` for delegating some tokens is `/cosmos.staking.v1beta1.MsgDelegate`, you need to find a validator's address that Alice can delegate to. Find a list of validators in the [testnet explorer](https://explorer.theta-testnet.polypore.xyz/validators). Select a validator and use their address in the following script, which you can copy to replace your original token transfer:
 
 ```typescript
 const result = await signingClient.signAndBroadcast(
@@ -288,7 +288,7 @@ const result = await signingClient.signAndBroadcast(
 )
 ```
 
-When you create [your own message types in CosmJS](TODO), they have to follow this format and be declared in the same fashion.
+When you create [your own message types in CosmJS](./create-custom.md), they have to follow this format and be declared in the same fashion.
 
 <!-- Not supported at the moment.
 
@@ -406,7 +406,7 @@ const tradeMessagess: EncodeObject[] = [
 ]
 ```
 
-How much gas would such a transaction cost? Here, you cannot test because the `simulate` function calls up an execution, which will complain about the wrong number of signers. But you can use a good approximation by estimating each message being sent separately:
+How much gas would such a transaction cost? Here, you cannot test because the `simulate` function calls up an execution, which complains about the wrong number of signers. But you can use a good approximation by estimating each message being sent separately:
 
 ```typescript
 const estimatedGas: number =
@@ -414,7 +414,7 @@ const estimatedGas: number =
     + (await bobSigningClient.simulate(bob, [tradeMessages[1]], "Trade"))
 ```
 
-And who will pay it? It is the signer of the first signature. It matters later.
+And who is paying it? It is the signer of the first signature. It matters later.
 
 ### Signing steps
 
@@ -464,7 +464,7 @@ When you look into the components of [`TxRaw`](https://github.com/confio/cosmjs-
 
 <HighlightBox type="info"?
 
-The keen developer will notice how in `AuthInfo.signerInfos: SignerInfo[]`, the type `SignerInfo` contains a `sequence: Long`. This sequence number indicates which transaction it is that each party is signing. This also means that Alice can _deny the service_ of the trade if she sends another transaction with the same sequence in the time it takes Bob to receive, sign and broadcast it. This could happen intentionally or not.
+The keen developer notices how in `AuthInfo.signerInfos: SignerInfo[]`, the type `SignerInfo` contains a `sequence: Long`. This sequence number indicates which transaction it is that each party is signing. This also means that Alice can _deny the service_ of the trade if she sends another transaction with the same sequence in the time it takes Bob to receive, sign and broadcast it. This could happen intentionally or not.
 
 </HighlightBox>
 

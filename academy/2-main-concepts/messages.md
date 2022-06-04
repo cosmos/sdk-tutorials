@@ -7,15 +7,19 @@ tag: deep-dive
 
 # Messages
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
-In this section, you will take a closer look at messages, `Msg`. It is recommended to take a look at the following previous sections to better understand messages:
+It is recommended to take a look at the following previous sections to better understand messages:
 
 * [A Blockchain App Architecture](./architecture.md)
 * [Accounts](./accounts.md)
 * [Transactions](./transactions.md)
 
-At the end of the section, you can find a code example that illustrates message creation and the inclusion of messages in transactions for your checkers blockchain.
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+In this section, you will take a closer look at messages, `Msg`. At the end of the section, you can find a code example that illustrates message creation and the inclusion of messages in transactions for your checkers blockchain.
 
 Understanding `Msg` will help you prepare for the next section, on [modules in the Cosmos SDK](./modules.md), as messages are a primary object handled by modules.
 
@@ -43,7 +47,7 @@ The confirmed transaction is relayed to the Cosmos SDK application for interpret
 
 ## `MsgService`
 
-Although it is technically feasible to proceed to create a novel `MsgService`, the recommended approach is to define a Protobuf `Msg` service. Each module has exactly one Protobuf `Msg` service defined in `tx.proto` and there is an RPC service method for each message type in the module. The Protobuf message service implicitly defines the interface layer of the state mutating processes contained within the module.
+Although it is technically feasible to proceed to create a novel `MsgService`, the recommended approach is to define a Protobuf `Msg` service. Each module has exactly one Protobuf `Msg` service defined in `tx.proto` and there is an RPC service method for each message type in the module. The Protobuf message service implicitly defines the interface layer of the state, mutating processes contained within the module.
 
 How does all of this translate into code? Here is an example `MsgService` from the [`bank` module](https://docs.cosmos.network/main/modules/bank/):
 
@@ -70,7 +74,7 @@ The Cosmos SDK uses Protobuf definitions to generate client and server code:
 * The `MsgServer` interface defines the server API for the `Msg` service. Its implementation is described in the [`Msg` services documentation](https://docs.cosmos.network/main/building-modules/msg-services.html).
 * Structures are generated for all RPC requests and response types.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 If you want to dive deeper when it comes to messages, the `Msg` service, and modules, see:
 
@@ -79,23 +83,21 @@ If you want to dive deeper when it comes to messages, the `Msg` service, and mod
 
 </HighlightBox>
 
-## Next up
-
-Look at the following code example to get a better sense of how theory translates into development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can go directly to the [next section](./modules.md)) to learn more about modules.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain - Including messages">
 
-In the [previous](./architecture.md) code examples, the ABCI application was aware of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you will need to conform to the SDK's way of handling `Tx`, which means **creating messages that are then included in a transaction**.
+In the [previous](./transactions.md) code examples, the ABCI application was aware of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you need to conform to the SDK's way of handling `Tx`, which means **creating messages that are then included in a transaction**.
 
-## What you need
+**What you need**
 
 Begin by describing the messages you need for your checkers application to have a solid starting point before diving into the code:
 
 1. In the former _Play_ transaction, your four integers need to move from the transaction to an `sdk.Msg`, wrapped in said transaction. Four flat `int` values are no longer sufficient, as you need to follow the `sdk.Msg` interface, identify the game for which a move is meant, and distinguish a move message from other message types.
-2. You need to add a message type for creating a new game. When this is done, a player can create a new game which will mention the other players. A generated ID identifies this newly created game and is returned to the message creator.
+2. You need to add a message type for creating a new game. When this is done, a player can create a new game which mentions other players. A generated ID identifies this newly created game and is returned to the message creator.
 3. It would be a good feature for the other person to be able to reject the challenge. This would have the added benefit of clearing the state of stale, unstarted games.
 
-## How to proceed
+**How to proceed**
 
 Focus on the messages around the **game creation**.
 
@@ -133,11 +135,11 @@ $ ignite scaffold message createGame red black --module checkers --response idVa
 
 <HighlightBox type="info">
 
-Ignite CLI creates a variety of other files. See [My Own Chain](../4-my-own-chain/index.md) for details, and to make additions to existing files.
+Ignite CLI creates a variety of other files. See [Run Your Own Cosmos Chain](../3-my-own-chain/index.md) for details, and to make additions to existing files.
 
 </HighlightBox>
 
-### A sample of things Ignite CLI did for you
+_**A sample of things Ignite CLI did for you**_
 
 Ignite CLI significantly reduces the amount of work a developer has to do to build an application with the Cosmos SDK. Among others, it assists with:
 
@@ -190,16 +192,17 @@ Ignite CLI significantly reduces the amount of work a developer has to do to bui
     }
     ```
 
-## What is left to do?
+**What is left to do?**
 
-Your work is mostly done. You will want to create the specific game creation code to replace `// TODO: Handling the message`. For this, you will need to:
+Your work is mostly done. You want to create the specific game creation code to replace `// TODO: Handling the message`. For this, you need to:
 
 1. Decide how to create a new and unique game ID: `newIndex`.
 
     <HighlightBox type="info">
 
-    For more details, and to avoid diving too deep in this section, see [My Own Chain](../4-my-own-chain/index.md).
-
+    For more details, and to avoid diving too deep in this section, see [Run Your Own Cosmos Chain](../3-my-own-chain/index.md).
+      
+      
     </HighlightBox>
 
 2. Extract and verify addresses, such as:
@@ -211,7 +214,7 @@ Your work is mostly done. You will want to create the specific game creation cod
     }
     ```
 
-3. Create a game object with all required parameters - see the [modules section](./modules.md)) for the declaration of this object:
+3. Create a game object with all required parameters - see the [modules section](./modules.md) for the declaration of this object:
 
     ```go
     storedGame := {
@@ -223,7 +226,7 @@ Your work is mostly done. You will want to create the specific game creation cod
     }
     ```
 
-4. Send the game object to storage - see the [modules section](./modules.md)) for the declaration of this function:
+4. Send the game object to storage - see the [modules section](./modules.md) for the declaration of this function:
 
     ```go
     k.Keeper.SetStoredGame(ctx, storedGame)
@@ -237,7 +240,7 @@ Your work is mostly done. You will want to create the specific game creation cod
     }, nil
     ```
 
-<HighlightBox type="tip">
+<HighlightBox type="remember">
 
 Remember:
 
@@ -246,7 +249,7 @@ Remember:
 
 </HighlightBox>
 
-## The other messages
+**The other messages**
 
 You can also implement other messages:
 
@@ -288,12 +291,12 @@ You can also implement other messages:
     }
     ```
 
-## Other considerations
+**Other considerations**
 
 What would happen if one of the two players has accepted the game by playing, but the other player has neither accepted nor rejected the game? You can address this scenario by:
 
 * Having a timeout after which the game is canceled. This cancellation could be handled automatically in ABCI's `EndBlock`, or rather its equivalent in the Cosmos SDK, without any of the players having to trigger the cancellation.
-* Keeping an index as a First-In-First-Out (FIFO) list or a list of unstarted games ordered by their cancellation time, so that this automatic trigger does not consume too many resources.
+* Keeping an index as a First-In-First-Out (FIFO) list, or a list of unstarted games ordered by their cancellation time, so that this automatic trigger does not consume too many resources.
 
 What would happen if a player stops taking turns? To ensure functionality for your checkers application, you can consider:
 
@@ -310,8 +313,12 @@ There are no _open_ challenges, meaning a player cannot create a game where the 
 
 <HighlightBox type="tip">
 
-If you would like to get started on building your own checkers game, you can go straight to the main exercise in [My Own Chain](../4-my-own-chain/index.md).
+If you would like to get started on building your own checkers game, you can go straight to the main exercise in [Run Your Own Cosmos Chain](../3-my-own-chain/index.md).
 
 </HighlightBox>
 
 </ExpansionPanel>
+
+## Next up
+
+Look at the above code example to get a better sense of how theory translates into development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can go directly to the [next section](./modules.md) to learn more about modules.

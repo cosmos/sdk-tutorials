@@ -1,19 +1,19 @@
 ---
 title: "Getting ATOM and Staking It"
 order: 4
-description: Staking your first ATOM
+description: Stake your first ATOM
 tag: fast-track
 ---
 
 # Getting ATOM and Staking It
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section you are going to:
 
-1. Get some ATOM.
-2. Participate in the consensus, to passively earn a yield on your ATOMs while working on your own Cosmos application, sleeping, or studying further.
-   
+* Get some ATOM.
+* Participate in the consensus, to passively earn a yield on your ATOMs while working on your own Cosmos application, sleeping, or studying further.
+
 </HighlightBox>
 
 The [Cosmos Hub](https://hub.cosmos.network) is the first among equals of Cosmos blockchains. ATOM is its native token, also called the staking token. You need some ATOM to be able to transact on the Cosmos Hub or to participate in the proof-of-stake (PoS) consensus.
@@ -76,7 +76,7 @@ If you saved your seed, you should be able to complete the next step: click on e
 
 ![Keplr mnemonic recall prompt: Selecting the correct words of your mnemonic](/academy/1-what-is-cosmos/images/keplr-mnemonic-recall-prompt.png)
 
-When done, the "Register" button should become active:
+When done, the _Register_ button should become active:
 
 ![Keplr mnemonic recall done](/academy/1-what-is-cosmos/images/keplr-mnemonic-recall-done.png)
 
@@ -112,7 +112,7 @@ For the purpose of this section we assume you buy one ATOM.
 
 <HighlightBox type="info">
 
-As you can see in the [Get ATOM and stake page](https://cosmos.network/learn/get-atom) from Cosmos, there is a [list of exchanges](https://messari.io/asset/cosmos/markets) that are known by Cosmos for offering ATOM token.
+As you can see in the [Get ATOM and stake page](https://cosmos.network/learn/get-atom) from Cosmos, there is a [list of exchanges](https://messari.io/asset/cosmos/markets) that are known by Cosmos for offering ATOM tokens.
 
 </HighlightBox>
 
@@ -199,7 +199,7 @@ A validator can have small or large voting power. The larger the voting power, t
 
 Over the long run, you should receive the same amount in rewards regardless of whether your chosen validator has large or small voting power. What matters more is the size of your stake.
 
-If you like the validator's information, click _Delegate_ and add the sum you want to delegate. Do not delegate all that you own, because you need a fraction of ATOM to send the transaction, plus further ATOM in the future to either un-delegate or claim your rewards. 
+If you like the validator's information, click _Delegate_ and add the sum you want to delegate. Do not delegate all that you own, because you need a fraction of ATOM to send the transaction, plus further ATOM in the future to either un-delegate or claim your rewards.
 
 Pick 0.8 ATOM and click _Delegate_ again:
 
@@ -237,4 +237,4 @@ This completes the exercise: you are set up to participate in the Cosmos Hub net
 
 ## Next up
 
-In the [next chapter](../2-main-concepts/index.md) you will continue to explore the Cosmos SDK and learn about its main components.
+In the [next chapter](../2-main-concepts/index.md), you will continue to explore the Cosmos SDK and learn about the underlying blockchain application architecture.

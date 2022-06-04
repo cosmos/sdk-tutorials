@@ -7,15 +7,19 @@ tag: deep-dive
 
 # Modules
 
-<HighlightBox type="synopsis">
-
-Modules are functional components that address application-level concerns such as token management or governance. The Cosmos SDK includes several ready-made modules so that application developers can focus on the truly unique aspects of their application.
+<HighlightBox type="prerequisite">
 
 Review the following sections to better understand modules in the Cosmos SDK:
 
 * [Transactions](./transactions.md)
 * [Messages](./messages.md)
 * [Queries](./queries.md)
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+Modules are functional components that address application-level concerns such as token management or governance. The Cosmos SDK includes several ready-made modules so that application developers can focus on the truly unique aspects of their application.
 
 A code example that illustrates module creation and an introduction to your checkers blockchain can be found at the end of this section.
 
@@ -43,7 +47,7 @@ Modules implement the majority of the application logic while the **core** atten
 
 A module defines a subset of the overall state, using:
 
-* One or more keys or value stores known as `KVStore`
+* One or more keys or value stores, known as `KVStore`.
 * A subset of message types that are needed by the application and do not exist yet.
 
 Modules also define interactions with other modules that already exist.
@@ -94,7 +98,7 @@ Each module defines two Protobuf services:
 * **`Msg`:** a set of RPC methods related one-to-one to Protobuf request types, to handle messages.
 * **`Query`:** gRPC query service, to handle queries.
 
-<HighlightBox type="reading">
+<HighlightBox type="tip">
 
 If this topic is new to you, read an introduction to [Protocol Buffers](https://www.ionos.com/digitalguide/websites/web-development/protocol-buffers-explained/).
 
@@ -127,7 +131,7 @@ Protobuf generates a `QueryServer` interface containing all the service methods 
 
 gRPC-Gateway REST endpoints support external clients that may not wish to use gRPC. The Cosmos SDK provides a gRPC-gateway REST endpoint for each gRPC service.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 See the [gRPC-Gateway documentation](https://grpc-ecosystem.github.io/grpc-gateway/) for more on the gRPC-Gateway plugin.
 
@@ -139,7 +143,7 @@ Each module defines commands for a command-line interface (CLI). Commands relate
 
 ### Keeper
 
-Keepers are the gatekeepers to any stored in the module. It is mandatory to go through a module’s keeper to access a store. A keeper encapsulates the knowledge about the layout of the storage within the store and contains methods to update and inspect it. If you come from a module-view-controller (MVC) world, then it helps to think of the keeper as the controller.
+Keepers are the gatekeepers to any stores in the module. It is mandatory to go through a module’s keeper to access a store. A keeper encapsulates the knowledge about the layout of the storage within the store and contains methods to update and inspect it. If you come from a module-view-controller (MVC) world, then it helps to think of the keeper as the controller.
 
 ![Keeper in a node](/academy/2-main-concepts/images/keeper.png)
 
@@ -248,7 +252,7 @@ x/{module_name}
 ```
 
 * `client/`: the module's CLI client functionality implementation and the module's integration testing suite.
-* `exported/`: the module's exported types - typically interface types (see also the following note). 
+* `exported/`: the module's exported types - typically interface types (see also the following note).
 * `keeper/`: the module's `Keeper` and `MsgServer` implementations.
 * `module/`: the module's `AppModule` and `AppModuleBasic` implementations.
 * `simulation/`: the module's simulation package defines functions used by the blockchain simulator application (`simapp`).
@@ -267,7 +271,7 @@ x/{module_name}
 
 <HighlightBox type="info">
 
-If a module relies on keepers from another module, the `exported/` code element expects to receive the keepers as interface contracts to avoid a direct dependency on the module implementing the keepers. However, these interface contracts can define methods that operate on or return types that are specific to the module that is implementing the keepers. 
+If a module relies on keepers from another module, the `exported/` code element expects to receive the keepers as interface contracts to avoid a direct dependency on the module implementing the keepers. However, these interface contracts can define methods that operate on (or return types that are specific to) the module that is implementing the keepers.
 
 The interface types defined in `exported/` use canonical types that allow for the module to receive the interface contracts through the `expected_keepers.go` file. This pattern allows for code to remain [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) and also alleviates import cycle chaos.
 
@@ -277,7 +281,7 @@ The interface types defined in `exported/` use canonical types that allow for th
 
 Modules are encouraged to define and register their own errors to provide better context for failed messages or handler executions. Errors should be common or general errors, which can be further wrapped to provide additional specific execution context.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 For more details see the [Cosmos SDK documentation on errors when building modules](https://docs.cosmos.network/main/building-modules/errors.html).
 
@@ -310,19 +314,17 @@ Regardless of whether an error is wrapped or not, the Cosmos SDK's errors packag
 
 If a module error is registered, the Cosmos SDK errors package allows ABCI information to be extracted through the `ABCIInfo` API. The package also provides `ResponseCheckTx` and `ResponseDeliverTx` as auxiliary APIs to automatically get `CheckTx` and `DeliverTx` responses from an error.
 
-## Next up
-
-Look at the following code example to see modules in practice, or go straight to the [next section](../2-main-concepts/protobuf.md) for an introduction to Protobuf.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 Now your application is starting to take shape.
 
-## The `checkers` module
+**The `checkers` module**
 
 When you create your checkers blockchain application, you ought to include a majority of the standard modules like `auth`, `bank`, and so on. With the Cosmos SDK boilerplate in place, the _checkers part_ of your checkers application will most likely reside in a single `checkers` module. This is the module that you author.
 
-## Game wager
+**Game wager**
 
 Earlier the goal was to let players play with _money_. With the introduction of modules like `bank` you can start handling that.
 
@@ -354,7 +356,7 @@ How would this look in terms of code? You need to add the wager to:
     }
     ```
 
-## Wager payment
+**Wager payment**
 
 Now you must decide how the tokens are moved. When a player accepts a challenge, the amount is deducted from that player's balance. But where does it go? You could burn the tokens and re-mint them at a later date, but this would make the total supply fluctuate wildly for no apparent benefit.
 
@@ -401,8 +403,12 @@ Note that:
 
 <HighlightBox type="tip">
 
-If you want to go beyond these code samples and instead see in more detail how to define all this, go to [My Own Chain](../4-my-own-chain/index.md).
+If you want to go beyond these code samples and instead see in more detail how to define all this, go to [Run Your Own Cosmos Chain](../3-my-own-chain/index.md).
 
 </HighlightBox>
 
 </ExpansionPanel>
+
+## Next up
+
+Look at the above code example to see modules in practice, or go straight to the [next section](../2-main-concepts/protobuf.md) for an introduction to Protobuf.

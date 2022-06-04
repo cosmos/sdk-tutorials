@@ -51,9 +51,9 @@ If a node wishes to distort the ledger in a PoW system, it must first acquire an
 The control mechanism for the amount of work is called **difficulty** and it guarantees a given average block creation time. PoW networks set a target average time for a solution to be found by *any* node on the network. The difficulty adjusts to compensate for increasing/decreasing total network problem-solving capacity. Thus, PoW networks do not get faster as more computing capacity is added. They become more resilient by increasing difficulty, which raises the threshold a 51%-attacker needs to overcome.
 
 ## Proof-of-Authority (PoA)
-  
-**Proof-of-Authority (PoA)** is a simple mechanism that solves for faster block times by relying on validators that are pre-selected based on the belief that they are trustworthy. In other words, validators are allowed to produce blocks based solely on their pre-existing authority. A frequently cited criticism of PoA networks is that everyone needs to trust the validators in order to trust the overall network and blockchain. 
-  
+
+**Proof-of-Authority (PoA)** is a simple mechanism that solves for faster block times by relying on validators that are pre-selected based on the belief that they are trustworthy. In other words, validators are allowed to produce blocks based solely on their pre-existing authority. A frequently cited criticism of PoA networks is that everyone needs to trust the validators in order to trust the overall network and blockchain.
+
 ## Proof-of-Stake (PoS)
 
 **Proof-of-stake (PoS)** is another method of selecting the authoritative node for a given block. PoS is based on the assumption that those with the most to lose are the most incentivized to safeguard network integrity. Thus, block validators are selected based on their stake (i.e. the amount of cryptocurrency held).
@@ -99,7 +99,7 @@ Practical Byzantine Fault Tolerance (pBFT) was first introduced in 1999 and aros
 
 <HighlightBox type="tip">
 
-You can access the 1999 paper by Miguel Castro and Barabara Liskov on pBFT [here](http://pmg.csail.mit.edu/papers/osdi99.pdf). There is also an intuitive [presentation](http://www.comp.nus.edu.sg/~rahul/allfiles/cs6234-16-pbft.pdf) you can look at.
+You can access the 1999 paper by Miguel Castro and Barbara Liskov on pBFT [here](http://pmg.csail.mit.edu/papers/osdi99.pdf). There is also an intuitive [presentation](http://www.comp.nus.edu.sg/~rahul/allfiles/cs6234-16-pbft.pdf) you can look at.
 
 </HighlightBox>
 
@@ -120,11 +120,13 @@ As the reader might guess, Cosmos relies on Tendermint Core. It offers the most 
 
 <HighlightBox type="info">
 
-[Tendermint](./1-what-is-cosmos/blockchain-and-cosmos.md) will be explored in detail later on.
+Tendermint will be explored in detail in the [Main Concepts](../2-main-concepts/index.md) section.
 
 </HighlightBox>
 
 <HighlightBox type="reading">
+
+**Further readings**
 
 * [Castro, M. & Liskov, B. (1999): Practical Byzantine Fault Tolerance](http://pmg.csail.mit.edu/papers/osdi99.pdf)
 * [Castro, M. & Liskov, B.: Practical Byzantine Fault Tolerance presentation](https://www.comp.nus.edu.sg/~rahul/allfiles/cs6234-16-pbft.pdf)

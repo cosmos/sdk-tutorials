@@ -7,7 +7,7 @@ tag: fast-track
 
 # Blockchain 101
 
-This first chapter demystifies the foundations of blockchain technology. This background information will be important as you progress through the course. 
+This first chapter demystifies the foundations of blockchain technology. This background information will be important as you progress through the course.
 
 <HighlightBox type="info">
 
@@ -21,7 +21,7 @@ To understand Cosmos, one must first understand blockchain technology. So, let's
 
 Blockchain technology is rapidly evolving and is difficult to understand in its entirety. It took many bright minds many years of development, plus a combination of advances in cryptography, distributed computing, and economics to create this nascent technology. Grasping blockchain technology requires both time and effort.
 
-Blockchain is a solution to a particular problem...the **double-spending problem**.
+Blockchain is a solution to a particular problem: the **double-spending problem**.
 
 ![Double-spending problem due to insufficient funds](/academy/0.0-B9lab-Blockchains/images/00_14_double_spending_v2-01.png)
 
@@ -43,7 +43,7 @@ Bitcoin has gained widespread attention since then. The underlying technology, b
 
 Security is challenging in peer-to-peer (P2P) networking for two reasons:
 
-* P2P software has to be downloaded to join a network, making it especially vulnerable to remote exploits;
+* P2P software has to be downloaded to join a network, making it especially vulnerable to remote exploits.
 * Malicious participants can send incorrect requests or responses, as well as malware, and because of interconnectivity corrupted data may propagate throughout the network.
 
 Other security risks include denial-of-service (DoS) attacks, routing attacks, and routing network partitions.
@@ -94,7 +94,7 @@ You can see hashing in action to get the feel for it here: [https://www.browserl
 
 </HighlightBox>
 
-Notice that there are many different hashing algorithms that aim for similar results and fulfill the properties described above. Each algorithm consistently produces hashes of the same size regardless of the input's size. 
+Notice that there are many different hashing algorithms that aim for similar results and fulfill the properties described above. Each algorithm consistently produces hashes of the same size regardless of the input's size.
 
 A hash can be used to prove an input exactly matches the original, but the original cannot be reconstructed from a hash. So, a hash function can demonstrate that a copy of the file is an authentic replica of the original in every detail.
 
@@ -150,7 +150,7 @@ In case the foregoing is not clear:
 
 <HighlightBox type="info">
 
-In Bitcoin, the block hash must start with a certain number of zeroes (e.g. 00001B3d). The only way to achieve that is to find a number, the nonce, that can be inserted into the hash function's input so the hash created meets that criteria. There is no more efficient method of finding a suitable nonce than a brute force search of random numbers. 
+In Bitcoin, the block hash must start with a certain number of zeroes (e.g. 00001B3d). The only way to achieve that is to find a number, the nonce, that can be inserted into the hash function's input so the hash created meets that criteria. There is no more efficient method of finding a suitable nonce than a brute force search of random numbers.
 
 </HighlightBox>
 
@@ -209,11 +209,13 @@ It is argued that the development of blockchain technology is initiating a new c
 
 In some opinions, mobile and social networking and the internet have been exploited regarding their commercial use. For some, the ideal of an interconnected community - in which information and knowledge are available and shared and where egalitarian values like equality, transparency, and freedom are encouraged - has led to disappointment over what could have been but never was.
 
-Blockchain technology is often seen as presenting the possibility of more private, transparent, and equal forms of interaction and community with the possibility of preventing imbalances of power that often exist when one group is in charge of a widely used platform and can exercise privileges that are not enjoyed by the rest of the participants. 
+Blockchain technology is often seen as presenting the possibility of more private, transparent, and equal forms of interaction and community with the possibility of preventing imbalances of power that often exist when one group is in charge of a widely used platform and can exercise privileges that are not enjoyed by the rest of the participants.
 
 <HighlightBox type="reading">
 
+**Further readings**
+
 * [Wikipedia: Double-spending](https://en.wikipedia.org/wiki/Double-spending)
-* [Satoshi Nakamoto: Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
+* [Satoshi Nakamoto (2008): Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
 
 </HighlightBox>

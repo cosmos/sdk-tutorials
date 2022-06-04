@@ -76,7 +76,7 @@ These tutorials guide you through actionable steps and walk-throughs to teach yo
 * Learn how Ignite CLI works
 * Create a blockchain polling application
 * Build an exchange that works with two or more blockchains
-* Interact with the Cosmos Hub testnet to test the functionality of your blockchain
+* Interact with the Cosmos Hub Testnet to test the functionality of your blockchain
 * Use the liquidity module, known on the Cosmos Hub as Gravity DEX, to create liquidity pools so users can swap tokens
 * Publish your blockchain application to a Droplet on DigitalOcean
 * Connect to a testnet

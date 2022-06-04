@@ -1,7 +1,7 @@
 ---
 title: "The Inter-Blockchain Communication Protocol"
 order: 1
-description: CONNECTING CHAINS
+description: CONNECT CHAINS
 ---
 
 ## The Inter-Blockchain Communication Protocol
@@ -19,14 +19,10 @@ In this chapter, you will:
 * Discover what IBC is.
 * Get an introduction to the different layers of IBC and how connections, channels, and clients relate to each other in IBC.
 * Take a look at IBC token transfers.
-* Explore Interchain Accounts.
+* Explore interchain accounts.
 * Dive into relaying with IBC.
 * Get an overview of helpful tools for IBC.
 
 </HighlightBox>
-
-**This week, make sure to submit your exercise by June 10th.**
-
-**The submission of this quiz is required to continue with the program.** The submission of this exercise is not mandatory, but is highly recommended. These exercises will help you practice and prepare for the final exam.
 
 ![Star between planets image](/planet-collection.svg)

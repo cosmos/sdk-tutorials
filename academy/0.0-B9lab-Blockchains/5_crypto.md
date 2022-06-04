@@ -1,11 +1,11 @@
 ---
-title: "Cryptography"
+title: "Cryptographic Fundamentals of Blockchain"
 order: 6
-description: Cryptographic fundamentals of blockchain - Public-key cryptography
+description: Public-key cryptography
 tag: fast-track
 ---
 
-# Cryptographic fundamentals of blockchain - Public-key cryptography 
+# Cryptographic Fundamentals of Blockchain
 
 Modern cryptography leverages computer capabilities to make the power of certain mathematical functions available for practical use. Without modern cryptography, there would be no blockchain technology.
 
@@ -15,7 +15,7 @@ Therefore, anyone new to blockchains discovers frequent references to message si
 
 In public-key cryptographic systems, keys always **come in pairs** and offer various capabilities. The capabilities are based on cryptographic mathematics. As the name suggests, the **public key** is meant to be distributed while the **private key** is to be jealously guarded. Compare the key pairs to having your house address public but keeping the key to your house private.
 
-Let us have a look at an example to better understand public/private keys, which you may know under the names:
+The following example will help to better understand public/private keys, which you may know under the names:
 
 * RSA
 * PGP or GnuPG
@@ -50,7 +50,7 @@ Note that you may need openssl version 1.0 or a newer one.
 
 </HighlightBox>
 
-Let us now take a look at scenarios in which public/private key pairs are useful.
+Now take a look at scenarios in which public/private key pairs are useful.
 
 ### Encrypt and decrypt
 
@@ -65,7 +65,7 @@ Alice wants to send a message to Bob that is meant for Bob's eyes only:
 
 Now look at the senario code-wise. For example, try the following:
 
-```bash
+```sh
 // Encrypt file
 $ openssl pkeyutl -encrypt -pubin -inkey rsa-key-pub.pem -in helloworld.txt -out helloworld.enc
 // Decrypt file
@@ -91,16 +91,21 @@ Alice wants to make sure that Bob's public announcement is indeed from Bob:
 
 Back to the code example:
 
-```bash
-// Sign file hash
+```sh
+# Sign file hash
 $ openssl dgst -sha256 -sign secp256k1-key.pem -out helloworld-bin.sha256 helloworld.txt
-// Encode signature in Base64
+# Encode signature in Base64
 $ openssl base64 -in helloworld-bin.sha256 -out helloworld.sha256
 
-// Decode signature form Base64
+# Decode signature form Base64
 $ openssl base64 -d -in helloworld.sha256 -out helloworld-bin-decoded.sha256
-// Verify signature
+# Verify signature
 $ openssl dgst -sha256 -verify secp256k1-key-pub.pem -signature helloworld-bin-decoded.sha256 helloworld.txt
+```
+
+Which finally prints:
+
+```
 Verified OK
 ```
 
@@ -155,8 +160,13 @@ With such a function, you can:
 
 MD5 is such a hash function:
 
-```bash
+```sh
 $ echo "The quick brown fox jumps over the lazy dog" | md5
+```
+
+Which prints:
+
+```
 37c4b87edffc5d198ff5a185cee7ee09
 ```
 
@@ -164,8 +174,13 @@ On Linux, this is `md5sum`.
 
 Now introduce a typo to see what happens (e.g. changing "jumps" to "jump"):
 
-```bash
+```sh
 $ echo "The quick brown fox jump over the lazy dog" | md5
+```
+
+Which prints:
+
+```
 4ba496f4eec6ca17253cf8b7129e43be
 ```
 
@@ -178,6 +193,8 @@ This provides a convenient example, but `MD5` is no longer considered a hard-to-
 </HighlightBox>
 
 <HighlightBox type="reading">
+
+**Further readings**
 
 * [The Mathematics of the RSA Public-Key Cryptosystem](https://www.nku.edu/~christensen/the%20mathematics%20of%20the%20RSA%20cryptosystem.pdf)
 * [OSCDaily (2012): Encrypt & Decrypt Files from the Command Line with OpenSSL](http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/)

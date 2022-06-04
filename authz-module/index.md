@@ -1,6 +1,6 @@
 ---
 parent:
-  title: Understanding the Authz Module
+title: Understand the Authz Module
 order: 0
 description: Use the Cosmos SDK authz module to grant authorizations from one account (the granter) to another account (the grantee).
 ---
@@ -23,26 +23,26 @@ Before you start the tutorial, you need to install the `simd` binary.
 
 Clone the `cosmos-sdk` repository:
 
-```bash
-git clone https://github.com/cosmos/cosmos-sdk
+```sh
+$ git clone https://github.com/cosmos/cosmos-sdk
 ```
 
 Change directories and check out `v0.44.0`:
 
-```bash
-cd cosmos-sdk && git checkout v0.44.0
+```sh
+$ cd cosmos-sdk && git checkout v0.44.0
 ```
 
 Install the `simd` binary:
 
-```bash
-make install
+```sh
+$ make install
 ```
 
 Check to make sure the installation was successful:
 
-```bash
-simd version
+```sh
+$ simd version
 ```
 
 You should see `0.44.0` printed to the console.
@@ -59,14 +59,14 @@ Run the following commands to configure the `simd` binary.
 
 Set the chain ID:
 
-```bash
-simd config chain-id demo
+```sh
+$ simd config chain-id demo
 ```
 
 Set the keyring backend:
 
-```bash
-simd config keyring-backend test
+```sh
+$ simd config keyring-backend test
 ```
 
 ## Key Setup
@@ -75,25 +75,25 @@ Create a couple of test keys. Use the `--recover` option so that the addresses u
 
 Add a key for Alice:
 
-```bash
-simd keys add alice --recover
+```sh
+$ simd keys add alice --recover
 ```
 
 Enter the following mnemonic:
 
-```bash
+```
 plunge hundred health electric victory foil marine elite shiver tonight away verify vacuum giant pencil ocean nest pledge okay endless try spirit special start
 ```
 
 Add a key for Bob:
 
-```bash
-simd keys add bob --recover
+```sh
+$ simd keys add bob --recover
 ```
 
 Enter the following mnemonic:
 
-```bash
+```
 shuffle oppose diagram wire rubber apart blame entire thought firm carry swim old head police panther lyrics road must silly sting dirt hard organ
 ```
 
@@ -103,32 +103,32 @@ The following commands set up a chain using the simulation application (`simapp`
 
 Initialize the node:
 
-```bash
-simd init test --chain-id demo
+```sh
+$ simd init test --chain-id demo
 ```
 
 Add Alice and an initial balance to the genesis file:
 
-```bash
-simd add-genesis-account alice 5000000000stake --keyring-backend test
+```sh
+$ simd add-genesis-account alice 5000000000stake --keyring-backend test
 ```
 
 Add Bob and an initial balance to the genesis file:
 
-```bash
-simd add-genesis-account bob 5000000000stake --keyring-backend test
+```sh
+$ simd add-genesis-account bob 5000000000stake --keyring-backend test
 ```
 
 Generate a transaction to add Alice to the initial validator set:
 
-```bash
-simd gentx alice 1000000stake --chain-id demo
+```sh
+$ simd gentx alice 1000000stake --chain-id demo
 ```
 
 Add the validator transaction to the genesis file:
 
-```bash
-simd collect-gentxs
+```sh
+$ simd collect-gentxs
 ```
 
 ## Start Chain
@@ -137,8 +137,8 @@ You are now ready to start a single node network on your local machine.
 
 Start the chain:
 
-```bash
-simd start
+```sh
+$ simd start
 ```
 
 ## Submit Proposal
@@ -147,14 +147,14 @@ To demonstrate an authorization to vote on a governance proposal, you must first
 
 Create proposal:
 
-```bash
-simd tx gov submit-proposal --title="Test Authorization" --description="Is Bob authorized to vote?" --type="Text" --deposit="10000000stake" --from alice
+```sh
+$ simd tx gov submit-proposal --title="Test Authorization" --description="Is Bob authorized to vote?" --type="Text" --deposit="10000000stake" --from alice
 ```
 
 View proposal:
 
-```bash
-simd q gov proposal 1
+```sh
+$ simd q gov proposal 1
 ```
 
 ## Grant Authorization
@@ -165,30 +165,30 @@ The authorization is a "generic" authorization, which is one that takes a messag
 
 Create authorization:
 
-```bash
-simd tx authz grant cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt generic --msg-type /cosmos.gov.v1beta1.MsgVote --from alice
+```sh
+$ simd tx authz grant cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt generic --msg-type /cosmos.gov.v1beta1.MsgVote --from alice
 ```
 
 View authorization:
 
-```bash
-simd q authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote
+```sh
+$ simd q authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote
 ```
 
 ## Generate Transaction
 
-In order for the grantee to execute a message on behalf of the granter, the grantee must first generate an unsigned transaction where the transaction author (the `--from` address) is the granter. 
+In order for the grantee to execute a message on behalf of the granter, the grantee must first generate an unsigned transaction where the transaction author (the `--from` address) is the granter.
 
 Create unsigned transaction:
 
-```bash
-simd tx gov vote 1 yes --from cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh --generate-only > tx.json
+```sh
+$ simd tx gov vote 1 yes --from cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh --generate-only > tx.json
 ```
 
 View transaction:
 
-```bash
-cat tx.json
+```sh
+$ cat tx.json
 ```
 
 ## Execute Transaction
@@ -197,14 +197,14 @@ Finally, the grantee can sign and send the transaction using the `exec` command.
 
 Sign and send transaction:
 
-```bash
-simd tx authz exec tx.json --from bob
+```sh
+$ simd tx authz exec tx.json --from bob
 ```
 
 View vote:
 
-```bash
-simd q gov vote 1 cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh
+```sh
+$ simd q gov vote 1 cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh
 ```
 
 ## Revoke Authorization
@@ -213,14 +213,14 @@ The granter can revoke the authorization from the grantee using the `revoke` com
 
 Revoke authorization:
 
-```bash
-simd tx authz revoke cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote --from alice
+```sh
+$ simd tx authz revoke cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote --from alice
 ```
 
 View authorization:
 
-```bash
-simd q authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote
+```sh
+$ simd q authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote
 ```
 
 ## 🎉 Congratulations 🎉

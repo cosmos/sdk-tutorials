@@ -91,18 +91,24 @@ module.exports = {
               directory: true,
             },
             {
-              title: "Running a Chain",
-              path: "/academy/3-running-a-chain",
+              title: "Run Your Own Cosmos Chain",
+              path: "/academy/3-my-own-chain",
               directory: true,
             },
             {
-              title: "My Own Cosmos Chain",
-              path: "/academy/4-my-own-chain",
+              title: "The Inter-Blockchain Communication Protocol",
+              path: "/academy/4-ibc",
+              directory: true,
+            },
+
+            {
+              title: "CosmJS",
+              path: "/academy/5-cosmjs",
               directory: true,
             },
             {
               title: "What's Next?",
-              path: "/academy/5-whats-next/",
+              path: "/academy/6-whats-next/",
               directory: false,
             },
           ],
@@ -146,7 +152,7 @@ module.exports = {
                   path: "/academy/0.0-B9lab-Blockchains/5_crypto.html"
                 },
                 {
-                  title: "Self-assessment Quiz",
+                  title: "Self-Assessment Quiz",
                   path: "/academy/0.0-B9lab-Blockchains/6_quiz.html"
                 }
               ]
@@ -231,12 +237,12 @@ module.exports = {
               ]
             },
             {
-              title: "Week 2 - Running Your Own Cosmos Chain - Part 1",
+              title: "Week 2 - Run Your Own Cosmos Chain - Part 1",
               directory: true,
               order: 3,
               children: [
                 {
-                  title: "Running Your Own Cosmos Chain - Part 1",
+                  title: "Run Your Own Cosmos Chain - Part 1",
                   path: "/course-ida/landingpages/week2-lp.html"
                 },
                 {
@@ -244,7 +250,7 @@ module.exports = {
                   path: "/course-ida/setup.html"
                 },
                 {
-                  title: "Running a Node, API, and CLI",
+                  title: "Run a Node, API, and CLI",
                   path: "/academy/3-running-a-chain/node-api-and-cli.html"
                 },
                 {
@@ -268,7 +274,7 @@ module.exports = {
                   path: "/academy/4-my-own-chain/play-game.html"
                 },
                 {
-                  title: "Events - Emitting Game Information",
+                  title: "Events - Emit Game Information",
                   path: "/academy/4-my-own-chain/events.html"
                 },
                 {
@@ -276,18 +282,18 @@ module.exports = {
                   path: "/academy/4-my-own-chain/reject-game.html"
                 },
                 {
-                  title: "Mandatory Exercise (todo)",
+                  title: "Mandatory Exercise",
                   path: "/feature-test"
                 },
               ]
             },
             {
-              title: "Week 3 - Running Your Own Cosmos Chain - Part 2",
+              title: "Week 3 - Run Your Own Cosmos Chain - Part 2",
               directory: true,
               order: 4,
               children: [
                 {
-                  title: "Running Your Own Cosmos Chain - Part 2",
+                  title: "Run Your Own Cosmos Chain - Part 2",
                   path: "/course-ida/landingpages/week3-lp.html"
                 },
                 {
@@ -413,11 +419,11 @@ module.exports = {
                   path: "/academy/xl-cosmjs/create-custom.html"
                 },
                 {
-                  title: "Create Custom Objects for Your Checkers Blockchain",
+                  title: "Custom Objects for Your Checkers Blockchain",
                   path: "/academy/4-my-own-chain/cosmjs-objects.html"
                 },
                 {
-                  title: "Create Custom Messages for Your Checkers Blockchain",
+                  title: "Custom Messages for Your Checkers Blockchain",
                   path: "/academy/4-my-own-chain/cosmjs-messages.html"
                 },
               ]

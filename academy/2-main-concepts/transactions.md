@@ -7,18 +7,15 @@ tag: deep-dive
 
 # Transactions
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
 In this section you will dive into the various functions and features of making transactions in Cosmos:
-    
+
 * Transactions and Messages
 * Signing Transactions
 * Generating Transactions
 * Broadcasting Transactions
-* Introducing the CLI
-* Introducing the gRPC service
-* Intruducing the REST API
-* Introducing the Tendermint RPC service
+* Introducing the CLI, the gRPC service, the REST API, and the Tendermint RPC service
 
 </HighlightBox>
 
@@ -58,7 +55,7 @@ While there is much to explore as you journey through the stack, begin by unders
 Transaction objects are Cosmos SDK types that implement the [`Tx`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L50-L57) interface. They contain the following methods:
 
 * [`GetMsgs`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L52): unwraps the transaction and returns a list of contained [`sdk.Msg`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L11-L33). One transaction may have one or multiple messages.
-* [`ValidateBasic`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L56): includes lightweight, stateless checks used by ABCI message’s `CheckTx` and `DeliverTx` to make sure transactions are not invalid. For example, the auth module's [`StdTx`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdtx.go#L77-L83) [`ValidateBasic`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdtx.go#L100-L126) function checks that its transactions are signed by the correct number of signers and that the fees do not exceed the user's maximum. 
+* [`ValidateBasic`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/types/tx_msg.go#L56): includes lightweight, stateless checks used by the ABCI messages' `CheckTx` and `DeliverTx` to make sure transactions are not invalid. For example, the auth module's [`StdTx`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdtx.go#L77-L83) [`ValidateBasic`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/x/auth/legacy/legacytx/stdtx.go#L100-L126) function checks that its transactions are signed by the correct number of signers and that the fees do not exceed the user's maximum.
 
 <HighlightBox type="tip">
 
@@ -125,7 +122,7 @@ Application developers create entrypoints to the application by creating a comma
 
 For the command-line interface (CLI) module developers create subcommands to add as children to the application top-level transaction command [`TxCmd`](https://github.com/cosmos/cosmos-sdk/blob/56ab4e4c934365662162a91bcf35108a0bd78fef/x/bank/client/cli/tx.go#L29-L60).
 
-CLI commands bundle all the steps of transaction processing into one simple command: 
+CLI commands bundle all the steps of transaction processing into one simple command:
 
 * Creating messages.
 * Generating transactions.
@@ -138,7 +135,7 @@ The principal usage of gRPC is in the context of module query services. The Cosm
 
 <HighlightBox type="tip">
 
-Sometimes an example can be helpful. Look at this [code example](https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#programmatically-with-go).
+See this [code example](https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#programmatically-with-go) for more insight.
 
 </HighlightBox>
 
@@ -148,7 +145,7 @@ Each gRPC method has its corresponding REST endpoint generated using gRPC-gatewa
 
 <HighlightBox type="tip">
 
-Need another example? See this [code example](https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#using-rest).
+See this [code example](https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#using-rest) for more details.
 
 </HighlightBox>
 
@@ -156,7 +153,7 @@ Need another example? See this [code example](https://github.com/cosmos/cosmos-s
 
 The three methods presented previously are higher abstractions on the Tendermint RPC `/broadcast_tx_{async,sync,commit}` endpoints. You can use the [Tendermint RPC endpoints](https://docs.tendermint.com/master/rpc/#/Tx) to directly broadcast the transaction through Tendermint if you wish to.
 
-<HighlightBox type="reading">
+<HighlightBox type="info">
 
 Tendermint supports the following RPC protocols:
 
@@ -164,18 +161,20 @@ Tendermint supports the following RPC protocols:
 * JSONRPC over HTTP.
 * JSONRPC over WebSockets.
 
-For more information on broadcasting with Tendermint RPC, see the documentation on [Tendermint RPC transactions broadcast APIs](https://docs.tendermint.com/master/rpc/#/Tx)?
+For more information on broadcasting with Tendermint RPC, see the documentation on [Tendermint RPC transactions broadcast APIs](https://docs.tendermint.com/master/rpc/#/Tx).
 
 </HighlightBox>
 
-## Next up
-
-In the [next section](./messages.md), you can learn how transaction messages are generated and handled in the Cosmos SDK.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 [Previously](./architecture.md), the ABCI application knew of a single transaction type: a checkers move with four `int`. This is no longer sufficient with multiple games. You need to conform to its `Tx` expectations, which means that you must create messages which are then placed into a transaction.
 
-See the [section on messages](./messages.md)) to learn how to do that.
+See the [section on messages](./messages.md) to learn how to do that.
 
 </ExpansionPanel>
+
+## Next up
+
+In the [next section](./messages.md), you can learn how transaction messages are generated and handled in the Cosmos SDK.

@@ -5,18 +5,22 @@ description: How to handle on-chain upgrades
 tag: deep-dive
 ---
 
-# Migrations: on-chain upgrades
+# Migrations
 
-<HighlightBox type="synopsis">
-
-Have you ever wondered how an upgrade is done in the Cosmos SDK? In this section you will find out how Cosmos SDK migrations are conducted.
-
-Blockchains can be upgraded through a predictable process that reliably avoids forks. Discover the Cosmos comprehensive process that includes governance, data migrations, node upgrades, and more, to ensure upgrades proceed smoothly and without service disruption.
+<HighlightBox type="prerequisite">
 
 To better understand this section, first read the following sections:
 
 * [Messages](./messages.md)
 * [Protobuf](./protobuf.md)
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+Have you ever wondered how an upgrade is done in the Cosmos SDK? In this section you will find out how Cosmos SDK migrations are conducted.
+
+Blockchains can be upgraded through a predictable process that reliably avoids forks. Discover the Cosmos comprehensive process that includes governance, data migrations, node upgrades, and more, to ensure upgrades proceed smoothly and without service disruption.
 
 At the end of the section, the code example demonstrates how you would use migration to upgrade your checkers blockchain with new features even after it has been in operation for some time.
 
@@ -50,7 +54,7 @@ Smart contracts on EVM chains such as Ethereum are immutable software. They are 
 
 ### Plan
 
-A "plan" is an upgrade process to take place at a specific block height in the future. It includes a `SideCar` process that executes when the upgrade commences, which names the plan and specifies a block height at which to execute. 
+A "plan" is an upgrade process to take place at a specific block height in the future. It includes a `SideCar` process that executes when the upgrade commences, which names the plan and specifies a block height at which to execute.
 
 <HighlightBox type="info">
 
@@ -60,7 +64,7 @@ Acceptance or rejection of the plan is managed through the normal governance pro
 
 The `Info` in a plan kicks off the `SideCar` process:
 
-```shell
+```go
 type Plan struct {
   Name   string
   Height int64
@@ -106,7 +110,7 @@ The `SideCar`, handler, and store loader are application-specific. At each block
 
 Application developers build implementations of those components that are tailored to their application and use case.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 For a more detailed explanation of the upgrade process, see the [Cosmos SDK documentation](https://docs.cosmos.network/main/modules/upgrade).
 
@@ -121,16 +125,13 @@ Cosmovisor is a tool that node operators can use to automate the on-chain proces
 * Cosmovisor can download and run the new binary if wanted.
 * When the chain reaches the upgrade block, Cosmovisor also handles the storage upgrade.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 See the [Cosmos SDK documentation on Cosmovisor](https://docs.cosmos.network/main/run-node/cosmovisor.html) to learn more about this process manager for Cosmos SDK applications.
 
 </HighlightBox>
 
-## Next up
-
-You are now up-to-date on migrations. Look at the following code samples, or go to the [next section](./bridges.md) to discover bridges in the Cosmos SDK.
-<!-- You are now up-to-date on migrations. Look at the following code samples, or go to the [next section](./ibc.md) to learn about the Inter-Blockchain Communication Protocol. -->
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
@@ -144,7 +145,7 @@ It is not good enough to introduce a leaderboard for players currently winning a
 
 Call your existing version "v1". To disambiguate, call your new one with the leaderboard "v2".
 
-## New information
+**New information**
 
 You need new data structures for v2. With Ignite CLI you have:
 
@@ -199,17 +200,17 @@ You need new data structures for v2. With Ignite CLI you have:
     )
     ```
 
-## Leaderboard on-the-go updating
+**Leaderboard on-the-go updating**
 
 You will need to add code to v2 to update the leaderboard after a game has been determined. This means a lot of array sorting and information adjustment on the previous code.
 
 <HighlightBox type="tip">
 
-If you want more details on how to update the leaderboard, look at [Run my own chain](../4-my-own-chain/index.md).
+If you want more details on how to update the leaderboard, look at [Running Your Own Cosmos Chain](../3-my-own-chain/index.md).
 
 </HighlightBox>
 
-## Genesis migration preparation
+**Genesis migration preparation**
 
 With on-the-go updating of the leaderboard taken care of for v2, you must place past players on the leaderboard. You need a new v2 genesis where the leaderboard has been added. First, create a new folder `x/checkers/migrations/v1tov2` to handle this task.
 
@@ -224,7 +225,7 @@ type GenesisStateV1 struct {
 
 This is easy to create, as you only need to copy and paste the values of your genesis from a previous commit.
 
-## Past player handling
+**Past player handling**
 
 Now prepare functions to progressively build the player's information, given a list of games:
 
@@ -261,7 +262,7 @@ func PopulatePlayerInfosWith(infoSoFar *map[string]*types.PlayerInfo, games *[]*
 }
 ```
 
-## Past leaderboard
+**Past leaderboard**
 
 Eventually the player information is complete and it is possible to create the leaderboard for these past players. This may involve the sorting of a very large array. Perhaps it could be done in tranches:
 
@@ -291,11 +292,11 @@ func PopulateLeaderboardWith(leaderboard *types.Leaderboard, additionalPlayers *
 
 <HighlightBox type="tip">
 
-If you want more details about the number of helper functions like `AddCandidatesAndSortAtNow`, go to [Run my own chain](../4-my-own-chain/index.md).
+If you want more details about the number of helper functions like `AddCandidatesAndSortAtNow`, go to [Running Your Own Cosmos Chain](../3-my-own-chain/index.md).
 
 </HighlightBox>
 
-## Genesis migration proper
+**Proper genesis migration**
 
 Now everything is prepared, migrate the v1 genesis:
 
@@ -325,3 +326,8 @@ Note that `StoredGameList` and `NextGame` are copied from v1 to v2. Also note th
 The migration mechanism helps identify how you can upgrade your blockchain to introduce new features.
 
 </ExpansionPanel>
+
+## Next up
+
+You are now up-to-date on migrations. Look at the above code samples, or go to the [next section](./bridges.md) to discover bridges in the Cosmos SDK.
+<!-- You are now up-to-date on migrations. Look at the following code samples, or go to the [next section](./ibc.md) to learn about the Inter-Blockchain Communication Protocol. -->

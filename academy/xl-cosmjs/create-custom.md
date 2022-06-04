@@ -1,19 +1,21 @@
 ---
-title: Create Custom CosmJS Interfaces
+title: "Create Custom CosmJS Interfaces"
 order: 4
-description: To work with your blockchain
+description: Work with your blockchain
 tag: deep-dive
 ---
 
 # Create Custom CosmJS Interfaces
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
-* Create custom CosmJS interfaces to connect to custom Cosmos SDK modules
-* Define custom interfaces with Protobuf
-* Define custom types and messages
-* Integrate with Ignite (Previously known as Stargate)
-  
+In this section, you will:
+
+* Create custom CosmJS interfaces to connect to custom Cosmos SDK modules.
+* Define custom interfaces with Protobuf.
+* Define custom types and messages.
+* Integrate with Ignite - previously known as Starport.
+
 </HighlightBox>
 
 CosmJS comes out of the box with interfaces that connect with the standard Cosmos modules such as `bank` and `gov` and understand the way their state is serialized. Since your own blockchain's modules are unique, they need custom CosmJS interfaces. That process consists of several steps:
@@ -126,7 +128,7 @@ service Msg {
 }
 ```
 
-If so, you will find its service declaration in the compiled `tx.ts` file:
+If so, you find its service declaration in the compiled `tx.ts` file:
 
 ```typescript [https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/tx.ts#L243-L248]
 export interface Msg {
@@ -135,7 +137,7 @@ export interface Msg {
 }
 ```
 
-It will also appear in the default implementation:
+It also appears in the default implementation:
 
 ```typescript [https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/tx.ts#L250-L268]
 export class MsgClientImpl implements Msg {
@@ -156,15 +158,15 @@ export class MsgClientImpl implements Msg {
 
 The important points to remember from this are:
 
-1. `rpc: RPC` is an instance of a Protobuf RPC client that will be given to you by CosmJS. Although the interface appears to be [declared locally](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/tx.ts#L270-L272), this is the same interface found [throughout CosmJS](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/queryclient/utils.ts#L35-L37). It will be given to you [on construction](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/queryclient/queryclient.ts). At this point you do not need an implementation for it.
+1. `rpc: RPC` is an instance of a Protobuf RPC client that is given to you by CosmJS. Although the interface appears to be [declared locally](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/tx.ts#L270-L272), this is the same interface found [throughout CosmJS](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/queryclient/utils.ts#L35-L37). It is given to you [on construction](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/queryclient/queryclient.ts). At this point you do not need an implementation for it.
 2. You can see `encode` and `decode` in action. Notice the `.finish()` that flushes the Protobuf writer buffer.
-3. The `rpc.request` makes calls that will be correctly understood by the Protobuf compiled server on the other side.
+3. The `rpc.request` makes calls that are correctly understood by the Protobuf compiled server on the other side.
 
 You can find the same structure in [`query.ts`](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/bank/v1beta1/query.ts).
 
 ### Proper saving
 
-Commit the extra `.proto` files as well as the compiled ones to your repository so you don't need to recreate them.
+Commit the extra `.proto` files as well as the compiled ones to your repository so you do not need to recreate them.
 
 Take inspiration from `cosmjs-types` [`codegen.sh`](https://github.com/confio/cosmjs-types/tree/main/scripts):
 
@@ -194,7 +196,7 @@ message MsgSend {
 
 In this case, the `MsgSend`'s type URL is [`"/cosmos.bank.v1beta1.MsgSend"`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/modules/bank/messages.ts#L6).
 
-Each of your types will be associated like this. You can declare each string as a constant value, such as:
+Each of your types is associated like this. You can declare each string as a constant value, such as:
 
 ```typescript
 export const msgSendTypeUrl = "/cosmos.bank.v1beta1.MsgSend";
@@ -206,7 +208,7 @@ Save those along with `generated` in `./client/src/types/modules`.
 
 Messages, sub-types of `Msg`, are assembled into transactions that are then sent to Tendermint. CosmJS types already include types for [transactions](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/tx/v1beta1/tx.ts#L12-L26). These are assembled, signed, and sent by the [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/fe34588/packages/stargate/src/signingstargateclient.ts#L276-L294) of CosmJS.
 
-The `Msg` kind will also need to be added to a registry. To facilitate that, you should prepare them in a nested array:
+The `Msg` kind also needs to be added to a registry. To facilitate that, you should prepare them in a nested array:
 
 ```typescript [https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/modules/bank/messages.ts#L4-L7]
 export const bankTypes: ReadonlyArray<[string, GeneratedType]> = [
@@ -246,7 +248,7 @@ export interface BankExtension {
 }
 ```
 
-Note that there is a **key** `bank:` inside it. This will become important later on when you _add_ it to Stargate.
+Note that there is a **key** `bank:` inside it. This becomes important later on when you _add_ it to Stargate.
 
 1. Create an extension interface for your module using function names and parameters that satisfy your needs.
 2. It is recommended to make sure that the key is unique and does not overlap with any other modules of your application.
@@ -304,7 +306,7 @@ function createDefaultRegistry(): Registry {
 }
 ```
 
-Now you are ready to combine this into your own `MySigningStargateClient`. It still takes an optional registry, but if that is missing it will add your newly defined default one:
+Now you are ready to combine this into your own `MySigningStargateClient`. It still takes an optional registry, but if that is missing it adds your newly defined default one:
 
 ```typescript
 export class MySigningStargateClient extends SigningStargateClient {

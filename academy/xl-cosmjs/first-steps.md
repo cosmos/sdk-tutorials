@@ -1,25 +1,25 @@
 ---
-title: "Your First CosmJS Actions"
+title: "Your First CosmJS Actions - Send Tokens"
 order: 2
-description: Interacting with a Cosmos SDK chain through CosmJS
+description: Interact with a Cosmos SDK chain through CosmJS
 tag: deep-dive
 ---
 
 # Your First CosmJS Actions - Send Tokens
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
-Take your first steps with CosmJS. Use it to send some simple transactions. 
-    
-In this section:
-    
-* Download and install CosmJS
-* Create a small experiment
-* Prepare a simple testnet
-* Establish your connection
-* Inspect a balance
-* Send a transactions
-    
+Take your first steps with CosmJS. Use it to send some simple transactions.
+
+In this section, you will:
+
+* Download and install CosmJS.
+* Create a small experiment.
+* Prepare a simple testnet.
+* Establish your connection.
+* Inspect a balance.
+* Send transactions.
+
 </HighlightBox>
 
 Now that you know what CosmJS is, you should take your first steps in using it. A basic feature of a Cosmos chain is the ability to send tokens via the `bank` module. CosmJS naturally offers functions to cover this facility. You are going to:
@@ -32,11 +32,11 @@ Additionally, you can choose to:
 1. Start a local chain that exposes RPCs instead of using a testnet.
 2. Run the same basic CosmJS commands, but for this local chain.
 
-Along the way, you will learn the basic CosmJS concepts needed to start interacting with the Cosmos ecosystem.
+Along the way, you learn the basic CosmJS concepts needed to start interacting with the Cosmos ecosystem.
 
 ## Script preparation
 
-A small, ready-made repository exists so you can experiment with CosmJS. Clone it from [here](https://github.com/b9lab/cosmjs-sandbox), and you will need [NodeJs](https://nodejs.org/en/download/). If you open the folder in [Visual Studio Code](https://code.visualstudio.com/Download), the IDE should give you all the coding help you require. In the cloned folder you need to install the required modules:
+A small, ready-made repository exists so you can experiment with CosmJS. Clone it from [here](https://github.com/b9lab/cosmjs-sandbox). You need [NodeJs](https://nodejs.org/en/download/). If you open the folder in [Visual Studio Code](https://code.visualstudio.com/Download), the IDE should give you all the coding help you require. In the cloned folder you need to install the required modules:
 
 ```sh
 $ npm install
@@ -78,17 +78,17 @@ This returns:
 TODO
 ```
 
-You will soon make this script more meaningful. With the basic script ready, you need to prepare some elements.
+You soon make this script more meaningful. With the basic script ready, you need to prepare some elements.
 
 ## Testnet preparation
 
-The Cosmos ecosystem has a number of testnets running. The Cosmos Hub is currently running a [public testnet](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-public-testnet) for the Theta upgrade that you'll be connecting to and running your script on. You'll need to connect to a public node so that you can query information and broadcast transactions. One of the available nodes is:
+The Cosmos ecosystem has a number of testnets running. The Cosmos Hub is currently running a [public testnet](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-public-testnet) for the Theta upgrade that you are connecting to and running your script on. You need to connect to a public node so that you can query information and broadcast transactions. One of the available nodes is:
 
 ```[https://github.com/cosmos/testnets/tree/master/v7-theta#endpoints-1]
 RPC: https://rpc.sentry-01.theta-testnet.polypore.xyz
 ```
 
-You'll need a wallet address on the testnet and you must create a 24-word mnemonic in order to do so. CosmJS can generate one for you. Create a new file `generate_mnemonic.ts` with the following script:
+You need a wallet address on the testnet and you must create a 24-word mnemonic in order to do so. CosmJS can generate one for you. Create a new file `generate_mnemonic.ts` with the following script:
 
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/generate_mnemonic.ts#L1-L10]
 import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing"
@@ -119,6 +119,8 @@ Temporarily keep this address for convenience, although CosmJS can always recalc
 
 <HighlightBox type="warn">
 
+Important considerations:
+
 1. `process.stdout.write` was used to avoid any line return. Be careful not to add any empty lines or any other character in your `.key` file (this occurs with VSCode under certain conditions). If you add any characters, ComsJs may not be able to parse it.
 2. Adjust the `.gitignore` file to not commit your `.key` file by mistake:
 
@@ -129,11 +131,15 @@ Temporarily keep this address for convenience, although CosmJS can always recalc
 
 </HighlightBox>
 
+<HighlightBox type="tip">
+
 For your convenience, we have a branch available [here](https://github.com/b9lab/cosmjs-sandbox/tree/file-preparation) that contains all the code and files you've added so far.
+
+</HighlightBox>
 
 ## Add your imports
 
-You need a small, simple interface to a blockchain, one which could eventually have users. Good practice is to refrain from requesting a user address until necessary (e.g. when a user clicks a relevant button). Therefore, in `experiment.ts` you will first use the read-only client. Import it at the top of the file:
+You need a small, simple interface to a blockchain, one which could eventually have users. Good practice is to refrain from requesting a user address until necessary (e.g. when a user clicks a relevant button). Therefore, in `experiment.ts` you first use the read-only client. Import it at the top of the file:
 
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/experiment.ts#L1]
 import { StargateClient } from "@cosmjs/stargate"
@@ -153,7 +159,7 @@ Next, you need to tell the client how to connect to the RPC port of your blockch
 const rpc = "https://rpc.sentry-01.theta-testnet.polypore.xyz"
 ```
 
-Inside the `runAll` function you can [initialize the connection](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/stargateclient.ts#L146) and immediately [check](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/stargateclient.ts#L194) you connected to the right place:
+Inside the `runAll` function you [initialize the connection](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/stargateclient.ts#L146) and immediately [check](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/stargateclient.ts#L194) you connected to the right place:
 
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/experiment.ts#L8-L9]
 const runAll = async(): Promise<void> => {
@@ -185,7 +191,7 @@ console.log(
 Alice balances: []
 ```
 
-If you just created this account, Alice's balance is zero. Alice will need tokens to be able to send transactions and participate in the network. A common practice with testnets is to expose **faucets** (services that send you test tokens for free, within limits).
+If you just created this account, Alice's balance is zero. Alice needs tokens to be able to send transactions and participate in the network. A common practice with testnets is to expose **faucets** (services that send you test tokens for free, within limits).
 
 The Cosmos Hub Testnet faucet has a dedicated [Discord channel](https://discord.com/channels/669268347736686612/953697793476821092/958291295741313024) where you can ask for tokens once per day _per Discord user_.
 
@@ -214,7 +220,7 @@ Alice balances: [ { denom: 'uatom', amount: '10000000' } ]
 
 ## Get the faucet address
 
-As an exercise you want Alice to send some tokens back to the faucet, so you will need its address. You can request this from the faucet bot, but it is also possible to get it using the transaction hash in `experiment.ts`.
+As an exercise you want Alice to send some tokens back to the faucet, so you need its address. You can request this from the faucet bot, but it is also possible to get it using the transaction hash in `experiment.ts`.
 
 First you need to get the transaction.
 
@@ -240,7 +246,7 @@ What does `faucetTx` contain? Add the following line to find out:
 console.log("Faucet Tx:", faucetTx)
 ```
 
-Then run the script again using `npm run experiment`. You'll find the the following output which in your case will contain different values:
+Then run the script again using `npm run experiment`. You find the following output, which in your case contains different values:
 
 ```json
 Faucet Tx: {
@@ -265,7 +271,7 @@ Faucet Tx: {
 }
 ```
 
-As you can see, the structure of this output is JSON. You see that there is a serialized `faucetTx.tx` of the type `Uint8Array`. The serialized transaction are the bytes (i.e. `Uint8`) of the actual transaction that was sent over the testnet by the faucet. It is unintelligible to humans until you deserialize it properly. Since it is a serialized transaction, use the methods offered by `cosmjs-types` [`Tx`](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/tx/v1beta1/tx.ts#L230) to deserialize it.
+The structure of this output is JSON. There is a serialized `faucetTx.tx` of the type `Uint8Array`. The serialized transaction are the bytes (i.e. `Uint8`) of the actual transaction that was sent over the testnet by the faucet. It is unintelligible to humans until you deserialize it properly. Use the methods offered by `cosmjs-types` [`Tx`](https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/tx/v1beta1/tx.ts#L230) to deserialize it.
 
 Add the necessary import at the top:
 
@@ -308,7 +314,7 @@ DecodedTx: {
 }
 ```
 
-The faucet address information you are looking for is inside the `body.messages`. So print that too, add:
+The faucet address information you are looking for is inside the `body.messages`, and must be printed. Add:
 
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/experiment.ts#L20]
 console.log("Decoded messages:", decodedTx.body!.messages)
@@ -336,7 +342,7 @@ Decoded messages: [
 ]
 ```
 
-Deserializing the transaction has not fully deserialized the message(s) that it contains, nor the message's `value`, which is again a `Uint8Array`. The transaction deserializer knows how to properly decode any transaction, but it does not know how to do the same for messages. Messages can in fact be of any type, and each type has its own deserializer. This is not something that the `Tx.decode` transaction deserializer function knows.
+Deserializing the transaction has not fully deserialized any messages that it contains, nor their `value`, which is again a `Uint8Array`. The transaction deserializer knows how to properly decode any transaction, but it does not know how to do the same for messages. Messages can in fact be of any type, and each type has its own deserializer. This is not something that the `Tx.decode` transaction deserializer function knows.
 
 ### What is this long string?
 
@@ -362,7 +368,7 @@ The blockchain client itself knows how to serialize or deserialize it only becau
 
 <HighlightBox type="info">
 
-To learn how to make your own types for your own blockchain project, head to [Create my own CosmJS objects](TODO).
+To learn how to make your own types for your own blockchain project, head to [Create my own CosmJS objects](./create-custom.md).
 
 </HighlightBox>
 
@@ -374,7 +380,7 @@ Now that you know the only message in the transaction is a `MsgSend`, you need t
 import { MsgSend } from "cosmjs-types/cosmos/bank/v1beta1/tx"
 ```
 
-Then you can deserialize the message. Add:
+Then you deserialize the message. Add:
 
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/experiment.ts#L2]
 const sendMessage: MsgSend = MsgSend.decode(decodedTx.body!.messages[0].value)
@@ -397,7 +403,7 @@ In this message, the `fromAddress` is that of the faucet:
 const faucet: string = sendMessage.fromAddress
 ```
 
-Similar to how you got the balance for Alice, you can get the faucet's balance as well. Have a go at trying this yourself by [copying](https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/experiment.ts#L24) the code to print Alice's balances. When running, you should get:
+Similar to how you got the balance for Alice, you get the faucet's balance as well. Try this by [copying](https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/experiment.ts#L24) the code to print Alice's balances. When running, you should get:
 
 ```
 Faucet balances: [ { denom: 'uatom', amount: '867777337235' } ]
@@ -405,7 +411,7 @@ Faucet balances: [ { denom: 'uatom', amount: '867777337235' } ]
 
 <ExpansionPanel title="Getting the faucet address another way">
 
-Instead of using the `decode` functions that come with the `Tx` and `MsgSend` imports, you can process the data yourself via alternative means. If you'd like to experiment more, you can parse the `rawLog` manually as opposed to deserializing the transaction as suggested above.
+Instead of using the `decode` functions that come with the `Tx` and `MsgSend` imports, you process the data yourself via alternative means. If you would like to experiment more, parse the `rawLog` manually as opposed to deserializing the transaction as suggested previously.
 
 Note the conceptual difference between `Tx` and the `rawLog`. The `Tx`, or `MsgSend`, object is an input to the computation that takes place when the transaction is included in a block. The `rawLog` is the resulting output of said computation and its content depends on what the blockchain code emitted when executing the transaction.
 
@@ -448,13 +454,17 @@ const faucet: string = rawLog[0].events
     .attributes.find((attribute: any) => attribute.key === "spender").value
 ```
 
-Although the above is a perfectly valid way to extract specific values from a transaction's message, it is not the recommended way to do so. The benefit of importing the message types is that you don't have to manually dig through the raw log of each `Tx` you're looking to use in your application.
+Although this is a perfectly valid way to extract specific values from a transaction's message, it is not the recommended way to do so. The benefit of importing the message types is that you do not have to manually dig through the raw log of each `Tx` you're looking to use in your application.
 
 </ExpansionPanel>
 
 These actions are example uses of the read-only `StargateClient` and of the serialization tools that come with CosmJS.
 
-You can get the result of the above steps [here](https://github.com/b9lab/cosmjs-sandbox/tree/with-stargate-client).
+<HighlightBox type="tip">
+
+Get the result of the above steps [here](https://github.com/b9lab/cosmjs-sandbox/tree/with-stargate-client).
+
+</HighlightBox>
 
 Now it is time for Alice to send some tokens back to the faucet.
 
@@ -470,19 +480,19 @@ Update your import line:
 import { IndexedTx, SigningStargateClient, StargateClient } from "@cosmjs/stargate"
 ```
 
-Let's have a look at its declaration by right-clicking on the `SigningStargateClient` in your imports and choosing <kbd>Go to Definition</kbd>.
+Look at its declaration by right-clicking on the `SigningStargateClient` in your imports and choosing <kbd>Go to Definition</kbd>.
 
-As you can see, when you instantiate `SigningStargateClient` by using the [`connectWithSigner`](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/signingstargateclient.ts#L156) method, you need to pass it a [**signer**](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/signingstargateclient.ts#L158). In this case, we'll be using the [`OfflineDirectSigner`](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/proto-signing/src/signer.ts#L21-L24) interface.
+When you instantiate `SigningStargateClient` by using the [`connectWithSigner`](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/signingstargateclient.ts#L156) method, you need to pass it a [**signer**](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/signingstargateclient.ts#L158). In this case, use the [`OfflineDirectSigner`](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/proto-signing/src/signer.ts#L21-L24) interface.
 
 <HighlightBox type="info">
 
-The recommended way to encode messages is by using `OfflineDirectSigner`, which uses Protobuf. However, hardware wallets such as Ledger do not support this and still require the legacy Amino encoder. If your app requires Amino support, you'll have to use the `OfflineAminoSigner`.
+The recommended way to encode messages is by using `OfflineDirectSigner`, which uses Protobuf. However, hardware wallets such as Ledger do not support this and still require the legacy Amino encoder. If your app requires Amino support, you have to use the `OfflineAminoSigner`.
 
-You can read more about encoding [here](https://docs.cosmos.network/master/core/encoding.html).
+Read more about encoding [here](https://docs.cosmos.network/master/core/encoding.html).
 
 </HighlightBox>
 
-The signer will need access to Alice's **private key**, and there are several ways to accomplish this. In this example, you will use Alice's saved **mnemonic**. To load the mnemonic as text in your code you will need this import:
+The signer needs access to Alice's **private key**, and there are several ways to accomplish this. In this example, use Alice's saved **mnemonic**. To load the mnemonic as text in your code you need this import:
 
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/4168b97/experiment.ts#L1]
 import { readFile } from "fs/promises"
@@ -505,13 +515,13 @@ const getAliceSignerFromMnemonic = async (): Promise<OfflineDirectSigner> => {
 
 ```
 
-The Cosmos Hub Testnet uses the `cosmos` address prefix. This is the default used by `DirectSecp256k1HdWallet`, but you are encouraged to explicitly define it as you might be working with different prefixes on different blockchains. In your `runAll` function, you can now add:
+The Cosmos Hub Testnet uses the `cosmos` address prefix. This is the default used by `DirectSecp256k1HdWallet`, but you are encouraged to explicitly define it as you might be working with different prefixes on different blockchains. In your `runAll` function, add:
 
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/4168b97/experiment.ts#L44]
 const aliceSigner: OfflineDirectSigner = await getAliceSignerFromMnemonic()
 ```
 
-As a first step, you can confirm that it recovers Alice's address as expected:
+As a first step, confirm that it recovers Alice's address as expected:
 
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/4168b97/experiment.ts#L45-L46]
 const alice = (await aliceSigner.getAccounts())[0].address
@@ -537,11 +547,15 @@ console.log(
 
 Run it with `npm run experiment`.
 
-You can get the result of the above steps [here](https://github.com/b9lab/cosmjs-sandbox/tree/with-signing-stargate-client).
+<HighlightBox type="tip">
+
+Get the result of the previous steps [here](https://github.com/b9lab/cosmjs-sandbox/tree/with-signing-stargate-client).
+
+</HighlightBox>
 
 ## Send tokens
 
-Alice can now send some tokens back to the faucet, but to do so she will also need to pay the network's gas fee. How much gas should she use, and at what price?
+Alice can now send some tokens back to the faucet, but to do so she also needs to pay the network's gas fee. How much gas should she use, and at what price?
 
 She can copy what the faucet did. To discover this, add:
 
@@ -566,7 +580,7 @@ export interface Coin {
 }
 ```
 
-Alice can pick any `denom` and any `amount` as long as she owns them, the signing client will sign the transaction and broadcast it. In this case it is:
+Alice can pick any `denom` and any `amount` as long as she owns them, the signing client signs the transaction and broadcasts it. In this case it is:
 
 ```typescript
 { denom: "uatom", amount: "100000" }
@@ -617,13 +631,23 @@ Faucet balance after: [ { denom: 'uatom', amount: '867777437235' } ]
 
 According to the `rawLog`, the faucet received `100000uatom`. Since Alice ends up with `"9899500uatom"`, it means she also paid `500uatom` for gas.
 
-This concludes your first use of CosmJS to send tokens. You can find the result of all the steps above [here](https://github.com/b9lab/cosmjs-sandbox/tree/send-tokens).
+This concludes your first use of CosmJS to send tokens.
 
-Note that you connected to a publicly running testnet. Therefore, you depended on someone else to have a blockchain running with an open and publicly available RPC port and faucet. What if you wanted to try connecting to your own locally running blockchain?
+<HighlightBox type="tip">
+
+Find the result of all the previous steps [here](https://github.com/b9lab/cosmjs-sandbox/tree/send-tokens).
+
+</HighlightBox>
+
+<HighlightBox type="note">
+
+You connected to a publicly running testnet. Therefore, you depended on someone else to have a blockchain running with an open and publicly available RPC port and faucet. What if you wanted to try connecting to your own locally running blockchain?
+
+</HighlightBox>
 
 ## With a locally started chain
 
-The easiest option is to reuse the `simd` chain that you started in a [previous module](../3-running-a-chain/node-api-and-cli.md). Make sure that you have created two accounts, Alice and Bob. You also sent tokens using `simd`. Be sure to credit enough tokens to Alice.
+The easiest option is to reuse the `simd` chain that you started in a [previous module](../3-my-own-chain/node-api-and-cli.md). Make sure that you have created two accounts, Alice and Bob. You also sent tokens using `simd`. Be sure to credit enough tokens to Alice.
 
 When you finally launch `simd`, you see the line:
 
@@ -634,9 +658,9 @@ $ ./build/simd start
 ...
 ```
 
-Port `26657` is the default port for RPC endpoints built with the SDK, unless otherwise configured in `~/.simapp/config/config.toml`. `127.0.0.1:26657` will be the URL you'll need to add to your script later.
+Port `26657` is the default port for RPC endpoints built with the SDK, unless otherwise configured in `~/.simapp/config/config.toml`. `127.0.0.1:26657` is the URL you need to add to your script later.
 
-You can make a copy of your `experiment.ts` script, with some adjustments. Name it `experiment-local.ts`. Add a new run target in `package.json`:
+Make a copy of your `experiment.ts` script, with some adjustments. Name it `experiment-local.ts`. Add a new run target in `package.json`:
 
 ```json [https://github.com/b9lab/cosmjs-sandbox/blob/8466986/package.json#L8]
 {
@@ -651,7 +675,7 @@ You can make a copy of your `experiment.ts` script, with some adjustments. Name 
 
 ## Preparing your keys
 
-Although you have Alice's address, you may not have her mnemonic or private key. The private key is stored in your operating system's keyring backend. For the purpose of this exercise you can extract it, but generally this is an unsafe operation:
+Although you have Alice's address, you may not have her mnemonic or private key. The private key is stored in your operating system's keyring backend. For the purpose of this exercise, extract it - generally this is an unsafe operation:
 
 ```sh
 $ ./build/simd keys export alice --unsafe --unarmored-hex
@@ -679,7 +703,7 @@ $ ./build/simd keys list
 
 ## Update your script
 
-With the new elements in place, you can update your `experiment-local.ts` script. Change `rpc`:
+With the new elements in place, update your `experiment-local.ts` script. Change `rpc`:
 
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/8466986/experiment-local.ts#L6]
 const rpc = "http://127.0.0.1:26657"
@@ -691,7 +715,7 @@ And skip the lengthy process to get the faucet address. Just set `faucet` to Bob
 const faucet: string = "cosmos1umpxwaezmad426nt7dx3xzv5u0u7wjc0kj7ple"
 ```
 
-Next, you'll need to replace the function to create Alice's signer because you're using a private key instead of a mnemonic, so the `fromMnemonic` method that comes with `DirectSecp256k1HdWallet` won't work. The [`fromKey`](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/proto-signing/src/directsecp256k1wallet.ts#L21) method that comes with `DirectSecp256k1Wallet` is the more appropriate choice this time.
+Next, you need to replace the function to create Alice's signer because you're using a private key instead of a mnemonic, so the `fromMnemonic` method that comes with `DirectSecp256k1HdWallet` does not work. The [`fromKey`](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/proto-signing/src/directsecp256k1wallet.ts#L21) method that comes with `DirectSecp256k1Wallet` is the more appropriate choice this time.
 
 Adjust the import:
 
@@ -754,7 +778,11 @@ Faucet balance after: [ { denom: 'stake', amount: '10110000' } ]
 
 You have now used CosmJS's bank module on a locally running Cosmos blockchain.
 
-You can find the complete set of files [here](https://github.com/b9lab/cosmjs-sandbox/tree/send-tokens-local).
+<HighlightBox type="tip">
+
+Find the complete set of files [here](https://github.com/b9lab/cosmjs-sandbox/tree/send-tokens-local).
+
+</HighlightBox>
 
 ## Next up
 

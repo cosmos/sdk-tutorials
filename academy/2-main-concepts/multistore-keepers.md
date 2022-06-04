@@ -7,9 +7,7 @@ tag: deep-dive
 
 # Multistore and Keepers
 
-<HighlightBox type="synopsis">
-
-Keepers are responsible for managing access to states defined by modules. Because states are accessed through keepers, they are an ideal place to ensure that invariants are enforced and security principles are always applied.
+<HighlightBox type="prerequisite">
 
 Look at the following sections before you begin:
 
@@ -17,6 +15,12 @@ Look at the following sections before you begin:
 * [Messages](./messages.md)
 * [Modules](./modules.md)
 * [Protobuf](./protobuf.md)
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+Keepers are responsible for managing access to states defined by modules. Because states are accessed through keepers, they are an ideal place to ensure that invariants are enforced and security principles are always applied.
 
 You can find a code example for your checkers blockchain at the end of the section that explores dealing with storage elements, message handling, and gas costs.
 
@@ -36,7 +40,7 @@ A keeper can be thought of as the literal gatekeeper of a module's stores. Each 
 
 When a module needs to interact with the state defined in another module, it does so by interacting with the methods of the other module’s keeper. Developers control the interactions their module can have with other modules by defining methods and controlling access.
 
-![Keepers in the Cosmos SDK](/academy/2-main-concepts/images//keeper.png)
+![Keepers in the Cosmos SDK](/academy/2-main-concepts/images/keeper.png)
 
 ## Format
 
@@ -108,7 +112,7 @@ A [`cachemulti.Store`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/sto
 
 As the name suggests, `Transient.Store` is a `KVStore` that is discarded automatically at the end of each block. `Transient.Store` is a `dbadapter.Store` with a `dbm.NewMemDB()`. All `KVStore` methods are reused. A new `dbadapter.Store` is assigned when `Store.Commit()` is called, discarding the previous reference. Garbage collection is attended to automatically.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 Take a closer look at the [IAVL spec](https://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md) for when working with the IAVL store.
 
@@ -154,7 +158,7 @@ The `AnteHandler` is theoretically optional but still a very important component
 
 `BaseApp` holds an `AnteHandler` as a parameter that is initialized in the application's constructor. The most widely used `AnteHandler` is the auth module.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 For more information on the subject, see the following resources:
 
@@ -163,15 +167,13 @@ For more information on the subject, see the following resources:
 
 </HighlightBox>
 
-## Next up
-
-In the [next section](./base-app.md) you will find more information on `BaseApp` and its role in the Cosmos SDK.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 In the [Accounts section](./accounts.md), you were shown the elements of the stored game but not where this game is stored. This will now be explained.
 
-## Game object in storage
+**Game object in storage**
 
 You need to decide under what structure you want to store a game in the storage. The Cosmos SDK partitions the global storage per module, with `checkers` being its own module. You need to take care of how to store games in the checkers module's corner of the key/value pair storage.
 
@@ -275,7 +277,7 @@ See the [previous section on Protobuf](./protobuf.md) to explore how Protobuf de
 
 </HighlightBox>
 
-## Boilerplate, boilerplate everywhere!
+**Boilerplate, boilerplate everywhere!**
 
 Note how the `Set`, `Get`, `Remove`, and `GetAll` functions shown previously look like boilerplate too. Do you have to redo these functions for every type? *No* - it was all created with this Ignite CLI command:
 
@@ -287,11 +289,11 @@ $ ignite scaffold map storedGame game turn red black wager:uint --module checker
 
 <HighlightBox type="tip">
 
-To create the above boilerplate in your module, you can use Ignite CLI. Go to [My Own Chain](../4-my-own-chain/index.md) for more on Ignite CLI, and if you want to go beyond out-of-context code samples to see more in detail how to define these features.
+To create the above boilerplate in your module, you can use Ignite CLI. Go to [Run Your Own Cosmos Chain](../3-my-own-chain/index.md), for more on Ignite CLI, and if you want to go beyond out-of-context code samples to see more in detail how to define these features.
 
 </HighlightBox>
 
-## Other storage elements
+**Other storage elements**
 
 How do you create the `storedGame.Index`? A viable idea is to keep a counter in storage for the next game. Unlike `StoredGame`, which is saved as a map, this `NextGame` object has to be at a unique location in the storage.
 
@@ -317,7 +319,7 @@ Then define the functions to get and set:
 
 ```go
 func (k Keeper) SetNextGame(ctx sdk.Context, nextGame types.NextGame) {
-    nextGameStore := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.NextGameKey))
+    nextGameStore := prefix.NewStore(ctx.KVStore(k.storeKey), []byte(types.NextGameKey))
     nextBytes := k.cdc.MustMarshalBinaryBare(&nextGame)
     nextGameStore.Set([]byte{0}, nextBytes)
 }
@@ -345,9 +347,9 @@ func DefaultGenesis() *GenesisState {
 }
 ```
 
-## What about message handling
+**What about message handling**
 
-You go from the message to the game in storage with `MsgCreateGame`, which was defined in an earlier [section on messages](./messages.md). That is also the role of the keeper. 
+You go from the message to the game in storage with `MsgCreateGame`, which was defined in an earlier [section on messages](./messages.md). That is also the role of the keeper.
 
 Define a handling function such as:
 
@@ -428,14 +430,14 @@ Return the game ID for reference:
 
 You would also do the same for `MsgPlayMoveResponse` and `MsgRejectGame`. Why not try it out as an exercise?
 
-## More on game theory
+**More on game theory**
 
 Time to introduce a game deadline:
 
 ```go
 const (
-    MaxTurnDurationInSeconds = time.Duration(24 * 3_600 * 1000_000_000) // 1 day
-    DeadlineLayout           = "2006-01-02 15:04:05.999999999 +0000 UTC"
+    MaxTurnDuration = time.Duration(24 * 3_600 * 1000_000_000) // 1 day
+    DeadlineLayout  = "2006-01-02 15:04:05.999999999 +0000 UTC"
 )
 type StoredGame struct {
     ...
@@ -448,14 +450,14 @@ Set its initial value on creation:
 ```go
 storedGame := types.StoredGame{
     ...
-    Deadline: ctx.BlockTime().Add(types.MaxTurnDurationInSeconds).UTC().Format(types.DeadlineLayout),
+    Deadline: ctx.BlockTime().Add(types.MaxTurnDuration).UTC().Format(types.DeadlineLayout),
 }
 ```
 
 Update its value after a move:
 
 ```go
-storedGame.Deadline = ctx.BlockTime().Add(types.MaxTurnDurationInSeconds).UTC().Format(types.DeadlineLayout)
+storedGame.Deadline = ctx.BlockTime().Add(types.MaxTurnDuration).UTC().Format(types.DeadlineLayout)
 ```
 
 Extract and verify its value when necessary:
@@ -470,7 +472,7 @@ if deadline.Before(ctx.BlockTime()) {
 }
 ```
 
-## How to expire games
+**How to expire games**
 
 How can you know what games should be removed? Should you load *all* games and filter for those that have expired? That would be extremely expensive. Better is to keep a First-In-First-Out (FIFO), where fresh games are pushed back to the tail so that the head contains the next games to expire.
 
@@ -503,7 +505,7 @@ Next, you need to code a regular FIFO, whereby:
 * Games are sent to the back when created or played on.
 * Games are removed from the FIFO when they are finished or time out.
 
-## When to expire games
+**When to expire games**
 
 When do you verify that a game has expired? An interesting feature of an ABCI application is that you can have it perform some actions at the end of each block. To expire games that have timed out at the end of a block, you need to hook your keeper to the right call. The Cosmos SDK will call into each module at various points when building the whole application. The function it calls at each block's end looks like this:
 
@@ -522,7 +524,7 @@ am.keeper.ForfeitExpiredGames(sdk.WrapSDKContext(ctx))
 
 How can you ensure that the execution of this `EndBlock` does not become prohibitively expensive? After all, the potential number of games to expire is unbounded, which can be disastrous in the blockchain world. Is there a situation or attack vector that makes this a possibility? And what can you do to prevent it?
 
-The timeout duration is fixed, and is the same for all games. This means that the `n` games that expire in a given block have all been created or updated at roughly the same time or block height `h`, with margins of error `h-1` and `h+1`. 
+The timeout duration is fixed, and is the same for all games. This means that the `n` games that expire in a given block have all been created or updated at roughly the same time or block height `h`, with margins of error `h-1` and `h+1`.
 
 These created and updated games are limited in number, because (as established in the chain consensus parameters) every block has a maximum size and a limited number of transactions it can include. If by chance all games in blocks `h-1`, `h`, and `h+1` expire now, then the `EndBlock` function would have to expire three times as many games as a block can handle. This is a worst-case scenario, but most likely it is still manageable.
 
@@ -532,7 +534,7 @@ Be careful about letting the game creator pick a timeout duration. This could al
 
 </HighlightBox>
 
-## Gas costs
+**Gas costs**
 
 The keeper also makes it easy to charge the gas to the players as required. This gas fee comes on top of the configured standard fee for transactions on your chain. Propose some ratios, which would have to be adjusted so they make sense compared to the base transaction costs:
 
@@ -561,3 +563,7 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 ```
 
 </ExpansionPanel>
+
+## Next up
+
+In the [next section](./base-app.md) you can find more information on `BaseApp` and its role in the Cosmos SDK.

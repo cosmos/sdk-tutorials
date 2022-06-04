@@ -1,5 +1,5 @@
 ---
-title: Set Up Your Work Environment
+title: "Set Up Your Work Environment"
 order:
 description: All you need for the hands-on sections
 tag:
@@ -80,3 +80,7 @@ This integrated development environment assists both with developing with the Co
 The first time you open a Cosmos SDK project with Visual Studio Code, it offers to install a Go plug-in. You can go ahead and accept it.
 
 </HighlightBox>
+
+## Next up
+
+Now that you are all set, dive right into running a node and explore working with `simapp` in the [next section](https://interchainacademy.cosmos.network/academy/3-running-a-chain/node-api-and-cli.html).

@@ -25,7 +25,7 @@ To learn more about Schneier and Kelsey's proposed solution, see [Schneier, B. &
 
 </HighlightBox>
 
-Another significant work arose in 1994, when computer scientist Nick Szabo first described the concept of [smart contracts](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html). It is important to recognize that Szabo's intent was to minimize the need for trusted intermediaries. In 1998 he proposed BitGold, a conceptual predecessor to Bitcoin as he argued for a decentralized digital currency. In both, Proof-of-Work (PoW) is used as a consensus algorithm to solve cryptographic puzzles in a peer-to-peer (P2P) network with Byzantine Fault Tolerance. The solutions are also linked by a "hash chain". Although BitGold was never implemented, many perceive it as being the direct ancestor of Bitcoin.
+Another significant work arose in 1994, when computer scientist Nick Szabo first described the concept of [smart contracts](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html). It is important to recognize that Szabo's intent was to minimize the need for trusted intermediaries. In 1998 he proposed BitGold, a conceptual predecessor to Bitcoin, as he argued for a decentralized digital currency. In both, Proof-of-Work (PoW) is used as a consensus algorithm to solve cryptographic puzzles in a peer-to-peer (P2P) network with Byzantine Fault Tolerance. The solutions are also linked by a "hash chain". Although BitGold was never implemented, many perceive it as being the direct ancestor of Bitcoin.
 
 <HighlightBox type="tip">
 
@@ -67,7 +67,7 @@ Have a closer look at the [Ethereum whitepaper](https://github.com/ethereum/wiki
 
 </HighlightBox>
 
-The Ethereum project raised roughly $20 million in one of the most successful crowdfunding campaigns up to that point. The first public network was up and running in 2015. Simultaneously it spawned the first managed blockchain network approach, when the company Eris forked a version of Ethereum and expanded it to implement a layer of permissions which maked it easier to deploy custom, access-controlled networks.
+The Ethereum project raised roughly $20 million in one of the most successful crowdfunding campaigns up to that point. The first public network was up and running in 2015. Simultaneously it spawned the first managed blockchain network approach, when the company Eris forked a version of Ethereum and expanded it to implement a layer of permissions which made it easier to deploy custom, access-controlled networks.
 
 Late 2015 saw the establishment of the [Hyperledger Foundation](https://www.hyperledger.org/), an industry consortium with a focus on enterprise blockchain technology for managed networks and business applications, and in 2017 the [Ethereum Enterprise Alliance](https://entethalliance.org/) was formed as an industry consortium to adapt Ethereum for enterprise use.
 
@@ -79,12 +79,12 @@ Let us start by diving into public blockchains and their most known examples, Bi
 
 <HighlightBox type="reading">
 
-## Books
+**Books**
 
 * [Swan Melanie: Blockchain (2015): Blueprint for a New Economy](https://www.amazon.co.uk/Blockchain-Blueprint-Economy-Melanie-Swan/dp/1491920491)
 * [Antonopolous, Andreas (2017): Mastering Bitcoin](https://bitcoinbook.info/)
 
-## Further reading
+**Further readings**
 
 * [Anderson, Ross J. (1996): The Eternity Service](https://www.cl.cam.ac.uk/~rja14/Papers/eternity.pdf)
 * [Buterin, Vitalik (2014): A Next-Generation Smart Contract and Decentralized Application Platform - The Ethereum White Paper](https://github.com/ethereum/wiki/wiki/White-Paper)
@@ -93,5 +93,5 @@ Let us start by diving into public blockchains and their most known examples, Bi
 * [Schneier, B. & Kelsey, J. (1998): Secure Audit Logs to Support Computer Forensics](https://www.schneier.com/academic/paperfiles/paper-auditlogs.pdf)
 * [Szabo, N. (1994): Smart Contracts](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html)
 * [Tendermint: Consensus without Mining](https://tendermint.com/static/docs/tendermint.pdf).
-    
+
 </HighlightBox>

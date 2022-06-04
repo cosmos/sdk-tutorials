@@ -19,7 +19,7 @@ When creating a new Pull Request, you **must** follow these steps:
    * `docs:` for changes on the content,
    * `fix:` for updates fixing issues on the platform. These do not include fixes on the text content itself, which fall in the `docs:` category,
    * `feature:` for updates on the platform features/functionality.
-   
+
    For example, `docs: add feegrant module tutorial` is a PR name.
 3. Set the Pull Request description, filling all required fields.
 4. Apply the **label** `b9lab-internal-review`.

@@ -8,9 +8,9 @@ tag: deep-dive
 # Accounts
 
 <HighlightBox type="learning">
-    
-In this section you are going to learn all about accounts in Cosmos: 
-    
+
+In this section you are going to learn all about accounts in Cosmos:
+
 * What they are
 * How they are stored
 * Optional implementations
@@ -48,7 +48,7 @@ Asymmetric cryptography has two primary applications:
 
 This section focuses on the _authentication_ aspect of asymmetric cryptography.
 
-<HighlightBox type="reading">
+<HighlightBox type="info">
 
 Public key cryptography assures confidentiality, authenticity, and non-repudiation. Examples of applications include [S/MIME](https://en.wikipedia.org/wiki/S/MIME) and [GPG](https://en.wikipedia.org/wiki/GNU_Privacy_Guard), and it is the basis of several internet standards like [SSL](https://www.ssl.com/faqs/faq-what-is-ssl/) and [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security).
 
@@ -62,7 +62,7 @@ The **length of keys** is vital. Asymmetric cryptographic keys are usually very 
 
 <HighlightBox type="info">
 
-Asymmetric keys always come in pairs and offer their owner various capabilities. These capabilities are based on cryptographic mathematics. The public key is meant to be distributed to whoever is relevant, while the private key is to remain a secret. This is similar to sharing the address  your house, but keeping the key to your front door private.
+Asymmetric keys always come in pairs and offer their owner various capabilities. These capabilities are based on cryptographic mathematics. The public key is meant to be distributed to whoever is relevant, while the private key is to remain a secret. This is similar to sharing the address of your house, but keeping the key to your front door private.
 
 </HighlightBox>
 
@@ -80,9 +80,9 @@ Alice and Bob are communicating. Alice wants to make sure that Bob's public anno
 Alice can verify the source of the announcement by checking if the signature was done with the private key that corresponds to Bob’s public key (which is already known to represent Bob).
 
 <HighlightBox type="info">
-    
+
 Private keys are used to **prove** that messages originate from the owners of accounts known by their public keys: the signatures **prove** that messages were signed by someone that knows the private key that corresponds to a given public key. This is the basis of user authentication in a blockchain, and why private keys are strictly guarded secrets.
-    
+
 </HighlightBox>
 
 <ExpansionPanel title="How to manage multiple key pairs over multiple blockchains with hierarchical-deterministic wallets">
@@ -150,7 +150,17 @@ Passing `Payload` and `Signature` into the signature verification function retur
 
 There is more than one implementation of the public key signature process previously described. The Cosmos SDK supports the following digital key schemes for creating digital signatures:
 
-<H5PComponent :contents="['/h5p/M2-accounts-secp-HS']"></H5PComponent>
+![State change](/academy/2-main-concepts/images/state_machine_2.png)
+
+<HighlightBox type="note">
+
+The different digital key schemes are implemented in different SDK packages:
+
+* **[secp256k1](https://www.secg.org/sec2-v2.pdf)**, as implemented in the SDK's `crypto/keys/secp256k1` package: is the most common and the same one used for Bitcoin.
+* **[secp256r1](https://www.secg.org/sec2-v2.pdf)**, as implemented in the SDK's `crypto/keys/secp256r1` package.
+* **[tm-ed25519](https://ed25519.cr.yp.to/ed25519-20110926.pdf)**, as implemented in the SDK's `crypto/keys/ed25519` package: is supported only for consensus validation.
+
+</HighlightBox>
 
 ## Accounts
 
@@ -158,7 +168,7 @@ The [`BaseAccount`](https://github.com/cosmos/cosmos-sdk/blob/bf11b1bf1fa0c52fb2
 
 ## Public keys
 
-Public keys are generally not used to reference accounts (see the following section, *Address*). Public keys do exist and they are accessible through the [`cryptoTypes.PubKey`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/crypto/types/types.go#L9) interface. This facilitates operations which developers may find useful. such as signing off-chain messages or using a public key for other out-of-band operations.
+Public keys are generally not used to reference accounts (see the following section, *Address*). Public keys do exist and they are accessible through the [`cryptoTypes.PubKey`](https://github.com/cosmos/cosmos-sdk/blob/9fd866e3820b3510010ae172b682d71594cd8c14/crypto/types/types.go#L9) interface. This facilitates operations which developers may find useful, such as signing off-chain messages or using a public key for other out-of-band operations.
 
 ## Address
 
@@ -172,9 +182,7 @@ An address is public information normally used to reference an account. Addresse
 
 The keyring object stores and manages multiple accounts. The keyring object implements the [`Keyring`](https://github.com/cosmos/cosmos-sdk/blob/bf11b1bf1fa0c52fb2cd51e4f4ab0c90a4dd38a0/crypto/keyring/keyring.go#L55) interface in the Cosmos SDK.
 
-## Next up
-
-In the [next section](./transactions.md), you will learn how transactions are generated and handled in the Cosmos SDK.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
@@ -182,7 +190,7 @@ In the [previous section](../2-main-concepts/architecture.md), your ABCI applica
 
 It is necessary to differentiate between players and other actors. This helps assure there is no identity spoofing, that players do not play out of turn, and rewards are paid to the correct winner. You are also going to store the creator of a game, which may or may not be a player.
 
-## Game object
+**Game object**
 
 First define some elements of the eventual stored game:
 
@@ -216,7 +224,7 @@ storedGame.Creator = creator.String()
 
 You will only accept the right players when it comes to transactions.
 
-## Remaining game object
+**Remaining game object**
 
 Defining the players is good, but the stored game is not complete unless you add game details like the current board state and the game's unique identifier. Conveniently, you can [serialize](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L303) and [deserialize](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L331) the board state. You can already confirm the following struct:
 
@@ -231,6 +239,10 @@ type StoredGame struct {
 }
 ```
 
-If you want to go beyond these out-of-context code samples and instead see more details on defining this, head to the [section on how to build your chain](../4-my-own-chain/index.md).
+If you want to go beyond these out-of-context code samples and instead see more details on defining this, head to [Run Your Own Chain](../3-my-own-chain/index.md)
 
 </ExpansionPanel>
+
+## Next up
+
+In the [next section](./transactions.md), you will learn how transactions are generated and handled in the Cosmos SDK.

@@ -1,15 +1,13 @@
 ---
 title: "Events"
 order: 11
-description: Using events in app development
+description: Use events in app development
 tag: deep-dive
 ---
 
 # Events
 
-<HighlightBox type="synopsis">
-
-Dedicate some time to events in the Cosmos SDK: learn what events are, how they are useful, and how they are implemented in applications.
+<HighlightBox type="prerequisite">
 
 Before diving into events, ensure you understand the concepts covered in the following sections:
 
@@ -19,6 +17,16 @@ Before diving into events, ensure you understand the concepts covered in the fol
 * [Protobuf](./protobuf.md)
 
 Code examples are provided at the end of this section, which show events implemented in the checkers blockchain.
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+Dedicate some time to events in the Cosmos SDK:
+
+* Learn what events are.
+* Learn how events are useful.
+* Learn how events are implemented in applications.
 
 </HighlightBox>
 
@@ -101,7 +109,7 @@ The main `eventCategories` you can subscribe to are:
 * **`Tx`:** contains events triggered during `DeliverTx`, the transaction processing.
 * **`ValidatorSetUpdates`:** contains updates about the set of validators for the block.
 
-<HighlightBox type="reading">
+<HighlightBox type="tip">
 
 You can find a full list of event categories in the [Tendermint Go documentation](https://godoc.org/github.com/tendermint/tendermint/types#pkg-constants).
 
@@ -109,15 +117,13 @@ You can find a full list of event categories in the [Tendermint Go documentation
 
 You can filter for event types and attribute values. For example, a transfer transaction triggers an event of type `Transfer` and has `Recipient` and `Sender` as attributes, as defined in the `events.go` file of the `bank` module.
 
-## Next up
-
-Now you know about events, where they are expected, and how to emit or receive them. Look at the code samples below, or go to the [next section](./context.md) to learn about the `Context` object.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 It would be good to document a game's lifecycle via events in your checkers blockchain.
 
-For instance, you can emit a specific event such that when creating the game:
+For instance, you can emit a specific event such as when creating a game:
 
 ```go
 var ctx sdk.Context
@@ -155,3 +161,7 @@ ctx.EventManager().EmitEvent(
 ```
 
 </ExpansionPanel>
+
+## Next up
+
+Now you know about events, where they are expected, and how to emit or receive them. Look at the code samples above, or go to the [next section](./context.md) to learn about the `Context` object.

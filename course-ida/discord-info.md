@@ -1,21 +1,21 @@
 ---
-title: Get Support on Discord
+title: "Get Support on Discord"
 order:
-description: 
+description:
 tag:
 ---
 
 # Get Support on Discord
 
-The private channels for the Academy on the official Discord is where you will communicate and collaborate with your instructors, tutors, and fellow participants. 
-There are six channels - each dedicated to a specific topic - where you can post messages, ask questions, and request support. 
+The private channels for the Academy on the official Discord is where you will communicate and collaborate with your instructors, tutors, and fellow participants.
+There are six channels - each dedicated to a specific topic - where you can post messages, ask questions, and request support.
 
 ## How to join the Academy Discord
 
 Follow these steps to join the Academy Discord:
 1.  Join the official Cosmos Discord by clicking [here](https://discord.gg/cosmosnetwork).
 2.  Follow the verification process. It’s straightforward but if you need guidance, read [this article](https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839)
-3.  After joining the Discord, follow the link we sent you in your welcome email and enter your Discord ID. You will automatically be added to the private Discord area called "Interchain Developer Academy". 
+3.  After joining the Discord, follow the link we sent you in your welcome email and enter your Discord ID. You will automatically be added to the private Discord area called "Interchain Developer Academy".
 
 If you have any problems, send us an [email](mailto:academy@interchain.io).
 
@@ -54,7 +54,7 @@ If you still have a follow-up question after the ticket was closed, you can post
 
 ## Reply by tutors and expert instructors
 
-Your tutors and expert instructors will be notified about your request and will come back to you to help you to answer your question or solve an issue. 
+Your tutors and expert instructors will be notified about your request and will come back to you to help you to answer your question or solve an issue.
 
 ## Auto replies
 

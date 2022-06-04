@@ -1,30 +1,29 @@
 ---
 title: "Learn to Integrate Keplr"
 order: 4
-description: Interacting with a Cosmos SDK chain through CosmJS and Keplr
+description: Interact with a Cosmos SDK chain through CosmJS and Keplr
 tag: deep-dive
 ---
 
 # Learn to Integrate Keplr
 
-<HighlightBox type="synopsis">
+<HighlightBox type="learning">
 
-Build applicatiosn that interact with the Keplr browser extension. 
+Build applicatiosn that interact with the Keplr browser extension.
     
-In this section. 
+In this section, you will learn more about: 
     
-* Detecting Keplr
-* Get chain info
-* The user interaction flow
-* 
+* Detecting Keplr.
+* Getting chain information.
+* Working with the user interaction flow.
 
 </HighlightBox>
 
-CosmJS allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJS to issue commands to the Cosmos Hub Testnet. In this tutorial, you'll be working on a browser application that interacts with the Keplr extension.
+CosmJS allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJS to issue commands to the Cosmos Hub Testnet. In this tutorial, you are working on a browser application that interacts with the Keplr extension.
 
-We will again be connecting to the Cosmos Hub testnet. You can optionally connect to your locally running Cosmos blockchain using `simapp` as explained [before](./first-steps.md).
+You will again connect to the Cosmos Hub Testnet. Optionally, connect to your locally running Cosmos blockchain using `simapp` as explained [before](./first-steps.md).
 
-To keep the focus on CosmJS and Keplr, you are going to use ready-made pages created by the Next.js framework. Do not worry if you routinely use another framework, the CosmJS specific code in this tutorial can be applied similarly in Angular, Vue and other frameworks.
+To keep the focus on CosmJS and Keplr, you are going to use ready-made pages created by the Next.js framework. Do not worry if you routinely use another framework, the CosmJS-specific code in this tutorial can be applied similarly in Angular, Vue, and other frameworks.
 
 ## Creating your simple Next.js project
 
@@ -32,6 +31,11 @@ In your project folder create the ready-made Next.js app, which automatically pl
 
 ```sh
 $ npx create-next-app@latest --typescript
+```
+
+Which guides you with:
+
+```
 ...
 ? What is your project named? › cosmjs-keplr
 ```
@@ -42,6 +46,11 @@ Run it, in the `cosmjs-keplr` folder:
 
 ```sh
 $ npm run dev
+```
+
+Which returns:
+
+```
 ready - started server on 0.0.0.0:3000, url: http://localhost:3000
 ...
 ```
@@ -50,7 +59,7 @@ You should see the result, a welcome page with links, in your browser by visitin
 
 ## HTML elements
 
-The goal of the exercise is to find token balances: yours and the faucet's, and then have you send back some tokens to the faucet. Before introducing any CosmJS, you can already create a React component that includes the basic user interface that you'll need. By convention, create a `/components` folder and then copy the code below inside a new file called `FaucetSender.tsx`:
+The goal of the exercise is to find token balances, yours and the faucet's, and then send some tokens back to the faucet. Before introducing any CosmJS, you can already create a React component that includes the basic user interface that you need. By convention, create a `/components` folder and then copy the following code inside a new file called `FaucetSender.tsx`:
 
 <ExpansionPanel title="FaucetSender.tsx">
 
@@ -73,7 +82,7 @@ export interface FaucetSenderProps {
 
 export class FaucetSender extends Component<FaucetSenderProps, FaucetSenderState> {
 
-    
+
     // Set the initial state
     constructor(props:FaucetSenderProps) {
         super(props)
@@ -126,13 +135,13 @@ export class FaucetSender extends Component<FaucetSenderProps, FaucetSenderState
 
 </ExpansionPanel>
 
-Note:
+<HighlightBox type="note">
 
-* The **properties** of `FaucetSender.tsx` only contain the things it knows at build time.
-* It keeps a **state**, and this state is either updated by the user or will be updated after a fetch.
-* It reuses a default style you can find in `/styles`.
+The **properties** of `FaucetSender.tsx` only contain the things it knows at build time. It keeps a **state**, and this state is either updated by the user or after a fetch. It reuses a default style you can find in `/styles`.
 
-The component is still unused. We don't need the default page that comes with create-next-app, so you can replace the contents of `index.tsx` with the following code that imports the new component:
+</HighlightBox>
+
+The component is still unused. You do not need the default page that comes with create-next-app, so you can replace the contents of `index.tsx` with the following code that imports the new component:
 
 ```typescript
 import type { NextPage } from 'next'
@@ -147,11 +156,11 @@ const Home: NextPage = () => {
 export default Home
 ```
 
-The faucet address was found in the [previous section](./first-steps.md), as well as the RPC endpoint that connects to the Cosmos Hub testnet.
+The faucet address was found in the [previous section](./first-steps.md), as well as the RPC endpoint that connects to the Cosmos Hub Testnet.
 
 When `npm run dev` picks up the changes, you should see that your page has changed to what you created. In particular, it alerts you with "TODO" when you click on the button.
 
-Your page is not very useful yet, but you can make it more so.
+Your page is not very useful yet, make it more so.
 
 ## Installing CosmJS
 
@@ -163,7 +172,7 @@ $ npm install @cosmjs/stargate cosmjs-types --save
 
 ## Displaying information without user input
 
-When building a user interface, it is good practice to not ask your user's address until it becomes necessary (e.g. if they click a relevant button). You should start by showing information that is knowable without user input. In our case, this is the token `denom` (denomination) and the faucet's balance. Add the following function that gets the balance from the faucet and place it above the `onToSendChanged` function inside `FaucetSender.tsx`:
+When building a user interface, it is good practice to not ask your user's address until it becomes necessary (e.g. if they click a relevant button). You should start by showing information that is knowable without user input. In this case, this is the token `denom` (denomination) and the faucet's balance. Add the following function that gets the balance from the faucet and place it above the `onToSendChanged` function inside `FaucetSender.tsx`:
 
 ```typescript
 // Get the faucet's balance
@@ -190,11 +199,11 @@ init = async() => this.updateFaucetBalance(await StargateClient.connect(this.pro
 
 After `run dev` picks the changes, you should see that your page starts showing the relevant information.
 
-Now, add elements that will handle your user's information.
+Now, add elements that handle your user's information.
 
 ## Getting testnet tokens
 
-Refer to the previous section on how to [get Cosmos Hub Testnet tokens](./first-steps.md). This time you should use your Keplr address. If you haven't set up one yet, you can do so now. Your Cosmos Hub testnet address is the same one that Keplr shows you for the Cosmos Hub mainnet.
+Refer to the previous section on how to [get Cosmos Hub Testnet tokens](./first-steps.md). This time you should use your Keplr address. If you have not set up one yet, do so now. Your Cosmos Hub Testnet address is the same one that Keplr shows you for the Cosmos Hub mainnet.
 
 ## Detecting Keplr
 
@@ -214,7 +223,7 @@ declare global {
 }
 ```
 
-Detecting Keplr can be done at any time, but in our case we do it in `onSendClicked` to keep the number of functions low for this exercise. You want to avoid detecting Keplr on page load if not absolutely necessary. This is generally considered bad user experience for users who might just want to browse your page and not interact with it. Replace the `onSendClicked` with the following:
+Detecting Keplr can be done at any time, but to keep the number of functions low for this exercise do it in `onSendClicked`. You want to avoid detecting Keplr on page load if not absolutely necessary. This is generally considered bad user experience for users who might just want to browse your page and not interact with it. Replace the `onSendClicked` with the following:
 
 ```typescript
 onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
@@ -226,11 +235,11 @@ onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
 }
 ```
 
-Hopefully, when you click on the button it does not show an alert. It does not do anything else either. As an optional confirmation, if you disable Keplr from Chrome's extension manager, when you click the button the page will tell you to install it.
+Hopefully, when you click on the button it does not show an alert. It does not do anything else either. As an optional confirmation, if you disable Keplr from Chrome's extension manager, when you click the button the page tells you to install it.
 
 ## Prepare Keplr
 
-Keplr is now detected. By default, Keplr lets its users only connect to the blockchains it knows about. Unfortunately, the Cosmos Hub testnet is not one of them, but there is a feature where you can instruct it to handle any Cosmos blockchain, provided you give its parameters. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Cosmos Hub Testnet, these parameters are available, as mentioned on the [testnet page](https://github.com/cosmos/testnets/tree/master/v7-theta#add-to-keplr-1). Add a new function for them as shown in the expandable box:
+Keplr is now detected. By default, Keplr lets its users only connect to the blockchains it knows about. Unfortunately, the Cosmos Hub Testnet is not one of them, but there is a feature where you can instruct it to handle any Cosmos blockchain, provided you give its parameters. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Cosmos Hub Testnet, these parameters are available, as mentioned on the [testnet page](https://github.com/cosmos/testnets/tree/master/v7-theta#add-to-keplr-1). Add a new function for them as shown in the expandable box:
 
 <ExpansionPanel title="getTestnetChainInfo">
 
@@ -305,21 +314,21 @@ getTestnetChainInfo = (): ChainInfo => ({
 
 </ExpansionPanel>
 
-You'll need to add another import from the `@keplr-wallet` package so that your script understands what `ChainInfo` is:
+You need to add another import from the `@keplr-wallet` package so that your script understands what `ChainInfo` is:
 
 ```typescript
 import { ChainInfo, Window as KeplrWindow } from "@keplr-wallet/types"
 ```
 
-Note that it mentions the `chainId: "theta-testnet-001"`. In effect, this adds the Cosmos Hub testnet to Keplr's registry of blockchains, under the label `theta-testnet-001`. Whenever you want to prompt the user to add the Cosmos Hub Testnet to Keplr, add the line:
+Note that it mentions the `chainId: "theta-testnet-001"`. In effect, this adds the Cosmos Hub Testnet to Keplr's registry of blockchains, under the label `theta-testnet-001`. Whenever you want to prompt the user to add the Cosmos Hub Testnet to Keplr, add the line:
 
 ```typescript
 await window.keplr!.experimentalSuggestChain(this.getTestnetChainInfo())
 ```
 
-This needs to be done once, which in our case is in the `onSendClicked` function after having detected Keplr, but repeating the line elsewhere is generally not a problem.
+This needs to be done once, which in this case is in the `onSendClicked` function after having detected Keplr, but repeating the line elsewhere is generally not a problem.
 
-Keplr is now detected and prepared. Now let's try to do something useful with the user's information.
+Keplr is now detected and prepared. Now try to do something useful with the user's information.
 
 ## Your address and balance
 
@@ -389,15 +398,16 @@ onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
 }
 ```
 
-Note:
+<HighlightBox type="note">
 
-* Keplr is only tasked with signing transactions.
-* The transactions are broadcast with the RPC endpoint of your choice.
+Keplr is only tasked with signing transactions. The transactions are broadcast with the RPC endpoint of your choice.
 
-Now let's run the full script. In the refreshed page, enter an amount of `uatom` (for example `1000000`) and click <kbd>Send to faucet</kbd>. A number of events happen:
+</HighlightBox>
 
-1. Keplr asks for confirmation that you agree to add the Testnet network. It will not install any network without your approval, as that would be a security risk. It asks this only the first time you add a given network, which is why doing it in `onSendClicked` is harmless.
-    ![Keplr asking for permission to add Testnet network](/academy/xl-cosmjs/images/keplr_testnet_addition.png)
+Now run the full script. In the refreshed page, enter an amount of `uatom` (for example `1000000`) and click <kbd>Send to faucet</kbd>. A number of events happen:
+
+1. Keplr asks for confirmation that you agree to add the testnet network. It does not install any network without your approval, as that would be a security risk. It asks this only the first time you add a given network, which is why doing it in `onSendClicked` is harmless.
+    ![Keplr asking for permission to add testnet network](/academy/xl-cosmjs/images/keplr_testnet_addition.png)
 2. Keplr asks whether you agree to share your account information, because this involves a potential security risk. Again, it asks this only once per web page + network combination.
     ![Keplr asking for permission to share your account information](/academy/xl-cosmjs/images/keplr_share_account.png)
 3. Your address and balance fields are updated and visible.
@@ -529,7 +539,7 @@ export class FaucetSender extends Component<
         })
     }
 
-    // The Cosmos Hub testnet chain parameters
+    // The Cosmos Hub Testnet chain parameters
     getTestnetChainInfo = (): ChainInfo => ({
         chainId: "theta-testnet-001",
         chainName: "theta-testnet-001",
@@ -642,4 +652,4 @@ Keplr does not know about locally running chains by default. As you did with Cos
 
 ## Conclusion
 
-You have how updated your CosmJS front-end so that it integrates with Keplr.
+You have how updated your CosmJS frontend so that it integrates with Keplr.

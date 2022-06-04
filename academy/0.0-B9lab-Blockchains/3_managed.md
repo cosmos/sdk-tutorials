@@ -1,7 +1,7 @@
 ---
 title: "Public and Managed Blockchains"
 order: 4
-description: Introduction to Managed Networks
+description: Introduction to different deployment patterns
 tag: fast-track
 ---
 
@@ -38,7 +38,7 @@ Nakamoto does not use the term "blockchain" in his paper, but describes the conc
 
 ![Chain of blocks with previous hash](/academy/0.0-B9lab-Blockchains/images/00_16_bitcoin_block_headers_literal.png)
 
-Each block includes the previous hash and a nonce, a random set of `1`s and `0`s. The protocol calls for a hash beginning with a specific number of binary `0`s when hashing the block. Bitcoin uses a timestamp server to prevent double-spending. The block creator, called a **miner**, looks for a nonce which results in a block hash beginning with the right number of binary `0`s. It is difficult to find a nonce that fulfills this condition, but it is easy to verify when one does. 
+Each block includes the previous hash and a nonce, a random set of `1`s and `0`s. The protocol calls for a hash beginning with a specific number of binary `0`s when hashing the block. Bitcoin uses a timestamp server to prevent double-spending. The block creator, called a **miner**, looks for a nonce which results in a block hash beginning with the right number of binary `0`s. It is difficult to find a nonce that fulfills this condition, but it is easy to verify when one does.
 
 The longest valid chain of blocks on the network is deemed the truth, because users recognise it contains proof of the most work, and it becomes exponentially more difficult to alter history as more blocks are appended. To promote an alternative version of history, an attacker must find a new nonce for the block they want to change **and** new nonces for _every subsequent block thereafter_ to create a rival valid chain which is at least as long as that used by the consensus. This pits the attacker against the combined brute force (i.e. computing power) of the rest of the network.
 
@@ -54,7 +54,7 @@ Ethereum is a public, blockchain-based, distributed computing platform and opera
 
 The most important difference compared to Bitcoin is the implementation of distributed code execution through the **Ethereum Virtual Machine (EVM)**. The Ethereum network is a virtual state machine which enables the deployment of so-called **smart contracts** as part of the data of a transaction. The implementation of such a state machine with blockchain is revolutionary in itself.
 
-The code execution platform is [Turing-complete](https://en.wikipedia.org/wiki/Turing_completeness). As part of Turing-completeness, frameworks must overcome the [halting problem](https://www.scientificamerican.com/article/why-is-turings-halting-pr/), which is especially difficult in distributed, hierarchy-free computing platforms. 
+The code execution platform is [Turing-complete](https://en.wikipedia.org/wiki/Turing_completeness). As part of Turing-completeness, frameworks must overcome the [halting problem](https://www.scientificamerican.com/article/why-is-turings-halting-pr/), which is especially difficult in distributed, hierarchy-free computing platforms.
 
 In simple terms, the halting problem describes a scenario in which a program loops forever. Ethereum's solution is to introduce **Gas** as a fee for each computational step. Every block has a maximum Gas limit which limits the number of computational steps that can be executed per block - just like a combustion engine, if the Gas runs out then the program stops. Gas only exists during the execution of a transaction and the user is free to specify any **Gas price** in terms of **Ether**, a value which Ethereum requires to convert **Ether to Gas**.
 
@@ -70,17 +70,17 @@ In Ethereum, **smart contracts** are stored on every single node - they are publ
 
 <ExpansionPanel title="Faster block time">
 
-Ethereum has a much faster block time than Bitcoin - currently it is around 15 seconds. 
+Ethereum has a much faster block time than Bitcoin - currently it is around 15 seconds.
 
 Ethereum implements a variation of Bitcoin's PoW consensus algorithm called Ethash, which is intended to be [ASIC-resistant and GPU friendly](https://github.com/ethereum/wiki/wiki/Ethash-Design-Rationale). ASIC-resistance is meant to discourage unwanted concentrations of mining power; in other words, to encourage decentralization. Core developers of the Ethereum project plan to switch to the **proof-of-stake (PoS)** consensus algorithm in the future.
-    
-However, these useful innovations are not the key innovation that allows Ethereum to operate with faster block times. 
 
-A well-understood challenge related to reduced block time stems from network latency. Since nodes do not learn about newly discovered blocks simultaneously, at any given time a portion of the miners will be working on already solved (i.e. old) blocks. If these miners find a solution, they might not be rewarded and a "fork" of the chain results, in which rival chains with a common true history spread through the network. The rate at which such transient forks occur increases predictably with shorter block times. 
+However, these useful innovations are not the key innovation that allows Ethereum to operate with faster block times.
 
-Another way of understanding this is to consider that at any point in time, a predictable percentage of the total mining hardware in the network will be working on the wrong chain, because of latency, and this percentage increases with shorter block times. It is not beneficial to the network or the miners to waste hardware resources that are intended to secure the network. 
+A well-understood challenge related to reduced block time stems from network latency. Since nodes do not learn about newly discovered blocks simultaneously, at any given time a portion of the miners will be working on already solved/old blocks. If these miners find a solution, they might not be rewarded and a "fork" of the chain results. This can lead to rival chains with a common true history spreading through the network. The rate at which such transient forks occur increases predictably with shorter block times.
 
-While Bitcoin addresses this efficiency issue with a relatively long block time of 10 minutes, Ethereum addresses this concern with a partial reward strategy: valid blocks that aren't ultimately included in the canonical chain (because another chain becomes longer) can still be included on the side and known as **uncles**. Miners of uncles receive a smaller reward than regular block miners. 
+Another way of understanding this is to consider that at any point in time, a predictable percentage of the total mining hardware in the network could be working on the wrong chain because of latency, and this percentage increases with shorter block times. It is not beneficial to the network or the miners to waste hardware resources that are intended to secure the network.
+
+While Bitcoin addresses this efficiency issue with a relatively long block time of 10 minutes, Ethereum addresses this concern with a partial reward strategy: valid blocks that are not ultimately included in the canonical chain, because another chain becomes longer, can still be included on the side. They are known as **uncles**. Miners of uncles receive a smaller reward than regular block miners.
 
 ![Uncles in Ethereum](/academy/0.0-B9lab-Blockchains/images/00_18_block_uncles-01.png)
 
@@ -102,13 +102,13 @@ The Cosmos SDK enables the creation of application-specific blockchains. That is
 
 Managed networks, just like public networks, rely on blockchain data structures. Unlike public blockchain networks, they do not necessarily need to mitigate the Byzantine Generals Problem because they operate in a predictable environment with elements of authority, hierarchy, and accountability.
 
-Managed networks can be used in cases where elements of trust already exist between the participants. For example, consider a network of financial institutions. They could use blockchain technology to settle inter-bank transactions. In that case, there would be no need for public access; indeed, public access would be undesirable. Instead, they might consider a private network with each institution operating exactly one validator. All participants would understand that no operator in a single institution would be able to corrupt the network overall; however, it would be much easier for them _as a group_ to alter a history if they found it detrimental, since it would only require the coordinated action of a small number of known validators. 
+Managed networks can be used in cases where elements of trust already exist between the participants. For example, consider a network of financial institutions. They could use blockchain technology to settle inter-bank transactions. In that case, there would be no need for public access; indeed, public access would be undesirable. Instead, they might consider a private network with each institution operating exactly one validator. All participants would understand that no operator in a single institution would be able to corrupt the network overall; however, it would be much easier for them _as a group_ to alter a history if they found it detrimental, since it would only require the coordinated action of a small number of known validators.
 
-Managed networks are typically governed through traditional governance processes that are appropriate for the shared goals of the participants. 
+Managed networks are typically governed through traditional governance processes that are appropriate for the shared goals of the participants.
 
 <HighlightBox type="info">
 
-Dive into the specifics of the Byzantine Generals Problem in the next section on [consensus in blockchain](./4_consensus).
+Dive into the specifics of the Byzantine Generals Problem in the next section on [consensus in blockchain](./4_consensus.md).
 
 </HighlightBox>
 
@@ -122,18 +122,20 @@ Unlike public networks, where the interaction between participants is governed b
 
 ![Public vs Private](/academy/0.0-B9lab-Blockchains/images/00_10_public_vs_private_comparison_table.png)
 
-In summary, **private blockchains**:
+**Private blockchains** can be:
 
-* **Can be designed for a limited number of vetted and approved participants:** performance challenges and poorly connected nodes are of lesser importance.
-* **Can be designed for optimized performance:** most participants in an enterprise network are capable of running well-connected, high-performance, and high-availability nodes. A group of participants can agree to raise the bar defining minimum system requirements significantly.
-* **Can be governed by a well-defined agreement between the participants:** such an agreement may codify the decision-making processes used to decide matters such as protocol upgrades, admission requirements, and remedial action. In a private or consortium setting, "who decides?" can (or likely _must_) be determined well in advance of any incident.
+* **Designed for a limited number of vetted and approved participants:** performance challenges and poorly connected nodes are of lesser importance.
+* **Designed for optimized performance:** most participants in an enterprise network are capable of running well-connected, high-performance, and high-availability nodes. A group of participants can agree to raise the bar defining minimum system requirements significantly.
+* **Governed by a well-defined agreement between the participants:** such an agreement may codify the decision-making processes used to decide matters such as protocol upgrades, admission requirements, and remedial action. In a private or consortium setting, "who decides?" can (or likely _must_) be determined well in advance of any incident.
 
-In summary, managed networks enable high-performance blockchain networks that can use consensus processes which are not suited for an environment with anonymous users. A group of trading partners can create a small network for their purposes and agree on equitable participation in the block-generation process (e.g. that each participant runs one validator), minimum performance metrics for acceptable validators, and governance, all of which enable fast confirmation and even deterministic transaction finality within their small group. The principal trade-off for this performance improvement is the shunning of permissionless, public access. 
+In summary, managed networks enable high-performance blockchain networks that can use consensus processes which are not suited for an environment with anonymous users. A group of trading partners can create a small network for their purposes and agree on equitable participation in the block-generation process (e.g. that each participant runs one validator), minimum performance metrics for acceptable validators, and governance, all of which enable fast confirmation and even deterministic transaction finality within their small group. The principal trade-off for this performance improvement is the shunning of permissionless, public access.
 
-Cosmos can be applied to both public and private settings and, importantly, supports communication between networks following different consensus rules, a seemingly intractable challenge for the predecessors of Cosmos. 
+Cosmos can be applied to both public and private settings and, importantly, supports communication between networks following different consensus rules, a seemingly intractable challenge for the predecessors of Cosmos.
 
 <HighlightBox type="reading">
-    
+
+**Further readings**
+
 * [Buterin, Vitalik (2014): A Next-Generation Smart Contract and Decentralized Application Platform - The Ethereum White Paper](https://github.com/ethereum/wiki/wiki/White-Paper)
 * [Nakamoto, S. (2008): Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
 * [Vitalik Buterin on private chains](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
