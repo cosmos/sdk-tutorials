@@ -359,4 +359,12 @@ public async sendTokens(
 
 You are ready to import and use this in a server script or a GUI.
 
-Head right into the [next section](./cosmjs-objects.md) to begin creating custom objects for your checkers blockchain.
+<!-- INCLUDE AFTER NEW STRUCTURE IS IMPLEMENTED: Head right into the [next section](./cosmjs-objects.md) to begin creating custom objects for your checkers blockchain. -->
+
+So what's next? The Cosmos is vast, with lots of projects, people and concepts to discover:
+
+* Reach out to the community.
+* Contribute to the Cosmos SDK, IBC, and Tendermint BFT consensus development.
+* Get support for enterprise solutions which you are developing.
+
+Head to the [What's Next](../6-whats-next/index.md) section to find useful information to launch your journey into the Cosmos universe.

@@ -400,4 +400,4 @@ With the [`getAllStoredGames` call](https://github.com/cosmos/academy-checkers-u
 
 You now included elements and messages that allow you to interact with the checkers blockchain. You confirmed this with a small Node.js experimentation file. The only things that remain to do are adding any [server-side scripts](./server-side.md) and plugging the elements you have created into [a graphical user interface](./external-gui.md).
 
-Head to the [next chapter](../7-cosmjs-2/index.md) on CosmJS to work on the GUI and backend script for your checkers blockchain.
+Head to the [next chapter](INCLUDE URL AFTER NEW STRUCTURE IS IMPLEMENTED) on CosmJS to work on the GUI and backend script for your checkers blockchain.

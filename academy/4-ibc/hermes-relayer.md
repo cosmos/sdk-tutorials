@@ -15,7 +15,7 @@ Before you dive into Go relayers, make sure to:
 * Install Docker.
 * Install Rust.
 
-For all installations, please see the [setup page](../course-ida/setup.md).
+For all installations, please see the [setup page](../3-my-own-chain/setup.md).
 
 </HighlightBox>
 
@@ -316,7 +316,7 @@ These accounts keep some **samoleans**. You will also see another denom because 
 
 <HighlightBox type="tip">
 
-Please see the [fungible token transfers](add_url_after_merge) section for more information on the IBC denom.
+Please see the [fungible token transfers](./token-transfer.md) section for more information on the IBC denom.
 
 </HighlightBox>
 
