@@ -109,7 +109,7 @@ The main `eventCategories` you can subscribe to are:
 * **`Tx`:** contains events triggered during `DeliverTx`, the transaction processing.
 * **`ValidatorSetUpdates`:** contains updates about the set of validators for the block.
 
-<HighlightBox type="reading">
+<HighlightBox type="tip">
 
 You can find a full list of event categories in the [Tendermint Go documentation](https://godoc.org/github.com/tendermint/tendermint/types#pkg-constants).
 
