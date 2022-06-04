@@ -38,12 +38,6 @@ Visit the [detailed Cosmos SDK documentation](https://docs.cosmos.network/main/b
 
 </HighlightBox>
 
-## Next up
-
-You can now continue directly to the [next section](./events.md) to learn about events.
-
-If you prefer to see some code in action and continue with the checkers blockchain, look at the following expandable box.
-
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 If you have used Ignite CLI so far, it has already created queries for you to get one stored game or a list of them. However, you still do not have a way to check whether a move works or is valid. It would be wasteful to send a transaction with an invalid move, it is better to catch such a mistake *before* submitting a transaction. So you are going to create a query to discover whether a move is valid.
@@ -159,3 +153,9 @@ A player can test their move only after the opponent's move is included in a pre
 This is not an exhaustive list of potential queries. Some examples of other possible queries would be to get a player's open games, or to get a list of games that are timing out soon. It depends on the needs of your application and how much functionality you willingly provide.
 
 </ExpansionPanel>
+
+## Next up
+
+You can now continue directly to the [next section](./events.md) to learn about events.
+
+If you prefer to see some code in action and continue with the checkers blockchain, look at the expandable box above.
