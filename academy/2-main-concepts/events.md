@@ -117,6 +117,8 @@ You can find a full list of event categories in the [Tendermint Go documentation
 
 You can filter for event types and attribute values. For example, a transfer transaction triggers an event of type `Transfer` and has `Recipient` and `Sender` as attributes, as defined in the `events.go` file of the `bank` module.
 
+## Code example
+
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 It would be good to document a game's lifecycle via events in your checkers blockchain.
