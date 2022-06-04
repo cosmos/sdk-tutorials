@@ -235,7 +235,7 @@ This **design project** will evolve in stages as you learn more about the Cosmos
 
 <HighlightBox type="tip">
 
-This is meant as a design exercise. If you want to go from the design phase to the **implementation** phase, head to [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
+This is meant as a design exercise. If you want to go from the design phase to the **implementation** phase, head to [Run Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
 
 </HighlightBox>
 
