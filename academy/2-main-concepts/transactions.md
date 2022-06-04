@@ -165,6 +165,8 @@ For more information on broadcasting with Tendermint RPC, see the documentation 
 
 </HighlightBox>
 
+## Code example
+
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 [Previously](./architecture.md), the ABCI application knew of a single transaction type: a checkers move with four `int`. This is no longer sufficient with multiple games. You need to conform to its `Tx` expectations, which means that you must create messages which are then placed into a transaction.
