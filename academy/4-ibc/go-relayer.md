@@ -15,7 +15,7 @@ Before you dive into Go relayers, make sure to:
 * Install Docker.
 * Install Rust.
 
-For all installations, please see the [setup page](../course-ida/setup.md).
+For all installations, please see the [setup page](../3-my-own-chain/setup.md).
 
 </HighlightBox>
 

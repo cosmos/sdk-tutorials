@@ -19,7 +19,7 @@ In this section, you will learn:
 
 ![clients](/academy/4-ibc/images/lightclient.png)
 
-As previously shown, IBC is structured as several layers of abstraction. At the top, applications such as [Interchain Standard (ICS) 20 token transfers](https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer) implement the [ICS-26 IBC standard](https://github.com/cosmos/ibc/blob/master/spec/core/ics-026-routing-module/README.md), which describe the routing and callback functionality used to connect the application layer to the transport layer. Underneath the application are channels, which are unique for each application (for example, a channel that allows a transfer application on chain A to speak to a transfer application on chain B). [Connections](/academy/4-ibc/ibc-tao-dev.md), which may have many channels, are used to connect two clients (for example, to allow the entire IBC stack of chain A to connect to the IBC stack of chain B). These clients, which may have many connections, comprise the foundational layer of IBC.
+As previously shown, IBC is structured as several layers of abstraction. At the top, applications such as [Interchain Standard (ICS) 20 token transfers](https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer) implement the [ICS-26 IBC standard](https://github.com/cosmos/ibc/blob/master/spec/core/ics-026-routing-module/README.md), which describe the routing and callback functionality used to connect the application layer to the transport layer. Underneath the application are channels, which are unique for each application (for example, a channel that allows a transfer application on chain A to speak to a transfer application on chain B). [Connections](/academy/4-ibc/connections.md), which may have many channels, are used to connect two clients (for example, to allow the entire IBC stack of chain A to connect to the IBC stack of chain B). These clients, which may have many connections, comprise the foundational layer of IBC.
 
 <HighlightBox type="info">
 
@@ -244,7 +244,7 @@ If you want to see where `ConsensusState` is stored, see the [Interchain Standar
 
 ## Verifying packet commitments
 
-As shown in the deep dive on [channels](/academy/ibc/channels.md), a relayer will first submit an `UpdateClient` to update the sending chain client on the destination chain, before relaying packets containing other message types, such as ICS-20 token transfers. The destination chain can be sure that the packet will be contained in its ConsensusState root hash, and successfully verify this packet and packet commitment proof against the state contained in its (updated) IBC light client.
+As shown in the deep dive on [channels](/academy/4-ibc/channels.md), a relayer will first submit an `UpdateClient` to update the sending chain client on the destination chain, before relaying packets containing other message types, such as ICS-20 token transfers. The destination chain can be sure that the packet will be contained in its ConsensusState root hash, and successfully verify this packet and packet commitment proof against the state contained in its (updated) IBC light client.
 
 The code snippet which illustrates how a client [verifies an incoming packet](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/types/client_state.go) is as follows:
 

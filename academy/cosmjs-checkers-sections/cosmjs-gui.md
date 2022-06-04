@@ -595,7 +595,7 @@ export const getCheckersChainInfo = (): ChainInfo => ({
 
 <HighlightBox type="note">
 
-The `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](./5-cosmjs/with-keplr.md) section.
+The `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](../5-cosmjs/with-keplr.md) section.
 
 </HighlightBox>
 

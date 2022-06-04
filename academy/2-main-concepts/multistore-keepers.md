@@ -289,7 +289,7 @@ $ ignite scaffold map storedGame game turn red black wager:uint --module checker
 
 <HighlightBox type="tip">
 
-To create the above boilerplate in your module, you can use Ignite CLI. Go to [Running Your Own Cosmos Chain](../3-my-own-chain/index.md), for more on Ignite CLI, and if you want to go beyond out-of-context code samples to see more in detail how to define these features.
+To create the above boilerplate in your module, you can use Ignite CLI. Go to [Run Your Own Cosmos Chain](../3-my-own-chain/index.md), for more on Ignite CLI, and if you want to go beyond out-of-context code samples to see more in detail how to define these features.
 
 </HighlightBox>
 
