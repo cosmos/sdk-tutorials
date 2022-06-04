@@ -231,4 +231,4 @@ The connections displayed in the visualizer have either a regular or a dotted li
 
 ## Next up
 
-The next chapters are all about CosmJS, a TypeScript library that helps developers integrate frontend user interfaces and backend servers with Cosmos blockchains. You can go ahead and start with the [next chapter](../6-cosmjs/index.md).
+The next chapters are all about CosmJS, a TypeScript library that helps developers integrate frontend user interfaces and backend servers with Cosmos blockchains. You can go ahead and start with the [next chapter](../5-cosmjs/index.md).

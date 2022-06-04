@@ -647,7 +647,7 @@ You connected to a publicly running testnet. Therefore, you depended on someone 
 
 ## With a locally started chain
 
-The easiest option is to reuse the `simd` chain that you started in a [previous module](../3-running-a-chain/node-api-and-cli.md). Make sure that you have created two accounts, Alice and Bob. You also sent tokens using `simd`. Be sure to credit enough tokens to Alice.
+The easiest option is to reuse the `simd` chain that you started in a [previous module](../3-my-own-chain/node-api-and-cli.md). Make sure that you have created two accounts, Alice and Bob. You also sent tokens using `simd`. Be sure to credit enough tokens to Alice.
 
 When you finally launch `simd`, you see the line:
 

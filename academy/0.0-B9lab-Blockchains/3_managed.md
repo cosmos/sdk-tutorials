@@ -108,7 +108,7 @@ Managed networks are typically governed through traditional governance processes
 
 <HighlightBox type="info">
 
-Dive into the specifics of the Byzantine Generals Problem in the next section on [consensus in blockchain](./4_consensus).
+Dive into the specifics of the Byzantine Generals Problem in the next section on [consensus in blockchain](./4_consensus.md).
 
 </HighlightBox>
 

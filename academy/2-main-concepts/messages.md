@@ -135,7 +135,7 @@ $ ignite scaffold message createGame red black --module checkers --response idVa
 
 <HighlightBox type="info">
 
-Ignite CLI creates a variety of other files. See [Running Your Own Cosmos Chain](3-my-own-chain/index.md) for details, and to make additions to existing files.
+Ignite CLI creates a variety of other files. See [Running Your Own Cosmos Chain](./3-my-own-chain/index.md) for details, and to make additions to existing files.
 
 </HighlightBox>
 
