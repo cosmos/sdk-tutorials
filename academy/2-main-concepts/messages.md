@@ -83,6 +83,8 @@ If you want to dive deeper when it comes to messages, the `Msg` service, and mod
 
 </HighlightBox>
 
+## Code example
+
 <ExpansionPanel title="Show me some code for my checkers blockchain - Including messages">
 
 In the [previous](./transactions.md) code examples, the ABCI application was aware of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you need to conform to the SDK's way of handling `Tx`, which means **creating messages that are then included in a transaction**.
