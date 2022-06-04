@@ -5,7 +5,7 @@ description: How to handle on-chain upgrades
 tag: deep-dive
 ---
 
-# Migrations: on-chain upgrades
+# Migrations
 
 <HighlightBox type="prerequisite">
 
@@ -131,10 +131,7 @@ See the [Cosmos SDK documentation on Cosmovisor](https://docs.cosmos.network/mai
 
 </HighlightBox>
 
-## Next up
-
-You are now up-to-date on migrations. Look at the following code samples, or go to the [next section](./bridges.md) to discover bridges in the Cosmos SDK.
-<!-- You are now up-to-date on migrations. Look at the following code samples, or go to the [next section](./ibc.md) to learn about the Inter-Blockchain Communication Protocol. -->
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
@@ -148,7 +145,7 @@ It is not good enough to introduce a leaderboard for players currently winning a
 
 Call your existing version "v1". To disambiguate, call your new one with the leaderboard "v2".
 
-## New information
+**New information**
 
 You need new data structures for v2. With Ignite CLI you have:
 
@@ -203,7 +200,7 @@ You need new data structures for v2. With Ignite CLI you have:
     )
     ```
 
-## Leaderboard on-the-go updating
+**Leaderboard on-the-go updating**
 
 You will need to add code to v2 to update the leaderboard after a game has been determined. This means a lot of array sorting and information adjustment on the previous code.
 
@@ -213,7 +210,7 @@ If you want more details on how to update the leaderboard, look at [Running Your
 
 </HighlightBox>
 
-## Genesis migration preparation
+**Genesis migration preparation**
 
 With on-the-go updating of the leaderboard taken care of for v2, you must place past players on the leaderboard. You need a new v2 genesis where the leaderboard has been added. First, create a new folder `x/checkers/migrations/v1tov2` to handle this task.
 
@@ -228,7 +225,7 @@ type GenesisStateV1 struct {
 
 This is easy to create, as you only need to copy and paste the values of your genesis from a previous commit.
 
-## Past player handling
+**Past player handling**
 
 Now prepare functions to progressively build the player's information, given a list of games:
 
@@ -265,7 +262,7 @@ func PopulatePlayerInfosWith(infoSoFar *map[string]*types.PlayerInfo, games *[]*
 }
 ```
 
-## Past leaderboard
+**Past leaderboard**
 
 Eventually the player information is complete and it is possible to create the leaderboard for these past players. This may involve the sorting of a very large array. Perhaps it could be done in tranches:
 
@@ -299,7 +296,7 @@ If you want more details about the number of helper functions like `AddCandidate
 
 </HighlightBox>
 
-## Genesis migration proper
+**Proper genesis migration**
 
 Now everything is prepared, migrate the v1 genesis:
 
@@ -329,3 +326,8 @@ Note that `StoredGameList` and `NextGame` are copied from v1 to v2. Also note th
 The migration mechanism helps identify how you can upgrade your blockchain to introduce new features.
 
 </ExpansionPanel>
+
+## Next up
+
+You are now up-to-date on migrations. Look at the above code samples, or go to the [next section](./bridges.md) to discover bridges in the Cosmos SDK.
+<!-- You are now up-to-date on migrations. Look at the following code samples, or go to the [next section](./ibc.md) to learn about the Inter-Blockchain Communication Protocol. -->
