@@ -89,6 +89,8 @@ The core of a Cosmos SDK application mainly consists of type definitions and con
 * Reference to **codec**: defaulted to go-amino, the codec in your Cosmos SDK application can be substituted with other suitable encoding frameworks as long as they persist data stores in byte slices and are deterministic.
 * Reference to the **module manager**: a reference to an object containing a list of the application modules known as the module manager.
 
+## Code example
+
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 In the previous code samples, you saw something like:
@@ -166,4 +168,4 @@ If you want to dive straight into coding your chain, go to [Running Your Own Cos
 
 ## Next up
 
-Look at the following code example to see how Protobuf can facilitate your activities, or go straight to the [next section](../2-main-concepts/multistore-keepers.md) for an introduction to storage types and keepers.
+Look at the above code example to see how Protobuf can facilitate your activities, or go straight to the [next section](../2-main-concepts/multistore-keepers.md) for an introduction to storage types and keepers.
