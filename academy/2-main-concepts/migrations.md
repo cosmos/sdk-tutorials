@@ -110,7 +110,7 @@ The `SideCar`, handler, and store loader are application-specific. At each block
 
 Application developers build implementations of those components that are tailored to their application and use case.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 For a more detailed explanation of the upgrade process, see the [Cosmos SDK documentation](https://docs.cosmos.network/main/modules/upgrade).
 
