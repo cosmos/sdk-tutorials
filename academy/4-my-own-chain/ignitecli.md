@@ -30,7 +30,7 @@ Ignite CLI assists with scaffolding modules and integrating them with BaseApp. I
 Ignite CLI also handles some compilation, runs a local blockchain node, and helps you with other tasks.
 
 
-<YoutubePlayer videoId="pFAM6mkKoTA"/>
+<YoutubePlayer videoId="MTUQQ6nOkZo"/>
 
 
 ## Install
