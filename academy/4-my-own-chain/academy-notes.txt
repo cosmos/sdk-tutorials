@@ -1,4 +1,4 @@
-Student doing Checkers using Ignite v0.21.0 with Cosmos SDK v0.45.4 on Apple M1: https://github.com/msicilia/checkers up to query
+Student doing Checkers using Ignite v0.21.0 with Cosmos SDK v0.45.4 on Apple M1: https://github.com/msicilia/checkers (up to the can-play query section)
 
 A tour of Go: https://go.dev/tour/list
 
