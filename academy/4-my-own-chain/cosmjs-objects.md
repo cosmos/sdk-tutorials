@@ -71,8 +71,8 @@ $ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.42.6/third_party/p
 Now compile:
 
 ```sh
-$ ls ../proto/checkers | xargs -I {} ../client/node_modules/protoc/protoc/bin/protoc \
-    --plugin="../client/node_modules/.bin/protoc-gen-ts_proto" \
+$ ls ../proto/checkers | xargs -I {} ./node_modules/protoc/protoc/bin/protoc \
+    --plugin="./node_modules/.bin/protoc-gen-ts_proto" \
     --ts_proto_out="../client/src/types/generated" \
     --proto_path="../proto" \
     --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=messages" \
