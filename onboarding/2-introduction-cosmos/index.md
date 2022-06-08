@@ -1,4 +1,8 @@
 ---
+parent:
+  title: Introduction to Cosmos?
+  description: From the vision to the ecosystem
+  number: 2
 description: How does the Cosmos network of interoperable blockchains fit into the overall development of blockchain technology?
 title: Chapter Overview - Cosmos, Its Ecosystem, and ATOM
 tag: fast-track

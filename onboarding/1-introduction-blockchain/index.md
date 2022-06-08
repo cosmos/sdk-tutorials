@@ -1,7 +1,10 @@
 ---
 parent:
-  title: Chapter Overview - An intro to blockchain
-  description: What is blockchain technology and how does it work?
+  title: Introduction to Blockchain
+  description: A chain of blocks
+  number: 1
+description: What is blockchain technology and how does it work?
+title: Chapter Overview - An intro to blockchain
 tag: fast-track
 order: 0
 ---
