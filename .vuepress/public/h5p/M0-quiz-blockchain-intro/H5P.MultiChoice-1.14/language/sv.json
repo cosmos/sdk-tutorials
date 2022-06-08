@@ -1,0 +1,254 @@
+{
+  "semantics": [
+    {
+      "label": "Media",
+      "fields": [
+        {
+          "label": "Typ",
+          "description": "Valfri media att visa ovanför frågan."
+        },
+        {
+          "label": "Inaktivera zoomning i bild"
+        }
+      ]
+    },
+    {
+      "label": "Fråga"
+    },
+    {
+      "label": "Tillgängliga val",
+      "entity": "val",
+      "field": {
+        "label": "Val",
+        "fields": [
+          {
+            "label": "Text"
+          },
+          {
+            "label": "Rätt"
+          },
+          {
+            "label": "Tips och feedback",
+            "fields": [
+              {
+                "label": "Tipstext",
+                "description": "Ledtråd för användaren. Detta kommer visas innan användaren rättar sitt/sina svar."
+              },
+              {
+                "label": "Meddelande visas om svar är valt",
+                "description": "Meddelande kommer visas under svaret när användaren väljer \"rätta\" om detta svar är valt."
+              },
+              {
+                "label": "Meddelande visas om svar inte är valt displayed if answer is not selected",
+                "description": "Meddelande kommer visas under svaret när användaren väljer \"check\" om detta svar inte är valt."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "Övergripande feedback",
+      "fields": [
+        {
+          "widgets": [
+            {
+              "label": "Förvalt"
+            }
+          ],
+          "label": "Ange specifik feedback för valfritt poängintervall",
+          "description": "Klicka på knappen \"Lägg till intervall\" för att lägga till så många intervall du behöver. Exempel: 0-20 % Inte så bra, 21-91 % Medel, 91-100 % Jättebra!",
+          "entity": "intervall",
+          "field": {
+            "fields": [
+              {
+                "label": "Poängintervall"
+              },
+              {},
+              {
+                "label": "Feedback för specifikt poängintervall",
+                "placeholder": "Fyll i din feedback"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "Översättningar i gränssnitt för flervalsfråga",
+      "fields": [
+        {
+          "label": "Etikett för rätta-knapp",
+          "default": "Rätta"
+        },
+        {
+          "label": "Etikett för knapp för visa lösning",
+          "default": "Visa lösning"
+        },
+        {
+          "label": "Etikett för försök igen-knapp",
+          "default": "Försök igen"
+        },
+        {
+          "label": "Tipsetikett",
+          "default": "Visa tips"
+        },
+        {
+          "label": "Text som används vid skärmläsare för att läsa upp poäng",
+          "description": "Tillgängliga variabler är :num och :total",
+          "default": "Du fick :num av :total poäng"
+        },
+        {
+          "label": "Tips tillgängligt  (visas inte)",
+          "default": "Tips tillgängligt",
+          "description": "Text för tillgänglighet, används av skärmläsare"
+        },
+        {
+          "label": "Feedback tillgänglig (visas inte)",
+          "default": "Feedback tillgänglig",
+          "description": "Text för tillgänglighet, används av skärmläsare"
+        },
+        {
+          "label": "Läs feedback (visas inte)",
+          "default": "Läs feedback",
+          "description": "Text för tillgänglighet, används av skärmläsare"
+        },
+        {
+          "label": "Fel svar (visas inte)",
+          "default": "Fel svar",
+          "description": "Text för tillgänglighet, används av skärmläsare"
+        },
+        {
+          "label": "Rätt svar (visas inte)",
+          "default": "Rätt svar",
+          "description": "Text för tillgänglighet, används av skärmläsare"
+        },
+        {
+          "label": "Detta val skulle ha bockats i",
+          "default": "Skulle ha bockats i"
+        },
+        {
+          "label": "Detta val skulle inte ha bockats i",
+          "default": "Skulle inte ha bockats i"
+        },
+        {
+          "label": "Text för \"Svar krävs \" meddelande",
+          "default": "Svara innan du visar lösningen"
+        },
+        {
+          "label": "Beskrivning av knappen \"Rätta\" för tillgänglighetshjälpmedel",
+          "default": "Rätta svaren. Svaren kommer att markeras som korrekta, felaktiga eller obesvarade."
+        },
+        {
+          "label": "Beskrivning av knappen \"Visa lösning\" för tillgänglighetshjälpmedel",
+          "default": "Visa lösningen. Uppgiften kommer att markeras med dess korrekta lösning."
+        },
+        {
+          "label": "Beskrivning av knappen \"Försök igen\" för tillgänglighetshjälpmedel",
+          "default": "Försök igen med uppgiften. Nollställer alla svar och startar om uppgiften igen."
+        }
+      ]
+    },
+    {
+      "label": "Beteende-inställningar",
+      "description": "Dessa val låter dig kontrollera hur uppgiften beter sig.",
+      "fields": [
+        {
+          "label": "Aktivera knappen \"Försök igen\""
+        },
+        {
+          "label": "Aktivera knappen \"Visa lösning\""
+        },
+        {
+          "label": "Aktivera knappen \"Rätta\""
+        },
+        {
+          "label": "Frågetyp",
+          "description": "Välj utseende och beteende för frågan.",
+          "options": [
+            {
+              "label": "Automatiskt"
+            },
+            {
+              "label": "Flerval (checkrutor)"
+            },
+            {
+              "label": "Enval (radioknappar)"
+            }
+          ]
+        },
+        {
+          "label": "Ge ett poäng för hela uppgiften",
+          "description": "Aktivera gör att ge totalt ett poäng för flera rätta svar. Detta är inte möjigt i läget \"Ett svar\" ."
+        },
+        {
+          "label": "Slumpmässiga svarsalternativ",
+          "description": "Aktivera för att få slumpmässig ordning på svarsalternativ som visas."
+        },
+        {
+          "label": "Kräv svar innan lösningen kan visas"
+        },
+        {
+          "label": "Visa bekräftelse-dialog vid  \"Rätta\""
+        },
+        {
+          "label": "Visa bekräftelse-dialog vid \"Försök igen\""
+        },
+        {
+          "label": "Kontrollera svar automatiskt",
+          "description": "Aktivering av detta val försämrar tillgänglighet, du bör vara säker på att du vet vad du gör."
+        },
+        {
+          "label": "Procent för godkänt",
+          "description": "Denna inställning har ofta ingen påverkan. Det är procenten av total poäng somn krävs för att få 1 poäng, när ett poäng för hela uppgiften är aktiverat, och för att få result.success i xAPI."
+        },
+        {
+          "label": "Visa poäng",
+          "description": "Visa poäng som uppnåtts för varje svar. Detta är inte möjligt vid 'Ett svar' eller om 'Ge ett poäng för hela uppgiften' har aktiverats."
+        }
+      ]
+    },
+    {
+      "label": "Bekräftelsedialog för avsluta",
+      "fields": [
+        {
+          "label": "Rubriktext",
+          "default": "Avsluta?"
+        },
+        {
+          "label": "Text",
+          "default": "Är du säker på att du vill avsluta?"
+        },
+        {
+          "label": "Etikett på avbryt-knapp",
+          "default": "Avbryt"
+        },
+        {
+          "label": "Etikett på knappen Bekräfta",
+          "default": "Avsluta"
+        }
+      ]
+    },
+    {
+      "label": "Bekräftelsedialog för försök igen",
+      "fields": [
+        {
+          "label": "Rubriktext",
+          "default": "Försök igen?"
+        },
+        {
+          "label": "Text",
+          "default": "Är du säker på att du vill försöka igen?"
+        },
+        {
+          "label": "Etikett på avbryt-knapp",
+          "default": "Avbryt"
+        },
+        {
+          "label": "Etikett på bekräfta-knapp",
+          "default": "Bekräfta"
+        }
+      ]
+    }
+  ]
+}

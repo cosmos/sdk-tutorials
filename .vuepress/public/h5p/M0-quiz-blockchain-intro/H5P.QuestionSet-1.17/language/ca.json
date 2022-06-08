@@ -1,0 +1,261 @@
+{
+  "semantics": [
+    {
+      "label": "Introducció al qüestionari",
+      "fields": [
+        {
+          "label": "Mostra la introdució"
+        },
+        {
+          "label": "Títol",
+          "description": "Aquest títol es mostrarà a sobre del text d’introducció."
+        },
+        {
+          "label": "Text d’introducció",
+          "description": "Aquest text es mostrarà abans de començar el qüestionari."
+        },
+        {
+          "label": "Text del botó \"Inicia\"",
+          "default": "Inicia el qüestionari"
+        },
+        {
+          "label": "Imatge de fons",
+          "description": "Una imatge de fons opcional per a la introducció."
+        }
+      ]
+    },
+    {
+      "label": "Imatge de fons",
+      "description": "Imatge de fons opcional per al conjunt de preguntes."
+    },
+    {
+      "label": "Indicador de progrés",
+      "description": "Estil de l’indicador de progrés del conjunt de preguntes.",
+      "options": [
+        {
+          "label": "Textual"
+        },
+        {
+          "label": "Punts"
+        }
+      ]
+    },
+    {
+      "label": "Percentatge per aprovar el qüestionari",
+      "description": "Percentatge de la puntuació total requerida per aprovar el qüestionari."
+    },
+    {
+      "label": "Preguntes",
+      "widgets": [
+        {
+          "label": "Opció predeterminada"
+        },
+        {
+          "label": "Textual"
+        }
+      ],
+      "entity": "pregunta",
+      "field": {
+        "label": "Tipus de pregunta",
+        "description": "Biblioteca per a aquesta pregunta."
+      }
+    },
+    {
+      "label": "Textos de la interfície al qüestionari",
+      "fields": [
+        {
+          "label": "Botó \"Enrere\"",
+          "default": "Pregunta anterior"
+        },
+        {
+          "label": "Botó següent",
+          "default": "Pregunta següent"
+        },
+        {
+          "label": "Botó \"Finalitza\"",
+          "default": "Finalitza"
+        },
+        {
+          "label": "Text del progrés",
+          "description": "Text que s’utilitza si se selecciona el progrés textual.",
+          "default": "Pregunta: @current de @total"
+        },
+        {
+          "label": "Etiqueta per saltar a una pregunta concreta",
+          "description": "Heu d’utilitzar l’espai reservat \"%d\" en lloc del número de pregunta i %total en lloc del nombre de preguntes total.",
+          "default": "Pregunta %d del %total"
+        },
+        {
+          "label": "Etiqueta de la pregunta del quadre de diàleg de drets d’autor",
+          "default": "Pregunta"
+        },
+        {
+          "label": "Progrés de l’altaveu de lectura",
+          "description": "Pot utilitzar variables de pregunta @current i @total",
+          "default": "Pregunta @current de @total"
+        },
+        {
+          "label": "Text de la pregunta sense respondre",
+          "default": "No s’ha respost"
+        },
+        {
+          "label": "Text de la pregunta resposta",
+          "default": "Respost"
+        },
+        {
+          "label": "Text de la pregunta actual",
+          "default": "Pregunta actual"
+        }
+      ]
+    },
+    {
+      "label": "Desactiva la possibilitat de navegar enrere",
+      "description": "Aquesta opció només us permetrà avançar pel conjunt de preguntes"
+    },
+    {
+      "label": "Distribueix les preguntes aleatòriament",
+      "description": "Permeteu que les preguntes es distribueixin aleatòriament a la pantalla."
+    },
+    {
+      "label": "Nombre de preguntes a mostrar:",
+      "description": "Creeu un conjunt aleatori de preguntes extret del total de preguntes."
+    },
+    {
+      "label": "El qüestionari ha finalitzat",
+      "fields": [
+        {
+          "label": "Mostra els resultats"
+        },
+        {
+          "label": "Mostra el botó \"Solució\""
+        },
+        {
+          "label": "Mostra el botó per tornar-ho a provar"
+        },
+        {
+          "label": "Missatge \"Sense resultats\"",
+          "description": "Text que es mostra a l’última pàgina quan l’opció \"Mostra els resultats\" està desactivada",
+          "default": "Finalitzat"
+        },
+        {
+          "label": "Encapçalament de la retroacció",
+          "default": "El seu resultat:",
+          "description": "Aquest títol es mostrarà al final del qüestionari quan l’usuari hagi respost a totes les preguntes."
+        },
+        {
+          "label": "Suggeriment general",
+          "fields": [
+            {
+              "widgets": [
+                {
+                  "label": "Opció predeterminada"
+                }
+              ],
+              "label": "Defineix una valoració per cada rang de puntuació",
+              "description": "Exemple: 0-20% per a puntuació baixa, 21-91% per a puntuació mitjana, 91-100% per a puntuació excel·lent.",
+              "entity": "rang",
+              "field": {
+                "fields": [
+                  {
+                    "label": "Rang de puntuació"
+                  },
+                  {},
+                  {
+                    "label": "Suggeriment per al rang de puntuació definit",
+                    "placeholder": "Introduïu el suggeriment"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Suggeriments antics",
+          "fields": [
+            {
+              "label": "L’enhorabona per a qüestionari superat",
+              "description": "Aquest text es mostrarà a sobre de la puntuació, si l’usuari ha superat el qüestionari."
+            },
+            {
+              "label": "Comentari per a qüestionari superat",
+              "description": "Aquest comentari es mostrarà després de la puntuació si l’usuari ha superat el qüestionari correctament."
+            },
+            {
+              "label": "Títol de qüestionari no superat",
+              "description": "Aquest text es mostrarà a sobre de la puntuació, si l’usuari no ha superat el qüestionari."
+            },
+            {
+              "label": "Ha fallat el comentari",
+              "description": "Aquest comentari es mostrarà després de la puntuació, si l’usuari no ha superat el qüestionari."
+            }
+          ]
+        },
+        {
+          "label": "Etiqueta del botó \"Solució\"",
+          "default": "Mostra la solució",
+          "description": "Text per al botó de solució."
+        },
+        {
+          "label": "Etiqueta del botó \"Torna-ho a provar\"",
+          "default": "Torna-ho a provar",
+          "description": "Text del botó \"Torna-ho a provar\"."
+        },
+        {
+          "label": "Text del botó \"Finalitza\"",
+          "default": "Finalitza"
+        },
+        {
+          "label": "Mostra el vídeo abans dels resultats del qüestionari"
+        },
+        {
+          "label": "Activa el botó de saltar el vídeo"
+        },
+        {
+          "label": "Etiqueta del botó \"Omet el vídeo\"",
+          "default": "Omet el vídeo"
+        },
+        {
+          "label": "Vídeo per a qüestionari superat",
+          "description": "Aquest vídeo es reproduirà si l’usuari supera el qüestionari."
+        },
+        {
+          "label": "Vídeo fallit",
+          "description": "Aquest vídeo es reproduirà si l’usuari falla el qüestionari."
+        }
+      ]
+    },
+    {
+      "label": "Configuració dels botons \"Mostra la solució\" i \"Torna-ho a provar\"",
+      "fields": [
+        {
+          "label": "Mostra els botons \"Comprova\"",
+          "description": "Aquesta opció determina si es mostrarà el botó \"Comprovar\" per a totes les preguntes."
+        },
+        {
+          "label": "Substitueix el botó \"Mostra la solució\"",
+          "description": "Aquesta opció determina si el botó \"Mostra la solució\" es mostrarà per a totes les preguntes, es desactivarà per a totes o es configurarà per a cada pregunta individualment.",
+          "options": [
+            {
+              "label": "Activat"
+            },
+            {
+              "label": "Desactivat"
+            }
+          ]
+        },
+        {
+          "label": "Substitueix el botó \"Torna-ho a provar\"",
+          "description": "Aquesta opció determina si es mostrarà el botó \"Torna-ho a provar\" per a totes les preguntes, es desactivarà per a totes o es configurarà per a cada pregunta individualment.",
+          "options": [
+            {
+              "label": "Activat"
+            },
+            {
+              "label": "Desactivat"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

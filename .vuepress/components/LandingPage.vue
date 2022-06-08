@@ -13,15 +13,15 @@
         .tutorials__wrapper.mt-10
             h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tutorials
             .tutorials
-                a.tutorials__item__small(href="/tutorials/understanding-ibc-denoms/")
+                a.tutorials__item__small(href="/authz-module/")
                     card
                         .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted intermediate
-                        h4.mt-7 Understand IBC denoms
-                        .mt-7.tm-lh-copy.tm-muted In this tutorial, you learn what IBC denoms are, how to use the relayer, connect blockchains, and find the path to an unknown blockchain.
-                        .mt-7.info-label.tm-rf-1.tm-muted 10 minute read
-                a.tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}" href="https://docs.starport.com/" target="_blank")
+                        h4.mt-7 Understanding the Authz Module
+                        .mt-7.tm-lh-copy.tm-muted In this tutorial, you learn what the Authz module does, how to create and revoke authorizations, and how to execute authorized transactions on a local testnet.
+                        .mt-7.info-label.tm-rf-1.tm-muted 20 minute read
+                a.tutorials__item__large(v-bind:style="{'background-image': `url(/tutorial-bg-image.png)`}" href="https://docs.ignite.com/" target="_blank")
                     .tm-measure
-                        .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted starport
+                        .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted Ignite CLI
                         h2.mt-5 Build a chain in minutes
 
 
@@ -63,6 +63,16 @@
         //-             a.tm-button.tm-button-external 
         //-                 span Talk to us
 </template>
+
+<script>
+import { isIDAMode } from "../theme/utils/helpers";
+
+export default {
+    mounted() {
+        if (isIDAMode(this.$themeConfig.allowedIDAOrigins)) window.location.href = "/course-ida/welcome/"
+    }
+}
+</script>
 
 <style lang="stylus" scoped>
     .content

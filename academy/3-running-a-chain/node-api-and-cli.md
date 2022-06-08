@@ -19,12 +19,18 @@ There are different ways to run a node of a Cosmos blockchain. You will explore 
 
 The Cosmos SDK repository contains a folder called [`simapp`](https://github.com/cosmos/cosmos-sdk/blob/master/simapp/). In this folder you can find the code to run a simulated version of the Cosmos SDK, so you can test commands without actually interacting with your chain. The binary is called `simd` and you will be using it to interact with your node.
 
-First, create and change the directory into a `cosmos` folder and then clone the `cosmos-sdk` repo into that folder:
+First, create and change the directory into a `cosmos` folder, and then clone the `cosmos-sdk` repo into that folder:
 
 ```sh
 $ mkdir cosmos
 $ cd cosmos
 $ git clone https://github.com/cosmos/cosmos-sdk
+```
+
+Make sure you are using the same version used at the time of writing:
+
+```sh
+$ git checkout v0.42.6
 ```
 
 Then build `cosmos-sdk`:
@@ -63,7 +69,7 @@ $ ./simd init demo
 
 <ExpansionPanel title="A more readable version">
 
-Just in case you need a "prettier" version:
+This is a more readable version of the same initial chain state:
 
 ```json
 {
@@ -205,7 +211,7 @@ Just in case you need a "prettier" version:
 
 </ExpansionPanel>
 
-You can find your `chain_id` in your output, which in our build happens to be called `test-chain-rT4wZY`. Make a note of the one you have as you will need it later to determine the chain ID by passing it to `simapp` via the flag `--chain-id`.
+You can find your `chain_id` in your output, which in our build happens to be called `test-chain-rT4wZY`. Make a note of your output's name, as you will need it later to determine the chain ID by passing it to `simapp` via the flag `--chain-id`.
 
 You can inspect the initial configuration with:
 
@@ -217,7 +223,7 @@ $ cat ~/.simapp/config/genesis.json
 
 <HighlightBox type="tip">
 
-It helps to have the concepts very clear in mind when working hands-on with the Cosmos SDK. Need a refresher? Dive right into the [section on _Accounts_ in the _Main Concepts_ chapter](../2-main-concepts/accounts.md).
+It helps to understand the concepts clearly when working hands-on with the Cosmos SDK. Need a refresher? See the [section on _Accounts_ in the _Main Concepts_ chapter](../2-main-concepts/accounts.md).
 
 </HighlightBox>
 
@@ -230,7 +236,7 @@ $ ./simd keys list
 
 As you might have expected, you do not have any keys yet.
 
-Fix that and add a new key:
+Now you can add a new key:
 
 ```sh
 $ ./simd keys add b9lab
@@ -242,8 +248,7 @@ $ ./simd keys add b9lab
   mnemonic: ""
 
 
-**Important** write this mnemonic phrase in a safe place.
-It is the only way to recover your account if you ever forget your password.
+**Important:** write this mnemonic phrase in a safe place. It is the only way to recover your account if you ever forget your password.
 
 ivory uniform actual spot floor vessel monster rose yellow noise smile odor veteran human reason miss stadium phrase assault puzzle sentence approve coral apology
 ```
@@ -256,7 +261,7 @@ Confirm that the key has been added with:
 $ ./simd keys list
 ```
 
-or with:
+You can also confirm the key has been added with:
 
 ```sh
 $ ./simd keys show b9lab
@@ -264,7 +269,7 @@ $ ./simd keys show b9lab
 
 ## Make yourself a proper validator
 
-As you know by now, a Cosmos SDK blockchain relies on identified validators to produce blocks. Initially there is no validator to generate blocks. You are in a catch-22 situation: your initialized and unstarted chain needs a genesis account and validator for bootstrapping purposes.
+As previously explained, a Cosmos SDK blockchain relies on identified validators to produce blocks. Initially there is no validator to generate blocks. You are in a catch-22 situation: your initialized and unstarted chain needs a genesis account and validator for bootstrapping purposes.
 
 Make your key, also known as an account, have an initial balance in the genesis file:
 
@@ -284,16 +289,18 @@ You can also confirm in the genesis file itself that you have an initial balance
 grep -A 10 balances ~/.simapp/config/genesis.json
 ```
 
-With this initial balance and before you run your blockchain, you still need to escape the catch-22 and include your bootstrap transactions in the genesis file.
+Despite this initial balance, before you run your blockchain you still need to escape the catch-22 and include your bootstrap transactions in the genesis file.
 
-**Note:** In this scenario you must meet the 2/3 threshold for validation, so you must stake at least `70000000stake` of your `100000000stake` in the `b9lab` account you just created. Make sure to not use all your stake, so you still have tokens to pay for gas. Do not forget to use your own `--chain-id`.
+**Note:** In this scenario you must meet the 2/3 threshold for validation, so you must stake at least `70000000stake` of your `100000000stake` in the `b9lab` account you just created. Make sure to not use all your stake, so you still have tokens to pay for gas. 
+
+**Note:** Do not forget to use your own `--chain-id`.
 
 ```sh
 $ ./simd gentx b9lab 70000000stake --chain-id test-chain-rT4wZY
 Genesis transaction written to "/Users/muratoener/.simapp/config/gentx/gentx-cf6bff39bb84da39d214138ebba8bcba4ccb848d.json"
 ```
 
-After having created this genesis transaction in its own file, collect all the genesis transactions with `collect-gentxs` to include it into your genesis file:
+After you have created this genesis transaction in its own file, collect all the genesis transactions with `collect-gentxs` to include it in your genesis file:
 
 ```sh
 $ ./simd collect-gentxs
@@ -333,7 +340,7 @@ pagination:
 
 ## Send a transaction
 
-Practice sending a transaction. For that you are going to create another account named "student" and transfer some tokens to the account:
+Practice sending a transaction. To do this, you are going to create another account named "student" and transfer some tokens to that account:
 
 ```sh
 $ ./simd keys add student
@@ -345,8 +352,7 @@ $ ./simd keys add student
   mnemonic: ""
 
 
-**Important** record this mnemonic phrase in a safe place.
-It is the only way to recover your account if you ever forget your password.
+**Important** record this mnemonic phrase in a safe place. It is the only way to recover your account if you ever forget your password.
 
 gown all scissors page panel table hill acoustic junior run winter cement mass clump moon adjust glare never satoshi easily illness hip rib multiply
 ```
@@ -383,9 +389,9 @@ tx: null
 txhash: D2CCFD91452F8C144BB1E7B54B9723EE3ED85925EE2C8AD843392721D072B895
 ```
 
-You are prompted to confirm the transaction before signing and broadcasting. This is a good sign.
+You should be prompted to confirm the transaction before signing and broadcasting. 
 
-The command output includes useful information such as `gas_used`.
+The command output includes useful information, such as `gas_used`.
 
 Now check the balance of the student account again:
 
@@ -403,7 +409,7 @@ That is a `10` stake.
 
 ## CLI routing
 
-Now it is time for a bit of Go code. How does this `simd` interact via the command-line interface? Inspect the [`cosmos-sdk/simapp/simd/main.go`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/simd/main.go) file:
+Now it is time for a bit of Go code. How does the `simd` interact via the command-line interface? Inspect the [`cosmos-sdk/simapp/simd/main.go`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/simd/main.go) file:
 
 ```go
 package main
@@ -432,13 +438,13 @@ func main() {
 }
 ```
 
-This [`cmd.NewRootCmd()`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/simd/main.go#L13) function is the CLI handler. It is imported via the [`"github.com/cosmos/cosmos-sdk/simapp/simd/cmd"`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/simd/main.go#L9) line. It can be found in the [`cosmos-sdk/simapp/simd/cmd/root.go`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/simd/cmd/root.go#L39) file:
+The [`cmd.NewRootCmd()`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/simd/main.go#L13) function is the CLI handler. It is imported via the [`"github.com/cosmos/cosmos-sdk/simapp/simd/cmd"`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/simd/main.go#L9) line. It can be found in the [`cosmos-sdk/simapp/simd/cmd/root.go`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/simd/cmd/root.go#L39) file:
 
 ```go
 func NewRootCmd() (*cobra.Command, params.EncodingConfig)
 ```
 
-In it [basic properties](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/simd/cmd/root.go#L51-L53) such as the application name are defined:
+In it, [basic properties](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/simd/cmd/root.go#L51-L53) such as the application name are defined:
 
 ```go
 rootCmd := &cobra.Command{
@@ -463,7 +469,7 @@ rootCmd.AddCommand(
 )
 ```
 
-Also, have a look at [`simapp/app.go`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/app.go), in which each module and key keeper will be imported. The first thing you will see is a considerable [list of modules](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/app.go#L33-L44) that are used by most Cosmos-sdk applications:
+Also, look at [`simapp/app.go`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/app.go), in which each module and key keeper will be imported. The first thing you will see is a considerable [list of modules](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/simapp/app.go#L33-L44) that are used by most Cosmos-sdk applications:
 
 ```go
 ...
@@ -483,14 +489,15 @@ Also, have a look at [`simapp/app.go`](https://github.com/cosmos/cosmos-sdk/blob
 ...
 ```
 
-The modules in the `/cosmos-sdk/x/` folder are maintained by several organisations working on the Cosmos stack. To understand a module, the best way is to have a look at the respective `spec` folder. For example, have a look at the [`cosmos-sdk/x/bank/spec/01_state.md`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/x/bank/spec/01_state.md) to understand the state of the `bank` module which you used in this section.
+The modules in the `/cosmos-sdk/x/` folder are maintained by several organisations working on the Cosmos stack. To understand a module, the best way is to have a look at the respective `spec` folder. For example, look at the [`cosmos-sdk/x/bank/spec/01_state.md`](https://github.com/cosmos/cosmos-sdk/blob/d83a3bf92c9a84bddf3f5eb6692a1101c18b42f1/x/bank/spec/01_state.md) to understand the state of the `bank` module which you used in this section.
 
 <HighlightBox type="tip">
 
-Do you need a conceptual refresher about modules and their role in the Cosmos SDK? Take a look at the [Modules section in the previous chapter](../2-main-concepts/modules.md).
+Do you need a conceptual refresher about modules and their role in the Cosmos SDK? See the [Modules section in the previous chapter](../2-main-concepts/modules.md).
 
 </HighlightBox>
 
 ## Next up
 
-It is time to begin developing your own chain. You will begin working with Starport and look into CosmJS and CosmWasm in the [next chapter](../4-my-own-chain/index.md).
+It is time to begin developing your own chain. You will begin working with Ignite CLI and learn about CosmWasm in the [next chapter](../4-my-own-chain/index.md).
+<!--It is time to begin developing your own chain. You will begin working with Ignite CLI and learn about CosmJS and CosmWasm in the [next chapter](../4-my-own-chain/index.md).-->

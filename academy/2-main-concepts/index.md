@@ -11,7 +11,7 @@ title: Chapter Overview - Main Concepts in the Cosmos SDK
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">A universe made up of particles</div>
 <h1 class="mt-4 mb-6">Main Concepts</h1>
 
-Enjoy an introduction on the main components of the Cosmos SDK.
+Enjoy an introduction to the main components of the Cosmos SDK.
 
 From Tendermint to the IBC Protocol, a whole universe is waiting to be discovered.
 

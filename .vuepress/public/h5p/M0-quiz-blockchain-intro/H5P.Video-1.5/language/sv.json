@@ -1,0 +1,136 @@
+{
+  "semantics": [
+    {
+      "label": "Videokällor",
+      "description": "För att säkerställa att video fungerar i alla olika webbläsare så bör du lägga till källor i både WebM- och MP4-format."
+    },
+    {
+      "label": "Visualisering",
+      "fields": [
+        {
+          "label": "Poster-bild"
+        },
+        {
+          "label": "Anpassa videospelaren så att allt tillgängligt utrymme används",
+          "description": "Om inte angivet, så kommer videospelaren ha samma bildförhållande som själva videon."
+        },
+        {
+          "label": "Visa videospelar-kontroller",
+          "description": "Lägger till kontroller till videospelaren. Gör det möjligt att spela upp, pausa, etc."
+        }
+      ]
+    },
+    {
+      "label": "Playback",
+      "fields": [
+        {
+          "label": "Auto-spela video",
+          "description": "Börja spela videon automatiskt. Kanske inte stöds på mobila enheter."
+        },
+        {
+          "label": "Loopa video",
+          "description": "När videon är slut, starta automatiskt om från början."
+        }
+      ]
+    },
+    {
+      "label": "Video-lokalisering",
+      "fields": [
+        {
+          "label": "Namn",
+          "default": "Video",
+          "description": "Underlättar att identifiera innehåll av denna typ."
+        },
+        {
+          "label": "Laddar",
+          "default": "Videospelare laddar ..."
+        },
+        {
+          "label": "Inga spelare hittades",
+          "default": "Hittade inga videospelare som stödjer angivet videoformat."
+        },
+        {
+          "label": "Inga källor",
+          "default": "Videokällor saknas."
+        },
+        {
+          "label": "Avbruten",
+          "default": "Uppspelning av media har avbrutits."
+        },
+        {
+          "label": "Nätverksfel",
+          "default": "Nätverksfel."
+        },
+        {
+          "label": "Kan inte avkoda videookälla",
+          "default": "Kan inte avkoda videookälla."
+        },
+        {
+          "label": "Format stöds inte",
+          "default": "Videoformat stöds inte."
+        },
+        {
+          "label": "Media krypterat",
+          "default": "Media krypterat."
+        },
+        {
+          "label": "Okänt fel",
+          "default": "Okänt fel."
+        },
+        {
+          "label": "Ogiltigt YouTube ID",
+          "default": "Ogiltigt YouTube ID."
+        },
+        {
+          "label": "Okänt YouTube ID",
+          "default": "Kunde inte hitta video med angivet YouTube ID."
+        },
+        {
+          "label": "Begränsad YouTube video",
+          "default": "Ägaren till denna video tillåter inte inbäddning."
+        }
+      ]
+    },
+    {
+      "label": "Tillgänglighet",
+      "fields": [
+        {
+          "label": "Lägg till videospår",
+          "entity": "Spår",
+          "field": {
+            "label": "Spår",
+            "fields": [
+              {
+                "label": "Etikett för spår"
+              },
+              {
+                "label": "Ange typ, se <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">HTML living standard</a>",
+                "options": [
+                  {
+                    "label": "Undertexter"
+                  },
+                  {
+                    "label": "Skyltar"
+                  },
+                  {
+                    "label": "Beskrivningar"
+                  },
+                  {
+                    "label": "Kapitel"
+                  }
+                ]
+              },
+              {
+                "label": "Källspråk, måste anges för undertexter",
+                "description": "Måste vara en giltig BCP 47-språktagg. Om typen undertexter är vald, så måste srclang definieras."
+              },
+              {
+                "label": "Spårfil (WebVTT)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

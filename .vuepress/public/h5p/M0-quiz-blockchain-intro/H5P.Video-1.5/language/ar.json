@@ -1,0 +1,136 @@
+{
+  "semantics": [
+    {
+      "label": "مصادر الفيديو",
+      "description": "\"MP4\"للتأكد من أن الفيديو يعمل في جميع المتصفحات يجب عليك إضافة كل ويب إم وتنسيق المصادر"
+    },
+    {
+      "label": "مرئيات",
+      "fields": [
+        {
+          "label": "الملصق"
+        },
+        {
+          "label": "مشغل فيديو مناسبا لاستخدام كل المساحة المتاحة",
+          "description": "إذا لم يتم تعيين مشغل فيديو سيكون لها نسبة الارتفاع نفس الفيديو"
+        },
+        {
+          "label": "مشاهدة ضوابط مشغل فيديو",
+          "description": "إضافة عناصر تحكم إلى مشغل الفيديو. وهذا يسمح للمستخدمين للعب، وقفة، الخ"
+        }
+      ]
+    },
+    {
+      "label": "تشغيل",
+      "fields": [
+        {
+          "label": "التشغيل التلقائي الفيديو",
+          "description": "بدء تشغيل الفيديو تلقائيا. قد لا تعمل على الأجهزة النقالة"
+        },
+        {
+          "label": "تشغيل مستمر للفيديو",
+          "description": "بدء تلقائيا الفيديو مرة أخرى عندما ينتهي"
+        }
+      ]
+    },
+    {
+      "label": "توطين الفيديو",
+      "fields": [
+        {
+          "label": "الاسم",
+          "default": "Video",
+          "description": "يساعد على تحديد المضمون من هذا النوع"
+        },
+        {
+          "label": "تحميل",
+          "default": "Video player loading..."
+        },
+        {
+          "label": "لا يوجد مشغل فيديو",
+          "default": "Found no video players that supports the given video format."
+        },
+        {
+          "label": "لا مصادر",
+          "default": "Video is missing sources."
+        },
+        {
+          "label": "تم احباط المشغل",
+          "default": "Media playback has been aborted."
+        },
+        {
+          "label": "فشل الشبكة",
+          "default": "Network failure."
+        },
+        {
+          "label": "لا يمكن فك شفرة مصدر الفيديو",
+          "default": "Unable to decode media."
+        },
+        {
+          "label": "صيغة غير مدعومة",
+          "default": "Video format not supported."
+        },
+        {
+          "label": "وسائل الإعلام مشفرة",
+          "default": "Media encrypted."
+        },
+        {
+          "label": "خطأ غير معروف",
+          "default": "Unknown error."
+        },
+        {
+          "label": "رابط يوتوب غير صالح",
+          "default": "معرف يوتيوب غير صالح."
+        },
+        {
+          "label": "رابط يوتوب مجهول",
+          "default": "Unable to find video with the given YouTube ID."
+        },
+        {
+          "label": "فيديو يوتوب مقييد",
+          "default": "The owner of this video does not allow it to be embedded."
+        }
+      ]
+    },
+    {
+      "label": "إمكانية الوصول",
+      "fields": [
+        {
+          "label": "إضافة مسار الفيديو",
+          "entity": "Track",
+          "field": {
+            "label": "Track",
+            "fields": [
+              {
+                "label": "تتبع المسار"
+              },
+              {
+                "label": "اكتب النوع، ارجع إلى <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">HTML living standard</a>",
+                "options": [
+                  {
+                    "label": "عناوين فرعية"
+                  },
+                  {
+                    "label": "التسميات التوضيحية"
+                  },
+                  {
+                    "label": "الوصف"
+                  },
+                  {
+                    "label": "فصول"
+                  }
+                ]
+              },
+              {
+                "label": "تتبع الملف (WebVTT)",
+                "description": "Must be a valid BCP 47 language tag. If the kind attribute is set to subtitles, then srclang must be defined."
+              },
+              {
+                "label": "تتبع الملف (WebVTT)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

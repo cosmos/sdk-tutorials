@@ -13,7 +13,8 @@ title: Chapter Overview - First Steps to Run Your Own Chain
 
 Your first steps to building an application-specific blockchain from scratch.
 
-Continue your journey with Starport, CosmJS, and CosmWasm.
+Continue your journey with Ignite CLI and CosmWasm.
+<!--Continue your journey with Ignite CLI, CosmJS, and CosmWasm.-->
 
 ![](/cosmos_dev_portal_module-05-lp.png)
 

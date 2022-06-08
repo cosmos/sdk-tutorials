@@ -1,0 +1,136 @@
+{
+  "semantics": [
+    {
+      "label": "Videobronnen",
+      "description": "Om ervoor te zorgen dat video in alle browsers werkt, moet u zowel WebM als MP4 opgemaakte bronnen toevoegen."
+    },
+    {
+      "label": "Visueel",
+      "fields": [
+        {
+          "label": "Poster afbeelding"
+        },
+        {
+          "label": "Laat video player alle beschikbare ruimte gebruiken",
+          "description": "ALs dit niet is ingesteld, gebruikt de video player dezelfde afmetingen als de video."
+        },
+        {
+          "label": "Toon video player controleknoppen",
+          "description": "Voeg controleknoppen aan de video player toe. Dit staat gebruikers toe af te spelen, pauzeren, etc."
+        }
+      ]
+    },
+    {
+      "label": "Playback",
+      "fields": [
+        {
+          "label": "Auto-play video",
+          "description": "Automatisch starten met afspelen van de video. Werkt mogelijk niet op mobiele apparaten."
+        },
+        {
+          "label": "Loop video",
+          "description": "Automatisch de video opnieuw starten wanneer die afgelopen is."
+        }
+      ]
+    },
+    {
+      "label": "Video localization",
+      "fields": [
+        {
+          "label": "Naam",
+          "default": "Video",
+          "description": "Helpt inhoud van dit type te herkennen."
+        },
+        {
+          "label": "Laden",
+          "default": "Video player aan het laden..."
+        },
+        {
+          "label": "Geen players gevonden",
+          "default": "Geen video players gevonden die de gegeven video-opmaak ondersteunen."
+        },
+        {
+          "label": "Geen bronnen",
+          "default": "Video bevat geen bronnen."
+        },
+        {
+          "label": "Afgebroken",
+          "default": "Media playback is afgebroken."
+        },
+        {
+          "label": "Netwerkfout",
+          "default": "Netwerkfout."
+        },
+        {
+          "label": "Kan videobron niet decoderen",
+          "default": "Niet mogelijk om media te decoderen."
+        },
+        {
+          "label": "Opmaak niet ondersteund",
+          "default": "Video-opmaak niet ondersteund."
+        },
+        {
+          "label": "Media versleuteld",
+          "default": "Media versleuteld."
+        },
+        {
+          "label": "Onbekende fout",
+          "default": "Onbekende fout."
+        },
+        {
+          "label": "Ongeldige YouTube ID",
+          "default": "Ongeldige YouTube ID."
+        },
+        {
+          "label": "Onbekende YouTube ID",
+          "default": "Niet mogelijk de video met de opgegeven YouTube ID te vinden."
+        },
+        {
+          "label": "Afgeschermde YouTube video",
+          "default": "De eigenaar van deze video staat insluiten van deze video niet toe."
+        }
+      ]
+    },
+    {
+      "label": "Toegankelijkheid",
+      "fields": [
+        {
+          "label": "Voeg video track toe",
+          "entity": "Track",
+          "field": {
+            "label": "Track",
+            "fields": [
+              {
+                "label": "Track label"
+              },
+              {
+                "label": "Type soort, verwijst naar <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">HTML living standard</a>",
+                "options": [
+                  {
+                    "label": "Ondertitels"
+                  },
+                  {
+                    "label": "Bijschriften"
+                  },
+                  {
+                    "label": "Beschrijvingen"
+                  },
+                  {
+                    "label": "Hoofdstukken"
+                  }
+                ]
+              },
+              {
+                "label": "Bron taal, moet worden opgegeven voor ondertitels",
+                "description": "Moet een geldige BCP 47 taal tag zijn. Als de soort-attribuut is ingesteld op ondertitels, dan moet srclang worden vastgelegd."
+              },
+              {
+                "label": "Track bestand (WebVTT)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

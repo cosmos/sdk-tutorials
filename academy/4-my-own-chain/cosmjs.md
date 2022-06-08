@@ -7,7 +7,7 @@ tag: deep-dive
 
 # CosmJS
 
-<HighlightBox type="synopsis">
+<HighlightBox type="prerequisite">
 
 CosmJS provides a TypeScript library for the Cosmos SDK. Reading the following sections as a preparation is recommended:
 
@@ -15,7 +15,7 @@ CosmJS provides a TypeScript library for the Cosmos SDK. Reading the following s
 * [Modules](../2-main-concepts/modules.md)
 * [Queries](../2-main-concepts/queries.md)
 * [Protobuf](../2-main-concepts/protobuf.md)
-* [Starport](./starport.md)
+* [Ignite CLI](./ignitecli.md)
 
 </HighlightBox>
 
@@ -23,17 +23,17 @@ CosmJS provides a TypeScript library for the Cosmos SDK. Reading the following s
 
 ## Your chain
 
-In the [checkers blockchain exercise](./starport.md) you created a chain using Starport. Starport generated several components including a UI. Under the hood, this UI uses Vue.js and CosmJS to interact with the services exposed by the chain.
+In the [checkers blockchain exercise](./ignitecli.md) you created a chain using Ignite CLI. Ignite CLI generated several components including a UI. Under the hood, this UI uses Vue.js and CosmJS to interact with the services exposed by the chain.
 
-You used Starport to create the definitions for `MsgCreatePost` by running the command:
+You used Ignite CLI to create the definitions for `MsgCreatePost` by running the command:
 
 ```sh
-$ starport scaffold message createPost title body
+$ ignite scaffold message createPost title body
 ```
 
 ## Your module in the UI
 
-Starport also created UI-side elements to facilitate integration, for example:
+Ignite CLI also created UI-side elements to facilitate integration, for example:
 
 <CodeGroup>
 
@@ -143,7 +143,7 @@ What does that code do?
 3. Mirroring your Go code, your message type `MsgCreatePost` is defined in `[...]]alice.checkers.checkers/module/types/checkers/tx.js` using [Protobuf.js](https://protobufjs.github.io/protobuf.js/). This is the TypeScript/&ZeroWidthSpace;JavaScript counterpart of Protobuf in Go - that you saw earlier. With this both ends _speak the same serialization language_.
 4. `http://localhost:26657` is the default Tendermint RPC node endpoint used to send transactions. And is indeed passed here only as a default value if it is missing.
 5. `http://localhost:1317` is the default high-level blockchain API endpoint. In the above code it is used for queries.
-6. The created elements `txClient` and `queryClient` are returned to be used in `./vue/src/store/generated/alice/checkers/alice.checkers.checkers/index.js` as you can see in the [previous Starport section](./starport.md).
+6. The created elements `txClient` and `queryClient` are returned to be used in `./vue/src/store/generated/alice/checkers/alice.checkers.checkers/index.js` as you can see in the [previous Ignite CLI section](./ignitecli.md).
 
 ## Details on the client
 
@@ -185,7 +185,7 @@ The following is taking place:
 2. An object with two functions is returned: `msgCreatePost` and `signAndBroadcast`.
 3. `signAndBroadcast` is called when the UI finishes creating the message and is about to sign and broadcast the message. If using an external wallet, the wallet prompts the user to confirm the signing.
 
-`@cosmjs/proto-signing` provides `DirectSecp256k1HdWallet` as a wallet. You cannot see it in the code above because it is wrapped through [Starport and Vue](https://github.com/tendermint/vue/blob/develop/packages/vuex/src/modules/common/wallet/wallet.js).
+`@cosmjs/proto-signing` provides `DirectSecp256k1HdWallet` as a wallet. You cannot see it in the code above because it is wrapped through [Ignite CLI and Vue](https://github.com/tendermint/vue/blob/develop/packages/vuex/src/modules/common/wallet/wallet.js).
 
 If you want to use a specific mnemonic, for instance on a server, instead of importing an external wallet via the UI, you can do so with:
 
