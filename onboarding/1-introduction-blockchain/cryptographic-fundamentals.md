@@ -1,6 +1,6 @@
 ---
 title: "Cryptographic Fundamentals"
-order: 5
+order: 
 description: The cryptography behind blockchain
 tag: fast-track
 ---

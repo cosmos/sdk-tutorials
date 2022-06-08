@@ -1,6 +1,6 @@
 ---
 title: "Ledgers"
-order: 4
+order: 
 description: Blockchain - a distributed ledger
 tag: fast-track
 ---
