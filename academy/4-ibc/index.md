@@ -2,7 +2,7 @@
 parent:
   title: The Inter-Blockchain Communication Protocol
   description: Connect chains
-  number: 5
+  number: 4
 tag: deep-dive
 order: 0
 title: Chapter Overview - The Inter-Blockchain Communication Protocol
