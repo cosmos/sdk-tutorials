@@ -9,15 +9,16 @@ tag: deep-dive
 
 In this section, arrays and slices are introduced.
 
+
 ## Arrays
 
-In Go, the size of an array is a part of the type. So, arrays have a fixed size. The declaration has the syntax:
+In Go, the size of an array is a part of the type. Therefore arrays have a fixed size. The declaration has the following syntax:
 
 ```golang
 var array [size]type
 ```
 
-You can access the data with `array[index]`. Let's do a cross product:
+You can access the data with `array[index]`. You can see this with a cross product:
 
 ```golang
 package main
@@ -41,25 +42,34 @@ func main() {
 
 </HighlightBox>
 
-As you can see, the compiler fits the array depending on the number of elements. 
+The compiler fits the array depending on the number of elements.
 
-We have the built-in function `len(array)`, which gives the size of an array. Note, the example code is not well-written, but it shows you different aspects of arrays. 
+<HighlightBox type="note">
 
-We use `defer`, which means defer the execution in last-in-first-out order until surrounding functions return.
+The previous example code is not well-written, but it demonstrates different aspects of arrays.
+
+`len(array)` is a built-in function which gives the size of an array.
+
+`defer`is used to defer the execution of last-in-first-out order until surrounding functions return.
+
+</HighlightBox>
+
 
 ## Slices
 
-In Go, a *slice* is a an abstraction built on top of arrays. They are more flexible than arrays. You will see slices used more often than arrays because of this flexbility. 
+In Go, a *slice* is a an abstraction built on top of arrays. Slices are more flexible than arrays, and are used more often than arrays because of this flexbility.
 
-A slice does not have a fixed size. To declare a slice:
+A slice does not have a fixed size. To declare a slice, use the following:
 
 ```golang
 var slice []type
 ```
 
-A slice has a length(`len(slice)`) and a capacity(`cap(slice)`). You can also use a built-in function to declare a slice: `func make([]type, length, capacity) []type`. It returns a slice with the given length, capacity and type. It allocates an array, which is referred to by the returned slice.
+A slice has a length (`len(slice)`) and a capacity (`cap(slice)`).
 
-Let's create a simple slice with three vectors and then add a vector with the built-in `func append(s []T, vs ...T) [] T` function:
+You can also use a built-in function to declare a slice: `func make([]type, length, capacity) []type`. This returns a slice with the given length, capacity, and type. It allocates an array, which is referred to by the returned slice.
+
+Now create a simple slice with three vectors, and then add a vector with the built-in `func append(s []T, vs ...T) [] T` function:
 
 ```golang
 package main
@@ -94,27 +104,26 @@ func main() {
 
 </HighlightBox>
 
-As you can see, we are just playing here.
+You can use `range` to iterate over an array, a slice, or a map. `i` is the index, and `v` is the value of that index.
 
-One can use `range` to iterate over an array, slice or map. `i` is the index and `v` is the value of that index.
+There is also a built-in `func copy(dst, src []T) int` to copy one slice into another and return the number of copied elements.
 
-There is also a built-in `func copy(dst, src []T) int` to copy a slice into another and return the number of copied elements.
 
 ## Maps
 
-Maps are stored key/value pairs. The declaration is:
+Maps are stored key/value pairs. The declaration is as follows:
 
 ```golang
 var m map[keyType]valueType
 ```
 
-But that creates a `nil` map, which is not so useful. You can read such a map but not write. We will use `make` to initialize a map so we can write to it. This is more useful:
+However, this creates a `nil` map, which is not so useful. You can read such a map but not write to it. You use `make` to initialize a map so you can write to it. The following is more useful:
 
 ```golang
 m := make(map[keyType]valueType)
 ```
 
-Let's play with maps:
+Now you can work with maps:
 
 ```golang
 package main
@@ -145,11 +154,11 @@ func main() {
 
 </HighlightBox>
 
-The built-in function `func delete(m map[Type]Type1, key Type)` deletes the element with the key from the map. 
+The built-in function `func delete(m map[Type]Type1, key Type)` deletes the element with the key from the map.
 
 <HighlightBox type="warn">
 
-When iterating over maps, order is not deterministic. 
+When iterating over maps, order is not deterministic.
 
 </HighlightBox>
 

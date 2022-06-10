@@ -7,21 +7,22 @@ tag: deep-dive
 
 # Standard Packages in Go
 
-Like other languages, Go offers a lot of useful standard packages. We will have a look at:
+Like other languages, Go offers a lot of useful standard packages. You will look at:
 
 1. *fmt*
 2. *strconv*
 4. *errors*
 
+
 ## fmt
 
-*fmt* (format) implements formatted I/O. Do you remember those? We covered a good number of its *verbs* in module 1. Here we go with a range of additional useful verbs:
+*fmt* (format) implements are formatted I/O - you covered a good number of its *verbs* in module 1. Now you will see a range of additional useful verbs:
 
 - `%%`  for the percent sign
 - `%#v` for the Go-syntax representation
-- `%t`  for a boolean, it formats its value as `true` or `false`
-- `%b`  for an integer, it formats it to its binary representation
-- `%c`  for an integer, it formats it to its corresponding Unicode character
+- `%t`  for a boolean; it formats a value as `true` or `false`
+- `%b`  for an integer; it formats the integer to its binary representation
+- `%c`  for an integer; it formats the integer to its corresponding Unicode character
 
 If you use an invalid verb, you will get a string beginning with `"%!"` and a description.
 
@@ -31,19 +32,17 @@ To write to `stdout`:
 2. `func Println(a ...interface{}) (n int, err error)` formats with default formats and appends a newline.
 3. `func Printf(format string, a ...interface{}) (n int, err error)` formats with given format.
 
-These 2 functions return the number of bytes written and any applicable error. 
+These three functions return the number of bytes written and any applicable error.
 
 To read from `stdin`:
 
 1. `func Scan(a ...interface{}) (n int, err error)` parses using default formats. Values are space-separated. Newlines count as spaces.
-2. `func Scanln(a ...interface{}) (n int, err error)` parses using default formats and stops at a newline. 
-3. `func Scanf(format string, a ...interface{}) (n int, err error)` parses using the given format. The verb `%c` matches every rune. (space, tab, newline etc.)
+2. `func Scanln(a ...interface{}) (n int, err error)` parses using default formats and stops at a newline.
+3. `func Scanf(format string, a ...interface{}) (n int, err error)` parses using the given format. The verb `%c` matches every rune (space, tab, newline, etc.).
 
-These 3 functions return the number of items scanned and an error if the count of items parsed is smaller than the count of arguments.
+These three functions return the number of items scanned and an error if the count of items parsed is smaller than the count of arguments.
 
-Perhaps you noticed a kind of function declaration we did not speak about? It's called a *variadic function*, in that it can be called with any number of arguments. 
-
-You can iterate over the arguments like so:
+Perhaps you noticed a kind of function declaration we did not speak about: the *variadic function* can be called with any number of arguments. You can iterate over the arguments as follows:
 
 ```golang
 func variadicFunction(a ...interface{}) {
@@ -53,7 +52,7 @@ func variadicFunction(a ...interface{}) {
 }
 ```
 
-They are formatting functions on *io.Writer* and *io.Reader*, so we also have:
+There are formatting functions on *io.Writer* and *io.Reader*, so we also have:
 
 1. `func Fprint(w io.Writer, a...interface{}) (n int, err error)`: same as `Print` but writes to `w`.
 2. `func Fprintln(w io.Writer, a...interface{}) (n int, err error)`: same as `Println` but writes to `w`.
@@ -64,31 +63,33 @@ They are formatting functions on *io.Writer* and *io.Reader*, so we also have:
 
 `io.Writer` is the interface that declares the `Write` method. `io.Reader` is also an interface and it declares the `Read` method.
 
-The functions `Sprint`, `Sprintln`, `Sprintf` are similar to `Print`, `Println` and `Printf` with the difference that they return a `string` instead of writing to `stdout`.
+The functions `Sprint`, `Sprintln`, and `Sprintf` are similar to `Print`, `Println`, and `Printf`, with the difference that they return a `string` instead of writing to `stdout`.
 
-The functions `Sscan`, `Scanln`, `Sscanf` are smilar to `Fscan`, `Fscanln`, `Fscanf` with the difference that they scan from a `string` given as an argument.
+The functions `Sscan`, `Scanln`, and `Sscanf` are smilar to `Fscan`, `Fscanln`,and `Fscanf` with the difference that they scan from a `string` given as an argument.
 
 The function `Errorf` formats according to a format and returns it as an error.
 
 <HighlightBox type="reading">
 
-**Further readings:**
+**Further reading:**
 
-- String formatting example: [https://gobyexample.com/string-formatting](https://gobyexample.com/string-formatting)
-- Go Walkthrough fmt: [https://medium.com/go-walkthrough/go-walkthrough-fmt-55a14bbbfc53](https://medium.com/go-walkthrough/go-walkthrough-fmt-55a14bbbfc53)
-- Regular expressions example: [https://gobyexample.com/regular-expressions](https://gobyexample.com/regular-expressions)
-- JSON example: [https://gobyexample.com/json](https://gobyexample.com/json)
-- Io writer interface: [https://medium.com/@as27/a-simple-beginners-tutorial-to-io-writer-in-golang-2a13bfefea02](https://medium.com/@as27/a-simple-beginners-tutorial-to-io-writer-in-golang-2a13bfefea02)
+- [String formatting example](https://gobyexample.com/string-formatting)
+- [Go Walkthrough fmt](https://medium.com/go-walkthrough/go-walkthrough-fmt-55a14bbbfc53)
+- [Regular expressions example](https://gobyexample.com/regular-expressions)
+- [JSON example](https://gobyexample.com/json)
+- [Io writer interface](https://medium.com/@as27/a-simple-beginners-tutorial-to-io-writer-in-golang-2a13bfefea02)
 
 </HighlightBox>
 
+
 ## strconv
 
-The package *strconv* offers conversions to and from string of basic data types.
+The package *strconv* offers conversions to and from strings of basic data types.
+
 
 ### Convert from string
 
-Let us start with an example from [https://golang.org/pkg/strconv](https://golang.org/pkg/strconv):
+Start with an example of of using [strconv](https://golang.org/pkg/strconv):
 
 ```golang
 package main
@@ -120,17 +121,18 @@ func main() {
 
 </HighlightBox>
 
-* The function `ParseInt(s string, base int, bitSize int) (i int64, err error)` interprets `s` as an integer in base `base`, from `2` to `36`, and with type `bitSize`, whereby `0` means `int`, `8` means `int8`, `16` means `int16`, `32` means `int32` and `64` means `int64`.
-* `ParseUint` is similar, with the difference that it returns an unsigned integer. 
+* The function `ParseInt(s string, base int, bitSize int) (i int64, err error)` interprets `s` as an integer in base `base`, from `2` to `36`; and with type `bitSize`, whereby `0` means `int`, `8` means `int8`, `16` means `int16`, `32` means `int32`, and `64` means `int64`.
+* `ParseUint` is similar, with the difference that it returns an unsigned integer.
 * The `func Atoi(s string) (int, error)` returns `ParseInt(s, 10, 0)` as type `int`.
+
 
 ### Convert to string
 
 1. `func FormatBool(b bool) string` returns `"true"` or `"false"` according to `b`.
 2. `func FormatFloat(f float64, fmt vyte, prec, bitSize int) string` returns a string representation of `f` with format `fmt` and with precision `prec`.
 3. `func FormatInt(i int64, base int) string` returns the string representation of `i` in base `base`.
-4. `func FormatUint(i uint, base int) string` is the same as `FormatInt` but it takes a unsigned integer.
-5. `func Itoa(i int) string` is shorthand for `FormatInt(int64(i), 10)`. So it gives a decimal representation of `i` as a string.
+4. `func FormatUint(i uint, base int) string` is the same as `FormatInt`, but it takes a unsigned integer.
+5. `func Itoa(i int) string` is shorthand for `FormatInt(int64(i), 10)`, so it gives a decimal representation of `i` as a string.
 
 <HighlightBox type="reading">
 
@@ -139,6 +141,7 @@ func main() {
 * [Go Walkthrough - includes also string operations](https://gobyexample.com/string-formatting)
 
 </HighlightBox>
+
 
 ## Errors
 
@@ -167,7 +170,7 @@ In Go, errors are values. The convention is that the last return value of a func
   }
 ```
 
-We use `func New(text string) error` to create an error. Something like this:
+You use `func New(text string) error` to create an error. An example is as follows:
 
 ```golang
 package main
@@ -198,7 +201,7 @@ func main() {
 
 </HighlightBox>
 
-So in this case, `nil` means no error. For best practice, you should always check the errors. However, have a look into the following list, because, in Go, error handling differs from other languages.
+In this case, `nil` means no error. For best practice, you should always check for errors. However, take the time to review the following list, because in Go error handling differs from other languages.
 
 <HighlightBox type="reading">
 

@@ -7,11 +7,12 @@ tag: deep-dive
 
 # Control Structures in Go
 
-Let's talk about control structures in Go. You will start with the `if` statement.
+It is time to discuss control structures in Go. You will start with the `if` statement.
+
 
 ## `if` statement
 
-The syntax is:
+The syntax is as follows:
 
 ```golang
 if boolean_expression_1 {
@@ -28,7 +29,11 @@ if boolean_expression_1 {
 }
 ```
 
-You need brackets `{}` for each `if` statement. The `{` bracket needs to be on the same line as the `if` statement. If you want to use an `else if` or `else` statement, note that they have to be on the same line as the `}` bracket of the previous block. We can also give `if` or `else if` a short statement to execute before the condition:
+You need brackets `{}` for each `if` statement. The `{` bracket needs to be on the same line as the `if` statement.
+
+If you want to use an `else if` or `else` statement, note that they have to be on the same line as the `}` bracket of the previous block.
+
+You can also give `if` or `else if` a short statement to execute before the condition:
 
 ```golang
 if s := 10%2; s==0 {
@@ -47,7 +52,7 @@ Boolean expressions evaluate for `true` or `false`. The comparison operators are
 >= greater or equal
 ```
 
-The `if` statement is also used for error handling. So, you will often see code like:
+The `if` statement is also used for error handling. You will often see code like:
 
 ```golang
  if err != nil {
@@ -55,9 +60,10 @@ The `if` statement is also used for error handling. So, you will often see code 
     }
 ```
 
+
 ## `switch` statement
 
-The syntax of a `switch` statement is:
+The syntax of a `switch` statement is as follows:
 
 ```golang
 switch expression {
@@ -73,9 +79,15 @@ switch expression {
 }
 ```
 
-Cases are evaluated from top to bottom. The `switch` finishes, if a `case` succeeds. Note that, `values_x` must have the same type as `expression`.
+Cases are evaluated from top to bottom. The `switch` finishes if a `case` succeeds.
 
-If you do not give an expression to `switch`, then Go interprets it as `switch true`. This gives us another way to write `if-else if-else` chains:
+<HighlightBox type="note">
+
+`values_x` must have the same type as `expression`.
+
+</HighlightBox>
+
+If you do not give an expression to `switch`, then Go interprets it as `switch true`. This provides another way to write `if-else if-else` chains:
 
 ```golang
 switch {
@@ -92,9 +104,11 @@ switch {
 }
 ```
 
-<div class="b9-warning">
-Unlike other languages (like <code>C</code>), you don't need to use <code>break</code> to avoid fall-through. In Go, you need to <code>fallthrough</code> explicity. <code>fallthrough</code> will enter the next case, even if the expression does not match.
-</div>
+<HighlightBox type="note">
+
+Unlike other languages (for example **C**), you don't need to `break` to avoid fallthrough. In Go, you need to `fallthrough` explicity. `fallthrough` will enter the next case, even if the expression does not match.
+
+</HighlightBox>
 
 There are so-called type switches in Go:
 
@@ -112,11 +126,16 @@ switch i.(type) {
 }
 ```
 
-One last thing: You can use multiple value cases like `case 1, 2, 4, 9, 16:`.
+<HighlightBox type="note">
+
+You can use multiple value cases, like `case 1, 2, 4, 9, 16:`.
+
+</HighlightBox>
+
 
 ## `for` statement
 
-`for` is the only looping statement in Go. The syntax is:
+`for` is the only looping statement in Go. The syntax is as follows:
 
 ```golang
 for init_statement; condition_expression; post_statement {
@@ -124,12 +143,15 @@ for init_statement; condition_expression; post_statement {
 }
 ```
 
-Before the iterations starts, it will first execute the `init_statement`. 
-The loop body will be executed as long as `condition_expression` is true. The `post_statement` will be executed at the end of every iteration.
+Before the iterations starts, it will first execute the `init_statement`. The loop body will be executed as long as `condition_expression` is true. The `post_statement` will be executed at the end of every iteration.
 
-Note, that `init_statement` and `post_statement` are optional - Without them, the `for` statement is like the `while` statement in other languages.
+<HighlightBox type="note">
 
-You can use `continue` to skip the iteration or `break` to terminate the execution, like in C, C#, Java etc.
+`init_statement` and `post_statement` are optional. Without them, the `for` statement is like the `while` statement in other languages.
+
+</HighlightBox>
+
+You can use `continue` to skip the iteration or `break` to terminate the execution, like in C, C#, Java, etc.
 
 <HighlightBox type="reading">
 

@@ -7,9 +7,9 @@ tag: deep-dive
 
 # Go Interfaces
 
-It is time to broach interfaces in Go. After that, you will also talk shortly about testing in Go.
+It is time to look at interfaces in Go. After that, you will briefly examine testing in Go.
 
-Go offers the so-called "interface type". It's a collection of method signatures. An interface value can hold any value that implements those methods. Let us try it:
+Go offers the so-called "interface type". This is a collection of method signatures. An interface value can hold any value that implements those methods. Try it:
 
 ```golang
 package main
@@ -56,12 +56,9 @@ func main() {
 
 </HighlightBox>
 
-We see the declaration of the three types and methods as we have seen before. We have also declared an additional interface, `Euclid`, which includes a method signature `Norm() float64`. Since all defined types implement the `Norm` method, we now can use our `Euclid` interface to hold the instances of those types.
+You see the declaration of the three types and methods as before. You have also declared an additional interface, `Euclid`, which includes a method signature `Norm() float64`. Since all defined types implement the `Norm` method, You can now use the `Euclid` interface to hold the instances of those types.
 
-There exists a special empty interface: `interface{}`.
-
-Because it has no method signatures, it is implemented by all types and it can be used to hold values of any type.
-
+There is a special empty interface: `interface{}`. Because it has no method signatures, it is implemented by all types and can be used to hold values of any type:
     
 ```golang
 package main
@@ -83,14 +80,13 @@ func main() {
 
 </HighlightBox>
 
-The syntax for direct access to the underlying value of the interface value is `i.(T)`. This is useful for *type switches*. Next module, we will learn the control constructs.
+The syntax for direct access to the underlying value of the interface value is `i.(T)`. This is useful for *type switches*. In the next module, you will learn the control constructs.
 
 ## Simple unit test
 
-Go offers the testing package `testing` and a tool called `go test`. 
-They are very helpful. Let's explore the basics.
+Go offers the testing package `testing` and a tool called `go test`. These are very helpful.
 
-First let us write a function `sum`. This is the function we will test:
+To explore the basics, first write a function `sum`. This is the function you will test:
 
 ```
 package sumutil
@@ -102,9 +98,9 @@ func Sum(a,b int) (s int) {
 }
 ```
 
-Okay, we can see what this does and know it probably works. Even so, let's make some tests. 
+You should be able to see what this does, and know that it probably works. Even so, you should test it.
 
-Save the program above as `sum.go` in a folder `sumutil`. Then make another file like this:
+Save the previous program as `sum.go` in a folder `sumutil`. Then make another file with the following:
 
 ```
 package sumutil
@@ -133,11 +129,20 @@ func BenchmarkSum(b *testing.B) {
 }
 ```
 
-Save this one as `sum_test.go` and run `go test`. 
+Save this file as `sum_test.go`. Now run `go test`.
 
-You will see that it passes the test. A test function has the syntax `TestXXX`. A benchmark function has the syntax `BenchXXX`. 
+You will see that it passes the test.
+
+<HighlightBox type="note">
+
+A test function has the syntax `TestXXX`.
+
+A benchmark function has the syntax `BenchXXX`.
+
+</HighlightBox>
 
 Use `go test -help` to see what you need to run benchmarks.
+
 
 ## Rob demonstrates Go interfaces
 
@@ -145,7 +150,7 @@ Use `go test -help` to see what you need to run benchmarks.
 
 <HighlightBox type="reading">
 
-**Further readings:**
+**Further reading:**
 
 * [Testing package](https://golang.org/pkg/testing/)
 * [Writing unit tests](https://blog.alexellis.io/golang-writing-unit-tests/)

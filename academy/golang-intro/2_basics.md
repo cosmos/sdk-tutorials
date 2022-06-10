@@ -1,13 +1,14 @@
 ---
 title: "Go Basics"
 order: 
-description: Basic types, string formatting, functions and methods
+description: Basic types, string formatting, functions, and methods
 tag: deep-dive
 ---
 
 # Go Basics
 
-Let's introduce basic types and string formatting. After that, you will dive into functions and methods in Golang.
+This section introduces basic types and string formatting. After that, you will dive into functions and methods in Golang.
+
 
 ## Numbers
 
@@ -18,42 +19,47 @@ int         int8        int16       int32       int64
 uint        uint8       uint16      uint32      uint64      uintptr
 ```
 
-* **int** will be 32 or 64 bits wide depending on the OS. However, one can specify precisely how many bits used with 8,16,32 and 64.
+* **int** will be 32 or 64 bits long depending on the OS. However, one can specify precisely how many bits are used with 8, 16, 32, and 64.
 * **uint** defines the unsigned integers, which are simply positive integers.
 
 There are two aliases:
 
 * **byte** for **uint8**
-* **run** for **int32** 
+* **run** for **int32**
 * **uintptr** is an integer ["to hold the bit pattern of any pointer"](https://golang.org/pkg/builtin/#uintptr).
 
-The types for floating-point arithmetic are `float32` and `float64`. Note, they are only an *approximation* for real numbers because of the [finite precision](https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems).
+The types for floating-point arithmetic are `float32` and `float64`. These are only an *approximation* for real numbers because of the [finite precision](https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems).
 
 `complex64` and `complex128` represent complex numbers. These are useful in geospatial coordinate systems and scientific applications, among others. They have "real" and "imaginary" parts that are always `floats`. When the real and imaginary parts are `float32`, the complex number is a `complex64`. Likewise, when the real and imaginary parts are `float64`, the complex number is a `complex128`.
 
+
 ## Strings
 
-In Go, a `string` is a read-only sequence of bytes. So, strings are immutable. They're encoded in UTF8 by default.
+In Go, a `string` is a read-only sequence of bytes. Therefore strings are immutable. They're encoded in UTF8 by default.
+
 
 ## Booleans
 
-`bool` is a special 1 bit integer. They can represent `true` or `false`.
+A `bool` is a special 1 bit integer. It can represent `true` or `false`.
+
 
 ## Type declaration
 
-In Go, the name comes before the type in the declaration. There are two ways to initialise a variable in Go:
+In Go, the name comes before the type in the declaration. There are two ways to initialize a variable in Go.
+
+First:
 
 ```golang
 var s string = "initial"
 ```
 
-or
+Second:
 
 ```golang
 s := "initial"
 ```
 
-One can also use var to define variables without initialization:
+You can also use **var** to define variables without initialization:
 
 ```gloang
 var (
@@ -63,7 +69,7 @@ var (
 )
 ```
 
-which is equivalent to:
+This is equivalent to:
 
 ```golang
 var a, b int
@@ -71,29 +77,38 @@ var s string
 var c complex64
 ```
 
-Without initialization, variables have the so called *zero values*, which depend on the type.
+Without initialization, variables have so called *zero values* which depend on their type.
 
-To define constants, one must use the `const` keyword instead of `var` or `:=` keywords. Note, that constants can be *typed* or *untyped*. For example, an untyped constant:
+To define constants, you must use the `const` keyword instead of `var` or `:=` keywords.
+
+<HighlightBox type=note>
+
+Constants can be *typed* or *untyped*. For example, an untyped constant:
 
 ```golang
 const hello = "Hello, World!"
 ```
 
-Untyped means that the type of `hello` isn't defined yet. Because of static types in Go, that means you have more freedom with untyped constants than with typed. Let us have a quick look at what this means:
+The untyped constant means that the type of `hello` isn't defined yet.
+
+</HighlightBox>
+
+Because of static types in Go, you have more freedom with untyped constants than with typed. Compare the following two examples:
 
 ```golang
 const number = 2
 var f float64 = number
 ```
 
-works, but:
+This first example **works**: the "number" constant is untyped, so the variable "f" can accept it (despite itself being typed `float64`).
 
 ```golang
 const number int = 2
 var f float64 = number
 ```
 
-does not work, because number has type `int` and not `float64`.
+This second example **does not work**: the "number" constant and the variable "f" are differently typed (`int` and `float64` respectively).
+
 
 ## String formatting
 
@@ -129,9 +144,10 @@ func main() {
 
 Compile this to see the output.
 
+
 ## Functions
 
-Functions can take zero or more arguments and can return zero or more arguments. The syntax looks like:
+Functions can take zero or more arguments and can return zero or more arguments. The syntax looks like the following:
 
 ```golang
 func myFunc(v1, v2 type12, v3 type3, v4 type3,....) (ret1 returntype1, ret2 returntype2, ...) {
@@ -139,7 +155,7 @@ func myFunc(v1, v2 type12, v3 type3, v4 type3,....) (ret1 returntype1, ret2 retu
 }
 ```
 
-If return variable names are given in the declaration, you do not need to explicitly to return them.
+If return variable names are given in the declaration, you do not need to explicitly return them.
 
 For example, consider a swap function that switches the values of `x` and `y`:
 
@@ -158,7 +174,7 @@ func swap(x, y string) (r1 string, r2 string) {
 }
 ```
 
-Go offers function closures:
+Go also offers function closures:
 
 ```golang
 func fibonacci() func() int {
@@ -170,13 +186,13 @@ func fibonacci() func() int {
 }
 ```
 
-Let's walk through `func fibonacci()` in more detail.  
+Let's walk through `func fibonacci()` in more detail.
 
-1. First, you can see, that Go supports *anonymous functions*, which you return. 
-2. You can also see, you declare `x` and `y` inside `fibonacci()` and use them inside the *anonymous function*.
-3. Note, that `x, y = y, x + y` works because the right side is evaluated fully before the left side. 
+1. Go supports *anonymous functions*, which you return.
+2. You declare `x` and `y` inside `fibonacci()` and use them inside the *anonymous function*.
+3. Note that `x, y = y, x + y` works because the right side is evaluated fully before the left side.
 
-Let's write less idiomatic code to highlight some more aspects:
+Now write less idiomatic code to highlight some more aspects:
 
 ```golang
 package main
@@ -199,13 +215,21 @@ func main() {
 }
 ```
 
-[Test online](https://go.dev/play/p/Y9LnhYgirCZ)
+<HighlightBox type="tip">
 
-This will print first 10 Fibonacci numbers. 
+[Test it online](https://go.dev/play/p/Y9LnhYgirCZ).
 
-An important thing to note here is that `fibonacci()` returns a function, and this function is passed into `loop()` as `f`. On subsequent iterations, `loop(n-1,f)` passes this anonymous function into itself recursively.
+</HighlightBox>
 
-Use the control statement `if` here for the first time to break out of the recursion. Each `fibonacci()`, stored as `f` in `loop`, has its own `x` and `y` - this is called a closure. So, what happens, if you split the loop into 2?:
+This will print the first 10 Fibonacci numbers.
+
+<HighlightBox type=note>
+
+Important here is that `fibonacci()` returns a function, and this function is passed into `loop()` as `f`. On subsequent iterations, `loop(n-1,f)` passes this anonymous function into itself recursively.
+
+</HighlightBox>
+
+Here you used the control statement `if` for the first time, to break out of the recursion. Each `fibonacci()`, stored as `f` in `loop`, has its own `x` and `y` - this is called a **closure**. So, what happens if you split the loop into 2?
 
 ```golang
 func main() {
@@ -214,7 +238,9 @@ func main() {
 }
 ```
 
-That will give you the first 5 Fibonacci numbers twice. To get the first 10 try this:
+This will give the first 5 Fibonacci numbers twice.
+
+To get the first 10, try the following:
 
 ```golang
 func main() {
@@ -226,9 +252,10 @@ func main() {
 
 Do you see why that works?
 
+
 ## Methods
 
-Methods are defined on types. Go does not have classes. Let us first define a structure type:
+Methods are defined on types. Go does not have classes. First, define a structure type:
 
 ```golang
 type Rectangle struct {
@@ -242,13 +269,13 @@ You can use this structure for a variable declaration:
 r1 := Rectangle{2, 3}
 ```
 
-And you have access to members through the `.` operator:
+You also have access to members through the `.` operator:
 
 ```golang
 fmt.Println(r1.a, r1.b)
 ```
 
-Now, you can declare a method on it:
+Now you can declare a method on it:
 
 ```golang
 func (r Rectangle) Area() int {
@@ -256,17 +283,21 @@ func (r Rectangle) Area() int {
 }
 ```
 
-You see, methods are functions but they have a so called *receiver* argument, here `r Rectangle`. You can use such a method with the `.` operator:
+Methods are functions, but they have a so-called *receiver* argument (in the previous example `r Rectangle`). You can use such a method with the `.` operator:
 
 ```golang
 fmt.Println(r1.Area())
 ```
 
-Do you see how `Area()` became a method of `Rectangle`'s?
+Do you see how `Area()` became a method of `Rectangle`?
 
-Note that you can declare a method with a receiver only in the same package as the type is defined. 
+<HighlightBox type=note>
 
-Here another example, which is not declared on a `struct` type:
+You can declare a method with a receiver only in the same package as the type is defined.
+
+</HighlightBox>
+
+The following example is not declared on a `struct` type:
 
 ```golang
 package main
@@ -284,13 +315,18 @@ func main() {
 }
 ```
 
-[Test online](https://go.dev/play/p/6aMJsTmRm2S)
+<HighlightBox type="tip">
+
+[Test it online](https://go.dev/play/p/6aMJsTmRm2S).
+
+</HighlightBox>
 
 Do you see how `Abs()` became a method of the new type, `MyNumber`?
 
+
 ## Pointer
 
-A function argument is copied into the function. If you want to change the argument, you will require pointers. Pointers are addresses of variables. 
+A function argument is copied into the function. If you want to change the argument, you will require pointers. Pointers are addresses of variables. Look at an example:
 
 ```golang
 func increase(i int) {
@@ -298,15 +334,13 @@ func increase(i int) {
 }
 ```
 
-This function: 
+The following function will not change `i`:
 
 ```golang
 increase(i int)
 ```
 
-will not change `i`. 
-
-Try it this way:
+Instead, try it this way:
 
 ```golang
 package main
@@ -322,11 +356,15 @@ func main() {
 }
 ```
 
-[Test online](https://go.dev/play/p/Wkt9tVnlcun)
+<HighlightBox type="tip">
 
-You will get the same result (`0`) twice. Nothing happened to `i`.
+[Test it online](https://go.dev/play/p/Wkt9tVnlcun).
 
-On the other hand, by including a pointer:
+</HighlightBox>
+
+The previous attempt will get the same result (`0`) twice. Nothing happened to `i`.
+
+Now see what happens if you include a pointer:
 
 ```golang
 package main
@@ -342,16 +380,18 @@ func main() {
 }
 ```
 
-[Test online](https://go.dev/play/p/nCbLaAbRa49)
+<HighlightBox type="tip">
 
-you will see, that the value of `i` changes. 
+[Test it online](https://go.dev/play/p/nCbLaAbRa49).
 
-Okay, let's take a closer look at what happened here:
+</HighlightBox>
 
-1. `&i` gives the address with type `*int`, which is a pointer and expected by the function `func increase(i *int)`. 
+Now you see that the value of `i` changes. What happened is as follows:
+
+1. `&i` gives the address with type `*int`, which is a pointer and expected by the function `func increase(i *int)`.
 2. `*i` is the value the pointer points to.
 
-You can also use pointers in methods to modify the receiver.
+You can also use pointers in methods to modify the receiver:
 
 ```golang
 package main
@@ -371,11 +411,20 @@ func main() {
 }
 ```
 
-[Test online](https://go.dev/play/p/khjFSJ0hsAE)
+<HighlightBox type="tip">
 
-Note, that `r.b` is the same as `(*r).b` in this context, but it is easier to read.
+[Test it online](https://go.dev/play/p/khjFSJ0hsAE).
 
-Pointers are important. 
+</HighlightBox>
+
+<HighlightBox type=note>
+
+`r.b` is the same as `(*r).b` in this context, but it is easier to read.
+
+</HighlightBox>
+
+Pointers are important.
+
 
 ## Rob demonstrates Go functions and methods on play.golang.org
 
@@ -383,7 +432,7 @@ Pointers are important.
 
 <HighlightBox type="reading">
 
-**Further readings:**
+**Further reading:**
 
 * [Go Playground](https://play.golang.org/)
 * [https://gobyexample.com/pointers](https://gobyexample.com/pointers)
