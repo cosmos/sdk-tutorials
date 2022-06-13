@@ -1,7 +1,7 @@
 ---
 title: "Standard Packages in Go"
 order: 
-description: 
+description: fmt, strconv, and errors
 tag: deep-dive
 ---
 
@@ -12,7 +12,6 @@ Like other languages, Go offers a lot of useful standard packages. You will look
 1. *fmt*
 2. *strconv*
 4. *errors*
-
 
 ## fmt
 
@@ -65,7 +64,7 @@ There are formatting functions on *io.Writer* and *io.Reader*, so we also have:
 
 The functions `Sprint`, `Sprintln`, and `Sprintf` are similar to `Print`, `Println`, and `Printf`, with the difference that they return a `string` instead of writing to `stdout`.
 
-The functions `Sscan`, `Scanln`, and `Sscanf` are smilar to `Fscan`, `Fscanln`,and `Fscanf` with the difference that they scan from a `string` given as an argument.
+The functions `Sscan`, `Scanln`, and `Sscanf` are similar to `Fscan`, `Fscanln`, and `Fscanf` with the difference that they scan from a `string` given as an argument.
 
 The function `Errorf` formats according to a format and returns it as an error.
 
@@ -81,15 +80,13 @@ The function `Errorf` formats according to a format and returns it as an error.
 
 </HighlightBox>
 
-
 ## strconv
 
 The package *strconv* offers conversions to and from strings of basic data types.
 
-
 ### Convert from string
 
-Start with an example of of using [strconv](https://golang.org/pkg/strconv):
+Start with an example for using [strconv](https://golang.org/pkg/strconv):
 
 ```golang
 package main
@@ -125,7 +122,6 @@ func main() {
 * `ParseUint` is similar, with the difference that it returns an unsigned integer.
 * The `func Atoi(s string) (int, error)` returns `ParseInt(s, 10, 0)` as type `int`.
 
-
 ### Convert to string
 
 1. `func FormatBool(b bool) string` returns `"true"` or `"false"` according to `b`.
@@ -141,7 +137,6 @@ func main() {
 * [Go Walkthrough - includes also string operations](https://gobyexample.com/string-formatting)
 
 </HighlightBox>
-
 
 ## Errors
 
@@ -201,7 +196,7 @@ func main() {
 
 </HighlightBox>
 
-In this case, `nil` means no error. For best practice, you should always check for errors. However, take the time to review the following list, because in Go error handling differs from other languages.
+In this case, `nil` means no error. For best practice, you should always check for errors. However, take the time to review the following list, because Go error handling differs from other languages.
 
 <HighlightBox type="reading">
 

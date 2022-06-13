@@ -1,14 +1,13 @@
 ---
 title: "Control Structures in Go"
 order: 
-description: 
+description: if, switch, and for statements
 tag: deep-dive
 ---
 
 # Control Structures in Go
 
 It is time to discuss control structures in Go. You will start with the `if` statement.
-
 
 ## `if` statement
 
@@ -60,7 +59,6 @@ The `if` statement is also used for error handling. You will often see code like
     }
 ```
 
-
 ## `switch` statement
 
 The syntax of a `switch` statement is as follows:
@@ -106,7 +104,7 @@ switch {
 
 <HighlightBox type="note">
 
-Unlike other languages (for example **C**), you don't need to `break` to avoid fallthrough. In Go, you need to `fallthrough` explicity. `fallthrough` will enter the next case, even if the expression does not match.
+Unlike other languages (for example **C**), you do not need to `break` to avoid fallthrough. In Go, you need to `fallthrough` explicitly. `fallthrough` will enter the next case, even if the expression does not match.
 
 </HighlightBox>
 
@@ -132,7 +130,6 @@ You can use multiple value cases, like `case 1, 2, 4, 9, 16:`.
 
 </HighlightBox>
 
-
 ## `for` statement
 
 `for` is the only looping statement in Go. The syntax is as follows:
@@ -143,7 +140,7 @@ for init_statement; condition_expression; post_statement {
 }
 ```
 
-Before the iterations starts, it will first execute the `init_statement`. The loop body will be executed as long as `condition_expression` is true. The `post_statement` will be executed at the end of every iteration.
+Before the iterations start, it will first execute the `init_statement`. The loop body will be executed as long as `condition_expression` is true. The `post_statement` will be executed at the end of every iteration.
 
 <HighlightBox type="note">
 

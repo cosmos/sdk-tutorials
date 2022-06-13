@@ -40,7 +40,7 @@ In Go, a `string` is a read-only sequence of bytes. Therefore strings are immuta
 
 ## Booleans
 
-A `bool` is a special 1 bit integer. It can represent `true` or `false`.
+A `bool` is a special 1-bit integer. It can represent `true` or `false`.
 
 
 ## Type declaration
@@ -61,7 +61,7 @@ s := "initial"
 
 You can also use **var** to define variables without initialization:
 
-```gloang
+```golang
 var (
     a, b int
     s string
@@ -77,7 +77,7 @@ var s string
 var c complex64
 ```
 
-Without initialization, variables have so called *zero values* which depend on their type.
+Without initialization, variables have so-called *zero values* which depend on their type.
 
 To define constants, you must use the `const` keyword instead of `var` or `:=` keywords.
 
@@ -89,11 +89,11 @@ Constants can be *typed* or *untyped*. For example, an untyped constant:
 const hello = "Hello, World!"
 ```
 
-The untyped constant means that the type of `hello` isn't defined yet.
+The untyped constant means that the type of `hello` is not defined yet.
 
 </HighlightBox>
 
-Because of static types in Go, you have more freedom with untyped constants than with typed. Compare the following two examples:
+Because of static types in Go, you have more freedom with untyped constants than with typed ones. Compare the following two examples:
 
 ```golang
 const number = 2
@@ -108,7 +108,6 @@ var f float64 = number
 ```
 
 This second example **does not work**: the "number" constant and the variable "f" are differently typed (`int` and `float64` respectively).
-
 
 ## String formatting
 
@@ -143,7 +142,6 @@ func main() {
 </HighlightBox>
 
 Compile this to see the output.
-
 
 ## Functions
 
@@ -186,11 +184,16 @@ func fibonacci() func() int {
 }
 ```
 
-Let's walk through `func fibonacci()` in more detail.
+Let's walk through `func fibonacci()` in more detail:
 
 1. Go supports *anonymous functions*, which you return.
-2. You declare `x` and `y` inside `fibonacci()` and use them inside the *anonymous function*.
-3. Note that `x, y = y, x + y` works because the right side is evaluated fully before the left side.
+2. You declare `x` and `y` inside `fibonacci()`, and use them inside the *anonymous function*.
+
+<HighlightBox type="note">
+
+`x, y = y, x + y` works because the right side is evaluated fully before the left side.
+
+</HighlightBox>
 
 Now write less idiomatic code to highlight some more aspects:
 
@@ -251,7 +254,6 @@ func main() {
 ```
 
 Do you see why that works?
-
 
 ## Methods
 
@@ -322,7 +324,6 @@ func main() {
 </HighlightBox>
 
 Do you see how `Abs()` became a method of the new type, `MyNumber`?
-
 
 ## Pointer
 
@@ -425,14 +426,13 @@ func main() {
 
 Pointers are important.
 
-
 ## Rob demonstrates Go functions and methods on play.golang.org
 
 <!-- Add video after post-production from design dept.: https://www.youtube.com/watch?v=TzSQ3iaQYAo -->
 
 <HighlightBox type="reading">
 
-**Further reading:**
+**Further readings:**
 
 * [Go Playground](https://play.golang.org/)
 * [https://gobyexample.com/pointers](https://gobyexample.com/pointers)

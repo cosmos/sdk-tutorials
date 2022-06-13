@@ -1,16 +1,15 @@
 ---
 title: "Concurrency in Go"
 order: 
-description: 
+description: Goroutines and Channels
 tag: deep-dive
 ---
 
 # Concurrency in Go
 
-Go has built-in concurrency. Concurrency and parallel execution are different things: you need concurrency (*program structure*) to enable parallel execution; actual parallelism during execution depends on hardware. 
+Go has built-in concurrency. Concurrency and parallel execution are different things: you need concurrency (*program structure*) to enable parallel execution; actual parallelism during execution depends on the hardware. 
 
 For concurrency, Go offers so-called *Goroutines* and *Channels*.
-
 
 ## Goroutines
 
@@ -47,12 +46,11 @@ func main() {
 
 </HighlightBox>
 
-If you run this programm, you will see that both `doSomething(10)` functions work concurrently. You can wait with `time.Sleep(10*time.Second)` to see this in action.
-
+If you run this program, you will see that both `doSomething(10)` functions work concurrently. You can wait with `time.Sleep(10*time.Second)` to see this in action.
 
 ## Channels
 
-Go offers *channels* for commincation between goroutines. Channels may be buffered or unbuffered. You can create an *unbuffered* channel with the following:
+Go offers *channels* for communincation between goroutines. Channels may be buffered or unbuffered. You can create an *unbuffered* channel with the following:
 
 ```golang
 ch:= make(chan type)
@@ -106,9 +104,9 @@ func main() {
 
 </HighlightBox>
 
-Run this programm. What happened?
+Run this program. What happened?
 
-In this case you don't need to use `time.Sleep` anymore, because sends and receives are blocked until the other side is ready. 
+In this case, you do not need to use `time.Sleep` anymore, because sends and receives are blocked until the other side is ready. 
 
 To avoid blocking, you can create *buffered* channels:
 
@@ -118,7 +116,7 @@ c:= make(chan int, 100)
 
 When a buffered channel is full, sends to it are blocked. When one is empty, receives from it are blocked.
 
-You can iterate over the values of a channel, if it is closed:
+You can iterate over the values of a channel if it is closed:
 
 ```golang
 package main
@@ -215,7 +213,7 @@ The default case will run if no other channel is ready.
 
 <HighlightBox type="reading">
 
-**Further reading:**
+**Further readings:**
 
 Look into Mutexes, which we did not talk about here. This can be important for managing concurrency:
 

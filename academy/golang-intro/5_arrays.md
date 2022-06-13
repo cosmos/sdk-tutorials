@@ -1,7 +1,7 @@
 ---
 title: "Arrays and Slices in Go"
 order: 
-description: 
+description: A closer look at arrays and slices
 tag: deep-dive
 ---
 
@@ -9,10 +9,9 @@ tag: deep-dive
 
 In this section, arrays and slices are introduced.
 
-
 ## Arrays
 
-In Go, the size of an array is a part of the type. Therefore arrays have a fixed size. The declaration has the following syntax:
+In Go, the size of an array is a part of the type. Therefore, arrays have a fixed size. The declaration has the following syntax:
 
 ```golang
 var array [size]type
@@ -48,16 +47,15 @@ The compiler fits the array depending on the number of elements.
 
 The previous example code is not well-written, but it demonstrates different aspects of arrays.
 
-`len(array)` is a built-in function which gives the size of an array.
+`len(array)` is a built-in function that gives the size of an array.
 
 `defer`is used to defer the execution of last-in-first-out order until surrounding functions return.
 
 </HighlightBox>
 
-
 ## Slices
 
-In Go, a *slice* is a an abstraction built on top of arrays. Slices are more flexible than arrays, and are used more often than arrays because of this flexbility.
+In Go, a *slice* is an abstraction built on top of arrays. Slices are more flexible than arrays and are used more often than arrays because of this flexibility.
 
 A slice does not have a fixed size. To declare a slice, use the following:
 
@@ -108,7 +106,6 @@ You can use `range` to iterate over an array, a slice, or a map. `i` is the inde
 
 There is also a built-in `func copy(dst, src []T) int` to copy one slice into another and return the number of copied elements.
 
-
 ## Maps
 
 Maps are stored key/value pairs. The declaration is as follows:
@@ -158,7 +155,7 @@ The built-in function `func delete(m map[Type]Type1, key Type)` deletes the elem
 
 <HighlightBox type="warn">
 
-When iterating over maps, order is not deterministic.
+When iterating over maps, the order is not deterministic.
 
 </HighlightBox>
 

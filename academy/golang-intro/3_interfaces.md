@@ -1,7 +1,7 @@
 ---
 title: "Go Interfaces"
 order: 
-description: 
+description: Get an overview on interfaces in Go
 tag: deep-dive
 ---
 
@@ -86,7 +86,7 @@ The syntax for direct access to the underlying value of the interface value is `
 
 Go offers the testing package `testing` and a tool called `go test`. These are very helpful.
 
-To explore the basics, first write a function `sum`. This is the function you will test:
+To explore the basics, first, write a function `sum`. This is the function you will test:
 
 ```
 package sumutil
@@ -98,7 +98,7 @@ func Sum(a,b int) (s int) {
 }
 ```
 
-You should be able to see what this does, and know that it probably works. Even so, you should test it.
+You should be able to see what this does and know that it probably works. Even so, you should test it.
 
 Save the previous program as `sum.go` in a folder `sumutil`. Then make another file with the following:
 
@@ -150,7 +150,9 @@ Use `go test -help` to see what you need to run benchmarks.
 
 <HighlightBox type="reading">
 
-**Further reading:**
+**Further readings:**
 
 * [Testing package](https://golang.org/pkg/testing/)
 * [Writing unit tests](https://blog.alexellis.io/golang-writing-unit-tests/)
+
+</HighlightBox>

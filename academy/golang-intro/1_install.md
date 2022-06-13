@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Go Introduction
 
-Golang (Go) is an open source, statically typed and compiled programming language introduced by Google and first released in 2012. It has a BSD-style license. Its Git repository is located at [https://go.googlesource.com/go](https://go.googlesource.com/go).
+Golang (Go) is an open-source, statically typed, and compiled programming language introduced by Google and first released in 2012. It has a BSD-style license. Its Git repository is located at [https://go.googlesource.com/go](https://go.googlesource.com/go).
 
 Start with the basics. In this section, you will install Go and learn some general things about it.
 
@@ -18,10 +18,9 @@ Installing Go depends on your machine. See the [Getting Started Page](https://go
 
 <HighlightBox type="tip">
 
-[gimme](https://github.com/travis-ci/gimme) is a useful script for Go.
+[Gimme](https://github.com/travis-ci/gimme) is a useful script for Go.
 
 </HighlightBox>
-
 
 ## Workflow
 
@@ -56,7 +55,7 @@ Function names determine visibility outside of packages. `Printf`'s first charac
 
 Every Go program starts with the package declaration. Each package consists of one or more Go source files in a single directory. If the name of the package is `main`, Go creates an executable file.
 
-After package declaration, import the package `fmt`. Note that the package name is the last element of the package's file path. For an example, if you import the package "lib/math", then you use it as "math".
+After package declaration, import the package `fmt`. Note that the package name is the last element of the package's file path. For example, if you import the package "lib/math", then you use it as "math".
 
 `fmt` implements input and output, and is part of Go's standard library. Later you are going to describe some of its functions in more detail.
 
@@ -71,7 +70,7 @@ $ cd $GOPATH/src/hello
 $ go build
 ```
 
-If all goes well, `go` builds the executable. Go only prints errors, so you should not see any output nor another command prompt unless something goes wrong.
+If all goes well, `go` builds the executable. Go only prints errors, so you should not see any output or another command prompt unless something goes wrong.
 
 Now test your program:
 
@@ -87,7 +86,7 @@ If you use `go install` instead of `go build`, Go installs the executable in `$G
 
 <HighlightBox type="reading">
 
-**Further reading:**
+**Further readings:**
 
 * [Go's Getting Started Page](https://golang.org/doc/install)
 * [Understanding Golang Packages](https://thenewstack.io/understanding-golang-packages/)
