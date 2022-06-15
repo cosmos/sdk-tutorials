@@ -145,13 +145,13 @@ $ ignite scaffold chain github.com/alice/checkers
 
 <ExpansionPanel title="Troubleshooting">
 
-For the sake of good support, the versions of the software used in this course is communicated. It is natural that after the writing of the course material some version changes will apper and it may occur that something breaks. Instead of using different versions of the software from the ones in the course, please have a look at the following list, which might fix problems you are running into. Otherwise, please post the issue you face on Discord.
+For the sake of good support, the versions of all software used are communicated as encountered throughout this course. It is natural that after the writing of the course material some version changes will appear, and it may occur that something breaks. Instead of using different versions of the software from the ones in the course, please look at the following list, which might fix problems you are running into. Otherwise, please post the issue you face on Discord.
 
 <PanelListItem number="1">
 
 **Apple M1**
 
-If you work with an machine using M1 architecture, make sure:
+If you work with a machine using M1 architecture, make sure:
 
 1. You follow this course in a [Rosetta]((https://www.courier.com/blog/tips-and-tricks-to-setup-your-apple-m1-for-development/) terminal. 
 2. You install [Homebrew](https://brew.sh/index).
@@ -163,7 +163,7 @@ If you work with an machine using M1 architecture, make sure:
 
 **Building Errors during `scaffold`**
 
-If you work with Go 1.18, you may need to install following:
+If you work with Go 1.18, you may need to install the following:
 
 * go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway@latest
 * go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger@latest
@@ -350,7 +350,7 @@ Do not forget to redo `npm install`.
 
 In case you face a blank page, please look in the browser console for an error message.
 
-If you see that `regeneratorRuntime` is missing, run `npm install --save regenerator-runtime` in the Vue folder and include `const regeneratorRuntime = require("regenerator-runtime");` into `<script>` block of the `src/App.vue`.
+If you see that `regeneratorRuntime` is missing, run `npm install --save regenerator-runtime` in the Vue folder and include `const regeneratorRuntime = require("regenerator-runtime");` into the `<script>` block of the `src/App.vue`.
 
 </PanelListItem>
 
