@@ -49,7 +49,7 @@ func main() {
 
 <HighlightBox type="info">
 
-Function names determine visibility outside of packages. `Printf`'s first character is upper case and this means it's visible outside of `fmt`. Package names are always written in lower case, like `fmt` (short for "format").
+Function names determine visibility outside of packages. `Printf`'s first character is upper case and this means it's visible outside of `fmt`– a.k.a public. Package names are always written in lower case, like `fmt` (short for "format").
 
 </HighlightBox>
 
