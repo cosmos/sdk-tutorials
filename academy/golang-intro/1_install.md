@@ -66,7 +66,7 @@ This function simply calls the Go I/O function `Printf()` from the package `fmt`
 Now compile this program. Create the file `hello.go` in the `$GOPATH/src/hello` directory. In a terminal:
 
 ```
-$ cd $GOPATH/src/hello
+$ go mod init hello
 $ go build
 ```
 
