@@ -38,49 +38,49 @@ There are dozens of events in the ecosystem this year and we've curated the most
 Join the Cosmos community every Wednesday for a live Fireside chat on Twitter, where they discuss upcoming updates and host interviews with core contributors in the ecosystem.
 
 When it's happening: Every Wednesday at 17:00 UTC/17:30 CET
-Find out more here: [https://twitter.com/cosmoshub](https://twitter.com/cosmoshub)
+Find out more [here](https://twitter.com/cosmoshub).
 
 #### Unchained - Berlin, Germany
 
 This is a cross-ecosystem gathering of DeFi's greatest minds with key speakers from the Polkadot, Cosmos, Ethereum & EVM ecosystems.
 
 When it's happening: July 1, 2022
-Find out more here: [https://www.unchained.events/](https://www.unchained.events/)
+Find out more [here](https://www.unchained.events/).
 
 #### Nebular - Paris, France
 
 Join Cosmos ecosystem developers, researchers, and entrepreneurs as they discuss the challenges facing the Interchain and envisage the expanding Internet of Blockchains.
 
 When it's happening: July 22, 2022
-Find out more here: [https://nebular.paris/](https://nebular.paris/)
+Find out more [here](https://nebular.paris/).
 
 #### HackAtom - Seoul, South Korea
 
 KryptoSeoul and Interchain Foundation are running their second hackathon, the 2022 HackAtom, in Seoul, South Korea. The HackAtom will host South Korea's best hackers. Teams will compete to take home a diverse range of prizes, rewarded to the best teams that build the Interchain vision. There will also be a series of free educational workshops throughout HackAtom Seoul 2022, and anyone is free to register and join!
 
 When it's happening: July 29-31, 2022
-Find out more here: [https://www.buidl.asia/hackatom-seoul-2022](https://www.buidl.asia/hackatom-seoul-2022)
+Find out more [here](https://www.buidl.asia/hackatom-seoul-2022).
 
 #### Sustainable Energy: Blockchain and Cryptocurrency - Virtual
 
 This is the first international conference on sustainability in blockchain and cryptocurrency. It’s a meeting place for managers, engineers, scientists, and researchers from academia and industry all over the globe. SCBC-2022 endeavors to develop a forum to discuss critical challenges in the field of blockchain and cryptocurrency.
 
 When it's happening: August 1 - 3, 2022
-Find out more here: [https://gsusi.com/](https://gsusi.com/)
+Find out more [here](https://gsusi.com/).
 
 #### Cosmoverse - Bogota, Colombia
 
 This is a gathering of Cosmonauts from all over the world! The goal is to spread the word and bring more awareness to the Cosmos ecosystem. You'll hear about the current state of the Cosmos ecosystem, upcoming developments, and much more!
 
 When it's happening: September 26 - 28, 2022
-Find out more here: [https://cosmoverse.org/](https://cosmoverse.org/)
+Find out more [here](https://cosmoverse.org/).
 
 #### Messari Mainnet - New York, USA
 
 As the crypto industry continues to grow and disrupt adjacent industries, Messari strives to offer investors, developers, entrepreneurs, and newcomers reliable information and data tools that help them participate intelligently in the crypto economy.
 
 When it's happening: September 21 - 23, 2022
-Find out more here: [https://mainnet.events/](https://mainnet.events/)
+Find out more [here](https://mainnet.events/).
 
 ## Community
 
