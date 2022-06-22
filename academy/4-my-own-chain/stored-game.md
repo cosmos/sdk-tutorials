@@ -13,7 +13,7 @@ Make sure you have all you need before proceeding with the exercise:
 
 * You understand the concepts of [accounts](../2-main-concepts/accounts.md), [Protobuf](../2-main-concepts/protobuf.md), and [multistore](../2-main-concepts/multistore-keepers.md).
 * Go is installed.
-* You have the bare blockchain scaffold codebase with a single module named `checkers`. If not, follow the [previous steps](./ignitecli.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/starport-start).
+* You have the bare blockchain scaffold codebase with a single module named `checkers`. If not, follow the [previous steps](./ignitecli.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-starport-start).
 
 </HighlightBox>
 

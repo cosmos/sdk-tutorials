@@ -13,7 +13,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [events](../2-main-concepts/events.md).
 * Go is installed.
-* You have the checkers blockchain codebase with `MsgPlayMove` and its handling. If not, follow the [previous steps](./play-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/play-move-handler).
+* You have the checkers blockchain codebase with `MsgPlayMove` and its handling. If not, follow the [previous steps](./play-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-play-move-handler).
 
 </HighlightBox>
 
