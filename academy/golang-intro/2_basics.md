@@ -1,6 +1,6 @@
 ---
 title: "Go Basics"
-order: 
+order: 4
 description: Basic types, string formatting, functions, and methods
 tag: deep-dive
 ---
@@ -8,7 +8,6 @@ tag: deep-dive
 # Go Basics
 
 This section introduces basic types and string formatting. After that, you will dive into functions and methods in Golang.
-
 
 ## Numbers
 
@@ -32,16 +31,13 @@ The types for floating-point arithmetic are `float32` and `float64`. These are o
 
 `complex64` and `complex128` represent complex numbers. These are useful in geospatial coordinate systems and scientific applications, among others. They have "real" and "imaginary" parts that are always `floats`. When the real and imaginary parts are `float32`, the complex number is a `complex64`. Likewise, when the real and imaginary parts are `float64`, the complex number is a `complex128`.
 
-
 ## Strings
 
 In Go, a `string` is a read-only sequence of bytes. Therefore strings are immutable. They're encoded in UTF8 by default.
 
-
 ## Booleans
 
 A `bool` is a special 1-bit integer. It can represent `true` or `false`.
-
 
 ## Type declaration
 
@@ -428,13 +424,17 @@ Pointers are important.
 
 ## Rob demonstrates Go functions and methods on play.golang.org
 
-<!-- Add video after post-production from design dept.: https://www.youtube.com/watch?v=TzSQ3iaQYAo -->
+<YoutubePlayer videoId="Dt7GZZaxN00"/>
 
 <HighlightBox type="reading">
 
 **Further readings:**
 
 * [Go Playground](https://play.golang.org/)
-* [https://gobyexample.com/pointers](https://gobyexample.com/pointers)
+* [Go by Example: Pointers](https://gobyexample.com/pointers)
 
 </HighlightBox>
+
+## Next up
+
+Now that you covered your Go basics, get an overview on interfaces in Go in the [next section](../golang-intro/3_interfaces.md).

@@ -1,6 +1,6 @@
 ---
 title: "Go Interfaces"
-order: 
+order: 5
 description: Get an overview on interfaces in Go
 tag: deep-dive
 ---
@@ -143,10 +143,9 @@ A benchmark function has the syntax `BenchXXX`.
 
 Use `go test -help` to see what you need to run benchmarks.
 
-
 ## Rob demonstrates Go interfaces
 
-<!-- Add video after post-production from design dept.: https://youtu.be/yJMhkz5GWwA -->
+<YoutubePlayer videoId="dnOCJApbJB8"/>
 
 <HighlightBox type="reading">
 
@@ -156,3 +155,8 @@ Use `go test -help` to see what you need to run benchmarks.
 * [Writing unit tests](https://blog.alexellis.io/golang-writing-unit-tests/)
 
 </HighlightBox>
+
+## Next up
+
+Basics and interfaces are covered, what's next? Take a closer look at the control structures in Go by diving into `if`, `switch`, and `for` statements in the [next section](../golang-intro/4_control.md).
+

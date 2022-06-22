@@ -1,6 +1,6 @@
 ---
 title: "Query - Help Find a Correct Move"
-order: 18
+order: 25
 description: Help players make good transactions
 tag: deep-dive
 ---

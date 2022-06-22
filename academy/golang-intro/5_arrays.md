@@ -1,6 +1,6 @@
 ---
 title: "Arrays and Slices in Go"
-order: 
+order: 7
 description: A closer look at arrays and slices
 tag: deep-dive
 ---
@@ -163,6 +163,10 @@ When iterating over maps, the order is not deterministic.
 
 **Further reading:**
 
-* [Go Slices](https://blog.golang.org/go-slices-usage-and-internals)
+* [Go slices](https://blog.golang.org/go-slices-usage-and-internals)
 
 </HighlightBox>
+
+## Next up
+
+After discovering slices and arrays, you can now dive into some of the useful standard packages Go offers. In the [next section](../golang-intro/6_packages.md), you can explore _fmt_, _strconv_, and _errors_.

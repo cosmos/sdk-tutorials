@@ -1,6 +1,6 @@
 ---
 title: "Standard Packages in Go"
-order: 
+order: 8
 description: fmt, strconv, and errors
 tag: deep-dive
 ---
@@ -70,13 +70,13 @@ The function `Errorf` formats according to a format and returns it as an error.
 
 <HighlightBox type="reading">
 
-**Further reading:**
+**Further readings:**
 
-- [String formatting example](https://gobyexample.com/string-formatting)
-- [Go Walkthrough fmt](https://medium.com/go-walkthrough/go-walkthrough-fmt-55a14bbbfc53)
-- [Regular expressions example](https://gobyexample.com/regular-expressions)
-- [JSON example](https://gobyexample.com/json)
-- [Io writer interface](https://medium.com/@as27/a-simple-beginners-tutorial-to-io-writer-in-golang-2a13bfefea02)
+* [String formatting example](https://gobyexample.com/string-formatting)
+* [Go walkthrough fmt](https://medium.com/go-walkthrough/go-walkthrough-fmt-55a14bbbfc53)
+* [Regular expressions example](https://gobyexample.com/regular-expressions)
+* [JSON example](https://gobyexample.com/json)
+* [Io writer interface](https://medium.com/@as27/a-simple-beginners-tutorial-to-io-writer-in-golang-2a13bfefea02)
 
 </HighlightBox>
 
@@ -134,7 +134,7 @@ func main() {
 
 **Further reading:**
 
-* [Go Walkthrough - includes also string operations](https://gobyexample.com/string-formatting)
+* [Go walkthrough - includes also string operations](https://gobyexample.com/string-formatting)
 
 </HighlightBox>
 
@@ -202,6 +202,11 @@ In this case, `nil` means no error. For best practice, you should always check f
 
 **Further reading:**
 
-* [A Tour of Go](https://tour.golang.org/)
+* [A tour of Go](https://tour.golang.org/)
 
 </HighlightBox>
+
+## Next up
+
+Before diving into running a node, take a look at Go's built-in concurrency by exploring _Goroutine_ and _channels_ in the [next section](../golang-intro/7_concurrency.md).
+

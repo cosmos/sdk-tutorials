@@ -1,6 +1,6 @@
 ---
 title: "Control Structures in Go"
-order: 
+order: 6
 description: if, switch, and for statements
 tag: deep-dive
 ---
@@ -157,3 +157,7 @@ You can use `continue` to skip the iteration or `break` to terminate the executi
 * [Errors are values](https://blog.golang.org/errors-are-values)
 
 </HighlightBox>
+
+## Next up
+
+You covered control structures in Go and learned about the `if`, `switch`, and `for` statements, it is time to turn to [arrays and slices in Go](../golang-introduction/5_arrays.md).
