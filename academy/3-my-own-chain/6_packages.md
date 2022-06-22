@@ -1,5 +1,5 @@
 ---
-title: "Go Introduction VI - Standard Packages in Go"
+title: "Go Introduction - Standard Packages in Go"
 order: 8
 description: fmt, strconv, and errors
 tag: deep-dive

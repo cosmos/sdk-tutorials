@@ -1,5 +1,5 @@
 ---
-title: "Go Introduction II - Go Basics"
+title: "Go Introduction - Go Basics"
 order: 4
 description: Basic types, string formatting, functions, and methods
 tag: deep-dive

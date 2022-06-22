@@ -1,5 +1,5 @@
 ---
-title: "Go Introduction V - Arrays and Slices in Go"
+title: "Go Introduction - Arrays and Slices in Go"
 order: 7
 description: A closer look at arrays and slices
 tag: deep-dive

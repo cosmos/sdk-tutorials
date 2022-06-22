@@ -1,5 +1,5 @@
 ---
-title: "Go Introduction IV - Control Structures in Go"
+title: "Go Introduction - Control Structures in Go"
 order: 6
 description: if, switch, and for statements
 tag: deep-dive

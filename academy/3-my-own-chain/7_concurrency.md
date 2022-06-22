@@ -1,5 +1,5 @@
 ---
-title: "Go Introduction VII - Concurrency in Go"
+title: "Go Introduction - Concurrency in Go"
 order: 9
 description: Goroutines and Channels
 tag: deep-dive
