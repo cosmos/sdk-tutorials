@@ -224,6 +224,25 @@ $ docker run --rm -v "$(pwd)":/code \
   cosmwasm/rust-optimizer:0.12.6
 ```
 
+<ExpansionPanel title="Troubleshooting">
+
+ <PanelListItem number="1">
+
+ **Apple M1**
+
+ If you work with a machine using M1 architecture, you need to add the `--platform linux/amd64` flag, like so:
+
+ ```sh
+ $ docker run --rm --platform linux/amd64 -v "$(pwd)":/code \
+   --mount type=volume,source="$(basename "$(pwd)")_cache",target=/code/target \
+   --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
+   cosmwasm/rust-optimizer:0.12.6
+ ```
+
+ </PanelListItem>
+
+ </ExpansionPanel>
+
 Compare the result:
 
 ```sh
