@@ -1,5 +1,5 @@
 ---
-title: "Go Introduction I"
+title: "Go Introduction"
 order: 3
 description: Get started with Golang
 tag: deep-dive
