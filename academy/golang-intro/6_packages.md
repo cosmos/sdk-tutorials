@@ -17,11 +17,11 @@ Like other languages, Go offers a lot of useful standard packages. You will look
 
 *fmt* (format) implements are formatted I/O - you covered a good number of its *verbs* in module 1. Now you will see a range of additional useful verbs:
 
-- `%%`  for the percent sign
-- `%#v` for the Go-syntax representation
-- `%t`  for a boolean; it formats a value as `true` or `false`
-- `%b`  for an integer; it formats the integer to its binary representation
-- `%c`  for an integer; it formats the integer to its corresponding Unicode character
+* `%%`  for the percent sign
+* `%#v` for the Go-syntax representation
+* `%t`  for a boolean; it formats a value as `true` or `false`
+* `%b`  for an integer; it formats the integer to its binary representation
+* `%c`  for an integer; it formats the integer to its corresponding Unicode character
 
 If you use an invalid verb, you will get a string beginning with `"%!"` and a description.
 

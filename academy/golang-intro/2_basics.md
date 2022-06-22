@@ -437,4 +437,4 @@ Pointers are important.
 
 ## Next up
 
-Now that you covered your Go basics, get an overview on interfaces in Go in the [next section](../golang-intro/3_interfaces.md).
+Now that you covered your Go basics, get an overview of interfaces in Go in the [next section](../golang-intro/3_interfaces.md).

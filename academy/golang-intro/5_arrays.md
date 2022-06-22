@@ -49,7 +49,7 @@ The previous example code is not well-written, but it demonstrates different asp
 
 `len(array)` is a built-in function that gives the size of an array.
 
-`defer`is used to defer the execution of last-in-first-out order until surrounding functions return.
+`defer` is used to defer the execution of last-in-first-out order until surrounding functions return.
 
 </HighlightBox>
 

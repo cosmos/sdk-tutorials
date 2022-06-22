@@ -50,7 +50,7 @@ If you run this program, you will see that both `doSomething(10)` functions work
 
 ## Channels
 
-Go offers *channels* for communincation between goroutines. Channels may be buffered or unbuffered. You can create an *unbuffered* channel with the following:
+Go offers *channels* for communication between goroutines. Channels may be buffered or unbuffered. You can create an *unbuffered* channel with the following:
 
 ```golang
 ch:= make(chan type)
