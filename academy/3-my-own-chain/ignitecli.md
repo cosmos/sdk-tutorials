@@ -45,7 +45,7 @@ Ignite CLI also handles some compilation, runs a local blockchain node, and help
 
 </HighlightBox>
 
-<YoutubePlayer videoId="pFAM6mkKoTA"/>
+<YoutubePlayer videoId="MTUQQ6nOkZo"/>
 
 ## Install
 
