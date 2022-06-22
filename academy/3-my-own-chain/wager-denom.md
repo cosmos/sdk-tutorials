@@ -1,6 +1,6 @@
 ---
 title: "IBC Token - Play With Cross-Chain Tokens"
-order: 19
+order: 26
 description: Let players wager any fungible token
 tag: deep-dive
 ---

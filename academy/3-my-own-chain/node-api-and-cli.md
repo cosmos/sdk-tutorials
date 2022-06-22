@@ -1,6 +1,6 @@
 ---
 title: "Run a Node, API, and CLI"
-order: 3
+order: 10
 description: Interact with a Cosmos SDK chain through simapp
 tag: deep-dive
 ---
