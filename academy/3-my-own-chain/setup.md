@@ -83,6 +83,4 @@ The first time you open a Cosmos SDK project with Visual Studio Code, it offers 
 
 ## Next up
 
-You know have a completed set up to let you dive right into [running a node](./node-api-and-cli.md).
-
-Before you do so: knowing your way around Golang is part of being a Cosmos SDK developer. If you feel like you need an introduction to Golang or a refresher, the next sections provide an [introduction to Golang and working with it](./1_install.md). If you feel comfortable working with Golang already, you can also skip ahead to [running a node](./node-api-and-cli.md).
+Now that you are all set, dive right into running a node and explore working with `simapp` in the [next section](./node-api-and-cli.md).
