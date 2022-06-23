@@ -1,6 +1,6 @@
 ---
 title: "Message and Handler - Add a Way to Make a Move"
-order: 16
+order: 10
 description: Play a game
 tag: deep-dive
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Ignite CLI"
-order: 11
+order: 4
 description: An easy way to build your application-specific blockchain
 tag: deep-dive
 ---

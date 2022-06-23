@@ -1,6 +1,6 @@
 ---
 title: "Store Field - Record the Game Winner"
-order: 21
+order: 14
 description: Store the winner of a game
 tag: deep-dive
 ---

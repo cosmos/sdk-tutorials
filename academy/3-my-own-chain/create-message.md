@@ -1,6 +1,6 @@
 ---
 title: "Create Custom Messages for Your Checkers Blockchain"
-order: 14
+order: 8
 description: Introduce the message to create a game
 tag: deep-dive
 ---

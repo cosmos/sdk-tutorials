@@ -1,6 +1,6 @@
 ---
 title: "Exercise - Make a Checkers Blockchain"
-order: 12
+order: 5
 description: Exercise introduction
 tag: deep-dive
 ---

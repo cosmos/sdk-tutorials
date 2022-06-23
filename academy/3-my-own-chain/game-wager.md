@@ -1,6 +1,6 @@
 ---
 title: "Token - Let Players Set a Wager"
-order: 23
+order: 16
 description: Players set a wager
 tag: deep-dive
 ---
