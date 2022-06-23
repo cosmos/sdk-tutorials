@@ -17,7 +17,7 @@ This introduction to Golang is meant as a useful overview of Go and as such, a s
 
 You can also use it as a refresher if you feel a bit rusty when it comes to Go.
 
-![](/academy/golang-intro/images/go-lp.svg)
+![](/go-lp.svg)
 
 ## In this module
 
