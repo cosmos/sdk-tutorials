@@ -1,6 +1,6 @@
 ---
 title: "Go Introduction"
-order: 3
+order: 2
 description: Get started with Golang
 tag: deep-dive
 ---
