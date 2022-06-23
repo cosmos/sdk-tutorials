@@ -1,6 +1,6 @@
 ---
 title: "Gas - Incentivize Players"
-order: 24
+order: 17
 description: Reward validators proportional to their effort
 tag: deep-dive
 ---

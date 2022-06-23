@@ -1,6 +1,6 @@
 ---
 title: "Store Field - Keep an Up-To-Date Game Deadline"
-order: 13
+order: 6
 description: Games can expire
 tag: deep-dive
 ---

@@ -467,6 +467,11 @@ module.exports = {
           title: "Tutorials",
           children: [
             {
+              title: "Golang Introduction",
+              path: "/academy/golang-intro/",
+              directory: true,
+            },
+            {
               title: "Understanding IBC denoms",
               path: "/tutorials/understanding-ibc-denoms/",
               directory: false,

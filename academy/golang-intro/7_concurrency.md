@@ -1,6 +1,6 @@
 ---
-title: "Go Introduction - Concurrency in Go"
-order: 9
+title: "Concurrency in Go"
+order: 8
 description: Goroutines and Channels
 tag: deep-dive
 ---
@@ -221,7 +221,3 @@ Look into Mutexes, which we did not talk about here. This can be important for m
 * [Go by example](https://gobyexample.com/mutexes)
 
 </HighlightBox>
-
-## Next up
-
-Now that you are all set, dive right into running a node and explore working with `simapp` in the [next section](./node-api-and-cli.md).
