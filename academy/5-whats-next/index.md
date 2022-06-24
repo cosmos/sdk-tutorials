@@ -19,6 +19,7 @@ Searching for your next gig? We're working on an improved jobs board where we'll
 
 <!-- MailerLite Universal -->
 <script>
+if (typeof window !== "undefined") {
 (function(m,a,i,l,e,r){ m['MailerLiteObject']=e;function f(){
 var c={ a:arguments,q:[]};var r=this.push(c);return "number"!=typeof r?r:f.bind(c.q);}
 f.q=f.q||[];m[e]=m[e]||f.bind(f.q);m[e].q=m[e].q||f.q;r=a.createElement(i);
@@ -26,6 +27,7 @@ var _=a.getElementsByTagName(i)[0];r.async=1;r.src=l+'?v'+(~~(new Date().getTime
 _.parentNode.insertBefore(r,_);})(window, document, 'script', 'https://static.mailerlite.com/js/universal.js', 'ml');
 
 var ml_account = ml('accounts', '3880640', 'u4s6c9l6q6', 'load');
+}
 </script>
 <!-- End MailerLite Universal -->
 
