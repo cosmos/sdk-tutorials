@@ -147,13 +147,15 @@ $ ignite scaffold chain github.com/alice/checkers
 
 For the sake of good support, the versions of all software used are communicated as encountered throughout the chapters and sections. It is natural that after the writing of the course material some version changes will appear, and it may occur that something breaks. Instead of using different versions of the software from the ones in the course, please look at the following list, which might fix problems you are running into.
 
+<p>&nbsp;</p>
+
 <PanelListItem number="1">
 
 **Apple M1**
 
 If you work with a machine using M1 architecture, make sure:
 
-1. You follow this course in a [Rosetta]((https://www.courier.com/blog/tips-and-tricks-to-setup-your-apple-m1-for-development/) terminal. 
+1. You follow this course in a [Rosetta](https://www.courier.com/blog/tips-and-tricks-to-setup-your-apple-m1-for-development/) terminal. 
 2. You install [Homebrew](https://brew.sh/index).
 3. You install Golang with `brew install go`.
 
