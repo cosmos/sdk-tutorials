@@ -56,7 +56,7 @@ There are dozens of events in the ecosystem this year and we've curated the most
 
 Join the Cosmos community every Wednesday for a live Fireside chat on Twitter, where they discuss upcoming updates and host interviews with core contributors in the ecosystem.
 
-When it's happening: Every Wednesday at 17:00 UTC/17:30 CET
+When it's happening: Every Wednesday at 16:00 UTC / 17:00 BST / 18:00 CEST
 Find out more [here](https://twitter.com/cosmoshub).
 
 #### Unchained - Berlin, Germany
