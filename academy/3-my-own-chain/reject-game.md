@@ -1,6 +1,6 @@
 ---
 title: "Message and Handler - Make Sure a Player Can Reject a Game"
-order: 12
+order: 11
 description: Reject a game
 tag: deep-dive
 ---
