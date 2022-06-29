@@ -22,7 +22,7 @@ In this chapter, you will:
 
 </HighlightBox>
 
-**At the end of this week, on June 23rd, your exam will be unlocked. You have 2 weeks to submit your exam, the latest by July 7th.**
+**At the end of this week, on June 24th, your exam will be unlocked. You have 4 weeks to submit your exam, the latest by July 22nd.**
 
 <!-- You can find detailed information on the exam and its submission here. -->
 
