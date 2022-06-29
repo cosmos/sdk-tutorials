@@ -11,7 +11,7 @@ You have created your basic project with Ignite CLI in the [previous section](..
 
 ## Think
 
-A good place to start is to think about the objects you keep in storage. "A game", obviously... but what does any game have to keep in storage? 
+A good place to start is to think about the objects you keep in storage. **A game**, obviously... but what does any game have to keep in storage?
 
 Questions to ask that could influence your design include but are not limited to:
 
@@ -39,6 +39,7 @@ With that in mind:
 * What Ignite CLI commands will get you a long way with implementation?
 * How do you adjust what Ignite CLI created for you?
 * How would you unit-test your modest additions?
+* How would you run a simulation of a running node?
 * How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
 Run the commands, make the adjustments, and run some tests regarding game storage. Do not go into deeper issues like messages and transactions yet.
