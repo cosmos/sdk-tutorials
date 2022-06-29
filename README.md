@@ -25,7 +25,7 @@ overview:
       description: |
         Academy start: May 12th <br/>
         Due dates of mandatory quizzes & exercises: May 20th and May 27th <br/>
-        Exam period: June 23rd to July 7th <br/>
+        Exam period: June 24th to July 22nd <br/>
         Results available: August 3rd <br/>
     - title: What you'll learn
       description: |
