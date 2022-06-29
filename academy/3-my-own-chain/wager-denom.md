@@ -1,6 +1,6 @@
 ---
 title: "IBC Token - Play With Cross-Chain Tokens"
-order: 26
+order: 19
 description: Let players wager any fungible token
 tag: deep-dive
 ---
@@ -13,7 +13,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [messages](../2-main-concepts/messages.md), [Protobuf](../2-main-concepts/protobuf.md), and [IBC](../4-ibc/what-is-ibc.md).
 * Go is installed.
-* You have the checkers blockchain codebase up to the _can play_ query. If not, follow the [previous steps](./can-play.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
+* You have the checkers blockchain codebase up to the _can play_ query. If not, follow the [previous steps](./can-play.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-can-play-move-handler).
 
 </HighlightBox>
 

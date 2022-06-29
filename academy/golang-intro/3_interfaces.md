@@ -1,6 +1,6 @@
 ---
-title: "Go Introduction - Go Interfaces"
-order: 5
+title: "Go Interfaces"
+order: 4
 description: Get an overview of interfaces in Go
 tag: deep-dive
 ---

@@ -1,6 +1,6 @@
 ---
-title: "Go Introduction - Standard Packages in Go"
-order: 8
+title: "Standard Packages in Go"
+order: 7
 description: fmt, strconv, and errors
 tag: deep-dive
 ---
@@ -9,9 +9,9 @@ tag: deep-dive
 
 Like other languages, Go offers a lot of useful standard packages. You will look at:
 
-1. *fmt*
-2. *strconv*
-4. *errors*
+* *fmt*
+* *strconv*
+* *errors*
 
 ## fmt
 
@@ -208,5 +208,4 @@ In this case, `nil` means no error. For best practice, you should always check f
 
 ## Next up
 
-Before diving into running a node, take a look at Go's built-in concurrency by exploring _Goroutine_ and _channels_ in the [next section](./7_concurrency.md).
-
+Before diving deep into Cosmos, take a look at Go's built-in concurrency by exploring _Goroutine_ and _channels_ in the [next section](./7_concurrency.md).

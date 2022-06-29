@@ -1,6 +1,6 @@
 ---
 title: "EndBlock - Auto-Expiring Games"
-order: 22
+order: 15
 description: Enforce the expiration of games
 tag: deep-dive
 ---
@@ -13,7 +13,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [ABCI](../2-main-concepts/architecture.md).
 * Go is installed.
-* You have the checkers blockchain codebase with the elements necessary for forfeit. If not, follow the [previous steps](./game-winner.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
+* You have the checkers blockchain codebase with the elements necessary for forfeit. If not, follow the [previous steps](./game-winner.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-game-winner).
 
 </HighlightBox>
 

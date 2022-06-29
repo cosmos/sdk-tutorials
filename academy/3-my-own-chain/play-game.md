@@ -1,6 +1,6 @@
 ---
 title: "Message and Handler - Add a Way to Make a Move"
-order: 16
+order: 9
 description: Play a game
 tag: deep-dive
 ---
@@ -13,7 +13,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [transactions](../2-main-concepts/transactions.md), [messages](../2-main-concepts/messages.md), and [Protobuf](../2-main-concepts/protobuf.md).
 * Go is installed.
-* You have the checkers blockchain codebase with `MsgCreateGame` and its handling. If not, follow the [previous steps](./create-handling.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-handler).
+* You have the checkers blockchain codebase with `MsgCreateGame` and its handling. If not, follow the [previous steps](./create-handling.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-create-game-handler).
 
 </HighlightBox>
 

@@ -1,6 +1,6 @@
 ---
 title: "Query - Help Find a Correct Move"
-order: 25
+order: 18
 description: Help players make good transactions
 tag: deep-dive
 ---
@@ -13,7 +13,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [queries](../2-main-concepts/queries.md) and [Protobuf](../2-main-concepts/protobuf.md).
 * You have Go installed.
-* You have the checkers blockchain codebase up to gas metering. If not, follow the [previous steps](./gas-meter.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
+* You have the checkers blockchain codebase up to gas metering. If not, follow the [previous steps](./gas-meter.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-gas-meter).
 
 </HighlightBox>
 
