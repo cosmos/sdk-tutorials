@@ -682,6 +682,12 @@ func (genesisV1 GenesisStateV1) Convert(now time.Time) (genesis *types.GenesisSt
 }
 ```
 
+<!--
+
+CLI interaction like: https://hub.cosmos.network/main/hub-tutorials/live-upgrade-tutorial.html
+
+-->
+
 ## Next up
 
 Your checkers blockchain is done! It has a leaderboard, which was introduced later in production thanks to migrations.
