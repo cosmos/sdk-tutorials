@@ -2,7 +2,7 @@
 parent:
   title: What's Next?
   description: Continue your Cosmos journey
-  number: 7
+  number: 6
 tag: fast-track
 ---
 
