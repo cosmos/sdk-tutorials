@@ -74,7 +74,7 @@ The Cosmos SDK uses Protobuf definitions to generate client and server code:
 * The `MsgServer` interface defines the server API for the `Msg` service. Its implementation is described in the [`Msg` services documentation](https://docs.cosmos.network/main/building-modules/msg-services.html).
 * Structures are generated for all RPC requests and response types.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 If you want to dive deeper when it comes to messages, the `Msg` service, and modules, see:
 
@@ -83,15 +83,13 @@ If you want to dive deeper when it comes to messages, the `Msg` service, and mod
 
 </HighlightBox>
 
-## Next up
-
-Look at the following code example to get a better sense of how theory translates into development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can go directly to the [next section](./modules.md) to learn more about modules.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain - Including messages">
 
 In the [previous](./transactions.md) code examples, the ABCI application was aware of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you need to conform to the SDK's way of handling `Tx`, which means **creating messages that are then included in a transaction**.
 
-## What you need
+**What you need**
 
 Begin by describing the messages you need for your checkers application to have a solid starting point before diving into the code:
 
@@ -99,7 +97,7 @@ Begin by describing the messages you need for your checkers application to have 
 2. You need to add a message type for creating a new game. When this is done, a player can create a new game which mentions other players. A generated ID identifies this newly created game and is returned to the message creator.
 3. It would be a good feature for the other person to be able to reject the challenge. This would have the added benefit of clearing the state of stale, unstarted games.
 
-## How to proceed
+**How to proceed**
 
 Focus on the messages around the **game creation**.
 
@@ -137,11 +135,11 @@ $ ignite scaffold message createGame red black --module checkers --response idVa
 
 <HighlightBox type="info">
 
-Ignite CLI creates a variety of other files. See [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md) for details, and to make additions to existing files.
+Ignite CLI creates a variety of other files. See [Run Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md) for details, and to make additions to existing files.
 
 </HighlightBox>
 
-### A sample of things Ignite CLI did for you
+_**A sample of things Ignite CLI did for you**_
 
 Ignite CLI significantly reduces the amount of work a developer has to do to build an application with the Cosmos SDK. Among others, it assists with:
 
@@ -194,7 +192,7 @@ Ignite CLI significantly reduces the amount of work a developer has to do to bui
     }
     ```
 
-## What is left to do?
+**What is left to do?**
 
 Your work is mostly done. You want to create the specific game creation code to replace `// TODO: Handling the message`. For this, you need to:
 
@@ -202,7 +200,7 @@ Your work is mostly done. You want to create the specific game creation code to 
 
     <HighlightBox type="info">
 
-    For more details, and to avoid diving too deep in this section, see [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
+    For more details, and to avoid diving too deep in this section, see [Run Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
       
       
     </HighlightBox>
@@ -251,7 +249,7 @@ Remember:
 
 </HighlightBox>
 
-## The other messages
+**The other messages**
 
 You can also implement other messages:
 
@@ -293,7 +291,7 @@ You can also implement other messages:
     }
     ```
 
-## Other considerations
+**Other considerations**
 
 What would happen if one of the two players has accepted the game by playing, but the other player has neither accepted nor rejected the game? You can address this scenario by:
 
@@ -315,8 +313,12 @@ There are no _open_ challenges, meaning a player cannot create a game where the 
 
 <HighlightBox type="tip">
 
-If you would like to get started on building your own checkers game, you can go straight to the main exercise in [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
+If you would like to get started on building your own checkers game, you can go straight to the main exercise in [Run Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
 
 </HighlightBox>
 
 </ExpansionPanel>
+
+## Next up
+
+Look at the above code example to get a better sense of how theory translates into development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can go directly to the [next section](./modules.md) to learn more about modules.

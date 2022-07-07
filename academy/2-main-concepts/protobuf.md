@@ -58,7 +58,7 @@ The Protobuf format supports extending the format over time in such a way that c
 
 Go developers access the setters and getters in the generated source code through the Go Protobuf API.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 For more on encoding in Cosmos, see the [Cosmos SDK documentation on encoding](https://docs.cosmos.network/main/core/encoding.html).
 
@@ -89,9 +89,7 @@ The core of a Cosmos SDK application mainly consists of type definitions and con
 * Reference to **codec**: defaulted to go-amino, the codec in your Cosmos SDK application can be substituted with other suitable encoding frameworks as long as they persist data stores in byte slices and are deterministic.
 * Reference to the **module manager**: a reference to an object containing a list of the application modules known as the module manager.
 
-## Next up
-
-Look at the following code example to see how Protobuf can facilitate your activities, or go straight to the [next section](../2-main-concepts/multistore-keepers.md) for an introduction to storage types and keepers.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
@@ -118,7 +116,7 @@ type StoredGame struct {
 }
 ```
 
-## Advance
+**Advance**
 
 This is where Protobuf simplifies your activity even more. The same `StoredGame` can be declared as:
 
@@ -151,7 +149,7 @@ message MsgCreateGameResponse {
 }
 ```
 
-## Enter Ignite CLI
+**Enter Ignite CLI**
 
 When Ignite CLI creates a message for you, it also creates the gRPC definitions and Go handling code. It is relatively easy to introduce Protobuf elements into your chain using commands like the following:
 
@@ -162,8 +160,12 @@ $ ignite scaffold message createGame red black wager:uint --module checkers --re
 
 <HighlightBox type="tip">
 
-If you want to dive straight into coding your chain, go to [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md) for more details on using Ignite CLI.
+If you want to dive straight into coding your chain, go to [Run Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md) for more details on using Ignite CLI.
 
 </HighlightBox>
 
 </ExpansionPanel>
+
+## Next up
+
+Look at the above code example to see how Protobuf can facilitate your activities, or go straight to the [next section](../2-main-concepts/multistore-keepers.md) for an introduction to storage types and keepers.

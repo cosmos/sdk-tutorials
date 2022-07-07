@@ -32,17 +32,13 @@ A query is a request for information, made by end-users of an application throug
 
 Queries do not require consensus to be processed as they do not trigger state transitions. Therefore queries can be handled entirely independently by a full node.
 
-<HighlightBox type="reading">
+<HighlightBox type="tip">
 
 Visit the [detailed Cosmos SDK documentation](https://docs.cosmos.network/main/basics/query-lifecycle.html) for a clear overview of the query lifecycle and learn how a query is created, handled, and responded to.
 
 </HighlightBox>
 
-## Next up
-
-You can now continue directly to the [next section](./events.md) to learn about events.
-
-If you prefer to see some code in action and continue with the checkers blockchain, look at the following expandable box.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
@@ -159,3 +155,9 @@ A player can test their move only after the opponent's move is included in a pre
 This is not an exhaustive list of potential queries. Some examples of other possible queries would be to get a player's open games, or to get a list of games that are timing out soon. It depends on the needs of your application and how much functionality you willingly provide.
 
 </ExpansionPanel>
+
+## Next up
+
+You can now continue directly to the [next section](./events.md) to learn about events.
+
+If you prefer to see some code in action and continue with the checkers blockchain, look at the expandable box above.

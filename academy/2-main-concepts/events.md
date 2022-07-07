@@ -109,7 +109,7 @@ The main `eventCategories` you can subscribe to are:
 * **`Tx`:** contains events triggered during `DeliverTx`, the transaction processing.
 * **`ValidatorSetUpdates`:** contains updates about the set of validators for the block.
 
-<HighlightBox type="reading">
+<HighlightBox type="tip">
 
 You can find a full list of event categories in the [Tendermint Go documentation](https://godoc.org/github.com/tendermint/tendermint/types#pkg-constants).
 
@@ -117,9 +117,7 @@ You can find a full list of event categories in the [Tendermint Go documentation
 
 You can filter for event types and attribute values. For example, a transfer transaction triggers an event of type `Transfer` and has `Recipient` and `Sender` as attributes, as defined in the `events.go` file of the `bank` module.
 
-## Next up
-
-Now you know about events, where they are expected, and how to emit or receive them. Look at the code samples below, or go to the [next section](./context.md) to learn about the `Context` object.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
@@ -163,3 +161,7 @@ ctx.EventManager().EmitEvent(
 ```
 
 </ExpansionPanel>
+
+## Next up
+
+Now you know about events, where they are expected, and how to emit or receive them. Look at the code samples above, or go to the [next section](./context.md) to learn about the `Context` object.

@@ -30,9 +30,33 @@ In this section, you will:
 
 With the introduction of game expiry in the [previous section](./game-forfeit.md) and other features, you have now addressed the cases when two players start a game and finish it, or let it expire.
 
-In this section you will add an extra layer to a game, with wagers or stakes. Your application already includes all the necessary modules. This section relies on the `bank` module in particular.
+In this section, you will add an extra layer to a game, with wagers or stakes. Your application already includes all the necessary modules. This section relies on the `bank` module in particular.
 
 Players choose to wager _money_ or not, and the winner gets both wagers. The forfeiter loses their wager. To reduce complexity, start by letting players wager in the staking token of your application.
+
+Now that no games can be left stranded, it is possible for players to safely wager on their games. How could this be implemented?
+
+## Some initial thoughts
+
+When thinking about implementing a wager on games, ask:
+
+* What form will a wager take?
+* Who decides on the amount of wagers?
+* Where is a wager recorded?
+* Is there any desirable atomicity of actions?
+* At what junctures do you need to handle payments, refunds, and wins?
+* Are there errors to report back?
+* What event should you emit?
+
+## Code needs
+
+When it comes to your code:
+
+* What Ignite CLI commands, if any, will assist you?
+* How do you adjust what Ignite CLI created for you?
+* Where do you make your changes?
+* How would you unit-test these new elements?
+* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
 ## New information
 

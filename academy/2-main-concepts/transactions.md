@@ -153,7 +153,7 @@ See this [code example](https://github.com/cosmos/cosmos-sdk/blob/master/docs/ru
 
 The three methods presented previously are higher abstractions on the Tendermint RPC `/broadcast_tx_{async,sync,commit}` endpoints. You can use the [Tendermint RPC endpoints](https://docs.tendermint.com/master/rpc/#/Tx) to directly broadcast the transaction through Tendermint if you wish to.
 
-<HighlightBox type="reading">
+<HighlightBox type="info">
 
 Tendermint supports the following RPC protocols:
 
@@ -165,9 +165,7 @@ For more information on broadcasting with Tendermint RPC, see the documentation 
 
 </HighlightBox>
 
-## Next up
-
-In the [next section](./messages.md), you can learn how transaction messages are generated and handled in the Cosmos SDK.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
@@ -176,3 +174,7 @@ In the [next section](./messages.md), you can learn how transaction messages are
 See the [section on messages](./messages.md) to learn how to do that.
 
 </ExpansionPanel>
+
+## Next up
+
+In the [next section](./messages.md), you can learn how transaction messages are generated and handled in the Cosmos SDK.

@@ -98,7 +98,7 @@ Each module defines two Protobuf services:
 * **`Msg`:** a set of RPC methods related one-to-one to Protobuf request types, to handle messages.
 * **`Query`:** gRPC query service, to handle queries.
 
-<HighlightBox type="reading">
+<HighlightBox type="tip">
 
 If this topic is new to you, read an introduction to [Protocol Buffers](https://www.ionos.com/digitalguide/websites/web-development/protocol-buffers-explained/).
 
@@ -131,7 +131,7 @@ Protobuf generates a `QueryServer` interface containing all the service methods 
 
 gRPC-Gateway REST endpoints support external clients that may not wish to use gRPC. The Cosmos SDK provides a gRPC-gateway REST endpoint for each gRPC service.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 See the [gRPC-Gateway documentation](https://grpc-ecosystem.github.io/grpc-gateway/) for more on the gRPC-Gateway plugin.
 
@@ -281,7 +281,7 @@ The interface types defined in `exported/` use canonical types that allow for th
 
 Modules are encouraged to define and register their own errors to provide better context for failed messages or handler executions. Errors should be common or general errors, which can be further wrapped to provide additional specific execution context.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 For more details see the [Cosmos SDK documentation on errors when building modules](https://docs.cosmos.network/main/building-modules/errors.html).
 
@@ -314,19 +314,17 @@ Regardless of whether an error is wrapped or not, the Cosmos SDK's errors packag
 
 If a module error is registered, the Cosmos SDK errors package allows ABCI information to be extracted through the `ABCIInfo` API. The package also provides `ResponseCheckTx` and `ResponseDeliverTx` as auxiliary APIs to automatically get `CheckTx` and `DeliverTx` responses from an error.
 
-## Next up
-
-Look at the following code example to see modules in practice, or go straight to the [next section](../2-main-concepts/protobuf.md) for an introduction to Protobuf.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 Now your application is starting to take shape.
 
-## The `checkers` module
+**The `checkers` module**
 
 When you create your checkers blockchain application, you ought to include a majority of the standard modules like `auth`, `bank`, and so on. With the Cosmos SDK boilerplate in place, the _checkers part_ of your checkers application will most likely reside in a single `checkers` module. This is the module that you author.
 
-## Game wager
+**Game wager**
 
 Earlier the goal was to let players play with _money_. With the introduction of modules like `bank` you can start handling that.
 
@@ -358,7 +356,7 @@ How would this look in terms of code? You need to add the wager to:
     }
     ```
 
-## Wager payment
+**Wager payment**
 
 Now you must decide how the tokens are moved. When a player accepts a challenge, the amount is deducted from that player's balance. But where does it go? You could burn the tokens and re-mint them at a later date, but this would make the total supply fluctuate wildly for no apparent benefit.
 
@@ -405,8 +403,12 @@ Note that:
 
 <HighlightBox type="tip">
 
-If you want to go beyond these code samples and instead see in more detail how to define all this, go to [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
+If you want to go beyond these code samples and instead see in more detail how to define all this, go to [Run Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md).
 
 </HighlightBox>
 
 </ExpansionPanel>
+
+## Next up
+
+Look at the above code example to see modules in practice, or go straight to the [next section](../2-main-concepts/protobuf.md) for an introduction to Protobuf.

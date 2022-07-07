@@ -316,7 +316,7 @@ These accounts keep some **samoleans**. You will also see another denom because 
 
 <HighlightBox type="tip">
 
-Please see the [fungible token transfers](add_url_after_merge) section for more information on the IBC denom.
+Please see the [fungible token transfers](https://interchainacademy.cosmos.network/academy/ibc/token-transfer.html) section for more information on the IBC denom.
 
 </HighlightBox>
 

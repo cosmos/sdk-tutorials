@@ -25,7 +25,7 @@ overview:
       description: |
         Academy start: May 12th <br/>
         Due dates of mandatory quizzes & exercises: May 20th and May 27th <br/>
-        Exam period: June 23rd to July 7th <br/>
+        Exam period: June 24th to July 22nd <br/>
         Results available: August 3rd <br/>
     - title: What you'll learn
       description: |
@@ -204,58 +204,34 @@ modules:
         description: Exercise introductrion
         url: /academy/4-my-own-chain-exer/exercise-intro.html
         order: 4
-      - title: Exercise - Store Object - Make a Checkers Blockchain
-        description: Exercise - Create the object that stores a game
-        url: /academy/4-my-own-chain-exer/stored-game-exer.html
-        order: 5
       - title: Store Object - Make a Checkers Blockchain
         description: Create the object that stores a game
         url: /academy/4-my-own-chain/stored-game.html
-        order: 6
-      - title: Exercise - Message - Create a Message to Create a Game
-        description: Exercise - Introduce the message to create a game
-        url: /academy/4-my-own-chain-exer/create-message-exer.html
-        order: 7
+        order: 5
       - title: Message - Create a Message to Create a Game
         description: Introduce the message to create a game
         url: /academy/4-my-own-chain/create-message.html
-        order: 8
-      - title: Exercise - Message Handler - Create and Save a Game Properly
-        description: Exercise - Create a proper game
-        url: /academy/4-my-own-chain-exer/create-handling-exer.html
-        order: 9
+        order: 6
       - title: Message Handler - Create and Save a Game Properly
         description: Exercise - Create a proper game
         url: /academy/4-my-own-chain/create-handling.html
-        order: 10
-      - title: Exercise - Message and Handler - Add a Way to Make a Move
-        description: Exercise - Play a game
-        url: /academy/4-my-own-chain-exer/play-game-exer.html
-        order: 11
+        order: 7
       - title: Message and Handler - Add a Way to Make a Move
         description: Play a game
         url: /academy/4-my-own-chain/play-game.html
-        order: 12
-      - title: Exercise - Events - Emit Game Information
-        description: Exercise - Emit game information using events
-        url: /academy/4-my-own-chain-exer/events-exer.html
-        order: 13
+        order: 8
       - title: Events - Emit Game Information
         description: Emit game information using events
         url: /academy/4-my-own-chain/events.html
-        order: 14
-      - title: Exercise - Message and Handler - Make Sure a Player Can Reject a Game
-        description: Exercise - Reject a game
-        url: /academy/4-my-own-chain-exer/reject-game-exer.html
-        order: 15
+        order: 9
       - title: Message and Handler - Make Sure a Player Can Reject a Game
         description: Reject a game
         url: /academy/4-my-own-chain/reject-game.html
-        order: 16
+        order: 10
       - title: Mandatory Exercise
         description: Mandatory Exercise
         url: /academy/4-my-own-chain-exer/week2-exercise.html
-        order: 17
+        order: 11
   - title: Run Your Own Cosmos Chain - Part 2
     description: In Week 3, you'll dive deeper into customizing the checkers blockchain and discover how to make your own game more interesting and unique.
     number: 3
@@ -277,7 +253,7 @@ modules:
         description: Store the winner of a game
         url: /academy/4-my-own-chain/game-winner.html
         order: 3
-      - title: EndBlock - Auto-expiring Games
+      - title: EndBlock - Auto-Expiring Games
         description: Enforce the expiration of games
         url: /academy/4-my-own-chain/game-forfeit.html
         order: 4

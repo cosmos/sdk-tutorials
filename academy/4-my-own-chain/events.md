@@ -27,7 +27,7 @@ In this section, you will:
 
 </HighlightBox>
 
-Now that you have [added the possible actions](./play-game.md), including their return values, use events to notify players.
+Now that you have [added the possible actions](./play-game.md), including their return values, use events to notify players. Your blockchain can now create and play games. However, it does not inform the outside world about this in a convenient way. That is where events come in - but what do you need to emit them?
 
 Imagine a potential or current player waiting for their turn. It is not practical to look at all the transactions and search for the ones signifying the player's turn. It is better to listen to known events that let clients determine which player's turn it is.
 
@@ -35,6 +35,25 @@ Adding events to your application is as simple as:
 
 1. Defining the events you want to use.
 2. Emitting corresponding events as actions unfold.
+
+## Some initial thoughts
+
+Before you dive into the specifics of the exercise, ask yourself:
+
+* Why do actions warrant a detailed event?
+* What level of detail goes into each event?
+* How do you make it easy for external parties to understand your events?
+* At what stage do you emit events?
+
+## Code needs
+
+Now start by thinking about the following:
+
+* How do you adjust your code to do all this?
+* How would you unit-test these new elements?
+* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
+
+Only focus on the narrow issue of event emission.
 
 ## Game-created event
 

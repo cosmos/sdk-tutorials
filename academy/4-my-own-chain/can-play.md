@@ -28,7 +28,27 @@ In this section, you will:
 
 A player sends a `MsgPlayMove` when [making a move](./play-game.md). This message can succeed or fail for several reasons. One error situation is when the message represents an invalid move. A GUI is the first place where a bad move can be caught, but it is still possible that a GUI wrongly enforces the rules.
 
+Since sending transactions includes costs, how do you assist participants in making sure they at least do not make a wrong move?
+
 Players should be able to confirm that a move is valid before burning gas. To add this functionality, you need to create a way for the player to call the [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function without changing the game's state. Use a query because they are evaluated in memory and do not commit anything permanently to storage.
+
+## Some initial thoughts
+
+When it comes to finding a correct move, ask:
+
+* What structure will facilitate this check?
+* Who do you let make such checks?
+* What acceptable limitations do you have for this?
+* Are there new errors to report back?
+* What event should you emit?
+
+## Code needs
+
+* What Ignite CLI commands, if any, will assist you?
+* How do you adjust what Ignite CLI created for you?
+* Where do you make your changes?
+* How would you unit-test these new elements?
+* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
 ## New information
 

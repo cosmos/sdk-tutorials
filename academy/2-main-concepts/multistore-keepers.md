@@ -112,7 +112,7 @@ A [`cachemulti.Store`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/sto
 
 As the name suggests, `Transient.Store` is a `KVStore` that is discarded automatically at the end of each block. `Transient.Store` is a `dbadapter.Store` with a `dbm.NewMemDB()`. All `KVStore` methods are reused. A new `dbadapter.Store` is assigned when `Store.Commit()` is called, discarding the previous reference. Garbage collection is attended to automatically.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 Take a closer look at the [IAVL spec](https://github.com/cosmos/iavl/blob/v0.15.0-rc5/docs/overview.md) for when working with the IAVL store.
 
@@ -158,7 +158,7 @@ The `AnteHandler` is theoretically optional but still a very important component
 
 `BaseApp` holds an `AnteHandler` as a parameter that is initialized in the application's constructor. The most widely used `AnteHandler` is the auth module.
 
-<HighlightBox type="reading">
+<HighlightBox type="docs">
 
 For more information on the subject, see the following resources:
 
@@ -167,15 +167,13 @@ For more information on the subject, see the following resources:
 
 </HighlightBox>
 
-## Next up
-
-In the [next section](./base-app.md) you will find more information on `BaseApp` and its role in the Cosmos SDK.
+## Code example
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 In the [Accounts section](./accounts.md), you were shown the elements of the stored game but not where this game is stored. This will now be explained.
 
-## Game object in storage
+**Game object in storage**
 
 You need to decide under what structure you want to store a game in the storage. The Cosmos SDK partitions the global storage per module, with `checkers` being its own module. You need to take care of how to store games in the checkers module's corner of the key/value pair storage.
 
@@ -279,7 +277,7 @@ See the [previous section on Protobuf](./protobuf.md) to explore how Protobuf de
 
 </HighlightBox>
 
-## Boilerplate, boilerplate everywhere!
+**Boilerplate, boilerplate everywhere!**
 
 Note how the `Set`, `Get`, `Remove`, and `GetAll` functions shown previously look like boilerplate too. Do you have to redo these functions for every type? *No* - it was all created with this Ignite CLI command:
 
@@ -291,12 +289,11 @@ $ ignite scaffold map storedGame game turn red black wager:uint --module checker
 
 <HighlightBox type="tip">
 
-To create the above boilerplate in your module, you can use Ignite CLI. Go to [Running Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md), for more on Ignite CLI, and if you want to go beyond out-of-context code samples to see more in detail how to define these features.
-
+To create the above boilerplate in your module, you can use Ignite CLI. Go to [Run Your Own Cosmos Chain](/course-ida/landingpages/week2-lp.md), for more on Ignite CLI, and if you want to go beyond out-of-context code samples to see more in detail how to define these features.
 
 </HighlightBox>
 
-## Other storage elements
+**Other storage elements**
 
 How do you create the `storedGame.Index`? A viable idea is to keep a counter in storage for the next game. Unlike `StoredGame`, which is saved as a map, this `NextGame` object has to be at a unique location in the storage.
 
@@ -350,7 +347,7 @@ func DefaultGenesis() *GenesisState {
 }
 ```
 
-## What about message handling
+**What about message handling**
 
 You go from the message to the game in storage with `MsgCreateGame`, which was defined in an earlier [section on messages](./messages.md). That is also the role of the keeper.
 
@@ -433,7 +430,7 @@ Return the game ID for reference:
 
 You would also do the same for `MsgPlayMoveResponse` and `MsgRejectGame`. Why not try it out as an exercise?
 
-## More on game theory
+**More on game theory**
 
 Time to introduce a game deadline:
 
@@ -475,7 +472,7 @@ if deadline.Before(ctx.BlockTime()) {
 }
 ```
 
-## How to expire games
+**How to expire games**
 
 How can you know what games should be removed? Should you load *all* games and filter for those that have expired? That would be extremely expensive. Better is to keep a First-In-First-Out (FIFO), where fresh games are pushed back to the tail so that the head contains the next games to expire.
 
@@ -508,7 +505,7 @@ Next, you need to code a regular FIFO, whereby:
 * Games are sent to the back when created or played on.
 * Games are removed from the FIFO when they are finished or time out.
 
-## When to expire games
+**When to expire games**
 
 When do you verify that a game has expired? An interesting feature of an ABCI application is that you can have it perform some actions at the end of each block. To expire games that have timed out at the end of a block, you need to hook your keeper to the right call. The Cosmos SDK will call into each module at various points when building the whole application. The function it calls at each block's end looks like this:
 
@@ -537,7 +534,7 @@ Be careful about letting the game creator pick a timeout duration. This could al
 
 </HighlightBox>
 
-## Gas costs
+**Gas costs**
 
 The keeper also makes it easy to charge the gas to the players as required. This gas fee comes on top of the configured standard fee for transactions on your chain. Propose some ratios, which would have to be adjusted so they make sense compared to the base transaction costs:
 
@@ -566,3 +563,7 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 ```
 
 </ExpansionPanel>
+
+## Next up
+
+In the [next section](./base-app.md) you can find more information on `BaseApp` and its role in the Cosmos SDK.

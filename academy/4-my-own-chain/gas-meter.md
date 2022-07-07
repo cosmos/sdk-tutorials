@@ -29,7 +29,28 @@ In this section, you will:
 
 Players can start playing checkers with your Cosmos blockchain. Transaction fees are paid by the players themselves, at least the fee related to transporting the serialized bytes and the other gas-metered parts like `bank`.
 
-Next, add your own gas metering to reflect the costs that different transactions impose, or you can add costs to discourage spam.
+Your blockchain is taking shape, but you need to take care of peripheral concerns. For instance, how do you make sure that participants pay their fair share of the costs they impose on the network?
+
+Next, you should add your own gas metering to reflect the costs that different transactions impose, or you can add costs to discourage spam.
+
+## Some initial thoughts
+
+To continue developing your checkers blockchain:
+
+* At what junctures can you charge gas?
+* At what junctures can you **not** charge gas, and what do you do about it?
+* Are there new errors to report back?
+* What event should you emit?
+
+## Code needs
+
+Before diving into the specifics, ask yourself:
+
+* What Ignite CLI commands, if any, will assist you?
+* How do you adjust what Ignite CLI created for you?
+* Where do you make your changes?
+* How would you unit-test these new elements?
+* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
 ## New data
 

@@ -47,7 +47,6 @@ Ignite CLI also handles some compilation, runs a local blockchain node, and help
 
 <YoutubePlayer videoId="pFAM6mkKoTA"/>
 
-
 ## Install
 
 <HighlightBox type="reading">
@@ -136,7 +135,6 @@ Flags:
 Use "ignite [command] --help" for more information about a command.
 ```
 
-
 ## Your chain
 
 Start by scaffolding a basic chain called `checkers` that you will place under the GitHub path `alice`:
@@ -144,6 +142,43 @@ Start by scaffolding a basic chain called `checkers` that you will place under t
 ```sh
 $ ignite scaffold chain github.com/alice/checkers
 ```
+
+<ExpansionPanel title="Troubleshooting">
+
+For the sake of good support, the versions of all software used are communicated as encountered throughout this course. It is natural that after the writing of the course material some version changes will appear, and it may occur that something breaks. Instead of using different versions of the software from the ones in the course, please look at the following list, which might fix problems you are running into. Otherwise, please post the issue you face on Discord.
+
+<p>&nbsp;</p>
+
+<PanelListItem number="1">
+
+**Apple M1**
+
+If you work with a machine using M1 architecture, make sure:
+
+1. You follow this course in a [Rosetta](https://www.courier.com/blog/tips-and-tricks-to-setup-your-apple-m1-for-development/) terminal. 
+2. You install [Homebrew](https://brew.sh/index).
+3. You install Golang with `brew install go`.
+
+</PanelListItem>
+
+<PanelListItem number="2">
+
+**Building Errors during `scaffold`**
+
+If you work with Go 1.18, you may need to install the following:
+
+* go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway@latest
+* go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger@latest
+* go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
+* git clone https://github.com/regen-network/cosmos-proto
+  cd cosmos-proto/protoc-gen-gocosmos
+  go install
+* go get github.com/golangci/golangci-lint/cmd/golangci-lint
+* go get golang.org/x/crypto/ssh/terminal@v0.0.0-20220411220226-7b82a4e95df4
+
+</PanelListItem>
+
+</ExpansionPanel>
 
 The scaffolding takes some time as it generates the source code for a fully functional, ready-to-use blockchain. Ignite CLI creates a folder named `checkers` and scaffolds the chain inside it.
 
@@ -315,7 +350,9 @@ If `npm run serve` (Node v16) complains about `node-sass`, these versions should
 
 Do not forget to redo `npm install`.
 
-Otherwise, try downgrading Node to version 14.
+In case you face a blank page, please look in the browser console for an error message.
+
+If you see that `regeneratorRuntime` is missing, run `npm install --save regenerator-runtime` in the Vue folder and include `const regeneratorRuntime = require("regenerator-runtime");` into the `<script>` block of the `src/App.vue`.
 
 </PanelListItem>
 

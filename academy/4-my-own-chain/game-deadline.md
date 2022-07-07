@@ -167,6 +167,6 @@ In the same vein, you can create a new game and confirm it contains the deadline
 
 ## Next up
 
-You have created and updated the deadline. The [section two steps ahead](./game-forfeit.md) describes how to use the deadline and [the FIFO](./game-fifo.md) to expire games that reach their deadline.
+You have created and updated the deadline. The [section two steps ahead](./game-forfeit.md) describes how to use the deadline.
 
 Before you can do that, there is one other field you need to add. Discover which in the [next section](./game-winner.md).
