@@ -64,7 +64,7 @@ Start with the event that announces the creation of a new game. The goal is to:
 
 Define new keys in `x/checkers/types/keys.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/types/keys.go#L34-L38]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6c16e72d/x/checkers/types/keys.go#L34-L38]
 const (
     StoredGameEventKey     = "NewGameCreated" // Indicates what key to listen to
     StoredGameEventCreator = "Creator"
@@ -76,7 +76,7 @@ const (
 
 Emit the event in your handler file `x/checkers/keeper/msg_server_create_game.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/keeper/msg_server_create_game.go#L39-L48]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6c16e72d/x/checkers/keeper/msg_server_create_game.go#L39-L48]
 ctx.EventManager().EmitEvent(
     sdk.NewEvent(sdk.EventTypeMessage,
         sdk.NewAttribute(sdk.AttributeKeyModule, "checkers"),
@@ -109,7 +109,7 @@ Contrary to the _create game_ event, which alerted the players about a new game,
 
 You define new keys in `x/checkers/types/keys.go` similarly:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/types/keys.go#L41-L48]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6c16e72d/x/checkers/types/keys.go#L41-L48]
 const (
     PlayMoveEventKey       = "MovePlayed"
     PlayMoveEventCreator   = "Creator"
@@ -122,7 +122,7 @@ const (
 
 Emit the event in your file `x/checkers/keeper/msg_server_play_move.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/keeper/msg_server_play_move.go#L66-L76]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6c16e72d/x/checkers/keeper/msg_server_play_move.go#L66-L76]
 ctx.EventManager().EmitEvent(
      sdk.NewEvent(sdk.EventTypeMessage,
         sdk.NewAttribute(sdk.AttributeKeyModule, "checkers"),
@@ -131,7 +131,7 @@ ctx.EventManager().EmitEvent(
         sdk.NewAttribute(types.PlayMoveEventIdValue, msg.IdValue),
         sdk.NewAttribute(types.PlayMoveEventCapturedX, strconv.FormatInt(int64(captured.X), 10)),
         sdk.NewAttribute(types.PlayMoveEventCapturedY, strconv.FormatInt(int64(captured.Y), 10)),
-        sdk.NewAttribute(types.PlayMoveEventWinner, game.Winner().Color),
+        sdk.NewAttribute(types.PlayMoveEventWinner, rules.PieceStrings[game.Winner()]),
     ),
 )
 ```
@@ -140,7 +140,7 @@ ctx.EventManager().EmitEvent(
 
 The unit tests you have created so far still pass. However you also want to confirm that the events have been emitted in both situations. The events are recorded in the context, so the test is a little bit different. In `msg_server_create_game_test.go`, add this test:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/keeper/msg_server_create_game_test.go#L83-L106]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6c16e72d/x/checkers/keeper/msg_server_create_game_test.go#L83-L106]
 func TestCreate1GameEmitted(t *testing.T) {
     msgSrvr, _, context := setupMsgServerCreateGame(t)
     msgSrvr.CreateGame(context, &types.MsgCreateGame{
@@ -177,7 +177,7 @@ How can you _guess_ the order of elements? Easily, as you created them in this o
 
 The event emitted during a move may seem unexpected. In a _move_ unit test, two actions occur: a _create_, and a _move_. However, in the setup of this test you do not create blocks but _only_ hit your keeper. Therefore the context collects events but does not flush them. This is why you need to test only for the latter attributes, and verify an array slice that discards events that originate from the _create_ action: `event.Attributes[6:]`. This gives the following test:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/f026b947/x/checkers/keeper/msg_server_play_move_test.go#L127-L152]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6c16e72d/x/checkers/keeper/msg_server_play_move_test.go#L127-L152]
 func TestPlayMoveEmitted(t *testing.T) {
     msgServer, _, context := setupMsgServerWithOneGameForPlayMove(t)
     msgServer.PlayMove(context, &types.MsgPlayMove{
@@ -201,7 +201,7 @@ func TestPlayMoveEmitted(t *testing.T) {
         {Key: "IdValue", Value: "1"},
         {Key: "CapturedX", Value: "-1"},
         {Key: "CapturedY", Value: "-1"},
-        {Key: "Winner", Value: "NO_PLAYER"},
+        {Key: "Winner", Value: "*"},
     }, event.Attributes[6:])
 }
 ```
@@ -218,7 +218,7 @@ The log is longer and not very readable, but the expected elements are present:
 
 ```
 ...
-raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"PlayMove"},{"key":"module","value":"checkers"},{"key":"action","value":"MovePlayed"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"0"},{"key":"CapturedX","value":"-1"},{"key":"CapturedY","value":"-1"},{"key":"Winner","value":"NO_PLAYER"}]}]}]'
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"PlayMove"},{"key":"module","value":"checkers"},{"key":"action","value":"MovePlayed"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"0"},{"key":"CapturedX","value":"-1"},{"key":"CapturedY","value":"-1"},{"key":"Winner","value":"*"}]}]}]'
 ```
 
 To parse the events and display them in a more user-friendly way, take the `txhash` again:
@@ -266,7 +266,7 @@ This returns something like:
           },
           {
             "key": "Winner",
-            "value": "NO_PLAYER"
+            "value": "*"
           }
         ]
       }
@@ -304,7 +304,7 @@ This returns:
 
 ```
 ...
-raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"PlayMove"},{"key":"module","value":"checkers"},{"key":"action","value":"MovePlayed"},{"key":"Creator","value":"cosmos1w0uumlj04eyvevhfawasm2dtjc24nexxygr8qx"},{"key":"IdValue","value":"0"},{"key":"CapturedX","value":"1"},{"key":"CapturedY","value":"4"},{"key":"Winner","value":"NO_PLAYER"}]}]}]'
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"PlayMove"},{"key":"module","value":"checkers"},{"key":"action","value":"MovePlayed"},{"key":"Creator","value":"cosmos1w0uumlj04eyvevhfawasm2dtjc24nexxygr8qx"},{"key":"IdValue","value":"0"},{"key":"CapturedX","value":"1"},{"key":"CapturedY","value":"4"},{"key":"Winner","value":"*"}]}]}]'
 ```
 
 When formatted for clarity, you see the following::
@@ -346,7 +346,7 @@ When formatted for clarity, you see the following::
           },
           {
             "key": "Winner",
-            "value": "NO_PLAYER"
+            "value": "*"
           }
         ]
       }
