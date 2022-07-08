@@ -10,6 +10,7 @@
   "scripts": {
     "serve": "vuepress dev --no-cache",
     "build": "vuepress build --no-cache",
+    "build:ida": "make build-ida-website",
     "link:check": "npx check-md",
     "link:fix": "npx check-md --fix"
   },
