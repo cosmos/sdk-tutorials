@@ -23,7 +23,7 @@ Ideas: https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html#running-v
 
 About invariants. Ideas: https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html#verify-mainnet
 
-Explorers.
+Explorers: Prometheus and Grafana.
 
 ## Interact
 
