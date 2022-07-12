@@ -110,7 +110,7 @@ simd start
 For creating a group you must decide who is the admin and who are the members.
 Each members has a voting weight that is used to calculate their voting power in the group.
 
-Let's create a `members.json` file that contains group memebers of an association.
+Let's create a `members.json` file that contains group memebers of a football association.
 Replace `aliceaddr` and `bobaddr` by the address of Alice (`$ALICE_KEY`) and Bob (`$BOB_KEY`).
 
 
@@ -133,7 +133,7 @@ Replace `aliceaddr` and `bobaddr` by the address of Alice (`$ALICE_KEY`) and Bob
 
 
 ```sh
-simd tx group create-group $ALICE_KEY "my association" members.json
+simd tx group create-group $ALICE_KEY "best football association" members.json
 ```
 
 
@@ -144,14 +144,14 @@ simd query group groups-by-admin $ALICE_KEY
 simd query group group-members 1 # use the group id given by the previous command
 ```
 
-Nice! Our group has `my association` as medatada, Alice as group admin and having Alice and Bob as group members.
+Nice! Our group has `best football association` as medatada, Alice as group admin and having Alice and Bob as group members.
 
 ## Manage group members
 
 For updating the group members we send a transaction using the `update-group-members` command.
 We can add a member in our members.json for adding a group member or set a member voting weight to `0` for deleting the member.
 
-Let's add Carol, Carlos and Charlie as group member and remove Bob:
+Let's add Carol, Carlos and Charlie as group members and remove Bob:
 
 ```json
 {
@@ -174,12 +174,12 @@ Let's add Carol, Carlos and Charlie as group member and remove Bob:
         {
             "address": "carlosaddr",
             "weight": "1",
-            "metadata": "member"
+            "metadata": "player"
         },
                 {
             "address": "charlieaddr",
             "weight": "1",
-            "metadata": "member"
+            "metadata": "player"
         },
     ]
 }
@@ -195,50 +195,133 @@ We can verify that the group members are updated:
 simd query group group-members 1
 ```
 
-For more information what other transaction are possible with the group module, please refer to its help.
-
-```sh
-simd tx group --help
-```
-
 As an exercice, please re-add bob in the group and go to the next section.
 
-## Vote on proposal
+## Create group policy
 
-Now that we have a group with a few members, let's submit our first group proposal.
-Like for members management, we need to create a `proposals.json` file that contains the proposal.
+Next we need to decide of a group policy. This defines how long a proposal can be voted on and how the outcome is calculated.
+Here we use the `ThresholdDecisionPolicy`, it defines a threshold of yes votes (based on a tally of voter weights) that must be achieved in order for a proposal to pass.
+
+Following is the content of the `policy.json`. Proposals can be voted on for a maximum of 10 minutes.
+A proposal requires only one vote to pass.
 
 ```json
 {
-    "group_policy_address": "cosmos1...",
-    // array of proto-JSON-encoded sdk.Msgs
-    "messages": [
-        {
-            "@type": "/cosmos.bank.v1beta1.MsgSend",
-            "from_address": "cosmos1...",
-            "to_address": "cosmos1...",
-            "amount": [
-                {
-                    "denom": "stake",
-                    "amount": "10"
-                }
-            ]
-        }
-    ],
-    "metadata": "4pIMOgIGx1vZGU=", // base64-encoded metadata
-    "proposers": [ "cosmos1...", "cosmos1..."],
+    "@type": "/cosmos.group.v1.ThresholdDecisionPolicy",
+    "threshold": "1",
+    "windows": {
+        "voting_period": "10m",
+        "min_execution_period": "0s"
+    }
 }
 ```
 
 
 ```sh
-simd tx group submit-proposal proposal.json
+simd tx group create-group-policy $ALICE_KEY 1 "" policy.json
 ```
 
-## Change group policy
+Let's verify our newly created group policy and save its address for future use:
+
+```sh
+simd query group group-policies-by-group 1
+export GROUP_POLICY_ADDRESS=$(simd query group group-policies-by-group 1 --output json | jq -r '.group_policies[0].address')
+```
+
+## Vote on proposal
+
+Now that we have a group with a few members and a group policy, let's submit our first group proposal.
+Like for members management, we need to create a `proposal.json` file that contains the proposal.
+
+A proposal can be of any message. For this tutorial we continue with our example of an association.
+The treasurer, Bob, wants to send money to a third-party to pay the bills and creates a `proposal.json`:
+
+
+```json
+{
+    "group_policy_address": "cosmos1..." , // the $GROUP_POLICY_ADDRESS
+    // array of proto-JSON-encoded sdk.Msgs
+    "messages": [
+        {
+            "@type": "/cosmos.bank.v1beta1.MsgSend",
+            "from_address": "cosmos1...", // the $GROUP_POLICY_ADDRESS
+            "to_address": "cosmos1zyzu35rmctfd2fqnnytthheugqs96qxsne67ad", // a third-party
+            "amount": [
+                {
+                    "denom": "stake",
+                    "amount": "100"
+                }
+            ]
+        }
+    ],
+    "metadata": "costs utilities",
+    "proposers": [ "cosmos1..." ] // $BOB_KEY
+}
+```
+
+This proposal, if pass, will send 100 stake to cosmos1zyzu35rmctfd2fqnnytthheugqs96qxsne67ad to pay the bills.
+The tokens will be sent from the decision policy address.
+
+::: tip
+The decision policy has no fund yet. We can fund it by sending a transaction with `simd tx bank send alice $GROUP_POLICY_ADDRESS 100stake`.
+:::
+
+
+```sh
+simd tx group submit-proposal proposal.json --from bob
+```
+
+## View and vote on proposals
+
+Let's see the proposal of our football association:
+
+```sh
+simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS
+```
+
+We can see our proposal has been submitted.
+
+Next we have Alice and Bob vote `Yes` on it and verify that our two votes are tallied:
+
+```sh
+simd tx group vote 1 $ALICE_KEY VOTE_OPTION_YES "agree"
+simd tx group vote 1 $BOB_KEY VOTE_OPTION_YES "agree"
+simd query group tally-result 1
+```
+
+After 10 minutes our proposal will have passed, as the number of `Yes` votes are above the decision policy thresold:
+
+```sh
+simd query group proposal 1
+```
+
+By default proposal are not executed immediately so let's do that now:
+
+```sh
+simd tx group exec 1 --from alice
+```
+
+Verify that the proposal has been executed and the tokens have been sent:
+
+
+```sh
+simd query bank balances cosmos1zyzu35rmctfd2fqnnytthheugqs96qxsne67ad
+```
 
 ## 🎉 Congratulations 🎉
 
-You are up to speed! You've learned how to create a group, manage its members and submit and vote on a group proposal.
+By completing this tutorial, you have learned how to use the `group` module:
 
-To learn more about the implementation group module, check out the [group](https://docs.cosmos.network/main/modules/group) module developer documentation.
+* Create a group
+* Manage its members
+* Submit a group proposal
+* Vote on a proposal
+
+For more information what else you can do with the CLI, please refer to its help.
+
+```sh
+simd tx group --help
+simd query group --help
+```
+
+To learn more about the group module specs, check out the [group](https://docs.cosmos.network/main/modules/group) module developer documentation.
