@@ -74,7 +74,7 @@ Set the chain ID:
 simd config chain-id demo
 ```
 
-Set the [keyring backend](https://docs.cosmos.network/v0.42/run-node/keyring.html#the-test-backend):
+Set the [keyring backend](https://docs.cosmos.network/v0.44/run-node/keyring.html#the-test-backend):
 
 ```sh
 simd config keyring-backend test
