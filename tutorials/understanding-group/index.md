@@ -11,10 +11,10 @@ The [`group`](https://docs.cosmos.network/v0.46/modules/group/) module enables t
 
 ## Usage of the group module
 
-When the group module is enabled in a chain (say the Cosmos Hub), this means that users can create groups and submit group proposal.
+When the group module is enabled in a chain (say the Cosmos Hub), this means that users can create groups and submit a group proposal.
 This means that any group of users can be part of a group and vote on the group proposal. You can think of it as an enhanced multisig or DAO.
 
-Before starting let's first review a few terminology:
+Before starting, let's first review a few terminologies:
 
 * **Group Admin**: the person that creates the group is the group administrator. The group administrator is the person who can add, remove and change the group members, but does not need to be part of the group itself. Chose it wisely.
 * **[Group Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#group-policy)**: 
@@ -27,10 +27,10 @@ After that you'll be able to create your own on-chain DAO for your own use case.
 ## Requirements
 
 The group module has been introduced in the [v0.46.0 release](https://docs.cosmos.network/v0.46/modules/group/) of the Cosmos SDK.
-In order to follow the tutorial you must use the binary of a chain with the group module, using a v0.46+ version of the SDK.
-For demonstration purposes we will use `simd`, the simulation app of the Cosmos SDK.
+In order to follow the tutorial, you must use the binary of a chain with the group module, using a v0.46+ version of the SDK.
+For demonstration purposes, we will use `simd`, the simulation app of the Cosmos SDK.
 
-For installing `simd`, first clone the github repository:
+For installing `simd`, first clone the Cosmos SDK GitHub repository:
 
 ```sh
 git clone https://github.com/cosmos/cosmos-sdk --depth=1 
@@ -107,10 +107,10 @@ simd start
 
 ## Create a group
 
-For creating a group you must decide who is the admin and who are the members.
-Each members has a voting weight that is used to calculate their voting power in the group.
+For creating a group, we must decide who is the admin and who are the members.
+All members have a voting weight that is used to calculate their voting power in the group.
 
-Let's create a `members.json` file that contains group memebers of a football association.
+Let's create a `members.json` file that contains group members of a football association.
 Replace `aliceaddr` and `bobaddr` by the address of Alice (`$ALICE_KEY`) and Bob (`$BOB_KEY`).
 
 
@@ -144,12 +144,12 @@ simd query group groups-by-admin $ALICE_KEY
 simd query group group-members 1 # use the group id given by the previous command
 ```
 
-Nice! Our group has `best football association` as medatada, Alice as group admin and having Alice and Bob as group members.
+Nice! Our group has `best football association` as metadata, Alice as group admin and having Alice and Bob as group members.
 
 ## Manage group members
 
-For updating the group members we send a transaction using the `update-group-members` command.
-We can add a member in our members.json for adding a group member or set a member voting weight to `0` for deleting the member.
+For updating the group members, we send a transaction using the `update-group-members` command.
+We can add a member in our members.json for adding a group member, or set a member voting weight to `0` for deleting the member.
 
 Let's add Carol, Carlos and Charlie as group members and remove Bob:
 
@@ -233,8 +233,8 @@ export GROUP_POLICY_ADDRESS=$(simd query group group-policies-by-group 1 --outpu
 Now that we have a group with a few members and a group policy, let's submit our first group proposal.
 Like for members management, we need to create a `proposal.json` file that contains the proposal.
 
-A proposal can be of any message. For this tutorial we continue with our example of an association.
-The treasurer, Bob, wants to send money to a third-party to pay the bills and creates a `proposal.json`:
+A proposal can be of any message. For this tutorial, we continue with our example of an association.
+The treasurer, Bob, wants to send money to a third party to pay the bills and creates a `proposal.json`:
 
 
 ```json
@@ -281,7 +281,7 @@ simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS
 
 We can see our proposal has been submitted.
 
-Next we have Alice and Bob vote `Yes` on it and verify that our two votes are tallied:
+Next, we have Alice and Bob vote `Yes` on it and verify that our two votes are tallied:
 
 ```sh
 simd tx group vote 1 $ALICE_KEY VOTE_OPTION_YES "agree"
@@ -289,7 +289,7 @@ simd tx group vote 1 $BOB_KEY VOTE_OPTION_YES "agree"
 simd query group tally-result 1
 ```
 
-After 10 minutes our proposal will have passed, as the number of `Yes` votes are above the decision policy thresold:
+After 10 minutes, our proposal should have passed, as the number of `Yes` votes are above the decision policy threshold:
 
 ```sh
 simd query group proposal 1
