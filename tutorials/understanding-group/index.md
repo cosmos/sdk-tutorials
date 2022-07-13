@@ -281,7 +281,7 @@ simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS
 
 You can see that your proposal has been submitted.
 
-Next, we have Alice and Bob vote `Yes` on it and verify that our two votes are tallied:
+Next, have Alice and Bob vote _Yes_ on the proposal and verify that both their votes are tallied:
 
 ```sh
 simd tx group vote 1 $ALICE_KEY VOTE_OPTION_YES "agree"
