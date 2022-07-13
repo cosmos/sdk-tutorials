@@ -2,7 +2,7 @@
 parent:
 title: Understanding the Group Module
 order: 0
-description: Use the Cosmos SDK group module to create and manage on-chain multisig accounts and enables voting for message execution based on configurable decision policies.
+description: Use the Cosmos SDK group module to create and manage on-chain multisig accounts and enable voting for message execution based on configurable decision policies.
 ---
 
 # Group Module
