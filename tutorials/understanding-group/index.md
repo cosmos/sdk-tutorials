@@ -21,7 +21,7 @@ Before starting, let's first review some terminology:
 * **[Decision Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#decision-policy)**: a policy that defines how the group members can vote on a proposal and how the vote outcome is calculated.
 * **Proposal**: A group proposal works the same way as a governance proposal: group members can submit proposals to the group and vote on proposals with a *Yes*, *No*, *No with Veto* and *Abstain*.
 
-In this tutorial, we will learn how to create groups, manage its members and submit and vote on a group proposal.
+In this tutorial, you will learn how to create a group, manage its members, submit a group proposal and vote on it.
 After that you'll be able to create your own on-chain DAO for your own use case.
 
 ## Requirements
