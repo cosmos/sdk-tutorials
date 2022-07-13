@@ -12,7 +12,7 @@ The [`group`](https://docs.cosmos.network/v0.46/modules/group/) module enables t
 ## Usage of the group module
 
 When the group module is enabled in a chain (say the Cosmos Hub), this means that users can create groups and submit a group proposal.
-This means that any group of users can be part of a group and vote on the group proposal. You can think of it as an enhanced multisig or DAO.
+This means that any number of users can be part of a group and vote on the group proposal. You can think of it as an enhanced multisig or DAO.
 
 Before starting, let's first review a few terminologies:
 
