@@ -11,13 +11,13 @@ The [`group`](https://docs.cosmos.network/v0.46/modules/group/) module enables t
 
 ## Usage of the group module
 
-When the group module is enabled in a chain (say the Cosmos Hub), this means that users can create groups and submit a group proposal.
-This means that any number of users can be part of a group and vote on the group proposal. You can think of it as an enhanced multisig or DAO.
+When the group module is enabled in a chain (say the Cosmos Hub), this means that users can create groups and submit group proposals.
+This means that any number of users can be part of a group and vote on the group's proposals. You can think of it as an enhanced multisig or DAO.
 
 Before starting, let's first review some terminology:
 
-* **Group Admin**: the account that creates the group is the group administrator. The group administrator is the account who can add, remove and change the group members, but does not need to be a member of the group itself. Choose it wisely.
-* **[Group Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#group-policy)**: a group policy is an account associated with a group and a decision policy. In order to perform action on this account, a proposal must be approved by the majority of the group members; or as defined in the decision policy. Note, a group can have multiple group policies.
+* **Group Admin**: the account that creates the group is the group administrator. The group administrator is the account that can add, remove and change the group members, but does not need to be a member of the group itself. Choose it wisely.
+* **[Group Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#group-policy)**: a group policy is an account associated with a group and a decision policy. In order to perform actions on this account, a proposal must be approved by a majority of the group members; or as defined in the decision policy. For the avoidance of doubt, note that a group can have multiple group policies.
 * **[Decision Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#decision-policy)**: a policy that defines how the group members can vote on a proposal and how the vote outcome is calculated.
 * **Proposal**: A group proposal works the same way as a governance proposal: group members can submit proposals to the group and vote on proposals with a _Yes_, _No_, _No with Veto_ and _Abstain_.
 
@@ -117,7 +117,6 @@ All members have a voting weight that is used to calculate their voting power in
 Create a `members.json` file that contains group members of a football association.
 Replace `aliceaddr` and `bobaddr` with the literal addresses of Alice (`$ALICE`) and Bob (`$BOB`) respectively.
 
-
 ```json
 {
     "members": [
@@ -134,6 +133,8 @@ Replace `aliceaddr` and `bobaddr` with the literal addresses of Alice (`$ALICE`)
     ]
 }
 ```
+
+For the avoidance of doubt, in the JSON above, Alice is labeled with some metadata that identifies her as the `"president"`. The presence of this metadata does not make her the administrator of the group. It only identifies her as a member of the group. Presumably one to whom the group's other members will look up.
 
 Create  the group:
 
@@ -155,23 +156,23 @@ The previous command output showed that the group has an `id`. Use that `id` for
 simd query group group-members $GROUP_ID
 ```
 
-Nice! Our group has `best football association` as metadata, Alice as group admin, and Alice and Bob as group members.
+Nice! Your group has `best football association` as metadata (which you can recall with the `group-info` command), Alice as group admin, and Alice and Bob as group members.
 
 ## Manage group members
 
-To update the group's members, you send a transaction using the `update-group-members` command.
-You can add a member in your `members.json` to add a group member, or set a member's voting weight to `0` to delete the member.
-Unchanged members do not need to be included in the `members.json`.
+To update the group's members, you send a transaction using the `update-group-members` command and a JSON file modeled on the previous `members.json`. The file only needs to contain the changes to the membership. Unchanged members do not need to be included in the `members_updates.json`.
 
-Let's add Carol, Dave and Emma as group members and remove Bob:
+To add a member to the group, you mention it in the JSON, and to remove a member from the group, you mention it and set this member's voting weight to `0`.
+
+Let's add Carol, Dave and Emma as group members and remove Bob. Create `members_update.json` with:
 
 ```json
 {
     "members": [
         {
             "address": "bobaddr", // $BOB
-            "weight": "0", // this deletes bob
-            "metadata": "treasurer"
+            "weight": "0" // this deletes bob
+            // The metadata does not need to be mentioned
         },
         {
             "address": "caroladdr",
@@ -193,7 +194,7 @@ Let's add Carol, Dave and Emma as group members and remove Bob:
 ```
 
 ```sh
-simd tx group update-group-members $ALICE $GROUP_ID members.json
+simd tx group update-group-members $ALICE $GROUP_ID members_updates.json
 ```
 
 You can verify that the group members are updated:
@@ -207,7 +208,7 @@ As an exercise, please add Bob back in the group and go to the next section.
 ## Create a group policy
 
 Next you need to decide on a group policy. This defines how long a proposal can be voted on and how its outcome is calculated.
-Here you use the `ThresholdDecisionPolicy`. It defines the threshold that the tally of weighted _yes_ votes must reach in order for a proposal to pass. Each member's vote is weighted by its weight as defined in the group.
+Here you use the [`ThresholdDecisionPolicy`](https://github.com/cosmos/cosmos-sdk/blob/release/v0.46.x/proto/cosmos/group/v1/types.proto#L53-L62). It defines the threshold that the tally of weighted _yes_ votes must reach in order for a proposal to pass. Each member's vote is weighted by its weight as defined in the group.
 
 Following is the content of the `policy.json`. It states that:
 
@@ -225,6 +226,7 @@ Following is the content of the `policy.json`. It states that:
 }
 ```
 
+Have the group administrator create the group policy with metadata that identifies it as one with a quick turnaround:
 
 ```sh
 simd tx group create-group-policy $ALICE $GROUP_ID "" policy.json
