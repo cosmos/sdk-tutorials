@@ -37,25 +37,25 @@ Before you start the tutorial, you need to install the `simd` binary.
 Clone the `cosmos-sdk` repository:
 
 ```sh
-git clone https://github.com/cosmos/cosmos-sdk
+$ git clone https://github.com/cosmos/cosmos-sdk
 ```
 
 Change directories and check out `v0.44.0`:
 
 ```sh
-cd cosmos-sdk && git checkout v0.44.0
+$ cd cosmos-sdk && git checkout v0.44.0
 ```
 
 Install the `simd` binary:
 
 ```sh
-make install
+$ make install
 ```
 
 Check to make sure the installation was successful:
 
 ```sh
-simd version
+$ simd version
 ```
 
 The version number `0.44.0` is output to the console.
@@ -71,13 +71,13 @@ Run the following commands to configure the `simd` binary.
 Set the chain ID:
 
 ```sh
-simd config chain-id demo
+$ simd config chain-id demo
 ```
 
-Set the [keyring backend](https://docs.cosmos.network/v0.44/run-node/keyring.html#the-test-backend):
+Set the [keyring backend](https://docs.cosmos.network/v0.42/run-node/keyring.html#the-test-backend):
 
 ```sh
-simd config keyring-backend test
+$ simd config keyring-backend test
 ```
 
 ## Key Setup
@@ -87,19 +87,19 @@ You'll have to create a few test keys for your users.
 Add a key for Alice, the validator:
 
 ```sh
-simd keys add alice
+$ simd keys add alice
 ```
 
 Add a key for Bob, the grantee:
 
 ```sh
-simd keys add bob
+$ simd keys add bob
 ```
 
 If you'd like to see an overview of your keys, use:
 
 ```sh
-simd keys list
+$ simd keys list
 ```
 
 ::: tip
@@ -107,8 +107,8 @@ To avoid having to copy and paste the user addresses, now is a good time to expo
 :::
 
 ```sh
-export ALICE_KEY=$(simd keys show alice -a)
-export BOB_KEY=$(simd keys show bob -a)
+$ export ALICE_KEY=$(simd keys show alice -a)
+$ export BOB_KEY=$(simd keys show bob -a)
 ```
 
 ## Chain Setup
@@ -118,19 +118,19 @@ The following commands set up a chain using the simulation application (`simapp`
 Initialize the node:
 
 ```sh
-simd init test --chain-id demo
+$ simd init test --chain-id demo
 ```
 
 Alice is your validator. Add Alice and an initial balance to the genesis file:
 
 ```sh
-simd add-genesis-account alice 5000000000stake --keyring-backend test
+$ simd add-genesis-account alice 5000000000stake --keyring-backend test
 ```
 
 Add Bob and an initial balance to the genesis file:
 
 ```sh
-simd add-genesis-account bob 2000kudos --keyring-backend test
+$ simd add-genesis-account bob 2000kudos --keyring-backend test
 ```
 
 Note that Bob has only `kudos` tokens and is not able to pay for any fees that might be needed.
@@ -138,13 +138,13 @@ Note that Bob has only `kudos` tokens and is not able to pay for any fees that m
 Generate a transaction to add Alice to the initial validator set:
 
 ```sh
-simd gentx alice 1000000stake --chain-id demo
+$ simd gentx alice 1000000stake --chain-id demo
 ```
 
 Add the validator transaction to the genesis file:
 
 ```sh
-simd collect-gentxs
+$ simd collect-gentxs
 ```
 
 ## Start Chain
@@ -154,7 +154,7 @@ You are now ready to start a single node network on your local machine.
 Start the chain:
 
 ```sh
-simd start
+$ simd start
 ```
 
 ## Grant Allowance
@@ -164,13 +164,13 @@ Before Bob can send `kudos` to Alice, you must set up an allowance for Bob so th
 The `BasicAllowance` is a permission for a grantee to use up fees until the `spend_limit` or `expiration` is reached. Open up a new terminal window and create an allowance with a spend limit of `100000stake` and no expiration date:
 
 ```sh
-simd tx feegrant grant $ALICE_KEY $BOB_KEY --from alice --spend-limit 100000stake
+$ simd tx feegrant grant $ALICE_KEY $BOB_KEY --from alice --spend-limit 100000stake
 ```
 
 View the allowance:
 
 ```sh
-simd query feegrant grants $BOB_KEY
+$ simd query feegrant grants $BOB_KEY
 ```
 
 ## Send Tokens
@@ -178,8 +178,8 @@ simd query feegrant grants $BOB_KEY
 First, let's check the balances of Alice and Bob. Verifying the initial balance provides a baseline so that you can later confirm if your transaction was successful:
 
 ```sh
-simd query bank balances $ALICE_KEY
-simd query bank balances $BOB_KEY
+$ simd query bank balances $ALICE_KEY
+$ simd query bank balances $BOB_KEY
 ```
 
 Note that Alice has `4999000000stake` because she bonded `1000000stake` to become a validator during the chain setup.
@@ -189,14 +189,14 @@ Any transaction that is sent using the `tx` command can use the `--fee-account` 
 Send `kudos` tokens from Bob to Alice, while Alice pays the fees:
 
 ```sh
-simd tx bank send $BOB_KEY $ALICE_KEY 100kudos --from bob --fee-account $ALICE_KEY --fees 500stake
+$ simd tx bank send $BOB_KEY $ALICE_KEY 100kudos --from bob --fee-account $ALICE_KEY --fees 500stake
 ```
 
 Look at the balances again:
 
 ```sh
-simd query bank balances $ALICE_KEY
-simd query bank balances $BOB_KEY
+$ simd query bank balances $ALICE_KEY
+$ simd query bank balances $BOB_KEY
 ```
 
 Notice how Alice has `500stake` less than before. The `500stake` was added to the transaction that Bob signed.
@@ -204,7 +204,7 @@ Notice how Alice has `500stake` less than before. The `500stake` was added to th
 View the allowance again:
 
 ```sh
-simd query feegrant grants $BOB_KEY
+$ simd query feegrant grants $BOB_KEY
 ```
 
 Note how `spend_limit` has been reduced and Bob now has `99500stake` left to spend on fees.
@@ -216,13 +216,13 @@ The granter can revoke the allowance from the grantee using the `revoke` command
 Revoke allowance:
 
 ```sh
-simd tx feegrant revoke $ALICE_KEY $BOB_KEY --from alice
+$ simd tx feegrant revoke $ALICE_KEY $BOB_KEY --from alice
 ```
 
 View the allowance:
 
 ```sh
-simd query feegrant grants $BOB_KEY
+$ simd query feegrant grants $BOB_KEY
 ```
 
 ## 🎉 Congratulations 🎉

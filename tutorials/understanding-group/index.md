@@ -19,7 +19,7 @@ Before starting, let's first review some terminology:
 * **Group Admin**: the account that creates the group is the group administrator. The group administrator is the account who can add, remove and change the group members, but does not need to be a member of the group itself. Choose it wisely.
 * **[Group Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#group-policy)**: a group policy is an account associated with a group and a decision policy. In order to perform action on this account, a proposal must be approved by the majority of the group members; or as defined in the decision policy.
 * **[Decision Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#decision-policy)**: a policy that defines how the group members can vote on a proposal and how the vote outcome is calculated.
-* **Proposal**: A group proposal works the same way as a governance proposal: group members can submit proposals to the group and vote on proposals with a *Yes*, *No*, *No with Veto* and *Abstain*.
+* **Proposal**: A group proposal works the same way as a governance proposal: group members can submit proposals to the group and vote on proposals with a _Yes_, _No_, _No with Veto_ and _Abstain_.
 
 In this tutorial, you will learn how to create a group, manage its members, submit a group proposal and vote on it.
 After that you'll be able to create your own on-chain DAO for your own use case.
@@ -205,7 +205,7 @@ As an exercise, please add Bob back in the group and go to the next section.
 ## Create a group policy
 
 Next you need to decide on a group policy. This defines how long a proposal can be voted on and how its outcome is calculated.
-Here you use the `ThresholdDecisionPolicy`. It defines the threshold that the tally of weighted *yes* votes must reach in order for a proposal to pass. Each member's vote is weighted by its weight as defined in the group.
+Here you use the `ThresholdDecisionPolicy`. It defines the threshold that the tally of weighted _yes_ votes must reach in order for a proposal to pass. Each member's vote is weighted by its weight as defined in the group.
 
 Following is the content of the `policy.json`. It states that:
 
@@ -290,7 +290,7 @@ simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS
 
 You can see that your proposal has been submitted.
 
-Next, have Alice and Bob vote *Yes* on the proposal and verify that both their votes are tallied:
+Next, have Alice and Bob vote _Yes_ on the proposal and verify that both their votes are tallied:
 
 ```sh
 simd tx group vote 1 $ALICE VOTE_OPTION_YES "agree"
@@ -298,7 +298,7 @@ simd tx group vote 1 $BOB VOTE_OPTION_YES "agree"
 simd query group tally-result 1
 ```
 
-Wait for the policy-prescribed 10 minutes, after which your proposal should have passed, as the weighted tally of *Yes* votes is above the decision policy threshold:
+Wait for the policy-prescribed 10 minutes, after which your proposal should have passed, as the weighted tally of _Yes_ votes is above the decision policy threshold:
 
 ```sh
 simd query group proposal 1

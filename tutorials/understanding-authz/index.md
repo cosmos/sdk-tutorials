@@ -24,25 +24,25 @@ Before you start the tutorial, you need to install the `simd` binary.
 Clone the `cosmos-sdk` repository:
 
 ```sh
-git clone https://github.com/cosmos/cosmos-sdk
+$ git clone https://github.com/cosmos/cosmos-sdk
 ```
 
 Change directories and check out `v0.44.0`:
 
 ```sh
-cd cosmos-sdk && git checkout v0.44.0
+$ cd cosmos-sdk && git checkout v0.44.0
 ```
 
 Install the `simd` binary:
 
 ```sh
-make install
+$ make install
 ```
 
 Check to make sure the installation was successful:
 
 ```sh
-simd version
+$ simd version
 ```
 
 You should see `0.44.0` printed to the console.
@@ -60,13 +60,13 @@ Run the following commands to configure the `simd` binary.
 Set the chain ID:
 
 ```sh
-simd config chain-id demo
+$ simd config chain-id demo
 ```
 
 Set the keyring backend:
 
 ```sh
-simd config keyring-backend test
+$ simd config keyring-backend test
 ```
 
 ## Key Setup
@@ -76,19 +76,19 @@ Create a couple of test keys. Use the `--recover` option so that the addresses u
 Add a key for Alice:
 
 ```sh
-simd keys add alice --recover
+$ simd keys add alice --recover
 ```
 
 Enter the following mnemonic:
 
-```
+```txt
 plunge hundred health electric victory foil marine elite shiver tonight away verify vacuum giant pencil ocean nest pledge okay endless try spirit special start
 ```
 
 Add a key for Bob:
 
 ```sh
-simd keys add bob --recover
+$ simd keys add bob --recover
 ```
 
 Enter the following mnemonic:
@@ -104,31 +104,31 @@ The following commands set up a chain using the simulation application (`simapp`
 Initialize the node:
 
 ```sh
-simd init test --chain-id demo
+$ simd init test --chain-id demo
 ```
 
 Add Alice and an initial balance to the genesis file:
 
 ```sh
-simd add-genesis-account alice 5000000000stake --keyring-backend test
+$ simd add-genesis-account alice 5000000000stake --keyring-backend test
 ```
 
 Add Bob and an initial balance to the genesis file:
 
 ```sh
-simd add-genesis-account bob 5000000000stake --keyring-backend test
+$ simd add-genesis-account bob 5000000000stake --keyring-backend test
 ```
 
 Generate a transaction to add Alice to the initial validator set:
 
 ```sh
-simd gentx alice 1000000stake --chain-id demo
+$ simd gentx alice 1000000stake --chain-id demo
 ```
 
 Add the validator transaction to the genesis file:
 
 ```sh
-simd collect-gentxs
+$ simd collect-gentxs
 ```
 
 ## Start Chain
@@ -138,7 +138,7 @@ You are now ready to start a single node network on your local machine.
 Start the chain:
 
 ```sh
-simd start
+$ simd start
 ```
 
 ## Submit Proposal
@@ -148,13 +148,13 @@ To demonstrate an authorization to vote on a governance proposal, you must first
 Create proposal:
 
 ```sh
-simd tx gov submit-proposal --title="Test Authorization" --description="Is Bob authorized to vote?" --type="Text" --deposit="10000000stake" --from alice
+$ simd tx gov submit-proposal --title="Test Authorization" --description="Is Bob authorized to vote?" --type="Text" --deposit="10000000stake" --from alice
 ```
 
 View proposal:
 
 ```sh
-simd query gov proposal 1
+$ simd query gov proposal 1
 ```
 
 ## Grant Authorization
@@ -166,13 +166,13 @@ The authorization is a "generic" authorization, which is one that takes a messag
 Create authorization:
 
 ```sh
-simd tx authz grant cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt generic --msg-type /cosmos.gov.v1beta1.MsgVote --from alice
+$ simd tx authz grant cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt generic --msg-type /cosmos.gov.v1beta1.MsgVote --from alice
 ```
 
 View authorization:
 
 ```sh
-simd query authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote
+$ simd query authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote
 ```
 
 ## Generate Transaction
@@ -182,13 +182,13 @@ In order for the grantee to execute a message on behalf of the granter, the gran
 Create unsigned transaction:
 
 ```sh
-simd tx gov vote 1 yes --from cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh --generate-only > tx.json
+$ simd tx gov vote 1 yes --from cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh --generate-only > tx.json
 ```
 
 View transaction:
 
 ```sh
-cat tx.json
+$ cat tx.json
 ```
 
 ## Execute Transaction
@@ -198,13 +198,13 @@ Finally, the grantee can sign and send the transaction using the `exec` command.
 Sign and send transaction:
 
 ```sh
-simd tx authz exec tx.json --from bob
+$ simd tx authz exec tx.json --from bob
 ```
 
 View vote:
 
 ```sh
-simd query gov vote 1 cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh
+$ simd query gov vote 1 cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh
 ```
 
 ## Revoke Authorization
@@ -214,13 +214,13 @@ The granter can revoke the authorization from the grantee using the `revoke` com
 Revoke authorization:
 
 ```sh
-simd tx authz revoke cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote --from alice
+$ simd tx authz revoke cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote --from alice
 ```
 
 View authorization:
 
 ```sh
-simd query authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote
+$ simd query authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote
 ```
 
 ## 🎉 Congratulations 🎉
