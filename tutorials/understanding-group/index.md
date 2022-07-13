@@ -289,7 +289,7 @@ simd tx group vote 1 $BOB_KEY VOTE_OPTION_YES "agree"
 simd query group tally-result 1
 ```
 
-After 10 minutes, our proposal should have passed, as the number of `Yes` votes are above the decision policy threshold:
+Wait for the policy-prescribed 10 minutes, after which your proposal should have passed, as the weighted tally of _Yes_ votes is above the decision policy threshold:
 
 ```sh
 simd query group proposal 1
