@@ -13,13 +13,14 @@ There are six channels - each dedicated to a specific topic - where you can post
 ## How to join the Academy Discord
 
 Follow these steps to join the Academy Discord:
+
 1.  Join the official Cosmos Discord by clicking [here](https://discord.gg/cosmosnetwork).
 2.  Follow the verification process. It’s straightforward but if you need guidance, read [this article](https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839)
 3.  After joining the Discord, follow the link we sent you in your welcome email and enter your Discord ID. You will automatically be added to the private Discord area called "Interchain Developer Academy".
 
 If you have any problems, send us an [email](mailto:academy@interchain.io).
 
-## Interchain Developer Academy Channels on Discord:
+## Interchain Developer Academy Channels on Discord
 
 Within the Academy Discord, you'll find the following topic-specific channels:
 
