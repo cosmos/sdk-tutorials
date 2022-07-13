@@ -233,8 +233,8 @@ export GROUP_POLICY_ADDRESS=$(simd query group group-policies-by-group 1 --outpu
 Now that we have a group with a few members and a group policy, let's submit our first group proposal.
 Like for members management, we need to create a `proposal.json` file that contains the proposal.
 
-A proposal can be of any message. For this tutorial, we continue with our example of an association.
-The treasurer, Bob, wants to send money to a third party to pay the bills and creates a `proposal.json`:
+A proposal can contain any number of messages defined on the current blockchain. For this tutorial, you continue with your example of an association.
+The treasurer, Bob, who wants to send money to a third party to pay the bills, creates a `proposal.json`:
 
 
 ```json
