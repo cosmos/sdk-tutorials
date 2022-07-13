@@ -28,7 +28,7 @@ After that you'll be able to create your own on-chain DAO for your own use case.
 
 The group module has been introduced in the [v0.46.0 release](https://docs.cosmos.network/v0.46/modules/group/) of the Cosmos SDK.
 In order to follow the tutorial, you must use the binary of a chain with the group module, using a v0.46+ version of the SDK.
-For demonstration purposes, we will use `simd`, the simulation app of the Cosmos SDK.
+For demonstration purposes, you will use `simd`, the simulation app of the Cosmos SDK.
 
 For installing `simd`, first clone the Cosmos SDK GitHub repository:
 
