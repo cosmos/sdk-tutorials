@@ -30,7 +30,7 @@ The group module has been introduced in the [v0.46.0 release](https://docs.cosmo
 In order to follow the tutorial, you must use the binary of a chain with the group module, using a v0.46+ version of the SDK.
 For demonstration purposes, you will use `simd`, the simulation app of the Cosmos SDK.
 
-For installing `simd`, first clone the Cosmos SDK GitHub repository:
+To install `simd`, first clone the Cosmos SDK GitHub repository and checkout the right version:
 
 ```sh
 git clone https://github.com/cosmos/cosmos-sdk --depth=1 
