@@ -259,7 +259,7 @@ The treasurer, Bob, wants to send money to a third party to pay the bills and cr
 }
 ```
 
-This proposal, if pass, will send 100 stake to cosmos1zyzu35rmctfd2fqnnytthheugqs96qxsne67ad to pay the bills.
+This proposal, if passed, will send 100 `stake` to `cosmos1zyzu35rmctfd2fqnnytthheugqs96qxsne67ad` to pay the bills.
 The tokens will be sent from the decision policy address.
 
 ::: tip
