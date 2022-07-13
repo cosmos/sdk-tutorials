@@ -14,7 +14,7 @@ The [`group`](https://docs.cosmos.network/v0.46/modules/group/) module enables t
 When the group module is enabled in a chain (say the Cosmos Hub), this means that users can create groups and submit a group proposal.
 This means that any number of users can be part of a group and vote on the group proposal. You can think of it as an enhanced multisig or DAO.
 
-Before starting, let's first review a few terminologies:
+Before starting, let's first review some terminology:
 
 * **Group Admin**: the person that creates the group is the group administrator. The group administrator is the person who can add, remove and change the group members, but does not need to be part of the group itself. Chose it wisely.
 * **[Group Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#group-policy)**: 
