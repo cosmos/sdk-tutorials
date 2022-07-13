@@ -170,7 +170,7 @@ simd tx feegrant grant $ALICE_KEY $BOB_KEY --from alice --spend-limit 100000stak
 View the allowance:
 
 ```sh
-simd q feegrant grants $BOB_KEY
+simd query feegrant grants $BOB_KEY
 ```
 
 ## Send Tokens
@@ -178,8 +178,8 @@ simd q feegrant grants $BOB_KEY
 First, let's check the balances of Alice and Bob. Verifying the initial balance provides a baseline so that you can later confirm if your transaction was successful:
 
 ```sh
-simd q bank balances $ALICE_KEY
-simd q bank balances $BOB_KEY
+simd query bank balances $ALICE_KEY
+simd query bank balances $BOB_KEY
 ```
 
 Note that Alice has `4999000000stake` because she bonded `1000000stake` to become a validator during the chain setup.
@@ -195,8 +195,8 @@ simd tx bank send $BOB_KEY $ALICE_KEY 100kudos --from bob --fee-account $ALICE_K
 Look at the balances again:
 
 ```sh
-simd q bank balances $ALICE_KEY
-simd q bank balances $BOB_KEY
+simd query bank balances $ALICE_KEY
+simd query bank balances $BOB_KEY
 ```
 
 Notice how Alice has `500stake` less than before. The `500stake` was added to the transaction that Bob signed.
@@ -204,7 +204,7 @@ Notice how Alice has `500stake` less than before. The `500stake` was added to th
 View the allowance again:
 
 ```sh
-simd q feegrant grants $BOB_KEY
+simd query feegrant grants $BOB_KEY
 ```
 
 Note how `spend_limit` has been reduced and Bob now has `99500stake` left to spend on fees.
@@ -222,7 +222,7 @@ simd tx feegrant revoke $ALICE_KEY $BOB_KEY --from alice
 View the allowance:
 
 ```sh
-simd q feegrant grants $BOB_KEY
+simd query feegrant grants $BOB_KEY
 ```
 
 ## 🎉 Congratulations 🎉
