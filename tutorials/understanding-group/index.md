@@ -289,6 +289,7 @@ Check and verify the proposal of your football association:
 
 ```sh
 simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS
+export PROPOSAL_id=$(simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json | jq -r '.proposals[0].id')
 ```
 
 You can see that your proposal has been submitted.
@@ -296,15 +297,15 @@ You can see that your proposal has been submitted.
 Next, have Alice and Bob vote _Yes_ on the proposal and verify that both their votes are tallied:
 
 ```sh
-simd tx group vote $GROUP_ID $ALICE VOTE_OPTION_YES "agree"
-simd tx group vote $GROUP_ID $BOB VOTE_OPTION_YES "agree"
-simd query group tally-result $GROUP_ID
+simd tx group vote $PROPOSAL_ID $ALICE VOTE_OPTION_YES "agree"
+simd tx group vote $PROPOSAL_ID $BOB VOTE_OPTION_YES "agree"
+simd query group tally-result $PROPOSAL_ID
 ```
 
 Wait for the policy-prescribed 10 minutes, after which your proposal should have passed, as the weighted tally of _Yes_ votes is above the decision policy threshold:
 
 ```sh
-simd query group proposal 1
+simd query group proposal $PROPOSAL_ID
 ```
 
 By default proposals are not executed immediately. This is to account for the fact that not everything may be in place to successfully execute the proposal's messages. As you recall, you already funded the group policy. If you had not done it ahead of time, now would have been a good time to fund it.
@@ -312,7 +313,7 @@ By default proposals are not executed immediately. This is to account for the fa
 Execute the proposal now:
 
 ```sh
-simd tx group exec $GROUP_ID --from alice
+simd tx group exec $PROPOSAL_ID --from alice
 ```
 
 <HighlightBox type="note">
