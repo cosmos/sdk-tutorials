@@ -310,12 +310,13 @@ simd query bank balances cosmos1zyzu35rmctfd2fqnnytthheugqs96qxsne67ad
 
 ## 🎉 Congratulations 🎉
 
-By completing this tutorial, you have learned how to use the `group` module:
+By completing this tutorial, you have learned how to use the `group` module. In particular how to:
 
-* Create a group
-* Manage its members
-* Submit a group proposal
-* Vote on a proposal
+* Create a group.
+* Manage its members.
+* Add a group policy.
+* Submit a group proposal.
+* Vote on a proposal.
 
 For more information about what else you can do with the CLI, please refer to its help.
 
