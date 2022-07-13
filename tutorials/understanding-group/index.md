@@ -289,7 +289,7 @@ Check and verify the proposal of your football association:
 
 ```sh
 simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS
-export PROPOSAL_id=$(simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json | jq -r '.proposals[0].id')
+export PROPOSAL_ID=$(simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json | jq -r '.proposals[0].id')
 ```
 
 You can see that your proposal has been submitted.
