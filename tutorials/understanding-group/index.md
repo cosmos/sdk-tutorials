@@ -303,7 +303,6 @@ simd tx group exec 1 --from alice
 
 Verify that the proposal has been executed and the tokens have been sent:
 
-
 ```sh
 simd query bank balances cosmos1zyzu35rmctfd2fqnnytthheugqs96qxsne67ad
 ```
