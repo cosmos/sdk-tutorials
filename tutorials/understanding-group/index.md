@@ -317,7 +317,7 @@ By completing this tutorial, you have learned how to use the `group` module:
 * Submit a group proposal
 * Vote on a proposal
 
-For more information what else you can do with the CLI, please refer to its help.
+For more information about what else you can do with the CLI, please refer to its help.
 
 ```sh
 simd tx group --help
