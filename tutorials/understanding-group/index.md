@@ -33,7 +33,7 @@ For demonstration purposes, you will use `simd`, the simulation app of the Cosmo
 To install `simd`, first clone the Cosmos SDK GitHub repository and checkout the right version:
 
 ```sh
-git clone https://github.com/cosmos/cosmos-sdk --depth=1 
+git clone https://github.com/cosmos/cosmos-sdk --depth=1 --branch v0.46.0
 ```
 
 Go to the cloned directory and checkout the v0.46.0 release:
