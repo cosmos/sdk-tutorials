@@ -1,4 +1,4 @@
-**Instructions:** Please fill out the following items in brackets `[ ]`, check all items in the change scope list below and remove this line before submmitting your Pull Request.
+**Instructions:** Please fill out the following items in brackets `[ ]`, check all items in the change scope list below and remove this line before submitting your Pull Request.
 
 Documentation content update for [Module X, Section Y]
 
