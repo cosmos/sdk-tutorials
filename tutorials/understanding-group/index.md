@@ -19,7 +19,7 @@ Before starting, let's first review some terminology:
 * **Group Admin**: the account that creates the group is the group administrator. The group administrator is the account who can add, remove and change the group members, but does not need to be a member of the group itself. Choose it wisely.
 * **[Group Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#group-policy)**: 
 * **[Decision Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#decision-policy)**: a policy that defines how the group members can vote on a proposal and how the vote outcome is calculated.
-* **Proposal**: Groups proposal works the same way as governance proposal: group members can submit proposals to the group and vote with a *Yes*, *No*, *No with Veto* and *Abstain* on proposals.
+* **Proposal**: A group proposal works the same way as a governance proposal: group members can submit proposals to the group and vote on proposals with a *Yes*, *No*, *No with Veto* and *Abstain*.
 
 In this tutorial, we will learn how to create groups, manage its members and submit and vote on a group proposal.
 After that you'll be able to create your own on-chain DAO for your own use case.
