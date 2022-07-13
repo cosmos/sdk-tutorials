@@ -204,8 +204,8 @@ As an exercise, please add Bob back in the group and go to the next section.
 
 ## Create a group policy
 
-Next we need to decide of a group policy. This defines how long a proposal can be voted on and how the outcome is calculated.
-Here we use the `ThresholdDecisionPolicy`, it defines a threshold of yes votes (based on a tally of voter weights) that must be achieved in order for a proposal to pass.
+Next you need to decide on a group policy. This defines how long a proposal can be voted on and how its outcome is calculated.
+Here you use the `ThresholdDecisionPolicy`. It defines the threshold that the tally of weighted _yes_ votes must reach in order for a proposal to pass. Each member's vote is weighted by its weight as defined in the group.
 
 Following is the content of the `policy.json`. It states that:
 
