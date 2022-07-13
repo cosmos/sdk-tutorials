@@ -36,7 +36,7 @@ To install `simd`, first clone the Cosmos SDK GitHub repository and checkout the
 git clone https://github.com/cosmos/cosmos-sdk --depth=1 --branch v0.46.0
 ```
 
-Go to the cloned directory and checkout the v0.46.0 release:
+Go to the cloned directory:
 
 ```sh
 cd cosmos-sdk && git checkout v0.46.0
