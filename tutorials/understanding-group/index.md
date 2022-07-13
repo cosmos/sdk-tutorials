@@ -279,7 +279,7 @@ Let's see the proposal of our football association:
 simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS
 ```
 
-We can see our proposal has been submitted.
+You can see that your proposal has been submitted.
 
 Next, we have Alice and Bob vote `Yes` on it and verify that our two votes are tallied:
 
