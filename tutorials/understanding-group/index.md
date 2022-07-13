@@ -17,7 +17,7 @@ This means that any number of users can be part of a group and vote on the group
 Before starting, let's first review some terminology:
 
 * **Group Admin**: the account that creates the group is the group administrator. The group administrator is the account who can add, remove and change the group members, but does not need to be a member of the group itself. Choose it wisely.
-* **[Group Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#group-policy)**: a group policy is an account associated with a group and a decision policy. In order to perform action on this account, a proposal must be approved by the majority of the group members; or as defined in the decision policy.
+* **[Group Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#group-policy)**: a group policy is an account associated with a group and a decision policy. In order to perform action on this account, a proposal must be approved by the majority of the group members; or as defined in the decision policy. Note, a group can have multiple group policies.
 * **[Decision Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#decision-policy)**: a policy that defines how the group members can vote on a proposal and how the vote outcome is calculated.
 * **Proposal**: A group proposal works the same way as a governance proposal: group members can submit proposals to the group and vote on proposals with a _Yes_, _No_, _No with Veto_ and _Abstain_.
 
@@ -146,26 +146,28 @@ Query and verify the group that you just created:
 
 ```sh
 simd query group groups-by-admin $ALICE
-simd query group group-members 1 # use the group id given by the previous command
+export GROUP_ID=$(simd query group groups-by-admin $ALICE --output json | jq -r '.groups[0].id')
+```
+
+The previous command output showed that the group has an `id`. Use that `id` for querying the group members.
+
+```sh
+simd query group group-members $GROUP_ID
 ```
 
 Nice! Our group has `best football association` as metadata, Alice as group admin, and Alice and Bob as group members.
 
 ## Manage group members
 
-For updating the group members, we send a transaction using the `update-group-members` command.
-We can add a member in our members.json for adding a group member, or set a member voting weight to `0` for deleting the member.
+To update the group's members, you send a transaction using the `update-group-members` command.
+You can add a member in your `members.json` to add a group member, or set a member's voting weight to `0` to delete the member.
+Unchanged members do not need to be included in the `members.json`.
 
 Let's add Carol, Dave and Emma as group members and remove Bob:
 
 ```json
 {
     "members": [
-        {
-            "address": "aliceaddr", // $ALICE
-            "weight": "1",
-            "metadata": "president"
-        },
         {
             "address": "bobaddr", // $BOB
             "weight": "0", // this deletes bob
@@ -191,13 +193,13 @@ Let's add Carol, Dave and Emma as group members and remove Bob:
 ```
 
 ```sh
-simd tx group update-group-members $ALICE 1 members.json
+simd tx group update-group-members $ALICE $GROUP_ID members.json
 ```
 
 You can verify that the group members are updated:
 
 ```sh
-simd query group group-members 1
+simd query group group-members $GROUP_ID
 ```
 
 As an exercise, please add Bob back in the group and go to the next section.
@@ -225,23 +227,24 @@ Following is the content of the `policy.json`. It states that:
 
 
 ```sh
-simd tx group create-group-policy $ALICE 1 "" policy.json
+simd tx group create-group-policy $ALICE $GROUP_ID "" policy.json
 ```
 
 Verify your newly created group policy and save its address for future use:
 
 ```sh
-simd query group group-policies-by-group 1
-export GROUP_POLICY_ADDRESS=$(simd query group group-policies-by-group 1 --output json | jq -r '.group_policies[0].address')
+simd query group group-policies-by-group $GROUP_ID
+export GROUP_POLICY_ADDRESS=$(simd query group group-policies-by-group $GROUP_ID --output json | jq -r '.group_policies[0].address')
 ```
 
-## Vote on a proposal
+## Create a proposal
 
 Now that you have a group with a few members and a group policy, you submit your first group proposal.
 Like for members management, you need to create a `proposal.json` file that contains the proposal.
 
-A proposal can contain any number of messages defined on the current blockchain. For this tutorial, you continue with your example of an association.
-The treasurer, Bob, who wants to send money to a third party to pay the bills, creates a `proposal.json`:
+A proposal can contain any number of messages defined on the current blockchain.
+
+For this tutorial, you continue with your example of an association. The treasurer, Bob, who wants to send money to a third party to pay the bills, creates a `proposal.json`:
 
 
 ```json
@@ -293,9 +296,9 @@ You can see that your proposal has been submitted.
 Next, have Alice and Bob vote _Yes_ on the proposal and verify that both their votes are tallied:
 
 ```sh
-simd tx group vote 1 $ALICE VOTE_OPTION_YES "agree"
-simd tx group vote 1 $BOB VOTE_OPTION_YES "agree"
-simd query group tally-result 1
+simd tx group vote $GROUP_ID $ALICE VOTE_OPTION_YES "agree"
+simd tx group vote $GROUP_ID $BOB VOTE_OPTION_YES "agree"
+simd query group tally-result $GROUP_ID
 ```
 
 Wait for the policy-prescribed 10 minutes, after which your proposal should have passed, as the weighted tally of _Yes_ votes is above the decision policy threshold:
@@ -304,11 +307,20 @@ Wait for the policy-prescribed 10 minutes, after which your proposal should have
 simd query group proposal 1
 ```
 
-By default proposal are not executed immediately so let's do that now:
+By default proposals are not executed immediately. This is to account for the fact that not everything may be in place to successfully execute the proposal's messages. As you recall, you already funded the group policy. If you had not done it ahead of time, now would have been a good time to fund it.
+	
+Execute the proposal now:
 
 ```sh
-simd tx group exec 1 --from alice
+simd tx group exec $GROUP_ID --from alice
 ```
+
+<HighlightBox type="note">
+
+If there were any errors when executing the proposal messages, none of the messages will be executed and the proposal will be marked as _Failed_.
+
+</HighlightBox>
+
 
 Verify that the proposal has been executed and the tokens have been sent:
 
