@@ -33,25 +33,25 @@ For demonstration purposes, you will use `simd`, the simulation app of the Cosmo
 To install `simd`, first clone the Cosmos SDK GitHub repository and checkout the right version:
 
 ```sh
-git clone https://github.com/cosmos/cosmos-sdk --depth=1 --branch v0.46.0
+$ git clone https://github.com/cosmos/cosmos-sdk --depth=1 --branch v0.46.0
 ```
 
 Go to the cloned directory:
 
 ```sh
-cd cosmos-sdk
+$ cd cosmos-sdk
 ```
 
 Install `simd`
 
 ```sh
-make install
+$ make install
 ```
 
 Make sure the installation was successful:
 
 ```sh
-simd version
+$ simd version
 ```
 
 The version number should be greater than or equal to `0.46.0`.
@@ -67,15 +67,15 @@ If you have used `simd` before, you might already have a `.simapp` directory in 
 In order to configure `simd`, you need to set the chain ID and the keyring backend.
 
 ```sh
-simd config chain-id demo
-simd config keyring-backend test
+$ simd config chain-id demo
+$ simd config keyring-backend test
 ```
 
 Secondly, you need to add keys for group users. Call them Alice and Bob.
 
 ```sh
-simd keys add alice
-simd keys add bob
+$ simd keys add alice
+$ simd keys add bob
 ```
 
 With `simd keys list` you can verify that your two users have been added.
@@ -87,24 +87,24 @@ To avoid having to copy and paste the user addresses, now is a good time to expo
 </HighlightBox>
 
 ```sh
-export ALICE=$(simd keys show alice --address)
-export BOB=$(simd keys show bob --address)
+$ export ALICE=$(simd keys show alice --address)
+$ export BOB=$(simd keys show bob --address)
 ```
 
 Now you are ready to fund Alice and Bob accounts and use the Alice account as validator:
 
 ```sh
-simd init test --chain-id demo
-simd add-genesis-account alice 5000000000stake --keyring-backend test
-simd add-genesis-account bob 5000000000stake --keyring-backend test
-simd gentx alice 1000000stake --chain-id demo
-simd collect-gentxs
+$ simd init test --chain-id demo
+$ simd add-genesis-account alice 5000000000stake --keyring-backend test
+$ simd add-genesis-account bob 5000000000stake --keyring-backend test
+$ simd gentx alice 1000000stake --chain-id demo
+$ simd collect-gentxs
 ```
 
 Lastly, start the chain:
 
 ```sh
-simd start
+$ simd start
 ```
 
 `simapp` is now configured and running. You can now play with the group module.
@@ -139,21 +139,21 @@ For the avoidance of doubt, in the JSON above, Alice is labeled with some metada
 Create  the group:
 
 ```sh
-simd tx group create-group $ALICE "best football association" members.json
+$ simd tx group create-group $ALICE "best football association" members.json
 ```
 
 
 Query and verify the group that you just created:
 
 ```sh
-simd query group groups-by-admin $ALICE
-export GROUP_ID=$(simd query group groups-by-admin $ALICE --output json | jq -r '.groups[0].id')
+$ simd query group groups-by-admin $ALICE
+$ export GROUP_ID=$(simd query group groups-by-admin $ALICE --output json | jq -r '.groups[0].id')
 ```
 
 The previous command output showed that the group has an `id`. Use that `id` for querying the group members.
 
 ```sh
-simd query group group-members $GROUP_ID
+$ simd query group group-members $GROUP_ID
 ```
 
 Nice! Your group has `best football association` as metadata (which you can recall with the `group-info` command), Alice as group admin, and Alice and Bob as group members.
@@ -194,13 +194,13 @@ Let's add Carol, Dave and Emma as group members and remove Bob. Create `members_
 ```
 
 ```sh
-simd tx group update-group-members $ALICE $GROUP_ID members_updates.json
+$ simd tx group update-group-members $ALICE $GROUP_ID members_updates.json
 ```
 
 You can verify that the group members are updated:
 
 ```sh
-simd query group group-members $GROUP_ID
+$ simd query group group-members $GROUP_ID
 ```
 
 As an exercise, please add Bob back in the group and go to the next section.
@@ -229,14 +229,14 @@ Following is the content of the `policy.json`. It states that:
 Have the group administrator create the group policy with metadata that identifies it as one with a quick turnaround:
 
 ```sh
-simd tx group create-group-policy $ALICE $GROUP_ID "" policy.json
+$ simd tx group create-group-policy $ALICE $GROUP_ID "quick turnaround" policy.json
 ```
 
 Verify your newly created group policy and save its address for future use:
 
 ```sh
-simd query group group-policies-by-group $GROUP_ID
-export GROUP_POLICY_ADDRESS=$(simd query group group-policies-by-group $GROUP_ID --output json | jq -r '.group_policies[0].address')
+$ simd query group group-policies-by-group $GROUP_ID
+$ export GROUP_POLICY_ADDRESS=$(simd query group group-policies-by-group $GROUP_ID --output json | jq -r '.group_policies[0].address')
 ```
 
 ## Create a proposal
@@ -282,7 +282,7 @@ The decision policy has no funds yet. You can fund it by sending a transaction w
 
 
 ```sh
-simd tx group submit-proposal proposal.json --from bob
+$ simd tx group submit-proposal proposal.json --from bob
 ```
 
 ## View and vote on proposals
@@ -290,24 +290,24 @@ simd tx group submit-proposal proposal.json --from bob
 Check and verify the proposal of your football association:
 
 ```sh
-simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS
-export PROPOSAL_ID=$(simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json | jq -r '.proposals[0].id')
+$ simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS
+$ export PROPOSAL_ID=$(simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json | jq -r '.proposals[0].id')
 ```
 
 You can see that your proposal has been submitted.
 
-Next, have Alice and Bob vote _Yes_ on the proposal and verify that both their votes are tallied:
+Next, have Alice and Bob vote _Yes_ on the proposal and verify that both their votes are tallied using the proper query command:
 
 ```sh
-simd tx group vote $PROPOSAL_ID $ALICE VOTE_OPTION_YES "agree"
-simd tx group vote $PROPOSAL_ID $BOB VOTE_OPTION_YES "agree"
-simd query group tally-result $PROPOSAL_ID
+$ simd tx group vote $PROPOSAL_ID $ALICE VOTE_OPTION_YES "agree"
+$ simd tx group vote $PROPOSAL_ID $BOB VOTE_OPTION_YES "aye"
+$ simd query group tally-result $PROPOSAL_ID
 ```
 
 Wait for the policy-prescribed 10 minutes, after which your proposal should have passed, as the weighted tally of _Yes_ votes is above the decision policy threshold:
 
 ```sh
-simd query group proposal $PROPOSAL_ID
+$ simd query group proposal $PROPOSAL_ID
 ```
 
 By default proposals are not executed immediately. This is to account for the fact that not everything may be in place to successfully execute the proposal's messages. As you recall, you already funded the group policy. If you had not done it ahead of time, now would have been a good time to fund it.
@@ -315,7 +315,7 @@ By default proposals are not executed immediately. This is to account for the fa
 Execute the proposal now:
 
 ```sh
-simd tx group exec $PROPOSAL_ID --from alice
+$ simd tx group exec $PROPOSAL_ID --from alice
 ```
 
 <HighlightBox type="note">
@@ -328,7 +328,7 @@ If there were any errors when executing the proposal messages, none of the messa
 Verify that the proposal has been executed and the tokens have been sent:
 
 ```sh
-simd query bank balances cosmos1zyzu35rmctfd2fqnnytthheugqs96qxsne67ad
+$ simd query bank balances cosmos1zyzu35rmctfd2fqnnytthheugqs96qxsne67ad
 ```
 
 ## 🎉 Congratulations 🎉
@@ -344,8 +344,8 @@ By completing this tutorial, you have learned how to use the `group` module. In 
 For more information about what else you can do with the CLI, please refer to its help.
 
 ```sh
-simd tx group --help
-simd query group --help
+$ simd tx group --help
+$ simd query group --help
 ```
 
 To learn more about the group module specs, check out the [group](https://docs.cosmos.network/main/modules/group) module developer documentation.
