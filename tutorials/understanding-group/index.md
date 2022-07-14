@@ -18,7 +18,7 @@ Before starting, let's first review some terminology:
 
 * **Group Admin**: the account that creates the group is the group administrator. The group administrator is the account that can add, remove and change the group members, but does not need to be a member of the group itself. Choose it wisely.
 * **[Group Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#group-policy)**: a group policy is an account associated with a group and a decision policy. In order to perform actions on this account, a proposal must be approved by a majority of the group members; or as defined in the decision policy. For the avoidance of doubt, note that a group can have multiple group policies.
-* **[Decision Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#decision-policy)**: a policy that defines how the group members can vote on a proposal and how the vote outcome is calculated.
+* **[Decision Policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#decision-policy)**: a policy that defines how the group members can vote on a proposal and how the vote outcome is calculated. A decision policy is associated to a group policy. This means that it is possible for a group to have different decision policies for each of its different group policies.
 * **Proposal**: A group proposal works the same way as a governance proposal: group members can submit proposals to the group and vote on proposals with a _Yes_, _No_, _No with Veto_ and _Abstain_.
 
 In this tutorial, you will learn how to create a group, manage its members, submit a group proposal and vote on it.
@@ -136,21 +136,22 @@ Replace `aliceaddr` and `bobaddr` with the literal addresses of Alice (`$ALICE`)
 
 For the avoidance of doubt, in the JSON above, Alice is labeled with some metadata that identifies her as the `"president"`. The presence of this metadata does not make her the administrator of the group. It only identifies her as a member of the group. Presumably one to whom the group's other members will look up.
 
-Create  the group:
+Create the group:
 
 ```sh
 $ simd tx group create-group $ALICE "best football association" members.json
 ```
 
+It is here, by sending the create transaction, that Alice becomes the administrator of the group.
 
-Query and verify the group that you just created:
+Query and verify the group that you just created and its ID that you just extracted:
 
 ```sh
 $ simd query group groups-by-admin $ALICE
 $ export GROUP_ID=$(simd query group groups-by-admin $ALICE --output json | jq -r '.groups[0].id')
 ```
 
-The previous command output showed that the group has an `id`. Use that `id` for querying the group members.
+This last command outputs `1` too. This shows you that the group and its `id` can be recalled. Use that `id` for querying the group members.
 
 ```sh
 $ simd query group group-members $GROUP_ID
@@ -232,12 +233,14 @@ Have the group administrator create the group policy with metadata that identifi
 $ simd tx group create-group-policy $ALICE $GROUP_ID "quick turnaround" policy.json
 ```
 
-Verify your newly created group policy and save its address for future use:
+Check and verify your newly created group policy and in particular the address you just extracted:
 
 ```sh
 $ simd query group group-policies-by-group $GROUP_ID
 $ export GROUP_POLICY_ADDRESS=$(simd query group group-policies-by-group $GROUP_ID --output json | jq -r '.group_policies[0].address')
 ```
+
+Note how the decision policy's address, at `cosmos` plus 59 characters is longer than a _regular_ account's address. This is because a group address is a derived address. You can learn more on that in [ADR-28](https://github.com/cosmos/cosmos-sdk/blob/main/docs/architecture/adr-028-public-key-addresses.md#derived-addresses).
 
 ## Create a proposal
 
@@ -247,7 +250,6 @@ Like for members management, you need to create a `proposal.json` file that cont
 A proposal can contain any number of messages defined on the current blockchain.
 
 For this tutorial, you continue with your example of an association. The treasurer, Bob, who wants to send money to a third party to pay the bills, creates a `proposal.json`:
-
 
 ```json
 {
@@ -266,7 +268,7 @@ For this tutorial, you continue with your example of an association. The treasur
             ]
         }
     ],
-    "metadata": "costs utilities",
+    "metadata": "utilities bill",
     "proposers": [ "bobaddr" ] // $BOB
 }
 ```
@@ -280,21 +282,42 @@ The decision policy has no funds yet. You can fund it by sending a transaction w
 
 </HighlightBox>
 
+Submit the proposal:
 
 ```sh
 $ simd tx group submit-proposal proposal.json --from bob
 ```
 
-## View and vote on proposals
-
-Check and verify the proposal of your football association:
+Once more, extract the proposal ID:
 
 ```sh
-$ simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS
 $ export PROPOSAL_ID=$(simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json | jq -r '.proposals[0].id')
 ```
 
-You can see that your proposal has been submitted.
+## View and vote on proposals
+
+You can see that your proposal has been submitted. And that it contains a lot of information. For instance, confirm that its final tally is empty:
+
+```sh
+$ simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json | jq '.proposals[0].final_tally_result'
+```
+
+Which returns:
+
+```json
+{
+  "yes_count": "0",
+  "abstain_count": "0",
+  "no_count": "0",
+  "no_with_veto_count": "0"
+}
+```
+
+And that it is in the `PROPOSAL_STATUS_SUBMITTED` status:
+
+```sh
+$ simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json | jq -r '.proposals[0].status'
+```
 
 Next, have Alice and Bob vote _Yes_ on the proposal and verify that both their votes are tallied using the proper query command:
 
@@ -304,13 +327,13 @@ $ simd tx group vote $PROPOSAL_ID $BOB VOTE_OPTION_YES "aye"
 $ simd query group tally-result $PROPOSAL_ID
 ```
 
-Wait for the policy-prescribed 10 minutes, after which your proposal should have passed, as the weighted tally of _Yes_ votes is above the decision policy threshold:
+While you wait for the policy-prescribed 10 minutes, you can confirm that the final tally is still empty. After the 10 minutes have gone by your proposal should have passed, because the weighted tally of _Yes_ votes is above the decision policy threshold. Confirm this by looking at its `status`. It should be `PROPOSAL_STATUS_ACCEPTED`:
 
 ```sh
 $ simd query group proposal $PROPOSAL_ID
 ```
 
-By default proposals are not executed immediately. This is to account for the fact that not everything may be in place to successfully execute the proposal's messages. As you recall, you already funded the group policy. If you had not done it ahead of time, now would have been a good time to fund it.
+By default proposals are not executed immediately. You can confirm this by looking at the proposal, it contains `executor_result: PROPOSAL_EXECUTOR_RESULT_NOT_RUN`. This is to account for the fact that not everything may be in place to successfully execute the proposal's messages. As you recall, you already funded the group policy. If you did not fund it ahead of time, now is the time to do it
 	
 Execute the proposal now:
 
@@ -324,8 +347,15 @@ If there were any errors when executing the proposal messages, none of the messa
 
 </HighlightBox>
 
+Verify that the proposal has been executed:
+	
+```sh
+simd query group proposal $PROPOSAL_ID
+```
 
-Verify that the proposal has been executed and the tokens have been sent:
+It should return an error: `Error: rpc error: code = Unknown desc = load proposal: not found: unknown request`. That is because it has been entirely removed.
+
+Confirm that the tokens have been received by the intended recipient:
 
 ```sh
 $ simd query bank balances cosmos1zyzu35rmctfd2fqnnytthheugqs96qxsne67ad
