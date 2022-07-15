@@ -165,7 +165,7 @@ This returns something like:
 Where `Z3JvdXBfaWQ=` is a [Base64 encoding](https://www.browserling.com/tools/base64-decode) of `group_id`, and `IjEi` is a Base64 encoding of `"1"`, including the `"`. Therefore your group ID is `1`. Or with a one-liner:
 
 ```sh
-export GROUP_ID=$(simd query tx 079D9B213DCDE99DB0E31A8AFE9B0FDC605C81C1880D08D99A493A7BC52FAC23 --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventCreateGroup") | .attributes[0].value' | base64 --decode | jq -r '.')
+simd query tx 079D9B213DCDE99DB0E31A8AFE9B0FDC605C81C1880D08D99A493A7BC52FAC23 --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventCreateGroup") | .attributes[0].value' | base64 --decode | jq -r '.'
 ```
 
 Query and verify the group that you just created and its ID that you just extracted:
@@ -311,7 +311,7 @@ Submit the proposal:
 $ simd tx group submit-proposal proposal.json --from bob
 ```
 
-Once more, extract the proposal ID (remember to use the transaction hash got at the previous command):
+Once more, extract the proposal ID (remember to use the transaction hash you got at the previous command):
 
 ```sh
 $ export PROPOSAL_ID=$(simd query tx E3CBE6932254088D5A80CD5CB18BB0F4D35396A542BD20731E1B6B997E1B0847 --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventSubmitProposal") | .attributes[0].value' | base64 --decode | jq -r '.')
