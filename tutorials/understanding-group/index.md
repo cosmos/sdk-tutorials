@@ -144,11 +144,34 @@ $ simd tx group create-group $ALICE "best football association" members.json
 
 It is here, by sending the create transaction, that Alice becomes the administrator of the group.
 
+At what ID was the group created? Recall the transaction and look for the attributes of the event whose type is `"cosmos.group.v1.EventCreateGroup"`. For instance:
+
+```sh
+$ simd query tx 079D9B213DCDE99DB0E31A8AFE9B0FDC605C81C1880D08D99A493A7BC52FAC23 --output json | jq ".events" | jq '.[] | select(.type == "cosmos.group.v1.EventCreateGroup") | .attributes'
+```
+
+This returns something like:
+	
+```json
+[
+  {
+    "key": "Z3JvdXBfaWQ=",
+    "value": "IjEi",
+    "index": true
+  }
+]
+```
+
+Where `Z3JvdXBfaWQ=` is a [Base64 encoding](https://www.browserling.com/tools/base64-decode) of `group_id`, and `IjEi` is a Base64 encoding of `"1"`, including the `"`. Therefore your group ID is `1`. Or with a one-liner:
+
+```sh
+export GROUP_ID=$(simd query tx 079D9B213DCDE99DB0E31A8AFE9B0FDC605C81C1880D08D99A493A7BC52FAC23 --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventCreateGroup") | .attributes[0].value' | base64 --decode | jq -r '.')
+```
+
 Query and verify the group that you just created and its ID that you just extracted:
 
 ```sh
 $ simd query group groups-by-admin $ALICE
-$ export GROUP_ID=$(simd query group groups-by-admin $ALICE --output json | jq -r '.groups[0].id')
 ```
 
 This last command outputs `1` too. This shows you that the group and its `id` can be recalled. Use that `id` for querying the group members.
@@ -288,10 +311,10 @@ Submit the proposal:
 $ simd tx group submit-proposal proposal.json --from bob
 ```
 
-Once more, extract the proposal ID:
+Once more, extract the proposal ID (remember to use the transaction hash got at the previous command):
 
 ```sh
-$ export PROPOSAL_ID=$(simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json | jq -r '.proposals[0].id')
+$ export PROPOSAL_ID=$(simd query tx E3CBE6932254088D5A80CD5CB18BB0F4D35396A542BD20731E1B6B997E1B0847 --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventSubmitProposal") | .attributes[0].value' | base64 --decode | jq -r '.')
 ```
 
 ## View and vote on proposals
