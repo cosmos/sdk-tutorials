@@ -393,6 +393,7 @@ By completing this tutorial, you have learned how to use the `group` module. In 
 * Add a group policy.
 * Submit a group proposal.
 * Vote on a proposal.
+* Execute an accepted proposal.
 
 For more information about what else you can do with the CLI, please refer to its help.
 
