@@ -246,7 +246,7 @@ For instance:
 * To start only the Cosmos app, you run:
 
     ```sh
-    $ myprojectd start --with-tendermint false --abci grpc --address tcp://192.168.0.5:26658
+    $ myprojectd start --with-tendermint=false --abci grpc --address tcp://192.168.0.5:26658
     ```
 
 But again this is not recommended.
