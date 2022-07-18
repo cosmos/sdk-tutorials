@@ -231,8 +231,7 @@ As an exercise, please add Bob back in the group and go to the next section.
 
 ## Create a group policy
 
-Next you need to decide on a group policy. This defines how long a proposal can be voted on and how its outcome is calculated.
-Here you use the [`ThresholdDecisionPolicy`](https://github.com/cosmos/cosmos-sdk/blob/release/v0.46.x/proto/cosmos/group/v1/types.proto#L53-L62). It defines the threshold that the tally of weighted _yes_ votes must reach in order for a proposal to pass. Each member's vote is weighted by its weight as defined in the group.
+Next you need to create a group policy and its decision policy. This defines how long a proposal can be voted on and how its outcome is calculated. Here you use the [`ThresholdDecisionPolicy`](https://github.com/cosmos/cosmos-sdk/blob/release/v0.46.x/proto/cosmos/group/v1/types.proto#L53-L62) as decision policy. It defines the threshold that the tally of weighted _yes_ votes must reach in order for a proposal to pass. Each member's vote is weighted by its weight as defined in the group.
 
 Following is the content of the `policy.json`. It states that:
 
@@ -256,7 +255,13 @@ Have the group administrator create the group policy with metadata that identifi
 $ simd tx group create-group-policy $ALICE $GROUP_ID "quick turnaround" policy.json
 ```
 
-Check and verify your newly created group policy and in particular the address you just extracted:
+Check and verify your newly created group policy and in particular the address you just created:
+
+```sh
+$ simd query tx 06DB56C25457E10CCAB5476C8BE84534EBC6E10241953C137AEC9CD6C35A5F3B --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventCreateGroupPolicy") | .attributes[0].value' | base64 --decode | jq -r '.'
+``` 
+
+You can as well find the group policy by querying the group:
 
 ```sh
 $ simd query group group-policies-by-group $GROUP_ID
@@ -314,7 +319,7 @@ $ simd tx group submit-proposal proposal.json --from bob
 Once more, extract the proposal ID (remember to use the transaction hash you got at the previous command):
 
 ```sh
-$ export PROPOSAL_ID=$(simd query tx E3CBE6932254088D5A80CD5CB18BB0F4D35396A542BD20731E1B6B997E1B0847 --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventSubmitProposal") | .attributes[0].value' | base64 --decode | jq -r '.')
+$ export PROPOSAL_ID=$(simd query tx E3CBE6932254088D5A80CD5CB18BB0F4D35396A542BD20731E1B6B997E1B0847 --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventSubmitProposal") | .attributes[0].value' | base64 --decode | jq -r '.'
 ```
 
 ## View and vote on proposals
