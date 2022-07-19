@@ -165,7 +165,7 @@ This returns something like:
 Where `Z3JvdXBfaWQ=` is a [Base64 encoding](https://www.browserling.com/tools/base64-decode) of `group_id`, and `IjEi` is a Base64 encoding of `"1"`, including the `"`. Therefore your group ID is `1`. Or with a one-liner:
 
 ```sh
-simd query tx 079D9B213DCDE99DB0E31A8AFE9B0FDC605C81C1880D08D99A493A7BC52FAC23 --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventCreateGroup") | .attributes[0].value' | base64 --decode | jq -r '.'
+export GROUP_ID=$(simd query tx 079D9B213DCDE99DB0E31A8AFE9B0FDC605C81C1880D08D99A493A7BC52FAC23 --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventCreateGroup") | .attributes[0].value' | base64 --decode | jq -r '.')
 ```
 
 Query and verify the group that you just created and its ID that you just extracted:
@@ -258,14 +258,14 @@ $ simd tx group create-group-policy $ALICE $GROUP_ID "quick turnaround" policy.j
 Check and verify your newly created group policy and in particular the address you just created:
 
 ```sh
-$ simd query tx 06DB56C25457E10CCAB5476C8BE84534EBC6E10241953C137AEC9CD6C35A5F3B --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventCreateGroupPolicy") | .attributes[0].value' | base64 --decode | jq -r '.'
+$ export GROUP_POLICY_ADDRESS=$(simd query tx 06DB56C25457E10CCAB5476C8BE84534EBC6E10241953C137AEC9CD6C35A5F3B --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventCreateGroupPolicy") | .attributes[0].value' | base64 --decode | jq -r '.')
 ``` 
 
 You can as well find the group policy by querying the group:
 
 ```sh
 $ simd query group group-policies-by-group $GROUP_ID
-$ export GROUP_POLICY_ADDRESS=$(simd query group group-policies-by-group $GROUP_ID --output json | jq -r '.group_policies[0].address')
+$ simd query group group-policies-by-group $GROUP_ID --output json | jq -r '.group_policies[0].address'
 ```
 
 Note how the decision policy's address, at `cosmos` plus 59 characters is longer than a _regular_ account's address. This is because a group address is a derived address. You can learn more on that in [ADR-28](https://github.com/cosmos/cosmos-sdk/blob/main/docs/architecture/adr-028-public-key-addresses.md#derived-addresses).
@@ -319,7 +319,13 @@ $ simd tx group submit-proposal proposal.json --from bob
 Once more, extract the proposal ID (remember to use the transaction hash you got at the previous command):
 
 ```sh
-$ export PROPOSAL_ID=$(simd query tx E3CBE6932254088D5A80CD5CB18BB0F4D35396A542BD20731E1B6B997E1B0847 --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventSubmitProposal") | .attributes[0].value' | base64 --decode | jq -r '.'
+$ export PROPOSAL_ID=$(simd query tx E3CBE6932254088D5A80CD5CB18BB0F4D35396A542BD20731E1B6B997E1B0847 --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventSubmitProposal") | .attributes[0].value' | base64 --decode | jq -r '.')
+```
+
+You can also find the proposal id via your group policy:
+
+```sh 
+$ simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json | jq '.proposals[0]'
 ```
 
 ## View and vote on proposals
@@ -327,7 +333,7 @@ $ export PROPOSAL_ID=$(simd query tx E3CBE6932254088D5A80CD5CB18BB0F4D35396A542B
 You can see that your proposal has been submitted. And that it contains a lot of information. For instance, confirm that its final tally is empty:
 
 ```sh
-$ simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json | jq '.proposals[0].final_tally_result'
+$ simd query group proposal $PROPOSAL_ID --output json | jq '.proposal.final_tally_result'
 ```
 
 Which returns:
@@ -361,7 +367,15 @@ While you wait for the policy-prescribed 10 minutes, you can confirm that the fi
 $ simd query group proposal $PROPOSAL_ID
 ```
 
-By default proposals are not executed immediately. You can confirm this by looking at the proposal, it contains `executor_result: PROPOSAL_EXECUTOR_RESULT_NOT_RUN`. This is to account for the fact that not everything may be in place to successfully execute the proposal's messages. As you recall, you already funded the group policy. If you did not fund it ahead of time, now is the time to do it
+By default proposals are not executed immediately. You can confirm this by looking at the proposal, it contains `executor_result: PROPOSAL_EXECUTOR_RESULT_NOT_RUN`.
+
+<HighlightBox type="remember">
+
+This is to account for the fact that not everything may be in place to successfully execute the proposal's messages. As you recall, you already funded the group policy. If you did not fund it ahead of time, now is the time to do it.
+
+Next time, if you wish to try to execute a proposal immediately after its submission, you can do so by using the `--exec 1` flag. It will count the proposers signatures as _Yes_ votes.
+
+</HighlightBox>
 	
 Execute the proposal now:
 
