@@ -14,3 +14,5 @@ Cosmovisor. Ideas: https://hub.cosmos.network/main/hub-tutorials/upgrade-node.ht
 ## Simulate
 
 ## Migrate
+
+Idea: https://www.getoutsidedoor.com/2022/07/05/cosmos-dev-series-cosmos-blockchain-upgrade/

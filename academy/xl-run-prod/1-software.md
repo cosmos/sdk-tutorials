@@ -21,7 +21,7 @@ $ go tool dist list
 
 For instance, for `go version go1.18.3 linux/amd64`, it returns:
 
-```
+```txt
 aix/ppc64
 android/386
 android/amd64
@@ -77,7 +77,7 @@ $ go tool dist list -json | jq -r '.[] | select(.FirstClass) | [.GOOS , .GOARCH]
 
 Notice the `GOOS` and `GOARCH` keywords in the command above. You see them again later. The list is now much shorter:
 
-```
+```txt
 darwin/amd64
 darwin/arm64
 linux/386
@@ -114,7 +114,7 @@ $ ./build/myproject-linux-amd64
 
 Which should return something you should recognize:
 
-```
+```txt
 Stargate CosmosHub App
 
 Usage:
@@ -129,7 +129,7 @@ Available Commands:
 
 ### With Ignite
 
-Whether you prepared your project with or without Ignite, you can still build it with Ignite. To see how to write a build command you can do:
+Whether you prepared your project with or without Ignite, you can still [build it with Ignite](https://docs.ignite.com/cli#ignite-chain-build). To see how to write a build command you can do:
 
 ```sh
 $ ignite chain build --help
@@ -146,7 +146,7 @@ $ ignite chain build \
 
 This creates zipped files and checksums:
 
-```
+```txt
 myproject_linux_amd64.tar.gz
 myproject_linux_arm64.tar.gz
 release_checksum
@@ -154,7 +154,7 @@ release_checksum
 
 Where the checksum file contains:
 
-```
+```txt
 60669d05ba56104d4d999e147c688b228efee93aad9829c1d8418e4ba318ea56 myproject_linux_amd64.tar.gz
 e841f3ef01e5318b07eb5b8183ec2fa139cfc66404477a46e75604a5dedd106f myproject_linux_arm64.tar.gz
 ```
@@ -167,7 +167,7 @@ $ cd release && sha256sum -c release_checksum
 
 Which should output:
 
-```
+```txt
 myproject_linux_amd64.tar.gz: OK
 myproject_linux_arm64.tar.gz: OK
 ```
@@ -211,13 +211,17 @@ $ make build-with-checksum
 
 If you want to see what a vastly more complex `Makefile` looks like, head to the [Cosmos Hub's own one](https://github.com/cosmos/gaia/blob/main/Makefile).
 
+### With a Makefile within Docker
 
+If you do not want to install Go or `make` on your computer, and [have Docker](https://docs.docker.com/engine/install/), you can:
 
-* Build preparation
-* Doing the build [with Ignite](https://docs.ignite.com/cli#ignite-chain-build), for instance use `--release-targets`
-    * With the use of [GOOS:GOARCH](https://gist.github.com/asukakenji/f15ba7e588ac42795f421b48b8aede63)
-* Doing the build: inspiration https://hub.cosmos.network/main/getting-started/installation.html
-* Build within a Docker image?
+* Reuse the `Makefile` from above.
+* Pick a Docker image that already has Go 1.18.3 and `make`. [`golang:1.18.3`](https://hub.docker.com/layers/golang/library/golang/1.18.3/images/sha256-ea66badd7cf7b734e2484a1905b6545bd944ef3bdeea18be833db3e2219f1153?context=explore) is a good choice.
+* Run the command:
+
+  ```sh
+  $ docker run --rm -it -v $(pwd):/myproject -w /myproject golang:1.18.3 make build-with-checksum
+  ```
 
 ## Deploy
 
