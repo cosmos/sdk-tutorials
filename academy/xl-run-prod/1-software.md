@@ -209,7 +209,7 @@ With `make` you can then call a build with checksums with:
 $ make build-with-checksum
 ```
 
-If you want to see what a vastly more complex `Makefile` looks like, head to the [Cosmos SDK's own one](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/Makefile).
+If you want to see what a vastly more complex `Makefile` looks like, head to the [Cosmos Hub's own one](https://github.com/cosmos/gaia/blob/main/Makefile).
 
 
 
@@ -249,7 +249,7 @@ For instance:
     $ myprojectd start --with-tendermint=false --abci grpc --address tcp://192.168.0.5:26658
     ```
 
-But again this is not recommended.
+But again this is not recommended for performance reasons (f.e. due to network latency).
 
 ## Conclusion
 
