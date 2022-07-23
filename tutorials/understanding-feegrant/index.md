@@ -107,8 +107,8 @@ To avoid having to copy and paste the user addresses, now is a good time to expo
 :::
 
 ```sh
-$ export ALICE_ADDRESS=$(simd keys show alice -a)
-$ export BOB_ADDRESS=$(simd keys show bob -a)
+$ export ALICE=$(simd keys show alice --address)
+$ export BOB=$(simd keys show bob --address)
 ```
 
 ## Chain Setup
