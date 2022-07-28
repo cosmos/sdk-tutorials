@@ -13,7 +13,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [events](../2-main-concepts/events.md).
 * Go is installed.
-* You have the checkers blockchain codebase with `MsgPlayMove` and its handling. If not, follow the [previous steps](./play-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-play-move-handler).
+* You have the checkers blockchain codebase with `MsgPlayMove` and its handling. If not, follow the [previous steps](./play-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/play-move-handler).
 
 </HighlightBox>
 
@@ -64,27 +64,25 @@ Start with the event that announces the creation of a new game. The goal is to:
 
 Define new keys in `x/checkers/types/keys.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6c16e72d/x/checkers/types/keys.go#L34-L38]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/two-events/x/checkers/types/keys.go#L28-L34]
 const (
-    StoredGameEventKey     = "NewGameCreated" // Indicates what key to listen to
-    StoredGameEventCreator = "Creator"
-    StoredGameEventIndex   = "Index" // What game is relevant
-    StoredGameEventRed     = "Red" // Is it relevant to me?
-    StoredGameEventBlack   = "Black" // Is it relevant to me?
+    GameCreatedEventType      = "new-game-created" // Indicates what event type to listen to
+    GameCreatedEventCreator   = "creator"          // Subsidiary information
+    GameCreatedEventGameIndex = "game-index"       // What game is relevant
+    GameCreatedEventBlack     = "black"            // Is it relevant to me?
+    GameCreatedEventRed       = "red"              // Is it relevant to me?
 )
 ```
 
 Emit the event in your handler file `x/checkers/keeper/msg_server_create_game.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6c16e72d/x/checkers/keeper/msg_server_create_game.go#L39-L48]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/two-events/x/checkers/keeper/msg_server_create_game.go#L39-L46]
 ctx.EventManager().EmitEvent(
-    sdk.NewEvent(sdk.EventTypeMessage,
-        sdk.NewAttribute(sdk.AttributeKeyModule, "checkers"),
-        sdk.NewAttribute(sdk.AttributeKeyAction, types.StoredGameEventKey),
-        sdk.NewAttribute(types.StoredGameEventCreator, msg.Creator),
-        sdk.NewAttribute(types.StoredGameEventIndex, newIndex),
-        sdk.NewAttribute(types.StoredGameEventRed, msg.Red),
-        sdk.NewAttribute(types.StoredGameEventBlack, msg.Black),
+    sdk.NewEvent(types.GameCreatedEventType,
+        sdk.NewAttribute(types.GameCreatedEventCreator, msg.Creator),
+        sdk.NewAttribute(types.GameCreatedEventGameIndex, newIndex),
+        sdk.NewAttribute(types.GameCreatedEventBlack, msg.Black),
+        sdk.NewAttribute(types.GameCreatedEventRed, msg.Red),
     ),
 )
 ```
@@ -109,29 +107,27 @@ Contrary to the _create game_ event, which alerted the players about a new game,
 
 You define new keys in `x/checkers/types/keys.go` similarly:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6c16e72d/x/checkers/types/keys.go#L41-L48]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/two-events/x/checkers/types/keys.go#L36-L43]
 const (
-    PlayMoveEventKey       = "MovePlayed"
-    PlayMoveEventCreator   = "Creator"
-    PlayMoveEventIdValue   = "IdValue"
-    PlayMoveEventCapturedX = "CapturedX"
-    PlayMoveEventCapturedY = "CapturedY"
-    PlayMoveEventWinner    = "Winner"
+    MovePlayedEventType      = "move-played"
+    MovePlayedEventCreator   = "creator"
+    MovePlayedEventGameIndex = "game-index"
+    MovePlayedEventCapturedX = "captured-x"
+    MovePlayedEventCapturedY = "captured-y"
+    MovePlayedEventWinner    = "winner"
 )
 ```
 
 Emit the event in your file `x/checkers/keeper/msg_server_play_move.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6c16e72d/x/checkers/keeper/msg_server_play_move.go#L66-L76]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/two-events/x/checkers/keeper/msg_server_play_move.go#L61-L69]
 ctx.EventManager().EmitEvent(
-     sdk.NewEvent(sdk.EventTypeMessage,
-        sdk.NewAttribute(sdk.AttributeKeyModule, "checkers"),
-        sdk.NewAttribute(sdk.AttributeKeyAction, types.PlayMoveEventKey),
-        sdk.NewAttribute(types.PlayMoveEventCreator, msg.Creator),
-        sdk.NewAttribute(types.PlayMoveEventIdValue, msg.IdValue),
-        sdk.NewAttribute(types.PlayMoveEventCapturedX, strconv.FormatInt(int64(captured.X), 10)),
-        sdk.NewAttribute(types.PlayMoveEventCapturedY, strconv.FormatInt(int64(captured.Y), 10)),
-        sdk.NewAttribute(types.PlayMoveEventWinner, rules.PieceStrings[game.Winner()]),
+    sdk.NewEvent(types.MovePlayedEventType,
+        sdk.NewAttribute(types.MovePlayedEventCreator, msg.Creator),
+        sdk.NewAttribute(types.MovePlayedEventGameIndex, msg.GameIndex),
+        sdk.NewAttribute(types.MovePlayedEventCapturedX, strconv.FormatInt(int64(captured.X), 10)),
+        sdk.NewAttribute(types.MovePlayedEventCapturedY, strconv.FormatInt(int64(captured.Y), 10)),
+        sdk.NewAttribute(types.MovePlayedEventWinner, rules.PieceStrings[game.Winner()]),
     ),
 )
 ```
@@ -140,13 +136,13 @@ ctx.EventManager().EmitEvent(
 
 The unit tests you have created so far still pass. However you also want to confirm that the events have been emitted in both situations. The events are recorded in the context, so the test is a little bit different. In `msg_server_create_game_test.go`, add this test:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6c16e72d/x/checkers/keeper/msg_server_create_game_test.go#L83-L106]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/two-events/x/checkers/keeper/msg_server_create_game_test.go#L82-L103]
 func TestCreate1GameEmitted(t *testing.T) {
     msgSrvr, _, context := setupMsgServerCreateGame(t)
     msgSrvr.CreateGame(context, &types.MsgCreateGame{
         Creator: alice,
-        Red:     bob,
-        Black:   carol,
+        Black:   bob,
+        Red:     carol,
     })
     ctx := sdk.UnwrapSDKContext(context)
     require.NotNil(t, ctx)
@@ -154,14 +150,12 @@ func TestCreate1GameEmitted(t *testing.T) {
     require.Len(t, events, 1)
     event := events[0]
     require.EqualValues(t, sdk.StringEvent{
-        Type: "message",
+        Type: "new-game-created",
         Attributes: []sdk.Attribute{
-            {Key: "module", Value: "checkers"},
-            {Key: "action", Value: "NewGameCreated"},
-            {Key: "Creator", Value: alice},
-            {Key: "Index", Value: "1"},
-            {Key: "Red", Value: bob},
-            {Key: "Black", Value: carol},
+            {Key: "creator", Value: alice},
+            {Key: "game-index", Value: "1"},
+            {Key: "black", Value: bob},
+            {Key: "red", Value: carol},
         },
     }, event)
 }
@@ -169,56 +163,133 @@ func TestCreate1GameEmitted(t *testing.T) {
 
 How can you _guess_ the order of elements? Easily, as you created them in this order. Alternatively, you can _peek_ by using Visual Studio Code:
 
-1. Put a breakpoint after `event := events[0]`.
+1. Put a breakpoint on the line after `event := events[0]`.
 2. Run this test in **debug mode**: right-click the green arrow next to the test name.
 3. Observe the live values on the left.
 
-![Live values of event in debug mode](/academy/3-my-own-chain/images/go_test_debug_event_attributes.png)
+![Live values of event in debug mode](/academy/4-my-own-chain/images/go_test_debug_event_attributes.png)
 
-The event emitted during a move may seem unexpected. In a _move_ unit test, two actions occur: a _create_, and a _move_. However, in the setup of this test you do not create blocks but _only_ hit your keeper. Therefore the context collects events but does not flush them. This is why you need to test only for the latter attributes, and verify an array slice that discards events that originate from the _create_ action: `event.Attributes[6:]`. This gives the following test:
+As for the events emitted during the _play move_ test, there are two of them: one for the creation and the other for the play. Because this is a unit test and each action is not isolated into individual transactions, the context collects all events emitted during the test. It just so happens that the context prepends them, i.e. the newest one is at index `0`. Which is why, when you fetch them, the play event is at `events[0]`.
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/6c16e72d/x/checkers/keeper/msg_server_play_move_test.go#L127-L152]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/two-events/x/checkers/keeper/msg_server_play_move_test.go#L110-L135]
 func TestPlayMoveEmitted(t *testing.T) {
     msgServer, _, context := setupMsgServerWithOneGameForPlayMove(t)
     msgServer.PlayMove(context, &types.MsgPlayMove{
-        Creator: carol,
-        IdValue: "1",
-        FromX:   1,
-        FromY:   2,
-        ToX:     2,
-        ToY:     3,
+        Creator:   bob,
+        GameIndex: "1",
+        FromX:     1,
+        FromY:     2,
+        ToX:       2,
+        ToY:       3,
     })
     ctx := sdk.UnwrapSDKContext(context)
     require.NotNil(t, ctx)
     events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
-    require.Len(t, events, 1)
+    require.Len(t, events, 2)
     event := events[0]
-    require.Equal(t, event.Type, "message")
-    require.EqualValues(t, []sdk.Attribute{
-        {Key: "module", Value: "checkers"},
-        {Key: "action", Value: "MovePlayed"},
-        {Key: "Creator", Value: carol},
-        {Key: "IdValue", Value: "1"},
-        {Key: "CapturedX", Value: "-1"},
-        {Key: "CapturedY", Value: "-1"},
-        {Key: "Winner", Value: "*"},
-    }, event.Attributes[6:])
+    require.EqualValues(t, sdk.StringEvent{
+        Type: "move-played",
+        Attributes: []sdk.Attribute{
+            {Key: "creator", Value: bob},
+            {Key: "game-index", Value: "1"},
+            {Key: "captured-x", Value: "-1"},
+            {Key: "captured-y", Value: "-1"},
+            {Key: "winner", Value: "*"},
+        },
+    }, event)
 }
 ```
 
-## Interact with the CLI
+When two players play one after the other, the context collates the attributes of `move-played` all together in a single array in an appending fashion, with the older attributes at the lower indices, starting at `0`. For instance, to test the attributes of the second `move-played` event, you have to rely on array slices like `event.Attributes[5:]`:
 
-Bob made a move. Will Alice's move emit an event?
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/two-events/x/checkers/keeper/msg_server_play_move_test.go#L261-L292]
+func TestPlayMove2Emitted(t *testing.T) {
+    msgServer, _, context := setupMsgServerWithOneGameForPlayMove(t)
+    msgServer.PlayMove(context, &types.MsgPlayMove{
+        Creator:   bob,
+        GameIndex: "1",
+        FromX:     1,
+        FromY:     2,
+        ToX:       2,
+        ToY:       3,
+    })
+    msgServer.PlayMove(context, &types.MsgPlayMove{
+        Creator:   carol,
+        GameIndex: "1",
+        FromX:     0,
+        FromY:     5,
+        ToX:       1,
+        ToY:       4,
+    })
+    ctx := sdk.UnwrapSDKContext(context)
+    require.NotNil(t, ctx)
+    events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
+    require.Len(t, events, 2)
+    event := events[0]
+    require.Equal(t, "move-played", event.Type)
+    require.EqualValues(t, []sdk.Attribute{
+        {Key: "creator", Value: carol},
+        {Key: "game-index", Value: "1"},
+        {Key: "captured-x", Value: "-1"},
+        {Key: "captured-y", Value: "-1"},
+        {Key: "winner", Value: "*"},
+    }, event.Attributes[5:])
+}
+```
+
+Try these tests:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
 
 ```sh
-$ checkersd tx checkers play-move 1 0 5 1 4 --from $alice
+$ go test github.com/alice/checkers/x/checkers/keeper
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github.com/alice/checkers/x/checkers/keeper
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+## Interact with the CLI
+
+If you did not do it already, start your chain with Ignite.
+
+Alice made a move. Will Bob's move emit an event?
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
+```sh
+$ checkersd tx checkers play-move 1 0 5 1 4 --from $bob
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker exec -it checkers checkersd tx checkers play-move 1 0 5 1 4 --from $bob
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 The log is longer and not very readable, but the expected elements are present:
 
-```
+```txt
 ...
-raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"PlayMove"},{"key":"module","value":"checkers"},{"key":"action","value":"MovePlayed"},{"key":"Creator","value":"cosmos1gml05nvlhr0k27unas8mj827z6m77lhfpzzr3l"},{"key":"IdValue","value":"0"},{"key":"CapturedX","value":"-1"},{"key":"CapturedY","value":"-1"},{"key":"Winner","value":"*"}]}]}]'
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"play_move"}]},{"type":"move-played","attributes":[{"key":"creator","value":"cosmos1xf6s64kaw7at7um8lnwj65vadxqr6hnyhr9v83"},{"key":"game-index","value":"1"},{"key":"captured-x","value":"-1"},{"key":"captured-y","value":"-1"},{"key":"winner","value":"*"}]}]}]'
 ```
 
 To parse the events and display them in a more user-friendly way, take the `txhash` again:
@@ -226,6 +297,25 @@ To parse the events and display them in a more user-friendly way, take the `txha
 ```sh
 $ checkersd query tx 531E5708A1EFBE08D14ABF947FBC888BFC69CD6F04A589D478204BF3BA891AB7 --output json | jq ".raw_log | fromjson"
 ```
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
+```sh
+$ checkersd query tx 531E5708A1EFBE08D14ABF947FBC888BFC69CD6F04A589D478204BF3BA891AB7 --output json | jq '.raw_log | fromjson'
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker exec -it checkers bash -c "checkersd query tx 531E5708A1EFBE08D14ABF947FBC888BFC69CD6F04A589D478204BF3BA891AB7 --output json | jq '.raw_log | fromjson'"
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 This returns something like:
 
@@ -238,34 +328,31 @@ This returns something like:
         "attributes": [
           {
             "key": "action",
-            "value": "PlayMove"
+            "value": "play_move"
+          }
+        ]
+      },
+      {
+        "type": "move-played",
+        "attributes": [
+          {
+            "key": "creator",
+            "value": "cosmos1xf6s64kaw7at7um8lnwj65vadxqr6hnyhr9v83"
           },
           {
-            "key": "module",
-            "value": "checkers"
-          },
-          {
-            "key": "action",
-            "value": "MovePlayed"
-          },
-          {
-            "key": "Creator",
-            "value": "cosmos1r80ns8496ehe73dd70r3rnr07tk23mhu2wmw66"
-          },
-          {
-            "key": "IdValue",
+            "key": "game-index",
             "value": "1"
           },
           {
-            "key": "CapturedX",
+            "key": "captured-x",
             "value": "-1"
           },
           {
-            "key": "CapturedY",
+            "key": "captured-y",
             "value": "-1"
           },
           {
-            "key": "Winner",
+            "key": "winner",
             "value": "*"
           }
         ]
@@ -275,11 +362,35 @@ This returns something like:
 ]
 ```
 
-As you can see, no pieces were captured. However, it turns out that Alice placed her piece ready to be captured by Bob:
+As you can see, no pieces were captured. However, it turns out that Bob placed his piece ready to be captured by Alice:
+
+<CodeGroup>
+
+<CodeGroupItem title="Linux" active>
 
 ```sh
-$ checkersd query checkers show-stored-game 1 --output json | jq ".StoredGame.game" | sed 's/"//g' | sed 's/|/\'$'\n/g'
+$ checkersd query checkers show-stored-game 1 --output json | jq ".storedGame.board" | sed 's/"//g' | sed 's/|/\n/g'
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker exec -it checkers bash -c "checkersd query checkers show-stored-game 1 --output json | jq \".storedGame.board\" | sed 's/\"//g' | sed 's/|/\n/g'"
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Mac">
+
+```sh
+$ checkersd query checkers show-stored-game 1 --output json | jq ".storedGame.board" | sed 's/"//g' | sed 's/|/\'$'\n/g'
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 Which prints:
 
@@ -288,23 +399,39 @@ Which prints:
 b*b*b*b*
 ***b*b*b
 **b*****
-*r******
+*r******    <-- Ready to be captured
 **r*r*r*
 *r*r*r*r
 r*r*r*r*
 ```
 
-The rules of the game included in this project mandate that the player captures a piece when possible. So Bob captures the piece:
+The rules of the game included in this project mandate that the player captures a piece when possible. So Alice captures the piece:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
 
 ```sh
-$ checkersd tx checkers play-move 1 2 3 0 5 --from $bob
+$ checkersd tx checkers play-move 1 2 3 0 5 --from $alice
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker exec -it checkers checkersd tx checkers play-move 1 2 3 0 5 --from $alice
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 This returns:
 
-```
+```txt
 ...
-raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"PlayMove"},{"key":"module","value":"checkers"},{"key":"action","value":"MovePlayed"},{"key":"Creator","value":"cosmos1w0uumlj04eyvevhfawasm2dtjc24nexxygr8qx"},{"key":"IdValue","value":"0"},{"key":"CapturedX","value":"1"},{"key":"CapturedY","value":"4"},{"key":"Winner","value":"*"}]}]}]'
+raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"play_move"}]},{"type":"move-played","attributes":[{"key":"creator","value":"cosmos1qxeu0aclpl45429aeveh3t4e7y9ghr22r5d9r2"},{"key":"game-index","value":"1"},{"key":"captured-x","value":"1"},{"key":"captured-y","value":"4"},{"key":"winner","value":"*"}]}]}]'
 ```
 
 When formatted for clarity, you see the following::
@@ -318,34 +445,31 @@ When formatted for clarity, you see the following::
         "attributes": [
           {
             "key": "action",
-            "value": "PlayMove"
+            "value": "play_move"
+          }
+        ]
+      },
+      {
+        "type": "move-played",
+        "attributes": [
+          {
+            "key": "creator",
+            "value": "cosmos1qxeu0aclpl45429aeveh3t4e7y9ghr22r5d9r2"
           },
           {
-            "key": "module",
-            "value": "checkers"
-          },
-          {
-            "key": "action",
-            "value": "MovePlayed"
-          },
-          {
-            "key": "Creator",
-            "value": "cosmos1w0uumlj04eyvevhfawasm2dtjc24nexxygr8qx"
-          },
-          {
-            "key": "IdValue",
+            "key": "game-index",
             "value": "1"
           },
           {
-            "key": "CapturedX",
+            "key": "captured-x",
             "value": "1"
           },
           {
-            "key": "CapturedY",
+            "key": "captured-y",
             "value": "4"
           },
           {
-            "key": "Winner",
+            "key": "winner",
             "value": "*"
           }
         ]
@@ -355,7 +479,7 @@ When formatted for clarity, you see the following::
 ]
 ```
 
-Correct: Bob captured a piece and the board now looks like this:
+Correct: Alice captured a piece and the board now looks like this:
 
 ```
 *b*b*b*b
@@ -368,7 +492,9 @@ b*r*r*r*
 r*r*r*r*
 ```
 
-This confirms that the _play_ event is emitted as expected. You can do the same for the _game created_ event.
+This confirms that the _play_ event is emitted as expected. You can confirm the same for the _game created_ event.
+
+When you are done with this exercise you can stop Ignite's `chain serve.`
 
 ## Next up
 
