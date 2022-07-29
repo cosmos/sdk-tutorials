@@ -13,7 +13,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [ABCI](../2-main-concepts/architecture.md), [Protobuf](../2-main-concepts/protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
 * Go is installed.
-* You have the checkers blockchain codebase with `MsgRejectGame` and its handling. If not, follow the [previous steps](./reject-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-reject-game-handler).
+* You have the checkers blockchain codebase with `MsgRejectGame` and its handling. If not, follow the [previous steps](./reject-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
 
 </HighlightBox>
 
@@ -72,7 +72,7 @@ The simplest mechanism to expire a game is to use a **deadline**. If the deadlin
 
 </HighlightBox>
 
-To enforce the termination it is a good idea to use the **`EndBlock`** part of the ABCI protocol. The call `EndBlock` is triggered when all transactions of the block are delivered, and allows you to tidy up before the block is sealed. In your case, all games that have reached their deadline will be terminated.
+To enforce the termination, it is a good idea to use the **`EndBlock`** part of the ABCI protocol. The call `EndBlock` is triggered when all transactions of the block are delivered, and allows you to tidy up before the block is sealed. In your case, all games that have reached their deadline will be terminated.
 
 How do you find all the games that have reached their deadline? You could use a pseudo-code like:
 
@@ -89,7 +89,7 @@ You need another data structure. The simplest option is a First-In-First-Out (FI
 * When games are played, they are taken out of where they are and sent to the tail.
 * Games that have not been played for the longest time eventually rise to the head.
 
-When terminating expired games in `EndBlock`, you deal with the expired games that are at the head of the FIFO. Do not stop until the head includes an ongoing game. The cost is:
+Therefore, when terminating expired games in `EndBlock`, you deal with the expired games that are at the head of the FIFO. You do not stop until the head includes an ongoing game. The cost is:
 
 * `O(1)` on each game creation and gameplay.
 * `O(k)` where `k` is the number of expired games on each block.
@@ -107,54 +107,69 @@ This only works if the expiration duration is the same for all games, instead of
 
 How do you implement a FIFO from which you extract elements at random positions? Choose a doubly-linked list:
 
-1. You must remember the game ID at the head to pick expired games, and at the tail to send back fresh games. The existing `NextGame` object is useful, as it is already expandable. Add to its Protobuf declaration:
+1. You must remember the game ID at the head to pick expired games, and at the tail to send back fresh games. The existing `SystemInfo` object is useful, as it is already expandable. Add to its Protobuf declaration:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/proto/checkers/next_game.proto#L9-L10]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/proto/checkers/system_info.proto#L8-L9]
     message NextGame {
         ...
-        string fifoHead = 3; // Will contain the index of the game at the head.
-        string fifoTail = 4; // Will contain the index of the game at the tail.
+        string fifoHeadIndex = 2; // Will contain the index of the game at the head.
+        string fifoTailIndex = 3; // Will contain the index of the game at the tail.
     }
     ```
 
-2. To make extraction possible, each game must know which other game takes place before it in the FIFO, and which after. Store this double link information in `StoredGame`. Add them to the game's Protobuf declaration:
+2. To make extraction possible, each game must know which other game takes place before it in the FIFO, and which after. Store this double-link information in `StoredGame`. Add them to the game's Protobuf declaration:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/proto/checkers/stored_game.proto#L14-L15]
+    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/proto/checkers/stored_game.proto#L13-L14]
     message StoredGame {
         ...
-        string beforeId = 8; // Pertains to the FIFO. Toward head.
-        string afterId = 9; // Pertains to the FIFO. Toward tail.
+        string beforeIndex = 7; // Pertains to the FIFO. Toward head.
+        string afterIndex = 8; // Pertains to the FIFO. Toward tail.
     }
     ```
 
 3. There must be an "ID" that indicates _no game_. Use `"-1"`, which you save as a constant:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/types/keys.go#L32-L34]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/types/keys.go#L51-L53]
     const (
-        NoFifoIdKey = "-1"
+        NoFifoIndex = "-1"
     )
     ```
 
-4. Adjust the default genesis values, so that it has proper head and tail:
+4. Instruct Ignite CLI and Protobuf to regenerate the Protobuf files:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/types/genesis.go#L20-L21]
-    func DefaultGenesis() *GenesisState {
-        return &GenesisState{
-            ...
-            NextGame: &NextGame{
-                ...
-                FifoHead: NoFifoIdKey,
-                FifoTail: NoFifoIdKey,
-            },
-        }
-    }
+    <CodeGroup>
+
+    <CodeGroupItem title="Local" active>
+
+    ```sh
+    $ ignite generate proto-go
     ```
 
-5. Instruct Ignite CLI and Protobuf to recompile the files:
+    </CodeGroupItem>
 
-```sh
-$ ignite chain build
-```
+    <CodeGroupItem title="Docker">
+
+    ```sh
+    $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generate proto-go
+    ```
+
+    </CodeGroupItem>
+
+    </CodeGroup>
+
+5. Adjust the default genesis values, so that it has proper head and tail:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/types/genesis.go#L15-L16]
+    func DefaultGenesis() *GenesisState {
+    return &GenesisState{
+        SystemInfo: SystemInfo{
+            NextId:        uint64(DefaultIndex),
+            FifoHeadIndex: NoFifoIndex,
+            FifoTailIndex: NoFifoIndex,
+        },
+        ...
+    }
+    ```
 
 ## FIFO management
 
@@ -162,48 +177,48 @@ Now that the new fields are created, you need to update them to keep your FIFO u
 
 1. A function to remove from the FIFO:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/stored_game_in_fifo.go#L9-L42]
-    func (k Keeper) RemoveFromFifo(ctx sdk.Context, game *types.StoredGame, info *types.NextGame) {
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/stored_game_in_fifo.go#L8-L41]
+    func (k Keeper) RemoveFromFifo(ctx sdk.Context, game *types.StoredGame, info *types.SystemInfo) {
         // Does it have a predecessor?
-        if game.BeforeId != types.NoFifoIdKey {
-            beforeElement, found := k.GetStoredGame(ctx, game.BeforeId)
+        if game.BeforeIndex != types.NoFifoIndex {
+            beforeElement, found := k.GetStoredGame(ctx, game.BeforeIndex)
             if !found {
                 panic("Element before in Fifo was not found")
             }
-            beforeElement.AfterId = game.AfterId
+            beforeElement.AfterIndex = game.AfterIndex
             k.SetStoredGame(ctx, beforeElement)
-            if game.AfterId == types.NoFifoIdKey {
-                info.FifoTail = beforeElement.Index
+            if game.AfterIndex == types.NoFifoIndex {
+                info.FifoTailIndex = beforeElement.Index
             }
             // Is it at the FIFO head?
-        } else if info.FifoHead == game.Index {
-            info.FifoHead = game.AfterId
+        } else if info.FifoHeadIndex == game.Index {
+            info.FifoHeadIndex = game.AfterIndex
         }
         // Does it have a successor?
-        if game.AfterId != types.NoFifoIdKey {
-            afterElement, found := k.GetStoredGame(ctx, game.AfterId)
+        if game.AfterIndex != types.NoFifoIndex {
+            afterElement, found := k.GetStoredGame(ctx, game.AfterIndex)
             if !found {
                 panic("Element after in Fifo was not found")
             }
-            afterElement.BeforeId = game.BeforeId
+            afterElement.BeforeIndex = game.BeforeIndex
             k.SetStoredGame(ctx, afterElement)
-            if game.BeforeId == types.NoFifoIdKey {
-                info.FifoHead = afterElement.Index
+            if game.BeforeIndex == types.NoFifoIndex {
+                info.FifoHeadIndex = afterElement.Index
             }
             // Is it at the FIFO tail?
-        } else if info.FifoTail == game.Index {
-            info.FifoTail = game.BeforeId
+        } else if info.FifoTailIndex == game.Index {
+            info.FifoTailIndex = game.BeforeIndex
         }
-        game.BeforeId = types.NoFifoIdKey
-        game.AfterId = types.NoFifoIdKey
+        game.BeforeIndex = types.NoFifoIndex
+        game.AfterIndex = types.NoFifoIndex
     }
     ```
 
-    The game passed as an argument is **not** saved in storage here, even if it was updated. Only its fields in memory are adjusted. The _before_ and _after_ games are saved in storage. Do a `SetStoredGame` after calling this function to avoid having a mix of saves and memory states. The same applies to `SetNextGame`.
+    The game passed as an argument is **not** saved in storage here, even if it was updated. Only its fields in memory are adjusted. The _before_ and _after_ games are saved in storage. Do a `SetStoredGame` after calling this function to avoid having a mix of saves and memory states. The same applies to `SetSystemInfo`.
 
 2. A function to send to the tail:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/stored_game_in_fifo.go#L45-L70]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/stored_game_in_fifo.go#L43-L68]
     func (k Keeper) SendToFifoTail(ctx sdk.Context, game *types.StoredGame, info *types.NextGame) {
         if info.FifoHead == types.NoFifoIdKey && info.FifoTail == types.NoFifoIdKey {
             game.BeforeId = types.NoFifoIdKey
@@ -232,243 +247,238 @@ Now that the new fields are created, you need to update them to keep your FIFO u
     }
     ```
 
-    Again, it is advisable to do `SetStoredGame` and `SetNextGame` after calling this function.
+    Again, it is advisable to do `SetStoredGame` and `SetSystemInfo` after calling this function.
 
 ## FIFO Integration
 
 With these functions ready, it is time to use them in the message handlers.
 
-1. In the handler when creating a new game, set default values for `BeforeId` and `AfterId`:
+1. In the handler when creating a new game, set default values for `BeforeIndex` and `AfterIndex`:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_create_game.go#L36]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game.go#L29-L30]
     ...
     storedGame := types.StoredGame{
         ...
-        BeforeId:  types.NoFifoIdKey,
-        AfterId:   types.NoFifoIdKey,        
+        BeforeIndex: types.NoFifoIndex,
+        AfterIndex:  types.NoFifoIndex,
     }
     ```
 
     Send the new game to the tail because it is freshly created:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_create_game.go#L36]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game.go#L38]
     ...
-    k.Keeper.SendToFifoTail(ctx, &storedGame, &nextGame)
+    k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
     k.Keeper.SetStoredGame(ctx, storedGame)
     ...
     ```
 
 2. In the handler, when playing a move send the game back to the tail because it was freshly updated:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_play_move.go#L62-L72]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move.go#L57-L67]
     ...
-    nextGame, found := k.Keeper.GetNextGame(ctx)
+    systemInfo, found := k.Keeper.GetSystemInfo(ctx)
     if !found {
-        panic("NextGame not found")
+        panic("SystemInfo not found")
     }
-    k.Keeper.SendToFifoTail(ctx, &storedGame, &nextGame)
-    storedGame.Game = game.String()
+    k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
+
+    storedGame.MoveCount++
     ...
-    k.Keeper.SetNextGame(ctx, nextGame)
+    k.Keeper.SetSystemInfo(ctx, systemInfo)
     ...
     ```
 
-    Note that you also need to call `SetNextGame`.
+    Note that you also need to call `SetSystemInfo`.
 
 3. In the handler, when rejecting a game remove the game from the FIFO:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_reject_game.go#L34-L42]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_reject_game.go#L31-L37]
     ...
-    nextGame, found := k.Keeper.GetNextGame(ctx)
+    systemInfo, found := k.Keeper.GetSystemInfo(ctx)
     if !found {
-        panic("NextGame not found")
+        panic("SystemInfo not found")
     }
-    k.Keeper.RemoveFromFifo(ctx, &storedGame, &nextGame)
+    k.Keeper.RemoveFromFifo(ctx, &storedGame, &systemInfo)
     k.Keeper.RemoveStoredGame(ctx, msg.IdValue)
     ...
-    k.Keeper.SetNextGame(ctx, nextGame)
+    k.Keeper.SetSystemInfo(ctx, systemInfo)
     ...
     ```
 
-You have implemented a FIFO that is updated but never really used.
+You have implemented a FIFO that is updated but never really used. It will be used in a [later section](./game-forfeit.md).
 
 ## Unit tests
 
-At this point, your previous unit tests are failing, so they must be fixed. Add `FifoHead` and `FifoTail` in your value requirements on `NextGame` as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_create_game_test.go#L51-L52), [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_play_move_test.go#L86-L87), and [reject games](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_reject_game_test.go#L58-L59). Also add `BeforeId` and `AfterId` in your value requirements on `StoredGame` as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_create_game_test.go#L64-L65) and [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_play_move_test.go#L99-L100).
+At this point, your previous unit tests are failing, so they must be fixed. Add `FifoHeadIndex` and `FifoTailIndex` in your value requirements on `SystemInfo` as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_test.go#L52-L53), [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_test.go#L98-L99), and [reject games](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_reject_game_test.go#L59-L60). Also add `BeforeIndex` and `AfterIndex` in your value requirements on `StoredGame` as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_test.go#L64-L65) and [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_test.go#L110-L111).
 
-Next, you should add more specific FIFO tests. For instance, testing what happens to `NextGame` and `StoredGame` as you create up to three new games:
+Next, you should add more specific FIFO tests. For instance, testing what happens to `SystemInfo` and `StoredGame` as you create up to three new games, instead of [only checking at the end](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_test.go#L166-L227):
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_create_game_fifo_test.go#L11-L111]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_fifo_test.go#L11-L107]
 func TestCreate3GamesHasSavedFifo(t *testing.T) {
     msgSrvr, keeper, context := setupMsgServerCreateGame(t)
+    ctx := sdk.UnwrapSDKContext(context)
     msgSrvr.CreateGame(context, &types.MsgCreateGame{
         Creator: alice,
-        Red:     bob,
-        Black:   carol,
+        Black:   bob,
+        Red:     carol,
     })
 
+    // Second game
     msgSrvr.CreateGame(context, &types.MsgCreateGame{
         Creator: bob,
-        Red:     carol,
-        Black:   alice,
+        Black:   carol,
+        Red:     alice,
     })
-    nextGame2, found2 := keeper.GetNextGame(sdk.UnwrapSDKContext(context))
-    require.True(t, found2)
-    require.EqualValues(t, types.NextGame{
-        Creator:  "",
-        IdValue:  3,
-        FifoHead: "1",
-        FifoTail: "2",
-    }, nextGame2)
-    game1, found1 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "1")
-    require.True(t, found1)
+    systemInfo2, found := keeper.GetSystemInfo(ctx)
+    require.True(t, found)
+    require.EqualValues(t, types.SystemInfo{
+        NextId:        3,
+        FifoHeadIndex: "1",
+        FifoTailIndex: "2",
+    }, systemInfo2)
+    game1, found := keeper.GetStoredGame(ctx, "1")
+    require.True(t, found)
     require.EqualValues(t, types.StoredGame{
-        Creator:   alice,
-        Index:     "1",
-        Game:      "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
-        Turn:      "b",
-        Red:       bob,
-        Black:     carol,
-        MoveCount: uint64(0),
-        BeforeId:  "-1",
-        AfterId:   "2",
+        Index:       "1",
+        Board:       "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:        "b",
+        Black:       bob,
+        Red:         carol,
+        MoveCount:   uint64(0),
+        BeforeIndex: "-1",
+        AfterIndex:  "2",
     }, game1)
-    game2, found2 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "2")
-    require.True(t, found2)
+    game2, found := keeper.GetStoredGame(ctx, "2")
+    require.True(t, found)
     require.EqualValues(t, types.StoredGame{
-        Creator:   bob,
-        Index:     "2",
-        Game:      "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
-        Turn:      "b",
-        Red:       carol,
-        Black:     alice,
-        MoveCount: uint64(0),
-        BeforeId:  "1",
-        AfterId:   "-1",
+        Index:       "2",
+        Board:       "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:        "b",
+        Black:       carol,
+        Red:         alice,
+        MoveCount:   uint64(0),
+        BeforeIndex: "1",
+        AfterIndex:  "-1",
     }, game2)
 
+    // Third game
     msgSrvr.CreateGame(context, &types.MsgCreateGame{
         Creator: carol,
-        Red:     alice,
-        Black:   bob,
+        Black:   alice,
+        Red:     bob,
     })
-    nextGame3, found3 := keeper.GetNextGame(sdk.UnwrapSDKContext(context))
-    require.True(t, found3)
-    require.EqualValues(t, types.NextGame{
-        Creator:  "",
-        IdValue:  4,
-        FifoHead: "1",
-        FifoTail: "3",
-    }, nextGame3)
-    game1, found1 = keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "1")
-    require.True(t, found1)
+    systemInfo3, found := keeper.GetSystemInfo(ctx)
+    require.True(t, found)
+    require.EqualValues(t, types.SystemInfo{
+        NextId:        4,
+        FifoHeadIndex: "1",
+        FifoTailIndex: "3",
+    }, systemInfo3)
+    game1, found = keeper.GetStoredGame(ctx, "1")
+    require.True(t, found)
     require.EqualValues(t, types.StoredGame{
-        Creator:   alice,
-        Index:     "1",
-        Game:      "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
-        Turn:      "b",
-        Red:       bob,
-        Black:     carol,
-        MoveCount: uint64(0),
-        BeforeId:  "-1",
-        AfterId:   "2",
+        Index:       "1",
+        Board:       "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:        "b",
+        Black:       bob,
+        Red:         carol,
+        MoveCount:   uint64(0),
+        BeforeIndex: "-1",
+        AfterIndex:  "2",
     }, game1)
-    game2, found2 = keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "2")
-    require.True(t, found2)
+    game2, found = keeper.GetStoredGame(ctx, "2")
+    require.True(t, found)
     require.EqualValues(t, types.StoredGame{
-        Creator:   bob,
-        Index:     "2",
-        Game:      "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
-        Turn:      "b",
-        Red:       carol,
-        Black:     alice,
-        MoveCount: uint64(0),
-        BeforeId:  "1",
-        AfterId:   "3",
+        Index:       "2",
+        Board:       "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:        "b",
+        Black:       carol,
+        Red:         alice,
+        MoveCount:   uint64(0),
+        BeforeIndex: "1",
+        AfterIndex:  "3",
     }, game2)
-    game3, found3 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "3")
-    require.True(t, found3)
+    game3, found := keeper.GetStoredGame(ctx, "3")
+    require.True(t, found)
     require.EqualValues(t, types.StoredGame{
-        Creator:   carol,
-        Index:     "3",
-        Game:      "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
-        Turn:      "b",
-        Red:       alice,
-        Black:     bob,
-        MoveCount: uint64(0),
-        BeforeId:  "2",
-        AfterId:   "-1",
+        Index:       "3",
+        Board:       "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:        "b",
+        Black:       alice,
+        Red:         bob,
+        MoveCount:   uint64(0),
+        BeforeIndex: "2",
+        AfterIndex:  "-1",
     }, game3)
 }
 ```
 
-What happens when you [have two games and play once on the _older_ one](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_play_move_fifo_test.go#L11-L61)? Or have two games and play them twice in turn:
+What happens when you [have two games and play once on the _older_ one](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_fifo_test.go#L11-L59)? Or have two games and play them twice in turn:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_play_move_fifo_test.go#L63-L121]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_fifo_test.go#L61-L117]
 func TestPlayMove2Games2MovesHasSavedFifo(t *testing.T) {
     msgServer, keeper, context := setupMsgServerWithOneGameForPlayMove(t)
+    ctx := sdk.UnwrapSDKContext(context)
     msgServer.CreateGame(context, &types.MsgCreateGame{
         Creator: bob,
-        Red:     carol,
-        Black:   alice,
+        Black:   carol,
+        Red:     alice,
     })
     msgServer.PlayMove(context, &types.MsgPlayMove{
-        Creator: carol,
-        IdValue: "1",
-        FromX:   1,
-        FromY:   2,
-        ToX:     2,
-        ToY:     3,
+        Creator:   bob,
+        GameIndex: "1",
+        FromX:     1,
+        FromY:     2,
+        ToX:       2,
+        ToY:       3,
     })
 
     msgServer.PlayMove(context, &types.MsgPlayMove{
-        Creator: alice,
-        IdValue: "2",
-        FromX:   1,
-        FromY:   2,
-        ToX:     2,
-        ToY:     3,
+        Creator:   carol,
+        GameIndex: "2",
+        FromX:     1,
+        FromY:     2,
+        ToX:       2,
+        ToY:       3,
     })
-    nextGame1, found1 := keeper.GetNextGame(sdk.UnwrapSDKContext(context))
-    require.True(t, found1)
-    require.EqualValues(t, types.NextGame{
-        Creator:  "",
-        IdValue:  3,
-        FifoHead: "1",
-        FifoTail: "2",
-    }, nextGame1)
-    game1, found1 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "1")
-    require.True(t, found1)
+    systemInfo1, found := keeper.GetSystemInfo(ctx)
+    require.True(t, found)
+    require.EqualValues(t, types.SystemInfo{
+        NextId:        3,
+        FifoHeadIndex: "1",
+        FifoTailIndex: "2",
+    }, systemInfo1)
+    game1, found := keeper.GetStoredGame(ctx, "1")
+    require.True(t, found)
     require.EqualValues(t, types.StoredGame{
-        Creator:   alice,
-        Index:     "1",
-        Game:      "*b*b*b*b|b*b*b*b*|***b*b*b|**b*****|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
-        Turn:      "r",
-        Red:       bob,
-        Black:     carol,
-        MoveCount: uint64(1),
-        BeforeId:  "-1",
-        AfterId:   "2",
+        Index:       "1",
+        Board:       "*b*b*b*b|b*b*b*b*|***b*b*b|**b*****|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:        "r",
+        Black:       bob,
+        Red:         carol,
+        MoveCount:   uint64(1),
+        BeforeIndex: "-1",
+        AfterIndex:  "2",
     }, game1)
-    game2, found2 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "2")
-    require.True(t, found2)
+    game2, found := keeper.GetStoredGame(ctx, "2")
+    require.True(t, found)
     require.EqualValues(t, types.StoredGame{
-        Creator:   bob,
-        Index:     "2",
-        Game:      "*b*b*b*b|b*b*b*b*|***b*b*b|**b*****|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
-        Turn:      "r",
-        Red:       carol,
-        Black:     alice,
-        MoveCount: uint64(1),
-        BeforeId:  "1",
-        AfterId:   "-1",
+        Index:       "2",
+        Board:       "*b*b*b*b|b*b*b*b*|***b*b*b|**b*****|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:        "r",
+        Black:       carol,
+        Red:         alice,
+        MoveCount:   uint64(1),
+        BeforeIndex: "1",
+        AfterIndex:  "-1",
     }, game2)
 }
 ```
 
-What happens when you [have two games and reject the _older_ one](https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L11-L43)? Or have three games and reject the _middle_ one?
+What happens when you [have two games and reject the _older_ one](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L11-L42)? Or have three games and reject the _middle_ one?
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fea86db8/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L45-L95]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L44-L92]
 func TestRejectMiddleGameHasSavedFifo(t *testing.T) {
     msgServer, keeper, context := setupMsgServerWithOneGameForRejectGame(t)
     msgServer.CreateGame(context, &types.MsgCreateGame{
@@ -522,201 +532,452 @@ func TestRejectMiddleGameHasSavedFifo(t *testing.T) {
 }
 ```
 
+Run the tests again with the same command as before:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
+```sh
+$ go test github.com/alice/checkers/x/checkers/keeper
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github.com/alice/checkers/x/checkers/keeper
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
 ## Interact via the CLI
 
 Time to explore the commands. You need to start afresh because you made numerous additions to the blockchain state:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
 
 ```sh
 $ ignite chain serve --reset-once
 ```
 
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_i ignite chain serve --reset-once
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
 <HighlightBox type="tip">
 
-Do not forget to export `alice` and `bob` again, as explained in an [earlier section](./create-message.md).
+Do not forget to export `alice` and `bob` again, as explained in an [earlier section](./create-message.md#interact-via-the-cli).
 
 </HighlightBox>
 
-1. Is the genesis FIFO information correctly saved?
+<PanelList>
 
-    ```sh
-    $ checkersd query checkers show-next-game
-    ```
+<PanelListItem number="1">
 
-    This should print:
+Is the genesis FIFO information correctly saved?
 
-    ```
-    NextGame:
-      creator: ""
-      fifoHead: "-1" # There is nothing
-      fifoTail: "-1" # There is nothing
-      idValue: "1"
-    ```
+<CodeGroup>
 
-2. If you create a game, is the game as expected?
+<CodeGroupItem title="Local" active>
 
-    ```sh
-    $ checkersd tx checkers create-game $alice $bob --from $bob
-    $ checkersd query checkers show-next-game
-    ```
+```sh
+$ checkersd query checkers show-system-info
+```
 
-    This should print:
+</CodeGroupItem>
 
-    ```
-    NextGame:
-      creator: ""
-      fifoHead: "1" # The first game you created
-      fifoTail: "1" # The first game you created
-      idValue: "2"
-    ```
+<CodeGroupItem title="Docker">
 
-3. What about the information saved in the game?
+```sh
+$ docker exec -it checkers checkersd query checkers show-system-info
+```
 
-    ```sh
-    $ checkersd query checkers show-stored-game 1
-    ```
+</CodeGroupItem>
 
-    Because it is the only game, this should print:
+</CodeGroup>
 
-    ```
-    StoredGame:
-      afterId: "-1" # Nothing because it is alone
-      beforeId: "-1" # Nothing because it is alone
+This should print:
+
+```txt
+SystemInfo:
+    fifoHeadIndex: "-1" # There is nothing
+    fifoTailIndex: "-1" # There is nothing
+    nextId: "1"
+```
+
+</PanelListItem>
+
+<PanelListItem number="2">
+
+If you create a game, is the game as expected?
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
+```sh
+$ checkersd tx checkers create-game $alice $bob --from $bob
+$ checkersd query checkers show-system-info
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $bob
+$ docker exec -it checkers checkersd query checkers show-system-info
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+This should print:
+
+```txt
+SystemInfo:
+    fifoHeadIndex: "1" # The first game you created
+    fifoTailIndex: "1" # The first game you created
+    nextId: "2"
+```
+
+</PanelListItem>
+
+<PanelListItem number="3">
+
+What about the information saved in the game?
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
+```sh
+$ checkersd query checkers show-stored-game 1
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker exec -it checkers checkersd query checkers show-stored-game 1
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+Because it is the only game, this should print:
+
+```txt
+storedGame:
+    afterIndex: "-1" # Nothing because it is alone
+    beforeIndex: "-1" # Nothing because it is alone
     ...
-    ```
+```
 
-4. And if you create another game?
+</PanelListItem>
 
-    ```sh
-    $ checkersd tx checkers create-game $alice $bob --from $bob
-    $ checkersd query checkers show-next-game
-    ```
+<PanelListItem number="4">
 
-    This should print:
+And if you create another game?
 
-    ```
-    NextGame:
-      creator: ""
-      fifoHead: "1" # The first game you created
-      fifoTail: "2" # The second game you created
-      idValue: "3"
-    ```
+<CodeGroup>
 
-5. Did the games also store the correct values?
+<CodeGroupItem title="Local" active>
 
-    ```sh
-    $ checkersd query checkers show-stored-game 1 # The first game you created
-    ```
+```sh
+$ checkersd tx checkers create-game $alice $bob --from $bob
+$ checkersd query checkers show-system-info
+```
 
-    This should print:
+</CodeGroupItem>
 
-    ```
-    afterId: "2" # The second game you created
-    beforeId: "-1" # No game
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $bob
+$ docker exec -it checkers checkersd query checkers show-system-info
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+This should print:
+
+```txt
+SystemInfo:
+    fifoHeadIndex: "1" # The first game you created
+    fifoTailIndex: "2" # The second game you created
+    nextId: "3"
+```
+
+</PanelListItem>
+
+<PanelListItem number="5">
+
+Did the games also store the correct values?
+
+For the first game:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
+```sh
+$ checkersd query checkers show-stored-game 1
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker exec -it checkers checkersd query checkers show-stored-game 1
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+This should print:
+
+```txt
+afterIndex: "2" # The second game you created
+beforeIndex: "-1" # No game
+...
+```
+
+For the second game, run:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
+```sh
+$ checkersd query checkers show-stored-game 2
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker exec -it checkers checkersd query checkers show-stored-game 2
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+This should print:
+
+```txt
+afterIndex: "-1" # No game
+beforeIndex: "1" # The first game you created
+...
+```
+
+Your FIFO in effect has the game IDs `[1, 2]`.
+
+Add a third game, and confirm that your FIFO is `[1, 2, 3]`.
+
+</PanelListItem>
+
+<PanelListItem number="6">
+
+What happens if Alice plays a move in game `2`, the game _in the middle_?
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
+```sh
+$ checkersd tx checkers play-move 2 1 2 2 3 --from $alice
+$ checkersd query checkers show-system-info
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker exec -it checkers checkersd tx checkers play-move 2 1 2 2 3 --from $alice
+$ docker exec -it checkers checkersd query checkers show-system-info
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+This should print:
+
+```txt
+SystemInfo:
+    fifoHeadIndex: "1" # The first game you created
+    fifoTailIndex: "2" # The second game you created and on which Bob just played
+    nextId: "4"
+```
+
+</PanelListItem>
+
+<PanelListItem number="7">
+
+Is game `3` in the middle now?
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
+```sh
+$ checkersd query checkers show-stored-game 3
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker exec -it checkers checkersd query checkers show-stored-game 3
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+This should print:
+
+```txt
+storedGame:
+    afterIndex: "2"
+    beforeIndex: "1"
     ...
-    ```
+```
 
-    Run:
+Your FIFO now has the game IDs `[1, 3, 2]`. You see that game `2`, which was played on, has been sent to the tail of the FIFO.
 
-    ```sh
-    $ checkersd query checkers show-stored-game 2 # The second game you created
-    ```
+</PanelListItem>
 
-    This should print:
+<PanelListItem number="8" :last="true">
 
-    ```
-    afterId: "-1" # No game
-    beforeId: "1" # The first game you created
-    ...
-    ```
+What happens if Alice rejects game `3`?
 
-    Your FIFO in effect has the game IDs `[1, 2]`.
+<CodeGroup>
 
-    Add a third game, your FIFO will be `[1, 2, 3]`.
+<CodeGroupItem title="Local" active>
 
-6. What happens if Bob plays a move in game `2`, the game _in the middle_?
+```sh
+$ checkersd tx checkers reject-game 3 --from $alice
+$ checkersd query checkers show-system-info
+```
 
-    ```sh
-    $ checkersd tx checkers play-move 2 1 2 2 3 --from $bob
-    $ checkersd query checkers show-next-game
-    ```
+</CodeGroupItem>
 
-    This should print:
+<CodeGroupItem title="Docker">
 
-    ```
-    NextGame:
-      creator: ""
-      fifoHead: "1" # The first game you created
-      fifoTail: "2" # The second game you created and on which Bob just played
-      idValue: "4"
-    ```
+```sh
+$ docker exec -it checkers checkersd tx checkers reject-game 3 --from $alice
+$ docker exec -it checkers checkersd query checkers show-system-info
+```
 
-7. Is game `3` in the middle now?
+</CodeGroupItem>
 
-    ```sh
-    $ checkersd query checkers show-stored-game 3
-    ```
+</CodeGroup>
 
-    This should print:
+This prints:
 
-    ```
-    StoredGame:
-      afterId: "2"
-      beforeId: "1"
-    ...
-    ```
+```txt
+SystemInfo:
+    fifoHeadIndex: "1"
+    fifoTailIndex: "2"
+    nextId: "4"
+```
 
-    Your FIFO now has the game IDs `[1, 3, 2]`. You see that game `2`, which was played on, has been sent to the tail of the FIFO.
+There is no change because game `3` was _in the middle_, so it did not affect the head or the tail.
 
-8. What happens if Alice rejects game `3`?
+Fetch the two games by running the following two queries :
 
-    ```sh
-    $ checkersd tx checkers reject-game 3 --from $alice
-    $ checkersd query checkers show-next-game
-    ```
+<CodeGroup>
 
-    This prints:
+<CodeGroupItem title="Local" active>
 
-    ```
-    NextGame:
-      creator: ""
-      fifoHead: "1"
-      fifoTail: "2"
-      idValue: "4"
-    ```
+```sh
+$ checkersd query checkers show-stored-game 1
+```
 
-    There is no change because game `3` was _in the middle_, so it did not affect the head or the tail.
+</CodeGroupItem>
 
-    Run the following two queries:
+<CodeGroupItem title="Docker">
 
-    ```sh
-    $ checkersd query checkers show-stored-game 1
-    ```
+```sh
+$ docker exec -it checkers checkersd query checkers show-stored-game 1
+```
 
-    This prints:
+</CodeGroupItem>
 
-    ```
-    StoredGame:
-      afterId: "2"
-      beforeId: "-1"
-    ...
-    ```
+</CodeGroup>
 
-    And:
+This prints:
 
-    ```sh
-    $ checkersd query checkers show-stored-game 2
-    ```
+```txt
+storedGame:
+    afterIndex: "2"
+    beforeIndex: "-1"
+...
+```
 
-    This prints:
+And:
 
-    ```
-    StoredGame:
-      afterId: "-1"
-      beforeId: "1"
-    ...
-    ```
+<CodeGroup>
 
-    Your FIFO now has the game IDs `[1, 2]`. Game `3` was correctly removed from the FIFO.
+<CodeGroupItem title="Local" active>
+
+```sh
+$ checkersd query checkers show-stored-game 2
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker exec -it checkers checkersd query checkers show-stored-game 2
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+This prints:
+
+```txt
+storedGame:
+    afterIndex: "-1"
+    beforeIndex: "1"
+...
+```
+
+Your FIFO now has the game IDs `[1, 2]`. Game `3` was correctly removed from the FIFO.
+
+</PanelListItem>
+
+</PanelList>
 
 ## Next up
 
