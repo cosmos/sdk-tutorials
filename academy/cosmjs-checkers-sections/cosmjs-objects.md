@@ -14,7 +14,7 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md).
 * You have completed the introductory [CosmJS tutorial](../xl-cosmjs/intro.md).
 * Go and npm are installed.
-* You have finished the checkers blockchain exercise. If not, you can follow that tutorial here, or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
+* You have finished the checkers blockchain exercise. If not, you can follow that tutorial here, or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-wager-denomination) that contains the final version.
 
 </HighlightBox>
 
@@ -71,8 +71,8 @@ $ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.42.6/third_party/p
 Now compile:
 
 ```sh
-$ ls ../proto/checkers | xargs -I {} ../client/node_modules/protoc/protoc/bin/protoc \
-    --plugin="../client/node_modules/.bin/protoc-gen-ts_proto" \
+$ ls ../proto/checkers | xargs -I {} ../node_modules/protoc/protoc/bin/protoc \
+    --plugin="../node_modules/.bin/protoc-gen-ts_proto" \
     --ts_proto_out="../client/src/types/generated" \
     --proto_path="../proto" \
     --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=messages" \

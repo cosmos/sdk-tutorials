@@ -81,7 +81,7 @@ $ simd keys add alice --recover
 
 Enter the following mnemonic:
 
-```
+```txt
 plunge hundred health electric victory foil marine elite shiver tonight away verify vacuum giant pencil ocean nest pledge okay endless try spirit special start
 ```
 
@@ -93,7 +93,7 @@ $ simd keys add bob --recover
 
 Enter the following mnemonic:
 
-```
+```txt
 shuffle oppose diagram wire rubber apart blame entire thought firm carry swim old head police panther lyrics road must silly sting dirt hard organ
 ```
 
@@ -154,7 +154,7 @@ $ simd tx gov submit-proposal --title="Test Authorization" --description="Is Bob
 View proposal:
 
 ```sh
-$ simd q gov proposal 1
+$ simd query gov proposal 1
 ```
 
 ## Grant Authorization
@@ -172,7 +172,7 @@ $ simd tx authz grant cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt generic --ms
 View authorization:
 
 ```sh
-$ simd q authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote
+$ simd query authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote
 ```
 
 ## Generate Transaction
@@ -204,7 +204,7 @@ $ simd tx authz exec tx.json --from bob
 View vote:
 
 ```sh
-$ simd q gov vote 1 cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh
+$ simd query gov vote 1 cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh
 ```
 
 ## Revoke Authorization
@@ -220,18 +220,18 @@ $ simd tx authz revoke cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov
 View authorization:
 
 ```sh
-$ simd q authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote
+$ simd query authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1khljzagdncfs03x5g6rf9qp5p93z9qgc3w5dwt /cosmos.gov.v1beta1.MsgVote
 ```
 
 ## 🎉 Congratulations 🎉
 
 By completing this tutorial, you have learned how to use the authz module:
 
-- Configured and used the simulation application (simapp)
-- Created a governance proposal
-- Created a voting authorization
-- Generated an unsigned transaction
-- Signed and executed a transaction
-- Revoked a voting authorization
+* Configured and used the simulation application (simapp)
+* Created a governance proposal
+* Created a voting authorization
+* Generated an unsigned transaction
+* Signed and executed a transaction
+* Revoked a voting authorization
 
 To learn more about the authorization module and different types of authorizations, check out the [authz module documentation](https://docs.cosmos.network/v0.44/modules/authz/).

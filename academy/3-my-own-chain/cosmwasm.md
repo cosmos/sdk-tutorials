@@ -59,7 +59,7 @@ Create a folder and clone the [`wasmd`](https://github.com/CosmWasm/wasmd) repos
 ```sh
 $ git clone https://github.com/CosmWasm/wasmd.git
 $ cd wasmd
-$ git checkout v0.18.0
+$ git checkout v0.23.0
 $ make install
 ```
 
@@ -72,18 +72,18 @@ $ wasmd version
 This returns:
 
 ```
-0.18.0
+0.23.0
 ```
 
 If you cannot call `wasmd`, make sure your `$GOPATH` and `$PATH` are set correctly.
 
 ## Connect to a testnet
 
-First test the `wasmd` client with the [Pebblenet](https://github.com/CosmWasm/testnets/tree/master/pebblenet-1) testnet. `wasmd` is configured via environment variables. Export the most recent environment from [here](https://github.com/CosmWasm/testnets/blob/master/pebblenet-1/defaults.env):
+First test the `wasmd` client with the [Cliffnet](https://github.com/CosmWasm/testnets/tree/master/cliffnet-1) testnet. `wasmd` is configured via environment variables. Export the most recent environment from [here](https://github.com/CosmWasm/testnets/blob/master/cliffnet-1/defaults.env):
 
 ```sh
-$ curl https://raw.githubusercontent.com/CosmWasm/testnets/master/pebblenet-1/defaults.env -o pebblenet-1-defaults.env
-$ source pebblenet-1-defaults.env
+$ curl https://raw.githubusercontent.com/CosmWasm/testnets/master/cliffnet-1/defaults.env -o cliffnet-1-defaults.env
+$ source cliffnet-1-defaults.env
 ```
 
 Confirm you got it correctly:
@@ -95,24 +95,28 @@ $ echo $CHAIN_ID
 This returns:
 
 ```
-pebblenet-1
+cliffnet-1
 ```
 
+<HighlightBox type="remember">
+
 If you open another terminal window, do not forget to repeat this `source` command, as this is local to the session.
+
+</HighlightBox>
 
 ## Your accounts
 
 Now add some keys:
 
 ```sh
-$ wasmd keys add wallet
-$ wasmd keys add wallet2
+$ wasmd keys add alice
+$ wasmd keys add bob
 ```
 
 What was created?
 
 ```sh
-$ wasmd keys show wallet --address
+$ wasmd keys show alice --address
 ```
 
 This returns:
@@ -124,7 +128,8 @@ wasm1jj7gzazxvgy56rj8kersuc44ehvep0uey85jdn
 That is your address. Query your token balance:
 
 ```sh
-$ wasmd query bank balances $(wasmd keys show wallet --address) --node $RPC
+$ export alice=$(wasmd keys show alice --address)
+$ wasmd query bank balances $alice --node $RPC
 ```
 
 This returns:
@@ -133,11 +138,11 @@ This returns:
 pagination: {}
 ```
 
-You have none. Time to ask the [faucet](https://faucet.pebblenet.cosmwasm.com) to remedy this. To facilitate command-line actions, install [jq](https://stedolan.github.io/jq/), which is a lightweight and flexible command-line JSON processor. Then prepare the request for your `wallet`:
+You have none. Time to ask the [faucet](https://faucet.cliffnet.cosmwasm.com) to remedy this. To facilitate command-line actions, install [jq](https://stedolan.github.io/jq/), which is a lightweight and flexible command-line JSON processor. Then prepare the request for `alice`:
 
 ```sh
-$ JSON=$(jq --null-input --arg addr $(wasmd keys show wallet --address) '{"denom":"upebble","address":$addr}')
-$ echo "$JSON"
+$ export json_request='{"denom":"upebble","address":"'$alice'"}'
+$ echo $json_request | jq
 ```
 
 This returns:
@@ -152,7 +157,7 @@ This returns:
 `upebble` is the denomination of the testnet token. With the content of the request ready, call the faucet:
 
 ```sh
-$ curl -X POST --header "Content-Type: application/json" --data "$JSON" https://faucet.pebblenet.cosmwasm.com/credit
+$ curl -X POST --header "Content-Type: application/json" --data "$json_request" https://faucet.cliffnet.cosmwasm.com/credit
 ```
 
 This returns:
@@ -164,23 +169,23 @@ ok
 Query your balance again:
 
 ```sh
-$ wasmd query bank balances $(wasmd keys show wallet --address) --node $RPC
+$ wasmd query bank balances $alice --node $RPC
 ```
 
 This returns:
 
 ```
 balances:
-- amount: "100000"
+- amount: "100000000"
   denom: upebble
 pagination: {}
 ```
 
-Repeat this process for `wallet2`.
+Repeat this process for `bob`.
 
 ## Compile a smart contract
 
-Now that you have enough tokens to deploy a smart contract on Pebblenet, clone the contract samples away from your `wasmd` folder:
+Now that you have enough tokens to deploy a smart contract on Cliffnet, clone the contract samples away from your `wasmd` folder:
 
 ```sh
 $ git clone https://github.com/InterWasm/cw-contracts
@@ -207,7 +212,7 @@ $ ls -lh target/wasm32-unknown-unknown/release/cw_nameservice.wasm
 This returns:
 
 ```
--rwxr-xr-x 2 me staff 1.7M target/wasm32-unknown-unknown/release/cw_nameservice.wasm
+-rwxr-xr-x 2 me staff 1.8M target/wasm32-unknown-unknown/release/cw_nameservice.wasm
 ```
 
 You can optimize the code with a [Docker](https://www.docker.com/) container based on an [image provided by CosmWasm](https://hub.docker.com/r/cosmwasm/rust-optimizer/tags) for production purposes:
@@ -216,8 +221,27 @@ You can optimize the code with a [Docker](https://www.docker.com/) container bas
 $ docker run --rm -v "$(pwd)":/code \
   --mount type=volume,source="$(basename "$(pwd)")_cache",target=/code/target \
   --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
-  cosmwasm/rust-optimizer:0.12.3
+  cosmwasm/rust-optimizer:0.12.6
 ```
+
+<ExpansionPanel title="Troubleshooting">
+
+<PanelListItem number="1">
+
+**Apple M1**
+
+If you work with a machine using M1 architecture, you need to add the `--platform linux/amd64` flag:
+
+```sh
+ $ docker run --rm --platform linux/amd64 -v "$(pwd)":/code \
+   --mount type=volume,source="$(basename "$(pwd)")_cache",target=/code/target \
+   --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
+   cosmwasm/rust-optimizer:0.12.6
+```
+
+</PanelListItem>
+
+</ExpansionPanel>
 
 Compare the result:
 
@@ -228,7 +252,7 @@ $ ls -alh artifacts/cw_nameservice.wasm
 This returns:
 
 ```
--rw-r--r--  1 me staff 139K artifacts/cw_nameservice.wasm
+-rw-r--r--  1 me staff 138K artifacts/cw_nameservice.wasm
 ```
 
 ## Upload a smart contract binary
@@ -236,8 +260,9 @@ This returns:
 Time to store the smart contract binaries on the blockchain:
 
 ```sh
-$ RES=$(wasmd tx wasm store artifacts/cw_nameservice.wasm --from wallet --node $RPC --chain-id pebblenet-1 --gas-prices 0.001upebble --gas auto --gas-adjustment 1.3)
-$ CODE_ID=$(echo $RES | jq -r '.logs[0].events[-1].attributes[0].value')
+$ export result=$(wasmd tx wasm store artifacts/cw_nameservice.wasm --from alice --node $RPC --chain-id cliffnet-1 --gas-prices 0.01upebble --gas auto --gas-adjustment 1.3 --output json --broadcast-mode block --yes)
+$ export code_id=$(echo $result | jq -r '.logs[0].events[-1].attributes[0].value')
+$ echo $code_id
 ```
 
 <!--
@@ -247,7 +272,7 @@ Got this error on: wasmd tx wasm store:
 
 -->
 
-The response returns a `code_id` value, which uniquely identifies your newly uploaded binary in the blockchain. Record this in order to instantiate a name service with this binary in the next steps.
+The response returns a `code_id` value (for instance `1391`), which uniquely identifies your newly uploaded binary in the blockchain. Record this in order to instantiate a name service with this binary in the next steps.
 
 ## Instantiate your smart contract
 
@@ -275,25 +300,25 @@ pub fn instantiate(
 Among the parameters the function expects are [`msg.purchase_price` and `msg.transfer_price`](https://github.com/InterWasm/cw-contracts/blob/2f545b7/contracts/nameservice/src/msg.rs#L6-L9). Both have the type [cosmwasm_std::Coin](https://docs.rs/cosmwasm-std/0.9.2/cosmwasm_std/struct.Coin.html), which looks very similar to Cosmos SDK's [`Coin`](https://github.com/cosmos/cosmos-sdk/blob/c41ac20c6cd6cc2b65afa6af587bf39048b2f251/types/coin.pb.go#L31-L34). This is no coincidence. With this knowledge, instantiate a new name service with a `purchase_price` and `transfer_price`:
 
 ```sh
-$ wasmd tx wasm instantiate $CODE_ID '{"purchase_price":{"amount":"100","denom":"upebble"},"transfer_price":{"amount":"999","denom":"upebble"}}' --from wallet --node $RPC --chain-id pebblenet-1 --gas-prices 0.001upebble --gas auto --gas-adjustment 1.3  --label "CosmWasm tutorial name service"
+$ wasmd tx wasm instantiate $code_id '{"purchase_price":{"amount":"100","denom":"upebble"},"transfer_price":{"amount":"999","denom":"upebble"}}' --from alice --no-admin --node $RPC --chain-id cliffnet-1 --gas-prices 0.01upebble --gas auto --gas-adjustment 1.3 --label "CosmWasm tutorial name service" --broadcast-mode block --yes
 ```
 
-Note the `CODE_ID` that refers to which binary to use for the instantiation. Check that the name service instance was successfully created with:
+Note the `code_id` that refers to which binary to use for the instantiation. Check that the name service instance was successfully created with:
 
 ```sh
-$ wasmd query wasm list-contract-by-code $CODE_ID --node $RPC --output json
+$ wasmd query wasm list-contract-by-code $code_id --node $RPC --output json
 ```
 
 You can find the contract address in the response. Make it a variable too:
 
 ```sh
-$ CONTRACT = the_address_in_the_response
+$ export contract_address=$(wasmd query wasm list-contract-by-code $code_id --node $RPC --output json | jq -r ".contracts[0]")
 ```
 
 Use this to fetch more information with the following command:
 
 ```sh
-$ wasmd query wasm contract $CONTRACT --node $RPC
+$ wasmd query wasm contract $contract_address --node $RPC
 ```
 
 ## Call your smart contract
@@ -322,7 +347,7 @@ pub fn execute(
 There are two _execute_ message types. These are used to register or transfer a name within the name service. Start by [registering](https://github.com/InterWasm/cw-contracts/blob/2f545b7b8b8511bc0f92f2f3f838c236ba0d850c/contracts/nameservice/src/msg.rs#L11-L16) a new name with your instance:
 
 ```sh
-$ wasmd tx wasm execute $CONTRACT '{"register":{"name":"fred"}}' --amount 100upebble --from wallet --node $RPC --chain-id pebblenet-1 --gas-prices 0.001upebble --gas auto --gas-adjustment 1.3
+$ wasmd tx wasm execute $contract_address '{"register":{"name":"fred"}}' --amount 100upebble --from alice --node $RPC --chain-id cliffnet-1 --gas-prices 0.01upebble --gas auto --gas-adjustment 1.3 --broadcast-mode block --yes
 ```
 
 ### Verify the name registration
@@ -344,28 +369,28 @@ There are two _query_ message types. Note that you now have `deps: Deps` instead
 Verify the registration with [`ResolveRecord`](https://github.com/InterWasm/cw-contracts/blob/2f545b7b8b8511bc0f92f2f3f838c236ba0d850c/contracts/nameservice/src/msg.rs#L18-L24):
 
 ```sh
-$ wasmd query wasm contract-state smart $CONTRACT '{"resolve_record": {"name": "fred"}}' --node $RPC --output json
+$ wasmd query wasm contract-state smart $contract_address '{"resolve_record": {"name": "fred"}}' --node $RPC --output json
 ```
 
-The response gives you the wallet address owning the registered name, which should be `wallet`.
+The response gives you the wallet address owning the registered name, which should be `alice`.
 
 ### Transfer a name
 
-Now create another transaction to transfer the name to the second wallet `wallet2`. First prepare the query with the address of your other wallet:
+Now create another transaction to transfer the name to the second wallet `bob`. First prepare the query with the address of your other wallet:
 
 ```sh
-$ JSON=$(jq --null-input --arg addr $(wasmd keys show wallet2 --address) '{"transfer":{"name":"fred","to":$addr}}')
+$ export json_request='{"transfer":{"name":"fred","to":"'$bob'"}}'
 ```
 
 Then send the transaction:
 
 ```sh
-$ wasmd tx wasm execute $CONTRACT "$JSON" --amount 999upebble --from wallet --node $RPC --chain-id pebblenet-1 --gas-prices 0.001upebble --gas auto --gas-adjustment 1.3
+$ wasmd tx wasm execute $contract_address "$json_request" --amount 999upebble --from alice --node $RPC --chain-id cliffnet-1 --gas-prices 0.01upebble --gas auto --gas-adjustment 1.3 --broadcast-mode block --yes
 ```
 
 Under the hood, the execution used `transfer_price`, which you set at the instantiation.
 
-Check again with a `resolve_record` query to confirm that the transfer was successful. Experiment with another transfer from `wallet2` to `wallet`, and pay attention to which wallet can perform which transaction.
+Check again with a `resolve_record` query to confirm that the transfer was successful. Experiment with another transfer from `bob` to `alice`, and pay attention to which wallet can perform which transaction.
 
 <HighlightBox type="docs">
 

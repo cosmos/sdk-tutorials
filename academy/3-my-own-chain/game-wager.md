@@ -405,13 +405,15 @@ With the desired steps defined in the wager handling functions, it is time to in
     }
     ```
 
-<!-- Changed title from: "## ~~Unit~~ Integration tests" -->
-
 ## Integration tests
 
 If you try running your existing tests you will see a lot of **null pointer exceptions**. That's because currently the tests set up your checkers keeper [without a bank keeper](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/keeper_test.go#L30-L34). Cosmos SDK does not have [mocks](https://en.wikipedia.org/wiki/Mock_object), so instead of passing a mocked bank when setting up your test keeper you need to build a proper bank keeper too. Fortunately, you do not have to do this from scratch: taking inspiration from [tests on the bank module](https://github.com/cosmos/cosmos-sdk/blob/9e1ec7b/x/bank/keeper/keeper_test.go#L66-L110), prepare your code and tests in order to accommodate and create a full app which will contain a bank keeper.
 
+<HighlightBox type="note">
+
 Your existing tests, although never pure **unit** tests, will become true **integration** tests.
+
+</HighlightBox>
 
 Previously, each test function took a [`t *testing.T`](https://github.com/cosmos/b9-checkers-academy-draft/blob/ba95217/x/checkers/keeper/end_block_server_game_test.go#L12) object. Now, each test function will be a method on a test suite that inherits from [testify's suite](https://pkg.go.dev/github.com/stretchr/testify/suite). This has the advantage that your test suite can have as many fields as is necessary or useful. The objects that you have used and would welcome in the suite are:
 
@@ -438,7 +440,7 @@ When testing, `go test` will find the suite because you add a [_regular_ test](h
 
     Keep this `setupKeeper` function because tests created by Ignite CLI expect it.
 
-2. Ignite CLI created a default constructor for your App with a [`cosmoscmd.App`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/app.go#L219-L230) return type, but this is not convenient. Instead of risking breaking other dependencies, add a new constructor with [your `App`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/app.go#L231-L255) as the return type.
+2. Ignite CLI created a default constructor for your App with a [`cosmoscmd.App`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/app.go#L219-L230) return type, but this is not convenient as you need access to the `app.App` type for initialization in the upcoming tests. Instead of risking breaking other dependencies, add a new constructor with [your `App`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/app.go#L231-L255) as the return type.
 3. Add other elements taken from Cosmos SDK tests, like [`encoding.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/encoding.go), [`proto.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/params/proto.go), and [`test_helpers.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/test_helpers.go), in which you must also initialize your checkers genesis:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/872366cd/app/test_helpers.go#L127-L128]

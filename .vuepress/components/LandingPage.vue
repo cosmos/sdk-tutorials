@@ -13,7 +13,7 @@
         .tutorials__wrapper.mt-10
             h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tutorials
             .tutorials
-                a.tutorials__item__small(href="/authz-module/")
+                a.tutorials__item__small(href="/tutorials/understanding-authz/")
                     card
                         .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted intermediate
                         h4.mt-7 Understanding the Authz Module

@@ -286,6 +286,23 @@ func DefaultGenesis() *GenesisState {
 
 You can choose to start with no games or insert a number of games to start with. In either case, you must choose the first ID of the first game, which here is set at `1` by reusing the `DefaultIndex` value.
 
+<HighlightBox type="note">
+
+The code makes heavy use of Go pointers throughout:
+
+* `*StoredGame` is the type of a pointer to a `StoredGame` object.
+* `[]*StoredGame` is the type of an array of such pointer types.
+* `[]*StoredGame{}` is an instance of such an array initialized as empty.
+* `NextGame{ Creator... }` is an instance of `NextGame` that is initialized with the values given.
+* When applied to the left of an instance, `&` is the operator that takes the memory address of the instance and returns a pointer to the relevant type.
+* Therefore `&NextGame{ Creator... }` is a pointer to the new instance, and is of type `*NextGame`.
+* `GenesisState.NextGame` is of type [`*NextGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/c2490f41/x/checkers/types/genesis.pb.go#L29), so `&NextGame{ Creator... }` is what is needed.
+* The `DefaultGenesis()` function is expected to return a pointer `*GenesisState`, therefore it is necessary to apply the `&` operator on the new instance when returning the value `return &GenesisState{ StoredGameList... }`.
+
+If you want to experiment with Go pointers, have a look [here](https://go.dev/tour/methods/5).
+
+</HighlightBox>
+
 ### Protobuf service interfaces
 
 In addition to created objects, Ignite CLI also creates services that declare and define how to access the newly-created storage objects. Ignite CLI introduces empty service interfaces that can be filled as you add objects and messages when scaffolding a brand new module.
