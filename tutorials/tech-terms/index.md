@@ -183,6 +183,18 @@ For more information on encoding in the Cosmos SDK, see the [Cosmos SDK document
 
 ### gRPC-web
 
+gRPC is supported across different software and hardware platforms. **gRPC-web** is _a JavaScript implementation of gRPC for browser clients_. gRPC-web clients connect to gRPC services via a special proxy.
+
+<HighlightBox type="tip">
+
+For more on gRPC-web, a closer look at the [gRPC repository](https://github.com/grpc/grpc-web) is recommended.
+
+To dive into developing with gRPC-web, the [documentation's quick start](https://grpc.io/docs/platforms/web/quickstart/) and [basics tutorials](https://grpc.io/docs/platforms/web/basics/) are very valuable sources.
+
+</HighlightBox>
+
+
+
 gRPC-web - HTTP2 server with Protobuf for data encoding (port 9091). HTTP2 supports binary payload, so this is a thin proxy to gRPC.
 
 gRPC-web is the most efficient way that's also compatible with browsers.
@@ -205,31 +217,57 @@ For example, if you cannot use gRPC for your application because a browser does 
 
 ## Amino
 
+Amino is an object encoding specification. In the Cosmos SDK, every module uses an **Amino codec** that _helps serialize types and interfaces_. Amino handles interfaces by prefixing bytes before concrete types.
 
+Usually, the Amino codec types and interfaces are registered in the module's domain.
 
-Amino is the main data encoding format that was used before 
-@Cosmos
- SDK v0.40 and is still supported today as legacy because it's still the only acceptable format for signing txs in the Cosmos Ledger App
+<HighlightBox type="info">
 
---> https://t.co/pgBVovWZRk
+A concrete type is a non-interface type which implements a registered interface. Types need to be registered when stored in interface type fiels, or a list with interface elements.
 
-Amino is basically JSON with some modifications. For example, the JSON spec doesn't define numbers greater than 2^53, so we use strings in Amino when encoding a type greater than uint64/int64.
+As a best practice, upon initialization, make sure to:
 
-https://t.co/5Vcg3tLh51
+* Register the interfaces.
+* Implement concrete types.
+* Check for issues, like conflicting prefix bytes.
+
+</HighlightBox>
+
+Every module exposes a function, `RegisterLegacyAminoCodec`. With it, users can provide a codec and register all types. Applications call this method for necessary modules.
+
+With Amino, raw wire bytes are encoded and decoded to concrete types or interfaces when there is no Protobuf-based type definition for a module.
+
+<HighlightBox type="tip">
+
+For more on Amino specifications and implementation for Go, see the [Tendermint Go Amino documentation](https://github.com/tendermint/go-amino).
+
+</HighlightBox>
+
+<HighlightBox type="note">
+
+Amino is basically JSON with some modifications.
+
+For example, the JSON specification does not define numbers greater than 2^53, so instead strings are used in Amino when encoding a type greater than uint64/int64.
+
+For more on the Amino types and their representation in JSON, see the [Secret.js documentation](https://github.com/scrtlabs/secret.js/blob/master/DEVELOPERS.md#amino-types-and-how-theyre-represented-in-json).
+
+</HighlightBox>
 
 ## Protobuf
 
-In 
-@Cosmos
- SDK v0.40 (Stargate) Protobuf replaced Amino as the data encoding format of txs and chain state. Protobuf has far better encoding/decoding performance and far more developer tooling than Amino. Protobuf encodes to binary and is more compact.
+**Protocol Buffers (Protobuf)** is an open-source, cross-platform data format developed by Google. It helps serliaize structured data and assists with program communication in networks or when storing data.
 
-https://t.co/xGlAoMOvEv
+<HighlightBox type="tip">
 
-With the switch to Protobuf we also got gRPC (for free!). gRPC functions are defined and automatically generated from Protobuf, so now devs don't need to implement the same query three times for RPC, LCD and CLI.
+If you want to get more accustumed to Protobuf, a look at the [official documentation](https://developers.google.com/protocol-buffers) helps dive deeper, and offers guides and tutorials.
 
+Also take a look at the [section on this platform on Protobuf](../academy/2-main-concepts/protobuf.md).
 
-Amino vs. Protobuf vs. Ledger is also the reason authz isn't supported in Ledger. Its has no Amino definitions in the SDK (as it's legacy) and the Cosmos Ledger App cannot sign on Protobufs txs.
+</HighlightBox>
 
+In Cosmos, Protobuf is a data serialization method, which developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
+
+With Cosmos SDK v0.40, Protobuf began replacing Amino as the data encoding format of chain states and transactions. One of the reasons was that the encoding/decoding performance is better with Protobuf than Amino. In addition, the developer tooling is also better for Protobuf. Another benefit of switching to Protobuf is that the use of gRPC is fostered - Protobuf automatically defines and generates gRPC functions. Thus, developers no longer have to implement the same query for RPC, LCD, and CLI.
 
 
 For reference:
