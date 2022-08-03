@@ -468,8 +468,8 @@ module.exports = {
           children: [
             {
               title: "Good to Know Dev Terms",
-              path: "/academy/tech-terms/",
-              directory: true,
+              path: "/tutorials/tech-terms/",
+              directory: false,
             },
             {
               title: "Golang Introduction",
