@@ -27,19 +27,19 @@ Let's dive right into it.
 
 ## Light client daemon (LCD)
 
-A **light client**, compared to a full node, tracks only pieces of certain information of a blockchain. Light clients do not track the entire state of a blockchain and also do not contain every transaction/block of a chain.
+A **light client**, compared to a full node, tracks only pieces of certain information on a blockchain. Light clients do not track the entire state of a blockchain and also do not contain every transaction/block of a chain.
 
-In the Tendermint consensus, the light client protocol allows clients to benefit from the same degree of security as full nodes do, while bandwith requirements are minimized. A client can receive cryptographic proofs for blockchain states and transactions without having to sync all blocks or even their headers.
+In the Tendermint consensus, the light client protocol allows clients to benefit from the same degree of security as full nodes do, while bandwidth requirements are minimized. A client can receive cryptographic proofs for blockchain states and transactions without having to sync all blocks or even their headers.
 
 <HighlightBox type="tip">
 
-Take a look at [Light Clients in Tendermint Consensus](https://blog.cosmos.network/light-clients-in-tendermint-consensus-1237cfbda104) by Ethan Frey to discover more on how light clients are used in the Tendermint consensus.
+Take a look at [Light Clients in Tendermint Consensus](https://blog.cosmos.network/light-clients-in-tendermint-consensus-1237cfbda104) by Ethan Frey to discover more about how light clients are used in the Tendermint consensus.
 
 </HighlightBox>
 
 Therefore, light clients are also vital for the Inter-Blockchain Communication (IBC) Protocol to track information such as timestamps, root hash, and the next validator set hash. This saves space and increases efficiency for state update processing.
 
-The **light client daemon (LCD)** is also a HTTP 1.1 server exposed by the Cosmos SDK. Its default port is `1317`. It exposes a REST API for the chain - a _representational state transfer application programming interface_, in short REST API, is an application programming interface that allows for the interaction with a RESTful web service. Traditionally, every query was re-implemented for LCD and behind the scene routed to RPC.
+The **light client daemon (LCD)** is also an HTTP1.1 server exposed by the Cosmos SDK. Its default port is `1317`. It exposes a REST API for the chain - a _representational state transfer application programming interface_, in short, REST API, is an application programming interface that allows for the interaction with a RESTful web service. Traditionally, every query was re-implemented for LCD and behind the scene routed to RPC.
 
 <ExpansionPanel title="Why is it called light client daemon?">
 
@@ -53,29 +53,29 @@ A **remote procedure call (RPC)** is _a software communication protocol_. The te
 
 RPC can be understood as a client-server interaction, in which the "caller" is the client, more specifically the requesting program, and the "executor" is the server, more specifically the service-providing program. The interaction is implemented through a request-response message-passing system. In short, RPC is a request-response protocol, initiated by a client sending a request to a remote server to execute the subroutine.
 
-For example, it allows calling functions in different address spaces. Usually, the called functions are ran on a different computer than the one calling them.
+For example, it allows calling functions in different address spaces. Usually, the called functions are run on a different computer than the one calling them.
 
 With RPC, the developer codes as if the subroutine would be local; the developer does not have to code in the details for the remote interaction. Thus, with RPCs it is implied that calling procedures are basically the same, independent of it being a local or remote call.
 
 <HighlightBox type="note">
 
-As RPCs implement remote request-response protocols, it is importantn to note that remote procedure calls can fail in case of network problems.
+As RPCs implement remote request-response protocols, it is important to note that remote procedure calls can fail in case of network problems.
 
 </HighlightBox>
 
-### How does a RPC request work?
+### How does an RPC request work?
 
-In general: when a remote procedure call is invoked, the procedure parameters are transferred across the network to the execution environment. The procedure is executed in the envorpnment. Once finished, the results of the procedure call invoked are transferred to the call environment. The execution then resumes in the call environment, like it would in a regular local procedure call.
+In general: when a remote procedure call is invoked, the procedure parameters are transferred across the network to the execution environment. The procedure is executed in the environment. Once finished, the results of the procedure call invoked are transferred to the call environment. The execution then resumes in the call environment, like it would in a regular local procedure call.
 
 A step-by-step RPC request could look like the following:
 
-1. A client calls a client stub - a piece of code convertng parameters that are passed between client and servers during a RPC. The call is a local procedure call.
+1. A client calls a client stub - a piece of code converting parameters that are passed between client and servers during an RPC. The call is a local procedure call.
 
 <HighlightBox type="info">
 
-A stub is a small program routine sustituting a longer program.
+A stub is a small program routine substituting a longer program.
 
-In RPCS, the client's stub substitutes the program providing a request procedure. The stub accepts and forwards the request to the remote procedure. Once the remote procedure completed the reuqest, it returns the request results to the stub that passes it to the request procedure.
+In RPCS, the client's stub substitutes for the program providing a request procedure. The stub accepts and forwards the request to the remote procedure. Once the remote procedure completed the request, it returns the request results to the stub that passes it to the request procedure.
 
 The server also has a stub to interface with the remote procedure.
 
@@ -85,23 +85,23 @@ The server also has a stub to interface with the remote procedure.
 
 <HighlightBox type="info">
 
-**Packing procedure parameters is called marshalling.**
+**Packing procedure parameters is called marshaling.**
 
-**Marshalling** is _the process if gathering data from one or more applications, putting data pieces into a message buffer, and organizing the data into a prescribed data format_.
+**Marshaling** is _the process of gathering data from one or more applications, putting data pieces into a message buffer, and organizing the data into a prescribed data format_.
 
-Marshalling is vital to pass output paramters of a program written in one language as inputs to programs in a different language.
+Marshaling is vital to pass output parameters of a program written in one language as inputs to programs in a different language.
 
 </HighlightBox>
 
 3. The client stub then makes a system call to send the message.
-4. The client's local operating systems (OS) sends the message from the client (machine) to the server (machine) through the corresponding transport layers.
+4. The client's local operating system (OS) sends the message from the client (machine) to the server (machine) through the corresponding transport layers.
 5. Then the server OS passes the incoming packets to the server stub.
-5. The server stub unpacks the message and with it the included procedure parameters - this is called unmarshalling.
-6. The server stubs calls a server procedure and the procedure is executed.
-7. Once the procedure is finalized, the output is returned to the server stubs.
-8. The server stubs packs the return values into a message.
-9. The message is send to the transport layer, which sends the message to the client's transport layer.
-10. The client stub unmarshalls the return parameters.
+5. The server stub unpacks the message and with it the included procedure parameters - this is called unmarshaling.
+6. The server stub calls a server procedure and the procedure is executed.
+7. Once the procedure is finalized, the output is returned to the server stub.
+8. The server stub packs the return values into a message.
+9. The message is sent to the transport layer, which sends the message to the client's transport layer.
+10. The client stub unmarshals the return parameters.
 
 <HighlightBox type="note">
 
@@ -115,11 +115,11 @@ The application layer is tasked with ensuring effective communication between ap
 
 ### RPC and Cosmos
 
-In Cosmos, RPCs are used by the command-line interface (CLI) to among others access chains. A node exposes several endpoints - gRPC, REST, and Tendermint endpoint.
+In Cosmos, RPCs are used by the command-line interface (CLI) among others to access chains. A node exposes several endpoints - gRPC, REST, and Tendermint endpoint.
 
-The Tendermint RPC endpoint is a HTTP 1.1 server exposed by Tendermint. The default port is `26657`. The gRPC server default port is `9090`, and the REST server default port is `1317`.
+The Tendermint RPC endpoint is an HTTP1.1 server exposed by Tendermint. The default port is `26657`. The gRPC server default port is `9090`, and the REST server default port is `1317`.
 
-The Tendermint RPC is independent from the Cosmos SDK and can be configured. It uses HTTP `POST` and JSON-RPC 2.0 for data encoding.
+The Tendermint RPC is independent of the Cosmos SDK and can be configured. It uses HTTP `POST` and JSON-RPC 2.0 for data encoding.
 
 <HighlightBox type="tip">
 
@@ -127,11 +127,13 @@ For more information on the Tendermint RPC, gRPC, and REST server, a closer look
 
 </HighlightBox>
 
-Cosmos exposes bothe the Tendermint RPC and the Cosmos LCD. Now, dive into LCD and specifically the Cosmos LCD.
+Cosmos exposes both the Tendermint RPC and the Cosmos LCD. Now, dive into LCD and specifically the Cosmos LCD.
 
-So now that we know what Protobuf and gRPC are, I need to circle back to RPC and note that JSON-RPC 2.0 is used for message passing, but before that the data is encoded using Protobuf and then base64, because JSON doesn't support binary data.
-In addition, messages to Tendermint RPC are serialized, so for example queries cannot run in parallel, and txs need to wait for queries. RPC also uses the default Go HTTP server, which is a bit buggy and less performant than the gRPC server Go implementation.
-It's also worth noting that in @Cosmos  SDK v0.46 the old REST API is supposed to be deprecated, which mean that gRPC-Gateway will be the only thing on the LCD.
+<HighlightBox type="info">
+
+For example, [CosmJS] uses RPC to implement a JSON-RPC API.
+
+</HighlightBox>
 
 ## gRPC
 
@@ -147,11 +149,11 @@ gRPC uses HTTP2 for transport and Protocol Buffers (Protobuf) to encode data. gR
 
 ### gRPC and Cosmos
 
-In Cosmos, gRPCs are transmission control protocols (TCP) servers with Protobuf used for data encoding. Its default port is `9090`.
+In Cosmos, gRPCs are transmission control protocol (TCP) servers with Protobuf used for data encoding. Its default port is `9090`.
 
 <HighlightBox type="info">
 
-Transmission control protocols (TCP) is one of the main internet protocols that allows to establish a connection between a client and server to send data. TCP makes communication between application programs and the internetl protocol possible.
+Transmission control protocol (TCP) is one of the main internet protocols that allows establishing a connection between a client and server to send data. TCP makes communication between application programs and the internet protocol possible.
 
 </HighlightBox>
 
@@ -167,11 +169,11 @@ A **wire encoding protocol** is _a protocol defining how data is transported fro
 
 Wire protocols can be text-based or binary protocols.
 
-In the Cosmos SDK, there are **two categories of binary wire encoding types**: client encoding and store encoding. Whereas, client encoding deals with transaction processing and signing transactions, and store encoding tackles state-machine transactions and with it what is stored in the Merkle tree.
+In the Cosmos SDK, there are **two categories of binary wire encoding types**: client encoding and store encoding. Whereas client encoding deals with transaction processing and signing transactions, and store encoding tackles state-machine transactions and with it what is stored in the Merkle tree.
 
 The Cosmos SDK uses two binary wire encoding protocols:
 
-* **Amino:** an object encoding specification. Every Comsos SDK module uses an Amino codec to serialize types and interfaces.
+* **Amino:** an object encoding specification. Every Cosmos SDK module uses an Amino codec to serialize types and interfaces.
 * **[Protocol Buffers (Protobuf)](../academy/2-main-concepts/protobuf.md):** a data serialization method, which developers use to describe message formats.
 
 Due to several reasons, such as performance drawbacks and missing cross-language/client support, Protocol Buffers are used more and more over Amino.
@@ -179,7 +181,6 @@ Due to several reasons, such as performance drawbacks and missing cross-language
 For more information on encoding in the Cosmos SDK, see the [Cosmos SDK documentation](https://docs.cosmos.network/master/core/encoding.html).
 
 </ExpansionPanel>
-
 
 ### gRPC-web
 
@@ -193,17 +194,19 @@ To dive into developing with gRPC-web, the [documentation's quick start](https:/
 
 </HighlightBox>
 
+As with gRPC in general, gRPC-web uses HTTP2 with Protobuf for data encoding. The default port is `9091`.
 
+<HighlightBox type="info">
 
-gRPC-web - HTTP2 server with Protobuf for data encoding (port 9091). HTTP2 supports binary payload, so this is a thin proxy to gRPC.
+Secret.js is a JavaScript SDK to write applications interacting with the [Secret Network](https://scrt.network/). It uses gRPC-web.
 
-gRPC-web is the most efficient way that's also compatible with browsers.
+</HighlightBox>
 
-### gRPC-Gateway 
+### gRPC-gateway 
 
-**gRPC-gateway** is a tool to expose gRPC endpoints as REST endpoints. gRPC-Gateway helps provide APIs in gRPC and RESTful style; it reads gRPC service definitions and generates reverse-proxy servers that can translate a RESTful JSON API into gRPC. For each gRPC endpoint defined in a Protobuf `Query` service, the Cosmos SDK offers a corresponding REST endpoint.
+**gRPC-gateway** is a tool to expose gRPC endpoints as REST endpoints. gRPC-gateway helps provide APIs in gRPC and RESTful style; it reads gRPC service definitions and generates reverse-proxy servers that can translate a RESTful JSON API into gRPC. For each gRPC endpoint defined in a Protobuf `Query` service, the Cosmos SDK offers a corresponding REST endpoint.
 
-gRPC-Gateway's aim is ["to provide that HTTP+JSON interface to your gRPC service"](https://grpc-ecosystem.github.io/grpc-gateway/docs/overview/background/). With it developers can benefit from all the advantages of gRPC and at the same time, still provide a RESTful API. This can help ensure backwards-compatibility, multi-language, and multi-client support.
+gRPC-Gateway's aim is ["to provide that HTTP+JSON interface to your gRPC service"](https://grpc-ecosystem.github.io/grpc-gateway/docs/overview/background/). With it, developers can benefit from all the advantages of gRPC and at the same time, still provide a RESTful API - a very helpful tool, when, for example, you want to develop a web application but have browsers that do not support HTTP2. This can help ensure backwards compatibility, multi-language, and multi-client support.
 
 <HighlightBox type="tip">
 
@@ -211,9 +214,15 @@ If you want to explore gRPC-Gateway, a closer look at the [gRPC-Gateway document
 
 </HighlightBox>
 
-In the Cosmos SDK, gRPC-Gateway provides a HTTP1.1 server with REST API and a base64-encoded Protobuf for data encoding; it exposes gRPC endpoints as REST endpoints. It routes on the server to gRPC and piggybacks off of LCD. Thus, it is also on port `1317`.
+In the Cosmos SDK, gRPC-Gateway provides an HTTP1.1 server with REST API and a base64-encoded Protobuf for data encoding; it exposes gRPC endpoints as REST endpoints. It routes on the server to gRPC and piggybacks off of LCD. Thus, it is also on port `1317`.
 
 For example, if you cannot use gRPC for your application because a browser does not support HTTP2, you can still use the Cosmos SDK. The SDK provides REST routes via gRPC-Gateway.
+
+<HighlightBox type="info">
+
+[Terra.js](https://terra-money.github.io/terra.js/), a JavaScript SDK for applications interacting with the Terra blockchain, uses gRPC-gateway.
+
+</HighlightBox>
 
 ## Amino
 
@@ -268,11 +277,3 @@ Also take a look at the [section on this platform on Protobuf](../academy/2-main
 In Cosmos, Protobuf is a data serialization method, which developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
 
 With Cosmos SDK v0.40, Protobuf began replacing Amino as the data encoding format of chain states and transactions. One of the reasons was that the encoding/decoding performance is better with Protobuf than Amino. In addition, the developer tooling is also better for Protobuf. Another benefit of switching to Protobuf is that the use of gRPC is fostered - Protobuf automatically defines and generates gRPC functions. Thus, developers no longer have to implement the same query for RPC, LCD, and CLI.
-
-
-For reference:
-
-- secret.js uses gRPC-web
-- cosmjs uses RPC
-- terra.js uses gRPC-Gateway
-- Telescope will use gRPC-Gateway and probably gRPC-web too
