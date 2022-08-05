@@ -44,10 +44,15 @@ Pending a release of such a tool, you must ensure that only one of your computer
 
 ## Generate
 
+https://docs.cosmos.network/main/run-node/run-node.html#
+
 Types: https://hub.cosmos.network/main/validators/validator-faq.html#what-are-the-different-types-of-keys
 
 In OS built-in secret store.
 
+https://catboss.medium.com/turning-a-full-node-in-to-a-validator-node-osmosis-1-36f3358f2412
+
 ## Advertise
 
 Where to present yourself for delegators to find you.
+

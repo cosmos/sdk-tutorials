@@ -11,7 +11,7 @@ To get to production, the first order of business is to build the binary that th
 
 ## Target platforms
 
-Because you are going to run the nodes on different machines, it is possible for them to have different operating systems and CPU types. You need to account for that when building. In particular, the computer on which you build may be entirely different from the one you eventually run the binary. In the jargon, you need to specify the target platform(s).
+Because you are going to run the nodes on different machines, it is possible for them to have different operating systems and CPU types. You need to account for that when building. In particular, the computer on which you build may be entirely different from the one on which you eventually run the binary. In the jargon, you need to specify the target platform(s).
 
 What target platforms are available? Because you built your entire blockchain with Go, you can rely on [Go target platforms](https://gist.github.com/asukakenji/f15ba7e588ac42795f421b48b8aede63) for that. To get the targets specific to your version of Go, just run:
 
