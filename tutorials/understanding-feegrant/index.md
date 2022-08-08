@@ -222,7 +222,7 @@ $ simd tx feegrant revoke $ALICE $BOB --from alice
 View the allowance:
 
 ```sh
-$ simd q feegrant grants $BOB_ADDRESS
+$ simd q feegrant grants $BOB
 ```
 
 ## 🎉 Congratulations 🎉
