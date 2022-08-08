@@ -7,14 +7,14 @@ tag: deep-dive
 
 # Prepare where the node starts
 
-When you run your chain with `myprojectd start`, the software will pick up a genesis to build on. The genesis needs to contain:
+When you run your chain with `myprojectd start`, the software will build from a genesis. This genesis needs to contain:
 
 1. The original validators and their stakes.
 2. The original state values that you see fit. This can be, for instance, the original parameters of your world if you are building a metaverse, or the original USD price of your token if you are building a stable coin.
 
 ## Generate
 
-You are going to build this genesis file progressively. The genesis contains a lot of information such as staking and slashing parameters. You can adjust these parameters if you know what you are doing.
+You are going to build this genesis file progressively. The genesis contains a lot of information such as [minting](https://hub.cosmos.network/main/resources/genesis.html#mint), [staking](https://hub.cosmos.network/main/resources/genesis.html#staking) or [slashing](https://hub.cosmos.network/main/resources/genesis.html#slashing) parameters. You can adjust [these parameters](https://hub.cosmos.network/main/resources/genesis.html) if you know what you are doing.
 
 <!--
 

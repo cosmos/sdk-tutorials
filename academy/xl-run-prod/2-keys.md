@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Prepare a validator and keys
 
-In the [previous section](./1-software.md), you prepared a binary for your nodes. Some of your nodes will be validators. To propose and sign blocks, validators need access to private keys on an on-going basis.
+In the [previous section](./1-software.md), you prepared a binary for your nodes. Some of your nodes will be validators. To propose and sign blocks, validators need access to private keys on an on-going basis. A regular node does not need keys.
 
 Here you learn how to prepare a validator and handle its keys. This works whether you are preparing a validator to join a preexisting network, or you are setting up your validator to be part of the [genesis](./genesis.md).
 

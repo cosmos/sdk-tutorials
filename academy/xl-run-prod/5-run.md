@@ -62,7 +62,7 @@ The larger your genesis file, the longer this step takes. Do not worry if it loo
 
 ## As a service
 
-Instead of relaunching your software every time, it is a good idea to set it up as a service. You can use your preferred way, but if you are on Linux, it may be with `systemd`. Here is an example of service file to save in `/etc/systemd/system/myprojectd.service`:
+Instead of relaunching your software every time, it is a good idea to set it up as a service. You can use your preferred way, but if you are on Linux, it may be with `systemd`. Here is an example of service file, [modeled on Gaia's](https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html#running-via-background-process), to save in `/etc/systemd/system/myprojectd.service`:
 
 ```ini
 [Unit]
@@ -76,14 +76,11 @@ Restart=always
 RestartSec=3
 LimitNOFILE=4096
 
-Environment="DAEMON_HOME=$HOME/.myprojectd"
-Environment="DAEMON_NAME=myprojectd"
-
 [Install]
 WantedBy=multi-user.target
 ```
 
-In the [section on migrations](./6-migration.md) you add parameters to this file.
+Check the [section on migrations](./6-migration.md) where you may add parameters to this file if you want to use Cosmovisor.
 
 Enable it once:
 
@@ -92,20 +89,26 @@ $ sudo systemctl daemon-reload
 $ sudo systemctl enable myprojectd
 ```
 
-Then, if you don't want to try a restart, you can start it immediately with:
+Then, if you don't want to try a computer restart, you can start the process immediately with:
 
 ```sh
 $ sudo systemctl start myprojectd
 ```
 
-Ideas: https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html#running-via-background-process
+## When to start
 
-## Monitor
+You have launched your blockchain software, the other validators have done the same, so when is the first block minted? It happens when validators representing at least [two thirds](https://hub.cosmos.network/main/resources/genesis.html#genesis-transactions) (67%) of the total staked amount are online.
 
-About invariants. Ideas: https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html#verify-mainnet
+It means that, although you should coordinate with your peers for a convenient date and time to start, you need not narrow it down to the second. You can all agree that you all start _on Tuesday_ and it will therefore start safely at some point on Tuesday.
 
-Explorers: Prometheus and Grafana.
+This is another reason why, when adding staking transactions in the genesis, you need to be sure about the reliability of the other validators, or your start could be delayed.
 
-## Interact
+## Further concerns
 
-Shell completion: https://hub.cosmos.network/main/hub-tutorials/gaiad.html#shells-completion-scripts
+Now that you have a running network, you may considering coming back to it, and try to:
+
+* Make your life easier with [shell command completion](https://hub.cosmos.network/main/hub-tutorials/gaiad.html#shells-completion-scripts).
+* Add a node that [checks invariants](https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html#verify-mainnet).
+* Add [telemetry](https://docs.cosmos.network/master/core/telemetry.html) so as to keep an eye on your node(s).
+
+This is just an extract of the different customizations that are available to you. For more, you can peruse [this documentation](https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html).
