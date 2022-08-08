@@ -170,7 +170,7 @@ $ simd tx feegrant grant $ALICE $BOB --from alice --spend-limit 100000stake
 View the allowance:
 
 ```sh
-$ simd q feegrant grants $BOB_ADDRESS
+$ simd q feegrant grants $BOB
 ```
 
 ## Send Tokens
