@@ -189,7 +189,7 @@ Any transaction that is sent using the `tx` command can use the `--fee-account` 
 Send `kudos` tokens from Bob to Alice, while Alice pays the fees:
 
 ```sh
-$ simd tx bank send $BOB_ADDRESS $ALICE_ADDRESS 100kudos --from bob --fee-account $ALICE_ADDRESS --fees 500stake
+$ simd tx bank send $BOB $ALICE 100kudos --from bob --fee-account $ALICE --fees 500stake
 ```
 
 Look at the balances again:
