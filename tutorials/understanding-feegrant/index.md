@@ -164,7 +164,7 @@ Before Bob can send `kudos` to Alice, you must set up an allowance for Bob so th
 The `BasicAllowance` is a permission for a grantee to use up fees until the `spend_limit` or `expiration` is reached. Open up a new terminal window and create an allowance with a spend limit of `100000stake` and no expiration date:
 
 ```sh
-$ simd tx feegrant grant $ALICE_ADDRESS $BOB_ADDRESS --from alice --spend-limit 100000stake
+$ simd tx feegrant grant $ALICE $BOB --from alice --spend-limit 100000stake
 ```
 
 View the allowance:
