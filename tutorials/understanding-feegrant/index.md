@@ -178,8 +178,8 @@ $ simd q feegrant grants $BOB_ADDRESS
 First, let's check the balances of Alice and Bob. Verifying the initial balance provides a baseline so that you can later confirm if your transaction was successful:
 
 ```sh
-$ simd q bank balances $ALICE_ADDRESS
-$ simd q bank balances $BOB_ADDRESS
+$ simd q bank balances $ALICE
+$ simd q bank balances $BOB
 ```
 
 Note that Alice has `4999000000stake` because she bonded `1000000stake` to become a validator during the chain setup.
