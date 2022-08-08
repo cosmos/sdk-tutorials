@@ -216,7 +216,7 @@ The granter can revoke the allowance from the grantee using the `revoke` command
 Revoke allowance:
 
 ```sh
-$ simd tx feegrant revoke $ALICE_ADDRESS $BOB_ADDRESS --from alice
+$ simd tx feegrant revoke $ALICE $BOB --from alice
 ```
 
 View the allowance:
