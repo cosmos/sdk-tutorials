@@ -13,8 +13,10 @@
 
         switch(type) {
             case "tip":
-            case "reading":
                 icon = "/hi-tip-icon.svg";
+                break;
+            case "reading":
+                icon = "/hi-reading-icon.svg";
                 break;
             case "info":
                 icon = "/hi-info-icon.svg";
@@ -89,8 +91,8 @@
         }
 
         &.reading {
-            background: var(--background-color-primary);
-            border: 1px solid var(--color-light-gray);
+            background: linear-gradient(78.06deg, #F46800 1.14%, #F24CF4 98.88%);
+            color: #E3E3E3;
         }
 
         &.synopsis {
@@ -150,7 +152,7 @@
             margin: 0;
         }
 
-        &.tip, &.reading {
+        &.tip {
             filter: var(--img-filter);
         }
 
