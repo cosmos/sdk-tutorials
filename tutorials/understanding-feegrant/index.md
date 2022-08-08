@@ -195,8 +195,8 @@ $ simd tx bank send $BOB $ALICE 100kudos --from bob --fee-account $ALICE --fees 
 Look at the balances again:
 
 ```sh
-$ simd q bank balances $ALICE_ADDRESS
-$ simd q bank balances $BOB_ADDRESS
+$ simd q bank balances $ALICE
+$ simd q bank balances $BOB
 ```
 
 Notice how Alice has `500stake` less than before. The `500stake` was added to the transaction that Bob signed.
