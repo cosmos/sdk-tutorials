@@ -204,7 +204,7 @@ Notice how Alice has `500stake` less than before. The `500stake` was added to th
 View the allowance again:
 
 ```sh
-$ simd q feegrant grants $BOB_ADDRESS
+$ simd q feegrant grants $BOB
 ```
 
 Note how `spend_limit` has been reduced and Bob now has `99500stake` left to spend on fees.
