@@ -1,17 +1,18 @@
 #!/usr/bin/make -f
 
 build-website:
-	npm install
+	npm ci
 	npm run build
 
 build-ida-website: 
 	echo "Use ida customisations"
 	cp -rf ida-customisations/ ./
 	echo "Build website"
-	npm install
+	npm ci
 	npm run build
 	echo "Build completed"
 
+# deploy-website is currently unused, deployment happens via github actions
 deploy-website: build-website
 	cd .vuepress/dist && \
 	echo "role_arn = ${DEPLOYMENT_ROLE_ARN}" >> /root/.aws/config ; \
