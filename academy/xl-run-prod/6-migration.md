@@ -11,31 +11,35 @@ Your software is now running, that is good. Time passes and a software upgrade v
 
 You can do the whole process somewhat manually or use a tool to assist you do it smoothly and fast. This is not an unreasonable concern since, when you upgrade, all nodes are simultaneously down.
 
-The main tool is [Cosmovisor](https://hub.cosmos.network/main/hub-tutorials/upgrade-node.html). It is a wrapper executable that in turn launches your node as a subprocess and can be configured to stop at a certain point, of time or of block height.
+The main tool is [Cosmovisor](https://docs.cosmos.network/master/run-node/cosmovisor.html). It is a wrapper executable that in turn launches your node as a subprocess and can be configured to stop at a certain point, of time or of block height.
 
-Before you upgrade your mainnet, it is good practice to upgrade your testnet(s), if only to practice. You can also use your mainnet state in a temporary testnet to test the state upgrade.
+Before you upgrade your mainnet, it is good practice to upgrade your testnet(s). You can also use your mainnet state in a temporary testnet to test the computation needs of your state upgrade.
+
+<!-- TODO at which versions does the below apply? Anyway we want to use the latest advised way -->
 
 ## Set up Cosmovisor
 
-Cosmovisor is a piece of software that you need to install on your node computer. Its configuration is done via:
+Cosmovisor is a piece of software that you need to [install](https://docs.cosmos.network/master/run-node/cosmovisor.html#installation) on your node computer. Its configuration is done via:
 
-1. Environment variables.
-2. Configuration files that are polled at interval.
+1. [Environment variables](https://docs.cosmos.network/master/run-node/cosmovisor.html#command-line-arguments-and-environment-variables).
+2. [Configuration files and folders](https://docs.cosmos.network/master/run-node/cosmovisor.html#folder-layout) that are polled at interval and which you prepare by hand or via [a command](https://docs.cosmos.network/master/run-node/cosmovisor.html#initialization).
+
+When starting you can pass it command-line arguments that it will pass on to the wrapped Cosmos chain executable. Typically, `cosmovisor run start`, where `start` is the same as in `myprojectd start`.
 
 What Cosmovisor does when it launches is:
 
 1. Start and launch your node executable, say `myprojectd`.
-2. Poll regularly, for instance in `.myprojectd/data/upgrade-info.json`, for potential upgrade information.
-3. When an upgrade information is available, it will take note of the block at which to stop.
+2. Poll regularly, for instance in `.myprojectd/data/upgrade-info.json`, for potential upgrade information. Note how this file is in the `data` folder and created by the [`x/upgrade` module](https://docs.cosmos.network/master/building-modules/upgrade.html) when appropriate.
+3. When an upgrade information is available, it will wait for the executable to stop on its own, in effect after it has committed all state at the given block height.
 4. If instructed to, it downloads the new executable, otherwise it looks for it in the configuration folder, for instance `.myprojectd/cosmovisor/upgrades/<name>/bin`.
-5. Stops your node executable after it has committed all state at the given block height.
-6. Starts the state export and conversion into a new genesis.
-7. Swaps out the node executables.
-8. Restarts the node.
+5. Swaps out the symbolic link to the `current` executable to the new one.
+6. Restarts the node.
 
-Downloading an executable is a potential security risk, so you have the choice of not doing it automatically.
+The node, when restarting launches the [in-place migration](https://docs.cosmos.network/master/core/upgrade.html) process for all modules that have a [new version](https://docs.cosmos.network/master/core/upgrade.html#tracking-module-versions).
 
-Cosmovisor can in fact replace your node executable in the declaration of your node service. You can update its ``/etc/systemd/system/myprojectd.service`` service declaration as such:
+Downloading an executable is a potential security risk, so although you have the [choice of doing it](https://docs.cosmos.network/master/run-node/cosmovisor.html#auto-download) automatically, this is not the default behavior.
+
+Earlier, you may have set up your node executable as a service. If you use Cosmovisor, you can in fact replace your node executable in the declaration of your node service. Update its ``/etc/systemd/system/myprojectd.service`` service declaration as such:
 
 ```ini
 [Unit]
@@ -44,7 +48,7 @@ After=network-online.target
 
 [Service]
 User=chainuser
-ExecStart=$(which cosmovisor) start
+ExecStart=$(which cosmovisor) run start
 Restart=always
 RestartSec=3
 LimitNOFILE=4096
@@ -71,3 +75,7 @@ Cosmovisor is here to help you migrate fast. You can still do it [by hand](https
 ## Migrate
 
 Idea: https://www.getoutsidedoor.com/2022/07/05/cosmos-dev-series-cosmos-blockchain-upgrade/
+
+https://hub.cosmos.network/main/hub-tutorials/upgrade-node.html
+
+In place migration: https://github.com/cosmos/cosmos-sdk/blob/main/docs/core/upgrade.md
