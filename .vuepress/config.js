@@ -128,12 +128,17 @@ module.exports = {
             },
             {
               title: "Understanding the Authz Module",
-              path: "/authz-module/",
+              path: "/tutorials/understanding-authz/",
               directory: false,
             },
             {
               title: "Understanding the Feegrant Module",
               path: "/tutorials/understanding-feegrant/",
+              directory: false,
+            },
+            {
+              title: "Understanding the Group Module",
+              path: "/tutorials/understanding-group/",
               directory: false,
             }
           ],
@@ -339,7 +344,6 @@ module.exports = {
     "feature-test/*.md",
     "academy/*/*.md",
     "tutorials/*/*.md",
-    "authz-module/*.md",
     "course-ida/*/*.md",
     "course-ida/*.md"
   ]
