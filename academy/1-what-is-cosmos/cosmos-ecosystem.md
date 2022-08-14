@@ -184,17 +184,17 @@ When you scaffold with Ignite CLI, things like key management, creating validato
 
 ## CosmWasm - multi-chain smart contracts
 
-[CosmWasm](https://cosmwasm.com/) is a multi-chain platform on which to create robust dApps for Cosmos using smart contracts. It builds on Tendermint and the Cosmos SDK. Its key features are:
+[CosmWasm](https://cosmwasm.com/) is a multi-chain solution for smart contracts on Cosmos. That’s the Cosm part. It's a way of using WebAssembly in the Cosmos universe. That’s the Wasm part.
 
-* Mature tools for the development and testing of smart contracts
-* Close integration with the Cosmos SDK and ecosystem
-* A secure architecture to avoid attack vectors
+CosmWasm's design makes your code agnostic to the details of the underlying chains. It only requires that a Cosmos SDK application embeds the Wasm module.
 
-With CosmWasm, smart contracts can run on multiple chains with the help of the IBC protocol. It adds further flexibility for developers and makes smart contract development faster. CosmWasm is written as a module to be plugged into the Cosmos SDK, and leverages the speed of Wasm and the power of Rust.
+Soon, CosmWasm will enable systems and contracts that communicate across chains because it will work with IBC. 
+
+CosmWasm will likely support many approaches to developing contracts. For now, Rust is the most popular, most evolved and most used, so CosmWasm is ideal for Rust developers looking for a blockchain platform with fast transaction finality.
 
 <HighlightBox type="docs">
 
-For a deeper dive, read the [CosmWasm documentation](https://docs.cosmwasm.com/docs/1.0/).
+For a deeper dive, read the [CosmWasm documentation](https://docs.cosmwasm.com/docs/1.0/) or compile and deploy a contract in the [guided exercise](../4-my-own-chain/cosmwasm.md). 
 
 </HighlightBox>
 

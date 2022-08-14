@@ -20,24 +20,25 @@ Discover how multi-chain smart contracts become possible with CosmWasm. The foll
 
 </HighlightBox>
 
-[CosmWasm](https://cosmwasm.com/) offers multi-chain solutions for smart contracts through an actor-model design focused on providing a library.
+[CosmWasm](https://cosmwasm.com/) runs smart contracts in WebAssembly (that’s the Wasm part) on Cosmos blockchains (that’s the Cosm part). It uses a safety-oriented actor-model that prevents many of the security issues found on other smart contract platforms. 
 
 <ExpansionPanel title="More on the actor model">
 
-The actor model is a design pattern for reliable, distributed systems. It is the pattern underlying CosmWasm smart contracts.
-<br></br>
-Each actor has access to its own internal state and can only message other actors through a so-called dispatcher, which maintains the state and maps addresses to code and storage.
-<br></br>
+The actor model is a design pattern for reliable distributed systems. It is the pattern underlying CosmWasm smart contracts.
+<br/>
+Each actor has access to its own private, internal state. They can only message other actors indirectly, through a so-called dispatcher, which maintains the state and maps addresses to code and storage. Common security concerns like re-entrancy simply do not exist in this model.
+<br/>
 Want to read more on the actor model? See [the CosmWasm documentation on the Actor Model for Contract Calls](https://docs.cosmwasm.com/docs/0.16/architecture/actor).
 
 </ExpansionPanel>
 
-CosmWasm's design makes the code agnostic to the details of underlying chains. It only requires a Cosmos SDK application to embed the `Wasm` module.
+Any Cosmos blockchain can potentially run CosmWasm smart contracts, and they can communicate with Cosmos SDK modules. All that is required is that the binary for the chain imports the Wasm module (part of the Cosmos SDK) that enables this capability.
 
-CosmWasm is adaptable to different development environments by design and makes it possible to connect chains. It is a solid platform to develop on because:
+CosmWasm will be tightly integrated with IBC meaning that contracts on different chains will be able to communicate with each other. This design creates new possibilities for system designs with topologies that traverse chain boundaries. For example, consider a Dex running on one chain, and oracles or trading signals on other chains, all tightly connected. 
 
-* If you want to change chains, you can easily transfer smart contracts and decentralized applications (dApps).
-* If your application grows, you can launch your chain for the next version of your smart contract. You do not need to compile and deploy the binaries again.
+CosmWasm contracts are usually written in Rust and then compiled to WebAssembly. Support for other languages is expected over time. CosmWasm separates the ideas of code and instances so that the chain isn’t overloaded with many copies of the same code. Instead, code that is uploaded to the chain, once, can be instantiated at many different addresses. 
+
+Getting started is easy. Start by using the provided binary to run a single-node blockchain with the (Wasm module integrated, of course) and a Rust IDE and compiler. In this exercise, you’ll compile, upload, instantiate and interact with a simple contract. 
 
 ## Install
 
