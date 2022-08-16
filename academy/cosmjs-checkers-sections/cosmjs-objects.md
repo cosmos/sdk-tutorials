@@ -14,7 +14,7 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md).
 * You have completed the introductory [CosmJS tutorial](../xl-cosmjs/intro.md).
 * Go and npm are installed.
-* You have finished the checkers blockchain exercise. If not, you can follow that tutorial here, or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-wager-denomination) that contains the final version.
+* You have finished the checkers blockchain exercise. If not, you can follow that tutorial [here](/academy/4-my-own-chain/cosmjs-objects.html), or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
 
 </HighlightBox>
 
@@ -34,69 +34,202 @@ Replace the path with your own repository. In effect, this creates a new `client
 
 Create a folder named `scripts` in your project root. This is where you will launch the Protobuf compilation. In the `scripts` folder install modules for the Protobuf-to-TypeScript compiler:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
 ```sh
-$ mkdir scripts
+$ mkdir -p scripts/protoc
 $ cd scripts
-$ npm install ts-proto@1.110.4 protoc@1.0.4 --save-dev --save-exact
+$ npm install ts-proto@1.121.6 --save-dev --save-exact
+$ cd protoc
+$ curl -L https://github.com/protocolbuffers/protobuf/releases/download/v21.5/protoc-21.5-linux-x86_64.zip -o protoc.zip
+$ unzip protoc.zip
+$ rm protoc.zip
+$ cd ../..
 ```
+
+Make sure [here](https://github.com/protocolbuffers/protobuf/releases/tag/v21.5) that you are downloading the right executable for your computer.
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/Dockerfile-ubuntu#L18]
+...
+ENV PACKAGES curl gcc jq make unzip
+...
+```
+
+Rebuild your Docker image and then:
+
+```sh
+$ mkdir -p scripts/protoc
+$ docker run --rm -it -v $(pwd):/checkers -w /checkers/scripts checkers_i npm install ts-proto@1.121.6 --save-dev --save-exact
+$ docker run --rm -it -v $(pwd):/checkers -w /checkers/scripts/protoc checkers_i bash -c "curl -L https://github.com/protocolbuffers/protobuf/releases/download/v21.5/protoc-21.5-linux-x86_64.zip -o /root/protoc.zip && unzip /root/protoc.zip"
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 Create the folder structure to receive the compiled files:
 
 ```sh
-$ mkdir -p ../client/src/types/generated
+$ mkdir -p client/src/types/generated
 ```
 
 Check what Cosmos version you are using:
 
 ```sh
-$ grep cosmos-sdk ../go.mod
+$ grep cosmos-sdk go.mod
 ```
 
 This may return:
 
-```
-github.com/cosmos/cosmos-sdk v0.42.6
+```txt
+github.com/cosmos/cosmos-sdk v0.45.4
 ```
 
 Download the required files from your `.proto` files:
 
 ```sh
-$ mkdir -p ../proto/cosmos/base/query/v1beta1
-$ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.42.6/proto/cosmos/base/query/v1beta1/pagination.proto -o ../proto/cosmos/base/query/v1beta1/pagination.proto
-$ mkdir -p ../proto/google/api
-$ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.42.6/third_party/proto/google/api/annotations.proto -o ../proto/google/api/annotations.proto
-$ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.42.6/third_party/proto/google/api/http.proto -o ../proto/google/api/http.proto
+$ mkdir -p proto/cosmos/base/query/v1beta1
+$ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.45.4/proto/cosmos/base/query/v1beta1/pagination.proto -o proto/cosmos/base/query/v1beta1/pagination.proto
+$ mkdir -p proto/google/api
+$ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.45.4/third_party/proto/google/api/annotations.proto -o proto/google/api/annotations.proto
+$ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.45.4/third_party/proto/google/api/http.proto -o proto/google/api/http.proto
+$ mkdir -p proto/gogoproto
+$ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.45.4/third_party/proto/gogoproto/gogo.proto -o proto/gogoproto/gogo.proto
 ```
 
 Now compile:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
 ```sh
-$ ls ../proto/checkers | xargs -I {} ../node_modules/protoc/protoc/bin/protoc \
-    --plugin="../node_modules/.bin/protoc-gen-ts_proto" \
+$ cd scripts
+$ ls ../proto/checkers | xargs -I {} ./protoc/bin/protoc \
+    --plugin="./node_modules/.bin/protoc-gen-ts_proto" \
     --ts_proto_out="../client/src/types/generated" \
     --proto_path="../proto" \
     --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=messages" \
     checkers/{}
 ```
 
-You should now have your TypeScript files. Save these scripts into a `proto-ts-gen.sh` [script file](https://github.com/cosmos/b9-checkers-academy-draft/blob/4cf13b5a/scripts/proto-ts-gen.sh), make it executable with `chmod a+x`, and add an `npm run` [target for it](https://github.com/cosmos/b9-checkers-academy-draft/blob/4cf13b5a/scripts/package.json#L7). Next time, to update your compiled Protobuf objects directly into your `client` repository, run the following within the `scripts` folder:
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
 
 ```sh
-$ npm run proto-ts-gen
+$ ls proto/checkers | xargs -I {} docker run --rm -v $(pwd):/checkers -w /checkers/scripts checkers_i ./protoc/bin/protoc \
+    --plugin="./node_modules/.bin/protoc-gen-ts_proto" \
+    --ts_proto_out="../client/src/types/generated" \
+    --proto_path="../proto" \
+    --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=messages" \
+    checkers/{}
 ```
 
-Do not forget to install the Protobuf.js package in your client project:
+</CodeGroupItem>
+
+</CodeGroup>
+
+You should now have your TypeScript files.
+
+In order to easily repeat these steps in the future, you can add them to your existing `Makefile` with slight modifications:
+
+```lang-makefile [https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/Makefile#L4-L31]
+install-protoc-gen-ts:
+    cd scripts && npm install
+    mkdir -p scripts/protoc
+    curl -L https://github.com/protocolbuffers/protobuf/releases/download/v21.5/protoc-21.5-linux-x86_64.zip -o scripts/protoc/protoc.zip
+    cd scripts/protoc && unzip -o protoc.zip
+    rm scripts/protoc/protoc.zip
+
+cosmos-version = v0.45.4
+
+download-cosmos-proto:
+    mkdir -p proto/cosmos/base/query/v1beta1
+    curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/${cosmos-version}/proto/cosmos/base/query/v1beta1/pagination.proto -o proto/cosmos/base/query/v1beta1/pagination.proto
+    mkdir -p proto/google/api
+    curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/${cosmos-version}/third_party/proto/google/api/annotations.proto -o proto/google/api/annotations.proto
+    curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/${cosmos-version}/third_party/proto/google/api/http.proto -o proto/google/api/http.proto
+    mkdir -p proto/gogoproto
+    curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/${cosmos-version}/third_party/proto/gogoproto/gogo.proto -o proto/gogoproto/gogo.proto
+
+gen-protoc-ts: download-cosmos-proto install-protoc-gen-ts
+    mkdir -p ./client/src/types/generated/
+    ls proto/checkers | xargs -I {} ./scripts/protoc/bin/protoc \
+        --plugin="./scripts/node_modules/.bin/protoc-gen-ts_proto" \
+        --ts_proto_out="./client/src/types/generated" \
+        --proto_path="./proto" \
+        --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=messages" \
+        checkers/{}
+```
+
+Then whenever you want to re-run them:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
 
 ```sh
-$ npm install protobufjs@6.10.2 --save-exact
+$ make gen-protoc-ts
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -v $(pwd):/checkers -w /checkers checkers_i make gen-protoc-ts
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+You have created the [basic Protobuf objects](TODO) that will assist you with communicating with the blockchain.
 
 ## Prepare integration
 
-At a later stage you will add Checkers as an extension to Stargate, but you can define your Checkers extension immediately. The `canPlay` query could make use of better types for player and position. Declare them in `client/src/checkers/player.ts`:
+At this point, you have the `generated` files in your `client` folder. If you have made this `client` folder as a Git submodule, then you can work directly in it and do not need to go back to the checkers Cosmos SDK:
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/types/checkers/player.ts#L1-L5]
+```sh
+$ cd client
+```
+
+Also, if you use Docker and did not go through the trouble of building the Docker image for the checkers Cosmos SDK, you can use the `node:18.7` image.
+
+Install the Protobuf.js package in your client project:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
+```sh
+$ npm install protobufjs@7.0.0 --save-exact
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -v $(pwd):/client -w /client node:18.7 npm install protobufjs@7.0.0 --save-exact
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+At a later stage you will add Checkers as an extension to Stargate, but you can define your Checkers extension immediately. The `canPlay` query could make use of better types for player and position. Start by declaring them in `client/src/checkers/player.ts`:
+
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/src/types/checkers/player.ts#L1-L6]
 export type Player = "b" | "r"
+export type GamePiece = Player | "*"
 export interface Pos {
     x: number
     y: number
@@ -105,13 +238,29 @@ export interface Pos {
 
 Your Checkers extension will need to use the CosmJS Stargate package. Install it:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
 ```sh
-$ npm install @cosmjs/stargate@0.28.2 --save-exact
+$ npm install @cosmjs/stargate@0.28.11 --save-exact
 ```
 
-Now you can declare the Checkers extension in `client/src/modules/checkers/queries.ts`:
+</CodeGroupItem>
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/modules/checkers/queries.ts#L15-L37]
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -v $(pwd):/client -w /client node:18.7 npm install @cosmjs/stargate@0.28.11 --save-exact
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+Now you can declare the Checkers extension in `src/modules/checkers/queries.ts`:
+
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/src/modules/checkers/queries.ts#L15-L37]
 export interface AllStoredGameResponse {
     storedGames: StoredGame[]
     pagination?: PageResponse
@@ -119,7 +268,7 @@ export interface AllStoredGameResponse {
 
 export interface CheckersExtension {
     readonly checkers: {
-        readonly getNextGame: () => Promise<NextGame>
+        readonly getSystemInfo: () => Promise<SystemInfo>
         readonly getStoredGame: (index: string) => Promise<StoredGame | undefined>
         readonly getAllStoredGames: (
             key: Uint8Array,
@@ -139,7 +288,7 @@ export interface CheckersExtension {
 
 Do not forget a _setup_ function, as this is expected by Stargate:
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/modules/checkers/queries.ts#L39-L94]
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/src/modules/checkers/queries.ts#L39-L95]
 export function setupCheckersExtension(base: QueryClient): CheckersExtension {
     const rpc = createProtobufRpcClient(base)
     // Use this service to get easy typed access to query methods
@@ -148,16 +297,16 @@ export function setupCheckersExtension(base: QueryClient): CheckersExtension {
 
     return {
         checkers: {
-            getNextGame: async (): Promise<NextGame> => {
-                const { NextGame } = await queryService.NextGame({})
-                assert(NextGame)
-                return NextGame
+            getSystemInfo: async (): Promise<SystemInfo> => {
+                const { SystemInfo } = await queryService.SystemInfo({})
+                assert(SystemInfo)
+                return SystemInfo
             },
             getStoredGame: async (index: string): Promise<StoredGame | undefined> => {
                 const response: QueryGetStoredGameResponse = await queryService.StoredGame({
                     index: index,
                 })
-                return response.StoredGame
+                return response.storedGame
             },
             getAllStoredGames: async (
                 key: Uint8Array,
@@ -171,10 +320,11 @@ export function setupCheckersExtension(base: QueryClient): CheckersExtension {
                         offset: offset,
                         limit: limit,
                         countTotal: countTotal,
+                        reverse: false,
                     },
                 })
                 return {
-                    storedGames: response.StoredGame,
+                    storedGames: response.storedGame,
                     pagination: response.pagination,
                 }
             },
@@ -185,7 +335,7 @@ export function setupCheckersExtension(base: QueryClient): CheckersExtension {
                 to: Pos,
             ): Promise<QueryCanPlayMoveResponse> => {
                 return queryService.CanPlayMove({
-                    idValue: index,
+                    gameIndex: index,
                     player: player,
                     fromX: Long.fromNumber(from.x),
                     fromY: Long.fromNumber(from.y),
@@ -198,9 +348,16 @@ export function setupCheckersExtension(base: QueryClient): CheckersExtension {
 }
 ```
 
-Now create your `CheckersStargateClient` in `client/src/checkers_stargateclient.ts`:
+You may have to add these imports by hand:
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/src/checkers_stargateclient.ts#L5-L22]
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/src/modules/checkers/queries.ts#L2-L3]
+import { assert } from "@cosmjs/utils"
+import Long from "long"
+```
+
+Now create your `CheckersStargateClient` in `src/checkers_stargateclient.ts`:
+
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/src/checkers_stargateclient.ts#L5-L22]
 export class CheckersStargateClient extends StargateClient {
     public readonly checkersQueryClient: CheckersExtension | undefined
 
@@ -221,25 +378,45 @@ export class CheckersStargateClient extends StargateClient {
 }
 ```
 
-## Test your client
+## Integration tests
 
-It should already be possible to see communication happen. You are about to create a file that runs from the command-line and tests some actions. Install some packages:
+It is possible to already run some integration tests against a running checkers blockchain.
+
+### Preparation
+
+Install packages to run tests.
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
 
 ```sh
-$ npm install @types/node@17.0.24 dotenv@16.0.0 ts-node@10.7.0 --save-dev --save-exact
+$ npm install mocha@10.0.0 @types/mocha@9.1.1 chai@4.3.6 @types/chai@4.3.3 ts-node@10.9.1 @types/node@18.7.5 dotenv@16.0.1 @types/dotenv@8.2.0 --save-dev --save-exact
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -v $(pwd):/client -w /client node:18.7 npm install mocha@10.0.0 @types/mocha@9.1.1 chai@4.3.6 @types/chai@4.3.3 ts-node@10.9.1 @types/node@18.7.5 dotenv@16.0.1 @types/dotenv@8.2.0 --save-dev --save-exact
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 Describe how to connect to the running blockchain in a `.env` file in your project root:
 
-``` [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/.env#L1]
+``` [https://github.com/cosmos/academy-checkers-ui/blob/stargate/.env#L1]
 RPC_URL="http://localhost:26657"
 ```
 
-Alternatively, use whichever address connects to the RPC port of the Checkers blockchain.
+Alternatively, use whichever address connects to the RPC port of the Checkers blockchain. In particular if your chain runs in a Docker container, you may need to pass your actual IP address.
 
-Now let TypeScript know about this in a `environment.d.ts` file:
+This information will be picked up by the `dotenv` package. Now let TypeScript know about this in a `environment.d.ts` file:
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/environment.d.ts]
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/environment.d.ts]
 declare global {
     namespace NodeJS {
         interface ProcessEnv {
@@ -251,81 +428,171 @@ declare global {
 export {}
 ```
 
-In your `client` folder create a `test/live` folder. In `test/live`, create an `experiment.ts` file to be a living document of your progress:
+Also add your `tconfig.json` as you see fit:
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/test/live/experiment.ts#L1-L32]
+```json [https://github.com/cosmos/academy-checkers-ui/blob/stargate/tsconfig.json]
+{
+    "exclude": ["./tests/", "./node_modules/", "./dist/"],
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "module": "ES2015",
+        "moduleResolution": "node",
+        "target": "ES6"
+    }
+}
+```
+
+And the line that describes how the tests are run:
+
+```json [https://github.com/cosmos/academy-checkers-ui/blob/stargate/package.json#L7]
+{
+    ...
+    "scripts": {
+        "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --require ts-node/register 'test/**/*.ts'"
+    },
+    ...
+}
+```
+
+### First tests
+
+Because the intention is to run these tests against a running chain, they cannot expect too much such as how many games have been created so far. Still, it is possible to test that at least the connection is made and queries pass through.
+
+Create `test/integration/system-info.ts`:
+
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/test/integration/system-info.ts]
+import { expect } from "chai"
 import { config } from "dotenv"
-import Long from "long"
+import _ from "../../environment"
 import { CheckersStargateClient } from "../../src/checkers_stargateclient"
+import { CheckersExtension } from "../../src/modules/checkers/queries"
 
 config()
 
-async function runAll() {
-    const client: CheckersStargateClient = await CheckersStargateClient.connect(process.env.RPC_URL)
-    const checkers = client.checkersQueryClient!.checkers
+describe("SystemInfo", function () {
+    let client: CheckersStargateClient, checkers: CheckersExtension["checkers"]
 
-    // Initial NextGame
-    const nextGame0 = await checkers.getNextGame()
-    console.log("NextGame:", nextGame0, ", idValue:", nextGame0.idValue.toString(10))
+    before("create client", async function () {
+        client = await CheckersStargateClient.connect(process.env.RPC_URL)
+        checkers = client.checkersQueryClient!.checkers
+    })
 
-    // All Games
-    const allGames0 = await checkers.getAllStoredGames(
-        Uint8Array.of(),
-        Long.fromInt(0),
-        Long.fromInt(0),
-        true,
-    )
-    console.log("All games", allGames0, ", total: ", allGames0.pagination!.total.toString(10))
-
-    // Non-existent game
-    try {
-        await checkers.getStoredGame("1024")
-    } catch (error1024) {
-        console.log(error1024)
-    }
-}
-
-runAll()
+    it("can get system info", async function () {
+        const systemInfo = await checkers.getSystemInfo()
+        expect(systemInfo.nextId.toNumber()).to.be.greaterThanOrEqual(1)
+        expect(parseInt(systemInfo.fifoHeadIndex, 10)).to.be.greaterThanOrEqual(-1)
+        expect(parseInt(systemInfo.fifoTailIndex, 10)).to.be.greaterThanOrEqual(-1)
+    })
+})
 ```
 
-Start your chain:
+And one for stored games:
 
-* If you have Ignite CLI:
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/test/integration/stored-game.ts]
+import { expect } from "chai"
+import { config } from "dotenv"
+import Long from "long"
+import _ from "../../environment"
+import { CheckersStargateClient } from "../../src/checkers_stargateclient"
+import { CheckersExtension } from "../../src/modules/checkers/queries"
 
-    ```sh
-    $ ignite chain serve --reset-once
-    ```
+config()
 
-* Otherwise look for instructions on how to run the chain.
+describe("StoredGame", function () {
+    let client: CheckersStargateClient, checkers: CheckersExtension["checkers"]
 
-Now run the script file:
+    before("create client", async function () {
+        client = await CheckersStargateClient.connect(process.env.RPC_URL)
+        checkers = client.checkersQueryClient!.checkers
+    })
+
+    it("can get game list", async function () {
+        const allGames = await checkers.getAllStoredGames(
+            Uint8Array.of(),
+            Long.fromInt(0),
+            Long.fromInt(0),
+            true,
+        )
+        expect(allGames.storedGames).to.be.length.greaterThanOrEqual(0)
+    })
+
+    it("cannot get non-existent game", async function () {
+        try {
+            await checkers.getStoredGame("no-id")
+            expect.fail("It should have failed")
+        } catch (error) {
+            expect(error.toString()).to.equal(
+                "Error: Query failed with (22): rpc error: code = NotFound desc = not found: key not found",
+            )
+        }
+    })
+})
+```
+
+Note the forced import of `import _ from "../../environment"` to actively inform on the `string` type as opposed to `string | undefined`, and avoid any compilation error.
+
+Launch your checkers chain. For instance, from the checkers folder, with:
+
+<!-- TODO create a Docker container that contains everything for a pure CosmJS dev to follow along -->
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
 
 ```sh
-$ npx ts-node ./test/live/experiment.ts
+$ ignite chain serve
 ```
 
-Because your chain is empty, you should see:
+</CodeGroupItem>
 
-```
-NextGame: {
-  creator: '',
-  idValue: Long { low: 1, high: 0, unsigned: true },
-  fifoHead: '-1',
-  fifoTail: '-1'
-} , idValue: 1
-All games {
-  storedGames: [],
-  pagination: {
-    nextKey: Uint8Array(0) [],
-    total: Long { low: 0, high: 0, unsigned: true }
-  }
-} , total:  0
-Error: Query failed with (18): rpc error: code = InvalidArgument desc = not found: invalid request
-...
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it -v $(pwd):/checkers -w /checkers -p 1317:1317 -p 4500:4500 -p 5000:5000 -p 26657:26657 checkers_i ignite chain serve
 ```
 
-This is as expected, as nothing more can be tested at this stage.
+</CodeGroupItem>
+
+</CodeGroup>
+
+Now if you run the tests:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
+```sh
+$ npm test
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -v $(pwd):/client -w /client node:18.7 npm test
+```
+
+Make sure your Node container can access the chain, especially if you set the `RPC_URL` at `localhost`.
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+This should return:
+
+```txt
+StoredGame
+  ✔ can get game list (39ms)
+  ✔ cannot get non-existent game
+
+SystemInfo
+  ✔ can get system info
+
+
+3 passing (287ms)
+```
 
 ## Next up
 
-Now that your types have been generated, you can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./cosmjs-messages.md).
+Now that your types have been generated and that you have created your read-only Stargate client, you can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./cosmjs-messages.md).
