@@ -158,7 +158,7 @@ Note that VSCode assists you to auto-complete [`StargateClient`](https://github.
 Next, you need to tell the client how to connect to the RPC port of your blockchain:
 
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/experiment.ts#L5]
-const rpc = "https://rpc.sentry-01.theta-testnet.polypore.xyz"
+const rpc = "rpc.sentry-01.theta-testnet.polypore.xyz:26657"
 ```
 
 Inside the `runAll` function you [initialize the connection](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/stargateclient.ts#L146) and immediately [check](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/stargateclient.ts#L194) you connected to the right place:
