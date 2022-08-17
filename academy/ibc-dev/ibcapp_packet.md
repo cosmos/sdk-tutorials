@@ -109,7 +109,11 @@ When scaffolding an IBC module with Ignite CLI, we already saw the implementatio
 
 Additionally for the sending of a packet, a message server has been added that handles a SendPacket message, in this case `MsgSendIbcTopRank`.
 
+<Highlightbox type="tip">
+
 **NOTE**: IBC allows some freedom to the developers how to implement the custom logic, decoding and encoding packets and processing acks. The provided structure is but one example how to tackle this. Therefore it makes sense to focus on the general flow to handle user messages or IBC callbacks rather than the specific implementation by Ignite CLI.
+
+</Highlightbox>
 
 ### Sending packets
 
@@ -258,8 +262,11 @@ func (k Keeper) OnRecvIbcTopRankPacket(ctx sdk.Context, packet channeltypes.Pack
 	return packetAck, nil
 }
 ```
+<Highlightbox type="note">
 
 Remember that the `OnRecvPacket` callback writes an acknowledgement as well (we cover the synchronous write ack case).
+
+</Highlightbox>
 
 ### Acknowledging packets
 
@@ -329,10 +336,10 @@ Let's summarize what we've accomplished so far:
 
 **Note**: even though right now we've enabled the ability to send and receive packets, we've yet to implement application logic that will execute when we do. This is however out of the scope of this section. We invite the reader to follow the checkers blockchain extension tutorial [insert link].
 
-<highlightbox>
+<Highlightbox type="info">
 
 Ignite CLI by default when scaffolding a packet, will ensure the chain can act both as the sender or receiver of a packet. This is a symmetrical setup which makes sense for some applications, like ICS20.
 
 However, it's also possible to have an asymmetrical setup where one chain will always be the source or destination chain for a given packet, not both. In this case we can update the message server and packet callbacks to error when for example a chain receives a packet, when it' supposed to be exclusively the destination chain. Interchain accounts or ICS27 is an example of this asymmetrical situation as will the checkers extension tutorial.
 
-</highlightbox>
+</Highlightbox>

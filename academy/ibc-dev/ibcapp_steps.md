@@ -48,7 +48,7 @@ What does Ignite CLI do behind the scenes when creating an IBC module for us? Wh
 
 The required steps to implement can be found in the [IBC go docs](https://ibc.cosmos.network/main/ibc/apps/apps.html). We find there:
 
-<highlightbox>
+<Highlightbox type="info">
 
 **To have your module interact over IBC you must:**
 
@@ -61,7 +61,7 @@ The required steps to implement can be found in the [IBC go docs](https://ibc.co
 - define your own packet data and acknowledgement structs as well as how to encode/decode them
 - add a route to the IBC router
 
-</highlightbox>
+</Highlightbox>
 
 Now let's take a look at the *git diff* and see if we are able to recognize the steps listed above.
 
@@ -122,7 +122,7 @@ Application modules are expected to verify versioning used during the channel ha
 The general application packet flow was discussed in [a previous section](https://tutorials.cosmos.network/academy/4-ibc/channels.html#application-packet-flow). 
 
 As a refresher, let's take a look at the diagram: 
-//TODO insert diagram
+![packet flow](./images/packetflow.png)
 
 We can now identify the packet callbacks in the packet flow by investigating the `IBCModule` interface.
 
@@ -251,9 +251,11 @@ func (am AppModule) OnAcknowledgementPacket(
 ```
 Again, the structure to dispatch the packet with the switch statement as well as the switch statement for the ack (success case or error case) have been structured by Ignite CLI where the [docs](https://ibc.cosmos.network/main/ibc/apps/ibcmodule.html#acknowledging-packets) offer more freedom to the developer to implement decoding and processing of the ack.
 
-<highlightbox>
+<Highlightbox type="info">
+
 The events that are being emitted are defined in `x/leaderboard/types/events_ibc.go`.
-</highlightbox>
+
+</Highlightbox>
 
 ##### Timing out packets
 
@@ -286,11 +288,11 @@ func (am AppModule) OnTimeoutPacket(
 
 Every IBC module binds to a port, with a unique `portID` which denotes the type of application.
 
-<highlightbox>
+<Highlightbox type="note">
 
 Note that `portID` does not refer to a certain numerical ID, like `localhost:8080` with a `portID` 8080. Rather it refers to the application module the port binds. For IBC Modules built with the Cosmos SDK, it defaults to the module's name and for Cosmwasm contracts it defaults to the contract address.
 
-</highlightbox>
+</Highlightbox>
 
 Currently, ports must be bound on app initialization. In order to bind modules to their respective ports on initialization, the following needs to be implemented:
 
