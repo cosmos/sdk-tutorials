@@ -103,7 +103,7 @@ const generateKey = async (): Promise<void> => {
 generateKey()
 ```
 
-Now create a **key** for our imaginary user **Alice**:
+Now create a **key** for our imaginary user **Alice**:\n
 *Note: You likely need to update node to a later version if this fails. Guide here: https://phoenixnap.com/kb/update-node-js-version
 
 ```sh
