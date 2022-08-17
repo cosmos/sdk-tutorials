@@ -78,7 +78,7 @@ This returns:
 TODO
 ```
 
-You soon make this script more meaningful. With the basic script ready, you need to prepare some elements.
+You will soon make this script more meaningful. With the basic script ready, you need to prepare some elements.
 
 ## Testnet preparation
 
