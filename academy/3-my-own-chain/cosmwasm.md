@@ -20,7 +20,7 @@ Discover how multi-chain smart contracts become possible with CosmWasm. The foll
 
 </HighlightBox>
 
-[CosmWasm](https://cosmwasm.com/) runs smart contracts in WebAssembly (that’s the Wasm part) on Cosmos blockchains (that’s the Cosm part). It uses a safety-oriented actor-model that prevents many of the security issues found on other smart contract platforms. 
+[CosmWasm](https://cosmwasm.com/) runs smart contracts in WebAssembly (that’s the Wasm part) on Cosmos blockchains (that’s the Cosm part). It uses a safety-oriented actor model that prevents many of the security issues found on other smart contract platforms. 
 
 <ExpansionPanel title="More on the actor model">
 
