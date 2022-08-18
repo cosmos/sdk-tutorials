@@ -261,7 +261,7 @@ export interface MsgDelegate {
 
 Now that you know the `typeUrl` for delegating some tokens is `/cosmos.staking.v1beta1.MsgDelegate`, you need to find a validator's address that Alice can delegate to. Find a list of validators in the [testnet explorer](https://explorer.theta-testnet.polypore.xyz/validators). Select a validator and set their address as a variable:
 
-```
+```typescript
 const validator: string = "cosmosvaloper178h4s6at5v9cd8m9n7ew3hg7k9eh0s6wptxpcn" //01node
 
 ```
@@ -296,7 +296,7 @@ const result = await signingClient.signAndBroadcast(
 ```
 Note: If you get the error "Error: Gas price must be set in the client options when auto gas is used." You can fix it by changing the command to the following:
 
-```
+```typescript
  const result = await signingClient.signAndBroadcast(
         alice,
         [
