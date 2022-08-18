@@ -183,7 +183,7 @@ Normally you would not yet have access to your user's address. However, for this
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/experiment.ts#L10-L13]
 console.log(
     "Alice balances:",
-    await client.getAllBalances("cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf <replace with your generated address>"),
+    await client.getAllBalances("cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf"), // <-- replace with your generated address
 )
 ```
 
