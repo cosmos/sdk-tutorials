@@ -290,41 +290,12 @@ const result = await signingClient.signAndBroadcast(
             },
           },
     ],
-    "auto",
+    {
+        amount: [{ denom: "uatom", amount: "500" }],
+        gas: "200000",
+    }
 )
 ```
-Note: If you get the error "Error: Gas price must be set in the client options when auto gas is used." You can fix it by changing the command to the following:
-
-```typescript
- const result = await signingClient.signAndBroadcast(
-        alice,
-        [
-            {
-                typeUrl: "/cosmos.bank.v1beta1.MsgSend",
-                value: {
-                    fromAddress: alice,
-                    toAddress: faucet,
-                    amount: [
-                        { denom: "uatom", amount: "100000" },
-                    ],
-                },
-            },
-            {
-                typeUrl: "/cosmos.staking.v1beta1.MsgDelegate",
-                value: {
-                    delegatorAddress: alice,
-                    validatorAddress: validator,
-                    amount: { denom: "uatom", amount: "1000", },
-                },
-              },
-        ],
-        {
-            amount: [{ denom: "uatom", amount: "500" }],
-            gas: "200000",
-        }
-    )
-```
-
 When you create [your own message types in CosmJS](./create-custom.md), they have to follow this format and be declared in the same fashion.
 
 <!-- Not supported at the moment.
