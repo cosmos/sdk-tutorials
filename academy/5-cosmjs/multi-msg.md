@@ -263,7 +263,6 @@ Now that you know the `typeUrl` for delegating some tokens is `/cosmos.staking.v
 
 ```typescript
 const validator: string = "cosmosvaloper178h4s6at5v9cd8m9n7ew3hg7k9eh0s6wptxpcn" //01node
-
 ```
 
 Use this variable in the following script, which you can copy to replace your original token transfer:
