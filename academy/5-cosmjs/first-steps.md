@@ -105,7 +105,7 @@ generateKey()
 
 Now create a **key** for our imaginary user **Alice**:
 
-*Note: You likely need to update node to a later version if this fails. Guide here: https://phoenixnap.com/kb/update-node-js-version
+*Note: You likely need to update node to a later version if this fails. Find a guide [here](https://phoenixnap.com/kb/update-node-js-version).
 
 ```sh
 $ npx ts-node generate_mnemonic.ts > testnet.alice.mnemonic.key
