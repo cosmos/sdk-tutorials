@@ -181,6 +181,17 @@ In the world of traditional general-purpose blockchains, application design and 
 
 It becomes easier for users to navigate between different blockchains and applications, as the same ground rules apply because of the standardization of components. Cosmos makes the world easier for developers while making dApps more user-friendly. Cosmos enables sovereignty with interoperability!
 
-## Next up
+<HighlightBox type="learning">
 
-In the [next section](./cosmos-ecosystem.md) you can find an introduction to all that the Cosmos ecosystem has to offer.
+To summarize, this section has explored:
+
+* A brief history of blockchain technology, leading to the appearance of purpose-built or application-specific blockchains limited by legacy platform characterisics which Cosmos is designed to overcome.
+* How Cosmos provides blockchain interoperability for a better decentralized application (dApp) user experience, and an open-source toolkit of modular resources for a simplified, specialized dApp development experience.
+* How Cosmos responds to issues of scalability, using the horizontal scalability of its multi-chain architecture to deliver theoretically infinite capacity for vertical scalability.
+* How Cosmos increases sovereignty by providing a one-layer governance design in which each chain is maintained by its own set of validators, and improves both developer and user experience through the use of modular, interoperable systems.
+
+</HighlightBox>
+
+<!--## Next up
+
+In the [next section](./cosmos-ecosystem.md) you can find an introduction to all that the Cosmos ecosystem has to offer.-->

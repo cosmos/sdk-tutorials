@@ -214,6 +214,20 @@ For more on Ethermint, consult the [Ethermint documentation](https://github.com/
 
 All Ethereum tools (such as Truffle and Metamask) are compatible with Ethermint. Developers can even port their Solidity smart contracts to interact with the Cosmos ecosystem. Building a chain is not necessary to develop Cosmos-compatible smart contracts, it can be all done with Ethermint. However, while Ethermint allows running vanilla Ethereum as a Cosmos application-specific blockchain, developers benefit from the Tendermint BFT.
 
-## Next up
+<HighlightBox type="learning">
 
-Are you ready to get some ATOM? Find out all about the native token of the Cosmos Hub and how to stake ATOM in the [next section](./atom-staking.md).
+To summarize, this section has explored:
+
+* The range of applications, services, and projects utilizing the Cosmos Ecosystem, and the wallets and block explorers servicing them.
+* How the ready-built moduler components provided by the Cosmos SDK make developing new projects fast, easy, and reliable.
+* How the addition of developer-authored modules and the growth of the ecosystem will support increasingly complex applications.
+* The Inter-Blockchain Communication Protocal (IBC), the basis for interoperability between chains on Cosmos, and the distinction between **zones** of heterogeneous blockchains and the **hubs** which provide interoperable communication between them.
+* Ignite CLI, a developer-friendly tool that shortcuts the complexities of creating application-specific blockchains.
+* The CosmWasm module, a multi-chain platform for developing and testing smart contracts.
+* The posibility of using alternative frameworks and SDKs within the Cosmos Ecosystem, maintaining a breadth of options for developers to make use of.
+
+</HighlightBox>
+
+<!--## Next up
+
+Are you ready to get some ATOM? Find out all about the native token of the Cosmos Hub and how to stake ATOM in the [next section](./atom-staking.md).-->
