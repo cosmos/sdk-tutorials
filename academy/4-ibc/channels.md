@@ -21,7 +21,7 @@ Connections and clients comprise the main components of the transport layer in I
 <HighlightBox type="info">
 
 Note that, in the case of interchain accounts, there are two different port IDs for host and controller modules:
-
+<br></br>
 `icahost` is the default port id that the interchain accounts host submodule binds to, whereas `icacontroller-` is the default port prefix that the interchain accounts controller submodule binds to.
 
 </HighlightBox>
@@ -35,6 +35,7 @@ As mentioned above, channels are payload agnostic. The application modules sendi
 <HighlightBox type="info">
 
 An **ordered channel** is _a channel where packets are delivered exactly in the order in which they were sent_.
+<br></br>
 An **unordered channel** is _a channel where packets can be delivered in any order_, which may differ from the order in which they were sent.
 
 </HighlightBox>
@@ -53,7 +54,7 @@ Similarly to how connections are established, channels are established through a
 <HighlightBox type="info">
 
 "Crossing Hellos" refers to a situation when both chains attempt the same handshake step at the same time.
-
+<br></br>
 If both chains submit `OpenInit` then `OpenTry` at same time, there should be no error. In this case, both sides will need to confirm with an `OpenAck`, and then no `OpenConfirm` is required because both ConnectionEnds will be in state OPEN after the successful `OpenAck`.
 
 </HighlightBox>
@@ -106,7 +107,7 @@ func (k Keeper) ChannelOpenInit(goCtx context.Context, msg *channeltypes.MsgChan
 **Capabilities**
 
 IBC is intended to work in execution environments where modules do not necessarily trust each other. This security is accomplished using a [dynamic capability store](https://github.com/cosmos/cosmos-sdk/blob/master/docs/architecture/adr-003-dynamic-capability-store.md). This binding strategy prevents other modules from using the particular port or channel since those modules do not own the appropriate capability.
-
+<br></br>
 While this background information is useful, IBC application developers should not need to modify this lower level abstraction, other than setting the capabilities appropriately in `app.go`.
 
 </HighlightBox>
@@ -162,11 +163,11 @@ After receiving the packet data from core IBC, application B will then marshal t
 **Synchronous and asynchronous acknowledgements**
 
 Acknowledgements can either take place synchronously or asynchronously. What this means is that the `OnRecvPacket` callback has a return value `Acknowledgement` which is optional.
-
+<br></br>
 In the case of a synchronous `Acknowledgement`, the callback will return an `Acknowledgement` at the end of the process and a relayer can query this `Acknowledgement` packet and relay immediately after the process has finished. This is useful in cases in which application A is expecting an `AckPacket` in order to initiate some application logic `OnAcknowledgePacket`. For example, the sending chain of an ICS-20 token transfer will do nothing in the case of a successful `AckPacket`, but in the case where an error is returned, the sending chain will unescrow the previously locked tokens.
-
+<br></br>
 In the case of applications like Interchain Security, there is an asynchronous `Acknowledgement` flow. This means that the `Acknowledgement` is not sent as part of the return value of `OnRecvPacket`, but it is sent at some later point. IBC is designed to handle this case by allowing for `Acknowledgements` to be committed or queried asynchronously.
-
+<br></br>
 In either case, even if there is no application specific logic to be initiated as a direct result of a received `Acknowledgement`, `OnAcknowledgePacket` will at the very least remove the commitment proof from the store to avoid cluttering the store with old data.
 
 </HighlightBox>

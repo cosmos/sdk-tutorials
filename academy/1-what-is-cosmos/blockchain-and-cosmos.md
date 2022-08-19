@@ -23,9 +23,9 @@ Begin your journey with this brief review of blockchain technology, how Cosmos c
 <ExpansionPanel title="What is a Blockchain?">
 
 Blockchain protocols define programs that hold a state and describe how to modify the state according to the received inputs. The inputs are called transactions.
-
+<br></br>
 The consensus mechanism ensures that a blockchain has a canonical transaction history. Blockchain transactions must be deterministic, meaning there is only one correct interpretation. The blockchain state is also deterministic. If you begin with the same genesis state and replicate all changes, you always achieve the same state.
-
+<br></br>
 A blockchain architecture can be **split into three layers**:
 
 * The network layer: tasked with discovering nodes and propagating transactions and consensus-related messages between single nodes.
@@ -53,9 +53,9 @@ Want to look closer at the initial proposition of Bitcoin? See the original [Bit
 <ExpansionPanel title="More on PoW">
 
 Bitcoin uses PoW to achieve Byzantine Fault-Tolerance (BFT) which enables decentralized, trustless networks to function even with malfunctioning or malicious nodes present. It is best described as a cryptographic puzzle solved by a network node called a "miner". The puzzle is a task of pre-defined, arbitrary difficulty. At the current scale of the networks using PoW, the outcome is akin to a lottery with a single winning ticket, the successful miner node.
-
+<br></br>
 In most PoW systems, the task consists of a search for an unknown random number - a "nonce". To be a winning nonce, when it is combined with ordered transactions in a block the result is a hash value matching pre-defined criteria. Finding the nonce is evidence of considerable effort or work invested in the search. Each node uses its computing power in a race to solve the puzzle first and win the right to author the latest block.
-
+<br></br>
 Financial incentives are in play: the node that first announces a solution receives a reward. Through these rewards the network's native currency is issued and nodes are encouraged to invest computing power into solving the task. Network security scales with computing power; more investment leads to a more secure PoW network.
 
 </ExpansionPanel>
@@ -96,7 +96,7 @@ In the world of blockchains, "speed" means **transaction speed**. You can unders
 <ExpansionPanel title="Finality in PoW and PoS networks">
 
 Proof-of-Stake (PoS) networks can have absolute finality because the total staked amount is known at all times. It takes a _public_ transaction to stake, and another to unstake. If some majority of the stakers agree on a block, then the block can be considered "final" because there is no process that could overturn the consensus.
-
+<br></br>
 This is different from PoW networks, where the total hashing capacity is unknown; it can only be estimated by a combination of the puzzle's difficulty and the speed at which new blocks are issued. Hashing capacity can be added or removed simply by turning machines on or off. When hashing capacity is removed too abruptly it results in a drop in the network transaction throughput, as blocks suddenly fail to be issued around the target interval.
 
 </ExpansionPanel>
@@ -124,7 +124,7 @@ Kwon invented the original Tendermint mechanism in 2014. Buchman and Kwon began 
 <ExpansionPanel title="Tendermint: what you need to know">
 
 Tendermint is a consensus algorithm with Byzantine Fault-Tolerance (BFT) and a consensus engine. It enables applications to be replicated in sync on many machines. Blockchain networks require BFT to ensure proper function even with malfunctioning or malicious nodes present. The result is known as a *Replicated State Machine with Byzantine Fault Tolerance*. It guarantees BFT properties for distributed systems and their applications.
-
+<br></br>
 It does this:
 
 * **Securely** - Tendermint continues working even if up to 1/3rd of machines fail or misbehave.

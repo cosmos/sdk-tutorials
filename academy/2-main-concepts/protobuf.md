@@ -19,7 +19,7 @@ Before diving into this section, it is recommended to read the following section
 <HighlightBox type="learning">
 
 Protobuf is a data serialization method which developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
-
+<br></br>
 You can find a code example for your checkers blockchain at the end of the section to dive further into Protobuf and message creation.
 
 </HighlightBox>
@@ -61,7 +61,7 @@ Go developers access the setters and getters in the generated source code throug
 <HighlightBox type="docs">
 
 For more on encoding in Cosmos, see the [Cosmos SDK documentation on encoding](https://docs.cosmos.network/main/core/encoding.html).
-
+<br></br>
 Here you can find the [Protobuf documentation overview](https://docs.cosmos.network/main/core/proto-docs.html).
 
 </HighlightBox>
@@ -133,7 +133,7 @@ message StoredGame {
 ```
 
 The `= 1` parts indicate how each field is identified in the serialized output and provide backward compatibility. As your application upgrades to newer versions, make sure to not reuse numbers for new fields but to keep increasing the `= x` value to preserve backward compatibility.
-
+<br></br>
 When _compiling_, Protobuf will add the `protobuf:"bytes..."` elements. The messages to create a game can be declared in Protobuf similarly as:
 
 ```protobuf

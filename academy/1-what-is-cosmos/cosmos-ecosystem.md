@@ -201,7 +201,7 @@ For example, with [Ethermint](https://github.com/tharsis/ethermint) developers c
 <HighlightBox type="info">
 
 Ethermint is a software developed to port the EVM into a Cosmos module. It makes scalable, high-throughput, PoS blockchains possible. These are fully compatible with Ethereum and the Cosmos SDK.
-
+<br></br>
 Ethermint is Web3 compatible, and achieves high throughput with Tendermint and horizontal scaling with IBC. It provides a Web3, JSON-RPC layer to interact with Ethereum clients and tooling.
 
 </HighlightBox>
