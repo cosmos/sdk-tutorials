@@ -4,13 +4,10 @@ build-website:
 	npm ci
 	npm run build
 
-build-ida-website: 
-	fs-activate-ida-files
-	build-website
+build-ida-website: fs-activate-ida-files build-website
 
-fs-activate-ida-files:
+fs-activate-ida-files: fs-check-clean-git
 	echo "\nUse IDA customisations\n"
-	fs-check-clean-git
 	cp -rf ida-customisations/ ./
 
 fs-restore-main-files:
