@@ -10,7 +10,8 @@
   "scripts": {
     "serve": "vuepress dev --no-cache",
     "build": "vuepress build --no-cache",
-    "build:ida": "make build-ida-website",
+    "switch-ida": "make fs-activate-ida-files",
+    "switch-main": "make fs-restore-main-files",
     "link:check": "npx check-md",
     "link:fix": "npx check-md --fix"
   },
