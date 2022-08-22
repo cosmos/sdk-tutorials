@@ -2,7 +2,9 @@
 title: "Gas - Incentivize Players"
 order: 17
 description: Reward validators proportional to their effort
-tag: deep-dive
+tag:
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Gas - Incentivize Players

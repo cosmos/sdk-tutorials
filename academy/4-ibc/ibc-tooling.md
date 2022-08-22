@@ -2,7 +2,9 @@
 title: "IBC Tooling"
 order: 11
 description: Overview of some helpful tools
-tag: deep-dive
+tag:
+  - concepts
+  - ibc
 ---
 
 # IBC Tooling

@@ -2,7 +2,9 @@
 title: "Token - Let Players Set a Wager"
 order: 16
 description: Players set a wager
-tag: deep-dive
+tag:
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Token - Let Players Set a Wager

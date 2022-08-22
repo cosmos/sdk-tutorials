@@ -2,7 +2,9 @@
 title: "Store Field - Record the Game Winner"
 order: 14
 description: Store the winner of a game
-tag: deep-dive
+tag:
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Store Field - Record the Game Winner

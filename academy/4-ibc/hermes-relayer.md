@@ -2,7 +2,10 @@
 title: "Hermes Relayer"
 order: 10
 description: Relayer implementation in Rust
-tag: deep-dive
+tag:
+  - concepts
+  - ibc
+  - dev-ops
 ---
 
 # Hermes Relayer

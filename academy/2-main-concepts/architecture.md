@@ -2,7 +2,9 @@
 title: "A Blockchain App Architecture"
 order: 2
 description: ABCI, Tendermint, and state machines
-tag: fast-track
+tag: 
+  - concepts
+  - cosmos-sdk
 ---
 
 # A Blockchain App Architecture

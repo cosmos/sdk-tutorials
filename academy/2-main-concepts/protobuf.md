@@ -2,7 +2,9 @@
 title: "Protobuf"
 order: 7
 description: Work with Protocol Buffers
-tag: deep-dive
+tag:
+  - concepts
+  - cosmos-sdk
 ---
 
 # Protobuf

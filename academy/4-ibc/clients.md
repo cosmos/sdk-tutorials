@@ -2,7 +2,10 @@
 title: "Transport, Authentication, and Ordering Layer - Clients"
 order: 5
 description: Clients in IBC
-tag: deep-dive
+tag:  
+  - concepts
+  - ibc
+  - dev-ops
 ---
 
 # Transport, Authentication, and Ordering Layer - Clients

@@ -3,7 +3,7 @@ parent:
   title: CosmJS for Your Chain - GUI and Backend Script
   description: Dive deeper into CosmJS
   number: 
-tag: deep-dive
+tag:
 order: 0
 title: Chapter Overview - Implement a Game GUI and Backend Script
 ---

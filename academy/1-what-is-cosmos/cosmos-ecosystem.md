@@ -2,7 +2,13 @@
 title: "The Cosmos Ecosystem"
 order: 3
 description: A universe to discover
-tag: fast-track
+tag: 
+  - concepts
+  - tendermint
+  - cosm-wasm
+  - ibc
+  - cosmos-sdk
+  - cosmos-hub
 ---
 
 # The Cosmos Ecosystem

@@ -2,7 +2,10 @@
 title: "Blockchain Technology and Cosmos"
 order: 2
 description: Cosmos as part of blockchain technology
-tag: fast-track
+tag: 
+  - concepts
+  - tendermint
+  - cosmos-sdk
 ---
 
 # Blockchain Technology and Cosmos

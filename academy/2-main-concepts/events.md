@@ -2,7 +2,9 @@
 title: "Events"
 order: 11
 description: Use events in app development
-tag: deep-dive
+tag: 
+  - concepts
+  - cosmos-sdk
 ---
 
 # Events

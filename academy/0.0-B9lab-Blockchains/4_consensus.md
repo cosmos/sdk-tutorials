@@ -2,7 +2,7 @@
 title: "Consensus in Distributed Networks"
 order: 5
 description: An introduction to distributed consensus
-tag: fast-track
+tag: concepts
 ---
 
 # Consensus in Distributed Networks

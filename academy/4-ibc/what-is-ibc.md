@@ -2,7 +2,9 @@
 title: "What is IBC?"
 order: 2
 description: Introduction to the IBC Protocol
-tag: fast-track
+tag:
+  - concepts
+  - ibc
 ---
 
 # What is IBC?

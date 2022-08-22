@@ -2,7 +2,8 @@
 title: "First Steps"
 order: 2
 description: Get started with Golang
-tag: deep-dive
+tag:
+  - tutorial
 ---
 
 # Go Introduction - First Steps

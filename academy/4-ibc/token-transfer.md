@@ -2,7 +2,10 @@
 title: "IBC Fungible Token Transfer"
 order: 6
 description: Token transfers across chains
-tag: deep-dive
+tag:
+  - concepts
+  - ibc
+  - dev-ops
 ---
 
 # IBC Fungible Token Transfer

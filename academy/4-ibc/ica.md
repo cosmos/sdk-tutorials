@@ -2,7 +2,10 @@
 title: "Interchain Accounts"
 order: 7
 description: Work with ICA
-tag: deep-dive
+tag:
+  - concepts
+  - ibc
+  - dev-ops
 ---
 
 # Interchain Accounts

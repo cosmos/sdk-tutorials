@@ -2,7 +2,8 @@
 title: "Concurrency in Go"
 order: 8
 description: Goroutines and Channels
-tag: deep-dive
+tag:
+  - tutorial
 ---
 
 # Concurrency in Go

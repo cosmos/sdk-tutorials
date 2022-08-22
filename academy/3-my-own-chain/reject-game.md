@@ -2,7 +2,9 @@
 title: "Message and Handler - Make Sure a Player Can Reject a Game"
 order: 11
 description: Reject a game
-tag: deep-dive
+tag:
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Message and Handler - Make Sure a Player Can Reject a Game

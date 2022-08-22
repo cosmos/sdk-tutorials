@@ -2,7 +2,9 @@
 title: "Multistore and Keepers"
 order: 8
 description: Store types, the AnteHandler, and keepers
-tag: deep-dive
+tag:
+  - concepts
+  - cosmos-sdk
 ---
 
 # Multistore and Keepers

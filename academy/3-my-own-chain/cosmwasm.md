@@ -2,7 +2,10 @@
 title: "CosmWasm"
 order: 21
 description: Multi-chain smart contracts
-tag: deep-dive
+tag:
+  - tutorial
+  - cosmos-sdk
+  - dev-ops
 ---
 
 # CosmWasm

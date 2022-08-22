@@ -2,7 +2,10 @@
 title: "Transport, Authentication, and Ordering Layer - Channels"
 order: 4
 description: The role of channels in IBC
-tag: deep-dive
+tag: 
+  - concepts
+  - ibc
+  - dev-ops
 ---
 
 ## Transport, Authentication, and Ordering Layer - Channels

@@ -2,7 +2,9 @@
 title: "Store Object - Make a Checkers Blockchain"
 order: 6
 description: Create the object that stores a game
-tag: deep-dive
+tag:
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Store Object - Make a Checkers Blockchain
