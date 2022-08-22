@@ -5,12 +5,18 @@ build-website:
 	npm run build
 
 build-ida-website: 
+	prepare-ida-files
+	build-website
+
+prepare-ida-files:
 	echo "Use ida customisations"
 	cp -rf ida-customisations/ ./
-	echo "Build website"
-	npm ci
-	npm run build
-	echo "Build completed"
+
+restore-main-files:
+	echo "Restore main files, moving updates into ida-customisations"
+	git ls-files -m | xargs -I {} cp {} ./ida-customisations/
+	git stash push -m "ida-customisations stash"
+	echo `git status`
 
 # deploy-website is currently unused, deployment happens via github actions
 deploy-website: build-website
