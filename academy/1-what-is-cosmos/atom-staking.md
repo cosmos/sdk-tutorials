@@ -35,7 +35,7 @@ Open Google Chrome on your computer and go to the [Keplr extension page](https:/
 
 <HighlightBox type="warn">
 
-It is always good practice to be careful with links to wallet software because of the possibility of fraudulent software designed to steal from you. A link to the official Keplr extension can also be found on the [Cosmos ecosystem overview page](https://cosmos.network/ecosystem/wallets).
+It is always good practice to be careful with links to wallet software because of the possibility of fraudulent software designed to steal from you. A link to the official Keplr extension can also be found on the [Cosmos Ecosystem overview page](https://cosmos.network/ecosystem/wallets).
 
 </HighlightBox>
 

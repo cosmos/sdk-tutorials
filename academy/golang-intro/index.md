@@ -13,13 +13,13 @@ title: Introduction to Go
 
 Working with Cosmos also often means working with Golang. If you have not worked much with Go, do not worry.
 
-This introduction to Golang is meant as a useful overview of Go and as such, a starting point for your journey in the Cosmos ecosystem and developing with the Cosmos SDK.
+This introduction to Golang is meant as a useful overview of Go and as such, a starting point for your journey in the Cosmos Ecosystem and developing with the Cosmos SDK.
 
 You can also use it as a refresher if you feel a bit rusty when it comes to Go.
 
 ![](/go-lp.svg)
 
-## In this module
+## In this chapter
 
 <HighlightBox type="learning">
 

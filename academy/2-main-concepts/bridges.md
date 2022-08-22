@@ -21,7 +21,7 @@ Make sure to read the following sections as a preparation:
 
 <HighlightBox type="learning">
 
-In this section you will learn more about bridges in the Cosmos ecosystem, including the Gravity Bridge that connects Cosmos with Ethereum.
+In this section you will learn more about bridges in the Cosmos Ecosystem, including the Gravity Bridge that connects Cosmos with Ethereum.
 
 </HighlightBox>
 

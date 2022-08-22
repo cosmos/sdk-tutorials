@@ -32,7 +32,7 @@ Additionally, you can choose to:
 1. Start a local chain that exposes RPCs instead of using a testnet.
 2. Run the same basic CosmJS commands, but for this local chain.
 
-Along the way, you learn the basic CosmJS concepts needed to start interacting with the Cosmos ecosystem.
+Along the way, you learn the basic CosmJS concepts needed to start interacting with the Cosmos Ecosystem.
 
 ## Script preparation
 
@@ -52,7 +52,7 @@ const runAll = async(): Promise<void> => {
 runAll()
 ```
 
-To execute, this Typescript file needs to be compiled into Javascript before being interpreted by NodeJs. Add this as a run target in `package.json`:
+To execute, this TypeScript file needs to be compiled into JavaScript before being interpreted by NodeJs. Add this as a run target in `package.json`:
 
 ```json [https://github.com/b9lab/cosmjs-sandbox/blob/3fe8942/package.json#L7]
 ...
@@ -82,7 +82,7 @@ You soon make this script more meaningful. With the basic script ready, you need
 
 ## Testnet preparation
 
-The Cosmos ecosystem has a number of testnets running. The Cosmos Hub is currently running a [public testnet](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-public-testnet) for the Theta upgrade that you are connecting to and running your script on. You need to connect to a public node so that you can query information and broadcast transactions. One of the available nodes is:
+The Cosmos Ecosystem has a number of testnets running. The Cosmos Hub is currently running a [public testnet](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-public-testnet) for the Theta upgrade that you are connecting to and running your script on. You need to connect to a public node so that you can query information and broadcast transactions. One of the available nodes is:
 
 ```[https://github.com/cosmos/testnets/tree/master/v7-theta#endpoints-1]
 RPC: https://rpc.sentry-01.theta-testnet.polypore.xyz

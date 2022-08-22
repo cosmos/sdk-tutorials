@@ -1,15 +1,15 @@
 ---
-title: Exercise - Create an object
+title: Exercise - Create an Object
 order:
 description: Exercise - From simple creation to practice
 tag: deep-dive
 ---
 
-# Exercise - Create an object
+# Exercise - Create an Object
 
 You are about to perform a small, simple exercise on Hackerrank, to confirm your attendance so far and check you're paying attention! <!-- Before you [try](TODO), here is a summary of what you will be asked to do. -->
 
-# The problem description
+## The problem description
 
 The following repository was created with Ignite CLI v0.21.2 and the command:
 

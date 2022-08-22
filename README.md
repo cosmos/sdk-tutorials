@@ -35,7 +35,7 @@ tools:
         url: https://ibc.cosmos.network/
     image: /ibc-icon.svg
   - title: CosmWasm
-    description: Smart contracting platform built for Cosmos ecosystem.
+    description: Smart contracting platform built for the Cosmos Ecosystem.
     links:
       - name: Learn more
         url: https://cosmwasm.com/

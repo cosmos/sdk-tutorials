@@ -95,7 +95,7 @@ Although it is technically feasible to generate and store multiple key pairs in 
 
 ### Do I need many addresses?
 
-Using multiple addresses can help you improve privacy. You may be a single individual or entity, but you may want to transact with others under different aliases. Additionally, you will likely interact with more than one blockchain in the Cosmos ecosystem. Conveniently, your inevitably-different addresses on different blockchains can all stem from a single seed.
+Using multiple addresses can help you improve privacy. You may be a single individual or entity, but you may want to transact with others under different aliases. Additionally, you will likely interact with more than one blockchain in the Cosmos Ecosystem. Conveniently, your inevitably-different addresses on different blockchains can all stem from a single seed.
 <br></br>
 A **hierarchical-deterministic wallet** uses a single seed phrase to generate many key pairs to reduce this complexity. Only the seed phrase needs to be backed up.
 

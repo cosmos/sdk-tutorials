@@ -8,7 +8,7 @@ description: FROM THE VISION TO THE ECOSYSTEM - A UNIVERSE MADE UP OF PARTICLES
 
 How does the Cosmos network of interoperable blockchains fit into the overall development of blockchain technology?
 
-Dive into the history of blockchain technology and discover the Cosmos ecosystem – it is a galaxy of wallets, services, tokens, and dApps. Then, get your first Cosmos Hub native token and find out how to stake your ATOM.
+Dive into the history of blockchain technology and discover the Cosmos Ecosystem – it is a galaxy of wallets, services, tokens, and dApps. Then, get your first Cosmos Hub native token and find out how to stake your ATOM.
 
 Afterward, enjoy an introduction to the main components of the Cosmos SDK. From Tendermint to modules, keepers, queries, and transactions in Cosmos, a whole universe is waiting to be discovered.
 
