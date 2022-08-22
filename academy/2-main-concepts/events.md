@@ -122,7 +122,7 @@ You can filter for event types and attribute values. For example, a transfer tra
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 It would be good to document a game's lifecycle via events in your checkers blockchain.
-
+<br></br>
 For instance, you can emit a specific event such as when creating a game:
 
 ```go

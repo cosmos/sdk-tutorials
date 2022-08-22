@@ -10,7 +10,7 @@ tag: deep-dive
 <HighlightBox type="prerequisite">
 
 Before you dive into Go relayers, make sure to install Go.
-
+<br></br>
 For all installations, please see the [setup page](../3-my-own-chain/setup.md).
 
 </HighlightBox>

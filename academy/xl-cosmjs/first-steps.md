@@ -10,7 +10,7 @@ tag: deep-dive
 <HighlightBox type="learning">
 
 Take your first steps with CosmJS. Use it to send some simple transactions.
-
+<br></br>
 In this section, you will:
 
 * Download and install CosmJS.
@@ -412,9 +412,9 @@ Faucet balances: [ { denom: 'uatom', amount: '867777337235' } ]
 <ExpansionPanel title="Getting the faucet address another way">
 
 Instead of using the `decode` functions that come with the `Tx` and `MsgSend` imports, you process the data yourself via alternative means. If you would like to experiment more, parse the `rawLog` manually as opposed to deserializing the transaction as suggested previously.
-
+<br></br>
 Note the conceptual difference between `Tx` and the `rawLog`. The `Tx`, or `MsgSend`, object is an input to the computation that takes place when the transaction is included in a block. The `rawLog` is the resulting output of said computation and its content depends on what the blockchain code emitted when executing the transaction.
-
+<br></br>
 From the `IndexedTx` you see that there is a [`rawLog`](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/stargateclient.ts#L64), which happens to be a stringified JSON.
 
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/experiment.ts#L28-L29]
@@ -487,7 +487,7 @@ When you instantiate `SigningStargateClient` by using the [`connectWithSigner`](
 <HighlightBox type="info">
 
 The recommended way to encode messages is by using `OfflineDirectSigner`, which uses Protobuf. However, hardware wallets such as Ledger do not support this and still require the legacy Amino encoder. If your app requires Amino support, you have to use the `OfflineAminoSigner`.
-
+<br></br>
 Read more about encoding [here](https://docs.cosmos.network/master/core/encoding.html).
 
 </HighlightBox>

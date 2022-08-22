@@ -10,7 +10,7 @@ tag: fast-track
 <HighlightBox type="learning">
 
 Inter-Blockchain Communication Protocol solves for communication between blockchains, which is particularly important in the Cosmos universe.
-
+<br></br>
 In this section, you will learn:
 
 * What IBC is.
@@ -138,7 +138,7 @@ IBC clients and transactions assume the trust model of the chains they are conne
 <HighlightBox type="info">
 
 All tokens transferred over a particular channel will be assigned the same denomination as other tokens flowing over the channel, but a different one than the same assets between the same chains would have if they were sent across a different channel. The IBC denom looks like `ibc/<hash of the channel-id & port-id>`.
-
+<br></br>
 You can find more detailed information in the tutorial on [IBC denoms](https://tutorials.cosmos.network/tutorials/understanding-ibc-denoms/#what-is-this-ibc-denom).
 
 </HighlightBox>
@@ -169,7 +169,7 @@ Generally speaking, you'll need the following:
 <ExpansionPanel title="A roadmap towards an IBC-enabled chain">
 
 The following decision tree helps visualize the roadmap towards an IBC-enabled chain. **For simplicity, it assumes the intent to connect to a Cosmos SDK chain.**
-
+<br></br>
 Do you have access to an existing chain?
 * **No.** You will have to build a chain:
     * Cosmos SDK chain: see the [previous chapters](../3-my-own-chain/index.md).

@@ -141,7 +141,7 @@ This powerful command bundles a lot of functionality where Hermes will be listen
 <HighlightBox type="note">
 
 When starting the Hermes relayer, it will assume that the channels you wish to relay over are set up. This will be the case if you want to start relaying on an existing *canonical* channel, meaning the offical and agreed-upon channel (for example, used for fungible token transfers).
-
+<br></br>
 This is perfectly possible and the right approach, given that creating a new channel would make assets relayed over it non-fungible with assets relayed over the canonical channel. Most tutorials will create new channels (and possibly clients and connections) as this provides more insight into the software. However, it is **important to note that you only need to create new channels if no canonical channel is present** (for example, for a newly deployed chain).
 
 </HighlightBox>

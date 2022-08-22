@@ -9,8 +9,8 @@ tag: fast-track
 
 <HighlightBox type="learning">
 
-Build applications that interact with Cosmos blockchains with CosmJS. 
-  
+Build applications that interact with Cosmos blockchains with CosmJS.
+<br></br>
 In this section, you will learn:
   
 * What CosmJS is.
