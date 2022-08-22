@@ -8,7 +8,7 @@ build-ida-website: fs-activate-ida-files build-website
 
 fs-activate-ida-files: fs-check-clean-git
 	echo "\nActivate IDA files\n"
-	cp -rf ida-customizations/ ./
+	cp -rf ida-customizations/* ./
 
 fs-restore-main-files:
 	echo "\nRestore main files, moving updates into ida-customizations\n"
