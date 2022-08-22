@@ -14,7 +14,7 @@ prepare-ida-files:
 
 restore-main-files:
 	echo "Restore main files, moving updates into ida-customisations"
-	git ls-files -m | xargs -I {} sh -c 'mkdir -p ./ida-customisations/$(dirname {}) && cp -p {} ./ida-customisations/{}'
+	git ls-files -m | xargs -I {} sh -c 'mkdir -p ./ida-customisations/$$(dirname {}) && cp -p {} ./ida-customisations/{}'
 	git stash push -m "ida-customisations stash"
 	echo `git status`
 
