@@ -92,18 +92,18 @@ The first two types of files don't require any special treatment. Only the last 
 
 ### IDA platform
 
-There is a separate folder for files with different content for the IDA platform in the repository root, named `ida-customisations`. When building the IDA platform, the content of this folder is copied into the main folder, overwriting the main platform files. For example, the file `/academy/6-whats-next/index.md` (main platform) has an IDA variation in `/ida-customisations/academy/6-whats-next/index.md`. When building the IDA platform, the original file will be overwritten with the IDA file version before building. Similiarly, there is an IDA specific config in `/ida-customisations/.vuepress/config.js`
+There is a separate folder for files with different content for the IDA platform in the repository root, named `ida-customizations`. When building the IDA platform, the content of this folder is copied into the main folder, overwriting the main platform files. For example, the file `/academy/6-whats-next/index.md` (main platform) has an IDA variation in `/ida-customizations/academy/6-whats-next/index.md`. When building the IDA platform, the original file will be overwritten with the IDA file version before building. Similiarly, there is an IDA specific config in `/ida-customizations/.vuepress/config.js`
 
 ### Switching variants
 
 There are two helper scripts available to switch between the main platform and the ida platform variants.
 
 * `npm run switch-ida` to change your local filesystem to the IDA platform variant (copy in IDA files).
-* `npm run switch-main` to switch back to the main platform variant (this moves your changes into the `ida-customisations` folder).
+* `npm run switch-main` to switch back to the main platform variant (this moves your changes into the `ida-customizations` folder).
 
 **NOTE: Your working directory must be clean before switching to the IDA files**.
 
-When you switch back to the main variant, changes will be moved into the `ida-customisations` folder, and the original files are being restored. The script uses `git stash` to restore the main files, so in case of an inadvertently switch (or any error), you can restore your original changes (see `git stash list` and `git stash pop`). Note however that **changes in the `ida-customisations` folder will be overwritten** by this script!
+When you switch back to the main variant, changes will be moved into the `ida-customizations` folder, and the original files are being restored. The script uses `git stash` to restore the main files, so in case of an inadvertently switch (or any error), you can restore your original changes (see `git stash list` and `git stash pop`). Note however that **changes in the `ida-customizations` folder will be overwritten** by this script!
 
 
 ### Workflows
@@ -111,6 +111,6 @@ When you switch back to the main variant, changes will be moved into the `ida-cu
 To work on the IDA platform files, starting from a clean `master`:
 
 * Run `npm run switch-ida` to switch your local filesystem to the IDA variant.
-* You can now run `npm run serve` and work on the files as normal.
-* Once you are done with your updates, stop your server and run `npm run switch-main`. This will move your changes into the `ida-customisations` folder and restore the main platform files.
-* Add the files in `ida-customisations` to your commit and push as usual, to `master`.
+* You can now run `npm run serve` and work on the files as usual.
+* Once you are done with your updates, stop your server and run `npm run switch-main`. This will move your changes into the `ida-customizations` folder and restore the main platform files.
+* Add the files in `ida-customizations` to your commit and push to `master`.

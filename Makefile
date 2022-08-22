@@ -7,13 +7,13 @@ build-website:
 build-ida-website: fs-activate-ida-files build-website
 
 fs-activate-ida-files: fs-check-clean-git
-	echo "\nUse IDA customisations\n"
-	cp -rf ida-customisations/ ./
+	echo "\nActivate IDA files\n"
+	cp -rf ida-customizations/ ./
 
 fs-restore-main-files:
-	echo "\nRestore main files, moving updates into ida-customisations\n"
-	git ls-files -m | xargs -I {} sh -c 'mkdir -p ./ida-customisations/$$(dirname {}) && cp -fp {} ./ida-customisations/{}'
-	git stash push -m "ida-customisations stash" -- ':!./ida-customisations/*'
+	echo "\nRestore main files, moving updates into ida-customizations\n"
+	git ls-files -m | xargs -I {} sh -c 'mkdir -p ./ida-customizations/$$(dirname {}) && cp -fp {} ./ida-customizations/{}'
+	git stash push -m "ida-customizations stash" -- ':!./ida-customizations/*'
 	git status
 
 fs-check-clean-git:
