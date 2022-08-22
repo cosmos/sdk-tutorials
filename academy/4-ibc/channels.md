@@ -34,9 +34,8 @@ As mentioned above, channels are payload agnostic. The application modules sendi
 
 <HighlightBox type="info">
 
-An **ordered channel** is _a channel where packets are delivered exactly in the order in which they were sent_.
-<br></br>
-An **unordered channel** is _a channel where packets can be delivered in any order_, which may differ from the order in which they were sent.
+* An **ordered channel** is _a channel where packets are delivered exactly in the order in which they were sent_.
+* An **unordered channel** is _a channel where packets can be delivered in any order_, which may differ from the order in which they were sent.
 
 </HighlightBox>
 
