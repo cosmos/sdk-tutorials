@@ -275,7 +275,7 @@ Against expectations, the system carried out Alice's request to reject the game.
 <HighlightBox type="warn">
 
 How is it possible that Alice could reject a game she had already played in, despite the code preventing that? Because game `0` was created in an earlier version of your code. This earlier version created **a game without any `.MoveCount`**. When you later added the code for rejection, Ignite CLI kept the current state of your blockchain. In effect, your blockchain was in a **broken** state, where **the code and the state were out of sync**.
-
+<br></br>
 To see how to properly handle code changes that would otherwise result in a broken state, see the section on [migrations](./migration.md).
 
 </HighlightBox>

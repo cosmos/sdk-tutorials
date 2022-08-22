@@ -46,7 +46,7 @@ When Keplr is installed it should be available in the list of extensions when yo
 <HighlightBox type="warn">
 
 When you own ATOM with Keplr, **you are in charge**. There is no one you can call if _you forget your password/seed phrase or you send tokens to the wrong address_.
-
+<br></br>
 Keplr is a non-custodial wallet.
 
 </HighlightBox>

@@ -20,7 +20,7 @@ Review the following sections to better understand modules in the Cosmos SDK:
 <HighlightBox type="learning">
 
 Modules are functional components that address application-level concerns such as token management or governance. The Cosmos SDK includes several ready-made modules so that application developers can focus on the truly unique aspects of their application.
-
+<br></br>
 A code example that illustrates module creation and an introduction to your checkers blockchain can be found at the end of this section.
 
 </HighlightBox>
@@ -272,7 +272,7 @@ x/{module_name}
 <HighlightBox type="info">
 
 If a module relies on keepers from another module, the `exported/` code element expects to receive the keepers as interface contracts to avoid a direct dependency on the module implementing the keepers. However, these interface contracts can define methods that operate on (or return types that are specific to) the module that is implementing the keepers.
-
+<br></br>
 The interface types defined in `exported/` use canonical types that allow for the module to receive the interface contracts through the `expected_keepers.go` file. This pattern allows for code to remain [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) and also alleviates import cycle chaos.
 
 </HighlightBox>
@@ -319,15 +319,15 @@ If a module error is registered, the Cosmos SDK errors package allows ABCI infor
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 Now your application is starting to take shape.
-
+<br></br>
 **The `checkers` module**
 
 When you create your checkers blockchain application, you ought to include a majority of the standard modules like `auth`, `bank`, and so on. With the Cosmos SDK boilerplate in place, the _checkers part_ of your checkers application will most likely reside in a single `checkers` module. This is the module that you author.
-
+<br></br>
 **Game wager**
 
 Earlier the goal was to let players play with _money_. With the introduction of modules like `bank` you can start handling that.
-
+<br></br>
 The initial ideas are:
 
 * The wager amount is declared when creating a game.
@@ -359,7 +359,7 @@ How would this look in terms of code? You need to add the wager to:
 **Wager payment**
 
 Now you must decide how the tokens are moved. When a player accepts a challenge, the amount is deducted from that player's balance. But where does it go? You could burn the tokens and re-mint them at a later date, but this would make the total supply fluctuate wildly for no apparent benefit.
-
+<br></br>
 It is possible to transfer from a player to a module. The module acts as the escrow account for all games. So when playing for the first time, a player would:
 
 ```go

@@ -22,7 +22,7 @@ For all installations, please see the [setup page](../3-my-own-chain/setup.md).
 <HighlightBox type="learning">
 
 Have you considered running a relayer?
-
+<br></br>
 In this section, you will learn:
 
 * How to get started with the Go relayer

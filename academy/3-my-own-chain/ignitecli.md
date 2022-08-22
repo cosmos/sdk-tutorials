@@ -40,7 +40,7 @@ The Cosmos SDK provides the building blocks for a complete Tendermint blockchain
 <HighlightBox type="info">
 
 Ignite CLI assists with scaffolding modules and integrating them with BaseApp. Ignite CLI is a command-line tool that writes code files and updates them when instructed to do so. If you come from an _on Rails_ world, the concept will look familiar to you.
-
+<br></br>
 Ignite CLI also handles some compilation, runs a local blockchain node, and helps you with other tasks.
 
 </HighlightBox>
@@ -83,7 +83,7 @@ starport version v0.17.3
 <HighlightBox type="info">
 
 This entire exercise was built using the Ignite CLI version noted above. Using a newer version could work, but you might run into compatibility issues if you clone any code made with _this_ version of Ignite CLI and then try to continue the project with _your_ version of Ignite CLI.
-
+<br></br>
 If you need to install the latest version of Ignite CLI, use:
 
 ```sh
