@@ -17,7 +17,6 @@ Follow this link: [Week 1 quiz](https://hr.gs/ida-week1-quiz), to submit a pop q
 
 You need to make sure to submit the quiz by **May 20th** latest! In case you cannot make sure to hit this due date, please reach out to us!
 <br></br>
-Implemented highlight box fixes for Academy course, Ch1-3
 You have only 1 attempt to do the quiz. It does not have any impact on your program participation in case you do not pass the quiz.
 
 </HighlightBox>
