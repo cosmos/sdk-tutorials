@@ -1,0 +1,261 @@
+{
+  "semantics": [
+    {
+      "label": "Úvod do testu",
+      "fields": [
+        {
+          "label": "Zobrazit úvod"
+        },
+        {
+          "label": "Nadpis",
+          "description": "Tento nadpis se zobrazí nad úvodním textem."
+        },
+        {
+          "label": "Úvodní text",
+          "description": "Tento text se zobrazí před spuštěním testu."
+        },
+        {
+          "label": "Text tlačítka Start",
+          "default": "Start testu"
+        },
+        {
+          "label": "Obrázek na pozadí",
+          "description": "Volitelný obrázek na pozadí pro úvod."
+        }
+      ]
+    },
+    {
+      "label": "Obrázek na pozadí",
+      "description": "Volitelný obrázek na pozadí pro sadu otázek."
+    },
+    {
+      "label": "Ukazatel průběhu",
+      "description": "Styl ukazatele průběhu testu.",
+      "options": [
+        {
+          "label": "Textový"
+        },
+        {
+          "label": "Tečky"
+        }
+      ]
+    },
+    {
+      "label": "Procento úspěšnosti",
+      "description": "Procento z celkového skóre požadovaného pro absolvování testu."
+    },
+    {
+      "label": "Otázky",
+      "widgets": [
+        {
+          "label": "Výchozí"
+        },
+        {
+          "label": "Textové"
+        }
+      ],
+      "entity": "otázka",
+      "field": {
+        "label": "Typ otázky",
+        "description": "Knihovna pro tuto otázku."
+      }
+    },
+    {
+      "label": "Rozhraní v testu",
+      "fields": [
+        {
+          "label": "Tlačítko Zpět",
+          "default": "Předchozí otázka"
+        },
+        {
+          "label": "Tlačítko Další",
+          "default": "Další otázka"
+        },
+        {
+          "label": "Tlačítko Dokončit",
+          "default": "Dokončit"
+        },
+        {
+          "label": "Text průběhu",
+          "description": "Text použitý, pokud je vybrán textový průběh.",
+          "default": "Otázka: @current z @total otázek"
+        },
+        {
+          "label": "Popisek pro skok na určitou otázku",
+          "description": "Musíte použít zástupný symbo '%d' namísto čísla otázky, a %total namísto celkového počtu otázek.",
+          "default": "Otázka %d z %total"
+        },
+        {
+          "label": "Popisek s otázkou dialogového okna autorských práv",
+          "default": "Otázka"
+        },
+        {
+          "label": "Průběh čtení čtečky",
+          "description": "Mohou používat proměnné otázek @current a @total",
+          "default": "Otázka @current z @total"
+        },
+        {
+          "label": "Text nezodpovězené otázky",
+          "default": "Nezodpovězeno"
+        },
+        {
+          "label": "Text odpovězené otázky",
+          "default": "Odpovězeno"
+        },
+        {
+          "label": "Text aktuální otázky",
+          "default": "Aktuální otázka"
+        }
+      ]
+    },
+    {
+      "label": "Zakázat navigaci zpět",
+      "description": "Tato možnost vám umožní postupovat v sadě otázek pouze vpřed"
+    },
+    {
+      "label": "Náhodné otázky",
+      "description": "Povolit náhodný výběr pořadí zobrazovaných otázek."
+    },
+    {
+      "label": "Počet otázek, které se mají zobrazit:",
+      "description": "Vytvořte náhodnou dávku otázek z celkového počtu."
+    },
+    {
+      "label": "Test skončil",
+      "fields": [
+        {
+          "label": "Zobrazit výsledky"
+        },
+        {
+          "label": "Zobrazit tlačítko řešení"
+        },
+        {
+          "label": "Zobrazit tlačítko opakování"
+        },
+        {
+          "label": "Žádná zpráva o výsledcích",
+          "description": "Text zobrazený na konci stránky, když je zakázáno \"Display results\" ",
+          "default": "Dokončeno"
+        },
+        {
+          "label": "Zpětná vazba",
+          "default": "Váš výsledek:",
+          "description": "Tento nadpis se zobrazí na konci testu, když uživatel odpoví na všechny otázky."
+        },
+        {
+          "label": "Celková zpětná vazba",
+          "fields": [
+            {
+              "widgets": [
+                {
+                  "label": "Výchozí"
+                }
+              ],
+              "label": "Definujte vlastní zpětnou vazbu pro libovolný rozsah skóre",
+              "description": "Příklad: 0-20% špatné skóre, 21-91% průměrné skóre, 91-100% výborné skóre!",
+              "entity": "rozsah",
+              "field": {
+                "fields": [
+                  {
+                    "label": "Rozsah skóra"
+                  },
+                  {},
+                  {
+                    "label": "Zpětná vazba pro definovaný rozsah skóre",
+                    "placeholder": "Vyplňte zpětnou vazbu"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Stará zpětná vazba",
+          "fields": [
+            {
+              "label": "Pozdrav úspěšného testu",
+              "description": "Tento text se zobrazí nad skóre, pokud uživatel úspěšně prošel testem."
+            },
+            {
+              "label": "Úspěšný komentář",
+              "description": "Tento komentář se zobrazí po skóre, pokud uživatel úspěšně prošel testem."
+            },
+            {
+              "label": "Test se nezdařil",
+              "description": "Tento text se zobrazí nad skóre, pokud uživatel byl v testu neúspěšný."
+            },
+            {
+              "label": "Komentář při neúspěchu",
+              "description": "Tento komentář se zobrazí po skóre, pokud uživatel byl v testu neúspěšný."
+            }
+          ]
+        },
+        {
+          "label": "Popisek tlačítka řešení",
+          "default": "Zobrazit řešení",
+          "description": "Text tlačítka řešení."
+        },
+        {
+          "label": "Popisek tlačítka opakovat",
+          "default": "Opakovat",
+          "description": "Text tlačítka opakovat."
+        },
+        {
+          "label": "Popisek tlačítka dokončit",
+          "default": "Dokončit"
+        },
+        {
+          "label": "Zobrazit video před výsledky testu"
+        },
+        {
+          "label": "Povolit tlačítko přeskočit video"
+        },
+        {
+          "label": "Popisek tlačítka Přeskočit video",
+          "default": "Přeskočit video"
+        },
+        {
+          "label": "Přehrát video",
+          "description": "Toto video se přehraje, pokud uživatel úspěšně prošel testem."
+        },
+        {
+          "label": "Video při neúspěchu",
+          "description": "Toto video se přehraje, pokud uživatel byl v testu neúspěšný."
+        }
+      ]
+    },
+    {
+      "label": "Nastavení tlačítek \"Show solution\" a \"Retry\" ",
+      "fields": [
+        {
+          "label": "Zobrazit tlačítko \"Check\" ",
+          "description": "Tato volba určuje, zda se u všech otázek zobrazí tlačítko \"Check\" ."
+        },
+        {
+          "label": "Přepsat tlačítko \"Show Solution\" ",
+          "description": "Tato volba určuje, zda se u všech otázek zobrazí tlačítko \"Show Solution\" , nebo bude zakázané pro všechny nebo nakonfigurované pro každou otázku samostatně.",
+          "options": [
+            {
+              "label": "Povoleno"
+            },
+            {
+              "label": "Zakázáno"
+            }
+          ]
+        },
+        {
+          "label": "Přepsat tlačítko \"Retry\" ",
+          "description": "Tato volba určuje, zda se u všech otázek zobrazí tlačítko \"Retry\" , nebo bude zakázané pro všechny nebo nakonfigurované pro každou otázku samostatně.",
+          "options": [
+            {
+              "label": "Povoleno"
+            },
+            {
+              "label": "Zakázáno"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

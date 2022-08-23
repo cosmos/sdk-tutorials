@@ -1,0 +1,136 @@
+{
+  "semantics": [
+    {
+      "label": "Fuentes de Video",
+      "description": "Para asegurar que los videos funcionen en todos los navegadores usted debería añadir tanto fuentes formateados en WebM y MP4."
+    },
+    {
+      "label": "Visuales",
+      "fields": [
+        {
+          "label": "Imagen de cartel"
+        },
+        {
+          "label": "Se ajusta el reproductor de video para usar todo el espacio disponible",
+          "description": "Si no se configura, el reproductor de video tendrá la misma proporción de aspecto que el video."
+        },
+        {
+          "label": "Mostrar controles del reproductor de video",
+          "description": "Añadir controles al reproductor de video. Esto le permite a los usuarios el reproducir, pausar, etc."
+        }
+      ]
+    },
+    {
+      "label": "Reproducción",
+      "fields": [
+        {
+          "label": "Auto-reproducir video",
+          "description": "Comenzar a reproducir el video automáticamente. Podría no funcionar en dispositivos móviles."
+        },
+        {
+          "label": "Bucle de video",
+          "description": "Automáticamente iniciar el video una y otra vez cuando se termine."
+        }
+      ]
+    },
+    {
+      "label": "Localización del Video",
+      "fields": [
+        {
+          "label": "Nombre",
+          "default": "Video",
+          "description": "Ayuda a identificar el contenido de este tipo."
+        },
+        {
+          "label": "Cargando",
+          "default": "Reproductor de Video cargando..."
+        },
+        {
+          "label": "No se encontraron reproductores",
+          "default": "No se encontraron reproductores de video que soporten el formato dado de video."
+        },
+        {
+          "label": "No hay orígenes (fuentes)",
+          "default": "Faltan fuentes de video."
+        },
+        {
+          "label": "Abortado",
+          "default": "El reproductor de medios ha sido abortado."
+        },
+        {
+          "label": "Falla de la red",
+          "default": "Falla de la red."
+        },
+        {
+          "label": "No se puede decodificar la fuente de video",
+          "default": "No se pueden decodificar los medios."
+        },
+        {
+          "label": "Formato no soportado",
+          "default": "Formato de video no soportado."
+        },
+        {
+          "label": "Medio encriptado",
+          "default": "Medio encriptado."
+        },
+        {
+          "label": "Error desconocido",
+          "default": "Error desconocido."
+        },
+        {
+          "label": "ID de YouTube inválida",
+          "default": "ID de YouTube inválida."
+        },
+        {
+          "label": "ID de YouTube desconocida",
+          "default": "No se puede encontrar video con la ID de YouTube dada."
+        },
+        {
+          "label": "Video YouTube restringido",
+          "default": "El propietario de este video no permite que sea incrustado."
+        }
+      ]
+    },
+    {
+      "label": "Accesibilidad",
+      "fields": [
+        {
+          "label": "Añadir pista de audio",
+          "entity": "Pista",
+          "field": {
+            "label": "Pista",
+            "fields": [
+              {
+                "label": "Etiqueta de pista"
+              },
+              {
+                "label": "Tipo, refiérase a <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">HTML living standard</a>",
+                "options": [
+                  {
+                    "label": "Subtítulos"
+                  },
+                  {
+                    "label": "Letreritos"
+                  },
+                  {
+                    "label": "Descripciones"
+                  },
+                  {
+                    "label": "Capítulos"
+                  }
+                ]
+              },
+              {
+                "label": "Idioma de la fuente, debe estar definido para los subtítulos",
+                "description": "Debe ser una marca (tag) de idioma BCP 47 válida. Si el tipo de atributo está configurado a subtítulos, entonces srclang debe estar definido."
+              },
+              {
+                "label": "Archivo de pista (WebVTT)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

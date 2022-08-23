@@ -1,0 +1,254 @@
+{
+  "semantics": [
+    {
+      "label": "Media",
+      "fields": [
+        {
+          "label": "Typ",
+          "description": "Opcjonalne zdjęcie lub wideo ponad treścią pytania."
+        },
+        {
+          "label": "Zablokuj możliwość powiększania zdjęcia"
+        }
+      ]
+    },
+    {
+      "label": "Pytanie"
+    },
+    {
+      "label": "Dostępne odpowiedzi",
+      "entity": "Odpowiedź",
+      "field": {
+        "label": "Odpowiedź",
+        "fields": [
+          {
+            "label": "Tekst"
+          },
+          {
+            "label": "Odpowiedź poprawna"
+          },
+          {
+            "label": "Wskazówki",
+            "fields": [
+              {
+                "label": "Treść wskazówki",
+                "description": "Wskazówki dla użytkownika. Wskazówki pojawią się przed sprawdzeniem odpowiedzi przez użytkownika."
+              },
+              {
+                "label": "Komunikat wyświetlany, gdy użytkownik zaznaczy tę odpowiedź",
+                "description": "Komunikat pojawi się pod odpowiedzią, po wybraniu akcji \"Sprawdź\", jeżeli dana odpowiedź była zaznaczona."
+              },
+              {
+                "label": "Komunikat wyświetlany, gdy użytkownik nie zaznaczy tej odpowiedzi",
+                "description": "Komunikat pojawi się pod odpowiedzią po wybraniu akcji \"Sprawdź\", jeżeli dana odpowiedź nie była zaznaczona."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "Podsumowanie odpowiedzi",
+      "fields": [
+        {
+          "widgets": [
+            {
+              "label": "Domyślne"
+            }
+          ],
+          "label": "Określ własne kryteria oceny dla wybranych zakresów poprawnych odpowiedzi",
+          "description": "Przykład: 0-20% Słaby wynik, 21-91% Przeciętny wynik, 91-100% Bardzo dobry wynik!",
+          "entity": "Zakres",
+          "field": {
+            "fields": [
+              {
+                "label": "Zakres"
+              },
+              {},
+              {
+                "label": "Komunikat dla danego zakresu",
+                "placeholder": "Wprowadź komunikat"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "Tłumaczenie interfejsu użytkownika dla obiektu typu multichoice",
+      "fields": [
+        {
+          "label": "Etykieta przycisku Sprawdź",
+          "default": "Sprawdź"
+        },
+        {
+          "label": "Etykieta przycisku Pokaż odpowiedź",
+          "default": "Pokaż odpowiedź"
+        },
+        {
+          "label": "Etykieta przycisku Powtórz",
+          "default": "Powtórz"
+        },
+        {
+          "label": "Podpowiedź",
+          "default": "Pokaż podpowiedź"
+        },
+        {
+          "label": "Textual representation of the score bar for those using a readspeaker",
+          "description": "Available variables are :num and :total",
+          "default": "You got :num out of :total points"
+        },
+        {
+          "label": "Dodatkowe wskazówki (niewyświetlane)",
+          "default": "Dostępne są dodatkowe wskazówki",
+          "description": "Tekst na potrzeby systemów czytających tekst (readspeakers)"
+        },
+        {
+          "label": "Podsumowanie odpowiedzi (niewyświetlane)",
+          "default": "Dostępne jest podsumowanie odpowiedzi",
+          "description": "Tekst na potrzeby systemów czytających tekst (readspeakers)"
+        },
+        {
+          "label": "Przeczytaj podsumowanie odpowiedzi (niewyświetlane)",
+          "default": "Przeczytaj podsumowanie odpowiedzi",
+          "description": "Tekst na potrzeby systemów czytających tekst (readspeakers)"
+        },
+        {
+          "label": "Odpowiedź niepoprawna (niewyświetlane)",
+          "default": "Odpowiedź niepoprawna",
+          "description": "Tekst na potrzeby systemów czytających tekst (readspeakers)"
+        },
+        {
+          "label": "Odpowiedź poprawna (niewyświetlane)",
+          "default": "Odpowiedź poprawna",
+          "description": "Tekst na potrzeby systemów czytających tekst (readspeakers)"
+        },
+        {
+          "label": "Odpowiedź powinna być wybrana",
+          "default": "Odpowiedź powinna być wybrana"
+        },
+        {
+          "label": "Odpowiedź nie powinna być wybrana",
+          "default": "Odpowiedź nie powinna być wybrana"
+        },
+        {
+          "label": "Komunikat w przypadku \"Odpowiedź wymagana\"",
+          "default": "Podaj odpowiedź przed sprawdzeniem rozwiązania"
+        },
+        {
+          "label": "Assistive technology description for \"Check\" button",
+          "default": "Check the answers. The responses will be marked as correct, incorrect, or unanswered."
+        },
+        {
+          "label": "Assistive technology description for \"Show Solution\" button",
+          "default": "Show the solution. The task will be marked with its correct solution."
+        },
+        {
+          "label": "Assistive technology description for \"Retry\" button",
+          "default": "Retry the task. Reset all responses and start the task over again."
+        }
+      ]
+    },
+    {
+      "label": "Ustawienia zachowania",
+      "description": "Poniższe opcje pozwalają określić zachowanie się obiektu.",
+      "fields": [
+        {
+          "label": "Pokaż przycisk \"Powtórz\""
+        },
+        {
+          "label": "Pokaż przycisk \"Pokaż rozwiązanie\""
+        },
+        {
+          "label": "Pokaż przycisk \"Sprawdź\""
+        },
+        {
+          "label": "Typ pytania",
+          "description": "Wybierz wygląd i sposób działania dla pytania.",
+          "options": [
+            {
+              "label": "Automatyczny"
+            },
+            {
+              "label": "Wielokrotnego wyboru (Checkboxes)"
+            },
+            {
+              "label": "Jedna poprawna odpowiedź (Radio Buttons)"
+            }
+          ]
+        },
+        {
+          "label": "Przyznaj jeden punkt za całe zadanie",
+          "description": "Przyznaj jeden punkt za wiele poprawnych odpowiedzi. Ta opcja nie będzie miała zostosowania w przypadku pytań typu \"Jedna poprawna odpowiedź\"."
+        },
+        {
+          "label": "Losowa kolejność odpowiedzi",
+          "description": "Pokazuj dostępne odpowiedzi w losowej kolejności."
+        },
+        {
+          "label": "Wymagaj podania odpowiedzi przed pokazaniem poprawnego rozwiązania"
+        },
+        {
+          "label": "Pokazuj prośbę o potwierdzenie akcji \"Sprawdź\""
+        },
+        {
+          "label": "Pokazuj prośbę o potwierdzenie akcji \"Powtórz\""
+        },
+        {
+          "label": "Sprawdzaj odpowiedzi automatycznie",
+          "description": "Użycie tej opcji zakłóci działanie mechanizmów dostępności dla osób z ograniczeniami. Upewnij się, że na pewno znasz konsekwencje użycia tej opcji."
+        },
+        {
+          "label": "Procent wymagany do zaliczenia",
+          "description": "Ta opcja bardzo często nie będzie miała żadnego efektu. Jest to minimalny procent poprawnych odpowiedzi wymagany, aby przyznać jeden punkt, w przypadku gdy dla danego pytania wybrana jest opcja Przyznaj jeden punkt za całe zadanie oraz w celu przekazania danych  result.success poprzez xAPI."
+        },
+        {
+          "label": "Pokaż przyznane punkty",
+          "description": "Pokaż punkty przyznane za każdą z odpowiedzi."
+        }
+      ]
+    },
+    {
+      "label": "Tekst potwierdzenia zakończenia",
+      "fields": [
+        {
+          "label": "Tekst nagłówka",
+          "default": "Zakończyć?"
+        },
+        {
+          "label": "Tekst komunikatu",
+          "default": "Czy na pewno chcesz zakończyć?"
+        },
+        {
+          "label": "Etykieta przycisku Anuluj",
+          "default": "Anuluj"
+        },
+        {
+          "label": "Etykieta przycisku Zakończ",
+          "default": "Zakończ"
+        }
+      ]
+    },
+    {
+      "label": "Tekst potwierdzenia powtórzenia",
+      "fields": [
+        {
+          "label": "Tekst nagłówka",
+          "default": "Powtórzyć?"
+        },
+        {
+          "label": "Tekst komunikatu",
+          "default": "Czy na pewno chcesz powtórzyć?"
+        },
+        {
+          "label": "Etykieta przycisku Anuluj",
+          "default": "Anuluj"
+        },
+        {
+          "label": "Etykieta przycisku Potwierdź",
+          "default": "Zatwierdź"
+        }
+      ]
+    }
+  ]
+}

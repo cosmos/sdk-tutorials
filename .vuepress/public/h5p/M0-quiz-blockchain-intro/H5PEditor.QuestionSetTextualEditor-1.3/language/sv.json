@@ -1,0 +1,8 @@
+{
+  "libraryStrings": {
+    "helpText": "Använd en tom rad för att separera varje fråga. Vid flervalsfrågor så är första raden frågan och följande rader är svarsalternativen. Korrekta svarsalternativ har  asterisk(*) som prefix, tips och feedback kan också läggas till: \n*alternativ:tips:feedback om valt:feedback om inte valt. Exempel:",
+    "example": "Vilket nummer är PI?\n*3.14\n9.82\n\nVad är 4 * 0?\n1\n4\n*0",
+    "warning": "Varning! Om du ändrar uppgifter i den textuella redigeraren, så kommer all textformatering (inklusive radbrytningar) att försvinna.",
+    "unknownQuestionType": "Icke-redigerbar fråga"
+  }
+}

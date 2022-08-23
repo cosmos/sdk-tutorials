@@ -9,14 +9,17 @@
 					span {{intro.action.label}}
 			.home__content__intro__image(v-if="intro.image")
 				tm-image(:src="intro.image")
-		.home__content__overview(v-if="$frontmatter.overview")
+		.home__content__overview(v-if="$frontmatter.overview" id="overview")
 			h2.home__content__overview__title {{$frontmatter.overview.title}}
 			.home__content__overview__content(v-if="$frontmatter.overview.items")
 				tm-faq.home__content__overview__content__item(v-for="item in $frontmatter.overview.items" :title="item.title" :description="item.description")
 
 		.modules(v-if="this.modules && this.modules[0].submodules && this.modules[0].submodules.length > 1")
-			h2 Course Modules
-			card-module(v-for="module in this.modules" :module="module" :main="$frontmatter.main").modules__item
+			h2(:id="$frontmatter.weekly ? 'weekly-path' : 'course-modules'") {{$frontmatter.weekly ? "Weekly Plan" : "Course Modules"}}
+			card-module(v-for="module in this.modules" v-if="module.title && module.number" :module="module" :main="$frontmatter.main" :weekly="$frontmatter.weekly || false").modules__item
+		.image-section(v-if="$frontmatter.image")
+			h2(v-if="$frontmatter.image.title") {{$frontmatter.image.title}}
+			tm-image.image-section__image(:src="$frontmatter.image.src")
 		.resources__wrapper(v-if="$themeConfig.resources")
 			h3.resources__title Developer resources
 			.resources
@@ -35,6 +38,13 @@
 
 		&__item
 			margin-top 64px
+
+	.image-section
+		margin-top 96px
+		
+		&__image
+			margin-top 64px
+			width 100%
 
 	.resources
 		display flex
@@ -167,10 +177,12 @@
 				display flex
 
 				&__title
+					margin-right 16px
 					width 50%
 
 				&__content
 					width 50%
+					margin-top 20px 
 
 					&__item
 						&:first-child
@@ -202,6 +214,7 @@
 
 					&__title
 						width 100%
+						margin-right 0
 
 					&__content
 						width 100%
@@ -228,17 +241,30 @@
 </style>
 
 <script>
+import { scrollToHeader } from "../theme/utils/helpers";
+
 export default {
+	updated() {
+		this.$nextTick(function () {
+			scrollToHeader();
+		});
+	},
 	computed: {
 		modules() {
-			const path = this.$page.path.split("/").filter(item => item !== "");
-			const folderPath = this.$frontmatter.main ? path[0] : path[1];
-			const submodules = this.$site.pages
-				.filter(page => page.path.includes(folderPath) && (this.$frontmatter.main ? page.path != this.$page.path : true))
-				.sort((a, b) => a.frontmatter.order - b.frontmatter.order);
-			const modules = this.formatModules(submodules);
+			let modules = null;
+
+			if (this.$frontmatter.modules) {
+				modules = this.$frontmatter.modules;
+			} else {
+				const path = this.$page.path.split("/").filter(item => item !== "");
+				const folderPath = this.$frontmatter.main ? path[0] : path[1];
+				const submodules = this.$site.pages
+					.filter(page => page.path.includes(folderPath) && (this.$frontmatter.main ? page.path != this.$page.path : true))
+					.sort((a, b) => a.frontmatter.order - b.frontmatter.order);
+				modules = Object.values(this.formatModules(submodules));
+			}
 			
-			return Object.values(modules).sort((a, b) => a.number - b.number);
+			return modules.sort((a, b) => a.number - b.number);
 		}
 	},
 	methods: {

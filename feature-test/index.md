@@ -1,6 +1,7 @@
 ---
 order: 1
 description: Test our features
+divider: true
 ---
 
 # Feature test
@@ -66,7 +67,7 @@ for line in fileinput.input(inplace=1):
 <CodeGroup>
 <CodeGroupItem title="JavaScript" active>
 
-```js 
+```js
 import { SpH3, SpButton } from "@tendermint/vue";
 
 export default {
@@ -222,6 +223,42 @@ This document explains what application-specific blockchains are, and why develo
 
 </HighlightBox>
 
+<HighlightBox type="prerequisite">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="best-practice">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="remember">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="note">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="docs">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
 
 ## H5P
 
@@ -292,3 +329,39 @@ children: [
     external: true,
   },
 ```
+
+## Panel list
+
+<PanelListItem number="1">
+  First step
+  ```
+  npm i
+  ```
+</PanelListItem>
+
+<PanelListItem number="2" :last="true">
+  Second step
+  ```
+  npm run dev
+  ```
+</PanelListItem>
+
+## Expansion Panel list
+
+<ExpansionPanel title="Click to expand">
+
+<PanelListItem number="1">
+  First step
+  ```
+  npm i
+  ```
+</PanelListItem>
+
+<PanelListItem number="check" :last="true">
+  Completed
+  ```
+  npm run dev
+  ```
+</PanelListItem>
+
+</ExpansionPanel>

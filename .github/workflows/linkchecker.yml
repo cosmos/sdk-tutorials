@@ -3,9 +3,16 @@ name: Check Markdown links
 on: 
   schedule: 
     - cron: '* */24 * * *'
+  pull_request:
+    branches:
+      - master
+      - b9lab-ida-final-content
+
 jobs:
   markdown-link-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - uses: gaurav-nelson/github-action-markdown-link-check@1.0.14
+        with:
+          use-quiet-mode: 'yes'

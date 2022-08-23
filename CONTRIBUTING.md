@@ -29,7 +29,7 @@ We welcome contributions to the tutorials. Our technical content follows the Goo
 - [Present tense](https://developers.google.com/style/tense)
 
 The Google guidelines include more material than listed here and are used as a
-guide that enables easy decision making about proposed content changes. 
+guide that enables easy decision making about proposed content changes.
 
 Other useful resources:
 
@@ -68,7 +68,7 @@ There is a hidden file (not linked in the main menu) published at [/feature-test
 
 ## Who works on the tutorials?
 
-Meet the people [behind the Cosmos SDK and contributors](https://github.com/cosmos/sdk-tutorials/graphs/contributors). 
+Meet the people [behind the Cosmos SDK and contributors](https://github.com/cosmos/sdk-tutorials/graphs/contributors).
 
 
 ## Viewing Tutorial Builds
@@ -102,14 +102,14 @@ Since the deploy preview doesn't work on Draft PRs, follow these steps to previe
 
 3. For each branch you work in, install the npm packages for the SDK tutorials:
 
-    ```bash
-    npm install
+    ```sh
+    $ npm install
     ```
 
 4. Start the local instance of the tutorial build:
 
-    ```bash
-    npm run serve
+    ```sh
+    $ npm run serve
     ```
 
   A successful client compile looks like: `> VuePress dev server listening at http://localhost:8080/ ✔ Client Compiled successfully in 280.71ms success [12:06:28] Build 03d41f finished in 283 ms! ( http://localhost:8080/ )`

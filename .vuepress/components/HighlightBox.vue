@@ -13,8 +13,10 @@
 
         switch(type) {
             case "tip":
-            case "reading":
                 icon = "/hi-tip-icon.svg";
+                break;
+            case "reading":
+                icon = "/hi-reading-icon.svg";
                 break;
             case "info":
                 icon = "/hi-info-icon.svg";
@@ -25,6 +27,24 @@
                 break;
             case "synopsis":
                 icon = null;
+                break;
+            case "prerequisite":
+                icon = "/hi-prerequesite-icon.svg";
+                break;
+            case "learning":
+                icon = "/hi-target-icon.svg";
+                break;
+            case "best-practice":
+                icon = "/hi-star-icon.svg";
+                break;
+            case "remember":
+                icon = "/hi-tip-icon.svg";
+                break;
+            case "note":
+                icon = "/hi-note-icon.svg";
+                break;
+            case "docs":
+                icon = "/hi-coffee-icon.svg";
                 break;
             default:
                 icon = "/hi-info-icon.svg";
@@ -56,8 +76,8 @@
         flex-wrap: wrap;
 
         &.info {
-            background: var(--background-color-primary);
-            border: 1px solid #40B3FF;
+            background: linear-gradient(78.06deg, #336667 1.14%, #00B067 98.88%);
+            color: #E3E3E3;
         }
 
         &.tip {
@@ -66,23 +86,51 @@
         }
 
         &.warn, &.warning {
-            background: var(--color-warning);
-            color: black
-            fill: black
-
-            .title {
-                color: black
-            }
+            background: linear-gradient(78.06deg, #00B067 0.2%, #FFD303 97.95%);
+            color: #4D4D4D;
         }
 
         &.reading {
-            background: var(--background-color-primary);
-            border: 1px solid var(--color-light-gray);
+            background: linear-gradient(78.06deg, #F46800 1.14%, #F24CF4 98.88%);
+            color: #E3E3E3;
         }
 
         &.synopsis {
             background: var(--background-color-secondary);
             color: var(--semi-transparent-color-3);
+        }
+
+        &.prerequisite {
+            background: var(--color-text-strong);
+            color: var(--background-color-secondary);
+        }
+        &.prerequisite a {
+            color: var(--background-color-secondary);
+        }
+
+        &.learning {
+            background: linear-gradient(78.06deg, #6836D0 1.14%, #05BDFC 98.88%);
+            color: #E3E3E3;
+        }
+
+        &.best-practice {
+            background: #6836D0;
+            color: #E3E3E3;
+        }
+
+        &.remember {
+            background: linear-gradient(78.06deg, #6D0000 1.14%, #F66800 98.88%);
+            color: #E3E3E3;
+        }
+
+        &.note {
+            background: linear-gradient(78.06deg, #F69900 1.14%, #FFCE15 98.88%);
+            color: #4D4D4D;
+        }
+
+        &.docs {
+            background: linear-gradient(78.06deg, #6836D0 1.14%, #F44CF6 98.88%);
+            color: #E3E3E3;
         }
     }
 
@@ -104,8 +152,12 @@
             margin: 0;
         }
 
-        &.tip, &.reading {
+        &.tip {
             filter: var(--img-filter);
+        }
+
+        &.prerequisite {
+            filter: var(--img-filter-reverse);
         }
     }
 

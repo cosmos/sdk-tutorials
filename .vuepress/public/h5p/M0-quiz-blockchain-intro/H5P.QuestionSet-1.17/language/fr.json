@@ -1,0 +1,261 @@
+{
+  "semantics": [
+    {
+      "label": "Introduction du Quiz ",
+      "fields": [
+        {
+          "label": "Afficher l'introduction"
+        },
+        {
+          "label": "Titre",
+          "description": "Ce titre sera affiché au-dessus de votre texte d'introduction."
+        },
+        {
+          "label": "Texte d'introduction ",
+          "description": "Ce texte sera affiché avant le démarrage du quiz."
+        },
+        {
+          "label": "Texte du bouton de démarrage",
+          "default": "Commencer"
+        },
+        {
+          "label": "Image d'arrière-plan",
+          "description": "Image d'arrière-plan optionnelle pour l'introduction."
+        }
+      ]
+    },
+    {
+      "label": "Image d'arrière-plan",
+      "description": "Image d'arrière-plan optionnelle pour la série de questions."
+    },
+    {
+      "label": "Indicateur de progression",
+      "description": "Style de l'indicateur de progression de la série de questions.",
+      "options": [
+        {
+          "label": "Texte"
+        },
+        {
+          "label": "Points"
+        }
+      ]
+    },
+    {
+      "label": "Pourcentage de réussite",
+      "description": "Pourcentage exigé pour considérer que le quiz est réussi."
+    },
+    {
+      "label": "Questions",
+      "widgets": [
+        {
+          "label": "Par défaut"
+        },
+        {
+          "label": "Texte"
+        }
+      ],
+      "entity": "question",
+      "field": {
+        "label": "Type de question",
+        "description": "Types possibles pour cette question."
+      }
+    },
+    {
+      "label": "Textes de l'interface du quiz",
+      "fields": [
+        {
+          "label": "Bouton Retour",
+          "default": "Retour"
+        },
+        {
+          "label": "Bouton Suivant",
+          "default": "Suivant"
+        },
+        {
+          "label": "Bouton Fin",
+          "default": "Terminer"
+        },
+        {
+          "label": "Texte de progression",
+          "description": "Texte utilisé si la progression textuelle a été sélectionnée.",
+          "default": "Question @current sur @total"
+        },
+        {
+          "label": "Texte pour aller directement à une question",
+          "description": "Vous devez utiliser la variable '%d' à la place du numéro de la question et %total à la place du nombre total de questions.",
+          "default": "Question %d sur %total"
+        },
+        {
+          "label": "Texte de la question de la boîte de dialogue de copyright",
+          "default": "Question"
+        },
+        {
+          "label": "Progression pour la synthèse vocale",
+          "description": "Vous pouvez utiliser les variables @current et @total",
+          "default": "Question @current sur @total"
+        },
+        {
+          "label": "Texte d'une question sans réponse",
+          "default": "Pas de réponse donnée"
+        },
+        {
+          "label": "Texte d'une question ayant reçu une réponse",
+          "default": "Réponse donnée"
+        },
+        {
+          "label": "Texte de la question en cours",
+          "default": "Question en cours"
+        }
+      ]
+    },
+    {
+      "label": "Désactiver la possibilité de naviguer en arrière",
+      "description": "Cette option ne permettra plus que la navigation en avant au sein du module Question Set."
+    },
+    {
+      "label": "Afficher les questions dans un ordre aléatoire",
+      "description": "Activer pour choisir aléatoirement l'ordre des questions à l'affichage."
+    },
+    {
+      "label": "Nombre de questions à afficher:",
+      "description": "Génère aléatoirement un jeu de questions parmi toutes les questions disponibles."
+    },
+    {
+      "label": "Quiz terminé",
+      "fields": [
+        {
+          "label": "Afficher les résultats"
+        },
+        {
+          "label": "Afficher le bouton \"Solution\"."
+        },
+        {
+          "label": "Display retry button"
+        },
+        {
+          "label": "Message si pas de résultats",
+          "description": "Texte affiché sur la page finale si l'option \"Afficher les résultats\" est désactivée.",
+          "default": "Terminé"
+        },
+        {
+          "label": "Titre des commentaires",
+          "default": "Vos résultats :",
+          "description": "Ce titre sera affiché à la fin du quiz quand l'utilisateur aura répondu à toutes les questions."
+        },
+        {
+          "label": "Opacité des étiquettes",
+          "fields": [
+            {
+              "widgets": [
+                {
+                  "label": "Par défaut"
+                }
+              ],
+              "label": "Définir un retour personnalisé pour chaque tranche de score",
+              "description": "Exemple: 0-20% Score insuffisant, 21-91% Score moyen, 91-100% Bon score!",
+              "entity": "tranche",
+              "field": {
+                "fields": [
+                  {
+                    "label": "Tranche de score"
+                  },
+                  {},
+                  {
+                    "label": "Retour pour cette tranche de score",
+                    "placeholder": "Entrer le message de retour"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Old Feedback",
+          "fields": [
+            {
+              "label": "Commentaire de félicitation",
+              "description": "Ce commentaire sera affiché au-dessus du score de l'utilisateur si celui-ci réussit le quiz."
+            },
+            {
+              "label": "Commentaire en cas de succès",
+              "description": "Commentaire affiché lors du passage du quiz avec succès."
+            },
+            {
+              "label": "Commentaire en cas d'échec",
+              "description": "Ce commentaire sera affiché au-dessus du score de l'utilisateur si celui-ci échoue au quiz."
+            },
+            {
+              "label": "Commentaire additionnel en cas d'échec",
+              "description": "Commentaire additionnel affiché lors de l'échec au quiz."
+            }
+          ]
+        },
+        {
+          "label": "Texte du bouton \"Solution\"",
+          "default": "Voir la solution",
+          "description": "Texte pour le bouton de solution."
+        },
+        {
+          "label": "Texte du bouton \"Recommencer\"",
+          "default": "Recommencer",
+          "description": "Texte pour le bouton Recommencer."
+        },
+        {
+          "label": "Texte pour le bouton de fin",
+          "default": "Terminer"
+        },
+        {
+          "label": "Afficher une vidéo avant l'affichage des résultats du quiz"
+        },
+        {
+          "label": "Activer le bouton \"Passer la vidéo\""
+        },
+        {
+          "label": "Texte du bouton \"Passer la vidéo\"",
+          "default": "Passer la vidéo"
+        },
+        {
+          "label": "Vidéo en cas de succès",
+          "description": "Vidéo affichée si l'utilisateur réussit le quiz."
+        },
+        {
+          "label": "Vidéo en cas d'échec",
+          "description": "Vidéo affichée si l'utilisateur échoue au quiz."
+        }
+      ]
+    },
+    {
+      "label": "Options pour les boutons \"Montrer la solution\" et \"Recommencer\".",
+      "fields": [
+        {
+          "label": "Montrer les boutons \"Vérifier\"",
+          "description": "Cette option determine si le bouton \"Vérifier\" va apparaître pour toutes les questions."
+        },
+        {
+          "label": "Cacher le bouton \"Voir la correction\"",
+          "description": "Cette option détermine si le bouton \"Voir la correction\" sera affiché pour toutes les questions, désactivé pour toutes ou configuré pour chaque question individuellement.",
+          "options": [
+            {
+              "label": "Activé"
+            },
+            {
+              "label": "Désactivé"
+            }
+          ]
+        },
+        {
+          "label": "Cacher le bouton \"Recommencer\"",
+          "description": "Cette option détermine si le bouton \"Recommencer\" sera affiché pour toutes les questions, désactivé pour toutes ou configuré pour chaque question individuellement.",
+          "options": [
+            {
+              "label": "Activé"
+            },
+            {
+              "label": "Désactivé"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
