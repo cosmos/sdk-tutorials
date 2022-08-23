@@ -13,7 +13,7 @@ fs-activate-ida-files: fs-check-clean-git
 fs-restore-main-files:
 	echo "\nRestore main files, moving updates into ida-customizations\n"
 	git ls-files -m | xargs -I {} sh -c 'mkdir -p ./ida-customizations/$$(dirname {}) && cp -fp {} ./ida-customizations/{}'
-	git stash push -m "ida-customizations stash" -- ':!./ida-customizations/*'
+	git stash push -m "ida-customizations stash" -- ":!./ida-customizations/*"
 	git status
 
 fs-check-clean-git:
