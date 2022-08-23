@@ -28,4 +28,4 @@ deploy-website: build-website
 	aws s3 sync . s3://"${WEBSITE_BUCKET}" --profile terraform --delete ; \
 	aws cloudfront create-invalidation --distribution-id "${CF_DISTRIBUTION_ID}" --profile terraform --path "/*" ;
 
-.PHONY: build-website deploy-website
+.PHONY: build-website #deploy-website
