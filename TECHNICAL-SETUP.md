@@ -47,11 +47,83 @@ The build output can be found in `./vuepress/dist`.
 
 This sections lists technical details for content authors. For general information, language, and style details, see the [Contribution Guidelines](CONTRIBUTING.md).
 
+## Main config file
+
+The main config file is located in `.vuepress/config.js`
+
 ## Navigation components
 
-### Main menu
+The platform has multiple navigation components:
+
+* Sidebar menu - main menu at the left, overview of all modules and sections
+* Right sidebar - On-page navigation (automatically created from headlines)
+* End of page navigation (Back/Next)
+* Landingpages
+* Footer
+* Top bar
+
+### Sidebar menu
+
+The main menu is configured in the main config, within the `sidebar` - `nav` object. This config defines both the sidebar as well as the end of page navigation.
+
+An example configuration might look like this:
+
+```
+{
+  title: "Cosmos Academy",
+  children: [
+    {
+      title: "Welcome",
+      path: "/academy/0-welcome/",
+      directory: false,
+    },
+    {
+      title: "What is Cosmos?",
+      path: "/academy/1-what-is-cosmos",
+      directory: true,
+    }
+}
+```
+
+Where each module is defined as a children of the root. 
+
+* `title` - Module name
+* `path` - Full path to the folder
+* `directory` - When enabled, all content files found in the folder will be linked as child pages automatically. This creates an expendable Module in the sidebar. Otherwise, only one link will be added to the sidebar, pointing to the file specified in `path`. If this is a folder, the `index.md` inside it will be linked.
+
+
+You can also define the children pages of a module manually:
+
+```
+{
+  title: "Week 1 - Cosmos and Its Main Concepts",
+  directory: true,
+  order: 2,
+  children: [
+    {
+      title: "Cosmos and its Main Concepts",
+      path: "/course-ida/landingpages/week1-lp.html"
+    },
+    {
+      title: "Blockchain Technology and Cosmos",
+      path: "/academy/1-what-is-cosmos/blockchain-and-cosmos.html"
+    }
+}
+```
 
 #### Adding new modules and pages
+
+You can extend the main config to add new modules and pages. However, if you add a new folder on the root level, you must also adjust the file search patterns at the very end of the config:
+
+```
+patterns: [
+  "README.md",
+  "academy/*/*.md",
+  "tutorials/*/*.md"
+]
+```
+
+If you create a new folder named `myfiles`, add `"myfiles/*/*.md"` to the list.
 
 ### Landingpages
 
@@ -130,6 +202,7 @@ To work on the IDA platform files, starting from a clean `master`:
 * You can now run `npm run serve` and work on the files as usual.
 * Once you are done with your updates, stop your server and run `npm run switch-main`. This will move your changes into the `ida-customizations` folder and restore the main platform files.
 * Add the files in `ida-customizations` to your commit and push to `master`.
+
 
 # Environments
 
