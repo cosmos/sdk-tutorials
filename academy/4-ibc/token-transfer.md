@@ -1,11 +1,11 @@
 ---
-title: "IBC Fungible Token Transfer"
+title: "IBC Token Transfer"
 order: 6
-description: Token transfers across chains
+description: Fungible token transfers across chains
 tag: deep-dive
 ---
 
-# IBC Fungible Token Transfer
+# IBC Token Transfer
 
 <HighlightBox type="learning">
 

@@ -12,7 +12,7 @@ tag: deep-dive
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [CosmJS](../xl-cosmjs/intro.md).
-* You have generated the necessary Typescript types in [the previous tutorial](./cosmjs-objects.md).
+* You have generated the necessary TypeScript types in [the previous tutorial](./cosmjs-objects.md).
 * You have the finished the checkers blockchain exercise. If not, you can follow that tutorial [here](./index.md) or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-wager-denomination) that contains the final version.
 
 </HighlightBox>

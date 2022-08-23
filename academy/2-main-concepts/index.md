@@ -17,7 +17,7 @@ From Tendermint to modules, keepers, queries, and transactions in Cosmos, a whol
 
 ![](/cosmos_dev_portal_module-03-lp.png)
 
-## In this module
+## In this chapter
 
 <HighlightBox type="learning">
 
