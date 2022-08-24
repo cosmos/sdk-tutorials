@@ -11,15 +11,15 @@ In the [integration](https://ibc.cosmos.network/v3.0.0/ibc/integration.html) sec
 
 Note that this does not mean that the main application modules turn into IBC modules, it only means IBC is enabled for the chain. The IBC module has come out-of-the-box in Comsos SDK chains since the 0.40.x version of the SDK, so it is unlikely you'll have to implement these steps manually when developing a chain.
 
-For example, the checkers appchain you developed in the previous section, **is IBC-enabled**. This is revealed when trying to send IBC denoms from other chains to set a wager with. However, this does not make the `x/checkers` module an IBC enabled module. We will investigate all the additions we need to make to make the module IBC-enabled in what follows.
+For example, the checkers appchain you developed in the previous section, **is IBC enabled**. This is revealed when trying to send IBC denoms from other chains to set a wager with. However, this does not make the `x/checkers` module an IBC-enabled module. We will investigate all the additions we need to make the module IBC-enabled in what follows.
 </higlightbox>
 
 ## Structure of the section
 
-In the section we will first investigate the code you have to add to make a module IBC-enabled. For this conceptual example we will build a simple chain from scratch with Ignite CLI. Ignite CLI provides the option to scaffold an IBC module, which does all of the hard work in terms of boilerplate code. Still, it makes sense to take a look at what exactly has changed. Therefore we will compare the code with a _git diff_ when scaffolding a chain with a regular module and when we scaffold an IBC module.
+In this section we will first investigate the code you have to add to make a module IBC-enabled. For this conceptual example we will build a simple chain from scratch with Ignite CLI. Ignite CLI provides the option to scaffold an IBC module, which does all of the hard work in terms of boilerplate code. Still, it makes sense to take a look at what exactly has changed. Therefore we will compare the code with a _git diff_ when scaffolding a chain with a regular module and when we scaffold an IBC module.
 
 A similar approach will be taken to check what Ignite CLI implements when scaffolding an IBC packet.
 
-After finishing the conceptual tour, we are going to expand the checkers blockchain you created to turn it into an IBC module and will create an additional leaderboard blockchain to act as a seperate appchain that can interact via IBC with the checkers blockchain.
+After finishing the conceptual tour, we are going to expand the checkers blockchain you created to turn it into an IBC module and will create an additional leaderboard blockchain to act as a separate appchain that can interact via IBC with the checkers blockchain.
 
 Let's dive into it!

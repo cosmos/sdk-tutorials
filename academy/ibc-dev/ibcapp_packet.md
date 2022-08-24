@@ -1,12 +1,12 @@
 # Adding Packet and Acknowledgement data
 
-In this section we learn how to define packet and acks (acknowledgements) for the Leaderboard blockchain. Remember that this blockchain will mostly be receiving packets from the checkers blockchain or other gaming chains. This will be handled in the checkers blockchain extension tutorial. In this section we will add an additional packet definition that will enable the Leaderboard chain to send a packet to connected game chains when a player has entered the top of the rankings.
+In this section we learn how to define packets and acks (acknowledgements) for the Leaderboard blockchain. Remember that this blockchain will mostly be receiving packets from the checkers blockchain or other gaming chains. This will be handled in the checkers blockchain extension tutorial. In this section we will add an additional packet definition that will enable the Leaderboard chain to send a packet to connected game chains when a player has entered the top of the rankings.
 
-The documentation on how to define packet and acks in IBC can be found in [the IBC go docs](https://ibc.cosmos.network/main/ibc/apps/packets_acks.html).
+The documentation on how to define packets and acks in IBC can be found in [the IBC go docs](https://ibc.cosmos.network/main/ibc/apps/packets_acks.html).
 
 ## Scaffold a packet with Ignite CLI
 
-We are now going to be scaffolding the IBC packet data with Ignite CLI and compare once more with git diff:
+We are now going to be scaffolding the IBC packet data with Ignite CLI and compare once more with _git diff_:
 
 ```bash
 ignite scaffold packet ibcTopRank playerId rank score --ack playerId --module leaderboard
@@ -310,7 +310,7 @@ func (k Keeper) OnAcknowledgementIbcTopRankPacket(ctx sdk.Context, packet channe
 	}
 }
 ```
-It allows to add custom application logic for both failed and successfull acks.
+It allows us to add custom application logic for both failed and successful acks.
 
 ### Timing out packets
 
@@ -340,6 +340,6 @@ Let's summarize what we've accomplished so far:
 
 Ignite CLI by default when scaffolding a packet, will ensure the chain can act both as the sender or receiver of a packet. This is a symmetrical setup which makes sense for some applications, like ICS20.
 
-However, it's also possible to have an asymmetrical setup where one chain will always be the source or destination chain for a given packet, not both. In this case we can update the message server and packet callbacks to error when for example a chain receives a packet, when it' supposed to be exclusively the destination chain. Interchain accounts or ICS27 is an example of this asymmetrical situation as will the checkers extension tutorial.
+However, it's also possible to have an asymmetrical setup where one chain will always be the source or destination chain for a given packet, not both. In this case we can update the message server and packet callbacks to error when for example a chain receives a packet, though it is supposed to be exclusively the destination chain. Interchain Accounts or ICS27 is an example of this asymmetrical situation, as is the checkers extension tutorial.
 
 </Highlightbox>
