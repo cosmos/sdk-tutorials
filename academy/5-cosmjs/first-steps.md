@@ -78,7 +78,7 @@ This returns:
 TODO
 ```
 
-You soon make this script more meaningful. With the basic script ready, you need to prepare some elements.
+You will soon make this script more meaningful. With the basic script ready, you need to prepare some elements.
 
 ## Testnet preparation
 
@@ -104,6 +104,8 @@ generateKey()
 ```
 
 Now create a **key** for our imaginary user **Alice**:
+
+*Note: You likely need to update Node.js to a later version if this fails. Find a guide [here](https://phoenixnap.com/kb/update-node-js-version).
 
 ```sh
 $ npx ts-node generate_mnemonic.ts > testnet.alice.mnemonic.key
@@ -156,7 +158,7 @@ Note that VSCode assists you to auto-complete [`StargateClient`](https://github.
 Next, you need to tell the client how to connect to the RPC port of your blockchain:
 
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/experiment.ts#L5]
-const rpc = "https://rpc.sentry-01.theta-testnet.polypore.xyz"
+const rpc = "rpc.sentry-01.theta-testnet.polypore.xyz:26657"
 ```
 
 Inside the `runAll` function you [initialize the connection](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/stargateclient.ts#L146) and immediately [check](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/stargateclient.ts#L194) you connected to the right place:
@@ -181,7 +183,7 @@ Normally you would not yet have access to your user's address. However, for this
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/experiment.ts#L10-L13]
 console.log(
     "Alice balances:",
-    await client.getAllBalances("cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf"),
+    await client.getAllBalances("cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf"), // <-- replace with your generated address
 )
 ```
 
