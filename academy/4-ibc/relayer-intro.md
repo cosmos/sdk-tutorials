@@ -42,7 +42,7 @@ With the current architecture, relayers use the Tendermint RPC endpoint to query
 
 ### Configuration file
 
-The information and parameters about the chains, paths, and the name of the relayer private key to sign the messages can generally be found in a configuration file, or *config*. You will look at template configs for the Hermes and Go relayer later, but generally config files are the place to initialize, add, or edit information required for relaying.
+The information and parameters about the chains, paths, and the name of the relayer private key to sign the messages can generally be found in a configuration file, or _config_. You will look at template configs for the Hermes and Go relayer later, but generally config files are the place to initialize, add, or edit information required for relaying.
 
 ### Chain registry
 
@@ -52,44 +52,44 @@ The following is an example of the IBC data between Juno and Osmosis:
 
 ```json
 {
-    "$schema": "../ibc_data.schema.json",
-    "chain-1": {
-        "chain-name": "juno",
-        "client-id": "07-tendermint-0",
-        "connection-id": "connection-0"
-    },
-    "chain-2": {
-        "chain-name": "osmosis",
-        "client-id": "07-tendermint-1457",
-        "connection-id": "connection-1142"
-    },
-    "channels": [
-        {
-            "chain-1": {
-                "channel-id": "channel-0",
-                "port-id": "transfer"
-            },
-            "chain-2": {
-                "channel-id": "channel-42",
-                "port-id": "transfer"
-            },
-            "ordering": "unordered",
-            "version": "ics20-1",
-            "tags": {
-                "status": "live",
-                "preferred": true,
-                "dex": "osmosis"
-            }
-        }
-    ]
+  "$schema": "../ibc_data.schema.json",
+  "chain-1": {
+    "chain-name": "juno",
+    "client-id": "07-tendermint-0",
+    "connection-id": "connection-0"
+  },
+  "chain-2": {
+    "chain-name": "osmosis",
+    "client-id": "07-tendermint-1457",
+    "connection-id": "connection-1142"
+  },
+  "channels": [
+    {
+      "chain-1": {
+        "channel-id": "channel-0",
+        "port-id": "transfer"
+      },
+      "chain-2": {
+        "channel-id": "channel-42",
+        "port-id": "transfer"
+      },
+      "ordering": "unordered",
+      "version": "ics20-1",
+      "tags": {
+        "status": "live",
+        "preferred": true,
+        "dex": "osmosis"
+      }
+    }
+  ]
 }
 ```
 
-The Go relayer has built-in functionality to fetch chain information (and soon path information) from the chain-registry. Hermes has this functionality on their roadmap. You will look at both relayers in more detail in the next sections.
+The Go relayer has built-in functionality to fetch chain and path information from the chain-registry. Hermes has this functionality on their roadmap. You will look at both relayers in more detail in the next sections.
 
 ## FAQ
 
-Cosmos is developing fast, and minor changes can cause big problems for inexperienced users. Luckily you have the option to make direct contact with developers through the [Cosmos Developer Discord](https://discord.com/invite/cosmosnetwork). There you can find the channel **#ibc-relayer** dedicated to relayers in which you can ask for help.
+Cosmos is developing fast, and minor changes can cause big problems for inexperienced users. Luckily you have the option to make direct contact with developers through the [Cosmos Developer Discord](https://discord.com/invite/cosmosnetwork). There you can find the channel **#run-infrastructure** dedicated to relayers in which you can ask for help.
 
 ## Next up
 
