@@ -349,7 +349,7 @@ $ checkersd query checkers show-stored-game 1 --output json | jq ".StoredGame.ga
 
 To summarize, this section has explored:
 
-* How to implement a Message Handler that will create a new game, save it in storage, and return its ID on receiving the approapriate prompt message.
+* How to implement a Message Handler that will create a new game, save it in storage, and return its ID on receiving the appropriate prompt message.
 * How to create unit tests to demonstrate the validity of your code.
 * How to interact via the CLI to confirm that sending the appropriate transaction will successfully create a game.
 

@@ -169,7 +169,7 @@ To summarize, this section has explored:
 * How events are objects used by service providers such as block explorers and wallets to track the execution of messages and index transactions by applications.
 * The types and attributes of events are defined on a per-module basis and developers can attach additional information to them, so events can be queried or filtered.
 * Events are managed, tracked, and triggered by the `EventManager` abstraction.
-* You can subscribe to different catergories of event using Tendermint's WebSocket.
+* You can subscribe to different categories of event using Tendermint's WebSocket.
 
 </HighlightBox>
 

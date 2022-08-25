@@ -249,7 +249,7 @@ To summarize, this section has explored:
 
 * How an account consists of a public key (a unique account identifier which is safe to disclose) and a private key (a corresponding signature tool which must be kept confidential by the account holder).
 * How public private key pairs are used to sign and verify communications, forming the basis of user authentication in a blockchain.
-* How hierarchical-deterministic wallets provide a convenient way to generate and store key pairs and perform various basic activities such as creating transations, signing messages, interacting with applications, and communicating with the blockchain.
+* How hierarchical-deterministic wallets provide a convenient way to generate and store key pairs and perform various basic activities such as creating transactions, signing messages, interacting with applications, and communicating with the blockchain.
 * How Cosmos uses the BIP32 cryptographic standard, and the employment of mnemonics as a means of securing a user's wallet.
 * The use of the keyring object for storing and managing keys, and the digital key schemes which are used by different SDK packages.
 * The three types of address which identify users, validator operators, and validator nodes.

@@ -491,7 +491,7 @@ NextGame:
 
 To summarize, this section has explored:
 
-* How games can expire under two conditiions: when the game never really begins or only one player makes an opening move, in which case it is removed quietly; or when both players have participated but one has since failed to play a move in time, in which case the game is forfeited.
+* How games can expire under two conditions: when the game never really begins or only one player makes an opening move, in which case it is removed quietly; or when both players have participated but one has since failed to play a move in time, in which case the game is forfeited.
 * What new information and functions need to be created, and to update `EndBlock` to call the `ForfeitExpiredGames` function at the end of each block.
 * The correct coding for how to prepare the main loop through the FIFO, identify an expired game, and handle an expired game. 
 * How to test your code to ensure that it functions as desired.

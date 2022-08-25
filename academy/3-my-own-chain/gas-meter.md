@@ -207,7 +207,7 @@ To summarize, this section has explored:
 * What new data constants need to be added, such as fees for creating games or playing moves, and gas consumption lines for handlers relating to these gameplay aspects.
 * Best practices for gas metering, including where not to call fixed gas costs and the implications of a user sending transactions without enough gas to process them.
 * What texts to add that confirm gas consumption, acknowledging the limitations on precision that the use of BaseApp and your module also imposes on understanding how much gas is used by various transactions.
-* How to interact via the CLI to confirm that gas is being consumed by different actions, acknowledging the additional complications arrising from variable account balances and gas price.
+* How to interact via the CLI to confirm that gas is being consumed by different actions, acknowledging the additional complications arising from variable account balances and gas price.
 
 </HighlightBox>
 
