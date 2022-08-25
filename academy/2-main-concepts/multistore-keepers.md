@@ -21,7 +21,7 @@ Look at the following sections before you begin:
 <HighlightBox type="learning">
 
 Keepers are responsible for managing access to states defined by modules. Because states are accessed through keepers, they are an ideal place to ensure that invariants are enforced and security principles are always applied.
-
+<br></br>
 You can find a code example for your checkers blockchain at the end of the section that explores dealing with storage elements, message handling, and gas costs.
 
 </HighlightBox>
@@ -172,11 +172,11 @@ For more information on the subject, see the following resources:
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 In the [Accounts section](./accounts.md), you were shown the elements of the stored game but not where this game is stored. This will now be explained.
-
+<br></br>
 **Game object in storage**
 
 You need to decide under what structure you want to store a game in the storage. The Cosmos SDK partitions the global storage per module, with `checkers` being its own module. You need to take care of how to store games in the checkers module's corner of the key/value pair storage.
-
+<br></br>
 The first idea is to attribute a unique ID to a game, and to store the game value at that ID. For the sake of clarity, and to differentiate between other stored elements in the future, you add a prefix to each ID. The storage structure looks like this:
 
 ```go
@@ -248,7 +248,7 @@ func (k Keeper) SetStoredGame(ctx sdk.Context, storedGame types.StoredGame) {
 ```
 
 If you want to delete a stored game, you call `gamesStore.Delete(byte[](storedGame.Index))`.
-
+<br></br>
 The `KVStore` allows you to obtain an iterator on a given prefix. You can list all stored games because they share the same prefix, which you do with:
 
 ```go
@@ -296,7 +296,7 @@ To create the above boilerplate in your module, you can use Ignite CLI. Go to [R
 **Other storage elements**
 
 How do you create the `storedGame.Index`? A viable idea is to keep a counter in storage for the next game. Unlike `StoredGame`, which is saved as a map, this `NextGame` object has to be at a unique location in the storage.
-
+<br></br>
 First define the object:
 
 ```go
@@ -350,7 +350,7 @@ func DefaultGenesis() *GenesisState {
 **What about message handling**
 
 You go from the message to the game in storage with `MsgCreateGame`, which was defined in an earlier [section on messages](./messages.md). That is also the role of the keeper.
-
+<br></br>
 Define a handling function such as:
 
 ```go
@@ -429,7 +429,7 @@ Return the game ID for reference:
 ```
 
 You would also do the same for `MsgPlayMoveResponse` and `MsgRejectGame`. Why not try it out as an exercise?
-
+<br></br>
 **More on game theory**
 
 Time to introduce a game deadline:
@@ -475,7 +475,7 @@ if deadline.Before(ctx.BlockTime()) {
 **How to expire games**
 
 How can you know what games should be removed? Should you load *all* games and filter for those that have expired? That would be extremely expensive. Better is to keep a First-In-First-Out (FIFO), where fresh games are pushed back to the tail so that the head contains the next games to expire.
-
+<br></br>
 In the context of the Cosmos SDK, you need to keep track of where the FIFO starts and stops by saving the corresponding game IDs:
 
 ```go
@@ -523,9 +523,9 @@ am.keeper.ForfeitExpiredGames(sdk.WrapSDKContext(ctx))
 ```
 
 How can you ensure that the execution of this `EndBlock` does not become prohibitively expensive? After all, the potential number of games to expire is unbounded, which can be disastrous in the blockchain world. Is there a situation or attack vector that makes this a possibility? And what can you do to prevent it?
-
+<br></br>
 The timeout duration is fixed, and is the same for all games. This means that the `n` games that expire in a given block have all been created or updated at roughly the same time or block height `h`, with margins of error `h-1` and `h+1`.
-
+<br></br>
 These created and updated games are limited in number, because (as established in the chain consensus parameters) every block has a maximum size and a limited number of transactions it can include. If by chance all games in blocks `h-1`, `h`, and `h+1` expire now, then the `EndBlock` function would have to expire three times as many games as a block can handle. This is a worst-case scenario, but most likely it is still manageable.
 
 <HighlightBox type="warn">

@@ -312,7 +312,7 @@ Despite this initial balance, before you run your blockchain you still need to e
 <HighlightBox type="note">
 
 In this scenario you must meet the 2/3 threshold for validation, so you must stake at least `70000000stake` of your `100000000stake` in the `b9lab` account you just created. Make sure to not use all your stake, so you still have tokens to pay for gas.
-
+<br></br>
 Do not forget to use your own `--chain-id`.
 
 </HighlightBox>
