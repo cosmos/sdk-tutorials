@@ -103,6 +103,16 @@ Do you want to dive deeper when it comes to bridges? Here are some helpful resou
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
 
-You will discover more on running a node in [Run Your Own Cosmos Chain](../3-my-own-chain/index.md).
+To summarize, this section has explored:
+
+* The Gravity Bridge, which connects Cosmos with Ethereum and allows the transfer of ERC-20 tokens to and from Cosmos-based blockchains.
+* The component elements of the Gravity Bridge and how they reliably monitor and report to Cosmos applications about events on the Ethereum blockchain, providing the necessary confidence to perform transactions.
+* The necessity of maintaining an up-to-date validator set to ensure that events coming from the Ethereum blockchain are only from reputable sources.
+
+</HighlightBox>
+
+<!--## Next up
+
+You will discover more on running a node in [Run Your Own Cosmos Chain](../3-my-own-chain/index.md).-->

@@ -166,6 +166,16 @@ If you want to dive straight into coding your chain, go to [Run Your Own Cosmos 
 
 </ExpansionPanel>
 
-## Next up
+<HighlightBox type="synopsis">
 
-Look at the above code example to see how Protobuf can facilitate your activities, or go straight to the [next section](../2-main-concepts/multistore-keepers.md) for an introduction to storage types and keepers.
+To summarize, this section has explored:
+
+* How Protocol Buffers (Protobuf) are an open-source, extensible, cross-platform, and language-agnostic method of serializing object data, primarily for network communication and storage, and are central to how communication is done in Cosmos applications.
+* How the Google-authored Remote Procedure Call (gRPC) uses Protobuf as both its interface definition language and as its underlying message interchange format, allowing a client to directly call a method on a server application on a different machine as if it were a local object.
+* How a Cosmos SDK application's core mainly consists of type definitions and constructor functions, comprising a reference to the `BaseApp`, a list of store keys, a list of each module's keepers, a reference to the codec used, and a reference to the module manager.
+
+</HighlightBox>
+
+<!--## Next up
+
+Look at the above code example to see how Protobuf can facilitate your activities, or go straight to the [next section](../2-main-concepts/multistore-keepers.md) for an introduction to storage types and keepers.-->

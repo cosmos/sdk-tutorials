@@ -11,6 +11,6 @@ The next sections are all about creating a decentralized game of checkers using 
 
 These exercises help you prepare a conceptual framework for the information that follows. You are not tested on them, but it is in your best interest to complete each one before moving on to the associated section.
 
-## Next up
+<!--## Next up
 
-Start with your checkers blockchain by heading to the [next section](./stored-game.md).
+Start with your checkers blockchain by heading to the [next section](./stored-game.md).-->

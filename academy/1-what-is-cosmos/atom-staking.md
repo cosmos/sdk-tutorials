@@ -235,12 +235,12 @@ If you want to re-stake this amount and benefit from the compound effect, go ahe
 
 This completes the exercise: you are set up to participate in the Cosmos Hub network, and even contribute to its security. Your stake will work for you as you continue your Cosmos training journey.
 
-<HighlightBox type="learning">
+<HighlightBox type="synopsis">
 
 To summarize, this section has explored:
 
-* How to safely install and cofigure a Keplr wallet and transfer ATOM into it.
-* How to Stake your ATOM on a validator, thereby participating in the security of the blockchain and potentially increasing your wealth by accruing staking rewards.
+* How to safely install and configure a Keplr wallet and transfer ATOM into it.
+* How to stake ATOM on a validator, thereby participating in the security of the blockchain and potentially increasing your wealth by accruing staking rewards.
 
 </HighlightBox>
 

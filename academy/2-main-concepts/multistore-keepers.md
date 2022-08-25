@@ -564,6 +564,17 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 
 </ExpansionPanel>
 
-## Next up
+<HighlightBox type="synopsis">
 
-In the [next section](./base-app.md) you can find more information on `BaseApp` and its role in the Cosmos SDK.
+To summarize, this section has explored:
+
+* How each keeper manages access to the subset of the blockchain state that is a given module's state, which is at the core of the Cosmos SDK's object-capabilities-based approach to protecting applications from unwanted inter-module interactions.
+* How each keeper holds a `storeKey` granting unlimited access to its module's data and defines how to read and write to any store, so when one module needs to interact with another it must follow the methods of the other module's keeper.
+* How all Cosmos SDK applications contain a `Multistore` root state that is subdivided into compartments managed by each module and which stores all the `KVStore`s of the application's modules.
+* How inclusion of the `AnteHandler` component is recommended to authenticate transactions before their internal messages are processed. It defends against spam and other wasteful transaction events, performs preliminary stateful validity checks, and is involved in collecting transaction fees.
+
+</HighlightBox>
+
+<!--## Next up
+
+In the [next section](./base-app.md) you can find more information on `BaseApp` and its role in the Cosmos SDK.-->
