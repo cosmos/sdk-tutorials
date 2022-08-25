@@ -96,7 +96,7 @@ $ ./myprojectd gentx cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq 3000000000sto
 TODO Detail which keyring to use
 -->
 
-This creates a JSON file on the validator's computer. Typically in `~/.myprojectd/config/getx/` of the form:
+This creates a JSON file on the validator's computer. Typically in `~/.myprojectd/config/gentx/` of the form:
 
 ```json
 {
