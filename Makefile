@@ -12,16 +12,12 @@ fs-activate-ida-files: fs-check-clean-git
 
 fs-restore-main-files:
 	echo "\nRestore main files, moving updates into ida-customizations\n"
-	#git ls-files -m | xargs -I {} sh -c 'mkdir -p ./ida-customizations/$$(dirname {}) && cp -fp {} ./ida-customizations/{}'
 	- git ls-files -m | xargs -I {} sh -c 'ls ./ida-customizations/{} && cp -fp {} ./ida-customizations/{} && git stash push -m "ida-customizations stash" -- {}'
-	#git stash push -m "ida-customizations stash" -- ":!./ida-customizations/*"
 	git status
 
 fs-check-clean-git:
 	if [ -z $$(git ls-files -m) ]; then : ; else echo "Work directory is not clean - please commit or stash before switching files"; exit 1; fi
 
-#fs-add-ida-file:
-#	sh -c 'mkdir -p ./ida-customizations/$$(dirname $0) && cp -fp {} ./ida-customizations/$0'
 
 # deploy-website is currently unused, deployment happens via github actions
 deploy-website: build-website
