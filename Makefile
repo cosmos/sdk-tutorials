@@ -19,6 +19,8 @@ fs-restore-main-files:
 fs-check-clean-git:
 	if [ -z $$(git ls-files -m) ]; then : ; else echo "Work directory is not clean - please commit or stash before switching files"; exit 1; fi
 
+fs-add-ida-file:
+	xargs -I {} sh -c 'mkdir -p ./ida-customizations/$$(dirname {}) && cp -fp {} ./ida-customizations/{}'
 
 # deploy-website is currently unused, deployment happens via github actions
 deploy-website: build-website
