@@ -334,6 +334,8 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
 
 ## Testing locally
 
+<!-- TODO: Anil upgrades this section to use ibc-docker repo setup -->
+
 Besides running a relayer between mainnet chains, you can also run a relayer between public testnet chains or locally run chains to do some testing of particular scenarios. Here you will use two local `gaia` chains and run a relayer between them. This is based on the demo in the [Go relayer repository](https://github.com/cosmos/relayer/blob/main/docs/demo.md).
 
 Make sure you are in the `relayer` folder. Now use the offered script to spin up two chains, **ibc-0** and **ibc-1**, which will run in the background.

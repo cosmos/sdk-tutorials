@@ -45,7 +45,7 @@ $ hermes help
 You get:
 
 ```
-hermes 0.14.0+460eb0c
+hermes <version>
 Informal Systems <hello@informal.systems>
   Hermes is an IBC Relayer written in Rust
 
@@ -100,7 +100,7 @@ store_prefix = 'ibc'
 default_gas = 100000
 max_gas = 400000
 gas_price = { price = 0.001, denom = 'stake' }
-gas_adjustment = 0.1
+gas_multiplier = 1.1
 max_msg_num = 30
 max_tx_size = 2097152
 clock_drift = '5s'
@@ -147,6 +147,8 @@ This is perfectly possible and the right approach, given that creating a new cha
 </HighlightBox>
 
 ## E2E Testing
+
+<!-- TODO: Anil upgrades this section to use ibc-docker repo setup -->
 
 The Hermes documentation provides a [guided tutorial](https://hermes.informal.systems/tutorials/local-chains/index.html) to start relaying between two local `gaia` chains. Furthermore, demos are available that spin up a Hermes relayer between two [Ignite CLI](https://docs.ignite.com/) chains, like [this one](https://github.com/informalsystems/hermes-hackatom-demo). Be sure to check those out.
 
