@@ -39,6 +39,15 @@ After the installation, you will get started with relaying on mainnet chains and
 ## Installation and getting started
 
 The repository offers a script to start two chains, which we need to test the relayer.
+<!-- TODO: once testing locally has been updated, change this text -->
+
+<HighlightBox type="note">
+
+The most up to date major version of the Go relayer is v2. This version introduced major updates and improvements including the introduction of a provider interface to accommadate for chains with different consensus types than Tendermint and introducing event-based processing resulting in performance improvements.
+
+We thus recommend using this latest version, the commands below assume you're using v2.
+
+</HighlightBox>
 
 1. First, create a folder for this section:
 
