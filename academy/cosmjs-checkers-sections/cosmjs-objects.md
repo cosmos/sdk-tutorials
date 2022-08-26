@@ -326,6 +326,15 @@ Error: Query failed with (18): rpc error: code = InvalidArgument desc = not foun
 
 This is as expected, as nothing more can be tested at this stage.
 
-## Next up
+<HighlightBox type="synopsis">
 
-Now that your types have been generated, you can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./cosmjs-messages.md).
+To summarize, this section has explored:
+
+* The need to prepare the elements that will eventually allow you to create a GUI and/or server-side scripts for your Checkers application.
+* How to create the necessary Protobuf objects and clients in Typescript, the extensions that facilitate the use of these clients, so that CosmJS will understand and be able to interact with your Checkers module.
+
+</HighlightBox>
+
+<!--## Next up
+
+Now that your types have been generated, you can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./cosmjs-messages.md).-->
