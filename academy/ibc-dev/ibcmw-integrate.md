@@ -1,12 +1,23 @@
 # Integrating IBC middleware into a chain
 
+<HighlightBox type="learning">
+
 Learn how to integrate IBC middleware(s) with a base application to your chain. The following document only applies for Cosmos SDK chains.
 
-If the middleware is maintaining its own state and/or processing SDK messages, then it should create and register its SDK module **only once** with the module manager in `app.go`.
+</HighlightBox>
 
-All middleware must be connected to the IBC router and wrap over an underlying base IBC application. An IBC application may be wrapped by many layers of middleware, only the top layer middleware should be hooked to the IBC router, with all underlying middlewares and application getting wrapped by it.
+We've now seen how to develop an IBC middleware, the final step in order to use it is to integrate it into the chain. We can distinguish between a single piece of middleware or a stack of middleware and between middleware that is stateful or stateless.
 
-The order of middleware **matters**, function calls from IBC to the application travel from top-level middleware to the bottom middleware and then to the application. Function calls from the application to IBC goes through the bottom middleware in order to the top middleware and then to core IBC handlers. Thus the same set of middleware put in different orders may produce different effects.
+To integrate our middleware (stack) we must do the following in `app.go`:
+
+- If the middleware is maintaining its own state and/or processing SDK messages, then it should create and register its SDK module **only once** with the module manager in `app.go`.
+- Each application stack must reserve its own unique port with core IBC. Thus two stacks with the same base application must bind to separate ports.
+
+- The order of middleware **matters**, function calls from IBC to the application travel from top-level middleware to the bottom middleware and then to the application. Function calls from the application to IBC goes through the bottom middleware in order to the top middleware and then to core IBC handlers. Thus the same set of middleware put in different orders may produce different effects.
+
+- All middleware must be connected to the IBC router and wrap over an underlying base IBC application. An IBC application may be wrapped by many layers of middleware, only the top layer middleware should be hooked to the IBC router, with all underlying middlewares and application getting wrapped by it.
+
+Next we take a look at an example integration.
 
 ### Example integration
 
@@ -33,7 +44,9 @@ scopedKeeperCustom1 := capabilityKeeper.NewScopedKeeper("custom1")
 scopedKeeperCustom2 := capabilityKeeper.NewScopedKeeper("custom2")
 // NOTE: IBC Modules may be initialized any number of times provided they use a separate
 // scopedKeeper and underlying port.
-// initialize base IBC applications
+//
+// Initialize base IBC applications
+//
 // if you want to create two different stacks with the same base application,
 // they must be given different scopedKeepers and assigned different ports.
 transferIBCModule := transfer.NewIBCModule(transferKeeper)
