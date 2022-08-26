@@ -41,7 +41,7 @@ An **unordered channel** is _a channel where packets can be delivered in any ord
 
 ## Establishing a Channel
 
-Similarly to how connections are established, channels are established through a four way handshake, in which each step is initiated by a relayer:
+Similarly to how connections are established, channels are established through a four-way handshake, in which each step is initiated by a relayer:
 
 ![Channel Handshake](/academy/4-ibc/images/channelhandshake.png)
 
@@ -177,7 +177,20 @@ In the case that a packet is time-sensitive and the timeout block height or time
 
 In these cases, the initial flow is the same, with core IBC A first committing the packet to its own state. However, instead of querying for the packet, a relayer will submit a  `QueryNonReceipt` to receive a proof that the packet was not received by core IBC B. It can then send the `TimeoutPacket` to core IBC A, which will then trigger the relevant `OnTimeoutPacket` application logic. For example, the ICS-20 token transfer application will unescrow the locked up tokens and send these back to the original sender `OnTimeoutPacket`.
 
-## Next up
+<HighlightBox type="synopsis">
 
-You learned how to establish a channel and discovered the application packet flow. In the [next section](./clients.md), you get to explore clients in IBC/TAO.
+To summarize, this section has explored:
+
+* How application to application communication in IBC is conducted over channels, which route data between corresponding modules on different chains, and how a single connection between applications can have any number of associated channels.
+* How channels are payload agnostic and simply deliver data packets over the transport layer which application modules use their own logic and handlers to interpret and act upon.
+* How channels can be **ordered** (where data packets are delivered exactly in the order they were sent) or **unordered** (where packets can be delivered in any order, which may differ from that in which they were sent).
+* How channels are established through a four-way handshake, which allows only the two end modules to make use of the channel, securing them against malicious entities.
+* How packet flow between modules is not direct - instead, the sending module commits some particular state, thus emitting an event which is detected by a relayer, which delivers to the destination module both the packet data and a proof of the sending module's state commit, which is then verified on the destination chain.
+* How it is possible for time-sensitive packets to trigger a reversal of the sending module's state change in the event that a timeout block height or timestamp has elapsed.
+
+</HighlightBox>
+
+<!--## Next up
+
+You learned how to establish a channel and discovered the application packet flow. In the [next section](./clients.md), you get to explore clients in IBC/TAO.-->
 

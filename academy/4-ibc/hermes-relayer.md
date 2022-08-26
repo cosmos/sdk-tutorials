@@ -376,6 +376,15 @@ $ hermes -c simple_config.toml tx raw packet-ack ibc-0 ibc-1 transfer channel-5
 
 Check the balances again. A new denom should appear because of our recent channel. As an exercise, transfer the tokens back to ibc-0.
 
-## Next up
+<HighlightBox type="synopsis">
 
-With this introduction to the Hermes relayer, you are all set for relaying. In the [next section](./ibc-tooling.md), you can find an overview of helpful tools for IBC.
+To summarize, this section has explored:
+
+* Hermes, an open-source Rust implementation of and IBC relayer, which is widely used in production by relayer operators due to its great logging and debugging options, but may require more detailed knowledge of IBC for effective use.
+* How to install and configure Hermes, and then perform automated and manual end-to-end testing of Docker containers for 2 chain instances and a relayer instance.
+
+</HighlightBox>
+
+<!--## Next up
+
+With this introduction to the Hermes relayer, you are all set for relaying. In the [next section](./ibc-tooling.md), you can find an overview of helpful tools for IBC.-->
