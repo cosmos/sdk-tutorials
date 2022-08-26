@@ -1,5 +1,7 @@
 # IBC Middleware
 
+<!-- Add intro outlining use of middleware in web2 -->
+
 <HighlightBox type="learning">
 
 In this section you will learn how to:
