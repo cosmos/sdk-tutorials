@@ -35,7 +35,7 @@ tools:
         url: https://ibc.cosmos.network/
     image: /ibc-icon.svg
   - title: CosmWasm
-    description: Smart contracting platform built for Cosmos ecosystem.
+    description: Smart contracting platform built for the Cosmos Ecosystem.
     links:
       - name: Learn more
         url: https://cosmwasm.com/
@@ -66,21 +66,30 @@ articles:
     image: /article-03.jpg
 -->
 
-This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
+This repo contains the code and content for the [Developer Portal](https://developers.cosmos.network/) and the [Interchain Developer Academy](https://academy.cosmos.network/).
 
 Note: The layout metadata at the top of the README.md file controls how the tutorial page is published. Write permissions are limited to preserve the structure and contents.
 
-These tutorials guide you through actionable steps and walk-throughs to teach you how to use Ignite CLI and the Cosmos SDK. The Cosmos SDK is the world’s most popular framework for building application-specific blockchains. Tutorials provide step-by-step instructions to help you build foundational knowledge and learn how to use Ignite CLI and the Cosmos SDK, including:
+These tutorials guide you through actionable steps and walk-throughs to teach you how to use the Cosmos Stack. The Cosmos Stack is the world’s most popular framework for building application-specific blockchains, it consists of several products:
 
-* Foundational knowledge to help you navigate between blockchains with the Cosmos SDK
-* Learn how Ignite CLI works
-* Create a blockchain polling application
-* Build an exchange that works with two or more blockchains
-* Interact with the Cosmos Hub Testnet to test the functionality of your blockchain
-* Use the liquidity module, known on the Cosmos Hub as Gravity DEX, to create liquidity pools so users can swap tokens
-* Publish your blockchain application to a Droplet on DigitalOcean
-* Connect to a testnet
-* Design, build, and run an app as a scavenger hunt game
+- **Cosmos SDK**, a modular framework to build blockchain applications
+- **IBC**, the Inter-Blockchain Communication protocol that allows blockchains to communicate 
+- **Tendermint**, the algorithm that provides the consensus and networking layer for your blockchain application
+
+The Developer Portal contains three types of content:
+- **Concepts**, informational content explaining the how the Cosmos Stack functions
+- **Individual Tutorials**, short tutorials to get you up to speed with individual components
+- **Checkers Game**, a modular tutorial that covers the full stack and teaches you every element from set-up to launching in production with a front-end application attached.
+
+Going through the entire content will teach you about:
+
+* Blockchain technology and cryptography
+* Developing with the Cosmos SDK & Ignite CLI
+* The Tendermint consensus algorithm
+* The Inter-Blockchain Communication Protocol
+* Building front- and backends with CosmJS
+* Integrating wallets such as Keplr
+* Relaying in the Cosmos Network
 
 The code and docs for each tutorial are based on a specific version of the software. Be sure to follow the tutorial instructions to download and use the right version.
 

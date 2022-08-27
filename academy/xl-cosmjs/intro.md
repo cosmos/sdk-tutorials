@@ -21,7 +21,7 @@ In this section, you will learn:
 
 **Distributed applications (dApps)** are _software applications that run on distributed networks_. Blockchains provide persistent data, or the state, as well as persistent processes and logic. The Cosmos SDK helps developers create such applications. A user interface is important in most cases, and server interactions are important in many cases. This is where [CosmJS](https://github.com/cosmos/CosmJS) comes in handy.
 
-As the name suggests, CosmJS is a Typescript/JavaScript library. It helps developers integrate frontend user interfaces and backend servers with Cosmos blockchains that implement distributed applications. To many users, the "dApp" **is** the user interface, even though it is often delivered to the browser in a centralized, traditional way - relying on the DNS infrastructure and centralized web servers.
+As the name suggests, CosmJS is a TypeScript/JavaScript library. It helps developers integrate frontend user interfaces and backend servers with Cosmos blockchains that implement distributed applications. To many users, the "dApp" **is** the user interface, even though it is often delivered to the browser in a centralized, traditional way - relying on the DNS infrastructure and centralized web servers.
 
 This re-introduction of a degree of centralization is usually considered acceptable by most teams, provided that the important business logic of the system is enforced by a blockchain and provided it is not strictly necessary to use the provided user interface in order to use the dApp. As a general heuristic, offer a user interface as a convenience rather than a necessity.
 

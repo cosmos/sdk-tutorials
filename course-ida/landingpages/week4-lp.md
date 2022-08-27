@@ -6,7 +6,7 @@ description: CONNECT CHAINS
 
 ## The Inter-Blockchain Communication Protocol
 
-Ever wondered how cross-chain communication is possible? Get a fast introduction to the world of the Inter-Blockchain Communication (IBC) Protocol.
+Ever wondered how cross-chain communication is possible? Get a fast introduction to the world of the Inter-Blockchain Communication Protocol (IBC).
 
 Learn more about the transportation, authentication, and ordering layer of IBC and take a deeper dive into how token transfers between chains become possible. Finally, have a more detailed look at relaying with IBC.
 

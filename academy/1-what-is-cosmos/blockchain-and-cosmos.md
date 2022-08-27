@@ -111,7 +111,7 @@ The eventual development of more complex applications required a more flexible e
 
 ## How does Cosmos fit into the general development of blockchain technology?
 
-In 2016 Jae Kwon and Ethan Buchman founded the Cosmos network with its consensus algorithm, [Tendermint](https://tendermint.com/).
+In 2016, Jae Kwon and Ethan Buchman founded the Cosmos network with its consensus algorithm, [Tendermint](https://tendermint.com/).
 
 <HighlightBox type="docs">
 
@@ -146,7 +146,7 @@ The founding **vision** of Cosmos is that of an easy development environment for
 
 *How is Cosmos an internet of blockchains?* Cosmos is a **network of interoperable blockchains**, each implemented with different properties suitable for their individual use cases. Cosmos lets developers create blockchains that maintain sovereignty free from any "main chain" governance, have fast transaction processing, and are interoperable. With Cosmos, a multitude of use cases becomes feasible.
 
-To achieve this vision and type of network, the ecosystem relies on an **open-source toolkit**, including the [Inter-Blockchain Communication (IBC)](https://ibcprotocol.org/) protocol, its implementation in the [Cosmos SDK](https://v1.cosmos.network/sdk), and [Tendermint](https://tendermint.com/) as the base layer providing distributed state finality. A set of modular, adaptable, and interchangeable tools helps not only to quickly create a blockchain but also facilitates the customization of secure and scalable chains.
+To achieve this vision and type of network, the ecosystem relies on an **open-source toolkit**, including the [Inter-Blockchain Communication Protocol (IBC)](https://ibcprotocol.org/), its implementation in the [Cosmos SDK](https://v1.cosmos.network/sdk), and [Tendermint](https://tendermint.com/) as the base layer providing distributed state finality. A set of modular, adaptable, and interchangeable tools helps not only to quickly create a blockchain but also facilitates the customization of secure and scalable chains.
 
 The interoperable application blockchains on Cosmos are built with the Cosmos SDK. The Cosmos SDK includes the prerequisites that make it possible for created blockchains to participate in inter-chain communications using the Inter-Blockchain Communication Protocol (IBC). Chains built with the Cosmos SDK use the Tendermint consensus. Each of these topics is explored in more detail in the sections that follow.
 
@@ -183,4 +183,4 @@ It becomes easier for users to navigate between different blockchains and applic
 
 ## Next up
 
-In the [next section](./cosmos-ecosystem.md) you can find an introduction to all that the Cosmos ecosystem has to offer.
+In the [next section](./cosmos-ecosystem.md) you can find an introduction to all that the Cosmos Ecosystem has to offer.
