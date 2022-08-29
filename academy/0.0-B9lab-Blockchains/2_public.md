@@ -95,3 +95,14 @@ Let us start by diving into public blockchains and their most known examples, Bi
 * [Tendermint: Consensus without Mining](https://tendermint.com/static/docs/tendermint.pdf).
 
 </HighlightBox>
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How, in the 1990s, key developments in computational research which occurred laid the groundwork for blockchain technology, including append-only, cryptographically secured logs; storage mediums using redundancy and scattering techniques to resist denial-of-service (DoS) attacks; the implementation of hashing, authentication keys, and encryption keys; and the work of Nick Szabo, who first conceptualized smart contracts and proposed creating a decentralized digital currency with many of the features that were later actualized in Bitcoin.
+* How, in the 2000s, the individual or group known as Satoshi Nakamoto published the Bitcoin whitepaper, which proposed a specific data structure for blockchain and laid out its decentralized consensus mechanism, with Bitcoin becoming the first large-scale, successful public blockchain network.
+* How, in the 2010s, blockchain's potential was recognized and adapted to a variety of purposes, leading to a second wave of the technology of which Ethereum was at the front, being specifically designed to provide a blockchain-based platform for the creation of independent smart contracts and distributed applications (dApps).
+* How two broad trends towards either public blockchains or private/managed blockchains can be not only satisfied but also seamlessly integrated via **Cosmos**, which opens up the potential for interoperability between blockchains which has largely eluded its predecessors.
+
+</HighlightBox>

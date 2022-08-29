@@ -167,6 +167,16 @@ When iterating over maps, the order is not deterministic.
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
 
-After discovering slices and arrays, you can now dive into some of the useful standard packages Go offers. In the [next section](./6_packages.md), you can explore _fmt_, _strconv_, and _errors_.
+To summarize, this section has explored:
+
+* How the size of an array is part of the type, therefor arrays have a fixed size.
+* How slices are flexible abstractions built on top of arrays. 
+* How maps are stored key/value pairs.
+
+</HighlightBox>
+
+<!--## Next up
+
+After discovering slices and arrays, you can now dive into some of the useful standard packages Go offers. In the [next section](./6_packages.md), you can explore _fmt_, _strconv_, and _errors_.-->

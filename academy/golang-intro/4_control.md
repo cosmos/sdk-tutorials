@@ -158,6 +158,15 @@ You can use `continue` to skip the iteration or `break` to terminate the executi
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
 
-You covered control structures in Go and learned about the `if`, `switch`, and `for` statements, it is time to turn to [arrays and slices in Go](./5_arrays.md).
+To summarize, this section has explored:
+
+* Control structures in Go, and the syntax used by the `if` statement, the `switch` statement, and the `for` statement.
+* How unlike other languages Go does not need to `break` to avoid fallthrough, instead you need to provide the `fallthrough` instruction explicitly.
+
+</HighlightBox>
+
+<!--## Next up
+
+You covered control structures in Go and learned about the `if`, `switch`, and `for` statements, it is time to turn to [arrays and slices in Go](./5_arrays.md).-->

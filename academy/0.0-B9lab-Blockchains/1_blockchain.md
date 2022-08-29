@@ -219,3 +219,14 @@ Blockchain technology is often seen as presenting the possibility of more privat
 * [Satoshi Nakamoto (2008): Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
 
 </HighlightBox>
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How blockchain is a form of append-only ledger, a database in which immutably ordered blocks of immutably ordered transactions provide an easily verifiable historical record that can be held and updated across multiple nodes of a network.
+* How blockchain is a solution to the **double-spending problem**, which provides a way to ensure that digital tokens (such as of an online currency) can only be spent on one occasion, despite the relative ease with which digital files and artifacts can be copied.
+* How networks can generally be categorized as **centralized**, **decentralized**, or **distributed**, with blockchain using the advantages of distributed, decentralized networking to minimize or completely remove the need for any form of centralized authority.
+* How blockchain uses the _deterministic_, _fast_, _resistant_, _uncorrelated_, and _collision-resistant_ properties of **hash functions** to allow for easy and rapid verification of an unbroken history of all changes ever made to its ledger of transactions.
+
+</HighlightBox>

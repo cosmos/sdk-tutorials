@@ -206,6 +206,16 @@ In this case, `nil` means no error. For best practice, you should always check f
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
 
-Before diving deep into Cosmos, take a look at Go's built-in concurrency by exploring _Goroutine_ and _channels_ in the [next section](./7_concurrency.md).
+To summarize, this section has explored:
+
+* The **_fmt_ (format)** standard package in increased detail, including a range of useful verbs and function declarations.
+* The **_strconv_** package, which offers conversions to and from strings of basic data types.
+* **Error** values, which by convention are the last return value of a function.
+
+</HighlightBox>
+
+<!--## Next up
+
+Before diving deep into Cosmos, take a look at Go's built-in concurrency by exploring _Goroutine_ and _channels_ in the [next section](./7_concurrency.md).-->

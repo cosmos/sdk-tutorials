@@ -142,3 +142,16 @@ Cosmos can be applied to both public and private settings and, importantly, supp
 * [Permissioned blockchains in production](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
 
 </HighlightBox>
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How *public* blockchain networks tend to emphasize the characteristics of _accessibility_, _the absence of hierarchy_, _full decentralization_, and the use of _crypto-economic incentives_. They are based on game theory and economic rewards and are probabilistic in nature, so they cannot absolutely guarantee transaction inclusion or event network integrity, which makes them problematic for some traditional institutions.
+*  How *managed* blockchain networks offer an alternative as they do not necessarily need to mitigate the Byzantine Generals Problem, because they operate in predictable environments with elements of authority, hierarchy, and accountability. They often embrace traditional governance processes appropriate to the shared goals of the participants.
+* How **Bitcoin** extends its record of network activity by rewarding independent "miner" nodes for grouping new transactions into blocks with particular characteristics that require much work to achieve but little work to verify. These blocks are constructed into a chain such that any alteration of data is easily identifiable, and any deliberate manipulation of the historical record would require unfeasible efforts on the part of an attacker to achieve.
+* How the **Ethereum** network provides a revolutionary blockchain-based, Turing-complete virtual state machine (the EVM), delivering a computing platform and operating system with smart contract features. To avoid the halting problem, in which programs become stuck in an endless loop, Ethereum introduced the notion of charging a fee for each computational step, meaning that programs with insufficient "gas" to complete will simply stop, releasing the EVM to work on other programs.
+* How Bitcoin and Ethereum handle **forking**, the possibility of rival chains spreading through the network: Bitcoin's long 10 minute block times reduces the probability of transient forks from occurring; Ethereum's 15 _second_ block time makes rival blocks more likely, but instead of discarding them as the longest canonical chain extends they are added to it as "uncles", increasing the amount of work that would be required to undermine the chain, and therefore increasing its overall security.
+* How Cosmos moves past the example set by Ethereum to offer developers an ecosystem capable of platforming smart contracts or dApps _individually_, as opposed to forcing them to share and conform to the technological constraints of the single Ethereum blockchain. It can satisfy the demands of both public and private blockchains, and also supports communications between networks even if they follow differing consensus rules.
+
+</HighlightBox>
