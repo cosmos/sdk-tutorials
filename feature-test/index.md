@@ -14,6 +14,16 @@ Images are embedded with a medium-zoom plugin:
 
 ![menu sample image](/feature-test/images/constellation.png)
 
+<HighlightBox type="warn">
+
+Images must be linked using an absolute path! The image above is embedded with:
+
+```markdown
+![menu sample image](/feature-test/images/constellation.png)
+```
+
+</HighlightBox>
+
 ## Video
 
 <YoutubePlayer videoId="6bq-JaViGRM"/>
