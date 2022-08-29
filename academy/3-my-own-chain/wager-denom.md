@@ -349,7 +349,7 @@ As soon as you close the browser window the channels on both ends are no longer 
 To summarize, this section has explored:
 
 * How to enable the use of cross-chain tokens to make wagers on checkers games as well as your blockchain's base staking token, by making use of the Inter-Blockchain Communication Protocol (IBC).
-* How to update te stored game and the game creation message to allow players to decide what string represents their token.
+* How to update the stored game and the game creation message to allow players to decide what string represents their token.
 * Where to insert the necessary values to allow recognition of token denominations.
 * How to fix your existing tests due to the introduction of a new field and a new event, and how to add a new test when a player makes their first move.
 * How to interact via the CLI to confirm the presence of the new token denomination in a player's balance and that using these tokens to make a wager functions as required.
