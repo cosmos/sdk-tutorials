@@ -57,14 +57,14 @@ In the [`config.toml` file](https://docs.tendermint.com/master/nodes/configurati
 laddr = "tcp://0.0.0.0:26656"
 ```
 
-Here it listens on port `26656` of all IP addresses. Define or find out your publicly accessible IP address, for instance `74.6.231.20`.
+Here it listens on port `26656` of all IP addresses. Define or find out your publicly accessible IP address, for instance `172.217.22.14`.
 
 If you use a DNS-resolvable name like `lascaux.myproject.example.com`, you can use that as well instead of the IP address. Keep in mind that a name is subject to the DNS being well configured and working well.
 
 Add it too so that, whenever your node contacts a new node, yours can tell it which address is preferred:
 
 ```toml
-external_address = "74.6.231.20:26656"
+external_address = "172.217.22.14:26656" # replace by your own
 ```
 
 The other piece of information that uniquely identifies your node is your node key. Its private key is stored in `~/.myprojectd/config/node_key.json`. The public key is that by which your peers will know your node. You can compute the public key with the Tendermint command:
@@ -85,13 +85,13 @@ The node key also exists so that your own node can identify itself if it tried t
 
 In short here is the information you need to share with other early participants in the network:
 
-* Listen address, for instance: `"tcp://74.6.231.20:26656"`.
+* Listen address, for instance: `"tcp://172.217.22.14:26656"`.
 * Node key, for instance: `ce1c54ea7a2c50b4b9f2f869faf8fa4d1a1cf43a`.
 
 The shorthand for this information is written and exchanged as such:
 
 ```txt
-ce1c54ea7a2c50b4b9f2f869faf8fa4d1a1cf43a@74.6.231.20:26656
+ce1c54ea7a2c50b4b9f2f869faf8fa4d1a1cf43a@172.217.22.14:26656
 ```
 
 If you create a node for a network that is already running, you need to do the same above steps but you do not need to inform others of your parameters, because when you connect, your node will do anyway.
@@ -139,9 +139,9 @@ Setting up your peer and identifying other peers is important. However this is n
 
 If you change parameters in this file, you are not going to affect the ability of the network to reach consensus on blocks. Parameters that are necessary for consensus are all in the genesis file.
 
-[Parameters in `config.toml`](https://docs.tendermint.com/master/nodes/configuration.html) can be divided into two broad categories:
+[Parameters in `config.toml`](https://docs.tendermint.com/v0.34/tendermint-core/configuration.html) can be divided into two broad categories:
 
-1. Network scoped. By changing them you change the posture of your node at the risk of disrupting the ability of other nodes to communicate with yours. Examples include `max_num_inbound_peers` (up to v0.34), `max_connections` (from v0.35), and `handshake_timeout`.
+1. Network scoped. By changing them you change the posture of your node at the risk of disrupting the ability of other nodes to communicate with yours. Examples include `max_num_inbound_peers, and `handshake_timeout`.
 2. Single node scoped. Which only matter to your node. Examples include `db_backend` and `log_level`.
 
 Among the network-scoped ones, a number of them, such as `timeout_prevote` and `timeout_precommit_delta`, deal with the intricacies of BFT. If you want to tweak them away from their defaults, you can search for more information. [Here](https://forum.cosmos.network/t/consensus-timeouts-explained/1421) is as good a start as another.

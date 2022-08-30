@@ -15,7 +15,7 @@ What is the desired outcome? You want to have:
 
 * A _mainnet_ blockchain and at least one _testnet_ blockchain.
 * Each blockchain running on multiple machines, a number of them validators.
-* Validators that are set up to mitigrate attacks.
+* Validators that are set up to mitigate attacks.
 * A faucet for your testnet(s).
 * Public RPC ports for your users.
 * When necessary, nodes that are running in preparation of a migration.

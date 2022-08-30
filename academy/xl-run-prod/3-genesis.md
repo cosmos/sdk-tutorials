@@ -38,7 +38,7 @@ To create a brand new genesis file for your chain, run:
 $ ./myprojectd init --chain-id stone-age --staking-bond-denom nstone
 ```
 
-This creates a large genesis file with default values mirrored from the Cosmos Hub.
+This creates a large genesis file with default values of the Cosmos SDK.
 
 <HighlightBox type="remember">
 

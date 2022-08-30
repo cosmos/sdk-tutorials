@@ -43,6 +43,7 @@ There are two main honest-mistake pitfalls:
     * Your computer is offline for too long.
     * Your computer does not receive updates in time.
 2. Your validator wrongfully signs two valid blocks of the same height. This can happen if:
+    * You have a misconfigured failover validator.
     * You have two computers using the same key.
 
 To address point 1, this sounds about good ol' keeping your computer running and your networks in good shape. There is an added difficulty, though. Because your validator participates in a public network, its address can be [discovered and attacked](https://hub.cosmos.network/main/validators/validator-faq.html#how-can-validators-protect-themselves-from-denial-of-service-attacks). To mitigate this risk, you can for instance use a [sentry node architecture](./4-network.md#ddos). In this architecture, your validator node is only accessible through private networks, and a number of regular public facing nodes connect to the network at large and to your validator over the private network. These sentry nodes can be placed on the cloud and only relay over the gossip network. You can safely shut them down or start up more of them. As an additional feature, if you absolutely trust a few other nodes, you can have your node connect to those directly over a private network.
@@ -53,7 +54,7 @@ Without such a KMS, you must ensure that only one of your computers signs blocks
 
 ## Generate
 
-https://docs.cosmos.network/main/run-node/run-node.html#
+https://docs.cosmos.network/main/run-node/run-node.html
 
 Types: https://hub.cosmos.network/main/validators/validator-faq.html#what-are-the-different-types-of-keys
 
