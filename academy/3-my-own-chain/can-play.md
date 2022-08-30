@@ -233,7 +233,7 @@ Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-
     )
     ```
 
-3. Prepare you array of cases:
+3. Prepare your array of cases:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_test.go#L25]
     canPlayTestRange = []canPlayGameCase{
@@ -241,7 +241,7 @@ Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-
     }
     ```
 
-4. In the array add your first test case, one that returns an ok response:
+4. In the array add your first test case, one that returns an OK response:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_test.go#L26-L44]
     {
@@ -265,7 +265,7 @@ Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-
     },
     ```
 
-5. Add [others](https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_test.go#L26-L239). Examples include a missing request:
+5. Add [other test cases](https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_test.go#L26-L239). Examples include a missing request:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_test.go#L45-L56]
     {
@@ -309,7 +309,7 @@ Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-
     },
     ```
 
-6. With the test cases defined, add the single test function that runs all the cases:
+6. With the test cases defined, add a single test function that runs all the cases:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_test.go#L243-L263]
     func TestCanPlayCasesAsExpected(t *testing.T) {
@@ -339,7 +339,7 @@ Note how all test cases are run within a single unit test. In other words, the k
 
 ## Integration tests
 
-Of course, you can also add integration tests on top of your unit tests. Although not compulsory, it is preferable that you put them in a separate file. Pick `grpc_query_can_play_move_integration_test.go`.
+You can also add integration tests on top of your unit tests. Although not compulsory, it is preferable that you put them in a separate file. Pick `grpc_query_can_play_move_integration_test.go`.
 
 Test if it is possible to play on the first game that is created in the system:
 
@@ -364,7 +364,7 @@ With these, your query handling function should be covered.
 
 ## Interact via the CLI
 
-Put the game expiry at 5 minutes and start `ignite chain serve`. A friendly reminder that the CLI can always inform you about available commands:
+Set the game expiry to 5 minutes and start `ignite chain serve`. A friendly reminder that the CLI can always inform you about available commands:
 
 <CodeGroup>
 
