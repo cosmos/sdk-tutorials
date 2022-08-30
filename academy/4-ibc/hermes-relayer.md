@@ -381,7 +381,7 @@ Check the balances again. A new denom should appear because of our recent channe
 To summarize, this section has explored:
 
 * Hermes, an open-source Rust implementation of and IBC relayer, which is widely used in production by relayer operators due to its great logging and debugging options, but may require more detailed knowledge of IBC for effective use.
-* How to install and configure Hermes, and then perform automated and manual end-to-end testing of Docker containers for 2 chain instances and a relayer instance.
+* How to install and configure Hermes, and then perform automated and manual end-to-end testing of Docker containers for two-chain instances and a relayer instance.
 
 </HighlightBox>
 
