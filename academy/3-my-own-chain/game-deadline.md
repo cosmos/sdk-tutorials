@@ -98,7 +98,7 @@ Helper functions can encode and decode the deadline in the storage.
 
    Note that `sdkerrors.Wrapf(err, ...)` conveniently returns `nil` if `err` is `nil`.
 
-3. While you are at it, add this to the `Validate` function:
+3. At the same time, add this to the `Validate` function:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/full_game.go#L57-L62]
     ...
@@ -176,7 +176,7 @@ require.EqualValues(t, types.StoredGame{
 }, game)
 ```
 
-Also add a couple unit tests that confirm the `GetDeadlineAsTime` function [works as intended](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/full_game_test.go#L103-L117) and that the dates saved [on create](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_create_game_test.go#L327-L339) and [on play](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_play_move_test.go#L389-L404) are parseable.
+Also add a couple of unit tests that confirm the `GetDeadlineAsTime` function [works as intended](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/full_game_test.go#L103-L117) and that the dates saved [on create](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_create_game_test.go#L327-L339) and [on play](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_play_move_test.go#L389-L404) are parseable.
 
 ## Interact via the CLI
 
