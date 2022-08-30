@@ -62,7 +62,7 @@ This credits her with 5 STONE and 2 FLINT. It has also given her an `account_num
 
 You can do the same for all your genesis accounts, which includes your validators.
 
-Advanced topics include [vesting](https://docs.cosmos.network/master/modules/auth/05_vesting.html) on these genesis accounts. For information on how to configure them do:
+Advanced topics include [vesting](https://docs.cosmos.network/main/modules/auth/05_vesting.html) on these genesis accounts. For information on how to configure them do:
 
 ```sh
 $ ./myprojectd add-genesis-account --help

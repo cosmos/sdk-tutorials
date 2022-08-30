@@ -109,6 +109,6 @@ Now that you have a running network, you may considering coming back to it, and 
 
 * Make your life easier with [shell command completion](https://hub.cosmos.network/main/hub-tutorials/gaiad.html#shells-completion-scripts).
 * Add a node that [checks invariants](https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html#verify-mainnet).
-* Add [telemetry](https://docs.cosmos.network/master/core/telemetry.html) so as to keep an eye on your node(s).
+* Add [telemetry](https://docs.cosmos.network/main/core/telemetry.html) so as to keep an eye on your node(s).
 
 This is just an extract of the different customizations that are available to you. For more, you can peruse [this documentation](https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html).
