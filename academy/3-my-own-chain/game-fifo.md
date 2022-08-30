@@ -157,7 +157,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 
     </CodeGroup>
 
-5. Adjust the default genesis values, so that it has proper head and tail:
+5. Adjust the default genesis values, so that it has a proper head and tail:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/types/genesis.go#L15-L16]
     func DefaultGenesis() *GenesisState {
