@@ -85,7 +85,7 @@ It should automatically open the browser and you should see a simple page. If no
 
 Move the files from the `react-checkers` folder into the repo that contains your CosmJS work so far. If you followed from the previous section or cloned the branch mentioned above, then:
 
-* The `tsconfig.json`, `images.d.ts` and `json.d.ts` files, and the `public` and `src` folders should have no conflicts.
+* The `tsconfig.json`, `images.d.ts`, and `json.d.ts` files, and the `public` and `src` folders should have no conflicts.
 * For `.gitignore` [just add the content](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/.gitignore#L3-L21) to your own `.gitignore`.
 * For `package.json` there are some more things to consider:
     * Copy and paste the `"scripts"`. Rename the incoming `"test"` to `"test-react"`.
