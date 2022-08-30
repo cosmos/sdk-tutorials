@@ -621,7 +621,7 @@ To summarize, this section has explored:
 * How to begin creating an original blockchain application, in this case a checkers game, identifying and prioritizing the basic core game features to build a foundation for future improvements.
 * How to define a checkers rule set by searching for and obtaining an existing implementation, rather than needlessly duplicating complex coding work.
 * The minimum game information it is necessary to store, and how to store it making use of Ignite CLI.
-* The Protobuf objects created by Ignite CLI, which locates objects into different files depending on their use and updates them to include informative comments indicating where code has been added.
+* The Protobuf objects created by Ignite CLI, which locates objects in different files depending on their use and updates them to include informative comments indicating where code has been added.
 * The files created by Ignite CLI which you can and should update, for example by setting the default genesis values.
 * The Protobuf services and service interfaces created by Ignite CLI that you will fill with objects and messages when scaffolding a new module.
 * How to add helper functions which you can add to perform operations on the strings that represent your stored games, such as getting the game creator and players and introducing your own errors.
