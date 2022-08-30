@@ -190,7 +190,7 @@ As an interface, it does not describe what should happen when called. With the h
 
 ## Unit tests
 
-The code of this section was created by Ignite CLI, so there is no point in testing it. However, since you are going to adjust the keeper to do what you want, you add a test file for that. Add `keeper/msg_server_create_game_test.go`, declared with `package keeper_test`, and add in:
+The code of this section was created by Ignite CLI, so there is no point in testing it. However, since you are going to adjust the keeper to do what you want, you should add a test file for that. Add `keeper/msg_server_create_game_test.go`, declared with `package keeper_test`, and add in:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-msg/x/checkers/keeper/msg_server_create_game_test.go]
 const (
@@ -357,7 +357,7 @@ $ export alice=$(docker exec checkers checkersd keys show alice -a)
 $ export bob=$(docker exec checkers checkersd keys show bob -a)
 ```
 
-Note how `docker` is called without `-it`, otherwise, it would add a `\r` to the addresses.
+Note how `docker` is called without `-it`, otherwise it would add a `\r` to the addresses.
 
 </CodeGroupItem>
 
