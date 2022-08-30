@@ -78,7 +78,7 @@ func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.Val
 }
 ```
 
-This ensures that **if** your module's `EndBlock` function is called the expired games will be handled. For the **whole application to call your module** you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. In fact yours has already been placed at the end by Ignite:
+This ensures that **if** your module's `EndBlock` function is called the expired games will be handled. For the **whole application to call your module** you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. In fact, yours has already been placed at the end by Ignite:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/app/app.go#L493]
 app.mm.SetOrderEndBlockers(
@@ -189,7 +189,7 @@ Now, what goes into this `if "expired" { TODO }`?
     k.RemoveFromFifo(ctx, &storedGame, &systemInfo)
     ```
 
-2. Check whether the game is worth keeping. If it is, set the winner as the opponent of the player whose turn it is, remove the board and save:
+2. Check whether the game is worth keeping. If it is, set the winner as the opponent of the player whose turn it is, remove the board, and save:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/keeper/end_block_server_game.go#L44-L55]
     lastBoard := storedGame.Board
