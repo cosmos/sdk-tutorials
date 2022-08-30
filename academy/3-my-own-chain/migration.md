@@ -686,7 +686,7 @@ func (genesisV1 GenesisStateV1) Convert(now time.Time) (genesis *types.GenesisSt
 
 To summarize, this section has explored:
 
-* How to upgrade a blockchain in production, in particular how to deal with data migrations and logic upgrades to ensure a smooth transition from the v1 state of your blockchain and the v2 state to come.
+* How to upgrade a blockchain in production, in particular how to deal with data migrations and logical upgrades to ensure a smooth transition from the v1 state of your blockchain and the v2 state to come.
 * How to prepare the existing chain by saving and marking as v1 any current data types to be modified with the new version.
 * How to prepare v2 of the chain by defining new data types; adding helper functions that encapsulate new and clearly defined actions relating to the planned new version; and adjusting the existing code to make use of and update new data types.
 * How to prepare for the v1-to-v2 migration by adding helper functions capable of taking the latest chain state as a v1 genesis; adding a function to migrate from v1 to v2 genesis; and, crucially, by confirming that your system can handle large amounts of data.
