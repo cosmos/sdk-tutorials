@@ -54,7 +54,7 @@ Before diving into the specifics, ask yourself:
 
 ## New data
 
-These values provide examples but you can, and should, set your own. To get a rule-of-thumb idea of how much gas is already consumed without your additions, look back at your previous transactions. Save your pick of values as new constants:
+These values provide examples but you can, and should, set your own. To get a rule-of-thumb idea of how much gas is already consumed without your additions, look back at your previous transactions. Save your pick of the values as new constants:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/types/keys.go#L71-L75]
 const (
@@ -70,7 +70,7 @@ Here are the debatable rationales for these values:
 2. Playing a game imposes a smaller cost because it makes changes to an existing storage entry, which was already paid for. On the other hand it costs some computation and pushes back the time by when the game expires.
 3. When a player rejects a game, the storage entry is deleted, which relieves the nodes of the burden of storing it. Hence it makes sense to incentivize players to reject games by **refunding** some gas. Since some computation was still done between creation and rejection, the refund is less than the cost of creation.
 
-As a checkers blockchain creator, your goal may be to have as many on-going games as possible. Adding costs sounds counter to this goal. However here the goal is to optimize potential congestion at the margin. If there is little activity, then the gas price will go down, and these additional costs will be trivial for players anyway. Conversely, if there is a lot of network activity, the gas price will go up, and whether you have put additional costs or not, players will still be less likely to participate.
+As a checkers blockchain creator, your goal may be to have as many on-going games as possible. Adding costs sounds counter to this goal. However, here the goal is to optimize potential congestion at the margin. If there is little activity, then the gas price will go down, and these additional costs will be trivial for players anyway. Conversely, if there is a lot of network activity, the gas price will go up, and whether you have put additional costs or not players will still be less likely to participate.
 
 ## Add handling
 
@@ -152,7 +152,7 @@ func TestRejectGameByBlackRefundedGas(t *testing.T) {
 }
 ```
 
-These new tests are lame anyway because their `5_000` or `25_000` values cannot be predicted, but have to be found by trial and error.
+These new tests are lame, because their `5_000` or `25_000` values cannot be predicted but have to be found by trial and error.
 
 ## Interact via the CLI
 
@@ -356,7 +356,7 @@ Now comment out the `RefundGas` part and reject another game. This shows:
 gas_used: "69157"
 ```
 
-Which is close to `14000` more expensive when there is no refund.
+This is close to `14000` more expensive than when there is a refund.
 
 Do not worry if you do not get the same values. At least try multiple times to see if the values look like each other on your system.
 
