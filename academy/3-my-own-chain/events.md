@@ -374,7 +374,7 @@ This confirms that the _play_ event is emitted as expected. You can do the same 
 
 To summarize, this section has explored:
 
-* How to define event types and then emit events to notify players of game actions as they occur, such as creating games and playing moves.
+* How to define event types and then emit events to cause the UI to notify players of game actions as they occur, such as creating games and playing moves.
 * How listening to known events which let clients determine which player must move next is better than the impractical alternative of examining all transactions to search for the ones which signify a player's turn.
 * How to define a Game-created event that will notify the participating players and make it easy for them to find the game.
 * How to define a Player-moved event that will indicate which player and game is involved, when the move occurred, the move's outcome, and whether the game was won as a result.
