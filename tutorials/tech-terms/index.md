@@ -123,17 +123,33 @@ The Tendermint RPC is independent of the Cosmos SDK and can be configured. It us
 
 <HighlightBox type="tip">
 
-For more information on the Tendermint RPC, gRPC, and REST server, a closer look at the [Cosmos SDK documentation](https://docs.cosmos.network/master/core/grpc_rest.html).
+For more information on the Tendermint RPC, gRPC, and REST server, a closer look at the [Cosmos SDK documentation](https://docs.cosmos.network/master/core/grpc_rest.html) is recommended.
 
 </HighlightBox>
 
-Cosmos exposes both the Tendermint RPC and the Cosmos LCD. Now, dive into LCD and specifically the Cosmos LCD.
+Cosmos exposes both the Tendermint RPC and the Cosmos LCD.
 
 <HighlightBox type="info">
 
 For example, [CosmJS] uses RPC to implement a JSON-RPC API.
 
 </HighlightBox>
+
+## Protobuf
+
+**Protocol Buffers (Protobuf)** is an open-source, cross-platform data format developed by Google. It helps serliaize structured data and assists with program communication in networks or when storing data.
+
+<HighlightBox type="tip">
+
+If you want to get more accustumed to Protobuf, a look at the [official documentation](https://developers.google.com/protocol-buffers) helps dive deeper, and offers guides and tutorials.
+
+Also take a look at the [section on this platform on Protobuf](../academy/2-main-concepts/protobuf.md).
+
+</HighlightBox>
+
+In Cosmos, Protobuf is a data serialization method, which developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
+
+With Cosmos SDK v0.40, Protobuf began replacing Amino as the data encoding format of chain states and transactions. One of the reasons was that the encoding/decoding performance is better with Protobuf than Amino. In addition, the developer tooling is also better for Protobuf. Another benefit of switching to Protobuf is that the use of gRPC is fostered - Protobuf automatically defines and generates gRPC functions. Thus, developers no longer have to implement the same query for RPC, LCD, and CLI.
 
 ## gRPC
 
@@ -198,7 +214,7 @@ As with gRPC in general, gRPC-web uses HTTP2 with Protobuf for data encoding. Th
 
 <HighlightBox type="info">
 
-Secret.js is a JavaScript SDK to write applications interacting with the [Secret Network](https://scrt.network/). It uses gRPC-web.
+Secret.js is a JavaScript SDK to write applications interacting with the [Secret Network](https://scrt.network/), which uses gRPC-web.
 
 </HighlightBox>
 
@@ -261,19 +277,3 @@ For example, the JSON specification does not define numbers greater than 2^53, s
 For more on the Amino types and their representation in JSON, see the [Secret.js documentation](https://github.com/scrtlabs/secret.js/blob/master/DEVELOPERS.md#amino-types-and-how-theyre-represented-in-json).
 
 </HighlightBox>
-
-## Protobuf
-
-**Protocol Buffers (Protobuf)** is an open-source, cross-platform data format developed by Google. It helps serliaize structured data and assists with program communication in networks or when storing data.
-
-<HighlightBox type="tip">
-
-If you want to get more accustumed to Protobuf, a look at the [official documentation](https://developers.google.com/protocol-buffers) helps dive deeper, and offers guides and tutorials.
-
-Also take a look at the [section on this platform on Protobuf](../academy/2-main-concepts/protobuf.md).
-
-</HighlightBox>
-
-In Cosmos, Protobuf is a data serialization method, which developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
-
-With Cosmos SDK v0.40, Protobuf began replacing Amino as the data encoding format of chain states and transactions. One of the reasons was that the encoding/decoding performance is better with Protobuf than Amino. In addition, the developer tooling is also better for Protobuf. Another benefit of switching to Protobuf is that the use of gRPC is fostered - Protobuf automatically defines and generates gRPC functions. Thus, developers no longer have to implement the same query for RPC, LCD, and CLI.
