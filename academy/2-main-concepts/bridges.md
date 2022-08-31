@@ -109,7 +109,7 @@ To summarize, this section has explored:
 
 * The Gravity Bridge, which connects Cosmos with Ethereum and allows the transfer of ERC-20 tokens to and from Cosmos-based blockchains.
 * The component elements of the Gravity Bridge and how they reliably monitor and report to Cosmos applications about events on the Ethereum blockchain, providing the necessary confidence to perform transactions.
-* The necessity of maintaining an up-to-date validator set to ensure that events coming from the Ethereum blockchain are only from reputable sources.
+* How the validator set forms a consensus about happenings on Ethereum.
 
 </HighlightBox>
 
