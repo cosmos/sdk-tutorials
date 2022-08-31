@@ -467,7 +467,7 @@ module.exports = {
           title: "Tutorials",
           children: [
             {
-              title: "Good to Know Dev Terms",
+              title: "Good-to-Know Dev Terms",
               path: "/tutorials/tech-terms/",
               directory: false,
             },
