@@ -1,25 +1,25 @@
 ---
 parent:
-title: Good to Know Dev Terms
+title: Good-to-Know Dev Terms
 order: 0
-description: Review some technical terms helpful when developing in Cosmos
+description: Review some technical terms essential when developing in Cosmos
 ---
 
-# Good to Know Dev Terms
+# Good-to-Know Dev Terms
 
-You can find an overview of several technical terms in this section, including an explanation of each and links to further resources - all of which are essential when developing with the Cosmos SDK.
+You can find an overview of several technical terms in this section, including an explanation of each term and links to further resources - all of which are essential when developing with the Cosmos SDK.
 
 <HighlightBox type="learning">
 
 In this section, you will take a look at the following terms:
 
-* RPC
-* gRPC, gRPC-web, and gRPC-Gateway
 * LCD
+* RPC
+* Protobuf - Protcol Buffers
+* gRPC, gRPC-web, and gRPC-Gateway
 * Amino
-* Protocol Buffers
 
-All terms relate to how node interaction is conducted in Cosmos SDK blockchains.
+All these terms relate to how node interaction is conducted in Cosmos SDK blockchains.
 
 </HighlightBox>
 
@@ -29,7 +29,7 @@ Let's dive right into it.
 
 A **light client**, compared to a full node, tracks only pieces of certain information on a blockchain. Light clients do not track the entire state of a blockchain and also do not contain every transaction/block of a chain.
 
-In the Tendermint consensus, the light client protocol allows clients to benefit from the same degree of security as full nodes do, while bandwidth requirements are minimized. A client can receive cryptographic proofs for blockchain states and transactions without having to sync all blocks or even their headers.
+In the Tendermint consensus, the light client protocol allows clients to benefit from the same degree of security that full nodes do, while bandwidth requirements are minimized. A client can receive cryptographic proofs for blockchain states and transactions without having to sync all blocks or even their headers.
 
 <HighlightBox type="tip">
 
@@ -37,25 +37,25 @@ Take a look at [Light Clients in Tendermint Consensus](https://blog.cosmos.netwo
 
 </HighlightBox>
 
-Therefore, light clients are also vital for the Inter-Blockchain Communication (IBC) Protocol to track information such as timestamps, root hash, and the next validator set hash. This saves space and increases efficiency for state update processing.
+Therefore, light clients are also vital to how the Inter-Blockchain Communication (IBC) Protocol can track information such as timestamps, root hashes, and the next validator set hash. This saves space and increases efficiency for state update processing.
 
-The **light client daemon (LCD)** is also an HTTP1.1 server exposed by the Cosmos SDK. Its default port is `1317`. It exposes a REST API for the chain - a _representational state transfer application programming interface_, in short, REST API, is an application programming interface that allows for the interaction with a RESTful web service. Traditionally, every query was re-implemented for LCD and behind the scene routed to RPC.
+The **light client daemon (LCD)** is an HTTP1.1 server exposed by the Cosmos SDK, and its default port is `1317`. It exposes a REST API for the chain, meaning a _representational state transfer application programming interface_ - this API allows for interaction with a RESTful web service. Traditionally, every query was re-implemented for LCD and routed to RPC behind the scenes.
 
 <ExpansionPanel title="Why is it called light client daemon?">
 
-It is called a light client daemon (LCD) because pre-SDK v0.40, you had to run another service using for example, `gaiacli rest-server --laddr 0.0.0.0:1317 --node localhost:26657`, to get a REST API. In Cosmos SDK v0.40, REST was moved inside the node service. The name stuck.
+Before SDK v0.40, to get a REST API it was necessary to run another backend service (or "[daemon](https://en.wikipedia.org/wiki/Daemon_(computing))", a label inherited from Unix), for example using `gaiacli rest-server --laddr 0.0.0.0:1317 --node localhost:26657`. In Cosmos SDK v0.40, REST was moved inside the node service making it a tool of the Cosmos SDK, but the "daemon" element stuck, leading to the name _light client daemon_ (LDC).
 
 </ExpansionPanel>
 
 ## Remote procedure call (RPC)
 
-A **remote procedure call (RPC)** is _a software communication protocol_. The term is often found in distributed computing because RPC is a technic to realize inter-process communication (IPC) by allowing a program to cause a procedure, subroutine, that is executed in a different address space (machine).
+A **remote procedure call (RPC)** is _a software communication protocol_. The term is often found in distributed computing because RPC is a technique to realize inter-process communication (IPC) by allowing a program to cause a subroutine procedure that is executed in a different address space (a different machine).
 
-RPC can be understood as a client-server interaction, in which the "caller" is the client, more specifically the requesting program, and the "executor" is the server, more specifically the service-providing program. The interaction is implemented through a request-response message-passing system. In short, RPC is a request-response protocol, initiated by a client sending a request to a remote server to execute the subroutine.
+RPC can be understood as a client-server interaction in which the "caller" is the client, more specifically the requesting program, and the "executor" is the server, more specifically the service-providing program. The interaction is implemented through a request-response message-passing system.
 
-For example, it allows calling functions in different address spaces. Usually, the called functions are run on a different computer than the one calling them.
+In short, RPC is a request-response protocol, initiated by a client sending a request to a remote server to execute the subroutine. 
 
-With RPC, the developer codes as if the subroutine would be local; the developer does not have to code in the details for the remote interaction. Thus, with RPCs it is implied that calling procedures are basically the same, independent of it being a local or remote call.
+Usually, the called functions are run on a different computer than the one calling them. However, with RPC, the developer codes as if the subroutine would be local; the developer does not have to code in details for remote interaction. Thus, with RPCs it is implied that all calling procedures are basically the same, independent of them being local or remote calls.
 
 <HighlightBox type="note">
 
@@ -65,7 +65,7 @@ As RPCs implement remote request-response protocols, it is important to note tha
 
 ### How does an RPC request work?
 
-In general: when a remote procedure call is invoked, the procedure parameters are transferred across the network to the execution environment. The procedure is executed in the environment. Once finished, the results of the procedure call invoked are transferred to the call environment. The execution then resumes in the call environment, like it would in a regular local procedure call.
+In general, when a remote procedure call is invoked the procedure parameters are transferred across the network to the execution environment where the procedure is executed. Once finished, the results of the procedure call invoked are transferred to the call environment. The execution then resumes in the call environment, just as it would in a regular local procedure call.
 
 A step-by-step RPC request could look like the following:
 
@@ -75,7 +75,7 @@ A step-by-step RPC request could look like the following:
 
 A stub is a small program routine substituting a longer program.
 
-In RPCS, the client's stub substitutes for the program providing a request procedure. The stub accepts and forwards the request to the remote procedure. Once the remote procedure completed the request, it returns the request results to the stub that passes it to the request procedure.
+In RPCs, the client's stub substitutes for the program providing a request procedure. The stub accepts and forwards the request to the remote procedure. Once the remote procedure completes the request, it returns the results to the stub which in turn passes them to the request procedure.
 
 The server also has a stub to interface with the remote procedure.
 
