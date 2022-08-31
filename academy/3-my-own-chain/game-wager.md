@@ -307,7 +307,7 @@ func (k *Keeper) MustPayWinnings(ctx sdk.Context, storedGame *types.StoredGame)
 func (k *Keeper) MustRefundWager(ctx sdk.Context, storedGame *types.StoredGame)
 ```
 
-The `Must` prefix in the function means that the transaction either takes place or a `panic` is issued. If a player cannot pay the wager, it is a user-side error and the user must be informed of a failed transaction. If the module cannot pay, it means the escrow account has failed. This error is much more serious: an invariant may have been violated and the whole application must be terminated.
+The `Must` prefix in the function means that the transaction either takes place or a `panic` is issued. If a player cannot pay the wager, it is a user-side error and the user must be informed of a failed transaction. If the module cannot pay, it means the escrow account has failed. This latter error is much more serious: an invariant may have been violated and the whole application must be terminated.
 
 Now set up collecting a wager, paying winnings, and refunding a wager:
 
@@ -458,7 +458,7 @@ If you try running your existing tests you get a compilation error on the [test 
 
 ### Prepare mocks
 
-Better to create some [mocks](https://en.wikipedia.org/wiki/Mock_object). The Cosmos SDK does not offer mocks of its objects so you have to create your own. For that, the [`gomock`](https://github.com/golang/mock) library is a good one. Install it:
+It is better to create some [mocks](https://en.wikipedia.org/wiki/Mock_object). The Cosmos SDK does not offer mocks of its objects so you have to create your own. For that, the [`gomock`](https://github.com/golang/mock) library is a good resource. Install it:
 
 <CodeGroup>
 
@@ -478,7 +478,7 @@ ENV MOCKGEN_VERSION=1.6.0
 RUN go install github.com/golang/mock/mockgen@v${MOCKGEN_VERSION}
 ```
 
-And rebuild your Docker image.
+Rebuild your Docker image.
 
 </CodeGroupItem>
 
@@ -506,7 +506,7 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i mockgen -sourc
 
 </CodeGroup>
 
-In fact, if your expected keepers change, you will have to run this command again. It can be a good idea to save the command for future reference. You may use a `Makefile` for that. Ensure you install the `make` tool for your computer. If you use Docker, add it to the packages and rebuild the image:
+If your expected keepers change, you will have to run this command again. It can be a good idea to save the command for future reference. You may use a `Makefile` for that. Ensure you install the `make` tool for your computer. If you use Docker, add it to the packages and rebuild the image:
 
 ```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/Dockerfile-ubuntu#L18]
 ENV PACKAGES curl gcc jq make
@@ -519,7 +519,7 @@ mock-expected-keepers:
 	mockgen -source=x/checkers/types/expected_keepers.go -destination=testutil/mock_types/expected_keepers.go 
 ```
 
-At any time, you can rebuild the mocks them with:
+At any time, you can rebuild the mocks with:
 
 <CodeGroup>
 
@@ -541,7 +541,7 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i make mock-expe
 
 </CodeGroup>
 
-You are going to set the expectations on this `BankEscrowKeeper` mock many times, including when you do not care about the result. So it is in your interest to create helper functions that will make setting up the expectations more succinct. Create a new `bank_escrow_helpers.go` file with:
+You are going to set the expectations on this `BankEscrowKeeper` mock many times, including when you do not care about the result. So it is in your interest to create helper functions that will make setting up the expectations more efficient. Create a new `bank_escrow_helpers.go` file with:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/testutil/mock_types/bank_escrow_helpers.go#L11-L39]
 func (escrow *MockBankEscrowKeeper) ExpectAny(context context.Context) {
@@ -577,7 +577,7 @@ func (escrow *MockBankEscrowKeeper) ExpectRefund(context context.Context, who st
 
 ### Make use of mocks
 
-With the helpers in place, you can add a new function similar to `CheckersKeeper(t testing.TB)`, but one which uses mocks. And keep the original function, which passes a `nil` for bank.
+With the helpers in place, you can add a new function similar to `CheckersKeeper(t testing.TB)` but which uses mocks. Keep the original function, which passes a `nil` for bank.
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/testutil/keeper/checkers.go#L21-L58]
 func CheckersKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
@@ -622,7 +622,7 @@ func CheckersKeeperWithMocks(t testing.TB, bank *mock_types.MockBankEscrowKeeper
 
 The `CheckersKeeperWithMocks` function takes the mock in its arguments for more versatility.
 
-Now adjust the small functions that setup the keeper before each test. You do not need to change them for the _create_ tests because they never call the bank. You have to do it for _play_, _reject_ and _forfeit_.
+Now adjust the small functions that set up the keeper before each test. You do not need to change them for the _create_ tests because they never call the bank. You have to do it for _play_, _reject_, and _forfeit_.
 
 For _play_:
 
@@ -647,16 +647,16 @@ func setupMsgServerWithOneGameForPlayMove(t testing.TB) (types.MsgServer, keeper
 
 This function creates the mock and returns two new objects:
 
-* The mock controller so that the `.Finish()` method can be called within the test itself. This is the function that will verify the call expectations placed on the mocks.
-* The mocked bank escrow. It is the instance on which you place the call expectations.
+* The mock controller, so that the `.Finish()` method can be called within the test itself. This is the function that will verify the call expectations placed on the mocks.
+* The mocked bank escrow. This is the instance on which you place the call expectations.
 
 Both objects will be used from the tests proper.
 
-Do the same for [_reject_](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_reject_game_test.go#L17-L32)
+Do the same for [_reject_](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_reject_game_test.go#L17-L32).
 
 ### Adjust the unit tests
 
-With these changes, you need to adjust many unit tests for _play_, _reject_ and _forfeit_. For many, you  may only want to make the tests pass again without checking any meaningful bank call expectations. There are different situations:
+With these changes, you need to adjust many unit tests for _play_, _reject_, and _forfeit_. For many, you may only want to make the tests pass again without checking any meaningful bank call expectations. There are different situations:
 
 1. The mocked bank is not called. So you do not add any expectation, and still call the controller:
 
@@ -665,7 +665,7 @@ With these changes, you need to adjust many unit tests for _play_, _reject_ and 
     defer ctrl.Finish()
     ```
 
-2. The mocked bank is called but you do not care about how it was called:
+2. The mocked bank is called, but you do not care about how it was called:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_reject_game_test.go#L148-L150]
     msgServer, _, context, ctrl, escrow := setupMsgServerWithOneGameForRejectGame(t)
@@ -673,7 +673,7 @@ With these changes, you need to adjust many unit tests for _play_, _reject_ and 
     escrow.ExpectAny(context)
     ```
 
-3. The mocked bank is called and you want to add call expectations:
+3. The mocked bank is called, and you want to add call expectations:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/end_block_server_game_test.go#L139-L143]
     msgServer, keeper, context, ctrl, escrow := setupMsgServerWithOneGameForPlayMove(t)
@@ -702,7 +702,7 @@ After these adjustments, it is a good idea to add unit tests directly on the wag
     }
     ```
 
-2. Add tests on the `CollectWager` function. For instance when the game is malformed:
+2. Add tests on the `CollectWager` function. For instance, when the game is malformed:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/wager_handler_test.go#L28-L40]
     func TestWagerHandlerCollectWrongNoBlack(t *testing.T) {
@@ -741,7 +741,7 @@ After these adjustments, it is a good idea to add unit tests directly on the wag
     }
     ```
 
-    Or when the collection of wager works:
+    Or when the collection of a wager works:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/wager_handler_test.go#L90-L101]
     func TestWagerHandlerCollectNoMove(t *testing.T) {
@@ -785,7 +785,7 @@ After these adjustments, it is a good idea to add unit tests directly on the wag
     }
     ```
 
-    Or works:
+    Or when it works:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/wager_handler_test.go#L200-L212]
     func TestWagerHandlerPayEscrowCalledTwoMoves(t *testing.T) {
@@ -803,7 +803,7 @@ After these adjustments, it is a good idea to add unit tests directly on the wag
     }
     ```
 
-4. Not to forget for the [refund](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/wager_handler_test.go#L251-L270) situations too.
+4. You will also need a test for [refund](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/wager_handler_test.go#L251-L270) situations.
 
 ### Add bank escrow unit tests
 
@@ -821,7 +821,7 @@ func TestPlayMoveUpToWinnerCalledBank(t *testing.T) {
 }
 ```
 
-After all that, confirm that your tests run.
+After doing all that, confirm that your tests run.
 
 <CodeGroup>
 
@@ -845,7 +845,7 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github
 
 ## Integration tests
 
-Your unit tests pass, and they confirm that the bank is called as per your expectations. Would it not be nice to add further tests that use a _real_ bank? It is possible with the help of integration tests.
+Your unit tests pass, and they confirm that the bank is called as per your expectations. It would be nice to add further tests that use a _real_ bank. This is possible with the help of integration tests.
 
 Fortunately, you do not have to do this from scratch: taking inspiration from [tests on the bank module](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/x/bank/keeper/keeper_test.go#L66-L110), prepare your code so as to accommodate and create a full app that will contain a bank keeper, and add new tests.
 
@@ -875,7 +875,7 @@ Ignite CLI created a default constructor for your App with a [`cosmoscmd.App`](h
 
 <PanelListItem number="2">
 
-Take [`encoding.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/app/encoding.go) taken from [here](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/simapp/encoding.go), where you:
+Use [`encoding.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/app/encoding.go) taken from [here](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/simapp/encoding.go), where you:
 
 * Import `"github.com/ignite-hq/cli/ignite/pkg/cosmoscmd"`.
 * Replace `simappparams.EncodingConfig` with `cosmoscmd.EncodingConfig`.
@@ -885,7 +885,7 @@ Take [`encoding.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/pa
 
 <PanelListItem number="3">
 
-Take [`proto.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/app/params/proto.go) taken from [here](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/simapp/params/proto.go), where you:
+Use [`proto.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/app/params/proto.go) taken from [here](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/simapp/params/proto.go), where you:
 
 * Import `"github.com/ignite-hq/cli/ignite/pkg/cosmoscmd"`.
 * Replace `EncodingConfig` with `cosmoscmd.EncodingConfig`.
@@ -894,7 +894,7 @@ Take [`proto.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/payme
 
 <PanelListItem number="4">
 
-Take [`test_helpers.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/app/test_helpers.go) taken from [here](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/simapp/test_helpers.go), in which you:
+Use [`test_helpers.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/app/test_helpers.go) taken from [here](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/simapp/test_helpers.go), in which you:
 
 * Adjust from `SimApp` to `App`
 * Adjust from `New()` to `NewApp()`
@@ -1053,7 +1053,7 @@ With the preparation done, what does an integration test method look like?
 
 ### Anatomy of an integration suite test
 
-Now you add integration tests for your keeper in new files. What does an integration test look like? Take the example of a [simple unit test](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_create_game_test.go#L41-L72) ported to the integration test suite:
+Now you must add integration tests for your keeper in new files. What does an integration test look like? Take the example of a [simple unit test](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_create_game_test.go#L41-L72) ported to the integration test suite:
 
 1. The method has a declaration:
 
@@ -1063,7 +1063,7 @@ Now you add integration tests for your keeper in new files. What does an integra
 
     It is declared as a member of your test suite, and is prefixed with [`Test`](https://github.com/stretchr/testify/blob/v1.7.0/suite/suite.go#L181-L182).
 
-2. The **setup** can be done as you like, but just like for unit tests, you ought to create a helper and use it. Here it exists already:
+2. The **setup** can be done as you like, but just like for unit tests you ought to create a helper and use it. Here one exists already:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_create_game_integration_test.go#L9-L10]
     suite.setupSuiteWithBalances()
@@ -1096,11 +1096,11 @@ Now you add integration tests for your keeper in new files. What does an integra
 
     In fact, it is exactly the [same `require`](https://github.com/stretchr/testify/blob/v1.7.0/suite/suite.go#L24) object.
 
-You have added an integration test that copies an existing unit test. It demonstrates the concept but is of limited added utility.
+You have added an integration test that copies an existing unit test. It demonstrates the concept but is of limited additional utility.
 
 ### Extra tests
 
-It is time to add extra tests that check money handling by the bank. Before jumping in, like you did in _play_ unit tests, you can add a method that prepares your suite's keeper with a game ready to be played on:
+It is time to add extra tests that check money handling by the bank. Before jumping in, as you did in _play_ unit tests you can add a method that prepares your suite's keeper with a game ready to be played on:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_play_move_integration_test.go#L8-L17]
 func (suite *IntegrationTestSuite) setupSuiteWithOneGameForPlayMove() {
@@ -1115,9 +1115,9 @@ func (suite *IntegrationTestSuite) setupSuiteWithOneGameForPlayMove() {
 }
 ```
 
-You will call it from the relevant tests. You can do the [same for _reject_](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_reject_game_integration_test.go#L8-L17).
+You will call this game from the relevant tests. You can do the [same for _reject_](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_reject_game_integration_test.go#L8-L17).
 
-For the tests proper, before an action that you expect to transfer money (or not), you can verify the initial position:
+For the tests proper, before an action that you expect to transfer money (or not) you can verify the initial position:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_play_move_integration_test.go#L58-L61]
 suite.RequireBankBalance(balAlice, alice)
@@ -1145,9 +1145,9 @@ How you subdivide your tests and where you insert these balance checks is up to 
 
 ### What happened to the events?
 
-With the new tests, you may think that the events are messed up. For instance, the event of type `"transfer"` normally comes with three attributes, but when the bank has made two transfers, the `"transfer"` event ends up with 6 attributes. It is just the way events are organized: per type with the attributes piled in.
+With the new tests, you may think that the events are compromised. For instance, the event type `"transfer"` normally comes with three attributes, but when the bank has made two transfers the `"transfer"` event ends up with 6 attributes. This is just the way events are organized: per type, with the attributes piled in.
 
-So when checking the emitted events, you need to skip over the attributes you are not checking. You can easily achieve that with [Go slices](https://go.dev/tour/moretypes/7).
+When checking emitted events, you need to skip over the attributes you are not checking. You can easily achieve that with [Go slices](https://go.dev/tour/moretypes/7).
 
 For instance, here `transferEvent.Attributes[6:]` discards the first 6 attributes:
 
@@ -1163,19 +1163,19 @@ suite.Require().EqualValues([]sdk.Attribute{
 
 ### Debug your suite
 
-You learned in a [previous section](./stored-game.md) how to launch a test in debug mode. It is still possible to do so when using a suite. Depending on the versions of your Go installation and your Visual Studio Code, you can:
+You learned in a [previous section](./stored-game.md) how to launch a test in debug mode. It is still possible to do so when using a suite. Depending on the versions of your Go installation and your Visual Studio Code, you can launch it in two ways:
 
-1. Either launch it by right-clicking on the arrow left of the suite's runner `func TestCheckersKeeperTestSuite`:
+1. Right-click on the arrow to the left of the suite's runner `func TestCheckersKeeperTestSuite`:
 
     ![Suite runner with green button](/academy/4-my-own-chain/images/go_test_debug_suite.png)
 
-    Note that in this case you can only launch debug for all of the suite's test methods and not just a single one (as is possible with a simple test). 
+    Note that in this case you can only launch debug for **all** of the suite's test methods and not just a single one (as is possible with a simple test). 
 
-2. Or you right-click on the arrow left of the separate test of the suite:
+2. Right-click on the arrow to the left of the separate test of the suite:
 
     ![Suite test with green button](/academy/4-my-own-chain/images/go_test_debug_suite_test.png)
 
-    This option may not be available. If being able to debug only a few tests at a time is important to you, a solution is to create more granular suites, for example using one or more test suites per file and fall back on option 1.
+    Note that this option may not be available. If being able to debug only a few tests at a time is important to you, a solution is to create more granular suites, for example using one or more test suites per file and falling back on option 1.
 
 ## Interact via the CLI
 
@@ -1425,7 +1425,7 @@ This is correct: Bob was the winner by forfeit.
 
 Similarly, you can test that Alice gets her wager back when Alice creates a game, Alice plays, and then Bob rejects it.
 
-It would be difficult to test by CLI when there is a winner after a full game. That would be better tested with a GUI, or integration tests as you did above.
+It would be difficult to test by CLI when there is a winner after a full game. That would be better tested with a GUI, or by using integration tests as you did above.
 
 ## Next up
 
