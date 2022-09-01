@@ -1,18 +1,22 @@
 # IBC Application Developer Introduction
 
-In the previous section you've learned how to create custom SDK modules. Additionally you've had an introduction to IBC, the ibc-go module in the SDK and how to spin up a relayer to send IBC packets.
+In the previous sections you've learned how to create custom SDK modules. Additionally you've had an introduction to IBC, the ibc-go module in the SDK and how to spin up a relayer to send IBC packets.
+
+<!-- TODO: Add relative links -->
 
 Remember the separation of concerns in IBC between the transport layer (IBC/TAO) and the application layer (IBC/APP). The transport layer provides the basic infrastructure layer to _transport_, _authenticate_ and _order_ arbitrary packets of data. The encoding, decoding and interpretation of the data to trigger custom application logic, is then up to the application layer. In the examples of token transfer sent over IBC, we implicitly used the ICS-20 or _transfer_ IBC application module provided by the **ibc-go** SDK module (which also provides the core transport layer functionality).
 
 In the following sections you'll learn how to develop your custom IBC application modules, either from upgrading an existing module or starting from scratch using Ignite CLI.
 
-<highlightbox>
+<HighlightBox type="docs">
+
 In the [integration](https://ibc.cosmos.network/v3.0.0/ibc/integration.html) section of the IBC documentation, the necessary steps to integrate IBC in a Cosmos SDK chain are outlined.
 
 Note that this does not mean that the main application modules turn into IBC modules, it only means IBC is enabled for the chain. The IBC module has come out-of-the-box in Comsos SDK chains since the 0.40.x version of the SDK, so it is unlikely you'll have to implement these steps manually when developing a chain.
 
 For example, the checkers appchain you developed in the previous section, **is IBC-enabled**. This is revealed when trying to send IBC denoms from other chains to set a wager with. However, this does not make the `x/checkers` module an IBC enabled module. We will investigate all the additions we need to make to make the module IBC-enabled in what follows.
-</higlightbox>
+
+</HiglightBox>
 
 ## Structure of the section
 
@@ -20,6 +24,8 @@ In the section we will first investigate the code you have to add to make a modu
 
 A similar approach will be taken to check what Ignite CLI implements when scaffolding an IBC packet.
 
-After finishing the conceptual tour, we are going to expand the checkers blockchain you created to turn it into an IBC module and will create an additional leaderboard blockchain to act as a seperate appchain that can interact via IBC with the checkers blockchain.
+After finishing the conceptual part, we are going to expand the checkers blockchain you created to turn it into an IBC module and will create an additional leaderboard blockchain to act as a seperate appchain that can interact via IBC with the checkers blockchain.
+
+<!-- TODO: add link to checkers extension tutorial -->
 
 Let's dive into it!
