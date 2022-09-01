@@ -140,7 +140,7 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generat
     }
     ```
 
-2. And before saving to the storage, in the handler when playing a move:
+2. Before saving to the storage, adjust it in the handler when playing a move:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/keeper/msg_server_play_move.go#L57]
     ...
@@ -160,7 +160,7 @@ ErrBlackAlreadyPlayed = sdkerrors.Register(ModuleName, 1107, "black player has a
 ErrRedAlreadyPlayed   = sdkerrors.Register(ModuleName, 1108, "red player has already played")
 ```
 
-This time you add an event for rejection. Begin by preparing the new keys:
+This time you will add an event for rejection. Begin by preparing the new keys:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/types/keys.go#L45-L49]
 const (
