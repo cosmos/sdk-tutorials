@@ -117,9 +117,7 @@ The application layer is tasked with ensuring effective communication between ap
 
 In Cosmos, RPCs are used by the command-line interface (CLI) among other things to access chains. A node exposes several endpoints - gRPC, REST, and Tendermint endpoint.
 
-The Tendermint RPC endpoint is an HTTP1.1 server. The default port is `26657`. The gRPC server default port is `9090`, and the REST server default port is `1317`.
-
-The Tendermint RPC is independent of the Cosmos SDK and can be configured. It uses HTTP `POST` and JSON-RPC 2.0 for data encoding.
+Exposed by Tendermint, the Tendermint RPC endpoint is an HTTP1.1 server. The default port is `26657`. The gRPC server default port is `9090`, and the REST server default port is `1317`. The Tendermint RPC is independent of the Cosmos SDK and can be configured. It uses HTTP `POST` and JSON-RPC 2.0 for data encoding.
 
 <HighlightBox type="tip">
 
