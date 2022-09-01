@@ -15,7 +15,7 @@ In this section, you will take a look at the following terms:
 
 * LCD
 * RPC
-* Protobuf - Protcol Buffers
+* Protobuf - Protocol Buffers
 * gRPC, gRPC-web, and gRPC-Gateway
 * Amino
 
@@ -133,11 +133,11 @@ Cosmos exposes both the Tendermint RPC and the Cosmos LCD. For example, [CosmJS]
 
 ## Protobuf
 
-**Protobuff** (for "Protocol Buffers") is an open-source, cross-platform data format developed by Google. It helps serliaize structured data and assists with program communication in networks or when storing data.
+**Protobuf** (for "Protocol Buffers") is an open-source, cross-platform data format developed by Google. It helps serialize structured data and assists with program communication in networks or when storing data.
 
 <HighlightBox type="tip">
 
-If you want to get more accustumed to Protobuf, a look at the [official documentation](https://developers.google.com/protocol-buffers) helps dive deeper and offers guides and tutorials.
+If you want to get more accustomed to Protobuf, a look at the [official documentation](https://developers.google.com/protocol-buffers) helps dive deeper and offers guides and tutorials.
 
 Also take a look at the [section on this platform on Protobuf](../academy/2-main-concepts/protobuf.md).
 
