@@ -4,12 +4,12 @@ In this section, you'll build a conceptual SDK blockchain with one module. The f
 
 ## Scaffold a Leaderboard chain
 
-By now, you are familiar with scaffolding a chain with Ignite CLI (if not, check out the [Create Your Own Chain](insert_link) section).
+By now, you are familiar with scaffolding a chain with Ignite CLI (if not, check out the [Create Your Own Chain](insert_link.com) section).
 
 Let's scaffold a `leaderboard` chain:
 
 ```bash
-ignite scaffold chain github.com/cosmonaut/leaderboard
+$ ignite scaffold chain github.com/cosmonaut/leaderboard
 ```
 
 This creates a chain with `x/leaderboard` a regular SDK module.
@@ -17,13 +17,13 @@ This creates a chain with `x/leaderboard` a regular SDK module.
 Next, scaffold another chain (for example in another git branch) but decide to add the `--no-module` flag:
 
 ```bash
-ignite scaffold chain github.com/cosmonaut/leaderboard --no-module
+$ ignite scaffold chain github.com/cosmonaut/leaderboard --no-module
 ```
 
 Now we add the `x/leaderboard` module as an IBC module with the `--ibc` flag:
 
 ```bash
-ignite scaffold module leaderboard --ibc
+$ ignite scaffold module leaderboard --ibc
 ```
 
 The output you see on the terminal when the module has finished scaffolding already gives a sense of what has to be implemented to create an IBC module:
@@ -48,7 +48,7 @@ What does Ignite CLI do behind the scenes when creating an IBC module for us? Wh
 
 The required steps to implement can be found in the [IBC go docs](https://ibc.cosmos.network/main/ibc/apps/apps.html). We find there:
 
-<Highlightbox type="info">
+<HighlightBox type="info">
 
 **To have your module interact over IBC you must:**
 
@@ -61,7 +61,7 @@ The required steps to implement can be found in the [IBC go docs](https://ibc.co
 - define your own packet data and acknowledgement structs as well as how to encode/decode them
 - add a route to the IBC router
 
-</Highlightbox>
+</HighlightBox>
 
 Now let's take a look at the *git diff* and see if we are able to recognize the steps listed above.
 
@@ -69,15 +69,232 @@ Now let's take a look at the *git diff* and see if we are able to recognize the 
 
 **NOTE:** For a full explanation, please visit the [IBC go docs](https://ibc.cosmos.network/main/ibc/apps/ibcmodule.html).
 
-The Cosmos SDK expects all IBC modules to implement the [`IBCModule`
-interface](https://github.com/cosmos/ibc-go/tree/main/modules/core/05-port/types/module.go). This interface contains all of the callbacks IBC expects modules to implement. This includes callbacks related to: 
+The Cosmos SDK expects all IBC modules to implement the [`IBCModule` interface](https://github.com/cosmos/ibc-go/tree/main/modules/core/05-port/types/module.go). This interface contains all of the callbacks IBC expects modules to implement. This includes callbacks related to: 
 - channel handshake (`OnChanOpenInit`, `OnChanOpenTry`, `OncChanOpenAck`, `OnChanOpenConfirm`)
 - channel closing (`OnChanCloseInit`, `OnChanCloseConfirm`)
 - packets (`OnRecvPacket`, `OnAcknowledgementPacket` and `OnTimeoutPacket`).
 
 Ignite CLI implements this in the file `x/leaderboard/module_ibc.go`.
 
-//TODO: add collapsible window??
+<ExpansionPanel title="x/leaderboard/module_ibc.go">
+    
+```go
+// OnChanOpenInit implements the IBCModule interface
+func (am AppModule) OnChanOpenInit(
+    ctx sdk.Context,
+    order channeltypes.Order,
+    connectionHops []string,
+    portID string,
+    channelID string,
+    chanCap *capabilitytypes.Capability,
+    counterparty channeltypes.Counterparty,
+    version string,
+) error {
+
+    // Require portID is the portID module is bound to
+    boundPort := am.keeper.GetPort(ctx)
+    if boundPort != portID {
+        return sdkerrors.Wrapf(porttypes.ErrInvalidPort, "invalid port: %s, expected %s", portID, boundPort)
+    }
+
+    if version != types.Version {
+        return sdkerrors.Wrapf(types.ErrInvalidVersion, "got %s, expected %s", version, types.Version)
+    }
+
+    // Claim channel capability passed back by IBC module
+    if err := am.keeper.ClaimCapability(ctx, chanCap, host.ChannelCapabilityPath(portID, channelID)); err != nil {
+        return err
+    }
+
+    return nil
+}
+
+// OnChanOpenTry implements the IBCModule interface
+func (am AppModule) OnChanOpenTry(
+    ctx sdk.Context,
+    order channeltypes.Order,
+    connectionHops []string,
+    portID,
+    channelID string,
+    chanCap *capabilitytypes.Capability,
+    counterparty channeltypes.Counterparty,
+    counterpartyVersion string,
+) (string, error) {
+
+    // Require portID is the portID module is bound to
+    boundPort := am.keeper.GetPort(ctx)
+    if boundPort != portID {
+        return "", sdkerrors.Wrapf(porttypes.ErrInvalidPort, "invalid port: %s, expected %s", portID, boundPort)
+    }
+
+    if counterpartyVersion != types.Version {
+        return "", sdkerrors.Wrapf(types.ErrInvalidVersion, "invalid counterparty version: got: %s, expected %s", counterpartyVersion, types.Version)
+    }
+
+    // Module may have already claimed capability in OnChanOpenInit in the case of crossing hellos
+    // (ie chainA and chainB both call ChanOpenInit before one of them calls ChanOpenTry)
+    // If module can already authenticate the capability then module already owns it so we don't need to claim
+    // Otherwise, module does not have channel capability and we must claim it from IBC
+    if !am.keeper.AuthenticateCapability(ctx, chanCap, host.ChannelCapabilityPath(portID, channelID)) {
+        // Only claim channel capability passed back by IBC module if we do not already own it
+        if err := am.keeper.ClaimCapability(ctx, chanCap, host.ChannelCapabilityPath(portID, channelID)); err != nil {
+            return "", err
+        }
+    }
+
+    return types.Version, nil
+}
+
+// OnChanOpenAck implements the IBCModule interface
+func (am AppModule) OnChanOpenAck(
+    ctx sdk.Context,
+    portID,
+    channelID string,
+    _,
+    counterpartyVersion string,
+) error {
+    if counterpartyVersion != types.Version {
+        return sdkerrors.Wrapf(types.ErrInvalidVersion, "invalid counterparty version: %s, expected %s", counterpartyVersion, types.Version)
+    }
+    return nil
+}
+
+// OnChanOpenConfirm implements the IBCModule interface
+func (am AppModule) OnChanOpenConfirm(
+    ctx sdk.Context,
+    portID,
+    channelID string,
+) error {
+    return nil
+}
+
+// OnChanCloseInit implements the IBCModule interface
+func (am AppModule) OnChanCloseInit(
+    ctx sdk.Context,
+    portID,
+    channelID string,
+) error {
+    // Disallow user-initiated channel closing for channels
+    return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "user cannot close channel")
+}
+
+// OnChanCloseConfirm implements the IBCModule interface
+func (am AppModule) OnChanCloseConfirm(
+    ctx sdk.Context,
+    portID,
+    channelID string,
+) error {
+    return nil
+}
+
+// OnRecvPacket implements the IBCModule interface
+func (am AppModule) OnRecvPacket(
+    ctx sdk.Context,
+    modulePacket channeltypes.Packet,
+    relayer sdk.AccAddress,
+) ibcexported.Acknowledgement {
+    var ack channeltypes.Acknowledgement
+
+    // this line is used by starport scaffolding # oracle/packet/module/recv
+
+    var modulePacketData types.LeaderboardPacketData
+    if err := modulePacketData.Unmarshal(modulePacket.GetData()); err != nil {
+        return channeltypes.NewErrorAcknowledgement(sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "cannot unmarshal packet data: %s", err.Error()).Error())
+    }
+
+    // Dispatch packet
+    switch packet := modulePacketData.Packet.(type) {
+    // this line is used by starport scaffolding # ibc/packet/module/recv
+    default:
+        errMsg := fmt.Sprintf("unrecognized %s packet type: %T", types.ModuleName, packet)
+        return channeltypes.NewErrorAcknowledgement(errMsg)
+    }
+
+    // NOTE: acknowledgement will be written synchronously during IBC handler execution.
+    return ack
+}
+
+// OnAcknowledgementPacket implements the IBCModule interface
+func (am AppModule) OnAcknowledgementPacket(
+    ctx sdk.Context,
+    modulePacket channeltypes.Packet,
+    acknowledgement []byte,
+    relayer sdk.AccAddress,
+) error {
+    var ack channeltypes.Acknowledgement
+    if err := types.ModuleCdc.UnmarshalJSON(acknowledgement, &ack); err != nil {
+        return sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "cannot unmarshal packet acknowledgement: %v", err)
+    }
+
+    // this line is used by starport scaffolding # oracle/packet/module/ack
+
+    var modulePacketData types.LeaderboardPacketData
+    if err := modulePacketData.Unmarshal(modulePacket.GetData()); err != nil {
+        return sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "cannot unmarshal packet data: %s", err.Error())
+    }
+
+    var eventType string
+
+    // Dispatch packet
+    switch packet := modulePacketData.Packet.(type) {
+    // this line is used by starport scaffolding # ibc/packet/module/ack
+    default:
+        errMsg := fmt.Sprintf("unrecognized %s packet type: %T", types.ModuleName, packet)
+        return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
+    }
+
+    ctx.EventManager().EmitEvent(
+        sdk.NewEvent(
+            eventType,
+            sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
+            sdk.NewAttribute(types.AttributeKeyAck, fmt.Sprintf("%v", ack)),
+        ),
+    )
+
+    switch resp := ack.Response.(type) {
+    case *channeltypes.Acknowledgement_Result:
+        ctx.EventManager().EmitEvent(
+            sdk.NewEvent(
+                eventType,
+                sdk.NewAttribute(types.AttributeKeyAckSuccess, string(resp.Result)),
+            ),
+        )
+    case *channeltypes.Acknowledgement_Error:
+        ctx.EventManager().EmitEvent(
+            sdk.NewEvent(
+                eventType,
+                sdk.NewAttribute(types.AttributeKeyAckError, resp.Error),
+            ),
+        )
+    }
+
+    return nil
+}
+
+// OnTimeoutPacket implements the IBCModule interface
+func (am AppModule) OnTimeoutPacket(
+    ctx sdk.Context,
+    modulePacket channeltypes.Packet,
+    relayer sdk.AccAddress,
+) error {
+    var modulePacketData types.LeaderboardPacketData
+    if err := modulePacketData.Unmarshal(modulePacket.GetData()); err != nil {
+        return sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "cannot unmarshal packet data: %s", err.Error())
+    }
+
+    // Dispatch packet
+    switch packet := modulePacketData.Packet.(type) {
+    // this line is used by starport scaffolding # ibc/packet/module/timeout
+    default:
+        errMsg := fmt.Sprintf("unrecognized %s packet type: %T", types.ModuleName, packet)
+        return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
+    }
+
+    return nil
+}
+```
+
+</ExpansionPanel>
 
 Additionally, in the `module.go` file, add the following line (and the corresponding import):
 
@@ -94,28 +311,27 @@ var (
 
 Application modules are expected to verify versioning used during the channel handshake procedure.
 
-- `OnChanOpenInit` will verify that the relayer-chosen parameters
-  are valid and perform any custom `INIT` logic.
+- `OnChanOpenInit` will verify that the relayer-chosen parameters are valid and perform any custom `INIT` logic.
   It may return an error if the chosen parameters are invalid
   in which case the handshake is aborted.
-  If the provided version string is non-empty, `OnChanOpenInit` should return
-  the version string if valid or an error if the provided version is invalid.
-  **If the version string is empty, `OnChanOpenInit` is expected to
-  return a default version string representing the version(s)
-  it supports.**
-  If there is no default version string for the application,
+  If the provided version string is non-empty, `OnChanOpenInit` should return the version string if valid or an error if the provided version is invalid.
+  **If the version string is empty, `OnChanOpenInit` is expected to return a default version string representing the version(s)
+  it supports.** If there is no default version string for the application,
   it should return an error if the provided version is an empty string.
-- `OnChanOpenTry` will verify the relayer-chosen parameters along with the
-  counterparty-chosen version string and perform custom `TRY` logic.
-  If the relayer-chosen parameters
-  are invalid, the callback must return an error to abort the handshake.
-  If the counterparty-chosen version is not compatible with this module's
-  supported versions, the callback must return an error to abort the handshake.
-  If the versions are compatible, the try callback must select the final version
-  string and return it to core IBC.
+- `OnChanOpenTry` will verify the relayer-chosen parameters along with the counterparty-chosen version string and perform custom `TRY` logic. If the relayer-chosen parameters
+  are invalid, the callback must return an error to abort the handshake. If the counterparty-chosen version is not compatible with this module's supported versions, the callback must return an error to abort the handshake.
+  If the versions are compatible, the try callback must select the final version string and return it to core IBC.
   `OnChanOpenTry` may also perform custom initialization logic.
 - `OnChanOpenAck` will error if the counterparty selected version string
   is invalid and abort the handshake. It may also perform custom ACK logic.
+
+<HighlightBox type="info">
+
+Versions must be strings but can implement any versioning structure. Often a simple template is used that combines the name of the application and an iteration number, like `leaderboard-1`for the leaderboard IBC module.
+
+However, the version string can also include metadata to indicate attributes of the channel we are supporting, like applicable middleware and the underlying app version. An example of this is the version string for middleware, as we will discuss in a [later section](insert-link.com).
+
+</HighlightBox>
 
 #### Packet callbacks
 
@@ -130,9 +346,13 @@ We can now identify the packet callbacks in the packet flow by investigating the
 
 Modules **do not send packets through callbacks**, since the modules initiate the action of sending packets to the IBC module, as opposed to other parts of the packet flow where messages sent to the IBC module must trigger execution on the port-bound module through the use of callbacks. Thus, to send a packet a module simply needs to call `SendPacket` on the `IBCChannelKeeper`.
 
-::: warning
+<HighlightBox type="warning">
+
 In order to prevent modules from sending packets on channels they do not own, IBC expects modules to pass in the correct channel capability for the packet's source channel.
-:::
+
+More on capabilities in the [ibc-go docs](https://ibc.cosmos.network/main/ibc/overview.html#capabilities) or in the [ADR on the Dynamic Capabiliy Store](https://github.com/cosmos/cosmos-sdk/blob/6aaf83c894e917836a047b0399dd70a95fd2710d/docs/architecture/adr-003-dynamic-capability-store.md) for advanced readers.
+
+</HighlightBox>
 
 ##### Receiving packets
 
@@ -193,8 +413,7 @@ type Acknowledgement interface {
 
 The last step of the packet flow depends on whether we have a happy path when the packet has been successfully relayed or a timeout when something went wrong.
 
-After a module writes an acknowledgement, a relayer can relay back the acknowledgement to the sender module. The sender module can
-then process the acknowledgement using the `OnAcknowledgementPacket` callback. The contents of the acknowledgement is entirely up to the modules on the channel (just like the packet data); however, it may often contain information on whether the packet was successfully processed along with some additional data that could be useful for remediation if the packet processing failed.
+After a module writes an `Acknowledgement`, a relayer can relay it back to the sender module. The sender module can then process the acknowledgement using the `OnAcknowledgementPacket` callback. The contents of the `Acknowledgement` is entirely up to the modules on the channel (just like the packet data); however, it may often contain information on whether the packet was successfully processed along with some additional data that could be useful for remediation if the packet processing failed.
 
 Since the modules are responsible for agreeing on an encoding/decoding standard for packet data and acknowledgements, IBC will pass in the acknowledgements as `[]byte` to this callback. The callback is responsible for decoding the acknowledgement and processing it.
 
@@ -288,11 +507,11 @@ func (am AppModule) OnTimeoutPacket(
 
 Every IBC module binds to a port, with a unique `portID` which denotes the type of application.
 
-<Highlightbox type="note">
+<HighlightBox type="note">
 
 Note that `portID` does not refer to a certain numerical ID, like `localhost:8080` with a `portID` 8080. Rather it refers to the application module the port binds. For IBC Modules built with the Cosmos SDK, it defaults to the module's name and for Cosmwasm contracts it defaults to the contract address.
 
-</Highlightbox>
+</HighlightBox>
 
 Currently, ports must be bound on app initialization. In order to bind modules to their respective ports on initialization, the following needs to be implemented:
 
@@ -421,5 +640,5 @@ When looking at `app.go` we see some minor additions, the most prominent of whic
 
 #### Next up
 
-The step we skipped until now is to define packet and acknowledgement data. In the next section we will first scaffold the packet with Ignite CLI and agains compare the additions with a git diff.
+The step we skipped until now is to define packet and acknowledgement data. In the next section we will first scaffold the packet with Ignite CLI and agains compare the additions with a *git diff*.
 
