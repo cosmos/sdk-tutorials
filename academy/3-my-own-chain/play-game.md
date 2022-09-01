@@ -175,7 +175,7 @@ Take the following steps to replace the `TODO`:
     }
     ```
 
-    Fortunately you previously created [this helper](https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/full_game.go#L22-L32). Here you `panic` because if the game cannot be parsed, the cause may be database corruption.
+    Fortunately you previously created [this helper](https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/full_game.go#L22-L32). Here you `panic` because if the game cannot be parsed the cause may be database corruption.
 
 4. Is it the player's turn? Check using the rules file's own [`TurnIs`](https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/rules/checkers.go#L145-L147) function:
 
@@ -223,7 +223,7 @@ Take the following steps to replace the `TODO`:
     }, nil
     ```
 
-    The `Captured` and `Winner` information would be lost if you did not get it out of the function one way or another. More accurately, one would have to replay the transaction to discover the values. Better to be a good citizen and make this information easily accessible.
+    The `Captured` and `Winner` information would be lost if you did not get it out of the function one way or another. More accurately, one would have to replay the transaction to discover the values. It is best to make this information easily accessible.
 
 This completes the move process, facilitated by good preparation and the use of Ignite CLI.
 
@@ -345,7 +345,9 @@ $ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_
 
 </CodeGroup>
 
-If you restarted from the [previous section](./create-handling.md), there already is one game in storage and it is game waiting for Alice's move. If that is not the case, recreate a game via the CLI. Can Bob make a move? Look at the `play-move` message and which parameters it expects:
+If you restarted from the [previous section](./create-handling.md), there is already one game in storage and it is waiting for Alice's move. If that is not the case, recreate a game via the CLI. 
+
+Can Bob make a move? Look at the `play-move` message and which parameters it expects:
 
 <CodeGroup>
 
@@ -411,7 +413,7 @@ $ docker exec -it checkers checkersd tx checkers play-move 1 0 5 1 4 --from $bob
 
 </CodeGroup>
 
-After you accept to send the transaction, it should complain and the result includes:
+After you accept sending the transaction, it should complain with the result including:
 
 ```txt
 ...
@@ -561,7 +563,7 @@ r*r*r*r*
 
 Bob's piece moved down and right.
 
-When you are done with this exercise you can stop Ignite's `chain serve.`
+When you are done with this exercise you can stop Ignite's `chain serve`.
 
 ## Next up
 
