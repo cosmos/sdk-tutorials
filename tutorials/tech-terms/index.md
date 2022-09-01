@@ -85,71 +85,69 @@ The server also has a stub to interface with the remote procedure.
 
 <HighlightBox type="info">
 
-**Packing procedure parameters is called marshaling.**
+Packing procedure parameters is called **marshaling**.
 
-**Marshaling** is _the process of gathering data from one or more applications, putting data pieces into a message buffer, and organizing the data into a prescribed data format_.
+Specifically, this is _the process of gathering data from one or more applications, putting data pieces into a message buffer, and organizing the data into a prescribed data format_.
 
 Marshaling is vital to pass output parameters of a program written in one language as inputs to programs in a different language.
 
 </HighlightBox>
 
 3. The client stub then makes a system call to send the message.
-4. The client's local operating system (OS) sends the message from the client (machine) to the server (machine) through the corresponding transport layers.
-5. Then the server OS passes the incoming packets to the server stub.
-5. The server stub unpacks the message and with it the included procedure parameters - this is called unmarshaling.
-6. The server stub calls a server procedure and the procedure is executed.
-7. Once the procedure is finalized, the output is returned to the server stub.
-8. The server stub packs the return values into a message.
-9. The message is sent to the transport layer, which sends the message to the client's transport layer.
-10. The client stub unmarshals the return parameters.
+4. The client's local operating system (OS) sends the message from the client (machine A) to the server (machine B) through the corresponding transport layers.
+5. The server OS passes the incoming packets to the server stub.
+6. The server stub unpacks the message and with it the included procedure parameters - this is called **unmarshaling**.
+7. The server stub calls a server procedure and the procedure is executed.
+8. Once the procedure is finalized, the output is returned to the server stub.
+9. The server stub packs the return values into a message.
+10. The message is sent to the transport layer, which sends the message to the client's transport layer.
+11. The client stub unmarshals the return parameters.
 
 <HighlightBox type="note">
 
-In an Open Systems Interconnection (OSI) model, RPC touches the transport and application layer.
+In an Open Systems Interconnection (OSI) model, RPC touches the transport and application layers.
 
 The transport layer is tasked with the reliable sending and receiving of messages across a network. It requires error-checking mechanisms, data flow controls, data integrity assurance, congestion avoidance, multiplexing, and same order delivery.
 
-The application layer is tasked with ensuring effective communication between applications on different computer systems and networks. It is a component of an application controlling methods to communicate with other devices.
+The application layer is tasked with ensuring effective communication between applications on different computer systems and networks. It is an application component that controls methods of communication with other devices.
 
 </HighlightBox>
 
 ### RPC and Cosmos
 
-In Cosmos, RPCs are used by the command-line interface (CLI) among others to access chains. A node exposes several endpoints - gRPC, REST, and Tendermint endpoint.
+In Cosmos, RPCs are used by the command-line interface (CLI) among other things to access chains. A node exposes several endpoints - gRPC, REST, and Tendermint endpoint.
 
-The Tendermint RPC endpoint is an HTTP1.1 server exposed by Tendermint. The default port is `26657`. The gRPC server default port is `9090`, and the REST server default port is `1317`.
+The Tendermint RPC endpoint is an HTTP1.1 server. The default port is `26657`. The gRPC server default port is `9090`, and the REST server default port is `1317`.
 
 The Tendermint RPC is independent of the Cosmos SDK and can be configured. It uses HTTP `POST` and JSON-RPC 2.0 for data encoding.
 
 <HighlightBox type="tip">
 
-For more information on the Tendermint RPC, gRPC, and REST server, a closer look at the [Cosmos SDK documentation](https://docs.cosmos.network/master/core/grpc_rest.html) is recommended.
+For more information on the Tendermint RPC, gRPC, and the REST server, a closer look at the [Cosmos SDK documentation](https://docs.cosmos.network/master/core/grpc_rest.html) is recommended.
 
 </HighlightBox>
 
-Cosmos exposes both the Tendermint RPC and the Cosmos LCD.
-
 <HighlightBox type="info">
 
-For example, [CosmJS] uses RPC to implement a JSON-RPC API.
+Cosmos exposes both the Tendermint RPC and the Cosmos LCD. For example, [CosmJS] uses RPC to implement a JSON-RPC API.
 
 </HighlightBox>
 
 ## Protobuf
 
-**Protocol Buffers (Protobuf)** is an open-source, cross-platform data format developed by Google. It helps serliaize structured data and assists with program communication in networks or when storing data.
+**Protobuff** (for "Protocol Buffers") is an open-source, cross-platform data format developed by Google. It helps serliaize structured data and assists with program communication in networks or when storing data.
 
 <HighlightBox type="tip">
 
-If you want to get more accustumed to Protobuf, a look at the [official documentation](https://developers.google.com/protocol-buffers) helps dive deeper, and offers guides and tutorials.
+If you want to get more accustumed to Protobuf, a look at the [official documentation](https://developers.google.com/protocol-buffers) helps dive deeper and offers guides and tutorials.
 
 Also take a look at the [section on this platform on Protobuf](../academy/2-main-concepts/protobuf.md).
 
 </HighlightBox>
 
-In Cosmos, Protobuf is a data serialization method, which developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
+In Cosmos, Protobuf is a data serialization method which developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
 
-With Cosmos SDK v0.40, Protobuf began replacing Amino as the data encoding format of chain states and transactions. One of the reasons was that the encoding/decoding performance is better with Protobuf than Amino. In addition, the developer tooling is also better for Protobuf. Another benefit of switching to Protobuf is that the use of gRPC is fostered - Protobuf automatically defines and generates gRPC functions. Thus, developers no longer have to implement the same query for RPC, LCD, and CLI.
+With Cosmos SDK v0.40, Protobuf began replacing Amino as the data encoding format of chain states and transactions, in part because encoding/decoding performance is better with Protobuf than Amino. In addition, the developer tooling is also better for Protobuf. Another benefit of switching is that the use of gRPC is fostered, as Protobuf automatically defines and generates gRPC functions. Thus developers no longer have to implement the same query for RPC, LCD, and CLI.
 
 ## gRPC
 
@@ -165,7 +163,7 @@ gRPC uses HTTP2 for transport and Protocol Buffers (Protobuf) to encode data. gR
 
 ### gRPC and Cosmos
 
-In Cosmos, gRPCs are transmission control protocol (TCP) servers with Protobuf used for data encoding. Its default port is `9090`.
+In Cosmos, gRPCs are transmission control protocol (TCP) servers with Protobuf and are used for data encoding. Their default port is `9090`.
 
 <HighlightBox type="info">
 
@@ -177,7 +175,7 @@ In the Cosmos SDK, Protobuf is the main encoding library.
 
 <ExpansionPanel title="Encoding in the Cosmos SDK">
 
-A **wire encoding protocol** is _a protocol defining how data is transported from one point to another_. Wire protocols describe ways in which information is exchanged at the application level. Thus, it is a communication protocol of the application layer protocol and not a transport protocol. To define the data exchange, the wire protocol requires specific attributes regarding:
+A **wire encoding protocol** is _a protocol defining how data is transported from one point to another_. Wire protocols describe ways in which information is exchanged at the application level. Thus it is a communication protocol of the application layer protocol and not a transport protocol. To define the data exchange, the wire protocol requires specific attributes regarding:
 
 * Data types - units of data, message formats, etc.
 * Communication endpoints
@@ -185,14 +183,14 @@ A **wire encoding protocol** is _a protocol defining how data is transported fro
 
 Wire protocols can be text-based or binary protocols.
 
-In the Cosmos SDK, there are **two categories of binary wire encoding types**: client encoding and store encoding. Whereas client encoding deals with transaction processing and signing transactions, and store encoding tackles state-machine transactions and with it what is stored in the Merkle tree.
+In the Cosmos SDK, there are **two categories of binary wire encoding types**: client encoding, and store encoding. Whereas client encoding deals with transaction processing and signing transactions, store encoding tackles state-machine transactions and with it what is stored in the Merkle tree.
 
 The Cosmos SDK uses two binary wire encoding protocols:
 
 * **Amino:** an object encoding specification. Every Cosmos SDK module uses an Amino codec to serialize types and interfaces.
 * **[Protocol Buffers (Protobuf)](../academy/2-main-concepts/protobuf.md):** a data serialization method, which developers use to describe message formats.
 
-Due to several reasons, such as performance drawbacks and missing cross-language/client support, Protocol Buffers are used more and more over Amino.
+Due to reasons such as performance drawbacks and missing cross-language/client support, Protocol Buffers are used more and more over Amino.
 
 For more information on encoding in the Cosmos SDK, see the [Cosmos SDK documentation](https://docs.cosmos.network/master/core/encoding.html).
 
@@ -206,7 +204,7 @@ gRPC is supported across different software and hardware platforms. **gRPC-web**
 
 For more on gRPC-web, a closer look at the [gRPC repository](https://github.com/grpc/grpc-web) is recommended.
 
-To dive into developing with gRPC-web, the [documentation's quick start](https://grpc.io/docs/platforms/web/quickstart/) and [basics tutorials](https://grpc.io/docs/platforms/web/basics/) are very valuable sources.
+To dive into developing with gRPC-web, the [documentation's quick start](https://grpc.io/docs/platforms/web/quickstart/) and [basics tutorials](https://grpc.io/docs/platforms/web/basics/) are very valuable resources.
 
 </HighlightBox>
 
@@ -214,15 +212,15 @@ As with gRPC in general, gRPC-web uses HTTP2 with Protobuf for data encoding. Th
 
 <HighlightBox type="info">
 
-Secret.js is a JavaScript SDK to write applications interacting with the [Secret Network](https://scrt.network/), which uses gRPC-web.
+Secret.js is a JavaScript SDK used to write applications interacting with the [Secret Network](https://scrt.network/), which uses gRPC-web.
 
 </HighlightBox>
 
 ### gRPC-gateway 
 
-**gRPC-gateway** is a tool to expose gRPC endpoints as REST endpoints. gRPC-gateway helps provide APIs in gRPC and RESTful style; it reads gRPC service definitions and generates reverse-proxy servers that can translate a RESTful JSON API into gRPC. For each gRPC endpoint defined in a Protobuf `Query` service, the Cosmos SDK offers a corresponding REST endpoint.
+**gRPC-gateway** is a tool to expose gRPC endpoints as REST endpoints. It helps provide APIs in gRPC and RESTful style, and reads gRPC service definitions and generates reverse-proxy servers that can translate a RESTful JSON API into gRPC. For each gRPC endpoint defined in a Protobuf `Query` service, the Cosmos SDK offers a corresponding REST endpoint.
 
-gRPC-Gateway's aim is ["to provide that HTTP+JSON interface to your gRPC service"](https://grpc-ecosystem.github.io/grpc-gateway/docs/overview/background/). With it, developers can benefit from all the advantages of gRPC and at the same time, still provide a RESTful API - a very helpful tool, when, for example, you want to develop a web application but have browsers that do not support HTTP2. This can help ensure backwards compatibility, multi-language, and multi-client support.
+gRPC-Gateway's aim is ["to provide that HTTP+JSON interface to your gRPC service"](https://grpc-ecosystem.github.io/grpc-gateway/docs/overview/background/). With it, developers can benefit from all the advantages of gRPC and, at the same time, still provide a RESTful API - a very helpful tool when for example you want to develop a web application but have browsers that do not support HTTP2. This can help ensure backwards compatibility, and multi-language, multi-client support.
 
 <HighlightBox type="tip">
 
@@ -230,7 +228,7 @@ If you want to explore gRPC-Gateway, a closer look at the [gRPC-Gateway document
 
 </HighlightBox>
 
-In the Cosmos SDK, gRPC-Gateway provides an HTTP1.1 server with REST API and a base64-encoded Protobuf for data encoding; it exposes gRPC endpoints as REST endpoints. It routes on the server to gRPC and piggybacks off of LCD. Thus, it is also on port `1317`.
+In the Cosmos SDK, gRPC-Gateway provides an HTTP1.1 server with REST API and a base64-encoded Protobuf for data encoding; it exposes gRPC endpoints as REST endpoints. It routes on the server to gRPC and piggybacks off of LCD, thus it is also on port `1317`.
 
 For example, if you cannot use gRPC for your application because a browser does not support HTTP2, you can still use the Cosmos SDK. The SDK provides REST routes via gRPC-Gateway.
 
@@ -242,15 +240,15 @@ For example, if you cannot use gRPC for your application because a browser does 
 
 ## Amino
 
-Amino is an object encoding specification. In the Cosmos SDK, every module uses an **Amino codec** that _helps serialize types and interfaces_. Amino handles interfaces by prefixing bytes before concrete types.
+Amino is an object encoding specification. In the Cosmos SDK, every module uses an **Amino codec** that helps serialize types and interfaces. Amino handles interfaces by prefixing bytes before concrete types.
 
-Usually, the Amino codec types and interfaces are registered in the module's domain.
+Usually, Amino codec types and interfaces are registered in the module's domain.
 
 <HighlightBox type="info">
 
-A concrete type is a non-interface type which implements a registered interface. Types need to be registered when stored in interface type fiels, or a list with interface elements.
+A concrete type is a non-interface type which implements a registered interface. Types need to be registered when stored in interface type fields, or in a list with interface elements.
 
-As a best practice, upon initialization, make sure to:
+As a best practice, upon initialization make sure to:
 
 * Register the interfaces.
 * Implement concrete types.
@@ -270,9 +268,7 @@ For more on Amino specifications and implementation for Go, see the [Tendermint 
 
 <HighlightBox type="note">
 
-Amino is basically JSON with some modifications.
-
-For example, the JSON specification does not define numbers greater than 2^53, so instead strings are used in Amino when encoding a type greater than uint64/int64.
+Amino is basically JSON with some modifications. For example, the JSON specification does not define numbers greater than 2^53, so instead strings are used in Amino when encoding a type greater than uint64/int64.
 
 For more on the Amino types and their representation in JSON, see the [Secret.js documentation](https://github.com/scrtlabs/secret.js/blob/master/DEVELOPERS.md#amino-types-and-how-theyre-represented-in-json).
 
