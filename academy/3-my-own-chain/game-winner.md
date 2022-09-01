@@ -40,7 +40,7 @@ In this exercise a draw is not handled and it would perhaps require yet another 
 
 It is time to introduce another consideration. When a game has been won, no one else is going to play it. Its board will no longer be updated and is no longer used for any further decisions. In effect, the board becomes redundant. With a view to keeping a node's storage requirement low, you should delete the board's content but keep the rest of the game's information.
 
-If you wanted to keep a trace of the last state of the board, you could emit it with an event.
+To keep a trace of the last state of the board, you emit it with an event.
 
 ## New information
 
