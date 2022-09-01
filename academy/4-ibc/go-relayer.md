@@ -357,6 +357,12 @@ Start by cloning the repository:
 $ git clone https://github.com/b9lab/cosmos-ibc-docker.git
 ```
 
+<HighlightBox type="info">
+
+Make sure that you have installed [Docker Compose](https://docs.docker.com/compose/install/) and [Docker](https://docs.docker.com/get-docker/) before continuing.
+
+</HighlightBox>
+
 Then build the **images for the checkers blockchain**:
 
 ```
@@ -466,7 +472,7 @@ $ rly q bal checkersa
 $ rly q bal checkersb
 ```
 
-You can see that the tokens have a denom on the `checkersb` chain because they are not native `token`s of `checkersb`. Send the tokens back to the account on `checkersa` by replacing `$denom`:
+You can see that the tokens have a denom on the `checkersb` chain because they are not native `token`s of `checkersb`. Send the tokens back to the account on `checkersa` by replacing `$denom`(will be something like `ibc/D11F61D9F5E49A31348A7CD2DECE888D4DFEE1DADA343F7D8D4502BFA9496936`):
 
 ```sh
 $ rly tx transfer checkersb checkersa 10$denom $(rly chains addr checkersa) channel-0
