@@ -73,7 +73,7 @@ Run the commands, make the adjustments, and run some tests regarding game storag
 
 A good start to developing a checkers blockchain is to define the rule set of the game. There are many versions of the rules. Choose [a very simple set of basic rules](https://www.ducksters.com/games/checkers_rules.php) to avoid getting lost in the rules of checkers or the proper implementation of the board state.
 
-Use [a ready-made implementation](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go) with the additional rule that the board is 8x8, played on black cells and black plays first. This code will not need adjustments. Copy this rules file into a `rules` folder inside your module. Change its package from `checkers` to `rules`. You can do this by command-line:
+Use [a ready-made implementation](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go) with the additional rule that the board is 8x8, is played on black cells, and black plays first. This code will not need adjustments. Copy this rules file into a `rules` folder inside your module. Change its package from `checkers` to `rules`. You can do this by command-line:
 
 ```sh
 $ mkdir x/checkers/rules
@@ -91,11 +91,11 @@ Begin with the minimum game information needed to be stored:
 * **Black player.** A string, the serialized address.
 * **Red player.** A string, the serialized address.
 * **Board proper.** A string, the board as it is serialized by the _rules_ file.
-* **Player to play next.** A string, whose _turn_.
+* **Player to play next.** A string, specifying whose _turn_ it is.
 
 <HighlightBox type="remember">
 
-When you save strings, it makes it easier to understand what comes straight out of storage, at the expense of storage space. As an advanced consideration, you could store the same information in binary.
+When you save strings, it makes it easier to understand what comes straight out of storage, but at the expense of storage space. As an advanced consideration, you could store the same information in binary.
 
 </HighlightBox>
 
@@ -136,7 +136,7 @@ You can rely on Ignite CLI's assistance for both the counter and the game:
     In this command:
 
     * `nextId` is explicitly made to be a `uint`. If you left it to Ignite's default, it would be a `string`.
-    * You must add `--no-message`. If you omit it, Ignite CLI creates an `sdk.Msg` and an associated service, whose purpose is to overwrite your `SystemInfo` object. However, your `SystemInfo.NextId` must be controlled/incremented by the application and not by a player sending a value of their own choosing. Ignite CLI still creates convenient getters.
+    * You must add `--no-message`. If you omit it, Ignite CLI creates an `sdk.Msg` and an associated service whose purpose is to overwrite your `SystemInfo` object. However, your `SystemInfo.NextId` must be controlled/incremented by the application and not by a player sending a value of their own choosing. Ignite CLI still creates convenient getters.
 
 * For the game type, because you are storing games by ID, you need a map. Instruct Ignite CLI with `scaffold map` using the `StoredGame` name:
 
@@ -192,7 +192,7 @@ In the case of games, the store model lets you _narrow_ the search. For instance
 store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.StoredGameKeyPrefix))
 ```
 
-Gets the store to access any game if you have its index:
+This gets the store to access any game if you have its index:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/keeper/stored_game.go#L26-L28]
 b := store.Get(types.StoredGameKey(
@@ -432,7 +432,7 @@ Ignite CLI separates concerns into different files in the compilation of a servi
 
 ## Additional helper functions
 
-Your stored game `black` and `red` fields are only strings, but they represent `sdk.AccAddress` or even a game from the `rules` file. Therefore, you add helper functions to `StoredGame` to facilitate operations on them. Create a new file `x/checkers/types/full_game.go`.
+Your stored game's `black` and `red` fields are only strings, but they represent `sdk.AccAddress` or even a game from the `rules` file. Therefore, add helper functions to `StoredGame` to facilitate operations on them. Create a new file `x/checkers/types/full_game.go`.
 
 1. Get the game's black player:
 
@@ -461,7 +461,7 @@ Your stored game `black` and `red` fields are only strings, but they represent `
     }
     ```
 
-3. Add a function that checks a game validity:
+3. Add a function that checks a game's validity:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game.go#L34-L45]
     func (storedGame StoredGame) Validate() (err error) {
@@ -522,7 +522,7 @@ ok      github.com/alice/checkers/x/checkers/keeper     0.083s
 
 A good start is to test that the default genesis is created as expected. Ignite already created a unit test for the genesis in [`x/checkers/types/genesis_test.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go). It runs simple validity tests on different genesis examples.
 
-Take your time to understand how it works as this testing pattern is reused elsewhere. [Three cases](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L16-L53) are tested: [case 1](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L16-L20), [case 2](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L21-L39) and [case 3](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L40-L53). In each case, there is a [made-up genesis object](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L13), an [expected validity result](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L14) and [some text](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L12) to help the reader make sense of it. This [array of cases](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L11) is then run through the [test proper](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L56-L63).
+Take your time to understand how it works, as this testing pattern is reused elsewhere. [Three cases](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L16-L53) are tested: [case 1](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L16-L20), [case 2](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L21-L39), and [case 3](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L40-L53). In each case, there is a [made-up genesis object](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L13), an [expected validity result](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L14), and [some text](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L12) to help the reader make sense of it. This [array of cases](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L11) is then run through the [test proper](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/types/genesis_test.go#L56-L63).
 
 The unit test you add is more modest. Your test checks that the starting id on a default genesis is `1`:
 
