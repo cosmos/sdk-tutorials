@@ -173,7 +173,7 @@ The token denomination has been integrated into the relevant data structures. No
 
 ## Unit tests
 
-The point of the tests is to make sure that the token denomination is correctly used. So you ought to add a denomination [when creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L34) and add it to [all the stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L101) you check and all the [emitted events](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L127) you check. Choose `"stake"` for all first games and something else for additional games, for instance [`"coin"`](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L191) and [`"gold"`](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L232).
+The point of the tests is to make sure that the token denomination is correctly used. So you ought to add a denomination [when creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L34) and add it to [all the stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L101) you check and all the [emitted events](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L127) you check. Choose a `"stake"` for all first games and something else for additional games, for instance [`"coin"`](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L191) and [`"gold"`](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L232) respectively.
 
 Adjust your test helpers too:
 
@@ -423,7 +423,7 @@ Which mentions:
   type: transfer
 ```
 
-Which seems to indicate that Alice has been charged the wager. As a side node, `cosmos16xx0e457hm8mywdhxtmrar9t09z0mqt9x7srm3` is the checkers module's address. Confirm it:
+This seems to indicate that Alice has been charged the wager. As a side node, `cosmos16xx0e457hm8mywdhxtmrar9t09z0mqt9x7srm3` is the checkers module's address. Confirm it:
 
 <CodeGroup>
 
@@ -460,7 +460,7 @@ pagination:
 
 Correct. You made it possible to wager any token. That includes IBC tokens.
 
-While you are at it, check the checkers module's balance:
+Now check the checkers module's balance:
 
 <CodeGroup>
 
