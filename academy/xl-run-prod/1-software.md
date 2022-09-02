@@ -92,6 +92,7 @@ Imagine you are going to run it:
 
 * On regular office Linux boxes, target `linux/amd64`.
 * And on AWS EC2 instances with a Graviton processor, target `linux/arm64`.
+* Validator operators are going to generate their genesis transactions on Mac computers with Intel CPUs, target `darwin/amd64`.
 
 ## Build and package
 
@@ -104,6 +105,7 @@ First you need to locate your `func main()`. In fact, you may have more than one
 ```sh
 $ env GOOS=linux GOARCH=amd64 go build -o ./build/myproject-linux-amd64 ./cmd/myprojectd/main.go
 $ env GOOS=linux GOARCH=arm64 go build -o ./build/myproject-linux-arm64 ./cmd/myprojectd/main.go
+$ env GOOS=darwin GOARCH=amd64 go build -o ./build/myproject-darwin-amd64 ./cmd/myprojectd/main.go
 ```
 
 And that's it. If your computer is of the `linux/amd64` platform type, you can run:
@@ -139,7 +141,7 @@ You need to ajust the syntax of targets from `linux/amd64` to `linux:amd64`. Als
 
 ```sh
 $ ignite chain build \
-    --release.targets linux:amd64 --release.targets linux:arm64 \
+    --release.targets linux:amd64 --release.targets linux:arm64 --release.targets darwin:amd64 \
     --output ./release \
     --release
 ```
@@ -149,6 +151,7 @@ This creates zipped files and checksums:
 ```txt
 myproject_linux_amd64.tar.gz
 myproject_linux_arm64.tar.gz
+myproject_darwin_amd64.tar.gz
 release_checksum
 ```
 
@@ -156,7 +159,8 @@ Where the checksum file contains:
 
 ```txt
 60669d05ba56104d4d999e147c688b228efee93aad9829c1d8418e4ba318ea56 myproject_linux_amd64.tar.gz
-e841f3ef01e5318b07eb5b8183ec2fa139cfc66404477a46e75604a5dedd106f myproject_linux_arm64.tar.gz
+2fd5f17498dcc2697a276821a0fa4d24d5d80a924f7a092f2d07b7bdd6b661f8 myproject_linux_arm64.tar.gz
+67f760ac8964a4abe684ec272b34abb9658b103468a960fced12e4f148030a1e myproject_darwin_arm64.tar.gz
 ```
 
 If you want to confirm a match between the written checksum values and their calculated values, run:
@@ -170,6 +174,7 @@ Which should output:
 ```txt
 myproject_linux_amd64.tar.gz: OK
 myproject_linux_arm64.tar.gz: OK
+myproject_darwin_amd64.tar.gz: OK
 ```
 
 Note that the checksum is performed on the zipped file, not the executable itself. This is just as well as you can expect to send the zipped file around. When on the computer where it needs to run, you can unzip it with:
@@ -188,9 +193,10 @@ A [`Makefile`](https://tutorialedge.net/golang/makefiles-for-go-developers/) is 
 build-all:
 	GOOS=linux GOARCH=amd64 go build -o ./build/myproject-linux-amd64 ./cmd/myprojectd/main.go
 	GOOS=linux GOARCH=arm64 go build -o ./build/myproject-linux-arm64 ./cmd/myprojectd/main.go
+	GOOS=darwin GOARCH=amd64 go build -o ./build/myproject-darwin-amd64 ./cmd/myprojectd/main.go
 
 do-checksum:
-	cd build && sha256sum myproject-linux-amd64 myproject-linux-arm64 > myproject_checksum
+	cd build && sha256sum myproject-linux-amd64 myproject-linux-arm64 myproject-darwin-amd64 > myproject_checksum
 
 build-with-checksum: build-all do-checksum
 ```

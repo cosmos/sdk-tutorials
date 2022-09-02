@@ -25,9 +25,10 @@ Add a `Makefile` for the targets you want to support:
 build-all:
 	GOOS=linux GOARCH=amd64 go build -o ./build/checkersd-linux-amd64 ./cmd/checkersd/main.go
 	GOOS=linux GOARCH=arm64 go build -o ./build/checkersd-linux-arm64 ./cmd/checkersd/main.go
+	GOOS=darwin GOARCH=amd64 go build -o ./build/checkersd-darwin-amd64 ./cmd/checkersd/main.go
 
 do-checksum:
-	cd build && sha256sum checkersd-linux-amd64 checkersd-linux-arm64 > checkers_checksum
+	cd build && sha256sum checkersd-linux-amd64 checkersd-linux-arm64 checkersd-darwin-amd64 > checkers_checksum
 
 build-with-checksum: build-all do-checksum
 ```
@@ -89,7 +90,7 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i prod/prepare-n
 
 ### As a service
 
-Prepare it to run as a service. Create a `/etc/systemd/system/checkersd.service` file with:
+Prepare to run the executable as a service. Create a `/etc/systemd/system/checkersd.service` file with:
 
 ```ini
 [Unit]
@@ -108,6 +109,10 @@ WantedBy=multi-user.target
 ```
 
 ## Prepare keys
+
+This applies for validators. On the server, install the Tendermint KMS and get the consensus key. For instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
+
+On your management computer, select the keyring you want to use.
 
 ## Prepare the genesis
 
@@ -129,7 +134,7 @@ And makes it publicly downloadable.
 
 ### First distribution to validators
 
-Each validator node operator downloads this genesis and:
+Each validator node operator downloads this genesis into their management computer and:
 
 1. Confirms their address is present and has the right balance.
 2. Check their account number, say 12.
@@ -137,10 +142,14 @@ Each validator node operator downloads this genesis and:
 Then for their address, they need to create the genesis transaction:
 
 ```sh
-$ checkersd gentx cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq 3000000000upawn --account-number 12 --sequence 0 --chain-id checkers 
+$ checkersd gentx cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq \
+    3000000000upawn \
+	--account-number 12 --sequence 0 \
+	--chain-id checkers \
+	--pubkey '{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}'
 ```
 
-Then each validator sends the new file found in `/home/checkersuser/config/gentx` back to the operator that centralizes the creation of the genesis.
+Then each validator sends the new file found in `~/.checkers/config/gentx` back to the operator that centralizes the creation of the genesis.
 
 ### Addition of genesis transactions
 
@@ -154,7 +163,7 @@ And makes it publicly available for everyone including non-validators.
 
 ### Final distribution to operators
 
-All operators download this genesis and scrutinize it for confirmation that it conforms to their expectations. And put it in their own `/home/checkersuser/.checkers/config/genesis.json`.
+All operators download this genesis in their servers and scrutinize it for confirmation that it conforms to their expectations. And put it in their own `/home/checkersuser/.checkers/config/genesis.json`.
 
 ## Prepare the network
 

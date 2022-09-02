@@ -52,10 +52,12 @@ If you are planning on having more denominations than your staking token, this i
 
 Genesis accounts are accounts that exist in the genesis. They can be there because of a pre-sale of tokens, because of simple allotments or for any other reason. You need to include them in the genesis. The command for that is `add-genesis-account`. For each genesis account you need to collect their address. If these are third-parties, make sure in more ways than one that you get the right values, whether by email or other means.
 
-Here you can decide to allocate new tokens to your genesis accounts. There is no limit to the number of genesis accounts and the number of extra tokens in the genesis. If you introduce another token name `nflint`, then if Alice has the address `cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq` you could make her a genesis account with:
+Genesis accounts, like any account, have addresses. Your addresses have a prefix. Suppose you chose `cavedweller` for your blockchain, instead of the Cosmos Hub default of `cosmos`.
+
+Here you can decide to allocate new tokens to your genesis accounts. There is no limit to the number of genesis accounts and the number of extra tokens in the genesis. If you introduce another token named `nflint`, then if Alice has the address `cavedweller1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq` you could make her a genesis account with:
 
 ```sh
-$ ./myprojectd add-genesis-account cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq 5000000000stone 2000000000nflint
+$ ./myprojectd add-genesis-account cavedweller1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq 5000000000stone 2000000000nflint
 ```
 
 This credits her with 5 STONE and 2 FLINT. It has also given her an `account_number` in the genesis.
@@ -86,10 +88,16 @@ To each validator you send:
 * The `account_number` that was given to them when calling `add-genesis-account`.
 * A confirmation of the amount of tokens that you have credited them.
 
-Each validator then has to run a command of the following type. If this is Alice, she may run:
+Each validator operator then has to run a `gentx` command. This command is not to be run on the server. Instead it is run on the computer that hosts the _cold_ validator operator app key. Using the keyring of your choice. Collect the consensus public key from Tendermint KMS, for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
+
+If this is Alice, she may run:
 
 ```sh
-$ ./myprojectd gentx cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq 3000000000stone --account-number 0 --sequence 0 --chain-id stone-age 
+$ ./myprojectd gentx cavedweller1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq \
+    3000000000stone \
+    --account-number 0 --sequence 0 \
+    --chain-id stone-age \
+    --pubkey '{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}'
 ```
 
 <!--
@@ -117,11 +125,11 @@ This creates a JSON file on the validator's computer. Typically in `~/.myproject
           "max_change_rate": "0.010000000000000000"
         },
         "min_self_delegation": "1",
-        "delegator_address": "cosmos15fsdc94dykrztg3rc70zu53ecsta23m0n0hhmr",
-        "validator_address": "cosmosvaloper15fsdc94dykrztg3rc70zu53ecsta23m0kmrzhs",
+        "delegator_address": "cavedweller15fsdc94dykrztg3rc70zu53ecsta23m0n0hhmr",
+        "validator_address": "cavedwellervaloper15fsdc94dykrztg3rc70zu53ecsta23m0kmrzhs",
         "pubkey": {
           "@type": "/cosmos.crypto.ed25519.PubKey",
-          "key": "IDYUMStEbQ/QYfmIIsks8El7vwExIxUcKimUlMymjKk="
+          "key": "byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="
         },
         "value": {
           "denom": "stake",
@@ -181,7 +189,7 @@ https://blog.althea.net/making-a-cosmos-chain/
 
 ### Validators aggregation
 
-When a validator returns a signed transaction to you, you add the JSON in the `~/.myprojectd/config/gentx` folder along all the others.
+When a validator returns a signed transaction to you, you add the JSON in the `~/.myprojectd/config/gentx` folder along all the others in your server.
 
 When you have all of them, you add them all in the genesis like so:
 
@@ -189,7 +197,7 @@ When you have all of them, you add them all in the genesis like so:
 $ ./myprojectd collect-gentxs 
 ```
 
-In fact, if some validators are not cooperating fast enough, you can do it when you have enough of them to start a valid network. The late potential validators can always send transactions to the live network to become validators at a later date.
+In fact, if some validators are not cooperating fast enough, you can do the operation when you have received a reply from enough of them to start a valid network. The late potential validators can always send transactions to the live network to become validators at a later date.
 
 <!-- 
 Confirm whether doing it multiple times is idempotent.
@@ -202,7 +210,12 @@ This completes your creation of the genesis. What do you do with it?
 
 All your genesis validators and all other potential node operators need access to this file for them to be technically able to start the network. So put it on a public server. Picking a dedicated Github repository for all things _production_ is a good example.
 
-The relevant parties should also come to a consensus that this genesis represents the agreed initial state. Indeed, parties are being granted tokens and one may not accept being omitted. Parties are enroling to be validators. So there needs to be agreement on this file. This is the only _block_ that needs a social consensus on its content. All other blocks will be agreed on by technical PoS consensus.
+The relevant parties should also come to a consensus that this genesis represents the agreed initial state. Indeed:
+
+* Parties are being granted genesis tokens and one may not accept being omitted.
+* Parties are enroling to be validators. So there needs to be agreement on this file.
+ 
+This is the only _block_ that needs a social consensus on its content. All other blocks will be agreed on technically by the PoS consensus.
 
 ## Import
 

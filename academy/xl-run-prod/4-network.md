@@ -19,7 +19,7 @@ In this section, you concern yourself with Tendermint and the peer-to-peer netwo
 As a node operator, from the time of genesis or at any time in the future, and on each machine, you first run an `init` command to at least set up the folders and pick an ASCII-only moniker:
 
 ```sh
-$ ./myprojectd init lascaux
+$ ./myprojectd init stone-age
 ```
 
 Overwrite the genesis created again with the real agreed one. While you are at it, you can make it read-only:
@@ -39,12 +39,12 @@ Should return:
 
 ```txt
 addrbook.json
-app.toml
-client.toml
-config.toml <-- configuration for Tendermint
-genesis.json
-gentx
-node_key.json
+app.toml                <-- configuration for the app part of your blockchain
+client.toml             <-- configuration for the CLI client of the app
+config.toml             <-- configuration for Tendermint
+genesis.json            <-- the genesis for your blockchain
+gentx                   <-- folder that contains the genesis transactions before they are inserted
+node_key.json           <-- private key that uniquely identifies your node on the network
 priv_validator_key.json
 ```
 
@@ -94,7 +94,7 @@ The shorthand for this information is written and exchanged as such:
 ce1c54ea7a2c50b4b9f2f869faf8fa4d1a1cf43a@172.217.22.14:26656
 ```
 
-If you create a node for a network that is already running, you need to do the same above steps but you do not need to inform others of your parameters, because when you connect, your node will do anyway.
+If you create a node for a network that is already running, you need to do the same above steps but you do not need to inform others of your parameters, because when you connect, your node will do it anyway.
 
 As a side-note, your computer or local network may not allow other nodes to initiate a connection to your node on port `26656`. So it is a good idea to open this port in the firewall(s).
 
@@ -107,31 +107,15 @@ persistent_peers = "432d816d0a1648c5bc3f060bd28dea6ff13cb413@216.58.206.174:2665
 5735836cbaa747e013e47b11839db2c2990b918a@121.37.49.12:26656"
 ```
 
-If one of the operators informs you that they node behaves as a seed node, then you add it under:
-
-<CodeGroup>
-
-<CodeGroupItem title="Up to v0.34" active>
+If one of the operators informs you that their node behaves as a seed node, then you add it under:
 
 ```toml
 seeds = "432d816d0a1648c5bc3f060bd28dea6ff13cb413@216.58.206.174:26656"
 ```
 
-</CodeGroupItem>
+You can also take this opportunity to document the list of peers on your _production_ repository (the same that hosts the genesis file). Only list the addresses that are meant to be public, to mitigate the risks of DoS.
 
-<CodeGroupItem title="From v0.35">
-
-```toml
-bootstrap_peers = "432d816d0a1648c5bc3f060bd28dea6ff13cb413@216.58.206.174:26656"
-```
-
-</CodeGroupItem>
-
-</CodeGroup>
-
-You can also take this opportunity to document the list of peers on your _production_ repository (the same that hosts the genesis file).
-
-Note that you are not obliged to put all the known peers in your `persistent_peers`. You may well choose to put them only those you trust.
+Note that you are not obliged to put all the known peers in your `persistent_peers`. You may well choose to put there only those you trust.
 
 ## Further network configuration
 
@@ -141,10 +125,10 @@ If you change parameters in this file, you are not going to affect the ability o
 
 [Parameters in `config.toml`](https://docs.tendermint.com/v0.34/tendermint-core/configuration.html) can be divided into two broad categories:
 
-1. Network scoped. By changing them you change the posture of your node at the risk of disrupting the ability of other nodes to communicate with yours. Examples include `max_num_inbound_peers, and `handshake_timeout`.
+1. Network scoped. By changing them you change the posture of your node at the risk of disrupting the ability of other nodes to communicate with yours. Examples include `max_num_inbound_peers`, and `handshake_timeout`.
 2. Single node scoped. Which only matter to your node. Examples include `db_backend` and `log_level`.
 
-Among the network-scoped ones, a number of them, such as `timeout_prevote` and `timeout_precommit_delta`, deal with the intricacies of BFT. If you want to tweak them away from their defaults, you can search for more information. [Here](https://forum.cosmos.network/t/consensus-timeouts-explained/1421) is as good a start as another.
+Among the network-scoped ones, a number of them, such as `timeout_prevote` and `timeout_precommit_delta`, deal with the intricacies of BFT. If you want to tweak them away from their defaults, you can search for more information. [Here](https://forum.cosmos.network/t/consensus-timeouts-explained/1421) is as good a start as any other.
 
 Tangent to these parameters, you can find others in `~/.myprojectd/config/app.toml` that also relate to the network. For instance `minimum-gas-prices`, which you could set at `1nstone` for instance.
 

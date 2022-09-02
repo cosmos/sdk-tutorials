@@ -105,10 +105,14 @@ This is another reason why, when adding staking transactions in the genesis, you
 
 ## Further concerns
 
-Now that you have a running network, you may considering coming back to it, and try to:
+Now that you have a running network, you may consider coming back to it, and try to:
 
 * Make your life easier with [shell command completion](https://hub.cosmos.network/main/hub-tutorials/gaiad.html#shells-completion-scripts).
 * Add a node that [checks invariants](https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html#verify-mainnet).
 * Add [telemetry](https://docs.cosmos.network/main/core/telemetry.html) so as to keep an eye on your node(s).
 
 This is just an extract of the different customizations that are available to you. For more, you can peruse [this documentation](https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html).
+
+E2E:
+https://github.com/tendermint/tendermint/tree/main/test/e2e
+https://github.com/hyphacoop/cosmos-ansible/

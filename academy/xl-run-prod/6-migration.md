@@ -11,7 +11,7 @@ Your software is now running, that is good. Time passes and a software upgrade v
 
 You can do the whole process somewhat manually or use a tool to assist you do it smoothly and fast. This is not an unreasonable concern since, when you upgrade, all nodes are simultaneously down.
 
-The main tool is [Cosmovisor](https://docs.cosmos.network/main/run-node/cosmovisor.html). It is a wrapper executable that in turn launches your node as a subprocess and can be configured to stop at a certain point, of time or of block height.
+The main tool is [Cosmovisor](https://docs.cosmos.network/main/run-node/cosmovisor.html). It is a wrapper executable that in turn launches your node as a subprocess. It watches our for when the node stops and drops upgrade information.
 
 Before you upgrade your mainnet, it is good practice to upgrade your testnet(s). You can also use your mainnet state in a temporary testnet to test the computation needs of your state upgrade.
 
