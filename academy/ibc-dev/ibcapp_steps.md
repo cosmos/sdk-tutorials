@@ -40,7 +40,7 @@ modify x/leaderboard/types/genesis.go
 modify x/leaderboard/types/keys.go
 ```
 
-To have a more detailed view, we can now compare both versions with a git diff.
+To have a more detailed view, we can now compare both versions with a `git diff`.
 
 ## IBC application module requirements
 

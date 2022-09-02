@@ -18,9 +18,10 @@ For example, the checkers appchain you developed in the previous section, **is I
 
 </HiglightBox>
 
+
 ## Structure of the section
 
-In the section we will first investigate the code you have to add to make a module IBC-enabled. For this conceptual example we will build a simple chain from scratch with Ignite CLI. Ignite CLI provides the option to scaffold an IBC module, which does all of the hard work in terms of boilerplate code. Still, it makes sense to take a look at what exactly has changed. Therefore we will compare the code with a _git diff_ when scaffolding a chain with a regular module and when we scaffold an IBC module.
+In this section we will first investigate the code you have to add to make a module IBC-enabled. For this conceptual example we will build a simple chain from scratch with Ignite CLI. Ignite CLI provides the option to scaffold an IBC module, which does all of the hard work in terms of boilerplate code. Still, it makes sense to take a look at what exactly has changed. Therefore we will compare the code with a _git diff_ when scaffolding a chain with a regular module and when we scaffold an IBC module.
 
 A similar approach will be taken to check what Ignite CLI implements when scaffolding an IBC packet.
 
