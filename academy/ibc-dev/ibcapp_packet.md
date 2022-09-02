@@ -9,7 +9,7 @@ The documentation on how to define packet and acks in IBC can be found in [the I
 We are now going to be scaffolding the IBC packet data with Ignite CLI and compare once more with git diff:
 
 ```bash
-ignite scaffold packet ibcTopRank playerId rank score --ack playerId --module leaderboard
+$ ignite scaffold packet ibcTopRank playerId rank:uint score:uint --ack playerId --module leaderboard
 ```
 
 Note that the packet is called `ibcTopRank`, which includes the fields `playerId`, `rank` and `score`. Additionally we send back the `playerId` of the player who entered the top of the rankings through the `Acknowledgement`.
@@ -54,8 +54,8 @@ with `IbcTopRankPacketData`:
 // IbcTopRankPacketData defines a struct for the packet payload
 message IbcTopRankPacketData {
   string playerId = 1;
-  string rank = 2;
-  string score = 3;
+  uint64 rank = 2;
+  uint64 score = 3;
 }
 ```
 and the ack:
@@ -84,13 +84,18 @@ message MsgSendIbcTopRank {
   string channelID = 3;
   uint64 timeoutTimestamp = 4;
   string playerId = 5;
-  string rank = 6;
-  string score = 7;
+  uint64 rank = 6;
+  uint64 score = 7;
 }
 
 message MsgSendIbcTopRankResponse {
 }
 ```
+<HighlightBox type="info">
+
+The proto message `MsgSendIbcTopRank` includes the field `timeoutTimestamp` which is added by Ignite CLI when scaffolding an IBC packet. It is an IBC channel parameter that is important in IBC and Ignite CLI abstracts this away from the user to have to add this manually.
+
+</HighlightBox>
 
 **Note**: the proto definitions will be compiled into `types/packet.pb.go` and `types/tx.pb.go`.
 
@@ -100,7 +105,7 @@ Ignite CLI also creates CLI commands to send packets and adds them to the `clien
 
 We can thus send packets from the CLI with the following command:
 ```bash
-leaderboardd tx leaderboard send-ibcTopRank [portID] [channelID] [playerId] [rank] [score]
+$ leaderboardd tx leaderboard send-ibc-top-rank [portID] [channelID] [playerId] [rank] [score]
 ```
 
 ## SendPacket and Packet callback logic
@@ -109,11 +114,11 @@ When scaffolding an IBC module with Ignite CLI, we already saw the implementatio
 
 Additionally for the sending of a packet, a message server has been added that handles a SendPacket message, in this case `MsgSendIbcTopRank`.
 
-<Highlightbox type="tip">
+<HighlightBox type="tip">
 
 **NOTE**: IBC allows some freedom to the developers how to implement the custom logic, decoding and encoding packets and processing acks. The provided structure is but one example how to tackle this. Therefore it makes sense to focus on the general flow to handle user messages or IBC callbacks rather than the specific implementation by Ignite CLI.
 
-</Highlightbox>
+</HighlightBox>
 
 ### Sending packets
 
@@ -262,11 +267,11 @@ func (k Keeper) OnRecvIbcTopRankPacket(ctx sdk.Context, packet channeltypes.Pack
 	return packetAck, nil
 }
 ```
-<Highlightbox type="note">
+<HighlightBox type="note">
 
 Remember that the `OnRecvPacket` callback writes an acknowledgement as well (we cover the synchronous write ack case).
 
-</Highlightbox>
+</HighlightBox>
 
 ### Acknowledging packets
 
@@ -324,6 +329,37 @@ Next to the above, also some additions have been made to the `types` package. Th
 
 Again we invite the reader to check those out indepedently.
 
+<HighlightBox type="info">
+
+Events in IBC are important because relayers process events to check if there are packets (or acknowledgements) to relay.
+
+Ignite CLI has scaffolded some events for us in `x/leaderboard/types/events_ibc.go` for timeout and the `ibcTopRank` packet we've defined:
+
+```go
+package types
+
+// IBC events
+const (
+	EventTypeTimeout          = "timeout"
+	EventTypeIbcTopRankPacket = "ibcTopRank_packet"
+	// this line is used by starport scaffolding # ibc/packet/event
+
+	AttributeKeyAckSuccess = "success"
+	AttributeKeyAck        = "acknowledgement"
+	AttributeKeyAckError   = "error"
+)
+```
+Here we find both the `Event` type and the attributes it contains.
+
+These are not the only relevant events for IBC though, the others can be found in the core IBC source code:
+- [client events](https://github.com/cosmos/ibc-go/blob/main/modules/core/02-client/types/events.go)
+- [connection events](https://github.com/cosmos/ibc-go/blob/main/modules/core/03-connection/types/events.go)
+- [channel events](https://github.com/cosmos/ibc-go/blob/main/modules/core/04-channel/types/events.go)
+
+You can go back to the code we've examined so far to take note of the events emitted.
+
+</HighlightBox>
+
 ## Summary
 
 Let's summarize what we've accomplished so far:
@@ -336,10 +372,10 @@ Let's summarize what we've accomplished so far:
 
 **Note**: even though right now we've enabled the ability to send and receive packets, we've yet to implement application logic that will execute when we do. This is however out of the scope of this section. We invite the reader to follow the checkers blockchain extension tutorial [insert link].
 
-<Highlightbox type="info">
+<HighlightBox type="note">
 
 Ignite CLI by default when scaffolding a packet, will ensure the chain can act both as the sender or receiver of a packet. This is a symmetrical setup which makes sense for some applications, like ICS20.
 
 However, it's also possible to have an asymmetrical setup where one chain will always be the source or destination chain for a given packet, not both. In this case we can update the message server and packet callbacks to error when for example a chain receives a packet, when it' supposed to be exclusively the destination chain. Interchain accounts or ICS27 is an example of this asymmetrical situation as will the checkers extension tutorial.
 
-</Highlightbox>
+</HighlightBox>
