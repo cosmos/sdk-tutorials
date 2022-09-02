@@ -191,7 +191,7 @@ $ docker run --rm -v $(pwd):/checkers -w /checkers checkers_i make gen-protoc-ts
 
 </CodeGroup>
 
-You have created the [basic Protobuf objects](TODO) that will assist you with communicating with the blockchain.
+You have created the [basic Protobuf objects](https://github.com/cosmos/academy-checkers-ui/tree/stargate/src/types/generated/checkers) that will assist you with communicating with the blockchain.
 
 ## Prepare integration
 
