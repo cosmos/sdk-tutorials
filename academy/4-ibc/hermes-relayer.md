@@ -11,9 +11,9 @@ tag: deep-dive
 
 Before you dive into Go relayers, make sure to:
 
-* Install Go.
-* Install Docker.
-* Install Rust.
+- Install Go.
+- Install Docker.
+- Install Rust.
 
 For all installations, please see the [setup page](../3-my-own-chain/setup.md).
 
@@ -23,8 +23,8 @@ For all installations, please see the [setup page](../3-my-own-chain/setup.md).
 
 In this section, you will learn:
 
-* How to get started with the Hermes relayer
-* Basic Hermes relayer commands
+- How to get started with the Hermes relayer
+- Basic Hermes relayer commands
 
 </HighlightBox>
 
@@ -142,7 +142,7 @@ This powerful command bundles a lot of functionality where Hermes will be listen
 
 <HighlightBox type="note">
 
-When starting the Hermes relayer, it will assume that the channels you wish to relay over are set up. This will be the case if you want to start relaying on an existing *canonical* channel, meaning the offical and agreed-upon channel (for example, used for fungible token transfers).
+When starting the Hermes relayer, it will assume that the channels you wish to relay over are set up. This will be the case if you want to start relaying on an existing _canonical_ channel, meaning the offical and agreed-upon channel (for example, used for fungible token transfers).
 <br></br>
 This is perfectly possible and the right approach, given that creating a new channel would make assets relayed over it non-fungible with assets relayed over the canonical channel. Most tutorials will create new channels (and possibly clients and connections) as this provides more insight into the software. However, it is **important to note that you only need to create new channels if no canonical channel is present** (for example, for a newly deployed chain).
 
@@ -225,6 +225,8 @@ $ hermes health-check
 
 You should see that both chains are healthy. The demo includes a script to start the relayer but let us do the steps manually to practice a bit.
 
+### Manual testing - setting up relayer keys
+
 Now we need some keys to sign transaction. Let us populate the aliases:
 
 ```
@@ -253,6 +255,8 @@ Now check the balance of those accounts in another terminal:
 $ docker exec checkersa checkersd query bank balances cosmos14y0kdvznkssdtal2r60a8us266n0mm97r2xju8
 $ docker exec checkersb checkersd query bank balances cosmos173czeq76k0lh0m6zcz72yu6zj8c6d0tf294w5k
 ```
+
+### Manual testing - create a channel
 
 It is time to create a channel in order to send some tokens from `checkersa` to `checkersb`, in the relayer container, run:
 
@@ -302,7 +306,9 @@ This repeats the port binding `transfer`. Check that the channel is created agai
 $ hermes query channels --chain checkersa
 ```
 
-Do a transfer and use a channel that was created:
+### Manual testing - send IBC transfer
+
+Next up, send an IBC transfer using the second channel that was created:
 
 ```sh
 $ hermes tx ft-transfer --src-chain checkersa --dst-chain checkersb --src-port transfer --src-channel channel-1 --amount 100 --denom token --timeout-height-offset 1000
@@ -401,13 +407,13 @@ Send an acknowledgement to **checkersa**:
 $ hermes tx packet-ack --dst-chain checkersa --src-chain checkersb --src-port transfer --src-channel channel-1
 ```
 
-Check the balances again. A new denom should appear because of our recent channel. As an exercise, transfer the tokens back to **checkersa**.
+Check the balances again. A new denom should appear because of our recent transfer. As an exercise, transfer the tokens back to **checkersa**.
 
 If the you are finished with the tests, make sure to shut down your network with:
 
 ```
 $ docker-compose -f tokentransfer.yml --profile hermes down
-``
+```
 
 ## Next up
 

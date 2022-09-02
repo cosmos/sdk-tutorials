@@ -39,6 +39,7 @@ After the installation, you will get started with relaying on mainnet chains and
 ## Installation and getting started
 
 The repository offers a script to start two chains, which we need to test the relayer.
+
 <!-- TODO: once testing locally has been updated, change this text -->
 
 <HighlightBox type="note">
@@ -62,23 +63,10 @@ $ cd relay-go-test
 $ git clone https://github.com/cosmos/relayer.git
 ```
 
-3. Now clone the [Gaia](https://github.com/cosmos/gaia) repository into it:
+3. Now build the Go relayer:
 
 ```sh
-$ git clone https://github.com/cosmos/gaia.git
-```
-
-4. Build Gaia:
-
-```sh
-$ cd gaia
-$ make install
-```
-
-5. Now build the Go relayer:
-
-```sh
-$ cd ../relayer
+$ cd relayer
 $ make install
 ```
 
@@ -121,7 +109,7 @@ Available Commands:
 Flags:
   -d, --debug               debug output
   -h, --help                help for rly
-      --home string         set home directory (default "/Users/mini-me/.relayer")
+      --home string         set home directory (default "/Users/<userName>/.relayer")
       --log-format string   log output format (auto, logfmt, json, or console) (default "auto")
 
 Use "rly [command] --help" for more information about a command.
@@ -410,7 +398,7 @@ rly keys restore checkersb bob "define envelope federal move soul panel purity l
 
 ```
 
-The mnemonics are set in the checkers blockchains, take *alice* from `checkersa` and *bob* from `checkersb`.
+The mnemonics are set in the checkers blockchains, take _alice_ from `checkersa` and _bob_ from `checkersb`.
 
 Now check if the chains and path(s) are ready to relay over:
 
@@ -423,7 +411,7 @@ You can now connect the two chains with the `link` command.
 
 <HighlightBox type="note">
 
-If any clients, connections, and channels are not previously created, the `link` command will attempt to create the missing objects.
+The relayer will check if any clients, connections, and channels are present for the given path. If not, the `link` command will attempt to create the missing objects.
 
 </HighlightBox>
 
@@ -448,11 +436,11 @@ $ rly tx transfer checkersa checkersb 10token $(rly chains address checkersb) ch
 
 <HighlightBox type="note">
 
-The default key used for checkersa is *alice*.
+The default key used for checkersa is _alice_.
 
 </HighlightBox>
 
-`$(rly chains address checkersb)` will give the address of *bob*.
+`$(rly chains address checkersb)` will give the address of _bob_.
 
 You created the commitment proof on `checkersa` to send the packet, but no relaying has taken place yet.
 
