@@ -922,7 +922,7 @@ Do some more preparation:
     }
     ```
 
-    Note that due to the limits of the `canPlayGuiMove` function, you can only test the first move of a multi-move turn. That is, it uses only `positions[0]` and `positions[1]` of a potentially longer move. You cannot just test the next moves because it will be rejected for sure. For it to be pass the board would have to be updated first in the blockchain state.
+    Note that due to the limits of the `canPlayGuiMove` function, you can only test the first move of a multi-move turn. That is, it uses only `positions[0]` and `positions[1]` of a potentially longer move. You cannot just test the next moves anyway because it will be rejected for sure. For it to be passed, the board would have to be updated first in the blockchain state.
 
 2. Declare another extension method, this time for `CheckersSigningStargateClient`, to actually make the move with parameters as they are given in the GUI components:
 
