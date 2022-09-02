@@ -120,7 +120,7 @@ Given that you have already done a lot of preparatory work, what coding is invol
 
     `.Red`, and `.Black` need to be checked because they were copied as **strings**. You do not need to check `.Creator` because at this stage the message's signatures have been verified, and the creator is the signer.
 
-    Note that by returning an error, instead of calling `panic`, players cannot stall your blockchain. They can still spam but at a cost because they will still pay the gas fee up to this point.
+    Note that by returning an error, instead of calling `panic`, players cannot stall your blockchain. They can still spam but at a cost, because they will still pay the gas fee up to this point.
 
 5. Save the `StoredGame` object using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/stored_game.go#L10) function created by the `ignite scaffold map storedGame...` command:
 
