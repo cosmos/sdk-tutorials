@@ -323,11 +323,11 @@ Usage:
 Flags:
    -a, --account-number uint      The account number of the signing account (offline mode only)
    -b, --broadcast-mode string    Transaction broadcasting mode (sync|async|block) (default "sync")
-       --dry-run                  ignore the --gas flag and perform a simulation of a transaction, but don't broadcast it
+       --dry-run                  Ignore the --gas flag and perform a simulation of a transaction, but don't broadcast it
        --fee-account string       Fee account pays fees for the transaction instead of deducting from the signer
        --fees string              Fees to pay along with transaction; eg: 10uatom
        --from string              Name or address of private key with which to sign
-       --gas string               gas limit to set per-transaction; set to "auto" to calculate sufficient gas automatically (default 200000)
+       --gas string               Gas limit to set per-transaction; set to "auto" to calculate sufficient gas automatically (default 200000)
 ...
 ```
 
@@ -419,7 +419,7 @@ $ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from 
 
 <ExpansionPanel title="The command prints a lot and prompts you for confirmation">
 
-Note how it also prints the gas estimate.
+Note how it also prints the gas estimate:
 
 ```txt
 gas estimate: 43032
