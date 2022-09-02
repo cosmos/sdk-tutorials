@@ -412,9 +412,9 @@ Describe how to connect to the running blockchain in a `.env` file in your proje
 RPC_URL="http://localhost:26657"
 ```
 
-Alternatively, use whichever address connects to the RPC port of the Checkers blockchain. In particular if your chain runs in a Docker container, you may need to pass your actual IP address.
+Alternatively, use whichever address connects to the RPC port of the Checkers blockchain. If your chain runs in a Docker container, you may need to pass your actual IP address.
 
-This information will be picked up by the `dotenv` package. Now let TypeScript know about this in a `environment.d.ts` file:
+This information will be picked up by the `dotenv` package. Now let TypeScript know about this in an `environment.d.ts` file:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/environment.d.ts]
 declare global {
@@ -442,7 +442,7 @@ Also add your `tconfig.json` as you see fit:
 }
 ```
 
-And the line that describes how the tests are run:
+Add the line that describes how the tests are run:
 
 ```json [https://github.com/cosmos/academy-checkers-ui/blob/stargate/package.json#L7]
 {
@@ -456,7 +456,7 @@ And the line that describes how the tests are run:
 
 ### First tests
 
-Because the intention is to run these tests against a running chain, they cannot expect too much such as how many games have been created so far. Still, it is possible to test that at least the connection is made and queries pass through.
+Because the intention is to run these tests against a running chain they cannot expect too much, such as how many games have been created so far. Still, it is possible to at least test that the connection is made and queries pass through.
 
 Create `test/integration/system-info.ts`:
 
@@ -486,7 +486,7 @@ describe("SystemInfo", function () {
 })
 ```
 
-And one for stored games:
+And create one for stored games:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/test/integration/stored-game.ts]
 import { expect } from "chai"
@@ -529,9 +529,9 @@ describe("StoredGame", function () {
 })
 ```
 
-Note the forced import of `import _ from "../../environment"` to actively inform on the `string` type as opposed to `string | undefined`, and avoid any compilation error.
+Note the forced import of `import _ from "../../environment"`, to actively inform on the `string` type (as opposed to `string | undefined`) and avoid any compilation error.
 
-Launch your checkers chain. For instance, from the checkers folder, with:
+Launch your checkers chain, for instance from the checkers folder with:
 
 <!-- TODO create a Docker container that contains everything for a pure CosmJS dev to follow along -->
 
@@ -595,4 +595,4 @@ SystemInfo
 
 ## Next up
 
-Now that your types have been generated and that you have created your read-only Stargate client, you can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./cosmjs-messages.md).
+Now that your types have been generated and you have created your read-only Stargate client, you can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./cosmjs-messages.md).
