@@ -489,6 +489,12 @@ $ rly q bal checkersb
 
 You can see that the stake balances decreased on each chain because of the set fees in the configuration.
 
+If the you are finished with the tests, make sure to shut down your network with:
+
+```
+$ docker-compose -f tokentransfer.yml --profile go down
+```
+
 ## Next up
 
 After having taken a look at the Go relayer, it is now time to turn to the Hermes relayer in the [next section](./hermes-relayer.md).

@@ -328,13 +328,48 @@ First, query packet commitments on **checkersa**:
 $ hermes query packet commitments --chain checkersa --port transfer --channel channel-1
 ```
 
-You can see that there is one packet.
+You can see that there is one packet:
+
+```
+SUCCESS PacketSeqs {
+    height: Height {
+        revision: 0,
+        height: 2382,
+    },
+    seqs: [
+        Sequence(
+            1,
+        ),
+    ],
+}
+```
 
 You can also query for unreceived packets:
 
 ```sh
 $ hermes query packet pending --chain checkersb --port transfer --channel channel-1
 ```
+
+the output should be similar to:
+
+```
+UCCESS Summary {
+    src: PendingPackets {
+        unreceived_packets: [],
+        unreceived_acks: [],
+    },
+    dst: PendingPackets {
+        unreceived_packets: [
+            Sequence(
+                1,
+            ),
+        ],
+        unreceived_acks: [],
+    },
+}
+```
+
+where you can observe an unreceived packet.
 
 <HighlightBox type="note">
 
@@ -350,6 +385,16 @@ Now submit the `RecvPacket` message to **checkersb**:
 $ hermes tx packet-recv --dst-chain checkersb --src-chain checkersa --src-port transfer --src-channel channel-1
 ```
 
+In case of success, you will see an output like:
+
+```
+SUCCESS [
+    SendPacket(
+        SendPacket - seq:1, path:channel-1/transfer->channel-1/transfer, toh:0-3368, tos:Timestamp(NoTimestamp)),
+    ),
+]
+```
+
 Send an acknowledgement to **checkersa**:
 
 ```sh
@@ -357,6 +402,12 @@ $ hermes tx packet-ack --dst-chain checkersa --src-chain checkersb --src-port tr
 ```
 
 Check the balances again. A new denom should appear because of our recent channel. As an exercise, transfer the tokens back to **checkersa**.
+
+If the you are finished with the tests, make sure to shut down your network with:
+
+```
+$ docker-compose -f tokentransfer.yml --profile hermes down
+``
 
 ## Next up
 
