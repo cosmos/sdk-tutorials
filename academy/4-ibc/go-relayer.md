@@ -343,48 +343,91 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
 
 ## Testing locally
 
-<!-- TODO: Anil upgrades this section to use ibc-docker repo setup -->
-
-Besides running a relayer between mainnet chains, you can also run a relayer between public testnet chains or locally run chains to do some testing of particular scenarios. Here you will use two local `gaia` chains and run a relayer between them. This is based on the demo in the [Go relayer repository](https://github.com/cosmos/relayer/blob/main/docs/demo.md).
-
-Make sure you are in the `relayer` folder. Now use the offered script to spin up two chains, **ibc-0** and **ibc-1**, which will run in the background.
+Besides running a relayer between mainnet chains, you can also run a relayer between public testnet chains or run chains locally to do some testing of particular scenarios. Here you will use a `docker-compose` network with two local `checkers` chains and a relayer between them.
 
 <HighlightBox type="note">
 
-This script will remove the `~/.relayer` folder with your current config. Copy it to another folder if you want to keep your current config.
+The example presented is based on the demo in the [b9lab/cosmos-ibc-docker](https://github.com/b9lab/cosmos-ibc-docker/tree/main/tokentransfer) repository.
 
 </HighlightBox>
 
-To stop, use `killall gaiad`:
+Start by cloning the repository:
 
-```sh
-$ ./scripts/two-chainz
+```
+$ git clone https://github.com/b9lab/cosmos-ibc-docker.git
 ```
 
-The relayer `--home` directory is now ready for normal operations between **ibc-0** and **ibc-1**.
+<HighlightBox type="info">
 
-It is helpful to examine the folder structure of the relayer:
+Make sure that you have installed [Docker Compose](https://docs.docker.com/compose/install/) and [Docker](https://docs.docker.com/get-docker/) before continuing.
 
-```sh
-$ tree ~/.relayer
+</HighlightBox>
+
+Then build the **images for the checkers blockchain**:
+
+```
+$ cd cosmos-ibc-docker/tokentransfer/checkers
+$ ./build-images.sh
 ```
 
-There you can see the addresses of the users created by the script.
+You can build the relayer image manually or just start the network via `docker-compose` and let it build the missing image for the `ibc-go` relayer:
 
-Check the relayer configuration with:
-
-```sh
-$ cat ~/.relayer/config/config.yaml
+```
+$ cd cosmos-ibc-docker/tokentransfer
+$ docker-compose -f tokentransfer.yml --profile go up
 ```
 
-Now see if the chains and path(s) are ready to relay over:
+Observe the output of `docker-compose` until the chains are ready - the chains will take some time.
+
+When the chains are ready, start the relayer process. In a new terminal, jump into the relayer container:
+
+```
+$ docker exec -it relayer bash
+```
+
+The demo includes a script to start the relayer but let us do the steps manually to practice a bit.
+
+First, you need to initialize the configuration:
+
+```
+$ rly config init
+$ rly chains add-dir configs
+$ rly paths add-dir paths
+```
+
+<HighlightBox type="info">
+
+You can find the `configs` and `paths` folders in the folder `cosmos-ibc-docker/tokentransfer/relayer_go`. In the `checkersa.json` and `checkersb.json`, you can find the endpoints of the chains and a default key alias.
+
+</HighlightBox>
+
+Populate the aliases:
+
+```
+rly keys restore checkersa alice "cinnamon legend sword giant master simple visit action level ancient day rubber pigeon filter garment hockey stay water crawl omit airport venture toilet oppose"
+
+rly keys restore checkersb bob "define envelope federal move soul panel purity language memory illegal little twin borrow menu mule vote alter bright must deal sight muscle weather rug"
+
+```
+
+The mnemonics are set in the checkers blockchains, take *alice* from `checkersa` and *bob* from `checkersb`.
+
+Now check if the chains and path(s) are ready to relay over:
 
 ```sh
 $ rly chains list
 $ rly paths list
 ```
 
-You can now connect the two chains with the `link` command. Note that if any clients, connections, and channels were not previously created (which would have shown up in the previous status check) the `link` command will attempt to create the missing objects. You can also check `rly tx -h` to find out the separate commands for these actions.
+You can now connect the two chains with the `link` command.
+
+<HighlightBox type="note">
+
+If any clients, connections, and channels are not previously created, the `link` command will attempt to create the missing objects.
+
+</HighlightBox>
+
+You can also check `rly tx -h` to find out the separate commands for these actions.
 
 ```sh
 $ rly tx link demo -d -t 3s
@@ -393,50 +436,64 @@ $ rly tx link demo -d -t 3s
 Next, check the token balances on both chains:
 
 ```sh
-$ rly q balance ibc-0
-$ rly q bal ibc-1
+$ rly q balance checkersa
+$ rly q bal checkersb
 ```
 
 Finally, send some tokens between the chains:
 
 ```sh
-$ rly tx transfer ibc-0 ibc-1 1000000samoleans $(rly chains address ibc-1) channel-0
+$ rly tx transfer checkersa checkersb 10token $(rly chains address checkersb) channel-0
 ```
 
-Now you have created the commitment proof on ibc-0 to send the packet, but no relaying has taken place yet.
+<HighlightBox type="note">
+
+The default key used for checkersa is *alice*.
+
+</HighlightBox>
+
+`$(rly chains address checkersb)` will give the address of *bob*.
+
+You created the commitment proof on `checkersa` to send the packet, but no relaying has taken place yet.
 
 ### Relay packets/acknowledgments
 
-Running `rly start demo` essentially loops these two commands:
+Running `rly start demo` would essentially loop these two commands:
 
 ```sh
 $ rly tx relay-pkts demo channel-0 -d
 $ rly tx relay-acks demo channel-0 -d
 ```
 
-Check that the transfer has completed:
+Check that the transfer was completed:
 
 ```sh
-$ rly q bal ibc-0
-$ rly q bal ibc-1
+$ rly q bal checkersa
+$ rly q bal checkersb
 ```
 
-Send the tokens back to the account on ibc-0:
+You can see that the tokens have a denom on the `checkersb` chain because they are not native `token`s of `checkersb`. Send the tokens back to the account on `checkersa` by replacing `$denom`(will be something like `ibc/D11F61D9F5E49A31348A7CD2DECE888D4DFEE1DADA343F7D8D4502BFA9496936`):
 
 ```sh
-$ rly tx transfer ibc-1 ibc-0 1000000ibc/27A6394C3F9FF9C9DCF5DFFADF9BB5FE9A37C7E92B006199894CF1824DF9AC7C $(rly chains addr ibc-0) channel-0
+$ rly tx transfer checkersb checkersa 10$denom $(rly chains addr checkersa) channel-0
 $ rly tx relay-pkts demo channel-0 -d
 $ rly tx relay-acks demo channel-0 -d
 ```
 
-Check that the return trip has completed:
+Check that the return trip was completed:
 
 ```sh
-$ rly q bal ibc-0
-$ rly q bal ibc-1
+$ rly q bal checkersa
+$ rly q bal checkersb
 ```
 
 You can see that the stake balances decreased on each chain because of the set fees in the configuration.
+
+If the you are finished with the tests, make sure to shut down your network with:
+
+```
+$ docker-compose -f tokentransfer.yml --profile go down
+```
 
 ## Next up
 

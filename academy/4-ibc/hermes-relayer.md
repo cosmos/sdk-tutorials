@@ -148,49 +148,41 @@ This is perfectly possible and the right approach, given that creating a new cha
 
 </HighlightBox>
 
-## E2E Testing
-
-<!-- TODO: Anil upgrades this section to use ibc-docker repo setup -->
+## Testing locally
 
 The Hermes documentation provides a [guided tutorial](https://hermes.informal.systems/tutorials/local-chains/index.html) to start relaying between two local `gaia` chains. Furthermore, demos are available that spin up a Hermes relayer between two [Ignite CLI](https://docs.ignite.com/) chains, like [this one](https://github.com/informalsystems/hermes-hackatom-demo). Be sure to check those out.
 
-Here you will take a somewhat different approach, and set up a flow for end-to-end (E2E) testing where you set up Docker containers for 2 chain instances and a relayer instance. You will refer to the automated testing file and also do some manual testing on the Docker images.
+Here you will use a `docker-compose` network with two local `checkers` chains and a relayer between them.
 
-### Installation & Building Docker Images
+<HighlightBox type="note">
 
-Clone the [Hermes repository](https://github.com/informalsystems/ibc-rs) in a new folder. It contains a folder for [end-to-end (E2E) testing](https://github.com/informalsystems/ibc-rs/tree/master/ci). This helps you deploy two chains and test the relayer. It also contains a Docker Compose file, which spins up two blockchain nodes and a relayer.
-
-<HighlightBox type="info">
-
-Make sure that you have installed [Docker Compose](https://docs.docker.com/compose/install/) and [Docker](https://docs.docker.com/get-docker/) before continuing.
+The example presented is based on the demo in the [b9lab/cosmos-ibc-docker](https://github.com/b9lab/cosmos-ibc-docker/tree/main/tokentransfer) repository.
 
 </HighlightBox>
 
-The test needs you to build the Docker images from the Docker files. The Docker images run a Linux on **x86_64**. You can build Hermes with [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) from the repository for the target `x86_64-unknown-linux-gnu`, or you can [download](https://github.com/informalsystems/ibc-rs/releases) a release version into the repository folder (make sure the binary is present in the repository folder).
+Start by cloning the repository:
 
-After you clone the repository and download a release version of Hermes for **x86_64**, go into the folder and run:
-
-```sh
-$ docker-compose -f ci/docker-compose-gaia-current.yml build relayer
+```
+$ git clone https://github.com/b9lab/cosmos-ibc-docker.git
 ```
 
-This builds the relayer docker image. Start the Docker Compose network with two chains and a relayer:
+Then build the **images for the checkers blockchain** if you did not already do so in the [Go Relayer](./go-relayer.md) section:
 
-```sh
-$ docker-compose -f ci/docker-compose-gaia-current.yml up -d ibc-0 ibc-1 relayer
+```
+$ cd cosmos-ibc-docker/tokentransfer/checkers
+$ ./build-images.sh
 ```
 
-Check that everything is working as expected:
+You can build the relayer image manually or just start the network via `docker-compose` and let it build the missing image for the `hermes` relayer:
 
-```sh
-$ docker exec relayer /bin/sh -c /relayer/e2e.sh
+```
+$ cd cosmos-ibc-docker/tokentransfer
+$ docker-compose -f tokentransfer.yml --profile hermes up
 ```
 
-The [`e2e.sh`](https://github.com/informalsystems/ibc-rs/blob/master/ci/e2e.sh) uses [`run.py`](https://github.com/informalsystems/ibc-rs/blob/master/e2e/run.py) to automatically run a couple of tests.
+Observe the output of `docker-compose` until the chains are ready - the chains will take some time.
 
-### Hermes CLI Manual Testing
-
-Go into the relayer container and run a bash:
+If the chains are ready, go into the relayer container and run a bash:
 
 ```sh
 $ docker exec -it relayer bash
@@ -200,12 +192,6 @@ First, check the Hermes version with:
 
 ```sh
 $ hermes version
-```
-
-Which returns:
-
-```
-hermes 0.14.0+460eb0c
 ```
 
 <HighlightBox type="note">
@@ -220,114 +206,106 @@ You can check the CLI commands with `hermes -h`. The Hermes CLI offers help for 
 
 </HighlightBox>
 
-Check the default configuration:
+You can find the configuration in `cosmos-ibc-docker/tokentransfer/relayer_hermes/config.toml`.
 
-```sh
-$ cat simple_config.toml
-```
-
-In the `[[chains]]` section of the `simple_config.toml`, you can find the configuration for two chains, **ibc-0** and **ibc-1**. In it, the chain IDs need to be specified, as well as the RPC, GRPC, and WebSocket addresses.
+You will see two `[[chains]]` sections in the `config.toml`. First one includes comments about configuration.
+Note that the chain IDs need to be specified, as well as the RPC, GRPC, and WebSocket addresses.
 
 Do a validation check on the configuration file:
 
 ```sh
-$ hermes -c simple_config.toml config validate
+$ hermes config validate
 ```
 
 Next do a health check:
 
 ```sh
-$ hermes -c simple_config.toml health-check
+$ hermes health-check
 ```
 
-You should see that both chains are healthy. The E2E test will create clients, connections, and a channel.
+You should see that both chains are healthy. The demo includes a script to start the relayer but let us do the steps manually to practice a bit.
 
-To query the clients for the chain **ibc-0**, run:
+Now we need some keys to sign transaction. Let us populate the aliases:
+
+```
+$ hermes keys add --chain checkersa --mnemonic-file "alice.json"
+$ hermes keys add --chain checkersb --mnemonic-file "bob.json"
+```
+
+Get the user addresses for the **checkersa** chain:
 
 ```sh
-$ hermes -c simple_config.toml query clients ibc-0
+$ hermes keys list --chain checkersa
 ```
 
-There should be one Tendermint client for the chain **ibc-1**.
-
-Query the connections for **ibc-0**:
+Now get the user addresses for the **checkersb** chain:
 
 ```sh
-$ hermes -c simple_config.toml query connections ibc-0
+$ hermes keys list --chain checkersb
 ```
 
-There should be two connections, both established between **ibc-0** and **ibc-1**.
+In the `config.toml` the default user key is set to `alice` for `checkersa` and `bob` for `checkersb`, so you do not need to specify a user if you want to sign a transaction with those.
 
-Query the channels for **ibc-0**:
+Now check the balance of those accounts in another terminal:
 
 ```sh
-$ hermes -c simple_config.toml query channels ibc-0
+# use your local terminal
+$ docker exec checkersa checkersd query bank balances cosmos14y0kdvznkssdtal2r60a8us266n0mm97r2xju8
+$ docker exec checkersb checkersd query bank balances cosmos173czeq76k0lh0m6zcz72yu6zj8c6d0tf294w5k
 ```
 
-You should see two channels and the port binding transfer. All this is part of the E2E testing. You can redo some steps to better understand the CLI.
+It is time to create a channel in order to send some tokens from `checkersa` to `checkersb`, in the relayer container, run:
+
+```
+$ hermes create channel --a-chain checkersa --b-chain checkersb --a-port transfer --b-port transfer --new-client-connection
+```
+
+To query the clients for the chain **checkersa**, run:
+
+```sh
+$ hermes query clients --host-chain checkersa
+```
+
+There should be one Tendermint client for the chain **checkersb**.
+
+Query the connections for **checkersa**:
+
+```sh
+$ hermes query connections --chain checkersa
+```
+
+There should be one connection established between **checkersa** and **checkersb**.
+
+Query the channels for **checkersa**:
+
+```sh
+$ hermes query channels --chain checkersa
+```
+
+You should see one channel and the port binding transfer. All this is part of the `create channel` command. It will create a client, a connection and a channel as well as a binding to a port. You can redo some steps to better understand the CLI.
 
 Create another connection for the both chains:
 
 ```sh
-$ hermes -c simple_config.toml create connection ibc-0 ibc-1
+$ hermes create connection --a-chain checkersa --b-chain checkersb
 ```
 
-In the output of this command you receive the `connection_id`s for both chains. Use the `connection_id` for the **ibc-0** chain and create a channel:
+In the output of this command you receive the `connection_id`s for both chains. Use the `connection_id` for the **checkersa** chain and create a channel:
 
 ```sh
-$ hermes -c simple_config.toml create channel --port-a transfer --port-b transfer ibc-0 connection-2
+$ hermes create channel --a-port transfer --b-port transfer --a-chain checkersa --a-connection connection-1
 ```
 
 This repeats the port binding `transfer`. Check that the channel is created again with:
 
 ```sh
-$ hermes -c simple_config.toml query channels ibc-0
+$ hermes query channels --chain checkersa
 ```
 
-The E2E testing already created some accounts (via `keys add testkey --output json`) for the tests and added them to the Hermes relayer via:
+Do a transfer and use a channel that was created:
 
 ```sh
-$ hermes keys add ibc-0 -f user_seed_ibc-0.json
-$ hermes keys add ibc-1 -f user_seed_ibc-1.json
-$ hermes keys add ibc-0 -f user2_seed_ibc-0.json
-$ hermes keys add ibc-1 -f user2_seed_ibc-1.json
-```
-
-Get the user addresses for the **ibc-0** chain:
-
-```sh
-$ hermes -c simple_config.toml keys list ibc-0
-```
-
-Now get the user addresses for the **ibc-1** chain:
-
-```sh
-$ hermes -c simple_config.toml keys list ibc-1
-```
-
-In the `simple_confing.toml` the default user key is set to `testkey`, so you do not need to specify a user if you want to sign a transaction with `testkey`.
-
-Now check the balance of those accounts on the chain **ibc-0**. Replace the `$testkey` with the addresses you get in your test:
-
-```sh
-# use your local terminal
-$ docker exec ibc-0 gaiad query bank balances $testkey
-```
-
-Repeat this check for **ibc-1** with the corresponding address.
-
-These accounts keep some **samoleans**. You will also see another denom because of the E2E test.
-
-<HighlightBox type="tip">
-
-Please see the [fungible token transfers](./token-transfer.md) section for more information on the IBC denom.
-
-</HighlightBox>
-
-Do a transfer and use the channel that was created:
-
-```sh
-$ hermes -c simple_config.toml tx raw ft-transfer ibc-1 ibc-0 transfer channel-2 100 --timeout-height-offset 1000
+$ hermes tx ft-transfer --src-chain checkersa --dst-chain checkersb --src-port transfer --src-channel channel-1 --amount 100 --denom token --timeout-height-offset 1000
 ```
 
 In case you do not want to test with the default user, you can specify the sender with a `-k` flag and the receiver on the other chain with a `-r` flag.
@@ -337,48 +315,99 @@ In case you do not want to test with the default user, you can specify the sende
 Usually the Hermes relayer automatically relays packets between the chains if it runs via:
 
 ```sh
-$ hermes -c simple_config.toml start
+$ hermes start
 ```
 
 In this case, we want to relay the transfer transaction by hand.
 
 </HighlightBox>
 
-First, query packet commitments on **ibc-0**:
+First, query packet commitments on **checkersa**:
 
 ```sh
-$ hermes -c simple_config.toml query packet commitments ibc-0 transfer channel-2
+$ hermes query packet commitments --chain checkersa --port transfer --channel channel-1
 ```
 
-You can see that there is one packet.
+You can see that there is one packet:
+
+```
+SUCCESS PacketSeqs {
+    height: Height {
+        revision: 0,
+        height: 2382,
+    },
+    seqs: [
+        Sequence(
+            1,
+        ),
+    ],
+}
+```
 
 You can also query for unreceived packets:
 
 ```sh
-$ hermes -c simple_config.toml query packet unreceived-packets ibc-1 transfer channel-5
+$ hermes query packet pending --chain checkersb --port transfer --channel channel-1
 ```
+
+the output should be similar to:
+
+```
+UCCESS Summary {
+    src: PendingPackets {
+        unreceived_packets: [],
+        unreceived_acks: [],
+    },
+    dst: PendingPackets {
+        unreceived_packets: [
+            Sequence(
+                1,
+            ),
+        ],
+        unreceived_acks: [],
+    },
+}
+```
+
+where you can observe an unreceived packet.
 
 <HighlightBox type="note">
 
-You can get the `connection_id` and `channel_id` for **ibc-1** in the output of the `hermes create connection` and `hermes create channel` commands.
+You can get the `connection_id` and `channel_id` for **checkersb** in the output of the `hermes create connection` and `hermes create channel` commands.
 
 </HighlightBox>
 
-If you check the balances again, you should only see a change for **ibc-0**. You should see no change in the balance of `testkey` on **ibc-1** because the transfer is initiated but it is not relayed yet.
+If you check the balances again, you should only see a change for **checkersa**. You should see no change in the balance of `bob` on **checkersb** because the transfer is initiated but it is not relayed yet.
 
-Now submit the `RecvPacket` message to **ibc-1**:
-
-```sh
-$ hermes -c simple_config.toml tx raw packet-recv ibc-1 ibc-0 transfer channel-2
-```
-
-Send an acknowledgement to **ibc-0**:
+Now submit the `RecvPacket` message to **checkersb**:
 
 ```sh
-$ hermes -c simple_config.toml tx raw packet-ack ibc-0 ibc-1 transfer channel-5
+$ hermes tx packet-recv --dst-chain checkersb --src-chain checkersa --src-port transfer --src-channel channel-1
 ```
 
-Check the balances again. A new denom should appear because of our recent channel. As an exercise, transfer the tokens back to ibc-0.
+In case of success, you will see an output like:
+
+```
+SUCCESS [
+    SendPacket(
+        SendPacket - seq:1, path:channel-1/transfer->channel-1/transfer, toh:0-3368, tos:Timestamp(NoTimestamp)),
+    ),
+]
+```
+
+Send an acknowledgement to **checkersa**:
+
+```sh
+$ hermes tx packet-ack --dst-chain checkersa --src-chain checkersb --src-port transfer --src-channel channel-1
+```
+
+Check the balances again. A new denom should appear because of our recent channel. As an exercise, transfer the tokens back to **checkersa**.
+
+If the you are finished with the tests, make sure to shut down your network with:
+
+```
+$ docker-compose -f tokentransfer.yml --profile hermes down
+``
 
 ## Next up
 
