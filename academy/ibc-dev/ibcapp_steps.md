@@ -42,6 +42,18 @@ modify x/leaderboard/types/keys.go
 
 To have a more detailed view, we can now compare both versions with a `git diff`.
 
+<HighlightBox type="tip">
+
+To make use of *git diffs* to check the changes, make sure to commit inbetween different (scaffolding) actions.
+
+```sh
+$ git diff <commit_hash_1> <commit_hash_2> 
+```
+
+
+You can use git or GitHub to visualize the *git diffs* or alternatively use [diffy.org](https://diffy.org/).
+</HighlightBox>
+
 ## IBC application module requirements
 
 What does Ignite CLI do behind the scenes when creating an IBC module for us? What do we need to implement if we want to upgrade a regular custom application module to an IBC enabled module?
