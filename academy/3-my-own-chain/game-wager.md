@@ -652,7 +652,7 @@ This function creates the mock and returns two new objects:
 
 Both objects will be used from the tests proper.
 
-Do the same for [_reject_](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_reject_game_test.go#L17-L32).
+Do the same for [_reject_](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_reject_game_test.go#L17-L32). If your forfeit unit tests do not use `setupMsgServerWithOneGameForPlayMove`, then you should also create one such function the _forfeit_ tests.
 
 ### Adjust the unit tests
 
