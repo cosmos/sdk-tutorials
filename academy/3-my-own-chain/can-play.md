@@ -364,7 +364,7 @@ With these, your query handling function should be covered.
 
 ## Interact via the CLI
 
-Set the game expiry to 5 minutes and start `ignite chain serve`. A friendly reminder that the CLI can always inform you about available commands:
+Set the game expiry to 5 minutes and start `ignite chain serve`. Remember that the CLI can always inform you about available commands:
 
 <CodeGroup>
 
