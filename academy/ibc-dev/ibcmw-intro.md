@@ -1,6 +1,8 @@
 # IBC Middleware
 
-<!-- Add intro outlining use of middleware in web2 -->
+Middleware is a well-known concepts in software engineering. In traditional web development (web 2.0), for example, middleware is a piece of software that is implemented in the HTTP request-response cycle. One or more pieces of middleware stacked on top, have access to the request and response object when an HTTP request comes in at a web server. They can execute custom logic for among others adding authentication, request headers, parsing request bodies, error handling and many more.
+
+The use of middleware enables composability and reusability of logical building blocks while allowing the applications to focus on the application specific logic. This suits the Cosmos philosophy well and it is therefore no surprise that also in IBC applications, middleware can play an important role.
 
 <HighlightBox type="learning">
 

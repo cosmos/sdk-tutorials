@@ -40,7 +40,7 @@ var _ porttypes.Middleware = &IBCMiddleware{}
 
 type IBCMiddleware struct {
 	app    porttypes.IBCModule
-	keeper keeper.Keeper
+	keeper keeper.Keeper    //add a keeper for stateful middleware
 }
 
 // IBCMiddleware creates a new IBCMiddleware given the associated keeper and underlying application
@@ -60,7 +60,7 @@ As a reminder, let's look once more at the diagram representing the information 
 
 ## Channel handshake callbacks
 
-The first type of callbacks from core IBC to the application are the channel handshake callbacks. When a middleware (stack) is applied, every piece of middleware will have access to the underlying application (base application or downstream middleware). For the handshake callbacks, function calls happen from core IBC down to base application via middleware. Each middleware will call the underlying application's callback but it can execute custom application logic before doing so.
+The first type of callbacks from core IBC to the application are the channel handshake callbacks. When a middleware (stack) is applied, every piece of middleware will have access to the underlying application (base application or downstream middleware). For the handshake callbacks, function calls happen from core IBC through the middleware and then to base application. Each middleware will call the underlying application's callback but it can execute custom application logic before doing so.
 
 Check out the code snippets below to see this in action, or use the links to see how it's implemented for fee middleware (ICS-29).
 
@@ -90,7 +90,7 @@ During the handshake callbacks, the middleware can unmarshal the version string 
 
 <HighlightBox type="note">
 
-Middleware that does not need to negotiate with a counterparty middleware on the remote stack will not implement the version unmarshalling and negotiation, and will simply perform its own custom logic on the callbacks without relying on the counterparty behaving similarly.
+Middleware that does not need to negotiate with a counterparty middleware on the remote stack will not implement the version unmarshalling and negotiation, and may simply perform its own custom logic on the callbacks without relying on the counterparty behaving similarly.
 
 </HighlightBox>
 
@@ -100,7 +100,7 @@ The middleware should simply pass the capability in the callback arguments along
 
 ### Code snippets
 
-Note that the code snippets below contain *pseudo code*, like `doCustomLogic(args)`. Every code snippet is accompanied by a reference to the respective function in the [fee middleware IBC application](https://github.com/cosmos/ibc-go/tree/main/modules/apps/29-fee) from the official `ibc-go` repository.
+Note that the code snippets below contain _pseudo code_, like `doCustomLogic(args)`. Every code snippet is accompanied by a reference to the respective function in the [fee middleware IBC application](https://github.com/cosmos/ibc-go/tree/main/modules/apps/29-fee) from the official `ibc-go` repository.
 
 <ExpansionPanel title="`OnChanOpenInit`">
 
@@ -310,7 +310,7 @@ See [here](https://github.com/cosmos/ibc-go/blob/48a6ae512b4ea42c29fdf6c6f5363f5
 
 ## Packet callbacks
 
-The packet callbacks wrap the application's packet callbacks, just like the handshake callbacks wrapped the application's handshake callbacks. 
+The packet callbacks wrap the application's packet callbacks, just like the handshake callbacks wrapped the application's handshake callbacks.
 
 <HighlightBox type="note">
 
@@ -320,7 +320,7 @@ The packet callbacks are where the middleware performs most of its custom logic.
 
 ### Code snippets
 
-Note that the code snippets below contain *pseudo code*, like `doCustomLogic(args)`. Every code snippet is accompanied by a reference to the respective function in the [fee middleware IBC application](https://github.com/cosmos/ibc-go/tree/main/modules/apps/29-fee) from the official `ibc-go` repository.
+Note that the code snippets below contain _pseudo code_, like `doCustomLogic(args)`. Every code snippet is accompanied by a reference to the respective function in the [fee middleware IBC application](https://github.com/cosmos/ibc-go/tree/main/modules/apps/29-fee) from the official `ibc-go` repository.
 
 <ExpansionPanel title="`OnRecvPacket`">
 
@@ -388,7 +388,7 @@ In the case where the middleware wishes to send a packet or acknowledgment witho
 
 ### Code snippets
 
-Note that the code snippets below contain *pseudo code*, like `doCustomLogic(args)`. Every code snippet is accompanied by a reference to the respective function in the [fee middleware IBC application](https://github.com/cosmos/ibc-go/tree/main/modules/apps/29-fee) from the official `ibc-go` repository.
+Note that the code snippets below contain _pseudo code_, like `doCustomLogic(args)`. Every code snippet is accompanied by a reference to the respective function in the [fee middleware IBC application](https://github.com/cosmos/ibc-go/tree/main/modules/apps/29-fee) from the official `ibc-go` repository.
 
 <ExpansionPanel title="`SendPacket`">
 
