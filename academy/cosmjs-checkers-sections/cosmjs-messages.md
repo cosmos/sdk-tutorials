@@ -124,7 +124,7 @@ Note the use of `createDefaultRegistry` as the default registry, if nothing was 
 
 ## The action methods
 
-Finally you must ought to the methods that allow you to interact with the blockchain. They also help advertise how to craft messages for your client. Taking inspiration from [`sendTokens`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/signingstargateclient.ts#L180-L197), create one function for each of your messages:
+Finally you ought to add the methods that allow you to interact with the blockchain. They also help advertise how to craft messages for your client. Taking inspiration from [`sendTokens`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/signingstargateclient.ts#L180-L197), create one function for each of your messages:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/checkers_signingstargateclient.ts#L59-L117]
 public async createGame(
@@ -190,9 +190,9 @@ public async rejectGame(
 
 ## Integration tests
 
-You can reuse the setup your prepared in the previous section. There is an added difficulty. Because you send transactions, your tests need access to keys. How do you provide them in a testing context?
+You can reuse the setup you prepared in the previous section. There is an added difficulty: because you send transactions, your tests need access to keys. How do you provide them in a testing context?
 
-### Keys preparation
+### Key preparation
 
 You would not treat mainnet keys in this way, but here you save testing keys on disk. Update `.env` with the test mnemonics of your choice:
 
@@ -203,7 +203,7 @@ MNEMONIC_TEST_BOB="apple spoil melody venture speed like dawn cherry insane prod
 ADDRESS_TEST_BOB="cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22"
 ```
 
-If you use different mnemonics and do not yet know the corresponding addresses, you can get them from the `before` action below when it fails. Also adjust `environment.d.ts` to inform the TypeScript compiler:
+If you use different mnemonics and do not yet know the corresponding addresses, you can get them from the `before` action (below) when it fails. Also adjust `environment.d.ts` to inform the TypeScript compiler:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/environment.d.ts#L6-L9]
 declare global {
@@ -232,7 +232,7 @@ export const getSignerFromMnemonic = async (mnemonic: string): Promise<OfflineDi
 }
 ```
 
-Create a new `stored-game-action.ts` integration test file modeled on `stored-game.ts` that starts by preparing the signers and confirms the match between mnemonics and first addresses:
+Create a new `stored-game-action.ts` integration test file, modeled on `stored-game.ts`, that starts by preparing the signers and confirms the match between mnemonics and first addresses:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/test/integration/stored-game-action.ts#L30-L38]
 const { RPC_URL, ADDRESS_TEST_ALICE: alice, ADDRESS_TEST_BOB: bob } = process.env
@@ -288,7 +288,7 @@ before("create signing clients", async function () {
 
 If the running chain allows it, and to make your life easier, you can set the gas price to `0`. If not, set it as low as possible.
 
-### Tokens preparation
+### Token preparation
 
 Just saving keys on disk does not magically make these keys hold tokens on your test blockchain. You need to fund them at their addresses using the funds of other addresses of your running chain. If you use Ignite, it has created a faucet end point for you at port `4500`. The page `http://localhost:4500` explains how to make the calls. Use that.
 
@@ -298,7 +298,7 @@ Add the faucet address in `.env`:
 FAUCET_URL="http://localhost:4500"
 ```
 
-And to `environment.d.ts`:
+Also add the faucet address to `environment.d.ts`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/environment.d.ts#L5]
 declare global {
@@ -313,7 +313,7 @@ declare global {
 ...
 ```
 
-In a new separate file add two helper functions to easily call the faucet:
+In a new separate file, add two helper functions to easily call the faucet:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/util/faucet.ts#L4-L28]
 export const httpRequest = async (url: string | URL, options: RequestOptions, postData: string) => {
@@ -343,7 +343,7 @@ export const askFaucet = async (address: string, tokens: { [key: string]: number
     )
 ```
 
-You will found out with practice how many tokens your accounts need for the tests. Start with any value. Create another `before` that will credit Alice and Bob from the faucet and confirm that they are rich enough to continue:
+You will find out with practice how many tokens your accounts need for the tests. Start with any value. Create another `before` that will credit Alice and Bob from the faucet and confirm that they are rich enough to continue:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/test/integration/stored-game-action.ts#L54-L79]
 const aliceCredit = {
@@ -378,9 +378,9 @@ Note the extra 10 seconds given for this potentially slower process: `this.timeo
 
 ### Adding tests
 
-Since these integration tests make calls to a running chain, they need to run one after the other. And if one `it` fails, all the `it` tests that come after will fail too. This is not ideal but that's how these examples will work.
+Since these integration tests make calls to a running chain, they need to run one after the other. And if one `it` fails, all the `it` tests that come after will fail too. This is not ideal but is how these examples will work.
 
-With a view to reusing them, add convenience methods that encapsulate extraction of information from the events:
+With a view to reusing them, add convenience methods that encapsulate the extraction of information from the events:
 
 * To get the id of the game created:
 
@@ -421,7 +421,7 @@ With a view to reusing them, add convenience methods that encapsulate extraction
             | undefined
     ```
 
-    Where you also define `GamePiece` as:
+    Here you also define `GamePiece` as:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/types/checkers/player.ts#L2]
     export type GamePiece = Player | "*"
@@ -429,7 +429,7 @@ With a view to reusing them, add convenience methods that encapsulate extraction
 
 ### Create and Play
 
-Start by creating a game, extracting its index from the logs and confirming that you can fetch it.
+Start by creating a game, extracting its index from the logs, and confirming that you can fetch it.
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/test/integration/stored-game-action.ts#L81-L104]
 let gameIndex: string
@@ -483,7 +483,7 @@ In the next paragraphs you:
 1. Will send many transactions in a single block.
 2. Will send a transaction with more than one message in it.
 
-The transaction with more than one message that you will send is the one where Alice, the black player, [captures two red pieces in two successive moves](https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/types/checkers/player.ts#L39-L41). The checkers rules allow that.
+The transaction with more than one message that you will send is where Alice, the black player, [captures two red pieces in two successive moves](https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/types/checkers/player.ts#L39-L41). The checkers rules allow this.
 
 The many transactions per block will be those that make the game reach that point.
 
@@ -547,13 +547,13 @@ Note how you already played the first two.
 
 You are going to send [22 transactions](https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/types/checkers/player.ts#L17-L38) in as quick a succession as possible. If you waited for each to be included in a block, it would take you in the order of `22*5 == 110` seconds. That's very long for a test. It is better to find a way to include more transactions per block.
 
-There is a **first difficulty** when you want to send multiple transactions in a single block:
+You will face several difficulties when you want to send multiple transactions in a single block. The **first difficulty** is as follows:
 
-1. Each transaction signed by an account must mention the correct `sequence` of that account at the time of inclusion in the block. That's to make sure transactions are added in the right order and to prevent transaction replay.
+1. Each transaction signed by an account must mention the correct `sequence` of that account at the time of inclusion in the block. This is to make sure transactions are added in the right order and to prevent transaction replay.
 2. After each transaction, this `sequence` number increments, ready to be used for the next transaction of the account.
 3. The signing client's [`signAndbroadcast`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/signingstargateclient.ts#L280) function [fetches the `sequence`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/signingstargateclient.ts#L318-L325) number from the blockchain.
 
-In other words the signing client can only know about the transactions that have been included in a block. It has no idea whether there are pending transactions with a higher `sequence`, which would cause the account's `sequence` to be higher when your poorly crafted transaction is being checked and therefore rejected.
+In other words, the signing client can only know about the transactions that have been included in a block. It has no idea whether there are already pending transactions with a higher `sequence` that would result in the account's `sequence` being higher when your poorly crafted transaction is checked, therefore causing it to be rejected.
 
 Fortunately, the [`sign`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/signingstargateclient.ts#L310) function can take [any sequence number](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/signingstargateclient.ts#L315). You will therefore force the sequence number to the one you know to be right eventually:
 
@@ -562,20 +562,20 @@ Fortunately, the [`sign`](https://github.com/cosmos/cosmjs/blob/v0.28.11/package
 
 Because Javascript has low assurances when it comes to threading, you need to make sure that each `sign` command happens after the previous one, or your `sequence` incrementing may get messed up. For that, you should not use `Promise.all`, or something like `array.forEach(() => { await })`, which fire all promises roughly at the same time. Instead you will use a `while() { await }` pattern.
 
-There is a **second difficulty** when you want to send that many signed transactions. The client's `broadcastTx` function [waits for it](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L420-L424) to be included in a block, which would defeat the purpose of signing separately. Fortunately, if you look into its content, you can see that it calls [`this.forceGetTmClient().broadcastTxSync`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L410). This Tendermint client function returns only [the hash](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/tendermint-rpc/src/tendermint34/tendermint34client.ts#L172). That is, before any inclusion in a block.
+There is a **second difficulty** when you want to send that many signed transactions. The client's `broadcastTx` function [waits for it](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L420-L424) to be included in a block, which would defeat the purpose of signing separately. Fortunately, if you look into its content, you can see that it calls [`this.forceGetTmClient().broadcastTxSync`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L410). This Tendermint client function returns only [the hash](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/tendermint-rpc/src/tendermint34/tendermint34client.ts#L172), that is _before any inclusion in a block_.
 
-On the other hand, you want the last transaction to be included in block so that when you query for the stored game you get the expected values. Therefore you will:
+On the other hand, you want the last transaction to be included in the block so that when you query for the stored game you get the expected values. Therefore you will:
 
 1. Send the first 21 signed transactions with the _fast_ `this.forceGetTmClient().broadcastTxSync`.
 2. Send the last transaction with a _slow_ client `broadcastTx`.
 
-Here again, you need to make sure that you submit all transactions in sequential manner, otherwise a player may in effect try to play before its own turn. At this point, you trust that Tendermint includes the transactions in the order by which they were submitted. If Tendermint does any shuffling between Alice and Bob, you may end up with a "play before its turn" error.
+Here again, you need to make sure that you submit all transactions in sequential manner, otherwise a player may in effect try to play before their turn. At this point, you trust that Tendermint includes the transactions in the order in which they were submitted. If Tendermint does any shuffling between Alice and Bob, you may end up with a "play before their turn" error.
 
-And with luck all transactions may end up in a single block, which would make the test 22 times faster than if you had waited for each transaction to get into its own block.
+With luck, all transactions may end up in a single block, which would make the test 22 times faster than if you had waited for each transaction to get into its own block.
 
 <HighlightBox type="learning">
 
-As a side note, you would use the same techniques if you wanted to stress test your blockchain. This is why these paragraphs are more than just entertainment.
+You would use the same techniques if you wanted to stress test your blockchain. This is why these paragraphs are more than just entertainment.
 
 </HighlightBox>
 
@@ -595,7 +595,7 @@ const getShortAccountInfo = async (who: string): Promise<ShortAccountInfo> => {
 }
 ```
 
-And helpers to pick the right Alice or Bob values:
+Add helpers to pick the right Alice or Bob values:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/test/integration/stored-game-action.ts#L131-L132]
 const whoseClient = (who: Player) => (who == "b" ? aliceClient : bobClient)
@@ -667,7 +667,7 @@ while (txIndex < 24) {
 Note how:
 
 1. The moves [`0` and `1`](https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/types/checkers/player.ts#L15-L16) already took place in the previous `it` test.
-2. The gas fee can no longer be `"auto"` and has to be set, here at a price of `0`. You may have to adjust depending on your running chain.
+2. The gas fee can no longer be `"auto"` and has to be set, here at a price of `0`. You may have to adjust this depending on your running chain.
 3. The sequence number of the signer is increased **after** it has been used: `.sequence++`.
 
 With all the transactions signed, you can _fire_ broadcast the first 21 of them:
@@ -682,7 +682,7 @@ while (txIndex < txList.length - 1) {
 }
 ```
 
-And broadcast _normally_ the last one:
+You now _normally_ broadcast the last one:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/test/integration/stored-game-action.ts#L185-L187]
 const lastDeliver: DeliverTxResponse = await client.broadcastTx(
@@ -690,7 +690,7 @@ const lastDeliver: DeliverTxResponse = await client.broadcastTx(
 )
 ```
 
-Out of curiosity, you can log the blocks in which the transactions were included:
+If you are interested, you can log the blocks in which the transactions were included:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/test/integration/stored-game-action.ts#L189-L195]
 console.log(
@@ -759,7 +759,7 @@ const response: DeliverTxResponse = await aliceClient.signAndBroadcast(
 )
 ```
 
-Next, collect the events and confirm they match your expectations.
+Next, collect the events and confirm they match your expectations:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/test/integration/stored-game-action.ts#L233-L242]
 const logs: Log[] = JSON.parse(response.rawLog!)
@@ -774,13 +774,13 @@ expect(getCapturedPos(getMovePlayedEvent(logs[1])!)).to.deep.equal({
 })
 ```
 
-Note how it checks the logs for the captured attributes, and that, in effect, a captured piece has `x` and `y` as the average of the respective `from` and `to` positions' fields.
+Note how it checks the logs for the captured attributes. In effect, a captured piece has `x` and `y` as the average of the respective `from` and `to` positions' fields.
 
 Sending a single transaction with two moves is cheaper and faster, from the point of view of the player, than sending two separate ones for the same effect.
 
 <HighlightBox type="learning">
 
-Note also that it is not possible for Alice, who is the creator and black player to send in a single transaction a message for creation and a message to make the first move on it. That's because the index of the game is not known before the transaction has been included in a block, and with that the index computed.
+Note also that it is not possible for Alice, who is the creator and black player, to send in a single transaction a message for creation and a message to make the first move on it. That's because the index of the game is not known before the transaction has been included in a block, and with that the index computed.
 
 </HighlightBox>
 
@@ -793,6 +793,6 @@ You can add further tests, for instance:
 
 ## Next up
 
-You now included elements and messages that allow you to interact with the checkers blockchain. You confirmed this with some integration tests. The only things that remain to do are adding any [server-side scripts](./server-side.md) and plugging the elements you have created into [a graphical user interface](./external-gui.md).
+You have now included elements and messages that allow you to interact with the checkers blockchain. You confirmed this with some integration tests. The only things that remain to do are adding any [server-side scripts](./server-side.md) and plugging the elements you have created into [a graphical user interface](./external-gui.md).
 
 Head to the [next chapter](https://interchainacademy.cosmos.network/course-ida/landingpages/week6-lp.html) on CosmJS to work on the GUI and backend script for your checkers blockchain.
