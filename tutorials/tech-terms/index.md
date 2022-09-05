@@ -43,7 +43,7 @@ The **light client daemon (LCD)** is an HTTP1.1 server exposed by the Cosmos SDK
 
 <ExpansionPanel title="Why is it called light client daemon?">
 
-Before SDK v0.40, to get a REST API it was necessary to run another backend service (or "[daemon](https://en.wikipedia.org/wiki/Daemon_(computing))", a label inherited from Unix), for example using `gaiacli rest-server --laddr 0.0.0.0:1317 --node localhost:26657`. In Cosmos SDK v0.40, REST was moved inside the node service making it a tool of the Cosmos SDK, but the "daemon" element stuck, leading to the name _light client daemon_ (LDC).
+Before SDK v0.40, to get a REST API it was necessary to run another backend service (or _[daemon](https://en.wikipedia.org/wiki/Daemon_(computing))_, a term inherited from Unix), for example using `gaiacli rest-server --laddr 0.0.0.0:1317 --node localhost:26657`. In Cosmos SDK v0.40, REST was moved inside the node service making it part of the Cosmos SDK, but the term "daemon" stuck, leading to the name _light client daemon_ (LDC).
 
 </ExpansionPanel>
 
