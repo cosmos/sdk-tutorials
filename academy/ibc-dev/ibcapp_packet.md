@@ -1,20 +1,20 @@
 # Adding Packet and Acknowledgement data
 
-In this section we learn how to define packets and acks (acknowledgements) for the Leaderboard blockchain. Remember that this blockchain will mostly be receiving packets from the checkers blockchain or other gaming chains. This will be handled in the checkers blockchain extension tutorial. In this section we will add an additional packet definition that will enable the Leaderboard chain to send a packet to connected game chains when a player has entered the top of the rankings.
+This section demonstrates how to define packets and acks (acknowledgements) for the Leaderboard blockchain. Remember that this blockchain will mostly be receiving packets from the checkers blockchain or other gaming chains. This will be handled in the checkers blockchain extension tutorial. In this section you will add an additional packet definition that will enable the Leaderboard chain to send a packet to connected game chains when a player has entered the top of the rankings.
 
 The documentation on how to define packets and acks in IBC can be found in [the IBC go docs](https://ibc.cosmos.network/main/ibc/apps/packets_acks.html).
 
 ## Scaffold a packet with Ignite CLI
 
-We are now going to be scaffolding the IBC packet data with Ignite CLI and compare once more with _git diff_:
+You are now going to scaffold the IBC packet data with Ignite CLI, and compare once more with _git diff_:
 
 ```bash
 $ ignite scaffold packet ibcTopRank playerId rank:uint score:uint --ack playerId --module leaderboard
 ```
 
-Note that the packet is called `ibcTopRank`, which includes the fields `playerId`, `rank` and `score`. Additionally we send back the `playerId` of the player who entered the top of the rankings through the `Acknowledgement`.
+Note that the packet is called `ibcTopRank`, which includes the fields `playerId`, `rank`, and `score`. Additionally, you send back the `playerId` of the player who entered the top of the rankings through the `Acknowledgement`.
 
-We see the output on the terminal that gives an overview of the changes made:
+The output on the terminal gives an overview of the changes made:
 
 ```bash
 modify proto/leaderboard/packet.proto
@@ -33,11 +33,11 @@ create x/leaderboard/types/packet_ibc_top_rank.go
 
 🎉 Created a packet `ibcTopRank`.
 ```
-In the next paragraphs we will investigate each of the most important additions to the code.
+In the next paragraphs you will investigate each of the most important additions to the code.
 
 ## Proto definitions
 
-The first additions are to the proto definitions in the `packet.proto` and `tx.proto` files.
+The first additions are to the proto definitions in the `packet.proto` and `tx.proto` files:
 
 ```diff
 @@ message LeaderboardPacketData {
@@ -49,7 +49,7 @@ The first additions are to the proto definitions in the `packet.proto` and `tx.p
     }
 }
 ```
-with `IbcTopRankPacketData`:
+One addition is `IbcTopRankPacketData`:
 ```protobuf
 // IbcTopRankPacketData defines a struct for the packet payload
 message IbcTopRankPacketData {
@@ -58,7 +58,7 @@ message IbcTopRankPacketData {
   uint64 score = 3;
 }
 ```
-and the ack:
+The next addition is the ack:
 ```protobuf
 // IbcTopRankPacketAck defines a struct for the packet acknowledgment
 message IbcTopRankPacketAck {
@@ -75,7 +75,7 @@ service Msg {
 }
 ```
 
-where: 
+Where:
 
 ```protobuf
 message MsgSendIbcTopRank {
@@ -93,36 +93,40 @@ message MsgSendIbcTopRankResponse {
 ```
 <HighlightBox type="info">
 
-The proto message `MsgSendIbcTopRank` includes the field `timeoutTimestamp` which is added by Ignite CLI when scaffolding an IBC packet. It is an IBC channel parameter that is important in IBC and Ignite CLI abstracts this away from the user to have to add this manually.
+The proto message `MsgSendIbcTopRank` includes the field `timeoutTimestamp`, which is added by Ignite CLI when scaffolding an IBC packet. This is an IBC channel parameter that is important in IBC and Ignite CLI abstracts this away, making it necessary for the user to add this manually.
 
 </HighlightBox>
 
-**Note**: the proto definitions will be compiled into `types/packet.pb.go` and `types/tx.pb.go`.
+<HighlightBox type="note">
+
+The proto definitions will be compiled into `types/packet.pb.go` and `types/tx.pb.go`.
+
+</HighlightBox>
 
 ## CLI commands
 
 Ignite CLI also creates CLI commands to send packets and adds them to the `client/cli/` folder.
 
-We can thus send packets from the CLI with the following command:
+Packets can be sent from the CLI with the following command:
 ```bash
-$ leaderboardd tx leaderboard send-ibc-top-rank [portID] [channelID] [playerId] [rank] [score]
+$ leaderboard tx leaderboard send-ibc-top-rank [portID] [channelID] [playerId] [rank] [score]
 ```
 
 ## SendPacket and Packet callback logic
 
-When scaffolding an IBC module with Ignite CLI, we already saw the implementation of the `IBCModule` interface including a barebones packet callbacks structure. Now that we've also scaffolded a packet (and ack), the callbacks have been added with logic to handle the receive, ack and timeout scenarios. 
+When scaffolding an IBC module with Ignite CLI, you already saw the implementation of the `IBCModule` interface, including a bare bones packet callbacks structure. Now that you've also scaffolded a packet (and ack), the callbacks have been added with logic to handle the receive, ack, and timeout scenarios.
 
-Additionally for the sending of a packet, a message server has been added that handles a SendPacket message, in this case `MsgSendIbcTopRank`.
+Additionally, for the sending of a packet a message server has been added that handles a SendPacket message, in this case `MsgSendIbcTopRank`.
 
 <HighlightBox type="tip">
 
-**NOTE**: IBC allows some freedom to the developers how to implement the custom logic, decoding and encoding packets and processing acks. The provided structure is but one example how to tackle this. Therefore it makes sense to focus on the general flow to handle user messages or IBC callbacks rather than the specific implementation by Ignite CLI.
+IBC allows some freedom to the developers regarding how to implement the custom logic, decoding and encoding packets, and processing acks. The provided structure is but one example of how to tackle this. Therefore, it makes sense to focus on the general flow to handle user messages or IBC callbacks rather than the specific implementation by Ignite CLI.
 
 </HighlightBox>
 
 ### Sending packets
 
-To handle a user submitting a message to send an IBC packet, a message server is added to the handler.
+To handle a user submitting a message to send an IBC packet, a message server is added to the handler:
 
 ```diff
     @@ x/leaderboard/handler.go
@@ -144,7 +148,9 @@ To handle a user submitting a message to send an IBC packet, a message server is
         }
     }
 ```
+
 It calls the `SendIbcTopRank` method on the message server, defined as:
+
 ```go
 func (k msgServer) SendIbcTopRank(goCtx context.Context, msg *types.MsgSendIbcTopRank) (*types.MsgSendIbcTopRankResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
@@ -174,7 +180,8 @@ func (k msgServer) SendIbcTopRank(goCtx context.Context, msg *types.MsgSendIbcTo
 	return &types.MsgSendIbcTopRankResponse{}, nil
 }
 ```
-Which in turn calls the `TransmitIbcTopRankPacket` method on the module's keeper, defined in `x/leaderboard/keeper/ibc_top_rank.go`. This method gets all of the required metadata from core IBC before sending the packet using the ChannelKeeper's `SendPacket` function.
+
+This in turn calls the `TransmitIbcTopRankPacket` method on the module's keeper, defined in `x/leaderboard/keeper/ibc_top_rank.go`. This method gets all of the required metadata from core IBC before sending the packet using the ChannelKeeper's `SendPacket` function:
 
 ```go
 func (k Keeper) TransmitIbcTopRankPacket(
@@ -221,13 +228,11 @@ func (k Keeper) TransmitIbcTopRankPacket(
 }
 ```
 
-Note that when we want to add additional custom logic before transmitting the packet, we do this in the `SendIbcTopRank` method on the message server.
+Note that when you want to add additional custom logic before transmitting the packet, you do this in the `SendIbcTopRank` method on the message server.
 
 ### Receiving packets
 
-In a previous section we already examined the `OnRecvPacket` callback in the `x/leaderboard/module_ibc.go` file. 
-
-There Ignite CLI had set up a structure to dispatch the packet depending on packet type through a switch statement. Now by adding the `IbcTopRank` packet, a case has been added:
+In a previous section you examined the `OnRecvPacket` callback in the `x/leaderboard/module_ibc.go` file. There, Ignite CLI had set up a structure to dispatch the packet depending on packet type through a switch statement. Now by adding the `IbcTopRank` packet, a case has been added:
 
 ```go
 // @ switch packet := modulePacketData.Packet.(type) in OnRecvPacket
@@ -252,7 +257,7 @@ case *types.LeaderboardPacketData_IbcTopRankPacket:
 		)
 ```
 
-The first line of code in the case statement calls the application's `OnRecvIbcTopRankPacket` callback on the keeper to process the reception of the packet. 
+The first line of code in the case statement calls the application's `OnRecvIbcTopRankPacket` callback on the keeper to process the reception of the packet:
 
 ```go
 // OnRecvIbcTopRankPacket processes packet reception
@@ -267,15 +272,16 @@ func (k Keeper) OnRecvIbcTopRankPacket(ctx sdk.Context, packet channeltypes.Pack
 	return packetAck, nil
 }
 ```
+
 <HighlightBox type="note">
 
-Remember that the `OnRecvPacket` callback writes an acknowledgement as well (we cover the synchronous write ack case).
+Remember that the `OnRecvPacket` callback writes an acknowledgement as well (this course covers the synchronous write ack case).
 
 </HighlightBox>
 
 ### Acknowledging packets
 
-Similarly to the `OnRecvPacket` case before, Ignite CLI already had prepared the structure of the `OnAcknowledgementPacket` with the switch statement. Again scaffolding the packet adds a case to the switch.
+Similarly to the `OnRecvPacket` case before, Ignite CLI has already prepared the structure of the `OnAcknowledgementPacket` with the switch statement. Again, scaffolding the packet adds a case to the switch:
 
 ```go
 // @ switch packet := modulePacketData.Packet.(type) in OnAcknowledgmentPacket
@@ -287,7 +293,8 @@ Similarly to the `OnRecvPacket` case before, Ignite CLI already had prepared the
 		eventType = types.EventTypeIbcTopRankPacket
 ```
 
-Which calls into the newly created application keeper's ack packet callback:
+This calls into the newly created application keeper's ack packet callback:
+
 ```go
 func (k Keeper) OnAcknowledgementIbcTopRankPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IbcTopRankPacketData, ack channeltypes.Acknowledgement) error {
 	switch dispatchedAck := ack.Response.(type) {
@@ -315,25 +322,23 @@ func (k Keeper) OnAcknowledgementIbcTopRankPacket(ctx sdk.Context, packet channe
 	}
 }
 ```
-It allows us to add custom application logic for both failed and successful acks.
+This allows us to add custom application logic for both failed and successful acks.
 
 ### Timing out packets
 
-Timing out the packets follows the same flow, adding a case to the switch statement in `OnTimeoutPacket`, calling into the keeper's timeout packet callback where the custom logic can be implemented.
+Timing out the packets follows the same flow, adding a case to the switch statement in `OnTimeoutPacket`, calling into the keeper's timeout packet callback where the custom logic can be implemented. It is left to the reader to investigate this independently.
 
-We leave it up to the reader to check this out.
+### Extra details
 
-### Extra bits
+Next to the above, some additions have also been made to the `types` package. These include `codec.go`, `events_ibc.go`, and `messages_ibc_top_rank.go`.
 
-Next to the above, also some additions have been made to the `types` package. These include `codec.go`, `events_ibc.go`, `messages_ibc_top_rank.go`.
-
-Again we invite the reader to check those out indepedently.
+Again, the reader is invited to check these out independently.
 
 <HighlightBox type="info">
 
 Events in IBC are important because relayers process events to check if there are packets (or acknowledgements) to relay.
 
-Ignite CLI has scaffolded some events for us in `x/leaderboard/types/events_ibc.go` for timeout and the `ibcTopRank` packet we've defined:
+Ignite CLI has scaffolded some events in `x/leaderboard/types/events_ibc.go` for timeout and the `ibcTopRank` packet which you have defined:
 
 ```go
 package types
@@ -349,33 +354,43 @@ const (
 	AttributeKeyAckError   = "error"
 )
 ```
-Here we find both the `Event` type and the attributes it contains.
+Here are found both the `Event` type and the attributes it contains.
 
-These are not the only relevant events for IBC though, the others can be found in the core IBC source code:
+These are not the only relevant events for IBC, though, the others can be found in the core IBC source code:
 - [client events](https://github.com/cosmos/ibc-go/blob/main/modules/core/02-client/types/events.go)
 - [connection events](https://github.com/cosmos/ibc-go/blob/main/modules/core/03-connection/types/events.go)
 - [channel events](https://github.com/cosmos/ibc-go/blob/main/modules/core/04-channel/types/events.go)
 
-You can go back to the code we've examined so far to take note of the events emitted.
+You can go back to the code examined so far to take note of the events emitted.
+
+</HighlightBox>
+
+<HighlightBox type="note">
+
+Even though the ability to send and receive packets is now enabled, no application logic to execute has yet been implemented. This is outside the scope of this section. The reader is invited to follow the checkers blockchain extension tutorial [insert link].
+
+</HighlightBox>
+
+<HighlightBox type="note">
+
+When scaffolding a packet, Ignite CLI will ensure the chain can act both as the sender or receiver of a packet by default. This is a symmetrical setup which makes sense for some applications, like ICS20.
+
+However, it's also possible to have an asymmetrical setup where one chain will always be the source _or_ destination chain for a given packet, not both. In this case, the message server and packet callbacks can be updated to error when, for example, a chain receives a packet though it is supposed to exclusively be the destination chain. Interchain Accounts or ICS27 is an example of this asymmetrical situation, as is the checkers extension tutorial.
 
 </HighlightBox>
 
 ## Summary
 
-Let's summarize what we've accomplished so far:
-- we've scaffolded a chain with an IBC enabled module, both chain and module called leaderboard
-- Ignite CLI made sure to implement the `IBCModule` interface including channel handshake and packet callbacks
-- Ignite CLI has bound our IBC module to a port and added a route to the IBC router
-- we've scaffolded an IBC packet, `IbcTopRankPacket`
-- Ignite CLI defined the packet and ack data
-- Ignite CLI has set up the basic message handling and packet handling to send, receive, acknowledge and timeout packets
+<HighlightBox type="synopsis">
 
-**Note**: even though right now we've enabled the ability to send and receive packets, we've yet to implement application logic that will execute when we do. This is however out of the scope of this section. We invite the reader to follow the checkers blockchain extension tutorial [insert link].
+To summarize, this section has explored:
 
-<HighlightBox type="note">
-
-Ignite CLI by default when scaffolding a packet, will ensure the chain can act both as the sender or receiver of a packet. This is a symmetrical setup which makes sense for some applications, like ICS20.
-
-However, it's also possible to have an asymmetrical setup where one chain will always be the source or destination chain for a given packet, not both. In this case we can update the message server and packet callbacks to error when for example a chain receives a packet, though it is supposed to be exclusively the destination chain. Interchain Accounts or ICS27 is an example of this asymmetrical situation, as is the checkers extension tutorial.
+- Scaffolding a chain with an IBC enabled module, with both chain and module called leaderboard.
+- How Ignite CLI made sure to implement the `IBCModule` interface, including channel handshake and packet callbacks.
+- How Ignite CLI has bound our IBC module to a port and added a route to the IBC router.
+- Scaffolding an IBC packet, `IbcTopRankPacket`.
+- How Ignite CLI defined the packet and ack data.
+- How Ignite CLI sets up the basic message handling and packet handling to send, receive, acknowledge, and timeout packets.
 
 </HighlightBox>
+
