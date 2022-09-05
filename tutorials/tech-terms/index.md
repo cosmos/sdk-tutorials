@@ -55,7 +55,7 @@ RPC can be understood as a client-server interaction in which the "caller" is th
 
 In short, RPC is a request-response protocol, initiated by a client sending a request to a remote server to execute the subroutine. 
 
-Usually, the called functions are run on a different computer than the one calling them. However, with RPC, the developer codes as if the subroutine would be local; the developer does not have to code in details for remote interaction. Thus, with RPCs it is implied that all calling procedures are basically the same, independent of them being local or remote calls.
+RPC allows calling functions in different address spaces. Usually, the called functions are run on a different computer than the one calling them. However, with RPC, the developer codes as if the subroutine would be local; the developer does not have to code in details for remote interaction. Thus, with RPCs it is implied that all calling procedures are basically the same, independent of them being local or remote calls.
 
 <HighlightBox type="note">
 
@@ -73,7 +73,7 @@ A step-by-step RPC request could look like the following:
 
 <HighlightBox type="info">
 
-A stub is a small program routine substituting a longer program.
+A stub is a small program routine substituting a longer program. This allows machines to behave as if a program on a remote machine was operating locally. The client has a stub which interfaces with the remote procedure, while the server has a stub to interface with the original request procedure.
 
 In RPCs, the client's stub substitutes for the program providing a request procedure. The stub accepts and forwards the request to the remote procedure. Once the remote procedure completes the request, it returns the results to the stub which in turn passes them to the request procedure.
 
@@ -109,7 +109,7 @@ In an Open Systems Interconnection (OSI) model, RPC touches the transport and ap
 
 The transport layer is tasked with the reliable sending and receiving of messages across a network. It requires error-checking mechanisms, data flow controls, data integrity assurance, congestion avoidance, multiplexing, and same order delivery.
 
-The application layer is tasked with ensuring effective communication between applications on different computer systems and networks. It is an application component that controls methods of communication with other devices.
+The application layer is tasked with ensuring effective communication between applications on different computer systems and networks. It is a component of an application that controls methods of communication with other devices.
 
 </HighlightBox>
 
@@ -127,7 +127,7 @@ For more information on the Tendermint RPC, gRPC, and the REST server, a closer 
 
 <HighlightBox type="info">
 
-Cosmos exposes both the Tendermint RPC and the Cosmos LCD. For example, [CosmJS] uses RPC to implement a JSON-RPC API.
+Cosmos exposes both the Tendermint RPC and the Cosmos LCD. For example, [CosmJS](/academy/5-cosmjs/cosmjs-intro.md) uses RPC to implement a JSON-RPC API.
 
 </HighlightBox>
 
@@ -143,7 +143,7 @@ Also take a look at the [section on this platform on Protobuf](../academy/2-main
 
 </HighlightBox>
 
-In Cosmos, Protobuf is a data serialization method which developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
+In Cosmos, Protobuf is a data serialization method that developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
 
 With Cosmos SDK v0.40, Protobuf began replacing Amino as the data encoding format of chain states and transactions, in part because encoding/decoding performance is better with Protobuf than Amino. In addition, the developer tooling is also better for Protobuf. Another benefit of switching is that the use of gRPC is fostered, as Protobuf automatically defines and generates gRPC functions. Thus developers no longer have to implement the same query for RPC, LCD, and CLI.
 
@@ -161,7 +161,7 @@ gRPC uses HTTP2 for transport and Protocol Buffers (Protobuf) to encode data. gR
 
 ### gRPC and Cosmos
 
-In Cosmos, gRPCs are transmission control protocol (TCP) servers with Protobuf and are used for data encoding. Their default port is `9090`.
+In Cosmos, gRPCs are transmission control protocol (TCP) servers with Protobuf and are used for data encoding. The default port is `9090`.
 
 <HighlightBox type="info">
 
