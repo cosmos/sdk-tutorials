@@ -29,7 +29,7 @@ Let's dive right into it.
 
 A **light client**, compared to a full node, tracks only pieces of certain information on a blockchain. Light clients do not track the entire state of a blockchain and also do not contain every transaction/block of a chain.
 
-In the Tendermint consensus, the light client protocol allows clients to benefit from the same degree of security that full nodes do, while bandwidth requirements are minimized. A client can receive cryptographic proofs for blockchain states and transactions without having to sync all blocks or even their headers.
+In the Tendermint consensus, the light client protocol allows clients to benefit from the same degree of security that full nodes benefit from, while bandwidth requirements are minimized. A client can receive cryptographic proofs for blockchain states and transactions without having to sync all blocks or even their headers.
 
 <HighlightBox type="tip">
 
