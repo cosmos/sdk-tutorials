@@ -56,7 +56,7 @@ Below we'll take a closer look at how to implement the handshake callbacks and t
 
 As a reminder, let's look once more at the diagram representing the information flow between core IBC and the base application with a middleware (stack) apllied.
 
-![middleware_stack](./images/placeholder_middleware_stack.svg)
+![middleware_stack](./images/middleware-stack.png)
 
 ## Channel handshake callbacks
 
