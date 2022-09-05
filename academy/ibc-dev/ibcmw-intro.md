@@ -55,7 +55,7 @@ Keep in mind that:
 
 </HighlightBox>
 
-![middleware_stack](./images/placeholder_middleware_stack.svg)
+![middleware_stack](./images/middleware-stack.png)
 
 ## Next up
 
