@@ -93,7 +93,7 @@ message MsgSendIbcTopRankResponse {
 ```
 <HighlightBox type="info">
 
-The proto message `MsgSendIbcTopRank` includes the field `timeoutTimestamp`, which is added by Ignite CLI when scaffolding an IBC packet. This is an IBC channel parameter that is important in IBC and Ignite CLI abstracts this away, making it necessary for the user to add this manually.
+The proto message `MsgSendIbcTopRank` includes the field `timeoutTimestamp`, which is added by Ignite CLI when scaffolding an IBC packet. This is an IBC channel parameter that is important in IBC and Ignite CLI abstracts this away, removing the need for the user to add this manually.
 
 </HighlightBox>
 
@@ -109,7 +109,7 @@ Ignite CLI also creates CLI commands to send packets and adds them to the `clien
 
 Packets can be sent from the CLI with the following command:
 ```bash
-$ leaderboard tx leaderboard send-ibc-top-rank [portID] [channelID] [playerId] [rank] [score]
+$ leaderboardd tx leaderboard send-ibc-top-rank [portID] [channelID] [playerId] [rank] [score]
 ```
 
 ## SendPacket and Packet callback logic
@@ -365,20 +365,6 @@ You can go back to the code examined so far to take note of the events emitted.
 
 </HighlightBox>
 
-<HighlightBox type="note">
-
-Even though the ability to send and receive packets is now enabled, no application logic to execute has yet been implemented. This is outside the scope of this section. The reader is invited to follow the checkers blockchain extension tutorial [insert link].
-
-</HighlightBox>
-
-<HighlightBox type="note">
-
-When scaffolding a packet, Ignite CLI will ensure the chain can act both as the sender or receiver of a packet by default. This is a symmetrical setup which makes sense for some applications, like ICS20.
-
-However, it's also possible to have an asymmetrical setup where one chain will always be the source _or_ destination chain for a given packet, not both. In this case, the message server and packet callbacks can be updated to error when, for example, a chain receives a packet though it is supposed to exclusively be the destination chain. Interchain Accounts or ICS27 is an example of this asymmetrical situation, as is the checkers extension tutorial.
-
-</HighlightBox>
-
 ## Summary
 
 <HighlightBox type="synopsis">
@@ -394,3 +380,16 @@ To summarize, this section has explored:
 
 </HighlightBox>
 
+<HighlightBox type="note">
+
+Even though the ability to send and receive packets is now enabled, no application logic to execute has yet been implemented. This is outside the scope of this section. The reader is invited to follow the checkers blockchain extension tutorial [insert link].
+
+</HighlightBox>
+
+<HighlightBox type="note">
+
+When scaffolding a packet, Ignite CLI will ensure the chain can act both as the sender or receiver of a packet by default. This is a symmetrical setup which makes sense for some applications, like ICS20.
+
+However, it's also possible to have an asymmetrical setup where one chain will always be the source _or_ destination chain for a given packet, not both. In this case, the message server and packet callbacks can be updated to error when, for example, a chain receives a packet though it is supposed to exclusively be the destination chain. Interchain Accounts or ICS27 is an example of this asymmetrical situation, as is the checkers extension tutorial.
+
+</HighlightBox>

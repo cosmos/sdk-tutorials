@@ -78,7 +78,7 @@ Now take a look at the `git diff` and see if you are able to recognize the steps
 
 ### Implementing the `IBCModule` interface
 
-<HighlightBox type="note">
+<HighlightBox type="docs">
 
 For a full explanation, visit the [IBC go docs](https://ibc.cosmos.network/main/ibc/apps/ibcmodule.html).
 
