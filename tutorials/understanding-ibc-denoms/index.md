@@ -151,7 +151,15 @@ The tradeoff of using a hash is that you cannot compute the input, given the out
 
 <!-- [Pulsar example](https://github.com/PulsarDefi/IBC-Cosmos) -->
 
-<!-- Support for base denoms with '/' -->
+<HighlightBox type="warn">
+
+We see that in IBC denoms, there is a special meaning for the '/' character. We use it to parse port and channel identifiers from the base denom. Hence it was initially forbidden to use forward slashes in the base denomination of tokens.
+
+However due to a requirement from the Evmos chain, which uses forward slashes in contract-based denoms, support for base denominations containing '/' has been added. For more information, check the [ibc-go documentation](https://ibc.cosmos.network/main/migrations/support-denoms-with-slashes.html).
+
+</HighlightBox>
+
+
 
 ## Practical example: `denom_trace`
 
