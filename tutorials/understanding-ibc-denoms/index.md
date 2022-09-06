@@ -30,7 +30,7 @@ Take the [following transaction](https://www.mintscan.io/cosmos/txs/F7196B37828B
 
 If you're familiar with the [basics of IBC](../../academy/4-ibc/what-is-ibc.md), you'll know what to make of these terms.
 
-Now what if want to send some ATOM back from Osmosis to the Hub? An example would be [this transaction](https://www.mintscan.io/osmosis/txs/9721FE816ABEE87D25259F87BA816EB53651194DD871C3F6B0A5B00434429A80)
+Now, what if want to send some ATOM back from Osmosis to the Hub? An example would be [this transaction](https://www.mintscan.io/osmosis/txs/9721FE816ABEE87D25259F87BA816EB53651194DD871C3F6B0A5B00434429A80)
 
 | Key            | Value         |
 | -------------- | ------------- |
@@ -43,7 +43,7 @@ Now what if want to send some ATOM back from Osmosis to the Hub? An example woul
 
 Now instead of seeing `uatom` in the `Origin Denom` field, we see: `IBC/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2`.
 
-This is what we call an IBC denom and is the way assets sent over IBC will be represented on-chain.
+This is what we call an **IBC denom** and is the way assets sent over IBC will be represented on-chain.
 
 <HighlightBox type="learning">
 
@@ -91,9 +91,9 @@ The only way to unlock the locked tokens on blockchain A is to send the `voucher
 
 ## How are IBC denoms derived?
 
-IBC is a protocol that allows for permissionless creation of clients, connections and channels by relayers. Again we refer to the [IBC section](../../academy/4-ibc/token-transfer.md) for more in-depth information. As explained there, a consequence of the permissionless creation of clients (,connections and channels) is that tokens that have traveled different paths, have different security guarantees. To account for this, the IBC protocol makes sure to prepend the path information to a base denomination when representing the `voucher`s minted on the sink chain when transferring tokens over IBC.
+IBC is a protocol that allows for permissionless creation of clients, connections and channels by relayers. Again we refer to the [IBC section](../../academy/4-ibc/token-transfer.md) for more in-depth information. As explained there, **a consequence of the permissionless creation of clients (,connections and channels) is that tokens that have traveled different paths, have different security guarantees**. To account for this, the IBC protocol makes sure to prepend the path information to a base denomination when representing the `voucher`s minted on the sink chain when transferring tokens over IBC.
 
-<HighlightBox type="learning">
+<HighlightBox type="best-practice">
 
 Taking once more the example of Osmosis and the Cosmos Hub. When we send some OSMO from Osmosis to the Hub, the `channelEnd` on the Hub side is characterized by:
 
@@ -121,7 +121,7 @@ In fact, there is one more step to arrive at the IBC denom. We take the hash of 
 ibc_denom := 'ibc/' + hash('path' + 'base_denom')
 ```
 
-<HighlightBox type="learning">
+<HighlightBox type="best-practice">
 
 In the example from earlier, with `transfer/channel-141/uosmo` the corresponding IBC denom is: `ibc/14F9BC3E44B8A9C1BE1FB08980FAB87034C9905EF17CF2F5008FC085218811CC`.
 
@@ -133,7 +133,7 @@ In the following paragraph we'll see a query to find the hash based on the path 
 
 <HighlightBox type="info">
 
-So... why use a hash?
+**So... why use a hash?**
 
 Hashing functions have many desirable properties that make them often used in cryptography, the property most useful in this discussion is that it always reduced to an output of fixed length (256 bits), no matter the input.
 
@@ -151,21 +151,33 @@ The tradeoff of using a hash is that you cannot compute the input, given the out
 
 <!-- [Pulsar example](https://github.com/PulsarDefi/IBC-Cosmos) -->
 
-<HighlightBox type="warn">
+<HighlightBox type="docs">
 
 We see that in IBC denoms, there is a special meaning for the '/' character. We use it to parse port and channel identifiers from the base denom. Hence it was initially forbidden to use forward slashes in the base denomination of tokens.
-
-However due to a requirement from the Evmos chain, which uses forward slashes in contract-based denoms, support for base denominations containing '/' has been added. For more information, check the [ibc-go documentation](https://ibc.cosmos.network/main/migrations/support-denoms-with-slashes.html).
+<br>
+However, due to a requirement from the Evmos chain, which uses forward slashes in contract-based denoms, support for base denominations containing '/' has been added. For more information, check the [ibc-go documentation](https://ibc.cosmos.network/main/migrations/support-denoms-with-slashes.html).
 
 </HighlightBox>
 
-
-
 ## Practical example: `denom_trace`
+
+We can distinguish two cases of interacting with IBC denoms:
+1. to calculate the IBC denom for a given path
+2. to trace the path information and base denom when encountering an IBC denom
+
+The `transfer` IBC module exposes queries for both of these cases. In order to query, you'll have to interact with a node of a chain.
+
+These queries are:
+```sh
+1. $ <binary> query ibc-transfer denom-hash [trace] [flags]
+2. $ <binary> query ibc-transfer denom-trace [hash] [flags]
+```
+
+In this tutorial, we'll be using the `gaiad` binary from the Cosmos Hub, continuing with the example from above where we transfer some OSMO from Osmosis to the Hub.
 
 <HighlightBox type="note">
 
-<!-- Note that you can use any binary that includes IBC denoms -->
+Note that altough we use `gaiad` as an example here, you should use the chain binary of the chain where the asset you're interested in is present. The `transfer` IBC module needs to look up the mapping it stores when querying *denom_trace*
 </HighlightBox>
 
 Install the gaia binary:
@@ -199,9 +211,13 @@ denom_trace:
   path: transfer/channel-141
 ```
 
-From the command output, you now know that there is an IBC port `transfer` and channel `channel-141`. But to know the IBC light client behind the port and channel, you need to perform another query.
+From the terminal output, you now know that there is an IBC port `transfer` and channel `channel-141` that corresponds to the IBC connection between Hub and Osmosis. But to know the IBC light client behind the port and channel, you need to perform another query.
+<HighlightBox type="info">
 
-Why is it called a light client? Because it is a light client of the _counterparty_ chain, keeping track of its blockhashes. The `ibc channel client-state transfer` query explains the details of the denom path.
+Why is it called a light client? Because it is a light client of the _counterparty_ chain, keeping track of its blockhashes.
+</HighlightBox>
+
+ The `ibc channel client-state transfer` query lists the client details for a specified path.
 
 ```sh
 $ gaiad query ibc channel client-state transfer channel-141 --node https://rpc.cosmos.network:443
