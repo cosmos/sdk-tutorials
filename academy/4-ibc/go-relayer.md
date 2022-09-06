@@ -25,12 +25,12 @@ Have you considered running a relayer?
 <br></br>
 In this section, you will learn:
 
-- How to get started with the Go relayer
-- Basic Go relayer commands
+- How to get started with the Go relayer.
+- Basic Go relayer commands.
 
 </HighlightBox>
 
-[The Go relayer](https://github.com/cosmos/relayer) is a relayer implementation written in Golang. It can create clients, connections, and channels, as well as relay packets, and update and upgrade clients.
+[The Go relayer](https://github.com/cosmos/relayer) is a relayer implementation written in Golang. It can create clients, connections, and channels, as well as relay packets and update and upgrade clients.
 
 The Go relayer aims to get your relayer up and running with minimal manual configuration and abstracts away a lot of the more complex IBC concepts. The objective is that users can spin up their own relayer and relay packets. To provide this functionality, it automates a lot of work to fetch configuration data from the [chain registry](https://github.com/cosmos/chain-registry).
 
@@ -44,9 +44,9 @@ The repository offers a script to start two chains, which we need to test the re
 
 <HighlightBox type="note">
 
-The most up to date major version of the Go relayer is v2. This version introduced major updates and improvements including the introduction of a provider interface to accommadate for chains with different consensus types than Tendermint and introducing event-based processing resulting in performance improvements.
+The most up to date major version of the Go relayer is v2. This version delivered major updates and improvements, including the introduction of a provider interface to accommodate chains with different consensus types than Tendermint, and event-based processing that results in performance improvements.
 
-We thus recommend using this latest version, the commands below assume you're using v2.
+We recommend using this latest version, and the following commands assume you're using v2.
 
 </HighlightBox>
 
@@ -139,7 +139,7 @@ $ rly config init --memo "My custom memo"
 
 Custom memos will have `rly(VERSION)` appended. For example, a memo of `My custom memo` running on relayer version `v2.0.0` would result in a transaction memo of `My custom memo | rly(v2.0.0)`.
 
-The `--memo` flag is also available for other `rly` commands also that involve sending transactions such as `rly tx link` and `rly start`. It can be passed there to override the `config.yaml` value if desired.
+The `--memo` flag is also available for other `rly` commands that involve sending transactions, such as `rly tx link` and `rly start`. It can be passed there to override the `config.yaml` value if desired.
 
 To omit the memo entirely, including the default value of `rly(VERSION)`, use `-` for the memo.
 
@@ -243,7 +243,7 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
 
    <HighlightBox type="note">
 
-   Do not see the path metadata for paths you want to relay on? Please open a Push Request (PR) to add this metadata to the GitHub repository!
+   Don't see the path metadata for paths you want to relay on? Please open a Push Request (PR) to add this metadata to the GitHub repository!
 
    </HighlightBox>
 
@@ -259,7 +259,7 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
    - `denylist`, which tells the relayer to relay on all channels _EXCEPT_ the channels in `channel-list`.
    - Empty value, which is the default setting and tells the relayer to relay on all channels.
 
-   Since you should be only worried about the canonical channel between the Cosmos Hub and Osmosis, our filter settings would look like the following:
+   Since you should only be worried about the canonical channel between the Cosmos Hub and Osmosis, our filter settings would look like the following:
 
    Example:
 
@@ -331,7 +331,7 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
 
 ## Testing locally
 
-Besides running a relayer between mainnet chains, you can also run a relayer between public testnet chains or run chains locally to do some testing of particular scenarios. Here you will use a `docker-compose` network with two local `checkers` chains and a relayer between them.
+Besides running a relayer between mainnet chains, you can also run a relayer between public testnet chains, or run chains locally to do some testing of particular scenarios. Here you will use a `docker-compose` network with two local `checkers` chains and a relayer between them.
 
 <HighlightBox type="note">
 
@@ -358,7 +358,7 @@ $ cd cosmos-ibc-docker/tokentransfer/checkers
 $ ./build-images.sh
 ```
 
-You can build the relayer image manually or just start the network via `docker-compose` and let it build the missing image for the `ibc-go` relayer:
+You can build the relayer image manually, or just start the network via `docker-compose` and let it build the missing image for the `ibc-go` relayer:
 
 ```
 $ cd cosmos-ibc-docker/tokentransfer
@@ -373,9 +373,9 @@ When the chains are ready, start the relayer process. In a new terminal, jump in
 $ docker exec -it relayer bash
 ```
 
-The demo includes a script to start the relayer but let us do the steps manually to practice a bit.
+The demo includes a script to start the relayer, but do the steps manually to practice a bit.
 
-First, you need to initialize the configuration:
+First, initialize the configuration:
 
 ```
 $ rly config init
@@ -415,7 +415,7 @@ The relayer will check if any clients, connections, and channels are present for
 
 </HighlightBox>
 
-You can also check `rly tx -h` to find out the separate commands for these actions.
+You can also check `rly tx -h` to find the separate commands for these actions.
 
 ```sh
 $ rly tx link demo -d -t 3s
@@ -460,7 +460,7 @@ $ rly q bal checkersa
 $ rly q bal checkersb
 ```
 
-You can see that the tokens have a denom on the `checkersb` chain because they are not native `token`s of `checkersb`. Send the tokens back to the account on `checkersa` by replacing `$denom`(will be something like `ibc/D11F61D9F5E49A31348A7CD2DECE888D4DFEE1DADA343F7D8D4502BFA9496936`):
+You can see that the tokens have a denom on the `checkersb` chain because they are not native `token`s of `checkersb`. Send the tokens back to the account on `checkersa` by replacing `$denom` (this will be something like `ibc/D11F61D9F5E49A31348A7CD2DECE888D4DFEE1DADA343F7D8D4502BFA9496936`):
 
 ```sh
 $ rly tx transfer checkersb checkersa 10$denom $(rly chains addr checkersa) channel-0

@@ -23,8 +23,8 @@ For all installations, please see the [setup page](../3-my-own-chain/setup.md).
 
 In this section, you will learn:
 
-- How to get started with the Hermes relayer
-- Basic Hermes relayer commands
+- How to get started with the Hermes relayer.
+- Basic Hermes relayer commands.
 
 </HighlightBox>
 
@@ -34,7 +34,7 @@ In this section, you will learn:
 
 Installation instructions can be found [in the Hermes documentation from Informal Systems](https://hermes.informal.systems/installation.html). Check the CLI commands with `hermes -h`. Alternatively, check out the [commands reference](https://hermes.informal.systems/commands/index.html) on the Hermes website.
 
-Recently the Hermes relayer upgraded the major version to v1. This is the first stable release and contains loads of improvments which you can check out in the [changelog](https://github.com/informalsystems/ibc-rs/blob/master/CHANGELOG.md#v100). We recommend using v1 or higher from this point forward and the commands below assume you are using v1.x.y.
+Recently the Hermes relayer upgraded the major version to v1. This is the first stable release and contains loads of improvements which you can check out in the [changelog](https://github.com/informalsystems/ibc-rs/blob/master/CHANGELOG.md#v100). It is recommended to  use v1 or higher from this point forward, and the commands below assume you are using v1.x.y.
 
 </HighlightBox>
 
@@ -142,7 +142,7 @@ This powerful command bundles a lot of functionality where Hermes will be listen
 
 <HighlightBox type="note">
 
-When starting the Hermes relayer, it will assume that the channels you wish to relay over are set up. This will be the case if you want to start relaying on an existing _canonical_ channel, meaning the offical and agreed-upon channel (for example, used for fungible token transfers).
+When starting the Hermes relayer, it will assume that the channels you wish to relay over are set up. This will be the case if you want to start relaying on an existing _canonical_ channel, meaning the official and agreed-upon channel (for example, used for fungible token transfers).
 <br></br>
 This is perfectly possible and the right approach, given that creating a new channel would make assets relayed over it non-fungible with assets relayed over the canonical channel. Most tutorials will create new channels (and possibly clients and connections) as this provides more insight into the software. However, it is **important to note that you only need to create new channels if no canonical channel is present** (for example, for a newly deployed chain).
 
@@ -173,7 +173,7 @@ $ cd cosmos-ibc-docker/tokentransfer/checkers
 $ ./build-images.sh
 ```
 
-You can build the relayer image manually or just start the network via `docker-compose` and let it build the missing image for the `hermes` relayer:
+You can build the relayer image manually, or just start the network via `docker-compose` and let it build the missing image for the `hermes` relayer:
 
 ```
 $ cd cosmos-ibc-docker/tokentransfer
@@ -182,7 +182,7 @@ $ docker-compose -f tokentransfer.yml --profile hermes up
 
 Observe the output of `docker-compose` until the chains are ready - the chains will take some time.
 
-If the chains are ready, go into the relayer container and run a bash:
+When the chains are ready, go into the relayer container and run a bash:
 
 ```sh
 $ docker exec -it relayer bash
@@ -208,8 +208,13 @@ You can check the CLI commands with `hermes -h`. The Hermes CLI offers help for 
 
 You can find the configuration in `cosmos-ibc-docker/tokentransfer/relayer_hermes/config.toml`.
 
-You will see two `[[chains]]` sections in the `config.toml`. First one includes comments about configuration.
-Note that the chain IDs need to be specified, as well as the RPC, GRPC, and WebSocket addresses.
+You will see two `[[chains]]` sections in the `config.toml`. The first one includes comments about configuration.
+
+<HighlightBox type="note">
+
+Chain IDs need to be specified, as well as the RPC, GRPC, and WebSocket addresses.
+
+</HighlightBox>
 
 Do a validation check on the configuration file:
 
@@ -223,11 +228,11 @@ Next do a health check:
 $ hermes health-check
 ```
 
-You should see that both chains are healthy. The demo includes a script to start the relayer but let us do the steps manually to practice a bit.
+You should see that both chains are healthy. The demo includes a script to start the relayer, but do the steps manually to practice a bit.
 
 ### Manual testing - setting up relayer keys
 
-Now we need some keys to sign transaction. Let us populate the aliases:
+You need some keys to sign transaction. Populate the aliases:
 
 ```
 $ hermes keys add --chain checkersa --mnemonic-file "alice.json"
@@ -258,7 +263,7 @@ $ docker exec checkersb checkersd query bank balances cosmos173czeq76k0lh0m6zcz7
 
 ### Manual testing - create a channel
 
-It is time to create a channel in order to send some tokens from `checkersa` to `checkersb`, in the relayer container, run:
+It is time to create a channel in order to send some tokens from `checkersa` to `checkersb`. In the relayer container, run:
 
 ```
 $ hermes create channel --a-chain checkersa --b-chain checkersb --a-port transfer --b-port transfer --new-client-connection
@@ -286,9 +291,9 @@ Query the channels for **checkersa**:
 $ hermes query channels --chain checkersa
 ```
 
-You should see one channel and the port binding transfer. All this is part of the `create channel` command. It will create a client, a connection and a channel as well as a binding to a port. You can redo some steps to better understand the CLI.
+You should see one channel and the port binding transfer. All this is part of the `create channel` command. It will create a client, a connection, and a channel as well as a binding to a port. You can redo some steps to better understand the CLI.
 
-Create another connection for the both chains:
+Create another connection for both chains:
 
 ```sh
 $ hermes create connection --a-chain checkersa --b-chain checkersb
@@ -306,7 +311,7 @@ This repeats the port binding `transfer`. Check that the channel is created agai
 $ hermes query channels --chain checkersa
 ```
 
-### Manual testing - send IBC transfer
+### Manual testing - send an IBC transfer
 
 Next up, send an IBC transfer using the second channel that was created:
 
@@ -356,7 +361,7 @@ You can also query for unreceived packets:
 $ hermes query packet pending --chain checkersb --port transfer --channel channel-1
 ```
 
-the output should be similar to:
+The output should be similar to:
 
 ```
 UCCESS Summary {
@@ -375,7 +380,7 @@ UCCESS Summary {
 }
 ```
 
-where you can observe an unreceived packet.
+There you can observe an unreceived packet.
 
 <HighlightBox type="note">
 
