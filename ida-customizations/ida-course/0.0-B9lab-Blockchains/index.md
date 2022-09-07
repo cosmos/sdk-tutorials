@@ -2,7 +2,7 @@
 parent:
   title: "Getting Started"
   description: NEW TO BLOCKCHAIN OR IN NEED OF A REFRESHER?
-  number: 0
+  number: 1
 tag:
 ---
 
