@@ -208,9 +208,9 @@ You can check the CLI commands with `hermes -h`. The Hermes CLI offers help for 
 
 You can find the configuration in `cosmos-ibc-docker/tokentransfer/relayer_hermes/config.toml`.
 
-You will see two `[[chains]]` sections in the `config.toml`. The first one includes comments about configuration.
-
 <HighlightBox type="note">
+
+You will see two `[[chains]]` sections in the `config.toml`. The first one includes comments about configuration.
 
 Chain IDs need to be specified, as well as the RPC, GRPC, and WebSocket addresses.
 
