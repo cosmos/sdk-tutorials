@@ -6,11 +6,11 @@ Learn how to integrate IBC middleware(s) with a base application to your chain. 
 
 </HighlightBox>
 
-We've now seen how to develop an IBC middleware, the final step in order to use it is to integrate it into the chain. We can distinguish between a single piece of middleware or a stack of middleware and between middleware that is stateful or stateless.
+You've now seen how to develop an IBC middleware, and the final step in order to use it is to integrate it into the chain. You can distinguish between a single piece of middleware and a stack of middleware, and between middleware that is stateful or stateless.
 
-To integrate our middleware (stack) we must do the following in `app.go`:
+To integrate middleware (or a middleware stack) you must do the following in `app.go`:
 
-- If the middleware is maintaining its own state and/or processing SDK messages, then it should **create and register its SDK module with the module manager**. Make sure not to create multiple `moduleManager`s but to register all modules in the same one.
+- If the middleware is maintaining its own state, processing SDK messages, or both, then it should **create and register its SDK module with the module manager**. Make sure not to create multiple `moduleManager`s but to register all modules in the same one.
 
     <ExpansionPanel title="Example code">
 
@@ -40,7 +40,7 @@ To integrate our middleware (stack) we must do the following in `app.go`:
 
     </ExpansionPanel>
 
-- As mentioned in the previous section, in the case where the middleware wishes to send a packet or acknowledgment without the involvement of the underlying application, it should be given access to the same `scopedKeeper` as the base application so that it can retrieve the capabilities by itself.
+- As mentioned in the previous section, if the middleware wishes to send a packet or acknowledgment without the involvement of the underlying application, it should be given access to the same `scopedKeeper` as the base application so that it can retrieve the capabilities by itself.
 
     <ExpansionPanel title="Example code">
 
@@ -59,14 +59,18 @@ To integrate our middleware (stack) we must do the following in `app.go`:
 
     </ExpansionPanel>
 
-  For example, if the middleware `mw1` needed the ability to send a packet without the underlying application `custom2`, it would have to get access to the latter's `scopedKeeper`:
+  For example, if the middleware `mw1` needed the ability to send a packet without the underlying application `custom2`, it would require access to the latter's `scopedKeeper`:
 
   ```diff
   - mw1Keeper := mw1.NewKeeper(storeKey1)
   + mw1Keeper := mw1.NewKeeper(storeKey1, scopedKeeperCustom2)
   ```
 
-  **Note**: if no middleware (or other modules for that matter) need access to the `scopedKeeper`, there is no need to define them
+<HighlightBox type="note">
+
+If no middleware (or other modules for that matter) need access to the `scopedKeeper`, there is no need to define them.
+
+</HighlightBox>
 
 - Each application stack must reserve its own unique port with core IBC. Thus two stacks with the same base application must bind to separate ports.
 
@@ -85,11 +89,11 @@ To integrate our middleware (stack) we must do the following in `app.go`:
 
     </ExpansionPanel>
 
-- The order of middleware **matters**, function calls from IBC to the application travel from top-level middleware to the bottom middleware and then to the application. Function calls from the application to IBC goes through the bottom middleware in order to the top middleware and then to core IBC handlers. Thus the same set of middleware put in different orders may produce different effects.
+- **The order of middleware matters**. Function calls from IBC to the application travel from top-level middleware through to bottom-level middleware and then to the application. Function calls from the application to IBC rise from the bottom middleware in order to the top middleware and then to core IBC handlers. Thus the same set of middleware arranged in different orders may produce different effects.
 
-    <HighlightBox type="tip">
+  <HighlightBox type="tip">
 
-  Next to the diagram shown in the [introduction](./ibcmw-intro.md), we can also remember the direction of information flow through the middleware by looking at the interface:
+  In addition to the diagram shown in the [introduction](./ibcmw-intro.md), also note the direction of information flow through the middleware by looking at the interface:
 
   ```go
       type Middleware interface {
@@ -98,7 +102,8 @@ To integrate our middleware (stack) we must do the following in `app.go`:
   }
   ```
 
-  The packet and channel callbacks defined by `IBCModule` run from IBC Core to the base application, the methods defined by `ICS4Wrapper` run from base application to core IBC.
+  The packet and channel callbacks defined by `IBCModule` run from IBC Core to the base application; the methods defined by `ICS4Wrapper` run from base application to core IBC.
+
   </HighlightBox>
 
   In the code snippet below, 3 different stacks are defined:
@@ -119,7 +124,7 @@ To integrate our middleware (stack) we must do the following in `app.go`:
     ```
     </ExpansionPanel>
 
-- All middleware must be connected to the IBC router and wrap over an underlying base IBC application. An IBC application may be wrapped by many layers of middleware, **only the top layer middleware should be hooked to the IBC router**, with all underlying middlewares and application getting wrapped by it.
+- All middleware must be connected to the IBC router and wrap over an underlying base IBC application. An IBC application may be wrapped by many layers of middleware, **but only the top-layer middleware should be hooked to the IBC router**, with all underlying middlewares and application getting wrapped by it.
 
     <ExpansionPanel title="Example code">
 
@@ -134,7 +139,7 @@ To integrate our middleware (stack) we must do the following in `app.go`:
 
     </ExpansionPanel>
 
-Next we take a look at the full example integration, combining all of the above code snippets.
+Next, take a look at a full example integration, combining all of the above code snippets.
 
 ### Example integration
 
