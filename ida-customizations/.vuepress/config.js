@@ -520,7 +520,7 @@ module.exports = {
                 },
                 {
                   title: "Move to Production",
-                  path: "/hands-on-exercise/5-run-in-prod/.html",
+                  path: "/hands-on-exercise/5-run-in-prod/run-prod.html",
                 },
                 {
                   title: "Final Exam",
