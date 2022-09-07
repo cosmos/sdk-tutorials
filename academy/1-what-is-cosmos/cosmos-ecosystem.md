@@ -190,7 +190,7 @@ CosmWasm's design makes your code agnostic to the details of the underlying chai
 
 Soon, CosmWasm will enable systems and contracts that communicate across chains because it will work with IBC. 
 
-CosmWasm will likely support many approaches to developing contracts. For now, Rust is the most popular, most evolved and most used, so CosmWasm is ideal for Rust developers looking for a blockchain platform with fast transaction finality.
+CosmWasm will likely support many approaches to developing contracts. For now, Rust is the most popular, most evolved, and most used, so CosmWasm is ideal for Rust developers looking for a blockchain platform with fast transaction finality.
 
 <HighlightBox type="docs">
 
