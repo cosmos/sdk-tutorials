@@ -1,11 +1,11 @@
 ---
 parent:
-title: Good-to-Know Dev Terms
+title: Good-To-Know Dev Terms
 order: 0
 description: Review some technical terms essential when developing in Cosmos
 ---
 
-# Good-to-Know Dev Terms
+# Good-To-Know Dev Terms
 
 You can find an overview of several technical terms in this section, including an explanation of each term and links to further resources - all of which are essential when developing with the Cosmos SDK.
 
