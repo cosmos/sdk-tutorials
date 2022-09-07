@@ -48,7 +48,8 @@ overview:
         We've set up a private Discord for the Academy for all teaching and ongoing communication. You can reach out to your tutors and expert instructors anytime for support. We encourage you to proactively collaborate with other participants in your cohort and with your instructors. Ask questions, request feedback, and seek help if you are stuck! That way, you'll get the most out of the Academy.<br/><br/>
         We aim to answer your questions within a few hours. Our maximum response time is 24 hours. Main support hours are on weekdays between 6AM UTC and 4PM UTC. We do not provide support during the weekends.<br/><br/>
 # All items below should not be displayed for Week O release but on official start date - end is signaled with another comment
-        Click [here](ida-customization/ida-course/discord-info.md) to learn how to join and use Discord.
+        Click [here](ida-customization/ida-course/discord-info.md) to learn how to join and use Discord.<br/><br/>
+        You will get detailed information on how to join and use Discord via email.
     - title: How do I access Discord?
       description: |
         Follow these two steps to join the private Academy channels on Discord:<br/><br/>
