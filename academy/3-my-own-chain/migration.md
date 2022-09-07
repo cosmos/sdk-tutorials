@@ -37,7 +37,7 @@ When you introduce the leaderboard, you also have to decide what to do with your
 
 Start your v2's leaderboard as if all played past games had been counted for the leaderboard. You _only_ need to go through all played games, update the players with their tallies, and add a leaderboard including the information. This is possible because all past games and their outcomes are kept in the chain's state. Migration is a good method to tackle the initial leaderboard.
 
-For the avoidance of doubt, v1 and v2 refer refer to the overall versions of the application, and not to the _consensus versions_ of individual modules, which may change or not.
+For the avoidance of doubt, **v1 and v2 refer to the overall versions of the application**, and not to the _consensus versions_ of individual modules, which may change or not.
 
 ## Introducing a leaderboard
 
@@ -50,7 +50,7 @@ Several things need to be addressed before you can focus all your attention on t
     3. Adjust the existing code to make use of and update the new data types.
 3. Prepare for your v1-to-v2 migration:
     1. Add helper functions to process large amounts of data from the latest chain state of type v1.
-    2. Add a function to migrate from your state from v1 to v2.
+    2. Add a function to migrate your state from v1 to v2.
     3. Make sure you can handle large amounts of data.
 
 _Why do you need to make sure you can handle large amounts of data?_ The full state at the point of migration may well have millions of games. You do not want your process to grind to a halt because of a lack of memory or I/O capacity.
@@ -63,7 +63,7 @@ Your migration steps will be handled in a new folder, `x/checkers/migrations/v1t
 $ mkdir -p x/checkers/migrations/v1tov2
 ```
 
-The only **data structure** you will eventually change is the checkers genesis structure. The other data structures are new, so you can treat them _as usual_. Although in this very case it is not strictly necessary, it is good to make this a practice. Copy and paste your compiled Protobuf v1 genesis from the current commit and save it under the same name in `x/checkers/migrations/v1/types/`:
+The only **data structure** you will eventually change is the checkers genesis structure. The other data structures are new, so you can treat them _as usual_. Although in this specific case it is not strictly necessary, it is good to make this practice habitual. Copy and paste your compiled Protobuf v1 genesis from the current commit and save it under the same name in `x/checkers/migrations/v1/types/`:
 
 ```sh
 $ mkdir -p x/checkers/migrations/v1/types
@@ -84,7 +84,7 @@ If you feel unsure about creating new data structures with Ignite CLI, look at t
 
 To give the new v2 information a data structure, you need the following:
 
-1. Add a set of **stats per player**: it makes sense to save one `struct` for each player and map it by address. Remember that a game is stored at a _notional_ [`StoredGame/value/123/`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/stored_game.go#L24-L28), where [`StoredGame/value/`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/key_stored_game.go#L9) is a constant prefix. In a similar fashion, Ignite CLI creates a new constant to use as the prefix for players:
+1. Add a set of **stats per player**: it makes sense to save one `struct` for each player and to map it by address. Remember that a game is stored at a _notional_ [`StoredGame/value/123/`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/stored_game.go#L24-L28), where [`StoredGame/value/`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/key_stored_game.go#L9) is a constant prefix. In a similar fashion, Ignite CLI creates a new constant to use as the prefix for players:
 
     <CodeGroup>
 
@@ -109,6 +109,7 @@ To give the new v2 information a data structure, you need the following:
     <HighlightBox type="info">
 
     The new `PlayerInfo/value/` prefix for players helps differentiate between the value for players and the value for games prefixed with `StoredGame/value/`.
+    
     Now you can safely have both `StoredGame/value/123/` and `PlayerInfo/value/123/` side by side in storage.
 
     </HighlightBox>
@@ -188,7 +189,7 @@ To give the new v2 information a data structure, you need the following:
     </CodeGroup>
 
 
-5. This creates a Protobuf file with `string winners`. So you update it with your preferred type and its `import`. Add that each element in the map is not nullable. This will compile each `WinningPlayer` to a Go object instead of a pointer:
+5. This creates a Protobuf file with `string winners`. You update it with your preferred type and its `import`. Add that each element in the map is not nullable. This will compile each `WinningPlayer` to a Go object instead of a pointer:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/proto/checkers/leaderboard.proto#L9-L11]
     import "gogoproto/gogo.proto";
@@ -199,7 +200,7 @@ To give the new v2 information a data structure, you need the following:
     }
     ```
 
-6. The v2 genesis was also updated with the leaderboard. Also tell it that the leaderboard should always be there (even if empty):
+6. The v2 genesis was also updated with the leaderboard. Tell it that the leaderboard should always be there (even if empty):
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/proto/checkers/genesis.proto#L20]
     import "checkers/leaderboard.proto";
@@ -263,7 +264,7 @@ To give the new v2 information a data structure, you need the following:
     ...
     ```
 
-    While you are at it, you can add a test case that catches a duplicated winner player:
+    At this point you can add a test case that catches a duplicated winner player:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/genesis_test.go#L86-L101]
     {
@@ -284,7 +285,7 @@ To give the new v2 information a data structure, you need the following:
     },
     ```
 
-9. In fact, this latest test case will pass, unless you update the `Validate()` method of the genesis to not allow duplicate player addresses. This is inspired by `types/genesis.go` and best kept in a separate `types/leaderboard.go`:
+9. This latest test case will pass, unless you update the `Validate()` method of the genesis to not allow duplicate player addresses. This is inspired by `types/genesis.go` and best kept in a separate `types/leaderboard.go`:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/leaderboard.go#L12-L24]
     func (leaderboard Leaderboard) Validate() error {
@@ -302,7 +303,7 @@ To give the new v2 information a data structure, you need the following:
     }
     ```
 
-    After that, you can adjust the `types/genesis.go` files:
+    After this, you can adjust the `types/genesis.go` files:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/genesis.go#L51-L54]
     ...
@@ -410,7 +411,7 @@ func (k *Keeper) MustRegisterPlayerForfeit(ctx sdk.Context, storedGame *types.St
 
 <HighlightBox type="note">
 
-Be aware of the two new error types [`ErrThereIsNoWinner`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/errors.go#L30) and [`ErrWinnerNotParseable`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/errors.go#L29).
+Be aware of the two new error types: [`ErrThereIsNoWinner`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/errors.go#L30) and [`ErrWinnerNotParseable`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/errors.go#L29).
 
 </HighlightBox>
 
@@ -504,7 +505,7 @@ func FormatDateAdded(dateAdded time.Time) string {
 }
 ```
 
-Not to forget the new error message:
+Do the same for the new error message:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/errors.go#L31]
 ErrInvalidDateAdded = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
@@ -591,7 +592,7 @@ func SortWinners(winners []WinningPlayerParsed) {
 }
 ```
 
-It tests in descending order first for scores and then for the added dates. Note that there is no deserialization in this `func(i, j int) bool` callback. It is possible to write a one-liner inside this function but at the expense of readability.
+It tests in descending order, first for scores and then for the added dates. Note that there is no de-serialization in this `func(i, j int) bool` callback. It is possible to write a one-liner inside this function but at the expense of readability.
 
 Now you will make sure that your leaderboard never exceeds a certain length. Define the maximum length:
 
@@ -601,7 +602,7 @@ const (
 )
 ```
 
-You have now the pieces in place to create the function that adds or updates a candidate to the leaderboard:
+You now have the pieces in place to create the function that adds or updates a candidate to the leaderboard:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/leaderboard.go#L112-L155]
 func UpdatePlayerInfoAtNow(winners []WinningPlayerParsed, now time.Time, candidate PlayerInfo) (updated []WinningPlayerParsed) {
@@ -709,7 +710,7 @@ With all these changes, it is worthwhile adding tests.
 
 ### Player info handling unit tests
 
-Confirm with new tests that the player's information is created or updated on a win, a loss and a forfeit. For instance, after a winning move:
+Confirm with new tests that the player's information is created or updated on a win, a loss, and a forfeit. For instance, after a winning move:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_winner_test.go#L143-L206]
 func TestCompleteGameAddPlayerInfo(t *testing.T) {
@@ -778,7 +779,7 @@ func TestCompleteGameUpdatePlayerInfo(t *testing.T) {
 }
 ```
 
-You can add similar tests that confirm that nothing happens after a [game creation](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_create_game_test.go#L419-L498), a [reject](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_reject_game_test.go#L307-L381) or a [non-winning move](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_test.go#L538-L596). Of course, also check that a [forfeit is registered](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/end_block_server_game_test.go#L577-L682).
+You can add similar tests that confirm that nothing happens after a [game creation](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_create_game_test.go#L419-L498), a [reject](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_reject_game_test.go#L307-L381), or a [non-winning move](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_test.go#L538-L596). You should also check that a [forfeit is registered](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/end_block_server_game_test.go#L577-L682).
 
 ### Leaderboard handling unit tests
 
@@ -826,7 +827,7 @@ func TestSortStringifiedWinners(t *testing.T) {
 }
 ```
 
-With that done, you can confirm that the updating or addition of a new player info to the leaderboard works as expected. Again with an array of test cases:
+With that done, you can confirm that the updating or addition of a new player info to the leaderboard works as expected, again with an array of test cases:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/leaderboard_test.go#L154-L387]
 func TestUpdatePlayerInfoAtNow(t *testing.T) {
@@ -905,7 +906,7 @@ func TestUpdatePlayerInfoAtNowTooLongNoAdd(t *testing.T) {
 }
 ```
 
-With the tests at the leaderboard type level done, you can move to unit tests at the keeper level. Confirm that there are no changes on [creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_create_game_test.go#L500-L553), [rejecting one](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_reject_game_test.go#L383-L444), and on a [regular move](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_test.go#L598-L651).
+With the tests at the leaderboard level done, you can move to unit tests at the keeper level. Confirm that there are no changes on [creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_create_game_test.go#L500-L553), [rejecting one](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_reject_game_test.go#L383-L444), and on a [regular move](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_test.go#L598-L651).
 
 Confirm that a new winner is either [added](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_winner_test.go#L208-L225) or updated in the leaderboard:
 
@@ -943,45 +944,45 @@ func TestCompleteGameLeaderboardUpdatedWinner(t *testing.T) {
 }
 ```
 
-And do the same on [a forfeit](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/end_block_server_game_test.go#L684-L794).
+Now do the same on [a forfeit](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/end_block_server_game_test.go#L684-L794).
 
-This completes your Checkers V2 chain. If you were to start it anew as is, it would work. But of course, you already have the V1 of Checkers running, and you need to migrate the lot.
+This completes your Checkers V2 chain. If you were to start it anew as is, it would work. However, you already have the V1 of Checkers running, so you need to migrate everything.
 
 ## v1 to v2 player information migration helper
 
 With your v2 blockchain now fully operational on its own, it is time to work on the issue of stored data migration.
 
-First, tackle the creation of players information. You will build the player information by extracting it from all the existing stored games. In the [map/reduce](https://en.wikipedia.org/wiki/MapReduce) parlance you will _reduce_ this information from the stored games.
+First, tackle the creation of player information. You will build the player information by extracting it from all the existing stored games. In the [map/reduce](https://en.wikipedia.org/wiki/MapReduce) parlance, you will _reduce_ this information from the stored games.
 
 ### Problem description
 
-If performance was not an issue, an easy way to do it would be to:
+If performance was not an issue, an easy way to do it would be the following:
 
-1. Call [`keeper.GetAllStoredGame()`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/stored_game.go#L50), get an array with all the games.
+1. Call [`keeper.GetAllStoredGame()`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/stored_game.go#L50) to get an array with all the games.
 2. Keep only the games that have a winner.
 3. Then for each game:
-    1. Call `keeper.GetPlayerInfo` or, if it is not found, create a player info, both for the black player and the red player.
+    1. Call `keeper.GetPlayerInfo` or, if that is not found, create a player info, both for the black player and the red player.
     2. Do `+1` on `.WonCount` or `.LostCount` according to the `game.Winner` field.
     3. Call `keeper.SetPlayerInfo` for both black and red players.
 
-Of course, in a world with limited resources, you would run into the following problems:
+Of course, given inevitable resource limitations, you would run into the following problems:
 
 1. Getting all the games in a single array may not be possible, because your node's RAM may not be able to keep a million of them in memory. Or maybe it fails at 100,000 of them.
-2. Calling `.GetPlayerInfo` and `.SetPlayerInfo` twice per game just to do `+1` adds up quickly. Remember that both of these calls are database calls. You could be saddled with a 12-hour job. 12 hours during which your chain is offline.
-3. Doing it all in a sequential manner takes even more time as each blocking call blocks the whole process.
+2. Calling `.GetPlayerInfo` and `.SetPlayerInfo` twice per game just to do `+1` adds up quickly. Remember that both of these calls are database calls. You could be confronted with a 12-hour job, during which your chain is offline.
+3. Doing it all in a sequential manner would take even more time, as each blocking call blocks the whole process.
 
 ### Proposed solution
 
 Fortunately, there exist ways to mitigate these limitations:
 
 1. You do not need to get all the games at once. The [`keeper.StoredGameAll`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/grpc_query_stored_game.go#L14) function offers pagination. With this, you can limit the impact to the RAM requirement, at the expense of multiple queries.
-2. Within each subset of games, you can compute in memory the player list and how many wins and losses they each got. With this _mapping_ done, you can add the (in-memory) intermediary `WonCount` and `LostCount` sums to each player's stored sums. With this, a `+1` is potentially replaced by a `+k`, at once reducing the number of calls to `.GetPlayerInfo` and `.SetPlayerInfo`.
+2. Within each subset of games, you can compute in memory the player list and how many wins and losses each player has. With this _mapping_ done, you can add the (in-memory) intermediary `WonCount` and `LostCount` sums to each player's stored sums. With this, a `+1` is potentially replaced by a `+k`, at once reducing the number of calls to `.GetPlayerInfo` and `.SetPlayerInfo`.
 3. You can separate the different calls and computations into [Go routines](https://gobyexample.com/goroutines) so that a blocking call does not prevent other computations from taking place in the mean time.
 
 The routines will use **channels** to communicate between themselves and the main function:
 
-1. A _stored-game_ channel that will pass along chunks of games in the `[]types.StoredGame` format.
-2. A _player-info_ channel that will pass along intermediate computations of player informations in the simple `types.PlayerInfo` format.
+1. A _stored-game_ channel, that will pass along chunks of games in the `[]types.StoredGame` format.
+2. A _player-info_ channel, that will pass along intermediate computations of player information in the simple `types.PlayerInfo` format.
 3. A _done_ channel, whose only purpose is to flag to the main function when all has been processed.
 
 The processing **routines** will be divided as per the following:
@@ -992,16 +993,16 @@ The processing **routines** will be divided as per the following:
     * Compute the aggregate player infos from them. I.e. **_map_**.
     * Send the results on the _player-info_ channel.
 
-    And if it detects that no more games are coming, it will close the _player-info_ channel.
+    Also, if it detects that no more games are coming, it will close the _player-info_ channel.
 
 2. The **player info processing** routine will:
 
     * Receive individual player info objects from the _player-info_ channel.
     * Fetch the existing (or not) corresponding player info from the store.
-    * Update the won and lost counts. I.e. **_reduce_**. Remember, here it is doing `+= k`, not `+= 1`.
+    * Update the won and lost counts, i.e. **_reduce_**. Remember, here it is doing `+= k`, not `+= 1`.
     * Save it back to the store.
 
-    And if it detects that no more player infos are coming, it will flag it on the _done_ channel.
+    Also, if it detects that no more player infos are coming, it will flag it on the _done_ channel.
 
 3. The **main function** will:
 
@@ -1014,7 +1015,7 @@ The processing **routines** will be divided as per the following:
 
 ### Implementation
 
-The player info processing will handle an in-memory map of player addresses to their information: `map[string]*types.PlayerInfo`. Create a new file to encapsulate this whole processing. Start by creating a helper that automatically populates it with an empty information when missing:
+The player info processing will handle an in-memory map of player addresses to their information: `map[string]*types.PlayerInfo`. Create a new file to encapsulate this whole processing. Start by creating a helper that automatically populates it with empty values when information is missing:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/migrations/v1tov2/migration_player_info.go#L11-L23]
 func getOrNewPlayerInfoInMap(infoSoFar *map[string]*types.PlayerInfo, playerIndex string) (playerInfo *types.PlayerInfo) {
@@ -1064,7 +1065,11 @@ func handleStoredGameChannel(ctx sdk.Context,
 }
 ```
 
-Note that it can handle the edge case where black and red both refer to the same player.
+<HighlightBox type="note">
+
+This function can handle the edge case where black and red both refer to the same player.
+
+</HighlightBox>
 
 Create the routine function to process the player info:
 
@@ -1138,9 +1143,9 @@ In the process, there are two time-consuming parts:
 1. Fetching the stored player infos in a paginated way, consuming mostly database resources.
 2. Sorting each intermediate leaderboard, consuming mostly computation resources.
 
-It looks beneficial to use a Go routine in this case too. And a _player infos_ channel to pass along arrays of player infos.
+It looks beneficial to use a Go routine in this case too, and a _player infos_ channel to pass along arrays of player infos.
 
-Repeatedly building the intermediate leaderboard, in practice, means adding _k_ new `winningPlayerParsed` to the sorted array, sorting it, clipping it to `LeaderboardWinnerLength`, and repeating. What constitutes a good _k_ value should be dictated by testing and performance measurements. Although you can start with your best guess in its own file:
+In practice, repeatedly building the intermediate leaderboard means adding _k_ new `winningPlayerParsed` to the sorted array, sorting it, clipping it to `LeaderboardWinnerLength`, and repeating. What constitutes a good _k_ value should be dictated by testing and performance measurements. However, you can start with your best guess in its own file:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/migrations/v1tov2/constants.go#L7]
 const PlayerInfoChunkSize = types.LeaderboardWinnerLength * 2
@@ -1179,7 +1184,11 @@ func AddCandidatesAndSort(parsedWinners []types.WinningPlayerParsed, ctx sdk.Con
 }
 ```
 
-Note how `addParsedCandidatesAndSort` is not exported because it already assumes that the `candidates` do not contain any with `WinCount == 0`. This is an assumption that is not enforced.
+<HighlightBox type="note">
+
+`addParsedCandidatesAndSort` is not exported because it already assumes that the `candidates` do not contain any with `WinCount == 0`. This is an assumption that is not enforced.
+
+</HighlightBox>
 
 With this, you can create the routine function that builds the leaderboard in memory and saves it to storage once at the end:
 
@@ -1199,7 +1208,11 @@ func handlePlayerInfosChannel(ctx sdk.Context, k keeper.Keeper,
 }
 ```
 
-Note how the winners are initialized at a `0` size but with a capacity of `types.LeaderboardWinnerLength+chunk`, which is the expected maximum intermediate size it will reach. This initialization should ensure that the slice does not need to have its capacity increased mid-process.
+<HighlightBox type="note">
+
+The winners are initialized at a `0` size but with a capacity of `types.LeaderboardWinnerLength+chunk`, which is the expected maximum intermediate size it will reach. This initialization should ensure that the slice does not need to have its capacity increased mid-process.
+
+</HighlightBox>
 
 Declare the main function:
 
@@ -1261,13 +1274,17 @@ func PerformMigration(ctx sdk.Context, k keeper.Keeper, storedGameChunk uint64, 
 }
 ```
 
-Note that it does not panic in case of an error. To avoid carrying on a faulty state, the caller of this function will have to handle the panic.
+<HighlightBox type="note">
+
+This does not panic in case of an error. To avoid carrying on a faulty state, the caller of this function will have to handle the panic.
+
+</HighlightBox>
 
 You have in place the functions that will handle the store migration. Now you have to set up the chain of command for these functions to be called by the node at the right point in time.
 
 ### Consensus version and name
 
-The `upgrade` module keeps in its own store the [different module versions](https://docs.cosmos.network/master/core/upgrade.html#tracking-module-versions) that are currently running. To signal an upgrade, your module needs to return a different value when queried by the `upgrade` module. Change it from `2` to `3`, or whichever number works for you. First keep both these values in their respective locations:
+The `upgrade` module keeps in its own store of the [different module versions](https://docs.cosmos.network/master/core/upgrade.html#tracking-module-versions) that are currently running. To signal an upgrade, your module needs to return a different value when queried by the `upgrade` module. Change it from `2` to `3`, or whichever number works for you. First keep both these values in their respective locations:
 
 <CodeGroup>
 
@@ -1289,15 +1306,19 @@ const TargetConsensusVersion = 3
 
 </CodeGroup>
 
-Note how the consensus version number bears no resemblance to v1 or v2. The consensus version number is for the module. v1 or v2 is for the whole application.
+<HighlightBox type="note">
 
-And, now that you are in v2, have the module return it when asked:
+The consensus version number bears no resemblance to v1 or v2. The consensus version number is for the module, whereas v1 or v2 is for the whole application.
+
+</HighlightBox>
+
+Now that you are in v2, have the module return it when asked:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/module.go#L175]
 func (AppModule) ConsensusVersion() uint64 { return v2.TargetConsensusVersion }
 ```
 
-You also have to pick a name for this upgrade that you prepared. This name will identify your specific upgrade when it is mentioned in a `Plan`, i.e. an upgrade governance proposal. It is a name relevant at the application level:
+You also have to pick a name for the upgrade you have prepared. This name will identify your specific upgrade when it is mentioned in a `Plan`, i.e. an upgrade governance proposal. This is a name relevant at the application level:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/app/upgrades/v1tov2/constants.go#L4]
 const UpgradeName = "v1tov2"
@@ -1329,7 +1350,7 @@ Note it makes a decision on the chunk sizes to use.
 
 ### Callback in `app`
 
-The command that you are going to write needs a `Configurator`. It is already created as part of your `app` preparation but is not kept. So instead of recreating one, you adjust your code to make it easily available. Add this field to your `app`:
+The command that you are going to write needs a `Configurator`. This is already created as part of your `app` preparation, but is not kept. Instead of recreating one, adjust your code to make it easily available. Add this field to your `app`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/app/app.go#L246]
 type App struct {
@@ -1338,7 +1359,7 @@ type App struct {
 }
 ```
 
-And adjust the place where the configurator is created:
+Now adjust the place where the configurator is created:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/app/app.go#L560-L561]
 app.configurator = module.NewConfigurator(app.appCodec, app.MsgServiceRouter(), app.GRPCQueryRouter())
@@ -1382,7 +1403,7 @@ func (app *App) setupUpgradeHandlers() {
 }
 ```
 
-Now you are ready to inform the app proper. You do this towards the end, after the call to `app.SetEndBlocker` and before `if loadLatest`. At the right location:
+Now you are ready to inform the app proper. You do this towards the end, after the call to `app.SetEndBlocker` and before `if loadLatest`. At the correct location:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/app/app.go#L610]
 ...
@@ -1395,13 +1416,13 @@ if loadLatest {
 }
 ```
 
-One more thing, for some reason, the `monitoring` module added by Ignite gives difficulty when experimenting below with the CLI. To make it simple, you remove [all references to `monitoring`](https://github.com/cosmos/b9-checkers-academy-draft/compare/leaderboard-handling..migration#diff-0f1d2976054440336a576d47a44a37b80cdf6701dd9113012bce0e3c425819b7L159) from `app.go`.
+Be aware that the `monitoring` module added by Ignite causes difficulty when experimenting below with the CLI. To make it simple, you should remove [all references to `monitoring`](https://github.com/cosmos/b9-checkers-academy-draft/compare/leaderboard-handling..migration#diff-0f1d2976054440336a576d47a44a37b80cdf6701dd9113012bce0e3c425819b7L159) from `app.go`.
 
-That's it.
+When done right, adding the callbacks is a short and easy solution.
 
 ## Interact via the CLI
 
-You can already execute a live upgrade from the command-line. The following takes inspiration from [this one](https://hub.cosmos.network/main/hub-tutorials/live-upgrade-tutorial.html) based on gaia. You will:
+You can already execute a live upgrade from the command-line. The following upgrade process takes inspiration from [this one](https://hub.cosmos.network/main/hub-tutorials/live-upgrade-tutorial.html) based on gaia. You will:
 
 * Check out the checkers v1 code.
 * Build the v1 checkers executable.
@@ -1450,7 +1471,13 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go build -o re
 
 </CodeGroup>
 
-With the `release/v1/checkersd` executable ready, you can initialize the network. Because this is an exercise, to avoid messing with your keyring, you have to always specify `--keyring-backend test`.
+With the `release/v1/checkersd` executable ready, you can initialize the network.
+
+<HighlightBox type="warn">
+
+Because this is an exercise, to avoid messing with your keyring you must always specify `--keyring-backend test`.
+
+</HighlightBox>
 
 Add two players:
 
@@ -1477,7 +1504,11 @@ $ docker exec -it checkers ./release/v1/checkersd keys add alice --keyring-backe
 $ docker exec -it checkers ./release/v1/checkersd keys add bob --keyring-backend test
 ```
 
-Note that you should not use `docker run --rm` here because when `checkersd` stops, you do not want to remove the container and thereby destroying the saved keys, and future genesis too. Instead you reuse them all in the next calls.
+<HighlightBox type="note">
+
+You should not use `docker run --rm` here because, when `checkersd` stops, you do not want to remove the container and thereby destroy the saved keys, and future genesis too. Instead you reuse them all in the next calls.
+
+</HighlightBox>
 
 </CodeGroupItem>
 
@@ -1505,7 +1536,7 @@ $ docker exec -it checkers ./release/v1/checkersd init checkers
 
 </CodeGroup>
 
-Give your players the same token amounts that were added by Ignite as found in `config.yml`:
+Give your players the same token amounts that were added by Ignite, as found in `config.yml`:
 
 <CodeGroup>
 
@@ -1555,13 +1586,13 @@ $ docker exec -it checkers jq '.app_state.gov.voting_params.voting_period' /root
 
 </CodeGroup>
 
-It returns something like:
+This returns something like:
 
 ```json
 "172800s"
 ```
 
-That's two days. Too long to wait for CLI tests. Choose another value, perhaps 10 minutes, i.e. `"600s"`. Update it in place in the genesis:
+That's two days, which is too long to wait for CLI tests. Choose another value, perhaps 10 minutes, i.e. `"600s"`. Update it in place in the genesis:
 
 <CodeGroup>
 
@@ -1583,7 +1614,7 @@ $ docker exec -it checkers bash -c "cat <<< \$(jq '.app_state.gov.voting_params.
 
 </CodeGroup>
 
-You can confirm that the value is in with the earlier command.
+You can confirm that the value is in using the earlier command.
 
 Make Alice the chain's validator too by creating a genesis transaction modeled on that done by Ignite, as found in `config.yml`:
 
@@ -1630,7 +1661,11 @@ $ docker exec -it checkers ./release/v1/checkersd start \
     --rpc.laddr "tcp://0.0.0.0:26657"
 ```
 
-Note that you need to force the node to listen on all IP addresses, not just `127.0.0.1` as it would do by default.
+<HighlightBox type="note">
+
+You need to force the node to listen on all IP addresses, not just `127.0.0.1` as it would do by default.
+
+</HighlightBox>
 
 </CodeGroupItem>
 
@@ -1668,19 +1703,24 @@ $ docker exec -it checkers ./release/v1/checkersd tx checkers create-game \
 
 </CodeGroup>
 
-Note the `--broadcast-mode block` flag so that you can fire up many such games by just copying the command without facing any sequence errors.
+<HighlightBox type="note">
+
+The `--broadcast-mode block` flag means that you can fire up many such games by just copying the command without facing any sequence errors.
+
+</HighlightBox>
 
 To get a few complete games, you are going to run the [integration tests](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts) against it. These tests were built to run against a running chain started by Ignite. What is different here is that:
 
-1. Blocks come slower, likely every five seconds, not one.
-2. There are no faucets any longer.
+1. Blocks come slower, likely every five seconds instead of every one.
+2. There are no longer any faucets.
 
-So to be able to run these tests, you need to adjust:
+Therefore, to be able to run these tests you need to:
 
-1. The timeout of each `before` and `it`. Make it `5*(the number of expected blocks + 1)`. For instance if you send 2 transactions that each go in a block, adjust [the timeout](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts#L84) to `15`: `this.timeout(15_000)`.
-2. The `"credit test accounts"` `before`. Just `return` before the [first `await askFaucet`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts#L65).
+1. Adjust the timeout of each `before` and `it`. Make it `5*(the number of expected blocks + 1)`. 
+   For instance, if you send 2 transactions that each go in a block, adjust [the timeout](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts#L84) to `15`: `this.timeout(15_000)`.
+2. Adjust the `"credit test accounts"` `before`. Just `return` before the [first `await askFaucet`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts#L65).
 
-Of course, now that you cannot call the faucet, you have to credit your test accounts with standard `bank send` transactions. You can use the same values as found in the `before`:
+Now that you cannot call the faucet, you have to credit your test accounts with standard `bank send` transactions. You can use the same values as found in the `before`:
 
 <CodeGroup>
 
@@ -1708,7 +1748,7 @@ $ docker exec -it checkers ./release/v1/checkersd tx bank send $bob cosmos1mql9a
 
 </CodeGroup>
 
-With the test accounts sufficiently credited, you can run the integration tests. Run them a few times, say three times in a row to create three complete games:
+With the test accounts sufficiently credited, you can now run the integration tests. Run them three times in a row to create three complete games:
 
 <CodeGroup>
 
@@ -1792,7 +1832,7 @@ This returns something like:
 
 That many `blocks_per_year` computes down to 5 seconds per block. At this rate, 15 minutes mean 180 blocks.
 
-What is the current block height:
+What is the current block height? Check:
 
 <CodeGroup>
 
@@ -1826,7 +1866,7 @@ That means you will use:
 --upgrade-height 1180
 ```
 
-What is the minimum deposit for a proposal?
+What is the minimum deposit for a proposal? Check:
 
 <CodeGroup>
 
@@ -1982,7 +2022,7 @@ votes:
   voter: cosmos1hj2x82j49fv90tgtdxrdw5fz3w2vqeqqjhrxle
 ```
 
-See how much you have to wait for the chain to reach the end of the voting period:
+See how long you have to wait for the chain to reach the end of the voting period:
 
 <CodeGroup>
 
@@ -2004,7 +2044,7 @@ $ docker exec -it checkers ./release/v1/checkersd query gov proposal 1
 
 </CodeGroup>
 
-Which at the end prints:
+In the end this prints:
 
 ```txt
 ...
@@ -2014,7 +2054,7 @@ voting_end_time: "2022-08-25T10:38:22.240766103Z"
 ...
 ```
 
-Wait for this time. After that, with the same command, you should see:
+Wait for this period. Afterward, with the same command you should see:
 
 ```txt
 ...
@@ -2022,7 +2062,7 @@ status: PROPOSAL_STATUS_PASSED
 ...
 ```
 
-Then wait for the chain to reach the desired block height, which should take five more minutes as per your parameters. When it has reached that height, the shell with the running `checkersd` should show something like:
+Now wait for the chain to reach the desired block height, which should take five more minutes, as per your parameters. When it has reached that height, the shell with the running `checkersd` should show something like:
 
 ```
 ...
@@ -2035,7 +2075,7 @@ Then wait for the chain to reach the desired block height, which should take fiv
 ...
 ```
 
-At this point, when you run in another shell:
+At this point, run in another shell:
 
 <CodeGroup>
 
@@ -2057,7 +2097,7 @@ $ docker exec -it checkers bash -c './release/v1/checkersd status | jq -r ".Sync
 
 </CodeGroup>
 
-You always get the same value, as many times as you try. That's because the chain has stopped. For instance:
+You should always get the same value, no matter how many times you try. That's because the chain has stopped. For instance:
 
 ```txt
 1180
@@ -2085,13 +2125,13 @@ $ docker exec -it checkers cat /root/.checkers/data/upgrade-info.json
 
 </CodeGroup>
 
-Which prints 
+This prints:
 
 ```json
 {"name":"v1tov2","height":1180}
 ```
 
-With your node, and therefore your whole blockchain, down, it is time to move to v2.
+With your node (and therefore your whole blockchain) down, you are ready to move to v2.
 
 ### Launch v2
 
