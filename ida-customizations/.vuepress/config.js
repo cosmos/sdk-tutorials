@@ -122,11 +122,7 @@ module.exports = {
                   path: "/academy/0.0-B9lab-Blockchains/6_quiz.html",
                 },
                 {
-                  title: "Golang Introduction",
-                  path: "/tutorials/4-golang-intro/index.html",
-                },
-                {
-                  title: "First Steps",
+                  title: "Go Introduction - First Steps",
                   path: "/tutorials/4-golang-intro/1-install.html",
                 },
                 {
