@@ -345,7 +345,7 @@ A relayer can create a new `channel` from a newly created (without an establishe
 
 Next to verifying the identity of the chain (or rather light client), another thing to consider is whether the light client is expired.
 
-In the event that Tendermint consensus fails (if >1/3 of validators produce a conflicting block, this is called a _double signing_), _and_ proof of this consensus failure is submitted on-chain, the IBC client becomes frozen with a `frozen_height` that is nonzero. In the previous example, the output of `gaiad query ibc channel client-state` confirms the client status and you know the IBC client is not expired.
+Light clients can expire or _frozen_ if they do not get updated within the `TrustingPeriod` or when evidence of misbehaviour has been submitted. For example, in the event that Tendermint consensus fails (if >1/3 of validators produce a conflicting block, this is called a _double signing_), _and_ proof of this consensus failure is submitted on-chain, the IBC client becomes frozen with a `frozen_height` that is nonzero. In the previous example, the output of `gaiad query ibc channel client-state` confirms the client status and you know the IBC client is not expired.
 
 <HighlightBox type="docs">
 
@@ -379,4 +379,4 @@ These are some things to take away from this tutorial:
 
 ### Next up
 
-If your interest in IBC was peeked, you can go tot the IBC section of the Developer Portal and learn the intracies of the IBC protocol and IBC applications, starting [here](../../academy/4-ibc/index.md).
+If your interest in IBC was piqued, you can go to the IBC section of the Developer Portal and learn the intricacies of the IBC protocol and IBC applications, starting [here](../../academy/4-ibc/index.md).
