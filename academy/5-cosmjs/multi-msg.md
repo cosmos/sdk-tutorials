@@ -10,7 +10,7 @@ tag: deep-dive
 <HighlightBox type="learning">
 
 In Cosmos, a transaction is able to encapsulate multiple messages.
-
+<br></br>
 In this section, you will:
 
 * Send multiple tokens in a single transaction.
@@ -259,7 +259,13 @@ export interface MsgDelegate {
 }
 ```
 
-Now that you know the `typeUrl` for delegating some tokens is `/cosmos.staking.v1beta1.MsgDelegate`, you need to find a validator's address that Alice can delegate to. Find a list of validators in the [testnet explorer](https://explorer.theta-testnet.polypore.xyz/validators). Select a validator and use their address in the following script, which you can copy to replace your original token transfer:
+Now that you know the `typeUrl` for delegating some tokens is `/cosmos.staking.v1beta1.MsgDelegate`, you need to find a validator's address that Alice can delegate to. Find a list of validators in the [testnet explorer](https://explorer.theta-testnet.polypore.xyz/validators). Select a validator and set their address as a variable:
+
+```typescript
+const validator: string = "cosmosvaloper178h4s6at5v9cd8m9n7ew3hg7k9eh0s6wptxpcn" //01node
+```
+
+Use this variable in the following script, which you can copy to replace your original token transfer:
 
 ```typescript
 const result = await signingClient.signAndBroadcast(
@@ -279,15 +285,17 @@ const result = await signingClient.signAndBroadcast(
             typeUrl: "/cosmos.staking.v1beta1.MsgDelegate",
             value: {
                 delegatorAddress: alice,
-                validatorAddress: your_selected_validator_address,
+                validatorAddress: validator,
                 amount: { denom: "uatom", amount: "1000", },
             },
           },
     ],
-    "auto",
+    {
+        amount: [{ denom: "uatom", amount: "500" }],
+        gas: "200000",
+    }
 )
 ```
-
 When you create [your own message types in CosmJS](./create-custom.md), they have to follow this format and be declared in the same fashion.
 
 <!-- Not supported at the moment.

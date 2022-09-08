@@ -91,7 +91,7 @@ You do not meter gas in your `EndBlock` handler because it is **not** called by 
 <HighlightBox type="tip">
 
 As part of your code optimization, avoid calling `ConsumeGas` with a fixed gas cost (for instance `k`) from within a loop. Each pass of the loop uses computation resources (`c`) on each node. If you know the number of times your code loops (`n`), you know running the full loop will use `n*c` computation resources.
-
+<br></br>
 Now consider the case of a user who sent a transaction without enough gas. The transaction will fail anyway, but at what point will it fail?
 
 1. If you call `ConsumeGas(k)` _within_ the loop, the transaction will fail during one of the passes (the `m`th pass). This means that the node has already used `m*c` computation resources.

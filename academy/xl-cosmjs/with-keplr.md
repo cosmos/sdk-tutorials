@@ -10,7 +10,7 @@ tag: deep-dive
 <HighlightBox type="learning">
 
 Build applicatiosn that interact with the Keplr browser extension.
-    
+<br></br>
 In this section, you will learn more about: 
     
 * Detecting Keplr.
@@ -207,13 +207,13 @@ Refer to the previous section on how to [get Cosmos Hub Testnet tokens](./first-
 
 ## Detecting Keplr
 
-Following [Keplr's documentation](https://docs.keplr.app/api/#how-to-detect-keplr), it is time to add a function to see if Keplr is installed on the browser. For convenience and type hinting, install the Typescript Keplr types from within the folder of your project:
+Following [Keplr's documentation](https://docs.keplr.app/api/#how-to-detect-keplr), it is time to add a function to see if Keplr is installed on the browser. For convenience and type hinting, install the TypeScript Keplr types from within the folder of your project:
 
 ```sh
 $ npm install @keplr-wallet/types --save-dev
 ```
 
-After this package is installed, inform Typescript that `window` may have a `.keplr` field with the help of [this helper](https://github.com/chainapsis/keplr-wallet/tree/master/docs/api#keplr-specific-features), by adding it below your imports to `FaucetSender.tsx`:
+After this package is installed, inform TypeScript that `window` may have a `.keplr` field with the help of [this helper](https://github.com/chainapsis/keplr-wallet/tree/master/docs/api#keplr-specific-features), by adding it below your imports to `FaucetSender.tsx`:
 
 ```typescript
 import { Window as KeplrWindow } from "@keplr-wallet/types";

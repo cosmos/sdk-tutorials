@@ -1012,7 +1012,7 @@ const patchGame = async (gameId: string): Promise<boolean> => {
 
 There are some issues to be aware of:
 
-1. Javascript is not thread-safe, so you could cause two opposite actions: one coming from the polling and the other from a patch submission, or even from two concurrent patch submissions. To reduce this risk the _database_ is not saved to disk in this function, but instead relies on the polling to save it at the next run.
+1. JavaScript is not thread-safe, so you could cause two opposite actions: one coming from the polling and the other from a patch submission, or even from two concurrent patch submissions. To reduce this risk the _database_ is not saved to disk in this function, but instead relies on the polling to save it at the next run.
 2. Assuming that _there is no such game when you cannot find it_ can result in deleting data that is simply taking time to appear on your blockchain node.
 
 Next, you need to call `patchGame` from the `app.patch` callback:

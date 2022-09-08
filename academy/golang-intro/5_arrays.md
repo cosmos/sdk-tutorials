@@ -46,9 +46,9 @@ The compiler fits the array depending on the number of elements.
 <HighlightBox type="note">
 
 The previous example code is not well-written, but it demonstrates different aspects of arrays.
-
+<br></br>
 `len(array)` is a built-in function that gives the size of an array.
-
+<br></br>
 `defer` is used to defer the execution of last-in-first-out order until surrounding functions return.
 
 </HighlightBox>

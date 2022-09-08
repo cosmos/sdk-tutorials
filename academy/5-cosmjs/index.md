@@ -15,7 +15,7 @@ With step-by-step examples you will learn how to work with CosmJS when building 
 
 ![](/planet-pod.svg)
 
-## In this module
+## In this chapter
 
 <HighlightBox type="learning">
 

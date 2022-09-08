@@ -1,16 +1,16 @@
 ---
-title: "IBC Fungible Token Transfer"
+title: "IBC Token Transfer"
 order: 6
-description: Token transfers across chains
+description: Fungible token transfers across chains
 tag: deep-dive
 ---
 
-# IBC Fungible Token Transfer
+# IBC Token Transfer
 
 <HighlightBox type="learning">
 
 Transferring tokens between chains is both a common requirement and a significant technical challenge when two chains are incompatible. A convenient solution for moving tokens between chains is essential.
-
+<br></br>
 In this section, you will explore how a fungible token transfer can be done with IBC.
 
 </HighlightBox>

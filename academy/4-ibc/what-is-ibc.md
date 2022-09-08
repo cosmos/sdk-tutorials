@@ -10,7 +10,7 @@ tag: fast-track
 <HighlightBox type="learning">
 
 Inter-Blockchain Communication Protocol solves for communication between blockchains, which is particularly important in the Cosmos universe.
-
+<br></br>
 In this section, you will learn:
 
 * What IBC is.
@@ -19,7 +19,7 @@ In this section, you will learn:
 
 </HighlightBox>
 
-The **[Inter-Blockchain Communication (IBC) Protocol](https://ibcprotocol.org/)** is _a protocol to handle authentication and transport of data between two blockchains_. IBC **requires a minimal set of functions**, specified in the [Interchain Standards (ICS)](https://github.com/cosmos/ibc/tree/master/spec/ics-001-ics-standard). Notice that those specifications do not limit the network topology or consensus algorithm, so IBC can be used with a wide range of blockchains or state machines. The IBC protocol provides a permissionless way for relaying data packets between blockchains, unlike most trusted bridging technologies. The security of IBC reduces to the security of the participating chains.
+The **[Inter-Blockchain Communication Protocol (IBC)](https://ibcprotocol.org/)** is _a protocol to handle authentication and transport of data between two blockchains_. IBC **requires a minimal set of functions**, specified in the [Interchain Standards (ICS)](https://github.com/cosmos/ibc/tree/master/spec/ics-001-ics-standard). Notice that those specifications do not limit the network topology or consensus algorithm, so IBC can be used with a wide range of blockchains or state machines. The IBC protocol provides a permissionless way for relaying data packets between blockchains, unlike most trusted bridging technologies. The security of IBC reduces to the security of the participating chains.
 
 IBC solves a widespread problem: cross-chain communication. This problem exists on public blockchains when exchanges wish to perform swaps. The problem arises early in the case of application-specific blockchains, where every asset is likely to emerge from its own purpose-built chain. Cross-chain communication is also a challenge in the world of private blockchains, in cases where communication with a public chain or other private chains is desirable. There are already IBC implementations for private blockchains [such as Hyperledger Fabric and Corda](https://www.hyperledger.org/blog/2021/06/09/meet-yui-one-the-new-hyperledger-labs-projects-taking-on-cross-chain-and-off-chain-operations).
 
@@ -138,7 +138,7 @@ IBC clients and transactions assume the trust model of the chains they are conne
 <HighlightBox type="info">
 
 All tokens transferred over a particular channel will be assigned the same denomination as other tokens flowing over the channel, but a different one than the same assets between the same chains would have if they were sent across a different channel. The IBC denom looks like `ibc/<hash of the channel-id & port-id>`.
-
+<br></br>
 You can find more detailed information in the tutorial on [IBC denoms](https://tutorials.cosmos.network/tutorials/understanding-ibc-denoms/#what-is-this-ibc-denom).
 
 </HighlightBox>
@@ -169,7 +169,7 @@ Generally speaking, you'll need the following:
 <ExpansionPanel title="A roadmap towards an IBC-enabled chain">
 
 The following decision tree helps visualize the roadmap towards an IBC-enabled chain. **For simplicity, it assumes the intent to connect to a Cosmos SDK chain.**
-
+<br></br>
 Do you have access to an existing chain?
 * **No.** You will have to build a chain:
     * Cosmos SDK chain: see the [previous chapters](../3-my-own-chain/index.md).

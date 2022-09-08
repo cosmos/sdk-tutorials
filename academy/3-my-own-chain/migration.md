@@ -454,7 +454,7 @@ func AddParsedCandidatesAndSort(parsedWinners []*winningPlayerParsed, candidates
 ```
 
 Note the clipping at the leaderboard's length. Similarly, you need helpers on the leaderboard.
-
+<br></br>
 You can get these other helpers with a deserialization:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/full_leaderboard.go#L94-L118]

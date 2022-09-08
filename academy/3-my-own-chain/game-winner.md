@@ -277,14 +277,6 @@ $ checkersd tx checkers play-move 1 1 2 2 3 --from $bob
 $ checkersd query checkers show-stored-game 1
 ```
 
-This should show:
-
-```
-...
-  winner: "*"
-...
-```
-
 Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests or with a nice GUI. You will be able to partially test this in the [next section](./game-forfeit.md), via a forfeit.
 
 <HighlightBox type="synopsis">

@@ -1,11 +1,11 @@
 ---
-title: "Relaying in General"
+title: "Relayers in General"
 order: 8
-description: Relayers in IBC
+description: Relaying in IBC
 tag: deep-dive
 ---
 
-# Relaying in General
+# Relayers in General
 
 <HighlightBox type="learning">
 

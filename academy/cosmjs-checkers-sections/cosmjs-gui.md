@@ -640,7 +640,7 @@ For instance, in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
 
     This is done because the `setState` function does not ensure the state is updated immediately after it has been called, so the lazy instantiation method has to return both.
 
-4. Inform Typescript of the _Keplr `window`_ object:
+4. Inform TypeScript of the _Keplr `window`_ object:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/NewGameModal/NewGameModal.tsx#L5-L15]
     import { Window as KeplrWindow } from "@keplr-wallet/types"
@@ -682,7 +682,7 @@ For instance, in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
     <HighlightBox type="note">
 
     Setting up Keplr is [idempotent](https://www.merriam-webster.com/dictionary/idempotent#:~:text=Definition%20of%20idempotent,plural%20idempotents), so repeating these operations more than once is harmless. You may want to separate these actions into more defined methods at a later optimization stage.
-
+    <br></br>
     Note too that a default gas price is passed in, so that you can use `"auto"` when sending a transaction.
 
     </HighlightBox>
@@ -954,9 +954,9 @@ With this done:
     <HighlightBox type="tip">
 
     There is a potentially hard-to-reproduce-in-production **race condition** bug here. The `loadGame` is done immediately after the transaction has completed. However, depending on the implementation of the RPC end point, the `playGuiMove` and `loadGame` calls may hit two different servers on the backend. In some instances, the server that answers your `loadGame` may not have fully updated its store and may in fact serve you the **old** version of your game.
-
+    <br></br>
     As your GUI matures, you may want to show the _expected_ state of the game before you eventually show its _finalized_ state. Sometimes you may want to show the expected state of the game even before the transaction has completed, and add visual cues hinting at the fact it is a **provisional** state.
-
+    <br></br>
     The same can happen when creating a game, where the second server may return `null` if it has not been updated yet.
 
     </HighlightBox>

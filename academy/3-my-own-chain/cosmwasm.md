@@ -22,9 +22,9 @@ Discover how multi-chain smart contracts become possible with CosmWasm. The foll
 <ExpansionPanel title="More on the actor model">
 
 The actor model is a design pattern for reliable, distributed systems. It is the pattern underlying CosmWasm smart contracts.
-
+<br></br>
 Each actor has access to its own internal state and can only message other actors through a so-called dispatcher, which maintains the state and maps addresses to code and storage.
-
+<br></br>
 Want to read more on the actor model? See [the CosmWasm documentation on the Actor Model for Contract Calls](https://docs.cosmwasm.com/docs/0.16/architecture/actor).
 
 </ExpansionPanel>
@@ -420,7 +420,7 @@ To summarize, this section has explored:
 At this point, you have:
 
 * [Understood how Cosmos and the Cosmos SDK fit in the overall development of blockchain technology.](../1-what-is-cosmos/blockchain-and-cosmos.md)
-* [A better sense of what comprises the Cosmos ecosystem.](../1-what-is-cosmos/cosmos-ecosystem.md)
+* [A better sense of what comprises the Cosmos Ecosystem.](../1-what-is-cosmos/cosmos-ecosystem.md)
 * [Set up a wallet, got some ATOM tokens, and staked them.](../1-what-is-cosmos/atom-staking.md)
 * [Learned more about the elements of application architecture.](../2-main-concepts/architecture.md)
 * [Understood and applied main concepts of the Cosmos SDK.](../2-main-concepts/index.md)

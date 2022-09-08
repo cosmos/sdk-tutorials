@@ -11,13 +11,13 @@ title: Chapter Overview - The Inter-Blockchain Communication Protocol
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Connect chains</div>
 <h1 class="mt-4 mb-6">The Inter-Blockchain Communication Protocol</h1>
 
-Ever wondered how cross-chain communication is possible? Get a fast introduction to the world of the Inter-Blockchain Communication (IBC) Protocol.
+Ever wondered how cross-chain communication is possible? Get a fast introduction to the world of the Inter-Blockchain Communication Protocol (IBC).
 
 Learn more about the transportation, authentication, and ordering layer of IBC and take a deeper dive into how token transfers between chains become possible. Finally, have a more detailed look at relaying with IBC.
 
 ![](/planet-collection.svg)
 
-## In this module
+## In this chapter
 
 <HighlightBox type="learning">
 
