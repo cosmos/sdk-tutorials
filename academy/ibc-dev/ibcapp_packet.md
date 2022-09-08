@@ -2,7 +2,7 @@
 
 This section demonstrates how to define packets and acks (acknowledgements) for the Leaderboard blockchain. Remember that this blockchain will mostly be receiving packets from the checkers blockchain or other gaming chains. This will be handled in the checkers blockchain extension tutorial. In this section you will add an additional packet definition that will enable the Leaderboard chain to send a packet to connected game chains when a player has entered the top of the rankings.
 
-The documentation on how to define packets and acks in IBC can be found in [the IBC go docs](https://ibc.cosmos.network/main/ibc/apps/packets_acks.html).
+The documentation on how to define packets and acks in IBC can be found in [the ibc-go docs](https://ibc.cosmos.network/main/ibc/apps/packets_acks.html).
 
 ## Scaffold a packet with Ignite CLI
 
@@ -33,6 +33,7 @@ create x/leaderboard/types/packet_ibc_top_rank.go
 
 🎉 Created a packet `ibcTopRank`.
 ```
+
 In the next paragraphs you will investigate each of the most important additions to the code.
 
 ## Proto definitions
@@ -40,16 +41,18 @@ In the next paragraphs you will investigate each of the most important additions
 The first additions are to the proto definitions in the `packet.proto` and `tx.proto` files:
 
 ```diff
-@@ message LeaderboardPacketData {
+@@ message LeaderboardPacketData in proto/leaderboard/packet.proto {
     oneof packet {
         NoData noData = 1;
         // this line is used by starport scaffolding # ibc/packet/proto/field
-+		IbcTopRankPacketData ibcTopRankPacket = 2; 
++		IbcTopRankPacketData ibcTopRankPacket = 2;
         // this line is used by starport scaffolding # ibc/packet/proto/field/number
     }
 }
 ```
+
 One addition is `IbcTopRankPacketData`:
+
 ```protobuf
 // IbcTopRankPacketData defines a struct for the packet payload
 message IbcTopRankPacketData {
@@ -58,7 +61,9 @@ message IbcTopRankPacketData {
   uint64 score = 3;
 }
 ```
+
 The next addition is the ack:
+
 ```protobuf
 // IbcTopRankPacketAck defines a struct for the packet acknowledgment
 message IbcTopRankPacketAck {
@@ -67,6 +72,7 @@ message IbcTopRankPacketAck {
 ```
 
 And in `tx.proto` a Message service is added:
+
 ```diff
 // Msg defines the Msg service.
 service Msg {
@@ -91,6 +97,7 @@ message MsgSendIbcTopRank {
 message MsgSendIbcTopRankResponse {
 }
 ```
+
 <HighlightBox type="info">
 
 The proto message `MsgSendIbcTopRank` includes the field `timeoutTimestamp`, which is added by Ignite CLI when scaffolding an IBC packet. This is an IBC channel parameter that is important in IBC and Ignite CLI abstracts this away, removing the need for the user to add this manually.
@@ -108,11 +115,12 @@ The proto definitions will be compiled into `types/packet.pb.go` and `types/tx.p
 Ignite CLI also creates CLI commands to send packets and adds them to the `client/cli/` folder.
 
 Packets can be sent from the CLI with the following command:
+
 ```bash
 $ leaderboardd tx leaderboard send-ibc-top-rank [portID] [channelID] [playerId] [rank] [score]
 ```
 
-## SendPacket and Packet callback logic
+## `SendPacket` and Packet callback logic
 
 When scaffolding an IBC module with Ignite CLI, you already saw the implementation of the `IBCModule` interface, including a bare bones packet callbacks structure. Now that you've also scaffolded a packet (and ack), the callbacks have been added with logic to handle the receive, ack, and timeout scenarios.
 
@@ -137,7 +145,7 @@ To handle a user submitting a message to send an IBC packet, a message server is
             ctx = ctx.WithEventManager(sdk.NewEventManager())
 
             switch msg := msg.(type) {
-+            case *types.MsgSendIbcTopRank:
++           case *types.MsgSendIbcTopRank:
 +               res, err := msgServer.SendIbcTopRank(sdk.WrapSDKContext(ctx), msg)
 +               return sdk.WrapServiceResult(ctx, res, err)
                 // this line is used by starport scaffolding # 1
@@ -152,6 +160,7 @@ To handle a user submitting a message to send an IBC packet, a message server is
 It calls the `SendIbcTopRank` method on the message server, defined as:
 
 ```go
+// x/leaderboard/keeper/msg_server_ibc_top_rank.go but up to dev
 func (k msgServer) SendIbcTopRank(goCtx context.Context, msg *types.MsgSendIbcTopRank) (*types.MsgSendIbcTopRankResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -237,24 +246,24 @@ In a previous section you examined the `OnRecvPacket` callback in the `x/leaderb
 ```go
 // @ switch packet := modulePacketData.Packet.(type) in OnRecvPacket
 case *types.LeaderboardPacketData_IbcTopRankPacket:
-		packetAck, err := am.keeper.OnRecvIbcTopRankPacket(ctx, modulePacket, *packet.IbcTopRankPacket)
+	packetAck, err := am.keeper.OnRecvIbcTopRankPacket(ctx, modulePacket, *packet.IbcTopRankPacket)
+	if err != nil {
+		ack = channeltypes.NewErrorAcknowledgement(err.Error())
+	} else {
+		// Encode packet acknowledgment
+		packetAckBytes, err := types.ModuleCdc.MarshalJSON(&packetAck)
 		if err != nil {
-			ack = channeltypes.NewErrorAcknowledgement(err.Error())
-		} else {
-			// Encode packet acknowledgment
-			packetAckBytes, err := types.ModuleCdc.MarshalJSON(&packetAck)
-			if err != nil {
-				return channeltypes.NewErrorAcknowledgement(sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error()).Error())
-			}
-			ack = channeltypes.NewResultAcknowledgement(sdk.MustSortJSON(packetAckBytes))
+			return channeltypes.NewErrorAcknowledgement(sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error()).Error())
 		}
-		ctx.EventManager().EmitEvent(
-			sdk.NewEvent(
-				types.EventTypeIbcTopRankPacket,
-				sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
-				sdk.NewAttribute(types.AttributeKeyAckSuccess, fmt.Sprintf("%t", err != nil)),
-			),
-		)
+		ack = channeltypes.NewResultAcknowledgement(sdk.MustSortJSON(packetAckBytes))
+	}
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			types.EventTypeIbcTopRankPacket,
+			sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
+			sdk.NewAttribute(types.AttributeKeyAckSuccess, fmt.Sprintf("%t", err != nil)),
+		),
+	)
 ```
 
 The first line of code in the case statement calls the application's `OnRecvIbcTopRankPacket` callback on the keeper to process the reception of the packet:
@@ -285,12 +294,12 @@ Similarly to the `OnRecvPacket` case before, Ignite CLI has already prepared the
 
 ```go
 // @ switch packet := modulePacketData.Packet.(type) in OnAcknowledgmentPacket
-	case *types.LeaderboardPacketData_IbcTopRankPacket:
-		err := am.keeper.OnAcknowledgementIbcTopRankPacket(ctx, modulePacket, *packet.IbcTopRankPacket, ack)
-		if err != nil {
-			return err
-		}
-		eventType = types.EventTypeIbcTopRankPacket
+case *types.LeaderboardPacketData_IbcTopRankPacket:
+	err := am.keeper.OnAcknowledgementIbcTopRankPacket(ctx, modulePacket, *packet.IbcTopRankPacket, ack)
+	if err != nil {
+		return err
+	}
+	eventType = types.EventTypeIbcTopRankPacket
 ```
 
 This calls into the newly created application keeper's ack packet callback:
@@ -322,6 +331,7 @@ func (k Keeper) OnAcknowledgementIbcTopRankPacket(ctx sdk.Context, packet channe
 	}
 }
 ```
+
 This allows us to add custom application logic for both failed and successful acks.
 
 ### Timing out packets
@@ -354,9 +364,11 @@ const (
 	AttributeKeyAckError   = "error"
 )
 ```
+
 Here are found both the `Event` type and the attributes it contains.
 
 These are not the only relevant events for IBC, though, the others can be found in the core IBC source code:
+
 - [client events](https://github.com/cosmos/ibc-go/blob/main/modules/core/02-client/types/events.go)
 - [connection events](https://github.com/cosmos/ibc-go/blob/main/modules/core/03-connection/types/events.go)
 - [channel events](https://github.com/cosmos/ibc-go/blob/main/modules/core/04-channel/types/events.go)
