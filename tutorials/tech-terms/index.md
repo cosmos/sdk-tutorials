@@ -172,7 +172,7 @@ In Cosmos, gRPCs are transmission control protocol (TCP) servers with Protobuf a
 
 <HighlightBox type="info">
 
-Transmission control protocol (TCP) is one of the main internet protocols that allows establishing a connection between a client and server to send data. TCP makes communication between application programs and the internet protocol possible.
+Transmission control protocol (TCP) is one of the main internet protocols that allows establishing a connection between a client and server to send data. TCP makes communication between application programs and the internet protocol (IP) possible.
 
 </HighlightBox>
 
