@@ -59,7 +59,7 @@ To integrate middleware (or a middleware stack) you must do the following in `ap
 
     </ExpansionPanel>
 
-  For example, if the middleware `mw1` needed the ability to send a packet without the underlying application `custom2`, it would require access to the latter's `scopedKeeper`:
+  For example, if the middleware `mw1` needs the ability to send a packet on custom2's port without involving the underlying application `custom2`, it would require access to the latter's `scopedKeeper`:
 
   ```diff
   - mw1Keeper := mw1.NewKeeper(storeKey1)
