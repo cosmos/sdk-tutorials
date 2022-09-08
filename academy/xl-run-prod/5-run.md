@@ -28,13 +28,6 @@ As for the database(s), classic considerations apply. With the `db_dir` flag, co
 
 Events are also stored in a database ([see `indexer`](https://docs.tendermint.com/master/nodes/configuration.html#indexing-settings)), and here too you can choose to store them separately. Note that events are purely a node concern, not a consensus or network one.
 
-TOML and such. Ideas: https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html
-
-Set up snapshots for others.
-
-User to run:
-https://catboss.medium.com/cat-boss-setting-up-a-fullnode-for-osmosis-osmosis-1-5f9752460f8f
-
 ## Run user
 
 Another standard security concern is that you want to avoid running your application as `root`. So create a new user and prepare it:
@@ -110,9 +103,14 @@ Now that you have a running network, you may consider coming back to it and try 
 * Make your life easier with [shell command completion](https://hub.cosmos.network/main/hub-tutorials/gaiad.html#shells-completion-scripts).
 * Add a node that [checks invariants](https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html#verify-mainnet).
 * Add [telemetry](https://docs.cosmos.network/main/core/telemetry.html) so as to keep an eye on your node(s).
+* See what [other projects](https://github.com/cosmos/awesome-cosmos) can benefit you.
 
 This is just an extract of the different customizations that are available to you. For more ideas, peruse [this documentation](https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html).
+
+<!--
 
 E2E:
 https://github.com/tendermint/tendermint/tree/main/test/e2e
 https://github.com/hyphacoop/cosmos-ansible/
+
+-->

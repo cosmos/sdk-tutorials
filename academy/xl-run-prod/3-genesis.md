@@ -7,7 +7,7 @@ tag: deep-dive
 
 # Prepare where the node starts
 
-When you run your chain with `myprojectd start`, the software will build from a genesis. This genesis needs to contain:
+When you run your chain with `myprojectd start`, the software will build from a **genesis**. This genesis needs to contain:
 
 1. The original validators and their stakes.
 2. The original state values as you see fit. For instance, this can be the original parameters of your world if you are building a metaverse, or the original USD price of your token if you are building a stable coin.
@@ -52,7 +52,7 @@ If you are planning on having more denominations than your staking token, this i
 
 Genesis accounts are accounts that exist in the genesis. They can be there because of a pre-sale of tokens, or of simple allotments, or for any other reason.
 
-Genesis accounts need to be included in the genesis using the command `add-genesis-account`. Like any account, Genesis accounts have addresses which must be collected. 
+Genesis accounts need to be included in the genesis using the command `add-genesis-account`. Like any account, genesis accounts have addresses which must be collected. 
 
 <HighlightBox type="note">
 
@@ -98,7 +98,7 @@ To each validator you send:
 * The `account_number` that was given to them when calling `add-genesis-account`.
 * A confirmation of the amount of tokens that you have credited them.
 
-Each validator operator then has to run a `gentx` command. **This command is not to be run on the server**. Instead it is run on the computer that hosts the _cold_ validator operator app key. Using the keyring of your choice. Collect the consensus public key from Tendermint KMS, for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
+Each validator operator then has to run a `gentx` command. **This command is not to be run on the server**. Instead it is run on the computer that hosts the _cold_ validator operator app key using the keyring of your choice. Collect the consensus public key from Tendermint KMS, for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
 
 If this is Alice, she may run:
 
@@ -199,7 +199,7 @@ https://blog.althea.net/making-a-cosmos-chain/
 
 ### Validators aggregation
 
-When a validator returns a signed transaction to you, add the JSON in the `~/.myprojectd/config/gentx` folder along with all the others in your server.
+When a validator returns a signed transaction to you, make sure that it is the one you expect and add the JSON in the `~/.myprojectd/config/gentx` folder along with all the others in your server.
 
 When you have all of the validator responses, you add them all in the genesis like so:
 
