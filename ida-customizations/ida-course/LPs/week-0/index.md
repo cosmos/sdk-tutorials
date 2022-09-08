@@ -71,11 +71,11 @@ All other Academy chapters will be displayed on this page starting **September 1
 
 ## Next up
 
-First, you can take a look at blockchain technology by starting with the section on (Blockchain 101)[/ida-customization/ida-course/0.0-B9lab-Blockchains/1_blockchain.md].
+First, you can take a look at blockchain technology by starting with the section on [Blockchain 101](/ida-customization/ida-course/0.0-B9lab-Blockchains/1_blockchain.md).
 
-Then, for a quick overview on Golang, begin with the section (Go Introduction - First Steps)[/tutorials/4-golang-intro/1-install.md].
+Then, for a quick overview on Golang, begin with the section [Go Introduction - First Steps](/tutorials/4-golang-intro/1-install.md).
 
-In case you want to take a look at some technical terms, go ahead and visit the section (Good-To-Know Dev Terms)[/tutorials/1-tech-terms/index.md].
+In case you want to take a look at some technical terms, go ahead and visit the section [Good-To-Know Dev Terms](/tutorials/1-tech-terms/index.md).
 
 ## Developer resources
 

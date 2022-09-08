@@ -16,7 +16,7 @@ An overview of well-known blockchain solutions provides perspective and insight 
 
 In the traditional description of the problem, generals, whose armies are spread around a target city, need to reach consensus on a time to attack. The generals can only rely on **unsecured communication channels** to achieve this. A lack of acknowledgment can either be caused by a failure to deliver a message, by a dead general, or by a failure to deliver the acknowledgment. While there are variations of the problem description to adapt to varying real-world fault-tolerance situations, most descriptions include an element of catastrophe if the generals fail to coordinate their actions.
 
-![Byzantine Generals Problem](/academy/0.0-B9lab-Blockchains/images/00_06_byzantine_generals_dark_notitle-01.png)
+![Byzantine Generals Problem](/ida-customization/ida-course/0/blockchain-basics/images/00_06_byzantine_generals_dark_notitle-01.png)
 
 Similar to the generals who must decide when to attack, the agreed transaction list in a distributed ledger has to be identified, and consensus on the correct order of transactions has to be reached.
 
@@ -71,7 +71,7 @@ The algorithm is called DPoS because, as in PoS, the value of a vote is determin
 
 In this type of consensus mechanism, so-called **witnesses** are elected by the stakeholders of the network to secure the network. Afterward, several witnesses are chosen for the block creation so that they represent at least 50% of the stakeholders' votes.
 
-![Delegated-Proof-of-Stake](/academy/0.0-B9lab-Blockchains/images/00_07_delegated_pos-01.png)
+![Delegated-Proof-of-Stake](/ida-customization/ida-course/0/blockchain-basics/images/00_07_delegated_pos-01.png)
 
 Witnesses are paid for their services, receiving fees for creating and validating blocks. This economic incentivization to become a witness also leads to competition potentially increasing with each new member, because the number of witnesses is limited.
 
@@ -121,7 +121,7 @@ As the reader might guess, Cosmos relies on Tendermint Core. It offers the most 
 
 <HighlightBox type="info">
 
-Tendermint will be explored in detail in the [Main Concepts](../2-main-concepts/index.md) section.
+Tendermint will be explored in detail in the [Main Concepts](academy/2-main-concepts/index.md) section.
 
 </HighlightBox>
 

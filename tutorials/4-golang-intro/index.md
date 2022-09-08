@@ -17,7 +17,7 @@ This introduction to Golang is meant as a useful overview of Go and as such, a s
 
 You can also use it as a refresher if you feel a bit rusty when it comes to Go.
 
-![](/go-lp.svg)
+![](./images/go-lp.svg)
 
 ## In this chapter
 
@@ -40,7 +40,7 @@ In this chapter, you will:
 
 Knowing your way around Golang is part of being a Cosmos SDK developer. If you feel like you need an **introduction to Golang or a refresher**, the next sections provide an [introduction to Golang and working with it](./1_install.md).
 
-If you feel comfortable working with Golang already, you can also skip ahead to the [developer course](../1-what-is-cosmos/index.md).
+Feel free to skip this chapter if you do not need a refresher and start your journey with the Week 1 content, which will be available by September 15th at 4 pm UTC when the program officially starts.
 
 ## Developer resources
 
