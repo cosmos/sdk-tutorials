@@ -409,6 +409,19 @@ If you want to go beyond these code samples and instead see in more detail how t
 
 </ExpansionPanel>
 
-## Next up
+<HighlightBox type="synopsis">
 
-Look at the above code example to see modules in practice, or go straight to the [next section](../2-main-concepts/protobuf.md) for an introduction to Protobuf.
+To summarize, this section has explored:
+
+* How Cosmos SDK modules can be viewed as purpose-specific state machines that define the unique properties of the larger state machine that is each blockchain.
+* How messages are decomposed from the incoming transaction containing them and routed to the appropriate module for processing.
+* How all modules comprise three core functionalities: an implementation of ABCI to communicate with the Tendermint consensus engine; a general-purpose data store which persists the module state; and the server and interfaces which facilitate interactions with the node.
+* How the majority of work for developers is in building custom modules that satisfy their unique needs, which are then integrated into a coherent application alongside existing modules from the Cosmos SDK of third-party developers.
+* How the Cosmos SDK's set of core modules address common applications needs (such as tokens, staking, and governance) while providing useful benefits like standardization across the Ecosystem, less duplication of effort, and practical examples of effective structure, style, and best practices.
+* How modules should ideally define and register their own set of errors (in addition to the Cosmos SDK's set of common errors), allowing developers to add context and meaning to failed executions.             
+
+</HighlightBox>
+
+<!--## Next up
+
+Look at the above code example to see modules in practice, or go straight to the [next section](../2-main-concepts/protobuf.md) for an introduction to Protobuf.-->

@@ -327,7 +327,17 @@ The migration mechanism helps identify how you can upgrade your blockchain to in
 
 </ExpansionPanel>
 
-## Next up
+<HighlightBox type="synopsis">
 
-You are now up-to-date on migrations. Look at the above code samples, or go to the [next section](./bridges.md) to discover bridges in the Cosmos SDK.
+To summarize, this section has explored:
+
+* How Cosmos SDK migrations provide developers with an orderly, on-chain process for upgrading their applications, reliably avoiding forks through the use of a "plan" in which upgrades are proposed to occur at a specific future block height. 
+* How consensus over accepting or rejecting a plan is reached through the normal governance process, ensuring unity across all nodes, as is any "cancel proposal" intended to prevent a previously accepted plan from executing.
+* How the temporary halting of normal activity allows for simultaneous and potentially profound modifications of the blockchain across all nodes, including the reorganization of existing data stores to maintain compatibility with the upgraded application.
+
+</HighlightBox>
+
+<!--## Next up
+
+You are now up-to-date on migrations. Look at the above code samples, or go to the [next section](./bridges.md) to discover bridges in the Cosmos SDK.-->
 <!-- You are now up-to-date on migrations. Look at the following code samples, or go to the [next section](./ibc.md) to learn about the Inter-Blockchain Communication Protocol. -->

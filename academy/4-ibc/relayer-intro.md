@@ -91,6 +91,18 @@ The Go relayer has built-in functionality to fetch chain information (and soon p
 
 Cosmos is developing fast, and minor changes can cause big problems for inexperienced users. Luckily you have the option to make direct contact with developers through the [Cosmos Developer Discord](https://discord.com/invite/cosmosnetwork). There you can find the channel **#ibc-relayer** dedicated to relayers in which you can ask for help.
 
-## Next up
+<HighlightBox type="synopsis">
 
-You now have a solid understanding of relaying in general. It is time to look a closer look at specific relayers for IBC: the Go and Hermes relayer. Start with the Go relayer in the [next section](./go-relayer.md).
+To summarize, this section has explored:
+
+* How IBC provides blockchain developers a data-agnostic protocol for reliable, secure, and permissionless packet transfer, which enables the possibility of various interchain services, from basic cross-chain messaging to fungible and non-fungible token transfers and more.
+* How, on a high level, a module sends a packet to a destination chain by first causing the source chain to store a commitment proof on-chain and log an event with the packet information; this is communicated to the destination chain for verification, which then stores a receipt on-chain and has the receiving module execute the actions required by the packet data.
+* How in the process described the destination chain relies on a light client to efficiently track the state of the counterparty chain.
+* How relayer operators perform the conveying of data packets through the network by having access to full nodes of both source and destination chains, where they can query and submit messages, listen in for events requiring an IBC packet to be sent, and rebuild the packet and proof for submission and receipt at its destination.
+* How information and parameters about the chains, paths, and the name of the relayer private key to sign the messages can generally be found in a configuration file, or *config*.
+
+</HighlightBox>
+
+<!--## Next up
+
+You now have a solid understanding of relaying in general. It is time to look a closer look at specific relayers for IBC: the Go and Hermes relayer. Start with the Go relayer in the [next section](./go-relayer.md).-->

@@ -358,3 +358,13 @@ public async sendTokens(
 ## Conclusion
 
 You are ready to import and use this in a server script or a GUI.
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How CosmJS's out-of-the-box interfaces understand how the state of standard Cosmos modules is serialized, meaning that your unique modules will require custom CosmJS interfaces of their own.
+* How to create the necessary Protobuf objects and clients in Typescript, the extensions that facilitate the use of these clients, and any further level of abstraction that you deem useful for integration.
+* How to integrate CosmJS with Ignite's client and signing client, which are typically the ultimate abstractions that facilitate the querying and sending of transactions.
+
+</HighlightBox>

@@ -200,6 +200,19 @@ Do you have access to an existing chain?
 
 The most straightforward way to use IBC is to build a chain with the Cosmos SDK, which already includes the IBC module - as you can see when examining the [IBC-Go repository](https://github.com/cosmos/ibc-go). The IBC module supports an out-of-the-box Tendermint light client. Other implementations are possible but may require further development of the necessary components; go to the [IBC website](https://ibcprotocol.org/implementations) to see which implementations are available in production or are being developed.
 
-## Next up
+<HighlightBox type="synopsis">
 
-On your way to becoming a Cosmos SDK developer expert in IBC? Dive even deeper and discover how to develop with IBC. The next sections elaborate on the transport, authentication, and ordering (TAO) layer in IBC. Begin with [connections](./connections.md) to then dive deeper into channels and clients in IBC.
+To summarize, this section has explored:
+
+* How the Inter-Blockchain Communication (IBC) Protocol solves the problem of cross-chain communication by handling the authentication and transport of data between two blockchains through a minimal set of functions specified in the Interchain Standards (ICS).
+* How the IBC functions permissionlessly and can be used with a wide range of blockchains or state machines regardless of their network topologies or consensus algorithms, with IBC security reduced to that of the participating chains.
+* How IBC is the foundation of interoperability in the Cosmos Ecosystem, with relayers such as light clients verifying the validity of cross-chain transactions, while also offering solutions to the issue of communicating with non-Cosmos blockchains including those which don't meet the criteria of Proof-of-Stake (PoS)finality.
+* How a Cosmos blockchain's transport layer (TAO) provides the infrastructure for establishing secure connections to other chains, while the application layer built on top defines how authenticated data packets should be packaged and interpreted.
+* How relayer algorithms provide the essential off-chain processes that share data between chains running the IBC protocol by scanning the state of each chain, constructing appropriate datagrams, and executing them on the opposite chain as permitted by the protocol.
+* How the Byzantine behavior that leads to forking is prevented within the fast finality Cosmos Ecosystem, and how the IBC protocol can achieve fork prevention outside the ecosystem by submitting proof of validator misbehavior and freezing affected light clients until an issue or attack has been neutralized.
+
+</HighlightBox>
+
+<!--## Next up
+
+On your way to becoming a Cosmos SDK developer expert in IBC? Dive even deeper and discover how to develop with IBC. The next sections elaborate on the transport, authentication, and ordering (TAO) layer in IBC. Begin with [connections](./connections.md) to then dive deeper into channels and clients in IBC.-->

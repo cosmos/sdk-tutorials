@@ -552,6 +552,20 @@ Do you need a conceptual refresher about modules and their role in the Cosmos SD
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
 
-It is time to begin developing your own chain. You will begin working with Ignite CLI in the [next section](./ignitecli.md).
+To summarize, this section has explored:
+
+* How to run and to interact with a blockchain by using `simapp`, which contains the code necessary to run a simulated version of the Cosmos SDK called `simd` so you can test commands without actually interacting with your chain.
+* How to compile and initialize `simapp`, and to inspect the initial configuration of your chain's genesis state.
+* How to prepare your account, including how to add, confirm, and inspect your keys, and review your mnemonic.
+* How to make yourself a proper validator, by adding and confirming the presence of an initial balance and including bootstrap transactions in the genesis file.
+* How to start your single-node blockchain, observe blocks being created through the terminal window, and check the balances.
+* How to practice sending transactions by creating another account and transferring tokens to it, and checking the balance of the new account to confirm the successful transfer.
+* CLI routing with the examination of the initial Go code, revealing carious aspects of your nascent chain.
+
+</HighlightBox>
+
+<!--## Next up
+
+It is time to begin developing your own chain. You will begin working with Ignite CLI in the [next section](./ignitecli.md).-->

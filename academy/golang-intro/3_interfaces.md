@@ -156,7 +156,18 @@ Use `go test -help` to see what you need to run benchmarks.
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
 
-Basics and interfaces are covered, what's next? Take a closer look at the control structures in Go by diving into `if`, `switch`, and `for` statements in the [next section](./4_control.md).
+To summarize, this section has explored:
+
+* How the "interface type" offered by Go is a collection of method signatures, and an interface value is used to implement those methods.
+* How the `Euclid` interface can hold instances of all defined types implementing the `Norm` method.
+* How the special empty interface `interface{}` can be implemented by all types and hold values of any type because it has no method signatures.
+* How to use Go's testing package `testing` and the `go test` tool.
+
+</HighlightBox>
+
+<!--## Next up
+
+Basics and interfaces are covered, what's next? Take a closer look at the control structures in Go by diving into `if`, `switch`, and `for` statements in the [next section](./4_control.md).-->
 

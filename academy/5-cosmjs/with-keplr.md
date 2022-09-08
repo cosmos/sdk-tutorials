@@ -650,7 +650,19 @@ What if you wanted to experiment with your own chain while in development?
 
 Keplr does not know about locally running chains by default. As you did with Cosmos Hub Testnet, you must inform Keplr about your chain: change `ChainInfo` to match the information about your chain, and change `rpcUrl` so that it points to your local port.
 
-## Next up
+<HighlightBox type="synopsis">
 
-You have how updated your CosmJS frontend so that it integrates with Keplr. In the [next section](./create-custom.md), learn more about creating custom CosmJS interfaces.
+To summarize, this section has explored:
+
+* How to use CosmJS to connect with Keplr, a browser extension widely used to manage private keys, to find your token balance and that of the faucet and then send some tokens back to the faucet.
+* How to create a simple app in the Next.js framework for the purposes of performing the exercise, though the ComsJS-specific code is also applicable to Angular, Vue, and other frameworks.
+* Best practices regarding when and when not to ask for your user's address, such as limiting your user interface to only showing information that is knowable without user input until making a request is absolutely necessary.
+* How to add a function to detect whether or not Keplr is installed on the browser, also minimizing the occasions when information requests are made in line with best practices.
+* How to prepare Keplr to handle any Cosmos blockchain (or for use with locally running chains, such as during development) by providing it with the necessary parameters for a specific chain, before experimenting with accessing useful information from the chain.
+
+</HighlightBox>
+
+<!--## Next up
+
+You have how updated your CosmJS frontend so that it integrates with Keplr. In the [next section](./create-custom.md), learn more about creating custom CosmJS interfaces.-->
 
