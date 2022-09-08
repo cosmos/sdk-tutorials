@@ -479,7 +479,7 @@ $ docker exec -it checkers checkersd tx checkers play-move 1 1 0 0 1 --from $ali
 
 </CodeGroup>
 
-The computer says no:
+The computer says "no":
 
 ```txt
 ...

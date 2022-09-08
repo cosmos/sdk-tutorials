@@ -374,7 +374,11 @@ before("credit test accounts", async function () {
 })
 ```
 
-Note the extra 10 seconds given for this potentially slower process: `this.timeout(10_000)`. Your accounts are now ready to proceed with the tests proper.
+<HighlightBox type="note">
+
+The extra 10 seconds given for this potentially slower process: `this.timeout(10_000)`. Your accounts are now ready to proceed with the tests proper.
+
+</HighlightBox>
 
 ### Adding tests
 
@@ -541,7 +545,11 @@ export const completeGame: GameMove[] = [
 ]
 ```
 
+<HighlightBox type="note">
+
 Note how you already played the first two.
+
+</HighlightBox>
 
 ### Multiple transactions in a block
 
@@ -560,7 +568,7 @@ Fortunately, the [`sign`](https://github.com/cosmos/cosmjs/blob/v0.28.11/package
 1. It will start at the number as fetched from the blockchain.
 2. Whenever you sign a new transaction you will increment this sequence number and keep track of it in your own variable.
 
-Because Javascript has low assurances when it comes to threading, you need to make sure that each `sign` command happens after the previous one, or your `sequence` incrementing may get messed up. For that, you should not use `Promise.all`, or something like `array.forEach(() => { await })`, which fire all promises roughly at the same time. Instead you will use a `while() { await }` pattern.
+Because JavaScript has low assurances when it comes to threading, you need to make sure that each `sign` command happens after the previous one, or your `sequence` incrementing may get messed up. For that, you should not use `Promise.all`, or something like `array.forEach(() => { await })`, which fire all promises roughly at the same time. Instead you will use a `while() { await }` pattern.
 
 There is a **second difficulty** when you want to send that many signed transactions. The client's `broadcastTx` function [waits for it](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L420-L424) to be included in a block, which would defeat the purpose of signing separately. Fortunately, if you look into its content, you can see that it calls [`this.forceGetTmClient().broadcastTxSync`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L410). This Tendermint client function returns only [the hash](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/tendermint-rpc/src/tendermint34/tendermint34client.ts#L172), that is _before any inclusion in a block_.
 
@@ -664,11 +672,15 @@ while (txIndex < 24) {
 }
 ```
 
+<HighlightBox type="note">
+
 Note how:
 
 1. The moves [`0` and `1`](https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/types/checkers/player.ts#L15-L16) already took place in the previous `it` test.
 2. The gas fee can no longer be `"auto"` and has to be set, here at a price of `0`. You may have to adjust this depending on your running chain.
 3. The sequence number of the signer is increased **after** it has been used: `.sequence++`.
+
+</HighlightBox>
 
 With all the transactions signed, you can _fire_ broadcast the first 21 of them:
 
@@ -774,13 +786,17 @@ expect(getCapturedPos(getMovePlayedEvent(logs[1])!)).to.deep.equal({
 })
 ```
 
+<HighlightBox type="note">
+
 Note how it checks the logs for the captured attributes. In effect, a captured piece has `x` and `y` as the average of the respective `from` and `to` positions' fields.
+
+</HighlightBox>
 
 Sending a single transaction with two moves is cheaper and faster, from the point of view of the player, than sending two separate ones for the same effect.
 
-<HighlightBox type="learning">
+<HighlightBox type="note">
 
-Note also that it is not possible for Alice, who is the creator and black player, to send in a single transaction a message for creation and a message to make the first move on it. That's because the index of the game is not known before the transaction has been included in a block, and with that the index computed.
+It is not possible for Alice, who is the creator and black player, to send in a single transaction a message for creation and a message to make the first move on it. That's because the index of the game is not known before the transaction has been included in a block, and with that the index computed.
 
 </HighlightBox>
 

@@ -720,7 +720,11 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     $ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_i ignite chain serve --reset-once
     ```
 
-    Note how the throwaway container is started with the name `checkers`, so that you can connect to it for the next commands.
+    <HighlightBox type="note">
+    
+    The throwaway container is started with the name `checkers`, so that you can connect to it for the next commands.
+
+    </HighlightBox>
 
     </CodeGroupItem>
 

@@ -29,7 +29,7 @@ $ git clone https://github.com/b9lab/react-checkers
 
 ## Prepare the files and folders
 
-In order to integrate this project, you'll have to move the relevant files into your own repository. But first test if the app works on your machine.
+In order to integrate this project, you will have to move the relevant files into your own repository. But first test if the app works on your machine.
 
 ### Testing the app
 

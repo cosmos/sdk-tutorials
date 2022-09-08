@@ -295,7 +295,11 @@ func TestPlayMoveUpToWinner(t *testing.T) {
 }
 ```
 
-Note how when checking the attributes, it only cares about the last 5.
+<HighlightBox type="note">
+
+When checking the attributes, it only cares about the last five.
+
+</HighlightBox>
 
 Feel free to create another game won by the red player.
 

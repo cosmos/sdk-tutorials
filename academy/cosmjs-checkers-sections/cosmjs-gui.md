@@ -966,7 +966,11 @@ Do some more preparation:
     }
     ```
 
+    <HighlightBox type="note">
+
     Note how it maps from the positions array except for the last position. This is to take the _moves_ out of the _positions_.
+
+    </HighlightBox>
 
 With this done:
 

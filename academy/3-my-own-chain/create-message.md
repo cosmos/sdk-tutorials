@@ -239,7 +239,7 @@ This convenient [`setupMsgServer`](https://github.com/cosmos/b9-checkers-academy
 
 ## Interact via the CLI
 
-First run the chain:
+First, run the chain:
 
 <CodeGroup>
 
@@ -357,7 +357,11 @@ $ export alice=$(docker exec checkers checkersd keys show alice -a)
 $ export bob=$(docker exec checkers checkersd keys show bob -a)
 ```
 
-Note how `docker` is called without `-it`, otherwise it would add a `\r` to the addresses.
+<HighlightBox type="note">
+
+`docker` is called without `-it`, otherwise it would add a `\r` to the addresses.
+
+</HighlightBox>
 
 </CodeGroupItem>
 

@@ -297,7 +297,7 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github
 
 ## Interact with the CLI
 
-Time to see if it is possible to reject a game from the command-line. If you did not do it already, start your chain with Ignite.
+Time to see if it is possible to reject a game from the command line. If you did not do it already, start your chain with Ignite.
 
 First, is it possible to reject the current game from the command line?
 
@@ -632,7 +632,7 @@ Correct: this time Bob could not reject the game because the state recorded his 
 
 To belabor the point made in the earlier box: if you change your code, think about what it means for the current state of the chain and whether you end up in a broken state.
 
-In this case you could first introduce the `MoveCount` and its handling. Then when all games have been correctly counted, you introduce the rejection mechanism.
+In this case, you could first introduce the `MoveCount` and its handling. Then when all games have been correctly counted, you introduce the rejection mechanism.
 
 </HighlightBox>
 

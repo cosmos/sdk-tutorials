@@ -225,7 +225,7 @@ $ docker run --rm -v $(pwd):/client -w /client node:18.7 npm install protobufjs@
 
 </CodeGroup>
 
-At a later stage you will add Checkers as an extension to Stargate, but you can define your Checkers extension immediately. The `canPlay` query could make use of better types for player and position. Start by declaring them in `client/src/checkers/player.ts`:
+At a later stage, you will add checkers as an extension to Stargate, but you can define your checkers extension immediately. The `canPlay` query could make use of better types for player and position. Start by declaring them in `client/src/checkers/player.ts`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/src/types/checkers/player.ts#L1-L6]
 export type Player = "b" | "r"
@@ -236,7 +236,7 @@ export interface Pos {
 }
 ```
 
-Your Checkers extension will need to use the CosmJS Stargate package. Install it:
+Your checkers extension will need to use the CosmJS Stargate package. Install it:
 
 <CodeGroup>
 
@@ -258,7 +258,7 @@ $ docker run --rm -v $(pwd):/client -w /client node:18.7 npm install @cosmjs/sta
 
 </CodeGroup>
 
-Now you can declare the Checkers extension in `src/modules/checkers/queries.ts`:
+Now you can declare the checkers extension in `src/modules/checkers/queries.ts`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/src/modules/checkers/queries.ts#L15-L37]
 export interface AllStoredGameResponse {
@@ -412,7 +412,7 @@ Describe how to connect to the running blockchain in a `.env` file in your proje
 RPC_URL="http://localhost:26657"
 ```
 
-Alternatively, use whichever address connects to the RPC port of the Checkers blockchain. If your chain runs in a Docker container, you may need to pass your actual IP address.
+Alternatively, use whichever address connects to the RPC port of the checkers blockchain. If your chain runs in a Docker container, you may need to pass your actual IP address.
 
 This information will be picked up by the `dotenv` package. Now let TypeScript know about this in an `environment.d.ts` file:
 
@@ -529,7 +529,11 @@ describe("StoredGame", function () {
 })
 ```
 
+<HighlightBox type="note">
+
 Note the forced import of `import _ from "../../environment"`, to actively inform on the `string` type (as opposed to `string | undefined`) and avoid any compilation error.
+
+</HighlightBox>
 
 Launch your checkers chain, for instance from the checkers folder with:
 

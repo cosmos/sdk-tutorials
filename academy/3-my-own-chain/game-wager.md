@@ -962,13 +962,17 @@ func (suite *IntegrationTestSuite) SetupTest() {
 
 This [`SetupTest` function](https://github.com/stretchr/testify/blob/v1.7.0/suite/interfaces.go#L18-L22) is like a `beforeEach` as found in other test libraries. With it, you always get a new `app` in each test, without interference between them. Do not [omit it](https://github.com/stretchr/testify/blob/v1.7.0/suite/suite.go#L147) unless you have specific reasons to do so.
 
-Also note that it collects your `checkersModuleAddress` for later use in tests that check events and balances:
+<HighlightBox type="note">
+
+It collects your `checkersModuleAddress` for later use in tests that check events and balances:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/keeper_integration_suite_test.go#L33-L35]
 var (
     checkersModuleAddress string
 )
 ```
+
+</HighlightBox>
 
 </PanelListItem>
 
@@ -1149,7 +1153,7 @@ With the new tests, you may think that the events are compromised. For instance,
 
 When checking emitted events, you need to skip over the attributes you are not checking. You can easily achieve that with [Go slices](https://go.dev/tour/moretypes/7).
 
-For instance, here `transferEvent.Attributes[6:]` discards the first 6 attributes:
+For instance, here `transferEvent.Attributes[6:]` discards the first six attributes:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/end_block_server_game_integration_test.go#L264-L270]
 transferEvent := events[6]
@@ -1169,13 +1173,21 @@ You learned in a [previous section](./stored-game.md) how to launch a test in de
 
     ![Suite runner with green button](/academy/4-my-own-chain/images/go_test_debug_suite.png)
 
-    Note that in this case you can only launch debug for **all** of the suite's test methods and not just a single one (as is possible with a simple test). 
+    <HighlightBox type="note">
+
+    In this case, you can only launch debug for **all** of the suite's test methods and not just a single one (as is possible with a simple test).
+
+    </HighlightBox>
 
 2. Right-click on the arrow to the left of the separate test of the suite:
 
     ![Suite test with green button](/academy/4-my-own-chain/images/go_test_debug_suite_test.png)
 
-    Note that this option may not be available. If being able to debug only a few tests at a time is important to you, a solution is to create more granular suites, for example using one or more test suites per file and falling back on option 1.
+    <HighlightBox type="note">
+
+    This option may not be available. If being able to debug only a few tests at a time is important to you, a solution is to create more granular suites, for example using one or more test suites per file and falling back on the first option.
+
+    </HighlightBox>
 
 ## Interact via the CLI
 
@@ -1259,9 +1271,9 @@ raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"c
 
 Confirm that the balances of both Alice and Bob are unchanged - as they have not played yet.
 
-<HighlightBox type="info">
+<HighlightBox type="note">
 
-**Note:** In this example Alice paid no gas fees, other than the transaction costs, to create a game. The gas price is likely `0` here anyway. This is fixed in the [next section](./gas-meter.md).
+In this example, Alice paid no gas fees, other than the transaction costs, to create a game. The gas price is likely `0` here anyway. This is fixed in the [next section](./gas-meter.md).
 
 </HighlightBox>
 

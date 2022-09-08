@@ -64,7 +64,7 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generat
 
 </CodeGroup>
 
-On each update the deadline will always be _now_ plus a fixed duration. In this context, _now_ refers to the block's time. Declare this duration as a new constant, plus how the date is to be represented, i.e. encoded in the saved game as a string:
+On each update the deadline will always be _now_ plus a fixed duration. In this context, _now_ refers to the block's time. Declare this duration as a new constant, plus how the date is to be represented - encoded in the saved game as a string:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/keys.go#L57-L60]
 const (

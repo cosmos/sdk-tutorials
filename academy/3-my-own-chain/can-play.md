@@ -335,7 +335,11 @@ Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-
     }
     ```
 
+<HighlightBox type="note">
+
 Note how all test cases are run within a single unit test. In other words, the keeper used for the second case is the same as that used for the first case, and so on for all. So to mitigate the risk of interference from one case to the next, you ought to do `keeper.RemoveStoredGame(ctx, testCase.game.Index)` at the end of the test case.
+
+</HighlightBox>
 
 ## Integration tests
 

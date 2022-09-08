@@ -87,7 +87,11 @@ Given that you have already done a lot of preparatory work, what coding is invol
     newIndex := strconv.FormatUint(systemInfo.NextId, 10)
     ```
 
+    <HighlightBox type="info">
+
     You panic if you cannot find the `SystemInfo` object because there is no way to continue if it is not there. It is not like a user error, which would warrant returning an error.
+
+    </HighlightBox>
 
 3. Create the object to be stored:
 
@@ -102,12 +106,16 @@ Given that you have already done a lot of preparatory work, what coding is invol
     }
     ```
 
+    <HighlightBox type="note">
+
     Note the use of:
 
     * The [`rules.New()`](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/rules/checkers.go#L122) command, which is part of the Checkers rules file you imported earlier.
     * The string content of the `msg *types.MsgCreateGame`, namely `.Black` and `.Red`.
 
     Also note that you lose the information about the creator. If your design is different, you may want to keep this information.
+
+    </HighlightBox>
 
 4. Confirm that the values in the object are correct by checking the validity of the players' addresses:
 
@@ -120,7 +128,11 @@ Given that you have already done a lot of preparatory work, what coding is invol
 
     `.Red`, and `.Black` need to be checked because they were copied as **strings**. You do not need to check `.Creator` because at this stage the message's signatures have been verified, and the creator is the signer.
 
+    <HighlightBox type="note">
+
     Note that by returning an error, instead of calling `panic`, players cannot stall your blockchain. They can still spam but at a cost, because they will still pay the gas fee up to this point.
+
+    </HighlightBox>
 
 5. Save the `StoredGame` object using the [`Keeper.SetStoredGame`](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/stored_game.go#L10) function created by the `ignite scaffold map storedGame...` command:
 
@@ -189,6 +201,8 @@ func setupMsgServerCreateGame(t testing.TB) (types.MsgServer, keeper.Keeper, con
 }
 ```
 
+<HighlightBox type="note">
+
 Note the new import:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L8]
@@ -196,6 +210,8 @@ import (
     "github.com/alice/checkers/x/checkers"
 )
 ```
+
+</HighlightBox>
 
 Run the tests again with the same command as before:
 

@@ -354,7 +354,7 @@ It should return:
 
 ## Add CosmJS `StargateClient`
 
-You need to create a client to connect to your Checkers blockchain. The client only needs read-only functionality because this server does not submit transactions. Your repository already contains useful elements:
+You need to create a client to connect to your checkers blockchain. The client only needs read-only functionality because this server does not submit transactions. Your repository already contains useful elements:
 
 * The `CheckersStargateClient`.
 * An [`.env`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env) file.
@@ -978,9 +978,7 @@ const handleEventForfeit = async (event: StringEvent): Promise<void> => {
 
 <HighlightBox type="note">
 
-* Again there is a lot of error handling.
-* `handleEvent` only soft-deletes the game.
-* Although it removes it from the list of games for the players.
+Again there is a lot of error handling. `handleEvent` only soft-deletes the game, although it removes it from the list of games for the players.
 
 </HighlightBox>
 

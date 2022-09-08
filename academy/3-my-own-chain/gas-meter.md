@@ -178,7 +178,7 @@ $ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000
 
 </CodeGroup>
 
-Let's say this returns `69422`, which is the estimated gas used. Now comment out the `.ConsumeGas` line in `msg_server_create_game.go`, save it, wait a few minutes for Ignite CLI to rebuild, and try again:
+Say this returns `69422`, which is the estimated gas used. Now comment out the `.ConsumeGas` line in `msg_server_create_game.go`, save it, wait a few minutes for Ignite CLI to rebuild, and try again:
 
 <CodeGroup>
 

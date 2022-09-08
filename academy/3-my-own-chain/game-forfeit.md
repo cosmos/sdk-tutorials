@@ -379,7 +379,7 @@ How do you test something that is supposed to happen during the `EndBlock` event
     }
     ```
 
-<HighlightBox type="info">
+<HighlightBox type="note">
 
 Note how all the attributes of an event of a given type (such as `"game-forfeited"`) aggregate in a single array. The context is not reset on a new transaction, so when testing attributes you either have to compare the full array or take slices to compare what matters.
 
@@ -439,7 +439,7 @@ $ export bob=$(docker exec checkers checkersd keys show bob -a)
 
 </CodeGroup>
 
-Create three games 1 minute apart. Have Alice play the middle one, and both Alice and Bob play the last one:
+Create three games one minute apart. Have Alice play the middle one, and both Alice and Bob play the last one:
 
 <PanelList>
 
@@ -607,7 +607,7 @@ $ docker exec -it checkers checkersd query checkers list-stored-game
 
 </CodeGroup>
 
-List them again after 2, 3, 4, and 5 minutes. You should see games `1` and `2` disappear, and game `3` being forfeited by Alice, i.e. `red` Bob wins:
+List them again after two, three, four, and five minutes. You should see games `1` and `2` disappear, and game `3` being forfeited by Alice, i.e. `red` Bob wins:
 
 <CodeGroup>
 
