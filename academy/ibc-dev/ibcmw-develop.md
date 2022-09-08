@@ -1,6 +1,6 @@
 # Create a custom IBC middleware
 
-When developing a custom IBC application, one of the first things to do is to implement the `IBCModule` interface, as seen [previously](insert-link.com).
+When developing a custom IBC application, one of the first things to do is to implement the `IBCModule` interface, as seen [previously](./ibcapp-steps.md).
 
 The interface can be found [here](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go).
 
@@ -458,3 +458,7 @@ func GetAppVersion(
 ```
 
 </ExpansionPanel>
+
+## Next up
+
+After implementing the interfaces `IBCModule` and `ICS4Wrapper` and the custom middleware logic, the remaining work is to integrate the middleware in the chain. You'll have to keep in mind the order in the middleware stack (in case there are multiple middlewares) and whether or not the middleware is stateful. This is the topic of the next section.

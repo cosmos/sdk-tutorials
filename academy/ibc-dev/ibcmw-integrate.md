@@ -180,3 +180,9 @@ ibcRouter.AddRoute("custom1", stack2)
 ibcRouter.AddRoute("custom2", stack3)
 app.IBCKeeper.SetRouter(ibcRouter)
 ```
+
+## Next up
+
+You've now been introduced to developing both custom IBC applications and middleware (and how to integrate these modules in the chain). This opens up a whole range of possibilities to build multichain applications leveraging IBC.
+
+An excellent opportunity to put these newly acquired skills into practice, is by following the checkers extension tutorial (soon to be published).
