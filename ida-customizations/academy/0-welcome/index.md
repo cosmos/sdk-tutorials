@@ -35,7 +35,7 @@ overview:
           In each module, you will find quizzes and/or code exercises. Two of these need to be completed by a certain date. It doesn’t matter if you pass a quiz or exercise - think of these as opportunities to practice and demonstrate your engagement with the program.<br/><br/>
           Week 1: Mandatory quiz - due date: Friday, September 23rd<br/><br/>
           Week 2: Mandatory exercise - due date: Friday, September 30th<br/><br/>
-          You will also find exercises every week that are not mandatory. These are still highly recommended, as they are good preparation for the final exam.<br/><br/>
+          You will also find exercises every week that are not mandatory. These are still highly recommended, as they are a good preparation for the final exam.<br/><br/>
           <br/><br/>
           <b>Technical requirements</b><br/><br/>
           No special technical requirements of HW or SW are needed. You need a computer with at least 8 GB RAM and 4 GB free hard disk space.
