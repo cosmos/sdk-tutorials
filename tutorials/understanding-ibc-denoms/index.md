@@ -58,12 +58,12 @@ In this tutorial we'll:
 
 ## ICS20: Token transfer
 
-Token transfer or ICS-20 (ICS is shorthand for _Interchain standards_) is discussed in detail in the [IBC section](../../academy/4-ibc/token-transfer.md). We invite you to read more over there for an in-depth look at how IBC enables transfer of (fungible) token across chains. For the purposes of this tutorial, we provide a brief and simplified summary.
+Token transfer or ICS20 (ICS is shorthand for _Interchain standards_) is discussed in detail in the [IBC section](../../academy/4-ibc/token-transfer.md). We invite you to read more over there for an in-depth look at how IBC enables transfer of (fungible) token across chains. For the purposes of this tutorial, we provide a brief and simplified summary.
 
 Imagine two blockchains, blockchain A and blockchain B. As a starting point, you have some tokens on blockchain A you want to send to blockchain B. You can follow the steps in the image below:
 
 ![IBC token transfer](/tutorials/understanding-ibc-denoms/ibc_token.png "IBC token transfer")
-_Sending token from blockchain A to blockchain B_
+_Sending tokens from blockchain A to blockchain B_
 
 When sending the tokens with IBC to another blockchain:
 
@@ -73,7 +73,7 @@ Note that we only consider the _happy path_ where the token transfer is successf
 </HighlightBox>
 
 1. A packet commitment is stored on blockchain A and the tokens to be sent are escrowed on chain A (top left of the image)
-2. A relayer takes note of the packet to be sent and submits a `MsgReceivePacket` on the destination chain, along with a proof to be verified by the chain A light client on chain B (middle of the image)
+2. A relayer takes note of the packet to be sent and submits a `MsgRecvPacket` on the destination chain, along with a proof to be verified by the chain A light client on chain B (middle of the image)
 3. **With IBC, the value that tokens represent can be transferred across chains, but the token itself cannot.**
    Hence, blockchain B mints its own representative tokens in the form of _voucher_ replacement tokens. They will be characterized by the IBC denoms `IBC/...` (bottom right image)
 
@@ -85,7 +85,7 @@ When sending the tokens back with IBC to the source blockchain:
 
 <HighlightBox type="info">
 
-The only way to unlock the locked tokens on blockchain A is to send the `voucher` token back from blockchain B. The result is that the voucher token on blockchain B is burned. The burn process purposefully takes the tokens out of circulation.
+The only way to unlock the locked tokens on blockchain A is to send the `voucher` token back from blockchain B. The result is that the voucher token on blockchain B is burned. The burn process purposefully takes the vouchers out of circulation.
 
 </HighlightBox>
 
@@ -117,7 +117,7 @@ The representation of an IBC asset where the path information is prepended to th
 In fact, there is one more step to arrive at the IBC denom. We take the hash of the `base_denom` prepended with the path information, using the SHA256 hashing function. This gives us for the IBC denom:
 
 ```go
-// hash() representing a SHA256 hasing function returning a string
+// hash() representing a SHA256 hashing function returning a string
 ibc_denom := 'ibc/' + hash('path' + 'base_denom')
 ```
 
@@ -125,7 +125,7 @@ ibc_denom := 'ibc/' + hash('path' + 'base_denom')
 
 In the example from earlier, with `transfer/channel-141/uosmo` the corresponding IBC denom is: `ibc/14F9BC3E44B8A9C1BE1FB08980FAB87034C9905EF17CF2F5008FC085218811CC`.
 
-Note that the assets transferred over IBC are stored on-chain by the IBC denoms. It is however up to developers of frontends and user interfaces to decide whether they will use the human readable form instead, to fit their UX needs.
+Note that the assets transferred over IBC are stored on-chain as IBC denoms. It is however up to developers of frontends and user interfaces to decide whether they will use the human readable form instead, to fit their UX needs.
 
 </HighlightBox>
 
@@ -135,7 +135,7 @@ In the following paragraph we'll see a query to find the hash based on the path 
 
 **So... why use a hash?**
 
-Hashing functions have many desirable properties that make them often used in cryptography, the property most useful in this discussion is that it always reduced to an output of fixed length (256 bits), no matter the input.
+Hashing functions have many desirable properties that make them often used in cryptography, the property most useful in this discussion is that it always reduced to an output of fixed length (256 bits in case of SHA256), no matter the input.
 
 Consider the following:
 
@@ -160,12 +160,14 @@ However, due to a requirement from the Evmos chain, which uses forward slashes i
 ## Practical example: `denom_trace`
 
 We can distinguish two cases of interacting with IBC denoms:
+
 1. to calculate the IBC denom for a given path
 2. to trace the path information and base denom when encountering an IBC denom
 
 The `transfer` IBC module exposes queries for both of these cases. In order to query, you'll have to interact with a node of a chain.
 
 These queries are:
+
 ```sh
 1. $ <binary> query ibc-transfer denom-hash [trace] [flags]
 2. $ <binary> query ibc-transfer denom-trace [hash] [flags]
@@ -175,7 +177,7 @@ In this tutorial, we'll be using the `gaiad` binary from the Cosmos Hub, continu
 
 <HighlightBox type="note">
 
-Note that altough we use `gaiad` as an example here, you should use the chain binary of the chain where the asset you're interested in is present. The `transfer` IBC module needs to look up the mapping it stores when querying *denom_trace*
+Note that altough we use `gaiad` as an example here, you should use the chain binary of the chain where the asset you're interested in is present. The `transfer` IBC module needs to look up the mapping it stores when querying _denom_trace_
 </HighlightBox>
 
 Install the gaia binary:
@@ -217,7 +219,7 @@ Why is it called a light client? Because it is a light client of the _counterpar
 
 </HighlightBox>
 
- The `ibc channel client-state transfer` query lists the client details for a specified path.
+The `ibc channel client-state transfer` query lists the client details for a specified path.
 
 ```sh
 $ gaiad query ibc channel client-state transfer channel-141 --node https://rpc.cosmos.network:443
@@ -288,23 +290,23 @@ client_state:
 
 </ExpansionPanel>
 
-That's a lot of information, but it doesn't answer the question: *how do you know if this IBC client can be relied upon?*
+That's a lot of information, but it doesn't answer the question: _how do you know if this IBC client can be relied upon?_
 
 <HighlightBox type="docs">
 
-In this tutorial, we've only discussed the denom_trace in case of a single *hop*, for more information on multiple hops and the consequences for frontend services we refer to the [ibc-go docs](https://ibc.cosmos.network/main/apps/transfer/overview.html#multiple-hops).
+In this tutorial, we've only discussed the `denom_trace` in case of a single _hop_, for more information on multiple hops and the consequences for frontend services we refer to the [ibc-go docs](https://ibc.cosmos.network/main/apps/transfer/overview.html#multiple-hops).
 
 </HighlightBox>
 
 ### The Chain ID and the Client ID
 
-Take a minute to consider this question: *how would you identify a chain?*
+Take a minute to consider this question: _how would you identify a chain?_
 
-An initial response might be the **chain ID**. After all, the chain ID is literally the chain identifier. But chain ID is not a unique identifier... . Anybody can start a chain with the same chain ID and so it is not a good parameter to verify the identity of the chain we connect with. 
+An initial response might be the **chain ID**. After all, the chain ID is literally the chain identifier. But chain ID is not a unique identifier... . Anybody can start a chain with the same chain ID and so it is not a good parameter to verify the identity of the chain we connect with.
 
-However, the IBC client ID is generated by the [Cosmos SDK IBC Keeper module](https://github.com/cosmos/ibc-go/blob/e012a4af5614f8774bcb595962012455667db2cf/modules/core/02-client/keeper/keeper.go#L56) (ICS-02 does not specify a standard for IBC client IDs). **This means that in the eyes of IBC, a chain is identified by virtue of the `client_id`**.
+However, the IBC client ID is generated by the [Cosmos SDK IBC Keeper module](https://github.com/cosmos/ibc-go/blob/e012a4af5614f8774bcb595962012455667db2cf/modules/core/02-client/keeper/keeper.go#L56) (ICS02 does not specify a standard for IBC client IDs). **This means that in the eyes of IBC, a chain is identified by virtue of the `client_id`**.
 
-A kind of *Chain Name Service* can verify the combination of the chain ID and the client ID. There are a few options that are being used at the moment, or being developed:
+A type of _Chain Name Service_ can verify the combination of the chain ID and the client ID. There are a few options that are being used at the moment, or being developed:
 
 - **Chain Name Service (on-chain, decentralized)**:
 
@@ -335,13 +337,15 @@ Being able to list all possible blockchain paths is still an unsolved problem. S
 }
 ```
 
+Using this data as source, one could write an API that allows to query for the path, base denom without querying a node.
+
 A relayer can create a new `channel` from a newly created (without an established identity) to another blockchain without revealing too much of its information. Storing path information in the IBC denom that we can trace back and checking the associated client from the channel allows us to make an estimation of the security guarantees of the asset.
 
 ### Ensure the IBC Client Isn't Expired
 
-Next to verifying the identity of the chain (or rather light client), antoher thing to consider is whether the light client is expired.
+Next to verifying the identity of the chain (or rather light client), another thing to consider is whether the light client is expired.
 
-In the event that Tendermint consensus fails (if >1/3 of validators produce a conflicting block), _and_ proof of this consensus failure is submitted on-chain, the IBC client becomes frozen with a `frozen_height` that is nonzero. In the previous example, the output of `gaiad query ibc channel client-state` confirms the client status and you know the IBC client is not expired.
+In the event that Tendermint consensus fails (if >1/3 of validators produce a conflicting block, this is called a _double signing_), _and_ proof of this consensus failure is submitted on-chain, the IBC client becomes frozen with a `frozen_height` that is nonzero. In the previous example, the output of `gaiad query ibc channel client-state` confirms the client status and you know the IBC client is not expired.
 
 <HighlightBox type="docs">
 
@@ -357,21 +361,22 @@ For example, you can verify the IBC client status using the query:
 $ gaiad query block 5901208 --node https://rpc.cosmos.network:443
 ```
 
-## Summary
+## 🎉Congratulations🎉
 
-Things to take away from this tutorial:
+You've made it all the way through and will now be unfazed when encountering and IBC denom in the wild.
+
+These are some things to take away from this tutorial:
 
 <HighlightBox type="remember">
 
 - You understand the basics of ICS20 token transfer over IBC
 - When you interact with assets that were transferred over IBC, you might encounter the IBC denom notation `ibc/...` containing a hash of the path information.
-- You can derive an IBC denom or know how to perform a *denomtrace* query to retrieve the path information and base denom of the asset.
+- You can derive an IBC denom or know how to perform a _denomtrace_ query to retrieve the path information and base denom of the asset.
 - You know about the chain registry (and soon CNS) to identify chain IDs associated with a light client you can query from the path information.
 - You can reason about the security of an IBC asset based on the path information contained in the IBC denom
 
 </HighlightBox>
 
-## Next up
+### Next up
 
 If your interest in IBC was peeked, you can go tot the IBC section of the Developer Portal and learn the intracies of the IBC protocol and IBC applications, starting [here](../../academy/4-ibc/index.md).
-
