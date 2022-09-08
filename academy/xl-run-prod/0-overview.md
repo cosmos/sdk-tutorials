@@ -7,9 +7,9 @@ tag: deep-dive
 
 # Running in production
 
-You have coded your Cosmos chain. It may not be feature complete, but unit and integration tests are passing. You ran it locally on your computer and interacted with it via the command-line. Congratulations. You have already accomplished a lot.
+You have coded your Cosmos chain. It may not be feature complete, but unit and integration tests are passing. You ran it locally on your computer and interacted with it via the command-line. Congratulations, you have already accomplished a lot.
 
-Now is the time to release it in the wild, perhaps as a testnet. You can take progressive steps for that. This is what this module is about.
+Now is the time to release it into the wild, perhaps as a testnet. You can take progressive steps to achieve this. That is what this module is about.
 
 What is the desired outcome? You want to have:
 
@@ -21,7 +21,7 @@ What is the desired outcome? You want to have:
 * When necessary, nodes that are running in preparation of a migration.
 * When wanted, a working IBC infrastructure.
 
-A good to divide and conquer is to go with:
+A good way to divide and conquer is to go with:
 
 * Binary software preparation.
 * Key management.

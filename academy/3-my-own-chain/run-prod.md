@@ -9,7 +9,7 @@ tag: deep-dive
 
 ## Prepare the node
 
-On each of your nodes, you create a new user:
+On each of your nodes, create a new user:
 
 ```sh
 $ sudo adduser checkersuser
@@ -33,7 +33,7 @@ do-checksum:
 build-with-checksum: build-all do-checksum
 ```
 
-Add `build` to `.gitignore`. And run:
+Add `build` to `.gitignore`. Now run:
 
 <CodeGroup>
 
@@ -66,7 +66,7 @@ cp -v /checkers/build/checkersd-linux-amd64 /usr/local/bin/checkersd
 adduser --home /home/checkersuser --disabled-login --disabled-password checkersuser
 ```
 
-And run the script on the node:
+Now run the script on the node:
 
 <CodeGroup>
 
@@ -124,22 +124,22 @@ The validator operator that is in charge of assembling the genesis creates it:
 $ checkersd init --chain-id checkers --staking-bond-denom upawn
 ```
 
-And attributes the initial stakes of everyone, including the validators, by running as many times as necessary:
+Next they attribute the initial stakes of everyone, including the validators, by running as many times as necessary:
 
 ```sh
 $ checkersd add-genesis-account cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq 5000000000upawn
 ```
 
-And makes it publicly downloadable.
+Then they make it publicly downloadable.
 
 ### First distribution to validators
 
 Each validator node operator downloads this genesis into their management computer and:
 
 1. Confirms their address is present and has the right balance.
-2. Check their account number, say 12.
+2. Checks their account number, say 12.
 
-Then for their address, they need to create the genesis transaction:
+Then for their address they need to create the genesis transaction:
 
 ```sh
 $ checkersd gentx cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq \
@@ -153,29 +153,29 @@ Then each validator sends the new file found in `~/.checkers/config/gentx` back 
 
 ### Addition of genesis transactions
 
-Then the centralized operator puts all the received genesis transactions in their own `/home/checkersuser/config/gentx`. Then when they have all or enough of them by weight, they do:
+The centralized operator now puts all the received genesis transactions in their own `/home/checkersuser/config/gentx`. When they have all or enough of them by weight, they do:
 
 ```sh
 $ checkersd collect-gentxs
 ```
 
-And makes it publicly available for everyone including non-validators.
+They make this publicly available for everyone, including non-validators.
 
 ### Final distribution to operators
 
-All operators download this genesis in their servers and scrutinize it for confirmation that it conforms to their expectations. And put it in their own `/home/checkersuser/.checkers/config/genesis.json`.
+All operators download this genesis to their servers and scrutinize it for confirmation that it conforms to their expectations. They put it in their own `/home/checkersuser/.checkers/config/genesis.json`.
 
 ## Prepare the network
 
-Socially, each operator exchange their addresses and ports with each other as they see fit. Presumably they do not create two separate networks but a single one eventually.
+Socially, operators exchange their addresses and ports with each other as they see fit. Presumably they do not create two separate networks but a single one eventually.
 
 They save their choices in `/home/checkersuser/.checkers/config/config.toml`.
 
 ## Launch the executable
 
-Here, each operator is free to architect their nodes as sentry, seed or other types as they please.
+Here, each operator is free to architect their nodes as sentry, seed, or other types as they please.
 
-Around the time that has been agreed on to start the network they all enable the service:
+Around the time that has been agreed on to start the network, they all enable the service:
 
 ```sh
 $ sudo systemctl daemon-reload
@@ -183,4 +183,4 @@ $ sudo systemctl enable checkersd
 $ sudo systemctl start checkersd
 ```
 
-When 2/3 of the validators by weight are online, the network starts off the genesis. Congratulations.
+When 2/3rds of the validators by weight are online, the network starts off the genesis.
