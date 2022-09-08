@@ -8,7 +8,7 @@ intro:
     image: /graphics-sdk-course.png
     description: |
       Welcome to the Interchain Developer Academy!<br/><br/>
-      Over the next seven weeks, you'll dive deep into the Cosmos Ecosystem. Let's get started!
+      Over the next seven weeks, you will dive deep into the Cosmos Ecosystem. Let's get started!
     action:
       label: Start learning!
       url: /academy/1-what-is-cosmos/index.html
@@ -21,21 +21,21 @@ overview:
         Due dates of mandatory quizzes and exercises: September 23rd and September 30th<br/><br/>
         Exam period: November 3rd - December 1st<br/><br/>
         Results available: December 15th
-    - title: What you’ll learn
+    - title: What you will learn
       description: |
-        Over the next seven weeks, you'll dive deep into the Cosmos Ecosystem, starting with a high-level introduction to familiarize yourself with the main concepts. Next you’ll put theory into practice by learning how to initiate and build an application-specific blockchain using the Cosmos SDK; how to use the Ignite CLI to scaffold modules for your blockchain; and how to connect a chain with other chains using the Inter-Blockchain Communication Protocol. You'll learn how to build frontend and backend applications using CosmJS; operate nodes and validate on a Cosmos blockchain; and run a relaying infrastructure between IBC-connected chains.
+        Over the next seven weeks, you will dive deep into the Cosmos Ecosystem, starting with a high-level introduction to familiarize yourself with the main concepts. Next, you will put theory into practice by learning how to initiate and build an application-specific blockchain using the Cosmos SDK; how to use the Ignite CLI to scaffold modules for your blockchain; and how to connect a chain with other chains using the Inter-Blockchain Communication Protocol. You will learn how to build frontend and backend applications using CosmJS; operate nodes and validate on a Cosmos blockchain; and run a relaying infrastructure between IBC-connected chains.
     - title: How to get the most out of the Academy
       description: |
           The Academy is self-paced and flexible, so you don't have to be online at particular times. You can follow the weekly plan or go through the learning material at your own pace. We recommend allocating about 10 hours a week to get through all the material.<br/><br/>
-          We’ll offer some live sessions with Cosmos experts about various topics. These live sessions will be announced via email and discord. The sessions will be recorded in case you can’t join them live.<br/><br/>
-          The material is delivered in various formats, including text, images, videos, quizzes, and exercises. There's plenty of additional material embedded in the content to deepen your understanding of particular concepts. And if you want even more, ask your tutors and expert instructors, who'll point you in the right direction!<br/><br/>
+          We will offer some live sessions with Cosmos experts about various topics. These live sessions will be announced via email and discord. The sessions will be recorded in case you can’t join them live.<br/><br/>
+          The material is delivered in various formats, including text, images, videos, quizzes, and exercises. There is plenty of additional material embedded in the content to deepen your understanding of particular concepts. And if you want even more, ask your tutors and expert instructors, who will point you in the right direction!<br/><br/>
           <br/><br/>
           <b>Mandatory exercises</b><br/><br/>
           <br/><br/>
-          In each module, you’ll find quizzes and/or code exercises. Two of these need to be completed by a certain date. It doesn’t matter if you pass a quiz or exercise - think of these as opportunities to practice and demonstrate your engagement with the program.<br/><br/>
+          In each module, you will find quizzes and/or code exercises. Two of these need to be completed by a certain date. It doesn’t matter if you pass a quiz or exercise - think of these as opportunities to practice and demonstrate your engagement with the program.<br/><br/>
           Week 1: Mandatory quiz - due date: Friday, September 23rd<br/><br/>
           Week 2: Mandatory exercise - due date: Friday, September 30th<br/><br/>
-          You will also find exercises every week which are not mandatory. These are still highly recommended, as they are a good preparation for the final exam.<br/><br/>
+          You will also find exercises every week that are not mandatory. These are still highly recommended, as they are good preparation for the final exam.<br/><br/>
           <br/><br/>
           <b>Technical requirements</b><br/><br/>
           No special technical requirements of HW or SW are needed. You need a computer with at least 8 GB RAM and 4 GB free hard disk space.

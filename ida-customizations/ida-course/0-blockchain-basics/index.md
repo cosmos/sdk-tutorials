@@ -1,8 +1,8 @@
 ---
 parent:
   title: "Getting Started"
-  description: NEW TO BLOCKCHAIN OR IN NEED OF A REFRESHER?
-  number: 1
+  description: New to blockchain or in need of a refresher?
+  number:
 tag:
 ---
 
