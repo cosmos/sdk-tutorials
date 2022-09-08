@@ -3,7 +3,6 @@ parent:
   title: What's Next?
   description: Continue your Cosmos journey
   number: 6
-tag: 
 ---
 
 # What's Next?

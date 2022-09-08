@@ -2,7 +2,8 @@
 title: "Public and Managed Blockchains"
 order: 4
 description: Introduction to different deployment patterns
-tag: concepts
+tags: 
+  - concepts
 ---
 
 # Public and Managed Blockchains
