@@ -83,451 +83,70 @@ module.exports = {
           title: "Cosmos Developer Academy",
           children: [
             {
-              title: "Welcome",
-              path: "/",
-              directory: false,
-              order: 0
-            },
-            {
               title: "Week 0 - Getting Started",
               directory: true,
-              order: 1,
               children: [
                 {
                   title: "Getting Started",
-                  path: "/ida-customization/ida-course/week-0/index.html",
+                  path: "/ida-course/0-blockchain-basics/index.html",
                 },
                 {
                   title: "Blockchchain 101",
-                  path: "/ida-customization/ida-course/0-blockchain-basics/1_blockchain.html",
+                  path: "/ida-course/0-blockchain-basics/1-blockchain.html",
                 },
                 {
                   title: "Blockchain History",
-                  path: "/ida-customization/ida-course/0-blockchain-basics/2_public.html",
+                  path: "/ida-course/0-blockchain-basics/2-public.html",
                 },
                 {
                   title: "Public and Managed Blockchains",
-                  path: "/ida-customization/ida-course/0-blockchain-basics/3_managed.html",
+                  path: "/ida-course/0-blockchain-basics/3-managed.html",
                 },
                 {
                   title: "Consensus in Distributed Networks",
-                  path: "/ida-customization/ida-course/0-blockchain-basics/4_consensus.html",
+                  path: "/ida-course/0-blockchain-basics/4-consensus.html",
                 },
                 {
                   title: "Cryptography",
-                  path: "/ida-customization/ida-course/0-blockchain-basics/5_crypto.html",
+                  path: "/ida-course/0-blockchain-basics/5-crypto.html",
                 },
                 {
                   title: "Self-Assessment Quiz",
-                  path: "/ida-customization/ida-course/0-blockchain-basics/6_quiz.html",
+                  path: "/ida-course/0-blockchain-basics/6-quiz.html",
                 },
                 {
                   title: "Go Introduction - First Steps",
-                  path: "/tutorials/4-golang-intro/1-install.html",
+                  path: "/tutorials/4-golang-intro/1_install.html",
                 },
                 {
                   title: "Go Basics",
-                  path: "/tutorials/4-golang-intro/2-basics.html",
+                  path: "/tutorials/4-golang-intro/2_basics.html",
                 },
                 {
                   title: "Go Interfaces",
-                  path: "/tutorials/4-golang-intro/3-interfaces.html",
+                  path: "/tutorials/4-golang-intro/3_interfaces.html",
                 },
                 {
                   title: "Control Structures in Go",
-                  path: "/tutorials/4-golang-intro/4-control.html",
+                  path: "/tutorials/4-golang-intro/4_control.html",
                 },
                 {
                   title: "Arrays and Slices in Go",
-                  path: "/tutorials/4-golang-intro/5-arrays.html",
+                  path: "/tutorials/4-golang-intro/5_arrays.html",
                 },
                 {
                   title: "Standard Packages in Go",
-                  path: "/tutorials/4-golang-intro/6-packages.html",
+                  path: "/tutorials/4-golang-intro/6_packages.html",
                 },
                 {
                   title: "Concurrency in Go",
-                  path: "/tutorials/4-golang-intro/7-concurrency.html",
+                  path: "/tutorials/4-golang-intro/7_concurrency.html",
                 },
                 {
                   title: "Good-To-Know Dev Terms",
                   path: "/tutorials/1-tech-terms/index.html",
                 },
               ]
-            },
-            {
-              title: "Week 1 - Introduction to Cosmos",
-              directory: true,
-              order: 2,
-              children: [
-                {
-                  title: "Introduction to Cosmos",
-                  path: "/ida-customization/ida-course/week-1/index.html",
-                },
-                {
-                  title: "Blockchain Technology and Cosmos",
-                  path: "/academy/1-what-is-cosmos/blockchain-and-cosmos.html",
-                },
-                {
-                  title: "The Cosmos Ecosystem",
-                  path: "/academy/1-what-is-cosmos/cosmos-ecosystem.html",
-                },
-                {
-                  title: "Getting ATOM and Staking It",
-                  path: "/academy/1-what-is-cosmos/atom-staking.html",
-                },
-                {
-                  title: "A Blockchain App Architecture",
-                  path: "/academy/2-main-concepts/architecture.html",
-                },
-                {
-                  title: "Accounts",
-                  path: "/academy/2-main-concepts/accounts.html",
-                },
-                {
-                  title: "Transactions",
-                  path: "/academy/2-main-concepts/transactions.html",
-                },
-                {
-                  title: "Messages",
-                  path: "/academy/2-main-concepts/messages.html",
-                },
-                {
-                  title: "Modules",
-                  path: "/academy/2-main-concepts/modules.html",
-                },
-                {
-                  title: "Protobuf",
-                  path: "/academy/2-main-concepts/protobuf.html",
-                },
-                {
-                  title: "Multistore and Keepers",
-                  path: "/academy/2-main-concepts/multistore-keepers.html",
-                },
-                {
-                  title: "BaseApp",
-                  path: "/academy/2-main-concepts/base-app.html",
-                },
-                {
-                  title: "Queries",
-                  path: "/academy/2-main-concepts/queries.html",
-                },
-                {
-                  title: "Events",
-                  path: "/academy/2-main-concepts/events.html",
-                },
-                {
-                  title: "Context",
-                  path: "/academy/2-main-concepts/context.html",
-                },
-                {
-                  title: "Migrations",
-                  path: "/academy/2-main-concepts/migrations.html",
-                },
-                {
-                  title: "Bridges",
-                  path: "/academy/2-main-concepts/bridges.html",
-                },
-                {
-                  title: "Mandatory Quiz",
-                  path: "/ida-customization/ida-course/quiz-week1.html",
-                },
-              ]
-            },
-            {
-              title: "Week 2 - First Steps",
-              directory: true,
-              order: 3,
-              children: [
-                {
-                  title: "First Steps",
-                  path: "/ida-customization/ida-course/week-2/index.html",
-                },
-                {
-                  title: "Setup Your Work Environment",
-                  path: "/tutorials/2-work-environment/setup.html",
-                },
-                {
-                  title: "Run a Node, API, and CLI",
-                  path: "/tutorials/3-run-node/node-api-and-cli.html",
-                },
-                {
-                  title: "Ignite CLI",
-                  path: "/hands-on-exercise/1-ignite-cli/ignitecli.html",
-                },
-                {
-                  title: "Exercise - Make a Checkers Blockchain",
-                  path: "/hands-on-exercise/1-ignite-cli/exercise-intro.html",
-                },
-                {
-                  title: "Store Object - Make a Checkers Blockchain",
-                  path: "/hands-on-exercise/1-ignite-cli/stored-game.html",
-                },
-                {
-                  title: "Create Custom Messages",
-                  path: "/hands-on-exercise/1-ignite-cli/create-message.html",
-                },
-                {
-                  title: "Create and Save a Game Properly",
-                  path: "/hands-on-exercise/1-ignite-cli/create-handling.html",
-                },
-                {
-                  title: "Add a Way to Make a Move",
-                  path: "/hands-on-exercise/1-ignite-cli/play-game.html",
-                },
-                {
-                  title: "Emit Game Information",
-                  path: "/hands-on-exercise/1-ignite-cli/events.html",
-                },
-                {
-                  title: "Make Sure a Player Can Reject a Game",
-                  path: "/hands-on-exercise/1-ignite-cli/reject-game.html",
-                },
-                {
-                  title: "Mandatory Exercise",
-                  path: "/ida-customization/ida-course/exercise-week2.html",
-                },
-              ]
-            },
-            {
-              title: "Week 3 - Introduction to IBC and CosmJS",
-              directory: true,
-              order: 4,
-              children: [
-                {
-                  title: "Introduction to IBC and CosmJS",
-                  path: "/ida-customization/ida-course/week-3/index.html",
-                },
-                {
-                  title: "What is IBC?",
-                  path: "/academy/3-ibc/what-is-ibc.html",
-                },
-                {
-                  title: "TAO - Connections",
-                  path: "/academy/3-ibc/connections.html",
-                },
-                {
-                  title: "TAO - Channels",
-                  path: "/academy/3-ibc/channels.html",
-                },
-                {
-                  title: "TAO - Clients",
-                  path: "/academy/3-ibc/clients.html",
-                },
-                {
-                  title: "IBC Fungible Token Transfer",
-                  path: "/academy/3-ibc/token-transfer.html",
-                },
-                {
-                  title: "Interchain Accounts",
-                  path: "/academy/3-ibc/ica.html",
-                },
-                {
-                  title: "IBC Tooling",
-                  path: "/academy/3-ibc/ibc-tooling.html",
-                },
-                {
-                  title: "What is CosmJS?",
-                  path: "tutorials/6-comsjs/cosmjs-intro.html",
-                },
-                {
-                  title: "Your First CosmJS Actions",
-                  path: "tutorials/6-comsjs/first-steps.html",
-                },
-                {
-                  title: "Compose Complex Transactions",
-                  path: "tutorials/6-comsjs/multi-msg.html",
-                },
-                {
-                  title: "Learn to Integrate Keplr",
-                  path: "tutorials/6-comsjs/with-keplr.html",
-                },
-                {
-                  title: "Create Custom CosmJS Interfaces",
-                  path: "tutorials/6-comsjs/create-custom.html",
-                },
-              ]
-            },
-            {
-              title: "Week 4 - Ignite CLI and IBC Advanced",
-              directory: true,
-              order: 5,
-              children: [
-                {
-                  title: "Ignite CLI and IBC Advanced",
-                  path: "/ida-customization/ida-course/week-4/index.html",
-                },
-                {
-                  title: "Put Your Games in Order",
-                  path: "/hands-on-exercise/2-ignite-cli/game-fifo.html",
-                },
-                {
-                  title: "Keep an Up-To-Date Game Deadline",
-                  path: "/hands-on-exercise/2-ignite-cli/game-deadline.html",
-                },
-                {
-                  title: "Record the Game Winner",
-                  path: "/hands-on-exercise/2-ignite-cli/game-winner.html",
-                },
-                {
-                  title: "Auto-Expiring Games",
-                  path: "/hands-on-exercise/2-ignite-cli/game-forfeit.html",
-                },
-                {
-                  title: "Let Players Set a Wager",
-                  path: "/hands-on-exercise/2-ignite-cli/game-wager.html",
-                },
-                {
-                  title: "Incentivize Players",
-                  path: "/hands-on-exercise/2-ignite-cli/gas-meter.html",
-                },
-                {
-                  title: "Help Find a Correct Move",
-                  path: "/hands-on-exercise/2-ignite-cli/can-play.html",
-                },
-                {
-                  title: "Understanding IBC Denoms with Gaia",
-                  path: "/tutorials/4-ibc-dev/understanding-ibc-denoms.html",
-                },
-                {
-                  title: "Play With Cross-Chain Tokens",
-                  path: "/tutorials/4-ibc-dev/wager-denom.html",
-                },
-                {
-                  title: "Relaying With IBC",
-                  path: "/tutorials/4-ibc-dev/relayer-intro.html",
-                },
-                {
-                  title: "Go Relayer",
-                  path: "/tutorials/4-ibc-dev/go-relayer.html",
-                },
-                {
-                  title: "Hermes Relayer",
-                  path: "/tutorials/4-ibc-dev/hermes-relayer.html",
-                },
-              ]
-            },
-            {
-              title: "Week 5 - CosmJS Advanced",
-              directory: true,
-              order: 6,
-              children: [
-                {
-                  title: "CosmJS Advanced",
-                  path: "/ida-customization/ida-course/week-5/index.html",
-                },
-                {
-                  title: "Create Custom Objects",
-                  path: "hands-on-exercise/3-cosmjs/cosmjs-objects.html",
-                },
-                {
-                  title: "Create Custom Messages",
-                  path: "hands-on-exercise/3-cosmjs/cosmjs-messages.html",
-                },
-                {
-                  title: "Get an External GUI",
-                  path: "hands-on-exercise/3-cosmjs/external-gui.html",
-                },
-                {
-                  title: "Integrate CosmJS and Keplr",
-                  path: "hands-on-exercise/3-cosmjs/cosmjs-gui.html",
-                },
-                {
-                  title: "Backend Script for Game Indexing",
-                  path: "hands-on-exercise/3-cosmjs/server-side.html",
-                },
-                {
-                  title: "Introduce a Leaderboard After Production",
-                  path: "hands-on-exercise/3-cosmjs/migration.html",
-                },
-              ]
-            },
-            {
-              title: "Week 6 - IBC Deep Dive",
-              directory: true,
-              order: 7,
-              children: [
-                {
-                  title: "IBC Deep Dive",
-                  path: "/ida-customization/ida-course/week-6/index.html",
-                },
-                {
-                  title: "IBC Application Developer Introduction",
-                  path: "/hands-on-exercise/4-ibc-dev/ibc-app-intro.html",
-                },
-                {
-                  title: "Make a Module IBC-Enabled",
-                  path: "/hands-on-exercise/4-ibc-dev/ibc-app-steps.html",
-                },                {
-                  title: "Adding Packet and Acknowledgement Data",
-                  path: "/hands-on-exercise/4-ibc-dev/ibc-app-packets.html",
-                },
-                {
-                  title: "IBC Middleware",
-                  path: "/hands-on-exercise/4-ibc-dev/ibc-mw-intro.html",
-                },
-                {
-                  title: "Create a Custom IBC Middleware",
-                  path: "/hands-on-exercise/4-ibc-dev/ibc-mw-develop.html",
-                },
-                {
-                  title: "Integrating IBC Middleware Into a Chain",
-                  path: "/hands-on-exercise/4-ibc-dev/ibc-mw-integrate.html",
-                },
-              ]
-            },
-            {
-              title: "Week 7 - Run in Production"
-              directory: true,
-              order: 8,
-              children: [
-                {
-                  title: "Run in Production",
-                  path: "/ida-customization/ida-course/week-7/index.html",
-                },
-                {
-                  title: "Prepare the Software to Run",
-                  path: "/hands-on-exercise/5-run-in-prod/1-software.html",
-                },
-                {
-                  title: "Prepare a Validator and Keys",
-                  path: "/hands-on-exercise/5-run-in-prod/2-keys.html",
-                },
-                {
-                  title: "Prepare Where the Node Starts",
-                  path: "/hands-on-exercise/5-run-in-prod/3-genesis.html",
-                },
-                {
-                  title: "Prepare and Connect to Other Nodes",
-                  path: "/hands-on-exercise/5-run-in-prod/4-network.html",
-                },
-                {
-                  title: "Configure, Run and Set Up a Service",
-                  path: "/hands-on-exercise/5-run-in-prod/5-run.html",
-                },
-                {
-                  title: "Prepare and Do Migrations",
-                  path: "/hands-on-exercise/5-run-in-prod/6-migration.html",
-                },
-                {
-                  title: "Interconnect Your Chain",
-                  path: "/hands-on-exercise/5-run-in-prod/.html",
-                },
-                {
-                  title: "Move to Production",
-                  path: "/hands-on-exercise/5-run-in-prod/run-prod.html",
-                },
-                {
-                  title: "Final Exam",
-                  path: "/ida-customization/ida-course/final-exam.html"
-                },
-              ]
-            },
-            {
-              title: "What's Next?",
-              path: "/ida-customization/academy/whats-next/index.html",
-              directory: false,
-              order: 9,
             },
           ],
         },
@@ -727,6 +346,8 @@ module.exports = {
     "academy/*/*.md",
     "tutorials/*/*.md",
     "authz-module/*.md",
+    "ida-course/*/*.md",
+    "ida-course/*.md",
     "course-ida/*/*.md",
     "course-ida/*.md"
   ]

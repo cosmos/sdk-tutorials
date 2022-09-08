@@ -48,32 +48,32 @@ overview:
         We've set up a private Discord for the Academy for all teaching and ongoing communication. You can reach out to your tutors and expert instructors anytime for support. We encourage you to proactively collaborate with other participants in your cohort and with your instructors. Ask questions, request feedback, and seek help if you are stuck! That way, you'll get the most out of the Academy.<br/><br/>
         We aim to answer your questions within a few hours. Our maximum response time is 24 hours. Main support hours are on weekdays between 6AM UTC and 4PM UTC. We do not provide support during the weekends.<br/><br/>
 # All items below should not be displayed for Week O release but on official start date - end is signaled with another comment
-        Click [here](ida-customization/ida-course/discord-info.md) to learn how to join and use Discord.<br/><br/>
-        You will get detailed information on how to join and use Discord via email.
-    - title: How do I access Discord?
-      description: |
-        Follow these two steps to join the private Academy channels on Discord:<br/><br/>
-        1. Join the official Cosmos Discord by clicking here [https://discord.gg/cosmosnetwork].
-        2. Follow the verification process. It’s straightforward but if you need guidance, read [this article](https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839).
-        3. After joining the Discord server, go to [INSERT LINK] and enter your Discord ID. You’ll automatically be added to the Discord area for participants called “Interchain Developer Academy”.<br/><br/>
-        4. If you have any problems, email us at (academy@interchain.io)[academy@interchain.io].<br/><br/>
-        <br/><br/>
-        We’ve put together a quick guide [insert LINK to Discord content page] explaining how to best communicate on Discord.
+#        Click [here](ida-customization/ida-course/discord-info.md) to learn how to join and use Discord.<br/><br/>
+#        You will get detailed information on how to join and use Discord via email.
+#    - title: How do I access Discord?
+#      description: |
+#        Follow these two steps to join the private Academy channels on Discord:<br/><br/>
+#        1. Join the official Cosmos Discord by clicking here [https://discord.gg/cosmosnetwork].
+#        2. Follow the verification process. It’s straightforward but if you need guidance, read [this article](https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839).
+#        3. After joining the Discord server, go to [INSERT LINK] and enter your Discord ID. You’ll automatically be added to the Discord area for participants called “Interchain Developer Academy”.<br/><br/>
+#        4. If you have any problems, email us at (academy@interchain.io)[academy@interchain.io].<br/><br/>
+#        <br/><br/>
+#        We’ve put together a quick guide [insert LINK to Discord content page] explaining how to best communicate on Discord.
 # Please continue here for Week 0 release
     - title: How do I get certified?
       description: |
-      After the seven-week program, you’ll have two weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <b>November 3rd</b> and you have to complete it by <b>December 1st</b>.<br/><br/>
-      <br/><br/>
-      You’ll receive an email and notification via Discord closer to the date.<br/><br/>
-      <br/><br/>
-      If you complete the program earlier you can take the exam sooner. The earliest you can take the exam is from the fourth week of the program.<br/><br/>
-      <br/><br/>
-      You’ll receive an email with further instructions on how to launch the exam request.<br/><br/>
-      <br/><br/>
-      The exam is an individual exercise.<br/><br/>
-      <br/><br/>
-      <b>When do I get the results?</b><br/><br/>
-      You'll receive your exam results by <b>December 1st</b>.
+        After the seven-week program, you’ll have two weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <b>November 3rd</b> and you have to complete it by <b>December 1st</b>.<br/><br/>
+        <br/><br/>
+        You’ll receive an email and notification via Discord closer to the date.<br/><br/>
+        <br/><br/>
+        If you complete the program earlier you can take the exam sooner. The earliest you can take the exam is from the fourth week of the program.<br/><br/>
+        <br/><br/>
+        You’ll receive an email with further instructions on how to launch the exam request.<br/><br/>
+        <br/><br/>
+        The exam is an individual exercise.<br/><br/>
+        <br/><br/>
+        <b>When do I get the results?</b><br/><br/>
+        You'll receive your exam results by <b>December 1st</b>.
 ---
 
 # Welcome to the Interchain Developer Academy
