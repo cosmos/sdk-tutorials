@@ -1,13 +1,13 @@
 ---
 parent:
-  title: IBC Advanced II
+  title: IBC Deep Dive
   description: 
   number: 6
 tag: fast-track
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">...</div>
-<h1 class="mt-4 mb-6">IBC Advanced II</h1>
+<h1 class="mt-4 mb-6">IBC Deep Dive</h1>
 
 TEXT
 

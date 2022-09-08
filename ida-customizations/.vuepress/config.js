@@ -165,7 +165,7 @@ module.exports = {
               order: 2,
               children: [
                 {
-                  title: "Cosmos and its Main Concepts",
+                  title: "Introduction to Cosmos",
                   path: "/ida-customization/ida-course/week-1/index.html",
                 },
                 {
@@ -409,7 +409,6 @@ module.exports = {
                   title: "Hermes Relayer",
                   path: "/tutorials/4-ibc-dev/hermes-relayer.html",
                 },
-
               ]
             },
             {
