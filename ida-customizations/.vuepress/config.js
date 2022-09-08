@@ -99,27 +99,27 @@ module.exports = {
                 },
                 {
                   title: "Blockchchain 101",
-                  path: "/academy/0.0-B9lab-Blockchains/1_blockchain.html",
+                  path: "/ida-customization/ida-course/0.0-B9lab-Blockchains/1_blockchain.html",
                 },
                 {
                   title: "Blockchain History",
-                  path: "/academy/0.0-B9lab-Blockchains/2_public.html",
+                  path: "/ida-customization/ida-course/0.0-B9lab-Blockchains/2_public.html",
                 },
                 {
                   title: "Public and Managed Blockchains",
-                  path: "/academy/0.0-B9lab-Blockchains/3_managed.html",
+                  path: "/ida-customization/ida-course/0.0-B9lab-Blockchains/3_managed.html",
                 },
                 {
                   title: "Consensus in Distributed Networks",
-                  path: "/academy/0.0-B9lab-Blockchains/4_consensus.html",
+                  path: "/ida-customization/ida-course/0.0-B9lab-Blockchains/4_consensus.html",
                 },
                 {
                   title: "Cryptography",
-                  path: "/academy/0.0-B9lab-Blockchains/5_crypto.html",
+                  path: "/ida-customization/ida-course/0.0-B9lab-Blockchains/5_crypto.html",
                 },
                 {
                   title: "Self-Assessment Quiz",
-                  path: "/academy/0.0-B9lab-Blockchains/6_quiz.html",
+                  path: "/ida-customization/ida-course/0.0-B9lab-Blockchains/6_quiz.html",
                 },
                 {
                   title: "Go Introduction - First Steps",
