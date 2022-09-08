@@ -1,10 +1,12 @@
 # Cosmos SDK Tutorials repo
 
-This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
+This repository contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
+
 
 ## Most Tutorials are Version-Specific
 
 If the tutorial instructs you to download a specific version, that means that the code and the docs for each tutorial are tested, supported, and based on a specific version of the software. Be sure to download and use the right version.
+
 
 ## Contributing
 
@@ -12,9 +14,9 @@ Thank you for helping us to create and maintain awesome tutorials.
 
 - To set up your environment for success, follow the [technical set up](TECHNICAL-SETUP.md) guidelines.
 - To provide feedback, file an issue and provide abundant details to help us understand how we can make it better.
-- To provide feedback and a fix, you can make a direct contribution. This repo is protected since we provide the code and the docs to help you learn. If you're not a member or maintainer, fork the repo and then submit a PR from your forked repo to master.
+- To provide feedback and a fix, you can make a direct contribution. This repo is protected since we provide the code and the docs to help you learn. If you're not a member or maintainer, fork the repo and then submit a Pull Request from your forked repo to master.
 
-## Writing and contributing
+### Language and Style
 
 We welcome contributions to the tutorials. Our technical content follows the Google developer documentation style guide:
 
@@ -26,36 +28,53 @@ We welcome contributions to the tutorials. Our technical content follows the Goo
 - [Cross-references](https://developers.google.com/style/cross-references)
 - [Present tense](https://developers.google.com/style/tense)
 
-The Google guidelines include more material than listed here and are used as a
-guide that enables easy decision making about proposed content changes.
+The Google guidelines include more material than is listed here, and are used as a guide that enables easy decision making about proposed content changes.
 
 Other useful resources:
 
 - [Google Technical Writing Courses](https://developers.google.com/tech-writing)
-- [GitHub Guides Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
+- [GitHub guides on mastering markdown](https://guides.github.com/features/mastering-markdown/)
 
-## Metadata
+### Pull Request
 
-The layout metadata at the top of the README.md file controls how the tutorial page is published. Write permissions are limited to preserve the structure and contents.
+When you submit your PR, please use the default [Pull Request template](/.github/pull_request_template.md).
 
-## Folder structure
 
-Each Cosmos SDK tutorial lives in a self-describing folder: `blog`, `hello-world`, `voter`, and so on.
+## Platform configuration and use
 
-Two sub-folders are present for most of the production-ready tutorials:
+This documentation platform is using [VuePress](https://vuepress.vuejs.org/) with a [custom theme](https://github.com/b9lab/vuepress-theme-cosmos/tree/b9lab-theme-updates), which is referenced in this repo as [Submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
 
-- A self-describing sub-folder for the app and the rest of the code that runs the tutorial.
-- A `tutorial` sub-folder for the Markdown files (*.md) that build the published tutorial docs.
+The main VuePress configuration file is located at `.vuepress/config.js`.
 
-Work-in-process tutorials might have content and code in other repos.
+### README Metadata
+
+The layout metadata at the top of the README.md file controls the main landing page (`/`). Write permissions are limited to preserve the structure and contents.
+
+### Folder structure
+
+The published content currently lives in two separate folders:
+
+- `academy` contains the _Cosmos Academy_ content
+- `tutorials` contains specific tutorials on different topics
+
+### Components and advanced features
+
+There is a hidden file (not linked in the main menu) published at [/feature-test](/feature-test/index.md), which demonstrates the use of all custom components used on this platform. This page is also available on the deployed website at [https://tutorials.cosmos.network/feature-test/](https://tutorials.cosmos.network/feature-test/).
+
+
+## Images
+
+**Please note that images _must_ be linked using an absolute path!**
+
 
 ## Who works on the tutorials?
 
 Meet the people [behind the Cosmos SDK and contributors](https://github.com/cosmos/sdk-tutorials/graphs/contributors).
 
+
 ## Viewing Tutorial Builds
 
-There are two ways to see what your changes will look like in production before the updated pages are published.
+There are two ways to see what your changes will look like in production before the updated pages are published:
 
 - When a PR is ready for review, you can see a deployed preview on a URL that is unique for that PR.
 - While a PR is in DRAFT mode, you can preview a local build.
@@ -74,10 +93,10 @@ Since the deploy preview doesn't work on Draft PRs, follow these steps to previe
 
 1. If you haven't already, clone the tutorials repo to your local machine and change to that directory. For example:
 
-    ```sh
-    $ cd ~/github
-    $ git clone https://github.com/cosmos/sdk-tutorials
-    $ cd sdk-tutorials
+    ```bash
+    cd ~/github
+    git clone --recursive https://github.com/cosmos/sdk-tutorials
+    cd sdk-tutorials
     ```
 
 2. Local tutorials require JavaScript. If needed, install [npm](https://docs.npmjs.com/cli/v6/commands/npm-install).
@@ -98,4 +117,4 @@ Since the deploy preview doesn't work on Draft PRs, follow these steps to previe
 
 5. You can now view the tutorial build on a local web browser. Isn't this fun?
 
-    Tip: On a mac, press the command key and click `http://localhost:8080/` for quick access.
+    **Tip:** On a mac, press the command key and click `http://localhost:8080/` for quick access.

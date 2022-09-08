@@ -489,6 +489,18 @@ NextGame:
   idValue: "4"
 ```
 
-## Next up
+<HighlightBox type="synopsis">
 
-With no games staying in limbo forever, the project is now ready to use token wagers. These are introduced in the [next section](./game-wager.md).
+To summarize, this section has explored:
+
+* How games can expire under two conditions: when the game never really begins or only one player makes an opening move, in which case it is removed quietly; or when both players have participated but one has since failed to play a move in time, in which case the game is forfeited.
+* What new information and functions need to be created, and to update `EndBlock` to call the `ForfeitExpiredGames` function at the end of each block.
+* The correct coding for how to prepare the main loop through the FIFO, identify an expired game, and handle an expired game. 
+* How to test your code to ensure that it functions as desired.
+* How to interact with the CLI to check the effectiveness of your code for handling expired games.
+
+</HighlightBox>
+
+<!--## Next up
+
+With no games staying in limbo forever, the project is now ready to use token wagers. These are introduced in the [next section](./game-wager.md).-->

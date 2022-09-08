@@ -15,7 +15,7 @@ tags:
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [CosmJS](../xl-cosmjs/intro.md).
-* You have generated the necessary Typescript types in [the previous tutorial](./cosmjs-objects.md).
+* You have generated the necessary TypeScript types in [the previous tutorial](./cosmjs-objects.md).
 * You have the finished the checkers blockchain exercise. If not, you can follow that tutorial [here](./index.md) or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-wager-denomination) that contains the final version.
 
 </HighlightBox>
@@ -399,8 +399,17 @@ This is great news!
 
 With the [`getAllStoredGames` call](https://github.com/cosmos/academy-checkers-ui/blob/dab7dd4/test/live/experiment.ts#L33) you can modify this test file, in particular by choosing not to reject the game but instead to list it in the next test run.
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to create the elements necessary for you to begin sending transactions to your Checkers blockchain, including encodable messages, a signing client, and action methods that permit interaction with the blockchain.
+* How to test your signing client, including key preparation (with either a mnemonic or a private key) and client preparation, followed by functions such as creating a game, rejecting a game, or playing a move.
+
+</HighlightBox>
+
+<!--## Next up
 
 You now included elements and messages that allow you to interact with the checkers blockchain. You confirmed this with a small Node.js experimentation file. The only things that remain to do are adding any [server-side scripts](./server-side.md) and plugging the elements you have created into [a graphical user interface](./external-gui.md).
 
-Head to the [next chapter](INCLUDE URL AFTER NEW STRUCTURE IS IMPLEMENTED) on CosmJS to work on the GUI and backend script for your checkers blockchain.
+Head to the [next chapter](INCLUDE URL AFTER NEW STRUCTURE IS IMPLEMENTED) on CosmJS to work on the GUI and backend script for your checkers blockchain.-->

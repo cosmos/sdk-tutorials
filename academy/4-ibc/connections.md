@@ -20,14 +20,14 @@ IBC in depth. Discover the IBC protocol in detail:
 
 </HighlightBox>
 
-Now that you covered the introduction and have a better understanding of how different Inter-Blockchain Communication (IBC) Protocol components and Interchain Standards (ICS) relate to each other, take a deep dive into IBC/TAO (transport, authentication, and ordering) and the [IBC module](https://github.com/cosmos/ibc-go).
+Now that you covered the introduction and have a better understanding of how different Inter-Blockchain Communication Protocol (IBC) components and Interchain Standards (ICS) relate to each other, take a deep dive into IBC/TAO (transport, authentication, and ordering) and the [IBC module](https://github.com/cosmos/ibc-go).
 
 ## Connections
 
 If you want to connect two blockchains with IBC, you will need to establish an IBC **connection**. Connections, established by a four-way handshake, are responsible for:
 
 1. Establishing the identity of the counterparty chain.
-2. Preventing a malicious entity from forging incorrect information by pretending to be the counter party chain. IBC connections are established by on-chain ledger code and therefore do not require interaction with off-chain (trusted) third-party processes.
+2. Preventing a malicious entity from forging incorrect information by pretending to be the counterparty chain. IBC connections are established by on-chain ledger code and therefore do not require interaction with off-chain (trusted) third-party processes.
 
 <HighlightBox type="docs">
 
@@ -99,7 +99,7 @@ Establishing an IBC connection (for example, between chain A and chain B) requir
 
 A high level overview of a successful four-way handshake is as follows:
 
-### Handshake 1: OpenInit
+### Handshake 1 - OpenInit
 
 `OpenInit` initializes any connection which may occur, while still necessitating agreement from both sides. It is like an identifying announcement from the IBC module on chain A which is submitted by a relayer. The relayer should also submit an `UpdateClient` with chain A as the source chain before this handshake. `UpdateClient` updates the client on the initializing chain A with the latest consensus state of chain B.
 
@@ -189,7 +189,7 @@ func (k Keeper) ConnectionOpenInit(goCtx context.Context, msg *connectiontypes.M
 }
 ```
 
-### Handshake 2: OpenTry
+### Handshake 2 - OpenTry
 
 `OpenInit` is followed by an `OpenTry` response, in which chain B verifies the identity of chain A according to information that chain B has about chain A in its light client (the algorithm and the last snapshot of the consensus state containing the root hash of the latest height as well as the next validator set). It also responds to some of the information about its own identity in the `OpenInit` announcement from chain A.
 
@@ -228,7 +228,7 @@ func (k Keeper) ConnOpenTry(
 ) ...
 ```
 
-## Handshake 3: OpenAck
+## Handshake 3 - OpenAck
 
 `OpenAck` is very similar to the functionality of `OpenInit`, except that the information verification now occurs for chain A. As in `OpenTry`, the relayer also submits two `UpdateClient`s with chain A and chain B as source chains before this handshake. These update the light clients of both chain A and chain B, in order to make sure that the state verifications in this step are successful.
 
@@ -286,7 +286,7 @@ if err := k.VerifyClientConsensusState(
 
 Therefore, each chain verifies the `ConnectionState`, the `ClientState`, and the `ConsensusState` of the other chain. Note that after this step the connection state on chain A updates from `INIT` to `OPEN`.
 
-### Handshake 4: OpenConfirm
+### Handshake 4 - OpenConfirm
 
 `OpenConfirm` is the final handshake, in which chain B confirms that both self-identification and counterparty identification were successful.
 
@@ -319,6 +319,15 @@ If both chains submit `OpenInit` then `OpenTry` at same time, there should be no
 
 In fact this is not an issue. Any attempted `OpenInit` from an imposter will fail on `OpenTry`, because it will not contain valid proofs of `Client/Connection/ConsensusState`.
 
-## Next up
+<HighlightBox type="synopsis">
 
-Now that you finished having a look at connections in IBC/TAO, it is now time to switch your focus to channels in the [next section](./channels.md).
+To summarize, this section has explored:
+
+* How a connection between two blockchains with IBC is established by a four-way handshake, thereby establishing the identity of the counterparty chain and preventing any malicious entity from pretending to be the counterparty.
+* How versioning is important to establish, to ensure that only compatible protocol versions attempt to connect.
+
+</HighlightBox>
+
+<!--## Next up
+
+Now that you finished having a look at connections in IBC/TAO, it is now time to switch your focus to channels in the [next section](./channels.md).-->

@@ -178,6 +178,18 @@ Other ABCI message handlers being implemented are:
 * `Info`
 * `Query`
 
-## Next up
+<HighlightBox type="synopsis">
 
-In the [next section](./queries.md), you can find information on queries, one of two primary objects handled by a module in the Cosmos SDK.
+To summarize, this section has explored:
+
+* `BaseApp`, a boilerplate implementation of a Cosmos SDK application which provides core functionalities (such as ABCI) and a state machine implementation.
+* How `BaseApp` delivers a secure interface between application, blockchain, and state machine while defining the state machine as little as possible.
+* How to begin defining an application by declaring store keys, keepers, and a module manager.
+* The three primary states of `BaseApp` (the persistent canonical main state of the application, and the two volatile states used to handle transitions during commits, `checkState` and `deliverState`), as well as a variety of state updates used by applications.
+* The use of service routers for handling messages and queries.
+
+</HighlightBox>
+
+<!--## Next up
+
+In the [next section](./queries.md), you can find information on queries, one of two primary objects handled by a module in the Cosmos SDK.-->

@@ -22,7 +22,7 @@ It is recommended to take a look at the following previous sections to better un
 <HighlightBox type="learning">
 
 In this section, you will take a closer look at messages, `Msg`. At the end of the section, you can find a code example that illustrates message creation and the inclusion of messages in transactions for your checkers blockchain.
-
+<br></br>
 Understanding `Msg` will help you prepare for the next section, on [modules in the Cosmos SDK](./modules.md), as messages are a primary object handled by modules.
 
 </HighlightBox>
@@ -34,9 +34,9 @@ In the Cosmos SDK, a **transaction** contains **one or more messages**. The modu
 <ExpansionPanel title="Signing a message">
 
 Remember from the [previous section on transactions](./transactions.md) that transactions must be signed before a validator includes them in a block. Every message in a transaction must be signed by the addresses as specified by `GetSigners`.
-
+<br></br>
 The Cosmos SDK currently allows signing transactions with either `SIGN_MODE_DIRECT` or `SIGN_MODE_LEGACY_AMINO_JSON` methods.
-
+<br></br>
 When an account signs a message it signs an array of bytes. This array of bytes is the outcome of serializing the message. For the signature to be verifiable at a later date, this conversion needs to be deterministic. For this reason, you define a canonical bytes-representation of the message, typically with the parameters ordered alphabetically.
 
 </ExpansionPanel>
@@ -90,7 +90,7 @@ If you want to dive deeper when it comes to messages, the `Msg` service, and mod
 <ExpansionPanel title="Show me some code for my checkers blockchain - Including messages">
 
 In the [previous](./transactions.md) code examples, the ABCI application was aware of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you need to conform to the SDK's way of handling `Tx`, which means **creating messages that are then included in a transaction**.
-
+<br></br>
 **What you need**
 
 Begin by describing the messages you need for your checkers application to have a solid starting point before diving into the code:
@@ -321,6 +321,16 @@ If you would like to get started on building your own checkers game, you can go 
 
 </ExpansionPanel>
 
-## Next up
+<HighlightBox type="synopsis">
 
-Look at the above code example to get a better sense of how theory translates into development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can go directly to the [next section](./modules.md) to learn more about modules.
+To summarize, this section has explored:
+
+* Messages, one of two primary objects handled by a module in the Cosmos SDK, which inform the state and have the potential to alter it.
+* How one or more messages form a transaction in the Cosmos SDK, and messages are only processed after a transaction is signed by a validator and included in a block by the consensus layer.
+* An example of more complex message handling capabilities related to the checkers game blockchain. 
+
+</HighlightBox>
+
+<!--## Next up
+
+Look at the above code example to get a better sense of how theory translates into development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can go directly to the [next section](./modules.md) to learn more about modules.-->

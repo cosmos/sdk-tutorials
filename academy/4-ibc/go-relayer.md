@@ -25,7 +25,7 @@ For all installations, please see the [setup page](../3-my-own-chain/setup.md).
 <HighlightBox type="learning">
 
 Have you considered running a relayer?
-
+<br></br>
 In this section, you will learn:
 
 * How to get started with the Go relayer
@@ -408,6 +408,16 @@ $ rly q bal ibc-1
 
 You can see that the stake balances decreased on each chain because of the set fees in the configuration.
 
-## Next up
+<HighlightBox type="synopsis">
 
-After having taken a look at the Go relayer, it is now time to turn to the Hermes relayer in the [next section](./hermes-relayer.md).
+To summarize, this section has explored:
+
+* The Go relayer, a relayer implementation written in Golang that can create clients, connections, and channels, as well as relay packets, and update and upgrade clients.
+* How the Go relayer requires minimal manual configuration and abstracts away many more complex IBC concepts by automating a lot of work to fetch configuration data from the chain registry.
+* How to install and configure the Go relayer, and how to run it between public testnet chains or locally run chains to conveniently test particular scenarios.
+
+</HighlightBox>
+
+<!--## Next up
+
+After having taken a look at the Go relayer, it is now time to turn to the Hermes relayer in the [next section](./hermes-relayer.md).-->

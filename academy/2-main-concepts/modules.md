@@ -22,7 +22,7 @@ Review the following sections to better understand modules in the Cosmos SDK:
 <HighlightBox type="learning">
 
 Modules are functional components that address application-level concerns such as token management or governance. The Cosmos SDK includes several ready-made modules so that application developers can focus on the truly unique aspects of their application.
-
+<br></br>
 A code example that illustrates module creation and an introduction to your checkers blockchain can be found at the end of this section.
 
 </HighlightBox>
@@ -274,7 +274,7 @@ x/{module_name}
 <HighlightBox type="info">
 
 If a module relies on keepers from another module, the `exported/` code element expects to receive the keepers as interface contracts to avoid a direct dependency on the module implementing the keepers. However, these interface contracts can define methods that operate on (or return types that are specific to) the module that is implementing the keepers.
-
+<br></br>
 The interface types defined in `exported/` use canonical types that allow for the module to receive the interface contracts through the `expected_keepers.go` file. This pattern allows for code to remain [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) and also alleviates import cycle chaos.
 
 </HighlightBox>
@@ -321,15 +321,15 @@ If a module error is registered, the Cosmos SDK errors package allows ABCI infor
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 Now your application is starting to take shape.
-
+<br></br>
 **The `checkers` module**
 
 When you create your checkers blockchain application, you ought to include a majority of the standard modules like `auth`, `bank`, and so on. With the Cosmos SDK boilerplate in place, the _checkers part_ of your checkers application will most likely reside in a single `checkers` module. This is the module that you author.
-
+<br></br>
 **Game wager**
 
 Earlier the goal was to let players play with _money_. With the introduction of modules like `bank` you can start handling that.
-
+<br></br>
 The initial ideas are:
 
 * The wager amount is declared when creating a game.
@@ -361,7 +361,7 @@ How would this look in terms of code? You need to add the wager to:
 **Wager payment**
 
 Now you must decide how the tokens are moved. When a player accepts a challenge, the amount is deducted from that player's balance. But where does it go? You could burn the tokens and re-mint them at a later date, but this would make the total supply fluctuate wildly for no apparent benefit.
-
+<br></br>
 It is possible to transfer from a player to a module. The module acts as the escrow account for all games. So when playing for the first time, a player would:
 
 ```go
@@ -411,6 +411,19 @@ If you want to go beyond these code samples and instead see in more detail how t
 
 </ExpansionPanel>
 
-## Next up
+<HighlightBox type="synopsis">
 
-Look at the above code example to see modules in practice, or go straight to the [next section](../2-main-concepts/protobuf.md) for an introduction to Protobuf.
+To summarize, this section has explored:
+
+* How Cosmos SDK modules can be viewed as purpose-specific state machines that define the unique properties of the larger state machine that is each blockchain.
+* How messages are decomposed from the incoming transaction containing them and routed to the appropriate module for processing.
+* How all modules comprise three core functionalities: an implementation of ABCI to communicate with the Tendermint consensus engine; a general-purpose data store which persists the module state; and the server and interfaces which facilitate interactions with the node.
+* How the majority of work for developers is in building custom modules that satisfy their unique needs, which are then integrated into a coherent application alongside existing modules from the Cosmos SDK of third-party developers.
+* How the Cosmos SDK's set of core modules address common applications needs (such as tokens, staking, and governance) while providing useful benefits like standardization across the Ecosystem, less duplication of effort, and practical examples of effective structure, style, and best practices.
+* How modules should ideally define and register their own set of errors (in addition to the Cosmos SDK's set of common errors), allowing developers to add context and meaning to failed executions.             
+
+</HighlightBox>
+
+<!--## Next up
+
+Look at the above code example to see modules in practice, or go straight to the [next section](../2-main-concepts/protobuf.md) for an introduction to Protobuf.-->

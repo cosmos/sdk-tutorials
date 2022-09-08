@@ -144,7 +144,7 @@ This powerful command bundles a lot of functionality where Hermes will be listen
 <HighlightBox type="note">
 
 When starting the Hermes relayer, it will assume that the channels you wish to relay over are set up. This will be the case if you want to start relaying on an existing *canonical* channel, meaning the offical and agreed-upon channel (for example, used for fungible token transfers).
-
+<br></br>
 This is perfectly possible and the right approach, given that creating a new channel would make assets relayed over it non-fungible with assets relayed over the canonical channel. Most tutorials will create new channels (and possibly clients and connections) as this provides more insight into the software. However, it is **important to note that you only need to create new channels if no canonical channel is present** (for example, for a newly deployed chain).
 
 </HighlightBox>
@@ -379,6 +379,15 @@ $ hermes -c simple_config.toml tx raw packet-ack ibc-0 ibc-1 transfer channel-5
 
 Check the balances again. A new denom should appear because of our recent channel. As an exercise, transfer the tokens back to ibc-0.
 
-## Next up
+<HighlightBox type="synopsis">
 
-With this introduction to the Hermes relayer, you are all set for relaying. In the [next section](./ibc-tooling.md), you can find an overview of helpful tools for IBC.
+To summarize, this section has explored:
+
+* Hermes, an open-source Rust implementation of and IBC relayer, which is widely used in production by relayer operators due to its great logging and debugging options, but may require more detailed knowledge of IBC for effective use.
+* How to install and configure Hermes, and then perform automated and manual end-to-end testing of Docker containers for two-chain instances and a relayer instance.
+
+</HighlightBox>
+
+<!--## Next up
+
+With this introduction to the Hermes relayer, you are all set for relaying. In the [next section](./ibc-tooling.md), you can find an overview of helpful tools for IBC.-->

@@ -10,6 +10,9 @@
   "scripts": {
     "serve": "vuepress dev --no-cache",
     "build": "vuepress build --no-cache",
+    "switch-ida": "make fs-activate-ida-files",
+    "switch-main": "make fs-restore-main-files",
+    "add-ida-file": "sh ./create-ida-file.sh",
     "link:check": "npx check-md",
     "link:fix": "npx check-md --fix"
   },
@@ -51,7 +54,7 @@
     "stylus-loader": "^3.0.2",
     "tiny-cookie": "^2.3.2",
     "v-runtime-template": "^1.10.0",
-    "vue-h5p": "^0.2.0",
+    "vue-h5p": "^0.5.3",
     "vuepress": "^1.5.4",
     "vuepress-plugin-sitemap": "^2.3.1"
   },

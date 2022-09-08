@@ -86,6 +86,15 @@ If you use `go install` instead of `go build`, Go installs the executable in `$G
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
 
-In the [next section](./2_basics.md), you can take a look at further Golang foundations and discover basic types, string formatting, functions, and methods.
+To summarize, this section has explored:
+
+* How to install Golang (Go), an open-source, statically typed, and compiled programming language.
+* The Go workflow, which differs from most other programming tools and is demonstrated here using the "Hello, World!" example program.
+
+</HighlightBox>
+
+<!--## Next up
+
+In the [next section](./2_basics.md), you can take a look at further Golang foundations and discover basic types, string formatting, functions, and methods.-->

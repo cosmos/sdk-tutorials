@@ -50,7 +50,6 @@ When the ticket is closed, you will receive a direct message from _Tricia | Supp
 
 If you still have a follow-up question after the ticket was closed, you can post a new message in the channel and open a new ticket.
 
-
 ## Reply by tutors and expert instructors
 
 Your tutors and expert instructors will be notified about your request and will come back to you to help you to answer your question or solve an issue.

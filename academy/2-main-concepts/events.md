@@ -124,7 +124,7 @@ You can filter for event types and attribute values. For example, a transfer tra
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 It would be good to document a game's lifecycle via events in your checkers blockchain.
-
+<br></br>
 For instance, you can emit a specific event such as when creating a game:
 
 ```go
@@ -164,6 +164,17 @@ ctx.EventManager().EmitEvent(
 
 </ExpansionPanel>
 
-## Next up
+<HighlightBox type="synopsis">
 
-Now you know about events, where they are expected, and how to emit or receive them. Look at the code samples above, or go to the [next section](./context.md) to learn about the `Context` object.
+To summarize, this section has explored:
+
+* How events are objects used by service providers such as block explorers and wallets to track the execution of messages and index transactions by applications.
+* The types and attributes of events are defined on a per-module basis and developers can attach additional information to them, so events can be queried or filtered.
+* Events are managed, tracked, and triggered by the `EventManager` abstraction.
+* You can subscribe to different categories of event using Tendermint's WebSocket.
+
+</HighlightBox>
+
+<!--## Next up
+
+Now you know about events, where they are expected, and how to emit or receive them. Look at the code samples above, or go to the [next section](./context.md) to learn about the `Context` object.-->

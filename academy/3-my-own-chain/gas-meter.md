@@ -93,7 +93,7 @@ You do not meter gas in your `EndBlock` handler because it is **not** called by 
 <HighlightBox type="tip">
 
 As part of your code optimization, avoid calling `ConsumeGas` with a fixed gas cost (for instance `k`) from within a loop. Each pass of the loop uses computation resources (`c`) on each node. If you know the number of times your code loops (`n`), you know running the full loop will use `n*c` computation resources.
-
+<br></br>
 Now consider the case of a user who sent a transaction without enough gas. The transaction will fail anyway, but at what point will it fail?
 
 1. If you call `ConsumeGas(k)` _within_ the loop, the transaction will fail during one of the passes (the `m`th pass). This means that the node has already used `m*c` computation resources.
@@ -201,6 +201,18 @@ gas_used: "65067"
 
 That is sufficient confirmation.
 
-## Next up
+<HighlightBox type="synopsis">
 
-Make your checkers blockchain more user-friendly by helping players avoid bad transactions via a query that tests a move. Just follow the exercise in the [next section](./can-play.md).
+To summarize, this section has explored:
+
+* How to add gas metering to your application so participants contribute toward the cost of the work being demanded of the network by gameplay, and add costs to discourage spam.
+* What new data constants need to be added, such as fees for creating games or playing moves, and gas consumption lines for handlers relating to these gameplay aspects.
+* Best practices for gas metering, including where not to call fixed gas costs and the implications of a user sending transactions without enough gas to process them.
+* What texts to add that confirm gas consumption, acknowledging the limitations on precision that the use of BaseApp and your module also imposes on understanding how much gas is used by various transactions.
+* How to interact via the CLI to confirm that gas is being consumed by different actions, acknowledging the additional complications arising from variable account balances and gas price.
+
+</HighlightBox>
+
+<!--## Next up
+
+Make your checkers blockchain more user-friendly by helping players avoid bad transactions via a query that tests a move. Just follow the exercise in the [next section](./can-play.md).-->

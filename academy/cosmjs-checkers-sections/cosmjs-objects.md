@@ -23,11 +23,11 @@ Make sure you have everything you need before proceeding:
 
 With your Checkers application ready for use, it is a good time to prepare client elements that eventually allow you to create a GUI and/or server-side scripts. Here, you will apply [what you have learned](../xl-cosmjs/create-custom.md) about creating your own custom CosmJS interfaces.
 
-Before you can get into working on your application directly, you need to make sure CosmJS understands your checkers module and knows how to interact with it. This generally means you need create the Protobuf objects and clients in Typescript and create extensions that facilitate the use of them.
+Before you can get into working on your application directly, you need to make sure CosmJS understands your checkers module and knows how to interact with it. This generally means you need create the Protobuf objects and clients in TypeScript and create extensions that facilitate the use of them.
 
 ## Compile Protobuf
 
-You'll have to create a `client` folder that will contain all these new elements. If you want to keep the Go parts of your Checkers project separate from the Typescript parts, you can use another repository for the _client_. To keep a link between the two repositories, add the _client_ parts as a submodule to your Go parts:
+You'll have to create a `client` folder that will contain all these new elements. If you want to keep the Go parts of your Checkers project separate from the TypeScript parts, you can use another repository for the _client_. To keep a link between the two repositories, add the _client_ parts as a submodule to your Go parts:
 
 ```sh
 $ git submodule add git@github.com:cosmos/academy-checkers-ui.git client
@@ -35,7 +35,7 @@ $ git submodule add git@github.com:cosmos/academy-checkers-ui.git client
 
 Replace the path with your own repository. In effect, this creates a new `client` folder. This `client` folder makes it possible for you to easily update another repository with content generated out of your Go code.
 
-Create a folder named `scripts` in your project root. This is where you will launch the Protobuf compilation. In the `scripts` folder install modules for the Protobuf-to-Typescript compiler:
+Create a folder named `scripts` in your project root. This is where you will launch the Protobuf compilation. In the `scripts` folder install modules for the Protobuf-to-TypeScript compiler:
 
 ```sh
 $ mkdir scripts
@@ -82,7 +82,7 @@ $ ls ../proto/checkers | xargs -I {} ../node_modules/protoc/protoc/bin/protoc \
     checkers/{}
 ```
 
-You should now have your Typescript files. Save these scripts into a `proto-ts-gen.sh` [script file](https://github.com/cosmos/b9-checkers-academy-draft/blob/4cf13b5a/scripts/proto-ts-gen.sh), make it executable with `chmod a+x`, and add an `npm run` [target for it](https://github.com/cosmos/b9-checkers-academy-draft/blob/4cf13b5a/scripts/package.json#L7). Next time, to update your compiled Protobuf objects directly into your `client` repository, run the following within the `scripts` folder:
+You should now have your TypeScript files. Save these scripts into a `proto-ts-gen.sh` [script file](https://github.com/cosmos/b9-checkers-academy-draft/blob/4cf13b5a/scripts/proto-ts-gen.sh), make it executable with `chmod a+x`, and add an `npm run` [target for it](https://github.com/cosmos/b9-checkers-academy-draft/blob/4cf13b5a/scripts/package.json#L7). Next time, to update your compiled Protobuf objects directly into your `client` repository, run the following within the `scripts` folder:
 
 ```sh
 $ npm run proto-ts-gen
@@ -240,7 +240,7 @@ RPC_URL="http://localhost:26657"
 
 Alternatively, use whichever address connects to the RPC port of the Checkers blockchain.
 
-Now let Typescript know about this in a `environment.d.ts` file:
+Now let TypeScript know about this in a `environment.d.ts` file:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/02b0e3b/environment.d.ts]
 declare global {
@@ -329,6 +329,15 @@ Error: Query failed with (18): rpc error: code = InvalidArgument desc = not foun
 
 This is as expected, as nothing more can be tested at this stage.
 
-## Next up
+<HighlightBox type="synopsis">
 
-Now that your types have been generated, you can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./cosmjs-messages.md).
+To summarize, this section has explored:
+
+* The need to prepare the elements that will eventually allow you to create a GUI and/or server-side scripts for your Checkers application.
+* How to create the necessary Protobuf objects and clients in Typescript, the extensions that facilitate the use of these clients, so that CosmJS will understand and be able to interact with your Checkers module.
+
+</HighlightBox>
+
+<!--## Next up
+
+Now that your types have been generated, you can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./cosmjs-messages.md).-->

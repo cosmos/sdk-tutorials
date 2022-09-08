@@ -456,7 +456,7 @@ func AddParsedCandidatesAndSort(parsedWinners []*winningPlayerParsed, candidates
 ```
 
 Note the clipping at the leaderboard's length. Similarly, you need helpers on the leaderboard.
-
+<br></br>
 You can get these other helpers with a deserialization:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/full_leaderboard.go#L94-L118]
@@ -684,10 +684,22 @@ func (genesisV1 GenesisStateV1) Convert(now time.Time) (genesis *types.GenesisSt
 }
 ```
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to upgrade a blockchain in production, in particular how to deal with data migrations and logical upgrades to ensure a smooth transition from the v1 state of your blockchain and the v2 state to come.
+* How to prepare the existing chain by saving and marking as v1 any current data types to be modified with the new version.
+* How to prepare v2 of the chain by defining new data types; adding helper functions that encapsulate new and clearly defined actions relating to the planned new version; and adjusting the existing code to make use of and update new data types.
+* How to prepare for the v1-to-v2 migration by adding helper functions capable of taking the latest chain state as a v1 genesis; adding a function to migrate from v1 to v2 genesis; and, crucially, by confirming that your system can handle large amounts of data.
+* How to perform the actual full chain state migration, by writing a genesis conversion from `GenesisStateV1` to your v2 `GenesisState` in its own file.
+
+</HighlightBox>
+
+## Success!
 
 Your checkers blockchain is done! It has a leaderboard, which was introduced later in production thanks to migrations.
 
 You no doubt have many ideas about how to improve it. In particular, you could implement the missing _draw_ mechanism, which in effect has to be accepted by both players.
 
-It is time to move away from the checkers blockchain learning exercise, and explore another helpful tool for working with the Cosmos SDK: [CosmWasm](./cosmwasm.md).
+<!--It is time to move away from the checkers blockchain learning exercise, and explore another helpful tool for working with the Cosmos SDK: [CosmWasm](./cosmwasm.md).-->

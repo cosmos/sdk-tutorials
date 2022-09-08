@@ -172,11 +172,22 @@ For more information on broadcasting with Tendermint RPC, see the documentation 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 [Previously](./architecture.md), the ABCI application knew of a single transaction type: a checkers move with four `int`. This is no longer sufficient with multiple games. You need to conform to its `Tx` expectations, which means that you must create messages which are then placed into a transaction.
-
+<br></br>
 See the [section on messages](./messages.md) to learn how to do that.
 
 </ExpansionPanel>
 
-## Next up
+<HighlightBox type="synopsis">
 
-In the [next section](./messages.md), you can learn how transaction messages are generated and handled in the Cosmos SDK.
+To summarize, this section has explored:
+
+* How transactions are objects created by end-users to trigger state changes in an application module through that module's Protobuf message service.
+* How transaction messages are not to be confused with ABCI messages, which define interactions between Tendermint and application layers.
+* How *deciding* and *signing* transactions are the main interactions of a user, whereas *generating* and *broadcasting* transactions are attended to by the user interface and other automation.
+* How the modular nature of the Cosmos SDK places more responsibility on *module* developers to effectively code transaction processes, so *application* developers can reuse common functionalities without having to repetitively implement state transition logic.
+
+</HighlightBox>
+
+<!--## Next up
+
+In the [next section](./messages.md), you can learn how transaction messages are generated and handled in the Cosmos SDK.-->

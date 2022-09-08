@@ -17,7 +17,7 @@ The end of this module will deal with backend scripts and demonstrate how to use
 
 ![](/green-planet.svg)
 
-## In this module
+## In this chapter
 
 <HighlightBox type="learning">
 

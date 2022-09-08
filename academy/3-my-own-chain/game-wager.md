@@ -900,6 +900,20 @@ Similarly, you can test that Bob gets his wager back when Alice creates a game, 
 
 It would be difficult to test by CLI when there is a winner after a full game. That would be better tested with a GUI.
 
-## Next up
+<HighlightBox type="synopsis">
 
-You can skip ahead and see how to integrate [foreign tokens](./wager-denom.md) via the use of IBC, or take a look at the [next section](./gas-meter.md) to prevent spam and reward validators proportional to their effort in your checkers blockchain.
+To summarize, this section has explored:
+
+* How to work with the Bank module and handle players making wagers on games, now that the application supports live games playing to completion (with the winner claiming both wagers) or expiring through inactivity (with the inactive player forfeiting their wager as if losing), and no possibility of staked value being stranded in inactive games.
+* How to add the new "wager" value, modify the "create a game" message, and add a helper function to allow players to choose the wager they want to make.
+* How to save the wager by defining a new event key, modifying the create game handler and the event to set the wager value, and modifying the constructor in the `MsgCreateGame` interface definition.
+* How to add handling actions which ask the `bank` module to perform the token transfers required by the wager, and where to invoke them in the message handlers.
+* How to create a new wager-handling file with functions to collect a wager, refund a wager, and pay winnings, in which `must` prefixes indicate either a user-side error (leading to a failed transaction) or a failure of the application's escrow account (requiring the whole application be terminated).
+* How to run integration tests, which requires you to first build a proper bank keeper, create new helpers, refactor your existing keeper tests, account for the new events being emitted from the bank, and add extra checks of money handling.
+* How to interact with the CLI to check account balances to test that wagers are being withheld and paid.
+
+</HighlightBox>
+
+<!--## Next up
+
+You can skip ahead and see how to integrate [foreign tokens](./wager-denom.md) via the use of IBC, or take a look at the [next section](./gas-meter.md) to prevent spam and reward validators proportional to their effort in your checkers blockchain.-->

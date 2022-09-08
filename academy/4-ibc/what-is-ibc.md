@@ -12,7 +12,7 @@ tags:
 <HighlightBox type="learning">
 
 Inter-Blockchain Communication Protocol solves for communication between blockchains, which is particularly important in the Cosmos universe.
-
+<br></br>
 In this section, you will learn:
 
 * What IBC is.
@@ -21,7 +21,7 @@ In this section, you will learn:
 
 </HighlightBox>
 
-The **[Inter-Blockchain Communication (IBC) Protocol](https://ibcprotocol.org/)** is _a protocol to handle authentication and transport of data between two blockchains_. IBC **requires a minimal set of functions**, specified in the [Interchain Standards (ICS)](https://github.com/cosmos/ibc/tree/master/spec/ics-001-ics-standard). Notice that those specifications do not limit the network topology or consensus algorithm, so IBC can be used with a wide range of blockchains or state machines. The IBC protocol provides a permissionless way for relaying data packets between blockchains, unlike most trusted bridging technologies. The security of IBC reduces to the security of the participating chains.
+The **[Inter-Blockchain Communication Protocol (IBC)](https://ibcprotocol.org/)** is _a protocol to handle authentication and transport of data between two blockchains_. IBC **requires a minimal set of functions**, specified in the [Interchain Standards (ICS)](https://github.com/cosmos/ibc/tree/master/spec/ics-001-ics-standard). Notice that those specifications do not limit the network topology or consensus algorithm, so IBC can be used with a wide range of blockchains or state machines. The IBC protocol provides a permissionless way for relaying data packets between blockchains, unlike most trusted bridging technologies. The security of IBC reduces to the security of the participating chains.
 
 IBC solves a widespread problem: cross-chain communication. This problem exists on public blockchains when exchanges wish to perform swaps. The problem arises early in the case of application-specific blockchains, where every asset is likely to emerge from its own purpose-built chain. Cross-chain communication is also a challenge in the world of private blockchains, in cases where communication with a public chain or other private chains is desirable. There are already IBC implementations for private blockchains [such as Hyperledger Fabric and Corda](https://www.hyperledger.org/blog/2021/06/09/meet-yui-one-the-new-hyperledger-labs-projects-taking-on-cross-chain-and-off-chain-operations).
 
@@ -140,7 +140,7 @@ IBC clients and transactions assume the trust model of the chains they are conne
 <HighlightBox type="info">
 
 All tokens transferred over a particular channel will be assigned the same denomination as other tokens flowing over the channel, but a different one than the same assets between the same chains would have if they were sent across a different channel. The IBC denom looks like `ibc/<hash of the channel-id & port-id>`.
-
+<br></br>
 You can find more detailed information in the tutorial on [IBC denoms](https://tutorials.cosmos.network/tutorials/understanding-ibc-denoms/#what-is-this-ibc-denom).
 
 </HighlightBox>
@@ -171,7 +171,7 @@ Generally speaking, you'll need the following:
 <ExpansionPanel title="A roadmap towards an IBC-enabled chain">
 
 The following decision tree helps visualize the roadmap towards an IBC-enabled chain. **For simplicity, it assumes the intent to connect to a Cosmos SDK chain.**
-
+<br></br>
 Do you have access to an existing chain?
 * **No.** You will have to build a chain:
     * Cosmos SDK chain: see the [previous chapters](../3-my-own-chain/index.md).
@@ -202,6 +202,19 @@ Do you have access to an existing chain?
 
 The most straightforward way to use IBC is to build a chain with the Cosmos SDK, which already includes the IBC module - as you can see when examining the [IBC-Go repository](https://github.com/cosmos/ibc-go). The IBC module supports an out-of-the-box Tendermint light client. Other implementations are possible but may require further development of the necessary components; go to the [IBC website](https://ibcprotocol.org/implementations) to see which implementations are available in production or are being developed.
 
-## Next up
+<HighlightBox type="synopsis">
 
-On your way to becoming a Cosmos SDK developer expert in IBC? Dive even deeper and discover how to develop with IBC. The next sections elaborate on the transport, authentication, and ordering (TAO) layer in IBC. Begin with [connections](./connections.md) to then dive deeper into channels and clients in IBC.
+To summarize, this section has explored:
+
+* How the Inter-Blockchain Communication (IBC) Protocol solves the problem of cross-chain communication by handling the authentication and transport of data between two blockchains through a minimal set of functions specified in the Interchain Standards (ICS).
+* How the IBC functions permissionlessly and can be used with a wide range of blockchains or state machines regardless of their network topologies or consensus algorithms, with IBC security reduced to that of the participating chains.
+* How IBC is the foundation of interoperability in the Cosmos Ecosystem, with relayers such as light clients verifying the validity of cross-chain transactions, while also offering solutions to the issue of communicating with non-Cosmos blockchains including those which don't meet the criteria of Proof-of-Stake (PoS)finality.
+* How a Cosmos blockchain's transport layer (TAO) provides the infrastructure for establishing secure connections to other chains, while the application layer built on top defines how authenticated data packets should be packaged and interpreted.
+* How relayer algorithms provide the essential off-chain processes that share data between chains running the IBC protocol by scanning the state of each chain, constructing appropriate datagrams, and executing them on the opposite chain as permitted by the protocol.
+* How the Byzantine behavior that leads to forking is prevented within the fast finality Cosmos Ecosystem, and how the IBC protocol can achieve fork prevention outside the ecosystem by submitting proof of validator misbehavior and freezing affected light clients until an issue or attack has been neutralized.
+
+</HighlightBox>
+
+<!--## Next up
+
+On your way to becoming a Cosmos SDK developer expert in IBC? Dive even deeper and discover how to develop with IBC. The next sections elaborate on the transport, authentication, and ordering (TAO) layer in IBC. Begin with [connections](./connections.md) to then dive deeper into channels and clients in IBC.-->

@@ -1,19 +1,19 @@
 ---
-title: "IBC Fungible Token Transfer"
+title: "IBC Token Transfer"
 order: 6
-description: Token transfers across chains
+description: Fungible token transfers across chains
 tags: 
   - concepts
   - ibc
   - dev-ops
 ---
 
-# IBC Fungible Token Transfer
+# IBC Token Transfer
 
 <HighlightBox type="learning">
 
 Transferring tokens between chains is both a common requirement and a significant technical challenge when two chains are incompatible. A convenient solution for moving tokens between chains is essential.
-
+<br></br>
 In this section, you will explore how a fungible token transfer can be done with IBC.
 
 </HighlightBox>
@@ -238,7 +238,15 @@ func (k Keeper) SendTransfer(
 }
 ```
 
-## Next up
+<HighlightBox type="synopsis">
 
-In the [next section](ica.md), discover how you can control an account on a host chain from a controller chain using interchain accounts (ICAs).
+To summarize, this section has explored:
 
+* How IBC provides a reliable solution to the technical challenge of transferring fungible and non-fungible tokens between two different blockchains, freeing up great potential for cross-chain Decentralized Finance (DeFi) applications.
+* How the process for transferring value differs based on whether or not the IBC tokens are native to the source chain, or whether or not they are being sent on a channel they were previously received on.
+
+</HighlightBox>
+
+<!--## Next up
+
+In the [next section](ica.md), discover how you can control an account on a host chain from a controller chain using interchain accounts (ICAs).-->

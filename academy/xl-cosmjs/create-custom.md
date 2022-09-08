@@ -23,7 +23,7 @@ In this section, you will:
 
 CosmJS comes out of the box with interfaces that connect with the standard Cosmos modules such as `bank` and `gov` and understand the way their state is serialized. Since your own blockchain's modules are unique, they need custom CosmJS interfaces. That process consists of several steps:
 
-1. Creating the Protobuf objects and clients in Typescript.
+1. Creating the Protobuf objects and clients in TypeScript.
 2. Creating extensions that facilitate the use of the above clients.
 3. Any further level of abstraction that you deem useful for integration.
 
@@ -31,16 +31,16 @@ This section assumes that you have a working Cosmos blockchain with its own modu
 
 ## Compiling the Protobuf objects and clients
 
-You can choose which library you use to compile your Protobuf objects into Typescript or Javascript. Reproducing [what Stargate](https://github.com/cosmos/cosmjs/blob/main/packages/stargate/CUSTOM_PROTOBUF_CODECS.md) or [`cosmjs-types`](https://github.com/confio/cosmjs-types/blob/main/scripts/codegen.sh) do is a good choice.
+You can choose which library you use to compile your Protobuf objects into TypeScript or JavaScript. Reproducing [what Stargate](https://github.com/cosmos/cosmjs/blob/main/packages/stargate/CUSTOM_PROTOBUF_CODECS.md) or [`cosmjs-types`](https://github.com/confio/cosmjs-types/blob/main/scripts/codegen.sh) do is a good choice.
 
 ### Preparation
 
 This exercise assumes that:
 
 1. Your Protobuf definition files are in `./proto/myChain`.
-2. You want to compile them into Typescript in `./client/src/types/generated`.
+2. You want to compile them into TypeScript in `./client/src/types/generated`.
 
-Install `protoc` and its Typescript plugin:
+Install `protoc` and its TypeScript plugin:
 
 ```sh
 $ npm install ts-proto protoc --save-dev
@@ -118,7 +118,7 @@ $ ls ./proto/myChain | xargs -I {} ./node_modules/protoc/protoc/bin/protoc \
 
 `--proto_path` is only `./proto` so that your imports (such as `import "cosmos/base...`) can be found.
 
-You should now see your files compiled into Typescript. They have been correctly filed under their respective folders and contain both types and services definitions. It also created the compiled versions of your third party imports.
+You should now see your files compiled into TypeScript. They have been correctly filed under their respective folders and contain both types and services definitions. It also created the compiled versions of your third party imports.
 
 ### A note about the result
 
@@ -361,3 +361,13 @@ public async sendTokens(
 ## Conclusion
 
 You are ready to import and use this in a server script or a GUI.
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How CosmJS's out-of-the-box interfaces understand how the state of standard Cosmos modules is serialized, meaning that your unique modules will require custom CosmJS interfaces of their own.
+* How to create the necessary Protobuf objects and clients in Typescript, the extensions that facilitate the use of these clients, and any further level of abstraction that you deem useful for integration.
+* How to integrate CosmJS with Ignite's client and signing client, which are typically the ultimate abstractions that facilitate the querying and sending of transactions.
+
+</HighlightBox>

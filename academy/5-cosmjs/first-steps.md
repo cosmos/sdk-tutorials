@@ -13,7 +13,7 @@ tags:
 <HighlightBox type="learning">
 
 Take your first steps with CosmJS. Use it to send some simple transactions.
-
+<br></br>
 In this section, you will:
 
 * Download and install CosmJS.
@@ -35,7 +35,7 @@ Additionally, you can choose to:
 1. Start a local chain that exposes RPCs instead of using a testnet.
 2. Run the same basic CosmJS commands, but for this local chain.
 
-Along the way, you learn the basic CosmJS concepts needed to start interacting with the Cosmos ecosystem.
+Along the way, you learn the basic CosmJS concepts needed to start interacting with the Cosmos Ecosystem.
 
 ## Script preparation
 
@@ -55,7 +55,7 @@ const runAll = async(): Promise<void> => {
 runAll()
 ```
 
-To execute, this Typescript file needs to be compiled into Javascript before being interpreted by NodeJs. Add this as a run target in `package.json`:
+To execute, this TypeScript file needs to be compiled into JavaScript before being interpreted by NodeJs. Add this as a run target in `package.json`:
 
 ```json [https://github.com/b9lab/cosmjs-sandbox/blob/3fe8942/package.json#L7]
 ...
@@ -81,11 +81,11 @@ This returns:
 TODO
 ```
 
-You soon make this script more meaningful. With the basic script ready, you need to prepare some elements.
+You will soon make this script more meaningful. With the basic script ready, you need to prepare some elements.
 
 ## Testnet preparation
 
-The Cosmos ecosystem has a number of testnets running. The Cosmos Hub is currently running a [public testnet](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-public-testnet) for the Theta upgrade that you are connecting to and running your script on. You need to connect to a public node so that you can query information and broadcast transactions. One of the available nodes is:
+The Cosmos Ecosystem has a number of testnets running. The Cosmos Hub is currently running a [public testnet](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-public-testnet) for the Theta upgrade that you are connecting to and running your script on. You need to connect to a public node so that you can query information and broadcast transactions. One of the available nodes is:
 
 ```[https://github.com/cosmos/testnets/tree/master/v7-theta#endpoints-1]
 RPC: https://rpc.sentry-01.theta-testnet.polypore.xyz
@@ -107,6 +107,8 @@ generateKey()
 ```
 
 Now create a **key** for our imaginary user **Alice**:
+
+*Note: You likely need to update Node.js to a later version if this fails. Find a guide [here](https://phoenixnap.com/kb/update-node-js-version).
 
 ```sh
 $ npx ts-node generate_mnemonic.ts > testnet.alice.mnemonic.key
@@ -159,7 +161,7 @@ Note that VSCode assists you to auto-complete [`StargateClient`](https://github.
 Next, you need to tell the client how to connect to the RPC port of your blockchain:
 
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/experiment.ts#L5]
-const rpc = "https://rpc.sentry-01.theta-testnet.polypore.xyz"
+const rpc = "rpc.sentry-01.theta-testnet.polypore.xyz:26657"
 ```
 
 Inside the `runAll` function you [initialize the connection](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/stargateclient.ts#L146) and immediately [check](https://github.com/cosmos/cosmjs/blob/0f0c9d8/packages/stargate/src/stargateclient.ts#L194) you connected to the right place:
@@ -184,7 +186,7 @@ Normally you would not yet have access to your user's address. However, for this
 ```typescript [https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/experiment.ts#L10-L13]
 console.log(
     "Alice balances:",
-    await client.getAllBalances("cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf"),
+    await client.getAllBalances("cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf"), // <-- replace with your generated address
 )
 ```
 
@@ -415,7 +417,7 @@ Faucet balances: [ { denom: 'uatom', amount: '867777337235' } ]
 <ExpansionPanel title="Getting the faucet address another way">
 
 Instead of using the `decode` functions that come with the `Tx` and `MsgSend` imports, you process the data yourself via alternative means. If you would like to experiment more, parse the `rawLog` manually as opposed to deserializing the transaction as suggested previously.
-
+<br></br>
 Note the conceptual difference between `Tx` and the `rawLog`. The `Tx`, or `MsgSend`, object is an input to the computation that takes place when the transaction is included in a block. The `rawLog` is the resulting output of said computation and its content depends on what the blockchain code emitted when executing the transaction.
 
 From the `IndexedTx` you see that there is a [`rawLog`](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/stargateclient.ts#L64), which happens to be a stringified JSON.
@@ -490,7 +492,7 @@ When you instantiate `SigningStargateClient` by using the [`connectWithSigner`](
 <HighlightBox type="info">
 
 The recommended way to encode messages is by using `OfflineDirectSigner`, which uses Protobuf. However, hardware wallets such as Ledger do not support this and still require the legacy Amino encoder. If your app requires Amino support, you have to use the `OfflineAminoSigner`.
-
+<br></br>
 Read more about encoding [here](https://docs.cosmos.network/master/core/encoding.html).
 
 </HighlightBox>
@@ -787,6 +789,18 @@ Find the complete set of files [here](https://github.com/b9lab/cosmjs-sandbox/tr
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
 
-You have sent a transaction with a single message. How about you send a transaction with more than one message? That is the object of the [next section](./multi-msg.md). Or skip ahead and send a simple transaction, but this time from a Web browser with the help of [Keplr](./with-keplr.md).
+To summarize, this section has explored:
+
+* How to gain familiarity with ComsJS by implementing a basic feature of the Cosmos Ecosystem, the ability to send tokens via the `bank` module.
+* How to clone a ready-made test repository and install the required modules in order to experiment with CosmJS, for which NodeJs and Visual Studio Code will be required.
+* How to connect to a public node in the Cosmos Ecosystem, acquire a wallet address on a testnet, and create a key for an imaginary user for the purposes of experimenting.
+* How to add your imports, define your connection, get a balance, get the faucet address, prepare a signing client, and successfully send tokens on a chain being run by someone else.
+* How to connect with your own locally running blockchain, including how to prepare your keys and update your script.
+
+</HighlightBox>
+
+<!--## Next up
+
+You have sent a transaction with a single message. How about you send a transaction with more than one message? That is the object of the [next section](./multi-msg.md). Or skip ahead and send a simple transaction, but this time from a Web browser with the help of [Keplr](./with-keplr.md).-->

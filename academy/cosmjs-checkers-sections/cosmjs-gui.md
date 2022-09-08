@@ -643,7 +643,7 @@ For instance, in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
 
     This is done because the `setState` function does not ensure the state is updated immediately after it has been called, so the lazy instantiation method has to return both.
 
-4. Inform Typescript of the _Keplr `window`_ object:
+4. Inform TypeScript of the _Keplr `window`_ object:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/f6a96b7/src/components/Menu/NewGameModal/NewGameModal.tsx#L5-L15]
     import { Window as KeplrWindow } from "@keplr-wallet/types"
@@ -685,7 +685,7 @@ For instance, in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
     <HighlightBox type="note">
 
     Setting up Keplr is [idempotent](https://www.merriam-webster.com/dictionary/idempotent#:~:text=Definition%20of%20idempotent,plural%20idempotents), so repeating these operations more than once is harmless. You may want to separate these actions into more defined methods at a later optimization stage.
-
+    <br></br>
     Note too that a default gas price is passed in, so that you can use `"auto"` when sending a transaction.
 
     </HighlightBox>
@@ -957,9 +957,9 @@ With this done:
     <HighlightBox type="tip">
 
     There is a potentially hard-to-reproduce-in-production **race condition** bug here. The `loadGame` is done immediately after the transaction has completed. However, depending on the implementation of the RPC end point, the `playGuiMove` and `loadGame` calls may hit two different servers on the backend. In some instances, the server that answers your `loadGame` may not have fully updated its store and may in fact serve you the **old** version of your game.
-
+    <br></br>
     As your GUI matures, you may want to show the _expected_ state of the game before you eventually show its _finalized_ state. Sometimes you may want to show the expected state of the game even before the transaction has completed, and add visual cues hinting at the fact it is a **provisional** state.
-
+    <br></br>
     The same can happen when creating a game, where the second server may return `null` if it has not been updated yet.
 
     </HighlightBox>
@@ -976,6 +976,15 @@ Either way, it is now possible to play the game from the GUI. Congratulations!
 * Implement a Web socket to listen to changes. That would be useful when there are two players who cannot communicate otherwise (instead of polling).
 * When a double capture (or more) is possible, the GUI allows you to make multiple moves at once (with `move.length >= 2`). However, the code handles only a single hop (`move[0]` and `move[1]`). It is technically possible to pack more than one `PlayMove` message in a single transaction, saving the player from sending multiple transactions.
 
-## Next up
+<HighlightBox type="synopsis">
 
-In the [next section](./server-side.md), explore how server-side scripts can help you improve the user experience of your application.
+To summarize, this section has explored:
+
+* How to prepare for and then integrate CosmJS and Keplr into the GUI of your Checkers blockchain, including how to adjust the React app to be able to package CosmJS.
+* How to integrate CosmJS, including working with the GUI's data structures, fetching games from the blockchain and displaying them, integrating with Keplr for browser-based players, creating a new game, and fetching a single game to be played.
+
+</HighlightBox>
+
+<!--## Next up
+
+In the [next section](./server-side.md), explore how server-side scripts can help you improve the user experience of your application.-->

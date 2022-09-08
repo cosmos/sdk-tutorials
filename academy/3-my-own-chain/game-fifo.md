@@ -720,6 +720,19 @@ Do not forget to export `alice` and `bob` again, as explained in an [earlier sec
 
     Your FIFO now has the game IDs `[1, 2]`. Game `3` was correctly removed from the FIFO.
 
-## Next up
+<HighlightBox type="synopsis">
 
-Having a list of games ordered by age is not enough to ascertain their staleness. You must also add an expiry date on each game to reach that decision. That is the goal of the [next section](./game-deadline.md).
+To summarize, this section has explored:
+
+* The use of a First-In-First-Out (FIFO) data structure to sort games from the least recently played at the top of the list to the most recently played at the bottom, in order to help identify inactive games which may become candidates for forced termination, which reduces undesirable and wasteful data stored on the blockchain.
+* How forced termination of games is beneficial should you implement a wager system, as it prevents any assigned value from becoming locked into inactive games by causing the inactive player to forfeit the game and lose their wager.
+* How any code solution which searches the entire data store for inactive games is computationally expensive, needlessly accessing many active games to identify any inactive minority (which may not even exist).
+* How a FIFO data structure definitionally orders games such that inactive games rise to the top of the list, meaning code solutions can simply run until encountering the first active game and then stop, conserving gas fees.
+* What new information and functions need to be added to your code; how to integrate them into the message handlers; how to update your unit tests to prevent them from failing due to these changes; and what tests to run to test the code.
+* How to interact with the CLI to check the effectiveness of your new commands.
+
+</HighlightBox>
+
+<!--## Next up
+
+Having a list of games ordered by age is not enough to ascertain their staleness. You must also add an expiry date on each game to reach that decision. That is the goal of the [next section](./game-deadline.md).-->

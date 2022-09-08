@@ -13,7 +13,7 @@ tags:
 
 Before proceeding, make sure you have all you need:
 
-* You understand the concepts of [transactions](../2-main-concepts/transactions.md), [messages](../2-main-concepts/messages.md)), and [Protobuf](../2-main-concepts/protobuf.md).
+* You understand the concepts of [transactions](../2-main-concepts/transactions.md), [messages](../2-main-concepts/messages.md), and [Protobuf](../2-main-concepts/protobuf.md).
 * You know how to [create a message](./create-message.md) with Ignite CLI, and code [its handling](./create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
 * Go is installed.
 * You have the checkers blockchain codebase with the previous messages and their events. If not, follow the [previous steps](./events.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-two-events).
@@ -277,7 +277,7 @@ Against expectations, the system carried out Alice's request to reject the game.
 <HighlightBox type="warn">
 
 How is it possible that Alice could reject a game she had already played in, despite the code preventing that? Because game `0` was created in an earlier version of your code. This earlier version created **a game without any `.MoveCount`**. When you later added the code for rejection, Ignite CLI kept the current state of your blockchain. In effect, your blockchain was in a **broken** state, where **the code and the state were out of sync**.
-
+<br></br>
 To see how to properly handle code changes that would otherwise result in a broken state, see the section on [migrations](./migration.md).
 
 </HighlightBox>
@@ -394,7 +394,19 @@ To belabor the point made in the earlier warning box: if you change your code, t
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to use messages and handlers to build on the gameplay functionalities of your application by adding the capacity for players to reject participating in a game.
+* How to create a new `RejectGame` message object including ID of the game to be rejected.
+* How to add a new rule with the necessary additional information to prevent players from backing out of games in which they have already played moves, and how to declare new errors that respond to attempts to break this new rule.
+* How to add a unit test to check that games can be rejected by the game creator, the black player, and the red player under the approved circumstances, and to check that rejected games are removed and that events are emitted.
+* How to interact via the CLI to confirm the new "game rejection" function is performing as required, and to be aware that preexisting games will permit incorrect game rejection due to your blockchain being in a broken state due to your subsequent changes.
+
+</HighlightBox>
+
+<!--## Next up
 
 The [next section](./game-fifo.md) covers modularity and data organization styles. You create a [doubly-linked FIFO](./game-fifo.md).
 
@@ -404,4 +416,4 @@ Later you add [deadline](./game-deadline.md) and [game winner](./game-winner.md)
 
 If you want to enable token wagers in your games instead, skip ahead to [wagers](./game-wager.md).
 
-</HighlightBox>
+</HighlightBox>-->

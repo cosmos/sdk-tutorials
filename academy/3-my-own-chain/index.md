@@ -19,7 +19,7 @@ Then discover the first steps to build an application-specific blockchain from s
 
 ![](/cosmos_dev_portal_module-05-lp.png)
 
-## In this module
+## In this chapter
 
 <HighlightBox type="learning">
 

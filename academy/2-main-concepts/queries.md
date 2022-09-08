@@ -45,7 +45,7 @@ Visit the [detailed Cosmos SDK documentation](https://docs.cosmos.network/main/b
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 If you have used Ignite CLI so far, it has already created queries for you to get one stored game or a list of them. However, you still do not have a way to check whether a move works or is valid. It would be wasteful to send a transaction with an invalid move, it is better to catch such a mistake *before* submitting a transaction. So you are going to create a query to discover whether a move is valid.
-
+<br></br>
 Ignite CLI can again help with a simple command:
 
 ```sh
@@ -158,8 +158,18 @@ This is not an exhaustive list of potential queries. Some examples of other poss
 
 </ExpansionPanel>
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* Queries, one of two primary objects handled by a module in the Cosmos SDK, which inspect a module's state and are always read-only.
+* How a query is a request for information (which could be about the network, about an application, or about the application's state) that is made by end-users of an application through an interface.
+* How queries do not require consensus to be processed as they do not trigger state transitions, meaning they can be handled entirely independently by a full node.
+
+</HighlightBox>
+
+<!--## Next up
 
 You can now continue directly to the [next section](./events.md) to learn about events.
 
-If you prefer to see some code in action and continue with the checkers blockchain, look at the expandable box above.
+If you prefer to see some code in action and continue with the checkers blockchain, look at the expandable box above.-->

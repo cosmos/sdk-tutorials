@@ -25,9 +25,9 @@ Discover how multi-chain smart contracts become possible with CosmWasm. The foll
 <ExpansionPanel title="More on the actor model">
 
 The actor model is a design pattern for reliable, distributed systems. It is the pattern underlying CosmWasm smart contracts.
-
+<br></br>
 Each actor has access to its own internal state and can only message other actors through a so-called dispatcher, which maintains the state and maps addresses to code and storage.
-
+<br></br>
 Want to read more on the actor model? See [the CosmWasm documentation on the Actor Model for Contract Calls](https://docs.cosmwasm.com/docs/0.16/architecture/actor).
 
 </ExpansionPanel>
@@ -407,17 +407,28 @@ You can find more information in the [CosmWasm Developer Academy](https://docs.c
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* CosmWasm, the *Cosmos* way of using *WebAssembly*, which provides a multi-chain solution for smart contracts through an actor-model design pattern that delivers reliable distributed systems.
+* How CosmWasm is code agnostic, requiring only that a Cosmos SDK application embeds the `Wasm` module, and not only makes it possible to connect chains but facilitates an application changing the chain it is platformed on.
+* How you will need **Go** to use the Cosmos SDK and **Rust** to write smart contracts. 
+* How to connect to a testnet; add accounts and query their balance; compile a smart contract; upload a smart contract binary; instantiate the smart contract; and call the smart contract, including how to register, verify, and transfer a name.
+
+</HighlightBox>
+
+## Overview of previous content
 
 At this point, you have:
 
 * [Understood how Cosmos and the Cosmos SDK fit in the overall development of blockchain technology.](../1-what-is-cosmos/blockchain-and-cosmos.md)
-* [A better sense of what comprises the Cosmos ecosystem.](../1-what-is-cosmos/cosmos-ecosystem.md)
+* [A better sense of what comprises the Cosmos Ecosystem.](../1-what-is-cosmos/cosmos-ecosystem.md)
 * [Set up a wallet, got some ATOM tokens, and staked them.](../1-what-is-cosmos/atom-staking.md)
 * [Learned more about the elements of application architecture.](../2-main-concepts/architecture.md)
 * [Understood and applied main concepts of the Cosmos SDK.](../2-main-concepts/index.md)
 * [Run a node, API, and CLI for a Cosmos chain.](../3-my-own-chain/node-api-and-cli.md)
 * [Used Ignite CLI to develop your chain.](./ignitecli.md)
-* [Discovered how CosmWasm assists with developing multi-chain smart contracts in Rust.
+* Discovered how CosmWasm assists with developing multi-chain smart contracts in Rust.
 
-Head to the [next chapter](../4-ibc/index.md) to discover the Inter-Blockchain Communication Protocol.
+<!--Head to the [next chapter](../4-ibc/index.md) to discover the Inter-Blockchain Communication Protocol.-->

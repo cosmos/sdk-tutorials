@@ -92,13 +92,13 @@ Private keys are used to **prove** that messages originate from the owners of ac
 ## Hierarchical-deterministic wallets
 
 Blockchains generally maintain ledgers of user accounts and rely on public key cryptography for user authentication. Knowledge of one's public and private keys is a requirement to execute transactions. Client software applications known as wallets provide methods to generate new key pairs and store them, as well as basic services such as creating transactions, signing messages, interacting with applications, and communicating with the blockchain.
-
+<br></br>
 Although it is technically feasible to generate and store multiple key pairs in a wallet, key management quickly becomes tedious and error-prone for users. Given that all keys would exist only in one place, users would need to devise ways to recover their keys in adverse situations such as the loss or destruction of the computer. The more accounts, the more keys to back up.
 
 ### Do I need many addresses?
 
-Using multiple addresses can help you improve privacy. You may be a single individual or entity, but you may want to transact with others under different aliases. Additionally, you will likely interact with more than one blockchain in the Cosmos ecosystem. Conveniently, your inevitably-different addresses on different blockchains can all stem from a single seed.
-
+Using multiple addresses can help you improve privacy. You may be a single individual or entity, but you may want to transact with others under different aliases. Additionally, you will likely interact with more than one blockchain in the Cosmos Ecosystem. Conveniently, your inevitably-different addresses on different blockchains can all stem from a single seed.
+<br></br>
 A **hierarchical-deterministic wallet** uses a single seed phrase to generate many key pairs to reduce this complexity. Only the seed phrase needs to be backed up.
 
 ### Cryptographic standards
@@ -189,9 +189,9 @@ The keyring object stores and manages multiple accounts. The keyring object impl
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 In the [previous section](../2-main-concepts/architecture.md), your ABCI application accepted anonymous checkers moves. This is a problem. You can restrict moves to the right player with accounts.
-
+<br></br>
 It is necessary to differentiate between players and other actors. This helps assure there is no identity spoofing, that players do not play out of turn, and rewards are paid to the correct winner. You are also going to store the creator of a game, which may or may not be a player.
-
+<br></br>
 **Game object**
 
 First define some elements of the eventual stored game:
@@ -225,7 +225,7 @@ storedGame.Creator = creator.String()
 ```
 
 You will only accept the right players when it comes to transactions.
-
+<br></br>
 **Remaining game object**
 
 Defining the players is good, but the stored game is not complete unless you add game details like the current board state and the game's unique identifier. Conveniently, you can [serialize](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L303) and [deserialize](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L331) the board state. You can already confirm the following struct:
@@ -241,10 +241,23 @@ type StoredGame struct {
 }
 ```
 
-If you want to go beyond these out-of-context code samples and instead see more details on defining this, head to [Run Your Own Chain](../3-my-own-chain/index.md)
+If you want to go beyond these out-of-context code samples and instead see more details on defining this, head to [Run Your Own Chain](../3-my-own-chain/index.md).
 
 </ExpansionPanel>
 
-## Next up
+<HighlightBox type="synopsis">
 
-In the [next section](./transactions.md), you will learn how transactions are generated and handled in the Cosmos SDK.
+To summarize, this section has explored:
+
+* How an account consists of a public key (a unique account identifier which is safe to disclose) and a private key (a corresponding signature tool which must be kept confidential by the account holder).
+* How public private key pairs are used to sign and verify communications, forming the basis of user authentication in a blockchain.
+* How hierarchical-deterministic wallets provide a convenient way to generate and store key pairs and perform various basic activities such as creating transactions, signing messages, interacting with applications, and communicating with the blockchain.
+* How Cosmos uses the BIP32 cryptographic standard, and the employment of mnemonics as a means of securing a user's wallet.
+* The use of the keyring object for storing and managing keys, and the digital key schemes which are used by different SDK packages.
+* The three types of address which identify users, validator operators, and validator nodes.
+
+</HighlightBox>
+
+<!--## Next up
+
+In the [next section](./transactions.md), you will learn how transactions are generated and handled in the Cosmos SDK.-->

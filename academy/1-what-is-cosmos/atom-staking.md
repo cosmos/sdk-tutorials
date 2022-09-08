@@ -37,7 +37,7 @@ Open Google Chrome on your computer and go to the [Keplr extension page](https:/
 
 <HighlightBox type="warn">
 
-It is always good practice to be careful with links to wallet software because of the possibility of fraudulent software designed to steal from you. A link to the official Keplr extension can also be found on the [Cosmos ecosystem overview page](https://cosmos.network/ecosystem/wallets).
+It is always good practice to be careful with links to wallet software because of the possibility of fraudulent software designed to steal from you. A link to the official Keplr extension can also be found on the [Cosmos Ecosystem overview page](https://cosmos.network/ecosystem/wallets).
 
 </HighlightBox>
 
@@ -48,7 +48,7 @@ When Keplr is installed it should be available in the list of extensions when yo
 <HighlightBox type="warn">
 
 When you own ATOM with Keplr, **you are in charge**. There is no one you can call if _you forget your password/seed phrase or you send tokens to the wrong address_.
-
+<br></br>
 Keplr is a non-custodial wallet.
 
 </HighlightBox>
@@ -237,6 +237,15 @@ If you want to re-stake this amount and benefit from the compound effect, go ahe
 
 This completes the exercise: you are set up to participate in the Cosmos Hub network, and even contribute to its security. Your stake will work for you as you continue your Cosmos training journey.
 
-## Next up
+<HighlightBox type="synopsis">
 
-In the [next chapter](../2-main-concepts/index.md), you will continue to explore the Cosmos SDK and learn about the underlying blockchain application architecture.
+To summarize, this section has explored:
+
+* How to safely install and configure a Keplr wallet and transfer ATOM into it.
+* How to stake ATOM on a validator, thereby participating in the security of the blockchain and potentially increasing your wealth by accruing staking rewards.
+
+</HighlightBox>
+
+<!--## Next up
+
+In the [next chapter](../2-main-concepts/index.md), you will continue to explore the Cosmos SDK and learn about the underlying blockchain application architecture.-->

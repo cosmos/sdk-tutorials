@@ -372,6 +372,19 @@ r*r*r*r*
 
 This confirms that the _play_ event is emitted as expected. You can do the same for the _game created_ event.
 
-## Next up
+<HighlightBox type="synopsis">
 
-Time to add a third message to make it possible for a player to [reject a game](./reject-game.md) and to make your checkers blockchain more resistant to spam.
+To summarize, this section has explored:
+
+* How to define event types and then emit events to cause the UI to notify players of game actions as they occur, such as creating games and playing moves.
+* How listening to known events which let clients determine which player must move next is better than the impractical alternative of examining all transactions to search for the ones which signify a player's turn.
+* How to define a Game-created event that will notify the participating players and make it easy for them to find the game.
+* How to define a Player-moved event that will indicate which player and game is involved, when the move occurred, the move's outcome, and whether the game was won as a result.
+* How to test your code to ensure that it functions as desired.
+* How to interact with the CLI to check the effectiveness of an emitted event.
+
+</HighlightBox>
+
+<!--## Next up
+
+Time to add a third message to make it possible for a player to [reject a game](./reject-game.md) and to make your checkers blockchain more resistant to spam.-->

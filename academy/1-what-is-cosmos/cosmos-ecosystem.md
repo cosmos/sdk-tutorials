@@ -28,7 +28,7 @@ Cosmos is also **a blockchain ecosystem** complete with protocols, SDK, tokens, 
 
 In this section, you will get an introduction:
 
-* Of the Cosmos ecosystem
+* Of the Cosmos Ecosystem
 * Into the Cosmos SDK
 * To the Inter-Blockchain Communication Protocol
 * To the Ignite CLI
@@ -56,7 +56,7 @@ In addition to the vast number of tokens, a variety of applications, services, w
 
 <HighlightBox type="tip">
 
-Do you want an up-to-date list of all the applications and services built on Cosmos? Go to the [Cosmos ecosystem overview](https://cosmos.network/ecosystem/apps/?ref=cosmonautsworld).
+Do you want an up-to-date list of all the applications and services built on Cosmos? Go to the [Cosmos Ecosystem overview](https://cosmos.network/ecosystem/apps/?ref=cosmonautsworld).
 
 </HighlightBox>
 
@@ -66,7 +66,7 @@ Moreover, [**35 wallets**](https://cosmos.network/ecosystem/wallets) and block e
 
 <HighlightBox type="tip">
 
-Do you want to find out more about the wide variety of wallets in the Cosmos ecosystem? We recommend looking at the [wallets and block explorers for Cosmos](https://cosmos.network/ecosystem/wallets).
+Do you want to find out more about the wide variety of wallets in the Cosmos Ecosystem? We recommend looking at the [wallets and block explorers for Cosmos](https://cosmos.network/ecosystem/wallets).
 
 </HighlightBox>
 
@@ -78,9 +78,9 @@ The Cosmos network focuses on an ecosystem for easy blockchain development that 
 
 Before Cosmos came along, developing a whole new chain was much more difficult and expensive than building a smart contract. Now, with the Cosmos SDK, entirely flexible, secure, high performance, and sovereign **application-specific blockchains** can be developed. To allow this, building modular, adaptable, and interchangeable open-source development tools is at the center of Cosmos' mission.
 
-The main aim of the Cosmos network is to provide an **ecosystem for easy blockchain development** based on the Tendermint BFT and the Inter-Blockchain Communication protocol (IBC) with the so-called [Cosmos SDK](https://v1.cosmos.network/sdk).
+The main aim of the Cosmos network is to provide an **ecosystem for easy blockchain development** based on the Tendermint BFT and the Inter-Blockchain Communication Protocol (IBC) with the so-called [Cosmos SDK](https://v1.cosmos.network/sdk).
 
-Each chain in the Cosmos ecosystem relies on the Tendermint **fast-finality BFT consensus algorithm**. This ensures a common consensus mechanism at work in all chains of the network. Next to its use in Cosmos, the Tendermint consensus mechanism is also utilized in the [IRIS Hub](https://www.irishub.rw/), [Binance Chain](https://www.binance.org/en), [Terra](https://www.terra.money/), [Kava](https://www.kava.io/), and more.
+Each chain in the Cosmos Ecosystem relies on the Tendermint **fast-finality BFT consensus algorithm**. This ensures a common consensus mechanism at work in all chains of the network. Next to its use in Cosmos, the Tendermint consensus mechanism is also utilized in the [IRIS Hub](https://www.irishub.rw/), [Binance Chain](https://www.binance.org/en), [Terra](https://www.terra.money/), [Kava](https://www.kava.io/), and more.
 
 <HighlightBox type="tip">
 
@@ -207,7 +207,7 @@ For example, with [Ethermint](https://github.com/tharsis/ethermint) developers c
 <HighlightBox type="info">
 
 Ethermint is a software developed to port the EVM into a Cosmos module. It makes scalable, high-throughput, PoS blockchains possible. These are fully compatible with Ethereum and the Cosmos SDK.
-
+<br></br>
 Ethermint is Web3 compatible, and achieves high throughput with Tendermint and horizontal scaling with IBC. It provides a Web3, JSON-RPC layer to interact with Ethereum clients and tooling.
 
 </HighlightBox>
@@ -218,8 +218,22 @@ For more on Ethermint, consult the [Ethermint documentation](https://github.com/
 
 </HighlightBox>
 
-All Ethereum tools (such as Truffle and Metamask) are compatible with Ethermint. Developers can even port their Solidity smart contracts to interact with the Cosmos ecosystem. Building a chain is not necessary to develop Cosmos-compatible smart contracts, it can be all done with Ethermint. However, while Ethermint allows running vanilla Ethereum as a Cosmos application-specific blockchain, developers benefit from the Tendermint BFT.
+All Ethereum tools (such as Truffle and Metamask) are compatible with Ethermint. Developers can even port their Solidity smart contracts to interact with the Cosmos Ecosystem. Building a chain is not necessary to develop Cosmos-compatible smart contracts, it can be all done with Ethermint. However, while Ethermint allows running vanilla Ethereum as a Cosmos application-specific blockchain, developers benefit from the Tendermint BFT.
 
-## Next up
+<HighlightBox type="synopsis">
 
-Are you ready to get some ATOM? Find out all about the native token of the Cosmos Hub and how to stake ATOM in the [next section](./atom-staking.md).
+To summarize, this section has explored:
+
+* The range of applications, services, and projects utilizing the Cosmos Ecosystem, and the wallets and block explorers servicing them.
+* How the ready-built modular components provided by the Cosmos SDK make developing new projects fast, easy, and reliable.
+* How the addition of developer-authored modules and the growth of the ecosystem will support increasingly complex applications.
+* The Inter-Blockchain Communication Protocol (IBC), the basis for interoperability between chains on Cosmos, and the distinction between **zones** of heterogeneous blockchains and the **hubs** which provide interoperable communication between them.
+* Ignite CLI, a developer-friendly tool that shortcuts the complexities of creating application-specific blockchains.
+* The CosmWasm module, a multi-chain platform for developing and testing smart contracts.
+* The possibility of using alternative frameworks and SDKs within the Cosmos Ecosystem, maintaining a breadth of options for developers to make use of.
+
+</HighlightBox>
+
+<!--## Next up
+
+Are you ready to get some ATOM? Find out all about the native token of the Cosmos Hub and how to stake ATOM in the [next section](./atom-staking.md).-->

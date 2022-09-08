@@ -13,7 +13,7 @@ tags:
 <HighlightBox type="learning">
 
 Build applicatiosn that interact with the Keplr browser extension.
-    
+<br></br>
 In this section, you will learn more about: 
     
 * Detecting Keplr.
@@ -210,13 +210,13 @@ Refer to the previous section on how to [get Cosmos Hub Testnet tokens](./first-
 
 ## Detecting Keplr
 
-Following [Keplr's documentation](https://docs.keplr.app/api/#how-to-detect-keplr), it is time to add a function to see if Keplr is installed on the browser. For convenience and type hinting, install the Typescript Keplr types from within the folder of your project:
+Following [Keplr's documentation](https://docs.keplr.app/api/#how-to-detect-keplr), it is time to add a function to see if Keplr is installed on the browser. For convenience and type hinting, install the TypeScript Keplr types from within the folder of your project:
 
 ```sh
 $ npm install @keplr-wallet/types --save-dev
 ```
 
-After this package is installed, inform Typescript that `window` may have a `.keplr` field with the help of [this helper](https://github.com/chainapsis/keplr-wallet/tree/master/docs/api#keplr-specific-features), by adding it below your imports to `FaucetSender.tsx`:
+After this package is installed, inform TypeScript that `window` may have a `.keplr` field with the help of [this helper](https://github.com/chainapsis/keplr-wallet/tree/master/docs/api#keplr-specific-features), by adding it below your imports to `FaucetSender.tsx`:
 
 ```typescript
 import { Window as KeplrWindow } from "@keplr-wallet/types";
@@ -655,4 +655,16 @@ Keplr does not know about locally running chains by default. As you did with Cos
 
 ## Conclusion
 
-You have how updated your CosmJS frontend so that it integrates with Keplr.
+You have how updated your CosmJS frontend so that it integrates with Keplr. 
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to use CosmJS to connect with Keplr, a browser extension widely used to manage private keys, to find your token balance and that of the faucet and then send some tokens back to the faucet.
+* How to create a simple app in the Next.js framework for the purposes of performing the exercise, though the ComsJS-specific code is also applicable to Angular, Vue, and other frameworks.
+* Best practices regarding when and when not to ask for your user's address, such as limiting your user interface to only showing information that is knowable without user input until making a request is absolutely necessary.
+* How to add a function to detect whether or not Keplr is installed on the browser, also minimizing the occasions when information requests are made in line with best practices.
+* How to prepare Keplr to handle any Cosmos blockchain (or for use with locally running chains, such as during development) by providing it with the necessary parameters for a specific chain, before experimenting with accessing useful information from the chain.
+
+</HighlightBox>

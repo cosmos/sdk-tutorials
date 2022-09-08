@@ -42,7 +42,7 @@ The Cosmos SDK provides the building blocks for a complete Tendermint blockchain
 <HighlightBox type="info">
 
 Ignite CLI assists with scaffolding modules and integrating them with BaseApp. Ignite CLI is a command-line tool that writes code files and updates them when instructed to do so. If you come from an _on Rails_ world, the concept will look familiar to you.
-
+<br></br>
 Ignite CLI also handles some compilation, runs a local blockchain node, and helps you with other tasks.
 
 </HighlightBox>
@@ -85,7 +85,7 @@ starport version v0.17.3
 <HighlightBox type="info">
 
 This entire exercise was built using the Ignite CLI version noted above. Using a newer version could work, but you might run into compatibility issues if you clone any code made with _this_ version of Ignite CLI and then try to continue the project with _your_ version of Ignite CLI.
-
+<br></br>
 If you need to install the latest version of Ignite CLI, use:
 
 ```sh
@@ -491,9 +491,21 @@ async MsgCreatePost({ rootGetters }, { value }) {
 
 </CodeGroup>
 
-## Next up
+<HighlightBox type="synopsis">
 
-You just created a fully working Cosmos SDK chain, one that forms the basis of the [following exercise](./exercise-intro.md).
+To summarize, this section has explored:
+
+* How to install Ignite CLI, a command-line tool that writes code files and updates them when instructed, handles some compilation, runs a local blockchain node, and assists with other tasks.
+* How to scaffold a basic blockchain, with the suggested best practice not to replace lines with code markers indicating where to add further code on later instruction, nor to rename or move any file containing such a line.
+* How to interact via the CLI to demonstrate that your chain is live when running in its shell.
+* How to boot up the frontend that Ignite CLI has created by using a terminal window and navigating to the localhost on your browser.
+* How to test the base functionality of your chain by creating a simple message.
+
+</HighlightBox>
+
+<!--## Next up
+
+You just created a fully working Cosmos SDK chain, one that forms the basis of the [following exercise](./exercise-intro.md).-->
 
 <HighlightBox type="info">
 

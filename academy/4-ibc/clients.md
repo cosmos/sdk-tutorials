@@ -95,7 +95,7 @@ A local, unique identifier `clientID` is generated for each client on the chain.
 <HighlightBox type="info">
 
 The IBC security model is based on clients and not specific chains. This means that the IBC protocol does not need to know who the chains are on either side of a connection, provided that the IBC clients are kept in sync with valid updates, and these updates or other types of messages (i.e. ICS-20 token transfers) can be verified as a Merkle proof against an initial consensus state (root of trust). This is analogous to IP addresses and DNS, where IP addresses would be the corollary to IBC `clientIDs`, and DNS the `chainIDs`.
-
+<br></br>
 Because of this separation of concerns, IBC clients can be created for any number of machine types, from fully-fledged blockchains to keypair-based solo machines, and upgrades to chains which increment the chainID do not break the underlying IBC client and connections.
 
 </HighlightBox>
@@ -141,11 +141,11 @@ Properties such as `TrustLevel` and `TrustingPeriod` can be customised, such tha
 <HighlightBox type="info">
 
 It is important to highlight that certain parameters of an IBC client cannot be updated after the client has been created, in order to preserve the security guarantees of each client and prevent a situation where a relayer unilaterally updates those security guarantees. These parameters are: `MaxClockDrift`, `TrustingPeriod`, and `TrustLevel`.
-
+<br></br>
 As stated before, `TrustLevel` is inherited from Tendermint and will be 2/3 for all Tendermint clients. However, this could change for other client types.
-
+<br></br>
 It is recommended that `TrustingPeriod` should be set as 2/3 of the UnbondingPeriod.
-
+<br></br>
 It is also recommended that `MaxClockDrift` should be set to at least 5sec and up to 15sec, depending on expected block size differences between the chains in the connection. The Hermes (Rust) relayer will compute this value for you if you do not manually set it.
 
 </HighlightBox>
@@ -209,7 +209,7 @@ func (proof MerkleProof) VerifyMembership(specs []*ics23.ProofSpec, root exporte
 <HighlightBox type="info">
 
 IBC on-chain clients can also be referred to as **light clients**. In contrast to the full nodes, which track the entire state of blockchain and contain every single tx/block, these on-chain IBC "light clients" track only the few pieces of information about counterparty chains previously mentioned (timestamp, root hash, next validator set hash). This saves space and increases the efficiency of processing consensus state updates.
-
+<br></br>
 The objective is to avoid a situation where it is necessary to have a copy of chain B on chain A in order to create a trustless IBC connection. However, full nodes which track the entire state of a blockchain are useful for IBC relayer operators as an endpoint to query for the proofs needed to verify IBC packet commitments. This entire process maintains the trustless, permissionless, and highly secure design of IBC. As proof verification still happens in the IBC client itself, no trust in the relayer operator is needed and anyone can permissionlessly spin up a relaying operation, provided that they have access to a full node endpoint.
 
 </HighlightBox>
@@ -286,6 +286,18 @@ func (cs ClientState) VerifyPacketCommitment(
 }
 ```
 
-## Next up
+<HighlightBox type="synopsis">
 
-Now that you explored connections, channels, and clients of the transport, authentication, and ordering layer, the [next section](./token-transfer.md) takes a closer look at cross-chain fungible token transfers.
+To summarize, this section has explored:
+
+* How each chain communicating through IBC will have a client of the other chain in its own IBC stack, which tracks the consensus state and proof specs of the other chain.
+* How these on-chain "light clients" avoid the need for one chain to hold a complete copy of another in order to create a trustless IBC connection, saving space and increasing efficiency.
+* How the packets, acknowledgements, and timeouts that off-chain relayers send back and forth can be verified by proving that the packet commitments exist inside of these clients on each chain.
+* How relayers perform vital functions such as submitting the initial messages to create a new client, keeping client states updated on each chain, sending the handshakes that establish connections and channels between chains, and submitting evidence of attempts to fork or other malicious behavior.
+* How the IBC protocol does not need to know who the chains are provided that their IBC clients are kept in sync with valid and verifiable updates and messages, meaning clients can be created for any number of machine types.
+
+</HighlightBox>
+
+<!--## Next up
+
+Now that you explored connections, channels, and clients of the transport, authentication, and ordering layer, the [next section](./token-transfer.md) takes a closer look at cross-chain fungible token transfers.-->
