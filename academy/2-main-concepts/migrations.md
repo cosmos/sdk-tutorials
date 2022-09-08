@@ -2,7 +2,7 @@
 title: "Migrations"
 order: 13
 description: How to handle on-chain upgrades
-tag:
+tags: 
   - concepts
   - cosmos-sdk
 ---

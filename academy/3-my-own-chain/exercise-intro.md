@@ -2,7 +2,7 @@
 title: "Exercise - Make a Checkers Blockchain"
 order: 5
 description: Exercise introduction
-tag:
+tags: 
   - guided-coding
   - cosmos-sdk
 ---

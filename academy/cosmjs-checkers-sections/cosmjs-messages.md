@@ -2,7 +2,7 @@
 title: "Custom Messages for Your Checkers Blockchain"
 order: 3
 description: Introduce the message to create a game
-tag:
+tags: 
   - guided-coding
   - cosmos-sdk
   - cosm-js

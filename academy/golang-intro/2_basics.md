@@ -2,7 +2,7 @@
 title: "Go Basics"
 order: 3
 description: Basic types, string formatting, functions, and methods
-tag:
+tags: 
   - tutorial
 ---
 

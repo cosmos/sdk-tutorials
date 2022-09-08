@@ -2,7 +2,7 @@
 title: "Modules"
 order: 6
 description: Core Cosmos SDK modules and their components
-tag:
+tags: 
   - concepts
   - cosmos-sdk
 ---

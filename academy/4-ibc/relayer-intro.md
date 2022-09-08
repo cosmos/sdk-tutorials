@@ -2,7 +2,7 @@
 title: "Relaying in General"
 order: 8
 description: Relayers in IBC
-tag:
+tags: 
   - concepts
   - ibc
   - dev-ops

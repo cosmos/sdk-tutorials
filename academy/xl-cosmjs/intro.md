@@ -2,7 +2,7 @@
 title: "What is CosmJS?"
 order: 1
 description: CosmJS and what it can do for me
-tag:
+tags: 
   - tutorial
   - concepts
   - cosm-js

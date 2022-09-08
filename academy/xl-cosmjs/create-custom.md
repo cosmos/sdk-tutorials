@@ -2,7 +2,7 @@
 title: "Create Custom CosmJS Interfaces"
 order: 5
 description: Work with your blockchain
-tag:
+tags: 
   - tutorial
   - concepts
   - dev-ops

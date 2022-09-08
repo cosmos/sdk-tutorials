@@ -2,7 +2,7 @@
 title: "What is IBC?"
 order: 2
 description: Introduction to the IBC Protocol
-tag:
+tags: 
   - concepts
   - ibc
 ---

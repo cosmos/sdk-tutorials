@@ -2,7 +2,7 @@
 title: "Set Up Your Work Environment"
 order: 2
 description: All you need for the hands-on sections
-tag:
+tags: 
   - tutorial
   - cosmos-sdk
   - dev-ops

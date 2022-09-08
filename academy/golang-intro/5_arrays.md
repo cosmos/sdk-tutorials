@@ -2,7 +2,7 @@
 title: "Arrays and Slices in Go"
 order: 6
 description: A closer look at arrays and slices
-tag:
+tags: 
   - tutorial
 ---
 

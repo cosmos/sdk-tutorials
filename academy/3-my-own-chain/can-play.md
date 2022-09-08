@@ -2,7 +2,7 @@
 title: "Query - Help Find a Correct Move"
 order: 18
 description: Help players make good transactions
-tag:
+tags: 
   - guided-coding
   - cosmos-sdk
 ---

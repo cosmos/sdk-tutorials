@@ -2,7 +2,7 @@
 title: "Go Interfaces"
 order: 4
 description: Get an overview of interfaces in Go
-tag:
+tags: 
   - tutorial
 ---
 

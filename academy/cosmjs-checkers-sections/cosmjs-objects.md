@@ -2,7 +2,7 @@
 title: "Custom Objects for Your Checkers Blockchain"
 order: 2
 description: Create the objects for your GUI
-tag:
+tags: 
   - guided-coding
   - cosmos-sdk
   - cosm-js

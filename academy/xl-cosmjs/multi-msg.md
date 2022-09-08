@@ -2,7 +2,7 @@
 title: "Compose Complex Transactions"
 order: 3
 description: Send multiple tokens and messages through CosmJS
-tag:
+tags: 
   - tutorial
   - concepts
   - dev-ops

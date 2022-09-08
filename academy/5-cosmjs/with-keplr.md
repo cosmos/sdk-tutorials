@@ -2,7 +2,7 @@
 title: "Learn to Integrate Keplr"
 order: 5
 description: Interact with a Cosmos SDK chain through CosmJS and Keplr
-tag:
+tags: 
   - tutorial
   - cosm-js
   - dev-ops

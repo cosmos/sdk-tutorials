@@ -2,7 +2,7 @@
 title: "CosmJS on a Backend Script for Game Indexing"
 order: 6
 description: Introduce a Web2.0 server to track games per player
-tag:
+tags: 
   - guided-coding
   - cosmos-sdk
   - cosm-js

@@ -2,7 +2,7 @@
 title: "IBC Tooling"
 order: 11
 description: Overview of some helpful tools
-tag:
+tags: 
   - concepts
   - ibc
 ---
