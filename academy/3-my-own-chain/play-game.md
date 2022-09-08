@@ -2,7 +2,9 @@
 title: "Message and Handler - Add a Way to Make a Move"
 order: 9
 description: Play a game
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Message and Handler - Add a Way to Make a Move
@@ -360,7 +362,21 @@ r*r*r*r*
 
 Bob's piece moved down and right.
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to use messages and handlers, in this case to add the capability of actually playing moves on checkers games created in your application.
+* The information that needs to be specified for a game move message to function, which are the game ID, the initial positions of the pawn to be moved, and the final positions of the pawn at the end of the move.
+* The information necessary to return, which includes the game ID, the location of any captured piece, and the registration of a winner should the game be won as a result of the move.
+* How to modify the response object created by Ignite CLI to add additional fields.
+* How to implement and check the steps required by move handling, including the declaration of the ready-made rules in the errors.go file so your code can handle new error situations.
+* How to add unit tests to check the functionality of your code.
+* How to interact via the CLI to confirm that correct player turn order is enforced by the application.
+
+</HighlightBox>
+
+<!--## Next up
 
 Before you add a third message to let a player [reject a game](./reject-game.md), add events to the existing message handlers for relevant information. This is the object of the [next section](./events.md).
 
@@ -368,4 +384,4 @@ Before you add a third message to let a player [reject a game](./reject-game.md)
 
 If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](./can-play.md).
 
-</HighlightBox>
+</HighlightBox>-->

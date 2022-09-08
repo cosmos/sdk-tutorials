@@ -2,7 +2,9 @@
 title: "Store Field - Record the Game Winner"
 order: 14
 description: Store the winner of a game
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Store Field - Record the Game Winner
@@ -279,6 +281,17 @@ $ checkersd query checkers show-stored-game 1
 
 Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests or with a nice GUI. You will be able to partially test this in the [next section](./game-forfeit.md), via a forfeit.
 
-## Next up
+<HighlightBox type="synopsis">
 
-You have introduced a [game FIFO](./game-fifo.md), a [game deadline](./game-deadline.md), and a game winner. Time to turn your attention to the [next section](./game-forfeit.md) to look into game forfeits.
+To summarize, this section has explored:
+
+* How to prepare for terminating games by defining a **winner** field that differentiates between the outright winner of a completed game, the winner by forfeit when a game is expired, or a game which is still active.
+* What new information and functions to add and where, including the winner field, helper functions to get any winner's address, a new error for games already finished, and checks for various application actions.
+* How to update your tests to check the functionality of your code.
+* How interacting via the CLI is partially impeded by any existing test games now being in a broken state due to the absence of a value in the winner field, with recommendations for next actions to take.
+
+</HighlightBox>
+
+<!--## Next up
+
+You have introduced a [game FIFO](./game-fifo.md), a [game deadline](./game-deadline.md), and a game winner. Time to turn your attention to the [next section](./game-forfeit.md) to look into game forfeits.-->

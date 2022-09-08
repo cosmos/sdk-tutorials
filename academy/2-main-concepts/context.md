@@ -2,7 +2,9 @@
 title: "Context"
 order: 12
 description: Information on the state of the app, the block, and the transaction
-tag: deep-dive
+tags: 
+  - concepts
+  - cosmos-sdk
 ---
 
 # Context
@@ -104,6 +106,17 @@ Prior to calling `runMsgs` on any messages in the transaction, `app.cacheTxConte
 * If the process is running in `checkTxMode`, there is no need to write the changes. The result is returned immediately.
 * If the process is running in `deliverTxMode` and the result indicates a successful run over all the messages, the branched multistore is written back to the original.
 
-## Next up
+<HighlightBox type="synopsis">
 
-Go to the [next section](./migrations.md) for an introduction to migrations in the Cosmos SDK.
+To summarize, this section has explored:
+
+* The importance of transaction context, which is the sum of all pertinent information about the application, the block, and the transaction itself at runtime.
+* The specific properties of the context, their functions, and the processes which make use of them.
+* The pattern of usage for context.
+* The process which precedes running any transaction messages to branch and cache both the context and multistore.
+
+</HighlightBox>
+
+<!--## Next up
+
+Go to the [next section](./migrations.md) for an introduction to migrations in the Cosmos SDK.-->

@@ -2,7 +2,9 @@
 title: "Ignite CLI"
 order: 4
 description: An easy way to build your application-specific blockchain
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Ignite CLI
@@ -489,9 +491,21 @@ async MsgCreatePost({ rootGetters }, { value }) {
 
 </CodeGroup>
 
-## Next up
+<HighlightBox type="synopsis">
 
-You just created a fully working Cosmos SDK chain, one that forms the basis of the [following exercise](./exercise-intro.md).
+To summarize, this section has explored:
+
+* How to install Ignite CLI, a command-line tool that writes code files and updates them when instructed, handles some compilation, runs a local blockchain node, and assists with other tasks.
+* How to scaffold a basic blockchain, with the suggested best practice not to replace lines with code markers indicating where to add further code on later instruction, nor to rename or move any file containing such a line.
+* How to interact via the CLI to demonstrate that your chain is live when running in its shell.
+* How to boot up the frontend that Ignite CLI has created by using a terminal window and navigating to the localhost on your browser.
+* How to test the base functionality of your chain by creating a simple message.
+
+</HighlightBox>
+
+<!--## Next up
+
+You just created a fully working Cosmos SDK chain, one that forms the basis of the [following exercise](./exercise-intro.md).-->
 
 <HighlightBox type="info">
 

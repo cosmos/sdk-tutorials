@@ -117,6 +117,11 @@ module.exports = {
           title: "Tutorials",
           children: [
             {
+              title: "Good-To-Know Dev Terms",
+              path: "/tutorials/tech-terms/",
+              directory: false,
+            },
+            {
               title: "Golang Introduction",
               path: "/academy/golang-intro/",
               directory: true,

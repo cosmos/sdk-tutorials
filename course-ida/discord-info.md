@@ -2,7 +2,6 @@
 title: "Get Support on Discord"
 order:
 description:
-tag:
 ---
 
 # Get Support on Discord

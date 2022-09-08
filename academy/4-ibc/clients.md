@@ -2,7 +2,10 @@
 title: "Transport, Authentication, and Ordering Layer - Clients"
 order: 5
 description: Clients in IBC
-tag: deep-dive
+tags: 
+  - concepts
+  - ibc
+  - dev-ops
 ---
 
 # Transport, Authentication, and Ordering Layer - Clients
@@ -283,6 +286,18 @@ func (cs ClientState) VerifyPacketCommitment(
 }
 ```
 
-## Next up
+<HighlightBox type="synopsis">
 
-Now that you explored connections, channels, and clients of the transport, authentication, and ordering layer, the [next section](./token-transfer.md) takes a closer look at cross-chain fungible token transfers.
+To summarize, this section has explored:
+
+* How each chain communicating through IBC will have a client of the other chain in its own IBC stack, which tracks the consensus state and proof specs of the other chain.
+* How these on-chain "light clients" avoid the need for one chain to hold a complete copy of another in order to create a trustless IBC connection, saving space and increasing efficiency.
+* How the packets, acknowledgements, and timeouts that off-chain relayers send back and forth can be verified by proving that the packet commitments exist inside of these clients on each chain.
+* How relayers perform vital functions such as submitting the initial messages to create a new client, keeping client states updated on each chain, sending the handshakes that establish connections and channels between chains, and submitting evidence of attempts to fork or other malicious behavior.
+* How the IBC protocol does not need to know who the chains are provided that their IBC clients are kept in sync with valid and verifiable updates and messages, meaning clients can be created for any number of machine types.
+
+</HighlightBox>
+
+<!--## Next up
+
+Now that you explored connections, channels, and clients of the transport, authentication, and ordering layer, the [next section](./token-transfer.md) takes a closer look at cross-chain fungible token transfers.-->
