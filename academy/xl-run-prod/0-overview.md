@@ -1,7 +1,7 @@
 ---
 title: Running in production
 order: 0
-description: What does running in production entail
+description: What does running in production entail?
 tag: deep-dive
 ---
 
