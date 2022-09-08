@@ -3,7 +3,7 @@ parent:
 title: Understand IBC Denoms with Gaia
 order: 0
 description: Send tokens with IBC, trace a denom, and understand how denoms work.
-tag:
+tags:
   - tutorial
   - dev-ops
   - ibc
