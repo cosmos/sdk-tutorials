@@ -2,7 +2,8 @@
 title: "Standard Packages in Go"
 order: 7
 description: fmt, strconv, and errors
-tag: deep-dive
+tags: 
+  - tutorial
 ---
 
 # Standard Packages in Go

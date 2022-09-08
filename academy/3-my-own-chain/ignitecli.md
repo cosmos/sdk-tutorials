@@ -2,7 +2,9 @@
 title: "Ignite CLI"
 order: 4
 description: An easy way to build your application-specific blockchain
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Ignite CLI

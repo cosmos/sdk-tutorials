@@ -2,7 +2,9 @@
 title: "Message and Handler - Add a Way to Make a Move"
 order: 9
 description: Play a game
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Message and Handler - Add a Way to Make a Move

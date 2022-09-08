@@ -2,7 +2,9 @@
 title: "Message Handler - Create and Save a Game Properly"
 order: 8
 description: Create a proper game
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Message Handler - Create and Save a Game Properly

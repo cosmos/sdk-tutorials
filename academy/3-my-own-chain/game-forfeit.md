@@ -2,7 +2,9 @@
 title: "EndBlock - Auto-Expiring Games"
 order: 15
 description: Enforce the expiration of games
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # EndBlock - Auto-Expiring Games

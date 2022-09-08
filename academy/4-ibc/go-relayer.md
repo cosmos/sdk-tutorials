@@ -2,7 +2,10 @@
 title: "Go Relayer"
 order: 9
 description: Relayer implementation in Golang
-tag: deep-dive
+tags: 
+  - concepts
+  - ibc
+  - dev-ops
 ---
 
 # Go Relayer

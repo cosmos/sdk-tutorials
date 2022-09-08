@@ -2,7 +2,9 @@
 title: "Events - Emit Game Information"
 order: 10
 description: Emit game information using events
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Events - Emitting Game Information

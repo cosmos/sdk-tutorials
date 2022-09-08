@@ -2,7 +2,8 @@
 title: "Cryptographic Fundamentals of Blockchain"
 order: 6
 description: Public-key cryptography
-tag: fast-track
+tags: 
+  - concepts
 ---
 
 # Cryptographic Fundamentals of Blockchain

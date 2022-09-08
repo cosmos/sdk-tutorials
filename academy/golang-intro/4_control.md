@@ -2,7 +2,8 @@
 title: "Control Structures in Go"
 order: 5
 description: if, switch, and for statements
-tag: deep-dive
+tags: 
+  - tutorial
 ---
 
 # Control Structures in Go

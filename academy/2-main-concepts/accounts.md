@@ -2,7 +2,9 @@
 title: "Accounts"
 order: 3
 description: Discover how accounts, addresses, keys, and keyrings relate to each other
-tag: deep-dive
+tags: 
+  - concepts
+  - cosmos-sdk
 ---
 
 # Accounts

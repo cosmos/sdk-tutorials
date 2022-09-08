@@ -2,7 +2,8 @@
 title: Exercise - Message and Handler - Make Sure a Player Can Reject a Game
 order: 10
 description: Exercise - Reject a game
-tag: deep-dive
+tags: 
+  - deep-dive
 ---
 
 # Exercise - Message and Handler - Make Sure a Player Can Reject a Game

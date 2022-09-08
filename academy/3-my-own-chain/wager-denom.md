@@ -2,7 +2,10 @@
 title: "IBC Token - Play With Cross-Chain Tokens"
 order: 19
 description: Let players wager any fungible token
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
+  - ibc
 ---
 
 # IBC Token - Play With Cross-Chain Tokens
