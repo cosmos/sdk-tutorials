@@ -34,7 +34,7 @@ When it launches, Cosmovisor does the following:
 2. Polls regularly for potential upgrade information, for instance in `.myprojectd/data/upgrade-info.json`. Note how this file is in the `data` folder and created by the [`x/upgrade` module](https://docs.cosmos.network/main/building-modules/upgrade.html) when appropriate.
 3. When `upgrade-info.json` is available, waits for the executable to stop on its own, in effect after it has committed all states at the given block height.
 4. If instructed to by configuration, downloads the new executable as described in `upgrade-info.json`. Otherwise looks for it in the configuration folder, for instance `.myprojectd/cosmovisor/upgrades/<name>/bin`. In this case `<name>` is picked from `upgrade-info.json` too.
-5. Swaps out the symbolic link to the `current` executable to the new one.
+5. Exchanges the symbolic link to the `current` executable for the new one.
 6. Restarts the node.
 
 When restarting, the node launches its [in-place migration](https://docs.cosmos.network/main/core/upgrade.html) process for all modules that have a [new version](https://dodocs.cosmos.network/mainore/upgrade.html#tracking-module-versions).

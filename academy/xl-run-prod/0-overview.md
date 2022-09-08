@@ -29,6 +29,6 @@ A good way to divide and conquer is to go with:
 * Network setup.
 * Software run and launch.
 * Migration preparation.
-* IBC prepration.
+* IBC preparation.
 
 Start with the binary preparation in the [next section](./1-software.md).

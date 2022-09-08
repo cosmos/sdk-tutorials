@@ -19,9 +19,9 @@ $ sudo adduser checkersuser
 
 Validators are going to use three different computers:
 
-* The high-availability node server, typically running on a cloud service.
-* The high-availability key management server, typically accessible by and running close the operator.
-* The desktop computer to manage both servers.
+* A high-availability node server, typically running on a cloud service.
+* A high-availability key management server, typically accessible by and running close the operator.
+* A desktop computer to manage both servers.
 
 ## Prepare executables
 
@@ -67,7 +67,7 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i make build-wit
 
 Make these files publicly downloadable.
 
-Download them on the node servers, including validator nodes, and put them in place. You can use a new script `prepare-node.sh` that describes the steps:
+Download them to the node servers, including validator nodes, and put them in place. You can use a new script `prepare-node.sh` that describes the steps:
 
 ```sh
 cp -v /checkers/build/checkersd-linux-amd64 /usr/local/bin/checkersd
@@ -118,7 +118,7 @@ WantedBy=multi-user.target
 
 ## Prepare keys
 
-This only applies for validators. On the key management server, the validator operator installs the Tendermint KMS and gets the consensus key. For instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
+**This only applies for validators**. On the key management server, the validator operator installs the Tendermint KMS and gets the consensus key. For instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
 
 Prepare the key management server to be able to connect to the node server.
 
@@ -144,7 +144,7 @@ Then they make it publicly downloadable.
 
 ### First distribution to validators
 
-Each validator node operator downloads this genesis into their desktop computer and:
+Each validator node operator downloads this genesis to their desktop computer and:
 
 1. Confirms their address is present and has the right balance.
 2. Checks their account number, say 12.
@@ -169,11 +169,11 @@ The centralized operator now puts all the received genesis transactions on the n
 $ su -l checkeruser checkersd collect-gentxs
 ```
 
-They make this publicly available for everyone including non-validators.
+They make this publicly available for everyone, including non-validators.
 
 ### Final distribution to operators
 
-All operators download this genesis in their node servers and scrutinize it for confirmation that it conforms to their expectations. And put it in their own `/home/checkersuser/.checkers/config/genesis.json`.
+All operators download this genesis to their node servers, scrutinize it for confirmation that it conforms to their expectations, and put it in their own `/home/checkersuser/.checkers/config/genesis.json`.
 
 ## Prepare the network
 

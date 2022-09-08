@@ -22,7 +22,7 @@ In order to mitigate the danger of **point 1**, you can keep your private key in
 
 To implement **point 2**, you can use a specialized [key management system](https://hub.cosmos.network/main/validators/kms/kms.html) (a.k.a. KMS). This runs on a computer separate from your validator node but which has access to the hardware key and is [contacted over the private network](https://github.com/iqlusioninc/tmkms/blob/v0.12.2/README.txsigner.md#architecture) by your validator node(s) for the purpose of signing blocks. Such a KMS is specialized in the sense that it is, for instance, able to detect attempts to sign two different blocks at the same height.
 
-You can combine these stragegies. For instance, if you insist on using an HSM and having your validator node located in the cloud, you can run the KMS on the computer the HSM is physically plugged into, and which dials into your remote validator node to provide the signing service.
+You can combine these strategies. For instance, if you insist on using an HSM and having your validator node located in the cloud, you can run the KMS on the computer the HSM is physically plugged into, and which dials into your remote validator node to provide the signing service.
 
 ## What validator keys
 

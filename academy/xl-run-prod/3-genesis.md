@@ -98,7 +98,7 @@ To each validator you send:
 * The `account_number` that was given to them when calling `add-genesis-account`.
 * A confirmation of the amount of tokens that you have credited them.
 
-Each validator operator then has to run a `gentx` command. **This command is not to be run on the server**. Instead it is run on the computer that hosts the _cold_ validator operator app key using the keyring of your choice. Collect the consensus public key from Tendermint KMS, for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
+Each validator operator then has to run a `gentx` command. **This command is not to be run on the server**. Instead it is run on the computer that hosts the _cold_ validator operator app key, using the keyring of your choice. Collect the consensus public key from Tendermint KMS, for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
 
 If this is Alice, she may run:
 
@@ -218,7 +218,7 @@ This completes your creation of the genesis. What do you do with it?
 
 ## Publish
 
-All your genesis validators and all other potential node operators need access to this genesis file for them to be technically able to start the network. So put it on a public server. Picking a dedicated Github repository for all things _production_ is a good example.
+All your genesis validators and all other potential node operators need access to this genesis file for them to be technically able to start the network. So put it on a public server. Picking a dedicated GitHub repository for all things _production_ is a good example.
 
 The relevant parties should also come to a consensus that this genesis represents the agreed initial state. Indeed:
 
