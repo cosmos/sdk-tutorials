@@ -2,7 +2,7 @@
 title: "BaseApp"
 order: 9
 description: Work with BaseApp to implement applications
-tag: 
+tags: 
   - concepts
   - cosmos-sdk
 ---

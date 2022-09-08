@@ -2,7 +2,7 @@
 title: "The Cosmos Ecosystem"
 order: 3
 description: A universe to discover
-tag: 
+tags: 
   - concepts
   - tendermint
   - cosm-wasm

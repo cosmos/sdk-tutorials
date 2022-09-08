@@ -2,7 +2,7 @@
 title: "Bridges"
 order: 14
 description: Bridging to other blockchains on different protocols
-tag: 
+tags: 
   - concepts
   - cosmos-sdk
   - cosmos-hub
