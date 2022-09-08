@@ -105,7 +105,7 @@ Marshaling is vital to pass output parameters of a program written in one langua
 8. Once the procedure is finalized, the output is returned to the server stub.
 9. The server stub packs the return values into a message.
 10. The message is sent to the transport layer, which sends the message to the client's transport layer.
-11. The client stub unmarshals the return parameters.
+11. The client stub unmarshals the return parameters and returns them to the original calling client.
 
 <HighlightBox type="note">
 
