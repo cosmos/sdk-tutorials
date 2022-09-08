@@ -990,19 +990,19 @@ The processing **routines** will be divided as per the following:
 1. The **game processing** routine will:
     
     * Receive separate arrays of games from the _stored-game_ channel.
-    * Compute the aggregate player info files from them. I.e. **_map_**.
+    * Compute the aggregate player info records from them. I.e. **_map_**.
     * Send the results on the _player-info_ channel.
 
     Also, if it detects that no more games are coming, it will close the _player-info_ channel.
 
 2. The **player info processing** routine will:
 
-    * Receive individual player info files from the _player-info_ channel.
+    * Receive individual player info records from the _player-info_ channel.
     * Fetch the existing (or not) corresponding player info from the store.
     * Update the won and lost counts, i.e. **_reduce_**. Remember, here it is doing `+= k`, not `+= 1`.
     * Save it back to the store.
 
-    Also, if it detects that no more player info files are coming, it will flag it on the _done_ channel.
+    Also, if it detects that no more player info records are coming, it will flag it on the _done_ channel.
 
 3. The **main function** will:
 
@@ -1140,10 +1140,10 @@ You could decide to build the leaderboard as the player stats list is being buil
 
 In the process, there are two time-consuming parts:
 
-1. Fetching the stored player info files in a paginated way, consuming mostly database resources.
+1. Fetching the stored player info records in a paginated way, consuming mostly database resources.
 2. Sorting each intermediate leaderboard, consuming mostly computation resources.
 
-It looks beneficial to use a Go routine in this case too, and a _player info_ channel to pass along arrays of player info files.
+It looks beneficial to use a Go routine in this case too, and a _player info_ channel to pass along arrays of player info records.
 
 In practice, repeatedly building the intermediate leaderboard means adding _k_ new `winningPlayerParsed` to the sorted array, sorting it, clipping it to `LeaderboardWinnerLength`, and repeating. What constitutes a good _k_ value should be dictated by testing and performance measurements. However, you can start with your best guess in its own file:
 
@@ -1153,7 +1153,7 @@ const PlayerInfoChunkSize = types.LeaderboardWinnerLength * 2
 
 ### Implementation
 
-Start by adding small helpers into their own file, so that you can easily append and sort player info files:
+Start by adding small helpers into their own file, so that you can easily append and sort player info records:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/migrations/v1tov2/migration_leaderboard.go#L12-L37]
 func addParsedCandidatesAndSort(parsedWinners []types.WinningPlayerParsed, candidates []types.WinningPlayerParsed) []types.WinningPlayerParsed {
@@ -1284,7 +1284,7 @@ You have in place the functions that will handle the store migration. Now you ha
 
 ### Consensus version and name
 
-The `upgrade` module keeps in its own store of the [different module versions](https://docs.cosmos.network/master/core/upgrade.html#tracking-module-versions) that are currently running. To signal an upgrade, your module needs to return a different value when queried by the `upgrade` module. Change it from `2` to `3`, or whichever number works for you. First keep both these values in their respective locations:
+The `upgrade` module keeps in its own store the [different module versions](https://docs.cosmos.network/master/core/upgrade.html#tracking-module-versions) that are currently running. To signal an upgrade, your module needs to return a different value when queried by the `upgrade` module. Change it from `2` to `3`, or whichever number works for you. First keep both these values in their respective locations:
 
 <CodeGroup>
 
@@ -1661,11 +1661,7 @@ $ docker exec -it checkers ./release/v1/checkersd start \
     --rpc.laddr "tcp://0.0.0.0:26657"
 ```
 
-<HighlightBox type="note">
-
-You need to force the node to listen on all IP addresses, not just `127.0.0.1` as it would do by default.
-
-</HighlightBox>
+Note that you need to force the node to listen on all IP addresses, not just `127.0.0.1` as it would do by default.
 
 </CodeGroupItem>
 
@@ -2233,7 +2229,7 @@ Leaderboard:
 
 Note how it took the time of the block when v1 stopped.
 
-You can similarly confirm that the player info files are correctly saved. Congratulations, you have upgraded your blockchain almost as if in production.
+You can similarly confirm that the player info records are correctly saved. Congratulations, you have upgraded your blockchain almost as if in production.
 
 ## Next up
 
