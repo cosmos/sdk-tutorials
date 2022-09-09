@@ -471,4 +471,4 @@ func GetAppVersion(
 
 ## Next up
 
-After implementing the interfaces `IBCModule` and `ICS4Wrapper` and the custom middleware logic, the remaining work is to integrate the middleware in the chain. You will have to keep in mind the order in the middleware stack (in case there are multiple middlewares) and whether or not the middleware is stateful. This is the topic of the next section.
+After implementing the interfaces `IBCModule` and `ICS4Wrapper` and the custom middleware logic, the remaining work is to integrate the middleware into the chain. You will have to keep in mind the order in the middleware stack (in case there are multiple middlewares) and whether or not the middleware is stateful. This is the topic of the next section.
