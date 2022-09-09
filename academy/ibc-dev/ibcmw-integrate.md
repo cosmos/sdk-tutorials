@@ -1,9 +1,9 @@
 ---
 title: "Integrating IBC Middleware Into a Chain"
-order: 
+order: 11
 description: Integrate IBC middleware with a base application
 tags: 
-  - 
+  - guided-coding
   - ibc
   - dev-ops
 ---
