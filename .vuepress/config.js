@@ -71,6 +71,7 @@ module.exports = {
     sidebar: {
       auto: false,
       hideProducts: true,
+      filterByTagEnabled: false,
       nav: [
         {
           title: "Cosmos Academy",

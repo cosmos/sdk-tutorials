@@ -62,52 +62,23 @@ overview:
 # Please continue here for Week 0 release
     - title: How do I get certified?
       description: |
-        After the seven-week program, you’ll have two weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <b>November 3rd</b> and you have to complete it by <b>December 1st</b>.<br/><br/>
-        <br/><br/>
-        You’ll receive an email and notification via Discord closer to the date.<br/><br/>
-        <br/><br/>
-        If you complete the program earlier you can take the exam sooner. The earliest you can take the exam is from the fourth week of the program.<br/><br/>
-        <br/><br/>
-        You’ll receive an email with further instructions on how to launch the exam request.<br/><br/>
-        <br/><br/>
-        The exam is an individual exercise.<br/><br/>
-        <br/><br/>
-        <b>When do I get the results?</b><br/><br/>
-        You'll receive your exam results by <b>December 1st</b>.
-modules:
-  - title: Getting Started
-    description: This chapter is completely optional and a good introduction if you are new to blockchain technology or need a refresher.
-    number: 0
-    url: /course-ida/landingpages/week0-lp.html
-    submodules:
-      - title: Introduction to Blockchain Technology
-        description: Blockchain technology in general
-        url: /course-ida/landingpages/week0-lp.html
-        order: 0
-      - title: Blockchain 101
-        description: A universe to discover
-        url: /ida-course/0-blockchain-basics/1-blockchain.html
-        order: 1
-      - title: Blockchain History
-        description: A brief history of blockchain technology
-        url: /ida-course/0-blockchain-basics/2-public.html
-        order: 2
-      - title: Public and Managed Blockchains
-        description: Introduction to different deployment patterns
-        url: /ida-course/0-blockchain-basics/3-managed.html
-        order: 3
-      - title: Consensus in Distributed Networks
-        description: An introduction to distributed consensus
-        url: /ida-course/0-blockchain-basics/4-consensus.html
-        order: 4    
-      - title: Cryptographic Fundamentals of Blockchain
-        description: Public-key cryptography
-        url: /ida-course/0-blockchain-basics/5-crypto.html
-        order: 5
-      - title: Self-Assessment Quiz
-        description: Want to test your blockchain knowledge?
-        url: /ida-course/0-blockchain-basics/6-quiz.html
-        order: 6
+        After the 6-week program, you will have two weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <span class="tm-bold">June 23rd</span> and you have to complete it by <span class="tm-bold">July 7th</span>.<br/><br/>
+        You'll receive an email and notification via Discord closer to the date. <br/><br/>
+        If you complete the program earlier you can take the exam sooner. The earliest you can take the exam is from the program's second week. You will receive an email with further instructions on how to launch the exam request. <br/><br/>
+        The exam is an individual exercise. <br/><br/>
+        <div class="tm-bold">When do I get the results?</div>
+        You'll receive your exam results by <span class="tm-bold">August 3rd.</span> 
+customModules:
+  title: Weekly Plan
+  description: |
+    The Academy runs for 7 weeks. You can follow the weekly structure or decide to go your individual path - just make sure to be ready for the Final Exam after 7 weeks.
+  sections:
+    - image: /cosmos_dev_portal_module-02-lp.png
+      title: Getting started
+      href: /ida-course/0-blockchain-basics/
+      description: |
+        This chapter is completely optional and a good introduction if you are new to blockchain technology or need a refresher on:
+      links: [{'title': 'Blockchain Basics', 'path': '/ida-course/0-blockchain-basics/1-blockchain.html'}, {'title': 'Golang', 'path': '/tutorials/4-golang-intro/1_install.html'}, '/tutorials/1-tech-terms/']
 -->
 
 This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
