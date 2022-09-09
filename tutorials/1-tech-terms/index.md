@@ -76,9 +76,11 @@ A step-by-step RPC request could look like the following:
 A stub is a small program routine substituting a longer program. This allows machines to behave as if a program on a remote machine was operating locally. The client has a stub which interfaces with the remote procedure, while the server has a stub to interface with the original request procedure.
 
 <br/>
+
 In RPCs, the client's stub substitutes for the program providing a request procedure. The stub accepts and forwards the request to the remote procedure. Once the remote procedure completes the request, it returns the results to the stub which in turn passes them to the request procedure.
 
 <br/>
+
 The server also has a stub to interface with the remote procedure.
 
 </HighlightBox>
@@ -90,9 +92,11 @@ The server also has a stub to interface with the remote procedure.
 Packing procedure parameters is called **marshaling**.
 
 <br/>
+
 Specifically, this is _the process of gathering data from one or more applications, putting data pieces into a message buffer, and organizing the data into a prescribed data format_.
 
 <br/>
+
 Marshaling is vital to pass output parameters of a program written in one language as inputs to programs in a different language.
 
 </HighlightBox>
@@ -112,9 +116,11 @@ Marshaling is vital to pass output parameters of a program written in one langua
 In an Open Systems Interconnection (OSI) model, RPC touches the transport and application layers.
 
 <br/>
+
 The transport layer is tasked with the reliable sending and receiving of messages across a network. It requires error-checking mechanisms, data flow controls, data integrity assurance, congestion avoidance, multiplexing, and same order delivery.
 
 <br/>
+
 The application layer is tasked with ensuring effective communication between applications on different computer systems and networks. It is a component of an application that controls methods of communication with other devices.
 
 </HighlightBox>
@@ -146,6 +152,7 @@ Cosmos exposes both the Tendermint RPC and the Cosmos LCD. For example, [CosmJS]
 If you want to get more accustomed to Protobuf, a look at the [official documentation](https://developers.google.com/protocol-buffers) helps dive deeper and offers guides and tutorials.
 
 <br/>
+
 Also take a look at the [section on this platform on Protobuf](../academy/2-main-concepts/protobuf.md).
 
 </HighlightBox>
@@ -211,6 +218,7 @@ For more on gRPC-web, a closer look at the [gRPC repository](https://github.com/
 
 <br/>
 
+
 To dive into developing with gRPC-web, the [documentation's quick start](https://grpc.io/docs/platforms/web/quickstart/) and [basics tutorials](https://grpc.io/docs/platforms/web/basics/) are very valuable resources.
 
 </HighlightBox>
@@ -256,6 +264,7 @@ Usually, Amino codec types and interfaces are registered in the module's domain.
 A concrete type is a non-interface type which implements a registered interface. Types need to be registered when stored in interface type fields, or in a list with interface elements.
 
 <br/>
+
 As a best practice, upon initialization make sure to:
 
 * Register the interfaces.
@@ -279,6 +288,7 @@ For more on Amino specifications and implementation for Go, see the [Tendermint 
 Amino is basically JSON with some modifications. For example, the JSON specification does not define numbers greater than 2^53, so instead strings are used in Amino when encoding a type greater than uint64/int64.
 
 <br/>
+
 For more on the Amino types and their representation in JSON, see the [Secret.js documentation](https://github.com/scrtlabs/secret.js/blob/master/DEVELOPERS.md#amino-types-and-how-theyre-represented-in-json).
 
 </HighlightBox>
