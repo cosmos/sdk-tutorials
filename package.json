@@ -21,7 +21,7 @@
     "blockchain",
     "golang"
   ],
-  "author": "All in Bits",
+  "author": "Interchain Foundation",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/cosmos/sdk-tutorials/issues"
