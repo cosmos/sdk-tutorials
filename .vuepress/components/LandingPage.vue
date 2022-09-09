@@ -19,7 +19,6 @@
                         .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted {{tutorial.level}}
                         h4.mt-7 {{tutorial.title}}
                         .mt-7.tm-lh-copy.tm-muted {{tutorial.description}}
-                        .mt-7.info-label.tm-rf-1.tm-muted {{tutorial.time}} minutes read
 
         .articles__wrapper.mt-10(v-if="$frontmatter.articles")
             .articles__wrapper__title
@@ -96,12 +95,13 @@
 
     &__item
         &__small
+            margin 0 10px 0 10px
             width 25.8vw
             flex-grow 0
-            margin-right: 20px
 
             .card
                 margin-top 32px
+                height: 100%
 
             @media screen and (min-width: 481px) and (max-width: 1024px)
                 width 50%

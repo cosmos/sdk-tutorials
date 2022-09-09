@@ -5,17 +5,14 @@ tutorials:
     level: intermediate
     description: Learn what the Group module does, how to create group, and how to submit group proposals.
     url: /tutorials/understanding-groups
-    time: 15
   - title: Understanding the Authz Module
     level: intermediate
     description: Learn what the Authz module does, how to create and revoke authorizations, and how to execute authorized transactions.
     url: /tutorials/understanding-authz
-    time: 20
   - title: Understand IBC Denoms with Gaia
     level: intermediate
-    description: Learn about what means IBC denoms and what they are.
+    description: Learn about what means IBC denoms and understand what they are.
     url: /tutorials/understanding-ibc-denoms/
-    time: 20
 tools:
   - title: Cosmos SDK
     description: A framework for building public blockchains.
