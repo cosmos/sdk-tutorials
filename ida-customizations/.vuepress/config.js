@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   theme: "cosmos",
-  title: "Cosmos Developer Portal",
+  title: "Interchain Developer Academy",
   head: [
     [
       "link",
@@ -88,7 +88,7 @@ module.exports = {
               children: [
                 {
                   title: "Getting Started",
-                  path: "/ida-course/0-blockchain-basics/index.html",
+                  path: "/ida-course/LPs/week-0/",
                 },
                 {
                   title: "Blockchchain 101",
@@ -144,7 +144,7 @@ module.exports = {
                 },
                 {
                   title: "Good-To-Know Dev Terms",
-                  path: "/tutorials/1-tech-terms/index.html",
+                  path: "/tutorials/1-tech-terms/",
                 },
               ]
             },
@@ -346,6 +346,7 @@ module.exports = {
     "academy/*/*.md",
     "tutorials/*/*.md",
     "authz-module/*.md",
+    "ida-course/*/*/*.md",
     "ida-course/*/*.md",
     "ida-course/*.md",
     "course-ida/*/*.md",

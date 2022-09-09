@@ -7,6 +7,9 @@ tag:
 
 # Get Support on Discord
 
+Detailed information will be available next week.
+
+<!--
 The private channels for the Academy on the official Discord is where you will communicate and collaborate with your instructors, tutors, and fellow participants.
 There are six channels - each dedicated to a specific topic - where you can post messages, ask questions, and request support.
 
@@ -64,3 +67,4 @@ When you mark a message as a question, _Tricia_ might reply with one or more res
 ## Response time
 
 We'll aim to answer your questions within a few hours. Our maximum response time is 24 hours. **Main support hours are between 8AM UTC and 6PM UTC.** We do not provide support during weekends.
+-->
