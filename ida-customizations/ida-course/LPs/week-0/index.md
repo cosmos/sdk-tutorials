@@ -31,7 +31,7 @@ You can also use it as a refresher.
 
 You can find a short section at the end of the chapter with good-to-know dev terms.
 
-![Planets in constellation](./images/planets-large.svg)
+![Planets in constellation](/planets-large.svg)
 
 ## In this chapter
 
@@ -71,11 +71,11 @@ All other Academy chapters will be displayed on this page starting **September 1
 
 ## Next up
 
-First, you can take a look at blockchain technology by starting with the section on [Blockchain 101](/ida-customization/ida-course/0.0-B9lab-Blockchains/1_blockchain.md).
+First, you can take a look at blockchain technology by starting with the section on [Blockchain 101](/ida-course/0-blockchain-basics/1-blockchain.md).
 
-Then, for a quick overview on Golang, begin with the section [Go Introduction - First Steps](/tutorials/4-golang-intro/1-install.md).
+Then, for a quick overview on Golang, begin with the section [Go Introduction - First Steps](/tutorials/4-golang-intro/1_install.md).
 
-In case you want to take a look at some technical terms, go ahead and visit the section [Good-To-Know Dev Terms](/tutorials/1-tech-terms/index.md).
+In case you want to take a look at some technical terms, go ahead and visit the section [Good-To-Know Dev Terms](/tutorials/1-tech-terms/).
 
 ## Developer resources
 

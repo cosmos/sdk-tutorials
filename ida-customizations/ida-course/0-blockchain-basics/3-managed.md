@@ -10,7 +10,7 @@ tags:
 
 The most obvious way of operating blockchain protocols comes in form of a public network. This is what blockchain technology was originally invented for and remains arguably its most powerful use.
 
-![P2P network](/ida-customization/ida-course/0/blockchain-basics/images/00_02_p2p_network_dark.png)
+![P2P network](/ida-course/0-blockchain-basics/images/00_02_p2p_network_dark.png)
 
 A public blockchain network has a few specific attributes:
 
@@ -37,7 +37,7 @@ Let us look at this in more detail.
 
 Nakamoto does not use the term "blockchain" in his paper, but describes the concept by explaining transactions in Bitcoin. The transaction process requires the signing of the transaction with the hash of the previous transaction and the public key of the receiver. This is called the chain of ownership. Transactions can contain several inputs and outputs.
 
-![Chain of blocks with previous hash](/ida-customization/ida-course/0/blockchain-basics/images/00_16_bitcoin_block_headers_literal.png)
+![Chain of blocks with previous hash](/ida-course/0-blockchain-basics/images/00_16_bitcoin_block_headers_literal.png)
 
 Each block includes the previous hash and a nonce, a random set of `1`s and `0`s. The protocol calls for a hash beginning with a specific number of binary `0`s when hashing the block. Bitcoin uses a timestamp server to prevent double-spending. The block creator, called a **miner**, looks for a nonce which results in a block hash beginning with the right number of binary `0`s. It is difficult to find a nonce that fulfills this condition, but it is easy to verify when one does.
 
@@ -47,7 +47,7 @@ There is a residual possibility that a slower attacker can catch up, since disco
 
 The process of creating a valid block is called **mining** in PoW networks. The protocol includes a reward for mining, which is the first special transaction in the block. It can be expected that the majority of nodes use their CPU power honestly because this is the most financially feasible course of action. Signed transactions are announced publicly, so the public keys of the parties are not private.
 
-![Mining](/ida-customization/ida-course/0/blockchain-basics/images/00_17_mining-01.png)
+![Mining](/ida-course/0-blockchain-basics/images/00_17_mining-01.png)
 
 ## Introduction to Ethereum
 
@@ -83,7 +83,7 @@ Another way of understanding this is to consider that at any point in time, a pr
 
 While Bitcoin addresses this efficiency issue with a relatively long block time of 10 minutes, Ethereum addresses this concern with a partial reward strategy: valid blocks that are not ultimately included in the canonical chain, because another chain becomes longer, can still be included on the side. They are known as **uncles**. Miners of uncles receive a smaller reward than regular block miners.
 
-![Uncles in Ethereum](/ida-customization/ida-course/0/blockchain-basics/images/00_18_block_uncles-01.png)
+![Uncles in Ethereum](/ida-course/0-blockchain-basics/images/00_18_block_uncles-01.png)
 
 This is made possible thanks to Ethereum's implementation of the [GHOST protocol](http://www.cs.huji.ac.il/~yoni_sompo/pubs/15/inclusive_full.pdf). GHOST includes so-called uncles that are propagated into the network too late to rise to the level of network consensus. This increases the total difficulty of the chain (by capturing the "work" that would otherwise be wasted), makes smaller block times possible, and rewards miners of uncles for contributing to the overall strength of the network.
 
@@ -113,7 +113,7 @@ Dive into the specifics of the Byzantine Generals Problem in the next section on
 
 </HighlightBox>
 
-![Public and managed network comparison](/ida-customization/ida-course/0/blockchain-basics/images/00_08_public_vs_private_comparison-01.png)
+![Public and managed network comparison](/ida-course/0-blockchain-basics/images/00_08_public_vs_private_comparison-01.png)
 
 Public networks are based on game theory and economic incentives, which means that every action is probabilistic. There is no guarantee that a transaction will be picked up and even the integrity of the network is merely very likely, not 100% guaranteed.
 
@@ -121,7 +121,7 @@ This is often unacceptable, for example with traditional financial institutions.
 
 Unlike public networks, where the interaction between participants is governed by the protocol and crypto-economic incentives, in managed networks the blockchain protocol is often a technical enforcement of pre-existing relationships and legally enforceable agreements.
 
-![Public vs private](/ida-customization/ida-course/0/blockchain-basics/images/00_10_public_vs_private_comparison_table.png)
+![Public vs private](/ida-course/0-blockchain-basics/images/00_10_public_vs_private_comparison_table.png)
 
 **Private blockchains** can be:
 

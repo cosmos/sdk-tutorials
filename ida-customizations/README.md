@@ -78,7 +78,7 @@ customModules:
       href: /ida-course/0-blockchain-basics/
       description: |
         This chapter is completely optional and a good introduction if you are new to blockchain technology or need a refresher on:
-      links: [{'title': 'Blockchain Basics', 'path': '/ida-course/0-blockchain-basics/1-blockchain.html'}, {'title': 'Golang', 'path': '/tutorials/4-golang-intro/1_install.html'}, '/tutorials/1-tech-terms/']
+      links: [{'title': 'Blockchain Basics', 'path': '/ida-course/LPs/week-0/'}, {'title': 'Golang', 'path': '/tutorials/4-golang-intro/1_install.html'}, '/tutorials/1-tech-terms/']
 -->
 
 This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
