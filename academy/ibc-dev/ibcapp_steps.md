@@ -689,6 +689,18 @@ When looking at `app.go` you will see some minor additions, the most prominent o
 	app.IBCKeeper.SetRouter(ibcRouter)
 ```
 
-#### Next up
+<HighlightBox type="synopsis">
 
-Until now how to define packet and acknowledgment data has not been explored. In the next section you will first scaffold the packet with Ignite CLI and again compare the additions with a `git diff`.
+To summarize, this section has explored:
+
+* How to build an SDK blockchain, as a regular module.
+* How to build an SDK blockchain, as an IBC module.
+* How application modules verify the versioning used during the channel handshake procedure.
+* Packet callbacks, and specifically how sending, receiving, acknowledging, and timing out is handled in the packet flow.
+* How to bind to a port, and the necessity of adding appropriate keeper methods to the keeper.
+
+</HighlightBox>
+
+<!--#### Next up
+
+Until now how to define packet and acknowledgment data has not been explored. In the next section you will first scaffold the packet with Ignite CLI and again compare the additions with a `git diff`.-->
