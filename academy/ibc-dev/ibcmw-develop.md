@@ -1,6 +1,16 @@
-# Create a custom IBC middleware
+---
+title: "Create a Custom IBC Middleware"
+order: 
+description: Implementing interfaces
+tags: 
+  - 
+  - ibc
+  - dev-ops
+---
 
-When developing a custom IBC application, one of the first things to do is to implement the `IBCModule` interface, as seen [previously](./ibcapp-steps.md).
+# Create a Custom IBC Middleware
+
+When developing a custom IBC application, one of the first things to do is to implement the `IBCModule` interface, as seen [previously](/hands-on-exercise/4-ibc-dev/ibc-app-steps.md).
 
 The interface can be found [here](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go).
 
@@ -22,7 +32,7 @@ Middleware must implement `IBCModule` to wrap communication from core IBC to the
 You know `IBCModule` from the IBC custom app section. `ICS4Wrapper` is an interface like so:
 
 ```go
-// This is implemented by ICS4 and all middleware that are wrapping base application.
+// This is implemented by ICS4 and all middleware wrapping the base application.
 // The base application will call `sendPacket` or `writeAcknowledgement` of the middleware directly above them
 // which will call the next middleware until it reaches the core IBC handler.
 type ICS4Wrapper interface {
@@ -56,7 +66,7 @@ func NewIBCMiddleware(app porttypes.IBCModule, k keeper.Keeper) IBCMiddleware {
 }
 ```
 
-Below you'll take a closer look at how to implement the handshake callbacks and the packet callbacks, to satisfy the `IBCModule` interface, and also the `SendPacket`, `WriteAcknowledgement` and `GetAppVersion` methods, to satisfy the `ICS4Wrapper` interface.
+Below you will take a closer look at how to implement the handshake callbacks and the packet callbacks, to satisfy the `IBCModule` interface, and also the `SendPacket`, `WriteAcknowledgement` and `GetAppVersion` methods, to satisfy the `ICS4Wrapper` interface.
 
 As a reminder, review once more the diagram representing the information flow between core IBC and the base application with a middleware (stack) applied:
 
@@ -64,9 +74,9 @@ As a reminder, review once more the diagram representing the information flow be
 
 ## Channel handshake callbacks
 
-The first type of callbacks from core IBC to the application are the channel handshake callbacks. When a middleware (stack) is applied, every piece of middleware will have access to the underlying application (base application or downstream middleware). For the handshake callbacks, function calls happen from core IBC through the middleware and then to base application. Each middleware will call the underlying application's callback but it can execute custom application logic before doing so.
+The first type of callbacks from core IBC to the application are the channel handshake callbacks. When a middleware (stack) is applied, every piece of middleware will have access to the underlying application (base application or downstream middleware). For the handshake callbacks, function calls happen from core IBC through the middleware and then to the base application. Each middleware will call the underlying application's callback but it can execute custom application logic before doing so.
 
-Check out the code snippets below to see this in action, or use the links to see how it's implemented for fee middleware (ICS-29).
+Check out the code snippets below to see this in action, or use the links to see how it is implemented for fee middleware (ICS-29).
 
 <HighlightBox type="info">
 
@@ -100,7 +110,7 @@ Middleware that does not need to negotiate with a counterparty middleware on the
 
 ### Capabilities
 
-The middleware should simply pass the capability in the callback arguments along to the underlying application so that it may be claimed by the base application. The base application will then pass the capability up the stack in order to authenticate an outgoing packet/acknowledgement.
+The middleware should simply pass the capability in the callback arguments along to the underlying application so that it may be claimed by the base application. The base application will then pass the capability up the stack in order to authenticate an outgoing packet/acknowledgment.
 
 ### Code snippets
 
@@ -125,7 +135,7 @@ func (im IBCMiddleware) OnChanOpenInit(
         // otherwise, pass version directly to app callback.
         metadata, err := Unmarshal(version)
         if err != nil {
-            // Since it is valid for fee version to not be specified,
+            // Since it is valid for the fee version to not be specified,
             // the above middleware version may be for another middleware.
             // Pass the entire version string onto the underlying application.
             return im.app.OnChanOpenInit(
@@ -143,7 +153,7 @@ func (im IBCMiddleware) OnChanOpenInit(
         metadata = {
             // set middleware version to default value
             MiddlewareVersion: defaultMiddlewareVersion,
-            // allow application to return its default version
+            // allow the application to return its default version
             AppVersion: "",
             }
         }
@@ -158,7 +168,7 @@ func (im IBCMiddleware) OnChanOpenInit(
         channelID,
         channelCap,
         counterparty,
-        metadata.AppVersion, // note we only pass app version here
+        metadata.AppVersion, // note you only pass app version here
     )
     if err != nil {
         return "", err
@@ -213,7 +223,7 @@ func (im IBCMiddleware) OnChanOpenTry(
         channelID,
         channelCap,
         counterparty,
-        cpMetadata.AppVersion, // note we only pass counterparty app version here
+        cpMetadata.AppVersion, // note you only pass counterparty app version here
     )
     if err != nil {
         return "", err
@@ -276,7 +286,7 @@ func (im IBCMiddleware) OnChanOpenConfirm(
 
 See [here](https://github.com/cosmos/ibc-go/blob/48a6ae512b4ea42c29fdf6c6f5363f50645591a2/modules/apps/29-fee/ibc_middleware.go#L154-L162) for an example implementation of this callback for the ICS29 Fee Middleware module.
 
-Similarly we have for the channel closing:
+Similarly, for the channel closing:
 
 <ExpansionPanel title="`OnChanCloseInit`">
 
@@ -318,7 +328,7 @@ The middleware's packet callbacks wrap the application's packet callbacks, just 
 
 <HighlightBox type="note">
 
-The packet callbacks are where the middleware performs most of its custom logic. The middleware may read the packet flow data and perform some additional packet handling, or it may modify the incoming data before it reaches the underlying application. This enables a wide degree of use cases, as a simple base application like token-transfer can be transformed for a variety of use cases by combining it with custom middleware.
+The packet callbacks are where the middleware performs most of its custom logic. The middleware may read the packet flow data and perform some additional packet handling, or it may modify the incoming data before it reaches the underlying application. This enables a wide degree of use cases, as a simple base application like token transfer can be transformed for a variety of use cases by combining it with custom middleware.
 
 </HighlightBox>
 
@@ -382,11 +392,11 @@ See [here](https://github.com/cosmos/ibc-go/blob/48a6ae512b4ea42c29fdf6c6f5363f5
 
 ## ICS-4 wrappers
 
-Middleware must also implement the `ICS4Wrapper` interface so that any communication from the application to the `channelKeeper` goes through the middleware first. Similar to the packet callbacks, the middleware may modify outgoing acknowledgements and packets in any way it wishes.
+Middleware must also implement the `ICS4Wrapper` interface so that any communication from the application to the `channelKeeper` goes through the middleware first. Similar to the packet callbacks, the middleware may modify outgoing acknowledgments and packets in any way it wishes.
 
 ### Capabilities
 
-Earlier we saw that the handshake callbacks passed the capability in the callback arguments along to the underlying application so that it may be claimed by the base application. In the `ICS4Wrapper` methods, the base application will then pass the capability up the stack in order to authenticate an outgoing packet or acknowledgement.
+Earlier you saw that the handshake callbacks passed the capability in the callback arguments along to the underlying application so that it may be claimed by the base application. In the `ICS4Wrapper` methods, the base application will then pass the capability up the stack in order to authenticate an outgoing packet or acknowledgement.
 
 If the middleware wishes to send a packet or acknowledgment without the involvement of the underlying application, it should be given access to the same `scopedKeeper` as the base application so that it can retrieve the capabilities by itself.
 
@@ -461,4 +471,4 @@ func GetAppVersion(
 
 ## Next up
 
-After implementing the interfaces `IBCModule` and `ICS4Wrapper` and the custom middleware logic, the remaining work is to integrate the middleware in the chain. You'll have to keep in mind the order in the middleware stack (in case there are multiple middlewares) and whether or not the middleware is stateful. This is the topic of the next section.
+After implementing the interfaces `IBCModule` and `ICS4Wrapper` and the custom middleware logic, the remaining work is to integrate the middleware in the chain. You will have to keep in mind the order in the middleware stack (in case there are multiple middlewares) and whether or not the middleware is stateful. This is the topic of the next section.

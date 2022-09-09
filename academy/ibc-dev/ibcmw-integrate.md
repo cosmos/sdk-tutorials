@@ -1,18 +1,28 @@
-# Integrating IBC middleware into a chain
+---
+title: "Integrating IBC Middleware Into a Chain"
+order: 
+description: Integrate IBC middleware with a base application
+tags: 
+  - 
+  - ibc
+  - dev-ops
+---
+
+# Integrating IBC Middleware Into a Chain
 
 <HighlightBox type="learning">
 
-Learn how to integrate IBC middleware(s) with a base application to your chain. The following document only applies for Cosmos SDK chains.
+Learn how to integrate Inter-Blokchain Communication Protocol (IBC) middleware(s) with a base application to your chain. The following only applies to Cosmos SDK chains.
 
 </HighlightBox>
 
-You've now seen how to develop an IBC middleware, and the final step in order to use it is to integrate it into the chain. You can distinguish between a single piece of middleware and a stack of middleware, and between middleware that is stateful or stateless.
+You have now seen how to develop an IBC middleware, and the final step in order to use it is to integrate it into the chain. You can distinguish between a single piece of middleware and a stack of middleware, and between middleware that is stateful or stateless.
 
 To integrate middleware (or a middleware stack) you must do the following in `app.go`:
 
-- If the middleware is maintaining its own state, processing SDK messages, or both, then it should **create and register its SDK module with the module manager**. Make sure not to create multiple `moduleManager`s but to register all modules in the same one.
+* If the middleware is maintaining its state, processing SDK messages, or both, then it should **create and register its SDK module with the module manager**. Make sure not to create multiple `moduleManager`s but to register all modules in the same one.
 
-    <ExpansionPanel title="Example code">
+  <ExpansionPanel title="Example code">
 
   ```go
   //app.go
@@ -26,8 +36,8 @@ To integrate middleware (or a middleware stack) you must do the following in `ap
   mw2IBCModule := mw2.NewIBCModule() // optional: middleware2 is stateless middleware
   mw3IBCModule := mw3.NewIBCModule(mw3Keeper)
 
-  // register middleware in app module
-  // if the module maintains independent state and/or processes sdk.Msgs
+  // register the middleware in app module
+  // if the module maintains an independent state and/or processes sdk.Msgs
   app.moduleManager = module.NewManager(
       ...
       mw1.NewAppModule(mw1Keeper),
@@ -38,11 +48,11 @@ To integrate middleware (or a middleware stack) you must do the following in `ap
 
   ```
 
-    </ExpansionPanel>
+  </ExpansionPanel>
 
-- As mentioned in the previous section, if the middleware wishes to send a packet or acknowledgment without the involvement of the underlying application, it should be given access to the same `scopedKeeper` as the base application so that it can retrieve the capabilities by itself.
+* As mentioned in the previous section, if the middleware wishes to send a packet or acknowledgment without the involvement of the underlying application, it should be given access to the same `scopedKeeper` as the base application so that it can retrieve the capabilities by itself.
 
-    <ExpansionPanel title="Example code">
+  <ExpansionPanel title="Example code">
 
   ```go
       //app.go
@@ -57,7 +67,7 @@ To integrate middleware (or a middleware stack) you must do the following in `ap
 
   ```
 
-    </ExpansionPanel>
+  </ExpansionPanel>
 
   For example, if the middleware `mw1` needs the ability to send a packet on custom2's port without involving the underlying application `custom2`, it would require access to the latter's `scopedKeeper`:
 
@@ -66,15 +76,15 @@ To integrate middleware (or a middleware stack) you must do the following in `ap
   + mw1Keeper := mw1.NewKeeper(storeKey1, scopedKeeperCustom2)
   ```
 
-<HighlightBox type="note">
+  <HighlightBox type="note">
 
-If no middleware (or other modules for that matter) need access to the `scopedKeeper`, there is no need to define them.
+  If no middleware (or other modules for that matter) need access to the `scopedKeeper`, there is no need to define them.
 
-</HighlightBox>
+  </HighlightBox>
 
-- Each application stack must reserve its own unique port with core IBC. Thus two stacks with the same base application must bind to separate ports.
+* Each application stack must reserve its own unique port with core IBC. Thus, two stacks with the same base application must bind to separate ports.
 
-    <ExpansionPanel title="Example code">
+  <ExpansionPanel title="Example code">
 
   ```go
       // initialize base IBC applications
@@ -87,13 +97,13 @@ If no middleware (or other modules for that matter) need access to the `scopedKe
 
   ```
 
-    </ExpansionPanel>
+  </ExpansionPanel>
 
-- **The order of middleware matters**. Function calls from IBC to the application travel from top-level middleware through to bottom-level middleware and then to the application. Function calls from the application to IBC rise from the bottom middleware in order to the top middleware and then to core IBC handlers. Thus the same set of middleware arranged in different orders may produce different effects.
+* **The order of middleware matters.** Function calls from IBC to the application travel from top-level middleware through to bottom-level middleware and then to the application. Function calls from the application to IBC rise from the bottom middleware to the top middleware and then to core IBC handlers. Thus the same set of middleware arranged in different orders may produce different effects.
 
   <HighlightBox type="tip">
 
-  In addition to the diagram shown in the [introduction](./ibcmw-intro.md), also note the direction of information flow through the middleware by looking at the interface:
+  In addition to the diagram shown in the [introduction](./ibc-mw-intro.md), also note the direction of information flow through the middleware by looking at the interface:
 
   ```go
       type Middleware interface {
@@ -102,16 +112,16 @@ If no middleware (or other modules for that matter) need access to the `scopedKe
   }
   ```
 
-  The packet and channel callbacks defined by `IBCModule` run from IBC Core to the base application; the methods defined by `ICS4Wrapper` run from base application to core IBC.
+  The packet and channel callbacks defined by `IBCModule` run from IBC Core to the base application; the methods defined by `ICS4Wrapper` run from the base application to IBC Core.
 
   </HighlightBox>
 
-  In the code snippet below, 3 different stacks are defined:
+  In the code snippet below, three different stacks are defined:
 
     <ExpansionPanel title="Example code">
     
     ```go
-        // create IBC stacks by combining middleware with base application
+        // create IBC stacks by combining middleware with the base application
         // NOTE: since middleware2 is stateless it does not require a Keeper
         // stack 1 contains mw1 -> mw3 -> transfer
         stack1 := mw1.NewIBCMiddleware(mw3.NewIBCMiddleware(transferIBCModule, mw3Keeper), mw1Keeper)
@@ -124,9 +134,9 @@ If no middleware (or other modules for that matter) need access to the `scopedKe
     ```
     </ExpansionPanel>
 
-- All middleware must be connected to the IBC router and wrap over an underlying base IBC application. An IBC application may be wrapped by many layers of middleware, **but only the top-layer middleware should be hooked to the IBC router**, with all underlying middlewares and application getting wrapped by it.
+* All middleware must be connected to the IBC router and wrap over an underlying base IBC application. An IBC application may be wrapped by many layers of middleware, **but only the top-layer middleware should be hooked to the IBC router**, with all underlying middlewares and application getting wrapped by it.
 
-    <ExpansionPanel title="Example code">
+  <ExpansionPanel title="Example code">
 
   ```go
       // associate each stack with the moduleName provided by the underlying scopedKeeper
@@ -137,11 +147,11 @@ If no middleware (or other modules for that matter) need access to the `scopedKe
       app.IBCKeeper.SetRouter(ibcRouter)
   ```
 
-    </ExpansionPanel>
+  </ExpansionPanel>
 
 Next, take a look at a full example integration, combining all of the above code snippets.
 
-### Example integration
+## Example integration
 
 ```go
 // app.go
@@ -183,6 +193,6 @@ app.IBCKeeper.SetRouter(ibcRouter)
 
 ## Next up
 
-You've now been introduced to developing both custom IBC applications and middleware (and how to integrate these modules in the chain). This opens up a whole range of possibilities for building multichain applications leveraging IBC.
+You have now been introduced to developing both custom IBC applications and middleware (and how to integrate these modules in the chain). This opens up a whole range of possibilities for building multichain applications leveraging IBC.
 
 An excellent opportunity to put these newly acquired skills into practice is by following the checkers extension tutorial (soon to be published).
