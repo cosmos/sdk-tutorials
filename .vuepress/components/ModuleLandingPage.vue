@@ -18,7 +18,8 @@
 			h2(:id="$frontmatter.weekly ? 'weekly-path' : 'course-modules'") {{$frontmatter.weekly ? "Weekly Plan" : "Course Modules"}}
 			card-module(v-for="module in this.modules" v-if="module.title && module.number" :module="module" :main="$frontmatter.main" :weekly="$frontmatter.weekly || false").modules__item
 		.modules-intro__wrapper.mt-10.mb-10(v-if="$frontmatter.customModules && $frontmatter.customModules.sections")
-			h3(v-if="$frontmatter.customModules.subtitle") {{$frontmatter.customModules.subtitle}}
+			h2(v-if="$frontmatter.customModules.title") {{$frontmatter.customModules.title}}
+			.modules-intro__description.mt-5(v-if="$frontmatter.customModules.description") {{$frontmatter.customModules.description}}
 			.cards
 				.cards__wrapper(v-for="card in $frontmatter.customModules.sections")
 					card-links.cards__item(
@@ -41,6 +42,8 @@
 
 
 <style lang="stylus" scoped>
+	.modules-intro__description
+		font-style italic
 	.cards
 		display flex
 		justify-content space-between
