@@ -1,8 +1,11 @@
 ---
 title: "Hermes Relayer"
-order: 10
+order: 5
 description: Relayer implementation in Rust
-tag: deep-dive
+tags:
+  - guided-coding
+  - ibc
+  - dev-ops
 ---
 
 # Hermes Relayer
@@ -11,11 +14,11 @@ tag: deep-dive
 
 Before you dive into Go relayers, make sure to:
 
-- Install Go.
-- Install Docker.
-- Install Rust.
+* Install Go.
+* Install Docker.
+* Install Rust.
 
-For all installations, please see the [setup page](../3-my-own-chain/setup.md).
+For all installations, please see the [setup page](/tutorials/2-work-environment/setup.md).
 
 </HighlightBox>
 
@@ -23,18 +26,18 @@ For all installations, please see the [setup page](../3-my-own-chain/setup.md).
 
 In this section, you will learn:
 
-- How to get started with the Hermes relayer.
-- Basic Hermes relayer commands.
+* How to get started with the Hermes relayer.
+* Basic Hermes relayer commands.
 
 </HighlightBox>
 
-[Hermes](https://hermes.informal.systems/) is a an open-source Rust implementation of a relayer for the Inter-Blockchain Communication Protocol (IBC). Hermes is most widely used in production by relayer operators. It offers great logging and debugging options, but compared to the Go relayer may require some more detailed knowledge of IBC to use it properly.
+[Hermes](https://hermes.informal.systems/) is an open-source Rust implementation of a relayer for the Inter-Blockchain Communication Protocol (IBC). Hermes is most widely used in production by relayer operators. It offers great logging and debugging options, but compared to the Go relayer may require some more detailed knowledge of IBC to use it properly.
 
 <HighlightBox type="docs">
 
 Installation instructions can be found [in the Hermes documentation from Informal Systems](https://hermes.informal.systems/installation.html). Check the CLI commands with `hermes -h`. Alternatively, check out the [commands reference](https://hermes.informal.systems/commands/index.html) on the Hermes website.
 
-Recently the Hermes relayer upgraded the major version to v1. This is the first stable release and contains loads of improvements which you can check out in the [changelog](https://github.com/informalsystems/ibc-rs/blob/master/CHANGELOG.md#v100). It is recommended to  use v1 or higher from this point forward, and the commands below assume you are using v1.x.y.
+Recently the Hermes relayer upgraded the major version to v1. This is the first stable release and contains loads of improvements which you can check out in the [changelog](https://github.com/informalsystems/ibc-rs/blob/master/CHANGELOG.md#v100). It is recommended to use v1 or higher from this point forward, and the commands below assume you are using v1.x.y.
 
 </HighlightBox>
 
@@ -83,11 +86,11 @@ For now, you need to manually add the data to the config file `config.toml`, whi
 
 <HighlightBox type="note">
 
-The config is not added automatically. The first time you run Hermes, you will have to copy a template and paste it in the aforementioned folder.
+The config is not added automatically. The first time you run Hermes, you will have to copy a template and paste it into the aforementioned folder.
 
 </HighlightBox>
 
-See the [config info](https://hermes.informal.systems/config.html) and the [a sample configuration](https://hermes.informal.systems/example-config.html) for a detailed explanation on all aspects of the config. We will take a closer look at the `[[chains]]` section:
+See the [config info](https://hermes.informal.systems/config.html) and the [a sample configuration](https://hermes.informal.systems/example-config.html) for a detailed explanation on all aspects of the config. Take a closer look at the `[[chains]]` section:
 
 ```toml
 [[chains]]
@@ -112,11 +115,11 @@ trust_threshold = { numerator = '1', denominator = '3' }
 address_type = { derivation = 'cosmos' }
 ```
 
-Pay particular attention to the `RPC`, `gRPC`, and `websocket` endpoints and make sure they correspond with the node you are running. Remember that it is recommended to run your own full node instead of using publicly available endpoints when relaying outside of testing purposes. Also make sure the `key_name` corresponds to the funded address from which you intend to pay relayer fees. The other parameters can be found in the [chain-registry](https://github.com/cosmos/chain-registry) for deployed chains, or set by yourself when creating a new chain (either in production or for testing).
+Pay particular attention to the `RPC`, `gRPC`, and `websocket` endpoints and make sure they correspond with the node you are running. Remember that it is recommended to run your own full node instead of using publicly available endpoints when relaying outside of testing purposes. Also, make sure the `key_name` corresponds to the funded address from which you intend to pay relayer fees. The other parameters can be found in the [chain-registry](https://github.com/cosmos/chain-registry) for deployed chains or set by yourself when creating a new chain (either in production or for testing).
 
 <HighlightBox type="note">
 
-Hermes does not require path information in the config. By default it will relay over all possible paths over all channels that are active on the configured chains. However, it is possible to change this by filtering. Add the following to the chain config:
+Hermes does not require path information in the config. By default, it will relay over all possible paths over all channels that are active on the configured chains. However, it is possible to change this by filtering. Add the following to the chain config:
 
 ```toml
 [chains.packet_filter]
@@ -130,7 +133,7 @@ This filters only the `transfer` channel for the Hub to Osmosis in this example.
 
 </HighlightBox>
 
-### Hermes Start
+### Hermes start
 
 When the chains have been configured, you can start the relayer with the start command:
 
@@ -138,7 +141,7 @@ When the chains have been configured, you can start the relayer with the start c
 $ hermes start
 ```
 
-This powerful command bundles a lot of functionality where Hermes will be listening or events signaling IBC packet send requests, submitting `ReceivePacket` and `AcknowledgePacket` messages, and periodically checking if the clients on serviced chains need updating. However, during the tutorials it makes sense to look at the commands in a more granular way to understand what is going on.
+This powerful command bundles a lot of functionality where Hermes will be listening or events signaling IBC packet send requests, submitting `ReceivePacket` and `AcknowledgePacket` messages, and periodically checking if the clients on serviced chains need updating. However, during the tutorials, it makes sense to look at the commands in a more granular way to understand what is going on.
 
 <HighlightBox type="note">
 
@@ -196,7 +199,7 @@ $ hermes version
 
 <HighlightBox type="note">
 
-In this section you have to run commands both inside the Docker container and on your local terminal. By default, coding examples will indicate the Docker terminal; a comment will inform you when you have to use the local terminal.
+In this section, you have to run commands both inside the Docker container and on your local terminal. By default, coding examples will indicate the Docker terminal; a comment will inform you when you have to use the local terminal.
 
 </HighlightBox>
 
@@ -222,7 +225,7 @@ Do a validation check on the configuration file:
 $ hermes config validate
 ```
 
-Next do a health check:
+Next, do a health check:
 
 ```sh
 $ hermes health-check
@@ -232,7 +235,7 @@ You should see that both chains are healthy. The demo includes a script to start
 
 ### Manual testing - setting up relayer keys
 
-You need some keys to sign transaction. Populate the aliases:
+You need some keys to sign a transaction. Populate the aliases:
 
 ```
 $ hermes keys add --chain checkersa --mnemonic-file "alice.json"
@@ -299,7 +302,7 @@ Create another connection for both chains:
 $ hermes create connection --a-chain checkersa --b-chain checkersb
 ```
 
-In the output of this command you receive the `connection_id`s for both chains. Use the `connection_id` for the **checkersa** chain and create a channel:
+In the output of this command, you receive the `connection_id`s for both chains. Use the `connection_id` for the **checkersa** chain and create a channel:
 
 ```sh
 $ hermes create channel --a-port transfer --b-port transfer --a-chain checkersa --a-connection connection-1
@@ -323,13 +326,13 @@ In case you do not want to test with the default user, you can specify the sende
 
 <HighlightBox type="note">
 
-Usually the Hermes relayer automatically relays packets between the chains if it runs via:
+Usually, the Hermes relayer automatically relays packets between the chains if it runs via:
 
 ```sh
 $ hermes start
 ```
 
-In this case, we want to relay the transfer transaction by hand.
+In this case, you want to relay the transfer transaction by hand.
 
 </HighlightBox>
 
@@ -406,7 +409,7 @@ SUCCESS [
 ]
 ```
 
-Send an acknowledgement to **checkersa**:
+Send an acknowledgment to **checkersa**:
 
 ```sh
 $ hermes tx packet-ack --dst-chain checkersa --src-chain checkersb --src-port transfer --src-channel channel-1
@@ -414,7 +417,7 @@ $ hermes tx packet-ack --dst-chain checkersa --src-chain checkersb --src-port tr
 
 Check the balances again. A new denom should appear because of our recent transfer. As an exercise, transfer the tokens back to **checkersa**.
 
-If the you are finished with the tests, make sure to shut down your network with:
+If you are finished with the tests, make sure to shut down your network with:
 
 ```
 $ docker-compose -f tokentransfer.yml --profile hermes down

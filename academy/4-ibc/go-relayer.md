@@ -1,8 +1,11 @@
 ---
 title: "Go Relayer"
-order: 9
+order: 4
 description: Relayer implementation in Golang
-tag: deep-dive
+tags:
+  - guided-coding
+  - ibc
+  - dev-ops
 ---
 
 # Go Relayer
@@ -11,42 +14,43 @@ tag: deep-dive
 
 Before you dive into Go relayers, make sure to:
 
-- Install Go.
-- Install Docker.
-- Install Rust.
+* Install Go.
+* Install Docker.
+* Install Rust.
 
-For all installations, please see the [setup page](../3-my-own-chain/setup.md).
+For all installations, please see the [setup page](/tutorials/2-work-environment/setup.md).
 
 </HighlightBox>
 
 <HighlightBox type="learning">
 
 Have you considered running a relayer?
-<br></br>
+<br/>
 In this section, you will learn:
 
-- How to get started with the Go relayer.
-- Basic Go relayer commands.
+* How to get started with the Go relayer.
+* Basic Go relayer commands.
 
 </HighlightBox>
 
 [The Go relayer](https://github.com/cosmos/relayer) is a relayer implementation written in Golang. It can create clients, connections, and channels, as well as relay packets and update and upgrade clients.
 
-The Go relayer aims to get your relayer up and running with minimal manual configuration and abstracts away a lot of the more complex IBC concepts. The objective is that users can spin up their own relayer and relay packets. To provide this functionality, it automates a lot of work to fetch configuration data from the [chain registry](https://github.com/cosmos/chain-registry).
+The Go relayer aims to get your relayer up and running with minimal manual configuration and abstracts away a lot of the more complex Inter-Blockchain Communication Protocol (IBC) concepts. The objective is that users can spin up their own relayer and relay packets. To provide this functionality, it automates a lot of work to fetch configuration data from the [chain registry](https://github.com/cosmos/chain-registry).
 
 After the installation, you will get started with relaying on mainnet chains and do some local testing.
 
 ## Installation and getting started
 
-The repository offers a script to start two chains, which we need to test the relayer.
+The repository offers a script to start two chains, which you need to test the relayer.
 
 <!-- TODO: once testing locally has been updated, change this text -->
 
 <HighlightBox type="note">
 
-The most up to date major version of the Go relayer is v2. This version delivered major updates and improvements, including the introduction of a provider interface to accommodate chains with different consensus types than Tendermint, and event-based processing that results in performance improvements.
+The most up-to-date major version of the Go relayer is v2. This version delivered major updates and improvements, including the introduction of a provider interface to accommodate chains with different consensus types than Tendermint and event-based processing that results in performance improvements.
 
-We recommend using this latest version, and the following commands assume you're using v2.
+<br/>
+It is recommendable to use this latest version, and the following commands assume you are using v2.
 
 </HighlightBox>
 
@@ -129,18 +133,22 @@ $ rly config show
 
 <HighlightBox type="info">
 
-By default, transactions will be relayed with a memo of `rly(VERSION)` e.g. `rly(v2.0.0)`.
+By default, transactions will be relayed with a memo of `rly(VERSION)` - for example, `rly(v2.0.0)`.
 
+<br/>
 To customize the memo for all relaying, use the `--memo` flag when initializing the configuration.
 
 ```shell
 $ rly config init --memo "My custom memo"
 ```
 
+<br/>
 Custom memos will have `rly(VERSION)` appended. For example, a memo of `My custom memo` running on relayer version `v2.0.0` would result in a transaction memo of `My custom memo | rly(v2.0.0)`.
 
+<br/>
 The `--memo` flag is also available for other `rly` commands that involve sending transactions, such as `rly tx link` and `rly start`. It can be passed there to override the `config.yaml` value if desired.
 
+<br/>
 To omit the memo entirely, including the default value of `rly(VERSION)`, use `-` for the memo.
 
 </HighlightBox>
@@ -153,60 +161,60 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
 
 1. Configure the chains you want to relay between.
 
-   In this example, you will configure the relayer to operate on the canonical path between the Cosmos Hub and Osmosis.
+  In this example, you will configure the relayer to operate on the canonical path between the Cosmos Hub and Osmosis.
 
-   The `rly chains add` command fetches chain metadata from the [chain registry](https://github.com/cosmos/chain-registry) and adds it to your config file:
+  The `rly chains add` command fetches chain metadata from the [chain registry](https://github.com/cosmos/chain-registry) and adds it to your config file:
 
-   ```sh
-   $ rly chains add cosmoshub osmosis
-   ```
+  ```sh
+  $ rly chains add cosmoshub osmosis
+  ```
 
-   Adding chains from the chain registry randomly selects a publicly available RPC address from the registry entry. If you are running your own node (which is recommended if you are running relaying services professionally), manually go into the config and adjust the `rpc-addr` setting to the RPC endpoint you have exposed.
+  Adding chains from the chain registry randomly selects a publicly available RPC address from the registry entry. If you are running your own node (which is recommended if you are running relaying services professionally), manually go into the config and adjust the `rpc-addr` setting to the RPC endpoint you have exposed.
 
-   <HighlightBox type="note">
+  <HighlightBox type="note">
 
-   `rly chains add` will check the liveliness of the available RPC endpoints for that chain in the chain registry. It is possible that the command will fail if none of these RPC endpoints are available. In this case, you will want to manually add the chain config.
+  `rly chains add` will check the liveliness of the available RPC endpoints for that chain in the chain registry. The command may fail if none of these RPC endpoints are available. In this case, you will want to manually add the chain config.
 
-   </HighlightBox>
+  </HighlightBox>
 
-   To add the chain config files manually, example config files have been included [in the Cosmos relayer documentation](https://github.com/cosmos/relayer/tree/main/docs/example-configs/).
+  To add the chain config files manually, example config files have been included [in the Cosmos relayer documentation](https://github.com/cosmos/relayer/tree/main/docs/example-configs/).
 
-   ```sh
-   $ rly chains add --url https://raw.githubusercontent.com/cosmos/relayer/main/docs/example-configs/cosmoshub-4.json
-   $ rly chains add --url https://raw.githubusercontent.com/cosmos/relayer/main/docs/example-configs/osmosis-1.json
-   ```
+  ```sh
+  $ rly chains add --url https://raw.githubusercontent.com/cosmos/relayer/main/docs/example-configs/cosmoshub-4.json
+  $ rly chains add --url https://raw.githubusercontent.com/cosmos/relayer/main/docs/example-configs/osmosis-1.json
+  ```
 
 2. Import OR create new keys for the relayer to use when signing and relaying transactions.
 
-   <HighlightBox type="info">
+  <HighlightBox type="info">
 
-   `key-name` is an identifier of your choosing.
+  `key-name` is an identifier of your choosing.
 
-   </HighlightBox>
+  </HighlightBox>
 
-   - If you need to generate a new private key you can use the `add` subcommand:
+  * If you need to generate a new private key you can use the `add` subcommand:
 
-     ```sh
-     $ rly keys add cosmoshub [key-name]
-     $ rly keys add osmosis [key-name]
-     ```
+    ```sh
+    $ rly keys add cosmoshub [key-name]
+    $ rly keys add osmosis [key-name]
+    ```
 
-   - If you already have a private key and want to restore it from your mnemonic you can use the `restore` subcommand:
+  * If you already have a private key and want to restore it from your mnemonic you can use the `restore` subcommand:
 
-     ```sh
-     $ rly keys restore cosmoshub [key-name] "mnemonic words here"
-     $ rly keys restore osmosis [key-name] "mnemonic words here"
-     ```
+    ```sh
+    $ rly keys restore cosmoshub [key-name] "mnemonic words here"
+    $ rly keys restore osmosis [key-name] "mnemonic words here"
+    ```
 
 3. Edit the relayer's `key` values in the config file to match the `key-name`s chosen above.
 
-   <HighlightBox type="info">
+  <HighlightBox type="info">
 
-   This step is necessary if you chose a `key-name` other than "default".
+  This step is necessary if you chose a `key-name` other than "default".
 
-   </HighlightBox>
+  </HighlightBox>
 
-   Example:
+  Example:
 
    ```yaml
    - type: cosmos
@@ -218,116 +226,116 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
 
 4. Ensure the keys associated with the configured chains are funded.
 
-   <HighlightBox type="best-practice">
+  <HighlightBox type="best-practice">
 
-   **ATTENTION:** Your configured addresses will need to contain some of the respective native tokens to pay relayer fees.
+  **ATTENTION:** Your configured addresses will need to contain some of the respective native tokens to pay relayer fees.
 
-   </HighlightBox>
+  </HighlightBox>
 
-   You can query the balance of each configured key by running:
+  You can query the balance of each configured key by running:
 
-   ```sh
-   $ rly q balance cosmoshub
-   $ rly q balance osmosis
-   ```
+  ```sh
+  $ rly q balance cosmoshub
+  $ rly q balance osmosis
+  ```
 
 5. Configure path metadata in the config file.
 
-   You configured the _chain_ metadata, now you need _path_ metadata. This scenario assumes that there is already a canonical channel, so there is no need for light client creation, nor connection and channel handshakes to set these up.
+  You configured the _chain_ metadata, now you need _path_ metadata. This scenario assumes that there is already a canonical channel, so there is no need for light client creation, nor connection and channel handshakes to set these up.
 
-   There is one easy command to get this path information - initially from the [Interchain folder](https://github.com/cosmos/relayer/tree/main/interchain) in the Go relayer repository, but this is being replaced by [IBC data in the chain registry](https://github.com/cosmos/chain-registry/tree/master/_IBC).
+  There is one easy command to get this path information - initially from the [Interchain folder](https://github.com/cosmos/relayer/tree/main/interchain) in the Go relayer repository, but this is being replaced by [IBC data in the chain registry](https://github.com/cosmos/chain-registry/tree/master/_IBC).
 
-   ```sh
-   $ rly paths fetch
-   ```
+  ```sh
+  $ rly paths fetch
+  ```
 
-   <HighlightBox type="note">
+  <HighlightBox type="note">
 
-   Don't see the path metadata for paths you want to relay on? Please open a Push Request (PR) to add this metadata to the GitHub repository!
+  Do not see the path metadata for paths you want to relay on? Please open a Push Request (PR) to add this metadata to the GitHub repository!
 
-   </HighlightBox>
+  </HighlightBox>
 
 6. Configure the channel filter.
 
-   By default, the relayer will relay packets over all channels on a given connection.
+  By default, the relayer will relay packets over all channels on a given connection.
 
-   Each path has an `src-channel-filter`, which you can utilize to specify which channels you would like to relay on.
+  Each path has an `src-channel-filter`, which you can utilize to specify which channels you would like to relay on.
 
-   The `rule` can be one of three values:
+  The `rule` can be one of three values:
 
-   - `allowlist`, which tells the relayer to relay on _ONLY_ the channels in `channel-list`.
-   - `denylist`, which tells the relayer to relay on all channels _EXCEPT_ the channels in `channel-list`.
-   - Empty value, which is the default setting and tells the relayer to relay on all channels.
+  * `allowlist`, which tells the relayer to relay on _ONLY_ the channels in `channel-list`.
+  * `denylist`, which tells the relayer to relay on all channels _EXCEPT_ the channels in `channel-list`.
+  * Empty value, which is the default setting and tells the relayer to relay on all channels.
 
-   Since you should only be worried about the canonical channel between the Cosmos Hub and Osmosis, our filter settings would look like the following:
+  Since you should only be worried about the canonical channel between the Cosmos Hub and Osmosis, our filter settings would look like the following:
 
-   Example:
+  Example:
 
-   ```yaml
+  ```yaml
    hubosmo:
-     src:
-       chain-id: cosmoshub-4
-       client-id: 07-tendermint-259
-       connection-id: connection-257
-     dst:
-       chain-id: osmosis-1
-       client-id: 07-tendermint-1
-       connection-id: connection-1
-     src-channel-filter:
-       rule: allowlist
-       channel-list: [channel-141]
-   ```
+    src:
+      chain-id: cosmoshub-4
+      client-id: 07-tendermint-259
+      connection-id: connection-257
+    dst:
+      chain-id: osmosis-1
+      client-id: 07-tendermint-1
+      connection-id: connection-1
+    src-channel-filter:
+      rule: allowlist
+      channel-list: [channel-141]
+  ```
 
-   <HighlightBox type="info">
+  <HighlightBox type="info">
 
-   Because two channels between chains are tightly coupled, there is no need to specify the dst channels.
+  Because two channels between chains are tightly coupled, there is no need to specify the dst channels.
 
-   </HighlightBox>
+  </HighlightBox>
 
 7. Do a status check.
 
-   Before starting to relay and after making some changes to the config, you can check the status of the chains and paths in the config:
+  Before starting to relay and after making some changes to the config, you can check the status of the chains and paths in the config:
 
-   ```sh
-   $ rly chains list
-   ```
+  ```sh
+  $ rly chains list
+  ```
 
-   Which returns this output when healthy:
+  Which returns this output when healthy:
 
-   ```
-   0: cosmoshub-4          -> type(cosmos) key(✔) bal(✔) path(✔)
-   1: osmosis-1            -> type(cosmos) key(✔) bal(✔) path(✔)
-   ```
+  ```
+  0: cosmoshub-4          -> type(cosmos) key(✔) bal(✔) path(✔)
+  1: osmosis-1            -> type(cosmos) key(✔) bal(✔) path(✔)
+  ```
 
-   ```sh
-   $ rly paths list
-   ```
+  ```sh
+  $ rly paths list
+  ```
 
-   Which return this output when healthy:
+  Which return this output when healthy:
 
-   ```
-   0: cosmoshub-osmosis              -> chns(✔) clnts(✔) conn(✔) (cosmoshub-4<>osmosis-1)
-   ```
+  ```
+  0: cosmoshub-osmosis              -> chns(✔) clnts(✔) conn(✔) (cosmoshub-4<>osmosis-1)
+  ```
 
-   In case one of the checks receives a `✘` instead of `✔`, you will need to check if you completed all the previous steps correctly.
+  In case one of the checks receives a `✘` instead of `✔`, you will need to check if you completed all the previous steps correctly.
 
 8. Finally, start the relayer on the desired path.
 
-   The relayer will periodically update the clients and listen for IBC messages to relay.
+  The relayer will periodically update the clients and listen for IBC messages to relay.
 
-   ```sh
-   $ rly start [path]
-   ```
+  ```sh
+  $ rly start [path]
+  ```
 
-   The relayer now has an event processor added to respond to emitted events signaling an IBC packet event. You can use it by adding an additional flag:
+  The relayer now has an event processor added to respond to emitted events signaling an IBC packet event. You can use it by adding an additional flag:
 
-   ```sh
-   $ rly start [path] -p events
-   ```
+  ```sh
+  $ rly start [path] -p events
+  ```
 
-   You will need to start a separate shell instance for each path you wish to relay over.
+  You will need to start a separate shell instance for each path you wish to relay over.
 
-   When running multiple instances of `rly start`, you will need to use the `--debug-addr` flag and provide an `address:port`. You can also pass an empty string `''` to turn off this feature, or pass `localhost:0` to randomly select a port.
+  When running multiple instances of `rly start`, you will need to use the `--debug-addr` flag and provide an `address:port`. You can also pass an empty string `''` to turn off this feature, or pass `localhost:0` to randomly select a port.
 
 ## Testing locally
 
