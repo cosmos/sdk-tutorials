@@ -2233,10 +2233,22 @@ Note how it took the time of the block when v1 stopped.
 
 You can similarly confirm that the player info records are correctly saved. Congratulations, you have upgraded your blockchain almost as if in production.
 
-## Next up
-
 Your checkers blockchain is done! It has a leaderboard, which was introduced later in production thanks to migrations.
 
 You no doubt have many ideas about how to improve it. In particular, you could implement the missing _draw_ mechanism, which in effect has to be accepted by both players.
 
-It is time to move away from the checkers blockchain learning exercise, and explore another helpful tool for working with the Cosmos SDK: [CosmWasm](./cosmwasm.md).
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to add a leaderboard to an existing blockchain, and the characteristics that a good leaderboard should boast.
+* How to upgrade a blockchain in production, by migrating from v1 of the blockchain to v2, and the new data structures that will be introduced by the upgrade. 
+* How to handle the data migrations and logic upgrades implicit during migration, such as with the use of private helper functions.
+* Worthwhile unit tests with regard to player info and leaderboard handling. 
+* A complete procedure for how to conduct the update via the CLI.
+
+</HighlightBox>
+
+<!--## Next up
+
+It is time to move away from the checkers blockchain learning exercise, and explore another helpful tool for working with the Cosmos SDK: [CosmWasm](./cosmwasm.md).-->
