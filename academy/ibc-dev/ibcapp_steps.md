@@ -675,7 +675,7 @@ For a full overview, check out the [ibc-go docs](https://ibc.cosmos.network/main
 
 You will notice that Ignite CLI uses a custom `cosmosibckeeper` package which you can find [here](https://github.com/ignite/cli/tree/develop/ignite/pkg/cosmosibckeeper).
 
-#### Routing and app.go
+#### Routing and `app.go`
 
 When looking at `app.go` you will see some minor additions, the most prominent of which is adding a route to the `Leaderboard` module on the `IBC Router`.
 
