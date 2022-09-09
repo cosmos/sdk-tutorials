@@ -1,8 +1,18 @@
-# Make a module IBC-enabled
+---
+title: "Make a Module IBC-Enabled"
+order: 7
+description: 
+tags: 
+  - guided-coding
+  - dev-ops
+  - ibc
+---
+
+# Make a Module IBC-Enabled
 
 In this section, you'll build a conceptual SDK blockchain with one module: first as a regular module, and second as an IBC module. This will introduce you to what makes a module IBC-enabled.
 
-## Scaffold a Leaderboard chain
+## Scaffold a leaderboard chain
 
 By now you should be familiar with scaffolding a chain with Ignite CLI. If not, check out the [Create Your Own Chain](./../3-my-own-chain/index.md) section.
 
@@ -61,7 +71,7 @@ You can use git or GitHub to visualize the `git diff`s or alternatively use [dif
 
 ## IBC application module requirements
 
-What does Ignite CLI do behind the scenes when creating an IBC module for us? What do you need to implement if you want to upgrade a regular custom application module to an IBC enabled module?
+What does Ignite CLI do behind the scenes when creating an IBC module for us? What do you need to implement if you want to upgrade a regular custom application module to an IBC-enabled module?
 
 The required steps to implement can be found in the [ibc-go docs](https://ibc.cosmos.network/main/ibc/apps/apps.html). There you will find:
 
@@ -69,18 +79,18 @@ The required steps to implement can be found in the [ibc-go docs](https://ibc.co
 
 **To have your module interact over IBC you must:**
 
-- implement the `IBCModule` interface, i.e.:
-  - channel (opening) handshake callbacks
-  - channel closing handshake callbacks
-  - packet callbacks
-- bind to a port(s)
-- add keeper methods
-- define your own packet data and acknowledgement structs as well as how to encode/decode them
-- add a route to the IBC router
+* Implement the `IBCModule` interface:
+  * Channel (opening) handshake callbacks
+  * Channel closing handshake callbacks
+  * Packet callbacks
+* Bind to a port(s).
+* Add keeper methods.
+* Define your packet data and acknowledgment structs as well as how to encode/decode them.
+* Add a route to the IBC router.
 
 </HighlightBox>
 
-Now take a look at the `git diff` and see if you are able to recognize the steps listed above.
+Now take a look at the `git diff` and see if you can recognize the steps listed above.
 
 ### Implementing the `IBCModule` interface
 
@@ -92,9 +102,9 @@ For a full explanation, visit the [ibc-go docs](https://ibc.cosmos.network/main/
 
 The Cosmos SDK expects all IBC modules to implement the [`IBCModule` interface](https://github.com/cosmos/ibc-go/tree/main/modules/core/05-port/types/module.go). This interface contains all of the callbacks IBC expects modules to implement. This includes callbacks related to:
 
-- channel handshake (`OnChanOpenInit`, `OnChanOpenTry`, `OncChanOpenAck`, and `OnChanOpenConfirm`)
-- channel closing (`OnChanCloseInit` and `OnChanCloseConfirm`)
-- packets (`OnRecvPacket`, `OnAcknowledgementPacket`, and `OnTimeoutPacket`).
+* Channel handshake (`OnChanOpenInit`, `OnChanOpenTry`, `OncChanOpenAck`, and `OnChanOpenConfirm`)
+* Channel closing (`OnChanCloseInit` and `OnChanCloseConfirm`)
+* Packets (`OnRecvPacket`, `OnAcknowledgementPacket`, and `OnTimeoutPacket`).
 
 Ignite CLI implements this in the file `x/leaderboard/module_ibc.go`.
 
@@ -156,8 +166,8 @@ counterpartyVersion string,
 
     // Module may have already claimed capability in OnChanOpenInit in the case of crossing hellos
     // (ie chainA and chainB both call ChanOpenInit before one of them calls ChanOpenTry)
-    // If module can already authenticate the capability then module already owns it so we don't need to claim
-    // Otherwise, module does not have channel capability and we must claim it from IBC
+    // If the module can already authenticate the capability then the module already owns it so we don't need to claim
+    // Otherwise, the module does not have channel capability and we must claim it from IBC
     if !am.keeper.AuthenticateCapability(ctx, chanCap, host.ChannelCapabilityPath(portID, channelID)) {
         // Only claim channel capability passed back by IBC module if we do not already own it
         if err := am.keeper.ClaimCapability(ctx, chanCap, host.ChannelCapabilityPath(portID, channelID)); err != nil {
@@ -234,7 +244,7 @@ var ack channeltypes.Acknowledgement
         return channeltypes.NewErrorAcknowledgement(errMsg)
     }
 
-    // NOTE: acknowledgement will be written synchronously during IBC handler execution.
+    // NOTE: acknowledgment will be written synchronously during IBC handler execution.
     return ack
 
 }
@@ -339,13 +349,13 @@ var (
 
 Application modules are expected to verify the versioning used during the channel handshake procedure:
 
-- `OnChanOpenInit` will verify that the relayer-chosen parameters are valid and perform any custom `INIT` logic.
-  - It may return an error if the chosen parameters are invalid, in which case the handshake is aborted. If the provided version string is non-empty, `OnChanOpenInit` should return the version string if valid or an error if the provided version is invalid.
-  - **If the version string is empty, `OnChanOpenInit` is expected to return a default version string representing the version(s) it supports.** If there is no default version string for the application, it should return an error if the provided version is an empty string.
-- `OnChanOpenTry` will verify the relayer-chosen parameters along with the counterparty-chosen version string and perform custom `TRY` logic.
-  - If the relayer-chosen parameters are invalid, the callback must return an error to abort the handshake. If the counterparty-chosen version is not compatible with this module's supported versions, the callback must return an error to abort the handshake.
-  - If the versions are compatible, the try callback must select the final version string and return it to core IBC.`OnChanOpenTry` may also perform custom initialization logic.
-- `OnChanOpenAck` will error if the counterparty selected version string is invalid and abort the handshake. It may also perform custom `ACK` logic.
+* `OnChanOpenInit` will verify that the relayer-chosen parameters are valid and perform any custom `INIT` logic.
+  * It may return an error if the chosen parameters are invalid, in which case the handshake is aborted. If the provided version string is non-empty, `OnChanOpenInit` should return the version string if valid or an error if the provided version is invalid.
+  * **If the version string is empty, `OnChanOpenInit` is expected to return a default version string representing the version(s) it supports.** If there is no default version string for the application, it should return an error if the provided version is an empty string.
+* `OnChanOpenTry` will verify the relayer-chosen parameters along with the counterparty-chosen version string and perform custom `TRY` logic.
+  * If the relayer-chosen parameters are invalid, the callback must return an error to abort the handshake. If the counterparty-chosen version is not compatible with this module's supported versions, the callback must return an error to abort the handshake.
+  * If the versions are compatible, the try callback must select the final version string and return it to core IBC.`OnChanOpenTry` may also perform custom initialization logic.
+* `OnChanOpenAck` will error if the counterparty selected version string is invalid and abort the handshake. It may also perform custom `ACK` logic.
 
 <HighlightBox type="info">
 
@@ -359,7 +369,7 @@ However, the version string can also include metadata to indicate attributes of 
 
 The general application packet flow was discussed in [a previous section](https://tutorials.cosmos.network/academy/4-ibc/channels.html#application-packet-flow). As a refresher, let's take a look at the diagram:
 
-![packet flow](./images/packetflow.png)
+![Packet flow](./images/packetflow.png)
 
 The packet callbacks in the packet flow can now be identified by investigating the `IBCModule` interface.
 
@@ -375,7 +385,7 @@ In order to prevent modules from sending packets on channels they do not own, IB
 
 <HighlightBox type="reading">
 
-For advanced readers, more on capabilities can be found in the [ibc-go docs](https://ibc.cosmos.network/main/ibc/overview.html#capabilities) or in the [ADR on the Dynamic Capability Store](https://github.com/cosmos/cosmos-sdk/blob/6aaf83c894e917836a047b0399dd70a95fd2710d/docs/architecture/adr-003-dynamic-capability-store.md).
+For advanced readers, more on capabilities can be found in the [ibc-go docs](https://ibc.cosmos.network/main/ibc/overview.html#capabilities) or the [ADR on the Dynamic Capability Store](https://github.com/cosmos/cosmos-sdk/blob/6aaf83c894e917836a047b0399dd70a95fd2710d/docs/architecture/adr-003-dynamic-capability-store.md).
 
 </HighlightBox>
 
@@ -383,20 +393,20 @@ For advanced readers, more on capabilities can be found in the [ibc-go docs](htt
 
 To handle receiving packets, the module must implement the `OnRecvPacket` callback. This gets invoked by the IBC module after the packet has been proved valid and correctly processed by the IBC keepers. Thus, the `OnRecvPacket` callback only needs to worry about making the appropriate state changes given the packet data without worrying about whether the packet is valid or not.
 
-Modules may return to the IBC handler an acknowledgement which implements the `Acknowledgement` interface. The IBC handler will then commit this acknowledgement of the packet so that a relayer may relay the acknowledgement back to the sender module.
+Modules may return to the IBC handler an acknowledgment which implements the `Acknowledgement` interface. The IBC handler will then commit this acknowledgment of the packet so that a relayer may relay the acknowledgment back to the sender module.
 
 The state changes that occurred during this callback will only be written if:
 
-- The acknowledgement was successful as indicated by the `Success()` function of the acknowledgement.
-- The acknowledgement returned is nil, indicating that an asynchronous process is occurring.
+* The acknowledgment was successful as indicated by the `Success()` function of the acknowledgement.
+* The acknowledgment returned is nil, indicating that an asynchronous process is occurring.
 
 <HighlightBox type="note">
 
-Applications which process asynchronous acknowledgements must handle reverting state changes when appropriate. Any state changes that occurred during the `OnRecvPacket` callback will be written for asynchronous acknowledgements.
+Applications that process asynchronous acknowledgments must handle reverting state changes when appropriate. Any state changes that occurred during the `OnRecvPacket` callback will be written for asynchronous acknowledgments.
 
 </HighlightBox>
 
-In `x/leaderboard/module_ibc.go` scaffolded by Ignite CLI we find `OnRecvPacket`:
+In `x/leaderboard/module_ibc.go` scaffolded by Ignite CLI you find `OnRecvPacket`:
 
 ```go
 // OnRecvPacket implements the IBCModule interface
@@ -420,12 +430,12 @@ func (am AppModule) OnRecvPacket(
 		return channeltypes.NewErrorAcknowledgement(errMsg)
 	}
 
-	// NOTE: acknowledgement will be written synchronously during IBC handler execution.
+	// NOTE: acknowledgment will be written synchronously during IBC handler execution.
 	return ack
 }
 ```
 
-The _dispatch packet_ switch statement is added by Ignite CLI. As it is stated in the docs, strictly speaking you only need to decode the packet data (which is discussed in a next section) and return the acknowledgement after processing the packet. However, the structure provided by Ignite CLI is useful to get set up, but can be changed according to the preference of the developer.
+The _dispatch packet_ switch statement is added by Ignite CLI. As it is stated in the docs, strictly speaking, you only need to decode the packet data (which is discussed in an upcoming section) and return the acknowledgment after processing the packet. However, the structure provided by Ignite CLI is useful to get set up but can be changed according to the preference of the developer.
 
 As a reminder, this is the `Acknowledgement` interface:
 
@@ -440,11 +450,11 @@ type Acknowledgement interface {
 
 ##### Acknowledging packets
 
-The last step of the packet flow depends on whether we have a happy path, when the packet has been successfully relayed, or a timeout, when something went wrong.
+The last step of the packet flow depends on whether you have a happy path, when the packet has been successfully relayed, or a timeout when something went wrong.
 
-After a module writes an `Acknowledgement`, a relayer can relay it back to the sender module. The sender module can then process the acknowledgement using the `OnAcknowledgementPacket` callback. The contents of the `Acknowledgement` are entirely up to the modules on the channel (just like the packet data); however, it may often contain information on whether the packet was successfully processed, along with some additional data that could be useful for remediation if the packet processing failed.
+After a module writes an `Acknowledgement`, a relayer can relay it back to the sender module. The sender module can then process the acknowledgment using the `OnAcknowledgementPacket` callback. The contents of the `Acknowledgement` are entirely up to the modules on the channel (just like the packet data); however, it may often contain information on whether the packet was successfully processed, along with some additional data that could be useful for remediation if the packet processing failed.
 
-Since the modules are responsible for agreeing on an encoding/decoding standard for packet data and acknowledgements, IBC will pass in the acknowledgements as `[]byte` to this callback. The callback is responsible for decoding the acknowledgement and processing it.
+Since the modules are responsible for agreeing on an encoding/decoding standard for packet data and acknowledgments, IBC will pass in the acknowledgments as `[]byte` to this callback. The callback is responsible for decoding the acknowledgment and processing it.
 
 In `x/leaderboard/module_ibc.go` scaffolded by Ignite CLI you will find `OnAcknowledgementPacket`:
 
@@ -539,7 +549,7 @@ Every IBC module binds to a port, with a unique `portID` which denotes the type 
 
 <HighlightBox type="note">
 
-The `portID` does not refer to a certain numerical ID, like `localhost:8080` with a `portID` 8080. Rather it refers to the application module to which the port binds. For IBC modules built with the Cosmos SDK it defaults to the module's name, and for CosmWasm contracts it defaults to the contract address.
+The `portID` does not refer to a certain numerical ID, like `localhost:8080` with a `portID` 8080. Rather it refers to the application module to which the port binds. For IBC modules built with the Cosmos SDK it defaults to the module's name, and for CosmWasm contracts, it defaults to the contract address.
 
 </HighlightBox>
 
@@ -579,7 +589,7 @@ Currently, ports must be bound on app initialization. In order to bind modules t
 
 <HighlightBox type="note">
 
-By default the `portID` is indeed set to the module name, and the application version is set to `<modulename>-n` with `n` an incrementing value.
+By default, the `portID` is indeed set to the module name, and the application version is set to `<modulename>-n` with `n` as an incrementing value.
 
 </HighlightBox>
 
@@ -648,7 +658,7 @@ By default the `portID` is indeed set to the module name, and the application ve
    }
 
    // BindPort defines a wrapper function for the port Keeper's function in
-   // order to expose it to module's InitGenesis function
+   // order to expose it to the module's InitGenesis function
    func (k Keeper) BindPort(ctx sdk.Context, portID string) error {
        cap := k.portKeeper.BindPort(ctx, portID)
        return k.ClaimCapability(ctx, cap, host.PortPath(portID))
@@ -661,7 +671,7 @@ By default the `portID` is indeed set to the module name, and the application ve
 
 Previous steps sometimes referenced keeper methods that deal with binding to and getting and setting a port, claiming and authenticating capabilities. These methods need to be added to the keeper.
 
-For a full overview, check out the [ibc-go docs](https://ibc.cosmos.network/main/ibc/apps/keeper.html) and compare with the `x/leaderboard/keeper/keeper.go` file.
+For a full overview, check out the [ibc-go docs](https://ibc.cosmos.network/main/ibc/apps/keeper.html) and compare it with the `x/leaderboard/keeper/keeper.go` file.
 
 You will notice that Ignite CLI uses a custom `cosmosibckeeper` package which you can find [here](https://github.com/ignite/cli/tree/develop/ignite/pkg/cosmosibckeeper).
 
@@ -681,5 +691,4 @@ When looking at `app.go` you will see some minor additions, the most prominent o
 
 #### Next up
 
-Until now how to define packet and acknowledgement data has not been explored. In the next section you will first scaffold the packet with Ignite CLI and again compare the additions with a `git diff`.
-````
+Until now how to define packet and acknowledgment data has not been explored. In the next section you will first scaffold the packet with Ignite CLI and again compare the additions with a `git diff`.

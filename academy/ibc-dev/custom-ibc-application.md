@@ -1,3 +1,4 @@
+<!-- DO NOT INCLUDE -->
 ---
 title: "Implement a Custom IBC Application"
 order:

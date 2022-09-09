@@ -1,12 +1,20 @@
+---
+title: "IBC Application Developer Introduction"
+order: 6
+description: 
+tags: 
+  - ibc
+  - cosmos-sdk
+  - concepts
+---
+
 # IBC Application Developer Introduction
 
-In the previous sections you've learned how to create custom SDK modules. Additionally, you've had an introduction to IBC, the ibc-go module in the SDK, and how to spin up a relayer to send IBC packets.
+You might have already dived into [how to create custom SDK modules](tutorials/7-understand-sdk-modules/index.md). Additionally, you had an [introduction to IBC](/academy/3-ibc/what-is-ibc.md), the ibc-go module in the SDK, and how to [spin up a relayer to send IBC packets](/tutorials/4-ibc-dev/relayer-intro.md).
 
-<!-- TODO: Add relative links -->
+Remember the separation of concerns in the Inter-Blockchain Communication Protocol (IBC) between the transport layer (IBC/TAO) and the application layer (IBC/APP). The transport layer provides the basic infrastructure layer to _transport_, _authenticate_, and _order_ arbitrary packets of data. The encoding, decoding, and interpretation of the data to trigger the custom application logic is then up to the application layer. The examples of token transfer sent over IBC implicitly used the ICS-20 or _transfer_ IBC application module provided by the **ibc-go** SDK module (which also provides the core transport layer functionality).
 
-Remember the separation of concerns in IBC between the transport layer (IBC/TAO) and the application layer (IBC/APP). The transport layer provides the basic infrastructure layer to _transport_, _authenticate_, and _order_ arbitrary packets of data. The encoding, decoding, and interpretation of the data to trigger custom application logic is then up to the application layer. The examples of token transfer sent over IBC implicitly used the ICS-20 or _transfer_ IBC application module provided by the **ibc-go** SDK module (which also provides the core transport layer functionality).
-
-In the following sections, you'll learn how to develop your custom IBC application modules, either by upgrading an existing module or starting from scratch using Ignite CLI.
+In the following sections, you will learn how to develop your custom IBC application modules, either by upgrading an existing module or starting from scratch using Ignite CLI.
 
 <HighlightBox type="docs">
 
@@ -14,18 +22,17 @@ In the [integration](https://ibc.cosmos.network/v3.0.0/ibc/integration.html) sec
 
 Note that this does not mean that the main application modules turn into IBC modules, it only means IBC is enabled for the chain. The IBC module has come out-of-the-box in Comsos SDK chains since the 0.40.x version of the SDK, so it is unlikely you'll have to implement these steps manually when developing a chain.
 
-For example, the checkers appchain you developed in the previous section **is IBC-enabled**. This is revealed when trying to send IBC denoms from other chains in order to set a wager. However, this does not make the `x/checkers` module an IBC enabled module. We will investigate all the additions required to make the module IBC-enabled in what follows.
+For example, the checkers blockchain you developed in the previous section **is IBC-enabled**. This is revealed when trying to send IBC denoms from other chains in order to set a wager. However, this does not make the `x/checkers` module an IBC-enabled module. you will investigate all the additions required to make the module IBC-enabled in what follows.
 
 </HiglightBox>
 
+## Structure of the sections to come
 
-## Structure of the section
-
-In this section, we will first investigate the code you have to add to make a module IBC-enabled. For this conceptual example we will build a simple chain from scratch with Ignite CLI. Ignite CLI provides the option to scaffold an IBC module, which does all of the hard work in terms of boilerplate code. Still, it makes sense to take a look at what exactly has changed. Therefore we will compare the code with a _git diff_ when scaffolding a chain with a regular module and when we scaffold an IBC module.
+In this part of the chapter, you will first investigate the code you have to add to make a module IBC-enabled. For this conceptual example, you will build a simple chain from scratch with Ignite CLI. Ignite CLI provides the option to scaffold an IBC module, which does all of the hard work in terms of boilerplate code. Still, it makes sense to take a look at what exactly has changed. Therefore, you will compare the code with a _git diff_ when scaffolding a chain with a regular module and when you scaffold an IBC module.
 
 A similar approach will be taken to check what Ignite CLI implements when scaffolding an IBC packet.
 
-After finishing the conceptual part, we are going to expand the checkers blockchain you created to turn it into an IBC module, and will create an additional leaderboard blockchain to act as a seperate appchain that can interact via IBC with the checkers blockchain.
+After finishing the conceptual part, you are going to expand the checkers blockchain you created to turn it into an IBC module, and will create an additional leaderboard blockchain to act as a separate appchain that can interact via IBC with the checkers blockchain.
 
 <!-- TODO: add link to checkers extension tutorial -->
 
