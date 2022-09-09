@@ -2,7 +2,9 @@
 title: "Create Custom Messages for Your Checkers Blockchain"
 order: 7
 description: Introduce the message to create a game
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Create Custom Messages for Your Checkers Blockchain
@@ -575,7 +577,18 @@ It appears that nothing changed. Ignite CLI created a message, you even signed a
 
 When you are done with this exercise you can stop Ignite's `chain serve.`
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to make it possible for participants of the checkers blockchain game to create games with a single message, using a Protobuf object and a Protobuf service interface.
+* Which elements must be specified (and which must not) when instructing Ignite CLI to send a game creation message.
+* How to add a test file to check the functionality of your code.
+* How to interact via the CLI to confirm the "create a game" message occurs as intended - though the absence of a dedicated Message Handler means that currently no game is created.
+
+</HighlightBox>
+
+<!--## Next up
 
 Ignite CLI separates concerns into different files. The most relevant file currently is `x/checkers/keeper/msg_server_create_game.go`, which is created once. The creation of the game is coded into this file:
 
@@ -583,6 +596,6 @@ Ignite CLI separates concerns into different files. The most relevant file curre
 // TODO: Handling the message
 ```
 
-You need to code in it the creation of the game properly. This is the object of the [next section](./create-handling.md).
+You need to code in it the creation of the game properly. This is the object of the [next section](./create-handling.md).-->
 
 <!-- Add GUI Elements -->

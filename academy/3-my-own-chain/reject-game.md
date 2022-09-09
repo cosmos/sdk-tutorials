@@ -2,7 +2,9 @@
 title: "Message and Handler - Make Sure a Player Can Reject a Game"
 order: 11
 description: Reject a game
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Message and Handler - Make Sure a Player Can Reject a Game
@@ -11,7 +13,7 @@ tag: deep-dive
 
 Before proceeding, make sure you have all you need:
 
-* You understand the concepts of [transactions](../2-main-concepts/transactions.md), [messages](../2-main-concepts/messages.md)), and [Protobuf](../2-main-concepts/protobuf.md).
+* You understand the concepts of [transactions](../2-main-concepts/transactions.md), [messages](../2-main-concepts/messages.md), and [Protobuf](../2-main-concepts/protobuf.md).
 * You know how to [create a message](./create-message.md) with Ignite CLI, and code [its handling](./create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
 * Go is installed.
 * You have the checkers blockchain codebase with the previous messages and their events. If not, follow the [previous steps](./events.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/two-events).
@@ -636,7 +638,19 @@ In this case, you could first introduce the `MoveCount` and its handling. Then w
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to use messages and handlers to build on the gameplay functionalities of your application by adding the capacity for players to reject participating in a game.
+* How to create a new `RejectGame` message object including ID of the game to be rejected.
+* How to add a new rule with the necessary additional information to prevent players from backing out of games in which they have already played moves, and how to declare new errors that respond to attempts to break this new rule.
+* How to add a unit test to check that games can be rejected by the game creator, the black player, and the red player under the approved circumstances, and to check that rejected games are removed and that events are emitted.
+* How to interact via the CLI to confirm the new "game rejection" function is performing as required, and to be aware that preexisting games will permit incorrect game rejection due to your blockchain being in a broken state due to your subsequent changes.
+
+</HighlightBox>
+
+<!--## Next up
 
 Next week's sections cover forfeits and how games end. In the next section, you create a [doubly-linked FIFO](./game-fifo.md). Later you add [deadline](./game-deadline.md) and [game winner](./game-winner.md) fields, before being able to finally [enforce the forfeit](./game-forfeit.md).
 
@@ -644,4 +658,4 @@ Next week's sections cover forfeits and how games end. In the next section, you 
 
 If you want to enable token wagers in your games instead, skip ahead to [wagers](./game-wager.md).
 
-</HighlightBox>
+</HighlightBox>-->

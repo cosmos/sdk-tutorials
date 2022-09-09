@@ -2,7 +2,10 @@
 title: "Set Up Your Work Environment"
 order: 2
 description: All you need for the hands-on sections
-tag: deep-dive
+tags: 
+  - tutorial
+  - cosmos-sdk
+  - dev-ops
 ---
 
 # Set Up Your Work Environment
@@ -81,6 +84,6 @@ The first time you open a Cosmos SDK project with Visual Studio Code, it offers 
 
 </HighlightBox>
 
-## Next up
+<!--## Next up
 
-Now that you are all set, dive right into running a node and explore working with `simapp` in the [next section](./node-api-and-cli.md).
+Now that you are all set, dive right into running a node and explore working with `simapp` in the [next section](./node-api-and-cli.md).-->

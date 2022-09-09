@@ -2,7 +2,9 @@
 title: "Message Handler - Create and Save a Game Properly"
 order: 8
 description: Create a proper game
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Message Handler - Create and Save a Game Properly
@@ -472,9 +474,19 @@ $ checkersd query checkers show-stored-game 1 --output json | jq ".storedGame.bo
 
 When you are done with this exercise you can stop Ignite's `chain serve.`
 
-## Next up
+<HighlightBox type="synopsis">
 
-You will modify this handling in the next sections by:
+To summarize, this section has explored:
+
+* How to implement a Message Handler that will create a new game, save it in storage, and return its ID on receiving the appropriate prompt message.
+* How to create unit tests to demonstrate the validity of your code.
+* How to interact via the CLI to confirm that sending the appropriate transaction will successfully create a game.
+
+</HighlightBox>
+
+## Overview of upcoming content
+
+You will learn how to modify this handling in later sections by:
 
 * Adding [new fields](./game-fifo.md) to the stored information.
 * Adding [an event](./events.md).
@@ -482,4 +494,4 @@ You will modify this handling in the next sections by:
 * Facilitating the eventual [deadline enforcement](./game-forfeit.md).
 * Adding [_money_](./game-wager.md) handling, including [foreign tokens](./wager-denom.md).
 
-Now that a game is created, it is time to play it by adding moves. That is the subject of the [next section](./play-game.md).
+<!--Now that a game is created, it is time to play it by adding moves. That is the subject of the [next section](./play-game.md).-->

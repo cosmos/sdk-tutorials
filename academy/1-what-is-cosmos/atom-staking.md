@@ -2,7 +2,9 @@
 title: "Getting ATOM and Staking It"
 order: 4
 description: Stake your first ATOM
-tag: fast-track
+tags: 
+  - concepts
+  - cosmos-hub
 ---
 
 # Getting ATOM and Staking It
@@ -235,6 +237,15 @@ If you want to re-stake this amount and benefit from the compound effect, go ahe
 
 This completes the exercise: you are set up to participate in the Cosmos Hub network, and even contribute to its security. Your stake will work for you as you continue your Cosmos training journey.
 
-## Next up
+<HighlightBox type="synopsis">
 
-In the [next chapter](../2-main-concepts/index.md), you will continue to explore the Cosmos SDK and learn about the underlying blockchain application architecture.
+To summarize, this section has explored:
+
+* How to safely install and configure a Keplr wallet and transfer ATOM into it.
+* How to stake ATOM on a validator, thereby participating in the security of the blockchain and potentially increasing your wealth by accruing staking rewards.
+
+</HighlightBox>
+
+<!--## Next up
+
+In the [next chapter](../2-main-concepts/index.md), you will continue to explore the Cosmos SDK and learn about the underlying blockchain application architecture.-->

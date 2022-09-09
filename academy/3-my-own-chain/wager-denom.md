@@ -2,7 +2,10 @@
 title: "IBC Token - Play With Cross-Chain Tokens"
 order: 19
 description: Let players wager any fungible token
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
+  - ibc
 ---
 
 # IBC Token - Play With Cross-Chain Tokens
@@ -525,8 +528,21 @@ As soon as you close the browser window the channels on both ends are no longer 
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
 
-In the [next section](./migration.md), you will learn how to conduct chain upgrades through migrations.
+To summarize, this section has explored:
+
+* How to enable the use of cross-chain tokens to make wagers on checkers games as well as your blockchain's base staking token, by making use of the Inter-Blockchain Communication Protocol (IBC).
+* How to update the stored game and the game creation message to allow players to decide what string represents their token.
+* Where to insert the necessary values to allow recognition of token denominations.
+* How to fix your existing tests due to the introduction of a new field and a new event, and how to add a new test when a player makes their first move.
+* How to interact via the CLI to confirm the presence of the new token denomination in a player's balance and that using these tokens to make a wager functions as required.
+* How to demonstrate that your application will accept IBC-foreign tokens from another blockchain, using Ignite CLI's built-in TypeScript relayer as a convenient small-scale local testing tool.
+
+</HighlightBox>
+
+<!--## Next up
+
+In the [next section](./migration.md), you will learn how to conduct chain upgrades through migrations.-->
 
 Alternatively, you can learn how to create the [TypeScript client elements](./cosmjs-objects.md) for your blockchain.

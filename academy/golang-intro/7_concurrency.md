@@ -2,7 +2,8 @@
 title: "Concurrency in Go"
 order: 8
 description: Goroutines and Channels
-tag: deep-dive
+tags: 
+  - tutorial
 ---
 
 # Concurrency in Go
@@ -210,6 +211,16 @@ func main() {
 </HighlightBox>
 
 The default case will run if no other channel is ready. 
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How Go has built-in concurrency (program structure) which enables parallel execution, which in turn is dependent on the hardware.
+* **Goroutines**, which are concurrent threads managed by the Go runtime.
+* **Channels**, which permit communication between goroutines and can be buffered or unbuffered.
+
+</HighlightBox>
 
 <HighlightBox type="reading">
 

@@ -2,7 +2,9 @@
 title: "Messages"
 order: 5
 description: Introduction to MsgService and the flow of messages
-tag: deep-dive
+tags: 
+  - concepts
+  - cosmos-sdk
 ---
 
 # Messages
@@ -319,6 +321,16 @@ If you would like to get started on building your own checkers game, you can go 
 
 </ExpansionPanel>
 
-## Next up
+<HighlightBox type="synopsis">
 
-Look at the above code example to get a better sense of how theory translates into development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can go directly to the [next section](./modules.md) to learn more about modules.
+To summarize, this section has explored:
+
+* Messages, one of two primary objects handled by a module in the Cosmos SDK, which inform the state and have the potential to alter it.
+* How one or more messages form a transaction in the Cosmos SDK, and messages are only processed after a transaction is signed by a validator and included in a block by the consensus layer.
+* An example of more complex message handling capabilities related to the checkers game blockchain. 
+
+</HighlightBox>
+
+<!--## Next up
+
+Look at the above code example to get a better sense of how theory translates into development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can go directly to the [next section](./modules.md) to learn more about modules.-->

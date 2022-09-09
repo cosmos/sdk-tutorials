@@ -3,6 +3,10 @@ parent:
 title: Understand the Authz Module
 order: 0
 description: Use the Cosmos SDK authz module to grant authorizations from one account (the granter) to another account (the grantee).
+tags:
+  - tutorial
+  - cosmos-sdk
+  - dev-ops
 ---
 
 # Authz Module

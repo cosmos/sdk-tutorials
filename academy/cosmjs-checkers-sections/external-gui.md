@@ -2,7 +2,10 @@
 title: "Get an External GUI"
 order: 4
 description: Find a checkers GUI before integrating with CosmJS
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
+  - cosm-js
 ---
 
 # Get an External GUI
@@ -143,6 +146,14 @@ $ docker run --rm -it -v $(pwd):/client -w /client -p 3000:3000 node:18.7 npm st
 
 The application should now open again in the browser at [`http://localhost:3000`](http://localhost:3000).
 
-## Next up
+<HighlightBox type="synopsis">
 
-You now have a working Checkers GUI! You are ready to start interfacing with the Checkers blockchain in the [next section](./cosmjs-gui.md).
+To summarize, this section has explored:
+
+* How to obtain a functioning and fairly recent external GUI for your Checkers blockchain, including how to prepare your files and folders, testing the app to ensure it functions on your machine, where to move or copy files, and testing the app on your own repo after installation.
+
+</HighlightBox>
+
+<!--## Next up
+
+You now have a working Checkers GUI! You are ready to start interfacing with the Checkers blockchain in the [next section](./cosmjs-gui.md).-->

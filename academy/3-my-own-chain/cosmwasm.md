@@ -2,7 +2,10 @@
 title: "CosmWasm"
 order: 21
 description: Multi-chain smart contracts
-tag: deep-dive
+tags: 
+  - tutorial
+  - cosmos-sdk
+  - dev-ops
 ---
 
 # CosmWasm
@@ -404,7 +407,18 @@ You can find more information in the [CosmWasm Developer Academy](https://docs.c
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* CosmWasm, the *Cosmos* way of using *WebAssembly*, which provides a multi-chain solution for smart contracts through an actor-model design pattern that delivers reliable distributed systems.
+* How CosmWasm is code agnostic, requiring only that a Cosmos SDK application embeds the `Wasm` module, and not only makes it possible to connect chains but facilitates an application changing the chain it is platformed on.
+* How you will need **Go** to use the Cosmos SDK and **Rust** to write smart contracts. 
+* How to connect to a testnet; add accounts and query their balance; compile a smart contract; upload a smart contract binary; instantiate the smart contract; and call the smart contract, including how to register, verify, and transfer a name.
+
+</HighlightBox>
+
+## Overview of previous content
 
 At this point, you have:
 
@@ -415,6 +429,6 @@ At this point, you have:
 * [Understood and applied main concepts of the Cosmos SDK.](../2-main-concepts/index.md)
 * [Run a node, API, and CLI for a Cosmos chain.](../3-my-own-chain/node-api-and-cli.md)
 * [Used Ignite CLI to develop your chain.](./ignitecli.md)
-* [Discovered how CosmWasm assists with developing multi-chain smart contracts in Rust.
+* Discovered how CosmWasm assists with developing multi-chain smart contracts in Rust.
 
-Head to the [next chapter](../4-ibc/index.md) to discover the Inter-Blockchain Communication Protocol.
+<!--Head to the [next chapter](../4-ibc/index.md) to discover the Inter-Blockchain Communication Protocol.-->

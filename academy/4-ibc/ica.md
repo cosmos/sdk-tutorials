@@ -2,7 +2,10 @@
 title: "Interchain Accounts"
 order: 7
 description: Work with ICA
-tag: deep-dive
+tags: 
+  - concepts
+  - ibc
+  - dev-ops
 ---
 
 # Interchain Accounts
@@ -35,7 +38,7 @@ The interchain accounts application module is structured to support the ability 
 
 **Authentication Module:** a custom IBC application module on the controller chain that uses the interchain accounts module API to build custom logic for the creation and management of interchain accounts. An authentication module is required for a controller chain to utilize the interchain accounts module functionality.
 
-**interchain account (ICA):** an account on a host chain. An interchain account has all the capabilities of a normal account. However, rather than signing transactions with a private key, a controller chain's authentication module will send IBC packets to the host chain which signal what transactions the interchain account should execute.
+**Interchain account (ICA):** an account on a host chain. An interchain account has all the capabilities of a normal account. However, rather than signing transactions with a private key, a controller chain's authentication module will send IBC packets to the host chain which signal what transactions the interchain account should execute.
 
 The ICA module provides an API for registering an account and for sending interchain transactions. A developer will use this module by implementing an **ICA Auth Module** (_authentication module_) and can expose gRPC endpoints for an application or user. Regular accounts use a private key to sign transactions on-chain. interchain accounts are instead controlled programmatically by separate chains via IBC transactions. interchain accounts are implemented as sub-accounts of the interchain accounts module account.
 
@@ -632,6 +635,16 @@ app.mm.SetOrderInitGenesis(
 )
 ```
 
-## Next up
+<HighlightBox type="synopsis">
 
-After having a closer look at the Cosmos SDK security model, the authentication module, and an example integration, discover relaying with IBC in the [next section](./relayer-intro.md).
+To summarize, this section has explored:
+
+* How an **Interchain account** (ICA) allows you to control an account on a "host chain" from a "controller chain".
+* How the ICA **application module** can be set to function exclusively in the host or controller role, or for these submodules to be enabled and disabled dynamically using on-chain parameters.
+* How an ICA **authentication module** is required on the controller chain for the creation and management of ICAs.
+
+</HighlightBox>
+
+<!--## Next up
+
+After having a closer look at the Cosmos SDK security model, the authentication module, and an example integration, discover relaying with IBC in the [next section](./relayer-intro.md).-->

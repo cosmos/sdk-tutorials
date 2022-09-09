@@ -3,7 +3,6 @@ parent:
   title: Main Concepts
   description: A universe made up of particles
   number: 2
-tag: 
 order: 0
 title: Chapter Overview - Main Concepts in the Cosmos SDK
 ---

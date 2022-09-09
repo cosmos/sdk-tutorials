@@ -2,7 +2,10 @@
 title: "Custom Messages for Your Checkers Blockchain"
 order: 3
 description: Introduce the message to create a game
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
+  - cosm-js
 ---
 
 # Custom Messages for Your Checkers Blockchain
@@ -807,8 +810,17 @@ You can add further tests, for instance:
 1. To see what happens when you continue playing the game [up to its completion](https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/test/integration/stored-game-action.ts#L245-L312).
 2. To reject a game.
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to create the elements necessary for you to begin sending transactions to your Checkers blockchain, including encodable messages, a signing client, and action methods that permit interaction with the blockchain.
+* How to test your signing client, including key preparation (with either a mnemonic or a private key) and client preparation, followed by functions such as creating a game, rejecting a game, or playing a move.
+
+</HighlightBox>
+
+<!--## Next up
 
 You have now included elements and messages that allow you to interact with the checkers blockchain. You confirmed this with some integration tests. The only things that remain to do are adding any [server-side scripts](./server-side.md) and plugging the elements you have created into [a graphical user interface](./external-gui.md).
 
-Head to the [next chapter](https://interchainacademy.cosmos.network/course-ida/landingpages/week6-lp.html) on CosmJS to work on the GUI and backend script for your checkers blockchain.
+Head to the [next chapter](INCLUDE URL AFTER NEW STRUCTURE IS IMPLEMENTED) on CosmJS to work on the GUI and backend script for your checkers blockchain.-->
