@@ -1,6 +1,6 @@
 ---
 parent:
-title: Understanding the Feegrant Module
+title: Understanding the feegrant module
 order: 0
 description: Use the Cosmos SDK feegrant module to grant the use of tokens to pay for fees from one account (the granter) to another account (the grantee).
 tags:
@@ -9,13 +9,13 @@ tags:
   - dev-ops
 ---
 
-# Feegrant Module
+# Understanding the feegrant module
 
 The [`feegrant`](https://docs.cosmos.network/v0.44/modules/feegrant/) module enables the granter (a user, contract, or module) to pay the fees for someone else (the grantee) when the grantee wants to broadcast a transaction on the blockchain. The granter retains full access to their tokens and is able to revoke the allowance at any time.
 
-## Use Feegrant to Grant an Allowance
+## Using feegrant to grant an allowance
 
-An often discussed use case for the `feegrant` module is improved onboarding experience because new users don't have to acquire tokens before they can start interacting with the blockchain or smart contract.  
+An often-discussed use case for the `feegrant` module is _improved onboarding experience_, because new users don't have to acquire tokens before they can start interacting with the blockchain or smart contract.
 
 Two [fee allowance types](https://docs.cosmos.network/v0.44/modules/feegrant/01_concepts.html#fee-allowance-types) are implemented with the `feegrant` module:
 
@@ -27,12 +27,12 @@ Two [fee allowance types](https://docs.cosmos.network/v0.44/modules/feegrant/01_
 
     Grantee uses fees from a granter's account. The allowance has a limit that is periodically reset.
 
-In this tutorial, you will set up two tokens in your blockchain: a default token called `stake` to use for fees and another token called `kudos` to send to your friends.
+In this tutorial, you will set up two tokens in your blockchain: a default token called `stake` to use for fees, and another token called `kudos` to send to your friends.
 
 * You will learn how to spin up a single node network using the simulation application in Cosmos SDK (`simapp`).
-* Set Alice up to be a validator.
-* Bob is the grantee who receives a `BasicAllowance` that allows Bob to send `kudos` tokens to Alice, even though Bob has zero `stake` to pay for fees.
-* Alice is the granter and grants a `BasicAllowance` to Bob.
+* You will set Alice up to be a validator.
+* Bob will be the grantee, who receives a `BasicAllowance` that allows Bob to send `kudos` tokens to Alice, even though Bob has zero `stake` to pay for fees.
+* Alice will be the granter, who grants a `BasicAllowance` to Bob.
 
 ## Requirements
 
@@ -66,9 +66,11 @@ The version number `0.44.0` is output to the console.
 
 ## Configuration
 
-::: tip
+<HighlightBox type="tip">
+
 If you have used `simd` before, you might already have a `.simapp` directory in your home directory. To keep the previous data, either save the directory to another location or use the `--home` flag and specify a different directory for each command in the following instructions. If you don't want to keep the previous data, remove the previous directory (`rm -rf ~/.simapp`).
-:::
+
+</HighlightBox>
 
 Run the following commands to configure the `simd` binary.
 
@@ -106,9 +108,11 @@ If you'd like to see an overview of your keys, use:
 $ simd keys list
 ```
 
-::: tip
+<HighlightBox type="tip">
+
 To avoid having to copy and paste the user addresses, now is a good time to export the user keys to variables that you can access and use for this tutorial.
-:::
+
+</HighlightBox>
 
 ```sh
 $ export ALICE_KEY=$(simd keys show alice -a)
@@ -161,7 +165,7 @@ Start the chain:
 $ simd start
 ```
 
-## Grant Allowance
+## Grant allowance
 
 Before Bob can send `kudos` to Alice, you must set up an allowance for Bob so that Alice pays for any gas fees the transaction might incur.
 
@@ -177,9 +181,9 @@ View the allowance:
 $ simd query feegrant grants $BOB_KEY
 ```
 
-## Send Tokens
+## Send tokens
 
-First, let's check the balances of Alice and Bob. Verifying the initial balance provides a baseline so that you can later confirm if your transaction was successful:
+First, check the balances of Alice and Bob. Verifying the initial balance provides a baseline so that you can later confirm if your transaction was successful:
 
 ```sh
 $ simd query bank balances $ALICE_KEY
@@ -213,7 +217,7 @@ $ simd query feegrant grants $BOB_KEY
 
 Note how `spend_limit` has been reduced and Bob now has `99500stake` left to spend on fees.
 
-## Revoke Allowance
+## Revoke allowance
 
 The granter can revoke the allowance from the grantee using the `revoke` command.
 
@@ -231,11 +235,17 @@ $ simd query feegrant grants $BOB_KEY
 
 ## 🎉 Congratulations 🎉
 
-By completing this tutorial, you have learned how to use the `feegrant` module:
+By completing this tutorial, you have learned how to use the `feegrant` module!
 
-* Configured and used the simulation application (simapp)
-* Created an allowance
-* Made a transaction with fees paid by a granter
-* Revoked an allowance
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to configure and use the simulation application (simapp).
+* How to create an allowance.
+* How to make a transaction with fees paid by a granter.
+* How to revoke an allowance.
+
+</HighlightBox>
 
 There is a lot more that you can do with the `feegrant` module. You can add a list of allowed messages, set an expiration date, and set a time duration after which the spend limit is refilled. To learn more about the `feegrant` module and different types of allowances, check out the Cosmos SDK [Feegrant Module](https://docs.cosmos.network/v0.44/modules/feegrant/) documentation.

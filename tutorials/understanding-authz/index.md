@@ -1,6 +1,6 @@
 ---
 parent:
-title: Understand the Authz Module
+title: Understanding the authz module
 order: 0
 description: Use the Cosmos SDK authz module to grant authorizations from one account (the granter) to another account (the grantee).
 tags:
@@ -9,17 +9,17 @@ tags:
   - dev-ops
 ---
 
-# Authz Module
+# Understanding the authz module
 
-The [authz](https://docs.cosmos.network/v0.44/modules/authz/) (authorization) module enables a granter to grant an authorization to a grantee that allows the grantee to execute messages on behalf of the granter. The authz module is different from the [auth](https://docs.cosmos.network/v0.44/modules/auth/) (authentication) module that is responsible for specifying the base transaction and account types.
+The [authz](https://docs.cosmos.network/v0.44/modules/authz/) (authorization) module enables one user (the granter) to authorize to another (the grantee) to execute messages on their behalf. The authz module is different from the [auth](https://docs.cosmos.network/v0.44/modules/auth/) (authentication) module that is responsible for specifying the base transaction and account types.
 
 ## Use Authz to Grant Authorizations
 
 By implementing the authz module, Cosmos SDK application developers give users the ability to grant certain privileges to other users. For example, a user might want another user to vote on their behalf and so, rather than giving the other user access to their account, the user would grant an authorization that allows the other user to execute `MsgVote` on their behalf.
 
-How users decide to use the authz module is up to them. In one case, a validator might want to create a separate account for voting in order to keep their validator key more secure. In another case, a decentralized autonomous organization (DAO) might want to distribute authorizations to members of the DAO in which case a multisg account would grant authorizations to individual accounts and members of the DAO would be able to execute messages without requiring signatures from all the other members.
+How users decide to use the authz module is up to them. In one case, a validator might want to create a separate account for voting in order to keep their validator key more secure. In another case, a decentralized autonomous organization (DAO) might want to distribute authorizations to members of the DAO, in which case a multisig account would grant authorizations to individual accounts and members of the DAO would be able to execute messages without requiring signatures from all the other members.
 
-In this tutorial, you spin up a single node network using the simulation application in Cosmos SDK (`simapp`), grant an authorization to another account, and then execute a message on behalf of the granter as the grantee.
+In this tutorial, you will spin up a single node network using the simulation application in Cosmos SDK (`simapp`), grant an authorization to another account, and then execute a message on behalf of the granter as the grantee.
 
 ## Requirements
 
@@ -55,9 +55,11 @@ You should see `0.44.0` printed to the console.
 
 <!-- TODO: update tip to use `unsafe-reset-all` with better user experience -->
 
-::: tip
+<HighlightBox type="tip">
+
 If you have used `simd` before, you might already have a `.simapp` directory in your home directory. To keep the previous data, either save the directory to another location or use the `--home` flag and specify a different directory for each command in the following instructions. If you don't want to keep the previous data, remove the previous directory (`rm -rf ~/.simapp`).
-:::
+
+</HighlightBox>
 
 Run the following commands to configure the `simd` binary.
 
@@ -147,7 +149,7 @@ $ simd start
 
 ## Submit Proposal
 
-To demonstrate an authorization to vote on a governance proposal, you must first create a governance proposal. The following command creates a text proposal that includes the minimun deposit, which allows the governance proposal to immediately enter the voting period. For more information about the command and the flag options, run `simd tx gov submit-proposal --help`.
+To demonstrate an authorization to vote on a governance proposal, you must first create a governance proposal. The following command creates a text proposal that includes the minimum deposit, which allows the governance proposal to immediately enter the voting period. For more information about the command and the flag options, run `simd tx gov submit-proposal --help`.
 
 Create proposal:
 
@@ -229,13 +231,19 @@ $ simd query authz grants cosmos1jxd2uhx0j6e59306jq3jfqs7rhs7cnhvey4lqh cosmos1k
 
 ## 🎉 Congratulations 🎉
 
-By completing this tutorial, you have learned how to use the authz module:
+By completing this tutorial, you have learned how to use the authz module!
 
-* Configured and used the simulation application (simapp)
-* Created a governance proposal
-* Created a voting authorization
-* Generated an unsigned transaction
-* Signed and executed a transaction
-* Revoked a voting authorization
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to configure and use the simulation application (simapp).
+* How to create a governance proposal.
+* How to create a voting authorization.
+* How to generate an unsigned transaction.
+* How to sign and execute a transaction.
+* How to revoke a voting authorization.
+
+</HighlightBox>
 
 To learn more about the authorization module and different types of authorizations, check out the [authz module documentation](https://docs.cosmos.network/v0.44/modules/authz/).
