@@ -119,12 +119,12 @@ module.exports = {
           children: [
             {
               title: "Good-To-Know Dev Terms",
-              path: "/tutorials/tech-terms/",
+              path: "/tutorials/1-tech-terms/",
               directory: false,
             },
             {
               title: "Golang Introduction",
-              path: "/academy/golang-intro/",
+              path: "/tutorials/4-golang-intro/",
               directory: true,
             },
             {
