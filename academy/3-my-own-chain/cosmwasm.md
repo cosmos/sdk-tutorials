@@ -34,7 +34,7 @@ Want to read more on the actor model? See [the CosmWasm documentation on the Act
 
 Any Cosmos blockchain can potentially run CosmWasm smart contracts, and they can communicate with Cosmos SDK modules. All that is required is that the binary for the chain imports the Wasm module (part of the Cosmos SDK) that enables this capability.
 
-CosmWasm will be tightly integrated with IBC, meaning that contracts on different chains will be able to communicate with each other. This design creates new possibilities for system designs with topologies that traverse chain boundaries. For example, consider a Dex running on one chain, and oracles or trading signals on other chains, all tightly connected. 
+CosmWasm is tightly integrated with IBC, meaning that contracts on different chains will be able to communicate with each other. This design creates new possibilities for system designs with topologies that traverse chain boundaries. For example, consider a Dex running on one chain, and oracles or trading signals on other chains, all tightly connected. 
 
 CosmWasm contracts are usually written in Rust and then compiled to WebAssembly. Support for other languages is expected over time. CosmWasm separates the ideas of code and instances so that the chain isn’t overloaded with many copies of the same code. Instead, code that is uploaded to the chain once can be instantiated at many different addresses. 
 
