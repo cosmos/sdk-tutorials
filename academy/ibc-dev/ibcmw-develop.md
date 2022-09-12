@@ -469,6 +469,16 @@ func GetAppVersion(
 
 </ExpansionPanel>
 
-## Next up
+<HighlightBox type="synopsis">
 
-After implementing the interfaces `IBCModule` and `ICS4Wrapper` and the custom middleware logic, the remaining work is to integrate the middleware into the chain. You will have to keep in mind the order in the middleware stack (in case there are multiple middlewares) and whether or not the middleware is stateful. This is the topic of the next section.
+To summarize, this section has explored:
+
+* How to integrate middleware (or a middleware stack) in `app.go`.
+* The importance of middleware order in the middleware stack.
+* How only the top-layer middleware of any stack should be connected to the IBC router.
+
+</HighlightBox>
+
+<!--## Next up
+
+After implementing the interfaces `IBCModule` and `ICS4Wrapper` and the custom middleware logic, the remaining work is to integrate the middleware into the chain. You will have to keep in mind the order in the middleware stack (in case there are multiple middlewares) and whether or not the middleware is stateful. This is the topic of the next section.-->

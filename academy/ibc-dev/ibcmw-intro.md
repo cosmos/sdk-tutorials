@@ -61,14 +61,27 @@ Keep in mind that:
 * **The order of the middleware matters** (more on how to correctly define your stack in the code will follow in the [integration section](./ibcmw-integrate.md)).
 * Depending on the type of message, it will either be passed on from the base application up the middleware stack to core IBC or down the stack in the reverse situation (handshake and packet callbacks).
 * IBC middleware will wrap over an underlying IBC application and sits between core IBC and the application. It has complete control in modifying any message coming from IBC to the application, and any message coming from the application to core IBC. **Middleware must be completely trusted by chain developers who wish to integrate them**, as this gives them complete flexibility in modifying the application(s) they wrap.
+* Scaffolding middleware modules with Ignite CLI is currently not supported.
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* The adoption of **middleware**, software implemented in the HTTP request-response cycle to execute custom logic for a wide variety of tasks, from web 2.0.
+* The applicability of middleware for composing and reusing logical building blocks which free applications to focus on their own specific logic, and the utility of this development philosophy to IBC applications.
+* How middleware can assist the dynamic between applications and core IBC by allowing developers to add desired functionalities which are not appropriate to place in core IBC.
+* How the custom logic performed by middleware can pass data to an application which itself operates with no awareness of the middleware's existence, allowing both to run as part of a single packet flow.
+* How middlewares can be stacked as modular, plug-and-play components providing an app with the logic inputs its developer desires.
+
+</HighlightBox>
+
+<!--## Next up
 
 In the next sections, you will first see how to develop an IBC middleware, after which you will see how to integrate a piece of middleware or stack on the chain.
 
-Note that, unlike the IBC application module section, you will not be scaffolding the middleware module with Ignite CLI, because this is currently not yet supported.
+Note that, unlike the IBC application module section, you will not be scaffolding the middleware module with Ignite CLI, because this is currently not yet supported.-->
 
 <!-- OPTIONAL if there's time: include ICS29 as example -->
 
