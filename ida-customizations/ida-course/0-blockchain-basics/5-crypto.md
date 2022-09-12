@@ -62,7 +62,7 @@ Alice wants to send a message to Bob that is meant for Bob's eyes only:
 3. Alice sends Bob the encrypted message.
 4. Bob decrypts the message with his private key.
 
-![Encrypt and decrypt a message](/academy/0.0-B9lab-Blockchains/images/00_11_rsa_keys_v1.png)
+![Encrypt and decrypt a message](/ida-course/0-blockchain-basics/images/00_11_rsa_keys_v1.png)
 
 Now look at the senario code-wise. For example, try the following:
 
@@ -88,7 +88,7 @@ Alice wants to make sure that Bob's public announcement is indeed from Bob:
 3. Bob sends Alice his announcement and its signature.
 4. Alice verifies the signature with Bob's public key.
 
-![Digital signature with public/private keys](/academy/0.0-B9lab-Blockchains/images/00_12_digital_signature_keys_v2.png)
+![Digital signature with public/private keys](/ida-course/0-blockchain-basics/images/00_12_digital_signature_keys_v2.png)
 
 Back to the code example:
 
@@ -119,7 +119,7 @@ It is possible to mix both conceptual ideas. For example:
 3. Upon reception, Bob verifies the signature with Alice's public key to make sure the file came from Alice.
 4. Bob decrypts the file with his private key.
 
-![Encryption, decryption, and signatures with public/private keys](/academy/0.0-B9lab-Blockchains/images/00_13_mix_n_match_keys_v3.png)
+![Encryption, decryption, and signatures with public/private keys](/ida-course/0-blockchain-basics/images/00_13_mix_n_match_keys_v3.png)
 
 ### Is this science or magic?
 
