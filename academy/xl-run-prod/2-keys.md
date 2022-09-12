@@ -1,34 +1,37 @@
 ---
-title: Prepare a validator and keys
+title: Prepare a Validator and Keys
 order: 2
 description: Set up keys for use by your validator
-tag: deep-dive
+tags:
+  - guided-coding
+  - cosmos-sdk
+  - dev-ops
 ---
 
-# Prepare a validator and keys
+# Prepare a Validator and Keys
 
-In the [previous section](./1-software.md), you prepared a binary for your nodes. Some of your nodes will be validators. To propose and sign blocks, validators need on-going access to private keys. A regular node does not need such keys.
+In the [previous section](./1-software.md), you prepared a binary for your nodes. Some of your nodes will be validators. To propose and sign blocks, validators need ongoing access to private keys. A regular node does not need such keys.
 
 Here you learn how to prepare a validator and handle its keys. This works whether you are preparing a validator to join a preexisting network, or you are setting up your validator to be part of the [genesis](./genesis.md).
 
 ## Private key security considerations
 
-More precisely than needing on-going access to private keys, validators only need the capability to sign blocks on an on-going basis. There is a security difference between access to the private key and access to a signing facility:
+More precisely than needing ongoing access to private keys, validators only need the capability to sign blocks on an ongoing basis. There is a security difference between access to the private key and access to a signing facility:
 
-1. When your validator has access to the private key, if your validator node has been compromised then your private key is too, and you are at the risk of wrongfully signing malicious blocks **for ever**.
+1. When your validator has access to the private key, if your validator node has been compromised then your private key is too, and you are at the risk of wrongfully signing malicious blocks **forever**.
 2. On the other hand, when you only provide a signing _service_ to your validator, if your validator node has been compromised then you are _only_ at the risk of wrongfully signing malicious blocks **for as long as the signing service is up**.
 
 In order to mitigate the danger of **point 1**, you can keep your private key in a [hardware security module](https://hub.cosmos.network/main/validators/validator-faq.html#how-to-handle-key-management) (a.k.a. HSM), from which it can be retrieved only once, during the HSM's offline setup. This HSM device then remains plugged into the computer that runs the validator or the signing service. See [here](https://hub.cosmos.network/main/validators/security.html#key-management-hsm) for the current list of supported devices. To use an HSM you own, you need physical access to the computer into which you plug it.
 
 To implement **point 2**, you can use a specialized [key management system](https://hub.cosmos.network/main/validators/kms/kms.html) (a.k.a. KMS). This runs on a computer separate from your validator node but which has access to the hardware key and is [contacted over the private network](https://github.com/iqlusioninc/tmkms/blob/v0.12.2/README.txsigner.md#architecture) by your validator node(s) for the purpose of signing blocks. Such a KMS is specialized in the sense that it is, for instance, able to detect attempts to sign two different blocks at the same height.
 
-You can combine these strategies. For instance, if you insist on using an HSM and having your validator node located in the cloud, you can run the KMS on the computer the HSM is physically plugged into, and which dials into your remote validator node to provide the signing service.
+You can combine these strategies. For instance, if you insist on using an HSM and having your validator node located in the cloud, you can run the KMS on the computer the HSM is physically plugged into, which dials into your remote validator node to provide the signing service.
 
 ## What validator keys
 
 A validator handles [two](https://hub.cosmos.network/main/validators/validator-faq.html#what-are-the-different-types-of-keys), perhaps three, different keys. Each has a different purpose:
 
-1. The **Tendermint consensus key** is used to sign blocks on an on-going basis, and is of type `ed25519`.
+1. The **Tendermint consensus key** is used to sign blocks on an ongoing basis, and is of type `ed25519`.
 2. The **validator operator application key** is used to create transactions that create or modify the validator parameters, and is of type `secp256k1`, or whichever type the application supports.
 3. The [**delegator application key**](https://hub.cosmos.network/main/validators/validator-faq.html#are-validators-required-to-self-delegate-atom) is used to handle the stake that gives the validator more weight.
 
@@ -53,25 +56,26 @@ There are two main honest-mistake pitfalls:
     * You have a misconfigured failover validator.
     * You have two computers using the same key.
 
-To address point 1, this sounds like an issue about keeping your computer running and your networks in good shape. There is an added difficulty, though. Because your validator participates in a public network, its address can be [discovered and attacked](https://hub.cosmos.network/main/validators/validator-faq.html#how-can-validators-protect-themselves-from-denial-of-service-attacks). To mitigate this risk, you can for instance use a [sentry node architecture](./4-network.md#ddos), with which your validator node is only accessible through private networks, and a number of regular public facing nodes connect to the network at large and to your validator over the private network. These sentry nodes can be placed on the cloud and only relay over the gossip network. You can safely shut them down or start up more of them. As an additional feature, if you absolutely trust a few other nodes, you can have your node connect to those directly over a private network.
+To address **point 1**, this sounds like an issue about keeping your computer running and your networks in good shape. There is an added difficulty, though. Because your validator participates in a public network, its address can be [discovered and attacked](https://hub.cosmos.network/main/validators/validator-faq.html#how-can-validators-protect-themselves-from-denial-of-service-attacks). To mitigate this risk, you can for instance, use a [sentry node architecture](./4-network.md#ddos), with which your validator node is only accessible through private networks, and a number of regular public-facing nodes connect to the network at large and your validator over the private network. These sentry nodes can be placed on the cloud and only relay over the gossip network. You can safely shut them down or start up more of them. As an additional feature, if you absolutely trust a few other nodes, you can have your node connect to those directly over a private network.
 
-To address point 2, this is where your use of the specialized KMS application that sits between your validator and your HSM can help. This application handles strictly one process at a time, and stores the latest signed blocks so that it can detect any attempt at double-signing.
+To address **point 2**, this is where your use of the specialized KMS application that sits between your validator and your HSM can help. This application handles strictly one process at a time and stores the latest signed blocks so that it can detect any attempt at double-signing.
 
 Without such a KMS, you must ensure that only one of your computers signs blocks at a time. In particular, be wary if you adopt an aggressive computer restart policy.
 
-## Generating keys
+## Key generation
+
+Now, take a closer look at generating keys, a consensus and an app key.
 
 ### Consensus key
 
-When you run the standard `simd init` command, it creates a default Tendermint consensus key on disk at path [`~/.simapp/config/priv_validator_key.json`](https://docs.cosmos.network/main/run-node/run-node.html#initialize-the-chain). This is convenient if you are starting a testnet, for which the security requirements are low. However, for a more valuable network, you should delete this file so as to avoid using it by mistake. Or [import it](https://github.com/iqlusioninc/tmkms/blob/v0.12.2/README.txsigner.md#architecture) into the KMS and then delete it, if that is your choice.
+When you run the standard `simd init` command, it creates a default Tendermint consensus key on disk at path [`~/.simapp/config/priv_validator_key.json`](https://docs.cosmos.network/main/run-node/run-node.html#initialize-the-chain). This is convenient if you are starting a testnet, for which the security requirements are low. However, for a more valuable network, you should delete this file to avoid using it by mistake, or [import it](https://github.com/iqlusioninc/tmkms/blob/v0.12.2/README.txsigner.md#architecture) into the KMS and then delete it if that is your choice.
 
-To use Tendermint's KMS, follow the instructions [here](https://hub.cosmos.network/main/validators/kms/kms.html). When it is installed, configured, and running, you can ask its public key that will be useful at the genesis stage. It has to be Protobuf JSON encoded, for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
+To use Tendermint's KMS, follow the instructions [here](https://hub.cosmos.network/main/validators/kms/kms.html). When it is installed, configured, and running, you can ask for its public key which will be useful at the genesis stage. It has to be Protobuf JSON encoded, for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
 
 ### App key
 
-For this key, you can follow standard procedures for cold keys on your own computer.
+For this key, you can follow standard procedures for cold keys on your computer.
 
 ## Advertise
 
 Where to present yourself for delegators to find you.
-

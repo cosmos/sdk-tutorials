@@ -1,16 +1,19 @@
 ---
-title: Configure, run, and set up a service
+title: Configure, Run and Set Up a Service
 order: 5
 description: Make sure your software is configured and always on
-tag: deep-dive
+tags:
+  - guided-coding
+  - cosmos-sdk
+  - dev-ops
 ---
 
-# Configure, run, and set up a service
+# Configure, Run and Set Up a Service
 
 You have prepared your machine to be part of the upcoming network. Now it is time to:
 
 1. Configure the rest of the software.
-2. Start the software and have it establish a peer-to-peer network with others.
+2. Start the software and have it establish a peer-to-peer (P2P) network with others.
 
 ## Configuration
 
@@ -22,7 +25,7 @@ $ myprojectd version
 
 In the previous section, you configured some parameters of your node when it comes to Tendermint, in `~/.myprojectd/config/config.toml`.
 
-In `config/app.toml` you will find other parameters to configure. Take special note of `halt-height` which assists you in gracefully stopping the node, such as when applying a migration.
+In `config/app.toml`, you will find other parameters to configure. Take special note of `halt-height` which assists you in gracefully stopping the node, such as when applying a migration.
 
 As for the database(s), classic considerations apply. With the `db_dir` flag, consider storing its files in a dedicated and redundant volume. On Linux, you could mount the `data` folder to that separate drive.
 
@@ -30,7 +33,7 @@ Events are also stored in a database ([see `indexer`](https://docs.tendermint.co
 
 ## Run user
 
-Another standard security concern is that you want to avoid running your application as `root`. So create a new user and prepare it:
+Another standard security concern is that you want to avoid running your application as `root`. So, create a new user and prepare it:
 
 ```sh
 $ sudo adduser chainuser
@@ -82,7 +85,7 @@ $ sudo systemctl daemon-reload
 $ sudo systemctl enable myprojectd
 ```
 
-Now, if you don't want to try a computer restart, you can start the process immediately with:
+Now, if you do not want to try a computer restart, you can start the process immediately with:
 
 ```sh
 $ sudo systemctl start myprojectd
@@ -90,7 +93,7 @@ $ sudo systemctl start myprojectd
 
 ## When to start
 
-You have launched your blockchain software, and the other validators have done the same, so when is the first block minted? This happens when validators representing at least [two thirds](https://hub.cosmos.network/main/resources/genesis.html#genesis-transactions) (67%) of the total staked amount are online.
+You have launched your blockchain software, and the other validators have done the same, so when is the first block minted? This happens when validators representing at least [two-thirds](https://hub.cosmos.network/main/resources/genesis.html#genesis-transactions) (67%) of the total staked amount are online.
 
 This means that, although you should coordinate with your peers for a convenient date and time to start, you need not narrow it down to the second. You can collectively agree to all start _on Tuesday_ and it will therefore start safely at some point on Tuesday.
 

@@ -1,13 +1,15 @@
 ---
 title: Move to Production
 order: 21
-description: Elements to run your Checkers in production
-tag: deep-dive
+description: Elements to run your checkers in production
+tags:
+  - guided-coding
+  - dev-ops
 ---
 
 # Move to Production
 
-How would you apply what you learned about [running in production](/academy/xl-run-prod/0-overview.html) to your checkers blockchain?
+How would you apply what you learned about [running in production](/hands-on-exercise/5-run-in-prod/0-overview.html) to your checkers blockchain?
 
 ## Prepare the node
 
@@ -20,10 +22,12 @@ $ sudo adduser checkersuser
 Validators are going to use three different computers:
 
 * A high-availability node server, typically running on a cloud service.
-* A high-availability key management server, typically accessible by and running close the operator.
+* A high-availability key management server, typically accessible by and running close to the operator.
 * A desktop computer to manage both servers.
 
 ## Prepare executables
+
+Now, take a closer look at how to prepare the executables.
 
 ### Compilation
 
@@ -67,7 +71,7 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i make build-wit
 
 Make these files publicly downloadable.
 
-Download them to the node servers, including validator nodes, and put them in place. You can use a new script `prepare-node.sh` that describes the steps:
+Download them to the node servers, including the validator nodes, and put them in place. You can use a new script `prepare-node.sh` that describes the steps:
 
 ```sh
 cp -v /checkers/build/checkersd-linux-amd64 /usr/local/bin/checkersd
@@ -118,13 +122,21 @@ WantedBy=multi-user.target
 
 ## Prepare keys
 
-**This only applies for validators**. On the key management server, the validator operator installs the Tendermint KMS and gets the consensus key. For instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
+<HighlightBox type="info">
+
+**This only applies to validators.**
+
+</HighlightBox>
+
+On the key management server, the validator operator installs the Tendermint KMS and gets the consensus key - for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
 
 Prepare the key management server to be able to connect to the node server.
 
 On the desktop computer, select the keyring you want to use.
 
 ## Prepare the genesis
+
+Now focus on preparing the genesis to continue to prepare to run your checkers blockchain in production.
 
 ### Centralized creation
 
@@ -134,7 +146,7 @@ The validator operator that is in charge of assembling the genesis creates it on
 $ su -l checkeruser checkersd init --chain-id checkers --staking-bond-denom upawn
 ```
 
-Next they attribute the initial stakes of everyone, including the validators, by running as many times as necessary:
+Next, they attribute the initial stakes of everyone, including the validators, by running as many times as necessary:
 
 ```sh
 $ su -l checkeruser checkersd add-genesis-account cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq 5000000000upawn
@@ -147,9 +159,9 @@ Then they make it publicly downloadable.
 Each validator node operator downloads this genesis to their desktop computer and:
 
 1. Confirms their address is present and has the right balance.
-2. Checks their account number, say 12.
+2. Checks their account number, say `12`.
 
-Then for their address they need to create the genesis transaction:
+Then for their address, they need to create the genesis transaction:
 
 ```sh
 $ checkersd gentx cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq \
@@ -177,7 +189,7 @@ All operators download this genesis to their node servers, scrutinize it for con
 
 ## Prepare the network
 
-Socially, operators exchange their addresses and ports with each other as they see fit. Presumably they do not create two separate networks but a single one eventually.
+Socially, operators exchange their addresses and ports with each other as they see fit. Presumably, they do not create two separate networks but a single one eventually.
 
 They save their choices in `/home/checkersuser/.checkers/config/config.toml`.
 

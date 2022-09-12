@@ -1,16 +1,19 @@
 ---
-title: Prepare where the node starts
+title: Prepare Where the Node Starts
 order: 3
 description: Genesis preparation and insertion
-tag: deep-dive
+tags:
+  - guided-coding
+  - cosmos-sdk
+  - dev-ops
 ---
 
-# Prepare where the node starts
+# Prepare Where the Node Starts
 
 When you run your chain with `myprojectd start`, the software will build from a **genesis**. This genesis needs to contain:
 
 1. The original validators and their stakes.
-2. The original state values as you see fit. For instance, this can be the original parameters of your world if you are building a metaverse, or the original USD price of your token if you are building a stable coin.
+2. The original state values as you see fit. For instance, this can be the original parameters of your world if you are building a metaverse, or the original USD price of your token if you are building a stablecoin.
 
 ## Generate
 
@@ -28,7 +31,7 @@ The genesis only needs to be generated once, then it is distributed and copied o
 
 One of the simpler parameters that you can decide on is the name of the staking token. The name you choose is for the indivisible denomination. For the Cosmos Hub that is `uatom`, which is understood as a millionth of an ATOM.
 
-For instance, if you decide that your token is the STONE and that each STONE contains a billion indivisible units, by convention you would name the unit an `nstone`, as in a _nano STONE_.
+For instance, if you decide that your token is the STONE and that each STONE contains a billion indivisible units, by convention you would name the unit `nstone`, as in a _nano STONE_.
 
 Keeping on-brand, your new chain is named _stone-age_.
 
@@ -52,11 +55,11 @@ If you are planning on having more denominations than your staking token, this i
 
 Genesis accounts are accounts that exist in the genesis. They can be there because of a pre-sale of tokens, or of simple allotments, or for any other reason.
 
-Genesis accounts need to be included in the genesis using the command `add-genesis-account`. Like any account, genesis accounts have addresses which must be collected. 
+Genesis accounts need to be included in the genesis using the command `add-genesis-account`. Like any account, genesis accounts have addresses that must be collected. 
 
 <HighlightBox type="note">
 
-If these genesis accounts are third-parties, make sure in more ways than one that you get the right values, whether by email or other means.
+If these genesis accounts are third parties, make sure in more ways than one that you get the right values, whether by email or other means.
 
 </HighlightBox>
 
@@ -96,9 +99,9 @@ Each validator needs to generate a transaction locally and send it to you, the p
 To each validator you send:
 
 * The `account_number` that was given to them when calling `add-genesis-account`.
-* A confirmation of the amount of tokens that you have credited them.
+* A confirmation of the number of tokens that you have credited them.
 
-Each validator operator then has to run a `gentx` command. **This command is not to be run on the server**. Instead it is run on the computer that hosts the _cold_ validator operator app key, using the keyring of your choice. Collect the consensus public key from Tendermint KMS, for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
+Each validator operator then has to run a `gentx` command. **This command is not to be run on the server**. Instead, it is run on the computer that hosts the _cold_ validator operator app key, using the keyring of your choice. Collect the consensus public key from Tendermint KMS, for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
 
 If this is Alice, she may run:
 
@@ -193,7 +196,7 @@ Because a validator can be configured with multiple flags, look at:
 $ ./myprojectd gentx --help
 ```
 
-Each validator then returns you their transaction file(s).
+Each validator then returns their transaction file(s).
 
 https://blog.althea.net/making-a-cosmos-chain/
 

@@ -1,11 +1,14 @@
 ---
-title: Prepare and connect to other nodes
+title: Prepare and Connect to Other Nodes
 order: 4
 description: Be part of a larger network
-tag: deep-dive
+tags:
+  - guided-coding
+  - cosmos-sdk
+  - dev-ops
 ---
 
-# Prepare and connect to other nodes
+# Prepare and Connect to Other Nodes
 
 With the genesis created and received, a node operator needs to join the eventual network. In practice this means two things:
 
@@ -77,7 +80,7 @@ This should return something like:
 ce1c54ea7a2c50b4b9f2f869faf8fa4d1a1cf43a
 ```
 
-If you lose `node_key.json`, or have it stolen, it is not as serious as if you lost your token's private key. Your node can always recreate it and let your peers know about the new key, with no problems. Its location is mentioned in `config.toml` on the line `node_key_file = "config/node_key.json"`.
+If you lose `node_key.json` or have it stolen, it is not as serious as if you lost your token's private key. Your node can always recreate it and let your peers know about the new key, with no problems. Its location is mentioned in `config.toml` on the line `node_key_file = "config/node_key.json"`.
 
 The node key also exists so that your own node can identify itself, in the event that it tried to connect to itself via a circuitous peer-to-peer route and therefore ought to cut the useless connection.
 
@@ -94,7 +97,11 @@ ce1c54ea7a2c50b4b9f2f869faf8fa4d1a1cf43a@172.217.22.14:26656
 
 If you create a node for a network that is already running you need to follow these same steps, but you do not need to inform others of your parameters, because when you connect your node will do this anyway.
 
-As a side-note, your computer or local network may not allow other nodes to initiate a connection to your node on port `26656`. Therefore it is a good idea to open this port in the firewall(s).
+<HighlightBox type="note">
+
+As a side note, your computer or local network may not allow other nodes to initiate a connection to your node on port `26656`. Therefore, it is a good idea to open this port in the firewall(s).
+
+</HighlightBox>
 
 ## Connection to others
 
@@ -123,12 +130,12 @@ You are not obliged to put all the known peers in your `persistent_peers`. You m
 
 Setting up your node and identifying other peers is important. However, this is not the only network configuration available. Look into `~/.myprojectd/config/config.toml` for tweaks.
 
-If you change parameters in this file, you are not going to affect the ability of the network to reach consensus on blocks. Parameters that are necessary for consensus are all in the genesis file.
+If you change the parameters in this file, you are not going to affect the ability of the network to reach consensus on blocks. Parameters that are necessary for consensus are all in the genesis file.
 
 [Parameters in `config.toml`](https://docs.tendermint.com/v0.34/tendermint-core/configuration.html) can be divided into two broad categories:
 
-1. **Network scoped**. By changing these, you change the posture of your node at the risk of disrupting the ability of other nodes to communicate with yours. Examples include `max_num_inbound_peers` and `handshake_timeout`.
-2. **Single node scoped**. These only matter to your node. Examples include `db_backend` and `log_level`.
+1. **Network scoped:** by changing these, you change the posture of your node at the risk of disrupting the ability of other nodes to communicate with yours. Examples include `max_num_inbound_peers` and `handshake_timeout`.
+2. **Single node scoped:** these only matter to your node. Examples include `db_backend` and `log_level`.
 
 Among the network-scoped parameters, some deal with the intricacies of BFT, such as `timeout_prevote` and `timeout_precommit_delta`. If you want to tweak them away from their defaults, you can search for more information. [Here](https://forum.cosmos.network/t/consensus-timeouts-explained/1421) is as good a place to start as any other.
 
@@ -155,11 +162,11 @@ Being part of a network with a known IP address can be a security or service ris
 
 First, be aware that regular nodes and validator nodes face different risks:
 
-1. If your regular node is DoS'd, you are at risk of dropping out of the network, and preventing you or your customers from calling an RPC end point for network activity.
+1. If your regular node is DoS'd, you are at risk of dropping out of the network, and preventing you or your customers from calling an RPC endpoint for network activity.
 2. If your validator node is DoS'd, you are at risk of consensus penalties.
 
-It is common practice to expose your regular nodes, and to hide your validator ones. Your validator nodes hide behind a [_sentry_ node](https://hub.cosmos.network/main/validators/security.html#sentry-nodes-ddos-protection), such that:
+It is common practice to expose your regular nodes and to hide your validator nodes. The latter hide behind a [_sentry_ node](https://hub.cosmos.network/main/validators/security.html#sentry-nodes-ddos-protection), such that:
 
 1. Your [sentry nodes](https://forum.cosmos.network/t/sentry-node-architecture-overview/454) are located in a cloud infrastructure, where the database (or filesystem) and the software part of the node are separated. With this, the same sentry node can release its old IP address and receive a new one within a few seconds; or a new sentry node can spring up at a different IP address by using the same database (or filesystem), as in a game of whack-a-mole.
-2. Your validator nodes are located anywhere, with persistent addresses, but connect only to the sentry nodes, with the use of `persistent_peers` in `config.toml`. The content of this field has to change when a sentry node has been whacked, unless the validator node can connect to the sentry node over the same private IP address.
+2. Your validator nodes are located anywhere, with persistent addresses, but connect only to the sentry nodes, with the use of `persistent_peers` in `config.toml`. The content of this field has to change when a sentry node has been whacked unless the validator node can connect to the sentry node over the same private IP address.
 3. Your sentry nodes never gossip your validators' addresses over the peer-to-peer network, thanks to the use of `private_peer_ids` in `config.toml`.

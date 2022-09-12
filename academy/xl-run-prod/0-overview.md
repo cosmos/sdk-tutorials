@@ -1,13 +1,16 @@
 ---
-title: Running in production
+title: Run in Production
 order: 0
 description: What does running in production entail?
-tag: deep-dive
+tags:
+  - concepts
+  - cosmos-sdk
+  - dev-ops
 ---
 
-# Running in production
+# Run in Production
 
-You have coded your Cosmos chain. It may not be feature complete, but unit and integration tests are passing. You ran it locally on your computer and interacted with it via the command-line. Congratulations, you have already accomplished a lot.
+You have coded your Cosmos chain. It may not be feature complete, but unit and integration tests are passing. You ran it locally on your computer and interacted with it via the command line. Congratulations, you have already accomplished a lot.
 
 Now is the time to release it into the wild, perhaps as a testnet. You can take progressive steps to achieve this. That is what this module is about.
 
@@ -19,16 +22,16 @@ What is the desired outcome? You want to have:
 * A faucet for your testnet(s).
 * Public RPC ports for your users.
 * When necessary, nodes that are running in preparation of a migration.
-* When wanted, a working IBC infrastructure.
+* When wanted, a working Inter-Blockchain Communication Protocol (IBC) infrastructure.
 
 A good way to divide and conquer is to go with:
 
-* Binary software preparation.
-* Key management.
-* Genesis generations.
-* Network setup.
-* Software run and launch.
-* Migration preparation.
-* IBC preparation.
+* Binary software preparation
+* Key management
+* Genesis generations
+* Network setup
+* Software run and launch
+* Migration preparation
+* IBC preparation
 
 Start with the binary preparation in the [next section](./1-software.md).

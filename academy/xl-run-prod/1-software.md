@@ -1,17 +1,20 @@
 ---
-title: Prepare the software to run
+title: Prepare the Software to Run
 order: 1
 description: Build and deploy
-tag: deep-dive
+tags:
+  - guided-coding
+  - cosmos-sdk
+  - dev-ops
 ---
 
-# Prepare the software to run
+# Prepare the Software to Run
 
 To get to production, the first order of business is to build the binary that the nodes will run. If you used Ignite CLI, then you already did this under the hood with the `ignite chain serve` command.
 
 ## Target platforms
 
-Because you are going to run the nodes on different machines, it is possible they will use different operating systems and CPU types. You need to account for that when building the binary. In particular, the computer on which you build may be entirely different from the one on which you eventually run the binary. In the jargon, you need to specify the target platform(s).
+Because you are going to run the nodes on different machines, they may use different operating systems and CPU types. You need to account for that when building the binary. In particular, the computer on which you build may be entirely different from the one on which you eventually run the binary. In the jargon, you need to specify the target platform(s).
 
 What target platforms are available? Because you built your entire blockchain with Go, you can rely on [Go target platforms](https://go.dev/doc/install/source#environment) for that. Or a nicely presented one [such as this](https://gist.github.com/asukakenji/f15ba7e588ac42795f421b48b8aede63). To get the targets specific to your version of Go, just run:
 
@@ -69,13 +72,19 @@ windows/arm
 windows/arm64
 ```
 
-As a side-note, some of these platforms are first class ports of Go while the others are not. If you want to only see the first class ports and have installed the `jq` tool, you can run:
+As a side note, some of these platforms are first-class ports of Go while the others are not. If you want to only see the first class ports and have installed the `jq` tool, you can run:
 
 ```sh
 $ go tool dist list -json | jq -r '.[] | select(.FirstClass) | [.GOOS , .GOARCH] | join("/")'
 ```
 
-Notice the `GOOS` and `GOARCH` keywords in the command above. You will see them again later. The list is now much shorter:
+<HighlightBox type="note">
+
+Notice the `GOOS` and `GOARCH` keywords in the command above. You will see them again later.
+
+</HighlightBox>
+
+The list is now much shorter:
 
 ```txt
 darwin/amd64
@@ -91,7 +100,7 @@ windows/amd64
 Imagine you are going to run the node:
 
 * On regular office Linux boxes, so target `linux/amd64`.
-* And on AWS EC2 instances with a Graviton processor, so target `linux/arm64`.
+* Also on AWS EC2 instances with a Graviton processor, so target `linux/arm64`.
 * Validator operators are going to generate their genesis transactions on Mac computers with Intel CPUs, so target `darwin/amd64`.
 
 ## Build and package
@@ -100,7 +109,7 @@ Imagine you are going to run the node:
 
 Your Cosmos blockchain project is at heart a Go project, so you can build it with a `go build` command.
 
-First you need to locate your `func main()`. In fact, you may have more than one. For instance, choose the one in `cmd/myprojectd/main.go`:
+First, you need to locate your `func main()`. In fact, you may have more than one. For instance, choose the one in `cmd/myprojectd/main.go`:
 
 ```sh
 $ env GOOS=linux GOARCH=amd64 go build -o ./build/myproject-linux-amd64 ./cmd/myprojectd/main.go
@@ -201,9 +210,13 @@ do-checksum:
 build-with-checksum: build-all do-checksum
 ```
 
-Note the lines that add a checksum file as does Ignite. Also make sure that if you copy paste you have a <kbd>Tab</kbd> before each command and not spaces.
+<HighlightBox type="note">
 
-If you don't have it yet, install the `make` tool. For instance, on Ubuntu:
+Note the lines that add a checksum file as does Ignite. Also, make sure that if you copy paste you have a <kbd>Tab</kbd> before each command and not spaces.
+
+</HighlightBox>
+
+If you do not have it yet, install the `make` tool. For instance, on Ubuntu:
 
 ```sh
 $ sudo apt-get install --yes make
@@ -226,9 +239,9 @@ If you do not want to install Go or `make` on your computer, and [have Docker](h
 
 Run the command:
 
-  ```sh
-  $ docker run --rm -it -v $(pwd):/myproject -w /myproject golang:1.18.3 make build-with-checksum
-  ```
+```sh
+$ docker run --rm -it -v $(pwd):/myproject -w /myproject golang:1.18.3 make build-with-checksum
+```
 
 ## Deploy
 
@@ -242,26 +255,28 @@ $ myprojectd start
 
 By default, Tendermint and the Cosmos app are launched together, run together, and communicate via sockets. This is the recommended way of launching. It is not the only way of launching, though.
 
-You can launch the Tendermint and the Cosmos app separately, and even on different computers. If you do so, ensure that only your Tendermint app is able to contact the Cosmos app on the ABCI.
+You can launch the Tendermint and the Cosmos app separately, and even on different computers. If you do so, ensure that only your Tendermint app can contact the Cosmos app on the ABCI.
 
 For instance:
 
 * To start only the Tendermint node, run:
 
-    ```sh
-    $ myprojectd start --proxy_app tcp://192.168.0.5:26658
-    ```
+  ```sh
+  $ myprojectd start --proxy_app tcp://192.168.0.5:26658
+  ```
 
-    Where `192.168.0.5` is the address where you launch the Cosmos app.
+  Where `192.168.0.5` is the address where you launch the Cosmos app.
 
 * To start only the Cosmos app, you run:
 
-    ```sh
-    $ myprojectd start --with-tendermint=false --abci grpc --address tcp://192.168.0.5:26658
-    ```
+  ```sh
+  $ myprojectd start --with-tendermint=false --abci grpc --address tcp://192.168.0.5:26658
+  ```
 
-Again, this is not recommended for performance reasons (for example due to network latency).
+Again, this is not recommended for performance reasons - for example, due to network latency.
 
-## Conclusion
+<HighlightBox type="synopsis">
 
-You have learned how to build your blockchain project for multiple platforms, in different ways, and had a glimpse as to how to start it.
+You have learned how to build your blockchain project for multiple platforms, in different ways, and had a glimpse of how to start it.
+
+</HighlightBox>

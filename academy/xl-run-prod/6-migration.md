@@ -1,15 +1,18 @@
 ---
-title: Prepare and do migrations
+title: Prepare and Do Migrations
 order: 6
 description: Keep your software and network up to date
-tag: deep-dive
+tags:
+  - guided-coding
+  - cosmos-sdk
+  - dev-ops
 ---
 
-# Prepare and do migrations
+# Prepare and Do Migrations
 
-Your software is now running, which is good, but perhaps over time a software upgrade vote proposal is passed. You now need to upgrade your node to the next version. The state may need to migrate too. When the state needs to migrate, it is also said that there are _breaking changes_. This state migration is the upgrade step that takes most of the time.
+Your software is now running, which is good, but perhaps over time, a software upgrade vote proposal is passed. You now need to upgrade your node to the next version. The state may need to migrate too. When the state needs to migrate, it is also said that there are _breaking changes_. This state migration is the upgrade step that takes most of the time.
 
-You can do this whole process somewhat manually, or use a tool to assist you do it smoothly and fast. This is not an unreasonable concern, since when you perform an upgrade all nodes are simultaneously down.
+You can do this whole process somewhat manually, or use a tool to assist you to do it smoothly and fast. This is not an unreasonable concern, since when you perform an upgrade all nodes are simultaneously down.
 
 The main tool is [Cosmovisor](https://docs.cosmos.network/main/run-node/cosmovisor.html). This is a wrapper executable that in turn launches your node as a subprocess. It watches out for when the node stops and drops upgrade information.
 
@@ -30,10 +33,17 @@ When starting you can pass Cosmovisor command-line arguments that it will pass o
 
 When it launches, Cosmovisor does the following:
 
-1. Starts and launches your node executable, for example `myprojectd`.
-2. Polls regularly for potential upgrade information, for instance in `.myprojectd/data/upgrade-info.json`. Note how this file is in the `data` folder and created by the [`x/upgrade` module](https://docs.cosmos.network/main/building-modules/upgrade.html) when appropriate.
+1. Starts and launches your node executable, for, example `myprojectd`.
+2. Polls regularly for potential upgrade information, for instance in `.myprojectd/data/upgrade-info.json`.
+
+  <HighlightBox type="note">
+
+  Note how this file is in the `data` folder and created by the [`x/upgrade` module](https://docs.cosmos.network/main/building-modules/upgrade.html) when appropriate.
+
+  </HighlightBox>
+
 3. When `upgrade-info.json` is available, waits for the executable to stop on its own, in effect after it has committed all states at the given block height.
-4. If instructed to by configuration, downloads the new executable as described in `upgrade-info.json`. Otherwise looks for it in the configuration folder, for instance `.myprojectd/cosmovisor/upgrades/<name>/bin`. In this case `<name>` is picked from `upgrade-info.json` too.
+4. If instructed to by the configuration, downloads the new executable as described in `upgrade-info.json`. Otherwise looks for it in the configuration folder, for instance `.myprojectd/cosmovisor/upgrades/<name>/bin`. In this case `<name>` is picked from `upgrade-info.json` too.
 5. Exchanges the symbolic link to the `current` executable for the new one.
 6. Restarts the node.
 
