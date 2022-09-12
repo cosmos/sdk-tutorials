@@ -1,6 +1,6 @@
 ---
 parent:
-title: Understanding IBC denoms with Gaia
+title: Understanding IBC denoms
 order: 0
 description: Send tokens with IBC, trace a denom, and understand how denoms work
 ---
