@@ -105,6 +105,8 @@ Imagine you are going to run the node:
 
 ## Build and package
 
+There are several ways to build an executable. Pick the one that works best for your situation.
+
 ### With `go build`
 
 Your Cosmos blockchain project is at heart a Go project, so you can build it with a `go build` command.

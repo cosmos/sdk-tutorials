@@ -198,8 +198,6 @@ $ ./myprojectd gentx --help
 
 Each validator then returns their transaction file(s).
 
-https://blog.althea.net/making-a-cosmos-chain/
-
 ### Validators aggregation
 
 When a validator returns a signed transaction to you, make sure that it is the one you expect and add the JSON in the `~/.myprojectd/config/gentx` folder along with all the others in your server.
@@ -226,7 +224,7 @@ All your genesis validators and all other potential node operators need access t
 The relevant parties should also come to a consensus that this genesis represents the agreed initial state. Indeed:
 
 * Parties are being granted genesis tokens and one may not accept being omitted.
-* Parties are enrolling to be validators, so there needs to be agreement on this file.
+* Parties are enroling to be validators, so there needs to be agreement on this file.
  
 This is the only _block_ that needs a social consensus on its content. All other blocks will be agreed on technically by the PoS consensus.
 
