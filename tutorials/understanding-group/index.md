@@ -1,6 +1,6 @@
 ---
 parent:
-title: Understanding the group module
+title: Understand the Group Module
 order: 0
 description: Use the Cosmos SDK group module to create and manage on-chain multisig accounts and enable voting for message execution based on configurable decision policies.
 tags:
@@ -9,7 +9,7 @@ tags:
   - dev-ops
 ---
 
-# Understanding the group module
+# Understand the Group Module
 
 The [`group`](https://docs.cosmos.network/v0.46/modules/group/) module enables the creation and management of multisig accounts and enables voting for message execution based on configurable decision policies.
 
@@ -17,15 +17,14 @@ The [`group`](https://docs.cosmos.network/v0.46/modules/group/) module enables t
 
 When the group module is enabled in a chain (say the Cosmos Hub), users can create groups and submit group proposals. This means that any number of users can be part of a group and vote on the group's proposals. You can think of it as an enhanced multisig or DAO.
 
-Before starting, let's first review some terminology:
+Before starting, review some terminology:
 
-* **Group Admin**: the account that creates the group is the group administrator. The group administrator is the account that can add, remove, or change the group members, but does not need to be a member of the group itself. Choose it wisely.
-* **[Group policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#group-policy)**: a group policy is an account associated with a group and a decision policy. In order to perform actions on this account, a proposal must be approved by a majority of the group members or as is defined in the decision policy. For the avoidance of doubt, note that a group can have multiple group policies.
-* **[Decision policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#decision-policy)**: a policy that defines how the group members can vote on a proposal and how the vote outcome is calculated. A decision policy is associated with a group policy. This means that it is possible for a group to have different decision policies for each of its different group policies.
-* **Proposal**: a group proposal works the same way as a governance proposal. Group members can submit proposals to the group and vote on proposals with a _Yes_, _No_, _No with Veto_ and _Abstain_.
+* **Group Admin:** the account that creates the group is the group administrator. The group administrator is the account that can add, remove, or change the group members, but does not need to be a member of the group itself. Choose it wisely.
+* **[Group policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#group-policy):** a group policy is an account associated with a group and a decision policy. In order to perform actions on this account, a proposal must be approved by a majority of the group members or as defined in the decision policy. For the avoidance of doubt, note that a group can have multiple group policies.
+* **[Decision policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#decision-policy):** a policy that defines how the group members can vote on a proposal and how the vote outcome is calculated. A decision policy is associated with a group policy. This means that a group can have different decision policies for each of its different group policies.
+* **Proposal:** a group proposal works the same way as a governance proposal. Group members can submit proposals to the group and vote on proposals with a _Yes_, _No_, _No with Veto_, and _Abstain_.
 
-In this tutorial, you will learn how to create a group, manage its members, submit a group proposal, and vote on it.
-After that, you'll be able to create your own on-chain DAO for your own use case.
+In this tutorial, you will learn how to create a group, manage its members, submit a group proposal, and vote on it. After that, you will be able to create your own on-chain DAO for your own use case.
 
 ## Requirements
 
@@ -43,7 +42,7 @@ Go to the cloned directory:
 $ cd cosmos-sdk
 ```
 
-Install `simd`
+Install `simd`:
 
 ```sh
 $ make install
@@ -72,7 +71,7 @@ $ simd config chain-id demo
 $ simd config keyring-backend test
 ```
 
-Secondly, you need to add keys for group users. Call them Alice and Bob.
+Secondly, you need to add keys for group users. Call them Alice and Bob:
 
 ```sh
 $ simd keys add alice
@@ -187,7 +186,7 @@ To update the group's members, you send a transaction using the `update-group-me
 
 To add a member to the group, you mention it in the JSON, and to remove a member from the group, you mention it and set this member's voting weight to `0`.
 
-Let's add Carol, Dave, and Emma as group members, and remove Bob. Create `members_update.json` with:
+Add Carol, Dave, and Emma as group members, and remove Bob. Create `members_update.json` with:
 
 ```json
 {
@@ -226,11 +225,11 @@ You can verify that the group members are updated:
 $ simd query group group-members $GROUP_ID
 ```
 
-As an exercise, add Bob back in the group, and then go to the next section.
+As an exercise, add Bob back to the group before moving on to the next section.
 
 ## Create a group policy
 
-Next you need to create a group policy, and its decision policy. These define how long a proposal can be voted on, and how its outcome is calculated. Here you use the [`ThresholdDecisionPolicy`](https://github.com/cosmos/cosmos-sdk/blob/release/v0.46.x/proto/cosmos/group/v1/types.proto#L53-L62) as decision policy. It defines the threshold that the tally of weighted _yes_ votes must reach in order for a proposal to pass. Each member's vote carries a specific weight, as defined in the group.
+Next, you need to create a group policy and its decision policy. These define how long a proposal can be voted on, and how its outcome is calculated. Here you use the [`ThresholdDecisionPolicy`](https://github.com/cosmos/cosmos-sdk/blob/release/v0.46.x/proto/cosmos/group/v1/types.proto#L53-L62) as decision policy. It defines the threshold that the tally of weighted _yes_ votes must reach for a proposal to pass. Each member's vote carries a specific weight, as defined in the group.
 
 The following is the content of the `policy.json`. It states that:
 
@@ -267,7 +266,11 @@ $ simd query group group-policies-by-group $GROUP_ID
 $ simd query group group-policies-by-group $GROUP_ID --output json | jq -r '.group_policies[0].address'
 ```
 
+<HighlightBox type="note">
+
 Note how the decision policy's address, at `cosmos` plus 59 characters, is longer than a _regular_ account's address. This is because a group address is a derived address. You can learn more on that in [ADR-28](https://github.com/cosmos/cosmos-sdk/blob/main/docs/architecture/adr-028-public-key-addresses.md#derived-addresses).
+
+</HighlightBox>
 
 ## Create a proposal
 
@@ -314,7 +317,7 @@ Submit the proposal:
 $ simd tx group submit-proposal proposal.json --from bob
 ```
 
-Once more, extract the proposal ID (remember to use the transaction hash you got from the previous command):
+Once more, extract the proposal ID - remember to use the transaction hash you got from the previous command:
 
 ```sh
 $ export PROPOSAL_ID=$(simd query tx E3CBE6932254088D5A80CD5CB18BB0F4D35396A542BD20731E1B6B997E1B0847 --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventSubmitProposal") | .attributes[0].value' | base64 --decode | jq -r '.')
@@ -328,7 +331,7 @@ $ simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json
 
 ## View and vote on proposals
 
-You can see that your proposal has been submitted, and that it contains a lot of information. For instance, confirm that its final tally is empty:
+You can see that your proposal has been submitted and that it contains a lot of information. For instance, confirm that its final tally is empty:
 
 ```sh
 $ simd query group proposal $PROPOSAL_ID --output json | jq '.proposal.final_tally_result'
@@ -345,7 +348,7 @@ Which returns:
 }
 ```
 
-Also confirm that it is in the `PROPOSAL_STATUS_SUBMITTED` status:
+Also, confirm that it is in the `PROPOSAL_STATUS_SUBMITTED` status:
 
 ```sh
 $ simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json | jq -r '.proposals[0].status'

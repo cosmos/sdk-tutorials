@@ -1,6 +1,6 @@
 ---
 parent:
-title: Understanding the feegrant module
+title: Understand the Feegrant Module
 order: 0
 description: Use the Cosmos SDK feegrant module to grant the use of tokens to pay for fees from one account (the granter) to another account (the grantee).
 tags:
@@ -9,13 +9,13 @@ tags:
   - dev-ops
 ---
 
-# Understanding the feegrant module
+# Understand the Feegrant Module
 
 The [`feegrant`](https://docs.cosmos.network/v0.44/modules/feegrant/) module enables the granter (a user, contract, or module) to pay the fees for someone else (the grantee) when the grantee wants to broadcast a transaction on the blockchain. The granter retains full access to their tokens and is able to revoke the allowance at any time.
 
 ## Using feegrant to grant an allowance
 
-An often-discussed use case for the `feegrant` module is _improved onboarding experience_, because new users don't have to acquire tokens before they can start interacting with the blockchain or smart contract.
+An often-discussed use case for the `feegrant` module is _improved onboarding experience_, because new users do not have to acquire tokens before they can start interacting with the blockchain or smart contract.
 
 Two [fee allowance types](https://docs.cosmos.network/v0.44/modules/feegrant/01_concepts.html#fee-allowance-types) are implemented with the `feegrant` module:
 
@@ -29,7 +29,7 @@ Two [fee allowance types](https://docs.cosmos.network/v0.44/modules/feegrant/01_
 
 In this tutorial, you will set up two tokens in your blockchain: a default token called `stake` to use for fees, and another token called `kudos` to send to your friends.
 
-* You will learn how to spin up a single node network using the simulation application in Cosmos SDK (`simapp`).
+* You will learn how to spin up a single-node network using the simulation application in the Cosmos SDK (`simapp`).
 * You will set Alice up to be a validator.
 * Bob will be the grantee, who receives a `BasicAllowance` that allows Bob to send `kudos` tokens to Alice, even though Bob has zero `stake` to pay for fees.
 * Alice will be the granter, who grants a `BasicAllowance` to Bob.
@@ -68,7 +68,7 @@ The version number `0.44.0` is output to the console.
 
 <HighlightBox type="tip">
 
-If you have used `simd` before, you might already have a `.simapp` directory in your home directory. To keep the previous data, either save the directory to another location or use the `--home` flag and specify a different directory for each command in the following instructions. If you don't want to keep the previous data, remove the previous directory (`rm -rf ~/.simapp`).
+If you have used `simd` before, you might already have a `.simapp` directory in your home directory. To keep the previous data, either save the directory to another location or use the `--home` flag and specify a different directory for each command in the following instructions. If you do not want to keep the previous data, remove the previous directory (`rm -rf ~/.simapp`).
 
 </HighlightBox>
 
@@ -86,9 +86,9 @@ Set the [keyring backend](https://docs.cosmos.network/v0.42/run-node/keyring.htm
 $ simd config keyring-backend test
 ```
 
-## Key Setup
+## Key setup
 
-You'll have to create a few test keys for your users.
+You will have to create a few test keys for your users.
 
 Add a key for Alice, the validator:
 
@@ -102,7 +102,7 @@ Add a key for Bob, the grantee:
 $ simd keys add bob
 ```
 
-If you'd like to see an overview of your keys, use:
+If you would like to see an overview of your keys, use:
 
 ```sh
 $ simd keys list
@@ -119,7 +119,7 @@ $ export ALICE_KEY=$(simd keys show alice -a)
 $ export BOB_KEY=$(simd keys show bob -a)
 ```
 
-## Chain Setup
+## Chain setup
 
 The following commands set up a chain using the simulation application (`simapp`).
 
@@ -141,7 +141,11 @@ Add Bob and an initial balance to the genesis file:
 $ simd add-genesis-account bob 2000kudos --keyring-backend test
 ```
 
+<HighlightBox type="note">
+
 Note that Bob has only `kudos` tokens and is not able to pay for any fees that might be needed.
+
+</HighlightBox>
 
 Generate a transaction to add Alice to the initial validator set:
 
@@ -155,7 +159,7 @@ Add the validator transaction to the genesis file:
 $ simd collect-gentxs
 ```
 
-## Start Chain
+## Start chain
 
 You are now ready to start a single node network on your local machine.
 
@@ -190,7 +194,11 @@ $ simd query bank balances $ALICE_KEY
 $ simd query bank balances $BOB_KEY
 ```
 
+<HighlightBox type="note">
+
 Note that Alice has `4999000000stake` because she bonded `1000000stake` to become a validator during the chain setup.
+
+</HighlightBox>
 
 Any transaction that is sent using the `tx` command can use the `--fee-account` flag to specify an account as input to pay for the fees.
 
@@ -215,7 +223,11 @@ View the allowance again:
 $ simd query feegrant grants $BOB_KEY
 ```
 
+<HighlightBox type="note">
+
 Note how `spend_limit` has been reduced and Bob now has `99500stake` left to spend on fees.
+
+</HighlightBox>
 
 ## Revoke allowance
 
