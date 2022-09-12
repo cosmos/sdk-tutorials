@@ -1,6 +1,6 @@
 ---
 parent:
-title: Understanding IBC Denoms
+title: "Understanding IBC Denoms"
 order: 0
 description: Send tokens with IBC, trace a denom, and understand how denoms work
 tags:
