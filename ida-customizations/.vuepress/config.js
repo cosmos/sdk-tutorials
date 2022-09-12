@@ -92,7 +92,7 @@ module.exports = {
                   path: "/ida-course/LPs/week-0/",
                 },
                 {
-                  title: "Blockchchain 101",
+                  title: "Blockchain 101",
                   path: "/ida-course/0-blockchain-basics/1-blockchain.html",
                 },
                 {
