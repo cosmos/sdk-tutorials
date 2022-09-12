@@ -376,17 +376,17 @@ $ gaiad query block 5901208 --node https://rpc.cosmos.network:443
 
 ## 🎉Congratulations!🎉
 
-You have made it all the way through this tutorial and will now be unfazed when encountering an IBC denom in the wild.
+You have made it all the way through this tutorial and will now be unfazed when encountering an IBC denom in the wild!
 
 <HighlightBox type="synopsis">
 
-Here are some things to take away from this tutorial:
+To summarize, this section has explored:
 
-* You understand the basics of ICS-20 token transfer over IBC.
-* When you interact with assets that were transferred over IBC, you might encounter the IBC denom notation `ibc/...` containing a hash of the path information.
-* You can derive an IBC denom, or know how to perform a _denomtrace_ query to retrieve the path information and base denom of the asset.
-* You know about the chain registry (and soon CNS) and can query from the path information to identify chain IDs associated with a light client.
-* You can reason about the security of an IBC asset based on the path information contained in the IBC denom.
+* The basics of ICS-20 token transfer over IBC.
+* How you might encounter the IBC denom notation `ibc/...` containing a hash of the path information when you interact with assets that were transferred over IBC.
+* How to derive an IBC denom, or perform a _denomtrace_ query to retrieve the path information and base denom of the asset.
+* How to query from the path information to identify chain IDs associated with a light client, making use of the chain registry (and soon CNS). 
+* How to reason about the security of an IBC asset based on the path information contained in the IBC denom.
 
 </HighlightBox>
 
