@@ -3,6 +3,10 @@ parent:
 title: Understand IBC Denoms with Gaia
 order: 0
 description: Send tokens with IBC, trace a denom, and understand how denoms work.
+tags:
+  - tutorial
+  - dev-ops
+  - ibc
 ---
 
 # Understand IBC Denoms with Gaia
@@ -16,7 +20,7 @@ The most used feature of IBC is to send tokens from one blockchain to another. W
 Imagine two blockchains, blockchain A and blockchain B. In the beginning, you have your token on blockchain A.
 
 ![IBC token transfer](/tutorials/understanding-ibc-denoms/ibc_token.png "IBC token transfer")
-*Sending token from blockchain A to blockchain B*
+_Sending token from blockchain A to blockchain B_
 
 The value that tokens represent can be transferred across chains, but the token itself cannot. When sending the tokens with IBC to another blockchain:
 

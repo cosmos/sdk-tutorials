@@ -2,7 +2,9 @@
 title: "Gas - Incentivize Players"
 order: 17
 description: Reward validators proportional to their effort
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Gas - Incentivize Players
@@ -54,7 +56,7 @@ Before diving into the specifics, ask yourself:
 
 ## New data
 
-These values provide examples but you can, and should, set your own. To get a rule-of-thumb idea of how much gas is already consumed without your additions, look back at your previous transactions. Save your pick of values as new constants:
+These values provide examples but you can, and should, set your own. To get a rule-of-thumb idea of how much gas is already consumed without your additions, look back at your previous transactions. Save your pick of the values as new constants:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/types/keys.go#L71-L75]
 const (
@@ -70,7 +72,7 @@ Here are the debatable rationales for these values:
 2. Playing a game imposes a smaller cost because it makes changes to an existing storage entry, which was already paid for. On the other hand it costs some computation and pushes back the time by when the game expires.
 3. When a player rejects a game, the storage entry is deleted, which relieves the nodes of the burden of storing it. Hence it makes sense to incentivize players to reject games by **refunding** some gas. Since some computation was still done between creation and rejection, the refund is less than the cost of creation.
 
-As a checkers blockchain creator, your goal may be to have as many on-going games as possible. Adding costs sounds counter to this goal. However here the goal is to optimize potential congestion at the margin. If there is little activity, then the gas price will go down, and these additional costs will be trivial for players anyway. Conversely, if there is a lot of network activity, the gas price will go up, and whether you have put additional costs or not, players will still be less likely to participate.
+As a checkers blockchain creator, your goal may be to have as many on-going games as possible. Adding costs sounds counter to this goal. However, here the goal is to optimize potential congestion at the margin. If there is little activity, then the gas price will go down, and these additional costs will be trivial for players anyway. Conversely, if there is a lot of network activity, the gas price will go up, and whether you have put additional costs or not players will still be less likely to participate.
 
 ## Add handling
 
@@ -103,7 +105,7 @@ You do not meter gas in your `EndBlock` handler because it is **not** called by 
 <HighlightBox type="tip">
 
 As part of your code optimization, avoid calling `ConsumeGas` with a fixed gas cost (for instance `k`) from within a loop. Each pass of the loop uses computation resources (`c`) on each node. If you know the number of times your code loops (`n`), you know that running the full loop will use `n*c` computation resources.
-
+<br></br>
 Now consider the case of a user who sent a transaction without enough gas. The transaction will fail anyway, but at what point will it fail?
 
 1. If you call `ConsumeGas(k)` _within_ the loop, the transaction will fail during one of the passes (the `m`th pass). This means that the node has already used `m*c` computation resources.
@@ -152,7 +154,7 @@ func TestRejectGameByBlackRefundedGas(t *testing.T) {
 }
 ```
 
-These new tests are lame anyway because their `5_000` or `25_000` values cannot be predicted, but have to be found by trial and error.
+These new tests are lame, because their `5_000` or `25_000` values cannot be predicted but have to be found by trial and error.
 
 ## Interact via the CLI
 
@@ -178,7 +180,7 @@ $ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000
 
 </CodeGroup>
 
-Let's say this returns `69422`, which is the estimated gas used. Now comment out the `.ConsumeGas` line in `msg_server_create_game.go`, save it, wait a few minutes for Ignite CLI to rebuild, and try again:
+Say this returns `69422`, which is the estimated gas used. Now comment out the `.ConsumeGas` line in `msg_server_create_game.go`, save it, wait a few minutes for Ignite CLI to rebuild, and try again:
 
 <CodeGroup>
 
@@ -356,10 +358,22 @@ Now comment out the `RefundGas` part and reject another game. This shows:
 gas_used: "69157"
 ```
 
-Which is close to `14000` more expensive when there is no refund.
+This is close to `14000` more expensive than when there is a refund.
 
 Do not worry if you do not get the same values. At least try multiple times to see if the values look like each other on your system.
 
-## Next up
+<HighlightBox type="synopsis">
 
-Make your checkers blockchain more user-friendly by helping players avoid bad transactions via a query that tests a move. Just follow the exercise in the [next section](./can-play.md).
+To summarize, this section has explored:
+
+* How to add gas metering to your application so participants contribute toward the cost of the work being demanded of the network by gameplay, and add costs to discourage spam.
+* What new data constants need to be added, such as fees for creating games or playing moves, and gas consumption lines for handlers relating to these gameplay aspects.
+* Best practices for gas metering, including where not to call fixed gas costs and the implications of a user sending transactions without enough gas to process them.
+* What texts to add that confirm gas consumption, acknowledging the limitations on precision that the use of BaseApp and your module also imposes on understanding how much gas is used by various transactions.
+* How to interact via the CLI to confirm that gas is being consumed by different actions, acknowledging the additional complications arising from variable account balances and gas price.
+
+</HighlightBox>
+
+<!--## Next up
+
+Make your checkers blockchain more user-friendly by helping players avoid bad transactions via a query that tests a move. Just follow the exercise in the [next section](./can-play.md).-->

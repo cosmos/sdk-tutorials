@@ -2,7 +2,6 @@
 title: "Mandatory Quiz"
 order:
 description:
-tag:
 ---
 
 # Mandatory Quiz

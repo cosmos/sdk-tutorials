@@ -2,7 +2,9 @@
 title: "Create Custom Messages for Your Checkers Blockchain"
 order: 7
 description: Introduce the message to create a game
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Create Custom Messages for Your Checkers Blockchain
@@ -190,7 +192,7 @@ As an interface, it does not describe what should happen when called. With the h
 
 ## Unit tests
 
-The code of this section was created by Ignite CLI, so there is no point in testing it. However, since you are going to adjust the keeper to do what you want, you add a test file for that. Add `keeper/msg_server_create_game_test.go`, declared with `package keeper_test`, and add in:
+The code of this section was created by Ignite CLI, so there is no point in testing it. However, since you are going to adjust the keeper to do what you want, you should add a test file for that. Add `keeper/msg_server_create_game_test.go`, declared with `package keeper_test`, and add in:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-msg/x/checkers/keeper/msg_server_create_game_test.go]
 const (
@@ -239,7 +241,7 @@ This convenient [`setupMsgServer`](https://github.com/cosmos/b9-checkers-academy
 
 ## Interact via the CLI
 
-First run the chain:
+First, run the chain:
 
 <CodeGroup>
 
@@ -323,11 +325,11 @@ Usage:
 Flags:
    -a, --account-number uint      The account number of the signing account (offline mode only)
    -b, --broadcast-mode string    Transaction broadcasting mode (sync|async|block) (default "sync")
-       --dry-run                  ignore the --gas flag and perform a simulation of a transaction, but don't broadcast it
+       --dry-run                  Ignore the --gas flag and perform a simulation of a transaction, but don't broadcast it
        --fee-account string       Fee account pays fees for the transaction instead of deducting from the signer
        --fees string              Fees to pay along with transaction; eg: 10uatom
        --from string              Name or address of private key with which to sign
-       --gas string               gas limit to set per-transaction; set to "auto" to calculate sufficient gas automatically (default 200000)
+       --gas string               Gas limit to set per-transaction; set to "auto" to calculate sufficient gas automatically (default 200000)
 ...
 ```
 
@@ -357,7 +359,11 @@ $ export alice=$(docker exec checkers checkersd keys show alice -a)
 $ export bob=$(docker exec checkers checkersd keys show bob -a)
 ```
 
-Note how `docker` is called without `-it`, otherwise, it would add a `\r` to the addresses.
+<HighlightBox type="note">
+
+`docker` is called without `-it`, otherwise it would add a `\r` to the addresses.
+
+</HighlightBox>
 
 </CodeGroupItem>
 
@@ -419,7 +425,7 @@ $ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from 
 
 <ExpansionPanel title="The command prints a lot and prompts you for confirmation">
 
-Note how it also prints the gas estimate.
+Note how it also prints the gas estimate:
 
 ```txt
 gas estimate: 43032
@@ -571,7 +577,18 @@ It appears that nothing changed. Ignite CLI created a message, you even signed a
 
 When you are done with this exercise you can stop Ignite's `chain serve.`
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to make it possible for participants of the checkers blockchain game to create games with a single message, using a Protobuf object and a Protobuf service interface.
+* Which elements must be specified (and which must not) when instructing Ignite CLI to send a game creation message.
+* How to add a test file to check the functionality of your code.
+* How to interact via the CLI to confirm the "create a game" message occurs as intended - though the absence of a dedicated Message Handler means that currently no game is created.
+
+</HighlightBox>
+
+<!--## Next up
 
 Ignite CLI separates concerns into different files. The most relevant file currently is `x/checkers/keeper/msg_server_create_game.go`, which is created once. The creation of the game is coded into this file:
 
@@ -579,6 +596,6 @@ Ignite CLI separates concerns into different files. The most relevant file curre
 // TODO: Handling the message
 ```
 
-You need to code in it the creation of the game properly. This is the object of the [next section](./create-handling.md).
+You need to code in it the creation of the game properly. This is the object of the [next section](./create-handling.md).-->
 
 <!-- Add GUI Elements -->

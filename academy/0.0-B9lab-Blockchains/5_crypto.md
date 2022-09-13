@@ -2,7 +2,8 @@
 title: "Cryptographic Fundamentals of Blockchain"
 order: 6
 description: Public-key cryptography
-tag: fast-track
+tags: 
+  - concepts
 ---
 
 # Cryptographic Fundamentals of Blockchain
@@ -199,5 +200,15 @@ This provides a convenient example, but `MD5` is no longer considered a hard-to-
 * [The Mathematics of the RSA Public-Key Cryptosystem](https://www.nku.edu/~christensen/the%20mathematics%20of%20the%20RSA%20cryptosystem.pdf)
 * [OSCDaily (2012): Encrypt & Decrypt Files from the Command Line with OpenSSL](http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/)
 * [Zimuel, Enrico (2016): Sign and verify a file using an OpenSSL comand line tool](https://gist.github.com/ezimuel/3cb601853db6ebc4ee49)
+
+</HighlightBox>
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How modern cryptography leverages computing to make complex mathematical functions useful on a practical level, providing the essential foundation for blockchain technology.
+* How public/private key systems are used to encrypt and decrypt private messages across a public network, providing certainty to both parties that only the intended recipient can open them and that only the claimed sender can be the actual source.
+* How cryptographic hash functions allow for such things as the one-way confirmation of data; for example, being able to check that a person has a particular piece of data _without the necessity of actually sharing that data as part of the check_.
 
 </HighlightBox>

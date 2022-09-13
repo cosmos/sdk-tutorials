@@ -2,7 +2,10 @@
 title: "Get an External GUI"
 order: 4
 description: Find a checkers GUI before integrating with CosmJS
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
+  - cosm-js
 ---
 
 # Get an External GUI
@@ -29,7 +32,7 @@ $ git clone https://github.com/b9lab/react-checkers
 
 ## Prepare the files and folders
 
-In order to integrate this project, you'll have to move the relevant files into your own repository. But first test if the app works on your machine.
+In order to integrate this project, you will have to move the relevant files into your own repository. But first test if the app works on your machine.
 
 ### Testing the app
 
@@ -85,7 +88,7 @@ It should automatically open the browser and you should see a simple page. If no
 
 Move the files from the `react-checkers` folder into the repo that contains your CosmJS work so far. If you followed from the previous section or cloned the branch mentioned above, then:
 
-* The `tsconfig.json`, `images.d.ts` and `json.d.ts` files, and the `public` and `src` folders should have no conflicts.
+* The `tsconfig.json`, `images.d.ts`, and `json.d.ts` files, and the `public` and `src` folders should have no conflicts.
 * For `.gitignore` [just add the content](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/.gitignore#L3-L21) to your own `.gitignore`.
 * For `package.json` there are some more things to consider:
     * Copy and paste the `"scripts"`. Rename the incoming `"test"` to `"test-react"`.
@@ -143,6 +146,14 @@ $ docker run --rm -it -v $(pwd):/client -w /client -p 3000:3000 node:18.7 npm st
 
 The application should now open again in the browser at [`http://localhost:3000`](http://localhost:3000).
 
-## Next up
+<HighlightBox type="synopsis">
 
-You now have a working Checkers GUI! You are ready to start interfacing with the Checkers blockchain in the [next section](./cosmjs-gui.md).
+To summarize, this section has explored:
+
+* How to obtain a functioning and fairly recent external GUI for your Checkers blockchain, including how to prepare your files and folders, testing the app to ensure it functions on your machine, where to move or copy files, and testing the app on your own repo after installation.
+
+</HighlightBox>
+
+<!--## Next up
+
+You now have a working Checkers GUI! You are ready to start interfacing with the Checkers blockchain in the [next section](./cosmjs-gui.md).-->

@@ -2,7 +2,10 @@
 title: "IBC Token - Play With Cross-Chain Tokens"
 order: 19
 description: Let players wager any fungible token
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
+  - ibc
 ---
 
 # IBC Token - Play With Cross-Chain Tokens
@@ -173,7 +176,7 @@ The token denomination has been integrated into the relevant data structures. No
 
 ## Unit tests
 
-The point of the tests is to make sure that the token denomination is correctly used. So you ought to add a denomination [when creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L34) and add it to [all the stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L101) you check and all the [emitted events](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L127) you check. Choose `"stake"` for all first games and something else for additional games, for instance [`"coin"`](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L191) and [`"gold"`](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L232).
+The point of the tests is to make sure that the token denomination is correctly used. So you ought to add a denomination [when creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L34) and add it to [all the stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L101) you check and all the [emitted events](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L127) you check. Choose a `"stake"` for all first games and something else for additional games, for instance [`"coin"`](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L191) and [`"gold"`](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L232) respectively.
 
 Adjust your test helpers too:
 
@@ -423,7 +426,7 @@ Which mentions:
   type: transfer
 ```
 
-Which seems to indicate that Alice has been charged the wager. As a side node, `cosmos16xx0e457hm8mywdhxtmrar9t09z0mqt9x7srm3` is the checkers module's address. Confirm it:
+This seems to indicate that Alice has been charged the wager. As a side node, `cosmos16xx0e457hm8mywdhxtmrar9t09z0mqt9x7srm3` is the checkers module's address. Confirm it:
 
 <CodeGroup>
 
@@ -460,7 +463,7 @@ pagination:
 
 Correct. You made it possible to wager any token. That includes IBC tokens.
 
-While you are at it, check the checkers module's balance:
+Now check the checkers module's balance:
 
 <CodeGroup>
 
@@ -493,13 +496,13 @@ pagination:
   total: "0"
 ```
 
-That's correct.
+That is correct.
 
 ## Live testing with a relayer
 
 <!-- TODO it looks like it is no longer possible with this version of Ignite -->
 
-With the checkers application ready to accommodate IBC-foreign tokens, you should run some tests locally with another blockchain's tokens without running a large-scale operation. Conveniently, Ignite CLI has the [Typescript relayer](https://docs.ignite.com/kb/relayer.html) built in. If you look at the GUI Ignite CLI created in your checkers blockchain, you will see a _Relayers_ section on the left.
+With the checkers application ready to accommodate IBC-foreign tokens, you should run some tests locally with another blockchain's tokens without running a large-scale operation. Conveniently, Ignite CLI has the [TypeScript relayer](https://docs.ignite.com/kb/relayer.html) built in. If you look at the GUI Ignite CLI created in your checkers blockchain, you will see a _Relayers_ section on the left.
 
 A relayer is a process that transfers IBC packets between two blockchains. Here this process is **running in your browser** using the account you configured in your browser. The account is the same one you would use to play a game of checkers. Dub it `alice123@checkers`.
 
@@ -517,7 +520,7 @@ Your test follows a few steps:
 6. Have Alice and Bob start a game with `token: ibc/1873CA...`.
 7. After the outcome of a game, the players can retransfer these foreign tokens via the same relayer to the remote chain.
 
-This is how the Typescript relayer built in by Ignite CLI lets you experiment with foreign tokens.
+This is how the TypeScript relayer built in by Ignite CLI lets you experiment with foreign tokens.
 
 <HighlightBox type="tip">
 
@@ -525,8 +528,21 @@ As soon as you close the browser window the channels on both ends are no longer 
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
 
-In the [next section](./migration.md), you will learn how to conduct chain upgrades through migrations.
+To summarize, this section has explored:
 
-Alternatively, you can learn how to create the [Typescript client elements](./cosmjs-objects.md) for your blockchain.
+* How to enable the use of cross-chain tokens to make wagers on checkers games as well as your blockchain's base staking token, by making use of the Inter-Blockchain Communication Protocol (IBC).
+* How to update the stored game and the game creation message to allow players to decide what string represents their token.
+* Where to insert the necessary values to allow recognition of token denominations.
+* How to fix your existing tests due to the introduction of a new field and a new event, and how to add a new test when a player makes their first move.
+* How to interact via the CLI to confirm the presence of the new token denomination in a player's balance and that using these tokens to make a wager functions as required.
+* How to demonstrate that your application will accept IBC-foreign tokens from another blockchain, using Ignite CLI's built-in TypeScript relayer as a convenient small-scale local testing tool.
+
+</HighlightBox>
+
+<!--## Next up
+
+In the [next section](./migration.md), you will learn how to conduct chain upgrades through migrations.-->
+
+Alternatively, you can learn how to create the [TypeScript client elements](./cosmjs-objects.md) for your blockchain.

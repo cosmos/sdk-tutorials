@@ -2,7 +2,9 @@
 title: "Store Field - Keep an Up-To-Date Game Deadline"
 order: 13
 description: Games can expire
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Store Field - Keep an Up-To-Date Game Deadline
@@ -64,7 +66,7 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generat
 
 </CodeGroup>
 
-On each update the deadline will always be _now_ plus a fixed duration. In this context, _now_ refers to the block's time. Declare this duration as a new constant, plus how the date is to be represented, i.e. encoded in the saved game as a string:
+On each update the deadline will always be _now_ plus a fixed duration. In this context, _now_ refers to the block's time. Declare this duration as a new constant, plus how the date is to be represented - encoded in the saved game as a string:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/keys.go#L57-L60]
 const (
@@ -98,7 +100,7 @@ Helper functions can encode and decode the deadline in the storage.
 
    Note that `sdkerrors.Wrapf(err, ...)` conveniently returns `nil` if `err` is `nil`.
 
-3. While you are at it, add this to the `Validate` function:
+3. At the same time, add this to the `Validate` function:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/full_game.go#L57-L62]
     ...
@@ -176,7 +178,7 @@ require.EqualValues(t, types.StoredGame{
 }, game)
 ```
 
-Also add a couple unit tests that confirm the `GetDeadlineAsTime` function [works as intended](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/full_game_test.go#L103-L117) and that the dates saved [on create](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_create_game_test.go#L327-L339) and [on play](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_play_move_test.go#L389-L404) are parseable.
+Also add a couple of unit tests that confirm the `GetDeadlineAsTime` function [works as intended](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/full_game_test.go#L103-L117) and that the dates saved [on create](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_create_game_test.go#L327-L339) and [on play](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_play_move_test.go#L389-L404) are parseable.
 
 ## Interact via the CLI
 
@@ -244,8 +246,20 @@ This contains:
 
 In the same vein, you can create a new game and confirm it contains the deadline.
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to implement a new `deadline` field and work with dates to enable the application to check whether games which have not been recently updated have expired or not.
+* How the deadline must use the block's time as its reference point, since a non-deterministic `Date.now()` would change with each execution.
+* How to test your code to ensure that it functions as desired.
+* How to interact with the CLI to create a new game with the deadline field in place
+* How, if your blockchain contains preexisting games, that the blockchain state is now effectively broken, since the deadline field of those games demonstrates missing information (which can be corrected through migration).
+
+</HighlightBox>
+
+<!--## Next up
 
 You have created and updated the deadline. The [section two steps ahead](./game-forfeit.md) describes how to use the deadline.
 
-Before you can do that, there is one other field you need to add. Discover which in the [next section](./game-winner.md).
+Before you can do that, there is one other field you need to add. Discover which in the [next section](./game-winner.md).-->

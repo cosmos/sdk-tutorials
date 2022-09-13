@@ -2,7 +2,10 @@
 title: "Custom Objects for Your Checkers Blockchain"
 order: 2
 description: Create the objects for your GUI
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
+  - cosm-js
 ---
 
 # Custom Objects for Your Checkers Blockchain
@@ -191,7 +194,7 @@ $ docker run --rm -v $(pwd):/checkers -w /checkers checkers_i make gen-protoc-ts
 
 </CodeGroup>
 
-You have created the [basic Protobuf objects](TODO) that will assist you with communicating with the blockchain.
+You have created the [basic Protobuf objects](https://github.com/cosmos/academy-checkers-ui/tree/stargate/src/types/generated/checkers) that will assist you with communicating with the blockchain.
 
 ## Prepare integration
 
@@ -225,7 +228,7 @@ $ docker run --rm -v $(pwd):/client -w /client node:18.7 npm install protobufjs@
 
 </CodeGroup>
 
-At a later stage you will add Checkers as an extension to Stargate, but you can define your Checkers extension immediately. The `canPlay` query could make use of better types for player and position. Start by declaring them in `client/src/checkers/player.ts`:
+At a later stage, you will add checkers as an extension to Stargate, but you can define your checkers extension immediately. The `canPlay` query could make use of better types for player and position. Start by declaring them in `client/src/checkers/player.ts`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/src/types/checkers/player.ts#L1-L6]
 export type Player = "b" | "r"
@@ -236,7 +239,7 @@ export interface Pos {
 }
 ```
 
-Your Checkers extension will need to use the CosmJS Stargate package. Install it:
+Your checkers extension will need to use the CosmJS Stargate package. Install it:
 
 <CodeGroup>
 
@@ -258,7 +261,7 @@ $ docker run --rm -v $(pwd):/client -w /client node:18.7 npm install @cosmjs/sta
 
 </CodeGroup>
 
-Now you can declare the Checkers extension in `src/modules/checkers/queries.ts`:
+Now you can declare the checkers extension in `src/modules/checkers/queries.ts`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/src/modules/checkers/queries.ts#L15-L37]
 export interface AllStoredGameResponse {
@@ -412,9 +415,9 @@ Describe how to connect to the running blockchain in a `.env` file in your proje
 RPC_URL="http://localhost:26657"
 ```
 
-Alternatively, use whichever address connects to the RPC port of the Checkers blockchain. In particular if your chain runs in a Docker container, you may need to pass your actual IP address.
+Alternatively, use whichever address connects to the RPC port of the checkers blockchain. If your chain runs in a Docker container, you may need to pass your actual IP address.
 
-This information will be picked up by the `dotenv` package. Now let TypeScript know about this in a `environment.d.ts` file:
+This information will be picked up by the `dotenv` package. Now let TypeScript know about this in an `environment.d.ts` file:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/environment.d.ts]
 declare global {
@@ -442,7 +445,7 @@ Also add your `tconfig.json` as you see fit:
 }
 ```
 
-And the line that describes how the tests are run:
+Add the line that describes how the tests are run:
 
 ```json [https://github.com/cosmos/academy-checkers-ui/blob/stargate/package.json#L7]
 {
@@ -456,7 +459,7 @@ And the line that describes how the tests are run:
 
 ### First tests
 
-Because the intention is to run these tests against a running chain, they cannot expect too much such as how many games have been created so far. Still, it is possible to test that at least the connection is made and queries pass through.
+Because the intention is to run these tests against a running chain they cannot expect too much, such as how many games have been created so far. Still, it is possible to at least test that the connection is made and queries pass through.
 
 Create `test/integration/system-info.ts`:
 
@@ -486,7 +489,7 @@ describe("SystemInfo", function () {
 })
 ```
 
-And one for stored games:
+And create one for stored games:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/stargate/test/integration/stored-game.ts]
 import { expect } from "chai"
@@ -529,9 +532,13 @@ describe("StoredGame", function () {
 })
 ```
 
-Note the forced import of `import _ from "../../environment"` to actively inform on the `string` type as opposed to `string | undefined`, and avoid any compilation error.
+<HighlightBox type="note">
 
-Launch your checkers chain. For instance, from the checkers folder, with:
+Note the forced import of `import _ from "../../environment"`, to actively inform on the `string` type (as opposed to `string | undefined`) and avoid any compilation error.
+
+</HighlightBox>
+
+Launch your checkers chain, for instance from the checkers folder with:
 
 <!-- TODO create a Docker container that contains everything for a pure CosmJS dev to follow along -->
 
@@ -593,6 +600,15 @@ SystemInfo
 3 passing (287ms)
 ```
 
-## Next up
+<HighlightBox type="synopsis">
 
-Now that your types have been generated and that you have created your read-only Stargate client, you can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./cosmjs-messages.md).
+To summarize, this section has explored:
+
+* The need to prepare the elements that will eventually allow you to create a GUI and/or server-side scripts for your Checkers application.
+* How to create the necessary Protobuf objects and clients in Typescript, the extensions that facilitate the use of these clients, so that CosmJS will understand and be able to interact with your Checkers module.
+
+</HighlightBox>
+
+<!--## Next up
+
+Now that your types have been generated, you can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./cosmjs-messages.md).-->

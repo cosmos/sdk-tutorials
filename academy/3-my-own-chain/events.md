@@ -2,7 +2,9 @@
 title: "Events - Emit Game Information"
 order: 10
 description: Emit game information using events
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Events - Emitting Game Information
@@ -169,7 +171,7 @@ How can you _guess_ the order of elements? Easily, as you created them in this o
 
 ![Live values of event in debug mode](/academy/4-my-own-chain/images/go_test_debug_event_attributes.png)
 
-As for the events emitted during the _play move_ test, there are two of them: one for the creation and the other for the play. Because this is a unit test and each action is not isolated into individual transactions, the context collects all events emitted during the test. It just so happens that the context prepends them, i.e. the newest one is at index `0`. Which is why, when you fetch them, the play event is at `events[0]`.
+As for the events emitted during the _play move_ test, there are two of them: one for the creation and the other for the play. Because this is a unit test and each action is not isolated into individual transactions, the context collects all events emitted during the test. It just so happens that the context prepends them - the newest one is at index `0`. Which is why, when you fetch them, the play event is at `events[0]`.
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/two-events/x/checkers/keeper/msg_server_play_move_test.go#L110-L135]
 func TestPlayMoveEmitted(t *testing.T) {
@@ -200,7 +202,7 @@ func TestPlayMoveEmitted(t *testing.T) {
 }
 ```
 
-When two players play one after the other, the context collates the attributes of `move-played` all together in a single array in an appending fashion, with the older attributes at the lower indices, starting at `0`. For instance, to test the attributes of the second `move-played` event, you have to rely on array slices like `event.Attributes[5:]`:
+When two players play one after the other, the context collates the attributes of `move-played` all together in a single array in an appending fashion, with the older attributes at the lower indices, starting at `0`. For instance, you have to rely on array slices like `event.Attributes[5:]` to test the attributes of the second `move-played` event:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/two-events/x/checkers/keeper/msg_server_play_move_test.go#L261-L292]
 func TestPlayMove2Emitted(t *testing.T) {
@@ -496,6 +498,19 @@ This confirms that the _play_ event is emitted as expected. You can confirm the 
 
 When you are done with this exercise you can stop Ignite's `chain serve.`
 
-## Next up
+<HighlightBox type="synopsis">
 
-Time to add a third message to make it possible for a player to [reject a game](./reject-game.md) and to make your checkers blockchain more resistant to spam.
+To summarize, this section has explored:
+
+* How to define event types and then emit events to cause the UI to notify players of game actions as they occur, such as creating games and playing moves.
+* How listening to known events which let clients determine which player must move next is better than the impractical alternative of examining all transactions to search for the ones which signify a player's turn.
+* How to define a Game-created event that will notify the participating players and make it easy for them to find the game.
+* How to define a Player-moved event that will indicate which player and game is involved, when the move occurred, the move's outcome, and whether the game was won as a result.
+* How to test your code to ensure that it functions as desired.
+* How to interact with the CLI to check the effectiveness of an emitted event.
+
+</HighlightBox>
+
+<!--## Next up
+
+Time to add a third message to make it possible for a player to [reject a game](./reject-game.md) and to make your checkers blockchain more resistant to spam.-->

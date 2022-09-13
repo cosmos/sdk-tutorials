@@ -1,6 +1,18 @@
 <!--
 layout: LandingPage
 tutorials:
+  - title: Understanding the Group Module
+    level: intermediate
+    description: Learn what the Group module does, how to create group, and how to submit group proposals.
+    url: /tutorials/understanding-groups
+  - title: Understanding the Authz Module
+    level: intermediate
+    description: Learn what the Authz module does, how to create and revoke authorizations, and how to execute authorized transactions.
+    url: /tutorials/understanding-authz
+  - title: Understand IBC Denoms with Gaia
+    level: intermediate
+    description: Learn about what means IBC denoms and understand what they are.
+    url: /tutorials/understanding-ibc-denoms/
 tools:
   - title: Cosmos SDK
     description: A framework for building public blockchains.
@@ -49,21 +61,21 @@ tools:
         url: https://hub.cosmos.network/
     image: /generic-star-icon.svg
 articles:
-  - title: Authz and Fee Grant Modules
-    date: Thursday, March 10
+  - title: Move From Web2 to Web3 in 7 Weeks With the Interchain Developer Academy
+    date: Thursday, August 30
     time: 4
-    url: https://blog.cosmos.network/secret-powers-what-are-the-authz-and-fee-grant-modules-c57d0e808794
-    image: /authz-article-banner.png
-  - title: Tendermint v0.35
-    date: Friday, November 5
-    time: 4
-    url: https://medium.com/tendermint/tendermint-v0-35-introduces-prioritized-mempool-a-makeover-to-the-peer-to-peer-network-more-61eea6ec572d
-    image: /article-02.jpg
+    url: https://blog.cosmos.network/join-the-interchain-developer-academy-and-master-cosmos-in-7-weeks-e28a47896e0f
+    image: /article-banner-02.png
+  - title: The Mind, Body, and Soul of Cosmos.
+    date: Friday, May 27
+    time: 6
+    url: https://blog.cosmos.network/the-mind-body-and-soul-of-cosmos-140ee7cec0cd
+    image: /article-banner-01.png
   - title: What is IBC?
     date: Tuesday, December 7
     time: 9
     url: https://bisontrails.co/ibc-protocol
-    image: /article-03.jpg
+    image: /article-banner-04.jpg
 -->
 
 This repo contains the code and content for the [Developer Portal](https://developers.cosmos.network/) and the [Interchain Developer Academy](https://academy.cosmos.network/).
@@ -72,14 +84,15 @@ Note: The layout metadata at the top of the README.md file controls how the tuto
 
 These tutorials guide you through actionable steps and walk-throughs to teach you how to use the Cosmos Stack. The Cosmos Stack is the world’s most popular framework for building application-specific blockchains, it consists of several products:
 
-- **Cosmos SDK**, a modular framework to build blockchain applications
-- **IBC**, the Inter-Blockchain Communication protocol that allows blockchains to communicate 
-- **Tendermint**, the algorithm that provides the consensus and networking layer for your blockchain application
+* **Cosmos SDK**, a modular framework to build blockchain applications
+* **IBC**, the Inter-Blockchain Communication protocol that allows blockchains to communicate 
+* **Tendermint**, the algorithm that provides the consensus and networking layer for your blockchain application
 
 The Developer Portal contains three types of content:
-- **Concepts**, informational content explaining the how the Cosmos Stack functions
-- **Individual Tutorials**, short tutorials to get you up to speed with individual components
-- **Checkers Game**, a modular tutorial that covers the full stack and teaches you every element from set-up to launching in production with a front-end application attached.
+
+* **Concepts**, informational content explaining the how the Cosmos Stack functions
+* **Individual Tutorials**, short tutorials to get you up to speed with individual components
+* **Checkers Game**, a modular tutorial that covers the full stack and teaches you every element from set-up to launching in production with a front-end application attached.
 
 Going through the entire content will teach you about:
 

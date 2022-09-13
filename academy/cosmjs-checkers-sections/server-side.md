@@ -2,7 +2,10 @@
 title: "CosmJS on a Backend Script for Game Indexing"
 order: 6
 description: Introduce a Web2.0 server to track games per player
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
+  - cosm-js
 ---
 
 # CosmJS on a Backend Script for Game Indexing
@@ -354,7 +357,7 @@ It should return:
 
 ## Add CosmJS `StargateClient`
 
-You need to create a client to connect to your Checkers blockchain. The client only needs read-only functionality because this server does not submit transactions. Your repository already contains useful elements:
+You need to create a client to connect to your checkers blockchain. The client only needs read-only functionality because this server does not submit transactions. Your repository already contains useful elements:
 
 * The `CheckersStargateClient`.
 * An [`.env`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env) file.
@@ -586,7 +589,7 @@ import { ABCIMessageLog, Attribute, StringEvent } from "cosmjs-types/cosmos/base
 * `while() {}` simplifies the syntax of `await`ing multiple times sequentially.
 * The `handleEvents` function only keeps events that emanate from the `checkers` module.
 * It uses a new function, `handleEvent`. Create one and put `console.log(event)` inside to explore what this object is and consider what actions you can take with it.
-* It skips in case of error as the likely cause is that the transactions in fact failed.
+* It skips in case of error, as the likely cause is that the transactions in fact failed.
 
 </HighlightBox>
 
@@ -691,7 +694,7 @@ const handleEventReject = async (event: StringEvent): Promise<void> => {
 
 * `handleEventReject` keeps the game information in the `db`. This is a debatable choice, but helps the `patch` function identify old games that once existed as opposed to games that never existed.
 * It marks the game as `deleted: true`, though.
-* And it removes the from both players' list of games.
+* And it removes the id from both players' list of games.
 * There is additional error handling.
 
 </HighlightBox>
@@ -721,7 +724,7 @@ const handleEventPlay = async (event: StringEvent): Promise<void> => {
 
 <HighlightBox type="note">
 
-* `handleEventPlay` returns quietly if there is no winner because it means there is nothing to do.
+* `handleEventPlay` returns quietly if there is no winner, because this means there is nothing to do.
 * As when there is a rejected game, it keeps the game information in the `db`.
 * It also removes the id from both players' list of games.
 
@@ -978,9 +981,7 @@ const handleEventForfeit = async (event: StringEvent): Promise<void> => {
 
 <HighlightBox type="note">
 
-* Again there is a lot of error handling.
-* `handleEvent` only soft-deletes the game.
-* Although it removes it from the list of games for the players.
+Again there is a lot of error handling. `handleEvent` only soft-deletes the game, although it removes it from the list of games for the players.
 
 </HighlightBox>
 

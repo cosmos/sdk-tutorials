@@ -3,7 +3,7 @@ parent:
   title: The Inter-Blockchain Communication Protocol
   description: Connect chains
   number: 4
-tag: deep-dive
+tag:
 order: 0
 title: Chapter Overview - The Inter-Blockchain Communication Protocol
 ---
@@ -34,9 +34,9 @@ In this chapter, you will:
 
 <card-module/>
 
-## Next up
+<!--## Next up
 
-This chapter is all about the IBC protocol. Begin your cross-chain journey with an [introduction to IBC](./what-is-ibc.md).
+This chapter is all about the IBC protocol. Begin your cross-chain journey with an [introduction to IBC](./what-is-ibc.md).-->
 
 ## Developer resources
 

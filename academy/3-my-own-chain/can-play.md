@@ -2,7 +2,9 @@
 title: "Query - Help Find a Correct Move"
 order: 18
 description: Help players make good transactions
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Query - Help Find a Correct Move
@@ -233,7 +235,7 @@ Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-
     )
     ```
 
-3. Prepare you array of cases:
+3. Prepare your array of cases:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_test.go#L25]
     canPlayTestRange = []canPlayGameCase{
@@ -241,7 +243,7 @@ Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-
     }
     ```
 
-4. In the array add your first test case, one that returns an ok response:
+4. In the array add your first test case, one that returns an OK response:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_test.go#L26-L44]
     {
@@ -265,7 +267,7 @@ Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-
     },
     ```
 
-5. Add [others](https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_test.go#L26-L239). Examples include a missing request:
+5. Add [other test cases](https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_test.go#L26-L239). Examples include a missing request:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_test.go#L45-L56]
     {
@@ -309,7 +311,7 @@ Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-
     },
     ```
 
-6. With the test cases defined, add the single test function that runs all the cases:
+6. With the test cases defined, add a single test function that runs all the cases:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_test.go#L243-L263]
     func TestCanPlayCasesAsExpected(t *testing.T) {
@@ -335,11 +337,15 @@ Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-
     }
     ```
 
+<HighlightBox type="note">
+
 Note how all test cases are run within a single unit test. In other words, the keeper used for the second case is the same as that used for the first case, and so on for all. So to mitigate the risk of interference from one case to the next, you ought to do `keeper.RemoveStoredGame(ctx, testCase.game.Index)` at the end of the test case.
+
+</HighlightBox>
 
 ## Integration tests
 
-Of course, you can also add integration tests on top of your unit tests. Although not compulsory, it is preferable that you put them in a separate file. Pick `grpc_query_can_play_move_integration_test.go`.
+You can also add integration tests on top of your unit tests. Although not compulsory, it is preferable that you put them in a separate file. Pick `grpc_query_can_play_move_integration_test.go`.
 
 Test if it is possible to play on the first game that is created in the system:
 
@@ -364,7 +370,7 @@ With these, your query handling function should be covered.
 
 ## Interact via the CLI
 
-Put the game expiry at 5 minutes and start `ignite chain serve`. A friendly reminder that the CLI can always inform you about available commands:
+Set the game expiry to 5 minutes and start `ignite chain serve`. Remember that the CLI can always inform you about available commands:
 
 <CodeGroup>
 
@@ -724,6 +730,17 @@ reason: game is already finished
 
 These query results satisfy our expectations.
 
-## Next up
+<HighlightBox type="synopsis">
 
-Do you want to give players more flexibility about which tokens they can use for games? Let players wager any fungible token in the [next section](./wager-denom.md).
+To summarize, this section has explored:
+
+* How application usability can be improved with queries, such as by avoiding the cost of sending *technically* valid transactions which will nevertheless inevitably be rejected due to the application's current state.
+* How queries allow the user to evaluate the application state in read-only mode, without committing anything permanently to storage, with the result that a planned transaction can be judged as acceptable or not before burning gas.
+* How effective query construction will allow the application to signal not just that a planned transaction will fail but also the *reason* it will fail, improving the user's knowledge base for future actions.
+* How to create a query object with Ignite CLI; implement appropriate answers to a player's query; perform integration tests which extrapolate on the application's actual current state; and interact via the CLI to test the effectiveness of the query object.
+
+</HighlightBox>
+
+<!--## Next up
+
+Do you want to give players more flexibility about which tokens they can use for games? Let players wager any fungible token in the [next section](./wager-denom.md).-->

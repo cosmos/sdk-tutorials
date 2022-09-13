@@ -2,7 +2,9 @@
 title: "Ignite CLI"
 order: 4
 description: An easy way to build your application-specific blockchain
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Ignite CLI
@@ -57,7 +59,7 @@ Want to dedicate some time to dive deeper into installing Ignite CLI? Learn [how
 
 <HighlightBox type="best-practice">
 
-If you do not want to install Go and Ignite on your computer, have a look too at the **section about Docker below** to facilitate your handling of specific versions and platforms.
+If you do not want to install Go and Ignite on your computer, look at the **section about Docker below** to facilitate your handling of specific versions and platforms.
 
 </HighlightBox>
 
@@ -200,7 +202,7 @@ It should return, among other things:
 Ignite CLI version:     v0.22.1
 ```
 
-That is the bare minimum to be able to run the commands that come on this page. If at a later stage you want to create a persistent container named `checkers`, you can do:
+That is the bare minimum required to be able to run the commands that come on this page. If at a later stage you want to create a persistent container named `checkers`, you can do:
 
 ```sh
 $ docker create --name checkers -i -v $(pwd):/checkers -w /checkers -p 1317:1317 -p 3000:3000 -p 4500:4500 -p 5000:5000 -p 26657:26657 checkers_i
@@ -233,11 +235,11 @@ This only works if you have prepared the `checkers_i` Docker image.
 
 </CodeGroup>
 
-`github.com/alice/checkers` is the name of the Golang module by which this project will be known. And if you own the `github.com/alice` path, you can even eventually host it there and have other people use your project as a module.
+`github.com/alice/checkers` is the name of the Golang module by which this project will be known. If you own the `github.com/alice` path, you can even eventually host it there and have other people use your project as a module.
 
 <ExpansionPanel title="Troubleshooting">
 
-For the sake of good support, the versions of all software used are communicated as encountered throughout this course. It is natural that after the writing of the course material some version changes will appear, and it may occur that something breaks. Instead of using different versions of the software from the ones in the course, please look at the following list, which might fix problems you are running into. Otherwise, use Docker, as explained on this page.
+For the sake of good support, the versions of all software used are communicated as encountered throughout this course. It is natural that after the writing of the course material some version changes will appear, and it may occur that something breaks. Instead of using different versions of the software from the ones in the course, please look at the following list, which might fix problems you are running into. Otherwise, use Docker as explained on this page.
 <p></p>
 If all else fails, please post the issue you face on Discord.
 
@@ -245,11 +247,11 @@ If all else fails, please post the issue you face on Discord.
 
 **Apple M1**
 
-If you work with a machine using M1 architecture, the Docker image should allow you to run with your specific CPU architecture. However, if you encounter too many problems, you can try the following:
+If you work with a machine using M1 architecture, the Docker image should allow you to run with your specific CPU architecture. However, if you encounter too many problems you can try the following:
 
-1. You follow this course in a [Rosetta](https://www.courier.com/blog/tips-and-tricks-to-setup-your-apple-m1-for-development/) terminal.
-2. You install [Homebrew](https://brew.sh/index).
-3. You install Golang with `brew install go`.
+1. Follow this course in a [Rosetta](https://www.courier.com/blog/tips-and-tricks-to-setup-your-apple-m1-for-development/) terminal.
+2. Install [Homebrew](https://brew.sh/index).
+3. Install Golang with `brew install go`.
 
 </PanelListItem>
 
@@ -337,7 +339,11 @@ $ cd checkers
 $ docker run --rm -it -v $(pwd):/checkers -w /checkers -p 1317:1317 -p 3000:3000 -p 4500:4500 -p 5000:5000 -p 26657:26657 --name checkers checkers_i ignite chain serve
 ```
 
+<HighlightBox type="note">
+
 Notice how you still name the container `checkers` so that you can access it for further commands.
+
+</HighlightBox>
 
 </CodeGroupItem>
 
@@ -354,7 +360,7 @@ $ docker exec -it checkers ignite chain serve
 
 </CodeGroup>
 
-The `ignite chain serve` command downloads (a lot of) dependencies and compiles the source code into a binary called `checkersd`. The command:
+The `ignite chain serve` command downloads (a lot of) dependencies and compiles the source code into a binary called `checkersd`. This command:
 
 * Installs all dependencies.
 * Builds Protobuf files.
@@ -366,7 +372,7 @@ The `ignite chain serve` command downloads (a lot of) dependencies and compiles 
 
 If you use Docker with throwaway containers (`run --rm`) you will notice that it downloads the Go dependencies every time. To increase your productivity, you can have the dependencies be downloaded in the Docker image itself:
 
-1. Move your `Dockerfile-ubuntu` file in your Checkers project, next to the `go.mod` file.
+1. Move your `Dockerfile-ubuntu` file into your Checkers project, next to the `go.mod` file.
 2. Add the following lines to `Dockerfile-ubuntu`:
 
   ```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/ignite-start/Dockerfile-ubuntu#L35-L37]
@@ -502,7 +508,7 @@ And so on.
 
 ## Your GUI
 
-Ignite CLI also scaffolded a frontend. Boot it up by using the commands provided in the `README.md` file of the `vue` folder. Let the chain run in its own process and open a new terminal window in your `checkers` folder. In this terminal execute:
+Ignite CLI also scaffolded a frontend. Boot it up by using the commands provided in the `README.md` file of the `vue` folder. Let the chain run in its own process and open a new terminal window in your `checkers` folder. In this terminal, execute:
 
 <CodeGroup>
 
@@ -531,13 +537,13 @@ $ docker exec -it checkers bash -c "cd vue && npm run dev -- --host"
 
 ---
 
-Note the `--host` flag that is forwarded to the underlying `vite` command thanks to the `--` separator. It is necessary if you run the frontend within Docker.
+Note the `--host` flag, which is forwarded to the underlying `vite` command thanks to the `--` separator. This is necessary if you run the frontend within Docker.
 
-Navigate to [localhost:3000](http://localhost:3000/), or to whichever address was listed when running `dev`. The first load may take a few seconds. On the client-side, from the top right, you can connect to the page via [Keplr](chrome://extensions/?id=dmkamcknogkgcdfhhbddcghachkejeap) if you are on the Chrome browser. You should see something like this:
+Navigate to [localhost:3000](http://localhost:3000/), or to whichever address was listed when running `dev`. The first load may take a few seconds. On the client-side, from the top right you can connect to the page via [Keplr](chrome://extensions/?id=dmkamcknogkgcdfhhbddcghachkejeap) if you are on the Chrome browser. You should see something like this:
 
 ![My Keplr account with nothing](/academy/4-my-own-chain/images/ignite-vue-keplr-no-assets.png)
 
-Your account is connected but has otherwise no balance. This is a good opportunity to use the faucet:
+Your account is connected but has no balance. This is a good opportunity to use the faucet:
 
 1. Head to [http://localhost:4500](http://localhost:4500)
 2. Expand the <kbd>POST / Send tokens to receiver account</kbd> box.
@@ -547,19 +553,19 @@ Your account is connected but has otherwise no balance. This is a good opportuni
 
 ![Submit request to faucet](/academy/4-my-own-chain/images/faucet-request-1.png)
 
-Then return to the main page, you should see your new assets:
+When you return to the main page, you should see your new assets:
 
 ![My Keplr account with tokens](/academy/4-my-own-chain/images/ignite-vue-keplr-with-tokens.png)
 
-From here, you can send tokens around. You can also ask `"10stake"` from the faucet, if you recall the name of the tokens from `config.yml`.
+From here, you can send tokens around. You can also ask for `"10stake"` from the faucet, if you recall the name of the tokens from `config.yml`.
 
 There is not much else to do. After all, this is the Cosmos BaseApp. Ignite will continue scaffolding this GUI as your Checkers project advances.
 
 <HighlightBox type="note">
 
-Keplr is also able to import Alice and Bob, i.e. the accounts that Ignite created. Use Keplr's <kbd>+Add account</kbd> feature. This is a convenient way to bypass having to use the faucet. You will need to use Alice's mnemonic, which you can find in the output of the `ignite chain serve` command.
+Keplr is also able to import Alice and Bob (i.e. the accounts that Ignite created). Use Keplr's <kbd>+Add account</kbd> feature. This is a convenient way to bypass having to use the faucet. You will need to use Alice's mnemonic, which you can find in the output of the `ignite chain serve` command.
 
-If you do not see the mnemonic, it is because the mnemonic was shown to you the first time you ran the command and you did not copy it. If so, reset with `ignite chain serve --reset-once`.
+If you do not see the mnemonic, that is because the mnemonic was shown to you the first time you ran the command and you did not copy it. If so, reset with `ignite chain serve --reset-once`.
 
 Now you should see the balance of Alice's account and can act on her behalf.
 
@@ -573,7 +579,7 @@ Make a Git commit before you create a new `message`. In fact, it is generally re
 
 ## Your first message
 
-After your Git commit, and having stopped your running Ignite, create a simple `message` with:
+After your Git commit, and having stopped running Ignite, create a simple `message` with:
 
 <CodeGroup>
 
@@ -704,9 +710,21 @@ async MsgCreatePost({ rootGetters }, { value }) {
 
 When you are done with this exercise you can stop Ignite's `chain serve.`
 
-## Next up
+<HighlightBox type="synopsis">
 
-You just created a fully working Cosmos SDK chain, one that forms the basis of the [following exercise](./stored-game.md).
+To summarize, this section has explored:
+
+* How to install Ignite CLI, a command-line tool that writes code files and updates them when instructed, handles some compilation, runs a local blockchain node, and assists with other tasks.
+* How to scaffold a basic blockchain, with the suggested best practice not to replace lines with code markers indicating where to add further code on later instruction, nor to rename or move any file containing such a line.
+* How to interact via the CLI to demonstrate that your chain is live when running in its shell.
+* How to boot up the frontend that Ignite CLI has created by using a terminal window and navigating to the localhost on your browser.
+* How to test the base functionality of your chain by creating a simple message.
+
+</HighlightBox>
+
+<!--## Next up
+
+You just created a fully working Cosmos SDK chain, one that forms the basis of the [following exercise](./exercise-intro.md).-->
 
 <HighlightBox type="info">
 

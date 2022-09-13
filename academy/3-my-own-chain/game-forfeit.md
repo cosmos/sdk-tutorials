@@ -2,7 +2,9 @@
 title: "EndBlock - Auto-Expiring Games"
 order: 15
 description: Enforce the expiration of games
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # EndBlock - Auto-Expiring Games
@@ -78,7 +80,7 @@ func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.Val
 }
 ```
 
-This ensures that **if** your module's `EndBlock` function is called the expired games will be handled. For the **whole application to call your module** you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. In fact yours has already been placed at the end by Ignite:
+This ensures that **if** your module's `EndBlock` function is called the expired games will be handled. For the **whole application to call your module** you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. In fact, yours has already been placed at the end by Ignite:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/app/app.go#L493]
 app.mm.SetOrderEndBlockers(
@@ -189,7 +191,7 @@ Now, what goes into this `if "expired" { TODO }`?
     k.RemoveFromFifo(ctx, &storedGame, &systemInfo)
     ```
 
-2. Check whether the game is worth keeping. If it is, set the winner as the opponent of the player whose turn it is, remove the board and save:
+2. Check whether the game is worth keeping. If it is, set the winner as the opponent of the player whose turn it is, remove the board, and save:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/keeper/end_block_server_game.go#L44-L55]
     lastBoard := storedGame.Board
@@ -379,7 +381,7 @@ How do you test something that is supposed to happen during the `EndBlock` event
     }
     ```
 
-<HighlightBox type="info">
+<HighlightBox type="note">
 
 Note how all the attributes of an event of a given type (such as `"game-forfeited"`) aggregate in a single array. The context is not reset on a new transaction, so when testing attributes you either have to compare the full array or take slices to compare what matters.
 
@@ -439,7 +441,7 @@ $ export bob=$(docker exec checkers checkersd keys show bob -a)
 
 </CodeGroup>
 
-Create three games 1 minute apart. Have Alice play the middle one, and both Alice and Bob play the last one:
+Create three games one minute apart. Have Alice play the middle one, and both Alice and Bob play the last one:
 
 <PanelList>
 
@@ -607,7 +609,7 @@ $ docker exec -it checkers checkersd query checkers list-stored-game
 
 </CodeGroup>
 
-List them again after 2, 3, 4, and 5 minutes. You should see games `1` and `2` disappear, and game `3` being forfeited by Alice, i.e. `red` Bob wins:
+List them again after two, three, four, and five minutes. You should see games `1` and `2` disappear, and game `3` being forfeited by Alice, i.e. `red` Bob wins:
 
 <CodeGroup>
 
@@ -666,6 +668,18 @@ SystemInfo:
   nextId: "4"
 ```
 
-## Next up
+<HighlightBox type="synopsis">
 
-With no games staying in limbo forever, the project is now ready to use token wagers. These are introduced in the [next section](./game-wager.md).
+To summarize, this section has explored:
+
+* How games can expire under two conditions: when the game never really begins or only one player makes an opening move, in which case it is removed quietly; or when both players have participated but one has since failed to play a move in time, in which case the game is forfeited.
+* What new information and functions need to be created, and to update `EndBlock` to call the `ForfeitExpiredGames` function at the end of each block.
+* The correct coding for how to prepare the main loop through the FIFO, identify an expired game, and handle an expired game. 
+* How to test your code to ensure that it functions as desired.
+* How to interact with the CLI to check the effectiveness of your code for handling expired games.
+
+</HighlightBox>
+
+<!--## Next up
+
+With no games staying in limbo forever, the project is now ready to use token wagers. These are introduced in the [next section](./game-wager.md).-->

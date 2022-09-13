@@ -2,7 +2,9 @@
 title: "Message and Handler - Add a Way to Make a Move"
 order: 9
 description: Play a game
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Message and Handler - Add a Way to Make a Move
@@ -175,7 +177,7 @@ Take the following steps to replace the `TODO`:
     }
     ```
 
-    Fortunately you previously created [this helper](https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/full_game.go#L22-L32). Here you `panic` because if the game cannot be parsed, the cause may be database corruption.
+    Fortunately you previously created [this helper](https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/full_game.go#L22-L32). Here you `panic` because if the game cannot be parsed the cause may be database corruption.
 
 4. Is it the player's turn? Check using the rules file's own [`TurnIs`](https://github.com/cosmos/b9-checkers-academy-draft/blob/175f467/x/checkers/rules/checkers.go#L145-L147) function:
 
@@ -223,7 +225,7 @@ Take the following steps to replace the `TODO`:
     }, nil
     ```
 
-    The `Captured` and `Winner` information would be lost if you did not get it out of the function one way or another. More accurately, one would have to replay the transaction to discover the values. Better to be a good citizen and make this information easily accessible.
+    The `Captured` and `Winner` information would be lost if you did not get it out of the function one way or another. More accurately, one would have to replay the transaction to discover the values. It is best to make this information easily accessible.
 
 This completes the move process, facilitated by good preparation and the use of Ignite CLI.
 
@@ -345,7 +347,9 @@ $ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_
 
 </CodeGroup>
 
-If you restarted from the [previous section](./create-handling.md), there already is one game in storage and it is game waiting for Alice's move. If that is not the case, recreate a game via the CLI. Can Bob make a move? Look at the `play-move` message and which parameters it expects:
+If you restarted from the [previous section](./create-handling.md), there is already one game in storage and it is waiting for Alice's move. If that is not the case, recreate a game via the CLI. 
+
+Can Bob make a move? Look at the `play-move` message and which parameters it expects:
 
 <CodeGroup>
 
@@ -411,7 +415,7 @@ $ docker exec -it checkers checkersd tx checkers play-move 1 0 5 1 4 --from $bob
 
 </CodeGroup>
 
-After you accept to send the transaction, it should complain and the result includes:
+After you accept sending the transaction, it should complain with the result including:
 
 ```txt
 ...
@@ -477,7 +481,7 @@ $ docker exec -it checkers checkersd tx checkers play-move 1 1 0 0 1 --from $ali
 
 </CodeGroup>
 
-The computer says no:
+The computer says "no":
 
 ```txt
 ...
@@ -561,9 +565,23 @@ r*r*r*r*
 
 Bob's piece moved down and right.
 
-When you are done with this exercise you can stop Ignite's `chain serve.`
+When you are done with this exercise you can stop Ignite's `chain serve`.
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to use messages and handlers, in this case to add the capability of actually playing moves on checkers games created in your application.
+* The information that needs to be specified for a game move message to function, which are the game ID, the initial positions of the pawn to be moved, and the final positions of the pawn at the end of the move.
+* The information necessary to return, which includes the game ID, the location of any captured piece, and the registration of a winner should the game be won as a result of the move.
+* How to modify the response object created by Ignite CLI to add additional fields.
+* How to implement and check the steps required by move handling, including the declaration of the ready-made rules in the errors.go file so your code can handle new error situations.
+* How to add unit tests to check the functionality of your code.
+* How to interact via the CLI to confirm that correct player turn order is enforced by the application.
+
+</HighlightBox>
+
+<!--## Next up
 
 Before you add a third message to let a player [reject a game](./reject-game.md), add events to the existing message handlers for relevant information. This is the object of the [next section](./events.md).
 
@@ -571,4 +589,4 @@ Before you add a third message to let a player [reject a game](./reject-game.md)
 
 If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](./can-play.md).
 
-</HighlightBox>
+</HighlightBox>-->

@@ -2,7 +2,10 @@
 title: "Integrate CosmJS and Keplr Into the GUI"
 order: 5
 description: Take a checkers GUI and use the elements
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
+  - cosm-js
 ---
 
 # Integrate CosmJS and Keplr Into the GUI
@@ -922,7 +925,7 @@ Do some more preparation:
     }
     ```
 
-    Note that due to the limits of the `canPlayGuiMove` function, you can only test the first move of a multi-move turn. That is, it uses only `positions[0]` and `positions[1]` of a potentially longer move. You cannot just test the next moves because it will be rejected for sure. For it to be pass the board would have to be updated first in the blockchain state.
+    Note that due to the limits of the `canPlayGuiMove` function, you can only test the first move of a multi-move turn. That is, it uses only `positions[0]` and `positions[1]` of a potentially longer move. You cannot just test the next moves anyway because it will be rejected for sure. For it to be passed, the board would have to be updated first in the blockchain state.
 
 2. Declare another extension method, this time for `CheckersSigningStargateClient`, to actually make the move with parameters as they are given in the GUI components:
 
@@ -966,7 +969,11 @@ Do some more preparation:
     }
     ```
 
+    <HighlightBox type="note">
+
     Note how it maps from the positions array except for the last position. This is to take the _moves_ out of the _positions_.
+
+    </HighlightBox>
 
 With this done:
 
@@ -1049,6 +1056,15 @@ Either way, it is now possible to play the game from the GUI. Congratulations!
 * Implement typical GUI features, like disabling buttons when their action should be unavailable, or adding a countdown to the forfeit deadline.
 * Implement a Web socket to listen to changes. That would be useful when there are two players who cannot communicate otherwise (instead of polling).
 
-## Next up
+<HighlightBox type="synopsis">
 
-In the [next section](https://interchainacademy.cosmos.network/academy/4-my-own-chain/server-side.html), explore how server-side scripts can help you improve the user experience of your application.
+To summarize, this section has explored:
+
+* How to prepare for and then integrate CosmJS and Keplr into the GUI of your Checkers blockchain, including how to adjust the React app to be able to package CosmJS.
+* How to integrate CosmJS, including working with the GUI's data structures, fetching games from the blockchain and displaying them, integrating with Keplr for browser-based players, creating a new game, and fetching a single game to be played.
+
+</HighlightBox>
+
+<!--## Next up
+
+In the [next section](./server-side.md), explore how server-side scripts can help you improve the user experience of your application.-->

@@ -2,7 +2,9 @@
 title: "Store Field - Record the Game Winner"
 order: 14
 description: Store the winner of a game
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Store Field - Record the Game Winner
@@ -38,9 +40,9 @@ In this exercise a draw is not handled and it would perhaps require yet another 
 
 </HighlightBox>
 
-It is time to introduce another consideration. When a game has been won, no one else is going to play it. Its board will no longer be updated and is no longer used for any further decisions. In effect, the board becomes redundant. With a view to keeping a node's storage requirement low, you delete the board's content, but keep the rest of the game's information.
+It is time to introduce another consideration. When a game has been won, no one else is going to play it. Its board will no longer be updated and is no longer used for any further decisions. In effect, the board becomes redundant. With a view to keeping a node's storage requirement low, you should delete the board's content but keep the rest of the game's information.
 
-On the other hand, to keep a trace of the last state of the board, you emit it by an event.
+To keep a trace of the last state of the board, you emit it with an event.
 
 ## New information
 
@@ -295,7 +297,11 @@ func TestPlayMoveUpToWinner(t *testing.T) {
 }
 ```
 
-Note how when checking the attributes, it only cares about the last 5.
+<HighlightBox type="note">
+
+When checking the attributes, it only cares about the last five.
+
+</HighlightBox>
 
 Feel free to create another game won by the red player.
 
@@ -391,6 +397,17 @@ This should show:
 
 Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests or with a nice GUI. You will be able to partially test this in the [next section](./game-forfeit.md), via a forfeit.
 
-## Next up
+<HighlightBox type="synopsis">
 
-You have introduced a [game FIFO](./game-fifo.md), a [game deadline](./game-deadline.md), and a game winner. Time to turn your attention to the [next section](./game-forfeit.md) to look into game forfeits.
+To summarize, this section has explored:
+
+* How to prepare for terminating games by defining a **winner** field that differentiates between the outright winner of a completed game, the winner by forfeit when a game is expired, or a game which is still active.
+* What new information and functions to add and where, including the winner field, helper functions to get any winner's address, a new error for games already finished, and checks for various application actions.
+* How to update your tests to check the functionality of your code.
+* How interacting via the CLI is partially impeded by any existing test games now being in a broken state due to the absence of a value in the winner field, with recommendations for next actions to take.
+
+</HighlightBox>
+
+<!--## Next up
+
+You have introduced a [game FIFO](./game-fifo.md), a [game deadline](./game-deadline.md), and a game winner. Time to turn your attention to the [next section](./game-forfeit.md) to look into game forfeits.-->

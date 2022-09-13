@@ -2249,6 +2249,10 @@ To summarize, this section has explored:
 
 </HighlightBox>
 
-<!--## Next up
+<!--
 
-It is time to move away from the checkers blockchain learning exercise, and explore another helpful tool for working with the Cosmos SDK: [CosmWasm](./cosmwasm.md).-->
+## Next up
+
+It is time to move away from the checkers blockchain learning exercise, and explore another helpful tool for working with the Cosmos SDK: [CosmWasm](./cosmwasm.md).
+
+-->
