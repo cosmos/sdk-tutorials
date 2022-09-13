@@ -81,3 +81,17 @@ For this key, you can follow standard procedures for cold keys on your computer.
 With your keys set up, you want to eventually cover your costs, if not run a profitable business. Part of the equation is to have third-party token holders delegate to your validator so you can collect a commission from their share of the rewards. Also, given that only a limited number of validators can be in the validating pool, you have to increase the amount delegated to your validator in order to gain entry to said pool.
 
 You want to make sure potential delegators can find your validator operator application key, and present your service in an attractive manner. It is highly specific to your chain and can be in dedicated Web 2.0 forums or purpose-built indexed websites.
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to prepare a validator, which needs to be able to sign blocks on an ongoing basis, and handle the validator's keys.
+* How to use a signing service so that the validator is able to perform its duties with the minimum risk of persistent or permanent compromise.
+* The benefits of using a hardware security module (HSM) to prevent a private key from being duplicated by a malicious actor.
+* The benefits of using a key management system (KMS) over a private network to create distance between the validator node and the keys used in validation.
+* The three types of keys involved: the Tendermint consensus key, the validator operator application key, and the delegator application key.
+* The difference between "hot" and "cold" keys.
+* The importance of addressing the potentially negative eventualities of practical networking.
+
+</HighlightBox>

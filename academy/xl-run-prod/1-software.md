@@ -279,6 +279,10 @@ Again, this is not recommended for performance reasons - for example, due to net
 
 <HighlightBox type="synopsis">
 
-You have learned how to build your blockchain project for multiple platforms, in different ways, and had a glimpse of how to start it.
+To summarize, this section has explored:
+
+* How to build the binary that the nodes will run, using `go build`, Ignite CLI, a `Makefile`, or a `Makefile` within Docker.
+* Different methods of deploying, such as by launching Tendermint and the Cosmos app simultaneously, or by starting either one independently of the other.
+* The importance of ensuring the binary will run equally well on computers using different OS and CPU types.
 
 </HighlightBox>

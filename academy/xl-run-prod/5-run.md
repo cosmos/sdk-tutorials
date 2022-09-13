@@ -110,6 +110,18 @@ Now that you have a running network, you may consider coming back to it and try 
 
 This is just an extract of the different customizations that are available to you. For more ideas, peruse [this documentation](https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html).
 
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to configure other software necessary to be part of a network.
+* How to start the software and establish a P2P network with other nodes.
+* The importance of avoiding running your application as a user (rather than as `root`) for security reasons.
+* How to set up your software as a service, to avoid the need to repeatedly relaunch it.
+* How to coordinate with your peers regarding when to start your network to ensure timely behaviour.
+
+</HighlightBox>
+
 <!--
 
 E2E:

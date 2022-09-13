@@ -83,3 +83,13 @@ $ sudo systemctl restart myprojectd
 ## Upgrade manually
 
 Cosmovisor is here to help you migrate fast. You can still do it [by hand](https://hub.cosmos.network/main/hub-tutorials/upgrade-node.html#manual-software-upgrade).
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* The implications of an eventual need to upgrade or migrate a running network, with the attendant necessity of all its nodes being simultaneously down.
+* How to install and set up **Cosmovisor**, a tool used to reduce downtime and improve the smoothness of an upgrade or migration (by comparison with a "manual" process).
+* How to practice using Cosmovisor by upgrading your testnet(s) before you attempt to upgrade your mainnet.
+
+</HighlightBox>

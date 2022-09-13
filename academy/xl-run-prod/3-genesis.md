@@ -231,3 +231,16 @@ This is the only _block_ that needs a social consensus on its content. All other
 ## Import
 
 In turn, each validator and node operator copies this file on their own machine, in the designated folder, typically `~/.myprojectd/config/genesis.json`.
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* The contents of the blockchain genesis: the original validators and their stakes, and the orginal state values defined, such as the minting, staking, and slashing parameters.
+* How to name and create a new genesis file.
+* The nature and prupose of genesis accounts, and how to add them to the genesis file.
+* How to name, define, and allocate tokens to your genesis accounts.
+* How to define the genesis validators, credit them with the agreed staked tokens, collect their first signed transactions, and aggregate them.
+* How to publish the genesis file so that it can be accessed by all those needing their own copy to be able to start the network.
+
+</HighlightBox>

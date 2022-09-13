@@ -206,3 +206,18 @@ $ sudo systemctl start checkersd
 ```
 
 When 2/3rds of the validators by weight are online, the network starts off the genesis.
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* Applying the knowledge you have gained in the practical exercises to the checkers blockchain.
+* How to prepare the necessary new users for the different nodes.
+* How to prepare, share, and run the executables that must be downloaded to the validators' servers.
+* How to run the executable as a service.
+* How to prepare keys (only applies to validators).
+* How to prepare the genesis on the node server and distribute it to validators.
+* How to add the genesis transactions returned by the validators and make it available to all nodes.
+* How to prepare the network and launch the executable.
+
+</HighlightBox>

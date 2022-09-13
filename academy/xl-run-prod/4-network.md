@@ -170,3 +170,16 @@ It is common practice to expose your regular nodes and to hide your validator no
 1. Your [sentry nodes](https://forum.cosmos.network/t/sentry-node-architecture-overview/454) are located in a cloud infrastructure, where the database (or filesystem) and the software part of the node are separated. With this, the same sentry node can release its old IP address and receive a new one within a few seconds; or a new sentry node can spring up at a different IP address by using the same database (or filesystem), as in a game of whack-a-mole.
 2. Your validator nodes are located anywhere, with persistent addresses, but connect only to the sentry nodes, with the use of `persistent_peers` in `config.toml`. The content of this field has to change when a sentry node has been whacked unless the validator node can connect to the sentry node over the same private IP address.
 3. Your sentry nodes never gossip your validators' addresses over the peer-to-peer network, thanks to the use of `private_peer_ids` in `config.toml`.
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to make your node accessible to connections from other nodes.
+* How to locate some subset of other nodes in order to make a connection to them.
+* The use of a publicly accessible IP address or DNS-resolvable name, along with the public half of your public-private node key, to uniquely identify your node to others.
+* How the node key can also prevent inadvertent attempts by the node to connect to itself via an unforeseen peer-to-peer route.
+* The option of further configuring your network via **network scoped** and **single node scoped** parameters.
+* How to mitigate the risks of Distributed denial-of-service (DDoS) attacks through the use of sentry nodes.
+
+</HighlightBox>
