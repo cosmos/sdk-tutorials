@@ -1,7 +1,7 @@
 ---
 parent:
   title: First Steps
-  description: 
+  description: Get started with Ignite CLI and then run your own chain
   number: 2
 tag: fast-track
 ---
@@ -9,7 +9,14 @@ tag: fast-track
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">...</div>
 <h1 class="mt-4 mb-6">First Steps</h1>
 
-TEXT
+Do you want to find out how to interact with Cosmos chains? Let’s take it step-by-step.
+
+Make sure to set up your Work Environment. We have put together some useful information to get everything ready before you start.
+
+Begin by interacting with a chain using simapp. In the end, you'll know how to run a node, create blocks, and send transactions.
+
+Then discover the first steps to building an application-specific blockchain from scratch, using Ignite to implement a checkers game and to interact with a running local blockchain from the command line.
+
 
 ![Creating a chain image](/cosmos_dev_portal_module-05-lp.png)
 
@@ -19,17 +26,33 @@ TEXT
 
 In this chapter, you will:
 
-* ...
+* Find instructions on how to set up your work environment.
+* Learn how to run a node and interact with a Cosmos SDK chain.
+* Work with Ignite CLI.
+* Begin implementing a blockchain for a checkers game using Ignite CLI, including the creation of unit tests.
+
 
 </HighlightBox>
 
-**This week, make sure to submit your exercise by May 30th, 23:59 UTC.**
+**This week, make sure to submit your exercise by September 30th, 23:59 UTC.**
 
-**The submission of this exercise is required to continue with the program.** Do not worry if you do not pass the quiz: it is meant to be an opportunity to practice and demonstrate your engagement with the program.
+Do not worry if you do not pass the exercise: it is simply meant to be an opportunity to practice and demonstrate your engagement with the program.
+
+<HighlightBox type="info">
+  
+**Live Session**
+  
+This week you can join the second live session on **September 26th, 3PM UTC**: _Introduction to app.go_ with Julien Robert, Developer Relations Engineer for the Cosmos SDK.
+
+Detailed information on how to join the session will be provided via email and Discord.
+
+You should have received an email with a link to each session to be added to your calendar. We will post the session links on the day of the session on discord. Don't worry if you cannot make it to the session, we will record and publish them in the Academy.
+
+</HighlightBox>
 
 ## Next up
 
-First....
+Before you begin [running a node](/tutorials/3-run-node/node-api-and-cli.md) and exploring [Ignite CLI](/hands-on-exercise/1-ignite-cli/ignitecli.md), prep everything for the running exercise - _creating a checkers blockchain_ - by going through the section [Setup Your Work Environment](/tutorials/2-work-environment/setup.md).
 
 ## Developer resources
 
