@@ -515,7 +515,7 @@ ErrInvalidDateAdded = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be 
 
 </ExpansionPanel>
 
-<ExpansionPanel title="Add functions to (de-serialize WinningPlayerParsed">
+<ExpansionPanel title="Add functions to (de)serialize WinningPlayerParsed">
 
 Create the methods:
 
