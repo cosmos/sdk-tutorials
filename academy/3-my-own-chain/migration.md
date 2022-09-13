@@ -1256,7 +1256,7 @@ func MapPlayerInfosReduceToLeaderboard(ctx sdk.Context, k keeper.Keeper, chunk u
 
 ## v1 to v2 migration proper
 
-The migration proper needs to execute the previous functions in a specific order. You can encapsulate this knowledge in its function:
+The migration proper needs to execute the previous functions in a specific order. You can encapsulate this knowledge in a function:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/migrations/v1tov2/migration.go#L8-L22]
 func PerformMigration(ctx sdk.Context, k keeper.Keeper, storedGameChunk uint64, playerInfoChunk uint64) error {
