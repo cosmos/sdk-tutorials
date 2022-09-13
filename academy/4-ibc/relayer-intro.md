@@ -16,11 +16,11 @@ In this section, you will learn how relayers fit into the Inter-Blockchain Commu
 
 </HighlightBox>
 
-![IBC overview](/academy/3-ibc/images/ibcoverview.png)
+![IBC overview](/academy/4-ibc/images/ibcoverview.png)
 
 It is useful to briefly recap what relaying is and why it is important. IBC aims to offer blockchains a protocol to enable reliable, secure, and permissionless transfer of packets of data. The protocol is agnostic concerning the data, paving the way for application developers to develop a range of possible interchain services (fungible and non-fungible token transfers are an obvious candidate, but also arbitrary cross-chain messaging via [interchain accounts](https://interchain-io.medium.com/welcome-to-the-ibc-gang-lets-talk-f469883e0ffe)).
 
-On a high level, this works as follows. A module on a source chain wants to send a packet to a destination chain. It submits a message to the source chain that stores a commitment proof on-chain and logs an event with the packet information. With this information and the proof, you can submit a message to the IBC client on the destination chain, which will verify the proof and (if successful) store a receipt on-chain and have the receiving module execute the required actions according to the packet data. The acknowledgment and timeout functionality has been discussed [previously](/academy/3-ibc/channels.md).
+On a high level, this works as follows. A module on a source chain wants to send a packet to a destination chain. It submits a message to the source chain that stores a commitment proof on-chain and logs an event with the packet information. With this information and the proof, you can submit a message to the IBC client on the destination chain, which will verify the proof and (if successful) store a receipt on-chain and have the receiving module execute the required actions according to the packet data. The acknowledgment and timeout functionality has been discussed [previously](./channels.md).
 
 There are two important considerations to make based on this flow. First, on the receiving chain, you need to verify the commitment proof on the source chain. This is why a light client is used to track the state of the counterparty chain (in an efficient way). Second, blockchains cannot directly communicate with one another. So how do the proof and packet data arrive at the destination chain to continue the flow described above?
 
