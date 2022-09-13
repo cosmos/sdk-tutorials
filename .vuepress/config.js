@@ -80,11 +80,9 @@ module.exports = {
               title: "Welcome",
               path: "/academy/0-welcome/",
               directory: false,
-            },
-
-
-
---> Include change in LP portal structure --> Talk to IBO
+            }
+          ],
+        },
         {
           title: "Introduction to Cosmos",
           children: [
@@ -102,12 +100,7 @@ module.exports = {
               title: "Introduction to IBC",
               path: "/academy/3-ibc",
               directory: true,
-            },
-            {
-              title: "The Inter-Blockchain Communication Protocol",
-              path: "/academy/4-ibc",
-              directory: true,
-            },
+            }
           ],
         },
         {
@@ -134,7 +127,7 @@ module.exports = {
               directory: true,
             },
             {
-              title: "Understand IBC Denoms",
+              title: "IBC Developers",
               path: "/tutorials/5-ibc-dev/",
               directory: true,
             },
