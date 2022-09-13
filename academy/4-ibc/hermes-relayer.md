@@ -4,7 +4,6 @@ order: 5
 description: Relayer implementation in Rust
 tags:
   - guided-coding
-  - concepts
   - ibc
   - dev-ops
 ---
