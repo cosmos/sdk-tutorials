@@ -112,7 +112,7 @@ func (k Keeper) OnRecvScorePacket(ctx sdk.Context, packet channeltypes.Packet, d
         return packetAck, err
     }
 
-    score := types.WinningPlayer {
+    candidate := types.WinningPlayer {
         PlayerAddress: data.PlayerAddress,
         WonCount: data.WonCount,
         DateAdded: data.DateAdded,
@@ -137,7 +137,7 @@ func (k Keeper) OnRecvScorePacket(ctx sdk.Context, packet channeltypes.Packet, d
 
     // we cannot find the player in the leaderboard
     if(!found_in_leaderboard) {
-        updated:= append(leaderboard.Winners, &score)
+        updated:= append(leaderboard.Winners, &candidate)
         leaderboard.Winners = updated
     } 
       
