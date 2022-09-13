@@ -74,43 +74,39 @@ module.exports = {
       filterByTagEnabled: false,
       nav: [
         {
-          title: "Cosmos Academy",
+          title: "Cosmos Developer Portal",
           children: [
             {
               title: "Welcome",
               path: "/academy/0-welcome/",
               directory: false,
             },
+
+
+
+--> Include change in LP portal structure --> Talk to IBO
+        {
+          title: "Introduction to Cosmos",
+          children: [
             {
               title: "What is Cosmos?",
               path: "/academy/1-what-is-cosmos",
               directory: true,
             },
             {
-              title: "Main Concepts",
-              path: "/academy/2-main-concepts",
+              title: "Cosmos Concepts",
+              path: "/academy/2-cosmos-concepts",
               directory: true,
             },
             {
-              title: "Run Your Own Cosmos Chain",
-              path: "/academy/3-my-own-chain",
+              title: "Introduction to IBC",
+              path: "/academy/3-ibc",
               directory: true,
             },
             {
               title: "The Inter-Blockchain Communication Protocol",
               path: "/academy/4-ibc",
               directory: true,
-            },
-
-            {
-              title: "CosmJS",
-              path: "/academy/5-cosmjs",
-              directory: true,
-            },
-            {
-              title: "What's Next?",
-              path: "/academy/6-whats-next/",
-              directory: false,
             },
           ],
         },
@@ -120,7 +116,17 @@ module.exports = {
             {
               title: "Good-To-Know Dev Terms",
               path: "/tutorials/1-tech-terms/",
-              directory: false,
+              directory: true,
+            },
+            {
+              title: "Set Up Your Work Environment",
+              path: "/tutorials/2-setup/",
+              directory: true,
+            },
+            {
+              title: "Run a Node, API, and CLI",
+              path: "/tutorials/3-run-node/",
+              directory: true,
             },
             {
               title: "Golang Introduction",
@@ -128,24 +134,59 @@ module.exports = {
               directory: true,
             },
             {
-              title: "Understanding IBC denoms",
-              path: "/tutorials/understanding-ibc-denoms/",
-              directory: false,
+              title: "Understand IBC Denoms",
+              path: "/tutorials/5-ibc-dev/",
+              directory: true,
             },
             {
-              title: "Understanding the Authz Module",
-              path: "/tutorials/understanding-authz/",
-              directory: false,
+              title: "Introduction to CosmJS",
+              path: "/tutorials/6-cosmjs/",
+              directory: true,
+            }
+            {
+              title: "Understand SDK modules",
+              path: "/tutorials/7-understand-sdk-modules/",
+              directory: true,
+            }
+          ],
+        },
+        {
+          title: "Hands-on Exercise",
+          children: [
+            {
+              title: "Run Your Own Cosmos Chain",
+              path: "/hands-on-exercise/1-ignite-cli/",
+              directory: true,
             },
             {
-              title: "Understanding the Feegrant Module",
-              path: "/tutorials/understanding-feegrant/",
-              directory: false,
+              title: "Continue Developing Your Chain",
+              path: "/hands-on-exercise/2-ignite-cli-adv/",
+              directory: true,
             },
             {
-              title: "Understanding the Group Module",
-              path: "/tutorials/understanding-group/",
-              directory: false,
+              title: "CosmJS for Your Chain",
+              path: "/hands-on-exercise/3-cosmjs-adv/",
+              directory: true,
+            },
+            {
+              title: "IBC Advanced",
+              path: "/hands-on-exercise/4-ibc-adv/",
+              directory: true,
+            },
+            {
+              title: "Run in Production",
+              path: "/hands-on-exercise/5-run-in-prod/",
+              directory: true,
+            },
+          ],
+        },
+        {
+          title: "What's Next",
+          children: [
+            {
+              title: "Continue Your Cosmos Journey",
+              path: "academy/whats-next/",
+              directory: true,
             }
           ],
         },

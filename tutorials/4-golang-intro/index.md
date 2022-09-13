@@ -3,9 +3,9 @@ parent:
   title: Golang Introduction
   description: Know your way around Golang
   number: 
-tag:
+tags:
 order: 0
-title: Introduction to Go
+title: Chapter Overview - Introduction to Go
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Know your way around Golang</div>
@@ -30,7 +30,7 @@ In this chapter, you will:
 * Begin exploring interfaces in Go.
 * Find an introduction to control structures in Go with a closer look at `if`, `switch`, and `for` statements.
 * Learn more about arrays and slices, as well as standard packages Go offers.
-* Take a look at Go#s built-in concurrency by exploring Goroutine and channels.
+* Take a look at Go's built-in concurrency by exploring Goroutine and channels.
 
 </HighlightBox>
 

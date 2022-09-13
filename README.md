@@ -1,18 +1,18 @@
 <!--
 layout: LandingPage
 tutorials:
-  - title: Understanding the Group Module
+  - title: Understand the Group Module
     level: intermediate
-    description: Learn what the Group module does, how to create group, and how to submit group proposals.
-    url: /tutorials/understanding-group
-  - title: Understanding the Authz Module
+    description: Learn what the group module does, how to create group, and how to submit group proposals.
+    url: /tutorials/7-understand-sdk-modules/3-group
+  - title: Understand the Authz Module
     level: intermediate
-    description: Learn what the Authz module does, how to create and revoke authorizations, and how to execute authorized transactions.
-    url: /tutorials/understanding-authz
-  - title: Understand IBC Denoms with Gaia
+    description: Learn what the authz module does, how to create and revoke authorizations, and how to execute authorized transactions.
+    url: /tutorials/7-understand-sdk-modules/1-authz
+  - title: Understand IBC Denoms
     level: intermediate
     description: Learn about what means IBC denoms and understand what they are.
-    url: /tutorials/understanding-ibc-denoms/
+    url: /tutorials/5-ibc-dev/
 tools:
   - title: Cosmos SDK
     description: A framework for building public blockchains.
