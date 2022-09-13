@@ -71,6 +71,7 @@ module.exports = {
     sidebar: {
       auto: false,
       hideProducts: true,
+      filterByTagEnabled: false,
       nav: [
         {
           title: "Cosmos Academy",
@@ -117,8 +118,13 @@ module.exports = {
           title: "Tutorials",
           children: [
             {
+              title: "Good-To-Know Dev Terms",
+              path: "/tutorials/1-tech-terms/",
+              directory: false,
+            },
+            {
               title: "Golang Introduction",
-              path: "/academy/golang-intro/",
+              path: "/tutorials/4-golang-intro/",
               directory: true,
             },
             {

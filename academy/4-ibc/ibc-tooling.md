@@ -2,7 +2,9 @@
 title: "IBC Tooling"
 order: 11
 description: Overview of some helpful tools
-tag: deep-dive
+tags: 
+  - concepts
+  - ibc
 ---
 
 # IBC Tooling
@@ -229,6 +231,16 @@ The connections displayed in the visualizer have either a regular or a dotted li
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
 
-The next chapters are all about CosmJS, a TypeScript library that helps developers integrate frontend user interfaces and backend servers with Cosmos blockchains. You can go ahead and start with the [next chapter](../5-cosmjs/index.md).
+To summarize, this section has explored:
+
+* **MapOfZones**, a network explorer for the Cosmos Ecosystem, which provides a variety of dynamic visualizations of network activity over time, allowing easy comprehension of transactions occurring between specific individual chains, access to detailed traffic data and in-depth information about chains, and useful information regarding the most active zones by IBC volume in USD.
+* **Mintscan**, another Cosmos network explorer, which provides an overview of IBC network activity over time, and can focus in on specific chains to show their total transactions (measured in transactions and USD) and connections (with the number of chains and relayers), also providing graphs for transaction and volume history, and can provide highly detailed breakdowns of data at various levels of network detail.
+* **IOBScan**, another blockchain explorer, which provides a quick overview of networks, channels, IBC token transfers, and IBC tokens from its homepage; it allows for searching by transaction hash, and also offers the IOBSCAN Network State Visualizer for an alternative high level presentation of connection data between chains.
+
+</HighlightBox>
+
+<!--## Next up
+
+The next chapters are all about CosmJS, a TypeScript library that helps developers integrate frontend user interfaces and backend servers with Cosmos blockchains. You can go ahead and start with the [next chapter](../5-cosmjs/index.md).-->

@@ -2,7 +2,8 @@
 title: Exercise - Store objects - Make a Checkers Blockchain
 order:
 description: Exercise - Create the object that stores a game
-tag: deep-dive
+tags: 
+  - deep-dive
 ---
 
 # Exercise - Store objects - Make a Checkers Blockchain

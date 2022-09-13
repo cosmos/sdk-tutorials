@@ -2,11 +2,11 @@
 parent:
 title: "Understanding IBC Denoms"
 order: 0
-description: Send tokens with IBC, trace a denom, and understand how denoms work
+description: Send tokens with IBC, trace a denom, and understand how denoms work.
 tags:
   - tutorial
-  - ibc
   - dev-ops
+  - ibc
 ---
 
 # Understanding IBC Denoms
@@ -20,6 +20,10 @@ Well, IBC enables arbitrary message passing between chains (in fact, even more g
 However, the first and still most dominant example to date is to transfer a (fungible) token from a source chain to a destination chain.
 
 Take this example: you have some ATOM on the Cosmos Hub but would like to swap this for some other token on a DEX (**D**ecentralized **Ex**change) like [Osmosis](https://app.osmosis.zone/). This can be illustrated with a random IBC transfer between the Hub and Osmosis using Mintscan, a popular block explorer.
+
+![IBC token transfer](/tutorials/understanding-ibc-denoms/ibc_token.png "IBC token transfer")
+_Sending token from blockchain A to blockchain B_
+
 
 Take the [following transaction](https://www.mintscan.io/cosmos/txs/F7196B37828BAAF5C55E499D62A58E2927542CB2FB57B587BA77BF5BB044FFBF). There you see some general information about the transaction, as well as data, particularly on the IBC transfer message that was included in the transaction. Dropping sender and receiver you find:
 

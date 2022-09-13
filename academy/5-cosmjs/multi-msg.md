@@ -2,7 +2,10 @@
 title: "Compose Complex Transactions"
 order: 4
 description: Send multiple tokens and messages through CosmJS
-tag: deep-dive
+tags: 
+  - tutorial
+  - cosm-js
+  - dev-ops
 ---
 
 # Compose Complex Transactions
@@ -540,6 +543,15 @@ Bob balance before: [
 
 -->
 
-## Next up
+<HighlightBox type="synopsis">
 
-You are now able to send complex transactions. How about you do the same but from a Web-browser, with the help of Keplr? That is the object of the [next section](./with-keplr.md).
+To summarize, this section has explored:
+
+* How to move past the one-transaction-one-recipient limitations of the previous exercise, which could compel a user to sign potentially many transactions at a time, and denies the possibility of sending *atomic* transactions to multiple recipients (for example, a situation in which either all recipients receive tokens or none of them do).
+* How to include two token-transfer messages in a single transaction, and how to combine messages of different types in a single transaction (for example, sending tokens to the faucet *and* delegating tokens to a validator).
+
+</HighlightBox>
+
+<!--## Next up
+
+You are now able to send complex transactions. How about you do the same but from a Web-browser, with the help of Keplr? That is the object of the [next section](./with-keplr.md).-->

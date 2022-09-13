@@ -1,6 +1,6 @@
 # Cosmos SDK Tutorials repo
 
-This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
+This repository contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
 
 
 ## Most Tutorials are Version-Specific
@@ -28,13 +28,12 @@ We welcome contributions to the tutorials. Our technical content follows the Goo
 - [Cross-references](https://developers.google.com/style/cross-references)
 - [Present tense](https://developers.google.com/style/tense)
 
-The Google guidelines include more material than listed here and are used as a
-guide that enables easy decision making about proposed content changes.
+The Google guidelines include more material than is listed here, and are used as a guide that enables easy decision making about proposed content changes.
 
 Other useful resources:
 
 - [Google Technical Writing Courses](https://developers.google.com/tech-writing)
-- [GitHub Guides Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
+- [GitHub guides on mastering markdown](https://guides.github.com/features/mastering-markdown/)
 
 ### Pull Request
 
@@ -49,7 +48,7 @@ The main VuePress configuration file is located at `.vuepress/config.js`.
 
 ### README Metadata
 
-The layout metadata at the top of the README.md file controls the main landingpage (`/`). Write permissions are limited to preserve the structure and contents.
+The layout metadata at the top of the README.md file controls the main landing page (`/`). Write permissions are limited to preserve the structure and contents.
 
 ### Folder structure
 
@@ -63,7 +62,9 @@ The published content currently lives in two separate folders:
 There is a hidden file (not linked in the main menu) published at [/feature-test](/feature-test/index.md), which demonstrates the use of all custom components used on this platform. This page is also available on the deployed website at [https://tutorials.cosmos.network/feature-test/](https://tutorials.cosmos.network/feature-test/).
 
 
-**Please note that images must be linked using an absolute path!**
+## Images
+
+**Please note that images _must_ be linked using an absolute path!**
 
 
 ## Who works on the tutorials?
@@ -73,7 +74,7 @@ Meet the people [behind the Cosmos SDK and contributors](https://github.com/cosm
 
 ## Viewing Tutorial Builds
 
-There are two ways to see what your changes will look like in production before the updated pages are published.
+There are two ways to see what your changes will look like in production before the updated pages are published:
 
 - When a PR is ready for review, you can see a deployed preview on a URL that is unique for that PR.
 - While a PR is in DRAFT mode, you can preview a local build.
@@ -116,4 +117,4 @@ Since the deploy preview doesn't work on Draft PRs, follow these steps to previe
 
 5. You can now view the tutorial build on a local web browser. Isn't this fun?
 
-    Tip: On a mac, press the command key and click `http://localhost:8080/` for quick access.
+    **Tip:** On a mac, press the command key and click `http://localhost:8080/` for quick access.
