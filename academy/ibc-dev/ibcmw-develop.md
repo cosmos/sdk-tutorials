@@ -70,7 +70,7 @@ Below you will take a closer look at how to implement the handshake callbacks an
 
 As a reminder, review once more the diagram representing the information flow between core IBC and the base application with a middleware (stack) applied:
 
-![middleware_stack](./images/middleware-stack.png)
+![middleware_stack](/academy/ibc-dev/images/middleware-stack.png)
 
 ## Channel handshake callbacks
 
