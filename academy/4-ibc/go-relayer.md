@@ -259,8 +259,8 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
 
   The `rule` can be one of three values:
 
-  * `allowlist`, which tells the relayer to relay on _ONLY_ the channels in `channel-list`.
-  * `denylist`, which tells the relayer to relay on all channels _EXCEPT_ the channels in `channel-list`.
+  * `allowlist`, which tells the relayer to relay on **only** the channels in `channel-list`.
+  * `denylist`, which tells the relayer to relay on all channels **except** the channels in `channel-list`.
   * Empty value, which is the default setting and tells the relayer to relay on all channels.
 
   Since you should only be worried about the canonical channel between the Cosmos Hub and Osmosis, our filter settings would look like the following:
