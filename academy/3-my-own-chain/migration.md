@@ -1712,7 +1712,7 @@ To get a few complete games, you are going to run the [integration tests](https:
 1. Blocks come slower, likely every five seconds instead of every one.
 2. There are no longer any faucets.
 
-Therefore, to be able to run these tests you need to:
+Therefore, to be able to run these tests you need to attend to the above problems, respectively:
 
 1. Adjust the timeout of each `before` and `it`. Make it `5*(the number of expected blocks + 1)`. 
    For instance, if you send 2 transactions that each go in a block, adjust [the timeout](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts#L84) to `15`: `this.timeout(15_000)`.
