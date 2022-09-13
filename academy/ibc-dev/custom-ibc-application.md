@@ -3,7 +3,7 @@ title: "Implement a Custom IBC Application"
 order:
 description: Take a closer look at applications
 tags:
-    - deep-dive
+  - deep-dive
 ---
 
 <!-- DO NOT INCLUDE -->
