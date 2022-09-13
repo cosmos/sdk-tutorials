@@ -307,7 +307,7 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
   $ rly paths list
   ```
 
-  Which return this output when healthy:
+  Which returns this output when healthy:
 
   ```txt
   0: cosmoshub-osmosis              -> chns(✔) clnts(✔) conn(✔) (cosmoshub-4<>osmosis-1)
