@@ -2,7 +2,10 @@
 title: "Create Custom CosmJS Interfaces"
 order: 6
 description: Work with your blockchain
-tag: deep-dive
+tags: 
+  - tutorial
+  - cosm-js
+  - dev-ops
 ---
 
 # Create Custom CosmJS Interfaces
@@ -355,13 +358,22 @@ public async sendTokens(
 }
 ```
 
-## Next up
-
 You are ready to import and use this in a server script or a GUI.
 
-<!-- INCLUDE AFTER NEW STRUCTURE IS IMPLEMENTED: Head right into the [next section](./cosmjs-objects.md) to begin creating custom objects for your checkers blockchain. -->
+<HighlightBox type="synopsis">
 
-So what's next? The Cosmos is vast, with lots of projects, people and concepts to discover:
+To summarize, this section has explored:
+
+* How CosmJS's out-of-the-box interfaces understand how the state of standard Cosmos modules is serialized, meaning that your unique modules will require custom CosmJS interfaces of their own.
+* How to create the necessary Protobuf objects and clients in Typescript, the extensions that facilitate the use of these clients, and any further level of abstraction that you deem useful for integration.
+* How to integrate CosmJS with Ignite's client and signing client, which are typically the ultimate abstractions that facilitate the querying and sending of transactions.
+
+</HighlightBox>
+
+## What next?
+
+<!-- INCLUDE AFTER NEW STRUCTURE IS IMPLEMENTED: Head right into the [next section](./cosmjs-objects.md) to begin creating custom objects for your checkers blockchain.
+So what's next?  -->The Cosmos is vast, with lots of projects, people and concepts to discover:
 
 * Reach out to the community.
 * Contribute to the Cosmos SDK, IBC, and Tendermint BFT consensus development.

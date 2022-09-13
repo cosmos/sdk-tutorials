@@ -2,7 +2,8 @@
 title: "Go Basics"
 order: 3
 description: Basic types, string formatting, functions, and methods
-tag: deep-dive
+tags: 
+  - tutorial
 ---
 
 # Go Basics
@@ -435,6 +436,15 @@ Pointers are important.
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
 
-Now that you covered your Go basics, get an overview of interfaces in Go in the [next section](./3_interfaces.md).
+To summarize, this section has explored:
+
+* The basic **types** (including numbers, strings, booleans, and type declarations), **string formatting**, **functions**, and **methods** employed in Golang.
+* Where to access online tests to practice implementing some simple coding examples for yourself.
+
+</HighlightBox>
+
+<!--## Next up
+
+Now that you covered your Go basics, get an overview of interfaces in Go in the [next section](./3_interfaces.md).-->

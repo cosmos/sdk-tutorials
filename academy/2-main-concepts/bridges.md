@@ -2,7 +2,10 @@
 title: "Bridges"
 order: 14
 description: Bridging to other blockchains on different protocols
-tag: deep-dive
+tags: 
+  - concepts
+  - cosmos-sdk
+  - cosmos-hub
 ---
 
 # Bridges
@@ -103,6 +106,16 @@ Do you want to dive deeper when it comes to bridges? Here are some helpful resou
 
 </HighlightBox>
 
-## Next up
+<HighlightBox type="synopsis">
 
-You will discover more on running a node in [Run Your Own Cosmos Chain](../3-my-own-chain/index.md).
+To summarize, this section has explored:
+
+* The Gravity Bridge, which connects Cosmos with Ethereum and allows the transfer of ERC-20 tokens to and from Cosmos-based blockchains.
+* The component elements of the Gravity Bridge and how they reliably monitor and report to Cosmos applications about events on the Ethereum blockchain, providing the necessary confidence to perform transactions.
+* How the validator set forms a consensus about happenings on Ethereum.
+
+</HighlightBox>
+
+<!--## Next up
+
+You will discover more on running a node in [Run Your Own Cosmos Chain](../3-my-own-chain/index.md).-->

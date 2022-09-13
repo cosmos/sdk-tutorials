@@ -14,9 +14,22 @@
 			.home__content__overview__content(v-if="$frontmatter.overview.items")
 				tm-faq.home__content__overview__content__item(v-for="item in $frontmatter.overview.items" :title="item.title" :description="item.description")
 
-		.modules(v-if="this.modules && this.modules[0].submodules && this.modules[0].submodules.length > 1")
+		.modules(v-if="!$frontmatter.customModules && this.modules && this.modules[0].submodules && this.modules[0].submodules.length > 1")
 			h2(:id="$frontmatter.weekly ? 'weekly-path' : 'course-modules'") {{$frontmatter.weekly ? "Weekly Plan" : "Course Modules"}}
 			card-module(v-for="module in this.modules" v-if="module.title && module.number" :module="module" :main="$frontmatter.main" :weekly="$frontmatter.weekly || false").modules__item
+		.modules-intro__wrapper.mt-10.mb-10(v-if="$frontmatter.customModules && $frontmatter.customModules.sections")
+			h2(v-if="$frontmatter.customModules.title") {{$frontmatter.customModules.title}}
+			.modules-intro__description.mt-5(v-if="$frontmatter.customModules.description") {{$frontmatter.customModules.description}}
+			.cards
+				.cards__wrapper(v-for="card in $frontmatter.customModules.sections")
+					card-links.cards__item(
+						:image="card.image" 
+						:title="card.title" 
+						:description="card.description" 
+						:tag="card.tag || null"
+						:links="card.links"
+						:href="card.href"
+					)
 		.image-section(v-if="$frontmatter.image")
 			h2(v-if="$frontmatter.image.title") {{$frontmatter.image.title}}
 			tm-image.image-section__image(:src="$frontmatter.image.src")
@@ -29,6 +42,25 @@
 
 
 <style lang="stylus" scoped>
+	.modules-intro__description
+		font-style italic
+	.cards
+		display flex
+		justify-content space-between
+		flex-wrap wrap
+
+		&__wrapper
+			max-width 48%
+			margin-top var(--spacing-8)
+			flex-grow 1
+			width 100%
+
+		@media screen and (max-width: 1024px)
+			flex-direction column
+			flex-wrap nowrap
+			
+			&__wrapper
+				max-width none  
 	h2
 		margin-block 10px
 	.modules
