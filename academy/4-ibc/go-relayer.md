@@ -49,7 +49,7 @@ The repository offers a script to start two chains, which you need to test the r
 
 The most up-to-date major version of the Go relayer is v2. This version delivered major updates and improvements, including the introduction of a provider interface to accommodate chains with different consensus types than Tendermint and event-based processing that results in performance improvements.
 <br/>
-It is recommendable to use this latest version, and the following commands assume you are using v2.
+It is recommended to use this latest version, and the following commands assume you are using v2.
 
 </HighlightBox>
 
