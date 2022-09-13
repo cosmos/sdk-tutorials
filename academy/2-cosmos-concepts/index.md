@@ -14,7 +14,7 @@ Enjoy an introduction to the main components of the Cosmos SDK.
 
 From Tendermint to modules, keepers, queries, and transactions in Cosmos, a whole universe is waiting to be discovered.
 
-![](/cosmos_dev_portal_module-03-lp.png)
+![](./images/cosmos_dev_portal_module-03-lp.png)
 
 ## In this chapter
 
