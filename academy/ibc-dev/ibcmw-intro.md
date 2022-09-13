@@ -52,7 +52,7 @@ Before we continue, it is important to define the semantics:
 
 The diagram below gives an overview of a middleware stack consisting of two middlewares (one stateless, the other stateful).
 
-![Middleware stack](./images/middleware-stack.png)
+![Middleware stack](/academy/ibc-dev/images/middleware-stack.png)
 
 <HighlightBox type="note">
 
