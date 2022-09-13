@@ -14,35 +14,43 @@ tags:
 
 Discover how multi-chain smart contracts become possible with CosmWasm. The following sections are recommended as a preparation:
 
-* [Transactions](../2-main-concepts/transactions.md)
-* [Messages](../2-main-concepts/messages.md)
-* [Queries](../2-main-concepts/queries.md)
+* [Transactions](/academy/2-main-concepts/transactions.md)
+* [Messages](/academy/2-main-concepts/messages.md)
+* [Queries](/academy/2-main-concepts/queries.md)
 
 </HighlightBox>
 
-[CosmWasm](https://cosmwasm.com/) runs smart contracts in WebAssembly (that’s the Wasm part) on Cosmos blockchains (that’s the Cosm part). It uses a safety-oriented actor model that prevents many of the security issues found on other smart contract platforms. 
+[CosmWasm](https://cosmwasm.com/) runs smart contracts in WebAssembly - the Wasm part - on Cosmos blockchains - the Cosm part. It uses a safety-oriented actor model that prevents many of the security issues found on other smart contract platforms and provides a library for developers.
 
 <ExpansionPanel title="More on the actor model">
 
 The actor model is a design pattern for reliable distributed systems. It is the pattern underlying CosmWasm smart contracts.
 <br/>
-Each actor has access to its own private, internal state. They can only message other actors indirectly, through a so-called dispatcher, which maintains the state and maps addresses to code and storage. Common security concerns like re-entrancy simply do not exist in this model.
-<br/>
+Each actor has access to its own private, internal state. Actors can only message other actors indirectly through a so-called dispatcher, which maintains the state and maps addresses to code and storage. Common security concerns like re-entrance simply do not exist in this model.
+
+<HighlightBox type="docs">
+
 Want to read more on the actor model? See [the CosmWasm documentation on the Actor Model for Contract Calls](https://docs.cosmwasm.com/docs/0.16/architecture/actor).
+
+</HighlightBox>
 
 </ExpansionPanel>
 
-Any Cosmos blockchain can potentially run CosmWasm smart contracts, and they can communicate with Cosmos SDK modules. All that is required is that the binary for the chain imports the Wasm module (part of the Cosmos SDK) that enables this capability.
+Any Cosmos blockchain can potentially run CosmWasm smart contracts, and they can communicate with Cosmos SDK modules. All that is required is that the binary for the chain imports the `Wasm` module, which is part of the Cosmos SDK, that enables this capability.
 
-CosmWasm is tightly integrated with IBC, meaning that contracts on different chains will be able to communicate with each other. This design creates new possibilities for system designs with topologies that traverse chain boundaries. For example, consider a Dex running on one chain, and oracles or trading signals on other chains, all tightly connected. 
+CosmWasm is tightly integrated with IBC, meaning that contracts on different chains will be able to communicate with each other. This design creates new possibilities for system designs with topologies that traverse chain boundaries. For example, consider a DEX running on one chain and oracles or trading signals on other chains, all tightly connected.
 
-CosmWasm contracts are usually written in Rust and then compiled to WebAssembly. Support for other languages is expected over time. CosmWasm separates the ideas of code and instances so that the chain isn’t overloaded with many copies of the same code. Instead, code that is uploaded to the chain once can be instantiated at many different addresses. 
+CosmWasm contracts are usually written in Rust and then compiled to WebAssembly - support for other languages is expected over time. CosmWasm separates the ideas of code and instances so that the chain is not overloaded with many copies of the same code. Instead, code that is uploaded to the chain once can be instantiated at many different addresses.
 
-Getting started is easy. Start by using the provided binary to run a single-node blockchain (with the Wasm module integrated, of course) and a Rust IDE and compiler. In this exercise, you’ll compile, upload, instantiate, and interact with a simple contract. 
+Getting started is easy. Start by using the provided binary to run a single-node blockchain (with the `Wasm` module integrated, of course), and a Rust IDE and compiler. In this exercise, you will compile, upload, instantiate, and interact with a simple contract.
 
 ## Install
 
+<HighlightBox type="info">
+
 **Go** must be installed to use the Cosmos SDK. You also need **Rust** to write smart contracts.
+
+</HighlightBox>
 
 Go to [rustup.rs](https://rustup.rs) to install Rust, or update your version with `rustup update`. Then, have it download and install the `wasm32` compilation target:
 
@@ -83,7 +91,7 @@ If you cannot call `wasmd`, make sure your `$GOPATH` and `$PATH` are set correct
 
 ## Connect to a testnet
 
-First test the `wasmd` client with the [Cliffnet](https://github.com/CosmWasm/testnets/tree/master/cliffnet-1) testnet. `wasmd` is configured via environment variables. Export the most recent environment from [here](https://github.com/CosmWasm/testnets/blob/master/cliffnet-1/defaults.env):
+First, test the `wasmd` client with the [Cliffnet](https://github.com/CosmWasm/testnets/tree/master/cliffnet-1) testnet. `wasmd` is configured via environment variables. Export the most recent environment from [here](https://github.com/CosmWasm/testnets/blob/master/cliffnet-1/defaults.env):
 
 ```sh
 $ curl https://raw.githubusercontent.com/CosmWasm/testnets/master/cliffnet-1/defaults.env -o cliffnet-1-defaults.env
@@ -207,7 +215,7 @@ Compiling cw-nameservice v0.11.0 (/Users/me/cw-contracts/contracts/nameservice)
 
 In this last command, `wasm` is [an alias](https://github.com/InterWasm/cw-contracts/blob/ac4c2b9/contracts/nameservice/.cargo/config#L2) for `wasm build --release --target wasm32-unknown-unknown`.
 
-You now have a compiled smart contract on file. You want to maintain your smart contract binary as small as possible, and have Rust compiled with default settings. Check the size of your build with:
+You now have a compiled smart contract on file. You want to maintain your smart contract binary as small as possible and have Rust compiled with default settings. Check the size of your build with:
 
 ```sh
 $ ls -lh target/wasm32-unknown-unknown/release/cw_nameservice.wasm
@@ -276,7 +284,7 @@ Got this error on: wasmd tx wasm store:
 
 -->
 
-The response returns a `code_id` value (for instance `1391`), which uniquely identifies your newly uploaded binary in the blockchain. Record this in order to instantiate a name service with this binary in the next steps.
+The response returns a `code_id` value (for instance `1391`), which uniquely identifies your newly uploaded binary in the blockchain. Record this to instantiate a name service with this binary in the next steps.
 
 ## Instantiate your smart contract
 
@@ -307,7 +315,13 @@ Among the parameters the function expects are [`msg.purchase_price` and `msg.tra
 $ wasmd tx wasm instantiate $code_id '{"purchase_price":{"amount":"100","denom":"upebble"},"transfer_price":{"amount":"999","denom":"upebble"}}' --from alice --no-admin --node $RPC --chain-id cliffnet-1 --gas-prices 0.01upebble --gas auto --gas-adjustment 1.3 --label "CosmWasm tutorial name service" --broadcast-mode block --yes
 ```
 
-Note the `code_id` that refers to which binary to use for the instantiation. Check that the name service instance was successfully created with:
+<HighlightBox type="note">
+
+Note the `code_id` that refers to which binary to use for the instantiation.
+
+</HighlightBox>
+
+Check that the name service instance was successfully created with:
 
 ```sh
 $ wasmd query wasm list-contract-by-code $code_id --node $RPC --output json
@@ -348,7 +362,9 @@ pub fn execute(
 }
 ```
 
-There are two _execute_ message types. These are used to register or transfer a name within the name service. Start by [registering](https://github.com/InterWasm/cw-contracts/blob/2f545b7b8b8511bc0f92f2f3f838c236ba0d850c/contracts/nameservice/src/msg.rs#L11-L16) a new name with your instance:
+There are two _execute_ message types. These are used to register or transfer a name within the name service.
+
+Start by [registering](https://github.com/InterWasm/cw-contracts/blob/2f545b7b8b8511bc0f92f2f3f838c236ba0d850c/contracts/nameservice/src/msg.rs#L11-L16) a new name with your instance:
 
 ```sh
 $ wasmd tx wasm execute $contract_address '{"register":{"name":"fred"}}' --amount 100upebble --from alice --node $RPC --chain-id cliffnet-1 --gas-prices 0.01upebble --gas auto --gas-adjustment 1.3 --broadcast-mode block --yes
@@ -380,7 +396,7 @@ The response gives you the wallet address owning the registered name, which shou
 
 ### Transfer a name
 
-Now create another transaction to transfer the name to the second wallet `bob`. First prepare the query with the address of your other wallet:
+Now create another transaction to transfer the name to the second wallet `bob`. First, prepare the query with the address of your other wallet:
 
 ```sh
 $ export json_request='{"transfer":{"name":"fred","to":"'$bob'"}}'
@@ -399,14 +415,16 @@ Check again with a `resolve_record` query to confirm that the transfer was succe
 <HighlightBox type="docs">
 
 CosmWasm offers good [documentation](https://docs.cosmwasm.com/docs/). This section is a summary of the [Getting Started section](https://docs.cosmwasm.com/docs/getting-started/intro/). Store the `env` script from [here](https://docs.cosmwasm.com/docs/1.0/getting-started/setting-env#setup-go-cli) in case you wish to test it on your local node. Also look at the [contract semantics](https://docs.cosmwasm.com/docs/SEMANTICS/).
-
-</HighlightBox>
-
-<HighlightBox type="docs">
+<br/>
 
 You can find more information in the [CosmWasm Developer Academy](https://docs.cosmwasm.com/dev-academy/intro) and modular tutorials in the [Wasm tutorials](https://docs.cosmwasm.com/tutorials/hijack-escrow/intro). You can also find various hands-on videos on the [workshops](https://docs.cosmwasm.com/tutorials/videos-workshops) page.
 
 </HighlightBox>
+
+CosmWasm is adaptable to different development environments by design and makes it possible to connect chains. It is a solid platform to develop on because:
+
+* If you want to change chains, you can easily transfer smart contracts and decentralized applications (dApps).
+* If your application grows, you can launch your chain for the next version of your smart contract. You do not need to compile and deploy the binaries again.
 
 <HighlightBox type="synopsis">
 
@@ -419,8 +437,8 @@ To summarize, this section has explored:
 
 </HighlightBox>
 
-## Overview of previous content
-
+<!--
+## Next up
 At this point, you have:
 
 * [Understood how Cosmos and the Cosmos SDK fit in the overall development of blockchain technology.](../1-what-is-cosmos/blockchain-and-cosmos.md)
@@ -432,4 +450,6 @@ At this point, you have:
 * [Used Ignite CLI to develop your chain.](./ignitecli.md)
 * Discovered how CosmWasm assists with developing multi-chain smart contracts in Rust.
 
-<!--Head to the [next chapter](../4-ibc/index.md) to discover the Inter-Blockchain Communication Protocol.-->
+Head to the [next chapter](https://interchainacademy.cosmos.network/course-ida/landingpages/week4-lp.html) to discover the Inter-Blockchain Communication Protocol.
+-->
+

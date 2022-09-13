@@ -184,17 +184,21 @@ When you scaffold with Ignite CLI, things like key management, creating validato
 
 ## CosmWasm - multi-chain smart contracts
 
-[CosmWasm](https://cosmwasm.com/) is a multi-chain solution for smart contracts on Cosmos. That’s the Cosm part. It's a way of using WebAssembly in the Cosmos universe. That’s the Wasm part.
+[CosmWasm](https://cosmwasm.com/) is a multi-chain solution for smart contracts on Cosmos - that is the Cosm part. It is a way of using WebAssembly in the Cosmos universe - that is the Wasm part.
 
-CosmWasm's design makes your code agnostic to the details of the underlying chains. It only requires that a Cosmos SDK application embeds the Wasm module.
+With [CosmWasm](https://cosmwasm.com/) you can create robust decentralized applications (dApps) for Cosmos using smart contracts and building on Tendermint and the Cosmos SDK. Its key features are:
 
-Soon, CosmWasm will enable systems and contracts that communicate across chains because it will work with IBC. 
+* Mature tools for the development and testing of smart contracts
+* Close integration with the Cosmos SDK and ecosystem
+* A secure architecture to avoid attack vectors
 
-CosmWasm will likely support many approaches to developing contracts. For now, Rust is the most popular, most evolved, and most used, so CosmWasm is ideal for Rust developers looking for a blockchain platform with fast transaction finality.
+CosmWasm's design makes your code agnostic to the details of the underlying chains. It only requires that a Cosmos SDK application embeds the `Wasm` module.
+
+With CosmWasm, smart contracts can run on multiple chains with the help of the IBC protocol. It adds further flexibility for developers and makes smart contract development faster. CosmWasm is written as a module to be plugged into the Cosmos SDK and leverages the speed of Wasm and the power of Rust. CosmWasm is ideal for Rust developers looking for a blockchain platform with fast transaction finality.
 
 <HighlightBox type="docs">
 
-For a deeper dive, read the [CosmWasm documentation](https://docs.cosmwasm.com/docs/1.0/) or compile and deploy a contract in the [guided exercise](../4-my-own-chain/cosmwasm.md). 
+For a deeper dive, read the [CosmWasm documentation](https://docs.cosmwasm.com/docs/1.0/), or compile and deploy a contract in the [guided exercise](../4-my-own-chain/cosmwasm.md).
 
 </HighlightBox>
 
