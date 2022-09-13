@@ -2,7 +2,8 @@
 title: Exercise - Create an Object
 order:
 description: Exercise - From simple creation to practice
-tag: deep-dive
+tags: 
+  - deep-dive
 ---
 
 # Exercise - Create an Object

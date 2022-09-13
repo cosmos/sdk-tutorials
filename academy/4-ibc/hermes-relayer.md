@@ -4,6 +4,7 @@ order: 5
 description: Relayer implementation in Rust
 tags:
   - guided-coding
+  - concepts
   - ibc
   - dev-ops
 ---
@@ -423,6 +424,15 @@ If you are finished with the tests, make sure to shut down your network with:
 $ docker-compose -f tokentransfer.yml --profile hermes down
 ```
 
-## Next up
+<HighlightBox type="synopsis">
 
-With this introduction to the Hermes relayer, you are all set for relaying. In the [next section](./ibc-tooling.md), you can find an overview of helpful tools for IBC.
+To summarize, this section has explored:
+
+* Hermes, an open-source Rust implementation of and IBC relayer, which is widely used in production by relayer operators due to its great logging and debugging options, but may require more detailed knowledge of IBC for effective use.
+* How to install and configure Hermes, and then perform automated and manual end-to-end testing of Docker containers for two-chain instances and a relayer instance.
+
+</HighlightBox>
+
+<!--## Next up
+
+With this introduction to the Hermes relayer, you are all set for relaying. In the [next section](./ibc-tooling.md), you can find an overview of helpful tools for IBC.-->

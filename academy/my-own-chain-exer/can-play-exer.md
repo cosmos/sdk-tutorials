@@ -2,7 +2,8 @@
 title: Exercise - Query - Help Find a Correct Move
 order:
 description: Exercise - Help players make good transactions
-tag: deep-dive
+tags: 
+  - deep-dive
 ---
 
 # Exercise - Query - Help Find a Correct Move

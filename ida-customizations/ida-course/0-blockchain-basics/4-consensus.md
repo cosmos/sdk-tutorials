@@ -2,7 +2,8 @@
 title: "Consensus in Distributed Networks"
 order: 5
 description: An introduction to distributed consensus
-tag: fast-track
+tags: 
+  - concepts
 ---
 
 # Consensus in Distributed Networks
@@ -15,7 +16,7 @@ An overview of well-known blockchain solutions provides perspective and insight 
 
 In the traditional description of the problem, generals, whose armies are spread around a target city, need to reach consensus on a time to attack. The generals can only rely on **unsecured communication channels** to achieve this. A lack of acknowledgment can either be caused by a failure to deliver a message, by a dead general, or by a failure to deliver the acknowledgment. While there are variations of the problem description to adapt to varying real-world fault-tolerance situations, most descriptions include an element of catastrophe if the generals fail to coordinate their actions.
 
-![Byzantine Generals Problem](/academy/0.0-B9lab-Blockchains/images/00_06_byzantine_generals_dark_notitle-01.png)
+![Byzantine Generals Problem](/ida-course/0-blockchain-basics/images/00_06_byzantine_generals_dark_notitle-01.png)
 
 Similar to the generals who must decide when to attack, the agreed transaction list in a distributed ledger has to be identified, and consensus on the correct order of transactions has to be reached.
 
@@ -70,7 +71,7 @@ The algorithm is called DPoS because, as in PoS, the value of a vote is determin
 
 In this type of consensus mechanism, so-called **witnesses** are elected by the stakeholders of the network to secure the network. Afterward, several witnesses are chosen for the block creation so that they represent at least 50% of the stakeholders' votes.
 
-![Delegated-Proof-of-Stake](/academy/0.0-B9lab-Blockchains/images/00_07_delegated_pos-01.png)
+![Delegated-Proof-of-Stake](/ida-course/0-blockchain-basics/images/00_07_delegated_pos-01.png)
 
 Witnesses are paid for their services, receiving fees for creating and validating blocks. This economic incentivization to become a witness also leads to competition potentially increasing with each new member, because the number of witnesses is limited.
 
@@ -120,7 +121,7 @@ As the reader might guess, Cosmos relies on Tendermint Core. It offers the most 
 
 <HighlightBox type="info">
 
-Tendermint will be explored in detail in the [Main Concepts](../2-main-concepts/index.md) section.
+Tendermint will be explored in detail in the [Main Concepts](academy/2-main-concepts/index.md) section.
 
 </HighlightBox>
 
@@ -135,5 +136,18 @@ Tendermint will be explored in detail in the [Main Concepts](../2-main-concepts/
 * [Vasa (2018): ConsensusPedia: An Encyclopedia of 30 Consensus Algorithms. A complete list of all consensus algorithms](https://hackernoon.com/consensuspedia-an-encyclopedia-of-29-consensus-algorithms-e9c4b4b7d08f)
 * [Vitalik Buterin (2016): On Settlement Finality](https://blog.ethereum.org/2016/05/09/on-settlement-finality/)
 * [Witherspoon, Z. (2013): A Hitchhiker’s Guide to Consensus Algorithms. A quick classification of cryptocurrency consensus types](https://hackernoon.com/a-hitchhikers-guide-to-consensus-algorithms-d81aae3eb0e3)
+
+</HighlightBox>
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How the challenge of reaching consensus in hierarchy-free, permissionless, and failure-prone distributed networks is conveniently revealed through the Byzantine Generals Problem, with **Byzantine Fault Tolerance (BFT)** being the blanket term for any mitigating strategies.
+* How **Proof-of-Work (PoF)** consensus assigns a difficult arbitrary task to block creation, with winning miners rewarded for the effort necessary to complete it. The volume of work done contributes to the security of the network, as any attempt to distort the historical record would demand potentially vast quantities of work which quickly become impractical as the valid chain continues to lengthen.
+* How **Proof-of-Authority (PoA)** provides a more energy efficient alternative to PoW at the cost of some centralization of power, by assigning block creation duties to "validator nodes" which are assumed to be trustworthy based on their preexisting authority.
+* How **Proof-of-Stake (PoS)** reduces the reliance on validator trust, as validators now undertake the duties of block creation in proportion to their stake of financial value in the network, earning rewards for beneficial behavior but having penalties levied on their stake for poor performance.
+* How PoS's extension, **Delegated Proof-of-Work (DPoS)**, restores some of the "democratic" aspect of PoW and reduces value centralization, as users are able to delegate their own stakes to those of the validators', sharing the rewards (and possibly penalties) associated with block creation through the network.
+* How **Practical Byzantine Fault Tolerance (pBFT)** represents the capacity for a distributed network to keep reaching consensus even if significant numbers of nodes are either failing to respond or are responding with wrong information. An example of pBFT in action is **Tendermint**, which underpins custom blockchains built with the Cosmos SDK.
 
 </HighlightBox>

@@ -4,6 +4,7 @@ order: 4
 description: Relayer implementation in Golang
 tags:
   - guided-coding
+  - concepts
   - ibc
   - dev-ops
 ---
@@ -485,6 +486,16 @@ If the you are finished with the tests, make sure to shut down your network with
 $ docker-compose -f tokentransfer.yml --profile go down
 ```
 
-## Next up
+<HighlightBox type="synopsis">
 
-After having taken a look at the Go relayer, it is now time to turn to the Hermes relayer in the [next section](./hermes-relayer.md).
+To summarize, this section has explored:
+
+* The Go relayer, a relayer implementation written in Golang that can create clients, connections, and channels, as well as relay packets, and update and upgrade clients.
+* How the Go relayer requires minimal manual configuration and abstracts away many more complex IBC concepts by automating a lot of work to fetch configuration data from the chain registry.
+* How to install and configure the Go relayer, and how to run it between public testnet chains or locally run chains to conveniently test particular scenarios.
+
+</HighlightBox>
+
+<!--## Next up
+
+After having taken a look at the Go relayer, it is now time to turn to the Hermes relayer in the [next section](./hermes-relayer.md).-->
