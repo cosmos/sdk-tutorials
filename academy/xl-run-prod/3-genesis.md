@@ -196,7 +196,7 @@ Because a validator can be configured with multiple flags, look at:
 $ ./myprojectd gentx --help
 ```
 
-Each validator then returns their transaction file(s).
+Each validator then returns to you their transaction file(s).
 
 ### Validators aggregation
 
