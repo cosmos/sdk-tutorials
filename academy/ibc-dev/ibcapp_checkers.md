@@ -61,7 +61,7 @@ func (k msgServer) SendScore(goCtx context.Context, msg *types.MsgSendScore) (*t
     leaderboard, found := k.GetLeaderboard(ctx)
 
     if !found {
-        panic("Leaderboard not found")
+        errors.New("Leaderboard not found")
     }
 
     // Construct the packet
@@ -81,7 +81,7 @@ func (k msgServer) SendScore(goCtx context.Context, msg *types.MsgSendScore) (*t
     }
 
     if !found_in_leaderboard {
-        panic("Player not found in the leaderboard")
+        errors.New("Player not found in the leaderboard")
     }
 
     ...
@@ -121,7 +121,7 @@ func (k Keeper) OnRecvScorePacket(ctx sdk.Context, packet channeltypes.Packet, d
     leaderboard, found := k.GetLeaderboard(ctx)
     
     if !found {
-        panic("Leaderboard not found")
+        errors.New("Leaderboard not found")
     }
 
     found_in_leaderboard := false
