@@ -12,7 +12,7 @@ tags:
 
 You have coded your Cosmos chain. It may not be feature complete, but unit and integration tests are passing. You ran it locally on your computer and interacted with it via the command line. Congratulations, you have already accomplished a lot.
 
-Now is the time to release it into the wild, perhaps as a testnet. You can take progressive steps to achieve this. That is what this module is about.
+Now is the time to release it into the wild, perhaps as a testnet. You can take progressive steps to achieve this. That is what this chapter is about.
 
 What is the desired outcome? You want to have:
 
