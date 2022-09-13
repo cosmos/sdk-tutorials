@@ -1,7 +1,7 @@
 ---
 title: "Introduce a Leaderboard After Production"
 order: 20
-description: A leaderboard for your in-production blockchain
+description: A leaderboard for your in-production blockchain via state migration
 tags: 
   - guided-coding
   - cosmos-sdk
