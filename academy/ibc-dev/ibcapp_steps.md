@@ -14,7 +14,7 @@ In this section, you'll build a conceptual SDK blockchain with one module: first
 
 ## Scaffold a leaderboard chain
 
-By now you should be familiar with scaffolding a chain with Ignite CLI. If not, check out the [Create Your Own Chain](./../3-my-own-chain/index.md) section.
+By now you should be familiar with scaffolding a chain with Ignite CLI. If not, check out the [Create Your Own Chain](/hands-on-exercise/1-ignite-cli/index.md) chapter.
 
 To begin, scaffold a `leaderboard` chain:
 
