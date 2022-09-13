@@ -36,7 +36,7 @@ In this section, you will learn:
 <HighlightBox type="docs">
 
 Installation instructions can be found [in the Hermes documentation from Informal Systems](https://hermes.informal.systems/installation.html). Check the CLI commands with `hermes -h`. Alternatively, check out the [commands reference](https://hermes.informal.systems/commands/index.html) on the Hermes website.
-
+<br/>
 Recently the Hermes relayer upgraded the major version to v1. This is the first stable release and contains loads of improvements which you can check out in the [changelog](https://github.com/informalsystems/ibc-rs/blob/master/CHANGELOG.md#v100). It is recommended to use v1 or higher from this point forward, and the commands below assume you are using v1.x.y.
 
 </HighlightBox>
@@ -49,7 +49,7 @@ $ hermes help
 
 You get:
 
-```
+```txt
 hermes <version>
 Informal Systems <hello@informal.systems>
   Hermes is an IBC Relayer written in Rust
@@ -146,7 +146,7 @@ This powerful command bundles a lot of functionality where Hermes will be listen
 <HighlightBox type="note">
 
 When starting the Hermes relayer, it will assume that the channels you wish to relay over are set up. This will be the case if you want to start relaying on an existing _canonical_ channel, meaning the official and agreed-upon channel (for example, used for fungible token transfers).
-<br></br>
+<br/>
 This is perfectly possible and the right approach, given that creating a new channel would make assets relayed over it non-fungible with assets relayed over the canonical channel. Most tutorials will create new channels (and possibly clients and connections) as this provides more insight into the software. However, it is **important to note that you only need to create new channels if no canonical channel is present** (for example, for a newly deployed chain).
 
 </HighlightBox>
@@ -165,20 +165,20 @@ The example presented is based on the demo in the [b9lab/cosmos-ibc-docker](http
 
 Start by cloning the repository:
 
-```
+```sh
 $ git clone https://github.com/b9lab/cosmos-ibc-docker.git
 ```
 
 Then build the **images for the checkers blockchain** if you did not already do so in the [Go Relayer](./go-relayer.md) section:
 
-```
+```sh
 $ cd cosmos-ibc-docker/tokentransfer/checkers
 $ ./build-images.sh
 ```
 
 You can build the relayer image manually, or just start the network via `docker-compose` and let it build the missing image for the `hermes` relayer:
 
-```
+```sh
 $ cd cosmos-ibc-docker/tokentransfer
 $ docker-compose -f tokentransfer.yml --profile hermes up
 ```
@@ -214,7 +214,7 @@ You can find the configuration in `cosmos-ibc-docker/tokentransfer/relayer_herme
 <HighlightBox type="note">
 
 You will see two `[[chains]]` sections in the `config.toml`. The first one includes comments about configuration.
-
+<br/>
 Chain IDs need to be specified, as well as the RPC, GRPC, and WebSocket addresses.
 
 </HighlightBox>
@@ -237,7 +237,7 @@ You should see that both chains are healthy. The demo includes a script to start
 
 You need some keys to sign a transaction. Populate the aliases:
 
-```
+```sh
 $ hermes keys add --chain checkersa --mnemonic-file "alice.json"
 $ hermes keys add --chain checkersb --mnemonic-file "bob.json"
 ```
@@ -268,7 +268,7 @@ $ docker exec checkersb checkersd query bank balances cosmos173czeq76k0lh0m6zcz7
 
 It is time to create a channel in order to send some tokens from `checkersa` to `checkersb`. In the relayer container, run:
 
-```
+```sh
 $ hermes create channel --a-chain checkersa --b-chain checkersb --a-port transfer --b-port transfer --new-client-connection
 ```
 
@@ -344,7 +344,7 @@ $ hermes query packet commitments --chain checkersa --port transfer --channel ch
 
 You can see that there is one packet:
 
-```
+```txt
 SUCCESS PacketSeqs {
     height: Height {
         revision: 0,
@@ -366,8 +366,8 @@ $ hermes query packet pending --chain checkersb --port transfer --channel channe
 
 The output should be similar to:
 
-```
-UCCESS Summary {
+```txt
+SUCCESS Summary {
     src: PendingPackets {
         unreceived_packets: [],
         unreceived_acks: [],
@@ -401,7 +401,7 @@ $ hermes tx packet-recv --dst-chain checkersb --src-chain checkersa --src-port t
 
 In case of success, you will see an output like:
 
-```
+```txt
 SUCCESS [
     SendPacket(
         SendPacket - seq:1, path:channel-1/transfer->channel-1/transfer, toh:0-3368, tos:Timestamp(NoTimestamp)),
@@ -419,7 +419,7 @@ Check the balances again. A new denom should appear because of our recent transf
 
 If you are finished with the tests, make sure to shut down your network with:
 
-```
+```sh
 $ docker-compose -f tokentransfer.yml --profile hermes down
 ```
 

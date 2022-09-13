@@ -48,7 +48,6 @@ The repository offers a script to start two chains, which you need to test the r
 <HighlightBox type="note">
 
 The most up-to-date major version of the Go relayer is v2. This version delivered major updates and improvements, including the introduction of a provider interface to accommodate chains with different consensus types than Tendermint and event-based processing that results in performance improvements.
-
 <br/>
 It is recommendable to use this latest version, and the following commands assume you are using v2.
 
@@ -56,23 +55,23 @@ It is recommendable to use this latest version, and the following commands assum
 
 1. First, create a folder for this section:
 
-```sh
-$ mkdir relay-go-test
-$ cd relay-go-test
-```
+  ```sh
+  $ mkdir relay-go-test
+  $ cd relay-go-test
+  ```
 
 2. Clone the [Go relayer repository](https://github.com/cosmos/relayer):
 
-```sh
-$ git clone https://github.com/cosmos/relayer.git
-```
+  ```sh
+  $ git clone https://github.com/cosmos/relayer.git
+  ```
 
 3. Now build the Go relayer:
 
-```sh
-$ cd relayer
-$ make install
-```
+  ```sh
+  $ cd relayer
+  $ make install
+  ```
 
 Make sure that your `$GOPATH` is set correctly and `$GOPATH/bin` is included in your `$PATH`.
 
@@ -84,7 +83,7 @@ $ rly -h
 
 Which returns:
 
-```
+```txt
 rly has:
    1. Configuration management for Chains and Paths
    2. Key management for managing multiple keys for multiple chains
@@ -134,7 +133,6 @@ $ rly config show
 <HighlightBox type="info">
 
 By default, transactions will be relayed with a memo of `rly(VERSION)` - for example, `rly(v2.0.0)`.
-
 <br/>
 To customize the memo for all relaying, use the `--memo` flag when initializing the configuration.
 
@@ -144,10 +142,8 @@ $ rly config init --memo "My custom memo"
 
 <br/>
 Custom memos will have `rly(VERSION)` appended. For example, a memo of `My custom memo` running on relayer version `v2.0.0` would result in a transaction memo of `My custom memo | rly(v2.0.0)`.
-
 <br/>
 The `--memo` flag is also available for other `rly` commands that involve sending transactions, such as `rly tx link` and `rly start`. It can be passed there to override the `config.yaml` value if desired.
-
 <br/>
 To omit the memo entirely, including the default value of `rly(VERSION)`, use `-` for the memo.
 
@@ -302,7 +298,7 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
 
   Which returns this output when healthy:
 
-  ```
+  ```txt
   0: cosmoshub-4          -> type(cosmos) key(✔) bal(✔) path(✔)
   1: osmosis-1            -> type(cosmos) key(✔) bal(✔) path(✔)
   ```
@@ -313,7 +309,7 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
 
   Which return this output when healthy:
 
-  ```
+  ```txt
   0: cosmoshub-osmosis              -> chns(✔) clnts(✔) conn(✔) (cosmoshub-4<>osmosis-1)
   ```
 
@@ -349,7 +345,7 @@ The example presented is based on the demo in the [b9lab/cosmos-ibc-docker](http
 
 Start by cloning the repository:
 
-```
+```sh
 $ git clone https://github.com/b9lab/cosmos-ibc-docker.git
 ```
 
@@ -361,14 +357,14 @@ Make sure that you have installed [Docker Compose](https://docs.docker.com/compo
 
 Then build the **images for the checkers blockchain**:
 
-```
+```sh
 $ cd cosmos-ibc-docker/tokentransfer/checkers
 $ ./build-images.sh
 ```
 
 You can build the relayer image manually, or just start the network via `docker-compose` and let it build the missing image for the `ibc-go` relayer:
 
-```
+```sh
 $ cd cosmos-ibc-docker/tokentransfer
 $ docker-compose -f tokentransfer.yml --profile go up
 ```
@@ -377,7 +373,7 @@ Observe the output of `docker-compose` until the chains are ready - the chains w
 
 When the chains are ready, start the relayer process. In a new terminal, jump into the relayer container:
 
-```
+```sh
 $ docker exec -it relayer bash
 ```
 
@@ -385,7 +381,7 @@ The demo includes a script to start the relayer, but do the steps manually to pr
 
 First, initialize the configuration:
 
-```
+```sh
 $ rly config init
 $ rly chains add-dir configs
 $ rly paths add-dir paths
@@ -399,11 +395,9 @@ You can find the `configs` and `paths` folders in the folder `cosmos-ibc-docker/
 
 Populate the aliases:
 
-```
-rly keys restore checkersa alice "cinnamon legend sword giant master simple visit action level ancient day rubber pigeon filter garment hockey stay water crawl omit airport venture toilet oppose"
-
-rly keys restore checkersb bob "define envelope federal move soul panel purity language memory illegal little twin borrow menu mule vote alter bright must deal sight muscle weather rug"
-
+```sh
+$ rly keys restore checkersa alice "cinnamon legend sword giant master simple visit action level ancient day rubber pigeon filter garment hockey stay water crawl omit airport venture toilet oppose"
+$ rly keys restore checkersb bob "define envelope federal move soul panel purity language memory illegal little twin borrow menu mule vote alter bright must deal sight muscle weather rug"
 ```
 
 The mnemonics are set in the checkers blockchains, take _alice_ from `checkersa` and _bob_ from `checkersb`.
@@ -487,7 +481,7 @@ You can see that the stake balances decreased on each chain because of the set f
 
 If the you are finished with the tests, make sure to shut down your network with:
 
-```
+```sh
 $ docker-compose -f tokentransfer.yml --profile go down
 ```
 
