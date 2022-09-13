@@ -24,7 +24,7 @@ Note that this does not mean that the main application modules turn into IBC mod
 
 For example, the checkers blockchain you developed in the previous section **is IBC-enabled**. This is revealed when trying to send IBC denoms from other chains in order to set a wager. However, this does not make the `x/checkers` module an IBC-enabled module. you will investigate all the additions required to make the module IBC-enabled in what follows.
 
-</HiglightBox>
+</HighlightBox>
 
 ## Structure of the sections to come
 
