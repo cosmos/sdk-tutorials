@@ -3,7 +3,9 @@ parent:
   title: Getting Started
   description: A short introduction to blockchain and Golang
   number: 1
-tag: fast-track
+tags:
+order: 0
+title: Week 0 - A Short Introduction to Blockchain and Golang
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">A short introduction to blockchain and Golang</div>
@@ -31,7 +33,7 @@ You can also use it as a refresher.
 
 You can find a short section at the end of the chapter with good-to-know dev terms.
 
-![Planets in constellation](/planets-large.svg)
+![LP image - Week 0](./images/planets-large.svg)
 
 ## In this chapter
 
@@ -71,9 +73,9 @@ All other Academy chapters will be displayed on this page starting **September 1
 
 ## Next up
 
-First, you can take a look at blockchain technology by starting with the section on [Blockchain 101](/ida-course/0-blockchain-basics/1-blockchain.md).
+First, you can take a look at blockchain technology by starting with the section on [Blockchain 101](ida-customizations/ida-course/0-blockchain-basics/1-blockchain.md).
 
-Then, for a quick overview on Golang, begin with the section [Go Introduction - First Steps](/tutorials/4-golang-intro/1_install.md).
+Then, for a quick overview on Golang, begin with the section [Go Introduction - First Steps](/tutorials/4-golang-intro/1-install.md).
 
 In case you want to take a look at some technical terms, go ahead and visit the section [Good-To-Know Dev Terms](/tutorials/1-tech-terms/).
 
