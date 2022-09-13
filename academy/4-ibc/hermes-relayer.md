@@ -415,7 +415,7 @@ Send an acknowledgment to **checkersa**:
 $ hermes tx packet-ack --dst-chain checkersa --src-chain checkersb --src-port transfer --src-channel channel-1
 ```
 
-Check the balances again. A new denom should appear because of our recent transfer. As an exercise, transfer the tokens back to **checkersa**.
+Check the balances again. A new denom should appear because of the recent transfer. As an exercise, transfer the tokens back to **checkersa**.
 
 If you are finished with the tests, make sure to shut down your network with:
 
