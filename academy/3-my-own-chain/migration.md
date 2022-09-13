@@ -477,7 +477,7 @@ type WinningPlayerParsed struct {
 
 <ExpansionPanel title="How is dateAdded (de)serialized?">
 
-You can reuse the [date format used for the deadline](/hands-on-exercise/2-ignite-cli/game-deadline.md):
+You can reuse the [date format used for the deadline](/academy/3-my-own-chain/game-deadline.md):
 
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/keys.go#L84]
