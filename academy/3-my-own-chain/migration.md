@@ -150,7 +150,7 @@ To give the new v2 information a data structure, you need the following:
     }
     ```
 
-3. Add a **leaderboard rung structure** to be repeated inside the leaderboard: this stores the information of a player scoring high enough to be included in the leaderboard. It is not meant to be kept directly in storage as it is only a part of the leaderboard. Instead of involving Ignite CLI, create the structure by hand in its file:
+3. Add a **leaderboard rung structure** to be repeated inside the leaderboard: this stores the information of a player scoring high enough to be included in the leaderboard. It is not meant to be kept directly in storage as it is only a part of the leaderboard. Instead of involving Ignite CLI, create the structure by hand in a new file:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/proto/checkers/winning_player.proto#L6-L10]
     message WinningPlayer {
