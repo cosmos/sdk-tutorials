@@ -1017,7 +1017,7 @@ The processing **routines** will be divided as per the following:
 
 ### Implementation
 
-The player info processing will handle an in-memory map of player addresses to their information: `map[string]*types.PlayerInfo`. Create a new file to encapsulate this whole process. Start by creating a helper that automatically populates it with empty values when information is missing:
+The player info processing will handle an in-memory map of player addresses to their information: `map[string]*types.PlayerInfo`. Create a new file to encapsulate this whole processing. Start by creating a helper that automatically populates it with empty values when information is missing:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/migrations/v1tov2/migration_player_info.go#L11-L23]
 func getOrNewPlayerInfoInMap(infoSoFar *map[string]*types.PlayerInfo, playerIndex string) (playerInfo *types.PlayerInfo) {
