@@ -21,7 +21,7 @@ However, the first and still most dominant example to date is to transfer a (fun
 
 Take this example: you have some ATOM on the Cosmos Hub but would like to swap this for some other token on a DEX (**D**ecentralized **Ex**change) like [Osmosis](https://app.osmosis.zone/). This can be illustrated with a random IBC transfer between the Hub and Osmosis using Mintscan, a popular block explorer.
 
-![IBC token transfer](/tutorials/understanding-ibc-denoms/ibc_token.png "IBC token transfer")
+![IBC token transfer](/tutorials/understanding-ibc-denoms/images/ibc_token.png "IBC token transfer")
 _Sending token from blockchain A to blockchain B_
 
 
@@ -36,7 +36,7 @@ Take the [following transaction](https://www.mintscan.io/cosmos/txs/F7196B37828B
 | Origin Amount  | 20,000        |
 | Origin Denom   | uatom         |
 
-If you are familiar with the [basics of IBC](/academy/3-ibc/what-is-ibc.md), you will know what to make of these terms.
+If you are familiar with the [basics of IBC](/academy/4-ibc/what-is-ibc.md), you will know what to make of these terms.
 
 Now, what if you want to send some ATOM back from Osmosis to the Hub? An example would be [this transaction](https://www.mintscan.io/osmosis/txs/9721FE816ABEE87D25259F87BA816EB53651194DD871C3F6B0A5B00434429A80)
 
@@ -68,13 +68,13 @@ In this tutorial you will:
 
 <HighlightBox type="info">
 
-Token transfers or ICS-20 is discussed in detail in the [IBC section](/academy/3-ibc/token-transfer.md). The "ICS" in ICS-20 is shorthand for _Interchain standards_. In the section, you can find an in-depth look at how IBC enables the transfer of (fungible) tokens across chains. For the purposes of this tutorial, here comes a brief and simplified summary.
+Token transfers or ICS-20 is discussed in detail in the [IBC section](/academy/4-ibc/token-transfer.md). The "ICS" in ICS-20 is shorthand for _Interchain standards_. In the section, you can find an in-depth look at how IBC enables the transfer of (fungible) tokens across chains. For the purposes of this tutorial, here comes a brief and simplified summary.
 
 </HighlightBox>
 
 Imagine two blockchains, blockchain A and blockchain B. As a starting point, you have some tokens on blockchain A you want to send to blockchain B. You can follow the steps in the image below:
 
-![IBC token transfer](./images/ibc_token.png)
+![IBC token transfer](/tutorials/understanding-ibc-denoms/images/ibc_token.png)
 
 _Sending tokens from blockchain A to blockchain B_
 
@@ -104,7 +104,7 @@ The only way to unlock the locked tokens on blockchain A is to send the `voucher
 
 ## How are IBC denoms derived?
 
-IBC is a protocol that allows for permissionless creation of clients, connections, and channels by relayers. Again, refer to the [IBC section](/academy/3-ibc/token-transfer.md) for more in-depth information. As explained there, **a consequence of the permissionless creation of clients, connections, and channels is that tokens that have traveled different paths have different security guarantees**. To account for this, the IBC protocol makes sure to prepend the path information to a base denomination when representing the `voucher`s minted on the sink chain when transferring tokens over IBC.
+IBC is a protocol that allows for permissionless creation of clients, connections, and channels by relayers. Again, refer to the [IBC section](/academy/4-ibc/token-transfer.md) for more in-depth information. As explained there, **a consequence of the permissionless creation of clients, connections, and channels is that tokens that have traveled different paths have different security guarantees**. To account for this, the IBC protocol makes sure to prepend the path information to a base denomination when representing the `voucher`s minted on the sink chain when transferring tokens over IBC.
 
 <HighlightBox type="best-practice">
 
@@ -394,4 +394,4 @@ To summarize, this section has explored:
 
 </HighlightBox>
 
-If your interest in IBC has been piqued, go to the IBC introduction and learn the intricacies of the IBC protocol and IBC applications, start [here](/academy/3-ibc/index.md).
+If your interest in IBC has been piqued, go to the IBC introduction and learn the intricacies of the IBC protocol and IBC applications, start [here](/academy/4-ibc/index.md).
