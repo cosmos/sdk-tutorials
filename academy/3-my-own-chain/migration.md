@@ -80,7 +80,7 @@ It is time to take a closer look at the new data structures being introduced wit
 
 <HighlightBox type="tip">
 
-If you feel unsure about creating new data structures with Ignite CLI, look at the [previous sections](/hands-on-exercise/1-ignite-cli/create-message.md) of the exercise again.
+If you feel unsure about creating new data structures with Ignite CLI, look at the [previous sections](/academy/3-my-own-chain/create-message.md) of the exercise again.
 
 </HighlightBox>
 
