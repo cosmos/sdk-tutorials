@@ -10,7 +10,7 @@ tags:
 
 # Create a Custom IBC Middleware
 
-When developing a custom IBC application, one of the first things to do is to implement the `IBCModule` interface, as seen [previously](/hands-on-exercise/4-ibc-dev/ibc-app-steps.md).
+When developing a custom IBC application, one of the first things to do is to implement the `IBCModule` interface, as seen [previously](/academy/ibc-dev/ibcapp_steps.md).
 
 The interface can be found [here](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go).
 
