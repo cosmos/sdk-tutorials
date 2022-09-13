@@ -2,7 +2,9 @@
 title: "A Blockchain App Architecture"
 order: 2
 description: ABCI, Tendermint, and state machines
-tag: fast-track
+tags: 
+  - concepts
+  - cosmos-sdk
 ---
 
 # A Blockchain App Architecture
@@ -416,7 +418,20 @@ You now have:
 
 </ExpansionPanel>
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* Tendermint, which provides modules that attend to consensus and networking, removing the need for developers to "reinvent the wheel" of lower-level blockchain concerns and freeing them to focus on the application level of their projects.
+* The Tendermint Core, a DPoS consensus module with pBFT, through which the top 150 nodes (as ranked by total stake) serve as validators for the blockchain. These duties are divided between validators in proportion to their voting power, and delegating users can assign or withdraw staked ATOM to share in the risks and rewards, and to influence validators in favor of good behavior.
+* How Tendermint ensures the upgradeability of chains without the possibility of forking, since (like blocks) any proposed upgrades must be validated by a majority of nodes, and there is no process for reversing validation after the fact.
+* The Application Blockchain Interface (ABCI), through which developers are able to work on the higher-order aspects of their projects. The ABCI connects to the Tendermint BFT engine through a socket protocol, and also provides a socket for applications written in other languages, providing additional flexibility to developers.
+* The Cosmos SDK, an array of well-solved modular components that developers can rapidly configure and integrate to create the foundations for unique, custom-designed applications.
+* The Inter-Blockchain Communication Protocol (IBC), a common framework within Cosmos which allows information exchange between blockchains both inside and outside the Cosmos Ecosystem.
+
+</HighlightBox>
+
+## Overview of upcoming content
 
 The following sections will extend your comprehension of the Cosmos SDK and the usefulness of its features. If you completed the previous exercise, you may have already spotted several shortcomings in your game blockchain as it is presently designed:
 

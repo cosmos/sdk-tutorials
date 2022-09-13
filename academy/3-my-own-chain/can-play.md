@@ -2,7 +2,9 @@
 title: "Query - Help Find a Correct Move"
 order: 18
 description: Help players make good transactions
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Query - Help Find a Correct Move
@@ -604,6 +606,17 @@ reason: game is already finished
 
 These queries are all satisfactory.
 
-## Next up
+<HighlightBox type="synopsis">
 
-Do you want to give players more flexibility about which tokens they can use for games? Let players wager any fungible token in the [next section](./wager-denom.md).
+To summarize, this section has explored:
+
+* How application usability can be improved with queries, such as by avoiding the cost of sending *technically* valid transactions which will nevertheless inevitably be rejected due to the application's current state.
+* How queries allow the user to evaluate the application state in read-only mode, without committing anything permanently to storage, with the result that a planned transaction can be judged as acceptable or not before burning gas.
+* How effective query construction will allow the application to signal not just that a planned transaction will fail but also the *reason* it will fail, improving the user's knowledge base for future actions.
+* How to create a query object with Ignite CLI; implement appropriate answers to a player's query; perform integration tests which extrapolate on the application's actual current state; and interact via the CLI to test the effectiveness of the query object.
+
+</HighlightBox>
+
+<!--## Next up
+
+Do you want to give players more flexibility about which tokens they can use for games? Let players wager any fungible token in the [next section](./wager-denom.md).-->

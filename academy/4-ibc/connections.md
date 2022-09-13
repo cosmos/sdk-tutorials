@@ -2,7 +2,10 @@
 title: "Transport, Authentication, and Ordering Layer - Connections"
 order: 3
 description: Establishing connections in IBC
-tag: deep-dive
+tags: 
+  - concepts
+  - ibc
+  - dev-ops
 ---
 
 # Transport, Authentication, and Ordering Layer - Connections
@@ -24,7 +27,7 @@ Now that you covered the introduction and have a better understanding of how dif
 If you want to connect two blockchains with IBC, you will need to establish an IBC **connection**. Connections, established by a four-way handshake, are responsible for:
 
 1. Establishing the identity of the counterparty chain.
-2. Preventing a malicious entity from forging incorrect information by pretending to be the counter party chain. IBC connections are established by on-chain ledger code and therefore do not require interaction with off-chain (trusted) third-party processes.
+2. Preventing a malicious entity from forging incorrect information by pretending to be the counterparty chain. IBC connections are established by on-chain ledger code and therefore do not require interaction with off-chain (trusted) third-party processes.
 
 <HighlightBox type="docs">
 
@@ -316,6 +319,15 @@ If both chains submit `OpenInit` then `OpenTry` at same time, there should be no
 
 In fact this is not an issue. Any attempted `OpenInit` from an imposter will fail on `OpenTry`, because it will not contain valid proofs of `Client/Connection/ConsensusState`.
 
-## Next up
+<HighlightBox type="synopsis">
 
-Now that you finished having a look at connections in IBC/TAO, it is now time to switch your focus to channels in the [next section](./channels.md).
+To summarize, this section has explored:
+
+* How a connection between two blockchains with IBC is established by a four-way handshake, thereby establishing the identity of the counterparty chain and preventing any malicious entity from pretending to be the counterparty.
+* How versioning is important to establish, to ensure that only compatible protocol versions attempt to connect.
+
+</HighlightBox>
+
+<!--## Next up
+
+Now that you finished having a look at connections in IBC/TAO, it is now time to switch your focus to channels in the [next section](./channels.md).-->

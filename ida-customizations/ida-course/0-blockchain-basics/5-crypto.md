@@ -2,7 +2,8 @@
 title: "Cryptographic Fundamentals of Blockchain"
 order: 6
 description: Public-key cryptography
-tag: fast-track
+tags: 
+  - concepts
 ---
 
 # Cryptographic Fundamentals of Blockchain
@@ -61,7 +62,7 @@ Alice wants to send a message to Bob that is meant for Bob's eyes only:
 3. Alice sends Bob the encrypted message.
 4. Bob decrypts the message with his private key.
 
-![Encrypt and decrypt a message](/academy/0.0-B9lab-Blockchains/images/00_11_rsa_keys_v1.png)
+![Encrypt and decrypt a message](/ida-course/0-blockchain-basics/images/00_11_rsa_keys_v1.png)
 
 Now look at the senario code-wise. For example, try the following:
 
@@ -87,7 +88,7 @@ Alice wants to make sure that Bob's public announcement is indeed from Bob:
 3. Bob sends Alice his announcement and its signature.
 4. Alice verifies the signature with Bob's public key.
 
-![Digital signature with public/private keys](/academy/0.0-B9lab-Blockchains/images/00_12_digital_signature_keys_v2.png)
+![Digital signature with public/private keys](/ida-course/0-blockchain-basics/images/00_12_digital_signature_keys_v2.png)
 
 Back to the code example:
 
@@ -118,7 +119,7 @@ It is possible to mix both conceptual ideas. For example:
 3. Upon reception, Bob verifies the signature with Alice's public key to make sure the file came from Alice.
 4. Bob decrypts the file with his private key.
 
-![Encryption, decryption, and signatures with public/private keys](/academy/0.0-B9lab-Blockchains/images/00_13_mix_n_match_keys_v3.png)
+![Encryption, decryption, and signatures with public/private keys](/ida-course/0-blockchain-basics/images/00_13_mix_n_match_keys_v3.png)
 
 ### Is this science or magic?
 
@@ -199,5 +200,15 @@ This provides a convenient example, but `MD5` is no longer considered a hard-to-
 * [The Mathematics of the RSA Public-Key Cryptosystem](https://www.nku.edu/~christensen/the%20mathematics%20of%20the%20RSA%20cryptosystem.pdf)
 * [OSCDaily (2012): Encrypt & Decrypt Files from the Command Line with OpenSSL](http://osxdaily.com/2012/01/30/encrypt-and-decrypt-files-with-openssl/)
 * [Zimuel, Enrico (2016): Sign and verify a file using an OpenSSL comand line tool](https://gist.github.com/ezimuel/3cb601853db6ebc4ee49)
+
+</HighlightBox>
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How modern cryptography leverages computing to make complex mathematical functions useful on a practical level, providing the essential foundation for blockchain technology.
+* How public/private key systems are used to encrypt and decrypt private messages across a public network, providing certainty to both parties that only the intended recipient can open them and that only the claimed sender can be the actual source.
+* How cryptographic hash functions allow for such things as the one-way confirmation of data; for example, being able to check that a person has a particular piece of data _without the necessity of actually sharing that data as part of the check_.
 
 </HighlightBox>

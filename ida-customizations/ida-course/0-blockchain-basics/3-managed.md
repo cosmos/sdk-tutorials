@@ -2,14 +2,15 @@
 title: "Public and Managed Blockchains"
 order: 4
 description: Introduction to different deployment patterns
-tag: fast-track
+tags: 
+  - concepts
 ---
 
 # Public and Managed Blockchains
 
 The most obvious way of operating blockchain protocols comes in form of a public network. This is what blockchain technology was originally invented for and remains arguably its most powerful use.
 
-![P2P network](/academy/0.0-B9lab-Blockchains/images/00_02_p2p_network_dark.png)
+![P2P network](/ida-course/0-blockchain-basics/images/00_02_p2p_network_dark.png)
 
 A public blockchain network has a few specific attributes:
 
@@ -36,7 +37,7 @@ Let us look at this in more detail.
 
 Nakamoto does not use the term "blockchain" in his paper, but describes the concept by explaining transactions in Bitcoin. The transaction process requires the signing of the transaction with the hash of the previous transaction and the public key of the receiver. This is called the chain of ownership. Transactions can contain several inputs and outputs.
 
-![Chain of blocks with previous hash](/academy/0.0-B9lab-Blockchains/images/00_16_bitcoin_block_headers_literal.png)
+![Chain of blocks with previous hash](/ida-course/0-blockchain-basics/images/00_16_bitcoin_block_headers_literal.png)
 
 Each block includes the previous hash and a nonce, a random set of `1`s and `0`s. The protocol calls for a hash beginning with a specific number of binary `0`s when hashing the block. Bitcoin uses a timestamp server to prevent double-spending. The block creator, called a **miner**, looks for a nonce which results in a block hash beginning with the right number of binary `0`s. It is difficult to find a nonce that fulfills this condition, but it is easy to verify when one does.
 
@@ -46,7 +47,7 @@ There is a residual possibility that a slower attacker can catch up, since disco
 
 The process of creating a valid block is called **mining** in PoW networks. The protocol includes a reward for mining, which is the first special transaction in the block. It can be expected that the majority of nodes use their CPU power honestly because this is the most financially feasible course of action. Signed transactions are announced publicly, so the public keys of the parties are not private.
 
-![Mining](/academy/0.0-B9lab-Blockchains/images/00_17_mining-01.png)
+![Mining](/ida-course/0-blockchain-basics/images/00_17_mining-01.png)
 
 ## Introduction to Ethereum
 
@@ -82,7 +83,7 @@ Another way of understanding this is to consider that at any point in time, a pr
 
 While Bitcoin addresses this efficiency issue with a relatively long block time of 10 minutes, Ethereum addresses this concern with a partial reward strategy: valid blocks that are not ultimately included in the canonical chain, because another chain becomes longer, can still be included on the side. They are known as **uncles**. Miners of uncles receive a smaller reward than regular block miners.
 
-![Uncles in Ethereum](/academy/0.0-B9lab-Blockchains/images/00_18_block_uncles-01.png)
+![Uncles in Ethereum](/ida-course/0-blockchain-basics/images/00_18_block_uncles-01.png)
 
 This is made possible thanks to Ethereum's implementation of the [GHOST protocol](http://www.cs.huji.ac.il/~yoni_sompo/pubs/15/inclusive_full.pdf). GHOST includes so-called uncles that are propagated into the network too late to rise to the level of network consensus. This increases the total difficulty of the chain (by capturing the "work" that would otherwise be wasted), makes smaller block times possible, and rewards miners of uncles for contributing to the overall strength of the network.
 
@@ -112,7 +113,7 @@ Dive into the specifics of the Byzantine Generals Problem in the next section on
 
 </HighlightBox>
 
-![Public and Managed Network Comparison](/academy/0.0-B9lab-Blockchains/images/00_08_public_vs_private_comparison-01.png)
+![Public and managed network comparison](/ida-course/0-blockchain-basics/images/00_08_public_vs_private_comparison-01.png)
 
 Public networks are based on game theory and economic incentives, which means that every action is probabilistic. There is no guarantee that a transaction will be picked up and even the integrity of the network is merely very likely, not 100% guaranteed.
 
@@ -120,7 +121,7 @@ This is often unacceptable, for example with traditional financial institutions.
 
 Unlike public networks, where the interaction between participants is governed by the protocol and crypto-economic incentives, in managed networks the blockchain protocol is often a technical enforcement of pre-existing relationships and legally enforceable agreements.
 
-![Public vs Private](/academy/0.0-B9lab-Blockchains/images/00_10_public_vs_private_comparison_table.png)
+![Public vs private](/ida-course/0-blockchain-basics/images/00_10_public_vs_private_comparison_table.png)
 
 **Private blockchains** can be:
 
@@ -140,5 +141,18 @@ Cosmos can be applied to both public and private settings and, importantly, supp
 * [Nakamoto, S. (2008): Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
 * [Vitalik Buterin on private chains](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
 * [Permissioned blockchains in production](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
+
+</HighlightBox>
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How *public* blockchain networks tend to emphasize the characteristics of _accessibility_, _the absence of hierarchy_, _full decentralization_, and the use of _crypto-economic incentives_. They are based on game theory and economic rewards and are probabilistic in nature, so they cannot absolutely guarantee transaction inclusion or event network integrity, which makes them problematic for some traditional institutions.
+*  How *managed* blockchain networks offer an alternative as they do not necessarily need to mitigate the Byzantine Generals Problem, because they operate in predictable environments with elements of authority, hierarchy, and accountability. They often embrace traditional governance processes appropriate to the shared goals of the participants.
+* How **Bitcoin** extends its record of network activity by rewarding independent "miner" nodes for grouping new transactions into blocks with particular characteristics that require much work to achieve but little work to verify. These blocks are constructed into a chain such that any alteration of data is easily identifiable, and any deliberate manipulation of the historical record would require unfeasible efforts on the part of an attacker to achieve.
+* How the **Ethereum** network provides a revolutionary blockchain-based, Turing-complete virtual state machine (the EVM), delivering a computing platform and operating system with smart contract features. To avoid the halting problem, in which programs become stuck in an endless loop, Ethereum introduced the notion of charging a fee for each computational step, meaning that programs with insufficient "gas" to complete will simply stop, releasing the EVM to work on other programs.
+* How Bitcoin and Ethereum handle **forking**, the possibility of rival chains spreading through the network: Bitcoin's long 10 minute block times reduces the probability of transient forks from occurring; Ethereum's 15 _second_ block time makes rival blocks more likely, but instead of discarding them as the longest canonical chain extends they are added to it as "uncles", increasing the amount of work that would be required to undermine the chain, and therefore increasing its overall security.
+* How Cosmos moves past the example set by Ethereum to offer developers an ecosystem capable of platforming smart contracts or dApps _individually_, as opposed to forcing them to share and conform to the technological constraints of the single Ethereum blockchain. It can satisfy the demands of both public and private blockchains, and also supports communications between networks even if they follow differing consensus rules.
 
 </HighlightBox>

@@ -2,7 +2,8 @@
 title: "Blockchain 101"
 order: 2
 description: A universe to discover
-tag: fast-track
+tags: 
+  - concepts
 ---
 
 # Blockchain 101
@@ -23,7 +24,7 @@ Blockchain technology is rapidly evolving and is difficult to understand in its 
 
 Blockchain is a solution to a particular problem: the **double-spending problem**.
 
-![Double-spending problem due to insufficient funds](/academy/0.0-B9lab-Blockchains/images/00_14_double_spending_v2-01.png)
+![Double-spending problem due to insufficient funds](/ida-course/0-blockchain-basics/images/00_14_double_spending_v2-01.png)
 
 We are all familiar with digital artifacts, like text files or images, and the ease with which they can be copied. This presents obvious problems if digital artifacts are intended to represent assets with value. When it comes to such digital tokens, a more pressing issue is the possibility of spending a token more than once, also known as double-spending. What prevents someone from making copies and spending the same token twice?
 
@@ -54,7 +55,7 @@ A "secure" P2P network needs to repel malicious and erroneous input.
 
 Networks can be centralized, decentralized, distributed, or decentralized **and** distributed.
 
-![Network structures: centralized, decentralized, and distributed](/academy/0.0-B9lab-Blockchains/images/00_03_network_structures_dark_notitle-01.png)
+![Network structures: centralized, decentralized, and distributed](/ida-course/0-blockchain-basics/images/00_03_network_structures_dark_notitle-01.png)
 
 A blockchain is a distributed ledger that records all transactions on a network. All nodes in such a distributed ledger need a copy of said ledger. The network and ledger need to run continuously even if nodes join and leave unpredictably. Nodes that join the network must be able to sync up with the latest ledger state. The ledger state must be secure, with strong defenses to prevent malicious nodes from inserting invalid information.
 
@@ -68,7 +69,7 @@ Consequently, it is generally not possible for two parties to exchange value onl
 
 At a high level, Bitcoin solves the double-spending problem by replacing the trusted, central ledger-keepers with a decentralized and distributed ledger that is maintained by a large network of ledger-keepers. Each member of the network has an exact replica of the ledger, and no one can update the ledger without establishing consensus with the other ledger-keepers.
 
-![Double-spending problem due to insufficient funds](/academy/0.0-B9lab-Blockchains/images/00_04_double_spending-01.png)
+![Double-spending problem due to insufficient funds](/ida-course/0-blockchain-basics/images/00_04_double_spending-01.png)
 
 It is as though each transaction is observed by a *large crowd of witnesses* who reach consensus about proposed changes. The crowd prohibits events that should not occur, such as spending the same funds twice (i.e. double-spending).
 
@@ -123,7 +124,7 @@ Since the hash of the latest valid version is an input to the next version's has
 
 Blockchains function similarly: blocks of transactions are appended, using hashes of previous blocks as inputs into hashes of subsequent blocks. Any participant can quickly verify an unbroken chain of blocks (i.e. the correct historical order).
 
-![Genesis and subsequent blocks](/academy/0.0-B9lab-Blockchains/images/00_05_genesis_block_dark_notitle-01.png)
+![Genesis and subsequent blocks](/ida-course/0-blockchain-basics/images/00_05_genesis_block_dark_notitle-01.png)
 
 **Transaction blocks** are logical units that wrap a set of transactions in a specific order. While the implementation details are somewhat more subtle, for now think of this as a set of transactions that occurred during a specific time interval and in a specific order.
 
@@ -194,7 +195,7 @@ Ethereum was the first blockchain to implement [Turing-complete](https://csrc.ni
 
 A **smart contract** is a program on "the world computer", as Ethereum has been called. A distributed application (dApp) is a program too, as is a coordinated collection of smart contracts.
 
-![Blockchain as a computing paradigm](/academy/0.0-B9lab-Blockchains/images/00_15_ethereum_virtual_machine.png)
+![Blockchain as a computing paradigm](/ida-course/0-blockchain-basics/images/00_15_ethereum_virtual_machine.png)
 
 Major computing paradigms in the past were:
 
@@ -203,7 +204,7 @@ Major computing paradigms in the past were:
 * The **internet** in the 1990s.
 * **Mobile and social networking**, often referred to as "social media", in the 2000s.
 
-![Computing paradigms](/academy/0.0-B9lab-Blockchains/images/00_09_computing_paradigms.png)
+![Computing paradigms](/ida-course/0-blockchain-basics/images/00_09_computing_paradigms.png)
 
 It is argued that the development of blockchain technology is initiating a new computational paradigm.
 
@@ -217,5 +218,16 @@ Blockchain technology is often seen as presenting the possibility of more privat
 
 * [Wikipedia: Double-spending](https://en.wikipedia.org/wiki/Double-spending)
 * [Satoshi Nakamoto (2008): Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
+
+</HighlightBox>
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How blockchain is a form of append-only ledger, a database in which immutably ordered blocks of immutably ordered transactions provide an easily verifiable historical record that can be held and updated across multiple nodes of a network.
+* How blockchain is a solution to the **double-spending problem**, which provides a way to ensure that digital tokens (such as of an online currency) can only be spent on one occasion, despite the relative ease with which digital files and artifacts can be copied.
+* How networks can generally be categorized as **centralized**, **decentralized**, or **distributed**, with blockchain using the advantages of distributed, decentralized networking to minimize or completely remove the need for any form of centralized authority.
+* How blockchain uses the _deterministic_, _fast_, _resistant_, _uncorrelated_, and _collision-resistant_ properties of **hash functions** to allow for easy and rapid verification of an unbroken history of all changes ever made to its ledger of transactions.
 
 </HighlightBox>

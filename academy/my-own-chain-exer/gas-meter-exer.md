@@ -2,7 +2,8 @@
 title: Exercise - Gas - Incentivize Players
 order:
 description: Exercise - Reward validators proportional to their effort
-tag: deep-dive
+tags: 
+  - deep-dive
 ---
 
 # Exercise - Gas - Incentivize Players

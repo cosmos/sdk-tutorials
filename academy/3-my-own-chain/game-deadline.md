@@ -2,7 +2,9 @@
 title: "Store Field - Keep an Up-To-Date Game Deadline"
 order: 13
 description: Games can expire
-tag: deep-dive
+tags: 
+  - guided-coding
+  - cosmos-sdk
 ---
 
 # Store Field - Keep an Up-To-Date Game Deadline
@@ -165,8 +167,20 @@ This contains:
 
 In the same vein, you can create a new game and confirm it contains the deadline.
 
-## Next up
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How to implement a new `deadline` field and work with dates to enable the application to check whether games which have not been recently updated have expired or not.
+* How the deadline must use the block's time as its reference point, since a non-deterministic `Date.now()` would change with each execution.
+* How to test your code to ensure that it functions as desired.
+* How to interact with the CLI to create a new game with the deadline field in place
+* How, if your blockchain contains preexisting games, that the blockchain state is now effectively broken, since the deadline field of those games demonstrates missing information (which can be corrected through migration).
+
+</HighlightBox>
+
+<!--## Next up
 
 You have created and updated the deadline. The [section two steps ahead](./game-forfeit.md) describes how to use the deadline.
 
-Before you can do that, there is one other field you need to add. Discover which in the [next section](./game-winner.md).
+Before you can do that, there is one other field you need to add. Discover which in the [next section](./game-winner.md).-->
