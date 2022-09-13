@@ -1,6 +1,6 @@
 ---
 parent:
-title: Understand IBC Denoms with Gaia
+title: Understand IBC Denoms
 order: 0
 description: Send tokens with IBC, trace a denom, and understand how denoms work.
 tags:
@@ -9,7 +9,7 @@ tags:
   - ibc
 ---
 
-# Understand IBC Denoms with Gaia
+# Understand IBC Denoms
 
 One of the most powerful technologies when using the Cosmos SDK is the Interblockchain Communication Protocol (IBC). In the Cosmos Ecosystem, every blockchain is intended to be sovereign and application-specific. With IBC, every blockchain can connect to another blockchain using the IBC protocol. This communication protocol will eventually create a system of sovereign _and_ connected blockchains.
 
@@ -19,7 +19,7 @@ The most used feature of IBC is to send tokens from one blockchain to another. W
 
 Imagine two blockchains, blockchain A and blockchain B. In the beginning, you have your token on blockchain A.
 
-![IBC token transfer](/tutorials/understanding-ibc-denoms/images/ibc_token.png)
+![IBC token transfer](./images/ibc_token.png)
 _Sending token from blockchain A to blockchain B_
 
 The value that tokens represent can be transferred across chains, but the token itself cannot. When sending the tokens with IBC to another blockchain:
