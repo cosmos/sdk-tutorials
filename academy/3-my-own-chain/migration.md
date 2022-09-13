@@ -1147,7 +1147,7 @@ In the process, there are two time-consuming parts:
 
 It looks beneficial to use a Go routine in this case too, and a _player info_ channel to pass along arrays of player info records.
 
-In practice, repeatedly building the intermediate leaderboard means adding _k_ new `winningPlayerParsed` to the sorted array, sorting it, clipping it to `LeaderboardWinnerLength`, and repeating. What constitutes a good _k_ value should be dictated by testing and performance measurements. However, you can start with your best guess in its file:
+In practice, repeatedly building the intermediate leaderboard means adding _k_ new `winningPlayerParsed` to the sorted array, sorting it, clipping it to `LeaderboardWinnerLength`, and repeating. What constitutes a good _k_ value should be dictated by testing and performance measurements. However, you can start with your best guess in a new file created for this purpose:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/migrations/v1tov2/constants.go#L7]
 const PlayerInfoChunkSize = types.LeaderboardWinnerLength * 2
