@@ -79,11 +79,21 @@ export interface DbType {
 
 Not only does this keep information about players, it also keeps a copy of games. This gets around a current limitation of CosmJS, where you cannot get information about a game that has just been erased from the latest state. In practice you would need to query the game at an earlier block height, but this functionality is not available. Note that nodes may prune the old state, especially if they migrate, which may unpredictably impact any query at an earlier block height.
 
-<HighlightBox type="info">
+<ExpansionPanel title="Deleting data from blockchains">
 
-In blockchain, when "deleted" records are materially important, use a soft delete that removes them from the set of active records but doesn't terminate their existence. This principle helps ensure that historically important information is available at the latest block height.
+State storage is the most expensive resource a blockchain application uses. Wasteful use of storage burdens nodes with unnecessarily large storage requirements.
 
-</HighlightBox>
+From an engineering perspective, it is important to separate strict protocol needs from overall requirements. If no state-changing, on-chain logic relies on a stored value, then by definition that value's usefulness is limited to reporting. Such a value is a candidate for deletion from the blockchain state. Reporting is important, but consider more efficient methods of addressing it.
+
+An off-chain indexer - think block explorers - can record historic facts before they are purged. This will support queries about details that are no longer present on the chain. This can also support queries about details that are still present on the chain, but at a much cheaper cost per query than querying blockchain nodes.
+
+Preventing duplication of unique identifiers is a common requirement. The rule can be enforced even if the details are purged, as long as you keep a list of used keys or observed hashes that must not be used again. For example, keep IDs for games that used to exist while deleting the details about the moves and results that have no further relevance to the protocol because the games are "over". If needed, you can keep the complete move-by-move history of the game in cheaper, off-chain storage. This is possible if you designed your chain with proper reporting mechanisms, for instance via events.
+
+In most cases, the most elegant code proceeds on the basis that referential integrity is guaranteed, avoiding messy exceptions like orphaned keys. Internal referential integrity is entirely the responsibility of the application developer, so consider using techniques like cascade deletions or preventing deletion if a record is referenced elsewhere.
+
+Generally, it is a good idea to use deletes to prevent the state from simply growing forever. A simple rule of thumb is to delete everything you can, but no more.
+
+</ExpansionPanel>
 
 ### Empty indexer module
 
