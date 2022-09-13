@@ -1155,7 +1155,7 @@ const PlayerInfoChunkSize = types.LeaderboardWinnerLength * 2
 
 ### Implementation
 
-Start by adding small helpers into their file, so that you can easily append and sort player info records:
+Start by adding small helpers into a new file, so that you can easily append and sort player info records:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/migrations/v1tov2/migration_leaderboard.go#L12-L37]
 func addParsedCandidatesAndSort(parsedWinners []types.WinningPlayerParsed, candidates []types.WinningPlayerParsed) []types.WinningPlayerParsed {
