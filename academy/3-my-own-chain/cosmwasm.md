@@ -12,11 +12,22 @@ tags:
 
 <HighlightBox type="prerequisite">
 
-Discover how multi-chain smart contracts become possible with CosmWasm. The following sections are recommended as a preparation:
+The following sections are recommended as a preparation:
 
 * [Transactions](/academy/2-main-concepts/transactions.md)
 * [Messages](/academy/2-main-concepts/messages.md)
 * [Queries](/academy/2-main-concepts/queries.md)
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+In this section, you will:
+
+* Discover how multi-chain smart contracts become possible with CosmWasm.
+* Install Go and Rust (if necessary), to use the Cosmos SDK and to write smart contracts respectively.
+* Connect to a testnet and faucet to prepare for the main activity.
+* Compile, upload, instantiate, and interact with a simple contract.
 
 </HighlightBox>
 
