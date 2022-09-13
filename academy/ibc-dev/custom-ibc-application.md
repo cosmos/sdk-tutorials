@@ -1,11 +1,11 @@
-<!-- DO NOT INCLUDE -->
-
 ---
 title: "Implement a Custom IBC Application"
 order:
 description: Take a closer look at applications
 tag: deep-dive
 ---
+
+<!-- DO NOT INCLUDE -->
 
 # Implement a Custom IBC Application
 
