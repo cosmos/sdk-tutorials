@@ -4,7 +4,6 @@ order: 4
 description: Relayer implementation in Golang
 tags:
   - guided-coding
-  - concepts
   - ibc
   - dev-ops
 ---
