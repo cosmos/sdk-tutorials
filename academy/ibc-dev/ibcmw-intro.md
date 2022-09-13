@@ -29,7 +29,7 @@ This document serves as a guide for middleware developers who want to write thei
 
 IBC applications are designed to be self-contained modules that implement their own application-specific logic through a set of interfaces with the core IBC handlers. This was discussed in the [previous section](/hands-on-exercise/4-ibc-dev/ibc-app-steps.md).
 
-These core IBC handlers are designed to enforce the correctness properties of [IBC (transport, authentication, ordering)](/academy/3-ibc/what-is-ibc.md) while delegating all application-specific handling to the IBC application modules. **However, there are cases where some functionality may be desired by many applications, yet not appropriate to place in core IBC**...this is where middleware enters the picture.
+These core IBC handlers are designed to enforce the correctness properties of [IBC (transport, authentication, ordering)](/academy/4-ibc/what-is-ibc.md) while delegating all application-specific handling to the IBC application modules. **However, there are cases where some functionality may be desired by many applications, yet not appropriate to place in core IBC**...this is where middleware enters the picture.
 
 Middleware allows developers to define the extensions to the application and core IBC logic as separate modules that can wrap over the base application. This middleware can perform its custom logic and pass data into the application, which in turn may run its own logic without being aware of the middleware's existence.
 
