@@ -13,7 +13,7 @@ title: Chapter Overview - Introduction to CosmJS
 
 With step-by-step examples you will learn how to work with CosmJS when building your application-specific blockchain. Explore how to use CosmJS and apply it to your checkers blockchain to create custom objects and messages.
 
-![](/planet-pod.svg)
+![](./images/planet-pod.svg)
 
 ## In this chapter
 
