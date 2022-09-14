@@ -13,10 +13,10 @@ tags:
 
 Make sure you are prepared for this section by reading the following previous sections:
 
-* [A Blockchain App Architecture](./architecture.md)
-* [Accounts](./accounts.md)
-* [Transactions](./transactions.md)
-* [Modules](./modules.md)
+* [A Blockchain App Architecture](./1-architecture.md)
+* [Accounts](./2-accounts.md)
+* [Transactions](./3-transactions.md)
+* [Modules](./5-modules.md)
 
 </HighlightBox>
 

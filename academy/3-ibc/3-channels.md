@@ -195,5 +195,5 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You learned how to establish a channel and discovered the application packet flow. In the [next section](./clients.md), you get to explore clients in IBC/TAO.-->
+You learned how to establish a channel and discovered the application packet flow. In the [next section](./4-clients.md), you get to explore clients in IBC/TAO.-->
 

@@ -13,9 +13,9 @@ tags:
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [ABCI](../2-main-concepts/architecture.md), [Protobuf](../2-main-concepts/protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
+* You understand the concepts of [ABCI](/academy/2-main-concepts/1-architecture.md), [Protobuf](/academy/2-main-concepts/6-protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
 * Go is installed.
-* You have the checkers blockchain codebase with `MsgRejectGame` and its handling. If not, follow the [previous steps](./reject-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
+* You have the checkers blockchain codebase with `MsgRejectGame` and its handling. If not, follow the [previous steps](/hands-on-exercise/1-ignite-cli/8-reject-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
 
 </HighlightBox>
 
@@ -32,7 +32,7 @@ You will learn:
 
 </HighlightBox>
 
-In the [previous step](./reject-game.md), you added a way for players to reject a game, so there is a way for stale games to be removed from storage. But is this enough to avoid _state pollution_?
+In the [previous step](/hands-on-exercise/1-ignite-cli/8-reject-game.md), you added a way for players to reject a game, so there is a way for stale games to be removed from storage. But is this enough to avoid _state pollution_?
 
 There are some initial thoughts and code needs to keep in mind during the next sections to be able to implement forfeits in the end.
 

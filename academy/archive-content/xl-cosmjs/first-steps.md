@@ -349,7 +349,7 @@ Deserializing the transaction has not fully deserialized any messages that it co
 
 ### What is this long string?
 
-Note the `typeUrl: "/cosmos.bank.v1beta1.MsgSend"` string. This comes from the [Protobuf](../2-main-concepts/protobuf.md) definitions and is a mixture of:
+Note the `typeUrl: "/cosmos.bank.v1beta1.MsgSend"` string. This comes from the [Protobuf](/academy/2-main-concepts/6-protobuf.md) definitions and is a mixture of:
 
 1. The `package` where `MsgSend` is initially declared:
 

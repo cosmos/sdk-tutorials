@@ -13,10 +13,10 @@ tags:
 
 Before proceeding, make sure you have all you need:
 
-* You understand the concepts of [transactions](../2-main-concepts/transactions.md), [messages](../2-main-concepts/messages.md), and [Protobuf](../2-main-concepts/protobuf.md).
-* You know how to [create a message](./create-message.md) with Ignite CLI, and code [its handling](./create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
+* You understand the concepts of [transactions](/academy/2-main-concepts/3-transactions.md), [messages](/academy/2-main-concepts/4-messages.md), and [Protobuf](/academy/2-main-concepts/6-protobuf.md).
+* You know how to [create a message](./4-create-message.md) with Ignite CLI, and code [its handling](./5-create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
 * Go is installed.
-* You have the checkers blockchain codebase with the previous messages and their events. If not, follow the [previous steps](./events.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/two-events).
+* You have the checkers blockchain codebase with the previous messages and their events. If not, follow the [previous steps](./7-events.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/two-events).
 
 </HighlightBox>
 
@@ -425,7 +425,7 @@ Error: rpc error: code = NotFound desc = rpc error: code = NotFound desc = not f
 
 How is it possible that Bob could reject a game he had already played in, despite the code preventing that? Because game `1` was created in an earlier version of your code. This earlier version created **a game without any `.MoveCount`**, or more precisely with `MoveCount == 0`. When you later added the code for rejection, Ignite CLI kept the current state of your blockchain. In effect, your blockchain was in a **broken** state, where **the code and the state were out of sync**.
 
-To see how to properly handle code changes that would otherwise result in a broken state, see the section on [migrations](./migration.md).
+To see how to properly handle code changes that would otherwise result in a broken state, see the section on [migrations](/hands-on-exercise/3-cosmjs-adv/6-migration.md).
 
 </HighlightBox>
 

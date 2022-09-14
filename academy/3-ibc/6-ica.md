@@ -647,4 +647,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-After having a closer look at the Cosmos SDK security model, the authentication module, and an example integration, discover relaying with IBC in the [next section](./relayer-intro.md).-->
+After having a closer look at the Cosmos SDK security model, the authentication module, and an example integration, discover relaying with IBC in the [next section](./1-relayer-intro.md).-->

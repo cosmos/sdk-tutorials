@@ -13,9 +13,9 @@ tags:
 
 It is recommended to take a look at the following previous sections to better understand messages:
 
-* [A Blockchain App Architecture](./architecture.md)
-* [Accounts](./accounts.md)
-* [Transactions](./transactions.md)
+* [A Blockchain App Architecture](./1-architecture.md)
+* [Accounts](./2-accounts.md)
+* [Transactions](./3-transactions.md)
 
 </HighlightBox>
 
@@ -23,7 +23,7 @@ It is recommended to take a look at the following previous sections to better un
 
 In this section, you will take a closer look at messages, `Msg`. At the end of the section, you can find a code example that illustrates message creation and the inclusion of messages in transactions for your checkers blockchain.
 <br></br>
-Understanding `Msg` will help you prepare for the next section, on [modules in the Cosmos SDK](./modules.md), as messages are a primary object handled by modules.
+Understanding `Msg` will help you prepare for the next section, on [modules in the Cosmos SDK](./5-modules.md), as messages are a primary object handled by modules.
 
 </HighlightBox>
 
@@ -33,7 +33,7 @@ In the Cosmos SDK, a **transaction** contains **one or more messages**. The modu
 
 <ExpansionPanel title="Signing a message">
 
-Remember from the [previous section on transactions](./transactions.md) that transactions must be signed before a validator includes them in a block. Every message in a transaction must be signed by the addresses as specified by `GetSigners`.
+Remember from the [previous section on transactions](./3-transactions.md) that transactions must be signed before a validator includes them in a block. Every message in a transaction must be signed by the addresses as specified by `GetSigners`.
 <br></br>
 The Cosmos SDK currently allows signing transactions with either `SIGN_MODE_DIRECT` or `SIGN_MODE_LEGACY_AMINO_JSON` methods.
 <br></br>
@@ -89,7 +89,7 @@ If you want to dive deeper when it comes to messages, the `Msg` service, and mod
 
 <ExpansionPanel title="Show me some code for my checkers blockchain - Including messages">
 
-In the [previous](./transactions.md) code examples, the ABCI application was aware of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you need to conform to the SDK's way of handling `Tx`, which means **creating messages that are then included in a transaction**.
+In the [previous](./3-transactions.md) code examples, the ABCI application was aware of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you need to conform to the SDK's way of handling `Tx`, which means **creating messages that are then included in a transaction**.
 <br></br>
 **What you need**
 
@@ -202,8 +202,7 @@ Your work is mostly done. You want to create the specific game creation code to 
 
     <HighlightBox type="info">
 
-    For more details, and to avoid diving too deep in this section, see [Run Your Own Cosmos Chain](../3-my-own-chain/index.md).
-      
+    For more details, and to avoid diving too deep in this section, see [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
       
     </HighlightBox>
 
@@ -216,7 +215,7 @@ Your work is mostly done. You want to create the specific game creation code to 
     }
     ```
 
-3. Create a game object with all required parameters - see the [modules section](./modules.md) for the declaration of this object:
+3. Create a game object with all required parameters - see the [modules section](./5-modules.md) for the declaration of this object:
 
     ```go
     storedGame := {
@@ -228,7 +227,7 @@ Your work is mostly done. You want to create the specific game creation code to 
     }
     ```
 
-4. Send the game object to storage - see the [modules section](./modules.md) for the declaration of this function:
+4. Send the game object to storage - see the [modules section](./5-modules.md) for the declaration of this function:
 
     ```go
     k.Keeper.SetStoredGame(ctx, storedGame)

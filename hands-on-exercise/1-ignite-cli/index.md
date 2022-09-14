@@ -38,9 +38,9 @@ In this chapter, you will:
 
 ## Next up
 
-Before you begin exploring [Ignite CLI](./ignitecli.md), prep everything for the running exercise - creating a checkers blockchain - by going through the section _[Setup Your Work Environment](/tutorials/2-work-environment/setup.md)_.
+Before you begin exploring [Ignite CLI](./1-ignitecli.md), prep everything for the running exercise - creating a checkers blockchain - by going through the section _[Setup Your Work Environment](/tutorials/2-setup/index.md)_.
 
-If your setup is ready to go, begin with an introduction to Ignite CLI in the [next section](./ignitecli.md).
+If your setup is ready to go, begin with an introduction to Ignite CLI in the [next section](./1-ignitecli.md).
 
 ## Developer Resources
 

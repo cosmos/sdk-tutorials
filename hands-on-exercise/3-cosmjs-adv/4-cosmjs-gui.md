@@ -14,8 +14,8 @@ tags:
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [CosmJS](../xl-cosmjs/intro.md).
-* You have the checkers blockchain codebase up to the external GUI. If not, follow the [previous steps](./external-gui.md) or you can go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui) to get the version needed for this tutorial.
+* You understand the concepts of [CosmJS](/tutorials/6-cosmjs/1-cosmjs-intro.md).
+* You have the checkers blockchain codebase up to the external GUI. If not, follow the [previous steps](./3-external-gui.md) or you can go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui) to get the version needed for this tutorial.
 
 </HighlightBox>
 
@@ -118,7 +118,7 @@ Your GUI uses React v18, which uses Webpack v5. Therefore you need to [adjust We
 
     Be careful to leave the `"eject"` unchanged.
 
-See a [previous section](./cosmjs-objects.md) for how to set `RPC_URL` in `process.env.RPC_URL`. It also assumes that you have an RPC end point that runs the Checkers blockchain, as explained in the previous section.
+See a [previous section](./1-cosmjs-objects.md) for how to set `RPC_URL` in `process.env.RPC_URL`. It also assumes that you have an RPC end point that runs the Checkers blockchain, as explained in the previous section.
 
 ### GUI data structures
 
@@ -221,7 +221,7 @@ Here:
 
 <HighlightBox type="info">
 
-Could an AI player and the blockchain mix together? If _the AI_ has access to a private key that lets it send transactions, it would be a bona fide player. This could be implemented with backend scripts running on a server. See [Checkers backend scripts](./server-side.md) for an example of backend scripts for a different use-case.
+Could an AI player and the blockchain mix together? If _the AI_ has access to a private key that lets it send transactions, it would be a bona fide player. This could be implemented with backend scripts running on a server. See [checkers backend scripts](./5-server-side.md) for an example of backend scripts for a different use-case.
 
 </HighlightBox>
 
@@ -633,7 +633,7 @@ Note the use of `process.env.RPC_URL` again.
 
 <HighlightBox type="note">
 
-The `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](./with-keplr.md) section.
+The `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](hands-on-exercise/3-cosmjs.adv/4-with-keplr.md) section.
 
 </HighlightBox>
 
@@ -766,7 +766,7 @@ Examine the code, and focus on `src/components/Menu/NewGameModal/NewGameModal.ts
     Keep in mind:
 
     * For the sake of simplicity, a possible wager is completely omitted.
-    * The `getCreatedGameId` is defined in a [previous section](./cosmjs-messages.md).
+    * The `getCreatedGameId` is defined in a [previous section](./2-cosmjs-messages.md).
 
     </HighlightBox>
 

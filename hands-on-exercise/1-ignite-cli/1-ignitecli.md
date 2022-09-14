@@ -13,13 +13,13 @@ tags:
 
 Before diving into the details of how Ignite CLI helps you scaffold the basics for your application blockchain make sure to understand the main concepts presented in the following sections:
 
-* [A Blockchain App Architecture](../2-main-concepts/architecture.md)
-* [Accounts](../2-main-concepts/accounts.md)
-* [Transactions](../2-main-concepts/transactions.md)
-* [Messages](../2-main-concepts/messages.md)
-* [Modules](../2-main-concepts/modules.md)
-* [Protobuf](../2-main-concepts/protobuf.md)
-* [BaseApp](../2-main-concepts/base-app.md)
+* [A Blockchain App Architecture](../2-main-concepts/1-architecture.md)
+* [Accounts](../2-main-concepts/2-accounts.md)
+* [Transactions](../2-main-concepts/3-transactions.md)
+* [Messages](../2-main-concepts/4-messages.md)
+* [Modules](../2-main-concepts/5-modules.md)
+* [Protobuf](../2-main-concepts/6-protobuf.md)
+* [BaseApp](../2-main-concepts/8-base-app.md)
 
 </HighlightBox>
 

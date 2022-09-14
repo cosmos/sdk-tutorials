@@ -13,9 +13,9 @@ tags:
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md).
+* You understand the concepts of [Protobuf](/academy/2-main-concepts/6-protobuf.md).
 * Go is installed.
-* You have the checkers blockchain codebase with the deadline field and its handling. If not, follow the [previous steps](./game-deadline.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-deadline).
+* You have the checkers blockchain codebase with the deadline field and its handling. If not, follow the [previous steps](./2-game-deadline.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-deadline).
 
 </HighlightBox>
 

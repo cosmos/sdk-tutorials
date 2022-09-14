@@ -27,4 +27,4 @@ Only focus on the narrow issue of event emission.
 
 ## Next up
 
-When you are satisfied (or not) with what you have, look at [a solution](../3-my-own-chain/events.md).
+When you are satisfied (or not) with what you have, look at [a solution](/hands-on-exercise/1-ignite-cli/7-events.md).

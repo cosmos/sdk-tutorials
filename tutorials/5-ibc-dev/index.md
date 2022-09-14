@@ -19,13 +19,10 @@ Well, IBC enables arbitrary message passing between chains (in fact, even more g
 
 However, the first and still most dominant example to date is to transfer a (fungible) token from a source chain to a destination chain.
 
-<<<<<<< HEAD:tutorials/5-ibc-dev/index.md
-![IBC token transfer](./images/ibc_token.png)
-=======
 Take this example: you have some ATOM on the Cosmos Hub but would like to swap this for some other token on a DEX (**D**ecentralized **Ex**change) like [Osmosis](https://app.osmosis.zone/). This can be illustrated with a random IBC transfer between the Hub and Osmosis using Mintscan, a popular block explorer.
 
-![IBC token transfer](/tutorials/understanding-ibc-denoms/images/ibc_token.png "IBC token transfer")
->>>>>>> master:tutorials/understanding-ibc-denoms/index.md
+![IBC token transfer](./images/ibc_token.png)
+
 _Sending token from blockchain A to blockchain B_
 
 
@@ -40,7 +37,7 @@ Take the [following transaction](https://www.mintscan.io/cosmos/txs/F7196B37828B
 | Origin Amount  | 20,000        |
 | Origin Denom   | uatom         |
 
-If you are familiar with the [basics of IBC](/academy/4-ibc/what-is-ibc.md), you will know what to make of these terms.
+If you are familiar with the [basics of IBC](/academy/3-ibc/1-what-is-ibc.md), you will know what to make of these terms.
 
 Now, what if you want to send some ATOM back from Osmosis to the Hub? An example would be [this transaction](https://www.mintscan.io/osmosis/txs/9721FE816ABEE87D25259F87BA816EB53651194DD871C3F6B0A5B00434429A80)
 
@@ -108,7 +105,7 @@ The only way to unlock the locked tokens on blockchain A is to send the `voucher
 
 ## How are IBC denoms derived?
 
-IBC is a protocol that allows for permissionless creation of clients, connections, and channels by relayers. Again, refer to the [IBC section](/academy/4-ibc/token-transfer.md) for more in-depth information. As explained there, **a consequence of the permissionless creation of clients, connections, and channels is that tokens that have traveled different paths have different security guarantees**. To account for this, the IBC protocol makes sure to prepend the path information to a base denomination when representing the `voucher`s minted on the sink chain when transferring tokens over IBC.
+IBC is a protocol that allows for permissionless creation of clients, connections, and channels by relayers. Again, refer to the [IBC section](/academy/3-ibc/5-token-transfer.md) for more in-depth information. As explained there, **a consequence of the permissionless creation of clients, connections, and channels is that tokens that have traveled different paths have different security guarantees**. To account for this, the IBC protocol makes sure to prepend the path information to a base denomination when representing the `voucher`s minted on the sink chain when transferring tokens over IBC.
 
 <HighlightBox type="best-practice">
 

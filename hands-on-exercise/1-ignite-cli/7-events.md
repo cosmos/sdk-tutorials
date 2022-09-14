@@ -13,9 +13,9 @@ tags:
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [events](../2-main-concepts/events.md).
+* You understand the concepts of [events](/academy/2-main-concepts/10-events.md).
 * Go is installed.
-* You have the checkers blockchain codebase with `MsgPlayMove` and its handling. If not, follow the [previous steps](./play-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/play-move-handler).
+* You have the checkers blockchain codebase with `MsgPlayMove` and its handling. If not, follow the [previous steps](./6-play-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/play-move-handler).
 
 </HighlightBox>
 
@@ -29,7 +29,7 @@ In this section, you will:
 
 </HighlightBox>
 
-Now that you have [added the possible actions](./play-game.md), including their return values, use events to notify players. Your blockchain can now create and play games. However, it does not inform the outside world about this in a convenient way. That is where events come in - but what do you need to emit them?
+Now that you have [added the possible actions](./6-play-game.md), including their return values, use events to notify players. Your blockchain can now create and play games. However, it does not inform the outside world about this in a convenient way. That is where events come in - but what do you need to emit them?
 
 Imagine a potential or current player waiting for their turn. It is not practical to look at all the transactions and search for the ones signifying the player's turn. It is better to listen to known events that let clients determine which player's turn it is.
 

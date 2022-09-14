@@ -13,9 +13,9 @@ tags:
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [Protobuf](../2-main-concepts/protobuf.md).
+* You understand the concepts of [Protobuf](/academy/2-main-concepts/6-protobuf.md).
 * Go is installed.
-* You have the checkers blockchain codebase with the game FIFO. If not, follow the [previous steps](./game-fifo.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-fifo).
+* You have the checkers blockchain codebase with the game FIFO. If not, follow the [previous steps](./1-game-fifo.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-fifo).
 
 </HighlightBox>
 
@@ -29,7 +29,7 @@ In this section, you will:
 
 </HighlightBox>
 
-In the [previous section](./game-fifo.md) you introduced a FIFO that keeps the _oldest_ games at its head and the most recently updated games at its tail.
+In the [previous section](./1-game-fifo.md) you introduced a FIFO that keeps the _oldest_ games at its head and the most recently updated games at its tail.
 
 Just because a game has not been updated in a while does not mean that it has expired. To ascertain this you need to add a new field to a game, `deadline`, and test against it.
 
@@ -212,7 +212,7 @@ This demonstrates some missing information:
   ...
 ```
 
-In effect, your blockchain state is broken. Examine the [section on migrations](./migration.md) to see how to update your blockchain state to avoid such a breaking change. This broken state still lets you test the update of the deadline on play:
+In effect, your blockchain state is broken. Examine the [section on migrations](/hands-on-exercise/3-cosmjs-adv/6-migration.md) to see how to update your blockchain state to avoid such a breaking change. This broken state still lets you test the update of the deadline on play:
 
 <CodeGroup>
 

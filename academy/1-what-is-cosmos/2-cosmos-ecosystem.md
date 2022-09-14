@@ -84,7 +84,7 @@ Each chain in the Cosmos Ecosystem relies on the Tendermint **fast-finality BFT 
 
 <HighlightBox type="tip">
 
-If you want to dive deeper into application-specific blockchains, look at the section [A Blockchain App Architecture](../2-main-concepts/architecture.md).
+If you want to dive deeper into application-specific blockchains, look at the section [A Blockchain App Architecture](../2-main-concepts/1-architecture.md).
 
 </HighlightBox>
 
@@ -137,7 +137,7 @@ If the other chain is a **probabilistic-finality chain**, a simple adaptation of
 
 <HighlightBox type="info">
 
-A peg-zone implementation exists for Ethereum and is named the **[Gravity Bridge](https://github.com/cosmos/gravity-bridge)**. For more information on bridges and the Gravity bridge, see the section [Bridges](../2-main-concepts/bridges.md).
+A peg-zone implementation exists for Ethereum and is named the **[Gravity Bridge](https://github.com/cosmos/gravity-bridge)**. For more information on bridges and the Gravity bridge, see the section [Bridges](/academy/2-main-concepts/13-bridges.md).
 
 </HighlightBox>
 

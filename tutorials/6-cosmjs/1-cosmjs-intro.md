@@ -84,7 +84,7 @@ We're proud of the modularity and clean dependency tree in this monorepo. This e
 
 ![CosmJS dependency tree](/academy/xl-cosmjs/images/cosmjs-tree.png)
 
-Continue reading for a [hands-on developer exercise](./first-steps.md). The tutorial starts with downloading dependencies and proceeds through the steps of creating a simple user interface.
+Continue reading for a [hands-on developer exercise](./2-first-steps.md). The tutorial starts with downloading dependencies and proceeds through the steps of creating a simple user interface.
 
 <HighlightBox type="reading">
 
@@ -107,4 +107,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Take your first steps with CosmJS in the [next section](./first-steps.md).-->
+Take your first steps with CosmJS in the [next section](./2-first-steps.md).-->

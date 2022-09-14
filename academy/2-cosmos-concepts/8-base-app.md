@@ -13,11 +13,11 @@ tags:
 
 Before looking at `BaseApp`, make sure to read the previous sections:
 
-* [A Blockchain App Architecture](./architecture.md)
-* [Transactions](./transactions.md)
-* [Messages](./messages.md)
-* [Modules](./modules.md)
-* [Multistore and Keepers](./multistore-keepers.md)
+* [A Blockchain App Architecture](./1-architecture.md)
+* [Transactions](./3-transactions.md)
+* [Messages](./4-messages.md)
+* [Modules](./5-modules.md)
+* [Multistore and Keepers](./7-multistore-keepers.md)
 
 </HighlightBox>
 

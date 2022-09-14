@@ -13,10 +13,10 @@ tags:
 
 Look at the following sections before you begin:
 
-* [Transactions](./transactions.md)
-* [Messages](./messages.md)
-* [Modules](./modules.md)
-* [Protobuf](./protobuf.md)
+* [Transactions](./2-transactions.md)
+* [Messages](./4-messages.md)
+* [Modules](./5-modules.md)
+* [Protobuf](./6-protobuf.md)
 
 </HighlightBox>
 
@@ -173,7 +173,7 @@ For more information on the subject, see the following resources:
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-In the [Accounts section](./accounts.md), you were shown the elements of the stored game but not where this game is stored. This will now be explained.
+In the [Accounts section](./2-accounts.md), you were shown the elements of the stored game but not where this game is stored. This will now be explained.
 <br></br>
 **Game object in storage**
 
@@ -275,7 +275,7 @@ Note the `MustMarshalBinaryBare` and `MustUnmarshalBinaryBare` functions in the 
 
 <HighlightBox type="tip">
 
-See the [previous section on Protobuf](./protobuf.md) to explore how Protobuf deals with the marshaling.
+See the [previous section on Protobuf](./6-protobuf.md) to explore how Protobuf deals with the marshaling.
 
 </HighlightBox>
 
@@ -291,7 +291,7 @@ $ ignite scaffold map storedGame game turn red black wager:uint --module checker
 
 <HighlightBox type="tip">
 
-To create the above boilerplate in your module, you can use Ignite CLI. Go to [Run Your Own Cosmos Chain](../3-my-own-chain/index.md), for more on Ignite CLI, and if you want to go beyond out-of-context code samples to see more in detail how to define these features.
+To create the above boilerplate in your module, you can use Ignite CLI. Go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md), for more on Ignite CLI, and if you want to go beyond out-of-context code samples to see more in detail how to define these features.
 
 </HighlightBox>
 
@@ -351,7 +351,7 @@ func DefaultGenesis() *GenesisState {
 
 **What about message handling**
 
-You go from the message to the game in storage with `MsgCreateGame`, which was defined in an earlier [section on messages](./messages.md). That is also the role of the keeper.
+You go from the message to the game in storage with `MsgCreateGame`, which was defined in an earlier [section on messages](./4-messages.md). That is also the role of the keeper.
 <br></br>
 Define a handling function such as:
 

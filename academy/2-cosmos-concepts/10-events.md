@@ -13,10 +13,10 @@ tags:
 
 Before diving into events, ensure you understand the concepts covered in the following sections:
 
-* [Transactions](./transactions.md)
-* [Messages](./messages.md)
-* [Modules](./modules.md)
-* [Protobuf](./protobuf.md)
+* [Transactions](./3-transactions.md)
+* [Messages](./4-messages.md)
+* [Modules](./5-modules.md)
+* [Protobuf](./6-protobuf.md)
 
 Code examples are provided at the end of this section, which show events implemented in the checkers blockchain.
 

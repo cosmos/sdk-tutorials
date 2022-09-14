@@ -38,7 +38,7 @@ In this chapter, you will:
 
 ## Next up
 
-Dive into developing a GUI in the [next section](./external-gui.md) before integrating CosmJS and Keplr into the GUI and working on a backend script for game indexing.
+Before you dive into [developing a GUI](./3-external-gui.md), take a look at creating objects and messages. Later, you get to integrate CosmJS and Keplr into the GUI and work on a backend script for game indexing.
 
 ## Developer Resources
 

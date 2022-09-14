@@ -24,7 +24,7 @@ In this section, you will learn more about:
 
 CosmJS allows you to connect with [Keplr](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap), the widely used browser extension, to manage your private keys. In a previous section you used the command-line and CosmJS to issue commands to the Cosmos Hub Testnet. In this tutorial, you are working on a browser application that interacts with the Keplr extension.
 
-You will again connect to the Cosmos Hub Testnet. Optionally, connect to your locally running Cosmos blockchain using `simapp` as explained [before](./first-steps.md).
+You will again connect to the Cosmos Hub Testnet. Optionally, connect to your locally running Cosmos blockchain using `simapp` as explained [before](./2-first-steps.md).
 
 To keep the focus on CosmJS and Keplr, you are going to use ready-made pages created by the Next.js framework. Do not worry if you routinely use another framework, the CosmJS-specific code in this tutorial can be applied similarly in Angular, Vue, and other frameworks.
 
@@ -159,7 +159,7 @@ const Home: NextPage = () => {
 export default Home
 ```
 
-The faucet address was found in the [previous section](./first-steps.md), as well as the RPC endpoint that connects to the Cosmos Hub Testnet.
+The faucet address was found in the [previous section](./2-first-steps.md), as well as the RPC endpoint that connects to the Cosmos Hub Testnet.
 
 When `npm run dev` picks up the changes, you should see that your page has changed to what you created. In particular, it alerts you with "TODO" when you click on the button.
 
@@ -206,7 +206,7 @@ Now, add elements that handle your user's information.
 
 ## Getting testnet tokens
 
-Refer to the previous section on how to [get Cosmos Hub Testnet tokens](./first-steps.md). This time you should use your Keplr address. If you have not set up one yet, do so now. Your Cosmos Hub Testnet address is the same one that Keplr shows you for the Cosmos Hub mainnet.
+Refer to the previous section on how to [get Cosmos Hub Testnet tokens](./2-first-steps.md). This time you should use your Keplr address. If you have not set up one yet, do so now. Your Cosmos Hub Testnet address is the same one that Keplr shows you for the Cosmos Hub mainnet.
 
 ## Detecting Keplr
 

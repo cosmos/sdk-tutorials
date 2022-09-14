@@ -34,7 +34,7 @@ In this chapter, you will:
 
 ## Next up
 
-Dive right into Cosmos with the first section _[Blockchain Technology and Cosmos](./blockchain-and-cosmos.md)_.
+Dive right into Cosmos with the first section _[Blockchain Technology and Cosmos](./1-blockchain-and-cosmos.md)_.
 
 ## Developer Resources
 

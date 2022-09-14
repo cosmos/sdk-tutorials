@@ -13,9 +13,9 @@ tags:
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [queries](../2-main-concepts/queries.md) and [Protobuf](../2-main-concepts/protobuf.md).
+* You understand the concepts of [queries](/academy/2-main-concepts/9-queries.md) and [Protobuf](/academy/2-main-concepts/6-protobuf.md).
 * You have Go installed.
-* You have the checkers blockchain codebase up to gas metering. If not, follow the [previous steps](./gas-meter.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
+* You have the checkers blockchain codebase up to gas metering. If not, follow the [previous steps](./6-gas-meter.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
 
 </HighlightBox>
 
@@ -28,7 +28,7 @@ In this section, you will:
 
 </HighlightBox>
 
-A player sends a `MsgPlayMove` when [making a move](./play-game.md). This message can succeed or fail for several reasons. One error situation is when the message represents an invalid move. A GUI is the first place where a bad move can be caught, but it is still possible that a GUI wrongly enforces the rules.
+A player sends a `MsgPlayMove` when [making a move](/hands-on-exercise/1-ignite-cli/6-play-game.md). This message can succeed or fail for several reasons. One error situation is when the message represents an invalid move. A GUI is the first place where a bad move can be caught, but it is still possible that a GUI wrongly enforces the rules.
 
 Since sending transactions includes costs, how do you assist participants in making sure they at least do not make a wrong move?
 

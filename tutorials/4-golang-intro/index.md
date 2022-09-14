@@ -38,7 +38,7 @@ In this chapter, you will:
 
 ## Next up
 
-Knowing your way around Golang is part of being a Cosmos SDK developer. If you feel like you need an **introduction to Golang or a refresher**, the next sections provide an [introduction to Golang and working with it](./1_install.md).
+Knowing your way around Golang is part of being a Cosmos SDK developer. If you feel like you need an **introduction to Golang or a refresher**, the next sections provide an [introduction to Golang and working with it](./1-install.md).
 
 Feel free to skip this chapter if you do not need a refresher and start your journey with the Week 1 content, which will be available by September 15th at 4 pm UTC when the program officially starts.
 

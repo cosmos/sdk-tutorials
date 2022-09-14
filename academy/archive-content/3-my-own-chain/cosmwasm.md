@@ -14,9 +14,9 @@ tags:
 
 The following sections are recommended as a preparation:
 
-* [Transactions](/academy/2-main-concepts/transactions.md)
-* [Messages](/academy/2-main-concepts/messages.md)
-* [Queries](/academy/2-main-concepts/queries.md)
+* [Transactions](/academy/2-main-concepts/3-transactions.md)
+* [Messages](/academy/2-main-concepts/4-messages.md)
+* [Queries](/academy/2-main-concepts/9-queries.md)
 
 </HighlightBox>
 
@@ -452,7 +452,7 @@ To summarize, this section has explored:
 ## Next up
 At this point, you have:
 
-* [Understood how Cosmos and the Cosmos SDK fit in the overall development of blockchain technology.](../1-what-is-cosmos/blockchain-and-cosmos.md)
+* [Understood how Cosmos and the Cosmos SDK fit in the overall development of blockchain technology.](../1-what-is-cosmos/1-blockchain-and-cosmos.md)
 * [A better sense of what comprises the Cosmos Ecosystem.](../1-what-is-cosmos/cosmos-ecosystem.md)
 * [Set up a wallet, got some ATOM tokens, and staked them.](../1-what-is-cosmos/atom-staking.md)
 * [Learned more about the elements of application architecture.](../2-main-concepts/architecture.md)

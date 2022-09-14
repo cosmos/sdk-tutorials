@@ -14,7 +14,7 @@ tags:
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [messages](/academy/2-cosmos-concepts/messages.md), [Protobuf](/academy/2-cosmos-concepts/protobuf.md), and [IBC](/academy/3-ibc/1-what-is-ibc.md).
+* You understand the concepts of [messages](/academy/2-cosmos-concepts/4-messages.md), [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md), and [IBC](/academy/3-ibc/1-what-is-ibc.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to the _can play_ query. If not, follow some [previous steps](/hands-on-exercise/2-ignite-cli/7-can-play.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
 

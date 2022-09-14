@@ -13,12 +13,12 @@ tags:
 
 It is recommended to first read the following sections to better understand context:
 
-* [Transactions](./transactions.md)
-* [Messages](./messages.md)
-* [Modules](./modules.md)
-* [BaseApp](./base-app.md)
-* [Queries](./queries.md)
-* [Events](./events.md)
+* [Transactions](./3-transactions.md)
+* [Messages](./4-messages.md)
+* [Modules](./5-modules.md)
+* [BaseApp](./8-base-app.md)
+* [Queries](./9-queries.md)
+* [Events](./10-events.md)
 
 </HighlightBox>
 

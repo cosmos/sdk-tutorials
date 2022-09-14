@@ -13,8 +13,8 @@ tags:
 
 Before diving into this section, it is recommended to read the following sections:
 
-* [Messages](./messages.md)
-* [Modules](./modules.md)
+* [Messages](./4-messages.md)
+* [Modules](./5-modules.md)
 
 </HighlightBox>
 
@@ -180,4 +180,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Look at the above code example to see how Protobuf can facilitate your activities, or go straight to the [next section](../2-main-concepts/multistore-keepers.md) for an introduction to storage types and keepers.-->
+Look at the above code example to see how Protobuf can facilitate your activities, or go straight to the [next section](/academy/2-main-concepts/7-multistore-keepers.md) for an introduction to storage types and keepers.-->

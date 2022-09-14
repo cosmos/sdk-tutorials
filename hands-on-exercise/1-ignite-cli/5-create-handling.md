@@ -488,10 +488,10 @@ To summarize, this section has explored:
 
 You will learn how to modify this handling in later sections by:
 
-* Adding [new fields](./game-fifo.md) to the stored information.
-* Adding [an event](./events.md).
-* Consuming [some gas](./gas-meter.md).
-* Facilitating the eventual [deadline enforcement](./game-forfeit.md).
-* Adding [_money_](./game-wager.md) handling, including [foreign tokens](./wager-denom.md).
+* Adding [new fields](/hands-on-exercise/2-ignite-cli-adv/1-game-fifo.md) to the stored information.
+* Adding [an event](./7-events.md).
+* Consuming [some gas](/hands-on-exercise/2-ignite-cli-adv/6-gas-meter.md).
+* Facilitating the eventual [deadline enforcement](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md).
+* Adding [_money_](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) handling, including [foreign tokens](/hands-on-exercise/4-ibc-adv/1-wager-denom.md).
 
 <!--Now that a game is created, it is time to play it by adding moves. That is the subject of the [next section](./play-game.md).-->

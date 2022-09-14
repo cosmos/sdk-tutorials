@@ -31,7 +31,7 @@ In this chapter, you will:
 
 ## Next up
 
-Want to get started with the main concepts of the Cosmos SDK? Go ahead and start with a look at _[A Blockchain App Architecture](./architecture.md)_.
+Want to get started with the main concepts of the Cosmos SDK? Go ahead and start with a look at _[A Blockchain App Architecture](./1-architecture.md)_.
 
 ## Developer Resources
 

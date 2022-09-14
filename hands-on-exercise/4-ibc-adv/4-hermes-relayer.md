@@ -169,7 +169,7 @@ Start by cloning the repository:
 $ git clone https://github.com/b9lab/cosmos-ibc-docker.git
 ```
 
-Then build the **images for the checkers blockchain** if you did not already do so in the [Go Relayer](./go-relayer.md) section:
+Then build the **images for the checkers blockchain** if you did not already do so in the [Go Relayer](./3-go-relayer.md) section:
 
 ```sh
 $ cd cosmos-ibc-docker/tokentransfer/checkers
@@ -434,4 +434,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-With this introduction to the Hermes relayer, you are all set for relaying. In the [next section](./ibc-tooling.md), you can find an overview of helpful tools for IBC.-->
+With this introduction to the Hermes relayer, you are all set for relaying. In the [next section](./7-ibc-tooling.md), you can find an overview of helpful tools for IBC.-->

@@ -217,4 +217,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-On your way to becoming a Cosmos SDK developer expert in IBC? Dive even deeper and discover how to develop with IBC. The next sections elaborate on the transport, authentication, and ordering (TAO) layer in IBC. Begin with [connections](./connections.md) to then dive deeper into channels and clients in IBC.-->
+On your way to becoming a Cosmos SDK developer expert in IBC? Dive even deeper and discover how to develop with IBC. The next sections elaborate on the transport, authentication, and ordering (TAO) layer in IBC. Begin with [connections](./2-connections.md) to then dive deeper into channels and clients in IBC.-->

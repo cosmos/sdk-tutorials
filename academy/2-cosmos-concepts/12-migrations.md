@@ -13,8 +13,8 @@ tags:
 
 To better understand this section, first read the following sections:
 
-* [Messages](./messages.md)
-* [Protobuf](./protobuf.md)
+* [Messages](./4-messages.md)
+* [Protobuf](./6-protobuf.md)
 
 </HighlightBox>
 

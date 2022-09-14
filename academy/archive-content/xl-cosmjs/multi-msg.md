@@ -95,7 +95,7 @@ public async signAndBroadcast(
 ): Promise<DeliverTxResponse>;
 ```
 
-The basic components of a transaction are the `signerAddress`, the `messages` that it contains, as well as the `fee` and an optional `memo`. As such, [Cosmos transactions](../2-main-concepts/transactions.md) can indeed be composed of multiple [messages](../2-main-concepts/messages.md).
+The basic components of a transaction are the `signerAddress`, the `messages` that it contains, as well as the `fee` and an optional `memo`. As such, [Cosmos transactions](/academy/2-main-concepts/3-transactions.md) can indeed be composed of multiple [messages](/academy/2-main-concepts/4-messages.md).
 
 ## Token transfer messages
 
@@ -164,7 +164,7 @@ Building a transaction in this way is recommended. `SigningStargateClient` offer
 
 ## What is this long string?
 
-As a reminder from the previous tutorial, the `typeUrl: "/cosmos.bank.v1beta1.MsgSend"` string comes from the [Protobuf](../2-main-concepts/protobuf.md) definitions and is a mixture of:
+As a reminder from the previous tutorial, the `typeUrl: "/cosmos.bank.v1beta1.MsgSend"` string comes from the [Protobuf](/academy/2-main-concepts/6-protobuf.md) definitions and is a mixture of:
 
 1. The `package` where `MsgSend` is initially declared:
 

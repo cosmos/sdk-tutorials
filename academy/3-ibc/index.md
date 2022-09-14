@@ -35,7 +35,7 @@ In this chapter, you will:
 
 <!--## Next up
 
-This chapter is all about the IBC protocol. Begin your cross-chain journey with an [introduction to IBC](./what-is-ibc.md).-->
+This chapter is all about the IBC protocol. Begin your cross-chain journey with an [introduction to IBC](./1-what-is-ibc.md).-->
 
 ## Developer Resources
 

@@ -14,10 +14,10 @@ tags:
 
 Make sure to read the following sections as a preparation:
 
-* [The Cosmos Ecosystem](../1-what-is-cosmos/cosmos-ecosystem.md)
-* [Transactions](./transactions.md)
-* [Messages](./messages.md)
-* [Events](./events.md)
+* [The Cosmos Ecosystem](/academy/1-what-is-cosmos/1-cosmos-ecosystem.md)
+* [Transactions](./3-transactions.md)
+* [Messages](./4-messages.md)
+* [Events](./10-events.md)
 <!-- * [IBC](./ibc.md) -->
 
 </HighlightBox>

@@ -13,9 +13,9 @@ tags:
 
 Review the following sections to better understand modules in the Cosmos SDK:
 
-* [Transactions](./transactions.md)
-* [Messages](./messages.md)
-* [Queries](./queries.md)
+* [Transactions](./3-transactions.md)
+* [Messages](./4-messages.md)
+* [Queries](./9-queries.md)
 
 </HighlightBox>
 

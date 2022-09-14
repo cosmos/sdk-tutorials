@@ -32,7 +32,7 @@ In this chapter, you will:
 
 ## Next up
 
-As you learn about CosmJS in this chapter, start your journey with an introduction in the [next section](./cosmjs-intro.md).
+As you learn about CosmJS in this chapter, start your journey with an introduction in the [next section](./1-cosmjs-intro.md).
 
 ## Developer Resources
 

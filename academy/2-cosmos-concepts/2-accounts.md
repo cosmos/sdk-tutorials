@@ -188,7 +188,7 @@ The keyring object stores and manages multiple accounts. The keyring object impl
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-In the [previous section](../2-main-concepts/architecture.md), your ABCI application accepted anonymous checkers moves. This is a problem. You can restrict moves to the right player with accounts.
+In the [previous section](../2-main-concepts/1-architecture.md), your ABCI application accepted anonymous checkers moves. This is a problem. You can restrict moves to the right player with accounts.
 <br></br>
 It is necessary to differentiate between players and other actors. This helps assure there is no identity spoofing, that players do not play out of turn, and rewards are paid to the correct winner. You are also going to store the creator of a game, which may or may not be a player.
 <br></br>
@@ -241,7 +241,7 @@ type StoredGame struct {
 }
 ```
 
-If you want to go beyond these out-of-context code samples and instead see more details on defining this, head to [Run Your Own Chain](../3-my-own-chain/index.md).
+If you want to go beyond these out-of-context code samples and instead see more details on defining this, head to [Run Your Own Chain](/hands-on-exercise/1-ignite-cli/index.md).
 
 </ExpansionPanel>
 

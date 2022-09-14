@@ -13,9 +13,9 @@ tags:
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [modules](../2-main-concepts/modules.md), [keepers](../2-main-concepts/multistore-keepers.md), and [Protobuf](../2-main-concepts/protobuf.md).
+* You understand the concepts of [modules](/academy/2-main-concepts/5-modules.md), [keepers](/academy/2-main-concepts/7-multistore-keepers.md), and [Protobuf](/academy/2-main-concepts/6-protobuf.md).
 * Go is installed.
-* You have the checkers blockchain codebase up to game expiry handling. If not, follow the [previous steps](./game-forfeit.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/forfeit-game).
+* You have the checkers blockchain codebase up to game expiry handling. If not, follow the [previous steps](./4-game-forfeit.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/forfeit-game).
 
 </HighlightBox>
 
@@ -31,7 +31,7 @@ In this section, you will:
 
 </HighlightBox>
 
-With the introduction of game expiry in the [previous section](./game-forfeit.md) and other features, you have now addressed the cases when two players start a game and finish it, or let it expire.
+With the introduction of game expiry in the [previous section](./4-game-forfeit.md) and other features, you have now addressed the cases when two players start a game and finish it, or let it expire.
 
 In this section, you will add an extra layer to a game, with wagers or stakes. Your application already includes all the necessary modules. This section relies on the `bank` module in particular.
 

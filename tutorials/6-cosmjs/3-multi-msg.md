@@ -24,7 +24,7 @@ In this section, you will:
 
 ## Send multiple tokens using `sendTokens`
 
-In the [previous exercise](./first-steps.md), you had Alice send tokens back to the faucet. To refresh your memory, this is what the `sendTokens` function takes as input:
+In the [previous exercise](./2-first-steps.md), you had Alice send tokens back to the faucet. To refresh your memory, this is what the `sendTokens` function takes as input:
 
 ```typescript [https://github.com/cosmos/cosmjs/blob/7aad551/packages/stargate/src/signingstargateclient.ts#L217-L223]
 public async sendTokens(
@@ -95,7 +95,7 @@ public async signAndBroadcast(
 ): Promise<DeliverTxResponse>;
 ```
 
-The basic components of a transaction are the `signerAddress`, the `messages` that it contains, as well as the `fee` and an optional `memo`. As such, [Cosmos transactions](../2-main-concepts/transactions.md) can indeed be composed of multiple [messages](../2-main-concepts/messages.md).
+The basic components of a transaction are the `signerAddress`, the `messages` that it contains, as well as the `fee` and an optional `memo`. As such, [Cosmos transactions](/academy/2-main-concepts/3-transactions.md) can indeed be composed of multiple [messages](/academy/2-main-concepts/4-messages.md).
 
 ## Token transfer messages
 
@@ -164,7 +164,7 @@ Building a transaction in this way is recommended. `SigningStargateClient` offer
 
 ## What is this long string?
 
-As a reminder from the previous tutorial, the `typeUrl: "/cosmos.bank.v1beta1.MsgSend"` string comes from the [Protobuf](../2-main-concepts/protobuf.md) definitions and is a mixture of:
+As a reminder from the previous tutorial, the `typeUrl: "/cosmos.bank.v1beta1.MsgSend"` string comes from the [Protobuf](/academy/2-main-concepts/6-protobuf.md) definitions and is a mixture of:
 
 1. The `package` where `MsgSend` is initially declared:
 
@@ -183,7 +183,7 @@ As a reminder from the previous tutorial, the `typeUrl: "/cosmos.bank.v1beta1.Ms
 
 <HighlightBox type="info">
 
-To learn how to make your own types for your own blockchain project, head to [Create my own CosmJS objects](./create-custom.md).
+To learn how to make your own types for your own blockchain project, head to [Create Custom CosmJS Interfaces](./5-create-custom.md).
 
 </HighlightBox>
 
@@ -299,7 +299,7 @@ const result = await signingClient.signAndBroadcast(
     }
 )
 ```
-When you create [your own message types in CosmJS](./create-custom.md), they have to follow this format and be declared in the same fashion.
+When you create [your own message types in CosmJS](./5-create-custom.md), they have to follow this format and be declared in the same fashion.
 
 <!-- Not supported at the moment.
 

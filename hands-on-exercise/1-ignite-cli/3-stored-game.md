@@ -13,10 +13,10 @@ tags:
 
 Make sure you have all you need before proceeding with the exercise:
 
-* You understand the concepts of [accounts](../2-main-concepts/accounts.md), [Protobuf](../2-main-concepts/protobuf.md), and [multistore](../2-main-concepts/multistore-keepers.md).
+* You understand the concepts of [accounts](/academy/2-main-concepts/2-accounts.md), [Protobuf](/academy/2-main-concepts/6-protobuf.md), and [multistore](/academy/2-main-concepts/7-multistore-keepers.md).
 * Go is installed.
-* You have the bare blockchain scaffold codebase with a single module named `checkers`. If not, follow the [previous steps](./ignitecli.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/ignite-start).
-* You have the `checkers_i` Docker image if you work with Docker. If not, follow the [previous steps](./ignitecli.md).
+* You have the bare blockchain scaffold codebase with a single module named `checkers`. If not, follow the [previous steps](./1-ignitecli.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/ignite-start).
+* You have the `checkers_i` Docker image if you work with Docker. If not, follow the [previous steps](./1-ignitecli.md).
 
 </HighlightBox>
 
