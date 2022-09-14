@@ -74,78 +74,23 @@ module.exports = {
       filterByTagEnabled: false,
       nav: [
         {
-          title: "Cosmos Developer Portal",
+          title: "Cosmos Academy",
           children: [
             {
               title: "Welcome",
               path: "/academy/0-welcome/",
               directory: false,
-            }
-          ],
-        },
-        {
-          title: "Introduction to Cosmos",
-          children: [
+            },
             {
               title: "What is Cosmos?",
               path: "/academy/1-what-is-cosmos",
               directory: true,
             },
             {
-              title: "Cosmos Concepts",
+              title: "Main Concepts",
               path: "/academy/2-cosmos-concepts",
               directory: true,
             },
-            {
-              title: "Introduction to IBC",
-              path: "/academy/3-ibc",
-              directory: true,
-            }
-          ],
-        },
-        {
-          title: "Tutorials",
-          children: [
-            {
-              title: "Good-To-Know Dev Terms",
-              path: "/tutorials/1-tech-terms/",
-              directory: true,
-            },
-            {
-              title: "Set Up Your Work Environment",
-              path: "/tutorials/2-setup/",
-              directory: true,
-            },
-            {
-              title: "Run a Node, API, and CLI",
-              path: "/tutorials/3-run-node/",
-              directory: true,
-            },
-            {
-              title: "Golang Introduction",
-              path: "/tutorials/4-golang-intro/",
-              directory: true,
-            },
-            {
-              title: "IBC Developers",
-              path: "/tutorials/5-ibc-dev/",
-              directory: true,
-            },
-            {
-              title: "Introduction to CosmJS",
-              path: "/tutorials/6-cosmjs/",
-              directory: true,
-            }
-            {
-              title: "Understand SDK modules",
-              path: "/tutorials/7-understand-sdk-modules/",
-              directory: true,
-            }
-          ],
-        },
-        {
-          title: "Hands-on Exercise",
-          children: [
             {
               title: "Run Your Own Cosmos Chain",
               path: "/hands-on-exercise/1-ignite-cli/",
@@ -157,8 +102,8 @@ module.exports = {
               directory: true,
             },
             {
-              title: "CosmJS for Your Chain",
-              path: "/hands-on-exercise/3-cosmjs-adv/",
+              title: "The Inter-Blockchain Communication Protocol",
+              path: "/academy/3-ibc",
               directory: true,
             },
             {
@@ -167,19 +112,49 @@ module.exports = {
               directory: true,
             },
             {
-              title: "Run in Production",
-              path: "/hands-on-exercise/5-run-in-prod/",
+              title: "CosmJS",
+              path: "/tutorials/6-cosmjs",
               directory: true,
             },
+            {
+              title: "What's Next?",
+              path: "/academy/whats-next/",
+              directory: false,
+            }
           ],
         },
         {
-          title: "What's Next",
+          title: "Tutorials",
           children: [
             {
-              title: "Continue Your Cosmos Journey",
-              path: "academy/whats-next/",
+              title: "Good-To-Know Dev Terms",
+              path: "/tutorials/1-tech-terms/",
+              directory: false,
+            },
+            {
+              title: "Golang Introduction",
+              path: "/tutorials/4-golang-intro/",
               directory: true,
+            },
+            {
+              title: "Understand IBC denoms",
+              path: "/tutorials/4-ibc-dev/1-wager-denom.md",
+              directory: false,
+            },
+            {
+              title: "Understand the Authz Module",
+              path: "/tutorials/7-understand-sdk-modules/1-authz.md",
+              directory: false,
+            },
+            {
+              title: "Understand the Feegrant Module",
+              path: "/tutorials/7-understand-sdk-modules/2-feegrant.md",
+              directory: false,
+            },
+            {
+              title: "Understand the Group Module",
+              path: "/tutorials/7-understand-sdk-modules/3-group.md",
+              directory: false,
             }
           ],
         },
