@@ -261,29 +261,45 @@ customModules:
           Test your IBC knowledge by developing your checkers blockchain further:
         links:
           - title: Play with cross-chain tokens
-            path:
+            path: /hands-on-exercise/4-ibc-adv/1-wager-denom.html
           - title: Relaying with IBC
+            path: /hands-on-exercise/4-ibc-adv/2-relayer-intro.html
           - title: Go relayer
+            path: /hands-on-exercise/4-ibc-adv/3-go-relayer.html
           - title: Hermes relayer
+            path: /hands-on-exercise/4-ibc-adv/4-hermes-relayer.html
           - title: IBC app development
+            path: /hands-on-exercise/4-ibc-adv/5-ibc-app-intro.html
           - title: Make a module IBC-enabled
+            path: /hands-on-exercise/4-ibc-adv/6-ibc-app-steps.html
           - title: Add packet and Acknowledgement data
-          - title:
-          - title:
-          - title:
-
-
-
-
-
+            path: /hands-on-exercise/4-ibc-adv/7-ibc-app-packets.html
+          - title: IBC middleware
+            path: /hands-on-exercise/4-ibc-adv/8-ibc-mw-intro.html
+          - title: Create custom IBC middleware
+            path: /hands-on-exercise/4-ibc-adv/9-ibc-mw-develop.html
+          - title: Integrate IBC middleware into a chain
+            path: /hands-on-exercise/4-ibc-adv/10-ibc-mw-integrate.html
     - image: /universe.svg
       title: Run in Production
         href: /hands-on-exercise/5-run-in-prod
         description: |
-          Prepare your checkers blockchain to run in production - prepare the software, validator and keys, nodes, and migrations to run in production and interconnect your chain.
-
-
-
+          Prepare your checkers blockchain to run in production:
+        links:
+          - title: Overview
+            path: /hands-on-exercise/5-run-in-prod/1-overview.html
+          - title: Prepare the software
+            path: /hands-on-exercise/5-run-in-prod/2-software.html
+          - title: Prepare a validator and keys
+            path: /hands-on-exercise/5-run-in-prod/3-keys.html
+          - title: Prepare the node start
+            path: /hands-on-exercise/5-run-in-prod/4-genesis.html
+          - title: Prepare and connect to other nodes
+            path: /hands-on-exercise/5-run-in-prod/5-network.html
+          - title: Configure, run, and set up a service
+            path: /hands-on-exercise/5-run-in-prod/6-run
+          - title: Prepare and do migrations
+            path: /hands-on-exercise/5-run-in-prod/7-migration.html
 ---
 
 # Welcome to the Cosmos SDK Developer Platform
