@@ -453,7 +453,8 @@ module.exports = {
                 {
                   title: "Make a Module IBC-Enabled",
                   path: "/hands-on-exercise/4-ibc-dev/6-ibc-app-steps.html",
-                },                {
+                },
+                {
                   title: "Adding Packet and Acknowledgment Data",
                   path: "/hands-on-exercise/4-ibc-dev/7-ibc-app-packets.html",
                 },
@@ -472,7 +473,7 @@ module.exports = {
               ]
             },
             {
-              title: "Week 7 - Run in Production"
+              title: "Week 7 - Run in Production",
               directory: true,
               order: 8,
               children: [
