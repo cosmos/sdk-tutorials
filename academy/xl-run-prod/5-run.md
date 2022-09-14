@@ -1,5 +1,5 @@
 ---
-title: Configure, Run and Set Up a Service
+title: Configure, Run, and Set Up a Service
 order: 5
 description: Make sure your software is configured and always on
 tags:
@@ -8,7 +8,7 @@ tags:
   - dev-ops
 ---
 
-# Configure, Run and Set Up a Service
+# Configure, Run, and Set Up a Service
 
 You have prepared your machine to be part of the upcoming network. Now it is time to:
 
