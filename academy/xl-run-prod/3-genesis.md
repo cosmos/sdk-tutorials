@@ -236,7 +236,7 @@ In turn, each validator and node operator copies this file on their own machine,
 
 To summarize, this section has explored:
 
-* The contents of the blockchain genesis: the original validators and their stakes, and the orginal state values defined, such as the minting, staking, and slashing parameters.
+* The contents of the blockchain genesis: the original validators and their stakes, and the original state values defined, such as the minting, staking, and slashing parameters.
 * How to name and create a new genesis file.
 * The nature and prupose of genesis accounts, and how to add them to the genesis file.
 * How to name, define, and allocate tokens to your genesis accounts.
