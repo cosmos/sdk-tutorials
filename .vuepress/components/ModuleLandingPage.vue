@@ -34,7 +34,7 @@
 			h2(v-if="$frontmatter.image.title") {{$frontmatter.image.title}}
 			tm-image.image-section__image(:src="$frontmatter.image.src")
 		.resources__wrapper(v-if="$themeConfig.resources")
-			h3.resources__title Developer resources
+			h3.resources__title Developer Resources
 			.resources
 				.resources__item(v-for="resource in $themeConfig.resources" :class="$frontmatter.main && 'resources__item__main'")
 					resource(:title="resource.title" :description="resource.description" :links="resource.links" :image="resource.image")

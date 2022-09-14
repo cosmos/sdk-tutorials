@@ -33,7 +33,7 @@ In this chapter, you will:
 
 As you learn about the Cosmos SDK modules in this chapter, start your journey with an introduction to the [authz module](./1-authz.md).
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource

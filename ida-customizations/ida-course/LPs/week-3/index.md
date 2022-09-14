@@ -29,7 +29,7 @@ ADD HIGHLIGHT BOX FOR IBC PRIOS
 
 First....
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource

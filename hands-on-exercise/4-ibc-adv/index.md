@@ -36,7 +36,7 @@ In this chapter, you will:
 
 Start of with an introduction to relaying with IBC in the [next section](./2-relayer-intro.md). After, you can dive into more details on the Go and Hermes relayer and apply your knowledge to practice.
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource

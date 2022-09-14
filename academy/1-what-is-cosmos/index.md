@@ -36,7 +36,7 @@ In this chapter, you will:
 
 Dive right into Cosmos with the first section _[Blockchain Technology and Cosmos](./blockchain-and-cosmos.md)_.
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource

@@ -77,7 +77,7 @@ Then, for a quick overview on Golang, begin with the section [Go Introduction - 
 
 In case you want to take a look at some technical terms, go ahead and visit the section [Good-To-Know Dev Terms](/tutorials/1-tech-terms/).
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource

@@ -42,7 +42,7 @@ Before you begin exploring [Ignite CLI](./ignitecli.md), prep everything for the
 
 If your setup is ready to go, begin with an introduction to Ignite CLI in the [next section](./ignitecli.md).
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource

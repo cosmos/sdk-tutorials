@@ -42,7 +42,7 @@ Knowing your way around Golang is part of being a Cosmos SDK developer. If you f
 
 Feel free to skip this chapter if you do not need a refresher and start your journey with the Week 1 content, which will be available by September 15th at 4 pm UTC when the program officially starts.
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource

@@ -40,7 +40,7 @@ In this chapter, you will:
 
 Dive into developing a GUI in the [next section](./external-gui.md) before integrating CosmJS and Keplr into the GUI and working on a backend script for game indexing.
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource

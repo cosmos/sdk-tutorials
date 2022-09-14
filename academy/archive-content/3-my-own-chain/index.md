@@ -38,7 +38,7 @@ In this chapter, you will:
 
 Before you begin [running a node](./node-api-and-cli.md) and exploring [Ignite CLI](./ignitecli.md), prep everything for the running exercise - creating a checkers blockchain - by going through the section _[Setup Your Work Environment](./setup.md)_.
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource

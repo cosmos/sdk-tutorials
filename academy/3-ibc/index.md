@@ -37,7 +37,7 @@ In this chapter, you will:
 
 This chapter is all about the IBC protocol. Begin your cross-chain journey with an [introduction to IBC](./what-is-ibc.md).-->
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource

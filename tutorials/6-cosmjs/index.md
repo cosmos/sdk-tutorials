@@ -34,7 +34,7 @@ In this chapter, you will:
 
 As you learn about CosmJS in this chapter, start your journey with an introduction in the [next section](./cosmjs-intro.md).
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource

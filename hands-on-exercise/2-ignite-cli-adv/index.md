@@ -40,7 +40,7 @@ In this chapter, you will:
 
 Begin by exploring modularity and data organization styles to introduce a FIFO data structure to put your games in order in the [next section](./1-game-fifo.md).
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource
