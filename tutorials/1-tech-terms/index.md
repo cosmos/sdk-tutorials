@@ -39,7 +39,7 @@ Take a look at [Light Clients in Tendermint Consensus](https://blog.cosmos.netwo
 
 </HighlightBox>
 
-Therefore, light clients are also vital to how the Inter-Blockchain Communication (IBC) Protocol can track information such as timestamps, root hashes, and the next validator set hash. This saves space and increases efficiency for state update processing.
+Therefore, light clients are also vital to how the Inter-Blockchain Communication Protocol (IBC) can track information such as timestamps, root hashes, and the next validator set hash. This saves space and increases efficiency for state update processing.
 
 The **light client daemon (LCD)** is an HTTP1.1 server exposed by the Cosmos SDK, and its default port is `1317`. It exposes a REST API for the chain, meaning a _representational state transfer application programming interface_ - this API allows for interaction with a RESTful web service. Traditionally, every query was re-implemented for LCD and routed to RPC behind the scenes.
 
