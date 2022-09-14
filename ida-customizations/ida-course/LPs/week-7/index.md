@@ -35,7 +35,7 @@ In this chapter, you will learn:
 
 It is time to move your checkers blockchain into production. In the [next section](/hands-on-exercise/5-run-in-prod/1-overview.md), you can find an overview of the different aspects one needs to address to move a Cosmos blockchain into production.
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource
