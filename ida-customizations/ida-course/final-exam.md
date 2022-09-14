@@ -7,6 +7,6 @@ tag:
 
 # Final Exam
 
-Information on the final exam will be published on **December XX**.
+Information on the Final Exam will be available on this page.
 
 <!-- Add information for final exam to be displayed -->

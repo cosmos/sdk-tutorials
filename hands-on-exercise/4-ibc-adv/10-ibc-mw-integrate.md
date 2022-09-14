@@ -8,7 +8,7 @@ tags:
   - dev-ops
 ---
 
-# Integrating IBC Middleware Into a Chain
+# Integrate IBC Middleware Into a Chain
 
 <HighlightBox type="learning">
 

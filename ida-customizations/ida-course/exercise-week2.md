@@ -1,13 +1,25 @@
 ---
-title: Mandatory Exercise - Create an Object
+title: Mandatory Exercise
 order:
 description: From simple creation to practice
 tag: deep-dive
 ---
 
-# Mandatory Exercise - Create an Object
+# Mandatory Exercise
 
-You are about to perform a small, simple exercise on Hackerrank, to confirm your attendance so far and check you're paying attention! <!-- Before you [try](TODO), here is a summary of what you will be asked to do. -->
+Information on the exercise for Week 2 will be available on this page.
+
+<!--
+INCLUDE LATER:
+PART OF THE TITLE - Create an Object
+
+You are about to perform a small, simple exercise on Hackerrank, to confirm your attendance so far and check you're paying attention! 
+-->
+
+<!-- Before you [try](TODO), here is a summary of what you will be asked to do. -->
+
+<!--
+INCLUDE LATER:
 
 ## The problem description
 
@@ -67,3 +79,5 @@ It will fail to compile because it is missing `WorldParams2`, a hidden file. Of 
 Please submit your exercise via the following link: [HackerRank week 2 exercise submission](https://hr.gs/ida-p1-exercise-week-2).
 
 **Please make sure to submit your exercise till Monday 30th 23:59 UTC.**
+
+--> 
