@@ -15,7 +15,6 @@ intro:
 overview:
   title: Important program information
   items:
-
     - title: Timeline and deadlines
       description: |
         Academy start: September 15th<br/><br/>
