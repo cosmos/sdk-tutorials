@@ -52,7 +52,7 @@ To start with custom IBC applications, begin with an [introduction to IBC applic
 
 After, take a look at [IBC middleware](/hands-on-exercise/4-ibc-adv/8-ibc-mw-intro.md). You will first [create a custom IBC middleware](/hands-on-exercise/4-ibc-adv/9-ibc-mw-develop.md) and then [integrate it into a chain](/hands-on-exercise/4-ibc-adv/10-ibc-mw-integrate.md).
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource
