@@ -93,23 +93,134 @@ module.exports = {
             },
             {
               title: "Run Your Own Cosmos Chain",
-              path: "/hands-on-exercise/1-ignite-cli/",
               directory: true,
-            },
-            {
-              title: "Continue Developing Your Chain",
-              path: "/hands-on-exercise/2-ignite-cli-adv/",
-              directory: true,
+              children: [
+                {
+                  title: "Run Your Own Cosmos Chain",
+                  path: "/hands-on-exercise/1-ignite-cli/index",
+                },
+                {
+                  title: "Setup Your Work Environment",
+                  path: "/tutorials/2-setup",
+                },
+                {
+                  title: "Run a Node, API, and CLI",
+                  path: "/tutorials/3-run-node",
+                },
+                {
+                  title: "Ignite CLI",
+                  path: "/hands-on-exercise/1-ignite-cli/1-ignitecli.html",
+                },
+                {
+                  title: "Exercise - Make a Checkers Blockchain",
+                  path: "/hands-on-exercise/1-ignite-cli/2-exercise-intro.html",
+                },
+                {
+                  title: "Store Object - Make a Checkers Blockchain",
+                  path: "/hands-on-exercise/1-ignite-cli/3-stored-game.html",
+                },
+                {
+                  title: "Create Custom Messages",
+                  path: "/hands-on-exercise/1-ignite-cli/4-create-message.html",
+                },
+                {
+                  title: "Create and Save a Game Properly",
+                  path: "/hands-on-exercise/1-ignite-cli/5-create-handling.html",
+                },
+                {
+                  title: "Add a Way to Make a Move",
+                  path: "/hands-on-exercise/1-ignite-cli/6-play-game.html",
+                },
+                {
+                  title: "Emit Game Information",
+                  path: "/hands-on-exercise/1-ignite-cli/7-events.html",
+                },
+                {
+                  title: "Make Sure a Player Can Reject a Game",
+                  path: "/hands-on-exercise/1-ignite-cli/8-reject-game.html",
+                },
+                {
+                  title: "Put Your Games in Order",
+                  path: "/hands-on-exercise/2-ignite-cli/1-game-fifo.html",
+                },
+                {
+                  title: "Keep an Up-To-Date Game Deadline",
+                  path: "/hands-on-exercise/2-ignite-cli/2-game-deadline.html",
+                },
+                {
+                  title: "Record the Game Winner",
+                  path: "/hands-on-exercise/2-ignite-cli/3-game-winner.html",
+                },
+                {
+                  title: "Auto-Expiring Games",
+                  path: "/hands-on-exercise/2-ignite-cli/4-game-forfeit.html",
+                },
+                {
+                  title: "Let Players Set a Wager",
+                  path: "/hands-on-exercise/2-ignite-cli/5-game-wager.html",
+                },
+                {
+                  title: "Incentivize Players",
+                  path: "/hands-on-exercise/2-ignite-cli/6-gas-meter.html",
+                },
+                {
+                  title: "Help Find a Correct Move",
+                  path: "/hands-on-exercise/2-ignite-cli/7-can-play.html",
+                },
+              ]
             },
             {
               title: "The Inter-Blockchain Communication Protocol",
-              path: "/academy/3-ibc",
               directory: true,
+              children: [
             },
-            {
-              title: "IBC Advanced",
-              path: "/hands-on-exercise/4-ibc-adv/",
-              directory: true,
+
+                {
+                  title: "The Inter-Blockchain Communication Protocol",
+                  path: "/academy/3-ibc/index",
+                },
+
+                {
+                  title: "What is IBC?",
+                  path: "/academy/3-ibc/1-what-is-ibc.html",
+                },
+                {
+                  title: "IBC/TAO - Connections",
+                  path: "/academy/3-ibc/2-connections.html",
+                },
+                {
+                  title: "IBC/TAO - Channels",
+                  path: "/academy/3-ibc/3-channels.html",
+                },
+                {
+                  title: "IBC/TAO - Clients",
+                  path: "/academy/3-ibc/4-clients.html",
+                },
+                {
+                  title: "IBC Fungible Token Transfer",
+                  path: "/academy/3-ibc/5-token-transfer.html",
+                },
+                {
+                  title: "Interchain Accounts",
+                  path: "/academy/3-ibc/6-ica.html",
+                },
+                {
+                  title: "IBC Tooling",
+                  path: "/academy/3-ibc/7-ibc-tooling.html",
+                },
+                {
+                  title: "Relaying With IBC",
+                  path: "/hands-on-exercise/4-ibc-adv/2-relayer-intro.html",
+                },
+                {
+                  title: "Go Relayer",
+                  path: "/hands-on-exercise/4-ibc-adv/3-go-relayer.html",
+                },
+                {
+                  title: "Hermes Relayer",
+                  path: "/hands-on-exercise/4-ibc-adv/4-hermes-relayer.html",
+                },
+              ]
             },
             {
               title: "CosmJS",
