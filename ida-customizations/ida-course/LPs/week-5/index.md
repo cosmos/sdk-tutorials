@@ -37,7 +37,7 @@ Dive into creating [custom objects](/hands-on-exercise/3-cosmjs-adv/1-cosmjs-obj
 
 Then, you can take a closer look at [backend scripts for game indexing](/hands-on-exercise/3-cosmjs-adv/5-server-side.md) and [introducing a leaderboard after production](/hands-on-exercise/3-cosmjs-adv/6-migration.md).
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource
