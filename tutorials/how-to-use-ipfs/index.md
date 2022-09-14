@@ -13,7 +13,7 @@ tags:
 
 ## What is IPFS
 
-In Web 2.0, a web application consists of a backend and a frontend. The backend is the server wher the database and the application logic run. The frontend consists of the user interface, what the user sees, and communicates with the backend via API calls. Usually, these are stored by the developer of the application in centralized servers.
+In Web 2.0, a web application consists of a backend and a frontend. The backend is the server where the database and the application logic run. The frontend consists of the user interface, what the user sees, and communicates with the backend via API calls. Usually, these are stored by the developer of the application in centralized servers.
 In the decentralized world, we can consider Cosmos SDK chains as a backend of our decentralized applications (Dapps). The blockchain lets us store and retrieve data. Dapps usually have a frontend as well, and that frontend can be stored in a centralized entity (AWS, GitHub Pages) or, in order to be 100% decentralized, use a protocol like IPFS.
 
 > IPFS is a distributed system for storing and accessing files, websites, applications, and data.
@@ -30,8 +30,11 @@ First download and install IPFS, find the instructions for your OS [here](https:
 Verify you have a working installation by running the following command:
 
 ```bash
-> $ ipfs --version
-> ipfs version 0.15.0
+$ ipfs --version
+```
+
+```bash
+ipfs version 0.15.0
 ```
 
 ## Submit a file
@@ -57,6 +60,9 @@ Add the file to your IPFS node:
 
 ```bash
 $ ipfs add metadata.json
+```
+
+```bash
 added Qmbct5cv1SxMpEYCpNEvZnQ5TkN1rk7KyTmV95nbsrbLiR metadata.json
 ```
 
@@ -89,19 +95,19 @@ For this tutorial, you will use [Web3.storage](https://web3.storage/), a pinning
 Feel free to use any other pinning service you prefer, such as [Pinata](https://pinata.cloud), [Infura](https://infura.io/product/ipfs), etc.
 
 First, create an account on [Web3.storage](https://web3.storage/) and get an [API token](https://web3.storage/tokens/?create=true).
-With [Web3.storage], you need to request access to the pinning API, or you can upload the file directly from the interface.
+With Web3.storage, you need to request access to the pinning API, or you can upload the file directly from the interface.
 
 Then add `web3.storage` as a remote service:
 
 ```bash
-ipfs pin remote service add web3.storage https://api.web3.storage/ <YOUR_AUTH_KEY_JWT>
+$ ipfs pin remote service add web3.storage https://api.web3.storage/ <YOUR_AUTH_KEY_JWT>
 ```
 
 Now pin the file to the remote node:
 
 ```bash
-ipfs daemon & # you want to be sure the CID is available on the network
-ipfs pin remote add --service=web3.storage --name="proposal-1-metadata.json" Qmbct5cv1SxMpEYCpNEvZnQ5TkN1rk7KyTmV95nbsrbLiR
+$ ipfs daemon & # you want to be sure the CID is available on the network
+$ ipfs pin remote add --service=web3.storage --name="proposal-1-metadata.json" Qmbct5cv1SxMpEYCpNEvZnQ5TkN1rk7KyTmV95nbsrbLiR
 ```
 
 Your file is now pinned to the remote node.
