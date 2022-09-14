@@ -545,4 +545,4 @@ To summarize, this section has explored:
 
 In the [next section](./migration.md), you will learn how to conduct chain upgrades through migrations.-->
 
-Alternatively, you can learn how to create the [TypeScript client elements](./cosmjs-objects.md) for your blockchain.
+Alternatively, you can learn how to create the [TypeScript client elements](./cosmjs-checkers-sections/cosmjs-objects.md) for your blockchain.

@@ -155,7 +155,7 @@ If you want to get more accustomed to Protobuf, a look at the [official document
 
 <br/>
 
-Also take a look at the [section on this platform on Protobuf](../academy/2-main-concepts/protobuf.md).
+Also take a look at the [section on this platform on Protobuf](/academy/2-cosmos-concepts/protobuf.md).
 
 </HighlightBox>
 
