@@ -1173,7 +1173,7 @@ You learned in a [previous section](./stored-game.md) how to launch a test in de
 
 1. Right-click on the arrow to the left of the suite's runner `func TestCheckersKeeperTestSuite`:
 
-    ![Suite runner with green button](/academy/4-my-own-chain/images/go_test_debug_suite.png)
+    ![Suite runner with green button](/academy/3-my-own-chain/images/go_test_debug_suite.png)
 
     <HighlightBox type="note">
 
@@ -1183,7 +1183,7 @@ You learned in a [previous section](./stored-game.md) how to launch a test in de
 
 2. Right-click on the arrow to the left of the separate test of the suite:
 
-    ![Suite test with green button](/academy/4-my-own-chain/images/go_test_debug_suite_test.png)
+    ![Suite test with green button](/academy/3-my-own-chain/images/go_test_debug_suite_test.png)
 
     <HighlightBox type="note">
 

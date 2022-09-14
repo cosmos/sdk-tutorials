@@ -7,6 +7,8 @@ tags:
   - ibc
 ---
 
+<!-- DO NOT INCLUDE -->
+
 # Implement a Custom IBC Application
 
 <HighlightBox type="prerequisite">

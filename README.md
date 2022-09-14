@@ -4,7 +4,7 @@ tutorials:
   - title: Understanding the Group Module
     level: intermediate
     description: Learn what the Group module does, how to create group, and how to submit group proposals.
-    url: /tutorials/understanding-groups
+    url: /tutorials/understanding-group
   - title: Understanding the Authz Module
     level: intermediate
     description: Learn what the Authz module does, how to create and revoke authorizations, and how to execute authorized transactions.

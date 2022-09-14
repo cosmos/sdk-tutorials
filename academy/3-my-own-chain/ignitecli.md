@@ -541,7 +541,7 @@ Note the `--host` flag, which is forwarded to the underlying `vite` command than
 
 Navigate to [localhost:3000](http://localhost:3000/), or to whichever address was listed when running `dev`. The first load may take a few seconds. On the client-side, from the top right you can connect to the page via [Keplr](chrome://extensions/?id=dmkamcknogkgcdfhhbddcghachkejeap) if you are on the Chrome browser. You should see something like this:
 
-![My Keplr account with nothing](/academy/4-my-own-chain/images/ignite-vue-keplr-no-assets.png)
+![My Keplr account with nothing](/academy/3-my-own-chain/images/ignite-vue-keplr-no-assets.png)
 
 Your account is connected but has no balance. This is a good opportunity to use the faucet:
 
@@ -551,11 +551,11 @@ Your account is connected but has no balance. This is a good opportunity to use 
 4. Paste your address in the JSON at `"address"`.
 5. Click the big blue <kbd>Execute</kbd> button.
 
-![Submit request to faucet](/academy/4-my-own-chain/images/faucet-request-1.png)
+![Submit request to faucet](/academy/3-my-own-chain/images/faucet-request-1.png)
 
 When you return to the main page, you should see your new assets:
 
-![My Keplr account with tokens](/academy/4-my-own-chain/images/ignite-vue-keplr-with-tokens.png)
+![My Keplr account with tokens](/academy/3-my-own-chain/images/ignite-vue-keplr-with-tokens.png)
 
 From here, you can send tokens around. You can also ask for `"10stake"` from the faucet, if you recall the name of the tokens from `config.yml`.
 
